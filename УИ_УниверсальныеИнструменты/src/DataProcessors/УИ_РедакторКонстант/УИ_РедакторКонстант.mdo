@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="015bc420-ce23-11e9-b085-64809943c784">
+  <producedTypes>
+    <objectType typeId="015bc416-ce23-11e9-b085-64809943c784" valueTypeId="015bc417-ce23-11e9-b085-64809943c784"/>
+    <managerType typeId="015bc418-ce23-11e9-b085-64809943c784" valueTypeId="015bc419-ce23-11e9-b085-64809943c784"/>
+  </producedTypes>
+  <name>УИ_РедакторКонстант</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактор констант</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_РедакторКонстант.Form.Константы</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <forms uuid="11d75094-ce23-11e9-b085-64809943c784">
+    <name>Константы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Константы</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

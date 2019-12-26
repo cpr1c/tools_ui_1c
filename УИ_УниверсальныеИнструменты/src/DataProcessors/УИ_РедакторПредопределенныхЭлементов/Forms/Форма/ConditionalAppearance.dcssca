@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConditionalAppearance xmlns="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+	<item>
+		<selection>
+			<item>
+				<field>ПредопределенныеЭлементы</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.ИмяПредопределенныхДанных</left>
+				<comparisonType>Filled</comparisonType>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.УстановленныйПредопределенныйЭлемент</left>
+				<comparisonType>NotEqual</comparisonType>
+				<right xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.НовыйПредопределенныйЭлемент</right>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:value xsi:type="v8ui:Color">#CCFFFF</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Изменяются</v8:content>
+			</v8:item>
+		</presentation>
+	</item>
+	<item>
+		<selection>
+			<item>
+				<field>ПредопределенныеЭлементы</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.ИмяПредопределенныхДанных</left>
+				<comparisonType>Filled</comparisonType>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.УстановленныйПредопределенныйЭлемент</left>
+				<comparisonType>NotEqual</comparisonType>
+				<right xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.НовыйПредопределенныйЭлемент</right>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.УстановленныйПредопределенныйЭлемент</left>
+				<comparisonType>NotFilled</comparisonType>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:value xsi:type="v8ui:Color">#CCFFCC</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Добавляются</v8:content>
+			</v8:item>
+		</presentation>
+	</item>
+	<item>
+		<selection>
+			<item>
+				<field>ПредопределенныеЭлементы</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.ИмяПредопределенныхДанных</left>
+				<comparisonType>Filled</comparisonType>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.УстановленныйПредопределенныйЭлемент</left>
+				<comparisonType>NotEqual</comparisonType>
+				<right xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.НовыйПредопределенныйЭлемент</right>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.НовыйПредопределенныйЭлемент</left>
+				<comparisonType>NotFilled</comparisonType>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:value xsi:type="v8ui:Color">#FF99CC</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Удаляются</v8:content>
+			</v8:item>
+		</presentation>
+	</item>
+	<item>
+		<selection>
+			<item>
+				<field>ПредопределенныеЭлементы</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.ЕстьОшибки</left>
+				<comparisonType>Equal</comparisonType>
+				<right xsi:type="xs:boolean">true</right>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.УстановленныйПредопределенныйЭлемент</left>
+				<comparisonType>Filled</comparisonType>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:value xsi:type="v8ui:Color">#FF9900</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Дубли</v8:content>
+			</v8:item>
+		</presentation>
+	</item>
+	<item>
+		<selection>
+			<item>
+				<field>ПредопределенныеЭлементы</field>
+			</item>
+			<item>
+				<field>ИмяОбъекта</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ТипОбъекта</left>
+				<comparisonType>NotFilled</comparisonType>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>Доступность</dcscor:parameter>
+				<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+			</dcscor:item>
+		</appearance>
+	</item>
+	<item>
+		<selection>
+			<item>
+				<field>ПредопределенныеЭлементы</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ИмяОбъекта</left>
+				<comparisonType>NotFilled</comparisonType>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>Доступность</dcscor:parameter>
+				<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+			</dcscor:item>
+		</appearance>
+	</item>
+	<item>
+		<selection>
+			<item>
+				<field>ПредопределенныеЭлементы</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.ЕстьОшибки</left>
+				<comparisonType>Equal</comparisonType>
+				<right xsi:type="xs:boolean">true</right>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.УстановленныйПредопределенныйЭлемент</left>
+				<comparisonType>NotFilled</comparisonType>
+			</item>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">Объект.ПредопределенныеЭлементы.НовыйПредопределенныйЭлемент</left>
+				<comparisonType>NotFilled</comparisonType>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:value xsi:type="v8ui:Color">#FFCC99</dcscor:value>
+			</dcscor:item>
+		</appearance>
+		<presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Пропущенные</v8:content>
+			</v8:item>
+		</presentation>
+	</item>
+</ConditionalAppearance>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="aac2ec31-cdcb-11e9-2f85-64809943c784">
+  <producedTypes>
+    <objectType typeId="aac2ec26-cdcb-11e9-2f85-64809943c784" valueTypeId="aac2ec27-cdcb-11e9-2f85-64809943c784"/>
+    <managerType typeId="aac2ec28-cdcb-11e9-2f85-64809943c784" valueTypeId="aac2ec30-cdcb-11e9-2f85-64809943c784"/>
+  </producedTypes>
+  <name>УИ_РедакторПредопределенныхЭлементов</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактор предопределенных элементов</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_РедакторПредопределенныхЭлементов.Form.Форма</defaultForm>
+  <attributes uuid="9c6db8cd-c85e-4752-8556-6b756737436a">
+    <name>ТипОбъекта</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тип объекта</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>23</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="6f2ab69a-a370-489d-a4a5-ec640e74aee6">
+    <name>ИмяОбъекта</name>
+    <synonym>
+      <key>ru</key>
+      <value>Имя объекта</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="7a8e81df-7064-4c51-80c9-625c1bd827c2">
+    <name>ПолноеИмяОбъектаМетаданных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Полное имя объекта метаданных</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <tabularSections uuid="893c0f54-447a-4b49-85ab-4a0006dfe58a">
+    <producedTypes>
+      <objectType typeId="6fa8efd1-cd87-4ac5-8295-3020bf877af4" valueTypeId="c1896618-a89d-4bfc-92ce-31781be403d0"/>
+      <rowType typeId="a2c820ab-8347-4b1f-b411-d94290de45e3" valueTypeId="527892da-dbde-495f-a713-7c2825e4c528"/>
+    </producedTypes>
+    <name>ПредопределенныеЭлементы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Предопределенные элементы</value>
+    </synonym>
+    <standardAttributes>
+      <dataHistory>Use</dataHistory>
+      <name>LineNumber</name>
+      <fillValue xsi:type="core:UndefinedValue"/>
+      <fullTextSearch>Use</fullTextSearch>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+    </standardAttributes>
+    <attributes uuid="5c09533c-c4df-40a7-b922-16960b5e78d0">
+      <name>ИмяПредопределенныхДанных</name>
+      <synonym>
+        <key>ru</key>
+        <value>Имя предопределенных данных</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers/>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:StringValue">
+        <value></value>
+      </fillValue>
+    </attributes>
+    <attributes uuid="b0da2e63-3ddb-4e67-bc82-b901697bb061">
+      <name>УстановленныйПредопределенныйЭлемент</name>
+      <synonym>
+        <key>ru</key>
+        <value>Установленный предопределенный элемент</value>
+      </synonym>
+      <type>
+        <types>ChartOfCalculationTypesRef</types>
+        <types>ChartOfCharacteristicTypesRef</types>
+        <types>ChartOfAccountsRef</types>
+        <types>CatalogRef</types>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
+      <fillValue xsi:type="core:UndefinedValue"/>
+    </attributes>
+    <attributes uuid="3f4b0c69-aa69-4abf-8212-b85b4b022aa8">
+      <name>НовыйПредопределенныйЭлемент</name>
+      <synonym>
+        <key>ru</key>
+        <value>Новый предопределенный элемент</value>
+      </synonym>
+      <type>
+        <types>ChartOfCalculationTypesRef</types>
+        <types>ChartOfCharacteristicTypesRef</types>
+        <types>ChartOfAccountsRef</types>
+        <types>CatalogRef</types>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
+      <quickChoice>DontUse</quickChoice>
+      <createOnInput>DontUse</createOnInput>
+      <fillValue xsi:type="core:UndefinedValue"/>
+      <choiceHistoryOnInput>DontUse</choiceHistoryOnInput>
+    </attributes>
+    <attributes uuid="4ccad90f-4e12-41d9-bace-01408ad51b34">
+      <name>ЕстьОшибки</name>
+      <synonym>
+        <key>ru</key>
+        <value>Есть ошибки</value>
+      </synonym>
+      <type>
+        <types>Boolean</types>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:UndefinedValue"/>
+    </attributes>
+  </tabularSections>
+  <forms uuid="c370611f-3aee-4b46-9235-746c90864a6b">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

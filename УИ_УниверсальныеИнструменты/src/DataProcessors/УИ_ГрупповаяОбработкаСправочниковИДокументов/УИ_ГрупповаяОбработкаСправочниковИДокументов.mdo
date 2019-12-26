@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="2489ac0a-cd8d-11e9-3499-64809943c784">
+  <producedTypes>
+    <objectType typeId="2489ac00-cd8d-11e9-3499-64809943c784" valueTypeId="2489ac01-cd8d-11e9-3499-64809943c784"/>
+    <managerType typeId="2489ac02-cd8d-11e9-3499-64809943c784" valueTypeId="2489ac03-cd8d-11e9-3499-64809943c784"/>
+  </producedTypes>
+  <name>УИ_ГрупповаяОбработкаСправочниковИДокументов</name>
+  <synonym>
+    <key>ru</key>
+    <value>Групповая обработка справочников и документов</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов.Form.ПодборИОбработка</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <attributes uuid="28d7ca5e-27a1-4cee-8747-dca79b179d43">
+    <name>ТипОбъекта</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тип объекта</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>1</precision>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="b70c373e-1947-4eed-a7f4-33adbd68a12d">
+    <name>ОбрабатыватьТабличныеЧасти</name>
+    <synonym>
+      <key>ru</key>
+      <value>Обрабатывать табличные части</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="48f3223e-a85e-49bd-891a-fbe12d2278c8">
+    <name>РежимПоиска</name>
+    <synonym>
+      <key>ru</key>
+      <value>Режим поиска</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>1</precision>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <forms uuid="c6e745e7-7d38-4fa9-bd71-0b0f136a7170">
+    <name>ПодборИОбработка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма подбора и обработки объектов</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="d13a2732-9082-4c84-9bd3-34fa44a4155c">
+    <name>ФормаОтбора</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма отбора</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="1f81f981-d1f1-4d92-afa6-6108ba910370">
+    <name>ПроизвольныйАлгоритм</name>
+    <synonym>
+      <key>ru</key>
+      <value>Произвольный алгоритм</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="c0cb6ce9-feab-41e1-9cfa-cd5a4ea64471">
+    <name>УстановкаРеквизитов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Установка реквизитов</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="c1799112-09df-4cf1-ad9f-92774acd6e25">
+    <name>ШаблонОбработки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Шаблон обработки</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="ead0420f-d14b-413a-bbf2-ce5da4888758">
+    <name>ПеренумерацияОбъектов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Перенумерация объектов</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="ad6fd1ff-a89c-46d8-987a-64dc9b14185c">
+    <name>ПометитьНаУдаление</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пометить на удаление</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="7c4af40b-0bd4-430b-8047-d5f1b328367c">
+    <name>ПровестиДокументы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Провести документы</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="59b29483-9418-4815-8b54-7ca6da39ad79">
+    <name>ОтменитьПроведениеДокументов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Отменить проведение документов</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="5bb987a9-d32b-46d9-bddc-37a7168f7e15">
+    <name>ФормаВыбораТаблиц</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма выбора таблиц</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="0783b63c-e838-4e8a-b866-48f1c6d06aec">
+    <name>СнятьПометкуУдаления</name>
+    <synonym>
+      <key>ru</key>
+      <value>Снять пометку удаления</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="08008176-4633-11e9-c395-64809943c784">
+    <name>ИзменитьВремяДокументов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Изменить время документов</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="18f2042b-ad9f-4504-b165-a13dee43d1a6">
+    <name>ИзменитьСуммуОперации</name>
+    <synonym>
+      <key>ru</key>
+      <value>Изменить сумму операции</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="61e294e9-0ac5-40f7-8a5d-466ed734154d">
+    <name>Удалить</name>
+    <synonym>
+      <key>ru</key>
+      <value>Удалить</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>
