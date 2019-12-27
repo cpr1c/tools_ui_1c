@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:Subsystem xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="420d125a-5388-46d1-a2c2-ba1347e3e5fd">
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="420d125a-5388-46d1-a2c2-ba1347e3e5fd">
   <name>УИ_УниверсальныеИнструменты</name>
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
+  <picture xsi:type="core:PictureRef">
+    <picture>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</picture>
+  </picture>
   <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
-  <content>DataProcessor.УИ_РедакторПредопределенныхЭлементов</content>
 </mdclass:Subsystem>

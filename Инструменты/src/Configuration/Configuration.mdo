@@ -27,7 +27,7 @@
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
   <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
-  <compatibilityMode>8.3.10</compatibilityMode>
+  <compatibilityMode>8.3.12</compatibilityMode>
   <languages uuid="84387f42-13bb-4f19-aa53-06d0f62f4521">
     <name>Русский</name>
     <synonym>
@@ -41,7 +41,7 @@
     <languageCode>ru</languageCode>
   </languages>
   <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
+  <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторПредопределенныхЭлементов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
 </mdclass:Configuration>
