@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="aac2ec31-cdcb-11e9-2f85-64809943c784">
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="6e7bf9d7-297c-476d-b7e4-ce736ca8e3f5">
   <producedTypes>
-    <objectType typeId="aac2ec26-cdcb-11e9-2f85-64809943c784" valueTypeId="aac2ec27-cdcb-11e9-2f85-64809943c784"/>
-    <managerType typeId="aac2ec28-cdcb-11e9-2f85-64809943c784" valueTypeId="aac2ec30-cdcb-11e9-2f85-64809943c784"/>
+    <objectType typeId="7c0f5690-e783-4420-90ca-af7103fc8684" valueTypeId="8c76367b-0c20-470a-ad89-b382bb36e507"/>
+    <managerType typeId="e8793308-cdf1-4849-8572-c129dc786ad8" valueTypeId="2776a9a2-df1b-412c-9fba-2e17bd62eb87"/>
   </producedTypes>
   <name>УИ_РедакторПредопределенныхЭлементов</name>
   <synonym>
@@ -11,7 +11,7 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторПредопределенныхЭлементов.Form.Форма</defaultForm>
-  <attributes uuid="9c6db8cd-c85e-4752-8556-6b756737436a">
+  <attributes uuid="3b191334-2aa2-426d-b47d-db7c1c381369">
     <name>ТипОбъекта</name>
     <synonym>
       <key>ru</key>
@@ -26,7 +26,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="6f2ab69a-a370-489d-a4a5-ec640e74aee6">
+  <attributes uuid="12c3169c-6a26-42b4-9301-3ca555a011e6">
     <name>ИмяОбъекта</name>
     <synonym>
       <key>ru</key>
@@ -39,7 +39,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="7a8e81df-7064-4c51-80c9-625c1bd827c2">
+  <attributes uuid="81e1e3bd-a4f3-4a9e-ad3e-adfa31115be6">
     <name>ПолноеИмяОбъектаМетаданных</name>
     <synonym>
       <key>ru</key>
@@ -52,10 +52,10 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <tabularSections uuid="893c0f54-447a-4b49-85ab-4a0006dfe58a">
+  <tabularSections uuid="e257eeb1-1576-455c-bf2d-ddb6a59942d3">
     <producedTypes>
-      <objectType typeId="6fa8efd1-cd87-4ac5-8295-3020bf877af4" valueTypeId="c1896618-a89d-4bfc-92ce-31781be403d0"/>
-      <rowType typeId="a2c820ab-8347-4b1f-b411-d94290de45e3" valueTypeId="527892da-dbde-495f-a713-7c2825e4c528"/>
+      <objectType typeId="bc13a8e0-5aee-408d-a875-fa2b03aee0cd" valueTypeId="21a9ebde-ff76-41b4-a50f-184a4af9411f"/>
+      <rowType typeId="899ca7f3-8ab1-4d1c-86c6-1e715006009c" valueTypeId="71a344b8-fefb-4ddc-bd77-e4957341cb78"/>
     </producedTypes>
     <name>ПредопределенныеЭлементы</name>
     <synonym>
@@ -70,7 +70,7 @@
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
     </standardAttributes>
-    <attributes uuid="5c09533c-c4df-40a7-b922-16960b5e78d0">
+    <attributes uuid="6656cf55-e9b9-41aa-9e78-2db2e9045e3e">
       <name>ИмяПредопределенныхДанных</name>
       <synonym>
         <key>ru</key>
@@ -86,7 +86,7 @@
         <value></value>
       </fillValue>
     </attributes>
-    <attributes uuid="b0da2e63-3ddb-4e67-bc82-b901697bb061">
+    <attributes uuid="685512a9-471c-43a2-b114-62a963e2a63a">
       <name>УстановленныйПредопределенныйЭлемент</name>
       <synonym>
         <key>ru</key>
@@ -103,7 +103,7 @@
       <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
       <fillValue xsi:type="core:UndefinedValue"/>
     </attributes>
-    <attributes uuid="3f4b0c69-aa69-4abf-8212-b85b4b022aa8">
+    <attributes uuid="450c1d82-7774-4de7-a369-f58406695a13">
       <name>НовыйПредопределенныйЭлемент</name>
       <synonym>
         <key>ru</key>
@@ -123,7 +123,7 @@
       <fillValue xsi:type="core:UndefinedValue"/>
       <choiceHistoryOnInput>DontUse</choiceHistoryOnInput>
     </attributes>
-    <attributes uuid="4ccad90f-4e12-41d9-bace-01408ad51b34">
+    <attributes uuid="1e570e70-1fc7-4c3a-908b-c46c54968b9d">
       <name>ЕстьОшибки</name>
       <synonym>
         <key>ru</key>
@@ -137,7 +137,7 @@
       <fillValue xsi:type="core:UndefinedValue"/>
     </attributes>
   </tabularSections>
-  <forms uuid="c370611f-3aee-4b46-9235-746c90864a6b">
+  <forms uuid="4b610602-1086-4522-90ba-611ec2252396">
     <name>Форма</name>
     <synonym>
       <key>ru</key>

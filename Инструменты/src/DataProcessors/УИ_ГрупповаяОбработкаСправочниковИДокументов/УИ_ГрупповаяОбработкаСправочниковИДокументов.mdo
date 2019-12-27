@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="2489ac0a-cd8d-11e9-3499-64809943c784">
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="514241b6-ed40-4169-b319-1cb11dc5b153">
   <producedTypes>
-    <objectType typeId="2489ac00-cd8d-11e9-3499-64809943c784" valueTypeId="2489ac01-cd8d-11e9-3499-64809943c784"/>
-    <managerType typeId="2489ac02-cd8d-11e9-3499-64809943c784" valueTypeId="2489ac03-cd8d-11e9-3499-64809943c784"/>
+    <objectType typeId="62f2ae3e-f7a3-43dc-9be5-ff4cf9d901f1" valueTypeId="bf2b7887-e4eb-45fc-a8c7-211188dcce45"/>
+    <managerType typeId="7e37f0b5-3d72-4bbd-9c32-8d3b3e9bbfe0" valueTypeId="b67634d9-9d72-4ac1-905c-0925a79853d8"/>
   </producedTypes>
   <name>УИ_ГрупповаяОбработкаСправочниковИДокументов</name>
   <synonym>
@@ -16,7 +16,7 @@
       <lang>ru</lang>
     </pages>
   </help>
-  <attributes uuid="28d7ca5e-27a1-4cee-8747-dca79b179d43">
+  <attributes uuid="a8766b9f-4212-406d-96ff-afeb0cedf8c7">
     <name>ТипОбъекта</name>
     <synonym>
       <key>ru</key>
@@ -31,7 +31,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="b70c373e-1947-4eed-a7f4-33adbd68a12d">
+  <attributes uuid="7bb165f9-be08-4990-aeb8-e85507da9e38">
     <name>ОбрабатыватьТабличныеЧасти</name>
     <synonym>
       <key>ru</key>
@@ -43,7 +43,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="48f3223e-a85e-49bd-891a-fbe12d2278c8">
+  <attributes uuid="c036abd3-abf4-47da-b9a5-2c71e8c66df8">
     <name>РежимПоиска</name>
     <synonym>
       <key>ru</key>
@@ -58,7 +58,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <forms uuid="c6e745e7-7d38-4fa9-bd71-0b0f136a7170">
+  <forms uuid="eccb1ea5-528c-4dd4-9cd6-1d858601cd9c">
     <name>ПодборИОбработка</name>
     <synonym>
       <key>ru</key>
@@ -67,7 +67,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="d13a2732-9082-4c84-9bd3-34fa44a4155c">
+  <forms uuid="a813b473-a087-4bc0-94f8-f7c0b709424d">
     <name>ФормаОтбора</name>
     <synonym>
       <key>ru</key>
@@ -76,7 +76,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="1f81f981-d1f1-4d92-afa6-6108ba910370">
+  <forms uuid="4efba377-21a9-4709-ac5d-dee587a8f7d3">
     <name>ПроизвольныйАлгоритм</name>
     <synonym>
       <key>ru</key>
@@ -90,7 +90,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="c0cb6ce9-feab-41e1-9cfa-cd5a4ea64471">
+  <forms uuid="a4309ecc-1e58-4919-90b3-5b7378ff937c">
     <name>УстановкаРеквизитов</name>
     <synonym>
       <key>ru</key>
@@ -104,7 +104,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="c1799112-09df-4cf1-ad9f-92774acd6e25">
+  <forms uuid="fc2f2b2b-9ccf-4bbe-8210-7bd086a9a69c">
     <name>ШаблонОбработки</name>
     <synonym>
       <key>ru</key>
@@ -118,7 +118,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="ead0420f-d14b-413a-bbf2-ce5da4888758">
+  <forms uuid="80adf8b5-3216-4e29-a903-d2e8e9ff37dd">
     <name>ПеренумерацияОбъектов</name>
     <synonym>
       <key>ru</key>
@@ -132,7 +132,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="ad6fd1ff-a89c-46d8-987a-64dc9b14185c">
+  <forms uuid="e868dfa3-e5dc-4a15-9ca4-60dfdbb2e5a9">
     <name>ПометитьНаУдаление</name>
     <synonym>
       <key>ru</key>
@@ -146,7 +146,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="7c4af40b-0bd4-430b-8047-d5f1b328367c">
+  <forms uuid="8c0b28d8-2ef6-4760-a319-0d2de87213c6">
     <name>ПровестиДокументы</name>
     <synonym>
       <key>ru</key>
@@ -160,7 +160,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="59b29483-9418-4815-8b54-7ca6da39ad79">
+  <forms uuid="6d940a35-f6aa-48f0-9f39-35a180b55ef2">
     <name>ОтменитьПроведениеДокументов</name>
     <synonym>
       <key>ru</key>
@@ -174,7 +174,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="5bb987a9-d32b-46d9-bddc-37a7168f7e15">
+  <forms uuid="f43804b4-8a01-4461-977f-170fb25497ad">
     <name>ФормаВыбораТаблиц</name>
     <synonym>
       <key>ru</key>
@@ -183,7 +183,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="0783b63c-e838-4e8a-b866-48f1c6d06aec">
+  <forms uuid="bacb8e57-ba92-4563-99b4-72b2e9078f28">
     <name>СнятьПометкуУдаления</name>
     <synonym>
       <key>ru</key>
@@ -197,7 +197,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="08008176-4633-11e9-c395-64809943c784">
+  <forms uuid="5dae809d-fc43-48ac-8a4f-8f015f72eae0">
     <name>ИзменитьВремяДокументов</name>
     <synonym>
       <key>ru</key>
@@ -211,7 +211,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="18f2042b-ad9f-4504-b165-a13dee43d1a6">
+  <forms uuid="0aa531eb-8728-4fb4-b07d-fea2f670b01d">
     <name>ИзменитьСуммуОперации</name>
     <synonym>
       <key>ru</key>
@@ -225,7 +225,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="61e294e9-0ac5-40f7-8a5d-466ed734154d">
+  <forms uuid="39084276-42fc-423d-a24c-9bfb9decbc1e">
     <name>Удалить</name>
     <synonym>
       <key>ru</key>
