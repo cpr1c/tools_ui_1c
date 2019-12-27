@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="fbce3434-0a5e-4007-bfd3-2d6a6420a1b8">
-  <name>Инструменты</name>
+  <name>УниверсальныеИнструменты</name>
   <synonym>
     <key>ru</key>
     <value>Универсальные инструменты</value>
@@ -8,14 +8,7 @@
   <objectBelonging>Adopted</objectBelonging>
   <extension xsi:type="mdclassExtension:ConfigurationExtension">
     <defaultRunMode>Checked</defaultRunMode>
-    <usePurposes>Checked</usePurposes>
-    <commandInterface>Extended</commandInterface>
-    <mainSectionCommandInterface>Extended</mainSectionCommandInterface>
-    <defaultLanguage>Checked</defaultLanguage>
-    <modalityUseMode>Checked</modalityUseMode>
     <interfaceCompatibilityMode>Checked</interfaceCompatibilityMode>
-    <compatibilityMode>Checked</compatibilityMode>
-    <defaultStyle>Extended</defaultStyle>
   </extension>
   <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="44154cfc-e04b-4c2e-94cc-83152eb460a6"/>
   <containedObjects classId="9fcd25a0-4822-11d4-9414-008048da11f9" objectId="2f9f9e83-25fb-4d7b-950d-22247dc67b19"/>
@@ -23,9 +16,9 @@
   <containedObjects classId="9de14907-ec23-4a07-96f0-85521cb6b53b" objectId="0d3895b7-6432-489b-95d3-94e01e15f4be"/>
   <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="f9d01e29-e5f9-4e33-811a-292912fc6345"/>
   <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="81355075-a418-4d1a-af9d-9fc96db6c71b"/>
-  <namePrefix>УИН_</namePrefix>
-  <configurationExtensionCompatibilityMode>8.3.14</configurationExtensionCompatibilityMode>
-  <configurationExtensionPurpose>Customization</configurationExtensionPurpose>
+  <namePrefix>УИ_</namePrefix>
+  <configurationExtensionCompatibilityMode>8.3.12</configurationExtensionCompatibilityMode>
+  <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
