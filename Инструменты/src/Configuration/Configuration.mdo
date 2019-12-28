@@ -45,4 +45,5 @@
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
 </mdclass:Configuration>
