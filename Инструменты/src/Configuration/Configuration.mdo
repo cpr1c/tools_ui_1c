@@ -42,6 +42,7 @@
   </languages>
   <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
   <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
+  <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
 </mdclass:Configuration>
