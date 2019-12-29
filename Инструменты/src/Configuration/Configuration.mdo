@@ -42,8 +42,25 @@
   </languages>
   <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
   <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</commonPictures>
+  <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
+  <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
+  <commonModules>CommonModule.УИ_ДлительныеОперацииКлиент</commonModules>
+  <commonModules>CommonModule.УИ_ДлительныеОперации</commonModules>
+  <commonModules>CommonModule.УИ_РегламентныеЗаданияСервер</commonModules>
+  <commonModules>CommonModule.УИ_РегламентныеЗаданияСлужебный</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияПовтИсп</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
+  <commonModules>CommonModule.УИ_Пользователи</commonModules>
+  <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
+  <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
 </mdclass:Configuration>

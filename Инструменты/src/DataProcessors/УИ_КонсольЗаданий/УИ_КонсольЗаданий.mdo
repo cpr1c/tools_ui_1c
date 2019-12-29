@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="2f9d000a-2946-11ea-7d9c-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="2f9d0000-2946-11ea-7d9c-e86a6452d1f2" valueTypeId="2f9d0001-2946-11ea-7d9c-e86a6452d1f2"/>
+    <managerType typeId="2f9d0002-2946-11ea-7d9c-e86a6452d1f2" valueTypeId="2f9d0003-2946-11ea-7d9c-e86a6452d1f2"/>
+  </producedTypes>
+  <name>УИ_КонсольЗаданий</name>
+  <synonym>
+    <key>ru</key>
+    <value>Консоль заданий</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_КонсольЗаданий.Form.РегламентныеИФоновыеЗадания</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <forms uuid="2f9d508c-2946-11ea-7d9c-e86a6452d1f2">
+    <name>РегламентныеИФоновыеЗадания</name>
+    <synonym>
+      <key>ru</key>
+      <value>Регламентные и фоновые задания</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="2f9ec8ae-2946-11ea-7d9c-e86a6452d1f2">
+    <name>ФоновоеЗадание</name>
+    <synonym>
+      <key>ru</key>
+      <value>Фоновое задание</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="2f9f1d7c-2946-11ea-7d9c-e86a6452d1f2">
+    <name>РегламентноеЗадание</name>
+    <synonym>
+      <key>ru</key>
+      <value>Регламентное задание</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

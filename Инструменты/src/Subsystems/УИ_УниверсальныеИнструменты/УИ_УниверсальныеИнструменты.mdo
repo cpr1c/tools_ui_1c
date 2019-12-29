@@ -13,4 +13,5 @@
   <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
   <content>DataProcessor.УИ_РедакторКонстант</content>
   <content>DataProcessor.УИ_СтруктураХраненияБазыДанных</content>
+  <content>DataProcessor.УИ_КонсольЗаданий</content>
 </mdclass:Subsystem>
