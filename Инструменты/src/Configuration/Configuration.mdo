@@ -65,4 +65,5 @@
   <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
 </mdclass:Configuration>

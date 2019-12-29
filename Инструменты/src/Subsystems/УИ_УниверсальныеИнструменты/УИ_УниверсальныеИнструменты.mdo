@@ -16,4 +16,5 @@
   <content>DataProcessor.УИ_КонсольЗаданий</content>
   <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
   <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
+  <content>DataProcessor.УИ_КонсольЗапросов</content>
 </mdclass:Subsystem>
