@@ -63,4 +63,6 @@
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.ЦПР_УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
 </mdclass:Configuration>
