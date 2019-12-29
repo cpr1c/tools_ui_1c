@@ -1155,7 +1155,7 @@
     </title>
     <id>4</id>
     <valueType>
-      <types>DataProcessorObject.ЦПР_УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</types>
+      <types>DataProcessorObject.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</types>
     </valueType>
     <view>
       <common>true</common>

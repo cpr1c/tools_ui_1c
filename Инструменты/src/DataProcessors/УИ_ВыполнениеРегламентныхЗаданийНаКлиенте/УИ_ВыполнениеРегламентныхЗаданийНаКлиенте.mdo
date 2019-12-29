@@ -4,13 +4,13 @@
     <objectType typeId="d9fdeb28-2a12-11ea-8480-e86a6452d1f2" valueTypeId="d9fdeb32-2a12-11ea-8480-e86a6452d1f2"/>
     <managerType typeId="d9fdeb33-2a12-11ea-8480-e86a6452d1f2" valueTypeId="d9fdeb34-2a12-11ea-8480-e86a6452d1f2"/>
   </producedTypes>
-  <name>ЦПР_УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</name>
+  <name>УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</name>
   <synonym>
     <key>ru</key>
     <value>Выполнение регламентных заданий на клиенте</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.ЦПР_УИ_ВыполнениеРегламентныхЗаданийНаКлиенте.Form.ВыполнениеРегламентныхЗаданийНаКлиенте</defaultForm>
+  <defaultForm>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте.Form.ВыполнениеРегламентныхЗаданийНаКлиенте</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
