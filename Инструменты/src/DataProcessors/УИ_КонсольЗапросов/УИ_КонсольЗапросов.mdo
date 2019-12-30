@@ -11,7 +11,7 @@
   </synonym>
   <comment>Synoecium, ver 1.2.3</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УниформальнаяКонсольЗапросов.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.УИ_КонсольЗапросов.Form.ФормаУпр</defaultForm>
   <auxiliaryForm>DataProcessor.УИ_КонсольЗапросов.Form.ФормаУпр</auxiliaryForm>
   <help>
     <pages>

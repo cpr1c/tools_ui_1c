@@ -62,8 +62,8 @@
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
 </mdclass:Configuration>
