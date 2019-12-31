@@ -11,8 +11,8 @@
   </synonym>
   <comment>Synoecium, ver 1.2.3</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_КонсольЗапросов.Form.ФормаУпр</defaultForm>
-  <auxiliaryForm>DataProcessor.УИ_КонсольЗапросов.Form.ФормаУпр</auxiliaryForm>
+  <defaultForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</defaultForm>
+  <auxiliaryForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</auxiliaryForm>
   <help>
     <pages>
       <lang>ru</lang>
@@ -155,46 +155,46 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="a6b57032-26f4-4d70-892d-2402741db968">
-    <name>ФормаУпр</name>
+    <name>Форма</name>
     <synonym>
       <key>ru</key>
-      <value>Форма упр</value>
+      <value>Форма</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="dbb2fb09-bd45-4387-b5f6-802edf4e6572">
-    <name>ФормаПараметровУпр</name>
+    <name>ФормаПараметров</name>
     <synonym>
       <key>ru</key>
-      <value>Форма параметров упр</value>
+      <value>Форма параметров</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="c8b9236e-4495-43ac-93ef-2eaacc8d5c19">
-    <name>ФормаВложеннойТаблицыУпр</name>
+    <name>ФормаВложеннойТаблицы</name>
     <synonym>
       <key>ru</key>
-      <value>Форма вложенной таблицы упр</value>
+      <value>Форма вложенной таблицы</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="b423ef68-2a48-47fa-b57f-dd3c999a412f">
-    <name>ФормаНастройкиУпр</name>
+    <name>ФормаНастройки</name>
     <synonym>
       <key>ru</key>
-      <value>Форма настройки упр</value>
+      <value>Форма настройки</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="0e0593c2-5d3a-457a-9ae9-74514b8980fe">
-    <name>ФормаКодаЗапросаУпр</name>
+    <name>ФормаКодаЗапроса</name>
     <synonym>
       <key>ru</key>
-      <value>Форма кода запроса упр</value>
+      <value>Форма кода запроса</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
