@@ -254,7 +254,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>ИспользоватьСжатиеФайлов_УФ</name>
+    <name>ИспользоватьСжатиеФайлов</name>
     <id>27</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -263,7 +263,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ФрмИспользоватьСжатиеФайлов_УФ</segments>
+        <segments>ФрмИспользоватьСжатиеФайлов</segments>
       </paths>
     </dataPath>
     <toolTip>
@@ -431,20 +431,6 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
-    <id>1</id>
-    <valueType>
-      <types>DataProcessorObject.УИ_КонсольЗапросов</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <main>true</main>
-  </attributes>
-  <attributes>
     <name>ФрмИнтервалАвтосохранения</name>
     <title>
       <key>ru</key>
@@ -516,10 +502,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ФрмИспользоватьСжатиеФайлов_УФ</name>
+    <name>ФрмИспользоватьСжатиеФайлов</name>
     <title>
       <key>ru</key>
-      <value>Использовать сжатие файлов (тонкий клиент)</value>
+      <value>Использовать сжатие файлов</value>
     </title>
     <id>6</id>
     <valueType>
@@ -557,5 +543,4 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
-  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

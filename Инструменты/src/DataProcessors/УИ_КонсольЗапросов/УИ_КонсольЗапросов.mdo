@@ -81,19 +81,6 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="4cc0eea7-88a6-4373-853f-ed1380f298ce">
-    <name>ПрефиксНастроек</name>
-    <synonym>
-      <key>ru</key>
-      <value>Префикс настроек</value>
-    </synonym>
-    <type>
-      <types>String</types>
-      <stringQualifiers/>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
   <attributes uuid="09738fbd-69a4-44f0-bf7f-59e0ef0d0038">
     <name>ИмяФайла</name>
     <synonym>
@@ -121,10 +108,10 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="62dbbc84-f385-4ca9-b930-1f8e6a112bbe">
-    <name>ИспользоватьСжатиеФайлов_УФ</name>
+    <name>ИспользоватьСжатиеФайлов</name>
     <synonym>
       <key>ru</key>
-      <value>Использовать сжатие файлов (тонкий клиент)</value>
+      <value>Использовать сжатие файлов</value>
     </synonym>
     <type>
       <types>Boolean</types>
@@ -143,10 +130,10 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="b2d2c9d8-33b4-492c-8274-790b67fb9729">
-    <name>РежимПодсветки_УФ</name>
+    <name>РежимПодсветки</name>
     <synonym>
       <key>ru</key>
-      <value>Режим подсветки УФ</value>
+      <value>Режим подсветки</value>
     </synonym>
     <type>
       <types>Boolean</types>

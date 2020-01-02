@@ -15,7 +15,7 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</defaultForm>
-  <auxiliaryForm>DataProcessor.DBStorageStructureInfo.Form.Форма</auxiliaryForm>
+  <auxiliaryForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</auxiliaryForm>
   <forms uuid="c03fac5c-9407-401d-94ff-8d87ab574a84">
     <name>ФормаУправляемая</name>
     <synonym>
