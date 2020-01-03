@@ -154,7 +154,6 @@
       <key>ru</key>
       <value>Использовать бэкап запросов перед выполнением</value>
     </title>
-    <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
