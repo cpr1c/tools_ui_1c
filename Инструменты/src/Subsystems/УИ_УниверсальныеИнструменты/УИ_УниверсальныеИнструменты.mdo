@@ -18,4 +18,5 @@
   <content>DataProcessor.УИ_КонсольЗапросов</content>
   <content>DataProcessor.УИ_КонсольЗаданий</content>
   <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
+  <content>DataProcessor.УИ_КонсольКода</content>
 </mdclass:Subsystem>

@@ -73,4 +73,5 @@
   <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
 </mdclass:Configuration>
