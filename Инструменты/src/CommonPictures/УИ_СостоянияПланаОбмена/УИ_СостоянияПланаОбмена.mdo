@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a715d022-32d6-4d33-af4e-e230c6dc5100">
+  <name>УИ_СостоянияПланаОбмена</name>
+  <synonym>
+    <key>ru</key>
+    <value>Состояния плана обмена</value>
+  </synonym>
+</mdclass:CommonPicture>

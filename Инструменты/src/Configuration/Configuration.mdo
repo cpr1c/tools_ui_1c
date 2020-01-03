@@ -43,6 +43,12 @@
   <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
   <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
   <commonPictures>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</commonPictures>
+  <commonPictures>CommonPicture.УИ_СостоянияПланаОбмена</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВидыОбъектовМетаданных</commonPictures>
+  <commonPictures>CommonPicture.УИ_Информация32</commonPictures>
+  <commonPictures>CommonPicture.УИ_РезультатЗапроса</commonPictures>
+  <commonPictures>CommonPicture.УИ_РезультатВыгрузки</commonPictures>
+  <commonPictures>CommonPicture.УИ_СостоянияАвторегистрации</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
@@ -66,4 +72,5 @@
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
 </mdclass:Configuration>
