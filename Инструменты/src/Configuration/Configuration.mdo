@@ -50,6 +50,7 @@
   <commonPictures>CommonPicture.УИ_РезультатВыгрузки</commonPictures>
   <commonPictures>CommonPicture.УИ_СостоянияАвторегистрации</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
+  <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
@@ -64,6 +65,7 @@
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
   <commonModules>CommonModule.УИ_Пользователи</commonModules>
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
@@ -74,4 +76,5 @@
   <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
 </mdclass:Configuration>

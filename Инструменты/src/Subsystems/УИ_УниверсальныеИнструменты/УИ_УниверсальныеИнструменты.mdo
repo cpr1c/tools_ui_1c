@@ -19,4 +19,5 @@
   <content>DataProcessor.УИ_КонсольЗаданий</content>
   <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
   <content>DataProcessor.УИ_КонсольКода</content>
+  <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
 </mdclass:Subsystem>
