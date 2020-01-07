@@ -36,6 +36,8 @@
         <precision>10</precision>
       </numberQualifiers>
     </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="83aa4789-94fb-47b6-a508-a4bbf3f18801">
     <name>Форма</name>

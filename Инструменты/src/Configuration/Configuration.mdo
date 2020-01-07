@@ -71,7 +71,6 @@
   <httpServices>HTTPService.УИ_ВыполненияАлгоритмов</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
-  <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
@@ -82,4 +81,5 @@
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
 </mdclass:Configuration>
