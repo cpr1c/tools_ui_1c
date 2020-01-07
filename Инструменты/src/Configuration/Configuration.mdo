@@ -22,6 +22,8 @@
   <defaultRunMode>ManagedApplication</defaultRunMode>
   <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
+  <vendor>ООО &quot;Центр прикладных разработок&quot;</vendor>
+  <version>1.0.0</version>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
