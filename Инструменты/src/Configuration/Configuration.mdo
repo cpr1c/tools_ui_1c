@@ -50,6 +50,8 @@
   <commonPictures>CommonPicture.УИ_РезультатВыгрузки</commonPictures>
   <commonPictures>CommonPicture.УИ_СостоянияАвторегистрации</commonPictures>
   <commonPictures>CommonPicture.УИ_Семафор</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВопросРазработчику</commonPictures>
+  <commonPictures>CommonPicture.УИ_Репозиторий</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
@@ -83,4 +85,5 @@
   <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
 </mdclass:Configuration>

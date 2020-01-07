@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1d9908ed-acf0-479e-861c-588fae795dbf">
+  <name>УИ_Поддержка</name>
+  <synonym>
+    <key>ru</key>
+    <value>Поддержка</value>
+  </synonym>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <picture xsi:type="core:PictureRef">
+    <picture>CommonPicture.УИ_ВопросРазработчику</picture>
+  </picture>
+  <content>DataProcessor.УИ_ТехПоддержка</content>
+  <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
+</mdclass:Subsystem>
