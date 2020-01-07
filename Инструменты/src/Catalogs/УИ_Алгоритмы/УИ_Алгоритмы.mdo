@@ -10,7 +10,7 @@
   <name>УИ_Алгоритмы</name>
   <synonym>
     <key>ru</key>
-    <value>Алгоритм</value>
+    <value>Алгоритмы</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <inputByString>Catalog.УИ_Алгоритмы.StandardAttribute.Description</inputByString>
