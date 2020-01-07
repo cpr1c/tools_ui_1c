@@ -68,6 +68,7 @@
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
   <httpServices>HTTPService.УИ_ВыполненияАлгоритмов</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
