@@ -78,4 +78,5 @@
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
 </mdclass:Configuration>
