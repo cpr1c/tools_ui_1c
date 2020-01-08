@@ -992,8 +992,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>Элементы.ДеревоЗапросов.ТекущиеДанные.ПараметрыЗапроса.ИмяПараметра</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>Items.ДеревоЗапросов.CurrentData.ПараметрыЗапроса.ИмяПараметра</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>РасширеннаяПодсказка</name>
@@ -1042,8 +1044,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>Элементы.ДеревоЗапросов.ТекущиеДанные.ПараметрыЗапроса.Тип</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>Items.ДеревоЗапросов.CurrentData.ПараметрыЗапроса.Тип</segments>
+                </paths>
               </dataPath>
               <handlers>
                 <event>OnChange</event>
@@ -1124,8 +1128,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>Элементы.ДеревоЗапросов.ТекущиеДанные.ПараметрыЗапроса.ЗначениеПараметра</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>Items.ДеревоЗапросов.CurrentData.ПараметрыЗапроса.ЗначениеПараметра</segments>
+                </paths>
               </dataPath>
               <handlers>
                 <event>OnChange</event>
@@ -1163,12 +1169,12 @@
               <showInFooter>true</showInFooter>
               <extInfo xsi:type="form:InputFieldExtInfo">
                 <handlers>
-                  <event>Clearing</event>
-                  <name>ПараметрыЗначениеПараметраОчистка</name>
-                </handlers>
-                <handlers>
                   <event>StartChoice</event>
                   <name>ПараметрыТаблицаЗначениеПараметраНачалоВыбора</name>
+                </handlers>
+                <handlers>
+                  <event>Clearing</event>
+                  <name>ПараметрыЗначениеПараметраОчистка</name>
                 </handlers>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>

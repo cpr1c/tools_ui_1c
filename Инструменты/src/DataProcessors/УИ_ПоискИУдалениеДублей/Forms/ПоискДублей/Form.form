@@ -201,8 +201,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>ЗаписьБезПроверок</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ЗаписьБезПроверок</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>РасширеннаяПодсказка</name>
@@ -244,8 +246,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>БезПроверокПравДоступа</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>БезПроверокПравДоступа</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>ПолеРасширеннаяПодсказка</name>

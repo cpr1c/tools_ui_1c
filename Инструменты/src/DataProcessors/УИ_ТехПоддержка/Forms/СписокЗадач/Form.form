@@ -14,8 +14,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>НоваяЗадачаТема</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>НоваяЗадачаТема</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>ПолеРасширеннаяПодсказка3</name>
@@ -63,8 +65,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>НоваяЗадачаОписание</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>НоваяЗадачаОписание</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>ПолеРасширеннаяПодсказка6</name>
@@ -193,7 +197,6 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
               <segments>СписокЗадач.Номер</segments>
             </paths>
@@ -250,7 +253,6 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
               <segments>СписокЗадач.Тема</segments>
             </paths>
@@ -306,7 +308,6 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
               <segments>СписокЗадач.Ответственный</segments>
             </paths>
@@ -361,8 +362,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>СписокЗадач.Статус</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>СписокЗадач.Статус</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка5</name>
@@ -412,7 +415,6 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
               <segments>СписокЗадач.Теги</segments>
             </paths>
@@ -629,6 +631,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <fileDragMode>AsFileRef</fileDragMode>
+        <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
       <visible>true</visible>
       <enabled>true</enabled>

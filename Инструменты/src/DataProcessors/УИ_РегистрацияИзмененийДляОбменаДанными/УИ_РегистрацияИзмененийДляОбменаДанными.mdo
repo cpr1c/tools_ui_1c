@@ -11,7 +11,7 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными.Form.Форма</defaultForm>
-  <auxiliaryForm>DataProcessor.ЦПР_УИ_РегистрацияИзмененийДляОбменаДанными.Form.СообщениеОбОбычномИнтерфейсе</auxiliaryForm>
+  <auxiliaryForm>ac4674ba-2e32-11ea-cc81-e86a6452d1f2</auxiliaryForm>
   <attributes uuid="ac435c76-2e32-11ea-cc81-e86a6452d1f2">
     <name>НастройкаАвторегистрацияПоследовательностей</name>
     <synonym>

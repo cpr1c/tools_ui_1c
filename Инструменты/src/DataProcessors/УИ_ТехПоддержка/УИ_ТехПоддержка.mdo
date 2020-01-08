@@ -26,10 +26,12 @@
       <value>Вопрос разработчику</value>
     </synonym>
     <group>ActionsPanelTools</group>
+    <commandParameterType/>
     <representation>PictureAndText</representation>
     <picture xsi:type="core:PictureRef">
       <picture>CommonPicture.УИ_ВопросРазработчику</picture>
     </picture>
+    <shortcut></shortcut>
   </commands>
   <commands uuid="9d0b01dc-bd74-428c-b8ce-667da8dbae28">
     <name>СтраницаРазработки</name>
@@ -38,9 +40,11 @@
       <value>Страница разработки</value>
     </synonym>
     <group>ActionsPanelTools</group>
+    <commandParameterType/>
     <representation>PictureAndText</representation>
     <picture xsi:type="core:PictureRef">
       <picture>CommonPicture.УИ_Репозиторий</picture>
     </picture>
+    <shortcut></shortcut>
   </commands>
 </mdclass:DataProcessor>

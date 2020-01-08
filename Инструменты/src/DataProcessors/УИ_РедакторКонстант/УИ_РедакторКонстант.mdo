@@ -11,11 +11,6 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторКонстант.Form.Константы</defaultForm>
-  <help>
-    <pages>
-      <lang>ru</lang>
-    </pages>
-  </help>
   <forms uuid="487d5719-f93b-49ff-a911-6c6d0b6676f5">
     <name>Константы</name>
     <synonym>

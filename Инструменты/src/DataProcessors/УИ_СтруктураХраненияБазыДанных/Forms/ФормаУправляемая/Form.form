@@ -834,8 +834,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>Элементы.Результат.ТекущиеДанные.Поля.ИмяПоляХранения</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>Items.Результат.CurrentData.Поля.ИмяПоляХранения</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>РасширеннаяПодсказка</name>
@@ -884,8 +886,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>Элементы.Результат.ТекущиеДанные.Поля.ИмяПоля</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>Items.Результат.CurrentData.Поля.ИмяПоля</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>ПолеРасширеннаяПодсказка</name>
@@ -934,8 +938,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>Элементы.Результат.ТекущиеДанные.Поля.Метаданные</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>Items.Результат.CurrentData.Поля.Метаданные</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>ПолеРасширеннаяПодсказка1</name>
@@ -1183,8 +1189,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>Элементы.Результат.ТекущиеДанные.Индексы.ИмяИндексаХранения</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>Items.Результат.CurrentData.Индексы.ИмяИндексаХранения</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка2</name>
@@ -1430,8 +1438,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>Элементы.Индексы.ТекущиеДанные.ПоляИндекса.ИмяПоляХранения</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>Items.Индексы.CurrentData.ПоляИндекса.ИмяПоляХранения</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка3</name>
@@ -1480,8 +1490,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>Элементы.Индексы.ТекущиеДанные.ПоляИндекса.ИмяПоля</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>Items.Индексы.CurrentData.ПоляИндекса.ИмяПоля</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка4</name>
@@ -1530,8 +1542,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>Элементы.Индексы.ТекущиеДанные.ПоляИндекса.Метаданные</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>Items.Индексы.CurrentData.ПоляИндекса.Метаданные</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка5</name>

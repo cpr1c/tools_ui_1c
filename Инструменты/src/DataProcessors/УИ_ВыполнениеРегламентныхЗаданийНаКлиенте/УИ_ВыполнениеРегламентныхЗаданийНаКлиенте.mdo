@@ -11,11 +11,6 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте.Form.ВыполнениеРегламентныхЗаданийНаКлиенте</defaultForm>
-  <help>
-    <pages>
-      <lang>ru</lang>
-    </pages>
-  </help>
   <forms uuid="d9fe211a-2a12-11ea-8480-e86a6452d1f2">
     <name>ВыполнениеРегламентныхЗаданийНаКлиенте</name>
     <synonym>

@@ -259,7 +259,6 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
-              <activeLanguage>1</activeLanguage>
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеКлиент.Имя</segments>
               </paths>
@@ -315,7 +314,6 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
-              <activeLanguage>1</activeLanguage>
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеКлиент.Значение</segments>
               </paths>
@@ -531,6 +529,7 @@
           <horizontalStretch>true</horizontalStretch>
           <verticalStretch>true</verticalStretch>
           <fileDragMode>AsFileRef</fileDragMode>
+          <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -584,8 +583,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>ТекстАлгоритмаКлиент</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ТекстАлгоритмаКлиент</segments>
+          </paths>
         </dataPath>
         <titleLocation>Top</titleLocation>
         <extendedTooltip>
@@ -696,7 +697,6 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
-              <activeLanguage>1</activeLanguage>
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеСервер.Имя</segments>
               </paths>
@@ -752,7 +752,6 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
-              <activeLanguage>1</activeLanguage>
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеСервер.Значение</segments>
               </paths>
@@ -968,6 +967,7 @@
           <horizontalStretch>true</horizontalStretch>
           <verticalStretch>true</verticalStretch>
           <fileDragMode>AsFileRef</fileDragMode>
+          <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1021,8 +1021,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>ТекстАлгоритмаСервер</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ТекстАлгоритмаСервер</segments>
+          </paths>
         </dataPath>
         <titleLocation>Top</titleLocation>
         <extendedTooltip>

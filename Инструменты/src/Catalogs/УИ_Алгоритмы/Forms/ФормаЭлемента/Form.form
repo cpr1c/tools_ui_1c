@@ -2239,11 +2239,6 @@
     <savedData>true</savedData>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
-        <segments>Объект.КомандныйИнтерфейс</segments>
-      </tablePath>
-    </additionalColumns>
-    <additionalColumns>
-      <tablePath xsi:type="form:DataPath">
         <segments>Объект.Параметры</segments>
       </tablePath>
       <columns>
@@ -2253,9 +2248,7 @@
           <value>Значение параметра</value>
         </title>
         <id>3</id>
-        <valueType>
-          <types>Arbitrary</types>
-        </valueType>
+        <valueType/>
         <view>
           <common>true</common>
         </view>

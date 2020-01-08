@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="fbce3434-0a5e-4007-bfd3-2d6a6420a1b8">
+<mdclass:Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="ecdeb61a-5243-42a4-a160-d7ee52dabb34">
   <name>УниверсальныеИнструменты</name>
   <synonym>
     <key>ru</key>
     <value>Универсальные инструменты</value>
   </synonym>
   <objectBelonging>Adopted</objectBelonging>
-  <extension xsi:type="mdclassExtension:ConfigurationExtension">
-    <defaultRunMode>Checked</defaultRunMode>
-    <interfaceCompatibilityMode>Checked</interfaceCompatibilityMode>
-  </extension>
+  <extension xsi:type="mdclassExtension:ConfigurationExtension"/>
   <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="44154cfc-e04b-4c2e-94cc-83152eb460a6"/>
   <containedObjects classId="9fcd25a0-4822-11d4-9414-008048da11f9" objectId="2f9f9e83-25fb-4d7b-950d-22247dc67b19"/>
   <containedObjects classId="e3687481-0a87-462c-a166-9f34594f9bba" objectId="c394ccfd-0917-4cc2-b36b-81fb114cd839"/>
@@ -19,23 +16,16 @@
   <namePrefix>УИ_</namePrefix>
   <configurationExtensionCompatibilityMode>8.3.12</configurationExtensionCompatibilityMode>
   <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
-  <defaultRunMode>ManagedApplication</defaultRunMode>
-  <usePurposes>PersonalComputer</usePurposes>
   <scriptVariant>Russian</scriptVariant>
   <vendor>ООО &quot;Центр прикладных разработок&quot;</vendor>
-  <version>1.0.0</version>
-  <defaultLanguage>Language.Русский</defaultLanguage>
+  <version>1.0.1</version>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <modalityUseMode>DontUse</modalityUseMode>
   <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
   <compatibilityMode>8.3.12</compatibilityMode>
-  <languages uuid="84387f42-13bb-4f19-aa53-06d0f62f4521">
+  <languages uuid="66bef324-e854-4c33-879a-3c081f6686cd">
     <name>Русский</name>
-    <synonym>
-      <key>ru</key>
-      <value>Русский</value>
-    </synonym>
     <objectBelonging>Adopted</objectBelonging>
     <extension xsi:type="mdclassExtension:LanguageExtension">
       <languageCode>Checked</languageCode>
