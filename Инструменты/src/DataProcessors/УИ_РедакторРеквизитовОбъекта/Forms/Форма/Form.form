@@ -100,6 +100,53 @@
       <showInFooter>true</showInFooter>
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
+    <items xsi:type="form:FormField">
+      <name>ОбрабатыватьДвижения</name>
+      <id>161</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ОбрабатыватьДвижения</segments>
+      </dataPath>
+      <handlers>
+        <event>OnChange</event>
+        <name>ОбрабатыватьДвиженияПриИзменении</name>
+      </handlers>
+      <extendedTooltip>
+        <name>ПолеРасширеннаяПодсказка1</name>
+        <id>163</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ПолеКонтекстноеМеню1</name>
+        <id>162</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>CheckBoxField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+    </items>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -164,6 +211,9 @@
         </extendedTooltip>
         <type>Page</type>
         <extInfo xsi:type="form:PageGroupExtInfo">
+          <picture xsi:type="core:PictureRef">
+            <picture>StdPicture.Attribute</picture>
+          </picture>
           <group>Vertical</group>
           <showTitle>true</showTitle>
         </extInfo>
@@ -230,6 +280,9 @@
         </extendedTooltip>
         <type>Page</type>
         <extInfo xsi:type="form:PageGroupExtInfo">
+          <picture xsi:type="core:PictureRef">
+            <picture>StdPicture.NestedTable</picture>
+          </picture>
           <group>HorizontalIfPossible</group>
           <showTitle>true</showTitle>
         </extInfo>
@@ -237,6 +290,315 @@
       <items xsi:type="form:FormGroup">
         <name>ГруппаДвижения</name>
         <id>14</id>
+        <items xsi:type="form:FormGroup">
+          <name>ГруппаДвиженияСтраницыРегистров</name>
+          <id>143</id>
+          <items xsi:type="form:FormGroup">
+            <name>ГруппаГруппаДвиженияРегистрыСведений</name>
+            <id>151</id>
+            <items xsi:type="form:FormGroup">
+              <name>ГруппаДвиженияСтраницыРегистровСведений</name>
+              <id>153</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <title>
+                <key>ru</key>
+                <value>Группа движения страницы регистров сведений</value>
+              </title>
+              <extendedTooltip>
+                <name>Группа1РасширеннаяПодсказка12</name>
+                <id>154</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <type>Pages</type>
+              <extInfo xsi:type="form:PagesGroupExtInfo">
+                <pagesRepresentation>TabsOnTop</pagesRepresentation>
+                <currentRowUse>DontUse</currentRowUse>
+              </extInfo>
+            </items>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <title>
+              <key>ru</key>
+              <value>Регистры сведений</value>
+            </title>
+            <extendedTooltip>
+              <name>Группа1РасширеннаяПодсказка11</name>
+              <id>152</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>Page</type>
+            <extInfo xsi:type="form:PageGroupExtInfo">
+              <picture xsi:type="core:PictureRef">
+                <picture>StdPicture.InformationRegister</picture>
+              </picture>
+              <group>Vertical</group>
+              <showTitle>true</showTitle>
+            </extInfo>
+          </items>
+          <items xsi:type="form:FormGroup">
+            <name>ГруппаГруппаДвиженияРегистрыНакопления</name>
+            <id>145</id>
+            <items xsi:type="form:FormGroup">
+              <name>ГруппаДвиженияСтраницыРегистровНакопления</name>
+              <id>155</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <title>
+                <key>ru</key>
+                <value>Группа движения страницы регистров накопления</value>
+              </title>
+              <extendedTooltip>
+                <name>Группа1РасширеннаяПодсказка13</name>
+                <id>156</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <type>Pages</type>
+              <extInfo xsi:type="form:PagesGroupExtInfo">
+                <pagesRepresentation>TabsOnTop</pagesRepresentation>
+                <currentRowUse>DontUse</currentRowUse>
+              </extInfo>
+            </items>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <title>
+              <key>ru</key>
+              <value>Регистры накопления</value>
+            </title>
+            <extendedTooltip>
+              <name>Группа1РасширеннаяПодсказка8</name>
+              <id>146</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>Page</type>
+            <extInfo xsi:type="form:PageGroupExtInfo">
+              <picture xsi:type="core:PictureRef">
+                <picture>StdPicture.AccumulationRegister</picture>
+              </picture>
+              <group>Vertical</group>
+              <showTitle>true</showTitle>
+            </extInfo>
+          </items>
+          <items xsi:type="form:FormGroup">
+            <name>ГруппаГруппаДвиженияРегистрыБухгалтерии</name>
+            <id>147</id>
+            <items xsi:type="form:FormGroup">
+              <name>ГруппаДвиженияСтраницыРегистровБухгалтерии</name>
+              <id>157</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <title>
+                <key>ru</key>
+                <value>Группа движения страницы регистров бухгалтерии</value>
+              </title>
+              <extendedTooltip>
+                <name>Группа1РасширеннаяПодсказка14</name>
+                <id>158</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <type>Pages</type>
+              <extInfo xsi:type="form:PagesGroupExtInfo">
+                <pagesRepresentation>TabsOnTop</pagesRepresentation>
+                <currentRowUse>DontUse</currentRowUse>
+              </extInfo>
+            </items>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <title>
+              <key>ru</key>
+              <value>Регистры бухгалтерии</value>
+            </title>
+            <extendedTooltip>
+              <name>Группа1РасширеннаяПодсказка9</name>
+              <id>148</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>Page</type>
+            <extInfo xsi:type="form:PageGroupExtInfo">
+              <picture xsi:type="core:PictureRef">
+                <picture>StdPicture.AccountingRegister</picture>
+              </picture>
+              <group>Vertical</group>
+              <showTitle>true</showTitle>
+            </extInfo>
+          </items>
+          <items xsi:type="form:FormGroup">
+            <name>ГруппаГруппаДвиженияРегистрыРасчета</name>
+            <id>149</id>
+            <items xsi:type="form:FormGroup">
+              <name>ГруппаДвиженияСтраницыРегистровРасчета</name>
+              <id>159</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <title>
+                <key>ru</key>
+                <value>Группа движения страницы регистров расчета</value>
+              </title>
+              <extendedTooltip>
+                <name>Группа1РасширеннаяПодсказка15</name>
+                <id>160</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <type>Pages</type>
+              <extInfo xsi:type="form:PagesGroupExtInfo">
+                <pagesRepresentation>TabsOnTop</pagesRepresentation>
+                <currentRowUse>DontUse</currentRowUse>
+              </extInfo>
+            </items>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <title>
+              <key>ru</key>
+              <value>Регистры расчета</value>
+            </title>
+            <extendedTooltip>
+              <name>Группа1РасширеннаяПодсказка10</name>
+              <id>150</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>Page</type>
+            <extInfo xsi:type="form:PageGroupExtInfo">
+              <picture xsi:type="core:PictureRef">
+                <picture>StdPicture.CalculationRegister</picture>
+              </picture>
+              <group>Vertical</group>
+              <showTitle>true</showTitle>
+            </extInfo>
+          </items>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <title>
+            <key>ru</key>
+            <value>Группа движения страницы регистров</value>
+          </title>
+          <extendedTooltip>
+            <name>Группа1РасширеннаяПодсказка7</name>
+            <id>144</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <type>Pages</type>
+          <extInfo xsi:type="form:PagesGroupExtInfo">
+            <pagesRepresentation>TabsOnTop</pagesRepresentation>
+            <currentRowUse>DontUse</currentRowUse>
+          </extInfo>
+        </items>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -276,6 +638,8 @@
         <key>ru</key>
         <value>Группа страницы объекта</value>
       </title>
+      <horizontalStretch>true</horizontalStretch>
+      <verticalStretch>true</verticalStretch>
       <extendedTooltip>
         <name>Группа1РасширеннаяПодсказка2</name>
         <id>9</id>
@@ -435,7 +799,14 @@
     </title>
     <id>2</id>
     <valueType>
-      <types>AnyRef</types>
+      <types>ExchangePlanRef</types>
+      <types>TaskRef</types>
+      <types>BusinessProcessRef</types>
+      <types>ChartOfCalculationTypesRef</types>
+      <types>ChartOfAccountsRef</types>
+      <types>ChartOfCharacteristicTypesRef</types>
+      <types>DocumentRef</types>
+      <types>CatalogRef</types>
     </valueType>
     <view>
       <common>true</common>
@@ -443,113 +814,6 @@
     <edit>
       <common>true</common>
     </edit>
-  </attributes>
-  <attributes>
-    <name>ТаблицаРеквизитов</name>
-    <title>
-      <key>ru</key>
-      <value>Таблица реквизитов</value>
-    </title>
-    <id>3</id>
-    <valueType>
-      <types>ValueTable</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <columns>
-      <name>Имя</name>
-      <title>
-        <key>ru</key>
-        <value>Имя</value>
-      </title>
-      <id>5</id>
-      <valueType>
-        <types>String</types>
-        <stringQualifiers/>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>СтандартныйРеквизит</name>
-      <title>
-        <key>ru</key>
-        <value>Стандартный реквизит</value>
-      </title>
-      <id>6</id>
-      <valueType>
-        <types>Boolean</types>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>ИмяРеквизитаФормы</name>
-      <title>
-        <key>ru</key>
-        <value>Имя реквизита формы</value>
-      </title>
-      <id>7</id>
-      <valueType>
-        <types>String</types>
-        <stringQualifiers/>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>ТабличнаяЧасть</name>
-      <title>
-        <key>ru</key>
-        <value>Табличная часть</value>
-      </title>
-      <id>9</id>
-      <valueType>
-        <types>Boolean</types>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>ТЧ</name>
-      <title>
-        <key>ru</key>
-        <value>ТЧ</value>
-      </title>
-      <id>10</id>
-      <valueType>
-        <types>String</types>
-        <stringQualifiers>
-          <length>200</length>
-        </stringQualifiers>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
   </attributes>
   <attributes>
     <name>ПолноеИмяОбъектаМетаданных</name>
@@ -576,6 +840,57 @@
       <value>Запись без проверок(Режим ОбменДанными.Загрузка=Истина)</value>
     </title>
     <id>11</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>РеквизитыОбъекта</name>
+    <title>
+      <key>ru</key>
+      <value>Реквизиты объекта</value>
+    </title>
+    <id>13</id>
+    <valueType>
+      <types>Arbitrary</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ОбрабатыватьДвижения</name>
+    <title>
+      <key>ru</key>
+      <value>Обрабатывать движения</value>
+    </title>
+    <id>14</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ЭтоДокумент</name>
+    <title>
+      <key>ru</key>
+      <value>Это документ</value>
+    </title>
+    <id>15</id>
     <valueType>
       <types>Boolean</types>
     </valueType>
