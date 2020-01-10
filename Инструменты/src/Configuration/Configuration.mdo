@@ -44,6 +44,7 @@
   <commonPictures>CommonPicture.УИ_Семафор</commonPictures>
   <commonPictures>CommonPicture.УИ_ВопросРазработчику</commonPictures>
   <commonPictures>CommonPicture.УИ_Репозиторий</commonPictures>
+  <commonPictures>CommonPicture.УИ_Отладка</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
@@ -63,9 +64,11 @@
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.УИ</commonModules>
   <httpServices>HTTPService.УИ_ВыполненияАлгоритмов</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
+  <catalogs>Catalog.УИ_ДанныеДляОтладки</catalogs>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
