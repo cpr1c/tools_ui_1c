@@ -24,5 +24,6 @@
   <content>DataProcessor.УИ_ПоискСсылокНаОбъект</content>
   <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
   <content>Catalog.УИ_ДанныеДляОтладки</content>
+  <content>Report.УИ_КонсольОтчетов</content>
   <subsystems>УИ_Поддержка</subsystems>
 </mdclass:Subsystem>

@@ -69,6 +69,7 @@
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.УИ_ДанныеДляОтладки</catalogs>
+  <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>

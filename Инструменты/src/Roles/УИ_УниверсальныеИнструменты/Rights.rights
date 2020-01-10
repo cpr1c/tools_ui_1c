@@ -367,4 +367,15 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>Report.УИ_КонсольОтчетов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
