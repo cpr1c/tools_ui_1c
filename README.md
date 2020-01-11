@@ -1,5 +1,7 @@
 # Универсальные инструменты 1С для управляемых форм
 
+[![Статус Порога Качества](https://sonar.cprit.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.cprit.ru/dashboard?id=tools_ui_1c)
+
 Задумывается как аналог подсистемы http://devtool1c.ucoz.ru/, но который будет:
 - работать в тонком и веб клиенте
 - доступен только для управляемых форм
