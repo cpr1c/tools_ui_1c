@@ -6,12 +6,12 @@
   </producedTypes>
   <name>УИ_КонсольОтчетов</name>
   <synonym>
-    <key>ru</key>
+    <key></key>
     <value>У и консоль отчетов</value>
   </synonym>
   <synonym>
-    <key></key>
-    <value>У и консоль отчетов</value>
+    <key>ru</key>
+    <value>Консоль отчетов</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>Report.УИ_КонсольОтчетов.Form.Форма</defaultForm>
