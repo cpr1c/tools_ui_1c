@@ -5,6 +5,10 @@
 		<userSettingID>6ff6a10b-aa4a-4f4c-9064-8a222bcb5453</userSettingID>
 	</filter>
 	<order>
+		<item xsi:type="OrderItemField">
+			<field>ДатаСоздания</field>
+			<orderType>Desc</orderType>
+		</item>
 		<viewMode>Normal</viewMode>
 		<userSettingID>f924378e-efb6-45ab-a8e5-ff32d6af3384</userSettingID>
 	</order>

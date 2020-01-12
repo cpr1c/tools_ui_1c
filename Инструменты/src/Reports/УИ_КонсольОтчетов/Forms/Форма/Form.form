@@ -5777,7 +5777,7 @@
         </extendedTooltip>
         <type>Page</type>
         <extInfo xsi:type="form:PageGroupExtInfo">
-          <group>Vertical</group>
+          <group>AlwaysHorizontal</group>
           <showTitle>true</showTitle>
         </extInfo>
       </items>
@@ -12991,6 +12991,24 @@
         <value>Данные</value>
       </title>
       <id>2</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>НастройкиСКД</name>
+      <title>
+        <key>ru</key>
+        <value>Настройки СКД</value>
+      </title>
+      <id>41</id>
       <valueType>
         <types>String</types>
         <stringQualifiers/>
