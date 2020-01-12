@@ -83,4 +83,5 @@
   <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
 </mdclass:Configuration>

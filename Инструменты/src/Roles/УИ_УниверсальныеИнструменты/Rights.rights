@@ -378,4 +378,15 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>DataProcessor.УИ_ДинамическийСписок</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>

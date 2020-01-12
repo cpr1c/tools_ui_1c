@@ -7,7 +7,7 @@
   <name>УИ_РедакторРеквизитовОбъекта</name>
   <synonym>
     <key>ru</key>
-    <value>Редактор реквизитов объекта</value>
+    <value>Редактор реквизитов объекта базы данных</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторРеквизитовОбъекта.Form.Форма</defaultForm>
