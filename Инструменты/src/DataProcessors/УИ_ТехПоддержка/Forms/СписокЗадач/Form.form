@@ -109,6 +109,52 @@
           <verticalStretch>true</verticalStretch>
         </extInfo>
       </items>
+      <items xsi:type="form:Decoration">
+        <name>ДекорацияПредупреждение</name>
+        <id>52</id>
+        <title>
+          <key>ru</key>
+          <value>&lt;b>ВАЖНО!!! &lt;/>Если вы создаете задачу не через &lt;link https://github.com/cpr1c/tools_ui_1c/issues>https://github.com&lt;/>, а через эту форму вы &lt;b>НЕ БУДЕТЕ&lt;/> &lt;b>получать оповещения&lt;/> о ее изменении</value>
+        </title>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <extendedTooltip>
+          <name>Декорация1РасширеннаяПодсказка</name>
+          <id>54</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <contextMenu>
+          <name>Декорация1КонтекстноеМеню</name>
+          <id>53</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <autoFill>true</autoFill>
+        </contextMenu>
+        <formatted>true</formatted>
+        <type>Label</type>
+        <autoMaxHeight>true</autoMaxHeight>
+        <horizontalStretch>true</horizontalStretch>
+        <font xsi:type="core:FontDef">
+          <height>18.0</height>
+        </font>
+        <extInfo xsi:type="form:LabelDecorationExtInfo"/>
+      </items>
       <items xsi:type="form:Button">
         <name>СоздатьНовуюЗадачу</name>
         <id>46</id>
