@@ -84,4 +84,5 @@
   <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
 </mdclass:Configuration>
