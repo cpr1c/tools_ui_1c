@@ -19,6 +19,15 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="107ebfc0-3d53-4088-ba5e-d4ce08b5bb51">
+    <name>ОбновлениеИнструментов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Обновление инструментов</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <commands uuid="3221fe43-c58b-4ba8-b2fa-556e4bb54d0b">
     <name>ВопросРазработчику</name>
     <synonym>
@@ -46,5 +55,14 @@
       <picture>CommonPicture.УИ_Репозиторий</picture>
     </picture>
     <shortcut></shortcut>
+  </commands>
+  <commands uuid="158df35e-cd25-431e-a84d-d13952262078">
+    <name>ПроверитьНеобходимостьОбновления</name>
+    <synonym>
+      <key>ru</key>
+      <value>Проверить необходимость обновления</value>
+    </synonym>
+    <group>NavigationPanelImportant</group>
+    <representation>Auto</representation>
   </commands>
 </mdclass:DataProcessor>
