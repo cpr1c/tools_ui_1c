@@ -169,12 +169,13 @@
       </userVisible>
       <autoFill>true</autoFill>
     </contextMenu>
-    <type>HTMLDocumentField</type>
+    <type>TextDocumentField</type>
+    <readOnly>true</readOnly>
     <editMode>Enter</editMode>
     <showInHeader>true</showInHeader>
     <headerHorizontalAlign>Left</headerHorizontalAlign>
     <showInFooter>true</showInFooter>
-    <extInfo xsi:type="form:HtmlFieldExtInfo">
+    <extInfo xsi:type="form:TextDocFieldExtInfo">
       <width>50</width>
       <autoMaxWidth>true</autoMaxWidth>
       <height>10</height>

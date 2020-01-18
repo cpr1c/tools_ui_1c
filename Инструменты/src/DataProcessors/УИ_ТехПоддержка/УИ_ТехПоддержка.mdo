@@ -62,7 +62,7 @@
       <key>ru</key>
       <value>Проверить необходимость обновления</value>
     </synonym>
-    <group>NavigationPanelImportant</group>
+    <group>NavigationPanelOrdinary</group>
     <representation>Auto</representation>
   </commands>
 </mdclass:DataProcessor>
