@@ -1,6 +1,6 @@
 # Универсальные инструменты 1С для управляемых форм
 
-[![Статус Порога Качества](https://sonar.cprit.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.cprit.ru/dashboard?id=tools_ui_1c) [![Join the chat at https://gitter.im/tools_ui_1c/community](https://badges.gitter.im/tools_ui_1c/community.svg)](https://gitter.im/tools_ui_1c/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) [![Join the chat at https://gitter.im/tools_ui_1c/community](https://badges.gitter.im/tools_ui_1c/community.svg)](https://gitter.im/tools_ui_1c/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Задумывается как аналог подсистемы http://devtool1c.ucoz.ru/, но который будет:
 - работать в тонком и веб клиенте
