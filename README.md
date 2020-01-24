@@ -1,12 +1,32 @@
 # Универсальные инструменты 1С для управляемых форм
 
-[![Статус Порога Качества](https://sonar.cprit.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.cprit.ru/dashboard?id=tools_ui_1c)
+[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) [![Join the chat at https://gitter.im/tools_ui_1c/community](https://badges.gitter.im/tools_ui_1c/community.svg)](https://gitter.im/tools_ui_1c/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+Группа в телеграмме https://t.me/tools_ui_1c
 
 Задумывается как аналог подсистемы http://devtool1c.ucoz.ru/, но который будет:
 - работать в тонком и веб клиенте
 - доступен только для управляемых форм
 - работать как в windows, так и в Linux
 
+### Поддерживаемые операционные системы
+* Windows x86
+* Windows x64
+* Linux x64
+* Linux x86
+В MacOS должно работать, но не тестировалось
+
+ 
+
+### Поддерживаемые клиентские приложения
+* Толстый клиент управляемое приложение
+* Тонкий клиент
+* Web клиент
+
+### Поддерживаемые режимы конфигурации
+Модуль разрабатывается, исходя из отключенной поддержки модальности и синхронных вызовов. Должно работать во всех современных и не очень конфигурациях
+
+### Поддерживаемые платформы
+8.3.12 и выше
 
 ### Планируется следующий набор инструментов
 
