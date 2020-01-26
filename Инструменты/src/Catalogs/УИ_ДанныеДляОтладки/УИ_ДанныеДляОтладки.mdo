@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a508b039-47d8-4a49-a8b5-0573c67fe8b4">
+<mdclass:Catalog xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a508b039-47d8-4a49-a8b5-0573c67fe8b4">
   <producedTypes>
     <objectType typeId="8d7abc23-fbf4-47a2-957d-a423e2494c44" valueTypeId="05a677cf-f7e5-47f7-aed3-9e0bc27ca811"/>
     <refType typeId="ac222438-4801-4afe-8ab8-6591a4ee74f3" valueTypeId="9e9f7add-f853-42ba-83b2-6ed6094e422b"/>
@@ -101,19 +101,4 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <commands uuid="fb73f310-1a18-413f-9445-f336ac67b107">
-    <name>Отладить</name>
-    <synonym>
-      <key>ru</key>
-      <value>Отладить</value>
-    </synonym>
-    <group>FormCommandBarImportant</group>
-    <commandParameterType>
-      <types>CatalogRef.УИ_ДанныеДляОтладки</types>
-    </commandParameterType>
-    <representation>PictureAndText</representation>
-    <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_Отладка</picture>
-    </picture>
-  </commands>
 </mdclass:Catalog>
