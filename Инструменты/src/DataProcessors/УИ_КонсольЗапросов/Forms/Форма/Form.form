@@ -4003,6 +4003,111 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ИспользоватьАвтосохранение</name>
+    <title>
+      <key>ru</key>
+      <value>Использовать автосохранение</value>
+    </title>
+    <id>17</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИнтервалАвтосохранения</name>
+    <title>
+      <key>ru</key>
+      <value>Интервал автосохранения</value>
+    </title>
+    <id>18</id>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИспользоватьБэкапЗапросов</name>
+    <title>
+      <key>ru</key>
+      <value>Использовать бэкап запросов</value>
+    </title>
+    <id>19</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИспользоватьТолькоВыделеннуюОбласть</name>
+    <title>
+      <key>ru</key>
+      <value>Использовать только выделенную область</value>
+    </title>
+    <id>20</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>РежимПодсветки</name>
+    <title>
+      <key>ru</key>
+      <value>Режим подсветки</value>
+    </title>
+    <id>21</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИспользоватьСжатиеФайлов</name>
+    <title>
+      <key>ru</key>
+      <value>Использовать сжатие файлов</value>
+    </title>
+    <id>22</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>КнопкаКонструкторЗапроса</name>
     <title>
