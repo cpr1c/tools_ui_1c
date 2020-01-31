@@ -1,7 +1,10 @@
 # Универсальные инструменты 1С для управляемых форм
 
-[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) [![Join the chat at https://gitter.im/tools_ui_1c/community](https://badges.gitter.im/tools_ui_1c/community.svg)](https://gitter.im/tools_ui_1c/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
-Группа в телеграмме https://t.me/tools_ui_1c
+[![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) 
+[![Join telegram chat](https://img.shields.io/badge/chat-telegram-blue?style=flat&logo=telegram)](https://t.me/tools_ui_1c) 
+![GitHub issues](https://img.shields.io/github/issues-raw/cpr1c/tools_ui_1c?style=for-the-badge)
+![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=for-the-badge)
+![Last release](https://img.shields.io/github/v/release/cpr1c/tools_ui_1c?include_prereleases&label=last%20release&style=for-the-badge)
 
 Задумывается как аналог подсистемы http://devtool1c.ucoz.ru/, но который будет:
 - работать в тонком и веб клиенте
