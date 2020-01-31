@@ -2,9 +2,9 @@
 
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) 
 [![Join telegram chat](https://img.shields.io/badge/chat-telegram-blue?style=flat&logo=telegram)](https://t.me/tools_ui_1c) 
-![GitHub issues](https://img.shields.io/github/issues-raw/cpr1c/tools_ui_1c?style=for-the-badge)
-![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=for-the-badge)
-![Last release](https://img.shields.io/github/v/release/cpr1c/tools_ui_1c?include_prereleases&label=last%20release&style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues-raw/cpr1c/tools_ui_1c?style=badge)
+![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)
+![Last release](https://img.shields.io/github/v/release/cpr1c/tools_ui_1c?include_prereleases&label=last%20release&style=badge)
 
 Задумывается как аналог подсистемы http://devtool1c.ucoz.ru/, но который будет:
 - работать в тонком и веб клиенте
