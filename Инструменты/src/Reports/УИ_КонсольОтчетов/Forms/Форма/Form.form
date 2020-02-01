@@ -983,6 +983,10 @@
             <event>OnChange</event>
             <name>ПриИзмененииНастроек</name>
           </handlers>
+          <handlers>
+            <event>DragEnd</event>
+            <name>НастройкиОкончаниеПеретаскивания</name>
+          </handlers>
           <searchStringAddition>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1182,6 +1186,10 @@
               <handlers>
                 <event>OnChange</event>
                 <name>ПриИзмененииНастроек</name>
+              </handlers>
+              <handlers>
+                <event>DragEnd</event>
+                <name>НастройкиОкончаниеПеретаскивания</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -1410,6 +1418,10 @@
               <handlers>
                 <event>OnChange</event>
                 <name>ПриИзмененииНастроек</name>
+              </handlers>
+              <handlers>
+                <event>DragEnd</event>
+                <name>НастройкиОкончаниеПеретаскивания</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -1643,6 +1655,10 @@
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1835,6 +1851,10 @@
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -2252,6 +2272,10 @@
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2444,6 +2468,10 @@
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -3234,6 +3262,10 @@
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -4027,6 +4059,10 @@
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4622,6 +4658,10 @@
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5216,6 +5256,10 @@
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -5815,6 +5859,10 @@
           <handlers>
             <event>OnChange</event>
             <name>ПриИзмененииНастроек</name>
+          </handlers>
+          <handlers>
+            <event>DragEnd</event>
+            <name>НастройкиОкончаниеПеретаскивания</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
