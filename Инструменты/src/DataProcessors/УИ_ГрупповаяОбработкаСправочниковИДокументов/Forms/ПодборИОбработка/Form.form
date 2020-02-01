@@ -954,6 +954,10 @@
           <horizontalAlign>Left</horizontalAlign>
           <autoFill>true</autoFill>
         </autoCommandBar>
+        <handlers>
+          <event>Selection</event>
+          <name>НайденныеОбъектыВыбор</name>
+        </handlers>
         <searchStringAddition>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2394,7 +2398,7 @@
       </title>
       <id>1</id>
       <valueType>
-        <types>AnyRef</types>
+        <types>Arbitrary</types>
       </valueType>
       <view>
         <common>true</common>
