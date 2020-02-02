@@ -68,6 +68,10 @@
   <commonModules>CommonModule.УИ_РаскрашиваниеКодаКлиентСервер</commonModules>
   <httpServices>HTTPService.УИ_ВыполненияАлгоритмов</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
+  <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
+  <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
+  <commonForms>CommonForm.УИ_ФормаРедактированияТекста</commonForms>
+  <commonForms>CommonForm.УИ_ФормаХранилищаЗначения</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.УИ_ДанныеДляОтладки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
