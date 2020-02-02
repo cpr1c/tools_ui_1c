@@ -4290,6 +4290,7 @@
     <name>ПередЗагрузкойДанныхИзНастроекНаСервере</name>
   </handlers>
   <saveDataInSettings>UseList</saveDataInSettings>
+  <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
   <autoFillCheck>true</autoFillCheck>
@@ -4581,21 +4582,6 @@
         <length>36</length>
       </stringQualifiers>
     </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>_ОписаниеРазработки</name>
-    <title>
-      <key>ru</key>
-      <value>Описание разработки</value>
-    </title>
-    <id>10</id>
-    <valueType/>
     <view>
       <common>true</common>
     </view>
