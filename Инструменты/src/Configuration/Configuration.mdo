@@ -65,6 +65,7 @@
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
   <commonModules>CommonModule.УИ_</commonModules>
+  <commonModules>CommonModule.УИ_РаскрашиваниеКодаКлиентСервер</commonModules>
   <httpServices>HTTPService.УИ_ВыполненияАлгоритмов</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
