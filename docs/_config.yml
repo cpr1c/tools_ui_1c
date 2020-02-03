@@ -1,8 +1,0 @@
-title: Универсальные инструменты 1С
-description: Свободно распространяемый набор универсальных обработок и отчетов в виде расширения для разработки и поддержки, которое работает во ВСЕХ видах клиентских приложений и во всех операционных системах, которые поддерживает платформа 1С:Предприятие, кроме мобильных.
-show_downloads: true
-google_analytics: UA-157603112-1
-theme: jekyll-theme-cayman
-github:
-  cfe_url: https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cfe
-  cf_url: https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cf
