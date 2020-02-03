@@ -7,7 +7,7 @@
   <name>УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</name>
   <synonym>
     <key>ru</key>
-    <value>Выгрузка и загрузка данных XML</value>
+    <value>Выгрузка и загрузка данных XML с фильтрами</value>
   </synonym>
   <comment> </comment>
   <useStandardCommands>true</useStandardCommands>
