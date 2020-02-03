@@ -2417,7 +2417,6 @@
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
         <extInfo xsi:type="form:RadioButtonsFieldExtInfo">
-          <radioButtonsType>RadioButtons</radioButtonsType>
           <choiceList>
             <presentation>
               <key>ru</key>
