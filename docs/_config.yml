@@ -3,3 +3,6 @@ description: Свободно распространяемый набор уни
 show_downloads: true
 google_analytics: UA-157603112-1
 theme: jekyll-theme-cayman
+github:
+  cfe_url: https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cfe
+  cf_url: https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cf
