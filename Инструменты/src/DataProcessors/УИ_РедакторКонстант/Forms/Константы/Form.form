@@ -70,6 +70,10 @@
       <dataPath xsi:type="form:DataPath">
         <segments>ПоказыватьСиноним</segments>
       </dataPath>
+      <handlers>
+        <event>OnChange</event>
+        <name>ПоказыватьСинонимПриИзменении</name>
+      </handlers>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка</name>
         <id>72</id>
