@@ -1856,6 +1856,10 @@
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
+                  </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2472,6 +2476,10 @@
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -3266,6 +3274,10 @@
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -4063,6 +4075,10 @@
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
+                  </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4661,6 +4677,10 @@
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
