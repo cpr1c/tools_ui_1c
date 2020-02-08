@@ -5,6 +5,50 @@
     <value>Удаление помеченных объектов</value>
   </title>
   <items xsi:type="form:FormGroup">
+    <name>ГруппаПараметрыЗаписи</name>
+    <id>138</id>
+    <visible>true</visible>
+    <enabled>true</enabled>
+    <userVisible>
+      <common>true</common>
+    </userVisible>
+    <title>
+      <key>ru</key>
+      <value>Параметры записи</value>
+    </title>
+    <extendedTooltip>
+      <name>Группа1РасширеннаяПодсказка</name>
+      <id>139</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <type>Label</type>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <extInfo xsi:type="form:LabelDecorationExtInfo">
+        <horizontalAlign>Left</horizontalAlign>
+      </extInfo>
+    </extendedTooltip>
+    <type>UsualGroup</type>
+    <extInfo xsi:type="form:UsualGroupExtInfo">
+      <group>HorizontalIfPossible</group>
+      <behavior>Collapsible</behavior>
+      <collapsedRepresentationTitle>
+        <key>ru</key>
+        <value>Параметры записи</value>
+      </collapsedRepresentationTitle>
+      <collapsed>true</collapsed>
+      <representation>WeakSeparation</representation>
+      <showLeftMargin>true</showLeftMargin>
+      <united>true</united>
+      <showTitle>true</showTitle>
+      <throughAlign>Auto</throughAlign>
+      <currentRowUse>DontUse</currentRowUse>
+    </extInfo>
+  </items>
+  <items xsi:type="form:FormGroup">
     <name>СтраницыФормы</name>
     <id>1</id>
     <items xsi:type="form:FormGroup">
@@ -1817,7 +1861,6 @@
   <excludedCommands>SaveValues</excludedCommands>
   <excludedCommands>Yes</excludedCommands>
   <width>60</width>
-  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
   <enabled>true</enabled>
@@ -1915,11 +1958,7 @@
       </title>
       <id>2</id>
       <valueType>
-        <types>String</types>
-        <types>AnyRef</types>
-        <stringQualifiers>
-          <length>200</length>
-        </stringQualifiers>
+        <types>Arbitrary</types>
       </valueType>
       <view>
         <common>true</common>
@@ -1992,12 +2031,7 @@
       </title>
       <id>2</id>
       <valueType>
-        <types>ValueList</types>
-        <types>String</types>
-        <types>AnyRef</types>
-        <stringQualifiers>
-          <length>200</length>
-        </stringQualifiers>
+        <types>Arbitrary</types>
       </valueType>
       <view>
         <common>true</common>
