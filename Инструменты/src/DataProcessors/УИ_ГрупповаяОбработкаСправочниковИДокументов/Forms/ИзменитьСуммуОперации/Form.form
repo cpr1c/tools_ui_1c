@@ -629,8 +629,7 @@
       </title>
       <id>1</id>
       <valueType>
-        <types>DocumentRef</types>
-        <types>CatalogRef</types>
+        <types>Arbitrary</types>
       </valueType>
       <view>
         <common>true</common>
@@ -776,11 +775,8 @@
         <types>String</types>
         <types>Date</types>
         <types>Number</types>
-        <types>DocumentRef</types>
-        <types>EnumRef</types>
-        <types>ChartOfCharacteristicTypesRef</types>
-        <types>ChartOfAccountsRef</types>
-        <types>CatalogRef</types>
+        <types>UUID</types>
+        <types>AnyRef</types>
         <numberQualifiers>
           <precision>10</precision>
         </numberQualifiers>
