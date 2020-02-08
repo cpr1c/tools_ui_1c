@@ -453,4 +453,22 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>DataProcessor.УИ_ПреобразованиеДанныхJSON</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_ПараметрыЗаписи</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
