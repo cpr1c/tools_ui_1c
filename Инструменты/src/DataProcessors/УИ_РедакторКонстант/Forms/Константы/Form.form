@@ -53,6 +53,10 @@
           <event>Clearing</event>
           <name>СтрокаПоискаОчистка</name>
         </handlers>
+        <handlers>
+          <event>Click</event>
+          <name>СтрокаПоискаНажатие</name>
+        </handlers>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
@@ -60,8 +64,6 @@
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>
-        <editTextUpdate>DontUse</editTextUpdate>
-        <autoCorrectionOnTextInput>DontUse</autoCorrectionOnTextInput>
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
