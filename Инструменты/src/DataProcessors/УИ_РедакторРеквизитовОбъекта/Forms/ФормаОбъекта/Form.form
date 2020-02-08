@@ -243,7 +243,6 @@
         <underline>true</underline>
         <strikeout>false</strikeout>
       </titleFont>
-      <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
@@ -341,7 +340,7 @@
     </userVisible>
     <title>
       <key>ru</key>
-      <value>Параметры записи объекта</value>
+      <value>Параметры записи</value>
     </title>
     <toolTip>
       <key>ru</key>
@@ -365,6 +364,12 @@
     <type>UsualGroup</type>
     <extInfo xsi:type="form:UsualGroupExtInfo">
       <group>AlwaysHorizontal</group>
+      <behavior>Collapsible</behavior>
+      <collapsedRepresentationTitle>
+        <key>ru</key>
+        <value>Параметры записи</value>
+      </collapsedRepresentationTitle>
+      <collapsed>true</collapsed>
       <controlRepresentation>Picture</controlRepresentation>
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
@@ -2660,7 +2665,6 @@
             <verticalStretch>true</verticalStretch>
           </extInfo>
         </items>
-        <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
@@ -4321,14 +4325,7 @@
     </title>
     <id>2</id>
     <valueType>
-      <types>ExchangePlanRef</types>
-      <types>BusinessProcessRef</types>
-      <types>DocumentRef</types>
-      <types>ChartOfCalculationTypesRef</types>
-      <types>TaskRef</types>
-      <types>ChartOfCharacteristicTypesRef</types>
-      <types>ChartOfAccountsRef</types>
-      <types>CatalogRef</types>
+      <types>Arbitrary</types>
     </valueType>
     <view>
       <common>true</common>
@@ -4336,9 +4333,6 @@
     <edit>
       <common>true</common>
     </edit>
-    <settingsSavedData xsi:type="form:DataPath">
-      <segments>мОбъектСсылка</segments>
-    </settingsSavedData>
   </attributes>
   <attributes>
     <name>_ЗаписьВРежимеЗагрузки</name>
