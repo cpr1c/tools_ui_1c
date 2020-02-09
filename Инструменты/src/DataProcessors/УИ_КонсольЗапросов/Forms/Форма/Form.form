@@ -8296,6 +8296,24 @@
       <segments>_ПоказыватьФайлЗапросовВЗаголовке</segments>
     </settingsSavedData>
   </attributes>
+  <attributes>
+    <name>АдресДанныхОтладки</name>
+    <title>
+      <key>ru</key>
+      <value>Адрес данных отладки</value>
+    </title>
+    <id>44</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>_СкрытьДеревоЗапросов</name>
     <title>
