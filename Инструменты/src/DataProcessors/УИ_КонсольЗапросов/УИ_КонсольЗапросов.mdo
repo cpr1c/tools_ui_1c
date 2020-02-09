@@ -9,10 +9,9 @@
     <key>ru</key>
     <value>Консоль запросов</value>
   </synonym>
-  <comment>Synoecium, ver 1.2.3</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</defaultForm>
-  <auxiliaryForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</auxiliaryForm>
+  <auxiliaryForm>DataProcessor.УИ_КонсольЗапросов.Form.ФормаСтарая</auxiliaryForm>
   <help>
     <pages>
       <lang>ru</lang>
@@ -66,11 +65,20 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <forms uuid="a6b57032-26f4-4d70-892d-2402741db968">
+  <forms uuid="fe79f2db-62cb-406e-8915-95aee6e1ea26">
     <name>Форма</name>
     <synonym>
       <key>ru</key>
       <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="a6b57032-26f4-4d70-892d-2402741db968">
+    <name>ФормаСтарая</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма старая</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

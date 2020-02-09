@@ -464,19 +464,5 @@
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
-  <commandInterface>
-    <navigationPanel/>
-    <commandBar>
-      <cmiFragmentRecord>
-        <command>Catalog.УИ_ДанныеДляОтладки.Command.Отладить</command>
-        <commandParameter xsi:type="form:DataPath">
-          <segments>Items.Список.CurrentData</segments>
-        </commandParameter>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-      </cmiFragmentRecord>
-    </commandBar>
-  </commandInterface>
   <extInfo xsi:type="form:DynamicListFormExtInfo"/>
 </form:Form>
