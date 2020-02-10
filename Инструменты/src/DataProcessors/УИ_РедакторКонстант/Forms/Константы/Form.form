@@ -53,7 +53,7 @@
           <event>Clearing</event>
           <name>СтрокаПоискаОчистка</name>
         </handlers>
-         <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
         <clearButton>true</clearButton>
