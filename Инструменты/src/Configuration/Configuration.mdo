@@ -94,4 +94,5 @@
   <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
 </mdclass:Configuration>
