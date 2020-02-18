@@ -99,4 +99,5 @@
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
 </mdclass:Configuration>
