@@ -68,5 +68,6 @@
   <content>CommonModule.УИ_</content>
   <content>CommonModule.УИ_РаскрашиваниеКодаКлиентСервер</content>
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
+  <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
   <subsystems>УИ_Поддержка</subsystems>
 </mdclass:Subsystem>

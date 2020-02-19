@@ -2009,8 +2009,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:DataPath">
-                    <segments>Items.ФрагментыПодСтрока.CurrentData.RowsCount</segments>
+                  <dataPath xsi:type="form:MultiLanguageDataPath">
+                    <paths xsi:type="form:DataPath">
+                      <segments>НомерПодстроки</segments>
+                    </paths>
                   </dataPath>
                   <extendedTooltip>
                     <name>ФрагментыПодСтрокаКоличествоСтрокРасширеннаяПодсказка</name>
@@ -2198,11 +2200,20 @@
                     </userVisible>
                     <autoFill>true</autoFill>
                   </contextMenu>
+                  <type>InputField</type>
                   <readOnly>true</readOnly>
                   <editMode>EnterOnInput</editMode>
                   <showInHeader>true</showInHeader>
                   <headerHorizontalAlign>Left</headerHorizontalAlign>
                   <showInFooter>true</showInFooter>
+                  <extInfo xsi:type="form:InputFieldExtInfo">
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <wrap>true</wrap>
+                    <chooseType>true</chooseType>
+                    <typeDomainEnabled>true</typeDomainEnabled>
+                    <textEdit>true</textEdit>
+                  </extInfo>
                 </items>
                 <autoCommandBar>
                   <name>ФрагментыПодСтрокаКоманднаяПанель</name>
