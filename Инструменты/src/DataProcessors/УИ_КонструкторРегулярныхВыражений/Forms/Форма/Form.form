@@ -2011,7 +2011,7 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>НомерПодстроки</segments>
+                      <segments>Items.Фрагменты.CurrentData.ПодСтрока.RowsCount</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -2174,6 +2174,11 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
+                  <dataPath xsi:type="form:MultiLanguageDataPath">
+                    <paths xsi:type="form:DataPath">
+                      <segments>Items.Фрагменты.CurrentData.ПодСтрока.Value</segments>
+                    </paths>
+                  </dataPath>
                   <titleLocation>Top</titleLocation>
                   <extendedTooltip>
                     <name>ФрагментыПодСтрокаЗначениеРасширеннаяПодсказка</name>
@@ -2200,19 +2205,15 @@
                     </userVisible>
                     <autoFill>true</autoFill>
                   </contextMenu>
-                  <type>InputField</type>
+                  <type>LabelField</type>
                   <readOnly>true</readOnly>
                   <editMode>EnterOnInput</editMode>
                   <showInHeader>true</showInHeader>
                   <headerHorizontalAlign>Left</headerHorizontalAlign>
                   <showInFooter>true</showInFooter>
-                  <extInfo xsi:type="form:InputFieldExtInfo">
+                  <extInfo xsi:type="form:LabelFieldExtInfo">
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
-                    <wrap>true</wrap>
-                    <chooseType>true</chooseType>
-                    <typeDomainEnabled>true</typeDomainEnabled>
-                    <textEdit>true</textEdit>
                   </extInfo>
                 </items>
                 <autoCommandBar>
