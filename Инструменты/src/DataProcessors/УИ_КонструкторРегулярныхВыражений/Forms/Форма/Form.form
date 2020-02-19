@@ -2011,7 +2011,7 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>Items.Фрагменты.CurrentData.ПодСтрока.RowsCount</segments>
+                      <segments>ПорядокСтрокой</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>

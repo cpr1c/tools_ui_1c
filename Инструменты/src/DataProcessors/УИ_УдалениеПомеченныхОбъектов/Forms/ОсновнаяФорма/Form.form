@@ -1957,9 +1957,7 @@
         <value>Значение</value>
       </title>
       <id>2</id>
-      <valueType>
-        <types>Arbitrary</types>
-      </valueType>
+      <valueType/>
       <view>
         <common>true</common>
       </view>
@@ -2030,9 +2028,7 @@
         <value>Значение</value>
       </title>
       <id>2</id>
-      <valueType>
-        <types>Arbitrary</types>
-      </valueType>
+      <valueType/>
       <view>
         <common>true</common>
       </view>

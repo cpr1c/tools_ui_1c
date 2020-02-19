@@ -628,9 +628,7 @@
         <value>Объект</value>
       </title>
       <id>1</id>
-      <valueType>
-        <types>Arbitrary</types>
-      </valueType>
+      <valueType/>
       <view>
         <common>true</common>
       </view>

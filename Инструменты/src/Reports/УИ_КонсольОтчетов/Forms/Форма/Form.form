@@ -980,12 +980,12 @@
             <name>СтруктураПриАктивизацииПоля</name>
           </handlers>
           <handlers>
-            <event>OnChange</event>
-            <name>ПриИзмененииНастроек</name>
-          </handlers>
-          <handlers>
             <event>DragEnd</event>
             <name>НастройкиОкончаниеПеретаскивания</name>
+          </handlers>
+          <handlers>
+            <event>OnChange</event>
+            <name>ПриИзмененииНастроек</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -1184,12 +1184,12 @@
                 <autoFill>true</autoFill>
               </autoCommandBar>
               <handlers>
-                <event>OnChange</event>
-                <name>ПриИзмененииНастроек</name>
-              </handlers>
-              <handlers>
                 <event>DragEnd</event>
                 <name>НастройкиОкончаниеПеретаскивания</name>
+              </handlers>
+              <handlers>
+                <event>OnChange</event>
+                <name>ПриИзмененииНастроек</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -1416,12 +1416,12 @@
                 <autoFill>true</autoFill>
               </autoCommandBar>
               <handlers>
-                <event>OnChange</event>
-                <name>ПриИзмененииНастроек</name>
-              </handlers>
-              <handlers>
                 <event>DragEnd</event>
                 <name>НастройкиОкончаниеПеретаскивания</name>
+              </handlers>
+              <handlers>
+                <event>OnChange</event>
+                <name>ПриИзмененииНастроек</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -1652,12 +1652,12 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
-                  </handlers>
-                  <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -1849,16 +1849,16 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <handlers>
-                    <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -2273,12 +2273,12 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
-                  </handlers>
-                  <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -2470,16 +2470,16 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <handlers>
-                    <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -3268,16 +3268,16 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <handlers>
-                    <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -4068,16 +4068,16 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <handlers>
-                    <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -4671,16 +4671,16 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
                   </handlers>
                   <handlers>
-                    <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -5274,12 +5274,12 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
-                  </handlers>
-                  <handlers>
                     <event>DragEnd</event>
                     <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
+                    <event>OnChange</event>
+                    <name>ПриИзмененииНастроек</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -5877,12 +5877,12 @@
             <autoFill>true</autoFill>
           </autoCommandBar>
           <handlers>
-            <event>OnChange</event>
-            <name>ПриИзмененииНастроек</name>
-          </handlers>
-          <handlers>
             <event>DragEnd</event>
             <name>НастройкиОкончаниеПеретаскивания</name>
+          </handlers>
+          <handlers>
+            <event>OnChange</event>
+            <name>ПриИзмененииНастроек</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
