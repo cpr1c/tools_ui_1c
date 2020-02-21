@@ -46,6 +46,7 @@
   <commonPictures>CommonPicture.УИ_ВопросРазработчику</commonPictures>
   <commonPictures>CommonPicture.УИ_Репозиторий</commonPictures>
   <commonPictures>CommonPicture.УИ_Отладка</commonPictures>
+  <commonPictures>CommonPicture.УИ_Вопрос32</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
