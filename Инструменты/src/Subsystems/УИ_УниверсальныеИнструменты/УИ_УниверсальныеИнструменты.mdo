@@ -70,5 +70,7 @@
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
   <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
   <content>DataProcessor.УИ_ФайловыйМенеджер</content>
+  <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
+  <content>DataProcessor.УИ_КонсольСравненияДанных</content>
   <subsystems>УИ_Поддержка</subsystems>
 </mdclass:Subsystem>

@@ -504,4 +504,26 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>DataProcessor.УИ_ИнформацияОЛицензиях1С</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_КонсольСравненияДанных</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
