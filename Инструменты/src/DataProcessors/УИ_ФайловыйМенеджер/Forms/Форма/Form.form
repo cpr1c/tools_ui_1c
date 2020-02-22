@@ -670,6 +670,10 @@
           <event>Selection</event>
           <name>ФайлыЛеваяПанельВыбор</name>
         </handlers>
+        <handlers>
+          <event>OnActivateRow</event>
+          <name>ФайлыЛеваяПанельПриАктивизацииСтроки</name>
+        </handlers>
         <searchStringAddition>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1529,6 +1533,10 @@
         <handlers>
           <event>Selection</event>
           <name>ФайлыПраваяПанельВыбор</name>
+        </handlers>
+        <handlers>
+          <event>OnActivateRow</event>
+          <name>ФайлыПраваяПанельПриАктивизацииСтроки</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -2988,6 +2996,24 @@
         <common>true</common>
       </edit>
     </columns>
+  </attributes>
+  <attributes>
+    <name>ТекущаяТаблицаФайлов</name>
+    <title>
+      <key>ru</key>
+      <value>Текущая таблица файлов</value>
+    </title>
+    <id>32</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
   </attributes>
   <formCommands>
     <name>ОбновитьКлиент</name>
