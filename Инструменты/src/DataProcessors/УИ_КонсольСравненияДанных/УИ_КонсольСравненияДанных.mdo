@@ -6,12 +6,12 @@
   </producedTypes>
   <name>УИ_КонсольСравненияДанных</name>
   <synonym>
-    <key>ru</key>
-    <value>Консоль сравнения данных 15.0.47</value>
-  </synonym>
-  <synonym>
     <key></key>
     <value>У и консоль сравнения данных</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Консоль сравнения данных</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольСравненияДанных.Form.ФормаУправляемая</defaultForm>
