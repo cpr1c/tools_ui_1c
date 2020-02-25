@@ -4,14 +4,14 @@
     <objectType typeId="c60ce11b-0b18-4b6f-8a2d-ac644149a9ad" valueTypeId="96639455-2d5e-4c38-83a5-4d9d1bb12a8b"/>
     <managerType typeId="691a8753-5fe0-428c-946c-932ec4c9392c" valueTypeId="c609ab52-0b81-4126-ab6f-10a39814cab3"/>
   </producedTypes>
-  <name>УИ_КонсольВебВервисов</name>
+  <name>УИ_КонсольВебСервисов</name>
   <synonym>
     <key>ru</key>
     <value>Консоль веб сервисов(WS)</value>
   </synonym>
   <comment>Автор Баданов Владимир Версия: 2.0.2.2</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_КонсольВебВервисов.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.УИ_КонсольВебСервисов.Form.Форма</defaultForm>
   <tabularSections uuid="ba73a99c-5825-4bc1-88ed-961e7db5c68a">
     <producedTypes>
       <objectType typeId="b85f515e-6dc4-431e-8a77-13cb44a9fe92" valueTypeId="cf2c5ad4-7adb-4809-887d-f09fac4b5e38"/>

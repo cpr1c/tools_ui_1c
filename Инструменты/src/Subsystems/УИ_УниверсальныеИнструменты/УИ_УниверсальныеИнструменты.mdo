@@ -72,6 +72,6 @@
   <content>DataProcessor.УИ_ФайловыйМенеджер</content>
   <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
-  <content>DataProcessor.УИ_КонсольВебВервисов</content>
+  <content>DataProcessor.УИ_КонсольВебСервисов</content>
   <subsystems>УИ_Поддержка</subsystems>
 </mdclass:Subsystem>

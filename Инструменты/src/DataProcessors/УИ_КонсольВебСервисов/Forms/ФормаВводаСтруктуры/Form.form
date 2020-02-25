@@ -345,7 +345,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_КонсольВебВервисов</types>
+      <types>DataProcessorObject.УИ_КонсольВебСервисов</types>
     </valueType>
     <view>
       <common>true</common>
