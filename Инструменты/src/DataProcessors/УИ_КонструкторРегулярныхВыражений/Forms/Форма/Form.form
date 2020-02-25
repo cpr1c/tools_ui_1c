@@ -52,56 +52,6 @@
         <horizontalAlign>Left</horizontalAlign>
       </extInfo>
     </items>
-    <items xsi:type="form:Decoration">
-      <name>СтатьяНаИнфоСтарт</name>
-      <id>521</id>
-      <title>
-        <key>ru</key>
-        <value>Статья на infostart.ru</value>
-      </title>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <extendedTooltip>
-        <name>СтатьяНаИнфоСтартРасширеннаяПодсказка</name>
-        <id>523</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>СтатьяНаИнфоСтартКонтекстноеМеню</name>
-        <id>522</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <horizontalStretch>true</horizontalStretch>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <handlers>
-          <event>Click</event>
-          <name>СтатьяНаИнфоСтартНажатие</name>
-        </handlers>
-        <hyperlink>true</hyperlink>
-        <horizontalAlign>Right</horizontalAlign>
-      </extInfo>
-    </items>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
