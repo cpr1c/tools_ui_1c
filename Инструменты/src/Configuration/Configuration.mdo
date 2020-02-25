@@ -108,4 +108,5 @@
   <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольВебВервисов</dataProcessors>
 </mdclass:Configuration>
