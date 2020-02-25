@@ -593,7 +593,6 @@
       <items xsi:type="form:Button">
         <name>СохранитьНастройкиВБазу</name>
         <id>353</id>
-        <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
@@ -693,7 +692,6 @@
     <items xsi:type="form:Button">
       <name>ОткрытьНастройкиИзБазы</name>
       <id>355</id>
-      <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
