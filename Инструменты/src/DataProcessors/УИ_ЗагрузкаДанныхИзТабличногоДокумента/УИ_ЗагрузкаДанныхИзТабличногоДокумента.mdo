@@ -12,6 +12,11 @@
   <comment>Переписываем обработку почти заново, но с большим заимствованием кода из стандартной обработки для толстого клиента</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента.Form.Форма</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
   <attributes uuid="105ab816-a28d-41ad-9af0-1bac32f234fe">
     <name>НеСоздаватьНовыхЭлементов</name>
     <synonym>
