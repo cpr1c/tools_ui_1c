@@ -23,7 +23,6 @@
   <content>Catalog.УИ_Алгоритмы</content>
   <content>DataProcessor.УИ_ПоискСсылокНаОбъект</content>
   <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
-  <content>Catalog.УИ_ДанныеДляОтладки</content>
   <content>Report.УИ_КонсольОтчетов</content>
   <content>DataProcessor.УИ_ДинамическийСписок</content>
   <content>DataProcessor.УИ_КонсольHTTPЗапросов</content>
@@ -75,4 +74,5 @@
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
   <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
   <subsystems>УИ_Поддержка</subsystems>
+  <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>

@@ -84,7 +84,6 @@
   <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
   <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
-  <catalogs>Catalog.УИ_ДанныеДляОтладки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
@@ -110,4 +109,5 @@
   <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
 </mdclass:Configuration>
