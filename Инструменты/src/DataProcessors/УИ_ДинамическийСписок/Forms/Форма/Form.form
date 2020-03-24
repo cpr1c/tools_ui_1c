@@ -286,7 +286,7 @@
         <id>30</id>
         <items xsi:type="form:Button">
           <name>Выбрать</name>
-          <id>137</id>
+          <id>141</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -294,7 +294,7 @@
           </userVisible>
           <extendedTooltip>
             <name>ВыбратьРасширеннаяПодсказка</name>
-            <id>138</id>
+            <id>142</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -877,6 +877,23 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>РедактироватьОбъект</name>
+    <title>
+      <key>ru</key>
+      <value>Редактировать объект</value>
+    </title>
+    <id>2</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>РедактироватьОбъект</name>
+      </handler>
+    </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
