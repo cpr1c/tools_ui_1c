@@ -7102,20 +7102,7 @@
         </title>
         <id>2</id>
         <valueType>
-          <types>ValueList</types>
-          <types>AccumulationRecordType</types>
-          <types>Boolean</types>
-          <types>AccountingRecordType</types>
-          <types>AccountType</types>
-          <types>String</types>
-          <types>Date</types>
-          <types>Number</types>
-          <types>AnyRef</types>
-          <numberQualifiers>
-            <precision>10</precision>
-          </numberQualifiers>
-          <stringQualifiers/>
-          <dateQualifiers/>
+          <types>Arbitrary</types>
         </valueType>
         <view>
           <common>true</common>
@@ -7792,20 +7779,7 @@
       </title>
       <id>2</id>
       <valueType>
-        <types>ValueList</types>
-        <types>AccumulationRecordType</types>
-        <types>Boolean</types>
-        <types>AccountingRecordType</types>
-        <types>AccountType</types>
-        <types>String</types>
-        <types>Date</types>
-        <types>Number</types>
-        <types>AnyRef</types>
-        <numberQualifiers>
-          <precision>10</precision>
-        </numberQualifiers>
-        <stringQualifiers/>
-        <dateQualifiers/>
+        <types>Arbitrary</types>
       </valueType>
       <view>
         <common>true</common>
@@ -7944,20 +7918,7 @@
       </title>
       <id>2</id>
       <valueType>
-        <types>ValueList</types>
-        <types>AccumulationRecordType</types>
-        <types>Boolean</types>
-        <types>AccountingRecordType</types>
-        <types>AccountType</types>
-        <types>String</types>
-        <types>Date</types>
-        <types>Number</types>
-        <types>AnyRef</types>
-        <numberQualifiers>
-          <precision>10</precision>
-        </numberQualifiers>
-        <stringQualifiers/>
-        <dateQualifiers/>
+        <types>Arbitrary</types>
       </valueType>
       <view>
         <common>true</common>
@@ -9175,7 +9136,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.CheckSyntax</picture>
+      <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>

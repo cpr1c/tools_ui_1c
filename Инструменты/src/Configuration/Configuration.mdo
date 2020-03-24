@@ -51,6 +51,7 @@
   <commonPictures>CommonPicture.УИ_Вопрос32</commonPictures>
   <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов48</commonPictures>
   <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов</commonPictures>
+  <commonPictures>CommonPicture.УИ_РедакторОбъектовБазыДанных</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
