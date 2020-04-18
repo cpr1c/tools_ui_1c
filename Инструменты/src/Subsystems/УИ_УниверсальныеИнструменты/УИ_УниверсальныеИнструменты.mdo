@@ -73,6 +73,7 @@
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
   <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
+  <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>

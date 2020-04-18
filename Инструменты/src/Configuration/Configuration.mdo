@@ -20,7 +20,7 @@
   <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
   <scriptVariant>Russian</scriptVariant>
   <vendor>ООО &quot;Центр прикладных разработок&quot;</vendor>
-  <version>1.4.5</version>
+  <version>1.4.6</version>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
@@ -76,7 +76,7 @@
   <commonModules>CommonModule.УИ_</commonModules>
   <commonModules>CommonModule.УИ_РаскрашиваниеКодаКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
-  <httpServices>HTTPService.УИ_ВыполненияАлгоритмов</httpServices>
+  <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
   <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
@@ -111,4 +111,5 @@
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
 </mdclass:Configuration>
