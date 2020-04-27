@@ -9,66 +9,14 @@
     <key>ru</key>
     <value>Консоль запросов</value>
   </synonym>
-  <comment>Synoecium, ver 1.2.3</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</defaultForm>
-  <auxiliaryForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</auxiliaryForm>
+  <auxiliaryForm>DataProcessor.УИ_КонсольЗапросов.Form.ФормаСтарая</auxiliaryForm>
   <help>
     <pages>
       <lang>ru</lang>
     </pages>
   </help>
-  <attributes uuid="e3b0a734-272a-48e8-9598-fb30cd775895">
-    <name>ИспользоватьАвтосохранение</name>
-    <synonym>
-      <key>ru</key>
-      <value>Использовать автосохранение</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
-  <attributes uuid="6c7ea592-632f-4a37-a61b-0c7059b2d996">
-    <name>ИнтервалАвтосохранения</name>
-    <synonym>
-      <key>ru</key>
-      <value>Интервал автосохранения (с)</value>
-    </synonym>
-    <type>
-      <types>Number</types>
-      <numberQualifiers>
-        <precision>10</precision>
-      </numberQualifiers>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
-  <attributes uuid="7d264b92-ed7f-4f6c-9647-de242a951806">
-    <name>ИспользоватьТолькоВыделеннуюОбласть</name>
-    <synonym>
-      <key>ru</key>
-      <value>Использовать только выделенную область</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
-  <attributes uuid="15c68112-fac9-4205-8c82-085b7ed9736f">
-    <name>ИспользоватьБэкапЗапросов</name>
-    <synonym>
-      <key>ru</key>
-      <value>Использовать бэкап запросов</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
   <attributes uuid="4c0b7f1b-c344-4d4b-976f-8e494ad33698">
     <name>ДеревоЗапросов</name>
     <synonym>
@@ -107,18 +55,6 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="62dbbc84-f385-4ca9-b930-1f8e6a112bbe">
-    <name>ИспользоватьСжатиеФайлов</name>
-    <synonym>
-      <key>ru</key>
-      <value>Использовать сжатие файлов</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
   <attributes uuid="627a06e6-74e5-4166-a723-d5ff1d654a4b">
     <name>НастройкиКонсоли</name>
     <synonym>
@@ -129,23 +65,20 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="b2d2c9d8-33b4-492c-8274-790b67fb9729">
-    <name>РежимПодсветки</name>
-    <synonym>
-      <key>ru</key>
-      <value>Режим подсветки</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
-  <forms uuid="a6b57032-26f4-4d70-892d-2402741db968">
+  <forms uuid="fe79f2db-62cb-406e-8915-95aee6e1ea26">
     <name>Форма</name>
     <synonym>
       <key>ru</key>
       <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="a6b57032-26f4-4d70-892d-2402741db968">
+    <name>ФормаСтарая</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма старая</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

@@ -10,12 +10,30 @@
     <value>Редактор реквизитов объекта базы данных</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_РедакторРеквизитовОбъекта.Form.Форма</defaultForm>
-  <forms uuid="a97a3594-6dd2-4e53-9432-df4d1c8f84f7">
-    <name>Форма</name>
+  <defaultForm>DataProcessor.УИ_РедакторРеквизитовОбъекта.Form.ФормаОбъекта</defaultForm>
+  <forms uuid="87ecb0de-09b8-43aa-9296-9c80a11b8fd2">
+    <name>ФормаОбъекта</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Форма объекта</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="c2ffffbe-3bb9-4265-84c1-9e0f2582f9c4">
+    <name>ФормаРедакторДвижений</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактор движений</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="eb722fa3-3e31-43f4-b5f9-234695bb00ba">
+    <name>ФормаРедакторДвиженийДоп</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактор движений доп</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

@@ -891,6 +891,7 @@
         <autoInsertNewRow>true</autoInsertNewRow>
         <searchOnInput>Auto</searchOnInput>
         <initialListView>Auto</initialListView>
+        <initialTreeView>ExpandAllLevels</initialTreeView>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <enableStartDrag>true</enableStartDrag>
@@ -977,6 +978,10 @@
           <handlers>
             <event>OnActivateField</event>
             <name>СтруктураПриАктивизацииПоля</name>
+          </handlers>
+          <handlers>
+            <event>DragEnd</event>
+            <name>НастройкиОкончаниеПеретаскивания</name>
           </handlers>
           <handlers>
             <event>OnChange</event>
@@ -1178,6 +1183,10 @@
                 <horizontalAlign>Left</horizontalAlign>
                 <autoFill>true</autoFill>
               </autoCommandBar>
+              <handlers>
+                <event>DragEnd</event>
+                <name>НастройкиОкончаниеПеретаскивания</name>
+              </handlers>
               <handlers>
                 <event>OnChange</event>
                 <name>ПриИзмененииНастроек</name>
@@ -1406,6 +1415,10 @@
                 <horizontalAlign>Left</horizontalAlign>
                 <autoFill>true</autoFill>
               </autoCommandBar>
+              <handlers>
+                <event>DragEnd</event>
+                <name>НастройкиОкончаниеПеретаскивания</name>
+              </handlers>
               <handlers>
                 <event>OnChange</event>
                 <name>ПриИзмененииНастроек</name>
@@ -1639,6 +1652,10 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
@@ -1831,6 +1848,14 @@
                     <horizontalAlign>Left</horizontalAlign>
                     <autoFill>true</autoFill>
                   </autoCommandBar>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
@@ -2248,6 +2273,10 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
@@ -2440,6 +2469,14 @@
                     <horizontalAlign>Left</horizontalAlign>
                     <autoFill>true</autoFill>
                   </autoCommandBar>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
@@ -3230,6 +3267,14 @@
                     <horizontalAlign>Left</horizontalAlign>
                     <autoFill>true</autoFill>
                   </autoCommandBar>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
@@ -4023,6 +4068,14 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
@@ -4618,6 +4671,14 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
+                    <event>Drag</event>
+                    <name>НастройкиПеретаскивание</name>
+                  </handlers>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
+                  <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
                   </handlers>
@@ -5212,6 +5273,10 @@
                     <horizontalAlign>Left</horizontalAlign>
                     <autoFill>true</autoFill>
                   </autoCommandBar>
+                  <handlers>
+                    <event>DragEnd</event>
+                    <name>НастройкиОкончаниеПеретаскивания</name>
+                  </handlers>
                   <handlers>
                     <event>OnChange</event>
                     <name>ПриИзмененииНастроек</name>
@@ -5811,6 +5876,10 @@
             <horizontalAlign>Left</horizontalAlign>
             <autoFill>true</autoFill>
           </autoCommandBar>
+          <handlers>
+            <event>DragEnd</event>
+            <name>НастройкиОкончаниеПеретаскивания</name>
+          </handlers>
           <handlers>
             <event>OnChange</event>
             <name>ПриИзмененииНастроек</name>
@@ -13638,7 +13707,7 @@
         <name>ДобавитьСхемуКомпоновкиДанных</name>
       </handler>
     </action>
-    <representation>TextPicture</representation>
+    <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>

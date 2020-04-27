@@ -19,7 +19,7 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-    <forms uuid="107ebfc0-3d53-4088-ba5e-d4ce08b5bb51">
+  <forms uuid="107ebfc0-3d53-4088-ba5e-d4ce08b5bb51">
     <name>ОбновлениеИнструментов</name>
     <synonym>
       <key>ru</key>
@@ -56,7 +56,7 @@
     </picture>
     <shortcut></shortcut>
   </commands>
-    <commands uuid="158df35e-cd25-431e-a84d-d13952262078">
+  <commands uuid="158df35e-cd25-431e-a84d-d13952262078">
     <name>ПроверитьНеобходимостьОбновления</name>
     <synonym>
       <key>ru</key>

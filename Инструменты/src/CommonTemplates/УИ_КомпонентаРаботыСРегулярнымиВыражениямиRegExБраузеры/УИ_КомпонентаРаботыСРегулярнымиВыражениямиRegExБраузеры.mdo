@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonTemplate xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="b60f3e54-4c86-45a2-b78a-5dca9b651249">
+  <name>УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</name>
+  <templateType>AddIn</templateType>
+</mdclass:CommonTemplate>

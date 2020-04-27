@@ -23,9 +23,57 @@
   <content>Catalog.УИ_Алгоритмы</content>
   <content>DataProcessor.УИ_ПоискСсылокНаОбъект</content>
   <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
-  <content>Catalog.УИ_ДанныеДляОтладки</content>
   <content>Report.УИ_КонсольОтчетов</content>
   <content>DataProcessor.УИ_ДинамическийСписок</content>
   <content>DataProcessor.УИ_КонсольHTTPЗапросов</content>
+  <content>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</content>
+  <content>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</content>
+  <content>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</content>
+  <content>CommonPicture.УИ_СостоянияПланаОбмена</content>
+  <content>CommonPicture.УИ_ВидыОбъектовМетаданных</content>
+  <content>CommonPicture.УИ_Информация32</content>
+  <content>CommonPicture.УИ_РезультатЗапроса</content>
+  <content>CommonPicture.УИ_РезультатВыгрузки</content>
+  <content>CommonPicture.УИ_СостоянияАвторегистрации</content>
+  <content>CommonPicture.УИ_Семафор</content>
+  <content>CommonPicture.УИ_ВопросРазработчику</content>
+  <content>CommonPicture.УИ_Репозиторий</content>
+  <content>CommonPicture.УИ_Отладка</content>
+  <content>CommonTemplate.УИ_КомпонентаПоискаСтрок</content>
+  <content>CommonForm.УИ_ДлительнаяОперация</content>
+  <content>CommonForm.УИ_ФормаТаблицыЗначений</content>
+  <content>CommonForm.УИ_ФормаСпецЗначения</content>
+  <content>CommonForm.УИ_ФормаРедактированияТекста</content>
+  <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
+  <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
+  <content>Role.УИ_УниверсальныеИнструменты</content>
+  <content>CommonModule.УИ_РаботаСФормами</content>
+  <content>CommonModule.УИ_ДлительныеОперацииВызовСервера</content>
+  <content>CommonModule.УИ_ДлительныеОперацииГлобальный</content>
+  <content>CommonModule.УИ_ДлительныеОперацииКлиент</content>
+  <content>CommonModule.УИ_ДлительныеОперации</content>
+  <content>CommonModule.УИ_РегламентныеЗаданияСлужебный</content>
+  <content>CommonModule.УИ_РегламентныеЗаданияСервер</content>
+  <content>CommonModule.УИ_ОбщегоНазначенияПовтИсп</content>
+  <content>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</content>
+  <content>CommonModule.УИ_ОбщегоНазначенияВызовСервера</content>
+  <content>CommonModule.УИ_ОбщегоНазначения</content>
+  <content>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</content>
+  <content>CommonModule.УИ_Пользователи</content>
+  <content>CommonModule.УИ_СтроковыеФункцииКлиентСервер</content>
+  <content>CommonModule.УИ_ОбщегоНазначенияКлиент</content>
+  <content>CommonModule.УИ_АлгоритмыКлиентСервер</content>
+  <content>CommonModule.УИ_КоннекторHTTP</content>
+  <content>CommonModule.УИ_</content>
+  <content>CommonModule.УИ_РаскрашиваниеКодаКлиентСервер</content>
+  <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
+  <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
+  <content>DataProcessor.УИ_ФайловыйМенеджер</content>
+  <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
+  <content>DataProcessor.УИ_КонсольСравненияДанных</content>
+  <content>DataProcessor.УИ_КонсольВебСервисов</content>
+  <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
+  <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
   <subsystems>УИ_Поддержка</subsystems>
+  <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>

@@ -454,10 +454,7 @@
         <value>Объект</value>
       </title>
       <id>1</id>
-      <valueType>
-        <types>DocumentRef</types>
-        <types>CatalogRef</types>
-      </valueType>
+      <valueType/>
       <view>
         <common>true</common>
       </view>
