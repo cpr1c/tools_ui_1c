@@ -112,4 +112,5 @@
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
 </mdclass:Configuration>

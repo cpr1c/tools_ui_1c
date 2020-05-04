@@ -74,6 +74,7 @@
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
   <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
   <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
+  <content>DataProcessor.УИ_РедакторJSON</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>
