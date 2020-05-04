@@ -2168,6 +2168,37 @@
                 </choiceList>
               </extInfo>
             </items>
+            <items xsi:type="form:Button">
+              <name>РедактироватьТелоЗапросаВРедактореJSON</name>
+              <id>275</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>РедактироватьТелоЗапросаВРедактореJSONРасширеннаяПодсказка</name>
+                <id>276</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <type>UsualButton</type>
+              <commandName>Form.Command.РедактироватьТелоЗапросаВРедактореJSON</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
             <items xsi:type="form:FormGroup">
               <name>ГруппаСвойстваСтроковогоТелаЗапроса</name>
               <id>179</id>
@@ -3544,20 +3575,98 @@
             <items xsi:type="form:FormGroup">
               <name>ГруппаИсторияЗапросовТелоЗапроса</name>
               <id>185</id>
-              <items xsi:type="form:FormField">
-                <name>ИсторияЗапросовВидТелаЗапроса</name>
-                <id>199</id>
+              <items xsi:type="form:FormGroup">
+                <name>ГруппаИсторияЗапросовТелоЗапросаЗаголовок</name>
+                <id>279</id>
+                <items xsi:type="form:FormField">
+                  <name>ИсторияЗапросовВидТелаЗапроса</name>
+                  <id>199</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ВидТелаЗапроса</segments>
+                  </dataPath>
+                  <extendedTooltip>
+                    <name>ПолеРасширеннаяПодсказка30</name>
+                    <id>201</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <type>Label</type>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <extInfo xsi:type="form:LabelDecorationExtInfo">
+                      <horizontalAlign>Left</horizontalAlign>
+                    </extInfo>
+                  </extendedTooltip>
+                  <contextMenu>
+                    <name>ПолеКонтекстноеМеню30</name>
+                    <id>200</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <autoFill>true</autoFill>
+                  </contextMenu>
+                  <type>InputField</type>
+                  <editMode>Enter</editMode>
+                  <showInHeader>true</showInHeader>
+                  <headerHorizontalAlign>Left</headerHorizontalAlign>
+                  <showInFooter>true</showInFooter>
+                  <extInfo xsi:type="form:InputFieldExtInfo">
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <wrap>true</wrap>
+                    <chooseType>true</chooseType>
+                    <typeDomainEnabled>true</typeDomainEnabled>
+                    <textEdit>true</textEdit>
+                  </extInfo>
+                </items>
+                <items xsi:type="form:Button">
+                  <name>РедактироватьТелоЗапросаВРедактореJSONАнализируемогоЗапроса</name>
+                  <id>277</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <extendedTooltip>
+                    <name>РедактироватьТелоЗапросаВРедактореJSONАнализируемогоЗапросаРасширеннаяПодсказка</name>
+                    <id>278</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <type>Label</type>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <extInfo xsi:type="form:LabelDecorationExtInfo">
+                      <horizontalAlign>Left</horizontalAlign>
+                    </extInfo>
+                  </extendedTooltip>
+                  <type>UsualButton</type>
+                  <commandName>Form.Command.РедактироватьТелоЗапросаВРедактореJSONАнализируемогоЗапроса</commandName>
+                  <representation>Auto</representation>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <placementArea>UserCmds</placementArea>
+                  <representationInContextMenu>Auto</representationInContextMenu>
+                </items>
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:DataPath">
-                  <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ВидТелаЗапроса</segments>
-                </dataPath>
                 <extendedTooltip>
-                  <name>ПолеРасширеннаяПодсказка30</name>
-                  <id>201</id>
+                  <name>ГруппаИсторияЗапросовТелоЗапросаЗаголовокРасширеннаяПодсказка</name>
+                  <id>280</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -3570,28 +3679,13 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <contextMenu>
-                  <name>ПолеКонтекстноеМеню30</name>
-                  <id>200</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <autoFill>true</autoFill>
-                </contextMenu>
-                <type>InputField</type>
-                <editMode>Enter</editMode>
-                <showInHeader>true</showInHeader>
-                <headerHorizontalAlign>Left</headerHorizontalAlign>
-                <showInFooter>true</showInFooter>
-                <extInfo xsi:type="form:InputFieldExtInfo">
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <wrap>true</wrap>
-                  <chooseType>true</chooseType>
-                  <typeDomainEnabled>true</typeDomainEnabled>
-                  <textEdit>true</textEdit>
+                <type>UsualGroup</type>
+                <extInfo xsi:type="form:UsualGroupExtInfo">
+                  <group>AlwaysHorizontal</group>
+                  <showLeftMargin>true</showLeftMargin>
+                  <united>true</united>
+                  <throughAlign>Auto</throughAlign>
+                  <currentRowUse>DontUse</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -4097,6 +4191,37 @@
                 <items xsi:type="form:FormGroup">
                   <name>ГруппаИсторияЗапросовТелоОтветаСтраницаСтрокой</name>
                   <id>206</id>
+                  <items xsi:type="form:Button">
+                    <name>РедактироватьТелоОтветаВРедактореJSONАнализируемогоЗапроса</name>
+                    <id>281</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>РедактироватьТелоОтветаВРедактореJSONАнализируемогоЗапросаРасширеннаяПодсказка</name>
+                      <id>282</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <type>UsualButton</type>
+                    <commandName>Form.Command.РедактироватьТелоОтветаВРедактореJSONАнализируемогоЗапроса</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
                   <items xsi:type="form:FormField">
                     <name>ИсторияЗапросовТелоОтвета</name>
                     <id>119</id>
@@ -5710,6 +5835,69 @@
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>РедактироватьТелоЗапросаВРедактореJSON</name>
+    <title>
+      <key>ru</key>
+      <value>Редактировать тело запроса в редакторе JSON</value>
+    </title>
+    <id>9</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_JSON</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>РедактироватьТелоЗапросаВРедактореJSON</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>РедактироватьТелоЗапросаВРедактореJSONАнализируемогоЗапроса</name>
+    <title>
+      <key>ru</key>
+      <value>Редактировать тело запроса в редакторе JSONАнализируемого запроса</value>
+    </title>
+    <id>10</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_JSON</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>РедактироватьТелоЗапросаВРедактореJSONАнализируемогоЗапроса</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>РедактироватьТелоОтветаВРедактореJSONАнализируемогоЗапроса</name>
+    <title>
+      <key>ru</key>
+      <value>Редактировать тело ответа в редакторе JSONАнализируемого запроса</value>
+    </title>
+    <id>11</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_JSON</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>РедактироватьТелоОтветаВРедактореJSONАнализируемогоЗапроса</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>
