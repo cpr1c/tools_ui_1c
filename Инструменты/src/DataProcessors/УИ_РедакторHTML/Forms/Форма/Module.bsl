@@ -1,3 +1,5 @@
+#Область СобытияФормы
+
 &НаСервере
 Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
 	РедакторJS=ТекстРедактораПоляРедактора("javascript");
@@ -6,6 +8,10 @@
 	РедакторРезультирующегоHTML=ТекстРедактораПоляРедактора("html");
 
 КонецПроцедуры
+
+#КонецОбласти
+
+#Область СобытияКомандФормы
 
 &НаКлиенте
 Процедура ОбновитьРезультирующийHTML(Команда)
@@ -22,11 +28,11 @@
 			Файл=Новый Файл(СтрокаБиблиотеки.Путь);
 			Если НРег(Файл.Расширение) = ".css" Тогда
 				HTML=HTML + "
-							|<link rel=""stylesheet"" href=""" + СтрокаБиблиотеки.Путь + """"
+							|<link rel=""stylesheet"" href=""" + СтрокаБиблиотеки.Путь + """ "
 					+ СтрокаБиблиотеки.ДополнительныеПараметры + " >";
 			Иначе
 				HTML=HTML + "
-							|<script src=""" + СтрокаБиблиотеки.Путь + """ type=""text/javascript"" charset=""utf-8"""
+							|<script src=""" + СтрокаБиблиотеки.Путь + """ type=""text/javascript"" charset=""utf-8"" "
 					+ СтрокаБиблиотеки.ДополнительныеПараметры + "></script>";
 			КонецЕсли;
 		КонецЦикла;
@@ -65,6 +71,51 @@
 	КонецЕсли;
 
 КонецПроцедуры
+
+&НаКлиенте
+Процедура ТиповаяБиблиотекаBootstrap4(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://stackpath.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css", "integrity=""sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"" crossorigin=""anonymous""");
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://code.jquery.com/jquery-latest.min.js", "integrity=""sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"" crossorigin=""anonymous""");
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://cdn.jsdelivr.net/npm/popper.js/dist/umd/popper.min.js", "integrity=""sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"" crossorigin=""anonymous""");
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://stackpath.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js", "integrity=""sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"" crossorigin=""anonymous""");
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ТиповаяБиблиотекаJQuery(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://code.jquery.com/jquery-latest.min.js", "integrity=""sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"" crossorigin=""anonymous""");
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ТиповаяБиблиотекаFontAwesome(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://stackpath.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css", "");
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ТиповаяБиблиотекаPoperJS(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://unpkg.com/@popperjs/core@2", "");
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ТиповаяБиблиотекаResetCSS(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://unpkg.com/reset-css/reset.css", "");
+КонецПроцедуры
+
+
+&НаКлиенте
+Процедура ТиповаяБиблиотекаAnimateCSS(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://cdn.jsdelivr.net/npm/animate.css/animate.min.css", "");
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ТиповаяБиблиотекаSocketIO(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://cdn.jsdelivr.net/npm/socket.io-client/dist/socket.io.js", "");
+КонецПроцедуры
+
+
+#КонецОбласти
+
+#Область СлужебныеПроцедурыИФункции
+
 &НаСервере
 Функция ТекстРедактораПоляРедактора(Язык)
 	Текст=
@@ -134,3 +185,13 @@
 	СтруктураДокументаДОМ.editor.setValue(ТекстУстановки, -1);
 
 КонецПроцедуры
+
+&НаКлиенте
+Процедура ДобавитьЗаписьВПодключаемыеБибилиотеки(Путь,ДополнительныеПараметры)
+	НС=ПодключаемыеБиблиотеки.Добавить();
+	НС.Путь=Путь;
+	НС.ДополнительныеПараметры=ДополнительныеПараметры;
+КонецПроцедуры
+
+#КонецОбласти
+
