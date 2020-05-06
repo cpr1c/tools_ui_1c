@@ -76,6 +76,7 @@
   <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
   <content>DataProcessor.УИ_РедакторJSON</content>
   <content>DataProcessor.УИ_РедакторHTML</content>
+  <content>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>

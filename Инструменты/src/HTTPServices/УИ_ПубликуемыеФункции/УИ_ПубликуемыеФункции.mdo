@@ -33,4 +33,29 @@
       <handler>_37583_ALG_POST</handler>
     </methods>
   </urlTemplates>
+  <urlTemplates uuid="2163bb09-decc-4b68-8103-29af05c61bc4">
+    <name>ПередачаДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Передача данных</value>
+    </synonym>
+    <template>/exchange</template>
+    <methods uuid="ffd420fd-2e82-4326-a78b-418842f55629">
+      <name>Ping</name>
+      <synonym>
+        <key>ru</key>
+        <value>Ping</value>
+      </synonym>
+      <handler>ПередачаДанныхPing</handler>
+    </methods>
+    <methods uuid="5336b6b4-e985-4288-b1a4-c25e6d16e190">
+      <name>SendFileAndUpload</name>
+      <synonym>
+        <key>ru</key>
+        <value>Send file and upload</value>
+      </synonym>
+      <httpMethod>POST</httpMethod>
+      <handler>ПередачаДанныхSendFileAndUpload</handler>
+    </methods>
+  </urlTemplates>
 </mdclass:HTTPService>
