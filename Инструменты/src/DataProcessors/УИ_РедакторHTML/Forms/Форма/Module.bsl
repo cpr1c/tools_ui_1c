@@ -9,6 +9,12 @@
 
 КонецПроцедуры
 
+
+&НаКлиенте
+Процедура ПередЗакрытием(Отказ, ЗавершениеРаботы, ТекстПредупреждения, СтандартнаяОбработка)
+	ТекстПредупреждения="Точно выйти?";
+КонецПроцедуры
+
 #КонецОбласти
 
 #Область СобытияКомандФормы
@@ -118,72 +124,17 @@
 
 &НаСервере
 Функция ТекстРедактораПоляРедактора(Язык)
-	Текст=
-	"<!DOCTYPE html>
-	|<html lang=""ru"">
-	|<head>
-	|<title>ACE in Action</title>
-	|<style type=""text/css"" media=""screen"">
-	|    #editor { 
-	|        position: absolute;
-	|        top: 0;
-	|        right: 0;
-	|        bottom: 0;
-	|        left: 0;
-	|    }
-	|</style>
-	|</head>
-	|<body>
-	|
-	|<div id=""editor""></div>
-	|    
-	|<script src=""https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.js"" type=""text/javascript"" charset=""utf-8""></script>
-	|<script src=""https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ext-language_tools.js"" type=""text/javascript"" charset=""utf-8""></script>
-	|<script>
-	|
-	|    // trigger extension
-	|    ace.require(""ace/ext/language_tools"");
-	|    var editor = ace.edit(""editor"");
-	|    editor.session.setMode(""ace/mode/###ЯЗЫК###"");
-	|    editor.setTheme(""ace/theme/eclipse"");
-	|    // enable autocompletion and snippets
-	|    editor.setOptions({
-	|        selectionStyle: 'line',
-	|        highlightSelectedWord: true,
-	|        showLineNumbers: true,
-	|        enableBasicAutocompletion: true,
-	|        enableSnippets: true,
-	|        enableLiveAutocompletion: true
-	|    });
-	|</script>
-	|
-	|</body>
-	|</html>";
-	Возврат СтрЗаменить(Текст, "###ЯЗЫК###", Язык);
+	Возврат УИ_РедакторКодаКлиентСервер.ТекстHTMLРедактораКода(Язык);
 КонецФункции
 
 &НаКлиенте
 Функция ТекстРедактораЭлемента(ЭлементПоляРедактора)
-	ДокументHTML=ЭлементПоляРедактора.Документ;
-	Если ДокументHTML.parentWindow = Неопределено Тогда
-		СтруктураДокументаДОМ = ДокументHTML.defaultView;
-	Иначе
-		СтруктураДокументаДОМ = ДокументHTML.parentWindow;
-	КонецЕсли;
-	Возврат СокрЛП(СтруктураДокументаДОМ.editor.getValue());
-
+	Возврат УИ_РедакторКодаКлиентСервер.ТекстРедактораИзПоляРедактора(ЭлементПоляРедактора);
 КонецФункции
 
 &НаКлиенте
 Процедура УстановитьТекстРедактораЭлемента(ЭлементПоляРедактора, ТекстУстановки)
-	ДокументHTML=ЭлементПоляРедактора.Документ;
-	Если ДокументHTML.parentWindow = Неопределено Тогда
-		СтруктураДокументаДОМ = ДокументHTML.defaultView;
-	Иначе
-		СтруктураДокументаДОМ = ДокументHTML.parentWindow;
-	КонецЕсли;
-	СтруктураДокументаДОМ.editor.setValue(ТекстУстановки, -1);
-
+	УИ_РедакторКодаКлиентСервер.УстановитьТекстРедактораЭлемента(ЭлементПоляРедактора, ТекстУстановки);
 КонецПроцедуры
 
 &НаКлиенте
@@ -192,6 +143,7 @@
 	НС.Путь=Путь;
 	НС.ДополнительныеПараметры=ДополнительныеПараметры;
 КонецПроцедуры
+
 
 #КонецОбласти
 
