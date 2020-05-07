@@ -1236,6 +1236,27 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
+  <attributes uuid="20d6db13-9df6-41c1-9342-6f8724e4d7ae">
+    <name>УИ_АдресПубликацииПриемника</name>
+    <synonym>
+      <key>ru</key>
+      <value>Адрес публикации приемника</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+  </attributes>
+  <attributes uuid="4ffcfb35-70c9-4264-b7d0-efa02700eaf4">
+    <name>УИ_ВыгрузкаЧерезВебСервис</name>
+    <synonym>
+      <key>ru</key>
+      <value>Выгрузка через веб сервис</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+  </attributes>
   <forms uuid="6192831e-8f8a-11ea-4a9c-e86a6452d1f2">
     <name>УправляемаяФорма</name>
     <synonym>
