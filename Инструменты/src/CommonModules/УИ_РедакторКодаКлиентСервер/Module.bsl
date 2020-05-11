@@ -32,12 +32,16 @@
 	|
 	|<div id=""editor""></div>
 	|    
-	|<script src=""http://ajaxorg.github.io/ace-builds/src/ace.js"" type=""text/javascript"" charset=""utf-8""></script>
-	|<script src=""http://ajaxorg.github.io/ace-builds/src/ext-language_tools.js"" type=""text/javascript"" charset=""utf-8""></script>";
+	|<script src=""http://ajaxorg.github.io/ace-builds/src-noconflict/ace.js"" type=""text/javascript"" charset=""utf-8""></script>
+	|<script src=""http://ajaxorg.github.io/ace-builds/src-noconflict/ext-language_tools.js"" type=""text/javascript"" charset=""utf-8""></script>";
+//	|<script src=""http://ajaxorg.github.io/ace-builds/src/ext-language_tools.js"" type=""text/javascript"" charset=""utf-8""></script>";
 	Если ТекстМода1С<>Неопределено Тогда
 		ТекстHTML=ТекстHTML+"
 		|<script>
 		| "+ТекстМода1С+"
+		|</script>
+		|<script>
+		| "+ПолучитьОбщийМакет("УИ_AceThemeOnes").ПолучитьТекст()+"
 		|</script>";
 	КонецЕсли;
 	ТекстHTML=ТекстHTML+"
@@ -46,7 +50,7 @@
 	|    ace.require(""ace/ext/language_tools"");
 	|    var editor = ace.edit(""editor"");
 	|    editor.session.setMode(""ace/mode/"+ТекЯзык+""");
-	|  //  editor.setTheme(""ace/theme/eclipse"");
+	|    editor.setTheme(""ace/theme/ones"");
 	|    // enable autocompletion and snippets
 	|    editor.setOptions({
 	|        selectionStyle: 'line',

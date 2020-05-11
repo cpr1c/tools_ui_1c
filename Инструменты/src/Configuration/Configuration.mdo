@@ -59,6 +59,7 @@
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_AceMode1c</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_AceThemeOnes</commonTemplates>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>

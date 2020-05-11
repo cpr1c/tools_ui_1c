@@ -8,7 +8,7 @@ ace.define("ace/mode/_1c_highlight_rules",["require","exports","module","ace/lib
 
         var keywords = (
             "Процедура|Функция|КонецПроцедуры|КонецФункции|Для|Пока|По|Цикл|КонецЦикла|Если|Тогда|Иначе|ИначеЕсли|КонецЕсли|Попытка|Исключение|КонецПопытки|Каждого|" +
-            "Перем|Знач|И|Или|Не|Новый|Прервать|Продолжить|Возврат|Экспорт|Массив|Структура|Соответствие|ВызватьИсключение" +
+            "Перем|Знач|И|Или|Не|Новый|Прервать|Продолжить|Возврат|Экспорт|Перейти|ВызватьИсключение" +
             "procedure|function|endprocedure|endfunction|for|while|to|do|enddo|if|then|else|elseif|endif|try|catch|endtry|each|" +
             "var|val|and|or|not|new|break|continue|return|export|array|structure|map|rise"
         );
@@ -73,22 +73,33 @@ ace.define("ace/mode/_1c_highlight_rules",["require","exports","module","ace/lib
             "variable.language": variableLanguage
         }, "identifier");
 
+
         this.$rules = {
             "start" : [ {
                 token : "comment",
                 regex : "\/\/.*"
             },
             {
+                token: "preprocessor.region",
+                regex: "(^[ \t]*#(?:Область|КонецОбласти).*$)"
+            },
+            {
+                token: "preprocessor.anotation",
+                regex: "(^[ \t]*&.*$)"
+            },
+            {
+                token: "preprocessor.instruction",
+                regex: /#(?:Если|If|ИначеЕсли|ElsIf|Иначе|Else|КонецЕсли|EndIf).*(?:Тогда|Then)?/,
+                caseInsensitive: true
+            },
+            {
                 token: keywordMapper,
-                regex: "[_A-Za-zА-ЯЁа-яё][_A-Za-z0-9А-ЯЁа-яё]*"
+                regex: "[_A-Za-zА-ЯЁа-яё][_A-Za-z0-9А-ЯЁа-яё]*",
+                caseInsensitive: true
             },
             {
                 token : "label",
                 regex : "~(\u0020|\t)*[_A-Za-zА-ЯЁа-яё][_A-Za-z0-9А-ЯЁа-яё]*(\u0020|\t)*:"
-            },
-            {
-                token : "string",           // ' string
-                regex : "\"{1,1}[^\"]*\"{1,1}"
             },
             {
                 token : "identifier", // ' identifier
@@ -100,11 +111,11 @@ ace.define("ace/mode/_1c_highlight_rules",["require","exports","module","ace/lib
             },
             {
                 token : "singleoperator", // ' singleoperator
-                regex : "[\\+\\-\\*/%&<>=]"
+                regex : "[\\+\\-\\*/%&<>=\?]"
             },
             {
                 token : "number", // ' number
-                regex : "[0-9]*(\.[0-9])+"
+                regex : /\b(?:[\da-fA-F]{8}-(?:[\da-fA-F]{4}-){3}[\da-fA-F]{12}|\d+\.?\d*)\b/
             },
             {
                 token : "paren.lparen",
@@ -121,8 +132,64 @@ ace.define("ace/mode/_1c_highlight_rules",["require","exports","module","ace/lib
             {
                 token : "paren.rsqare",
                 regex : "[\\]]"
+            },
+            {
+                token : "paren.semicolon",
+                regex : "[\\;]"
+            },
+            {
+                token : "paren.comma",
+                regex : "[\\,]"
+            },
+            {
+                token: "string.quoted.double.bsl",
+                regex: /\"/,
+                push: [{
+                    token: "string.quoted.double.bsl",
+                    regex: /\"(?![\"])/,
+                    next: "pop"
+                }, {
+                        include: "#query"
+                    }, {
+                        token: "constant.character.escape.bsl",
+                        regex: /\"\"/
+                    }, {
+                        token: "comment.line.double-slash.bsl",
+                        regex: /^\s*\/\/.*$/
+                    }, {
+                        defaultToken: "string.quoted.double.bsl"
+                    }]
             }
-        ]
+
+        ],
+        "#query": [{
+            token: "keyword.control.sdbl",
+            regex: /\b(?:Выбрать|Select(?:\s+Разрешенные|Allowed)?(?:\s+Различные|Distinct)?(?:\s+Первые|Top)?)\b/,
+            caseInsensitive: true,
+            push: [{
+                token: "text",
+                regex: /(?=\"[^\"])/,
+                next: "pop"
+            }, {
+                    token: "comment.line.double-slash.bsl",
+                    regex: /^\s*\/\//,
+                    push: [{
+                        token: "comment.line.double-slash.bsl",
+                        regex: /$/,
+                        next: "pop"
+                    }, {
+                            defaultToken: "comment.line.double-slash.bsl"
+                        }]
+                }, {
+                    token: "comment.line.double-slash.sdbl",
+                    regex: /\/\/(?:\"\"|[^\"])*/
+                }, {
+                    token: "string.quoted.double.sdbl",
+                    regex: /\"\"[^"]*\"\"/
+                }, {
+                    include: "source.sdbl"
+                }]
+        }],
         };
         this.normalizeRules();
     };
