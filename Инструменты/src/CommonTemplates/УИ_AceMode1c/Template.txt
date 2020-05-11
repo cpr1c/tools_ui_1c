@@ -7,7 +7,7 @@ ace.define("ace/mode/_1c_highlight_rules",["require","exports","module","ace/lib
     var _1CHighlightRules = function() {
 
         var keywords = (
-            "Процедура|Функция|КонецПроцедуры|КонецФункции|Для|Пока|По|Цикл|КонецЦикла|Если|Тогда|Иначе|ИначеЕсли|КонецЕсли|Попытка|Исключение|КонецПопытки|Каждого|" +
+            "Процедура|Функция|КонецПроцедуры|КонецФункции|Для|Пока|По|Из|Цикл|КонецЦикла|Если|Тогда|Иначе|ИначеЕсли|КонецЕсли|Попытка|Исключение|КонецПопытки|Каждого|" +
             "Перем|Знач|И|Или|Не|Новый|Прервать|Продолжить|Возврат|Экспорт|Перейти|ВызватьИсключение" +
             "procedure|function|endprocedure|endfunction|for|while|to|do|enddo|if|then|else|elseif|endif|try|catch|endtry|each|" +
             "var|val|and|or|not|new|break|continue|return|export|array|structure|map|rise"
@@ -189,7 +189,7 @@ ace.define("ace/mode/_1c_highlight_rules",["require","exports","module","ace/lib
                 }, {
                     include: "source.sdbl"
                 }]
-        }],
+        }]
         };
         this.normalizeRules();
     };
@@ -359,8 +359,37 @@ ace.define("ace/mode/folding/1c",["require","exports","module","ace/lib/oop","ac
     oop.inherits(FoldMode, CFoldMode);
 
     (function() {
-        this.procRe = /^\s*процедура|procedure\s*/i;
-        this.funcRe = /^\s*функция|function\s*/i;
+
+        this.blocks=[
+            {
+                start: /^\s*процедура|procedure\s*/i,
+                end: /^\s*конецпроцедуры|endprocedure\s*/i
+            },
+            {
+                start: /^\s*функция|function\s*/i,
+                end: /^\s*конецфункции|endfunction\s*/i
+            },
+            {
+                start: /(^[ \t]*#(?:Область).*$)/i,
+                end: /(^[ \t]*#(?:КонецОбласти).*$)/i
+            },
+            {
+                start: /#(?:Если|If|ИначеЕсли|ElsIf|Иначе|Else).*(?:Тогда|Then)?/i,
+                end: /#(?:КонецЕсли|EndIf).*$/i
+            },
+            {
+                start: /^[ \t]*(?:Если|If|ИначеЕсли|ElsIf|Иначе|Else).*$/i,
+                end: /(?:КонецЕсли|EndIf).*$/i
+            },
+            {
+                start: /^[ \t]*(?:Для|For|Пока|while).*(?:Цикл|do)?/i,
+                end: /(?:КонецЦикла|enddo).*$/i
+            },
+            {
+                start: /^[ \t]*(?:Попытка|Исключение|try|catch).*(?:Цикл|do)?/i,
+                end: /(?:КонецПопытки|endtry).*$/i
+            }
+        ];
 
         this.getFoldWidgetRangeBase = this.getFoldWidgetRange;
         this.getFoldWidgetBase = this.getFoldWidget;
@@ -369,8 +398,11 @@ ace.define("ace/mode/folding/1c",["require","exports","module","ace/lib/oop","ac
             var fw = this.getFoldWidgetBase(session, foldStyle, row);
             if (!fw) {
                 var line = session.getLine(row);
-                if (this.procRe.test(line) || this.funcRe.test(line)) {
-                    return "start";
+                for (var index = 0; index < this.blocks.length; index++) {
+                    var element = this.blocks[index];
+                    if (element.start.test(line)){
+                        return "start";
+                    }
                 }
             }
             return fw;
@@ -382,54 +414,27 @@ ace.define("ace/mode/folding/1c",["require","exports","module","ace/lib/oop","ac
                 return range;
 
             var line = session.getLine(row);
-            if (this.procRe.test(line))
-                return this.getProcStatementBlock(session, line, row);
-            if (this.funcRe.test(line))
-               return this.getFuncStatementBlock(session, line, row);
+
+            for (var index = 0; index < this.blocks.length; index++) {
+                var element = this.blocks[index];
+                if (element.start.test(line)){
+                    return this.getMyStatementBlock(session, line, row, element.start, element.end);
+                }
+            }
+
         };
 
-        this.getProcStatementBlock = function(session, line, row) {
-            var startColumn = line.match(this.procRe)[0].length + 1;
-            var openBrackets = 0;
-            var closeBrackets = 0;
-            var foundStart = false;
+        this.getMyStatementBlock = function(session, lineParam, row, startRegEx, endRegEx) {
+           
             var maxRow = session.getLength();
             var startRow = row;
             var endRow = row;
 
             var cLine = session.getLine(row);
-            for (var currentPos = startColumn; currentPos < cLine.length; currentPos++ ) {
-                if (currentPos > 0 && cLine[currentPos-1] === '/' && cLine[currentPos] === '/') {
-                    break; // comment
-                }
-                if (cLine[currentPos] === '(') openBrackets++;
-                else if (cLine[currentPos] === ')') closeBrackets++;
-                if (openBrackets > 0 && openBrackets == closeBrackets) {
-                    startColumn = cLine.length;
-                    foundStart = true;
-                    break;
-                }
-            }
-            var re = /^\s*конецпроцедуры|endprocedure\s*/i;
-
+            var startColumn = cLine.length;
             while (++row < maxRow) {
-                line = session.getLine(row);
-                if (!foundStart) {
-                    for (var currentPos = 0; currentPos < line.length; currentPos++ ) {
-                    if (currentPos > 0 && line[currentPos-1] === '/' && line[currentPos] === '/') {
-                        break; // comment
-                    }
-                    if (line[currentPos] === '(') openBrackets++;
-                    else if (line[currentPos] === ')') closeBrackets++;
-                    if (openBrackets > 0 && openBrackets == closeBrackets) {
-                            startRow = row;
-                            startColumn = line.length;
-                            foundStart = true;
-                            break;
-                        }
-                    }
-                }
-                if (re.test(line))
+                var line = session.getLine(row);
+                if (endRegEx.test(line))
                     break;
                 endRow = row+1;
             }
@@ -438,56 +443,8 @@ ace.define("ace/mode/folding/1c",["require","exports","module","ace/lib/oop","ac
                 return new Range(startRow, startColumn, endRow, endColumn);
             }
         };
-        this.getFuncStatementBlock = function(session, line, row) {
-            var startColumn = line.match(this.funcRe)[0].length;
-            var openBrackets = 0;
-            var closeBrackets = 0;
-            var foundStart = false;
-            var maxRow = session.getLength();
-            var startRow = row;
-            var endRow = row;
 
-            var cLine = session.getLine(row);
-            for (var currentPos = startColumn; currentPos < cLine.length; currentPos++ ) {
-                if (currentPos > 0 && cLine[currentPos-1] === '/' && cLine[currentPos] === '/') {
-                    break; // comment
-                }
-                if (cLine[currentPos] === '(') openBrackets++;
-                else if (cLine[currentPos] === ')') closeBrackets++;
-                if (openBrackets > 0 && openBrackets == closeBrackets) {
-                    startColumn = cLine.length;
-                    foundStart = true;
-                    break;
-                }
-            }
-            var re = /^\s*конецфункции|endfunction\s*/i;
-            while (++row < maxRow) {
-                line = session.getLine(row);
 
-                if (!foundStart) {
-                    for (var currentPos = 0; currentPos < line.length; currentPos++ ) {
-                    if (currentPos > 0 && line[currentPos-1] === '/' && line[currentPos] === '/') {
-                        break; // comment
-                    }
-                    if (line[currentPos] === '(') openBrackets++;
-                    else if (line[currentPos] === ')') closeBrackets++;
-                    if (openBrackets > 0 && openBrackets == closeBrackets) {
-                            startRow = row;
-                            startColumn = line.length;
-                            foundStart = true;
-                            break;
-                        }
-                    }
-                }
-                if (re.test(line))
-                    break;
-                endRow = row+1;
-            }
-            if (endRow > startRow) {
-                var endColumn = session.getLine(endRow).length;
-                return new Range(startRow, startColumn, endRow, endColumn);
-            }
-        };
 
     }).call(FoldMode.prototype);
 
