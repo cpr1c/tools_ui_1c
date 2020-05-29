@@ -556,6 +556,7 @@
       <key>ru</key>
       <value>Состояние</value>
     </toolTip>
+    <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
       <name>СостояниеРасширеннаяПодсказка</name>
       <id>34</id>
@@ -888,5 +889,4 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
-  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>
