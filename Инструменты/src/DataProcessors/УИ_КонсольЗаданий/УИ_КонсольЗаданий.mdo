@@ -7,7 +7,7 @@
   <name>УИ_КонсольЗаданий</name>
   <synonym>
     <key>ru</key>
-    <value>Консоль заданий</value>
+    <value>Консоль заданий [УИ]</value>
   </synonym>
   <comment>https://github.com/kuzyara/JobsConsole2019.epf (c)Душелов'2009</comment>
   <useStandardCommands>true</useStandardCommands>

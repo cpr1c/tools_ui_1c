@@ -7,7 +7,7 @@
   <name>УИ_ТехПоддержка</name>
   <synonym>
     <key>ru</key>
-    <value>Тех поддержка</value>
+    <value>Тех поддержка [УИ]</value>
   </synonym>
   <defaultForm>DataProcessor.УИ_ТехПоддержка.Form.СписокЗадач</defaultForm>
   <forms uuid="bb47cc80-4bf9-4987-a88b-c714884aa200">

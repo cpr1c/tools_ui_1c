@@ -7,7 +7,7 @@
   <name>УИ_ПоискИУдалениеДублей</name>
   <synonym>
     <key>ru</key>
-    <value>Поиск и удаление дублей</value>
+    <value>Поиск и удаление дублей [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ПоискИУдалениеДублей.Form.ПоискДублей</defaultForm>

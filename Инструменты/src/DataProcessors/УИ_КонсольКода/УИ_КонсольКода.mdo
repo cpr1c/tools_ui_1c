@@ -7,7 +7,7 @@
   <name>УИ_КонсольКода</name>
   <synonym>
     <key>ru</key>
-    <value>Консоль кода</value>
+    <value>Консоль кода [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольКода.Form.Форма</defaultForm>

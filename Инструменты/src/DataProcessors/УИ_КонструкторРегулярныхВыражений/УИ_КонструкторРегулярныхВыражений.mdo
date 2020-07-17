@@ -7,7 +7,7 @@
   <name>УИ_КонструкторРегулярныхВыражений</name>
   <synonym>
     <key>ru</key>
-    <value>Конструктор регулярных выражений</value>
+    <value>Конструктор регулярных выражений [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонструкторРегулярныхВыражений.Form.Форма</defaultForm>

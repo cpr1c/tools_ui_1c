@@ -7,7 +7,7 @@
   <name>УИ_УдалениеПомеченныхОбъектов</name>
   <synonym>
     <key>ru</key>
-    <value>Удаление помеченных объектов</value>
+    <value>Удаление помеченных объектов [УИ]</value>
   </synonym>
   <comment>Поиск и удаление объектов, помеченных на удаление</comment>
   <useStandardCommands>true</useStandardCommands>
