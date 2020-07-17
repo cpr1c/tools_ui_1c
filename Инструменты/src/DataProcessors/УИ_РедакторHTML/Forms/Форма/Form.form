@@ -1050,6 +1050,7 @@
       </extendedTooltip>
       <commandName>Form.Command.ОбновитьРезультирующийHTML</commandName>
       <representation>Auto</representation>
+      <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
