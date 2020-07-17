@@ -7,7 +7,7 @@
   <name>УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</name>
   <synonym>
     <key>ru</key>
-    <value>Выполнение регламентных заданий на клиенте</value>
+    <value>Выполнение регламентных заданий на клиенте [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте.Form.ВыполнениеРегламентныхЗаданийНаКлиенте</defaultForm>

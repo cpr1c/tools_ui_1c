@@ -11,7 +11,7 @@
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Консоль отчетов</value>
+    <value>Консоль отчетов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>Report.УИ_КонсольОтчетов.Form.Форма</defaultForm>

@@ -7,7 +7,7 @@
   <name>УИ_РедакторHTML</name>
   <synonym>
     <key>ru</key>
-    <value>Редактор HTML</value>
+    <value>Редактор HTML  [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторHTML.Form.Форма</defaultForm>

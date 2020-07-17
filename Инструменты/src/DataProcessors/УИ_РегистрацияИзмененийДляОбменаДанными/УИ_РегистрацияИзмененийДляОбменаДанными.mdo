@@ -7,7 +7,7 @@
   <name>УИ_РегистрацияИзмененийДляОбменаДанными</name>
   <synonym>
     <key>ru</key>
-    <value>Регистрация изменений для обмена данными</value>
+    <value>Регистрация изменений для обмена данными [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными.Form.Форма</defaultForm>

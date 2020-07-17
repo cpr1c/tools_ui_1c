@@ -7,7 +7,7 @@
   <name>УИ_НавигаторПоКонфигурации</name>
   <synonym>
     <key>ru</key>
-    <value>Навигатор по конфигурации(Все функции)</value>
+    <value>Навигатор по конфигурации(Все функции) [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_НавигаторПоКонфигурации.Form.Форма</defaultForm>

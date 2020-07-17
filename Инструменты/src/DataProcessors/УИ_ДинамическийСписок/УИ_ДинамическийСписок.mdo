@@ -7,7 +7,7 @@
   <name>УИ_ДинамическийСписок</name>
   <synonym>
     <key>ru</key>
-    <value>Динамический список</value>
+    <value>Динамический список [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ДинамическийСписок.Form.Форма</defaultForm>

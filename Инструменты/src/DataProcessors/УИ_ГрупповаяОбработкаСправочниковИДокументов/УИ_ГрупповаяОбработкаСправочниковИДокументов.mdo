@@ -7,7 +7,7 @@
   <name>УИ_ГрупповаяОбработкаСправочниковИДокументов</name>
   <synonym>
     <key>ru</key>
-    <value>Групповая обработка справочников и документов</value>
+    <value>Групповая обработка справочников и документов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов.Form.ПодборИОбработка</defaultForm>

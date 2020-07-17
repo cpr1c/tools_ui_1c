@@ -7,7 +7,7 @@
   <name>УИ_РедакторJSON</name>
   <synonym>
     <key>ru</key>
-    <value>Редактор JSON</value>
+    <value>Редактор JSON [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторJSON.Form.Форма</defaultForm>

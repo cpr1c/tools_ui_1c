@@ -7,7 +7,7 @@
   <name>УИ_ПоискСсылокНаОбъект</name>
   <synonym>
     <key>ru</key>
-    <value>Поиск ссылок на объект</value>
+    <value>Поиск ссылок на объект [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ПоискСсылокНаОбъект.Form.Форма</defaultForm>

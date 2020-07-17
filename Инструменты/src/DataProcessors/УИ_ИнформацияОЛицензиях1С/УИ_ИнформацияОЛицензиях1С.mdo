@@ -7,7 +7,7 @@
   <name>УИ_ИнформацияОЛицензиях1С</name>
   <synonym>
     <key>ru</key>
-    <value>Информация о лицензиях 1С</value>
+    <value>Информация о лицензиях 1С [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ИнформацияОЛицензиях1С.Form.Форма</defaultForm>

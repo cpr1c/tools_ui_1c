@@ -7,7 +7,7 @@
   <name>УИ_КонсольЗапросов</name>
   <synonym>
     <key>ru</key>
-    <value>Консоль запросов</value>
+    <value>Консоль запросов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</defaultForm>
