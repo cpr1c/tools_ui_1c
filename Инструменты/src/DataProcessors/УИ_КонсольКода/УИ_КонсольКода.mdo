@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольКода.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Консоль кода</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Позволяет выполнять код из предприятия без создания внешних обработок. Есть подсветка синтаксиса и минимальная контекстная подсказка.</value>
+  </explanation>
   <forms uuid="c64c5360-b585-4331-9178-b5c3bcbaadb5">
     <name>Форма</name>
     <synonym>
