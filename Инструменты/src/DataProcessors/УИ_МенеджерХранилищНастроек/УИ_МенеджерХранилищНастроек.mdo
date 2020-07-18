@@ -11,6 +11,10 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_МенеджерХранилищНастроек.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Менеджер хранилищ настроек</value>
+  </extendedPresentation>
   <forms uuid="0c8a0125-1025-4c77-961c-06a3af759ff8">
     <name>Форма</name>
     <synonym>

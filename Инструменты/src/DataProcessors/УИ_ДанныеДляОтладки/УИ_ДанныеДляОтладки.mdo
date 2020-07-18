@@ -10,6 +10,10 @@
     <value>Данные для отладки [УИ]</value>
   </synonym>
   <defaultForm>DataProcessor.УИ_ДанныеДляОтладки.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Данные для отладки</value>
+  </extendedPresentation>
   <forms uuid="6ec88c41-4c28-4b90-844f-dafc62c03144">
     <name>Форма</name>
     <synonym>

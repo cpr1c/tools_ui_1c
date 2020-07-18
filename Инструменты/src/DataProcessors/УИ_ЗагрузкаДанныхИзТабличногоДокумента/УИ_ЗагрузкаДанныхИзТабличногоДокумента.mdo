@@ -17,6 +17,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Загрузка данных из табличного документа</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Обработка предназначена для загрузки данных в справочники и табличные части различных объектов из табличного документа</value>
+  </explanation>
   <attributes uuid="105ab816-a28d-41ad-9af0-1bac32f234fe">
     <name>НеСоздаватьНовыхЭлементов</name>
     <synonym>

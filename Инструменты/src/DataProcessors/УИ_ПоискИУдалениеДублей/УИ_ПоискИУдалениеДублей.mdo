@@ -16,6 +16,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Поиск и удаление дублей</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Форк стандартной обработки из БСП, в которую добавлены несколько параметров выполнения замены</value>
+  </explanation>
   <forms uuid="28379a56-96ca-4eee-8431-24152ab0f12b">
     <name>ПоискДублей</name>
     <synonym>

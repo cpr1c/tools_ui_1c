@@ -12,6 +12,14 @@
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными.Form.Форма</defaultForm>
   <auxiliaryForm>ac4674ba-2e32-11ea-cc81-e86a6452d1f2</auxiliaryForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Регистрация изменений для обмена данными</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Форк обработки с диска ИТС с адаптациями под подсистему</value>
+  </explanation>
   <attributes uuid="ac435c76-2e32-11ea-cc81-e86a6452d1f2">
     <name>НастройкаАвторегистрацияПоследовательностей</name>
     <synonym>

@@ -20,6 +20,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Консоль сравнения данных</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Предназначена для сравнения данных, полученных из разных источников данных: информационных баз 1С 8, 1С 7.7, баз данных SQL, файлов формата CSV/TXT/DBF/XLS/DOC/XML, строки JSON, вручную заполненного табличного документа</value>
+  </explanation>
   <attributes uuid="0807802a-b3bd-4f42-abd4-3f58c614cc10">
     <name>ТипБазыА</name>
     <synonym>

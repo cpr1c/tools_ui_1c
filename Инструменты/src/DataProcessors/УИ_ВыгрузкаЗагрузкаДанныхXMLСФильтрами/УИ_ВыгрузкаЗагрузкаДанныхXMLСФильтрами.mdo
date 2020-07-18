@@ -17,6 +17,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Выгрузка и загрузка данных XML с фильтрами</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Перенос информации между однородными базами данных</value>
+  </explanation>
   <attributes uuid="e45e127a-8b16-403f-a89a-bf19c4af7dd1">
     <name>ИмяФайлаВыгрузки</name>
     <synonym>

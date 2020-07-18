@@ -17,6 +17,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Консоль запросов</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Обработка для разработки и выполнения запросов без написания дополнительных обработок</value>
+  </explanation>
   <attributes uuid="4c0b7f1b-c344-4d4b-976f-8e494ad33698">
     <name>ДеревоЗапросов</name>
     <synonym>

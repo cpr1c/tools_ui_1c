@@ -16,6 +16,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Конструктор регулярных выражений</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>позволяет строить сложно-структурированные выражения на основе параметрического описания, тестировать их, и в результате получить программный код 1С. На текущий момент работает только в Windows</value>
+  </explanation>
   <attributes uuid="fd1556d4-3bdb-4ce9-ab1e-7d068bbb0f1c">
     <name>Маска</name>
     <synonym>

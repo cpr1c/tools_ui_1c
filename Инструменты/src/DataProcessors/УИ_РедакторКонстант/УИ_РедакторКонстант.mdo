@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторКонстант.Form.Константы</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Редактор констант</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>позволяет редактировать значения констант в режиме таблицы</value>
+  </explanation>
   <forms uuid="487d5719-f93b-49ff-a911-6c6d0b6676f5">
     <name>Константы</name>
     <synonym>

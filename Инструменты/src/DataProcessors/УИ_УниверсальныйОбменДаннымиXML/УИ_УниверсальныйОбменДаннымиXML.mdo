@@ -16,6 +16,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Универсальный обмен данными в формате XML(с фильтрами и выгрузкой на HTTP сервис)</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Выгрузка и загрузка по правилам обмена.  Добавлена возможность накладывать фильтры на выгружаемые объеты, и прямая выгрузка в базу через http сервис универсальных инструментов.</value>
+  </explanation>
   <attributes uuid="61922d92-8f8a-11ea-4a9c-e86a6452d1f2">
     <name>АрхивироватьФайл</name>
     <synonym>

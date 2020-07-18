@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторРеквизитовОбъекта.Form.ФормаОбъекта</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Редактор реквизитов объекта базы данных</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>позволяет низкоуровневое редактирование ссылочных объектов. Поддерживает редактирование движений документа.</value>
+  </explanation>
   <forms uuid="87ecb0de-09b8-43aa-9296-9c80a11b8fd2">
     <name>ФормаОбъекта</name>
     <synonym>

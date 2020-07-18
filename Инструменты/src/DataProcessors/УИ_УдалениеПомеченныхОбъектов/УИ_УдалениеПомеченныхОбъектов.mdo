@@ -17,6 +17,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Удаление помеченных объектов</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>копия стандартной обработки из БСП, адаптированной для жизни вне БСП</value>
+  </explanation>
   <forms uuid="c43e4792-2a12-11ea-8480-e86a6452d1f2">
     <name>ОсновнаяФорма</name>
     <synonym>

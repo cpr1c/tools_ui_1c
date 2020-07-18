@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ПоискСсылокНаОбъект.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Поиск ссылок на объект</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value> аналог стандартной обработки из меню &quot;Все функции&quot;.</value>
+  </explanation>
   <attributes uuid="4d56ac76-3eb4-493a-a4da-30d9fa7b68e5">
     <name>ИсходныйОбъект</name>
     <synonym>

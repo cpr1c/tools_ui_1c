@@ -12,6 +12,14 @@
   <comment>Автор Баданов Владимир Версия: 2.0.2.2</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольВебСервисов.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Консоль веб сервисов(WS)</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Обработка для чтения и выполнения веб-сервисов на платформе 1С: Предприятие 8.3. Аналог soapUI. Обработка позволяет выполнить операцию веб-сервиса и отобразить результат в виде xml или дерева</value>
+  </explanation>
   <tabularSections uuid="ba73a99c-5825-4bc1-88ed-961e7db5c68a">
     <producedTypes>
       <objectType typeId="b85f515e-6dc4-431e-8a77-13cb44a9fe92" valueTypeId="cf2c5ad4-7adb-4809-887d-f09fac4b5e38"/>

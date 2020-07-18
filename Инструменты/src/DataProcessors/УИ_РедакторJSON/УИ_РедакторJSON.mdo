@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторJSON.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Редактор JSON</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Позволяет в удобной форме редактировать строки JSON. Содержит подсветку синтаксиса JSON, редактирование в виде дерева, некоторые автоподстановки</value>
+  </explanation>
   <forms uuid="c6d61a86-202a-4d07-b994-ea6492aa2809">
     <name>Форма</name>
     <synonym>

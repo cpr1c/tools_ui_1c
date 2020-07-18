@@ -10,6 +10,10 @@
     <value>Тех поддержка [УИ]</value>
   </synonym>
   <defaultForm>DataProcessor.УИ_ТехПоддержка.Form.СписокЗадач</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Тех поддержка</value>
+  </extendedPresentation>
   <forms uuid="bb47cc80-4bf9-4987-a88b-c714884aa200">
     <name>СписокЗадач</name>
     <synonym>

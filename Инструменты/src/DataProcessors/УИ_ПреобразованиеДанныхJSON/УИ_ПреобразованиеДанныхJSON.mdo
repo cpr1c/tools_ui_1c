@@ -11,6 +11,14 @@
   </synonym>
   <comment></comment>
   <useStandardCommands>true</useStandardCommands>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Преобразование данных JSON</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Библиотека сериализации 1С (обработка)</value>
+  </explanation>
   <templates uuid="382cfa01-c860-4453-9d68-03aa01e57efe">
     <name>ОписаниеТипов</name>
     <synonym>

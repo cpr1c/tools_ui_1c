@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольHTTPЗапросов.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Консоль HTTP запросов</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>позволяет из 1С делать HTTP запросы</value>
+  </explanation>
   <forms uuid="e711f244-31f1-498c-93b7-69bc01bc7664">
     <name>Форма</name>
     <synonym>

@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ИнформацияОЛицензиях1С.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Информация о лицензиях 1С</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Представляющая из себя обертку функций Утилиты лицензирования 1С (ring) в понятном для обычного человека виде. По сути, это GUI утилиты RING</value>
+  </explanation>
   <tabularSections uuid="add1f079-d62c-4443-a7b0-860af0a97f92">
     <producedTypes>
       <objectType typeId="f6f6132b-dc0e-46d9-b935-619c272b1dd3" valueTypeId="6a37aa69-65f9-46b2-8820-e9286824d06c"/>

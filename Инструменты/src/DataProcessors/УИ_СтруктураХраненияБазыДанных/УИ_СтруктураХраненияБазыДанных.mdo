@@ -16,6 +16,14 @@
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</defaultForm>
   <auxiliaryForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</auxiliaryForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Структура хранения базы данных</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Просмотр имен таблиц и их взаимосвязей с объектами метаданных.</value>
+  </explanation>
   <forms uuid="c03fac5c-9407-401d-94ff-8d87ab574a84">
     <name>ФормаУправляемая</name>
     <synonym>

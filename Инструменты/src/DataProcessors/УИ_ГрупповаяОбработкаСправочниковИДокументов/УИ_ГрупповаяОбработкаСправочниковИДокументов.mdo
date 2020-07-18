@@ -16,6 +16,10 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Групповая обработка справочников и документов</value>
+  </extendedPresentation>
   <attributes uuid="a8766b9f-4212-406d-96ff-afeb0cedf8c7">
     <name>ТипОбъекта</name>
     <synonym>

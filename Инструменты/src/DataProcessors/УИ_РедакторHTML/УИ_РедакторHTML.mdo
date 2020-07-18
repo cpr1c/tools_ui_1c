@@ -11,6 +11,14 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторHTML.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Редактор HTML</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Быстрая отладка отображения HTML страниц в 1С</value>
+  </explanation>
   <forms uuid="50ab5277-948f-4b4d-9a6e-236e1a481745">
     <name>Форма</name>
     <synonym>

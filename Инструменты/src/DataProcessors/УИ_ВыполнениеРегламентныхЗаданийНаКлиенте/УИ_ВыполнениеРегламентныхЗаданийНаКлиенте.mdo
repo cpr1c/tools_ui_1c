@@ -11,6 +11,10 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте.Form.ВыполнениеРегламентныхЗаданийНаКлиенте</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Выполнение регламентных заданий на клиенте</value>
+  </extendedPresentation>
   <forms uuid="d9fe211a-2a12-11ea-8480-e86a6452d1f2">
     <name>ВыполнениеРегламентныхЗаданийНаКлиенте</name>
     <synonym>

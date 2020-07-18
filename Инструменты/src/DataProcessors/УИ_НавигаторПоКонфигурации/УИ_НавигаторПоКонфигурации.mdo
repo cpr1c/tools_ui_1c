@@ -16,6 +16,14 @@
       <lang>ru</lang>
     </pages>
   </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Навигатор по конфигурации(Все функции)</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Обработка замена стандартному меню &quot;Все функции&quot;. Здесь же дополнительные административные фукнции будут</value>
+  </explanation>
   <forms uuid="0f467166-3240-486b-a7c7-bd99bdd5b9df">
     <name>Форма</name>
     <synonym>
