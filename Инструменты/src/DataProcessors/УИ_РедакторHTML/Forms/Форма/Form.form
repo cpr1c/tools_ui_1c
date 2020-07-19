@@ -963,6 +963,152 @@
           <showTitle>true</showTitle>
         </extInfo>
       </items>
+      <items xsi:type="form:FormGroup">
+        <name>ГруппаСтраницаКонсоль</name>
+        <id>111</id>
+        <items xsi:type="form:FormGroup">
+          <name>ГруппаКоманднаяПанельКонсоли</name>
+          <id>116</id>
+          <items xsi:type="form:Button">
+            <name>ОбновитьВыводКонсоли</name>
+            <id>118</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>ОбновитьВыводКонсолиРасширеннаяПодсказка</name>
+              <id>119</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Command.ОбновитьВыводКонсоли</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <title>
+            <key>ru</key>
+            <value>Группа командная панель консоли</value>
+          </title>
+          <extendedTooltip>
+            <name>ГруппаКоманднаяПанельКонсолиРасширеннаяПодсказка</name>
+            <id>117</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <type>CommandBar</type>
+          <extInfo xsi:type="form:CommandBarExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ВыводКонсолиРезультирующегоHTML</name>
+          <id>113</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВыводКонсолиРезультирующегоHTML</segments>
+          </dataPath>
+          <titleLocation>None</titleLocation>
+          <extendedTooltip>
+            <name>ВыводКонсолиРезультирующегоHTMLРасширеннаяПодсказка</name>
+            <id>115</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ВыводКонсолиРезультирующегоHTMLКонтекстноеМеню</name>
+            <id>114</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>HTMLDocumentField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:HtmlFieldExtInfo">
+            <width>50</width>
+            <autoMaxWidth>true</autoMaxWidth>
+            <height>10</height>
+            <autoMaxHeight>true</autoMaxHeight>
+            <horizontalStretch>true</horizontalStretch>
+            <verticalStretch>true</verticalStretch>
+          </extInfo>
+        </items>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <title>
+          <key>ru</key>
+          <value>Консоль</value>
+        </title>
+        <extendedTooltip>
+          <name>ГруппаСтраницаКонсольРасширеннаяПодсказка</name>
+          <id>112</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <type>Page</type>
+        <extInfo xsi:type="form:PageGroupExtInfo">
+          <group>Vertical</group>
+          <showTitle>true</showTitle>
+        </extInfo>
+      </items>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -989,6 +1135,10 @@
       </extendedTooltip>
       <type>Pages</type>
       <extInfo xsi:type="form:PagesGroupExtInfo">
+        <handlers>
+          <event>OnCurrentPageChange</event>
+          <name>ГруппаСтраницыРезультирующегоHTMLПриСменеСтраницы</name>
+        </handlers>
         <pagesRepresentation>TabsOnTop</pagesRepresentation>
         <currentRowUse>DontUse</currentRowUse>
       </extInfo>
@@ -1437,16 +1587,35 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ВыводКонсолиРезультирующегоHTML</name>
+    <title>
+      <key>ru</key>
+      <value>Вывод консоли результирующего HTML</value>
+    </title>
+    <id>13</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ОбновитьРезультирующийHTML</name>
     <title>
       <key>ru</key>
-      <value>Обновить результирующий HTML</value>
+      <value>Обновить результирующий HTML(Ctrl+Q)</value>
     </title>
     <id>1</id>
     <use>
       <common>true</common>
     </use>
+    <shortcut>Ctrl+Q</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ОбновитьРезультирующийHTML</name>
@@ -1674,6 +1843,23 @@
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ОткрытьФайл</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ОбновитьВыводКонсоли</name>
+    <title>
+      <key>ru</key>
+      <value>Обновить вывод консоли</value>
+    </title>
+    <id>17</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ОбновитьВыводКонсоли</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
