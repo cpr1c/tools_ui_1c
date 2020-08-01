@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Менеджер хранилищ настроек [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_МенеджерХранилищНастроек.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
