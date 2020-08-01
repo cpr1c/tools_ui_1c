@@ -795,133 +795,6 @@
               </extendedTooltip>
               <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
-            <items xsi:type="form:FormGroup">
-              <name>ПакетЗапросовПодменюПерехват</name>
-              <id>226</id>
-              <items xsi:type="form:Button">
-                <name>ПакетЗапросовПолучитьКодДляЗахватаВОтладчике</name>
-                <id>230</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <extendedTooltip>
-                  <name>ПакетЗапросовПолучитьКодДляЗахватаВОтладчикеРасширеннаяПодсказка</name>
-                  <id>231</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <type>Label</type>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <extInfo xsi:type="form:LabelDecorationExtInfo">
-                    <horizontalAlign>Left</horizontalAlign>
-                  </extInfo>
-                </extendedTooltip>
-                <commandName>Form.Command.ПолучитьКодДляПерехватаВОтладчике</commandName>
-                <representation>Auto</representation>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <placementArea>UserCmds</placementArea>
-                <representationInContextMenu>Auto</representationInContextMenu>
-              </items>
-              <items xsi:type="form:Button">
-                <name>ПакетЗапросовПолучитьПерехваченныеЗапросы</name>
-                <id>228</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <extendedTooltip>
-                  <name>ПакетЗапросовПолучитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
-                  <id>229</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <type>Label</type>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <extInfo xsi:type="form:LabelDecorationExtInfo">
-                    <horizontalAlign>Left</horizontalAlign>
-                  </extInfo>
-                </extendedTooltip>
-                <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
-                <representation>Auto</representation>
-                <onlyInAllActions>false</onlyInAllActions>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <placementArea>UserCmds</placementArea>
-                <representationInContextMenu>Auto</representationInContextMenu>
-              </items>
-              <items xsi:type="form:Button">
-                <name>ПакетЗапросовУдалитьПерехваченныеЗапросы</name>
-                <id>392</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <extendedTooltip>
-                  <name>ПакетЗапросовУдалитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
-                  <id>393</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <type>Label</type>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <extInfo xsi:type="form:LabelDecorationExtInfo">
-                    <horizontalAlign>Left</horizontalAlign>
-                  </extInfo>
-                </extendedTooltip>
-                <commandName>Form.Command.УдалитьПерехваченныеЗапросы</commandName>
-                <representation>Auto</representation>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <placementArea>UserCmds</placementArea>
-                <representationInContextMenu>Auto</representationInContextMenu>
-              </items>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <title>
-                <key>ru</key>
-                <value>Перехват</value>
-              </title>
-              <toolTip>
-                <key>ru</key>
-                <value>Пакет запросов подменю перехват</value>
-              </toolTip>
-              <extendedTooltip>
-                <name>ПакетЗапросовПодменюПерехватРасширеннаяПодсказка</name>
-                <id>227</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <type>Popup</type>
-              <extInfo xsi:type="form:PopupGroupExtInfo">
-                <representation>Auto</representation>
-              </extInfo>
-            </items>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -1861,102 +1734,6 @@
                   <check>true</check>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <pictureLocation>Right</pictureLocation>
-                </items>
-                <items xsi:type="form:Button">
-                  <name>КомандаЗаполнитьИзXML</name>
-                  <id>109</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <extendedTooltip>
-                    <name>КомандаЗаполнитьИзXMLРасширеннаяПодсказка</name>
-                    <id>110</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <type>Label</type>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <extInfo xsi:type="form:LabelDecorationExtInfo">
-                      <horizontalAlign>Left</horizontalAlign>
-                    </extInfo>
-                  </extendedTooltip>
-                  <commandName>Form.Command.ЗаполнитьИзXML</commandName>
-                  <representation>Auto</representation>
-                  <onlyInAllActions>true</onlyInAllActions>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <placementArea>UserCmds</placementArea>
-                  <representationInContextMenu>Auto</representationInContextMenu>
-                </items>
-                <items xsi:type="form:Button">
-                  <name>ПолучитьПерехваченныеЗапросы</name>
-                  <id>224</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <extendedTooltip>
-                    <name>ПолучитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
-                    <id>225</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <type>Label</type>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <extInfo xsi:type="form:LabelDecorationExtInfo">
-                      <horizontalAlign>Left</horizontalAlign>
-                    </extInfo>
-                  </extendedTooltip>
-                  <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
-                  <representation>Auto</representation>
-                  <onlyInAllActions>true</onlyInAllActions>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <placementArea>UserCmds</placementArea>
-                  <representationInContextMenu>Auto</representationInContextMenu>
-                </items>
-                <items xsi:type="form:Button">
-                  <name>ПолучитьКодДляЗахватаВОтладчике</name>
-                  <id>222</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <extendedTooltip>
-                    <name>ПолучитьКодДляЗахватаВОтладчикеРасширеннаяПодсказка</name>
-                    <id>223</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <type>Label</type>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <extInfo xsi:type="form:LabelDecorationExtInfo">
-                      <horizontalAlign>Left</horizontalAlign>
-                    </extInfo>
-                  </extendedTooltip>
-                  <commandName>Form.Command.ПолучитьКодДляПерехватаВОтладчике</commandName>
-                  <representation>Auto</representation>
-                  <onlyInAllActions>true</onlyInAllActions>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="core:PictureRef">
-                    <picture>StdPicture.DataCompositionSettingsWizard</picture>
-                  </picture>
-                  <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -5004,7 +4781,7 @@
             <showLeftMargin>true</showLeftMargin>
             <united>true</united>
             <backColor xsi:type="core:ColorRef">
-              <color>-42</color>
+              <color>Web.Gainsboro</color>
             </backColor>
             <throughAlign>Auto</throughAlign>
             <currentRowUse>DontUse</currentRowUse>
@@ -7911,6 +7688,23 @@
     <valueType>
       <types>String</types>
       <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>Отладка</name>
+    <title>
+      <key>ru</key>
+      <value>Отладка</value>
+    </title>
+    <id>47</id>
+    <valueType>
+      <types>Boolean</types>
     </valueType>
     <view>
       <common>true</common>
