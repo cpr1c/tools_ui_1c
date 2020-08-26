@@ -78,7 +78,6 @@
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
   <commonModules>CommonModule.УИ_</commonModules>
-  <commonModules>CommonModule.УИ_РаскрашиваниеКодаКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
