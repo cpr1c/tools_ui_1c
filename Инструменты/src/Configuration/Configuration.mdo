@@ -7,6 +7,7 @@
   </synonym>
   <objectBelonging>Adopted</objectBelonging>
   <extension xsi:type="mdclassExtension:ConfigurationExtension">
+    <managedApplicationModule>Extended</managedApplicationModule>
     <defaultLanguage>Checked</defaultLanguage>
   </extension>
   <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="44154cfc-e04b-4c2e-94cc-83152eb460a6"/>
@@ -58,8 +59,7 @@
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_AceMode1c</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_AceThemeOnes</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_Ace</commonTemplates>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
@@ -79,7 +79,8 @@
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
   <commonModules>CommonModule.УИ_</commonModules>
   <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>

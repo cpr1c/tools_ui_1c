@@ -328,7 +328,7 @@
       <type>Pages</type>
       <extInfo xsi:type="form:PagesGroupExtInfo">
         <pagesRepresentation>TabsOnTop</pagesRepresentation>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
@@ -1436,7 +1436,7 @@
           <type>Pages</type>
           <extInfo xsi:type="form:PagesGroupExtInfo">
             <pagesRepresentation>TabsOnTop</pagesRepresentation>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <visible>true</visible>
@@ -1500,7 +1500,7 @@
           <name>ГруппаСтраницыРезультирующегоHTMLПриСменеСтраницы</name>
         </handlers>
         <pagesRepresentation>TabsOnTop</pagesRepresentation>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -1529,7 +1529,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <autoCommandBar>
@@ -1794,6 +1794,10 @@
     <event>BeforeClose</event>
     <name>ПередЗакрытием</name>
   </handlers>
+  <handlers>
+    <event>OnOpen</event>
+    <name>ПриОткрытии</name>
+  </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -2048,6 +2052,24 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>АдресБиблиотеки</name>
+    <title>
+      <key>ru</key>
+      <value>Адрес библиотеки</value>
+    </title>
+    <id>18</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ОбновитьРезультирующийHTML</name>
     <title>
@@ -2246,7 +2268,7 @@
         <name>НовыйФайл</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЗакрытьИнструмент</name>

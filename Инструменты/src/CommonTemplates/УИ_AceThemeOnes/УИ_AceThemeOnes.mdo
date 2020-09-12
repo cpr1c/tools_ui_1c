@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mdclass:CommonTemplate xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="cb089724-ccc0-43c8-9484-8d26f08d4271">
-  <name>УИ_AceThemeOnes</name>
-  <synonym>
-    <key>ru</key>
-    <value>Ace theme ones</value>
-  </synonym>
-  <templateType>TextDocument</templateType>
-</mdclass:CommonTemplate>
