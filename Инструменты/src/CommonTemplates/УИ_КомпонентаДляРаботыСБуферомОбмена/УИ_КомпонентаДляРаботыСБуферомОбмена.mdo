@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonTemplate xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="caeda75e-7cde-4f32-8431-369ea389545f">
+  <name>УИ_КомпонентаДляРаботыСБуферомОбмена</name>
+  <synonym>
+    <key>ru</key>
+    <value>VanessaExt</value>
+  </synonym>
+  <templateType>AddIn</templateType>
+</mdclass:CommonTemplate>

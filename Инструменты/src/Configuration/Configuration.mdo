@@ -56,10 +56,12 @@
   <commonPictures>CommonPicture.УИ_JSON</commonPictures>
   <commonPictures>CommonPicture.УИ_Информация</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
+  <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_Ace</commonTemplates>
+  <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
