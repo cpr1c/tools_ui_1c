@@ -76,6 +76,25 @@
   <content>DataProcessor.УИ_РедакторJSON</content>
   <content>DataProcessor.УИ_РедакторHTML</content>
   <content>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</content>
+  <content>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</content>
+  <content>CommonModule.УИ_РедакторКодаСервер</content>
+  <content>CommonModule.УИ_РедакторКодаКлиент</content>
+  <content>CommonForm.УИ_ПараметрыЗаписи</content>
+  <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</content>
+  <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</content>
+  <content>CommonTemplate.УИ_Ace</content>
+  <content>CommonPicture.УИ_Вопрос32</content>
+  <content>CommonPicture.УИ_КоллекцияПиктограммФайлов48</content>
+  <content>CommonPicture.УИ_JSON</content>
+  <content>CommonPicture.УИ_КоллекцияПиктограммФайлов</content>
+  <content>CommonPicture.УИ_РедакторОбъектовБазыДанных</content>
+  <content>CommonPicture.УИ_Информация</content>
+  <content>HTTPService.УИ_ПубликуемыеФункции</content>
+  <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
+  <content>DataProcessor.УИ_ДанныеДляОтладки</content>
+  <content>DataProcessor.УИ_ТехПоддержка</content>
+  <content>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</content>
+  <content>CommonModule.УИ_БуферОбменаКлиент</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>
