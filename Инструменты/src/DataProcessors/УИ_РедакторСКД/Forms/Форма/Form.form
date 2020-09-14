@@ -1027,6 +1027,9 @@
     <use>
       <common>true</common>
     </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_НаборДанныхСКДОбъединение</picture>
+    </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ДобавитьНаборДанныхОбъединение</name>
