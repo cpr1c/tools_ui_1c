@@ -1,50 +1,54 @@
 Функция ТекстHTMLРедактораКода(Язык = "bsl") Экспорт
 	КаталогСохраненияБибилиотеки=КаталогСохраненияРедактора();
-
+	
+	ТекстAce=КаталогСохраненияБибилиотеки + ПолучитьРазделительПути() +"ace"+ПолучитьРазделительПути() +"ace.js";
+	ТекстLT=КаталогСохраненияБибилиотеки + ПолучитьРазделительПути() +"ace"+ПолучитьРазделительПути() +"ext-language_tools.js";
+	
 	ТекЯзык=НРег(Язык);
 	Если ТекЯзык = "bsl" Тогда
 		ТекЯзык="_1c";
 	КонецЕсли;
-	ТекстHTML= "<!DOCTYPE html>
-			   |<html lang=""ru"">
-			   |<head>
-			   |<title>ACE in Action</title>
-			   |<style type=""text/css"" media=""screen"">
-			   |    #editor { 
-			   |        position: absolute;
-			   |        top: 0;
-			   |        right: 0;
-			   |        bottom: 0;
-			   |        left: 0;
-			   |    }
-			   |</style>
-			   |</head>
-			   |<body>
-			   |
-			   |<div id=""editor""></div>
-			   |    
-			   |<script src="""+КаталогСохраненияБибилиотеки+"/ace/ace.js"" type=""text/javascript"" charset=""utf-8""></script>
-			   |<script src="""+КаталогСохраненияБибилиотеки+"/ace/ext-language_tools.js"" type=""text/javascript"" charset=""utf-8""></script>
-			   |<script>
-			   |    // trigger extension
-			   |    ace.require(""ace/ext/language_tools"");
-			   |    var editor = ace.edit(""editor"");
-			   |    editor.session.setMode(""ace/mode/" + ТекЯзык + """);
-																	|    editor.setTheme(""ace/theme/ones"");
-																	|    // enable autocompletion and snippets
-																	|    editor.setOptions({
-																	|        selectionStyle: 'line',
-																	|        highlightSelectedWord: true,
-																	|        showLineNumbers: true,
-																	|        enableBasicAutocompletion: true,
-																	|        enableSnippets: true,
-																	|        enableLiveAutocompletion: true
-																	|    });
-																	|</script>
-																	|
-																	|</body>
-																	|</html>";
-
+	ТекстHTML= 
+	"<!DOCTYPE html>
+	|<html lang=""ru"">
+	|<head>
+	|<title>ACE in Action</title>
+	|<style type=""text/css"" media=""screen"">
+	|    #editor { 
+	|        position: absolute;
+	|        top: 0;
+	|        right: 0;
+	|        bottom: 0;
+	|        left: 0;
+	|    }
+	|</style>
+	|</head>
+	|<body>
+	|
+	|<div id=""editor""></div>
+	|    
+	|<script src=""file://"+ТекстAce+""" type=""text/javascript"" charset=""utf-8""></script>
+	|<script src=""file://"+ТекстLT+""" type=""text/javascript"" charset=""utf-8""></script>
+	|<script>
+	|    // trigger extension
+	|    ace.require(""ace/ext/language_tools"");
+	|    var editor = ace.edit(""editor"");
+	|    editor.session.setMode(""ace/mode/" + ТекЯзык + """);
+	|    editor.setTheme(""ace/theme/ones"");
+	|    // enable autocompletion and snippets
+	|    editor.setOptions({
+	|        selectionStyle: 'line',
+	|        highlightSelectedWord: true,
+	|        showLineNumbers: true,
+	|        enableBasicAutocompletion: true,
+	|        enableSnippets: true,
+	|        enableLiveAutocompletion: true
+	|    });
+	|</script>
+	|
+	|</body>
+	|</html>";
+	
 	Возврат ТекстHTML;
 КонецФункции
 
@@ -109,4 +113,22 @@
 		// TODO:
 	КонецПопытки;
 	
+КонецПроцедуры
+
+Функция ИмяФайлаРедактораДляЯзыка(Язык="bsl") Экспорт
+	ИмяФайла=КаталогСохраненияРедактора()+ПолучитьРазделительПути()+Язык+".html";	
+	Файл=Новый Файл(ИмяФайла);
+	Если Файл.Существует() Тогда
+		Возврат ИмяФайла;
+	КонецЕсли;
+	
+	СохранитьФайлHTMLПоляРедатора(ТекстHTMLРедактораКода(Язык), ИмяФайла);
+	
+	Возврат ИмяФайла;
+КонецФункции
+
+Процедура СохранитьФайлHTMLПоляРедатора(ТекстHTML, ИмяФайла)
+	Текст=Новый ЗаписьТекста(ИмяФайла,КодировкаТекста.UTF8);
+	Текст.Записать(ТекстHTML);
+	Текст.Закрыть();
 КонецПроцедуры
