@@ -55,6 +55,7 @@
   <commonPictures>CommonPicture.УИ_РедакторОбъектовБазыДанных</commonPictures>
   <commonPictures>CommonPicture.УИ_JSON</commonPictures>
   <commonPictures>CommonPicture.УИ_Информация</commonPictures>
+  <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
@@ -122,4 +123,5 @@
   <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
 </mdclass:Configuration>

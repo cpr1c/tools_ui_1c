@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="2dda39ff-33c7-48dc-aefa-aca837969101">
+  <name>УИ_НаборДанныхСКДОбъект</name>
+  <synonym>
+    <key>ru</key>
+    <value>Набор данных СКД объект</value>
+  </synonym>
+</mdclass:CommonPicture>
