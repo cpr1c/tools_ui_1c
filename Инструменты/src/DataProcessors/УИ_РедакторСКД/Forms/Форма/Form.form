@@ -13860,6 +13860,26 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ИдентификаторСтрокиТекущегоВариантаНастроек</name>
+    <title>
+      <key>ru</key>
+      <value>Идентификатор строки текущего варианта настроек</value>
+    </title>
+    <id>110</id>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ДобавитьНаборДанныхЗапрос</name>
     <title>
