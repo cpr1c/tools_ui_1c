@@ -93,6 +93,7 @@
   <commonForms>CommonForm.УИ_ФормаХранилищаЗначения</commonForms>
   <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
   <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
+  <commonForms>CommonForm.УИ_ФормаВыбораЭлементовСпискаЗначений</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
