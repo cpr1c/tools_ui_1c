@@ -1443,12 +1443,16 @@
                   <headerHorizontalAlign>Left</headerHorizontalAlign>
                   <showInFooter>true</showInFooter>
                   <extInfo xsi:type="form:InputFieldExtInfo">
+                    <handlers>
+                      <event>StartChoice</event>
+                      <name>НаборыДанныхПоляРольПредставлениеНачалоВыбора</name>
+                    </handlers>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <wrap>true</wrap>
+                    <choiceButton>true</choiceButton>
                     <chooseType>true</chooseType>
                     <typeDomainEnabled>true</typeDomainEnabled>
-                    <textEdit>true</textEdit>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -12428,8 +12432,7 @@
         </title>
         <id>28</id>
         <valueType>
-          <types>String</types>
-          <stringQualifiers/>
+          <types>Arbitrary</types>
         </valueType>
         <view>
           <common>true</common>
@@ -13872,6 +13875,24 @@
       <numberQualifiers>
         <precision>10</precision>
       </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>АдресПервоначальнойСхемыКомпоновкиДанных</name>
+    <title>
+      <key>ru</key>
+      <value>Адрес первоначальной схемы компоновки данных</value>
+    </title>
+    <id>111</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
