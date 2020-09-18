@@ -5968,8 +5968,12 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПараметрыСКДВключатьВДоступныеПоля</name>
-          <id>363</id>
+          <name>ПараметрыСКДТипЗначения</name>
+          <id>396</id>
+          <title>
+            <key>ru</key>
+            <value>Тип</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -5978,15 +5982,19 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ВключатьВДоступныеПоля</segments>
+              <segments>ПараметрыСКД.ТипЗначения</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ВключатьВДоступныеПоля</segments>
+              <segments>ПараметрыСКД.ТипЗначения</segments>
             </paths>
           </dataPath>
+          <handlers>
+            <event>OnChange</event>
+            <name>ПараметрыСКДТипЗначенияПриИзменении</name>
+          </handlers>
           <extendedTooltip>
-            <name>ПараметрыСКДВключатьВДоступныеПоляРасширеннаяПодсказка</name>
-            <id>365</id>
+            <name>ПараметрыСКДТипЗначенияРасширеннаяПодсказка</name>
+            <id>398</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6000,57 +6008,8 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыСКДВключатьВДоступныеПоляКонтекстноеМеню</name>
-            <id>364</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <autoFill>true</autoFill>
-          </contextMenu>
-          <type>CheckBoxField</type>
-          <editMode>Enter</editMode>
-          <showInHeader>true</showInHeader>
-          <headerHorizontalAlign>Left</headerHorizontalAlign>
-          <showInFooter>true</showInFooter>
-          <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
-        </items>
-        <items xsi:type="form:FormField">
-          <name>ПараметрыСКДВыражение</name>
-          <id>366</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Выражение</segments>
-            </paths>
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Выражение</segments>
-            </paths>
-          </dataPath>
-          <extendedTooltip>
-            <name>ПараметрыСКДВыражениеРасширеннаяПодсказка</name>
-            <id>368</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <contextMenu>
-            <name>ПараметрыСКДВыражениеКонтекстноеМеню</name>
-            <id>367</id>
+            <name>ПараметрыСКДТипЗначенияКонтекстноеМеню</name>
+            <id>397</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6064,6 +6023,64 @@
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ПараметрыСКДДоступныеЗначения</name>
+          <id>772</id>
+          <title>
+            <key>ru</key>
+            <value>Доступные значения</value>
+          </title>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ДоступныеЗначения</segments>
+          </dataPath>
+          <extendedTooltip>
+            <name>ПараметрыСКДДоступныеЗначенияРасширеннаяПодсказка</name>
+            <id>774</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ПараметрыСКДДоступныеЗначенияКонтекстноеМеню</name>
+            <id>773</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <handlers>
+              <event>StartChoice</event>
+              <name>ПараметрыСКДДоступныеЗначенияНачалоВыбора</name>
+            </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
@@ -6089,6 +6106,10 @@
               <segments>ПараметрыСКД.ДоступенСписокЗначений</segments>
             </paths>
           </dataPath>
+          <handlers>
+            <event>OnChange</event>
+            <name>ПараметрыСКДДоступенСписокЗначенийПриИзменении</name>
+          </handlers>
           <extendedTooltip>
             <name>ПараметрыСКДДоступенСписокЗначенийРасширеннаяПодсказка</name>
             <id>371</id>
@@ -6107,55 +6128,6 @@
           <contextMenu>
             <name>ПараметрыСКДДоступенСписокЗначенийКонтекстноеМеню</name>
             <id>370</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <autoFill>true</autoFill>
-          </contextMenu>
-          <type>CheckBoxField</type>
-          <editMode>Enter</editMode>
-          <showInHeader>true</showInHeader>
-          <headerHorizontalAlign>Left</headerHorizontalAlign>
-          <showInFooter>true</showInFooter>
-          <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
-        </items>
-        <items xsi:type="form:FormField">
-          <name>ПараметрыСКДЗапрещатьНезаполненныеЗначения</name>
-          <id>375</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ЗапрещатьНезаполненныеЗначения</segments>
-            </paths>
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ЗапрещатьНезаполненныеЗначения</segments>
-            </paths>
-          </dataPath>
-          <extendedTooltip>
-            <name>ПараметрыСКДЗапрещатьНезаполненныеЗначенияРасширеннаяПодсказка</name>
-            <id>377</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <contextMenu>
-            <name>ПараметрыСКДЗапрещатьНезаполненныеЗначенияКонтекстноеМеню</name>
-            <id>376</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6218,17 +6190,23 @@
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:InputFieldExtInfo">
+            <handlers>
+              <event>StartChoice</event>
+              <name>ПараметрыСКДЗначениеНачалоВыбора</name>
+            </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
+            <choiceButton>true</choiceButton>
+            <clearButton>true</clearButton>
             <chooseType>true</chooseType>
             <typeDomainEnabled>true</typeDomainEnabled>
             <textEdit>true</textEdit>
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПараметрыСКДИспользованиеВсегда</name>
-          <id>384</id>
+          <name>ПараметрыСКДВыражение</name>
+          <id>366</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -6237,15 +6215,15 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ИспользованиеВсегда</segments>
+              <segments>ПараметрыСКД.Выражение</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ИспользованиеВсегда</segments>
+              <segments>ПараметрыСКД.Выражение</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПараметрыСКДИспользованиеВсегдаРасширеннаяПодсказка</name>
-            <id>386</id>
+            <name>ПараметрыСКДВыражениеРасширеннаяПодсказка</name>
+            <id>368</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6259,8 +6237,120 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыСКДИспользованиеВсегдаКонтекстноеМеню</name>
-            <id>385</id>
+            <name>ПараметрыСКДВыражениеКонтекстноеМеню</name>
+            <id>367</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ПараметрыСКДПараметрФункциональныхОпций</name>
+          <id>390</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ПараметрыСКД.ПараметрФункциональныхОпций</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ПараметрыСКД.ПараметрФункциональныхОпций</segments>
+            </paths>
+          </dataPath>
+          <extendedTooltip>
+            <name>ПараметрыСКДПараметрФункциональныхОпцийРасширеннаяПодсказка</name>
+            <id>392</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ПараметрыСКДПараметрФункциональныхОпцийКонтекстноеМеню</name>
+            <id>391</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ПараметрыСКДВключатьВДоступныеПоля</name>
+          <id>363</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ПараметрыСКД.ВключатьВДоступныеПоля</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ПараметрыСКД.ВключатьВДоступныеПоля</segments>
+            </paths>
+          </dataPath>
+          <extendedTooltip>
+            <name>ПараметрыСКДВключатьВДоступныеПоляРасширеннаяПодсказка</name>
+            <id>365</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ПараметрыСКДВключатьВДоступныеПоляКонтекстноеМеню</name>
+            <id>364</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6325,8 +6415,8 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПараметрыСКДПараметрФункциональныхОпций</name>
-          <id>390</id>
+          <name>ПараметрыСКДЗапрещатьНезаполненныеЗначения</name>
+          <id>375</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -6335,15 +6425,15 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ПараметрФункциональныхОпций</segments>
+              <segments>ПараметрыСКД.ЗапрещатьНезаполненныеЗначения</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ПараметрФункциональныхОпций</segments>
+              <segments>ПараметрыСКД.ЗапрещатьНезаполненныеЗначения</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПараметрыСКДПараметрФункциональныхОпцийРасширеннаяПодсказка</name>
-            <id>392</id>
+            <name>ПараметрыСКДЗапрещатьНезаполненныеЗначенияРасширеннаяПодсказка</name>
+            <id>377</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6357,8 +6447,8 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыСКДПараметрФункциональныхОпцийКонтекстноеМеню</name>
-            <id>391</id>
+            <name>ПараметрыСКДЗапрещатьНезаполненныеЗначенияКонтекстноеМеню</name>
+            <id>376</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6366,23 +6456,20 @@
             </userVisible>
             <autoFill>true</autoFill>
           </contextMenu>
-          <type>InputField</type>
+          <type>CheckBoxField</type>
           <editMode>Enter</editMode>
           <showInHeader>true</showInHeader>
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
-          <extInfo xsi:type="form:InputFieldExtInfo">
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <wrap>true</wrap>
-            <chooseType>true</chooseType>
-            <typeDomainEnabled>true</typeDomainEnabled>
-            <textEdit>true</textEdit>
-          </extInfo>
+          <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПараметрыСКДТипЗначения</name>
-          <id>396</id>
+          <name>ПараметрыСКДИспользованиеВсегда</name>
+          <id>384</id>
+          <title>
+            <key>ru</key>
+            <value>Использование</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -6391,15 +6478,15 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ТипЗначения</segments>
+              <segments>ПараметрыСКД.ИспользованиеВсегда</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ТипЗначения</segments>
+              <segments>ПараметрыСКД.ИспользованиеВсегда</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПараметрыСКДТипЗначенияРасширеннаяПодсказка</name>
-            <id>398</id>
+            <name>ПараметрыСКДИспользованиеВсегдаРасширеннаяПодсказка</name>
+            <id>386</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6413,8 +6500,8 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыСКДТипЗначенияКонтекстноеМеню</name>
-            <id>397</id>
+            <name>ПараметрыСКДИспользованиеВсегдаКонтекстноеМеню</name>
+            <id>385</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6431,6 +6518,14 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
+            <format>
+              <key>ru</key>
+              <value>БЛ=Авто; БИ=Всегда</value>
+            </format>
+            <editFormat>
+              <key>ru</key>
+              <value>БЛ=Авто; БИ=Всегда</value>
+            </editFormat>
             <chooseType>true</chooseType>
             <typeDomainEnabled>true</typeDomainEnabled>
             <textEdit>true</textEdit>
@@ -6565,6 +6660,10 @@
           <horizontalAlign>Left</horizontalAlign>
           <autoFill>true</autoFill>
         </autoCommandBar>
+        <handlers>
+          <event>OnStartEdit</event>
+          <name>ПараметрыСКДПриНачалеРедактирования</name>
+        </handlers>
         <searchStringAddition>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -13681,6 +13780,23 @@
       <id>95</id>
       <valueType>
         <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ДоступныеЗначения</name>
+      <title>
+        <key>ru</key>
+        <value>Доступные значения</value>
+      </title>
+      <id>112</id>
+      <valueType>
+        <types>ValueList</types>
       </valueType>
       <view>
         <common>true</common>
