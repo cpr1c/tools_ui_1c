@@ -4816,6 +4816,10 @@
           <event>AfterDeleteRow</event>
           <name>ВычисляемыеПоляПослеУдаления</name>
         </handlers>
+        <handlers>
+          <event>OnStartEdit</event>
+          <name>ВычисляемыеПоляПриНачалеРедактирования</name>
+        </handlers>
         <searchStringAddition>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -7050,6 +7054,18 @@
           <horizontalAlign>Left</horizontalAlign>
           <autoFill>true</autoFill>
         </autoCommandBar>
+        <handlers>
+          <event>OnActivateRow</event>
+          <name>ВариантыНастроекПриАктивизацииСтроки</name>
+        </handlers>
+        <handlers>
+          <event>BeforeDeleteRow</event>
+          <name>ВариантыНастроекПередУдалением</name>
+        </handlers>
+        <handlers>
+          <event>OnStartEdit</event>
+          <name>ВариантыНастроекПриНачалеРедактирования</name>
+        </handlers>
         <searchStringAddition>
           <visible>true</visible>
           <enabled>true</enabled>
