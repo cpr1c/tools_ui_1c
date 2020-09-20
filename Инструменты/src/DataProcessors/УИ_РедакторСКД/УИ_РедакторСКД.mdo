@@ -7,7 +7,7 @@
   <name>УИ_РедакторСКД</name>
   <synonym>
     <key>ru</key>
-    <value>Редактор СКД</value>
+    <value>Редактор СКД (УИ)</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторСКД.Form.Форма</defaultForm>
