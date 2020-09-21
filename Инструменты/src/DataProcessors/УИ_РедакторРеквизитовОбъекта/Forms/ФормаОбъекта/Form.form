@@ -224,7 +224,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -319,7 +319,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -486,7 +486,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
@@ -734,7 +734,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -774,7 +774,7 @@
       <united>true</united>
       <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -936,7 +936,7 @@
       <united>true</united>
       <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -1026,7 +1026,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
@@ -1262,7 +1262,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -1307,7 +1307,7 @@
       <united>true</united>
       <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -2175,7 +2175,7 @@
             <showLeftMargin>true</showLeftMargin>
             <united>true</united>
             <throughAlign>Auto</throughAlign>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
@@ -2581,7 +2581,7 @@
             <united>true</united>
             <showTitle>true</showTitle>
             <throughAlign>Auto</throughAlign>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <items xsi:type="form:Table">
@@ -3067,7 +3067,7 @@
       <type>Pages</type>
       <extInfo xsi:type="form:PagesGroupExtInfo">
         <pagesRepresentation>TabsOnTop</pagesRepresentation>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -3097,7 +3097,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <autoCommandBar>
@@ -4105,7 +4105,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЗаписатьОбъект</name>
@@ -4130,7 +4130,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>НайтиОбъектПоUUID</name>
@@ -4151,7 +4151,7 @@
         <name>НайтиОбъектПоUUID</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>НайтиОбъектПоТипу_UUID</name>
@@ -4172,7 +4172,7 @@
         <name>НайтиОбъектПоТипу_UUID</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОткрытьОбъект</name>
@@ -4197,7 +4197,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОбновитьНаборЗаписей</name>
@@ -4222,7 +4222,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ЗаписатьНаборЗаписей</name>
@@ -4247,7 +4247,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ПереключитьАктивностьЗаписей</name>
@@ -4271,7 +4271,7 @@
         <name>_ПереключитьАктивностьЗаписей</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ПоказатьВсеДвижения</name>
@@ -4296,7 +4296,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>НайтиОбъектПоURL</name>
@@ -4321,7 +4321,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ЗаполнитьДанныеТекущейКолонки</name>
@@ -4346,7 +4346,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОткрытьРедакторДвижений</name>
@@ -4371,7 +4371,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОткрытьФормуСписка</name>
@@ -4396,7 +4396,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_РаспровестиДокумент</name>
@@ -4421,7 +4421,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ПровестиДокумент</name>
@@ -4446,7 +4446,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ВыгрузитьОбъект</name>
@@ -4467,7 +4467,7 @@
         <name>_ВыгрузитьОбъект</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ВыгрузитьОбъектСДвижениями</name>
@@ -4488,7 +4488,7 @@
         <name>_ВыгрузитьОбъектСДвижениями</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ВыгрузитьДвиженияОбъекта</name>
@@ -4509,7 +4509,7 @@
         <name>_ВыгрузитьДвиженияОбъекта</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ЗагрузитьДанныеXML</name>
@@ -4534,7 +4534,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ВыгрузитьНаборЗаписей</name>
@@ -4559,7 +4559,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОткрытьРедакторДвиженийДоп</name>
@@ -4584,7 +4584,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_УдалитьОбъект</name>
@@ -4682,7 +4682,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ЗаписатьОбъектКакНовыйСУказаннымUUID</name>
@@ -4704,7 +4704,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ЗаполнитьПоОбразцу</name>

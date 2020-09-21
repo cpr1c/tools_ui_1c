@@ -478,7 +478,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_УдалитьОбъекты</name>
@@ -503,7 +503,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ВыбратьОбъект</name>

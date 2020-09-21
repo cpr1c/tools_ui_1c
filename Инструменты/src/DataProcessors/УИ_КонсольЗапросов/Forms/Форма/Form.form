@@ -396,7 +396,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -1352,7 +1352,7 @@
       <type>Pages</type>
       <extInfo xsi:type="form:PagesGroupExtInfo">
         <pagesRepresentation>TabsOnBottom</pagesRepresentation>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
@@ -1695,7 +1695,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -1802,7 +1802,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -2644,7 +2644,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <visible>true</visible>
@@ -2681,7 +2681,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -2718,7 +2718,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <visible>true</visible>
@@ -3666,7 +3666,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -3703,7 +3703,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
@@ -3912,7 +3912,7 @@
               </extendedTooltip>
               <type>Pages</type>
               <extInfo xsi:type="form:PagesGroupExtInfo">
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:Table">
@@ -4210,7 +4210,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <visible>true</visible>
@@ -4278,7 +4278,7 @@
         <type>Pages</type>
         <extInfo xsi:type="form:PagesGroupExtInfo">
           <pagesRepresentation>TabsOnTop</pagesRepresentation>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -4315,7 +4315,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -4352,7 +4352,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -4526,7 +4526,7 @@
             <showLeftMargin>true</showLeftMargin>
             <united>true</united>
             <throughAlign>Auto</throughAlign>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
@@ -4784,7 +4784,7 @@
               <color>Web.Gainsboro</color>
             </backColor>
             <throughAlign>Auto</throughAlign>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
@@ -5030,7 +5030,7 @@
           <showLeftMargin>true</showLeftMargin>
           <united>true</united>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
@@ -5358,7 +5358,7 @@
           <showLeftMargin>true</showLeftMargin>
           <united>true</united>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -5395,7 +5395,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
@@ -6170,7 +6170,7 @@
           <showLeftMargin>true</showLeftMargin>
           <united>true</united>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -6207,7 +6207,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -6244,7 +6244,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -6326,7 +6326,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <autoCommandBar>
@@ -7737,7 +7737,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПакетЗапросовНовый</name>
@@ -7762,7 +7762,7 @@
         <name>Команда_НовыйПакетЗапросов</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПакетЗапросовСохранить</name>
@@ -7788,7 +7788,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЗагрузитьПакетЗапросов</name>
@@ -7813,7 +7813,7 @@
         <name>Команда_ЗагрузитьПакетЗапросов</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КонструкторЗапросов</name>
@@ -7840,7 +7840,7 @@
     </action>
     <representation>TextPicture</representation>
     <modifiesStoredData>true</modifiesStoredData>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПараметрыЗаполнитьИзЗапроса</name>
@@ -7862,7 +7862,7 @@
       </handler>
     </action>
     <modifiesStoredData>true</modifiesStoredData>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЗаполнитьИзXML</name>
@@ -7889,7 +7889,7 @@
     </action>
     <representation>TextPicture</representation>
     <modifiesStoredData>true</modifiesStoredData>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПакетЗапросовСохранитьКак</name>
@@ -7910,7 +7910,7 @@
         <name>Команда_ПакетЗапросовСохранитьКак</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПараметрыОчистить</name>
@@ -7932,7 +7932,7 @@
       </handler>
     </action>
     <modifiesStoredData>true</modifiesStoredData>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>УбратьПереносСтрокИзТекста</name>
@@ -7954,7 +7954,7 @@
         <name>Команда_УбратьПереносСтрокИзТекста</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ДобавитьПереносСтрокВТекст</name>
@@ -7976,7 +7976,7 @@
         <name>Команда_ДобавитьПереносСтрокВТекст</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ДобавитьКомментированиеСтрокВТекст</name>
@@ -7999,7 +7999,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>УбратьКомментированиеСтрокИзТекста</name>
@@ -8022,7 +8022,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>СинтаксическийКонтрольЗапроса</name>
@@ -8048,7 +8048,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ФорматироватьТекстЗапроса</name>
@@ -8070,7 +8070,7 @@
         <name>Команда_ФорматироватьТекстЗапроса</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПолучитьКодДляПерехватаВОтладчике</name>
@@ -8095,7 +8095,7 @@
         <name>Команда_ПолучитьКодДляПерехватаВОтладчике</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПолучитьПерехваченныеЗапросы</name>
@@ -8120,7 +8120,7 @@
         <name>Команда_ДобавитьПерехваченныеЗапросы</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПакетЗапросовДобавить</name>
@@ -8144,7 +8144,7 @@
         <name>Команда_ПакетЗапросовДобавить</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПакетЗапросовПереместитьНаУровеньВверх</name>
@@ -8169,7 +8169,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ПакетЗапросовСкопировать</name>
@@ -8193,7 +8193,7 @@
         <name>Команда_ПакетЗапросовСкопировать</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОбновитьРезультат</name>
@@ -8218,7 +8218,7 @@
         <name>Команда_ОбновитьРезультат</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>РезультатЗапросаДеревоРазвернутьВсе</name>
@@ -8244,7 +8244,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>РезультатЗапросаДереваСвернутьВсе</name>
@@ -8269,7 +8269,7 @@
         <name>Команда_РезультатЗапросаДеревоСвернутьВсе</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>РезультатВТабличныйДокумент</name>
@@ -8295,7 +8295,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтобразитьСкрытьПанельРезультатаИтоги</name>
@@ -8316,7 +8316,7 @@
         <name>Команда_ОтобразитьСкрытьПанельРезультатаИтоги</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ВыполнитьОбработку</name>
@@ -8342,7 +8342,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ВставитьПредопределенноеЗначение</name>
@@ -8368,7 +8368,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>РезультатВПараметр</name>
@@ -8393,7 +8393,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>СправкаАлгоритм</name>

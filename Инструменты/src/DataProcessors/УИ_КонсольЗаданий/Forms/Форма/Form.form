@@ -1794,7 +1794,7 @@
       <united>true</united>
       <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -3277,7 +3277,7 @@
       <united>true</united>
       <showTitle>true</showTitle>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <commandBarLocation>None</commandBarLocation>
@@ -3970,7 +3970,7 @@
         <name>ОбновитьРегламентныеЗадания</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>Расписание</name>
@@ -3994,7 +3994,7 @@
         <name>Расписание</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОбновитьФоновыеЗадания</name>
@@ -4018,7 +4018,7 @@
         <name>ОбновитьФоновыеЗадания</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтменитьФоновоеЗадание</name>
@@ -4042,7 +4042,7 @@
         <name>ОтменитьФоновоеЗадание</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>НастройкаСпискаРегламентныхЗаданий</name>
@@ -4066,7 +4066,7 @@
         <name>НастройкаСпискаРегламентныхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>НастройкаСпискаФоновыхЗаданий</name>
@@ -4090,7 +4090,7 @@
         <name>НастройкаСпискаФоновыхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>УстановитьОтборРегламентныхЗаданий</name>
@@ -4114,7 +4114,7 @@
         <name>УстановитьОтборРегламентныхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтключитьОтборРегламентныхЗаданий</name>
@@ -4138,7 +4138,7 @@
         <name>ОтключитьОтборРегламентныхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>УстановитьОтборФоновыхЗаданий</name>
@@ -4162,7 +4162,7 @@
         <name>УстановитьОтборФоновыхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтключитьОтборФоновыхЗаданий</name>
@@ -4186,7 +4186,7 @@
         <name>ОтключитьОтборФоновыхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЗапуститьЗадание</name>
@@ -4207,7 +4207,7 @@
         <name>ЗапуститьЗадание</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ВыполнитьЗаданиеВручную</name>
@@ -4231,7 +4231,7 @@
         <name>ВыполнитьЗаданиеВручную</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЖурналРегистрации</name>
@@ -4252,7 +4252,7 @@
         <name>ЖурналРегистрации</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
     <associatedTableElementId>2</associatedTableElementId>
   </formCommands>
   <formCommands>
@@ -4278,7 +4278,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ВыполнитьНаСервере</name>
@@ -4297,7 +4297,7 @@
     <picture xsi:type="core:PictureRef">
       <picture>StdPicture.GenerateReport</picture>
     </picture>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

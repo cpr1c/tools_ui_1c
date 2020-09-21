@@ -1067,7 +1067,7 @@
     <type>Pages</type>
     <extInfo xsi:type="form:PagesGroupExtInfo">
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -1508,7 +1508,7 @@
         <name>ЗаписатьОбъект</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ИзменитьПароль</name>
@@ -1529,7 +1529,7 @@
         <name>ИзменитьПароль</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ПоказатьТолькоДоступные</name>

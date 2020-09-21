@@ -476,7 +476,7 @@
         <name>КомандаОК</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаЗакрыть</name>
@@ -497,7 +497,7 @@
         <name>КомандаЗакрыть</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаОчиститьТаблицу</name>
@@ -518,7 +518,7 @@
         <name>КомандаОчиститьТаблицу</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
     <name>ТаблицаДанных</name>

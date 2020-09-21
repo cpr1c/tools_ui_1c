@@ -655,7 +655,7 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <throughAlign>Auto</throughAlign>
-        <currentRowUse>DontUse</currentRowUse>
+        <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <items xsi:type="form:Button">
@@ -752,7 +752,7 @@
       <showLeftMargin>true</showLeftMargin>
       <united>true</united>
       <throughAlign>Auto</throughAlign>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
@@ -1033,7 +1033,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -1063,7 +1063,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
@@ -1210,7 +1210,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
@@ -1360,7 +1360,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
@@ -1705,7 +1705,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormField">
@@ -1901,7 +1901,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
@@ -1999,7 +1999,7 @@
               <united>true</united>
               <showTitle>true</showTitle>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <visible>true</visible>
@@ -2354,7 +2354,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
@@ -3516,7 +3516,7 @@
               <showLeftMargin>true</showLeftMargin>
               <united>true</united>
               <throughAlign>Auto</throughAlign>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
@@ -4390,7 +4390,7 @@
         <type>Pages</type>
         <extInfo xsi:type="form:PagesGroupExtInfo">
           <pagesRepresentation>TabsOnTop</pagesRepresentation>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -4655,7 +4655,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -4848,7 +4848,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -5232,7 +5232,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <visible>true</visible>
@@ -5268,7 +5268,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -5306,7 +5306,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -5594,7 +5594,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -5773,7 +5773,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -5869,7 +5869,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -6028,7 +6028,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -6066,7 +6066,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <visible>true</visible>
@@ -6104,7 +6104,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -6244,7 +6244,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -6656,7 +6656,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -6853,7 +6853,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -6948,7 +6948,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -6989,7 +6989,7 @@
                   <united>true</united>
                   <showTitle>true</showTitle>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -7399,7 +7399,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -7596,7 +7596,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -7691,7 +7691,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -7728,7 +7728,7 @@
                   <united>true</united>
                   <showTitle>true</showTitle>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -8137,7 +8137,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -8334,7 +8334,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -8429,7 +8429,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -8470,7 +8470,7 @@
                   <united>true</united>
                   <showTitle>true</showTitle>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <visible>true</visible>
@@ -8508,7 +8508,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -8960,7 +8960,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -9152,7 +9152,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -9245,7 +9245,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -9904,7 +9904,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -9972,7 +9972,7 @@
           <type>Pages</type>
           <extInfo xsi:type="form:PagesGroupExtInfo">
             <pagesRepresentation>TabsOnTop</pagesRepresentation>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <visible>true</visible>
@@ -10009,7 +10009,7 @@
           <showLeftMargin>true</showLeftMargin>
           <united>true</united>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -10270,7 +10270,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -10463,7 +10463,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -10847,7 +10847,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <visible>true</visible>
@@ -10883,7 +10883,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -10921,7 +10921,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -11209,7 +11209,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -11388,7 +11388,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -11484,7 +11484,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -11643,7 +11643,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -11681,7 +11681,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <visible>true</visible>
@@ -11719,7 +11719,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -11859,7 +11859,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -12271,7 +12271,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -12468,7 +12468,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -12563,7 +12563,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -12600,7 +12600,7 @@
                   <united>true</united>
                   <showTitle>true</showTitle>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -13009,7 +13009,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -13206,7 +13206,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -13301,7 +13301,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -13338,7 +13338,7 @@
                   <united>true</united>
                   <showTitle>true</showTitle>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
@@ -13747,7 +13747,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
@@ -13944,7 +13944,7 @@
                       <showLeftMargin>true</showLeftMargin>
                       <united>true</united>
                       <throughAlign>Auto</throughAlign>
-                      <currentRowUse>DontUse</currentRowUse>
+                      <currentRowUse>Auto</currentRowUse>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -14039,7 +14039,7 @@
                     <showLeftMargin>true</showLeftMargin>
                     <united>true</united>
                     <throughAlign>Auto</throughAlign>
-                    <currentRowUse>DontUse</currentRowUse>
+                    <currentRowUse>Auto</currentRowUse>
                   </extInfo>
                 </items>
                 <visible>true</visible>
@@ -14076,7 +14076,7 @@
                   <united>true</united>
                   <showTitle>true</showTitle>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <visible>true</visible>
@@ -14114,7 +14114,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
@@ -14566,7 +14566,7 @@
                 <united>true</united>
                 <showTitle>true</showTitle>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -14761,7 +14761,7 @@
                   <showLeftMargin>true</showLeftMargin>
                   <united>true</united>
                   <throughAlign>Auto</throughAlign>
-                  <currentRowUse>DontUse</currentRowUse>
+                  <currentRowUse>Auto</currentRowUse>
                 </extInfo>
               </items>
               <items xsi:type="form:FormField">
@@ -14852,7 +14852,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -15515,7 +15515,7 @@
                 <showLeftMargin>true</showLeftMargin>
                 <united>true</united>
                 <throughAlign>Auto</throughAlign>
-                <currentRowUse>DontUse</currentRowUse>
+                <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
             <visible>true</visible>
@@ -15583,7 +15583,7 @@
           <type>Pages</type>
           <extInfo xsi:type="form:PagesGroupExtInfo">
             <pagesRepresentation>TabsOnTop</pagesRepresentation>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <visible>true</visible>
@@ -15620,7 +15620,7 @@
           <showLeftMargin>true</showLeftMargin>
           <united>true</united>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -17592,7 +17592,7 @@
     <type>Pages</type>
     <extInfo xsi:type="form:PagesGroupExtInfo">
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <autoCommandBar>
@@ -18200,7 +18200,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КонструкторЗапросаБ</name>
@@ -18225,7 +18225,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>СравнитьДанные</name>
@@ -18251,7 +18251,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>СохранитьНастройкиВФайл</name>
@@ -18276,7 +18276,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОткрытьНастройкиИзФайла</name>
@@ -18301,7 +18301,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>СохранитьНастройкиВБазу</name>
@@ -18326,7 +18326,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОткрытьНастройкиИзБазы</name>
@@ -18351,7 +18351,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитА1</name>
@@ -18372,7 +18372,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитА2</name>
@@ -18393,7 +18393,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитА3</name>
@@ -18414,7 +18414,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитБ1</name>
@@ -18435,7 +18435,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитБ2</name>
@@ -18456,7 +18456,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитБ3</name>
@@ -18477,7 +18477,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитА4</name>
@@ -18498,7 +18498,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитА5</name>
@@ -18519,7 +18519,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитБ4</name>
@@ -18540,7 +18540,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьРеквизитБ5</name>
@@ -18561,7 +18561,7 @@
         <name>КомандаВидимостьКолонкиТЧ</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаПолучитьПараметрыЗапросаА</name>
@@ -18583,7 +18583,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаПолучитьПараметрыЗапросаБ</name>
@@ -18605,7 +18605,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВидимостьТиповСтолбцовКлюча</name>
@@ -18626,7 +18626,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВыгрузитьРезультатВФайлНаСервере</name>
@@ -18644,7 +18644,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВыгрузитьРезультатВФайлНаКлиенте</name>
@@ -18666,7 +18666,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

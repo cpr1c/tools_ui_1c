@@ -368,7 +368,7 @@
         <name>ПанельПриСменеСтраницы</name>
       </handlers>
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">

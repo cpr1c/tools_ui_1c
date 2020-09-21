@@ -852,7 +852,7 @@
         <name>Сохранить</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>Отменить</name>
@@ -873,7 +873,7 @@
         <name>Отменить</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
     <name>СписокПараметров</name>

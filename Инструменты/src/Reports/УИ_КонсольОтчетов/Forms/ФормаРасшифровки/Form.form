@@ -608,7 +608,7 @@
         <name>ИзменитьВариант</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>Сформировать</name>
@@ -629,7 +629,7 @@
         <name>Сформировать</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
     <name>АдресСхемыКомпоновкиДанных</name>

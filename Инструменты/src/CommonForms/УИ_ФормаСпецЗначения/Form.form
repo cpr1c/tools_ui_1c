@@ -315,7 +315,7 @@
     <type>Pages</type>
     <extInfo xsi:type="form:PagesGroupExtInfo">
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <commandBarLocation>Bottom</commandBarLocation>
@@ -510,7 +510,7 @@
         <name>КомандаЗакрыть</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаОК</name>
@@ -531,7 +531,7 @@
         <name>КомандаОК</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

@@ -3400,7 +3400,7 @@
             <type>Pages</type>
             <extInfo xsi:type="form:PagesGroupExtInfo">
               <pagesRepresentation>TabsOnTop</pagesRepresentation>
-              <currentRowUse>DontUse</currentRowUse>
+              <currentRowUse>Auto</currentRowUse>
             </extInfo>
           </items>
           <visible>true</visible>
@@ -3445,7 +3445,7 @@
             <united>true</united>
             <showTitle>true</showTitle>
             <throughAlign>Auto</throughAlign>
-            <currentRowUse>DontUse</currentRowUse>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <visible>true</visible>
@@ -3482,7 +3482,7 @@
           <united>true</united>
           <slaveItemsWidth>LeftWide</slaveItemsWidth>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -5519,7 +5519,7 @@
           <united>true</united>
           <showTitle>true</showTitle>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
@@ -6990,7 +6990,7 @@
           <united>true</united>
           <showTitle>true</showTitle>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
@@ -7849,7 +7849,7 @@
           <united>true</united>
           <showTitle>true</showTitle>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -10119,7 +10119,7 @@
         <type>Pages</type>
         <extInfo xsi:type="form:PagesGroupExtInfo">
           <pagesRepresentation>TabsOnTop</pagesRepresentation>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -10710,7 +10710,7 @@
           <united>true</united>
           <showTitle>true</showTitle>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
@@ -10938,7 +10938,7 @@
           <united>true</united>
           <showTitle>true</showTitle>
           <throughAlign>Auto</throughAlign>
-          <currentRowUse>DontUse</currentRowUse>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
@@ -11156,7 +11156,7 @@
     <type>Pages</type>
     <extInfo xsi:type="form:PagesGroupExtInfo">
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
-      <currentRowUse>DontUse</currentRowUse>
+      <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
   <autoCommandBar>
@@ -13332,7 +13332,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кПоказатьСвойстваОбъекта</name>
@@ -13357,7 +13357,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кОткрытьФормуСписка</name>
@@ -13382,7 +13382,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кЗапускТолстыйКлиент</name>
@@ -13403,7 +13403,7 @@
         <name>кЗапускТолстыйКлиент</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кЗапускТолстыйКлиентУпр</name>
@@ -13424,7 +13424,7 @@
         <name>кЗапускТолстыйКлиентУпр</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кЗапускКонфигуратор</name>
@@ -13445,7 +13445,7 @@
         <name>кЗапускКонфигуратор</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кЗапускТонкийКлиент</name>
@@ -13466,7 +13466,7 @@
         <name>кЗапускТонкийКлиент</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кСвернутьРазделДерева</name>
@@ -13491,7 +13491,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кИзменитьМасштабОтображенияФорм</name>
@@ -13512,7 +13512,7 @@
         <name>кИзменитьМасштабОтображенияФорм</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кОткрытьФормуСпискаДоп</name>
@@ -13537,7 +13537,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кОбновтьТаблицуНастроек</name>
@@ -13562,7 +13562,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кВыполнитьСервиснуюКоманду</name>
@@ -13586,7 +13586,7 @@
         <name>кВыполнитьСервиснуюКоманду</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кЗапуск1СРасш</name>
@@ -13607,7 +13607,7 @@
         <name>кЗапуск1СРасш</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>кРассчитатьКоличествоОбъектов</name>
@@ -13632,7 +13632,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_СвернутьВсеУзлы</name>
@@ -13656,7 +13656,7 @@
         <name>_СвернутьВсеУзлы</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ДобавитьВИзбранное</name>

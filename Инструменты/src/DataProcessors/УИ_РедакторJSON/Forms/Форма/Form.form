@@ -738,7 +738,7 @@
         <name>НовыйФайл</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОткрытьФайл</name>

@@ -434,7 +434,7 @@
         <name>ЗавершитьРедактирование</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
     <name>ПрошлоеЗначение</name>
