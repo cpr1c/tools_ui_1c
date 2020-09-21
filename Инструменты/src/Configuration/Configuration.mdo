@@ -59,6 +59,7 @@
   <commonPictures>CommonPicture.УИ_Информация</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
+  <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
