@@ -875,6 +875,10 @@
                         <segments>Items.НаборыДанных.CurrentData.Поля.ПутьКДанным</segments>
                       </paths>
                     </dataPath>
+                    <handlers>
+                      <event>OnChange</event>
+                      <name>ПоляПутьКДаннымПриИзменении</name>
+                    </handlers>
                     <extendedTooltip>
                       <name>ПоляПутьКДаннымРасширеннаяПодсказка</name>
                       <id>137</id>
@@ -6928,6 +6932,36 @@
           <name>ПараметрыСКДКоманднаяПанель</name>
           <id>351</id>
           <items xsi:type="form:Button">
+            <name>ПараметрыСКДДобавить</name>
+            <id>805</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>ПараметрыСКДДобавитьРасширеннаяПодсказка</name>
+              <id>806</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.ПараметрыСКД.StandardCommand.Add</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
             <name>ПараметрыСКДСкопировать</name>
             <id>429</id>
             <visible>true</visible>
@@ -6989,17 +7023,80 @@
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
+          <items xsi:type="form:Button">
+            <name>ПараметрыСКДПереместитьВверх</name>
+            <id>807</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>ПараметрыСКДПереместитьВверхРасширеннаяПодсказка</name>
+              <id>808</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.ПараметрыСКД.StandardCommand.MoveUp</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>ПараметрыСКДПереместитьВниз</name>
+            <id>809</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>ПараметрыСКДПереместитьВнизРасширеннаяПодсказка</name>
+              <id>810</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.ПараметрыСКД.StandardCommand.MoveDown</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
           <horizontalAlign>Left</horizontalAlign>
-          <autoFill>true</autoFill>
         </autoCommandBar>
         <handlers>
           <event>OnStartEdit</event>
           <name>ПараметрыСКДПриНачалеРедактирования</name>
+        </handlers>
+        <handlers>
+          <event>BeforeDeleteRow</event>
+          <name>ПараметрыСКДПередУдалением</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -14203,6 +14300,23 @@
       <id>112</id>
       <valueType>
         <types>ValueList</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ДобавленАвтоматически</name>
+      <title>
+        <key>ru</key>
+        <value>Добавлен автоматически</value>
+      </title>
+      <id>114</id>
+      <valueType>
+        <types>Boolean</types>
       </valueType>
       <view>
         <common>true</common>
