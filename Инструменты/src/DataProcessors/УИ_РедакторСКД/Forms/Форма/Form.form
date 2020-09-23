@@ -2739,17 +2739,18 @@
                       </userVisible>
                       <autoFill>true</autoFill>
                     </contextMenu>
-                    <type>InputField</type>
+                    <type>TextDocumentField</type>
                     <editMode>Enter</editMode>
                     <showInHeader>true</showInHeader>
                     <headerHorizontalAlign>Left</headerHorizontalAlign>
                     <showInFooter>true</showInFooter>
-                    <extInfo xsi:type="form:InputFieldExtInfo">
-                      <wrap>true</wrap>
-                      <multiLine>true</multiLine>
-                      <chooseType>true</chooseType>
-                      <typeDomainEnabled>true</typeDomainEnabled>
-                      <textEdit>true</textEdit>
+                    <extInfo xsi:type="form:TextDocFieldExtInfo">
+                      <width>50</width>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <height>10</height>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <horizontalStretch>true</horizontalStretch>
+                      <verticalStretch>true</verticalStretch>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormGroup">
@@ -7091,12 +7092,12 @@
           <horizontalAlign>Left</horizontalAlign>
         </autoCommandBar>
         <handlers>
-          <event>OnStartEdit</event>
-          <name>ПараметрыСКДПриНачалеРедактирования</name>
-        </handlers>
-        <handlers>
           <event>BeforeDeleteRow</event>
           <name>ПараметрыСКДПередУдалением</name>
+        </handlers>
+        <handlers>
+          <event>OnStartEdit</event>
+          <name>ПараметрыСКДПриНачалеРедактирования</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
