@@ -2065,14 +2065,181 @@
                 <autoCommandBar>
                   <name>НаборыДанныхПоляКоманднаяПанель</name>
                   <id>84</id>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляДобавитьПолеНабораПоле</name>
+                    <id>785</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляДобавитьПолеНабораПолеРасширеннаяПодсказка</name>
+                      <id>786</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ДобавитьПолеНабораПоле</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляСкопировать</name>
+                    <id>791</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляСкопироватьРасширеннаяПодсказка</name>
+                      <id>792</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.Copy</commandName>
+                    <representation>Picture</representation>
+                    <onlyInAllActions>false</onlyInAllActions>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляДобавитьПолеНабораПапка</name>
+                    <id>787</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляДобавитьПолеНабораПапкаРасширеннаяПодсказка</name>
+                      <id>788</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ДобавитьПолеНабораПапка</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляДобавитьПолеНабораНабор</name>
+                    <id>789</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляДобавитьПолеНабораНаборРасширеннаяПодсказка</name>
+                      <id>790</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ДобавитьПолеНабораНабор</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляУдалить</name>
+                    <id>793</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляУдалитьРасширеннаяПодсказка</name>
+                      <id>794</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.Delete</commandName>
+                    <representation>Picture</representation>
+                    <onlyInAllActions>false</onlyInAllActions>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <horizontalAlign>Left</horizontalAlign>
-                  <autoFill>true</autoFill>
+                  <horizontalAlign>Right</horizontalAlign>
                 </autoCommandBar>
+                <handlers>
+                  <event>OnStartEdit</event>
+                  <name>НаборыДанныхПоляПриНачалеРедактирования</name>
+                </handlers>
+                <handlers>
+                  <event>OnActivateRow</event>
+                  <name>НаборыДанныхПоляПриАктивизацииСтроки</name>
+                </handlers>
+                <handlers>
+                  <event>BeforeAddRow</event>
+                  <name>НаборыДанныхПоляПередНачаломДобавления</name>
+                </handlers>
+                <handlers>
+                  <event>BeforeDeleteRow</event>
+                  <name>НаборыДанныхПоляПередУдалением</name>
+                </handlers>
                 <searchStringAddition>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2205,12 +2372,163 @@
                 <contextMenu>
                   <name>НаборыДанныхПоляКонтекстноеМеню</name>
                   <id>85</id>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляДобавитьПолеНабораПоле1</name>
+                    <id>795</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляДобавитьПолеНабораПоле1РасширеннаяПодсказка</name>
+                      <id>796</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ДобавитьПолеНабораПоле</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляСкопировать1</name>
+                    <id>797</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляСкопировать1РасширеннаяПодсказка</name>
+                      <id>798</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.Copy</commandName>
+                    <representation>Picture</representation>
+                    <onlyInAllActions>false</onlyInAllActions>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляДобавитьПолеНабораПапка1</name>
+                    <id>799</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляДобавитьПолеНабораПапка1РасширеннаяПодсказка</name>
+                      <id>800</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ДобавитьПолеНабораПапка</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляДобавитьПолеНабораНабор1</name>
+                    <id>801</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляДобавитьПолеНабораНабор1РасширеннаяПодсказка</name>
+                      <id>802</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ДобавитьПолеНабораНабор</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляУдалить1</name>
+                    <id>803</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляУдалить1РасширеннаяПодсказка</name>
+                      <id>804</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.Delete</commandName>
+                    <representation>Picture</representation>
+                    <onlyInAllActions>false</onlyInAllActions>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <autoFill>true</autoFill>
                 </contextMenu>
                 <changeRowSet>true</changeRowSet>
                 <changeRowOrder>true</changeRowOrder>
@@ -2446,6 +2764,10 @@
                           <segments>Items.НаборыДанных.CurrentData.АвтоЗаполнениеДоступныхПолей</segments>
                         </paths>
                       </dataPath>
+                      <handlers>
+                        <event>OnChange</event>
+                        <name>НаборыДанныхАвтоЗаполнениеДоступныхПолейПриИзменении</name>
+                      </handlers>
                       <extendedTooltip>
                         <name>НаборыДанныхАвтоЗаполнениеДоступныхПолейРасширеннаяПодсказка</name>
                         <id>127</id>
@@ -14360,6 +14682,69 @@
         <name>ЗавершитьРедактирование</name>
       </handler>
     </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ДобавитьПолеНабораПапка</name>
+    <title>
+      <key>ru</key>
+      <value>Добавить группу полей</value>
+    </title>
+    <id>13</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.CreateFolder</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ДобавитьПолеНабораПапка</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ДобавитьПолеНабораПоле</name>
+    <title>
+      <key>ru</key>
+      <value>Добавить поле</value>
+    </title>
+    <id>14</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.CreateListItem</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ДобавитьПолеНабораПоле</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ДобавитьПолеНабораНабор</name>
+    <title>
+      <key>ru</key>
+      <value>Добавить поле - вложенный набор данных</value>
+    </title>
+    <id>15</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.DataCompositionNewTable</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ДобавитьПолеНабораНабор</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
