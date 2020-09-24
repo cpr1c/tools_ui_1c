@@ -24,6 +24,7 @@
               <segments>НаборыДанных</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
+            <shortcut>Ctrl+S</shortcut>
             <items xsi:type="form:FormGroup">
               <name>НаборыДанныхГруппаЗаголовокНабораДанных</name>
               <id>38</id>
@@ -340,6 +341,18 @@
               <event>BeforeRowChange</event>
               <name>НаборыДанныхПередНачаломИзменения</name>
             </handlers>
+            <handlers>
+              <event>BeforeAddRow</event>
+              <name>НаборыДанныхПередНачаломДобавления</name>
+            </handlers>
+            <handlers>
+              <event>Drag</event>
+              <name>НаборыДанныхПеретаскивание</name>
+            </handlers>
+            <handlers>
+              <event>DragCheck</event>
+              <name>НаборыДанныхПроверкаПеретаскивания</name>
+            </handlers>
             <searchStringAddition>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -599,6 +612,8 @@
               </userVisible>
             </contextMenu>
             <representation>Tree</representation>
+            <changeRowSet>true</changeRowSet>
+            <changeRowOrder>true</changeRowOrder>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <autoMaxRowsCount>true</autoMaxRowsCount>
@@ -614,6 +629,8 @@
             <initialTreeView>ExpandAllLevels</initialTreeView>
             <horizontalStretch>true</horizontalStretch>
             <verticalStretch>true</verticalStretch>
+            <enableStartDrag>true</enableStartDrag>
+            <enableDrag>true</enableDrag>
           </items>
           <items xsi:type="form:FormGroup">
             <name>ГруппаКомандыЧтенияСохраненияСКД</name>
@@ -2243,6 +2260,10 @@
                 <handlers>
                   <event>BeforeDeleteRow</event>
                   <name>НаборыДанныхПоляПередУдалением</name>
+                </handlers>
+                <handlers>
+                  <event>OnEditEnd</event>
+                  <name>НаборыДанныхПоляПриОкончанииРедактирования</name>
                 </handlers>
                 <searchStringAddition>
                   <visible>true</visible>
