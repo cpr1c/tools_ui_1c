@@ -86,6 +86,7 @@
   <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
   <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
+  <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
