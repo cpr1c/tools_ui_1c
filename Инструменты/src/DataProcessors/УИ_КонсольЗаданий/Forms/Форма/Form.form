@@ -67,7 +67,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -119,7 +119,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -171,7 +171,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -223,7 +223,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -275,7 +275,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -327,7 +327,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -379,7 +379,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -431,7 +431,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -483,7 +483,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -535,7 +535,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -586,7 +586,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>LabelField</type>
-        <editMode>EnterOnInput</editMode>
+        <editMode>Enter</editMode>
         <showInHeader>true</showInHeader>
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
@@ -979,7 +979,7 @@
               <id>111</id>
               <title>
                 <key>ru</key>
-                <value>На сервере</value>
+                <value>На сервере (тонкий клиент)</value>
               </title>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1741,12 +1741,10 @@
       <verticalScrollBar>AutoUse</verticalScrollBar>
       <horizontalLines>true</horizontalLines>
       <verticalLines>true</verticalLines>
-      <autoInsertNewRow>true</autoInsertNewRow>
-      <searchOnInput>Auto</searchOnInput>
       <initialListView>Auto</initialListView>
       <horizontalStretch>true</horizontalStretch>
       <verticalStretch>true</verticalStretch>
-      <searchStringLocation>None</searchStringLocation>
+      <searchStringLocation>CommandBar</searchStringLocation>
       <viewStatusLocation>None</viewStatusLocation>
       <searchControlLocation>None</searchControlLocation>
       <rowFilter xsi:type="core:UndefinedValue"/>
@@ -3948,6 +3946,26 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ВремяЗаполненияРегламентных</name>
+    <title>
+      <key>ru</key>
+      <value>Время заполнения регламентных</value>
+    </title>
+    <id>16</id>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ОбновитьРегламентныеЗадания</name>
     <title>
@@ -3957,7 +3975,7 @@
     <id>1</id>
     <toolTip>
       <key>ru</key>
-      <value>Обновить регламентные задания</value>
+      <value>Обновить регламентные задания и состояния каждого (может занять продолжительное время)</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -3970,7 +3988,7 @@
         <name>ОбновитьРегламентныеЗадания</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>Расписание</name>
@@ -3994,7 +4012,7 @@
         <name>Расписание</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОбновитьФоновыеЗадания</name>
@@ -4018,7 +4036,7 @@
         <name>ОбновитьФоновыеЗадания</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтменитьФоновоеЗадание</name>
@@ -4042,7 +4060,7 @@
         <name>ОтменитьФоновоеЗадание</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>НастройкаСпискаРегламентныхЗаданий</name>
@@ -4066,7 +4084,7 @@
         <name>НастройкаСпискаРегламентныхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>НастройкаСпискаФоновыхЗаданий</name>
@@ -4090,7 +4108,7 @@
         <name>НастройкаСпискаФоновыхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>УстановитьОтборРегламентныхЗаданий</name>
@@ -4114,7 +4132,7 @@
         <name>УстановитьОтборРегламентныхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтключитьОтборРегламентныхЗаданий</name>
@@ -4138,7 +4156,7 @@
         <name>ОтключитьОтборРегламентныхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>УстановитьОтборФоновыхЗаданий</name>
@@ -4162,7 +4180,7 @@
         <name>УстановитьОтборФоновыхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтключитьОтборФоновыхЗаданий</name>
@@ -4186,7 +4204,7 @@
         <name>ОтключитьОтборФоновыхЗаданий</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЗапуститьЗадание</name>
@@ -4207,7 +4225,7 @@
         <name>ЗапуститьЗадание</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ВыполнитьЗаданиеВручную</name>
@@ -4231,7 +4249,7 @@
         <name>ВыполнитьЗаданиеВручную</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ЖурналРегистрации</name>
@@ -4252,8 +4270,7 @@
         <name>ЖурналРегистрации</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
-    <associatedTableElementId>2</associatedTableElementId>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ОтборПоТекущему</name>
@@ -4278,7 +4295,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>ВыполнитьНаСервере</name>
@@ -4297,7 +4314,7 @@
     <picture xsi:type="core:PictureRef">
       <picture>StdPicture.GenerateReport</picture>
     </picture>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

@@ -508,7 +508,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

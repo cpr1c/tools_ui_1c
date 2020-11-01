@@ -716,7 +716,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПараметрыЗаданияЗначение1</name>
+          <name>ПараметрыЗаданияЗначение</name>
           <id>74</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -730,7 +730,7 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ПараметрыЗаданияЗначение1ПриИзменении</name>
+            <name>ПараметрыЗаданияЗначениеПриИзменении</name>
           </handlers>
           <extendedTooltip>
             <name>ПараметрыЗаданияЗначение1РасширеннаяПодсказка</name>
@@ -1518,7 +1518,7 @@
         <name>ОК</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>
