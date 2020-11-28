@@ -13,6 +13,7 @@
     <key>ru</key>
     <value>Консоль сравнения данных [УИ]</value>
   </synonym>
+  <comment>15.4.55</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольСравненияДанных.Form.ФормаУправляемая</defaultForm>
   <help>
@@ -1712,19 +1713,6 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="9245a5f5-7666-4c84-8f7d-575d9e3c7788">
-    <name>ПутьКФайлуВыгрузки</name>
-    <synonym>
-      <key>ru</key>
-      <value>Путь к файлу выгрузки (на сервере)</value>
-    </synonym>
-    <type>
-      <types>String</types>
-      <stringQualifiers/>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
   <attributes uuid="4a4dbf5a-5d9e-4682-843d-00428eaa43af">
     <name>СвязаннаяОперацияСравненияДанных</name>
     <synonym>
@@ -1794,6 +1782,60 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
+  <attributes uuid="9245a5f5-7666-4c84-8f7d-575d9e3c7788">
+    <name>ПутьКФайлуВыгрузки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Путь к файлу выгрузки (на сервере)</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="6b31ca3a-eff6-4162-8950-86e4ce6b38b7">
+    <name>ФорматФайлаВыгрузки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Формат файла выгрузки</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>4</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="f2e23b9f-b037-4e4b-afab-5f3daeb589a0">
+    <name>ТабличныйДокументАХранилище</name>
+    <synonym>
+      <key>ru</key>
+      <value>Табличный документ а хранилище</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="239893ed-182f-40b3-bb6e-1989a42639be">
+    <name>ТабличныйДокументБХранилище</name>
+    <synonym>
+      <key>ru</key>
+      <value>Табличный документ б хранилище</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
   <tabularSections uuid="7a13023d-5a75-44c8-a3ef-f763f240c071">
     <producedTypes>
       <objectType typeId="7c1accad-99ce-4b62-9df5-4b0fb4d45a06" valueTypeId="93164a1b-5bb3-4589-a561-794d5bd567e1"/>
@@ -1825,14 +1867,13 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>10</precision>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
         </stringQualifiers>
-        <dateQualifiers>
-          <dateFractions>Date</dateFractions>
-        </dateQualifiers>
+        <dateQualifiers/>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
@@ -1853,14 +1894,13 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>10</precision>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
         </stringQualifiers>
-        <dateQualifiers>
-          <dateFractions>Date</dateFractions>
-        </dateQualifiers>
+        <dateQualifiers/>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
@@ -1881,14 +1921,13 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>10</precision>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
         </stringQualifiers>
-        <dateQualifiers>
-          <dateFractions>Date</dateFractions>
-        </dateQualifiers>
+        <dateQualifiers/>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
@@ -1909,8 +1948,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -1938,8 +1977,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -1967,8 +2006,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -1996,8 +2035,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -2025,8 +2064,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -2054,8 +2093,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -2083,8 +2122,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -2112,8 +2151,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -2141,8 +2180,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -2170,8 +2209,8 @@
         <types>Number</types>
         <types>AnyRef</types>
         <numberQualifiers>
-          <precision>15</precision>
-          <scale>3</scale>
+          <precision>20</precision>
+          <scale>8</scale>
         </numberQualifiers>
         <stringQualifiers>
           <length>1024</length>
@@ -2575,6 +2614,24 @@
         <value></value>
       </fillValue>
     </attributes>
+    <attributes uuid="f20dff1a-b120-4897-bfcc-35f84d040cc9">
+      <name>ЗаголовокРеквизитаДляПользователя</name>
+      <synonym>
+        <key>ru</key>
+        <value>Заголовок реквизита таблицы расхождений для пользователя</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers>
+          <length>50</length>
+        </stringQualifiers>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:StringValue">
+        <value></value>
+      </fillValue>
+    </attributes>
   </tabularSections>
   <tabularSections uuid="4215cc90-6ef9-4eb7-b129-0ee65bf1c43f">
     <producedTypes>
@@ -2638,6 +2695,24 @@
       <type>
         <types>String</types>
         <stringQualifiers/>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:StringValue">
+        <value></value>
+      </fillValue>
+    </attributes>
+    <attributes uuid="0d479cce-ba51-411a-a2a0-7d9ecf36d4c3">
+      <name>ЗаголовокРеквизитаДляПользователя</name>
+      <synonym>
+        <key>ru</key>
+        <value>Заголовок реквизита таблицы расхождений для пользователя</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers>
+          <length>50</length>
+        </stringQualifiers>
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
@@ -2926,5 +3001,12 @@
       <value>Картинка неактивная операция7</value>
     </synonym>
     <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="d380c569-d30c-4f0a-8dc2-db61da9ad6d9">
+    <name>ФормаПредварительногоПросмотра</name>
+    <synonym>
+      <key>ru</key>
+      <value>Предварительный просмотр</value>
+    </synonym>
   </templates>
 </mdclass:DataProcessor>
