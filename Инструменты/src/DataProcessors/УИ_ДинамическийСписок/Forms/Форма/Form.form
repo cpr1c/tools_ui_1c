@@ -900,6 +900,23 @@
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
+  <formCommands>
+    <name>УдалитьВыделенныеОбъекты</name>
+    <title>
+      <key>ru</key>
+      <value>Удалить выделенные объекты</value>
+    </title>
+    <id>3</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>УдалитьВыделенныеОбъекты</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
   <commandInterface>
     <navigationPanel/>
     <commandBar/>

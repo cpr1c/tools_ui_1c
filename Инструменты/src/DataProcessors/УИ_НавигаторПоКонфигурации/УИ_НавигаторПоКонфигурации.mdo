@@ -78,15 +78,6 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="114dc57c-f246-4243-ac27-cdf63389f567">
-    <name>ФормаСпискаОбъектов</name>
-    <synonym>
-      <key>ru</key>
-      <value>Форма списка объектов</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
   <templates uuid="900f95f8-81be-4442-affb-5882998bbc1f">
     <name>МакетСервис</name>
     <synonym>
