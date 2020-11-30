@@ -58,6 +58,20 @@
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
+  <commonPictures>CommonPicture.УИ_Число</commonPictures>
+  <commonPictures>CommonPicture.УИ_Строка</commonPictures>
+  <commonPictures>CommonPicture.УИ_Дата</commonPictures>
+  <commonPictures>CommonPicture.УИ_Булево</commonPictures>
+  <commonPictures>CommonPicture.УИ_УникальныйИдентификатор</commonPictures>
+  <commonPictures>CommonPicture.УИ_Null</commonPictures>
+  <commonPictures>CommonPicture.УИ_ПроизвольныйТип</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВидДвиженияНакопления</commonPictures>
+  <commonPictures>CommonPicture.УИ_ТаблицаЗначений</commonPictures>
+  <commonPictures>CommonPicture.УИ_СписокЗначений</commonPictures>
+  <commonPictures>CommonPicture.УИ_Массив</commonPictures>
+  <commonPictures>CommonPicture.УИ_Тип</commonPictures>
+  <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
+  <commonPictures>CommonPicture.УИ_Граница</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
@@ -96,6 +110,7 @@
   <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
   <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
   <commonForms>CommonForm.УИ_ФормаРедактированияСпискаЗначений</commonForms>
+  <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>

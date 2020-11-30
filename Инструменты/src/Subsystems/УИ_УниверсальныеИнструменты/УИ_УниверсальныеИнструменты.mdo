@@ -94,6 +94,14 @@
   <content>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</content>
   <content>CommonModule.УИ_БуферОбменаКлиент</content>
   <content>DataProcessor.УИ_РедакторСКД</content>
+  <content>CommonPicture.УИ_Строка</content>
+  <content>CommonPicture.УИ_Дата</content>
+  <content>CommonPicture.УИ_Булево</content>
+  <content>CommonPicture.УИ_УникальныйИдентификатор</content>
+  <content>CommonPicture.УИ_Null</content>
+  <content>CommonPicture.УИ_ПроизвольныйТип</content>
+  <content>CommonPicture.УИ_ВидДвиженияНакопления</content>
+  <content>CommonPicture.УИ_Массив</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>
