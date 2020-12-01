@@ -326,8 +326,16 @@
               <horizontalAlign>Left</horizontalAlign>
             </autoCommandBar>
             <handlers>
+              <event>DragCheck</event>
+              <name>НаборыДанныхПроверкаПеретаскивания</name>
+            </handlers>
+            <handlers>
               <event>Selection</event>
               <name>НаборыДанныхВыбор</name>
+            </handlers>
+            <handlers>
+              <event>BeforeAddRow</event>
+              <name>НаборыДанныхПередНачаломДобавления</name>
             </handlers>
             <handlers>
               <event>BeforeDeleteRow</event>
@@ -338,20 +346,12 @@
               <name>НаборыДанныхПриАктивизацииСтроки</name>
             </handlers>
             <handlers>
-              <event>BeforeRowChange</event>
-              <name>НаборыДанныхПередНачаломИзменения</name>
-            </handlers>
-            <handlers>
-              <event>BeforeAddRow</event>
-              <name>НаборыДанныхПередНачаломДобавления</name>
-            </handlers>
-            <handlers>
               <event>Drag</event>
               <name>НаборыДанныхПеретаскивание</name>
             </handlers>
             <handlers>
-              <event>DragCheck</event>
-              <name>НаборыДанныхПроверкаПеретаскивания</name>
+              <event>BeforeRowChange</event>
+              <name>НаборыДанныхПередНачаломИзменения</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -2246,12 +2246,8 @@
                   <horizontalAlign>Right</horizontalAlign>
                 </autoCommandBar>
                 <handlers>
-                  <event>OnStartEdit</event>
-                  <name>НаборыДанныхПоляПриНачалеРедактирования</name>
-                </handlers>
-                <handlers>
-                  <event>OnActivateRow</event>
-                  <name>НаборыДанныхПоляПриАктивизацииСтроки</name>
+                  <event>OnEditEnd</event>
+                  <name>НаборыДанныхПоляПриОкончанииРедактирования</name>
                 </handlers>
                 <handlers>
                   <event>BeforeAddRow</event>
@@ -2262,8 +2258,12 @@
                   <name>НаборыДанныхПоляПередУдалением</name>
                 </handlers>
                 <handlers>
-                  <event>OnEditEnd</event>
-                  <name>НаборыДанныхПоляПриОкончанииРедактирования</name>
+                  <event>OnActivateRow</event>
+                  <name>НаборыДанныхПоляПриАктивизацииСтроки</name>
+                </handlers>
+                <handlers>
+                  <event>OnStartEdit</event>
+                  <name>НаборыДанныхПоляПриНачалеРедактирования</name>
                 </handlers>
                 <searchStringAddition>
                   <visible>true</visible>
