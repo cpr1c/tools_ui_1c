@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
+<form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
     <name>ГруппаКолонкиТаблицы</name>
     <id>18</id>
@@ -24,10 +24,6 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
-          <activeLanguage>1</activeLanguage>
-          <paths xsi:type="form:DataPath">
-            <segments>КолонкиТаблицы.Имя</segments>
-          </paths>
           <paths xsi:type="form:DataPath">
             <segments>КолонкиТаблицы.Имя</segments>
           </paths>
@@ -79,8 +75,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>КолонкиТаблицы.ТипЗначения</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>КолонкиТаблицы.ТипЗначения</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыТипЗначенияРасширеннаяПодсказка</name>
@@ -132,8 +130,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>КолонкиТаблицы.Квалификаторы</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>КолонкиТаблицы.Квалификаторы</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыКвалификаторыРасширеннаяПодсказка</name>
@@ -187,16 +187,16 @@
         <autoFill>true</autoFill>
       </autoCommandBar>
       <handlers>
+        <event>OnEditEnd</event>
+        <name>КолонкиТаблицыПриОкончанииРедактирования</name>
+      </handlers>
+      <handlers>
         <event>BeforeEditEnd</event>
         <name>КолонкиТаблицыПередОкончаниемРедактирования</name>
       </handlers>
       <handlers>
         <event>AfterDeleteRow</event>
         <name>КолонкиТаблицыПослеУдаления</name>
-      </handlers>
-      <handlers>
-        <event>OnEditEnd</event>
-        <name>КолонкиТаблицыПриОкончанииРедактирования</name>
       </handlers>
       <searchStringAddition>
         <visible>true</visible>
@@ -353,6 +353,7 @@
       <initialListView>Auto</initialListView>
       <horizontalStretch>true</horizontalStretch>
       <verticalStretch>true</verticalStretch>
+      <rowFilter xsi:type="core:UndefinedValue"/>
     </items>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -570,6 +571,7 @@
     <initialListView>Auto</initialListView>
     <horizontalStretch>true</horizontalStretch>
     <verticalStretch>true</verticalStretch>
+    <rowFilter xsi:type="core:UndefinedValue"/>
   </items>
   <autoCommandBar>
     <name>ФормаКоманднаяПанель</name>
