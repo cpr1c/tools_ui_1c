@@ -2,3 +2,4 @@ docs/.vscode
 docs/_site
 docs/.jekyll-cache
 docs/coverage
+build/
