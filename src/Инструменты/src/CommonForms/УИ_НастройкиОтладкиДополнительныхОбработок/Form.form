@@ -215,23 +215,6 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДополнительнаяОбработка</name>
-    <title>
-      <key>ru</key>
-      <value>Дополнительная обработка</value>
-    </title>
-    <id>3</id>
-    <valueType>
-      <types>CatalogRef.ДополнительныеОтчетыИОбработки</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
     <name>ЭтоОтчет</name>
     <title>
       <key>ru</key>
