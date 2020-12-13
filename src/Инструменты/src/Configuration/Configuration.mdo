@@ -102,6 +102,7 @@
   <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
   <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
+  <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
@@ -113,6 +114,7 @@
   <commonForms>CommonForm.УИ_ФормаРедактированияСпискаЗначений</commonForms>
   <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
   <commonForms>CommonForm.УИ_РедакторТаблицыЗначений</commonForms>
+  <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
