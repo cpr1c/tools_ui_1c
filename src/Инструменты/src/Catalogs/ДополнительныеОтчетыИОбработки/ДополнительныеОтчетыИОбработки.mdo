@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="6e626c81-d90c-4902-95f3-9488fd3df39b">
+  <producedTypes>
+    <objectType typeId="0f7d6abf-ff04-45bb-b564-6b22e9b9f430" valueTypeId="e904b862-c455-49fe-be8b-906a876860a7"/>
+    <refType typeId="55ef9486-c98a-451b-b654-18c3918fe2c6" valueTypeId="b1859462-5a6f-4291-8a90-5d4fce423c16"/>
+    <selectionType typeId="dfaea4a6-fa4f-481a-adea-0799a36d890b" valueTypeId="aaa5fc2b-b305-47e1-b896-3cfe0cb44349"/>
+    <listType typeId="abc643a9-84a6-488b-bd8b-f504a2ee5f81" valueTypeId="af9d387a-9d45-4d2e-b392-5b959a3a3575"/>
+    <managerType typeId="38ecae26-5f0a-4cf1-b7f9-078af43b7b2b" valueTypeId="24493fa3-2344-4497-9f10-38802bfebdc4"/>
+  </producedTypes>
+  <name>ДополнительныеОтчетыИОбработки</name>
+  <objectBelonging>Adopted</objectBelonging>
+  <extension xsi:type="mdclassExtension:CatalogExtension"/>
+  <commands uuid="9a26f94f-7aa0-4877-8fc3-143e210ab55f">
+    <name>УИ_НастройкиОтладки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Настройки отладки</value>
+    </synonym>
+    <group>FormCommandBarImportant</group>
+    <commandParameterType>
+      <types>CatalogRef.ДополнительныеОтчетыИОбработки</types>
+    </commandParameterType>
+    <representation>PictureAndText</representation>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_Отладка</picture>
+    </picture>
+  </commands>
+</mdclass:Catalog>

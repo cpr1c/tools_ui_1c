@@ -585,4 +585,18 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Catalog.ДополнительныеОтчетыИОбработки.Command.УИ_НастройкиОтладки</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>

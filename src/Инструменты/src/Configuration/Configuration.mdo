@@ -116,6 +116,7 @@
   <commonForms>CommonForm.УИ_РедакторТаблицыЗначений</commonForms>
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
+  <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
