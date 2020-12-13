@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d01eede0-3d22-11eb-5899-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="d01eedcc-3d22-11eb-5899-e86a6452d1f2" valueTypeId="d01eedcd-3d22-11eb-5899-e86a6452d1f2"/>
+    <managerType typeId="d01eedd6-3d22-11eb-5899-e86a6452d1f2" valueTypeId="d01eedd7-3d22-11eb-5899-e86a6452d1f2"/>
+  </producedTypes>
+  <name>УИ_СравнениеОбъектов</name>
+  <synonym>
+    <key>ru</key>
+    <value>Сравнение объектов (УИ)</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_СравнениеОбъектов.Form.Форма</defaultForm>
+  <forms uuid="3862f830-3d26-11eb-5899-e86a6452d1f2">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="3862f9a2-3d26-11eb-5899-e86a6452d1f2">
+    <name>ПФ_MXL_СравнениеОбъектов</name>
+    <synonym>
+      <key>ru</key>
+      <value>П ф MXL сравнение объектов</value>
+    </synonym>
+  </templates>
+</mdclass:DataProcessor>

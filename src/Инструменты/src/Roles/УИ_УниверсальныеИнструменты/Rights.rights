@@ -268,6 +268,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_ФормаРедактированияСпискаЗначений</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.ВыполнениеАлгоритмов.Method.GET</name>
 		<right>
 			<name>Use</name>
@@ -308,6 +315,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_РедактированиеТипаЗначения</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>Report.УИ_КонсольОтчетов</name>
 		<right>
 			<name>Use</name>
@@ -338,6 +352,17 @@
 	</object>
 	<object>
 		<name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_СравнениеОбъектов</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -386,6 +411,13 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_РедакторТаблицыЗначений</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -548,27 +580,6 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_ФормаРедактированияСпискаЗначений</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_РедактированиеТипаЗначения</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_РедакторТаблицыЗначений</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

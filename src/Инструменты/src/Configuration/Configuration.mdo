@@ -21,7 +21,7 @@
   <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
   <scriptVariant>Russian</scriptVariant>
   <vendor>ООО &quot;Центр прикладных разработок&quot;</vendor>
-  <version>1.4.7</version>
+  <version>1.4.8</version>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
@@ -101,6 +101,7 @@
   <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
   <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
+  <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
@@ -144,4 +145,5 @@
   <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
 </mdclass:Configuration>

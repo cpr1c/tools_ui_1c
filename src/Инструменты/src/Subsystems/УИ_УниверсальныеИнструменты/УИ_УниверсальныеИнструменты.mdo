@@ -102,6 +102,7 @@
   <content>CommonPicture.УИ_ПроизвольныйТип</content>
   <content>CommonPicture.УИ_ВидДвиженияНакопления</content>
   <content>CommonPicture.УИ_Массив</content>
+  <content>DataProcessor.УИ_СравнениеОбъектов</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>
