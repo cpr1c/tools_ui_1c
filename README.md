@@ -191,6 +191,8 @@
 * 1C: EDT
 * OneScript 
 * Установленные библиотеки для OneScript
+   * logos
+   * [cfe2cf](https://github.com/best-tech/cfe2cf)
 
 В корне репозитория вызвать файл сценария 
 
