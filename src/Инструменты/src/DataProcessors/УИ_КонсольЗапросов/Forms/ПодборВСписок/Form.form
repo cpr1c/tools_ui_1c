@@ -56,9 +56,19 @@
       <headerHorizontalAlign>Left</headerHorizontalAlign>
       <showInFooter>true</showInFooter>
       <extInfo xsi:type="form:InputFieldExtInfo">
+        <handlers>
+          <event>StartChoice</event>
+          <name>СписокЭлементовЗначениеНачалоВыбора</name>
+        </handlers>
+        <handlers>
+          <event>ChoiceProcessing</event>
+          <name>СписокЭлементовЗначениеОбработкаВыбора</name>
+        </handlers>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
+        <choiceButton>true</choiceButton>
+        <clearButton>false</clearButton>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>
@@ -289,6 +299,14 @@
       <horizontalAlign>Left</horizontalAlign>
       <autoFill>true</autoFill>
     </autoCommandBar>
+    <handlers>
+      <event>ValueChoice</event>
+      <name>СписокЭлементовВыборЗначения</name>
+    </handlers>
+    <handlers>
+      <event>Selection</event>
+      <name>СписокЭлементовВыбор</name>
+    </handlers>
     <searchStringAddition>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -362,7 +380,6 @@
       <type>ViewStatusAddition</type>
       <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
         <autoMaxWidth>true</autoMaxWidth>
-        <horizontalLocation>Left</horizontalLocation>
       </extInfo>
     </viewStatusAddition>
     <searchControlAddition>
@@ -438,7 +455,6 @@
     <footerHeight>1</footerHeight>
     <horizontalScrollBar>AutoUse</horizontalScrollBar>
     <verticalScrollBar>AutoUse</verticalScrollBar>
-    <autoInsertNewRow>true</autoInsertNewRow>
     <searchOnInput>Auto</searchOnInput>
     <initialListView>Auto</initialListView>
     <horizontalStretch>true</horizontalStretch>
@@ -566,8 +582,16 @@
     <horizontalAlign>Left</horizontalAlign>
   </autoCommandBar>
   <handlers>
+    <event>BeforeClose</event>
+    <name>ПередЗакрытием</name>
+  </handlers>
+  <handlers>
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
+  </handlers>
+  <handlers>
+    <event>OnClose</event>
+    <name>ПриЗакрытии</name>
   </handlers>
   <excludedCommands>Abort</excludedCommands>
   <excludedCommands>Cancel</excludedCommands>
@@ -661,7 +685,7 @@
         <name>КомандаОК</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаОчистить</name>
@@ -682,7 +706,7 @@
         <name>КомандаОчистить</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

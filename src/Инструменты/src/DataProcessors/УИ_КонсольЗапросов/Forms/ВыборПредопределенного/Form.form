@@ -620,7 +620,7 @@
         <name>КомандаВставитьИмя</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВставитьЗНАЧЕНИЕ</name>
@@ -641,7 +641,7 @@
         <name>КомандаВставитьЗНАЧЕНИЕ</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВставитьССЫЛКА</name>
@@ -662,7 +662,7 @@
         <name>КомандаВставитьССЫЛКА</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВставитьПустаяСсылка</name>
@@ -683,7 +683,7 @@
         <name>КомандаВставитьПустаяСсылка</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

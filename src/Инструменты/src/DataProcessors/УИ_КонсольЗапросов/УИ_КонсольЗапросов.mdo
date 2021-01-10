@@ -141,6 +141,123 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
+  <attributes uuid="3f2316a5-751d-4712-9360-36264f8a20b6">
+    <name>КаталогТехнологическогоЖурнала</name>
+    <synonym>
+      <key>ru</key>
+      <value>Каталог технологического журнала</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="ca6f3abe-7761-48c9-91d3-c5c59a53b761">
+    <name>ТехнологическийЖурналВключен</name>
+    <synonym>
+      <key>ru</key>
+      <value>Технологический журнал включен</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="ccbdbe3b-b05f-4a47-adc5-427328d74894">
+    <name>МеткаСеанса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Метка сеанса</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="2464465c-1d35-4ff4-9f8d-d55498130b1b">
+    <name>Заголовок</name>
+    <synonym>
+      <key>ru</key>
+      <value>Заголовок</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="311cfef3-ab31-45f8-94d1-821a21b35387">
+    <name>СтруктураХранинияИБ</name>
+    <synonym>
+      <key>ru</key>
+      <value>Структура храниния ИБ</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="389325d6-b7d5-4143-878f-0ec78f774cee">
+    <name>ВерсияСборки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Версия сборки</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="9150b24a-304e-4993-914b-7fe4f171b559">
+    <name>РежимЗапускаВнешняяОбработка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Режим запуска внешняя обработка</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="b963c155-250d-4a64-8aba-6b727bd3a795">
+    <name>ИмяОбработки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Имя обработки</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="f228e650-cca6-49c3-b9ef-9c11ca9aed15">
+    <name>ПутьМетаданных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Путь метаданных</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
   <forms uuid="fe79f2db-62cb-406e-8915-95aee6e1ea26">
     <name>Форма</name>
     <synonym>
@@ -240,6 +357,15 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="1a8e52ef-0a1b-48c8-a087-5f06fbecc869">
+    <name>ФормаПланаЗапроса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма плана запроса</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <templates uuid="1c5906e2-19e5-4ff5-a840-dcc4c14b3f54">
     <name>Картинки</name>
     <synonym>
@@ -254,5 +380,13 @@
       <value>Справка по обработке кодом</value>
     </synonym>
     <templateType>HTMLDocument</templateType>
+  </templates>
+  <templates uuid="1e8def8f-529d-46cf-a315-b07d52318873">
+    <name>МакетКонфигурацииТЖ</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет конфигурации ТЖ</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
   </templates>
 </mdclass:DataProcessor>

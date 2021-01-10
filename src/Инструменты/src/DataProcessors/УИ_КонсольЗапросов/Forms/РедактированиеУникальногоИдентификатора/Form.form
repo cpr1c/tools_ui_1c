@@ -437,7 +437,14 @@
     </title>
     <id>4</id>
     <valueType>
-      <types>AnyRef</types>
+      <types>ExchangePlanRef</types>
+      <types>BusinessProcessRef</types>
+      <types>DocumentRef</types>
+      <types>ChartOfCalculationTypesRef</types>
+      <types>TaskRef</types>
+      <types>ChartOfCharacteristicTypesRef</types>
+      <types>ChartOfAccountsRef</types>
+      <types>CatalogRef</types>
     </valueType>
     <view>
       <common>true</common>
@@ -465,7 +472,7 @@
         <name>КомандаОК</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаНайти</name>
@@ -490,7 +497,7 @@
       </handler>
     </action>
     <representation>Picture</representation>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

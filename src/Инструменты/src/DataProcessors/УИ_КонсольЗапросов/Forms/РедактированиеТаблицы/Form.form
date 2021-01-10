@@ -280,7 +280,6 @@
       <type>ViewStatusAddition</type>
       <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
         <autoMaxWidth>true</autoMaxWidth>
-        <horizontalLocation>Left</horizontalLocation>
       </extInfo>
     </viewStatusAddition>
     <searchControlAddition>
@@ -578,7 +577,7 @@
         <name>КомандаОК</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаОчистить</name>
@@ -599,7 +598,8 @@
         <name>КомандаОчистить</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <modifiesStoredData>true</modifiesStoredData>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

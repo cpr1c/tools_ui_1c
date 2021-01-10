@@ -466,7 +466,6 @@
         <type>ViewStatusAddition</type>
         <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
-          <horizontalLocation>Left</horizontalLocation>
         </extInfo>
       </viewStatusAddition>
       <searchControlAddition>
@@ -1500,7 +1499,6 @@
         <type>ViewStatusAddition</type>
         <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
-          <horizontalLocation>Left</horizontalLocation>
         </extInfo>
       </viewStatusAddition>
       <searchControlAddition>
@@ -2341,6 +2339,23 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>РежимВПараметр</name>
+    <title>
+      <key>ru</key>
+      <value>Режим в параметр</value>
+    </title>
+    <id>18</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>КомандаОК</name>
     <title>
@@ -2356,7 +2371,7 @@
         <name>КомандаОК</name>
       </handler>
     </action>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
     <name>КомандаВЗапрос</name>
@@ -2381,7 +2396,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>Auto</currentRowUse>
+    <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

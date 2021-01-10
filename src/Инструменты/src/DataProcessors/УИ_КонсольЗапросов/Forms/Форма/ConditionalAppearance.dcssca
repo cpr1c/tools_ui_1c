@@ -25,4 +25,27 @@
 			</dcscor:item>
 		</appearance>
 	</item>
+	<item>
+		<selection>
+			<item>
+				<field>ПакетРезультатаЗапросаИмя</field>
+			</item>
+			<item>
+				<field>ПакетРезультатаЗапросаИнфо</field>
+			</item>
+		</selection>
+		<filter>
+			<item xsi:type="FilterItemComparison">
+				<left xsi:type="dcscor:Field">ПакетРезультатаЗапроса.ТекущийОтображаемый</left>
+				<comparisonType>Equal</comparisonType>
+				<right xsi:type="xs:boolean">true</right>
+			</item>
+		</filter>
+		<appearance>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:value xsi:type="v8ui:Color">win:ScrollBar</dcscor:value>
+			</dcscor:item>
+		</appearance>
+	</item>
 </ConditionalAppearance>
