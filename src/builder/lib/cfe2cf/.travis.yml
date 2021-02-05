@@ -1,0 +1,73 @@
+sudo: required
+language: generic
+
+notifications:
+  email: false
+env:
+  global:
+  - CHANNEL=dev
+  - PACKAGE_NAME=cfe2cf
+  matrix:
+  - OSCRIPT_VERSION=1_0_20
+  - OSCRIPT_VERSION=night-build
+matrix:
+  allow_failures:
+    - env: OSCRIPT_VERSION=night-build
+
+services:
+  - docker
+
+addons:
+    sonarqube: true
+  
+jdk:
+  - oraclejdk8
+
+before_install:
+ # Load cached docker images
+  - if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+after_script:
+  - ./cc-test-reporter after-build --prefix "/home/travis/build/khorevaa/cli/coverage/" --exit-code $TRAVIS_TEST_RESULT
+
+before_cache: 
+  # Save tagged docker images
+  - >
+    mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}'
+    | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
+install: 
+    - docker pull evilbeaver/onescript:1.0.19
+
+script:  
+  - docker version
+  - docker run -it -e OSCRIPT_VERSION=$OSCRIPT_VERSION -v $(pwd):/work_dir evilbeaver/onescript:1.0.19 sh -c 'cd /work_dir; sh /work_dir/travis-ci.sh; exit' | tee /tmp/test.log
+  - grep 'Результат прогона тестов <Да>' /tmp/test.log
+after_success:
+ # - bash <(curl -s https://codecov.io/bash)
+ # - ./sonar-qube.sh
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+    - '$HOME/docker'
+jobs:
+  include:
+    - stage: Сборка и публикация github
+      script: skip 
+      before_deploy:
+        - docker run -it -v $(pwd):/work_dir evilbeaver/onescript:1.0.19 sh -c 'cd /work_dir;  oscript -make src/cfe2cf.os cfe2cf.exe ; exit'
+      deploy:
+        - provider: releases
+          api_key: "$GITHUB_OAUTH_TOKEN"
+          file_glob: true
+          file: $PACKAGE_NAME*.exe
+          skip_cleanup: true
+          on:
+            branch: master
+            tags: true

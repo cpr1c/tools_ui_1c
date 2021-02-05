@@ -192,7 +192,12 @@
 * OneScript 
 * Установленные библиотеки для OneScript
    * logos
-   * [cfe2cf](https://github.com/best-tech/cfe2cf)
+   * cli
+   * 1commands
+   * tempfiles
+   * v8runner
+   * v8find
+   * fs
 
 В корне репозитория вызвать файл сценария 
 
@@ -206,7 +211,7 @@
   * **--cf** - Формировать сборку в виде конфигурации
    
 Пример 
-`./build.sh ----platformSource=/opt/1cv8/x86_64/8.3.12.1924`
+`./build.sh ----platformSource=/opt/1cv8/x86_64/8.3.12.1924 --versionEDT=edt@2020.6.0`
 
 # Развитие инструментов
 
