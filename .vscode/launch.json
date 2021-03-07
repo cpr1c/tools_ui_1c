@@ -4,6 +4,7 @@
     // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Сборка Всего(По умолчанию)",
             "type": "oscript",
@@ -15,10 +16,11 @@
             ],
             "cwd": "${workspaceRoot}",
             "env": {},
-            "runtimeExecutable": "/usr/bin/oscript",
+            "runtimeExecutable": null,
             "runtimeArgs": [],
             "debugPort": 2801,
-            "protocol": "tcp"
+            "protocol": "tcp",
+            "linux": {"runtimeExecutable": "/usr/bin/oscript"}
         },
         {
             "name": "Конвертация исходников",
@@ -35,10 +37,11 @@
             ],
             "cwd": "${workspaceRoot}",
             "env": {},
-            "runtimeExecutable": "/usr/bin/oscript",
+            "runtimeExecutable": null,
             "runtimeArgs": [],
             "debugPort": 2801,
-            "protocol": "tcp"
+            "protocol": "tcp",
+            "linux": {"runtimeExecutable": "/usr/bin/oscript"}
         },
         {
             "name": "Сборка в расширение(Без исходников)",
@@ -55,10 +58,11 @@
             ],
             "cwd": "${workspaceRoot}",
             "env": {},
-            "runtimeExecutable": "/usr/bin/oscript",
+            "runtimeExecutable": null,
             "runtimeArgs": [],
             "debugPort": 2801,
-            "protocol": "tcp"
+            "protocol": "tcp",
+            "linux": {"runtimeExecutable": "/usr/bin/oscript"}
         },
         {
             "name": "Сборка в конфигурацию(Без исходников)",
@@ -75,10 +79,11 @@
             ],
             "cwd": "${workspaceRoot}",
             "env": {},
-            "runtimeExecutable": "/usr/bin/oscript",
+            "runtimeExecutable": null,
             "runtimeArgs": [],
             "debugPort": 2801,
-            "protocol": "tcp"
+            "protocol": "tcp",
+            "linux": {"runtimeExecutable": "/usr/bin/oscript"}
         },
         {
             "name": "Сборка во внешнюю обработку(Без исходников)",
@@ -94,10 +99,11 @@
             ],
             "cwd": "${workspaceRoot}",
             "env": {},
-            "runtimeExecutable": "/usr/bin/oscript",
+            "runtimeExecutable": null,
             "runtimeArgs": [],
             "debugPort": 2801,
-            "protocol": "tcp"
+            "protocol": "tcp",
+            "linux": {"runtimeExecutable": "/usr/bin/oscript"}
         }
     ]
 }
