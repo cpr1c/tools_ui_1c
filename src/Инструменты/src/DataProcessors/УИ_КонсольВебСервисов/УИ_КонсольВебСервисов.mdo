@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="6dfb6de0-a9aa-47c0-8339-c449ffcb4bd6">
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="6dfb6de0-a9aa-47c0-8339-c449ffcb4bd6">
   <producedTypes>
     <objectType typeId="c60ce11b-0b18-4b6f-8a2d-ac644149a9ad" valueTypeId="96639455-2d5e-4c38-83a5-4d9d1bb12a8b"/>
     <managerType typeId="691a8753-5fe0-428c-946c-932ec4c9392c" valueTypeId="c609ab52-0b81-4126-ab6f-10a39814cab3"/>
@@ -20,82 +20,6 @@
     <key>ru</key>
     <value>Обработка для чтения и выполнения веб-сервисов на платформе 1С: Предприятие 8.3. Аналог soapUI. Обработка позволяет выполнить операцию веб-сервиса и отобразить результат в виде xml или дерева</value>
   </explanation>
-  <tabularSections uuid="ba73a99c-5825-4bc1-88ed-961e7db5c68a">
-    <producedTypes>
-      <objectType typeId="b85f515e-6dc4-431e-8a77-13cb44a9fe92" valueTypeId="cf2c5ad4-7adb-4809-887d-f09fac4b5e38"/>
-      <rowType typeId="31d583bd-ee37-4c30-a7df-79ab29e559af" valueTypeId="79d37fe9-830e-4ce8-9b55-91ff81e8ab50"/>
-    </producedTypes>
-    <name>СписокWSОпределений</name>
-    <synonym>
-      <key>ru</key>
-      <value>Список WSОпределений</value>
-    </synonym>
-    <comment>Хранит список ссылок на WSDL веб сервисов и параметры аутентификации</comment>
-    <standardAttributes>
-      <dataHistory>Use</dataHistory>
-      <name>LineNumber</name>
-      <comment></comment>
-      <fillValue xsi:type="core:UndefinedValue"/>
-      <fullTextSearch>Use</fullTextSearch>
-      <mask></mask>
-      <minValue xsi:type="core:UndefinedValue"/>
-      <maxValue xsi:type="core:UndefinedValue"/>
-    </standardAttributes>
-    <attributes uuid="2aff3d67-a472-49f4-a83a-4ebc79c77d88">
-      <name>МестоположениеWSDL</name>
-      <synonym>
-        <key>ru</key>
-        <value>Местоположение WSDL</value>
-      </synonym>
-      <comment></comment>
-      <type>
-        <types>String</types>
-        <stringQualifiers/>
-      </type>
-      <mask></mask>
-      <minValue xsi:type="core:UndefinedValue"/>
-      <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
-    </attributes>
-    <attributes uuid="4645afb1-11f8-48ab-9fc8-dff0046bd87c">
-      <name>ИмяПользователя</name>
-      <synonym>
-        <key>ru</key>
-        <value>Имя пользователя</value>
-      </synonym>
-      <comment>Имя пользователя для доступа к WSDL</comment>
-      <type>
-        <types>String</types>
-        <stringQualifiers/>
-      </type>
-      <mask></mask>
-      <minValue xsi:type="core:UndefinedValue"/>
-      <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
-    </attributes>
-    <attributes uuid="f5dab44a-4caa-4a9f-ba82-762cac0974be">
-      <name>Пароль</name>
-      <synonym>
-        <key>ru</key>
-        <value>Пароль</value>
-      </synonym>
-      <comment>Пароль для доступа к WSDL</comment>
-      <type>
-        <types>String</types>
-        <stringQualifiers/>
-      </type>
-      <mask></mask>
-      <minValue xsi:type="core:UndefinedValue"/>
-      <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
-    </attributes>
-  </tabularSections>
   <forms uuid="8efa5e06-0d36-4dcd-b6cb-15768b47ffc3">
     <name>Форма</name>
     <synonym>

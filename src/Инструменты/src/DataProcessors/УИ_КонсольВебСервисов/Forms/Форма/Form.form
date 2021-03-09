@@ -584,56 +584,9 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Объект.СписокWSОпределений</segments>
+            <segments>СписокWSОпределений</segments>
           </dataPath>
           <titleLocation>Top</titleLocation>
-          <items xsi:type="form:FormField">
-            <name>WSОпределенияНомерСтроки</name>
-            <id>35</id>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>Объект.СписокWSОпределений.LineNumber</segments>
-              </paths>
-            </dataPath>
-            <extendedTooltip>
-              <name>WSОпределенияНомерСтрокиРасширеннаяПодсказка</name>
-              <id>200</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <contextMenu>
-              <name>WSОпределенияНомерСтрокиКонтекстноеМеню</name>
-              <id>36</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <autoFill>true</autoFill>
-            </contextMenu>
-            <type>LabelField</type>
-            <editMode>EnterOnInput</editMode>
-            <showInHeader>true</showInHeader>
-            <headerHorizontalAlign>Left</headerHorizontalAlign>
-            <showInFooter>true</showInFooter>
-            <extInfo xsi:type="form:LabelFieldExtInfo">
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-            </extInfo>
-          </items>
           <items xsi:type="form:FormField">
             <name>WSОпределенияМестоположениеWSDL</name>
             <id>37</id>
@@ -644,7 +597,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>Объект.СписокWSОпределений.МестоположениеWSDL</segments>
+                <segments>СписокWSОпределений.МестоположениеWSDL</segments>
               </paths>
             </dataPath>
             <handlers>
@@ -700,7 +653,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>Объект.СписокWSОпределений.ИмяПользователя</segments>
+                <segments>СписокWSОпределений.ИмяПользователя</segments>
               </paths>
             </dataPath>
             <handlers>
@@ -756,7 +709,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>Объект.СписокWSОпределений.Пароль</segments>
+                <segments>СписокWSОпределений.Пароль</segments>
               </paths>
             </dataPath>
             <handlers>
@@ -4236,6 +4189,77 @@
         <value>Тип</value>
       </title>
       <id>3</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+  </attributes>
+  <attributes>
+    <name>СписокWSОпределений</name>
+    <title>
+      <key>ru</key>
+      <value>Список WSОпределений</value>
+    </title>
+    <id>19</id>
+    <valueType>
+      <types>ValueTable</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <columns>
+      <name>МестоположениеWSDL</name>
+      <title>
+        <key>ru</key>
+        <value>Местоположение WSDL</value>
+      </title>
+      <id>20</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ИмяПользователя</name>
+      <title>
+        <key>ru</key>
+        <value>Имя пользователя</value>
+      </title>
+      <id>21</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Пароль</name>
+      <title>
+        <key>ru</key>
+        <value>Пароль</value>
+      </title>
+      <id>22</id>
       <valueType>
         <types>String</types>
         <stringQualifiers/>
