@@ -3195,6 +3195,9 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <picture xsi:type="core:PictureRef">
+          <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
+        </picture>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>
