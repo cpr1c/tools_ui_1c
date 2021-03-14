@@ -773,16 +773,16 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаDataProcessorУИ_ТехПоддержкаCommandСтраницаРазработки</name>
-      <id>48</id>
+      <name>ФормаСтраницаРазработки</name>
+      <id>55</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаDataProcessorУИ_ТехПоддержкаCommandСтраницаРазработкиРасширеннаяПодсказка</name>
-        <id>49</id>
+        <name>ФормаСтраницаРазработкиРасширеннаяПодсказка</name>
+        <id>56</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -795,7 +795,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</commandName>
+      <commandName>Form.Command.СтраницаРазработки</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -1080,6 +1080,27 @@
         <name>СоздатьНовуюЗадачуНаГитхабе</name>
       </handler>
     </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>СтраницаРазработки</name>
+    <title>
+      <key>ru</key>
+      <value>Страница разработки</value>
+    </title>
+    <id>4</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_Репозиторий</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>СтраницаРазработки</name>
+      </handler>
+    </action>
+    <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
