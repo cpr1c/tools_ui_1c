@@ -397,15 +397,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФайлаСкачки</name>
+    <name>ОбновлениеЧерезСкачиваниеФайлаПоставки</name>
     <title>
       <key>ru</key>
-      <value>Имя файла скачки</value>
+      <value>Обновление через скачивание файла поставки</value>
     </title>
-    <id>7</id>
+    <id>8</id>
     <valueType>
-      <types>String</types>
-      <stringQualifiers/>
+      <types>Boolean</types>
     </valueType>
     <view>
       <common>true</common>
