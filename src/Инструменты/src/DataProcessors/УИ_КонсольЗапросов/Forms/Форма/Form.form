@@ -328,11 +328,11 @@
         </extendedTooltip>
         <commandName>Form.Command.ТехнологическийЖурнал</commandName>
         <representation>Auto</representation>
-        <onlyInAllActions>false</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
         <representationInContextMenu>Auto</representationInContextMenu>
+        <locationInCommandBar>InCommandBar</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
         <name>ФормаИзменитьФорму</name>
@@ -359,11 +359,11 @@
         </extendedTooltip>
         <commandName>Form.StandardCommand.CustomizeForm</commandName>
         <representation>Picture</representation>
-        <onlyInAllActions>false</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
         <representationInContextMenu>Auto</representationInContextMenu>
+        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -604,11 +604,11 @@
                 </extendedTooltip>
                 <commandName>Form.Command.ПакетЗапросовДобавить</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ПакетЗапросовКнопкаСкопировать</name>
@@ -635,11 +635,11 @@
                 </extendedTooltip>
                 <commandName>Form.Command.ПакетЗапросовСкопировать</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ПакетЗапросовКнопкаИзменить</name>
@@ -670,11 +670,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ПакетЗапросов.StandardCommand.Change</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ПакетЗапросовКнопкаУдалить</name>
@@ -701,11 +701,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ПакетЗапросов.StandardCommand.Delete</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ПакетЗапросовПакетЗапросовПереместитьНаУровеньВверх</name>
@@ -732,11 +732,11 @@
                 </extendedTooltip>
                 <commandName>Form.Command.ПакетЗапросовПереместитьНаУровеньВверх</commandName>
                 <representation>Auto</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ПакетЗапросовКнопкаВверх</name>
@@ -763,11 +763,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ПакетЗапросов.StandardCommand.MoveUp</commandName>
                 <representation>Auto</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ПакетЗапросовКнопкаВниз</name>
@@ -794,11 +794,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ПакетЗапросов.StandardCommand.MoveDown</commandName>
                 <representation>Auto</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -888,11 +888,11 @@
                 </extendedTooltip>
                 <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
                 <representation>Auto</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ПакетЗапросовУдалитьПерехваченныеЗапросы</name>
@@ -966,10 +966,6 @@
           <handlers>
             <event>OnEditEnd</event>
             <name>ПакетЗапросовПриОкончанииРедактирования</name>
-          </handlers>
-          <handlers>
-            <event>ValueChoice</event>
-            <name>ПакетЗапросовВыборЗначения</name>
           </handlers>
           <handlers>
             <event>Selection</event>
@@ -1594,11 +1590,11 @@
                   <type>UsualButton</type>
                   <commandName>Form.Command.СинтаксическийКонтрольЗапроса</commandName>
                   <representation>Picture</representation>
-                  <onlyInAllActions>false</onlyInAllActions>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:Button">
                   <name>ФорматироватьТекстЗапроса</name>
@@ -1658,12 +1654,12 @@
                   <type>UsualButton</type>
                   <commandName>Form.Command.ДобавитьПереносСтрокВТекст</commandName>
                   <representation>Picture</representation>
-                  <onlyInAllActions>false</onlyInAllActions>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:Button">
                   <name>УбратьПереносСтрокИзТекстаЗапроса</name>
@@ -1691,12 +1687,12 @@
                   <type>UsualButton</type>
                   <commandName>Form.Command.УбратьПереносСтрокИзТекста</commandName>
                   <representation>Picture</representation>
-                  <onlyInAllActions>false</onlyInAllActions>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:Button">
                   <name>ДобавитьКомментированиеСтрокВТекстЗапроса</name>
@@ -1890,7 +1886,6 @@
                   </extendedTooltip>
                   <commandName>Form.Command.ПараметрыЗапросаРядомСТекстом</commandName>
                   <representation>Auto</representation>
-                  <onlyInAllActions>false</onlyInAllActions>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <groupHorizontalAlign>Right</groupHorizontalAlign>
@@ -1898,6 +1893,7 @@
                   <check>true</check>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <pictureLocation>Right</pictureLocation>
+                  <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:Button">
                   <name>КомандаЗаполнитьИзXML</name>
@@ -1924,11 +1920,11 @@
                   </extendedTooltip>
                   <commandName>Form.Command.ЗаполнитьИзXML</commandName>
                   <representation>Auto</representation>
-                  <onlyInAllActions>true</onlyInAllActions>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:Button">
                   <name>ПолучитьПерехваченныеЗапросы</name>
@@ -1955,11 +1951,11 @@
                   </extendedTooltip>
                   <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
                   <representation>Auto</representation>
-                  <onlyInAllActions>true</onlyInAllActions>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:Button">
                   <name>ПолучитьКодДляЗахватаВОтладчике</name>
@@ -1986,7 +1982,6 @@
                   </extendedTooltip>
                   <commandName>Form.Command.ПолучитьКодДляПерехватаВОтладчике</commandName>
                   <representation>Auto</representation>
-                  <onlyInAllActions>true</onlyInAllActions>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
@@ -1994,6 +1989,7 @@
                     <picture>StdPicture.DataCompositionSettingsWizard</picture>
                   </picture>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2354,10 +2350,6 @@
                         <segments>ПараметрыЗапроса.ТипКонтейнера</segments>
                       </paths>
                     </dataPath>
-                    <handlers>
-                      <event>OnChange</event>
-                      <name>ПараметрыЗапросаФормаПриИзменении</name>
-                    </handlers>
                     <extendedTooltip>
                       <name>ПараметрыЗапросаФормаРасширеннаяПодсказка</name>
                       <id>127</id>
@@ -2525,11 +2517,11 @@
                       </extendedTooltip>
                       <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Copy</commandName>
                       <representation>Picture</representation>
-                      <onlyInAllActions>false</onlyInAllActions>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
                       <representationInContextMenu>Auto</representationInContextMenu>
+                      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
                       <name>ПараметрыЗапросаКнопкаУдалить</name>
@@ -2556,11 +2548,11 @@
                       </extendedTooltip>
                       <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Delete</commandName>
                       <representation>Picture</representation>
-                      <onlyInAllActions>false</onlyInAllActions>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
                       <representationInContextMenu>Auto</representationInContextMenu>
+                      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
                       <name>ПараметрыЗапросаКнопкаПереместитьВверх</name>
@@ -2587,11 +2579,11 @@
                       </extendedTooltip>
                       <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.MoveUp</commandName>
                       <representation>Picture</representation>
-                      <onlyInAllActions>false</onlyInAllActions>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
                       <representationInContextMenu>Auto</representationInContextMenu>
+                      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
                       <name>ПараметрыЗапросаКнопкаПереместитьВниз</name>
@@ -2618,11 +2610,11 @@
                       </extendedTooltip>
                       <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.MoveDown</commandName>
                       <representation>Picture</representation>
-                      <onlyInAllActions>false</onlyInAllActions>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
                       <representationInContextMenu>Auto</representationInContextMenu>
+                      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
                       <name>ПараметрыЗаполнитьИзЗапроса</name>
@@ -2699,10 +2691,6 @@
                   <handlers>
                     <event>OnActivateRow</event>
                     <name>ПараметрыЗапросаПриАктивизацииСтроки</name>
-                  </handlers>
-                  <handlers>
-                    <event>OnStartEdit</event>
-                    <name>ПараметрыЗапросаПриНачалеРедактирования</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
@@ -3201,11 +3189,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ВременныеТаблицы.StandardCommand.Copy</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ВременныеТаблицыКнопкаУдалить</name>
@@ -3232,11 +3220,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ВременныеТаблицы.StandardCommand.Delete</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ВременныеТаблицыКнопкаПереместитьВверх</name>
@@ -3263,11 +3251,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ВременныеТаблицы.StandardCommand.MoveUp</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ВременныеТаблицыКнопкаПереместитьВниз</name>
@@ -3294,11 +3282,11 @@
                 </extendedTooltip>
                 <commandName>Form.Item.ВременныеТаблицы.StandardCommand.MoveDown</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3535,12 +3523,12 @@
                 </extendedTooltip>
                 <commandName>Form.Command.ДобавитьПереносСтрокВТекст</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>УбратьПереносСтрокИзТекстаЗапроса1</name>
@@ -3567,12 +3555,12 @@
                 </extendedTooltip>
                 <commandName>Form.Command.УбратьПереносСтрокИзТекста</commandName>
                 <representation>Picture</representation>
-                <onlyInAllActions>false</onlyInAllActions>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
                 <name>ДобавитьКомментированиеСтрокВТекстЗапроса1</name>
@@ -3963,10 +3951,6 @@
                 </paths>
               </dataPath>
               <titleLocation>None</titleLocation>
-              <handlers>
-                <event>OnChange</event>
-                <name>ТекстАлгоритмПриИзменении</name>
-              </handlers>
               <extendedTooltip>
                 <name>ТекстАлгоритмРасширеннаяПодсказка</name>
                 <id>360</id>
@@ -4081,10 +4065,6 @@
                 <horizontalAlign>Left</horizontalAlign>
               </autoCommandBar>
               <handlers>
-                <event>DragCheck</event>
-                <name>СтруктураЗаписиРезультатаПроверкаПеретаскивания</name>
-              </handlers>
-              <handlers>
                 <event>Selection</event>
                 <name>СтруктураЗаписиРезультатаВыбор</name>
               </handlers>
@@ -4095,14 +4075,6 @@
               <handlers>
                 <event>BeforeExpand</event>
                 <name>СтруктураЗаписиРезультатаПередРазворачиванием</name>
-              </handlers>
-              <handlers>
-                <event>Drag</event>
-                <name>СтруктураЗаписиРезультатаПеретаскивание</name>
-              </handlers>
-              <handlers>
-                <event>DragEnd</event>
-                <name>СтруктураЗаписиРезультатаОкончаниеПеретаскивания</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -4262,6 +4234,7 @@
               <verticalStretch>true</verticalStretch>
               <enableStartDrag>true</enableStartDrag>
               <enableDrag>true</enableDrag>
+              <fileDragMode>AsFileRef</fileDragMode>
               <rowPictureDataPath xsi:type="form:DataPath">
                 <segments>СтруктураЗаписиРезультата.Картинка</segments>
               </rowPictureDataPath>
@@ -4831,10 +4804,6 @@
                 <segments>ОграничениеВыводимыхСтрок</segments>
               </paths>
             </dataPath>
-            <handlers>
-              <event>OnChange</event>
-              <name>ОпцияОграничениеВыводимыхСтрокПриИзменении</name>
-            </handlers>
             <extendedTooltip>
               <name>ОпцияОграничениеВыводимыхСтрокРасширеннаяПодсказка</name>
               <id>247</id>
@@ -4899,11 +4868,11 @@
             <type>UsualButton</type>
             <commandName>Form.Command.ОбновитьРезультат</commandName>
             <representation>Picture</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
+            <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5024,12 +4993,12 @@
             </extendedTooltip>
             <commandName>Form.Item.РезультатЗапросаДерево.StandardCommand.HierarchicalList</commandName>
             <representation>Picture</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <groupHorizontalAlign>Left</groupHorizontalAlign>
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
+            <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
             <name>РезультатЗапросаДеревоДерево</name>
@@ -5056,12 +5025,12 @@
             </extendedTooltip>
             <commandName>Form.Item.РезультатЗапросаДерево.StandardCommand.Tree</commandName>
             <representation>Picture</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <groupHorizontalAlign>Left</groupHorizontalAlign>
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
+            <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
             <name>РезультатЗапросаДеревоРазвернутьВсе</name>
@@ -5088,11 +5057,11 @@
             </extendedTooltip>
             <commandName>Form.Command.РезультатЗапросаДеревоРазвернутьВсе</commandName>
             <representation>Auto</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
+            <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
             <name>РезультатЗапросаДеревоРезультатЗапросаДереваСвернутьВсе</name>
@@ -5255,11 +5224,11 @@
             </extendedTooltip>
             <commandName>Form.Item.РезультатЗапроса.StandardCommand.OutputList</commandName>
             <representation>Picture</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
+            <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
             <name>РезультатЗапросаКнопкаНайти</name>
@@ -5286,11 +5255,11 @@
             </extendedTooltip>
             <commandName>Form.Item.РезультатЗапроса.StandardCommand.Find</commandName>
             <representation>Picture</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
+            <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
             <name>РезультатЗапросаКнопкаОтменитьПоиск</name>
@@ -5317,11 +5286,11 @@
             </extendedTooltip>
             <commandName>Form.Item.РезультатЗапроса.StandardCommand.CancelSearch</commandName>
             <representation>Picture</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
+            <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
             <name>РезультатЗапросаРезультатВТабличныйДокумент1</name>
@@ -5856,6 +5825,7 @@
         <initialListView>Auto</initialListView>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
+        <fileDragMode>AsFileRef</fileDragMode>
         <rowPictureDataPath xsi:type="form:DataPath">
           <segments>ПакетРезультатаЗапроса.ТипРезультата</segments>
         </rowPictureDataPath>
@@ -6511,14 +6481,6 @@
   <handlers>
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
-  </handlers>
-  <handlers>
-    <event>OnClose</event>
-    <name>ПриЗакрытии</name>
-  </handlers>
-  <handlers>
-    <event>FillCheckProcessingAtServer</event>
-    <name>ОбработкаПроверкиЗаполненияНаСервере</name>
   </handlers>
   <excludedCommands>Help</excludedCommands>
   <autoUrl>true</autoUrl>
@@ -8737,7 +8699,7 @@
     </use>
     <shortcut>Alt+P</shortcut>
     <picture xsi:type="core:PictureRef">
-      <picture>-100</picture>
+      <picture>StdPicture.Select</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>

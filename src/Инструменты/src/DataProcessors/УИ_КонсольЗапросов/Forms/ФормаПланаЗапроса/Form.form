@@ -1382,6 +1382,7 @@
           <verticalStretch>true</verticalStretch>
           <enableStartDrag>true</enableStartDrag>
           <enableDrag>true</enableDrag>
+          <fileDragMode>AsFileRef</fileDragMode>
         </items>
         <items xsi:type="form:FormField">
           <name>ТекущийОператор</name>

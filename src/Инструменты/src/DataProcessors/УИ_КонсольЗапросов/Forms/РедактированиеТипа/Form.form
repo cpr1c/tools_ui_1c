@@ -1284,11 +1284,11 @@
           </extendedTooltip>
           <commandName>Form.Item.СтруктураТаблицы.StandardCommand.Add</commandName>
           <representation>PictureAndText</representation>
-          <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
           <representationInContextMenu>Auto</representationInContextMenu>
+          <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
         </items>
         <items xsi:type="form:Button">
           <name>СтруктураТаблицыКнопкаСкопировать</name>
@@ -1315,11 +1315,11 @@
           </extendedTooltip>
           <commandName>Form.Item.СтруктураТаблицы.StandardCommand.Copy</commandName>
           <representation>Picture</representation>
-          <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
           <representationInContextMenu>Auto</representationInContextMenu>
+          <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
         </items>
         <items xsi:type="form:Button">
           <name>СтруктураТаблицыКнопкаУдалить</name>
@@ -1346,11 +1346,11 @@
           </extendedTooltip>
           <commandName>Form.Item.СтруктураТаблицы.StandardCommand.Delete</commandName>
           <representation>Picture</representation>
-          <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
           <representationInContextMenu>Auto</representationInContextMenu>
+          <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
         </items>
         <items xsi:type="form:Button">
           <name>СтруктураТаблицыКнопкаПереместитьВверх</name>
@@ -1377,11 +1377,11 @@
           </extendedTooltip>
           <commandName>Form.Item.СтруктураТаблицы.StandardCommand.MoveUp</commandName>
           <representation>Picture</representation>
-          <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
           <representationInContextMenu>Auto</representationInContextMenu>
+          <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
         </items>
         <items xsi:type="form:Button">
           <name>СтруктураТаблицыКнопкаПереместитьВниз</name>
@@ -1408,11 +1408,11 @@
           </extendedTooltip>
           <commandName>Form.Item.СтруктураТаблицы.StandardCommand.MoveDown</commandName>
           <representation>Picture</representation>
-          <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
           <representationInContextMenu>Auto</representationInContextMenu>
+          <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
         </items>
         <visible>true</visible>
         <enabled>true</enabled>
