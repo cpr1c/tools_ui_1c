@@ -1895,17 +1895,117 @@
                   <pictureLocation>Right</pictureLocation>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
-                <items xsi:type="form:Button">
-                  <name>КомандаЗаполнитьИзXML</name>
-                  <id>109</id>
+                <items xsi:type="form:FormGroup">
+                  <name>ГруппаКоманднаяПанельЗапросаПраваяПерехват</name>
+                  <id>507</id>
+                  <items xsi:type="form:Button">
+                    <name>КомандаЗаполнитьИзXML</name>
+                    <id>109</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>КомандаЗаполнитьИзXMLРасширеннаяПодсказка</name>
+                      <id>110</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ЗаполнитьИзXML</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                    <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>ПолучитьПерехваченныеЗапросы</name>
+                    <id>224</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>ПолучитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
+                      <id>225</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                    <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>ПолучитьКодДляЗахватаВОтладчике</name>
+                    <id>222</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>ПолучитьКодДляЗахватаВОтладчикеРасширеннаяПодсказка</name>
+                      <id>223</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Command.ПолучитьКодДляПерехватаВОтладчике</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <picture xsi:type="core:PictureRef">
+                      <picture>StdPicture.DataCompositionSettingsWizard</picture>
+                    </picture>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                    <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
+                  </items>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
                     <common>true</common>
                   </userVisible>
+                  <title>
+                    <key>ru</key>
+                    <value>Группа командная панель запроса правая перехват</value>
+                  </title>
                   <extendedTooltip>
-                    <name>КомандаЗаполнитьИзXMLРасширеннаяПодсказка</name>
-                    <id>110</id>
+                    <name>ГруппаКоманднаяПанельЗапросаПраваяПерехватРасширеннаяПодсказка</name>
+                    <id>508</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
                     <userVisible>
@@ -1918,78 +2018,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ЗаполнитьИзXML</commandName>
-                  <representation>Auto</representation>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <placementArea>UserCmds</placementArea>
-                  <representationInContextMenu>Auto</representationInContextMenu>
-                  <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
-                </items>
-                <items xsi:type="form:Button">
-                  <name>ПолучитьПерехваченныеЗапросы</name>
-                  <id>224</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <extendedTooltip>
-                    <name>ПолучитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
-                    <id>225</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <type>Label</type>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <extInfo xsi:type="form:LabelDecorationExtInfo">
-                      <horizontalAlign>Left</horizontalAlign>
-                    </extInfo>
-                  </extendedTooltip>
-                  <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
-                  <representation>Auto</representation>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <placementArea>UserCmds</placementArea>
-                  <representationInContextMenu>Auto</representationInContextMenu>
-                  <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
-                </items>
-                <items xsi:type="form:Button">
-                  <name>ПолучитьКодДляЗахватаВОтладчике</name>
-                  <id>222</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <extendedTooltip>
-                    <name>ПолучитьКодДляЗахватаВОтладчикеРасширеннаяПодсказка</name>
-                    <id>223</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <type>Label</type>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <extInfo xsi:type="form:LabelDecorationExtInfo">
-                      <horizontalAlign>Left</horizontalAlign>
-                    </extInfo>
-                  </extendedTooltip>
-                  <commandName>Form.Command.ПолучитьКодДляПерехватаВОтладчике</commandName>
-                  <representation>Auto</representation>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="core:PictureRef">
-                    <picture>StdPicture.DataCompositionSettingsWizard</picture>
-                  </picture>
-                  <representationInContextMenu>Auto</representationInContextMenu>
-                  <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
+                  <extInfo xsi:type="form:ButtonGroupExtInfo"/>
                 </items>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4915,6 +4944,36 @@
             <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
+        <items xsi:type="form:Button">
+          <name>УИ_РедактироватьЗначение</name>
+          <id>509</id>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <extendedTooltip>
+            <name>УИ_РедактироватьЗначениеРасширеннаяПодсказка</name>
+            <id>510</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <type>UsualButton</type>
+          <commandName>Form.Command.УИ_РедактироватьЗначение</commandName>
+          <representation>Auto</representation>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <placementArea>UserCmds</placementArea>
+          <representationInContextMenu>Auto</representationInContextMenu>
+        </items>
         <items xsi:type="form:FormField">
           <name>ИмяЗапросаРезультата</name>
           <id>269</id>
@@ -6043,6 +6102,35 @@
           <contextMenu>
             <name>РезультатЗапросаКонтекстноеМеню</name>
             <id>5</id>
+            <items xsi:type="form:Button">
+              <name>РезультатЗапросаКонтекстноеМенюУИ_РедактироватьЗначение</name>
+              <id>511</id>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>РезультатЗапросаКонтекстноеМенюУИ_РедактироватьЗначениеРасширеннаяПодсказка</name>
+                <id>512</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.УИ_РедактироватьЗначение</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -6240,6 +6328,35 @@
           <contextMenu>
             <name>РезультатЗапросаДеревоКонтекстноеМеню</name>
             <id>278</id>
+            <items xsi:type="form:Button">
+              <name>РезультатЗапросаДеревоКонтекстноеМенюУИ_РедактироватьЗначение</name>
+              <id>513</id>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>РезультатЗапросаДеревоКонтекстноеМенюУИ_РедактироватьЗначениеРасширеннаяПодсказка</name>
+                <id>514</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.УИ_РедактироватьЗначение</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -8052,6 +8169,24 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>СуффиксРеквизитаКонтейнера</name>
+    <title>
+      <key>ru</key>
+      <value>Суффикс реквизита контейнера</value>
+    </title>
+    <id>50</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ВыполнитьЗапрос</name>
     <title>
@@ -8917,6 +9052,27 @@
         <name>ПолучитьФайлыТехнологическогоЖурналаКонсоли</name>
       </handler>
     </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>УИ_РедактироватьЗначение</name>
+    <title>
+      <key>ru</key>
+      <value>Редактировать значение</value>
+    </title>
+    <id>37</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>УИ_РедактироватьЗначение</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>

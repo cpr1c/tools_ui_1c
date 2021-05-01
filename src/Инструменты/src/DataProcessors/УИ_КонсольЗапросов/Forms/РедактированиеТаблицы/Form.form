@@ -558,6 +558,24 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>СуффиксРеквизитаКонтейнера</name>
+    <title>
+      <key>ru</key>
+      <value>Суффикс реквизита контейнера</value>
+    </title>
+    <id>8</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>КомандаОК</name>
     <title>
