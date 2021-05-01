@@ -23,7 +23,7 @@
     <name>ОписаниеТипов</name>
     <synonym>
       <key>ru</key>
-      <value>Описание типов</value>
+      <value>Описание типов (json)</value>
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
