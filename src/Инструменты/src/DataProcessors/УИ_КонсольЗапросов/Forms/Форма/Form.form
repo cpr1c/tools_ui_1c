@@ -8187,6 +8187,23 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>УИ_Отладка</name>
+    <title>
+      <key>ru</key>
+      <value>У и отладка</value>
+    </title>
+    <id>51</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ВыполнитьЗапрос</name>
     <title>
