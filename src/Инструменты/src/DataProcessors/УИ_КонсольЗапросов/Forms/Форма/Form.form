@@ -1660,6 +1660,7 @@
                   <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
+                  <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
                   <name>УбратьПереносСтрокИзТекстаЗапроса</name>
@@ -1693,6 +1694,7 @@
                   <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
+                  <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
                   <name>ДобавитьКомментированиеСтрокВТекстЗапроса</name>
@@ -1725,6 +1727,7 @@
                   <placementArea>UserCmds</placementArea>
                   <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
                   <name>УбратьКомментированиеСтрокИзТекстаЗапроса</name>
@@ -1757,6 +1760,7 @@
                   <placementArea>UserCmds</placementArea>
                   <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
+                  <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
                   <name>ВставитьПредопределенноеЗначение</name>
@@ -3557,7 +3561,7 @@
                 <placementArea>UserCmds</placementArea>
                 <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
-                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
+                <commandUniqueness>false</commandUniqueness>
               </items>
               <items xsi:type="form:Button">
                 <name>УбратьПереносСтрокИзТекстаЗапроса1</name>
@@ -3589,7 +3593,7 @@
                 <placementArea>UserCmds</placementArea>
                 <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
-                <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
+                <commandUniqueness>false</commandUniqueness>
               </items>
               <items xsi:type="form:Button">
                 <name>ДобавитьКомментированиеСтрокВТекстЗапроса1</name>
@@ -3621,6 +3625,7 @@
                 <placementArea>UserCmds</placementArea>
                 <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <commandUniqueness>false</commandUniqueness>
               </items>
               <items xsi:type="form:Button">
                 <name>УбратьКомментированиеСтрокИзТекстаЗапроса1</name>
@@ -3652,6 +3657,7 @@
                 <placementArea>UserCmds</placementArea>
                 <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
+                <commandUniqueness>false</commandUniqueness>
               </items>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3666,6 +3672,8 @@
                 <key>ru</key>
                 <value>Группа командная панель кода</value>
               </toolTip>
+              <width>15</width>
+              <horizontalStretch>false</horizontalStretch>
               <extendedTooltip>
                 <name>ГруппаКоманднаяПанельКодаРасширеннаяПодсказка</name>
                 <id>362</id>
@@ -3883,10 +3891,13 @@
                 </extendedTooltip>
                 <type>UsualButton</type>
                 <commandName>Form.Command.СправкаАлгоритм</commandName>
-                <representation>Auto</representation>
+                <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <picture xsi:type="core:PictureRef">
+                  <picture>StdPicture.Help</picture>
+                </picture>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <visible>true</visible>
