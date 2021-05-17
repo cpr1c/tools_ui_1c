@@ -1162,7 +1162,7 @@
 		<v8ui:style xsi:type="v8ui:SpreadsheetDocumentCellLineType">Solid</v8ui:style>
 	</line>
 	<font xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" ref="sys:DefaultGUIFont" kind="WindowsFont"/>
-	<font kind="AutoFont"/>
+	<font height="0" bold="false" italic="false" underline="false" strikeout="false" kind="Absolute" scale="100"/>
 	<font faceName="Arial" height="8" bold="true" italic="false" underline="false" strikeout="false" kind="Absolute" scale="100"/>
 	<format>
 		<width>58</width>
@@ -1292,8 +1292,8 @@
 	<format>
 		<font>0</font>
 		<border>0</border>
-		<height>42</height>
 		<borderColor>style:BorderColor</borderColor>
+		<height>42</height>
 		<width>275</width>
 		<horizontalAlignment>Left</horizontalAlignment>
 		<verticalAlignment>Top</verticalAlignment>
