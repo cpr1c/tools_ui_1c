@@ -3298,6 +3298,10 @@
     <event>BeforeClose</event>
     <name>ПередЗакрытием</name>
   </handlers>
+  <handlers>
+    <event>OnCreateAtServer</event>
+    <name>ПриСозданииНаСервере</name>
+  </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>

@@ -72,6 +72,7 @@
   <commonPictures>CommonPicture.УИ_Тип</commonPictures>
   <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
   <commonPictures>CommonPicture.УИ_Граница</commonPictures>
+  <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
