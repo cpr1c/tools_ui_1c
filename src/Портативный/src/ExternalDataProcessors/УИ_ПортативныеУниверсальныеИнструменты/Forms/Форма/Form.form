@@ -269,6 +269,37 @@
           <name>ГруппаКомандыИнструментовПоддержки</name>
           <id>26</id>
           <items xsi:type="form:Button">
+            <name>НастройкиИнструментов</name>
+            <id>56</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>НастройкиИнструментовРасширеннаяПодсказка</name>
+              <id>57</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>Hyperlink</type>
+            <commandName>Form.Command.НастройкиИнструментов</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
             <name>ВопросРазработчику</name>
             <id>28</id>
             <visible>true</visible>
@@ -1078,6 +1109,23 @@
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ОсобенностиОтладкиВПортативныхИнструментах</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>НастройкиИнструментов</name>
+    <title>
+      <key>ru</key>
+      <value>Настройки инструментов</value>
+    </title>
+    <id>7</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>НастройкиИнструментов</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

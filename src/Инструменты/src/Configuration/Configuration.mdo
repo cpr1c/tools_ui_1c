@@ -79,6 +79,7 @@
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_Ace</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
@@ -93,18 +94,19 @@
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
   <commonModules>CommonModule.УИ_Пользователи</commonModules>
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
   <commonModules>CommonModule.УИ_</commonModules>
   <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
   <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
   <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
+  <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
   <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
@@ -116,6 +118,7 @@
   <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
   <commonForms>CommonForm.УИ_РедакторТаблицыЗначений</commonForms>
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
+  <commonForms>CommonForm.УИ_НастройкиИнструментов</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>

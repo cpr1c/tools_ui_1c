@@ -599,4 +599,18 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиИнструментов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonCommand.УИ_НастройкиИнструментов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
