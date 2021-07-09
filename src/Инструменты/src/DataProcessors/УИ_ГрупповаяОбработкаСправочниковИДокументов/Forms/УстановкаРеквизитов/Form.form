@@ -930,19 +930,7 @@
       </title>
       <id>4</id>
       <valueType>
-        <types>Boolean</types>
-        <types>String</types>
-        <types>Date</types>
-        <types>Number</types>
-        <types>UUID</types>
-        <types>AnyRef</types>
-        <numberQualifiers>
-          <precision>10</precision>
-        </numberQualifiers>
-        <stringQualifiers/>
-        <dateQualifiers>
-          <dateFractions>Date</dateFractions>
-        </dateQualifiers>
+        <types>Arbitrary</types>
       </valueType>
       <view>
         <common>true</common>
