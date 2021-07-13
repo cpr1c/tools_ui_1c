@@ -5,5 +5,6 @@
     <key>ru</key>
     <value>Редактор кода клиент сервер</value>
   </synonym>
+  <clientManagedApplication>true</clientManagedApplication>
   <server>true</server>
 </mdclass:CommonModule>

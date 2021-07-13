@@ -6,4 +6,5 @@
     <value>Общего назначения</value>
   </synonym>
   <server>true</server>
+  <serverCall>true</serverCall>
 </mdclass:CommonModule>

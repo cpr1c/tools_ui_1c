@@ -352,9 +352,6 @@
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеКлиент.Имя</segments>
               </paths>
-              <paths xsi:type="form:DataPath">
-                <segments>ПеременныеКлиент.Имя</segments>
-              </paths>
             </dataPath>
             <extendedTooltip>
               <name>ПолеРасширеннаяПодсказка</name>
@@ -404,9 +401,6 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ПеременныеКлиент.Значение</segments>
-              </paths>
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеКлиент.Значение</segments>
               </paths>
@@ -491,6 +485,10 @@
             <horizontalAlign>Left</horizontalAlign>
             <autoFill>true</autoFill>
           </autoCommandBar>
+          <handlers>
+            <event>OnEditEnd</event>
+            <name>ПеременныеКлиентПриОкончанииРедактирования</name>
+          </handlers>
           <searchStringAddition>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -678,7 +676,6 @@
           <initialListView>Auto</initialListView>
           <horizontalStretch>true</horizontalStretch>
           <verticalStretch>true</verticalStretch>
-          <fileDragMode>AsFileRef</fileDragMode>
           <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <visible>true</visible>
@@ -765,197 +762,27 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </items>
-      <items xsi:type="form:FormGroup">
-        <name>ГруппаСтраницыТекстАлгоритмаКлиент</name>
-        <id>112</id>
-        <items xsi:type="form:FormGroup">
-          <name>ГруппаСтраницаПолеАлгоритмаКлиент</name>
-          <id>114</id>
-          <items xsi:type="form:FormField">
-            <name>ПолеАлгоритмаКлиент</name>
-            <id>32</id>
-            <title>
-              <key>ru</key>
-              <value>Процедура ВыполнитьАлгоритмНаКлиенте()</value>
-            </title>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>ПолеАлгоритмаКлиент</segments>
-            </dataPath>
-            <titleLocation>None</titleLocation>
-            <extendedTooltip>
-              <name>ПолеАлгоритмаКлиентРасширеннаяПодсказка</name>
-              <id>34</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <contextMenu>
-              <name>ПолеАлгоритмаКлиентКонтекстноеМеню</name>
-              <id>33</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <autoFill>true</autoFill>
-            </contextMenu>
-            <type>HTMLDocumentField</type>
-            <editMode>Enter</editMode>
-            <showInHeader>true</showInHeader>
-            <headerHorizontalAlign>Left</headerHorizontalAlign>
-            <showInFooter>true</showInFooter>
-            <extInfo xsi:type="form:HtmlFieldExtInfo">
-              <handlers>
-                <event>DocumentComplete</event>
-                <name>ТекстАлгоритмаКлиентДокументСформирован</name>
-              </handlers>
-              <width>30</width>
-              <autoMaxWidth>true</autoMaxWidth>
-              <height>10</height>
-              <autoMaxHeight>true</autoMaxHeight>
-              <horizontalStretch>true</horizontalStretch>
-              <verticalStretch>true</verticalStretch>
-            </extInfo>
-          </items>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <title>
-            <key>ru</key>
-            <value>Группа страница поле алгоритма клиент</value>
-          </title>
-          <extendedTooltip>
-            <name>ГруппаСтраницаПолеАлгоритмаКлиентРасширеннаяПодсказка</name>
-            <id>115</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <type>Page</type>
-          <extInfo xsi:type="form:PageGroupExtInfo">
-            <group>Vertical</group>
-            <showTitle>true</showTitle>
-          </extInfo>
-        </items>
-        <items xsi:type="form:FormGroup">
-          <name>ГруппаСтраницаТекстАлгоритмаКлиент</name>
-          <id>116</id>
-          <items xsi:type="form:FormField">
-            <name>ТекстАлгоритмаКлиент</name>
-            <id>118</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>ТекстАлгоритмаКлиент</segments>
-            </dataPath>
-            <titleLocation>None</titleLocation>
-            <extendedTooltip>
-              <name>ТекстАлгоритмаКлиентРасширеннаяПодсказка</name>
-              <id>120</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <contextMenu>
-              <name>ТекстАлгоритмаКлиентКонтекстноеМеню</name>
-              <id>119</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <autoFill>true</autoFill>
-            </contextMenu>
-            <type>TextDocumentField</type>
-            <editMode>Enter</editMode>
-            <showInHeader>true</showInHeader>
-            <headerHorizontalAlign>Left</headerHorizontalAlign>
-            <showInFooter>true</showInFooter>
-            <extInfo xsi:type="form:TextDocFieldExtInfo">
-              <width>50</width>
-              <autoMaxWidth>true</autoMaxWidth>
-              <height>10</height>
-              <autoMaxHeight>true</autoMaxHeight>
-              <horizontalStretch>true</horizontalStretch>
-              <verticalStretch>true</verticalStretch>
-            </extInfo>
-          </items>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <title>
-            <key>ru</key>
-            <value>Группа страница текст алгоритма клиент</value>
-          </title>
-          <extendedTooltip>
-            <name>ГруппаСтраницаТекстАлгоритмаКлиентРасширеннаяПодсказка</name>
-            <id>117</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <type>Page</type>
-          <extInfo xsi:type="form:PageGroupExtInfo">
-            <group>Vertical</group>
-            <showTitle>true</showTitle>
-          </extInfo>
-        </items>
+      <items xsi:type="form:FormField">
+        <name>ПолеАлгоритмаКлиент</name>
+        <id>32</id>
+        <title>
+          <key>ru</key>
+          <value>Процедура ВыполнитьАлгоритмНаКлиенте()</value>
+        </title>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
         </userVisible>
-        <title>
-          <key>ru</key>
-          <value>Группа страницы текст алгоритма клиент</value>
-        </title>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ПолеАлгоритмаКлиент</segments>
+          </paths>
+        </dataPath>
+        <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ГруппаСтраницыТекстАлгоритмаКлиентРасширеннаяПодсказка</name>
-          <id>113</id>
+          <name>ПолеАлгоритмаКлиентРасширеннаяПодсказка</name>
+          <id>34</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -968,9 +795,28 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <type>Pages</type>
-        <extInfo xsi:type="form:PagesGroupExtInfo">
-          <currentRowUse>Auto</currentRowUse>
+        <contextMenu>
+          <name>ПолеАлгоритмаКлиентКонтекстноеМеню</name>
+          <id>33</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <autoFill>true</autoFill>
+        </contextMenu>
+        <type>HTMLDocumentField</type>
+        <editMode>Enter</editMode>
+        <showInHeader>true</showInHeader>
+        <headerHorizontalAlign>Left</headerHorizontalAlign>
+        <showInFooter>true</showInFooter>
+        <extInfo xsi:type="form:HtmlFieldExtInfo">
+          <width>30</width>
+          <autoMaxWidth>true</autoMaxWidth>
+          <height>10</height>
+          <autoMaxHeight>true</autoMaxHeight>
+          <horizontalStretch>true</horizontalStretch>
+          <verticalStretch>true</verticalStretch>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -1045,9 +891,6 @@
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеСервер.Имя</segments>
               </paths>
-              <paths xsi:type="form:DataPath">
-                <segments>ПеременныеСервер.Имя</segments>
-              </paths>
             </dataPath>
             <extendedTooltip>
               <name>ПолеРасширеннаяПодсказка4</name>
@@ -1097,9 +940,6 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ПеременныеСервер.Значение</segments>
-              </paths>
               <paths xsi:type="form:DataPath">
                 <segments>ПеременныеСервер.Значение</segments>
               </paths>
@@ -1184,6 +1024,10 @@
             <horizontalAlign>Left</horizontalAlign>
             <autoFill>true</autoFill>
           </autoCommandBar>
+          <handlers>
+            <event>OnEditEnd</event>
+            <name>ПеременныеСерверПриОкончанииРедактирования</name>
+          </handlers>
           <searchStringAddition>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1371,7 +1215,6 @@
           <initialListView>Auto</initialListView>
           <horizontalStretch>true</horizontalStretch>
           <verticalStretch>true</verticalStretch>
-          <fileDragMode>AsFileRef</fileDragMode>
           <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <visible>true</visible>
@@ -1458,197 +1301,27 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </items>
-      <items xsi:type="form:FormGroup">
-        <name>ГруппаСтраницыТекстАлгоритмаСервер</name>
-        <id>121</id>
-        <items xsi:type="form:FormGroup">
-          <name>ГруппаСтраницаПолеАлгоритмаСервер</name>
-          <id>123</id>
-          <items xsi:type="form:FormField">
-            <name>ПолеАлгоритмаСервер</name>
-            <id>37</id>
-            <title>
-              <key>ru</key>
-              <value>Процедура ВыполнитьАлгоритмНаСервере(СтруктураПередачи)</value>
-            </title>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>ПолеАлгоритмаСервер</segments>
-            </dataPath>
-            <titleLocation>None</titleLocation>
-            <extendedTooltip>
-              <name>ПолеАлгоритмаСерверРасширеннаяПодсказка</name>
-              <id>39</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <contextMenu>
-              <name>ПолеАлгоритмаСерверКонтекстноеМеню</name>
-              <id>38</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <autoFill>true</autoFill>
-            </contextMenu>
-            <type>HTMLDocumentField</type>
-            <editMode>Enter</editMode>
-            <showInHeader>true</showInHeader>
-            <headerHorizontalAlign>Left</headerHorizontalAlign>
-            <showInFooter>true</showInFooter>
-            <extInfo xsi:type="form:HtmlFieldExtInfo">
-              <handlers>
-                <event>DocumentComplete</event>
-                <name>ТекстАлгоритмаСерверДокументСформирован</name>
-              </handlers>
-              <width>30</width>
-              <autoMaxWidth>true</autoMaxWidth>
-              <height>10</height>
-              <autoMaxHeight>true</autoMaxHeight>
-              <horizontalStretch>true</horizontalStretch>
-              <verticalStretch>true</verticalStretch>
-            </extInfo>
-          </items>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <title>
-            <key>ru</key>
-            <value>Группа страница поле алгоритма сервер</value>
-          </title>
-          <extendedTooltip>
-            <name>ГруппаСтраницаПолеАлгоритмаСерверРасширеннаяПодсказка</name>
-            <id>124</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <type>Page</type>
-          <extInfo xsi:type="form:PageGroupExtInfo">
-            <group>Vertical</group>
-            <showTitle>true</showTitle>
-          </extInfo>
-        </items>
-        <items xsi:type="form:FormGroup">
-          <name>ГруппаСтраницаТекстАлгоритмаСервер</name>
-          <id>125</id>
-          <items xsi:type="form:FormField">
-            <name>ТекстАлгоритмаСервер</name>
-            <id>127</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>ТекстАлгоритмаСервер</segments>
-            </dataPath>
-            <titleLocation>None</titleLocation>
-            <extendedTooltip>
-              <name>ТекстАлгоритмаСерверРасширеннаяПодсказка</name>
-              <id>129</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <contextMenu>
-              <name>ТекстАлгоритмаСерверКонтекстноеМеню</name>
-              <id>128</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <autoFill>true</autoFill>
-            </contextMenu>
-            <type>TextDocumentField</type>
-            <editMode>Enter</editMode>
-            <showInHeader>true</showInHeader>
-            <headerHorizontalAlign>Left</headerHorizontalAlign>
-            <showInFooter>true</showInFooter>
-            <extInfo xsi:type="form:TextDocFieldExtInfo">
-              <width>50</width>
-              <autoMaxWidth>true</autoMaxWidth>
-              <height>10</height>
-              <autoMaxHeight>true</autoMaxHeight>
-              <horizontalStretch>true</horizontalStretch>
-              <verticalStretch>true</verticalStretch>
-            </extInfo>
-          </items>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <title>
-            <key>ru</key>
-            <value>Группа страница текст алгоритма сервер</value>
-          </title>
-          <extendedTooltip>
-            <name>ГруппаСтраницаТекстАлгоритмаСерверРасширеннаяПодсказка</name>
-            <id>126</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <type>Page</type>
-          <extInfo xsi:type="form:PageGroupExtInfo">
-            <group>Vertical</group>
-            <showTitle>true</showTitle>
-          </extInfo>
-        </items>
+      <items xsi:type="form:FormField">
+        <name>ПолеАлгоритмаСервер</name>
+        <id>37</id>
+        <title>
+          <key>ru</key>
+          <value>Процедура ВыполнитьАлгоритмНаСервере(СтруктураПередачи)</value>
+        </title>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
         </userVisible>
-        <title>
-          <key>ru</key>
-          <value>Группа страницы текст алгоритма сервер</value>
-        </title>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ПолеАлгоритмаСервер</segments>
+          </paths>
+        </dataPath>
+        <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ГруппаСтраницыТекстАлгоритмаСерверРасширеннаяПодсказка</name>
-          <id>122</id>
+          <name>ПолеАлгоритмаСерверРасширеннаяПодсказка</name>
+          <id>39</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -1661,9 +1334,36 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <type>Pages</type>
-        <extInfo xsi:type="form:PagesGroupExtInfo">
-          <currentRowUse>Auto</currentRowUse>
+        <contextMenu>
+          <name>ПолеАлгоритмаСерверКонтекстноеМеню</name>
+          <id>38</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <autoFill>true</autoFill>
+        </contextMenu>
+        <type>HTMLDocumentField</type>
+        <editMode>Enter</editMode>
+        <showInHeader>true</showInHeader>
+        <headerHorizontalAlign>Left</headerHorizontalAlign>
+        <showInFooter>true</showInFooter>
+        <extInfo xsi:type="form:HtmlFieldExtInfo">
+          <handlers>
+            <event>DocumentComplete</event>
+            <name>ТекстАлгоритмаСерверДокументСформирован</name>
+          </handlers>
+          <handlers>
+            <event>OnClick</event>
+            <name>ПолеАлгоритмаСерверПриНажатии</name>
+          </handlers>
+          <width>30</width>
+          <autoMaxWidth>true</autoMaxWidth>
+          <height>10</height>
+          <autoMaxHeight>true</autoMaxHeight>
+          <horizontalStretch>true</horizontalStretch>
+          <verticalStretch>true</verticalStretch>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -1708,6 +1408,7 @@
         <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
+    <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
@@ -1736,40 +1437,6 @@
       <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
-  <items xsi:type="form:FormGroup">
-    <name>Группа1</name>
-    <id>130</id>
-    <visible>true</visible>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка</name>
-      <id>131</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <horizontalAlign>Left</horizontalAlign>
-      </extInfo>
-    </extendedTooltip>
-    <type>UsualGroup</type>
-    <extInfo xsi:type="form:UsualGroupExtInfo">
-      <group>HorizontalIfPossible</group>
-      <representation>WeakSeparation</representation>
-      <showLeftMargin>true</showLeftMargin>
-      <united>true</united>
-      <showTitle>true</showTitle>
-      <throughAlign>Auto</throughAlign>
-      <currentRowUse>Auto</currentRowUse>
-    </extInfo>
-  </items>
   <autoCommandBar>
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
@@ -1781,17 +1448,19 @@
     <horizontalAlign>Left</horizontalAlign>
   </autoCommandBar>
   <handlers>
-    <event>BeforeClose</event>
-    <name>ПередЗакрытием</name>
-  </handlers>
-  <handlers>
     <event>OnOpen</event>
     <name>ПриОткрытии</name>
+  </handlers>
+  <handlers>
+    <event>BeforeClose</event>
+    <name>ПередЗакрытием</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
   </handlers>
+  <autoSaveDataInSettings>Use</autoSaveDataInSettings>
+  <saveDataInSettings>UseList</saveDataInSettings>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -1866,9 +1535,6 @@
     <edit>
       <common>true</common>
     </edit>
-    <settingsSavedData xsi:type="form:DataPath">
-      <segments>ПеременныеКлиент</segments>
-    </settingsSavedData>
     <savedData>true</savedData>
     <columns>
       <name>Имя</name>
@@ -1920,9 +1586,6 @@
     <edit>
       <common>true</common>
     </edit>
-    <settingsSavedData xsi:type="form:DataPath">
-      <segments>ПеременныеСервер</segments>
-    </settingsSavedData>
     <savedData>true</savedData>
     <columns>
       <name>Имя</name>
@@ -2011,6 +1674,9 @@
     <edit>
       <common>true</common>
     </edit>
+    <settingsSavedData xsi:type="form:DataPath">
+      <segments>ИмяФайлаАлгоритма</segments>
+    </settingsSavedData>
   </attributes>
   <attributes>
     <name>АдресБиблиотеки</name>

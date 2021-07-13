@@ -79,6 +79,7 @@
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_Ace</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_MonacoEditor</commonTemplates>
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
