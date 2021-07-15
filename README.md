@@ -239,3 +239,4 @@
 * https://github.com/khorevaa/xml-parser- была основной для фукнции чтения XML в простые структуры данных
 * https://github.com/pm74/_37583.git- На ее основе реализовывается механизм алгоритмов(хотя пока и не доделан)
 * https://github.com/partizand/debug_external_dataprocessor - Основа для разработки поддержки отладки внешних обработок БСП
+* https://github.com/salexdv/bsl_console - Редактор кода 1С - Monaco
