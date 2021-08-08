@@ -1348,14 +1348,6 @@
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
         <extInfo xsi:type="form:HtmlFieldExtInfo">
-          <handlers>
-            <event>DocumentComplete</event>
-            <name>ТекстАлгоритмаСерверДокументСформирован</name>
-          </handlers>
-          <handlers>
-            <event>OnClick</event>
-            <name>ПолеАлгоритмаСерверПриНажатии</name>
-          </handlers>
           <width>30</width>
           <autoMaxWidth>true</autoMaxWidth>
           <height>10</height>
