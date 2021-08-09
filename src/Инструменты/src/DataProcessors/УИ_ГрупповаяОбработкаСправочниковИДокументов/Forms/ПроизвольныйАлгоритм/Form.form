@@ -72,26 +72,20 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ТекстПроизвольногоАлгоритма</name>
-    <id>3</id>
+    <name>ПолеПроизвольногоАлгоритма</name>
+    <id>15</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТекстПроизвольногоАлгоритма</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ПолеПроизвольногоАлгоритма</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
-    <handlers>
-      <event>OnChange</event>
-      <name>ТекстПроизвольногоАлгоритмаПриИзменении</name>
-    </handlers>
     <extendedTooltip>
-      <name>ТекстПроизвольногоАлгоритмаExtendedTooltip</name>
-      <id>10</id>
+      <name>ПолеПроизвольногоАлгоритмаРасширеннаяПодсказка</name>
+      <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -105,8 +99,8 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТекстПроизвольногоАлгоритмаКонтекстноеМеню</name>
-      <id>4</id>
+      <name>ПолеПроизвольногоАлгоритмаКонтекстноеМеню</name>
+      <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -544,6 +538,24 @@
     <id>11</id>
     <valueType>
       <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПолеПроизвольногоАлгоритма</name>
+    <title>
+      <key>ru</key>
+      <value>Поле произвольного алгоритма</value>
+    </title>
+    <id>12</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
