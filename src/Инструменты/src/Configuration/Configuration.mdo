@@ -101,6 +101,7 @@
   <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
