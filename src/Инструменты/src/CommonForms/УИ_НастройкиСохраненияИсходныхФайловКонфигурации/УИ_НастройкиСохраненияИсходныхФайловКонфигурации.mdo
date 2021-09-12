@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonForm xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="bac92836-ba8f-4c76-8bf2-43e7eec3c757">
+  <name>УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
+  <synonym>
+    <key>ru</key>
+    <value>Настройки сохранения исходных файлов конфигурации</value>
+  </synonym>
+  <usePurposes>PersonalComputer</usePurposes>
+  <usePurposes>MobileDevice</usePurposes>
+</mdclass:CommonForm>

@@ -418,6 +418,37 @@
       <autoCommandBar>
         <name>КаталогиИсходныхФайловКонфигурацииКоманднаяПанель</name>
         <id>25</id>
+        <items xsi:type="form:Button">
+          <name>КаталогиИсходныхФайловКонфигурацииСохранитьМодулиКонфигурацииВФайлы</name>
+          <id>43</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <extendedTooltip>
+            <name>КаталогиИсходныхФайловКонфигурацииСохранитьМодулиКонфигурацииВФайлыРасширеннаяПодсказка</name>
+            <id>44</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <commandName>Form.Command.СохранитьМодулиКонфигурацииВФайлы</commandName>
+          <representation>Auto</representation>
+          <onlyInAllActions>false</onlyInAllActions>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <placementArea>UserCmds</placementArea>
+          <representationInContextMenu>Auto</representationInContextMenu>
+        </items>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
