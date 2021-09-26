@@ -4015,7 +4015,6 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <autoFill>true</autoFill>
               </contextMenu>
               <type>TextDocumentField</type>
               <editMode>Enter</editMode>
@@ -8208,6 +8207,23 @@
       <value>У и отладка</value>
     </title>
     <id>51</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>УИ_ВходитВСоставУниверсальныхИнструментов</name>
+    <title>
+      <key>ru</key>
+      <value>У и входит в состав универсальных инструментов</value>
+    </title>
+    <id>54</id>
     <valueType>
       <types>Boolean</types>
     </valueType>
