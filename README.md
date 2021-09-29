@@ -7,7 +7,7 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/issues)
 [![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/blob/master/LICENSE)
 
-[Подержать проект](https://github.com/cpr1c/tools_ui_1c#донаты-и-поддержка-проекта)
+[Подержать проект](#донаты-и-поддержка-проекта)
 ### Поддерживаемые операционные системы
 
 * Windows x86
