@@ -6,7 +6,7 @@
 [![download](https://img.shields.io/github/downloads/cpr1c/tools_ui_1c/total)](https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cfe)
 [![GitHub issues](https://img.shields.io/github/issues-raw/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/issues)
 [![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/blob/master/LICENSE)
-
+[Подержать проект](https://donate.stream/ya410011848843350)
 ### Поддерживаемые операционные системы
 
 * Windows x86
@@ -224,6 +224,11 @@
 
 Если кто хочет поучаствовать - добро пожаловать. Больше идей- лучше конечное решение. Перед началом прочитайте [инструкцию для легкого старта](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing) 
 
+# Донаты и поддержка проекта
+
+Поддержать проект деньгой можно по ссылке [](https://donate.stream/ya410011848843350)
+
+**Все собранные средства пойдут ИСКЛЮЧИТЕЛЬНО на развитие проекта и никуда более**
 
 # Ссылки на инструмены так или иначе участвовавшие в проекте
 * https://github.com/khorevaa/xml-parser- была основной для фукнции чтения XML в простые структуры данных
