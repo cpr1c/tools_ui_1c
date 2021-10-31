@@ -809,7 +809,17 @@
   </attributes>
   <commandInterface>
     <navigationPanel/>
-    <commandBar/>
+    <commandBar>
+      <cmiFragmentRecord>
+        <command>Catalog.УИ_Алгоритмы.Command.ВыполнитьАлгоритм</command>
+        <commandParameter xsi:type="form:DataPath">
+          <segments>Items.Список.CurrentData</segments>
+        </commandParameter>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+      </cmiFragmentRecord>
+    </commandBar>
   </commandInterface>
   <extInfo xsi:type="form:DynamicListFormExtInfo"/>
 </form:Form>
