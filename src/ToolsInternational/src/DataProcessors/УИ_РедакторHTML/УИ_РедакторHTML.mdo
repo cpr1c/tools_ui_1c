@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ef926a24-f0a7-4af3-baa9-a7e526dec2b5">
+  <producedTypes>
+    <objectType typeId="22ad3138-e853-4561-8987-5552001ca9fe" valueTypeId="46665e63-a35e-4df8-9b71-de4114b6587a"/>
+    <managerType typeId="f737756a-a6cd-4c68-9fd0-53eda75329d5" valueTypeId="a5be9bab-0e93-4aca-81ba-f7f3654d3470"/>
+  </producedTypes>
+  <name>УИ_РедакторHTML</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактор HTML [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_РедакторHTML.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Редактор HTML</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Быстрая отладка отображения HTML страниц в 1С</value>
+  </explanation>
+  <forms uuid="50ab5277-948f-4b4d-9a6e-236e1a481745">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

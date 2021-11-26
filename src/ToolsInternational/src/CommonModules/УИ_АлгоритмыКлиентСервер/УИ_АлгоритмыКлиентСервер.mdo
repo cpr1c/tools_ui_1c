@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="30600627-94b1-469a-86a2-7135cd972f33">
+  <name>УИ_АлгоритмыКлиентСервер</name>
+  <synonym>
+    <key>ru</key>
+    <value>Алгоритмы клиент сервер</value>
+  </synonym>
+  <clientManagedApplication>true</clientManagedApplication>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+</mdclass:CommonModule>

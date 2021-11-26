@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="9bfc1399-edaa-480a-b352-15d39f4d0f99">
+  <producedTypes>
+    <objectType typeId="65108828-89a8-4883-8b03-cd2fd3277690" valueTypeId="a837ac01-d22c-4529-8c1a-9e7dcd53f294"/>
+    <managerType typeId="97790f67-9a79-466f-b532-78874f4a25ee" valueTypeId="3c3ab6f5-5228-44e8-8ed1-c0ff9e3b9e04"/>
+  </producedTypes>
+  <name>УИ_РедакторJSON</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактор JSON [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_РедакторJSON.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Редактор JSON</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Позволяет в удобной форме редактировать строки JSON. Содержит подсветку синтаксиса JSON, редактирование в виде дерева, некоторые автоподстановки</value>
+  </explanation>
+  <forms uuid="c6d61a86-202a-4d07-b994-ea6492aa2809">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="fd14f26a-75b0-44bb-b8f9-1461710cd1e2">
+    <name>jsoneditor</name>
+    <synonym>
+      <key>ru</key>
+      <value>Jsoneditor</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+</mdclass:DataProcessor>

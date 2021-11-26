@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1705493b-8157-11ea-f391-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="17054930-8157-11ea-f391-e86a6452d1f2" valueTypeId="17054931-8157-11ea-f391-e86a6452d1f2"/>
+    <managerType typeId="17054932-8157-11ea-f391-e86a6452d1f2" valueTypeId="1705493a-8157-11ea-f391-e86a6452d1f2"/>
+  </producedTypes>
+  <name>УИ_МенеджерХранилищНастроек</name>
+  <synonym>
+    <key>ru</key>
+    <value>Менеджер хранилищ настроек [УИ]</value>
+  </synonym>
+  <defaultForm>DataProcessor.УИ_МенеджерХранилищНастроек.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Менеджер хранилищ настроек</value>
+  </extendedPresentation>
+  <forms uuid="0c8a0125-1025-4c77-961c-06a3af759ff8">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

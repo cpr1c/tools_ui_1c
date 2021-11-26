@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="6dc8ed82-e9d3-4b4c-a122-3dc8e7a9e64d">
+  <producedTypes>
+    <objectType typeId="1b61ded2-7bac-4c4f-8413-b7ac922fe21d" valueTypeId="9ee9953b-154c-4416-984a-2194dddb6b7f"/>
+    <managerType typeId="7ad052f7-64fc-49a3-92fa-cdf85f4b9dac" valueTypeId="fe66e6b1-4daf-429f-9aea-457d6dd32e50"/>
+  </producedTypes>
+  <name>УИ_НавигаторПоКонфигурации</name>
+  <synonym>
+    <key>ru</key>
+    <value>Навигатор по конфигурации(Все функции) [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_НавигаторПоКонфигурации.Form.Форма</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Навигатор по конфигурации(Все функции)</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Обработка замена стандартному меню &quot;Все функции&quot;. Здесь же дополнительные административные фукнции будут</value>
+  </explanation>
+  <forms uuid="0f467166-3240-486b-a7c7-bd99bdd5b9df">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="a62cbea1-afb1-4977-a4c2-81fdcab09202">
+    <name>ФормаСвойств</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма свойств</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="480631a7-fc64-4efe-8e9f-28a4ee3e397c">
+    <name>ФормаВыбораМасштабаОтображения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма выбора масштаба отображения</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="32ac977a-9192-4dcb-9d09-f7aa02bd35db">
+    <name>ФормаБлокировкиСеансов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма блокировки сеансов</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="8fd69860-d0fb-4be7-8e6e-6b498f2b2f28">
+    <name>ФормаЗапуска1С</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма запуска1 С</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="f1e04277-3f38-4549-ba5f-c9e162b0837e">
+    <name>ФормаПользовательИБ</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователь информационной базы</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="900f95f8-81be-4442-affb-5882998bbc1f">
+    <name>МакетСервис</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет сервис</value>
+    </synonym>
+  </templates>
+</mdclass:DataProcessor>

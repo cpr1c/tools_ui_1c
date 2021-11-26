@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:HTTPService xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a2b4afd0-8170-11e9-f783-002522f8f390">
+  <name>УИ_ПубликуемыеФункции</name>
+  <synonym>
+    <key>ru</key>
+    <value>Публикуемые функции</value>
+  </synonym>
+  <rootURL>tools-ui-1c</rootURL>
+  <reuseSessions>AutoUse</reuseSessions>
+  <sessionMaxAge>20</sessionMaxAge>
+  <urlTemplates uuid="a2b63026-8170-11e9-f783-002522f8f390">
+    <name>ВыполнениеАлгоритмов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Выполнение алгоритмов</value>
+    </synonym>
+    <template>alg/{AlgWebID}</template>
+    <methods uuid="a2b6345e-8170-11e9-f783-002522f8f390">
+      <name>GET</name>
+      <synonym>
+        <key>ru</key>
+        <value>GET</value>
+      </synonym>
+      <handler>_37583_ALG_GET</handler>
+    </methods>
+    <methods uuid="ffad7fa0-8297-11e9-e28c-002522f8f390">
+      <name>POST</name>
+      <synonym>
+        <key>ru</key>
+        <value>POST</value>
+      </synonym>
+      <httpMethod>POST</httpMethod>
+      <handler>_37583_ALG_POST</handler>
+    </methods>
+  </urlTemplates>
+  <urlTemplates uuid="2163bb09-decc-4b68-8103-29af05c61bc4">
+    <name>ПередачаДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Передача данных</value>
+    </synonym>
+    <template>/exchange</template>
+    <methods uuid="ffd420fd-2e82-4326-a78b-418842f55629">
+      <name>Ping</name>
+      <synonym>
+        <key>ru</key>
+        <value>Ping</value>
+      </synonym>
+      <handler>ПередачаДанныхPing</handler>
+    </methods>
+    <methods uuid="5336b6b4-e985-4288-b1a4-c25e6d16e190">
+      <name>SendFileAndUpload</name>
+      <synonym>
+        <key>ru</key>
+        <value>Send file and upload</value>
+      </synonym>
+      <httpMethod>POST</httpMethod>
+      <handler>ПередачаДанныхSendFileAndUpload</handler>
+    </methods>
+  </urlTemplates>
+</mdclass:HTTPService>

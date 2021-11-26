@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0970193b-cd13-4357-a96f-a97db7999b8f">
+  <producedTypes>
+    <objectType typeId="e6f6eebc-65c1-47c4-840f-cb7ce9babcc9" valueTypeId="628b7728-b407-414d-a470-54e6fe00c4b9"/>
+    <managerType typeId="d712832b-f3ec-4a78-a945-0793c6e8daa9" valueTypeId="6921898f-4c15-4ce5-87f0-e7b6250c0cc3"/>
+  </producedTypes>
+  <name>УИ_ДанныеДляОтладки</name>
+  <synonym>
+    <key>ru</key>
+    <value>Данные для отладки [УИ]</value>
+  </synonym>
+  <defaultForm>DataProcessor.УИ_ДанныеДляОтладки.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Данные для отладки</value>
+  </extendedPresentation>
+  <forms uuid="6ec88c41-4c28-4b90-844f-dafc62c03144">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <commands uuid="be758a7f-6d7b-4119-a854-a9fe973dee27">
+    <name>ДанныеДляОтладки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Данные для отладки</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
+</mdclass:DataProcessor>

@@ -1,0 +1,11 @@
+CLIENT=false
+EXTERNAL_CONN=false
+MNG_CLIENT=true
+MOBILE_AUTONOMOUS_SERVER=false
+MOBILE_CLIENT=false
+MOBILE_SERVER=false
+MOBILE_THIN_CLIENT=false
+SERVER=true
+THIN_CLIENT=true
+WEB_CLIENT=true
+eclipse.preferences.version=1

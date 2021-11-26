@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonTemplate xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="7b6e744a-e63e-42ad-bce0-43a00b558f5e">
+  <name>УИ_Ace</name>
+  <synonym>
+    <key>ru</key>
+    <value>Ace</value>
+  </synonym>
+  <templateType>BinaryData</templateType>
+</mdclass:CommonTemplate>

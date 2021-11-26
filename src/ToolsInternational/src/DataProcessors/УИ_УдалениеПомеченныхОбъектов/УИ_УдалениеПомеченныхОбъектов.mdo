@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c43ce1ea-2a12-11ea-8480-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="c43ce1d6-2a12-11ea-8480-e86a6452d1f2" valueTypeId="c43ce1d7-2a12-11ea-8480-e86a6452d1f2"/>
+    <managerType typeId="c43ce1e0-2a12-11ea-8480-e86a6452d1f2" valueTypeId="c43ce1e1-2a12-11ea-8480-e86a6452d1f2"/>
+  </producedTypes>
+  <name>УИ_УдалениеПомеченныхОбъектов</name>
+  <synonym>
+    <key>ru</key>
+    <value>Удаление помеченных объектов [УИ]</value>
+  </synonym>
+  <comment>Поиск и удаление объектов, помеченных на удаление</comment>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_УдалениеПомеченныхОбъектов.Form.ОсновнаяФорма</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Удаление помеченных объектов</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>копия стандартной обработки из БСП, адаптированной для жизни вне БСП</value>
+  </explanation>
+  <forms uuid="c43e4792-2a12-11ea-8480-e86a6452d1f2">
+    <name>ОсновнаяФорма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Удаление помеченных объектов</value>
+    </synonym>
+    <includeHelpInContents>true</includeHelpInContents>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

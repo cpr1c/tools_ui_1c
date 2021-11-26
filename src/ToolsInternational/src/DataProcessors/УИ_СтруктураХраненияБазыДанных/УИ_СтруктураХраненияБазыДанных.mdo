@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="08b7ef44-2942-11ea-1e8a-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="08b7ef3a-2942-11ea-1e8a-e86a6452d1f2" valueTypeId="08b7ef3b-2942-11ea-1e8a-e86a6452d1f2"/>
+    <managerType typeId="08b7ef3c-2942-11ea-1e8a-e86a6452d1f2" valueTypeId="08b7ef3d-2942-11ea-1e8a-e86a6452d1f2"/>
+  </producedTypes>
+  <name>УИ_СтруктураХраненияБазыДанных</name>
+  <synonym>
+    <key>en</key>
+    <value>DB storage structure info</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Структура хранения базы данных [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</defaultForm>
+  <auxiliaryForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</auxiliaryForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Структура хранения базы данных</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Просмотр имен таблиц и их взаимосвязей с объектами метаданных.</value>
+  </explanation>
+  <forms uuid="c03fac5c-9407-401d-94ff-8d87ab574a84">
+    <name>ФормаУправляемая</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма управляемая</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

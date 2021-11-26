@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head><meta http-equiv="content-type" content="text/html;charset=utf-8"></meta><link rel="stylesheet" type="text/css" href="__STYLE__"></link></head><body>
+<h2>Обработка результата запроса кодом</h2>
+<div><font size="4">Выполнение кода возможно в пяти режимах.</font></div>
+<h2>Простое выполнение</h2>
+<p class=""><font size="4">Код просто выполняется на сервере, выполнение происходит один раз. В этом режиме на клиенте нет никакой индикации прогресса выполнения. Обход результата запроса необходимо организовать самостоятельно. </font><span style="font-size: large;">В коде можно использовать <i>Сообщить</i>, но сообщения можно будет увидеть только после завершения выполнения. </span><span style="font-size: large;">Можно рекомендовать такой вариант, если алгоритм выполняется не долго.</span></p>
+<p class=""><span style="font-size: large;">Переменные, доступные в коде:</span></p><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;">
+<p class=""><b><font size="4">Выборка</font></b><span style="font-size: large;"> - выборка из результата запроса.</span></p>
+<p class=""><span style="font-size: large;"><b>Параметры</b> - параметры запроса.</span></p></blockquote>
+<dt><font size="4">Пример.</font></dt>
+<dt><font face="Courier New"><font color="#ff0000">Пока</font> <font color="#0000ff">Выборка</font><font color="#ff0000">.</font><font color="#0000ff">Следующий</font><font color="#ff0000">()</font> <font color="#ff0000">Цикл</font></font></dt>
+<dt><font face="Courier New">    <font color="#0000ff">Выборка</font><font color="#ff0000">.</font><font color="#0000ff">Ссылка</font><font color="#ff0000">.</font><font color="#0000ff">ПолучитьОбъект</font><font color="#ff0000">().</font><font color="#0000ff">Удалить</font><font color="#ff0000">();</font></font></dt>
+<dt><font face="Courier New" color="#ff0000">КонецЦикла;</font></dt>
+<dt><span style="font-size: large;"><br></span></dt>
+<h2>Построчно без индикации</h2>
+<p class=""><font size="4">В этом режиме код вызывается для каждой строки. Нет необходимости организовывать обход результата запроса. </font><span style="font-size: large;">Так же можно использовать <i>Сообщить</i>, сообщения можно будет увидеть только после завершения выполнения.</span></p>
+<p class=""><span style="font-size: large;">Переменные, доступные в коде:</span></p><blockquote style="margin: 0px 0px 0px 40px; border: none; padding: 0px;"></blockquote><blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;">
+<p class=""><font size="4"><b>Выборка</b> - выборка из результата запроса, в которой уже выбрана строка.</font></p>
+<p class=""><font size="4"><b>Параметры</b> - параметры запроса.</font></p></blockquote>
+<dt><font size="4">Пример.</font></dt>
+<dt><font face="Courier New">    <span style="color: rgb(0, 0, 255);">Выборка</span><font color="#ff0000">.</font><span style="color: rgb(0, 0, 255);">Ссылка</span><font color="#ff0000">.</font><span style="color: rgb(0, 0, 255);">ПолучитьОбъект</span><font color="#ff0000">().</font><span style="color: rgb(0, 0, 255);">Удалить</span><font color="#ff0000">();</font></font></dt>
+<dt><br></dt>
+<h2>Построчно с индикацией</h2>
+<dt>
+<p class=""><font size="4">В отличие от "Построчно без индикации", на клиенте виден прогресс выполнения, прошедшее время выполнения, прогноз на оставшееся время. Возможно прерывание выполнения с помощью Ctrl+Break. Можно использовать <i>Сообщить</i>, но сообщения можно будет увидеть только по завершению выполнения. Код алгоритма пишется точно так же, что и в варианте "Построчно без индикации". Это самый удобный вариант, если нет БСП 2.3 и подходит построчный вариант обхода.</font></p>
+<p><font size="4">Переменные, доступные в коде:</font></p>
+<div><blockquote style="margin: 0px 0px 0px 40px; border: none; padding: 0px;">
+<p class=""><font size="4"><b>Выборка</b> - выборка из результата запроса.</font></p>
+<p class=""><font size="4"><b>Параметры</b> - параметры запроса.</font></p>
+<div><font size="4"><br></font></div></blockquote></div>
+<h2>Простое в фоне (БСП 2.3)</h2>
+<div><font size="4">Для использования этого варианта в конфигурации должна быть БСП с версией не ниже 2.3. Код выполняется в фоновом задании, целиком. Обход результата запроса нужно организовывать самостоятельно. На клиенте отображается только время выполнения. Поскольку выполнение происходит в фоне, на клиенте можно продолжать работу. В этом режиме так же можно прерывать выполнение с помощью нажатия кнопки "Прервать" (Ctrl+F5). И еще одно преимущество - можно использовать <i>Сообщить</i>, и сообщения видны на клиенте с периодом обновления отображения состояния. Период обновления отображения по умолчанию одна секунда, можно изменить в "Опциях".</font></div>
+<p><font size="4">Переменные, доступные в коде:</font></p>
+<div><blockquote style="margin: 0px 0px 0px 40px; border: none; padding: 0px;">
+<p class=""><font size="4"><b>Выборка</b> - выборка из результата запроса.</font></p>
+<p class=""><font size="4"><b>Параметры</b> - параметры запроса.</font></p>
+<p class=""><font size="4"><b>ПризнакПрогресса</b> - переменная для передачи в <i>СообщитьПрогресс</i> (см. ниже). </font></p></blockquote>
+<p><font size="4">Пример.</font></p></div></dt>
+<dt><font face="Courier New" color="#ff0000">Пока</font><font face="Courier New" color="#0000ff"> Выборка</font><font face="Courier New" color="#ff0000">.</font><font face="Courier New" color="#0000ff">Следующий</font><font face="Courier New" color="#ff0000">()</font><font face="Courier New" color="#0000ff"> </font><font face="Courier New" color="#ff0000">Цикл</font></dt>
+<dt><font face="Courier New" color="#ff0000" style="caret-color: rgb(255, 0, 0);">    </font><font face="Courier New" color="#0000ff">Объект </font><font face="Courier New" color="#ff0000">=</font><font face="Courier New" color="#0000ff"> Выборка</font><font face="Courier New" color="#ff0000">.</font><font face="Courier New" color="#0000ff">Ссылка</font><font face="Courier New" color="#ff0000">.</font><font face="Courier New" color="#0000ff">ПолучитьОбъект</font><font face="Courier New" color="#ff0000">();</font></dt>
+<dt><font face="Courier New" color="#ff0000" style="caret-color: rgb(255, 0, 0);">    </font><font face="Courier New" color="#0000ff">Сообщить</font><font face="Courier New" color="#ff0000">(</font><font face="Courier New" color="#0000ff">Объект</font><font face="Courier New" color="#ff0000">);</font></dt>
+<dt><font face="Courier New" color="#ff0000" style="caret-color: rgb(255, 0, 0);">    </font><font face="Courier New" color="#0000ff">Объект</font><font face="Courier New" color="#ff0000">.</font><font face="Courier New" color="#0000ff">Удалить</font><font face="Courier New" color="#ff0000">();</font></dt>
+<dt>
+<div></div></dt>
+<dt><font color="#ff0000"><font face="Courier New">КонецЦикла</font><font face="Courier New">;</font></font></dt>
+<dt><font size="4"><br></font></dt>
+<dt><font size="4">Кроме этого, вариант "</font><span style="font-size: large;">Простое в фоне (БСП 2.3)" позволяет отображать и прогресс, если использовать функцию </span><font size="4"><i>СообщитьПрогрес</i></font><span style="font-size: large;">:</span></dt>
+<dt><font face="Courier New" color="#008200">//Этот метод можно использовать в коде для отображения прогресса.</font></dt>
+<dt><font face="Courier New" color="#008200">//Параметры:</font></dt>
+<dt><font face="Courier New" color="#008200">//<span class="Apple-tab-span" style="white-space:pre">	</span>Обработано - число, количество обработанных записей.</font></dt>
+<dt><font face="Courier New" color="#008200">//<span class="Apple-tab-span" style="white-space:pre">	</span>КоличествоВсего - число, количество записей в выборке всего.</font></dt>
+<dt><font face="Courier New" color="#008200">//<span class="Apple-tab-span" style="white-space:pre">	</span>ВремяНачалаВМиллисекундах - число, дата начала обработки, полученное с помощью ТекущаяУниверсальнаяДатаВМиллисекундах()</font></dt>
+<dt><font face="Courier New" color="#008200">//<span class="Apple-tab-span" style="white-space:pre">		</span>в момент начала обработки. Это значение необходимо корректного расчета оставшегося времени.</font></dt>
+<dt><font face="Courier New" color="#008200">//<span class="Apple-tab-span" style="white-space:pre">	</span>ПризнакПрогресса - строка, специальное значение, необходимое для передачи значений прогресса на клиент.</font></dt>
+<dt><font face="Courier New" color="#008200">//<span class="Apple-tab-span" style="white-space:pre">		</span>Это значение необходимо просто передать в параметр без изменений.</font></dt>
+<dt><font face="Courier New" color="#0000ff">СообщитьПрогресс</font><font face="Courier New" color="#ff0000">(</font><font face="Courier New" color="#0000ff">Обработано</font><font face="Courier New" color="#ff0000">,</font><font face="Courier New" color="#0000ff"> КоличествоВсего</font><font face="Courier New" color="#ff0000">,</font><font face="Courier New" color="#0000ff"> ВремяНачалаВМиллисекундах</font><font face="Courier New" color="#ff0000">,</font><font face="Courier New" color="#0000ff"> ПризнакПрогресса</font><font face="Courier New" color="#ff0000">)</font></dt>
+<dt><br></dt>
+<div><font size="4">Пример с отображением прогресса.</font></div>
+<div><font face="Courier New">
+<div><font color="#0000ff">й </font><font color="#ff0000">=</font><font color="#0000ff"> </font>0<font color="#ff0000">;</font></div>
+<div><span style="color: rgb(0, 0, 255);">КоличествоВсего </span><font color="#ff0000">=</font><font color="#0000ff"> Выборка.Количество</font><font color="#ff0000">();</font></div>
+<div><span style="color: rgb(0, 0, 255);">ВремяНачалаВМиллисекундах </span><font color="#ff0000">=</font><font color="#0000ff"> ТекущаяУниверсальнаяДатаВМиллисекундах</font><font color="#ff0000">();</font></div>
+<div><font color="#ff0000">Пока</font><span style="color: rgb(0, 0, 255);"> Выборка</span><font color="#ff0000">.</font><span style="color: rgb(0, 0, 255);">Следующий</span><font color="#ff0000">() Цикл</font></div>
+<div style="color: rgb(0, 0, 255);"><span class="Apple-tab-span" style="white-space:pre">	</span></div>
+<div><span style="color: rgb(0, 0, 255);">    Объект </span><font color="#ff0000">=</font><font color="#0000ff"> Выборка</font><font color="#ff0000">.</font><font color="#0000ff">Ссылка</font><font color="#ff0000">.</font><font color="#0000ff">ПолучитьОбъект</font><font color="#ff0000">();</font></div>
+<div><span style="color: rgb(0, 0, 255);">    Объект</span><font color="#ff0000">.</font><span style="color: rgb(0, 0, 255);">Удалить</span><font color="#ff0000">();</font></div></font>
+<dt>
+<div></div></dt><font face="Courier New">
+<div style="color: rgb(0, 0, 255);"><span class="Apple-tab-span" style="white-space: pre;">	</span></div>
+<div><font color="#0000ff">    й </font><font color="#ff0000">=</font><font color="#0000ff"> й </font><font color="#ff0000">+</font><font color="#0000ff"> </font>1<font color="#ff0000">;</font></div>
+<div><font color="#008200">    //Передаём прогресс один раз на 10 записей, что бы меньше тормозить основную обработку.</font></div></font></div>
+<dt>
+<div><font face="Courier New" color="#0000ff">    </font><font face="Courier New" color="#ff0000">Если</font><font face="Courier New" color="#0000ff"> й </font><font face="Courier New" color="#ff0000">%</font><font face="Courier New" color="#0000ff"> </font><font face="Courier New">10</font><font face="Courier New" color="#0000ff"> </font><font face="Courier New" color="#ff0000">=</font><font face="Courier New" color="#0000ff"> </font><font face="Courier New">0</font><font face="Courier New" color="#0000ff"> </font><font face="Courier New" color="#ff0000">Тогда</font></div>
+<div><font face="Courier New" color="#0000ff">        СообщитьПрогресс</font><font face="Courier New" color="#ff0000">(</font><font face="Courier New" color="#0000ff">й</font><font face="Courier New" color="#ff0000">,</font><font face="Courier New" color="#0000ff"> КоличествоВсего</font><font face="Courier New" color="#ff0000">,</font><font face="Courier New" color="#0000ff"> ВремяНачалаВМиллисекундах</font><font face="Courier New" color="#ff0000">,</font><font face="Courier New" color="#0000ff"> ПризнакПрогресса</font><font face="Courier New" color="#ff0000">);</font></div>
+<div><font face="Courier New" color="#0000ff">    </font><font color="#ff0000"><font face="Courier New">КонецЕсли</font><font face="Courier New">;</font></font></div>
+<div><span class="Apple-tab-span" style="white-space:pre"><font face="Courier New" color="#0000ff">	</font></span></div>
+<div><font face="Courier New" color="#ff0000">КонецЦикла;</font></div>
+<div><br></div>
+<div style="font-size: large;">
+<h2>Построчно в фоне с индикацией (БСП 2.3)</h2></div>
+<div style="font-size: large;">Для использования этого варианта в конфигурации должна быть БСП с версией не ниже 2.3. Работает точно так же, как "Построчно с индикацией", но выполнение происходит в фоне. Код вызывается для каждой записи. Прогресс обновляется с периодом, указанном в опциях (по умолчанию одна секунда). Можно использовать <i>Сообщить</i>, сообщения отображаются на клиенте с обновлением прогресса. В момент выполнения обработки на клиенте можно продолжать работу. Так же, как и в предыдущем варианте возможно прерывание. Это самый удобный вариант, если есть БСП 2.3 и подходит построчный вариант обхода.</div></dt>
+<dt><span style="font-size: large;"><br></span></dt>
+<dt><span style="font-size: large;">Переменные, доступные в коде:</span></dt>
+<dt>
+<div><blockquote style="margin: 0px 0px 0px 40px; border: none; padding: 0px;">
+<p class=""><font size="4"><b>Выборка</b> - выборка из результата запроса.</font></p>
+<p class=""><font size="4"><b>Параметры</b> - параметры запроса.</font></p>
+<div><font size="4"><br></font></div></blockquote></div></dt>
+<dt><font size="4">Пример.</font></dt>
+<div><font face="Courier New"><font><font color="#0000ff">Объект </font><font color="#ff0000">=</font><font color="#0000ff"> </font></font><font color="#0000ff">Выборка</font><font color="#ff0000">.</font><font color="#0000ff">Ссылка</font><font color="#ff0000">.</font><font color="#0000ff">ПолучитьОбъект</font><font color="#ff0000">();</font></font></div>
+<div><font face="Courier New" color="#0000ff">Сообщить</font><font face="Courier New" color="#ff0000">(</font><font face="Courier New" color="#0000ff">Объект</font><font face="Courier New" color="#ff0000">);</font></div>
+<div><font face="Courier New" color="#0000ff">Объект</font><font face="Courier New" color="#ff0000">.</font><font face="Courier New" color="#0000ff">Удалить</font><font face="Courier New" color="#ff0000">();</font></div>
+<div><blockquote style="margin: 0px 0px 0px 40px; border: none; padding: 0px;">
+<div><br></div></blockquote>
+<dt style="font-size: large;">
+<div></div></dt></div></body></html>

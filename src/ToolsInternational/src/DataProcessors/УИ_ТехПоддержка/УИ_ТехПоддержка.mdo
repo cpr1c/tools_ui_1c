@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d3987f36-e9c3-480e-8335-20743c4c7d6d">
+  <producedTypes>
+    <objectType typeId="582f9a64-996a-4559-862a-00250f0adaf0" valueTypeId="c2a8bb95-6e31-40cd-8524-27caa4cf4702"/>
+    <managerType typeId="af6c415e-7172-4652-9364-b16cdb2df6f2" valueTypeId="2df89870-068a-469d-84a4-29bf6a8df996"/>
+  </producedTypes>
+  <name>УИ_ТехПоддержка</name>
+  <synonym>
+    <key>ru</key>
+    <value>Тех поддержка [УИ]</value>
+  </synonym>
+  <defaultForm>DataProcessor.УИ_ТехПоддержка.Form.СписокЗадач</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Тех поддержка</value>
+  </extendedPresentation>
+  <forms uuid="bb47cc80-4bf9-4987-a88b-c714884aa200">
+    <name>СписокЗадач</name>
+    <synonym>
+      <key>ru</key>
+      <value>Список задач</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="107ebfc0-3d53-4088-ba5e-d4ce08b5bb51">
+    <name>ОбновлениеИнструментов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Обновление инструментов</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <commands uuid="3221fe43-c58b-4ba8-b2fa-556e4bb54d0b">
+    <name>ВопросРазработчику</name>
+    <synonym>
+      <key>ru</key>
+      <value>Вопрос разработчику</value>
+    </synonym>
+    <group>ActionsPanelTools</group>
+    <commandParameterType/>
+    <representation>PictureAndText</representation>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_ВопросРазработчику</picture>
+    </picture>
+    <shortcut></shortcut>
+  </commands>
+  <commands uuid="9d0b01dc-bd74-428c-b8ce-667da8dbae28">
+    <name>СтраницаРазработки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Страница разработки</value>
+    </synonym>
+    <group>ActionsPanelTools</group>
+    <commandParameterType/>
+    <representation>PictureAndText</representation>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_Репозиторий</picture>
+    </picture>
+    <shortcut></shortcut>
+  </commands>
+  <commands uuid="158df35e-cd25-431e-a84d-d13952262078">
+    <name>ПроверитьНеобходимостьОбновления</name>
+    <synonym>
+      <key>ru</key>
+      <value>Проверить необходимость обновления</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
+</mdclass:DataProcessor>

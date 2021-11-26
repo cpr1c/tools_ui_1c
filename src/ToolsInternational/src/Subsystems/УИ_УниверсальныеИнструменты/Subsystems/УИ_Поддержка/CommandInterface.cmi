@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cmi:CommandInterface xmlns:cmi="http://g5.1c.ru/v8/dt/cmi">
+  <commandsPlacement>
+    <placementFragments>
+      <group>NavigationPanelOrdinary</group>
+      <commands>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</commands>
+      <commands>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</commands>
+    </placementFragments>
+  </commandsPlacement>
+  <commandsOrder>
+    <orderFragments>
+      <group>NavigationPanelOrdinary</group>
+      <commands>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</commands>
+      <commands>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</commands>
+    </orderFragments>
+  </commandsOrder>
+</cmi:CommandInterface>

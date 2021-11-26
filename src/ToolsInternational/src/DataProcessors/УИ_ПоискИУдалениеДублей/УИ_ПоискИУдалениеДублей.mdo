@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="be34b5f9-892c-4e9f-93cb-abbca003fa02">
+  <producedTypes>
+    <objectType typeId="2f99f946-0606-4dcd-b0ca-61bf24591e60" valueTypeId="24047b73-ad94-4566-b3a4-305728525af1"/>
+    <managerType typeId="c744cf53-073c-43b5-a498-317134786d12" valueTypeId="f7d04b21-b10a-4522-9fd8-636056000c2c"/>
+  </producedTypes>
+  <name>УИ_ПоискИУдалениеДублей</name>
+  <synonym>
+    <key>ru</key>
+    <value>Поиск и удаление дублей [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_ПоискИУдалениеДублей.Form.ПоискДублей</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Поиск и удаление дублей</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Форк стандартной обработки из БСП, в которую добавлены несколько параметров выполнения замены</value>
+  </explanation>
+  <forms uuid="28379a56-96ca-4eee-8431-24152ab0f12b">
+    <name>ПоискДублей</name>
+    <synonym>
+      <key>ru</key>
+      <value>Поиск дублей</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="8a50aeac-cc71-4bbf-a862-26a5cfb55a55">
+    <name>ПравилаОтбора</name>
+    <synonym>
+      <key>ru</key>
+      <value>Правила отбора</value>
+    </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="a299aa85-a9c9-4909-b18a-7e0091b6a0e2">
+    <name>ОбластьПоискаДублей</name>
+    <synonym>
+      <key>ru</key>
+      <value>Область поиска дублей</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="95da7f1f-08f6-4269-af3a-d356e8de1384">
+    <name>ПравилаПоиска</name>
+    <synonym>
+      <key>ru</key>
+      <value>Правила поиска</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

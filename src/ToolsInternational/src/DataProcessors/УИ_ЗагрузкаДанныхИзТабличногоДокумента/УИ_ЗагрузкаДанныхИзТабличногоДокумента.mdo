@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d4ceff98-59f6-11ea-1a84-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="d4ceff8e-59f6-11ea-1a84-e86a6452d1f2" valueTypeId="d4ceff8f-59f6-11ea-1a84-e86a6452d1f2"/>
+    <managerType typeId="d4ceff90-59f6-11ea-1a84-e86a6452d1f2" valueTypeId="d4ceff91-59f6-11ea-1a84-e86a6452d1f2"/>
+  </producedTypes>
+  <name>УИ_ЗагрузкаДанныхИзТабличногоДокумента</name>
+  <synonym>
+    <key>ru</key>
+    <value>Загрузка данных из табличного документа [УИ]</value>
+  </synonym>
+  <comment>Переписываем обработку почти заново, но с большим заимствованием кода из стандартной обработки для толстого клиента</comment>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента.Form.Форма</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Загрузка данных из табличного документа</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Обработка предназначена для загрузки данных в справочники и табличные части различных объектов из табличного документа</value>
+  </explanation>
+  <attributes uuid="105ab816-a28d-41ad-9af0-1bac32f234fe">
+    <name>НеСоздаватьНовыхЭлементов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Не создавать новых элементов</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="8d2a7445-c18f-4597-9a97-6303554fb24b">
+    <name>РучнаяНумерацияКолонокТабличногоДокумента</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ручная нумерация колонок табличного документа</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="d0f9cfc8-d499-4839-968d-da7f6e6f4d75">
+    <name>ПерваяСтрокаДанныхТабличногоДокумента</name>
+    <synonym>
+      <key>ru</key>
+      <value>Первая строка данных табличного документа</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>5</precision>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="55997912-972e-4622-8429-b82aedb2201b">
+    <name>РежимЗагрузки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Режим загрузки</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>1</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="3eadc8d5-bc33-473c-8d3f-0373d587768c">
+    <name>СсылкаИсточника</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ссылка источника</value>
+    </synonym>
+    <type>
+      <types>DocumentRef</types>
+      <types>CatalogRef</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="568e3e05-d728-4934-9417-50a2db989999">
+    <name>ТабличнаяЧастьИсточника</name>
+    <synonym>
+      <key>ru</key>
+      <value>Табличная часть источника</value>
+    </synonym>
+    <type/>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="d5e5c319-a93f-4b45-863f-0fc99b205e79">
+    <name>ПередЗаписьюОбъекта</name>
+    <synonym>
+      <key>ru</key>
+      <value>Перед записью объекта</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="5cecc2d2-7fd4-4542-ae6d-1911b93acd71">
+    <name>ПриЗаписиОбъекта</name>
+    <synonym>
+      <key>ru</key>
+      <value>При записи объекта</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="7a6446c5-f4c3-4298-b78b-8682e376aaea">
+    <name>ПослеДобавленияСтроки</name>
+    <synonym>
+      <key>ru</key>
+      <value>После добавления строки</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="e1a43ebd-580d-49a4-93d5-017bc193da7c">
+    <name>ИмяВидаРегистра</name>
+    <synonym>
+      <key>ru</key>
+      <value>Имя вида регистра</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="96d1c50a-d7f3-474b-9fff-9c1c0668efb0">
+    <name>ЗамещатьСуществующиеЗаписи</name>
+    <synonym>
+      <key>ru</key>
+      <value>Замещать существующие записи</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="fa687385-9c35-4b7d-9842-8600decca6dd">
+    <name>ТипОбъектаСправочника</name>
+    <synonym>
+      <key>ru</key>
+      <value>Тип объекта справочника</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="0bc54e50-916c-4431-a135-90ce1afac910">
+    <name>ДополнительныеСвойства</name>
+    <synonym>
+      <key>ru</key>
+      <value>Дополнительные свойства</value>
+    </synonym>
+    <type/>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <forms uuid="7300ef50-b49f-4a7f-b6dc-9717503e3e4c">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="07cf2c58-1c60-4ae8-ae23-21cd14763003">
+    <name>ФормаРедактированияСобытий</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактирования событий</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="3376bf75-4d23-48a0-8561-1485bed7076a">
+    <name>ФормаРедактированияВыражения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактирования выражения</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="b4bfd7cf-a2b9-4108-b01b-009bea7b6f6e">
+    <name>ФормаРедактированияСвязи</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактирования связи</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="b1345a33-7fd7-40ce-aaa7-e86397830298">
+    <name>ФормаСохраненияНастройки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма сохранения настройки</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="d783052e-b6ab-4654-85b2-f5e7fb9353d8">
+    <name>ФормаВыбораНастройки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма выбора настройки</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="3905729a-8e19-4bcb-aad1-b2a72358d193">
+    <name>МакетСохраненияНастроек</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет сохранения настроек</value>
+    </synonym>
+  </templates>
+</mdclass:DataProcessor>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ffe37dd4-27b0-4ecb-81a8-91d612d6527f">
+  <producedTypes>
+    <objectType typeId="90d844d1-e190-4456-b45b-4963215f672f" valueTypeId="6539aba9-2581-44f9-865f-a5815016d65d"/>
+    <managerType typeId="90873ab0-8676-4e04-8855-18c55204f0cd" valueTypeId="efbef790-44fd-4618-b452-200cd38b5885"/>
+  </producedTypes>
+  <name>УИ_КонсольКода</name>
+  <synonym>
+    <key>ru</key>
+    <value>Консоль кода [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_КонсольКода.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Консоль кода</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>Позволяет выполнять код из предприятия без создания внешних обработок. Есть подсветка синтаксиса и минимальная контекстная подсказка.</value>
+  </explanation>
+  <forms uuid="c64c5360-b585-4331-9178-b5c3bcbaadb5">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

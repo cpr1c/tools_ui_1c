@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonForm xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ad7119ac-46c8-4290-8583-c33459238bbe">
+  <name>УИ_РедактированиеТипаЗначения</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактирование типа значения</value>
+  </synonym>
+  <usePurposes>PersonalComputer</usePurposes>
+  <usePurposes>MobileDevice</usePurposes>
+</mdclass:CommonForm>

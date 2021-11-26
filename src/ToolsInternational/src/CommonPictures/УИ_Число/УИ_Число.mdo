@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a1a9dc3b-c1fe-4eb4-9ce1-475f02fe07a6">
+  <name>УИ_Число</name>
+  <synonym>
+    <key>ru</key>
+    <value>Число (УИ)</value>
+  </synonym>
+</mdclass:CommonPicture>

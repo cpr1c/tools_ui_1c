@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="75d0e789-16eb-4c0a-8b16-3cab1456d8c5">
+  <producedTypes>
+    <objectType typeId="f70be0ce-a34d-4e50-a2b2-af440b443cb7" valueTypeId="d26cc641-33d5-4228-85d9-b11662c65d02"/>
+    <managerType typeId="a4733dda-ec64-48b1-b2e4-ae8f40da0e5c" valueTypeId="065b8a57-8ed3-495c-9f53-77e30e7d774a"/>
+  </producedTypes>
+  <name>УИ_РедакторКонстант</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактор констант [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_РедакторКонстант.Form.Константы</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Редактор констант</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value>позволяет редактировать значения констант в режиме таблицы</value>
+  </explanation>
+  <forms uuid="487d5719-f93b-49ff-a911-6c6d0b6676f5">
+    <name>Константы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Константы</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

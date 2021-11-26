@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonForm xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a1ab2864-93ff-4924-aeb0-7e299be228a5">
+  <name>УИ_ФормаРедактированияСпискаЗначений</name>
+  <synonym>
+    <key>ru</key>
+    <value>Форма выбора элементов списка значений</value>
+  </synonym>
+  <usePurposes>PersonalComputer</usePurposes>
+  <usePurposes>MobileDevice</usePurposes>
+</mdclass:CommonForm>

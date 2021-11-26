@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d028ee1c-227e-11ea-9080-00f48df11581">
+  <producedTypes>
+    <objectType typeId="d028ee18-227e-11ea-9080-00f48df11581" valueTypeId="d028ee19-227e-11ea-9080-00f48df11581"/>
+    <managerType typeId="d028ee1a-227e-11ea-9080-00f48df11581" valueTypeId="d028ee1b-227e-11ea-9080-00f48df11581"/>
+  </producedTypes>
+  <name>УИ_ПоискСсылокНаОбъект</name>
+  <synonym>
+    <key>ru</key>
+    <value>Поиск ссылок на объект [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_ПоискСсылокНаОбъект.Form.Форма</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Поиск ссылок на объект</value>
+  </extendedPresentation>
+  <explanation>
+    <key>ru</key>
+    <value> аналог стандартной обработки из меню &quot;Все функции&quot;.</value>
+  </explanation>
+  <attributes uuid="4d56ac76-3eb4-493a-a4da-30d9fa7b68e5">
+    <name>ИсходныйОбъект</name>
+    <synonym>
+      <key>ru</key>
+      <value>Исходный объект</value>
+    </synonym>
+    <type>
+      <types>AnyRef</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillChecking>ShowError</fillChecking>
+  </attributes>
+  <attributes uuid="9cc3d7f2-ab36-4244-93e9-6e9453396090">
+    <name>КоличествоНайденных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Количество найденных</value>
+    </synonym>
+    <type>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <forms uuid="83aa4789-94fb-47b6-a508-a4bbf3f18801">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

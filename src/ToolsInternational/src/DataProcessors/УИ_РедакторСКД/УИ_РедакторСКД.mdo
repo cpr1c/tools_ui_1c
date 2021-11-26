@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a957016c-4059-4ea9-8b46-bb04b3473b2f">
+  <producedTypes>
+    <objectType typeId="14e5af9b-4d3a-49bb-98af-366bdad58815" valueTypeId="6c15c28c-95e1-4378-819d-ef1bba0d206e"/>
+    <managerType typeId="09849e24-8c02-4628-8a89-2e51cd04c392" valueTypeId="1caf8635-42c4-4669-9f04-893f1588dc7a"/>
+  </producedTypes>
+  <name>УИ_РедакторСКД</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактор СКД (УИ)</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_РедакторСКД.Form.Форма</defaultForm>
+  <forms uuid="62e4e2d1-01f7-4045-a438-4fa5d755d354">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="791aaeb0-07b0-4b2e-98ca-2e8b8b13fb81">
+    <name>ФормаРедактированияРолиПоляНабораДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактирования роли поля набора данных</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

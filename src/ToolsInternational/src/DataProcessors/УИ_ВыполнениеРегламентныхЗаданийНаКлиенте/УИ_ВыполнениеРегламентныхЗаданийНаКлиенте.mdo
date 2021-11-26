@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d9fdeb3c-2a12-11ea-8480-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="d9fdeb28-2a12-11ea-8480-e86a6452d1f2" valueTypeId="d9fdeb32-2a12-11ea-8480-e86a6452d1f2"/>
+    <managerType typeId="d9fdeb33-2a12-11ea-8480-e86a6452d1f2" valueTypeId="d9fdeb34-2a12-11ea-8480-e86a6452d1f2"/>
+  </producedTypes>
+  <name>УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</name>
+  <synonym>
+    <key>ru</key>
+    <value>Выполнение регламентных заданий на клиенте [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте.Form.ВыполнениеРегламентныхЗаданийНаКлиенте</defaultForm>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Выполнение регламентных заданий на клиенте</value>
+  </extendedPresentation>
+  <forms uuid="d9fe211a-2a12-11ea-8480-e86a6452d1f2">
+    <name>ВыполнениеРегламентныхЗаданийНаКлиенте</name>
+    <synonym>
+      <key>ru</key>
+      <value>Выполнение регламентных заданий на клиенте</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="d9ff3e2e-2a12-11ea-8480-e86a6452d1f2">
+    <name>Макет</name>
+    <synonym>
+      <key>ru</key>
+      <value>Макет</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+</mdclass:DataProcessor>
