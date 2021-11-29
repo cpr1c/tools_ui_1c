@@ -135,7 +135,7 @@
   <commonForms>CommonForm.УИ_НастройкиИнструментов</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
-  <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
+  <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>

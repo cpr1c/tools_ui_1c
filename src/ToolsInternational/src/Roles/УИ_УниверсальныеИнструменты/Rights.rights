@@ -593,7 +593,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.ДополнительныеОтчетыИОбработки.Command.УИ_НастройкиОтладки</name>
+		<name>Catalog.AdditionalReportsAndDataProcessors.Command.УИ_НастройкиОтладки</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
