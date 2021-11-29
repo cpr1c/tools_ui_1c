@@ -3,7 +3,7 @@
   <name>УИ_Поддержка</name>
   <synonym>
     <key>ru</key>
-    <value>Поддержка</value>
+    <value>Support</value>
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
