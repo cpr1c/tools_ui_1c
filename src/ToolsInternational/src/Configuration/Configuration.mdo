@@ -117,8 +117,8 @@
   <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
-  <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
-  <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
+  <commonModules>CommonModule.AttachableCommandsOverridable</commonModules>
+  <commonModules>CommonModule.AdditionalReportsAndDataProcessors</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
