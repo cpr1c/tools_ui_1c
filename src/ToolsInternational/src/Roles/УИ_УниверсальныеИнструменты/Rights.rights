@@ -4,7 +4,7 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>DataProcessor.УИ_СтруктураХраненияБазыДанных</name>
+		<name>DataProcessor.UT_DatabaseStorageStructure</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
