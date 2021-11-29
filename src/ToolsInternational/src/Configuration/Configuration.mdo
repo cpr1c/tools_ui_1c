@@ -7,7 +7,7 @@
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Universal tools</value>
+    <value>Универсальные инструменты</value>
   </synonym>
   <objectBelonging>Adopted</objectBelonging>
   <extension xsi:type="mdclassExtension:ConfigurationExtension">
@@ -92,7 +92,7 @@
   <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_MonacoEditor</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_MonacoEditorWindows</commonTemplates>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
+  <commonModules>CommonModule.UT_CommonClient</commonModules>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>

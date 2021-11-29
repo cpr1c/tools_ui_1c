@@ -949,7 +949,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>ExternalDataProcessor.УИ_ПортативныеУниверсальныеИнструменты</types>
+      <types>ExternalDataProcessor.UT_PortableUniversalTools</types>
     </valueType>
     <view>
       <common>true</common>

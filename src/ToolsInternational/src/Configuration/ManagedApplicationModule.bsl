@@ -1,34 +1,37 @@
-// Хранилище глобальных переменных.
+// Storage of global variables.
 //
-// ПараметрыПриложения - Соответствие - хранилище переменных, где:
-//   * Ключ - Строка - имя переменной в формате "ИмяБиблиотеки.ИмяПеременной";
-//   * Значение - Произвольный - значение переменной.
+// ApplicationParameters - Map - value storage, where:
+//   * Key - String - a variable name in the format of  "LibraryName.VariableName";
+//   * Value - Arbitrary - a variable value.
 //
-// Инициализация (на примере СообщенияДляЖурналаРегистрации):
-//   ИмяПараметра = "СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации";
-//   Если ПараметрыПриложения[ИмяПараметра] = Неопределено Тогда
-//     ПараметрыПриложения.Вставить(ИмяПараметра, Новый СписокЗначений);
-//   КонецЕсли;
+// Initialization (see the example of MessagesForEventLog):
+//   ParameterName = "StandardSubsystems.MessagesForEventLog";
+//   If ApplicationParameters[ParameterName] = Undefined Then
+//     ApplicationParameters.Insert(ParameterName, New ValueList);
+//   EndIf.
 //  
-// Использование (на примере СообщенияДляЖурналаРегистрации):
-//   ПараметрыПриложения["СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации"].Добавить(...);
-//   ПараметрыПриложения["СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации"] = ...;
-Перем УИ_ПараметрыПриложения Экспорт;
+// Usage (as illustrated by MessagesForEventLog):
+//   ApplicationParameters["StandardSubsystems.MessagesForEventLog"].Add(...);
+//   ApplicationParameters["StandardSubsystems.MessagesForEventLog"] = ...;
+
+Var UT_ApplicationParameters Export;
 
 //@skip-warning
-&После("ПриНачалеРаботыСистемы")
-Процедура УИ_ПриНачалеРаботыСистемы()
-	#Если Не МобильныйКлиент Тогда
-	УИ_ОбщегоНазначенияКлиент.ПриНачалеРаботыСистемы();	
-	#КонецЕсли
-КонецПроцедуры
+&After("OnStart")
+Procedure UT_OnStart()
+	#If Not MobileClient Then
+	UT_CommonClient.OnStart();	
+	#EndIf
+EndProcedure
 
-&После("ПриЗавершенииРаботыСистемы")
-Процедура УИ_ПриЗавершенииРаботыСистемы()
-	#Если Не МобильныйКлиент Тогда
-	УИ_ОбщегоНазначенияКлиент.ПриЗавершенииРаботыСистемы();	
-	#КонецЕсли
-КонецПроцедуры
+//@skip-warning
+&After("OnExit")
+Procedure UT_OnExit()
+	#If Not MobileClient Then
+	UT_CommonClient.OnExit();	
+	#EndIf
+EndProcedure
 
 
-УИ_ПараметрыПриложения = Новый Соответствие;
+UT_ApplicationParameters = New Map;
+ 
