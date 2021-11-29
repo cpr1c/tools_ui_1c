@@ -12,6 +12,8 @@
   <objectBelonging>Adopted</objectBelonging>
   <extension xsi:type="mdclassExtension:ConfigurationExtension">
     <managedApplicationModule>Extended</managedApplicationModule>
+    <sessionModule>Extended</sessionModule>
+    <externalConnectionModule>Extended</externalConnectionModule>
     <defaultLanguage>Checked</defaultLanguage>
   </extension>
   <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="44154cfc-e04b-4c2e-94cc-83152eb460a6"/>
@@ -45,7 +47,7 @@
     </extension>
     <languageCode>en</languageCode>
   </languages>
-  <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
+  <subsystems>Subsystem.UT_UniversalTools</subsystems>
   <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
   <commonPictures>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</commonPictures>
   <commonPictures>CommonPicture.УИ_СостоянияПланаОбмена</commonPictures>

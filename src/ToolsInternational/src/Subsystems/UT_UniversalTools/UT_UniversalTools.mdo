@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="420d125a-5388-46d1-a2c2-ba1347e3e5fd">
-  <name>УИ_УниверсальныеИнструменты</name>
+  <name>UT_UniversalTools</name>
+  <synonym>
+    <key>en</key>
+    <value>Universal Tools</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Инструменты</value>
@@ -105,6 +109,6 @@
   <content>DataProcessor.УИ_СравнениеОбъектов</content>
   <content>CommonForm.УИ_НастройкиИнструментов</content>
   <content>CommonCommand.УИ_НастройкиИнструментов</content>
-  <subsystems>УИ_Поддержка</subsystems>
-  <subsystems>УИ_Отладка</subsystems>
+  <subsystems>UT_Support</subsystems>
+  <subsystems>UT_Debug</subsystems>
 </mdclass:Subsystem>

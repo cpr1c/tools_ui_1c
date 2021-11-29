@@ -77,7 +77,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Поддержка</name>
+		<name>Subsystem.UT_UniversalTools.Subsystem.UT_Support</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -112,7 +112,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Subsystem.УИ_УниверсальныеИнструменты</name>
+		<name>Subsystem.UT_UniversalTools</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -525,7 +525,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Отладка</name>
+		<name>Subsystem.UT_UniversalTools.Subsystem.UT_Debug</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

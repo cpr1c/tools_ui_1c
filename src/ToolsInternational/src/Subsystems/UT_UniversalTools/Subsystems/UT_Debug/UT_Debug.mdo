@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="eca24aa1-56e6-45f4-af6c-44272180a5f6">
-  <name>УИ_Отладка</name>
+  <name>UT_Debug</name>
+  <synonym>
+    <key>en</key>
+    <value>Debug</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Отладка</value>
@@ -11,5 +15,5 @@
     <picture>CommonPicture.УИ_Отладка</picture>
   </picture>
   <content>DataProcessor.УИ_ДанныеДляОтладки</content>
-  <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
+  <parentSubsystem>Subsystem.UT_UniversalTools</parentSubsystem>
 </mdclass:Subsystem>

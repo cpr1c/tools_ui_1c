@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1d9908ed-acf0-479e-861c-588fae795dbf">
-  <name>УИ_Поддержка</name>
+  <name>UT_Support</name>
+  <synonym>
+    <key>en</key>
+    <value>Suppirt</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Support</value>
@@ -11,5 +15,5 @@
     <picture>CommonPicture.УИ_ВопросРазработчику</picture>
   </picture>
   <content>DataProcessor.УИ_ТехПоддержка</content>
-  <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
+  <parentSubsystem>Subsystem.UT_UniversalTools</parentSubsystem>
 </mdclass:Subsystem>
