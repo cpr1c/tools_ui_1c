@@ -113,7 +113,6 @@
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.УИ_Алгоритмы.Form.ФормаЭлемента</defaultObjectForm>
-  <defaultListForm>Catalog.УИ_Алгоритмы.Form.ФормаСписка</defaultListForm>
   <attributes uuid="e4ac9d02-6f4c-11e9-1495-002522f8f390">
     <name>ТекстАлгоритма</name>
     <synonym>
@@ -397,15 +396,6 @@
     <synonym>
       <key>ru</key>
       <value>Форма параметра</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="e4b06edc-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаСписка</name>
-    <synonym>
-      <key>ru</key>
-      <value>Форма списка</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
