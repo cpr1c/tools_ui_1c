@@ -32,7 +32,7 @@
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
   <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
   <languages uuid="66bef324-e854-4c33-879a-3c081f6686cd">
-    <name>Русский</name>
+    <name>Russian</name>
     <objectBelonging>Adopted</objectBelonging>
     <extension xsi:type="mdclassExtension:LanguageExtension">
       <languageCode>Checked</languageCode>
