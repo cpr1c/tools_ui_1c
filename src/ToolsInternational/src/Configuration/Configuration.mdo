@@ -7,7 +7,7 @@
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Универсальные инструменты</value>
+    <value>Universal tools</value>
   </synonym>
   <objectBelonging>Adopted</objectBelonging>
   <extension xsi:type="mdclassExtension:ConfigurationExtension">
@@ -105,7 +105,7 @@
   <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
-  <commonModules>CommonModule.УИ_Пользователи</commonModules>
+  <commonModules>CommonModule.UT_Users</commonModules>
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
