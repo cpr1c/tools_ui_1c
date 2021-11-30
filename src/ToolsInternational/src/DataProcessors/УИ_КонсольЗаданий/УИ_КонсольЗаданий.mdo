@@ -11,7 +11,7 @@
   </synonym>
   <comment>https://github.com/kuzyara/JobsConsole2019.epf (c)Душелов'2009</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_КонсольЗаданий.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.УИ_КонсольЗаданий.Form.Form</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Консоль заданий</value>
@@ -21,10 +21,10 @@
     <value>просмотр и настройка регламентных и фоновых заданий</value>
   </explanation>
   <forms uuid="666d4981-6ccb-43bd-b0c1-072a2dec6d2f">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

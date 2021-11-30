@@ -63,7 +63,7 @@
   <content>CommonModule.УИ_ОбщегоНазначенияВызовСервера</content>
   <content>CommonModule.УИ_ОбщегоНазначения</content>
   <content>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</content>
-  <content>CommonModule.УИ_Пользователи</content>
+  <content>CommonModule.UT_Users</content>
   <content>CommonModule.УИ_СтроковыеФункцииКлиентСервер</content>
   <content>CommonModule.UT_CommonClient</content>
   <content>CommonModule.УИ_АлгоритмыКлиентСервер</content>
