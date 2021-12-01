@@ -11,7 +11,7 @@ Procedure FilterOnOpen()
 	ThisForm.UseBackgroundJobsFilter = True;
 	// protective filter for intensive background startup
 	FilterInterval = 3600;
-	ThisForm.BackgroundJobsFilter = New ValueStorage(New Structure("Start", CurrentSessionDate() - FilterInterval));
+	ThisForm.BackgroundJobsFilter = New ValueStorage(New Structure("Begin", CurrentSessionDate() - FilterInterval));
 	
 EndProcedure
 
@@ -48,7 +48,7 @@ Procedure UpdateOnCreate()
 		BackgroundJobsListRefresh();
 		ScheduledJobsListRefresh();
 	Except	
-		NotifyUser(ErrorInfo());
+		NotifyUser(ErrorInfo().Description);
 	EndTry;
 	
 	DataProcessorVersion = FormAttributeToValue("Object").DataProcessorVersion();
@@ -161,11 +161,11 @@ EndProcedure
 
 &AtClient
 Procedure ScheduledJobsListOnActivateRow(Item)
-	AttachIdleHandler("UpdateCurrentScheduledJobStatus", 1, True);
+	AttachIdleHandler("UpdateCurrentScheduledJobState", 1, True);
 EndProcedure
 
 &AtClient
-Procedure UpdateCurrentScheduledJobStatus()
+Procedure UpdateCurrentScheduledJobState()
 	CurrentRow = Items.ScheduledJobsList.CurrentRow;
 	If CurrentRow = Undefined Then
 		Return;
@@ -174,7 +174,7 @@ Procedure UpdateCurrentScheduledJobStatus()
 	CurrentData = ThisForm.ScheduledJobsList.FindByID(CurrentRow);
 	If CurrentData <> Undefined Then
 		LastExecutedJobAttributes = GetLastExecutedJobAttributes(CurrentData.ID);
-		CurrentData.Status = LastExecutedJobAttributes.Status;
+		CurrentData.State = LastExecutedJobAttributes.State;
 		CurrentData.Executed = LastExecutedJobAttributes.Executed;
 	EndIf;
 EndProcedure
@@ -190,31 +190,31 @@ Function GetFullFormName(FormName)
 EndFunction
 
 &AtServerNoContext
-Function GetLastExecutedJobAttributes(ИдентификаторРегламентногоЗадания, Регламентное_ = Неопределено)
-	Результат = Новый Структура("Выполнялось, Состояние");
-	Если Регламентное_ = Неопределено Тогда
-		Регламентное = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(ИдентификаторРегламентногоЗадания);
-	Иначе
-		Регламентное = Регламентное_;
-	КонецЕсли;
-	Если Регламентное <> Неопределено Тогда
-		Попытка
-			// вызывает тормоза, если регламентное выполнялось давно и фоновых было много
-			ПоследнееЗадание = Регламентное.ПоследнееЗадание;
-		Исключение
-			ПоследнееЗадание = Неопределено;
-			ТекстОшибки = ОписаниеОшибки();
-			NotifyUser(ТекстОшибки);
-			Возврат Результат;
-		КонецПопытки;
+Function GetLastExecutedJobAttributes(ScheduledJobID, Scheduled_ = Undefined)
+	Result = New Structure("Executed, State");
+	If Scheduled_ = Undefined Then
+		Scheduled = ScheduledJobs.FindByUUID(ScheduledJobID);
+	Else
+		Scheduled = Scheduled_;
+	EndIf;
+	If Scheduled <> Undefined Then
+		Try
+			// if scheduled job was executed a long time ago and there were a lot of background ones, causes freezing
+			LastJob = Scheduled.LastJob;
+		Except
+			LastJob = Undefined;
+			ErrorText = ErrorDescription();
+			NotifyUser(ErrorText);
+			Return Result;
+		EndTry;
 		
-		Если ПоследнееЗадание <> Неопределено Тогда
-			Результат.Выполнялось = Строка(ПоследнееЗадание.Начало);
-			Результат.Состояние = Строка(ПоследнееЗадание.Состояние);
-		КонецЕсли;
+		If LastJob <> Undefined Then
+			Result.Executed = String(LastJob.Begin);
+			Result.State = String(LastJob.State);
+		EndIf;
 
-	КонецЕсли;
-	Возврат Результат;
+	EndIf;
+	Return Result;
 EndFunction
 
 &НаКлиентеНаСервереБезКонтекста
@@ -356,7 +356,7 @@ EndFunction
 			Сч = Сч + 1;
 			// На больших базах подвисает...
 			СвойстваПоследнегоВыполненного = GetLastExecutedJobAttributes(НоваяСтрока.ID, Регламентное);
-			НоваяСтрока.Status = СвойстваПоследнегоВыполненного.Состояние;
+			НоваяСтрока.State = СвойстваПоследнегоВыполненного.Состояние;
 			НоваяСтрока.Executed = СвойстваПоследнегоВыполненного.Выполнялось;
 		КонецЕсли;
 		Если НЕ Таймаут И ДлительностьВывода > ТаймаутВыводаМиллисекунд Тогда
@@ -378,8 +378,8 @@ EndFunction
 		
 	Элементы.ScheduledJobsListExecuted.Подсказка = ОптимизацияТекстПояснения;
 	Элементы.ScheduledJobsListExecuted.Заголовок = "Выполнялось" + ?(Сч = Количество, "", "*");
-	Элементы.ScheduledJobsListStatus.Подсказка = ОптимизацияТекстПояснения;
-	Элементы.ScheduledJobsListStatus.Заголовок = "Состояние" + ?(Сч = Количество, "", "*");
+	Элементы.ScheduledJobsListState.Подсказка = ОптимизацияТекстПояснения;
+	Элементы.ScheduledJobsListState.Заголовок = "Состояние" + ?(Сч = Количество, "", "*");
 	
 КонецПроцедуры
 

@@ -497,7 +497,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ScheduledJobsListStatus</name>
+        <name>ScheduledJobsListState</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -506,11 +506,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ScheduledJobsList.Status</segments>
+            <segments>ScheduledJobsList.State</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ScheduledJobsListStatusExtendedTooltip</name>
+          <name>ScheduledJobsListStateExtendedTooltip</name>
           <id>82</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -525,7 +525,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ScheduledJobsListStatusContextMenu</name>
+          <name>ScheduledJobsListStateContextMenu</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3471,10 +3471,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Status</name>
+      <name>State</name>
       <title>
         <key>ru</key>
-        <value>Status</value>
+        <value>State</value>
       </title>
       <id>9</id>
       <valueType>
