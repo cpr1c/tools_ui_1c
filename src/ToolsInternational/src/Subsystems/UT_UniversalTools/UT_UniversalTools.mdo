@@ -16,7 +16,7 @@
   </picture>
   <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
   <content>DataProcessor.УИ_РедакторКонстант</content>
-  <content>DataProcessor.UT_DatabaseStorageStructure</content>
+  <content>DataProcessor.УИ_СтруктураХраненияБазыДанных</content>
   <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
   <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
   <content>DataProcessor.УИ_КонсольЗапросов</content>
