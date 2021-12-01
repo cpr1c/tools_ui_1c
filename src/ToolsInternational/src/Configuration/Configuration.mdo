@@ -93,30 +93,30 @@
   <commonTemplates>CommonTemplate.УИ_MonacoEditor</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_MonacoEditorWindows</commonTemplates>
   <commonModules>CommonModule.UT_CommonClient</commonModules>
-  <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
-  <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
-  <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
-  <commonModules>CommonModule.УИ_ДлительныеОперацииКлиент</commonModules>
-  <commonModules>CommonModule.УИ_ДлительныеОперации</commonModules>
-  <commonModules>CommonModule.УИ_РегламентныеЗаданияСервер</commonModules>
-  <commonModules>CommonModule.УИ_РегламентныеЗаданияСлужебный</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияПовтИсп</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
+  <commonModules>CommonModule.UT_Forms</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperationsServerCall</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperationsGlobal</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperationsClient</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperations</commonModules>
+  <commonModules>CommonModule.UT_ScheduledJobsServer</commonModules>
+  <commonModules>CommonModule.UT_ScheduledJobsInternal</commonModules>
+  <commonModules>CommonModule.UT_CommonCached</commonModules>
+  <commonModules>CommonModule.UT_CommonClientServer</commonModules>
+  <commonModules>CommonModule.UT_CommonServerCall</commonModules>
+  <commonModules>CommonModule.UT_Common</commonModules>
+  <commonModules>CommonModule.UT_CommonClientCached</commonModules>
   <commonModules>CommonModule.UT_Users</commonModules>
-  <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
-  <commonModules>CommonModule.УИ_</commonModules>
-  <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаВызовСервера</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
-  <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
+  <commonModules>CommonModule.UT_StringFunctionsClientServer</commonModules>
+  <commonModules>CommonModule.UT_AlgorithmsClientServer</commonModules>
+  <commonModules>CommonModule.UT_HTTPConnector</commonModules>
+  <commonModules>CommonModule.UT_</commonModules>
+  <commonModules>CommonModule.UT_RegexpsClientServer</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorServer</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorClient</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorServerCall</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorClientServer</commonModules>
+  <commonModules>CommonModule.UT_ClipboardClient</commonModules>
+  <commonModules>CommonModule.UT_XMLParcer</commonModules>
   <commonModules>CommonModule.AttachableCommandsOverridable</commonModules>
   <commonModules>CommonModule.AdditionalReportsAndDataProcessors</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
@@ -143,7 +143,7 @@
   <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
+  <dataProcessors>DataProcessor.UT_JobsConsole</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>

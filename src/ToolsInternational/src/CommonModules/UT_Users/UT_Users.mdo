@@ -3,7 +3,7 @@
   <name>UT_Users</name>
   <synonym>
     <key>ru</key>
-    <value>Пользователи</value>
+    <value>Users</value>
   </synonym>
   <server>true</server>
   <clientOrdinaryApplication>true</clientOrdinaryApplication>
