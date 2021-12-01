@@ -139,7 +139,7 @@
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>

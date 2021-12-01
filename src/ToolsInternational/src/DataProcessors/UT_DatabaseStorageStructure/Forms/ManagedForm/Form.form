@@ -171,7 +171,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ВключаяПоля</segments>
+              <segments>IncludingFields</segments>
             </paths>
           </dataPath>
           <handlers>
@@ -1846,14 +1846,18 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <title>
       <key>ru</key>
       <value>Объект</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_СтруктураХраненияБазыДанных</types>
+      <types>DataProcessorObject.UT_DatabaseStorageStructure</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1864,10 +1868,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>АдресСтруктурыБазы</name>
+    <name>DataBaseStructureAdress</name>
     <title>
       <key>ru</key>
       <value>Адрес структуры базы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Data base structure adress</value>
     </title>
     <id>3</id>
     <valueType>
@@ -2199,7 +2207,7 @@
     </additionalColumns>
   </attributes>
   <attributes>
-    <name>ВключаяПоля</name>
+    <name>IncludingFields</name>
     <title>
       <key>en</key>
       <value>Including fields</value>
@@ -2219,7 +2227,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ВключаяПоля</segments>
+      <segments>IncludingFields</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
