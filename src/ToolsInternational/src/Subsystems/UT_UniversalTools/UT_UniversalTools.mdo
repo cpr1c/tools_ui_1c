@@ -20,7 +20,7 @@
   <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
   <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
   <content>DataProcessor.УИ_КонсольЗапросов</content>
-  <content>DataProcessor.УИ_КонсольЗаданий</content>
+  <content>DataProcessor.UT_JobsConsole</content>
   <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
   <content>DataProcessor.УИ_КонсольКода</content>
   <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
@@ -51,24 +51,24 @@
   <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
   <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
   <content>Role.УИ_УниверсальныеИнструменты</content>
-  <content>CommonModule.УИ_РаботаСФормами</content>
-  <content>CommonModule.УИ_ДлительныеОперацииВызовСервера</content>
-  <content>CommonModule.УИ_ДлительныеОперацииГлобальный</content>
-  <content>CommonModule.УИ_ДлительныеОперацииКлиент</content>
-  <content>CommonModule.УИ_ДлительныеОперации</content>
-  <content>CommonModule.УИ_РегламентныеЗаданияСлужебный</content>
-  <content>CommonModule.УИ_РегламентныеЗаданияСервер</content>
-  <content>CommonModule.УИ_ОбщегоНазначенияПовтИсп</content>
-  <content>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</content>
-  <content>CommonModule.УИ_ОбщегоНазначенияВызовСервера</content>
-  <content>CommonModule.УИ_ОбщегоНазначения</content>
-  <content>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</content>
-  <content>CommonModule.УИ_Пользователи</content>
-  <content>CommonModule.УИ_СтроковыеФункцииКлиентСервер</content>
+  <content>CommonModule.UT_Forms</content>
+  <content>CommonModule.UT_TimeConsumingOperationsServerCall</content>
+  <content>CommonModule.UT_TimeConsumingOperationsGlobal</content>
+  <content>CommonModule.UT_TimeConsumingOperationsClient</content>
+  <content>CommonModule.UT_TimeConsumingOperations</content>
+  <content>CommonModule.UT_ScheduledJobsInternal</content>
+  <content>CommonModule.UT_ScheduledJobsServer</content>
+  <content>CommonModule.UT_CommonCached</content>
+  <content>CommonModule.UT_CommonClientServer</content>
+  <content>CommonModule.UT_CommonServerCall</content>
+  <content>CommonModule.UT_Common</content>
+  <content>CommonModule.UT_CommonClientCached</content>
+  <content>CommonModule.UT_Users</content>
+  <content>CommonModule.UT_StringFunctionsClientServer</content>
   <content>CommonModule.UT_CommonClient</content>
-  <content>CommonModule.УИ_АлгоритмыКлиентСервер</content>
-  <content>CommonModule.УИ_КоннекторHTTP</content>
-  <content>CommonModule.УИ_</content>
+  <content>CommonModule.UT_AlgorithmsClientServer</content>
+  <content>CommonModule.UT_HTTPConnector</content>
+  <content>CommonModule.UT_</content>
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
   <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
   <content>DataProcessor.УИ_ФайловыйМенеджер</content>
@@ -80,9 +80,9 @@
   <content>DataProcessor.УИ_РедакторJSON</content>
   <content>DataProcessor.УИ_РедакторHTML</content>
   <content>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</content>
-  <content>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</content>
-  <content>CommonModule.УИ_РедакторКодаСервер</content>
-  <content>CommonModule.УИ_РедакторКодаКлиент</content>
+  <content>CommonModule.UT_RegexpsClientServer</content>
+  <content>CommonModule.UT_CodeEditorServer</content>
+  <content>CommonModule.UT_CodeEditorClient</content>
   <content>CommonForm.УИ_ПараметрыЗаписи</content>
   <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</content>
   <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</content>
@@ -96,7 +96,7 @@
   <content>HTTPService.УИ_ПубликуемыеФункции</content>
   <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
   <content>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</content>
-  <content>CommonModule.УИ_БуферОбменаКлиент</content>
+  <content>CommonModule.UT_ClipboardClient</content>
   <content>DataProcessor.УИ_РедакторСКД</content>
   <content>CommonPicture.УИ_Строка</content>
   <content>CommonPicture.УИ_Дата</content>

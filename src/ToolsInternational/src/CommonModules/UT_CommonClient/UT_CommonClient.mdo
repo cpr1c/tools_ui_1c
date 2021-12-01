@@ -3,7 +3,7 @@
   <name>UT_CommonClient</name>
   <synonym>
     <key>ru</key>
-    <value>Общего назначения клиент</value>
+    <value>Common client</value>
   </synonym>
   <clientManagedApplication>true</clientManagedApplication>
   <clientOrdinaryApplication>true</clientOrdinaryApplication>
