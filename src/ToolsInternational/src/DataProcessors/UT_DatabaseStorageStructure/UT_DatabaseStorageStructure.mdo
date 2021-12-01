@@ -4,7 +4,7 @@
     <objectType typeId="08b7ef3a-2942-11ea-1e8a-e86a6452d1f2" valueTypeId="08b7ef3b-2942-11ea-1e8a-e86a6452d1f2"/>
     <managerType typeId="08b7ef3c-2942-11ea-1e8a-e86a6452d1f2" valueTypeId="08b7ef3d-2942-11ea-1e8a-e86a6452d1f2"/>
   </producedTypes>
-  <name>УИ_СтруктураХраненияБазыДанных</name>
+  <name>UT_DatabaseStorageStructure</name>
   <synonym>
     <key>en</key>
     <value>DB storage structure info</value>
@@ -14,8 +14,13 @@
     <value>Структура хранения базы данных [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</defaultForm>
-  <auxiliaryForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</auxiliaryForm>
+  <defaultForm>DataProcessor.UT_DatabaseStorageStructure.Form.ManagedForm</defaultForm>
+  <auxiliaryForm>DataProcessor.UT_DatabaseStorageStructure.Form.ManagedForm</auxiliaryForm>
+  <help>
+    <pages>
+      <lang>en</lang>
+    </pages>
+  </help>
   <extendedPresentation>
     <key>ru</key>
     <value>Структура хранения базы данных</value>
@@ -25,10 +30,10 @@
     <value>Просмотр имен таблиц и их взаимосвязей с объектами метаданных.</value>
   </explanation>
   <forms uuid="c03fac5c-9407-401d-94ff-8d87ab574a84">
-    <name>ФормаУправляемая</name>
+    <name>ManagedForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма управляемая</value>
+      <value>Managed form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
