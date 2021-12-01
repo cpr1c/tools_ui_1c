@@ -217,7 +217,7 @@ Function GetLastExecutedJobAttributes(ScheduledJobID, Scheduled_ = Undefined)
 	Return Result;
 EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
+&AtClientAtServerNoContext
 Процедура NotifyUser(ТекстСообщения)
 	Сообщение = Новый СообщениеПользователю();
 	Сообщение.Текст = ТекстСообщения;
