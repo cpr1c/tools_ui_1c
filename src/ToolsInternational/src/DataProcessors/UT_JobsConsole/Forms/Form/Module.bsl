@@ -199,7 +199,8 @@ Function GetLastExecutedJobAttributes(ScheduledJobID, Scheduled_ = Undefined)
 	EndIf;
 	If Scheduled <> Undefined Then
 		Try
-			// if scheduled job was executed a long time ago and there were a lot of background ones, causes freezing
+			// if scheduled job was executed a long time ago and there were a lot of background ones, 
+			// this operation causes slowdown the application
 			LastJob = Scheduled.LastJob;
 		Except
 			LastJob = Undefined;
@@ -218,30 +219,30 @@ Function GetLastExecutedJobAttributes(ScheduledJobID, Scheduled_ = Undefined)
 EndFunction
 
 &AtClientAtServerNoContext
-Процедура NotifyUser(ТекстСообщения)
-	Сообщение = Новый СообщениеПользователю();
-	Сообщение.Текст = ТекстСообщения;
-	Сообщение.Сообщить();
-КонецПроцедуры
+Procedure NotifyUser(MessageText)
+	Message = New UserMessage();
+	Message.Text = MessageText;
+	Message.Message();
+EndProcedure
 
 #EndRegion
 
-#Область ОбработчикиКомандТаблицыСписокРегламентныхЗаданий
+#Region ScheduledJobsListCommandHandlers
+
+&AtClient
+Procedure SetScheduledJobsFilter(Command)
+	ParametersStructure = New Structure;
+	ParametersStructure.Insert("Filter", ScheduledJobsFilter);
+	
+	OnCloseNotifyHandler = New NotifyDescription("SetScheduledJobsFilterOnClose", ThisForm);
+	
+	OpenForm(GetFullFormName("ДиалогОтбораРегламентногоЗадания"), ParametersStructure, ThisForm, , , , OnCloseNotifyHandler, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
 &НаКлиенте
-Процедура УстановитьОтборРегламентныхЗаданий(Команда)
-	СтруктураПараметров = Новый Структура;
-	СтруктураПараметров.Вставить("Отбор", ОтборРегламентныхЗаданий);
-	
-	ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("УстановитьОтборРегламентныхЗаданийЗавершение", ЭтаФорма);
-	
-	ОткрытьФорму(GetFullFormName("ДиалогОтбораРегламентногоЗадания"), СтруктураПараметров, ЭтаФорма, , , , ОписаниеОповещенияОЗакрытии, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура УстановитьОтборРегламентныхЗаданийЗавершение(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
+Процедура SetScheduledJobsFilterOnClose(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
 	Если ТипЗнч(РезультатЗакрытия) = Тип("Структура") Тогда
-		ОтборРегламентныхЗаданий = РезультатЗакрытия;
+		ScheduledJobsFilter = РезультатЗакрытия;
 		ОтборРегламентныхЗаданийВключен = Истина;
 		ScheduledJobsListRefresh();
 	КонецЕсли;
@@ -307,7 +308,7 @@ EndFunction
 	Отбор = Неопределено;
 	СтрокаОтбора = "";
 	Если ОтборРегламентныхЗаданийВключен = Истина Тогда
-		Отбор = ОтборРегламентныхЗаданий;
+		Отбор = ScheduledJobsFilter;
 		Для Каждого Элемент Из Отбор Цикл
 			Если СтрокаОтбора <> "" Тогда
 				 СтрокаОтбора = СтрокаОтбора + ";";

@@ -721,7 +721,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийУстановитьОтборРегламентныхЗаданий</name>
+          <name>ScheduledJobsListSetScheduledJobsFilter</name>
           <id>51</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -730,7 +730,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийУстановитьОтборРегламентныхЗаданийРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListSetScheduledJobsFilterExtendedTooltip</name>
             <id>59</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -744,7 +744,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УстановитьОтборРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.SetScheduledJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1376,7 +1376,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюУстановитьОтборРегламентныхЗаданий</name>
+          <name>ScheduledJobsListContextMenuSetScheduledJobsFilter</name>
           <id>150</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1384,7 +1384,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюУстановитьОтборРегламентныхЗаданийРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuSetScheduledJobsFilterExtendedTooltip</name>
             <id>151</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1398,7 +1398,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УстановитьОтборРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.SetScheduledJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3582,10 +3582,10 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ОтборРегламентныхЗаданий</name>
+    <name>ScheduledJobsFilter</name>
     <title>
       <key>ru</key>
-      <value>Отбор регламентных заданий</value>
+      <value>Scheduled jobs filter</value>
     </title>
     <id>6</id>
     <valueType/>
@@ -4113,15 +4113,15 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УстановитьОтборРегламентныхЗаданий</name>
+    <name>SetScheduledJobsFilter</name>
     <title>
       <key>ru</key>
-      <value>Установить отбор</value>
+      <value>Set filter</value>
     </title>
     <id>7</id>
     <toolTip>
       <key>ru</key>
-      <value>Установить отбор регламентных заданий</value>
+      <value>Set scheduled jobs filter</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4131,7 +4131,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УстановитьОтборРегламентныхЗаданий</name>
+        <name>SetScheduledJobsFilter</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
