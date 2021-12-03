@@ -8,10 +8,10 @@ EndProcedure
 &AtServer
 Procedure FilterOnOpen()
 
-	ThisForm.UseBackgroundJobsFilter = True;
-	// protective filter for intensive background startup
+	ThisForm.BackgroundJobsFilterEnabled = True;
+	// Protective filter for intensive background startup.
 	FilterInterval = 3600;
-	ThisForm.BackgroundJobsFilter = New ValueStorage(New Structure("Start", CurrentSessionDate() - FilterInterval));
+	ThisForm.BackgroundJobsFilter = New ValueStorage(New Structure("Begin", CurrentSessionDate() - FilterInterval));
 	
 EndProcedure
 
@@ -46,9 +46,9 @@ Procedure UpdateOnCreate()
 		FilterOnOpen();
 		
 		BackgroundJobsListRefresh();
-		ScheduledJobsListRefresh();
+		RefreshScheduledJobsList();
 	Except	
-		NotifyUser(ErrorInfo());
+		NotifyUser(ErrorInfo().Description);
 	EndTry;
 	
 	DataProcessorVersion = FormAttributeToValue("Object").DataProcessorVersion();
@@ -69,7 +69,7 @@ EndProcedure
 
 &AtClient
 Procedure ScheduledJobsAutoUpdateHandler()
-	ScheduledJobsListRefresh();
+	RefreshScheduledJobsList();
 EndProcedure
 
 #EndRegion
@@ -92,7 +92,7 @@ Procedure ScheduledJobsListRowAddOnClose(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
-	ScheduledJobsListRefresh();
+	RefreshScheduledJobsList();
 		
 	ScheduledJobID = New UUID(Result);
 	Rows = ScheduledJobsList.FindRows(New Structure("ID", ScheduledJobID));
@@ -124,7 +124,7 @@ EndProcedure
 &AtClient
 Procedure ScheduledJobsListRowChangeOnClose(Result, AdditionalParameters) Export
 	If Result <> Undefined Then
-		ScheduledJobsListRefresh();
+		RefreshScheduledJobsList();
 	EndIf;
 EndProcedure
 
@@ -134,7 +134,7 @@ Procedure ScheduledJobsListBeforeDelete(Item, Cancel)
 		Cancel = Истина;
 		DeleteScheduledJob();
 		
-		ScheduledJobsListRefresh();
+		RefreshScheduledJobsList();
 	Except
 		NotifyUser(ErrorInfo());
 	EndTry;
@@ -148,7 +148,7 @@ Procedure DeleteScheduledJob()
 		
 		ScheduledJob = ScheduledJobs.FindByUUID(ScheduledJobRow.ID);
 		If ScheduledJob.Predefined Then
-			Raise("Unable to delete predefined job: " + ScheduledJob.Name);
+			Raise("Unable to delete predefined job: " + ScheduledJob.Description);
 		EndIf;
 	EndDo;
 	
@@ -161,11 +161,11 @@ EndProcedure
 
 &AtClient
 Procedure ScheduledJobsListOnActivateRow(Item)
-	AttachIdleHandler("UpdateCurrentScheduledJobStatus", 1, True);
+	AttachIdleHandler("UpdateCurrentScheduledJobState", 1, True);
 EndProcedure
 
 &AtClient
-Procedure UpdateCurrentScheduledJobStatus()
+Procedure UpdateCurrentScheduledJobState()
 	CurrentRow = Items.ScheduledJobsList.CurrentRow;
 	If CurrentRow = Undefined Then
 		Return;
@@ -174,7 +174,7 @@ Procedure UpdateCurrentScheduledJobStatus()
 	CurrentData = ThisForm.ScheduledJobsList.FindByID(CurrentRow);
 	If CurrentData <> Undefined Then
 		LastExecutedJobAttributes = GetLastExecutedJobAttributes(CurrentData.ID);
-		CurrentData.Status = LastExecutedJobAttributes.Status;
+		CurrentData.State = LastExecutedJobAttributes.State;
 		CurrentData.Executed = LastExecutedJobAttributes.Executed;
 	EndIf;
 EndProcedure
@@ -190,645 +190,645 @@ Function GetFullFormName(FormName)
 EndFunction
 
 &AtServerNoContext
-Function GetLastExecutedJobAttributes(ИдентификаторРегламентногоЗадания, Регламентное_ = Неопределено)
-	Результат = Новый Структура("Выполнялось, Состояние");
-	Если Регламентное_ = Неопределено Тогда
-		Регламентное = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(ИдентификаторРегламентногоЗадания);
-	Иначе
-		Регламентное = Регламентное_;
-	КонецЕсли;
-	Если Регламентное <> Неопределено Тогда
-		Попытка
-			// вызывает тормоза, если регламентное выполнялось давно и фоновых было много
-			ПоследнееЗадание = Регламентное.ПоследнееЗадание;
-		Исключение
-			ПоследнееЗадание = Неопределено;
-			ТекстОшибки = ОписаниеОшибки();
-			NotifyUser(ТекстОшибки);
-			Возврат Результат;
-		КонецПопытки;
+Function GetLastExecutedJobAttributes(ScheduledJobID, Scheduled_ = Undefined)
+	Result = New Structure("Executed, State");
+	If Scheduled_ = Undefined Then
+		Scheduled = ScheduledJobs.FindByUUID(ScheduledJobID);
+	Else
+		Scheduled = Scheduled_;
+	EndIf;
+	If Scheduled <> Undefined Then
+		Try
+			// Causes application slowdown, if scheduled job was executed a long time ago and there were a lot of background jobs.
+			LastJob = Scheduled.LastJob;
+		Except
+			LastJob = Undefined;
+			ErrorText = ErrorDescription();
+			NotifyUser(ErrorText);
+			Return Result;
+		EndTry;
 		
-		Если ПоследнееЗадание <> Неопределено Тогда
-			Результат.Выполнялось = Строка(ПоследнееЗадание.Начало);
-			Результат.Состояние = Строка(ПоследнееЗадание.Состояние);
-		КонецЕсли;
+		If LastJob <> Undefined Then
+			Result.Executed = String(LastJob.Begin);
+			Result.State = String(LastJob.State);
+		EndIf;
 
-	КонецЕсли;
-	Возврат Результат;
+	EndIf;
+	Return Result;
 EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Процедура NotifyUser(ТекстСообщения)
-	Сообщение = Новый СообщениеПользователю();
-	Сообщение.Текст = ТекстСообщения;
-	Сообщение.Сообщить();
-КонецПроцедуры
+&AtClientAtServerNoContext
+Procedure NotifyUser(MessageText)
+	Message = New UserMessage();
+	Message.Text = MessageText;
+	Message.Message();
+EndProcedure
 
 #EndRegion
 
-#Область ОбработчикиКомандТаблицыСписокРегламентныхЗаданий
+#Region ScheduledJobsListCommandHandlers
 
-&НаКлиенте
-Процедура УстановитьОтборРегламентныхЗаданий(Команда)
-	СтруктураПараметров = Новый Структура;
-	СтруктураПараметров.Вставить("Отбор", ОтборРегламентныхЗаданий);
+&AtClient
+Procedure SetScheduledJobsFilter(Command)
+	ParametersStructure = New Structure;
+	ParametersStructure.Insert("Filter", ScheduledJobsFilter);
 	
-	ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("УстановитьОтборРегламентныхЗаданийЗавершение", ЭтаФорма);
+	OnCloseNotifyHandler = New NotifyDescription("SetScheduledJobsFilterOnClose", ThisForm);
 	
-	ОткрытьФорму(GetFullFormName("ДиалогОтбораРегламентногоЗадания"), СтруктураПараметров, ЭтаФорма, , , , ОписаниеОповещенияОЗакрытии, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+	OpenForm(GetFullFormName("ScheduledJobFilterDialog"), ParametersStructure, ThisForm, , , , OnCloseNotifyHandler, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура УстановитьОтборРегламентныхЗаданийЗавершение(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
-	Если ТипЗнч(РезультатЗакрытия) = Тип("Структура") Тогда
-		ОтборРегламентныхЗаданий = РезультатЗакрытия;
-		ОтборРегламентныхЗаданийВключен = Истина;
-		ScheduledJobsListRefresh();
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure SetScheduledJobsFilterOnClose(Result, AdditionalParameters) Export
+	If TypeOf(Result) = Тип("Structure") Then
+		ScheduledJobsFilter = Result;
+		ScheduledJobsFilterEnabled = True;
+		RefreshScheduledJobsList();
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ОтключитьОтборРегламентныхЗаданий(Команда)
-	ОтборРегламентныхЗаданийВключен = Ложь;
-	ScheduledJobsListRefresh();
-КонецПроцедуры
+&AtClient
+Procedure DisableScheduledJobsFilter(Command)
+	ScheduledJobsFilterEnabled = False;
+	RefreshScheduledJobsList();
+EndProcedure
 
-&НаКлиенте
-Процедура ОбновитьРегламентныеЗадания(Команда)
-	ScheduledJobsListRefresh(Истина);
-КонецПроцедуры
+&AtClient
+Procedure RefreshScheduledJobs(Command)
+	RefreshScheduledJobsList(True);
+EndProcedure
 
-&НаСервере
-Процедура ScheduledJobsListRefresh(ПолучитьСостояниеВсех = Ложь)
-	Перем ТекущийИдентификатор;
+&AtServer
+Procedure RefreshScheduledJobsList(GetAllStates = False)
+	Var CurrentID;
 
-	ТекущаяСтрока = Элементы.СписокРегламентныхЗаданий.ТекущаяСтрока;
-	Если ТекущаяСтрока <> Неопределено Тогда
-		ТекСтрока = ScheduledJobsList.НайтиПоИдентификатору(ТекущаяСтрока);
-		ТекущийИдентификатор = ТекСтрока.ID;
-	КонецЕсли;
+	CurrentRow = Items.ScheduledJobsList.CurrentRow;
+	If CurrentRow <> Undefined Then
+		CurRow = ScheduledJobsList.FindByID(CurrentRow);
+		CurrentID = CurRow.ID;
+	EndIf;
 
-	Идентификаторы = Новый Массив;
+	IDs = New Array;
 	
-	ВыделенныеСтроки = Элементы.СписокРегламентныхЗаданий.ВыделенныеСтроки;
-	Для Каждого ВыделеннаяСтрока Из ВыделенныеСтроки Цикл
-		ТекСтрока = ScheduledJobsList.НайтиПоИдентификатору(ВыделеннаяСтрока);
-		Идентификаторы.Добавить(ТекСтрока.ID);
-	КонецЦикла;
+	SelectedRows = Items.ScheduledJobsList.SelectedRows;
+	For Each SelectedRow In SelectedRows Do
+		CurRow = ScheduledJobsList.FindByID(SelectedRow);
+		IDs.Add(CurRow.ID);
+	EndDo;
 	
-	ScheduledJobsList.Очистить();
+	ScheduledJobsList.Clear();
 	
-	ВывестиРегламентные(ПолучитьСостояниеВсех);
+	PutScheduledJobs(GetAllStates);
 	
-	ScheduledJobsList.Сортировать("Метаданные");
+	ScheduledJobsList.Sort("Metadata");
 	
-	Если ТекущийИдентификатор <> Неопределено Тогда
-		Строки = ScheduledJobsList.НайтиСтроки(Новый Структура("Идентификатор", ТекущийИдентификатор));
-		Если Строки.Количество() > 0 Тогда
-			Элементы.СписокРегламентныхЗаданий.ТекущаяСтрока = Строки[0].ПолучитьИдентификатор();
-		КонецЕсли;
-	КонецЕсли;
+	If CurrentID <> Undefined Then
+		Rows = ScheduledJobsList.FindRows(New Structure("ID", CurrentID));
+		If Rows.Count() > 0 Then
+			Items.ScheduledJobsList.CurrentRow = Rows[0].GetID();
+		EndIf;
+	EndIf;
 
-	Если Идентификаторы.Количество() > 0 Тогда
-		ВыделенныеСтроки.Очистить();
-	КонецЕсли;
+	If IDs.Count() > 0 Then
+		SelectedRows.Clear();
+	EndIf;
 	
-	Для Каждого Идентификатор Из Идентификаторы Цикл
-		Строки = ScheduledJobsList.НайтиСтроки(Новый Структура("Идентификатор", Идентификатор));
-		Если Строки.Количество() > 0 Тогда
-			ВыделенныеСтроки.Добавить(Строки[0].ПолучитьИдентификатор());
-		КонецЕсли;
-	КонецЦикла;
+	For Each ID In IDs Do
+		Rows = ScheduledJobsList.FindRows(New Structure("ID", ID));
+		If Rows.Count() > 0 Then
+			SelectedRows.Add(Rows[0].GetID());
+		EndIf;
+	EndDo;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Функция ПолучитьОтборРегламентных()
-	Отбор = Неопределено;
-	СтрокаОтбора = "";
-	Если ОтборРегламентныхЗаданийВключен = Истина Тогда
-		Отбор = ОтборРегламентныхЗаданий;
-		Для Каждого Элемент Из Отбор Цикл
-			Если СтрокаОтбора <> "" Тогда
-				 СтрокаОтбора = СтрокаОтбора + ";";
-			КонецЕсли;
-			СтрокаОтбора = СтрокаОтбора + Элемент.Ключ + ": " + Элемент.Значение;
-		КонецЦикла;
-		Если СтрокаОтбора <> "" Тогда
-			СтрокаОтбора = " (" + СтрокаОтбора + ")";
-		КонецЕсли;
-	КонецЕсли;
-	Элементы.РегламентныеЗадания.Заголовок = "Регламентные задания" + СтрокаОтбора;
-	Возврат Отбор;
-КонецФункции
+&AtServer
+Function GetScheduledJobsFilter()
+	Filter = Undefined;
+	FilterRow = "";
+	If ScheduledJobsFilterEnabled = True Then
+		Filter = ScheduledJobsFilter;
+		For Each Item In Filter Do
+			If FilterRow <> "" Then
+				 FilterRow = FilterRow + ";";
+			EndIf;
+			FilterRow = FilterRow + Item.Key + ": " + Item.Value;
+		EndDo;
+		If FilterRow <> "" Then
+			FilterRow = " (" + FilterRow + ")";
+		EndIf;
+	EndIf;
+	Items.ScheduledJobs.Title = "Scheduled jobs" + FilterRow;
+	Return Filter;
+EndFunction
 	
-&НаСервере
-Процедура ВывестиРегламентные(ПолучитьСостояниеВсех = Ложь)
+&AtServer
+Procedure PutScheduledJobs(GetAllStates = False)
 	
-	Отбор = ПолучитьОтборРегламентных();
-	Попытка
-		Регламентные = РегламентныеЗадания.ПолучитьРегламентныеЗадания(Отбор);
-	Исключение
-		ТекстОшибки = ОписаниеОшибки();
-		NotifyUser(ТекстОшибки);
-		Возврат;
-	КонецПопытки;
+	Filter = GetScheduledJobsFilter();
+	Try
+		Scheduled_ = ScheduledJobs.GetScheduledJobs(Filter);
+	Except
+		ErrorText = ErrorDescription();
+		NotifyUser(ErrorText);
+		Return;
+	EndTry;
 	
-	Таймаут = Ложь;
-	НачалоЗамера = ТекущаяУниверсальнаяДатаВМиллисекундах();
-	Сч = 0;
-	Количество = Регламентные.Количество();
-	Для Каждого Регламентное Из Регламентные Цикл
-		НоваяСтрока = ScheduledJobsList.Добавить();
-		НоваяСтрока.Metadata = Регламентное.Метаданные.Представление();
-		НоваяСтрока.Name = Регламентное.Наименование;
-		НоваяСтрока.Key = Регламентное.Ключ;
-		НоваяСтрока.Schedule = Регламентное.Расписание;
-		НоваяСтрока.User = Регламентное.ИмяПользователя;
-		НоваяСтрока.Predefined = Регламентное.Предопределенное;
-		НоваяСтрока.Use = Регламентное.Использование;
-		НоваяСтрока.ID = Регламентное.УникальныйИдентификатор;
-		НоваяСтрока.Method = Регламентное.Метаданные.ИмяМетода;
+	Timeout = False;
+	MeteringStart = CurrentUniversalDateInMilliseconds();
+	Counter = 0;
+	Count = Scheduled_.Count();
+	For Each Scheduled In Scheduled_ Do
+		NewRow = ScheduledJobsList.Add();
+		NewRow.Metadata = Scheduled.Metadata.Presentation();
+		NewRow.Description = Scheduled.Description;
+		NewRow.Key = Scheduled.Key;
+		NewRow.Schedule = Scheduled.Schedule;
+		NewRow.User = Scheduled.UserName;
+		NewRow.Predefined = Scheduled.Predefined;
+		NewRow.Use = Scheduled.Use;
+		NewRow.ID = Scheduled.UUID;
+		NewRow.Method = Scheduled.Metadata.MethodName;
 		
-		ТаймаутВыводаМиллисекунд = 200;
-		ДлительностьВывода = ТекущаяУниверсальнаяДатаВМиллисекундах() - НачалоЗамера;
-		Если НЕ Таймаут И ДлительностьВывода < ТаймаутВыводаМиллисекунд ИЛИ ПолучитьСостояниеВсех Тогда
-			Сч = Сч + 1;
-			// На больших базах подвисает...
-			СвойстваПоследнегоВыполненного = GetLastExecutedJobAttributes(НоваяСтрока.ID, Регламентное);
-			НоваяСтрока.Status = СвойстваПоследнегоВыполненного.Состояние;
-			НоваяСтрока.Executed = СвойстваПоследнегоВыполненного.Выполнялось;
-		КонецЕсли;
-		Если НЕ Таймаут И ДлительностьВывода > ТаймаутВыводаМиллисекунд Тогда
-			Таймаут = Истина;
-		КонецЕсли; 
+		OutputTimeoutMilliseconds = 200;
+		OutputDuration = CurrentUniversalDateInMilliseconds() - MeteringStart;
+		If Not Timeout And OutputDuration < OutputTimeoutMilliseconds Or GetAllStates Then
+			Counter = Counter + 1;
+			// Runs slow on large databases.
+			LastExecutedJobAttributes = GetLastExecutedJobAttributes(NewRow.ID, Scheduled);
+			NewRow.State = LastExecutedJobAttributes.State;
+			NewRow.Executed = LastExecutedJobAttributes.Executed;
+		EndIf;
+		If Not Timeout And OutputDuration > OutputTimeoutMilliseconds Then
+			Timeout = True;
+		EndIf; 
 		
-		ИмяРегламентногоЗадания = НоваяСтрока.Metadata + ?(ЗначениеЗаполнено(НоваяСтрока.Name), ":" + НоваяСтрока.Name, "");
-		Строки = СписокФоновыхЗаданий.НайтиСтроки(Новый Структура("Метод, Наименование", НоваяСтрока.Method, НоваяСтрока.Name));
-		Для Каждого Фоновое Из Строки Цикл
-			Фоновое.Регламентное = ИмяРегламентногоЗадания;
-		КонецЦикла;
-	КонецЦикла;	
+		ScheduledJobName = NewRow.Metadata + ?(ValueIsFilled(NewRow.Description), ":" + NewRow.Description, "");
+		Rows = BackgroundJobsList.FindRows(New Structure("Method, Description", NewRow.Method, NewRow.Description));
+		For Each Background In Rows Do
+			Background.Scheduled = ScheduledJobName;
+		EndDo;
+	EndDo;	
 	
-	ВремяЗаполненияРегламентных = ТекущаяУниверсальнаяДатаВМиллисекундах() - НачалоЗамера;
+	ScheduledJobsFillingTime = CurrentUniversalDateInMilliseconds() - MeteringStart;
 	
-	ОптимизацияТекстПояснения = СтрШаблон("За %1 мсек. получено состояние %2 из %3 регламентных заданий,"
-		+ " но обновление происходит и при активации строки.", ВремяЗаполненияРегламентных, Сч, Количество)
-		+ " Для отображения состояния сразу всех воспользуйтесь командой обновления списка регламентных заданий.";
+	OptimizationExplanationText = StrTemplate("In %1 msec, the states %2 of %3 scheduled jobs were received,"
+		+ " but refreshing also occurs when the row is activated.", ScheduledJobsFillingTime, Counter, Count)
+		+ " To display the states of all jobs, use Refresh scheduled jobs command.";
 		
-	Элементы.ScheduledJobsListExecuted.Подсказка = ОптимизацияТекстПояснения;
-	Элементы.ScheduledJobsListExecuted.Заголовок = "Выполнялось" + ?(Сч = Количество, "", "*");
-	Элементы.ScheduledJobsListStatus.Подсказка = ОптимизацияТекстПояснения;
-	Элементы.ScheduledJobsListStatus.Заголовок = "Состояние" + ?(Сч = Количество, "", "*");
+	Items.ScheduledJobsListExecuted.ToolTip = OptimizationExplanationText;
+	Items.ScheduledJobsListExecuted.Title = "Executed" + ?(Counter = Count, "", "*");
+	Items.ScheduledJobsListState.ToolTip = OptimizationExplanationText;
+	Items.ScheduledJobsListState.Title = "State" + ?(Counter = Count, "", "*");
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура Расписание(Команда)
-	ВыделенныеСтроки = Элементы.СписокРегламентныхЗаданий.ВыделенныеСтроки;
-	Если ВыделенныеСтроки.Количество() > 0 Тогда
+&AtClient
+Procedure Schedule(Command)
+	SelectedRows = Items.ScheduledJobsList.SelectedRows;
+	If SelectedRows.Count() > 0 Then
 		
-		Строка = ScheduledJobsList.НайтиПоИдентификатору(ВыделенныеСтроки.Получить(0));
-		Расписание = ПолучитьРасписаниеРегламентногоЗадания(Строка.ID);
-		Диалог = Новый ДиалогРасписанияРегламентногоЗадания(Расписание);
-		ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("ДиалогРасписанияРегламентногоЗаданияОткрытьЗавершение", ЭтаФорма);
+		Row = ScheduledJobsList.FindByID(SelectedRows.Get(0));
+		Schedule = GetScheduledJobSchedule(Row.ID);
+		Dialog = New ScheduledJobDialog(Schedule);
+		OnCloseNotifyHandler = New NotifyDescription("ScheduledJobDialogOnClose", ThisForm);
 		
-		Диалог.Показать(ОписаниеОповещенияОЗакрытии);
+		Dialog.Show(OnCloseNotifyHandler);
 
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаСервере
-Функция ПолучитьРасписаниеРегламентногоЗадания(УникальныйНомерЗадания)
-	ОбъектЗадания = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(УникальныйНомерЗадания);
-	Если ОбъектЗадания = Неопределено Тогда
-		Возврат Новый РасписаниеРегламентногоЗадания;
-	КонецЕсли;
+&AtServer
+Function GetScheduledJobSchedule(UniqueJobNumber)
+	JobObject = ScheduledJobs.FindByUUID(UniqueJobNumber);
+	If JobObject = Undefined Then
+		Return New JobSchedule;
+	EndIf;
 	
-	Возврат ОбъектЗадания.Расписание;
-КонецФункции
+	Return JobObject.Schedule;
+EndFunction
 
-&НаКлиенте
-Процедура ДиалогРасписанияРегламентногоЗаданияОткрытьЗавершение(Расписание, ДополнительныеПараметры) Экспорт
-	Если Расписание <> Неопределено Тогда
-		ВыделенныеСтроки = Элементы.СписокРегламентныхЗаданий.ВыделенныеСтроки;
-		Если ВыделенныеСтроки.Количество() > 0 Тогда
-			Строка = ScheduledJobsList.НайтиПоИдентификатору(ВыделенныеСтроки.Получить(0));
-			УстановитьРасписаниеРегламентногоЗадания(Строка.ID, Строка.Name, Расписание, Строка.Metadata);
-			Строка.Schedule = Расписание;
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure ScheduledJobDialogOnClose(Schedule, AdditionalParameters) Export
+	If Schedule <> Undefined Then
+		SelectedRows = Items.ScheduledJobsList.SelectedRows;
+		If SelectedRows.Количество() > 0 Then
+			Row = ScheduledJobsList.FindByID(SelectedRows.Get(0));
+			SetScheduledJobSchedule(Row.ID, Row.Description, Schedule, Row.Metadata);
+			Row.Schedule = Schedule;
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаСервере
-Функция УстановитьРасписаниеРегламентногоЗадания(Идентификатор, Наименование, Расписание, ИмяЗадания)
-	ОбъектЗадания = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(Идентификатор);
-	Если ОбъектЗадания = Неопределено Тогда
-		РедОбъектЗадания = РегламентныеЗадания.СоздатьРегламентноеЗадание(ИмяЗадания);
-		РедОбъектЗадания.Наименование = Наименование;
-		РедОбъектЗадания.Использование = Истина;
-	Иначе
-		РедОбъектЗадания = ОбъектЗадания;
-	КонецЕсли;
+&AtServer
+Function SetScheduledJobSchedule(ID, Description, Schedule, JobName)
+	JobObject = ScheduledJobs.FindByUUID(ID);
+	If JobObject = Undefined Then
+		EditedJobObject = ScheduledJobs.CreateScheduledJob(JobName);
+		EditedJobObject.Description = Description;
+		EditedJobObject.Use = True;
+	Else
+		EditedJobObject = JobObject;
+	EndIf;
 	
-	РедОбъектЗадания.Расписание = Расписание;
-	Попытка
-		РедОбъектЗадания.Записать();
-	Исключение
-		ВызватьИсключение "Произошла ошибка при сохранении расписания выполнения обменов. Возможно данные расписания были изменены. Закройте форму настройки и повторите попытку изменения расписания еще раз.
-		|Подробное описание ошибки: " + ОписаниеОшибки();
-	КонецПопытки;
+	EditedJobObject.Schedule = Schedule;
+	Try
+		EditedJobObject.Write();
+	Except
+		Raise "Schedule saving error. Perhaps the schedule data has been changed. Close settings form and try again.
+		|Detailed error description : " + ErrorDescription();
+	EndTry;
 	
-	Возврат Истина;
-КонецФункции
+	Return True;
+EndFunction
 
-&НаКлиенте
-Процедура НастройкаСпискаРегламентныхЗаданий(Команда)
-	СтруктураПараметров = Новый Структура;
-	СтруктураПараметров.Вставить("АвтоОбновление", ScheduledJobsListAutoUpdate);
-	СтруктураПараметров.Вставить("ПериодАвтоОбновления", ScheduledListAutoUpdatePeriod);
+&AtClient
+Procedure ScheduledJobsListSettings(Command)
+	ParametersStructure = New Structure;
+	ParametersStructure.Insert("AutoUpdate", ScheduledJobsListAutoUpdate);
+	ParametersStructure.Insert("AutoUpdatePeriod", ScheduledListAutoUpdatePeriod);
 	
-	ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("НастройкаСпискаРегламентныхЗаданийЗавершение", ЭтаФорма);
+	OnCloseNotifyHandler = New NotifyDescription("ScheduledJobsListSettingsOnClose", ThisForm);
 	
-	ОткрытьФорму(GetFullFormName("ДиалогНастроекСписка"), СтруктураПараметров, ЭтаФорма, , , , ОписаниеОповещенияОЗакрытии, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+	OpenForm(GetFullFormName("ListSettingsDialog"), ParametersStructure, ThisForm, , , , OnCloseNotifyHandler, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура НастройкаСпискаРегламентныхЗаданийЗавершение(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
-	Если ТипЗнч(РезультатЗакрытия) = Тип("Структура") Тогда
-		ScheduledJobsListAutoUpdate = РезультатЗакрытия.Автообновление;
-		ScheduledListAutoUpdatePeriod = РезультатЗакрытия.ПериодАвтообновления;
+&AtClient
+Procedure ScheduledJobsListSettingsOnClose(Result, AdditionalParameters) Export
+	If TypeOf(Result) = Type("Structure") Then
+		ScheduledJobsListAutoUpdate = Result.AutoUpdate;
+		ScheduledListAutoUpdatePeriod = Result.AutoUpdatePeriod;
 		
-		ОтключитьОбработчикОжидания("ScheduledJobsAutoUpdateHandler");
-		Если ScheduledJobsListAutoUpdate = Истина Тогда
-			ПодключитьОбработчикОжидания("ScheduledJobsAutoUpdateHandler", ScheduledListAutoUpdatePeriod);	
-		КонецЕсли;
-		Элементы.СписокРегламентныхЗаданийНастройкаСпискаРегламентныхЗаданий.Пометка = ScheduledJobsListAutoUpdate;
-	КонецЕсли;
-КонецПроцедуры
+		DetachIdleHandler("ScheduledJobsAutoUpdateHandler");
+		If ScheduledJobsListAutoUpdate = True Then
+			AttachIdleHandler("ScheduledJobsAutoUpdateHandler", ScheduledListAutoUpdatePeriod);	
+		EndIf;
+		Items.ScheduledJobsListSettings.Check = ScheduledJobsListAutoUpdate;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ВыполнитьЗаданиеВручную(Команда)
-	ТекущаяСтрока = Элементы.СписокРегламентныхЗаданий.ТекущиеДанные;
-	Если ТекущаяСтрока <> Неопределено Тогда
-		ВыполнитьЗаданиеВручнуюНаСервере(ТекущаяСтрока.Идентификатор);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure ExecuteManually(Command)
+	CurrentRow = Items.ScheduledJobsList.CurrentData;
+	If CurrentRow <> Undefined Then
+		ExecuteManuallyAtServer(CurrentRow.ID);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура ВыполнитьЗаданиеВручнуюНаСервере(УникальныйИдентификатор)
-	Идентификатор = Новый УникальныйИдентификатор(УникальныйИдентификатор);
-	Задание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(Идентификатор);
+&AtServer
+Procedure ExecuteManuallyAtServer(UUID)
+	ID = New UUID(UUID);
+	Job = ScheduledJobs.FindByUUID(ID);
 	
-	ИмяМетода = Задание.Метаданные.ИмяМетода;
+	MethodName = Job.Metadata.MethodName;
 		
-	// Подготовка команды для выполнения метода вместо фонового задания.
-	СтрокаПараметров = "";
-	Индекс = 0;
-	Пока Индекс < Задание.Параметры.Количество() Цикл
-		СтрокаПараметров = СтрокаПараметров + "Задание.Параметры[" + Индекс + "]";
-		Если Индекс < (Задание.Параметры.Количество() - 1) Тогда
-			СтрокаПараметров = СтрокаПараметров + ",";
-		КонецЕсли;
-		Индекс = Индекс + 1;
-	КонецЦикла;
+	// Preparing a command to run a method instead of a background job.
+	ParametersString = "";
+	Index = 0;
+	While Index < Job.Parameters.Count() Do
+		ParametersString = ParametersString + "Job.Parameters[" + Index + "]";
+		If Index < (Job.Parameters.Количество() - 1) Then
+			ParametersString = ParametersString + ",";
+		EndIf;
+		Index = Index + 1;
+	EndDo;
 	
-	Выполнить("" + ИмяМетода + "(" + СтрокаПараметров + ");");
+	Execute("" + MethodName + "(" + ParametersString + ");");
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ЗапуститьЗадание(Команда)
-	ТекущаяСтрока = Элементы.СписокРегламентныхЗаданий.ТекущиеДанные;
-	Если ТекущаяСтрока <> Неопределено Тогда
-		ЗапуститьЗаданиеНаСервере(ТекущаяСтрока.Идентификатор);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure Run(Command)
+	CurrentRow = Items.ScheduledJobsList.CurrentData;
+	If CurrentRow <> Undefined Then
+		RunAtServer(CurrentRow.ID);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура ЗапуститьЗаданиеНаСервере(УникальныйИдентификатор)
+&AtServer
+Procedure RunAtServer(UUID)
 	
-	Идентификатор = Новый УникальныйИдентификатор(УникальныйИдентификатор);
-	Задание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(Идентификатор);
+	ID = New UUID(UUID);
+	Job = ScheduledJobs.FindByUUID(ID);
 		
-	// проверка на выполнение в текущий момент
-	Отбор = Новый Структура;
-	Отбор.Вставить("Ключ", Строка(Задание.УникальныйИдентификатор));
-	Отбор.Вставить("Состояние ", СостояниеФоновогоЗадания.Активно);		
-	МассивЗаданий = ФоновыеЗадания.ПолучитьФоновыеЗадания(Отбор);
+	// Cheching for current execution.
+	Filter = New Structure;
+	Filter.Insert("Key", String(Job.UUID));
+	Filter.Insert("State ", BackgroundJobState.Active);		
+	JobsArray = BackgroundJobs.GetBackgroundJobs(Filter);
 	
-	ИдентификаторНовогоЗадания = Неопределено;
+	NewJobID = Undefined;
 	
-	Если МассивЗаданий.Количество() = 0 Тогда 
-		НаименованиеФоновогоЗадания = "Запуск вручную: " + Задание.Метаданные.Синоним;
-		ФоновоеЗадание = ФоновыеЗадания.Выполнить(Задание.Метаданные.ИмяМетода, Задание.Параметры, Строка(Задание.УникальныйИдентификатор), НаименованиеФоновогоЗадания);
-		ИдентификаторНовогоЗадания = ФоновоеЗадание.УникальныйИдентификатор;
-	Иначе
-		NotifyUser("Задание уже запущено");
-	КонецЕсли;
+	If JobsArray.Count() = 0 Then 
+		BackgroundJobDescription = "Run manually: " + Job.Metadata.Synonym;
+		BackgroundJob = BackgroundJobs.Execute(Job.Metadata.MethodName, Job.Parameters, String(Job.UUID), BackgroundJobDescription);
+		NewJobID = BackgroundJob.UUID;
+	Else
+		NotifyUser("The job has already started.");
+	EndIf;
 		
-	ScheduledJobsListRefresh();
-	BackgroundJobsListRefresh(ИдентификаторНовогоЗадания);
-КонецПроцедуры
+	RefreshScheduledJobsList();
+	BackgroundJobsListRefresh(NewJobID);
+EndProcedure
 
-&НаКлиенте
-Процедура ЖурналРегистрации(Команда)
-    ИмяФормыЖР = "ВнешняяОбработка.StandardEventLog.Форма";
-    ПодключитьВнешнююОбработкуНаСервере();
-    ОткрытьФорму(ИмяФормыЖР);
-КонецПроцедуры
+&AtClient
+Procedure EventLog(Command)
+    EventLogFormName = "ExternalDataProcessor.StandardEventLog.Form";
+    ConnectExternalDataProcessorAtServer();
+    OpenForm(EventLogFormName);
+EndProcedure
 
-&НаСервере
-Процедура ПодключитьВнешнююОбработкуНаСервере()
+&AtServer
+Procedure ConnectExternalDataProcessorAtServer()
 	// BSLLS:UsingExternalCodeTools-off
 	// https://github.com/1c-syntax/bsl-language-server/issues/1283
-    ВнешниеОбработки.Подключить("v8res://mngbase/StandardEventLog.epf", "StandardEventLog", Истина);
+    ExternalDataProcessors.Connect("v8res://mngbase/StandardEventLog.epf", "StandardEventLog", True);
 	// BSLLS:UsingExternalCodeTools-on
-КонецПроцедуры
+EndProcedure
 
 //@skip-warning
-&НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
-	UT_CommonClient.Подключаемый_ВыполнитьОбщуюКомандуИнструментов(ЭтотОбъект, Команда);
-КонецПроцедуры
+&AtClient
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиСобытийЭлементовТаблицыФормыСписокФоновыхЗаданий
+#Region BackgroundJobsListEventHandlers
 
-&НаКлиенте
-Процедура СписокФоновыхЗаданийПередНачаломДобавления(Элемент, Отказ, Копирование, Родитель, Группа)
-	Отказ = Истина;
+&AtClient
+Procedure BackgroundJobsListBeforeAddRow(Item, Cancel, Clone, Parent, Folder)
+	Cancel = True;
 	
-	СтруктураПараметров = Новый Структура;
-	СтруктураПараметров.Вставить("ИдентификаторЗадания", "");
-	Если Копирование Тогда
-		ТекущиеДанные = Элементы.СписокФоновыхЗаданий.ТекущиеДанные;
-		Если ТекущиеДанные <> Неопределено Тогда
-			СтруктураПараметров.Вставить("ИмяМетода", ТекущиеДанные.Метод);
-			СтруктураПараметров.Вставить("Наименование", ТекущиеДанные.Наименование);
-			СтруктураПараметров.Вставить("Ключ", ТекущиеДанные.Ключ);
-		КонецЕсли;
-	КонецЕсли;
+	ParametersStructure = New Structure;
+	ParametersStructure.Insert("JobID", "");
+	If Clone Then
+		CurrentData = Items.BackgroundJobsList.CurrentData;
+		If CurrentData <> Undefined Then
+			ParametersStructure.Вставить("MethodName", CurrentData.Method);
+			ParametersStructure.Вставить("Description", CurrentData.Description);
+			ParametersStructure.Вставить("Key", CurrentData.Key);
+		EndIf;
+	EndIf;
 
-	ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("СписокФоновыхЗаданийПередНачаломДобавленияЗавершение", ЭтаФорма);
+	OnCloseNotifyHandler = New NotifyDescription("BackgroundJobsListRowAddOnClose", ThisForm);
 	
-	ОткрытьФорму(GetFullFormName("ДиалогФоновогоЗадания"), СтруктураПараметров, ЭтаФорма, , , , ОписаниеОповещенияОЗакрытии, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+	OpenForm(GetFullFormName("BackgroundJobDialog"), ParametersStructure, ThisForm, , , , OnCloseNotifyHandler, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура СписокФоновыхЗаданийПередНачаломДобавленияЗавершение(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
-	Если РезультатЗакрытия <> Неопределено Тогда
+&AtClient
+Procedure BackgroundJobsListRowAddOnClose(Result, AdditionalParameters) Export
+	Если Result <> Undefined Then
 	    BackgroundJobsListRefresh();			
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура СписокФоновыхЗаданийПередНачаломИзменения(Элемент, Отказ)
-	Отказ = Истина;
-КонецПроцедуры
+&AtClient
+Procedure BackgroundJobsListBeforeRowChange(Item, Cancel)
+	Cancel = True;
+EndProcedure
 
-&НаКлиенте
-Процедура СписокФоновыхЗаданийПередУдалением(Элемент, Отказ)
-	Отказ = Истина;
-КонецПроцедуры
+&AtClient
+Procedure BackgroundJobsListBeforeDelete(Item, Cancel)
+	Cancel = True;
+EndProcedure
 
-&НаКлиенте
-Процедура СписокФоновыхЗаданийВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	Если Поле.Имя = "СписокФоновыхЗаданийСообщения" Тогда
-		СписокФоновыхЗаданийСообщенияВыборНаСервере(ВыбраннаяСтрока);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure BackgroundJobsListSelection(Item, SelectedRow, Field, StandardProcessing)
+	If Field.Name = "BackgroundJobsListMessages" Then
+		BackgroundJobsListMessagesSelectionAtServer(SelectedRow);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура СписокФоновыхЗаданийСообщенияВыборНаСервере(ИдентификаторСтроки)
-	ТекущаяСтрока = СписокФоновыхЗаданий.НайтиПоИдентификатору(ИдентификаторСтроки);
-	Фоновое = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(ТекущаяСтрока.Идентификатор);
-	Если Фоновое <> Неопределено Тогда
-		СообщенияПользователю = Фоновое.ПолучитьСообщенияПользователю();
-		Для Каждого Сообщение Из СообщенияПользователю Цикл
-			NotifyUser(Сообщение.Текст);
-		КонецЦикла;
-	КонецЕсли;
-КонецПроцедуры
+&AtServer
+Procedure BackgroundJobsListMessagesSelectionAtServer(RowID)
+	CurrentRow = BackgroundJobsList.FindByID(RowID);
+	Background = BackgroundJobs.FindByUUID(CurrentRow.ID);
+	If Background <> Undefined Then
+		UserMessages = Background.GetUserMessages();
+		For Each Message In UserMessages Do
+			NotifyUser(Message.Text);
+		EndDo;
+	EndIf;
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиКомандТаблицыСписокФоновыхЗаданий
+#Region ScheduledJobsListCommandHandlers
 
-&НаКлиенте
-Процедура ОтменитьФоновоеЗадание(Команда)
-	Попытка
-		ОтменитьФоновыеЗадания();
+&AtClient
+Procedure CancelBackgroundJob(Command)
+	Try
+		CancelBackgroundJobs();
 		BackgroundJobsListRefresh();
-	Исключение	
-		ТекстОшибки = ОписаниеОшибки();
-		NotifyUser(ТекстОшибки);
-	КонецПопытки;
-КонецПроцедуры
+	Except	
+		ErrorText = ErrorDescription();
+		NotifyUser(ErrorText);
+	EndTry;
+EndProcedure
 
-&НаСервере
-Процедура ОтменитьФоновыеЗадания()
-	ВыделенныеСтроки = Элементы.СписокФоновыхЗаданий.ВыделенныеСтроки;
-	Для Каждого Стр Из ВыделенныеСтроки Цикл
-		Строка = СписокФоновыхЗаданий.НайтиПоИдентификатору(Стр);
-		ТекИдентификатор = Новый УникальныйИдентификатор(Строка.Идентификатор);
-		ФоновоеЗадание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(ТекИдентификатор);
-		ФоновоеЗадание.Отменить();
-	КонецЦикла;
-КонецПроцедуры
+&AtServer
+Procedure CancelBackgroundJobs()
+	SelectedRows = Items.BackgroundJobsList.SelectedRows;
+	For Each Row In SelectedRows Do
+		SelectedRow = BackgroundJobsList.FindByID(Row);
+		CurrentID = New UUID(SelectedRow.ID);
+		BackgroundJob = BackgroundJobs.FindByUUID(CurrentID);
+		BackgroundJob.Cancel();
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура УстановитьОтборФоновыхЗаданий(Команда)
-	СтруктураПараметров = Новый Структура;
-	СтруктураПараметров.Вставить("Отбор", BackgroundJobsFilter);
+&AtClient
+Procedure SetBackgroundJobsFilter(Command)
+	ParametersStructure = New Structure;
+	ParametersStructure.Insert("Filter", BackgroundJobsFilter);
 	
-	ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("УстановитьBackgroundJobsFilterЗавершение", ЭтаФорма);
+	OnCloseNotifyHandler = New NotifyDescription("SetBackgroundJobsFilterOnClose", ThisForm);
 	
-	ОткрытьФорму(GetFullFormName("ДиалогОтбораФоновогоЗадания"), СтруктураПараметров, ЭтаФорма, , , , ОписаниеОповещенияОЗакрытии, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+	OpenForm(GetFullFormName("BackgroundJobFilterDialog"), ParametersStructure, ThisForm, , , , OnCloseNotifyHandler, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура УстановитьBackgroundJobsFilterЗавершение(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
-	Если ТипЗнч(РезультатЗакрытия) = Тип("ХранилищеЗначения") Тогда
-		BackgroundJobsFilter = РезультатЗакрытия;
-		UseBackgroundJobsFilter = Истина;
+&AtClient
+Procedure SetBackgroundJobsFilterOnClose(Result, AdditionalParameters) Export
+	If TypeOf(Result) = Type("ValueStorage") Then
+		BackgroundJobsFilter = Result;
+		BackgroundJobsFilterEnabled = True;
 		BackgroundJobsListRefresh();
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ОтборПоТекущему(Команда)
-	ТекИдентификаторСтроки = Элементы.СписокРегламентныхЗаданий.ТекущаяСтрока;
-	Если ТекИдентификаторСтроки <> Неопределено Тогда
-		ОтборПоТекущемуНаСервере(ТекИдентификаторСтроки);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure FilterByCurrent(Command)
+	CurrentRowID = Items.ScheduledJobsList.CurrentRow;
+	If CurrentRowID <> Undefined Then
+		FilterByCurrentAtServer(CurrentRowID);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура ОтборПоТекущемуНаСервере(ТекИдентификаторСтроки)
-	ТекЗадание = ScheduledJobsList.НайтиПоИдентификатору(ТекИдентификаторСтроки);
+&AtServer
+Procedure FilterByCurrentAtServer(CurrentRowID)
+	CurrentJob = ScheduledJobsList.FindByID(CurrentRowID);
 	
-	ТекОтбор = Новый Структура;
+	CurrentFilter = New Structure;
 	
-	Регламентное = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(ТекЗадание.ID);
-	ТекОтбор.Вставить("РегламентноеЗадание", Регламентное);
+	Scheduled = ScheduledJobs.FindByUUID(CurrentJob.ID);
+	CurrentFilter.Insert("ScheduledJob", Scheduled);
 
-	BackgroundJobsFilter = Новый ХранилищеЗначения(ТекОтбор);
-	UseBackgroundJobsFilter = Истина;
+	BackgroundJobsFilter = New ValueStorage(CurrentFilter);
+	BackgroundJobsFilterEnabled = True;
 	BackgroundJobsListRefresh();
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ОтключитьОтборФоновыхЗаданий(Команда)
+&AtClient
+Procedure DisableBackgroundJobsFilter(Command)
 	FilterOnOpen();
 	BackgroundJobsListRefresh();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ОбновитьФоновыеЗадания(Команда)
+&AtClient
+Procedure RefreshBackgroundJobs(Command)
 	BackgroundJobsListRefresh();
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура BackgroundJobsListRefresh(ИдентификаторНовогоЗадания = Неопределено)
-	Перем ТекущийИдентификатор;
+&AtServer
+Procedure BackgroundJobsListRefresh(NewJobID = Undefined)
+	Var CurrentID;
 
-	ТекущаяСтрока = Элементы.СписокФоновыхЗаданий.ТекущаяСтрока;
-	Если ТекущаяСтрока <> Неопределено Тогда
-		ТекСтрока = СписокФоновыхЗаданий.НайтиПоИдентификатору(ТекущаяСтрока);
-		ТекущийИдентификатор = ТекСтрока.Идентификатор;
-	КонецЕсли;
+	CurrentRow = Items.BackgroundJobsList.CurrentRow;
+	If CurrentRow <> Undefined Then
+		CurRow = BackgroundJobsList.FindByID(CurrentRow);
+		CurrentID = CurRow.ID;
+	EndIf;
 	
-	Если ЗначениеЗаполнено(ИдентификаторНовогоЗадания) Тогда
-		ТекущийИдентификатор = ИдентификаторНовогоЗадания;
-	КонецЕсли;
+	If ValueIsFilled(NewJobID) Then
+		CurrentID = NewJobID;
+	EndIf;
 	
-	Идентификаторы = Новый Массив;
+	IDs = New Array;
 	
-	ВыделенныеСтроки = Элементы.СписокФоновыхЗаданий.ВыделенныеСтроки;
-	Для Каждого ВыделеннаяСтрока Из ВыделенныеСтроки Цикл
-		ТекСтрока = СписокФоновыхЗаданий.НайтиПоИдентификатору(ВыделеннаяСтрока);
-		Идентификаторы.Добавить(ТекСтрока.Идентификатор);
-	КонецЦикла;
+	SelectedRows = Items.BackgroundJobsList.SelectedRows;
+	For Each SelectedRow In SelectedRows Do
+		CurRow = BackgroundJobsList.FindByID(SelectedRow);
+		IDs.Add(CurRow.ID);
+	EndDo;
 
-	СписокФоновыхЗаданий.Очистить();
+	BackgroundJobsList.Clear();
 	
-	ВывестиФоновые();
+	PutBackgroundJobs();
 	
-	Если ТекущийИдентификатор <> Неопределено Тогда
-		Строки = СписокФоновыхЗаданий.НайтиСтроки(Новый Структура("Идентификатор", ТекущийИдентификатор));
-		Если Строки.Количество() > 0 Тогда
-			Элементы.СписокФоновыхЗаданий.ТекущаяСтрока = Строки[0].ПолучитьИдентификатор();
-		КонецЕсли;
-	КонецЕсли;
+	If CurrentID <> Undefined Then
+		Rows = BackgroundJobsList.FindRows(New Structure("ID", CurrentID));
+		If Rows.Count() > 0 Then
+			Items.BackgroundJobsList.CurrentRow = Rows[0].GetID();
+		EndIf;
+	EndIf;
 
-	Если Идентификаторы.Количество() > 0 Тогда
-		ВыделенныеСтроки.Очистить();
-	КонецЕсли;
+	If IDs.Count() > 0 Then
+		SelectedRows.Clear();
+	EndIf;
 	
-	Для Каждого Идентификатор Из Идентификаторы Цикл
-		Строки = СписокФоновыхЗаданий.НайтиСтроки(Новый Структура("Идентификатор", Идентификатор));
-		Если Строки.Количество() > 0 Тогда
-			ВыделенныеСтроки.Добавить(Строки[0].ПолучитьИдентификатор());
-		КонецЕсли;
-	КонецЦикла;
+	For Each ID Из IDs Do
+		Rows = BackgroundJobsList.FindRows(New Structure("ID", ID));
+		If Rows.Count() > 0 Then
+			SelectedRows.Add(Rows[0].GetID());
+		EndIf;
+	EndDo;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ВывестиФоновые()
+&AtServer
+Procedure PutBackgroundJobs()
 	
-	Отбор = ПолучитьОтборФоновых();
+	Filter = GetBackgroundJobsFilter();
 	
-	Попытка
-		Фоновые = ФоновыеЗадания.ПолучитьФоновыеЗадания(Отбор);
-	Исключение
-		ТекстОшибки = ОписаниеОшибки();
-		NotifyUser(ТекстОшибки);
-		Возврат;
-	КонецПопытки;
+	Try
+		Background_ = BackgroundJobs.GetBackgroundJobs(Filter);
+	Except
+		ErrorText = ErrorDescription();
+		NotifyUser(ErrorText);
+		Return;
+	EndTry;
 	
-	Для Каждого Фоновое Из Фоновые Цикл
-		НоваяСтрока = СписокФоновыхЗаданий.Добавить();
+	For Each Background In Background_ Do
+		NewRow = BackgroundJobsList.Add();
 		
-		НоваяСтрока.Сообщения = Фоновое.ПолучитьСообщенияПользователю().Количество();
-		Строки = ScheduledJobsList.НайтиСтроки(Новый Структура("Метод, Наименование", Фоновое.ИмяМетода, Фоновое.Наименование));
-		Если Строки.Количество() > 0 Тогда
-			Если СписокФоновыхЗаданий.Индекс(НоваяСтрока) = 0 Тогда
-				Строки[0].Выполнялось = Фоновое.Начало;
-				Строки[0].Состояние = Фоновое.Состояние;
-			КонецЕсли;
-			ИмяРегламентногоЗадания = Строки[0].Метаданные + ":" + Строки[0].Наименование;
-			НоваяСтрока.Регламентное = ИмяРегламентногоЗадания;
-		Иначе
-			НоваяСтрока.Регламентное = Фоновое.УникальныйИдентификатор;
-		КонецЕсли;
+		NewRow.Messages = Background.GetUserMessages().Count();
+		Rows = ScheduledJobsList.FindRows(New Structure("Method, Description", Background.MethodName, Background.Description));
+		If Rows.Count() > 0 Then
+			If BackgroundJobsList.IndexOf(NewRow) = 0 Then
+				Rows[0].Executed = Background.Begin;
+				Rows[0].State = Background.State;
+			EndIf;
+			ScheduledJobName = Rows[0].Metadata + ":" + Rows[0].Description;
+			NewRow.Scheduled = ScheduledJobName;
+		Else
+			NewRow.Scheduled = Background.UUID;
+		EndIf;
 			
-		НоваяСтрока.Наименование = Фоновое.Наименование;
-		НоваяСтрока.Ключ = Фоновое.Ключ;
-		НоваяСтрока.Метод = Фоновое.ИмяМетода;
-		НоваяСтрока.Состояние = Фоновое.Состояние;
-		НоваяСтрока.Начало = Фоновое.Начало;
-		НоваяСтрока.Конец = Фоновое.Конец;
-		НоваяСтрока.Сервер = Фоновое.Расположение;
+		NewRow.Description = Background.Description;
+		NewRow.Key = Background.Key;
+		NewRow.Method = Background.MethodName;
+		NewRow.State = Background.State;
+		NewRow.Begin = Background.Begin;
+		NewRow.End = Background.End;
+		NewRow.Server = Background.Location;
 		
-		Если Фоновое.ИнформацияОбОшибке <> Неопределено Тогда
-			НоваяСтрока.Ошибки = Фоновое.ИнформацияОбОшибке.Описание;
-		КонецЕсли;
+		If Background.ErrorInfo <> Undefined Then
+			NewRow.Errors = Background.ErrorInfo.Description;
+		EndIf;
 		
-		НоваяСтрока.Идентификатор = Фоновое.УникальныйИдентификатор;
-		НоваяСтрока.СостояниеЗадания = Фоновое.Состояние;
-	КонецЦикла;
+		NewRow.ID = Background.UUID;
+		NewRow.JobState = Background.State;
+	EndDo;
 		
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Функция ПолучитьОтборФоновых()
-	Отбор = Неопределено;
-	СтрокаОтбора = "";
-	Если UseBackgroundJobsFilter = Истина Тогда
-		Отбор = BackgroundJobsFilter.Получить();
-		Для Каждого Элемент Из Отбор Цикл
-			Если СтрокаОтбора <> "" Тогда
-				 СтрокаОтбора = СтрокаОтбора + ";";
-			КонецЕсли;
-			СтрокаОтбора = СтрокаОтбора + Элемент.Ключ + ": " + Элемент.Значение;
-		КонецЦикла;
-		Если СтрокаОтбора <> "" Тогда
-			СтрокаОтбора = " (" + СтрокаОтбора + ")";
-		КонецЕсли;
-	КонецЕсли;
-	Элементы.ФоновыеЗадания.Заголовок = "Фоновые задания" + СтрокаОтбора;
-	Возврат Отбор;
-КонецФункции
+&AtServer
+Function GetBackgroundJobsFilter()
+	Filter = Undefined;
+	FilterRow = "";
+	If BackgroundJobsFilterEnabled = True Then
+		Filter = BackgroundJobsFilter.Get();
+		For Each Item In Filter Do
+			If FilterRow <> "" Then
+				 FilterRow = FilterRow + ";";
+			EndIf;
+			FilterRow = FilterRow + Item.Key + ": " + Item.Value;
+		EndDo;
+		If FilterRow <> "" Then
+			FilterRow = " (" + FilterRow + ")";
+		EndIf;
+	EndIf;
+	Items.BackgroundJobs.Title = "Background jobs" + FilterRow;
+	Return Filter;
+EndFunction
 
-&НаКлиенте
-Процедура НастройкаСпискаФоновыхЗаданий(Команда)
+&AtClient
+Procedure BackgroundJobsListSettings(Command)
 	
-	СтруктураПараметров = Новый Структура;
-	СтруктураПараметров.Вставить("АвтоОбновление", BackgroundJobsListAutoUpdate);
-	СтруктураПараметров.Вставить("ПериодАвтоОбновления", BackgroundListAutoUpdatePeriod);
+	ParametersStructure = New Structure;
+	ParametersStructure.Insert("AutoUpdate", BackgroundJobsListAutoUpdate);
+	ParametersStructure.Insert("AutoUpdatePeriod", BackgroundListAutoUpdatePeriod);
 	
-	ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("НастройкаСпискаФоновыхЗаданийЗавершение", ЭтаФорма);
+	OnCloseNotifyHandler = New NotifyDescription("BackgroundJobsListSettingsOnClose", ThisForm);
 	
-	ОткрытьФорму(GetFullFormName("ДиалогНастроекСписка"), СтруктураПараметров, ЭтаФорма, , , , ОписаниеОповещенияОЗакрытии, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+	OpenForm(GetFullFormName("ListSettingsDialog"), ParametersStructure, ThisForm, , , , OnCloseNotifyHandler, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура НастройкаСпискаФоновыхЗаданийЗавершение(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
-	Если ТипЗнч(РезультатЗакрытия) = Тип("Структура") Тогда
-		BackgroundJobsListAutoUpdate = РезультатЗакрытия.Автообновление;
-		BackgroundListAutoUpdatePeriod = РезультатЗакрытия.ПериодАвтоОбновления;
+&AtClient
+Procedure BackgroundJobsListSettingsOnClose(Result, AdditionalParameters) Export
+	If TypeOf(Result) = Type("Structure") Then
+		BackgroundJobsListAutoUpdate = Result.AutoUpdate;
+		BackgroundListAutoUpdatePeriod = Result.AutoUpdatePeriod;
 		
-		ОтключитьОбработчикОжидания("BackgroundJobsAutoUpdateHandler");
-		Если BackgroundJobsListAutoUpdate = Истина Тогда
-			ПодключитьОбработчикОжидания("BackgroundJobsAutoUpdateHandler", BackgroundListAutoUpdatePeriod);	
-		КонецЕсли;
+		DetachIdleHandler("BackgroundJobsAutoUpdateHandler");
+		If BackgroundJobsListAutoUpdate = True Then
+			AttachIdleHandler("BackgroundJobsAutoUpdateHandler", BackgroundListAutoUpdatePeriod);	
+		EndIf;
 		
-		Элементы.BackgroundJobsListSettings.Пометка = BackgroundJobsListAutoUpdate;
-	КонецЕсли;
-КонецПроцедуры
+		Items.BackgroundJobsListSettings.Check = BackgroundJobsListAutoUpdate;
+	EndIf;
+EndProcedure
 
-#КонецОбласти
+#EndRegion
