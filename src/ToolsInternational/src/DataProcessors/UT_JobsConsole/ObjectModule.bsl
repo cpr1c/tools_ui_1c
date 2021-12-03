@@ -1,110 +1,110 @@
-#Область СведенияОВнешнейОбработке
+#Region ExternalDataProcessorInfo
 // -------------------------------------------------------
 //
-// БСП
+// SSL
 // 
 
-// Описание обработки для регистрации как внешней
+// Data processor information for registration as external.
 //
-// Возвращаемое значение:
-//   Структура   - типовые параметры внешней печатной формы из БСП
+// Returning value:
+//   Structure   - typical parameters of SSL external data processor.
 //
-Функция СведенияОВнешнейОбработке() Экспорт
+Function ExternalDataProcessorInfo() Export
 	
-	// Объявим переменную, в которой мы сохраним и вернем "наружу" необходимые данные
-	ПараметрыРегистрации = Новый Структура;
-	// Объявим еще одну переменную, которая нам потребуется ниже
-	МассивНазначений = Новый Массив;
+	// Declaring variable for saving and returning data.
+	RegistrationParameters = New Structure;
+	// Declaring another variable.
+	PurposesArray = New Array;
 	
-	// Первый параметр, который мы должны указать - это какой вид обработки системе должна зарегистрировать. 
-	// Допустимые типы: ДополнительнаяОбработка, ДополнительныйОтчет, ЗаполнениеОбъекта, Отчет, ПечатнаяФорма, СозданиеСвязанныхОбъектов
-	ПараметрыРегистрации.Вставить("Вид", "ДополнительнаяОбработка");
+	// Kind of data processor to register. 
+	// Available kinds: AdditionalDataProcessor, AdditionalReport, ObjectFilling, Report, PrintForm, RelatedObjectsCreation.
+	RegistrationParameters.Insert("Kind", "AdditionalDataProcessor");
 	
-	// Теперь нам необходимо передать в виде массива имен, к чему будет подключена наша ВПФ
-	// Имейте ввиду, что можно задать имя в таком виде: Документ.* - в этом случае обработка будет подключена ко всем документам в системе, 
-	// которые поддерживают механизм ВПФ
-	ПараметрыРегистрации.Вставить("Назначение", МассивНазначений);
+	// Metadata types array, data processor to be connected to.
+	// Mask Document.* is available - in this case data processor will be connected to all document types 
+	// supporting the External print forms functionality.
+	RegistrationParameters.Insert("Purpose", PurposesArray);
 	
-	// Теперь зададим имя, под которым ВПФ будет зарегистрирована в справочнике внешних обработок
-	ПараметрыРегистрации.Вставить("Наименование", НаименованиеОбработки());
+	// Data processor description to be register in external data processors catalog.
+	RegistrationParameters.Insert("Description", DataProcessorDescription());
 	
-	// Зададим право обработке на использование безопасного режима. Более подробно можно узнать в справке к платформе (метод УстановитьБезопасныйРежим)
-	ПараметрыРегистрации.Вставить("БезопасныйРежим", Ложь);
+	// Safe mode right. For more information see SetSafeMode() method.
+	RegistrationParameters.Insert("SafeMode", False);
 	
-	// Следующие два параметра играют больше информационную роль, т.е. это то, что будет видеть пользователь в информации к обработке
-	ПараметрыРегистрации.Вставить("Версия", DataProcessorVersion());
-	ПараметрыРегистрации.Вставить("Информация", СведенияОбОбработке());
+	// Version and info to display as data processor information.
+	RegistrationParameters.Insert("Version", DataProcessorVersion());
+	RegistrationParameters.Insert("Information", DataProcessorInfo());
 	
-	// Создадим таблицу команд (подробнее смотрим ниже)
-	ТаблицаКоманд = ИнициализироватьТаблицуКоманд();
+	// Creating command table (see below).
+	CommandTable = InitializeCommandTable();
 	
-	СтрокаТЧ = ТаблицаКоманд.Добавить();
-	СтрокаТЧ.Идентификатор = "ОткрытьКонсольЗаданий";
-	СтрокаТЧ.Представление = "Открыть Консоль заданий";
-	СтрокаТЧ.ПоказыватьОповещение = Ложь;
-	СтрокаТЧ.Использование = "ОткрытиеФормы";
+	TableRow = CommandTable.Add();
+	TableRow.ID = "OpenJobsConsole";
+	TableRow.Presentation = "Open Jobs console";
+	TableRow.ShowNotification = False;
+	TableRow.StartupOption = "OpeningForm";
 	
-	// Сохраним таблицу команд в параметры регистрации обработки
-	ПараметрыРегистрации.Вставить("Команды", ТаблицаКоманд);
+	// Saving command table into registration parameters.
+	RegistrationParameters.Insert("Commands", CommandTable);
 	
-	// Теперь вернем системе наши параметры
-	Возврат ПараметрыРегистрации;
+	// Returning parameters.
+	Return RegistrationParameters;
 	
-КонецФункции
+EndFunction
 
-// Выполняет команду в фоновом варианте
-Процедура ВыполнитьКоманду(ИдентификаторКоманды) Экспорт
+// Executes command in background.
+Procedure ExecuteCommand(CommandID) Export
 	
-	Если ИдентификаторКоманды = "" Тогда
+	If CommandID = "" Then
 		
-		ИдентификаторКоманды = "";
+		CommandID = "";
 		
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-Функция НаименованиеОбработки()
+Function DataProcessorDescription()
 	
-	Возврат Метаданные().Синоним;
+	Return Metadata().Synonym;
 	
-КонецФункции
+EndFunction
 
-Функция СведенияОбОбработке()
+Function DataProcessorInfo()
 	
-	Возврат Метаданные().Комментарий;
+	Return Metadata().Comment;
 	
-КонецФункции
+EndFunction
 
-Функция DataProcessorVersion() Экспорт
+Function DataProcessorVersion() Export
 	
-	Возврат "1.10";
+	Return "1.10";
 	
-КонецФункции
+EndFunction
 
-Функция ИнициализироватьТаблицуКоманд()
+Function InitializeCommandTable()
 	
-	// Создадим пустую таблицу команд и колонки в ней
-	Команды = Новый ТаблицаЗначений;
+	// Creating new command table.
+	Commands = New ValueTable;
 	
-	// Как будет выглядеть описание печатной формы для пользователя
-	Команды.Колонки.Добавить("Представление", Новый ОписаниеТипов("Строка")); 
+	// Data processor user presentation.
+	Commands.Columns.Add("Presentation", New TypeDescription("String")); 
 	
-	// Имя нашего макета, что бы могли отличить вызванную команду в обработке печати
-	Команды.Колонки.Добавить("Идентификатор", Новый ОписаниеТипов("Строка"));
+	// Template name for print data processor.
+	Commands.Columns.Add("ID", New TypeDescription("String"));
 	
-	// Тут задается, как должна вызваться команда обработки
-	// Возможные варианты:
-	// - ОткрытиеФормы - в этом случае в колонке идентификатор должно быть указано имя формы, которое должна будет открыть система
-	// - ВызовКлиентскогоМетода - вызвать клиентскую экспортную процедуру из модуля формы обработки
-	// - ВызовСерверногоМетода - вызвать серверную экспортную процедуру из модуля объекта обработки
-	Команды.Колонки.Добавить("Использование", Новый ОписаниеТипов("Строка"));
+	// Command startup option.
+	// Options available:
+	// - OpeningForm - the ID column must contain form name,
+	// - ClientMethodCall - calls the client export procedure from data processor main form module,
+	// - ServerMethodCall - calls the server export procedure from data processor object module.
+	Commands.Columns.Add("StartupOption", New TypeDescription("String"));
 	
-	// Следующий параметр указывает, необходимо ли показывать оповещение при начале и завершению работы обработки. Не имеет смысла при открытии формы
-	Команды.Колонки.Добавить("ПоказыватьОповещение", Новый ОписаниеТипов("Булево"));
+	// If True, the notification will be displayed on execution start and finish. Not used in OpeningForm mode.
+	Commands.Columns.Add("ShowNotification", New TypeDescription("Boolean"));
 	
-	// Для печатной формы должен содержать строку ПечатьMXL 
-	Команды.Колонки.Добавить("Модификатор", Новый ОписаниеТипов("Строка"));
-	Возврат Команды;
-КонецФункции
+	// If Kind = "PrintForm", must contain "MXLPrinting". 
+	Commands.Columns.Add("Модификатор", New TypeDescription("String"));
+	Return Commands;
+EndFunction
 
-#КонецОбласти
+#EndRegion
