@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
-    <key>ru</key>
+    <key>en</key>
     <value>Scheduled and background jobs</value>
   </title>
   <items xsi:type="form:FormGroup">
@@ -81,7 +81,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ScheduledJobsListName</name>
+        <name>ScheduledJobsListDescription</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -90,11 +90,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ScheduledJobsList.Name</segments>
+            <segments>ScheduledJobsList.Description</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ScheduledJobsListNameExtendedTooltip</name>
+          <name>ScheduledJobsListDescriptionExtendedTooltip</name>
           <id>75</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -109,7 +109,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ScheduledJobsListNameContextMenu</name>
+          <name>ScheduledJobsListDescriptionContextMenu</name>
           <id>8</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -497,7 +497,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ScheduledJobsListStatus</name>
+        <name>ScheduledJobsListState</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -506,11 +506,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ScheduledJobsList.Status</segments>
+            <segments>ScheduledJobsList.State</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ScheduledJobsListStatusExtendedTooltip</name>
+          <name>ScheduledJobsListStateExtendedTooltip</name>
           <id>82</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -525,7 +525,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ScheduledJobsListStatusContextMenu</name>
+          <name>ScheduledJobsListStateContextMenu</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -629,7 +629,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийОтменитьПоиск</name>
+          <name>ScheduledJobsListCancelSearch</name>
           <id>208</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -637,7 +637,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийОтменитьПоискРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListCancelSearchExtendedTooltip</name>
             <id>209</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -659,7 +659,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийИзменить</name>
+          <name>ScheduledJobsListEdit</name>
           <id>192</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -667,7 +667,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийИзменитьРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListEditExtendedTooltip</name>
             <id>193</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -690,7 +690,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийУдалить</name>
+          <name>ScheduledJobsListDelete</name>
           <id>194</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -698,7 +698,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийУдалитьРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListDeleteExtendedTooltip</name>
             <id>195</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -721,7 +721,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийУстановитьОтборРегламентныхЗаданий</name>
+          <name>ScheduledJobsListSetScheduledJobsFilter</name>
           <id>51</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -730,7 +730,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийУстановитьОтборРегламентныхЗаданийРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListSetScheduledJobsFilterExtendedTooltip</name>
             <id>59</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -744,7 +744,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УстановитьОтборРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.SetScheduledJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -752,7 +752,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийОтключитьОтборРегламентныхЗаданий</name>
+          <name>ScheduledJobsListDisableScheduledJobsFilter</name>
           <id>53</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -761,7 +761,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийОтключитьОтборРегламентныхЗаданийРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListDisableScheduledJobsFilterExtendedTooltip</name>
             <id>60</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -775,7 +775,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОтключитьОтборРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.DisableScheduledJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -783,7 +783,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийСортироватьСписокПоВозрастанию</name>
+          <name>ScheduledJobsListSortByAscending</name>
           <id>160</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -791,7 +791,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийСортироватьСписокПоВозрастаниюРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListSortByAscendingExtendedTooltip</name>
             <id>161</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -814,7 +814,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийСортироватьСписокПоУбыванию</name>
+          <name>ScheduledJobsListSortByDescending</name>
           <id>162</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -822,7 +822,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийСортироватьСписокПоУбываниюРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListSortByDescendingExtendedTooltip</name>
             <id>163</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -845,7 +845,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийОбновитьРегламентныеЗадания</name>
+          <name>ScheduledJobsListRefreshScheduledJobs</name>
           <id>45</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -854,7 +854,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийОбновитьРегламентныеЗаданияРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListRefreshScheduledJobsExtendedTooltip</name>
             <id>61</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -868,7 +868,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОбновитьРегламентныеЗадания</commandName>
+          <commandName>Form.Command.RefreshScheduledJobs</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -876,7 +876,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийРасписание1</name>
+          <name>ScheduledJobsListSchedule1</name>
           <id>46</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -885,7 +885,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийРасписание1РасширеннаяПодсказка</name>
+            <name>ScheduledJobsListSchedule1ExtendedTooltip</name>
             <id>62</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -899,7 +899,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.Расписание</commandName>
+          <commandName>Form.Command.Schedule</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -930,7 +930,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.НастройкаСпискаРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.ScheduledJobsListSettings</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -938,7 +938,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийВывестиСписок</name>
+          <name>ScheduledJobsListOutputList</name>
           <id>182</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -946,7 +946,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийВывестиСписокРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListOutputListExtendedTooltip</name>
             <id>183</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -969,16 +969,16 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>СписокРегламентныхЗаданийГруппа1</name>
+          <name>ScheduledJobsListGroup1</name>
           <id>124</id>
           <items xsi:type="form:FormGroup">
-            <name>СписокРегламентныхЗаданийГруппа2</name>
+            <name>ScheduledJobsListGroup2</name>
             <id>128</id>
             <items xsi:type="form:Button">
               <name>ScheduledJobsListExecuteManually</name>
               <id>111</id>
               <title>
-                <key>ru</key>
+                <key>en</key>
                 <value>At server (thin client)</value>
               </title>
               <visible>true</visible>
@@ -1001,7 +1001,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ВыполнитьЗаданиеВручную</commandName>
+              <commandName>Form.Command.ExecuteManually</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1009,11 +1009,11 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>СписокРегламентныхЗаданийВыполнитьЗадание</name>
+              <name>ScheduledJobsListRun</name>
               <id>109</id>
               <title>
-                <key>ru</key>
-                <value>В фоновом задании</value>
+                <key>en</key>
+                <value>In background job</value>
               </title>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1021,7 +1021,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>СписокРегламентныхЗаданийВыполнитьЗаданиеРасширеннаяПодсказка</name>
+                <name>ScheduledJobsListRunExtendedTooltip</name>
                 <id>110</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1035,7 +1035,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ЗапуститьЗадание</commandName>
+              <commandName>Form.Command.Run</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1048,11 +1048,11 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Выполнить</value>
+              <key>en</key>
+              <value>Execute</value>
             </title>
             <extendedTooltip>
-              <name>СписокРегламентныхЗаданийГруппа2РасширеннаяПодсказка</name>
+              <name>ScheduledJobsListGroup2ExtendedTooltip</name>
               <id>129</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1080,7 +1080,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийГруппа1РасширеннаяПодсказка</name>
+            <name>ScheduledJobsListGroup1ExtendedTooltip</name>
             <id>125</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1119,7 +1119,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ЖурналРегистрации</commandName>
+          <commandName>Form.Command.EventLog</commandName>
           <representation>PictureAndText</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1286,7 +1286,7 @@
         <name>ScheduledJobsListContextMenu</name>
         <id>3</id>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюДобавить</name>
+          <name>ScheduledJobsListContextMenuAdd</name>
           <id>198</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1294,7 +1294,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюДобавитьРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuAddExtendedTooltip</name>
             <id>199</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1316,7 +1316,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюИзменить</name>
+          <name>ScheduledJobsListContextMenuEdit</name>
           <id>200</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1324,7 +1324,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюИзменитьРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuEditExtendedTooltip</name>
             <id>201</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1346,7 +1346,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюУдалить</name>
+          <name>ScheduledJobsListContextMenuDelete</name>
           <id>202</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1354,7 +1354,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюУдалитьРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuDeleteExtendedTooltip</name>
             <id>203</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1376,7 +1376,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюУстановитьОтборРегламентныхЗаданий</name>
+          <name>ScheduledJobsListContextMenuSetScheduledJobsFilter</name>
           <id>150</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1384,7 +1384,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюУстановитьОтборРегламентныхЗаданийРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuSetScheduledJobsFilterExtendedTooltip</name>
             <id>151</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1398,7 +1398,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УстановитьОтборРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.SetScheduledJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1406,7 +1406,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюОтключитьОтборРегламентныхЗаданий</name>
+          <name>ScheduledJobsListContextMenuDisableScheduledJobsFilter</name>
           <id>152</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1414,7 +1414,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюОтключитьОтборРегламентныхЗаданийРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuDisableScheduledJobsFilterExtendedTooltip</name>
             <id>153</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1428,7 +1428,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОтключитьОтборРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.DisableScheduledJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1436,7 +1436,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюСортироватьСписокПоВозрастанию</name>
+          <name>ScheduledJobsListContextMenuSortByAscending</name>
           <id>174</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1444,7 +1444,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюСортироватьСписокПоВозрастаниюРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuSortByAscendingExtendedTooltip</name>
             <id>175</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1466,7 +1466,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюСортироватьСписокПоУбыванию</name>
+          <name>ScheduledJobsListContextMenuSortByDescending</name>
           <id>176</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1474,7 +1474,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюСортироватьСписокПоУбываниюРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuSortByDescendingExtendedTooltip</name>
             <id>177</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1496,7 +1496,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюОбновитьРегламентныеЗадания</name>
+          <name>ScheduledJobsListContextMenuRefreshScheduledJobs</name>
           <id>154</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1504,7 +1504,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюОбновитьРегламентныеЗаданияРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuRefreshScheduledJobsExtendedTooltip</name>
             <id>155</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1518,7 +1518,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОбновитьРегламентныеЗадания</commandName>
+          <commandName>Form.Command.RefreshScheduledJobs</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1526,7 +1526,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюРасписание</name>
+          <name>ScheduledJobsListContextMenuSchedule</name>
           <id>156</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1534,7 +1534,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюРасписаниеРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuScheduleExtendedTooltip</name>
             <id>157</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1548,7 +1548,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.Расписание</commandName>
+          <commandName>Form.Command.Schedule</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1556,7 +1556,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюНастройкаСпискаРегламентныхЗаданий</name>
+          <name>ScheduledJobsListContextMenuSettings</name>
           <id>158</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1564,7 +1564,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюНастройкаСпискаРегламентныхЗаданийРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuSettingsExtendedTooltip</name>
             <id>159</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1578,7 +1578,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.НастройкаСпискаРегламентныхЗаданий</commandName>
+          <commandName>Form.Command.ScheduledJobsListSettings</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1586,7 +1586,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюВывестиСписок</name>
+          <name>ScheduledJobsListContextMenuOutputList</name>
           <id>184</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1594,7 +1594,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюВывестиСписокРасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuOutputListExtendedTooltip</name>
             <id>185</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1616,14 +1616,14 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>СписокРегламентныхЗаданийКонтекстноеМенюГруппа1</name>
+          <name>ScheduledJobsListContextMenuGroup1</name>
           <id>172</id>
           <items xsi:type="form:Button">
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюВыполнитьЗаданиеВручную</name>
+            <name>ScheduledJobsListContextMenuExecuteManually</name>
             <id>144</id>
             <title>
-              <key>ru</key>
-              <value>На клиенте</value>
+              <key>en</key>
+              <value>At client</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1631,7 +1631,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СписокРегламентныхЗаданийКонтекстноеМенюВыполнитьЗаданиеВручнуюРасширеннаяПодсказка</name>
+              <name>ScheduledJobsListContextMenuExecuteManuallyExtendedTooltip</name>
               <id>145</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1645,7 +1645,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВыполнитьЗаданиеВручную</commandName>
+            <commandName>Form.Command.ExecuteManually</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1653,11 +1653,11 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюЗапуститьЗадание</name>
+            <name>ScheduledJobsListContextMenuRun</name>
             <id>146</id>
             <title>
-              <key>ru</key>
-              <value>В фоновом задании</value>
+              <key>en</key>
+              <value>In background job</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1665,7 +1665,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СписокРегламентныхЗаданийКонтекстноеМенюЗапуститьЗаданиеРасширеннаяПодсказка</name>
+              <name>ScheduledJobsListContextMenuRunExtendedTooltip</name>
               <id>147</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1679,7 +1679,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ЗапуститьЗадание</commandName>
+            <commandName>Form.Command.Run</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1692,11 +1692,11 @@
             <common>true</common>
           </userVisible>
           <title>
-            <key>ru</key>
-            <value>Выполнить</value>
+            <key>en</key>
+            <value>Execute</value>
           </title>
           <extendedTooltip>
-            <name>СписокРегламентныхЗаданийКонтекстноеМенюГруппа1РасширеннаяПодсказка</name>
+            <name>ScheduledJobsListContextMenuGroup1ExtendedTooltip</name>
             <id>173</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1753,7 +1753,7 @@
       <common>true</common>
     </userVisible>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled jobs</value>
     </title>
     <titleFont xsi:type="core:FontRef">
@@ -1764,9 +1764,10 @@
       <strikeout>false</strikeout>
     </titleFont>
     <toolTip>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled jobs</value>
     </toolTip>
+    <shortcut>Ctrl+S</shortcut>
     <extendedTooltip>
       <name>ScheduledJobsExtendedTooltip</name>
       <id>57</id>
@@ -1797,7 +1798,7 @@
     <name>BackgroundJobs</name>
     <id>23</id>
     <items xsi:type="form:Table">
-      <name>СписокФоновыхЗаданий</name>
+      <name>BackgroundJobsList</name>
       <id>24</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1805,7 +1806,7 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>СписокФоновыхЗаданий</segments>
+        <segments>BackgroundJobsList</segments>
       </dataPath>
       <skipOnInput>false</skipOnInput>
       <titleLocation>None</titleLocation>
@@ -1819,7 +1820,7 @@
       <excludedCommands>ShowMultipleSelection</excludedCommands>
       <excludedCommands>ShowRowRearrangement</excludedCommands>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийРегламентное</name>
+        <name>BackgroundJobsListScheduled</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1828,7 +1829,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Регламентное</segments>
+            <segments>BackgroundJobsList.Scheduled</segments>
           </paths>
         </dataPath>
         <toolTip>
@@ -1836,7 +1837,7 @@
           <value>Имя регламентного задания или идентификатор фонового, если ещё не было выделено</value>
         </toolTip>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийРегламентноеРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListScheduledExtendedTooltip</name>
           <id>100</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1851,7 +1852,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийРегламентноеКонтекстноеМеню</name>
+          <name>BackgroundJobsListScheduledContextMenu</name>
           <id>28</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1875,7 +1876,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийНаименование</name>
+        <name>BackgroundJobsListDescription</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1884,11 +1885,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Наименование</segments>
+            <segments>BackgroundJobsList.Description</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийНаименованиеРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListDescriptionExtendedTooltip</name>
           <id>101</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1903,7 +1904,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийНаименованиеКонтекстноеМеню</name>
+          <name>BackgroundJobsListDescriptionContextMenu</name>
           <id>30</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1927,7 +1928,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийКлюч</name>
+        <name>BackgroundJobsListKey</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1936,11 +1937,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Ключ</segments>
+            <segments>BackgroundJobsList.Key</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийКлючРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListKeyExtendedTooltip</name>
           <id>102</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1955,7 +1956,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийКлючКонтекстноеМеню</name>
+          <name>BackgroundJobsListKeyContextMenu</name>
           <id>32</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1979,7 +1980,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийМетод</name>
+        <name>BackgroundJobsListMethod</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1988,11 +1989,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Метод</segments>
+            <segments>BackgroundJobsList.Method</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийМетодРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListMethodExtendedTooltip</name>
           <id>103</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2007,7 +2008,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийМетодКонтекстноеМеню</name>
+          <name>BackgroundJobsListMethodContextMenu</name>
           <id>34</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2031,7 +2032,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийСостояние</name>
+        <name>BackgroundJobsListState</name>
         <id>35</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2040,11 +2041,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Состояние</segments>
+            <segments>BackgroundJobsList.State</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийСостояниеРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListStateExtendedTooltip</name>
           <id>104</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2059,7 +2060,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийСостояниеКонтекстноеМеню</name>
+          <name>BackgroundJobsListStateContextMenu</name>
           <id>36</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2083,7 +2084,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийНачало</name>
+        <name>BackgroundJobsListBegin</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2092,11 +2093,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Начало</segments>
+            <segments>BackgroundJobsList.Begin</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийНачалоРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListBeginExtendedTooltip</name>
           <id>105</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2111,7 +2112,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийНачалоКонтекстноеМеню</name>
+          <name>BackgroundJobsListBeginContextMenu</name>
           <id>38</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2135,7 +2136,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийКонец</name>
+        <name>BackgroundJobsListEnd</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2144,11 +2145,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Конец</segments>
+            <segments>BackgroundJobsList.End</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийКонецРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListEndExtendedTooltip</name>
           <id>106</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2163,7 +2164,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийКонецКонтекстноеМеню</name>
+          <name>BackgroundJobsListEndContextMenu</name>
           <id>40</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2187,7 +2188,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийСервер</name>
+        <name>BackgroundJobsListServer</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2196,11 +2197,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Сервер</segments>
+            <segments>BackgroundJobsList.Server</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийСерверРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListServerExtendedTooltip</name>
           <id>107</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2215,7 +2216,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийСерверКонтекстноеМеню</name>
+          <name>BackgroundJobsListServerContextMenu</name>
           <id>42</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2239,7 +2240,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийОшибки</name>
+        <name>BackgroundJobsListErrors</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2248,11 +2249,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Ошибки</segments>
+            <segments>BackgroundJobsList.Errors</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийОшибкиРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListErrorsExtendedTooltip</name>
           <id>108</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2267,7 +2268,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийОшибкиКонтекстноеМеню</name>
+          <name>BackgroundJobsListErrorsContextMenu</name>
           <id>44</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2291,7 +2292,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийСообщения</name>
+        <name>BackgroundJobsListMessages</name>
         <id>113</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2300,11 +2301,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Сообщения</segments>
+            <segments>BackgroundJobsList.Messages</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийСообщенияРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListMessagesExtendedTooltip</name>
           <id>115</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2319,7 +2320,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийСообщенияКонтекстноеМеню</name>
+          <name>BackgroundJobsListMessagesContextMenu</name>
           <id>114</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2343,18 +2344,18 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>СписокФоновыхЗаданийИдентификатор</name>
+        <name>BackgroundJobsListID</name>
         <id>116</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible/>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Идентификатор</segments>
+            <segments>BackgroundJobsList.ID</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийИдентификаторРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListIDExtendedTooltip</name>
           <id>118</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2369,7 +2370,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийИдентификаторКонтекстноеМеню</name>
+          <name>BackgroundJobsListIDContextMenu</name>
           <id>117</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2389,10 +2390,10 @@
         </extInfo>
       </items>
       <autoCommandBar>
-        <name>СписокФоновыхЗаданийКоманднаяПанель</name>
+        <name>BackgroundJobsListCommandBar</name>
         <id>26</id>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийДобавить</name>
+          <name>BackgroundJobsListAdd</name>
           <id>204</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2400,7 +2401,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийДобавитьРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListAddExtendedTooltip</name>
             <id>205</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2414,7 +2415,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.Add</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.Add</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2422,7 +2423,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийСкопировать</name>
+          <name>BackgroundJobsListCopy</name>
           <id>217</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2430,7 +2431,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийСкопироватьРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListCopyExtendedTooltip</name>
             <id>218</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2444,7 +2445,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.Copy</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.Copy</commandName>
           <representation>Picture</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2452,7 +2453,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийОтменитьПоиск</name>
+          <name>BackgroundJobsListCancelSearch</name>
           <id>210</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2460,7 +2461,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийОтменитьПоискРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListCancelSearchExtendedTooltip</name>
             <id>211</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2474,7 +2475,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.CancelSearch</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.CancelSearch</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2482,11 +2483,11 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийОтменитьФоновоеЗадание</name>
+          <name>BackgroundJobsListCancelBackgroundJob</name>
           <id>48</id>
           <title>
-            <key>ru</key>
-            <value>Отменить</value>
+            <key>en</key>
+            <value>Cancel</value>
           </title>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2495,7 +2496,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийОтменитьФоновоеЗаданиеРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListCancelBackgroundJobExtendedTooltip</name>
             <id>88</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2509,7 +2510,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОтменитьФоновоеЗадание</commandName>
+          <commandName>Form.Command.CancelBackgroundJob</commandName>
           <representation>Auto</representation>
           <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
@@ -2518,7 +2519,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийУстановитьОтборФоновыхЗаданий</name>
+          <name>BackgroundJobsListSetBackgroundJobsFilter</name>
           <id>55</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2527,7 +2528,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийУстановитьОтборФоновыхЗаданийРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListSetBackgroundJobsFilterExtendedTooltip</name>
             <id>85</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2541,7 +2542,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УстановитьОтборФоновыхЗаданий</commandName>
+          <commandName>Form.Command.SetBackgroundJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2549,7 +2550,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийОтборПоТекущему</name>
+          <name>BackgroundJobsListFilterByCurrent</name>
           <id>212</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2557,7 +2558,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийОтборПоТекущемуРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListFilterByCurrentExtendedTooltip</name>
             <id>213</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2571,7 +2572,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОтборПоТекущему</commandName>
+          <commandName>Form.Command.FilterByCurrent</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2579,7 +2580,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийОтключитьОтборФоновыхЗаданий</name>
+          <name>BackgroundJobsListDisableBackgroundJobsFilter</name>
           <id>56</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2588,7 +2589,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийОтключитьОтборФоновыхЗаданийРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListDisableBackgroundJobsFilterExtendedTooltip</name>
             <id>86</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2602,7 +2603,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОтключитьОтборФоновыхЗаданий</commandName>
+          <commandName>Form.Command.DisableBackgroundJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2610,7 +2611,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийСортироватьСписокПоВозрастанию</name>
+          <name>BackgroundJobsListSortByAscending</name>
           <id>168</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2618,7 +2619,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийСортироватьСписокПоВозрастаниюРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListSortByAscendingExtendedTooltip</name>
             <id>169</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2632,7 +2633,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.SortListAsc</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.SortListAsc</commandName>
           <representation>Auto</representation>
           <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
@@ -2641,7 +2642,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийСортироватьСписокПоУбыванию</name>
+          <name>BackgroundJobsListSortByDescending</name>
           <id>170</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2649,7 +2650,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийСортироватьСписокПоУбываниюРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListSortByDescendingExtendedTooltip</name>
             <id>171</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2663,7 +2664,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.SortListDesc</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.SortListDesc</commandName>
           <representation>Auto</representation>
           <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
@@ -2672,7 +2673,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийОбновитьФоновыеЗадания</name>
+          <name>BackgroundJobsListRefreshBackgroundJobs</name>
           <id>47</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2681,7 +2682,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийОбновитьФоновыеЗаданияРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListRefreshBackgroundJobsExtendedTooltip</name>
             <id>87</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2695,7 +2696,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОбновитьФоновыеЗадания</commandName>
+          <commandName>Form.Command.RefreshBackgroundJobs</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2726,7 +2727,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.НастройкаСпискаФоновыхЗаданий</commandName>
+          <commandName>Form.Command.BackgroundJobsListSettings</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2734,7 +2735,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийВывестиСписок</name>
+          <name>BackgroundJobsListOutputList</name>
           <id>186</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2742,7 +2743,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийВывестиСписокРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListOutputListExtendedTooltip</name>
             <id>187</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2756,7 +2757,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.OutputList</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.OutputList</commandName>
           <representation>Auto</representation>
           <onlyInAllActions>true</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
@@ -2774,19 +2775,19 @@
       </autoCommandBar>
       <handlers>
         <event>Selection</event>
-        <name>СписокФоновыхЗаданийВыбор</name>
+        <name>BackgroundJobsListSelection</name>
       </handlers>
       <handlers>
         <event>BeforeAddRow</event>
-        <name>СписокФоновыхЗаданийПередНачаломДобавления</name>
+        <name>BackgroundJobsListBeforeAddRow</name>
       </handlers>
       <handlers>
         <event>BeforeDeleteRow</event>
-        <name>СписокФоновыхЗаданийПередУдалением</name>
+        <name>BackgroundJobsListBeforeDelete</name>
       </handlers>
       <handlers>
         <event>BeforeRowChange</event>
-        <name>СписокФоновыхЗаданийПередНачаломИзменения</name>
+        <name>BackgroundJobsListBeforeRowChange</name>
       </handlers>
       <searchStringAddition>
         <visible>true</visible>
@@ -2794,10 +2795,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <name>СписокФоновыхЗаданийСтрокаПоиска</name>
+        <name>BackgroundJobsListSearchString</name>
         <id>91</id>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийСтрокаПоискаРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListSearchStringExtendedTooltip</name>
           <id>93</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2812,7 +2813,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийСтрокаПоискаКонтекстноеМеню</name>
+          <name>BackgroundJobsListSearchStringContextMenu</name>
           <id>92</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2831,10 +2832,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <name>СписокФоновыхЗаданийСостояниеПросмотра</name>
+        <name>BackgroundJobsListViewStatus</name>
         <id>94</id>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийСостояниеПросмотраРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListViewStatusExtendedTooltip</name>
           <id>96</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2849,7 +2850,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийСостояниеПросмотраКонтекстноеМеню</name>
+          <name>BackgroundJobsListViewStatusContextMenu</name>
           <id>95</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2870,10 +2871,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <name>СписокФоновыхЗаданийУправлениеПоиском</name>
+        <name>BackgroundJobsListSearchControl</name>
         <id>97</id>
         <extendedTooltip>
-          <name>СписокФоновыхЗаданийУправлениеПоискомРасширеннаяПодсказка</name>
+          <name>BackgroundJobsListSearchControlExtendedTooltip</name>
           <id>99</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2888,7 +2889,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СписокФоновыхЗаданийУправлениеПоискомКонтекстноеМеню</name>
+          <name>BackgroundJobsListSearchControlContextMenu</name>
           <id>98</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2903,7 +2904,7 @@
         </extInfo>
       </searchControlAddition>
       <extendedTooltip>
-        <name>СписокФоновыхЗаданийРасширеннаяПодсказка</name>
+        <name>BackgroundJobsListExtendedTooltip</name>
         <id>90</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2918,10 +2919,10 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокФоновыхЗаданийКонтекстноеМеню</name>
+        <name>BackgroundJobsListContextMenu</name>
         <id>25</id>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюДобавить</name>
+          <name>BackgroundJobsListContextMenuAdd</name>
           <id>206</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2929,7 +2930,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюДобавитьРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuAddExtendedTooltip</name>
             <id>207</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2943,7 +2944,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.Add</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.Add</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2951,11 +2952,11 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюОтменитьФоновоеЗадание</name>
+          <name>BackgroundJobsListContextMenuCancelBackgroundJob</name>
           <id>132</id>
           <title>
-            <key>ru</key>
-            <value>Отменить</value>
+            <key>en</key>
+            <value>Cancel</value>
           </title>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2963,7 +2964,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюОтменитьФоновоеЗаданиеРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuCancelBackgroundJobExtendedTooltip</name>
             <id>133</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2977,7 +2978,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОтменитьФоновоеЗадание</commandName>
+          <commandName>Form.Command.CancelBackgroundJob</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -2985,7 +2986,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюУстановитьОтборФоновыхЗаданий</name>
+          <name>BackgroundJobsListContextMenuSetBackgroundJobsFilter</name>
           <id>138</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2993,7 +2994,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюУстановитьОтборФоновыхЗаданийРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuSetBackgroundJobsFilterExtendedTooltip</name>
             <id>139</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3007,7 +3008,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УстановитьОтборФоновыхЗаданий</commandName>
+          <commandName>Form.Command.SetBackgroundJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3015,7 +3016,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюОтключитьОтборФоновыхЗаданий</name>
+          <name>BackgroundJobsListContextMenuDisableBackgroundJobsFilter</name>
           <id>140</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3023,7 +3024,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюОтключитьОтборФоновыхЗаданийРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuDisableBackgroundJobsFilterExtendedTooltip</name>
             <id>141</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3037,7 +3038,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОтключитьОтборФоновыхЗаданий</commandName>
+          <commandName>Form.Command.DisableBackgroundJobsFilter</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3045,7 +3046,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюСортироватьСписокПоВозрастанию</name>
+          <name>BackgroundJobsListContextMenuSortByAscending</name>
           <id>178</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3053,7 +3054,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюСортироватьСписокПоВозрастаниюРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuSortByAscendingExtendedTooltip</name>
             <id>179</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3067,7 +3068,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.SortListAsc</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.SortListAsc</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3075,7 +3076,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюСортироватьСписокПоУбыванию</name>
+          <name>BackgroundJobsListContextMenuSortByDescending</name>
           <id>180</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3083,7 +3084,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюСортироватьСписокПоУбываниюРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuSortByDescendingExtendedTooltip</name>
             <id>181</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3097,7 +3098,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.SortListDesc</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.SortListDesc</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3105,7 +3106,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюОбновитьФоновыеЗадания</name>
+          <name>BackgroundJobsListContextMenuRefreshBackgroundJobs</name>
           <id>134</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3113,7 +3114,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюОбновитьФоновыеЗаданияРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuRefreshBackgroundJobsExtendedTooltip</name>
             <id>135</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3127,7 +3128,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОбновитьФоновыеЗадания</commandName>
+          <commandName>Form.Command.RefreshBackgroundJobs</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3135,7 +3136,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюНастройкаСпискаФоновыхЗаданий</name>
+          <name>BackgroundJobsListContextMenuSettings</name>
           <id>130</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3143,7 +3144,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюНастройкаСпискаФоновыхЗаданийРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuSettingsExtendedTooltip</name>
             <id>131</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3157,7 +3158,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.НастройкаСпискаФоновыхЗаданий</commandName>
+          <commandName>Form.Command.BackgroundJobsListSettings</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3165,7 +3166,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокФоновыхЗаданийКонтекстноеМенюВывестиСписок</name>
+          <name>BackgroundJobsListContextMenuOutputList</name>
           <id>188</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3173,7 +3174,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокФоновыхЗаданийКонтекстноеМенюВывестиСписокРасширеннаяПодсказка</name>
+            <name>BackgroundJobsListContextMenuOutputListExtendedTooltip</name>
             <id>189</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3187,7 +3188,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокФоновыхЗаданий.StandardCommand.OutputList</commandName>
+          <commandName>Form.Item.BackgroundJobsList.StandardCommand.OutputList</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -3220,7 +3221,7 @@
       <horizontalStretch>true</horizontalStretch>
       <verticalStretch>true</verticalStretch>
       <rowPictureDataPath xsi:type="form:DataPath">
-        <segments>СписокФоновыхЗаданий.Картинка</segments>
+        <segments>BackgroundJobsList.Picture</segments>
       </rowPictureDataPath>
       <rowsPicture xsi:type="core:PictureRef">
         <picture>StdPicture.ScheduledJob</picture>
@@ -3236,7 +3237,7 @@
       <common>true</common>
     </userVisible>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Background jobs</value>
     </title>
     <titleFont xsi:type="core:FontRef">
@@ -3247,7 +3248,7 @@
       <strikeout>false</strikeout>
     </titleFont>
     <toolTip>
-      <key>ru</key>
+      <key>en</key>
       <value>Background jobs</value>
     </toolTip>
     <extendedTooltip>
@@ -3345,10 +3346,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Name</name>
+      <name>Description</name>
       <title>
         <key>ru</key>
-        <value>Name</value>
+        <value>Description</value>
       </title>
       <id>2</id>
       <valueType>
@@ -3471,10 +3472,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Status</name>
+      <name>State</name>
       <title>
         <key>ru</key>
-        <value>Status</value>
+        <value>State</value>
       </title>
       <id>9</id>
       <valueType>
@@ -3525,10 +3526,10 @@
     </columns>
   </attributes>
   <attributes>
-    <name>UseBackgroundJobsFilter</name>
+    <name>BackgroundJobsFilterEnabled</name>
     <title>
       <key>ru</key>
-      <value>Use background jobs filter</value>
+      <value>Background jobs filter enabled</value>
     </title>
     <id>3</id>
     <valueType>
@@ -3582,10 +3583,10 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ОтборРегламентныхЗаданий</name>
+    <name>ScheduledJobsFilter</name>
     <title>
       <key>ru</key>
-      <value>Отбор регламентных заданий</value>
+      <value>Scheduled jobs filter</value>
     </title>
     <id>6</id>
     <valueType/>
@@ -3597,10 +3598,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОтборРегламентныхЗаданийВключен</name>
+    <name>ScheduledJobsFilterEnabled</name>
     <title>
       <key>ru</key>
-      <value>Отбор регламентных заданий включен</value>
+      <value>Scheduled jobs filter enabled</value>
     </title>
     <id>7</id>
     <valueType>
@@ -3677,10 +3678,10 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>СписокФоновыхЗаданий</name>
+    <name>BackgroundJobsList</name>
     <title>
       <key>ru</key>
-      <value>Список фоновых заданий</value>
+      <value>Background jobs list</value>
     </title>
     <id>11</id>
     <valueType>
@@ -3693,10 +3694,10 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Регламентное</name>
+      <name>Scheduled</name>
       <title>
         <key>ru</key>
-        <value>Регламентное</value>
+        <value>Scheduled</value>
       </title>
       <id>1</id>
       <valueType>
@@ -3712,10 +3713,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Наименование</name>
+      <name>Description</name>
       <title>
         <key>ru</key>
-        <value>Наименование</value>
+        <value>Description</value>
       </title>
       <id>2</id>
       <valueType>
@@ -3730,10 +3731,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Ключ</name>
+      <name>Key</name>
       <title>
         <key>ru</key>
-        <value>Ключ</value>
+        <value>Key</value>
       </title>
       <id>3</id>
       <valueType>
@@ -3748,10 +3749,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Метод</name>
+      <name>Method</name>
       <title>
         <key>ru</key>
-        <value>Метод</value>
+        <value>Method</value>
       </title>
       <id>4</id>
       <valueType>
@@ -3766,10 +3767,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Состояние</name>
+      <name>State</name>
       <title>
         <key>ru</key>
-        <value>Состояние</value>
+        <value>State</value>
       </title>
       <id>5</id>
       <valueType>
@@ -3784,10 +3785,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Начало</name>
+      <name>Begin</name>
       <title>
         <key>ru</key>
-        <value>Начало</value>
+        <value>Begin</value>
       </title>
       <id>6</id>
       <valueType>
@@ -3802,10 +3803,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Конец</name>
+      <name>End</name>
       <title>
         <key>ru</key>
-        <value>Конец</value>
+        <value>End</value>
       </title>
       <id>7</id>
       <valueType>
@@ -3820,10 +3821,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Сервер</name>
+      <name>Server</name>
       <title>
         <key>ru</key>
-        <value>Сервер</value>
+        <value>Server</value>
       </title>
       <id>8</id>
       <valueType>
@@ -3838,10 +3839,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Ошибки</name>
+      <name>Errors</name>
       <title>
         <key>ru</key>
-        <value>Ошибки</value>
+        <value>Errors</value>
       </title>
       <id>9</id>
       <valueType>
@@ -3856,10 +3857,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Идентификатор</name>
+      <name>ID</name>
       <title>
         <key>ru</key>
-        <value>Идентификатор</value>
+        <value>ID</value>
       </title>
       <id>10</id>
       <valueType>
@@ -3873,10 +3874,10 @@
       </edit>
     </columns>
     <columns>
-      <name>СостояниеЗадания</name>
+      <name>JobState</name>
       <title>
         <key>ru</key>
-        <value>Состояние задания</value>
+        <value>Job state</value>
       </title>
       <id>11</id>
       <valueType>
@@ -3891,10 +3892,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Сообщения</name>
+      <name>Messages</name>
       <title>
         <key>ru</key>
-        <value>Сообщения</value>
+        <value>Messages</value>
       </title>
       <id>12</id>
       <valueType>
@@ -3911,10 +3912,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
       <title>
         <key>ru</key>
-        <value>Картинка</value>
+        <value>Picture</value>
       </title>
       <id>14</id>
       <valueType>
@@ -3969,15 +3970,15 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ОбновитьРегламентныеЗадания</name>
+    <name>RefreshScheduledJobs</name>
     <title>
-      <key>ru</key>
-      <value>Обновить</value>
+      <key>en</key>
+      <value>Refresh</value>
     </title>
     <id>1</id>
     <toolTip>
-      <key>ru</key>
-      <value>Обновить регламентные задания и состояния каждого (может занять продолжительное время)</value>
+      <key>en</key>
+      <value>Refresh scheduled jobs and states (may take a long time)</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -3987,21 +3988,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбновитьРегламентныеЗадания</name>
+        <name>RefreshScheduledJobs</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Расписание</name>
+    <name>Schedule</name>
     <title>
-      <key>ru</key>
-      <value>Расписание</value>
+      <key>en</key>
+      <value>Schedule</value>
     </title>
     <id>2</id>
     <toolTip>
-      <key>ru</key>
-      <value>Расписание</value>
+      <key>en</key>
+      <value>Schedule</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4011,21 +4012,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Расписание</name>
+        <name>Schedule</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОбновитьФоновыеЗадания</name>
+    <name>RefreshBackgroundJobs</name>
     <title>
-      <key>ru</key>
-      <value>Обновить</value>
+      <key>en</key>
+      <value>Refresh</value>
     </title>
     <id>3</id>
     <toolTip>
-      <key>ru</key>
-      <value>Обновить фоновые задания</value>
+      <key>en</key>
+      <value>Refresh background jobs</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4035,21 +4036,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбновитьФоновыеЗадания</name>
+        <name>RefreshBackgroundJobs</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОтменитьФоновоеЗадание</name>
+    <name>CancelBackgroundJob</name>
     <title>
-      <key>ru</key>
-      <value>Отменить фоновое задание</value>
+      <key>en</key>
+      <value>Cancel background job</value>
     </title>
     <id>4</id>
     <toolTip>
-      <key>ru</key>
-      <value>Отменить фоновое задание</value>
+      <key>en</key>
+      <value>Cancel background job</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4059,21 +4060,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОтменитьФоновоеЗадание</name>
+        <name>CancelBackgroundJob</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>НастройкаСпискаРегламентныхЗаданий</name>
+    <name>ScheduledJobsListSettings</name>
     <title>
-      <key>ru</key>
-      <value>Настройка списка...</value>
+      <key>en</key>
+      <value>List settings</value>
     </title>
     <id>5</id>
     <toolTip>
-      <key>ru</key>
-      <value>Настройка списка регламентных заданий</value>
+      <key>en</key>
+      <value>Scheduled jobs list settings</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4083,21 +4084,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>НастройкаСпискаРегламентныхЗаданий</name>
+        <name>ScheduledJobsListSettings</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>НастройкаСпискаФоновыхЗаданий</name>
+    <name>BackgroundJobsListSettings</name>
     <title>
-      <key>ru</key>
-      <value>Настройка списка...</value>
+      <key>en</key>
+      <value>List settings</value>
     </title>
     <id>6</id>
     <toolTip>
-      <key>ru</key>
-      <value>Настройка списка регламентных заданий</value>
+      <key>en</key>
+      <value>Background jobs list settings</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4107,21 +4108,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>НастройкаСпискаФоновыхЗаданий</name>
+        <name>BackgroundJobsListSettings</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УстановитьОтборРегламентныхЗаданий</name>
+    <name>SetScheduledJobsFilter</name>
     <title>
-      <key>ru</key>
-      <value>Установить отбор</value>
+      <key>en</key>
+      <value>Set filter</value>
     </title>
     <id>7</id>
     <toolTip>
-      <key>ru</key>
-      <value>Установить отбор регламентных заданий</value>
+      <key>en</key>
+      <value>Set scheduled jobs filter</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4131,45 +4132,46 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УстановитьОтборРегламентныхЗаданий</name>
+        <name>SetScheduledJobsFilter</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОтключитьОтборРегламентныхЗаданий</name>
+    <name>DisableScheduledJobsFilter</name>
     <title>
-      <key>ru</key>
-      <value>Отключить отбор</value>
+      <key>en</key>
+      <value>Disable filter</value>
     </title>
     <id>8</id>
     <toolTip>
-      <key>ru</key>
-      <value>Отключить отбор регламентных заданий</value>
+      <key>en</key>
+      <value>Disable scheduled jobs filter</value>
     </toolTip>
     <use>
       <common>true</common>
     </use>
+    <shortcut>Ctrl+S</shortcut>
     <picture xsi:type="core:PictureRef">
       <picture>StdPicture.ClearFilter</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОтключитьОтборРегламентныхЗаданий</name>
+        <name>DisableScheduledJobsFilter</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УстановитьОтборФоновыхЗаданий</name>
+    <name>SetBackgroundJobsFilter</name>
     <title>
-      <key>ru</key>
-      <value>Установить отбор</value>
+      <key>en</key>
+      <value>Set filter</value>
     </title>
     <id>9</id>
     <toolTip>
-      <key>ru</key>
-      <value>Установить отбор фоновых заданий</value>
+      <key>en</key>
+      <value>Set background jobs filter</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4179,21 +4181,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УстановитьОтборФоновыхЗаданий</name>
+        <name>SetBackgroundJobsFilter</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОтключитьОтборФоновыхЗаданий</name>
+    <name>DisableBackgroundJobsFilter</name>
     <title>
-      <key>ru</key>
-      <value>Отключить отбор</value>
+      <key>en</key>
+      <value>Disable filter</value>
     </title>
     <id>10</id>
     <toolTip>
-      <key>ru</key>
-      <value>Отключить отбор фоновых заданий</value>
+      <key>en</key>
+      <value>Disable background jobs filter</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4203,42 +4205,42 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОтключитьОтборФоновыхЗаданий</name>
+        <name>DisableBackgroundJobsFilter</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗапуститьЗадание</name>
+    <name>Run</name>
     <title>
-      <key>ru</key>
-      <value>Выполнить В фоновом задании</value>
+      <key>en</key>
+      <value>Execute In background job</value>
     </title>
     <id>12</id>
     <toolTip>
-      <key>ru</key>
-      <value>Выполнить В фоновом задании</value>
+      <key>en</key>
+      <value>Execute In background job</value>
     </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗапуститьЗадание</name>
+        <name>Run</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВыполнитьЗаданиеВручную</name>
+    <name>ExecuteManually</name>
     <title>
-      <key>ru</key>
-      <value>Выполнить На клиенте</value>
+      <key>en</key>
+      <value>Execute At client</value>
     </title>
     <id>13</id>
     <toolTip>
-      <key>ru</key>
-      <value>Выполнить На клиенте</value>
+      <key>en</key>
+      <value>Execute At client</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4248,42 +4250,42 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыполнитьЗаданиеВручную</name>
+        <name>ExecuteManually</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЖурналРегистрации</name>
+    <name>EventLog</name>
     <title>
-      <key>ru</key>
-      <value>Журнал регистрации</value>
+      <key>en</key>
+      <value>Event log</value>
     </title>
     <id>11</id>
     <toolTip>
-      <key>ru</key>
-      <value>Журнал регистрации</value>
+      <key>en</key>
+      <value>Event log</value>
     </toolTip>
     <use>
       <common>true</common>
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЖурналРегистрации</name>
+        <name>EventLog</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОтборПоТекущему</name>
+    <name>FilterByCurrent</name>
     <title>
-      <key>ru</key>
-      <value>Отбор по текущему</value>
+      <key>en</key>
+      <value>Filter by current</value>
     </title>
     <id>14</id>
     <toolTip>
-      <key>ru</key>
-      <value>Отбор по текущему</value>
+      <key>en</key>
+      <value>Filter by current</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4293,22 +4295,22 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОтборПоТекущему</name>
+        <name>FilterByCurrent</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВыполнитьНаСервере</name>
+    <name>ExecuteAtServer</name>
     <title>
-      <key>ru</key>
-      <value>Выполнить на сервере</value>
+      <key>en</key>
+      <value>Execute at server</value>
     </title>
     <id>15</id>
     <toolTip>
-      <key>ru</key>
-      <value>Выполнить на сервере</value>
+      <key>en</key>
+      <value>Execute at server</value>
     </toolTip>
     <use>
       <common>true</common>
