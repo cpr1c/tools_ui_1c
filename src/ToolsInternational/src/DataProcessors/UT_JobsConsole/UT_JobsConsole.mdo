@@ -6,24 +6,29 @@
   </producedTypes>
   <name>UT_JobsConsole</name>
   <synonym>
-    <key>ru</key>
+    <key>en</key>
     <value>Jobs console [UT]</value>
   </synonym>
   <comment>https://github.com/kuzyara/JobsConsole2019.epf (c)Душелов'2009 - Translated by Neti Company</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_JobsConsole.Form.Form</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
   <extendedPresentation>
-    <key>ru</key>
-    <value>Консоль заданий</value>
+    <key>en</key>
+    <value>Jobs console</value>
   </extendedPresentation>
   <explanation>
-    <key>ru</key>
-    <value>просмотр и настройка регламентных и фоновых заданий</value>
+    <key>en</key>
+    <value>Scheduled and background jobs viewing and configuring</value>
   </explanation>
   <forms uuid="666d4981-6ccb-43bd-b0c1-072a2dec6d2f">
     <name>Form</name>
     <synonym>
-      <key>ru</key>
+      <key>en</key>
       <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
@@ -32,44 +37,44 @@
   <forms uuid="199fbba9-3359-40b5-b3d5-243624d29bfe">
     <name>ScheduledJobDialog</name>
     <synonym>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled job dialog</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="2d080fc3-1a07-4c39-bc1e-98f41c8b2a29">
-    <name>ДиалогФоновогоЗадания</name>
+    <name>BackgroundJobDialog</name>
     <synonym>
-      <key>ru</key>
-      <value>Диалог фонового задания</value>
+      <key>en</key>
+      <value>Background job dialog</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="df48c491-412d-4d8d-b902-f68bcf1fc4e4">
-    <name>ДиалогОтбораРегламентногоЗадания</name>
+    <name>ScheduledJobFilterDialog</name>
     <synonym>
-      <key>ru</key>
-      <value>Диалог отбора регламентного задания</value>
+      <key>en</key>
+      <value>Scheduled job filter dialog</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="f0fbdb48-9687-4440-95c8-bb9707cb3d44">
-    <name>ДиалогОтбораФоновогоЗадания</name>
+    <name>BackgroundJobFilterDialog</name>
     <synonym>
-      <key>ru</key>
-      <value>Диалог отбора фонового задания</value>
+      <key>en</key>
+      <value>Background job filter dialog</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="93b0e3b2-4ec5-4cb3-bac4-b4e3fc71a4e2">
-    <name>ДиалогНастроекСписка</name>
+    <name>ListSettingsDialog</name>
     <synonym>
-      <key>ru</key>
-      <value>Диалог настроек списка</value>
+      <key>en</key>
+      <value>List settings dialog</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
