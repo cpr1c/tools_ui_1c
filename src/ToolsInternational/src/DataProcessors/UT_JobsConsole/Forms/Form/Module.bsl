@@ -48,7 +48,7 @@ Procedure UpdateOnCreate()
 		BackgroundJobsListRefresh();
 		RefreshScheduledJobsList();
 	Except	
-		NotifyUser(ErrorInfo().Description);
+		NotifyUser(ErrorInfo());
 	EndTry;
 	
 	DataProcessorVersion = FormAttributeToValue("Object").DataProcessorVersion();

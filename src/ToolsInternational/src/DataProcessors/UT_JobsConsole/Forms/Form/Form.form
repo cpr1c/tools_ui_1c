@@ -4302,15 +4302,15 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВыполнитьНаСервере</name>
+    <name>ExecuteAtServer</name>
     <title>
-      <key>ru</key>
-      <value>Выполнить на сервере</value>
+      <key>en</key>
+      <value>Execute at server</value>
     </title>
     <id>15</id>
     <toolTip>
-      <key>ru</key>
-      <value>Выполнить на сервере</value>
+      <key>en</key>
+      <value>Execute at server</value>
     </toolTip>
     <use>
       <common>true</common>
