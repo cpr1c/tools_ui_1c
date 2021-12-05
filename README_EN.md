@@ -37,11 +37,11 @@ The subsystem is developed and distributed under the GNU General Public License 
 - **Constant Editor** - allows you to edit the values of constants in table mode
 - **Database Storage Structure**- View table names and their relationships with metadata objects.
 - **Removal of marked objects**-  a copy of the standard processing from the SSL (Standart Subsystems Library), adapted for life outside the SSL (Standart Subsystems Library)
-- **Консоль запросов**- Обработка для разработки и выполнения запросов без написания дополнительных обработок. Форк https://github.com/hal9000cc/RequestConsole9000. [Лицензия GPL3](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
+- **Query Console**- Processing for developing and executing queries without writing additional processing. Fork of https://github.com/hal9000cc/RequestConsole9000. [GPL3 License](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
 - **Консоль заданий**- просмотр и настройка регламентных и фоновых заданий. Форк https://github.com/kuzyara/JobsConsole2019.epf [Разрешение автора](https://github.com/kuzyara/JobsConsole2019.epf/issues/6)
-- **Регистрация изменений для обмена**- Форк обработки с диска ИТС с адаптациями под подсистему
-- **Поиск и удаление дублей**- Форк стандартной обработки из БСП, в которую добавлены несколько параметров выполнения замены
-- **Консоль кода**- Позволяет выполнять код из предприятия без создания внешних обработок. Есть подсветка синтаксиса и минимальная контекстная подсказка.
+- **Registration of changes for exchange**- Fork processing from ITS disk with adaptations to the subsystem
+- **Search and removal of duplicates**- A fork of the standard processing from the SSL (Standart Subsystems Library), to which several parameters for performing the replacement have been added
+- **Code Console**- Allows you to execute code from the enterprise without creating external processing. There is syntax highlighting and a minimal contextual hint
 - **Поиск ссылок на объект**- аналог стандартной обработки из меню "Все функции". 
 - **Редактор реквизитов объекта**- позволяет низкоуровневое редактирование ссылочных объектов. Поддерживает редактирование движений документа. Форк обработки https://infostart.ru/public/983887/. Вырезана из https://infostart.ru/public/938606/. [Разрешение автора](http://forum.infostart.ru/forum24/topic203301/message2375899/#message2375899)
 - **Консоль отчетов**- переработанная консоль компоновок с диска ИТС. Теперь ей удобнее пользоваться
