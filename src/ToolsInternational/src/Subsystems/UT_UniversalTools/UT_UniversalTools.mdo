@@ -43,7 +43,7 @@
   <content>CommonPicture.UT_QuestionToDeveloper</content>
   <content>CommonPicture.UT_Repository</content>
   <content>CommonPicture.UT_Debug</content>
-  <content>CommonTemplate.УИ_КомпонентаПоискаСтрок</content>
+  <content>CommonTemplate.UT_StringSearchComponent</content>
   <content>CommonForm.УИ_ДлительнаяОперация</content>
   <content>CommonForm.УИ_ФормаТаблицыЗначений</content>
   <content>CommonForm.УИ_ФормаСпецЗначения</content>
@@ -84,9 +84,9 @@
   <content>CommonModule.UT_CodeEditorServer</content>
   <content>CommonModule.UT_CodeEditorClient</content>
   <content>CommonForm.УИ_ПараметрыЗаписи</content>
-  <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</content>
-  <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</content>
-  <content>CommonTemplate.УИ_Ace</content>
+  <content>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</content>
+  <content>CommonTemplate.UT_RegularExpressionsComponentRegEx</content>
+  <content>CommonTemplate.UT_Ace</content>
   <content>CommonPicture.UT_Question32</content>
   <content>CommonPicture.UT_FilesPictogramsCollection48</content>
   <content>CommonPicture.UT_JSON</content>
@@ -95,7 +95,7 @@
   <content>CommonPicture.UT_Information</content>
   <content>HTTPService.УИ_ПубликуемыеФункции</content>
   <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
-  <content>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</content>
+  <content>CommonTemplate.UT_ClipboardComponent</content>
   <content>CommonModule.UT_ClipboardClient</content>
   <content>DataProcessor.УИ_РедакторСКД</content>
   <content>CommonPicture.UT_String</content>

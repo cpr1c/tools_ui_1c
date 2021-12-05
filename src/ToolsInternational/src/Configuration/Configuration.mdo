@@ -85,13 +85,13 @@
   <commonPictures>CommonPicture.UT_Boundary</commonPictures>
   <commonPictures>CommonPicture.UT_NewForm</commonPictures>
   <roles>Role.UT_UniversalTools</roles>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_Ace</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_MonacoEditor</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_MonacoEditorWindows</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegEx</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_StringSearchComponent</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_Ace</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_ClipboardComponent</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_MonacoEditor</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_MonacoEditorWindows</commonTemplates>
   <commonModules>CommonModule.UT_CommonClient</commonModules>
   <commonModules>CommonModule.UT_Forms</commonModules>
   <commonModules>CommonModule.UT_TimeConsumingOperationsServerCall</commonModules>

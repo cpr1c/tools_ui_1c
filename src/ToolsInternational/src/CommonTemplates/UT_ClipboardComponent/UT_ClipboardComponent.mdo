@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:CommonTemplate xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="8485e60b-e2c0-4446-a6a8-4c726a59136e">
-  <name>УИ_КомпонентаДляРаботыСБуферомОбмена</name>
+  <name>UT_ClipboardComponent</name>
+  <synonym>
+    <key>en</key>
+    <value>Clipboard Component</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>VanessaExt</value>
