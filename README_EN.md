@@ -31,7 +31,7 @@ The module is being developed based on the disabled support for modality and syn
 ###  Distribution method and license
 The subsystem is developed and distributed under the GNU General Public License v3.0. The code is open, you can copy and distribute to anyone, but also with open source sharing.
 
-### На текущий момент содержит инструменты:
+### Currently contains tools:
 
 - **Групповая обработка справочников и документов**- Аналогична типовой обработке от 1С с диска ИТС
 - **Редактор констант** - позволяет редактировать значения констант в режиме таблицы
