@@ -33,10 +33,10 @@ The subsystem is developed and distributed under the GNU General Public License 
 
 ### Currently contains tools:
 
-- **Групповая обработка справочников и документов**- Аналогична типовой обработке от 1С с диска ИТС
-- **Редактор констант** - позволяет редактировать значения констант в режиме таблицы
-- **Структура хранения базы данных**- Просмотр имен таблиц и их взаимосвязей с объектами метаданных.
-- **Удаление помеченных объектов**- копия стандартной обработки из БСП, адаптированной для жизни вне БСП
+- **Group processing  of catalogs and documents**- Similar to typical processing from 1C from ITS  (ИТС) disk
+- **Constant Editor** - allows you to edit the values of constants in table mode
+- **Database Storage Structure**- View table names and their relationships with metadata objects.
+- **Removal of marked objects**-  a copy of the standard processing from the SSL (Standart Subsystems Library), adapted for life outside the SSL (Standart Subsystems Library)
 - **Консоль запросов**- Обработка для разработки и выполнения запросов без написания дополнительных обработок. Форк https://github.com/hal9000cc/RequestConsole9000. [Лицензия GPL3](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
 - **Консоль заданий**- просмотр и настройка регламентных и фоновых заданий. Форк https://github.com/kuzyara/JobsConsole2019.epf [Разрешение автора](https://github.com/kuzyara/JobsConsole2019.epf/issues/6)
 - **Регистрация изменений для обмена**- Форк обработки с диска ИТС с адаптациями под подсистему
