@@ -890,7 +890,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
+      <picture>CommonPicture.UT_DatabaseObjectEditor</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>

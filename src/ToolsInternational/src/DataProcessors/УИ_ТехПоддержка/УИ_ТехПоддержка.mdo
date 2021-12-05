@@ -42,7 +42,7 @@
     <commandParameterType/>
     <representation>PictureAndText</representation>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_ВопросРазработчику</picture>
+      <picture>CommonPicture.UT_QuestionToDeveloper</picture>
     </picture>
     <shortcut></shortcut>
   </commands>
@@ -56,7 +56,7 @@
     <commandParameterType/>
     <representation>PictureAndText</representation>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_Репозиторий</picture>
+      <picture>CommonPicture.UT_Repository</picture>
     </picture>
     <shortcut></shortcut>
   </commands>

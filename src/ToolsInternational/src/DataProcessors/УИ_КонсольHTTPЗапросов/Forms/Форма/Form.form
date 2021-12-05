@@ -5999,7 +5999,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_JSON</picture>
+      <picture>CommonPicture.UT_JSON</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
@@ -6020,7 +6020,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_JSON</picture>
+      <picture>CommonPicture.UT_JSON</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
@@ -6041,7 +6041,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_JSON</picture>
+      <picture>CommonPicture.UT_JSON</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>

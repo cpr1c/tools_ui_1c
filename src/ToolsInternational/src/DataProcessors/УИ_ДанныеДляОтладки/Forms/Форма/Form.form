@@ -638,7 +638,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_Отладка</picture>
+      <picture>CommonPicture.UT_Debug</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
