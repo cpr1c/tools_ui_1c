@@ -3327,7 +3327,7 @@
             <autoMaxHeight>true</autoMaxHeight>
             <extInfo xsi:type="form:PictureDecorationExtInfo">
               <picture xsi:type="core:PictureRef">
-                <picture>CommonPicture.УИ_Информация</picture>
+                <picture>CommonPicture.UT_Information</picture>
               </picture>
             </extInfo>
           </items>
@@ -4757,7 +4757,7 @@
             <horizontalStretch>false</horizontalStretch>
             <extInfo xsi:type="form:PictureDecorationExtInfo">
               <picture xsi:type="core:PictureRef">
-                <picture>CommonPicture.УИ_Информация</picture>
+                <picture>CommonPicture.UT_Information</picture>
               </picture>
             </extInfo>
           </items>

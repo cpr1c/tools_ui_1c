@@ -558,7 +558,7 @@
       <segments>ДеревоУзловОбмена.ИндексКартинки</segments>
     </rowPictureDataPath>
     <rowsPicture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_СостоянияПланаОбмена</picture>
+      <picture>CommonPicture.UT_ExchangePlanStates</picture>
     </rowsPicture>
     <searchStringLocation>None</searchStringLocation>
     <viewStatusLocation>None</viewStatusLocation>
@@ -890,7 +890,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
+      <picture>CommonPicture.UT_DatabaseObjectEditor</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>

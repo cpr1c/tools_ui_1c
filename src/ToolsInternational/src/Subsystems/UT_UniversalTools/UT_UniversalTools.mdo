@@ -12,7 +12,7 @@
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
   <picture xsi:type="core:PictureRef">
-    <picture>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</picture>
+    <picture>CommonPicture.UT_UniversalToolsSybsystem</picture>
   </picture>
   <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
   <content>DataProcessor.УИ_РедакторКонстант</content>
@@ -31,18 +31,18 @@
   <content>DataProcessor.УИ_ДинамическийСписок</content>
   <content>DataProcessor.УИ_КонсольHTTPЗапросов</content>
   <content>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</content>
-  <content>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</content>
-  <content>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</content>
-  <content>CommonPicture.УИ_СостоянияПланаОбмена</content>
-  <content>CommonPicture.УИ_ВидыОбъектовМетаданных</content>
-  <content>CommonPicture.УИ_Информация32</content>
-  <content>CommonPicture.УИ_РезультатЗапроса</content>
-  <content>CommonPicture.УИ_РезультатВыгрузки</content>
-  <content>CommonPicture.УИ_СостоянияАвторегистрации</content>
-  <content>CommonPicture.УИ_Семафор</content>
-  <content>CommonPicture.УИ_ВопросРазработчику</content>
-  <content>CommonPicture.УИ_Репозиторий</content>
-  <content>CommonPicture.УИ_Отладка</content>
+  <content>CommonPicture.UT_UniversalToolsSybsystem</content>
+  <content>CommonPicture.UT_ExecuteScheduledJobManually</content>
+  <content>CommonPicture.UT_ExchangePlanStates</content>
+  <content>CommonPicture.UI_MetadataObjectsTypes</content>
+  <content>CommonPicture.UT_Information32</content>
+  <content>CommonPicture.UT_QueryResult</content>
+  <content>CommonPicture.UT_UploadingResult</content>
+  <content>CommonPicture.UT_AutoRegistrationStatus</content>
+  <content>CommonPicture.UT_Semaphore</content>
+  <content>CommonPicture.UT_QuestionToDeveloper</content>
+  <content>CommonPicture.UT_Repository</content>
+  <content>CommonPicture.UT_Debug</content>
   <content>CommonTemplate.УИ_КомпонентаПоискаСтрок</content>
   <content>CommonForm.УИ_ДлительнаяОперация</content>
   <content>CommonForm.УИ_ФормаТаблицыЗначений</content>
@@ -50,7 +50,7 @@
   <content>CommonForm.УИ_ФормаРедактированияТекста</content>
   <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
   <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
-  <content>Role.УИ_УниверсальныеИнструменты</content>
+  <content>Role.UT_UniversalTools</content>
   <content>CommonModule.UT_Forms</content>
   <content>CommonModule.UT_TimeConsumingOperationsServerCall</content>
   <content>CommonModule.UT_TimeConsumingOperationsGlobal</content>
@@ -87,28 +87,28 @@
   <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</content>
   <content>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</content>
   <content>CommonTemplate.УИ_Ace</content>
-  <content>CommonPicture.УИ_Вопрос32</content>
-  <content>CommonPicture.УИ_КоллекцияПиктограммФайлов48</content>
-  <content>CommonPicture.УИ_JSON</content>
-  <content>CommonPicture.УИ_КоллекцияПиктограммФайлов</content>
-  <content>CommonPicture.УИ_РедакторОбъектовБазыДанных</content>
-  <content>CommonPicture.УИ_Информация</content>
+  <content>CommonPicture.UT_Question32</content>
+  <content>CommonPicture.UT_FilesPictogramsCollection48</content>
+  <content>CommonPicture.UT_JSON</content>
+  <content>CommonPicture.UT_FilesPictogramsCollection</content>
+  <content>CommonPicture.UT_DatabaseObjectEditor</content>
+  <content>CommonPicture.UT_Information</content>
   <content>HTTPService.УИ_ПубликуемыеФункции</content>
   <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
   <content>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</content>
   <content>CommonModule.UT_ClipboardClient</content>
   <content>DataProcessor.УИ_РедакторСКД</content>
-  <content>CommonPicture.УИ_Строка</content>
-  <content>CommonPicture.УИ_Дата</content>
-  <content>CommonPicture.УИ_Булево</content>
-  <content>CommonPicture.УИ_УникальныйИдентификатор</content>
-  <content>CommonPicture.УИ_Null</content>
-  <content>CommonPicture.УИ_ПроизвольныйТип</content>
-  <content>CommonPicture.УИ_ВидДвиженияНакопления</content>
-  <content>CommonPicture.УИ_Массив</content>
+  <content>CommonPicture.UT_String</content>
+  <content>CommonPicture.UT_Date</content>
+  <content>CommonPicture.UT_Boolean</content>
+  <content>CommonPicture.UT_UUID</content>
+  <content>CommonPicture.UT_Null</content>
+  <content>CommonPicture.UT_СustomType</content>
+  <content>CommonPicture.UT_AccumulationRecordType</content>
+  <content>CommonPicture.UT_Array</content>
   <content>DataProcessor.УИ_СравнениеОбъектов</content>
-  <content>CommonForm.УИ_НастройкиИнструментов</content>
-  <content>CommonCommand.УИ_НастройкиИнструментов</content>
+  <content>CommonForm.UT_Settings</content>
+  <content>CommonCommand.UT_Settings</content>
   <subsystems>UT_Support</subsystems>
   <subsystems>UT_Debug</subsystems>
 </mdclass:Subsystem>

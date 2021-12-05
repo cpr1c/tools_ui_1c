@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d5b50c0f-e314-4bae-a100-fa3601e99469">
+  <name>UT_AutoRegistrationStatus</name>
+  <synonym>
+    <key>en</key>
+    <value>Auto-Registration Status</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Состояния авторегистрации</value>
+  </synonym>
+</mdclass:CommonPicture>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="27a5c2c0-3317-11eb-2a8b-e86a6452d1f2">
+  <name>UT_Date</name>
+  <synonym>
+    <key>en</key>
+    <value>Date</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>U t date</value>
+  </synonym>
+</mdclass:CommonPicture>

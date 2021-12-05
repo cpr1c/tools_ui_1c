@@ -449,7 +449,7 @@
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <picture xsi:type="core:PictureRef">
-              <picture>CommonPicture.УИ_РезультатЗапроса</picture>
+              <picture>CommonPicture.UT_QueryResult</picture>
             </picture>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
@@ -726,7 +726,7 @@
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <picture xsi:type="core:PictureRef">
-              <picture>CommonPicture.УИ_РезультатЗапроса</picture>
+              <picture>CommonPicture.UT_QueryResult</picture>
             </picture>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
@@ -889,7 +889,7 @@
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
         <picture xsi:type="core:PictureRef">
-          <picture>CommonPicture.УИ_РезультатВыгрузки</picture>
+          <picture>CommonPicture.UT_UploadingResult</picture>
         </picture>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
@@ -1192,7 +1192,7 @@
               <autoMaxHeight>true</autoMaxHeight>
               <verticalStretch>true</verticalStretch>
               <valuesPicture xsi:type="core:PictureRef">
-                <picture>CommonPicture.УИ_СостоянияАвторегистрации</picture>
+                <picture>CommonPicture.UT_AutoRegistrationStatus</picture>
               </valuesPicture>
             </extInfo>
           </items>
@@ -1955,7 +1955,7 @@
           <segments>ДеревоМетаданных.ИндексКартинки</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
-          <picture>CommonPicture.УИ_ВидыОбъектовМетаданных</picture>
+          <picture>CommonPicture.UI_MetadataObjectsTypes</picture>
         </rowsPicture>
         <searchStringLocation>None</searchStringLocation>
         <viewStatusLocation>None</viewStatusLocation>
@@ -2091,7 +2091,7 @@
                   <horizontalStretch>true</horizontalStretch>
                   <verticalStretch>true</verticalStretch>
                   <valuesPicture xsi:type="core:PictureRef">
-                    <picture>CommonPicture.УИ_СостоянияАвторегистрации</picture>
+                    <picture>CommonPicture.UT_AutoRegistrationStatus</picture>
                   </valuesPicture>
                 </extInfo>
               </items>
@@ -2460,7 +2460,7 @@
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <picture xsi:type="core:PictureRef">
-                    <picture>CommonPicture.УИ_РезультатВыгрузки</picture>
+                    <picture>CommonPicture.UT_UploadingResult</picture>
                   </picture>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
@@ -2748,7 +2748,7 @@
               <segments>СписокКонстант.ИндексКартинки</segments>
             </rowPictureDataPath>
             <rowsPicture xsi:type="core:PictureRef">
-              <picture>CommonPicture.УИ_ВидыОбъектовМетаданных</picture>
+              <picture>CommonPicture.UI_MetadataObjectsTypes</picture>
             </rowsPicture>
             <searchStringLocation>None</searchStringLocation>
             <viewStatusLocation>None</viewStatusLocation>
@@ -3357,7 +3357,7 @@
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <picture xsi:type="core:PictureRef">
-                    <picture>CommonPicture.УИ_РезультатВыгрузки</picture>
+                    <picture>CommonPicture.UT_UploadingResult</picture>
                   </picture>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
@@ -4149,7 +4149,7 @@
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
                   <picture xsi:type="core:PictureRef">
-                    <picture>CommonPicture.УИ_РезультатВыгрузки</picture>
+                    <picture>CommonPicture.UT_UploadingResult</picture>
                   </picture>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
@@ -4754,7 +4754,7 @@
       <autoMaxHeight>true</autoMaxHeight>
       <extInfo xsi:type="form:PictureDecorationExtInfo">
         <picture xsi:type="core:PictureRef">
-          <picture>CommonPicture.УИ_Информация32</picture>
+          <picture>CommonPicture.UT_Information32</picture>
         </picture>
       </extInfo>
     </items>
@@ -5948,7 +5948,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
+      <picture>CommonPicture.UT_DatabaseObjectEditor</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c48b8964-04af-412a-a8e7-d79752ececc8">
+  <name>UT_DataSetDCSQuery</name>
+  <synonym>
+    <key>en</key>
+    <value>Data set DCS Query</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Набор данных СКДЗапрос</value>
+  </synonym>
+</mdclass:CommonPicture>

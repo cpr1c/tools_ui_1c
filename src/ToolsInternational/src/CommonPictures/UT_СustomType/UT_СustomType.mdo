@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a5414b5a-3317-11eb-2a8b-e86a6452d1f2">
+  <name>UT_СustomType</name>
+  <synonym>
+    <key>en</key>
+    <value>Сustom type</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>U t сustom type</value>
+  </synonym>
+</mdclass:CommonPicture>

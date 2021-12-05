@@ -3196,7 +3196,7 @@
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
         <picture xsi:type="core:PictureRef">
-          <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
+          <picture>CommonPicture.UT_DatabaseObjectEditor</picture>
         </picture>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>

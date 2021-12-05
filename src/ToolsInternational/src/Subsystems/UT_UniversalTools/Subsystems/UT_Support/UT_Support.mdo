@@ -12,7 +12,7 @@
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
   <picture xsi:type="core:PictureRef">
-    <picture>CommonPicture.УИ_ВопросРазработчику</picture>
+    <picture>CommonPicture.UT_QuestionToDeveloper</picture>
   </picture>
   <content>DataProcessor.УИ_ТехПоддержка</content>
   <parentSubsystem>Subsystem.UT_UniversalTools</parentSubsystem>
