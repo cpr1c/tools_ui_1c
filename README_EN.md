@@ -1,4 +1,4 @@
-# Универсальные инструменты 1С для управляемых форм
+# Universal Tools  1С for managed forms
 
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) 
 [![Join telegram chat](https://img.shields.io/badge/chat-telegram-blue?style=flat&logo=telegram)](https://t.me/tools_ui_1c) 
@@ -8,20 +8,19 @@
 [![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/blob/master/LICENSE)
 
 [Подержать проект](#донаты-и-поддержка-проекта)
-### Поддерживаемые операционные системы
-
+### Supported operating systems
 * Windows x86
 * Windows x64
 * Linux x64
 * Linux x86
 
-В MacOS должно работать, но не тестировалось
+It should work on Mac OS, but has not been tested
 
-### Поддерживаемые клиентские приложения
+### Supported client applications
 
-* Толстый клиент управляемое приложение
-* Тонкий клиент
-* Web клиент(частично)
+* Thick client managed application
+* Thin client
+* Web client(partially)
 
 ### Поддерживаемые режимы конфигурации
 Модуль разрабатывается, исходя из отключенной поддержки модальности и синхронных вызовов. Должно работать во всех современных и не очень конфигурациях
