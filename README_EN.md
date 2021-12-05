@@ -22,14 +22,14 @@ It should work on Mac OS, but has not been tested
 * Thin client
 * Web client(partially)
 
-### Поддерживаемые режимы конфигурации
-Модуль разрабатывается, исходя из отключенной поддержки модальности и синхронных вызовов. Должно работать во всех современных и не очень конфигурациях
+### Supported configuration modes
+The module is being developed based on the disabled support for modality and synchronous calls. It should work in all modern and not so configurations
 
-### Поддерживаемые платформы
-8.3.12 и выше
+### Supported platforms
+8.3.12 and later
 
-### Способ распространения и лицензия
-Подсистема разрабатывается и распространяется под лицензией GNU General Public License v3.0. Код открыт, можно копировать и распространять кому угодно, но тоже с выкладывать в общий доступ с открытым кодом.
+###  Distribution method and license
+The subsystem is developed and distributed under the GNU General Public License v3.0. The code is open, you can copy and distribute to anyone, but also with open source sharing.
 
 ### На текущий момент содержит инструменты:
 
