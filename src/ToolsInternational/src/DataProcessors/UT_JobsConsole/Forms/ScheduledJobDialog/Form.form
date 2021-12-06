@@ -4,11 +4,15 @@
     <key>en</key>
     <value>Scheduled job</value>
   </title>
+  <title>
+    <key>ru</key>
+    <value>Регламентное задание</value>
+  </title>
   <items xsi:type="form:FormGroup">
     <name>ColumnsGroup</name>
     <id>36</id>
     <items xsi:type="form:FormGroup">
-      <name>LeftColumn</name>
+      <name>ColumnLeft</name>
       <id>38</id>
       <items xsi:type="form:FormField">
         <name>Description</name>
@@ -342,6 +346,10 @@
             <key>en</key>
             <value>Change schedule</value>
           </title>
+          <title>
+            <key>ru</key>
+            <value>Изменить расписание</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -419,6 +427,10 @@
         <title>
           <key>en</key>
           <value>Schedule label</value>
+        </title>
+        <title>
+          <key>ru</key>
+          <value>Надпись расписание</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -583,9 +595,17 @@
           <key>en</key>
           <value>Restart</value>
         </title>
+        <title>
+          <key>ru</key>
+          <value>Перезапуск</value>
+        </title>
         <toolTip>
           <key>en</key>
           <value>Restart</value>
+        </toolTip>
+        <toolTip>
+          <key>ru</key>
+          <value>Перезапуск</value>
         </toolTip>
         <horizontalStretch>true</horizontalStretch>
         <extendedTooltip>
@@ -623,12 +643,20 @@
         <key>en</key>
         <value>Left column</value>
       </title>
+      <title>
+        <key>ru</key>
+        <value>Колонка левая</value>
+      </title>
       <toolTip>
         <key>en</key>
         <value>Left column</value>
       </toolTip>
+      <toolTip>
+        <key>ru</key>
+        <value>Колонка левая</value>
+      </toolTip>
       <extendedTooltip>
-        <name>LeftColumnExtendedTooltip</name>
+        <name>ColumnLeftExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -653,7 +681,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>RightColumn</name>
+      <name>ColumnRight</name>
       <id>40</id>
       <items xsi:type="form:Table">
         <name>JobParameters</name>
@@ -1008,12 +1036,20 @@
         <key>en</key>
         <value>Right column</value>
       </title>
+      <title>
+        <key>ru</key>
+        <value>Колонка правая</value>
+      </title>
       <toolTip>
         <key>en</key>
         <value>Right column</value>
       </toolTip>
+      <toolTip>
+        <key>ru</key>
+        <value>Колонка правая</value>
+      </toolTip>
       <extendedTooltip>
-        <name>RightColumnExtendedTooltip</name>
+        <name>ColumnRightExtendedTooltip</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1045,9 +1081,17 @@
       <key>en</key>
       <value>Columns group</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Группа колонок</value>
+    </title>
     <toolTip>
       <key>en</key>
       <value>Columns group</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Группа колонок</value>
     </toolTip>
     <extendedTooltip>
       <name>ColumnsGroupExtendedTooltip</name>
@@ -1172,6 +1216,10 @@
       <key>en</key>
       <value>Description</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Наименование</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>String</types>
@@ -1189,6 +1237,10 @@
     <title>
       <key>en</key>
       <value>Metadata</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Метаданные</value>
     </title>
     <id>2</id>
     <valueType>
@@ -1208,6 +1260,10 @@
       <key>en</key>
       <value>User</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>ПользователиВыбор</value>
+    </title>
     <id>3</id>
     <valueType>
       <types>String</types>
@@ -1225,6 +1281,10 @@
     <title>
       <key>en</key>
       <value>Key</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Ключ</value>
     </title>
     <id>4</id>
     <valueType>
@@ -1244,6 +1304,10 @@
       <key>en</key>
       <value>Use</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Использование</value>
+    </title>
     <id>5</id>
     <valueType>
       <types>Boolean</types>
@@ -1260,6 +1324,10 @@
     <title>
       <key>en</key>
       <value>Restart count on failure</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Количество повторов при аварийном завершении</value>
     </title>
     <id>6</id>
     <valueType>
@@ -1281,6 +1349,10 @@
       <key>en</key>
       <value>Restart interval on failure (sec)</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Интервал повтора при аварийном завершении (сек.)</value>
+    </title>
     <id>7</id>
     <valueType>
       <types>Number</types>
@@ -1300,6 +1372,10 @@
     <title>
       <key>en</key>
       <value>Scheduled job ID</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Регламентное задание ИД</value>
     </title>
     <id>8</id>
     <valueType>
@@ -1336,6 +1412,10 @@
     <title>
       <key>en</key>
       <value>Job parameters</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Параметры задания</value>
     </title>
     <id>11</id>
     <valueType>
@@ -1432,6 +1512,10 @@
       <key>en</key>
       <value>Method</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Метод</value>
+    </title>
     <id>12</id>
     <valueType>
       <types>String</types>
@@ -1449,6 +1533,10 @@
     <title>
       <key>en</key>
       <value>Metadata table</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Таблица метаданных</value>
     </title>
     <id>13</id>
     <valueType>
@@ -1521,10 +1609,18 @@
       <key>en</key>
       <value>OK</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>ОК</value>
+    </title>
     <id>1</id>
     <toolTip>
       <key>en</key>
       <value>OK</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>ОК</value>
     </toolTip>
     <use>
       <common>true</common>

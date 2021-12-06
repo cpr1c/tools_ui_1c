@@ -103,7 +103,7 @@ Function InitializeCommandTable()
 	Commands.Columns.Add("ShowNotification", New TypeDescription("Boolean"));
 	
 	// If Kind = "PrintForm", must contain "MXLPrinting". 
-	Commands.Columns.Add("Модификатор", New TypeDescription("String"));
+	Commands.Columns.Add("Modificator", New TypeDescription("String"));
 	Return Commands;
 EndFunction
 

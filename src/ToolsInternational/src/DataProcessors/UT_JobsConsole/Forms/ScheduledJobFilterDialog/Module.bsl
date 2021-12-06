@@ -13,13 +13,13 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		For Each Property In Parameters.Filter Do
 			If Property.Key = "Key" Then
 				Key = Property.Value;
-			ElsIf Property.Ключ = "Description" Then
+			ElsIf Property.Key = "Description" Then
 				Description = Property.Value;	
-			ElsIf Property.Ключ = "Use" Then
+			ElsIf Property.Key = "Use" Then
 				Use = Property.Value;	
-			ElsIf Property.Ключ = "Predefined" Then
+			ElsIf Property.Key = "Predefined" Then
 				Predefined = Property.Value;	
-			ElsIf Property.Ключ = "Metadata" Then
+			ElsIf Property.Key = "Metadata" Then
 				MetadataChoice = Property.Value;
 			Else
 				Continue;
@@ -59,4 +59,4 @@ Procedure OK(Command)
 	Close(Filter);
 EndProcedure
 
-#EndRegiion
+#EndRegion

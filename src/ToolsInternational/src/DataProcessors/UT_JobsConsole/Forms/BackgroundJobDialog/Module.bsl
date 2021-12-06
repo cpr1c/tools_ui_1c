@@ -42,14 +42,14 @@ EndProcedure
 
 #EndRegion
 
-#Region СлужебныеПроцедурыИФункции
+#Region Private
 
-&НаСервере
+&AtServer
 Function GetBackgroundJobObject(JobUniqueNumber) Export
 	
 	Try
 		
-		If Not ПустаяСтрока(JobUniqueNumber) Then
+		If Not IsBlankString(JobUniqueNumber) Then
 			JobUUID = New UUID(JobUniqueNumber);
 			CurrentBackgroundJob = BackgroundJobs.FindByUUID(JobUUID);
 		Else

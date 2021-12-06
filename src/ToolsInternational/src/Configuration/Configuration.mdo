@@ -3,11 +3,11 @@
   <name>UniversalTools</name>
   <synonym>
     <key>en</key>
-    <value>Universal Tools</value>
+    <value>Universal tools</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Universal tools</value>
+    <value>Универсальные инструменты</value>
   </synonym>
   <objectBelonging>Adopted</objectBelonging>
   <extension xsi:type="mdclassExtension:ConfigurationExtension">

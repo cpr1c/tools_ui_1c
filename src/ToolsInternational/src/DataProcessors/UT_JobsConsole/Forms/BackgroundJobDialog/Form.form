@@ -4,6 +4,10 @@
     <key>en</key>
     <value>BackgroundJob</value>
   </title>
+  <title>
+    <key>ru</key>
+    <value>Фоновое задание</value>
+  </title>
   <items xsi:type="form:FormGroup">
     <name>GroupDescription</name>
     <id>1</id>
@@ -173,9 +177,17 @@
       <key>en</key>
       <value>Description</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Описание</value>
+    </title>
     <toolTip>
       <key>en</key>
       <value>Description</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Описание</value>
     </toolTip>
     <extendedTooltip>
       <name>GroupDescriptionExtendedTooltip</name>
@@ -313,6 +325,10 @@
       <key>en</key>
       <value>Method name</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Имя метода</value>
+    </title>
     <id>2</id>
     <valueType>
       <types>String</types>
@@ -349,6 +365,10 @@
       <key>en</key>
       <value>Key</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Ключ</value>
+    </title>
     <id>4</id>
     <valueType>
       <types>String</types>
@@ -366,6 +386,10 @@
     <title>
       <key>en</key>
       <value>OK</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>ОК</value>
     </title>
     <id>1</id>
     <toolTip>

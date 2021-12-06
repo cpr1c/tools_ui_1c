@@ -330,9 +330,17 @@
       <key>en</key>
       <value>Common</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Общие</value>
+    </title>
     <toolTip>
       <key>en</key>
       <value>Common</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Общие</value>
     </toolTip>
     <extendedTooltip>
       <name>CommonExtendedTooltip</name>
@@ -552,9 +560,17 @@
       <key>en</key>
       <value>State</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Состояние</value>
+    </title>
     <toolTip>
       <key>en</key>
       <value>State</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Состояние</value>
     </toolTip>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
@@ -659,7 +675,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -694,6 +710,10 @@
       <key>en</key>
       <value>Scheduled</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Регламентное</value>
+    </title>
     <id>2</id>
     <valueType>
       <types>String</types>
@@ -711,6 +731,10 @@
     <title>
       <key>en</key>
       <value>Description</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Наименование</value>
     </title>
     <id>3</id>
     <valueType>
@@ -730,6 +754,10 @@
       <key>en</key>
       <value>Method</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Метод</value>
+    </title>
     <id>4</id>
     <valueType>
       <types>String</types>
@@ -747,6 +775,10 @@
     <title>
       <key>en</key>
       <value>Key</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Ключ</value>
     </title>
     <id>5</id>
     <valueType>
@@ -766,6 +798,10 @@
       <key>en</key>
       <value>Begin</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Начало</value>
+    </title>
     <id>6</id>
     <valueType>
       <types>Date</types>
@@ -783,6 +819,10 @@
     <title>
       <key>en</key>
       <value>End</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Конец</value>
     </title>
     <id>7</id>
     <valueType>
@@ -802,6 +842,10 @@
       <key>en</key>
       <value>Active</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Активно</value>
+    </title>
     <id>8</id>
     <valueType>
       <types>Boolean</types>
@@ -818,6 +862,10 @@
     <title>
       <key>en</key>
       <value>Completed</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Завершено</value>
     </title>
     <id>9</id>
     <valueType>
@@ -836,6 +884,10 @@
       <key>en</key>
       <value>Failed</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Завершено аварийно</value>
+    </title>
     <id>10</id>
     <valueType>
       <types>Boolean</types>
@@ -852,6 +904,10 @@
     <title>
       <key>en</key>
       <value>Canceled</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Отменено</value>
     </title>
     <id>11</id>
     <valueType>
@@ -875,6 +931,10 @@
       <key>en</key>
       <value>ОК</value>
     </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>ОК</value>
+    </toolTip>
     <use>
       <common>true</common>
     </use>
@@ -883,7 +943,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОК</name>
+        <name>OK</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

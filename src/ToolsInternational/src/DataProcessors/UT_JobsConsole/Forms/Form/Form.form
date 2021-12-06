@@ -4,6 +4,10 @@
     <key>en</key>
     <value>Scheduled and background jobs</value>
   </title>
+  <title>
+    <key>ru</key>
+    <value>Регламентные и фоновые задания</value>
+  </title>
   <items xsi:type="form:FormGroup">
     <name>ScheduledJobs</name>
     <id>1</id>
@@ -981,6 +985,10 @@
                 <key>en</key>
                 <value>At server (thin client)</value>
               </title>
+              <title>
+                <key>ru</key>
+                <value>На сервере (тонкий клиент)</value>
+              </title>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
@@ -1014,6 +1022,10 @@
               <title>
                 <key>en</key>
                 <value>In background job</value>
+              </title>
+              <title>
+                <key>ru</key>
+                <value>В фоновом задании</value>
               </title>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1050,6 +1062,10 @@
             <title>
               <key>en</key>
               <value>Execute</value>
+            </title>
+            <title>
+              <key>ru</key>
+              <value>Выполнить</value>
             </title>
             <extendedTooltip>
               <name>ScheduledJobsListGroup2ExtendedTooltip</name>
@@ -1625,6 +1641,10 @@
               <key>en</key>
               <value>At client</value>
             </title>
+            <title>
+              <key>ru</key>
+              <value>На клиенте</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -1658,6 +1678,10 @@
             <title>
               <key>en</key>
               <value>In background job</value>
+            </title>
+            <title>
+              <key>ru</key>
+              <value>В фоновом задании</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1694,6 +1718,10 @@
           <title>
             <key>en</key>
             <value>Execute</value>
+          </title>
+          <title>
+            <key>ru</key>
+            <value>Выполнить</value>
           </title>
           <extendedTooltip>
             <name>ScheduledJobsListContextMenuGroup1ExtendedTooltip</name>
@@ -1756,6 +1784,10 @@
       <key>en</key>
       <value>Scheduled jobs</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Регламентные задания</value>
+    </title>
     <titleFont xsi:type="core:FontRef">
       <font>Style.NormalTextFont</font>
       <bold>true</bold>
@@ -1767,7 +1799,10 @@
       <key>en</key>
       <value>Scheduled jobs</value>
     </toolTip>
-    <shortcut>Ctrl+S</shortcut>
+    <toolTip>
+      <key>ru</key>
+      <value>Регламентные задания</value>
+    </toolTip>
     <extendedTooltip>
       <name>ScheduledJobsExtendedTooltip</name>
       <id>57</id>
@@ -2489,6 +2524,10 @@
             <key>en</key>
             <value>Cancel</value>
           </title>
+          <title>
+            <key>ru</key>
+            <value>Отменить</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -2958,6 +2997,10 @@
             <key>en</key>
             <value>Cancel</value>
           </title>
+          <title>
+            <key>ru</key>
+            <value>Отменить</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -3240,6 +3283,10 @@
       <key>en</key>
       <value>Background jobs</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Фоновые задания</value>
+    </title>
     <titleFont xsi:type="core:FontRef">
       <font>Style.NormalTextFont</font>
       <bold>true</bold>
@@ -3250,6 +3297,10 @@
     <toolTip>
       <key>en</key>
       <value>Background jobs</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Фоновые задания</value>
     </toolTip>
     <extendedTooltip>
       <name>BackgroundJobsExtendedTooltip</name>
@@ -3314,8 +3365,12 @@
   <attributes>
     <name>ScheduledJobsList</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled jobs list</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Список регламентных заданий</value>
     </title>
     <id>2</id>
     <valueType>
@@ -3528,8 +3583,12 @@
   <attributes>
     <name>BackgroundJobsFilterEnabled</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Background jobs filter enabled</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Отбор фоновых заданий включен</value>
     </title>
     <id>3</id>
     <valueType>
@@ -3545,8 +3604,12 @@
   <attributes>
     <name>ScheduledJobsListAutoUpdate</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled jobs list auto update</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Автоообновление списка регламентных заданий</value>
     </title>
     <id>4</id>
     <valueType>
@@ -3565,8 +3628,12 @@
   <attributes>
     <name>BackgroundJobsListAutoUpdate</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Background jobs list auto update</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Автообновление списка фоновых заданий</value>
     </title>
     <id>5</id>
     <valueType>
@@ -3585,8 +3652,12 @@
   <attributes>
     <name>ScheduledJobsFilter</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled jobs filter</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Отбор регламентных заданий</value>
     </title>
     <id>6</id>
     <valueType/>
@@ -3600,8 +3671,12 @@
   <attributes>
     <name>ScheduledJobsFilterEnabled</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled jobs filter enabled</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Отбор регламентных заданий включен</value>
     </title>
     <id>7</id>
     <valueType>
@@ -3617,8 +3692,12 @@
   <attributes>
     <name>BackgroundJobsFilter</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Background jobs filter</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Отбор фоновых заданий</value>
     </title>
     <id>8</id>
     <valueType/>
@@ -3632,8 +3711,12 @@
   <attributes>
     <name>ScheduledListAutoUpdatePeriod</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Scheduled list auto update period</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Период автообновления списка регламентных заданий</value>
     </title>
     <id>9</id>
     <valueType>
@@ -3656,8 +3739,12 @@
   <attributes>
     <name>BackgroundListAutoUpdatePeriod</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Background list auto update period</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Период автообновления списка фоновых заданий</value>
     </title>
     <id>10</id>
     <valueType>
@@ -3680,8 +3767,12 @@
   <attributes>
     <name>BackgroundJobsList</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Background jobs list</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Список фоновых заданий</value>
     </title>
     <id>11</id>
     <valueType>
@@ -3935,8 +4026,12 @@
   <attributes>
     <name>Object</name>
     <title>
-      <key>ru</key>
+      <key>en</key>
       <value>Object</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Объект</value>
     </title>
     <id>1</id>
     <valueType>
@@ -3950,7 +4045,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВремяЗаполненияРегламентных</name>
+    <name>ScheduledJobsFillingTime</name>
+    <title>
+      <key>en</key>
+      <value>Scheduled jobs filling time</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Время заполнения регламентных</value>
@@ -3975,10 +4074,18 @@
       <key>en</key>
       <value>Refresh</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Обновить</value>
+    </title>
     <id>1</id>
     <toolTip>
       <key>en</key>
       <value>Refresh scheduled jobs and states (may take a long time)</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Обновить регламентные задания и состояния каждого (может занять продолжительное время)</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -3999,10 +4106,18 @@
       <key>en</key>
       <value>Schedule</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Расписание</value>
+    </title>
     <id>2</id>
     <toolTip>
       <key>en</key>
       <value>Schedule</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Расписание</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4023,10 +4138,18 @@
       <key>en</key>
       <value>Refresh</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Обновить</value>
+    </title>
     <id>3</id>
     <toolTip>
       <key>en</key>
       <value>Refresh background jobs</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Обновить фоновые задания</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4047,10 +4170,18 @@
       <key>en</key>
       <value>Cancel background job</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Отменить фоновое задание</value>
+    </title>
     <id>4</id>
     <toolTip>
       <key>en</key>
       <value>Cancel background job</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Отменить фоновое задание</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4071,10 +4202,18 @@
       <key>en</key>
       <value>List settings</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Настройка списка...</value>
+    </title>
     <id>5</id>
     <toolTip>
       <key>en</key>
       <value>Scheduled jobs list settings</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Настройка списка регламентных заданий</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4095,10 +4234,18 @@
       <key>en</key>
       <value>List settings</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Настройка списка...</value>
+    </title>
     <id>6</id>
     <toolTip>
       <key>en</key>
       <value>Background jobs list settings</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Настройка списка регламентных заданий</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4118,6 +4265,10 @@
     <title>
       <key>en</key>
       <value>Set filter</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Установить отбор</value>
     </title>
     <id>7</id>
     <toolTip>
@@ -4143,15 +4294,22 @@
       <key>en</key>
       <value>Disable filter</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Отключить отбор</value>
+    </title>
     <id>8</id>
     <toolTip>
       <key>en</key>
       <value>Disable scheduled jobs filter</value>
     </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Отключить отбор регламентных заданий</value>
+    </toolTip>
     <use>
       <common>true</common>
     </use>
-    <shortcut>Ctrl+S</shortcut>
     <picture xsi:type="core:PictureRef">
       <picture>StdPicture.ClearFilter</picture>
     </picture>
@@ -4168,10 +4326,18 @@
       <key>en</key>
       <value>Set filter</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Установить отбор</value>
+    </title>
     <id>9</id>
     <toolTip>
       <key>en</key>
       <value>Set background jobs filter</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Установить отбор фоновых заданий</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4192,10 +4358,18 @@
       <key>en</key>
       <value>Disable filter</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Отключить отбор</value>
+    </title>
     <id>10</id>
     <toolTip>
       <key>en</key>
       <value>Disable background jobs filter</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Отключить отбор фоновых заданий</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4216,10 +4390,18 @@
       <key>en</key>
       <value>Execute In background job</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Выполнить В фоновом задании</value>
+    </title>
     <id>12</id>
     <toolTip>
       <key>en</key>
       <value>Execute In background job</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Выполнить В фоновом задании</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4237,10 +4419,18 @@
       <key>en</key>
       <value>Execute At client</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Выполнить На клиенте</value>
+    </title>
     <id>13</id>
     <toolTip>
       <key>en</key>
       <value>Execute At client</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Выполнить На клиенте</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4261,10 +4451,18 @@
       <key>en</key>
       <value>Event log</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Журнал регистрации</value>
+    </title>
     <id>11</id>
     <toolTip>
       <key>en</key>
       <value>Event log</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Журнал регистрации</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4282,10 +4480,18 @@
       <key>en</key>
       <value>Filter by current</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Отбор по текущему</value>
+    </title>
     <id>14</id>
     <toolTip>
       <key>en</key>
       <value>Filter by current</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Отбор по текущему</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -4307,10 +4513,18 @@
       <key>en</key>
       <value>Execute at server</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Выполнить на сервере</value>
+    </title>
     <id>15</id>
     <toolTip>
       <key>en</key>
       <value>Execute at server</value>
+    </toolTip>
+    <toolTip>
+      <key>ru</key>
+      <value>Выполнить на сервере</value>
     </toolTip>
     <use>
       <common>true</common>

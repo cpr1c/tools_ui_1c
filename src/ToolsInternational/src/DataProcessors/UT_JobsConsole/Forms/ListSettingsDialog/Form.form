@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>List settings</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Настройка списка</value>
   </title>
   <items xsi:type="form:FormField">
-    <name>Автообновление</name>
+    <name>AutoUpdate</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -18,7 +22,7 @@
       </paths>
     </dataPath>
     <extendedTooltip>
-      <name>АвтообновлениеРасширеннаяПодсказка</name>
+      <name>AutoUpdateExtendedTooltip</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -33,7 +37,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>АвтообновлениеКонтекстноеМеню</name>
+      <name>AutoUpdateContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -50,7 +54,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>ПериодАвтообновления</name>
+    <name>AutoUpdatePeriod</name>
     <id>3</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -63,7 +67,7 @@
       </paths>
     </dataPath>
     <extendedTooltip>
-      <name>ПериодАвтообновленияРасширеннаяПодсказка</name>
+      <name>AutoUpdatePeriodExtendedTooltip</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -78,7 +82,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПериодАвтообновленияКонтекстноеМеню</name>
+      <name>AutoUpdatePeriodContextMenu</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -129,7 +133,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОК</commandName>
+      <commandName>Form.Command.OK</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -178,7 +182,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -212,6 +216,10 @@
       <key>en</key>
       <value>Auto update</value>
     </title>
+    <title>
+      <key>ru</key>
+      <value>Автообновление</value>
+    </title>
     <id>2</id>
     <valueType>
       <types>Boolean</types>
@@ -228,6 +236,10 @@
     <title>
       <key>en</key>
       <value>Auto update period (sec)</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Период автообновления (сек.)</value>
     </title>
     <id>3</id>
     <valueType>
@@ -259,12 +271,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ОК</name>
+    <name>OK</name>
+    <title>
+      <key>en</key>
+      <value>OK</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>OK</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>ОК</value>
@@ -277,7 +297,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОК</name>
+        <name>OK</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
