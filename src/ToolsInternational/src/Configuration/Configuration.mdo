@@ -48,50 +48,50 @@
     <languageCode>en</languageCode>
   </languages>
   <subsystems>Subsystem.UT_UniversalTools</subsystems>
-  <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
-  <commonPictures>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</commonPictures>
-  <commonPictures>CommonPicture.УИ_СостоянияПланаОбмена</commonPictures>
-  <commonPictures>CommonPicture.УИ_ВидыОбъектовМетаданных</commonPictures>
-  <commonPictures>CommonPicture.УИ_Информация32</commonPictures>
-  <commonPictures>CommonPicture.УИ_РезультатЗапроса</commonPictures>
-  <commonPictures>CommonPicture.УИ_РезультатВыгрузки</commonPictures>
-  <commonPictures>CommonPicture.УИ_СостоянияАвторегистрации</commonPictures>
-  <commonPictures>CommonPicture.УИ_Семафор</commonPictures>
-  <commonPictures>CommonPicture.УИ_ВопросРазработчику</commonPictures>
-  <commonPictures>CommonPicture.УИ_Репозиторий</commonPictures>
-  <commonPictures>CommonPicture.УИ_Отладка</commonPictures>
-  <commonPictures>CommonPicture.УИ_Вопрос32</commonPictures>
-  <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов48</commonPictures>
-  <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов</commonPictures>
-  <commonPictures>CommonPicture.УИ_РедакторОбъектовБазыДанных</commonPictures>
-  <commonPictures>CommonPicture.УИ_JSON</commonPictures>
-  <commonPictures>CommonPicture.УИ_Информация</commonPictures>
-  <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
-  <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
-  <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
-  <commonPictures>CommonPicture.УИ_Число</commonPictures>
-  <commonPictures>CommonPicture.УИ_Строка</commonPictures>
-  <commonPictures>CommonPicture.УИ_Дата</commonPictures>
-  <commonPictures>CommonPicture.УИ_Булево</commonPictures>
-  <commonPictures>CommonPicture.УИ_УникальныйИдентификатор</commonPictures>
-  <commonPictures>CommonPicture.УИ_Null</commonPictures>
-  <commonPictures>CommonPicture.УИ_ПроизвольныйТип</commonPictures>
-  <commonPictures>CommonPicture.УИ_ВидДвиженияНакопления</commonPictures>
-  <commonPictures>CommonPicture.УИ_ТаблицаЗначений</commonPictures>
-  <commonPictures>CommonPicture.УИ_СписокЗначений</commonPictures>
-  <commonPictures>CommonPicture.УИ_Массив</commonPictures>
-  <commonPictures>CommonPicture.УИ_Тип</commonPictures>
-  <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
-  <commonPictures>CommonPicture.УИ_Граница</commonPictures>
-  <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
-  <roles>Role.УИ_УниверсальныеИнструменты</roles>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_Ace</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_MonacoEditor</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_MonacoEditorWindows</commonTemplates>
+  <commonPictures>CommonPicture.UT_UniversalToolsSybsystem</commonPictures>
+  <commonPictures>CommonPicture.UT_ExecuteScheduledJobManually</commonPictures>
+  <commonPictures>CommonPicture.UT_ExchangePlanStates</commonPictures>
+  <commonPictures>CommonPicture.UI_MetadataObjectsTypes</commonPictures>
+  <commonPictures>CommonPicture.UT_Information32</commonPictures>
+  <commonPictures>CommonPicture.UT_QueryResult</commonPictures>
+  <commonPictures>CommonPicture.UT_UploadingResult</commonPictures>
+  <commonPictures>CommonPicture.UT_AutoRegistrationStatus</commonPictures>
+  <commonPictures>CommonPicture.UT_Semaphore</commonPictures>
+  <commonPictures>CommonPicture.UT_QuestionToDeveloper</commonPictures>
+  <commonPictures>CommonPicture.UT_Repository</commonPictures>
+  <commonPictures>CommonPicture.UT_Debug</commonPictures>
+  <commonPictures>CommonPicture.UT_Question32</commonPictures>
+  <commonPictures>CommonPicture.UT_FilesPictogramsCollection48</commonPictures>
+  <commonPictures>CommonPicture.UT_FilesPictogramsCollection</commonPictures>
+  <commonPictures>CommonPicture.UT_DatabaseObjectEditor</commonPictures>
+  <commonPictures>CommonPicture.UT_JSON</commonPictures>
+  <commonPictures>CommonPicture.UT_Information</commonPictures>
+  <commonPictures>CommonPicture.UT_DataSetDCSObject</commonPictures>
+  <commonPictures>CommonPicture.UT_DataSetDCSUnion</commonPictures>
+  <commonPictures>CommonPicture.UT_DataSetDCSQuery</commonPictures>
+  <commonPictures>CommonPicture.UT_Number</commonPictures>
+  <commonPictures>CommonPicture.UT_String</commonPictures>
+  <commonPictures>CommonPicture.UT_Date</commonPictures>
+  <commonPictures>CommonPicture.UT_Boolean</commonPictures>
+  <commonPictures>CommonPicture.UT_UUID</commonPictures>
+  <commonPictures>CommonPicture.UT_Null</commonPictures>
+  <commonPictures>CommonPicture.UT_СustomType</commonPictures>
+  <commonPictures>CommonPicture.UT_AccumulationRecordType</commonPictures>
+  <commonPictures>CommonPicture.UT_ValueTable</commonPictures>
+  <commonPictures>CommonPicture.UT_ValueList</commonPictures>
+  <commonPictures>CommonPicture.UT_Array</commonPictures>
+  <commonPictures>CommonPicture.UT_Type</commonPictures>
+  <commonPictures>CommonPicture.UT_PointInTime</commonPictures>
+  <commonPictures>CommonPicture.UT_Boundary</commonPictures>
+  <commonPictures>CommonPicture.UT_NewForm</commonPictures>
+  <roles>Role.UT_UniversalTools</roles>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegEx</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_StringSearchComponent</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_Ace</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_ClipboardComponent</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_MonacoEditor</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_MonacoEditorWindows</commonTemplates>
   <commonModules>CommonModule.UT_CommonClient</commonModules>
   <commonModules>CommonModule.UT_Forms</commonModules>
   <commonModules>CommonModule.UT_TimeConsumingOperationsServerCall</commonModules>
@@ -120,7 +120,7 @@
   <commonModules>CommonModule.AttachableCommandsOverridable</commonModules>
   <commonModules>CommonModule.AdditionalReportsAndDataProcessors</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
-  <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
+  <commonCommands>CommonCommand.UT_Settings</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
   <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
@@ -132,7 +132,7 @@
   <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
   <commonForms>CommonForm.УИ_РедакторТаблицыЗначений</commonForms>
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
-  <commonForms>CommonForm.УИ_НастройкиИнструментов</commonForms>
+  <commonForms>CommonForm.UT_Settings</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>

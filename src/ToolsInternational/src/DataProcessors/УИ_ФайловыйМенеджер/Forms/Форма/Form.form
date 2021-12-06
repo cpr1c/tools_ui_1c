@@ -819,7 +819,7 @@
           <segments>ФайлыЛеваяПанель.ИндексКартинки</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
-          <picture>CommonPicture.УИ_КоллекцияПиктограммФайлов48</picture>
+          <picture>CommonPicture.UT_FilesPictogramsCollection48</picture>
         </rowsPicture>
         <searchStringLocation>CommandBar</searchStringLocation>
         <searchControlLocation>CommandBar</searchControlLocation>
@@ -1668,7 +1668,7 @@
           <segments>ФайлыПраваяПанель.ИндексКартинки</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
-          <picture>CommonPicture.УИ_КоллекцияПиктограммФайлов48</picture>
+          <picture>CommonPicture.UT_FilesPictogramsCollection48</picture>
         </rowsPicture>
         <rowFilter xsi:type="core:UndefinedValue"/>
       </items>

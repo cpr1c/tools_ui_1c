@@ -14599,7 +14599,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_НаборДанныхСКДЗапрос</picture>
+      <picture>CommonPicture.UT_DataSetDCSQuery</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
@@ -14619,7 +14619,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_НаборДанныхСКДОбъект</picture>
+      <picture>CommonPicture.UT_DataSetDCSObject</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
@@ -14639,7 +14639,7 @@
       <common>true</common>
     </use>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_НаборДанныхСКДОбъединение</picture>
+      <picture>CommonPicture.UT_DataSetDCSUnion</picture>
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>

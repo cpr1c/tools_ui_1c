@@ -22,7 +22,7 @@
     </commandParameterType>
     <representation>PictureAndText</representation>
     <picture xsi:type="core:PictureRef">
-      <picture>CommonPicture.УИ_Отладка</picture>
+      <picture>CommonPicture.UT_Debug</picture>
     </picture>
   </commands>
 </mdclass:Catalog>
