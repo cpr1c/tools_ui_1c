@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
-    <key>ru</key>
-    <value>Отбор</value>
+    <key>en</key>
+    <value>Filter</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>Общие</name>
+    <name>Common</name>
     <id>1</id>
     <items xsi:type="form:FormField">
       <name>МетаданныеВыбор</name>
@@ -17,7 +17,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>МетаданныеВыбор</segments>
+          <segments>MetadataChoice</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -72,7 +72,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Наименование</segments>
+          <segments>Description</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -125,7 +125,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Ключ</segments>
+          <segments>Key</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -178,7 +178,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Предопределенное</segments>
+          <segments>Predefined</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -223,7 +223,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Использование</segments>
+          <segments>Use</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -264,15 +264,15 @@
       <common>true</common>
     </userVisible>
     <title>
-      <key>ru</key>
-      <value>Общие</value>
+      <key>en</key>
+      <value>Common</value>
     </title>
     <toolTip>
-      <key>ru</key>
-      <value>Общие</value>
+      <key>en</key>
+      <value>Common</value>
     </toolTip>
     <extendedTooltip>
-      <name>ОбщиеРасширеннаяПодсказка</name>
+      <name>CommonExtendedTooltip</name>
       <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -301,7 +301,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ОК</name>
+      <name>OK</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -310,7 +310,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ОКРасширеннаяПодсказка</name>
+        <name>OKExtendedTooltip</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -324,7 +324,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОК</commandName>
+      <commandName>Form.Command.OK</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -333,7 +333,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Отмена</name>
+      <name>Cancel</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -342,7 +342,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ОтменаРасширеннаяПодсказка</name>
+        <name>CancelExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -373,7 +373,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -384,7 +384,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_JobsConsole</types>
@@ -398,10 +402,10 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>МетаданныеВыбор</name>
+    <name>MetadataChoice</name>
     <title>
-      <key>ru</key>
-      <value>Метаданные выбор</value>
+      <key>en</key>
+      <value>Metadata choice</value>
     </title>
     <id>2</id>
     <valueType>
@@ -416,10 +420,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Наименование</name>
+    <name>Description</name>
     <title>
-      <key>ru</key>
-      <value>Наименование</value>
+      <key>en</key>
+      <value>Description</value>
     </title>
     <id>3</id>
     <valueType>
@@ -434,10 +438,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Ключ</name>
+    <name>Key</name>
     <title>
-      <key>ru</key>
-      <value>Ключ</value>
+      <key>en</key>
+      <value>Key</value>
     </title>
     <id>4</id>
     <valueType>
@@ -452,10 +456,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Предопределенное</name>
+    <name>Predefined</name>
     <title>
-      <key>ru</key>
-      <value>Предопределенное</value>
+      <key>en</key>
+      <value>Predefined</value>
     </title>
     <id>5</id>
     <valueType>
@@ -469,10 +473,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Использование</name>
+    <name>Use</name>
     <title>
-      <key>ru</key>
-      <value>Использование</value>
+      <key>en</key>
+      <value>Use</value>
     </title>
     <id>6</id>
     <valueType>
@@ -486,15 +490,15 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ОК</name>
+    <name>OK</name>
     <title>
-      <key>ru</key>
-      <value>ОК</value>
+      <key>en</key>
+      <value>OK</value>
     </title>
     <id>1</id>
     <toolTip>
-      <key>ru</key>
-      <value>ОК</value>
+      <key>en</key>
+      <value>OK</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -504,7 +508,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОК</name>
+        <name>OK</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

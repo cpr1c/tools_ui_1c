@@ -1,67 +1,67 @@
-#Область ОбработчикиСобытийФормы
+#Region EventHandlers
+
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	JobID = Parameters.JobID;
+	BackgroundJob = GetBackgroundJobObject(JobID);
+	If BackgroundJob <> Неопределено Then
+		MethodName = BackgroundJob.MethodName;
+		Description = BackgroundJob.Description;
+		Key = BackgroundJob.Ключ;
+	EndIf;
+	
+	If Parameters.Property("MethodName") Then
+		MethodName = Parameters.MethodName;
+		Description = Parameters.Description;
+		Key = Parameters.Key;
+	EndIf;
+	
+	For Each MetadataItem In Metadata.ScheduledJobs Do
+		Items.MethodName.ChioceList.Add(MetadataItem.MethodName);
+	EndDo;
+	Items.MethodName.ChioceList.SortByValue();
+
+EndProcedure
+
+#EndRegion
+
+#Region ItemsEventHandlers
+
+&AtClient
+Procedure OK(Command)
+	JobID = Undefined;
+	ExecuteBackgroundJob(JobID);
+	Close(JobID);
+EndProcedure
+
+&AtServer
+Procedure ExecuteBackgroundJob(JobID)
+    BackgroundJob = BackgroundJobs.Execute(MethodName, , Key, Description);
+	JobID = BackgroundJob.UUID;
+EndProcedure
+
+#EndRegion
+
+#Region СлужебныеПроцедурыИФункции
 
 &НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	ЗаданиеИД = Параметры.ИдентификаторЗадания;
-	ФоновоеЗадание = ПолучитьОбъектФоновогоЗадания(ЗаданиеИД);
-	Если ФоновоеЗадание <> Неопределено Тогда
-		ИмяМетода = ФоновоеЗадание.ИмяМетода;
-		Наименование = ФоновоеЗадание.Наименование;
-		Ключ = ФоновоеЗадание.Ключ;
-	КонецЕсли;
+Function GetBackgroundJobObject(JobUniqueNumber) Export
 	
-	Если Параметры.Свойство("ИмяМетода") Тогда
-		ИмяМетода = Параметры.ИмяМетода;
-		Наименование = Параметры.Наименование;
-		Ключ = Параметры.Ключ;
-	КонецЕсли;
-	
-	Для Каждого Метаданное Из Метаданные.РегламентныеЗадания Цикл
-		Элементы.ИмяМетода.СписокВыбора.Добавить(Метаданное.ИмяМетода);
-	КонецЦикла;
-	Элементы.ИмяМетода.СписокВыбора.СортироватьПоЗначению();
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область ОбработчикиСобытийЭлементовФормы
-
-&НаКлиенте
-Процедура ОК(Команда)
-	ИдентификаторЗадания = Неопределено;
-	ВыполнитьФоновоеЗадание(ИдентификаторЗадания);
-	Закрыть(ИдентификаторЗадания);
-КонецПроцедуры
-
-&НаСервере
-Процедура ВыполнитьФоновоеЗадание(ИдентификаторЗадания)
-    ФоновоеЗадание = ФоновыеЗадания.Выполнить(ИмяМетода, , Ключ, Наименование);
-	ИдентификаторЗадания = ФоновоеЗадание.УникальныйИдентификатор;
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область СлужебныеПроцедурыИФункции
-
-&НаСервере
-Функция ПолучитьОбъектФоновогоЗадания(УникальныйНомерЗадания) Экспорт
-	
-	Попытка
+	Try
 		
-		Если НЕ ПустаяСтрока(УникальныйНомерЗадания) Тогда
-			УникальныйИдентификаторЗадания = Новый УникальныйИдентификатор(УникальныйНомерЗадания);
-			ТекущееФоновоеЗадание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(УникальныйИдентификаторЗадания);
-		Иначе
-			ТекущееФоновоеЗадание = Неопределено;
-		КонецЕсли;
+		If Not ПустаяСтрока(JobUniqueNumber) Then
+			JobUUID = New UUID(JobUniqueNumber);
+			CurrentBackgroundJob = BackgroundJobs.FindByUUID(JobUUID);
+		Else
+			CurrentBackgroundJob = Undefined;
+		EndIf;
 		
-	Исключение
-		ТекущееФоновоеЗадание = Неопределено;
-    КонецПопытки;
+	Except
+		CurrentBackgroundJob = Undefined;
+    EndTry;
 	
-	Возврат ТекущееФоновоеЗадание;
+	Return CurrentBackgroundJob;
 	
-КонецФункции
+EndFunction
 
-#КонецОбласти
+#EndRegion

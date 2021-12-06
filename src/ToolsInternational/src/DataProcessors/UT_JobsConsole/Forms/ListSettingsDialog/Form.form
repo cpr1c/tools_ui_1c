@@ -14,7 +14,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Автообновление</segments>
+        <segments>AutoUpdate</segments>
       </paths>
     </dataPath>
     <extendedTooltip>
@@ -59,7 +59,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ПериодАвтообновления</segments>
+        <segments>AutoUpdatePeriod</segments>
       </paths>
     </dataPath>
     <extendedTooltip>
@@ -189,7 +189,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_JobsConsole</types>
@@ -203,10 +207,10 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Автообновление</name>
+    <name>AutoUpdate</name>
     <title>
-      <key>ru</key>
-      <value>Автообновление</value>
+      <key>en</key>
+      <value>Auto update</value>
     </title>
     <id>2</id>
     <valueType>
@@ -220,10 +224,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПериодАвтообновления</name>
+    <name>AutoUpdatePeriod</name>
     <title>
-      <key>ru</key>
-      <value>Период автообновления (сек.)</value>
+      <key>en</key>
+      <value>Auto update period (sec)</value>
     </title>
     <id>3</id>
     <valueType>
@@ -241,7 +245,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Реквизит1</name>
+    <name>Attribute1</name>
     <id>4</id>
     <valueType>
       <types>String</types>
