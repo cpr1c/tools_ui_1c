@@ -22,9 +22,17 @@
     </pages>
   </help>
   <extendedPresentation>
+    <key>en</key>
+    <value>Database storage structure</value>
+  </extendedPresentation>
+  <extendedPresentation>
     <key>ru</key>
     <value>Структура хранения базы данных</value>
   </extendedPresentation>
+  <explanation>
+    <key>en</key>
+    <value>View table names and their relationships with metadata objects.</value>
+  </explanation>
   <explanation>
     <key>ru</key>
     <value>Просмотр имен таблиц и их взаимосвязей с объектами метаданных.</value>
@@ -32,8 +40,12 @@
   <forms uuid="c03fac5c-9407-401d-94ff-8d87ab574a84">
     <name>ManagedForm</name>
     <synonym>
-      <key>ru</key>
+      <key>en</key>
       <value>Managed form</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Управляемая форма</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

@@ -25,6 +25,10 @@
     <key>en</key>
     <value>Jobs console</value>
   </extendedPresentation>
+  <extendedPresentation>
+    <key>ru</key>
+    <value>Консоль заданий</value>
+  </extendedPresentation>
   <explanation>
     <key>en</key>
     <value>Scheduled and background jobs viewing and configuring</value>
