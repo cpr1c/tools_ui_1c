@@ -9,7 +9,7 @@ EndProcedure
 Procedure FilterOnOpen()
 
 	ThisForm.BackgroundJobsFilterEnabled = True;
-	// Protective filter for intensive background startup.
+	// Protection filter for intensive background startup.
 	FilterInterval = 3600;
 	ThisForm.BackgroundJobsFilter = New ValueStorage(New Structure("Begin", CurrentSessionDate() - FilterInterval));
 	
@@ -32,7 +32,7 @@ Procedure OnOpen(Cancel)
 		Items.ScheduledJobsListEventLog1.Visible = False;
 	#EndIf
 	#If ThickClientOrdinaryApplication OR ThickClientManagedApplication Then
-		Items.ScheduledJobsListExecuteManually.Title = "At client (thick client)";
+		Items.ScheduledJobsListExecuteManually.Title = NStr("ru = 'На клиенте (толстый клиент)'; en = 'At client (thick client)'");
 	#EndIf
 	Items.BackgroundJobsListSettings.Check = BackgroundJobsListAutoUpdate;
 	Items.ScheduledJobsListSettings.Check = ScheduledJobsListAutoUpdate;
@@ -52,7 +52,7 @@ Procedure UpdateOnCreate()
 	EndTry;
 	
 	DataProcessorVersion = FormAttributeToValue("Object").DataProcessorVersion();
-	ThisForm.Title = StrTemplate("Scheduled and background jobs v%1", DataProcessorVersion);
+	ThisForm.Title = StrTemplate(NStr("ru = 'Регламентные и фоновые задания v%1'; en = 'Scheduled and background jobs v%1'"), DataProcessorVersion);
 	
 EndProcedure
 
@@ -148,7 +148,7 @@ Procedure DeleteScheduledJob()
 		
 		ScheduledJob = ScheduledJobs.FindByUUID(ScheduledJobRow.ID);
 		If ScheduledJob.Predefined Then
-			Raise("Unable to delete predefined job: " + ScheduledJob.Description);
+			Raise(NStr("ru = 'Нельзя удалить предопределенное задание: '; en = 'Unable to delete predefined job: '") + ScheduledJob.Description);
 		EndIf;
 	EndDo;
 	
@@ -318,7 +318,7 @@ Function GetScheduledJobsFilter()
 			FilterRow = " (" + FilterRow + ")";
 		EndIf;
 	EndIf;
-	Items.ScheduledJobs.Title = "Scheduled jobs" + FilterRow;
+	Items.ScheduledJobs.Title = NStr("ru = 'Регламентные задания'; en = 'Scheduled jobs'") + FilterRow;
 	Return Filter;
 EndFunction
 	
@@ -372,9 +372,9 @@ Procedure PutScheduledJobs(GetAllStates = False)
 	
 	ScheduledJobsFillingTime = CurrentUniversalDateInMilliseconds() - MeteringStart;
 	
-	OptimizationExplanationText = StrTemplate("In %1 msec, the states %2 of %3 scheduled jobs were received,"
-		+ " but refreshing also occurs when the row is activated.", ScheduledJobsFillingTime, Counter, Count)
-		+ " To display the states of all jobs, use Refresh scheduled jobs command.";
+	OptimizationExplanationText = StrTemplate(NStr("ru = 'За %1 мсек. получено состояние %2 из %3 регламентных заданий,'; en = 'In %1 msec, the states %2 of %3 scheduled jobs were received,'")
+		+ NStr("ru = ' но обновление происходит и при активации строки.'; en = ' but refreshing also occurs when the row is activated.'"), ScheduledJobsFillingTime, Counter, Count)
+		+ NStr("ru = ' Для отображения состояния сразу всех воспользуйтесь командой обновления списка регламентных заданий.'; en = ' To display the states of all jobs, use Refresh scheduled jobs command.'");
 		
 	Items.ScheduledJobsListExecuted.ToolTip = OptimizationExplanationText;
 	Items.ScheduledJobsListExecuted.Title = "Executed" + ?(Counter = Count, "", "*");
@@ -435,8 +435,9 @@ Function SetScheduledJobSchedule(ID, Description, Schedule, JobName)
 	Try
 		EditedJobObject.Write();
 	Except
-		Raise "Schedule saving error. Perhaps the schedule data has been changed. Close settings form and try again.
-		|Detailed error description : " + ErrorDescription();
+		Raise NStr("ru = 'Произошла ошибка при сохранении расписания выполнения обменов. Возможно данные расписания были изменены. Закройте форму настройки и повторите попытку изменения расписания еще раз.
+		|Подробное описание ошибки: '; en = 'Schedule saving error. Perhaps the schedule data has been changed. Close the settings form and try again.
+		|Detailed error description : '") + ErrorDescription();
 	EndTry;
 	
 	Return True;
@@ -520,11 +521,11 @@ Procedure RunAtServer(UUID)
 	NewJobID = Undefined;
 	
 	If JobsArray.Count() = 0 Then 
-		BackgroundJobDescription = "Run manually: " + Job.Metadata.Synonym;
+		BackgroundJobDescription = NStr("ru = 'Запуск вручную: '; en = 'Run manually: '") + Job.Metadata.Synonym;
 		BackgroundJob = BackgroundJobs.Execute(Job.Metadata.MethodName, Job.Parameters, String(Job.UUID), BackgroundJobDescription);
 		NewJobID = BackgroundJob.UUID;
 	Else
-		NotifyUser("The job has already started.");
+		NotifyUser(NStr("ru = 'Задание уже запущено'; en = 'The job has already started'"));
 	EndIf;
 		
 	RefreshScheduledJobsList();

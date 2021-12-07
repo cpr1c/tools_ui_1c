@@ -9,6 +9,10 @@
     <key>en</key>
     <value>Jobs console [UT]</value>
   </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Консоль заданий [УИ]</value>
+  </synonym>
   <comment>https://github.com/kuzyara/JobsConsole2019.epf (c)Душелов'2009 - Translated by Neti Company</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_JobsConsole.Form.Form</defaultForm>
@@ -25,11 +29,19 @@
     <key>en</key>
     <value>Scheduled and background jobs viewing and configuring</value>
   </explanation>
+  <explanation>
+    <key>ru</key>
+    <value>просмотр и настройка регламентных и фоновых заданий</value>
+  </explanation>
   <forms uuid="666d4981-6ccb-43bd-b0c1-072a2dec6d2f">
     <name>Form</name>
     <synonym>
       <key>en</key>
       <value>Form</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
@@ -40,6 +52,10 @@
       <key>en</key>
       <value>Scheduled job dialog</value>
     </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Диалог регламентного задания</value>
+    </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
@@ -48,6 +64,10 @@
     <synonym>
       <key>en</key>
       <value>Background job dialog</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Диалог фонового задания</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
@@ -58,6 +78,10 @@
       <key>en</key>
       <value>Scheduled job filter dialog</value>
     </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Диалог отбора регламентного задания</value>
+    </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
@@ -67,6 +91,10 @@
       <key>en</key>
       <value>Background job filter dialog</value>
     </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Диалог отбора фонового задания</value>
+    </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
@@ -75,6 +103,10 @@
     <synonym>
       <key>en</key>
       <value>List settings dialog</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Диалог настроек списка</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

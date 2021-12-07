@@ -1,217 +1,217 @@
-#Область ОбработчикиСобытийФормы
+#Region EventHandlers
 
-// Расписание регламентного задания 
-&НаКлиенте
-Перем Расписание;
+// Scheduled job schedule 
+&AtClient
+Var Schedule;
 
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
-	Расписание = ПолучитьРасписаниеРегламентногоЗадания(РегламентноеЗаданиеИД);
-КонецПроцедуры
+&AtClient
+Procedure OnOpen(Cancel)
+	Schedule = GetScheduledJobSchedule(ScheduledJobID);
+EndProcedure
+
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	For Each Job In Metadata.ScheduledJobs Do
+		JobPresentation = StrTemplate("%1 (%2)", Job.Name, Job.Synonym);
+		Items.MetadataChoice.ChoiceList.Add(Job.Name, JobPresentation);
+	EndDo;
+	Items.MetadataChoice.ChoiceList.SortByValue();
+	
+	Try
+		IBUsers = InfoBaseUsers.GetUsers();
+	Except
+		Message = New UserMessage();
+		Message.Text = NStr("ru = 'Ошибка при получении списка пользователей информационной базы: '; en = 'Infobase users getting error: '") + ErrorDescription();
+		Message.Message();
+		IBUsers = Undefined;
+	EndTry;
+	
+	If IBUsers <> Undefined Then
+		
+		For Each User In IBUsers Do
+			Items.UsersChoice.ChoiceList.Add(User.Name, User.FullName);
+		EndDo;
+	
+	EndIf;
+
+	ScheduledJobID = Parameters.JobID;
+	ScheduledJob = GetScheduledJobObject(ScheduledJobID); 
+	If ScheduledJob <> Undefined Then
+		
+		MetadataChioce = ScheduledJob.Metadata.Name;
+		
+		Method = ScheduledJob.Metadata.MethodName;
+		
+		Description = ScheduledJob.Description;
+		Key = ScheduledJob.Key;
+		Use = ScheduledJob.Use;
+		UsersChoice = ScheduledJob.UserName;
+		RestartCountOnFailure = ScheduledJob.RestartCountOnFailure;
+		RestartIntervalOnFailure = ScheduledJob.RestartIntervalOnFailure;
+		
+		Schedule = ScheduledJob.Schedule;
+		
+		// Adding parameters
+		For Each Parameter In ScheduledJob.Parameters Do
+			NewRow = JobParameters.Add();
+			NewRow.LineNumber = JobParameters.IndexOf(NewRow) + 1;
+			NewRow.Value = Parameter;
+			TypesArray = New Array;
+			TypesArray.Add(TypeOf(Parameter));
+			NewRow.Type = New TypeDescription(TypesArray);
+		EndDo;
+		
+	Else
+		Schedule = New JobSchedule;
+	EndIf;
+	
+	Items.ScheduleLabel.Title = NStr("ru = 'Выполнять: '; en = 'Execute: '") + String(Schedule);
+
+EndProcedure
+
+#EndRegion
+
+#Region ItemsEventHandlers
+
+&AtClient
+Procedure OK(Command)
+	If WriteScheduledJob(Schedule) Then
+		ThisForm.Close(ScheduledJobID);
+	EndIf;
+EndProcedure
+
+&AtClient
+Procedure ChangeScheduleClick(Item)
+	ChangeSchedule();
+EndProcedure
+
+&AtClient
+Procedure ScheduleLabelClick(Item)
+	ChangeSchedule();
+EndProcedure
+
+&AtClient
+Procedure ChangeSchedule()
+	Dialog = New ScheduledJobDialog(Schedule);
+	NotifyDescription = Новый NotifyDescription("ScheduledJobDialogOnClose", ThisForm);
+	Dialog.Show(NotifyDescription);
+EndProcedure
+
+&AtClient
+Procedure ScheduledJobDialogOnClose(ScheduleResult, AdditionalParameters) Export
+	If ScheduleResult <> Undefined Then
+		Schedule = ScheduleResult;
+		Items.ScheduleLabel.Title = NStr("ru = 'Выполнять: '; en = 'Execute: '") + String(Schedule);
+	EndIf;
+EndProcedure
+
+&AtClient
+Procedure JobParametersValueOnChange(Item)
+	UpdateParameters();
+EndProcedure
 
 &НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	Для Каждого Задание Из Метаданные.РегламентныеЗадания Цикл
-		ПредставлениеЗадания = СтрШаблон("%1 (%2)", Задание.Имя, Задание.Синоним);
-		Элементы.МетаданныеВыбор.СписокВыбора.Добавить(Задание.Имя, ПредставлениеЗадания);
-	КонецЦикла;
-	Элементы.МетаданныеВыбор.СписокВыбора.СортироватьПоЗначению();
-	
-	Попытка
-		ПользователиИБ = ПользователиИнформационнойБазы.ПолучитьПользователей();
-	Исключение
-		Сообщение = Новый СообщениеПользователю();
-		Сообщение.Текст = "Ошибка при получении списка пользователей информационной базы: " + ОписаниеОшибки();
-		Сообщение.Сообщить();
-		ПользователиИБ = Неопределено;
-	КонецПопытки;
-	
-	Если ПользователиИБ <> Неопределено Тогда
+Procedure UpdateParameters()
+	For Each CurrentRow In JobParameters Do
+		CurrentRow.LineNumber = JobParameters.IndexOf(CurrentRow) + 1;
+		TypesArray = New Array;
+		TypesArray.Add(TypeOf(CurrentRow.Value));
+		CurrentRow.Type = New TypeDescription(TypesArray);
+	EndDo;
+EndProcedure
+
+#EndRegion
+
+#Region Private
+
+&AtServer
+Function WriteScheduledJob(Schedule)
+	Try
 		
-		Для Каждого Пользователь Из ПользователиИБ Цикл
-			Элементы.ПользователиВыбор.СписокВыбора.Добавить(Пользователь.Имя, Пользователь.ПолноеИмя);
-		КонецЦикла;
-	
-	КонецЕсли;
-
-	РегламентноеЗаданиеИД = Параметры.ИдентификаторЗадания;
-	РегламентноеЗадание = ПолучитьОбъектРегламентногоЗадания(РегламентноеЗаданиеИД); 
-	Если РегламентноеЗадание <> Неопределено Тогда
-		
-		МетаданныеВыбор = РегламентноеЗадание.Метаданные.Имя;
-		
-		Метод = РегламентноеЗадание.Метаданные.ИмяМетода;
-		
-		Наименование = РегламентноеЗадание.Наименование;
-		Ключ = РегламентноеЗадание.Ключ;
-		Использование = РегламентноеЗадание.Использование;
-		ПользователиВыбор = РегламентноеЗадание.ИмяПользователя;
-		КоличествоПовторовПриАварийномЗавершении = РегламентноеЗадание.КоличествоПовторовПриАварийномЗавершении;
-		ИнтервалПовтораПриАварийномЗавершении = РегламентноеЗадание.ИнтервалПовтораПриАварийномЗавершении;
-		
-		Расписание = РегламентноеЗадание.Расписание;
-		
-		// Добавлены параметры
-		Для Каждого Параметр Из РегламентноеЗадание.Параметры Цикл
-			НоваяСтрока = ПараметрыЗадания.Добавить();
-			НоваяСтрока.НомерСтроки = ПараметрыЗадания.Индекс(НоваяСтрока) + 1;
-			НоваяСтрока.Значение = Параметр;
-			МассивТипов = Новый Массив;
-			МассивТипов.Добавить(ТипЗнч(Параметр));
-			НоваяСтрока.Тип = Новый ОписаниеТипов(МассивТипов);
-		КонецЦикла;
-		
-	Иначе
-		Расписание = Новый РасписаниеРегламентногоЗадания;
-	КонецЕсли;
-	
-	Элементы.НадписьРасписание.Заголовок = "Выполнять: " + Строка(Расписание);
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область ОбработчикиСобытийЭлементовФормы
-
-&НаКлиенте
-Процедура ОК(Команда)
-	Если ЗаписатьРегламентноеЗадание(Расписание) Тогда
-		ЭтаФорма.Закрыть(РегламентноеЗаданиеИД);
-	КонецЕсли;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ИзменитьРасписаниеНажатие(Элемент)
-	ИзменитьРасписание();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура НадписьРасписаниеНажатие(Элемент)
-	ИзменитьРасписание();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ИзменитьРасписание()
-	Диалог = Новый ДиалогРасписанияРегламентногоЗадания(Расписание);
-	ОписаниеОповещения = Новый ОписаниеОповещения("ДиалогРасписанияРегламентногоЗаданияОткрытьЗавершение", ЭтаФорма);
-	Диалог.Показать(ОписаниеОповещения);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ДиалогРасписанияРегламентногоЗаданияОткрытьЗавершение(РасписаниеРезультат, ДополнительныеПараметры) Экспорт
-	Если РасписаниеРезультат <> Неопределено Тогда
-		Расписание = РасписаниеРезультат;
-		Элементы.НадписьРасписание.Заголовок = "Выполнять: " + Строка(Расписание);
-	КонецЕсли;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПараметрыЗаданияЗначениеПриИзменении(Элемент)
-	ОбновитьПараметры();
-КонецПроцедуры
-
-&НаСервере
-Процедура ОбновитьПараметры()
-	Для Каждого ТекСтрока Из ПараметрыЗадания Цикл
-		ТекСтрока.НомерСтроки = ПараметрыЗадания.Индекс(ТекСтрока) + 1;
-		МассивТипов = Новый Массив;
-		МассивТипов.Добавить(ТипЗнч(ТекСтрока.Значение));
-		ТекСтрока.Тип = Новый ОписаниеТипов(МассивТипов);
-	КонецЦикла;
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область СлужебныеПроцедурыИФункции
-
-&НаСервере
-Функция ЗаписатьРегламентноеЗадание(Расписание)
-	Попытка
-		
-		Если МетаданныеВыбор = Неопределено ИЛИ МетаданныеВыбор = "" Тогда
-			ВызватьИсключение("Не выбраны метаданные регламентного задания.");
+		If MetadataChioce = Undefined Or MetadataChioce = "" Then
+			Raise(NStr("ru = 'Не выбраны метаданные регламентного задания.'; en = 'Scheduled job metadata not selected.'"));
 		КонецЕсли;
 		
-		РегламентноеЗадание = ПолучитьОбъектРегламентногоЗадания(РегламентноеЗаданиеИД);
+		ScheduledJob = GetScheduledJobObject(ScheduledJobID);
 		
-		Если РегламентноеЗадание = Неопределено Тогда
-			РегламентноеЗадание = РегламентныеЗадания.СоздатьРегламентноеЗадание(МетаданныеВыбор);
-			РегламентноеЗаданиеИД = РегламентноеЗадание.УникальныйИдентификатор;
-		КонецЕсли;
+		If ScheduledJob = Undefined Then
+			ScheduledJob = ScheduledJobs.CreateScheduledJob(MetadataChioce);
+			ScheduledJobID = ScheduledJob.UUID;
+		EndIf;
 		
-		РегламентноеЗадание.Наименование = Наименование;
-		РегламентноеЗадание.Ключ = Ключ;
-		РегламентноеЗадание.Использование = Использование;
-		РегламентноеЗадание.ИмяПользователя = ПользователиВыбор;
-		РегламентноеЗадание.КоличествоПовторовПриАварийномЗавершении = КоличествоПовторовПриАварийномЗавершении;
-		РегламентноеЗадание.ИнтервалПовтораПриАварийномЗавершении = ИнтервалПовтораПриАварийномЗавершении;
-		РегламентноеЗадание.Расписание = Расписание;
+		ScheduledJob.Description = Description;
+		ScheduledJob.Key = Key;
+		ScheduledJob.Use = Use;
+		ScheduledJob.UserName = UsersChoice;
+		ScheduledJob.RestartCountOnFailure = RestartCountOnFailure;
+		ScheduledJob.RestartIntervalOnFailure = RestartIntervalOnFailure;
+		ScheduledJob.Schedule = Schedule;
 		
-		// Добавлены параметры регламентного задания
-		Если ПараметрыЗадания.Количество() Тогда
-			РегламентноеЗадание.Параметры = ПараметрыЗадания.Выгрузить().ВыгрузитьКолонку("Значение");
-		Иначе
-			РегламентноеЗадание.Параметры = Новый Массив;
-		КонецЕсли;
+		// Adding scheduled job parameters
+		If JobParameters.Count() Then
+			ScheduledJob.Parameters = JobParameters.Unload().UnloadColumn("Value");
+		Else
+			ScheduledJob.Parameters = New Array;
+		EndIf;
 		
-		РегламентноеЗадание.Записать();
-	Исключение	
-		Сообщение = Новый СообщениеПользователю();
-		Сообщение.Текст = "Ошибка: " + ОписаниеОшибки();
-		Сообщение.Сообщить();
+		ScheduledJob.Записать();
+	Except	
+		Message = New UserMessage();
+		Message.Текст = NStr("ru = 'Ошибка: '; en = 'Error: '") + ErrorDescription();
+		Message.Message();
 
-		Возврат Ложь;
-	КонецПопытки;
+		Return False;
+	EndTry;
 	
-	Возврат Истина;
-КонецФункции
+	Return True;
+EndFunction
 
-&НаСервере
-Функция ПолучитьРасписаниеРегламентногоЗадания(УникальныйНомерЗадания) Экспорт
-	ОбъектЗадания = ПолучитьОбъектРегламентногоЗадания(УникальныйНомерЗадания);
-	Если ОбъектЗадания = Неопределено Тогда
-		Возврат Новый РасписаниеРегламентногоЗадания;
-	КонецЕсли;
+&AtServer
+Function GetScheduledJobSchedule(JobUniqueNumber) Export
+	JobObject = GetScheduledJobObject(JobUniqueNumber);
+	If JobObject = Undefined Then
+		Return New JobSchedule;
+	EndIf;
 	
-	Возврат ОбъектЗадания.Расписание;
-КонецФункции
+	Return JobObject.Schedule;
+EndFunction
 
-&НаКлиенте
-Процедура МетаданныеВыборОбработкаВыбора(Элемент, ВыбранноеЗначение, СтандартнаяОбработка)
-	СвойстваЗадания = ПолучитьСвойстваЗадания(ВыбранноеЗначение);
-	Наименование = СвойстваЗадания.Представление;
-	Метод = СвойстваЗадания.ИмяМетода;
-КонецПроцедуры
+&AtClient
+Procedure MetadataChoiceChoiceProcessing(Item, SelectedValue, StandardProcessing)
+	JobProperties = GetJobProperties(SelectedValue);
+	Description = JobProperties.Presentation;
+	Method = JobProperties.MethodName;
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция ПолучитьСвойстваЗадания(ИмяМетаданных)
-	Результат = Новый Структура("ИмяМетода, Представление");
-	МетаданныеЗадания = Метаданные.РегламентныеЗадания.Найти(ИмяМетаданных);
-	Если МетаданныеЗадания <> Неопределено Тогда
-		Результат.ИмяМетода = МетаданныеЗадания.ИмяМетода;
-		Результат.Представление = МетаданныеЗадания.Представление();
-	КонецЕсли;
-	Возврат Результат;
-КонецФункции
+&AtServerNoContext
+Function GetJobProperties(MetadataName)
+	Result = New Structure("MethodName, Presentation");
+	JobMetadata = Metadata.ScheduledJobs.Find(MetadataName);
+	If JobMetadata <> Undefined Then
+		Result.MethodName = JobMetadata.MethodName;
+		Result.Presentation = JobMetadata.Presentation();
+	EndIf;
+	Return Result;
+EndFunction
 
-&НаСервере
-Функция ПолучитьОбъектРегламентногоЗадания(УникальныйНомерЗадания) Экспорт
+&AtServer
+Function GetScheduledJobObject(JobUniqueNumber) Export
 	
-	Попытка
+	Try
 		
-		Если НЕ ПустаяСтрока(УникальныйНомерЗадания) Тогда
-			УникальныйИдентификаторЗадания = Новый УникальныйИдентификатор(УникальныйНомерЗадания);
-			ТекущееРегламентноеЗадание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(УникальныйИдентификаторЗадания);
-		Иначе
-			ТекущееРегламентноеЗадание = Неопределено;
-		КонецЕсли;
+		If Not IsBlankString(JobUniqueNumber) Then
+			JobUUID = New UUID(JobUniqueNumber);
+			CurrentScheduledJob = ScheduledJobs.FindByUUID(JobUUID);
+		Else
+			CurrentScheduledJob = Undefined;
+		EndIf;
 		
-	Исключение
-		ТекущееРегламентноеЗадание = Неопределено;
-    КонецПопытки;
+	Except
+		CurrentScheduledJob = Undefined;
+    EndTry;
 	
-	Возврат ТекущееРегламентноеЗадание;
+	Return CurrentScheduledJob;
 	
-КонецФункции
+EndFunction
 
-#КонецОбласти
+#EndRegion

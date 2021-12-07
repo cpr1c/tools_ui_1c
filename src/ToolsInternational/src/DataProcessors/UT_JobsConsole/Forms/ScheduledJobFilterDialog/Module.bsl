@@ -1,62 +1,62 @@
-#Область ОбработчикиСобытийФормы
+#Region EventHandlers
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	Предопределенное = Ложь;
-	Использование = Ложь;
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	Predefined = False;
+	Use = False;
 	
-	Для Каждого Метаданное Из Метаданные.РегламентныеЗадания Цикл
-		Элементы.МетаданныеВыбор.СписокВыбора.Добавить(Метаданное.Имя, Метаданное.Представление());
-	КонецЦикла;
+	For Each MetadataItem In Metadata.ScheduledJobs Do
+		Items.MetadataChoice.ChoiceList.Add(MetadataItem.Имя, MetadataItem.Presentation());
+	EndDo;
 	
-	Если Параметры.Отбор <> Неопределено Тогда
-		Для Каждого Свойство Из Параметры.Отбор Цикл
-			Если Свойство.Ключ = "Ключ" Тогда
-				Ключ = Свойство.Значение;
-			ИначеЕсли Свойство.Ключ = "Наименование" Тогда
-				Наименование = Свойство.Значение;	
-			ИначеЕсли Свойство.Ключ = "Использование" Тогда
-				Использование = Свойство.Значение;	
-			ИначеЕсли Свойство.Ключ = "Предопределенное" Тогда
-				Предопределенное = Свойство.Значение;	
-			ИначеЕсли Свойство.Ключ = "Метаданные" Тогда
-				МетаданныеВыбор = Свойство.Значение;
-			Иначе
-				Продолжить;
-			КонецЕсли;		
-		КонецЦикла;
-	КонецЕсли;
-КонецПроцедуры
+	If Parameters.Filter <> Undefined Then
+		For Each Property In Parameters.Filter Do
+			If Property.Key = "Key" Then
+				Key = Property.Value;
+			ElsIf Property.Key = "Description" Then
+				Description = Property.Value;	
+			ElsIf Property.Key = "Use" Then
+				Use = Property.Value;	
+			ElsIf Property.Key = "Predefined" Then
+				Predefined = Property.Value;	
+			ElsIf Property.Key = "Metadata" Then
+				MetadataChoice = Property.Value;
+			Else
+				Continue;
+			EndIf;		
+		EndDo;
+	EndIf;
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиСобытийЭлементовФормы
+#Region ItemsEventHandlers
 
-&НаКлиенте
-Процедура ОК(Команда)
-	Отбор = Новый Структура;
+&AtClient
+Procedure OK(Command)
+	Filter = New Structure;
 	
-	Если Не ПустаяСтрока(Ключ) Тогда
-		Отбор.Вставить("Ключ", Ключ);
-	КонецЕсли;
+	If Not IsBlankString(Key) Then
+		Filter.Add("Key", Key);
+	EndIf;
 	
-	Если Не ПустаяСтрока(Наименование) Тогда
-		Отбор.Вставить("Наименование", Наименование);
-	КонецЕсли;
+	If Not IsBlankString(Description) Then
+		Filter.Add("Description", Description);
+	EndIf;
 	
-	Если МетаданныеВыбор <> "" Тогда
-		Отбор.Вставить("Метаданные", МетаданныеВыбор);
-	КонецЕсли;
+	If MetadataChoice <> "" Then
+		Filter.Add("Metadata", MetadataChoice);
+	EndIf;
 	
-	Если Предопределенное Тогда
-		Отбор.Вставить("Предопределенное", Предопределенное);
-	КонецЕсли;
+	If Predefined Then
+		Filter.Add("Predefined", Predefined);
+	EndIf;
 	
-	Если Использование Тогда
-		Отбор.Вставить("Использование", Использование);
-	КонецЕсли;
+	If Use Then
+		Filter.Add("Use", Use);
+	EndIf;
 	
-	Закрыть(Отбор);
-КонецПроцедуры
+	Close(Filter);
+EndProcedure
 
-#КонецОбласти
+#EndRegion

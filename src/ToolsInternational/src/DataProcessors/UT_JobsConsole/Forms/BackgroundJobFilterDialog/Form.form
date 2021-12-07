@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>Общие</name>
+    <name>Common</name>
     <id>1</id>
     <items xsi:type="form:FormField">
-      <name>Регламентное</name>
+      <name>Scheduled</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -13,11 +13,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Регламентное</segments>
+          <segments>Scheduled</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>РегламентноеРасширеннаяПодсказка</name>
+        <name>ScheduledExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -32,7 +32,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентноеКонтекстноеМеню</name>
+        <name>ScheduledContextMenu</name>
         <id>3</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -59,7 +59,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Наименование</name>
+      <name>Descriprtion</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -68,11 +68,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Наименование</segments>
+          <segments>Description</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>НаименованиеРасширеннаяПодсказка</name>
+        <name>DescriprtionExtendedTooltip</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -87,7 +87,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НаименованиеКонтекстноеМеню</name>
+        <name>DescriprtionContextMenu</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -112,7 +112,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Метод</name>
+      <name>Method</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -121,11 +121,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Метод</segments>
+          <segments>Method</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>МетодРасширеннаяПодсказка</name>
+        <name>MethodExtendedTooltip</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -140,7 +140,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>МетодКонтекстноеМеню</name>
+        <name>MethodContextMenu</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -165,7 +165,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Ключ</name>
+      <name>Key</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -174,11 +174,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Ключ</segments>
+          <segments>Key</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>КлючРасширеннаяПодсказка</name>
+        <name>KeyExtendedTooltip</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -193,7 +193,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КлючКонтекстноеМеню</name>
+        <name>KeyContextMenu</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -218,7 +218,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Начало</name>
+      <name>Begin</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -227,11 +227,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Начало</segments>
+          <segments>Begin</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>НачалоРасширеннаяПодсказка</name>
+        <name>BeginExtendedTooltip</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -246,7 +246,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НачалоКонтекстноеМеню</name>
+        <name>BeginContextMenu</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -270,7 +270,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Конец</name>
+      <name>End</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -279,11 +279,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Конец</segments>
+          <segments>End</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>КонецРасширеннаяПодсказка</name>
+        <name>EndExtendedTooltip</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -298,7 +298,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КонецКонтекстноеМеню</name>
+        <name>EndContextMenu</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -327,15 +327,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Common</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Общие</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Common</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Общие</value>
     </toolTip>
     <extendedTooltip>
-      <name>ОбщиеРасширеннаяПодсказка</name>
+      <name>CommonExtendedTooltip</name>
       <id>27</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -361,10 +369,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>Состояние</name>
+    <name>State</name>
     <id>14</id>
     <items xsi:type="form:FormField">
-      <name>Активно</name>
+      <name>Active</name>
       <id>15</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -373,11 +381,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Активно</segments>
+          <segments>Active</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>АктивноРасширеннаяПодсказка</name>
+        <name>ActiveExtendedTooltip</name>
         <id>35</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -392,7 +400,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>АктивноКонтекстноеМеню</name>
+        <name>ActiveContextMenu</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -409,7 +417,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>Завершено</name>
+      <name>Completed</name>
       <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -418,11 +426,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Завершено</segments>
+          <segments>Completed</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ЗавершеноРасширеннаяПодсказка</name>
+        <name>CompletedExtendedTooltip</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -437,7 +445,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ЗавершеноКонтекстноеМеню</name>
+        <name>CompletedContextMenu</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -454,7 +462,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>ЗавершеноАварийно</name>
+      <name>Failed</name>
       <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -463,11 +471,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ЗавершеноАварийно</segments>
+          <segments>Failed</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ЗавершеноАварийноРасширеннаяПодсказка</name>
+        <name>FailedExtendedTooltip</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -482,7 +490,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ЗавершеноАварийноКонтекстноеМеню</name>
+        <name>FailedContextMenu</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -499,7 +507,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>Отменено</name>
+      <name>Canceled</name>
       <id>21</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -508,11 +516,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Отменено</segments>
+          <segments>Canceled</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ОтмененоРасширеннаяПодсказка</name>
+        <name>CanceledExtendedTooltip</name>
         <id>38</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -527,7 +535,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ОтмененоКонтекстноеМеню</name>
+        <name>CanceledContextMenu</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -549,16 +557,24 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>State</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Состояние</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>State</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Состояние</value>
     </toolTip>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>СостояниеРасширеннаяПодсказка</name>
+      <name>StateExtendedTooltip</name>
       <id>34</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -610,7 +626,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОК</commandName>
+      <commandName>Form.Command.OK</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -619,7 +635,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Отмена</name>
+      <name>Cancel</name>
       <id>24</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -628,7 +644,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ОтменаРасширеннаяПодсказка</name>
+        <name>CancelExtendedTooltip</name>
         <id>26</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -659,7 +675,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -671,7 +687,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_JobsConsole</types>
@@ -685,7 +705,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Регламентное</name>
+    <name>Scheduled</name>
+    <title>
+      <key>en</key>
+      <value>Scheduled</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Регламентное</value>
@@ -703,7 +727,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Наименование</name>
+    <name>Description</name>
+    <title>
+      <key>en</key>
+      <value>Description</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Наименование</value>
@@ -721,7 +749,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Метод</name>
+    <name>Method</name>
+    <title>
+      <key>en</key>
+      <value>Method</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Метод</value>
@@ -739,7 +771,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Ключ</name>
+    <name>Key</name>
+    <title>
+      <key>en</key>
+      <value>Key</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Ключ</value>
@@ -757,7 +793,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Начало</name>
+    <name>Begin</name>
+    <title>
+      <key>en</key>
+      <value>Begin</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Начало</value>
@@ -775,7 +815,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Конец</name>
+    <name>End</name>
+    <title>
+      <key>en</key>
+      <value>End</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Конец</value>
@@ -793,7 +837,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Активно</name>
+    <name>Active</name>
+    <title>
+      <key>en</key>
+      <value>Active</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Активно</value>
@@ -810,7 +858,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Завершено</name>
+    <name>Completed</name>
+    <title>
+      <key>en</key>
+      <value>Completed</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Завершено</value>
@@ -827,7 +879,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗавершеноАварийно</name>
+    <name>Failed</name>
+    <title>
+      <key>en</key>
+      <value>Failed</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Завершено аварийно</value>
@@ -844,7 +900,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Отменено</name>
+    <name>Canceled</name>
+    <title>
+      <key>en</key>
+      <value>Canceled</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Отменено</value>
@@ -861,12 +921,16 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ОК</name>
+    <name>OK</name>
     <title>
-      <key>ru</key>
-      <value>ОК</value>
+      <key>en</key>
+      <value>OK</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>ОК</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>ОК</value>
@@ -879,7 +943,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОК</name>
+        <name>OK</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

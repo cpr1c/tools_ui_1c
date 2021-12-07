@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Scheduled job</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Регламентное задание</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКолонок</name>
+    <name>ColumnsGroup</name>
     <id>36</id>
     <items xsi:type="form:FormGroup">
-      <name>КолонкаЛевая</name>
+      <name>ColumnLeft</name>
       <id>38</id>
       <items xsi:type="form:FormField">
-        <name>Наименование</name>
+        <name>Description</name>
         <id>1</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -20,11 +24,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Наименование</segments>
+            <segments>Description</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>НаименованиеРасширеннаяПодсказка</name>
+          <name>DescriptionExtendedTooltip</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -39,7 +43,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>НаименованиеКонтекстноеМеню</name>
+          <name>DescriptionContextMenu</name>
           <id>2</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -63,8 +67,12 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>МетаданныеВыбор</name>
+        <name>MetadataChoice</name>
         <id>3</id>
+        <title>
+          <key>en</key>
+          <value>Metadata choice</value>
+        </title>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -72,11 +80,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>МетаданныеВыбор</segments>
+            <segments>MetadataChioce</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>МетаданныеВыборРасширеннаяПодсказка</name>
+          <name>MetadataChoiceExtendedTooltip</name>
           <id>26</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -91,7 +99,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>МетаданныеВыборКонтекстноеМеню</name>
+          <name>MetadataChoiceContextMenu</name>
           <id>4</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -108,7 +116,7 @@
         <extInfo xsi:type="form:InputFieldExtInfo">
           <handlers>
             <event>ChoiceProcessing</event>
-            <name>МетаданныеВыборОбработкаВыбора</name>
+            <name>MetadataChoiceChoiceProcessing</name>
           </handlers>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -123,7 +131,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>Метод</name>
+        <name>Method</name>
         <id>80</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -132,11 +140,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Метод</segments>
+            <segments>Method</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>МетодРасширеннаяПодсказка</name>
+          <name>MethodExtendedTooltip</name>
           <id>82</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -151,7 +159,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>МетодКонтекстноеМеню</name>
+          <name>MethodContextMenu</name>
           <id>81</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -175,7 +183,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ПользователиВыбор</name>
+        <name>UsersChoice</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -184,11 +192,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ПользователиВыбор</segments>
+            <segments>UsersChoice</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ПользователиВыборРасширеннаяПодсказка</name>
+          <name>UsersChoiceExtendedTooltip</name>
           <id>27</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -203,7 +211,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПользователиВыборКонтекстноеМеню</name>
+          <name>UsersChoiceContextMenu</name>
           <id>6</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -231,7 +239,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>Ключ</name>
+        <name>Key</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -240,11 +248,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Ключ</segments>
+            <segments>Key</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>КлючРасширеннаяПодсказка</name>
+          <name>KeyExtendedTooltip</name>
           <id>28</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -259,7 +267,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>КлючКонтекстноеМеню</name>
+          <name>KeyContextMenu</name>
           <id>8</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -283,10 +291,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>Группа</name>
+        <name>Group</name>
         <id>20</id>
         <items xsi:type="form:FormField">
-          <name>Использование</name>
+          <name>Use</name>
           <id>11</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -295,12 +303,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Использование</segments>
+              <segments>Use</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
-            <name>ИспользованиеРасширеннаяПодсказка</name>
+            <name>UseExtendedTooltip</name>
             <id>30</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -315,7 +323,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИспользованиеКонтекстноеМеню</name>
+            <name>UseContextMenu</name>
             <id>12</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -332,8 +340,12 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:Decoration">
-          <name>ИзменитьРасписание</name>
+          <name>ChangeSchedule</name>
           <id>18</id>
+          <title>
+            <key>en</key>
+            <value>Change schedule</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Изменить расписание</value>
@@ -344,7 +356,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ИзменитьРасписаниеРасширеннаяПодсказка</name>
+            <name>ChangeScheduleExtendedTooltip</name>
             <id>31</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -359,7 +371,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИзменитьРасписаниеКонтекстноеМеню</name>
+            <name>ChangeScheduleContextMenu</name>
             <id>19</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -375,7 +387,7 @@
           <extInfo xsi:type="form:LabelDecorationExtInfo">
             <handlers>
               <event>Click</event>
-              <name>ИзменитьРасписаниеНажатие</name>
+              <name>ChangeScheduleClick</name>
             </handlers>
             <hyperlink>true</hyperlink>
             <horizontalAlign>Left</horizontalAlign>
@@ -387,7 +399,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ГруппаРасширеннаяПодсказка</name>
+          <name>GroupExtendedTooltip</name>
           <id>29</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -410,8 +422,12 @@
         </extInfo>
       </items>
       <items xsi:type="form:Decoration">
-        <name>НадписьРасписание</name>
+        <name>ScheduleLabel</name>
         <id>21</id>
+        <title>
+          <key>en</key>
+          <value>Schedule label</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Надпись расписание</value>
@@ -422,7 +438,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>НадписьРасписаниеРасширеннаяПодсказка</name>
+          <name>ScheduleLabelExtendedTooltip</name>
           <id>32</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -437,7 +453,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>НадписьРасписаниеКонтекстноеМеню</name>
+          <name>ScheduleLabelContextMenu</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -456,7 +472,7 @@
         <extInfo xsi:type="form:LabelDecorationExtInfo">
           <handlers>
             <event>Click</event>
-            <name>НадписьРасписаниеНажатие</name>
+            <name>ScheduleLabelClick</name>
           </handlers>
           <hyperlink>true</hyperlink>
           <horizontalAlign>Left</horizontalAlign>
@@ -464,10 +480,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>Перезапуск</name>
+        <name>Restart</name>
         <id>13</id>
         <items xsi:type="form:FormField">
-          <name>КоличествоПовторовПриАварийномЗавершении</name>
+          <name>RestartCountOnFailure</name>
           <id>14</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -476,11 +492,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>КоличествоПовторовПриАварийномЗавершении</segments>
+              <segments>RestartCountOnFailure</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>КоличествоПовторовПриАварийномЗавершенииРасширеннаяПодсказка</name>
+            <name>RestartCountOnFailureExtendedTooltip</name>
             <id>34</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -495,7 +511,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>КоличествоПовторовПриАварийномЗавершенииКонтекстноеМеню</name>
+            <name>RestartCountOnFailureContextMenu</name>
             <id>15</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -519,7 +535,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИнтервалПовтораПриАварийномЗавершении</name>
+          <name>RestartIntervalOnFailure</name>
           <id>16</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -528,11 +544,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИнтервалПовтораПриАварийномЗавершении</segments>
+              <segments>RestartIntervalOnFailure</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ИнтервалПовтораПриАварийномЗавершенииРасширеннаяПодсказка</name>
+            <name>RestartIntervalOnFailureExtendedTooltip</name>
             <id>35</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -547,7 +563,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИнтервалПовтораПриАварийномЗавершенииКонтекстноеМеню</name>
+            <name>RestartIntervalOnFailureContextMenu</name>
             <id>17</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -576,16 +592,24 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Restart</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Перезапуск</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Restart</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Перезапуск</value>
         </toolTip>
         <horizontalStretch>true</horizontalStretch>
         <extendedTooltip>
-          <name>ПерезапускРасширеннаяПодсказка</name>
+          <name>RestartExtendedTooltip</name>
           <id>33</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -616,15 +640,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Left column</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Колонка левая</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Left column</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Колонка левая</value>
       </toolTip>
       <extendedTooltip>
-        <name>КолонкаЛеваяРасширеннаяПодсказка</name>
+        <name>ColumnLeftExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -649,10 +681,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>КолонкаПравая</name>
+      <name>ColumnRight</name>
       <id>40</id>
       <items xsi:type="form:Table">
-        <name>ПараметрыЗадания</name>
+        <name>JobParameters</name>
         <id>58</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -660,11 +692,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ПараметрыЗадания</segments>
+          <segments>JobParameters</segments>
         </dataPath>
         <titleLocation>Top</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ПараметрыЗаданияНомерСтроки</name>
+          <name>JobParametersLineNumber</name>
           <id>71</id>
           <visible>true</visible>
           <userVisible>
@@ -672,11 +704,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыЗадания.НомерСтроки</segments>
+              <segments>JobParameters.LineNumber</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПараметрыЗаданияНомерСтрокиРасширеннаяПодсказка</name>
+            <name>JobParametersLineNumberExtendedTooltip</name>
             <id>73</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -691,7 +723,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыЗаданияНомерСтрокиКонтекстноеМеню</name>
+            <name>JobParametersLineNumberContextMenu</name>
             <id>72</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -716,7 +748,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПараметрыЗаданияЗначение</name>
+          <name>JobParametersValue</name>
           <id>74</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -725,15 +757,15 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыЗадания.Значение</segments>
+              <segments>JobParameters.Value</segments>
             </paths>
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ПараметрыЗаданияЗначениеПриИзменении</name>
+            <name>JobParametersValueOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ПараметрыЗаданияЗначение1РасширеннаяПодсказка</name>
+            <name>JobParametersValueExtendedTooltip</name>
             <id>76</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -748,7 +780,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыЗаданияЗначение1КонтекстноеМеню</name>
+            <name>JobParametersValueContextMenu</name>
             <id>75</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -772,7 +804,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПараметрыЗаданияТип</name>
+          <name>JobParametersType</name>
           <id>77</id>
           <visible>true</visible>
           <userVisible>
@@ -780,11 +812,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыЗадания.Тип</segments>
+              <segments>JobParameters.Type</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПараметрыЗаданияТипРасширеннаяПодсказка</name>
+            <name>JobParametersTypeExtendedTooltip</name>
             <id>79</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -799,7 +831,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыЗаданияТипКонтекстноеМеню</name>
+            <name>JobParametersTypeContextMenu</name>
             <id>78</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -824,7 +856,7 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ПараметрыЗаданияКоманднаяПанель</name>
+          <name>JobParametersCommandBar</name>
           <id>60</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -840,10 +872,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПараметрыЗаданияСтрокаПоиска</name>
+          <name>JobParametersSearchString</name>
           <id>62</id>
           <extendedTooltip>
-            <name>ПараметрыЗаданияСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>JobParametersSearchStringExtendedTooltip</name>
             <id>64</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -858,7 +890,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыЗаданияСтрокаПоискаКонтекстноеМеню</name>
+            <name>JobParametersSearchStringContextMenu</name>
             <id>63</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -877,10 +909,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПараметрыЗаданияСостояниеПросмотра</name>
+          <name>JobParametersViewStatus</name>
           <id>65</id>
           <extendedTooltip>
-            <name>ПараметрыЗаданияСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>JobParametersViewStatusExtendedTooltip</name>
             <id>67</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -895,7 +927,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыЗаданияСостояниеПросмотраКонтекстноеМеню</name>
+            <name>JobParametersViewStatusContextMenu</name>
             <id>66</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -916,10 +948,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПараметрыЗаданияУправлениеПоиском</name>
+          <name>JobParametersSearchControl</name>
           <id>68</id>
           <extendedTooltip>
-            <name>ПараметрыЗаданияУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>JobParametersSearchControlExtendedTooltip</name>
             <id>70</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -934,7 +966,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыЗаданияУправлениеПоискомКонтекстноеМеню</name>
+            <name>JobParametersSearchControlContextMenu</name>
             <id>69</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -949,7 +981,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ПараметрыЗаданияРасширеннаяПодсказка</name>
+          <name>JobParametersExtendedTooltip</name>
           <id>61</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -964,7 +996,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПараметрыЗаданияКонтекстноеМеню</name>
+          <name>JobParametersContextMenu</name>
           <id>59</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1001,15 +1033,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Right column</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Колонка правая</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Right column</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Колонка правая</value>
       </toolTip>
       <extendedTooltip>
-        <name>КолонкаПраваяРасширеннаяПодсказка</name>
+        <name>ColumnRightExtendedTooltip</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1038,15 +1078,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Columns group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа колонок</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Columns group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа колонок</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКолонокРасширеннаяПодсказка</name>
+      <name>ColumnsGroupExtendedTooltip</name>
       <id>37</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1072,7 +1120,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ОК</name>
+      <name>OK</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1081,7 +1129,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ОКРасширеннаяПодсказка</name>
+        <name>OKExtendedTooltip</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1095,7 +1143,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОК</commandName>
+      <commandName>Form.Command.OK</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -1104,7 +1152,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Отмена</name>
+      <name>Cancel</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1113,7 +1161,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ОтменаРасширеннаяПодсказка</name>
+        <name>CancelExtendedTooltip</name>
         <id>24</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1144,11 +1192,15 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
+  </handlers>
+  <handlers>
+    <event>ChoiceProcessing</event>
+    <name>ChoiceProcessing</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -1159,7 +1211,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Наименование</name>
+    <name>Description</name>
+    <title>
+      <key>en</key>
+      <value>Description</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Наименование</value>
@@ -1177,7 +1233,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>МетаданныеВыбор</name>
+    <name>MetadataChioce</name>
+    <title>
+      <key>en</key>
+      <value>Metadata</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Метаданные</value>
@@ -1195,10 +1255,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПользователиВыбор</name>
+    <name>UsersChoice</name>
+    <title>
+      <key>en</key>
+      <value>User</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Пользователь</value>
+      <value>ПользователиВыбор</value>
     </title>
     <id>3</id>
     <valueType>
@@ -1213,7 +1277,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Ключ</name>
+    <name>Key</name>
+    <title>
+      <key>en</key>
+      <value>Key</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Ключ</value>
@@ -1231,7 +1299,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Использование</name>
+    <name>Use</name>
+    <title>
+      <key>en</key>
+      <value>Use</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Использование</value>
@@ -1248,7 +1320,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>КоличествоПовторовПриАварийномЗавершении</name>
+    <name>RestartCountOnFailure</name>
+    <title>
+      <key>en</key>
+      <value>Restart count on failure</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Количество повторов при аварийном завершении</value>
@@ -1268,7 +1344,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИнтервалПовтораПриАварийномЗавершении</name>
+    <name>RestartIntervalOnFailure</name>
+    <title>
+      <key>en</key>
+      <value>Restart interval on failure (sec)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Интервал повтора при аварийном завершении (сек.)</value>
@@ -1288,7 +1368,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РегламентноеЗаданиеИД</name>
+    <name>ScheduledJobID</name>
+    <title>
+      <key>en</key>
+      <value>Scheduled job ID</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Регламентное задание ИД</value>
@@ -1306,10 +1390,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОбработкаОбъект</name>
+    <name>DataProcessorObject</name>
     <title>
-      <key>ru</key>
-      <value>Обработка объект</value>
+      <key>en</key>
+      <value>Data processor object</value>
     </title>
     <id>9</id>
     <valueType>
@@ -1324,7 +1408,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ПараметрыЗадания</name>
+    <name>JobParameters</name>
+    <title>
+      <key>en</key>
+      <value>Job parameters</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Параметры задания</value>
@@ -1340,10 +1428,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>НомерСтроки</name>
+      <name>LineNumber</name>
+      <title>
+        <key>en</key>
+        <value>№</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>№</value>
+        <value>Line number</value>
       </title>
       <id>1</id>
       <valueType>
@@ -1360,10 +1452,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
+      <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>Значение</value>
+        <value>Value</value>
       </title>
       <id>2</id>
       <valueType/>
@@ -1375,10 +1471,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Тип</name>
+      <name>Type</name>
       <title>
-        <key>ru</key>
-        <value>Тип</value>
+        <key>en</key>
+        <value>Type</value>
       </title>
       <id>3</id>
       <valueType>
@@ -1392,10 +1488,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Доп</name>
+      <name>Add</name>
       <title>
-        <key>ru</key>
-        <value>Доп</value>
+        <key>en</key>
+        <value>Add</value>
       </title>
       <id>4</id>
       <valueType>
@@ -1411,7 +1507,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>Метод</name>
+    <name>Method</name>
+    <title>
+      <key>en</key>
+      <value>Method</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Метод</value>
@@ -1429,7 +1529,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТаблицаМетаданных</name>
+    <name>MetadataTable</name>
+    <title>
+      <key>en</key>
+      <value>Metadata table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица метаданных</value>
@@ -1445,10 +1549,10 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
-        <key>ru</key>
-        <value>Имя</value>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -1463,10 +1567,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
-        <key>ru</key>
-        <value>Представление</value>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>2</id>
       <valueType>
@@ -1481,10 +1585,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Метод</name>
+      <name>Method</name>
       <title>
-        <key>ru</key>
-        <value>Метод</value>
+        <key>en</key>
+        <value>Method</value>
       </title>
       <id>3</id>
       <valueType>
@@ -1500,12 +1604,20 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>ОК</name>
+    <name>OK</name>
+    <title>
+      <key>en</key>
+      <value>OK</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>OK</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>ОК</value>
@@ -1515,7 +1627,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОК</name>
+        <name>OK</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
