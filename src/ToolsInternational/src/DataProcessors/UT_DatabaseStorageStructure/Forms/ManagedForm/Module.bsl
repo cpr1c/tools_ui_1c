@@ -1,150 +1,150 @@
-&НаСервере
-Процедура ПолучитьСтруктуру()
+&AtServer
+Procedure GetStructure()
 
-	СтруктураБазы = ПолучитьИзВременногоХранилища(АдресСтруктурыБазы);
+	InfobaseStructure = GetFromTempStorage(DataBaseStructureAddress);
 
-	Если СтруктураБазы = Неопределено Тогда
+	If InfobaseStructure = Undefined Then
 
-		СтруктураБазы = ПолучитьСтруктуруХраненияБазыДанных();
-		ПоместитьВоВременноеХранилище(СтруктураБазы, АдресСтруктурыБазы);
+		InfobaseStructure = GetDBStorageStructureInfo();
+		PutToTempStorage(InfobaseStructure, DataBaseStructureAddress);
 
-	КонецЕсли;
+	EndIf;
 
-	ЗаполнитьТаблицуРезультата(СтруктураБазы);
-КонецПроцедуры
-
-&НаСервере
-Процедура ЗаполнитьТаблицуРезультата(СтруктураБазы, НайденныеСтроки = Неопределено)
-	Результат.Очистить();
-
-	Если НайденныеСтроки = Неопределено Тогда
-		СтрокиДляРезультата=СтруктураБазы;
-	Иначе
-		СтрокиДляРезультата=НайденныеСтроки;
-	КонецЕсли;
-
-	Для Каждого Строка Из СтрокиДляРезультата Цикл
-		НоваяСтрока = Результат.Добавить();
-		НоваяСтрока.ИмяТаблицы = Строка.ИмяТаблицы;
-		НоваяСтрока.Метаданные = Строка.Метаданные;
-		НоваяСтрока.Назначение = Строка.Назначение;
-		НоваяСтрока.ИмяТаблицыХранения = Строка.ИмяТаблицыХранения;
-
-		Для Каждого Поле Из Строка.Поля Цикл
-			НоваяСтрокаПолей = НоваяСтрока.Поля.Добавить();
-			НоваяСтрокаПолей.ИмяПоляХранения = Поле.ИмяПоляХранения;
-			НоваяСтрокаПолей.ИмяПоля = Поле.ИмяПоля;
-			НоваяСтрокаПолей.Метаданные = Поле.Метаданные;
-		КонецЦикла;
-
-		Для Каждого Индекс Из Строка.Индексы Цикл
-			НоваяСтрокаИндексов = НоваяСтрока.Индексы.Добавить();
-			НоваяСтрокаИндексов.ИмяИндексаХранения = Индекс.ИмяИндексаХранения;
-
-			// Поля индекса
-			Для Каждого Поле Из Индекс.Поля Цикл
-				НоваяСтрокаПолейИндекса = НоваяСтрокаИндексов.ПоляИндекса.Добавить();
-				НоваяСтрокаПолейИндекса.ИмяПоляХранения = Поле.ИмяПоляХранения;
-				НоваяСтрокаПолейИндекса.ИмяПоля = Поле.ИмяПоля;
-				НоваяСтрокаПолейИндекса.Метаданные = Поле.Метаданные;
-			КонецЦикла;
-
-		КонецЦикла;
-
-	КонецЦикла;
-
-	Результат.Сортировать("Метаданные ВОЗР,ИмяТаблицы ВОЗР");
-КонецПроцедуры
-
-&НаСервере
-Процедура НайтиПоИмениТаблицыХранения()
-
-	СтруктураБазы = ПолучитьИзВременногоХранилища(АдресСтруктурыБазы);
-
-	ИмяДляПоиска = ВРЕГ(СокрЛП(Отбор));
-	Если Не ТочноеСоответствие И Лев(ИмяДляПоиска, 1) = "_" Тогда
-		ИмяДляПоиска = Сред(ИмяДляПоиска, 2);
-	КонецЕсли;
-	НайденныеСтроки = Новый Массив;
-
-	Если ПустаяСтрока(ИмяДляПоиска) Тогда
-		Возврат;
-	КонецЕсли;
-
-	Для Каждого Строка Из СтруктураБазы Цикл
-
-		Если ВключаяПоля Тогда
-			Для Каждого СтрокаПоле Из Строка.Поля Цикл
-				Если ТочноеСоответствие Тогда
-					Если ВРЕГ(СтрокаПоле.ИмяПоляХранения) = ИмяДляПоиска Или ВРЕГ(СтрокаПоле.ИмяПоля) = ИмяДляПоиска Тогда
-						НайденныеСтроки.Добавить(Строка);
-					КонецЕсли;
-				Иначе
-
-					Если Найти(ВРЕГ(СтрокаПоле.ИмяПоляХранения), ИмяДляПоиска) > 0 Или Найти(ВРЕГ(СтрокаПоле.ИмяПоля),
-						ИмяДляПоиска) Тогда
-						НайденныеСтроки.Добавить(Строка);
-					КонецЕсли;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
-
-		Если ТочноеСоответствие Тогда
-			Если ВРЕГ(Строка.ИмяТаблицыХранения) = ИмяДляПоиска Или ВРЕГ(Строка.ИмяТаблицы) = ИмяДляПоиска Или ВРЕГ(
-				Строка.Метаданные) = ИмяДляПоиска Или ВРЕГ(Строка.Назначение) = ИмяДляПоиска Тогда
-				НайденныеСтроки.Добавить(Строка);
-			КонецЕсли;
-		Иначе
-			Если Найти(ВРЕГ(Строка.ИмяТаблицыХранения), ИмяДляПоиска) > 0 Или Найти(ВРЕГ(Строка.ИмяТаблицы),
-				ИмяДляПоиска) Или Найти(ВРЕГ(Строка.Метаданные), ИмяДляПоиска) Или Найти(ВРЕГ(Строка.Назначение),
-				ИмяДляПоиска) Тогда
-				НайденныеСтроки.Добавить(Строка);
-			КонецЕсли;
-		КонецЕсли;
-	КонецЦикла;
-
-	ЗаполнитьТаблицуРезультата(НайденныеСтроки);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура УстановитьОтбор(Команда)
-
-	НайтиПоИмениТаблицыХранения();
-
-КонецПроцедуры
-
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-
-	АдресСтруктурыБазы = ПоместитьВоВременноеХранилище(Неопределено, УникальныйИдентификатор);
-	ПолучитьСтруктуру();
-
-	UT_Common.ФормаИнструментаПриСозданииНаСервере(ЭтотОбъект, Отказ, СтандартнаяОбработка);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ОтборОкончаниеВводаТекста(Элемент, Текст, ДанныеВыбора, ПараметрыПолученияДанных, СтандартнаяОбработка)
-
-	ДанныеВыбора = Новый СписокЗначений;
-	ДанныеВыбора.Добавить(Текст);
-	СтандартнаяОбработка = Ложь;
-	Отбор = Текст;
-	НайтиПоИмениТаблицыХранения();
-
-КонецПроцедуры
-
-&НаКлиенте
-Procedure ВключаяПоляOnChange(Item)
-	НайтиПоИмениТаблицыХранения();
+	FillResultTable(InfobaseStructure);
 EndProcedure
 
-&НаКлиенте
-Procedure ТочноеСоответствиеOnChange(Item)
-	НайтиПоИмениТаблицыХранения();
+&AtServer
+Procedure FillResultTable(InfobaseStructure, FoundRows = Undefined)
+	Result.Clear();
+
+	If FoundRows = Undefined Then
+		ResultRows=InfobaseStructure;
+	Else
+		ResultRows=FoundRows;
+	EndIf;
+
+	For Each Row In ResultRows Do
+		NewRow = Result.Add();
+		NewRow.TableName = Row.TableName;
+		NewRow.Metadata = Row.Metadata;
+		NewRow.Purpose = Row.Purpose;
+		NewRow.StorageTableName = Row.StorageTableName;
+
+		For Each Field In Row.Fields Do
+			NewFieldsRow = NewRow.Fields.Add();
+			NewFieldsRow.StorageFieldName = Field.StorageFieldName;
+			NewFieldsRow.FieldName = Field.FieldName;
+			NewFieldsRow.Metadata = Field.Metadata;
+		EndDo;
+
+		For Each Index In Row.Indexes Do
+			NewIndexesRow = NewRow.Indexes.Add();
+			NewIndexesRow.StorageIndexName = Index.StorageIndexName;
+
+			// Index fields
+			For Each Field In Index.Fields Do
+				NewIndexFieldsRow = NewIndexesRow.IndexFields.Add();
+				NewIndexFieldsRow.StorageFieldName = Field.StorageFieldName;
+				NewIndexFieldsRow.FieldName = Field.FieldName;
+				NewIndexFieldsRow.Metadata = Field.Metadata;
+			EndDo;
+
+		EndDo;
+
+	EndDo;
+
+	Result.Sort("Metadata ASC,TableName ASC");
 EndProcedure
 
-&НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) Экспорт
-	UT_CommonClient.Подключаемый_ВыполнитьОбщуюКомандуИнструментов(ЭтотОбъект, Команда);
-КонецПроцедуры
+&AtServer
+Procedure FindByStorageTableName()
+
+	InfobaseStructure = GetFromTempStorage(DataBaseStructureAddress);
+
+	SearchName = Upper(TrimAll(Filter));
+	If Not ExactMap And Left(SearchName, 1) = "_" Then
+		SearchName = Mid(SearchName, 2);
+	EndIf;
+	FoundRows = New Array;
+
+	If IsBlankString(SearchName) Then
+		Return;
+	EndIf;
+
+	For Each Row In InfobaseStructure Do
+
+		If IncludingFields Then
+			For Each RowField In Row.Fields Do
+				If ExactMap Then
+					If Upper(RowField.StorageFieldName) = SearchName Or Upper(RowField.FieldName) = SearchName Then
+						FoundRows.Add(Row);
+					EndIf;
+				Else
+
+					If Find(Upper(RowField.StorageFieldName), SearchName) > 0 Or Find(Upper(RowField.FieldName),
+						SearchName) Then
+						FoundRows.Add(Row);
+					EndIf;
+				EndIf;
+			EndDo;
+		EndIf;
+
+		If ExactMap Then
+			If Upper(Row.StorageTableName) = SearchName Or Upper(Row.TableName) = SearchName Or Upper(
+				Row.Metadata) = SearchName Or Upper(Row.Purpose) = SearchName Then
+				FoundRows.Add(Row);
+			EndIf;
+		Else
+			If Find(Upper(Row.StorageTableName), SearchName) > 0 Or Find(Upper(Row.TableName),
+				SearchName) Or Find(Upper(Row.Metadata), SearchName) Or Find(Upper(Row.Purpose),
+				SearchName) Then
+				FoundRows.Add(Row);
+			EndIf;
+		EndIf;
+	EndDo;
+
+	FillResultTable(FoundRows);
+EndProcedure
+
+&AtClient
+Procedure SetFilter(Command)
+
+	FindByStorageTableName();
+
+EndProcedure
+
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+
+	DataBaseStructureAddress = PutToTempStorage(Undefined, UUID);
+	GetStructure();
+
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
+
+EndProcedure
+
+&AtClient
+Procedure FilterTextEditEnd(Item, Text, ChoiceData, DataGetParameters, StandardProcessing)
+
+	ChoiceData = New ValueList;
+	ChoiceData.Add(Text);
+	StandardProcessing = False;
+	Filter = Text;
+	FindByStorageTableName();
+
+EndProcedure
+
+&AtClient
+Procedure IncludingFieldsOnChange(Item)
+	FindByStorageTableName();
+EndProcedure
+
+&AtClient
+Procedure ExactMapOnChange(Item)
+	FindByStorageTableName();
+EndProcedure
+
+&AtClient
+Procedure Attachable_ExecuteToolsCommonCommand(Command) Export
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
+EndProcedure
