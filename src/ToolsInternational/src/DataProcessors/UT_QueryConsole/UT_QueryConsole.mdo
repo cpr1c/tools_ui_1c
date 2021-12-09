@@ -470,7 +470,11 @@
     <templateType>HTMLDocument</templateType>
   </templates>
   <templates uuid="1e8def8f-529d-46cf-a315-b07d52318873">
-    <name>МакетКонфигурацииТЖ</name>
+    <name>TLConfigTemplate</name>
+    <synonym>
+      <key>en</key>
+      <value>TL config template</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Макет конфигурации ТЖ</value>
