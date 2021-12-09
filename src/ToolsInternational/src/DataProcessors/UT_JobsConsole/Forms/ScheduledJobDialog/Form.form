@@ -1198,10 +1198,6 @@
     <event>OnCreateAtServer</event>
     <name>OnCreateAtServer</name>
   </handlers>
-  <handlers>
-    <event>ChoiceProcessing</event>
-    <name>ChoiceProcessing</name>
-  </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
   <autoFillCheck>true</autoFillCheck>
@@ -1262,7 +1258,7 @@
     </title>
     <title>
       <key>ru</key>
-      <value>ПользователиВыбор</value>
+      <value>Пользователь</value>
     </title>
     <id>3</id>
     <valueType>
