@@ -10,11 +10,11 @@ Procedure Initializing(Form = Undefined, cSessionID = Undefined) Export
 	BuildVersion = 1;
 
 	Hashing = New DataHashing(HashFunction.CRC32);
-	Hashing.Add(InfoBaseConnectionString());
+	Hashing.Append(InfoBaseConnectionString());
 	IBString = Format(Hashing.HashSum, "NG=0");
 
 	If cSessionID = Undefined Then
-		Hashing.Add(UserName());
+		Hashing.Append(UserName());
 		SessionID = Hashing.HashSum;
 	Else
 		SessionID = cSessionID;
@@ -346,119 +346,119 @@ EndFunction
 
 #EndRegion
 
-#Region ТехнологическийЖурнал
+#Region TechnologicalLog
 
 
-Function ТехнологическийЖурнал_ПолучитьКаталогКонфигурацииПриложения()
+Function TechnologicalLog_GetAppConfigurationFolder()
 	
-	//СистемнаяИнформация = Новый СистемнаяИнформация();
-	//Если НЕ ((СистемнаяИнформация.ТипПлатформы = ТипПлатформы.Windows_x86) Или (СистемнаяИнформация.ТипПлатформы = ТипПлатформы.Windows_x86_64)) Тогда
-	//	Возврат Неопределено;
+	//SystemInfo = New SystemInfo();
+	//If Not ((SystemInfo.PlatformType = PlatformType.Windows_x86) Or (SystemInfo.PlatformType = PlatformType.Windows_x86_64)) Then
+	//	Return Undefined;
 	//EndIf;
 
-	КаталогаОбщихКонфигурационныхФайлов = КаталогПрограммы() + "conf";
-	ФайлУказатель = Новый Файл(КаталогаОбщихКонфигурационныхФайлов + ПолучитьРазделительПутиСервера() + "conf.cfg");
-	Если ФайлУказатель.Существует() Тогда
-		ФайлКонфигурации = Новый ЧтениеТекста(ФайлУказатель.ПолноеИмя);
-		Строка = ФайлКонфигурации.ПрочитатьСтроку();
-		Пока Строка <> Неопределено Цикл
-			Позиция = СтрНайти(Строка, "ConfLocation=");
-			Если Позиция > 0 Тогда
-				КаталогКонфигурацииПриложения = СокрЛП(Сред(Строка, Позиция + 13));
-				Прервать;
+	CommonConfigurationFilesFolder = BinDir() + "conf";
+	PointerFile = New File(CommonConfigurationFilesFolder + GetServerPathSeparator() + "conf.cfg");
+	If PointerFile.Exists() Then
+		ConfigurationFile = New TextReader(PointerFile.FullName);
+		Line = ConfigurationFile.ReadLine();
+		While Line <> Undefined Do
+			Position = StrFind(Line, "ConfLocation=");
+			If Position > 0 Then
+				AppConfigurationFolder = TrimAll(Mid(Line, Position + 13));
+				Break;
 			EndIf;
-			Строка = ФайлКонфигурации.ПрочитатьСтроку();
+			Line = ConfigurationFile.ReadLine();
 		EndDo;
 	EndIf;
 
-	Возврат КаталогКонфигурацииПриложения;
+	Return AppConfigurationFolder;
 
 EndFunction
 
-Function ТехнологическийЖурнал_МеткаКонсоли()
-	Возврат СтрШаблон("КонсольЗапросов9000_%1", Формат(SessionID, "ЧГ=0"));
+Function TechnologicalLog_ConsoleLabel()
+	Return StrTemplate("QueryConsole9000_%1", Format(SessionID, "ЧГ=0"));
 EndFunction
 
-Function ТехнологическийЖурнал_ЭтоДОМКонфигурацииТЖ(Документ) Экспорт
-	Возврат Документ.ПервыйДочерний.URIПространстваИмен = "http://v8.1c.ru/v8/tech-log"
-		И Документ.ПервыйДочерний.ИмяУзла = "config";
+Function TechnologicalLog_DOM_TLConfig(Document) Export
+	Return Document.FirstChild.NamespaceURI = "http://v8.1c.ru/v8/tech-log"
+		And Document.FirstChild.NodeName = "config";
 EndFunction
 
-Function ТехнологическийЖурнал_УдалитьЛогКонсолиИзДОМ(Документ) Экспорт
+Function TechnologicalLog_RemoveConsloleLogFromDOM(Document) Export
 
-	Метка = ТехнологическийЖурнал_МеткаКонсоли();
+	Label = TechnologicalLog_ConsoleLabel();
 
-	маУзлыДляУдаления = Новый Массив;
+	arDeletingNodes = New Array;
 
-	РежимУдаления = Ложь;
-	Для Каждого Узел Из Документ.ПервыйДочерний.ДочерниеУзлы Цикл
+	DeletingMode = False;
+	For Each Node In Document.FirstChild.ChildNodes Do
 
-		Если Узел.ИмяУзла = "#comment" И СокрЛП(Узел.ЗначениеУзла) = Метка Тогда
+		If Node.NodeName = "#comment" And TrimAll(Node.NodeValue) = Label Тогда
 
-			Если РежимУдаления Тогда
-				маУзлыДляУдаления.Добавить(Узел);
-				РежимУдаления = Ложь;
-			Иначе
-				РежимУдаления = Истина;
+			If DeletingMode Then
+				arDeletingNodes.Добавить(Node);
+				DeletingMode = False;
+			Else
+				DeletingMode = True;
 			EndIf;
 
 		EndIf;
 
-		Если РежимУдаления Тогда
-			маУзлыДляУдаления.Добавить(Узел);
+		If DeletingMode Then
+			arDeletingNodes.Add(Node);
 		EndIf;
 
 	EndDo;
 
-	Для Каждого Узел Из маУзлыДляУдаления Цикл
-		Документ.ПервыйДочерний.УдалитьДочерний(Узел);
+	For Each Node In arDeletingNodes Do
+		Document.FirstChild.RemoveChild(Node);
 	EndDo;
 
-	Возврат маУзлыДляУдаления.Количество() > 0;
+	Return arDeletingNodes.Count() > 0;
 
 EndFunction
 
-Procedure ТехнологическийЖурнал_ЗаписатьДОМ(Документ, ИмяФайла) Экспорт
+Procedure TechnologicalLog_WriteDOM(Document, FileName) Export
 
-	Записыватель = Новый ЗаписьDOM;
+	DOMWriter = New DOMWriter;
 
-	ВременныйФайл = ИмяФайла + ".tmp";
+	TempFile = FileName + ".tmp";
 
-	Запись = Новый ЗаписьXML;
-	Запись.ОткрытьФайл(ВременныйФайл);
-	Записыватель.Записать(Документ, Запись);
-	Запись.Закрыть();
+	XMLWriter = New XMLWriter;
+	XMLWriter.OpenFile(TempFile);
+	DOMWriter.Write(Document, XMLWriter);
+	XMLWriter.Close();
 
-	ПереместитьФайл(ВременныйФайл, ИмяФайла);
+	MoveFile(TempFile, FileName);
 
 EndProcedure
 
-Function ТехнологическийЖурнал_ЕстьЛогКонсоли() Экспорт
+Function TechnologicalLog_ConsoleLogExists() Export
 
-	ФайлКонфигурацииТЖ = ТехнологическийЖурнал_ПолучитьКаталогКонфигурацииПриложения()
-		+ ПолучитьРазделительПутиСервера() + "logcfg.xml";
-	ФайлКонфигурации = Новый Файл(ФайлКонфигурацииТЖ);
+	TLConfigFile = TechnologicalLog_GetAppConfigurationFolder()
+		+ GetServerPathSeparator() + "logcfg.xml";
+	ConfigFile = New Файл(TLConfigFile);
 
-	Если ФайлКонфигурации.Существует() Тогда
+	If ConfigFile.Exists() Then
 
-		Документ = ТехнологическийЖурнал_ПрочитатьДОМ(ФайлКонфигурацииТЖ);
+		Document = TechnologicalLog_ReadDOM(TLConfigFile);
 
-		Если ТехнологическийЖурнал_ЭтоДОМКонфигурацииТЖ(Документ) Тогда
+		If TechnologicalLog_DOM_TLConfig(Document) Then
 
-			Метка = ТехнологическийЖурнал_МеткаКонсоли();
-			ЕстьМетка = Ложь;
-			Для Каждого Узел Из Документ.ПервыйДочерний.ДочерниеУзлы Цикл
+			Label = TechnologicalLog_ConsoleLabel();
+			LabelExists = False;
+			For Each Node In Document.FirstChild.ChildNodes Do
 
-				Если ЕстьМетка Тогда
-					АтрибутРазмещенияЖурнала = Узел.Атрибуты.ПолучитьИменованныйЭлемент("location");
-					Если АтрибутРазмещенияЖурнала <> Неопределено Тогда
-						TechLogFolder = АтрибутРазмещенияЖурнала.Значение;
-						Возврат Истина;
+				If LabelExists Then
+					LogLocationAttribute = Node.Attributes.GetNamedItem("location");
+					If LogLocationAttribute <> Undefined Then
+						TechLogFolder = LogLocationAttribute.Value;
+						Return True;
 					EndIf;
 				EndIf;
 
-				Если Узел.ИмяУзла = "#comment" И СокрЛП(Узел.ЗначениеУзла) = Метка Тогда
-					ЕстьМетка = Истина;
+				Если Node.NodeName = "#comment" And TrimAll(Node.NodeValue) = Label Then
+					LabelExists = True;
 				EndIf;
 
 			EndDo;
@@ -467,48 +467,48 @@ Function ТехнологическийЖурнал_ЕстьЛогКонсоли
 
 	EndIf;
 
-	Возврат Ложь;
+	Return False;
 
 EndFunction
 
-Procedure ТехнологическийЖурнал_ДобавитьЛогКонсоли(ПутьТЖ) Экспорт
+Procedure TechnologicalLog_AppendConsoleLog(TLPath) Export
 
-	ФайлКонфигурацииТЖ = ТехнологическийЖурнал_ПолучитьКаталогКонфигурацииПриложения()
-		+ ПолучитьРазделительПутиСервера() + "logcfg.xml";
-	ФайлКонфигурации = Новый Файл(ФайлКонфигурацииТЖ);
+	TLConfigFile = TechnologicalLog_GetAppConfigurationFolder()
+		+ GetServerPathSeparator() + "logcfg.xml";
+	ConfigFile = New File(TLConfigFile);
 
-	Если ФайлКонфигурации.Существует() Тогда
+	If ConfigFile.Exists() Then
 
-		Документ = ТехнологическийЖурнал_ПрочитатьДОМ(ФайлКонфигурацииТЖ);
+		Document = TechnologicalLog_ReadDOM(TLConfigFile);
 
-		Если ТехнологическийЖурнал_ЭтоДОМКонфигурацииТЖ(Документ) Тогда
+		If TechnologicalLog_DOM_TLConfig(Document) Then
 
-			ТехнологическийЖурнал_УдалитьЛогКонсолиИзДОМ(Документ);
+			TechnologicalLog_RemoveConsloleLogFromDOM(Document);
 
-			МакетКонфигурацииТЖ = ПолучитьМакет("МакетКонфигурацииТЖ");
-			Чтение = Новый ЧтениеXML;
-			Чтение.УстановитьСтроку(СтрШаблон(МакетКонфигурацииТЖ.ПолучитьТекст(), ТехнологическийЖурнал_МеткаКонсоли(),
-				ПутьТЖ, UserName()));
-			Построитель = Новый ПостроительDOM;
-			logcfg = Построитель.Прочитать(Чтение);
+			TLConfigTemplate = GetTemplate("TLConfigTemplate");
+			Reader = New XMLReader;
+			Reader.SetString(StrTemplate(TLConfigTemplate.GetText(), TechnologicalLog_ConsoleLabel(),
+				TLPath, UserName()));
+			Builder = New DOMBuilder;
+			logcfg = Builder.Read(Reader);
 
-			Для Каждого ИсходныйУзел Из logcfg.ПервыйДочерний.ДочерниеУзлы Цикл
-				Узел = Документ.ИмпортироватьУзел(ИсходныйУзел, Истина);
-				Документ.ПервыйДочерний.ДобавитьДочерний(Узел);
+			For Each SourceNode In logcfg.FirstChild.ChildNodes Do
+				Node = Document.ImportNode(SourceNode, True);
+				Document.FirstChild.AppendChild(Node);
 			EndDo;
 
-			ТехнологическийЖурнал_ЗаписатьДОМ(Документ, ФайлКонфигурацииТЖ);
-			TechLogFolder = ПутьТЖ;
+			TechnologicalLog_WriteDOM(Document, TLConfigFile);
+			TechLogFolder = TLPath;
 
 		EndIf;
 
-	Иначе
-		ВызватьИсключение "logcfg не найден";
+	Else
+		Raise NSTR("ru = 'logcfg не найден'; en = 'logcfg not found'");
 	EndIf;
 
 EndProcedure
 
-Function ТехнологическийЖурнал_ПрочитатьДОМ(ИмяФайла) Экспорт
+Function TechnologicalLog_ReadDOM(ИмяФайла) Экспорт
 	Чтение = Новый ЧтениеXML;
 	Чтение.ОткрытьФайл(ИмяФайла);
 	Построитель = Новый ПостроительDOM;
@@ -517,19 +517,19 @@ EndFunction
 
 Procedure ТехнологическийЖурнал_УдалитьЛогКонсоли() Экспорт
 
-	ФайлКонфигурацииТЖ = ТехнологическийЖурнал_ПолучитьКаталогКонфигурацииПриложения()
+	ФайлКонфигурацииТЖ = TechnologicalLog_GetAppConfigurationFolder()
 		+ ПолучитьРазделительПутиСервера() + "logcfg.xml";
 	ФайлКонфигурации = Новый Файл(ФайлКонфигурацииТЖ);
 
 	Если ФайлКонфигурации.Существует() Тогда
 
-		Документ = ТехнологическийЖурнал_ПрочитатьДОМ(ФайлКонфигурацииТЖ);
+		Документ = TechnologicalLog_ReadDOM(ФайлКонфигурацииТЖ);
 
-		Если ТехнологическийЖурнал_ЭтоДОМКонфигурацииТЖ(Документ) Тогда
+		Если TechnologicalLog_DOM_TLConfig(Документ) Тогда
 
-			ТехнологическийЖурнал_УдалитьЛогКонсолиИзДОМ(Документ);
+			TechnologicalLog_RemoveConsloleLogFromDOM(Документ);
 
-			ТехнологическийЖурнал_ЗаписатьДОМ(Документ, ФайлКонфигурацииТЖ);
+			TechnologicalLog_WriteDOM(Документ, ФайлКонфигурацииТЖ);
 
 		EndIf;
 
@@ -619,7 +619,7 @@ Procedure ТехнологическийЖурнал_Включить() Эксп
 
 	EndDo;
 
-	ТехнологическийЖурнал_ДобавитьЛогКонсоли(ПутьТЖ);
+	TechnologicalLog_AppendConsoleLog(ПутьТЖ);
 
 	SessionLabel = Строка(Новый УникальныйИдентификатор);
 	ВыполнитьТестовыйЗапрос();
