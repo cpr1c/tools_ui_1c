@@ -221,7 +221,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РедакторКонстант</name>
+		<name>DataProcessor.UT_ConstantsEditor</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
