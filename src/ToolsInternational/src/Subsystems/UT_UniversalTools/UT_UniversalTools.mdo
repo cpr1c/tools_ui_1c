@@ -15,7 +15,7 @@
     <picture>CommonPicture.UT_UniversalToolsSybsystem</picture>
   </picture>
   <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
-  <content>DataProcessor.УИ_РедакторКонстант</content>
+  <content>DataProcessor.UT_ConstantsEditor</content>
   <content>DataProcessor.UT_DatabaseStorageStructure</content>
   <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
   <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>

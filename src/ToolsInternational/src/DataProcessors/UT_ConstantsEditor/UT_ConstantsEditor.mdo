@@ -4,13 +4,17 @@
     <objectType typeId="f70be0ce-a34d-4e50-a2b2-af440b443cb7" valueTypeId="d26cc641-33d5-4228-85d9-b11662c65d02"/>
     <managerType typeId="a4733dda-ec64-48b1-b2e4-ae8f40da0e5c" valueTypeId="065b8a57-8ed3-495c-9f53-77e30e7d774a"/>
   </producedTypes>
-  <name>УИ_РедакторКонстант</name>
+  <name>UT_ConstantsEditor</name>
+  <synonym>
+    <key>en</key>
+    <value>Constants Editor [UT]</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Редактор констант [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_РедакторКонстант.Form.Константы</defaultForm>
+  <defaultForm>DataProcessor.UT_ConstantsEditor.Form.Константы</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Редактор констант</value>
