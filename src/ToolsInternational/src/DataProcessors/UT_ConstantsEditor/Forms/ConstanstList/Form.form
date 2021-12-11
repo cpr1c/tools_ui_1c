@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНастройки</name>
+    <name>GroupSettings</name>
     <id>63</id>
     <items xsi:type="form:FormField">
-      <name>СтрокаПоиска</name>
+      <name>SearchBar</name>
       <id>67</id>
+      <title>
+        <key>en</key>
+        <value>Search bar</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Строка поиска</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>СтрокаПоиска</segments>
+        <segments>SearchBar</segments>
       </dataPath>
       <extendedTooltip>
-        <name>РасширеннаяПодсказка</name>
+        <name>SearchBarExtendedTooltip</name>
         <id>69</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -30,7 +38,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КонтекстноеМеню</name>
+        <name>SearchBarContextMenu</name>
         <id>68</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -46,12 +54,12 @@
       <showInFooter>true</showInFooter>
       <extInfo xsi:type="form:InputFieldExtInfo">
         <handlers>
-          <event>EditTextChange</event>
-          <name>СтрокаПоискаИзменениеТекстаРедактирования</name>
+          <event>Clearing</event>
+          <name>SearchBarClearing</name>
         </handlers>
         <handlers>
-          <event>Clearing</event>
-          <name>СтрокаПоискаОчистка</name>
+          <event>EditTextChange</event>
+          <name>SearchBarEditTextChange</name>
         </handlers>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -63,22 +71,30 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ПоказыватьСиноним</name>
+      <name>ShowSynonym</name>
       <id>70</id>
+      <title>
+        <key>en</key>
+        <value>Show synonym</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Показывать синоним</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>ПоказыватьСиноним</segments>
+        <segments>ShowSynonym</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>ПоказыватьСинонимПриИзменении</name>
+        <name>ShowSynonymOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>ПолеРасширеннаяПодсказка</name>
+        <name>ShowSynonymExtendedTooltip</name>
         <id>72</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -93,7 +109,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПолеКонтекстноеМеню</name>
+        <name>ShowSynonymContextMenu</name>
         <id>71</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -114,8 +130,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Group settings</value>
+    </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка1</name>
+      <name>GroupSettingsExtendedTooltip</name>
       <id>64</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -139,7 +159,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаПараметрыЗаписи</name>
+    <name>GroupWriteParametrs</name>
     <id>73</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -150,8 +170,12 @@
       <key>ru</key>
       <value>Параметры записи</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group write parametrs</value>
+    </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка2</name>
+      <name>GroupWriteParametrsExtendedTooltip</name>
       <id>74</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -183,17 +207,21 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКонстант</name>
+    <name>GroupConstantsList</name>
     <id>55</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Group constants list</value>
+    </title>
     <horizontalStretch>true</horizontalStretch>
     <verticalStretch>true</verticalStretch>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка</name>
+      <name>GroupConstantsListExtendedTooltip</name>
       <id>56</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -222,7 +250,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаЗаписать</name>
+      <name>FormWrite</name>
       <id>53</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -230,7 +258,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗаписатьРасширеннаяПодсказка</name>
+        <name>FormWriteExtendedTooltip</name>
         <id>54</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -244,7 +272,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Записать</commandName>
+      <commandName>Form.Command.Write</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -253,7 +281,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаПеречитать</name>
+      <name>FormReread</name>
       <id>65</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -261,7 +289,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаПеречитатьРасширеннаяПодсказка</name>
+        <name>FormRereadExtendedTooltip</name>
         <id>66</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -275,7 +303,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Перечитать</commandName>
+      <commandName>Form.Command.Reread</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -283,7 +311,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаЗакрыть</name>
+      <name>FormClose</name>
       <id>51</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -291,7 +319,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗакрытьРасширеннаяПодсказка</name>
+        <name>FormCloseExtendedTooltip</name>
         <id>52</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -321,7 +349,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -333,7 +361,15 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Объект</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_ConstantsEditor</types>
@@ -347,7 +383,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ТаблицаКонстант</name>
+    <name>ConstantsTable</name>
+    <title>
+      <key>en</key>
+      <value>Constants Table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица констант</value>
@@ -363,7 +403,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ИмяКонстанты</name>
+      <name>ConstantName</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -381,7 +425,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СинонимКонстанты</name>
+      <name>ConstantSynonym</name>
+      <title>
+        <key>en</key>
+        <value>Synonym</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Синоним</value>
@@ -399,7 +447,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ОписаниеТипов</name>
+      <name>TypeDescription</name>
+      <title>
+        <key>en</key>
+        <value>Type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тип</value>
@@ -416,7 +468,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ФОпция</name>
+      <name>FunctionalOption</name>
+      <title>
+        <key>en</key>
+        <value>Functional оption</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Ф.опция</value>
@@ -434,7 +490,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПривилегированныйРежимПриПолучении</name>
+      <name>PrivilegedGetMode</name>
+      <title>
+        <key>en</key>
+        <value>Privileged mode</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Привилегированный режим</value>
@@ -451,7 +511,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗначениеКонстанты</name>
+      <name>ConstantValue</name>
+      <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Значение</value>
@@ -466,10 +530,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Изменено</name>
+      <name>IsChanged</name>
       <title>
         <key>ru</key>
         <value>Изменено</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Is changed</value>
       </title>
       <id>8</id>
       <valueType>
@@ -483,7 +551,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ЕстьХранилищеЗначения</name>
+      <name>HasValueStorage</name>
+      <title>
+        <key>en</key>
+        <value>Has value storage</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Есть хранилище значения</value>
@@ -500,10 +572,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТолькоХранилищеЗначений</name>
+      <name>ValueStorageOnly</name>
       <title>
         <key>ru</key>
         <value>Только хранилище значений</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value storage only</value>
       </title>
       <id>10</id>
       <valueType>
@@ -518,7 +594,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>СтрокаПоиска</name>
+    <name>SearchBar</name>
+    <title>
+      <key>en</key>
+      <value>Search bar</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Строка поиска</value>
@@ -536,7 +616,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПоказыватьСиноним</name>
+    <name>ShowSynonym</name>
+    <title>
+      <key>en</key>
+      <value>Show Synonym</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Показывать синоним</value>
@@ -553,7 +637,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Записать</name>
+    <name>Write</name>
+    <title>
+      <key>en</key>
+      <value>Write</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Записать</value>
@@ -571,14 +659,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗаписатьКонстанты</name>
+        <name>WriteConstants</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перечитать</name>
+    <name>Reread</name>
+    <title>
+      <key>en</key>
+      <value>Reread</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Перечитать</value>
@@ -592,7 +684,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Перечитать</name>
+        <name>Reread</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

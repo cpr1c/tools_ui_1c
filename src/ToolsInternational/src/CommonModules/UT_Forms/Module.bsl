@@ -73,6 +73,7 @@
 
 КонецФункции
 
+
 #КонецОбласти
 
 #Область ПрограммноеСозданиеЭлементов
@@ -219,6 +220,7 @@
 	Возврат ГруппаФормы;
 КонецФункции
 
+
 Функция ЭтоКнопкаКоманднойПанели(Форма, Знач РодительКнопки)
 //@skip-warning
 	Если РодительКнопки = Неопределено Тогда
@@ -255,6 +257,7 @@
 		Возврат Идентификатор;
 	КонецЕсли;
 КонецФункции
+
 
 Функция Реквизит(Форма, ИмяРеквизита, ПутьКРеквизиту = "") Экспорт
 	Если ПутьКРеквизиту <> "" Тогда
@@ -362,3 +365,94 @@
 КонецПроцедуры
 
 #КонецОбласти
+
+// English Code Area 
+
+#Region ItemsDescription 
+//Функция НовыйОписаниеРеквизитаЭлемента(
+//Функция НовыйПараметрыРеквизита()
+//
+//
+//Original НовыйОписаниеГруппыФормы
+Function NewFormGroupDescription() Export
+	Parameters = New Structure;
+
+	Parameters.Insert("Type", FormGroupType.UsualGroup);
+	Parameters.Insert("Name", "");
+	Parameters.Insert("Title", "");
+	Parameters.Insert("Behavior", UsualGroupBehavior.Usual);
+	Parameters.Insert("Representation", UsualGroupRepresentation.None);
+	Parameters.Insert("GroupType", ChildFormItemsGroup.Vertical);
+	Parameters.Insert("ShowTitle", False);
+	Parameters.Insert("Parent", Неопределено);
+
+	Return Parameters;
+
+EndFunction
+#EndRegion
+
+#Region FormItemsProgramingCreation  
+//Функция СоздатьКомандуПоОписанию(Форма, ОписаниеКоманды) Экспорт,
+// Функция СоздатьЭлементПоОписанию(Форма, ОписаниеРеквизита) Экспорт
+// Функция СоздатьКнопкуПоОписанию(Форма, ОписаниеКнопки) Экспорт
+//
+// Original СоздатьГруппуПоОписанию
+Function CreateGroupByDescription(Form, Description) Export
+
+	FormItemName = FormFieldTableName(Form, Description.Parent) + Description.Name;
+	FormGroup = Form.Items.Find(FormItemName);
+	If FormGroup <> Undefined Then
+		Return FormGroup;
+	EndIf;
+	FormGroup = Form.Items.Add(FormItemName, Type("FormGroup"), FormItem(Form, Description.Parent));
+
+	FormGroup.Type = Description.Type;
+
+	FormGroup.Title = Description.Title;
+
+	FillPropertyValues(FormGroup, Description, "Type,ShowTitle");
+
+	If FormGroup.Type = FormGroupType.UsualGroup Then
+		FillPropertyValues(FormGroup, Description, "Behavior,Representation");
+	EndIf;
+	//	If Description.HorizontalStretch<>Undefined Then
+	//		FormGroup.HorizontalStretch=Description.HorizontalStretch;
+	//	EndIf;
+	//	If Description.VerticalStretch<>Undefined Then
+	//		FormGroup.VerticalStretch=Description.VerticalStretch;
+	//	Endif;
+	Return FormGroup;
+EndFunction
+//Функция ЭтоКнопкаКоманднойПанели(Форма, Знач РодительКнопки)
+//
+// Original ИмяТаблицыПоляФормы
+//@skip-warning  
+Function FormFieldTableName(Form, Val ItemParent)
+//@skip-warning
+	If ItemParent = Undefined Then
+		Return "";
+	ElsIf TypeOf(ItemParent) = Type("FormTable") Then
+		Return ItemParent.Name;
+	ElsIf TypeOf(ItemParent) = UT_CommonClientServer.ManagedFormType() Then
+		Return "";
+	Else
+	//		РодительКнопки = ЭлементФормы(Форма, ItemParent);
+		Return FormFieldTableName(Form, ItemParent.Parent);
+	Endif;
+EndFunction
+
+// Original ЭлементФормы
+Function FormItem(Form, ID) Export
+	If TypeOf(ID) = Type("String") Then
+		Return Form.Items.Find(ID);
+	Else
+		Return ID;
+	Endif;
+EndFunction
+//Функция Реквизит(Форма, ИмяРеквизита, ПутьКРеквизиту = "") Экспорт
+ 
+#EndRegion
+
+#Region PostingSettings  
+  // Процедура ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи(Форма, ГруппаФормы) Экспорт
+#EndRegion
