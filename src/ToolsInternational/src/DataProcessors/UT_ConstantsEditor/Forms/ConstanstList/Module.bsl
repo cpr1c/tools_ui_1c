@@ -140,34 +140,33 @@ EndProcedure
 
 &AtServer
 Procedure WriteAtServer()
-	Issuccessfully = True;
+	IsSuccessfully = True;
 	For each ConstantRow In ConstantsTable Do
-		If Не ConstantRow.Изменено Then
+		If Не ConstantRow.IsChanged Then
 			Continue;
 		EndIf;
 		If ConstantRow.HasValueStorage Then
 			Continue;
 		EndIf;
 
-		МенеджерКонстанты = Константы[ConstantRow.ConstantName].СоздатьМенеджерЗначения();
-		МенеджерКонстанты.Прочитать();
-		МенеджерКонстанты.Значение = ThisObject[ConstantRow.ConstantName];
+		ConstantManager = Constants[ConstantRow.ConstantName].CreateValueManager();
+		ConstantManager.Read();
+		ConstantManager.Value = ThisObject[ConstantRow.ConstantName];
 
-		If UT_Common.ЗаписатьОбъектВБазу(МенеджерКонстанты,
+		If UT_Common.ЗаписатьОбъектВБазу(ConstantManager,
 			UT_CommonClientServer.ПараметрыЗаписиФормы(ThisObject)) Then
-			ConstantRow.Изменено = False;
+			ConstantRow.IsChanged = False;
 
-			// Установим цвет измененной ConstanstList на группу
-			ЭлементГруппа = Items["Группа_" + ConstantRow.ConstantName];
-			ЭлементГруппа.ЦветФона = New Цвет;
-		Иначе
-			Issuccessfully = False;
-
+			// Set color of changed Constant to it's Ui Group
+			ItemGroup = Items["Group_" + ConstantRow.ConstantName];
+			ItemGroup.BackColor = New Color;
+		Else
+			IsSuccessfully = False;
 		EndIf;
 
 	EndDo;
 
-	If Issuccessfully Then
+	If IsSuccessfully Then
 		ThisObject.Modified = False;
 	EndIf;
 EndProcedure
@@ -326,8 +325,8 @@ Procedure КонстантаПриИзменении(Элемент)
 	ConstantName = Элемент.Имя;
 
 	// Установим цвет измененной ConstanstList на группу
-	ЭлементГруппа = Items["Группа_" + ConstantName];
-	ЭлементГруппа.ЦветФона = WebЦвета.БледноБирюзовый;
+	ItemGroup = Items["Группа_" + ConstantName];
+	ItemGroup.ЦветФона = WebЦвета.БледноБирюзовый;
 
 	SearchStructure = New Structure;
 	SearchStructure.Вставить("ConstantName", ConstantName);
