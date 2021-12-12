@@ -72,7 +72,7 @@ Procedure PutConstantItemsКонстантOnForm()
 		CurrentConstantGroup.ThroughAlign=ThroughAlign.Use;
 		CurrentConstantGroup.HorizontalStretch	=True;
 				
-		// Constant Ui item decoration 
+		// Constant Ui item decoration settings
 		ItemDescription = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
 		ItemDescription.СоздаватьРеквизит = False;
 		ItemDescription.СоздаватьЭлемент = True;
