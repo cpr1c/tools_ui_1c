@@ -72,7 +72,7 @@ Procedure PutConstantItemsКонстантOnForm()
 		CurrentConstantGroup.ThroughAlign=ThroughAlign.Use;
 		CurrentConstantGroup.HorizontalStretch	=True;
 				
-		// Декорация заголовка ConstanstList
+		// Constant Ui item decoration 
 		ОписаниеЭлемента = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
 		ОписаниеЭлемента.СоздаватьРеквизит = False;
 		ОписаниеЭлемента.СоздаватьЭлемент = True;
@@ -325,7 +325,7 @@ Procedure КонстантаПриИзменении(Элемент)
 	ConstantName = Элемент.Имя;
 
 	// Установим цвет измененной ConstanstList на группу
-	ItemGroup = Items["Группа_" + ConstantName];
+	ItemGroup = Items["Group_" + ConstantName];
 	ItemGroup.ЦветФона = WebЦвета.БледноБирюзовый;
 
 	SearchStructure = New Structure;
