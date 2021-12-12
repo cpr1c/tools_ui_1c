@@ -87,7 +87,7 @@ Procedure PutConstantItemsКонстантOnForm()
 		UT_Forms.СоздатьЭлементПоОписанию(ThisObject, ItemDescription);
 		
 		
-		// поле редактирования ConstanstList
+		// Item for Editing Constant
 		ItemDescription = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
 		ItemDescription.СоздаватьРеквизит = False;
 		ItemDescription.СоздаватьЭлемент = True;
