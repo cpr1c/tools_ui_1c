@@ -73,45 +73,45 @@ Procedure PutConstantItemsКонстантOnForm()
 		CurrentConstantGroup.HorizontalStretch	=True;
 				
 		// Constant Ui item decoration 
-		ОписаниеЭлемента = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
-		ОписаниеЭлемента.СоздаватьРеквизит = False;
-		ОписаниеЭлемента.СоздаватьЭлемент = True;
-		ОписаниеЭлемента.Имя = "Title_" + CurrentConstant.ConstantName;
-		ОписаниеЭлемента.Заголовок=ConstantItemTitle(CurrentConstant.ConstantName, CurrentConstant.ConstantSynonym,
+		ItemDescription = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
+		ItemDescription.СоздаватьРеквизит = False;
+		ItemDescription.СоздаватьЭлемент = True;
+		ItemDescription.Имя = "Title_" + CurrentConstant.ConstantName;
+		ItemDescription.Заголовок=ConstantItemTitle(CurrentConstant.ConstantName, CurrentConstant.ConstantSynonym,
 			ShowSynonym);
-		ОписаниеЭлемента.РодительЭлемента = CurrentConstantGroup;
-		ОписаниеЭлемента.Параметры.Тип=Тип("ДекорацияФормы");
-		ОписаниеЭлемента.Параметры.Вставить("Вид", ВидДекорацииФормы.Надпись);
-		ОписаниеЭлемента.Параметры.Вставить("РастягиватьПоГоризонтали", True);
+		ItemDescription.РодительЭлемента = CurrentConstantGroup;
+		ItemDescription.Параметры.Тип=Тип("ДекорацияФормы");
+		ItemDescription.Параметры.Вставить("Вид", ВидДекорацииФормы.Надпись);
+		ItemDescription.Параметры.Вставить("РастягиватьПоГоризонтали", True);
 
-		UT_Forms.СоздатьЭлементПоОписанию(ThisObject, ОписаниеЭлемента);
+		UT_Forms.СоздатьЭлементПоОписанию(ThisObject, ItemDescription);
 		
 		
 		// поле редактирования ConstanstList
-		ОписаниеЭлемента = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
-		ОписаниеЭлемента.СоздаватьРеквизит = False;
-		ОписаниеЭлемента.СоздаватьЭлемент = True;
-		ОписаниеЭлемента.Имя = CurrentConstant.ConstantName;
-		ОписаниеЭлемента.ПутьКДанным = CurrentConstant.ConstantName;
-		ОписаниеЭлемента.Вставить("ПутьКРеквизиту", CurrentConstant.ConstantName);
-		ОписаниеЭлемента.РодительЭлемента = CurrentConstantGroup;
+		ItemDescription = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
+		ItemDescription.СоздаватьРеквизит = False;
+		ItemDescription.СоздаватьЭлемент = True;
+		ItemDescription.Имя = CurrentConstant.ConstantName;
+		ItemDescription.ПутьКДанным = CurrentConstant.ConstantName;
+		ItemDescription.Вставить("ПутьКРеквизиту", CurrentConstant.ConstantName);
+		ItemDescription.РодительЭлемента = CurrentConstantGroup;
 
 		If (CurrentConstant.TypeDescription.Типы().Количество() = 1 И CurrentConstant.TypeDescription.СодержитТип(Тип(
 			"Булево"))) Then
-			ОписаниеЭлемента.Параметры.Вставить("Вид", ВидПоляФормы.ПолеФлажка);
+			ItemDescription.Параметры.Вставить("Вид", ВидПоляФормы.ПолеФлажка);
 		EndIf;
 		If CurrentConstant.HasValueStorage Then
-			ОписаниеЭлемента.Параметры.Вставить("Вид", ВидПоляФормы.ПолеНадписи);
-			ОписаниеЭлемента.Параметры.Вставить("Гиперссылка", True);
-			ОписаниеЭлемента.Действия.Вставить("Нажатие", "КонстантаНажатие");
+			ItemDescription.Параметры.Вставить("Вид", ВидПоляФормы.ПолеНадписи);
+			ItemDescription.Параметры.Вставить("Гиперссылка", True);
+			ItemDescription.Действия.Вставить("Нажатие", "КонстантаНажатие");
 
 		EndIf;
-		ОписаниеЭлемента.Параметры.Вставить("ПоложениеЗаголовка", ПоложениеЗаголовкаЭлементаФормы.Нет);
-		ОписаниеЭлемента.Параметры.Вставить("РастягиватьПоГоризонтали", True);
+		ItemDescription.Параметры.Вставить("ПоложениеЗаголовка", ПоложениеЗаголовкаЭлементаФормы.Нет);
+		ItemDescription.Параметры.Вставить("РастягиватьПоГоризонтали", True);
 
-		ОписаниеЭлемента.Действия.Вставить("ПриИзменении", "КонстантаПриИзменении");
+		ItemDescription.Действия.Вставить("ПриИзменении", "КонстантаПриИзменении");
 
-		UT_Forms.СоздатьЭлементПоОписанию(ThisObject, ОписаниеЭлемента);
+		UT_Forms.СоздатьЭлементПоОписанию(ThisObject, ItemDescription);
 	EndDo;
 
 EndProcedure
