@@ -370,6 +370,30 @@
 
 #Region ItemsDescription 
 //Функция НовыйОписаниеРеквизитаЭлемента(
+Function ItemAttributeDescriptionNew() Export
+	AttributeStructure = New Structure;
+
+	AttributeStructure.Вставить("СоздаватьРеквизит", Истина);
+	AttributeStructure.Вставить("Имя", "");
+	AttributeStructure.Вставить("ОписаниеТипов", Новый ОписаниеТипов("Строка", , , , Новый КвалификаторыСтроки(10)));
+	AttributeStructure.Вставить("ПутьКДанным", "");
+	AttributeStructure.Вставить("Заголовок", "");
+
+	AttributeStructure.Вставить("СоздаватьЭлемент", Истина);
+	AttributeStructure.Вставить("РодительЭлемента", Неопределено);
+	AttributeStructure.Вставить("ПередЭлементом", Неопределено);
+	AttributeStructure.Вставить("МногострочныйРежим", Неопределено);
+	AttributeStructure.Вставить("РасширенноеРедактирование", Неопределено);
+	AttributeStructure.Вставить("РастягиватьПоГоризонтали", Неопределено);
+	AttributeStructure.Вставить("РастягиватьПоВертикали", Неопределено);
+
+	AttributeStructure.Вставить("Параметры", НовыйПараметрыРеквизита());
+
+	AttributeStructure.Вставить("Действия", Новый Структура);
+
+	Return AttributeStructure;
+
+EndFunction
 //Функция НовыйПараметрыРеквизита()
 //
 //

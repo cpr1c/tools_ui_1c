@@ -73,7 +73,7 @@ Procedure PutConstantItemsКонстантOnForm()
 		CurrentConstantGroup.HorizontalStretch	=True;
 				
 		// Constant Ui item decoration settings
-		ItemDescription = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
+		ItemDescription = UT_Forms.ItemAttributeDescriptionNew();
 		ItemDescription.СоздаватьРеквизит = False;
 		ItemDescription.СоздаватьЭлемент = True;
 		ItemDescription.Имя = "Title_" + CurrentConstant.ConstantName;
@@ -88,7 +88,7 @@ Procedure PutConstantItemsКонстантOnForm()
 		
 		
 		// Item for Editing Constant
-		ItemDescription = UT_Forms.НовыйОписаниеРеквизитаЭлемента();
+		ItemDescription = UT_Forms.ItemAttributeDescriptionNew();
 		ItemDescription.СоздаватьРеквизит = False;
 		ItemDescription.СоздаватьЭлемент = True;
 		ItemDescription.Имя = CurrentConstant.ConstantName;
