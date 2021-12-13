@@ -61,7 +61,7 @@ Procedure PutConstantItemsКонстантOnForm()
 
 	For each CurrentConstant In ConstantsTable Do
 		// Create form group for each Constant , for set up UI attributes
-		GroupDescription = UT_Forms.NewFormGroupDescription();
+		GroupDescription = UT_Forms.FormGroupNewDescription();
 		GroupDescription.Name = "Group_" + CurrentConstant.ConstantName;
 		GroupDescription.Title = CurrentConstant.ConstantSynonym;
 		GroupDescription.GroupType = ChildFormItemsGroup.Horizontal;
@@ -73,45 +73,45 @@ Procedure PutConstantItemsКонстантOnForm()
 		CurrentConstantGroup.HorizontalStretch	=True;
 				
 		// Constant Ui item decoration settings
-		ItemDescription = UT_Forms.ItemAttributeDescriptionNew();
-		ItemDescription.СоздаватьРеквизит = False;
-		ItemDescription.СоздаватьЭлемент = True;
-		ItemDescription.Имя = "Title_" + CurrentConstant.ConstantName;
-		ItemDescription.Заголовок=ConstantItemTitle(CurrentConstant.ConstantName, CurrentConstant.ConstantSynonym,
+		ItemDescription = UT_Forms.ItemAttributeNewDescription();
+		ItemDescription.CreateAttribute = False;
+		ItemDescription.CreateItem = True;
+		ItemDescription.Name = "Title_" + CurrentConstant.ConstantName;
+		ItemDescription.Title=ConstantItemTitle(CurrentConstant.ConstantName, CurrentConstant.ConstantSynonym,
 			ShowSynonym);
-		ItemDescription.РодительЭлемента = CurrentConstantGroup;
-		ItemDescription.Параметры.Тип=Тип("ДекорацияФормы");
-		ItemDescription.Параметры.Вставить("Вид", ВидДекорацииФормы.Надпись);
-		ItemDescription.Параметры.Вставить("РастягиватьПоГоризонтали", True);
+		ItemDescription.ItemParent = CurrentConstantGroup;
+		ItemDescription.Properties.Type =Type("FormDecoration");
+		ItemDescription.Properties.Insert("Type", FormDecorationType.Label);
+		ItemDescription.Properties.Insert("HorizontalStretch", True);
 
-		UT_Forms.СоздатьЭлементПоОписанию(ThisObject, ItemDescription);
+		UT_Forms.CreateItemByDescription(ThisObject, ItemDescription);
 		
 		
 		// Item for Editing Constant
-		ItemDescription = UT_Forms.ItemAttributeDescriptionNew();
-		ItemDescription.СоздаватьРеквизит = False;
-		ItemDescription.СоздаватьЭлемент = True;
-		ItemDescription.Имя = CurrentConstant.ConstantName;
-		ItemDescription.ПутьКДанным = CurrentConstant.ConstantName;
-		ItemDescription.Вставить("ПутьКРеквизиту", CurrentConstant.ConstantName);
-		ItemDescription.РодительЭлемента = CurrentConstantGroup;
+		ItemDescription = UT_Forms.ItemAttributeNewDescription();
+		ItemDescription.CreateAttribute = False;
+		ItemDescription.CreateItem = True;
+		ItemDescription.Name = CurrentConstant.ConstantName;
+		ItemDescription.DataPath = CurrentConstant.ConstantName;
+		ItemDescription.Insert("AttributePath", CurrentConstant.ConstantName);
+		ItemDescription.ItemParent = CurrentConstantGroup;
 
-		If (CurrentConstant.TypeDescription.Типы().Количество() = 1 И CurrentConstant.TypeDescription.СодержитТип(Тип(
-			"Булево"))) Then
-			ItemDescription.Параметры.Вставить("Вид", ВидПоляФормы.ПолеФлажка);
+		If (CurrentConstant.TypeDescription.Types().Count() = 1 И CurrentConstant.TypeDescription.ContainsType(Type(
+			"Boolean"))) Then
+			ItemDescription.Properties.Insert("Type", FormFieldType.CheckBoxField);
 		EndIf;
 		If CurrentConstant.HasValueStorage Then
-			ItemDescription.Параметры.Вставить("Вид", ВидПоляФормы.ПолеНадписи);
-			ItemDescription.Параметры.Вставить("Гиперссылка", True);
-			ItemDescription.Действия.Вставить("Нажатие", "КонстантаНажатие");
+			ItemDescription.Properties.Insert("Type", FormFieldType.LabelField);
+			ItemDescription.Properties.Insert("Hyperlink", True);
+			ItemDescription.Actions.Insert("Click", "ConstantClick");
 
 		EndIf;
-		ItemDescription.Параметры.Вставить("ПоложениеЗаголовка", ПоложениеЗаголовкаЭлементаФормы.Нет);
-		ItemDescription.Параметры.Вставить("РастягиватьПоГоризонтали", True);
+		ItemDescription.Properties.Insert("TitleLocation", FormItemTitleLocation.None);
+		ItemDescription.Properties.Insert("HorizontalStretch", True);
 
-		ItemDescription.Действия.Вставить("ПриИзменении", "КонстантаПриИзменении");
+		ItemDescription.Actions.Insert("OnChange", "ConstantOnChange");
 
-		UT_Forms.СоздатьЭлементПоОписанию(ThisObject, ItemDescription);
+		UT_Forms.CreateItemByDescription(ThisObject, ItemDescription);
 	EndDo;
 
 EndProcedure
@@ -124,7 +124,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	PutConstantItemsКонстантOnForm();
 	SetConstantValuesToFormAttribute();
 
-	UT_Forms.ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи(ThisObject,
+	UT_Forms.CreateWriteParametersAttributesFormOnCreateAtServer(ThisObject,
 		Items.GroupWriteParametrs);
 	UT_Common.ToolFormOnCreateAtServer(ThisObject,Cancel,StandardProcessing);
 
@@ -153,7 +153,7 @@ Procedure WriteAtServer()
 		ConstantManager.Read();
 		ConstantManager.Value = ThisObject[ConstantRow.ConstantName];
 
-		If UT_Common.ЗаписатьОбъектВБазу(ConstantManager,
+		If UT_Common.WriteObjectToDB(ConstantManager,
 			UT_CommonClientServer.ПараметрыЗаписиФормы(ThisObject)) Then
 			ConstantRow.IsChanged = False;
 
@@ -298,20 +298,20 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure КонстантаНажатие(Элемент, StandardProcessing)
+Procedure ConstantClick(Item, StandardProcessing)
 	StandardProcessing=False;
 
-	ConstantName = Элемент.Имя;
+	ConstantName = Item.Имя;
 
 	SearchStructure = New Structure;
-	SearchStructure.Вставить("ConstantName", ConstantName);
+	SearchStructure.Insert("ConstantName", ConstantName);
 
-	НайденныеСтроки = ConstantsTable.НайтиСтроки(SearchStructure);
-	If НайденныеСтроки.Количество() = 0 Then
-		Возврат;
+	FindedRows = ConstantsTable.FindRows(SearchStructure);
+	If FindedRows.Count() = 0 Then
+		Return;
 	EndIf;
 
-	UT_CommonClient.РедактироватьХранилищеЗначения(ThisObject, НайденныеСтроки[0].ЗначениеКонстанты);
+	UT_CommonClient.РедактироватьХранилищеЗначения(ThisObject, FindedRows[0].ConstantValue);
 EndProcedure
 
 &AtClient
@@ -321,18 +321,18 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure КонстантаПриИзменении(Элемент)
-	ConstantName = Элемент.Имя;
+Procedure ConstantOnChange(Item)
+	ConstantName = Item.Имя;
 
 	// Установим цвет измененной ConstanstList на группу
 	ItemGroup = Items["Group_" + ConstantName];
-	ItemGroup.ЦветФона = WebЦвета.БледноБирюзовый;
+	ItemGroup.BackColor = WebColors.PaleTurquoise;
 
 	SearchStructure = New Structure;
-	SearchStructure.Вставить("ConstantName", ConstantName);
+	SearchStructure.Insert("ConstantName", ConstantName);
 
-	НайденныеСтроки = ConstantsTable.НайтиСтроки(SearchStructure);
-	For each Константа In НайденныеСтроки Do
-		Константа.Изменено = True;
+	FindedRows = ConstantsTable.FindRows(SearchStructure);
+	For each Constant In FindedRows Do
+		Constant.IsChanged = True;
 	EndDo;
 EndProcedure

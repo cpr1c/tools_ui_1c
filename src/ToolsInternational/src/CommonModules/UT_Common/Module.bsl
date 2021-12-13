@@ -4872,4 +4872,16 @@ EndProcedure
 	Возврат Результат;
 КонецФункции
 #КонецОбласти
+#Region EnglishCode
+    #Region ProgramInterface
+	Функция WriteObjectToDB(Object, WriterSettings, Val Action = "Write", Val WiteMode = Undefined,
+	ReplaceRefs = False) Экспорт
 
+    ЗаменаСсылок = 	ReplaceRefs;
+ 
+	Result = ЗаписатьОбъектВБазу(Object, WriterSettings, , ,ЗаменаСсылок = Ложь);
+
+	Возврат Result;
+КонецФункции
+		#EndRegion
+#EndRegion
