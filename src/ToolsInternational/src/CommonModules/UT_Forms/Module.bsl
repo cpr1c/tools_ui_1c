@@ -496,7 +496,7 @@ Function CreateItemByDescription(Form, ItemDescription) Export
 	If Type(FormItem) = Type("FormField") Then
 		FormItem.Type = ItemDescription.Properties.Default_Type;
 		Try
-			If TypeOf(Реквизит(Form, ItemDescription.Name, ItemDescription.AttributePath)) = Type("Boolean") Then
+			If TypeOf(Attribute(Form, ItemDescription.Name, ItemDescription.AttributePath)) = Type("Boolean") Then
 				FormItem.Type = FormFieldType.CheckBoxField;
 			EndIf;
 		Except
@@ -593,7 +593,7 @@ Function IsCommandBarButton(Form, Val ButtonParent)
 		Return Ложь;
 	ElsIf ButtonParent = Form.CommandBar then
 		Return True;
-	ElsIf TypeOf(ButtonParent) = UT_CommonClientServer.ТипУправляемойФормы() then
+	ElsIf TypeOf(ButtonParent) = UT_CommonClientServer.ManagedFormType() then
 		Return False;
 	Else
 		ButtonParent = FormItem(Form, ButtonParent);
@@ -611,7 +611,7 @@ Function FormFieldTableName(Form, Val ItemParent)
 	ElsIf TypeOf(ItemParent) = UT_CommonClientServer.ManagedFormType() Then
 		Return "";
 	Else
-	//		РодительКнопки = ЭлементФормы(Форма, ItemParent);
+	//		ButtonParent = FormItem(Form, ItemParent);
 		Return FormFieldTableName(Form, ItemParent.Parent);
 	Endif;
 EndFunction
@@ -650,7 +650,87 @@ EndFunction
 
 #Region PostingSettings  
   // Процедура ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи(Форма, ГруппаФормы) Экспорт
-  	Procedure CreateWriteParametersAttributesFormOnCreateAtServer(Form, FormGroup) Export
+  Procedure CreateWriteParametersAttributesFormOnCreateAtServer(Form, FormGroup) Export
   		 ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи(Form, FormGroup) 
-  	EndProcedure	
+  EndProcedure	
+  
+  Procedure CreateWriteParametersAttributesFormOnCreateAtServer_InTest(Form, FormGroup) Export
+	WriteSettings=New Structure;
+	WriteSettings.Insert("БезАвторегистрацииИзменений", New Structure("Значение,Заголовок", Ложь,
+		"Без авторегистрации изменений"));
+	WriteSettings.Insert("ЗаписьВРежимеЗагрузки", New Structure("Значение,Заголовок", Ложь,
+		"Запись в режиме загрузки(Без проверок)"));
+	WriteSettings.Insert("ПривелигированныйРежим", New Structure("Значение,Заголовок", Ложь,
+		"Привелигированный режим"));
+	WriteSettings.Insert("ИспользоватьДопСвойства", New Structure("Значение,Заголовок", Ложь,
+		"Использовать доп. свойства"));
+	WriteSettings.Insert("ДополнительныеСвойства", New Structure("Значение,Заголовок", New Structure,
+		"Дополнительные свойства"));
+	WriteSettings.Insert("ИспользоватьПроцедуруПередЗаписью", New Structure("Значение,Заголовок", Ложь,
+		"Без авторегистрации изменений"));
+	WriteSettings.Insert("ПроцедураПередЗаписью", New Structure("Значение,Заголовок", "",
+		"Без авторегистрации изменений"));
+
+	ParameterPrefix="ПараметрЗаписи_";
+
+	AddedAtributesArray=New Array;
+
+	For Each KeyValue In WriteSettings Do
+		AttributeType=ТипЗнч(KeyValue.Value.Value);
+
+		If AttributeType = Type ("Structure") Then
+			AttributeType= Type ("ValueTable");
+//			Продолжить;
+		EndIf;
+
+		TypesArray=New Array;
+		TypesArray.Add(AttributeType);
+		NewAttribute=New FormAttribute(ParameterPrefix + KeyValue.Key, New TypeDescription(TypesArray), "",
+			KeyValue.Value.Title, False);
+		AddedAtributesArray.Add(NewAttribute);
+	EndDo;
+
+	Form.ChangeAttributes(AddedAtributesArray);
+
+	AddedAtributesArray.Clear();
+	AddedAtributesArray.Add(New FormAttribute("Ключ", New TypeDescription("Строка"), ParameterPrefix
+		+ "ДополнительныеСвойства", "Ключ", False));
+
+	ValueTypesArray=New Массив;
+	ValueTypesArray.Add("Булево");
+	ValueTypesArray.Add("Строка");
+	ValueTypesArray.Add("Число");
+	ValueTypesArray.Add("Дата");
+	ValueTypesArray.Add("УникальныйИдентификатор");
+	ValueTypesArray.Add("ЛюбаяСсылка");
+	AddedAtributesArray.Add(New FormAttribute("Значение", New TypeDescription(ValueTypesArray),
+		ParameterPrefix + "ДополнительныеСвойства", "Значение", False));
+	Form.ChangeAttributes(AddedAtributesArray);
+
+	CreatingAttributesArray=UT_CommonClientServer.ПараметрыЗаписиДляВыводаНаФормуИнструмента();
+
+	Для Каждого CreatingAttributeName Из CreatingAttributesArray Цикл
+		ItemDescription=ItemAttributeNewDescription();
+		ItemDescription.CreateItem = Истина;
+		ItemDescription.Name=ParameterPrefix + CreatingAttributeName;
+		ItemDescription.ItemParent = FormGroup;
+		ItemDescription.Parameters.Insert("FormItemType", ВидПоляФормы.ПолеФлажка);
+
+		UT_Forms.CreateItemByDescription(Form, ItemDescription);
+	КонецЦикла;
+	
+	//Добавляем кнопку редактирования настроек
+	ButtonDescription=ButtonCommandNewDescription();
+	ButtonDescription.Имя=ParameterPrefix + "РедактироватьПараметрыЗаписи";
+	ButtonDescription.ИмяКоманды=ButtonDescription.Имя;
+	ButtonDescription.РодительЭлемента=FormGroup;
+	ButtonDescription.Title="Другие параметры записи";
+	ButtonDescription.Картинка=БиблиотекаКартинок.ПараметрыВыводаКомпоновкиДанных;
+	ButtonDescription.IsHyperLink=Истина;
+	ButtonDescription.Action="Attachable_SetWriteSettings";
+
+	UT_Forms.CreateCommandByDescription(FormGroup, ButtonDescription);
+	UT_Forms.CreateButtonByDescription(FormGroup, ButtonDescription);
+EndProcedure
+  
 #EndRegion
