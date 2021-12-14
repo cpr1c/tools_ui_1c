@@ -1,6 +1,6 @@
 #Область ОписанияЭлементов
 
-Функция НовыйItemDescriptionЭлемента() Экспорт
+Функция НовыйОписаниеРеквизитаЭлемента() Экспорт
 	СтруктураРеквизита = Новый Структура;
 
 	СтруктураРеквизита.Вставить("СоздаватьРеквизит", Истина);
@@ -341,7 +341,7 @@
 	МассивДляСозданияЭлементов=UT_CommonClientServer.ПараметрыЗаписиДляВыводаНаФормуИнструмента();
 
 	Для Каждого ИмяСоздаваемогоЭлемента Из МассивДляСозданияЭлементов Цикл
-		ОписаниеЭлемента=НовыйItemDescriptionЭлемента();
+		ОписаниеЭлемента=НовыйОписаниеРеквизитаЭлемента();
 		ОписаниеЭлемента.СоздаватьЭлемент = Истина;
 		ОписаниеЭлемента.Имя=ПрефиксПараметра + ИмяСоздаваемогоЭлемента;
 		ОписаниеЭлемента.РодительЭлемента = ГруппаФормы;
@@ -369,7 +369,7 @@
 // English Code Area 
 
 #Region ItemsDescription 
-//Функция НовыйItemDescriptionЭлемента(
+//Функция НовыйОписаниеРеквизитаЭлемента(
 Function ItemAttributeNewDescription() Export
 	AttributeStructure = New Structure;
 
@@ -399,7 +399,7 @@ Function AttributePropertiesNew()
 
 	AttributeProperties = New Structure;
 
-	AttributeProperties.Insert("ItemType", Тип("FormField"));
+	AttributeProperties.Insert("FormItemType", Тип("FormField"));
 	AttributeProperties.Insert("Default_Type", FormFieldType.InputField);
 
 	Return AttributeProperties;
@@ -483,11 +483,11 @@ Function CreateItemByDescription(Form, ItemDescription) Export
 	EndIf;
 
 	If ItemDescription.BeforeItem = Undefined Then
-		FormItem = Form.Items.Add (FormFieldTableName(Form, ItemDescription.ItemParent)	+ ItemDescription.Name, ItemDescription.Properties.ItemType, FormItem(Form,
+		FormItem = Form.Items.Add (FormFieldTableName(Form, ItemDescription.ItemParent)	+ ItemDescription.Name, ItemDescription.Properties.FormItemType, FormItem(Form,
 			ItemDescription.ItemParent));
 	Else
 		FormItem = Form.Items.Insert(FormFieldTableName(Form, ItemDescription.ItemParent)
-			+ ItemDescription.Name, ItemDescription.Properties.ItemType, FormItem(Form,
+			+ ItemDescription.Name, ItemDescription.Properties.FormItemType, FormItem(Form,
 			ItemDescription.ItemParent), FormItem(Form, ItemDescription.BeforeItem));
 	EndIf;
 
@@ -500,7 +500,7 @@ Function CreateItemByDescription(Form, ItemDescription) Export
 				FormItem.Type = FormFieldType.CheckBoxField;
 			EndIf;
 		Except
-		//			ОписаниеОшибки = ОписаниеОшибки();
+		//			ErrorDescription = ErrorDescription();
 		EndTry;
 	EndIf;
 
@@ -533,8 +533,32 @@ Function CreateItemByDescription(Form, ItemDescription) Export
 	EndDo;
 	Return FormItem;
 EndFunction
-//TODO Функция СоздатьКнопкуПоОписанию(Форма, ОписаниеКнопки) Экспорт
-//
+//Original Функция СоздатьКнопкуПоОписанию(Форма, ОписаниеКнопки) Экспорт
+Function CreateButtonByDescription(Form, ButtonDescription) Export
+	If Not ButtonDescription.CreateButton Then
+		Return Undefined;
+	EndIf;
+
+	Button = Form.Items.Insert(ButtonDescription.Name, Type("FormButton"), FormItem(Form,
+		ButtonDescription.ItemParent), FormItem(Form, ButtonDescription.BeforeItem));
+	IF Not ButtonDescription.CreateCommand Then
+		Button.Title = ButtonDescription.Title;
+	EndIf;
+	If ButtonDescription.IsHyperlink = False Then
+		If IsCommandBarButton(Form, ButtonDescription.ItemParent) Then
+			Button.Type = FormButtonType.UsualButton;
+		Else
+			Button.Type = FormButtonType.CommandBarButton;
+		EndIf;
+	Else
+		If IsCommandBarButton(Form, ButtonDescription.ItemParent) Then
+			Button.Type = FormButtonType.Hyperlink;
+		Else
+			Button.Type = FormButtonType.CommandBarHyperlink;
+		EndIf;
+	EndIf;
+	Button.CommandName = ButtonDescription.CommandName;
+EndFunction
 // Original СоздатьГруппуПоОписанию
 Function CreateGroupByDescription(Form, Description) Export
 
@@ -563,7 +587,19 @@ Function CreateGroupByDescription(Form, Description) Export
 	Return FormGroup;
 EndFunction
 //TODO Функция ЭтоКнопкаКоманднойПанели(Форма, Знач РодительКнопки)
-//
+Function IsCommandBarButton(Form, Val ButtonParent)
+//@skip-warning
+	if ButtonParent = Undefined then
+		Return Ложь;
+	ElsIf ButtonParent = Form.CommandBar then
+		Return True;
+	ElsIf TypeOf(ButtonParent) = UT_CommonClientServer.ТипУправляемойФормы() then
+		Return False;
+	Else
+		ButtonParent = FormItem(Form, ButtonParent);
+		Return IsCommandBarButton(Form, ButtonParent.Parent);
+	EndIf;
+EndFunction
 // Original ИмяТаблицыПоляФормы
 //@skip-warning  
 Function FormFieldTableName(Form, Val ItemParent)
@@ -589,7 +625,27 @@ Function FormItem(Form, ID) Export
 	Endif;
 EndFunction
 //Функция Реквизит(Форма, ИмяРеквизита, ПутьКРеквизиту = "") Экспорт
- 
+ Function Attribute(Form, AttributeName, AttributeDataPath = "") Export
+	If AttributeDataPath <> "" Then
+		Separator = StrFind(AttributeDataPath, ".");
+		If Separator = 0 Then
+			StepName = AttributeDataPath;
+			DataPathRest= "";
+		Else
+			StepName = Left(AttributeDataPath, Separator - 1);
+			DataPathRest = Mid(AttributeDataPath, Separator + 1);
+		EndIf;
+		Return Attribute(Form[StepName], AttributeName, DataPathRest);
+	Else
+		NonExistValue = Undefined;
+		Structure = New Structure(AttributeName, NonExistValue);
+		FillPropertyValues(Structure, Form);
+		If Structure[AttributeName] = NonExistValue Then
+			Return NonExistValue;
+		EndIf;
+		Return Form[AttributeName];
+	EndIf;
+EndFunction
 #EndRegion
 
 #Region PostingSettings  

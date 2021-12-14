@@ -80,12 +80,11 @@ Procedure PutConstantItemsКонстантOnForm()
 		ItemDescription.Title=ConstantItemTitle(CurrentConstant.ConstantName, CurrentConstant.ConstantSynonym,
 			ShowSynonym);
 		ItemDescription.ItemParent = CurrentConstantGroup;
-		ItemDescription.Properties.ItemType =Тип("ДекорацияФормы");
+		ItemDescription.Properties.FormItemType =Тип("ДекорацияФормы");
 		ItemDescription.Properties.Insert("Type", FormDecorationType.Label);
 		ItemDescription.Properties.Insert("HorizontalStretch", True);
 
 		UT_Forms.CreateItemByDescription(ThisObject, ItemDescription);
-		
 		
 		// Item for Editing Constant
 		ItemDescription = UT_Forms.ItemAttributeNewDescription();
@@ -292,7 +291,7 @@ EndProcedure
 
 //@skip-warning 
 &AtClient
-Procedure Подключаемый_НастроитьПараметрыЗаписи(Command)
+Procedure Attachable_SetWriteSettings(Command)
 	UT_CommonClient.РедактироватьПараметрыЗаписи(ThisObject);
 EndProcedure
 
@@ -324,7 +323,7 @@ EndProcedure
 Procedure ConstantOnChange(Item)
 	ConstantName = Item.Имя;
 
-	// Установим цвет измененной ConstanstList на группу
+	// Set color of changed Constant at Form
 	ItemGroup = Items["Group_" + ConstantName];
 	ItemGroup.BackColor = WebColors.PaleTurquoise;
 
