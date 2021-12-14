@@ -80,7 +80,7 @@ Procedure PutConstantItemsКонстантOnForm()
 		ItemDescription.Title=ConstantItemTitle(CurrentConstant.ConstantName, CurrentConstant.ConstantSynonym,
 			ShowSynonym);
 		ItemDescription.ItemParent = CurrentConstantGroup;
-		ItemDescription.Properties.Type =Type("FormDecoration");
+		ItemDescription.Properties.ItemType =Тип("ДекорацияФормы");
 		ItemDescription.Properties.Insert("Type", FormDecorationType.Label);
 		ItemDescription.Properties.Insert("HorizontalStretch", True);
 

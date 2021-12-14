@@ -399,7 +399,7 @@ Function AttributePropertiesNew()
 
 	AttributeProperties = New Structure;
 
-	AttributeProperties.Insert("Type", Тип("FormField"));
+	AttributeProperties.Insert("ItemType", Тип("FormField"));
 	AttributeProperties.Insert("Default_Type", FormFieldType.InputField);
 
 	Return AttributeProperties;
@@ -483,11 +483,11 @@ Function CreateItemByDescription(Form, ItemDescription) Export
 	EndIf;
 
 	If ItemDescription.BeforeItem = Undefined Then
-		FormItem = Form.Items.Add (FormFieldTableName(Form, ItemDescription.ItemParent)	+ ItemDescription.Name, ItemDescription.Properties.Type, FormItem(Form,
+		FormItem = Form.Items.Add (FormFieldTableName(Form, ItemDescription.ItemParent)	+ ItemDescription.Name, ItemDescription.Properties.ItemType, FormItem(Form,
 			ItemDescription.ItemParent));
 	Else
 		FormItem = Form.Items.Insert(FormFieldTableName(Form, ItemDescription.ItemParent)
-			+ ItemDescription.Name, ItemDescription.Properties.Type, FormItem(Form,
+			+ ItemDescription.Name, ItemDescription.Properties.ItemType, FormItem(Form,
 			ItemDescription.ItemParent), FormItem(Form, ItemDescription.BeforeItem));
 	EndIf;
 
