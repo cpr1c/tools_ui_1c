@@ -11,7 +11,11 @@
   <objectBelonging>Adopted</objectBelonging>
   <extension xsi:type="mdclassExtension:CatalogExtension"/>
   <commands uuid="9a26f94f-7aa0-4877-8fc3-143e210ab55f">
-    <name>УИ_НастройкиОтладки</name>
+    <name>UT_DebugSettings</name>
+    <synonym>
+      <key>en</key>
+      <value>Debug settings</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Настройки отладки</value>
