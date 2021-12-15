@@ -532,7 +532,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РедакторHTML</name>
+		<name>DataProcessor.UT_HTMLEditor</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -575,7 +575,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_КонсольКода</name>
+		<name>DataProcessor.UT_CodeConsole</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

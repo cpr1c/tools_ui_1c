@@ -2619,7 +2619,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_РедакторHTML</types>
+      <types>DataProcessorObject.UT_HTMLEditor</types>
     </valueType>
     <view>
       <common>true</common>

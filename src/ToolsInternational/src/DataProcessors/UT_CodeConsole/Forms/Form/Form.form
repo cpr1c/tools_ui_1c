@@ -337,7 +337,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ПеременныеКлиент</segments>
+            <segments>ClientVariables</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
@@ -350,7 +350,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПеременныеКлиент.Имя</segments>
+                <segments>ClientVariables.Имя</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -402,7 +402,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПеременныеКлиент.Значение</segments>
+                <segments>ClientVariables.Value</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -875,7 +875,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ПеременныеСервер</segments>
+            <segments>ServerVariables</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
@@ -888,7 +888,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПеременныеСервер.Имя</segments>
+                <segments>ServerVariables.Имя</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -940,7 +940,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПеременныеСервер.Значение</segments>
+                <segments>ServerVariables.Значение</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -1460,10 +1460,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_КонсольКода</types>
+      <types>DataProcessorObject.UT_CodeConsole</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1510,7 +1514,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПеременныеКлиент</name>
+    <name>ClientVariables</name>
+    <title>
+      <key>en</key>
+      <value>&amp;AtClient Variables</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Переменные &amp;НаКлиенте</value>
@@ -1529,6 +1537,10 @@
     <columns>
       <name>Имя</name>
       <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Имя</value>
       </title>
@@ -1545,7 +1557,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
+      <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Значение</value>
@@ -1561,7 +1577,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ПеременныеСервер</name>
+    <name>ServerVariables</name>
+    <title>
+      <key>en</key>
+      <value>$$AtServer</value>
+    </title>
     <title>
       <key>ru</key>
       <value>&amp;&amp;НаСервере</value>
@@ -1648,10 +1668,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФайлаАлгоритма</name>
+    <name>AlgorithmFileName</name>
     <title>
       <key>ru</key>
       <value>Имя файла алгоритма</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Algorithm file name</value>
     </title>
     <id>11</id>
     <valueType>
@@ -1665,14 +1689,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ИмяФайлаАлгоритма</segments>
+      <segments>AlgorithmFileName</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>АдресБиблиотеки</name>
+    <name>LibraryAdress</name>
     <title>
       <key>ru</key>
       <value>Адрес библиотеки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Library adress</value>
     </title>
     <id>12</id>
     <valueType>

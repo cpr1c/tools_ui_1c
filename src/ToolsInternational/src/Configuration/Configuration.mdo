@@ -149,7 +149,7 @@
   <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
+  <dataProcessors>DataProcessor.UT_CodeConsole</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
@@ -158,7 +158,7 @@
   <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
+  <dataProcessors>DataProcessor.UT_HTMLEditor</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
