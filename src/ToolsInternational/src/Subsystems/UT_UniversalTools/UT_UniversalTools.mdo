@@ -45,7 +45,7 @@
   <content>CommonPicture.UT_Debug</content>
   <content>CommonTemplate.UT_StringSearchComponent</content>
   <content>CommonForm.УИ_ДлительнаяОперация</content>
-  <content>CommonForm.УИ_ФормаТаблицыЗначений</content>
+  <content>CommonForm.UT_ValueTableForm</content>
   <content>CommonForm.УИ_ФормаСпецЗначения</content>
   <content>CommonForm.УИ_ФормаРедактированияТекста</content>
   <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
@@ -83,7 +83,7 @@
   <content>CommonModule.UT_RegexpsClientServer</content>
   <content>CommonModule.UT_CodeEditorServer</content>
   <content>CommonModule.UT_CodeEditorClient</content>
-  <content>CommonForm.УИ_ПараметрыЗаписи</content>
+  <content>CommonForm.UT_WriteSettings</content>
   <content>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</content>
   <content>CommonTemplate.UT_RegularExpressionsComponentRegEx</content>
   <content>CommonTemplate.UT_Ace</content>

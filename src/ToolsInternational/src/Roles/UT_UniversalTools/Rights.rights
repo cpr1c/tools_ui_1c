@@ -98,7 +98,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ПараметрыЗаписи</name>
+		<name>CommonForm.UT_WriteSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -417,7 +417,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_РедакторТаблицыЗначений</name>
+		<name>CommonForm.UT_ValueTableEditor</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -554,7 +554,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ФормаТаблицыЗначений</name>
+		<name>CommonForm.UT_ValueTableForm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
