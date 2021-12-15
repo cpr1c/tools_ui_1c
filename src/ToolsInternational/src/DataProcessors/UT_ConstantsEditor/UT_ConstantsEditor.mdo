@@ -14,7 +14,7 @@
     <value>Редактор констант [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_ConstantsEditor.Form.Константы</defaultForm>
+  <defaultForm>DataProcessor.UT_ConstantsEditor.Form.ConstanstList</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Редактор констант</value>
@@ -24,7 +24,11 @@
     <value>позволяет редактировать значения констант в режиме таблицы</value>
   </explanation>
   <forms uuid="487d5719-f93b-49ff-a911-6c6d0b6676f5">
-    <name>Константы</name>
+    <name>ConstanstList</name>
+    <synonym>
+      <key>en</key>
+      <value>Constants List</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Константы</value>

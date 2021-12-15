@@ -15,6 +15,7 @@
     <sessionModule>Extended</sessionModule>
     <externalConnectionModule>Extended</externalConnectionModule>
     <defaultLanguage>Checked</defaultLanguage>
+    <compatibilityMode>Checked</compatibilityMode>
   </extension>
   <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="44154cfc-e04b-4c2e-94cc-83152eb460a6"/>
   <containedObjects classId="9fcd25a0-4822-11d4-9414-008048da11f9" objectId="2f9f9e83-25fb-4d7b-950d-22247dc67b19"/>
@@ -28,9 +29,7 @@
   <vendor>Neti LLC </vendor>
   <version>1.4.11</version>
   <defaultLanguage>Language.English</defaultLanguage>
-  <dataLockControlMode>Managed</dataLockControlMode>
-  <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
-  <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
+  <compatibilityMode>8.3.12</compatibilityMode>
   <languages uuid="66bef324-e854-4c33-879a-3c081f6686cd">
     <name>Russian</name>
     <objectBelonging>Adopted</objectBelonging>
@@ -137,35 +136,35 @@
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
-  <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.UT_ConstantsEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
-  <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_JobsConsole</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
+  <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
 </mdclass:Configuration>

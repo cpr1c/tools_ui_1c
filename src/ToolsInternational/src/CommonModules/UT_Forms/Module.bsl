@@ -73,6 +73,7 @@
 
 КонецФункции
 
+
 #КонецОбласти
 
 #Область ПрограммноеСозданиеЭлементов
@@ -102,33 +103,33 @@
 	Возврат Команда;
 КонецФункции
 
-Функция СоздатьЭлементПоОписанию(Форма, ОписаниеРеквизита) Экспорт
-	Если Не ОписаниеРеквизита.СоздаватьЭлемент Тогда
+Функция СоздатьЭлементПоОписанию(Форма, ItemDescription) Экспорт
+	Если Не ItemDescription.СоздаватьЭлемент Тогда
 		Возврат Неопределено;
 	КонецЕсли;
 
-	ИмяЭлементаФормы = ИмяТаблицыПоляФормы(Форма, ОписаниеРеквизита.РодительЭлемента) + ОписаниеРеквизита.Имя;
+	ИмяЭлементаФормы = ИмяТаблицыПоляФормы(Форма, ItemDescription.РодительЭлемента) + ItemDescription.Имя;
 	ЭлементФормы = Форма.Элементы.Найти(ИмяЭлементаФормы);
 	Если ЭлементФормы <> Неопределено Тогда
 		Возврат ЭлементФормы;
 	КонецЕсли;
 
-	Если ОписаниеРеквизита.ПередЭлементом = Неопределено Тогда
-		ЭлементФормы = Форма.Элементы.Добавить(ИмяТаблицыПоляФормы(Форма, ОписаниеРеквизита.РодительЭлемента)
-			+ ОписаниеРеквизита.Имя, ОписаниеРеквизита.Параметры.Тип, ЭлементФормы(Форма,
-			ОписаниеРеквизита.РодительЭлемента));
+	Если ItemDescription.ПередЭлементом = Неопределено Тогда
+		ЭлементФормы = Форма.Элементы.Добавить(ИмяТаблицыПоляФормы(Форма, ItemDescription.РодительЭлемента)
+			+ ItemDescription.Имя, ItemDescription.Параметры.Тип, ЭлементФормы(Форма,
+			ItemDescription.РодительЭлемента));
 	Иначе
-		ЭлементФормы = Форма.Элементы.Вставить(ИмяТаблицыПоляФормы(Форма, ОписаниеРеквизита.РодительЭлемента)
-			+ ОписаниеРеквизита.Имя, ОписаниеРеквизита.Параметры.Тип, ЭлементФормы(Форма,
-			ОписаниеРеквизита.РодительЭлемента), ЭлементФормы(Форма, ОписаниеРеквизита.ПередЭлементом));
+		ЭлементФормы = Форма.Элементы.Вставить(ИмяТаблицыПоляФормы(Форма, ItemDescription.РодительЭлемента)
+			+ ItemDescription.Имя, ItemDescription.Параметры.Тип, ЭлементФормы(Форма,
+			ItemDescription.РодительЭлемента), ЭлементФормы(Форма, ItemDescription.ПередЭлементом));
 	КонецЕсли;
 
-	ЭлементФормы.Заголовок = ОписаниеРеквизита.Заголовок;
+	ЭлементФормы.Заголовок = ItemDescription.Заголовок;
 
 	Если Тип(ЭлементФормы) = Тип("ПолеФормы") Тогда
-		ЭлементФормы.Вид = ОписаниеРеквизита.Параметры.Вид_ПоУмолчанию;
+		ЭлементФормы.Вид = ItemDescription.Параметры.Вид_ПоУмолчанию;
 		Попытка
-			Если ТипЗнч(Реквизит(Форма, ОписаниеРеквизита.Имя, ОписаниеРеквизита.ПутьКРеквизиту)) = Тип("Булево") Тогда
+			Если ТипЗнч(Реквизит(Форма, ItemDescription.Имя, ItemDescription.ПутьКРеквизиту)) = Тип("Булево") Тогда
 				ЭлементФормы.Вид = ВидПоляФормы.ПолеФлажка;
 			КонецЕсли;
 		Исключение
@@ -136,31 +137,31 @@
 		КонецПопытки;
 	КонецЕсли;
 
-	ЗаполнитьЗначенияСвойств(ЭлементФормы, ОписаниеРеквизита.Параметры);
+	ЗаполнитьЗначенияСвойств(ЭлементФормы, ItemDescription.Параметры);
 
 	Если Тип(ЭлементФормы) = Тип("ПолеФормы") Тогда
-		Если ЗначениеЗаполнено(ОписаниеРеквизита.ПутьКДанным) Тогда
-			ЭлементФормы.ПутьКДанным = ОписаниеРеквизита.ПутьКДанным;
+		Если ЗначениеЗаполнено(ItemDescription.ПутьКДанным) Тогда
+			ЭлементФормы.ПутьКДанным = ItemDescription.ПутьКДанным;
 		Иначе
-			ЭлементФормы.ПутьКДанным = ОписаниеРеквизита.Имя;
+			ЭлементФормы.ПутьКДанным = ItemDescription.Имя;
 		КонецЕсли;
 
-		Если ОписаниеРеквизита.МногострочныйРежим <> Неопределено Тогда
-			ЭлементФормы.МногострочныйРежим = ОписаниеРеквизита.МногострочныйРежим;
+		Если ItemDescription.МногострочныйРежим <> Неопределено Тогда
+			ЭлементФормы.МногострочныйРежим = ItemDescription.МногострочныйРежим;
 		КонецЕсли;
-		Если ОписаниеРеквизита.РасширенноеРедактирование <> Неопределено Тогда
-			ЭлементФормы.РасширенноеРедактирование = ОписаниеРеквизита.РасширенноеРедактирование;
+		Если ItemDescription.РасширенноеРедактирование <> Неопределено Тогда
+			ЭлементФормы.РасширенноеРедактирование = ItemDescription.РасширенноеРедактирование;
 		КонецЕсли;
 
 	КонецЕсли;
-	Если ОписаниеРеквизита.РастягиватьПоГоризонтали <> Неопределено Тогда
-		ЭлементФормы.РастягиватьПоГоризонтали = ОписаниеРеквизита.РастягиватьПоГоризонтали;
+	Если ItemDescription.РастягиватьПоГоризонтали <> Неопределено Тогда
+		ЭлементФормы.РастягиватьПоГоризонтали = ItemDescription.РастягиватьПоГоризонтали;
 	КонецЕсли;
-	Если ОписаниеРеквизита.РастягиватьПоВертикали <> Неопределено Тогда
-		ЭлементФормы.РастягиватьПоВертикали = ОписаниеРеквизита.РастягиватьПоВертикали;
+	Если ItemDescription.РастягиватьПоВертикали <> Неопределено Тогда
+		ЭлементФормы.РастягиватьПоВертикали = ItemDescription.РастягиватьПоВертикали;
 	КонецЕсли;
 
-	Для Каждого Действие Из ОписаниеРеквизита.Действия Цикл
+	Для Каждого Действие Из ItemDescription.Действия Цикл
 		ЭлементФормы.УстановитьДействие(Действие.Ключ, Действие.Значение);
 	КонецЦикла;
 	Возврат ЭлементФормы;
@@ -219,6 +220,7 @@
 	Возврат ГруппаФормы;
 КонецФункции
 
+
 Функция ЭтоКнопкаКоманднойПанели(Форма, Знач РодительКнопки)
 //@skip-warning
 	Если РодительКнопки = Неопределено Тогда
@@ -255,6 +257,7 @@
 		Возврат Идентификатор;
 	КонецЕсли;
 КонецФункции
+
 
 Функция Реквизит(Форма, ИмяРеквизита, ПутьКРеквизиту = "") Экспорт
 	Если ПутьКРеквизиту <> "" Тогда
@@ -362,3 +365,372 @@
 КонецПроцедуры
 
 #КонецОбласти
+
+// English Code Area 
+
+#Region ItemsDescription 
+//Функция НовыйОписаниеРеквизитаЭлемента(
+Function ItemAttributeNewDescription() Export
+	AttributeStructure = New Structure;
+
+	AttributeStructure.Insert("CreateAttribute", True);
+	AttributeStructure.Insert("Name", "");
+	AttributeStructure.Insert("TypeDescription", New TypeDescription("String", , , , New StringQualifiers(10)));
+	AttributeStructure.Insert("DataPath", "");
+	AttributeStructure.Insert("Title", "");
+
+	AttributeStructure.Insert("CreateItem", True);
+	AttributeStructure.Insert("ItemParent", Undefined);
+	AttributeStructure.Insert("BeforeItem", Undefined);
+	AttributeStructure.Insert("MultiLine", Undefined);
+	AttributeStructure.Insert("ExtendedEdit", Undefined);
+	AttributeStructure.Insert("HorizontalStretch", Undefined);
+	AttributeStructure.Insert("VerticalStretch", Неопределено);
+
+	AttributeStructure.Insert("Properties", AttributePropertiesNew());
+
+	AttributeStructure.Insert("Actions", New Structure);
+
+	Return AttributeStructure;
+
+EndFunction
+//Original Функция НовыйПараметрыРеквизита()
+Function AttributePropertiesNew()
+
+	AttributeProperties = New Structure;
+
+	AttributeProperties.Insert("FormItemType", Тип("FormField"));
+	AttributeProperties.Insert("Default_Type", FormFieldType.InputField);
+
+	Return AttributeProperties;
+
+EndFunction
+// Original НовыйОписаниеКомандыКнопки
+Function ButtonCommandNewDescription () export
+	Structure = New Structure;
+
+	Structure.Insert("CreateCommand", True);
+	Structure.Insert("CreateButton", True);
+
+	Structure.Insert("Name", "");
+	Structure.Insert("Action", "");
+	Structure.Insert("CommandName", "");
+	Structure.Insert("IsHyperLink", False);
+	Structure.Insert("ItemParent", Undefined);
+	Structure.Insert("BeforeItem", Undefined);
+	Structure.Insert("Title", "");
+	Structure.Insert("ToolTip", "");
+	Structure.Insert("Shortcut", Undefined);
+	Structure.Insert("Pictire", Undefined);
+	Structure.Insert("Representation", Undefined);
+
+	Возврат Structure;
+EndFunction
+//Original НовыйОписаниеГруппыФормы
+Function FormGroupNewDescription() Export
+	Parameters = New Structure;
+
+	Parameters.Insert("Type", FormGroupType.UsualGroup);
+	Parameters.Insert("Name", "");
+	Parameters.Insert("Title", "");
+	Parameters.Insert("Behavior", UsualGroupBehavior.Usual);
+	Parameters.Insert("Representation", UsualGroupRepresentation.None);
+	Parameters.Insert("GroupType", ChildFormItemsGroup.Vertical);
+	Parameters.Insert("ShowTitle", False);
+	Parameters.Insert("Parent", Undefined);
+
+	Return Parameters;
+
+EndFunction
+#EndRegion
+
+#Region FormItemsProgramingCreation  
+//Функция СоздатьКомандуПоОписанию(Форма, ОписаниеКоманды) Экспорт,
+Function CreateCommandByDescription(Form, CommandDescription) Export
+	If Не CommandDescription.CreateCommand Then
+		Return Undefined;
+	EndIf;
+	Command = Form.Commands.Add(CommandDescription.Name);
+	Command.Title = CommandDescription.Title;
+	Command.ToolTip = CommandDescription.ToolTip;
+	Command.Action = CommandDescription.Action;
+	If CommandDescription.Picture<>Undefined Then
+		if not UT_CommonClientServer.ЭтоПортативнаяПоставка()
+			or CommandDescription.Picture.Type = PictureType.FromLib
+			or CommandDescription.Picture.Type = PictureType.Empty then
+			Command.Picture = CommandDescription.Picture;
+		endif;
+	EndIf;
+	If CommandDescription.Shortcut <> Undefined Then
+		Command.Shortcut = CommandDescription.Shortcut;
+	Endif;
+	If CommandDescription.Representation<>Undefined Then
+		Command.Representation=CommandDescription.Representation;
+	EndIf;
+
+	Return Command;
+EndFunction
+// Функция СоздатьЭлементПоОписанию(Форма, ItemDescription) Экспорт
+Function CreateItemByDescription(Form, ItemDescription) Export
+	If  NOT ItemDescription.CreateItem Then
+		Return Undefined;
+	EndIf;
+
+	FormItemName = FormFieldTableName(Form, ItemDescription.ItemParent) + ItemDescription.Name;
+	FormItem = Form.Items.Find(FormItemName);
+	If FormItem <> Undefined Then
+		Return FormItem;
+	EndIf;
+
+	If ItemDescription.BeforeItem = Undefined Then
+		FormItem = Form.Items.Add (FormFieldTableName(Form, ItemDescription.ItemParent)	+ ItemDescription.Name, ItemDescription.Properties.FormItemType, FormItem(Form,
+			ItemDescription.ItemParent));
+	Else
+		FormItem = Form.Items.Insert(FormFieldTableName(Form, ItemDescription.ItemParent)
+			+ ItemDescription.Name, ItemDescription.Properties.FormItemType, FormItem(Form,
+			ItemDescription.ItemParent), FormItem(Form, ItemDescription.BeforeItem));
+	EndIf;
+
+	FormItem.Title = ItemDescription.Title;
+
+	If Type(FormItem) = Type("FormField") Then
+		FormItem.Type = ItemDescription.Properties.Default_Type;
+		Try
+			If TypeOf(Attribute(Form, ItemDescription.Name, ItemDescription.AttributePath)) = Type("Boolean") Then
+				FormItem.Type = FormFieldType.CheckBoxField;
+			EndIf;
+		Except
+		//			ErrorDescription = ErrorDescription();
+		EndTry;
+	EndIf;
+
+	FillPropertyValues(FormItem, ItemDescription.Properties);
+
+	If Тип(FormItem) = Тип("FormField") Then
+		If ValueIsFilled(ItemDescription.DataPath) Then
+			FormItem.DataPath = ItemDescription.DataPath;
+		Else
+			FormItem.DataPath = ItemDescription.Name;
+		EndIf;
+
+		If ItemDescription.MultiLine <> Undefined Then
+			FormItem.MultiLine = ItemDescription.MultiLine;
+		EndIf;
+		If ItemDescription.ExtendedEdit <> Undefined Then
+			FormItem.ExtendedEdit = ItemDescription.ExtendedEdit;
+		EndIf;
+
+	EndIf;
+	If ItemDescription.HorizontalStretch <> Undefined Then
+		FormItem.HorizontalStretch = ItemDescription.HorizontalStretch;
+	EndIf;
+	If ItemDescription.VerticalStretch <> Undefined Then
+		FormItem.VerticalStretch = ItemDescription.VerticalStretch;
+	EndIf;
+
+	For Each Action In ItemDescription.Actions Do
+		FormItem.SetAction(Action.Key, Action.Value);
+	EndDo;
+	Return FormItem;
+EndFunction
+//Original Функция СоздатьКнопкуПоОписанию(Форма, ОписаниеКнопки) Экспорт
+Function CreateButtonByDescription(Form, ButtonDescription) Export
+	If Not ButtonDescription.CreateButton Then
+		Return Undefined;
+	EndIf;
+
+	Button = Form.Items.Insert(ButtonDescription.Name, Type("FormButton"), FormItem(Form,
+		ButtonDescription.ItemParent), FormItem(Form, ButtonDescription.BeforeItem));
+	IF Not ButtonDescription.CreateCommand Then
+		Button.Title = ButtonDescription.Title;
+	EndIf;
+	If ButtonDescription.IsHyperlink = False Then
+		If IsCommandBarButton(Form, ButtonDescription.ItemParent) Then
+			Button.Type = FormButtonType.UsualButton;
+		Else
+			Button.Type = FormButtonType.CommandBarButton;
+		EndIf;
+	Else
+		If IsCommandBarButton(Form, ButtonDescription.ItemParent) Then
+			Button.Type = FormButtonType.Hyperlink;
+		Else
+			Button.Type = FormButtonType.CommandBarHyperlink;
+		EndIf;
+	EndIf;
+	Button.CommandName = ButtonDescription.CommandName;
+EndFunction
+// Original СоздатьГруппуПоОписанию
+Function CreateGroupByDescription(Form, Description) Export
+
+	FormItemName = FormFieldTableName(Form, Description.Parent) + Description.Name;
+	FormGroup = Form.Items.Find(FormItemName);
+	If FormGroup <> Undefined Then
+		Return FormGroup;
+	EndIf;
+	FormGroup = Form.Items.Add(FormItemName, Type("FormGroup"), FormItem(Form, Description.Parent));
+
+	FormGroup.Type = Description.Type;
+
+	FormGroup.Title = Description.Title;
+
+	FillPropertyValues(FormGroup, Description, "Type,ShowTitle");
+
+	If FormGroup.Type = FormGroupType.UsualGroup Then
+		FillPropertyValues(FormGroup, Description, "Behavior,Representation");
+	EndIf;
+	//	If Description.HorizontalStretch<>Undefined Then
+	//		FormGroup.HorizontalStretch=Description.HorizontalStretch;
+	//	EndIf;
+	//	If Description.VerticalStretch<>Undefined Then
+	//		FormGroup.VerticalStretch=Description.VerticalStretch;
+	//	Endif;
+	Return FormGroup;
+EndFunction
+//TODO Функция ЭтоКнопкаКоманднойПанели(Форма, Знач РодительКнопки)
+Function IsCommandBarButton(Form, Val ButtonParent)
+//@skip-warning
+	if ButtonParent = Undefined then
+		Return Ложь;
+	ElsIf ButtonParent = Form.CommandBar then
+		Return True;
+	ElsIf TypeOf(ButtonParent) = UT_CommonClientServer.ManagedFormType() then
+		Return False;
+	Else
+		ButtonParent = FormItem(Form, ButtonParent);
+		Return IsCommandBarButton(Form, ButtonParent.Parent);
+	EndIf;
+EndFunction
+// Original ИмяТаблицыПоляФормы
+//@skip-warning  
+Function FormFieldTableName(Form, Val ItemParent)
+//@skip-warning
+	If ItemParent = Undefined Then
+		Return "";
+	ElsIf TypeOf(ItemParent) = Type("FormTable") Then
+		Return ItemParent.Name;
+	ElsIf TypeOf(ItemParent) = UT_CommonClientServer.ManagedFormType() Then
+		Return "";
+	Else
+	//		ButtonParent = FormItem(Form, ItemParent);
+		Return FormFieldTableName(Form, ItemParent.Parent);
+	Endif;
+EndFunction
+
+// Original ЭлементФормы
+Function FormItem(Form, ID) Export
+	If TypeOf(ID) = Type("String") Then
+		Return Form.Items.Find(ID);
+	Else
+		Return ID;
+	Endif;
+EndFunction
+//Функция Реквизит(Форма, ИмяРеквизита, ПутьКРеквизиту = "") Экспорт
+ Function Attribute(Form, AttributeName, AttributeDataPath = "") Export
+	If AttributeDataPath <> "" Then
+		Separator = StrFind(AttributeDataPath, ".");
+		If Separator = 0 Then
+			StepName = AttributeDataPath;
+			DataPathRest= "";
+		Else
+			StepName = Left(AttributeDataPath, Separator - 1);
+			DataPathRest = Mid(AttributeDataPath, Separator + 1);
+		EndIf;
+		Return Attribute(Form[StepName], AttributeName, DataPathRest);
+	Else
+		NonExistValue = Undefined;
+		Structure = New Structure(AttributeName, NonExistValue);
+		FillPropertyValues(Structure, Form);
+		If Structure[AttributeName] = NonExistValue Then
+			Return NonExistValue;
+		EndIf;
+		Return Form[AttributeName];
+	EndIf;
+EndFunction
+#EndRegion
+
+#Region PostingSettings  
+  // Процедура ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи(Форма, ГруппаФормы) Экспорт
+  Procedure CreateWriteParametersAttributesFormOnCreateAtServer(Form, FormGroup) Export
+  		 ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи(Form, FormGroup) 
+  EndProcedure	
+  
+  Procedure CreateWriteParametersAttributesFormOnCreateAtServer_InTest(Form, FormGroup) Export
+	WriteSettings=New Structure;
+	WriteSettings.Insert("БезАвторегистрацииИзменений", New Structure("Значение,Заголовок", Ложь,
+		"Без авторегистрации изменений"));
+	WriteSettings.Insert("ЗаписьВРежимеЗагрузки", New Structure("Значение,Заголовок", Ложь,
+		"Запись в режиме загрузки(Без проверок)"));
+	WriteSettings.Insert("ПривелигированныйРежим", New Structure("Значение,Заголовок", Ложь,
+		"Привелигированный режим"));
+	WriteSettings.Insert("ИспользоватьДопСвойства", New Structure("Значение,Заголовок", Ложь,
+		"Использовать доп. свойства"));
+	WriteSettings.Insert("ДополнительныеСвойства", New Structure("Значение,Заголовок", New Structure,
+		"Дополнительные свойства"));
+	WriteSettings.Insert("ИспользоватьПроцедуруПередЗаписью", New Structure("Значение,Заголовок", Ложь,
+		"Без авторегистрации изменений"));
+	WriteSettings.Insert("ПроцедураПередЗаписью", New Structure("Значение,Заголовок", "",
+		"Без авторегистрации изменений"));
+
+	ParameterPrefix="ПараметрЗаписи_";
+
+	AddedAtributesArray=New Array;
+
+	For Each KeyValue In WriteSettings Do
+		AttributeType=ТипЗнч(KeyValue.Value.Value);
+
+		If AttributeType = Type ("Structure") Then
+			AttributeType= Type ("ValueTable");
+//			Продолжить;
+		EndIf;
+
+		TypesArray=New Array;
+		TypesArray.Add(AttributeType);
+		NewAttribute=New FormAttribute(ParameterPrefix + KeyValue.Key, New TypeDescription(TypesArray), "",
+			KeyValue.Value.Title, False);
+		AddedAtributesArray.Add(NewAttribute);
+	EndDo;
+
+	Form.ChangeAttributes(AddedAtributesArray);
+
+	AddedAtributesArray.Clear();
+	AddedAtributesArray.Add(New FormAttribute("Ключ", New TypeDescription("Строка"), ParameterPrefix
+		+ "ДополнительныеСвойства", "Ключ", False));
+
+	ValueTypesArray=New Массив;
+	ValueTypesArray.Add("Булево");
+	ValueTypesArray.Add("Строка");
+	ValueTypesArray.Add("Число");
+	ValueTypesArray.Add("Дата");
+	ValueTypesArray.Add("УникальныйИдентификатор");
+	ValueTypesArray.Add("ЛюбаяСсылка");
+	AddedAtributesArray.Add(New FormAttribute("Значение", New TypeDescription(ValueTypesArray),
+		ParameterPrefix + "ДополнительныеСвойства", "Значение", False));
+	Form.ChangeAttributes(AddedAtributesArray);
+
+	CreatingAttributesArray=UT_CommonClientServer.ПараметрыЗаписиДляВыводаНаФормуИнструмента();
+
+	Для Каждого CreatingAttributeName Из CreatingAttributesArray Цикл
+		ItemDescription=ItemAttributeNewDescription();
+		ItemDescription.CreateItem = Истина;
+		ItemDescription.Name=ParameterPrefix + CreatingAttributeName;
+		ItemDescription.ItemParent = FormGroup;
+		ItemDescription.Parameters.Insert("FormItemType", ВидПоляФормы.ПолеФлажка);
+
+		UT_Forms.CreateItemByDescription(Form, ItemDescription);
+	КонецЦикла;
+	
+	//Добавляем кнопку редактирования настроек
+	ButtonDescription=ButtonCommandNewDescription();
+	ButtonDescription.Имя=ParameterPrefix + "РедактироватьПараметрыЗаписи";
+	ButtonDescription.ИмяКоманды=ButtonDescription.Имя;
+	ButtonDescription.РодительЭлемента=FormGroup;
+	ButtonDescription.Title="Другие параметры записи";
+	ButtonDescription.Картинка=БиблиотекаКартинок.ПараметрыВыводаКомпоновкиДанных;
+	ButtonDescription.IsHyperLink=Истина;
+	ButtonDescription.Action="Attachable_SetWriteSettings";
+
+	UT_Forms.CreateCommandByDescription(FormGroup, ButtonDescription);
+	UT_Forms.CreateButtonByDescription(FormGroup, ButtonDescription);
+EndProcedure
+  
+#EndRegion
