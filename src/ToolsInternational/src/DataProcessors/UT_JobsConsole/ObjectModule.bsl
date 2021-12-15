@@ -55,7 +55,7 @@ EndFunction
 // Executes command in background.
 Procedure ExecuteCommand(CommandID) Export
 	
-	If CommandID = "" Then
+	If CommandID = Undefined Then
 		
 		CommandID = "";
 		
