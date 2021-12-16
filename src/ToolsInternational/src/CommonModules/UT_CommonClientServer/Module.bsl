@@ -586,20 +586,10 @@
 	Возврат ВерсияПлатформыНеМладше("8.3.14");
 КонецФункции
 
-Function PlatformVersionNotLess_8_3_14() Export
-	Return PlatformVersionNotLess("8.3.14");
-EndFunction
-
 Функция ВерсияПлатформыНеМладше(ВерсияДляСравнения) Экспорт
 	ВерсияБезСборки=ВерсияКонфигурацииБезНомераСборки(ТекущаяВерсияПлатформы1СПредприятие());
 
 	Возврат СравнитьВерсииБезНомераСборки(ВерсияБезСборки, ВерсияДляСравнения)>=0;
-КонецФункции
-
-Функция PlatformVersionNotLess(ComparingVersion) Экспорт
-	ВерсияБезСборки=ВерсияКонфигурацииБезНомераСборки(ТекущаяВерсияПлатформы1СПредприятие());
-
-	Возврат СравнитьВерсииБезНомераСборки(ВерсияБезСборки, ComparingVersion)>=0;
 КонецФункции
 
 Функция ПолеHTMLПостроеноНаWebkit() Экспорт
@@ -613,14 +603,6 @@ EndFunction
 		Возврат Тип("УправляемаяФорма");
 	КонецЕсли;
 КонецФункции
-
-Function ManagedFormType() Export
-	If PlatformVersionNotLess_8_3_14() Then
-		Return Type("ClientApplicationForm")
-	Else
-		Return Type("ManagedForm");
-	EndIf;
-EndFunction
 
 #Область Переменные
 
@@ -1801,5 +1783,46 @@ EndFunction
 
 // English Code Area 
 
+Function PlatformVersionNotLess_8_3_14() Export
+	Return PlatformVersionNotLess("8.3.14");
+EndFunction
+
+Function PlatformVersionNotLess(ComparingVersion) Export
+	VersionWithOutBuild=ВерсияКонфигурацииБезНомераСборки(ТекущаяВерсияПлатформы1СПредприятие());
+
+	Возврат СравнитьВерсииБезНомераСборки(VersionWithOutBuild, ComparingVersion)>=0;
+EndFunction
+
+Function ManagedFormType() Export
+	If PlatformVersionNotLess_8_3_14() Then
+		Return Type("ClientApplicationForm")
+	Else
+		Return Type("ManagedForm");
+	EndIf;
+EndFunction
+
+Function ToolsFormOutputWriteSettings() Export
+	Array=New Array;
+	Array.Add("WritingInLoadMode");    
+	Array.Add("PrivilegedMode");     
+	Array.Add("WithOutChangeRecording");
+
+	Return Array;
+EndFunction
 
 
+Function FormWriteSettings(Форма, ПрефиксРеквизитаФормы = "ПараметрЗаписи_") Export
+	WriteSettings=СтруктураПараметровЗаписиПоУмолчанию();
+
+	For each КлючЗначение In WriteSettings Do
+		If ТипЗнч(КлючЗначение.Значение) = Тип("Структура") Then
+			For Each Стр In Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ] Do
+				WriteSettings[КлючЗначение.Ключ].Вставить(Стр.Ключ, Стр.Значение);
+			EndDo;
+		Else
+			WriteSettings[КлючЗначение.Ключ]=Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ];
+		EndIf;
+	EndDo;
+//	ЗаполнитьЗначенияСвойств(ПараметрыЗаписи, Форма);
+	Return WriteSettings;
+EndFunction
