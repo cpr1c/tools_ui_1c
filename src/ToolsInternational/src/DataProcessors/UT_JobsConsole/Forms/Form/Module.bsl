@@ -47,8 +47,14 @@ Procedure UpdateOnCreate()
 		
 		BackgroundJobsListRefresh();
 		RefreshScheduledJobsList();
-	Except	
-		NotifyUser(ErrorInfo());
+	Except
+		//ErrorInfo() platform object changed
+		Info = ErrorInfo();
+		If TypeOf(Info) = Type("String") Then
+			NotifyUser(Info);
+		Else
+			NotifyUser(Info.Description);
+		EndIf;
 	EndTry;
 	
 	DataProcessorVersion = FormAttributeToValue("Object").DataProcessorVersion();
@@ -136,7 +142,13 @@ Procedure ScheduledJobsListBeforeDelete(Item, Cancel)
 		
 		RefreshScheduledJobsList();
 	Except
-		NotifyUser(ErrorInfo());
+		//ErrorInfo() platform object changed
+		Info = ErrorInfo();
+		If TypeOf(Info) = Type("String") Then
+			NotifyUser(Info);
+		Else
+			NotifyUser(Info.Description);
+		EndIf;
 	EndTry;
 EndProcedure
 
