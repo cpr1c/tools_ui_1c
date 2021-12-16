@@ -8183,7 +8183,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СуффиксРеквизитаКонтейнера</name>
+    <name>ContainerAttributeSuffix</name>
+    <title>
+      <key>en</key>
+      <value>Container attribute suffix</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Суффикс реквизита контейнера</value>
