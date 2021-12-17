@@ -503,7 +503,7 @@ Procedure TechnologicalLog_AppendConsoleLog(TLPath) Export
 		EndIf;
 
 	Else
-		Raise NSTR("ru = 'logcfg не найден'; en = 'logcfg not found'");
+		Raise NStr("ru = 'logcfg не найден'; en = 'logcfg not found'");
 	EndIf;
 
 EndProcedure
@@ -611,9 +611,9 @@ Procedure TechnologicalLog_Enable() Export
 			Break;
 		EndIf;
 		
-		//Unable to open directory. Probably, technological log is not disabled.
-		//Using another directory for start control possibility.
-		//Current log directory will be cleared at the next "normal" start.
+		// Unable to open directory. Probably, technological log is not disabled.
+		// Using another directory for start control possibility.
+		// Current log directory will be cleared at the next "normal" start.
 		TLPath = TempFilesDir() + LockedQueriesExtension + j;
 		j = j + 1;
 
@@ -965,428 +965,429 @@ Function TableToFormAttribute(ValueTable, ValueTableAttribute, ValueTableContain
 
 EndFunction
 
-Function ТаблицаИзРеквизитовФормы(ValueTableAttribute, ТаблицаЗначенийКолонкиКонтейнераРеквизит) Экспорт
+Function TableFromFormAttributes(ValueTableAttribute, ValueTableContainerColumnsAttribute) Export
 
-	тзДанные = ValueTableAttribute.Выгрузить();
+	vtData = ValueTableAttribute.Unload();
 
-	Если ТаблицаЗначенийКолонкиКонтейнераРеквизит.Количество() = 0 Тогда
-		Возврат Container_SaveValue(тзДанные);
+	If ValueTableContainerColumnsAttribute.Count() = 0 Then
+		Return Container_SaveValue(vtData);
 	EndIf;
 
-	стИменаКолонокКонтейнеров = Новый Структура;
-	Для Каждого кз Из ТаблицаЗначенийКолонкиКонтейнераРеквизит Цикл
-		стИменаКолонокКонтейнеров.Вставить(кз.Ключ + ContainerAttributeSuffix());
+	stContainersColumnNames = New Structure;
+	For Each kv In ValueTableContainerColumnsAttribute Do
+		stContainersColumnNames.Insert(kv.Key + ContainerAttributeSuffix());
 	EndDo;
 
-	тзВозвращаемаяТаблица = Новый ТаблицаЗначений;
-	Для Каждого Колонка Из тзДанные.Колонки Цикл
+	vtReturningTable = New ValueTable;
+	For Each Column In vtData.Columns Do
 
-		Если стИменаКолонокКонтейнеров.Свойство(Колонка.Имя) Тогда
-			Продолжить;
+		If stContainersColumnNames.Property(Column.Name) Then
+			Continue;
 		EndIf;
 
-		ТипКолонки = Колонка.ТипЗначения;
-		ТаблицаЗначенийКолонкиКонтейнераРеквизит.Свойство(Колонка.Имя, ТипКолонки);
-		тзВозвращаемаяТаблица.Колонки.Добавить(Колонка.Имя, ТипКолонки);
+		ColumnType = Column.ValueType;
+		ValueTableContainerColumnsAttribute.Property(Column.Name, ColumnType);
+		vtReturningTable.Columns.Add(Column.Name, ColumnType);
 		
 	EndDo
 	;
 
-	чКоличествоСтрок = тзДанные.Количество();
-	Для Каждого СтрокаТаблицыЗначенийРеквизита Из ValueTableAttribute Цикл
-		Строка = тзВозвращаемаяТаблица.Добавить();
-		ЗаполнитьЗначенияСвойств(Строка, СтрокаТаблицыЗначенийРеквизита);
-		Для Каждого кз Из ТаблицаЗначенийКолонкиКонтейнераРеквизит Цикл
-			ИмяКолонки = кз.Ключ;
-			Строка[ИмяКолонки] = Контейнер_ВосстановитьЗначение(СтрокаТаблицыЗначенийРеквизита[ИмяКолонки
+	nRowCount = vtData.Count();
+	For Each AttributeValueTableRow In ValueTableAttribute Do
+		Row = vtReturningTable.Add();
+		FillPropertyValues(Row, AttributeValueTableRow);
+		For Each kv In ValueTableContainerColumnsAttribute Do
+			ColumnName = kv.Key;
+			Row[ColumnName] = Container_RestoreValue(AttributeValueTableRow[ColumnName
 				+ ContainerAttributeSuffix()]);
 		EndDo;
 	EndDo;
 
-	Возврат Container_SaveValue(тзВозвращаемаяТаблица);
+	Return Container_SaveValue(vtReturningTable);
 
 EndFunction
 
 #EndRegion
 
-#Region Контейнер
+#Region Container
 
-//Таблица значений может быть как есть, либо уже сериализованная и положенная в структуру-контейнер.
-//Контейнер для параметров и для таблиц имеет немного разное значение.
-//Для параметра: там может лежать либо само значение, либо структура для списка значений, массива или специального типа.
-//Для таблицы: всегда структура для специального типа.
-
-Function ContainerAttributeSuffix() Экспорт
-	Возврат "_31415926Контейнер";
+//Value table can be as a table, or can be serialized into container structure.
+//There are different containers for parameters and for tables.
+//For parameter container can contain a value, or a structure for array, value list or special type).
+//For table - always structure for special type.
+//
+Function ContainerAttributeSuffix() Export
+	Return "_31415926Container";
 EndFunction
 
-Function Контейнер_Очистить(Контейнер) Экспорт
+Function Container_Clear(Container) Export
 
-	Если Контейнер.Тип = "ТаблицаЗначений" Тогда
-		Значение = Контейнер_ВосстановитьЗначение(Контейнер);
-		Значение.Очистить();
-	ИначеЕсли Контейнер.Тип = "СписокЗначений" Тогда
-		Значение = Контейнер_ВосстановитьЗначение(Контейнер);
-		Значение.Очистить();
-	ИначеЕсли Контейнер.Тип = "Массив" Тогда
-		Значение = Новый Массив;
-	ИначеЕсли Контейнер.Тип = "Тип" Тогда
-		Значение = Тип("Неопределено");
-	ИначеЕсли Контейнер.Тип = "Граница" Тогда
-		Значение = Новый Граница(, ВидГраницы.Включая);
-	ИначеЕсли Контейнер.Тип = "МоментВремени" Тогда
-		Значение = Новый МоментВремени('00010101');
-	ИначеЕсли Контейнер.Тип = "ХранилищеЗначения" Тогда
-		Значение = Новый ХранилищеЗначения(Неопределено);
-	Иначе
-		ВызватьИсключение "Неизвестный тип контейнера";
+	If Container.Type = "ValueTable" Then
+		Value = Container_RestoreValue(Container);
+		Value.Clear();
+	ElsIf Container.Type = "ValueList" Then
+		Value = Container_RestoreValue(Container);
+		Value.Clear();
+	ElsIf Container.Type = "Array" Then
+		Value = New Array;
+	ElsIf Container.Type = "Type" Then
+		Value = Type("Undefined");
+	ElsIf Container.Type = "Boundary" Then
+		Value = New Boundary(, BoundaryType.Including);
+	ElsIf Container.Type = "PointInTime" Then
+		Value = New PointInTime('00010101');
+	ElsIf Container.Type = "ValueStorage" Then
+		Value = New ValueStorage(Undefined);
+	Else
+		Raise NStr("ru = 'Неизвестный тип контейнера'; en = 'Unknown container type'");
 	EndIf;
 
-	Container_SaveValue(Значение);
+	Container_SaveValue(Value);
 
 EndFunction
 
-Function Container_SaveValue(Значение) Export
+Function Container_SaveValue(Value) Export
 
-	ТипЗначения = ТипЗнч(Значение);
-	Если ТипЗначения = Тип("Граница") Тогда
-		Результат = Новый Структура("Тип, ВидГраницы, Значение, Представление", "Граница");
-		ЗаполнитьЗначенияСвойств(Результат, Значение);
-		Результат.ВидГраницы = Строка(Результат.ВидГраницы);
-		Результат.Представление = Контейнер_ПолучитьПредставление(Результат);
-	ИначеЕсли ТипЗначения = Тип("МоментВремени") Тогда
-		Результат = Новый Структура("Тип, Дата, Ссылка, Представление", "МоментВремени");
-		ЗаполнитьЗначенияСвойств(Результат, Значение);
-		Результат.Представление = Контейнер_ПолучитьПредставление(Результат);
-	ИначеЕсли ТипЗначения = Тип("Тип") Тогда
-		Результат = Новый Структура("Тип, ИмяТипа, Представление", "Тип", GetTypeName(Значение));
-		Результат.Представление = Контейнер_ПолучитьПредставление(Результат);
-	ИначеЕсли ТипЗначения = Тип("ХранилищеЗначения") Тогда
-		Результат = Новый Структура("Тип, Хранилище, Представление", "ХранилищеЗначения", ValueToString(Значение));
-		Результат.Представление = Контейнер_ПолучитьПредставление(Результат);
-	ИначеЕсли ТипЗначения = Тип("Массив") Тогда
-		Результат = Новый Структура("Тип, СписокЗначений, Представление", "Массив", ValueListFromArray(Значение));
-		Результат.Представление = Контейнер_ПолучитьПредставление(Результат);
-	ИначеЕсли ТипЗначения = Тип("СписокЗначений") Тогда
-		Результат = Новый Структура("Тип, СписокЗначений, Представление", "СписокЗначений", Значение);
-		Результат.Представление = Контейнер_ПолучитьПредставление(Результат);
-	ИначеЕсли ТипЗначения = Тип("ТаблицаЗначений") Тогда
-		Результат = Новый Структура("Тип, КоличествоСтрок, Значение, Представление", "ТаблицаЗначений",
-			Значение.Количество(), ValueToString(Значение));
-		Результат.Представление = Контейнер_ПолучитьПредставление(Результат);
-	Иначе
-		Результат = Значение;
+	ValueType = TypeOf(Value);
+	If ValueType = TypeOf("Boundary") Then
+		Result = New Structure("Type, BoundaryType, Value, Presentation", "Boundary");
+		FillPropertyValues(Result, Value);
+		Result.BoundaryType = String(Result.BoundaryType);
+		Result.Presentation = Container_GetPresentation(Result);
+	ElsIf ValueType = TypeOf("PointInTime") Then
+		Result = New Structure("Type, Date, Ref, Presentation", "PointInTime");
+		FillPropertyValues(Result, Value);
+		Result.Presentation = Container_GetPresentation(Result);
+	ElsIf ValueType = TypeOf("Type") Then
+		Result = New Structure("Type, TypeName, Presentation", "Type", GetTypeName(Value));
+		Result.Presentation = Container_GetPresentation(Result);
+	ElsIf ValueType = TypeOf("ValueStorage") Then
+		Result = New Structure("Type, Storage, Presentation", "ValueStorage", ValueToString(Value));
+		Result.Presentation = Container_GetPresentation(Result);
+	ElsIf ValueType = TypeOf("Array") Then
+		Result = New Structure("Type, ValueList, Presentation", "Array", ValueListFromArray(Value));
+		Result.Presentation = Container_GetPresentation(Result);
+	ElsIf ValueType = TypeOf("ValueList") Then
+		Result = New Structure("Type, ValueList, Presentation", "ValueList", Value);
+		Result.Presentation = Container_GetPresentation(Result);
+	ElsIf ValueType = TypeOf("ValueTable") Then
+		Result = New Structure("Type, RowCount, Value, Presentation", "ValueTable",
+			Value.Count(), ValueToString(Value));
+		Result.Presentation = Container_GetPresentation(Result);
+	Else
+		Result = Value;
 	EndIf;
 
-	Возврат Результат;
+	Return Result;
 
 EndFunction
 
-Function Контейнер_ВосстановитьЗначение(СохраненноеЗначение) Экспорт
+Function Container_RestoreValue(SavedValue) Export
 
-	Если ТипЗнч(СохраненноеЗначение) = Тип("Структура") Тогда
-		Если СохраненноеЗначение.Тип = "Граница" Тогда
-			Результат = Новый Граница(СохраненноеЗначение.Значение, ВидГраницы[СохраненноеЗначение.ВидГраницы]);
-		ИначеЕсли СохраненноеЗначение.Тип = "МоментВремени" Тогда
-			Результат = Новый МоментВремени(СохраненноеЗначение.Дата, СохраненноеЗначение.Ссылка);
-		ИначеЕсли СохраненноеЗначение.Тип = "МоментВремени" Тогда
-			Результат = СохраненноеЗначение.УникальныйИдентификатор;
-		ИначеЕсли СохраненноеЗначение.Тип = "Тип" Тогда
-			Результат = Тип(СохраненноеЗначение.ИмяТипа);
-		ИначеЕсли СохраненноеЗначение.Тип = "СписокЗначений" Тогда
-			Результат = СохраненноеЗначение.СписокЗначений;
-		ИначеЕсли СохраненноеЗначение.Тип = "Массив" Тогда
-			Результат = СохраненноеЗначение.СписокЗначений.ВыгрузитьЗначения();
-		ИначеЕсли СохраненноеЗначение.Тип = "ТаблицаЗначений" Тогда
-			Результат = StringToValue(СохраненноеЗначение.Значение);
+	If TypeOf(SavedValue) = Type("Structure") Then
+		If SavedValue.Type = "Boundary" Then
+			Result = New Boundary(SavedValue.Value, BoundaryType[SavedValue.BoundaryType]);
+		ElsIf SavedValue.Type = "PointInTime" Then
+			Result = New PointInTime(SavedValue.Date, SavedValue.Ref);
+		ElsIf SavedValue.Type = "PointInTime" Then
+			Result = SavedValue.UUID;
+		ElsIf SavedValue.Type = "Type" Then
+			Result = Type(SavedValue.TypeName);
+		ElsIf SavedValue.Type = "ValueList" Then
+			Result = SavedValue.ValueList;
+		ElsIf SavedValue.Type = "Array" Then
+			Result = SavedValue.ValueList.UnloadValues();
+		ElsIf SavedValue.Type = "ValueTable" Then
+			Result = StringToValue(SavedValue.Value);
 		EndIf;
-	Иначе
-		Результат = СохраненноеЗначение;
+	Else
+		Result = SavedValue;
 	EndIf;
 
-	Возврат Результат;
+	Return Result;
 
 EndFunction
 
-Function Контейнер_ПолучитьПредставление(Контейнер) Экспорт
+Function Container_GetPresentation(Container) Export
 
-	чРазмерПредставления = 200;
+	nPresentationSize = 200;
 
-	Если ТипЗнч(Контейнер) = Тип("Структура") Тогда
-		Если Контейнер.Тип = "Граница" Тогда
-			Возврат Строка(Контейнер.Значение) + " " + Контейнер.ВидГраницы;
-		ИначеЕсли Контейнер.Тип = "Массив" Тогда
-			Возврат Лев(СтрСоединить(Контейнер.СписокЗначений.ВыгрузитьЗначения(), "; "), чРазмерПредставления);
-		ИначеЕсли Контейнер.Тип = "СписокЗначений" Тогда
-			Возврат Лев(СтрСоединить(Контейнер.СписокЗначений.ВыгрузитьЗначения(), "; "), чРазмерПредставления);
-		ИначеЕсли Контейнер.Тип = "ТаблицаЗначений" Тогда
-			КоличествоСтрок = Неопределено;
-			Если Контейнер.Свойство("КоличествоСтрок", КоличествоСтрок) Тогда
-				Возврат "<строк: " + КоличествоСтрок + ">";
-			Иначе
-				Возврат "<строк: ?>";
+	If TypeOf(Container) = Type("Structure") Then
+		If Container.Type = "Boundary" Then
+			Return String(Container.Value) + " " + Container.BoundaryType;
+		ElsIf Container.Type = "Array" Then
+			Return Left(StrConcat(Container.ValueList.UnloadValues(), "; "), nPresentationSize);
+		ElsIf Container.Type = "ValueList" Then
+			Return Left(StrConcat(Container.ValueList.UnloadValues(), "; "), nPresentationSize);
+		ElsIf Container.Type = "ValueTable" Then
+			RowCount = Undefined;
+			If Container.Property("RowCount", RowCount) Then
+				Return NStr("ru = 'строк'; en = '<rows: '") + RowCount + ">";
+			Else
+				Return NStr("ru = '<строк: ?>'; en = '<rows: ?>'");
 			EndIf;
-		ИначеЕсли Контейнер.Тип = "МоментВремени" Тогда
-			Возврат Строка(Контейнер.Дата) + "; " + Контейнер.Ссылка;
-		ИначеЕсли Контейнер.Тип = "Тип" Тогда
-			Возврат "Тип: " + Тип(Контейнер.ИмяТипа);
-		ИначеЕсли Контейнер.Тип = "ХранилищеЗначения" Тогда
-			Возврат "<ХранилищеЗначения>";
+		ElsIf Container.Type = "PointInTime" Then
+			Return String(Container.Date) + "; " + Container.Ref;
+		ElsIf Container.Type = "Type" Then
+			Return "Type: " + Type(Container.TypeName);
+		ElsIf Container.Type = "ValueStorage" Then
+			Return "<ValueStorage>";
 		EndIf;
-	Иначе
-		Возврат "???";
+	Else
+		Return "???";
 	EndIf;
 
 EndFunction
 
 #EndRegion
 
-Function СохранитьЗапрос(СеансИД, Запрос) Экспорт
+Function SaveQuery(SessionID, Query) Export
 
-	Если ТипЗнч(СеансИД) <> Тип("Число") Тогда
-		Возврат "!Не верный тип параметра 1: " + ТипЗнч(СеансИД) + ". Должен быть тип ""Число""";
+	If TypeOf(SessionID) <> Type("Number") Then
+		Return NStr("ru = '!Не верный тип параметра 1: '; en = '!Wrong parameter 1 type: '") + TypeOf(SessionID) + NStr("ru = '. Должен быть тип ""Число""'; en = '. Type must be ""Number""'");
 	EndIf;
 
-	Если ТипЗнч(Запрос) <> Тип("Запрос") Тогда
-		Возврат "!Не верный тип параметра 2: " + ТипЗнч(Запрос) + ". Должен быть тип ""Запрос""";
+	If TypeOf(Query) <> Type("Query") Then
+		Return NStr("ru = '!Не верный тип параметра 2: '; en = '!Wrong parameter 2 type: '") + TypeOf(Query) + NStr("ru = '. Должен быть тип ""Запрос""'; en = '. Type must be ""Query""'");
 	EndIf;
 
-	Initializing( , СеансИД);
+	Initializing( , SessionID);
 
-	ИмяФайла = ПолучитьИмяВременногоФайла(LockedQueriesExtension);
+	FileName = GetTempFileName(LockedQueriesExtension);
 
-	ВременныеТаблицы = Новый Массив;
+	TempTables = New Array;
 
-	Если Запрос.МенеджерВременныхТаблиц <> Неопределено Тогда
-		Для Каждого Таблица Из Запрос.МенеджерВременныхТаблиц.Таблицы Цикл
+	If Query.TempTablesManager <> Undefined Then
+		For Each Table In Query.TempTablesManager.Tables Do
 
-			ВременнаяТаблица = Новый ТаблицаЗначений;
-			Для Каждого Колонка Из Таблица.Колонки Цикл
-				ВременнаяТаблица.Колонки.Добавить(Колонка.Имя, Колонка.ТипЗначения);
+			TempTable = New ValueTable;
+			For Each Column In Table.Columns Do
+				TempTable.Columns.Add(Column.name, Column.ValueType);
 			EndDo;
 
-			выбТаблица = Таблица.ПолучитьДанные().Выбрать();
-			Пока выбТаблица.Следующий() Цикл
-				ЗаполнитьЗначенияСвойств(ВременнаяТаблица.Добавить(), выбТаблица);
+			selTable = Table.GetData().Select();
+			While selTable.Next() Do
+				FillPropertyValues(TempTable.Add(), selTable);
 			EndDo;
 
-			ВременныеТаблицы.Добавить(
-				Новый Структура("Имя, Таблица", Таблица.ПолноеИмя, ВременнаяТаблица));
+			TempTables.Add(
+				New Structure("Name, Table", Table.FullName, TempTable));
 		EndDo;
 	EndIf;
 
-	Структура = Новый Структура("Текст, Параметры, ВременныеТаблицы", , , ВременныеТаблицы);
-	ЗаполнитьЗначенияСвойств(Структура, Запрос);
-	ЗаписьXML = Новый ЗаписьXML;
-	ЗаписьXML.ОткрытьФайл(ИмяФайла);
-	СериализаторXDTO.ЗаписатьXML(ЗаписьXML, Структура, НазначениеТипаXML.Явное);
+	Structure = New Structure("Text, Parameters, TempTables", , , TempTables);
+	FillPropertyValues(Structure, Query);
+	XMLWriter = New XMLWriter;
+	XMLWriter.OpenFile(FileName);
+	XDTOSerializer.WriteXML(XMLWriter, Structure, XMLTypeAssignment.Explicit);
 
-	ЗаписьXML.Закрыть();
+	XMLWriter.Close();
 
-	Возврат "ОК:";// + ИмяФайла;
+	Return "ОК:";// + FileName;
 
 EndFunction
 
-//&НаСервереБезКонтекста
-Function ВыполнитьКод(ЭтотКод, Выборка, Параметры, ПризнакПрогресса)
-	Выполнить (ЭтотКод);
+//&AtServerNoContext
+Function ExecuteCode(ThisCode, Selection, Parameters, ProgressSign)
+	Execute (ThisCode);
 EndFunction
 
-//Этот метод можно использовать в коде для отображения прогресса.
-//Параметры:
-//	Обработано - число, количество обработанных записей.
-//	КоличествоВсего - число, количество записей в выборке всего.
-//	ДатаНачалаВМиллисекундах - число, дата начала обработки, полученное с помощью ТекущаяУниверсальнаяДатаВМиллисекундах()
-//		в момент начала обработки. Это значение необходимо корректного расчета оставшегося времени.
-//	ПризнакПрогресса - строка, специальное значение, необходимое для передачи значений прогресса на клиент.
-//		Это значение необходимо просто передать в параметр без изменений.
-Function СообщитьПрогресс(Обработано, КоличествоВсего, ДатаНачалаВМиллисекундах, ПризнакПрогресса)
-	ДатаВМиллисекундах = ТекущаяУниверсальнаяДатаВМиллисекундах();
-	Сообщить(ПризнакПрогресса + ValueToString(Новый Структура("Прогресс, ДлительностьНаМоментПрогресса", Обработано
-		* 100 / КоличествоВсего, ДатаВМиллисекундах - ДатаНачалаВМиллисекундах)));
-	Возврат ДатаВМиллисекундах;
+// Displays progress.
+// Parameters:
+//	Processed - Number, number of records processed.
+//	CountTotal - Number, total number of records.
+//	StartDateInMilliseconds - Number, processing start date received from CurrentUniversalDateInMilliseconds(). 
+//		Needed to calculate the remaining time.
+//	ProgressSign - String, special value to send progress values to client.
+//
+Function MessageProgress(Processed, CountTotal, StartDateInMilliseconds, ProgressSign)
+	DateInMilliseconds = CurrentUniversalDateInMilliseconds();
+	Message(ProgressSign + ValueToString(New Structure("Progress, DurationAtProgressMoment", Processed
+		* 100 / CountTotal, DateInMilliseconds - StartDateInMilliseconds)));
+	Return DateInMilliseconds;
 EndFunction
 
-Procedure ВыполнитьАлгоритмПользователя(ПараметрыВыполнения, АдресРезультата) Экспорт
+Procedure ExecuteUserAlgorithm(ExecutionParameters, ResultAddress) Export
 
-	стРезультатЗапроса = ПараметрыВыполнения[0];
-	маРезультатЗапроса = стРезультатЗапроса.Результат;
-	ПараметрыЗапроса = стРезультатЗапроса.Параметры;
-	РезультатВПакете = ПараметрыВыполнения[1];
-	Код = ПараметрыВыполнения[2];
-	ФлагПострочно = ПараметрыВыполнения[3];
-	ИнтервалОбновленияВыполненияАлгоритма = ПараметрыВыполнения[4];
+	stQueryResult = ExecutionParameters[0];
+	arQueryResult = stQueryResult.Result;
+	QueryParameters = stQueryResult.Parameters;
+	ResultInBatch = ExecutionParameters[1];
+	Code = ExecutionParameters[2];
+	FlagLineByLine = ExecutionParameters[3];
+	AlgorithmExecutionRefreshInterval = ExecutionParameters[4];
 
-	стРезультат = маРезультатЗапроса[Число(РезультатВПакете) - 1];
-	рзВыборка = стРезультат.Результат;
-	Выборка = рзВыборка.Выбрать();
-	ДатаНачалаВМиллисекундах = ТекущаяУниверсальнаяДатаВМиллисекундах();
+	stResult = arQueryResult[Number(ResultInBatch) - 1];
+	qrSelection = stResult.Result;
+	Selection = qrSelection.Select();
+	StartDateInMilliseconds = CurrentUniversalDateInMilliseconds();
 
-	Если ФлагПострочно Тогда
+	If FlagLineByLine Then
 
-		КоличествоВсего = Выборка.Количество();
-		чМоментОкончанияПорции = 0;
-		й = 0;
-		Пока Выборка.Следующий() Цикл
+		CountTotal = Selection.Count();
+		nPortionFinishMoment = 0;
+		j = 0;
+		While Selection.Next() Do
 
-			ВыполнитьКод(Код, Выборка, ПараметрыЗапроса, АдресРезультата);
+			ExecuteCode(Code, Selection, QueryParameters, ResultAddress);
 
-			й = й + 1;
-			Если ТекущаяУниверсальнаяДатаВМиллисекундах() >= чМоментОкончанияПорции Тогда
-				//Будем использовать АдресРезультата в качестве метки сообщения состояния - это очень уникальное значение.
-				ДатаВМиллисекундах = СообщитьПрогресс(й, КоличествоВсего, ДатаНачалаВМиллисекундах, АдресРезультата);
-				чМоментОкончанияПорции = ДатаВМиллисекундах + ИнтервалОбновленияВыполненияАлгоритма;
+			j = j + 1;
+			If CurrentUniversalDateInMilliseconds() >= nPortionFinishMoment Then
+				// Using ResultAddress as state message label, because this is the unique value.
+				DateInMilliseconds = MessageProgress(j, CountTotal, StartDateInMilliseconds, ResultAddress);
+				nPortionFinishMoment = DateInMilliseconds + AlgorithmExecutionRefreshInterval;
 			EndIf;
 
 		EndDo;
 
-	Иначе
-		ВыполнитьКод(Код, Выборка, ПараметрыЗапроса, АдресРезультата);
+	Else
+		ExecuteCode(Code, Selection, QueryParameters, ResultAddress);
 	EndIf;
 
 EndProcedure
 
-#Region ПланЗапроса
+#Region QueryPlan
 
-Function СтруктураХранения()
+Function StoringStructure()
 
-	тзСтруктура = ПолучитьИзВременногоХранилища(IBStorageStructure);
+	vtStructure = GetFromTempStorage(IBStorageStructure);
 
-	Если тзСтруктура = Неопределено Тогда
-		тзСтруктура = ПолучитьСтруктуруХраненияБазыДанных( , Истина);
-		тзСтруктура.Индексы.Добавить("Метаданные");
-		ПоместитьВоВременноеХранилище(тзСтруктура, IBStorageStructure);
+	If vtStructure = Undefined Then
+		vtStructure = GetDBStorageStructureInfo( , True);
+		vtStructure.Indexes.Add("Metadata");
+		PutToTempStorage(vtStructure, IBStorageStructure);
 	EndIf;
 
-	Возврат тзСтруктура;
+	Return vtStructure;
 
 EndFunction
 
-Procedure SQLЗапросВТермины1С_ДобавитьТермин(ДанныеТерминов, ИмяБД, Имя1С)
-	Если Не ПустаяСтрока(Имя1С) Тогда
-		СтрокаДанныхТерминов = ДанныеТерминов.Добавить();
-		СтрокаДанныхТерминов.ИмяБД = ИмяБД;
-		СтрокаДанныхТерминов.Имя1С = Имя1С;
-		СтрокаДанныхТерминов.ДлиннаИмениБД = СтрДлина(СтрокаДанныхТерминов.ИмяБД);
+Procedure SQLQueryTo1CTerms_AddTerm(TermsData, IBName, Name1С)
+	If Not IsBlankString(Name1С) Then
+		TermsDataRow = TermsData.Add();
+		TermsDataRow.IBName = IBName;
+		TermsDataRow.Name1С = Name1С;
+		TermsDataRow.IBNameLength = StrLen(TermsDataRow.IBName);
 	EndIf;
 EndProcedure
 
-Function SQLЗапросВТермины1С(ТекстЗапросаSQL, ДанныеТерминов = Неопределено) Экспорт
+Function SQLQueryTo1CTerms(SQLQueryText, TermsData = Undefined) Export
 
-	тзСтруктура = СтруктураХранения();
+	vtStructure = StoringStructure();
 
-	Если ДанныеТерминов = Неопределено Тогда
+	If TermsData = Undefined Then
 
-		ТипСтрока = Новый ОписаниеТипов("Строка");
-		ДанныеТерминов = Новый ТаблицаЗначений;
-		ДанныеТерминов.Колонки.Добавить("ИмяБД", ТипСтрока);
-		ДанныеТерминов.Колонки.Добавить("Имя1С", ТипСтрока);
-		ДанныеТерминов.Колонки.Добавить("ДлиннаИмениБД", Новый ОписаниеТипов("Число"));
+		StringType = New TypeDescription("Строка");
+		TermsData = New ValueTable;
+		TermsData.Columns.Add("IBName", StringType);
+		TermsData.Columns.Add("Name1С", StringType);
+		TermsData.Columns.Add("IBNameLength", New TypeDescription("Number"));
 
-		Для Каждого Строка Из тзСтруктура Цикл
+		For Each Row In vtStructure Do
 
-			ъ = Найти(ТекстЗапросаSQL, Строка.ИмяТаблицыХранения);
-			Если ъ > 0 Тогда
+			j = Find(SQLQueryText, Row.StorageTableName);
+			If j > 0 Then
 
-				SQLЗапросВТермины1С_ДобавитьТермин(ДанныеТерминов, Строка.ИмяТаблицыХранения, Строка.ИмяТаблицы);
+				SQLQueryTo1CTerms_AddTerm(TermsData, Row.StorageTableName, Row.TableName);
 
-				Для Каждого СтрокаПоля Из Строка.Поля Цикл
-					SQLЗапросВТермины1С_ДобавитьТермин(ДанныеТерминов, СтрокаПоля.ИмяПоляХранения, СтрокаПоля.ИмяПоля);
+				For Each FieldRow In Row.Fields Do
+					SQLQueryTo1CTerms_AddTerm(TermsData, FieldRow.StorageFieldName, FieldRow.FieldName);
 				EndDo;
 
 			EndIf;
 
 		EndDo;
 
-		ДанныеТерминов.Сортировать("ДлиннаИмениБД Убыв");
+		TermsData.Sort("IBNameLength Desc");
 
 	EndIf;
 
-	ТекстЗапросаВТерминах1С = ТекстЗапросаSQL;
+	QueryTextIn1CTerms = SQLQueryText;
 
-	Для Каждого Строка Из ДанныеТерминов Цикл
-		ТекстЗапросаВТерминах1С = СтрЗаменить(ТекстЗапросаВТерминах1С, Строка.ИмяБД, Строка.Имя1С);
+	For Each Row In TermsData Do
+		QueryTextIn1CTerms = StrReplace(QueryTextIn1CTerms, Row.IBName, Row.Name1С);
 	EndDo;
 
-	Возврат ТекстЗапросаВТерминах1С;
+	Return QueryTextIn1CTerms;
 
 EndFunction
 
-//	РегистрТерминов - преобразование регистра терминов:
-//		0 - не преобразовывать данные терминов
-//		1 - данные терминов преобразовать в нижний регистр (для POSTGRS)
-Function SQLПланВТермины1С(ПланЗапроса, ДанныеТерминов, РегистрТерминов = 0) Экспорт
+//	TermsRegister - Terms register conversion:
+//		0 - do not convert terms data,
+//		1 - convert terms data to lower register (for POSTGRS)
+//
+Function SQLPlanTo1CTerms(QueryPlan, TermsData, TermsRegister = 0) Export
 
-	ПланЗапросаВТерминах1С = ПланЗапроса;
+	QueryPlanIn1CTerms = QueryPlan;
 
-	Если РегистрТерминов = 1 Тогда
-		Для Каждого Строка Из ДанныеТерминов Цикл
-			ПланЗапросаВТерминах1С = СтрЗаменить(ПланЗапросаВТерминах1С, НРег(Строка.ИмяБД), Строка.Имя1С);
+	If TermsRegister = 1 Then
+		For Each Row In TermsData Do
+			QueryPlanIn1CTerms = StrReplace(QueryPlanIn1CTerms, Lower(Row.IBName), Row.Name1C);
 		EndDo;
-	Иначе
-		Для Каждого Строка Из ДанныеТерминов Цикл
-			ПланЗапросаВТерминах1С = СтрЗаменить(ПланЗапросаВТерминах1С, Строка.ИмяБД, Строка.Имя1С);
+	Else
+		For Each Row In TermsData Do
+			QueryPlanIn1CTerms = StrReplace(QueryPlanIn1CTerms, Row.IBName, Row.Name1C);
 		EndDo;
 	EndIf;
 
-	Возврат ПланЗапросаВТерминах1С;
+	Return QueryPlanIn1CTerms;
 
 EndFunction
 
 #EndRegion
 
-#Region СведенияОВнешнейОбработке
+#Region ExternalDataProcessorInfo
 
-Function СведенияОВнешнейОбработке() Экспорт
+Function ExternalDataProcessorInfo() Export
 
 	Initializing();
 
-	ПараметрыРегистрации = Новый Структура;
-	ПараметрыРегистрации.Вставить("Вид", "ДополнительнаяОбработка");
-	ПараметрыРегистрации.Вставить("Наименование", "Консоль запросов 9000");
-	ПараметрыРегистрации.Вставить("Версия", DataProcessorVersion + "." + BuildVersion);
-	ПараметрыРегистрации.Вставить("БезопасныйРежим", Ложь);
-	ПараметрыРегистрации.Вставить("Информация", "Консоль запросов 9000");
+	RegistrationParameters = New Structure;
+	RegistrationParameters.Insert("Kind", "AdditionalDataProcessor");
+	RegistrationParameters.Insert("Description", NStr("ru = 'Консоль запросов 9000'; en = 'Query console 9000'"));
+	RegistrationParameters.Insert("Version", DataProcessorVersion + "." + BuildVersion);
+	RegistrationParameters.Insert("SafeMode", False);
+	RegistrationParameters.Insert("Information", NStr("ru = 'Консоль запросов 9000'; en = 'Query console 9000'"));
 
-	ТаблицаКоманд = ПолучитьТаблицуКоманд();
+	CommandTable = GetCommandTable();
 
-	ДобавитьКоманду(ТаблицаКоманд, "Консоль запросов 9000", "КонсольЗапросов9000", "ОткрытиеФормы", Истина);
+	AddCommand(CommandTable, NStr("ru = 'Консоль запросов 9000'; en = 'Query console 9000'"), NStr("ru = 'КонсольЗапросов9000'; en = 'QueryConsole9000'"), "OpeningForm", True);
 
-	ПараметрыРегистрации.Вставить("Команды", ТаблицаКоманд);
+	RegistrationParameters.Insert("Commands", CommandTable);
 
-	Возврат ПараметрыРегистрации;
-
-EndFunction
-
-Function ПолучитьТаблицуКоманд()
-
-	Команды = Новый ТаблицаЗначений;
-	Команды.Колонки.Добавить("Представление", Новый ОписаниеТипов("Строка"));
-	Команды.Колонки.Добавить("Идентификатор", Новый ОписаниеТипов("Строка"));
-	Команды.Колонки.Добавить("Использование", Новый ОписаниеТипов("Строка"));
-	Команды.Колонки.Добавить("ПоказыватьОповещение", Новый ОписаниеТипов("Булево"));
-	Команды.Колонки.Добавить("Модификатор", Новый ОписаниеТипов("Строка"));
-
-	Возврат Команды;
+	Return RegistrationParameters;
 
 EndFunction
 
-Procedure ДобавитьКоманду(ТаблицаКоманд, Представление, Идентификатор, Использование, ПоказыватьОповещение = Ложь,
-	Модификатор = "")
-	НоваяКоманда = ТаблицаКоманд.Добавить();
-	НоваяКоманда.Представление = Представление;
-	НоваяКоманда.Идентификатор = Идентификатор;
-	НоваяКоманда.Использование = Использование;
-	НоваяКоманда.ПоказыватьОповещение = ПоказыватьОповещение;
-	НоваяКоманда.Модификатор = Модификатор;
+Function GetCommandTable()
+
+	Commands = New ValueTable;
+	Commands.Coluumns.Add("Presentation", New TypeDescription("String"));
+	Commands.Coluumns.Add("ID", New TypeDescription("String"));
+	Commands.Coluumns.Add("StartupOption", New TypeDescription("String"));
+	Commands.Coluumns.Add("ShowNotification", New TypeDescription("Boolean"));
+	Commands.Coluumns.Add("Modificator", New TypeDescription("String"));
+
+	Return Commands;
+
+EndFunction
+
+Procedure AddCommand(CommandTable, Presentation, ID, StartupOption, ShowNotification = False,
+	Modificator = "")
+	NewCommand = CommandTable.Add();
+	NewCommand.Presentation = Presentation;
+	NewCommand.ID = ID;
+	NewCommand.StartupOption = StartupOption;
+	NewCommand.ShowNotification = ShowNotification;
+	NewCommand.Modificator = Modificator;
 EndProcedure
 
 #EndRegion
 
-#Region УИ
+#Region UT
 
-Function ОбработкаВходитВСоставУниверсальныхИнструментов() Экспорт
-	Возврат Метаданные().Имя = "УИ_КонсольЗапросов";
+Function DataProcessorIsPartOfUniversalTools() Export
+	Return Metadata().Name = NStr("ru = 'УИ_КонсольЗапросов'; en = 'UT_QueryConsole'");
 EndFunction
 
 #EndRegion
