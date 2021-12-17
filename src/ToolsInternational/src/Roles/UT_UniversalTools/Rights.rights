@@ -315,7 +315,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_РедактированиеТипаЗначения</name>
+		<name>CommonForm.UT_ValueTypeEditor</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

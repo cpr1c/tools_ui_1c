@@ -128,7 +128,7 @@
   <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
   <commonForms>CommonForm.UT_WriteSettings</commonForms>
   <commonForms>CommonForm.УИ_ФормаРедактированияСпискаЗначений</commonForms>
-  <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
+  <commonForms>CommonForm.UT_ValueTypeEditor</commonForms>
   <commonForms>CommonForm.UT_ValueTableEditor</commonForms>
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <commonForms>CommonForm.UT_Settings</commonForms>
