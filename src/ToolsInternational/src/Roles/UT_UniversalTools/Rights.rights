@@ -98,7 +98,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ПараметрыЗаписи</name>
+		<name>CommonForm.UT_WriteSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -315,7 +315,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_РедактированиеТипаЗначения</name>
+		<name>CommonForm.UT_ValueTypeEditor</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -417,7 +417,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_РедакторТаблицыЗначений</name>
+		<name>CommonForm.UT_ValueTableEditor</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -532,7 +532,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РедакторHTML</name>
+		<name>DataProcessor.UT_HTMLEditor</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -554,7 +554,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ФормаТаблицыЗначений</name>
+		<name>CommonForm.UT_ValueTableForm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -575,7 +575,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_КонсольКода</name>
+		<name>DataProcessor.UT_CodeConsole</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -593,7 +593,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.AdditionalReportsAndDataProcessors.Command.УИ_НастройкиОтладки</name>
+		<name>Catalog.AdditionalReportsAndDataProcessors.Command.UT_DebugSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

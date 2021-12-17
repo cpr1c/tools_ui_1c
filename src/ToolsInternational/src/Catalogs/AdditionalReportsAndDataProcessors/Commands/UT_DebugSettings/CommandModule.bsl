@@ -1,0 +1,6 @@
+
+&НаКлиенте
+Procedure CommandProcessing(CommandParameter, CommandExecuteParameters)
+	
+	UT_CommonClient.ОткрытьНастройкиОтладкиДополнительнойОбработки(CommandParameter);
+EndProcedure
