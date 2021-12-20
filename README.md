@@ -7,7 +7,6 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/i-neti/tools_ui_1c_international?style=badge)](https://github.com/i-neti/tools_ui_1c_international/issues)
 [![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/blob/master/LICENSE)
 
-[RUSSIAN VERSION OF THIS DOCUMENT] (https://github.com/i-neti/tools_ui_1c_international/blob/develop/README_RU.md)
 [RUSSIAN VERSION OF THIS DOCUMENT](https://github.com/i-neti/tools_ui_1c_international/blob/develop/README_RU.md)
 
 [Подержать проект](#донаты-и-поддержка-проекта)
