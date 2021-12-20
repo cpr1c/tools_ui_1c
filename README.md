@@ -2,15 +2,15 @@
 
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) 
 [![Join telegram chat](https://img.shields.io/badge/chat-telegram-blue?style=flat&logo=telegram)](https://t.me/tools_ui_1c) 
-[![Last release](https://img.shields.io/github/v/release/cpr1c/tools_ui_1c?include_prereleases&label=last%20release&style=badge)](https://github.com/cpr1c/tools_ui_1c/releases/latest)
+[![Last release](https://img.shields.io/github/v/release/cpr1c/tools_ui_1c?include_prereleases&label=last%20release&style=badge)](https://github.com/i-neti/tools_ui_1c_international/releases/latest)
 [![download](https://img.shields.io/github/downloads/cpr1c/tools_ui_1c/total)](https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cfe)
 [![GitHub issues](https://img.shields.io/github/issues-raw/i-neti/tools_ui_1c_international?style=badge)](https://github.com/i-neti/tools_ui_1c_international/issues)
-[![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/i-neti/tools_ui_1c_international/blob/master/LICENSE)
 
 [RUSSIAN VERSION OF THIS DOCUMENT](https://github.com/i-neti/tools_ui_1c_international/blob/develop/README_RU.md)
 
 [Подержать проект](#донаты-и-поддержка-проекта)
-### Supported operating systems
+### Supported Operation Systems
 * Windows x86
 * Windows x64
 * Linux x64
@@ -18,42 +18,44 @@
 
 It should work on Mac OS, but has not been tested
 
-### Supported client applications
+### Supported type of client applications
 
 * Thick client managed application
 * Thin client
-* Web client(partially)
+* Web client (partially)
 
 ### Supported configuration modes
-The module is being developed based on the disabled support for modality and synchronous calls. It should work in all modern and not so configurations
+The module is  developed with  disabled support for modality and synchronous calls. 
+It should work in all modern and not so configurations
 
 ### Supported platforms
 8.3.12 and later
 
 ###  Distribution method and license
-The subsystem is developed and distributed under the GNU General Public License v3.0. The code is open, you can copy and distribute to anyone, but also with open source sharing.
+The subsystem is developed and distributed under the GNU General Public License v3.0. 
+The code is open, you can copy and distribute to anyone, but also with open source sharing.
 
-### Currently contains tools:
+### Currently content of tools:
 
 - **Group processing  of catalogs and documents**- allows you to massively change the attributes and tabular parts in selected catalogs and documents.
 - **Constant Editor** - allows you to edit the values of constants in table mode
 - **Database Storage Structure**- View table names and their relationships with metadata objects.
-- **Removal of marked objects**-  a copy of the standard Data Processor from the SSL (Standart Subsystems Library), adapted for use outside the SSL (Standart Subsystems Library)
-- **Query Console**- Data processor for developing and executing queries without writing additional processing. Fork of https://github.com/hal9000cc/RequestConsole9000. [GPL3 License](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
-- **Консоль заданий**- view and set parametrs of scheduled  and background jobs. Fork of https://github.com/kuzyara/JobsConsole2019.epf [Author's permission](https://github.com/kuzyara/JobsConsole2019.epf/issues/6)
+- **Removal of marked objects**-  a copy of the standard Data processor from the SSL (Standart Subsystems Library), adapted for use outside the SSL.
+- **Query Console**- Data processor for developing and executing queries in user mode. Fork of https://github.com/hal9000cc/RequestConsole9000. [GPL3 License](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
+- **Jobs console**- view and set parametrs of scheduled  and background jobs. Fork of https://github.com/kuzyara/JobsConsole2019.epf [Author's permission](https://github.com/kuzyara/JobsConsole2019.epf/issues/6)
 - **Registration of changes for exchange**- Data processor allows you to edit the registration of changes to data exchange objects at the Exchange Plan Node. Is intended for data exchange developers, data administrators and advanced users.
-- **Search and removal of duplicates**- A fork of the standard Data Processor from the SSL (Standart Subsystems Library), to which several parameters for performing the replacement have been added
+- **Search and removal of duplicates**- A fork of the standard data processor from the SSL (Standart Subsystems Library), to which several parameters for performing the replacement have been added
 - **Code Console**- Allows you to execute code from the enterprise without creating external Data Processor. There is syntax highlighting and a minimal contextual hint
 - **Search for object references**- an analogue of the standard data processor from the "All functions" menu.
-- **Object attibutes editor**- allows low-level editing of attributes of reference objects. Supports  document records editing. Fork of  Data Processor https://infostart.ru/public/983887/. Cutted from https://infostart.ru/public/938606/. [Author's permission](http://forum.infostart.ru/forum24/topic203301/message2375899/#message2375899)
-- **Reports console**- it is based on a DCS and uses most of its features. With its help, you can create and execute reports of almost any complexity without resorting to programming.
-- **Dynamic list**- convenient viewing of lists of database tables from a single Data Processor
-- **Консоль HTTP запросов**-  позволяет из 1С делать HTTP запросы. 
-- **Выгрузка загрука XML с фильтрами** - Перенос информации между однородными базами данных. Форк обработки https://infostart.ru/public/1149722/ [Author's permission](http://forum.infostart.ru/forum15/topic229143/message2372663/#message2372663)
-- **Навигатор по конфигурации**- Data Processor замена стандартному меню "Все функции". Здесь же дополнительные административные фукнции будут. Форк https://infostart.ru/public/931586/. [Author's permission](http://forum.infostart.ru/forum9/topic202659/message2375904/#message2375904)
-- **Файловый менеджер** - Data Processor для удобной работы с файлами между клиентом и сервером. Передача, просмотр, удаление. На текущий момент содержит синхронные вызовы. Форк https://infostart.ru/public/1027326/. [Author's permission](https://github.com/cpr1c/tools_ui_1c/issues/108)
-- **Конструктор регулярных выражений**-  позволяет строить сложно-структурированные выражения на основе параметрического описания, тестировать их, и в результате получить программный код 1С. На текущий момент работает только в Windows. Форк https://infostart.ru/public/592108/. [Author's permission](http://forum.infostart.ru/forum9/topic167495/message2389269/#message2389269)
-- **Консоль вебсервисов** -Data Processor для чтения и выполнения веб-сервисов на платформе 1С: Предприятие 8.3. Аналог soapUI. Обработка позволяет выполнить операцию веб-сервиса и отобразить результат в виде xml или дерева. Форк  https://github.com/ghostaz/WSReader2.git. [Лицензия GPL3](https://github.com/ghostaz/WSReader2/blob/master/LICENSE)
+- **Object attibutes editor**- allows low-level editing of attributes of reference objects. Supports  document records editing. Fork of https://infostart.ru/public/983887/. Cutted from https://infostart.ru/public/938606/. [Author's permission](http://forum.infostart.ru/forum24/topic203301/message2375899/#message2375899)
+- **Reports console**- it is based on a Data Composition System and uses most of its features. With its help, you can create and execute reports of almost any complexity without resorting to programming.
+- **Dynamic list**- convenient viewing of lists of database tables from a single data processor
+- **HTTP Request Console**-  allows you to make HTTP requests from 1C. 
+- **Loading/Uploading XML with filters** - Transferring information between two similar databases. Fork of https://infostart.ru/public/1149722/ [Author's permission](http://forum.infostart.ru/forum15/topic229143/message2372663/#message2372663)
+- **Configuration Navigator**- This data processor replases  standart command "All Functions" and contains additional administrative functions. Fork of https://infostart.ru/public/931586/. [Author's permission](http://forum.infostart.ru/forum9/topic202659/message2375904/#message2375904)
+- **File manager** - Data processor for convenient work with files between the client and the server.Support file Transfer, View, delete of files. Currently contains synchronous calls. Fork of  https://infostart.ru/public/1027326/. [Author's permission](https://github.com/cpr1c/tools_ui_1c/issues/108)
+- **Regular Expressions Constructor**-  allows you to build complex structured expressions based on a parametric description, test them, and as a result get the 1C program code. Currently it only works on Windows. Fork of https://infostart.ru/public/592108/. [Author's permission](http://forum.infostart.ru/forum9/topic167495/message2389269/#message2389269)
+- **Web Services Console** -data processor for reading and executing web services on the 1C: Enterprise 8.3 platform. Analog of SoapUI. Allows you to perform a web service operation and display the result as xml or a tree. Fork of  https://github.com/ghostaz/WSReader2.git. [Лицензия GPL3](https://github.com/ghostaz/WSReader2/blob/master/LICENSE)
 - **Консоль сравнения данных**- предназначена для сравнения данных, полученных из разных источников данных: информационных баз 1С 8, 1С 7.7, баз данных SQL, файлов формата CSV/TXT/DBF/XLS/DOC/XML, строки JSON, вручную заполненного табличного документа. Форк https://infostart.ru/public/581794. [Author's permission](http://forum.infostart.ru/forum9/topic165873/message2373325/#message2373325)
 - **Информация о лицензиях 1С**-представляющая из себя обертку функций Утилиты лицензирования 1С (ring) в понятном для обычного человека виде. По сути, это GUI утилиты RING. Форк  https://infostart.ru/public/1124442/. [Author's permission](http://forum.infostart.ru/forum9/topic226186/message2389245/#message2389245). Для работы должна быть установлена утилита ring и ее модули license
 - **Загрузка данных из табличного докумнета**-Data Processor предназначена для загрузки данных в справочники и табличные части различных объектов из табличного документа. Форк обработки  https://infostart.ru/public/269425/. [Author's permission](http://forum.infostart.ru/forum15/topic107643/message2397121/#message2397121) 
@@ -65,7 +67,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 - **Библиотека сериализации 1С**- Набор процедур и функций для сериализации/десериализации данных 1С и объектов СКД в простые структуры данных (Структура, соответствие, массив). Форк https://github.com/arkuznetsov/SerLib1C. [Лицензия MPL-2.0 License](https://github.com/arkuznetsov/SerLib1C/blob/master/LICENSE)
 - **Коннектор: удобный HTTP-клиент для 1С:Предприятие 8** - В мире python очень популярна библиотека для работы с HTTP запросами - [Requests](http://docs.python-requests.org/en/master) (автор: Kenneth Reitz). Библиотека берет на себя всю рутину работы с HTTP запросами. Буквально в одну строку можно получать данные, отправлять, не заботясь о необходимости конструирования URL, кодирования данных и т.п. В общем библиотека очень мощная и проста в использовании. **Коннектор** - это "Requests" для мира 1С. Форк https://github.com/vbondarevsky/Connector. [Лицензия Apache-2.0](https://github.com/vbondarevsky/Connector/blob/master/LICENSE)
 
-# Интеграция с библиотекой стандартных подсистем (БСП)
+# Integration with Standart Sybsystems Liblary (SSL)
 
 1. Есть возможность удобной отладки дополнительных отчетов и обраток. Подробнее в [wiki](https://github.com/cpr1c/tools_ui_1c/wiki/Отладка-внешних-обработок-БСП)
 1. В списки и формы объектов добавляется подменю "Инструменты", которое содержит пункты(Формы должны быть подключены к подсистеме "Подключаемые команды"):
@@ -86,7 +88,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 
 `Результат = КоннекторHTTP.GetJson("https://api.github.com/events");`
 
-## Библиотека сериализации 1С
+## 1C Serialization Library
 
 Доступна программно через обработку **УИ_ПреобразованиеДанныхJSON**. Подробное описание методов смотрите на странице библиотеки https://github.com/arkuznetsov/SerLib1C
 
@@ -94,7 +96,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 
 `Сериализатор1С = Обработки.УИ_ПреобразованиеДанныхJSON.Создать()` 
  
-Пример использования: 
+Example: 
  
 ```bsl
 СериализаторJSON=Обработки.УИ_ПреобразованиеДанныхJSON.Создать();
@@ -102,7 +104,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 СтруктураИстории=СериализаторJSON.ЗначениеВСтруктуру(ДанныеСохранения);
 СериализуемаяСтрокаJSON=СериализаторJSON.ЗаписатьОписаниеОбъектаВJSON(СтруктураИстории);
 ``` 
-## Работа с буфером обмена ОС
+## Working with the OS clipboard
 
 Доступна программно через модуль **УИ_БуферОбменаКлиент**. Описание методов в коде. Поддерживается синхронный и асинхронный режим работы. https://github.com/cpr1c/clipboard_1c
 
@@ -112,7 +114,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 УИ_БуферОбменаКлиент.КопироватьСтрокуВБуфер("Моя строка для копирования в буфер обмена");
 ``` 
 
-## Работа с регулярными выражениями
+## Working with regular expressions
 
 Доступна программно через модуль **УИ_РегулярныеВыраженияКлиентСервер**. Описание методов в коде. Поддерживается синхронный и асинхронный режим работы. https://github.com/cpr1c/RegEx1C_cfe
 
@@ -133,7 +135,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 
 `УИ_._ВТ(Запрос.МенеджерВременныхТаблиц)`
 
-## Сравнение двух таблиц значений
+## Comparison of two value tables
 
 Необходимо в форме вычисления выражения вызвать функцию **_ТЗСр(ТаблицаБазовая, ТаблицаСравнения, СписокКолонок)**. 
 
@@ -143,7 +145,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 
 `УИ_._ТЗСр(ТаблицаБазовая, ТаблицаСравнения, "Номенклатура,Количество")`
 
-## Сериализация XML в простые структуры данных(массив, структура, соответствие)
+## Serialization of XML into simple data structures (array, structure, map)
 
 Необходимо в форме вычисления выражения вызвать функцию **_XMLОбъект(ПутьЧтения, УпроститьЭлементы)**. 
 
@@ -157,7 +159,7 @@ The subsystem is developed and distributed under the GNU General Public License 
 
 `УИ_._XMLОбъект("C:\1.xml", Ложь)` - выполнит чтение в структуры файла без упрощения полученных структур
 
-# Отладка
+# Debug
 [Особенности использования отладки в портативной поставке](https://github.com/cpr1c/tools_ui_1c/wiki/Особенности-использования-отладки-в-портативном-варианте)
 ### Вызов
 
