@@ -35,19 +35,19 @@ The subsystem is developed and distributed under the GNU General Public License 
 
 ### Currently contains tools:
 
-- **Group processing  of catalogs and documents**- ## ЗАМЕНИТЬ ОПИСАНИЕ Similar to typical Data Processor from 1C from ITS  (ИТС) disk
+- **Group processing  of catalogs and documents**- allows you to massively change the attributes and tabular parts in selected catalogs and documents.
 - **Constant Editor** - allows you to edit the values of constants in table mode
 - **Database Storage Structure**- View table names and their relationships with metadata objects.
 - **Removal of marked objects**-  a copy of the standard Data Processor from the SSL (Standart Subsystems Library), adapted for use outside the SSL (Standart Subsystems Library)
 - **Query Console**- Data processor for developing and executing queries without writing additional processing. Fork of https://github.com/hal9000cc/RequestConsole9000. [GPL3 License](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
 - **Консоль заданий**- view and set parametrs of scheduled  and background jobs. Fork of https://github.com/kuzyara/JobsConsole2019.epf [Author's permission](https://github.com/kuzyara/JobsConsole2019.epf/issues/6)
-- **Registration of changes for exchange**- ## ЗАМЕНИТЬ ОПИСАНИЕ Fork Data Processor from ITS disk with adaptations to the subsystem
+- **Registration of changes for exchange**- Data processor allows you to edit the registration of changes to data exchange objects at the Exchange Plan Node. Is intended for data exchange developers, data administrators and advanced users.
 - **Search and removal of duplicates**- A fork of the standard Data Processor from the SSL (Standart Subsystems Library), to which several parameters for performing the replacement have been added
 - **Code Console**- Allows you to execute code from the enterprise without creating external Data Processor. There is syntax highlighting and a minimal contextual hint
-- **Поиск ссылок на объект**- аналог стандартной обработки из меню "Все функции". 
-- **Редактор реквизитов объекта**- позволяет низкоуровневое редактирование ссылочных объектов. Поддерживает редактирование движений документа. Форк обработки https://infostart.ru/public/983887/. Вырезана из https://infostart.ru/public/938606/. [Author's permission](http://forum.infostart.ru/forum24/topic203301/message2375899/#message2375899)
-- **Консоль отчетов**- переработанная консоль компоновок с диска ИТС. Теперь ей удобнее пользоваться
-- **Динамический список**- удобный просмотр списков таблиц базы из одной обработки
+- **Search for object references**- an analogue of the standard data processor from the "All functions" menu.
+- **Object attibutes editor**- allows low-level editing of attributes of reference objects. Supports  document records editing. Fork of  Data Processor https://infostart.ru/public/983887/. Cutted from https://infostart.ru/public/938606/. [Author's permission](http://forum.infostart.ru/forum24/topic203301/message2375899/#message2375899)
+- **Reports console**- it is based on a DCS and uses most of its features. With its help, you can create and execute reports of almost any complexity without resorting to programming.
+- **Dynamic list**- convenient viewing of lists of database tables from a single Data Processor
 - **Консоль HTTP запросов**-  позволяет из 1С делать HTTP запросы. 
 - **Выгрузка загрука XML с фильтрами** - Перенос информации между однородными базами данных. Форк обработки https://infostart.ru/public/1149722/ [Author's permission](http://forum.infostart.ru/forum15/topic229143/message2372663/#message2372663)
 - **Навигатор по конфигурации**- Data Processor замена стандартному меню "Все функции". Здесь же дополнительные административные фукнции будут. Форк https://infostart.ru/public/931586/. [Author's permission](http://forum.infostart.ru/forum9/topic202659/message2375904/#message2375904)
