@@ -69,30 +69,30 @@ The code is open, you can copy and distribute to anyone, but also with open sour
 
 # Integration with Standart Sybsystems Liblary (SSL)
 
-1. Есть возможность удобной отладки дополнительных отчетов и обраток. Подробнее в [wiki](https://github.com/cpr1c/tools_ui_1c/wiki/Отладка-внешних-обработок-БСП)
-1. В списки и формы объектов добавляется подменю "Инструменты", которое содержит пункты(Формы должны быть подключены к подсистеме "Подключаемые команды"):
-	* **Добавить к сравнению** - добавляет выледенные объекты к сравнению для дальнейшего использования в инструменте "Сравнение объектов"
-	* **Редактировать объект** - Позволяет текущий объект открыть в редакторе реквизитов
-	* **Сравнить объекты** - Открывает инструмент "Сравнение объектов" с выделенными ссылками в качестве объектов сравнения. Доступно только для списков
-    * **Найти ссылки на объект** - Открывает инструмент "Поиск ссылок на объект" для текущего объекта
-    * **Выгрузить объекты в XML** - Выполняет выгрузку выбранных объектов с подчиненными ссылками с использованием инструмента "Выгрузка загрузка XML"
+1. There is a possibility of convenient debugging of additional reports and data processors. More detailed at [wiki](https://github.com/cpr1c/tools_ui_1c/wiki/Отладка-внешних-обработок-БСП)
+2. The "Tools" submenu is added to the lists and forms of objects, which contains items (The forms must be connected to the "Attachable Commands" subsystem):
+	* **Add to Comparison** - adds selected objects to comparison for further use in the "Object Comparison" tool
+	* **Edit Object** - Allows you to open the current object in the Attributes editor
+	* **Compare Objects** - Opens the "Compare Objects" tool with selected links as comparison objects. Available only for lists.
+    * **Find Object References** - Opens the "Find Object References" tool for the current object.
+    * **Upload objects to XML** -Performs unloading of selected objects with subordinate links using the "Loading/Uploading XML" tool.
 
 
 # Programming interface
 
 ## Connector: handy HTTP-client for 1C:Enterprise 8 platform
 
-Доступна программно через общий модуль **UT_HTTPConnector**. Подробное описание смотрите на странице библиотеки https://github.com/vbondarevsky/Connector/blob/master/README-EN.md
+Accessible from the API via the common module **UT_HTTPConnector**. For a detailed description, see the library page https://github.com/vbondarevsky/Connector/blob/master/README-EN.md
 
-Пример использования:
+Example:
 
 `Result = HTTPConnector.GetJson("https://api.github.com/events");`
 
 ## 1C Serialization Library
 
-Доступна программно через обработку **УИ_ПреобразованиеДанныхJSON**. Подробное описание методов смотрите на странице библиотеки https://github.com/arkuznetsov/SerLib1C
+Available from API of data processor **UT_JSONDataConversion**. For a detailed description of the methods, see the library page https://github.com/arkuznetsov/SerLib1C
 
-Инициализация:
+Initialization:
 
 `Сериализатор1С = Обработки.УИ_ПреобразованиеДанныхJSON.Создать()` 
  
@@ -106,10 +106,10 @@ Example:
 ``` 
 ## Working with the OS clipboard
 
-Доступна программно через модуль **УИ_БуферОбменаКлиент**. Описание методов в коде. Поддерживается синхронный и асинхронный режим работы. https://github.com/cpr1c/clipboard_1c
+Available from API of module **UT_ClipboardClient**. Description of methods in the code. Synchronous and asynchronous operation modes are supported. https://github.com/cpr1c/clipboard_1c
 
 
-Пример использования: 
+Example of use: 
 ```bsl
 УИ_БуферОбменаКлиент.КопироватьСтрокуВБуфер("Моя строка для копирования в буфер обмена");
 ``` 
@@ -119,17 +119,17 @@ Example:
 Доступна программно через модуль **УИ_РегулярныеВыраженияКлиентСервер**. Описание методов в коде. Поддерживается синхронный и асинхронный режим работы. https://github.com/cpr1c/RegEx1C_cfe
 
 
-Пример использования: 
+Example of use: 
 ```bsl
 УИ_РегулярныеВыраженияКлиентСервер.Совпадает("Hello world", "([A-Za-z]+)\s+([a-z]+)"); //Истина
 ``` 
 
  
-## Получение структуры виртуальных таблиц запроса или менеджера временных таблиц
+## Retrieving the virtual table structure of a query or temporary table manager
 
-Необходимо в форме вычисления выражения вызвать функцию **УИ_._ВТ(ЗапросИЛИМенеджерВременныхТаблиц)**. 
+It is necessary to call the function in the form of evaluating an expression **УИ_._ВТ(ЗапросИЛИМенеджерВременныхТаблиц)**. 
 
-Примеры использования: 
+Example of use: 
 
 `УИ_._ВТ(Запрос)`
 
@@ -137,105 +137,104 @@ Example:
 
 ## Comparison of two value tables
 
-Необходимо в форме вычисления выражения вызвать функцию **_ТЗСр(ТаблицаБазовая, ТаблицаСравнения, СписокКолонок)**. 
+It is necessary to call the function in the form of evaluating an expression **_ТЗСр(ТаблицаБазовая, ТаблицаСравнения, СписокКолонок)**. 
 
-Примеры использования: 
+Example of use: 
 
-`УИ_._ТЗСр(ТаблицаБазовая, ТаблицаСравнения)` - выполнит сравнение по всем колонкам параметра ТаблицаБазовая
+`УИ_._ТЗСр(ТаблицаБазовая, ТаблицаСравнения)` - will perform comparison across all columns of the TableBase parameter
 
 `УИ_._ТЗСр(ТаблицаБазовая, ТаблицаСравнения, "Номенклатура,Количество")`
 
 ## Serialization of XML into simple data structures (array, structure, map)
 
-Необходимо в форме вычисления выражения вызвать функцию **_XMLОбъект(ПутьЧтения, УпроститьЭлементы)**. 
+It is necessary to call the function in the form of evaluating an expression **_XMLОбъект(ПутьЧтения, УпроститьЭлементы)**. 
 
-Примеры использования: 
+Example of use: 
 
-`УИ_._XMLОбъект(ЧтениеXML)` - выполнит обход сущществующего объекта ЧтениеXML
+`УИ_._XMLОбъект(ЧтениеXML)` - will crawl an existing XMLReader
 
-`УИ_._XMLОбъект("C:\1.xml")` - выполнит чтение в структуры файла
+`УИ_._XMLОбъект("C:\1.xml")` - will read into file structures
 
-`УИ_._XMLОбъект(Поток)` - выполнит чтение в структуры потока
+`УИ_._XMLОбъект(Поток)` - will read into stream structures
 
-`УИ_._XMLОбъект("C:\1.xml", Ложь)` - выполнит чтение в структуры файла без упрощения полученных структур
+`УИ_._XMLОбъект("C:\1.xml", Ложь)` - will read into file structures without simplifying the resulting structures
 
 # Debug
 [Особенности использования отладки в портативной поставке](https://github.com/cpr1c/tools_ui_1c/wiki/Особенности-использования-отладки-в-портативном-варианте)
-### Вызов
+### Call
 
-Необходимо в форме вычисления выражения вызвать функцию **УИ_._От(ВашаПеременнаяОбъектаОтладки,НастройкиСКД)**. Где вместо ВашаПеременнаяОбъектаОтладки нужно передать переменную, содержащую один из доступных к отладке объектов
+It is necessary to call the function **УИ_._От(ВашаПеременнаяОбъектаОтладки,НастройкиСКД)** in the form of evaluating an expression. Where instead ВашаПеременнаяОбъектаОтладки you need to pass a variable containing one of the objects available for debugging
 
-### Логика работы
+### How it works
 
-Если контекст запуска отладки является толстым клиентом открытие формы консоли происходит сразу по окончании выполнения вызова кода
+If the debug launch context is a thick client, the console form opens immediately after the end of the code call.
 
-Если отладка вызывается в контексте сервера или тонкого или веб клиента, необходимая информация сохраняется в справочник **Данные для отладки**. В таком случае вызов отладки проиходит потом из списка справочника "Данные для отладки". 
+If debugging is called in the context of a server or a thin or web client, the necessary information is saved in the **Данные для отладки** reference. In this case, debugging is called later from the list of the "Данные для отладки" reference book. 
 
 
-### Поддерживается отладка объектов:
+### Debugging of objects is supported:
 
-* **Запрос**- на текущий момент отлаживаются запросы без менеджеров временных таблиц. 
-Вызов отладки 
+* **Запрос**- queries without temporary table managers are currently being debugged.
+Debug call  
 
 `УИ_._От(Запрос)`
 
-* **Схема компоновки данных**- поддерживается отладка без внешних источников данных. 
+* **Data Composition Schema**- Debugging without external data sources is supported. 
 
-Вызов отладки
+Debug call:
 
-`УИ_._От(СхемаКомпоновкиДанных,НастройкиСКД)` - будет вызвана отладка с переданными настройками
+`УИ_._От(СхемаКомпоновкиДанных,НастройкиСКД)` - debugging with the transferred settings will be called
 
-`УИ_._От(СхемаКомпоновкиДанных)` - будет вызвана отладка с настройками по умолчанию для СКД
+`УИ_._От(СхемаКомпоновкиДанных)` - debugging with default settings for DCS will be called
 
-`УИ_._От(СхемаКомпоновкиДанных,НастройкиСКД, ВнешниеНаборыДанных)` - будет вызвана отладка с переданными настройками и внешними наборами данных
+`УИ_._От(СхемаКомпоновкиДанных,НастройкиСКД, ВнешниеНаборыДанных)` - debugging will be called with the transferred settings and external datasets
 
-* **Ссылочный объект базы**- просмотр и редактирование ссылки БД
+* **Reference object of the database**- viewing and editing the reference of the database
 
-Вызов отладки
+Debug call
 
 `УИ_._от(СсылкаНаОбъектБД)`
 
-* **HTTP Запрос**- поддерживается отладка строкового и файлового содержимого запросов, а также прокси
+* **HTTP Запрос**- debugging of string and file content of requests, as well as proxy is supported
 
-Выззов отладки
+Debug call
 
 `УИ_._От(HTTPЗапрос,СоединениеHTTP)`
 
-# Сборка в бинарные файлы
+# Building into binaries
 
-Зависимости сборки теперь находятся в файле packagedef, в папке build для установки зависимостей необходимо выполнить команду
-`opm install`  находясь в корне проекта
+The build dependencies are now in the file : packagedef, in the build folder to install the dependencies, you must run the command `opm install`  from the root of the project.
 
-В корне репозитория вызвать файл сценария 
+Call the script file at the root of the repository
 
-* **build.sh** - для Linux
-* **build.bat** - для Windows
+* **build.sh** - for Linux
+* **build.bat** - for Windows
 
-Доступные параметры сборки:
-  * **--platformSource**  - Каталог установки платформы для выполнения сборки
-  * **--versionEDT** - Версия EDT для выполнения конвертации. Для запуска через утилиту ring. Необходимо указывать, если в системе установлено более одной версии 1C:EDT
-  * **--cfe** - Формировать сборку в формате Расширения
-  * **--cf** - Формировать сборку в виде конфигурации
+Available build options:
+  * **--platformSource**  - Platform installation directory for building execution
+  * **--versionEDT** - EDT version to perform conversion. To run through the RING utility. Must be specified if the system has more than one version of 1C: EDT
+  * **--cfe** - Generate assembly in Extension format
+  * **--cf** - Form the assembly as a configuration
    
-Пример 
+Example 
 `./build.sh ----platformSource=/opt/1cv8/x86_64/8.3.12.1924 --versionEDT=edt@2020.6.0`
 
-# Развитие инструментов
+# Project development
 
-Разработка ведется в 1С:EDT
+The project is being developed in 1C: EDT.
 
-Замечания и предложения оставляйте в разделе **issues**. 
+Leave your comments and suggestions in the **issues** section. 
 
-Если кто хочет поучаствовать - добро пожаловать. Больше идей- лучше конечное решение. Перед началом прочитайте [инструкцию для легкого старта](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing) 
+If you want to participate, you are welcome. The more ideas, the better the final solution. Before start please read [easy start instructions](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing) 
 
 # Donation and project support
 
-Поддержать проект деньгой можно по ссылке https://donate.stream/ya410011848843350
+You can support the project with money by following the link https://donate.stream/ya410011848843350
 
-**Все собранные средства пойдут ИСКЛЮЧИТЕЛЬНО на развитие проекта и никуда более**
+**All collected funds will go EXCLUSIVELY for the development of the project and nowhere else**
 
-# Ссылки на инструмены так или иначе участвовавшие в проекте
-* https://github.com/khorevaa/xml-parser- была основной для фукнции чтения XML в простые структуры данных
-* https://github.com/pm74/_37583.git- На ее основе реализовывается механизм алгоритмов(хотя пока и не доделан)
-* https://github.com/partizand/debug_external_dataprocessor - Основа для разработки поддержки отладки внешних обработок БСП
-* https://github.com/salexdv/bsl_console - Редактор кода 1С - Monaco
+# Links to tools used in project (in some way)
+* https://github.com/khorevaa/xml-parser- was basic for the function of reading XML into simple data structures.
+* https://github.com/pm74/_37583.git- On its basis, a mechanism of algorithms is implemented (although it has not yet been completed)
+* https://github.com/partizand/debug_external_dataprocessor - Basis for developing support for debugging external data processors in SSL
+* https://github.com/salexdv/bsl_console - Code Editor 1С - Monaco
