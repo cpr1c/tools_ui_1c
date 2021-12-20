@@ -195,7 +195,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ОпцияОграничениеВыводимыхСтрокПервыеВкл</name>
+      <name>OutputLinesLimitTopEnabledOption</name>
       <id>263</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -204,16 +204,16 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ОграничениеВыводимыхСтрокПервыеВкл</segments>
+          <segments>OutputLinesLimitTopEnabled</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <handlers>
         <event>OnChange</event>
-        <name>ОпцияОграничениеВыводимыхСтрокПервыеВклПриИзменении</name>
+        <name>OutputLinesLimitTopEnabledOptionOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>ОпцияОграничениеВыводимыхСтрокПервыеВклРасширеннаяПодсказка</name>
+        <name>OutputLinesLimitTopEnabledOptionExtendedTooltip</name>
         <id>265</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -228,7 +228,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ОпцияОграничениеВыводимыхСтрокПервыеВклКонтекстноеМеню</name>
+        <name>OutputLinesLimitTopEnabledOptionContextMenu</name>
         <id>264</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -245,8 +245,12 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>ОпцияОграничениеВыводимыхСтрокПервые</name>
+      <name>OutputLinesLimitTopOption</name>
       <id>260</id>
+      <title>
+        <key>en</key>
+        <value>TOP</value>
+      </title>
       <title>
         <key>ru</key>
         <value>ПЕРВЫЕ</value>
@@ -257,11 +261,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ОграничениеВыводимыхСтрокПервые</segments>
+          <segments>OutputLinesLimitTop</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ОпцияОграничениеВыводимыхСтрокПервыеРасширеннаяПодсказка</name>
+        <name>OutputLinesLimitTopOptionExtendedTooltip</name>
         <id>262</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -276,7 +280,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ОпцияОграничениеВыводимыхСтрокПервыеКонтекстноеМеню</name>
+        <name>OutputLinesLimitTopOptionContextMenu</name>
         <id>261</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -444,7 +448,7 @@
         <name>СтраницаПакетЗапросов</name>
         <id>188</id>
         <items xsi:type="form:Table">
-          <name>ПакетЗапросов</name>
+          <name>QueryBatch</name>
           <id>29</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -452,11 +456,11 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ПакетЗапросов</segments>
+            <segments>QueryBatch</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
-            <name>СписокЗапросовЗапрос</name>
+            <name>QueryListQuery</name>
             <id>42</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -465,15 +469,19 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПакетЗапросов.Имя</segments>
+                <segments>QueryBatch.Name</segments>
               </paths>
             </dataPath>
+            <toolTip>
+              <key>en</key>
+              <value>Query name</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Имя запроса</value>
             </toolTip>
             <extendedTooltip>
-              <name>СписокЗапросовЗапросРасширеннаяПодсказка</name>
+              <name>QueryListQueryExtendedTooltip</name>
               <id>44</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -488,7 +496,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокЗапросовЗапросКонтекстноеМеню</name>
+              <name>QueryListQueryContextMenu</name>
               <id>43</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -512,7 +520,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПакетЗапросовКол</name>
+            <name>QueryBatchCount</name>
             <id>173</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -521,16 +529,20 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПакетЗапросов.Инфо</segments>
+                <segments>QueryBatch.Info</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
+            <toolTip>
+              <key>en</key>
+              <value>The number of result lines returned and the query execution time. Red highlight means that not all data is displayed in the result due to limited options. </value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Количество возвращенных строк результата и время выполнения запроса. Красная подсветка означает, что в результат выведены не все данные из-за ограничения в опциях.</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПакетЗапросовКолРасширеннаяПодсказка</name>
+              <name>QueryBatchCountExtendedTooltip</name>
               <id>175</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -545,7 +557,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПакетЗапросовКолКонтекстноеМеню</name>
+              <name>QueryBatchCountContextMenu</name>
               <id>174</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -574,7 +586,7 @@
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>ПакетЗапросовКоманднаяПанель</name>
+            <name>QueryBatchCommandBar</name>
             <id>31</id>
             <items xsi:type="form:FormGroup">
               <name>ПакетЗапросовГруппаДействия</name>
@@ -668,7 +680,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ПакетЗапросов.StandardCommand.Change</commandName>
+                <commandName>Form.Item.QueryBatch.StandardCommand.Change</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -699,7 +711,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ПакетЗапросов.StandardCommand.Delete</commandName>
+                <commandName>Form.Item.QueryBatch.StandardCommand.Delete</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -761,7 +773,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ПакетЗапросов.StandardCommand.MoveUp</commandName>
+                <commandName>Form.Item.QueryBatch.StandardCommand.MoveUp</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -792,7 +804,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ПакетЗапросов.StandardCommand.MoveDown</commandName>
+                <commandName>Form.Item.QueryBatch.StandardCommand.MoveDown</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -965,23 +977,23 @@
           </autoCommandBar>
           <handlers>
             <event>OnEditEnd</event>
-            <name>ПакетЗапросовПриОкончанииРедактирования</name>
+            <name>QueryBatchOnEditEnd</name>
           </handlers>
           <handlers>
             <event>Selection</event>
-            <name>ПакетЗапросовВыбор</name>
+            <name>QueryBatchSelection</name>
           </handlers>
           <handlers>
             <event>BeforeAddRow</event>
-            <name>ПакетЗапросовПередНачаломДобавления</name>
+            <name>QueryBatchBeforeAddRow</name>
           </handlers>
           <handlers>
             <event>BeforeEditEnd</event>
-            <name>ПакетЗапросовПередОкончаниемРедактирования</name>
+            <name>QueryBatchBeforeEditEnd</name>
           </handlers>
           <handlers>
             <event>OnActivateRow</event>
-            <name>ПакетЗапросовПриАктивизацииСтроки</name>
+            <name>QueryBatchOnActivateRow</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -989,10 +1001,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПакетЗапросовСтрокаПоиска</name>
+            <name>QueryBatchSearchString</name>
             <id>33</id>
             <extendedTooltip>
-              <name>ПакетЗапросовСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>QueryBatchSearchStringExtendedTooltip</name>
               <id>35</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1007,7 +1019,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПакетЗапросовСтрокаПоискаКонтекстноеМеню</name>
+              <name>QueryBatchSearchStringContextMenu</name>
               <id>34</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1026,10 +1038,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПакетЗапросовСостояниеПросмотра</name>
+            <name>QueryBatchViewStatus</name>
             <id>36</id>
             <extendedTooltip>
-              <name>ПакетЗапросовСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>QueryBatchViewStatusExtendedTooltip</name>
               <id>38</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1044,7 +1056,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПакетЗапросовСостояниеПросмотраКонтекстноеМеню</name>
+              <name>QueryBatchViewStatusContextMenu</name>
               <id>37</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1064,10 +1076,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПакетЗапросовУправлениеПоиском</name>
+            <name>QueryBatchSearchControl</name>
             <id>39</id>
             <extendedTooltip>
-              <name>ПакетЗапросовУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>QueryBatchSearchControlExtendedTooltip</name>
               <id>41</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1082,7 +1094,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПакетЗапросовУправлениеПоискомКонтекстноеМеню</name>
+              <name>QueryBatchSearchControlContextMenu</name>
               <id>40</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1097,7 +1109,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>ПакетЗапросовРасширеннаяПодсказка</name>
+            <name>QueryBatchExtendedTooltip</name>
             <id>32</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1112,7 +1124,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПакетЗапросовКонтекстноеМеню</name>
+            <name>QueryBatchContextMenu</name>
             <id>30</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1181,7 +1193,7 @@
         <name>СтраницаОпции</name>
         <id>190</id>
         <items xsi:type="form:FormField">
-          <name>ОпцияСохранятьКомментарии</name>
+          <name>SaveCommentsOption</name>
           <id>195</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1190,17 +1202,17 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ОпцияСохранятьКомментарии</segments>
+              <segments>SaveCommentsOption</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <titleHeight>3</titleHeight>
           <handlers>
             <event>OnChange</event>
-            <name>ОпцияСохранятьКомментарииПриИзменении</name>
+            <name>SaveCommentsOptionOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ОпцияСохранятьКомментарииРасширеннаяПодсказка</name>
+            <name>SaveCommentsOptionExtendedTooltip</name>
             <id>197</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1215,7 +1227,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОпцияСохранятьКомментарииКонтекстноеМеню</name>
+            <name>SaveCommentsOptionContextMenu</name>
             <id>196</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1232,7 +1244,7 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>ОпцияАвтосохранениеПередВыполнениемЗапроса</name>
+          <name>AutoSaveBeforeQueryExecutionOption</name>
           <id>272</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1241,12 +1253,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ОпцияАвтосохранениеПередВыполнениемЗапроса</segments>
+              <segments>AutoSaveBeforeQueryExecutionOption</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
-            <name>ОпцияАвтосохранениеПередВыполнениемЗапросаРасширеннаяПодсказка</name>
+            <name>AutoSaveBeforeQueryExecutionOptionExtendedTooltip</name>
             <id>274</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1261,7 +1273,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОпцияАвтосохранениеПередВыполнениемЗапросаКонтекстноеМеню</name>
+            <name>AutoSaveBeforeQueryExecutionOptionContextMenu</name>
             <id>273</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1287,7 +1299,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.OptionProcessing__</segments>
+              <segments>Object.OptionProcessing__</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
@@ -1328,7 +1340,7 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>ОпцияИнтервалАвтосохранения</name>
+          <name>AutoSaveIntervalOption</name>
           <id>198</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1337,15 +1349,15 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ОпцияИнтервалАвтосохранения</segments>
+              <segments>AutoSaveIntervalOption</segments>
             </paths>
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ОпцияИнтервалАвтосохраненияПриИзменении</name>
+            <name>AutoSaveIntervalOptionOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ОпцияИнтервалАвтосохраненияРасширеннаяПодсказка</name>
+            <name>AutoSaveIntervalOptionExtendedTooltip</name>
             <id>200</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1360,7 +1372,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОпцияИнтервалАвтосохраненияКонтекстноеМеню</name>
+            <name>AutoSaveIntervalOptionContextMenu</name>
             <id>199</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1398,7 +1410,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.AlgorithmExecutionUpdateIntervalOption</segments>
+              <segments>Object.AlgorithmExecutionUpdateIntervalOption</segments>
             </paths>
           </dataPath>
           <handlers>
@@ -2098,7 +2110,7 @@
               <name>ГруппаТекстЗапроса</name>
               <id>475</id>
               <items xsi:type="form:FormField">
-                <name>ТекстЗапроса</name>
+                <name>QueryText</name>
                 <id>1</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2107,16 +2119,16 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ТекстЗапроса</segments>
+                    <segments>QueryText</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <handlers>
                   <event>OnChange</event>
-                  <name>ТекстЗапросаПриИзменении</name>
+                  <name>QueryTextOnChange</name>
                 </handlers>
                 <extendedTooltip>
-                  <name>ТекстЗапросаРасширеннаяПодсказка</name>
+                  <name>QueryTextExtendedTooltip</name>
                   <id>3</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2131,7 +2143,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ТекстЗапросаКонтекстноеМеню</name>
+                  <name>QueryTextContextMenu</name>
                   <id>2</id>
                   <items xsi:type="form:Button">
                     <name>ТекстЗапросаКонтекстноеМенюКонструкторЗапросов</name>
@@ -2221,7 +2233,6 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
-                    <picture xsi:type="form:FormPicture"/>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <visible>true</visible>
@@ -2249,7 +2260,7 @@
                 <name>ГруппаПараметры</name>
                 <id>434</id>
                 <items xsi:type="form:Table">
-                  <name>ПараметрыЗапроса</name>
+                  <name>QueryParameters</name>
                   <id>53</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2257,7 +2268,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>ПараметрыЗапроса</segments>
+                    <segments>QueryParameters</segments>
                   </dataPath>
                   <titleLocation>None</titleLocation>
                   <excludedCommands>CancelSearch</excludedCommands>
@@ -2266,7 +2277,7 @@
                   <excludedCommands>ShowMultipleSelection</excludedCommands>
                   <excludedCommands>ShowRowRearrangement</excludedCommands>
                   <items xsi:type="form:FormField">
-                    <name>ПараметрыЗапросаИмя</name>
+                    <name>QueryParametersName</name>
                     <id>66</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2275,11 +2286,11 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>ПараметрыЗапроса.Имя</segments>
+                        <segments>QueryParameters.Name</segments>
                       </paths>
                     </dataPath>
                     <extendedTooltip>
-                      <name>ПараметрыЗапросаИмяРасширеннаяПодсказка</name>
+                      <name>QueryParametersNameExtendedTooltip</name>
                       <id>68</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2294,7 +2305,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыЗапросаИмяКонтекстноеМеню</name>
+                      <name>QueryParametersNameContextMenu</name>
                       <id>67</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2317,7 +2328,7 @@
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
-                    <name>ПараметрыЗапросаТипПараметра</name>
+                    <name>QueryParametersParameterType</name>
                     <id>104</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2326,11 +2337,11 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>ПараметрыЗапроса.ТипЗначения</segments>
+                        <segments>QueryParameters.ValueType</segments>
                       </paths>
                     </dataPath>
                     <extendedTooltip>
-                      <name>ПараметрыЗапросаТипПараметраРасширеннаяПодсказка</name>
+                      <name>QueryParametersParameterTypeExtendedTooltip</name>
                       <id>106</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2345,7 +2356,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыЗапросаТипПараметраКонтекстноеМеню</name>
+                      <name>QueryParametersParameterTypeContextMenu</name>
                       <id>105</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2361,7 +2372,7 @@
                     <extInfo xsi:type="form:InputFieldExtInfo">
                       <handlers>
                         <event>StartChoice</event>
-                        <name>ПараметрыЗапросаТипПараметраНачалоВыбора</name>
+                        <name>QueryParametersParameterTypeStartChoice</name>
                       </handlers>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2371,7 +2382,7 @@
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
-                    <name>ПараметрыЗапросаФорма</name>
+                    <name>QueryParametersForm</name>
                     <id>125</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2380,11 +2391,11 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>ПараметрыЗапроса.ТипКонтейнера</segments>
+                        <segments>QueryParameters.ContainerType</segments>
                       </paths>
                     </dataPath>
                     <extendedTooltip>
-                      <name>ПараметрыЗапросаФормаРасширеннаяПодсказка</name>
+                      <name>QueryParametersFormExtendedTooltip</name>
                       <id>127</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2399,7 +2410,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыЗапросаФормаКонтекстноеМеню</name>
+                      <name>QueryParametersFormContextMenu</name>
                       <id>126</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2417,11 +2428,10 @@
                       <autoMaxHeight>true</autoMaxHeight>
                       <horizontalStretch>true</horizontalStretch>
                       <verticalStretch>true</verticalStretch>
-                      <valuesPicture xsi:type="form:FormPicture"/>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
-                    <name>ПараметрыЗапросаЗначение</name>
+                    <name>QueryParametersValue</name>
                     <id>69</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2430,15 +2440,15 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>ПараметрыЗапроса.Значение</segments>
+                        <segments>QueryParameters.Value</segments>
                       </paths>
                     </dataPath>
                     <handlers>
                       <event>OnChange</event>
-                      <name>ПараметрыЗапросаЗначениеПриИзменении</name>
+                      <name>QueryParametersValueOnChange</name>
                     </handlers>
                     <extendedTooltip>
-                      <name>ПараметрыЗапросаЗначениеРасширеннаяПодсказка</name>
+                      <name>QueryParametersValueExtendedTooltip</name>
                       <id>71</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2453,7 +2463,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыЗапросаЗначениеКонтекстноеМеню</name>
+                      <name>QueryParametersValueContextMenu</name>
                       <id>70</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2469,19 +2479,19 @@
                     <extInfo xsi:type="form:InputFieldExtInfo">
                       <handlers>
                         <event>StartChoice</event>
-                        <name>ПараметрыЗапросаЗначениеНачалоВыбора</name>
+                        <name>QueryParametersValueStartChoice</name>
                       </handlers>
                       <handlers>
                         <event>Clearing</event>
-                        <name>ПараметрыЗапросаЗначениеОчистка</name>
+                        <name>QueryParametersValueClearing</name>
                       </handlers>
                       <handlers>
                         <event>TextEditEnd</event>
-                        <name>ПараметрыЗапросаЗначениеОкончаниеВводаТекста</name>
+                        <name>QueryParametersValueTextEditEnd</name>
                       </handlers>
                       <handlers>
                         <event>ChoiceProcessing</event>
-                        <name>ПараметрыЗапросаЗначениеОбработкаВыбора</name>
+                        <name>QueryParametersValueChoiceProcessing</name>
                       </handlers>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2494,7 +2504,7 @@
                     </extInfo>
                   </items>
                   <autoCommandBar>
-                    <name>ПараметрыЗапросаКоманднаяПанель</name>
+                    <name>QueryParametersCommandBar</name>
                     <id>55</id>
                     <items xsi:type="form:Button">
                       <name>ПараметрыЗапросаКнопкаДобавить</name>
@@ -2519,7 +2529,7 @@
                           <horizontalAlign>Left</horizontalAlign>
                         </extInfo>
                       </extendedTooltip>
-                      <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Add</commandName>
+                      <commandName>Form.Item.QueryParameters.StandardCommand.Add</commandName>
                       <representation>Picture</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2549,7 +2559,7 @@
                           <horizontalAlign>Left</horizontalAlign>
                         </extInfo>
                       </extendedTooltip>
-                      <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Copy</commandName>
+                      <commandName>Form.Item.QueryParameters.StandardCommand.Copy</commandName>
                       <representation>Picture</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2580,7 +2590,7 @@
                           <horizontalAlign>Left</horizontalAlign>
                         </extInfo>
                       </extendedTooltip>
-                      <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Delete</commandName>
+                      <commandName>Form.Item.QueryParameters.StandardCommand.Delete</commandName>
                       <representation>Picture</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2611,7 +2621,7 @@
                           <horizontalAlign>Left</horizontalAlign>
                         </extInfo>
                       </extendedTooltip>
-                      <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.MoveUp</commandName>
+                      <commandName>Form.Item.QueryParameters.StandardCommand.MoveUp</commandName>
                       <representation>Picture</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2642,7 +2652,7 @@
                           <horizontalAlign>Left</horizontalAlign>
                         </extInfo>
                       </extendedTooltip>
-                      <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.MoveDown</commandName>
+                      <commandName>Form.Item.QueryParameters.StandardCommand.MoveDown</commandName>
                       <representation>Picture</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2720,15 +2730,15 @@
                   </autoCommandBar>
                   <handlers>
                     <event>BeforeEditEnd</event>
-                    <name>ПараметрыЗапросаПередОкончаниемРедактирования</name>
+                    <name>QueryParametersBeforeEditEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnActivateRow</event>
-                    <name>ПараметрыЗапросаПриАктивизацииСтроки</name>
+                    <name>QueryParametersOnActivateRow</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПараметрыЗапросаПриИзменении</name>
+                    <name>QueryParametersOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -2736,10 +2746,10 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПараметрыЗапросаСтрокаПоиска</name>
+                    <name>QueryParametersSearchString</name>
                     <id>57</id>
                     <extendedTooltip>
-                      <name>ПараметрыЗапросаСтрокаПоискаРасширеннаяПодсказка</name>
+                      <name>QueryParametersSearchStringExtendedTooltip</name>
                       <id>59</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2754,7 +2764,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыЗапросаСтрокаПоискаКонтекстноеМеню</name>
+                      <name>QueryParametersSearchStringContextMenu</name>
                       <id>58</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2773,10 +2783,10 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПараметрыЗапросаСостояниеПросмотра</name>
+                    <name>QueryParametersViewStatus</name>
                     <id>60</id>
                     <extendedTooltip>
-                      <name>ПараметрыЗапросаСостояниеПросмотраРасширеннаяПодсказка</name>
+                      <name>QueryParametersViewStatusExtendedTooltip</name>
                       <id>62</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2791,7 +2801,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыЗапросаСостояниеПросмотраКонтекстноеМеню</name>
+                      <name>QueryParametersViewStatusContextMenu</name>
                       <id>61</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2811,10 +2821,10 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПараметрыЗапросаУправлениеПоиском</name>
+                    <name>QueryParametersSearchControl</name>
                     <id>63</id>
                     <extendedTooltip>
-                      <name>ПараметрыЗапросаУправлениеПоискомРасширеннаяПодсказка</name>
+                      <name>QueryParametersSearchControlExtendedTooltip</name>
                       <id>65</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2829,7 +2839,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыЗапросаУправлениеПоискомКонтекстноеМеню</name>
+                      <name>QueryParametersSearchControlContextMenu</name>
                       <id>64</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2844,7 +2854,7 @@
                     </extInfo>
                   </searchControlAddition>
                   <extendedTooltip>
-                    <name>ПараметрыЗапросаРасширеннаяПодсказка</name>
+                    <name>QueryParametersExtendedTooltip</name>
                     <id>56</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2859,7 +2869,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПараметрыЗапросаКонтекстноеМеню</name>
+                    <name>QueryParametersContextMenu</name>
                     <id>54</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3077,7 +3087,7 @@
           <name>СтраницаВременныеТаблицы</name>
           <id>144</id>
           <items xsi:type="form:Table">
-            <name>ВременныеТаблицы</name>
+            <name>TempTables</name>
             <id>146</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3085,12 +3095,12 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ВременныеТаблицы</segments>
+              <segments>TempTables</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <excludedCommands>Add</excludedCommands>
             <items xsi:type="form:FormField">
-              <name>ВременныеТаблицыИмя</name>
+              <name>TempTablesName</name>
               <id>159</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3099,11 +3109,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ВременныеТаблицы.Имя</segments>
+                  <segments>TempTables.Name</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ВременныеТаблицыИмяРасширеннаяПодсказка</name>
+                <name>TempTablesNameExtendedTooltip</name>
                 <id>161</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3118,7 +3128,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВременныеТаблицыИмяКонтекстноеМеню</name>
+                <name>TempTablesNameContextMenu</name>
                 <id>160</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3142,7 +3152,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ВременныеТаблицыЗначение</name>
+              <name>TempTablesValue</name>
               <id>165</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3151,11 +3161,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ВременныеТаблицы.Значение</segments>
+                  <segments>TempTables.Value</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ВременныеТаблицыЗначениеРасширеннаяПодсказка</name>
+                <name>TempTablesValueExtendedTooltip</name>
                 <id>167</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3170,7 +3180,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВременныеТаблицыЗначениеКонтекстноеМеню</name>
+                <name>TempTablesValueContextMenu</name>
                 <id>166</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3186,7 +3196,7 @@
               <extInfo xsi:type="form:InputFieldExtInfo">
                 <handlers>
                   <event>StartChoice</event>
-                  <name>ВременныеТаблицыЗначениеНачалоВыбора</name>
+                  <name>TempTablesValueStartChoice</name>
                 </handlers>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3196,7 +3206,7 @@
               </extInfo>
             </items>
             <autoCommandBar>
-              <name>ВременныеТаблицыКоманднаяПанель</name>
+              <name>TempTablesCommandBar</name>
               <id>148</id>
               <items xsi:type="form:Button">
                 <name>ВременныеТаблицыКнопкаСкопировать</name>
@@ -3221,7 +3231,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ВременныеТаблицы.StandardCommand.Copy</commandName>
+                <commandName>Form.Item.TempTables.StandardCommand.Copy</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3252,7 +3262,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ВременныеТаблицы.StandardCommand.Delete</commandName>
+                <commandName>Form.Item.TempTables.StandardCommand.Delete</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3283,7 +3293,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ВременныеТаблицы.StandardCommand.MoveUp</commandName>
+                <commandName>Form.Item.TempTables.StandardCommand.MoveUp</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3314,7 +3324,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.ВременныеТаблицы.StandardCommand.MoveDown</commandName>
+                <commandName>Form.Item.TempTables.StandardCommand.MoveDown</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3335,10 +3345,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ВременныеТаблицыСтрокаПоиска</name>
+              <name>TempTablesSearchString</name>
               <id>150</id>
               <extendedTooltip>
-                <name>ВременныеТаблицыСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>TempTablesSearchStringExtendedTooltip</name>
                 <id>152</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3353,7 +3363,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВременныеТаблицыСтрокаПоискаКонтекстноеМеню</name>
+                <name>TempTablesSearchStringContextMenu</name>
                 <id>151</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3372,10 +3382,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ВременныеТаблицыСостояниеПросмотра</name>
+              <name>TempTablesViewStatus</name>
               <id>153</id>
               <extendedTooltip>
-                <name>ВременныеТаблицыСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>TempTablesViewStatusExtendedTooltip</name>
                 <id>155</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3390,7 +3400,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВременныеТаблицыСостояниеПросмотраКонтекстноеМеню</name>
+                <name>TempTablesViewStatusContextMenu</name>
                 <id>154</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3410,10 +3420,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ВременныеТаблицыУправлениеПоиском</name>
+              <name>TempTablesSearchControl</name>
               <id>156</id>
               <extendedTooltip>
-                <name>ВременныеТаблицыУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>TempTablesSearchControlExtendedTooltip</name>
                 <id>158</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3428,7 +3438,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВременныеТаблицыУправлениеПоискомКонтекстноеМеню</name>
+                <name>TempTablesSearchControlContextMenu</name>
                 <id>157</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3443,7 +3453,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ВременныеТаблицыРасширеннаяПодсказка</name>
+              <name>TempTablesExtendedTooltip</name>
               <id>149</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3458,7 +3468,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВременныеТаблицыКонтекстноеМеню</name>
+              <name>TempTablesContextMenu</name>
               <id>147</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3699,7 +3709,7 @@
               <name>ГруппаПанельИсполнения</name>
               <id>382</id>
               <items xsi:type="form:FormField">
-                <name>МетодИсполненияКода</name>
+                <name>CodeExecutionMethod</name>
                 <id>371</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3708,11 +3718,11 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>МетодИсполненияКода</segments>
+                    <segments>CodeExecutionMethod</segments>
                   </paths>
                 </dataPath>
                 <extendedTooltip>
-                  <name>МетодИсполненияКодаРасширеннаяПодсказка</name>
+                  <name>CodeExecutionMethodExtendedTooltip</name>
                   <id>373</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3727,7 +3737,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>МетодИсполненияКодаКонтекстноеМеню</name>
+                  <name>CodeExecutionMethodContextMenu</name>
                   <id>372</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3811,7 +3821,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:FormField">
-                <name>СостояниеВыполнения</name>
+                <name>ExecutionStatus</name>
                 <id>384</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3820,12 +3830,12 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>СостояниеВыполнения</segments>
+                    <segments>ExecutionStatus</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
-                  <name>СостояниеВыполненияРасширеннаяПодсказка</name>
+                  <name>ExecutionStatusExtendedTooltip</name>
                   <id>386</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3840,7 +3850,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>СостояниеВыполненияКонтекстноеМеню</name>
+                  <name>ExecutionStatusContextMenu</name>
                   <id>385</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3979,7 +3989,7 @@
             <name>ГруппаТекстаАлгоритма</name>
             <id>499</id>
             <items xsi:type="form:FormField">
-              <name>ТекстАлгоритм</name>
+              <name>AlgorithmText</name>
               <id>358</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3988,12 +3998,12 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ТекстАлгоритм</segments>
+                  <segments>AlgorithmText</segments>
                 </paths>
               </dataPath>
               <titleLocation>None</titleLocation>
               <extendedTooltip>
-                <name>ТекстАлгоритмРасширеннаяПодсказка</name>
+                <name>AlgorithmTextExtendedTooltip</name>
                 <id>360</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4008,7 +4018,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ТекстАлгоритмКонтекстноеМеню</name>
+                <name>AlgorithmTextContextMenu</name>
                 <id>359</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4031,7 +4041,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:Table">
-              <name>СтруктураЗаписиРезультата</name>
+              <name>ResultRecordStructure</name>
               <id>483</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4039,7 +4049,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>СтруктураЗаписиРезультата</segments>
+                <segments>ResultRecordStructure</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <items xsi:type="form:FormField">
@@ -4052,7 +4062,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>СтруктураЗаписиРезультата.Имя</segments>
+                    <segments>ResultRecordStructure.Имя</segments>
                   </paths>
                 </dataPath>
                 <extendedTooltip>
@@ -4095,7 +4105,7 @@
                 </extInfo>
               </items>
               <autoCommandBar>
-                <name>СтруктураЗаписиРезультатаКоманднаяПанель</name>
+                <name>ResultRecordStructureCommandBar</name>
                 <id>485</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4106,15 +4116,15 @@
               </autoCommandBar>
               <handlers>
                 <event>Selection</event>
-                <name>СтруктураЗаписиРезультатаВыбор</name>
+                <name>ResultRecordStructureSelection</name>
               </handlers>
               <handlers>
                 <event>DragStart</event>
-                <name>СтруктураЗаписиРезультатаНачалоПеретаскивания</name>
+                <name>ResultRecordStructureDragStart</name>
               </handlers>
               <handlers>
                 <event>BeforeExpand</event>
-                <name>СтруктураЗаписиРезультатаПередРазворачиванием</name>
+                <name>ResultRecordStructureBeforeExpand</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -4122,10 +4132,10 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <name>СтруктураЗаписиРезультатаСтрокаПоиска</name>
+                <name>ResultRecordStructureSearchString</name>
                 <id>487</id>
                 <extendedTooltip>
-                  <name>СтруктураЗаписиРезультатаСтрокаПоискаРасширеннаяПодсказка</name>
+                  <name>ResultRecordStructureSearchStringExtendedTooltip</name>
                   <id>489</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4140,7 +4150,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>СтруктураЗаписиРезультатаСтрокаПоискаКонтекстноеМеню</name>
+                  <name>ResultRecordStructureSearchStringContextMenu</name>
                   <id>488</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4159,10 +4169,10 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <name>СтруктураЗаписиРезультатаСостояниеПросмотра</name>
+                <name>ResultRecordStructureViewStatus</name>
                 <id>490</id>
                 <extendedTooltip>
-                  <name>СтруктураЗаписиРезультатаСостояниеПросмотраРасширеннаяПодсказка</name>
+                  <name>ResultRecordStructureViewStatusExtendedTooltip</name>
                   <id>492</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4177,7 +4187,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>СтруктураЗаписиРезультатаСостояниеПросмотраКонтекстноеМеню</name>
+                  <name>ResultRecordStructureViewStatusContextMenu</name>
                   <id>491</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4197,10 +4207,10 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <name>СтруктураЗаписиРезультатаУправлениеПоиском</name>
+                <name>ResultRecordStructureSearchControl</name>
                 <id>493</id>
                 <extendedTooltip>
-                  <name>СтруктураЗаписиРезультатаУправлениеПоискомРасширеннаяПодсказка</name>
+                  <name>ResultRecordStructureSearchControlExtendedTooltip</name>
                   <id>495</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4215,7 +4225,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>СтруктураЗаписиРезультатаУправлениеПоискомКонтекстноеМеню</name>
+                  <name>ResultRecordStructureSearchControlContextMenu</name>
                   <id>494</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4230,7 +4240,7 @@
                 </extInfo>
               </searchControlAddition>
               <extendedTooltip>
-                <name>СтруктураЗаписиРезультатаРасширеннаяПодсказка</name>
+                <name>ResultRecordStructureExtendedTooltip</name>
                 <id>486</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4245,7 +4255,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СтруктураЗаписиРезультатаКонтекстноеМеню</name>
+                <name>ResultRecordStructureContextMenu</name>
                 <id>484</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4276,7 +4286,7 @@
               <enableDrag>true</enableDrag>
               <fileDragMode>AsFileRef</fileDragMode>
               <rowPictureDataPath xsi:type="form:DataPath">
-                <segments>СтруктураЗаписиРезультата.Картинка</segments>
+                <segments>ResultRecordStructure.Картинка</segments>
               </rowPictureDataPath>
             </items>
             <visible>true</visible>
@@ -4543,7 +4553,7 @@
             <name>ГруппаРезультатВПакете</name>
             <id>505</id>
             <items xsi:type="form:FormField">
-              <name>РезультатВПакете</name>
+              <name>ResultInBatch</name>
               <id>242</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4552,16 +4562,16 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>РезультатВПакете</segments>
+                  <segments>ResultInBatch</segments>
                 </paths>
               </dataPath>
               <titleLocation>None</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>РезультатВПакетеПриИзменении</name>
+                <name>ResultInBatchOnChange</name>
               </handlers>
               <extendedTooltip>
-                <name>РезультатВПакетеРасширеннаяПодсказка</name>
+                <name>ResultInBatchExtendedTooltip</name>
                 <id>244</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4576,7 +4586,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>РезультатВПакетеКонтекстноеМеню</name>
+                <name>ResultInBatchContextMenu</name>
                 <id>243</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4706,7 +4716,7 @@
           <name>КоманднаяПанельВидРезультата</name>
           <id>396</id>
           <items xsi:type="form:FormField">
-            <name>ВидРезультата</name>
+            <name>ResultKind</name>
             <id>290</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4715,12 +4725,12 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ВидРезультата</segments>
+                <segments>ResultKind</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>ВидРезультатаРасширеннаяПодсказка</name>
+              <name>ResultKindExtendedTooltip</name>
               <id>292</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4735,7 +4745,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВидРезультатаКонтекстноеМеню</name>
+              <name>ResultKindContextMenu</name>
               <id>291</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4779,7 +4789,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ОпцияОграничениеВыводимыхСтрокВкл</name>
+            <name>OutputLinesLimitEnabledOption</name>
             <id>266</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4788,16 +4798,16 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ОграничениеВыводимыхСтрокВкл</segments>
+                <segments>OutputLinesLimitEnabled</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
             <handlers>
               <event>OnChange</event>
-              <name>ОпцияОграничениеВыводимыхСтрокВклПриИзменении</name>
+              <name>OutputLinesLimitEnabledOptionOnChange</name>
             </handlers>
             <extendedTooltip>
-              <name>ОпцияОграничениеВыводимыхСтрокВклРасширеннаяПодсказка</name>
+              <name>OutputLinesLimitEnabledOptionExtendedTooltip</name>
               <id>268</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4812,7 +4822,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ОпцияОграничениеВыводимыхСтрокВклКонтекстноеМеню</name>
+              <name>OutputLinesLimitEnabledOptionContextMenu</name>
               <id>267</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4829,8 +4839,12 @@
             <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
           </items>
           <items xsi:type="form:FormField">
-            <name>ОпцияОграничениеВыводимыхСтрок</name>
+            <name>OutputLinesLimitOption</name>
             <id>245</id>
+            <title>
+              <key>en</key>
+              <value>Line limit</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Ограничение строк</value>
@@ -4841,11 +4855,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ОграничениеВыводимыхСтрок</segments>
+                <segments>OutputLinesLimit</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ОпцияОграничениеВыводимыхСтрокРасширеннаяПодсказка</name>
+              <name>OutputLinesLimitOptionExtendedTooltip</name>
               <id>247</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4860,7 +4874,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ОпцияОграничениеВыводимыхСтрокКонтекстноеМеню</name>
+              <name>OutputLinesLimitOptionContextMenu</name>
               <id>246</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4986,7 +5000,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:FormField">
-          <name>ИмяЗапросаРезультата</name>
+          <name>ResultQueryName</name>
           <id>269</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4995,12 +5009,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИмяЗапросаРезультата</segments>
+              <segments>ResultQueryName</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ИмяЗапросаРезультатаРасширеннаяПодсказка</name>
+            <name>ResultQueryNameExtendedTooltip</name>
             <id>271</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5015,7 +5029,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ИмяЗапросаРезультатаКонтекстноеМеню</name>
+            <name>ResultQueryNameContextMenu</name>
             <id>270</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5061,7 +5075,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.РезультатЗапросаДерево.StandardCommand.HierarchicalList</commandName>
+            <commandName>Form.Item.QueryResultTree.StandardCommand.HierarchicalList</commandName>
             <representation>Picture</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5093,7 +5107,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.РезультатЗапросаДерево.StandardCommand.Tree</commandName>
+            <commandName>Form.Item.QueryResultTree.StandardCommand.Tree</commandName>
             <representation>Picture</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5193,7 +5207,7 @@
           <type>CommandBar</type>
           <extInfo xsi:type="form:CommandBarExtInfo">
             <horizontalAlign>Left</horizontalAlign>
-            <commandSource>Item.РезультатЗапросаДерево</commandSource>
+            <commandSource>Item.QueryResultTree</commandSource>
           </extInfo>
         </items>
         <visible>true</visible>
@@ -5292,7 +5306,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.РезультатЗапроса.StandardCommand.OutputList</commandName>
+            <commandName>Form.Item.QueryResult.StandardCommand.OutputList</commandName>
             <representation>Picture</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5323,7 +5337,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.РезультатЗапроса.StandardCommand.Find</commandName>
+            <commandName>Form.Item.QueryResult.StandardCommand.Find</commandName>
             <representation>Picture</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5354,7 +5368,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.РезультатЗапроса.StandardCommand.CancelSearch</commandName>
+            <commandName>Form.Item.QueryResult.StandardCommand.CancelSearch</commandName>
             <representation>Picture</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5601,7 +5615,7 @@
       <name>ГруппаРезультат</name>
       <id>422</id>
       <items xsi:type="form:Table">
-        <name>ПакетРезультатаЗапроса</name>
+        <name>QueryResultBatch</name>
         <id>400</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -5609,11 +5623,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ПакетРезультатаЗапроса</segments>
+          <segments>QueryResultBatch</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ПакетРезультатаЗапросаИмя</name>
+          <name>QueryResultBatchName</name>
           <id>413</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5622,11 +5636,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПакетРезультатаЗапроса.Имя</segments>
+              <segments>QueryResultBatch.Name</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПакетРезультатаЗапросаИмяРасширеннаяПодсказка</name>
+            <name>QueryResultBatchNameExtendedTooltip</name>
             <id>415</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5641,7 +5655,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПакетРезультатаЗапросаИмяКонтекстноеМеню</name>
+            <name>QueryResultBatchNameContextMenu</name>
             <id>414</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5666,7 +5680,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПакетРезультатаЗапросаИнфо</name>
+          <name>QueryResultBatchInfo</name>
           <id>416</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5675,12 +5689,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПакетРезультатаЗапроса.Инфо</segments>
+              <segments>QueryResultBatch.Info</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ПакетРезультатаЗапросаИнфоРасширеннаяПодсказка</name>
+            <name>QueryResultBatchInfoExtendedTooltip</name>
             <id>418</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5695,7 +5709,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПакетРезультатаЗапросаИнфоКонтекстноеМеню</name>
+            <name>QueryResultBatchInfoContextMenu</name>
             <id>417</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5723,7 +5737,7 @@
         </items>
         <commandBarLocation>None</commandBarLocation>
         <autoCommandBar>
-          <name>ПакетРезультатаЗапросаКоманднаяПанель</name>
+          <name>QueryResultBatchCommandBar</name>
           <id>402</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5734,11 +5748,11 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ПакетРезультатаЗапросаВыбор</name>
+          <name>QueryResultBatchSelection</name>
         </handlers>
         <handlers>
           <event>OnActivateRow</event>
-          <name>ПакетРезультатаЗапросаПриАктивизацииСтроки</name>
+          <name>QueryBatchOnActivateRow</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -5746,10 +5760,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПакетРезультатаЗапросаСтрокаПоиска</name>
+          <name>QueryResultBatchSearchString</name>
           <id>404</id>
           <extendedTooltip>
-            <name>ПакетРезультатаЗапросаСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>QueryResultBatchSearchStringExtendedTooltip</name>
             <id>406</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5764,7 +5778,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПакетРезультатаЗапросаСтрокаПоискаКонтекстноеМеню</name>
+            <name>QueryResultBatchSearchStringContextMenu</name>
             <id>405</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5783,10 +5797,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПакетРезультатаЗапросаСостояниеПросмотра</name>
+          <name>QueryResultBatchViewStatus</name>
           <id>407</id>
           <extendedTooltip>
-            <name>ПакетРезультатаЗапросаСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>QueryResultBatchViewStatusExtendedTooltip</name>
             <id>409</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5801,7 +5815,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПакетРезультатаЗапросаСостояниеПросмотраКонтекстноеМеню</name>
+            <name>QueryResultBatchViewStatusContextMenu</name>
             <id>408</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5821,10 +5835,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПакетРезультатаЗапросаУправлениеПоиском</name>
+          <name>QueryResultBatchSearchControl</name>
           <id>410</id>
           <extendedTooltip>
-            <name>ПакетРезультатаЗапросаУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>QueryResultBatchSearchControlExtendedTooltip</name>
             <id>412</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5839,7 +5853,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПакетРезультатаЗапросаУправлениеПоискомКонтекстноеМеню</name>
+            <name>QueryResultBatchSearchControlContextMenu</name>
             <id>411</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5854,7 +5868,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ПакетРезультатаЗапросаРасширеннаяПодсказка</name>
+          <name>QueryResultBatchExtendedTooltip</name>
           <id>403</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5869,7 +5883,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПакетРезультатаЗапросаКонтекстноеМеню</name>
+          <name>QueryResultBatchContextMenu</name>
           <id>401</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5897,7 +5911,7 @@
         <verticalStretch>true</verticalStretch>
         <fileDragMode>AsFileRef</fileDragMode>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ПакетРезультатаЗапроса.ТипРезультата</segments>
+          <segments>QueryResultBatch.ResultKind</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="form:FormPicture"/>
         <rowFilter xsi:type="core:UndefinedValue"/>
@@ -5906,7 +5920,7 @@
         <name>ГруппаТаблица</name>
         <id>430</id>
         <items xsi:type="form:Table">
-          <name>РезультатЗапроса</name>
+          <name>QueryResult</name>
           <id>4</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5914,7 +5928,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>РезультатЗапроса</segments>
+            <segments>QueryResult</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -5928,7 +5942,7 @@
           <excludedCommands>SortListAsc</excludedCommands>
           <excludedCommands>SortListDesc</excludedCommands>
           <autoCommandBar>
-            <name>РезультатЗапросаКоманднаяПанель</name>
+            <name>QueryResultCommandBar</name>
             <id>6</id>
             <items xsi:type="form:Addition">
               <title>
@@ -5980,7 +5994,7 @@
           </autoCommandBar>
           <handlers>
             <event>Selection</event>
-            <name>РезультатЗапросаВыбор</name>
+            <name>QueryResultSelection</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -5988,10 +6002,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>РезультатЗапросаСтрокаПоиска</name>
+            <name>QueryResultSearchString</name>
             <id>8</id>
             <extendedTooltip>
-              <name>РезультатЗапросаСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>QueryResultSearchStringExtendedTooltip</name>
               <id>10</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6006,7 +6020,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>РезультатЗапросаСтрокаПоискаКонтекстноеМеню</name>
+              <name>QueryResultSearchStringContextMenu</name>
               <id>9</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6025,10 +6039,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>РезультатЗапросаСостояниеПросмотра</name>
+            <name>QueryResultViewStatus</name>
             <id>11</id>
             <extendedTooltip>
-              <name>РезультатЗапросаСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>QueryResultViewStatusExtendedTooltip</name>
               <id>13</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6043,7 +6057,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>РезультатЗапросаСостояниеПросмотраКонтекстноеМеню</name>
+              <name>QueryResultViewStatusContextMenu</name>
               <id>12</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6063,10 +6077,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>РезультатЗапросаУправлениеПоиском</name>
+            <name>QueryResultSearchControl</name>
             <id>14</id>
             <extendedTooltip>
-              <name>РезультатЗапросаУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>QueryResultSearchControlExtendedTooltip</name>
               <id>16</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6081,7 +6095,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>РезультатЗапросаУправлениеПоискомКонтекстноеМеню</name>
+              <name>QueryResultSearchControlContextMenu</name>
               <id>15</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6096,7 +6110,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>РезультатЗапросаРасширеннаяПодсказка</name>
+            <name>QueryResultExtendedTooltip</name>
             <id>7</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6111,7 +6125,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>РезультатЗапросаКонтекстноеМеню</name>
+            <name>QueryResultContextMenu</name>
             <id>5</id>
             <items xsi:type="form:Button">
               <name>РезультатЗапросаКонтекстноеМенюУИ_РедактироватьЗначение</name>
@@ -6170,7 +6184,7 @@
           <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <items xsi:type="form:Table">
-          <name>РезультатЗапросаДерево</name>
+          <name>QueryResultTree</name>
           <id>277</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -6178,7 +6192,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>РезультатЗапросаДерево</segments>
+            <segments>QueryResultTree</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -6195,7 +6209,7 @@
           <excludedCommands>SortListAsc</excludedCommands>
           <excludedCommands>SortListDesc</excludedCommands>
           <autoCommandBar>
-            <name>РезультатЗапросаДеревоКоманднаяПанель</name>
+            <name>QueryResultTreeCommandBar</name>
             <id>279</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6206,7 +6220,7 @@
           </autoCommandBar>
           <handlers>
             <event>Selection</event>
-            <name>РезультатЗапросаВыбор</name>
+            <name>QueryResultSelection</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -6214,10 +6228,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>РезультатЗапросаДеревоСтрокаПоиска</name>
+            <name>QueryResultTreeSearchString</name>
             <id>281</id>
             <extendedTooltip>
-              <name>РезультатЗапросаДеревоСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>QueryResultTreeSearchStringExtendedTooltip</name>
               <id>283</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6232,7 +6246,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>РезультатЗапросаДеревоСтрокаПоискаКонтекстноеМеню</name>
+              <name>QueryResultTreeSearchStringContextMenu</name>
               <id>282</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6251,10 +6265,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>РезультатЗапросаДеревоСостояниеПросмотра</name>
+            <name>QueryResultTreeViewStatus</name>
             <id>284</id>
             <extendedTooltip>
-              <name>РезультатЗапросаДеревоСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>QueryResultTreeViewStatusExtendedTooltip</name>
               <id>286</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6269,7 +6283,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>РезультатЗапросаДеревоСостояниеПросмотраКонтекстноеМеню</name>
+              <name>QueryResultTreeViewStatusContextMenu</name>
               <id>285</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6289,10 +6303,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>РезультатЗапросаДеревоУправлениеПоиском</name>
+            <name>QueryResultTreeSearchControl</name>
             <id>287</id>
             <extendedTooltip>
-              <name>РезультатЗапросаДеревоУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>QueryResultTreeSearchControlExtendedTooltip</name>
               <id>289</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6307,7 +6321,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>РезультатЗапросаДеревоУправлениеПоискомКонтекстноеМеню</name>
+              <name>QueryResultTreeSearchControlContextMenu</name>
               <id>288</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6322,7 +6336,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>РезультатЗапросаДеревоРасширеннаяПодсказка</name>
+            <name>QueryResultTreeExtendedTooltip</name>
             <id>280</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6337,7 +6351,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>РезультатЗапросаДеревоКонтекстноеМеню</name>
+            <name>QueryResultTreeContextMenu</name>
             <id>278</id>
             <items xsi:type="form:Button">
               <name>РезультатЗапросаДеревоКонтекстноеМенюУИ_РедактироватьЗначение</name>
@@ -6619,7 +6633,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -6633,7 +6647,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ТекстЗапроса</name>
+    <name>QueryText</name>
+    <title>
+      <key>en</key>
+      <value>Query text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текст запроса</value>
@@ -6652,7 +6670,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>РезультатЗапроса</name>
+    <name>QueryResult</name>
+    <title>
+      <key>en</key>
+      <value>Query result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат запроса</value>
@@ -6669,7 +6691,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПакетЗапросов</name>
+    <name>QueryBatch</name>
+    <title>
+      <key>en</key>
+      <value>Query batch</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Пакет запросов</value>
@@ -6686,7 +6712,11 @@
     </edit>
     <savedData>true</savedData>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -6704,7 +6734,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Инициализирован</name>
+      <name>Initialized</name>
+      <title>
+        <key>en</key>
+        <value>Initialized</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Инициализирован</value>
@@ -6721,7 +6755,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТекстЗапроса</name>
+      <name>QueryText</name>
+      <title>
+        <key>en</key>
+        <value>Query text</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Текст запроса</value>
@@ -6739,7 +6777,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ВКонструкторе</name>
+      <name>InWizard</name>
+      <title>
+        <key>en</key>
+        <value>In wizard</value>
+      </title>
       <title>
         <key>ru</key>
         <value>В конструкторе</value>
@@ -6756,7 +6798,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПараметрыЗапроса</name>
+      <name>QueryParameters</name>
+      <title>
+        <key>en</key>
+        <value>Query parameters</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Параметры запроса</value>
@@ -6771,7 +6817,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ВременныеТаблицы</name>
+      <name>TempTables</name>
+      <title>
+        <key>en</key>
+        <value>Temp tables</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Временные таблицы</value>
@@ -6786,7 +6836,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Инфо</name>
+      <name>Info</name>
+      <title>
+        <key>en</key>
+        <value>Info</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Инф</value>
@@ -6804,7 +6858,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоВозвращенныхСтрокРезультата</name>
+      <name>ResultReturningRowsCount</name>
+      <title>
+        <key>en</key>
+        <value>Amount of result rows actually returned, not displayed in the table</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество реально возвращенных строк результата, а не выведенных в таблицу</value>
@@ -6824,7 +6882,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоСтрокРезультата</name>
+      <name>ResultRowCount</name>
+      <title>
+        <key>en</key>
+        <value>Amount of result rows displayed in the table</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество строк результата, выведенных в таблицу</value>
@@ -6844,7 +6906,11 @@
       </edit>
     </columns>
     <columns>
-      <name>РазницаМеждуКоличествомВозвращенныхСтрокИКоличествомСтрокРезультата</name>
+      <name>RowCountDifference</name>
+      <title>
+        <key>en</key>
+        <value>Difference between the returned rows amount and the result rows amount, for conditional appearance</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Разница между количеством возвращенных строк и количеством строк результата, для условного оформления</value>
@@ -6864,10 +6930,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТекстКод</name>
+      <name>CodeText</name>
+      <title>
+        <key>en</key>
+        <value>Code text</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>Текст код</value>
+        <value>Текст кода</value>
       </title>
       <id>11</id>
       <valueType>
@@ -6882,7 +6952,11 @@
       </edit>
     </columns>
     <columns>
-      <name>МетодИсполненияКода</name>
+      <name>CodeExecutionMethod</name>
+      <title>
+        <key>en</key>
+        <value>Code execution method</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Метод исполнения кода</value>
@@ -6902,7 +6976,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КурсорНачалоСтроки</name>
+      <name>CursorBeginRow</name>
+      <title>
+        <key>en</key>
+        <value>Cursor begin row</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Начальная строка позиции курсора</value>
@@ -6922,7 +7000,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КурсорНачалоКолонки</name>
+      <name>CursorBeginColumn</name>
+      <title>
+        <key>en</key>
+        <value>Cursor begin column</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Начальная колонка позиции курсора</value>
@@ -6942,7 +7024,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КурсорКонецСтроки</name>
+      <name>CursorEndRow</name>
+      <title>
+        <key>en</key>
+        <value>Cursor end row</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Конечная строка позиции курсора</value>
@@ -6962,7 +7048,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КурсорКонецКолонки</name>
+      <name>CursorEndColumn</name>
+      <title>
+        <key>en</key>
+        <value>Cursor end column</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Конечная колонка позиции курсора</value>
@@ -6982,7 +7072,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КодКурсорНачалоСтроки</name>
+      <name>CodeCursorBeginRow</name>
+      <title>
+        <key>en</key>
+        <value>Code cursor begin row</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Начальная строка позиции курсора алгоритма</value>
@@ -7002,7 +7096,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КодКурсорНачалоКолонки</name>
+      <name>CodeCursorBeginColumn</name>
+      <title>
+        <key>en</key>
+        <value>Code cursor begin column</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Начальная колонка позиции курсора алгоритма</value>
@@ -7022,7 +7120,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КодКурсорКонецСтроки</name>
+      <name>CodeCursorEndRow</name>
+      <title>
+        <key>en</key>
+        <value>Code cursor end row</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Конечная строка позиции курсора алгоритма</value>
@@ -7042,7 +7144,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КодКурсорКонецКолонки</name>
+      <name>CodeCursorEndColumn</name>
+      <title>
+        <key>en</key>
+        <value>Code cursor end column</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Конечная колонка позиции курсора алгоритма</value>
@@ -7063,7 +7169,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ПараметрыЗапроса</name>
+    <name>QueryParameters</name>
+    <title>
+      <key>en</key>
+      <value>Query parameters</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Параметры запроса</value>
@@ -7080,7 +7190,11 @@
     </edit>
     <savedData>true</savedData>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -7098,7 +7212,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
+      <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Значение</value>
@@ -7113,7 +7231,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипЗначения</name>
+      <name>ValueType</name>
+      <title>
+        <key>en</key>
+        <value>Type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тип</value>
@@ -7132,7 +7254,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Контейнер</name>
+      <name>Container</name>
+      <title>
+        <key>en</key>
+        <value>Container</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Контейнер</value>
@@ -7147,7 +7273,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипКонтейнера</name>
+      <name>ContainerType</name>
+      <title>
+        <key>en</key>
+        <value>Container type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тип контейнера</value>
@@ -7166,7 +7296,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>КоличествоЗапросов</name>
+    <name>QueryCount</name>
+    <title>
+      <key>en</key>
+      <value>Query count</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Количество запросов</value>
@@ -7186,7 +7320,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РедактируемыйЗапрос</name>
+    <name>EditingQuery</name>
+    <title>
+      <key>en</key>
+      <value>Editing query</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактируемый запрос</value>
@@ -7204,7 +7342,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗапросВКонструкторе</name>
+    <name>QueryInWizard</name>
+    <title>
+      <key>en</key>
+      <value>Query in wizard</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Запрос в конструкторе</value>
@@ -7224,7 +7366,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФайлаЗапросов</name>
+    <name>QueriesFileName</name>
+    <title>
+      <key>en</key>
+      <value>Queries file name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя файла запросов</value>
@@ -7242,7 +7388,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПакетЗапросов_ИмяДляОтображения</name>
+    <name>QueryBatch_DisplayingName</name>
+    <title>
+      <key>en</key>
+      <value>Query batch displaying name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Пакет запросов имя для отображения</value>
@@ -7260,7 +7410,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВременныеТаблицы</name>
+    <name>TempTables</name>
+    <title>
+      <key>en</key>
+      <value>Temp tables</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Временные таблицы</value>
@@ -7276,7 +7430,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -7294,7 +7452,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Контейнер</name>
+      <name>Container</name>
+      <title>
+        <key>en</key>
+        <value>Container</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Контейнер</value>
@@ -7309,7 +7471,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
+      <title>
+        <key>en</key>
+        <value>Table</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Таблица</value>
@@ -7328,7 +7494,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ДанныеКомментариев</name>
+    <name>CommentsData</name>
+    <title>
+      <key>en</key>
+      <value>Comments data</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Данные комментариев</value>
@@ -7343,7 +7513,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОграничениеВыводимыхСтрок</name>
+    <name>OutputLinesLimit</name>
+    <title>
+      <key>en</key>
+      <value>Query result lines limit in the debug mode (0 - unlimited)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Ограничение количества строк результата запроса в режиме отладки (0 - неограничено)</value>
@@ -7364,7 +7538,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОпцияСохранятьКомментарии</name>
+    <name>SaveCommentsOption</name>
+    <title>
+      <key>en</key>
+      <value>Save comments after editing with query wizard</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранять комментарии при редактировании в конструкторе запросов</value>
@@ -7382,7 +7560,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>ОпцияИнтервалАвтосохранения</name>
+    <name>AutoSaveIntervalOption</name>
+    <title>
+      <key>en</key>
+      <value>Auto save interval, sec (0 - disabled)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Интервал автосохранения, сек (0 - отключено)</value>
@@ -7403,7 +7585,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>РезультатЗапросаСоответствиеКолонок</name>
+    <name>QueryResultColumnsMap</name>
+    <title>
+      <key>en</key>
+      <value>Map of form item query result columns and form attribute columns</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Соответствие колонок результата запроса элемента формы и колонок реквизита формы</value>
@@ -7418,7 +7604,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОграничениеВыводимыхСтрокПервые</name>
+    <name>OutputLinesLimitTop</name>
+    <title>
+      <key>en</key>
+      <value>Using TOP for output lines limit</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Использовать выражение ПЕРВЫЕ для ограничения количества выводимых строк</value>
@@ -7436,7 +7626,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СтароеЗначениеИмяПараметра</name>
+    <name>PreviousValueParameterName</name>
+    <title>
+      <key>en</key>
+      <value>Previous value parameter name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Старое значение имя параметра</value>
@@ -7454,7 +7648,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИспользуемоеИмяФайла</name>
+    <name>UsedFileName</name>
+    <title>
+      <key>en</key>
+      <value>Used file name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Используемое имя файла</value>
@@ -7472,7 +7670,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФайлаОбработкиНаСервере</name>
+    <name>DataProcessorServerFileName</name>
+    <title>
+      <key>en</key>
+      <value>Data processor server file name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя файла обработки на сервере</value>
@@ -7490,7 +7692,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РезультатВПакете</name>
+    <name>ResultInBatch</name>
+    <title>
+      <key>en</key>
+      <value>Result in batch</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат в пакете</value>
@@ -7508,7 +7714,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресРезультатаЗапроса</name>
+    <name>QueryResultAddress</name>
+    <title>
+      <key>en</key>
+      <value>Query result address</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Адрес результата запроса</value>
@@ -7526,7 +7736,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОграничениеВыводимыхСтрокПервыеВкл</name>
+    <name>OutputLinesLimitTopEnabled</name>
+    <title>
+      <key>en</key>
+      <value>Output lines limit top enabled</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Ограничение выводимых строк первые вкл</value>
@@ -7543,7 +7757,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОграничениеВыводимыхСтрокВкл</name>
+    <name>OutputLinesLimitEnabled</name>
+    <title>
+      <key>en</key>
+      <value>Output lines limit enabled</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Ограничение выводимых строк вкл</value>
@@ -7560,7 +7778,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяЗапросаРезультата</name>
+    <name>ResultQueryName</name>
+    <title>
+      <key>en</key>
+      <value>Result query name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя запроса результата</value>
@@ -7578,7 +7800,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РезультатЗапросаКолонкиКонтейнера</name>
+    <name>QueryResultContainerColumns</name>
+    <title>
+      <key>en</key>
+      <value>Columns in container table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список колонок в таблице контейнеров</value>
@@ -7593,7 +7819,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОпцияАвтосохранениеПередВыполнениемЗапроса</name>
+    <name>AutoSaveBeforeQueryExecutionOption</name>
+    <title>
+      <key>en</key>
+      <value>Auto save before query execution</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Автосохранение перед выполнением запроса</value>
@@ -7611,7 +7841,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>РезультатЗапросаДерево</name>
+    <name>QueryResultTree</name>
+    <title>
+      <key>en</key>
+      <value>Query result as a value tree</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат запроса в виде дерева значений</value>
@@ -7628,7 +7862,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВидРезультата</name>
+    <name>ResultKind</name>
+    <title>
+      <key>en</key>
+      <value>Result kind</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вид результата</value>
@@ -7646,7 +7884,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>КаталогДанныхПользователя</name>
+    <name>UserDataDirectory</name>
+    <title>
+      <key>en</key>
+      <value>User data directory</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Рабочий каталог данных пользователя</value>
@@ -7664,7 +7906,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФайлаАвтосохраненияСостояния</name>
+    <name>StateAutoSaveFileName</name>
+    <title>
+      <key>en</key>
+      <value>State auto save file name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя файла автосохранения состояния</value>
@@ -7682,7 +7928,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РезультатЗапросаИтоги</name>
+    <name>QueryResultTotals</name>
+    <title>
+      <key>en</key>
+      <value>Query result totals</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат запроса итоги</value>
@@ -7699,7 +7949,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>МакроПараметр</name>
+    <name>MacroParameter</name>
+    <title>
+      <key>en</key>
+      <value>Macro parameter</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Макро параметр</value>
@@ -7717,7 +7971,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстАлгоритм</name>
+    <name>AlgorithmText</name>
+    <title>
+      <key>en</key>
+      <value>Code to processing</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Код для обработки</value>
@@ -7736,7 +7994,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>ДанныеФормыВыборПредопределенного</name>
+    <name>FormDataChoicePredefined</name>
+    <title>
+      <key>en</key>
+      <value>Form data choice predefined</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Данные формы выбор предопределенного</value>
@@ -7754,7 +8016,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Алгоритмы</name>
+    <name>Algorithms</name>
+    <title>
+      <key>en</key>
+      <value>Algorithms (in developing)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Алгоритмы (в разработке)</value>
@@ -7770,7 +8036,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Текст</name>
+      <name>Text</name>
+      <title>
+        <key>en</key>
+        <value>Text</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Текст</value>
@@ -7788,7 +8058,11 @@
       </edit>
     </columns>
     <columns>
-      <name>МетодИсполнения</name>
+      <name>ExecutionMethod</name>
+      <title>
+        <key>en</key>
+        <value>Execution method</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Метод исполнения</value>
@@ -7807,7 +8081,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>МетодИсполненияКода</name>
+    <name>CodeExecutionMethod</name>
+    <title>
+      <key>en</key>
+      <value>Execution method</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Метод выполнения</value>
@@ -7828,7 +8106,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>ФоновоеЗаданиеИдентификатор</name>
+    <name>BackgroundJobID</name>
+    <title>
+      <key>en</key>
+      <value>BackgroundJobID</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ИдентификаторФоновогоЗадания</value>
@@ -7846,7 +8128,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ФоновоеЗаданиеАдресРезультата</name>
+    <name>BackgroundJobResultAddress</name>
+    <title>
+      <key>en</key>
+      <value>Background job result address</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Адрес результата фонового задания</value>
@@ -7864,7 +8150,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СостояниеВыполнения</name>
+    <name>ExecutionStatus</name>
+    <title>
+      <key>en</key>
+      <value>Execution status</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Состояние выполнения</value>
@@ -7882,7 +8172,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ФоновоеЗаданиеСостояниеПрогресса</name>
+    <name>BackgroundJobProgressState</name>
+    <title>
+      <key>en</key>
+      <value>Background job progress state</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Состояние прогресса фонового задания</value>
@@ -7897,7 +8191,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресСостояния</name>
+    <name>StateAddress</name>
+    <title>
+      <key>en</key>
+      <value>Line execution with indication state address</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Адрес состояния построчного выполнения с индикацией</value>
@@ -7915,10 +8213,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПакетРезультатаЗапроса</name>
+    <name>QueryResultBatch</name>
     <title>
       <key>ru</key>
-      <value>Пакет результата запроса</value>
+      <value>Query result batch</value>
     </title>
     <id>44</id>
     <valueType>
@@ -7931,7 +8229,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -7949,7 +8251,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Инфо</name>
+      <name>Info</name>
+      <title>
+        <key>en</key>
+        <value>Info</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Инфо</value>
@@ -7967,7 +8273,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипРезультата</name>
+      <name>ResultKind</name>
+      <title>
+        <key>en</key>
+        <value>Result kind</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тип результата</value>
@@ -7987,7 +8297,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТекущийОтображаемый</name>
+      <name>Current</name>
+      <title>
+        <key>en</key>
+        <value>Current</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Текущий отображаемый</value>
@@ -8005,7 +8319,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>РезультатНаФорме</name>
+    <name>ResultInForm</name>
+    <title>
+      <key>en</key>
+      <value>Result in form</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат на форме</value>
@@ -8025,7 +8343,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СтруктураЗаписиРезультата</name>
+    <name>ResultRecordStructure</name>
+    <title>
+      <key>en</key>
+      <value>Result record structure</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Структура записи результата</value>
@@ -8109,7 +8431,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ОпцияПериодОпросаВключенияВыключенияТехнологическогоЖурнала</name>
+    <name>TechLogSwitchingPollingPeriodOption</name>
+    <title>
+      <key>en</key>
+      <value>Tech log switching polling period option</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Опция период опроса включения выключения технологического журнала</value>
@@ -8129,7 +8455,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТехнологическийЖурналВремяВключенияВыключения</name>
+    <name>TechLogBeginEndTime</name>
+    <title>
+      <key>en</key>
+      <value>Tech log begin end time</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Технологический журнал время включения выключения</value>
@@ -8149,7 +8479,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТехнологическийЖурналВключенИРаботает</name>
+    <name>TechLogEnabledAndRunning</name>
+    <title>
+      <key>en</key>
+      <value>Tech log enabled and running</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Технологический журнал включен и работает</value>
@@ -8166,7 +8500,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РасширениеДляРаботыСФайламиПодключено</name>
+    <name>FileExtensionConnected</name>
+    <title>
+      <key>en</key>
+      <value>File extension connected</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Расширение для работы с файлами подключено</value>
@@ -8205,7 +8543,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>УИ_Отладка</name>
+    <name>UT_Debug</name>
+    <title>
+      <key>en</key>
+      <value>U t debug</value>
+    </title>
     <title>
       <key>ru</key>
       <value>У и отладка</value>
@@ -8222,7 +8564,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>УИ_ВходитВСоставУниверсальныхИнструментов</name>
+    <name>UT_IsPartOfUniversalTools</name>
+    <title>
+      <key>en</key>
+      <value>U t is part of universal tools</value>
+    </title>
     <title>
       <key>ru</key>
       <value>У и входит в состав универсальных инструментов</value>
