@@ -14,7 +14,7 @@
     <value>Консоль запросов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_QueryConsole.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_QueryConsole.Form.Form</defaultForm>
   <extendedPresentation>
     <key>en</key>
     <value>Query console</value>
@@ -343,7 +343,11 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="fe79f2db-62cb-406e-8915-95aee6e1ea26">
-    <name>Форма</name>
+    <name>Form</name>
+    <synonym>
+      <key>en</key>
+      <value>Form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма</value>

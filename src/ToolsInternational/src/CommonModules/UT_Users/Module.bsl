@@ -2,7 +2,7 @@
 
 // Checks whether the current or specified user has full access rights.
 // 
-// A user is considered to have full access in case of
+// A user is considered to have full access
 // a) if the list of infobase users is not empty - 
 // 		has the FullRights role and a system administration role (if CheckSystemAdministrationRights = True) 
 // b) if the list of infobase users is empty -

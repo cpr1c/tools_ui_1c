@@ -612,7 +612,7 @@ Procedure TechnologicalLog_Enable() Export
 		EndIf;
 		
 		// Unable to open directory. Probably, technological log is not disabled.
-		// Using another directory for start control possibility.
+		// Using another directory for start control capability.
 		// Current log directory will be cleared at the next "normal" start.
 		TLPath = TempFilesDir() + LockedQueriesExtension + j;
 		j = j + 1;
@@ -1013,8 +1013,8 @@ EndFunction
 
 //Value table can be as a table, or can be serialized into container structure.
 //There are different containers for parameters and for tables.
-//For parameter container can contain a value, or a structure for array, value list or special type).
-//For table - always structure for special type.
+//For parameter container can contain a value, or a structure for array, value list or dedicated type).
+//For table - always structure for dedicated type.
 //
 Function ContainerAttributeSuffix() Export
 	Return "_31415926Container";
@@ -1144,11 +1144,11 @@ EndFunction
 Function SaveQuery(SessionID, Query) Export
 
 	If TypeOf(SessionID) <> Type("Number") Then
-		Return NStr("ru = '!Не верный тип параметра 1: '; en = '!Wrong parameter 1 type: '") + TypeOf(SessionID) + NStr("ru = '. Должен быть тип ""Число""'; en = '. Type must be ""Number""'");
+		Return NStr("ru = '!Не верный тип параметра 1: '; en = '!Incorrect parameter #1 type: '") + TypeOf(SessionID) + NStr("ru = '. Должен быть тип ""Число""'; en = '. Type must be ""Number""'");
 	EndIf;
 
 	If TypeOf(Query) <> Type("Query") Then
-		Return NStr("ru = '!Не верный тип параметра 2: '; en = '!Wrong parameter 2 type: '") + TypeOf(Query) + NStr("ru = '. Должен быть тип ""Запрос""'; en = '. Type must be ""Query""'");
+		Return NStr("ru = '!Не верный тип параметра 2: '; en = '!Incorrect parameter #2 type: '") + TypeOf(Query) + NStr("ru = '. Должен быть тип ""Запрос""'; en = '. Type must be ""Query""'");
 	EndIf;
 
 	Initializing( , SessionID);
