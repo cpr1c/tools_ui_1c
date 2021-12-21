@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Query console 9000</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Консоль запросов 9000</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманднаяПанельФормы</name>
+    <name>FormCommandBarGroup</name>
     <id>256</id>
     <items xsi:type="form:FormGroup">
-      <name>КоманднаяПанельФормы</name>
+      <name>FormCommandBar</name>
       <id>252</id>
       <items xsi:type="form:Button">
-        <name>ФормаНовыйСписокЗапросов</name>
+        <name>FormNewQueryList</name>
         <id>117</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -19,7 +23,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаНовыйСписокЗапросовРасширеннаяПодсказка</name>
+          <name>FormNewQueryListExtendedTooltip</name>
           <id>118</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -33,7 +37,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПакетЗапросовНовый</commandName>
+        <commandName>Form.Command.QueryBatchNew</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -41,7 +45,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаЗагрузитьПакетЗапросов</name>
+        <name>FormLoadQueryBatch</name>
         <id>115</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -49,7 +53,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаЗагрузитьПакетЗапросовРасширеннаяПодсказка</name>
+          <name>FormLoadQueryBatchExtendedTooltip</name>
           <id>116</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -63,7 +67,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ЗагрузитьПакетЗапросов</commandName>
+        <commandName>Form.Command.LoadQueryBatch</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -71,7 +75,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаСохранитьПакетЗапросов</name>
+        <name>FormSaveQueryBatch</name>
         <id>119</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -79,7 +83,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаСохранитьПакетЗапросовРасширеннаяПодсказка</name>
+          <name>FormSaveQueryBatchExtendedTooltip</name>
           <id>120</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -93,7 +97,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПакетЗапросовСохранить</commandName>
+        <commandName>Form.Command.QueryBatchSave</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -101,7 +105,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаПакетЗапросовСохранитьКак</name>
+        <name>FormQueryBatchSaveAs</name>
         <id>128</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -109,7 +113,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаПакетЗапросовСохранитьКакРасширеннаяПодсказка</name>
+          <name>FormQueryBatchSaveAsExtendedTooltip</name>
           <id>129</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -123,7 +127,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПакетЗапросовСохранитьКак</commandName>
+        <commandName>Form.Command.QueryBatchSaveAs</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -131,7 +135,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>КнопкаВыполнить</name>
+        <name>ExecuteButton</name>
         <id>74</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -139,7 +143,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>КнопкаВыполнитьРасширеннаяПодсказка</name>
+          <name>ExecuteButtonExtendedTooltip</name>
           <id>75</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -153,7 +157,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ВыполнитьЗапрос</commandName>
+        <commandName>Form.Command.ExecuteQuery</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -166,16 +170,24 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Form command bar</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Командная панель формы</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Form command bar</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Командная панель формы</value>
       </toolTip>
       <horizontalStretch>false</horizontalStretch>
       <extendedTooltip>
-        <name>КоманднаяПанельФормыРасширеннаяПодсказка</name>
+        <name>FormCommandBarExtendedTooltip</name>
         <id>253</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -305,10 +317,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>КоманднаяПанельФормыПраво</name>
+      <name>FormCommandBarRight</name>
       <id>258</id>
       <items xsi:type="form:Button">
-        <name>ТехнологическийЖурнал</name>
+        <name>TechnologicalLog</name>
         <id>501</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -316,7 +328,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТехнологическийЖурналРасширеннаяПодсказка</name>
+          <name>TechnologicalLogExtendedTooltip</name>
           <id>502</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -330,7 +342,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ТехнологическийЖурнал</commandName>
+        <commandName>Form.Command.TechnologicalLog</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -339,7 +351,7 @@
         <locationInCommandBar>InCommandBar</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаИзменитьФорму</name>
+        <name>FormCustomizeForm</name>
         <id>254</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -347,7 +359,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаИзменитьФормуРасширеннаяПодсказка</name>
+          <name>FormCustomizeFormExtendedTooltip</name>
           <id>255</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -375,15 +387,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Form command bar right</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Командная панель формы право</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Form command bar right</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Командная панель формы право</value>
       </toolTip>
       <extendedTooltip>
-        <name>КоманднаяПанельФормыПравоРасширеннаяПодсказка</name>
+        <name>FormCommandBarRightExtendedTooltip</name>
         <id>259</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -408,15 +428,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Form command bar group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа командная панель формы</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Form command bar group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа командная панель формы</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКоманднаяПанельФормыРасширеннаяПодсказка</name>
+      <name>FormCommandBarGroupExtendedTooltip</name>
       <id>257</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -439,13 +467,13 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаВерхняяПанель</name>
+    <name>TopPanelGroup</name>
     <id>23</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСписокЗапросов</name>
+      <name>QueryListGroup</name>
       <id>186</id>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаПакетЗапросов</name>
+        <name>QueryBatchPage</name>
         <id>188</id>
         <items xsi:type="form:Table">
           <name>QueryBatch</name>
@@ -589,10 +617,10 @@
             <name>QueryBatchCommandBar</name>
             <id>31</id>
             <items xsi:type="form:FormGroup">
-              <name>ПакетЗапросовГруппаДействия</name>
+              <name>QueryBatchActionGroup</name>
               <id>90</id>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовКнопкаДобавить</name>
+                <name>QueryBatchAddButton</name>
                 <id>86</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -600,7 +628,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовКнопкаДобавитьРасширеннаяПодсказка</name>
+                  <name>QueryBatchAddButtonExtendedTooltip</name>
                   <id>87</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -614,7 +642,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ПакетЗапросовДобавить</commandName>
+                <commandName>Form.Command.QueryBatchAdd</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -623,7 +651,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовКнопкаСкопировать</name>
+                <name>QueryBatchCopyButton</name>
                 <id>94</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -631,7 +659,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовКнопкаСкопироватьРасширеннаяПодсказка</name>
+                  <name>QueryBatchCopyButtonExtendedTooltip</name>
                   <id>95</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -645,7 +673,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ПакетЗапросовСкопировать</commandName>
+                <commandName>Form.Command.QueryBatchCopy</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -654,8 +682,12 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовКнопкаИзменить</name>
+                <name>QueryBatchChangeButton</name>
                 <id>214</id>
+                <title>
+                  <key>en</key>
+                  <value>Change</value>
+                </title>
                 <title>
                   <key>ru</key>
                   <value>Изменить</value>
@@ -666,7 +698,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовКнопкаИзменитьРасширеннаяПодсказка</name>
+                  <name>QueryBatchChangeButtonExtendedTooltip</name>
                   <id>215</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -689,7 +721,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовКнопкаУдалить</name>
+                <name>QueryBatchDeleteButton</name>
                 <id>92</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -697,7 +729,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовКнопкаУдалитьРасширеннаяПодсказка</name>
+                  <name>QueryBatchDeleteButtonExtendedTooltip</name>
                   <id>93</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -720,7 +752,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовПакетЗапросовПереместитьНаУровеньВверх</name>
+                <name>QueryBatchQueryBatchLevelUp</name>
                 <id>275</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -728,7 +760,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовПакетЗапросовПереместитьНаУровеньВверхРасширеннаяПодсказка</name>
+                  <name>QueryBatchQueryBatchLevelUpExtendedTooltip</name>
                   <id>276</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -742,7 +774,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ПакетЗапросовПереместитьНаУровеньВверх</commandName>
+                <commandName>Form.Command.QueryBatchLevelUp</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -751,7 +783,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовКнопкаВверх</name>
+                <name>QueryBatchMoveUpButton</name>
                 <id>96</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -759,7 +791,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовКнопкаВверхРасширеннаяПодсказка</name>
+                  <name>QueryBatchMoveUpButtonExtendedTooltip</name>
                   <id>97</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -782,7 +814,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовКнопкаВниз</name>
+                <name>QueryBatchMoveDownButton</name>
                 <id>98</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -790,7 +822,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовКнопкаВнизРасширеннаяПодсказка</name>
+                  <name>QueryBatchMoveDownButtonExtendedTooltip</name>
                   <id>99</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -818,15 +850,23 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Query batch action group</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Пакет запросов группа действия</value>
               </title>
+              <toolTip>
+                <key>en</key>
+                <value>Query batch action group</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Пакет запросов группа действия</value>
               </toolTip>
               <extendedTooltip>
-                <name>ПакетЗапросовГруппаДействияРасширеннаяПодсказка</name>
+                <name>QueryBatchActionGroupExtendedTooltip</name>
                 <id>91</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -843,10 +883,10 @@
               <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ПакетЗапросовПодменюПерехват</name>
+              <name>QueryBatchHookingSubmenu</name>
               <id>226</id>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовПолучитьКодДляЗахватаВОтладчике</name>
+                <name>QueryBatchGetCodeForTrace</name>
                 <id>230</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -854,7 +894,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовПолучитьКодДляЗахватаВОтладчикеРасширеннаяПодсказка</name>
+                  <name>QueryBatchGetCodeForTraceExtendedTooltip</name>
                   <id>231</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -868,7 +908,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ПолучитьКодДляПерехватаВОтладчике</commandName>
+                <commandName>Form.Command.GetCodeForTrace</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -876,7 +916,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовПолучитьПерехваченныеЗапросы</name>
+                <name>QueryBatchGetHookedQueries</name>
                 <id>228</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -884,7 +924,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовПолучитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
+                  <name>QueryBatchGetHookedQueriesExtendedTooltip</name>
                   <id>229</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -898,7 +938,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
+                <commandName>Form.Command.GetHookedQueries</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -907,7 +947,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ПакетЗапросовУдалитьПерехваченныеЗапросы</name>
+                <name>QueryBatchDeleteHookedQueries</name>
                 <id>392</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -915,7 +955,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ПакетЗапросовУдалитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
+                  <name>QueryBatchDeleteHookedQueriesExtendedTooltip</name>
                   <id>393</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -929,7 +969,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.УдалитьПерехваченныеЗапросы</commandName>
+                <commandName>Form.Command.DeleteHookedQueries</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -941,15 +981,23 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Hooking</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Перехват</value>
               </title>
+              <toolTip>
+                <key>en</key>
+                <value>Query batch hooking submenu</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Пакет запросов подменю перехват</value>
               </toolTip>
               <extendedTooltip>
-                <name>ПакетЗапросовПодменюПерехватРасширеннаяПодсказка</name>
+                <name>QueryBatchHookingSubmenuExtendedTooltip</name>
                 <id>227</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1161,15 +1209,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Query batch</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Пакет запросов</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Query batch page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница пакет запросов</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницаПакетЗапросовРасширеннаяПодсказка</name>
+          <name>QueryBatchPageExtendedTooltip</name>
           <id>189</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1190,7 +1246,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаОпции</name>
+        <name>OptionsPage</name>
         <id>190</id>
         <items xsi:type="form:FormField">
           <name>SaveCommentsOption</name>
@@ -1290,7 +1346,7 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>ОпцияОбрабатывать__</name>
+          <name>OptionProcessing__</name>
           <id>353</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1305,10 +1361,10 @@
           <titleLocation>Right</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ОпцияОбрабатывать__ПриИзменении</name>
+            <name>OptionProcessing__OnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ОпцияОбрабатывать__РасширеннаяПодсказка</name>
+            <name>OptionProcessing__ExtendedTooltip</name>
             <id>355</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1323,7 +1379,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОпцияОбрабатывать__КонтекстноеМеню</name>
+            <name>OptionProcessing__ContextMenu</name>
             <id>354</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1397,8 +1453,12 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ОпцияИнтервалОбновленияВыполненияАлгоритма</name>
+          <name>AlgorithmExecutionUpdateIntervalOption</name>
           <id>387</id>
+          <title>
+            <key>en</key>
+            <value>Algorithm execution state refresh interval, milliseconds</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Интервал обновления отображения состояния выполнения алгоритма, миллисекунды</value>
@@ -1415,10 +1475,10 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ОпцияИнтервалОбновленияВыполненияАлгоритмаПриИзменении</name>
+            <name>AlgorithmExecutionUpdateIntervalOptionOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ОпцияИнтервалОбновленияВыполненияАлгоритмаРасширеннаяПодсказка</name>
+            <name>AlgorithmExecutionUpdateIntervalOptionExtendedTooltip</name>
             <id>389</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1433,7 +1493,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОпцияИнтервалОбновленияВыполненияАлгоритмаКонтекстноеМеню</name>
+            <name>AlgorithmExecutionUpdateIntervalOptionContextMenu</name>
             <id>388</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1463,16 +1523,24 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Options</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Опции</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Options page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница опции</value>
         </toolTip>
         <width>1</width>
         <extendedTooltip>
-          <name>СтраницаОпцииРасширеннаяПодсказка</name>
+          <name>OptionsPageExtendedTooltip</name>
           <id>191</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1498,16 +1566,24 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Query list group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа список запросов</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Query list group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа список запросов</value>
       </toolTip>
       <width>36</width>
       <extendedTooltip>
-        <name>ГруппаСписокЗапросовРасширеннаяПодсказка</name>
+        <name>QueryListGroupExtendedTooltip</name>
         <id>187</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1528,25 +1604,25 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаЗапрос</name>
+      <name>QueryGroup</name>
       <id>45</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаЗапросСтраницы</name>
+        <name>QueryGroupPages</name>
         <id>47</id>
         <items xsi:type="form:FormGroup">
-          <name>СтраницаЗапрос</name>
+          <name>QueryPage</name>
           <id>49</id>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаРедактированиеЗапроса</name>
+            <name>QueryEditingGroup</name>
             <id>432</id>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаКоманднаяПанельСтраницыЗапрос</name>
+              <name>QueryCommandBarGroupPages</name>
               <id>481</id>
               <items xsi:type="form:FormGroup">
-                <name>ГруппаКоманднаяПанельЗапроса</name>
+                <name>QueryCommandBarGroup</name>
                 <id>479</id>
                 <items xsi:type="form:Button">
-                  <name>КонструкторЗапросов</name>
+                  <name>QueryWizard</name>
                   <id>102</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1554,7 +1630,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>КонструкторЗапросовРасширеннаяПодсказка</name>
+                    <name>QueryWizardExtendedTooltip</name>
                     <id>103</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1569,7 +1645,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.КонструкторЗапросов</commandName>
+                  <commandName>Form.Command.QueryWizard</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1577,7 +1653,7 @@
                   <representationInContextMenu>OnlyInContextMenu</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СинтаксическийКонтрольЗапроса</name>
+                  <name>QuerySyntaxCheck</name>
                   <id>210</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1585,7 +1661,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СинтаксическийКонтрольЗапросаРасширеннаяПодсказка</name>
+                    <name>QuerySyntaxCheckExtendedTooltip</name>
                     <id>211</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1600,7 +1676,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.СинтаксическийКонтрольЗапроса</commandName>
+                  <commandName>Form.Command.QuerySyntaxCheck</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1609,7 +1685,7 @@
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ФорматироватьТекстЗапроса</name>
+                  <name>FormatQueryText</name>
                   <id>212</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1617,7 +1693,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ФорматироватьТекстЗапросаРасширеннаяПодсказка</name>
+                    <name>FormatQueryTextExtendedTooltip</name>
                     <id>213</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1632,16 +1708,15 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.ФорматироватьТекстЗапроса</commandName>
+                  <commandName>Form.Command.FormatQueryText</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ДобавитьПереносСтрокВТекстЗапроса</name>
+                  <name>AddLineFeedsToQueryText</name>
                   <id>178</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1649,7 +1724,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДобавитьПереносСтрокВТекстЗапросаРасширеннаяПодсказка</name>
+                    <name>AddLineFeedsToQueryTextExtendedTooltip</name>
                     <id>179</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1664,18 +1739,17 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.ДобавитьПереносСтрокВТекст</commandName>
+                  <commandName>Form.Command.AddLineFeedsToText</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>УбратьПереносСтрокИзТекстаЗапроса</name>
+                  <name>RemoveLineFeedsFromQueryText</name>
                   <id>176</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1683,7 +1757,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>УбратьПереносСтрокИзТекстаЗапросаРасширеннаяПодсказка</name>
+                    <name>RemoveLineFeedsFromQueryTextExtendedTooltip</name>
                     <id>177</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1698,18 +1772,17 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.УбратьПереносСтрокИзТекста</commandName>
+                  <commandName>Form.Command.RemoveLineFeedsFromText</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ДобавитьКомментированиеСтрокВТекстЗапроса</name>
+                  <name>AddCommentsToQueryText</name>
                   <id>206</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1717,7 +1790,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДобавитьКомментированиеСтрокВТекстЗапросаРасширеннаяПодсказка</name>
+                    <name>AddCommentsToQueryTextExtendedTooltip</name>
                     <id>207</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1732,17 +1805,16 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.ДобавитьКомментированиеСтрокВТекст</commandName>
+                  <commandName>Form.Command.AddCommentsToText</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>УбратьКомментированиеСтрокИзТекстаЗапроса</name>
+                  <name>RemoveCommentsFromQueryText</name>
                   <id>208</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1750,7 +1822,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>УбратьКомментированиеСтрокИзТекстаЗапросаРасширеннаяПодсказка</name>
+                    <name>RemoveCommentsFromQueryTextExtendedTooltip</name>
                     <id>209</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1765,17 +1837,16 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.УбратьКомментированиеСтрокИзТекста</commandName>
+                  <commandName>Form.Command.RemoveCommentsFromText</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ВставитьПредопределенноеЗначение</name>
+                  <name>InsertPredefinedValue</name>
                   <id>365</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1783,7 +1854,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ВставитьПредопределенноеЗначениеРасширеннаяПодсказка</name>
+                    <name>InsertPredefinedValueExtendedTooltip</name>
                     <id>366</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1798,16 +1869,15 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.ВставитьПредопределенноеЗначение</commandName>
+                  <commandName>Form.Command.InsertPredefinedValue</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ПолучитьКодСПараметрами</name>
+                  <name>GetCodeWithParameters</name>
                   <id>394</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1815,7 +1885,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПолучитьКодСПараметрамиРасширеннаяПодсказка</name>
+                    <name>GetCodeWithParametersExtendedTooltip</name>
                     <id>395</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1830,7 +1900,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.ПолучитьКодСПараметрами</commandName>
+                  <commandName>Form.Command.GetCodeWithParameters</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1843,15 +1913,23 @@
                   <common>true</common>
                 </userVisible>
                 <title>
+                  <key>en</key>
+                  <value>Query command bar group</value>
+                </title>
+                <title>
                   <key>ru</key>
                   <value>Группа командная панель запроса</value>
                 </title>
+                <toolTip>
+                  <key>en</key>
+                  <value>Query command bar group</value>
+                </toolTip>
                 <toolTip>
                   <key>ru</key>
                   <value>Группа командная панель запроса</value>
                 </toolTip>
                 <extendedTooltip>
-                  <name>ГруппаКоманднаяПанельЗапросаРасширеннаяПодсказка</name>
+                  <name>QueryCommandBarGroupExtendedTooltip</name>
                   <id>480</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1875,10 +1953,10 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ГруппаКоманднаяПанельЗапросаПравая</name>
+                <name>QueryCommandBarGroupRight</name>
                 <id>111</id>
                 <items xsi:type="form:Button">
-                  <name>ПараметрыЗапросаРядомСТекстом</name>
+                  <name>QueryParametersNextToText</name>
                   <id>477</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1886,7 +1964,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПараметрыЗапросаРядомСТекстомРасширеннаяПодсказка</name>
+                    <name>QueryParametersNextToTextExtendedTooltip</name>
                     <id>478</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1900,7 +1978,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ПараметрыЗапросаРядомСТекстом</commandName>
+                  <commandName>Form.Command.QueryParametersNextToText</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1912,10 +1990,10 @@
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
                 <items xsi:type="form:FormGroup">
-                  <name>ГруппаКоманднаяПанельЗапросаПраваяПерехват</name>
+                  <name>QueryCommandBarGroupRightHooking</name>
                   <id>507</id>
                   <items xsi:type="form:Button">
-                    <name>КомандаЗаполнитьИзXML</name>
+                    <name>FillFromXMLCommand</name>
                     <id>109</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1923,7 +2001,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>КомандаЗаполнитьИзXMLРасширеннаяПодсказка</name>
+                      <name>FillFromXMLCommandExtendedTooltip</name>
                       <id>110</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -1937,7 +2015,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.ЗаполнитьИзXML</commandName>
+                    <commandName>Form.Command.FillFromXML</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -1946,7 +2024,7 @@
                     <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ПолучитьПерехваченныеЗапросы</name>
+                    <name>GetHookedQueries</name>
                     <id>224</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1954,7 +2032,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ПолучитьПерехваченныеЗапросыРасширеннаяПодсказка</name>
+                      <name>GetHookedQueriesExtendedTooltip</name>
                       <id>225</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -1968,7 +2046,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.ПолучитьПерехваченныеЗапросы</commandName>
+                    <commandName>Form.Command.GetHookedQueries</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -1977,7 +2055,7 @@
                     <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ПолучитьКодДляЗахватаВОтладчике</name>
+                    <name>GetCodeForTrace</name>
                     <id>222</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1985,7 +2063,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ПолучитьКодДляЗахватаВОтладчикеРасширеннаяПодсказка</name>
+                      <name>GetCodeForTraceExtendedTooltip</name>
                       <id>223</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -1999,7 +2077,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.ПолучитьКодДляПерехватаВОтладчике</commandName>
+                    <commandName>Form.Command.GetCodeForTrace</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2016,11 +2094,15 @@
                     <common>true</common>
                   </userVisible>
                   <title>
+                    <key>en</key>
+                    <value>Query command bar group right hooking</value>
+                  </title>
+                  <title>
                     <key>ru</key>
                     <value>Группа командная панель запроса правая перехват</value>
                   </title>
                   <extendedTooltip>
-                    <name>ГруппаКоманднаяПанельЗапросаПраваяПерехватРасширеннаяПодсказка</name>
+                    <name>QueryCommandBarGroupRightHookingExtendedTooltip</name>
                     <id>508</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2042,15 +2124,23 @@
                   <common>true</common>
                 </userVisible>
                 <title>
+                  <key>en</key>
+                  <value>Query command bar group right</value>
+                </title>
+                <title>
                   <key>ru</key>
                   <value>Группа командная панель запроса правая</value>
                 </title>
+                <toolTip>
+                  <key>en</key>
+                  <value>Query command bar group right</value>
+                </toolTip>
                 <toolTip>
                   <key>ru</key>
                   <value>Группа командная панель запроса правая</value>
                 </toolTip>
                 <extendedTooltip>
-                  <name>ГруппаКоманднаяПанельЗапросаПраваяРасширеннаяПодсказка</name>
+                  <name>QueryCommandBarGroupRightExtendedTooltip</name>
                   <id>112</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2075,15 +2165,23 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Query command bar group pages</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Группа командная панель страницы запрос</value>
               </title>
+              <toolTip>
+                <key>en</key>
+                <value>Query command bar group pages</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Группа командная панель страницы запрос</value>
               </toolTip>
               <extendedTooltip>
-                <name>ГруппаКоманднаяПанельСтраницыЗапросРасширеннаяПодсказка</name>
+                <name>QueryCommandBarGroupPagesExtendedTooltip</name>
                 <id>482</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2107,7 +2205,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаТекстЗапроса</name>
+              <name>QueryTextGroup</name>
               <id>475</id>
               <items xsi:type="form:FormField">
                 <name>QueryText</name>
@@ -2146,7 +2244,7 @@
                   <name>QueryTextContextMenu</name>
                   <id>2</id>
                   <items xsi:type="form:Button">
-                    <name>ТекстЗапросаКонтекстноеМенюКонструкторЗапросов</name>
+                    <name>QueryTextContextMenuQueryWizard</name>
                     <id>216</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2154,7 +2252,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТекстЗапросаКонтекстноеМенюКонструкторЗапросовРасширеннаяПодсказка</name>
+                      <name>QueryTextContextMenuQueryWizardExtendedTooltip</name>
                       <id>217</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2168,7 +2266,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.КонструкторЗапросов</commandName>
+                    <commandName>Form.Command.QueryWizard</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2176,7 +2274,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ТекстЗапросаКонтекстноеМенюСинтаксическийКонтрольЗапроса</name>
+                    <name>QueryTextContextMenuQuerySyntaxCheck</name>
                     <id>218</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2184,7 +2282,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТекстЗапросаКонтекстноеМенюСинтаксическийКонтрольЗапросаРасширеннаяПодсказка</name>
+                      <name>QueryTextContextMenuQuerySyntaxCheckExtendedTooltip</name>
                       <id>219</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2198,7 +2296,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.СинтаксическийКонтрольЗапроса</commandName>
+                    <commandName>Form.Command.QuerySyntaxCheck</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2206,7 +2304,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ТекстЗапросаКонтекстноеМенюФорматироватьТекстЗапроса</name>
+                    <name>QueryTextContextMenuFormatQueryText</name>
                     <id>220</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2214,7 +2312,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТекстЗапросаКонтекстноеМенюФорматироватьТекстЗапросаРасширеннаяПодсказка</name>
+                      <name>QueryTextContextMenuFormatQueryTextExtendedTooltip</name>
                       <id>221</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2228,7 +2326,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.ФорматироватьТекстЗапроса</commandName>
+                    <commandName>Form.Command.FormatQueryText</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2257,7 +2355,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ГруппаПараметры</name>
+                <name>ParametersGroup</name>
                 <id>434</id>
                 <items xsi:type="form:Table">
                   <name>QueryParameters</name>
@@ -2507,7 +2605,7 @@
                     <name>QueryParametersCommandBar</name>
                     <id>55</id>
                     <items xsi:type="form:Button">
-                      <name>ПараметрыЗапросаКнопкаДобавить</name>
+                      <name>QueryParametersAddButton</name>
                       <id>132</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2515,7 +2613,7 @@
                         <common>true</common>
                       </userVisible>
                       <extendedTooltip>
-                        <name>ПараметрыЗапросаКнопкаДобавитьРасширеннаяПодсказка</name>
+                        <name>QueryParametersAddButtonExtendedTooltip</name>
                         <id>133</id>
                         <visible>true</visible>
                         <enabled>true</enabled>
@@ -2537,7 +2635,7 @@
                       <representationInContextMenu>Auto</representationInContextMenu>
                     </items>
                     <items xsi:type="form:Button">
-                      <name>ПараметрыЗапросаКнопкаСкопировать</name>
+                      <name>QueryParametersCopyButton</name>
                       <id>134</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2545,7 +2643,7 @@
                         <common>true</common>
                       </userVisible>
                       <extendedTooltip>
-                        <name>ПараметрыЗапросаКнопкаСкопироватьРасширеннаяПодсказка</name>
+                        <name>QueryParametersCopyButtonExtendedTooltip</name>
                         <id>135</id>
                         <visible>true</visible>
                         <enabled>true</enabled>
@@ -2568,7 +2666,7 @@
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
-                      <name>ПараметрыЗапросаКнопкаУдалить</name>
+                      <name>QueryParametersDeleteButton</name>
                       <id>136</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2576,7 +2674,7 @@
                         <common>true</common>
                       </userVisible>
                       <extendedTooltip>
-                        <name>ПараметрыЗапросаКнопкаУдалитьРасширеннаяПодсказка</name>
+                        <name>QueryParametersDeleteButtonExtendedTooltip</name>
                         <id>137</id>
                         <visible>true</visible>
                         <enabled>true</enabled>
@@ -2599,7 +2697,7 @@
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
-                      <name>ПараметрыЗапросаКнопкаПереместитьВверх</name>
+                      <name>QueryParametersMoveUpButton</name>
                       <id>138</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2607,7 +2705,7 @@
                         <common>true</common>
                       </userVisible>
                       <extendedTooltip>
-                        <name>ПараметрыЗапросаКнопкаПереместитьВверхРасширеннаяПодсказка</name>
+                        <name>QueryParametersMoveUpButtonExtendedTooltip</name>
                         <id>139</id>
                         <visible>true</visible>
                         <enabled>true</enabled>
@@ -2630,7 +2728,7 @@
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
-                      <name>ПараметрыЗапросаКнопкаПереместитьВниз</name>
+                      <name>QueryParametersMoveDownButton</name>
                       <id>140</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2638,7 +2736,7 @@
                         <common>true</common>
                       </userVisible>
                       <extendedTooltip>
-                        <name>ПараметрыЗапросаКнопкаПереместитьВнизРасширеннаяПодсказка</name>
+                        <name>QueryParametersMoveDownButtonExtendedTooltip</name>
                         <id>141</id>
                         <visible>true</visible>
                         <enabled>true</enabled>
@@ -2661,7 +2759,7 @@
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
                     <items xsi:type="form:Button">
-                      <name>ПараметрыЗаполнитьИзЗапроса</name>
+                      <name>FillParametersFromQuery</name>
                       <id>107</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2669,7 +2767,7 @@
                         <common>true</common>
                       </userVisible>
                       <extendedTooltip>
-                        <name>ПараметрыЗаполнитьИзЗапросаРасширеннаяПодсказка</name>
+                        <name>FillParametersFromQueryExtendedTooltip</name>
                         <id>108</id>
                         <visible>true</visible>
                         <enabled>true</enabled>
@@ -2683,7 +2781,7 @@
                           <horizontalAlign>Left</horizontalAlign>
                         </extInfo>
                       </extendedTooltip>
-                      <commandName>Form.Command.ПараметрыЗаполнитьИзЗапроса</commandName>
+                      <commandName>Form.Command.FillParametersFromQuery</commandName>
                       <representation>Auto</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2691,7 +2789,7 @@
                       <representationInContextMenu>Auto</representationInContextMenu>
                     </items>
                     <items xsi:type="form:Button">
-                      <name>ПараметрыЗапросаПараметрыОчистить</name>
+                      <name>QueryParametersClearParameters</name>
                       <id>142</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2699,7 +2797,7 @@
                         <common>true</common>
                       </userVisible>
                       <extendedTooltip>
-                        <name>ПараметрыЗапросаПараметрыОчиститьРасширеннаяПодсказка</name>
+                        <name>QueryParametersClearParametersExtendedTooltip</name>
                         <id>143</id>
                         <visible>true</visible>
                         <enabled>true</enabled>
@@ -2713,7 +2811,7 @@
                           <horizontalAlign>Left</horizontalAlign>
                         </extInfo>
                       </extendedTooltip>
-                      <commandName>Form.Command.ПараметрыОчистить</commandName>
+                      <commandName>Form.Command.ClearParameters</commandName>
                       <representation>Auto</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2905,16 +3003,24 @@
                   <common>true</common>
                 </userVisible>
                 <title>
+                  <key>en</key>
+                  <value>Query parameters</value>
+                </title>
+                <title>
                   <key>ru</key>
                   <value>Параметры запроса</value>
                 </title>
+                <toolTip>
+                  <key>en</key>
+                  <value>Parameters page</value>
+                </toolTip>
                 <toolTip>
                   <key>ru</key>
                   <value>Страница параметры</value>
                 </toolTip>
                 <width>30</width>
                 <extendedTooltip>
-                  <name>ГруппаПараметрыРасширеннаяПодсказка</name>
+                  <name>ParametersGroupExtendedTooltip</name>
                   <id>435</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2944,15 +3050,23 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Query text group</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Группа текст запроса</value>
               </title>
+              <toolTip>
+                <key>en</key>
+                <value>Query text group</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Группа текст запроса</value>
               </toolTip>
               <extendedTooltip>
-                <name>ГруппаТекстЗапросаРасширеннаяПодсказка</name>
+                <name>QueryTextGroupExtendedTooltip</name>
                 <id>476</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2981,15 +3095,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Query editing group</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Группа редактирование запроса</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Query editing group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Группа редактирование запроса</value>
             </toolTip>
             <extendedTooltip>
-              <name>ГруппаРедактированиеЗапросаРасширеннаяПодсказка</name>
+              <name>QueryEditingGroupExtendedTooltip</name>
               <id>433</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3018,15 +3140,23 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Query</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Запрос</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Query page</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Страница запрос</value>
           </toolTip>
           <extendedTooltip>
-            <name>СтраницаЗапросРасширеннаяПодсказка</name>
+            <name>QueryPageExtendedTooltip</name>
             <id>50</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3047,7 +3177,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>СтраницаПараметры</name>
+          <name>ParametersPage</name>
           <id>51</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3055,15 +3185,23 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Query parameters</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Параметры запроса</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Parameters page</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Страница параметры</value>
           </toolTip>
           <extendedTooltip>
-            <name>СтраницаПараметрыРасширеннаяПодсказка</name>
+            <name>ParametersPageExtendedTooltip</name>
             <id>52</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3084,7 +3222,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>СтраницаВременныеТаблицы</name>
+          <name>TempTablesPage</name>
           <id>144</id>
           <items xsi:type="form:Table">
             <name>TempTables</name>
@@ -3209,7 +3347,7 @@
               <name>TempTablesCommandBar</name>
               <id>148</id>
               <items xsi:type="form:Button">
-                <name>ВременныеТаблицыКнопкаСкопировать</name>
+                <name>TempTablesCopyButton</name>
                 <id>338</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3217,7 +3355,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ВременныеТаблицыКнопкаСкопироватьРасширеннаяПодсказка</name>
+                  <name>TempTablesCopyButtonExtendedTooltip</name>
                   <id>339</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3240,7 +3378,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ВременныеТаблицыКнопкаУдалить</name>
+                <name>TempTablesDeleteButton</name>
                 <id>340</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3248,7 +3386,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ВременныеТаблицыКнопкаУдалитьРасширеннаяПодсказка</name>
+                  <name>TempTablesDeleteButtonExtendedTooltip</name>
                   <id>341</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3271,7 +3409,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ВременныеТаблицыКнопкаПереместитьВверх</name>
+                <name>TempTablesMoveUpButton</name>
                 <id>342</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3279,7 +3417,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ВременныеТаблицыКнопкаПереместитьВверхРасширеннаяПодсказка</name>
+                  <name>TempTablesMoveUpButtonExtendedTooltip</name>
                   <id>343</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3302,7 +3440,7 @@
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
               <items xsi:type="form:Button">
-                <name>ВременныеТаблицыКнопкаПереместитьВниз</name>
+                <name>TempTablesMoveDownButton</name>
                 <id>344</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3310,7 +3448,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ВременныеТаблицыКнопкаПереместитьВнизРасширеннаяПодсказка</name>
+                  <name>TempTablesMoveDownButtonExtendedTooltip</name>
                   <id>345</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3505,15 +3643,23 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Temp tables manager</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Менеджер временных таблиц</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Temp tables page</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Страница временные таблицы</value>
           </toolTip>
           <extendedTooltip>
-            <name>СтраницаВременныеТаблицыРасширеннаяПодсказка</name>
+            <name>TempTablesPageExtendedTooltip</name>
             <id>145</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3534,16 +3680,16 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>СтраницаАлгоритм</name>
+          <name>AlgorithmPage</name>
           <id>356</id>
           <items xsi:type="form:FormGroup">
-            <name>ВерхняяПанельКода</name>
+            <name>CodeTopPanel</name>
             <id>369</id>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаКоманднаяПанельКода</name>
+              <name>CodeCommandBarGroup</name>
               <id>361</id>
               <items xsi:type="form:Button">
-                <name>ДобавитьПереносСтрокВТекстЗапроса1</name>
+                <name>AddLineFeedsToQueryText1</name>
                 <id>374</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3551,7 +3697,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДобавитьПереносСтрокВТекстЗапроса1РасширеннаяПодсказка</name>
+                  <name>AddLineFeedsToQueryText1ExtendedTooltip</name>
                   <id>375</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3565,17 +3711,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ДобавитьПереносСтрокВТекст</commandName>
+                <commandName>Form.Command.AddLineFeedsToText</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
-                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
               <items xsi:type="form:Button">
-                <name>УбратьПереносСтрокИзТекстаЗапроса1</name>
+                <name>RemoveLineFeedsFromQueryText1</name>
                 <id>376</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3583,7 +3728,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>УбратьПереносСтрокИзТекстаЗапроса1РасширеннаяПодсказка</name>
+                  <name>RemoveLineFeedsFromQueryText1ExtendedTooltip</name>
                   <id>377</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3597,17 +3742,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.УбратьПереносСтрокИзТекста</commandName>
+                <commandName>Form.Command.RemoveLineFeedsFromText</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
-                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
               <items xsi:type="form:Button">
-                <name>ДобавитьКомментированиеСтрокВТекстЗапроса1</name>
+                <name>AddCommentsToQueryText1</name>
                 <id>378</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3615,7 +3759,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДобавитьКомментированиеСтрокВТекстЗапроса1РасширеннаяПодсказка</name>
+                  <name>AddCommentsToQueryText1ExtendedTooltip</name>
                   <id>379</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3629,17 +3773,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ДобавитьКомментированиеСтрокВТекст</commandName>
+                <commandName>Form.Command.AddCommentsToText</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
-                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
               <items xsi:type="form:Button">
-                <name>УбратьКомментированиеСтрокИзТекстаЗапроса1</name>
+                <name>RemoveCommentsFromQueryText1</name>
                 <id>380</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3647,7 +3790,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>УбратьКомментированиеСтрокИзТекстаЗапроса1РасширеннаяПодсказка</name>
+                  <name>RemoveCommentsFromQueryText1ExtendedTooltip</name>
                   <id>381</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3661,12 +3804,11 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.УбратьКомментированиеСтрокИзТекста</commandName>
+                <commandName>Form.Command.RemoveCommentsFromText</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
-                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3676,9 +3818,17 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Code command bar group</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Группа командная панель кода</value>
               </title>
+              <toolTip>
+                <key>en</key>
+                <value>Code command bar group</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Группа командная панель кода</value>
@@ -3686,7 +3836,7 @@
               <width>15</width>
               <horizontalStretch>false</horizontalStretch>
               <extendedTooltip>
-                <name>ГруппаКоманднаяПанельКодаРасширеннаяПодсказка</name>
+                <name>CodeCommandBarGroupExtendedTooltip</name>
                 <id>362</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3706,7 +3856,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаПанельИсполнения</name>
+              <name>ExecutionPanelGroup</name>
               <id>382</id>
               <items xsi:type="form:FormField">
                 <name>CodeExecutionMethod</name>
@@ -3789,7 +3939,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:Button">
-                <name>ВыполнитьОбработку</name>
+                <name>ExecuteDataProcessor</name>
                 <id>363</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3797,7 +3947,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ВыполнитьОбработкуРасширеннаяПодсказка</name>
+                  <name>ExecuteDataProcessorExtendedTooltip</name>
                   <id>364</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3812,12 +3962,11 @@
                   </extInfo>
                 </extendedTooltip>
                 <type>UsualButton</type>
-                <commandName>Form.Command.ВыполнитьОбработку</commandName>
+                <commandName>Form.Command.ExecuteDataProcessor</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
-                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:FormField">
@@ -3878,7 +4027,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:Button">
-                <name>СправкаАлгоритм</name>
+                <name>AlgorithmInfo</name>
                 <id>390</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3886,7 +4035,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>СправкаАлгоритмРасширеннаяПодсказка</name>
+                  <name>AlgorithmInfoExtendedTooltip</name>
                   <id>391</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3901,7 +4050,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <type>UsualButton</type>
-                <commandName>Form.Command.СправкаАлгоритм</commandName>
+                <commandName>Form.Command.AlgorithmInfo</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3917,15 +4066,23 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Execution panel group</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Группа панель исполнения</value>
               </title>
+              <toolTip>
+                <key>en</key>
+                <value>Execution panel group</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Группа панель исполнения</value>
               </toolTip>
               <extendedTooltip>
-                <name>ГруппаПанельИсполненияРасширеннаяПодсказка</name>
+                <name>ExecutionPanelGroupExtendedTooltip</name>
                 <id>383</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3954,15 +4111,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Code top panel</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Верхняя панель кода</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Code top panel</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Верхняя панель кода</value>
             </toolTip>
             <extendedTooltip>
-              <name>ВерхняяПанельКодаРасширеннаяПодсказка</name>
+              <name>CodeTopPanelExtendedTooltip</name>
               <id>370</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3986,7 +4151,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаТекстаАлгоритма</name>
+            <name>AlgorithmTextGroup</name>
             <id>499</id>
             <items xsi:type="form:FormField">
               <name>AlgorithmText</name>
@@ -4295,15 +4460,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Algorithm text group</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Группа текста алгоритма</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Algorithm text group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Группа текста алгоритма</value>
             </toolTip>
             <extendedTooltip>
-              <name>ГруппаТекстаАлгоритмаРасширеннаяПодсказка</name>
+              <name>AlgorithmTextGroupExtendedTooltip</name>
               <id>500</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4332,15 +4505,23 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Algorithm</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Алгоритм</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Algorithm page</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Страница алгоритм</value>
           </toolTip>
           <extendedTooltip>
-            <name>СтраницаАлгоритмРасширеннаяПодсказка</name>
+            <name>AlgorithmPageExtendedTooltip</name>
             <id>357</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4366,15 +4547,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Query group pages</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Группа запрос страницы</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Query group pages</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Группа запрос страницы</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаЗапросСтраницыРасширеннаяПодсказка</name>
+          <name>QueryGroupPagesExtendedTooltip</name>
           <id>48</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4400,15 +4589,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Query group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа запрос</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Query group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа запрос</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаЗапросРасширеннаяПодсказка</name>
+        <name>QueryGroupExtendedTooltip</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -4437,16 +4634,24 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Top panel group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа верхняя панель</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Top panel group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа верхняя панель</value>
     </toolTip>
     <width>100</width>
     <extendedTooltip>
-      <name>ГруппаВерхняяПанельРасширеннаяПодсказка</name>
+      <name>TopPanelGroupExtendedTooltip</name>
       <id>24</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -4469,22 +4674,22 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНижняяПанель</name>
+    <name>BottomPanelGroup</name>
     <id>25</id>
     <items xsi:type="form:FormGroup">
-      <name>ГраппуКоманднаяПанельРезультата</name>
+      <name>ResultCommandBarGroup</name>
       <id>235</id>
       <items xsi:type="form:FormGroup">
-        <name>КоманднаяПанельЛево</name>
+        <name>CommandBarLeft</name>
         <id>248</id>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаУправлениеРезультатомЗапроса</name>
+          <name>QueryResultControlGroup</name>
           <id>426</id>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаКоманднаяПанельПакетаРезультатаЗапроса</name>
+            <name>QueryResultBatchCommandBarGroup</name>
             <id>424</id>
             <items xsi:type="form:Button">
-              <name>ОтобразитьСкрытьПакетРезультатаЗапроса</name>
+              <name>ShowHideQueryResultBatch</name>
               <id>398</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4492,7 +4697,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ОтобразитьСкрытьПакетРезультатаЗапросаРасширеннаяПодсказка</name>
+                <name>ShowHideQueryResultBatchExtendedTooltip</name>
                 <id>399</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4506,7 +4711,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ОтобразитьСкрытьПакетРезультатаЗапроса</commandName>
+              <commandName>Form.Command.ShowHideQueryResultBatch</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -4520,9 +4725,17 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Query result batch command bar group</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Группа командная панель пакета результата запроса</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Query result batch command bar group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Группа командная панель пакета результата запроса</value>
@@ -4530,7 +4743,7 @@
             <width>3</width>
             <horizontalStretch>false</horizontalStretch>
             <extendedTooltip>
-              <name>ГруппаКоманднаяПанельПакетаРезультатаЗапросаРасширеннаяПодсказка</name>
+              <name>QueryResultBatchCommandBarGroupExtendedTooltip</name>
               <id>425</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4550,7 +4763,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаРезультатВПакете</name>
+            <name>ResultInBatchGroup</name>
             <id>505</id>
             <items xsi:type="form:FormField">
               <name>ResultInBatch</name>
@@ -4610,14 +4823,14 @@
               </extInfo>
             </items>
             <items xsi:type="form:Button">
-              <name>ПланЗапроса</name>
+              <name>QueryPlan</name>
               <id>503</id>
               <enabled>true</enabled>
               <userVisible>
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ПланЗапросаРасширеннаяПодсказка</name>
+                <name>QueryPlanExtendedTooltip</name>
                 <id>504</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4632,7 +4845,7 @@
                 </extInfo>
               </extendedTooltip>
               <type>Hyperlink</type>
-              <commandName>Form.Command.ПланЗапроса</commandName>
+              <commandName>Form.Command.QueryPlan</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -4644,15 +4857,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Result in batch group</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Группа результат в пакете</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Result in batch group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Группа результат в пакете</value>
             </toolTip>
             <extendedTooltip>
-              <name>ГруппаРезультатВПакетеРасширеннаяПодсказка</name>
+              <name>ResultInBatchGroupExtendedTooltip</name>
               <id>506</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4681,15 +4902,23 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Query result control group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа управление результатом запроса</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Query result control group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа управление результатом запроса</value>
           </toolTip>
           <extendedTooltip>
-            <name>ГруппаУправлениеРезультатомЗапросаРасширеннаяПодсказка</name>
+            <name>QueryResultControlGroupExtendedTooltip</name>
             <id>427</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4713,7 +4942,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>КоманднаяПанельВидРезультата</name>
+          <name>ResultKindCommandBar</name>
           <id>396</id>
           <items xsi:type="form:FormField">
             <name>ResultKind</name>
@@ -4898,14 +5127,14 @@
             </extInfo>
           </items>
           <items xsi:type="form:Button">
-            <name>ОбновитьРезультат</name>
+            <name>RefreshResult</name>
             <id>293</id>
             <visible>true</visible>
             <userVisible>
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ОбновитьРезультатРасширеннаяПодсказка</name>
+              <name>RefreshResultExtendedTooltip</name>
               <id>294</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4920,7 +5149,7 @@
               </extInfo>
             </extendedTooltip>
             <type>UsualButton</type>
-            <commandName>Form.Command.ОбновитьРезультат</commandName>
+            <commandName>Form.Command.RefreshResult</commandName>
             <representation>Picture</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -4934,15 +5163,23 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Result kind command bar</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Командная панель вид результата</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Result kind command bar</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Командная панель вид результата</value>
           </toolTip>
           <extendedTooltip>
-            <name>КоманднаяПанельВидРезультатаРасширеннаяПодсказка</name>
+            <name>ResultKindCommandBarExtendedTooltip</name>
             <id>397</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4970,14 +5207,14 @@
           </extInfo>
         </items>
         <items xsi:type="form:Button">
-          <name>УИ_РедактироватьЗначение</name>
+          <name>UT_EditValue</name>
           <id>509</id>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>УИ_РедактироватьЗначениеРасширеннаяПодсказка</name>
+            <name>UT_EditValueExtendedTooltip</name>
             <id>510</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4992,7 +5229,7 @@
             </extInfo>
           </extendedTooltip>
           <type>UsualButton</type>
-          <commandName>Form.Command.УИ_РедактироватьЗначение</commandName>
+          <commandName>Form.Command.UT_EditValue</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -5050,10 +5287,10 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>КоманднаяПанельРезультатаДеревоЛево</name>
+          <name>ResultCommandBarTreeLeft</name>
           <id>327</id>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаДеревоИерархи</name>
+            <name>QueryResultTreeHierarchicalList</name>
             <id>323</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5061,7 +5298,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаДеревоИерархиРасширеннаяПодсказка</name>
+              <name>QueryResultTreeHierarchicalListExtendedTooltip</name>
               <id>324</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5085,7 +5322,7 @@
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаДеревоДерево</name>
+            <name>QueryResultTreeTree</name>
             <id>325</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5093,7 +5330,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаДеревоДеревоРасширеннаяПодсказка</name>
+              <name>QueryResultTreeTreeExtendedTooltip</name>
               <id>326</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5117,7 +5354,7 @@
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаДеревоРазвернутьВсе</name>
+            <name>QueryResultTreeExpandAll</name>
             <id>313</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5125,7 +5362,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаДеревоРазвернутьВсеРасширеннаяПодсказка</name>
+              <name>QueryResultTreeExpandAllExtendedTooltip</name>
               <id>314</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5139,7 +5376,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.РезультатЗапросаДеревоРазвернутьВсе</commandName>
+            <commandName>Form.Command.QueryResultTreeExpandAll</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5148,7 +5385,7 @@
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаДеревоРезультатЗапросаДереваСвернутьВсе</name>
+            <name>QueryResultTreeCollapseAll</name>
             <id>329</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5156,7 +5393,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаДеревоРезультатЗапросаДереваСвернутьВсеРасширеннаяПодсказка</name>
+              <name>QueryResultTreeCollapseAllExtendedTooltip</name>
               <id>330</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5170,7 +5407,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.РезультатЗапросаДереваСвернутьВсе</commandName>
+            <commandName>Form.Command.QueryResultTreeCollapseAll</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5182,15 +5419,23 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Result command bar tree left</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Командная панель результата дерево лево</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Result command bar tree left</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Командная панель результата дерево лево</value>
           </toolTip>
           <extendedTooltip>
-            <name>КоманднаяПанельРезультатаДеревоЛевоРасширеннаяПодсказка</name>
+            <name>ResultCommandBarTreeLeftExtendedTooltip</name>
             <id>328</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5216,15 +5461,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Command bar left</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Командная панель лево</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Command bar left</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Командная панель лево</value>
         </toolTip>
         <extendedTooltip>
-          <name>КоманднаяПанельЛевоРасширеннаяПодсказка</name>
+          <name>CommandBarLeftExtendedTooltip</name>
           <id>249</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5247,13 +5500,13 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>КоманднаяПанельПраво</name>
+        <name>CommandBarRight</name>
         <id>250</id>
         <items xsi:type="form:FormGroup">
-          <name>КоманднаяПанельРезультата</name>
+          <name>ResultCommandBar</name>
           <id>240</id>
           <items xsi:type="form:Button">
-            <name>ОтобразитьСкрытьПанельРезультатаИтоги</name>
+            <name>ShowHideResultPanelTotals</name>
             <id>346</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5261,7 +5514,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ОтобразитьСкрытьПанельРезультатаИтогиРасширеннаяПодсказка</name>
+              <name>ShowHideResultPanelTotalsExtendedTooltip</name>
               <id>347</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5275,16 +5528,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОтобразитьСкрытьПанельРезультатаИтоги</commandName>
+            <commandName>Form.Command.ShowHideResultPanelTotals</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <picture xsi:type="form:FormPicture"/>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаКнопкаВывестиСписок</name>
+            <name>QueryResultOutputListButton</name>
             <id>184</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5292,7 +5544,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаКнопкаВывестиСписокРасширеннаяПодсказка</name>
+              <name>QueryResultOutputListButtonExtendedTooltip</name>
               <id>185</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5315,7 +5567,7 @@
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаКнопкаНайти</name>
+            <name>QueryResultFindButton</name>
             <id>180</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5323,7 +5575,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаКнопкаНайтиРасширеннаяПодсказка</name>
+              <name>QueryResultFindButtonExtendedTooltip</name>
               <id>181</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5346,7 +5598,7 @@
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаКнопкаОтменитьПоиск</name>
+            <name>QueryResultCancelSearchButton</name>
             <id>182</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5354,7 +5606,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаКнопкаОтменитьПоискРасширеннаяПодсказка</name>
+              <name>QueryResultCancelSearchButtonExtendedTooltip</name>
               <id>183</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5377,7 +5629,7 @@
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаРезультатВТабличныйДокумент1</name>
+            <name>QueryResultToSpreadsheetDocument1</name>
             <id>333</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5385,7 +5637,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаРезультатВТабличныйДокумент1РасширеннаяПодсказка</name>
+              <name>QueryResultToSpreadsheetDocument1ExtendedTooltip</name>
               <id>334</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5399,7 +5651,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.РезультатВТабличныйДокумент</commandName>
+            <commandName>Form.Command.ResultToSpreadsheetDocument</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5407,7 +5659,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>РезультатВПараметр</name>
+            <name>ResultToParameter</name>
             <id>367</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5415,7 +5667,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатВПараметрРасширеннаяПодсказка</name>
+              <name>ResultToParameterExtendedTooltip</name>
               <id>368</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5429,7 +5681,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.РезультатВПараметр</commandName>
+            <commandName>Form.Command.ResultToParameter</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5441,9 +5693,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Result command bar</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Командная панель результата</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Result command bar</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Командная панель результата</value>
@@ -5451,7 +5711,7 @@
           <toolTipRepresentation>None</toolTipRepresentation>
           <horizontalStretch>false</horizontalStretch>
           <extendedTooltip>
-            <name>КоманднаяПанельРезультатаРасширеннаяПодсказка</name>
+            <name>ResultCommandBarExtendedTooltip</name>
             <id>241</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5471,10 +5731,10 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>КоманднаяПанельРезультатаДерево</name>
+          <name>ResultCommandBarTree</name>
           <id>315</id>
           <items xsi:type="form:Button">
-            <name>РезультатЗапросаРезультатВТабличныйДокумент</name>
+            <name>QueryResultToSpreadsheetDocument</name>
             <id>331</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5482,7 +5742,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>РезультатЗапросаРезультатВТабличныйДокументРасширеннаяПодсказка</name>
+              <name>QueryResultToSpreadsheetDocumentExtendedTooltip</name>
               <id>332</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5496,7 +5756,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.РезультатВТабличныйДокумент</commandName>
+            <commandName>Form.Command.ResultToSpreadsheetDocument</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5508,9 +5768,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Result command bar</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Командная панель результата</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Result command bar</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Командная панель результата</value>
@@ -5518,7 +5786,7 @@
           <toolTipRepresentation>None</toolTipRepresentation>
           <horizontalStretch>false</horizontalStretch>
           <extendedTooltip>
-            <name>КоманднаяПанельРезультатаДеревоРасширеннаяПодсказка</name>
+            <name>ResultCommandBarTreeExtendedTooltip</name>
             <id>316</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5543,16 +5811,24 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Command bar right</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Командная панель право</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Command bar right</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Командная панель право</value>
         </toolTip>
         <groupHorizontalAlign>Right</groupHorizontalAlign>
         <extendedTooltip>
-          <name>КоманднаяПанельПравоРасширеннаяПодсказка</name>
+          <name>CommandBarRightExtendedTooltip</name>
           <id>251</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5580,16 +5856,24 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Result command bar group</value>
+      </title>
+      <title>
         <key>ru</key>
-        <value>Граппу командная панель результата</value>
+        <value>Группа командная панель результата</value>
       </title>
       <toolTip>
+        <key>en</key>
+        <value>Result command bar group</value>
+      </toolTip>
+      <toolTip>
         <key>ru</key>
-        <value>Граппу командная панель результата</value>
+        <value>Группа командная панель результата</value>
       </toolTip>
       <horizontalStretch>true</horizontalStretch>
       <extendedTooltip>
-        <name>ГраппуКоманднаяПанельРезультатаРасширеннаяПодсказка</name>
+        <name>ResultCommandBarGroupExtendedTooltip</name>
         <id>236</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -5612,7 +5896,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаРезультат</name>
+      <name>ResultGroup</name>
       <id>422</id>
       <items xsi:type="form:Table">
         <name>QueryResultBatch</name>
@@ -5917,7 +6201,7 @@
         <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаТаблица</name>
+        <name>TableGroup</name>
         <id>430</id>
         <items xsi:type="form:Table">
           <name>QueryResult</name>
@@ -5946,6 +6230,10 @@
             <id>6</id>
             <items xsi:type="form:Addition">
               <title>
+                <key>en</key>
+                <value>Search string representation</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Отображение строки поиска</value>
               </title>
@@ -5954,10 +6242,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ОтображениеСтрокиПоиска</name>
+              <name>SearchStringRepresentation</name>
               <id>335</id>
               <extendedTooltip>
-                <name>ОтображениеСтрокиПоискаРасширеннаяПодсказка</name>
+                <name>SearchStringRepresentationExtendedTooltip</name>
                 <id>337</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -5972,7 +6260,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ОтображениеСтрокиПоискаКонтекстноеМеню</name>
+                <name>SearchStringRepresentationContextMenu</name>
                 <id>336</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -6128,14 +6416,14 @@
             <name>QueryResultContextMenu</name>
             <id>5</id>
             <items xsi:type="form:Button">
-              <name>РезультатЗапросаКонтекстноеМенюУИ_РедактироватьЗначение</name>
+              <name>QueryResultContextMenuUT_EditValue</name>
               <id>511</id>
               <enabled>true</enabled>
               <userVisible>
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>РезультатЗапросаКонтекстноеМенюУИ_РедактироватьЗначениеРасширеннаяПодсказка</name>
+                <name>QueryResultContextMenuUT_EditValueExtendedTooltip</name>
                 <id>512</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -6149,7 +6437,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.УИ_РедактироватьЗначение</commandName>
+              <commandName>Form.Command.UT_EditValue</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6354,14 +6642,14 @@
             <name>QueryResultTreeContextMenu</name>
             <id>278</id>
             <items xsi:type="form:Button">
-              <name>РезультатЗапросаДеревоКонтекстноеМенюУИ_РедактироватьЗначение</name>
+              <name>QueryResultTreeContextMenuUT_EditValue</name>
               <id>513</id>
               <enabled>true</enabled>
               <userVisible>
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>РезультатЗапросаДеревоКонтекстноеМенюУИ_РедактироватьЗначениеРасширеннаяПодсказка</name>
+                <name>QueryResultTreeContextMenuUT_EditValueExtendedTooltip</name>
                 <id>514</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -6375,7 +6663,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.УИ_РедактироватьЗначение</commandName>
+              <commandName>Form.Command.UT_EditValue</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6415,15 +6703,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Table group</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Группа таблица</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Table group</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Группа таблица</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаТаблицаРасширеннаяПодсказка</name>
+          <name>TableGroupExtendedTooltip</name>
           <id>431</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -6452,15 +6748,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Result group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа результат</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Result group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа результат</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаРезультатРасширеннаяПодсказка</name>
+        <name>ResultGroupExtendedTooltip</name>
         <id>423</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -6489,15 +6793,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Bottom panel group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа нижняя панель</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Bottom panel group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа нижняя панель</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаНижняяПанельРасширеннаяПодсказка</name>
+      <name>BottomPanelGroupExtendedTooltip</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -6521,11 +6833,15 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКартинки</name>
+    <name>PicturesGroup</name>
     <id>348</id>
     <items xsi:type="form:Decoration">
-      <name>Картинка_ВыборТипа</name>
+      <name>Picture_ChooseType</name>
       <id>350</id>
+      <title>
+        <key>en</key>
+        <value>Picture choose type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Картинка выбор типа</value>
@@ -6536,7 +6852,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>Картинка_ВыборТипаРасширеннаяПодсказка</name>
+        <name>Picture_ChooseTypeExtendedTooltip</name>
         <id>352</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -6551,7 +6867,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>Картинка_ВыборТипаКонтекстноеМеню</name>
+        <name>Picture_ChooseTypeContextMenu</name>
         <id>351</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -6562,24 +6878,30 @@
       </contextMenu>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:PictureDecorationExtInfo">
-        <picture xsi:type="form:FormPicture"/>
-      </extInfo>
+      <extInfo xsi:type="form:PictureDecorationExtInfo"/>
     </items>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Pictures group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа картинки</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Pictures group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа картинки</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКартинкиРасширеннаяПодсказка</name>
+      <name>PicturesGroupExtendedTooltip</name>
       <id>349</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -6614,15 +6936,15 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>BeforeClose</event>
-    <name>ПередЗакрытием</name>
+    <name>BeforeClose</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <excludedCommands>Help</excludedCommands>
   <autoUrl>true</autoUrl>
@@ -8585,12 +8907,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ВыполнитьЗапрос</name>
+    <name>ExecuteQuery</name>
+    <title>
+      <key>en</key>
+      <value>Execute</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Execute query</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Выполнить запрос</value>
@@ -8604,19 +8934,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ВыполнитьЗапрос</name>
+        <name>ExecuteQuery_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПакетЗапросовНовый</name>
+    <name>QueryBatchNew</name>
+    <title>
+      <key>en</key>
+      <value>New</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Новый</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Create new query batch</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Создать новый пакет запросов</value>
@@ -8630,18 +8968,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_НовыйПакетЗапросов</name>
+        <name>QueryBatchNew_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПакетЗапросовСохранить</name>
+    <name>QueryBatchSave</name>
+    <title>
+      <key>en</key>
+      <value>Save</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранить</value>
     </title>
     <id>3</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save query batch</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить пакет запросов</value>
@@ -8655,19 +9001,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_СохранитьПакетЗапросов</name>
+        <name>QueryBatchSave_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗагрузитьПакетЗапросов</name>
+    <name>LoadQueryBatch</name>
+    <title>
+      <key>en</key>
+      <value>Load query batch</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Загрузить пакет запросов</value>
     </title>
     <id>4</id>
+    <toolTip>
+      <key>en</key>
+      <value>Load query batch</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Загрузить пакет запросов</value>
@@ -8681,18 +9035,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ЗагрузитьПакетЗапросов</name>
+        <name>LoadQueryBatch_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КонструкторЗапросов</name>
+    <name>QueryWizard</name>
+    <title>
+      <key>en</key>
+      <value>Query wizard</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Конструктор запросов</value>
     </title>
     <id>5</id>
+    <toolTip>
+      <key>en</key>
+      <value>Run query wizard</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вызов конструктора запросов</value>
@@ -8706,7 +9068,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_КонструкторЗапроса</name>
+        <name>QueryWizard_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
@@ -8714,12 +9076,20 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПараметрыЗаполнитьИзЗапроса</name>
+    <name>FillParametersFromQuery</name>
+    <title>
+      <key>en</key>
+      <value>From query</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Из запроса</value>
     </title>
     <id>6</id>
+    <toolTip>
+      <key>en</key>
+      <value>Fill parameters from query</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Заполнить параметры из запроса</value>
@@ -8729,19 +9099,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПараметрыЗаполнитьИзЗапроса</name>
+        <name>FillParametersFromQuery_Command</name>
       </handler>
     </action>
     <modifiesStoredData>true</modifiesStoredData>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗаполнитьИзXML</name>
+    <name>FillFromXML</name>
+    <title>
+      <key>en</key>
+      <value>Fill from XML</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Заполнить из XML</value>
     </title>
     <id>7</id>
+    <toolTip>
+      <key>en</key>
+      <value>Fill the query and the parameters from XML-string created with QueryToStringXML or QueryToString9000 (see Info)</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Заполнить запрос и параметры из строки XML, созданной с помощью функции ЗапросВСтрокуXML или ЗапросВСтроку9000 (см. Информация).</value>
@@ -8755,7 +9133,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ЗаполнитьИзXML</name>
+        <name>FillFromXML_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
@@ -8763,12 +9141,20 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПакетЗапросовСохранитьКак</name>
+    <name>QueryBatchSaveAs</name>
+    <title>
+      <key>en</key>
+      <value>Save as...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранить как...</value>
     </title>
     <id>8</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save the query batch with a new name</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить пакет запросов с новым именем</value>
@@ -8778,18 +9164,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПакетЗапросовСохранитьКак</name>
+        <name>QueryBatchSaveAs_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПараметрыОчистить</name>
+    <name>ClearParameters</name>
+    <title>
+      <key>en</key>
+      <value>Clear</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Очистить</value>
     </title>
     <id>9</id>
+    <toolTip>
+      <key>en</key>
+      <value>Clear query parameters</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Очистить параметры запроса</value>
@@ -8799,19 +9193,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПараметрыОчистить</name>
+        <name>ClearParameters_Command</name>
       </handler>
     </action>
     <modifiesStoredData>true</modifiesStoredData>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УбратьПереносСтрокИзТекста</name>
+    <name>RemoveLineFeedsFromText</name>
+    <title>
+      <key>en</key>
+      <value>Remove line feeds from text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Убрать перенос строк из текста</value>
     </title>
     <id>10</id>
+    <toolTip>
+      <key>en</key>
+      <value>Remove line feeds from text</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Убрать перенос строк из текста</value>
@@ -8822,18 +9224,26 @@
     <shortcut>Ctrl+Shift+Num *</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_УбратьПереносСтрокИзТекста</name>
+        <name>RemoveLineFeedsFromText_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьПереносСтрокВТекст</name>
+    <name>AddLineFeedsToText</name>
+    <title>
+      <key>en</key>
+      <value>Add line feeds to text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить перенос строк в текст</value>
     </title>
     <id>11</id>
+    <toolTip>
+      <key>en</key>
+      <value>Add line feeds to text</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить перенос строк в текст</value>
@@ -8844,18 +9254,26 @@
     <shortcut>Ctrl+Num *</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ДобавитьПереносСтрокВТекст</name>
+        <name>AddLineFeedsToText_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьКомментированиеСтрокВТекст</name>
+    <name>AddCommentsToText</name>
+    <title>
+      <key>en</key>
+      <value>Add comments</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить комментирование строк</value>
     </title>
     <id>13</id>
+    <toolTip>
+      <key>en</key>
+      <value>Add comments to text</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить комментирование строк в текст</value>
@@ -8866,19 +9284,27 @@
     <shortcut>Ctrl+Num /</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ДобавитьКомментированиеСтрокВТекст</name>
+        <name>AddCommentsToText_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УбратьКомментированиеСтрокИзТекста</name>
+    <name>RemoveCommentsFromText</name>
+    <title>
+      <key>en</key>
+      <value>Remove comments</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Убрать комментирование строк</value>
     </title>
     <id>14</id>
+    <toolTip>
+      <key>en</key>
+      <value>Remove comments from text</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Убрать комментирование строк из текста</value>
@@ -8889,19 +9315,27 @@
     <shortcut>Ctrl+Shift+Num /</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_УбратьКомментированиеСтрокИзТекста</name>
+        <name>RemoveCommentsFromText_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СинтаксическийКонтрольЗапроса</name>
+    <name>QuerySyntaxCheck</name>
+    <title>
+      <key>en</key>
+      <value>Syntax check</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Синтаксический контроль</value>
     </title>
     <id>15</id>
+    <toolTip>
+      <key>en</key>
+      <value>Query syntax check</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Синтаксический контроль запроса</value>
@@ -8915,19 +9349,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_СинтаксическийКонтрольЗапроса</name>
+        <name>QuerySyntaxCheck_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ФорматироватьТекстЗапроса</name>
+    <name>FormatQueryText</name>
+    <title>
+      <key>en</key>
+      <value>Format query text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Форматировать текст запроса</value>
     </title>
     <id>16</id>
+    <toolTip>
+      <key>en</key>
+      <value>Format query text like in the wizard</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Форматировать текст запроса (как в конструкторе)</value>
@@ -8944,12 +9386,20 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПолучитьКодДляПерехватаВОтладчике</name>
+    <name>GetCodeForTrace</name>
+    <title>
+      <key>en</key>
+      <value>Get code for trace</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Получить код для перехвата в отладчике</value>
     </title>
     <id>17</id>
+    <toolTip>
+      <key>en</key>
+      <value>Get code for trace</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Получить код для перехвата в отладчике</value>
@@ -8963,18 +9413,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПолучитьКодДляПерехватаВОтладчике</name>
+        <name>GetCodeForTrace_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПолучитьПерехваченныеЗапросы</name>
+    <name>GetHookedQueries</name>
+    <title>
+      <key>en</key>
+      <value>Get hooked queries</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Получить перехваченные запросы</value>
     </title>
     <id>18</id>
+    <toolTip>
+      <key>en</key>
+      <value>Get hooked queries</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Получить перехваченные запросы</value>
@@ -8988,18 +9446,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ДобавитьПерехваченныеЗапросы</name>
+        <name>GetHookedQueries_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПакетЗапросовДобавить</name>
+    <name>QueryBatchAdd</name>
+    <title>
+      <key>en</key>
+      <value>Add</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить</value>
     </title>
     <id>19</id>
+    <toolTip>
+      <key>en</key>
+      <value>Add new query</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить новый запрос</value>
@@ -9012,18 +9478,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПакетЗапросовДобавить</name>
+        <name>QueryBatchAdd_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПакетЗапросовПереместитьНаУровеньВверх</name>
+    <name>QueryBatchLevelUp</name>
+    <title>
+      <key>en</key>
+      <value>Level up</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Уровень вверх</value>
     </title>
     <id>20</id>
+    <toolTip>
+      <key>en</key>
+      <value>Level up query</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Переместить запрос на уровень вверх</value>
@@ -9036,19 +9510,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПакетЗапросовПереместитьНаУровеньВверх</name>
+        <name>QueryBatchLevelUp_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПакетЗапросовСкопировать</name>
+    <name>QueryBatchCopy</name>
+    <title>
+      <key>en</key>
+      <value>Copy</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Скопировать</value>
     </title>
     <id>21</id>
+    <toolTip>
+      <key>en</key>
+      <value>Copy query</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Скопировать запрос</value>
@@ -9061,18 +9543,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПакетЗапросовСкопировать</name>
+        <name>QueryBatchCopy_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОбновитьРезультат</name>
+    <name>RefreshResult</name>
+    <title>
+      <key>en</key>
+      <value>Refresh result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить результат</value>
     </title>
     <id>22</id>
+    <toolTip>
+      <key>en</key>
+      <value>Refresh result</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Обновить результат</value>
@@ -9086,18 +9576,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ОбновитьРезультат</name>
+        <name>RefreshResult_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РезультатЗапросаДеревоРазвернутьВсе</name>
+    <name>QueryResultTreeExpandAll</name>
+    <title>
+      <key>en</key>
+      <value>Query result tree expand all</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат запроса дерево развернуть все</value>
     </title>
     <id>23</id>
+    <toolTip>
+      <key>en</key>
+      <value>Expand all in the query result tree</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Развернуть все в дереве результата запроса</value>
@@ -9111,19 +9609,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_РезультатЗапросаДеревоРазвернутьВсе</name>
+        <name>QueryResultTreeExpandAll_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РезультатЗапросаДереваСвернутьВсе</name>
+    <name>QueryResultTreeCollapseAll</name>
+    <title>
+      <key>en</key>
+      <value>Query result tree collapse all</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат запроса дерева свернуть все</value>
     </title>
     <id>24</id>
+    <toolTip>
+      <key>en</key>
+      <value>Collapse all in the query result tree </value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Свернуть все в дереве результата запроса</value>
@@ -9137,18 +9643,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_РезультатЗапросаДеревоСвернутьВсе</name>
+        <name>QueryResultTreeCollapseAll_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РезультатВТабличныйДокумент</name>
+    <name>ResultToSpreadsheetDocument</name>
+    <title>
+      <key>en</key>
+      <value>To document</value>
+    </title>
     <title>
       <key>ru</key>
       <value>В документ</value>
     </title>
     <id>25</id>
+    <toolTip>
+      <key>en</key>
+      <value>Show result in a spreadsheet document</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вывести результат в табличный документ</value>
@@ -9162,19 +9676,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_РезультатВТабличныйДокумент</name>
+        <name>ResultToSpreadsheetDocument_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОтобразитьСкрытьПанельРезультатаИтоги</name>
+    <name>ShowHideResultPanelTotals</name>
+    <title>
+      <key>en</key>
+      <value>Totals</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Итоги</value>
     </title>
     <id>26</id>
+    <toolTip>
+      <key>en</key>
+      <value>Show hide result panel totals</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Отобразить скрыть итоги панели результата</value>
@@ -9184,18 +9706,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ОтобразитьСкрытьПанельРезультатаИтоги</name>
+        <name>ShowHideResultPanelTotals_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВыполнитьОбработку</name>
+    <name>ExecuteDataProcessor</name>
+    <title>
+      <key>en</key>
+      <value>Execute</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить</value>
     </title>
     <id>27</id>
+    <toolTip>
+      <key>en</key>
+      <value>Execute code</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Выполнить обработку кодом</value>
@@ -9209,19 +9739,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ВыполнитьОбработку</name>
+        <name>ExecuteDataProcessor_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВставитьПредопределенноеЗначение</name>
+    <name>InsertPredefinedValue</name>
+    <title>
+      <key>en</key>
+      <value>Insert predefined value</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вставить предопределенное</value>
     </title>
     <id>28</id>
+    <toolTip>
+      <key>en</key>
+      <value>Insert predefined value</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вставить предопределенное значение</value>
@@ -9235,19 +9773,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ВставитьПредопределенноеЗначение</name>
+        <name>InsertPredefinedValue_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РезультатВПараметр</name>
+    <name>ResultToParameter</name>
+    <title>
+      <key>en</key>
+      <value>To parameter</value>
+    </title>
     <title>
       <key>ru</key>
       <value>В параметр</value>
     </title>
     <id>12</id>
+    <toolTip>
+      <key>en</key>
+      <value>Result to parameter</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Результат в параметр</value>
@@ -9260,19 +9806,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_РезультатВПараметр</name>
+        <name>ResultToParameter_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СправкаАлгоритм</name>
+    <name>AlgorithmInfo</name>
+    <title>
+      <key>en</key>
+      <value>Info</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Справка</value>
     </title>
     <id>29</id>
+    <toolTip>
+      <key>en</key>
+      <value>Algorithm info</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Справка алгоритм</value>
@@ -9282,18 +9836,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_СправкаАлгоритм</name>
+        <name>AlgorithmInfo_Command</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПолучитьКодСПараметрами</name>
+    <name>GetCodeWithParameters</name>
+    <title>
+      <key>en</key>
+      <value>Get code</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Получить код</value>
     </title>
     <id>30</id>
+    <toolTip>
+      <key>en</key>
+      <value>Get 1C:Enterprise Language query code with parameters</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Получить код выполнения запроса на встроенном языке 1С (с параметрами)</value>
@@ -9307,19 +9869,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПолучитьКодСПараметрами</name>
+        <name>GetCodeWithParameters_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьПерехваченныеЗапросы</name>
+    <name>DeleteHookedQueries</name>
+    <title>
+      <key>en</key>
+      <value>Delete hooked queries</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить перехваченные запросы</value>
     </title>
     <id>31</id>
+    <toolTip>
+      <key>en</key>
+      <value>Delete hooked queries without loading</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Удалить перехваченные запросы без загрузки</value>
@@ -9332,18 +9902,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_УдалитьПерехваченныеЗапросы</name>
+        <name>DeleteHookedQueries_Command</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОтобразитьСкрытьПакетРезультатаЗапроса</name>
+    <name>ShowHideQueryResultBatch</name>
+    <title>
+      <key>en</key>
+      <value>Query batch</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Пакет запросов</value>
     </title>
     <id>32</id>
+    <toolTip>
+      <key>en</key>
+      <value>All query results</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Все результаты запроса</value>
@@ -9357,19 +9935,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ОтобразитьСкрытьПакетРезультатаЗапроса</name>
+        <name>ShowHideQueryResultBatch_Command</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПараметрыЗапросаРядомСТекстом</name>
+    <name>QueryParametersNextToText</name>
+    <title>
+      <key>en</key>
+      <value>Parameters</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Параметры</value>
     </title>
     <id>33</id>
+    <toolTip>
+      <key>en</key>
+      <value>Query parameters next to text</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Параметры запроса рядом с текстом</value>
@@ -9382,19 +9968,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПараметрыЗапросаРядомСТекстом</name>
+        <name>QueryParametersNextToText_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ТехнологическийЖурнал</name>
+    <name>TechnologicalLog</name>
+    <title>
+      <key>en</key>
+      <value>TechLog</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ТЖ</value>
     </title>
     <id>34</id>
+    <toolTip>
+      <key>en</key>
+      <value>Enable or disable technological log to get query plans and other info.</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Включить/выключить технологический журнал для получения планов запросов и другой информации.</value>
@@ -9404,18 +9998,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ТехнологическийЖурнал</name>
+        <name>TechnologicalLog_Command</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПланЗапроса</name>
+    <name>QueryPlan</name>
+    <title>
+      <key>en</key>
+      <value>Plan</value>
+    </title>
     <title>
       <key>ru</key>
       <value>План</value>
     </title>
     <id>35</id>
+    <toolTip>
+      <key>en</key>
+      <value>Query plan</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>План запроса</value>
@@ -9425,18 +10027,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ПланЗапроса</name>
+        <name>QueryPlan_Command</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПолучитьФайлыТехнологическогоЖурналаКонсоли</name>
+    <name>GetConsoleTechLogFiles</name>
+    <title>
+      <key>en</key>
+      <value>Get console tech log files</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Получить файлы технологического журнала консоли</value>
     </title>
     <id>36</id>
+    <toolTip>
+      <key>en</key>
+      <value>Get console tech log files</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Получить файлы технологического журнала консоли</value>
@@ -9446,13 +10056,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПолучитьФайлыТехнологическогоЖурналаКонсоли</name>
+        <name>GetConsoleTechLogFiles</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УИ_РедактироватьЗначение</name>
+    <name>UT_EditValue</name>
+    <title>
+      <key>en</key>
+      <value>Edit value</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать значение</value>
@@ -9466,7 +10080,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УИ_РедактироватьЗначение</name>
+        <name>UT_EditValue</name>
       </handler>
     </action>
     <representation>Picture</representation>
