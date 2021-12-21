@@ -856,7 +856,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ТехПоддержка</types>
+      <types>DataProcessorObject.UT_Support</types>
     </valueType>
     <view>
       <common>true</common>

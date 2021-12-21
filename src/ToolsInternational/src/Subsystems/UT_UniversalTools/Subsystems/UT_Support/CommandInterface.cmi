@@ -3,15 +3,15 @@
   <commandsPlacement>
     <placementFragments>
       <group>NavigationPanelOrdinary</group>
-      <commands>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</commands>
-      <commands>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</commands>
+      <commands>DataProcessor.UT_Support.Command.ВопросРазработчику</commands>
+      <commands>DataProcessor.UT_Support.Command.СтраницаРазработки</commands>
     </placementFragments>
   </commandsPlacement>
   <commandsOrder>
     <orderFragments>
       <group>NavigationPanelOrdinary</group>
-      <commands>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</commands>
-      <commands>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</commands>
+      <commands>DataProcessor.UT_Support.Command.ВопросРазработчику</commands>
+      <commands>DataProcessor.UT_Support.Command.СтраницаРазработки</commands>
     </orderFragments>
   </commandsOrder>
 </cmi:CommandInterface>

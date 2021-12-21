@@ -37,7 +37,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ТехПоддержка.Command.ПроверитьНеобходимостьОбновления</name>
+		<name>DataProcessor.UT_Support.Command.ПроверитьНеобходимостьОбновления</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -91,7 +91,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</name>
+		<name>DataProcessor.UT_Support.Command.ВопросРазработчику</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -261,7 +261,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</name>
+		<name>DataProcessor.UT_Support.Command.СтраницаРазработки</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -384,7 +384,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ТехПоддержка</name>
+		<name>DataProcessor.UT_Support</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
