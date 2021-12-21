@@ -1,47 +1,48 @@
-# Universal Tools  1С for managed forms
+# Универсальные инструменты 1С для управляемых форм
 
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) 
 [![Join telegram chat](https://img.shields.io/badge/chat-telegram-blue?style=flat&logo=telegram)](https://t.me/tools_ui_1c) 
 [![Last release](https://img.shields.io/github/v/release/cpr1c/tools_ui_1c?include_prereleases&label=last%20release&style=badge)](https://github.com/cpr1c/tools_ui_1c/releases/latest)
 [![download](https://img.shields.io/github/downloads/cpr1c/tools_ui_1c/total)](https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cfe)
-[![GitHub issues](https://img.shields.io/github/issues-raw/i-neti/tools_ui_1c_international?style=badge)](https://github.com/i-neti/tools_ui_1c_international/issues)
+[![GitHub issues](https://img.shields.io/github/issues-raw/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/issues)
 [![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/blob/master/LICENSE)
 
 [Подержать проект](#донаты-и-поддержка-проекта)
-### Supported operating systems
+### Поддерживаемые операционные системы
+
 * Windows x86
 * Windows x64
 * Linux x64
 * Linux x86
 
-It should work on Mac OS, but has not been tested
+В MacOS должно работать, но не тестировалось
 
-### Supported client applications
+### Поддерживаемые клиентские приложения
 
-* Thick client managed application
-* Thin client
-* Web client(partially)
+* Толстый клиент управляемое приложение
+* Тонкий клиент
+* Web клиент(частично)
 
-### Supported configuration modes
-The module is being developed based on the disabled support for modality and synchronous calls. It should work in all modern and not so configurations
+### Поддерживаемые режимы конфигурации
+Модуль разрабатывается, исходя из отключенной поддержки модальности и синхронных вызовов. Должно работать во всех современных и не очень конфигурациях
 
-### Supported platforms
-8.3.12 and later
+### Поддерживаемые платформы
+8.3.12 и выше
 
-###  Distribution method and license
-The subsystem is developed and distributed under the GNU General Public License v3.0. The code is open, you can copy and distribute to anyone, but also with open source sharing.
+### Способ распространения и лицензия
+Подсистема разрабатывается и распространяется под лицензией GNU General Public License v3.0. Код открыт, можно копировать и распространять кому угодно, но тоже с выкладывать в общий доступ с открытым кодом.
 
-### Currently contains tools:
+### На текущий момент содержит инструменты:
 
-- **Group processing  of catalogs and documents**- Similar to typical processing from 1C from ITS  (ИТС) disk
-- **Constant Editor** - allows you to edit the values of constants in table mode
-- **Database Storage Structure**- View table names and their relationships with metadata objects.
-- **Removal of marked objects**-  a copy of the standard processing from the SSL (Standart Subsystems Library), adapted for life outside the SSL (Standart Subsystems Library)
-- **Query Console**- Processing for developing and executing queries without writing additional processing. Fork of https://github.com/hal9000cc/RequestConsole9000. [GPL3 License](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
+- **Групповая обработка справочников и документов**- Аналогична типовой обработке от 1С с диска ИТС
+- **Редактор констант** - позволяет редактировать значения констант в режиме таблицы
+- **Структура хранения базы данных**- Просмотр имен таблиц и их взаимосвязей с объектами метаданных.
+- **Удаление помеченных объектов**- копия стандартной обработки из БСП, адаптированной для жизни вне БСП
+- **Консоль запросов**- Обработка для разработки и выполнения запросов без написания дополнительных обработок. Форк https://github.com/hal9000cc/RequestConsole9000. [Лицензия GPL3](https://github.com/hal9000cc/RequestConsole9000/blob/master/LICENSE)
 - **Консоль заданий**- просмотр и настройка регламентных и фоновых заданий. Форк https://github.com/kuzyara/JobsConsole2019.epf [Разрешение автора](https://github.com/kuzyara/JobsConsole2019.epf/issues/6)
-- **Registration of changes for exchange**- Fork processing from ITS disk with adaptations to the subsystem
-- **Search and removal of duplicates**- A fork of the standard processing from the SSL (Standart Subsystems Library), to which several parameters for performing the replacement have been added
-- **Code Console**- Allows you to execute code from the enterprise without creating external processing. There is syntax highlighting and a minimal contextual hint
+- **Регистрация изменений для обмена**- Форк обработки с диска ИТС с адаптациями под подсистему
+- **Поиск и удаление дублей**- Форк стандартной обработки из БСП, в которую добавлены несколько параметров выполнения замены
+- **Консоль кода**- Позволяет выполнять код из предприятия без создания внешних обработок. Есть подсветка синтаксиса и минимальная контекстная подсказка.
 - **Поиск ссылок на объект**- аналог стандартной обработки из меню "Все функции". 
 - **Редактор реквизитов объекта**- позволяет низкоуровневое редактирование ссылочных объектов. Поддерживает редактирование движений документа. Форк обработки https://infostart.ru/public/983887/. Вырезана из https://infostart.ru/public/938606/. [Разрешение автора](http://forum.infostart.ru/forum24/topic203301/message2375899/#message2375899)
 - **Консоль отчетов**- переработанная консоль компоновок с диска ИТС. Теперь ей удобнее пользоваться
