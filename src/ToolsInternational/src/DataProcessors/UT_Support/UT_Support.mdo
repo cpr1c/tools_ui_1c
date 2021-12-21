@@ -4,12 +4,16 @@
     <objectType typeId="582f9a64-996a-4559-862a-00250f0adaf0" valueTypeId="c2a8bb95-6e31-40cd-8524-27caa4cf4702"/>
     <managerType typeId="af6c415e-7172-4652-9364-b16cdb2df6f2" valueTypeId="2df89870-068a-469d-84a4-29bf6a8df996"/>
   </producedTypes>
-  <name>УИ_ТехПоддержка</name>
+  <name>UT_Support</name>
+  <synonym>
+    <key>en</key>
+    <value>Support of Universal Tools</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Тех поддержка [УИ]</value>
   </synonym>
-  <defaultForm>DataProcessor.УИ_ТехПоддержка.Form.СписокЗадач</defaultForm>
+  <defaultForm>DataProcessor.UT_Support.Form.СписокЗадач</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Тех поддержка</value>
@@ -62,6 +66,10 @@
   </commands>
   <commands uuid="158df35e-cd25-431e-a84d-d13952262078">
     <name>ПроверитьНеобходимостьОбновления</name>
+    <synonym>
+      <key>en</key>
+      <value>Check update</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Проверить необходимость обновления</value>
