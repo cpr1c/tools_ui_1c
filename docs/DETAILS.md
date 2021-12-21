@@ -75,7 +75,7 @@
 <p>СкопироватьСтруктуру</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CopyStructure</p>
 </td>
 </tr>
 <tr>
@@ -267,7 +267,7 @@
 <p>ПолеHTMLПостроеноНаWebkit</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>HTMLFieldBasedOnWebkit</p>
 </td>
 </tr>
 <tr>
@@ -283,7 +283,7 @@
 <p>ИмяПеременнойКорректно</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>IsCorrectVariableName</p>
 </td>
 </tr>
 <tr>
@@ -291,7 +291,7 @@
 <p>ТекстПредупрежденияОНерпавильномИмениПеременной</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>WrongVariableNameWarningText</p>
 </td>
 </tr>
 <tr>
@@ -515,7 +515,7 @@
 <p>ТекущаяВерсияПлатформы1СПредприятие</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CurrentAppVersion</p>
 </td>
 </tr>
 <tr>
@@ -523,7 +523,7 @@
 <p>ВерсияКонфигурацииБезНомераСборки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>ConfigurationVersionWithOutReleaseSubnumber</p>
 </td>
 </tr>
 <tr>
@@ -531,7 +531,7 @@
 <p>СравнитьВерсии</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CompareVersions</p>
 </td>
 </tr>
 <tr>
@@ -539,7 +539,7 @@
 <p>СравнитьВерсииБезНомераСборки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CompareVersionsWithOutReleaseSubnumber</p>
 </td>
 </tr>
 <tr>
