@@ -10,14 +10,13 @@
 	UT_ApplicationParameters.Вставить("НомерСеанса", ПараметрыСтартаСеанса.НомерСеанса);
 	UT_ApplicationParameters.Вставить("ЯзыкСинтаксисаКонфигурации", ПараметрыСтартаСеанса.ЯзыкСинтаксисаКонфигурации);
 
-	UT_ApplicationParameters.Вставить("ЭтоLinuxКлиент", UT_CommonClientServer.ЭтоLinux());
-	UT_ApplicationParameters.Вставить("ЭтоWindowsКлиент", UT_CommonClientServer.ЭтоWindows());
+	UT_ApplicationParameters.Вставить("ЭтоLinuxКлиент", UT_CommonClientServer.IsLinux());
+	UT_ApplicationParameters.Вставить("ЭтоWindowsКлиент", UT_CommonClientServer.IsWindows());
 	UT_ApplicationParameters.Вставить("ЭтоВебКлиент", ЭтоВебКлиент());
 	UT_ApplicationParameters.Вставить("ЭтоПортативнаяПоставка", UT_CommonClientServer.ЭтоПортативнаяПоставка());
-	UT_ApplicationParameters.Вставить("ПолеHTMLПостроеноНаWebkit",
-		UT_CommonClientServer.ПолеHTMLПостроеноНаWebkit());
+	UT_ApplicationParameters.Вставить("ПолеHTMLПостроеноНаWebkit",UT_CommonClientServer.HTMLFieldBasedOnWebkit());
 	UT_ApplicationParameters.Вставить("ВерсияПлатформы",
-		UT_CommonClientServer.CurrentAppVersion());
+	UT_CommonClientServer.CurrentAppVersion());
 	//UT_ApplicationParameters.Вставить("АдресОписанияМетаданныхКонфигурации", УИ_ОбщегоНазначенияВызовСервера.АдресОписанияМетаданныхКонфигурации());
 	
 	ПараметрыСеансаВХранилище = Новый Структура;
@@ -30,8 +29,8 @@
 	//ПараметрыСеансаВХранилище.Вставить("АдресОписанияМетаданныхКонфигурации", UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"]);
 
 	UT_CommonServerCall.ХранилищеОбщихНастроекСохранить(
-		UT_CommonClientServer.КлючОбъектаВХранилищеНастроек(),
-		UT_CommonClientServer.КлючНастроекПараметровСеанса(), ПараметрыСеансаВХранилище);
+	UT_CommonClientServer.КлючОбъектаВХранилищеНастроек(),
+	UT_CommonClientServer.КлючНастроекПараметровСеанса(), ПараметрыСеансаВХранилище);
 
 КонецПроцедуры
 
