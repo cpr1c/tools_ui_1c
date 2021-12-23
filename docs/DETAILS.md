@@ -5,6 +5,118 @@
 Данная информация позводит избежать двойной работы и разбить задачу по переводу модуля на части . 
 
 Для упрощения заполнения документов со сложным форматированием рекомендую использовать онлаин редактор https://html-online.com/editor/
+## Статус перевода обьектов 
+### Общие модули 
+
+<table style="height: 442px;" width="375">
+<tbody>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">Имя&nbsp;</td>
+<td style="height: 17px; width: 58.15px;">Статус&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;AdditionalReportsAndDataProcessors</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;AttachableCommandsOverridable</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_</td>
+<td style="height: 17px; width: 58.15px;"></td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_AlgorithmsClientServer</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_ClipboardClient</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorClient</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorClientServer</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorServer</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorServerCall</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_Common</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonCached</td>
+<td style="height: 17px; width: 58.15px;">100 %</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonClient</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonClientCached</td>
+<td style="height: 17px; width: 58.15px;">100%</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonClientServer</td>
+<td style="height: 17px; width: 58.15px;">40 % ( В процессе )</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonServerCall</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_Forms</td>
+<td style="height: 17px; width: 58.15px;">90%</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_HTTPConnector</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_RegexpsClientServer</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_ScheduledJobsInternal</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_ScheduledJobsServer</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_StringFunctionsClientServer</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperations</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperationsClient</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperationsGlobal</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+<tr style="height: 17px;">
+<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperationsServerCall</td>
+<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
 
 ## Соотвествие процедур общих модулей 
    ### UT_FORMS
@@ -83,7 +195,7 @@
 <p>ДополнитьСтруктуру</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SupplementStructure</p>
 </td>
 </tr>
 <tr>
@@ -91,7 +203,7 @@
 <p>СкопироватьСоответствие</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CopyMap</p>
 </td>
 </tr>
 <tr>
@@ -99,7 +211,7 @@
 <p>СкопироватьМассив</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CopyArray</p>
 </td>
 </tr>
 <tr>
@@ -107,7 +219,7 @@
 <p>СкопироватьСписокЗначений</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CopyValueList</p>
 </td>
 </tr>
 <tr>
@@ -115,7 +227,7 @@
 <p>РасписаниеВСтруктуру</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>ScheduleToStructure</p>
 </td>
 </tr>
 <tr>
@@ -123,7 +235,7 @@
 <p>СтруктураВРасписание</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>StructureToSchedule</p>
 </td>
 </tr>
 <tr>
@@ -139,7 +251,7 @@
 <p>Проверить</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>Check</p>
 </td>
 </tr>
 <tr>
@@ -171,7 +283,7 @@
 <p>ДобавитьМассивОбъектовКСравнению</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>AddObjectsArrayToCompare</p>
 </td>
 </tr>
 <tr>
@@ -595,7 +707,7 @@
 <p>КлючДанныхНастроекВХранилищеНастроек</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SettingsDataKeyInSettingsStorage</p>
 </td>
 </tr>
 <tr>
@@ -611,7 +723,7 @@
 <p>ИмяФайлаСкачивания</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>DownloadFileName</p>
 </td>
 </tr>
 <tr>
@@ -619,7 +731,7 @@
 <p>ВариантПоставки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>DistributionType</p>
 </td>
 </tr>
 <tr>
@@ -627,7 +739,7 @@
 <p>ВариантПоставкиПортативный</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>PortableDistributionType</p>
 </td>
 </tr>
 <tr>
@@ -635,7 +747,7 @@
 <p>Версия</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>Version</p>
 </td>
 </tr>
 <tr>
@@ -643,15 +755,15 @@
 <p>ЭтоПортативнаяПоставка</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>IsPortableDistribution</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>&nbsp;</p>
+<p>СкопироватьРекурсивно</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CopyRecursively</p>
 </td>
 </tr>
 </tbody>
