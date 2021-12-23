@@ -15,6 +15,11 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_QueryConsole.Form.Form</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
   <extendedPresentation>
     <key>en</key>
     <value>Query console</value>

@@ -20,6 +20,9 @@
     <pages>
       <lang>ru</lang>
     </pages>
+    <pages>
+      <lang>en</lang>
+    </pages>
   </help>
   <extendedPresentation>
     <key>ru</key>

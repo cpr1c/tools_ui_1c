@@ -1,7 +1,3 @@
-#Область Переменные
-
-#КонецОбласти
-
 #Область ДинамическийСписок
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -680,7 +676,7 @@ Function СериализоватьHTTPЗапросДляОтладки(Запр
 EndFunction
 
 Function СериализоватьОбъектДляОтладкиВСтруктуру(ОбъектОтладки, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных)
-	ТипВсеСсылки = UT_CommonCached.ОписаниеТипаВсеСсылки();
+	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
 
 	StructureОбъекта = Новый Structure;
 	Если ТипВсеСсылки.СодержитТип(ТипЗнч(ОбъектОтладки)) Тогда
@@ -703,7 +699,7 @@ Function ОтладитьОбъект(ОбъектДляОтладки, Наст
 	ОткрыватьСразуКонсоль = Истина;
 #КонецЕсли
 
-	ТипВсеСсылки = UT_CommonCached.ОписаниеТипаВсеСсылки();
+	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
 	СериализованныйОбъект = СериализоватьОбъектДляОтладкиВСтруктуру(ОбъектДляОтладки, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных);
 	Если ТипВсеСсылки.СодержитТип(ТипЗнч(ОбъектДляОтладки)) Тогда
 		ТипОбъектаОтладки = "ОбъектБазыДанных";
@@ -1019,41 +1015,6 @@ EndFunction
 
 #КонецОбласти
 
-#Область НастройкиИнструментов
-
-Function КлючДанныхНастроекВХранилищеНастроек() Export
-	Return "УИ_УниверсальныеИнструменты_Настройки";
-EndFunction
-
-Function КлючНастроекПараметровСеанса() Export
-	Return "ПараметрыСеанса";
-EndFunction
-
-#КонецОбласти
-
-#Область ПараметрыПоставки
-
-Function ИмяФайлаСкачивания() Export
-	Return "UI.cfe";
-EndFunction
-
-Function ВариантПоставки() Export
-	Return "Расширение";
-EndFunction
-
-Function ВариантПоставкиПортативный() Export
-	Return "Портативный";
-EndFunction
-
-Function Версия() Export
-	Return "1.4.6";	
-EndFunction
-
-Function ЭтоПортативнаяПоставка() Export
-	Return ВариантПоставки() = ВариантПоставкиПортативный();	
-EndFunction
-
-#КонецОбласти
 ////////////////////////////////////////////////////////////////////////
 // English Code Area 
 
@@ -1080,187 +1041,186 @@ Function CopyStructure(SourceStructure) Export
 
 EndFunction
 
-// Дополняет структуру значениями из другой структуры.
+// Supplement structure values from secound srtucture.
 //
-// Параметры:
-//   Приемник - Structure - коллекция, в которую будут добавляться новые значения.
-//   Источник - Structure - коллекция, из которой будут считываться пары Ключ и Значение для заполнения.
-//   Заменять - Булево, Неопределено - что делать в местах пересечения ключей источника и приемника:
-//                                       Истина - заменять значения приемника (самый быстрый способ),
-//                                       Ложь   - не заменять значения приемника (пропускать),
-//                                       Неопределено - значение по умолчанию. Бросать исключение.
+// Parameters:
+//   Receiver - Structure - Collection,to which new values will be added..
+//   Source - Structure - Collection, which be used for reading Key and Value for fili
+//   Replace - Boolean, Undefined - what action choose when parts of Source and Receiver are equal
+//   							True  - replace values of receiver (the fastest method)
+//   							False - NOT replace value of receiver (skip)
+//   							Undefined - (default setting) - raise exception 
+//   
+Procedure SupplementStructure(Receiver, Source, Replace = Undefined) Export
+
+	For each  Element in Source do
+		if Replace <> True and Receiver.Property(Element.Key) then
+			if Replace = False then
+				Continue;
+			else
+				Raise StrTemplate(Nstr("ru = 'Пересечение ключей источника и приемника: ""%1"".'; en='Intersection of source and receiver keys: ""%1"".'"),
+					Element.Key);
+			Endif;
+		EndIf;
+		Receiver.Insert(Element.Key, Element.Value);
+	EndDo;
+
+EndProcedure
+
+// Create full copy of structure, map, array, list or value table, Recursively, 
+//  taking into account the types of child elements. Object types values (CatalogObject,DocumentObject, etc) not copied and returns links to the source object.
 //
-Процедура ДополнитьСтруктуру(Приемник, Источник, Заменять = Неопределено) Export
-
-	Для Каждого Элемент Из Источник Цикл
-		Если Заменять <> Истина И Приемник.Свойство(Элемент.Ключ) Тогда
-			Если Заменять = Ложь Тогда
-				Продолжить;
-			Иначе
-				ВызватьИсключение СтрШаблон(НСтр("ru = 'Пересечение ключей источника и приемника: ""%1"".'"),
-					Элемент.Ключ);
-			КонецЕсли;
-		КонецЕсли;
-		Приемник.Вставить(Элемент.Ключ, Элемент.Значение);
-	КонецЦикла;
-
-КонецПроцедуры
-
-// Создает полную копию структуры, соответствия, массива, списка или таблицы значений, рекурсивно, 
-// с учетом типов дочерних элементов. При этом содержимое значений объектных типов 
-// (СправочникОбъект, ДокументОбъект и т.п.) не копируются, а возвращаются ссылки на исходный объект.
+// Parameters:
+//  Source - Structure, Map, Array, ValueList, ValueTable - object that you want  to copy.
 //
-// Параметры:
-//  Источник - Structure, Соответствие, Массив, СписокЗначений, ТаблицаЗначений - объект, который необходимо 
-//             скопировать.
+// Return value:
+//  Structure, Map, Array, ValueList, ValueTable- copy of the object passed as a parameter to the Source..
 //
-// Возвращаемое значение:
-//  Structure, Соответствие, Массив, СписокЗначений, ТаблицаЗначений - копия объекта, переданного в параметре Источник.
-//
-Function CopyRecursively(Источник) Export
+Function CopyRecursively(Source) Export
 
-	Перем Приемник;
+	Var Receiver;
+	
 
-	ТипИсточника = ТипЗнч(Источник);
+	SourceType = TypeOf(Source);
 
-#Если Сервер Или ТолстыйКлиентОбычноеПриложение Или ВнешнееСоединение Тогда
-	Если ТипИсточника = Тип("ТаблицаЗначений") Тогда
-		Return Источник.Скопировать();
-	КонецЕсли;
-#КонецЕсли
-	Если ТипИсточника = Тип("Structure") Тогда
-		Приемник = CopyStructure(Источник);
-	ИначеЕсли ТипИсточника = Тип("Соответствие") Тогда
-		Приемник = СкопироватьСоответствие(Источник);
-	ИначеЕсли ТипИсточника = Тип("Массив") Тогда
-		Приемник = СкопироватьМассив(Источник);
-	ИначеЕсли ТипИсточника = Тип("СписокЗначений") Тогда
-		Приемник = СкопироватьСписокЗначений(Источник);
-	Иначе
-		Приемник = Источник;
-	КонецЕсли;
+#Если Server Or ThickClientOrdinaryApplication Or ExternalConnection Then
+	If SourceType = Type("ValueTable") Then
+		Return Source.Copy();
+	EndIf;
+#EndIf
+	If SourceType = Type("Structure") Then
+		Receiver = CopyStructure(Source);
+	Elsif SourceType = Type("Map") Then
+		Receiver = CopyMap(Source);
+	Elsif SourceType = Type("Array") Тогда
+		Receiver = CopyArray(Source);
+	Elsif SourceType = Type("ValueList") Then
+		Receiver = CopyValueList(Source);
+	Else
+		Receiver = Source;
+	EndIf;
 
-	Return Приемник;
+	Return Receiver;
 
 EndFunction
 
-// Создает копию значения типа Соответствие, рекурсивно, с учетом типов значений.
-// Если значения соответствия содержат значения объектных типов (СправочникОбъект, ДокументОбъект и т.п.),
-// то их содержимое не копируются, а возвращаются ссылки на исходный объект.
+// Creates a copy of value type of  Map, recursively, based on the types of values.
+// If elements of Map contains object  types values (CatalogObject,DocumentObject, etc).
+//  their contents are not copied, and returns a reference to the original object.
 //
-// Параметры:
-//  СоответствиеИсточник - Соответствие - соответствие, копию которого необходимо получить.
+// Parameters:
+//  SourceMap - Map - map, that need to be copied.
 // 
-// Возвращаемое значение:
-//  Соответствие - копия исходного соответствия.
+// Return value:
+//  Map - copy of Source Map.
 //
-Function СкопироватьСоответствие(СоответствиеИсточник) Export
+Function CopyMap(SourceMap) Export
 
-	СоответствиеРезультат = Новый Соответствие;
+	ResultMap = New Map;
 
-	Для Каждого КлючИЗначение Из СоответствиеИсточник Цикл
-		СоответствиеРезультат.Вставить(КлючИЗначение.Ключ, CopyRecursively(КлючИЗначение.Значение));
-	КонецЦикла;
+	For Each KeyAndValue in SourceMap Do
+		ResultMap.Insert(KeyAndValue.Key, CopyRecursively(KeyAndValue.Value));
+	EndDo;
 
-	Return СоответствиеРезультат;
+	Return ResultMap;
 
 EndFunction
 
-// Создает копию значения типа Массив, рекурсивно, с учетом типов значений элементов массива.
-// Если элементы массива содержат значения объектных типов (СправочникОбъект, ДокументОбъект и т.п.),
-// то их содержимое не копируются, а возвращаются ссылки на исходный объект.
-//
-// Параметры:
-//  МассивИсточник - Массив - массив, копию которого необходимо получить.
+// Creates a copy of value type of  Array, recursively, based on the types of values.
+// If elements of Array contains object  types values (CatalogObject,DocumentObject, etc).
+//  their contents are not copied, and returns a reference to the original object.
+//  
+// Parameters:
+//  SourceArray - Array - array, that need to be copied.
 // 
-// Возвращаемое значение:
-//  Массив - копия исходного массива.
+// Return value:
+//  Array - copy of source array.
 //
-Function СкопироватьМассив(МассивИсточник) Export
+Function CopyArray(SourceArray) Export
 
-	МассивРезультат = Новый Массив;
+	ResultArray = New Array;
 
-	Для Каждого Элемент Из МассивИсточник Цикл
-		МассивРезультат.Добавить(CopyRecursively(Элемент));
-	КонецЦикла;
+	For Each  Item In SourceArray Do
+		ResultArray.Add(CopyRecursively(Item));
+	EndDo;
 
-	Return МассивРезультат;
+	Return ResultArray;
 
 EndFunction
 
-// Создает копию значения типа СписокЗначений, рекурсивно, с учетом типов его значений.
-// Если в списке значений есть значения объектных типов (СправочникОбъект, ДокументОбъект и т.п.),
-// то их содержимое не копируются, а возвращаются ссылки на исходный объект.
+// Creates a copy of value type of  ValueList, recursively, based on the types of values.
+// If elements of ValueList contains object  types values (CatalogObject,DocumentObject, etc).
+//  their contents are not copied, and returns a reference to the original object.
 //
-// Параметры:
-//  СписокИсточник - СписокЗначений - список значений, копию которого необходимо получить.
+// Parameters:
+//  SourceValueList - ValueList - ValueList that need to be copied.
 // 
-// Возвращаемое значение:
-//  СписокЗначений - копия исходного списка значений.
+// Return value:
+//  ValueList - copy of source ValueList.
 //
-Function СкопироватьСписокЗначений(СписокИсточник) Export
+Function CopyValueList(SourceValueList) Export
 
-	СписокРезультат = Новый СписокЗначений;
+	ValueListResult = New ValueList;
 
-	Для Каждого ЭлементСписка Из СписокИсточник Цикл
-		СписокРезультат.Добавить(CopyRecursively(ЭлементСписка.Значение), ЭлементСписка.Представление,
-			ЭлементСписка.Пометка, ЭлементСписка.Картинка);
-	КонецЦикла;
+	For each  ListItem In SourceValueList Do
+		ValueListResult.Add(CopyRecursively(ListItem.Value), ListItem.Presentation,
+			ListItem.Check, ListItem.Picture);
+	EndDo;
 
-	Return СписокРезультат;
+	Return ValueListResult;
 
 EndFunction
 
-// Преобразует РасписаниеРегламентногоЗадания в структуру.
+// Converts  JobSchedule to Structure.
 //
-// Параметры:
-//  Расписание - РасписаниеРегламентногоЗадания - исходное расписание.
+// Parameters:
+//  Schedule - JobSchedule - original schedule.
 // 
-// Возвращаемое значение:
-//  Structure - расписание в виде структуры.
+// Return value:
+//  Structure - schedule as structure.
 //
-Function РасписаниеВСтруктуру(Знач Расписание) Export
+Function ScheduleToStructure (Val Schedule) Export
 
-	ЗначениеРасписания = Расписание;
-	Если ЗначениеРасписания = Неопределено Тогда
-		ЗначениеРасписания = Новый РасписаниеРегламентногоЗадания;
-	КонецЕсли;
-	СписокПолей = "ВремяЗавершения,ВремяКонца,ВремяНачала,ДатаКонца,ДатаНачала,ДеньВМесяце,ДеньНеделиВМесяце,"
-		+ "ДниНедели,ИнтервалЗавершения,Месяцы,ПаузаПовтора,ПериодНедель,ПериодПовтораВТечениеДня,ПериодПовтораДней";
-	Результат = Новый Structure(СписокПолей);
-	ЗаполнитьЗначенияСвойств(Результат, ЗначениеРасписания, СписокПолей);
-	ДетальныеРасписанияДня = Новый Массив;
-	Для Каждого РасписаниеДля Из Расписание.ДетальныеРасписанияДня Цикл
-		ДетальныеРасписанияДня.Добавить(РасписаниеВСтруктуру(РасписаниеДля));
-	КонецЦикла;
-	Результат.Вставить("ДетальныеРасписанияДня", ДетальныеРасписанияДня);
-	Return Результат;
+	ScheduleValue = Schedule;
+	If ScheduleValue = Undefined Then
+		ScheduleValue = New JobSchedule;
+	EndIf;
+	KeysList = "CompletionTime,EndTime,BeginTime,EndDate,BeginDate,DayInMonth,WeekDayInMonth,"
+		+ "WeekDays,CompletionInterval,Months,RepeatPause,WeeksPeriod,RepeatPeriodInDay,DaysRepeatPeriod";
+	Result = New Structure(KeysList);
+	FillPropertyValues(Result, ScheduleValue, KeysList);
+	DetailedDailySchedules = New Array;
+	For Each DailySchedule In Schedule.DetailedDailySchedules Do
+		DetailedDailySchedules.Add(ScheduleToStructure(DailySchedule));
+	EndDo;
+	Result.Вставить("DetailedDailySchedules", DetailedDailySchedules);
+	Return Result;
 
 EndFunction
 
-// Преобразует структуру в РасписаниеРегламентногоЗадания.
-//
-// Параметры:
-//  StructureРасписания - Structure - расписание в виде структуры.
+// Converts  Structure to JobSchedule  .
+// Parameters:
+//  ScheduleStructure - Structure - Schedule in Structure form.
 // 
-// Возвращаемое значение:
-//  РасписаниеРегламентногоЗадания - расписание.
+// Return value:
+//  JobSchedule - Schedule.
 //
-Function StructureВРасписание(Знач StructureРасписания) Export
+Function StructureToSchedule(Знач ScheduleStructure) Export
 
-	Если StructureРасписания = Неопределено Тогда
-		Return Новый РасписаниеРегламентногоЗадания;
-	КонецЕсли;
-	СписокПолей = "ВремяЗавершения,ВремяКонца,ВремяНачала,ДатаКонца,ДатаНачала,ДеньВМесяце,ДеньНеделиВМесяце,"
-		+ "ДниНедели,ИнтервалЗавершения,Месяцы,ПаузаПовтора,ПериодНедель,ПериодПовтораВТечениеДня,ПериодПовтораДней";
-	Результат = Новый РасписаниеРегламентногоЗадания;
-	ЗаполнитьЗначенияСвойств(Результат, StructureРасписания, СписокПолей);
-	ДетальныеРасписанияДня = Новый Массив;
-	Для Каждого Расписание Из StructureРасписания.ДетальныеРасписанияДня Цикл
-		ДетальныеРасписанияДня.Добавить(StructureВРасписание(Расписание));
-	КонецЦикла;
-	Результат.ДетальныеРасписанияДня = ДетальныеРасписанияДня;
-	Return Результат;
+	If ScheduleStructure = UNdefined Then
+		Return New JobSchedule;
+	EndIf;
+	KeysList = "CompletionTime,EndTime,BeginTime,EndDate,BeginDate,DayInMonth,WeekDayInMonth,"
+		+ "WeekDays,CompletionInterval,Months,RepeatPause,WeeksPeriod,RepeatPeriodInDay,DaysRepeatPeriod";
+	Result = New JobSchedule;
+	FillPropertyValues(Result, ScheduleStructure, KeysList);
+
+	DetailedDailySchedules = New Array;
+	For Each Schedule In ScheduleStructure.DetailedDailySchedules Do
+		DetailedDailySchedules.Add(StructureToSchedule(Schedule));
+	EndDo;
+	Result.DetailedDailySchedules = DetailedDailySchedules;
+	Return Result;
 
 EndFunction
 
@@ -1276,27 +1236,27 @@ EndFunction
 //   ОжидаемыеТипыСвойств   - Structure          - если ожидаемый тип - Structure, то 
 //                                                 в этом параметре можно указать типы ее свойств.
 //
-Процедура ПроверитьПараметр(Знач ИмяПроцедурыИлиФункции, Знач ИмяПараметра, Знач ЗначениеПараметра, Знач ОжидаемыеТипы,
+Procedure ПроверитьПараметр(Знач ИмяПроцедурыИлиФункции, Знач ИмяПараметра, Знач ЗначениеПараметра, Знач ОжидаемыеТипы,
 	Знач ОжидаемыеТипыСвойств = Неопределено) Export
 
 	Контекст = "ОбщегоНазначенияКлиентСервер.ПроверитьПараметр";
-	Проверить(ТипЗнч(ИмяПроцедурыИлиФункции) = Тип("Строка"), НСтр(
+	Check(ТипЗнч(ИмяПроцедурыИлиФункции) = Тип("Строка"), НСтр(
 		"ru = 'Недопустимо значение параметра ИмяПроцедурыИлиФункции'"), Контекст);
-	Проверить(ТипЗнч(ИмяПараметра) = Тип("Строка"), НСтр("ru = 'Недопустимо значение параметра ИмяПараметра'"),
+	Check(ТипЗнч(ИмяПараметра) = Тип("Строка"), НСтр("ru = 'Недопустимо значение параметра ИмяПараметра'"),
 		Контекст);
 
 	ЭтоКорректныйТип = ЗначениеОжидаемогоТипа(ЗначениеПараметра, ОжидаемыеТипы);
-	Проверить(ЭтоКорректныйТип <> Неопределено, НСтр("ru = 'Недопустимо значение параметра ОжидаемыеТипы'"), Контекст);
+	Check(ЭтоКорректныйТип <> Неопределено, НСтр("ru = 'Недопустимо значение параметра ОжидаемыеТипы'"), Контекст);
 
 	НедопустимыйПараметр = НСтр("ru = 'Недопустимое значение параметра %1 в %2. 
 								|Ожидалось: %3; передано значение: %4 (тип %5).'");
-	Проверить(ЭтоКорректныйТип, СтрШаблон(НедопустимыйПараметр, ИмяПараметра, ИмяПроцедурыИлиФункции,
+	Check(ЭтоКорректныйТип, СтрШаблон(НедопустимыйПараметр, ИмяПараметра, ИмяПроцедурыИлиФункции,
 		ПредставлениеТипов(ОжидаемыеТипы), ?(ЗначениеПараметра <> Неопределено, ЗначениеПараметра, НСтр(
 		"ru = 'Неопределено'")), ТипЗнч(ЗначениеПараметра)));
 
 	Если ТипЗнч(ЗначениеПараметра) = Тип("Structure") И ОжидаемыеТипыСвойств <> Неопределено Тогда
 
-		Проверить(ТипЗнч(ОжидаемыеТипыСвойств) = Тип("Structure"), НСтр(
+		Check(ТипЗнч(ОжидаемыеТипыСвойств) = Тип("Structure"), НСтр(
 			"ru = 'Недопустимо значение параметра ИмяПроцедурыИлиФункции'"), Контекст);
 
 		НетСвойства = НСтр("ru = 'Недопустимое значение параметра %1 (Structure) в %2. 
@@ -1309,40 +1269,39 @@ EndFunction
 			ОжидаемыйТипСвойства = Свойство.Значение;
 			ЗначениеСвойства = Неопределено;
 
-			Проверить(ЗначениеПараметра.Свойство(ОжидаемоеИмяСвойства, ЗначениеСвойства), СтрШаблон(НетСвойства,
+			Check(ЗначениеПараметра.Свойство(ОжидаемоеИмяСвойства, ЗначениеСвойства), СтрШаблон(НетСвойства,
 				ИмяПараметра, ИмяПроцедурыИлиФункции, ОжидаемоеИмяСвойства, ОжидаемыйТипСвойства));
 
 			ЭтоКорректныйТип = ЗначениеОжидаемогоТипа(ЗначениеСвойства, ОжидаемыйТипСвойства);
-			Проверить(ЭтоКорректныйТип, СтрШаблон(НедопустимоеСвойство, ОжидаемоеИмяСвойства, ИмяПараметра,
+			Check(ЭтоКорректныйТип, СтрШаблон(НедопустимоеСвойство, ОжидаемоеИмяСвойства, ИмяПараметра,
 				ИмяПроцедурыИлиФункции, ПредставлениеТипов(ОжидаемыеТипы), ?(ЗначениеСвойства <> Неопределено,
 				ЗначениеСвойства, НСтр("ru = 'Неопределено'")), ТипЗнч(ЗначениеСвойства)));
 		КонецЦикла;
 	КонецЕсли;
 
-КонецПроцедуры
+EndProcedure
 
-// Вызывает исключение с текстом Сообщение, если Условие не равно Истина.
-// Применяется для самодиагностики кода.
+// Raise exeption with text Message when Condition not equal True.
+// It is used for self-diagnosis of the code.
 //
-// Параметры:
-//   Условие                - Булево - если не равно Истина, то вызывается исключение.
-//   КонтекстПроверки       - Строка - например, имя процедуры или функции, в которой выполняется проверка.
-//   Сообщение              - Строка - текст сообщения. Если не задан, то исключение вызывается с сообщением по
-//                                     умолчанию.
+// Parameters:
+//   Condition            - Boolean - if not True - raise Exeption
+//   CheckContext     	  - String - for example, name of procedure or function where the check is performed.
+//   Message              - String - text of message.If not set up , would exeption with default text                                     умолчанию.
 //
-Процедура Проверить(Знач Условие, Знач Сообщение = "", Знач КонтекстПроверки = "") Export
+Procedure Check(Val Condition, Val Message = "", Val CheckContext = "") Export
 
-	Если Условие <> Истина Тогда
-		Если IsBlankString(Сообщение) Тогда
-			ТекстИсключения = НСтр("ru = 'Недопустимая операция'"); // Assertion failed
-		Иначе
-			ТекстИсключения = Сообщение;
-		КонецЕсли;
-		Если Не IsBlankString(КонтекстПроверки) Тогда
-			ТекстИсключения = ТекстИсключения + " " + СтрШаблон(НСтр("ru = 'в %1'"), КонтекстПроверки);
-		КонецЕсли;
-		ВызватьИсключение ТекстИсключения;
-	КонецЕсли;
+	If Condition <> True Then
+		If IsBlankString(Message) Then
+			RaiseText = Nstr("ru = 'Недопустимая операция';en='Invalid operation'"); // Assertion failed
+		Else
+			RaiseText = Message;
+		Endif;
+		If Not IsBlankString(CheckContext) Then
+			RaiseText = RaiseText + " " + StrTemplate(Nstr("ru = 'в %1';en='at %1'"), CheckContext);
+		EndIf;
+		Raise RaiseText;
+	EndIf;
 
 КонецПроцедуры
 
@@ -1394,20 +1353,20 @@ Function ЗначениеОжидаемогоТипа(Значение, Ожид
 	Return Неопределено;
 EndFunction
 
-Процедура ДобавитьМассивОбъектовКСравнению(Объекты) Export
-	UT_CommonServerCall.ДобавитьМассивОбъектовКСравнению(Объекты);
-КонецПроцедуры
+Procedure AddObjectsArrayToCompare(Objects) Export
+	UT_CommonServerCall.AddObjectsArrayToCompare(Objects);
+EndProcedure
 
-// Возвращает код основного языка конфигурации, например "ru".
+// Return code of configuration default language , for example "ru".
 //
-// Возвращаемое значение:
-//  Строка - код языка.
+// Return:
+//  String - language code.
 //
-Function КодОсновногоЯзыка() Export
+Function DefaultLanguageCode() Export
 #Если Не ТонкийКлиент И Не ВебКлиент И Не МобильныйКлиент Тогда
 	Return Метаданные.ОсновнойЯзык.КодЯзыка;
 #Иначе
-		Return UT_CommonCached.КодОсновногоЯзыка();
+		Return UT_CommonCached.DefaultLanguageCode();
 #КонецЕсли
 EndFunction
 
@@ -1448,16 +1407,15 @@ Function ПредопределенныйЭлемент(ПолноеИмяПре
 		ВызватьИсключение ТекстОшибкиПредопределенноеЗначениеНеНайдено(ПолноеИмяПредопределенного);
 	КонецЕсли;
 
-	ПолноеИмяОбъектаМетаданных = ВРег(ЧастиПолногоИмени[0] + "." + ЧастиПолногоИмени[1]);
+	FullMetadataObjectName = ВРег(ЧастиПолногоИмени[0] + "." + ЧастиПолногоИмени[1]);
 	ИмяПредопределенного = ЧастиПолногоИмени[2];
 
 	// В зависимости от контекста выполняется обращение к разному кэшу.
 
 #Если Сервер Или ТолстыйКлиентОбычноеПриложение Или ВнешнееСоединение Тогда
-	ПредопределенныеЗначения = UT_CommonCached.СсылкиПоИменамПредопределенных(ПолноеИмяОбъектаМетаданных);
+	ПредопределенныеЗначения = UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
 #Иначе
-		ПредопределенныеЗначения = UT_CommonClientCached.СсылкиПоИменамПредопределенных(
-			ПолноеИмяОбъектаМетаданных);
+		ПредопределенныеЗначения = UT_CommonClientCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
 #КонецЕсли
 
 	// Если ошибка в имени метаданных.
@@ -1678,6 +1636,7 @@ EndFunction
 
 #EndRegion
 #Region DynamicList
+
 #EndRegion
 #Region Debug
 #EndRegion
@@ -1798,11 +1757,37 @@ EndFunction
 #EndRegion
 
 #Region ToolsSettings
+	
+Function SettingsDataKeyInSettingsStorage() Export
+	Return "UT_UniversalTools_Settings";
+EndFunction
 
+Function SessionParametersSettingsKey() Export
+	Return "SessionParameters";
+EndFunction
+	
 #EndRegion
 
 #Region DistributionSettings
+Function DownloadFileName() Export
+	Return "UT_International.cfe";
+EndFunction
 
+Function DistributionType() Export
+	Return "Extension";
+EndFunction
+
+Function PortableDistributionType() Export
+	Return "Portable";
+EndFunction
+
+Function Version() Export
+	Return "1.4.6";	
+EndFunction
+
+Function IsPortableDistribution() Export
+	Return DistributionType() = PortableDistributionType();	
+EndFunction
 #EndRegion
 
 
