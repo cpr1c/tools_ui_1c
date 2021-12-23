@@ -14,7 +14,7 @@
 	UT_ApplicationParameters.Вставить("ЭтоWindowsКлиент", UT_CommonClientServer.IsWindows());
 	UT_ApplicationParameters.Вставить("ЭтоВебКлиент", ЭтоВебКлиент());
 	UT_ApplicationParameters.Вставить("ЭтоПортативнаяПоставка", UT_CommonClientServer.ЭтоПортативнаяПоставка());
-	UT_ApplicationParameters.Вставить("ПолеHTMLПостроеноНаWebkit",UT_CommonClientServer.HTMLFieldBasedOnWebkit());
+	UT_ApplicationParameters.Вставить("HTMLFieldBasedOnWebkit",UT_CommonClientServer.HTMLFieldBasedOnWebkit());
 	UT_ApplicationParameters.Вставить("ВерсияПлатформы",
 	UT_CommonClientServer.CurrentAppVersion());
 	//UT_ApplicationParameters.Вставить("АдресОписанияМетаданныхКонфигурации", УИ_ОбщегоНазначенияВызовСервера.АдресОписанияМетаданныхКонфигурации());
@@ -24,7 +24,7 @@
 	ПараметрыСеансаВХранилище.Вставить("ЭтоВебКлиент", UT_ApplicationParameters["ЭтоВебКлиент"]);
 	ПараметрыСеансаВХранилище.Вставить("ЭтоWindowsКлиент", UT_ApplicationParameters["ЭтоWindowsКлиент"]);
 	ПараметрыСеансаВХранилище.Вставить("ЭтоПортативнаяПоставка", UT_ApplicationParameters["ЭтоПортативнаяПоставка"]);
-	ПараметрыСеансаВХранилище.Вставить("ПолеHTMLПостроеноНаWebkit", UT_ApplicationParameters["ПолеHTMLПостроеноНаWebkit"]);
+	ПараметрыСеансаВХранилище.Вставить("HTMLFieldBasedOnWebkit", UT_ApplicationParameters["HTMLFieldBasedOnWebkit"]);
 	ПараметрыСеансаВХранилище.Вставить("ВерсияПлатформы", UT_ApplicationParameters["ВерсияПлатформы"]);
 	//ПараметрыСеансаВХранилище.Вставить("АдресОписанияМетаданныхКонфигурации", UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"]);
 
@@ -310,7 +310,7 @@
 КонецПроцедуры
 
 Процедура РедактироватьОбъект(СсылкаНаОбъект) Экспорт
-	МассивТиповДоступныхДляРедактирования=UT_CommonClientCached.ТипыОбъектовДоступныйДляРедактораОбъектовБазыДанных();
+	МассивТиповДоступныхДляРедактирования=UT_CommonClientCached.DataBaseObjectEditorAvalibleObjectsTypes();
 	Если МассивТиповДоступныхДляРедактирования.Найти(ТипЗнч(СсылкаНаОбъект)) = Неопределено Тогда
 		Возврат;
 	КонецЕсли;
@@ -393,7 +393,7 @@
 #Область КомандыБСП
 
 Процедура ДобавитьОбъектыКСравнению(МассивОбъектов, Контекст) Экспорт
-	UT_CommonClientServer.ДобавитьМассивОбъектовКСравнению(МассивОбъектов);
+	UT_CommonClientServer.AddObjectsArrayToCompare(МассивОбъектов);
 КонецПроцедуры
 
 Процедура ВыгрузитьОбъектыВXML(МассивОбъектов, Контекст) Экспорт

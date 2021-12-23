@@ -1,4 +1,4 @@
-#Область СлужебныеПроцедурыИФункции
+#Region InternalProceduresAndFunctions
 
 // Возвращает соответствие имен "функциональных" подсистем и значения Истина.
 // У "функциональной" подсистемы снят флажок "Включать в командный интерфейс".
@@ -8,7 +8,7 @@
 	ОтключенныеПодсистемы = Новый Соответствие;
 
 	Имена = Новый Соответствие;
-	ВставитьИменаПодчиненныхПодсистем(Имена, Метаданные, ОтключенныеПодсистемы);
+	InsertChildSybsystemsNames(Имена, Метаданные, ОтключенныеПодсистемы);
 
 	Возврат Новый ФиксированноеСоответствие(Имена);
 
@@ -22,7 +22,7 @@
 //   ОтключенныеПодсистемы - Соответствие - в ключе указывается имя отключаемой подсистемы, 
 //                                          в значении - установить в Истина.
 //
-Процедура ВставитьИменаПодчиненныхПодсистем(Имена, РодительскаяПодсистема, ОтключенныеПодсистемы,
+Процедура InsertChildSybsystemsNames(Имена, РодительскаяПодсистема, ОтключенныеПодсистемы,
 	ИмяРодительскойПодсистемы = "")
 
 	Для Каждого ТекущаяПодсистема Из РодительскаяПодсистема.Подсистемы Цикл
@@ -42,14 +42,14 @@
 			Продолжить;
 		КонецЕсли;
 
-		ВставитьИменаПодчиненныхПодсистем(Имена, ТекущаяПодсистема, ОтключенныеПодсистемы, ИмяТекущейПодсистемы + ".");
+		InsertChildSybsystemsNames(Имена, ТекущаяПодсистема, ОтключенныеПодсистемы, ИмяТекущейПодсистемы + ".");
 	КонецЦикла;
 
 КонецПроцедуры
 
-Функция КодОсновногоЯзыка() Экспорт
-	Возврат Метаданные.ОсновнойЯзык.КодЯзыка;
-КонецФункции
+Function DefaultLanguageCode() Export
+	Return Metadata.DefaultLanguage.LanguageCode;
+EndFunction
 
 // Возвращает соответствие имен предопределенных значений ссылкам на них.
 //
@@ -71,112 +71,111 @@
 //  Если предопределенных у метаданного нет, то возвращается пустое фиксированное соответствие.
 //  Если предопределенный определен в метаданных, но не создан в ИБ, то для него в соответствии возвращается Null.
 //
-Функция СсылкиПоИменамПредопределенных(ПолноеИмяОбъектаМетаданных) Экспорт
+Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
 
-	ПредопределенныеЗначения = Новый Соответствие;
+	PredefinedValues = New Map;
 
-	МетаданныеОбъекта = Метаданные.НайтиПоПолномуИмени(ПолноеИмяОбъектаМетаданных);
+	ObjectMetaData = Metadata.FindByFullName(FullMetadataObjectName);
 	
-	// Если метаданных не существует.
-	Если МетаданныеОбъекта = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
+	// If Metadata is not exist
+	If ObjectMetaData = Undefined Then
+		Return Undefined;
+	EndIf;
 	
 	// Если не подходящий тип метаданных.
-	Если Не Метаданные.Справочники.Содержит(МетаданныеОбъекта) И Не Метаданные.ПланыВидовХарактеристик.Содержит(
-		МетаданныеОбъекта) И Не Метаданные.ПланыСчетов.Содержит(МетаданныеОбъекта)
-		И Не Метаданные.ПланыВидовРасчета.Содержит(МетаданныеОбъекта) Тогда
+	If not Metadata.Catalogs.Contains(ObjectMetaData) And Not Metadata.ChartsOfCharacteristicTypes.Contains(
+		ObjectMetaData) and not Metadata.ChartsOfAccounts.Contains(ObjectMetaData)
+		and Not Metadata.ChartsOfCalculationTypes.Contains(ObjectMetaData) Then
 
-		Возврат Неопределено;
-	КонецЕсли;
+		Return Undefined;
+	EndIf;
 
-	ИменаПредопределенных = МетаданныеОбъекта.ПолучитьИменаПредопределенных();
+	PredefinedNames = ObjectMetaData.GetPredefinedNames();
 	
 	// Если предопределенных у метаданного нет.
-	Если ИменаПредопределенных.Количество() = 0 Тогда
-		Возврат Новый ФиксированноеСоответствие(ПредопределенныеЗначения);
-	КонецЕсли;
+	If PredefinedNames.Count() = 0 Then
+		Return New FixedMap(PredefinedValues);
+	EndIf;
 	
 	// Заполнение по умолчанию признаком отсутствия в ИБ (присутствующие переопределятся).
-	Для Каждого ИмяПредопределенного Из ИменаПредопределенных Цикл
-		ПредопределенныеЗначения.Вставить(ИмяПредопределенного, Null);
-	КонецЦикла;
+	For Each PredefinedName In PredefinedNames Do
+		PredefinedValues.Insert(PredefinedName, Null);
+	EndDo;
 
-	Запрос = Новый Запрос;
-	Запрос.Текст =
-	"ВЫБРАТЬ
-	|	ТекущаяТаблица.Ссылка КАК Ссылка,
-	|	ТекущаяТаблица.ИмяПредопределенныхДанных КАК ИмяПредопределенныхДанных
-	|ИЗ
-	|	&ТекущаяТаблица КАК ТекущаяТаблица
-	|ГДЕ
-	|	ТекущаяТаблица.Предопределенный";
+	Query = New Query;
+	Query.Text =
+	"SELECT
+	|	CurrentTable.Ref AS Ref,
+	|	CurrentTable.PredefinedDataName AS PredefinedDataName
+	|FROM
+	|	&CurrentTable AS CurrentTable
+	|WHERE
+	|	CurrentTable.Predefined";
 
-	Запрос.Текст = СтрЗаменить(Запрос.Текст, "&ТекущаяТаблица", ПолноеИмяОбъектаМетаданных);
+	Query.Text = StrReplace(Query.Text, "&CurrentTable", FullMetadataObjectName);
 
-	УстановитьОтключениеБезопасногоРежима(Истина);
-	УстановитьПривилегированныйРежим(Истина);
+	SetSafeModeDisabled(True);
+	SetPrivilegedMode(True);
 
-	Выборка = Запрос.Выполнить().Выбрать();
+	Selection = Query.Execute().Select();
 
-	УстановитьПривилегированныйРежим(Ложь);
-	УстановитьОтключениеБезопасногоРежима(Ложь);
+	SetPrivilegedMode(False);
+	SetSafeModeDisabled(False);
 	
 	// Заполнение присутствующих в ИБ.
-	Пока Выборка.Следующий() Цикл
-		ПредопределенныеЗначения.Вставить(Выборка.ИмяПредопределенныхДанных, Выборка.Ссылка);
-	КонецЦикла;
+	While Selection.Next() do
+		PredefinedValues.Insert(Selection.PredefinedDataName, Selection.Ссылка);
+	EndDo;
 
-	Возврат Новый ФиксированноеСоответствие(ПредопределенныеЗначения);
+	Return New FixedMap (PredefinedValues);
 
-КонецФункции
+EndFunction
 
-Функция ОписаниеТипаВсеСсылки() Экспорт
+Function AllRefsTypeDescription() Export
 
-	МассивТипов = БизнесПроцессы.ТипВсеСсылкиТочекМаршрутаБизнесПроцессов().Типы();
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "Справочники", "Справочник");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "Документы", "Документ");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыВидовХарактеристик", "ПланВидовХарактеристик");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыВидовРасчета", "ПланВидовРасчета");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыСчетов", "ПланСчетов");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "БизнесПроцессы", "БизнесПроцесс");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "Задачи", "Задача");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыОбмена", "ПланОбмена");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "Перечисления", "Перечисление");
-	
-	Возврат Новый ОписаниеТипов(МассивТипов);
+	TypesArray = BusinessProcesses.RoutePointsAllRefsType().Types();
+	AddTypesByMetaDataObjectTypes(TypesArray, "Catalogs", "Catalog");
+	AddTypesByMetaDataObjectTypes(TypesArray, "Documents", "Document");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ChartsOfCharacteristicTypes", "ChartOfCharacteristicTypes");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ChartsOfCalculationTypes", "ChartOfCalculationTypes");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ChartsOfAccounts", "ChartOfAccounts");
+	AddTypesByMetaDataObjectTypes(TypesArray, "BusinessProcesses", "BusinessProcess");
+	AddTypesByMetaDataObjectTypes(TypesArray, "Tasks", "Task");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ExchangePlans", "ExchangePlan");
+	AddTypesByMetaDataObjectTypes(TypesArray, "Enumerations", "Enumeration");
+	Return New TypeDescription(TypesArray);
 
-КонецФункции
+EndFunction
 
-Функция ОбщийМодуль(Имя) Экспорт
-	Возврат UT_Common.ОбщийМодуль(Имя);
-КонецФункции
+Function CommonModule(Name) Export
+	Return UT_Common.CommonModule(Name);
+EndFunction
 
-Функция ТипыОбъектовДоступныйДляРедактораОбъектовБазыДанных() Экспорт
-	//Доступны к редактированию 
-	//справочники,Документы,ПланыВидовХарактеристик,ПланыСчетов,ПланыВидовРасчетов, БизнесПроцессы, Задачи, планыОбмена
+Function DataBaseObjectEditorAvalibleObjectsTypes() Export
+	//Avalible to editing 
+	//Catalogs,Documents,ChartsOfCharacteristicTypes,ChartsOfAccounts,ChartsOfCalculationTypes, BusinessProcesses, Tasks, ExchangePlans
 
-	МассивТипов=Новый Массив;
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "Справочники", "Справочник");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "Документы", "Документ");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыВидовХарактеристик", "ПланВидовХарактеристик");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыВидовРасчета", "ПланВидовРасчета");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыСчетов", "ПланСчетов");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "БизнесПроцессы", "БизнесПроцесс");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "Задачи", "Задача");
-	ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, "ПланыОбмена", "ПланОбмена");
+	TypesArray=New Array;
+	AddTypesByMetaDataObjectTypes(TypesArray, "Catalogs", "Catalog");
+	AddTypesByMetaDataObjectTypes(TypesArray, "Documents", "Document");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ChartsOfCharacteristicTypes", "ChartOfCharacteristicTypes");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ChartsOfCalculationTypes", "ChartOfCalculationTypes");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ChartsOfAccounts", "ChartOfAccounts");
+	AddTypesByMetaDataObjectTypes(TypesArray, "BusinessProcesses", "BusinessProcess");
+	AddTypesByMetaDataObjectTypes(TypesArray, "Tasks", "Task");
+	AddTypesByMetaDataObjectTypes(TypesArray, "ExchangePlans", "ExchangePlan");
 
-	Возврат МассивТипов;
-КонецФункции
+	Return TypesArray;
+EndFunction
 
-Процедура ДобавитьТипыПоВидуОбъектовМетаданных(МассивТипов, ИмяВидаОбъектовМетаданных, ИмяТипа)
-	Для Каждого мдОбъекта Из Метаданные[ИмяВидаОбъектовМетаданных] Цикл
-		МассивТипов.Добавить(Тип(СтрШаблон("%1Ссылка.%2", ИмяТипа, мдОбъекта.Имя)));
-	КонецЦикла;
-КонецПроцедуры
+Procedure AddTypesByMetaDataObjectTypes(TypesArray, MetadataJbjectTypeName, TypeName)
+	For each MdObject in Metadata[MetadataJbjectTypeName] do
+		TypesArray.Add(Type(StrTemplate("%1Ref.%2", TypeName, MdObject.Name)));
+	enddo;
+EndProcedure
 
-Функция ПолеHTMLПостроеноНаWebkit() Экспорт
-	UT_CommonClientServer.ПолеHTMLПостроеноНаWebkit();
-КонецФункции
+Function HTMLFieldBasedOnWebkit() export
+	UT_CommonClientServer.HTMLFieldBasedOnWebkit();
+EndFunction
 
-#КонецОбласти
+#EndRegion
