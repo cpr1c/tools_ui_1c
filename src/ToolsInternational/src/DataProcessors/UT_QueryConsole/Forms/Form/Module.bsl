@@ -2853,7 +2853,7 @@ Procedure ПриОткрытииЗавершение()
 	Доступность = True;
 
 #Region УИ_ПриОткрытии
-	If UT_CommonClientServer.ПолеHTMLПостроеноНаWebkit() Then
+	If UT_CommonClientServer.HTMLFieldBasedOnWebkit() Then
 		Элементы.CodeCommandBarGroup.Видимость = False;
 	EndIf;
 	UT_CodeEditorClient.ФормаПриОткрытии(ЭтотОбъект);

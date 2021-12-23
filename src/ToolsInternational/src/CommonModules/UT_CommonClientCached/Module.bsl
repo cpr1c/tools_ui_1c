@@ -1,15 +1,15 @@
 
-// См. СтандартныеПодсистемыПовтИсп.СсылкиПоИменамПредопределенных
-Функция СсылкиПоИменамПредопределенных(ПолноеИмяОбъектаМетаданных) Экспорт
+// See SSL  StandartSybsystemsCached.RefsByPredefinedItemsNames
+Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
 
-	Возврат UT_CommonServerCall.СсылкиПоИменамПредопределенных(ПолноеИмяОбъектаМетаданных);
+	Возврат UT_CommonServerCall.RefsByPredefinedItemsNames(FullMetadataObjectName);
 
-КонецФункции
+EndFunction
 
-Функция ТипыОбъектовДоступныйДляРедактораОбъектовБазыДанных() Экспорт
-	Возврат UT_CommonCached.ТипыОбъектовДоступныйДляРедактораОбъектовБазыДанных();
-КонецФункции
+Function DataBaseObjectEditorAvalibleObjectsTypes() Export
+	Возврат UT_CommonCached.DataBaseObjectEditorAvalibleObjectsTypes();
+EndFunction
 
-Функция ПолеHTMLПостроеноНаWebkit() Экспорт
-	UT_CommonClientServer.ПолеHTMLПостроеноНаWebkit();
-КонецФункции
+Function HTMLFieldBasedOnWebkit() Export
+	UT_CommonClientServer.HTMLFieldBasedOnWebkit();
+EndFunction

@@ -87,7 +87,7 @@
 	Команда.Подсказка = ОписаниеКоманды.Подсказка;
 	Команда.Действие = ОписаниеКоманды.Действие;
 	Если ОписаниеКоманды.Картинка<>Неопределено Тогда
-		Если Не UT_CommonClientServer.ЭтоПортативнаяПоставка()
+		Если Не UT_CommonClientServer.IsPortableDistribution()
 			Или ОписаниеКоманды.Картинка.Вид = ВидКартинки.ИзБиблиотеки
 			Или ОписаниеКоманды.Картинка.Вид = ВидКартинки.Пустая Тогда
 			Команда.Картинка = ОписаниеКоманды.Картинка;
@@ -455,7 +455,7 @@ Function CreateCommandByDescription(Form, CommandDescription) Export
 	Command.ToolTip = CommandDescription.ToolTip;
 	Command.Action = CommandDescription.Action;
 	If CommandDescription.Picture<>Undefined Then
-		if not UT_CommonClientServer.ЭтоПортативнаяПоставка()
+		if not UT_CommonClientServer.IsPortableDistribution()
 			or CommandDescription.Picture.Type = PictureType.FromLib
 			or CommandDescription.Picture.Type = PictureType.Empty then
 			Command.Picture = CommandDescription.Picture;
