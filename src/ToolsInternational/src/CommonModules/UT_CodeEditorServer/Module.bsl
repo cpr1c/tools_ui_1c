@@ -14,7 +14,7 @@
 	
 	ПараметрыСеансаВХранилище = UT_CommonServerCall.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.КлючОбъектаВХранилищеНастроек(),
-		UT_CommonClientServer.КлючНастроекПараметровСеанса());
+		UT_CommonClientServer.SessionParametersSettingsKey());
 	Если Тип(ПараметрыСеансаВХранилище) = Тип("Структура") Тогда
 		Если ПараметрыСеансаВХранилище.Свойство("HTMLFieldBasedOnWebkit") Тогда
 			Если Не ПараметрыСеансаВХранилище.HTMLFieldBasedOnWebkit Тогда
@@ -155,7 +155,7 @@
 	
 	УИ_ПараметрыСеанса = UT_Common.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.КлючОбъектаВХранилищеНастроек(),
-		UT_CommonClientServer.КлючНастроекПараметровСеанса());
+		UT_CommonClientServer.SessionParametersSettingsKey());
 		
 	Если Тип(УИ_ПараметрыСеанса) = Тип("Структура") Тогда
 		Если УИ_ПараметрыСеанса.HTMLFieldBasedOnWebkit<>Истина Тогда
@@ -168,13 +168,13 @@
 
 Процедура УстановитьНовыеНастройкиРедактораКода(НовыеНастройки) Экспорт
 	UT_Common.ХранилищеОбщихНастроекСохранить(
-		UT_CommonClientServer.КлючДанныхНастроекВХранилищеНастроек(), "ПараметрыРедактораКода",
+		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода",
 		НовыеНастройки);
 КонецПроцедуры
 
 Функция ТекущиеПараметрыРедактораКода() Экспорт
 	СохраненныеПараметрыРедактора = UT_Common.ХранилищеОбщихНастроекЗагрузить(
-		UT_CommonClientServer.КлючДанныхНастроекВХранилищеНастроек(), "ПараметрыРедактораКода");
+		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода");
 
 	ПараметрыПоУмолчанию = UT_CodeEditorClientServer.ПараметрыРедактораКодаПоУмолчанию();
 	Если СохраненныеПараметрыРедактора = Неопределено Тогда		
@@ -486,7 +486,7 @@
 
 Функция ТекущиеПараметрыРедактораMonaco() Экспорт
 	ПараметрыИзХранилища =  UT_Common.ХранилищеОбщихНастроекЗагрузить(
-		UT_CommonClientServer.КлючДанныхНастроекВХранилищеНастроек(), "ПараметрыРедактораMonaco",
+		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораMonaco",
 		UT_CodeEditorClientServer.ПараметрыРедактораMonacoПоУмолчанию());
 
 	ПараметрыПоУмолчанию = UT_CodeEditorClientServer.ПараметрыРедактораMonacoПоУмолчанию();

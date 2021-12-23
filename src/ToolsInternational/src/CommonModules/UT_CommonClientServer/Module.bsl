@@ -1758,35 +1758,35 @@ EndFunction
 
 #Region ToolsSettings
 	
-Function КлючДанныхНастроекВХранилищеНастроек() Export
-	Return "УИ_УниверсальныеИнструменты_Настройки";
+Function SettingsDataKeyInSettingsStorage() Export
+	Return "UT_UniversalTools_Settings";
 EndFunction
 
-Function КлючНастроекПараметровСеанса() Export
-	Return "ПараметрыСеанса";
+Function SessionParametersSettingsKey() Export
+	Return "SessionParameters";
 EndFunction
 	
 #EndRegion
 
 #Region DistributionSettings
-Function ИмяФайлаСкачивания() Export
-	Return "UI.cfe";
+Function DownloadFileName() Export
+	Return "UT_International.cfe";
 EndFunction
 
-Function ВариантПоставки() Export
-	Return "Расширение";
+Function DistributionType() Export
+	Return "Extension";
 EndFunction
 
-Function ВариантПоставкиПортативный() Export
-	Return "Портативный";
+Function PortableDistributionType() Export
+	Return "Portable";
 EndFunction
 
-Function Версия() Export
+Function Version() Export
 	Return "1.4.6";	
 EndFunction
 
-Function ЭтоПортативнаяПоставка() Export
-	Return ВариантПоставки() = ВариантПоставкиПортативный();	
+Function IsPortableDistribution() Export
+	Return DistributionType() = PortableDistributionType();	
 EndFunction
 #EndRegion
 
