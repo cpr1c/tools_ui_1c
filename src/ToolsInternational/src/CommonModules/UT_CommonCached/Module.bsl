@@ -1,76 +1,73 @@
 #Region InternalProceduresAndFunctions
 
-// Возвращает соответствие имен "функциональных" подсистем и значения Истина.
-// У "функциональной" подсистемы снят флажок "Включать в командный интерфейс".
+// Returns the correspondence of the names of the "functional" subsystems and the value True.
+// The "Functional" subsystem has the "Include in command interface" checkbox unchecked.
 //
-Функция ИменаПодсистем() Экспорт
+Function SubsytemsNames() Export
 
-	ОтключенныеПодсистемы = Новый Соответствие;
+	DisabledSubsystems = New Map;
 
-	Имена = Новый Соответствие;
-	InsertChildSybsystemsNames(Имена, Метаданные, ОтключенныеПодсистемы);
+	Names = New Map;
+	InsertChildSybsystemsNames(Names, Metadata, DisabledSubsystems);
 
-	Возврат Новый ФиксированноеСоответствие(Имена);
+	Return New FixedMap(Names);
 
-КонецФункции
+EndFunction
 
-// Позволяет виртуально отключать подсистемы для целей тестирования.
-// Если подсистема отключена, то функция ОбщегоНазначения.ПодсистемаСуществует вернет Ложь.
-// В этой процедуре нельзя использовать функцию ОбщегоНазначения.ПодсистемСуществует, т.к. это приводит к рекурсии.
-//
-// Параметры:
-//   ОтключенныеПодсистемы - Соответствие - в ключе указывается имя отключаемой подсистемы, 
-//                                          в значении - установить в Истина.
-//
-Процедура InsertChildSybsystemsNames(Имена, РодительскаяПодсистема, ОтключенныеПодсистемы,
-	ИмяРодительскойПодсистемы = "")
+// Allows you to virtually disable subsystems for testing purposes.
+// If the subsystem is disabled, then the function of SSL Common.SubsystemExists return False.
+// SSL - Common.SubsystemExists function cannot be used in this procedure because this leads to recursion
+// 
+// Parameters:
+//   DisabledSybsystems - Map - the key specifies the name of the subsystem to be disabled, 
+//   and the value is must to set to True., 
+//                                         
+Procedure InsertChildSybsystemsNames(Names, ParentSubsystem, DisabledSubsystems,ParentSubsystemName = "")
 
-	Для Каждого ТекущаяПодсистема Из РодительскаяПодсистема.Подсистемы Цикл
+	For Each CurrentSubSystem IN ParentSubsystem.Subsystems Do
 
-		Если ТекущаяПодсистема.ВключатьВКомандныйИнтерфейс Тогда
-			Продолжить;
-		КонецЕсли;
+		If CurrentSubSystem.IncludeInCommandInterface Then
+			Continue;
+		EndIf;
 
-		ИмяТекущейПодсистемы = ИмяРодительскойПодсистемы + ТекущаяПодсистема.Имя;
-		Если ОтключенныеПодсистемы.Получить(ИмяТекущейПодсистемы) = Истина Тогда
-			Продолжить;
-		Иначе
-			Имена.Вставить(ИмяТекущейПодсистемы, Истина);
-		КонецЕсли;
+		CurrentSubSystemName = ParentSubsystemName + CurrentSubSystem.Name;
+		If DisabledSubsystems.Get(CurrentSubSystemName) = True Then
+			Continue;
+		Else
+			Names.Insert(CurrentSubSystemName, True);
+		EndIf;
 
-		Если ТекущаяПодсистема.Подсистемы.Количество() = 0 Тогда
-			Продолжить;
-		КонецЕсли;
+		If CurrentSubSystem.Subsystems.Count() = 0 Then
+			Continue;
+		Endif;
 
-		InsertChildSybsystemsNames(Имена, ТекущаяПодсистема, ОтключенныеПодсистемы, ИмяТекущейПодсистемы + ".");
-	КонецЦикла;
+		InsertChildSybsystemsNames(Names, CurrentSubSystem, DisabledSubsystems, CurrentSubSystemName + ".");
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
 Function DefaultLanguageCode() Export
 	Return Metadata.DefaultLanguage.LanguageCode;
 EndFunction
 
-// Возвращает соответствие имен предопределенных значений ссылкам на них.
+// Returns the correspondence of the names of predefined values to their references.
 //
-// Параметры:
-//  ПолноеИмяОбъектаМетаданных - Строка, например, "Справочник.ВидыНоменклатуры",
-//                               Поддерживаются только таблицы
-//                               с предопределенными элементами:
-//                               - Справочники,
-//                               - Планы видов характеристик,
-//                               - Планы счетов,
-//                               - Планы видов расчета.
+// Parameters:
+//  FullMetadataObjectName - String, for example, "Catalog.ProductsKinds",
+//                     Only tables with predefined elements are supported:
+//                               - Catalogs,
+//                               - Charts Of Characteristic Types,
+//                               - Charts Of Accounts,
+//                               - Charts Of Calculation Types.
 // 
-// Возвращаемое значение:
-//  ФиксированноеСоответствие, Неопределено, где
-//      * Ключ     - Строка - имя предопределенного,
-//      * Значение - Ссылка, Null - ссылка предопределенного или Null, если объекта нет в ИБ.
-//
-//  Если ошибка в имени метаданных или неподходящий тип метаданного, то возвращается Неопределено.
-//  Если предопределенных у метаданного нет, то возвращается пустое фиксированное соответствие.
-//  Если предопределенный определен в метаданных, но не создан в ИБ, то для него в соответствии возвращается Null.
-//
+// Returned value:
+//  FixedMap, Undefined, Where
+//      * Key     - String - predefined item name,
+//      * Value   - Ref, Null - ref of  predefined or Null, if object not exist in DataBase.
+// If there is an error in the metadata name or an unsuitable metadata type, it is returned Undefined.
+// If there are no predefined metadata, then an empty fixedmap is returned.
+// If a predefined one is defined in the metadata, but not created in the DataBase, Null is returned for it fixedmap.
+
 Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
 
 	PredefinedValues = New Map;
@@ -82,7 +79,7 @@ Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
 		Return Undefined;
 	EndIf;
 	
-	// Если не подходящий тип метаданных.
+	// If  unsuitable metadata type
 	If not Metadata.Catalogs.Contains(ObjectMetaData) And Not Metadata.ChartsOfCharacteristicTypes.Contains(
 		ObjectMetaData) and not Metadata.ChartsOfAccounts.Contains(ObjectMetaData)
 		and Not Metadata.ChartsOfCalculationTypes.Contains(ObjectMetaData) Then
@@ -92,12 +89,12 @@ Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
 
 	PredefinedNames = ObjectMetaData.GetPredefinedNames();
 	
-	// Если предопределенных у метаданного нет.
+	// If no predefined metadata.
 	If PredefinedNames.Count() = 0 Then
 		Return New FixedMap(PredefinedValues);
 	EndIf;
 	
-	// Заполнение по умолчанию признаком отсутствия в ИБ (присутствующие переопределятся).
+	// Predefined one is defined in the metadata, but not created in the DataBase.
 	For Each PredefinedName In PredefinedNames Do
 		PredefinedValues.Insert(PredefinedName, Null);
 	EndDo;
@@ -122,7 +119,7 @@ Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
 	SetPrivilegedMode(False);
 	SetSafeModeDisabled(False);
 	
-	// Заполнение присутствующих в ИБ.
+	// Filing of items that is presened in DataBase.
 	While Selection.Next() do
 		PredefinedValues.Insert(Selection.PredefinedDataName, Selection.Ссылка);
 	EndDo;

@@ -1015,41 +1015,6 @@ EndFunction
 
 #КонецОбласти
 
-#Область НастройкиИнструментов
-
-Function КлючДанныхНастроекВХранилищеНастроек() Export
-	Return "УИ_УниверсальныеИнструменты_Настройки";
-EndFunction
-
-Function КлючНастроекПараметровСеанса() Export
-	Return "ПараметрыСеанса";
-EndFunction
-
-#КонецОбласти
-
-#Область ПараметрыПоставки
-
-Function ИмяФайлаСкачивания() Export
-	Return "UI.cfe";
-EndFunction
-
-Function ВариантПоставки() Export
-	Return "Расширение";
-EndFunction
-
-Function ВариантПоставкиПортативный() Export
-	Return "Портативный";
-EndFunction
-
-Function Версия() Export
-	Return "1.4.6";	
-EndFunction
-
-Function ЭтоПортативнаяПоставка() Export
-	Return ВариантПоставки() = ВариантПоставкиПортативный();	
-EndFunction
-
-#КонецОбласти
 ////////////////////////////////////////////////////////////////////////
 // English Code Area 
 
@@ -1792,11 +1757,37 @@ EndFunction
 #EndRegion
 
 #Region ToolsSettings
+	
+Function КлючДанныхНастроекВХранилищеНастроек() Export
+	Return "УИ_УниверсальныеИнструменты_Настройки";
+EndFunction
 
+Function КлючНастроекПараметровСеанса() Export
+	Return "ПараметрыСеанса";
+EndFunction
+	
 #EndRegion
 
 #Region DistributionSettings
+Function ИмяФайлаСкачивания() Export
+	Return "UI.cfe";
+EndFunction
 
+Function ВариантПоставки() Export
+	Return "Расширение";
+EndFunction
+
+Function ВариантПоставкиПортативный() Export
+	Return "Портативный";
+EndFunction
+
+Function Версия() Export
+	Return "1.4.6";	
+EndFunction
+
+Function ЭтоПортативнаяПоставка() Export
+	Return ВариантПоставки() = ВариантПоставкиПортативный();	
+EndFunction
 #EndRegion
 
 
