@@ -9,7 +9,7 @@
     <value>Фоновое задание</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>GroupDescription</name>
+    <name>DescriptionGroup</name>
     <id>1</id>
     <items xsi:type="form:FormField">
       <name>MethodName</name>
@@ -190,7 +190,7 @@
       <value>Описание</value>
     </toolTip>
     <extendedTooltip>
-      <name>GroupDescriptionExtendedTooltip</name>
+      <name>DescriptionGroupExtendedTooltip</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
