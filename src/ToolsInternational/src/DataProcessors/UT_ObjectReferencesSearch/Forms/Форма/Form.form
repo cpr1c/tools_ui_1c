@@ -128,6 +128,10 @@
         <name>УникальныйИдентификаторИсточника</name>
         <id>24</id>
         <title>
+          <key>en</key>
+          <value>UUID</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Идентификатор</value>
         </title>
@@ -835,11 +839,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -853,7 +857,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ПоискСсылокНаОбъект</types>
+      <types>DataProcessorObject.UT_ObjectReferencesSearch</types>
     </valueType>
     <view>
       <common>true</common>
@@ -917,6 +921,10 @@
     <columns>
       <name>ПредставлениеОбъекта</name>
       <title>
+        <key>en</key>
+        <value>Object presentation</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Представление объекта</value>
       </title>
@@ -966,6 +974,10 @@
     </columns>
     <columns>
       <name>УникальныйИдентификатор</name>
+      <title>
+        <key>en</key>
+        <value>UUID</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Уникальный идентификатор</value>
@@ -1020,6 +1032,10 @@
   <formCommands>
     <name>НайтиСсылки</name>
     <title>
+      <key>en</key>
+      <value>Find references</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Найти ссылки</value>
     </title>
@@ -1041,6 +1057,10 @@
   <formCommands>
     <name>ОткрытьОбъект</name>
     <title>
+      <key>en</key>
+      <value>Open object</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Открыть объект</value>
     </title>
@@ -1058,6 +1078,10 @@
   <formCommands>
     <name>ПоискДляОбъекта</name>
     <title>
+      <key>en</key>
+      <value>Search for object</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Поиск для объекта</value>
     </title>
@@ -1074,6 +1098,10 @@
   </formCommands>
   <formCommands>
     <name>РедактироватьОбъект</name>
+    <title>
+      <key>en</key>
+      <value>Edit object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать объект</value>
