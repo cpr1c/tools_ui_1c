@@ -1363,121 +1363,121 @@ EndProcedure
 //  String - language code.
 //
 Function DefaultLanguageCode() Export
-#Если Не ТонкийКлиент И Не ВебКлиент И Не МобильныйКлиент Тогда
+#If Не ТонкийКлиент И Не ВебКлиент И Не МобильныйКлиент Then
 	Return Метаданные.ОсновнойЯзык.КодЯзыка;
 #Иначе
 		Return UT_CommonCached.DefaultLanguageCode();
-#КонецЕсли
+#EndIf
 EndFunction
 
-// Получает ссылку предопределенного элемента по его полному имени.
-// Предопределенные элементы могут содержаться только в следующих объектах:
-//   - Справочники;
-//   - Планы видов характеристик;
-//   - Планы счетов;
-//   - Планы видов расчета.
+// Return a reference to the predefined item by its full name.
+// Only the following objects can contain predefined objects:
+//   - Catalogs,
+//   - Charts of characteristic types,
+//   - Charts of accounts,
+//   - Charts of calculation types.
 //
-// Параметры:
-//   ПолноеИмяПредопределенного - Строка - Полный путь к предопределенному элементу, включая его имя.
-//     Формат аналогичен функции глобального контекста ПредопределенноеЗначение().
-//     Например:
-//       "Справочник.ВидыКонтактнойИнформации.EmailПользователя"
-//       "ПланСчетов.Хозрасчетный.Материалы"
-//       "ПланВидовРасчета.Начисления.ОплатаПоОкладу".
+//  Parameters:
+//   PredefinedItemFullName - String - full path to the predefined item including the name.
+//     The format is identical to the PredefinedValue() global context function.
+//     Example:
+//       "Catalog.ContactInformationKinds.UserEmail"
 //
-// Возвращаемое значение: 
-//   ЛюбаяСсылка - ссылка на предопределенный элемент.
-//   Неопределено - если предопределенный есть в метаданных, но не создан в ИБ.
+// Returns:
+//   AnyRef - reference to the predefined item.
+//   Undefined - if the predefined item exists in metadata but not in the infobase.
 //
-Function ПредопределенныйЭлемент(ПолноеИмяПредопределенного) Export
+Function PredefinedItem(FullPredefinedItemName) Export
 
-// Используется стандартная Function платформы для получения:
-	//  - пустых ссылок; 
-	//  - значений перечислений;
-	//  - точек маршрута бизнес-процессов.
-	Если ".ПУСТАЯССЫЛКА" = ВРег(Прав(ПолноеИмяПредопределенного, 13)) Или "ПЕРЕЧИСЛЕНИЕ." = ВРег(Лев(
-		ПолноеИмяПредопределенного, 13)) Или "БИЗНЕСПРОЦЕСС." = ВРег(Лев(ПолноеИмяПредопределенного, 14)) Тогда
+// Using a standard function to get:
+	//  - blank references
+	//  - enumeration values
+	//  - business process route points
+	If ".EMPTYREF" = Upper(Right(FullPredefinedItemName, 13))
+		Or "ENUM." = Upper(Left(FullPredefinedItemName, 13)) 
+		Or "BUSINESSPROCESS." = Upper(Left(FullPredefinedItemName, 14)) Then
+		
+		Return PredefinedValue(FullPredefinedItemName);
+	EndIf;
+	
 
-		Return ПредопределенноеЗначение(ПолноеИмяПредопределенного);
-	КонецЕсли;
+	// Parsing the full name of the predefined item.
+	FullNameParts = StrSplit(FullPredefinedItemName, ".");
+	If FullNameParts.Count() <> 3 Then 
+		Raise CommonInternalClientServer.PredefinedValueNotFoundErrorText(
+			FullPredefinedItemName);
+	EndIf;
 
-	// Разбор полного имени предопределенного.
-	ЧастиПолногоИмени = StrSplit(ПолноеИмяПредопределенного, ".");
-	Если ЧастиПолногоИмени.Количество() <> 3 Тогда
-		ВызватьИсключение ТекстОшибкиПредопределенноеЗначениеНеНайдено(ПолноеИмяПредопределенного);
-	КонецЕсли;
+	FullMetadataObjectName = Upper(FullNameParts[0] + "." + FullNameParts[1]);
+	PredefinedItemName = FullNameParts[2];
+	
+	// Cache to be called is determined by context.
+	
+#If Server Or ThickClientOrdinaryApplication Or ExternalConnection Then
+	PredefinedValues = UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
+#Else
+	PredefinedValues = UT_CommonClientCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
+#EndIf
 
-	FullMetadataObjectName = ВРег(ЧастиПолногоИмени[0] + "." + ЧастиПолногоИмени[1]);
-	ИмяПредопределенного = ЧастиПолногоИмени[2];
+	// In case of error in metadata name.
+	If PredefinedValues = Undefined Then
+		Raise PredefinedValueNotFoundErrorText(FullPredefinedItemName);
+	EndIf;
 
-	// В зависимости от контекста выполняется обращение к разному кэшу.
+	// Getting result from cache.
+	Result = PredefinedValues.Get(PredefinedItemName);
 
-#Если Сервер Или ТолстыйКлиентОбычноеПриложение Или ВнешнееСоединение Тогда
-	ПредопределенныеЗначения = UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
-#Иначе
-		ПредопределенныеЗначения = UT_CommonClientCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
-#КонецЕсли
+    // If the predefined item does not exist in metadata.
+	If Result = Undefined Then 
+		Raise PredefinedValueNotFoundErrorText(FullPredefinedItemName);
+	EndIf;
 
-	// Если ошибка в имени метаданных.
-	Если ПредопределенныеЗначения = Неопределено Тогда
-		ВызватьИсключение ТекстОшибкиПредопределенноеЗначениеНеНайдено(ПолноеИмяПредопределенного);
-	КонецЕсли;
-
-	// Получение результата из кэша.
-	Результат = ПредопределенныеЗначения.Получить(ИмяПредопределенного);
-
-	// Если предопределенного нет в метаданных.
-	Если Результат = Неопределено Тогда
-		ВызватьИсключение ТекстОшибкиПредопределенноеЗначениеНеНайдено(ПолноеИмяПредопределенного);
-	КонецЕсли;
-
-	// Если предопределенный есть в метаданных, но не создан в ИБ.
-	Если Результат = Null Тогда
-		Return Неопределено;
-	КонецЕсли;
-
-	Return Результат;
-
-EndFunction
-
-Function ТекстОшибкиПредопределенноеЗначениеНеНайдено(ПолноеИмяПредопределенного)
-
-	Return СтрШаблон(НСтр("ru = 'Предопределенное значение ""%1"" не найдено.'"), ПолноеИмяПредопределенного);
+// If the predefined item exists in metadata but not in the infobase.
+	If Result = Null Then 
+		Return Undefined;
+	EndIf;
+	
+	Return Result;
 
 EndFunction
 
-Function ИмяПараметраОтмененныхДлительныхОпераций(Параметры) Export
-
-	Return "УИ_ОтмененныеДлительныеОперации";
+Function PredefinedValueNotFoundErrorText(PredefinedItemFullName) Export
+	
+	Return StrTemplate(NStr("ru = 'Предопределенное значение ""%1"" не найдено.'; en = 'Predefined value ""%1"" is not found.'"), PredefinedItemFullName);
+	
 EndFunction
 
-// Возвращает значение свойства структуры.
-//hh опр 
-// Параметры:
-//   Structure - Structure, ФиксированнаяStructure - Объект, из которого необходимо прочитать значение ключа.
-//   Ключ - Строка - Имя свойства структуры, для которого необходимо прочитать значение.
-//   ЗначениеПоУмолчанию - Произвольный - Необязательный. Возвращается когда в структуре нет значения по указанному
-//                                        ключу.
-//       Для скорости рекомендуется передавать только быстро вычисляемые значения (например примитивные типы),
-//       а инициализацию более тяжелых значений выполнять после проверки полученного значения (только если это
-//       требуется).
+Function СancelledTimeConsumingOperationsParametrName(Parameters) Export
+	Return "UT_СancelledTimeConsumingOperations";
+EndFunction
+
+// Returns the structure property value.
 //
-// Возвращаемое значение:
-//   Произвольный - Значение свойства структуры. ЗначениеПоУмолчанию если в структуре нет указанного свойства.
+// Parameters:
+//   Structure - Structure, FixedStructure - an object to read key value from.
+//   Key - String - the structure property whose value to read.
+//   DefaultValue - Arbitrary - Optional. Returned when the structure contains no value for the 
+//                                        given key.
+//       To keep the system performance, it is recommended to pass only easy-to-calculate values 
+//       (for example, primitive types). Pass performance-demanding values only after ensuring that 
+//       the value is required.
 //
-Function СвойствоСтруктуры(Structure, Ключ, ЗначениеПоУмолчанию = Неопределено) Export
-
-	Если Structure = Неопределено Тогда
-		Return ЗначениеПоУмолчанию;
-	КонецЕсли;
-
-	Результат = ЗначениеПоУмолчанию;
-	Если Structure.Свойство(Ключ, Результат) Тогда
-		Return Результат;
-	Иначе
-		Return ЗначениеПоУмолчанию;
-	КонецЕсли;
-
+// Returns:
+//   Arbitrary - the property value. If the structure missing the property, returns DefaultValue.
+//
+Function StructureProperty(Structure, varKey, DefaultValue = Undefined) Export
+	
+	If Structure = Undefined Then
+		Return DefaultValue;
+	EndIf;
+	
+	Result = DefaultValue;
+	If Structure.Property(varKey, Result) Then
+		Return Result;
+	Else
+		Return DefaultValue;
+	EndIf;
+	
 EndFunction
 
 // Generates and show the message that can relate to a form item..
@@ -1739,7 +1739,6 @@ Function CompareVersionsWithOutReleaseSubnumber(Val Version1String, Val Version2
 
 EndFunction
 
-
 #Region WriteParams
 
 #EndRegion
@@ -1782,7 +1781,6 @@ Function IsPortableDistribution() Export
 EndFunction
 #EndRegion
 
-
 Function ManagedFormType() Export
 	If PlatformVersionNotLess_8_3_14() Then
 		Return Type("ClientApplicationForm")
@@ -1815,6 +1813,3 @@ Function FormWriteSettings(Форма, ПрефиксРеквизитаФорм�
 //	ЗаполнитьЗначенияСвойств(ПараметрыЗаписи, Форма);
 	Return WriteSettings;
 EndFunction
-
-
-
