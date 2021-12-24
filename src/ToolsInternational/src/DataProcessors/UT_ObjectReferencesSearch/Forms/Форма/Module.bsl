@@ -128,7 +128,7 @@ EndProcedure
 //@skip-warning
 &AtClient
 Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
-	UT_CommonClient.Подключаемый_ВыполнитьОбщуюКомандуИнструментов(ThisObject, Command);
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
 #EndRegion
