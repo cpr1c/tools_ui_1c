@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>ВариантПоставки</name>
+    <name>DistributionType</name>
     <id>14</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,10 +9,10 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ВариантПоставки</segments>
+      <segments>DistributionType</segments>
     </dataPath>
     <extendedTooltip>
-      <name>ВариантПоставкиРасширеннаяПодсказка</name>
+      <name>DistributionTypeExtendedTooltip</name>
       <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -27,7 +27,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ВариантПоставкиКонтекстноеМеню</name>
+      <name>DistributionTypeContextMenu</name>
       <id>15</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -379,10 +379,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВариантПоставки</name>
+    <name>DistributionType</name>
     <title>
       <key>ru</key>
       <value>Вариант поставки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Distribution type</value>
     </title>
     <id>6</id>
     <valueType>

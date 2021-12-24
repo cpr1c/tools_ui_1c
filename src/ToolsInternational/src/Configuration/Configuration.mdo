@@ -91,33 +91,33 @@
   <commonTemplates>CommonTemplate.UT_ClipboardComponent</commonTemplates>
   <commonTemplates>CommonTemplate.UT_MonacoEditor</commonTemplates>
   <commonTemplates>CommonTemplate.UT_MonacoEditorWindows</commonTemplates>
-  <commonModules>CommonModule.UT_CommonClient</commonModules>
-  <commonModules>CommonModule.UT_Forms</commonModules>
-  <commonModules>CommonModule.UT_TimeConsumingOperationsServerCall</commonModules>
-  <commonModules>CommonModule.UT_TimeConsumingOperationsGlobal</commonModules>
-  <commonModules>CommonModule.UT_TimeConsumingOperationsClient</commonModules>
-  <commonModules>CommonModule.UT_TimeConsumingOperations</commonModules>
-  <commonModules>CommonModule.UT_ScheduledJobsServer</commonModules>
-  <commonModules>CommonModule.UT_ScheduledJobsInternal</commonModules>
+  <commonModules>CommonModule.AdditionalReportsAndDataProcessors</commonModules>
+  <commonModules>CommonModule.AttachableCommandsOverridable</commonModules>
+  <commonModules>CommonModule.UT_</commonModules>
+  <commonModules>CommonModule.UT_AlgorithmsClientServer</commonModules>
+  <commonModules>CommonModule.UT_ClipboardClient</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorClient</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorClientServer</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorServer</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorServerCall</commonModules>
+  <commonModules>CommonModule.UT_Common</commonModules>
   <commonModules>CommonModule.UT_CommonCached</commonModules>
+  <commonModules>CommonModule.UT_CommonClient</commonModules>
+  <commonModules>CommonModule.UT_CommonClientCached</commonModules>
   <commonModules>CommonModule.UT_CommonClientServer</commonModules>
   <commonModules>CommonModule.UT_CommonServerCall</commonModules>
-  <commonModules>CommonModule.UT_Common</commonModules>
-  <commonModules>CommonModule.UT_CommonClientCached</commonModules>
-  <commonModules>CommonModule.UT_Users</commonModules>
-  <commonModules>CommonModule.UT_StringFunctionsClientServer</commonModules>
-  <commonModules>CommonModule.UT_AlgorithmsClientServer</commonModules>
+  <commonModules>CommonModule.UT_Forms</commonModules>
   <commonModules>CommonModule.UT_HTTPConnector</commonModules>
-  <commonModules>CommonModule.UT_</commonModules>
   <commonModules>CommonModule.UT_RegexpsClientServer</commonModules>
-  <commonModules>CommonModule.UT_CodeEditorServer</commonModules>
-  <commonModules>CommonModule.UT_CodeEditorClient</commonModules>
-  <commonModules>CommonModule.UT_CodeEditorServerCall</commonModules>
-  <commonModules>CommonModule.UT_CodeEditorClientServer</commonModules>
-  <commonModules>CommonModule.UT_ClipboardClient</commonModules>
+  <commonModules>CommonModule.UT_ScheduledJobsInternal</commonModules>
+  <commonModules>CommonModule.UT_ScheduledJobsServer</commonModules>
+  <commonModules>CommonModule.UT_StringFunctionsClientServer</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperations</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperationsClient</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperationsGlobal</commonModules>
+  <commonModules>CommonModule.UT_TimeConsumingOperationsServerCall</commonModules>
+  <commonModules>CommonModule.UT_Users</commonModules>
   <commonModules>CommonModule.UT_XMLParcer</commonModules>
-  <commonModules>CommonModule.AttachableCommandsOverridable</commonModules>
-  <commonModules>CommonModule.AdditionalReportsAndDataProcessors</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.UT_Settings</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
@@ -156,7 +156,7 @@
   <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
