@@ -1,7 +1,7 @@
 // Query console 9000 v 1.1.10
 // (C) Alexander Kuznetsov 2019-2020
 // hal@hal9000.cc
-//Minimum platform version 8.3.12, minimum compatibility mode 8.3.8
+// Minimum platform version 8.3.12, minimum compatibility mode 8.3.8
 // Translated by Neti Company
 
 Procedure Initializing(Form = Undefined, cSessionID = Undefined) Export
