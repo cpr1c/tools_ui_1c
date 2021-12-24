@@ -243,7 +243,7 @@
 <p>ПроверитьПараметр</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CheckParameter</p>
 </td>
 </tr>
 <tr>
@@ -259,7 +259,7 @@
 <p>ПредставлениеТипов</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>TypesPresentation</p>
 </td>
 </tr>
 <tr>
@@ -267,7 +267,7 @@
 <p>ПредставлениеТипа</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>TypePresentation</p>
 </td>
 </tr>
 <tr>
@@ -275,7 +275,7 @@
 <p>ЗначениеОжидаемогоТипа</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>ExpectedTypeValue</p>
 </td>
 </tr>
 <tr>
@@ -291,7 +291,7 @@
 <p>КодОсновногоЯзыка</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>DefaultLanguageCode</p>
 </td>
 </tr>
 <tr>
@@ -299,7 +299,7 @@
 <p>ПредопределенныйЭлемент</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>PredefinedItem</p>
 </td>
 </tr>
 <tr>
@@ -307,7 +307,7 @@
 <p>ТекстОшибкиПредопределенноеЗначениеНеНайдено</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>PredefinedValueNotFoundErrorText</p>
 </td>
 </tr>
 <tr>
@@ -315,7 +315,7 @@
 <p>СвойствоСтруктуры</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>StructureProperty</p>
 </td>
 </tr>
 <tr>
@@ -323,7 +323,7 @@
 <p>СообщитьПользователю</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>MesageToUser</p>
 </td>
 </tr>
 <tr>
@@ -331,7 +331,7 @@
 <p>ДополнитьМассив</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SupplementArray</p>
 </td>
 </tr>
 <tr>
@@ -355,7 +355,7 @@
 <p>ИмяПараметраОтмененныхДлительныхОпераций</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>СancelledTimeConsumingOperationsParametrName</p>
 </td>
 </tr>
 <tr>
@@ -715,7 +715,7 @@
 <p>КлючНастроекПараметровСеанса</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SessionParametersSettingsKey</p>
 </td>
 </tr>
 <tr>
