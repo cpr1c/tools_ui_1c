@@ -7,11 +7,10 @@
 // Найти элемент или группу отбора по заданному имени поля или представлению.
 //
 // Параметры:
-//  ОбластьПоиска - ОтборКомпоновкиДанных, КоллекцияЭлементовОтбораКомпоновкиДанных,
-//                  ГруппаЭлементовОтбораКомпоновкиДанных - контейнер
-//                  с элементами и группами отбора, например Список.Отбор или группа в отборе.
-//  ИмяПоля       - Строка - имя поля компоновки (не используется для групп).
-//  Представление - Строка - представление поля компоновки.
+//  ОбластьПоиска - ОтборКомпоновкиДанных,КоллекцияЭлементовОтбораКомпоновкиДанных,ГруппаЭлементовОтбораКомпоновкиДанных 
+//   				контейнер с элементами и группами отбора, например Список.Отбор или группа в отборе.
+//  ИмяПоля       - String - имя поля компоновки (не используется для групп).
+//  Представление - String - представление поля компоновки.
 //
 // Возвращаемое значение:
 //  Массив - коллекция отборов.
@@ -37,9 +36,8 @@ EndFunction
 // Добавить группу отбора в коллекцию КоллекцияЭлементов.
 //
 // Параметры:
-//  КоллекцияЭлементов - ОтборКомпоновкиДанных, КоллекцияЭлементовОтбораКомпоновкиДанных,
-//                       ГруппаЭлементовОтбораКомпоновкиДанных - контейнер
-//                       с элементами и группами отбора, например Список.Отбор или группа в отборе.
+//  КоллекцияЭлементов - ОтборКомпоновкиДанных, КоллекцияЭлементовОтбораКомпоновкиДанных,ГруппаЭлементовОтбораКомпоновкиДанных- 
+//   контейнер с элементами и группами отбора, например Список.Отбор или группа в отборе.
 //  Представление      - Строка - представление группы.
 //  ТипГруппы          - ТипГруппыЭлементовОтбораКомпоновкиДанных - тип группы.
 //
@@ -862,162 +860,9 @@ EndFunction
 КонецПроцедуры
 
 #КонецОбласти
-#Область ФайловыеФункции
-
-#Область СКД
-
-#КонецОбласти
-
-// Получается индекс пиктограммы файла - индекс в картинке КоллекцияПиктограммФайлов.
-Function ПолучитьИндексПиктограммыФайла(Знач РасширениеФайла) Export
-
-	Если ТипЗнч(РасширениеФайла) <> Тип("Строка") Или IsBlankString(РасширениеФайла) Тогда
-
-		Return 0;
-	КонецЕсли;
-
-	РасширениеФайла = РасширениеБезТочки(РасширениеФайла);
-
-	Расширение = "." + НРег(РасширениеФайла) + ";";
-
-	Если СтрНайти(".dt;.1cd;.cf;.cfu;", Расширение) <> 0 Тогда
-		Return 6; // Файлы 1С.
-
-	ИначеЕсли Расширение = ".mxl;" Тогда
-		Return 8; // Табличный Файл.
-
-	ИначеЕсли СтрНайти(".txt;.log;.ini;", Расширение) <> 0 Тогда
-		Return 10; // Текстовый Файл.
-
-	ИначеЕсли Расширение = ".epf;" Тогда
-		Return 12; // Внешние обработки.
-
-	ИначеЕсли СтрНайти(".ico;.wmf;.emf;", Расширение) <> 0 Тогда
-		Return 14; // Картинки.
-
-	ИначеЕсли СтрНайти(".htm;.html;.url;.mht;.mhtml;", Расширение) <> 0 Тогда
-		Return 16; // HTML.
-
-	ИначеЕсли СтрНайти(".doc;.dot;.rtf;", Расширение) <> 0 Тогда
-		Return 18; // Файл Microsoft Word.
-
-	ИначеЕсли СтрНайти(".xls;.xlw;", Расширение) <> 0 Тогда
-		Return 20; // Файл Microsoft Excel.
-
-	ИначеЕсли СтрНайти(".ppt;.pps;", Расширение) <> 0 Тогда
-		Return 22; // Файл Microsoft PowerPoint.
-
-	ИначеЕсли СтрНайти(".vsd;", Расширение) <> 0 Тогда
-		Return 24; // Файл Microsoft Visio.
-
-	ИначеЕсли СтрНайти(".mpp;", Расширение) <> 0 Тогда
-		Return 26; // Файл Microsoft Visio.
-
-	ИначеЕсли СтрНайти(".mdb;.adp;.mda;.mde;.ade;", Расширение) <> 0 Тогда
-		Return 28; // База данных Microsoft Access.
-
-	ИначеЕсли СтрНайти(".xml;", Расширение) <> 0 Тогда
-		Return 30; // xml.
-
-	ИначеЕсли СтрНайти(".msg;", Расширение) <> 0 Тогда
-		Return 32; // Письмо электронной почты.
-
-	ИначеЕсли СтрНайти(".zip;.rar;.arj;.cab;.lzh;.ace;", Расширение) <> 0 Тогда
-		Return 34; // Архивы.
-
-	ИначеЕсли СтрНайти(".exe;.com;.bat;.cmd;", Расширение) <> 0 Тогда
-		Return 36; // Исполняемые файлы.
-
-	ИначеЕсли СтрНайти(".grs;", Расширение) <> 0 Тогда
-		Return 38; // Графическая схема.
-
-	ИначеЕсли СтрНайти(".geo;", Расширение) <> 0 Тогда
-		Return 40; // Географическая схема.
-
-	ИначеЕсли СтрНайти(".jpg;.jpeg;.jp2;.jpe;", Расширение) <> 0 Тогда
-		Return 42; // jpg.
-
-	ИначеЕсли СтрНайти(".bmp;.dib;", Расширение) <> 0 Тогда
-		Return 44; // bmp.
-
-	ИначеЕсли СтрНайти(".tif;.tiff;", Расширение) <> 0 Тогда
-		Return 46; // tif.
-
-	ИначеЕсли СтрНайти(".gif;", Расширение) <> 0 Тогда
-		Return 48; // gif.
-
-	ИначеЕсли СтрНайти(".png;", Расширение) <> 0 Тогда
-		Return 50; // png.
-
-	ИначеЕсли СтрНайти(".pdf;", Расширение) <> 0 Тогда
-		Return 52; // pdf.
-
-	ИначеЕсли СтрНайти(".odt;", Расширение) <> 0 Тогда
-		Return 54; // Open Office writer.
-
-	ИначеЕсли СтрНайти(".odf;", Расширение) <> 0 Тогда
-		Return 56; // Open Office math.
-
-	ИначеЕсли СтрНайти(".odp;", Расширение) <> 0 Тогда
-		Return 58; // Open Office Impress.
-
-	ИначеЕсли СтрНайти(".odg;", Расширение) <> 0 Тогда
-		Return 60; // Open Office draw.
-
-	ИначеЕсли СтрНайти(".ods;", Расширение) <> 0 Тогда
-		Return 62; // Open Office calc.
-
-	ИначеЕсли СтрНайти(".mp3;", Расширение) <> 0 Тогда
-		Return 64;
-
-	ИначеЕсли СтрНайти(".erf;", Расширение) <> 0 Тогда
-		Return 66; // Внешние отчеты.
-
-	ИначеЕсли СтрНайти(".docx;", Расширение) <> 0 Тогда
-		Return 68; // Файл Microsoft Word docx.
-
-	ИначеЕсли СтрНайти(".xlsx;", Расширение) <> 0 Тогда
-		Return 70; // Файл Microsoft Excel xlsx.
-
-	ИначеЕсли СтрНайти(".pptx;", Расширение) <> 0 Тогда
-		Return 72; // Файл Microsoft PowerPoint pptx.
-
-	ИначеЕсли СтрНайти(".p7s;", Расширение) <> 0 Тогда
-		Return 74; // Файл подписи.
-
-	ИначеЕсли СтрНайти(".p7m;", Расширение) <> 0 Тогда
-		Return 76; // зашифрованное сообщение.
-	Иначе
-		Return 4;
-	КонецЕсли;
-
-EndFunction
-
-// Преобразует расширение файла в нижний регистр без точки.
-//
-// Параметры:
-//  Расширение - Строка - Расширение для преобразования.
-//
-// Возвращаемое значение:
-//  Строка.
-//
-Function РасширениеБезТочки(Знач Расширение) Export
-
-	Расширение = НРег(СокрЛП(Расширение));
-
-	Если Сред(Расширение, 1, 1) = "." Тогда
-		Расширение = Сред(Расширение, 2);
-	КонецЕсли;
-
-	Return Расширение;
-
-EndFunction
-
-#КонецОбласти
 
 ////////////////////////////////////////////////////////////////////////
 // English Code Area 
-
 
 // Create copy of value type of Structure, Recursively, according of types of properties. 
 // If  structure properties contains values of object types  (catalogref, DocumentRef,etc),
@@ -1079,8 +924,6 @@ EndProcedure
 Function CopyRecursively(Source) Export
 
 	Var Receiver;
-	
-
 	SourceType = TypeOf(Source);
 
 #Если Server Or ThickClientOrdinaryApplication Or ExternalConnection Then
@@ -1224,60 +1067,82 @@ Function StructureToSchedule(Знач ScheduleStructure) Export
 
 EndFunction
 
-// Вызывает исключение, если тип значения параметра ИмяПараметра процедуры или функции ИмяПроцедурыИлиФункции
-// отличается от ожидаемого.
-// Для диагностики типов параметров, передаваемых в процедуры и функции программного интерфейса.
+// Raises an exception if the ParameterName parameter value type of the ProcedureOrFunctionName 
+// procedure or function does not match the excepted one.
+// For validating types of parameters passed to the interface procedures and functions.
 //
-// Параметры:
-//   ИмяПроцедурыИлиФункции - Строка             - имя процедуры или функции, параметр которой проверяется.
-//   ИмяПараметра           - Строка             - имя проверяемого параметра процедуры или функции.
-//   ЗначениеПараметра      - Произвольный       - фактическое значение параметра.
-//   ОжидаемыеТипы  - ОписаниеТипов, Тип, Массив - тип(ы) параметра процедуры или функции.
-//   ОжидаемыеТипыСвойств   - Structure          - если ожидаемый тип - Structure, то 
-//                                                 в этом параметре можно указать типы ее свойств.
+// Parameters:
+//   ProcedureOrFunctionName - String          - name of the procedure or function that contains the parameter to check.
+//   ParameterName           - String          - name of the parameter of procedure or function to check.
+//   ParameterValue          - Arbitrary       - actual value of the parameter.
+//   ExpectedTypes  - TypesDescription, Type, Array - type(s) of the parameter of procedure or function..
+//   PropertiesTypesToExpect   - Structure     -if the expected type is a structure, this parameter can be used to specify its properties.
 //
-Procedure ПроверитьПараметр(Знач ИмяПроцедурыИлиФункции, Знач ИмяПараметра, Знач ЗначениеПараметра, Знач ОжидаемыеТипы,
-	Знач ОжидаемыеТипыСвойств = Неопределено) Export
+Procedure CheckParameter(Val ProcedureOrFunctionName, Val ParameterName, Val ParameterValue, Val ExpectedTypes,
+	Val PropertiesTypesToExpect = Undefined) Export
 
-	Контекст = "ОбщегоНазначенияКлиентСервер.ПроверитьПараметр";
-	Check(ТипЗнч(ИмяПроцедурыИлиФункции) = Тип("Строка"), НСтр(
-		"ru = 'Недопустимо значение параметра ИмяПроцедурыИлиФункции'"), Контекст);
-	Check(ТипЗнч(ИмяПараметра) = Тип("Строка"), НСтр("ru = 'Недопустимо значение параметра ИмяПараметра'"),
-		Контекст);
+	Context = "CommonClientServer.CheckParameter";
+	Validate(
+		TypeOf(ProcedureOrFunctionName) = Type("String"),
+		NStr("ru = 'Недопустимое значение параметра ИмяПроцедурыИлиФункции'; en = 'Invalid value of ProcedureOrFunctionName parameter.'"), 
+		Context);
+		
+	Validate(
+		TypeOf(ParameterName) = Type("String"), 
+		NStr("ru = 'Недопустимое значение параметра ИмяПараметра'; en = 'Invalid value of ParameterName parameter.'"),
+		Context);
 
-	ЭтоКорректныйТип = ЗначениеОжидаемогоТипа(ЗначениеПараметра, ОжидаемыеТипы);
-	Check(ЭтоКорректныйТип <> Неопределено, НСтр("ru = 'Недопустимо значение параметра ОжидаемыеТипы'"), Контекст);
+	IsCorrectType = ExpectedTypeValue(ParameterValue, ExpectedTypes);
+	
+	Validate(
+		IsCorrectType <> Undefined, 
+		NStr("ru = 'Недопустимое значение параметра ОжидаемыеТипы'; en = 'Invalid value of ExpectedTypes parameter.'"), 
+		Context);
 
-	НедопустимыйПараметр = НСтр("ru = 'Недопустимое значение параметра %1 в %2. 
-								|Ожидалось: %3; передано значение: %4 (тип %5).'");
-	Check(ЭтоКорректныйТип, СтрШаблон(НедопустимыйПараметр, ИмяПараметра, ИмяПроцедурыИлиФункции,
-		ПредставлениеТипов(ОжидаемыеТипы), ?(ЗначениеПараметра <> Неопределено, ЗначениеПараметра, НСтр(
-		"ru = 'Неопределено'")), ТипЗнч(ЗначениеПараметра)));
+	InvalidParameter = NStr("ru = 'Недопустимое значение параметра %1 в %2. 
+			           |Ожидалось: %3; передано значение: %4 (тип %5).'; 
+			           |en = 'Invalid value of the %1 parameter in %2.
+			           |Expected value: %3, passed value: %4 (type: %5).'");
+								
+								
+	Validate(IsCorrectType, StrTemplate(InvalidParameter, ParameterName, ProcedureOrFunctionName,
+		TypesPresentation(ExpectedTypes), ?(ParameterValue <> Undefined, ParameterValue, NStr(
+		"ru = 'Неопределено'; en = 'Undefined'")), TypeOf(ParameterValue)));
 
-	Если ТипЗнч(ЗначениеПараметра) = Тип("Structure") И ОжидаемыеТипыСвойств <> Неопределено Тогда
+	If TypeOf(ParameterValue) = Type("Structure") AND PropertiesTypesToExpect <> Undefined Then
 
-		Check(ТипЗнч(ОжидаемыеТипыСвойств) = Тип("Structure"), НСтр(
-			"ru = 'Недопустимо значение параметра ИмяПроцедурыИлиФункции'"), Контекст);
+		Validate(
+			TypeOf(PropertiesTypesToExpect) = Type("Structure"),
+			 NStr("ru = 'Недопустимое значение параметра ИмяПроцедурыИлиФункции';
+				 | en = 'Invalid value of ProcedureOrFunctionName parameter.'"), 
+			Context);
 
-		НетСвойства = НСтр("ru = 'Недопустимое значение параметра %1 (Structure) в %2. 
-						   |В структуре ожидалось свойство %3 (тип %4).'");
-		НедопустимоеСвойство = НСтр("ru = 'Недопустимое значение свойства %1 в параметре %2 (Structure) в %3. 
-									|Ожидалось: %4; передано значение: %5 (тип %6).'");
-		Для Каждого Свойство Из ОжидаемыеТипыСвойств Цикл
+		NoProperty = NStr("ru = 'Недопустимое значение параметра %1 (Структура) в %2. 
+					           |В структуре ожидалось свойство %3 (тип %4).'; 
+					           |en = 'Invalid value of parameter %1 (Structure) in %2.
+					           |Expected value: %3 (type: %4).'");
+						   
+		InvalidProperty = NStr("ru = 'Недопустимое значение свойства %1 в параметре %2 (Структура) в %3. 
+					           |Ожидалось: %4; передано значение: %5 (тип %6).'; 
+					           |en = 'Invalid value of property %1 in parameter %2 (Structure) in %3.
+					           |Expected value: %4; passed value: %5 (type: %6).'");
+					           
+		For Each Property In PropertiesTypesToExpect Do
 
-			ОжидаемоеИмяСвойства = Свойство.Ключ;
-			ОжидаемыйТипСвойства = Свойство.Значение;
-			ЗначениеСвойства = Неопределено;
+			ExpectedPropertyName = Property.Key;
+			ExpectedPropertyType = Property.Value;
+			PropertyValue = Undefined;
 
-			Check(ЗначениеПараметра.Свойство(ОжидаемоеИмяСвойства, ЗначениеСвойства), СтрШаблон(НетСвойства,
-				ИмяПараметра, ИмяПроцедурыИлиФункции, ОжидаемоеИмяСвойства, ОжидаемыйТипСвойства));
+			Validate(
+				ParameterValue.Свойство(ExpectedPropertyName, PropertyValue), 
+				StrTemplate(NoProperty,ParameterName, ProcedureOrFunctionName, ExpectedPropertyName, ExpectedPropertyType));
 
-			ЭтоКорректныйТип = ЗначениеОжидаемогоТипа(ЗначениеСвойства, ОжидаемыйТипСвойства);
-			Check(ЭтоКорректныйТип, СтрШаблон(НедопустимоеСвойство, ОжидаемоеИмяСвойства, ИмяПараметра,
-				ИмяПроцедурыИлиФункции, ПредставлениеТипов(ОжидаемыеТипы), ?(ЗначениеСвойства <> Неопределено,
-				ЗначениеСвойства, НСтр("ru = 'Неопределено'")), ТипЗнч(ЗначениеСвойства)));
-		КонецЦикла;
-	КонецЕсли;
+			IsCorrectType = ExpectedTypeValue(PropertyValue, ExpectedPropertyType);
+			Validate(IsCorrectType, StrTemplate(InvalidProperty, ExpectedPropertyName, ParameterName,
+				ProcedureOrFunctionName, TypesPresentation(ExpectedTypes), ?(PropertyValue <> Undefined,
+				PropertyValue, NStr("ru = 'Неопределено'; en = 'Undefined'")), TypeOf(PropertyValue)));
+		EndDo;
+	EndIf;
 
 EndProcedure
 
@@ -1289,7 +1154,7 @@ EndProcedure
 //   CheckContext     	  - String - for example, name of procedure or function where the check is performed.
 //   Message              - String - text of message.If not set up , would exeption with default text                                     умолчанию.
 //
-Procedure Check(Val Condition, Val Message = "", Val CheckContext = "") Export
+Procedure Validate(Val Condition, Val Message = "", Val CheckContext = "") Export
 
 	If Condition <> True Then
 		If IsBlankString(Message) Then
@@ -1305,52 +1170,54 @@ Procedure Check(Val Condition, Val Message = "", Val CheckContext = "") Export
 
 КонецПроцедуры
 
-Function ПредставлениеТипов(ОжидаемыеТипы)
-	Если ТипЗнч(ОжидаемыеТипы) = Тип("Массив") Тогда
-		Результат = "";
-		Индекс = 0;
-		Для Каждого Тип Из ОжидаемыеТипы Цикл
-			Если Не IsBlankString(Результат) Тогда
-				Результат = Результат + ", ";
-			КонецЕсли;
-			Результат = Результат + ПредставлениеТипа(Тип);
-			Индекс = Индекс + 1;
-			Если Индекс > 10 Тогда
-				Результат = Результат + ",... " + СтрШаблон(НСтр("ru='(всего %1 типов)'"), ОжидаемыеТипы.Количество());
-				Прервать;
-			КонецЕсли;
-		КонецЦикла;
-		Return Результат;
-	Иначе
-		Return ПредставлениеТипа(ОжидаемыеТипы);
-	КонецЕсли;
+Function TypesPresentation(ExpectedTypes)
+	If Typeof(ExpectedTypes) = Type("Array") Then
+		Result = "";
+		Index = 0;
+		For Each Type In ExpectedTypes Do
+			If Not IsBlankString(Result) Then
+				Result = Result + ", ";
+			EndIf;
+			Result = Result + TypePresentation(Type);
+			Index = Index + 1;
+			If Index > 10 Then
+				Result = Result + ",... " + StrTemplate(Nstr("ru = '(всего %1 типов)';en = '(total %1 of types)'"), ExpectedTypes.Count());
+				Break;
+			EndIf;
+		EndDo;
+		Return Result;
+	Else
+		Return TypePresentation(ExpectedTypes);
+	EndIf;
 EndFunction
 
-Function ПредставлениеТипа(Тип)
-	Если Тип = Неопределено Тогда
-		Return "Неопределено";
-	ИначеЕсли ТипЗнч(Тип) = Тип("ОписаниеТипов") Тогда
-		ТипСтрокой = Строка(Тип);
-		Return ?(СтрДлина(ТипСтрокой) > 150, Лев(ТипСтрокой, 150) + "..." + СтрШаблон(НСтр("ru='(всего %1 типов)'"),
-			Тип.Типы().Количество()), ТипСтрокой);
-	Иначе
-		ТипСтрокой = Строка(Тип);
-		Return ?(СтрДлина(ТипСтрокой) > 150, Лев(ТипСтрокой, 150) + "...", ТипСтрокой);
-	КонецЕсли;
+Function TypePresentation(Type)
+	If Type = Undefined Then
+		Return "Undefined";
+	ElsIf TypeOf(Type) = Type("TypeDescription") Then
+		TypeString = String(Type);
+		Return ?(StrLen(TypeString) > 150, Left(TypeString, 150) + "..." + StrTemplate(NStr("ru = '(всего %1 типов)';en = '(total %1 types'"),
+			Type.Типы().Количество()), TypeString);
+	    Else
+		TypeString = String(Type);
+		Return ?(СтрДлина(TypeString) > 150, Лев(TypeString, 150) + "...", TypeString);
+	EndIf;
+	
 EndFunction
 
-Function ЗначениеОжидаемогоТипа(Значение, ОжидаемыеТипы)
-	ТипЗначения = ТипЗнч(Значение);
-	Если ТипЗнч(ОжидаемыеТипы) = Тип("ОписаниеТипов") Тогда
-		Return ОжидаемыеТипы.Типы().Найти(ТипЗначения) <> Неопределено;
-	ИначеЕсли ТипЗнч(ОжидаемыеТипы) = Тип("Тип") Тогда
-		Return ТипЗначения = ОжидаемыеТипы;
-	ИначеЕсли ТипЗнч(ОжидаемыеТипы) = Тип("Массив") Или ТипЗнч(ОжидаемыеТипы) = Тип("ФиксированныйМассив") Тогда
-		Return ОжидаемыеТипы.Найти(ТипЗначения) <> Неопределено;
-	ИначеЕсли ТипЗнч(ОжидаемыеТипы) = Тип("Соответствие") Или ТипЗнч(ОжидаемыеТипы) = Тип("ФиксированноеСоответствие") Тогда
-		Return ОжидаемыеТипы.Получить(ТипЗначения) <> Неопределено;
-	КонецЕсли;
-	Return Неопределено;
+Function ExpectedTypeValue(Value, ExpectedTypes)
+	ValueType = TypeOf(Value);
+	If TypeOf(ExpectedTypes) = Type("TypeDescription") Then
+		Return ExpectedTypes.Types().Find(ValueType) <> Undefined;
+	ElsIf TypeOf(ExpectedTypes) = Type("Type") Then
+		Return ValueType = ExpectedTypes;
+	ElsIf TypeOf(ExpectedTypes) = Type("Array") Or TypeOf(ExpectedTypes) = Type("FixedArray") Then
+		Return ExpectedTypes.Find(ValueType) <> Undefined;
+	ElsIf TypeOf(ExpectedTypes) = Type("Map") 	Or TypeOf(ExpectedTypes) = Type("FixedMap") Then
+		Return ExpectedTypes.Get(ValueType) <> Undefined;
+	EndIf;
+	
+	Return Undefined;
 EndFunction
 
 Procedure AddObjectsArrayToCompare(Objects) Export
@@ -1360,13 +1227,13 @@ EndProcedure
 // Return code of configuration default language , for example "ru".
 //
 // Return:
-//  String - language code.
+// String - language code.
 //
 Function DefaultLanguageCode() Export
-#If Не ТонкийКлиент И Не ВебКлиент И Не МобильныйКлиент Then
-	Return Метаданные.ОсновнойЯзык.КодЯзыка;
-#Иначе
-		Return UT_CommonCached.DefaultLanguageCode();
+#If Not  ThinClient And Not WebClient And Not MobileClient Then
+	Return Metadata.DefaultLanguage.LanguageCode;
+#Else
+	Return UT_CommonCached.DefaultLanguageCode();
 #EndIf
 EndFunction
 
@@ -1384,7 +1251,7 @@ EndFunction
 //       "Catalog.ContactInformationKinds.UserEmail"
 //
 // Returns:
-//   AnyRef - reference to the predefined item.
+//   AnyRef - reference to the predefined item;
 //   Undefined - if the predefined item exists in metadata but not in the infobase.
 //
 Function PredefinedItem(FullPredefinedItemName) Export
@@ -1522,7 +1389,7 @@ EndFunction
 //
 Процедура MessageToUser(Val MessageToUserText,Val DataKey = Undefined,Val Field = "",Val DataPath = "",
 		Cancel = False) Export
-
+		
 	Message = New UserMessage;
 	Message.Text = MessageToUserText;
 	Message.Field = Field;
@@ -1611,19 +1478,20 @@ Function IsCorrectVariableName(Name) Export
 		Return False;
 	EndIf;
 	IsCorrectName = False;
+	//@skip-warning
 	Try
+		//@skip-warning
 		TempVar = New Structure(Name);
 		IsCorrectName=True;
 	Except
+		
 	EndTry;
 	
 	Return IsCorrectName;
 EndFunction
 
 Function WrongVariableNameWarningText() Export
-	Return NStr("ru='Неверное имя колонки! Имя должно состоять из одного слова, начинаться с буквы и не содержать специальных символов кроме ""_""."";
-				|en='Invalid column name! The name must consist of a single word, start with a letter and contain no special characters other than ""_"".""'
-				|");
+	Return NStr("ru = 'Неверное имя колонки! Имя должно состоять из одного слова, начинаться с буквы и не содержать специальных символов кроме """"_"""".""';en = 'en=''Invalid column name! The name must consist of a single word, start with a letter and contain no special characters other than """"_"""".""'");
 EndFunction
 
 #EndRegion
@@ -1714,7 +1582,6 @@ EndFunction
 // Return Value значение:
 //   Integer   - more than 0, if Version1String > Version2String; 0, if version values is equal.
 //
-//
 Function CompareVersionsWithOutReleaseSubnumber(Val Version1String, Val Version2String) Export
 
 	String1 = ?(IsBlankString(Version1String), "0.0.0", Version1String);
@@ -1746,6 +1613,150 @@ EndFunction
 #Region FileFunctions
 
 #EndRegion
+
+// The index of the file icon is being received. It is the index in the FilesIconsCollection picture.
+Function GetFileIconIndex(val FileExtention) Export
+
+	Если ТипЗнч(РасширениеФайла) <> Тип("Строка") Или IsBlankString(РасширениеФайла) Тогда
+
+		Return 0;
+	КонецЕсли;
+
+	FileExtention = РасширениеБезТочки(FileExtention);
+
+	Extension = "." + Lower(FileExtention) + ";";
+	
+	If StrFind(".dt;.1cd;.cf;.cfu;", Extension) <> 0 Then
+		Return 6; // 1C files.
+		
+	ElsIf Extension = ".mxl;" Then
+		Return 8; // Spreadsheet File.
+		
+	ElsIf StrFind(".txt;.log;.ini;", Extension) <> 0 Then
+		Return 10; // Text File.
+		
+	ElsIf Extension = ".epf;" Then
+		Return 12; // External data processors.
+		
+	ElsIf StrFind(".ico;.wmf;.emf;",Extension) <> 0 Then
+		Return 14; // Pictures.
+		
+	ElsIf StrFind(".htm;.html;.url;.mht;.mhtml;",Extension) <> 0 Then
+		Return 16; // HTML.
+		
+	ElsIf StrFind(".doc;.dot;.rtf;",Extension) <> 0 Then
+		Return 18; // Microsoft Word file.
+		
+	ElsIf StrFind(".xls;.xlw;",Extension) <> 0 Then
+		Return 20; // Microsoft Excel file.
+		
+	ElsIf StrFind(".ppt;.pps;",Extension) <> 0 Then
+		Return 22; // Microsoft PowerPoint file.
+		
+	ElsIf StrFind(".vsd;",Extension) <> 0 Then
+		Return 24; // Microsoft Visio file.
+		
+	ElsIf StrFind(".mpp;",Extension) <> 0 Then
+		Return 26; // Microsoft Visio file.
+		
+	ElsIf StrFind(".mdb;.adp;.mda;.mde;.ade;",Extension) <> 0 Then
+		Return 28; // Microsoft Access database.
+		
+	ElsIf StrFind(".xml;",Extension) <> 0 Then
+		Return 30; // xml.
+		
+	ElsIf StrFind(".msg;.eml;",Extension) <> 0 Then
+		Return 32; // Email.
+		
+	ElsIf StrFind(".zip;.rar;.arj;.cab;.lzh;.ace;",Extension) <> 0 Then
+		Return 34; // Archives.
+		
+	ElsIf StrFind(".exe;.com;.bat;.cmd;",Extension) <> 0 Then
+		Return 36; // Files being executed.
+		
+	ElsIf StrFind(".grs;",Extension) <> 0 Then
+		Return 38; // Graphical schema.
+		
+	ElsIf StrFind(".geo;",Extension) <> 0 Then
+		Return 40; // Geographical schema.
+		
+	ElsIf StrFind(".jpg;.jpeg;.jp2;.jpe;",Extension) <> 0 Then
+		Return 42; // jpg.
+		
+	ElsIf StrFind(".bmp;.dib;",Extension) <> 0 Then
+		Return 44; // bmp.
+		
+	ElsIf StrFind(".tif;.tiff;",Extension) <> 0 Then
+		Return 46; // tif.
+		
+	ElsIf StrFind(".gif;",Extension) <> 0 Then
+		Return 48; // gif.
+		
+	ElsIf StrFind(".png;",Extension) <> 0 Then
+		Return 50; // png.
+		
+	ElsIf StrFind(".pdf;",Extension) <> 0 Then
+		Return 52; // pdf.
+		
+	ElsIf StrFind(".odt;",Extension) <> 0 Then
+		Return 54; // Open Office writer.
+		
+	ElsIf StrFind(".odf;",Extension) <> 0 Then
+		Return 56; // Open Office math.
+		
+	ElsIf StrFind(".odp;",Extension) <> 0 Then
+		Return 58; // Open Office Impress.
+		
+	ElsIf StrFind(".odg;",Extension) <> 0 Then
+		Return 60; // Open Office draw.
+		
+	ElsIf StrFind(".ods;",Extension) <> 0 Then
+		Return 62; // Open Office calc.
+		
+	ElsIf StrFind(".mp3;",Extension) <> 0 Then
+		Return 64;
+		
+	ElsIf StrFind(".erf;",Extension) <> 0 Then
+		Return 66; // External reports.
+		
+	ElsIf StrFind(".docx;",Extension) <> 0 Then
+		Return 68; // Microsoft Word docx file.
+		
+	ElsIf StrFind(".xlsx;",Extension) <> 0 Then
+		Return 70; // Microsoft Excel xlsx file.
+		
+	ElsIf StrFind(".pptx;",Extension) <> 0 Then
+		Return 72; // Microsoft PowerPoint pptx file.
+		
+	ElsIf StrFind(".p7s;",Extension) <> 0 Then
+		Return 74; // Signature file
+		
+	ElsIf StrFind(".p7m;",Extension) <> 0 Then
+		Return 76; // encrypted message.
+	Else
+		Return 4;
+	EndIf;
+EndFunction
+
+// Преобразует расширение файла в нижний регистр без точки.
+//
+// Параметры:
+//  Расширение - Строка - Расширение для преобразования.
+//
+// Возвращаемое значение:
+//  Строка.
+//
+Function РасширениеБезТочки(Знач Расширение) Export
+
+	Расширение = НРег(СокрЛП(Расширение));
+
+	Если Сред(Расширение, 1, 1) = "." Тогда
+		Расширение = Сред(Расширение, 2);
+	КонецЕсли;
+
+	Return Расширение;
+
+EndFunction
 
 #Region ToolsSettings
 	
@@ -1794,7 +1805,6 @@ Function ToolsFormOutputWriteSettings() Export
 	Array.Add("WritingInLoadMode");    
 	Array.Add("PrivilegedMode");     
 	Array.Add("WithOutChangeRecording");
-
 	Return Array;
 EndFunction
 
@@ -1802,7 +1812,7 @@ Function FormWriteSettings(Форма, ПрефиксРеквизитаФорм�
 	WriteSettings=StructureПараметровЗаписиПоУмолчанию();
 
 	For each КлючЗначение In WriteSettings Do
-		If ТипЗнч(КлючЗначение.Значение) = Тип("Structure") Then
+		If ТипЗнч(КлючЗначение.Значение) = Type("Structure") Then
 			For Each Стр In Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ] Do
 				WriteSettings[КлючЗначение.Ключ].Вставить(Стр.Ключ, Стр.Значение);
 			EndDo;
