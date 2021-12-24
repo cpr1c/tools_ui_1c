@@ -1614,129 +1614,128 @@ EndFunction
 
 #EndRegion
 
-// Получается индекс пиктограммы файла - индекс в картинке КоллекцияПиктограммФайлов.
-Function ПолучитьИндексПиктограммыФайла(Знач РасширениеФайла) Export
+// The index of the file icon is being received. It is the index in the FilesIconsCollection picture.
+Function GetFileIconIndex(val FileExtention) Export
 
 	Если ТипЗнч(РасширениеФайла) <> Тип("Строка") Или IsBlankString(РасширениеФайла) Тогда
 
 		Return 0;
 	КонецЕсли;
 
-	РасширениеФайла = РасширениеБезТочки(РасширениеФайла);
+	FileExtention = РасширениеБезТочки(FileExtention);
 
-	Расширение = "." + НРег(РасширениеФайла) + ";";
-
-	Если СтрНайти(".dt;.1cd;.cf;.cfu;", Расширение) <> 0 Тогда
-		Return 6; // Файлы 1С.
-
-	ИначеЕсли Расширение = ".mxl;" Тогда
-		Return 8; // Табличный Файл.
-
-	ИначеЕсли СтрНайти(".txt;.log;.ini;", Расширение) <> 0 Тогда
-		Return 10; // Текстовый Файл.
-
-	ИначеЕсли Расширение = ".epf;" Тогда
-		Return 12; // Внешние обработки.
-
-	ИначеЕсли СтрНайти(".ico;.wmf;.emf;", Расширение) <> 0 Тогда
-		Return 14; // Картинки.
-
-	ИначеЕсли СтрНайти(".htm;.html;.url;.mht;.mhtml;", Расширение) <> 0 Тогда
+	Extension = "." + Lower(FileExtention) + ";";
+	
+	If StrFind(".dt;.1cd;.cf;.cfu;", Extension) <> 0 Then
+		Return 6; // 1C files.
+		
+	ElsIf Extension = ".mxl;" Then
+		Return 8; // Spreadsheet File.
+		
+	ElsIf StrFind(".txt;.log;.ini;", Extension) <> 0 Then
+		Return 10; // Text File.
+		
+	ElsIf Extension = ".epf;" Then
+		Return 12; // External data processors.
+		
+	ElsIf StrFind(".ico;.wmf;.emf;",Extension) <> 0 Then
+		Return 14; // Pictures.
+		
+	ElsIf StrFind(".htm;.html;.url;.mht;.mhtml;",Extension) <> 0 Then
 		Return 16; // HTML.
-
-	ИначеЕсли СтрНайти(".doc;.dot;.rtf;", Расширение) <> 0 Тогда
-		Return 18; // Файл Microsoft Word.
-
-	ИначеЕсли СтрНайти(".xls;.xlw;", Расширение) <> 0 Тогда
-		Return 20; // Файл Microsoft Excel.
-
-	ИначеЕсли СтрНайти(".ppt;.pps;", Расширение) <> 0 Тогда
-		Return 22; // Файл Microsoft PowerPoint.
-
-	ИначеЕсли СтрНайти(".vsd;", Расширение) <> 0 Тогда
-		Return 24; // Файл Microsoft Visio.
-
-	ИначеЕсли СтрНайти(".mpp;", Расширение) <> 0 Тогда
-		Return 26; // Файл Microsoft Visio.
-
-	ИначеЕсли СтрНайти(".mdb;.adp;.mda;.mde;.ade;", Расширение) <> 0 Тогда
-		Return 28; // База данных Microsoft Access.
-
-	ИначеЕсли СтрНайти(".xml;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".doc;.dot;.rtf;",Extension) <> 0 Then
+		Return 18; // Microsoft Word file.
+		
+	ElsIf StrFind(".xls;.xlw;",Extension) <> 0 Then
+		Return 20; // Microsoft Excel file.
+		
+	ElsIf StrFind(".ppt;.pps;",Extension) <> 0 Then
+		Return 22; // Microsoft PowerPoint file.
+		
+	ElsIf StrFind(".vsd;",Extension) <> 0 Then
+		Return 24; // Microsoft Visio file.
+		
+	ElsIf StrFind(".mpp;",Extension) <> 0 Then
+		Return 26; // Microsoft Visio file.
+		
+	ElsIf StrFind(".mdb;.adp;.mda;.mde;.ade;",Extension) <> 0 Then
+		Return 28; // Microsoft Access database.
+		
+	ElsIf StrFind(".xml;",Extension) <> 0 Then
 		Return 30; // xml.
-
-	ИначеЕсли СтрНайти(".msg;", Расширение) <> 0 Тогда
-		Return 32; // Письмо электронной почты.
-
-	ИначеЕсли СтрНайти(".zip;.rar;.arj;.cab;.lzh;.ace;", Расширение) <> 0 Тогда
-		Return 34; // Архивы.
-
-	ИначеЕсли СтрНайти(".exe;.com;.bat;.cmd;", Расширение) <> 0 Тогда
-		Return 36; // Исполняемые файлы.
-
-	ИначеЕсли СтрНайти(".grs;", Расширение) <> 0 Тогда
-		Return 38; // Графическая схема.
-
-	ИначеЕсли СтрНайти(".geo;", Расширение) <> 0 Тогда
-		Return 40; // Географическая схема.
-
-	ИначеЕсли СтрНайти(".jpg;.jpeg;.jp2;.jpe;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".msg;.eml;",Extension) <> 0 Then
+		Return 32; // Email.
+		
+	ElsIf StrFind(".zip;.rar;.arj;.cab;.lzh;.ace;",Extension) <> 0 Then
+		Return 34; // Archives.
+		
+	ElsIf StrFind(".exe;.com;.bat;.cmd;",Extension) <> 0 Then
+		Return 36; // Files being executed.
+		
+	ElsIf StrFind(".grs;",Extension) <> 0 Then
+		Return 38; // Graphical schema.
+		
+	ElsIf StrFind(".geo;",Extension) <> 0 Then
+		Return 40; // Geographical schema.
+		
+	ElsIf StrFind(".jpg;.jpeg;.jp2;.jpe;",Extension) <> 0 Then
 		Return 42; // jpg.
-
-	ИначеЕсли СтрНайти(".bmp;.dib;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".bmp;.dib;",Extension) <> 0 Then
 		Return 44; // bmp.
-
-	ИначеЕсли СтрНайти(".tif;.tiff;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".tif;.tiff;",Extension) <> 0 Then
 		Return 46; // tif.
-
-	ИначеЕсли СтрНайти(".gif;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".gif;",Extension) <> 0 Then
 		Return 48; // gif.
-
-	ИначеЕсли СтрНайти(".png;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".png;",Extension) <> 0 Then
 		Return 50; // png.
-
-	ИначеЕсли СтрНайти(".pdf;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".pdf;",Extension) <> 0 Then
 		Return 52; // pdf.
-
-	ИначеЕсли СтрНайти(".odt;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".odt;",Extension) <> 0 Then
 		Return 54; // Open Office writer.
-
-	ИначеЕсли СтрНайти(".odf;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".odf;",Extension) <> 0 Then
 		Return 56; // Open Office math.
-
-	ИначеЕсли СтрНайти(".odp;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".odp;",Extension) <> 0 Then
 		Return 58; // Open Office Impress.
-
-	ИначеЕсли СтрНайти(".odg;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".odg;",Extension) <> 0 Then
 		Return 60; // Open Office draw.
-
-	ИначеЕсли СтрНайти(".ods;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".ods;",Extension) <> 0 Then
 		Return 62; // Open Office calc.
-
-	ИначеЕсли СтрНайти(".mp3;", Расширение) <> 0 Тогда
+		
+	ElsIf StrFind(".mp3;",Extension) <> 0 Then
 		Return 64;
-
-	ИначеЕсли СтрНайти(".erf;", Расширение) <> 0 Тогда
-		Return 66; // Внешние отчеты.
-
-	ИначеЕсли СтрНайти(".docx;", Расширение) <> 0 Тогда
-		Return 68; // Файл Microsoft Word docx.
-
-	ИначеЕсли СтрНайти(".xlsx;", Расширение) <> 0 Тогда
-		Return 70; // Файл Microsoft Excel xlsx.
-
-	ИначеЕсли СтрНайти(".pptx;", Расширение) <> 0 Тогда
-		Return 72; // Файл Microsoft PowerPoint pptx.
-
-	ИначеЕсли СтрНайти(".p7s;", Расширение) <> 0 Тогда
-		Return 74; // Файл подписи.
-
-	ИначеЕсли СтрНайти(".p7m;", Расширение) <> 0 Тогда
-		Return 76; // зашифрованное сообщение.
-	Иначе
+		
+	ElsIf StrFind(".erf;",Extension) <> 0 Then
+		Return 66; // External reports.
+		
+	ElsIf StrFind(".docx;",Extension) <> 0 Then
+		Return 68; // Microsoft Word docx file.
+		
+	ElsIf StrFind(".xlsx;",Extension) <> 0 Then
+		Return 70; // Microsoft Excel xlsx file.
+		
+	ElsIf StrFind(".pptx;",Extension) <> 0 Then
+		Return 72; // Microsoft PowerPoint pptx file.
+		
+	ElsIf StrFind(".p7s;",Extension) <> 0 Then
+		Return 74; // Signature file
+		
+	ElsIf StrFind(".p7m;",Extension) <> 0 Then
+		Return 76; // encrypted message.
+	Else
 		Return 4;
-	КонецЕсли;
-
+	EndIf;
 EndFunction
 
 // Преобразует расширение файла в нижний регистр без точки.
