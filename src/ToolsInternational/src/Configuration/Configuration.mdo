@@ -156,7 +156,7 @@
   <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>

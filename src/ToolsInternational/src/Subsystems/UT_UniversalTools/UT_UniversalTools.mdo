@@ -25,7 +25,7 @@
   <content>DataProcessor.UT_CodeConsole</content>
   <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
   <content>Catalog.УИ_Алгоритмы</content>
-  <content>DataProcessor.УИ_ПоискСсылокНаОбъект</content>
+  <content>DataProcessor.UT_ObjectReferencesSearch</content>
   <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
   <content>Report.УИ_КонсольОтчетов</content>
   <content>DataProcessor.УИ_ДинамическийСписок</content>
