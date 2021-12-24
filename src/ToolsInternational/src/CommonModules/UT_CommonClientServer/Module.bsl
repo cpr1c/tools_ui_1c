@@ -9,8 +9,8 @@
 // Параметры:
 //  ОбластьПоиска - ОтборКомпоновкиДанных,КоллекцияЭлементовОтбораКомпоновкиДанных,ГруппаЭлементовОтбораКомпоновкиДанных 
 //   				контейнер с элементами и группами отбора, например Список.Отбор или группа в отборе.
-//  ИмяПоля       - Строка - имя поля компоновки (не используется для групп).
-//  Представление - Строка - представление поля компоновки.
+//  ИмяПоля       - String - имя поля компоновки (не используется для групп).
+//  Представление - String - представление поля компоновки.
 //
 // Возвращаемое значение:
 //  Массив - коллекция отборов.
@@ -860,11 +860,759 @@ EndFunction
 КонецПроцедуры
 
 #КонецОбласти
-#Область ФайловыеФункции
 
-#Область СКД
+////////////////////////////////////////////////////////////////////////
+// English Code Area 
 
-#КонецОбласти
+// Create copy of value type of Structure, Recursively, according of types of properties. 
+// If  structure properties contains values of object types  (catalogref, DocumentRef,etc),
+//  their contents are not copied, but references to the source object are returned..
+//
+// Parameters:
+//  SourceStructure - Structure - copied Structure.
+// 
+// Return value:
+//  Structure - copy of the original structure.
+//
+Function CopyStructure(SourceStructure) Export
+
+	ResultStructure = New Structure;
+
+	For Each  KeyAndValue Из SourceStructure Do
+		ResultStructure.Insert(KeyAndValue.Key, CopyRecursively(KeyAndValue.Vakue));
+	EndDo;
+
+	Return ResultStructure;
+
+EndFunction
+
+// Supplement structure values from secound srtucture.
+//
+// Parameters:
+//   Receiver - Structure - Collection,to which new values will be added..
+//   Source - Structure - Collection, which be used for reading Key and Value for fili
+//   Replace - Boolean, Undefined - what action choose when parts of Source and Receiver are equal
+//   							True  - replace values of receiver (the fastest method)
+//   							False - NOT replace value of receiver (skip)
+//   							Undefined - (default setting) - raise exception 
+//   
+Procedure SupplementStructure(Receiver, Source, Replace = Undefined) Export
+
+	For each  Element in Source do
+		if Replace <> True and Receiver.Property(Element.Key) then
+			if Replace = False then
+				Continue;
+			else
+				Raise StrTemplate(Nstr("ru = 'Пересечение ключей источника и приемника: ""%1"".'; en='Intersection of source and receiver keys: ""%1"".'"),
+					Element.Key);
+			Endif;
+		EndIf;
+		Receiver.Insert(Element.Key, Element.Value);
+	EndDo;
+
+EndProcedure
+
+// Create full copy of structure, map, array, list or value table, Recursively, 
+//  taking into account the types of child elements. Object types values (CatalogObject,DocumentObject, etc) not copied and returns links to the source object.
+//
+// Parameters:
+//  Source - Structure, Map, Array, ValueList, ValueTable - object that you want  to copy.
+//
+// Return value:
+//  Structure, Map, Array, ValueList, ValueTable- copy of the object passed as a parameter to the Source..
+//
+Function CopyRecursively(Source) Export
+
+	Var Receiver;
+	SourceType = TypeOf(Source);
+
+#Если Server Or ThickClientOrdinaryApplication Or ExternalConnection Then
+	If SourceType = Type("ValueTable") Then
+		Return Source.Copy();
+	EndIf;
+#EndIf
+	If SourceType = Type("Structure") Then
+		Receiver = CopyStructure(Source);
+	Elsif SourceType = Type("Map") Then
+		Receiver = CopyMap(Source);
+	Elsif SourceType = Type("Array") Тогда
+		Receiver = CopyArray(Source);
+	Elsif SourceType = Type("ValueList") Then
+		Receiver = CopyValueList(Source);
+	Else
+		Receiver = Source;
+	EndIf;
+
+	Return Receiver;
+
+EndFunction
+
+// Creates a copy of value type of  Map, recursively, based on the types of values.
+// If elements of Map contains object  types values (CatalogObject,DocumentObject, etc).
+//  their contents are not copied, and returns a reference to the original object.
+//
+// Parameters:
+//  SourceMap - Map - map, that need to be copied.
+// 
+// Return value:
+//  Map - copy of Source Map.
+//
+Function CopyMap(SourceMap) Export
+
+	ResultMap = New Map;
+
+	For Each KeyAndValue in SourceMap Do
+		ResultMap.Insert(KeyAndValue.Key, CopyRecursively(KeyAndValue.Value));
+	EndDo;
+
+	Return ResultMap;
+
+EndFunction
+
+// Creates a copy of value type of  Array, recursively, based on the types of values.
+// If elements of Array contains object  types values (CatalogObject,DocumentObject, etc).
+//  their contents are not copied, and returns a reference to the original object.
+//  
+// Parameters:
+//  SourceArray - Array - array, that need to be copied.
+// 
+// Return value:
+//  Array - copy of source array.
+//
+Function CopyArray(SourceArray) Export
+
+	ResultArray = New Array;
+
+	For Each  Item In SourceArray Do
+		ResultArray.Add(CopyRecursively(Item));
+	EndDo;
+
+	Return ResultArray;
+
+EndFunction
+
+// Creates a copy of value type of  ValueList, recursively, based on the types of values.
+// If elements of ValueList contains object  types values (CatalogObject,DocumentObject, etc).
+//  their contents are not copied, and returns a reference to the original object.
+//
+// Parameters:
+//  SourceValueList - ValueList - ValueList that need to be copied.
+// 
+// Return value:
+//  ValueList - copy of source ValueList.
+//
+Function CopyValueList(SourceValueList) Export
+
+	ValueListResult = New ValueList;
+
+	For each  ListItem In SourceValueList Do
+		ValueListResult.Add(CopyRecursively(ListItem.Value), ListItem.Presentation,
+			ListItem.Check, ListItem.Picture);
+	EndDo;
+
+	Return ValueListResult;
+
+EndFunction
+
+// Converts  JobSchedule to Structure.
+//
+// Parameters:
+//  Schedule - JobSchedule - original schedule.
+// 
+// Return value:
+//  Structure - schedule as structure.
+//
+Function ScheduleToStructure (Val Schedule) Export
+
+	ScheduleValue = Schedule;
+	If ScheduleValue = Undefined Then
+		ScheduleValue = New JobSchedule;
+	EndIf;
+	KeysList = "CompletionTime,EndTime,BeginTime,EndDate,BeginDate,DayInMonth,WeekDayInMonth,"
+		+ "WeekDays,CompletionInterval,Months,RepeatPause,WeeksPeriod,RepeatPeriodInDay,DaysRepeatPeriod";
+	Result = New Structure(KeysList);
+	FillPropertyValues(Result, ScheduleValue, KeysList);
+	DetailedDailySchedules = New Array;
+	For Each DailySchedule In Schedule.DetailedDailySchedules Do
+		DetailedDailySchedules.Add(ScheduleToStructure(DailySchedule));
+	EndDo;
+	Result.Вставить("DetailedDailySchedules", DetailedDailySchedules);
+	Return Result;
+
+EndFunction
+
+// Converts  Structure to JobSchedule  .
+// Parameters:
+//  ScheduleStructure - Structure - Schedule in Structure form.
+// 
+// Return value:
+//  JobSchedule - Schedule.
+//
+Function StructureToSchedule(Знач ScheduleStructure) Export
+
+	If ScheduleStructure = UNdefined Then
+		Return New JobSchedule;
+	EndIf;
+	KeysList = "CompletionTime,EndTime,BeginTime,EndDate,BeginDate,DayInMonth,WeekDayInMonth,"
+		+ "WeekDays,CompletionInterval,Months,RepeatPause,WeeksPeriod,RepeatPeriodInDay,DaysRepeatPeriod";
+	Result = New JobSchedule;
+	FillPropertyValues(Result, ScheduleStructure, KeysList);
+
+	DetailedDailySchedules = New Array;
+	For Each Schedule In ScheduleStructure.DetailedDailySchedules Do
+		DetailedDailySchedules.Add(StructureToSchedule(Schedule));
+	EndDo;
+	Result.DetailedDailySchedules = DetailedDailySchedules;
+	Return Result;
+
+EndFunction
+
+// Raises an exception if the ParameterName parameter value type of the ProcedureOrFunctionName 
+// procedure or function does not match the excepted one.
+// For validating types of parameters passed to the interface procedures and functions.
+//
+// Parameters:
+//   ProcedureOrFunctionName - String          - name of the procedure or function that contains the parameter to check.
+//   ParameterName           - String          - name of the parameter of procedure or function to check.
+//   ParameterValue          - Arbitrary       - actual value of the parameter.
+//   ExpectedTypes  - TypesDescription, Type, Array - type(s) of the parameter of procedure or function..
+//   PropertiesTypesToExpect   - Structure     -if the expected type is a structure, this parameter can be used to specify its properties.
+//
+Procedure CheckParameter(Val ProcedureOrFunctionName, Val ParameterName, Val ParameterValue, Val ExpectedTypes,
+	Val PropertiesTypesToExpect = Undefined) Export
+
+	Context = "CommonClientServer.CheckParameter";
+	Validate(
+		TypeOf(ProcedureOrFunctionName) = Type("String"),
+		NStr("ru = 'Недопустимое значение параметра ИмяПроцедурыИлиФункции'; en = 'Invalid value of ProcedureOrFunctionName parameter.'"), 
+		Context);
+		
+	Validate(
+		TypeOf(ParameterName) = Type("String"), 
+		NStr("ru = 'Недопустимое значение параметра ИмяПараметра'; en = 'Invalid value of ParameterName parameter.'"),
+		Context);
+
+	IsCorrectType = ExpectedTypeValue(ParameterValue, ExpectedTypes);
+	
+	Validate(
+		IsCorrectType <> Undefined, 
+		NStr("ru = 'Недопустимое значение параметра ОжидаемыеТипы'; en = 'Invalid value of ExpectedTypes parameter.'"), 
+		Context);
+
+	InvalidParameter = NStr("ru = 'Недопустимое значение параметра %1 в %2. 
+			           |Ожидалось: %3; передано значение: %4 (тип %5).'; 
+			           |en = 'Invalid value of the %1 parameter in %2.
+			           |Expected value: %3, passed value: %4 (type: %5).'");
+								
+								
+	Validate(IsCorrectType, StrTemplate(InvalidParameter, ParameterName, ProcedureOrFunctionName,
+		TypesPresentation(ExpectedTypes), ?(ParameterValue <> Undefined, ParameterValue, NStr(
+		"ru = 'Неопределено'; en = 'Undefined'")), TypeOf(ParameterValue)));
+
+	If TypeOf(ParameterValue) = Type("Structure") AND PropertiesTypesToExpect <> Undefined Then
+
+		Validate(
+			TypeOf(PropertiesTypesToExpect) = Type("Structure"),
+			 NStr("ru = 'Недопустимое значение параметра ИмяПроцедурыИлиФункции';
+				 | en = 'Invalid value of ProcedureOrFunctionName parameter.'"), 
+			Context);
+
+		NoProperty = NStr("ru = 'Недопустимое значение параметра %1 (Структура) в %2. 
+					           |В структуре ожидалось свойство %3 (тип %4).'; 
+					           |en = 'Invalid value of parameter %1 (Structure) in %2.
+					           |Expected value: %3 (type: %4).'");
+						   
+		InvalidProperty = NStr("ru = 'Недопустимое значение свойства %1 в параметре %2 (Структура) в %3. 
+					           |Ожидалось: %4; передано значение: %5 (тип %6).'; 
+					           |en = 'Invalid value of property %1 in parameter %2 (Structure) in %3.
+					           |Expected value: %4; passed value: %5 (type: %6).'");
+					           
+		For Each Property In PropertiesTypesToExpect Do
+
+			ExpectedPropertyName = Property.Key;
+			ExpectedPropertyType = Property.Value;
+			PropertyValue = Undefined;
+
+			Validate(
+				ParameterValue.Свойство(ExpectedPropertyName, PropertyValue), 
+				StrTemplate(NoProperty,ParameterName, ProcedureOrFunctionName, ExpectedPropertyName, ExpectedPropertyType));
+
+			IsCorrectType = ExpectedTypeValue(PropertyValue, ExpectedPropertyType);
+			Validate(IsCorrectType, StrTemplate(InvalidProperty, ExpectedPropertyName, ParameterName,
+				ProcedureOrFunctionName, TypesPresentation(ExpectedTypes), ?(PropertyValue <> Undefined,
+				PropertyValue, NStr("ru = 'Неопределено'; en = 'Undefined'")), TypeOf(PropertyValue)));
+		EndDo;
+	EndIf;
+
+EndProcedure
+
+// Raise exeption with text Message when Condition not equal True.
+// It is used for self-diagnosis of the code.
+//
+// Parameters:
+//   Condition            - Boolean - if not True - raise Exeption
+//   CheckContext     	  - String - for example, name of procedure or function where the check is performed.
+//   Message              - String - text of message.If not set up , would exeption with default text                                     умолчанию.
+//
+Procedure Validate(Val Condition, Val Message = "", Val CheckContext = "") Export
+
+	If Condition <> True Then
+		If IsBlankString(Message) Then
+			RaiseText = Nstr("ru = 'Недопустимая операция';en='Invalid operation'"); // Assertion failed
+		Else
+			RaiseText = Message;
+		Endif;
+		If Not IsBlankString(CheckContext) Then
+			RaiseText = RaiseText + " " + StrTemplate(Nstr("ru = 'в %1';en='at %1'"), CheckContext);
+		EndIf;
+		Raise RaiseText;
+	EndIf;
+
+КонецПроцедуры
+
+Function TypesPresentation(ExpectedTypes)
+	If Typeof(ExpectedTypes) = Type("Array") Then
+		Result = "";
+		Index = 0;
+		For Each Type In ExpectedTypes Do
+			If Not IsBlankString(Result) Then
+				Result = Result + ", ";
+			EndIf;
+			Result = Result + TypePresentation(Type);
+			Index = Index + 1;
+			If Index > 10 Then
+				Result = Result + ",... " + StrTemplate(Nstr("ru = '(всего %1 типов)';en = '(total %1 of types)'"), ExpectedTypes.Count());
+				Break;
+			EndIf;
+		EndDo;
+		Return Result;
+	Else
+		Return TypePresentation(ExpectedTypes);
+	EndIf;
+EndFunction
+
+Function TypePresentation(Type)
+	If Type = Undefined Then
+		Return "Undefined";
+	ElsIf TypeOf(Type) = Type("TypeDescription") Then
+		TypeString = String(Type);
+		Return ?(StrLen(TypeString) > 150, Left(TypeString, 150) + "..." + StrTemplate(NStr("ru = '(всего %1 типов)';en = '(total %1 types'"),
+			Type.Типы().Количество()), TypeString);
+	    Else
+		TypeString = String(Type);
+		Return ?(СтрДлина(TypeString) > 150, Лев(TypeString, 150) + "...", TypeString);
+	EndIf;
+	
+EndFunction
+
+Function ExpectedTypeValue(Value, ExpectedTypes)
+	ValueType = TypeOf(Value);
+	If TypeOf(ExpectedTypes) = Type("TypeDescription") Then
+		Return ExpectedTypes.Types().Find(ValueType) <> Undefined;
+	ElsIf TypeOf(ExpectedTypes) = Type("Type") Then
+		Return ValueType = ExpectedTypes;
+	ElsIf TypeOf(ExpectedTypes) = Type("Array") Or TypeOf(ExpectedTypes) = Type("FixedArray") Then
+		Return ExpectedTypes.Find(ValueType) <> Undefined;
+	ElsIf TypeOf(ExpectedTypes) = Type("Map") 	Or TypeOf(ExpectedTypes) = Type("FixedMap") Then
+		Return ExpectedTypes.Get(ValueType) <> Undefined;
+	EndIf;
+	
+	Return Undefined;
+EndFunction
+
+Procedure AddObjectsArrayToCompare(Objects) Export
+	UT_CommonServerCall.AddObjectsArrayToCompare(Objects);
+EndProcedure
+
+// Return code of configuration default language , for example "ru".
+//
+// Return:
+// String - language code.
+//
+Function DefaultLanguageCode() Export
+#If Not  ThinClient And Not WebClient And Not MobileClient Then
+	Return Metadata.DefaultLanguage.LanguageCode;
+#Else
+	Return UT_CommonCached.DefaultLanguageCode();
+#EndIf
+EndFunction
+
+// Return a reference to the predefined item by its full name.
+// Only the following objects can contain predefined objects:
+//   - Catalogs,
+//   - Charts of characteristic types,
+//   - Charts of accounts,
+//   - Charts of calculation types.
+//
+//  Parameters:
+//   PredefinedItemFullName - String - full path to the predefined item including the name.
+//     The format is identical to the PredefinedValue() global context function.
+//     Example:
+//       "Catalog.ContactInformationKinds.UserEmail"
+//
+// Returns:
+//   AnyRef - reference to the predefined item;
+//   Undefined - if the predefined item exists in metadata but not in the infobase.
+//
+Function PredefinedItem(FullPredefinedItemName) Export
+
+// Using a standard function to get:
+	//  - blank references
+	//  - enumeration values
+	//  - business process route points
+	If ".EMPTYREF" = Upper(Right(FullPredefinedItemName, 13))
+		Or "ENUM." = Upper(Left(FullPredefinedItemName, 13)) 
+		Or "BUSINESSPROCESS." = Upper(Left(FullPredefinedItemName, 14)) Then
+		
+		Return PredefinedValue(FullPredefinedItemName);
+	EndIf;
+	
+
+	// Parsing the full name of the predefined item.
+	FullNameParts = StrSplit(FullPredefinedItemName, ".");
+	If FullNameParts.Count() <> 3 Then 
+		Raise CommonInternalClientServer.PredefinedValueNotFoundErrorText(
+			FullPredefinedItemName);
+	EndIf;
+
+	FullMetadataObjectName = Upper(FullNameParts[0] + "." + FullNameParts[1]);
+	PredefinedItemName = FullNameParts[2];
+	
+	// Cache to be called is determined by context.
+	
+#If Server Or ThickClientOrdinaryApplication Or ExternalConnection Then
+	PredefinedValues = UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
+#Else
+	PredefinedValues = UT_CommonClientCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
+#EndIf
+
+	// In case of error in metadata name.
+	If PredefinedValues = Undefined Then
+		Raise PredefinedValueNotFoundErrorText(FullPredefinedItemName);
+	EndIf;
+
+	// Getting result from cache.
+	Result = PredefinedValues.Get(PredefinedItemName);
+
+    // If the predefined item does not exist in metadata.
+	If Result = Undefined Then 
+		Raise PredefinedValueNotFoundErrorText(FullPredefinedItemName);
+	EndIf;
+
+// If the predefined item exists in metadata but not in the infobase.
+	If Result = Null Then 
+		Return Undefined;
+	EndIf;
+	
+	Return Result;
+
+EndFunction
+
+Function PredefinedValueNotFoundErrorText(PredefinedItemFullName) Export
+	
+	Return StrTemplate(NStr("ru = 'Предопределенное значение ""%1"" не найдено.'; en = 'Predefined value ""%1"" is not found.'"), PredefinedItemFullName);
+	
+EndFunction
+
+Function СancelledTimeConsumingOperationsParametrName(Parameters) Export
+	Return "UT_СancelledTimeConsumingOperations";
+EndFunction
+
+// Returns the structure property value.
+//
+// Parameters:
+//   Structure - Structure, FixedStructure - an object to read key value from.
+//   Key - String - the structure property whose value to read.
+//   DefaultValue - Arbitrary - Optional. Returned when the structure contains no value for the 
+//                                        given key.
+//       To keep the system performance, it is recommended to pass only easy-to-calculate values 
+//       (for example, primitive types). Pass performance-demanding values only after ensuring that 
+//       the value is required.
+//
+// Returns:
+//   Arbitrary - the property value. If the structure missing the property, returns DefaultValue.
+//
+Function StructureProperty(Structure, varKey, DefaultValue = Undefined) Export
+	
+	If Structure = Undefined Then
+		Return DefaultValue;
+	EndIf;
+	
+	Result = DefaultValue;
+	If Structure.Property(varKey, Result) Then
+		Return Result;
+	Else
+		Return DefaultValue;
+	EndIf;
+	
+EndFunction
+
+// Generates and show the message that can relate to a form item..
+//
+// Parameters:
+//  UserMessageText - String - a mesage text.
+//  DataKey - AnyRef - the infobase record key or object that message refers to.
+//  Field                       - String - a form attribute description.
+//  DataPath - String - a data path (a path to a form attribute).
+//  Cancel - Boolean - an output parameter. Always True.
+//
+// Example:
+//
+//  1. Showing the message associated with the object attribute near the managed form field
+//  CommonClientServer.MessageToUser(
+//   NStr("en = 'Error message.'"), ,
+//   "FieldInFormAttributeObject",
+//   "Object");
+//
+//  An alternative variant of using in the object form module
+//  CommonClientServer.MessageToUser(
+//   NStr("en = 'Error message.'"), ,
+//   "Object.FieldInFormAttributeObject");
+//
+//  2. Showing a message for the form attribute, next to the managed form field:
+//  CommonClientServer.MessageToUser(
+//   NStr("en = 'Error message.'"), ,
+//   "FormAttributeName");
+//
+//  3. To display a message associated with an infobase object:
+//  CommonClientServer.MessageToUser(
+//   NStr("en = 'Error message.'"), InfobaseObject, "Responsible person",,Cancel);
+//
+//  4. To display a message from a link to an infobase object:
+//  CommonClientServer.MessageToUser(
+//   NStr("en = 'Error message.'"), Reference, , , Cancel);
+//
+//  Scenarios of incorrect using:
+//   1. Passing DataKey and DataPath parameters at the same time.
+//   2. Passing a value of an illegal type to the DataKey parameter.
+//   3. Specifying a reference without specifying a field (and/or a data path).
+//
+Процедура MessageToUser(Val MessageToUserText,Val DataKey = Undefined,Val Field = "",Val DataPath = "",
+		Cancel = False) Export
+		
+	Message = New UserMessage;
+	Message.Text = MessageToUserText;
+	Message.Field = Field;
+	
+	IsObject = False;
+
+#If NOT ThinClient AND NOT WebClient AND NOT MobileClient Then
+	If DataKey <> Undefined
+	   AND XMLTypeOf(DataKey) <> Undefined Then
+		ValueTypeAsString = XMLTypeOf(DataKey).TypeName;
+		IsObject = StrFind(ValueTypeAsString, "Object.") > 0;
+	EndIf;
+#EndIf
+
+	If IsObject Then
+		Message.SetData(DataKey);
+	Else
+		Message.DataKey = DataKey;
+	EndIf;
+	
+	If NOT IsBlankString(DataPath) Then
+		Message.DataPath = DataPath;
+	EndIf;
+		
+	Message.Message();
+	
+	Cancel = True;
+
+КонецПроцедуры
+
+// Supplements the DestinationArray array with values from the SourceArray array.
+//
+// Parameters:
+//  DestinationArray - Array - the array that receives values.
+//  SourceArray - Array - the array that provides values.
+//  UniqueValuesOnly - Boolean - if True, the array keeps only unique values.
+Procedure SupplementArray(DestinationArray, SourceArray, UniqueValuesOnly = False) Export
+
+	If UniqueValuesOnly Then
+		UniqueValues = New Map;
+		For Each Value In DestinationArray Do
+			UniqueValues.Insert(Value, True);
+		EndDo;
+		For Each Value In SourceArray Do
+			If UniqueValues[Value] = Undefined Then
+				DestinationArray.Add(Value);
+				UniqueValues.Insert(Value, True);
+			EndIf;
+		EndDo;
+	Else
+		For Each Value In SourceArray Do
+			DestinationArray.Add(Value);
+		EndDo;
+	EndIf;
+EndProcedure
+
+Function IsWindows() Export
+	SystemInfo = Новый SystemInfo;
+	Return SystemInfo.PlatformType = PlatformType.Windows_x86 Или SystemInfo.PlatformType
+		= PlatformType.Windows_x86_64;
+EndFunction
+
+Function IsLinux() Export
+	SystemInfo = New SystemInfo;
+	Return SystemInfo.PlatformType = PlatformType.Linux_x86 Или SystemInfo.PlatformType
+		= PlatformType.Linux_x86_64;
+EndFunction
+
+Function PlatformVersionNotLess_8_3_14() Export
+	Return PlatformVersionNotLess("8.3.14");
+EndFunction
+
+Function PlatformVersionNotLess(ComparingVersion) Export
+	VersionWithOutReleaseSubnumber=ConfigurationVersionWithOutReleaseSubnumber(CurrentAppVersion());
+
+	Return CompareVersionsWithOutReleaseSubnumber(VersionWithOutReleaseSubnumber, ComparingVersion)>=0;
+EndFunction
+
+Function HTMLFieldBasedOnWebkit() Export
+	Return PlatformVersionNotLess_8_3_14() OR IsLinux()
+EndFunction
+
+#Region Variables
+Function IsCorrectVariableName(Name) Export
+	If Not ValueIsFilled(Name) Then
+		Return False;
+	EndIf;
+	IsCorrectName = False;
+	//@skip-warning
+	Try
+		//@skip-warning
+		TempVar = New Structure(Name);
+		IsCorrectName=True;
+	Except
+		
+	EndTry;
+	
+	Return IsCorrectName;
+EndFunction
+
+Function WrongVariableNameWarningText() Export
+	Return NStr("ru = 'Неверное имя колонки! Имя должно состоять из одного слова, начинаться с буквы и не содержать специальных символов кроме """"_"""".""';en = 'en=''Invalid column name! The name must consist of a single word, start with a letter and contain no special characters other than """"_"""".""'");
+EndFunction
+
+#EndRegion
+#Region DynamicList
+
+#EndRegion
+#Region Debug
+#EndRegion
+#Region HTTPRequests
+#EndRegion
+#Region JSON
+#EndRegion
+
+// Returns 1C:Enterprise current version.
+//
+Function CurrentAppVersion() Export
+
+	SystemInfo = New SystemInfo;
+	Return SystemInfo.AppVersion;
+
+EndFunction
+
+// Get configuration version number without build number (Release subnumber).
+//
+// Params:
+//  Version - String - configuration version as PV.MV.R.RS,
+//                    where RS - Release subnumber, that will be deleted.
+//                    PV - <primary version>, MV - <minor version>, R - <release>
+// 
+// Return Value:
+//  String - configuration version number without  Release subnumber -  PV.MV.R
+//
+Function ConfigurationVersionWithOutReleaseSubnumber(Val Version) Export
+
+	Array = StrSplit(Version, ".");
+
+	If Array.Count() < 3 Then
+		Return Version;
+	EndIf;
+
+	Result = "[Primary].[Minor].[Release]";
+	Result = StrReplace(Result, "[Primary]", Array[0]);
+	Result = StrReplace(Result, "[Minor]", Array[1]);
+	Result = StrReplace(Result, "[Release]", Array[2]);
+
+	Return Result;
+EndFunction
+
+// Compare two strings that contains version info
+//
+// Parameters:
+//  Version1String  - String - number of version in  РР.{M|MM}.RR.RS format
+//  Version2String  - String - secound compared version number.
+//
+// Return Value значение:
+//   Integer   - more than 0, if Version1String > Version2String; 0, if version values is equal.
+//
+Function CompareVersions(Val Version1String, Val Version2String) Export
+
+	String1 = ?(IsBlankString(Version1String), "0.0.0.0", Version1String);
+	String2 = ?(IsBlankString(Version2String), "0.0.0.0", Version2String);
+	Version1 = StrSplit(String1, ".");
+	If Version1.Count() <> 4 Then
+		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version1String: %1'; en='Wrong format of parameter Version1String: %1'"), Version1String);
+	EndIf;
+	Version2 = StrSplit(String2, ".");
+	If Version2.Count() <> 4 Then
+		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version2String: %1'; en='Wrong format of parameter Version2String: %1'"), Version2String);
+	EndIf;
+
+	Result = 0;
+	For Digit = 0 to 3 do
+		Result = Number(Version2[Digit]) - Number(Version2[Digit]);
+		If Result <> 0 Then
+			Return Result;
+		EndIf;
+	EndDo;
+	Return Result;
+
+EndFunction
+
+// Compare two strings that contains version info
+//
+// Parameters:
+//  Version1String  - String - number of version in  РР.{M|MM}.RR format
+//  Version2String  - String - secound compared version number.
+//
+// Return Value значение:
+//   Integer   - more than 0, if Version1String > Version2String; 0, if version values is equal.
+//
+Function CompareVersionsWithOutReleaseSubnumber(Val Version1String, Val Version2String) Export
+
+	String1 = ?(IsBlankString(Version1String), "0.0.0", Version1String);
+	String2 = ?(IsBlankString(Version2String), "0.0.0", Version2String);
+	Version1 = StrSplit(String1, ".");
+	If Version1.Count() <> 3 Then
+		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version1String: %1'; en='Wrong format of parameter Version1String: %1'"), Version1String);
+	EndIf;
+	Version2 = StrSplit(String2, ".");
+	If Version2.Count() <> 3 Then
+		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version2String: %1'; en='Wrong format of parameter Version2String: %1'"), Version2String);
+	EndIf;
+
+	Result = 0;
+	For Digit = 0 to 2 do
+		Result = Number(Version1[Digit]) - Number(Version2[Digit]);
+		If Result <> 0 Then
+			Return Result;
+		EndIf;
+	КонецЦикла;
+	Return Result;
+
+EndFunction
+
+#Region WriteParams
+
+#EndRegion
+
+#Region FileFunctions
+
+#EndRegion
 
 // Получается индекс пиктограммы файла - индекс в картинке КоллекцияПиктограммФайлов.
 Function ПолучитьИндексПиктограммыФайла(Знач РасширениеФайла) Export
@@ -1011,740 +1759,6 @@ Function РасширениеБезТочки(Знач Расширение) Exp
 
 EndFunction
 
-#КонецОбласти
-
-////////////////////////////////////////////////////////////////////////
-// English Code Area 
-
-
-// Create copy of value type of Structure, Recursively, according of types of properties. 
-// If  structure properties contains values of object types  (catalogref, DocumentRef,etc),
-//  their contents are not copied, but references to the source object are returned..
-//
-// Parameters:
-//  SourceStructure - Structure - copied Structure.
-// 
-// Return value:
-//  Structure - copy of the original structure.
-//
-Function CopyStructure(SourceStructure) Export
-
-	ResultStructure = New Structure;
-
-	For Each  KeyAndValue Из SourceStructure Do
-		ResultStructure.Insert(KeyAndValue.Key, CopyRecursively(KeyAndValue.Vakue));
-	EndDo;
-
-	Return ResultStructure;
-
-EndFunction
-
-// Supplement structure values from secound srtucture.
-//
-// Parameters:
-//   Receiver - Structure - Collection,to which new values will be added..
-//   Source - Structure - Collection, which be used for reading Key and Value for fili
-//   Replace - Boolean, Undefined - what action choose when parts of Source and Receiver are equal
-//   							True  - replace values of receiver (the fastest method)
-//   							False - NOT replace value of receiver (skip)
-//   							Undefined - (default setting) - raise exception 
-//   
-Procedure SupplementStructure(Receiver, Source, Replace = Undefined) Export
-
-	For each  Element in Source do
-		if Replace <> True and Receiver.Property(Element.Key) then
-			if Replace = False then
-				Continue;
-			else
-				Raise StrTemplate(Nstr("ru = 'Пересечение ключей источника и приемника: ""%1"".'; en='Intersection of source and receiver keys: ""%1"".'"),
-					Element.Key);
-			Endif;
-		EndIf;
-		Receiver.Insert(Element.Key, Element.Value);
-	EndDo;
-
-EndProcedure
-
-// Create full copy of structure, map, array, list or value table, Recursively, 
-//  taking into account the types of child elements. Object types values (CatalogObject,DocumentObject, etc) not copied and returns links to the source object.
-//
-// Parameters:
-//  Source - Structure, Map, Array, ValueList, ValueTable - object that you want  to copy.
-//
-// Return value:
-//  Structure, Map, Array, ValueList, ValueTable- copy of the object passed as a parameter to the Source..
-//
-Function CopyRecursively(Source) Export
-
-	Var Receiver;
-	
-
-	SourceType = TypeOf(Source);
-
-#Если Server Or ThickClientOrdinaryApplication Or ExternalConnection Then
-	If SourceType = Type("ValueTable") Then
-		Return Source.Copy();
-	EndIf;
-#EndIf
-	If SourceType = Type("Structure") Then
-		Receiver = CopyStructure(Source);
-	Elsif SourceType = Type("Map") Then
-		Receiver = CopyMap(Source);
-	Elsif SourceType = Type("Array") Тогда
-		Receiver = CopyArray(Source);
-	Elsif SourceType = Type("ValueList") Then
-		Receiver = CopyValueList(Source);
-	Else
-		Receiver = Source;
-	EndIf;
-
-	Return Receiver;
-
-EndFunction
-
-// Creates a copy of value type of  Map, recursively, based on the types of values.
-// If elements of Map contains object  types values (CatalogObject,DocumentObject, etc).
-//  their contents are not copied, and returns a reference to the original object.
-//
-// Parameters:
-//  SourceMap - Map - map, that need to be copied.
-// 
-// Return value:
-//  Map - copy of Source Map.
-//
-Function CopyMap(SourceMap) Export
-
-	ResultMap = New Map;
-
-	For Each KeyAndValue in SourceMap Do
-		ResultMap.Insert(KeyAndValue.Key, CopyRecursively(KeyAndValue.Value));
-	EndDo;
-
-	Return ResultMap;
-
-EndFunction
-
-// Creates a copy of value type of  Array, recursively, based on the types of values.
-// If elements of Array contains object  types values (CatalogObject,DocumentObject, etc).
-//  their contents are not copied, and returns a reference to the original object.
-//  
-// Parameters:
-//  SourceArray - Array - array, that need to be copied.
-// 
-// Return value:
-//  Array - copy of source array.
-//
-Function CopyArray(SourceArray) Export
-
-	ResultArray = New Array;
-
-	For Each  Item In SourceArray Do
-		ResultArray.Add(CopyRecursively(Item));
-	EndDo;
-
-	Return ResultArray;
-
-EndFunction
-
-// Creates a copy of value type of  ValueList, recursively, based on the types of values.
-// If elements of ValueList contains object  types values (CatalogObject,DocumentObject, etc).
-//  their contents are not copied, and returns a reference to the original object.
-//
-// Parameters:
-//  SourceValueList - ValueList - ValueList that need to be copied.
-// 
-// Return value:
-//  ValueList - copy of source ValueList.
-//
-Function CopyValueList(SourceValueList) Export
-
-	ValueListResult = New ValueList;
-
-	For each  ListItem In SourceValueList Do
-		ValueListResult.Add(CopyRecursively(ListItem.Value), ListItem.Presentation,
-			ListItem.Check, ListItem.Picture);
-	EndDo;
-
-	Return ValueListResult;
-
-EndFunction
-
-// Converts  JobSchedule to Structure.
-//
-// Parameters:
-//  Schedule - JobSchedule - original schedule.
-// 
-// Return value:
-//  Structure - schedule as structure.
-//
-Function ScheduleToStructure (Val Schedule) Export
-
-	ScheduleValue = Schedule;
-	If ScheduleValue = Undefined Then
-		ScheduleValue = New JobSchedule;
-	EndIf;
-	KeysList = "CompletionTime,EndTime,BeginTime,EndDate,BeginDate,DayInMonth,WeekDayInMonth,"
-		+ "WeekDays,CompletionInterval,Months,RepeatPause,WeeksPeriod,RepeatPeriodInDay,DaysRepeatPeriod";
-	Result = New Structure(KeysList);
-	FillPropertyValues(Result, ScheduleValue, KeysList);
-	DetailedDailySchedules = New Array;
-	For Each DailySchedule In Schedule.DetailedDailySchedules Do
-		DetailedDailySchedules.Add(ScheduleToStructure(DailySchedule));
-	EndDo;
-	Result.Вставить("DetailedDailySchedules", DetailedDailySchedules);
-	Return Result;
-
-EndFunction
-
-// Converts  Structure to JobSchedule  .
-// Parameters:
-//  ScheduleStructure - Structure - Schedule in Structure form.
-// 
-// Return value:
-//  JobSchedule - Schedule.
-//
-Function StructureToSchedule(Знач ScheduleStructure) Export
-
-	If ScheduleStructure = UNdefined Then
-		Return New JobSchedule;
-	EndIf;
-	KeysList = "CompletionTime,EndTime,BeginTime,EndDate,BeginDate,DayInMonth,WeekDayInMonth,"
-		+ "WeekDays,CompletionInterval,Months,RepeatPause,WeeksPeriod,RepeatPeriodInDay,DaysRepeatPeriod";
-	Result = New JobSchedule;
-	FillPropertyValues(Result, ScheduleStructure, KeysList);
-
-	DetailedDailySchedules = New Array;
-	For Each Schedule In ScheduleStructure.DetailedDailySchedules Do
-		DetailedDailySchedules.Add(StructureToSchedule(Schedule));
-	EndDo;
-	Result.DetailedDailySchedules = DetailedDailySchedules;
-	Return Result;
-
-EndFunction
-
-// Вызывает исключение, если тип значения параметра ИмяПараметра процедуры или функции ИмяПроцедурыИлиФункции
-// отличается от ожидаемого.
-// Для диагностики типов параметров, передаваемых в процедуры и функции программного интерфейса.
-//
-// Параметры:
-//   ИмяПроцедурыИлиФункции - Строка             - имя процедуры или функции, параметр которой проверяется.
-//   ИмяПараметра           - Строка             - имя проверяемого параметра процедуры или функции.
-//   ЗначениеПараметра      - Произвольный       - фактическое значение параметра.
-//   ОжидаемыеТипы  - ОписаниеТипов, Тип, Массив - тип(ы) параметра процедуры или функции.
-//   ОжидаемыеТипыСвойств   - Structure          - если ожидаемый тип - Structure, то 
-//                                                 в этом параметре можно указать типы ее свойств.
-//
-Procedure ПроверитьПараметр(Знач ИмяПроцедурыИлиФункции, Знач ИмяПараметра, Знач ЗначениеПараметра, Знач ОжидаемыеТипы,
-	Знач ОжидаемыеТипыСвойств = Неопределено) Export
-
-	Контекст = "ОбщегоНазначенияКлиентСервер.ПроверитьПараметр";
-	Check(ТипЗнч(ИмяПроцедурыИлиФункции) = Тип("Строка"), НСтр(
-		"ru = 'Недопустимо значение параметра ИмяПроцедурыИлиФункции'"), Контекст);
-	Check(ТипЗнч(ИмяПараметра) = Тип("Строка"), НСтр("ru = 'Недопустимо значение параметра ИмяПараметра'"),
-		Контекст);
-
-	ЭтоКорректныйТип = ЗначениеОжидаемогоТипа(ЗначениеПараметра, ОжидаемыеТипы);
-	Check(ЭтоКорректныйТип <> Неопределено, НСтр("ru = 'Недопустимо значение параметра ОжидаемыеТипы'"), Контекст);
-
-	НедопустимыйПараметр = НСтр("ru = 'Недопустимое значение параметра %1 в %2. 
-								|Ожидалось: %3; передано значение: %4 (тип %5).'");
-	Check(ЭтоКорректныйТип, СтрШаблон(НедопустимыйПараметр, ИмяПараметра, ИмяПроцедурыИлиФункции,
-		ПредставлениеТипов(ОжидаемыеТипы), ?(ЗначениеПараметра <> Неопределено, ЗначениеПараметра, НСтр(
-		"ru = 'Неопределено'")), ТипЗнч(ЗначениеПараметра)));
-
-	Если ТипЗнч(ЗначениеПараметра) = Тип("Structure") И ОжидаемыеТипыСвойств <> Неопределено Тогда
-
-		Check(ТипЗнч(ОжидаемыеТипыСвойств) = Тип("Structure"), НСтр(
-			"ru = 'Недопустимо значение параметра ИмяПроцедурыИлиФункции'"), Контекст);
-
-		НетСвойства = НСтр("ru = 'Недопустимое значение параметра %1 (Structure) в %2. 
-						   |В структуре ожидалось свойство %3 (тип %4).'");
-		НедопустимоеСвойство = НСтр("ru = 'Недопустимое значение свойства %1 в параметре %2 (Structure) в %3. 
-									|Ожидалось: %4; передано значение: %5 (тип %6).'");
-		Для Каждого Свойство Из ОжидаемыеТипыСвойств Цикл
-
-			ОжидаемоеИмяСвойства = Свойство.Ключ;
-			ОжидаемыйТипСвойства = Свойство.Значение;
-			ЗначениеСвойства = Неопределено;
-
-			Check(ЗначениеПараметра.Свойство(ОжидаемоеИмяСвойства, ЗначениеСвойства), СтрШаблон(НетСвойства,
-				ИмяПараметра, ИмяПроцедурыИлиФункции, ОжидаемоеИмяСвойства, ОжидаемыйТипСвойства));
-
-			ЭтоКорректныйТип = ЗначениеОжидаемогоТипа(ЗначениеСвойства, ОжидаемыйТипСвойства);
-			Check(ЭтоКорректныйТип, СтрШаблон(НедопустимоеСвойство, ОжидаемоеИмяСвойства, ИмяПараметра,
-				ИмяПроцедурыИлиФункции, ПредставлениеТипов(ОжидаемыеТипы), ?(ЗначениеСвойства <> Неопределено,
-				ЗначениеСвойства, НСтр("ru = 'Неопределено'")), ТипЗнч(ЗначениеСвойства)));
-		КонецЦикла;
-	КонецЕсли;
-
-EndProcedure
-
-// Raise exeption with text Message when Condition not equal True.
-// It is used for self-diagnosis of the code.
-//
-// Parameters:
-//   Condition            - Boolean - if not True - raise Exeption
-//   CheckContext     	  - String - for example, name of procedure or function where the check is performed.
-//   Message              - String - text of message.If not set up , would exeption with default text                                     умолчанию.
-//
-Procedure Check(Val Condition, Val Message = "", Val CheckContext = "") Export
-
-	If Condition <> True Then
-		If IsBlankString(Message) Then
-			RaiseText = Nstr("ru = 'Недопустимая операция';en='Invalid operation'"); // Assertion failed
-		Else
-			RaiseText = Message;
-		Endif;
-		If Not IsBlankString(CheckContext) Then
-			RaiseText = RaiseText + " " + StrTemplate(Nstr("ru = 'в %1';en='at %1'"), CheckContext);
-		EndIf;
-		Raise RaiseText;
-	EndIf;
-
-КонецПроцедуры
-
-Function ПредставлениеТипов(ОжидаемыеТипы)
-	Если ТипЗнч(ОжидаемыеТипы) = Тип("Массив") Тогда
-		Результат = "";
-		Индекс = 0;
-		Для Каждого Тип Из ОжидаемыеТипы Цикл
-			Если Не IsBlankString(Результат) Тогда
-				Результат = Результат + ", ";
-			КонецЕсли;
-			Результат = Результат + ПредставлениеТипа(Тип);
-			Индекс = Индекс + 1;
-			Если Индекс > 10 Тогда
-				Результат = Результат + ",... " + СтрШаблон(НСтр("ru='(всего %1 типов)'"), ОжидаемыеТипы.Количество());
-				Прервать;
-			КонецЕсли;
-		КонецЦикла;
-		Return Результат;
-	Иначе
-		Return ПредставлениеТипа(ОжидаемыеТипы);
-	КонецЕсли;
-EndFunction
-
-Function ПредставлениеТипа(Тип)
-	Если Тип = Неопределено Тогда
-		Return "Неопределено";
-	ИначеЕсли ТипЗнч(Тип) = Тип("ОписаниеТипов") Тогда
-		ТипСтрокой = Строка(Тип);
-		Return ?(СтрДлина(ТипСтрокой) > 150, Лев(ТипСтрокой, 150) + "..." + СтрШаблон(НСтр("ru='(всего %1 типов)'"),
-			Тип.Типы().Количество()), ТипСтрокой);
-	Иначе
-		ТипСтрокой = Строка(Тип);
-		Return ?(СтрДлина(ТипСтрокой) > 150, Лев(ТипСтрокой, 150) + "...", ТипСтрокой);
-	КонецЕсли;
-EndFunction
-
-Function ЗначениеОжидаемогоТипа(Значение, ОжидаемыеТипы)
-	ТипЗначения = ТипЗнч(Значение);
-	Если ТипЗнч(ОжидаемыеТипы) = Тип("ОписаниеТипов") Тогда
-		Return ОжидаемыеТипы.Типы().Найти(ТипЗначения) <> Неопределено;
-	ИначеЕсли ТипЗнч(ОжидаемыеТипы) = Тип("Тип") Тогда
-		Return ТипЗначения = ОжидаемыеТипы;
-	ИначеЕсли ТипЗнч(ОжидаемыеТипы) = Тип("Массив") Или ТипЗнч(ОжидаемыеТипы) = Тип("ФиксированныйМассив") Тогда
-		Return ОжидаемыеТипы.Найти(ТипЗначения) <> Неопределено;
-	ИначеЕсли ТипЗнч(ОжидаемыеТипы) = Тип("Соответствие") Или ТипЗнч(ОжидаемыеТипы) = Тип("ФиксированноеСоответствие") Тогда
-		Return ОжидаемыеТипы.Получить(ТипЗначения) <> Неопределено;
-	КонецЕсли;
-	Return Неопределено;
-EndFunction
-
-Procedure AddObjectsArrayToCompare(Objects) Export
-	UT_CommonServerCall.AddObjectsArrayToCompare(Objects);
-EndProcedure
-
-// Return code of configuration default language , for example "ru".
-//
-// Return:
-//  String - language code.
-//
-Function DefaultLanguageCode() Export
-#If Не ТонкийКлиент И Не ВебКлиент И Не МобильныйКлиент Then
-	Return Метаданные.ОсновнойЯзык.КодЯзыка;
-#Иначе
-		Return UT_CommonCached.DefaultLanguageCode();
-#EndIf
-EndFunction
-
-// Return a reference to the predefined item by its full name.
-// Only the following objects can contain predefined objects:
-//   - Catalogs,
-//   - Charts of characteristic types,
-//   - Charts of accounts,
-//   - Charts of calculation types.
-//
-//  Parameters:
-//   PredefinedItemFullName - String - full path to the predefined item including the name.
-//     The format is identical to the PredefinedValue() global context function.
-//     Example:
-//       "Catalog.ContactInformationKinds.UserEmail"
-//
-// Returns:
-//   AnyRef - reference to the predefined item.
-//   Undefined - if the predefined item exists in metadata but not in the infobase.
-//
-Function PredefinedItem(FullPredefinedItemName) Export
-
-// Using a standard function to get:
-	//  - blank references
-	//  - enumeration values
-	//  - business process route points
-	If ".EMPTYREF" = Upper(Right(FullPredefinedItemName, 13))
-		Or "ENUM." = Upper(Left(FullPredefinedItemName, 13)) 
-		Or "BUSINESSPROCESS." = Upper(Left(FullPredefinedItemName, 14)) Then
-		
-		Return PredefinedValue(FullPredefinedItemName);
-	EndIf;
-	
-
-	// Parsing the full name of the predefined item.
-	FullNameParts = StrSplit(FullPredefinedItemName, ".");
-	If FullNameParts.Count() <> 3 Then 
-		Raise CommonInternalClientServer.PredefinedValueNotFoundErrorText(
-			FullPredefinedItemName);
-	EndIf;
-
-	FullMetadataObjectName = Upper(FullNameParts[0] + "." + FullNameParts[1]);
-	PredefinedItemName = FullNameParts[2];
-	
-	// Cache to be called is determined by context.
-	
-#If Server Or ThickClientOrdinaryApplication Or ExternalConnection Then
-	PredefinedValues = UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
-#Else
-	PredefinedValues = UT_CommonClientCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
-#EndIf
-
-	// In case of error in metadata name.
-	If PredefinedValues = Undefined Then
-		Raise PredefinedValueNotFoundErrorText(FullPredefinedItemName);
-	EndIf;
-
-	// Getting result from cache.
-	Result = PredefinedValues.Get(PredefinedItemName);
-
-    // If the predefined item does not exist in metadata.
-	If Result = Undefined Then 
-		Raise PredefinedValueNotFoundErrorText(FullPredefinedItemName);
-	EndIf;
-
-// If the predefined item exists in metadata but not in the infobase.
-	If Result = Null Then 
-		Return Undefined;
-	EndIf;
-	
-	Return Result;
-
-EndFunction
-
-Function PredefinedValueNotFoundErrorText(PredefinedItemFullName) Export
-	
-	Return StrTemplate(NStr("ru = 'Предопределенное значение ""%1"" не найдено.'; en = 'Predefined value ""%1"" is not found.'"), PredefinedItemFullName);
-	
-EndFunction
-
-Function СancelledTimeConsumingOperationsParametrName(Parameters) Export
-	Return "UT_СancelledTimeConsumingOperations";
-EndFunction
-
-// Returns the structure property value.
-//
-// Parameters:
-//   Structure - Structure, FixedStructure - an object to read key value from.
-//   Key - String - the structure property whose value to read.
-//   DefaultValue - Arbitrary - Optional. Returned when the structure contains no value for the 
-//                                        given key.
-//       To keep the system performance, it is recommended to pass only easy-to-calculate values 
-//       (for example, primitive types). Pass performance-demanding values only after ensuring that 
-//       the value is required.
-//
-// Returns:
-//   Arbitrary - the property value. If the structure missing the property, returns DefaultValue.
-//
-Function StructureProperty(Structure, varKey, DefaultValue = Undefined) Export
-	
-	If Structure = Undefined Then
-		Return DefaultValue;
-	EndIf;
-	
-	Result = DefaultValue;
-	If Structure.Property(varKey, Result) Then
-		Return Result;
-	Else
-		Return DefaultValue;
-	EndIf;
-	
-EndFunction
-
-// Generates and show the message that can relate to a form item..
-//
-// Parameters:
-//  UserMessageText - String - a mesage text.
-//  DataKey - AnyRef - the infobase record key or object that message refers to.
-//  Field                       - String - a form attribute description.
-//  DataPath - String - a data path (a path to a form attribute).
-//  Cancel - Boolean - an output parameter. Always True.
-//
-// Example:
-//
-//  1. Showing the message associated with the object attribute near the managed form field
-//  CommonClientServer.MessageToUser(
-//   NStr("en = 'Error message.'"), ,
-//   "FieldInFormAttributeObject",
-//   "Object");
-//
-//  An alternative variant of using in the object form module
-//  CommonClientServer.MessageToUser(
-//   NStr("en = 'Error message.'"), ,
-//   "Object.FieldInFormAttributeObject");
-//
-//  2. Showing a message for the form attribute, next to the managed form field:
-//  CommonClientServer.MessageToUser(
-//   NStr("en = 'Error message.'"), ,
-//   "FormAttributeName");
-//
-//  3. To display a message associated with an infobase object:
-//  CommonClientServer.MessageToUser(
-//   NStr("en = 'Error message.'"), InfobaseObject, "Responsible person",,Cancel);
-//
-//  4. To display a message from a link to an infobase object:
-//  CommonClientServer.MessageToUser(
-//   NStr("en = 'Error message.'"), Reference, , , Cancel);
-//
-//  Scenarios of incorrect using:
-//   1. Passing DataKey and DataPath parameters at the same time.
-//   2. Passing a value of an illegal type to the DataKey parameter.
-//   3. Specifying a reference without specifying a field (and/or a data path).
-//
-Процедура MessageToUser(Val MessageToUserText,Val DataKey = Undefined,Val Field = "",Val DataPath = "",
-		Cancel = False) Export
-
-	Message = New UserMessage;
-	Message.Text = MessageToUserText;
-	Message.Field = Field;
-	
-	IsObject = False;
-
-#If NOT ThinClient AND NOT WebClient AND NOT MobileClient Then
-	If DataKey <> Undefined
-	   AND XMLTypeOf(DataKey) <> Undefined Then
-		ValueTypeAsString = XMLTypeOf(DataKey).TypeName;
-		IsObject = StrFind(ValueTypeAsString, "Object.") > 0;
-	EndIf;
-#EndIf
-
-	If IsObject Then
-		Message.SetData(DataKey);
-	Else
-		Message.DataKey = DataKey;
-	EndIf;
-	
-	If NOT IsBlankString(DataPath) Then
-		Message.DataPath = DataPath;
-	EndIf;
-		
-	Message.Message();
-	
-	Cancel = True;
-
-КонецПроцедуры
-
-// Supplements the DestinationArray array with values from the SourceArray array.
-//
-// Parameters:
-//  DestinationArray - Array - the array that receives values.
-//  SourceArray - Array - the array that provides values.
-//  UniqueValuesOnly - Boolean - if True, the array keeps only unique values.
-Procedure SupplementArray(DestinationArray, SourceArray, UniqueValuesOnly = False) Export
-
-	If UniqueValuesOnly Then
-		UniqueValues = New Map;
-		For Each Value In DestinationArray Do
-			UniqueValues.Insert(Value, True);
-		EndDo;
-		For Each Value In SourceArray Do
-			If UniqueValues[Value] = Undefined Then
-				DestinationArray.Add(Value);
-				UniqueValues.Insert(Value, True);
-			EndIf;
-		EndDo;
-	Else
-		For Each Value In SourceArray Do
-			DestinationArray.Add(Value);
-		EndDo;
-	EndIf;
-EndProcedure
-
-Function IsWindows() Export
-	SystemInfo = Новый SystemInfo;
-	Return SystemInfo.PlatformType = PlatformType.Windows_x86 Или SystemInfo.PlatformType
-		= PlatformType.Windows_x86_64;
-EndFunction
-
-Function IsLinux() Export
-	SystemInfo = New SystemInfo;
-	Return SystemInfo.PlatformType = PlatformType.Linux_x86 Или SystemInfo.PlatformType
-		= PlatformType.Linux_x86_64;
-EndFunction
-
-Function PlatformVersionNotLess_8_3_14() Export
-	Return PlatformVersionNotLess("8.3.14");
-EndFunction
-
-Function PlatformVersionNotLess(ComparingVersion) Export
-	VersionWithOutReleaseSubnumber=ConfigurationVersionWithOutReleaseSubnumber(CurrentAppVersion());
-
-	Return CompareVersionsWithOutReleaseSubnumber(VersionWithOutReleaseSubnumber, ComparingVersion)>=0;
-EndFunction
-
-Function HTMLFieldBasedOnWebkit() Export
-	Return PlatformVersionNotLess_8_3_14() OR IsLinux()
-EndFunction
-
-#Region Variables
-Function IsCorrectVariableName(Name) Export
-	If Not ValueIsFilled(Name) Then
-		Return False;
-	EndIf;
-	IsCorrectName = False;
-	Try
-		TempVar = New Structure(Name);
-		IsCorrectName=True;
-	Except
-	EndTry;
-	
-	Return IsCorrectName;
-EndFunction
-
-Function WrongVariableNameWarningText() Export
-	Return NStr("ru='Неверное имя колонки! Имя должно состоять из одного слова, начинаться с буквы и не содержать специальных символов кроме ""_""."";
-				|en='Invalid column name! The name must consist of a single word, start with a letter and contain no special characters other than ""_"".""'
-				|");
-EndFunction
-
-#EndRegion
-#Region DynamicList
-
-#EndRegion
-#Region Debug
-#EndRegion
-#Region HTTPRequests
-#EndRegion
-#Region JSON
-#EndRegion
-
-// Returns 1C:Enterprise current version.
-//
-Function CurrentAppVersion() Export
-
-	SystemInfo = New SystemInfo;
-	Return SystemInfo.AppVersion;
-
-EndFunction
-
-// Get configuration version number without build number (Release subnumber).
-//
-// Params:
-//  Version - String - configuration version as PV.MV.R.RS,
-//                    where RS - Release subnumber, that will be deleted.
-//                    PV - <primary version>, MV - <minor version>, R - <release>
-// 
-// Return Value:
-//  String - configuration version number without  Release subnumber -  PV.MV.R
-//
-Function ConfigurationVersionWithOutReleaseSubnumber(Val Version) Export
-
-	Array = StrSplit(Version, ".");
-
-	If Array.Count() < 3 Then
-		Return Version;
-	EndIf;
-
-	Result = "[Primary].[Minor].[Release]";
-	Result = StrReplace(Result, "[Primary]", Array[0]);
-	Result = StrReplace(Result, "[Minor]", Array[1]);
-	Result = StrReplace(Result, "[Release]", Array[2]);
-
-	Return Result;
-EndFunction
-
-// Compare two strings that contains version info
-//
-// Parameters:
-//  Version1String  - String - number of version in  РР.{M|MM}.RR.RS format
-//  Version2String  - String - secound compared version number.
-//
-// Return Value значение:
-//   Integer   - more than 0, if Version1String > Version2String; 0, if version values is equal.
-//
-Function CompareVersions(Val Version1String, Val Version2String) Export
-
-	String1 = ?(IsBlankString(Version1String), "0.0.0.0", Version1String);
-	String2 = ?(IsBlankString(Version2String), "0.0.0.0", Version2String);
-	Version1 = StrSplit(String1, ".");
-	If Version1.Count() <> 4 Then
-		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version1String: %1'; en='Wrong format of parameter Version1String: %1'"), Version1String);
-	EndIf;
-	Version2 = StrSplit(String2, ".");
-	If Version2.Count() <> 4 Then
-		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version2String: %1'; en='Wrong format of parameter Version2String: %1'"), Version2String);
-	EndIf;
-
-	Result = 0;
-	For Digit = 0 to 3 do
-		Result = Number(Version2[Digit]) - Number(Version2[Digit]);
-		If Result <> 0 Then
-			Return Result;
-		EndIf;
-	EndDo;
-	Return Result;
-
-EndFunction
-
-// Compare two strings that contains version info
-//
-// Parameters:
-//  Version1String  - String - number of version in  РР.{M|MM}.RR format
-//  Version2String  - String - secound compared version number.
-//
-// Return Value значение:
-//   Integer   - more than 0, if Version1String > Version2String; 0, if version values is equal.
-//
-//
-Function CompareVersionsWithOutReleaseSubnumber(Val Version1String, Val Version2String) Export
-
-	String1 = ?(IsBlankString(Version1String), "0.0.0", Version1String);
-	String2 = ?(IsBlankString(Version2String), "0.0.0", Version2String);
-	Version1 = StrSplit(String1, ".");
-	If Version1.Count() <> 3 Then
-		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version1String: %1'; en='Wrong format of parameter Version1String: %1'"), Version1String);
-	EndIf;
-	Version2 = StrSplit(String2, ".");
-	If Version2.Count() <> 3 Then
-		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version2String: %1'; en='Wrong format of parameter Version2String: %1'"), Version2String);
-	EndIf;
-
-	Result = 0;
-	For Digit = 0 to 2 do
-		Result = Number(Version1[Digit]) - Number(Version2[Digit]);
-		If Result <> 0 Then
-			Return Result;
-		EndIf;
-	КонецЦикла;
-	Return Result;
-
-EndFunction
-
-#Region WriteParams
-
-#EndRegion
-
-#Region FileFunctions
-
-#EndRegion
-
 #Region ToolsSettings
 	
 Function SettingsDataKeyInSettingsStorage() Export
@@ -1792,7 +1806,6 @@ Function ToolsFormOutputWriteSettings() Export
 	Array.Add("WritingInLoadMode");    
 	Array.Add("PrivilegedMode");     
 	Array.Add("WithOutChangeRecording");
-
 	Return Array;
 EndFunction
 
@@ -1800,7 +1813,7 @@ Function FormWriteSettings(Форма, ПрефиксРеквизитаФорм�
 	WriteSettings=StructureПараметровЗаписиПоУмолчанию();
 
 	For each КлючЗначение In WriteSettings Do
-		If ТипЗнч(КлючЗначение.Значение) = Тип("Structure") Then
+		If ТипЗнч(КлючЗначение.Значение) = Type("Structure") Then
 			For Each Стр In Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ] Do
 				WriteSettings[КлючЗначение.Ключ].Вставить(Стр.Ключ, Стр.Значение);
 			EndDo;
