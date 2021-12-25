@@ -1,343 +1,375 @@
-#Область ДинамическийСписок
+#Область DynamicList
 
 ////////////////////////////////////////////////////////////////////////////////
-// Функции для работы с отборами и параметрами динамических списков.
+// Functions for works with dynamic list filters and parameters.
 //
 
-// Найти элемент или группу отбора по заданному имени поля или представлению.
+// Searches for the item and the group of the dynamic list filter by the passed field name or presentation.
 //
-// Параметры:
-//  ОбластьПоиска - ОтборКомпоновкиДанных,КоллекцияЭлементовОтбораКомпоновкиДанных,ГруппаЭлементовОтбораКомпоновкиДанных 
-//   				контейнер с элементами и группами отбора, например Список.Отбор или группа в отборе.
-//  ИмяПоля       - String - имя поля компоновки (не используется для групп).
-//  Представление - String - представление поля компоновки.
+// Parameters:
+//  SearchArea - DataCompositionFilter, DataCompositionFilterItemCollection,DataCompositionFilterItemGroup - a container of items and filter groups. For 
+//                  example, List.Filter or a group in a filer.
+//  FieldName - String - a composition field name. Not applicable to groups.
+//  Presentation - String - the composition field presentation.
 //
-// Возвращаемое значение:
-//  Массив - коллекция отборов.
+// Returns:
+//  Array - a collection of filters.
 //
-Function НайтиЭлементыИГруппыОтбора(Знач ОбластьПоиска, Знач ИмяПоля = Неопределено, Знач Представление = Неопределено) Export
+Function FindFilterItemsAndGroups(Val SearchArea,
+									Val FieldName = Undefined,
+									Val Presentation = Undefined) Export
+	
+	If ValueIsFilled(FieldName) Then
+		SearchValue = New DataCompositionField(FieldName);
+		SearchMethod = 1;
+	Else
+		SearchMethod = 2;
+		SearchValue = Presentation;
+	EndIf;
+	
+	ItemArray = New Array;
 
-	Если ValueIsFilled(ИмяПоля) Тогда
-		ЗначениеПоиска = Новый ПолеКомпоновкиДанных(ИмяПоля);
-		СпособПоиска = 1;
-	Иначе
-		СпособПоиска = 2;
-		ЗначениеПоиска = Представление;
-	КонецЕсли;
+	НайтиРекурсивно(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
 
-	МассивЭлементов = Новый Массив;
-
-	НайтиРекурсивно(ОбластьПоиска.Элементы, МассивЭлементов, СпособПоиска, ЗначениеПоиска);
-
-	Return МассивЭлементов;
+	Return ItemArray;
 
 EndFunction
 
-// Добавить группу отбора в коллекцию КоллекцияЭлементов.
+// Adds filter groups to ItemCollection.
 //
-// Параметры:
-//  КоллекцияЭлементов - ОтборКомпоновкиДанных, КоллекцияЭлементовОтбораКомпоновкиДанных,ГруппаЭлементовОтбораКомпоновкиДанных- 
-//   контейнер с элементами и группами отбора, например Список.Отбор или группа в отборе.
-//  Представление      - Строка - представление группы.
-//  ТипГруппы          - ТипГруппыЭлементовОтбораКомпоновкиДанных - тип группы.
+// Parameters:
+//  ItemCollection - DataCompositionFilter, DataCompositionFilterItemCollection,
+//                       DataCompositionFilterItemGroup - a container of items and filter groups. 
+//                       For example, List.Filter or a group in a filer.
+//  Presentation - String - the group presentation.
+//  GroupType - DataCompositionFilterItemsGroupType - the group type.
 //
-// Возвращаемое значение:
-//  ГруппаЭлементовОтбораКомпоновкиДанных - группа отбора.
+// Returns:
+//  DataCompositionFilterItemGroup - a filter group.
 //
-Function СоздатьГруппуЭлементовОтбора(Знач КоллекцияЭлементов, Представление, ТипГруппы) Export
-
-	Если ТипЗнч(КоллекцияЭлементов) = Тип("ГруппаЭлементовОтбораКомпоновкиДанных") Тогда
-		КоллекцияЭлементов = КоллекцияЭлементов.Элементы;
-	КонецЕсли;
-
-	ГруппаЭлементовОтбора = НайтиЭлементОтбораПоПредставлению(КоллекцияЭлементов, Представление);
-	Если ГруппаЭлементовОтбора = Неопределено Тогда
-		ГруппаЭлементовОтбора = КоллекцияЭлементов.Добавить(Тип("ГруппаЭлементовОтбораКомпоновкиДанных"));
-	Иначе
-		ГруппаЭлементовОтбора.Элементы.Очистить();
-	КонецЕсли;
-
-	ГруппаЭлементовОтбора.Представление = Представление;
-	ГруппаЭлементовОтбора.Применение = ТипПримененияОтбораКомпоновкиДанных.Элементы;
-	ГруппаЭлементовОтбора.РежимОтображения = РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный;
-	ГруппаЭлементовОтбора.ТипГруппы = ТипГруппы;
-	ГруппаЭлементовОтбора.Использование = Истина;
-
-	Return ГруппаЭлементовОтбора;
-
+Function CreateFilterItemGroup(Val ItemCollection, Presentation, GroupType) Export
+	
+	If TypeOf(ItemCollection) = Type("DataCompositionFilterItemGroup") Then
+		ItemCollection = ItemCollection.Items;
+	EndIf;
+	
+	FilterItemsGroup = FindFilterItemByPresentation(ItemCollection, Presentation);
+	If FilterItemsGroup = Undefined Then
+		FilterItemsGroup = ItemCollection.Add(Type("DataCompositionFilterItemGroup"));
+	Else
+		FilterItemsGroup.Items.Clear();
+	EndIf;
+	
+	FilterItemsGroup.Presentation    = Presentation;
+	FilterItemsGroup.Application       = DataCompositionFilterApplicationType.Items;
+	FilterItemsGroup.ViewMode = DataCompositionSettingsItemViewMode.Inaccessible;
+	FilterItemsGroup.GroupType        = GroupType;
+	FilterItemsGroup.Use    = True;
+	
+	Return FilterItemsGroup;
+	
 EndFunction
 
-// Добавить элемент компоновки в контейнер элементов компоновки.
+// Adds a composition item into a composition item container.
 //
-// Параметры:
-//  ОбластьДобавления - КоллекцияЭлементовОтбораКомпоновкиДанных - контейнер с элементами и группами отбора,
-//                                                                 например, Список.Отбор или группа в отборе.
-//  ИмяПоля                 - Строка - имя поля компоновки данных (заполняется всегда).
-//  ПравоеЗначение          - Произвольный - сравниваемое значение.
-//  ВидСравнения            - ВидСравненияКомпоновкиДанных - вид сравнения.
-//  Представление           - Строка - представление элемента компоновки данных.
-//  Использование           - Булево - использование элемента.
-//  РежимОтображения        - РежимОтображенияЭлементаНастройкиКомпоновкиДанных - режим отображения.
-//  ИдентификаторПользовательскойНастройки - Строка - см. ОтборКомпоновкиДанных.ИдентификаторПользовательскойНастройки
-//                                                    в синтакс-помощнике.
-// Возвращаемое значение:
-//  ЭлементОтбораКомпоновкиДанных - элемент компоновки.
+// Parameters:
+//  AreaToAddTo - DataCompositionFilterItemCollection - a container with items and filter groups. 
+//                                                                 For example, List.Filter or a group in a filter.
+//  FieldName - String - a data composition field name. Required.
+//  RightValue - Arbitrary - the value to compare to.
+//  ComparisonType            - DataCompositionComparisonType - a comparison type.
+//  Presentation           - String - presentation of the data composition item.
+//  Usage - Boolean - the flag that indicates whether the item is used.
+//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
+//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
+//                                                    
+// Returns:
+//  DataCompositionFilterItem - a composition item.
 //
-Function ДобавитьЭлементКомпоновки(ОбластьДобавления, Знач ИмяПоля, Знач ВидСравнения, Знач ПравоеЗначение = Неопределено,
-	Знач Представление = Неопределено, Знач Использование = Неопределено, Знач РежимОтображения = Неопределено,
-	Знач ИдентификаторПользовательскойНастройки = Неопределено) Export
-
-	Элемент = ОбластьДобавления.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	Элемент.ЛевоеЗначение = Новый ПолеКомпоновкиДанных(ИмяПоля);
-	Элемент.ВидСравнения = ВидСравнения;
-
-	Если РежимОтображения = Неопределено Тогда
-		Элемент.РежимОтображения = РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный;
-	Иначе
-		Элемент.РежимОтображения = РежимОтображения;
-	КонецЕсли;
-
-	Если ПравоеЗначение <> Неопределено Тогда
-		Элемент.ПравоеЗначение = ПравоеЗначение;
-	КонецЕсли;
-
-	Если Представление <> Неопределено Тогда
-		Элемент.Представление = Представление;
-	КонецЕсли;
-
-	Если Использование <> Неопределено Тогда
-		Элемент.Использование = Использование;
-	КонецЕсли;
-
-	// Важно: установка идентификатора должна выполняться
-	// в конце настройки элемента, иначе он будет скопирован
-	// в пользовательские настройки частично заполненным.
-	Если ИдентификаторПользовательскойНастройки <> Неопределено Тогда
-		Элемент.ИдентификаторПользовательскойНастройки = ИдентификаторПользовательскойНастройки;
-	ИначеЕсли Элемент.РежимОтображения <> РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный Тогда
-		Элемент.ИдентификаторПользовательскойНастройки = ИмяПоля;
-	КонецЕсли;
-
-	Return Элемент;
-
+Function AddCompositionItem(AreaToAddTo,
+									Val FieldName,
+									Val ComparisonType,
+									Val RightValue = Undefined,
+									Val Presentation  = Undefined,
+									Val Usage  = Undefined,
+									val DisplayMode = Undefined,
+									val UserSettingID = Undefined) Export
+	
+	Item = AreaToAddTo.Items.Add(Type("DataCompositionFilterItem"));
+	Item.LeftValue = New DataCompositionField(FieldName);
+	Item.ComparisonType = ComparisonType;
+	
+	If DisplayMode = Undefined Then
+		Item.ViewMode = DataCompositionSettingsItemViewMode.Inaccessible;
+	Else
+		Item.ViewMode = DisplayMode;
+	EndIf;
+	
+	If RightValue <> Undefined Then
+		Item.RightValue = RightValue;
+	EndIf;
+	
+	If Presentation <> Undefined Then
+		Item.Presentation = Presentation;
+	EndIf;
+	
+	If Usage <> Undefined Then
+		Item.Use = Usage;
+	EndIf;
+	
+	// Important: The ID must be set up in the final stage of the item customization or it will be 
+	// copied to the user settings in a half-filled condition.
+	// 
+	If UserSettingID <> Undefined Then
+		Item.UserSettingID = UserSettingID;
+	ElsIf Item.ViewMode <> DataCompositionSettingsItemViewMode.Inaccessible Then
+		Item.UserSettingID = FieldName;
+	EndIf;
+	
+	Return Item;
+	
 EndFunction
 
-// Изменить элемент отбора с заданным именем поля или представлением.
+// Changes the filter item with the specified field name or presentation.
 //
-// Параметры:
-//  ОбластьПоиска - КоллекцияЭлементовОтбораКомпоновкиДанных - контейнер с элементами и группами отбора,
-//                                                             например Список.Отбор или группа в отборе.
-//  ИмяПоля                 - Строка - имя поля компоновки данных (заполняется всегда).
-//  Представление           - Строка - представление элемента компоновки данных.
-//  ПравоеЗначение          - Произвольный - сравниваемое значение.
-//  ВидСравнения            - ВидСравненияКомпоновкиДанных - вид сравнения.
-//  Использование           - Булево - использование элемента.
-//  РежимОтображения        - РежимОтображенияЭлементаНастройкиКомпоновкиДанных - режим отображения.
-//  ИдентификаторПользовательскойНастройки - Строка - см. ОтборКомпоновкиДанных.ИдентификаторПользовательскойНастройки
-//                                                    в синтакс-помощнике.
+// Parameters:
+//  SearchArea - DataCompositionFilterItemCollection - a container with items and filter groups, for 
+//                                                             example, List.Filter or a group in the filter.
+//  FieldName - String - a data composition field name. Required.
+//  Presentation           - String - presentation of the data composition item.
+//  RightValue - Arbitrary - the value to compare to.
+//  ComparisonType            - DataCompositionComparisonType - a comparison type.
+//  Usage - Boolean - the flag that indicates whether the item is used.
+//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
+//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
+//                                                    
 //
-// Возвращаемое значение:
-//  Число - количество измененных элементов.
+// Returns:
+//  Number - the changed item count.
 //
-Function ИзменитьЭлементыОтбора(ОбластьПоиска, Знач ИмяПоля = Неопределено, Знач Представление = Неопределено,
-	Знач ПравоеЗначение = Неопределено, Знач ВидСравнения = Неопределено, Знач Использование = Неопределено,
-	Знач РежимОтображения = Неопределено, Знач ИдентификаторПользовательскойНастройки = Неопределено) Export
-
-	Если ValueIsFilled(ИмяПоля) Тогда
-		ЗначениеПоиска = Новый ПолеКомпоновкиДанных(ИмяПоля);
-		СпособПоиска = 1;
-	Иначе
-		СпособПоиска = 2;
-		ЗначениеПоиска = Представление;
-	КонецЕсли;
-
-	МассивЭлементов = Новый Массив;
-
-	НайтиРекурсивно(ОбластьПоиска.Элементы, МассивЭлементов, СпособПоиска, ЗначениеПоиска);
-
-	Для Каждого Элемент Из МассивЭлементов Цикл
-		Если ИмяПоля <> Неопределено Тогда
-			Элемент.ЛевоеЗначение = Новый ПолеКомпоновкиДанных(ИмяПоля);
-		КонецЕсли;
-		Если Представление <> Неопределено Тогда
-			Элемент.Представление = Представление;
-		КонецЕсли;
-		Если Использование <> Неопределено Тогда
-			Элемент.Использование = Использование;
-		КонецЕсли;
-		Если ВидСравнения <> Неопределено Тогда
-			Элемент.ВидСравнения = ВидСравнения;
-		КонецЕсли;
-		Если ПравоеЗначение <> Неопределено Тогда
-			Элемент.ПравоеЗначение = ПравоеЗначение;
-		КонецЕсли;
-		Если РежимОтображения <> Неопределено Тогда
-			Элемент.РежимОтображения = РежимОтображения;
-		КонецЕсли;
-		Если ИдентификаторПользовательскойНастройки <> Неопределено Тогда
-			Элемент.ИдентификаторПользовательскойНастройки = ИдентификаторПользовательскойНастройки;
-		КонецЕсли;
-	КонецЦикла;
-
-	Return МассивЭлементов.Количество();
-
+Function ChangeFilterItems(SearchArea,
+								Val FieldName = Undefined,
+								Val Presentation = Undefined,
+								Val RightValue = Undefined,
+								Val ComparisonType = Undefined,
+								Val Usage = Undefined,
+								Val DisplayMode = Undefined,
+								Val UserSettingID = Undefined) Export
+	
+	If ValueIsFilled(FieldName) Then
+		SearchValue = New DataCompositionField(FieldName);
+		SearchMethod = 1;
+	Else
+		SearchMethod = 2;
+		SearchValue = Presentation;
+	EndIf;
+	
+	ItemArray = New Array;
+	
+	FindRecursively(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
+	
+	For Each Item In ItemArray Do
+		If FieldName <> Undefined Then
+			Item.LeftValue = New DataCompositionField(FieldName);
+		EndIf;
+		If Presentation <> Undefined Then
+			Item.Presentation = Presentation;
+		EndIf;
+		If Usage <> Undefined Then
+			Item.Use = Usage;
+		EndIf;
+		If ComparisonType <> Undefined Then
+			Item.ComparisonType = ComparisonType;
+		EndIf;
+		If RightValue <> Undefined Then
+			Item.RightValue = RightValue;
+		EndIf;
+		If DisplayMode <> Undefined Then
+			Item.ViewMode = DisplayMode;
+		EndIf;
+		If UserSettingID <> Undefined Then
+			Item.UserSettingID = UserSettingID;
+		EndIf;
+	EndDo;
+	
+	Return ItemArray.Count();
+	
 EndFunction
 
-// Удалить элементы отбора с заданным именем поля или представлением.
+// Delete filter items that contain the given field name or presentation.
 //
-// Параметры:
-//  ОбластьУдаления - КоллекцияЭлементовОтбораКомпоновкиДанных - контейнер с элементами и группами отбора,
-//                                                               например, Список.Отбор или группа в отборе..
-//  ИмяПоля         - Строка - имя поля компоновки (не используется для групп).
-//  Представление   - Строка - представление поля компоновки.
+// Parameters:
+//  AreaToDelete - DataCompositionFilterItemCollection - a container of items or filter groups. For 
+//                                                               example, List.Filter or a group in the filter.
+//  FieldName - String - the composition field name. Not applicable to groups.
+//  Presentation   - String - the composition field presentation.
 //
-Процедура УдалитьЭлементыГруппыОтбора(Знач ОбластьУдаления, Знач ИмяПоля = Неопределено,
-	Знач Представление = Неопределено) Export
+Procedure DeleteFilterItems(Val AreaToDelete, Val FieldName = Undefined, Val Presentation = Undefined) Export
+	
+	If ValueIsFilled(FieldName) Then
+		SearchValue = New DataCompositionField(FieldName);
+		SearchMethod = 1;
+	Else
+		SearchMethod = 2;
+		SearchValue = Presentation;
+	EndIf;
+	
+	ItemArray = New Array;
+	
+	FindRecursively(AreaToDelete.Items, ItemArray, SearchMethod, SearchValue);
+	
+	For Each Item In ItemArray Do
+		If Item.Parent = Undefined Then
+			AreaToDelete.Items.Delete(Item);
+		Else
+			Item.Parent.Items.Delete(Item);
+		EndIf;
+	EndDo;
+	
+EndProcedure
 
-	Если ValueIsFilled(ИмяПоля) Тогда
-		ЗначениеПоиска = Новый ПолеКомпоновкиДанных(ИмяПоля);
-		СпособПоиска = 1;
-	Иначе
-		СпособПоиска = 2;
-		ЗначениеПоиска = Представление;
-	КонецЕсли;
-
-	МассивЭлементов = Новый Массив;
-
-	НайтиРекурсивно(ОбластьУдаления.Элементы, МассивЭлементов, СпособПоиска, ЗначениеПоиска);
-
-	Для Каждого Элемент Из МассивЭлементов Цикл
-		Если Элемент.Родитель = Неопределено Тогда
-			ОбластьУдаления.Элементы.Удалить(Элемент);
-		Иначе
-			Элемент.Родитель.Элементы.Удалить(Элемент);
-		КонецЕсли;
-	КонецЦикла;
-
-КонецПроцедуры
-
-// Добавить или заменить существующий элемент отбора.
+// Adds or replaces the existing filter item.
 //
-// Параметры:
-//  ОбластьПоискаДобавления - КоллекцияЭлементовОтбораКомпоновкиДанных - контейнер с элементами и группами отбора,
-//                                     например, Список.Отбор или группа в отборе.
-//  ИмяПоля                 - Строка - имя поля компоновки данных (заполняется всегда).
-//  ПравоеЗначение          - произвольный - сравниваемое значение.
-//  ВидСравнения            - ВидСравненияКомпоновкиДанных - вид сравнения.
-//  Представление           - Строка - представление элемента компоновки данных.
-//  Использование           - Булево - использование элемента.
-//  РежимОтображения        - РежимОтображенияЭлементаНастройкиКомпоновкиДанных - режим отображения.
-//  ИдентификаторПользовательскойНастройки - Строка - см. ОтборКомпоновкиДанных.ИдентификаторПользовательскойНастройки
-//                                                    в синтакс-помощнике.
+// Parameters:
+//  WhereToAdd - DataCompositionFilterItemCollection - a container with items and filter groups, for 
+//                                     example, List.Filter or a group in the filter.
+//  FieldName - String - a data composition field name. Required.
+//  RightValue - Arbitrary - the value to compare to.
+//  ComparisonType            - DataCompositionComparisonType - a comparison type.
+//  Presentation           - String - presentation of the data composition item.
+//  Usage - Boolean - the flag that indicates whether the item is used.
+//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
+//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
+//                                                    
 //
-Процедура УстановитьЭлементОтбора(ОбластьПоискаДобавления, Знач ИмяПоля, Знач ПравоеЗначение = Неопределено,
-	Знач ВидСравнения = Неопределено, Знач Представление = Неопределено, Знач Использование = Неопределено,
-	Знач РежимОтображения = Неопределено, Знач ИдентификаторПользовательскойНастройки = Неопределено) Export
+Procedure SetFilterItem(WhereToAdd,
+								Val FieldName,
+								Val RightValue = Undefined,
+								Val ComparisonType = Undefined,
+								Val Presentation = Undefined,
+								Val Usage = Undefined,
+								Val DisplayMode = Undefined,
+								Val UserSettingID = Undefined) Export
+	
+	ModifiedCount = ChangeFilterItems(WhereToAdd, FieldName, Presentation,
+							RightValue, ComparisonType, Usage, DisplayMode, UserSettingID);
+	
+	If ModifiedCount = 0 Then
+		If ComparisonType = Undefined Then
+			If TypeOf(RightValue) = Type("Array")
+				Or TypeOf(RightValue) = Type("FixedArray")
+				Or TypeOf(RightValue) = Type("ValueList") Then
+				ComparisonType = DataCompositionComparisonType.InList;
+			Else
+				ComparisonType = DataCompositionComparisonType.Equal;
+			EndIf;
+		EndIf;
+		If DisplayMode = Undefined Then
+			DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible;
+		EndIf;
+		AddCompositionItem(WhereToAdd, FieldName, ComparisonType,
+								RightValue, Presentation, Usage, DisplayMode, UserSettingID);
+	EndIf;
+	
+EndProcedure
 
-	ЧислоИзмененных = ИзменитьЭлементыОтбора(ОбластьПоискаДобавления, ИмяПоля, Представление, ПравоеЗначение,
-		ВидСравнения, Использование, РежимОтображения, ИдентификаторПользовательскойНастройки);
-
-	Если ЧислоИзмененных = 0 Тогда
-		Если ВидСравнения = Неопределено Тогда
-			Если ТипЗнч(ПравоеЗначение) = Тип("Массив") Или ТипЗнч(ПравоеЗначение) = Тип("ФиксированныйМассив")
-				Или ТипЗнч(ПравоеЗначение) = Тип("СписокЗначений") Тогда
-				ВидСравнения = ВидСравненияКомпоновкиДанных.ВСписке;
-			Иначе
-				ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-			КонецЕсли;
-		КонецЕсли;
-		Если РежимОтображения = Неопределено Тогда
-			РежимОтображения = РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный;
-		КонецЕсли;
-		ДобавитьЭлементКомпоновки(ОбластьПоискаДобавления, ИмяПоля, ВидСравнения, ПравоеЗначение, Представление,
-			Использование, РежимОтображения, ИдентификаторПользовательскойНастройки);
-	КонецЕсли;
-
-КонецПроцедуры
-
-// Добавить или заменить существующий элемент отбора динамического списка.
+// Adds or replaces a filter item of a dynamic list.
 //
-// Параметры:
-//   ДинамическийСписок - ДинамическийСписок - список, в котором требуется установить отбор.
-//   ИмяПоля            - Строка - поле, по которому необходимо установить отбор.
-//   ПравоеЗначение     - Произвольный - значение отбора.
-//       Необязательный. Значение по умолчанию Неопределено.
-//       Внимание! Если передать Неопределено, то значение не будет изменено.
-//   ВидСравнения  - ВидСравненияКомпоновкиДанных - условие отбора.
-//   Представление - Строка - представление элемента компоновки данных.
-//       Необязательный. Значение по умолчанию Неопределено.
-//       Если указано, то выводится только флажок использования с указанным представлением (значение не выводится).
-//       Для очистки (чтобы значение снова выводилось) следует передать пустую строку.
-//   Использование - Булево - флажок использования этого отбора.
-//       Необязательный. Значение по умолчанию: Неопределено.
-//   РежимОтображения - РежимОтображенияЭлементаНастройкиКомпоновкиДанных - способ отображения этого отбора
-//                                                                          пользователю.
-//       * РежимОтображенияЭлементаНастройкиКомпоновкиДанных.БыстрыйДоступ - В группе быстрых настроек над списком.
-//       * РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Обычный       - В настройка списка (в подменю Еще).
-//       * РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный   - Запретить пользователю менять этот отбор.
-//   ИдентификаторПользовательскойНастройки - Строка - Уникальный идентификатор этого отбора.
-//       Используется для связи с пользовательскими настройками.
+// Parameters:
+//   DynamicList - DynamicList - the list to be filtered.
+//   FieldName            - String - the field the filter to apply to.
+//   RightValue     - Arbitrary - the filter value.
+//       Optional. The default value is Undefined.
+//       Warning! If Undefined is passed, the value will not be changed.
+//   ComparisonType  - DataCompositionComparisonType - a filter condition.
+//   Presentation - String - presentation of the data composition item.
+//       Optional. The default value is Undefined.
+//       If another value is specified, only the presentation flag is shown, not the value.
+//       To show the value, pass an empty string.
+//   Usage - Boolean - the flag that indicates whether to apply the filter.
+//       Optional. The default value is Undefined.
+//   DisplayMode - DataCompositionSettingItemDisplayMode - the filter display mode.
+//                                                                          
+//       * DataCompositionSettingItemDisplayMode.QuickAccess - in the Quick Settings bar on top of the list.
+//       * DataCompositionSettingItemDisplayMode.Normal - in the list settings (submenu More).
+//       * DataCompositionSettingItemDisplayMode.Inaccessible - privent users from changing the filter.
+//   UserSettingID - String - the filter UUID.
+//       Used to link user settings.
 //
-Процедура УстановитьЭлементОтбораДинамическогоСписка(ДинамическийСписок, ИмяПоля, ПравоеЗначение = Неопределено,
-	ВидСравнения = Неопределено, Представление = Неопределено, Использование = Неопределено,
-	РежимОтображения = Неопределено, ИдентификаторПользовательскойНастройки = Неопределено) Export
+Procedure SetDynamicListFilterItem(DynamicList, FieldName,
+	RightValue = Undefined,
+	ComparisonType = Undefined,
+	Presentation = Undefined,
+	Usage = Undefined,
+	DisplayMode = Undefined,
+	UserSettingID = Undefined) Export
+	
+	If DisplayMode = Undefined Then
+		DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible;
+	EndIf;
+	
+	If DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible Then
+		DynamicListFilter = DynamicList.SettingsComposer.FixedSettings.Filter;
+	Else
+		DynamicListFilter = DynamicList.SettingsComposer.Settings.Filter;
+	EndIf;
+	
+	SetFilterItem(
+		DynamicListFilter,
+		FieldName,
+		RightValue,
+		ComparisonType,
+		Presentation,
+		Usage,
+		DisplayMode,
+		UserSettingID);
+	
+EndProcedure
 
-	Если РежимОтображения = Неопределено Тогда
-		РежимОтображения = РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный;
-	КонецЕсли;
-
-	Если РежимОтображения = РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный Тогда
-		ОтборДинамическогоСписка = ДинамическийСписок.КомпоновщикНастроек.ФиксированныеНастройки.Отбор;
-	Иначе
-		ОтборДинамическогоСписка = ДинамическийСписок.КомпоновщикНастроек.Настройки.Отбор;
-	КонецЕсли;
-
-	УстановитьЭлементОтбора(ОтборДинамическогоСписка, ИмяПоля, ПравоеЗначение, ВидСравнения, Представление,
-		Использование, РежимОтображения, ИдентификаторПользовательскойНастройки);
-
-КонецПроцедуры
-
-// Удалить элемент группы отбора динамического списка.
+// Delete a filter group item of a dynamic list.
 //
-// Параметры:
-//  ДинамическийСписок - ДинамическийСписок - реквизит формы, для которого требуется установить отбор.
-//  ИмяПоля         - Строка - имя поля компоновки (не используется для групп).
-//  Представление   - Строка - представление поля компоновки.
+// Parameters:
+//  DynamicList - DynamicList - the form attribute whose filter is to be modified.
+//  FieldName - String - the composition field name. Not applicable to groups.
+//  Presentation   - String - the composition field presentation.
 //
-Процедура УдалитьЭлементыГруппыОтбораДинамическогоСписка(ДинамическийСписок, ИмяПоля = Неопределено,
-	Представление = Неопределено) Export
+Procedure DeleteDynamicListFilterGroupItems(DynamicList, FieldName = Undefined, Presentation = Undefined) Export
+	
+	DeleteFilterItems(
+		DynamicList.SettingsComposer.FixedSettings.Filter,
+		FieldName,
+		Presentation);
+	
+	DeleteFilterItems(
+		DynamicList.SettingsComposer.Settings.Filter,
+		FieldName,
+		Presentation);
+	
+EndProcedure
 
-	УдалитьЭлементыГруппыОтбора(ДинамическийСписок.КомпоновщикНастроек.ФиксированныеНастройки.Отбор, ИмяПоля,
-		Представление);
-
-	УдалитьЭлементыГруппыОтбора(ДинамическийСписок.КомпоновщикНастроек.Настройки.Отбор, ИмяПоля, Представление);
-
-КонецПроцедуры
-
-// Установить или обновить значение параметра ИмяПараметра динамического списка Список.
+// Sets or modifies the ParameterName parameter of the List dynamic list.
 //
-// Параметры:
-//  Список          - ДинамическийСписок - реквизит формы, для которого требуется установить параметр.
-//  ИмяПараметра    - Строка             - имя параметра динамического списка.
-//  Значение        - Произвольный        - новое значение параметра.
-//  Использование   - Булево             - признак использования параметра.
+// Parameters:
+//  List          - DynamicList - the form attribute whose parameter is to be modified.
+//  ParameterName    - String             - name of the dynamic list parameter.
+//  Value        - Arbitrary        - new value of the parameter.
+//  Usage   - Boolean             - flag indicating whether the parameter is used.
 //
-Процедура УстановитьПараметрДинамическогоСписка(Список, ИмяПараметра, Значение, Использование = Истина) Export
+Procedure SetDynamicListParameter(List, ParameterName, Value, Usage = True) Export
+	
+	DataCompositionParameterValue = List.Parameters.FindParameterValue(New DataCompositionParameter(ParameterName));
+	If DataCompositionParameterValue <> Undefined Then
+		If Usage AND DataCompositionParameterValue.Value <> Value Then
+			DataCompositionParameterValue.Value = Value;
+		EndIf;
+		If DataCompositionParameterValue.Use <> Usage Then
+			DataCompositionParameterValue.Use = Usage;
+		EndIf;
+	EndIf;
+	
+EndProcedure
 
-	ЗначениеПараметраКомпоновкиДанных = Список.Параметры.НайтиЗначениеПараметра(
-		Новый ПараметрКомпоновкиДанных(ИмяПараметра));
-	Если ЗначениеПараметраКомпоновкиДанных <> Неопределено Тогда
-		Если Использование И ЗначениеПараметраКомпоновкиДанных.Значение <> Значение Тогда
-			ЗначениеПараметраКомпоновкиДанных.Значение = Значение;
-		КонецЕсли;
-		Если ЗначениеПараметраКомпоновкиДанных.Использование <> Использование Тогда
-			ЗначениеПараметраКомпоновкиДанных.Использование = Использование;
-		КонецЕсли;
-	КонецЕсли;
-
-КонецПроцедуры
-
-Function УстановитьЗначениеПараметраСКД(КомпоновщикНастроек, ИмяПараметра, ЗначениеПараметра,
+Function SetDCSParemetrValue(КомпоновщикНастроек, ИмяПараметра, ЗначениеПараметра,
 	ИспользоватьНеЗаполненный = Истина) Export
 
 	ПараметрУстановлен = Ложь;
@@ -1622,7 +1654,7 @@ Function GetFileIconIndex(val FileExtention) Export
 		Return 0;
 	EndIf;
 
-	FileExtention = РасширениеБезТочки(FileExtention);
+	FileExtention = ExtensionWithoutDot(FileExtention);
 
 	Extension = "." + Lower(FileExtention) + ";";
 	
@@ -1738,23 +1770,23 @@ Function GetFileIconIndex(val FileExtention) Export
 	EndIf;
 EndFunction
 
-// on расширение файла в нижний регистр без точки.
+// Convert File Extension to lower case without Dot character
 //
-// Параметры:
-//  Расширение - Строка - Расширение для преобразования.
+// Parameters:
+//  FileExtension - String - extension for converting.
 //
-// Возвращаемое значение:
-//  Строка.
+// Return value:
+//  String.
 //
-Function РасширениеБезТочки(Знач Расширение) Export
+Function ExtensionWithoutDot(Val FileExtension) Export
 
-	Расширение = НРег(СокрЛП(Расширение));
+	FileExtension = Lower(TrimAll(FileExtension));
 
-	Если Сред(Расширение, 1, 1) = "." Тогда
-		Расширение = Сред(Расширение, 2);
-	КонецЕсли;
+	If Mid(FileExtension, 1, 1) = "." Then
+		FileExtension = Mid(FileExtension, 2);
+	EndIf;
 
-	Return Расширение;
+	Return FileExtension;
 
 EndFunction
 
