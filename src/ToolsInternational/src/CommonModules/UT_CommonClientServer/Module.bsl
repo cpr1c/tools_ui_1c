@@ -1617,10 +1617,10 @@ EndFunction
 // The index of the file icon is being received. It is the index in the FilesIconsCollection picture.
 Function GetFileIconIndex(val FileExtention) Export
 
-	Если ТипЗнч(РасширениеФайла) <> Тип("Строка") Или IsBlankString(РасширениеФайла) Тогда
+	If TypeOf(FileExtention) <> Type("String") Or IsBlankString(FileExtention) Then
 
 		Return 0;
-	КонецЕсли;
+	EndIf;
 
 	FileExtention = РасширениеБезТочки(FileExtention);
 
@@ -1738,7 +1738,7 @@ Function GetFileIconIndex(val FileExtention) Export
 	EndIf;
 EndFunction
 
-// Преобразует расширение файла в нижний регистр без точки.
+// on расширение файла в нижний регистр без точки.
 //
 // Параметры:
 //  Расширение - Строка - Расширение для преобразования.
