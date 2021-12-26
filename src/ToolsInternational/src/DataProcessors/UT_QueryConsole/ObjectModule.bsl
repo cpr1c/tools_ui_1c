@@ -630,8 +630,8 @@ Procedure TechnologicalLog_Disable() Export
 	TechnologicalLog_RemoveConsloleLog();
 EndProcedure
 
-Function TechnologicalLog_GetLogFragmentByIDAndTime(ID, QueryBeginTime,
-	QueryEndTime) Export
+Function TechnologicalLog_GetLogFragmentByIDAndTime(ID, QueryStartTime,
+	QueryFinishTime) Export
 
 	arLogs = FindFiles(TechLogFolder, "rphost*");
 
@@ -639,9 +639,9 @@ Function TechnologicalLog_GetLogFragmentByIDAndTime(ID, QueryBeginTime,
 	fFragmentIsFound = False;
 	For Each Log In arLogs Do
 
-		SearchTime = QueryBeginTime;
+		SearchTime = QueryStartTime;
 
-		While Not fFragmentIsFound And SearchTime < QueryEndTime Do
+		While Not fFragmentIsFound And SearchTime < QueryFinishTime Do
 
 			LogFileName = Format(SearchTime, "DF=yyMMddHH.log");
 			SearchTime = SearchTime + 60 * 60;
@@ -655,14 +655,14 @@ Function TechnologicalLog_GetLogFragmentByIDAndTime(ID, QueryBeginTime,
 			Reader = New DataReader(LogFullFileName);
 
 			If Not fFragmentIsFound Then
-				If Reader.SkipTo(ID + "_begin") = 0 Then
+				If Reader.SkipTo(ID + "_start") = 0 Then
 					fFragmentIsFound = True;
 				EndIf;
 			EndIf;
 
 			If fFragmentIsFound Then
 
-				LogReadResult = Reader.ReadTo(ID + "_end");
+				LogReadResult = Reader.ReadTo(ID + "_finish");
 				arResult.Add(LogReadResult);
 
 				If LogReadResult.MarkerFound Then
@@ -690,22 +690,22 @@ Function TechnologicalLog_GetLogFragmentByIDAndTime(ID, QueryBeginTime,
 	EndDo;
 
 	Return StrConcat(arResultLines, "
-										|");
+									|");
 
 EndFunction
 
-Function TechnologicalLog_GetInfoByQuery(ID, QueryBeginTime, QueryDuration) Export
+Function TechnologicalLog_GetInfoByQuery(ID, QueryStartTime, QueryDuration) Export
 
 	If Not ValueIsFilled(TechLogFolder) Then
 		Return Undefined;
 	EndIf;
 
-	QueryEndTime = QueryBeginTime + QueryDuration;
-	SearchTimeBegin = ToLocalTime('00010101' + QueryBeginTime / 1000);
-	SearchTimeEnd = ToLocalTime('00010101' + QueryEndTime / 1000 + 1);
+	QueryFinishTime = QueryStartTime + QueryDuration;
+	SearchTimeStart = ToLocalTime('00010101' + QueryStartTime / 1000);
+	SearchTimeFinish = ToLocalTime('00010101' + QueryFinishTime / 1000 + 1);
 
 	LogFragment = TechnologicalLog_GetLogFragmentByIDAndTime(ID,
-		SearchTimeBegin, SearchTimeEnd);
+		SearchTimeStart, SearchTimeFinish);
 
 	Return LogFragment;
 
