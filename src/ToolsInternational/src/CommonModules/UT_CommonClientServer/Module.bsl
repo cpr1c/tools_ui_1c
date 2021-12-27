@@ -29,7 +29,7 @@ Function FindFilterItemsAndGroups(Val SearchArea,
 	
 	ItemArray = New Array;
 
-	НайтиРекурсивно(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
+	FindRecursively(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
 
 	Return ItemArray;
 
@@ -38,8 +38,7 @@ EndFunction
 // Adds filter groups to ItemCollection.
 //
 // Parameters:
-//  ItemCollection - DataCompositionFilter, DataCompositionFilterItemCollection,
-//                       DataCompositionFilterItemGroup - a container of items and filter groups. 
+//  ItemCollection - DataCompositionFilter, DataCompositionFilterItemCollection,DataCompositionFilterItemGroup - a container of items and filter groups. 
 //                       For example, List.Filter or a group in a filer.
 //  Presentation - String - the group presentation.
 //  GroupType - DataCompositionFilterItemsGroupType - the group type.
@@ -369,7 +368,7 @@ Procedure SetDynamicListParameter(List, ParameterName, Value, Usage = True) Expo
 	
 EndProcedure
 
-Function SetDCSParemetrValue(КомпоновщикНастроек, ИмяПараметра, ЗначениеПараметра,
+Function SetDCSParemeterValue(КомпоновщикНастроек, ИмяПараметра, ЗначениеПараметра,
 	ИспользоватьНеЗаполненный = Истина) Export
 
 	ПараметрУстановлен = Ложь;
@@ -391,58 +390,60 @@ Function SetDCSParemetrValue(КомпоновщикНастроек, ИмяПа�
 
 EndFunction
 
-Процедура НайтиРекурсивно(КоллекцияЭлементов, МассивЭлементов, СпособПоиска, ЗначениеПоиска)
+Procedure FindRecursively(ItemCollection, ItemArray, SearchMethod, SearchValue)
+	
+	For each FilterItem In ItemCollection Do
+		
+		If TypeOf(FilterItem) = Type("DataCompositionFilterItem") Then
+			
+			If SearchMethod = 1 Then
+				If FilterItem.LeftValue = SearchValue Then
+					ItemArray.Add(FilterItem);
+				EndIf;
+			ElsIf SearchMethod = 2 Then
+				If FilterItem.Presentation = SearchValue Then
+					ItemArray.Add(FilterItem);
+				EndIf;
+			EndIf;
+		Else
+			
+			FindRecursively(FilterItem.Items, ItemArray, SearchMethod, SearchValue);
+			
+			If SearchMethod = 2 AND FilterItem.Presentation = SearchValue Then
+				ItemArray.Add(FilterItem);
+			EndIf;
+			
+		EndIf;
+		
+	EndDo;
+	
+EndProcedure
 
-	Для Каждого ЭлементОтбора Из КоллекцияЭлементов Цикл
-
-		Если ТипЗнч(ЭлементОтбора) = Тип("ЭлементОтбораКомпоновкиДанных") Тогда
-
-			Если СпособПоиска = 1 Тогда
-				Если ЭлементОтбора.ЛевоеЗначение = ЗначениеПоиска Тогда
-					МассивЭлементов.Добавить(ЭлементОтбора);
-				КонецЕсли;
-			ИначеЕсли СпособПоиска = 2 Тогда
-				Если ЭлементОтбора.Представление = ЗначениеПоиска Тогда
-					МассивЭлементов.Добавить(ЭлементОтбора);
-				КонецЕсли;
-			КонецЕсли;
-		Иначе
-
-			НайтиРекурсивно(ЭлементОтбора.Элементы, МассивЭлементов, СпособПоиска, ЗначениеПоиска);
-
-			Если СпособПоиска = 2 И ЭлементОтбора.Представление = ЗначениеПоиска Тогда
-				МассивЭлементов.Добавить(ЭлементОтбора);
-			КонецЕсли;
-
-		КонецЕсли;
-
-	КонецЦикла;
-
-КонецПроцедуры
-
-// Выполняет поиск элемента отбора в коллекции по заданному представлению.
+// Searches for a filter item in the collection by the specified presentation.
 //
-// Параметры:
-//  КоллекцияЭлементов - КоллекцияЭлементовОтбораКомпоновкиДанных - контейнер с элементами и группами отбора,
-//                                                                  например, Список.Отбор.Элементы или группа в отборе.
-//  Представление - Строка - представление группы.
+// Parameters:
+//  ItemCollection - DataCompositionFilterItemCollection - container with filter groups and items, 
+//                                                                  such as List.Filter.Filter items or group.
+//  Presentation - String - group presentation.
 // 
-// Возвращаемое значение:
-//  ЭлементОтбораКомпоновкиДанных - элемент отбора.
+// Returns:
+//  DataCompositionFilterItem - filter item.
 //
-Function НайтиЭлементОтбораПоПредставлению(КоллекцияЭлементов, Представление) Export
-
-	ВозвращаемоеЗначение = Неопределено;
-
-	Для Каждого ЭлементОтбора Из КоллекцияЭлементов Цикл
-		Если ЭлементОтбора.Представление = Представление Тогда
-			ВозвращаемоеЗначение = ЭлементОтбора;
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
-
-	Return ВозвращаемоеЗначение
+Function FindFilterItemByPresentation(ItemCollection, Presentation) Export
+	
+	ReturnValue = Undefined;
+	
+	For each FilterItem In ItemCollection Do
+		If FilterItem.Presentation = Presentation Then
+			ReturnValue = FilterItem;
+			Break;
+		EndIf;
+	EndDo;
+	
+	Return ReturnValue
+	
 EndFunction
+
 
 Процедура СкопироватьЭлементы(ПриемникЗначения, ИсточникЗначения, ОчищатьПриемник = Истина) Export
 
