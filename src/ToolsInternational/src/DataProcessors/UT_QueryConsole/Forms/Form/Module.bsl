@@ -163,7 +163,7 @@ EndFunction
 &AtServerNoContext
 Function GetValueFormCode(Val Value)
 
-	ValueType = ТипЗнч(Value);
+	ValueType = TypeOf(Value);
 	If ValueType = Type("Array") Then
 		Return 2;
 	ElsIf ValueType = Type("ValueList") Then
@@ -356,130 +356,131 @@ Function PointInTimeSearchSubqueryText(MetadataName, RegisterName, ColumnName, T
 		|	%1%2.Recorder AS Ref,
 		|	%1%2.PointInTime AS PointInTime %4
 		|FROM
-		|	%1.%2 AS %1%2 INNER JOIN %5_PointsData_%3 ON %1%2.Recorder = %5_PointsData_%3.Ref AND %1%2.Period = %5_PointsData_%3.Date
+		|	%1.%2 AS %1%2 INNER JOIN %5_PointsInTimeData_%3 ON %1%2.Recorder = %5_PointsInTimeData_%3.Ref AND %1%2.Period = %5_PointsInTimeData_%3.Date
 		|", MetadataName, RegisterName, ColumnName, TextINTO, TempTableName);
 
 EndFunction
 
 &AtServer
-Procedure ПодготовитьВыборкуКолонокСТипомМоментВремени(тзДанные, ИмяПромежуточнойТаблицы, стНовыеВыраженияПолей,
-	ДополнительныеИсточники, ДополнительныеЗапросы)
+Procedure PrepareMomentInTimeColumnsSelection(vtData, TempTableName, stNewFieldExpressions,
+	AdditionalSources, AdditionalQueries)
 	
-	//Обработка = РеквизитФормыВЗначение("Объект");
+	//DataProcessor = FormAttributeToValue("Объект");
 
-	маИменаКолонокМоментов = New Array;
-	//маИменаТаблицМоментовПоля = New Array;
-	маИменаКолонокДата = New Array;
-	маИменаКолонокСсылка = New Array;
-	маЗапросыДляПоискаМоментов = New Array;
+	arPointInTimeColumnNames = New Array;
+	//arPointColumnNamesFields = New Array;
+	arDateColumnNames = New Array;
+	arRefColumnNames = New Array;
+	arPointInTimeSearchQueries = New Array;
 
-	For Each Колонка Из тзДанные.Колонки Do
+	For Each Column In vtData.Columns Do
 
-		If Колонка.ТипЗначения.СодержитТип(Тип("МоментВремени")) Then
+		If Column.ValueType.ContainsType(Type("PointInTime")) Then
 
-			ИмяКолонки = Колонка.Имя;
-			ИмяКолонкиДата = ИмяКолонки + "_Дата31415926";
-			ИмяКолонкиСсылка = ИмяКолонки + "_Ссылка31415926";
-			ИмяКолонкиВременной = ИмяКолонки + "_Вр31415926";
+			ColumnName = Column.Name;
+			DateColumnName = ColumnName + "_Date31415926";
+			RefColumnName = ColumnName + "_Ref31415926";
+			TempColumnName = ColumnName + "_Tmp31415926";
 
-			маИменаКолонокМоментов.Добавить(ИмяКолонки);
-			маИменаКолонокДата.Добавить(ИмяКолонкиДата);
-			маИменаКолонокСсылка.Добавить(ИмяКолонкиСсылка);
+			arPointInTimeColumnNames.Add(ColumnName);
+			arDateColumnNames.Add(DateColumnName);
+			arRefColumnNames.Add(RefColumnName);
 
-			маВычитаемыеТипы = New Array;
-			маВычитаемыеТипы.Добавить(Тип("МоментВремени"));
-			маДобавляемыеТипы = New Array;
-			маДобавляемыеТипы.Добавить(Тип("Null"));
-			ТипБезТипаМомент = New ОписаниеТипов(Колонка.ТипЗначения, маДобавляемыеТипы, маВычитаемыеТипы);
-			ТолькоМомент = ТипБезТипаМомент = New ОписаниеТипов("Null");//Значит, что в колонке был только момент времени.
-			                                                               //Вообще, так должно быть всегда. Не представляю ситуации, когда в колонке с моментом времени может быть что-то еще.
+			arRemovedTypes = New Array;
+			arRemovedTypes.Add(Type("PointInTime"));
+			arAddedTypes = New Array;
+			arAddedTypes.Add(Type("Null"));
+			NoPointInTimeType = New TypeDescription(Column.ValueType, arAddedTypes, arRemovedTypes);
+			// Column contains only the PointInTime type.
+			// Hard to imagine a situation when there might be some type else in the column with a PointInTime. 
+			PointInTimeOnly = NoPointInTimeType = New TypeDescription("Null");			                                                               	   
 
-			тзДанные.Колонки.Добавить(ИмяКолонкиДата, New ОписаниеТипов("Дата", , ,
-				New КвалификаторыДаты(ЧастиДаты.ДатаВремя)));
-			тзДанные.Колонки.Добавить(ИмяКолонкиСсылка, Документы.ТипВсеСсылки());
+			vtData.Columns.Add(DateColumnName, New TypeDescription("Date", , ,
+				New DateQualifiers(DateFractions.DateTime)));
+			vtData.Columns.Add(RefColumnName, Documents.AllRefsType());
 
-			If Не ТолькоМомент Then
-				тзДанные.Колонки.Добавить(ИмяКолонкиВременной, ТипБезТипаМомент);
+			If Not PointInTimeOnly Then
+				vtData.Coolumns.Add(TempColumnName, NoPointInTimeType);
 			EndIf;
 
-			маТипыСсылокМоментов = New Array;
+			arPointInTimeRefTypes = New Array;
 
-			If ТолькоМомент Then
+			If PointInTimeOnly Then
 
-				For Each СтрокаДанных Из тзДанные Do
-					Значение = СтрокаДанных[ИмяКолонки];
-					СтрокаДанных[ИмяКолонкиДата] = Значение.Дата;
-					СтрокаДанных[ИмяКолонкиСсылка] = Значение.Ссылка;
-					маТипыСсылокМоментов.Добавить(ТипЗнч(Значение.Ссылка));
+				For Each DataRow In vtData Do
+					Value = DataRow[ColumnName];
+					DataRow[DateColumnName] = Value.Date;
+					DataRow[RefColumnName] = Value.Ref;
+					arPointInTimeRefTypes.Add(TypeOf(Value.Ref));
 				EndDo;
 
-			Иначе
+			Else
 
-				For Each СтрокаДанных Из тзДанные Do
-					Значение = СтрокаДанных[ИмяКолонки];
-					If ТипЗнч(Значение) = Тип("МоментВремени") Then
-						СтрокаДанных[ИмяКолонкиВременной] = Null;
-						СтрокаДанных[ИмяКолонкиДата] = Значение.Дата;
-						СтрокаДанных[ИмяКолонкиСсылка] = Значение.Ссылка;
-						маТипыСсылокМоментов.Добавить(ТипЗнч(Значение.Ссылка));
-					Иначе
-						СтрокаДанных[ИмяКолонкиВременной] = Значение;
+				For Each DataRow In vtData Do
+					Value = DataRow[ColumnName];
+					If TypeOf(Value) = Type("PointInTime") Then
+						DataRow[TempColumnName] = Null;
+						DataRow[DateColumnName] = Value.Date;
+						DataRow[RefColumnName] = Value.Ref;
+						arPointInTimeRefTypes.Add(TypeOf(Value.Ref));
+					Else
+						DataRow[TempColumnName] = Value;
 					EndIf;
 				EndDo;
 
 			EndIf;
 
-			тзДанные.Колонки.Удалить(ИмяКолонки);
-			If Не ТолькоМомент Then
-				тзДанные.Колонки[ИмяКолонкиВременной].Имя = ИмяКолонки;
+			vtData.Columns.Delete(ColumnName);
+			If Not PointInTimeOnly Then
+				vtData.Columns[TempColumnName].Name = ColumnName;
 			EndIf;
 
-			ИмяТаблицыМоментовПоля = ИмяПромежуточнойТаблицы + "_ТаблицаМоментов_" + ИмяКолонки;
-			ТекстПоместить = "ПОМЕСТИТЬ " + ИмяТаблицыМоментовПоля;
+			PointsInTimeTableNameFields = TempTableName + "_PointsInTimeTable_" + ColumnName;
+			TextINTO = "INTO " + PointsInTimeTableNameFields;
 
-			If ТолькоМомент Then
-				стНовыеВыраженияПолей.Вставить(ИмяКолонки, StrTemplate("%1.МоментВремени КАК %2", ИмяТаблицыМоментовПоля,
-					ИмяКолонки));
-			Иначе
-				стНовыеВыраженияПолей.Вставить(ИмяКолонки, StrTemplate("ISNULL(Таблица.%1, %2.МоментВремени) КАК %3",
-					ИмяКолонки, ИмяТаблицыМоментовПоля, ИмяКолонки));
+			If PointInTimeOnly Then
+				stNewFieldExpressions.Insert(ColumnName, StrTemplate("%1.PointInTime AS %2", PointsInTimeTableNameFields,
+					ColumnName));
+			Else
+				stNewFieldExpressions.Insert(ColumnName, StrTemplate("ISNULL(Table.%1, %2.PointInTime) AS %3",
+					ColumnName, PointsInTimeTableNameFields, ColumnName));
 			EndIf;
 
-			ДополнительныеИсточники = ДополнительныеИсточники + StrTemplate(
-				" ЛЕВОЕ СОЕДИНЕНИЕ %1 КАК %1 ПО Таблица.%2 = %1.Дата И Таблица.%3 = %1.Ссылка", ИмяТаблицыМоментовПоля,
-				ИмяКолонкиДата, ИмяКолонкиСсылка);
+			AdditionalSources = AdditionalSources + StrTemplate(
+				" LEFT JOIN %1 AS %1 ON Table.%2 = %1.Date AND Table.%3 = %1.Ref", PointsInTimeTableNameFields,
+				DateColumnName, RefColumnName);
 
-			маПодЗапросыДляПоискаМоментов = New Array;
+			arPointsInTimeSearchSubqueries = New Array;
 
-			маМетаданныеДляПоискаМомента = New Array;
-			маМетаданныеДляПоискаМомента.Добавить(Метаданные.РегистрыНакопления);
-			маМетаданныеДляПоискаМомента.Добавить(Метаданные.РегистрыБухгалтерии);
+			arPointInTimeSearchMetadata = New Array;
+			arPointInTimeSearchMetadata.Add(Metadata.AccumulationRegisters);
+			arPointInTimeSearchMetadata.Add(Metadata.AccountingRegisters);
 
-			ТипыСсылокМоментов = New ОписаниеТипов(маТипыСсылокМоментов);
-			маТипыСсылокМоментов = ТипыСсылокМоментов.Типы();
+			PointInTimeRefTypes = New TypeDescription(arPointInTimeRefTypes);
+			arPointInTimeRefTypes = PointInTimeRefTypes.Types();
 
-			For Each Регистры Из маМетаданныеДляПоискаМомента Do
+			For Each Registers In arPointInTimeSearchMetadata Do
 
-				If Регистры = Метаданные.РегистрыНакопления Then
-					ИмяМетаданныхДляЗапроса = "РегистрНакопления";
-				ElsIf Регистры = Метаданные.РегистрыБухгалтерии Then
-					ИмяМетаданныхДляЗапроса = "РегистрБухгалтерии";
-				Иначе
-					ИмяМетаданныхДляЗапроса = "?E001?";
+				If Registers = Metadata.AccumulationRegisters Then
+					MetadataNameForQuery = "AccumulationRegister";
+				ElsIf Registers = Metadata.AccountingRegisters Then
+					MetadataNameForQuery = "AccountingRegister";
+				Else
+					MetadataNameForQuery = "?E001?";
 				EndIf;
 
-				For Each Регистр Из Регистры Do
+				For Each Register In Registers Do
 
-					ТипРегистратора = Регистр.СтандартныеРеквизиты.Регистратор.Тип;
-					For Each ТипСсылки Из маТипыСсылокМоментов Do
+					RecorderType = Register.StandardAttributes.Recorder.Type;
+					For Each RefType In arPointInTimeRefTypes Do
 
-						If ТипРегистратора.СодержитТип(ТипСсылки) Then
+						If RecorderType.ContainsType(RefType) Then
 
-							маПодЗапросыДляПоискаМоментов.Добавить(PointInTimeSearchSubqueryText(
-								ИмяМетаданныхДляЗапроса, Регистр.Имя, ИмяКолонки, ИмяПромежуточнойТаблицы,
-								ТекстПоместить));
-							ТекстПоместить = "";
-							Прервать;
+							arPointsInTimeSearchSubqueries.Add(PointInTimeSearchSubqueryText(
+								MetadataNameForQuery, Register.Name, ColumnName, TempTableName,
+								TextINTO));
+							TextINTO = "";
+							Break;
 
 						EndIf;
 
@@ -489,123 +490,124 @@ Procedure ПодготовитьВыборкуКолонокСТипомМоме
 
 			EndDo;
 
-			If маПодЗапросыДляПоискаМоментов.Количество() = 0 Then
-				маПодЗапросыДляПоискаМоментов.Добавить(PointInTimeSearchSubqueryText(
-					ИмяМетаданныхДляЗапроса, Регистр.Имя, ИмяКолонки, ИмяПромежуточнойТаблицы, ТекстПоместить));
+			If arPointsInTimeSearchSubqueries.Count() = 0 Then
+				arPointsInTimeSearchSubqueries.Add(PointInTimeSearchSubqueryText(
+					MetadataNameForQuery, Register.Name, ColumnName, TempTableName, TextINTO));
 			EndIf;
 
-			ТекстЗапросаПоискаМоментов = StrConcat(маПодЗапросыДляПоискаМоментов, "
-																					 |ОБЪЕДИНИТЬ
-																					 |");
+			PointsInTimeSearchQueryText = StrConcat(arPointsInTimeSearchSubqueries, "
+																				   |UNION
+																				   |");
 
-			If ValueIsFilled(ТекстЗапросаПоискаМоментов) Then
-				маЗапросыДляПоискаМоментов.Добавить(ТекстЗапросаПоискаМоментов);
+			If ValueIsFilled(PointsInTimeSearchQueryText) Then
+				arPointInTimeSearchQueries.Add(PointsInTimeSearchQueryText);
 			EndIf;
 
 		EndIf;
 
 	EndDo;
 
-	If маИменаКолонокДата.Количество() > 0 Then
+	If arDateColumnNames.Count() > 0 Then
 
-		ТекстыЗапросовПоискаМоментов = StrConcat(маЗапросыДляПоискаМоментов, ";
-																				|");
+		PointsInTimeSearchQueryTexts = StrConcat(arPointInTimeSearchQueries, ";
+																			 |");
 
-		маЗапросыДанныхМоментов = New Array;
+		arPointsInTimeDataQueries = New Array;
 
-		Для й = 0 По маИменаКолонокДата.ВГраница() Do
-			маЗапросыДанныхМоментов.Добавить(StrTemplate(
-				"ВЫБРАТЬ
-				|	Таблица.%1 КАК Дата,
-				|	Таблица.%2 КАК Ссылка
-				|ПОМЕСТИТЬ %4_ДанныеМоментов_%3
-				|ИЗ
-				|	%4 КАК Таблица", маИменаКолонокДата[й], маИменаКолонокСсылка[й], маИменаКолонокМоментов[й],
-				ИмяПромежуточнойТаблицы));
+		For j = 0 To arDateColumnNames.UBound() Do
+			arPointsInTimeDataQueries.Add(StrTemplate(
+				"SELECT
+				|	Table.%1 AS Date,
+				|	Table.%2 AS Ref
+				|INTO %4_PointsInTimeData_%3
+				|FROM
+				|	%4 AS Table", arDateColumnNames[j], arRefColumnNames[j], arPointInTimeColumnNames[j],
+				TempTableName));
 		EndDo;
 
-		ТекстЗапросаДанныхМоментов = StrConcat(маЗапросыДанныхМоментов, ";
+		PointsInTimeDataQueryText = StrConcat(arPointsInTimeDataQueries, ";
 																		   |
 																		   |");
 
-		ДополнительныеЗапросы = ТекстЗапросаДанныхМоментов + "; 
+		AdditionalQueries = PointsInTimeDataQueryText + "; 
 															 |
-															 |" + ТекстыЗапросовПоискаМоментов;
+															 |" + PointsInTimeSearchQueryTexts;
 
 	EndIf;
 
 EndProcedure
 
 &AtServer
-Procedure ПодготовитьВыборкуКолонокСТипомТип(тзДанные, ИмяПромежуточнойТаблицы, стНовыеВыраженияПолей,
-	ДополнительныеИсточники, ДополнительныеЗапросы)
+Procedure PrepareTypeTypeColumnsSelection(vtData, TempTableName, stNewFieldExpressions,
+	AdditionalSources, AdditionalQueries)
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	DataProcessor = FormAttributeToValue("Object");
 
-	For Each Колонка Из тзДанные.Колонки Do
+	For Each Column In vtData.Columns Do
 
-		If Колонка.ТипЗначения.СодержитТип(Тип("Тип")) Then
+		If Column.ValueType.ContainsType(Type("Type")) Then
 
-			ИмяКолонки = Колонка.Имя;
-			ИмяКолонкиТип = ИмяКолонки + "_Тип31415926";
-			ИмяКолонкиВременной = ИмяКолонки + "_Вр31415926";
+			ColumnName = Column.Name;
+			TypeColumnName = ColumnName + "_Type31415926";
+			TempColumnName = ColumnName + "_Tmp31415926";
 
-			маВычитаемыеТипы = New Array;
-			маВычитаемыеТипы.Добавить(Тип("Тип"));
-			маДобавляемыеТипы = New Array;
-			маДобавляемыеТипы.Добавить(Тип("Null"));
-			ТипБезТипаТип = New ОписаниеТипов(Колонка.ТипЗначения, маДобавляемыеТипы, маВычитаемыеТипы);
-			ТолькоТип = ТипБезТипаТип = New ОписаниеТипов("Null");//Значит, что в колонке был только тип.
-			                                                         //Вообще, так должно быть всегда. Не представляю ситуации, когда в колонке с типом может быть что-то еще.
+			arRemovedType = New Array;
+			arRemovedType.Add(Type("Type"));
+			arAddedType = New Array;
+			arAddedType.Add(Type("Null"));
+			NoTypeType = New TypeDescription(Column.ValueType, arAddedType, arRemovedType);
+			// Column contains only the Type type.
+			// Hard to imagine a situation when there might be some type else in the column with a Type.
+			TypeOnly = NoTypeType = New TypeDescription("Null");
 
-			тзДанные.Колонки.Добавить(ИмяКолонкиТип);
-			If Не ТолькоТип Then
-				тзДанные.Колонки.Добавить(ИмяКолонкиВременной, ТипБезТипаТип);
+			vtData.Column.Add(TypeColumnName);
+			If Not TypeOnly Then
+				vtData.Columns.Add(TempColumnName, NoTypeType);
 			EndIf;
 
-			маТипы = New Array;
+			arTypes = New Array;
 
-			If ТолькоТип Then
+			If TypeOnly Then
 
-				For Each СтрокаДанных Из тзДанные Do
-					маТипы.Добавить(СтрокаДанных[ИмяКолонки]);
-					ОписаниеТипа = TypeDescriptionByType(СтрокаДанных[ИмяКолонки]);
-					Значение = ОписаниеТипа.ПривестиЗначение(Undefined);
-					СтрокаДанных[ИмяКолонкиТип] = Значение;
+				For Each DataRow In vtData Do
+					arTypes.Add(DataRow[ColumnName]);
+					TypeDescription = TypeDescriptionByType(DataRow[ColumnName]);
+					Value = TypeDescription.AdjustValue(Undefined);
+					DataRow[TypeColumnName] = Value;
 				EndDo;
 
-			Иначе
+			Else
 
-				For Each СтрокаДанных Из тзДанные Do
-					If ТипЗнч(СтрокаДанных[ИмяКолонки]) = Тип("Тип") Then
-						маТипы.Добавить(СтрокаДанных[ИмяКолонки]);
-						ОписаниеТипа = TypeDescriptionByType(СтрокаДанных[ИмяКолонки]);
-						Значение = ОписаниеТипа.ПривестиЗначение(Undefined);
-						СтрокаДанных[ИмяКолонкиТип] = Значение;
-						СтрокаДанных[ИмяКолонкиВременной] = Null;
-					Иначе
-						СтрокаДанных[ИмяКолонкиВременной] = СтрокаДанных[ИмяКолонки];
+				For Each DataRow In vtData Do
+					If TypeOf(DataRow[ColumnName]) = Type("Type") Then
+						arTypes.Add(DataRow[ColumnName]);
+						TypeDescription = TypeDescriptionByType(DataRow[ColumnName]);
+						Value = TypeDescription.AdjustValue(Undefined);
+						DataRow[TypeColumnName] = Value;
+						DataRow[TempColumnName] = Null;
+					Else
+						DataRow[TempColumnName] = DataRow[ColumnName];
 					EndIf;
 				EndDo;
 
 			EndIf;
 
-			тзДанные.Колонки.Удалить(ИмяКолонки);
-			If Не ТолькоТип Then
-				тзДанные.Колонки[ИмяКолонкиВременной].Имя = ИмяКолонки;
+			vtData.Columns.Delete(ColumnName);
+			If Not TypeOnly Then
+				vtData.Columns[TempColumnName].Name = ColumnName;
 			EndIf;
 
-			ТипКолонкиТипа = New ОписаниеТипов(маТипы);
-			Обработка.ChangeValueTableColumnType(тзДанные, ИмяКолонкиТип, ТипКолонкиТипа);
+			TypeColumnType = New TypeDescription(arTypes);
+			DataProcessor.ChangeValueTableColumnType(vtData, TypeColumnName, TypeColumnType);
 			
-			//стВыраженияПолей.Вставить(стВыраженияПолей
+			//stFieldsExpression.Insert(stFieldsExpression
 
-			If ТолькоТип Then
-				стНовыеВыраженияПолей.Вставить(ИмяКолонки, "ТИПЗНАЧЕНИЯ(Таблица." + ИмяКолонкиТип + ") КАК "
-					+ ИмяКолонки);
-			Иначе
-				стНовыеВыраженияПолей.Вставить(ИмяКолонки, "ISNULL(Таблица." + ИмяКолонки + ", ТИПЗНАЧЕНИЯ(Таблица."
-					+ ИмяКолонкиТип + ")) КАК " + ИмяКолонки);
+			If TypeOnly Then
+				stNewFieldExpressions.Insert(ColumnName, "ValueType(Table." + TypeColumnName + ") AS "
+					+ ColumnName);
+			Else
+				stNewFieldExpressions.Insert(ColumnName, "ISNULL(Table." + ColumnName + ", ValueType(Table."
+					+ TypeColumnName + ")) AS " + ColumnName);
 			EndIf;
 
 		EndIf;
@@ -615,50 +617,50 @@ Procedure ПодготовитьВыборкуКолонокСТипомТип(�
 EndProcedure
 
 &AtServer
-Procedure УстановитьТипКолонокБезТипа(тзДанные)
+Procedure SetTypeToNoTypeColumns(vtData)
 
-	Обработка = РеквизитФормыВЗначение("Object");
-	ПустойТип = New ОписаниеТипов;
-	маНеЗначащиеТипы = New Array;
-	маНеЗначащиеТипы.Добавить("Undefined");
-	маНеЗначащиеТипы.Добавить("Null");
+	DataProcessor = FormAttributeToValue("Object");
+	EmptyType = New TypeDescription;
+	arNoValueTypes = New Array;
+	arNoValueTypes.Add("Undefined");
+	arNoValueTypes.Add("Null");
 
-	маОбрабатываемыеКолонки = New Array;
-	маТипыКолонок = New Array;
-	For Each Колонка Из тзДанные.Колонки Do
-		//маТипы = Колонка.ТипЗначения.Типы();
-		If Колонка.ТипЗначения = ПустойТип Then
-			маОбрабатываемыеКолонки.Добавить(Колонка.Имя);
-			маТипыКолонок.Добавить(New Array);
+	arProcessedColumns = New Array;
+	arColumnsTypes = New Array;
+	For Each Column In vtData.Columns Do
+		//arTypes = Column.ValueType.Types();
+		If Column.ValueType = EmptyType Then
+			arProcessedColumns.Add(Column.Name);
+			arColumnsTypes.Add(New Array);
 		EndIf;
 	EndDo;
 
-	If маОбрабатываемыеКолонки.Количество() > 0 Then
+	If arProcessedColumns.Count() > 0 Then
 
-		For Each Строка Из тзДанные Do
-			Для й = 0 По маОбрабатываемыеКолонки.Количество() - 1 Do
-				ИмяКолонки = маОбрабатываемыеКолонки[й];
-				маТипыКолонок[й].Добавить(ТипЗнч(Строка[ИмяКолонки]));
+		For Each Row In vtData Do
+			For j = 0 To arProcessedColumns.Count() - 1 Do
+				ColumnName = arProcessedColumns[j];
+				arColumnsTypes[j].Add(TypeOf(Row[ColumnName]));
 			EndDo;
 		EndDo;
 
-		Для й = 0 По маОбрабатываемыеКолонки.Количество() - 1 Do
+		For j = 0 To arProcessedColumns.Count() - 1 Do
 
-			ИмяКолонки = маОбрабатываемыеКолонки[й];
-			//ИмяВременнойКолонки = ИмяКолонки + "_Вр31415926";
+			ColumnName = arProcessedColumns[j];
+			//TempColumnName = ColumnName + "_Tmp31415926";
 
-			СтарыйТипЗначения = тзДанные.Колонки[ИмяКолонки].ТипЗначения;
-			NewТипКолонки = New ОписаниеТипов(маТипыКолонок[й], СтарыйТипЗначения.КвалификаторыЧисла,
-				СтарыйТипЗначения.КвалификаторыСтроки, СтарыйТипЗначения.КвалификаторыДаты,
-				СтарыйТипЗначения.КвалификаторыДвоичныхДанных);
+			OldValueType = vtData.Columns[ColumnName].ValueType;
+			NewColumnType = New TypeDescription(arColumnsTypes[j], OldValueType.NumberQualifiers,
+				OldValueType.StringQualifiers, OldValueType.DateQualifiers,
+				OldValueType.BinaryDataQualifiers);
 
-			ЗначимыеТипы = New ОписаниеТипов(NewТипКолонки, , маНеЗначащиеТипы);
-			If ЗначимыеТипы = ПустойТип Then
-				NewТипКолонки = New ОписаниеТипов(NewТипКолонки, "Число");//нужно поставить хоть какой-то тип, иначе в запросе не загрузить...
-				//Сообщить(Строка(ИмяКолонки) + " - тип колонки не определен, установлено число.");//отладка
+			ValueTypes = New TypeDescription(NewColumnType, , arNoValueTypes);
+			If ValueTypes = EmptyType Then
+				NewColumnType = New TypeDescription(NewColumnType, "Number"); // You must to specify an any type for a capability to load in query.
+				//Message(String(ColumnName) + " - column type is undefined, the Number type was specified.");//debug
 			EndIf;
 
-			Обработка.ChangeValueTableColumnType(тзДанные, ИмяКолонки, NewТипКолонки);
+			DataProcessor.ChangeValueTableColumnType(vtData, ColumnName, NewColumnType);
 
 		EndDo;
 
@@ -667,128 +669,128 @@ Procedure УстановитьТипКолонокБезТипа(тзДанны�
 EndProcedure
 
 &AtServer
-Procedure ЗагрузитьВременнуюТаблицу(ИмяТаблицы, тзДанные, маЗапросыЗагрузки, ЗапросЗагрузкиТаблиц)
+Procedure LoadTempTable(TableName, vtData, arLoadQueries, TablesLoadQuery)
 
-	УстановитьТипКолонокБезТипа(тзДанные);
+	SetTypeToNoTypeColumns(vtData);
 
-	маПоляТаблицы = New Array;
-	For Each Колонка Из тзДанные.Колонки Do
-		маПоляТаблицы.Добавить(Колонка.Имя);
+	arTableFields = New Array;
+	For Each Column Из vtData.Columns Do
+		arTableFields.Add(Column.Имя);
 	EndDo;
 
-	стНовыеВыраженияПолей = New Structure;
-	ДополнительныеИсточники = "";
-	ДополнительныеЗапросы = "";
-	ИмяПромежуточнойТаблицы = ИмяТаблицы + "_Вр31415926";
-	ПодготовитьВыборкуКолонокСТипомТип(тзДанные, ИмяПромежуточнойТаблицы, стНовыеВыраженияПолей,
-		ДополнительныеИсточники, ДополнительныеЗапросы);
-	ПодготовитьВыборкуКолонокСТипомМоментВремени(тзДанные, ИмяПромежуточнойТаблицы, стНовыеВыраженияПолей,
-		ДополнительныеИсточники, ДополнительныеЗапросы);
-	If стНовыеВыраженияПолей.Количество() > 0 Then
+	stNewFieldExpressions = New Structure;
+	AdditionalSources = "";
+	AdditionalQueries = "";
+	TempTableName = TableName + "_Tmp31415926";
+	PrepareTypeTypeColumnsSelection(vtData, TempTableName, stNewFieldExpressions,
+		AdditionalSources, AdditionalQueries);
+	PrepareMomentInTimeColumnsSelection(vtData, TempTableName, stNewFieldExpressions,
+		AdditionalSources, AdditionalQueries);
+	If stNewFieldExpressions.Count() > 0 Then
 
-		маВыраженияПолей = New Array;
-		For Each Колонка Из тзДанные.Колонки Do
-			Выражение = "Таблица." + Колонка.Имя + " КАК " + Колонка.Имя;
-			маВыраженияПолей.Добавить(Выражение);
+		arFieldExpressions = New Array;
+		For Each Column In vtData.Columns Do
+			Expression = "Table." + Column.Name + " AS " + Column.Name;
+			arFieldExpressions.Add(Expression);
 		EndDo;
-		ВыраженияПолей = StrConcat(маВыраженияПолей, ",
-														|");
+		FieldExpressions = StrConcat(arFieldExpressions, ",
+														 |");
 
-		маЗапросыЗагрузки.Добавить("
-								   |ВЫБРАТЬ
-								   |" + ВыраженияПолей + "
-														 |ПОМЕСТИТЬ " + ИмяПромежуточнойТаблицы + "
-																								  |ИЗ &" + ИмяТаблицы
-			+ " КАК Таблица");
+		arLoadQueries.Add("
+							 |SELECT
+							 |" + FieldExpressions + "
+													 |INTO " + TempTableName + "
+																			   |FROM &" + TableName
+			+ " AS Table");
 
-		If ValueIsFilled(ДополнительныеЗапросы) Then
-			маЗапросыЗагрузки.Добавить(ДополнительныеЗапросы);
+		If ValueIsFilled(AdditionalQueries) Then
+			arLoadQueries.Add(AdditionalQueries);
 		EndIf;
 
-		Источник = ИмяПромежуточнойТаблицы;
+		Source = TempTableName;
 
-	Иначе
-		Источник = "&" + ИмяТаблицы;
+	Else
+		Source = "&" + TableName;
 	EndIf;
 
-	Выражение = Undefined;
-	маВыраженияПолей = New Array;
-	For Each ИмяКолонки Из маПоляТаблицы Do
-		If Не стНовыеВыраженияПолей.Свойство(ИмяКолонки, Выражение) Then
-			Выражение = "Таблица." + ИмяКолонки + " КАК " + ИмяКолонки;
+	Expression = Undefined;
+	arFieldExpressions = New Array;
+	For Each ColumnName In arTableFields Do
+		If Not stNewFieldExpressions.Property(ColumnName, Expression) Then
+			Expression = "Table." + ColumnName + " AS " + ColumnName;
 		EndIf;
-		маВыраженияПолей.Добавить(Выражение);
+		arFieldExpressions.Add(Expression);
 	EndDo;
-	ВыраженияПолей = StrConcat(маВыраженияПолей, ",
+	FieldExpressions = StrConcat(arFieldExpressions, ",
+													 |");
+
+	arLoadQueries.Add("
+						 |SELECT
+						 |" + FieldExpressions + "
+												 |INTO " + TableName + "
+																	   |FROM " + Source + " AS Table"
+		+ " " + AdditionalSources);
+
+	TablesLoadQuery.SetParameter(TableName, vtData);
+
+EndProcedure
+
+&AtServer
+Function LoadTempTables()
+
+	If TempTables.Count() = 0 Then
+		Return New TempTablesManager;
+	EndIf;
+
+	TablesLoadQuery = New Query;
+	TablesLoadQuery.TempTablesManager = New TempTablesManager;
+
+	arLoadQueries = New Array;
+	For Each TempTableRow In TempTables Do
+
+		TableName = TempTableRow.Name;
+		vtData = FormAttributeToValue("Object").Container_RestoreValue(TempTableRow.Container);
+		LoadTempTable(TableName, vtData, arLoadQueries, TablesLoadQuery);
+
+	EndDo;
+
+	TablesLoadQuery.Text = StrConcat(arLoadQueries, ";
 													|");
 
-	маЗапросыЗагрузки.Добавить("
-							   |ВЫБРАТЬ
-							   |" + ВыраженияПолей + "
-													 |ПОМЕСТИТЬ " + ИмяТаблицы + "
-																				 |ИЗ " + Источник + " КАК Таблица"
-		+ " " + ДополнительныеИсточники);
+	TablesLoadQuery.Execute();
 
-	ЗапросЗагрузкиТаблиц.УстановитьПараметр(ИмяТаблицы, тзДанные);
-
-EndProcedure
-
-&AtServer
-Function ЗагрузитьВременныеТаблицы()
-
-	If TempTables.Количество() = 0 Then
-		Return New МенеджерВременныхТаблиц;
-	EndIf;
-
-	ЗапросЗагрузкиТаблиц = New Запрос;
-	ЗапросЗагрузкиТаблиц.МенеджерВременныхТаблиц = New МенеджерВременныхТаблиц;
-
-	маЗапросыЗагрузки = New Array;
-	For Each СтрокаВременнаяТаблица Из TempTables Do
-
-		ИмяТаблицы = СтрокаВременнаяТаблица.Name;
-		тзДанные = РеквизитФормыВЗначение("Object").Container_RestoreValue(СтрокаВременнаяТаблица.Контейнер);
-		ЗагрузитьВременнуюТаблицу(ИмяТаблицы, тзДанные, маЗапросыЗагрузки, ЗапросЗагрузкиТаблиц);
-
-	EndDo;
-
-	ЗапросЗагрузкиТаблиц.Текст = StrConcat(маЗапросыЗагрузки, ";
-																 |");
-
-	ЗапросЗагрузкиТаблиц.Выполнить();
-
-	Return ЗапросЗагрузкиТаблиц.МенеджерВременныхТаблиц;
+	Return TablesLoadQuery.TempTablesManager;
 
 EndFunction
 
 &AtServer
-Procedure ВыборкуВДерево(выбВыборка, Узел, й, фЕстьКонтейнеры, Обработка, фЕстьМакроколонки, стМакроколонки)
+Procedure SelectionToTree(selSelection, Node, j, fContainersExists, DataProcessor, fMacrocolumnsExists, stMacrocolumns)
 
-	ЭлементыУзла = Узел.ПолучитьЭлементы();
+	NodeItems = Node.GetItems();
 
-	Пока выбВыборка.Следующий() Do
+	While selSelection.Next() Do
 
-		й = й + 1;
+		j = j + 1;
 
-		If OutputLinesLimit > 0 И й > OutputLinesLimit Then
-			Прервать;
+		If OutputLinesLimit > 0 And j > OutputLinesLimit Then
+			Break;
 		EndIf;
 
-		РезультатЗапросаСтрока = ЭлементыУзла.Добавить();
-		ЗаполнитьЗначенияСвойств(РезультатЗапросаСтрока, выбВыборка);
+		QueryResultString = NodeItems.Add();
+		FillPropertyValues(QueryResultString, selSelection);
 
-		If фЕстьКонтейнеры Then
-			Обработка.AddContainers(РезультатЗапросаСтрока, выбВыборка, QueryResultContainerColumns);
+		If fContainersExists Then
+			DataProcessor.AddContainers(QueryResultString, selSelection, QueryResultContainerColumns);
 		EndIf;
 
-		If фЕстьМакроколонки Then
-			Обработка.ProcessMacrocolumns(РезультатЗапросаСтрока, выбВыборка, стМакроколонки);
+		If fMacrocolumnsExists Then
+			DataProcessor.ProcessMacrocolumns(QueryResultString, selSelection, stMacrocolumns);
 		EndIf;
 
-		выбПодчиненные = выбВыборка.Выбрать(ОбходРезультатаЗапроса.ПоГруппировкам);
-		If выбПодчиненные.Количество() > 0 Then
-			ВыборкуВДерево(выбПодчиненные, РезультатЗапросаСтрока, й, фЕстьКонтейнеры, Обработка, фЕстьМакроколонки,
-				стМакроколонки);
+		selChild = selSelection.Select(QueryResultIteration.ByGroups);
+		If selChild.Count() > 0 Then
+			SelectionToTree(selChild, QueryResultString, j, fContainersExists, DataProcessor, fMacrocolumnsExists,
+				stMacrocolumns);
 		EndIf;
 
 	EndDo;
@@ -796,103 +798,103 @@ Procedure ВыборкуВДерево(выбВыборка, Узел, й, фЕ�
 EndProcedure
 
 &AtServer
-Function ИзвлечьРезультатКакТаблицуЗначений()
+Function ExtractResultAsValueTable()
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	DataProcessor = FormAttributeToValue("Object");
 
-	стРезультатЗапроса = ПолучитьИзВременногоХранилища(QueryResultAddress);
-	маРезультатЗапроса = стРезультатЗапроса.Результат;
-	стРезультатПакета = маРезультатЗапроса[Число(ResultInBatch) - 1];
-	рзВыборка = стРезультатПакета.Результат;
-	стМакроколонки = стРезультатПакета.Макроколонки;
-	фЕстьМакроколонки = стМакроколонки.Количество() > 0;
+	stQueryResult = GetFromTempStorage(QueryResultAddress);
+	arQueryResult = stQueryResult.Result;
+	stBatchResult = arQueryResult[Number(ResultInBatch) - 1];
+	qrSelection = stBatchResult.Result;
+	stMacrocolumns = stBatchResult.Macrocolumns;
+	fMacrocolumnsExists = stMacrocolumns.Count() > 0;
 
-	If фЕстьМакроколонки Then
+	If fMacrocolumnsExists Then
 
-		тзРезультат = New ТаблицаЗначений;
+		vtResult = New ValueTable;
 
-		For Each Колонка Из рзВыборка.Колонки Do
-			тзРезультат.Колонки.Добавить(Колонка.Имя, Колонка.ТипЗначения);
+		For Each Column In qrSelection.Columns Do
+			vtResult.Columns.Add(Column.Name, Column.ValueType);
 		EndDo;
 
-		выбВыборка = рзВыборка.Выбрать();
-		Пока выбВыборка.Следующий() Do
-			Строка = тзРезультат.Добавить();
-			ЗаполнитьЗначенияСвойств(Строка, выбВыборка);
-			Обработка.ProcessMacrocolumns(Строка, выбВыборка, стМакроколонки);
+		selSelection = qrSelection.Select();
+		While selSelection.Next() Do
+			Row = vtResult.Add();
+			FillPropertyValues(Row, selSelection);
+			DataProcessor.ProcessMacrocolumns(Row, selSelection, stMacrocolumns);
 		EndDo;
 
-	Иначе
-		тзРезультат = рзВыборка.Выгрузить();
+	Else
+		vtResult = qrSelection.Select();
 	EndIf;
 
-	Return тзРезультат;
+	Return vtResult;
 
 EndFunction
 
 &AtServer
-Function ИзвлечьРезультатКакКонтейнер(фУдалитьТипNull = True)
+Function ExtractResultAsContainer(fDeleteNullType = True)
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	DataProcessor = FormAttributeToValue("Object");
 
-	тз = ИзвлечьРезультатКакТаблицуЗначений();
-	Обработка.ValueTable_DeleteNullType(тз);
+	vt = ExtractResultAsValueTable();
+	DataProcessor.ValueTable_DeleteNullType(vt);
 
-	Return Обработка.Container_SaveValue(тз);
+	Return DataProcessor.Container_SaveValue(vt);
 
 EndFunction
 
 &AtServer
-Procedure StructureЗаписиРезультата_РаскрытьПодчиненныеУзлы(Строка)
-	Var Картинки;
+Procedure ResultRecordStructure_ExpandChildNodes(Row)
+	Var Pictures;
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	DataProcessor = FormAttributeToValue("Object");
 
-	СтрокаДерева = StructureЗаписиРезультата.НайтиПоИдентификатору(Строка);
+	TreeRow = ResultRecordStructure.FiindByID(Row);
 
-	For Each ЭлементСтруктуры Из СтрокаДерева.ПолучитьЭлементы() Do
+	For Each StructureItem In TreeRow.GetItems() Do
 
-		If ТипЗнч(ЭлементСтруктуры.Тип) = Тип("ОписаниеТипов") Then
+		If TypeOf(StructureItem.Type) = Type("TypeDescription") Then
 
-			соСчетчики = New Соответствие;
-			соТипы = New Соответствие;
+			mapCounters = New Map;
+			mapTypes = New Map;
 
-			ТипыБезПустых = Обработка.NoEmptyType(ЭлементСтруктуры.Тип);
-			маТипы = ТипыБезПустых.Типы();
-			For Each Тип Из маТипы Do
+			NoEmptyTypes = DataProcessor.NoEmptyType(StructureItem.Type);
+			arTypes = NoEmptyTypes.Types();
+			For Each Type In arTypes Do
 
-				МетаданныеЭлемента = Undefined;
-				If Справочники.ТипВсеСсылки().СодержитТип(Тип) Или Документы.ТипВсеСсылки().СодержитТип(Тип)
-					Или ПланыВидовХарактеристик.ТипВсеСсылки().СодержитТип(Тип)
-					Или ПланыСчетов.ТипВсеСсылки().СодержитТип(Тип) Или ПланыВидовРасчета.ТипВсеСсылки().СодержитТип(Тип)
-					Или БизнесПроцессы.ТипВсеСсылки().СодержитТип(Тип) Или Задачи.ТипВсеСсылки().СодержитТип(Тип)
-					Или ПланыОбмена.ТипВсеСсылки().СодержитТип(Тип) Then
-					МетаданныеЭлемента = TypeDescriptionByType(Тип).ПривестиЗначение(Undefined).Метаданные();
+				ItemMetadata = Undefined;
+				If Catalogs.AllRefsType().ContainsType(Type) Or Documents.AllRefsType().ContainsType(Type)
+					Or ChartsOfCharacteristicTypes.AllRefsType().ContainsType(Type)
+					Or ChartsOfAccounts.AllRefsType().ContainsType(Type) Or ChartsOfCalculationTypes.AllRefsType().ContainsType(Type)
+					Or BusinessProcesses.AllRefsType().ContainsType(Type) Or Tasks.AllRefsType().ContainsType(Type)
+					Or ExchangePlans.AllRefsType().ContainsType(Type) Then
+					ItemMetadata = TypeDescriptionByType(Type).AdjustValue(Undefined).Metadata();
 				EndIf;
 
-				If МетаданныеЭлемента <> Undefined Then
+				If ItemMetadata <> Undefined Then
 
-					маКоллекцииРеквизитов = New Array;
-					маКоллекцииРеквизитов.Добавить(МетаданныеЭлемента.СтандартныеРеквизиты);
-					маКоллекцииРеквизитов.Добавить(МетаданныеЭлемента.Реквизиты);
+					arAttributeCollections = New Array;
+					arAttributeCollections.Add(ItemMetadata.StandardAttributes);
+					arAttributeCollections.Add(ItemMetadata.Attributes);
 
-					For Each КоллекцияРеквизитов Из маКоллекцииРеквизитов Do
-						For Each Реквизит Из КоллекцияРеквизитов Do
+					For Each AttributeCollection In arAttributeCollections Do
+						For Each Attribute In AttributeCollection Do
 
-							К = соСчетчики[Реквизит.Имя];
-							К = ?(К = Undefined, 0, К);
-							соСчетчики[Реквизит.Имя] = К + 1;
+							K = mapCounters[Attribute.Name];
+							K = ?(K = Undefined, 0, K);
+							mapCounters[Attribute.Name] = K + 1;
 
-							Типы = соТипы[Реквизит.Имя];
-							If Типы = Undefined Then
-								Типы = New Array;
+							Types = mapTypes[Attribute.Name];
+							If Types = Undefined Then
+								Types = New Array;
 							EndIf;
 
-							For Each Тип Из Реквизит.Тип.Типы() Do
-								Типы.Добавить(Тип);
+							For Each Type In Attribute.Type.Types() Do
+								Types.Add(Type);
 							EndDo;
 
-							соТипы[Реквизит.Имя] = Типы;
+							mapTypes[Attribute.Name] = Types;
 
 						EndDo;
 					EndDo;
@@ -901,18 +903,18 @@ Procedure StructureЗаписиРезультата_РаскрытьПодчин
 
 			EndDo;
 
-			For Each кз Из соСчетчики Do
+			For Each kv In mapCounters Do
 
-				If кз.Значение = маТипы.Количество() Then//Добавляем только те реквизиты, которые есть во всех типах составного типа.
+				If kv.Value = mapTypes.Count() Then // Adding only the attributes included into all types of the composite type.
 
-					стрИмя = кз.Ключ;
-					маТипы = соТипы[стрИмя];
-					NewЭлементСтруктуры = ЭлементСтруктуры.ПолучитьЭлементы().Добавить();
-					NewЭлементСтруктуры.Имя = стрИмя;
-					NewЭлементСтруктуры.Тип = New ОписаниеТипов(маТипы);
+					strName = kv.Key;
+					arTypes = mapTypes[strName];
+					NewStructureItem = StructureItem.GetItems().Add();
+					NewStructureItem.Name = strName;
+					NewStructureItem.Type = New TypeDescription(arTypes);
 
-					NewЭлементСтруктуры.Картинка = Обработка.GetPictureByType(NewЭлементСтруктуры.Тип,
-						Картинки);
+					NewStructureItem.Picture = DataProcessor.GetPictureByType(NewStructureItem.Type,
+						Pictures);
 
 				EndIf;
 
@@ -922,354 +924,354 @@ Procedure StructureЗаписиРезультата_РаскрытьПодчин
 
 	EndDo;
 
-	СтрокаДерева.ПодчиненныеУзлыРаскрыты = True;
+	TreeRow.ChildNodesExpanded = True;
 
 EndProcedure
 
 &AtClient
-Procedure StructureЗаписиРезультата_Развернуть()
-	ЭлементыДерева = StructureЗаписиРезультата.ПолучитьЭлементы();
-	Элементы.StructureЗаписиРезультата.Развернуть(ЭлементыДерева[0].ПолучитьИдентификатор());
-	Элементы.StructureЗаписиРезультата.Развернуть(ЭлементыДерева[1].ПолучитьИдентификатор());
+Procedure ResultRecordStructure_Expand()
+	TreeItems = ResultRecordStructure.GetItems();
+	Items.ResultRecordStructure.Expand(TreeItems[0].GetID());
+	Items.ResultRecordStructure.Expand(TreeItems[1].GetID());
 	
-	#Region УИ_ПослеОбновленияСтруктурыЗаписиРезультата
+	#Region UT_AfterResultRecordStructureRefresh
 	
-	УИ_ДобавитьКонтекстСтруктурыРезультатаАлгоритм();
+	UT_AddResultStructureContextAlgorithm();
 	#EndRegion
 EndProcedure
 
 &AtServer
-//Заполняет структуру записи, используемую на странице выполнения кода.
-Procedure StructureЗаписиРезультата_ЗаполнитьСтруктуруЗаписи(рзВыборка = Undefined)
-	Var Картинки;
+// Fills in the record structure using on the code execution page
+Procedure ResultRecordStructure_FillRecordStructure(qrSelection = Undefined)
+	Var Pictures;
 
-	StructureЗаписиРезультата.ПолучитьЭлементы().Очистить();
+	ResultRecordStructure.GetItems().Clear();
 
-	If рзВыборка = Undefined Then
+	If qrSelection = Undefined Then
 		Return;
 	EndIf;
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	//Свойства в выборке раскрывать не нужно. Все необходимое нужно выбирать в запросе.
-	фРаскрыватьСвойстваВВыборке = False;
+	// All the data reqiured must be chosen in the query, not by expanding the properties in the selection.
+	fExpandPropertiesInSelection = False;
 	
-	//А в параметрах раскроем, это не так страшно.
-	фРаскрыватьСвойстваВПараметрах = True;
+	// Expanding properties in the parameters is not so bad.
+	fExpandPropertiesInParameters = True;
 
-	ЭлементСтруктурыВыборка = StructureЗаписиРезультата.ПолучитьЭлементы().Добавить();
-	ЭлементСтруктурыВыборка.Имя = "Выборка";
-	ЭлементСтруктурыВыборка.ПодчиненныеУзлыРаскрыты = Не фРаскрыватьСвойстваВВыборке;
+	StructureItemSelection = ResultRecordStructure.GetItems().Add();
+	StructureItemSelection.Name = "Selection";
+	StructureItemSelection.ChildNodesExpanded = Not fExpandPropertiesInSelection;
 
-	For Each Колонка Из рзВыборка.Колонки Do
-		ЭлементСтруктуры = ЭлементСтруктурыВыборка.ПолучитьЭлементы().Добавить();
-		ЭлементСтруктуры.Имя = Колонка.Имя;
-		ЭлементСтруктуры.Тип = Колонка.ТипЗначения;
-		ЭлементСтруктуры.Картинка = Обработка.GetPictureByType(Обработка.NoEmptyType(Колонка.ТипЗначения),
-			Картинки);
-		ЭлементСтруктуры.ПодчиненныеУзлыРаскрыты = Не фРаскрыватьСвойстваВВыборке;
+	For Each Column In qrSelection.Columns Do
+		StructureItem = StructureItemSelection.GetItems().Add();
+		StructureItem.Name = Column.Name;
+		StructureItem.Type = Column.ValueType;
+		StructureItem.Picture = DataProcessor.GetPictureByType(DataProcessor.NoEmptyType(Column.ValueType),
+			Pictures);
+		StructureItem.ChildNodesExpanded = Not fExpandPropertiesInSelection;
 	EndDo;
 
-	ЭлементСтруктурыПараметры = StructureЗаписиРезультата.ПолучитьЭлементы().Добавить();
-	ЭлементСтруктурыПараметры.Имя = "Параметры";
-	ЭлементСтруктурыПараметры.ПодчиненныеУзлыРаскрыты = Не фРаскрыватьСвойстваВПараметрах;
+	StructureItemParameters = ResultRecordStructure.GetItems().Add();
+	StructureItemParameters.Name = "Parameters";
+	StructureItemParameters.ChildNodesExpanded = Not fExpandPropertiesInParameters;
 
-	For Each СтрокаПараметра Из QueryParameters Do
+	For Each ParameterRow In QueryParameters Do
 
-		ЭлементСтруктуры = ЭлементСтруктурыПараметры.ПолучитьЭлементы().Добавить();
-		ЭлементСтруктуры.Имя = СтрокаПараметра.Name;
+		StructureItem = StructureItemParameters.GetItems().Add();
+		StructureItem.Name = ParameterRow.Name;
 
-		If СтрокаПараметра.ContainerType = 1 Then
-			ТипЗначения = New ОписаниеТипов("СписокЗначений");
-		ElsIf СтрокаПараметра.ContainerType = 2 Then
-			ТипЗначения = New ОписаниеТипов("Array");
-		Иначе
-			ТипЗначения = СтрокаПараметра.ValueType;
+		If ParameterRow.ContainerType = 1 Then
+			ValueType = New TypeDescription("ValueList");
+		ElsIf ParameterRow.ContainerType = 2 Then
+			ValueType = New TypeDescription("Array");
+		Else
+			ValueType = ParameterRow.ValueType;
 		EndIf;
 
-		ЭлементСтруктуры.Тип = ТипЗначения;
-		ЭлементСтруктуры.Картинка = Обработка.GetPictureByType(Обработка.NoEmptyType(ТипЗначения), Картинки);
-		ЭлементСтруктуры.ПодчиненныеУзлыРаскрыты = Не фРаскрыватьСвойстваВПараметрах;
+		StructureItem.Type = ValueType;
+		StructureItem.Picture = DataProcessor.GetPictureByType(DataProcessor.NoEmptyType(ValueType), Pictures);
+		StructureItem.ChildNodesExpanded = Not fExpandPropertiesInParameters;
 
 	EndDo;
 
 EndProcedure
 
 &AtServer
-Function ИзвлечьРезультат(чРезультат = Undefined)
+Function ExtractResult(nResult = Undefined)
 
-	If чРезультат = ResultInForm Then
+	If nResult = ResultInForm Then
 		Return 0;
 	EndIf;
 
-	If чРезультат <> Undefined Then
-		ResultInForm = чРезультат;
+	If nResult <> Undefined Then
+		ResultInForm = nResult;
 	EndIf;
 
-	КоличествоЗаписейРезультата = ИзвлечьРезультатВДанныеФормы(ResultInForm);
+	ResultRecordsCount = ExtractResultToFormData(ResultInForm);
 
 	ResultInBatch = ResultInForm;
 
-	Элементы.QueryResultBatch.ТекущаяСтрока = QueryResultBatch[ResultInForm - 1].ПолучитьИдентификатор();
+	Items.QueryResultBatch.CurrentRow = QueryResultBatch[ResultInForm - 1].GetID();
 
-	For Each Строка Из QueryResultBatch Do
-		Строка.Current = False;
+	For Each Row In QueryResultBatch Do
+		Row.Current = False;
 	EndDo;
 	QueryResultBatch[ResultInForm - 1].Current = True;
 
-	Return КоличествоЗаписейРезультата;
+	Return ResultRecordsCount;
 
 EndFunction
 
 &AtServer
-Function ИзвлечьРезультатВДанныеФормы(РезультатВПакете)
+Function ExtractResultToFormData(ResultInBatch)
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	DataProcessor = FormAttributeToValue("Object");
 
-	фДерево = ResultKind = "дерево";
-	If фДерево Then
-		ИмяРеквизитаРезультата = "РезультатЗапросаДерево";
-	Иначе
-		ИмяРеквизитаРезультата = "РезультатЗапроса";
+	fTree = ResultKind = "tree";
+	If fTree Then
+		ResultAttributeName = "QueryResultTree";
+	Else
+		ResultAttributeName = "QueryResult";
 	EndIf;
 
-	Элементы.RefreshResult.Доступность = True;
-	Элементы.QueryResult.Видимость = Не фДерево;
-	Элементы.ResultCommandBar.Видимость = Не фДерево;
-	Элементы.ResultCommandBar.Доступность = Не фДерево;
-	Элементы.QueryResultTree.Видимость = фДерево;
-	Элементы.ResultCommandBarTree.Видимость = фДерево;
-	Элементы.ResultCommandBarTreeLeft.Видимость = фДерево;
+	Items.RefreshResult.Enabled = True;
+	Items.QueryResult.Visible = Not fTree;
+	Items.ResultCommandBar.Visible = Not fTree;
+	Items.ResultCommandBar.Enabled = Not fTree;
+	Items.QueryResultTree.Visible = fTree;
+	Items.ResultCommandBarTree.Visible = fTree;
+	Items.ResultCommandBarTreeLeft.Visible = fTree;
 
-	If Не ValueIsFilled(QueryResultAddress) Then
-		StructureЗаписиРезультата_ЗаполнитьСтруктуруЗаписи();
+	If Not ValueIsFilled(QueryResultAddress) Then
+		ResultRecordStructure_FillRecordStructure();
 		Return 0;
 	EndIf;
 
-	If Число(РезультатВПакете) <= 0 Then
-		РеквизитФормыВЗначение("Object").CreateTableAttributesByColumns(ЭтаФорма, ИмяРеквизитаРезультата,
+	If Number(ResultInBatch) <= 0 Then
+		FormAttributeToValue("Object").CreateTableAttributesByColumns(ThisForm, ResultAttributeName,
 			"QueryResultColumnsMap", "QueryResultContainerColumns", Undefined);
-		StructureЗаписиРезультата_ЗаполнитьСтруктуруЗаписи();
+		ResultRecordStructure_FillRecordStructure();
 		Return 0;
 	EndIf;
 
-	Элементы.QueryResultControlGroup.Доступность = True;
+	Items.QueryResultControlGroup.Enabled = True;
 
-	стРезультатЗапроса = ПолучитьИзВременногоХранилища(QueryResultAddress);
-	маРезультатЗапроса = стРезультатЗапроса.Результат;
-	стРезультат = маРезультатЗапроса[Число(РезультатВПакете) - 1];
-	рзВыборка = стРезультат.Результат;
-	стМакроколонки = стРезультат.Макроколонки;
-	ЕстьМакроколонки = стМакроколонки.Количество() > 0;
+	stQueryResult = GetFromTempStorage(QueryResultAddress);
+	arQueryResult = stQueryResult.Result;
+	stResult = arQueryResult[Number(ResultInBatch) - 1];
+	qrSelection = stResult.Result;
+	stMacrocolumns = stResult.Macrocolumns;
+	MacrocolumnsExists = stMacrocolumns.Count() > 0;
 
-	QueryResult.Очистить();
-	QueryResultTree.ПолучитьЭлементы().Очистить();
-	Обработка.CreateTableAttributesByColumns(ЭтаФорма, ИмяРеквизитаРезультата,
-		"QueryResultColumnsMap", "QueryResultContainerColumns", ?(рзВыборка = Undefined,
-		Undefined, рзВыборка.Колонки), False, стМакроколонки);
+	QueryResult.Clear();
+	QueryResultTree.GetItems().Clear();
+	DataProcessor.CreateTableAttributesByColumns(ThisForm, ResultAttributeName,
+		"QueryResultColumnsMap", "QueryResultContainerColumns", ?(qrSelection = Undefined,
+		Undefined, qrSelection.Columns), False, stMacrocolumns);
 
-	If рзВыборка = Undefined Then
-		StructureЗаписиРезультата_ЗаполнитьСтруктуруЗаписи();
+	If qrSelection = Undefined Then
+		ResultRecordStructure_FillRecordStructure();
 		Return 0;
 	EndIf;
 
-	маСписокКолонок = New Array;
-	For Each кзКолонка Из QueryResultColumnsMap Do
-		маСписокКолонок.Добавить(кзКолонка.Значение);
+	arColumnList = New Array;
+	For Each kvColumn In QueryResultColumnsMap Do
+		arColumnList.Add(kvColumn.Value);
 	EndDo;
-	СписокКолонокСтрокой = StrConcat(маСписокКолонок, ",");
+	ColumnListString = StrConcat(arColumnList, ",");
 
-	ЕстьКонтейнеры = QueryResultContainerColumns.Количество() > 0;
-	If Не ЕстьМакроколонки И Не ЕстьКонтейнеры И (Не OutputLinesLimitEnabled Или OutputLinesLimit = 0) Then
+	ContainersExists = QueryResultContainerColumns.Count() > 0;
+	If Not MacrocolumnsExists And Not ContainersExists And (Not OutputLinesLimitEnabled Or OutputLinesLimit = 0) Then
 
-		If фДерево Then
+		If fTree Then
 
-			тзРезультат = рзВыборка.Выгрузить(ОбходРезультатаЗапроса.ПоГруппировкам);
-			ЗначениеВДанныеФормы(тзРезультат, QueryResultTree);
-			ResultReturningRowsCount = рзВыборка.Выбрать().КОличество();
+			vtResult = qrSelection.Unload(QueryResultIteration.ByGroups);
+			ValueToFormData(vtResult, QueryResultTree);
+			ResultReturningRowsCount = qrSelection.Select().Count();
 
-		Иначе
+		Else
 
-			тзРезультат = рзВыборка.Выгрузить();
-			ЗначениеВДанныеФормы(тзРезультат, QueryResult);
+			vtResult = qrSelection.Unload();
+			ValueToFormData(vtResult, QueryResult);
 
-			ResultReturningRowsCount = тзРезультат.Количество();
+			ResultReturningRowsCount = vtResult.Count();
 
-			If тзРезультат.Количество() > 0 Then
-				тзРезультат.Свернуть("", СписокКолонокСтрокой);
-				ЗаполнитьЗначенияСвойств(QueryResultTotals[0], тзРезультат[0]);
+			If vtResult.Count() > 0 Then
+				vtResult.GroupBy("", ColumnListString);
+				FillPropertyValues(QueryResultTotals[0], vtResult[0]);
 			EndIf;
 
 		EndIf;
 
-	Иначе
+	Else
 
-		If фДерево Then
+		If fTree Then
 
-			выбЗапрос = рзВыборка.Выбрать(ОбходРезультатаЗапроса.ПоГруппировкам);
+			selQuery = qrSelection.Select(QueryResultIteration.ByGroups);
 
-			й = 0;
-			ВыборкуВДерево(выбЗапрос, QueryResultTree, й, ЕстьКонтейнеры, Обработка, ЕстьМакроколонки,
-				стМакроколонки);
+			j = 0;
+			SelectionToTree(selQuery, QueryResultTree, j, ContainersExists, DataProcessor, MacrocolumnsExists,
+				stMacrocolumns);
 
-			ResultReturningRowsCount = выбЗапрос.Количество();
+			ResultReturningRowsCount = selQuery.Count();
 
-		Иначе
+		Else
 
-			й = 0;
-			выбЗапрос = рзВыборка.Выбрать();
-			Пока выбЗапрос.Следующий() Do
+			j = 0;
+			selQuery = qrSelection.Select();
+			While selQuery.Next() Do
 
-				й = й + 1;
+				j = j + 1;
 
-				If OutputLinesLimitEnabled И OutputLinesLimit > 0 И й > OutputLinesLimit Then
-					Прервать;
+				If OutputLinesLimitEnabled And OutputLinesLimit > 0 And j > OutputLinesLimit Then
+					Break;
 				EndIf;
 
-				РезультатЗапросаСтрока = QueryResult.Добавить();
-				ЗаполнитьЗначенияСвойств(РезультатЗапросаСтрока, выбЗапрос);
-				If ЕстьКонтейнеры Then
-					Обработка.AddContainers(РезультатЗапросаСтрока, выбЗапрос, QueryResultContainerColumns);
+				QueryResultRow = QueryResult.Add();
+				FillPropertyValues(QueryResultRow, selQuery);
+				If ContainersExists Then
+					DataProcessor.AddContainers(QueryResultRow, selQuery, QueryResultContainerColumns);
 				EndIf;
 
-				If ЕстьМакроколонки Then
-					Обработка.ProcessMacrocolumns(РезультатЗапросаСтрока, выбЗапрос, стМакроколонки);
+				If MacrocolumnsExists Then
+					DataProcessor.ProcessMacrocolumns(QueryResultRow, selQuery, stMacrocolumns);
 				EndIf;
 
 			EndDo;
 
-			If OutputLinesLimitEnabled И OutputLinesLimit > 0 Then
-				тзРезультат = ДанныеФормыВЗначение(QueryResult, Тип("ТаблицаЗначений"));
-			Иначе
-				тзРезультат = рзВыборка.Выгрузить();
+			If OutputLinesLimitEnabled And OutputLinesLimit > 0 Then
+				vtResult = FormDataToValue(QueryResult, Type("ValueTable"));
+			Else
+				vtResult = qrSelection.Unload();
 			EndIf;
 
-			If тзРезультат.Количество() > 0 Then
-				тзРезультат.Свернуть("", СписокКолонокСтрокой);
-				ЗаполнитьЗначенияСвойств(QueryResultTotals[0], тзРезультат[0]);
+			If vtResult.Count() > 0 Then
+				vtResult.GroupBy("", ColumnListString);
+				FillPropertyValues(QueryResultTotals[0], vtResult[0]);
 			EndIf;
 
-			ResultReturningRowsCount = рзВыборка.Выбрать().Количество();
+			ResultReturningRowsCount = qrSelection.Select().Count();
 
 		EndIf;
 
 	EndIf;
 
-	Элементы.QueryPlan.Видимость = ValueIsFilled(стРезультат.ЗапросИД);
+	Items.QueryPlan.Visible = ValueIsFilled(stResult.QueryID);
 
-	Элементы.QueryResultBatchInfo.ГиперссылкаЯчейки = Элементы.QueryPlan.Видимость;
+	Items.QueryResultBatchInfo.CellHyperlink = Items.QueryPlan.Visible;
 
-	StructureЗаписиРезультата_ЗаполнитьСтруктуруЗаписи(рзВыборка);
+	ResultRecordStructure_FillRecordStructure(qrSelection);
 
 	Return ResultReturningRowsCount;
 
 EndFunction
 
-#Region СохраняемыеСостояния
+#Region SavedStates
 
-//Сохраняемые состояния - Structure, предназначена для сохранения значений, которых нет в опциях (состояния флажков форм,
-//разных значений, и т.д.). Записывается в файл. Из файла читается только при первом открытии.
-//Это дублирование кода из модуля обработки, но If нужно получать и с сервера, и с клиента, 1С по другому не умеет. Лишний вызов сервера не нужен.
-
+// Saved states - a structure for storing values not included into options (form flags states, 
+// different values, etc.). Written to a file. Reading from the file only at the first opening.
+// This is a duplication of object module code to avoid unnecessary server calls.
+//
 &AtClient
-Procedure SavedStates_Save(ИмяЗначения, Значение) Экспорт
+Procedure SavedStates_Save(ValueName, Value) Export
 
-	If Не ValueIsFilled(Object.SavedStates) Then
+	If Not ValueIsFilled(Object.SavedStates) Then
 		Object.SavedStates = New Structure;
 	EndIf;
 
-	Object.SavedStates.Вставить(ИмяЗначения, Значение);
+	Object.SavedStates.Insert(ValueName, Value);
 
 EndProcedure
 
 &AtClient
-Function SavedStates_Get(ИмяЗначения, ЗначениеПоУмолчанию) Экспорт
-	Var Значение;
+Function SavedStates_Get(ValueName, DefaultValue) Export
+	Var Value;
 
-	If Не ValueIsFilled(Object.SavedStates) Или Не Object.SavedStates.Свойство(ИмяЗначения,
-		Значение) Then
-		Return ЗначениеПоУмолчанию;
+	If Not ValueIsFilled(Object.SavedStates) Or Not Object.SavedStates.Property(ValueName,
+		Value) Then
+		Return DefaultValue;
 	EndIf;
 
-	Return Значение;
+	Return Value;
 
 EndFunction
 
 &AtServer
-Procedure СохраняемыеСостояния_СохранитьAtServer(ИмяЗначения, Значение) Экспорт
+Procedure SavedStates_SaveAtServer(ValueName, Value) Export
 
-	If Не ValueIsFilled(Object.SavedStates) Then
+	If Not ValueIsFilled(Object.SavedStates) Then
 		Object.SavedStates = New Structure;
 	EndIf;
 
-	Object.SavedStates.Вставить(ИмяЗначения, Значение);
+	Object.SavedStates.Insert(ValueName, Value);
 
 EndProcedure
 
 &AtServer
-Function СохраняемыеСостояния_ПолучитьAtServer(ИмяЗначения, ЗначениеПоУмолчанию) Экспорт
-	Var Значение;
+Function SavedStates_GetAtServer(ValueName, DefaultValue) Export
+	Var Value;
 
-	If Не ValueIsFilled(Object.SavedStates) Или Не Object.SavedStates.Свойство(ИмяЗначения,
-		Значение) Then
-		Return ЗначениеПоУмолчанию;
+	If Not ValueIsFilled(Object.SavedStates) Or Not Object.SavedStates.Property(ValueName,
+		Value) Then
+		Return DefaultValue;
 	EndIf;
 
-	Return Значение;
+	Return Value;
 
 EndFunction
 
 #EndRegion
 
-#Region ВыполнениеЗапроса
+#Region QueryExecution
 
 &AtServer
-Function РазобратьВыражениеМакроКолонки(СтрокаМакроВыражения)
+Function DisassembleMacrocolumnExpression(MacroExpressionString)
 
-	стМакроколонка = Undefined;
+	stMacrocolumn = Undefined;
 
-	маЪ = StrSplit(СтрокаМакроВыражения, "_");
-	If маЪ.Количество() > 1 Then
+	arSubstrings = StrSplit(MacroExpressionString, "_");
+	If arSubstrings.Count() > 1 Then
 
-		стрТипМакро = маЪ[0];
-		стрSourceColumn = Прав(СтрокаМакроВыражения, StrLen(СтрокаМакроВыражения) - StrLen(стрТипМакро) - 1);
+		strMacroType = arSubstrings[0];
+		стрSourceColumn = Right(MacroExpressionString, StrLen(MacroExpressionString) - StrLen(strMacroType) - 1);
 
-		ТипЗначения = Undefined;
-		If стрТипМакро = "УИД" Then
-			ТипЗначения = New ОписаниеТипов("УникальныйИдентификатор");
+		ValueType = Undefined;
+		If strMacroType = "UID" Then
+			ValueType = New TypeDescription("UUID");
 		EndIf;
 
-		If ТипЗначения <> Undefined Then
-			стМакроколонка = New Structure("Тип, ТипЗначения, SourceColumn", стрТипМакро, ТипЗначения,
+		If ValueType <> Undefined Then
+			stMacrocolumn = New Structure("Type, ValueType, SourceColumn", strMacroType, ValueType,
 				стрSourceColumn);
 		EndIf;
 
 	EndIf;
 
-	Return стМакроколонка;
+	Return stMacrocolumn;
 
 EndFunction
 
 &AtServer
-Function ПолучитьМакроколонки(ЗапросСхемы)
+Function GetMacrocolumns(SchemaQuery)
 
-	стМакроколонки = New Structure;
-	If Не Object.OptionProcessing__ Then
-		Return стМакроколонки;
+	stMacrocolumns = New Structure;
+	If Not Object.OptionProcessing__ Then
+		Return stMacrocolumns;
 	EndIf;
 
-	СтрокаНачалаМакро = "&" + MacroParameter;
-	For Each Колонка Из ЗапросСхемы.Колонки Do
+	MacroBeginString = "&" + MacroParameter;
+	For Each Column In SchemaQuery.Columns Do
 
-		If Колонка.Поля.Количество() > 0 Then
+		If Column.Fields.Count() > 0 Then
 
-			Выражение = Колонка.Поля[0];
-			If СтрНачинаетсяС(Выражение, СтрокаНачалаМакро) Then
+			Expression = Column.Fields[0];
+			If StrStartsWith(Expression, MacroBeginString) Then
 
-				стрМакроВыражение = Прав(Выражение, StrLen(Выражение) - StrLen(СтрокаНачалаМакро));
-				стМакроколонка = РазобратьВыражениеМакроКолонки(стрМакроВыражение);
-				If стМакроколонка <> Undefined Then
-					стМакроколонки.Вставить(Колонка.Псевдоним, стМакроколонка);
+				strMacroExpression = Right(Expression, StrLen(Expression) - StrLen(MacroBeginString));
+				stMacrocolumn = DisassembleMacrocolumnExpression(strMacroExpression);
+				If stMacrocolumn <> Undefined Then
+					stMacrocolumns.Insert(Column.Pseudonym, stMacrocolumn);
 				EndIf;
 
 			EndIf;
@@ -1278,92 +1280,93 @@ Function ПолучитьМакроколонки(ЗапросСхемы)
 
 	EndDo;
 
-	Return стМакроколонки;
+	Return stMacrocolumns;
 
 EndFunction
 
 &AtServer
-//Выполняет запрос по схеме, извлекая информацию о каждом подзапросе пакета (тип подзапроса, имена временных таблиц, количество строк результата, и т.д.
-Function ВыполнитьПакет(Запрос, СхемаЗапроса)
+// Executes query by schema. Extracts info about every batch subquery (subquery type, temp table names, result rows count, etc.)
+//
+Function ExecuteBatch(Query, QuerySchema)
 	
-	//Обработка = РеквизитФормыВЗначение("Объект");
+	//DataProcessor = FormAttributeToValue("Объект");
 
-	маРезультатПакета = New Array;
-	For Each ЗапросСхемы Из СхемаЗапроса.ПакетЗапросов Do
+	arBatchResult = New Array;
+	For Each SchemaQuery In QuerySchema.QueryBatch Do
 
-		If ТипЗнч(ЗапросСхемы) = Тип("ЗапросВыбораСхемыЗапроса") Then
+		If TypeOf(SchemaQuery) = Type("QuerySchemaSelectQuery") Then
 
 			If TechLogEnabledAndRunning Then
-				ЗапросИД = "i" + СтрЗаменить(New УникальныйИдентификатор, "-", "");
-				Запрос.Текст = StrTemplate(
-					"ВЫБРАТЬ ""%2_begin"" ПОМЕСТИТЬ %2_begin; %1; ВЫБРАТЬ ""%2_end"" ПОМЕСТИТЬ %2_end",
-					ЗапросСхемы.ПолучитьТекстЗапроса(), ЗапросИД);
-			Иначе
-				ЗапросИД = Undefined;
-				Запрос.Текст = ЗапросСхемы.ПолучитьТекстЗапроса();
+				QueryID = "i" + StrReplace(New UUID, "-", "");
+				Query.Text = StrTemplate(
+					"SELECT ""%2_begin"" INTO %2_begin; %1; SELECT ""%2_end"" INTO %2_end",
+					SchemaQuery.GetQueryText(), QueryID);
+			Else
+				QueryID = Undefined;
+				Query.Text = SchemaQuery.GetQueryText();
 			EndIf;
 
-			стМакроколонки = ПолучитьМакроколонки(ЗапросСхемы);
-			ВремяНачалаЗапроса = ТекущаяУниверсальнаяДатаВМиллисекундах();
-			маРезультатЗапроса = Запрос.ВыполнитьПакет(); //6345bb7034de4ad1b14249d2d7ac26dd
-			ВремяОкончанияЗапроса = ТекущаяУниверсальнаяДатаВМиллисекундах();
-			ДлительностьВМиллисекундах = ВремяОкончанияЗапроса - ВремяНачалаЗапроса;
+			stMacrocolumns = GetMacrocolumns(SchemaQuery);
+			QueryStartTime = CurrentUniversalDateInMilliseconds();
+			arQueryResult = Query.ExecuteBatch(); //6345bb7034de4ad1b14249d2d7ac26dd
+			QueryFinishTime = CurrentUniversalDateInMilliseconds();
+			DurationInMilliseconds = QueryFinishTime - QueryStartTime;
 
 			If Object.TechLogEnabled Then
-				рзРезультат = маРезультатЗапроса[1];
-			Иначе
-				рзРезультат = маРезультатЗапроса[0];
+				qrResult = arQueryResult[1];
+			Else
+				qrResult = arQueryResult[0];
 			EndIf;
 
-			If ValueIsFilled(ЗапросСхемы.ТаблицаДляПомещения) Then
+			If ValueIsFilled(SchemaQuery.PlacementTable) Then
 
-				чКоличествоЗаписей = Undefined;
-				выбРезультат = рзРезультат.Выбрать();
-				If выбРезультат.Следующий() Then
-					чКоличествоЗаписей = выбРезультат.Количество;
+				nRecordsCount = Undefined;
+				selResult = qrResult.Select();
+				If selResult.Next() Then
+					nRecordsCount = selResult.Count;
 				EndIf;
 
-				Запрос.Текст = "ВЫБРАТЬ * ИЗ " + ЗапросСхемы.ТаблицаДляПомещения;
-				рзРезультатТаблицы = Запрос.Выполнить();
-				стРезультат = New Structure("Результат, ИмяТаблицы, ИмяРезультата, КоличествоЗаписей, Макроколонки, ВремяНачалаЗапроса, ДлительностьВМиллисекундах, СозданиеВременнойТаблицы, ЗапросИД",
-					рзРезультатТаблицы, ЗапросСхемы.ТаблицаДляПомещения, ЗапросСхемы.ТаблицаДляПомещения,
-					чКоличествоЗаписей, стМакроколонки, ВремяНачалаЗапроса, ДлительностьВМиллисекундах, True,
-					ЗапросИД);
-				маРезультатПакета.Добавить(стРезультат);
+				Query.Text = "SELECT * FROM " + SchemaQuery.PlacementTable;
+				qrTableResult = Query.Execute();
+				stResult = New Structure("Result, TableName, ResultName, RecordCount, Macrocolumns, QueryStartTime, DurationInMilliseconds, TempTableCreation, QueryID",
+					qrTableResult, SchemaQuery.PlacementTable, SchemaQuery.PlacementTable,
+					nRecordsCount, stMacrocolumns, QueryStartTime, DurationInMilliseconds, True,
+					QueryID);
+				arBatchResult.Add(stResult);
 
-			Иначе
+			Else
 
-				стРезультат = New Structure("Результат, ИмяТаблицы, ИмяРезультата, КоличествоЗаписей, Макроколонки, ВремяНачалаЗапроса, ДлительностьВМиллисекундах, СозданиеВременнойТаблицы, ЗапросИД",
-					рзРезультат, , "Результат" + СхемаЗапроса.ПакетЗапросов.Индекс(ЗапросСхемы),
-					рзРезультат.Выбрать().Количество(), стМакроколонки, ВремяНачалаЗапроса, ДлительностьВМиллисекундах,
-					False, ЗапросИД);
-				маРезультатПакета.Добавить(стРезультат);
+				stResult = New Structure("Result, TableName, ResultName, RecordCount, Macrocolumns, QueryStartTime, DurationInMilliseconds, TempTableCreation, QueryID",
+					qrResult, , "Result" + QuerySchema.QueryBatch.IndexOf(SchemaQuery),
+					qrResult.Выбрать().Количество(), stMacrocolumns, QueryStartTime, DurationInMilliseconds,
+					False, QueryID);
+				arBatchResult.Add(stResult);
 
 			EndIf;
 
-		ElsIf ТипЗнч(ЗапросСхемы) = Тип("ЗапросУничтоженияТаблицыСхемыЗапроса") Then
-			Запрос.Текст = "УНИЧТОЖИТЬ " + ЗапросСхемы.ИмяТаблицы;
-			Запрос.Выполнить();
-		Иначе
-			Return "Неизвестный тип запроса схемы";
+		ElsIf TypeOf(SchemaQuery) = Type("QuerySchemaTableDropQuery") Then
+			Query.Text = "DROP " + SchemaQuery.TableName;
+			Query.Execute();
+		Else
+			Return NStr("ru = 'Неизвестный тип запроса схемы'; en = 'Unknown type of schema query'");
 		EndIf;
 
 	EndDo;
 
-	Return маРезультатПакета;
+	Return arBatchResult;
 
 EndFunction
 
 &AtServer
-Procedure УстановитьПараметрыМакроколонокЗапроса(Запрос)
+Procedure SetQueryMacrocolumnParameters(Query)
 
 	If Object.OptionProcessing__ Then
 
-		КоллекцияПараметров = Запрос.НайтиПараметры();
-		For Each ПараметрЗапроса Из КоллекцияПараметров Do
+		ParametersCollection = Query.FindParameters();
+		For Each QueryParameter In ParametersCollection Do
 
-			If СтрНачинаетсяС(ПараметрЗапроса.Имя, MacroParameter) Then
-				Запрос.УстановитьПараметр(ПараметрЗапроса.Имя, Null);
+			If StrStartsWith(QueryParameter.Name, MacroParameter) Then
+				Query.SetParameter(QueryParameter.Name, Null);
 			EndIf;
 
 		EndDo;
@@ -1373,44 +1376,44 @@ Procedure УстановитьПараметрыМакроколонокЗапр
 EndProcedure
 
 &AtServer
-Function ВыполнитьЗапросAtServer(ТекстЗапроса)
-	Var НомерСтроки, НомерКолонки;
+Function ExecuteQueryAtServer(QueryText)
+	Var RowNumber, ColumnNumber;
 
-	ВыполняемыйЗапрос = New Запрос;
-	ВыполняемыйЗапрос.МенеджерВременныхТаблиц = ЗагрузитьВременныеТаблицы();
+	ExecutingQuery = New Query;
+	ExecutingQuery.TempTablesManager = LoadTempTables();
 
-	For Each СтрокаПараметра Из QueryParameters Do
+	For Each ParameterRow In QueryParameters Do
 
-		If Object.OptionProcessing__ И СтрНачинаетсяС(СтрокаПараметра.Name, MacroParameter) Then
-			Продолжить;
+		If Object.OptionProcessing__ And StrStartsWith(ParameterRow.Name, MacroParameter) Then
+			Continue;
 		EndIf;
 
-		Значение = ПараметрыЗапроса_ПолучитьЗначение(СтрокаПараметра.ПолучитьИдентификатор());
-		ВыполняемыйЗапрос.УстановитьПараметр(СтрокаПараметра.Name, Значение);
+		Value = QueryParameters_GetValue(ParameterRow.GetID());
+		ExecutingQuery.SetParameter(ParameterRow.Name, Value);
 
 	EndDo;
 
-	СхемаЗапроса = New СхемаЗапроса;
+	QuerySchema = New QuerySchema;
 
 	Try
-		ВыполняемыйЗапрос.Текст = ТекстЗапроса;
-		УстановитьПараметрыМакроколонокЗапроса(ВыполняемыйЗапрос);
-		СхемаЗапроса.УстановитьТекстЗапроса(ТекстЗапроса);
+		ExecutingQuery.Text = QueryText;
+		SetQueryMacrocolumnParameters(ExecutingQuery);
+		QuerySchema.SetQueryText(QueryText);
 	Except
-		СтрокаОшибки = ОписаниеОшибки();
-		DisassembleSpecifiedQueryError(СтрокаОшибки, ВыполняемыйЗапрос, ТекстЗапроса, НомерСтроки, НомерКолонки);
-		Return New Structure("ОписаниеОшибки, Строка, Колонка, ВремяНачала, ВремяОкончания", СтрокаОшибки,
-			НомерСтроки, НомерКолонки);
+		ErrorString = ErrorDescription();
+		DisassembleSpecifiedQueryError(ErrorString, ExecutingQuery, QueryText, RowNumber, ColumnNumber);
+		Return New Structure("ErrorDescription, Row, Column, StartTime, FinishTime", ErrorString,
+			RowNumber, ColumnNumber);
 	EndTry;
 
-	If OutputLinesLimitTopEnabled И OutputLinesLimitTop > 0 Then
+	If OutputLinesLimitTopEnabled And OutputLinesLimitTop > 0 Then
 
-		For Each ЗапросСхемы Из СхемаЗапроса.ПакетЗапросов Do
-			If ТипЗнч(ЗапросСхемы) = Тип("ЗапросВыбораСхемыЗапроса") И Не ValueIsFilled(
-				ЗапросСхемы.ТаблицаДляПомещения) Then
-				For Each Оператор Из ЗапросСхемы.Операторы Do
-					If Не ValueIsFilled(Оператор.КоличествоПолучаемыхЗаписей) Then
-						Оператор.КоличествоПолучаемыхЗаписей = OutputLinesLimitTop;
+		For Each SchemaQuery In QuerySchema.QueryBatch Do
+			If TypeOf(SchemaQuery) = Type("QuerySchemaSelectQuery") And Not ValueIsFilled(
+				SchemaQuery.PlacementTable) Then
+				For Each Operator In SchemaQuery.Operators Do
+					If Not ValueIsFilled(Operator.RetrievedRecordsCount) Then
+						Operator.RetrievedRecordsCount = OutputLinesLimitTop;
 					EndIf;
 				EndDo;
 			EndIf;
@@ -1418,118 +1421,118 @@ Function ВыполнитьЗапросAtServer(ТекстЗапроса)
 
 	EndIf;
 
-	ВремяНачала = ТекущаяУниверсальнаяДатаВМиллисекундах();
+	StartTime = CurrentUniversalDateInMilliseconds();
 	Try
-		маРезультатЗапроса = ВыполнитьПакет(ВыполняемыйЗапрос, СхемаЗапроса);
-		ВремяОкончания = ТекущаяУниверсальнаяДатаВМиллисекундах();
-		If ТипЗнч(маРезультатЗапроса) <> Тип("Array") Then
-			ВызватьExcept маРезультатЗапроса;
+		arQueryResult = ExecuteBatch(ExecutingQuery, QuerySchema);
+		FinishTime = CurrentUniversalDateInMilliseconds();
+		If TypeOf(arQueryResult) <> Type("Array") Then
+			Raise arQueryResult;
 		EndIf;
 	Except
-		ВремяОкончания = ТекущаяУниверсальнаяДатаВМиллисекундах();
-		ВыполняемыйЗапрос.МенеджерВременныхТаблиц = ЗагрузитьВременныеТаблицы();
-		СтрокаОшибки = ОписаниеОшибки();
-		DisassembleSpecifiedQueryError(СтрокаОшибки, ВыполняемыйЗапрос, ТекстЗапроса, НомерСтроки, НомерКолонки);
-		Return New Structure("ОписаниеОшибки, Строка, Колонка, ВремяНачала, ВремяОкончания", СтрокаОшибки,
-			НомерСтроки, НомерКолонки, ВремяНачала, ВремяОкончания);
+		FinishTime = CurrentUniversalDateInMilliseconds();
+		ExecutingQuery.TempTablesManager = LoadTempTables();
+		ErrorString = ErrorDescription();
+		DisassembleSpecifiedQueryError(ErrorString, ExecutingQuery, QueryText, RowNumber, ColumnNumber);
+		Return New Structure("ErrorDescription, Row, Column, StartTime, FinishTime", ErrorString,
+			RowNumber, ColumnNumber, StartTime, FinishTime);
 	EndTry;
 
-	стРезультат = New Structure("Результат, Параметры", маРезультатЗапроса, ВыполняемыйЗапрос.Параметры);
+	stResult = New Structure("Result, Parameters", arQueryResult, ExecutingQuery.Parameters);
 	If ValueIsFilled(QueryResultAddress) Then
-		QueryResultAddress = ПоместитьВоВременноеХранилище(стРезультат, QueryResultAddress);
-	Иначе
-		QueryResultAddress = ПоместитьВоВременноеХранилище(стРезультат, УникальныйИдентификатор);
+		QueryResultAddress = PutToTempStorage(stResult, QueryResultAddress);
+	Else
+		QueryResultAddress = PutToTempStorage(stResult, UUID);
 	EndIf;
 
-	Элементы.ResultInBatch.СписокВыбора.Очистить();
-	QueryResultBatch.Очистить();
-	Для й = 1 По маРезультатЗапроса.Количество() Do
+	Items.ResultInBatch.ChoiceList.Clear();
+	QueryResultBatch.Clear();
+	For j = 1 To arQueryResult.Count() Do
 
-		стРезультат = маРезультатЗапроса[й - 1];
-		Элементы.ResultInBatch.СписокВыбора.Добавить(Строка(й), стРезультат.ИмяРезультата + " ("
-			+ стРезультат.КоличествоЗаписей + ")");
+		stResult = arQueryResult[j - 1];
+		Items.ResultInBatch.ChoiceList.Add(String(j), stResult.ResultName + " ("
+			+ stResult.RecordCount + ")");
 
-		СтрокаПакета = QueryResultBatch.Добавить();
-		СтрокаПакета.Name = стРезультат.ИмяРезультата;
-		СтрокаПакета.ResultKind = ?(стРезультат.СозданиеВременнойТаблицы, 0, 1);
-		СтрокаПакета.Info = StrTemplate("%1 / %2", стРезультат.КоличествоЗаписей, FormatDuration(
-			стРезультат.ДлительностьВМиллисекундах));
+		BatchRow = QueryResultBatch.Add();
+		BatchRow.Name = stResult.ResultName;
+		BatchRow.ResultKind = ?(stResult.TempTableCreation, 0, 1);
+		BatchRow.Info = StrTemplate("%1 / %2", stResult.RecordCount, FormatDuration(
+			stResult.DurationInMilliseconds));
 
 	EndDo;
 
-	Return New Structure("ОписаниеОшибки, Строка, Колонка, ВремяНачала, ВремяОкончания, КоличествоРезультатов", , ,
-		, ВремяНачала, ВремяОкончания, маРезультатЗапроса.Количество());
+	Return New Structure("ErrorDescription, Row, Column, StartTime, FinishTime, ResultCount", , ,
+		, StartTime, FinishTime, arQueryResult.Count());
 
 EndFunction
 
 #EndRegion
 
 &AtClient
-Function VarеститьСтрокуДерева(Дерево, VarещаемаяСтрока, ИндексВставки, NewРодитель, Уровень = 0)
+Function MoveTreeRow(Tree, MovingRow, InsertIndex, NewParent, Level = 0)
 
-	If Уровень = 0 Then
+	If Level = 0 Then
 
-		If NewРодитель = Undefined Then
-			НоваяСтрока = Дерево.ПолучитьЭлементы().Вставить(ИндексВставки);
-		Иначе
-			НоваяСтрока = NewРодитель.ПолучитьЭлементы().Вставить(ИндексВставки);
+		If NewParent = Undefined Then
+			NewRow = Tree.GetItems().Insert(InsertIndex);
+		Else
+			NewRow = NewParent.GetItems().Insert(InsertIndex);
 		EndIf;
 
-		ЗаполнитьЗначенияСвойств(НоваяСтрока, VarещаемаяСтрока);
-		VarеститьСтрокуДерева(Дерево, VarещаемаяСтрока, ИндексВставки, НоваяСтрока, Уровень + 1);
+		FillPropertyValues(NewRow, MovingRow);
+		MoveTreeRow(Tree, MovingRow, InsertIndex, NewRow, Level + 1);
 
-		VarещаемаяСтрокаРодитель = VarещаемаяСтрока.ПолучитьРодителя();
-		If VarещаемаяСтрокаРодитель = Undefined Then
-			Дерево.ПолучитьЭлементы().Удалить(VarещаемаяСтрока);
-		Иначе
-			VarещаемаяСтрокаРодитель.ПолучитьЭлементы().Удалить(VarещаемаяСтрока);
+		MovingRowParent = MovingRow.GetParent();
+		If MovingRowParent = Undefined Then
+			Tree.GetItems().Delete(MovingRow);
+		Else
+			MovingRowParent.GetItems().Delete(MovingRow);
 		EndIf;
 
-	Иначе
+	Else
 
-		For Each Строка Из VarещаемаяСтрока.ПолучитьЭлементы() Do
-			НоваяСтрока = NewРодитель.ПолучитьЭлементы().Добавить();
-			ЗаполнитьЗначенияСвойств(НоваяСтрока, VarещаемаяСтрока);
-			VarеститьСтрокуДерева(Дерево, Строка, НоваяСтрока, ИндексВставки, Уровень + 1);
+		For Each Row In MovingRow.GetItems() Do
+			NewRow = NewParent.GetItems().Add();
+			FillPropertyValues(NewRow, MovingRow);
+			MoveTreeRow(Tree, Row, NewRow, InsertIndex, Level + 1);
 		EndDo;
 
 	EndIf;
 
-	Return НоваяСтрока;
+	Return NewRow;
 
 EndFunction
 
 &AtClient
-Procedure ОшибкаКонсоли(СтрокаОшибки)
-	ВызватьExcept СтрокаОшибки;
+Procedure ConsoleError(ErrorString)
+	Raise ErrorString;
 EndProcedure
 
 &AtClient
-Procedure УстановитьQueriesFileName(стрПолноеИмя = "")
+Procedure SetQueriesFileName(strFullName = "")
 
-	QueriesFileName = стрПолноеИмя;
+	QueriesFileName = strFullName;
 	If ValueIsFilled(QueriesFileName) Then
-		Файл = New Файл(стрПолноеИмя);
-		QueryBatch_DisplayingName = Файл.Имя;
-		ПакетЗапросов_ИмяДляПодсказки = Файл.ПолноеИмя;
-	Иначе
-		QueryBatch_DisplayingName = "Имя";
-		ПакетЗапросов_ИмяДляПодсказки = "Имя";
+		File = New File(strFullName);
+		QueryBatch_DisplayingName = File.Name;
+		QueryBatch_NameForToolTip = File.FullName;
+	Else
+		QueryBatch_DisplayingName = "Name";
+		QueryBatch_NameForToolTip = "Name";
 	EndIf;
 
-	Элементы.QueryBatch.ПодчиненныеЭлементы.QueryListQuery.Заголовок = QueryBatch_DisplayingName;
-	Элементы.QueryBatch.ПодчиненныеЭлементы.QueryListQuery.Подсказка = ПакетЗапросов_ИмяДляПодсказки;
-
+	Items.QueryBatch.ChildItems.QueryListQuery.Title = QueryBatch_DisplayingName;
+	Items.QueryBatch.ChildItems.QueryListQuery.ToolTip = QueryBatch_NameForToolTip;
+	
 EndProcedure
 
 &AtClient
-Function СохранитьСВопросом(ДополнительныеПараметры)
+Function SaveWithQuestion(AdditionalParameters)
 
-	If Модифицированность Then
-		ПоказатьВопрос(
-			New ОписаниеОповещения("ПослеВопросаСохранения", ЭтаФорма, ДополнительныеПараметры),
-			"Имеется не сохраненный пакет запросов. Сохранить?", РежимДиалогаВопрос.ДаНетОтмена, ,
-			КодReturnаДиалога.Да);
+	If Modified Then
+		ShowQueryBox(
+			New NotifyDescription("AfterSaveQuestion", ThisForm, AdditionalParameters),
+			NStr("ru = 'Имеется не сохраненный пакет запросов. Сохранить?'; en = 'Unsaved query batch exists. Do you want to save?'"), QuestionDialogMode.YesNoCancel, ,
+			DialogReturnCode.Yes);
 		Return False;
 	EndIf;
 
@@ -1538,80 +1541,80 @@ Function СохранитьСВопросом(ДополнительныеПар
 EndFunction
 
 &AtClient
-Procedure ЗавершениеПослеВопроса(РезультатВопроса, ДополнительныеПараметры)
+Procedure CompletionAfterQuestion(QuestionResult, AdditionalParameters)
 
-	If РезультатВопроса = КодReturnаДиалога.Да Then
-		СохранитьПакетЗапросов(New Structure("Завершение", True));
-	ElsIf РезультатВопроса = КодReturnаДиалога.Нет Then
+	If QuestionResult = DialogReturnCode.Yes Then
+		SaveQueryBatch(New Structure("Completion", True));
+	ElsIf QuestionResult = DialogReturnCode.No Then
 		If ValueIsFilled(QueriesFileName) Then
-			ОписаниеОповещения = New ОписаниеОповещения("ЗавершениеПослеУдаления", ЭтаФорма);
-			НачатьУдалениеФайлов(ОписаниеОповещения, GetAutoSaveFileName(QueriesFileName));
-		Иначе
-			ОписаниеОповещения = New ОписаниеОповещения("ЗавершениеПослеУдаления", ЭтаФорма);
-			НачатьУдалениеФайлов(ОписаниеОповещения, StateAutoSaveFileName);
+			NotifyDescription = New NotifyDescription("CompletionAfterDeleting", ThisForm);
+			BeginDeletingFiles(NotifyDescription, GetAutoSaveFileName(QueriesFileName));
+		Else
+			NotifyDescription = New NotifyDescription("CompletionAfterDeleting", ThisForm);
+			BeginDeletingFiles(NotifyDescription, StateAutoSaveFileName);
 		EndIf;
-	ElsIf РезультатВопроса = КодReturnаДиалога.Отмена Then
+	ElsIf QuestionResult = DialogReturnCode.Cancel Then
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure ЗавершениеПослеУдаления(ДополнительныеПараметры) Экспорт
-	Модифицированность = False;
-	Закрыть();
+Procedure CompletionAfterDeleting(AdditionalParameters) Export
+	Modified = False;
+	Close();
 EndProcedure
 
 &AtClient
-Procedure Автосохранить(Оповещение = Undefined)
+Procedure Autosave(Notification = Undefined)
 
-	ПоместитьРедактируемыйЗапрос();
+	PutEditingQuery();
 
 	If ValueIsFilled(QueriesFileName) Then
-		ПакетЗапросов_Сохранить(Оповещение, GetAutoSaveFileName(QueriesFileName));
-		ПакетЗапросов_Сохранить( , StateAutoSaveFileName, True);
-	Иначе
-		ПакетЗапросов_Сохранить(Оповещение, StateAutoSaveFileName);
+		QueryBatch_Save(Notification, GetAutoSaveFileName(QueriesFileName));
+		QueryBatch_Save( , StateAutoSaveFileName, True);
+	Else
+		QueryBatch_Save(Notification, StateAutoSaveFileName);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Function ПараметрыЗапросаВСписокЗначений(ПараметрыДанныеФормыКоллекция)
+Function QueryParametersToValueList(ParametersFormDataCollection)
 
-	сзПараметрыЗапроса = New СписокЗначений;
-	For Each СтрокаПараметра Из ПараметрыДанныеФормыКоллекция Do
-		стПараметр = New Structure("Имя, ТипЗначения, Значение, ТипКонтейнера, Контейнер");
-		ЗаполнитьЗначенияСвойств(стПараметр, СтрокаПараметра);
-		сзПараметрыЗапроса.Добавить(стПараметр);
+	vlQueryParameters = New ValueList;
+	For Each ParameterRow In ParametersFormDataCollection Do
+		stParameter = New Structure("Name, ValueType, Value, ContainerType, Container");
+		FillPropertyValues(stParameter, ParameterRow);
+		vlQueryParameters.Add(stParameter);
 	EndDo;
 
-	Return сзПараметрыЗапроса;
+	Return vlQueryParameters;
 
 EndFunction
 
 &AtClient
-Function ВременныеТаблицыВСписокЗначений(ВременныеТаблицыДанныеФормыКоллекция)
+Function TempTablesToValueList(TempTablesFormDataCollection)
 
-	сзВременныеТаблицы = New СписокЗначений;
-	For Each СтрокаТаблицы Из ВременныеТаблицыДанныеФормыКоллекция Do
-		стТаблица = New Structure("Имя, Контейнер, Значение");
-		ЗаполнитьЗначенияСвойств(стТаблица, СтрокаТаблицы);
-		сзВременныеТаблицы.Добавить(стТаблица);
+	vlTempTables = New ValueList;
+	For Each TableRow In TempTablesFormDataCollection Do
+		stTable = New Structure("Name, Container, Value");
+		FillPropertyValues(stTable, TableRow);
+		vlTempTables.Add(stTable);
 	EndDo;
 
-	Return сзВременныеТаблицы;
+	Return vlTempTables;
 
 EndFunction
 
 &AtClient
-Procedure ПараметрыЗапросаИзСпискаЗначений(сзПараметры, ПараметрыДанныеФормыКоллекция)
+Procedure QueryParametersFromValueList(vlParameters, ParametersFormDataCollection)
 
-	ПараметрыДанныеФормыКоллекция.Очистить();
+	ParametersFormDataCollection.Clear();
 
-	If сзПараметры <> Undefined Then
+	If vlParameters <> Undefined Then
 
-		For Each кзПараметр Из сзПараметры Do
-			ЗаполнитьЗначенияСвойств(ПараметрыДанныеФормыКоллекция.Добавить(), кзПараметр.Значение);
+		For Each kvParameter In vlParameters Do
+			FillPropertyValues(ParametersFormDataCollection.Add(), kvParameter.Value);
 		EndDo;
 
 	EndIf;
@@ -1619,14 +1622,14 @@ Procedure ПараметрыЗапросаИзСпискаЗначений(сз�
 EndProcedure
 
 &AtClient
-Procedure ВременныеТаблицыИзСпискаЗначений(сзВременныеТаблицы, ВременныеТаблицыДанныеФормыКоллекция)
+Procedure TempTablesFromValueList(vlTempTables, TempTablesFormDataCollection)
 
-	ВременныеТаблицыДанныеФормыКоллекция.Очистить();
+	TempTablesFormDataCollection.Clear();
 
-	If сзВременныеТаблицы <> Undefined Then
+	If vlTempTables <> Undefined Then
 
-		For Each кзТаблица Из сзВременныеТаблицы Do
-			ЗаполнитьЗначенияСвойств(ВременныеТаблицыДанныеФормыКоллекция.Добавить(), кзТаблица.Значение);
+		For Each kvTable In vlTempTables Do
+			FillPropertyValues(TempTablesFormDataCollection.Add(), kvTable.Value);
 		EndDo;
 
 	EndIf;
@@ -1634,90 +1637,91 @@ Procedure ВременныеТаблицыИзСпискаЗначений(сз�
 EndProcedure
 
 &AtClient
-Procedure ОбновитьСостояниеЭлементовФормыАлгоритма()
+Procedure RefreshAlgorithmFormItems()
 	
-	//If BackgroundJobID заполнен - то происходит выполнение кода в фоновом задании.
-	//В этом случае управление элементами происходит в Procedureх отображения прогресса.
-	If Не ValueIsFilled(BackgroundJobID) Then
+	// If BackgroundJobID is filled, code executes in the background job.
+	// In this case, items will be refreshed in the progress refresh procedures.
+	If Not ValueIsFilled(BackgroundJobID) Then
 
-		If Элементы.QueryBatch.ТекущиеДанные <> Undefined И ResultQueryName
-			= Элементы.QueryBatch.ТекущиеДанные.Name Then
-			Элементы.ExecuteDataProcessor.Доступность = True;
+		If Items.QueryBatch.CurrentData <> Undefined И ResultQueryName
+			= Items.QueryBatch.CurrentData.Name Then
+			Items.ExecuteDataProcessor.Enabled = True;
 			ExecutionStatus = "";
-			Элементы.StructureЗаписиРезультата.Доступность = True;
-		Иначе
-			Элементы.ExecuteDataProcessor.Доступность = False;
-			ExecutionStatus = "(запрос не выполнен)";
-			Элементы.StructureЗаписиРезультата.Доступность = False;
+			Items.ResultRecordStructure.Enabled = True;
+		Else
+			Items.ExecuteDataProcessor.Enabled = False;
+			ExecutionStatus = NStr("ru = '(запрос не выполнен)'; en = 'query was not executed'");
+			Items.ResultRecordStructure.Enabled = False;
 		EndIf;
 	EndIf;
 
 EndProcedure
 
 &AtClientAtServerNoContext
-Function ИмяОбработкиКонсоли(Форма)
-	ArrayИмениФормы=StrSplit(Форма.ИмяФормы, ".");
-	Return ArrayИмениФормы[1];
+Function ConsoleDataProcessorName(Form)
+	FormNameArray=StrSplit(Form.FormName, ".");
+	Return FormNameArray[1];
 EndFunction
 
-#Region ПараметрыЗапроса
+#Region QueryParameters
 
-//Работа с параметром запроса, хранимым в виде строки таблицы ПараметрыЗапроса. Далее везде параметр с именем "СтрокаИд" - это идентификатор строка этой таблицы.
+// Processing of query parameter storing as a table QueryParameters row.
+// RowID - this table row ID.
 
 &AtServer
-Function ПараметрыЗапроса_ПолучитьЗначение(СтрокаИд)
+Function QueryParameters_GetValue(RowID)
 
-	СтрокаПараметр = QueryParameters.НайтиПоИдентификатору(СтрокаИд);
+	ParameterRow = QueryParameters.FindByID(RowID);
 
-	If СтрокаПараметр.ContainerType = 0 Или СтрокаПараметр.ContainerType = 1 Или СтрокаПараметр.ContainerType = 2
-		Или СтрокаПараметр.ContainerType = 3 Then
-		Return РеквизитФормыВЗначение("Object").Container_RestoreValue(СтрокаПараметр.Контейнер);
-	Иначе
-		ВызватьExcept "Ошибка в типе контейнера параметра";
+	If ParameterRow.ContainerType = 0 Or ParameterRow.ContainerType = 1 Or ParameterRow.ContainerType = 2
+		Or ParameterRow.ContainerType = 3 Then
+		Return FormAttributeToValue("Object").Container_RestoreValue(ParameterRow.Container);
+	Else
+		Raise NStr("ru = 'Ошибка в типе контейнера параметра'; en = 'Parameter container type error.'");
 	EndIf;
 
 EndFunction
 
 &AtServer
-Procedure ПараметрыЗапроса_СохранитьЗначение(СтрокаИд, Знач Значение)
+Procedure QueryParameters_SaveValue(RowID, Val Value)
 
-	СтрокаПараметр = QueryParameters.НайтиПоИдентификатору(СтрокаИд);
+	ParameterRow = QueryParameters.НайтиПоИдентификатору(RowID);
 
-	If СтрокаПараметр.ContainerType = 0 Then
-		СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(Значение);
-		If ТипЗнч(СтрокаПараметр.Контейнер) = Тип("Structure") Then
-			СтрокаПараметр.Value = СтрокаПараметр.Контейнер.Представление;
-		Иначе
-			СтрокаПараметр.Value = Значение;
+	If ParameterRow.ContainerType = 0 Then
+		ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(Value);
+		If TypeOf(ParameterRow.Container) = Type("Structure") Then
+			ParameterRow.Value = ParameterRow.Container.Presentation;
+		Else
+			ParameterRow.Value = Value;
 		EndIf;
-	ElsIf СтрокаПараметр.ContainerType = 1 Then
-		СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(Значение);
-		СтрокаПараметр.Value = СтрокаПараметр.Контейнер.Представление;
-	ElsIf СтрокаПараметр.ContainerType = 2 Then
-		СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(Значение);
-		СтрокаПараметр.Value = СтрокаПараметр.Контейнер.Представление;
-	ElsIf СтрокаПараметр.ContainerType = 3 Then
-		СтрокаПараметр.ValueType = "Таблица значений";
-		СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(Значение);
-		СтрокаПараметр.Value = СтрокаПараметр.Контейнер.Представление;
-	Иначе
-		ВызватьExcept "Ошибка в типе контейнера параметра";
+	ElsIf ParameterRow.ContainerType = 1 Then
+		ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(Value);
+		ParameterRow.Value = ParameterRow.Container.Presentation;
+	ElsIf ParameterRow.ContainerType = 2 Then
+		ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(Value);
+		ParameterRow.Value = ParameterRow.Container.Presentation;
+	ElsIf ParameterRow.ContainerType = 3 Then
+		ParameterRow.ValueType = NStr("ru = 'Таблица значений'; en = 'Value table'");
+		ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(Value);
+		ParameterRow.Value = ParameterRow.Container.Presentation;
+	Else
+		Raise NStr("ru = 'Ошибка в типе контейнера параметра'; en = 'Parameter container type error.'");
 	EndIf;
 
-	Модифицированность = True;
+	Modified = True;
 
 EndProcedure
 
 &AtServer
-//Контейнер типа 1 и типа 2 (список значений или Array) возвращаем в виде Arrayа
-Function Контейнер12ВArray(Контейнер)
+// Type 1 and 2 containers (value list and array) returns as array.
+Function Container12ToArray(Container)
 
-	Значение = РеквизитФормыВЗначение("Object").Container_RestoreValue(Контейнер);
+	Value = FormAttributeToValue("Object").Container_RestoreValue(Container);
 
-	If ТипЗнч(Значение) = Тип("СписокЗначений") Then
-		Return Значение.ВыгрузитьЗначения();
-	ElsIf ТипЗнч(Значение) = Тип("Array") Then
-		Return Значение;
+	If TypeOf(Value) = Type("ValueList") Then
+		Return Value.UnloadValues();
+	ElsIf TypeOf(Value) = Type("Array") Then
+		Return Value;
 	EndIf;
 
 	Return Undefined;
@@ -1725,289 +1729,287 @@ Function Контейнер12ВArray(Контейнер)
 EndFunction
 
 &AtServer
-Procedure ПараметрыЗапроса_УстановитьТип(СтрокаИд, ТипКонтейнера, ТипЗначения)
+Procedure QueryParameters_SetType(RowID, ContainerType, ValueType)
 
-	СтрокаПараметр = QueryParameters.НайтиПоИдентификатору(СтрокаИд);
-	Контейнер = СтрокаПараметр.Контейнер;
+	ParameterRow = QueryParameters.FindByID(RowID);
+	Container = ParameterRow.Container;
 
-	If ТипКонтейнера = 1 Или ТипКонтейнера = 2 Then
+	If ContainerType = 1 Or ContainerType = 2 Then
 
-		If СтрокаПараметр.ContainerType = 1 Или СтрокаПараметр.ContainerType = 2 Then
-			КонтейнерArray = Контейнер12ВArray(Контейнер);
-		ElsIf СтрокаПараметр.ContainerType = 3 Then
-			//Была ТЗ, теперь СЗ. Надо достать первую ячейку.
-			Таблица = РеквизитФормыВЗначение("Object").Container_RestoreValue(Контейнер);
-			КонтейнерArray = Таблица.ВыгрузитьКолонку(0);
-		ElsIf СтрокаПараметр.ContainerType = 0 Then
+		If ParameterRow.ContainerType = 1 Or ParameterRow.ContainerType = 2 Then
+			ContainerArray = Container12ToArray(Container);
+		ElsIf ParameterRow.ContainerType = 3 Then
+			Таблица = FormAttributeToValue("Object").Container_RestoreValue(Container);
+			ContainerArray = Table.UnloadColumn(0);
+		ElsIf ParameterRow.ContainerType = 0 Then
 
-			КонтейнерArray = New Array;
+			ContainerArray = New Array;
 
-			КонтейнерArray.Добавить(РеквизитФормыВЗначение("Object").Container_RestoreValue(Контейнер));
-			//If ValueIsFilled(СтрокаПараметр.Значение) Then
-			//	КонтейнерArray.Добавить(СтрокаПараметр.Значение);
+			ContainerArray.Add(FormAttributeToValue("Object").Container_RestoreValue(Container));
+			//If ValueIsFilled(ParameterRow.Value) Then
+			//	ContainerArray.Add(ParameterRow.Value);
 			//EndIf;
 
-			СтрокаПараметр.Value = Undefined;
+			ParameterRow.Value = Undefined;
 
 		EndIf;
 
-		If ТипКонтейнера = 1 Then
-			NewСписок = New СписокЗначений;
-			NewСписок.ЗагрузитьЗначения(КонтейнерArray);
-			NewСписок.ТипЗначения = ТипЗначения;
-			СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(NewСписок);
-		ElsIf ТипКонтейнера = 2 Then
-			NewСписок = New СписокЗначений;
-			NewСписок.ЗагрузитьЗначения(КонтейнерArray);
-			NewСписок.ТипЗначения = ТипЗначения;
-			КонтейнерArray = NewСписок.ВыгрузитьЗначения();
-			СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(КонтейнерArray);
+		If ContainerType = 1 Then
+			NewList = New ValueList;
+			NewList.LoadValues(ContainerArray);
+			NewList.ValueType = ValueType;
+			ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(NewList);
+		ElsIf ContainerType = 2 Then
+			NewList = New ValueList;
+			NewList.LoadValues(ContainerArray);
+			NewList.ValueType = ValueType;
+			ContainerArray = NewList.UnloadValues();
+			ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(ContainerArray);
 		EndIf;
 
-	ElsIf ТипКонтейнера = 3 Then
+	ElsIf ContainerType = 3 Then
 
-		If СтрокаПараметр.ContainerType = 1 Или СтрокаПараметр.ContainerType = 2 Then
-			Таблица = РеквизитФормыВЗначение("Object").Container_RestoreValue(ТипЗначения);
-			Значение = РеквизитФормыВЗначение("Object").Container_RestoreValue(Контейнер);
-			If ТипЗнч(Значение) = Тип("СписокЗначений") Then
-				Значение = Значение.ВыгрузитьЗначения();
+		If ParameterRow.ContainerType = 1 Or ParameterRow.ContainerType = 2 Then
+			Table = FormAttributeToValue("Object").Container_RestoreValue(ValueType);
+			Value = FormAttributeToValue("Object").Container_RestoreValue(Container);
+			If TypeOf(Value) = Type("ValueList") Then
+				Value = Value.UnloadValues();
 			EndIf;
-			For Each ъ Из Значение Do
-				Таблица.Добавить()[0] = ъ;
+			For Each j In Value Do
+				Table.Add()[0] = j;
 			EndDo;
-			NewКонтейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(Таблица);
-		ElsIf СтрокаПараметр.ContainerType = 3 Then
-			Контейнер = ТипЗначения;
-			//Теперь не копируем, преобразование уже выполняет редактор типа!
-			//СкопироватьДанныеКонтейнераТипа3(Контейнер, СтрокаПараметр.Контейнер);
-			NewКонтейнер = Контейнер;
-		ElsIf СтрокаПараметр.ContainerType = 0 Then
-			Таблица = РеквизитФормыВЗначение("Object").Container_RestoreValue(ТипЗначения);
-			Таблица.Добавить()[0] = СтрокаПараметр.Value;
-			NewКонтейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(Таблица);
+			NewContainer = FormAttributeToValue("Object").Container_SaveValue(Table);
+		ElsIf ParameterRow.ContainerType = 3 Then
+			Container = ValueType;
+			// CopyType3ContainerData(Container, ParameterRow.Container);
+			NewContainer = Container;
+		ElsIf ParameterRow.ContainerType = 0 Then
+			Table = FormAttributeToValue("Object").Container_RestoreValue(ValueType);
+			Table.Add()[0] = ParameterRow.Value;
+			NewContainer = FormAttributeToValue("Object").Container_SaveValue(Table);
 		EndIf;
 
-		СтрокаПараметр.Контейнер = NewКонтейнер;
+		ParameterRow.Container = NewContainer;
 
-	ElsIf ТипКонтейнера = 0 Then
+	ElsIf ContainerType = 0 Then
 
-		If СтрокаПараметр.ContainerType = 1 Или СтрокаПараметр.ContainerType = 2 Then
-			КонтейнерArray = Контейнер12ВArray(Контейнер);
-			If КонтейнерArray.Количество() > 0 Then
-				СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(
-					ТипЗначения.ПривестиЗначение(КонтейнерArray[0]));
+		If ParameterRow.ContainerType = 1 Or ParameterRow.ContainerType = 2 Then
+			ContainerArray = Container12ToArray(Container);
+			If ContainerArray.Count() > 0 Then
+				ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(
+					ValueType.AdjustValue(ContainerArray[0]));
 			EndIf;
-		ElsIf СтрокаПараметр.ContainerType = 3 Then
-			сз = QueryParametersFormOnChangeVLFromVT(Контейнер);
-			If сз.Количество() > 0 Then
-				СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(
-					ТипЗначения.ПривестиЗначение(сз.СписокЗначений[0].Значение));
+		ElsIf ParameterRow.ContainerType = 3 Then
+			vl = QueryParametersFormOnChangeVLFromVT(Container);
+			If vl.Count() > 0 Then
+				ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(
+					ValueType.AdjustValue(vl.ValueList[0].Value));
 			EndIf;
-		ElsIf СтрокаПараметр.ContainerType = 0 Then
-			СтрокаПараметр.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(
-				ТипЗначения.ПривестиЗначение(РеквизитФормыВЗначение("Object").Container_RestoreValue(
-				СтрокаПараметр.Контейнер)));
+		ElsIf ParameterRow.ContainerType = 0 Then
+			ParameterRow.Container = FormAttributeToValue("Object").Container_SaveValue(
+				ValueType.AdjustValue(FormAttributeToValue("Object").Container_RestoreValue(
+				ParameterRow.Container)));
 		EndIf;
 
 	EndIf;
 
-	СтрокаПараметр.ContainerType = ТипКонтейнера;
-	If СтрокаПараметр.ContainerType = 3 Then
-		СтрокаПараметр.ValueType = "Таблица значений";
-	Иначе
-		СтрокаПараметр.ValueType = ТипЗначения;
+	ParameterRow.ContainerType = ContainerType;
+	If ParameterRow.ContainerType = 3 Then
+		ParameterRow.ValueType = NStr("ru = 'Таблица значений'; en = 'Value table'");
+	Else
+		ParameterRow.ValueType = ValueType;
 	EndIf;
 
-	Модифицированность = True;
+	Modified = True;
 
-	If ТипЗнч(СтрокаПараметр.Контейнер) = Тип("Structure") Then
-		СтрокаПараметр.Value = СтрокаПараметр.Контейнер.Представление;
-	Иначе
-		СтрокаПараметр.Value = СтрокаПараметр.Контейнер;
+	If TypeOf(ParameterRow.Container) = Type("Structure") Then
+		ParameterRow.Value = ParameterRow.Container.Presentation;
+	Else
+		ParameterRow.Value = ParameterRow.Container;
 	EndIf;
 
 EndProcedure
 
 //@skip-warning
 &AtServer
-Procedure СкопироватьДанныеКонтейнераТипа3(КонтейнерNew, КонтейнерСтарый)
+Procedure CopyType3ContainerData(ContainerNew, ContainerOld)
 
-	Обработка = РеквизитФормыВЗначение("Object");
-	ТаблицаНовая = Обработка.StringToValue(КонтейнерNew.Значение);
-	ТаблицаСтарая = Обработка.StringToValue(КонтейнерСтарый.Значение);
+	DataProcessor = FormAttributeToValue("Object");
+	TableNew = DataProcessor.StringToValue(ContainerNew.Значение);
+	TableOld = DataProcessor.StringToValue(ContainerOld.Значение);
 
-	ТаблицаНовая.Очистить();
+	TableNew.Clear();
 	
-	//If одинаковых колонок нет, то копировать нечего.
-	фОдинаковыеЕсть = False;
-	For Each КолонкаНовая Из ТаблицаНовая.Колонки Do
-		If ТаблицаСтарая.Колонки.Найти(КолонкаНовая.Имя) <> Undefined Then
-			фОдинаковыеЕсть = True;
-			Прервать;
+	// If there is no identical columns, there is nothing to copy.
+	fIdenticalExists = False;
+	For Each ColumnNew In TableNew.Columns Do
+		If TableOld.Columns.Find(ColumnNew.Name) <> Undefined Then
+			fIdenticalExists = True;
+			Break;
 		EndIf;
 	EndDo;
 
-	If фОдинаковыеЕсть Then
-		For Each СтрокаСтарая Из ТаблицаСтарая Do
-			СтрокаНовая = ТаблицаНовая.Добавить();
-			ЗаполнитьЗначенияСвойств(СтрокаНовая, СтрокаСтарая);
+	If fIdenticalExists Then
+		For Each RowOld In TableOld Do
+			RowNew = TableNew.Add();
+			FillPropertyValues(RowNew, RowOld);
 		EndDo;
-		КонтейнерNew.КоличествоСтрок = КонтейнерСтарый.КоличествоСтрок;
-	Иначе
-		КонтейнерNew.КоличествоСтрок = 0;
+		ContainerNew.RowCount = ContainerOld.RowCount;
+	Else
+		ContainerNew.RowCount = 0;
 	EndIf;
 
-	КонтейнерNew.Значение = Обработка.ValueToString(ТаблицаНовая);
-	КонтейнерNew.Представление = Обработка.Container_GetPresentation(КонтейнерNew);
+	ContainerNew.Value = DataProcessor.ValueToString(TableNew);
+	ContainerNew.Presentation = DataProcessor.Container_GetPresentation(ContainerNew);
 
 EndProcedure
 
 &AtServer
-Function ПараметрыЗапроса_ПолучитьКакСтроку()
+Function QueryParameters_GetAsString()
 
-	тзПараметры = New ТаблицаЗначений;
-	тзПараметры.Колонки.Добавить("Имя", New ОписаниеТипов("Строка"));
-	тзПараметры.Колонки.Добавить("Значение");
-	For Each СтрокаПараметра Из QueryParameters Do
-		СтрокаТаблицы = тзПараметры.Добавить();
-		СтрокаТаблицы.Имя = СтрокаПараметра.Name;
-		СтрокаТаблицы.Значение = ПараметрыЗапроса_ПолучитьЗначение(СтрокаПараметра.ПолучитьИдентификатор());
+	vtParameters = New ValueTable;
+	vtParameters.Columns.Add("Name", New TypeDescription("String"));
+	vtParameters.Columns.Add("Value");
+	For Each ParameterRow In QueryParameters Do
+		TableRow = vtParameters.Add();
+		TableRow.Name = ParameterRow.Name;
+		TableRow.Value = QueryParameters_GetValue(ParameterRow.GetID());
 	EndDo;
 
-	Return РеквизитФормыВЗначение("Object").ValueToString(тзПараметры);
+	Return FormAttributeToValue("Object").ValueToString(vtParameters);
 
 EndFunction
 
-#EndRegion //ПараметрыЗапроса
+#EndRegion //QueryParameters
 
-#Region ПакетЗапросов
+#Region QueryBatch
 
 &AtClient
-Procedure ИнициализироватьЗапрос(ТекущаяСтрока)
+Procedure InitializeQuery(CurrentRow)
 
-	If Не ValueIsFilled(ТекущаяСтрока.Name) Then
+	If Not ValueIsFilled(CurrentRow.Name) Then
 		QueryCount = QueryCount + 1;
-		ТекущаяСтрока.Name = "Запрос" + QueryCount;
+		CurrentRow.Name = "Query" + QueryCount;
 	EndIf;
 
-	ТекущаяСтрока.Initialized = True;
+	CurrentRow.Initialized = True;
 
 EndProcedure
 
 &AtClient
-Procedure ПоместитьРедактируемыйЗапрос()
+Procedure PutEditingQuery()
 	If EditingQuery >= 0 Then
-		стрТекстЗапроса = QueryText;
-		стрТекстАлгоритм = ТекущийТекстАлгоритма();
+		strQueryText = QueryText;
+		strAlgorithmText = CurrentAlgorithmText();
 		
-		ГраницыВыделенияАлгоритма = ГраницыВыделенияАлгоритма();	
-		ГраницыВыделенияЗапроса = ГраницыВыделенияЗапроса();	
+		AlgorithmSelectionBoundaries = AlgorithmSelectionBoundaries();	
+		QuerySelectionBoundaries = QuerySelectionBoundaries();	
 			
-		Запрос_ПоместитьДанныеЗапроса(EditingQuery, стрТекстЗапроса, стрТекстАлгоритм, CodeExecutionMethod,
-			ПараметрыЗапросаВСписокЗначений(QueryParameters), ВременныеТаблицыВСписокЗначений(TempTables),
-			ГраницыВыделенияЗапроса.НачалоСтроки, ГраницыВыделенияЗапроса.НачалоКолонки,
-			ГраницыВыделенияЗапроса.КонецСтроки, ГраницыВыделенияЗапроса.КонецКолонки,
-			ГраницыВыделенияАлгоритма.НачалоСтроки, ГраницыВыделенияАлгоритма.НачалоКолонки,
-			ГраницыВыделенияАлгоритма.КонецСтроки, ГраницыВыделенияАлгоритма.КонецКолонки);
+		Query_PutQueryData(EditingQuery, strQueryText, strAlgorithmText, CodeExecutionMethod,
+			QueryParametersToValueList(QueryParameters), TempTablesToValueList(TempTables),
+			QuerySelectionBoundaries.RowBegin, QuerySelectionBoundaries.ColumnBegin,
+			QuerySelectionBoundaries.RowEnd, QuerySelectionBoundaries.ColumnEnd,
+			AlgorithmSelectionBoundaries.RowBegin, AlgorithmSelectionBoundaries.ColumnBegin,
+			AlgorithmSelectionBoundaries.RowEnd, AlgorithmSelectionBoundaries.ColumnEnd);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure УстановитьДоступностьРедактированияЗапроса(Доступность)
-	Элементы.QueryText.ТолькоПросмотр = Не Доступность;
-	Элементы.QueryCommandBarGroup.Доступность = Доступность;
+Procedure SetQueryEditingAvailability(Enabled)
+	Items.QueryText.ReadOnly = Not Enabled;
+	Items.QueryCommandBarGroup.Enabled = Enabled;
 EndProcedure
 
 &AtClient
-Procedure ИзвлечьРедактируемыйЗапрос(ЗапросКроме = Undefined, ВосстановитьПозийиюРедактирования = True)
-	ТекущаяСтрока = Элементы.QueryBatch.ТекущаяСтрока;
+Procedure ExtractEditingQuery(BesidesThisQuery = Undefined, RestoreEditingPosition = True)
+	CurrentRow = Items.QueryBatch.CurrentRow;
 
-	If EditingQuery <> ЗапросКроме Then
-		ПоместитьРедактируемыйЗапрос();
+	If EditingQuery <> BesidesThisQuery Then
+		PutEditingQuery();
 	EndIf;
 
-	If ТекущаяСтрока = Undefined Then
+	If CurrentRow = Undefined Then
 		QueryText = "";
-		УстановитьТекстАлгоритма("");
-		УстановитьДоступностьРедактированияЗапроса(False);
-		Элементы.QueryGroupPages.ПодчиненныеЭлементы.QueryPage.Заголовок = "Запрос";
-		QueryParameters.Очистить();
-		TempTables.Очистить();
+		SetAlgorithmText("");
+		SetQueryEditingAvailability(False);
+		Items.QueryGroupPages.ChildItems.QueryPage.Title = NStr("ru = 'Запрос'; en = 'Query'");
+		QueryParameters.Clear();
+		TempTables.Clear();
 		Return;
 	EndIf;
 
-	стДанныеЗапроса = Запрос_ПолучитьДанныеЗапроса(ТекущаяСтрока);
+	stQueryData = Query_GetQueryData(CurrentRow);
 
-	QueryText = стДанныеЗапроса.Запрос;
+	QueryText = stQueryData.Query;
 
-	УстановитьТекстАлгоритма(стДанныеЗапроса.ТекстКод);
-	CodeExecutionMethod = стДанныеЗапроса.CodeExecutionMethod;
+	SetAlgorithmText(stQueryData.CodeText);
+	CodeExecutionMethod = stQueryData.CodeExecutionMethod;
 
-	ПараметрыЗапросаИзСпискаЗначений(стДанныеЗапроса.Параметры, QueryParameters);
-	ВременныеТаблицыИзСпискаЗначений(стДанныеЗапроса.TempTables, TempTables);
+	QueryParametersFromValueList(stQueryData.Parameters, QueryParameters);
+	TempTablesFromValueList(stQueryData.TempTables, TempTables);
 
-	If стДанныеЗапроса.InWizard Then
-		УстановитьДоступностьРедактированияЗапроса(False);
-		Элементы.QueryGroupPages.ПодчиненныеЭлементы.QueryPage.Заголовок = "Запрос (в конструкторе)";
-	Иначе
-		УстановитьДоступностьРедактированияЗапроса(True);
-		Элементы.QueryGroupPages.ПодчиненныеЭлементы.QueryPage.Заголовок = "Запрос";
+	If stQueryData.InWizard Then
+		SetQueryEditingAvailability(False);
+		Items.QueryGroupPages.ChildItems.QueryPage.Title = NStr("ru = 'Запрос (в конструкторе)'; en = 'Query (in wizard)'");
+	Else
+		SetQueryEditingAvailability(True);
+		Items.QueryGroupPages.ChildItems.QueryPage.Title = NStr("ru = 'Запрос'; en = 'Query'");
 	EndIf;
 
-	EditingQuery = Элементы.QueryBatch.ТекущаяСтрока;
+	EditingQuery = Items.QueryBatch.CurrentRow;
 
-	ОбновитьСостояниеЭлементовФормыАлгоритма();
+	RefreshAlgorithmFormItems();
 
-	If ВосстановитьПозийиюРедактирования Then
-		ПодключитьОбработчикОжидания("ВосстановлениеПозицииРедактирования", 0.01, True);
-	EndIf;
-
-EndProcedure
-
-&AtClient
-Procedure ВосстановлениеПозицииРедактирования()
-
-	ТекущаяСтрока = Элементы.QueryBatch.ТекущаяСтрока;
-	стДанныеЗапроса = Запрос_ПолучитьДанныеЗапроса(ТекущаяСтрока);
-
-	УстановитьГраницыВыделенияЗапроса(стДанныеЗапроса.CursorBeginRow, стДанныеЗапроса.CursorBeginColumn,
-		стДанныеЗапроса.CursorEndRow, стДанныеЗапроса.CursorEndColumn);
-
-	УстановитьГраницыВыделенияАлгоритма(стДанныеЗапроса.CodeCursorBeginRow, стДанныеЗапроса.CodeCursorBeginColumn,
-		стДанныеЗапроса.CodeCursorEndRow, стДанныеЗапроса.CodeCursorEndColumn);
-
-	If Элементы.QueryGroupPages.ТекущаяСтраница = Элементы.QueryPage Then
-		ТекущийЭлемент = Элементы.QueryText;
-	ElsIf Элементы.QueryGroupPages.ТекущаяСтраница = Элементы.AlgorithmPage Then
-		ТекущийЭлемент = Элементы.AlgorithmText;
+	If RestoreEditingPosition Then
+		AttachIdleHandler("EditingPositionRestoring", 0.01, True);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure ПакетЗапросов_Инициализировать(Элемент = Undefined)
+Procedure EditingPositionRestoring()
 
-	If Элемент = Undefined Then
-		Элемент = QueryBatch;
+	CurrentRow = Items.QueryBatch.CurrentRow;
+	stQueryData = Query_GetQueryData(CurrentRow);
+
+	SetQuerySelectionBoundaries(stQueryData.CursorBeginRow, stQueryData.CursorBeginColumn,
+		stQueryData.CursorEndRow, stQueryData.CursorEndColumn);
+
+	SetAlgorithmSelectionBoundaries(stQueryData.CodeCursorBeginRow, stQueryData.CodeCursorBeginColumn,
+		stQueryData.CodeCursorEndRow, stQueryData.CodeCursorEndColumn);
+
+	If Items.QueryGroupPages.CurrentPage = Items.QueryPage Then
+		CurrentItem = Items.QueryText;
+	ElsIf Items.QueryGroupPages.CurrentPage = Items.AlgorithmPage Then
+		CurrentItem = Items.AlgorithmText;
 	EndIf;
 
-	For Each ПодчиненныйЭлемент Из Элемент.ПолучитьЭлементы() Do
-		ПодчиненныйЭлемент.InWizard = False;
-		ПакетЗапросов_Инициализировать(ПодчиненныйЭлемент);
+EndProcedure
+
+&AtClient
+Procedure QueryBatch_Initialize(Item = Undefined)
+
+	If Item = Undefined Then
+		Item = QueryBatch;
+	EndIf;
+
+	For Each ChildItem In Item.GetItems() Do
+		ChildItem.InWizard = False;
+		QueryBatch_Initialize(ChildItem);
 	EndDo;
 
 EndProcedure
 
 &AtClient
-Procedure ПакетЗапросов_New()
+Procedure QueryBatch_New()
 
-	QueryBatch.ПолучитьЭлементы().Очистить();
+	QueryBatch.GetItems().Clear();
 	QueryCount = 0;
-	ИнициализироватьЗапрос(QueryBatch.ПолучитьЭлементы().Добавить());
-	ПакетЗапросов_Инициализировать();
-	Модифицированность = False;
-	УстановитьQueriesFileName();
+	InitializeQuery(QueryBatch.GetItems().Add());
+	QueryBatch_Initialize();
+	Modified = False;
+	SetQueriesFileName();
 	EditingQuery = -1;
 
 	AutoSaveIntervalOption = 60;
@@ -2021,138 +2023,138 @@ Procedure ПакетЗапросов_New()
 EndProcedure
 
 &AtClient
-Function ПакетЗапросов_СтрокиВArray(Строки)
+Function QueryBatch_RowsToArray(Rows)
 
-	маСтроки = New Array;
+	arRows = New Array;
 
-	For Each Элемент Из Строки.ПолучитьЭлементы() Do
-		стЭлемент = New Structure("Имя, ТекстЗапроса, ТекстКод, CodeExecutionMethod, QueryParameters, TempTables, Строки, Инфо,
+	For Each Item In Rows.GetItems() Do
+		stItem = New Structure("Name, QueryText, CodeText, CodeExecutionMethod, QueryParameters, TempTables, Rows, Info,
 									|CursorBeginRow, CursorBeginColumn, CursorEndRow, CursorEndColumn,
 									|CodeCursorBeginRow, CodeCursorBeginColumn, CodeCursorEndRow, CodeCursorEndColumn");
-		ЗаполнитьЗначенияСвойств(стЭлемент, Элемент);
-		стЭлемент.Строки = ПакетЗапросов_СтрокиВArray(Элемент);
-		маСтроки.Добавить(стЭлемент);
+		FillPropertyValues(stItem, Item);
+		stItem.Rows = QueryBatch_RowsToArray(Item);
+		arRows.Add(stItem);
 	EndDo;
 
-	Return маСтроки;
+	Return arRows;
 
 EndFunction
 
 &AtServerNoContext
-Function ПакетЗапросов_СохранитьAtServer(Знач стДанныеДляЗаписи)
-	Запись = New ЗаписьXML;
-	Запись.УстановитьСтроку();
-	СериализаторXDTO.ЗаписатьXML(Запись, стДанныеДляЗаписи, НазначениеТипаXML.Явное);
-	Return Запись.Закрыть();
+Function QueryBatch_SaveAtServer(Val stWritingData)
+	Writer = New XMLWriter;
+	Writer.SetString();
+	XDTOSerializer.WriteXML(Writer, stWritingData, XMLTypeAssignment.Explicit);
+	Return Writer.Close();
 EndFunction
 
 &AtClient
-Procedure ПакетЗапросов_Сохранить(Оповещение, стрИмяФайла, фТолькоЗаголовок = False)
+Procedure QueryBatch_Save(Notification, strFileName, fTitleOnly = False)
 
-	ТекущаяСтрока = Элементы.QueryBatch.ТекущаяСтрока;
+	CurrentRow = Items.QueryBatch.CurrentRow;
 
-	ТекущаяСтрокаПакета = Undefined;
-	If ТекущаяСтрока <> Undefined Then
-		ТекущаяСтрокаПакета = QueryBatch.НайтиПоИдентификатору(ТекущаяСтрока);
+	BatchCurrentRow = Undefined;
+	If CurrentRow <> Undefined Then
+		BatchCurrentRow = QueryBatch.НайтиПоИдентификатору(CurrentRow);
 	EndIf;
 	
-	//сохраняемые состояния ++
+	//saved states ++
 	SavedStates_Save("ResultKind", ResultKind);
 	SavedStates_Save("OutputLinesLimit", OutputLinesLimit);
 	SavedStates_Save("OutputLinesLimitEnabled", OutputLinesLimitEnabled);
 	SavedStates_Save("OutputLinesLimitTop", OutputLinesLimitTop);
-	SavedStates_Save("OutputLinesLimitTopEnabled", OutputLinesLimitTopEnabled;
-	//сохраняемые состояния --
+	SavedStates_Save("OutputLinesLimitTopEnabled", OutputLinesLimitTopEnabled);
+	//saved states --
 	
-	//стПакетЗапросов = New Array;
+	//stQueryBatch = New Array;
 
-	стОпции = New Structure("
+	stOptions = New Structure("
 							  |SaveCommentsOption,
-							  |ОпцияАвтосохранениеПередВыполнениемЗапроса,
+							  |AutoSaveBeforeQueryExecutionOption,
 							  |TechLogSwitchingPollingPeriodOption,
 							  |OptionProcessing__,
 							  |AlgorithmExecutionUpdateIntervalOption,
-							  |ОпцияИнтервалАвтосохранения", SaveCommentsOption,
+							  |AutoSaveIntervalOption", SaveCommentsOption,
 		AutoSaveBeforeQueryExecutionOption, TechLogSwitchingPollingPeriodOption,
 		Object.OptionProcessing__, Object.AlgorithmExecutionUpdateIntervalOption, AutoSaveIntervalOption);
 
-	стДанныеДляЗаписи = New Structure("
-										|Формат,      
-										|Версия,
+	stWritingData = New Structure("
+										|Format,      
+										|Version,
 										|QueryCount,
-										|ИмяФайла,
+										|FileName,
 										|SavedStates,
-										|ТекущийЗапрос,
-										|Опции", ConsoleSignature, FormatVersion, QueryCount, QueriesFileName,
-		Object.SavedStates, ?(ТекущаяСтрокаПакета <> Undefined, ТекущаяСтрокаПакета.Name, Undefined),
-		стОпции);
+										|CurrentQuery,
+										|Options", ConsoleSignature, FormatVersion, QueryCount, QueriesFileName,
+		Object.SavedStates, ?(BatchCurrentRow <> Undefined, BatchCurrentRow.Name, Undefined),
+		stOptions);
 
-	If Не фТолькоЗаголовок Then
-		стДанныеДляЗаписи.Вставить("ПакетЗапросов", ПакетЗапросов_СтрокиВArray(QueryBatch));
+	If Not fTitleOnly Then
+		stWritingData.Insert("QueryBatch", QueryBatch_RowsToArray(QueryBatch));
 	EndIf;
 
-	ДанныеДляЗаписи = ПакетЗапросов_СохранитьAtServer(стДанныеДляЗаписи);
+	WritingData = QueryBatch_SaveAtServer(stWritingData);
 
-	ДокументЗапись = New ТекстовыйДокумент;
-	ДокументЗапись.УстановитьТекст(ДанныеДляЗаписи);
-	ДокументЗапись.НачатьЗапись(Оповещение, стрИмяФайла);
+	WritingDocument = New TextDocument;
+	WritingDocument.SetText(WritingData);
+	WritingDocument.BeginWriting(Notification, strFileName);
 
 EndProcedure
 
 &AtClient
-Procedure ПакетЗапросов_ДобавитьСтрокиИзArrayа(Строка, маЭлементы)
+Procedure QueryBatch_AddRowsFromArray(Row, arItems)
 
-	ЭлементыСтроки = Строка.ПолучитьЭлементы();
+	RowItems = Row.GetItems();
 
-	For Each стЭлемент Из маЭлементы Do
-		Элемент = ЭлементыСтроки.Добавить();
-		ЗаполнитьЗначенияСвойств(Элемент, стЭлемент);
-		ПакетЗапросов_ДобавитьСтрокиИзArrayа(Элемент, стЭлемент.Строки);
+	For Each stItem In arItems Do
+		Item = RowItems.Add();
+		FillPropertyValues(Item, stItem);
+		QueryBatch_AddRowsFromArray(Item, stItem.Rows);
 	EndDo;
 
 EndProcedure
 
 &AtServerNoContext
-Function ПакетЗапросов_ЗагрузитьAtServer(Знач стрЗагруженныеДанные)
+Function QueryBatch_LoadAtServer(Val strLoadedData)
 
-	Чтение = New ЧтениеXML;
-	Чтение.УстановитьСтроку(стрЗагруженныеДанные);
-	стЗагруженныеДанные = СериализаторXDTO.ПрочитатьXML(Чтение);
-	Чтение.Закрыть();
+	Reader = New XMLReader;
+	Reader.SetString(strLoadedData);
+	stLoadedData = XDTOSerializer.ReadXML(Reader);
+	Reader.Close();
 
-	Return стЗагруженныеДанные;
+	Return stLoadedData;
 
 EndFunction
 
 &AtClient
-Function ПакетЗапросов_ТекущийЗапрос()
-	Return Элементы.QueryBatch.ТекущаяСтрока;
+Function QueryBatch_CurrentQuery()
+	Return Items.QueryBatch.CurrentRow;
 EndFunction
 
-//Загружает пакет запросов.
-//If файл содержит только заголовок, ничего не грузить, только возвращает заголовок (кроме сохраняемых состояний, If они еще пустые).
+// Loads query batch.
+// If file contains title only, returns title (except the saved states, if they are empty).
 &AtClient
-Procedure ПакетЗапросов_Загрузить(ДополнительныеПараметры)
-	ЧитаемыйДокумент = New ТекстовыйДокумент;
-	ДополнительныеПараметры.Вставить("Чтение", ЧитаемыйДокумент);
-	Оповещение = New ОписаниеОповещения("ПакетЗапросов_ЗагрузитьЗавершение", ЭтаФорма, ДополнительныеПараметры,
-		"ПакетЗапросов_ЗагрузитьОшибка", ЭтаФорма);
-	ЧитаемыйДокумент.НачатьЧтение(Оповещение, ДополнительныеПараметры.ИмяФайла);
+Procedure QueryBatch_Load(AdditionalParameters)
+	ReadingDocument = New TextDocument;
+	AdditionalParameters.Insert("Reading", ReadingDocument);
+	Notification = New NotifyDescription("QueryBatch_LoadCompletion", ThisForm, AdditionalParameters,
+		"QueryBatch_LoadError", ThisForm);
+	ReadingDocument.BeginReading(Notification, AdditionalParameters.FileName);
 EndProcedure
 
 &AtClient
-Procedure ПакетЗапросов_ЗагрузитьОшибка(ИнформацияОбОшибке, СтандартнаяОбработка, ДополнительныеПараметры) Экспорт
-	ДополнительныеПараметры.Вставить("ЗагруженныеДанные");
-	ДополнительныеПараметры.Вставить("ИнформацияОбОшибке", ИнформацияОбОшибке);
-	ВыполнитьПродолжение(ДополнительныеПараметры);
+Procedure QueryBatch_LoadError(ErrorInfo, StandardProcessing, AdditionalParameters) Export
+	AdditionalParameters.Insert("LoadedData");
+	AdditionalParameters.Insert("ErrorInfo", ErrorInfo);
+	ExecuteContinuation(AdditionalParameters);
 EndProcedure
 
 &AtClient
-Procedure ПакетЗапросов_ЗагрузитьЗавершение(ДополнительныеПараметры) Экспорт
+Procedure QueryBatch_LoadCompletion(AdditionalParameters) Export
 
-	стрЗагруженныеДанные = ДополнительныеПараметры.Чтение.ПолучитьТекст();
+	стрЗагруженныеДанные = AdditionalParameters.Чтение.ПолучитьТекст();
 
-	стЗагруженныеДанные = ПакетЗапросов_ЗагрузитьAtServer(стрЗагруженныеДанные);
+	стЗагруженныеДанные = QueryBatch_LoadAtServer(стрЗагруженныеДанные);
 
 	фОК = True;
 	фОК = фОК И стЗагруженныеДанные.Свойство("Формат");
@@ -2160,82 +2162,82 @@ Procedure ПакетЗапросов_ЗагрузитьЗавершение(До
 	фОК = фОК И стЗагруженныеДанные.Свойство("Версия");
 
 	If Не фОК Then
-		ОшибкаКонсоли("Не верный формат файла!");
+		ConsoleError("Не верный формат файла!");
 	EndIf;
 
 	If стЗагруженныеДанные.Версия > FormatVersion Then
-		ОшибкаКонсоли("Используется более новая версия формата. Обновите консоль запросов!");
+		ConsoleError("Используется более новая версия формата. Обновите консоль запросов!");
 	EndIf;
 	
 	//Сохраняемые состояния - Structure, предназначена для сохранения значений, которых нет в опциях (состояния флажков форм,
 	//разных значений, и т.д.). Записывается в файл. Из файла читается только при первом открытии.
 	If Не ValueIsFilled(Object.SavedStates) Then
 		If стЗагруженныеДанные.Версия >= 11 Then
-			Object.SavedStates = стЗагруженныеДанные.СохраняемыеСостояния;
-		Иначе
+			Object.SavedStates = стЗагруженныеДанные.SavedStates;
+		Else
 			Object.SavedStates = New Structure;
 		EndIf;
 	EndIf;
 
 	If Не стЗагруженныеДанные.Свойство("ПакетЗапросов") Then
-		ДополнительныеПараметры.Вставить("ЗагруженныеДанные", стЗагруженныеДанные);
-		ВыполнитьПродолжение(ДополнительныеПараметры);
+		AdditionalParameters.Вставить("ЗагруженныеДанные", стЗагруженныеДанные);
+		ExecuteContinuation(AdditionalParameters);
 		Return;
 	EndIf;
 
 	If стЗагруженныеДанные.Версия >= 2 Then
 		стОпции = стЗагруженныеДанные.Опции;
 		SaveCommentsOption = стОпции.SaveCommentsOption;
-	Иначе
+	Else
 		SaveCommentsOption = True;
 	EndIf;
 
 	If стЗагруженныеДанные.Версия >= 3 Then
 		AutoSaveIntervalOption = стОпции.ОпцияИнтервалАвтосохранения;
-	Иначе
+	Else
 		AutoSaveIntervalOption = 60;
 	EndIf;
 
 	If стЗагруженныеДанные.Версия >= 6 Then
 		AutoSaveBeforeQueryExecutionOption = стОпции.ОпцияАвтосохранениеПередВыполнениемЗапроса;
-	Иначе
+	Else
 		AutoSaveBeforeQueryExecutionOption = True;
 	EndIf;
 
 	If стЗагруженныеДанные.Версия >= 8 Then
 		Object.OptionProcessing__ = стОпции.OptionProcessing__;
-	Иначе
+	Else
 		Object.OptionProcessing__ = True;
 	EndIf;
 
 	If стЗагруженныеДанные.Версия >= 10 Then
 		Object.AlgorithmExecutionUpdateIntervalOption = стОпции.AlgorithmExecutionUpdateIntervalOption;
-	Иначе
+	Else
 		Object.AlgorithmExecutionUpdateIntervalOption = 1000;
 	EndIf;
 
 	If стЗагруженныеДанные.Версия >= 12 Then
 		TechLogSwitchingPollingPeriodOption = стОпции.TechLogSwitchingPollingPeriodOption;
-	Иначе
+	Else
 		TechLogSwitchingPollingPeriodOption = 3;
 	EndIf;
 
 	If стЗагруженныеДанные.Версия >= 13 Then
 		ИмяТекущегоЗапроса = стЗагруженныеДанные.ТекущийЗапрос;
-	Иначе
+	Else
 		ИмяТекущегоЗапроса = Undefined;
 	EndIf;
 
 	QueryCount = стЗагруженныеДанные.QueryCount;
 
-	QueryBatch.ПолучитьЭлементы().Очистить();
-	ПакетЗапросов_ДобавитьСтрокиИзArrayа(QueryBatch, стЗагруженныеДанные.ПакетЗапросов);
+	QueryBatch.GetItems().Очистить();
+	QueryBatch_AddRowsFromArray(QueryBatch, стЗагруженныеДанные.ПакетЗапросов);
 
-	For Each ЭлементПакета Из QueryBatch.ПолучитьЭлементы() Do
+	For Each ЭлементПакета Из QueryBatch.GetItems() Do
 		Элементы.QueryBatch.Развернуть(ЭлементПакета.ПолучитьИдентификатор(), True);
 	EndDo;
 
-	ПакетЗапросов_Инициализировать();
+	QueryBatch_Initialize();
 
 	ТекущаяСтрока = ПакетЗапросов_НайтиПоИмени(ИмяТекущегоЗапроса);
 	If ТекущаяСтрока <> Undefined
@@ -2245,10 +2247,10 @@ Procedure ПакетЗапросов_ЗагрузитьЗавершение(До
 
 	Модифицированность = False;
 
-	ВосстановлениеПозицииРедактирования();
+	EditingPositionRestoring();
 
-	ДополнительныеПараметры.Вставить("ЗагруженныеДанные", стЗагруженныеДанные);
-	ВыполнитьПродолжение(ДополнительныеПараметры);
+	AdditionalParameters.Вставить("ЗагруженныеДанные", стЗагруженныеДанные);
+	ExecuteContinuation(AdditionalParameters);
 
 EndProcedure
 
@@ -2258,7 +2260,7 @@ Function ПакетЗапросов_НайтиПоИмени(ИмяЗапрос�
 		Узел = QueryBatch;
 	EndIf;
 
-	For Each Строка Из Узел.ПолучитьЭлементы() Do
+	For Each Строка Из Узел.GetItems() Do
 
 		If Строка.Name = ИмяЗапроса Then
 			Return Строка.ПолучитьИдентификатор();
@@ -2280,7 +2282,7 @@ EndFunction
 #Region Запрос
 
 &AtClient
-Function Запрос_ПолучитьДанныеЗапроса(идЗапрос)
+Function Query_GetQueryData(идЗапрос)
 
 	If идЗапрос = Undefined Then
 		Return New Structure("Имя, Запрос, ТекстКод, CodeExecutionMethod, Параметры, InWizard, CursorBeginRow, CursorBeginColumn, CursorEndRow, CursorEndColumn, CodeCursorBeginRow, CodeCursorBeginColumn, CodeCursorEndRow, CodeCursorEndColumn",
@@ -2299,7 +2301,7 @@ Function Запрос_ПолучитьДанныеЗапроса(идЗапро�
 EndFunction
 
 &AtClient
-Procedure Запрос_ПоместитьДанныеЗапроса(идЗапрос, стрТекстЗапроса, стрТекстКод = Undefined,
+Procedure Query_PutQueryData(идЗапрос, стрТекстЗапроса, стрТекстКод = Undefined,
 	CodeExecutionMethod = Undefined, сзПараметрыЗапроса = Undefined, сзВременныеТаблицы = Undefined,
 	CursorBeginRow = Undefined, CursorBeginColumn = Undefined, CursorEndRow = Undefined,
 	CursorEndColumn = Undefined, CodeCursorBeginRow = Undefined, CodeCursorBeginColumn = Undefined,
@@ -2422,10 +2424,10 @@ Procedure КомментарииЗапроса_Восстановить(стрТ
 
 	чГлубинаПоиска = 50;
 
-	ИсходныйЗапрос = New ТекстовыйДокумент;
+	ИсходныйЗапрос = New TextDocument;
 	ИсходныйЗапросУпр = New Array;
-	NewЗапрос = New ТекстовыйДокумент;
-	РезультатЗапрос = New ТекстовыйДокумент;
+	NewЗапрос = New TextDocument;
+	РезультатЗапрос = New TextDocument;
 	ИсходныйЗапрос.УстановитьТекст(CommentsData);
 	NewЗапрос.УстановитьТекст(стрТекстЗапроса);
 	чКоличествоСтрокНового = NewЗапрос.КоличествоСтрок();
@@ -2444,7 +2446,7 @@ Procedure КомментарииЗапроса_Восстановить(стрТ
 		стрИсходного = ИсходныйЗапрос.ПолучитьСтроку(чСтрокаИсходного);
 		If Лев(СокрЛП(стрИсходного), 2) = "//" Then
 			РезультатЗапрос.ДобавитьСтроку(стрИсходного);
-		Иначе
+		Else
 			Прервать;
 		EndIf;
 		чСтрокаИсходного = чСтрокаИсходного + 1;
@@ -2474,7 +2476,7 @@ Procedure КомментарииЗапроса_Восстановить(стрТ
 				стрИсходного = ИсходныйЗапрос.ПолучитьСтроку(чСтрокаИсходного + й);
 
 				If Лев(СокрЛ(стрИсходного), 2) = "//" Then
-					If Не ПустаяСтрока(СтрЗаменить(стрИсходного, "/", "")) Then
+					If Не ПустаяСтрока(StrReplace(стрИсходного, "/", "")) Then
 						РезультатЗапрос.ДобавитьСтроку(стрИсходного);
 					EndIf;
 					Продолжить;
@@ -2483,7 +2485,7 @@ Procedure КомментарииЗапроса_Восстановить(стрТ
 				If ValueIsFilled(КомментарииЗапроса_КомментарийСтроки(стрИсходного)) Then
 					If Лев(СокрЛП(стрИсходного), 2) = "//" Then
 						РезультатЗапрос.ДобавитьСтроку(стрИсходного);
-					Иначе
+					Else
 						РезультатЗапрос.ДобавитьСтроку("//" + стрИсходного);
 					EndIf;
 				EndIf;
@@ -2495,7 +2497,7 @@ Procedure КомментарииЗапроса_Восстановить(стрТ
 			РезультатЗапрос.ДобавитьСтроку(стрНового + стрКомментарий);
 			чСтрокаИсходного = чНайденнаяСтрокаИсходного + 1;
 
-		Иначе
+		Else
 			РезультатЗапрос.ДобавитьСтроку(стрНового);
 		EndIf;
 
@@ -2509,7 +2511,7 @@ Procedure КомментарииЗапроса_Восстановить(стрТ
 		If ValueIsFilled(КомментарииЗапроса_КомментарийСтроки(стрИсходного)) Then
 			If Лев(СокрЛП(стрИсходного), 2) = "//" Then
 				РезультатЗапрос.ДобавитьСтроку(стрИсходного);
-			Иначе
+			Else
 				РезультатЗапрос.ДобавитьСтроку("//" + стрИсходного);
 			EndIf;
 		EndIf;
@@ -2569,7 +2571,7 @@ Function ЗаменитьПараметр(стрТекстЗапроса, стр
 		If с = "" Или Найти(стрСимволыКонцаПараметра, с) > 0 Then
 			маЧасти.Добавить(Сред(стрТекстЗапроса, п, п1 - п));
 			маЧасти.Добавить(стрНовоеИмяПараметра);
-		Иначе
+		Else
 			маЧасти.Добавить(Сред(стрТекстЗапроса, п, п1 - п + чДлиннаПараметра));
 		EndIf;
 		п = п1 + чДлиннаПараметра;
@@ -2586,22 +2588,22 @@ EndFunction
 &AtClient
 Procedure ПодключитьОбработчикАвтосохранения()
 	If AutoSaveIntervalOption > 0 Then
-		ПодключитьОбработчикОжидания("ОбработчикАвтосохранения", AutoSaveIntervalOption);
-	Иначе
+		AttachIdleHandler("ОбработчикАвтосохранения", AutoSaveIntervalOption);
+	Else
 		ОтключитьОбработчикОжидания("ОбработчикАвтосохранения");
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ЗакончитьПолучениеРабочегоКаталогаДанныхПользователя(UserDataDirectory, ДополнительныеПараметры) Экспорт
-	ДополнительныеПараметры.Вставить("UserDataDirectory", UserDataDirectory);
-	ВыполнитьПродолжение(ДополнительныеПараметры);
+Procedure ЗакончитьПолучениеРабочегоКаталогаДанныхПользователя(UserDataDirectory, AdditionalParameters) Экспорт
+	AdditionalParameters.Вставить("UserDataDirectory", UserDataDirectory);
+	ExecuteContinuation(AdditionalParameters);
 EndProcedure
 
 &AtClient
-Procedure ЗакончитьПроверкуСуществования(Существует, ДополнительныеПараметры) Экспорт
-	ДополнительныеПараметры.Вставить("Существует", Существует);
-	ВыполнитьПродолжение(ДополнительныеПараметры);
+Procedure ЗакончитьПроверкуСуществования(Существует, AdditionalParameters) Экспорт
+	AdditionalParameters.Вставить("Существует", Существует);
+	ExecuteContinuation(AdditionalParameters);
 EndProcedure
 
 &AtClient
@@ -2613,12 +2615,12 @@ Procedure OnOpen(Отказ)
 
 #If ВебКлиент Then
 
-	Оповещение = New ОписаниеОповещения("ПослеЗавершенияПодключенияРасширенияРаботыСФайлами", ЭтотОбъект);
+	Оповещение = New NotifyDescription("ПослеЗавершенияПодключенияРасширенияРаботыСФайлами", ЭтотОбъект);
 	НачатьПодключениеРасширенияРаботыСФайлами(Оповещение);
 
 	ОтобразитьСостояниеВыполненияАлгоритма();
 
-#Иначе
+#Else
 
 		ОтобразитьСостояниеВыполненияАлгоритма();
 		ПриОткрытииПродолжение();
@@ -2628,7 +2630,7 @@ Procedure OnOpen(Отказ)
 EndProcedure
 
 &AtClient
-Procedure ПослеЗавершенияПодключенияРасширенияРаботыСФайлами(Подключено, ДополнительныеПараметры) Экспорт
+Procedure ПослеЗавершенияПодключенияРасширенияРаботыСФайлами(Подключено, AdditionalParameters) Экспорт
 
 	FileExtensionConnected = Подключено;
 
@@ -2644,63 +2646,63 @@ Procedure ПослеЗавершенияПодключенияРасширени
 EndProcedure
 
 &AtClient
-Procedure ПриОткрытииПродолжение(ДополнительныеПараметры = Undefined) Экспорт
+Procedure ПриОткрытииПродолжение(AdditionalParameters = Undefined) Экспорт
 
-	If Не ValueIsFilled(ДополнительныеПараметры) Then
+	If Не ValueIsFilled(AdditionalParameters) Then
 
-		ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
+		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
 			"ПослеПолученияРабочегоКаталога");
-		ОписаниеОповещения = New ОписаниеОповещения("ЗакончитьПолучениеРабочегоКаталогаДанныхПользователя", ЭтаФорма,
-			ДополнительныеПараметры);
-		НачатьПолучениеРабочегоКаталогаДанныхПользователя(ОписаниеОповещения);
+		NotifyDescription = New NotifyDescription("ЗакончитьПолучениеРабочегоКаталогаДанныхПользователя", ЭтаФорма,
+			AdditionalParameters);
+		НачатьПолучениеРабочегоКаталогаДанныхПользователя(NotifyDescription);
 		Return;
 
-	ElsIf ДополнительныеПараметры.ТочкаПродолжения = "ПослеПолученияРабочегоКаталога" Then
+	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПолученияРабочегоКаталога" Then
 
-		UserDataDirectory = ДополнительныеПараметры.UserDataDirectory;
+		UserDataDirectory = AdditionalParameters.UserDataDirectory;
 		StateAutoSaveFileName = UserDataDirectory + ConsoleSignature + "." + AutoSaveExtension;
 
 		стрИмяФайлаАвтосохраненияТемп = StateAutoSaveFileName;
 		Файл = New Файл(стрИмяФайлаАвтосохраненияТемп);
-		ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
+		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
 			"ПослеПроверкиСуществованияСохранения");
-		ОписаниеОповещения = New ОписаниеОповещения("ЗакончитьПроверкуСуществования", ЭтаФорма,
-			ДополнительныеПараметры);
-		Файл.НачатьПроверкуСуществования(ОписаниеОповещения);
+		NotifyDescription = New NotifyDescription("ЗакончитьПроверкуСуществования", ЭтаФорма,
+			AdditionalParameters);
+		Файл.НачатьПроверкуСуществования(NotifyDescription);
 		Return;
 
-	ElsIf ДополнительныеПараметры.ТочкаПродолжения = "ПослеПроверкиСуществованияСохранения" Then
+	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПроверкиСуществованияСохранения" Then
 		If UT_Debug Then
-			УстановитьQueriesFileName();
+			SetQueriesFileName();
 			ПриОткрытииЗавершение();
 			Return;
 		EndIf;
 
-		If Не ДополнительныеПараметры.Существует Then
-			ПакетЗапросов_New();
+		If Не AdditionalParameters.Существует Then
+			QueryBatch_New();
 			ПриОткрытииЗавершение();
 			Return;
 		EndIf;
 
 		стрИмяФайлаАвтосохраненияТемп = StateAutoSaveFileName;
 		Try
-			ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
+			AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
 				"ПриОткрытииПродолжение", "ПослеЗагрузкиЗаголовка", стрИмяФайлаАвтосохраненияТемп);
-			ПакетЗапросов_Загрузить(ДополнительныеПараметры);
+			QueryBatch_Load(AdditionalParameters);
 		Except
 			//Состояние прочитать не удалось, файл испорчен.
-			ПакетЗапросов_New();
+			QueryBatch_New();
 			ПриОткрытииЗавершение();
 		EndTry;
 
 		Return;
 
-	ElsIf ДополнительныеПараметры.ТочкаПродолжения = "ПослеЗагрузкиЗаголовка" Then
+	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеЗагрузкиЗаголовка" Then
 
-		стЗаголовок = ДополнительныеПараметры.ЗагруженныеДанные;
+		стЗаголовок = AdditionalParameters.ЗагруженныеДанные;
 		If стЗаголовок = Undefined Then
 			//Состояние прочитать не удалось, файл испорчен.
-			ПакетЗапросов_New();
+			QueryBatch_New();
 			ПриОткрытииЗавершение();
 			Return;
 		EndIf;
@@ -2711,73 +2713,73 @@ Procedure ПриОткрытииПродолжение(Дополнительн�
 			ПриОткрытииЗавершение();//Загружено автосохранение из темп, список запросов в файл не сохранялся.
 			Return;
 
-		Иначе
+		Else
 
 			QueriesFileName = стЗаголовок.ИмяФайла;
-			УстановитьQueriesFileName(QueriesFileName);
+			SetQueriesFileName(QueriesFileName);
 			стрИмяФайлаАвтосохранения = GetAutoSaveFileName(QueriesFileName);
 
 			Файл = New Файл(стрИмяФайлаАвтосохранения);
-			ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения, ИмяФайлаАвтосохранения",
+			AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайлаАвтосохранения",
 				"ПриОткрытииПродолжение", "ПослеПроверкиСуществованияАвтосохранения", стрИмяФайлаАвтосохранения);
-			ОписаниеОповещения = New ОписаниеОповещения("ЗакончитьПроверкуСуществования", ЭтаФорма,
-				ДополнительныеПараметры);
-			Файл.НачатьПроверкуСуществования(ОписаниеОповещения);
+			NotifyDescription = New NotifyDescription("ЗакончитьПроверкуСуществования", ЭтаФорма,
+				AdditionalParameters);
+			Файл.НачатьПроверкуСуществования(NotifyDescription);
 			Return;
 
 		EndIf;
 
-	ElsIf ДополнительныеПараметры.ТочкаПродолжения = "ПослеПроверкиСуществованияАвтосохранения" Then
+	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПроверкиСуществованияАвтосохранения" Then
 
 		Try
-			If ДополнительныеПараметры.Существует Then
-				стрИмяФайлаАвтосохранения = ДополнительныеПараметры.ИмяФайлаАвтосохранения;
-				ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
+			If AdditionalParameters.Существует Then
+				стрИмяФайлаАвтосохранения = AdditionalParameters.ИмяФайлаАвтосохранения;
+				AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
 					"ПриОткрытииПродолжение", "ПослеЗагрузкиАвтосохранения", стрИмяФайлаАвтосохранения);
-				ПакетЗапросов_Загрузить(ДополнительныеПараметры);
+				QueryBatch_Load(AdditionalParameters);
 				Return;
 			EndIf;
 		Except
 			//Автосохранение не загрузили - файл испорчен. Грузим основной файл.
 		EndTry;
 
-		ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения, ЗагруженныеДанные",
+		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ЗагруженныеДанные",
 			"ПриОткрытииПродолжение", "ПослеЗагрузкиАвтосохранения");
-		ВыполнитьПродолжение(ДополнительныеПараметры);
+		ExecuteContinuation(AdditionalParameters);
 		Return;
 
-	ElsIf ДополнительныеПараметры.ТочкаПродолжения = "ПослеЗагрузкиАвтосохранения" Then
+	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеЗагрузкиАвтосохранения" Then
 
-		If ДополнительныеПараметры.ЗагруженныеДанные <> Undefined Then
+		If AdditionalParameters.ЗагруженныеДанные <> Undefined Then
 			Модифицированность = True;
 			ПриОткрытииЗавершение();//Загружено из автосохранения измененного файла.
 			Return;
 		EndIf;
 
 		Файл = New Файл(QueriesFileName);
-		ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
+		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
 			"ПослеПроверкиСуществованияФайла");
-		ОписаниеОповещения = New ОписаниеОповещения("ЗакончитьПроверкуСуществования", ЭтаФорма,
-			ДополнительныеПараметры);
-		Файл.НачатьПроверкуСуществования(ОписаниеОповещения);
+		NotifyDescription = New NotifyDescription("ЗакончитьПроверкуСуществования", ЭтаФорма,
+			AdditionalParameters);
+		Файл.НачатьПроверкуСуществования(NotifyDescription);
 
-	ElsIf ДополнительныеПараметры.ТочкаПродолжения = "ПослеПроверкиСуществованияФайла" Then
+	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПроверкиСуществованияФайла" Then
 
-		If ДополнительныеПараметры.Существует Then
-			ДополнительныеПараметры = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
+		If AdditionalParameters.Существует Then
+			AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
 				"ПриОткрытииПродолжение", "ПослеЗагрузкиОсновногоФайла", QueriesFileName);
-			ПакетЗапросов_Загрузить(ДополнительныеПараметры);
+			QueryBatch_Load(AdditionalParameters);
 			Return;
-		Иначе
-			ПакетЗапросов_New();
+		Else
+			QueryBatch_New();
 			ПриОткрытииЗавершение();//Не найден файл, который в информации последнего состояния (Varещен или удален). Значит, будет New пакет.
 			Return;
 		EndIf;
 
-	ElsIf ДополнительныеПараметры.ТочкаПродолжения = "ПослеЗагрузкиОсновногоФайла" Then
+	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеЗагрузкиОсновногоФайла" Then
 
-		If ДополнительныеПараметры.ЗагруженныеДанные = Undefined Then
-			ПакетЗапросов_New();
+		If AdditionalParameters.ЗагруженныеДанные = Undefined Then
+			QueryBatch_New();
 		EndIf;
 
 		ПриОткрытииЗавершение();//Загружено из основного файла.
@@ -2790,25 +2792,25 @@ EndProcedure
 &AtServer
 Procedure ПриОткрытииЗавершениеAtServer()
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	Обработка = FormAttributeToValue("Object");
 	
 	//Сохраняемые значения +++
 
-	ResultKind = СохраняемыеСостояния_ПолучитьAtServer("ResultKind", "таблица");
-	OutputLinesLimit = СохраняемыеСостояния_ПолучитьAtServer("OutputLinesLimit", "1000");
-	OutputLinesLimitEnabled = СохраняемыеСостояния_ПолучитьAtServer("OutputLinesLimitEnabled", True);
-	OutputLinesLimitTop = СохраняемыеСостояния_ПолучитьAtServer("OutputLinesLimitTop", 1000);
-	OutputLinesLimitTopEnabled = СохраняемыеСостояния_ПолучитьAtServer("OutputLinesLimitTopEnabled",
+	ResultKind = SavedStates_GetAtServer("ResultKind", "таблица");
+	OutputLinesLimit = SavedStates_GetAtServer("OutputLinesLimit", "1000");
+	OutputLinesLimitEnabled = SavedStates_GetAtServer("OutputLinesLimitEnabled", True);
+	OutputLinesLimitTop = SavedStates_GetAtServer("OutputLinesLimitTop", 1000);
+	OutputLinesLimitTopEnabled = SavedStates_GetAtServer("OutputLinesLimitTopEnabled",
 		False);
 
-	фВидимостьПакетаРезультатаЗапроса = СохраняемыеСостояния_ПолучитьAtServer("ВидимостьПакетаРезультатаЗапроса", False);
+	фВидимостьПакетаРезультатаЗапроса = SavedStates_GetAtServer("ВидимостьПакетаРезультатаЗапроса", False);
 	If Элементы.ShowHideQueryResultBatch.Пометка <> фВидимостьПакетаРезультатаЗапроса Then
 		Элементы.ShowHideQueryResultBatch.Пометка = фВидимостьПакетаРезультатаЗапроса;
 		Элементы.QueryResultBatch.Видимость = фВидимостьПакетаРезультатаЗапроса;
 		Элементы.ResultInBatchGroup.Видимость = Не фВидимостьПакетаРезультатаЗапроса;
 	EndIf;
 
-	фПараметрыЗапросаРядомСТекстом = СохраняемыеСостояния_ПолучитьAtServer("ПараметрыЗапросаРядомСТекстом", True);
+	фПараметрыЗапросаРядомСТекстом = SavedStates_GetAtServer("ПараметрыЗапросаРядомСТекстом", True);
 	If Элементы.QueryParametersNextToText.Пометка <> фПараметрыЗапросаРядомСТекстом Then
 		Элементы.QueryParametersNextToText.Пометка = фПараметрыЗапросаРядомСТекстом;
 		ПараметрыЗапросаРядомСТекстомAtServer();
@@ -2838,14 +2840,14 @@ Procedure ПриОткрытииЗавершение()
 	УстановитьСостоянияЭлементов();
 
 	If Элементы.TechnologicalLog.Пометка Then
-		TechLogBeginEndTime = ТекущаяУниверсальнаяДатаВМиллисекундах();
+		TechLogBeginEndTime = CurrentUniversalDateInMilliseconds();
 		TechnologicalLog_Enabled(); // Что бы выполнился тестовый запрос, а через 1 секунду уже проверим результат.
-		ПодключитьОбработчикОжидания("ТехнологическийЖурнал_ОжиданиеВключения", 1, True);
+		AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВключения", 1, True);
 	EndIf;
 	
 	//Почему-то релиз 8.3.17 без режима совместимости не устанавливает изначально текущую строку.
-	If Элементы.QueryBatch.ТекущаяСтрока = Undefined И QueryBatch.ПолучитьЭлементы().Количество() > 0 Then
-		Элементы.QueryBatch.ТекущаяСтрока = QueryBatch.ПолучитьЭлементы()[0].ПолучитьИдентификатор();
+	If Элементы.QueryBatch.ТекущаяСтрока = Undefined И QueryBatch.GetItems().Количество() > 0 Then
+		Элементы.QueryBatch.ТекущаяСтрока = QueryBatch.GetItems()[0].ПолучитьИдентификатор();
 	EndIf;
 
 	If Не Object.ExternalDataProcessorMode Then
@@ -2867,14 +2869,14 @@ EndProcedure
 &AtServer
 Procedure OnCreateAtServer(Отказ, СтандартнаяОбработка)
 
-	ОбъектОбработки = РеквизитФормыВЗначение("Object");
+	ОбъектОбработки = FormAttributeToValue("Object");
 	ОбъектОбработки.Initializing(ЭтаФорма);
 	ЗначениеВРеквизитФормы(ОбъектОбработки, "Object");
 
 	QueryInWizard = -1;
 	EditingQuery = -1;
 	
-	//UsedFileName = РеквизитФормыВЗначение("Объект").UsedFileName;
+	//UsedFileName = FormAttributeToValue("Объект").UsedFileName;
 
 	Элементы.TempTablesValue.КартинкаКнопкиВыбора = БиблиотекаКартинок.Изменить;
 
@@ -2884,7 +2886,7 @@ Procedure OnCreateAtServer(Отказ, СтандартнаяОбработка)
 	
 	//Это нужно для правильной отрисовки области результата запроса до его выполнения.
 	маДобавляемыеРеквизиты = New Array;
-	Реквизит = New РеквизитФормы("Пустой", New ОписаниеТипов, "РезультатЗапроса");
+	Реквизит = New РеквизитФормы("Пустой", New TypeDescription, "РезультатЗапроса");
 	маДобавляемыеРеквизиты.Добавить(Реквизит);
 	ИзменитьРеквизиты(маДобавляемыеРеквизиты);
 	Элемент = Элементы.Добавить("Пустой", Тип("ПолеФормы"), Элементы.QueryResult);
@@ -2959,12 +2961,12 @@ Procedure BeforeClose(Отказ, ЗавершениеРаботы, ТекстП
 			Отказ = True;
 		EndIf;
 
-	Иначе
+	Else
 		
 		//Сохраним состояние.
-		ПакетЗапросов_Сохранить( , StateAutoSaveFileName, True);
+		QueryBatch_Save( , StateAutoSaveFileName, True);
 
-		If Не СохранитьСВопросом("Завершение") Then
+		If Не SaveWithQuestion("Завершение") Then
 			Отказ = True;
 		EndIf;
 
@@ -2981,10 +2983,10 @@ EndProcedure
 #Region СобытияЭлементовФормы
 
 &AtClient
-Procedure ИзменитьИмяПараметраВТекстеЗапроса(РезультатВопроса, ДополнительныеПараметры) Экспорт
-	If РезультатВопроса = КодReturnаДиалога.Да Then
-		QueryText = ЗаменитьПараметр(QueryText, "&" + ДополнительныеПараметры.PreviousValueParameterName, "&"
-			+ ДополнительныеПараметры.ИмяПараметра);
+Procedure ИзменитьИмяПараметраВТекстеЗапроса(РезультатВопроса, AdditionalParameters) Экспорт
+	If РезультатВопроса = DialogReturnCode.Да Then
+		QueryText = ЗаменитьПараметр(QueryText, "&" + AdditionalParameters.PreviousValueParameterName, "&"
+			+ AdditionalParameters.ИмяПараметра);
 	EndIf;
 EndProcedure
 
@@ -3017,12 +3019,12 @@ Procedure ОбработатьИзменениеИмениПараметра(Н�
 	If Не НоваяСтрока И ValueIsFilled(PreviousValueParameterName) Then
 		стрТекстЗапроса = QueryText;
 		If ЕстьПараметр(стрТекстЗапроса, "&" + PreviousValueParameterName) Then
-			ДополнительныеПараметры = New Structure("PreviousValueParameterName, ИмяПараметра",
+			AdditionalParameters = New Structure("PreviousValueParameterName, ИмяПараметра",
 				PreviousValueParameterName, стрИмяПараметра);
-			ПоказатьВопрос(
-				New ОписаниеОповещения("ИзменитьИмяПараметраВТекстеЗапроса", ЭтаФорма, ДополнительныеПараметры),
+			ShowQueryBox(
+				New NotifyDescription("ИзменитьИмяПараметраВТекстеЗапроса", ЭтаФорма, AdditionalParameters),
 				"Запрос содержит изменяемое мия параметра. Изменить имя параметра в тексте запроса?",
-				РежимДиалогаВопрос.ДаНет, , КодReturnаДиалога.Да);
+				РежимДиалогаВопрос.ДаНет, , DialogReturnCode.Да);
 		EndIf;
 	EndIf;
 
@@ -3068,10 +3070,10 @@ Procedure QueryBatchOnActivateRow(Item)
 	EndIf;
 
 	If ТекущиеДанные <> Undefined И Не ТекущиеДанные.Initialized Then
-		ИнициализироватьЗапрос(Элементы.QueryBatch.ТекущиеДанные);
-		ИзвлечьРедактируемыйЗапрос( , False);
-	Иначе
-		ИзвлечьРедактируемыйЗапрос();
+		InitializeQuery(Элементы.QueryBatch.ТекущиеДанные);
+		ExtractEditingQuery( , False);
+	Else
+		ExtractEditingQuery();
 	EndIf;
 
 EndProcedure
@@ -3084,12 +3086,12 @@ EndProcedure
 
 &AtClient
 Procedure QueryTextOnChange(Item)
-	ПоместитьРедактируемыйЗапрос();
+	PutEditingQuery();
 EndProcedure
 
 &AtClient
 Procedure QueryParametersOnChange(Item)
-	ПоместитьРедактируемыйЗапрос();
+	PutEditingQuery();
 EndProcedure
 
 &AtClient
@@ -3102,53 +3104,53 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 		StandardProcessing = False;
 		ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
 			Item.Родитель.ТекущаяСтрока, "Контейнер");
-		ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеРедактированияСтроки",
+		NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
 			ЭтаФорма, ПараметрыОповещения);
-		ПараметрыОткрытия = New Structure("Объект, ТипЗначения, Заголовок, Значение, ТипКонтейнера", Object,
-			ТекущиеДанные.ТипЗначения, ТекущиеДанные.Имя, ТекущиеДанные.Контейнер, ТекущиеДанные.ТипКонтейнера);
+		ПараметрыОткрытия = New Structure("Объект, ValueType, Заголовок, Значение, ТипКонтейнера", Object,
+			ТекущиеДанные.ValueType, ТекущиеДанные.Имя, ТекущиеДанные.Контейнер, ТекущиеДанные.ТипКонтейнера);
 
 		If ТекущиеДанные.ТипКонтейнера = 3 Then
 			ИмяФормыРедактирования = "РедактированиеТаблицы";
-		Иначе
+		Else
 			ИмяФормыРедактирования = "ПодборВСписок";
 		EndIf;
 
 		ОткрытьФорму(FormFullName(ИмяФормыРедактирования), ПараметрыОткрытия, ЭтаФорма, False, , ,
-			ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+			NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 
-	ElsIf ТипЗнч(ТекущиеДанные.Контейнер) = Тип("Structure") Then
+	ElsIf TypeOf(ТекущиеДанные.Контейнер) = Тип("Structure") Then
 
 		If ТекущиеДанные.Контейнер.Тип = "МоментВремени" Или ТекущиеДанные.Контейнер.Тип = "Граница" Then
 			StandardProcessing = False;
 			ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
 				Item.Родитель.ТекущаяСтрока, "Контейнер");
-			ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеРедактированияСтроки",
+			NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
 				ЭтаФорма, ПараметрыОповещения);
 			ПараметрыОткрытия = New Structure("Объект, Значение", Object, ТекущиеДанные.Контейнер);
 			ОткрытьФорму(FormFullName("РедактированиеГраницыМомента"), ПараметрыОткрытия, ЭтаФорма, False, , ,
-				ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+				NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 		ElsIf ТекущиеДанные.Контейнер.Тип = "Тип" Then
 			StandardProcessing = False;
 			ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
 				Item.Родитель.ТекущаяСтрока, "КонтейнерКакТип");
-			ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеРедактированияСтроки",
+			NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
 				ЭтаФорма, ПараметрыОповещения);
-			ПараметрыОткрытия = New Structure("Объект, ТипЗначения, ТипКонтейнера", Object, ТекущиеДанные.Контейнер,
+			ПараметрыОткрытия = New Structure("Объект, ValueType, ТипКонтейнера", Object, ТекущиеДанные.Контейнер,
 				ТекущиеДанные.ТипКонтейнера);
 			ОткрытьФорму(FormFullName("РедактированиеТипа"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-				ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+				NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 		EndIf;
 
-	Иначе
-		If ТипЗнч(ТекущиеДанные.Значение) = Тип("УникальныйИдентификатор") Then
+	Else
+		If TypeOf(ТекущиеДанные.Значение) = Тип("УникальныйИдентификатор") Then
 			StandardProcessing = False;
 			ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
 				Item.Родитель.ТекущаяСтрока, "Значение");
-			ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеРедактированияСтроки",
+			NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
 				ЭтаФорма, ПараметрыОповещения);
 			ПараметрыОткрытия = New Structure("Объект, Значение", Object, ТекущиеДанные.Значение);
 			ОткрытьФорму(FormFullName("РедактированиеУникальногоИдентификатора"), ПараметрыОткрытия, ЭтаФорма,
-				True, , , ОписаниеОповещенияОЗакрытииОткрываемойФормы,
+				True, , , NotifyDescriptionОЗакрытииОткрываемойФормы,
 				РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 		EndIf;
 	EndIf;
@@ -3170,25 +3172,25 @@ Procedure УстановитьПараметрыВводаЗначения()
 			Элементы.QueryParametersValue.КнопкаВыбора = True;
 			Элементы.QueryParametersValue.ВыбиратьТип = False;
 			Элементы.QueryParametersValue.РедактированиеТекста = False;
-			Элементы.QueryParametersValue.ОграничениеТипа = New ОписаниеТипов("Строка");
+			Элементы.QueryParametersValue.ОграничениеТипа = New TypeDescription("Строка");
 			Элементы.QueryParametersValue.КартинкаКнопкиВыбора = БиблиотекаКартинок.Изменить;
 
-		ElsIf ТипЗнч(ТекущиеДанные.Контейнер) = Тип("Structure") Then
+		ElsIf TypeOf(ТекущиеДанные.Контейнер) = Тип("Structure") Then
 
 			Элементы.QueryParametersValue.КнопкаОчистки = False;
 			Элементы.QueryParametersValue.КнопкаВыбора = True;
 			Элементы.QueryParametersValue.ВыбиратьТип = False;
 			Элементы.QueryParametersValue.КартинкаКнопкиВыбора = БиблиотекаКартинок.Изменить;
 			Элементы.QueryParametersValue.РедактированиеТекста = False;
-			Элементы.QueryParametersValue.ОграничениеТипа = New ОписаниеТипов("Строка");
+			Элементы.QueryParametersValue.ОграничениеТипа = New TypeDescription("Строка");
 
-		Иначе
+		Else
 
 			Элементы.QueryParametersValue.РедактированиеТекста = True;
-			If ValueIsFilled(ТекущиеДанные.ТипЗначения) Then
-				Элементы.QueryParametersValue.ОграничениеТипа = ТекущиеДанные.ТипЗначения;
-			Иначе
-				Элементы.QueryParametersValue.ОграничениеТипа = New ОписаниеТипов;
+			If ValueIsFilled(ТекущиеДанные.ValueType) Then
+				Элементы.QueryParametersValue.ОграничениеТипа = ТекущиеДанные.ValueType;
+			Else
+				Элементы.QueryParametersValue.ОграничениеТипа = New TypeDescription;
 			EndIf;
 
 			If ТекущиеДанные.Value = Undefined
@@ -3199,7 +3201,7 @@ Procedure УстановитьПараметрыВводаЗначения()
 				Элементы.QueryParametersValue.КнопкаОчистки = False;
 				Элементы.QueryParametersValue.КартинкаКнопкиВыбора = Элементы.Picture_ChooseType.Картинка;
 
-			Иначе
+			Else
 
 				Элементы.QueryParametersValue.ВыбиратьТип = False;
 				Элементы.QueryParametersValue.КнопкаОчистки = True;
@@ -3243,26 +3245,26 @@ Function ДобавитьПараметрСКонтролемИмени(ИмяП
 EndFunction
 
 &AtClient
-Procedure ОкончаниеРедактированияСтроки(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
+Procedure ОкончаниеРедактированияСтроки(РезультатЗакрытия, AdditionalParameters) Экспорт
 
 	If РезультатЗакрытия <> Undefined Then
 
-		If ДополнительныеПараметры.Поле = "Контейнер" Then
-			If ДополнительныеПараметры.Таблица = "QueryParameters" Then
-				ПараметрыЗапроса_СохранитьЗначение(ДополнительныеПараметры.Строка, РезультатЗакрытия.Значение);
-			ElsIf ДополнительныеПараметры.Таблица = "TempTables" Then
-				СтрокаТаблицы = TempTables.НайтиПоИдентификатору(ДополнительныеПараметры.Строка);
+		If AdditionalParameters.Поле = "Контейнер" Then
+			If AdditionalParameters.Таблица = "QueryParameters" Then
+				QueryParameters_SaveValue(AdditionalParameters.Строка, РезультатЗакрытия.Значение);
+			ElsIf AdditionalParameters.Таблица = "TempTables" Then
+				СтрокаТаблицы = TempTables.НайтиПоИдентификатору(AdditionalParameters.Строка);
 				СтрокаТаблицы.Контейнер = РезультатЗакрытия.Значение;
 				СтрокаТаблицы.Value = СтрокаТаблицы.Контейнер.Представление;
 				Модифицированность = True;
 			EndIf;
-		ElsIf ДополнительныеПараметры.Поле = "КонтейнерКакТип" Then
-			ПараметрыЗапроса_СохранитьЗначение(ДополнительныеПараметры.Строка, РезультатЗакрытия.ОписаниеКонтейнера);
-		ElsIf ДополнительныеПараметры.Поле = "ТипЗначения" Then
+		ElsIf AdditionalParameters.Поле = "КонтейнерКакТип" Then
+			QueryParameters_SaveValue(AdditionalParameters.Строка, РезультатЗакрытия.ОписаниеКонтейнера);
+		ElsIf AdditionalParameters.Поле = "ValueType" Then
 
 			ОписаниеКонтейнера = РезультатЗакрытия.ОписаниеКонтейнера;
 
-			идСтрокаПараметра = ДополнительныеПараметры.Строка;
+			идСтрокаПараметра = AdditionalParameters.Строка;
 			If идСтрокаПараметра = Undefined Then
 				//добавление нового параметра
 				СтрокаПараметра = ДобавитьПараметрСКонтролемИмени(РезультатЗакрытия.ИмяПараметра);
@@ -3270,13 +3272,13 @@ Procedure ОкончаниеРедактированияСтроки(Резул�
 				идСтрокаПараметра = СтрокаПараметра.ПолучитьИдентификатор();
 			EndIf;
 
-			ПараметрыЗапроса_УстановитьТип(идСтрокаПараметра, РезультатЗакрытия.ТипКонтейнера, ОписаниеКонтейнера);
+			QueryParameters_SetType(идСтрокаПараметра, РезультатЗакрытия.ТипКонтейнера, ОписаниеКонтейнера);
 
 			стрТекстЗапроса = Undefined;
 			If РезультатЗакрытия.Свойство("ТекстЗапроса", стрТекстЗапроса) Then
 
 				If СтрокаПараметра <> Undefined И СтрокаПараметра.Name <> РезультатЗакрытия.ИмяПараметра Then
-					стрТекстЗапроса = СтрЗаменить(стрТекстЗапроса, "&" + РезультатЗакрытия.ИмяПараметра, "&"
+					стрТекстЗапроса = StrReplace(стрТекстЗапроса, "&" + РезультатЗакрытия.ИмяПараметра, "&"
 						+ СтрокаПараметра.Name);
 				EndIf;
 
@@ -3291,7 +3293,7 @@ Procedure ОкончаниеРедактированияСтроки(Резул�
 
 			УстановитьПараметрыВводаЗначения();
 
-		ElsIf ДополнительныеПараметры.Поле = "Значение" Then
+		ElsIf AdditionalParameters.Поле = "Значение" Then
 			Элементы.QueryParameters.ТекущиеДанные.Value = РезультатЗакрытия.Значение;
 			Элементы.QueryParameters.ТекущиеДанные.Контейнер = РезультатЗакрытия.Значение;
 			Модифицированность = True;
@@ -3308,19 +3310,19 @@ Procedure QueryParametersParameterTypeStartChoice(Item, ChoiceData, StandardProc
 	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
 
 	If ТекущиеДанные.ТипКонтейнера < 3 Then
-		ТипЗначения = ТекущиеДанные.ТипЗначения;
-	Иначе
-		ТипЗначения = ТекущиеДанные.Контейнер;
+		ValueType = ТекущиеДанные.ValueType;
+	Else
+		ValueType = ТекущиеДанные.Контейнер;
 	EndIf;
 
 	ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "ПараметрыЗапроса",
-		Элементы.QueryParameters.ТекущаяСтрока, "ТипЗначения");
-	ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеРедактированияСтроки", ЭтаФорма,
+		Элементы.QueryParameters.ТекущаяСтрока, "ValueType");
+	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки", ЭтаФорма,
 		ПараметрыОповещения);
-	ПараметрыОткрытия = New Structure("Объект, ТипЗначения, ТипКонтейнера, Имя, ВЗапросРазрешено", Object,
-		ТипЗначения, ТекущиеДанные.ТипКонтейнера, ТекущиеДанные.Имя, True);
+	ПараметрыОткрытия = New Structure("Объект, ValueType, ТипКонтейнера, Имя, ВЗапросРазрешено", Object,
+		ValueType, ТекущиеДанные.ТипКонтейнера, ТекущиеДанные.Имя, True);
 	ОткрытьФорму(FormFullName("РедактированиеТипа"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-		ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 
 EndProcedure
 
@@ -3332,8 +3334,8 @@ Procedure QueryParametersValueOnChange(Item)
 	If ТекущиеДанные.ТипКонтейнера = 0 Then
 
 		ТекущиеДанные.Контейнер = ТекущиеДанные.Value;
-		If Не ValueIsFilled(ТекущиеДанные.ТипЗначения) Then
-			ТекущиеДанные.ТипЗначения = TypeDescriptionByType(ТипЗнч(ТекущиеДанные.Value));
+		If Не ValueIsFilled(ТекущиеДанные.ValueType) Then
+			ТекущиеДанные.ValueType = TypeDescriptionByType(TypeOf(ТекущиеДанные.Value));
 		EndIf;
 
 	EndIf;
@@ -3349,13 +3351,13 @@ Procedure TempTablesValueStartChoice(Item, ChoiceData, StandardProcessing)
 
 	ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "TempTables",
 		Элементы.TempTables.ТекущаяСтрока, "Контейнер");
-	ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеРедактированияСтроки", ЭтаФорма,
+	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки", ЭтаФорма,
 		ПараметрыОповещения);
-	ПараметрыОткрытия = New Structure("Объект, ТипЗначения, Заголовок, Значение, ТипКонтейнера", Object, ,
+	ПараметрыОткрытия = New Structure("Объект, ValueType, Заголовок, Значение, ТипКонтейнера", Object, ,
 		ТекущиеДанные.Name, ТекущиеДанные.Контейнер, 3);
 
 	ОткрытьФорму(FormFullName("РедактированиеТаблицы"), ПараметрыОткрытия, ЭтаФорма, False, , ,
-		ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 
 EndProcedure
 
@@ -3367,13 +3369,13 @@ Procedure QueryBatchBeforeAddRow(Item, Cancel, Clone, Parent, Folder, Parameter)
 		Cancel = True;
 
 		ТекущаяСтрока = QueryBatch.НайтиПоИдентификатору(Элементы.QueryBatch.ТекущаяСтрока);
-		Parent = ТекущаяСтрока.ПолучитьРодителя();
+		Parent = ТекущаяСтрока.GetParent();
 		If Parent = Undefined Then
 			Parent = ТекущаяСтрока;
 		EndIf;
 
-		НоваяСтрока = Parent.ПолучитьЭлементы().Добавить();
-		ЗаполнитьЗначенияСвойств(НоваяСтрока, ТекущаяСтрока);
+		НоваяСтрока = Parent.GetItems().Добавить();
+		FillPropertyValues(НоваяСтрока, ТекущаяСтрока);
 		Элементы.QueryBatch.ТекущаяСтрока = НоваяСтрока.ПолучитьИдентификатор();
 
 	EndIf;
@@ -3411,11 +3413,11 @@ Procedure QueryResultSelection(Item, SelectedRow, Field, StandardProcessing)
 		ElsIf Контейнер.Тип = Undefined Then
 			//Это пустой контейнер, значит, значение лежит в основном поле.
 			ПоказатьЗначение( , Значение);
-		Иначе
+		Else
 			ПоказатьЗначение( , Контейнер.Представление);
 		EndIf;
 
-	Иначе
+	Else
 		ПоказатьЗначение( , Значение);
 	EndIf;
 
@@ -3423,8 +3425,8 @@ EndProcedure
 
 &AtClient
 Procedure ResultInBatchOnChange(Item)
-	If ИзвлечьРезультат(ResultInBatch) > 0 Then
-		StructureЗаписиРезультата_Развернуть();
+	If ExtractResult(ResultInBatch) > 0 Then
+		ResultRecordStructure_Expand();
 	EndIf;
 EndProcedure
 
@@ -3449,13 +3451,13 @@ EndProcedure
 &AtClient
 Procedure QueryParametersValueChoiceProcessing(Item, SelectedValue, StandardProcessing)
 
-	If ТипЗнч(SelectedValue) = Тип("Тип") Then
+	If TypeOf(SelectedValue) = Тип("Тип") Then
 		ОграничениеТипа = Элементы.QueryParametersValue.ОграничениеТипа;
 		маТипы = New Array;
 		маТипы.Добавить(SelectedValue);
-		ТипЗначения = New ОписаниеТипов(маТипы, ОграничениеТипа.КвалификаторыЧисла,
-			ОграничениеТипа.КвалификаторыСтроки, ОграничениеТипа.КвалификаторыДаты);
-		Значение = ТипЗначения.ПривестиЗначение(Элементы.QueryParameters.ТекущиеДанные.Value);
+		ValueType = New TypeDescription(маТипы, ОграничениеТипа.КвалификаторыЧисла,
+			ОграничениеТипа.КвалификаторыСтроки, ОграничениеТипа.DateQualifiers);
+		Значение = ValueType.AdjustValue(Элементы.QueryParameters.ТекущиеДанные.Value);
 		Элементы.QueryParameters.ТекущиеДанные.Value = Значение;
 		StandardProcessing = False;
 	EndIf;
@@ -3468,13 +3470,13 @@ EndProcedure
 Procedure QueryParametersValueTextEditEnd(Item, Text, ChoiceData, DataGetParameters,
 	StandardProcessing)
 	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
-	If ТипЗнч(ТекущиеДанные.Контейнер) = Тип("Structure") И ТекущиеДанные.Контейнер.Тип = "УникальныйИдентификатор" Then
+	If TypeOf(ТекущиеДанные.Контейнер) = Тип("Structure") И ТекущиеДанные.Контейнер.Тип = "УникальныйИдентификатор" Then
 		Try
 			Значение = New УникальныйИдентификатор(Text);
 		Except
 			ВызватьExcept "Не корректное значение уникального идентификатора";
 		EndTry;
-		ПараметрыЗапроса_СохранитьЗначение(Элементы.QueryParameters.ТекущаяСтрока, Значение);
+		QueryParameters_SaveValue(Элементы.QueryParameters.ТекущаяСтрока, Значение);
 		StandardProcessing = False;
 	EndIf;
 EndProcedure
@@ -3485,11 +3487,11 @@ Procedure QueryParametersValueClearing(Item, StandardProcessing)
 	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
 
 	If ТекущиеДанные.ТипКонтейнера = 0 Then
-		чКоличествоТипов = ТекущиеДанные.ТипЗначения.Типы().Количество();
+		чКоличествоТипов = ТекущиеДанные.ValueType.Типы().Количество();
 		If чКоличествоТипов = 0 Или чКоличествоТипов > 1 Then
 			ТекущиеДанные.Value = Undefined;
-		Иначе
-			ТекущиеДанные.Value = ТекущиеДанные.ТипЗначения.ПривестиЗначение(Undefined);
+		Else
+			ТекущиеДанные.Value = ТекущиеДанные.ValueType.AdjustValue(Undefined);
 		EndIf;
 	ElsIf ТекущиеДанные.ТипКонтейнера = 3 Then
 	EndIf;
@@ -3510,7 +3512,7 @@ EndProcedure
 
 &AtClient
 Procedure QueryResultBatchOnActivateRow(Item)
-	ПодключитьОбработчикОжидания("ПакетРезультатаЗапросаОбработчикОжиданияПриАктивизацииСтроки", 0.01, True);
+	AttachIdleHandler("ПакетРезультатаЗапросаОбработчикОжиданияПриАктивизацииСтроки", 0.01, True);
 EndProcedure
 
 &AtClient
@@ -3519,20 +3521,20 @@ Procedure ResultRecordStructureBeforeExpand(Item, Row, Cancel)
 	СтрокаДерева = ResultRecordStructure.НайтиПоИдентификатору(Row);
 
 	If Не СтрокаДерева.ПодчиненныеУзлыРаскрыты Then
-		StructureЗаписиРезультата_РаскрытьПодчиненныеУзлы(Row);
+		ResultRecordStructure_ExpandChildNodes(Row);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Function StructureЗаписиРезультатаПолучитьТекстВставки(Строка)
+Function ResultRecordStructureПолучитьТекстВставки(Строка)
 
 	маТекстЗначения = New Array;
 
-	Строка = StructureЗаписиРезультата.НайтиПоИдентификатору(Строка);
+	Строка = ResultRecordStructure.НайтиПоИдентификатору(Строка);
 	Пока Строка <> Undefined Do
 		маТекстЗначения.Вставить(0, Строка.Имя);
-		Строка = Строка.ПолучитьРодителя();
+		Строка = Строка.GetParent();
 	EndDo;
 
 	Return StrConcat(маТекстЗначения, ".");
@@ -3544,7 +3546,7 @@ Procedure ResultRecordStructureDragStart(Item, DragParameters, Perform)
 
 	маЧасти = New Array;
 	For Each Значение Из DragParameters.Значение Do
-		маЧасти.Добавить(StructureЗаписиРезультатаПолучитьТекстВставки(Значение));
+		маЧасти.Добавить(ResultRecordStructureПолучитьТекстВставки(Значение));
 	EndDo;
 
 	DragParameters.Значение = StrConcat(маЧасти, ";");
@@ -3553,7 +3555,7 @@ EndProcedure
 
 &AtClient
 Procedure ResultRecordStructureSelection(Item, SelectedRow, Field, StandardProcessing)
-	ВставитьТекстПоПозицииКурсораАлгоритма(StructureЗаписиРезультатаПолучитьТекстВставки(SelectedRow));
+	ВставитьТекстПоПозицииКурсораАлгоритма(ResultRecordStructureПолучитьТекстВставки(SelectedRow));
 EndProcedure
 
 &AtClient
@@ -3564,9 +3566,9 @@ Procedure QueryResultBatchSelection(Item, SelectedRow, Field, StandardProcessing
 		ОтключитьОбработчикОжидания("ПакетРезультатаЗапросаОбработчикОжиданияПриАктивизацииСтроки");
 		ТекущаяСтрока = Элементы.QueryResultBatch.ТекущаяСтрока;
 		If ТекущаяСтрока <> Undefined Then
-			If ИзвлечьРезультат(QueryResultBatch.Индекс(QueryResultBatch.НайтиПоИдентификатору(
+			If ExtractResult(QueryResultBatch.Индекс(QueryResultBatch.НайтиПоИдентификатору(
 				ТекущаяСтрока)) + 1) > 0 Then
-				StructureЗаписиРезультата_Развернуть();
+				ResultRecordStructure_Expand();
 			EndIf;
 		EndIf;
 
@@ -3577,9 +3579,9 @@ Procedure QueryResultBatchSelection(Item, SelectedRow, Field, StandardProcessing
 		ОтключитьОбработчикОжидания("ПакетРезультатаЗапросаОбработчикОжиданияПриАктивизацииСтроки");
 		ТекущаяСтрока = Элементы.QueryResultBatch.ТекущаяСтрока;
 		If ТекущаяСтрока <> Undefined Then
-			If ИзвлечьРезультат(QueryResultBatch.Индекс(QueryResultBatch.НайтиПоИдентификатору(
+			If ExtractResult(QueryResultBatch.Индекс(QueryResultBatch.НайтиПоИдентификатору(
 				ТекущаяСтрока)) + 1) > 0 Then
-				StructureЗаписиРезультата_Развернуть();
+				ResultRecordStructure_Expand();
 			EndIf;
 		EndIf;
 
@@ -3591,9 +3593,9 @@ EndProcedure
 Procedure ПакетРезультатаЗапросаОбработчикОжиданияПриАктивизацииСтроки()
 	ТекущаяСтрока = Элементы.QueryResultBatch.ТекущаяСтрока;
 	If ТекущаяСтрока <> Undefined Then
-		If ИзвлечьРезультат(QueryResultBatch.Индекс(QueryResultBatch.НайтиПоИдентификатору(
+		If ExtractResult(QueryResultBatch.Индекс(QueryResultBatch.НайтиПоИдентификатору(
 			ТекущаяСтрока)) + 1) > 0 Then
-			StructureЗаписиРезультата_Развернуть();
+			ResultRecordStructure_Expand();
 		EndIf;
 	EndIf;
 EndProcedure
@@ -3603,21 +3605,21 @@ EndProcedure
 #Region ЗаполнениеИзПерехваченногоЗапроса
 
 &AtServer
-Function ЗаполнитьИзЧтениеXML(ЧтениеXML)
+Function ЗаполнитьИзXMLReader(XMLReader)
 	Var стрОшибка, стрТекстЗапроса, стПараметрыЗапроса;
 
-	Обработка = РеквизитФормыВЗначение("Object");
+	Обработка = FormAttributeToValue("Object");
 
 	Try
 
-		StructureПараметров = СериализаторXDTO.ПрочитатьXML(ЧтениеXML);
+		StructureПараметров = XDTOSerializer.ПрочитатьXML(XMLReader);
 		If StructureПараметров.Количество() >= 2 Then
 			стрТекстЗапроса = Undefined;
 			If Не StructureПараметров.Свойство("Текст", стрТекстЗапроса) Или Не StructureПараметров.Свойство(
 				"Параметры", стПараметрыЗапроса) Then
 				стрОшибка = "Ошибка структуры.";
 			EndIf;
-		Иначе
+		Else
 			стрОшибка = "Ошибка структуры.";
 		EndIf;
 
@@ -3625,7 +3627,7 @@ Function ЗаполнитьИзЧтениеXML(ЧтениеXML)
 		стрОшибка = КраткоеПредставлениеОшибки(ИнформацияОбОшибке());
 	EndTry;
 
-	ЧтениеXML.Закрыть();
+	XMLReader.Закрыть();
 
 	If ValueIsFilled(стрОшибка) Then
 		Return "Не возможно сформировать запрос - ошибка структуры введенного XML.
@@ -3638,7 +3640,7 @@ Function ЗаполнитьИзЧтениеXML(ЧтениеXML)
 	If ValueIsFilled(стОшибка) Then
 		Сообщить(
 			"Не удалось получить параметры из текста запроса. Параметры будут заполнены только по объекту запроса("
-			+ стОшибка.ОписаниеОшибки + ").", СтатусСообщения.Информация);
+			+ стОшибка.ErrorDescription + ").", СтатусСообщения.Информация);
 	EndIf;
 
 	For Each кзПараметр Из стПараметрыЗапроса Do
@@ -3646,35 +3648,35 @@ Function ЗаполнитьИзЧтениеXML(ЧтениеXML)
 		маСтрокиПараметра = QueryParameters.НайтиСтроки(New Structure("Имя", кзПараметр.Ключ));
 		If маСтрокиПараметра.КОличество() > 0 Then
 			СтрокаПараметра = маСтрокиПараметра[0];
-		Иначе
+		Else
 			СтрокаПараметра = QueryParameters.Добавить();
 		EndIf;
 
 		СтрокаПараметра.Name = кзПараметр.Ключ;
 		СтрокаПараметра.ContainerType = GetValueFormCode(кзПараметр.Значение);
 
-		ТипЗначенияИзЗапроса = СтрокаПараметра.ValueType;
+		ValueTypeИзЗапроса = СтрокаПараметра.ValueType;
 
 		If СтрокаПараметра.ContainerType = 0 Then
-			ТипЗначения = ТипЗнч(кзПараметр.Значение);
+			ValueType = TypeOf(кзПараметр.Значение);
 		ElsIf СтрокаПараметра.ContainerType = 1 Then
-			ТипЗначения = кзПараметр.Значение.ТипЗначения;
+			ValueType = кзПараметр.Значение.ValueType;
 		ElsIf СтрокаПараметра.ContainerType = 2 И кзПараметр.Значение.Количество() > 0 Then
-			ТипЗначения = ТипЗнч(кзПараметр.Значение[0]);
-		Иначе
-			ТипЗначения = Undefined;
+			ValueType = TypeOf(кзПараметр.Значение[0]);
+		Else
+			ValueType = Undefined;
 		EndIf;
 
-		If ValueIsFilled(ТипЗначения) И (Не ValueIsFilled(ТипЗначенияИзЗапроса) Или (ТипЗнч(ТипЗначения)
-			= Тип("Тип") И Не ТипЗначенияИзЗапроса.СодержитТип(ТипЗначения))) Then
-			If ТипЗнч(ТипЗначения) = Тип("Тип") Then
-				СтрокаПараметра.ValueType = TypeDescriptionByType(ТипЗначения);
-			Иначе
-				СтрокаПараметра.ValueType = ТипЗначения;
+		If ValueIsFilled(ValueType) И (Не ValueIsFilled(ValueTypeИзЗапроса) Или (TypeOf(ValueType)
+			= Тип("Тип") И Не ValueTypeИзЗапроса.ContainsType(ValueType))) Then
+			If TypeOf(ValueType) = Тип("Тип") Then
+				СтрокаПараметра.ValueType = TypeDescriptionByType(ValueType);
+			Else
+				СтрокаПараметра.ValueType = ValueType;
 			EndIf;
 		EndIf;
 
-		ПараметрыЗапроса_СохранитьЗначение(СтрокаПараметра.ПолучитьИдентификатор(), кзПараметр.Значение);
+		QueryParameters_SaveValue(СтрокаПараметра.ПолучитьИдентификатор(), кзПараметр.Значение);
 
 	EndDo;
 	
@@ -3689,22 +3691,22 @@ Function ЗаполнитьИзЧтениеXML(ЧтениеXML)
 			стНовыеТипыКолонок = New Structure;
 			For Each Колонка Из тзТаблица.Колонки Do
 
-				маТипы = Колонка.ТипЗначения.Типы();
+				маТипы = Колонка.ValueType.Типы();
 				маНовыеТипыКолонок = New Array;
 				фЕстьНеизвестныйОбъект = False;
 				For Each Тип Из маТипы Do
 					If Строка(Тип) <> "НеизвестныйОбъект" Then
 						маНовыеТипыКолонок.Добавить(Тип);
-					Иначе
+					Else
 						фЕстьНеизвестныйОбъект = True;
 					EndIf;
 				EndDo;
 
 				If фЕстьНеизвестныйОбъект Then
 
-					NewТипКолонки = New ОписаниеТипов(маНовыеТипыКолонок, Колонка.ТипЗначения.КвалификаторыЧисла,
-						Колонка.ТипЗначения.КвалификаторыСтроки, Колонка.ТипЗначения.КвалификаторыДаты,
-						Колонка.ТипЗначения.КвалификаторыДвоичныхДанных);
+					NewТипКолонки = New TypeDescription(маНовыеТипыКолонок, Колонка.ValueType.КвалификаторыЧисла,
+						Колонка.ValueType.КвалификаторыСтроки, Колонка.ValueType.DateQualifiers,
+						Колонка.ValueType.КвалификаторыДвоичныхДанных);
 
 					стНовыеТипыКолонок.Вставить(Колонка.Имя, NewТипКолонки);
 
@@ -3718,7 +3720,7 @@ Function ЗаполнитьИзЧтениеXML(ЧтениеXML)
 
 			СтрокаТаблицы = TempTables.Добавить();
 			СтрокаТаблицы.Name = стТаблица.Имя;
-			СтрокаТаблицы.Контейнер = РеквизитФормыВЗначение("Object").Container_SaveValue(тзТаблица);
+			СтрокаТаблицы.Контейнер = FormAttributeToValue("Object").Container_SaveValue(тзТаблица);
 			СтрокаТаблицы.Value = СтрокаТаблицы.Контейнер.Представление;
 
 		EndDo;
@@ -3729,9 +3731,9 @@ EndFunction
 
 &AtServer
 Procedure ЗаполнитьИзФайла(стрИмяФайла)
-	ЧтениеXML = New ЧтениеXML;
-	ЧтениеXML.ОткрытьФайл(стрИмяФайла);
-	ЗаполнитьИзЧтениеXML(ЧтениеXML);
+	XMLReader = New XMLReader;
+	XMLReader.ОткрытьФайл(стрИмяФайла);
+	ЗаполнитьИзXMLReader(XMLReader);
 EndProcedure
 
 &AtServer
@@ -3743,10 +3745,10 @@ Function ЗаполнитьИзXMLAtServer()
 		Return "В поле текста запроса должна быть строка, кодирующая запрос с параметрами. Подробности на закладке ""Информация"".";
 	EndIf;
 
-	ЧтениеXML = New ЧтениеXML;
-	ЧтениеXML.УстановитьСтроку(стрТекстВОкнеЗапроса);
+	XMLReader = New XMLReader;
+	XMLReader.УстановитьСтроку(стрТекстВОкнеЗапроса);
 
-	ЗаполнитьИзЧтениеXML(ЧтениеXML);
+	ЗаполнитьИзXMLReader(XMLReader);
 
 EndFunction
 
@@ -3755,18 +3757,18 @@ EndFunction
 #Region ИнтерактивныеКоманды
 
 &AtClient
-Procedure ЗагрузитьПакетЗапросов(ДополнительныеПараметры = Undefined) Экспорт
+Procedure ЗагрузитьПакетЗапросов(AdditionalParameters = Undefined) Экспорт
 
 	Диалог = New ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Открытие);
 	Диалог.Фильтр = SaveFilter;
 
-	ОписаниеОповещения = New ОписаниеОповещения("ПослеВыбораФайлаДляЗагрузкиПакетаЗапросов", ЭтаФорма);
-	Диалог.Показать(ОписаниеОповещения);
+	NotifyDescription = New NotifyDescription("ПослеВыбораФайлаДляЗагрузкиПакетаЗапросов", ЭтаФорма);
+	Диалог.Показать(NotifyDescription);
 
 EndProcedure
 
 &AtClient
-Procedure ПослеВыбораФайлаДляЗагрузкиПакетаЗапросов(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
+Procedure ПослеВыбораФайлаДляЗагрузкиПакетаЗапросов(ВыбранныеФайлы, AdditionalParameters) Экспорт
 
 	If ВыбранныеФайлы = Undefined Then
 		Return;
@@ -3774,85 +3776,85 @@ Procedure ПослеВыбораФайлаДляЗагрузкиПакетаЗа
 
 	стрИмяФайла = ВыбранныеФайлы[0];
 
-	ДополнительныеПараметры = New Structure("Продолжение, ИмяФайла",
+	AdditionalParameters = New Structure("Продолжение, ИмяФайла",
 		"ПослеВыбораФайлаДляЗагрузкиПакетаЗапросовЗавершение", стрИмяФайла);
-	ПакетЗапросов_Загрузить(ДополнительныеПараметры);
+	QueryBatch_Load(AdditionalParameters);
 
 EndProcedure
 
 &AtClient
-Procedure ПослеВопросаСохранения(РезультатВопроса, ДополнительныеПараметры) Экспорт
+Procedure AfterSaveQuestion(РезультатВопроса, AdditionalParameters) Экспорт
 
-	If ДополнительныеПараметры = "Загрузка" Then
-		LoadQueryBatchAfterQuestion(РезультатВопроса, ДополнительныеПараметры);
-	ElsIf ДополнительныеПараметры = "Завершение" Then
-		ЗавершениеПослеВопроса(РезультатВопроса, ДополнительныеПараметры);
-	ElsIf ДополнительныеПараметры = "New" Then
-		NewПакетЗапросовПослеВопроса(РезультатВопроса, ДополнительныеПараметры);
+	If AdditionalParameters = "Загрузка" Then
+		LoadQueryBatchAfterQuestion(РезультатВопроса, AdditionalParameters);
+	ElsIf AdditionalParameters = "Завершение" Then
+		CompletionAfterQuestion(РезультатВопроса, AdditionalParameters);
+	ElsIf AdditionalParameters = "New" Then
+		NewПакетЗапросовПослеВопроса(РезультатВопроса, AdditionalParameters);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure LoadQueryBatchAfterQuestion(РезультатВопроса, ДополнительныеПараметры)
+Procedure LoadQueryBatchAfterQuestion(РезультатВопроса, AdditionalParameters)
 
-	If РезультатВопроса = КодReturnаДиалога.Да Then
-		СохранитьПакетЗапросов(New Structure);
+	If РезультатВопроса = DialogReturnCode.Да Then
+		SaveQueryBatch(New Structure);
 		ЗагрузитьПакетЗапросов();
-	ElsIf РезультатВопроса = КодReturnаДиалога.Нет Then
+	ElsIf РезультатВопроса = DialogReturnCode.Нет Then
 
 		AutoSaveFileDeletedFlag = False;
 		StateFileDeletedFlag = False;
 
-		ДополнительныеПараметры = New Structure("ТипФайла, Продолжение", "Автосохранение", "ЗагрузитьПакетЗапросов");
-		ОписаниеОповещения = New ОписаниеОповещения("Завершить_ПослеУдаления", ЭтаФорма, ДополнительныеПараметры);
-		НачатьУдалениеФайлов(ОписаниеОповещения, GetAutoSaveFileName(QueriesFileName));
+		AdditionalParameters = New Structure("ТипФайла, Продолжение", "Автосохранение", "ЗагрузитьПакетЗапросов");
+		NotifyDescription = New NotifyDescription("Завершить_ПослеУдаления", ЭтаФорма, AdditionalParameters);
+		BeginDeletingFiles(NotifyDescription, GetAutoSaveFileName(QueriesFileName));
 
-		ДополнительныеПараметры = New Structure("ТипФайла, Продолжение", "Состояние", "ЗагрузитьПакетЗапросов");
-		ОписаниеОповещения = New ОписаниеОповещения("Завершить_ПослеУдаления", ЭтаФорма, ДополнительныеПараметры);
-		НачатьУдалениеФайлов(ОписаниеОповещения, StateAutoSaveFileName);
+		AdditionalParameters = New Structure("ТипФайла, Продолжение", "Состояние", "ЗагрузитьПакетЗапросов");
+		NotifyDescription = New NotifyDescription("Завершить_ПослеУдаления", ЭтаФорма, AdditionalParameters);
+		BeginDeletingFiles(NotifyDescription, StateAutoSaveFileName);
 
-	ElsIf РезультатВопроса = КодReturnаДиалога.Отмена Then
+	ElsIf РезультатВопроса = DialogReturnCode.Отмена Then
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure Завершить_ПослеУдаления(ДополнительныеПараметры) Экспорт
+Procedure Завершить_ПослеУдаления(AdditionalParameters) Экспорт
 
-	If ДополнительныеПараметры.ТипФайла = "Автосохранение" Then
+	If AdditionalParameters.ТипФайла = "Автосохранение" Then
 		AutoSaveFileDeletedFlag = True;
-	ElsIf ДополнительныеПараметры.ТипФайла = "Состояние" Then
+	ElsIf AdditionalParameters.ТипФайла = "Состояние" Then
 		StateFileDeletedFlag = True;
 	EndIf;
 
 	If AutoSaveFileDeletedFlag И StateFileDeletedFlag Then
-		ВыполнитьПродолжение(ДополнительныеПараметры);
+		ExecuteContinuation(AdditionalParameters);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure NewПакетЗапросовПослеВопроса(РезультатВопроса, ДополнительныеПараметры)
+Procedure NewПакетЗапросовПослеВопроса(РезультатВопроса, AdditionalParameters)
 
-	If РезультатВопроса = КодReturnаДиалога.Да Then
-		СохранитьПакетЗапросов(New Structure("New", True));
-	ElsIf РезультатВопроса = КодReturnаДиалога.Нет Then
+	If РезультатВопроса = DialogReturnCode.Да Then
+		SaveQueryBatch(New Structure("New", True));
+	ElsIf РезультатВопроса = DialogReturnCode.Нет Then
 
 		AutoSaveFileDeletedFlag = False;
 		StateFileDeletedFlag = False;
 
-		ДополнительныеПараметры = New Structure("ТипФайла, Продолжение", "Автосохранение",
-			"ПродолжениеПакетЗапросов_New");
-		ОписаниеОповещения = New ОписаниеОповещения("Завершить_ПослеУдаления", ЭтаФорма, ДополнительныеПараметры);
-		НачатьУдалениеФайлов(ОписаниеОповещения, GetAutoSaveFileName(QueriesFileName));
+		AdditionalParameters = New Structure("ТипФайла, Продолжение", "Автосохранение",
+			"ПродолжениеQueryBatch_New");
+		NotifyDescription = New NotifyDescription("Завершить_ПослеУдаления", ЭтаФорма, AdditionalParameters);
+		BeginDeletingFiles(NotifyDescription, GetAutoSaveFileName(QueriesFileName));
 
-		ДополнительныеПараметры = New Structure("ТипФайла, Продолжение", "Состояние",
-			"ПродолжениеПакетЗапросов_New");
-		ОписаниеОповещения = New ОписаниеОповещения("Завершить_ПослеУдаления", ЭтаФорма, ДополнительныеПараметры);
-		НачатьУдалениеФайлов(ОписаниеОповещения, StateAutoSaveFileName);
+		AdditionalParameters = New Structure("ТипФайла, Продолжение", "Состояние",
+			"ПродолжениеQueryBatch_New");
+		NotifyDescription = New NotifyDescription("Завершить_ПослеУдаления", ЭтаФорма, AdditionalParameters);
+		BeginDeletingFiles(NotifyDescription, StateAutoSaveFileName);
 
-	ElsIf РезультатВопроса = КодReturnаДиалога.Отмена Then
+	ElsIf РезультатВопроса = DialogReturnCode.Отмена Then
 	EndIf;
 
 EndProcedure
@@ -3865,7 +3867,7 @@ Procedure УстановитьГраницыВыделенияДляОбрабо
 
 	If НачальнаяСтрока = КонечнаяСтрока И НачальнаяКолонка = КонечнаяКолонка Then
 		ЭлементТекст.УстановитьГраницыВыделения(1, 1, 1000000000, 1);
-	Иначе
+	Else
 
 		If НачальнаяКолонка > 1 Then
 			НачальнаяКолонка = 1;
@@ -3885,18 +3887,18 @@ EndProcedure
 &AtClient
 Procedure QueryBatchNew_Command(Command)
 
-	If Не СохранитьСВопросом("New") Then
+	If Не SaveWithQuestion("New") Then
 		Return;
 	EndIf;
 
-	ПакетЗапросов_New();
+	QueryBatch_New();
 
 EndProcedure
 
 &AtClient
 Procedure LoadQueryBatch_Command(Command)
 
-	If Не СохранитьСВопросом("Загрузка") Then
+	If Не SaveWithQuestion("Загрузка") Then
 		Return;
 	EndIf;
 
@@ -3905,42 +3907,42 @@ Procedure LoadQueryBatch_Command(Command)
 EndProcedure
 
 &AtClient
-Procedure СохранитьПакетЗапросов(Контекст)
+Procedure SaveQueryBatch(Контекст)
 
 	If Не ValueIsFilled(QueriesFileName) Then
-		ОписаниеОповещения = New ОписаниеОповещения("СохранитьПакетЗапросовПродолжение", ЭтаФорма, Контекст);
-		Автосохранить(ОписаниеОповещения);
+		NotifyDescription = New NotifyDescription("SaveQueryBatchПродолжение", ЭтаФорма, Контекст);
+		Автосохранить(NotifyDescription);
 		Return;
 	EndIf;
 
 	Контекст.Вставить("ProcedureОповещенияЗавершенияСохранения", "ПослеСохраненияПакетаЗапросов");
 	Контекст.Вставить("ИмяФайлаСохранения", GetAutoSaveFileName(QueriesFileName));
 	Контекст.Вставить("QueriesFileName", QueriesFileName);
-	ОписаниеОповещения = New ОписаниеОповещения("ЗакончитьСохранениеФайла", ЭтаФорма, Контекст);
-	Автосохранить(ОписаниеОповещения);
+	NotifyDescription = New NotifyDescription("ЗакончитьСохранениеФайла", ЭтаФорма, Контекст);
+	Автосохранить(NotifyDescription);
 
 EndProcedure
 
 &AtClient
-Procedure СохранитьПакетЗапросовПродолжение(Результат, Контекст) Экспорт
+Procedure SaveQueryBatchПродолжение(Результат, Контекст) Экспорт
 	ПакетЗапросовСохранитьКак(Контекст);
 EndProcedure
 
 &AtClient
 Procedure QueryBatchSave_Command(Command)
-	СохранитьПакетЗапросов(New Structure);
+	SaveQueryBatch(New Structure);
 EndProcedure
 
 &AtClient
 Procedure ПакетЗапросовСохранитьКак(Контекст)
 
-	ПоместитьРедактируемыйЗапрос();
+	PutEditingQuery();
 
 	Диалог = New ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Сохранение);
 	Диалог.Фильтр = SaveFilter;
 
-	ОписаниеОповещения = New ОписаниеОповещения("ПакетЗапросовСохранитьКак_ПослеВыбораФайла", ЭтаФорма, Контекст);
-	Диалог.Показать(ОписаниеОповещения);
+	NotifyDescription = New NotifyDescription("ПакетЗапросовСохранитьКак_ПослеВыбораФайла", ЭтаФорма, Контекст);
+	Диалог.Показать(NotifyDescription);
 
 EndProcedure
 
@@ -3950,7 +3952,7 @@ Procedure QueryBatchSaveAs_Command(Command)
 EndProcedure
 
 &AtClient
-Procedure ПакетЗапросовСохранитьКак_ПослеВыбораФайла(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
+Procedure ПакетЗапросовСохранитьКак_ПослеВыбораФайла(ВыбранныеФайлы, AdditionalParameters) Экспорт
 
 	If ВыбранныеФайлы = Undefined Then
 		Return;
@@ -3965,31 +3967,31 @@ Procedure ПакетЗапросовСохранитьКак_ПослеВыбо�
 		стрИмяФайла = StrTemplate("%1.%2", стрИмяФайла, FilesExtension);
 	EndIf;
 
-	УстановитьQueriesFileName(стрИмяФайла);
+	SetQueriesFileName(стрИмяФайла);
 
-	ДополнительныеПараметры = New Structure("ProcedureОповещенияЗавершенияСохранения, ИмяФайлаСохранения, QueriesFileName",
+	AdditionalParameters = New Structure("ProcedureОповещенияЗавершенияСохранения, ИмяФайлаСохранения, QueriesFileName",
 		"ПослеСохраненияПакетаЗапросов", GetAutoSaveFileName(QueriesFileName), QueriesFileName);
-	ОписаниеОповещения = New ОписаниеОповещения("ЗакончитьСохранениеФайла", ЭтаФорма, ДополнительныеПараметры);
-	Автосохранить(ОписаниеОповещения);
+	NotifyDescription = New NotifyDescription("ЗакончитьСохранениеФайла", ЭтаФорма, AdditionalParameters);
+	Автосохранить(NotifyDescription);
 
 EndProcedure
 &AtClient
-Procedure ЗакончитьСохранениеФайла(Результат, ДополнительныеПараметры) Экспорт
-	ОписаниеОповещение = New ОписаниеОповещения(ДополнительныеПараметры.ProcedureОповещенияЗавершенияСохранения,
-		ЭтаФорма, ДополнительныеПараметры);
-	НачатьVarещениеФайла(ОписаниеОповещение, ДополнительныеПараметры.ИмяФайлаСохранения,
-		ДополнительныеПараметры.QueriesFileName);
+Procedure ЗакончитьСохранениеФайла(Результат, AdditionalParameters) Экспорт
+	ОписаниеОповещение = New NotifyDescription(AdditionalParameters.ProcedureОповещенияЗавершенияСохранения,
+		ЭтаФорма, AdditionalParameters);
+	НачатьVarещениеФайла(ОписаниеОповещение, AdditionalParameters.ИмяФайлаСохранения,
+		AdditionalParameters.QueriesFileName);
 EndProcedure
 
 &AtClient
-Procedure ПослеСохраненияПакетаЗапросов(VarещаемыйФайл, ДополнительныеПараметры) Экспорт
+Procedure ПослеСохраненияПакетаЗапросов(VarещаемыйФайл, AdditionalParameters) Экспорт
 
 	Модифицированность = False;
 
-	If ДополнительныеПараметры.Свойство("Завершение") Then
+	If AdditionalParameters.Свойство("Завершение") Then
 		Закрыть();
-	ElsIf ДополнительныеПараметры.Свойство("New") Then
-		ПакетЗапросов_New();
+	ElsIf AdditionalParameters.Свойство("New") Then
+		QueryBatch_New();
 	EndIf;
 
 EndProcedure
@@ -4004,7 +4006,7 @@ Function ПолучитьКонструкторЗапроса(СтрТекстЗ
 		КонструкторЗапроса = New КонструкторЗапроса(СтрТекстЗапроса);
 	Except
 
-		СтрокаОшибки = ОписаниеОшибки();
+		СтрокаОшибки = ErrorDescription();
 		DisassembleQueryError(СтрокаОшибки, НомерСтроки, НомерКолонки);
 
 		ShowConsoleMessageBox(СтрокаОшибки);
@@ -4031,7 +4033,7 @@ Procedure QueryWizard_Command(Command)
 		If КонструкторЗапроса = Undefined Then
 			Return;
 		EndIf;
-	Иначе
+	Else
 		КонструкторЗапроса = New КонструкторЗапроса;
 	EndIf;
 
@@ -4040,21 +4042,21 @@ Procedure QueryWizard_Command(Command)
 		стрТекстЗапроса = КонструкторЗапроса.Текст;
 		КомментарииЗапроса_Восстановить(стрТекстЗапроса);
 		QueryText = стрТекстЗапроса;
-		ПоместитьРедактируемыйЗапрос();
+		PutEditingQuery();
 		Модифицированность = True;
 	EndIf;
-#Иначе
+#Else
 
 		If QueryInWizard > 0 Then
 			Запрос_УстановитьВКонструкторе(QueryInWizard, False);
 			QueryInWizard = -1;
 		EndIf;
 
-		ТекущийЗапрос = ПакетЗапросов_ТекущийЗапрос();
+		ТекущийЗапрос = QueryBatch_CurrentQuery();
 		Запрос_УстановитьВКонструкторе(ТекущийЗапрос, True);
-		ИзвлечьРедактируемыйЗапрос();
+		ExtractEditingQuery();
 		КонструкторЗапроса.Показать(
-			New ОписаниеОповещения("Команда_КонструкторЗапроса_ОповещениеЗакрытияКонструктора", ЭтаФорма,
+			New NotifyDescription("Команда_КонструкторЗапроса_ОповещениеЗакрытияКонструктора", ЭтаФорма,
 			ТекущийЗапрос));
 
 #EndIf
@@ -4073,11 +4075,11 @@ Procedure Команда_КонструкторЗапроса_Оповещени
 
 	If стрТекстЗапроса <> Undefined Then
 		КомментарииЗапроса_Восстановить(стрТекстЗапроса);
-		Запрос_ПоместитьДанныеЗапроса(EditingQuery, стрТекстЗапроса);
+		Query_PutQueryData(EditingQuery, стрТекстЗапроса);
 		Модифицированность = True;
 	EndIf;
 
-	ИзвлечьРедактируемыйЗапрос(ТекущийЗапрос);
+	ExtractEditingQuery(ТекущийЗапрос);
 
 EndProcedure
 
@@ -4092,7 +4094,7 @@ Procedure ВыполнитьЗапрос(фИспользоватьВыделе�
 	фВесьТекст = Не фИспользоватьВыделение Или (НачалоСтроки = КонецСтроки И НачалоКолонки = КонецКолонки);
 	If фВесьТекст Then
 		стрТекстЗапроса = QueryText;
-	Иначе
+	Else
 		стрТекстЗапроса = Элементы.QueryText.ВыделенныйТекст;
 	EndIf;
 
@@ -4100,22 +4102,22 @@ Procedure ВыполнитьЗапрос(фИспользоватьВыделе�
 		Автосохранить();
 	EndIf;
 
-	стРезультат = ВыполнитьЗапросAtServer(стрТекстЗапроса);
-	If ValueIsFilled(стРезультат.ОписаниеОшибки) Then
-		ShowConsoleMessageBox(стРезультат.ОписаниеОшибки);
+	стРезультат = ExecuteQueryAtServer(стрТекстЗапроса);
+	If ValueIsFilled(стРезультат.ErrorDescription) Then
+		ShowConsoleMessageBox(стРезультат.ErrorDescription);
 		ТекущийЭлемент = Элементы.QueryText;
 		If ValueIsFilled(стРезультат.Строка) Then
 			If фВесьТекст Then
 				Элементы.QueryText.УстановитьГраницыВыделения(стРезультат.Строка, стРезультат.Колонка,
 					стРезультат.Строка, стРезультат.Колонка);
-			Иначе
+			Else
 			EndIf;
 		EndIf;
-	Иначе
+	Else
 
 		ResultInForm = -1;
-		ResultReturningRowsCount = ИзвлечьРезультат(стРезультат.КоличествоРезультатов);
-		StructureЗаписиРезультата_Развернуть();
+		ResultReturningRowsCount = ExtractResult(стРезультат.КоличествоРезультатов);
+		ResultRecordStructure_Expand();
 
 		ТекущаяСтрокаПакета = QueryBatch.НайтиПоИдентификатору(Элементы.QueryBatch.ТекущаяСтрока);
 		ТекущаяСтрокаПакета.ResultRowCount = QueryResult.Количество();
@@ -4126,7 +4128,7 @@ Procedure ВыполнитьЗапрос(фИспользоватьВыделе�
 	EndIf;
 
 	ResultQueryName = Элементы.QueryBatch.ТекущиеДанные.Name;
-	ОбновитьСостояниеЭлементовФормыАлгоритма();
+	RefreshAlgorithmFormItems();
 
 EndProcedure
 
@@ -4143,32 +4145,32 @@ Function ПараметрыЗаполнитьИзЗапросаAtServer()
 
 	Запрос = New Запрос(QueryText);
 	Try
-		Запрос.МенеджерВременныхТаблиц = ЗагрузитьВременныеТаблицы();
-		НайденныеПараметры = Запрос.НайтиПараметры();
+		Запрос.TempTablesManager = LoadTempTables();
+		НайденныеПараметры = Запрос.FindParameters();
 	Except
-		СтрокаОшибки = ОписаниеОшибки();
+		СтрокаОшибки = ErrorDescription();
 		DisassembleQueryError(СтрокаОшибки, НомерСтроки, НомерКолонки);
-		Return New Structure("ОписаниеОшибки, Строка, Колонка", СтрокаОшибки, НомерСтроки, НомерКолонки);
+		Return New Structure("ErrorDescription, Строка, Колонка", СтрокаОшибки, НомерСтроки, НомерКолонки);
 	EndTry;
 
 	For Each Параметр Из НайденныеПараметры Do
 
-		If Object.OptionProcessing__ И СтрНачинаетсяС(Параметр.Имя, MacroParameter) Then
+		If Object.OptionProcessing__ И StrStartsWith(Параметр.Имя, MacroParameter) Then
 			Продолжить;
 		EndIf;
 
 		маСтрокиПараметра = QueryParameters.НайтиСтроки(New Structure("Имя", Параметр.Имя));
 		If маСтрокиПараметра.Количество() > 0 Then
 			СтрокаПараметра = маСтрокиПараметра[0];
-		Иначе
+		Else
 			СтрокаПараметра = QueryParameters.Добавить();
 			СтрокаПараметра.Name = Параметр.Имя;
-			ПараметрыЗапроса_СохранитьЗначение(СтрокаПараметра.ПолучитьИдентификатор(),
-				Параметр.ТипЗначения.ПривестиЗначение(Undefined));
+			QueryParameters_SaveValue(СтрокаПараметра.ПолучитьИдентификатор(),
+				Параметр.ValueType.AdjustValue(Undefined));
 		EndIf;
 
 		If Не ValueIsFilled(СтрокаПараметра.ValueType) Then
-			СтрокаПараметра.ValueType = Параметр.ТипЗначения;
+			СтрокаПараметра.ValueType = Параметр.ValueType;
 		EndIf;
 
 	EndDo;
@@ -4184,7 +4186,7 @@ Procedure FillParametersFromQuery_Command(Command)
 
 	If ValueIsFilled(стОшибка) Then
 
-		ShowConsoleMessageBox(стОшибка.ОписаниеОшибки);
+		ShowConsoleMessageBox(стОшибка.ErrorDescription);
 		ТекущийЭлемент = Элементы.QueryText;
 
 		If ValueIsFilled(стОшибка.Строка) Then
@@ -4218,7 +4220,7 @@ Procedure ДобавитьПереносСтрокВТекст(ЭлементТ�
 	УстановитьГраницыВыделенияДляОбработкиСтрок(ЭлементТекст, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока,
 		КонечнаяКолонка);
 
-	ОбрабатываемыйТекст = New ТекстовыйДокумент;
+	ОбрабатываемыйТекст = New TextDocument;
 	ОбрабатываемыйТекст.УстановитьТекст(ЭлементТекст.ВыделенныйТекст);
 
 	Для й = 1 По ОбрабатываемыйТекст.КоличествоСтрок() Do
@@ -4246,7 +4248,7 @@ Procedure УбратьПереносСтрокИзТекста(ЭлементТ�
 	УстановитьГраницыВыделенияДляОбработкиСтрок(ЭлементТекст, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока,
 		КонечнаяКолонка);
 
-	ОбрабатываемыйТекст = New ТекстовыйДокумент;
+	ОбрабатываемыйТекст = New TextDocument;
 	ОбрабатываемыйТекст.УстановитьТекст(ЭлементТекст.ВыделенныйТекст);
 
 	Для й = 1 По ОбрабатываемыйТекст.КоличествоСтрок() Do
@@ -4278,7 +4280,7 @@ Procedure ДобавитьКомментированиеСтрокВТекст(�
 	УстановитьГраницыВыделенияДляОбработкиСтрок(ЭлементТекст, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока,
 		КонечнаяКолонка);
 
-	ОбрабатываемыйТекст = New ТекстовыйДокумент;
+	ОбрабатываемыйТекст = New TextDocument;
 	ОбрабатываемыйТекст.УстановитьТекст(ЭлементТекст.ВыделенныйТекст);
 
 	Для й = 1 По ОбрабатываемыйТекст.КоличествоСтрок() Do
@@ -4306,7 +4308,7 @@ Procedure УбратьКомментированиеСтрокИзТекста(�
 	УстановитьГраницыВыделенияДляОбработкиСтрок(ЭлементТекст, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока,
 		КонечнаяКолонка);
 
-	ОбрабатываемыйТекст = New ТекстовыйДокумент;
+	ОбрабатываемыйТекст = New TextDocument;
 	ОбрабатываемыйТекст.УстановитьТекст(ЭлементТекст.ВыделенныйТекст);
 
 	Для й = 1 По ОбрабатываемыйТекст.КоличествоСтрок() Do
@@ -4340,8 +4342,8 @@ Procedure QuerySyntaxCheck_Command(Command)
 
 	Результат = FormatQueryTextAtServer(QueryText);
 
-	If ТипЗнч(Результат) <> Тип("Строка") Then
-		ShowConsoleMessageBox(Результат.ОписаниеОшибки);
+	If TypeOf(Результат) <> Тип("Строка") Then
+		ShowConsoleMessageBox(Результат.ErrorDescription);
 		ТекущийЭлемент = Элементы.QueryText;
 		If ValueIsFilled(Результат.Строка) Then
 			Элементы.QueryText.УстановитьГраницыВыделения(Результат.Строка, Результат.Колонка, Результат.Строка,
@@ -4362,9 +4364,9 @@ Procedure Команда_ФорматироватьТекстЗапроса(Ко
 	КомментарииЗапроса_СохранитьДанныеИсходногоЗапроса(стрТекстЗапроса);
 	Результат = FormatQueryTextAtServer(стрТекстЗапроса);
 
-	If ТипЗнч(Результат) <> Тип("Строка") Then
+	If TypeOf(Результат) <> Тип("Строка") Then
 
-		ShowConsoleMessageBox(Результат.ОписаниеОшибки);
+		ShowConsoleMessageBox(Результат.ErrorDescription);
 		ТекущийЭлемент = Элементы.QueryText;
 		If ValueIsFilled(Результат.Строка) Then
 			Элементы.QueryText.УстановитьГраницыВыделения(Результат.Строка, Результат.Колонка, Результат.Строка,
@@ -4377,11 +4379,11 @@ Procedure Команда_ФорматироватьТекстЗапроса(Ко
 
 	КомментарииЗапроса_Восстановить(Результат);
 
-	ТекстКоличество = New ТекстовыйДокумент;
+	ТекстКоличество = New TextDocument;
 	ТекстКоличество.УстановитьТекст(QueryText);
 	Элементы.QueryText.УстановитьГраницыВыделения(1, 1, ТекстКоличество.КоличествоСтрок() + 1, 1);
 	Элементы.QueryText.ВыделенныйТекст = Результат;
-	ПоместитьРедактируемыйЗапрос();
+	PutEditingQuery();
 	Модифицированность = True;
 
 EndProcedure
@@ -4395,7 +4397,7 @@ Procedure GetCodeForTrace_Command(Command)
 		//"ВнешниеОбработки.Создать(""" + стрDataProcessorServerFileName + """, False).SaveQuery(" + Формат(Объект.SessionID, "ЧГ=0") + ", Запрос)";
 		стрКод = StrTemplate("ВнешниеОбработки.Создать(""%1"", False).SaveQuery(%2, Запрос)",
 			стрDataProcessorServerFileName, Формат(Object.SessionID, "ЧГ=0"));
-	Иначе
+	Else
 
 		стрКод = StrTemplate("Обработки.%1.Создать().SaveQuery(%2, Запрос)", Object.DataProcessorName, Формат(
 			Object.SessionID, "ЧГ=0"));
@@ -4421,7 +4423,7 @@ Procedure GetHookedQueries_Command(Command)
 
 	стрПояснение = "Загрузка перехваченных запросов";
 
-	ПоместитьРедактируемыйЗапрос();
+	PutEditingQuery();
 
 	маФайлыЗапросов = GetFileListAtServerFromTempFilesDir("*." + Object.LockedQueriesExtension);
 
@@ -4429,10 +4431,10 @@ Procedure GetHookedQueries_Command(Command)
 	For Each стрФайл Из маФайлыЗапросов Do
 		Состояние("Загрузка перехваченного запроса: " + й + " из " + маФайлыЗапросов.Количество(), (й - 1) * 100
 			/ маФайлыЗапросов.Количество(), стрПояснение);
-		NewЗапрос = QueryBatch.ПолучитьЭлементы().Добавить();
+		NewЗапрос = QueryBatch.GetItems().Добавить();
 		Элементы.QueryBatch.ТекущаяСтрока = NewЗапрос.ПолучитьИдентификатор();
 		ЗаполнитьИзФайла(стрФайл);
-		ПоместитьРедактируемыйЗапрос();
+		PutEditingQuery();
 		й = й + 1;
 	EndDo;
 
@@ -4446,7 +4448,7 @@ EndProcedure
 &AtClient
 Procedure DeleteHookedQueries_Command(Command)
 
-	ПоместитьРедактируемыйЗапрос();
+	PutEditingQuery();
 
 	маФайлыЗапросов = GetFileListAtServerFromTempFilesDir("*." + Object.LockedQueriesExtension);
 
@@ -4458,7 +4460,7 @@ EndProcedure
 
 &AtClient
 Procedure QueryBatchAdd_Command(Command)
-	Элементы.QueryBatch.ТекущаяСтрока = QueryBatch.ПолучитьЭлементы().Добавить().ПолучитьИдентификатор();
+	Элементы.QueryBatch.ТекущаяСтрока = QueryBatch.GetItems().Добавить().ПолучитьИдентификатор();
 	Элементы.QueryBatch.ТекущийЭлемент = Элементы.QueryListQuery;
 	Элементы.QueryBatch.ИзменитьСтроку();
 	Модифицированность = True;
@@ -4468,16 +4470,16 @@ EndProcedure
 Procedure QueryBatchLevelUp_Command(Command)
 
 	Строка = QueryBatch.НайтиПоИдентификатору(Элементы.QueryBatch.ТекущаяСтрока);
-	Родитель = Строка.ПолучитьРодителя();
+	Родитель = Строка.GetParent();
 
 	If Родитель <> Undefined Then
-		РодительРодителя = Родитель.ПолучитьРодителя();
+		РодительРодителя = Родитель.GetParent();
 		If РодительРодителя = Undefined Then
-			ИндексВставки = QueryBatch.ПолучитьЭлементы().Индекс(Родитель) + 1;
-		Иначе
-			ИндексВставки = РодительРодителя.ПолучитьЭлементы().Индекс(Родитель) + 1;
+			ИндексВставки = QueryBatch.GetItems().Индекс(Родитель) + 1;
+		Else
+			ИндексВставки = РодительРодителя.GetItems().Индекс(Родитель) + 1;
 		EndIf;
-		НоваяСтрока = VarеститьСтрокуДерева(QueryBatch, Строка, ИндексВставки, РодительРодителя);
+		НоваяСтрока = MoveTreeRow(QueryBatch, Строка, ИндексВставки, РодительРодителя);
 		Элементы.QueryBatch.ТекущаяСтрока = НоваяСтрока.ПолучитьИдентификатор();
 	EndIf;
 
@@ -4489,8 +4491,8 @@ EndProcedure
 Procedure QueryBatchCopy_Command(Command)
 
 	Строка = QueryBatch.НайтиПоИдентификатору(Элементы.QueryBatch.ТекущаяСтрока);
-	НоваяСтрока = Строка.ПолучитьЭлементы().Добавить();
-	ЗаполнитьЗначенияСвойств(НоваяСтрока, Строка, ,
+	НоваяСтрока = Строка.GetItems().Добавить();
+	FillPropertyValues(НоваяСтрока, Строка, ,
 		"InWizard, Инфо, ResultReturningRowsCount, ResultRowCount, RowCountDifference");
 	НоваяСтрока.Name = "Копия " + НоваяСтрока.Name;
 	Элементы.QueryBatch.ТекущаяСтрока = НоваяСтрока.ПолучитьИдентификатор();
@@ -4503,21 +4505,21 @@ EndProcedure
 
 &AtClient
 Procedure RefreshResult_Command(Command)
-	If ИзвлечьРезультат() > 0 Then
-		StructureЗаписиРезультата_Развернуть();
+	If ExtractResult() > 0 Then
+		ResultRecordStructure_Expand();
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure QueryResultTreeExpandAll_Command(Command)
-	For Each ЭлементДерева Из QueryResultTree.ПолучитьЭлементы() Do
+	For Each ЭлементДерева Из QueryResultTree.GetItems() Do
 		Элементы.QueryResultTree.Развернуть(ЭлементДерева.ПолучитьИдентификатор(), True);
 	EndDo;
 EndProcedure
 
 &AtClient
 Procedure QueryResultTreeCollapseAll_Command(Command)
-	For Each ЭлементДерева Из QueryResultTree.ПолучитьЭлементы() Do
+	For Each ЭлементДерева Из QueryResultTree.GetItems() Do
 		Элементы.QueryResultTree.Свернуть(ЭлементДерева.ПолучитьИдентификатор());
 	EndDo;
 EndProcedure
@@ -4553,25 +4555,25 @@ Function ЗапуститьОбработкуAtServer(Алгоритм, фПос
 	ИмяМодуляСтандартныеПодсистемыСервер = "СтандартныеПодсистемыСервер";
 	If Метаданные.ОбщиеМодули.Найти(ИмяМодуляДлительныеОперации) = Undefined Или Метаданные.ОбщиеМодули.Найти(
 		ИмяМодуляСтандартныеПодсистемыСервер) = Undefined Then
-		Return New Structure("Успешно, ОписаниеОшибки", False, "Модули БСП не найдены");
+		Return New Structure("Успешно, ErrorDescription", False, "Модули БСП не найдены");
 	EndIf;
 
 	МодульСтандартныеПодсистемыСервер = Вычислить(ИмяМодуляСтандартныеПодсистемыСервер);
 	Try
 		Версия = МодульСтандартныеПодсистемыСервер.ВерсияБиблиотеки();
 	Except
-		Return New Structure("Успешно, ОписаниеОшибки", False, "Модули БСП не найдены");
+		Return New Structure("Успешно, ErrorDescription", False, "Модули БСП не найдены");
 	EndTry;
 
 	маВерсия = StrSplit(Версия, ".");
 	If Число(маВерсия[0]) <= 2 И Не (Число(маВерсия[0]) = 2 И Число(маВерсия[1]) >= 3) Then
-		Return New Structure("Успешно, ОписаниеОшибки", False, StrTemplate(
+		Return New Structure("Успешно, ErrorDescription", False, StrTemplate(
 			"Необходима БСП версии не ниже 2.3 (версия БСП текущей конфигурации %1)", Версия));
 	EndIf;
 
-	BackgroundJobResultAddress = ПоместитьВоВременноеХранилище(Undefined, УникальныйИдентификатор);
+	BackgroundJobResultAddress = PutToTempStorage(Undefined, УникальныйИдентификатор);
 
-	стРезультатЗапроса = ПолучитьИзВременногоХранилища(QueryResultAddress);
+	стРезультатЗапроса = GetFromTempStorage(QueryResultAddress);
 
 	ПараметрыВыполнения = New Array;
 	ПараметрыВыполнения.Добавить(стРезультатЗапроса);
@@ -4588,7 +4590,7 @@ Function ЗапуститьОбработкуAtServer(Алгоритм, фПос
 										  |ИмяМетода,
 										  |ПараметрыВыполнения", True, Undefined, DataProcessorServerFileName,
 			"ExecuteUserAlgorithm", ПараметрыВыполнения);
-	Иначе
+	Else
 		ПараметрыМетода = New Structure("
 										  |ЭтоВнешняяОбработка,
 										  |ДополнительнаяОбработкаСсылка,
@@ -4616,7 +4618,7 @@ Function ПолучитьСостояниеФоновогоЗадания()
 	ФоновоеЗадание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(
 		New УникальныйИдентификатор(BackgroundJobID));
 	СостояниеЗадания = New Structure("СостояниеПрогресса, Начало, Состояние, ИнформацияОбОшибке, СообщенияПользователю");
-	ЗаполнитьЗначенияСвойств(СостояниеЗадания, ФоновоеЗадание, "Начало, Состояние, ИнформацияОбОшибке");
+	FillPropertyValues(СостояниеЗадания, ФоновоеЗадание, "Начало, Состояние, ИнформацияОбОшибке");
 
 	If CodeExecutionMethod = 2 Или CodeExecutionMethod = 4 Then
 		СостояниеЗадания.СостояниеПрогресса = BackgroundJobProgressState;
@@ -4625,12 +4627,12 @@ Function ПолучитьСостояниеФоновогоЗадания()
 	СообщенияПользователю = ФоновоеЗадание.ПолучитьСообщенияПользователю(True);
 	СостояниеЗадания.СообщенияПользователю = New Array;
 	For Each Сообщение Из СообщенияПользователю Do
-		If СтрНачинаетсяС(Сообщение.Текст, BackgroundJobResultAddress) Then
-			СостояниеИзСообщения = РеквизитФормыВЗначение("Object").StringToValue(Прав(Сообщение.Текст, StrLen(
+		If StrStartsWith(Сообщение.Текст, BackgroundJobResultAddress) Then
+			СостояниеИзСообщения = FormAttributeToValue("Object").StringToValue(Прав(Сообщение.Текст, StrLen(
 				Сообщение.Текст) - StrLen(BackgroundJobResultAddress)));
 			СостояниеЗадания.СостояниеПрогресса = СостояниеИзСообщения;
 			BackgroundJobProgressState = СостояниеИзСообщения;
-		Иначе
+		Else
 			СостояниеЗадания.СообщенияПользователю.Добавить(Сообщение);
 		EndIf;
 	EndDo;
@@ -4661,8 +4663,8 @@ Procedure ОтобразитьСостояниеВыполненияАлгори
 		ExecutionStatus = "";
 		Элементы.ExecuteDataProcessor.Заголовок = "Выполнить";
 		Элементы.ExecuteDataProcessor.Картинка = БиблиотекаКартинок.СформироватьОтчет;
-		ОбновитьСостояниеЭлементовФормыАлгоритма();
-	Иначе
+		RefreshAlgorithmFormItems();
+	Else
 
 		стрВремяВыполнения = TimeFromSeconds(Секунды);
 
@@ -4672,18 +4674,18 @@ Procedure ОтобразитьСостояниеВыполненияАлгори
 				стрВремяОсталось = StrTemplate("осталось примерно %1", TimeFromSeconds(Окр(
 					СостояниеПрогресса.ДлительностьНаМоментПрогресса / СостояниеПрогресса.Прогресс * (100
 					- СостояниеПрогресса.Прогресс) / 1000)));
-			Иначе
+			Else
 				стрВремяОсталось = "";
 			EndIf;
 			стрПояснение = StrTemplate("%1 прошло %2 %3", стрПрогресс, стрВремяВыполнения, стрВремяОсталось);
-		Иначе
+		Else
 			стрПрогресс = "";
 			стрПояснение = StrTemplate("%1 прошло %2", стрПрогресс, стрВремяВыполнения);
 		EndIf;
 
 		If фЧерезСостояние Then
 			Состояние("Выполнение алгоритма", СостояниеПрогресса.Прогресс, стрПояснение);
-		Иначе
+		Else
 			ExecutionStatus = стрПояснение;
 		EndIf;
 
@@ -4710,13 +4712,13 @@ Procedure ОтобразитьСостояниеФоновогоЗадания()
 	If СостояниеЗадания.Состояние = 0 Then
 		ОтобразитьСостояниеВыполненияАлгоритма(СостояниеЗадания.СостояниеПрогресса, ТекущаяДата()
 			- СостояниеЗадания.Начало);
-		ПодключитьОбработчикОжидания("ОтобразитьСостояниеФоновогоЗадания",
+		AttachIdleHandler("ОтобразитьСостояниеФоновогоЗадания",
 			Object.AlgorithmExecutionUpdateIntervalOption / 1000 / 2, True);
 	ElsIf СостояниеЗадания.Состояние = 2 Then
 		ShowConsoleMessageBox(СостояниеЗадания.ИнформацияОбОшибке);
 		BackgroundJobID = "";
 		ОтобразитьСостояниеВыполненияАлгоритма();
-	Иначе
+	Else
 		BackgroundJobID = "";
 		ОтобразитьСостояниеВыполненияАлгоритма();
 	EndIf;
@@ -4731,7 +4733,7 @@ EndProcedure
 &AtServer
 Function ВыполнитьАлгоритм(Алгоритм)
 
-	стРезультатЗапроса = ПолучитьИзВременногоХранилища(QueryResultAddress);
+	стРезультатЗапроса = GetFromTempStorage(QueryResultAddress);
 	маРезультатЗапроса = стРезультатЗапроса.Результат;
 	стРезультат = маРезультатЗапроса[Число(ResultInBatch) - 1];
 	рзВыборка = стРезультат.Результат;
@@ -4740,18 +4742,18 @@ Function ВыполнитьАлгоритм(Алгоритм)
 	Try
 		ВыполнитьКод(Алгоритм, выбВыборка, стРезультатЗапроса.Параметры);
 	Except
-		стрСообщениеОбОшибке = ОписаниеОшибки();
-		Return New Structure("Успешно, Продолжать, ОписаниеОшибки", False, False, стрСообщениеОбОшибке);
+		стрСообщениеОбОшибке = ErrorDescription();
+		Return New Structure("Успешно, Продолжать, ErrorDescription", False, False, стрСообщениеОбОшибке);
 	EndTry;
 
-	Return New Structure("Успешно, Продолжать, ОписаниеОшибки", True);
+	Return New Structure("Успешно, Продолжать, ErrorDescription", True);
 
 EndFunction
 
 &AtServerNoContext
 Function ВыполнитьАлгоритмПострочно(QueryResultAddress, РезультатВПакете, ТекстАлгоритма)
 
-	стРезультатЗапроса = ПолучитьИзВременногоХранилища(QueryResultAddress);
+	стРезультатЗапроса = GetFromTempStorage(QueryResultAddress);
 	маРезультатЗапроса = стРезультатЗапроса.Результат;
 	стРезультат = маРезультатЗапроса[Число(РезультатВПакете) - 1];
 	рзВыборка = стРезультат.Результат;
@@ -4762,11 +4764,11 @@ Function ВыполнитьАлгоритмПострочно(QueryResultAddress
 			ВыполнитьКод(ТекстАлгоритма, выбВыборка, стРезультатЗапроса.Параметры);
 		EndDo;
 	Except
-		стрСообщениеОбОшибке = ОписаниеОшибки();
-		Return New Structure("Успешно, Продолжать, ОписаниеОшибки", False, False, стрСообщениеОбОшибке);
+		стрСообщениеОбОшибке = ErrorDescription();
+		Return New Structure("Успешно, Продолжать, ErrorDescription", False, False, стрСообщениеОбОшибке);
 	EndTry;
 
-	Return New Structure("Успешно, Продолжать, ОписаниеОшибки, Прогресс", True, False, Undefined, 100);
+	Return New Structure("Успешно, Продолжать, ErrorDescription, Прогресс", True, False, Undefined, 100);
 
 EndFunction
 
@@ -4774,22 +4776,22 @@ EndFunction
 Function ВыполнитьАлгоритмAtServerПострочно(StateAddress, QueryResultAddress, РезультатВПакете, ТекстАлгоритма,
 	ОпцияИнтервалОбновленияВыполненияАлгоритма)
 
-	стСостояние = ПолучитьИзВременногоХранилища(StateAddress);
+	стСостояние = GetFromTempStorage(StateAddress);
 
 	If стСостояние = Undefined Then
-		стРезультатЗапроса = ПолучитьИзВременногоХранилища(QueryResultAddress);
+		стРезультатЗапроса = GetFromTempStorage(QueryResultAddress);
 		маРезультатЗапроса = стРезультатЗапроса.Результат;
 		стРезультат = маРезультатЗапроса[Число(РезультатВПакете) - 1];
 		рзВыборка = стРезультат.Результат;
 		выбВыборка = рзВыборка.Выбрать();
 		стСостояние = New Structure("Выборка, Параметры, КоличествоВсего, КоличествоСделано, Начало, НачалоВМиллисекундах",
 			выбВыборка, стРезультатЗапроса.Параметры, выбВыборка.Количество(), 0, ТекущаяДата(),
-			ТекущаяУниверсальнаяДатаВМиллисекундах());
+			CurrentUniversalDateInMilliseconds());
 	EndIf;
 
 	выбВыборка = стСостояние.Выборка;
 	чКоличествоСделано = стСостояние.КоличествоСделано;
-	чМоментОкончанияПорции = ТекущаяУниверсальнаяДатаВМиллисекундах() + ОпцияИнтервалОбновленияВыполненияАлгоритма;
+	чМоментОкончанияПорции = CurrentUniversalDateInMilliseconds() + ОпцияИнтервалОбновленияВыполненияАлгоритма;
 
 	Try
 
@@ -4799,7 +4801,7 @@ Function ВыполнитьАлгоритмAtServerПострочно(StateAddre
 			ВыполнитьКод(ТекстАлгоритма, выбВыборка, стСостояние.Параметры);
 			чКоличествоСделано = чКоличествоСделано + 1;
 
-			If ТекущаяУниверсальнаяДатаВМиллисекундах() >= чМоментОкончанияПорции Then
+			If CurrentUniversalDateInMilliseconds() >= чМоментОкончанияПорции Then
 				фПродолжать = True;
 				Прервать;
 			EndIf;
@@ -4809,20 +4811,20 @@ Function ВыполнитьАлгоритмAtServerПострочно(StateAddre
 		стСостояние.КоличествоСделано = чКоличествоСделано;
 
 	Except
-		стрСообщениеОбОшибке = ОписаниеОшибки();
-		Return New Structure("Успешно, Продолжать, ОписаниеОшибки", False, False, стрСообщениеОбОшибке);
+		стрСообщениеОбОшибке = ErrorDescription();
+		Return New Structure("Успешно, Продолжать, ErrorDescription", False, False, стрСообщениеОбОшибке);
 	EndTry;
 
 	If фПродолжать Then
 		стСостояние.Выборка = выбВыборка;
-		ПоместитьВоВременноеХранилище(стСостояние, StateAddress);
-	Иначе
-		ПоместитьВоВременноеХранилище(Undefined, StateAddress);
+		PutToTempStorage(стСостояние, StateAddress);
+	Else
+		PutToTempStorage(Undefined, StateAddress);
 	EndIf;
 
-	Return New Structure("Успешно, Продолжать, ОписаниеОшибки, Прогресс, Начало, ДлительностьНаМоментПрогресса",
+	Return New Structure("Успешно, Продолжать, ErrorDescription, Прогресс, Начало, ДлительностьНаМоментПрогресса",
 		True, фПродолжать, Undefined, стСостояние.КоличествоСделано * 100 / стСостояние.КоличествоВсего,
-		стСостояние.Начало, ТекущаяУниверсальнаяДатаВМиллисекундах() - стСостояние.НачалоВМиллисекундах);
+		стСостояние.Начало, CurrentUniversalDateInMilliseconds() - стСостояние.НачалоВМиллисекундах);
 
 EndFunction
 
@@ -4830,15 +4832,15 @@ EndFunction
 Function ВыполнитьАлгоритмПострочноСИндикацией()
 
 	If Не ValueIsFilled(StateAddress) Then
-		StateAddress = ПоместитьВоВременноеХранилище(Undefined, УникальныйИдентификатор);
-	Иначе
-		ПоместитьВоВременноеХранилище(Undefined, StateAddress);
+		StateAddress = PutToTempStorage(Undefined, УникальныйИдентификатор);
+	Else
+		PutToTempStorage(Undefined, StateAddress);
 	EndIf;
 
 	Пока True Do
 
 		стРезультат = ВыполнитьАлгоритмAtServerПострочно(StateAddress, QueryResultAddress, ResultInBatch,
-			ТекущийТекстАлгоритма(), Object.AlgorithmExecutionUpdateIntervalOption);
+			CurrentAlgorithmText(), Object.AlgorithmExecutionUpdateIntervalOption);
 
 		If Не стРезультат.Успешно Then
 			Прервать;
@@ -4884,25 +4886,25 @@ Procedure ExecuteDataProcessor_Command(Command)
 	EndIf;
 
 	If CodeExecutionMethod = 0 Then
-		стРезультат = ВыполнитьАлгоритм(ТекущийТекстАлгоритма());
+		стРезультат = ВыполнитьАлгоритм(CurrentAlgorithmText());
 	ElsIf CodeExecutionMethod = 1 Then
-		стРезультат = ВыполнитьАлгоритмПострочно(QueryResultAddress, ResultInBatch, ТекущийТекстАлгоритма());
+		стРезультат = ВыполнитьАлгоритмПострочно(QueryResultAddress, ResultInBatch, CurrentAlgorithmText());
 	ElsIf CodeExecutionMethod = 2 Then
 		стРезультат = ВыполнитьАлгоритмПострочноСИндикацией();
 	ElsIf CodeExecutionMethod = 3 Then
 		//простое выполнение в фоне
-		стРезультат = ЗапуститьОбработкуAtServer(ТекущийТекстАлгоритма(), False);
+		стРезультат = ЗапуститьОбработкуAtServer(CurrentAlgorithmText(), False);
 	ElsIf CodeExecutionMethod = 4 Then
 		//построчное выполнение в фоне с индикацией
-		стРезультат = ЗапуститьОбработкуAtServer(ТекущийТекстАлгоритма(), True);
-	Иначе
-		стРезультат = New Structure("Успешно, ОписаниеОшибки", False, "Неверный метод исполнения кода");
+		стРезультат = ЗапуститьОбработкуAtServer(CurrentAlgorithmText(), True);
+	Else
+		стРезультат = New Structure("Успешно, ErrorDescription", False, "Неверный метод исполнения кода");
 	EndIf;
 
 	If CodeExecutionMethod = 3 Или CodeExecutionMethod = 4 Then
 		If стРезультат.Успешно Then
 			Элементы.ExecuteDataProcessor.Заголовок = "Прервать";
-			//Pictures = ПолучитьИзВременногоХранилища(Объект.Pictures);
+			//Pictures = GetFromTempStorage(Объект.Pictures);
 			//Элементы.ВыполнитьОбработку.Картинка = Pictures.ПрогрессВыполнения;
 			Элементы.ExecuteDataProcessor.Картинка = БиблиотекаКартинок.Остановить;
 			ОтобразитьСостояниеФоновогоЗадания();
@@ -4910,7 +4912,7 @@ Procedure ExecuteDataProcessor_Command(Command)
 	EndIf;
 
 	If Не стРезультат.Успешно Then
-		ShowConsoleMessageBox(стРезультат.ОписаниеОшибки);
+		ShowConsoleMessageBox(стРезультат.ErrorDescription);
 	EndIf;
 
 EndProcedure
@@ -4918,7 +4920,7 @@ EndProcedure
 #EndRegion
 
 &AtClient
-Procedure ОкончаниеВыбораПредопределенного(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
+Procedure ОкончаниеВыбораПредопределенного(РезультатЗакрытия, AdditionalParameters) Экспорт
 	If ValueIsFilled(РезультатЗакрытия) Then
 		FormDataChoicePredefined = РезультатЗакрытия.ДанныеФормы;
 		Элементы.QueryText.ВыделенныйТекст = РезультатЗакрытия.Результат;
@@ -4932,14 +4934,14 @@ Procedure InsertPredefinedValue_Command(Command)
 	Элементы.QueryText.ПолучитьГраницыВыделения(НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка);
 	ПараметрыОповещения = New Structure("НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка",
 		НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка);
-	ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеВыбораПредопределенного",
+	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеВыбораПредопределенного",
 		ЭтаФорма, ПараметрыОповещения);
 	ПараметрыОткрытия = New Structure("Объект, ДанныеФормы, ТекстЗапроса, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка",
 		Object, FormDataChoicePredefined, QueryText, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока,
 		КонечнаяКолонка);
 
 	ОткрытьФорму(FormFullName("ВыборПредопределенного"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-		ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 
 EndProcedure
 
@@ -4950,15 +4952,15 @@ EndProcedure
 &AtClient
 Procedure ResultToParameter_Command(Command)
 
-	тзТаблица = ИзвлечьРезультатКакКонтейнер();
+	тзТаблица = ExtractResultAsContainer();
 
-	ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "ПараметрыЗапроса", Undefined, "ТипЗначения");
-	ОписаниеОповещенияОЗакрытииОткрываемойФормы = New ОписаниеОповещения("ОкончаниеРедактированияСтроки", ЭтаФорма,
+	ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "ПараметрыЗапроса", Undefined, "ValueType");
+	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки", ЭтаФорма,
 		ПараметрыОповещения);
-	ПараметрыОткрытия = New Structure("Объект, ТипЗначения, ТипКонтейнера, Имя, ВЗапросРазрешено, ВПараметр", Object,
+	ПараметрыОткрытия = New Structure("Объект, ValueType, ТипКонтейнера, Имя, ВЗапросРазрешено, ВПараметр", Object,
 		тзТаблица, 3, ResultQueryName, False, True);
 	ОткрытьФорму(FormFullName("РедактированиеТипа"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-		ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
 
 EndProcedure
 
@@ -4990,7 +4992,7 @@ Procedure GetCodeWithParameters_Command(Command)
 										|ПараметрыЗапроса,
 										|Заголовок,
 										|Содержание", Object, ИмяЗапроса, QueryText,
-		ПараметрыЗапроса_ПолучитьКакСтроку(), "Код для выполнения запроса на встроенном языке 1С");
+		QueryParameters_GetAsString(), "Код для выполнения запроса на встроенном языке 1С");
 
 	ОткрытьФорму(FormFullName("ФормаКода"), ПараметрыОткрытия, ЭтаФорма, False, , , ,
 		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
@@ -5012,7 +5014,7 @@ EndProcedure
 Procedure ПараметрыЗапросаРядомСТекстомAtServer()
 	If Элементы.QueryParametersNextToText.Пометка Then
 		Элементы.Varестить(Элементы.QueryParameters, Элементы.ГруппаПараметры);
-	Иначе
+	Else
 		Элементы.Varестить(Элементы.QueryParameters, Элементы.ParametersPage);
 	EndIf;
 EndProcedure
@@ -5028,21 +5030,21 @@ EndProcedure
 
 &AtServer
 Procedure TechnologicalLog_Disable()
-	Обработка = РеквизитФормыВЗначение("Object");
+	Обработка = FormAttributeToValue("Object");
 	Обработка.TechnologicalLog_Disable();
 	ЗначениеВРеквизитФормы(Обработка, "Object");
 EndProcedure
 
 &AtServer
 Procedure TechnologicalLog_Enable()
-	Обработка = РеквизитФормыВЗначение("Object");
+	Обработка = FormAttributeToValue("Object");
 	Обработка.TechnologicalLog_Enable();
 	ЗначениеВРеквизитФормы(Обработка, "Object");
 EndProcedure
 
 &AtServer
 Function TechnologicalLog_Enabled()
-	Обработка = РеквизитФормыВЗначение("Object");
+	Обработка = FormAttributeToValue("Object");
 	фРезультат = Обработка.TechnologicalLog_Enabled();
 	ЗначениеВРеквизитФормы(Обработка, "Object");
 	Return фРезультат;
@@ -5050,7 +5052,7 @@ EndFunction
 
 &AtServer
 Function TechnologicalLog_Disabled()
-	Обработка = РеквизитФормыВЗначение("Object");
+	Обработка = FormAttributeToValue("Object");
 	фРезультат = Обработка.TechnologicalLog_Disabled();
 	ЗначениеВРеквизитФормы(Обработка, "Object");
 	Return фРезультат;
@@ -5065,11 +5067,11 @@ Procedure ТехнологическийЖурнал_ОжиданиеВключ�
 
 	If TechnologicalLog_Enabled() Then
 		ТехнологическийЖурнал_ИндикацияВключения(True);
-	Иначе
-		If ТекущаяУниверсальнаяДатаВМиллисекундах() - TechLogBeginEndTime < 60 * 1000 Then
-			ПодключитьОбработчикОжидания("ТехнологическийЖурнал_ОжиданиеВключения",
+	Else
+		If CurrentUniversalDateInMilliseconds() - TechLogBeginEndTime < 60 * 1000 Then
+			AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВключения",
 				TechLogSwitchingPollingPeriodOption, True);
-		Иначе
+		Else
 			//Технологический журнал включить не получилось.
 			TechnologicalLog_Disable();
 			Элементы.TechnologicalLog.Пометка = False;
@@ -5085,7 +5087,7 @@ Procedure ТехнологическийЖурнал_ИндикацияВклю�
 		Элементы.TechnologicalLog.ЦветТекста = New Цвет(255, 255, 255);
 		TechLogEnabledAndRunning = Object.TechLogEnabled
 			И Элементы.TechnologicalLog.Пометка;
-	Иначе
+	Else
 		Элементы.TechnologicalLog.ЦветФона = New Цвет;
 		Элементы.TechnologicalLog.ЦветТекста = New Цвет;
 		TechLogEnabledAndRunning = False;
@@ -5101,11 +5103,11 @@ Procedure ТехнологическийЖурнал_ОжиданиеВыклю�
 
 	If TechnologicalLog_Disabled() Then
 		ТехнологическийЖурнал_ИндикацияВключения(False);
-	Иначе
-		If ТекущаяУниверсальнаяДатаВМиллисекундах() - TechLogBeginEndTime < 60 * 1000 Then
-			ПодключитьОбработчикОжидания("ТехнологическийЖурнал_ОжиданиеВыключения",
+	Else
+		If CurrentUniversalDateInMilliseconds() - TechLogBeginEndTime < 60 * 1000 Then
+			AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВыключения",
 				TechLogSwitchingPollingPeriodOption, True);
-		Иначе
+		Else
 			//Не удалось удалить папку с файлами технологического журнала. Довольно странная ситуация.
 			//Но конфиг исправлен, прошло 60 секунд. Будем считать, что он выключен, других вариантов нет.
 			ТехнологическийЖурнал_ИндикацияВключения(False);
@@ -5121,16 +5123,16 @@ Procedure TechnologicalLog_Command(Command)
 		Элементы.TechnologicalLog.Пометка = False;
 		Элементы.QueryPlan.Видимость = False;
 		Элементы.QueryResultBatchInfo.ГиперссылкаЯчейки = False;
-		TechLogBeginEndTime = ТекущаяУниверсальнаяДатаВМиллисекундах();
-		ПодключитьОбработчикОжидания("ТехнологическийЖурнал_ОжиданиеВыключения",
+		TechLogBeginEndTime = CurrentUniversalDateInMilliseconds();
+		AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВыключения",
 			TechLogSwitchingPollingPeriodOption, True);
-	Иначе
+	Else
 		TechnologicalLog_Enable();
 		TechLogEnabledAndRunning = False;
 		Элементы.TechnologicalLog.Пометка = True;
 		ТехнологическийЖурнал_ИндикацияВключения(False);
-		TechLogBeginEndTime = ТекущаяУниверсальнаяДатаВМиллисекундах();
-		ПодключитьОбработчикОжидания("ТехнологическийЖурнал_ОжиданиеВключения",
+		TechLogBeginEndTime = CurrentUniversalDateInMilliseconds();
+		AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВключения",
 			TechLogSwitchingPollingPeriodOption, True);
 	EndIf;
 EndProcedure
@@ -5158,39 +5160,39 @@ EndProcedure
 #EndRegion //Команда_ТехнологическийЖурнал
 
 &AtClient
-Procedure ВыполнитьПродолжение(ДополнительныеПараметры)
+Procedure ExecuteContinuation(AdditionalParameters)
 
-	If ДополнительныеПараметры.Продолжение = "ПриОткрытииПродолжение" Then
-		ПриОткрытииПродолжение(ДополнительныеПараметры);
+	If AdditionalParameters.Продолжение = "ПриОткрытииПродолжение" Then
+		ПриОткрытииПродолжение(AdditionalParameters);
 		Return;
-	ElsIf ДополнительныеПараметры.Продолжение = "ЗагрузитьПакетЗапросов" Then
-		ЗагрузитьПакетЗапросов(ДополнительныеПараметры);
+	ElsIf AdditionalParameters.Продолжение = "ЗагрузитьПакетЗапросов" Then
+		ЗагрузитьПакетЗапросов(AdditionalParameters);
 		Return;
-	ElsIf ДополнительныеПараметры.Продолжение = "ПродолжениеПакетЗапросов_New" Then
-		ПродолжениеПакетЗапросов_New(ДополнительныеПараметры);
+	ElsIf AdditionalParameters.Продолжение = "ПродолжениеQueryBatch_New" Then
+		ПродолжениеQueryBatch_New(AdditionalParameters);
 		Return;
-	ElsIf ДополнительныеПараметры.Продолжение = "ПослеВыбораФайлаДляЗагрузкиПакетаЗапросовЗавершение" Then
-		ПослеВыбораФайлаДляЗагрузкиПакетаЗапросовЗавершение(ДополнительныеПараметры);
+	ElsIf AdditionalParameters.Продолжение = "ПослеВыбораФайлаДляЗагрузкиПакетаЗапросовЗавершение" Then
+		ПослеВыбораФайлаДляЗагрузкиПакетаЗапросовЗавершение(AdditionalParameters);
 		Return;
 	EndIf;
 	
 	//Везде, кроме веб-клиенат замечательно работает вот это:
-	Выполнить (ДополнительныеПараметры.Продолжение + "(ДополнительныеПараметры);");
+	Выполнить (AdditionalParameters.Продолжение + "(AdditionalParameters);");
 	//Но в веб-клиенте "Выполнить" не работает, поэтому потребовалась эта Procedure.
 	//If в вебе выдаст ошибку на этой строке, значит, забыли что-то добавить в условие выше. В тонком и толстом клиенте ошибки не будет в любом случае.
 
 EndProcedure
 
 &AtClient
-Procedure ПослеВыбораФайлаДляЗагрузкиПакетаЗапросовЗавершение(ДополнительныеПараметры) Экспорт
-	УстановитьQueriesFileName(ДополнительныеПараметры.ИмяФайла);
+Procedure ПослеВыбораФайлаДляЗагрузкиПакетаЗапросовЗавершение(AdditionalParameters) Экспорт
+	SetQueriesFileName(AdditionalParameters.ИмяФайла);
 	EditingQuery = -1;
-	ПакетЗапросов_Сохранить( , StateAutoSaveFileName, True);
+	QueryBatch_Save( , StateAutoSaveFileName, True);
 EndProcedure
 
 &AtClient
-Procedure ПродолжениеПакетЗапросов_New(ДополнительныеПараметры)
-	ПакетЗапросов_New();
+Procedure ПродолжениеQueryBatch_New(AdditionalParameters)
+	QueryBatch_New();
 EndProcedure
 
 #EndRegion //ИнтерактивныеКоманды
@@ -5218,19 +5220,19 @@ EndFunction
 #Region Алгоритмы
 
 &AtClient
-Procedure УстановитьТекстАлгоритма(NewТекст)
+Procedure SetAlgorithmText(NewТекст)
 	If UT_IsPartOfUniversalTools Then
 		UT_CodeEditorClient.УстановитьТекстРедактора(ЭтотОбъект, "Алгоритм", NewТекст);
-	Иначе
+	Else
 		AlgorithmText = NewТекст;
 	EndIf;
 EndProcedure
 
 &AtClient
-Function ТекущийТекстАлгоритма()
+Function CurrentAlgorithmText()
 	If UT_IsPartOfUniversalTools Then
 		Return UT_CodeEditorClient.ТекстКодаРедактора(ЭтотОбъект, "Алгоритм");
-	Иначе
+	Else
 		Return AlgorithmText;
 	EndIf;
 EndFunction
@@ -5255,36 +5257,36 @@ Function ГраницыВыделенияЭлемента(Элемент)
 EndFunction
 
 &AtClient
-Procedure УстановитьГраницыВыделенияАлгоритма(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки)
+Procedure SetAlgorithmSelectionBoundaries(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки)
 	If UT_IsPartOfUniversalTools Then
 		UT_CodeEditorClient.УстановитьГраницыВыделения(ЭтотОбъект, "Алгоритм", НачалоСтроки, НачалоКолонки,
 			КонецСтроки, КонецКолонки);
-	Иначе
+	Else
 		Элементы.AlgorithmText.УстановитьГраницыВыделения(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure УстановитьГраницыВыделенияЗапроса(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки)
+Procedure SetQuerySelectionBoundaries(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки)
 	
 	Элементы.QueryText.УстановитьГраницыВыделения(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);
 	
 EndProcedure
 
 &AtClient 
-Function ГраницыВыделенияАлгоритма()
+Function AlgorithmSelectionBoundaries()
 	If UT_IsPartOfUniversalTools Then
 		Return UT_CodeEditorClient.ГраницыВыделенияРедактора(ЭтотОбъект, "Алгоритм");
-	Иначе
+	Else
 		Return ГраницыВыделенияЭлемента(Элементы.AlgorithmText);	
 	EndIf;
 EndFunction
 
 &AtClient 
-Function ГраницыВыделенияЗапроса()
+Function QuerySelectionBoundaries()
 //	If UT_IsPartOfUniversalTools Then
 //		Return УИ_РедакторКодаКлиент.ГраницыВыделенияРедактора(ЭтотОбъект, "Алгоритм");
-//	Иначе
+//	Else
 		Return ГраницыВыделенияЭлемента(Элементы.QueryText);	
 //	EndIf;
 EndFunction
@@ -5293,7 +5295,7 @@ EndFunction
 Procedure ВставитьТекстПоПозицииКурсораАлгоритма(Текст)
 	If UT_IsPartOfUniversalTools Then
 		UT_CodeEditorClient.ВставитьТекстПоПозицииКурсора(ЭтотОбъект, "Алгоритм", Текст);
-	Иначе
+	Else
 		ВставитьТекстПоПозицииКурсораЭлемента(Элементы.AlgorithmText, Текст);	
 	EndIf;
 	
@@ -5318,7 +5320,7 @@ Procedure UT_EditValue(Command)
 	ТекДанные=ЭлементФормы.ТекущиеДанные;
 	ТекКолонка=ЭлементФормы.ТекущийЭлемент;
 
-	ИмяКолонки=СтрЗаменить(ТекКолонка.Имя, ЭлементФормы.Имя, "");
+	ИмяКолонки=StrReplace(ТекКолонка.Имя, ЭлементФормы.Имя, "");
 
 	ЗначениеКолонки=ТекДанные[ИмяКолонки];
 
@@ -5335,7 +5337,7 @@ Procedure UT_EditValue(Command)
 	If ЗначениеКолонки = "<ХранилищеЗначения>" Then
 		МодульОбщегоНазначениеКлиент.РедактироватьХранилищеЗначения(ЭтотОбъект, ТекДанные[ИмяКолонки
 			+ ContainerAttributeSuffix].Хранилище);
-	Иначе
+	Else
 		МодульОбщегоНазначениеКлиент.РедактироватьОбъект(ЗначениеКолонки);
 	EndIf;
 
@@ -5360,13 +5362,13 @@ Procedure УИ_ЗаполнитьДаннымиОтладки()
 	Object.OptionProcessing__ = True;
 	Object.AlgorithmExecutionUpdateIntervalOption = 1000;
 
-	ОбработкаОбъект=РеквизитФормыВЗначение("Object");
+	ОбработкаОбъект=FormAttributeToValue("Object");
 
 	UT_Debug=True;
 
-	ДанныеОтладки=ПолучитьИзВременногоХранилища(Параметры.ДанныеОтладки);
+	ДанныеОтладки=GetFromTempStorage(Параметры.ДанныеОтладки);
 
-	СтрокиДерева=QueryBatch.ПолучитьЭлементы();
+	СтрокиДерева=QueryBatch.GetItems();
 
 	НоваяСтрока=СтрокиДерева.Добавить();
 	НоваяСтрока.Name="Отладка";
@@ -5386,31 +5388,31 @@ Procedure УИ_ЗаполнитьДаннымиОтладки()
 				ArrayТипов=New Array;
 
 				For Each ЗначениеArrayа Из ТекПараметр.Значение Do
-					ТекТип=ТипЗнч(ЗначениеArrayа);
+					ТекТип=TypeOf(ЗначениеArrayа);
 					If ArrayТипов.Найти(ТекТип) = Undefined Then
 						ArrayТипов.Добавить(ТекТип);
 					EndIf;
 				EndDo;
 
-				NewПараметр.Вставить("ТипЗначения", New ОписаниеТипов(ArrayТипов));
+				NewПараметр.Вставить("ValueType", New TypeDescription(ArrayТипов));
 				NewПараметр.Вставить("Значение", NewПараметр.Контейнер.Представление);
 			ElsIf NewПараметр.ТипКонтейнера = 1 Then
 				ArrayТипов=New Array;
 
 				For Each ЭлементСписка Из ТекПараметр.Значение Do
-					ТекТип=ТипЗнч(ЭлементСписка.Значение);
+					ТекТип=TypeOf(ЭлементСписка.Значение);
 					If ArrayТипов.Найти(ТекТип) = Undefined Then
 						ArrayТипов.Добавить(ТекТип);
 					EndIf;
 				EndDo;
 
-				NewПараметр.Вставить("ТипЗначения", New ОписаниеТипов(ArrayТипов));
+				NewПараметр.Вставить("ValueType", New TypeDescription(ArrayТипов));
 				NewПараметр.Вставить("Значение", NewПараметр.Контейнер.Представление);
 			ElsIf NewПараметр.ТипКонтейнера = 3 Then
-				NewПараметр.Вставить("ТипЗначения", "Таблица значений");
+				NewПараметр.Вставить("ValueType", "Таблица значений");
 				NewПараметр.Вставить("Значение", NewПараметр.Контейнер.Представление);
-			Иначе
-				NewПараметр.Вставить("ТипЗначения", TypeDescriptionByType(ТипЗнч(ТекПараметр.Значение)));
+			Else
+				NewПараметр.Вставить("ValueType", TypeDescriptionByType(TypeOf(ТекПараметр.Значение)));
 				NewПараметр.Вставить("Значение", NewПараметр.Контейнер);
 
 			EndIf;
@@ -5464,28 +5466,28 @@ Procedure Подключаемый_РедакторКодаЗавершение�
 		Return;
 	EndIf;
 
-	стДанныеЗапроса = Запрос_ПолучитьДанныеЗапроса(ТекущаяСтрока);
+	стДанныеЗапроса = Query_GetQueryData(ТекущаяСтрока);
 
-	УстановитьТекстАлгоритма(стДанныеЗапроса.ТекстКод);
+	SetAlgorithmText(стДанныеЗапроса.ТекстКод);
 	
 	
 EndProcedure
 
 &AtClient
-Procedure УИ_ДобавитьКонтекстСтруктурыРезультатаАлгоритм()
+Procedure UT_AddResultStructureContextAlgorithm()
 	StructureДополнительногоКонтекста = New Structure;
 	
-	For Each ДоступнаяVarенная Из StructureЗаписиРезультата.ПолучитьЭлементы() Do
+	For Each ДоступнаяVarенная Из ResultRecordStructure.GetItems() Do
 		StructureVarенной = New Structure;
 		If ДоступнаяVarенная.Имя="Выборка" Then
 			StructureVarенной.Вставить("Тип", "ВыборкаИзРезультатаЗапроса");
-		Иначе
+		Else
 			StructureVarенной.Вставить("Тип", "Structure");
 		EndIf;
 		
 		StructureVarенной.Вставить("ПодчиненныеСвойства", New Array);
 		
-		For Each ТекРеквизитVarенной ИЗ ДоступнаяVarенная.ПолучитьЭлементы() Do
+		For Each ТекРеквизитVarенной ИЗ ДоступнаяVarенная.GetItems() Do
 			НовоеСвойство = New Structure;
 			НовоеСвойство.Вставить("Имя", ТекРеквизитVarенной.Имя);
 			НовоеСвойство.Вставить("Тип", ТекРеквизитVarенной.Тип);
@@ -5505,7 +5507,7 @@ EndProcedure
 #If Клиент Then
 
 FilesExtension = "q9";
-ConsoleSignature = ИмяОбработкиКонсоли(ЭтотОбъект);
+ConsoleSignature = ConsoleDataProcessorName(ЭтотОбъект);
 SaveFilter = "Файл запросов (*." + FilesExtension + ")|*." + FilesExtension;
 AutoSaveExtension = "q9save";
 FormatVersion = 13;
