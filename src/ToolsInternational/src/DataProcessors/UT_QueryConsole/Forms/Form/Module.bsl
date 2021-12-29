@@ -1739,7 +1739,7 @@ Procedure QueryParameters_SetType(RowID, ContainerType, ValueType)
 		If ParameterRow.ContainerType = 1 Or ParameterRow.ContainerType = 2 Then
 			ContainerArray = Container12ToArray(Container);
 		ElsIf ParameterRow.ContainerType = 3 Then
-			Таблица = FormAttributeToValue("Object").Container_RestoreValue(Container);
+			Table = FormAttributeToValue("Object").Container_RestoreValue(Container);
 			ContainerArray = Table.UnloadColumn(0);
 		ElsIf ParameterRow.ContainerType = 0 Then
 
@@ -2152,123 +2152,123 @@ EndProcedure
 &AtClient
 Procedure QueryBatch_LoadCompletion(AdditionalParameters) Export
 
-	стрЗагруженныеДанные = AdditionalParameters.Чтение.ПолучитьТекст();
+	strLoadedData = AdditionalParameters.Reader.GetText();
 
-	стЗагруженныеДанные = QueryBatch_LoadAtServer(стрЗагруженныеДанные);
+	stLoadedData = QueryBatch_LoadAtServer(strLoadedData);
 
-	фОК = True;
-	фОК = фОК И стЗагруженныеДанные.Свойство("Формат");
-	фОК = фОК И стЗагруженныеДанные.Формат = ConsoleSignature;
-	фОК = фОК И стЗагруженныеДанные.Свойство("Версия");
+	fOK = True;
+	fOK = fOK And stLoadedData.Property("Format");
+	fOK = fOK And stLoadedData.Format = ConsoleSignature;
+	fOK = fOK And stLoadedData.Property("Version");
 
-	If Не фОК Then
-		ConsoleError("Не верный формат файла!");
+	If Not fOK Then
+		ConsoleError(NStr("ru = 'Не верный формат файла!'; en = 'Wrong file format.'"));
 	EndIf;
 
-	If стЗагруженныеДанные.Версия > FormatVersion Then
-		ConsoleError("Используется более новая версия формата. Обновите консоль запросов!");
+	If stLoadedData.Version > FormatVersion Then
+		ConsoleError(NStr("ru = 'Используется более новая версия формата. Обновите консоль запросов!'; en = 'A newer format version is required. Please update the query console.'"));
 	EndIf;
 	
-	//Сохраняемые состояния - Structure, предназначена для сохранения значений, которых нет в опциях (состояния флажков форм,
-	//разных значений, и т.д.). Записывается в файл. Из файла читается только при первом открытии.
-	If Не ValueIsFilled(Object.SavedStates) Then
-		If стЗагруженныеДанные.Версия >= 11 Then
-			Object.SavedStates = стЗагруженныеДанные.SavedStates;
+	// Saved states - a structure for storing values not included into options (form flags states, 
+	// different values, etc.). Written to a file. Reading from the file only at the first opening.
+	If Not ValueIsFilled(Object.SavedStates) Then
+		If stLoadedData.Version >= 11 Then
+			Object.SavedStates = stLoadedData.SavedStates;
 		Else
 			Object.SavedStates = New Structure;
 		EndIf;
 	EndIf;
 
-	If Не стЗагруженныеДанные.Свойство("ПакетЗапросов") Then
-		AdditionalParameters.Вставить("ЗагруженныеДанные", стЗагруженныеДанные);
+	If Not stLoadedData.Property("QueryBatch") Then
+		AdditionalParameters.Insert("LoadedData", stLoadedData);
 		ExecuteContinuation(AdditionalParameters);
 		Return;
 	EndIf;
 
-	If стЗагруженныеДанные.Версия >= 2 Then
-		стОпции = стЗагруженныеДанные.Опции;
-		SaveCommentsOption = стОпции.SaveCommentsOption;
+	If stLoadedData.Version >= 2 Then
+		stOptions = stLoadedData.Options;
+		SaveCommentsOption = stOptions.SaveCommentsOption;
 	Else
 		SaveCommentsOption = True;
 	EndIf;
 
-	If стЗагруженныеДанные.Версия >= 3 Then
-		AutoSaveIntervalOption = стОпции.ОпцияИнтервалАвтосохранения;
+	If stLoadedData.Version >= 3 Then
+		AutoSaveIntervalOption = stOptions.AutoSaveIntervalOption;
 	Else
 		AutoSaveIntervalOption = 60;
 	EndIf;
 
-	If стЗагруженныеДанные.Версия >= 6 Then
-		AutoSaveBeforeQueryExecutionOption = стОпции.ОпцияАвтосохранениеПередВыполнениемЗапроса;
+	If stLoadedData.Version >= 6 Then
+		AutoSaveBeforeQueryExecutionOption = stOptions.AutoSaveBeforeQueryExecutionOption;
 	Else
 		AutoSaveBeforeQueryExecutionOption = True;
 	EndIf;
 
-	If стЗагруженныеДанные.Версия >= 8 Then
-		Object.OptionProcessing__ = стОпции.OptionProcessing__;
+	If stLoadedData.Version >= 8 Then
+		Object.OptionProcessing__ = stOptions.OptionProcessing__;
 	Else
 		Object.OptionProcessing__ = True;
 	EndIf;
 
-	If стЗагруженныеДанные.Версия >= 10 Then
-		Object.AlgorithmExecutionUpdateIntervalOption = стОпции.AlgorithmExecutionUpdateIntervalOption;
+	If stLoadedData.Version >= 10 Then
+		Object.AlgorithmExecutionUpdateIntervalOption = stOptions.AlgorithmExecutionUpdateIntervalOption;
 	Else
 		Object.AlgorithmExecutionUpdateIntervalOption = 1000;
 	EndIf;
 
-	If стЗагруженныеДанные.Версия >= 12 Then
-		TechLogSwitchingPollingPeriodOption = стОпции.TechLogSwitchingPollingPeriodOption;
+	If stLoadedData.Version >= 12 Then
+		TechLogSwitchingPollingPeriodOption = stOptions.TechLogSwitchingPollingPeriodOption;
 	Else
 		TechLogSwitchingPollingPeriodOption = 3;
 	EndIf;
 
-	If стЗагруженныеДанные.Версия >= 13 Then
-		ИмяТекущегоЗапроса = стЗагруженныеДанные.ТекущийЗапрос;
+	If stLoadedData.Version >= 13 Then
+		CurrentQueryName = stLoadedData.CurrentQuery;
 	Else
-		ИмяТекущегоЗапроса = Undefined;
+		CurrentQueryName = Undefined;
 	EndIf;
 
-	QueryCount = стЗагруженныеДанные.QueryCount;
+	QueryCount = stLoadedData.QueryCount;
 
-	QueryBatch.GetItems().Очистить();
-	QueryBatch_AddRowsFromArray(QueryBatch, стЗагруженныеДанные.ПакетЗапросов);
+	QueryBatch.GetItems().Clear();
+	QueryBatch_AddRowsFromArray(QueryBatch, stLoadedData.QueryBatch);
 
-	For Each ЭлементПакета Из QueryBatch.GetItems() Do
-		Элементы.QueryBatch.Развернуть(ЭлементПакета.ПолучитьИдентификатор(), True);
+	For Each BatchItem In QueryBatch.GetItems() Do
+		Items.QueryBatch.Expand(BatchItem.GetID(), True);
 	EndDo;
 
 	QueryBatch_Initialize();
 
-	ТекущаяСтрока = ПакетЗапросов_НайтиПоИмени(ИмяТекущегоЗапроса);
-	If ТекущаяСтрока <> Undefined
-		И Элементы.QueryBatch.ТекущаяСтрока <> ТекущаяСтрока Then
-		Элементы.QueryBatch.ТекущаяСтрока = ТекущаяСтрока;
+	CurrentRow = QueryBatch_FindByName(CurrentQueryName);
+	If CurrentRow <> Undefined
+		And Items.QueryBatch.CurrentRow <> CurrentRow Then
+		Items.QueryBatch.CurrentRow = CurrentRow;
 	EndIf;
 
-	Модифицированность = False;
+	Modified = False;
 
 	EditingPositionRestoring();
 
-	AdditionalParameters.Вставить("ЗагруженныеДанные", стЗагруженныеДанные);
+	AdditionalParameters.Insert("LoadedData", stLoadedData);
 	ExecuteContinuation(AdditionalParameters);
 
 EndProcedure
 
-Function ПакетЗапросов_НайтиПоИмени(ИмяЗапроса, Знач Узел = Undefined)
+Function QueryBatch_FindByName(QueryName, Val Node = Undefined)
 
-	If Узел = Undefined Then
-		Узел = QueryBatch;
+	If Node = Undefined Then
+		Node = QueryBatch;
 	EndIf;
 
-	For Each Строка Из Узел.GetItems() Do
+	For Each Row In Node.GetItems() Do
 
-		If Строка.Name = ИмяЗапроса Then
-			Return Строка.ПолучитьИдентификатор();
+		If Row.Name = QueryName Then
+			Return Row.GetID();
 		EndIf;
 
-		ъ = ПакетЗапросов_НайтиПоИмени(ИмяЗапроса, Строка);
-		If ъ <> Undefined Then
-			Return ъ;
+		j = QueryBatch_FindByName(QueryName, Row);
+		If j <> Undefined Then
+			Return j;
 		EndIf;
 
 	EndDo;
@@ -2279,274 +2279,273 @@ EndFunction
 
 #EndRegion
 
-#Region Запрос
+#Region Query
 
 &AtClient
-Function Query_GetQueryData(идЗапрос)
+Function Query_GetQueryData(QueryID)
 
-	If идЗапрос = Undefined Then
-		Return New Structure("Имя, Запрос, ТекстКод, CodeExecutionMethod, Параметры, InWizard, CursorBeginRow, CursorBeginColumn, CursorEndRow, CursorEndColumn, CodeCursorBeginRow, CodeCursorBeginColumn, CodeCursorEndRow, CodeCursorEndColumn",
+	If QueryID = Undefined Then
+		Return New Structure("Name, Query, CodeText, CodeExecutionMethod, Parameters, InWizard, CursorBeginRow, CursorBeginColumn, CursorEndRow, CursorEndColumn, CodeCursorBeginRow, CodeCursorBeginColumn, CodeCursorEndRow, CodeCursorEndColumn",
 			"", "", "", 2, Undefined, False, 1, 1, 1, 1, 1, 1, 1, 1);
 	EndIf;
 
-	СтрокаЗапроса = QueryBatch.НайтиПоИдентификатору(идЗапрос);
-	Return New Structure("Имя, Запрос, ТекстКод, CodeExecutionMethod, Параметры, TempTables, InWizard, CursorBeginRow, CursorBeginColumn, CursorEndRow, CursorEndColumn, CodeCursorBeginRow, CodeCursorBeginColumn, CodeCursorEndRow, CodeCursorEndColumn",
-		СтрокаЗапроса.Name, СтрокаЗапроса.ТекстЗапроса, СтрокаЗапроса.ТекстКод, СтрокаЗапроса.CodeExecutionMethod,
-		СтрокаЗапроса.QueryParameters, СтрокаЗапроса.TempTables, СтрокаЗапроса.InWizard,
-		СтрокаЗапроса.CursorBeginRow + 1, СтрокаЗапроса.CursorBeginColumn + 1, СтрокаЗапроса.CursorEndRow
-		+ 1, СтрокаЗапроса.CursorEndColumn + 1, СтрокаЗапроса.CodeCursorBeginRow + 1,
-		СтрокаЗапроса.CodeCursorBeginColumn + 1, СтрокаЗапроса.CodeCursorEndRow + 1,
-		СтрокаЗапроса.CodeCursorEndColumn + 1);
+	QueryRow = QueryBatch.FindByID(QueryID);
+	Return New Structure("Name, Query, CodeText, CodeExecutionMethod, Parameters, TempTables, InWizard, CursorBeginRow, CursorBeginColumn, CursorEndRow, CursorEndColumn, CodeCursorBeginRow, CodeCursorBeginColumn, CodeCursorEndRow, CodeCursorEndColumn",
+		QueryRow.Name, QueryRow.QueryText, QueryRow.CodeText, QueryRow.CodeExecutionMethod,
+		QueryRow.QueryParameters, QueryRow.TempTables, QueryRow.InWizard,
+		QueryRow.CursorBeginRow + 1, QueryRow.CursorBeginColumn + 1, QueryRow.CursorEndRow
+		+ 1, QueryRow.CursorEndColumn + 1, QueryRow.CodeCursorBeginRow + 1,
+		QueryRow.CodeCursorBeginColumn + 1, QueryRow.CodeCursorEndRow + 1,
+		QueryRow.CodeCursorEndColumn + 1);
 
 EndFunction
 
 &AtClient
-Procedure Query_PutQueryData(идЗапрос, стрТекстЗапроса, стрТекстКод = Undefined,
-	CodeExecutionMethod = Undefined, сзПараметрыЗапроса = Undefined, сзВременныеТаблицы = Undefined,
+Procedure Query_PutQueryData(QueryID, strQueryText, strCodeText = Undefined,
+	CodeExecutionMethod = Undefined, vlQueryParameters = Undefined, vlTempTables = Undefined,
 	CursorBeginRow = Undefined, CursorBeginColumn = Undefined, CursorEndRow = Undefined,
 	CursorEndColumn = Undefined, CodeCursorBeginRow = Undefined, CodeCursorBeginColumn = Undefined,
 	CodeCursorEndRow = Undefined, CodeCursorEndColumn = Undefined)
 
-	СтрокаЗапроса = QueryBatch.НайтиПоИдентификатору(идЗапрос);
-	If СтрокаЗапроса = Undefined Then
+	QueryRow = QueryBatch.FindByID(QueryID);
+	If QueryRow = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаЗапроса.ТекстЗапроса = стрТекстЗапроса;
+	QueryRow.QueryText = strQueryText;
 
-	If стрТекстКод <> Undefined Then
-		СтрокаЗапроса.ТекстКод = стрТекстКод;
+	If strCodeText <> Undefined Then
+		QueryRow.CodeText = strCodeText;
 	EndIf;
 
-	If сзПараметрыЗапроса <> Undefined Then
-		СтрокаЗапроса.QueryParameters = сзПараметрыЗапроса;
+	If vlQueryParameters <> Undefined Then
+		QueryRow.QueryParameters = vlQueryParameters;
 	EndIf;
 
-	If сзВременныеТаблицы <> Undefined Then
-		СтрокаЗапроса.TempTables = сзВременныеТаблицы;
+	If vlTempTables <> Undefined Then
+		QueryRow.TempTables = vlTempTables;
 	EndIf;
 
 	If CodeExecutionMethod <> Undefined Then
-		СтрокаЗапроса.CodeExecutionMethod = CodeExecutionMethod;
+		QueryRow.CodeExecutionMethod = CodeExecutionMethod;
 	EndIf;
 
 	If CursorBeginRow <> Undefined Then
-		СтрокаЗапроса.CursorBeginRow = CursorBeginRow - 1;
+		QueryRow.CursorBeginRow = CursorBeginRow - 1;
 	EndIf;
 
 	If CursorBeginColumn <> Undefined Then
-		СтрокаЗапроса.CursorBeginColumn = CursorBeginColumn - 1;
+		QueryRow.CursorBeginColumn = CursorBeginColumn - 1;
 	EndIf;
 
 	If CursorEndRow <> Undefined Then
-		СтрокаЗапроса.CursorEndRow = CursorEndRow - 1;
+		QueryRow.CursorEndRow = CursorEndRow - 1;
 	EndIf;
 
 	If CursorEndColumn <> Undefined Then
-		СтрокаЗапроса.CursorEndColumn = CursorEndColumn - 1;
+		QueryRow.CursorEndColumn = CursorEndColumn - 1;
 	EndIf;
 
 	If CodeCursorBeginRow <> Undefined Then
-		СтрокаЗапроса.CodeCursorBeginRow = CodeCursorBeginRow - 1;
+		QueryRow.CodeCursorBeginRow = CodeCursorBeginRow - 1;
 	EndIf;
 
 	If CodeCursorBeginColumn <> Undefined Then
-		СтрокаЗапроса.CodeCursorBeginColumn = CodeCursorBeginColumn - 1;
+		QueryRow.CodeCursorBeginColumn = CodeCursorBeginColumn - 1;
 	EndIf;
 
 	If CodeCursorEndRow <> Undefined Then
-		СтрокаЗапроса.CodeCursorEndRow = CodeCursorEndRow - 1;
+		QueryRow.CodeCursorEndRow = CodeCursorEndRow - 1;
 	EndIf;
 
 	If CodeCursorEndColumn <> Undefined Then
-		СтрокаЗапроса.CodeCursorEndColumn = CodeCursorEndColumn - 1;
+		QueryRow.CodeCursorEndColumn = CodeCursorEndColumn - 1;
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure Запрос_УстановитьВКонструкторе(идЗапрос, фВКонструкторе)
-	QueryBatch.НайтиПоИдентификатору(идЗапрос).InWizard = фВКонструкторе;
+Procedure Query_SetInWizard(QueryID, fInWizard)
+	QueryBatch.FindByID(QueryID).InWizard = fInWizard;
 EndProcedure
 
 &AtClient
-Function Запрос_ПолучитьВКонструкторе(идЗапрос)
-	Return QueryBatch.НайтиПоИдентификатору(идЗапрос).InWizard;
+Function Query_GetInWizard(QueryID)
+	Return QueryBatch.FindByID(QueryID).InWizard;
 EndFunction
 
 #EndRegion
 
-#Region ОбработкаКомментариевЗапроса
+#Region ProcessingQueryComments
 
 &AtClient
-Procedure КомментарииЗапроса_СохранитьДанныеИсходногоЗапроса(стрТекстЗапроса)
+Procedure QueryComments_SaveSourceQueryData(strQueryText)
 
-	If Не SaveCommentsOption Then
+	If Not SaveCommentsOption Then
 		Return;
 	EndIf;
 
-	CommentsData = стрТекстЗапроса;
+	CommentsData = strQueryText;
 
 EndProcedure
 
 &AtClient
-Function КомментарииЗапроса_СтрокаБезКомментариев(стр)
+Function QueryComments_LineWithoutComments(Line)
 
-	чПозицияКомментария = Найти(стр, "//");
+	nCommentLocation = Find(Line, "//");
 
-	If чПозицияКомментария = 0 Then
-		Return стр;
+	If nCommentLocation = 0 Then
+		Return Line;
 	EndIf;
 
-	Return Лев(стр, чПозицияКомментария - 1);
+	Return Left(Line, nCommentLocation - 1);
 
 EndFunction
 
 &AtClient
-Function КомментарииЗапроса_КомментарийСтроки(стр)
+Function QueryComments_LineComment(Line)
 
-	чПозицияКомментария = Найти(стр, "//");
+	nCommentLocation = Find(Line, "//");
 
-	If чПозицияКомментария = 0 Then
+	If nCommentLocation = 0 Then
 		Return "";
 	EndIf;
 
-	Return Прав(стр, StrLen(стр) - чПозицияКомментария + 1);
+	Return Right(Line, StrLen(Line) - nCommentLocation + 1);
 
 EndFunction
 
 &AtClient
-Procedure КомментарииЗапроса_Восстановить(стрТекстЗапроса)
+Procedure QueryComments_Restore(strQueryText)
 
-	If Не SaveCommentsOption Then
+	If Not SaveCommentsOption Then
 		Return;
 	EndIf;
 
-	чГлубинаПоиска = 50;
+	nSearchDepth = 50;
 
-	ИсходныйЗапрос = New TextDocument;
-	ИсходныйЗапросУпр = New Array;
-	NewЗапрос = New TextDocument;
-	РезультатЗапрос = New TextDocument;
-	ИсходныйЗапрос.УстановитьТекст(CommentsData);
-	NewЗапрос.УстановитьТекст(стрТекстЗапроса);
-	чКоличествоСтрокНового = NewЗапрос.КоличествоСтрок();
-	чКоличествоСтрокИсходного = ИсходныйЗапрос.КоличествоСтрок();
+	SourceQuery = New TextDocument;
+	SourceQuerySmp = New Array;
+	NewQuery = New TextDocument;
+	ResultQuery = New TextDocument;
+	SourceQuery.SetText(CommentsData);
+	NewQuery.SetText(strQueryText);
+	nNewQueryLineCount = NewQuery.LineCount();
+	nSourceQueryLineCount = SourceQuery.LineCount();
 
-	Для й = 1 По чКоличествоСтрокИсходного Do
-		ИсходныйЗапросУпр.Добавить(ВРег(СокрЛП(КомментарииЗапроса_СтрокаБезКомментариев(ИсходныйЗапрос.ПолучитьСтроку(
-			й)))));
+	For j = 1 To nSourceQueryLineCount Do
+		SourceQuerySmp.Add(Upper(TrimAll(QueryComments_LineWithoutComments(SourceQuery.GetLine(
+			j)))));
 	EndDo;
 
-	чСтрокаИсходного = 1;
-	чСтрокаНового = 1;
+	nSourceLine = 1;
+	nNewLine = 1;
 	
-	//начальные комментарии переносим до поиска
-	Пока чСтрокаИсходного <= чКоличествоСтрокИсходного Do
-		стрИсходного = ИсходныйЗапрос.ПолучитьСтроку(чСтрокаИсходного);
-		If Лев(СокрЛП(стрИсходного), 2) = "//" Then
-			РезультатЗапрос.ДобавитьСтроку(стрИсходного);
+	// Moving opening comments before search
+	While nSourceLine <= nSourceQueryLineCount Do
+		strSource = SourceQuery.GetLine(nSourceLine);
+		If Left(TrimAll(strSource), 2) = "//" Then
+			ResultQuery.AddLine(strSource);
 		Else
-			Прервать;
+			Break;
 		EndIf;
-		чСтрокаИсходного = чСтрокаИсходного + 1;
+		nSourceLine = nSourceLine + 1;
 	EndDo;
 
-	Пока чСтрокаНового <= чКоличествоСтрокНового Do
+	While nNewLine <= nNewQueryLineCount Do
 
-		стрНового = NewЗапрос.ПолучитьСтроку(чСтрокаНового);
+		strNew = NewQuery.GetLine(nNewLine);
 
-		чНайденнаяСтрокаИсходного = 0;
-		If ValueIsFilled(стрНового) Then
-			чСтрокИскать = ?(чСтрокаИсходного + чГлубинаПоиска < чКоличествоСтрокИсходного, чГлубинаПоиска,
-				чКоличествоСтрокИсходного - чСтрокаИсходного);
-			стрНовогоУпр = ВРег(СокрЛП(стрНового));
-			Для й = чСтрокаИсходного По чСтрокаИсходного + чСтрокИскать Do
-				If стрНовогоУпр = ИсходныйЗапросУпр[й - 1] Then
-					чНайденнаяСтрокаИсходного = й;
-					Прервать;
+		nFoundSourceLine = 0;
+		If ValueIsFilled(strNew) Then
+			nLinesToSearch = ?(nSourceLine + nSearchDepth < nSourceQueryLineCount, nSearchDepth,
+				nSourceQueryLineCount - nSourceLine);
+			strNewSmp = Upper(TrimAll(strNew));
+			For j = nSourceLine To nSourceLine + nLinesToSearch Do
+				If strNewSmp = SourceQuerySmp[j - 1] Then
+					nFoundSourceLine = j;
+					Break;
 				EndIf;
 			EndDo;
 		EndIf;
 
-		If чНайденнаяСтрокаИсходного > 0 Then
+		If nFoundSourceLine > 0 Then
 
-			Для й = 0 По чНайденнаяСтрокаИсходного - чСтрокаИсходного - 1 Do
+			For j = 0 To nFoundSourceLine - nSourceLine - 1 Do
 
-				стрИсходного = ИсходныйЗапрос.ПолучитьСтроку(чСтрокаИсходного + й);
+				strSource = SourceQuery.GetLine(nSourceLine + j);
 
-				If Лев(СокрЛ(стрИсходного), 2) = "//" Then
-					If Не ПустаяСтрока(StrReplace(стрИсходного, "/", "")) Then
-						РезультатЗапрос.ДобавитьСтроку(стрИсходного);
+				If Left(TrimL(strSource), 2) = "//" Then
+					If Not IsBlankString(StrReplace(strSource, "/", "")) Then
+						ResultQuery.AddLine(strSource);
 					EndIf;
-					Продолжить;
+					Continue;
 				EndIf;
 
-				If ValueIsFilled(КомментарииЗапроса_КомментарийСтроки(стрИсходного)) Then
-					If Лев(СокрЛП(стрИсходного), 2) = "//" Then
-						РезультатЗапрос.ДобавитьСтроку(стрИсходного);
+				If ValueIsFilled(QueryComments_LineComment(strSource)) Then
+					If Left(TrimAll(strSource), 2) = "//" Then
+						ResultQuery.AddLine(strSource);
 					Else
-						РезультатЗапрос.ДобавитьСтроку("//" + стрИсходного);
+						ResultQuery.AddLine("//" + strSource);
 					EndIf;
 				EndIf;
 
 			EndDo;
 
-			стрКомментарий = КомментарииЗапроса_КомментарийСтроки(ИсходныйЗапрос.ПолучитьСтроку(
-				чНайденнаяСтрокаИсходного));
-			РезультатЗапрос.ДобавитьСтроку(стрНового + стрКомментарий);
-			чСтрокаИсходного = чНайденнаяСтрокаИсходного + 1;
+			strComment = QueryComments_LineComment(SourceQuery.GetLine(
+				nFoundSourceLine));
+			ResultQuery.AddLine(strNew + strComment);
+			nSourceLine = nFoundSourceLine + 1;
 
 		Else
-			РезультатЗапрос.ДобавитьСтроку(стрНового);
+			ResultQuery.AddLine(strNew);
 		EndIf;
 
-		чСтрокаНового = чСтрокаНового + 1;
+		nNewLine = nNewLine + 1;
 
 	EndDo;
 	
-	//теперь все что осталось из исходного
-	Для й = чСтрокаИсходного По чКоличествоСтрокИсходного Do
-		стрИсходного = ИсходныйЗапрос.ПолучитьСтроку(й);
-		If ValueIsFilled(КомментарииЗапроса_КомментарийСтроки(стрИсходного)) Then
-			If Лев(СокрЛП(стрИсходного), 2) = "//" Then
-				РезультатЗапрос.ДобавитьСтроку(стрИсходного);
+	For j = nSourceLine To nSourceQueryLineCount Do
+		strSource = SourceQuery.GetLine(j);
+		If ValueIsFilled(QueryComments_LineComment(strSource)) Then
+			If Left(TrimAll(strSource), 2) = "//" Then
+				ResultQuery.AddLine(strSource);
 			Else
-				РезультатЗапрос.ДобавитьСтроку("//" + стрИсходного);
+				ResultQuery.AddLine("//" + strSource);
 			EndIf;
 		EndIf;
 	EndDo;
 
-	стрТекстЗапроса = РезультатЗапрос.ПолучитьТекст();
+	strQueryText = ResultQuery.GetText();
 
 EndProcedure
 
 #EndRegion
 
-#Region ОбработкаПараметровВТекстеЗапроса
+#Region ProcessingParametersInQuerytext
 
 &AtClient
-Function ПолучитьСимволыКонцаПараметра()
-	Return ",+-*/<>=) " + Символы.ПС + Символы.ВК + Символы.Таб;
+Function GetParameterEndChars()
+	Return ",+-*/<>=) " + Chars.LF + Chars.CR + Chars.Tab;
 EndFunction
 
 &AtClient
-Function ЕстьПараметр(стрТекстЗапроса, стрИмяПараметра)
+Function ParameterExists(strQueryText, strParameterName)
 
-	стрСимволыКонцаПараметра = ПолучитьСимволыКонцаПараметра();
-	чДлиннаПараметра = StrLen(стрИмяПараметра);
-	чДлиннаТекста = StrLen(стрТекстЗапроса);
-	п = 1;
-	Пока п <= чДлиннаТекста Do
-		п = СтрНайти(стрТекстЗапроса, стрИмяПараметра, , п);
-		If п = 0 Then
-			Прервать;
+	strParameterEndChars = GetParameterEndChars();
+	nParameterLength = StrLen(strParameterName);
+	nTextLength = StrLen(strQueryText);
+	p = 1;
+	While p <= nTextLength Do
+		p = StrFind(strQueryText, strParameterName, , p);
+		If p = 0 Then
+			Break;
 		EndIf;
-		с = Сред(стрТекстЗапроса, п + чДлиннаПараметра, 1);
-		If с = "" Или Найти(стрСимволыКонцаПараметра, с) > 0 Then
+		s = Mid(strQueryText, p + nParameterLength, 1);
+		If s = "" Or Find(strParameterEndChars, s) > 0 Then
 			Return True;
 		EndIf;
-		п = п + чДлиннаПараметра;
+		p = p + nParameterLength;
 	EndDo;
 
 	Return False;
@@ -2554,235 +2553,233 @@ Function ЕстьПараметр(стрТекстЗапроса, стрИмяП
 EndFunction
 
 &AtClient
-Function ЗаменитьПараметр(стрТекстЗапроса, стрСтароеИмяПараметра, стрНовоеИмяПараметра)
+Function ReplaceParameter(strQueryText, strOldParameterName, strNewParameterName)
 
-	стрСимволыКонцаПараметра = ПолучитьСимволыКонцаПараметра();
-	чДлиннаПараметра = StrLen(стрСтароеИмяПараметра);
-	чДлиннаТекста = StrLen(стрТекстЗапроса);
-	маЧасти = New Array;
-	п = 1;
-	Пока п <= чДлиннаТекста Do
-		п1 = СтрНайти(стрТекстЗапроса, стрСтароеИмяПараметра, , п);
-		If п1 = 0 Then
-			маЧасти.Добавить(Сред(стрТекстЗапроса, п));
-			Прервать;
+	strParameterEndChars = GetParameterEndChars();
+	nParameterLength = StrLen(strOldParameterName);
+	nTextLength = StrLen(strQueryText);
+	arParts = New Array;
+	p = 1;
+	While p <= nTextLength Do
+		p1 = StrFind(strQueryText, strOldParameterName, , p);
+		If p1 = 0 Then
+			arParts.Add(Mid(strQueryText, p));
+			Break;
 		EndIf;
-		с = Сред(стрТекстЗапроса, п1 + чДлиннаПараметра, 1);
-		If с = "" Или Найти(стрСимволыКонцаПараметра, с) > 0 Then
-			маЧасти.Добавить(Сред(стрТекстЗапроса, п, п1 - п));
-			маЧасти.Добавить(стрНовоеИмяПараметра);
+		s = Mid(strQueryText, p1 + nParameterLength, 1);
+		If s = "" Or Find(strParameterEndChars, s) > 0 Then
+			arParts.Add(Mid(strQueryText, p, p1 - p));
+			arParts.Add(strNewParameterName);
 		Else
-			маЧасти.Добавить(Сред(стрТекстЗапроса, п, п1 - п + чДлиннаПараметра));
+			arParts.Add(Mid(strQueryText, p, p1 - p + nParameterLength));
 		EndIf;
-		п = п1 + чДлиннаПараметра;
+		p = p1 + nParameterLength;
 	EndDo;
 
-	Return StrConcat(маЧасти);
+	Return StrConcat(arParts);
 
 EndFunction
 
 #EndRegion
 
-#Region СобытияФормы
+#Region FormEvents
 
 &AtClient
-Procedure ПодключитьОбработчикАвтосохранения()
+Procedure AttachAutoSaveHandler()
 	If AutoSaveIntervalOption > 0 Then
-		AttachIdleHandler("ОбработчикАвтосохранения", AutoSaveIntervalOption);
+		AttachIdleHandler("AutoSaveHandler", AutoSaveIntervalOption);
 	Else
-		ОтключитьОбработчикОжидания("ОбработчикАвтосохранения");
+		DetachIdleHandler("AutoSaveHandler");
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ЗакончитьПолучениеРабочегоКаталогаДанныхПользователя(UserDataDirectory, AdditionalParameters) Экспорт
-	AdditionalParameters.Вставить("UserDataDirectory", UserDataDirectory);
+Procedure FinishGettingUserDataWorkDir(UserDataDirectory, AdditionalParameters) Export
+	AdditionalParameters.Insert("UserDataDirectory", UserDataDirectory);
 	ExecuteContinuation(AdditionalParameters);
 EndProcedure
 
 &AtClient
-Procedure ЗакончитьПроверкуСуществования(Существует, AdditionalParameters) Экспорт
-	AdditionalParameters.Вставить("Существует", Существует);
+Procedure FinishCheckingExistence(Exists, AdditionalParameters) Export
+	AdditionalParameters.Insert("Exists", Exists);
 	ExecuteContinuation(AdditionalParameters);
 EndProcedure
 
 &AtClient
-Procedure OnOpen(Отказ)
+Procedure OnOpen(Cancel)
 	
-	//If Доступность выключить в веб-клиенте при создании на сервере, она работает по другому, чем для обычных клиентов.
-	//Поэтому только так.
-	Доступность = False;
+	Enabled = False;
 
-#If ВебКлиент Then
+#If WebClient Then
 
-	Оповещение = New NotifyDescription("ПослеЗавершенияПодключенияРасширенияРаботыСФайлами", ЭтотОбъект);
-	НачатьПодключениеРасширенияРаботыСФайлами(Оповещение);
+	Notification = New NotifyDescription("AfterAttachingFileSystemExtension", ThisObject);
+	BeginAttachingFileSystemExtension(Notification);
 
-	ОтобразитьСостояниеВыполненияАлгоритма();
+	ShowAlgorithmExecutionStatus();
 
 #Else
 
-		ОтобразитьСостояниеВыполненияАлгоритма();
-		ПриОткрытииПродолжение();
+		ShowAlgorithmExecutionStatus();
+		OnOpenFollowUp();
 
 #EndIf
 
 EndProcedure
 
 &AtClient
-Procedure ПослеЗавершенияПодключенияРасширенияРаботыСФайлами(Подключено, AdditionalParameters) Экспорт
+Procedure AfterAttachingFileSystemExtension(Attached, AdditionalParameters) Export
 
-	FileExtensionConnected = Подключено;
+	FileExtensionConnected = Attached;
 
-	If Не FileExtensionConnected Then
-		ShowConsoleMessageBox("Для работы консоли необходимо установить расширение работы с файлами.");
-		НачатьУстановкуРасширенияРаботыСФайлами();
-		Закрыть();
+	If Not FileExtensionConnected Then
+		ShowConsoleMessageBox(NStr("ru = 'Для работы консоли необходимо установить расширение работы с файлами.'; en = 'The file system extension must be installed.'"));
+		BeginInstallFileSystemExtension();
+		Close();
 		Return;
 	EndIf;
 
-	ПриОткрытииПродолжение();
+	OnOpenFollowUp();
 
 EndProcedure
 
 &AtClient
-Procedure ПриОткрытииПродолжение(AdditionalParameters = Undefined) Экспорт
+Procedure OnOpenFollowUp(AdditionalParameters = Undefined) Export
 
-	If Не ValueIsFilled(AdditionalParameters) Then
+	If Not ValueIsFilled(AdditionalParameters) Then
 
-		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
-			"ПослеПолученияРабочегоКаталога");
-		NotifyDescription = New NotifyDescription("ЗакончитьПолучениеРабочегоКаталогаДанныхПользователя", ЭтаФорма,
+		AdditionalParameters = New Structure("FollowUp, FollowUpPoint", "OnOpenFollowUp",
+			"AfterGettingWorkDir");
+		NotifyDescription = New NotifyDescription("FinishGettingUserDataWorkDir", ThisForm,
 			AdditionalParameters);
-		НачатьПолучениеРабочегоКаталогаДанныхПользователя(NotifyDescription);
+		BeginGettingUserDataWorkDir(NotifyDescription);
 		Return;
 
-	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПолученияРабочегоКаталога" Then
+	ElsIf AdditionalParameters.FollowUpPoint = "AfterGettingWorkDir" Then
 
 		UserDataDirectory = AdditionalParameters.UserDataDirectory;
 		StateAutoSaveFileName = UserDataDirectory + ConsoleSignature + "." + AutoSaveExtension;
 
-		стрИмяФайлаАвтосохраненияТемп = StateAutoSaveFileName;
-		Файл = New Файл(стрИмяФайлаАвтосохраненияТемп);
-		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
-			"ПослеПроверкиСуществованияСохранения");
-		NotifyDescription = New NotifyDescription("ЗакончитьПроверкуСуществования", ЭтаФорма,
+		strAutoSaveFileNameTemp = StateAutoSaveFileName;
+		File = New File(strAutoSaveFileNameTemp);
+		AdditionalParameters = New Structure("FollowUp, FollowUpPoint", "OnOpenFollowUp",
+			"AfterCheckingExistenceSaving");
+		NotifyDescription = New NotifyDescription("FinishCheckingExistence", ThisForm,
 			AdditionalParameters);
-		Файл.НачатьПроверкуСуществования(NotifyDescription);
+		File.BeginCheckingExistence(NotifyDescription);
 		Return;
 
-	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПроверкиСуществованияСохранения" Then
+	ElsIf AdditionalParameters.FollowUpPoint = "AfterCheckingExistenceSaving" Then
 		If UT_Debug Then
 			SetQueriesFileName();
-			ПриОткрытииЗавершение();
+			OnOpenCompletion();
 			Return;
 		EndIf;
 
-		If Не AdditionalParameters.Существует Then
+		If Not AdditionalParameters.Exists Then
 			QueryBatch_New();
-			ПриОткрытииЗавершение();
+			OnOpenCompletion();
 			Return;
 		EndIf;
 
-		стрИмяФайлаАвтосохраненияТемп = StateAutoSaveFileName;
+		strAutoSaveFileNameTemp = StateAutoSaveFileName;
 		Try
-			AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
-				"ПриОткрытииПродолжение", "ПослеЗагрузкиЗаголовка", стрИмяФайлаАвтосохраненияТемп);
+			AdditionalParameters = New Structure("FollowUp, FollowUpPoint, FileName",
+				"OnOpenFollowUp", "AfterLoadingTitle", strAutoSaveFileNameTemp);
 			QueryBatch_Load(AdditionalParameters);
 		Except
-			//Состояние прочитать не удалось, файл испорчен.
+			// The file is corrupted.
 			QueryBatch_New();
-			ПриОткрытииЗавершение();
+			OnOpenCompletion();
 		EndTry;
 
 		Return;
 
-	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеЗагрузкиЗаголовка" Then
+	ElsIf AdditionalParameters.FollowUpPoint = "AfterLoadingTitle" Then
 
-		стЗаголовок = AdditionalParameters.ЗагруженныеДанные;
-		If стЗаголовок = Undefined Then
-			//Состояние прочитать не удалось, файл испорчен.
+		stTitle = AdditionalParameters.LoadedData;
+		If stTitle = Undefined Then
+			// The file is corrupted.
 			QueryBatch_New();
-			ПриОткрытииЗавершение();
+			OnOpenCompletion();
 			Return;
 		EndIf;
 
-		If стЗаголовок.Свойство("ПакетЗапросов") Then
+		If stTitle.Property("QueryBatch") Then
 
-			Модифицированность = True;
-			ПриОткрытииЗавершение();//Загружено автосохранение из темп, список запросов в файл не сохранялся.
+			Modified = True;
+			OnOpenCompletion(); // AutoSaving is loaded from temp, query list was not loaded to file.
 			Return;
 
 		Else
 
-			QueriesFileName = стЗаголовок.ИмяФайла;
+			QueriesFileName = stTitle.FileName;
 			SetQueriesFileName(QueriesFileName);
-			стрИмяФайлаАвтосохранения = GetAutoSaveFileName(QueriesFileName);
+			strAutoSaveFileName = GetAutoSaveFileName(QueriesFileName);
 
-			Файл = New Файл(стрИмяФайлаАвтосохранения);
-			AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайлаАвтосохранения",
-				"ПриОткрытииПродолжение", "ПослеПроверкиСуществованияАвтосохранения", стрИмяФайлаАвтосохранения);
-			NotifyDescription = New NotifyDescription("ЗакончитьПроверкуСуществования", ЭтаФорма,
+			File = New File(strAutoSaveFileName);
+			AdditionalParameters = New Structure("FollowUp, FollowUpPoint, AutoSaveFileName",
+				"OnOpenFollowUp", "AfterCheckingExistenceAutoSaving", strAutoSaveFileName);
+			NotifyDescription = New NotifyDescription("FinishCheckingExistence", ThisForm,
 				AdditionalParameters);
-			Файл.НачатьПроверкуСуществования(NotifyDescription);
+			File.BeginCheckingExistence(NotifyDescription);
 			Return;
 
 		EndIf;
 
-	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПроверкиСуществованияАвтосохранения" Then
+	ElsIf AdditionalParameters.FollowUpPoint = "AfterCheckingExistenceAutoSaving" Then
 
 		Try
-			If AdditionalParameters.Существует Then
-				стрИмяФайлаАвтосохранения = AdditionalParameters.ИмяФайлаАвтосохранения;
-				AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
-					"ПриОткрытииПродолжение", "ПослеЗагрузкиАвтосохранения", стрИмяФайлаАвтосохранения);
+			If AdditionalParameters.Exists Then
+				strAutoSaveFileName = AdditionalParameters.AutoSaveFileName;
+				AdditionalParameters = New Structure("FollowUp, FollowUpPoint, FileName",
+					"OnOpenFollowUp", "AfterLoadAutoSaving", strAutoSaveFileName);
 				QueryBatch_Load(AdditionalParameters);
 				Return;
 			EndIf;
 		Except
-			//Автосохранение не загрузили - файл испорчен. Грузим основной файл.
+			// The file is corrupted. Loading the main file.
 		EndTry;
 
-		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ЗагруженныеДанные",
-			"ПриОткрытииПродолжение", "ПослеЗагрузкиАвтосохранения");
+		AdditionalParameters = New Structure("FollowUp, FollowUpPoint, LoadedData",
+			"OnOpenFollowUp", "AfterLoadAutoSaving");
 		ExecuteContinuation(AdditionalParameters);
 		Return;
 
-	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеЗагрузкиАвтосохранения" Then
+	ElsIf AdditionalParameters.FollowUpPoint = "AfterLoadAutoSaving" Then
 
-		If AdditionalParameters.ЗагруженныеДанные <> Undefined Then
-			Модифицированность = True;
-			ПриОткрытииЗавершение();//Загружено из автосохранения измененного файла.
+		If AdditionalParameters.LoadedData <> Undefined Then
+			Modified = True;
+			OnOpenCompletion(); // Loaded from changed file autosaving.
 			Return;
 		EndIf;
 
-		Файл = New Файл(QueriesFileName);
-		AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения", "ПриОткрытииПродолжение",
-			"ПослеПроверкиСуществованияФайла");
-		NotifyDescription = New NotifyDescription("ЗакончитьПроверкуСуществования", ЭтаФорма,
+		File = New File(QueriesFileName);
+		AdditionalParameters = New Structure("FollowUp, FollowUpPoint", "OnOpenFollowUp",
+			"AfterCheckingExistenceFile");
+		NotifyDescription = New NotifyDescription("FinishCheckingExistence", ThisForm,
 			AdditionalParameters);
-		Файл.НачатьПроверкуСуществования(NotifyDescription);
+		File.BeginCheckingExistence(NotifyDescription);
 
-	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеПроверкиСуществованияФайла" Then
+	ElsIf AdditionalParameters.FollowUpPoint = "AfterCheckingExistenceFile" Then
 
-		If AdditionalParameters.Существует Then
-			AdditionalParameters = New Structure("Продолжение, ТочкаПродолжения, ИмяФайла",
-				"ПриОткрытииПродолжение", "ПослеЗагрузкиОсновногоФайла", QueriesFileName);
+		If AdditionalParameters.Exists Then
+			AdditionalParameters = New Structure("FollowUp, FollowUpPoint, FileName",
+				"OnOpenFollowUp", "AfterLoadingMainFile", QueriesFileName);
 			QueryBatch_Load(AdditionalParameters);
 			Return;
 		Else
 			QueryBatch_New();
-			ПриОткрытииЗавершение();//Не найден файл, который в информации последнего состояния (Varещен или удален). Значит, будет New пакет.
+			OnOpenCompletion();
 			Return;
 		EndIf;
 
-	ElsIf AdditionalParameters.ТочкаПродолжения = "ПослеЗагрузкиОсновногоФайла" Then
+	ElsIf AdditionalParameters.FollowUp = "AfterLoadingMainFile" Then
 
-		If AdditionalParameters.ЗагруженныеДанные = Undefined Then
+		If AdditionalParameters.LoadedData = Undefined Then
 			QueryBatch_New();
 		EndIf;
 
-		ПриОткрытииЗавершение();//Загружено из основного файла.
+		OnOpenCompletion(); // Loaded from main file.
 		Return;
 
 	EndIf;
@@ -2790,188 +2787,184 @@ Procedure ПриОткрытииПродолжение(AdditionalParameters = Un
 EndProcedure
 
 &AtServer
-Procedure ПриОткрытииЗавершениеAtServer()
+Procedure OnOpenCompletionAtServer()
 
-	Обработка = FormAttributeToValue("Object");
+	DataProcessor = FormAttributeToValue("Object");
 	
 	//Сохраняемые значения +++
 
-	ResultKind = SavedStates_GetAtServer("ResultKind", "таблица");
+	ResultKind = SavedStates_GetAtServer("ResultKind", "table");
 	OutputLinesLimit = SavedStates_GetAtServer("OutputLinesLimit", "1000");
 	OutputLinesLimitEnabled = SavedStates_GetAtServer("OutputLinesLimitEnabled", True);
 	OutputLinesLimitTop = SavedStates_GetAtServer("OutputLinesLimitTop", 1000);
 	OutputLinesLimitTopEnabled = SavedStates_GetAtServer("OutputLinesLimitTopEnabled",
 		False);
 
-	фВидимостьПакетаРезультатаЗапроса = SavedStates_GetAtServer("ВидимостьПакетаРезультатаЗапроса", False);
-	If Элементы.ShowHideQueryResultBatch.Пометка <> фВидимостьПакетаРезультатаЗапроса Then
-		Элементы.ShowHideQueryResultBatch.Пометка = фВидимостьПакетаРезультатаЗапроса;
-		Элементы.QueryResultBatch.Видимость = фВидимостьПакетаРезультатаЗапроса;
-		Элементы.ResultInBatchGroup.Видимость = Не фВидимостьПакетаРезультатаЗапроса;
+	fQueryResultBatchVisible = SavedStates_GetAtServer("QueryResultBatchVisible", False);
+	If Items.ShowHideQueryResultBatch.Check <> fQueryResultBatchVisible Then
+		Items.ShowHideQueryResultBatch.Check = fQueryResultBatchVisible;
+		Items.QueryResultBatch.Visible = fQueryResultBatchVisible;
+		Items.ResultInBatchGroup.Visible = Not fQueryResultBatchVisible;
 	EndIf;
 
-	фПараметрыЗапросаРядомСТекстом = SavedStates_GetAtServer("ПараметрыЗапросаРядомСТекстом", True);
-	If Элементы.QueryParametersNextToText.Пометка <> фПараметрыЗапросаРядомСТекстом Then
-		Элементы.QueryParametersNextToText.Пометка = фПараметрыЗапросаРядомСТекстом;
-		ПараметрыЗапросаРядомСТекстомAtServer();
+	fQueryParametersNextToText = SavedStates_GetAtServer("QueryParametersNextToText", True);
+	If Items.QueryParametersNextToText.Check <> fQueryParametersNextToText Then
+		Items.QueryParametersNextToText.Check = fQueryParametersNextToText;
+		QueryParametersNextToTextAtServer();
 	EndIf;
 	
-	//Сохраняемые значения ---
+	//Saved states ---
 	
-	//При проверке ТЖ в момент запуска маскируем все исключения.
-	//Может быть нехватка прав, или что-то другое, а ТЖ реально вообще не нужен.
+	//Masking all exceptions while checking technological log.
 	Try
-		If Обработка.TechnologicalLog_ConsoleLogExists() Then
-			Элементы.TechnologicalLog.Пометка = True;
+		If DataProcessor.TechnologicalLog_ConsoleLogExists() Then
+			Items.TechnologicalLog.Check = True;
 		EndIf;
 	Except
 	EndTry;
 
-	ЗначениеВРеквизитФормы(Обработка, "Object");
+	ValueToFormAttribute(DataProcessor, "Object");
 
 EndProcedure
 
 &AtClient
-Procedure ПриОткрытииЗавершение()
+Procedure OnOpenCompletion()
 
-	ПриОткрытииЗавершениеAtServer();
+	OnOpenCompletionAtServer();
 	GetDataProcessorServerFileName();
-	ПодключитьОбработчикАвтосохранения();
-	УстановитьСостоянияЭлементов();
+	AttachAutoSaveHandler();
+	SetItemsStates();
 
-	If Элементы.TechnologicalLog.Пометка Then
+	If Items.TechnologicalLog.Check Then
 		TechLogBeginEndTime = CurrentUniversalDateInMilliseconds();
-		TechnologicalLog_Enabled(); // Что бы выполнился тестовый запрос, а через 1 секунду уже проверим результат.
-		AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВключения", 1, True);
+		TechnologicalLog_Enabled(); // For executing the test query and checking the result.
+		AttachIdleHandler("TechnologicalLog_WaitingForEnable", 1, True);
 	EndIf;
 	
-	//Почему-то релиз 8.3.17 без режима совместимости не устанавливает изначально текущую строку.
-	If Элементы.QueryBatch.ТекущаяСтрока = Undefined И QueryBatch.GetItems().Количество() > 0 Then
-		Элементы.QueryBatch.ТекущаяСтрока = QueryBatch.GetItems()[0].ПолучитьИдентификатор();
+	// 8.3.17 platform with disabled compatibility mode does not set current row.
+	If Items.QueryBatch.CurrentRow = Undefined And QueryBatch.GetItems().Count() > 0 Then
+		Items.QueryBatch.CurrentRow = QueryBatch.GetItems()[0].GetID();
 	EndIf;
 
-	If Не Object.ExternalDataProcessorMode Then
+	If Not Object.ExternalDataProcessorMode Then
 		AllowHooking();
 		AllowBackgroundExecution();
 	EndIf;
 
-	Доступность = True;
+	Enabled = True;
 
-#Region УИ_ПриОткрытии
+#Region UT_OnOpen
 	If UT_CommonClientServer.HTMLFieldBasedOnWebkit() Then
-		Элементы.CodeCommandBarGroup.Видимость = False;
+		Items.CodeCommandBarGroup.Visible = False;
 	EndIf;
-	UT_CodeEditorClient.ФормаПриОткрытии(ЭтотОбъект);
+	UT_CodeEditorClient.FormOnOpen(ThisObject);
 #EndRegion
 
 EndProcedure
 
 &AtServer
-Procedure OnCreateAtServer(Отказ, СтандартнаяОбработка)
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	ОбъектОбработки = FormAttributeToValue("Object");
-	ОбъектОбработки.Initializing(ЭтаФорма);
-	ЗначениеВРеквизитФормы(ОбъектОбработки, "Object");
+	DataProcessorObject = FormAttributeToValue("Object");
+	DataProcessorObject.Initializing(ThisForm);
+	ValueToFormAttribute(DataProcessorObject, "Object");
 
 	QueryInWizard = -1;
 	EditingQuery = -1;
 	
-	//UsedFileName = FormAttributeToValue("Объект").UsedFileName;
+	//UsedFileName = FormAttributeToValue("Object").UsedFileName;
 
-	Элементы.TempTablesValue.КартинкаКнопкиВыбора = БиблиотекаКартинок.Изменить;
+	Items.TempTablesValue.ChoiceButtonPicture = PictureLib.Change;
 
-	Object.Title = "Консоль запросов 9000 v" + Object.DataProcessorVersion;
+	Object.Title = NStr("ru = 'Консоль запросов 9000 v'; en = 'Query console 9000 v'") + Object.DataProcessorVersion;
 
 	MacroParameter = "__";
 	
-	//Это нужно для правильной отрисовки области результата запроса до его выполнения.
-	маДобавляемыеРеквизиты = New Array;
-	Реквизит = New РеквизитФормы("Пустой", New TypeDescription, "РезультатЗапроса");
-	маДобавляемыеРеквизиты.Добавить(Реквизит);
-	ИзменитьРеквизиты(маДобавляемыеРеквизиты);
-	Элемент = Элементы.Добавить("Пустой", Тип("ПолеФормы"), Элементы.QueryResult);
-	Элемент.ПутьКДанным = "РезультатЗапроса.Пустой";
-	Элемент.ОтображатьВШапке = False;
+	// For the correct displaying the query result area before execution.
+	arAttributesToBeAdded = New Array;
+	Attribute = New FormAttribute("Empty", New TypeDescription, "QueryResult");
+	arAttributesToBeAdded.Add(Attribute);
+	ChangeAttributes(arAttributesToBeAdded);
+	Item = Items.Add("Empty", Type("FormField"), Items.QueryResult);
+	Item.DataPath = "QueryResult.IsEmpty";
+	Item.ShowInHeader = False;
 
-	ContainerAttributeSuffix=ОбъектОбработки.ContainerAttributeSuffix();
+	ContainerAttributeSuffix=DataProcessorObject.ContainerAttributeSuffix();
 
-#Region УИ_ПриСозданииAtServer
-	UT_IsPartOfUniversalTools = ОбъектОбработки.DataProcessorIsPartOfUniversalTools();
+#Region UT_OnCreateAtServer
+	UT_IsPartOfUniversalTools = DataProcessorObject.DataProcessorIsPartOfUniversalTools();
 	If UT_IsPartOfUniversalTools Then
-		UT_Common.ФормаИнструментаПриСозданииAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка,
-			Элементы.FormCommandBarRight);
+		UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing,
+			Items.FormCommandBarRight);
 
 		Object.Title="";
-		Заголовок="";
-		АвтоЗаголовок=True;
-		Элементы.QueryBatchHookingSubmenu.Видимость=False;
-		Элементы.QueryCommandBarGroupRightHooking.Видимость=False;
-		Элементы.ResultKindCommandBar.ЦветФона=New Цвет;
+		Title="";
+		AutoTitle=True;
+		Items.QueryBatchHookingSubmenu.Visible=False;
+		Items.QueryCommandBarGroupRightHooking.Visible=False;
+		Items.ResultKindCommandBar.BackColor=New Color;
 
-		Элементы.UT_EditValue.Видимость=True;
-		Элементы.QueryResultContextMenuUT_EditValue.Видимость=True;
-		Элементы.QueryResultTreeContextMenuUT_EditValue.Видимость=True;
+		Items.UT_EditValue.Visible=True;
+		Items.QueryResultContextMenuUT_EditValue.Visible=True;
+		Items.QueryResultTreeContextMenuUT_EditValue.Visible=True;
 
-		УИ_ЗаполнитьДаннымиОтладки();
+		UT_FillWithDebugData();
 
-		UT_CodeEditorServer.ФормаПриСозданииAtServer(ЭтотОбъект);
-		UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "Алгоритм", Элементы.AlgorithmText);
+		UT_CodeEditorServer.FormOnCreateAtServer(ThisObject);
+		UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "Algorithm", Items.AlgorithmText);
 	EndIf;
 #EndRegion
 
 EndProcedure
 
 &AtClient
-Procedure ОбработчикАвтосохранения() Экспорт
+Procedure AutoSaveHandler() Export
 
-	If Модифицированность Then
-		Автосохранить();
+	If Modified Then
+		Autosave();
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure BeforeClose(Отказ, ЗавершениеРаботы, ТекстПредупреждения, СтандартнаяОбработка)
+Procedure BeforeClose(Cancel, Exit, WarningText, StandardProcessing)
 
-#If ВебКлиент Then
-	If Не FileExtensionConnected Then
+#If WebClient Then
+	If Not FileExtensionConnected Then
 		Return;
 	EndIf;
 #EndIf
 
-	If ЗавершениеРаботы = True Then
+	If Exit = True Then
 		
-		//Тут серверные вызовы запрещены. Максимум, что можно сделать - это предупреждения.
+		// Server calls are not allowed.
 
-		ТекстПредупреждения = "";
-		If Модифицированность Then
-			//Тут будет предупреждение о не сохраненном запросе.
-			ТекстПредупреждения = "В консоли запросов 9000 имеется не сохраненный пакет запросов! ";
-			Отказ = True;
+		WarningText = "";
+		If Modified Then
+			WarningText = NStr("ru = 'В консоли запросов 9000 имеется не сохраненный пакет запросов! '; en = 'Query console 9000 contains an unsaved query batch.'");
+			Cancel = True;
 		EndIf;
 
-		If Элементы.TechnologicalLog.Пометка Then
-			ТекстПредупреждения = ТекстПредупреждения + "Технологический журнал не выключен! ";
-			Отказ = True;
+		If Items.TechnologicalLog.Check Then
+			WarningText = WarningText + NStr("ru = 'Технологический журнал не выключен! '; en = 'technological log is not disabled.'");
+			Cancel = True;
 		EndIf;
 
-		If Не ValueIsFilled(ТекстПредупреждения) Then
-			//Лучше всегда консоль закрывать руками, для сохранения состояния.
-			ТекстПредупреждения = "Для сохранения состояний консоль запросов 9000 рекомендуется закрывать вручную.";
-			Отказ = True;
+		If Not ValueIsFilled(WarningText) Then
+			WarningText = NStr("ru = 'Для сохранения состояний консоль запросов 9000 рекомендуется закрывать вручную.'; en = 'For saving states it is recommended to close query console 9000 manually'");
+			Cancel = True;
 		EndIf;
 
 	Else
 		
-		//Сохраним состояние.
 		QueryBatch_Save( , StateAutoSaveFileName, True);
 
-		If Не SaveWithQuestion("Завершение") Then
-			Отказ = True;
+		If Not SaveWithQuestion("Completion") Then
+			Cancel = True;
 		EndIf;
 
-		If Не Отказ И Элементы.TechnologicalLog.Пометка Then
-			Команда_ТехнологическийЖурнал(Undefined);
+		If Not Cancel And Items.TechnologicalLog.Check Then
+			TechnologicalLog_Command(Undefined);
 		EndIf;
 
 	EndIf;
@@ -2980,13 +2973,13 @@ EndProcedure
 
 #EndRegion
 
-#Region СобытияЭлементовФормы
+#Region FormItemsEvents
 
 &AtClient
-Procedure ИзменитьИмяПараметраВТекстеЗапроса(РезультатВопроса, AdditionalParameters) Экспорт
-	If РезультатВопроса = DialogReturnCode.Да Then
-		QueryText = ЗаменитьПараметр(QueryText, "&" + AdditionalParameters.PreviousValueParameterName, "&"
-			+ AdditionalParameters.ИмяПараметра);
+Procedure ChangeParameterNameInQueryText(Result, AdditionalParameters) Export
+	If Result = DialogReturnCode.Yes Then
+		QueryText = ReplaceParameter(QueryText, "&" + AdditionalParameters.PreviousValueParameterName, "&"
+			+ AdditionalParameters.ParameterName);
 	EndIf;
 EndProcedure
 
@@ -3018,11 +3011,11 @@ Procedure ОбработатьИзменениеИмениПараметра(Н�
 
 	If Не НоваяСтрока И ValueIsFilled(PreviousValueParameterName) Then
 		стрТекстЗапроса = QueryText;
-		If ЕстьПараметр(стрТекстЗапроса, "&" + PreviousValueParameterName) Then
+		If ParameterExists(стрТекстЗапроса, "&" + PreviousValueParameterName) Then
 			AdditionalParameters = New Structure("PreviousValueParameterName, ИмяПараметра",
 				PreviousValueParameterName, стрИмяПараметра);
 			ShowQueryBox(
-				New NotifyDescription("ИзменитьИмяПараметраВТекстеЗапроса", ЭтаФорма, AdditionalParameters),
+				New NotifyDescription("ChangeParameterNameInQueryText", ЭтаФорма, AdditionalParameters),
 				"Запрос содержит изменяемое мия параметра. Изменить имя параметра в тексте запроса?",
 				РежимДиалогаВопрос.ДаНет, , DialogReturnCode.Да);
 		EndIf;
@@ -3256,7 +3249,7 @@ Procedure ОкончаниеРедактированияСтроки(Резул�
 				СтрокаТаблицы = TempTables.НайтиПоИдентификатору(AdditionalParameters.Строка);
 				СтрокаТаблицы.Контейнер = РезультатЗакрытия.Значение;
 				СтрокаТаблицы.Value = СтрокаТаблицы.Контейнер.Представление;
-				Модифицированность = True;
+				Modified = True;
 			EndIf;
 		ElsIf AdditionalParameters.Поле = "КонтейнерКакТип" Then
 			QueryParameters_SaveValue(AdditionalParameters.Строка, РезультатЗакрытия.ОписаниеКонтейнера);
@@ -3296,7 +3289,7 @@ Procedure ОкончаниеРедактированияСтроки(Резул�
 		ElsIf AdditionalParameters.Поле = "Значение" Then
 			Элементы.QueryParameters.ТекущиеДанные.Value = РезультатЗакрытия.Значение;
 			Элементы.QueryParameters.ТекущиеДанные.Контейнер = РезультатЗакрытия.Значение;
-			Модифицированность = True;
+			Modified = True;
 		EndIf;
 
 	EndIf;
@@ -3384,13 +3377,13 @@ EndProcedure
 
 &AtClient
 Procedure SaveCommentsOptionOnChange(Item)
-	Модифицированность = True;
+	Modified = True;
 EndProcedure
 
 &AtClient
 Procedure AutoSaveIntervalOptionOnChange(Item)
-	ПодключитьОбработчикАвтосохранения();
-	Модифицированность = True;
+	AttachAutoSaveHandler();
+	Modified = True;
 EndProcedure
 
 &AtClient
@@ -3431,7 +3424,7 @@ Procedure ResultInBatchOnChange(Item)
 EndProcedure
 
 &AtClient
-Procedure УстановитьСостоянияЭлементов()
+Procedure SetItemsStates()
 
 	Элементы.OutputLinesLimitTopOption.Доступность = OutputLinesLimitTopEnabled;
 	Элементы.OutputLinesLimitOption.Доступность = OutputLinesLimitEnabled;
@@ -3440,12 +3433,12 @@ EndProcedure
 
 &AtClient
 Procedure OutputLinesLimitTopEnabledOptionOnChange(Item)
-	УстановитьСостоянияЭлементов();
+	SetItemsStates();
 EndProcedure
 
 &AtClient
 Procedure OutputLinesLimitEnabledOptionOnChange(Item)
-	УстановитьСостоянияЭлементов();
+	SetItemsStates();
 EndProcedure
 
 &AtClient
@@ -3502,12 +3495,12 @@ EndProcedure
 
 &AtClient
 Procedure OptionProcessing__OnChange(Item)
-	Модифицированность = True;
+	Modified = True;
 EndProcedure
 
 &AtClient
 Procedure AlgorithmExecutionUpdateIntervalOptionOnChange(Item)
-	Модифицированность = True;
+	Modified = True;
 EndProcedure
 
 &AtClient
@@ -3986,7 +3979,7 @@ EndProcedure
 &AtClient
 Procedure ПослеСохраненияПакетаЗапросов(VarещаемыйФайл, AdditionalParameters) Экспорт
 
-	Модифицированность = False;
+	Modified = False;
 
 	If AdditionalParameters.Свойство("Завершение") Then
 		Закрыть();
@@ -4026,7 +4019,7 @@ EndFunction
 Procedure QueryWizard_Command(Command)
 
 	стрТекстЗапроса = QueryText;
-	КомментарииЗапроса_СохранитьДанныеИсходногоЗапроса(стрТекстЗапроса);
+	QueryComments_SaveSourceQueryData(стрТекстЗапроса);
 
 	If ValueIsFilled(стрТекстЗапроса) Then
 		КонструкторЗапроса = ПолучитьКонструкторЗапроса(стрТекстЗапроса);
@@ -4040,20 +4033,20 @@ Procedure QueryWizard_Command(Command)
 #If ТолстыйКлиентУправляемоеПриложение Then
 	If КонструкторЗапроса.ОткрытьМодально() Then
 		стрТекстЗапроса = КонструкторЗапроса.Текст;
-		КомментарииЗапроса_Восстановить(стрТекстЗапроса);
+		QueryComments_Restore(стрТекстЗапроса);
 		QueryText = стрТекстЗапроса;
 		PutEditingQuery();
-		Модифицированность = True;
+		Modified = True;
 	EndIf;
 #Else
 
 		If QueryInWizard > 0 Then
-			Запрос_УстановитьВКонструкторе(QueryInWizard, False);
+			Query_SetInWizard(QueryInWizard, False);
 			QueryInWizard = -1;
 		EndIf;
 
 		ТекущийЗапрос = QueryBatch_CurrentQuery();
-		Запрос_УстановитьВКонструкторе(ТекущийЗапрос, True);
+		Query_SetInWizard(ТекущийЗапрос, True);
 		ExtractEditingQuery();
 		КонструкторЗапроса.Показать(
 			New NotifyDescription("Команда_КонструкторЗапроса_ОповещениеЗакрытияКонструктора", ЭтаФорма,
@@ -4066,17 +4059,17 @@ EndProcedure
 &AtClient
 Procedure Команда_КонструкторЗапроса_ОповещениеЗакрытияКонструктора(стрТекстЗапроса, ТекущийЗапрос) Экспорт
 
-	If Не Запрос_ПолучитьВКонструкторе(ТекущийЗапрос) Then
+	If Не Query_GetInWizard(ТекущийЗапрос) Then
 		Return;
 	EndIf;
 
-	Запрос_УстановитьВКонструкторе(ТекущийЗапрос, False);
+	Query_SetInWizard(ТекущийЗапрос, False);
 	QueryInWizard = -1;
 
 	If стрТекстЗапроса <> Undefined Then
-		КомментарииЗапроса_Восстановить(стрТекстЗапроса);
+		QueryComments_Restore(стрТекстЗапроса);
 		Query_PutQueryData(EditingQuery, стрТекстЗапроса);
-		Модифицированность = True;
+		Modified = True;
 	EndIf;
 
 	ExtractEditingQuery(ТекущийЗапрос);
@@ -4098,7 +4091,7 @@ Procedure ВыполнитьЗапрос(фИспользоватьВыделе�
 		стрТекстЗапроса = Элементы.QueryText.ВыделенныйТекст;
 	EndIf;
 
-	If AutoSaveBeforeQueryExecutionOption И Модифицированность Then
+	If AutoSaveBeforeQueryExecutionOption И Modified Then
 		Автосохранить();
 	EndIf;
 
@@ -4361,7 +4354,7 @@ Procedure Команда_ФорматироватьТекстЗапроса(Ко
 	EndIf;
 
 	стрТекстЗапроса = QueryText;
-	КомментарииЗапроса_СохранитьДанныеИсходногоЗапроса(стрТекстЗапроса);
+	QueryComments_SaveSourceQueryData(стрТекстЗапроса);
 	Результат = FormatQueryTextAtServer(стрТекстЗапроса);
 
 	If TypeOf(Результат) <> Тип("Строка") Then
@@ -4377,14 +4370,14 @@ Procedure Команда_ФорматироватьТекстЗапроса(Ко
 
 	EndIf;
 
-	КомментарииЗапроса_Восстановить(Результат);
+	QueryComments_Restore(Результат);
 
 	ТекстКоличество = New TextDocument;
 	ТекстКоличество.УстановитьТекст(QueryText);
 	Элементы.QueryText.УстановитьГраницыВыделения(1, 1, ТекстКоличество.КоличествоСтрок() + 1, 1);
 	Элементы.QueryText.ВыделенныйТекст = Результат;
 	PutEditingQuery();
-	Модифицированность = True;
+	Modified = True;
 
 EndProcedure
 
@@ -4441,7 +4434,7 @@ Procedure GetHookedQueries_Command(Command)
 	Состояние("Удаление временных файлов...", 100, стрПояснение);
 	DeleteFilesAtServer(маФайлыЗапросов);
 	ShowConsoleMessageBox("Загруженно перехваченных запросов: " + маФайлыЗапросов.Количество());
-	Модифицированность = Модифицированность Или маФайлыЗапросов.Количество() > 0;
+	Modified = Modified Или маФайлыЗапросов.Количество() > 0;
 
 EndProcedure
 
@@ -4463,7 +4456,7 @@ Procedure QueryBatchAdd_Command(Command)
 	Элементы.QueryBatch.ТекущаяСтрока = QueryBatch.GetItems().Добавить().ПолучитьИдентификатор();
 	Элементы.QueryBatch.ТекущийЭлемент = Элементы.QueryListQuery;
 	Элементы.QueryBatch.ИзменитьСтроку();
-	Модифицированность = True;
+	Modified = True;
 EndProcedure
 
 &AtClient
@@ -4483,7 +4476,7 @@ Procedure QueryBatchLevelUp_Command(Command)
 		Элементы.QueryBatch.ТекущаяСтрока = НоваяСтрока.ПолучитьИдентификатор();
 	EndIf;
 
-	Модифицированность = True;
+	Modified = True;
 
 EndProcedure
 
@@ -4499,7 +4492,7 @@ Procedure QueryBatchCopy_Command(Command)
 	Элементы.QueryBatch.ТекущийЭлемент = Элементы.QueryListQuery;
 	Элементы.QueryBatch.ИзменитьСтроку();
 
-	Модифицированность = True;
+	Modified = True;
 
 EndProcedure
 
@@ -4656,7 +4649,7 @@ Function ПолучитьСостояниеФоновогоЗадания()
 EndFunction
 
 &AtClient
-Procedure ОтобразитьСостояниеВыполненияАлгоритма(СостояниеПрогресса = Undefined, Секунды = Undefined,
+Procedure ShowAlgorithmExecutionStatus(СостояниеПрогресса = Undefined, Секунды = Undefined,
 	фЧерезСостояние = False)
 
 	If Секунды = Undefined Then
@@ -4697,7 +4690,7 @@ EndProcedure
 Procedure ОтобразитьСостояниеФоновогоЗадания() Экспорт
 
 	If Не ValueIsFilled(BackgroundJobID) Then
-		ОтобразитьСостояниеВыполненияАлгоритма();
+		ShowAlgorithmExecutionStatus();
 		Return;
 	EndIf;
 
@@ -4710,17 +4703,17 @@ Procedure ОтобразитьСостояниеФоновогоЗадания()
 	EndIf;
 
 	If СостояниеЗадания.Состояние = 0 Then
-		ОтобразитьСостояниеВыполненияАлгоритма(СостояниеЗадания.СостояниеПрогресса, ТекущаяДата()
+		ShowAlgorithmExecutionStatus(СостояниеЗадания.СостояниеПрогресса, ТекущаяДата()
 			- СостояниеЗадания.Начало);
 		AttachIdleHandler("ОтобразитьСостояниеФоновогоЗадания",
 			Object.AlgorithmExecutionUpdateIntervalOption / 1000 / 2, True);
 	ElsIf СостояниеЗадания.Состояние = 2 Then
 		ShowConsoleMessageBox(СостояниеЗадания.ИнформацияОбОшибке);
 		BackgroundJobID = "";
-		ОтобразитьСостояниеВыполненияАлгоритма();
+		ShowAlgorithmExecutionStatus();
 	Else
 		BackgroundJobID = "";
-		ОтобразитьСостояниеВыполненияАлгоритма();
+		ShowAlgorithmExecutionStatus();
 	EndIf;
 
 EndProcedure
@@ -4846,7 +4839,7 @@ Function ВыполнитьАлгоритмПострочноСИндикаци�
 			Прервать;
 		EndIf;
 
-		ОтобразитьСостояниеВыполненияАлгоритма(стРезультат, ТекущаяДата() - стРезультат.Начало, True);
+		ShowAlgorithmExecutionStatus(стРезультат, ТекущаяДата() - стРезультат.Начало, True);
 		ОбработкаПрерыванияПользователя();
 
 		If Не стРезультат.Продолжать Then
@@ -4855,7 +4848,7 @@ Function ВыполнитьАлгоритмПострочноСИндикаци�
 
 	EndDo;
 
-	ОтобразитьСостояниеВыполненияАлгоритма();
+	ShowAlgorithmExecutionStatus();
 
 	Return стРезультат;
 
@@ -4877,7 +4870,7 @@ Procedure ExecuteDataProcessor_Command(Command)
 		Return;
 	EndIf;
 
-	If Не ПустаяСтрока(BackgroundJobID) Then
+	If Не IsBlankString(BackgroundJobID) Then
 		//прерывание выполнения
 		ПрерватьФоновоеЗадание();
 		ОтобразитьСостояниеФоновогоЗадания();
@@ -5003,15 +4996,15 @@ EndProcedure
 
 &AtClient
 Procedure ShowHideQueryResultBatch_Command(Command)
-	фВидимостьПакетаРезультатаЗапроса = Не Элементы.ShowHideQueryResultBatch.Пометка;
-	Элементы.ShowHideQueryResultBatch.Пометка = фВидимостьПакетаРезультатаЗапроса;
-	Элементы.QueryResultBatch.Видимость = фВидимостьПакетаРезультатаЗапроса;
-	Элементы.ResultInBatchGroup.Видимость = Не фВидимостьПакетаРезультатаЗапроса;
-	Object.SavedStates.Вставить("ВидимостьПакетаРезультатаЗапроса", фВидимостьПакетаРезультатаЗапроса);
+	фQueryResultBatchVisible = Не Элементы.ShowHideQueryResultBatch.Пометка;
+	Элементы.ShowHideQueryResultBatch.Пометка = фQueryResultBatchVisible;
+	Элементы.QueryResultBatch.Видимость = фQueryResultBatchVisible;
+	Элементы.ResultInBatchGroup.Видимость = Не фQueryResultBatchVisible;
+	Object.SavedStates.Вставить("QueryResultBatchVisible", фQueryResultBatchVisible);
 EndProcedure
 
 &AtServer
-Procedure ПараметрыЗапросаРядомСТекстомAtServer()
+Procedure QueryParametersNextToTextAtServer()
 	If Элементы.QueryParametersNextToText.Пометка Then
 		Элементы.Varестить(Элементы.QueryParameters, Элементы.ГруппаПараметры);
 	Else
@@ -5023,7 +5016,7 @@ EndProcedure
 Procedure QueryParametersNextToText_Command(Command)
 	Элементы.QueryParametersNextToText.Пометка = Не Элементы.QueryParametersNextToText.Пометка;
 	SavedStates_Save("QueryParametersNextToText", Элементы.QueryParametersNextToText.Пометка);
-	ПараметрыЗапросаРядомСТекстомAtServer();
+	QueryParametersNextToTextAtServer();
 EndProcedure
 
 #Region Команда_ТехнологическийЖурнал
@@ -5032,21 +5025,21 @@ EndProcedure
 Procedure TechnologicalLog_Disable()
 	Обработка = FormAttributeToValue("Object");
 	Обработка.TechnologicalLog_Disable();
-	ЗначениеВРеквизитФормы(Обработка, "Object");
+	ValueToFormAttribute(Обработка, "Object");
 EndProcedure
 
 &AtServer
 Procedure TechnologicalLog_Enable()
 	Обработка = FormAttributeToValue("Object");
 	Обработка.TechnologicalLog_Enable();
-	ЗначениеВРеквизитФормы(Обработка, "Object");
+	ValueToFormAttribute(Обработка, "Object");
 EndProcedure
 
 &AtServer
 Function TechnologicalLog_Enabled()
 	Обработка = FormAttributeToValue("Object");
 	фРезультат = Обработка.TechnologicalLog_Enabled();
-	ЗначениеВРеквизитФормы(Обработка, "Object");
+	ValueToFormAttribute(Обработка, "Object");
 	Return фРезультат;
 EndFunction
 
@@ -5054,12 +5047,12 @@ EndFunction
 Function TechnologicalLog_Disabled()
 	Обработка = FormAttributeToValue("Object");
 	фРезультат = Обработка.TechnologicalLog_Disabled();
-	ЗначениеВРеквизитФормы(Обработка, "Object");
+	ValueToFormAttribute(Обработка, "Object");
 	Return фРезультат;
 EndFunction
 
 &AtClient
-Procedure ТехнологическийЖурнал_ОжиданиеВключения() Экспорт
+Procedure TechnologicalLog_WaitingForEnable() Экспорт
 
 	If Не Элементы.TechnologicalLog.Пометка Then
 		Return;
@@ -5069,7 +5062,7 @@ Procedure ТехнологическийЖурнал_ОжиданиеВключ�
 		ТехнологическийЖурнал_ИндикацияВключения(True);
 	Else
 		If CurrentUniversalDateInMilliseconds() - TechLogBeginEndTime < 60 * 1000 Then
-			AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВключения",
+			AttachIdleHandler("TechnologicalLog_WaitingForEnable",
 				TechLogSwitchingPollingPeriodOption, True);
 		Else
 			//Технологический журнал включить не получилось.
@@ -5132,7 +5125,7 @@ Procedure TechnologicalLog_Command(Command)
 		Элементы.TechnologicalLog.Пометка = True;
 		ТехнологическийЖурнал_ИндикацияВключения(False);
 		TechLogBeginEndTime = CurrentUniversalDateInMilliseconds();
-		AttachIdleHandler("ТехнологическийЖурнал_ОжиданиеВключения",
+		AttachIdleHandler("TechnologicalLog_WaitingForEnable",
 			TechLogSwitchingPollingPeriodOption, True);
 	EndIf;
 EndProcedure
@@ -5162,8 +5155,8 @@ EndProcedure
 &AtClient
 Procedure ExecuteContinuation(AdditionalParameters)
 
-	If AdditionalParameters.Продолжение = "ПриОткрытииПродолжение" Then
-		ПриОткрытииПродолжение(AdditionalParameters);
+	If AdditionalParameters.Продолжение = "OnOpenFollowUp" Then
+		OnOpenFollowUp(AdditionalParameters);
 		Return;
 	ElsIf AdditionalParameters.Продолжение = "ЗагрузитьПакетЗапросов" Then
 		ЗагрузитьПакетЗапросов(AdditionalParameters);
@@ -5344,7 +5337,7 @@ Procedure UT_EditValue(Command)
 EndProcedure
 
 &AtServer
-Procedure УИ_ЗаполнитьДаннымиОтладки()
+Procedure UT_FillWithDebugData()
 	If Не Параметры.Свойство("ДанныеОтладки") Then
 		Return;
 	EndIf;
@@ -5353,7 +5346,7 @@ Procedure УИ_ЗаполнитьДаннымиОтладки()
 		Object.SavedStates = New Structure;
 	EndIf;
 
-	Модифицированность = False;
+	Modified = False;
 
 	AutoSaveIntervalOption = 60;
 	SaveCommentsOption = True;
