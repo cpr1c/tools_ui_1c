@@ -1617,7 +1617,7 @@ EndFunction
 // The index of the file icon is being received. It is the index in the FilesIconsCollection picture.
 Function GetFileIconIndex(val FileExtention) Export
 
-	Если ТипЗнч(РасширениеФайла) <> Тип("Строка") Или IsBlankString(РасширениеФайла) Тогда
+	Если ТипЗнч(FileExtention) <> Тип("Строка") Или IsBlankString(FileExtention) Тогда
 
 		Return 0;
 	КонецЕсли;
