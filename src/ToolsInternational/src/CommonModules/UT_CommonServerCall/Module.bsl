@@ -548,14 +548,14 @@
 
 КонецФункции
 
-Функция СтруктураВременныхТаблицМенеджераВременныхТаблиц(МенеджерВременныхТаблиц) Экспорт
-	СтруктураВременныхТаблиц = Новый Структура;
-	Для Каждого ТаблицаВТ Из МенеджерВременныхТаблиц.Таблицы Цикл
-		СтруктураВременныхТаблиц.Вставить(ТаблицаВТ.ПолноеИмя, ТаблицаВТ.ПолучитьДанные().Выгрузить());
-	КонецЦикла;
+Function TempTablesManagerTempTablesStructure(TempTablesManager) Экспорт
+	TempTablesStructure = New Structure;
+	For each TempTable In TempTablesManager.Tables Do
+		TempTablesStructure.Insert(TempTable.FullName, TempTable.GetData().Unload());
+	EndDo;
 
-	Возврат СтруктураВременныхТаблиц;
-КонецФункции
+	Return TempTablesStructure;
+EndFunction
 
 //https://infostart.ru/public/1207287/
 Функция ВыполнитьСравнениеДвухТаблицЗначений(ТаблицаБазовая, ТаблицаСравнения, СписокКолонокСравнения) Экспорт

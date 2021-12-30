@@ -1,768 +1,5 @@
-#Область DynamicList
-
-////////////////////////////////////////////////////////////////////////////////
-// Functions for works with dynamic list filters and parameters.
-//
-
-// Searches for the item and the group of the dynamic list filter by the passed field name or presentation.
-//
-// Parameters:
-//  SearchArea - DataCompositionFilter, DataCompositionFilterItemCollection,DataCompositionFilterItemGroup - a container of items and filter groups. For 
-//                  example, List.Filter or a group in a filer.
-//  FieldName - String - a composition field name. Not applicable to groups.
-//  Presentation - String - the composition field presentation.
-//
-// Returns:
-//  Array - a collection of filters.
-//
-Function FindFilterItemsAndGroups(Val SearchArea,
-									Val FieldName = Undefined,
-									Val Presentation = Undefined) Export
-	
-	If ValueIsFilled(FieldName) Then
-		SearchValue = New DataCompositionField(FieldName);
-		SearchMethod = 1;
-	Else
-		SearchMethod = 2;
-		SearchValue = Presentation;
-	EndIf;
-	
-	ItemArray = New Array;
-
-	FindRecursively(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
-
-	Return ItemArray;
-
-EndFunction
-
-// Adds filter groups to ItemCollection.
-//
-// Parameters:
-//  ItemCollection - DataCompositionFilter, DataCompositionFilterItemCollection,DataCompositionFilterItemGroup - a container of items and filter groups. 
-//                       For example, List.Filter or a group in a filer.
-//  Presentation - String - the group presentation.
-//  GroupType - DataCompositionFilterItemsGroupType - the group type.
-//
-// Returns:
-//  DataCompositionFilterItemGroup - a filter group.
-//
-Function CreateFilterItemGroup(Val ItemCollection, Presentation, GroupType) Export
-	
-	If TypeOf(ItemCollection) = Type("DataCompositionFilterItemGroup") Then
-		ItemCollection = ItemCollection.Items;
-	EndIf;
-	
-	FilterItemsGroup = FindFilterItemByPresentation(ItemCollection, Presentation);
-	If FilterItemsGroup = Undefined Then
-		FilterItemsGroup = ItemCollection.Add(Type("DataCompositionFilterItemGroup"));
-	Else
-		FilterItemsGroup.Items.Clear();
-	EndIf;
-	
-	FilterItemsGroup.Presentation    = Presentation;
-	FilterItemsGroup.Application       = DataCompositionFilterApplicationType.Items;
-	FilterItemsGroup.ViewMode = DataCompositionSettingsItemViewMode.Inaccessible;
-	FilterItemsGroup.GroupType        = GroupType;
-	FilterItemsGroup.Use    = True;
-	
-	Return FilterItemsGroup;
-	
-EndFunction
-
-// Adds a composition item into a composition item container.
-//
-// Parameters:
-//  AreaToAddTo - DataCompositionFilterItemCollection - a container with items and filter groups. 
-//                                                                 For example, List.Filter or a group in a filter.
-//  FieldName - String - a data composition field name. Required.
-//  RightValue - Arbitrary - the value to compare to.
-//  ComparisonType            - DataCompositionComparisonType - a comparison type.
-//  Presentation           - String - presentation of the data composition item.
-//  Usage - Boolean - the flag that indicates whether the item is used.
-//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
-//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
-//                                                    
-// Returns:
-//  DataCompositionFilterItem - a composition item.
-//
-Function AddCompositionItem(AreaToAddTo,
-									Val FieldName,
-									Val ComparisonType,
-									Val RightValue = Undefined,
-									Val Presentation  = Undefined,
-									Val Usage  = Undefined,
-									val DisplayMode = Undefined,
-									val UserSettingID = Undefined) Export
-	
-	Item = AreaToAddTo.Items.Add(Type("DataCompositionFilterItem"));
-	Item.LeftValue = New DataCompositionField(FieldName);
-	Item.ComparisonType = ComparisonType;
-	
-	If DisplayMode = Undefined Then
-		Item.ViewMode = DataCompositionSettingsItemViewMode.Inaccessible;
-	Else
-		Item.ViewMode = DisplayMode;
-	EndIf;
-	
-	If RightValue <> Undefined Then
-		Item.RightValue = RightValue;
-	EndIf;
-	
-	If Presentation <> Undefined Then
-		Item.Presentation = Presentation;
-	EndIf;
-	
-	If Usage <> Undefined Then
-		Item.Use = Usage;
-	EndIf;
-	
-	// Important: The ID must be set up in the final stage of the item customization or it will be 
-	// copied to the user settings in a half-filled condition.
-	// 
-	If UserSettingID <> Undefined Then
-		Item.UserSettingID = UserSettingID;
-	ElsIf Item.ViewMode <> DataCompositionSettingsItemViewMode.Inaccessible Then
-		Item.UserSettingID = FieldName;
-	EndIf;
-	
-	Return Item;
-	
-EndFunction
-
-// Changes the filter item with the specified field name or presentation.
-//
-// Parameters:
-//  SearchArea - DataCompositionFilterItemCollection - a container with items and filter groups, for 
-//                                                             example, List.Filter or a group in the filter.
-//  FieldName - String - a data composition field name. Required.
-//  Presentation           - String - presentation of the data composition item.
-//  RightValue - Arbitrary - the value to compare to.
-//  ComparisonType            - DataCompositionComparisonType - a comparison type.
-//  Usage - Boolean - the flag that indicates whether the item is used.
-//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
-//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
-//                                                    
-//
-// Returns:
-//  Number - the changed item count.
-//
-Function ChangeFilterItems(SearchArea,
-								Val FieldName = Undefined,
-								Val Presentation = Undefined,
-								Val RightValue = Undefined,
-								Val ComparisonType = Undefined,
-								Val Usage = Undefined,
-								Val DisplayMode = Undefined,
-								Val UserSettingID = Undefined) Export
-	
-	If ValueIsFilled(FieldName) Then
-		SearchValue = New DataCompositionField(FieldName);
-		SearchMethod = 1;
-	Else
-		SearchMethod = 2;
-		SearchValue = Presentation;
-	EndIf;
-	
-	ItemArray = New Array;
-	
-	FindRecursively(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
-	
-	For Each Item In ItemArray Do
-		If FieldName <> Undefined Then
-			Item.LeftValue = New DataCompositionField(FieldName);
-		EndIf;
-		If Presentation <> Undefined Then
-			Item.Presentation = Presentation;
-		EndIf;
-		If Usage <> Undefined Then
-			Item.Use = Usage;
-		EndIf;
-		If ComparisonType <> Undefined Then
-			Item.ComparisonType = ComparisonType;
-		EndIf;
-		If RightValue <> Undefined Then
-			Item.RightValue = RightValue;
-		EndIf;
-		If DisplayMode <> Undefined Then
-			Item.ViewMode = DisplayMode;
-		EndIf;
-		If UserSettingID <> Undefined Then
-			Item.UserSettingID = UserSettingID;
-		EndIf;
-	EndDo;
-	
-	Return ItemArray.Count();
-	
-EndFunction
-
-// Delete filter items that contain the given field name or presentation.
-//
-// Parameters:
-//  AreaToDelete - DataCompositionFilterItemCollection - a container of items or filter groups. For 
-//                                                               example, List.Filter or a group in the filter.
-//  FieldName - String - the composition field name. Not applicable to groups.
-//  Presentation   - String - the composition field presentation.
-//
-Procedure DeleteFilterItems(Val AreaToDelete, Val FieldName = Undefined, Val Presentation = Undefined) Export
-	
-	If ValueIsFilled(FieldName) Then
-		SearchValue = New DataCompositionField(FieldName);
-		SearchMethod = 1;
-	Else
-		SearchMethod = 2;
-		SearchValue = Presentation;
-	EndIf;
-	
-	ItemArray = New Array;
-	
-	FindRecursively(AreaToDelete.Items, ItemArray, SearchMethod, SearchValue);
-	
-	For Each Item In ItemArray Do
-		If Item.Parent = Undefined Then
-			AreaToDelete.Items.Delete(Item);
-		Else
-			Item.Parent.Items.Delete(Item);
-		EndIf;
-	EndDo;
-	
-EndProcedure
-
-// Adds or replaces the existing filter item.
-//
-// Parameters:
-//  WhereToAdd - DataCompositionFilterItemCollection - a container with items and filter groups, for 
-//                                     example, List.Filter or a group in the filter.
-//  FieldName - String - a data composition field name. Required.
-//  RightValue - Arbitrary - the value to compare to.
-//  ComparisonType            - DataCompositionComparisonType - a comparison type.
-//  Presentation           - String - presentation of the data composition item.
-//  Usage - Boolean - the flag that indicates whether the item is used.
-//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
-//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
-//                                                    
-//
-Procedure SetFilterItem(WhereToAdd,
-								Val FieldName,
-								Val RightValue = Undefined,
-								Val ComparisonType = Undefined,
-								Val Presentation = Undefined,
-								Val Usage = Undefined,
-								Val DisplayMode = Undefined,
-								Val UserSettingID = Undefined) Export
-	
-	ModifiedCount = ChangeFilterItems(WhereToAdd, FieldName, Presentation,
-							RightValue, ComparisonType, Usage, DisplayMode, UserSettingID);
-	
-	If ModifiedCount = 0 Then
-		If ComparisonType = Undefined Then
-			If TypeOf(RightValue) = Type("Array")
-				Or TypeOf(RightValue) = Type("FixedArray")
-				Or TypeOf(RightValue) = Type("ValueList") Then
-				ComparisonType = DataCompositionComparisonType.InList;
-			Else
-				ComparisonType = DataCompositionComparisonType.Equal;
-			EndIf;
-		EndIf;
-		If DisplayMode = Undefined Then
-			DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible;
-		EndIf;
-		AddCompositionItem(WhereToAdd, FieldName, ComparisonType,
-								RightValue, Presentation, Usage, DisplayMode, UserSettingID);
-	EndIf;
-	
-EndProcedure
-
-// Adds or replaces a filter item of a dynamic list.
-//
-// Parameters:
-//   DynamicList - DynamicList - the list to be filtered.
-//   FieldName            - String - the field the filter to apply to.
-//   RightValue     - Arbitrary - the filter value.
-//       Optional. The default value is Undefined.
-//       Warning! If Undefined is passed, the value will not be changed.
-//   ComparisonType  - DataCompositionComparisonType - a filter condition.
-//   Presentation - String - presentation of the data composition item.
-//       Optional. The default value is Undefined.
-//       If another value is specified, only the presentation flag is shown, not the value.
-//       To show the value, pass an empty string.
-//   Usage - Boolean - the flag that indicates whether to apply the filter.
-//       Optional. The default value is Undefined.
-//   DisplayMode - DataCompositionSettingItemDisplayMode - the filter display mode.
-//                                                                          
-//       * DataCompositionSettingItemDisplayMode.QuickAccess - in the Quick Settings bar on top of the list.
-//       * DataCompositionSettingItemDisplayMode.Normal - in the list settings (submenu More).
-//       * DataCompositionSettingItemDisplayMode.Inaccessible - privent users from changing the filter.
-//   UserSettingID - String - the filter UUID.
-//       Used to link user settings.
-//
-Procedure SetDynamicListFilterItem(DynamicList, FieldName,
-	RightValue = Undefined,
-	ComparisonType = Undefined,
-	Presentation = Undefined,
-	Usage = Undefined,
-	DisplayMode = Undefined,
-	UserSettingID = Undefined) Export
-	
-	If DisplayMode = Undefined Then
-		DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible;
-	EndIf;
-	
-	If DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible Then
-		DynamicListFilter = DynamicList.SettingsComposer.FixedSettings.Filter;
-	Else
-		DynamicListFilter = DynamicList.SettingsComposer.Settings.Filter;
-	EndIf;
-	
-	SetFilterItem(
-		DynamicListFilter,
-		FieldName,
-		RightValue,
-		ComparisonType,
-		Presentation,
-		Usage,
-		DisplayMode,
-		UserSettingID);
-	
-EndProcedure
-
-// Delete a filter group item of a dynamic list.
-//
-// Parameters:
-//  DynamicList - DynamicList - the form attribute whose filter is to be modified.
-//  FieldName - String - the composition field name. Not applicable to groups.
-//  Presentation   - String - the composition field presentation.
-//
-Procedure DeleteDynamicListFilterGroupItems(DynamicList, FieldName = Undefined, Presentation = Undefined) Export
-	
-	DeleteFilterItems(
-		DynamicList.SettingsComposer.FixedSettings.Filter,
-		FieldName,
-		Presentation);
-	
-	DeleteFilterItems(
-		DynamicList.SettingsComposer.Settings.Filter,
-		FieldName,
-		Presentation);
-	
-EndProcedure
-
-// Sets or modifies the ParameterName parameter of the List dynamic list.
-//
-// Parameters:
-//  List          - DynamicList - the form attribute whose parameter is to be modified.
-//  ParameterName    - String             - name of the dynamic list parameter.
-//  Value        - Arbitrary        - new value of the parameter.
-//  Usage   - Boolean             - flag indicating whether the parameter is used.
-//
-Procedure SetDynamicListParameter(List, ParameterName, Value, Usage = True) Export
-	
-	DataCompositionParameterValue = List.Parameters.FindParameterValue(New DataCompositionParameter(ParameterName));
-	If DataCompositionParameterValue <> Undefined Then
-		If Usage AND DataCompositionParameterValue.Value <> Value Then
-			DataCompositionParameterValue.Value = Value;
-		EndIf;
-		If DataCompositionParameterValue.Use <> Usage Then
-			DataCompositionParameterValue.Use = Usage;
-		EndIf;
-	EndIf;
-	
-EndProcedure
-
-Function SetDCSParemeterValue(КомпоновщикНастроек, ИмяПараметра, ЗначениеПараметра,
-	ИспользоватьНеЗаполненный = Истина) Export
-
-	ПараметрУстановлен = Ложь;
-
-	ПараметрКомпоновкиДанных = Новый ПараметрКомпоновкиДанных(ИмяПараметра);
-	ЗначениеПараметраКомпоновкиДанных = КомпоновщикНастроек.Настройки.ПараметрыДанных.НайтиЗначениеПараметра(
-		ПараметрКомпоновкиДанных);
-	Если ЗначениеПараметраКомпоновкиДанных <> Неопределено Тогда
-
-		ЗначениеПараметраКомпоновкиДанных.Значение = ЗначениеПараметра;
-		ЗначениеПараметраКомпоновкиДанных.Использование = ?(ИспользоватьНеЗаполненный, Истина, ValueIsFilled(
-			ЗначениеПараметраКомпоновкиДанных.Значение));
-
-		ПараметрУстановлен = Истина;
-
-	КонецЕсли;
-
-	Return ПараметрУстановлен;
-
-EndFunction
-
-Procedure FindRecursively(ItemCollection, ItemArray, SearchMethod, SearchValue)
-	
-	For each FilterItem In ItemCollection Do
-		
-		If TypeOf(FilterItem) = Type("DataCompositionFilterItem") Then
-			
-			If SearchMethod = 1 Then
-				If FilterItem.LeftValue = SearchValue Then
-					ItemArray.Add(FilterItem);
-				EndIf;
-			ElsIf SearchMethod = 2 Then
-				If FilterItem.Presentation = SearchValue Then
-					ItemArray.Add(FilterItem);
-				EndIf;
-			EndIf;
-		Else
-			
-			FindRecursively(FilterItem.Items, ItemArray, SearchMethod, SearchValue);
-			
-			If SearchMethod = 2 AND FilterItem.Presentation = SearchValue Then
-				ItemArray.Add(FilterItem);
-			EndIf;
-			
-		EndIf;
-		
-	EndDo;
-	
-EndProcedure
-
-// Searches for a filter item in the collection by the specified presentation.
-//
-// Parameters:
-//  ItemCollection - DataCompositionFilterItemCollection - container with filter groups and items, 
-//                                                                  such as List.Filter.Filter items or group.
-//  Presentation - String - group presentation.
-// 
-// Returns:
-//  DataCompositionFilterItem - filter item.
-//
-Function FindFilterItemByPresentation(ItemCollection, Presentation) Export
-	
-	ReturnValue = Undefined;
-	
-	For each FilterItem In ItemCollection Do
-		If FilterItem.Presentation = Presentation Then
-			ReturnValue = FilterItem;
-			Break;
-		EndIf;
-	EndDo;
-	
-	Return ReturnValue
-	
-EndFunction
-
-
-Процедура СкопироватьЭлементы(ПриемникЗначения, ИсточникЗначения, ОчищатьПриемник = Истина) Export
-
-	Если ТипЗнч(ИсточникЗначения) = Тип("УсловноеОформлениеКомпоновкиДанных") Или ТипЗнч(ИсточникЗначения) = Тип(
-		"ВариантыПользовательскогоПоляВыборКомпоновкиДанных") Или ТипЗнч(ИсточникЗначения) = Тип(
-		"ОформляемыеПоляКомпоновкиДанных") Или ТипЗнч(ИсточникЗначения) = Тип(
-		"ЗначенияПараметровДанныхКомпоновкиДанных") Тогда
-		СоздаватьПоТипу = Ложь;
-	Иначе
-		СоздаватьПоТипу = Истина;
-	КонецЕсли;
-	ПриемникЭлементов = ПриемникЗначения.Элементы;
-	ИсточникЭлементов = ИсточникЗначения.Элементы;
-	Если ОчищатьПриемник Тогда
-		ПриемникЭлементов.Очистить();
-	КонецЕсли;
-
-	Для Каждого ЭлементИсточник Из ИсточникЭлементов Цикл
-
-		Если ТипЗнч(ЭлементИсточник) = Тип("ЭлементПорядкаКомпоновкиДанных") Тогда
-			// Элементы порядка добавляем в начало
-			Индекс = ИсточникЭлементов.Индекс(ЭлементИсточник);
-			ЭлементПриемник = ПриемникЭлементов.Вставить(Индекс, ТипЗнч(ЭлементИсточник));
-		Иначе
-			Если СоздаватьПоТипу Тогда
-				ЭлементПриемник = ПриемникЭлементов.Добавить(ТипЗнч(ЭлементИсточник));
-			Иначе
-				ЭлементПриемник = ПриемникЭлементов.Добавить();
-			КонецЕсли;
-		КонецЕсли;
-
-		ЗаполнитьЗначенияСвойств(ЭлементПриемник, ЭлементИсточник);
-		// В некоторых коллекциях необходимо заполнить другие коллекции
-		Если ТипЗнч(ИсточникЭлементов) = Тип("КоллекцияЭлементовУсловногоОформленияКомпоновкиДанных") Тогда
-			СкопироватьЭлементы(ЭлементПриемник.Поля, ЭлементИсточник.Поля);
-			СкопироватьЭлементы(ЭлементПриемник.Отбор, ЭлементИсточник.Отбор);
-			ЗаполнитьЭлементы(ЭлементПриемник.Оформление, ЭлементИсточник.Оформление);
-		ИначеЕсли ТипЗнч(ИсточникЭлементов) = Тип("КоллекцияВариантовПользовательскогоПоляВыборКомпоновкиДанных") Тогда
-			СкопироватьЭлементы(ЭлементПриемник.Отбор, ЭлементИсточник.Отбор);
-		КонецЕсли;
-		
-		// В некоторых элементах коллекции необходимо заполнить другие коллекции
-		Если ТипЗнч(ЭлементИсточник) = Тип("ГруппаЭлементовОтбораКомпоновкиДанных") Тогда
-			СкопироватьЭлементы(ЭлементПриемник, ЭлементИсточник);
-		ИначеЕсли ТипЗнч(ЭлементИсточник) = Тип("ГруппаВыбранныхПолейКомпоновкиДанных") Тогда
-			СкопироватьЭлементы(ЭлементПриемник, ЭлементИсточник);
-		ИначеЕсли ТипЗнч(ЭлементИсточник) = Тип("ПользовательскоеПолеВыборКомпоновкиДанных") Тогда
-			СкопироватьЭлементы(ЭлементПриемник.Варианты, ЭлементИсточник.Варианты);
-		ИначеЕсли ТипЗнч(ЭлементИсточник) = Тип("ПользовательскоеПолеВыражениеКомпоновкиДанных") Тогда
-			ЭлементПриемник.УстановитьВыражениеДетальныхЗаписей (ЭлементИсточник.ПолучитьВыражениеДетальныхЗаписей());
-			ЭлементПриемник.УстановитьВыражениеИтоговыхЗаписей(ЭлементИсточник.ПолучитьВыражениеИтоговыхЗаписей());
-			ЭлементПриемник.УстановитьПредставлениеВыраженияДетальныхЗаписей(
-				ЭлементИсточник.ПолучитьПредставлениеВыраженияДетальныхЗаписей ());
-			ЭлементПриемник.УстановитьПредставлениеВыраженияИтоговыхЗаписей(
-				ЭлементИсточник.ПолучитьПредставлениеВыраженияИтоговыхЗаписей ());
-		КонецЕсли;
-
-	КонецЦикла;
-
-КонецПроцедуры
-Процедура ЗаполнитьЭлементы(ПриемникЗначения, ИсточникЗначения, ПервыйУровень = Неопределено) Export
-
-	Если ТипЗнч(ПриемникЗначения) = Тип("КоллекцияЗначенийПараметровКомпоновкиДанных") Тогда
-		КоллекцияЗначений = ИсточникЗначения;
-	Иначе
-		КоллекцияЗначений = ИсточникЗначения.Элементы;
-	КонецЕсли;
-
-	Для Каждого ЭлементИсточник Из КоллекцияЗначений Цикл
-		Если ПервыйУровень = Неопределено Тогда
-			ЭлементПриемник = ПриемникЗначения.НайтиЗначениеПараметра(ЭлементИсточник.Параметр);
-		Иначе
-			ЭлементПриемник = ПервыйУровень.НайтиЗначениеПараметра(ЭлементИсточник.Параметр);
-		КонецЕсли;
-		Если ЭлементПриемник = Неопределено Тогда
-			Продолжить;
-		КонецЕсли;
-		ЗаполнитьЗначенияСвойств(ЭлементПриемник, ЭлементИсточник);
-		Если ТипЗнч(ЭлементИсточник) = Тип("ЗначениеПараметраКомпоновкиДанных") Тогда
-			Если ЭлементИсточник.ЗначенияВложенныхПараметров.Количество() <> 0 Тогда
-				ЗаполнитьЭлементы(ЭлементПриемник.ЗначенияВложенныхПараметров,
-					ЭлементИсточник.ЗначенияВложенныхПараметров, ПриемникЗначения);
-			КонецЕсли;
-		КонецЕсли;
-	КонецЦикла;
-
-КонецПроцедуры
-
-
-// Копирует настройки компоновки данных
-//
-// Параметры:
-//	НастройкиПриемник	- НастройкиКомпоновкиДанных, НастройкиВложенногоОбъектаКомпоновкиДанных
-//		ГруппировкаКомпоновкиДанных, ГруппировкаТаблицыКомпоновкиДанных, ГруппировкаДиаграммыКомпоновкиДанных,
-//		ТаблицаКомпоновкиДанных, ДиаграммаКомпоновкиДанных - коллекция настроек КД, куда копируются настройки
-//	НастройкиИсточник	- НастройкиКомпоновкиДанных, НастройкиВложенногоОбъектаКомпоновкиДанных
-//		ГруппировкаКомпоновкиДанных, ГруппировкаТаблицыКомпоновкиДанных, ГруппировкаДиаграммыКомпоновкиДанных,
-//		ТаблицаКомпоновкиДанных, ДиаграммаКомпоновкиДанных - коллекция настроек КД, откуда копируются настройки.
-//
-Процедура СкопироватьНастройкиКомпоновкиДанных(НастройкиПриемник, НастройкиИсточник) Export
-	
-	Если НастройкиИсточник = Неопределено Тогда
-		Return;
-	КонецЕсли;
-	
-	Если ТипЗнч(НастройкиПриемник) = Тип("НастройкиКомпоновкиДанных") Тогда
-		Для каждого Параметр Из НастройкиИсточник.ПараметрыДанных.Элементы Цикл
-			ЗначениеПараметра = НастройкиПриемник.ПараметрыДанных.НайтиЗначениеПараметра(Параметр.Параметр);
-			Если ЗначениеПараметра <> Неопределено Тогда
-				ЗаполнитьЗначенияСвойств(ЗначениеПараметра, Параметр);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-	
-	Если ТипЗнч(НастройкиИсточник) = Тип("НастройкиВложенногоОбъектаКомпоновкиДанных") Тогда
-		ЗаполнитьЗначенияСвойств(НастройкиПриемник, НастройкиИсточник);
-		СкопироватьНастройкиКомпоновкиДанных(НастройкиПриемник.Настройки, НастройкиИсточник.Настройки);
-		Return;
-	КонецЕсли;
-	
-	// Копирование настроек
-	Если ТипЗнч(НастройкиИсточник) = Тип("НастройкиКомпоновкиДанных") Тогда
-		
-		СкопироватьЭлементы(НастройкиПриемник.ПараметрыДанных,		НастройкиИсточник.ПараметрыДанных);
-		СкопироватьЭлементы(НастройкиПриемник.ПользовательскиеПоля,	НастройкиИсточник.ПользовательскиеПоля);
-		СкопироватьЭлементы(НастройкиПриемник.Отбор,				НастройкиИсточник.Отбор);
-		СкопироватьЭлементы(НастройкиПриемник.Порядок,				НастройкиИсточник.Порядок);
-		
-	КонецЕсли;
-	
-	Если ТипЗнч(НастройкиИсточник) = Тип("ГруппировкаКомпоновкиДанных")
-	 ИЛИ ТипЗнч(НастройкиИсточник) = Тип("ГруппировкаТаблицыКомпоновкиДанных")
-	 ИЛИ ТипЗнч(НастройкиИсточник) = Тип("ГруппировкаДиаграммыКомпоновкиДанных") Тогда
-		
-		СкопироватьЭлементы(НастройкиПриемник.ПоляГруппировки,	НастройкиИсточник.ПоляГруппировки);
-		СкопироватьЭлементы(НастройкиПриемник.Отбор,			НастройкиИсточник.Отбор);
-		СкопироватьЭлементы(НастройкиПриемник.Порядок,			НастройкиИсточник.Порядок);
-		ЗаполнитьЗначенияСвойств(НастройкиПриемник,				НастройкиИсточник);
-		
-	КонецЕсли;
-	
-	СкопироватьЭлементы(НастройкиПриемник.Выбор,				НастройкиИсточник.Выбор);
-	СкопироватьЭлементы(НастройкиПриемник.УсловноеОформление,	НастройкиИсточник.УсловноеОформление);
-	ЗаполнитьЭлементы(НастройкиПриемник.ПараметрыВывода,		НастройкиИсточник.ПараметрыВывода);
-	
-	// Копирование структуры
-	Если ТипЗнч(НастройкиИсточник) = Тип("НастройкиКомпоновкиДанных")
-	 ИЛИ ТипЗнч(НастройкиИсточник) = Тип("ГруппировкаКомпоновкиДанных") Тогда
-		
-		Для каждого ЭлементСтруктурыИсточник Из НастройкиИсточник.Structure Цикл
-			ЭлементСтруктурыПриемник = НастройкиПриемник.Structure.Добавить(ТипЗнч(ЭлементСтруктурыИсточник));
-			СкопироватьНастройкиКомпоновкиДанных(ЭлементСтруктурыПриемник, ЭлементСтруктурыИсточник);
-		КонецЦикла;
-		
-	КонецЕсли;
-	
-	Если ТипЗнч(НастройкиИсточник) = Тип("ГруппировкаТаблицыКомпоновкиДанных")
-	 ИЛИ ТипЗнч(НастройкиИсточник) = Тип("ГруппировкаДиаграммыКомпоновкиДанных") Тогда
-		
-		Для каждого ЭлементСтруктурыИсточник Из НастройкиИсточник.Structure Цикл
-			ЭлементСтруктурыПриемник = НастройкиПриемник.Structure.Добавить();
-			СкопироватьНастройкиКомпоновкиДанных(ЭлементСтруктурыПриемник, ЭлементСтруктурыИсточник);
-		КонецЦикла;
-		
-	КонецЕсли;
-	
-	Если ТипЗнч(НастройкиИсточник) = Тип("ТаблицаКомпоновкиДанных") Тогда
-		
-		Для каждого ЭлементСтруктурыИсточник Из НастройкиИсточник.Строки Цикл
-			ЭлементСтруктурыПриемник = НастройкиПриемник.Строки.Добавить();
-			СкопироватьНастройкиКомпоновкиДанных(ЭлементСтруктурыПриемник, ЭлементСтруктурыИсточник);
-		КонецЦикла;
-		
-		Для каждого ЭлементСтруктурыИсточник Из НастройкиИсточник.Колонки Цикл
-			ЭлементСтруктурыПриемник = НастройкиПриемник.Колонки.Добавить();
-			СкопироватьНастройкиКомпоновкиДанных(ЭлементСтруктурыПриемник, ЭлементСтруктурыИсточник);
-		КонецЦикла;
-		
-	КонецЕсли;
-	
-	Если ТипЗнч(НастройкиИсточник) = Тип("ДиаграммаКомпоновкиДанных") Тогда
-		
-		Для каждого ЭлементСтруктурыИсточник Из НастройкиИсточник.Серии Цикл
-			ЭлементСтруктурыПриемник = НастройкиПриемник.Серии.Добавить();
-			СкопироватьНастройкиКомпоновкиДанных(ЭлементСтруктурыПриемник, ЭлементСтруктурыИсточник);
-		КонецЦикла;
-		
-		Для каждого ЭлементСтруктурыИсточник Из НастройкиИсточник.Точки Цикл
-			ЭлементСтруктурыПриемник = НастройкиПриемник.Точки.Добавить();
-			СкопироватьНастройкиКомпоновкиДанных(ЭлементСтруктурыПриемник, ЭлементСтруктурыИсточник);
-		КонецЦикла;
-		
-	КонецЕсли;
-	
-КонецПроцедуры
-
-
-
-#КонецОбласти
-
 #Область Отладка
 
-Function СериализоватьЗапросДляОтладки(ОбъектОтладки)
-	StructureОбъекта = Новый Structure;
-
-	StructureОбъекта.Вставить("Текст", ОбъектОтладки.Текст);
-
-	StructureОбъекта.Вставить("Параметры", CopyRecursively(ОбъектОтладки.Параметры));
-
-	Если ОбъектОтладки.МенеджерВременныхТаблиц <> Неопределено Тогда
-		StructureВременныхТаблиц = UT_CommonServerCall.StructureВременныхТаблицМенеджераВременныхТаблиц(
-			ОбъектОтладки.МенеджерВременныхТаблиц);
-		StructureОбъекта.Вставить("ВременныеТаблицы", StructureВременныхТаблиц);
-	КонецЕсли;
-
-	Return StructureОбъекта;
-EndFunction
-
-Function СериализоватьСКДДляОтладки(СКД, НастройкиСКД, ВнешниеНаборыДанных)
-	Return UT_CommonServerCall.СериализоватьОбъектСКДДляОтладки(СКД, НастройкиСКД, ВнешниеНаборыДанных);
-EndFunction
-
-Function СериализоватьОбъектБДДляОтладки(ОбъектОтладки)
-	StructureОбъекта = Новый Structure;
-	StructureОбъекта.Вставить("Объект", ОбъектОтладки);
-
-	Return StructureОбъекта;
-EndFunction
-
-Function СериализоватьHTTPЗапросДляОтладки(ЗапросHTTP, СоединениеHTTP)
-	StructureОбъекта = Новый Structure;
-	StructureОбъекта.Вставить("АдресСервера", СоединениеHTTP.Сервер);
-	StructureОбъекта.Вставить("Порт", СоединениеHTTP.Порт);
-	StructureОбъекта.Вставить("ИспользоватьHTPPS", СоединениеHTTP.ЗащищенноеСоединение <> Неопределено);
-	Если СоединениеHTTP.ЗащищенноеСоединение = Неопределено Тогда
-		StructureОбъекта.Вставить("Протокол", "http");
-	Иначе
-		StructureОбъекта.Вставить("Протокол", "https");
-	КонецЕсли;
-
-	StructureОбъекта.Вставить("ПроксиСервер", СоединениеHTTP.Прокси.Сервер(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ПроксиПорт", СоединениеHTTP.Прокси.Порт(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ПроксиПользователь", СоединениеHTTP.Прокси.Пользователь(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ПроксиПароль", СоединениеHTTP.Прокси.Пароль(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ИспользоватьАутентификациюОС", СоединениеHTTP.Прокси.ИспользоватьАутентификациюОС(
-		StructureОбъекта.Протокол));
-
-	StructureОбъекта.Вставить("Запрос", ЗапросHTTP.АдресРесурса);
-	StructureОбъекта.Вставить("ТелоЗапроса", ЗапросHTTP.ПолучитьТелоКакСтроку());
-	StructureОбъекта.Вставить("Заголовки", UT_CommonClientServer.ПолучитьСтрокуЗаголовковHTTP(
-		ЗапросHTTP.Заголовки));
-
-	ДвоичныеДанныеТела = ЗапросHTTP.ПолучитьТелоКакДвоичныеДанные();
-	StructureОбъекта.Вставить("ДвоичныеДанныеТела", ДвоичныеДанныеТела);
-	StructureОбъекта.Вставить("ДвоичныеДанныеТелаСтрокой", Строка(ДвоичныеДанныеТела));
-
-	StructureОбъекта.Вставить("ИмяФайлаЗапроса", ЗапросHTTP.ПолучитьИмяФайлаТела());
-
-	Return StructureОбъекта;
-
-EndFunction
-
-Function СериализоватьОбъектДляОтладкиВСтруктуру(ОбъектОтладки, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных)
-	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
-
-	StructureОбъекта = Новый Structure;
-	Если ТипВсеСсылки.СодержитТип(ТипЗнч(ОбъектОтладки)) Тогда
-		StructureОбъекта = СериализоватьОбъектБДДляОтладки(ОбъектОтладки);
-	ИначеЕсли ТипЗнч(ОбъектОтладки) = Тип("HTTPЗапрос") Тогда
-		StructureОбъекта = СериализоватьHTTPЗапросДляОтладки(ОбъектОтладки, НастройкиСКДИлиСоединениеHTTP);
-	ИначеЕсли ТипЗнч(ОбъектОтладки) = Тип("Запрос") Тогда
-		StructureОбъекта = СериализоватьЗапросДляОтладки(ОбъектОтладки);
-	ИначеЕсли ТипЗнч(ОбъектОтладки) = Тип("СхемаКомпоновкиДанных") Тогда
-		StructureОбъекта = СериализоватьСКДДляОтладки(ОбъектОтладки, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных);
-	КонецЕсли;
-
-	Return StructureОбъекта;
-EndFunction
-
-Function ОтладитьОбъект(ОбъектДляОтладки, НастройкиСКДИлиСоединениеHTTP = Неопределено, ВнешниеНаборыДанных=Неопределено) Export
-	ОткрыватьСразуКонсоль = Ложь;
-
-#Если ТолстыйКлиентОбычноеПриложение Или ТолстыйКлиентУправляемоеПриложение Тогда
-	ОткрыватьСразуКонсоль = Истина;
-#КонецЕсли
-
-	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
-	СериализованныйОбъект = СериализоватьОбъектДляОтладкиВСтруктуру(ОбъектДляОтладки, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных);
-	Если ТипВсеСсылки.СодержитТип(ТипЗнч(ОбъектДляОтладки)) Тогда
-		ТипОбъектаОтладки = "ОбъектБазыДанных";
-	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("HTTPЗапрос") Тогда
-		ТипОбъектаОтладки = "HTTPЗапрос";
-	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("Запрос") Тогда
-		ТипОбъектаОтладки = "ЗАПРОС";
-	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("СхемаКомпоновкиДанных") Тогда
-		ТипОбъектаОтладки = "СхемаКомпоновкиДанных";
-	КонецЕсли;
-
-	Если ОткрыватьСразуКонсоль Тогда
-		ДанныеДляОтладки = ПоместитьВоВременноеХранилище(СериализованныйОбъект);
-#Если Клиент Тогда
-
-		UT_CommonClient.ОткрытьКонсольОтладки(ТипОбъектаОтладки, ДанныеДляОтладки);
-
-#КонецЕсли
-		Return Неопределено;
-	Иначе
-		Return UT_CommonServerCall.ЗаписатьДанныеДляОтладкиВСправочник(ТипОбъектаОтладки,
-			СериализованныйОбъект);
-	КонецЕсли;
-EndFunction
-
-Function КлючДанныхОбъектаДанныхОтладкиВХранилищеНастроек() Export
-	Return "УИ_УниверсальныеИнструменты_ДанныеДляОтладки";
-EndFunction
-
-Function КлючОбъектаВХранилищеНастроек() Export
-	Return "УИ_УниверсальныеИнструменты";
-EndFunction
 
 #КонецОбласти
 
@@ -1230,10 +467,10 @@ Function TypePresentation(Type)
 	ElsIf TypeOf(Type) = Type("TypeDescription") Then
 		TypeString = String(Type);
 		Return ?(StrLen(TypeString) > 150, Left(TypeString, 150) + "..." + StrTemplate(NStr("ru = '(всего %1 типов)';en = '(total %1 types'"),
-			Type.Типы().Количество()), TypeString);
+			Type.Types().Count()), TypeString);
 	    Else
 		TypeString = String(Type);
-		Return ?(СтрДлина(TypeString) > 150, Лев(TypeString, 150) + "...", TypeString);
+		Return ?(StrLen(TypeString) > 150, Left(TypeString, 150) + "...", TypeString);
 	EndIf;
 	
 EndFunction
@@ -1420,7 +657,7 @@ EndFunction
 //   2. Passing a value of an illegal type to the DataKey parameter.
 //   3. Specifying a reference without specifying a field (and/or a data path).
 //
-Процедура MessageToUser(Val MessageToUserText,Val DataKey = Undefined,Val Field = "",Val DataPath = "",
+Procedure MessageToUser(Val MessageToUserText,Val DataKey = Undefined,Val Field = "",Val DataPath = "",
 		Cancel = False) Export
 		
 	Message = New UserMessage;
@@ -1451,7 +688,7 @@ EndFunction
 	
 	Cancel = True;
 
-КонецПроцедуры
+EndProcedure
 
 // Supplements the DestinationArray array with values from the SourceArray array.
 //
@@ -1496,9 +733,9 @@ Function PlatformVersionNotLess_8_3_14() Export
 EndFunction
 
 Function PlatformVersionNotLess(ComparingVersion) Export
-	VersionWithOutReleaseSubnumber=ConfigurationVersionWithOutReleaseSubnumber(CurrentAppVersion());
+	VersionWithOutReleaseSubnumber=ConfigurationVersionWithoutBuildNumber(CurrentAppVersion());
 
-	Return CompareVersionsWithOutReleaseSubnumber(VersionWithOutReleaseSubnumber, ComparingVersion)>=0;
+	Return CompareVersionsWithoutBuildNumber(VersionWithOutReleaseSubnumber, ComparingVersion)>=0;
 EndFunction
 
 Function HTMLFieldBasedOnWebkit() Export
@@ -1530,12 +767,763 @@ EndFunction
 #EndRegion
 #Region DynamicList
 
+////////////////////////////////////////////////////////////////////////////////
+// Functions for works with dynamic list filters and parameters.
+//
+
+// Searches for the item and the group of the dynamic list filter by the passed field name or presentation.
+//
+// Parameters:
+//  SearchArea - DataCompositionFilter, DataCompositionFilterItemCollection,DataCompositionFilterItemGroup - a container of items and filter groups. For 
+//                  example, List.Filter or a group in a filer.
+//  FieldName - String - a composition field name. Not applicable to groups.
+//  Presentation - String - the composition field presentation.
+//
+// Returns:
+//  Array - a collection of filters.
+//
+Function FindFilterItemsAndGroups(Val SearchArea,
+									Val FieldName = Undefined,
+									Val Presentation = Undefined) Export
+	
+	If ValueIsFilled(FieldName) Then
+		SearchValue = New DataCompositionField(FieldName);
+		SearchMethod = 1;
+	Else
+		SearchMethod = 2;
+		SearchValue = Presentation;
+	EndIf;
+	
+	ItemArray = New Array;
+
+	FindRecursively(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
+
+	Return ItemArray;
+
+EndFunction
+
+// Adds filter groups to ItemCollection.
+//
+// Parameters:
+//  ItemCollection - DataCompositionFilter, DataCompositionFilterItemCollection,DataCompositionFilterItemGroup - a container of items and filter groups. 
+//                       For example, List.Filter or a group in a filer.
+//  Presentation - String - the group presentation.
+//  GroupType - DataCompositionFilterItemsGroupType - the group type.
+//
+// Returns:
+//  DataCompositionFilterItemGroup - a filter group.
+//
+Function CreateFilterItemGroup(Val ItemCollection, Presentation, GroupType) Export
+	
+	If TypeOf(ItemCollection) = Type("DataCompositionFilterItemGroup") Then
+		ItemCollection = ItemCollection.Items;
+	EndIf;
+	
+	FilterItemsGroup = FindFilterItemByPresentation(ItemCollection, Presentation);
+	If FilterItemsGroup = Undefined Then
+		FilterItemsGroup = ItemCollection.Add(Type("DataCompositionFilterItemGroup"));
+	Else
+		FilterItemsGroup.Items.Clear();
+	EndIf;
+	
+	FilterItemsGroup.Presentation    = Presentation;
+	FilterItemsGroup.Application       = DataCompositionFilterApplicationType.Items;
+	FilterItemsGroup.ViewMode = DataCompositionSettingsItemViewMode.Inaccessible;
+	FilterItemsGroup.GroupType        = GroupType;
+	FilterItemsGroup.Use    = True;
+	
+	Return FilterItemsGroup;
+	
+EndFunction
+
+// Adds a composition item into a composition item container.
+//
+// Parameters:
+//  AreaToAddTo - DataCompositionFilterItemCollection - a container with items and filter groups. 
+//                                                                 For example, List.Filter or a group in a filter.
+//  FieldName - String - a data composition field name. Required.
+//  RightValue - Arbitrary - the value to compare to.
+//  ComparisonType            - DataCompositionComparisonType - a comparison type.
+//  Presentation           - String - presentation of the data composition item.
+//  Usage - Boolean - the flag that indicates whether the item is used.
+//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
+//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
+//                                                    
+// Returns:
+//  DataCompositionFilterItem - a composition item.
+//
+Function AddCompositionItem(AreaToAddTo,
+									Val FieldName,
+									Val ComparisonType,
+									Val RightValue = Undefined,
+									Val Presentation  = Undefined,
+									Val Usage  = Undefined,
+									val DisplayMode = Undefined,
+									val UserSettingID = Undefined) Export
+	
+	Item = AreaToAddTo.Items.Add(Type("DataCompositionFilterItem"));
+	Item.LeftValue = New DataCompositionField(FieldName);
+	Item.ComparisonType = ComparisonType;
+	
+	If DisplayMode = Undefined Then
+		Item.ViewMode = DataCompositionSettingsItemViewMode.Inaccessible;
+	Else
+		Item.ViewMode = DisplayMode;
+	EndIf;
+	
+	If RightValue <> Undefined Then
+		Item.RightValue = RightValue;
+	EndIf;
+	
+	If Presentation <> Undefined Then
+		Item.Presentation = Presentation;
+	EndIf;
+	
+	If Usage <> Undefined Then
+		Item.Use = Usage;
+	EndIf;
+	
+	// Important: The ID must be set up in the final stage of the item customization or it will be 
+	// copied to the user settings in a half-filled condition.
+	// 
+	If UserSettingID <> Undefined Then
+		Item.UserSettingID = UserSettingID;
+	ElsIf Item.ViewMode <> DataCompositionSettingsItemViewMode.Inaccessible Then
+		Item.UserSettingID = FieldName;
+	EndIf;
+	
+	Return Item;
+	
+EndFunction
+
+// Changes the filter item with the specified field name or presentation.
+//
+// Parameters:
+//  SearchArea - DataCompositionFilterItemCollection - a container with items and filter groups, for 
+//                                                             example, List.Filter or a group in the filter.
+//  FieldName - String - a data composition field name. Required.
+//  Presentation           - String - presentation of the data composition item.
+//  RightValue - Arbitrary - the value to compare to.
+//  ComparisonType            - DataCompositionComparisonType - a comparison type.
+//  Usage - Boolean - the flag that indicates whether the item is used.
+//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
+//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
+//                                                    
+//
+// Returns:
+//  Number - the changed item count.
+//
+Function ChangeFilterItems(SearchArea,
+								Val FieldName = Undefined,
+								Val Presentation = Undefined,
+								Val RightValue = Undefined,
+								Val ComparisonType = Undefined,
+								Val Usage = Undefined,
+								Val DisplayMode = Undefined,
+								Val UserSettingID = Undefined) Export
+	
+	If ValueIsFilled(FieldName) Then
+		SearchValue = New DataCompositionField(FieldName);
+		SearchMethod = 1;
+	Else
+		SearchMethod = 2;
+		SearchValue = Presentation;
+	EndIf;
+	
+	ItemArray = New Array;
+	
+	FindRecursively(SearchArea.Items, ItemArray, SearchMethod, SearchValue);
+	
+	For Each Item In ItemArray Do
+		If FieldName <> Undefined Then
+			Item.LeftValue = New DataCompositionField(FieldName);
+		EndIf;
+		If Presentation <> Undefined Then
+			Item.Presentation = Presentation;
+		EndIf;
+		If Usage <> Undefined Then
+			Item.Use = Usage;
+		EndIf;
+		If ComparisonType <> Undefined Then
+			Item.ComparisonType = ComparisonType;
+		EndIf;
+		If RightValue <> Undefined Then
+			Item.RightValue = RightValue;
+		EndIf;
+		If DisplayMode <> Undefined Then
+			Item.ViewMode = DisplayMode;
+		EndIf;
+		If UserSettingID <> Undefined Then
+			Item.UserSettingID = UserSettingID;
+		EndIf;
+	EndDo;
+	
+	Return ItemArray.Count();
+	
+EndFunction
+
+// Delete filter items that contain the given field name or presentation.
+//
+// Parameters:
+//  AreaToDelete - DataCompositionFilterItemCollection - a container of items or filter groups. For 
+//                                                               example, List.Filter or a group in the filter.
+//  FieldName - String - the composition field name. Not applicable to groups.
+//  Presentation   - String - the composition field presentation.
+//
+Procedure DeleteFilterItems(Val AreaToDelete, Val FieldName = Undefined, Val Presentation = Undefined) Export
+	
+	If ValueIsFilled(FieldName) Then
+		SearchValue = New DataCompositionField(FieldName);
+		SearchMethod = 1;
+	Else
+		SearchMethod = 2;
+		SearchValue = Presentation;
+	EndIf;
+	
+	ItemArray = New Array;
+	
+	FindRecursively(AreaToDelete.Items, ItemArray, SearchMethod, SearchValue);
+	
+	For Each Item In ItemArray Do
+		If Item.Parent = Undefined Then
+			AreaToDelete.Items.Delete(Item);
+		Else
+			Item.Parent.Items.Delete(Item);
+		EndIf;
+	EndDo;
+	
+EndProcedure
+
+// Adds or replaces the existing filter item.
+//
+// Parameters:
+//  WhereToAdd - DataCompositionFilterItemCollection - a container with items and filter groups, for 
+//                                     example, List.Filter or a group in the filter.
+//  FieldName - String - a data composition field name. Required.
+//  RightValue - Arbitrary - the value to compare to.
+//  ComparisonType            - DataCompositionComparisonType - a comparison type.
+//  Presentation           - String - presentation of the data composition item.
+//  Usage - Boolean - the flag that indicates whether the item is used.
+//  DisplayMode - DataCompositionSettingItemDisplayMode - the item display mode.
+//  UserSettingID - String - see DataCompositionFilter.UserSettingID in Syntax Assistant. 
+//                                                    
+//
+Procedure SetFilterItem(WhereToAdd,
+								Val FieldName,
+								Val RightValue = Undefined,
+								Val ComparisonType = Undefined,
+								Val Presentation = Undefined,
+								Val Usage = Undefined,
+								Val DisplayMode = Undefined,
+								Val UserSettingID = Undefined) Export
+	
+	ModifiedCount = ChangeFilterItems(WhereToAdd, FieldName, Presentation,
+							RightValue, ComparisonType, Usage, DisplayMode, UserSettingID);
+	
+	If ModifiedCount = 0 Then
+		If ComparisonType = Undefined Then
+			If TypeOf(RightValue) = Type("Array")
+				Or TypeOf(RightValue) = Type("FixedArray")
+				Or TypeOf(RightValue) = Type("ValueList") Then
+				ComparisonType = DataCompositionComparisonType.InList;
+			Else
+				ComparisonType = DataCompositionComparisonType.Equal;
+			EndIf;
+		EndIf;
+		If DisplayMode = Undefined Then
+			DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible;
+		EndIf;
+		AddCompositionItem(WhereToAdd, FieldName, ComparisonType,
+								RightValue, Presentation, Usage, DisplayMode, UserSettingID);
+	EndIf;
+	
+EndProcedure
+
+// Adds or replaces a filter item of a dynamic list.
+//
+// Parameters:
+//   DynamicList - DynamicList - the list to be filtered.
+//   FieldName            - String - the field the filter to apply to.
+//   RightValue     - Arbitrary - the filter value.
+//       Optional. The default value is Undefined.
+//       Warning! If Undefined is passed, the value will not be changed.
+//   ComparisonType  - DataCompositionComparisonType - a filter condition.
+//   Presentation - String - presentation of the data composition item.
+//       Optional. The default value is Undefined.
+//       If another value is specified, only the presentation flag is shown, not the value.
+//       To show the value, pass an empty string.
+//   Usage - Boolean - the flag that indicates whether to apply the filter.
+//       Optional. The default value is Undefined.
+//   DisplayMode - DataCompositionSettingItemDisplayMode - the filter display mode.
+//                                                                          
+//       * DataCompositionSettingItemDisplayMode.QuickAccess - in the Quick Settings bar on top of the list.
+//       * DataCompositionSettingItemDisplayMode.Normal - in the list settings (submenu More).
+//       * DataCompositionSettingItemDisplayMode.Inaccessible - privent users from changing the filter.
+//   UserSettingID - String - the filter UUID.
+//       Used to link user settings.
+//
+Procedure SetDynamicListFilterItem(DynamicList, FieldName,
+	RightValue = Undefined,
+	ComparisonType = Undefined,
+	Presentation = Undefined,
+	Usage = Undefined,
+	DisplayMode = Undefined,
+	UserSettingID = Undefined) Export
+	
+	If DisplayMode = Undefined Then
+		DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible;
+	EndIf;
+	
+	If DisplayMode = DataCompositionSettingsItemViewMode.Inaccessible Then
+		DynamicListFilter = DynamicList.SettingsComposer.FixedSettings.Filter;
+	Else
+		DynamicListFilter = DynamicList.SettingsComposer.Settings.Filter;
+	EndIf;
+	
+	SetFilterItem(
+		DynamicListFilter,
+		FieldName,
+		RightValue,
+		ComparisonType,
+		Presentation,
+		Usage,
+		DisplayMode,
+		UserSettingID);
+	
+EndProcedure
+
+// Delete a filter group item of a dynamic list.
+//
+// Parameters:
+//  DynamicList - DynamicList - the form attribute whose filter is to be modified.
+//  FieldName - String - the composition field name. Not applicable to groups.
+//  Presentation   - String - the composition field presentation.
+//
+Procedure DeleteDynamicListFilterGroupItems(DynamicList, FieldName = Undefined, Presentation = Undefined) Export
+	
+	DeleteFilterItems(
+		DynamicList.SettingsComposer.FixedSettings.Filter,
+		FieldName,
+		Presentation);
+	
+	DeleteFilterItems(
+		DynamicList.SettingsComposer.Settings.Filter,
+		FieldName,
+		Presentation);
+	
+EndProcedure
+
+// Sets or modifies the ParameterName parameter of the List dynamic list.
+//
+// Parameters:
+//  List          - DynamicList - the form attribute whose parameter is to be modified.
+//  ParameterName    - String             - name of the dynamic list parameter.
+//  Value        - Arbitrary        - new value of the parameter.
+//  Usage   - Boolean             - flag indicating whether the parameter is used.
+//
+Procedure SetDynamicListParameter(List, ParameterName, Value, Usage = True) Export
+	
+	DataCompositionParameterValue = List.Parameters.FindParameterValue(New DataCompositionParameter(ParameterName));
+	If DataCompositionParameterValue <> Undefined Then
+		If Usage AND DataCompositionParameterValue.Value <> Value Then
+			DataCompositionParameterValue.Value = Value;
+		EndIf;
+		If DataCompositionParameterValue.Use <> Usage Then
+			DataCompositionParameterValue.Use = Usage;
+		EndIf;
+	EndIf;
+	
+EndProcedure
+
+Function SetDCSParemeterValue(SettingsComposer, ParameterName, ParameterValue,
+	UseNotFilled = True) Export
+
+	ParameterIsSet = False;
+
+	DataCompositionParameter = New DataCompositionParameter(ParameterName);
+	DataCompositionParameterValue = SettingsComposer.Settings.DataParameters.FindParameterValue(
+		DataCompositionParameter);
+	If DataCompositionParameterValue <> Undefined Then
+
+		DataCompositionParameterValue.Value = ParameterValue;
+		DataCompositionParameterValue.Use = ?(UseNotFilled, True, ValueIsFilled(
+			DataCompositionParameterValue.Value));
+
+		ParameterIsSet = True;
+
+	EndIf;
+
+	Return ParameterIsSet;
+
+EndFunction
+
+Procedure FindRecursively(ItemCollection, ItemArray, SearchMethod, SearchValue)
+	
+	For each FilterItem In ItemCollection Do
+		
+		If TypeOf(FilterItem) = Type("DataCompositionFilterItem") Then
+			
+			If SearchMethod = 1 Then
+				If FilterItem.LeftValue = SearchValue Then
+					ItemArray.Add(FilterItem);
+				EndIf;
+			ElsIf SearchMethod = 2 Then
+				If FilterItem.Presentation = SearchValue Then
+					ItemArray.Add(FilterItem);
+				EndIf;
+			EndIf;
+		Else
+			
+			FindRecursively(FilterItem.Items, ItemArray, SearchMethod, SearchValue);
+			
+			If SearchMethod = 2 AND FilterItem.Presentation = SearchValue Then
+				ItemArray.Add(FilterItem);
+			EndIf;
+			
+		EndIf;
+		
+	EndDo;
+	
+EndProcedure
+
+// Searches for a filter item in the collection by the specified presentation.
+//
+// Parameters:
+//  ItemCollection - DataCompositionFilterItemCollection - container with filter groups and items, 
+//                                                                  such as List.Filter.Filter items or group.
+//  Presentation - String - group presentation.
+// 
+// Returns:
+//  DataCompositionFilterItem - filter item.
+//
+Function FindFilterItemByPresentation(ItemCollection, Presentation) Export
+	
+	ReturnValue = Undefined;
+	
+	For each FilterItem In ItemCollection Do
+		If FilterItem.Presentation = Presentation Then
+			ReturnValue = FilterItem;
+			Break;
+		EndIf;
+	EndDo;
+	
+	Return ReturnValue
+	
+EndFunction
+
+
+Procedure CopyItems(ValueReceiver, ValueSource, ClearReceiver = Истина) Export
+
+	If  Typeof(ValueSource) = Type("DataCompositionConditionalAppearance") Or TypeOf(ValueSource) = Type(
+		"DataCompositionUserFieldsCaseVariants") Or TypeOf(ValueSource) = Type(
+		"DataCompositionAppearanceFields") Or TypeOf(ValueSource) = Type(
+		"DataCompositionDataParameterValues") Then
+		CreateByType = False;
+	Else
+		CreateByType = True;
+	EndIf;
+	ItemsReceiver = ValueReceiver.Items;
+	ItemsSource = ValueSource.Items;
+	If ClearReceiver then
+		ItemsReceiver.Clear();
+	EndIf;
+
+	For Each SourceItem In ItemsSource Do
+
+		Если TypeOf(SourceItem) = Type("DataCompositionOrderItem") Then
+			// Order items add to begin 
+			IndexOf = ItemsSource.IndexOf(SourceItem);
+			ReceiverItem = ItemsReceiver.Insert(IndexOf, Typeof(SourceItem));
+		Else
+			If CreateByType Then
+				ReceiverItem = ItemsReceiver.Add(Typeof(SourceItem));
+			else
+				ReceiverItem = ItemsReceiver.Add();
+			EndIf;
+		Endif;
+
+		FillPropertyValues(ReceiverItem, SourceItem);
+		// In some collections it's Necessary to fill another collections
+		if typeof(ItemsSource) = Type("DataCompositionConditionalAppearanceItemCollection") Then
+			CopyItems(ReceiverItem.Items, SourceItem.Items);
+			CopyItems(ReceiverItem.Filter, SourceItem.Filter);
+			FillItems(ReceiverItem.Appearance, SourceItem.Appearance);
+		ElsIf TypeOf(ItemsSource) = Type("DataCompositionUserFieldCaseVariantCollection") Then
+			CopyItems(ReceiverItem.Filter, SourceItem.Filter);
+		EndIf;
+		
+		// In some collections it's Necessary to fill another collections
+	If TypeOf(SourceItem) = Type("DataCompositionFilterItemGroup") Then
+			CopyItems(ReceiverItem, SourceItem);
+		ElsIf TypeOf(SourceItem) = Type("DataCompositionSelectedFieldGroup") Then
+			CopyItems(ReceiverItem, SourceItem);
+		ElsIf TypeOf(SourceItem) = Type("DataCompositionUserFieldCase") Then
+			CopyItems(ReceiverItem.Variants, SourceItem.Variants);
+		ElsIf TypeOf(SourceItem) = Type("DataCompositionUserFieldExpression") Then
+			ReceiverItem.SetDetailRecordExpression (SourceItem.GetDetailRecordExpression());
+			ReceiverItem.SetTotalRecordExpression(SourceItem.GetTotalRecordExpression());
+			ReceiverItem.SetDetailRecordExpressionPresentation(
+				SourceItem.GetDetailRecordExpressionPresentation ());
+			ReceiverItem.SetTotalRecordExpressionPresentation(
+				SourceItem.GetTotalRecordExpressionPresentation ());
+		EndIf;
+	EndDo;
+EndProcedure
+
+Procedure FillItems(ValueReceiver, ValueSource, FirstLevel = Неопределено) Export
+
+	If TypeOf(ValueReceiver) = Type("DataCompositionParameterValueCollection") Then
+		ValueCollection = ValueSource;
+	Else
+		ValueCollection = ValueSource.Items;
+	EndIf;
+
+	For Each SourceItem In ValueCollection Do
+		If FirstLevel = Undefined Then
+			ReceiverItem = ValueReceiver.FindParameterValue(SourceItem.Parameter);
+		Else
+			ReceiverItem = FirstLevel.FindParameterValue(SourceItem.Parameter);
+		EndIf;
+		If ReceiverItem = Undefined Then
+			Continue;
+		EndIf;
+		FillPropertyValues(ReceiverItem, SourceItem);
+		If TypeOf(SourceItem) = Type("DataCompositionParameterValue") Then
+			If SourceItem.NestedParameterValues.Count() <> 0 Then
+				FillItems(ReceiverItem.NestedParameterValues,
+					SourceItem.NestedParameterValues, ValueReceiver);
+			Endif;
+		EndIf;
+	EndDo;
+
+EndProcedure
+
+
+// copy  Data Composition Settings
+//
+// Параметры:
+//	ReceiverSettings	- DataCompositionSettings, DataCompositionNestedObjectSettings,DataCompositionGroup, DataCompositionTableGroup, DataCompositionChartGroup,DataCompositionTable, DataCompositionChart - Data Composition settings collection to receive settings from Source
+//	SourceSettings	- DataCompositionSettings, DataCompositionNestedObjectSettings,DataCompositionGroup, DataCompositionTableGroup, DataCompositionChartGroup,DataCompositionTable, DataCompositionChart 	- Data Composition settings collection, where are the settings copied from.
+//
+Procedure CopyDataCompositionSettings(ReceiverSettings, SourceSettings) Export
+	
+	If SourceSettings = Undefined Then
+		Return;
+	Endif;
+	
+	If TypeOf(ReceiverSettings) = Type("DataCompositionSettings") Then
+		For each Parameter In SourceSettings.DataParameters.Items Do
+			ParameterValue = ReceiverSettings.DataParameters.FindParameterValue(Parameter.Parameter);
+			If ParameterValue <> Undefined Then
+				FillPropertyValues(ParameterValue, Parameter);
+			EndIf;
+		EndDo;
+	EndIf;
+	
+	If TypeOf(SourceSettings) = Type("DataCompositionNestedObjectSettings") Then
+		FillPropertyValues(ReceiverSettings, SourceSettings);
+		CopyDataCompositionSettings(ReceiverSettings.Settings, SourceSettings.Settings);
+		Return;
+	EndIf;
+	
+	// Copy of settings
+	If TypeOf(SourceSettings) = Type("DataCompositionSettings") Then
+		
+		CopyItems(ReceiverSettings.DataParameters,		SourceSettings.DataParameters);
+		CopyItems(ReceiverSettings.UserFields,	SourceSettings.UserFields);
+		CopyItems(ReceiverSettings.Filter,				SourceSettings.Filter);
+		CopyItems(ReceiverSettings.Order,				SourceSettings.Order);
+		
+	EndIf;
+	
+	If TypeOf(SourceSettings) = Type("DataCompositionGroup")
+	 OR TypeOf(SourceSettings) = Type("DataCompositionTableGroup")
+	 OR TypeOf(SourceSettings) = Type("DataCompositionChartGroup") Then
+		
+		CopyItems(ReceiverSettings.GroupFields,	SourceSettings.GroupFields);
+		CopyItems(ReceiverSettings.Filter,			SourceSettings.Filter);
+		CopyItems(ReceiverSettings.Order,			SourceSettings.Order);
+		FillPropertyValues(ReceiverSettings,				SourceSettings);
+		
+	EndIf;
+	
+	CopyItems(ReceiverSettings.Selection,				SourceSettings.Selection);
+	CopyItems(ReceiverSettings.ConditionalAppearance,	SourceSettings.ConditionalAppearance);
+	FillItems(ReceiverSettings.OutputParameters,		SourceSettings.OutputParameters);
+	
+	// Copy of Structure
+	If TypeOf(SourceSettings) = Type("DataCompositionSettings")
+	 OR TypeOf(SourceSettings) = Type("DataCompositionGroup") Then
+		
+		For Each SourceStructureItem In SourceSettings.Structure Do
+			ReceiverStructureItem = ReceiverSettings.Structure.Add(TypeOf(SourceStructureItem));
+			CopyDataCompositionSettings(ReceiverStructureItem, SourceStructureItem);
+		EndDo;
+		
+	EndIf;
+	
+	If TypeOf(SourceSettings) = Type("DataCompositionTableGroup")
+	 OR TypeOf(SourceSettings) = Type("DataCompositionChartGroup") Then
+		
+		For Each SourceStructureItem In SourceSettings.Structure Do
+			ReceiverStructureItem = ReceiverSettings.Structure.Add();
+			CopyDataCompositionSettings(ReceiverStructureItem, SourceStructureItem);
+		EndDo;
+		
+	Endif;
+	
+	If TypeOf(SourceSettings) = Type("DataCompositionTable") Then
+		
+		For Each SourceStructureItem In SourceSettings.Строки Do
+			ReceiverStructureItem = ReceiverSettings.Строки.Add();
+			CopyDataCompositionSettings(ReceiverStructureItem, SourceStructureItem);
+		Enddo;
+		
+		For each  SourceStructureItem in SourceSettings.Columns Do
+			ReceiverStructureItem = ReceiverSettings.Columns.Add();
+			CopyDataCompositionSettings(ReceiverStructureItem, SourceStructureItem);
+		EndDo;
+		
+	EndIf;
+	
+	If TypeOf(SourceSettings) = Type("DataCompositionChart") Then
+
+		For each SourceStructureItem In SourceSettings.Series Do
+			ReceiverStructureItem = ReceiverSettings.Series.Add();
+			CopyDataCompositionSettings(ReceiverStructureItem, SourceStructureItem);
+		EndDo;
+		
+		For each SourceStructureItem In SourceSettings.Points do
+			ReceiverStructureItem = ReceiverSettings.Points.Add();
+			CopyDataCompositionSettings(ReceiverStructureItem, SourceStructureItem);
+		EndDo;
+	EndIf;
+EndProcedure
 #EndRegion
+
 #Region Debug
+
+Function SerializeQueryForDebug(DebugObject)
+	ObjectStructure  = New Structure;
+  	ObjectStructure.Insert("Text", DebugObject.Text);
+	ObjectStructure.Insert("Parameters", CopyRecursively(DebugObject.Parameters));
+	If DebugObject.TempTablesManager <> Undefined Then
+		TempTablesStructure = UT_CommonServerCall.TempTablesManagerTempTablesStructure(
+			DebugObject.TempTablesManager);
+		ObjectStructure.Вставить("TempTables", TempTablesStructure);
+	EndIf;
+
+	Return ObjectStructure;
+EndFunction
+
+Function СериализоватьСКДДляОтладки(СКД, НастройкиСКД, ВнешниеНаборыДанных)
+	Return UT_CommonServerCall.СериализоватьОбъектСКДДляОтладки(СКД, НастройкиСКД, ВнешниеНаборыДанных);
+EndFunction
+
+Function СериализоватьОбъектБДДляОтладки(DebugObject)
+	StructureОбъекта = Новый Structure;
+	StructureОбъекта.Вставить("Object", DebugObject);
+	Return StructureОбъекта;
+EndFunction
+
+Function СериализоватьHTTPЗапросДляОтладки(ЗапросHTTP, СоединениеHTTP)
+	StructureОбъекта = Новый Structure;
+	StructureОбъекта.Вставить("АдресСервера", СоединениеHTTP.Сервер);
+	StructureОбъекта.Вставить("Порт", СоединениеHTTP.Порт);
+	StructureОбъекта.Вставить("ИспользоватьHTPPS", СоединениеHTTP.ЗащищенноеСоединение <> Неопределено);
+	Если СоединениеHTTP.ЗащищенноеСоединение = Неопределено Тогда
+		StructureОбъекта.Вставить("Протокол", "http");
+	Иначе
+		StructureОбъекта.Вставить("Протокол", "https");
+	КонецЕсли;
+
+	StructureОбъекта.Вставить("ПроксиСервер", СоединениеHTTP.Прокси.Сервер(StructureОбъекта.Протокол));
+	StructureОбъекта.Вставить("ПроксиПорт", СоединениеHTTP.Прокси.Порт(StructureОбъекта.Протокол));
+	StructureОбъекта.Вставить("ПроксиПользователь", СоединениеHTTP.Прокси.Пользователь(StructureОбъекта.Протокол));
+	StructureОбъекта.Вставить("ПроксиПароль", СоединениеHTTP.Прокси.Пароль(StructureОбъекта.Протокол));
+	StructureОбъекта.Вставить("ИспользоватьАутентификациюОС", СоединениеHTTP.Прокси.ИспользоватьАутентификациюОС(
+		StructureОбъекта.Протокол));
+
+	StructureОбъекта.Вставить("Запрос", ЗапросHTTP.АдресРесурса);
+	StructureОбъекта.Вставить("ТелоЗапроса", ЗапросHTTP.ПолучитьТелоКакСтроку());
+	StructureОбъекта.Вставить("Заголовки", UT_CommonClientServer.ПолучитьСтрокуЗаголовковHTTP(
+		ЗапросHTTP.Заголовки));
+
+	ДвоичныеДанныеТела = ЗапросHTTP.ПолучитьТелоКакДвоичныеДанные();
+	StructureОбъекта.Вставить("ДвоичныеДанныеТела", ДвоичныеДанныеТела);
+	StructureОбъекта.Вставить("ДвоичныеДанныеТелаСтрокой", Строка(ДвоичныеДанныеТела));
+
+	StructureОбъекта.Вставить("ИмяФайлаЗапроса", ЗапросHTTP.ПолучитьИмяФайлаТела());
+
+	Return StructureОбъекта;
+
+EndFunction
+
+Function СериализоватьОбъектДляОтладкиВСтруктуру(DebugObject, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных)
+	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
+
+	StructureОбъекта = Новый Structure;
+	Если ТипВсеСсылки.СодержитТип(ТипЗнч(DebugObject)) Тогда
+		StructureОбъекта = СериализоватьОбъектБДДляОтладки(DebugObject);
+	ИначеЕсли ТипЗнч(DebugObject) = Тип("HTTPЗапрос") Тогда
+		StructureОбъекта = СериализоватьHTTPЗапросДляОтладки(DebugObject, НастройкиСКДИлиСоединениеHTTP);
+	ИначеЕсли ТипЗнч(DebugObject) = Тип("Запрос") Тогда
+		StructureОбъекта = SerializeQueryForDebug(DebugObject);
+	ИначеЕсли ТипЗнч(DebugObject) = Тип("СхемаКомпоновкиДанных") Тогда
+		StructureОбъекта = СериализоватьСКДДляОтладки(DebugObject, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных);
+	КонецЕсли;
+
+	Return StructureОбъекта;
+EndFunction
+
+Function ОтладитьОбъект(ОбъектДляОтладки, НастройкиСКДИлиСоединениеHTTP = Неопределено, ВнешниеНаборыДанных=Неопределено) Export
+	ОткрыватьСразуКонсоль = Ложь;
+
+#Если ТолстыйКлиентОбычноеПриложение Или ТолстыйКлиентУправляемоеПриложение Тогда
+	ОткрыватьСразуКонсоль = Истина;
+#КонецЕсли
+
+	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
+	СериализованныйОбъект = СериализоватьОбъектДляОтладкиВСтруктуру(ОбъектДляОтладки, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных);
+	Если ТипВсеСсылки.СодержитТип(ТипЗнч(ОбъектДляОтладки)) Тогда
+		ТипОбъектаОтладки = "ОбъектБазыДанных";
+	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("HTTPЗапрос") Тогда
+		ТипОбъектаОтладки = "HTTPЗапрос";
+	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("Запрос") Тогда
+		ТипОбъектаОтладки = "ЗАПРОС";
+	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("СхемаКомпоновкиДанных") Тогда
+		ТипОбъектаОтладки = "СхемаКомпоновкиДанных";
+	КонецЕсли;
+
+	Если ОткрыватьСразуКонсоль Тогда
+		ДанныеДляОтладки = ПоместитьВоВременноеХранилище(СериализованныйОбъект);
+#Если Клиент Тогда
+
+		UT_CommonClient.ОткрытьКонсольОтладки(ТипОбъектаОтладки, ДанныеДляОтладки);
+
+#КонецЕсли
+		Return Неопределено;
+	Иначе
+		Return UT_CommonServerCall.ЗаписатьДанныеДляОтладкиВСправочник(ТипОбъектаОтладки,
+			СериализованныйОбъект);
+	КонецЕсли;
+EndFunction
+
+Function КлючДанныхОбъектаДанныхОтладкиВХранилищеНастроек() Export
+	Return "УИ_УниверсальныеИнструменты_ДанныеДляОтладки";
+EndFunction
+
+Function КлючОбъектаВХранилищеНастроек() Export
+	Return "УИ_УниверсальныеИнструменты";
+EndFunction
 #EndRegion
+
 #Region HTTPRequests
+
 #EndRegion
+
 #Region JSON
+
 #EndRegion
 
 // Returns 1C:Enterprise current version.
@@ -1547,17 +1535,16 @@ Function CurrentAppVersion() Export
 
 EndFunction
 
-// Get configuration version number without build number (Release subnumber).
+// Gets the configuration version without the build version.
 //
-// Params:
-//  Version - String - configuration version as PV.MV.R.RS,
-//                    where RS - Release subnumber, that will be deleted.
-//                    PV - <primary version>, MV - <minor version>, R - <release>
+// Parameters:
+//  Version - String - the configuration version in the RR.PP.ZZ.CC format, where CC is the build 
+//                    version and excluded from the result.
 // 
-// Return Value:
-//  String - configuration version number without  Release subnumber -  PV.MV.R
+// Returns:
+//  String - configuration version in the RR.PP.ZZ format, excluding the build version.
 //
-Function ConfigurationVersionWithOutReleaseSubnumber(Val Version) Export
+Function ConfigurationVersionWithoutBuildNumber(Val Version) Export
 
 	Array = StrSplit(Version, ".");
 
@@ -1565,11 +1552,11 @@ Function ConfigurationVersionWithOutReleaseSubnumber(Val Version) Export
 		Return Version;
 	EndIf;
 
-	Result = "[Primary].[Minor].[Release]";
-	Result = StrReplace(Result, "[Primary]", Array[0]);
-	Result = StrReplace(Result, "[Minor]", Array[1]);
-	Result = StrReplace(Result, "[Release]", Array[2]);
-
+	Result = "[Edition].[Subedition].[Release]";
+	Result = StrReplace(Result, "[Edition]",    Array[0]);
+	Result = StrReplace(Result, "[Subedition]", Array[1]);
+	Result = StrReplace(Result, "[Release]",       Array[2]);
+	
 	Return Result;
 EndFunction
 
@@ -1615,7 +1602,7 @@ EndFunction
 // Return Value значение:
 //   Integer   - more than 0, if Version1String > Version2String; 0, if version values is equal.
 //
-Function CompareVersionsWithOutReleaseSubnumber(Val Version1String, Val Version2String) Export
+Function CompareVersionsWithoutBuildNumber(Val Version1String, Val Version2String) Export
 
 	String1 = ?(IsBlankString(Version1String), "0.0.0", Version1String);
 	String2 = ?(IsBlankString(Version2String), "0.0.0", Version2String);
