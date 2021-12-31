@@ -9,7 +9,11 @@
 
 [RUSSIAN VERSION OF THIS DOCUMENT](https://github.com/i-neti/tools_ui_1c_international/blob/develop/README_RU.md)
 
-[Подержать проект](#донаты-и-поддержка-проекта)
+### Для разработчика 
+План разработки : https://github.com/i-neti/tools_ui_1c_international/blob/develop/docs/DEVELOPMENTPLAN.md
+
+
+
 ### Supported Operation Systems
 * Windows x86
 * Windows x64
