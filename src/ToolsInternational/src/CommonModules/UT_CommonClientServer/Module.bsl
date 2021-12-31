@@ -1613,7 +1613,6 @@ EndProcedure
 Function GetFileIconIndex(val FileExtention) Export
 
 	If TypeOf(FileExtention) <> Type("String") Or IsBlankString(FileExtention) Then
-
 		Return 0;
 	EndIf;
 

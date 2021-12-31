@@ -8,111 +8,137 @@
 ## Статус перевода обьектов 
 ### Общие модули 
 
-<table style="height: 442px;" width="375">
+<table style="height: 1040px; width: 825px;" width="375">
 <tbody>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">Имя&nbsp;</td>
-<td style="height: 17px; width: 58.15px;">Статус&nbsp;</td>
+<td style="height: 16px; width: 293.913px;">Имя&nbsp;</td>
+<td style="height: 16px; width: 66.8125px;">Статус&nbsp;</td>
+<td style="width: 43.875px; height: 16px;">Колво строк</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;AdditionalReportsAndDataProcessors</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;AdditionalReportsAndDataProcessors</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">47</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;AttachableCommandsOverridable</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;AttachableCommandsOverridable</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">77</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_</td>
-<td style="height: 17px; width: 58.15px;"></td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">114</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_AlgorithmsClientServer</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_AlgorithmsClientServer</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">203</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_ClipboardClient</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_ClipboardClient</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">554</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorClient</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 16px; width: 293.913px;">&nbsp;UT_CodeEditorClient</td>
+<td style="height: 16px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 16px;">1794</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorClientServer</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CodeEditorClientServer</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">163</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorServer</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CodeEditorServer</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">515</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CodeEditorServerCall</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CodeEditorServerCall</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">19</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_Common</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_Common</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">4870</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonCached</td>
-<td style="height: 17px; width: 58.15px;">100 %</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonCached</td>
+<td style="height: 17px; width: 66.8125px;">100 %</td>
+<td style="width: 43.875px; height: 17px;">178</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonClient</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonClient</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">1066</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonClientCached</td>
-<td style="height: 17px; width: 58.15px;">100%</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonClientCached</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
+<td style="width: 43.875px; height: 17px;">15</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonClientServer</td>
-<td style="height: 17px; width: 58.15px;">40 % ( В процессе )</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonClientServer</td>
+<td style="height: 17px; width: 66.8125px;">40 % ( В процессе )</td>
+<td style="width: 43.875px; height: 17px;">1825</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_CommonServerCall</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonServerCall</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">668</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_Forms</td>
-<td style="height: 17px; width: 58.15px;">90%</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_Forms</td>
+<td style="height: 17px; width: 66.8125px;">90%</td>
+<td style="width: 43.875px; height: 17px;">370</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_HTTPConnector</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_HTTPConnector</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">2816</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_RegexpsClientServer</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_RegexpsClientServer</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">713</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_ScheduledJobsInternal</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_ScheduledJobsInternal</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">791</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_ScheduledJobsServer</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_ScheduledJobsServer</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">257</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_StringFunctionsClientServer</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_StringFunctionsClientServer</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">1293</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperations</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperations</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">630</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperationsClient</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperationsClient</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">232</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperationsGlobal</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperationsGlobal</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">150</td>
 </tr>
 <tr style="height: 17px;">
-<td style="height: 17px; width: 302.05px;">&nbsp;UT_TimeConsumingOperationsServerCall</td>
-<td style="height: 17px; width: 58.15px;">&nbsp;</td>
+<td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperationsServerCall</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="width: 43.875px; height: 17px;">14</td>
 </tr>
 </tbody>
 </table>
@@ -411,7 +437,7 @@
 <p>НайтиЭлементыИГруппыОтбора</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>FindFilterItemsAndGroups</p>
 </td>
 </tr>
 <tr>
@@ -419,7 +445,7 @@
 <p>СоздатьГруппуЭлементовОтбора</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CreateFilterItemGroup</p>
 </td>
 </tr>
 <tr>
@@ -427,7 +453,7 @@
 <p>ДобавитьЭлементКомпоновки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>AddCompositionItem</p>
 </td>
 </tr>
 <tr>
@@ -435,7 +461,7 @@
 <p>ИзменитьЭлементыОтбора</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>ChangeFilterItems</p>
 </td>
 </tr>
 <tr>
@@ -443,7 +469,7 @@
 <p>УдалитьЭлементыГруппыОтбора</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>DeleteFilterItems</p>
 </td>
 </tr>
 <tr>
@@ -451,7 +477,7 @@
 <p>УстановитьЭлементОтбора</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SetFilterItem</p>
 </td>
 </tr>
 <tr>
@@ -459,7 +485,7 @@
 <p>УстановитьЭлементОтбораДинамическогоСписка</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SetDynamicListFilterItem</p>
 </td>
 </tr>
 <tr>
@@ -467,7 +493,7 @@
 <p>УдалитьЭлементыГруппыОтбораДинамическогоСписка</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>DeleteDynamicListFilterGroupItems</p>
 </td>
 </tr>
 <tr>
@@ -475,7 +501,7 @@
 <p>УстановитьПараметрДинамическогоСписка</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SetDynamicListParameter</p>
 </td>
 </tr>
 <tr>
@@ -483,7 +509,7 @@
 <p>УстановитьЗначениеПараметраСКД</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p></p>
 </td>
 </tr>
 <tr>
@@ -491,7 +517,7 @@
 <p>НайтиРекурсивно</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>FindRecursively</p>
 </td>
 </tr>
 <tr>
@@ -499,7 +525,7 @@
 <p>НайтиЭлементОтбораПоПредставлению</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>FindFilterItemByPresentation</p>
 </td>
 </tr>
 <tr>
@@ -635,7 +661,7 @@
 <p>ВерсияКонфигурацииБезНомераСборки</p>
 </td>
 <td width="270">
-<p>ConfigurationVersionWithOutReleaseSubnumber</p>
+<p>ConfigurationVersionWithoutBuildNumber</p>
 </td>
 </tr>
 <tr>
@@ -651,7 +677,7 @@
 <p>СравнитьВерсииБезНомераСборки</p>
 </td>
 <td width="270">
-<p>CompareVersionsWithOutReleaseSubnumber</p>
+<p>CompareVersionsWithoutBuildNumber</p>
 </td>
 </tr>
 <tr>
@@ -691,7 +717,7 @@
 <p>ПолучитьИндексПиктограммыФайла</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>GetFileIconIndex</p>
 </td>
 </tr>
 <tr>
@@ -699,7 +725,7 @@
 <p>РасширениеБезТочки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>ExtensionWithoutDot</p>
 </td>
 </tr>
 <tr>
