@@ -77,7 +77,7 @@
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
   <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
   <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
-  <content>DataProcessor.УИ_РедакторJSON</content>
+  <content>DataProcessor.UT_JSONEditor</content>
   <content>DataProcessor.UT_HTMLEditor</content>
   <content>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</content>
   <content>CommonModule.UT_RegexpsClientServer</content>
