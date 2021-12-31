@@ -13,7 +13,7 @@
 	ЭтоВебКлиент = Истина;
 	
 	ПараметрыСеансаВХранилище = UT_CommonServerCall.ХранилищеОбщихНастроекЗагрузить(
-		UT_CommonClientServer.КлючОбъектаВХранилищеНастроек(),
+		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 	Если Тип(ПараметрыСеансаВХранилище) = Тип("Структура") Тогда
 		Если ПараметрыСеансаВХранилище.Свойство("HTMLFieldBasedOnWebkit") Тогда
@@ -154,7 +154,7 @@
 	РедакторКода = ПараметрыРедактораКода.Вариант;
 	
 	УИ_ПараметрыСеанса = UT_Common.ХранилищеОбщихНастроекЗагрузить(
-		UT_CommonClientServer.КлючОбъектаВХранилищеНастроек(),
+		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 		
 	Если Тип(УИ_ПараметрыСеанса) = Тип("Структура") Тогда

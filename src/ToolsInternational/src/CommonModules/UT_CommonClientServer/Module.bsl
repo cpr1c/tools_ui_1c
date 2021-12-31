@@ -1,79 +1,3 @@
-#Область Отладка
-
-
-#КонецОбласти
-
-#Область HTTPЗапросы
-
-Function ЗаголовкиHTTPЗапросаИзСтроки(СтрокаЗаголовков) Export
-	ТекстовыйДокумент = Новый ТекстовыйДокумент;
-	ТекстовыйДокумент.УстановитьТекст(СтрокаЗаголовков);
-
-	Заголовки = Новый Соответствие;
-
-	Для НомерСтроки = 1 По ТекстовыйДокумент.КоличествоСтрок() Цикл
-		ЗаголовокСтр = ТекстовыйДокумент.ПолучитьСтроку(НомерСтроки);
-
-		Если Не ValueIsFilled(ЗаголовокСтр) Тогда
-			Продолжить;
-		КонецЕсли;
-
-		МассивЗаголовка = StrSplit(ЗаголовокСтр, ":");
-		Если МассивЗаголовка.Количество() <> 2 Тогда
-			Продолжить;
-		КонецЕсли;
-
-		Заголовки.Вставить(МассивЗаголовка[0], МассивЗаголовка[1]);
-
-	КонецЦикла;
-
-	Return Заголовки;
-EndFunction
-
-Function ПолучитьСтрокуЗаголовковHTTP(Заголовки) Export
-	СтрокаЗаголовков = "";
-
-	Для Каждого КлючЗначение Из Заголовки Цикл
-		СтрокаЗаголовков = СтрокаЗаголовков + ?(ValueIsFilled(СтрокаЗаголовков), Символы.ПС, "") + КлючЗначение.Ключ
-			+ ":" + КлючЗначение.Значение;
-	КонецЦикла;
-
-	Return СтрокаЗаголовков;
-EndFunction
-
-#КонецОбласти
-
-#Область JSON
-
-Function мПрочитатьJSON(Значение, ПрочитатьВСоответствие = Ложь) Export
-#Если ВебКлиент Тогда
-	Return UT_CommonServerCall.мПрочитатьJSON(Значение);
-#Иначе
-		ЧтениеJSON = Новый ЧтениеJSON;
-		ЧтениеJSON.УстановитьСтроку(Значение);
-
-		ДанныеДокументаJSON =ПрочитатьJSON(ЧтениеJSON,ПрочитатьВСоответствие);
-		ЧтениеJSON.Закрыть();
-
-		Return ДанныеДокументаJSON;
-#КонецЕсли
-EndFunction // ПрочитатьJSON()
-
-Function мЗаписатьJSON(StructureДанных) Export
-#Если ВебКлиент Тогда
-	Return UT_CommonServerCall.мЗаписатьJSON(StructureДанных);
-#Иначе
-
-		ЗаписьJSON = Новый ЗаписьJSON;
-		ЗаписьJSON.УстановитьСтроку();
-		ЗаписатьJSON(ЗаписьJSON, StructureДанных);
-		СериализованнаяСтрока = ЗаписьJSON.Закрыть();
-		Return СериализованнаяСтрока;
-#КонецЕсли
-
-EndFunction // ЗаписатьJSON(
-#КонецОбласти
-
 #Область ПараметрыЗаписи
 
 Function StructureПараметровЗаписиПоУмолчанию() Export
@@ -1301,7 +1225,7 @@ EndProcedure
 
 // copy  Data Composition Settings
 //
-// Параметры:
+// Parameters:
 //	ReceiverSettings	- DataCompositionSettings, DataCompositionNestedObjectSettings,DataCompositionGroup, DataCompositionTableGroup, DataCompositionChartGroup,DataCompositionTable, DataCompositionChart - Data Composition settings collection to receive settings from Source
 //	SourceSettings	- DataCompositionSettings, DataCompositionNestedObjectSettings,DataCompositionGroup, DataCompositionTableGroup, DataCompositionChartGroup,DataCompositionTable, DataCompositionChart 	- Data Composition settings collection, where are the settings copied from.
 //
@@ -1410,120 +1334,177 @@ Function SerializeQueryForDebug(DebugObject)
 	If DebugObject.TempTablesManager <> Undefined Then
 		TempTablesStructure = UT_CommonServerCall.TempTablesManagerTempTablesStructure(
 			DebugObject.TempTablesManager);
-		ObjectStructure.Вставить("TempTables", TempTablesStructure);
+		ObjectStructure.Insert("TempTables", TempTablesStructure);
 	EndIf;
-
 	Return ObjectStructure;
 EndFunction
 
-Function СериализоватьСКДДляОтладки(СКД, НастройкиСКД, ВнешниеНаборыДанных)
-	Return UT_CommonServerCall.СериализоватьОбъектСКДДляОтладки(СКД, НастройкиСКД, ВнешниеНаборыДанных);
+Function SerializeDCSForDebug(DCS,DcsSettings,ExternalDataSets)
+	Return UT_CommonServerCall.SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets);
 EndFunction
 
-Function СериализоватьОбъектБДДляОтладки(DebugObject)
-	StructureОбъекта = Новый Structure;
-	StructureОбъекта.Вставить("Object", DebugObject);
-	Return StructureОбъекта;
+Function SerializeDBObjectForDebug(DebugObject)
+	ObjectStructure = New Structure;
+	ObjectStructure.Insert("Object", DebugObject);
+	Return ObjectStructure;
 EndFunction
 
-Function СериализоватьHTTPЗапросДляОтладки(ЗапросHTTP, СоединениеHTTP)
-	StructureОбъекта = Новый Structure;
-	StructureОбъекта.Вставить("АдресСервера", СоединениеHTTP.Сервер);
-	StructureОбъекта.Вставить("Порт", СоединениеHTTP.Порт);
-	StructureОбъекта.Вставить("ИспользоватьHTPPS", СоединениеHTTP.ЗащищенноеСоединение <> Неопределено);
-	Если СоединениеHTTP.ЗащищенноеСоединение = Неопределено Тогда
-		StructureОбъекта.Вставить("Протокол", "http");
-	Иначе
-		StructureОбъекта.Вставить("Протокол", "https");
-	КонецЕсли;
+Function SerializeHTTPRequestForDebug(RequestHTTP, ConnectionHTTP)
+	ObjectStructure = New Structure;
+	ObjectStructure.Insert("HostAddress", ConnectionHTTP.Host);
+	ObjectStructure.Insert("Port", ConnectionHTTP.Port);
+	ObjectStructure.Insert("UseHTPPS", ConnectionHTTP.SecureConnection <> Undefined);
+	If ConnectionHTTP.SecureConnection = Undefined Then
+		ObjectStructure.Insert("Protocol", "http");
+	Else
+		ObjectStructure.Insert("Protocol", "https");
+	EndIf;
 
-	StructureОбъекта.Вставить("ПроксиСервер", СоединениеHTTP.Прокси.Сервер(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ПроксиПорт", СоединениеHTTP.Прокси.Порт(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ПроксиПользователь", СоединениеHTTP.Прокси.Пользователь(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ПроксиПароль", СоединениеHTTP.Прокси.Пароль(StructureОбъекта.Протокол));
-	StructureОбъекта.Вставить("ИспользоватьАутентификациюОС", СоединениеHTTP.Прокси.ИспользоватьАутентификациюОС(
-		StructureОбъекта.Протокол));
+	ObjectStructure.Insert("ProxyServer", ConnectionHTTP.Proxy.Server(ObjectStructure.Protocol));
+	ObjectStructure.Insert("ProxyPort", ConnectionHTTP.Proxy.Port(ObjectStructure.Protocol));
+	ObjectStructure.Insert("ProxyUser", ConnectionHTTP.Proxy.User(ObjectStructure.Protocol));
+	ObjectStructure.Insert("ProxyPassword", ConnectionHTTP.Proxy.Password(ObjectStructure.Protocol));
+	ObjectStructure.Insert("UseOSAuthentication", ConnectionHTTP.Proxy.UseOSAuthentication(
+		ObjectStructure.Protocol));
 
-	StructureОбъекта.Вставить("Запрос", ЗапросHTTP.АдресРесурса);
-	StructureОбъекта.Вставить("ТелоЗапроса", ЗапросHTTP.ПолучитьТелоКакСтроку());
-	StructureОбъекта.Вставить("Заголовки", UT_CommonClientServer.ПолучитьСтрокуЗаголовковHTTP(
-		ЗапросHTTP.Заголовки));
+	ObjectStructure.Insert("Request", RequestHTTP.ResourceAddress);
+	ObjectStructure.Insert("RequestBody", RequestHTTP.GetBodyAsString());
+	ObjectStructure.Insert("Заголовки", UT_CommonClientServer.GetHTTPHeadersString(
+		RequestHTTP.Headers));
 
-	ДвоичныеДанныеТела = ЗапросHTTP.ПолучитьТелоКакДвоичныеДанные();
-	StructureОбъекта.Вставить("ДвоичныеДанныеТела", ДвоичныеДанныеТела);
-	StructureОбъекта.Вставить("ДвоичныеДанныеТелаСтрокой", Строка(ДвоичныеДанныеТела));
+	BodyBinaryData = RequestHTTP.GetBodyAsBinaryData();
+	ObjectStructure.Insert("BodyBinaryData", BodyBinaryData);
+	ObjectStructure.Insert("BodyBinaryDataAsString", String(BodyBinaryData));
 
-	StructureОбъекта.Вставить("ИмяФайлаЗапроса", ЗапросHTTP.ПолучитьИмяФайлаТела());
+	ObjectStructure.Insert("RequestFileName", RequestHTTP.GetBodyFileName());
 
-	Return StructureОбъекта;
+	Return ObjectStructure;
 
 EndFunction
 
-Function СериализоватьОбъектДляОтладкиВСтруктуру(DebugObject, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных)
-	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
+Function SerializeObjectForDebugToStructure(DebugObject, DcsSettingsOrHTTPConnection, ExternalDataSets)
+	AllRefsType = UT_CommonCached.AllRefsTypeDescription();
 
-	StructureОбъекта = Новый Structure;
-	Если ТипВсеСсылки.СодержитТип(ТипЗнч(DebugObject)) Тогда
-		StructureОбъекта = СериализоватьОбъектБДДляОтладки(DebugObject);
-	ИначеЕсли ТипЗнч(DebugObject) = Тип("HTTPЗапрос") Тогда
-		StructureОбъекта = СериализоватьHTTPЗапросДляОтладки(DebugObject, НастройкиСКДИлиСоединениеHTTP);
-	ИначеЕсли ТипЗнч(DebugObject) = Тип("Запрос") Тогда
-		StructureОбъекта = SerializeQueryForDebug(DebugObject);
-	ИначеЕсли ТипЗнч(DebugObject) = Тип("СхемаКомпоновкиДанных") Тогда
-		StructureОбъекта = СериализоватьСКДДляОтладки(DebugObject, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных);
-	КонецЕсли;
-
-	Return StructureОбъекта;
+	ObjectStructure = New Structure;
+	If AllRefsType.ContainsType(TypeOf(DebugObject)) Then
+		ObjectStructure = SerializeDBObjectForDebug(DebugObject);
+	ElsIf TypeOf(DebugObject) = Type("HTTPRequest") Then
+		ObjectStructure = SerializeHTTPRequestForDebug(DebugObject, DcsSettingsOrHTTPConnection);
+	ElsIf TypeOf(DebugObject) = Type("Query") Then
+		ObjectStructure = SerializeQueryForDebug(DebugObject);
+	ElsIf TypeOf(DebugObject) = Type("DataCompositionSchema") Then
+		ObjectStructure = SerializeDCSForDebug(DebugObject, DcsSettingsOrHTTPConnection, ExternalDataSets);
+	EndIf;
+	Return ObjectStructure;
 EndFunction
 
-Function ОтладитьОбъект(ОбъектДляОтладки, НастройкиСКДИлиСоединениеHTTP = Неопределено, ВнешниеНаборыДанных=Неопределено) Export
-	ОткрыватьСразуКонсоль = Ложь;
+Function ОтладитьОбъект(DebugObject, DcsSettingsOrHTTPConnection = Undefined, ExternalDataSets=Undefined) Export
+	ОткрыватьСразуКонсоль = False;
 
 #Если ТолстыйКлиентОбычноеПриложение Или ТолстыйКлиентУправляемоеПриложение Тогда
 	ОткрыватьСразуКонсоль = Истина;
 #КонецЕсли
 
-	ТипВсеСсылки = UT_CommonCached.AllRefsTypeDescription();
-	СериализованныйОбъект = СериализоватьОбъектДляОтладкиВСтруктуру(ОбъектДляОтладки, НастройкиСКДИлиСоединениеHTTP, ВнешниеНаборыДанных);
-	Если ТипВсеСсылки.СодержитТип(ТипЗнч(ОбъектДляОтладки)) Тогда
+	AllRefsType = UT_CommonCached.AllRefsTypeDescription();
+	СериализованныйОбъект = SerializeObjectForDebugToStructure(DebugObject, DcsSettingsOrHTTPConnection, ExternalDataSets);
+	If AllRefsType.ContainsType(TypeOf(DebugObject)) Then
 		ТипОбъектаОтладки = "ОбъектБазыДанных";
-	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("HTTPЗапрос") Тогда
+	ElsIf TypeOf(DebugObject) = Type("HTTPЗапрос") Then
 		ТипОбъектаОтладки = "HTTPЗапрос";
-	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("Запрос") Тогда
+	ElsIf TypeOf(DebugObject) = Type("Запрос") Then
 		ТипОбъектаОтладки = "ЗАПРОС";
-	ИначеЕсли ТипЗнч(ОбъектДляОтладки) = Тип("СхемаКомпоновкиДанных") Тогда
+	ElsIf TypeOf(DebugObject) = Type("СхемаКомпоновкиДанных") Then
 		ТипОбъектаОтладки = "СхемаКомпоновкиДанных";
-	КонецЕсли;
+	ElsIf;
 
-	Если ОткрыватьСразуКонсоль Тогда
-		ДанныеДляОтладки = ПоместитьВоВременноеХранилище(СериализованныйОбъект);
+	If ОткрыватьСразуКонсоль Then
+		ДанныеДляОтладки = PutToTempStorage(СериализованныйОбъект);
 #Если Клиент Тогда
 
 		UT_CommonClient.ОткрытьКонсольОтладки(ТипОбъектаОтладки, ДанныеДляОтладки);
 
 #КонецЕсли
-		Return Неопределено;
-	Иначе
+		Return Undefined;
+	Else
 		Return UT_CommonServerCall.ЗаписатьДанныеДляОтладкиВСправочник(ТипОбъектаОтладки,
 			СериализованныйОбъект);
-	КонецЕсли;
+	EndIf;
 EndFunction
 
-Function КлючДанныхОбъектаДанныхОтладкиВХранилищеНастроек() Export
-	Return "УИ_УниверсальныеИнструменты_ДанныеДляОтладки";
+Function DebuggingDataObjectDataKeyInSettingsStorage() Export
+	Return "UT_UniversalTools_DebuggingData";
 EndFunction
 
-Function КлючОбъектаВХранилищеНастроек() Export
-	Return "УИ_УниверсальныеИнструменты";
+Function ObjectKeyInSettingsStorage() Export
+		Return "UT_UniversalTools";
 EndFunction
 #EndRegion
 
 #Region HTTPRequests
 
+Function ЗаголовкиHTTPЗапросаИзСтроки(СтрокаЗаголовков) Export
+	ТекстовыйДокумент = Новый ТекстовыйДокумент;
+	ТекстовыйДокумент.УстановитьТекст(СтрокаЗаголовков);
+
+	Заголовки = Новый Соответствие;
+
+	Для НомерСтроки = 1 По ТекстовыйДокумент.КоличествоСтрок() Цикл
+		ЗаголовокСтр = ТекстовыйДокумент.ПолучитьСтроку(НомерСтроки);
+
+		Если Не ValueIsFilled(ЗаголовокСтр) Тогда
+			Продолжить;
+		КонецЕсли;
+
+		МассивЗаголовка = StrSplit(ЗаголовокСтр, ":");
+		Если МассивЗаголовка.Количество() <> 2 Тогда
+			Продолжить;
+		КонецЕсли;
+
+		Заголовки.Вставить(МассивЗаголовка[0], МассивЗаголовка[1]);
+
+	КонецЦикла;
+
+	Return Заголовки;
+EndFunction
+
+Function  GetHTTPHeadersString(Headers) Export
+	HeadersString = "";
+
+	For Each KeyValue In Headers Do
+		HeadersString = HeadersString + ?(ValueIsFilled(HeadersString), Chars.LF, "") + KeyValue.Key
+			+ ":" + KeyValue.Value;
+	EndDo;
+
+	Return HeadersString;
+EndFunction
 #EndRegion
 
 #Region JSON
+Function mReadJSON(Value, ReadToMap = False) Export
+#If WebClient Then
+	Return UT_CommonServerCall.mReadJSON(Value);
+#Else
+		JSONReader = New JSONReader;
+		JSONReader.SetString(Value);
 
+		JSONDocumentData =ReadJSON(JSONReader,ReadToMap);
+		JSONReader.Close();
+
+		Return JSONDocumentData;
+#EndIf
+EndFunction // ReadJSON()
+
+Function mWriteJSON(DataStructure) Export
+#If WebClient Then
+	Return UT_CommonServerCall.mWriteJSON(DataStructure);
+#Else
+		JSONWriter = New JSONWriter;
+		JSONWriter.SetString();
+		WriteJSON(JSONWriter, DataStructure);
+		SerializedString = JSONWriter.Close();
+		Return SerializedString;
+#EndIf
+EndFunction // WriteJSON(
 #EndRegion
 
 // Returns 1C:Enterprise current version.

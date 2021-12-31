@@ -29,7 +29,7 @@
 	//ПараметрыСеансаВХранилище.Вставить("АдресОписанияМетаданныхКонфигурации", UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"]);
 
 	UT_CommonServerCall.ХранилищеОбщихНастроекСохранить(
-	UT_CommonClientServer.КлючОбъектаВХранилищеНастроек(),
+	UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 	UT_CommonClientServer.SessionParametersSettingsKey(), ПараметрыСеансаВХранилище);
 
 КонецПроцедуры

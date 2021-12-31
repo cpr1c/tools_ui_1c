@@ -63,9 +63,9 @@
 
 КонецПроцедуры
 
-Функция DefaultLanguageCode() Экспорт
+Function DefaultLanguageCode() Export
 	Возврат UT_CommonServerCall.DefaultLanguageCode();
-КонецФункции
+EndFunction
 
 // См. СтандартныеПодсистемыПовтИсп.СсылкиПоИменамПредопределенных
 Функция RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
@@ -153,27 +153,27 @@
 	
 КонецПроцедуры
 
-// Преобразует (сериализует) любое значение в XML-строку.
-// Преобразованы в могут быть только те объекты, для которых в синтакс-помощнике указано, что они сериализуются.
-// См. также ЗначениеИзСтрокиXML.
+// Convert (serializes) any value to XML-string.
+// Converted to may be only those objects for which the syntax helper indicate that they are serialized.
+// См. также ValueFromStringXML.
 //
-// Параметры:
-//  Значение - Произвольный - значение, которое необходимо сериализовать в XML-строку.
+// Parameters:
+//  Value  - Arbitrary  - value that you want to serialize into an XML string..
 //
-// Возвращаемое значение:
-//  Строка - XML-строка.
+//  Return value:
+//  String - XML-string.
 //
-Функция ЗначениеВСтрокуXML(Значение) Экспорт
+Function ValueToXMLString(Value) Export
 
-	ЗаписьXML = Новый ЗаписьXML;
-	ЗаписьXML.УстановитьСтроку();
-	СериализаторXDTO.ЗаписатьXML(ЗаписьXML, Значение, НазначениеТипаXML.Явное);
+	XMLWriter = New XMLWriter;
+	XMLWriter.SetString();
+	XDTOSerializer.WriteXML(XMLWriter, Value, XMLTypeAssignment.Explicit);
 
-	Возврат ЗаписьXML.Закрыть();
-КонецФункции
+	Return XMLWriter.Close();
+EndFunction
 
 // Выполняет преобразование (десериализацию) XML-строки в значение.
-// См. также ЗначениеВСтрокуXML.
+// См. также ValueToXMLString.
 //
 // Параметры:
 //  СтрокаXML - Строка - XML-строка, с сериализованным объектом..
@@ -197,16 +197,15 @@
 	Возврат UT_Common.АдресОписанияМетаданныхКонфигурации();
 КонецФункции
 
-#Область JSON
+#Region JSON
 
-Функция мПрочитатьJSON(Значение) Экспорт
-	Возврат UT_CommonClientServer.мПрочитатьJSON(Значение);
-КонецФункции // ПрочитатьJSON()
+Function mReadJSON(Value) Export
+	Return UT_CommonClientServer.mReadJSON(Value);
+EndFunction // ПрочитатьJSON()
 
-Функция мЗаписатьJSON(СтруктураДанных) Экспорт
-	Возврат UT_CommonClientServer.мЗаписатьJSON(СтруктураДанных);
-
-КонецФункции // ЗаписатьJSON(
+Function mWriteJSON(DataStructure) Export
+	Return UT_CommonClientServer.mWriteJSON(DataStructure);
+EndFunction // WriteJSON(
 #КонецОбласти
 
 
@@ -466,7 +465,7 @@
 
 Функция ЗаписатьДанныеДляОтладкиВСправочник(ТипОбъектаОтладки, ДанныеДляОтладки) Экспорт
 	КлючНастроек=ТипОбъектаОтладки + "/" + ИмяПользователя() + "/" + Формат(ТекущаяДата(), "ДФ=yyyyMMddHHmmss;");
-	КлючОбъектаДанныхОтладки=UT_CommonClientServer.КлючДанныхОбъектаДанныхОтладкиВХранилищеНастроек();
+	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 
 	UT_Common.ХранилищеСистемныхНастроекСохранить(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
 
@@ -483,7 +482,7 @@
 КонецФункции
 
 Функция СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек(КлючНастроек, ИдентификаторФормы=Неопределено) Экспорт
-	КлючОбъектаДанныхОтладки=UT_CommonClientServer.КлючДанныхОбъектаДанныхОтладкиВХранилищеНастроек();
+	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 	НастройкиОтладки=UT_Common.ХранилищеСистемныхНастроекЗагрузить(КлючОбъектаДанныхОтладки, КлючНастроек);
 
 	Если НастройкиОтладки = Неопределено Тогда
@@ -505,48 +504,47 @@
 	Возврат Результат;
 КонецФункции
 
-Функция СериализоватьОбъектСКДДляОтладки(СКД, НастройкиСКД, ВнешниеНаборыДанных) Экспорт
-	СтруктураОбъекта = Новый Структура;
+Function SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets) Export
+	ObjectStructure = New Structure;
 
-	ЗаписьXML = Новый ЗаписьXML;
-	ЗаписьXML.УстановитьСтроку();
-	СериализаторXDTO.ЗаписатьXML(ЗаписьXML, СКД, "dataCompositionSchema",
+	XMLWriter = New XMLWriter;
+	XMLWriter.SetString();
+	XDTOSerializer.WriteXML(XMLWriter, DCS, "dataCompositionSchema",
 		"http://v8.1c.ru/8.1/data-composition-system/schema");
 
-	СтруктураОбъекта.Вставить("ТекстСКД", ЗаписьXML.Закрыть());
+	ObjectStructure.Insert("DCSText", XMLWriter.Close());
 
-	Если НастройкиСКД = Неопределено Тогда
-		Настройки=СКД.НастройкиПоУмолчанию;
-	Иначе
-		Настройки=НастройкиСКД;
+	If DcsSettings = Undefined Then
+		Settings=DCS.DefaultSettings;
+	Else
+		Settings=DcsSettings;
+	EndIf;
 
-	КонецЕсли;
-
-	ЗаписьXML = Новый ЗаписьXML;
-	ЗаписьXML.УстановитьСтроку();
-	СериализаторXDTO.ЗаписатьXML(ЗаписьXML, Настройки, "Settings",
+	XMLWriter = New XMLWriter;
+	XMLWriter.SetString();
+	XDTOSerializer.WriteXML(XMLWriter, Settings, "Settings",
 		"http://v8.1c.ru/8.1/data-composition-system/settings");
-	СтруктураОбъекта.Вставить("ТекстНастроекСКД", ЗаписьXML.Закрыть());
+	ObjectStructure.Insert("DcsSettingsText", XMLWriter.Close());
 
-	Если ТипЗнч(ВнешниеНаборыДанных) = Тип("Структура") Тогда
-		Наборы=Новый Структура;
+	If TypeOf(ExternalDataSets) = Type("Structure") Then
+		Sets = New Structure;
 
-		Для Каждого КлючЗначение ИЗ ВнешниеНаборыДанных Цикл
-			Если ТипЗнч(КлючЗначение.Значение) <> Тип("ТаблицаЗначений") Тогда
-				Продолжить;
-			КонецЕсли;
+		For Each KeyValue In ExternalDataSets Do
+			If TypeOf(KeyValue.Value) <> Type("ValueTable") Then
+				Continue;
+			EndIf;
 
-			Наборы.Вставить(КлючЗначение.Ключ, ЗначениеВСтрокуВнутр(КлючЗначение.Значение));
-		КонецЦикла;
+			Sets.Insert(KeyValue.Key, ValueToStringInternal(KeyValue.Value));
+		EndDo;
 
-		Если Наборы.Количество() > 0 Тогда
-			СтруктураОбъекта.Вставить("ВнешниеНаборыДанных", Наборы);
-		КонецЕсли;
-	КонецЕсли;
+		If Sets.Count() > 0 Then
+			ObjectStructure.Insert("ExternalDataSets", Sets);
+		EndIf;
+	EndIf;
 
-	Возврат СтруктураОбъекта;
+	Return ObjectStructure;
 
-КонецФункции
+EndFunction
 
 Function TempTablesManagerTempTablesStructure(TempTablesManager) Экспорт
 	TempTablesStructure = New Structure;
