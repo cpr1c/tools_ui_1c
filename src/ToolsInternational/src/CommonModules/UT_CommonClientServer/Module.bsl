@@ -1,62 +1,3 @@
-#Область ПараметрыЗаписи
-
-Function StructureПараметровЗаписиПоУмолчанию() Export
-	ПараметрыЗаписи=Новый Structure;
-	ПараметрыЗаписи.Вставить("БезАвторегистрацииИзменений", Ложь);
-	ПараметрыЗаписи.Вставить("ЗаписьВРежимеЗагрузки", Ложь);
-	ПараметрыЗаписи.Вставить("ПривелигированныйРежим", Ложь);
-	ПараметрыЗаписи.Вставить("ИспользоватьДопСвойства", Ложь);
-	ПараметрыЗаписи.Вставить("ДополнительныеСвойства", Новый Structure);
-	ПараметрыЗаписи.Вставить("ИспользоватьПроцедуруПередЗаписью", Ложь);
-	ПараметрыЗаписи.Вставить("ПроцедураПередЗаписью", "");
-
-	Return ПараметрыЗаписи;
-EndFunction
-
-Function ПараметрыЗаписиДляВыводаНаФормуИнструмента() Export
-	Массив=Новый Массив;
-	Массив.Добавить("ЗаписьВРежимеЗагрузки");
-	Массив.Добавить("ПривелигированныйРежим");
-	Массив.Добавить("БезАвторегистрацииИзменений");
-
-	Return Массив;
-EndFunction
-
-Function ПараметрыЗаписиФормы(Форма, ПрефиксРеквизитаФормы = "ПараметрЗаписи_") Export
-	ПараметрыЗаписи=StructureПараметровЗаписиПоУмолчанию();
-
-	Для Каждого КлючЗначение Из ПараметрыЗаписи Цикл
-		Если ТипЗнч(КлючЗначение.Значение) = Тип("Structure") Тогда
-			Для Каждого Стр Из Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ] Цикл
-				ПараметрыЗаписи[КлючЗначение.Ключ].Вставить(Стр.Ключ, Стр.Значение);
-			КонецЦикла;
-		Иначе
-			ПараметрыЗаписи[КлючЗначение.Ключ]=Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ];
-		КонецЕсли;
-	КонецЦикла;
-//	ЗаполнитьЗначенияСвойств(ПараметрыЗаписи, Форма);
-
-	Return ПараметрыЗаписи;
-EndFunction
-
-Процедура УстановитьПараметрыЗаписиНаФорму(Форма, ПараметрыЗаписи, ПрефиксРеквизитаФормы = "ПараметрЗаписи_") Export
-	Для Каждого КлючЗначение Из ПараметрыЗаписи Цикл
-		Если ТипЗнч(КлючЗначение.Значение) = Тип("Structure") Тогда
-			Для Каждого КЗ Из КлючЗначение.Значение Цикл
-				НС=Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ].Добавить();
-				НС.Ключ=КЗ.Ключ;
-				НС.Значение=КЗ.Значение;
-			КонецЦикла;
-		Иначе
-			Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ]=КлючЗначение.Значение;
-		КонецЕсли;
-	КонецЦикла;
-КонецПроцедуры
-
-#КонецОбласти
-
-////////////////////////////////////////////////////////////////////////
-// English Code Area 
 
 // Create copy of value type of Structure, Recursively, according of types of properties. 
 // If  structure properties contains values of object types  (catalogref, DocumentRef,etc),
@@ -665,6 +606,13 @@ EndFunction
 Function HTMLFieldBasedOnWebkit() Export
 	Return PlatformVersionNotLess_8_3_14() OR IsLinux()
 EndFunction
+Function ManagedFormType() Export
+	If PlatformVersionNotLess_8_3_14() Then
+		Return Type("ClientApplicationForm")
+	Else
+		Return Type("ManagedForm");
+	EndIf;
+EndFunction
 
 #Region Variables
 Function IsCorrectVariableName(Name) Export
@@ -1135,7 +1083,6 @@ Function FindFilterItemByPresentation(ItemCollection, Presentation) Export
 	
 EndFunction
 
-
 Procedure CopyItems(ValueReceiver, ValueSource, ClearReceiver = Истина) Export
 
 	If  Typeof(ValueSource) = Type("DataCompositionConditionalAppearance") Or TypeOf(ValueSource) = Type(
@@ -1221,7 +1168,6 @@ Procedure FillItems(ValueReceiver, ValueSource, FirstLevel = Неопредел�
 	EndDo;
 
 EndProcedure
-
 
 // copy  Data Composition Settings
 //
@@ -1327,13 +1273,13 @@ EndProcedure
 
 #Region Debug
 
-Function SerializeQueryForDebug(DebugObject)
+Function SerializeQueryForDebug(ObjectForDebugging)
 	ObjectStructure  = New Structure;
-  	ObjectStructure.Insert("Text", DebugObject.Text);
-	ObjectStructure.Insert("Parameters", CopyRecursively(DebugObject.Parameters));
-	If DebugObject.TempTablesManager <> Undefined Then
+  	ObjectStructure.Insert("Text", ObjectForDebugging.Text);
+	ObjectStructure.Insert("Parameters", CopyRecursively(ObjectForDebugging.Parameters));
+	If ObjectForDebugging.TempTablesManager <> Undefined Then
 		TempTablesStructure = UT_CommonServerCall.TempTablesManagerTempTablesStructure(
-			DebugObject.TempTablesManager);
+			ObjectForDebugging.TempTablesManager);
 		ObjectStructure.Insert("TempTables", TempTablesStructure);
 	EndIf;
 	Return ObjectStructure;
@@ -1343,9 +1289,9 @@ Function SerializeDCSForDebug(DCS,DcsSettings,ExternalDataSets)
 	Return UT_CommonServerCall.SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets);
 EndFunction
 
-Function SerializeDBObjectForDebug(DebugObject)
+Function SerializeDBObjectForDebug(ObjectForDebugging)
 	ObjectStructure = New Structure;
-	ObjectStructure.Insert("Object", DebugObject);
+	ObjectStructure.Insert("Object", ObjectForDebugging);
 	Return ObjectStructure;
 EndFunction
 
@@ -1382,52 +1328,52 @@ Function SerializeHTTPRequestForDebug(RequestHTTP, ConnectionHTTP)
 
 EndFunction
 
-Function SerializeObjectForDebugToStructure(DebugObject, DcsSettingsOrHTTPConnection, ExternalDataSets)
+Function SerializeObjectForDebugToStructure(ObjectForDebugging, DcsSettingsOrHTTPConnection, ExternalDataSets)
 	AllRefsType = UT_CommonCached.AllRefsTypeDescription();
 
 	ObjectStructure = New Structure;
-	If AllRefsType.ContainsType(TypeOf(DebugObject)) Then
-		ObjectStructure = SerializeDBObjectForDebug(DebugObject);
-	ElsIf TypeOf(DebugObject) = Type("HTTPRequest") Then
-		ObjectStructure = SerializeHTTPRequestForDebug(DebugObject, DcsSettingsOrHTTPConnection);
-	ElsIf TypeOf(DebugObject) = Type("Query") Then
-		ObjectStructure = SerializeQueryForDebug(DebugObject);
-	ElsIf TypeOf(DebugObject) = Type("DataCompositionSchema") Then
-		ObjectStructure = SerializeDCSForDebug(DebugObject, DcsSettingsOrHTTPConnection, ExternalDataSets);
+	If AllRefsType.ContainsType(TypeOf(ObjectForDebugging)) Then
+		ObjectStructure = SerializeDBObjectForDebug(ObjectForDebugging);
+	ElsIf TypeOf(ObjectForDebugging) = Type("HTTPRequest") Then
+		ObjectStructure = SerializeHTTPRequestForDebug(ObjectForDebugging, DcsSettingsOrHTTPConnection);
+	ElsIf TypeOf(ObjectForDebugging) = Type("Query") Then
+		ObjectStructure = SerializeQueryForDebug(ObjectForDebugging);
+	ElsIf TypeOf(ObjectForDebugging) = Type("DataCompositionSchema") Then
+		ObjectStructure = SerializeDCSForDebug(ObjectForDebugging, DcsSettingsOrHTTPConnection, ExternalDataSets);
 	EndIf;
 	Return ObjectStructure;
 EndFunction
 
-Function ОтладитьОбъект(DebugObject, DcsSettingsOrHTTPConnection = Undefined, ExternalDataSets=Undefined) Export
-	ОткрыватьСразуКонсоль = False;
-
-#Если ТолстыйКлиентОбычноеПриложение Или ТолстыйКлиентУправляемоеПриложение Тогда
-	ОткрыватьСразуКонсоль = Истина;
-#КонецЕсли
+Function DebugObject(ObjectForDebugging, DcsSettingsOrHTTPConnection = Undefined, ExternalDataSets=Undefined) Export
+	
+	ImmediatelyOpenConsole = False;
+#If ThickClientOrdinaryApplication Или ThickClientManagedApplication Then
+	ImmediatelyOpenConsole = True;
+#EndIf
 
 	AllRefsType = UT_CommonCached.AllRefsTypeDescription();
-	СериализованныйОбъект = SerializeObjectForDebugToStructure(DebugObject, DcsSettingsOrHTTPConnection, ExternalDataSets);
-	If AllRefsType.ContainsType(TypeOf(DebugObject)) Then
-		ТипОбъектаОтладки = "ОбъектБазыДанных";
-	ElsIf TypeOf(DebugObject) = Type("HTTPЗапрос") Then
-		ТипОбъектаОтладки = "HTTPЗапрос";
-	ElsIf TypeOf(DebugObject) = Type("Запрос") Then
-		ТипОбъектаОтладки = "ЗАПРОС";
-	ElsIf TypeOf(DebugObject) = Type("СхемаКомпоновкиДанных") Then
-		ТипОбъектаОтладки = "СхемаКомпоновкиДанных";
-	ElsIf;
+	SerializeObject = SerializeObjectForDebugToStructure(ObjectForDebugging, DcsSettingsOrHTTPConnection, ExternalDataSets);
+	If AllRefsType.ContainsType(TypeOf(ObjectForDebugging)) Then
+		DebugObjectType = "DataBaseOobject";
+	ElsIf TypeOf(ObjectForDebugging) = Type("HTTPRequest") Then
+		DebugObjectType = "HTTPRequest";
+	ElsIf TypeOf(ObjectForDebugging) = Type("Query") Then
+		DebugObjectType = "QUERY";
+	ElsIf TypeOf(ObjectForDebugging) = Type("DataCompositionSchema") Then
+		DebugObjectType = "DATACOMPOSITIONSCHEMA";
+	EndIf;
 
-	If ОткрыватьСразуКонсоль Then
-		ДанныеДляОтладки = PutToTempStorage(СериализованныйОбъект);
-#Если Клиент Тогда
+	If ImmediatelyOpenConsole Then
+		DebuggingData = PutToTempStorage(SerializeObject);
+#If Client Then
 
-		UT_CommonClient.ОткрытьКонсольОтладки(ТипОбъектаОтладки, ДанныеДляОтладки);
+		UT_CommonClient.OpenDebuggingConsole(DebugObjectType, DebuggingData);
 
-#КонецЕсли
+#EndIf
 		Return Undefined;
 	Else
-		Return UT_CommonServerCall.ЗаписатьДанныеДляОтладкиВСправочник(ТипОбъектаОтладки,
-			СериализованныйОбъект);
+		Return UT_CommonServerCall.SaveDebuggingDataToStorage(DebugObjectType,
+			SerializeObject);
 	EndIf;
 EndFunction
 
@@ -1442,29 +1388,29 @@ EndFunction
 
 #Region HTTPRequests
 
-Function ЗаголовкиHTTPЗапросаИзСтроки(СтрокаЗаголовков) Export
-	ТекстовыйДокумент = Новый ТекстовыйДокумент;
-	ТекстовыйДокумент.УстановитьТекст(СтрокаЗаголовков);
+Function HTTPRequestHeadersFromString(HeadersString) Export
+	TextDocument = New TextDocument;
+	TextDocument.SetText(HeadersString);
 
-	Заголовки = Новый Соответствие;
+	Headers = New Map;
 
-	Для НомерСтроки = 1 По ТекстовыйДокумент.КоличествоСтрок() Цикл
-		ЗаголовокСтр = ТекстовыйДокумент.ПолучитьСтроку(НомерСтроки);
+	For LineNumber = 1 to TextDocument.LineCount() Do
+		HeaderString = TextDocument.GetLine(LineNumber);
 
-		Если Не ValueIsFilled(ЗаголовокСтр) Тогда
-			Продолжить;
-		КонецЕсли;
+		If Not ValueIsFilled(HeaderString) Then
+			Continue;
+		EndIf;
 
-		МассивЗаголовка = StrSplit(ЗаголовокСтр, ":");
-		Если МассивЗаголовка.Количество() <> 2 Тогда
-			Продолжить;
-		КонецЕсли;
+		HeaderArray = StrSplit(HeaderString, ":");
+		If HeaderArray.Count() <> 2 Then
+			Continue;
+		EndIf;
 
-		Заголовки.Вставить(МассивЗаголовка[0], МассивЗаголовка[1]);
+		Headers.Insert(HeaderArray[0], HeaderArray[1]);
 
-	КонецЦикла;
+	EndDo;
 
-	Return Заголовки;
+	Return Headers;
 EndFunction
 
 Function  GetHTTPHeadersString(Headers) Export
@@ -1609,11 +1555,59 @@ EndFunction
 
 #Region WriteParams
 
+Function WriteParametersStructureByDefaults() Export
+	WriteParameters=New Structure;
+	WriteParameters.Insert("WithOutChangeRecording", False);
+	WriteParameters.Insert("WritingInLoadMode", False);
+	WriteParameters.Insert("PrivilegedMode", False);
+	WriteParameters.Insert("UseAdditionalProperties", False);
+	WriteParameters.Insert("AdditionalProperties", New Structure);
+	WriteParameters.Insert("UseBeforeWriteProcedure", False);
+	WriteParameters.Insert("BeforeWriteProcedure", "");
+
+	Return WriteParameters;
+EndFunction
+
+Function ToolsFormOutputWriteSettings() Export
+	Array=New Array;
+	Array.Add("WritingInLoadMode");    
+	Array.Add("PrivilegedMode");     
+	Array.Add("WithOutChangeRecording");
+	Return Array;
+EndFunction
+
+Function FormWriteSettings(Form, FormAttributePrefix = "WriteParameter_") Export
+	WriteParameters=WriteParametersStructureByDefaults();
+
+	For each KeyValue In WriteParameters Do
+		If TypeOf(KeyValue.Value) = Type("Structure") Then
+			For Each Row In Form[FormAttributePrefix + KeyValue.Key] Do
+				WriteParameters[KeyValue.Key].Insert(Row.Key, Row.Value);
+			EndDo;
+		Else
+			WriteParameters[KeyValue.Key]=Form[FormAttributePrefix + KeyValue.Key];
+		EndIf;
+	EndDo;
+//	FillPropertyValues(WriteSettings, Form);
+	Return WriteParameters;
+EndFunction
+
+Procedure SetOnFormWriteParameters(Form, WriteParameters, FormAttributePrefix = "WriteParameter_") Export
+	For Each KeyValue In WriteParameters Do
+		If TypeOf(KeyValue.Value) = Type("Structure") Then
+			For Each KV In KeyValue.Value Do
+				NS=Form[FormAttributePrefix + KeyValue.Key].Add();
+				NS.Key=KV.Key;
+				NS.Value=KV.Value;
+			EndDo;
+		Else
+			Form[FormAttributePrefix + KeyValue.Ключ]=KeyValue.Value;
+		EndIf;
+	EndDo;
+EndProcedure
 #EndRegion
 
 #Region FileFunctions
-
-#EndRegion
 
 // The index of the file icon is being received. It is the index in the FilesIconsCollection picture.
 Function GetFileIconIndex(val FileExtention) Export
@@ -1758,7 +1752,7 @@ Function ExtensionWithoutDot(Val FileExtension) Export
 	Return FileExtension;
 
 EndFunction
-
+#EndRegion
 #Region ToolsSettings
 	
 Function SettingsDataKeyInSettingsStorage() Export
@@ -1792,35 +1786,3 @@ Function IsPortableDistribution() Export
 	Return DistributionType() = PortableDistributionType();	
 EndFunction
 #EndRegion
-
-Function ManagedFormType() Export
-	If PlatformVersionNotLess_8_3_14() Then
-		Return Type("ClientApplicationForm")
-	Else
-		Return Type("ManagedForm");
-	EndIf;
-EndFunction
-
-Function ToolsFormOutputWriteSettings() Export
-	Array=New Array;
-	Array.Add("WritingInLoadMode");    
-	Array.Add("PrivilegedMode");     
-	Array.Add("WithOutChangeRecording");
-	Return Array;
-EndFunction
-
-Function FormWriteSettings(Форма, ПрефиксРеквизитаФормы = "ПараметрЗаписи_") Export
-	WriteSettings=StructureПараметровЗаписиПоУмолчанию();
-
-	For each КлючЗначение In WriteSettings Do
-		If ТипЗнч(КлючЗначение.Значение) = Type("Structure") Then
-			For Each Стр In Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ] Do
-				WriteSettings[КлючЗначение.Ключ].Вставить(Стр.Ключ, Стр.Значение);
-			EndDo;
-		Else
-			WriteSettings[КлючЗначение.Ключ]=Форма[ПрефиксРеквизитаФормы + КлючЗначение.Ключ];
-		EndIf;
-	EndDo;
-//	ЗаполнитьЗначенияСвойств(ПараметрыЗаписи, Форма);
-	Return WriteSettings;
-EndFunction

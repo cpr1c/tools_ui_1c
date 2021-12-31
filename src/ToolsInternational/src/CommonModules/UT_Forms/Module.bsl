@@ -302,7 +302,7 @@
 	ПараметрыЗаписи.Вставить("ПроцедураПередЗаписью", Новый Структура("Значение,Заголовок", "",
 		"Без авторегистрации изменений"));
 
-	ПрефиксПараметра="ПараметрЗаписи_";
+	ПрефиксПараметра="WriteParameter_";
 
 	МассивДобавляемыхРеквизитов=Новый Массив;
 
@@ -671,16 +671,16 @@ EndFunction
 	WriteSettings.Insert("ПроцедураПередЗаписью", New Structure("Значение,Заголовок", "",
 		"Без авторегистрации изменений"));
 
-	ParameterPrefix="ПараметрЗаписи_";
+	ParameterPrefix="WriteParameter_";
 
 	AddedAtributesArray=New Array;
 
 	For Each KeyValue In WriteSettings Do
-		AttributeType=ТипЗнч(KeyValue.Value.Value);
+		AttributeType=TypeOf(KeyValue.Value.Value);
 
 		If AttributeType = Type ("Structure") Then
 			AttributeType= Type ("ValueTable");
-//			Продолжить;
+//			Continue;
 		EndIf;
 
 		TypesArray=New Array;

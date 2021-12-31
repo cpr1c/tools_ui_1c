@@ -1492,7 +1492,7 @@ EndProcedure
 	ПараметрыВыполнения.Вставить("УчитыватьПрикладныеПравила", Ложь);
 	ЗаменаПарыВТранзакции = Истина;
 
-	ПараметрыЗаписи=UT_CommonClientServer.StructureПараметровЗаписиПоУмолчанию();
+	ПараметрыЗаписи=UT_CommonClientServer.WriteParametersStructureByDefaults();
 	
 	// Переданные значения.
 	ЗначениеПараметра = UT_CommonClientServer.StructureProperty(Параметры, "СпособУдаления");
@@ -4872,6 +4872,7 @@ EndProcedure
 	Возврат Результат;
 КонецФункции
 #КонецОбласти
+
 #Region EnglishCode
     #Region ProgramInterface
 	Функция WriteObjectToDB(Object, WriterSettings, Val Action = "Write", Val WiteMode = Undefined,
