@@ -82,7 +82,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonClientServer</td>
-<td style="height: 17px; width: 66.8125px;">40 % ( В процессе )</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">1825</td>
 </tr>
 <tr style="height: 17px;">
@@ -509,7 +509,7 @@
 <p>УстановитьЗначениеПараметраСКД</p>
 </td>
 <td width="270">
-<p></p>
+<p>SetDCSParemeterValue</p>
 </td>
 </tr>
 <tr>
@@ -533,7 +533,7 @@
 <p>СкопироватьЭлементы</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CopyItems</p>
 </td>
 </tr>
 <tr>
@@ -541,7 +541,7 @@
 <p>ЗаполнитьЭлементы</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>FillItems</p>
 </td>
 </tr>
 <tr>
@@ -549,7 +549,7 @@
 <p>СкопироватьНастройкиКомпоновкиДанных</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>CopyDataCompositionSettings</p>
 </td>
 </tr>
 <tr>
@@ -557,7 +557,7 @@
 <p>СериализоватьЗапросДляОтладки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SerializeQueryForDebug</p>
 </td>
 </tr>
 <tr>
@@ -565,7 +565,7 @@
 <p>СериализоватьСКДДляОтладки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SerializeDCSForDebug</p>
 </td>
 </tr>
 <tr>
@@ -573,7 +573,7 @@
 <p>СериализоватьОбъектБДДляОтладки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SerializeDBObjectForDebug</p>
 </td>
 </tr>
 <tr>
@@ -581,7 +581,7 @@
 <p>СериализоватьHTTPЗапросДляОтладки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SerializeHTTPRequestForDebug</p>
 </td>
 </tr>
 <tr>
@@ -589,7 +589,7 @@
 <p>СериализоватьОбъектДляОтладкиВСтруктуру</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SerializeObjectForDebugToStructure</p>
 </td>
 </tr>
 <tr>
@@ -597,7 +597,7 @@
 <p>ОтладитьОбъект</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>DebugObject</p>
 </td>
 </tr>
 <tr>
@@ -605,7 +605,7 @@
 <p>КлючДанныхОбъектаДанныхОтладкиВХранилищеНастроек</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>DebuggingDataObjectDataKeyInSettingsStorage</p>
 </td>
 </tr>
 <tr>
@@ -613,7 +613,7 @@
 <p>КлючОбъектаВХранилищеНастроек</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>ObjectKeyInSettingsStorage</p>
 </td>
 </tr>
 <tr>
@@ -621,7 +621,7 @@
 <p>ЗаголовкиHTTPЗапросаИзСтроки</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>HTTPRequestHeadersFromString</p>
 </td>
 </tr>
 <tr>
@@ -629,7 +629,7 @@
 <p>ПолучитьСтрокуЗаголовковHTTP</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>GetHTTPHeadersString</p>
 </td>
 </tr>
 <tr>
@@ -637,7 +637,7 @@
 <p>МПрочитатьJSON</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>mReadJSON</p>
 </td>
 </tr>
 <tr>
@@ -645,7 +645,7 @@
 <p>МЗаписатьJSON</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>mWriteJSON</p>
 </td>
 </tr>
 <tr>
@@ -685,7 +685,7 @@
 <p>СтруктураПараметровЗаписиПоУмолчанию</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>WriteParametersStructureByDefaults</p>
 </td>
 </tr>
 <tr>
@@ -709,7 +709,7 @@
 <p>УстановитьПараметрыЗаписиНаФорму</p>
 </td>
 <td width="270">
-<p>&nbsp;</p>
+<p>SetOnFormWriteParameters</p>
 </td>
 </tr>
 <tr>
