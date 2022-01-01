@@ -250,7 +250,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РедакторJSON</name>
+		<name>DataProcessor.UT_JSONEditor</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

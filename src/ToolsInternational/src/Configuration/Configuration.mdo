@@ -159,7 +159,7 @@
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.UT_JSONEditor</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>

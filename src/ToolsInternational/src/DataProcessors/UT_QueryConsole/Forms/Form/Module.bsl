@@ -2162,7 +2162,7 @@ Procedure QueryBatch_LoadCompletion(AdditionalParameters) Export
 	fOK = fOK And stLoadedData.Property("Version");
 
 	If Not fOK Then
-		ConsoleError(NStr("ru = 'Не верный формат файла!'; en = 'Wrong file format.'"));
+		ConsoleError(NStr("ru = 'Не верный формат файла!'; en = 'File format is incorrect.'"));
 	EndIf;
 
 	If stLoadedData.Version > FormatVersion Then
@@ -2791,7 +2791,7 @@ Procedure OnOpenCompletionAtServer()
 
 	DataProcessor = FormAttributeToValue("Object");
 	
-	//Сохраняемые значения +++
+	//Saved states +++
 
 	ResultKind = SavedStates_GetAtServer("ResultKind", "table");
 	OutputLinesLimit = SavedStates_GetAtServer("OutputLinesLimit", "1000");
@@ -2984,40 +2984,40 @@ Procedure ChangeParameterNameInQueryText(Result, AdditionalParameters) Export
 EndProcedure
 
 &AtClient
-Procedure ОбработатьИзменениеИмениПараметра(НоваяСтрока, ОтменаРедактирования, Отказ)
+Procedure ProcessParameterNameChange(NewRow, CancelEditing, Cancel)
 
-	If ОтменаРедактирования Then
+	If CancelEditing Then
 		Return;
 	EndIf;
 
-	стрИмяПараметра = Элементы.QueryParameters.ТекущиеДанные.Имя;
-	If ValueIsFilled(стрИмяПараметра) И стрИмяПараметра = PreviousValueParameterName Then
+	strParameterName = Items.QueryParameters.CurrentData.Name;
+	If ValueIsFilled(strParameterName) And strParameterName = PreviousValueParameterName Then
 		Return;
 	EndIf;
 
-	If Не NameIsCorrect(стрИмяПараметра) Then
+	If Not NameIsCorrect(strParameterName) Then
 		ShowConsoleMessageBox(
-			"Неверное имя параметра! Имя должно состоять из одного слова, начинаться с буквы и не содержать специальных символов кроме ""_"".");
-		Отказ = True;
+			NStr("ru = 'Неверное имя параметра! Имя должно состоять из одного слова, начинаться с буквы и не содержать специальных символов кроме ""_"".'; en = 'Parameter name is incorrect. The name must consist of one word, start with a letter and contain no special characters except ""_"".'"));
+		Cancel = True;
 		Return;
 	EndIf;
 
-	маСтрокиИмени = QueryParameters.НайтиСтроки(New Structure("Имя", стрИмяПараметра));
-	If маСтрокиИмени.Количество() > 1 Then
-		ShowConsoleMessageBox("Параметр с таким именем уже есть! Введите другое имя.");
-		Отказ = True;
+	arNameRows = QueryParameters.FindRows(New Structure("Name", strParameterName));
+	If arNameRows.Count() > 1 Then
+		ShowConsoleMessageBox(NStr("ru = 'Параметр с таким именем уже есть! Введите другое имя.'; en = 'This parameter name already exists. Please enter another name.'"));
+		Cancel = True;
 		Return;
 	EndIf;
 
-	If Не НоваяСтрока И ValueIsFilled(PreviousValueParameterName) Then
-		стрТекстЗапроса = QueryText;
-		If ParameterExists(стрТекстЗапроса, "&" + PreviousValueParameterName) Then
-			AdditionalParameters = New Structure("PreviousValueParameterName, ИмяПараметра",
-				PreviousValueParameterName, стрИмяПараметра);
+	If Not NewRow And ValueIsFilled(PreviousValueParameterName) Then
+		strQueryText = QueryText;
+		If ParameterExists(strQueryText, "&" + PreviousValueParameterName) Then
+			AdditionalParameters = New Structure("PreviousValueParameterName, ParameterName",
+				PreviousValueParameterName, strParameterName);
 			ShowQueryBox(
-				New NotifyDescription("ChangeParameterNameInQueryText", ЭтаФорма, AdditionalParameters),
-				"Запрос содержит изменяемое мия параметра. Изменить имя параметра в тексте запроса?",
-				РежимДиалогаВопрос.ДаНет, , DialogReturnCode.Да);
+				New NotifyDescription("ChangeParameterNameInQueryText", ThisForm, AdditionalParameters),
+				NStr("ru = 'Запрос содержит изменяемое мия параметра. Изменить имя параметра в тексте запроса?'; en = 'Query contains a variable parameter name. Do you want to change parameter name in the query text?'"),
+				QuestionDialogMode.YesNo, , DialogReturnCode.Yes);
 		EndIf;
 	EndIf;
 
@@ -3026,12 +3026,12 @@ EndProcedure
 &AtClient
 Procedure QueryParametersBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
 
-	ОбработатьИзменениеИмениПараметра(NewRow, CancelEdit, Cancel);
+	ProcessParameterNameChange(NewRow, CancelEdit, Cancel);
 
 EndProcedure
 
 //&AtClient
-//Procedure ПараметрыЗапросаПриНачалеРедактирования(Элемент, НоваяСтрока, Копирование)
+//Procedure QueryParametersOnStartEdit(Item, NewRow, Clone)
 //EndProcedure
 
 &AtClient
@@ -3042,11 +3042,11 @@ EndProcedure
 &AtClient
 Procedure QueryBatchBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
 
-	ИмяЗапроса = Item.ТекущиеДанные.Name;
+	QueryName = Item.CurrentData.Name;
 
-	Строка = FindInTree(QueryBatch, "Имя", ИмяЗапроса, Item.ТекущаяСтрока);
-	If Строка <> Undefined Then
-		ShowConsoleMessageBox("Запрос с таким именем уже есть! Введите другое имя.");
+	Row = FindInTree(QueryBatch, "Name", QueryName, Item.CurrentRow);
+	If Row <> Undefined Then
+		ShowConsoleMessageBox(NStr("ru = 'Запрос с таким именем уже есть! Введите другое имя.'; en = 'This query name already exists. Please enter another name.'"));
 		Cancel = True;
 		Return;
 	EndIf;
@@ -3056,14 +3056,14 @@ EndProcedure
 &AtClient
 Procedure QueryBatchOnActivateRow(Item)
 
-	ТекущиеДанные = Элементы.QueryBatch.ТекущиеДанные;
+	CurrentData = Items.QueryBatch.CurrentData;
 
-	If Элементы.QueryBatch.ТекущаяСтрока = EditingQuery Then
+	If Items.QueryBatch.CurrentRow = EditingQuery Then
 		Return;
 	EndIf;
 
-	If ТекущиеДанные <> Undefined И Не ТекущиеДанные.Initialized Then
-		InitializeQuery(Элементы.QueryBatch.ТекущиеДанные);
+	If CurrentData <> Undefined And Not CurrentData.Initialized Then
+		InitializeQuery(Items.QueryBatch.CurrentData);
 		ExtractEditingQuery( , False);
 	Else
 		ExtractEditingQuery();
@@ -3073,7 +3073,7 @@ EndProcedure
 
 &AtClient
 Procedure QueryBatchSelection(Item, SelectedRow, Field, StandardProcessing)
-	ВыполнитьЗапрос(False);
+	ExecuteQuery(False);
 	StandardProcessing = False;
 EndProcedure
 
@@ -3090,61 +3090,61 @@ EndProcedure
 &AtClient
 Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 
-	ТекущиеДанные = Item.Родитель.ТекущиеДанные;
+	CurrentData = Item.Parent.CurrentData;
 
-	If ТекущиеДанные.ТипКонтейнера > 0 Then
+	If CurrentData.ContainerType > 0 Then
 
 		StandardProcessing = False;
-		ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
-			Item.Родитель.ТекущаяСтрока, "Контейнер");
-		NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
-			ЭтаФорма, ПараметрыОповещения);
-		ПараметрыОткрытия = New Structure("Объект, ValueType, Заголовок, Значение, ТипКонтейнера", Object,
-			ТекущиеДанные.ValueType, ТекущиеДанные.Имя, ТекущиеДанные.Контейнер, ТекущиеДанные.ТипКонтейнера);
+		NotifyParameters = New Structure("Table, Row, Field", "QueryParameters",
+			Item.Parent.CurrentRow, "Container");
+		ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+			ThisForm, NotifyParameters);
+		OpeningParameters = New Structure("Object, ValueType, Title, Value, ContainerType", Object,
+			CurrentData.ValueType, CurrentData.Name, CurrentData.Container, CurrentData.ContainerType);
 
-		If ТекущиеДанные.ТипКонтейнера = 3 Then
-			ИмяФормыРедактирования = "РедактированиеТаблицы";
+		If CurrentData.ContainerType = 3 Then
+			EditingFormName = "TableEdit";
 		Else
-			ИмяФормыРедактирования = "ПодборВСписок";
+			EditingFormName = "SelectionToList";
 		EndIf;
 
-		ОткрытьФорму(FormFullName(ИмяФормыРедактирования), ПараметрыОткрытия, ЭтаФорма, False, , ,
-			NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		OpenForm(FormFullName(EditingFormName), OpeningParameters, ThisForm, False, , ,
+			ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
-	ElsIf TypeOf(ТекущиеДанные.Контейнер) = Тип("Structure") Then
+	ElsIf TypeOf(CurrentData.Container) = Type("Structure") Then
 
-		If ТекущиеДанные.Контейнер.Тип = "МоментВремени" Или ТекущиеДанные.Контейнер.Тип = "Граница" Then
+		If CurrentData.Container.Type = "PointInTime" Or CurrentData.Container.Type = "Boundary" Then
 			StandardProcessing = False;
-			ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
-				Item.Родитель.ТекущаяСтрока, "Контейнер");
-			NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
-				ЭтаФорма, ПараметрыОповещения);
-			ПараметрыОткрытия = New Structure("Объект, Значение", Object, ТекущиеДанные.Контейнер);
+			NotifyParameters = New Structure("Table, Row, Field", "QueryParameters",
+				Item.Parent.CurrentRow, "Container");
+			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+				ЭтаФорма, NotifyParameters);
+			ПараметрыОткрытия = New Structure("Объект, Значение", Object, CurrentData.Контейнер);
 			ОткрытьФорму(FormFullName("РедактированиеГраницыМомента"), ПараметрыОткрытия, ЭтаФорма, False, , ,
-				NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-		ElsIf ТекущиеДанные.Контейнер.Тип = "Тип" Then
+				ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+		ElsIf CurrentData.Container.Type = "Type" Then
 			StandardProcessing = False;
-			ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
+			NotifyParameters = New Structure("Таблица, Строка, Поле", "QueryParameters",
 				Item.Родитель.ТекущаяСтрока, "КонтейнерКакТип");
-			NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
-				ЭтаФорма, ПараметрыОповещения);
-			ПараметрыОткрытия = New Structure("Объект, ValueType, ТипКонтейнера", Object, ТекущиеДанные.Контейнер,
-				ТекущиеДанные.ТипКонтейнера);
+			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+				ЭтаФорма, NotifyParameters);
+			ПараметрыОткрытия = New Structure("Объект, ValueType, ТипКонтейнера", Object, CurrentData.Контейнер,
+				CurrentData.ТипКонтейнера);
 			ОткрытьФорму(FormFullName("РедактированиеТипа"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-				NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+				ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
 
 	Else
-		If TypeOf(ТекущиеДанные.Значение) = Тип("УникальныйИдентификатор") Then
+		If TypeOf(CurrentData.Значение) = Тип("УникальныйИдентификатор") Then
 			StandardProcessing = False;
-			ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "QueryParameters",
+			NotifyParameters = New Structure("Таблица, Строка, Поле", "QueryParameters",
 				Item.Родитель.ТекущаяСтрока, "Значение");
-			NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки",
-				ЭтаФорма, ПараметрыОповещения);
-			ПараметрыОткрытия = New Structure("Объект, Значение", Object, ТекущиеДанные.Значение);
+			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+				ЭтаФорма, NotifyParameters);
+			ПараметрыОткрытия = New Structure("Объект, Значение", Object, CurrentData.Значение);
 			ОткрытьФорму(FormFullName("РедактированиеУникальногоИдентификатора"), ПараметрыОткрытия, ЭтаФорма,
-				True, , , NotifyDescriptionОЗакрытииОткрываемойФормы,
-				РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+				True, , , ClosingFormNotifyDescription,
+				FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
 	EndIf;
 
@@ -3153,13 +3153,13 @@ EndProcedure
 &AtClient
 Procedure УстановитьПараметрыВводаЗначения()
 
-	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
+	CurrentData = Элементы.QueryParameters.CurrentData;
 
-	If ТекущиеДанные <> Undefined Then
+	If CurrentData <> Undefined Then
 
 		Элементы.QueryParametersValue.КартинкаКнопкиВыбора = New Картинка;
 
-		If ValueIsFilled(ТекущиеДанные.ТипКонтейнера) Then
+		If ValueIsFilled(CurrentData.ТипКонтейнера) Then
 
 			Элементы.QueryParametersValue.КнопкаОчистки = False;
 			Элементы.QueryParametersValue.КнопкаВыбора = True;
@@ -3168,7 +3168,7 @@ Procedure УстановитьПараметрыВводаЗначения()
 			Элементы.QueryParametersValue.ОграничениеТипа = New TypeDescription("Строка");
 			Элементы.QueryParametersValue.КартинкаКнопкиВыбора = БиблиотекаКартинок.Изменить;
 
-		ElsIf TypeOf(ТекущиеДанные.Контейнер) = Тип("Structure") Then
+		ElsIf TypeOf(CurrentData.Контейнер) = Тип("Structure") Then
 
 			Элементы.QueryParametersValue.КнопкаОчистки = False;
 			Элементы.QueryParametersValue.КнопкаВыбора = True;
@@ -3180,13 +3180,13 @@ Procedure УстановитьПараметрыВводаЗначения()
 		Else
 
 			Элементы.QueryParametersValue.РедактированиеТекста = True;
-			If ValueIsFilled(ТекущиеДанные.ValueType) Then
-				Элементы.QueryParametersValue.ОграничениеТипа = ТекущиеДанные.ValueType;
+			If ValueIsFilled(CurrentData.ValueType) Then
+				Элементы.QueryParametersValue.ОграничениеТипа = CurrentData.ValueType;
 			Else
 				Элементы.QueryParametersValue.ОграничениеТипа = New TypeDescription;
 			EndIf;
 
-			If ТекущиеДанные.Value = Undefined
+			If CurrentData.Value = Undefined
 				И Элементы.QueryParametersValue.ОграничениеТипа.Типы().Количество() > 1 Then
 
 				Элементы.QueryParametersValue.ВыбиратьТип = True;
@@ -3198,7 +3198,7 @@ Procedure УстановитьПараметрыВводаЗначения()
 
 				Элементы.QueryParametersValue.ВыбиратьТип = False;
 				Элементы.QueryParametersValue.КнопкаОчистки = True;
-				Элементы.QueryParametersValue.КнопкаВыбора = ValueChoiceButtonEnabled(ТекущиеДанные.Value);
+				Элементы.QueryParametersValue.КнопкаВыбора = ValueChoiceButtonEnabled(CurrentData.Value);
 
 			EndIf;
 
@@ -3238,7 +3238,7 @@ Function ДобавитьПараметрСКонтролемИмени(ИмяП
 EndFunction
 
 &AtClient
-Procedure ОкончаниеРедактированияСтроки(РезультатЗакрытия, AdditionalParameters) Экспорт
+Procedure RowEditEnd(РезультатЗакрытия, AdditionalParameters) Экспорт
 
 	If РезультатЗакрытия <> Undefined Then
 
@@ -3287,8 +3287,8 @@ Procedure ОкончаниеРедактированияСтроки(Резул�
 			УстановитьПараметрыВводаЗначения();
 
 		ElsIf AdditionalParameters.Поле = "Значение" Then
-			Элементы.QueryParameters.ТекущиеДанные.Value = РезультатЗакрытия.Значение;
-			Элементы.QueryParameters.ТекущиеДанные.Контейнер = РезультатЗакрытия.Значение;
+			Элементы.QueryParameters.CurrentData.Value = РезультатЗакрытия.Значение;
+			Элементы.QueryParameters.CurrentData.Контейнер = РезультатЗакрытия.Значение;
 			Modified = True;
 		EndIf;
 
@@ -3300,35 +3300,35 @@ EndProcedure
 Procedure QueryParametersParameterTypeStartChoice(Item, ChoiceData, StandardProcessing)
 
 	StandardProcessing = False;
-	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
+	CurrentData = Элементы.QueryParameters.CurrentData;
 
-	If ТекущиеДанные.ТипКонтейнера < 3 Then
-		ValueType = ТекущиеДанные.ValueType;
+	If CurrentData.ТипКонтейнера < 3 Then
+		ValueType = CurrentData.ValueType;
 	Else
-		ValueType = ТекущиеДанные.Контейнер;
+		ValueType = CurrentData.Контейнер;
 	EndIf;
 
 	ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "ПараметрыЗапроса",
 		Элементы.QueryParameters.ТекущаяСтрока, "ValueType");
-	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки", ЭтаФорма,
+	ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd", ЭтаФорма,
 		ПараметрыОповещения);
 	ПараметрыОткрытия = New Structure("Объект, ValueType, ТипКонтейнера, Имя, ВЗапросРазрешено", Object,
-		ValueType, ТекущиеДанные.ТипКонтейнера, ТекущиеДанные.Имя, True);
+		ValueType, CurrentData.ТипКонтейнера, CurrentData.Имя, True);
 	ОткрытьФорму(FormFullName("РедактированиеТипа"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
 &AtClient
 Procedure QueryParametersValueOnChange(Item)
 
-	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
+	CurrentData = Элементы.QueryParameters.CurrentData;
 
-	If ТекущиеДанные.ТипКонтейнера = 0 Then
+	If CurrentData.ТипКонтейнера = 0 Then
 
-		ТекущиеДанные.Контейнер = ТекущиеДанные.Value;
-		If Не ValueIsFilled(ТекущиеДанные.ValueType) Then
-			ТекущиеДанные.ValueType = TypeDescriptionByType(TypeOf(ТекущиеДанные.Value));
+		CurrentData.Контейнер = CurrentData.Value;
+		If Не ValueIsFilled(CurrentData.ValueType) Then
+			CurrentData.ValueType = TypeDescriptionByType(TypeOf(CurrentData.Value));
 		EndIf;
 
 	EndIf;
@@ -3340,17 +3340,17 @@ Procedure TempTablesValueStartChoice(Item, ChoiceData, StandardProcessing)
 
 	StandardProcessing = False;
 
-	ТекущиеДанные = Элементы.TempTables.ТекущиеДанные;
+	CurrentData = Элементы.TempTables.CurrentData;
 
 	ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "TempTables",
 		Элементы.TempTables.ТекущаяСтрока, "Контейнер");
-	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки", ЭтаФорма,
+	ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd", ЭтаФорма,
 		ПараметрыОповещения);
 	ПараметрыОткрытия = New Structure("Объект, ValueType, Заголовок, Значение, ТипКонтейнера", Object, ,
-		ТекущиеДанные.Name, ТекущиеДанные.Контейнер, 3);
+		CurrentData.Name, CurrentData.Контейнер, 3);
 
 	ОткрытьФорму(FormFullName("РедактированиеТаблицы"), ПараметрыОткрытия, ЭтаФорма, False, , ,
-		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -3391,7 +3391,7 @@ Procedure QueryResultSelection(Item, SelectedRow, Field, StandardProcessing)
 
 	ИмяКолонки = QueryResultColumnsMap[Field.Имя];
 
-	Значение = Item.ТекущиеДанные[ИмяКолонки];
+	Значение = Item.CurrentData[ИмяКолонки];
 
 	If QueryResultContainerColumns.Свойство(ИмяКолонки) Then
 
@@ -3402,7 +3402,7 @@ Procedure QueryResultSelection(Item, SelectedRow, Field, StandardProcessing)
 			ПараметрыОткрытия = New Structure("Объект, Заголовок, Значение, ТолькоПросмотр", Object, ИмяКолонки,
 				Контейнер, True);
 			ОткрытьФорму(FormFullName("РедактированиеТаблицы"), ПараметрыОткрытия, ЭтаФорма, False, , , ,
-				РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+				FormWindowOpeningMode.LockOwnerWindow);
 		ElsIf Контейнер.Тип = Undefined Then
 			//Это пустой контейнер, значит, значение лежит в основном поле.
 			ПоказатьЗначение( , Значение);
@@ -3450,8 +3450,8 @@ Procedure QueryParametersValueChoiceProcessing(Item, SelectedValue, StandardProc
 		маТипы.Добавить(SelectedValue);
 		ValueType = New TypeDescription(маТипы, ОграничениеТипа.КвалификаторыЧисла,
 			ОграничениеТипа.КвалификаторыСтроки, ОграничениеТипа.DateQualifiers);
-		Значение = ValueType.AdjustValue(Элементы.QueryParameters.ТекущиеДанные.Value);
-		Элементы.QueryParameters.ТекущиеДанные.Value = Значение;
+		Значение = ValueType.AdjustValue(Элементы.QueryParameters.CurrentData.Value);
+		Элементы.QueryParameters.CurrentData.Value = Значение;
 		StandardProcessing = False;
 	EndIf;
 
@@ -3462,8 +3462,8 @@ EndProcedure
 &AtClient
 Procedure QueryParametersValueTextEditEnd(Item, Text, ChoiceData, DataGetParameters,
 	StandardProcessing)
-	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
-	If TypeOf(ТекущиеДанные.Контейнер) = Тип("Structure") И ТекущиеДанные.Контейнер.Тип = "УникальныйИдентификатор" Then
+	CurrentData = Элементы.QueryParameters.CurrentData;
+	If TypeOf(CurrentData.Контейнер) = Тип("Structure") И CurrentData.Контейнер.Тип = "УникальныйИдентификатор" Then
 		Try
 			Значение = New УникальныйИдентификатор(Text);
 		Except
@@ -3477,16 +3477,16 @@ EndProcedure
 &AtClient
 Procedure QueryParametersValueClearing(Item, StandardProcessing)
 
-	ТекущиеДанные = Элементы.QueryParameters.ТекущиеДанные;
+	CurrentData = Элементы.QueryParameters.CurrentData;
 
-	If ТекущиеДанные.ТипКонтейнера = 0 Then
-		чКоличествоТипов = ТекущиеДанные.ValueType.Типы().Количество();
+	If CurrentData.ТипКонтейнера = 0 Then
+		чКоличествоТипов = CurrentData.ValueType.Типы().Количество();
 		If чКоличествоТипов = 0 Или чКоличествоТипов > 1 Then
-			ТекущиеДанные.Value = Undefined;
+			CurrentData.Value = Undefined;
 		Else
-			ТекущиеДанные.Value = ТекущиеДанные.ValueType.AdjustValue(Undefined);
+			CurrentData.Value = CurrentData.ValueType.AdjustValue(Undefined);
 		EndIf;
-	ElsIf ТекущиеДанные.ТипКонтейнера = 3 Then
+	ElsIf CurrentData.ТипКонтейнера = 3 Then
 	EndIf;
 
 	УстановитьПараметрыВводаЗначения();
@@ -4079,7 +4079,7 @@ EndProcedure
 #EndRegion
 
 &AtClient
-Procedure ВыполнитьЗапрос(фИспользоватьВыделение)
+Procedure ExecuteQuery(фИспользоватьВыделение)
 
 	Var НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки;
 
@@ -4115,12 +4115,12 @@ Procedure ВыполнитьЗапрос(фИспользоватьВыделе�
 		ТекущаяСтрокаПакета = QueryBatch.НайтиПоИдентификатору(Элементы.QueryBatch.ТекущаяСтрока);
 		ТекущаяСтрокаПакета.ResultRowCount = QueryResult.Количество();
 		ВремяВыполнения = FormatDuration(стРезультат.ВремяОкончания - стРезультат.ВремяНачала);
-		Элементы.QueryBatch.ТекущиеДанные.Info = Строка(ResultReturningRowsCount) + " / "
+		Элементы.QueryBatch.CurrentData.Info = Строка(ResultReturningRowsCount) + " / "
 			+ ВремяВыполнения;
 
 	EndIf;
 
-	ResultQueryName = Элементы.QueryBatch.ТекущиеДанные.Name;
+	ResultQueryName = Элементы.QueryBatch.CurrentData.Name;
 	RefreshAlgorithmFormItems();
 
 EndProcedure
@@ -4128,7 +4128,7 @@ EndProcedure
 &AtClient
 Procedure ExecuteQuery_Command(Command)
 	If Элементы.QueryBatch.ТекущаяСтрока <> Undefined Then
-		ВыполнитьЗапрос(True);
+		ExecuteQuery(True);
 	EndIf;
 EndProcedure
 
@@ -4407,7 +4407,7 @@ Procedure GetCodeForTrace_Command(Command)
 																											   |В настройках пользователя должна быть отключена защита от опасных действий.");
 
 	ОткрытьФорму(FormFullName("Информация"), ПараметрыОткрытия, ЭтаФорма, False, , , ,
-		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -4927,14 +4927,14 @@ Procedure InsertPredefinedValue_Command(Command)
 	Элементы.QueryText.ПолучитьГраницыВыделения(НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка);
 	ПараметрыОповещения = New Structure("НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка",
 		НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка);
-	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеВыбораПредопределенного",
+	ClosingFormNotifyDescription = New NotifyDescription("ОкончаниеВыбораПредопределенного",
 		ЭтаФорма, ПараметрыОповещения);
 	ПараметрыОткрытия = New Structure("Объект, ДанныеФормы, ТекстЗапроса, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока, КонечнаяКолонка",
 		Object, FormDataChoicePredefined, QueryText, НачальнаяСтрока, НачальнаяКолонка, КонечнаяСтрока,
 		КонечнаяКолонка);
 
 	ОткрытьФорму(FormFullName("ВыборПредопределенного"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -4948,12 +4948,12 @@ Procedure ResultToParameter_Command(Command)
 	тзТаблица = ExtractResultAsContainer();
 
 	ПараметрыОповещения = New Structure("Таблица, Строка, Поле", "ПараметрыЗапроса", Undefined, "ValueType");
-	NotifyDescriptionОЗакрытииОткрываемойФормы = New NotifyDescription("ОкончаниеРедактированияСтроки", ЭтаФорма,
+	ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd", ЭтаФорма,
 		ПараметрыОповещения);
 	ПараметрыОткрытия = New Structure("Объект, ValueType, ТипКонтейнера, Имя, ВЗапросРазрешено, ВПараметр", Object,
 		тзТаблица, 3, ResultQueryName, False, True);
 	ОткрытьФорму(FormFullName("РедактированиеТипа"), ПараметрыОткрытия, ЭтаФорма, True, , ,
-		NotifyDescriptionОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -4968,12 +4968,12 @@ EndProcedure
 &AtClient
 Procedure GetCodeWithParameters_Command(Command)
 
-	If Элементы.QueryBatch.ТекущиеДанные = Undefined Then
+	If Элементы.QueryBatch.CurrentData = Undefined Then
 		Return;
 	EndIf;
 	
 	//В качестве имени запроса попробуем использовать его название. If не получится - Then просто "Запрос".
-	ИмяЗапроса = Элементы.QueryBatch.ТекущиеДанные.Name;
+	ИмяЗапроса = Элементы.QueryBatch.CurrentData.Name;
 	If Не NameIsCorrect(ИмяЗапроса) Then
 		ИмяЗапроса = "Запрос";
 	EndIf;
@@ -4988,7 +4988,7 @@ Procedure GetCodeWithParameters_Command(Command)
 		QueryParameters_GetAsString(), "Код для выполнения запроса на встроенном языке 1С");
 
 	ОткрытьФорму(FormFullName("ФормаКода"), ПараметрыОткрытия, ЭтаФорма, False, , , ,
-		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -5142,7 +5142,7 @@ Procedure QueryPlan_Command(Command)
 		QueryResultAddress, QueryResultBatch.Индекс(QueryResultBatch.НайтиПоИдентификатору(
 		ТекущаяСтрока)) + 1);
 	Форма = ОткрытьФорму(FormFullName("ФормаПланаЗапроса"), ПараметрыОткрытия, ЭтаФорма, False, , , ,
-		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+		FormWindowOpeningMode.LockOwnerWindow);
 
 	If Форма = Undefined Then
 		ShowConsoleMessageBox("Не удалось получить информацию о запросе");
@@ -5310,7 +5310,7 @@ Procedure UT_EditValue(Command)
 		ЭлементФормы=Элементы.QueryResultTree;
 	EndIf;
 
-	ТекДанные=ЭлементФормы.ТекущиеДанные;
+	ТекДанные=ЭлементФормы.CurrentData;
 	ТекКолонка=ЭлементФормы.ТекущийЭлемент;
 
 	ИмяКолонки=StrReplace(ТекКолонка.Имя, ЭлементФормы.Имя, "");

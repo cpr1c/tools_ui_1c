@@ -4,13 +4,13 @@
     <objectType typeId="65108828-89a8-4883-8b03-cd2fd3277690" valueTypeId="a837ac01-d22c-4529-8c1a-9e7dcd53f294"/>
     <managerType typeId="97790f67-9a79-466f-b532-78874f4a25ee" valueTypeId="3c3ab6f5-5228-44e8-8ed1-c0ff9e3b9e04"/>
   </producedTypes>
-  <name>УИ_РедакторJSON</name>
+  <name>UT_JSONEditor</name>
   <synonym>
     <key>ru</key>
     <value>Редактор JSON [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_РедакторJSON.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_JSONEditor.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Редактор JSON</value>
