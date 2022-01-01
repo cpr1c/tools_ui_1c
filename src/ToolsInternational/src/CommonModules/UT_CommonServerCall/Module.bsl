@@ -68,11 +68,11 @@ Function DefaultLanguageCode() Export
 EndFunction
 
 // См. СтандартныеПодсистемыПовтИсп.СсылкиПоИменамПредопределенных
-Функция RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
+Function RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
 
 	Возврат UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
 
-КонецФункции
+EndFunction
 
 Функция ЗначенияРеквизитовОбъекта(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
 
