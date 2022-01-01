@@ -361,7 +361,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="97329590-6e8b-4bb4-acf0-10ce647242c9">
-    <name>ПодборВСписок</name>
+    <name>SelectionToList</name>
+    <synonym>
+      <key>en</key>
+      <value>Selection to list</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Подбор в список</value>
@@ -388,7 +392,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="5181d4cb-7faf-4a01-b280-c85d15888cfe">
-    <name>РедактированиеТаблицы</name>
+    <name>TableEdit</name>
+    <synonym>
+      <key>en</key>
+      <value>Table edit</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Редактирование таблицы</value>
