@@ -333,714 +333,745 @@ EndProcedure
 КонецПроцедуры
 
 
-// Выполнить экспортную процедуру по имени с уровнем привилегий конфигурации.
-// При включении профилей безопасности для вызова оператора Выполнить() используется
-// переход в безопасный режим с профилем безопасности, используемом для информационной базы
-// (если выше по стеку не был установлен другой безопасный режим).
-//
-// Параметры:
-//  ИмяМетода  - Строка - имя экспортной процедуры в формате
-//                       <имя объекта>.<имя процедуры>, где <имя объекта> - это
-//                       общий модуль или модуль менеджера объекта.
-//  Параметры  - Массив - параметры передаются в процедуру <ИмяЭкспортнойПроцедуры>
-//                        в порядке расположения элементов массива.
+// Executes the export procedure by the name with the configuration privilege level.
+// To enable the security profile for calling the Execute() operator, the safe mode with the 
+// security profile of the infobase is used (if no other safe mode was set in stack previously).
 // 
-// Пример:
-//  Параметры = Новый Массив();
-//  Параметры.Добавить("1");
-//  ОбщегоНазначения.ВыполнитьМетодКонфигурации("МойОбщийМодуль.МояПроцедура", Параметры);
 //
-Процедура ВыполнитьМетодКонфигурации(Знач ИмяМетода, Знач Параметры = Неопределено) Экспорт
-
-	ПроверитьИмяПроцедурыКонфигурации(ИмяМетода);
-
-	Попытка
-		УстановитьБезопасныйРежимБСП();
-	Исключение
-		
-	КонецПопытки;
-
-	ПараметрыСтрока = "";
-	Если Параметры <> Неопределено И Параметры.Количество() > 0 Тогда
-		Для Индекс = 0 По Параметры.ВГраница() Цикл
-			ПараметрыСтрока = ПараметрыСтрока + "Параметры[" + Индекс + "],";
-		КонецЦикла;
-		ПараметрыСтрока = Сред(ПараметрыСтрока, 1, СтрДлина(ПараметрыСтрока) - 1);
-	КонецЕсли;
-
-	Выполнить ИмяМетода + "(" + ПараметрыСтрока + ")";
-
-КонецПроцедуры
-
-
-// Проверяет, что переданное имя ИмяПроцедуры является именем экспортной процедуры конфигурации.
-// Может использоваться для проверки, что переданная строка не содержит произвольного алгоритма
-// на встроенном языке 1С:Предприятия перед использованием его в операторах Выполнить и Вычислить
-// при их использовании для динамического вызова методов код конфигурации.
-//
-// В случае если переданная строка не является именем процедуры конфигурации, генерируется исключение.
-//
-// Предназначена для вызова из см. процедуру ВыполнитьМетодКонфигурации.
-//
-// Параметры:
-//   ИмяПроцедуры - Строка - проверяемое имя экспортной процедуры.
-//
-Процедура ПроверитьИмяПроцедурыКонфигурации(Знач ИмяПроцедуры)
-
-	ЧастиИмени = СтрРазделить(ИмяПроцедуры, ".");
-	Если ЧастиИмени.Количество() <> 2 И ЧастиИмени.Количество() <> 3 Тогда
-		ВызватьИсключение СтрШаблон(
-			НСтр(
-			"ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации'"),
-			ИмяПроцедуры);
-	КонецЕсли;
-
-	ИмяОбъекта = ЧастиИмени[0];
-	Если ЧастиИмени.Количество() = 2 И Метаданные.ОбщиеМодули.Найти(ИмяОбъекта) = Неопределено Тогда
-		ВызватьИсключение СтрШаблон(
-			НСтр("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
-				 |Не найден общий модуль ""%2"".'"), ИмяПроцедуры, ИмяОбъекта);
-	КонецЕсли;
-
-	Если ЧастиИмени.Количество() = 3 Тогда
-		ПолноеИмяОбъекта = ЧастиИмени[0] + "." + ЧастиИмени[1];
-		Попытка
-			Менеджер = МенеджерОбъектаПоИмени(ПолноеИмяОбъекта);
-		Исключение
-			Менеджер = Неопределено;
-		КонецПопытки;
-		Если Менеджер = Неопределено Тогда
-			ВызватьИсключение СтрШаблон(
-				НСтр("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
-					 |Не найден менеджер объекта ""%2"".'"), ИмяПроцедуры, ПолноеИмяОбъекта);
-		КонецЕсли;
-	КонецЕсли;
-
-	ИмяМетодаОбъекта = ЧастиИмени[ЧастиИмени.ВГраница()];
-	ВременнаяСтруктура = Новый Структура;
-	Попытка
-		// Проверка того, что ИмяПроцедуры является допустимым идентификатором.
-		// Например: МояПроцедура.
-		ВременнаяСтруктура.Вставить(ИмяМетодаОбъекта);
-	Исключение
-		ЗаписьЖурналаРегистрации(НСтр("ru = 'Безопасное выполнение метода'",
-			UT_CommonClientServer.DefaultLanguageCode()), УровеньЖурналаРегистрации.Ошибка, , ,
-			ПодробноеПредставлениеОшибки(ИнформацияОбОшибке()));
-		ВызватьИсключение СтрШаблон(
-			НСтр("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
-				 |Имя метода ""%2"" не соответствует требованиям образования имен процедур и функций.'"), ИмяПроцедуры,
-			ИмяМетодаОбъекта);
-	КонецПопытки;
-
-КонецПроцедуры
-
-// Возвращает менеджер объекта по имени.
-// Ограничение: не обрабатываются точки маршрутов бизнес-процессов.
-//
-// Параметры:
-//  Имя - Строка - имя например, "Справочник", "Справочники", "Справочник.Организации".
-//
-// Возвращаемое значение:
-//  СправочникиМенеджер, СправочникМенеджер, ДокументыМенеджер, ДокументМенеджер, ...
+// Parameters:
+//  MethodName  - String - the name of the export procedure in format:
+//                       <object name>.<procedure name>, where <object name> is a common module or 
+//                       object manager module.
+//  Parameters  - Array - the parameters are passed to <ExportProcedureName>
+//                        according to the array item order.
 // 
-Функция МенеджерОбъектаПоИмени(Имя)
-	Перем КлассОМ, ИмяОМ, Менеджер;
+// Example:
+//  Parameters = New Array();
+//  Parameters.Add("1");
+//  Common.ExecuteConfigurationMethod("MyCommonModule.MyProcedure", Parameters);
 
-	ЧастиИмени = СтрРазделить(Имя, ".");
+Procedure ExecuteConfigurationMethod(Val MethodName, Val Parameters = Undefined) Export
+	
+	CheckConfigurationProcedureName(MethodName);
 
-	Если ЧастиИмени.Количество() > 0 Тогда
-		КлассОМ = ВРег(ЧастиИмени[0]);
-	КонецЕсли;
+	Try
+		SetSafeModeSSL();
+	Except
+		
+	EndTry;
 
-	Если ЧастиИмени.Количество() > 1 Тогда
-		ИмяОМ = ЧастиИмени[1];
-	КонецЕсли;
-
-	Если КлассОМ = "ПЛАНОБМЕНА" Или КлассОМ = "ПЛАНЫОБМЕНА" Тогда
-		Менеджер = ПланыОбмена;
-
-	ИначеЕсли КлассОМ = "СПРАВОЧНИК" Или КлассОМ = "СПРАВОЧНИКИ" Тогда
-		Менеджер = Справочники;
-
-	ИначеЕсли КлассОМ = "ДОКУМЕНТ" Или КлассОМ = "ДОКУМЕНТЫ" Тогда
-		Менеджер = Документы;
-
-	ИначеЕсли КлассОМ = "ЖУРНАЛДОКУМЕНТОВ" Или КлассОМ = "ЖУРНАЛЫДОКУМЕНТОВ" Тогда
-		Менеджер = ЖурналыДокументов;
-
-	ИначеЕсли КлассОМ = "ПЕРЕЧИСЛЕНИЕ" Или КлассОМ = "ПЕРЕЧИСЛЕНИЯ" Тогда
-		Менеджер = Перечисления;
-
-	ИначеЕсли КлассОМ = "ОБЩИЙМОДУЛЬ" Или КлассОМ = "ОБЩИЕМОДУЛИ" Тогда
-
-		Возврат CommonModule(ИмяОМ);
-
-	ИначеЕсли КлассОМ = "ОТЧЕТ" Или КлассОМ = "ОТЧЕТЫ" Тогда
-		Менеджер = Отчеты;
-
-	ИначеЕсли КлассОМ = "ОБРАБОТКА" Или КлассОМ = "ОБРАБОТКИ" Тогда
-		Менеджер = Обработки;
-
-	ИначеЕсли КлассОМ = "ПЛАНВИДОВХАРАКТЕРИСТИК" Или КлассОМ = "ПЛАНЫВИДОВХАРАКТЕРИСТИК" Тогда
-		Менеджер = ПланыВидовХарактеристик;
-
-	ИначеЕсли КлассОМ = "ПЛАНСЧЕТОВ" Или КлассОМ = "ПЛАНЫСЧЕТОВ" Тогда
-		Менеджер = ПланыСчетов;
-
-	ИначеЕсли КлассОМ = "ПЛАНВИДОВРАСЧЕТА" Или КлассОМ = "ПЛАНЫВИДОВРАСЧЕТА" Тогда
-		Менеджер = ПланыВидовРасчета;
-
-	ИначеЕсли КлассОМ = "РЕГИСТРСВЕДЕНИЙ" Или КлассОМ = "РЕГИСТРЫСВЕДЕНИЙ" Тогда
-		Менеджер = РегистрыСведений;
-
-	ИначеЕсли КлассОМ = "РЕГИСТРНАКОПЛЕНИЯ" Или КлассОМ = "РЕГИСТРЫНАКОПЛЕНИЯ" Тогда
-		Менеджер = РегистрыНакопления;
-
-	ИначеЕсли КлассОМ = "РЕГИСТРБУХГАЛТЕРИИ" Или КлассОМ = "РЕГИСТРЫБУХГАЛТЕРИИ" Тогда
-		Менеджер = РегистрыБухгалтерии;
-
-	ИначеЕсли КлассОМ = "РЕГИСТРРАСЧЕТА" Или КлассОМ = "РЕГИСТРЫРАСЧЕТА" Тогда
-
-		Если ЧастиИмени.Количество() < 3 Тогда
-			// Регистр расчета
-			Менеджер = РегистрыРасчета;
-		Иначе
-			КлассПодчиненногоОМ = ВРег(ЧастиИмени[2]);
-			Если ЧастиИмени.Количество() > 3 Тогда
-				ИмяПодчиненногоОМ = ЧастиИмени[3];
-			КонецЕсли;
-			Если КлассПодчиненногоОМ = "ПЕРЕРАСЧЕТ" Или КлассПодчиненногоОМ = "ПЕРЕРАСЧЕТЫ" Тогда
-				// Перерасчет
-				Попытка
-					Менеджер = РегистрыРасчета[ИмяОМ].Перерасчеты;
-					ИмяОМ = ИмяПодчиненногоОМ;
-				Исключение
-					Менеджер = Неопределено;
-				КонецПопытки;
-			КонецЕсли;
-		КонецЕсли;
-
-	ИначеЕсли КлассОМ = "БИЗНЕСПРОЦЕСС" Или КлассОМ = "БИЗНЕСПРОЦЕССЫ" Тогда
-		Менеджер = БизнесПроцессы;
-
-	ИначеЕсли КлассОМ = "ЗАДАЧА" Или КлассОМ = "ЗАДАЧИ" Тогда
-		Менеджер = Задачи;
-
-	ИначеЕсли КлассОМ = "КОНСТАНТА" Или КлассОМ = "КОНСТАНТЫ" Тогда
-		Менеджер = Константы;
-
-	ИначеЕсли КлассОМ = "ПОСЛЕДОВАТЕЛЬНОСТЬ" Или КлассОМ = "ПОСЛЕДОВАТЕЛЬНОСТИ" Тогда
-		Менеджер = Последовательности;
-	КонецЕсли;
-
-	Если Менеджер <> Неопределено Тогда
-		Если ЗначениеЗаполнено(ИмяОМ) Тогда
-			Попытка
-				Возврат Менеджер[ИмяОМ];
-			Исключение
-				Менеджер = Неопределено;
-			КонецПопытки;
-		Иначе
-			Возврат Менеджер;
-		КонецЕсли;
-	КонецЕсли;
-
-	ВызватьИсключение СтрШаблон(НСтр("ru = 'Не удалось получить менеджер для объекта ""%1""'"), Имя);
-
-КонецФункции
-
-Процедура ХранилищеСохранить(МенеджерХранилища, КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
-	ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения)
-
-	Если Не ПравоДоступа("СохранениеДанныхПользователя", Метаданные) Тогда
-		Возврат;
-	КонецЕсли;
-
-	МенеджерХранилища.Сохранить(КлючОбъекта, КлючНастроек(КлючНастроек), Настройки, ОписаниеНастроек, ИмяПользователя);
-
-	Если ОбновитьПовторноИспользуемыеЗначения Тогда
-		ОбновитьПовторноИспользуемыеЗначения();
-	КонецЕсли;
-
-КонецПроцедуры
-
-Функция ХранилищеЗагрузить(МенеджерХранилища, КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию, ОписаниеНастроек,
-	ИмяПользователя)
-
-	Результат = Неопределено;
-
-	Если ПравоДоступа("СохранениеДанныхПользователя", Метаданные) Тогда
-		Результат = МенеджерХранилища.Загрузить(КлючОбъекта, КлючНастроек(КлючНастроек), ОписаниеНастроек,
-			ИмяПользователя);
-	КонецЕсли;
-
-	Если Результат = Неопределено Тогда
-		Результат = ЗначениеПоУмолчанию;
-	Иначе
-		УстановитьПривилегированныйРежим(Истина);
-		Если УдалитьБитыеСсылки(Результат) Тогда
-			Результат = ЗначениеПоУмолчанию;
-		КонецЕсли;
-	КонецЕсли;
-
-	Возврат Результат;
-
-КонецФункции
-
-Процедура ХранилищеУдалить(МенеджерХранилища, КлючОбъекта, КлючНастроек, ИмяПользователя)
-
-	Если ПравоДоступа("СохранениеДанныхПользователя", Метаданные) Тогда
-		МенеджерХранилища.Удалить(КлючОбъекта, КлючНастроек(КлючНастроек), ИмяПользователя);
-	КонецЕсли;
-
-КонецПроцедуры
+	ParametersString = "";
+	If Parameters <> Undefined AND Parameters.Count() > 0 Then
+		For Index = 0 To Parameters.UBound() Do 
+			ParametersString = ParametersString + "Parameters[" + Index + "],";
+		EndDo;
+		ParametersString = Mid(ParametersString, 1, StrLen(ParametersString) - 1);
+	EndIf;
+	
+	Execute MethodName + "(" + ParametersString + ")";
+	
+EndProcedure
 
 
-// Возвращает строку ключа настроек, не превышающую допустимую длину 128 символов.
-// Если указанная строка превышает 128, тогда вместо символов сверх 96 символов
-// добавляется их хеш-сумма по алгоритму MD5 размером 32 символа.
+// Checks whether the passed ProcedureName is the name of a configuration export procedure.
+// Can be used for checking whether the passed string does not contain an arbitrary algorithm in the 
+// 1C:Enterprise in-built language before using it in the Execute and Evaluate operators upon the 
+// dynamic call of the configuration code methods.
 //
-// Параметры:
-//  Строка - Строка - строка произвольной длины.
+// If the passed string is not a procedure name, an exception is generated.
 //
-// Возвращаемое значение:
-//  Строка - не более 128 символов.
+// It is intended to be called from ExecuteConfigurationMethod procedure.
 //
-Функция КлючНастроек(Знач Строка)
-	Возврат СократитьСтрокуКонтрольнойСуммой(Строка, 128);
-КонецФункции
+// Parameters:
+//   ProcedureName - String - the export procedure name to be checked.
+//
+Procedure CheckConfigurationProcedureName(Val ProcedureName)
 
-// Сокращает строку до нужной длины, при этом обрезанная часть хешируется,
-// обеспечивая уникальность строки. Проверяет длину строки на входе и, в случае
-// превышения максимальной длины, преобразует ее конец по алгоритму MD5 в
-// уникальную строку из 32 символов.
+	NameParts = StrSplit(ProcedureName, ".");
+	If NameParts.Count() <> 2 AND NameParts.Count() <> 3 Then
+		Raise StrTemplate(
+			NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации'; 
+				|en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod.'"),
+				ProcedureName);
+	EndIf;
+
+	ObjectName = NameParts[0];
+	If NameParts.Count() = 2 AND Metadata.CommonModules.Find(ObjectName) = Undefined Then
+		Raise StrTemplate(
+			NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
+				|Не найден общий модуль ""%2"".'; 
+				|en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod.
+				|Common module ""%2"" is not found.'"),
+			ProcedureName,
+			ObjectName);
+	КонецЕсли;
+
+	If NameParts.Count() = 3 Then
+		FullObjectName = NameParts[0] + "." + NameParts[1];
+		Try
+			Manager = ObjectManagerByName(FullObjectName);
+		Except
+			Manager = Undefined;
+		EndTry;
+		If Manager = Undefined Then
+			Raise StrTemplate(
+				NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
+				           |Не найден менеджер объекта ""%2"".'; 
+				           |en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod:
+				           |Manager of ""%2"" object is not found.'"), 
+					 ProcedureName,FullObjectName);
+	   EndIf;
+	EndIf;
+
+	ObjectMethodName = NameParts[NameParts.UBound()];
+	TempStructure = New Structure;
+	Try
+		// Checking whether the ProcedureName is a valid ID.
+		// For example: MyProcedure.
+		TempStructure.Insert(ObjectMethodName);
+	Except
+		WriteLogEvent(NStr("ru = 'Безопасное выполнение метода'; en = 'Executing method in safe mode'",UT_CommonClientServer.DefaultLanguageCode()),
+			EventLogLevel.Error, , , DetailErrorDescription(ErrorInfo()));
+		Raise StrTemplate(
+			NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
+			           |Имя метода ""%2"" не соответствует требованиям образования имен процедур и функций.'; 
+			           |en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod.
+			           |Method name %2 does not comply with the procedure and function naming convention.'"),
+			ProcedureName, ObjectMethodName);
+	EndTry;
+	
+EndProcedure
+
+// Returns an object manager by name.
+// Restriction: does not process business process route points.
 //
-// Параметры:
-//  Строка            - Строка - исходная строка произвольной длины.
-//  МаксимальнаяДлина - Число  - требуемое максимальное количество символов в строке,
-//                               минимальное значение: 32.
+// Parameters:
+//  Name - String - name, for example Catalog, Catalogs, or Catalog.Companies.
+//
+// Returns:
+//  CatalogsManager, CatalogManager, DocumentsManager, DocumentManager, ...
 // 
-// Возвращаемое значение:
-//   Строка - строка, не превышающая максимальную длину.
-//
-Функция СократитьСтрокуКонтрольнойСуммой(Строка, МаксимальнаяДлина) Экспорт
-	UT_CommonClientServer.Validate(МаксимальнаяДлина >= 32, НСтр(
-		"ru = 'Параметр МаксимальнаяДлина не может быть меньше 32'"),
-		"ОбщегоНазначения.СократитьСтрокуКонтрольнойСуммой");
-
-	Результат = Строка;
-	Если СтрДлина(Строка) > МаксимальнаяДлина Тогда
-		Результат = Лев(Строка, МаксимальнаяДлина - 32);
-		ХешированиеДанных = Новый ХешированиеДанных(ХешФункция.MD5);
-		ХешированиеДанных.Добавить(Сред(Строка, МаксимальнаяДлина - 32 + 1));
-		Результат = Результат + СтрЗаменить(ХешированиеДанных.ХешСумма, " ", "");
-	КонецЕсли;
-	Возврат Результат;
-КонецФункции
-
-// Удаляет битые ссылки из переменной.
-//
-// Параметры:
-//   СсылкаИлиКоллекция - ЛюбаяСсылка, Произвольный - Проверяемый объект или очищаемая коллекция.
-//
-// Возвращаемое значение: 
-//   Булево - 
-//       * Истина - СсылкаИлиКоллекция ссылочного типа и объект не найден в базе данных.
-//       * Ложь - Когда СсылкаИлиКоллекция не ссылочного типа или объект найден в базе данных.
-//
-Функция УдалитьБитыеСсылки(СсылкаИлиКоллекция)
-
-	Тип = ТипЗнч(СсылкаИлиКоллекция);
-
-	Если Тип = Тип("Неопределено") Или Тип = Тип("Булево") Или Тип = Тип("Строка") Или Тип = Тип("Число") Или Тип = Тип(
-		"Дата") Тогда // Оптимизация - часто используемые примитивные типы.
-
-		Возврат Ложь; // Не ссылка.
-
-	ИначеЕсли Тип = Тип("Массив") Тогда
-
-		Количество = СсылкаИлиКоллекция.Количество();
-		Для Номер = 1 По Количество Цикл
-			ОбратныйИндекс = Количество - Номер;
-			Значение = СсылкаИлиКоллекция[ОбратныйИндекс];
-			Если УдалитьБитыеСсылки(Значение) Тогда
-				СсылкаИлиКоллекция.Удалить(ОбратныйИндекс);
-			КонецЕсли;
-		КонецЦикла;
-
-		Возврат Ложь; // Не ссылка.
-
-	ИначеЕсли Тип = Тип("Структура") Или Тип = Тип("Соответствие") Тогда
-
-		Для Каждого КлючИЗначение Из СсылкаИлиКоллекция Цикл
-			Значение = КлючИЗначение.Значение;
-			Если УдалитьБитыеСсылки(Значение) Тогда
-				СсылкаИлиКоллекция.Вставить(КлючИЗначение.Ключ, Неопределено);
-			КонецЕсли;
-		КонецЦикла;
-
-		Возврат Ложь; // Не ссылка.
-
-	ИначеЕсли Документы.ТипВсеСсылки().СодержитТип(Тип) Или Справочники.ТипВсеСсылки().СодержитТип(Тип)
-		Или Перечисления.ТипВсеСсылки().СодержитТип(Тип) Или ПланыВидовХарактеристик.ТипВсеСсылки().СодержитТип(Тип)
-		Или ПланыСчетов.ТипВсеСсылки().СодержитТип(Тип) Или ПланыВидовРасчета.ТипВсеСсылки().СодержитТип(Тип)
-		Или ПланыОбмена.ТипВсеСсылки().СодержитТип(Тип) Или БизнесПроцессы.ТипВсеСсылки().СодержитТип(Тип)
-		Или Задачи.ТипВсеСсылки().СодержитТип(Тип) Тогда
-		// Ссылочный тип, исключая ТочкаМаршрутаБизнесПроцессаСсылка.
-
-		Если СсылкаИлиКоллекция.Пустая() Тогда
-			Возврат Ложь; // Ссылка пустая.
-		ИначеЕсли ЗначениеРеквизитаОбъекта(СсылкаИлиКоллекция, "Ссылка") = Неопределено Тогда
-			СсылкаИлиКоллекция = Неопределено;
-			Возврат Истина; // "Битая" ссылка.
-		Иначе
-			Возврат Ложь; // Объект найден.
-		КонецЕсли;
-
-	Иначе
-
-		Возврат Ложь; // Не ссылка.
-
-	КонецЕсли;
-
-КонецФункции
-
-// Структура, содержащая значения реквизитов, прочитанные из информационной базы по ссылке на объект.
-//
-// Если необходимо зачитать реквизит независимо от прав текущего пользователя,
-// то следует использовать предварительный переход в привилегированный режим.
-//
-// Параметры:
-//  Ссылка    - ЛюбаяСсылка - объект, значения реквизитов которого необходимо получить.
-//            - Строка      - полное имя предопределенного элемента, значения реквизитов которого необходимо получить.
-//  Реквизиты - Строка - имена реквизитов, перечисленные через запятую, в формате
-//                       требований к свойствам структуры.
-//                       Например, "Код, Наименование, Родитель".
-//            - Структура, ФиксированнаяСтруктура - в качестве ключа передается
-//                       псевдоним поля для возвращаемой структуры с результатом, а в качестве
-//                       значения (опционально) фактическое имя поля в таблице.
-//                       Если ключ задан, а значение не определено, то имя поля берется из ключа.
-//            - Массив, ФиксированныйМассив - имена реквизитов в формате требований
-//                       к свойствам структуры.
-//  ВыбратьРазрешенные - Булево - если Истина, то запрос к объекту выполняется с учетом прав пользователя, и в случае,
-//                                    - если есть ограничение на уровне записей, то все реквизиты вернутся 
-//                                      со значением Неопределено;
-//                                    - если нет прав для работы с таблицей, то возникнет исключение.
-//                              - если Ложь, то возникнет исключение при отсутствии прав на таблицу 
-//                                или любой из реквизитов.
-//
-// Возвращаемое значение:
-//  Структура - содержит имена (ключи) и значения затребованных реквизитов.
-//            - если в параметр Реквизиты передана пустая строка, то возвращается пустая структура.
-//            - если в параметр Ссылка передана пустая ссылка, то возвращается структура, 
-//              соответствующая именам реквизитов со значениями Неопределено.
-//            - если в параметр Ссылка передана ссылка несуществующего объекта (битая ссылка), 
-//              то все реквизиты вернутся со значением Неопределено.
-//
-Функция ЗначенияРеквизитовОбъекта(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
+Function ObjectManagerByName(Name)
+	Var MOClass, MetadataObjectName, Manager;
 	
-	// Если передано имя предопределенного. 
-	Если ТипЗнч(Ссылка) = Тип("Строка") Тогда
-
-		ПолноеИмяПредопределенногоЭлемента = Ссылка;
-		
-		// Вычисление ссылки по имени предопределенного.
-		// - дополнительно выполняет проверку метаданных предопределенного, выполняется предварительно.
-		Попытка
-			Ссылка = UT_CommonClientServer.PredefinedItem(ПолноеИмяПредопределенногоЭлемента);
-		Исключение
-			ТекстОшибки = СтрШаблон(
-			НСтр("ru = 'Неверный первый параметр Ссылка:
-				 |%1'"), КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-			ВызватьИсключение ТекстОшибки;
-		КонецПопытки;
-		
-		// Разбор полного имени предопределенного.
-		ЧастиПолногоИмени = СтрРазделить(ПолноеИмяПредопределенногоЭлемента, ".");
-		ПолноеИмяОбъектаМетаданных = ЧастиПолногоИмени[0] + "." + ЧастиПолногоИмени[1];
-		
-		// Если предопределенный не создан в ИБ, то требуется выполнить проверку доступа к объекту.
-		// В других сценариях проверка доступа выполняется в момент исполнения запроса.
-		Если Ссылка = Неопределено Тогда
-
-			МетаданныеОбъекта = Метаданные.НайтиПоПолномуИмени(ПолноеИмяОбъектаМетаданных);
-
-			Если Не ПравоДоступа("Чтение", МетаданныеОбъекта) Тогда
-				ВызватьИсключение СтрШаблон(
-						НСтр("ru = 'Недостаточно прав для работы с таблицей ""%1""'"), ПолноеИмяОбъектаМетаданных);
-			КонецЕсли;
-
-		КонецЕсли;
-
-	Иначе // Если передана ссылка.
-
-		Попытка
-			ПолноеИмяОбъектаМетаданных = Ссылка.Метаданные().ПолноеИмя();
-		Исключение
-			ВызватьИсключение НСтр("ru = 'Неверный первый параметр Ссылка: 
-								   |- Значение должно быть ссылкой или именем предопределенного элемента'");
-		КонецПопытки;
-
-	КонецЕсли;
+	NameParts = StrSplit(Name, ".");
 	
-	// Разбор реквизитов, если второй параметр Строка.
-	Если ТипЗнч(Реквизиты) = Тип("Строка") Тогда
-		Если ПустаяСтрока(Реквизиты) Тогда
-			Возврат Новый Структура;
-		КонецЕсли;
-		
-		// Удаление пробелов.
-		Реквизиты = СтрЗаменить(Реквизиты, " ", "");
-		// Преобразование параметра в массив полей.
-		Реквизиты = СтрРазделить(Реквизиты, ",");
-	КонецЕсли;
+	If NameParts.Count() > 0 Then
+		MOClass = Upper(NameParts[0]);
+	EndIf;
 	
-	// Приведение реквизитов к единому формату.
-	СтруктураПолей = Новый Структура;
-	Если ТипЗнч(Реквизиты) = Тип("Структура") Или ТипЗнч(Реквизиты) = Тип("ФиксированнаяСтруктура") Тогда
+	If NameParts.Count() > 1 Then
+		MetadataObjectName = NameParts[1];
+	EndIf;
+	
+	If      MOClass = "EXCHANGEPLAN"  Or      MOClass = "EXCHANGEPLANS" Then
+		Manager = ExchangePlans;
+		
+	ElsIf MOClass = "CATALOG"       Or MOClass = "CATALOGS" Then
+		Manager = Catalogs;
+		
+	ElsIf MOClass = "DOCUMENT"      Or MOClass = "DOCUMENTS" Then
+		Manager = Documents;
+		
+	ElsIf MOClass = "DOCUMENTJOURNAL" Or MOClass = "DOCUMENTJOURNALS" Then
+		Manager = DocumentJournals;
+		
+	ElsIf MOClass = "ENUM" Or MOClass = "ENUMS" Then
+		Manager = Enums;
+		
+	ElsIf MOClass = "COMMONMODULE" Or MOClass = "COMMONMODULES" Then
+		
+		Return CommonModule(MetadataObjectName);
+		
+	ElsIf MOClass = "REPORT"   Or MOClass = "REPORTS" Then
+		Manager = Reports;
+		
+	ElsIf MOClass = "DATAPROCESSOR" Or MOClass = "DATAPROCESSORS" Then
+		Manager = DataProcessors;
+		
+	ElsIf MOClass = "CHARTOFCHARACTERISTICTYPES" Or MOClass = "CHARTSOFCHARACTERISTICTYPES" Then
+		Manager = ChartsOfCharacteristicTypes;
+		
+	ElsIf MOClass = "CHARTOFACCOUNTS"      Or MOClass = "CHARTSOFACCOUNTS" Then
+		Manager = ChartsOfAccounts;
+		
+	ElsIf MOClass = "CHARTOFCALCULATIONTYPES" Or MOClass = "CHARTSOFCALCULATIONTYPES" Then
+		Manager = ChartsOfCalculationTypes;
+		
+	ElsIf MOClass = "INFORMATIONREGISTER"     Or MOClass = "INFORMATIONREGISTERS" Then
+		Manager = InformationRegisters;
+		
+	ElsIf MOClass = "ACCUMULATIONREGISTER"    Or MOClass = "ACCUMULATIONREGISTERS" Then
+		Manager = AccumulationRegisters;
+		
+	ElsIf MOClass = "ACCOUNTINGREGISTER"      Or MOClass = "ACCOUNTINGREGISTERS" Then
+		Manager = AccountingRegisters;
+		
+	ElsIf MOClass = "CALCULATIONREGISTER"     Or MOClass = "CALCULATIONREGISTERS" Then
+		
+		If NameParts.Count() < 3 Then
+			// Calculation register
+			Manager = CalculationRegisters;
+		Else
+			SubordinateMOClass = Upper(NameParts[2]);
+			If NameParts.Count() > 3 Then
+				SubordinateMOName = NameParts[3];
+			EndIf;
+			If SubordinateMOClass = "RECALCULATION" Or SubordinateMOClass = "RECALCULATIONS" Then
+				// Recalculation
+				Try
+					Manager = CalculationRegisters[MetadataObjectName].Recalculations;
+					MetadataObjectName = SubordinateMOName;
+				Except
+					Manager = Undefined;
+				EndTry;
+			EndIf;
+		EndIf;
+		
+	ElsIf MOClass = "BUSINESSPROCESS"    Or MOClass = "BUSINESSPROCESSES" Then
+		Manager = BusinessProcesses;
+		
+	ElsIf MOClass = "TASK" 	      Or MOClass = "TASKS" Then
+		Manager = Tasks;
+		
+	ElsIf MOClass = "CONSTANT"    Or MOClass = "CONSTANTS" Then
+		Manager = Constants;
+		
+	ElsIf MOClass = "SEQUENCE"    Or MOClass = "SEQUENCES" Then
+		Manager = Sequences;
+	EndIf;
+	
+	If Manager <> Undefined Then
+		If ValueIsFilled(MetadataObjectName) Then
+			Try
+				Return Manager[MetadataObjectName];
+			Except
+				Manager = Undefined;
+			EndTry;
+		Else
+			Return Manager;
+		EndIf;
+	EndIf;
 
-		СтруктураПолей = Реквизиты;
+	Raise StrTemplate(NStr("ru = 'Не удалось получить менеджер для объекта ""%1""'; en = 'Cannot get a manager for object %1.'"), Name);
 
-	ИначеЕсли ТипЗнч(Реквизиты) = Тип("Массив") Или ТипЗнч(Реквизиты) = Тип("ФиксированныйМассив") Тогда
+EndFunction
 
-		Для Каждого Реквизит Из Реквизиты Цикл
+Procedure StorageSave(StorageManager, ObjectKey, SettingsKey, Settings,
+			SettingsDetails, Username, UpdateCachedValues)
+	
+	If Not AccessRight("SaveUserData", Metadata) Then
+		Return;
+	EndIf;
+	
+	StorageManager.Save(ObjectKey, SettingsKey(SettingsKey), Settings,
+		SettingsDetails, Username);
+	
+	If UpdateCachedValues Then
+		RefreshReusableValues();
+	EndIf;
+	
+EndProcedure
 
-			Попытка
-				ПсевдонимПоля = СтрЗаменить(Реквизит, ".", "");
-				СтруктураПолей.Вставить(ПсевдонимПоля, Реквизит);
-			Исключение 
-				// Если псевдоним не является ключом.
+Function StorageLoad(StorageManager, ObjectKey, SettingsKey, DefaultValue,
+			SettingsDetails, Username)
+	
+	Result = Undefined;
+	
+	If AccessRight("SaveUserData", Metadata) Then
+		Result = StorageManager.Load(ObjectKey, SettingsKey(SettingsKey),
+			SettingsDetails, Username);
+	EndIf;
+	
+	If Result = Undefined Then
+		Result = DefaultValue;
+	Else
+		SetPrivilegedMode(True);
+		If DeleteInvalidRefs(Result) Then
+			Result = DefaultValue;
+		EndIf;
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
+
+Procedure StorageDelete(StorageManager, ObjectKey, SettingsKey, Username)
+	
+	If AccessRight("SaveUserData", Metadata) Then
+		StorageManager.Delete(ObjectKey, SettingsKey(SettingsKey), Username);
+	EndIf;
+	
+EndProcedure
+
+
+// Returns a settings key string with the length within 128 character limit.
+// If the string exceeds 128 characters, the part after 96 characters is ignored and MD5 hash sum 
+// (32 characters long) is returned instead.
+//
+// Parameters:
+//  String - String -  string of any number of characters.
+//
+// Returns:
+//  String - must not exceed 128 characters.
+//
+Function SettingsKey(Val Row)
+	Return TrimStringUsingChecksum(Row, 128);
+EndFunction
+
+// Trims a string to the specified length. The trimmed part is hashed to ensure the result string is 
+// unique. Checks an input string and, unless it fits the limit, converts its end into a unique 32 
+// symbol string using MD5 algorithm.
+// 
+//
+// Parameters:
+//  String - String - the input string of arbitrary length.
+//  MaxLength - Number - the maximum valid string length. The minimum value is 32.
+//                               
+// 
+// Returns:
+//   String - a string within the maximum length limit.
+//
+Function TrimStringUsingChecksum(String, MaxLength) Export
+	UT_CommonClientServer.Validate(MaxLength >= 32, NStr("ru = 'Параметр МаксимальнаяДлина не может быть меньше 32'; en = 'The MaxLength parameter cannot be less than 32.'"),
+		"Common.TrimStringUsingChecksum");
+
+	Result = String;
+	If StrLen(String) > MaxLength Then
+		Result = Left(String, MaxLength - 32);
+		DataHashing = New DataHashing(HashFunction.MD5);
+		DataHashing.Append(Mid(String, MaxLength - 32 + 1));
+		Result = Result + StrReplace(DataHashing.HashSum, " ", "");
+	EndIf;
+	Return Result;
+EndFunction
+
+// Deletes dead references from a variable.
+//
+// Parameters:
+//   RefOrCollection - AnyReference, Arbitrary - An object or collection to be cleaned up.
+//
+// Returns:
+//   Boolean:
+//       * True - If the RefOrCollection of a reference type and the object are not found in the infobase.
+//       * False - If the RefOrCollection of a reference type or the object are found in the infobase.
+//
+Function DeleteInvalidRefs(RefOrCollection)
+	
+	Type = TypeOf(RefOrCollection);
+
+	If Type = Type("Undefined")
+		Or Type = Type("Boolean")
+		Or Type = Type("String")
+		Or Type = Type("Number")
+		Or Type = Type("Date") Then // Optimization - frequently used primitive types.
+		
+		Return False; // Not a reference.
+
+		ElsIf Type = Type("Array") Then
+		
+		Count = RefOrCollection.Count();
+		For Number = 1 To Count Do
+			ReverseIndex = Count - Number;
+			Value = RefOrCollection[ReverseIndex];
+			If DeleteInvalidRefs(Value) Then
+				RefOrCollection.Delete(ReverseIndex);
+			EndIf;
+		EndDo;
+		
+		Return False; // Not a reference.
+
+	ElsIf Type = Type("Structure")
+		Or Type = Type("Map") Then
+		
+		For Each KeyAndValue In RefOrCollection Do
+			Value = KeyAndValue.Value;
+			If DeleteInvalidRefs(Value) Then
+				RefOrCollection.Insert(KeyAndValue.Key, Undefined);
+			EndIf;
+		EndDo;
+		
+		Return False; // Not a reference.
+ElsIf Documents.AllRefsType().ContainsType(Type)
+		Or Catalogs.AllRefsType().ContainsType(Type)
+		Or Enums.AllRefsType().ContainsType(Type)
+		Or ChartsOfCharacteristicTypes.AllRefsType().ContainsType(Type)
+		Or ChartsOfAccounts.AllRefsType().ContainsType(Type)
+		Or ChartsOfCalculationTypes.AllRefsType().ContainsType(Type)
+		Or ExchangePlans.AllRefsType().ContainsType(Type)
+		Or BusinessProcesses.AllRefsType().ContainsType(Type)
+		Or Tasks.AllRefsType().ContainsType(Type) Then
+		// Reference type except BusinessProcessRoutePointRef.
+		
+		If RefOrCollection.IsEmpty() Then
+			Return False; // Blank reference.
+		ElsIf ObjectAttributeValue(RefOrCollection, "Ref") = Undefined Then
+			RefOrCollection = Undefined;
+			Return True; // Dead reference.
+		Else
+			Return False; // The object is found.
+		EndIf;
+		
+	Else
+		
+		Return False; // Not a reference.
+		
+	EndIf;
+	
+EndFunction
+
+// Returns a structure containing attribute values retrieved from the infobase using the object reference.
+// It is recommended that you use it instead of referring to object attributes via the point from 
+// the reference to an object for quick reading of separate object attributes from the database.
+//
+// To read attribute values regardless of current user rights, enable privileged mode.
+// 
+//
+// Parameters:
+//  Ref - AnyRef - the object whose attribute values will be read.
+//            - String - full name of the predefined item whose attribute values will be read.
+//  Attributes - String - attribute names separated with commas, formatted according to structure 
+//                       requirements.
+//                       Example: "Code, Description, Parent".
+//            - Structure - FixedStructure - keys are field aliases used for resulting structure 
+//                       keys, values (optional) are field names. If a value is empty, it is 
+//                       considered equal to the key.
+//                       If key is defined but the value is not specified, the field name is retrieved from the key.
+//            - Array - FixedArray - attribute names formatted according to structure property 
+//                       requirements.
+//  SelectAllowedItems - Boolean - if True, user rights are considered when executing the object query.
+//                                if there is a restriction at the record level, all attributes will 
+//                                return with the Undefined value. If there are insufficient rights to work with the table, an exception will appear.
+//                                if False, an exception is raised if the user has no rights to 
+//                                access the table or any attribute.
+//
+// Returns:
+//  Structure - contains names (keys) and values of the requested attributes.
+//            - if a blank string is passed to Attributes, a blank structure returns.
+//            - if a blank reference is passed to Ref, a structure matching names of Undefined 
+//              attributes returns.
+//            - if a reference to nonexisting object (invalid reference) is passed to Ref, all 
+//              attributes return as Undefined.
+//
+Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False) Export
+	
+	// If the name of a predefined item is passed.
+	If TypeOf(Ref) = Type("String") Then 
+		
+		FullNameOfPredefinedItem = Ref;
+		
+		// Calculating reference from the predefined item name.
+		// - Performs additional check of predefined item data. Must be executed in advance.
+		Try
+			Ref = UT_CommonClientServer.PredefinedItem(FullNameOfPredefinedItem);
+		Except
+			ErrorText = StrTemplate(
+			NStr("ru = 'Неверный первый параметр Ссылка в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта:
+			           |%1'; 
+			           |en = 'Invalid value of the Ref parameter, function Common.ObjectAttributesValues:
+			           |%1.'"), BriefErrorDescription(ErrorInfo()));
+			Raise ErrorText;
+		EndTry;
+		
+		// Parsing the full name of the predefined item.
+		FullNameParts = StrSplit(FullNameOfPredefinedItem, ".");
+		FullMetadataObjectName = FullNameParts[0] + "." + FullNameParts[1];
+		
+		// If the predefined item is not created in the infobase, check access to the object.
+		// In other scenarios, access check is performed during the query.
+		If Ref = Undefined Then 
+
+			ObjectMetadata = Metadata.FindByFullName(FullMetadataObjectName);
+
+			If Not AccessRight("Read", ObjectMetadata) Then
+				Raise StrTemplate(
+						NStr("ru = 'Недостаточно прав для работы с таблицей ""%1""'; en = 'Insufficient rights to access table %1.'"), FullMetadataObjectName);
+			EndIf;
+		EndIf;
+
+	Else // If a reference is passed.
+		
+		Try
+			FullMetadataObjectName = Ref.Metadata().FullName(); 
+		Except
+			Raise NStr("ru = 'Неверный первый параметр Ссылка в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: 
+				           |- Значение должно быть ссылкой или именем предопределенного элемента'; 
+				           |en = 'Invalid value of the Ref parameter, function Common.ObjectAttributesValues:
+				           |The value must contain predefined item name or reference.'");
+		EndTry;
+		
+	EndIf;
+	
+// Parsing the attributes if the second parameter is String.
+	If TypeOf(Attributes) = Type("String") Then
+		If IsBlankString(Attributes) Then
+			Return New Structure;
+		EndIf;
+		
+		// Trimming whitespaces.
+		Attributes = StrReplace(Attributes, " ", "");
+		// Converting the parameter to a field array.
+		Attributes = StrSplit(Attributes, ",");
+	EndIf;
+	
+	// Converting the attributes to the unified format.
+	FieldsStructure = New Structure;
+	If TypeOf(Attributes) = Type("Structure")
+		Or TypeOf(Attributes) = Type("FixedStructure") Then
+		
+		FieldsStructure = Attributes;
+
+	ElsIf TypeOf(Attributes) = Type("Array") Or TypeOf(Attributes) = Type("FixedArray") Then
+		
+		For Each Attribute In Attributes Do
+
+			Try
+				FieldAlias = StrReplace(Attribute, ".", "");
+				FieldsStructure.Insert(FieldAlias, Attribute);
+			Except 
+				// If the alias is not a key.
 				
-				// Поиск ошибки доступности полей.
-				Результат = НайтиОшибкуДоступностиРеквизитовОбъекта(ПолноеИмяОбъектаМетаданных, Реквизиты);
-				Если Результат.Ошибка Тогда
-					ВызватьИсключение СтрШаблон(
-						НСтр("ru = 'Неверный второй параметр Реквизиты: %1'"), Результат.ОписаниеОшибки);
-				КонецЕсли;
+				// Searching for field availability error.
+				Result = FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Attributes);
+				If Result.Error Then 
+					Raise СтрШаблон(
+						NStr("ru = 'Неверный второй параметр Реквизиты в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"),
+						Result.ErrorDescription);
+				EndIf;
 				
-				// Не удалось распознать ошибку, проброс первичной ошибки.
-				ВызватьИсключение;
-
-			КонецПопытки;
-		КонецЦикла;
-	Иначе
-		ВызватьИсключение СтрШаблон(
-			НСтр("ru = 'Неверный тип второго параметра Реквизиты: %1'"), Строка(ТипЗнч(Реквизиты)));
-	КонецЕсли;
+				// Cannot identify the error. Forwarding the original error.
+				Raise;
+			
+			EndTry;
+		EndDo;
+	Else
+		Raise СтрШаблон(
+			NStr("ru = 'Неверный тип второго параметра Реквизиты в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: %1'; en = 'Invalid value type for the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
+			String(TypeOf(Attributes)));
+	EndIf;
 	
-	// Подготовка результата (после выполнения запроса переопределится).
-	Результат = Новый Структура;
+	// Preparing the result (will be redefined after the query).
+	Result = New Structure;
 	
-	// Формирование текста запроса к выбираемым полям.
-	ТекстЗапросаПолей = "";
-	Для Каждого КлючИЗначение Из СтруктураПолей Цикл
+	// Generating the text of query for the selected fields.
+	FieldQueryText = "";
+	For each KeyAndValue In FieldsStructure Do
 
-		ИмяПоля = ?(ЗначениеЗаполнено(КлючИЗначение.Значение), КлючИЗначение.Значение, КлючИЗначение.Ключ);
-		ПсевдонимПоля = КлючИЗначение.Ключ;
-
-		ТекстЗапросаПолей = ТекстЗапросаПолей + ?(ПустаяСтрока(ТекстЗапросаПолей), "", ",") + "
-																							  |	" + ИмяПоля
-			+ " КАК " + ПсевдонимПоля;
+		FieldName = ?(ValueIsFilled(KeyAndValue.Value),
+						KeyAndValue.Value,
+						KeyAndValue.Key);
+		FieldAlias = KeyAndValue.Key;
+		FieldQueryText = 
+			FieldQueryText + ?(IsBlankString(FieldQueryText), "", ",") + "
+			|	" + FieldName + " AS " + FieldAlias;
 		
 		
-		// Предварительное добавление поля по псевдониму в возвращаемый результат.
-		Результат.Вставить(ПсевдонимПоля);
-
-	КонецЦикла;
+		// Adding the field by its alias to the return value.
+		Result.Insert(FieldAlias);
+		
+	EndDo;
 	
-	// Если предопределенного нет в ИБ.
-	// - приведение результата к отсутствию объекта в ИБ или передаче пустой ссылки.
-	Если Ссылка = Неопределено Тогда
-		Возврат Результат;
-	КонецЕсли;
+	// If the predefined item is missing from the infobase.
+	// - the result will reflect that the item is unavailable or pass an empty reference.
+	If Ref = Undefined Then 
+		Return Result;
+	EndIf;
 
-	ТекстЗапроса = "ВЫБРАТЬ " + ?(ВыбратьРазрешенные, "РАЗРЕШЕННЫЕ", "") + "
-																		   |" + ТекстЗапросаПолей + "
-																									|ИЗ
+	QueryText = "SELECT " + ?(SelectAllowedItems, "ALLOWED", "") + "
+																		   |" + FieldQueryText + "
+																									|FROM
 																									|	"
-		+ ПолноеИмяОбъектаМетаданных + " КАК Таблица
-									   |ГДЕ
-									   |	Таблица.Ссылка = &Ссылка
-									   |";
+		+ FullMetadataObjectName + " AS Table
+									   |WHERE
+									   |	Table.Ref = &Ref";
 	
-	// Выполнение запроса.
-	Запрос = Новый Запрос;
-	Запрос.УстановитьПараметр("Ссылка", Ссылка);
-	Запрос.Текст = ТекстЗапроса;
+	// Executing the query.
+	Query = New Query;
+	Query.SetParameter("Ref", Ref);
+	Query.Text = QueryText;
 
-	Попытка
-		Выборка = Запрос.Выполнить().Выбрать();
-	Исключение
+	Try
+		Selection = Query.Execute().Select();
+	Except
 		
-		// Если реквизиты были переданы строкой, то они уже конвертированы в массив.
-		// Если реквизиты - массив, оставляем без изменений.
-		// Если реквизиты - структура - конвертируем в массив.
-		// В остальных случаях уже было бы выброшено исключение.
-		Если Тип("Структура") = ТипЗнч(Реквизиты) Тогда
-			Реквизиты = Новый Массив;
-			Для Каждого КлючИЗначение Из СтруктураПолей Цикл
-				ИмяПоля = ?(ЗначениеЗаполнено(КлючИЗначение.Значение), КлючИЗначение.Значение, КлючИЗначение.Ключ);
-				Реквизиты.Добавить(ИмяПоля);
-			КонецЦикла;
-		КонецЕсли;
+	    // If the attributes were passed as a string, they are already converted to array.
+		// If the attributes were passed as an array, no additional conversion is needed.
+		// If the attributes were passed as a structure, conversion to array is needed.
+		// Otherwise, an exception would be raised.
+		If Type("Structure") = TypeOf(Attributes) Then
+			Attributes = New Array;
+			For each KeyAndValue In FieldsStructure Do
+				FieldName = ?(ValueIsFilled(KeyAndValue.Value),
+							KeyAndValue.Value,
+							KeyAndValue.Key);
+				Attributes.Add(FieldName);
+			EndDo;
+		EndIf;
 		
-		// Поиск ошибки доступности полей.
-		Результат = НайтиОшибкуДоступностиРеквизитовОбъекта(ПолноеИмяОбъектаМетаданных, Реквизиты);
-		Если Результат.Ошибка Тогда
-			ВызватьИсключение СтрШаблон(
-				НСтр("ru = 'Неверный второй параметр Реквизиты: %1'"), Результат.ОписаниеОшибки);
-		КонецЕсли;
+// Searching for field availability error.
+		Result = FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Attributes);
+		If Result.Error Then 
+			Raise СтрШаблон(
+				NStr("ru = 'Неверный второй параметр Реквизиты в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
+				Result.ErrorDescription);
+		EndIf;
 		
-		// Не удалось распознать ошибку, проброс первичной ошибки.
-		ВызватьИсключение;
-
-	КонецПопытки;
+		// Cannot identify the error. Forwarding the original error.
+		Raise;
+		
+	EndTry;
 	
-	// Заполнение реквизитов.
-	Если Выборка.Следующий() Тогда
-		ЗаполнитьЗначенияСвойств(Результат, Выборка);
-	КонецЕсли;
+	// Filling in attributes.
+	If Selection.Next() Then
+		FillPropertyValues(Result, Selection);
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
 
-	Возврат Результат;
-
-КонецФункции
-
-// Значение реквизита, прочитанного из информационной базы по ссылке на объект.
+// Returns attribute values retrieved from the infobase using the object reference.
+// It is recommended that you use it instead of referring to object attributes via the point from 
+// the reference to an object for quick reading of separate object attributes from the database.
 //
-// Если необходимо зачитать реквизит независимо от прав текущего пользователя,
-// то следует использовать предварительный переход в привилегированный режим.
-//
-// Параметры:
-//  Ссылка    - ЛюбаяСсылка - объект, значения реквизитов которого необходимо получить.
-//            - Строка      - полное имя предопределенного элемента, значения реквизитов которого необходимо получить.
-//  ИмяРеквизита       - Строка - имя получаемого реквизита.
-//  ВыбратьРазрешенные - Булево - если Истина, то запрос к объекту выполняется с учетом прав пользователя, и в случае,
-//                                    - если есть ограничение на уровне записей, то возвращается Неопределено;
-//                                    - если нет прав для работы с таблицей, то возникнет исключение.
-//                              - если Ложь, то возникнет исключение при отсутствии прав на таблицу
-//                                или любой из реквизитов.
-//
-// Возвращаемое значение:
-//  Произвольный - зависит от типа значения прочитанного реквизита.
-//               - если в параметр Ссылка передана пустая ссылка, то возвращается Неопределено.
-//               - если в параметр Ссылка передана ссылка несуществующего объекта (битая ссылка), 
-//                 то возвращается Неопределено.
-//
-Функция ЗначениеРеквизитаОбъекта(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
-
-	Если ПустаяСтрока(ИмяРеквизита) Тогда
-		ВызватьИсключение НСтр("ru = 'Неверный второй параметр ИмяРеквизита: 
-							   |- Имя реквизита должно быть заполнено'");
-	КонецЕсли;
-
-	Результат = ЗначенияРеквизитовОбъекта(Ссылка, ИмяРеквизита, ВыбратьРазрешенные);
-	Возврат Результат[СтрЗаменить(ИмяРеквизита, ".", "")];
-
-КонецФункции 
-
-// Выполняет поиск проверяемых выражений среди реквизитов объекта метаданных.
+// To read attribute values regardless of current user rights, enable privileged mode.
 // 
-// Параметры:
-//  ПолноеИмяОбъектаМетаданных - Строка - полное имя проверяемого объекта.
-//  ПроверяемыеВыражения       - Массив - имена полей или проверяемые выражения объекта метаданных.
-// 
-// Возвращаемое значение:
-//  Структура - Результат проверки.
-//  * Ошибка         - Булево - Найдена ошибка.
-//  * ОписаниеОшибки - Строка - Описание найденных ошибок.
 //
-// Пример:
+// Parameters:
+//  Ref - AnyRef - the object whose attribute values will be read.
+//            - String - full name of the predefined item whose attribute values will be read.
+//  AttributeName - String - the name of the attribute.
+//  SelectAllowedItems - Boolean - if True, user rights are considered when executing the object query.
+//                                If a record-level restriction is set, return Undefined.
+//                                if the user has no rights to access the table, an exception is raised.
+//                                if False, an exception is raised if the user has no rights to 
+//                                access the table or any attribute.
+//
+// Returns:
+//  Arbitrary - depends on the type of the read atrribute value.
+//               - if a blank reference is passed to Ref, return Undefined.
+//               - if a reference to a nonexisting object (invalid reference) is passed to Ref, 
+//                 return Undefined.
+//
+Function ObjectAttributeValue(Ref, AttributeName, SelectAllowedItems = False) Export
+	
+	If IsBlankString(AttributeName) Then 
+		Raise 
+			NStr("ru = 'Неверный второй параметр ИмяРеквизита в функции ОбщегоНазначения.ЗначениеРеквизитаОбъекта: 
+			           |- Имя реквизита должно быть заполнено'; 
+			           |en = 'Invalid value of the AttributeName parameter, function Common.ObjectAttributeValue:
+			           |The parameter cannot be empty.'");
+	EndIf;
+	
+	Result = ObjectAttributesValues(Ref, AttributeName, SelectAllowedItems);
+	Return Result[StrReplace(AttributeName, ".", "")];
+	
+EndFunction 
+
+// Searching for expressions to be checked in metadata object attributes.
+// 
+// Parameters:
+//  MetadataObjectFullName - String - object full name.
+//  ExpressionsToCheck - Array - field names or metadata object expressions to check.
+// 
+// Returns:
+//  Structure - Check result.
+//  * Error - Boolean - the flag indicating whether an error is found.
+//  * ErrorDescription - String - the descriptions of errors that are found.
+//
+// Example:
 //  
-// Реквизиты = Новый Массив;
-// Реквизиты.Добавить("Номер");
-// Реквизиты.Добавить("Валюта.НаименованиеПолное");
+// Attributes = New Array;
+// Attributes.Add("Number");
+// Attributes.Add("Currency.FullDescription");
 //
-// Результат = ОбщегоНазначения.НайтиОшибкуДоступностиРеквизитовОбъекта("Документ._ДемоЗаказПокупателя", Реквизиты);
+// Result = Common.FindObjectAttirbuteAvailabilityError("Document._DemoSalesOrder", Attributes);
 //
-// Если Результат.Ошибка Тогда
-//     ВызватьИсключение Результат.ОписаниеОшибки;
-// КонецЕсли;
+// If Result.Error Then
+//     CallException Result.ErrorDescription;
+// EndIf.
 //
-Функция НайтиОшибкуДоступностиРеквизитовОбъекта(ПолноеИмяОбъектаМетаданных, ПроверяемыеВыражения)
+Function FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, ExpressionsToCheck)
 
-	МетаданныеОбъекта = Метаданные.НайтиПоПолномуИмени(ПолноеИмяОбъектаМетаданных);
+	ObjectMetadata = Metadata.FindByFullName(FullMetadataObjectName);
+	
+	If ObjectMetadata = Undefined Then 
+		Return New Structure("Error, ErrorDescription", True, 
+			StringFunctionsClientServer.SubstituteParametersToString(
+				NStr("ru = 'Ошибка получения метаданных ""%1""'; en = 'Cannot get metadata ""%1""'"), FullMetadataObjectName));
+	EndIf;
 
-	Если МетаданныеОбъекта = Неопределено Тогда
-		Возврат Новый Структура("Ошибка, ОписаниеОшибки", Истина, СтрШаблон(НСтр(
-			"ru = 'Ошибка получения метаданных ""%1""'"), ПолноеИмяОбъектаМетаданных));
-	КонецЕсли;
+	// Allowing calls from an external data processor or extension in safe mode.
+	// On metadata check, the data on schema source fields availability is not classified.
+	SetSafeModeDisabled(True);
+	SetPrivilegedMode(True);
 
-	// Разрешение вызова из безопасного режима внешней обработки или расширения.
-	// Информация о доступности полей источника схемы при проверке метаданных не является секретной.
-	УстановитьОтключениеБезопасногоРежима(Истина);
-	УстановитьПривилегированныйРежим(Истина);
+	Schema = New QuerySchema;
+	Package = Schema.QueryBatch.Add(Type("QuerySchemaSelectQuery"));
+	Operator = Package.Operators.Get(0);
+	
+	Source = Operator.Sources.Add(FullMetadataObjectName, "Table");
+	ErrorText = "";
 
-	Схема = Новый СхемаЗапроса;
-	Пакет = Схема.ПакетЗапросов.Добавить(Тип("ЗапросВыбораСхемыЗапроса"));
-	Оператор = Пакет.Операторы.Получить(0);
-
-	Источник = Оператор.Источники.Добавить(ПолноеИмяОбъектаМетаданных, "Таблица");
-	ТекстОшибки = "";
-
-	Для Каждого ТекущееВыражение Из ПроверяемыеВыражения Цикл
-
-		Если Не ПолеИсточникаСхемыЗапросаДоступно(Источник, ТекущееВыражение) Тогда
-			ТекстОшибки = ТекстОшибки + Символы.ПС + СтрШаблон(
-				НСтр("ru = '- Поле объекта ""%1"" не найдено'"), ТекущееВыражение);
-		КонецЕсли;
-
-	КонецЦикла;
-
-	Возврат Новый Структура("Ошибка, ОписаниеОшибки", Не ПустаяСтрока(ТекстОшибки), ТекстОшибки);
-
-КонецФункции
-
-// Используется в НайтиОшибкуДоступностиРеквизитовОбъекта.
-// Выполняет проверку доступности поля проверяемого выражения в источнике оператора схемы запроса.
-//
-Функция ПолеИсточникаСхемыЗапросаДоступно(ИсточникОператора, ПроверяемоеВыражение)
-
-	ЧастиИмениПоля = СтрРазделить(ПроверяемоеВыражение, ".");
-	ДоступныеПоля = ИсточникОператора.Источник.ДоступныеПоля;
-
-	ТекущаяЧастьИмениПоля = 0;
-	Пока ТекущаяЧастьИмениПоля < ЧастиИмениПоля.Количество() Цикл
-
-		ТекущееПоле = ДоступныеПоля.Найти(ЧастиИмениПоля.Получить(ТекущаяЧастьИмениПоля));
-
-		Если ТекущееПоле = Неопределено Тогда
-			Возврат Ложь;
-		КонецЕсли;
+	For Each CurrentExpression In ExpressionsToCheck Do
 		
-		// Инкрементация следующей части имени поля и соответствующего списка доступности полей.
-		ТекущаяЧастьИмениПоля = ТекущаяЧастьИмениПоля + 1;
-		ДоступныеПоля = ТекущееПоле.Поля;
+		If Not QuerySchemaSourceFieldAvailable(Source, CurrentExpression) Then 
+			ErrorText = ErrorText + Chars.LF + StringFunctionsClientServer.SubstituteParametersToString(
+				NStr("ru = '- Поле объекта ""%1"" не найдено'; en = '- The ""%1"" object field not found.'"), CurrentExpression);
+		EndIf;
+		
+	EndDo;
+		
+	Return New Structure("Error, ErrorDescription", Not IsBlankString(ErrorText), ErrorText);
+	
+EndFunction
 
-	КонецЦикла;
-
-	Возврат Истина;
-
-КонецФункции
-
-// Возвращает Истина, если эта информационная база подключена к 1С:Fresh.
+// It is used in FindObjectAttirbuteAvailabilityError.
+// It checks whether the field of the expression being checked is available in the source of the query schema operator.
 //
-// Возвращаемое значение:
-//  Булево - признак автономного рабочего места.
+Function QuerySchemaSourceFieldAvailable(OperatorSource, ExpressToCheck)
+	
+	FieldNameParts = StrSplit(ExpressToCheck, ".");
+	AvailableFields = OperatorSource.Source.AvailableFields;
+	
+	CurrentFieldNamePart = 0;
+	While CurrentFieldNamePart < FieldNameParts.Count() Do 
+		
+		CurrentField = AvailableFields.Find(FieldNameParts.Get(CurrentFieldNamePart)); 
+		
+		If CurrentField = Undefined Then 
+			Return False;
+		EndIf;
+		
+		// Incrementing the next part of the field name and the relevant field availability list.
+		CurrentFieldNamePart = CurrentFieldNamePart + 1;
+		AvailableFields = CurrentField.Fields;
+		
+	EndDo;
+	
+	Return True;
+	
+EndFunction
+
+// Returns True if the infobase is connected to 1C:Fresh.
 //
-Функция ЭтоАвтономноеРабочееМесто() Экспорт
+// Returns:
+//  Boolean - indicates a standalone workstation.
+//
+Function IsStandaloneWorkplace() Export
+	
+//	If SubsystemExists("StandardSubsystems.DataExchange") Then
+//		ModuleDataExchangeServer = CommonModule("DataExchangeServer");
+//		Return ModuleDataExchangeServer.IsStandaloneWorkplace();
+//	EndIf;
+	
+	Return False;
+	
+EndFunction
 
-//	Если ПодсистемаСуществует("СтандартныеПодсистемы.ОбменДанными") Тогда
-//		МодульОбменДаннымиСервер = ОбщийМодуль("ОбменДаннымиСервер");
-//		Возврат МодульОбменДаннымиСервер.ЭтоАвтономноеРабочееМесто();
-//	КонецЕсли;
-
-	Возврат Ложь;
-
-КонецФункции
-
-Функция ЕстьПравоНаИспользованиеИнструментов() Экспорт
-	Возврат ПравоДоступа("Просмотр", Метаданные.Подсистемы.UT_UniversalTools);
-КонецФункции
+Function ЕстьПравоНаИспользованиеИнструментов() Export
+	Return AccessRight("View", Metadata.Subsystems.UT_UniversalTools);
+EndFunction
 
 
 #Область РаботаСФормамиИнструментов
