@@ -374,7 +374,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="4adca824-4233-4718-9b1f-960d26ea5426">
-    <name>РедактированиеТипа</name>
+    <name>TypeEdit</name>
+    <synonym>
+      <key>en</key>
+      <value>Type edit</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Редактирование типа</value>
@@ -383,7 +387,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e624ba28-4b3b-4306-ad29-ff42e5fc2594">
-    <name>РедактированиеГраницыМомента</name>
+    <name>PointInTimeBoundaryEdit</name>
+    <synonym>
+      <key>en</key>
+      <value>Point in time boundary edit</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Редактирование границы момента</value>
@@ -414,7 +422,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="2be29826-2171-481f-b8a7-e20380331e62">
-    <name>РедактированиеУникальногоИдентификатора</name>
+    <name>UUIDEdit</name>
+    <synonym>
+      <key>en</key>
+      <value>UUID edit</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Редактирование уникального идентификатора</value>

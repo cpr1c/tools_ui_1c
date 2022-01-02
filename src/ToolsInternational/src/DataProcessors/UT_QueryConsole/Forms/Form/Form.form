@@ -6036,7 +6036,7 @@
         </handlers>
         <handlers>
           <event>OnActivateRow</event>
-          <name>QueryBatchOnActivateRow</name>
+          <name>QueryResultBatchOnActivateRow</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
