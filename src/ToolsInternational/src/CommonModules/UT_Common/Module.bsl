@@ -28,185 +28,190 @@
 
 КонецФункции
 
-// Возвращает Истина, если "функциональная" подсистема существует в конфигурации.
-// Предназначена для реализации вызова необязательной подсистемы (условного вызова).
+// Returns True if the "functional" subsystem exists in the configuration.
+// Intended for calling optional subsystems (conditional calls).
 //
-// У "функциональной" подсистемы снят флажок "Включать в командный интерфейс".
+// A subsystem is considered functional if its "Include in command interface" check box is cleared.
 //
-// Параметры:
-//  ПолноеИмяПодсистемы - Строка - полное имя объекта метаданных подсистема
-//                        без слов "Подсистема." и с учетом регистра символов.
-//                        Например: "СтандартныеПодсистемы.ВариантыОтчетов".
+// Parameters:
+//  FullSubsystemName - String - the full name of the subsystem metadata object without the 
+//                        "Subsystem." part, case-sensitive.
+//                        Example: "StandardSubsystems.ReportOptions".
 //
-// Пример:
-//  Если ОбщегоНазначения.ПодсистемаСуществует("СтандартныеПодсистемы.ВариантыОтчетов") Тогда
-//  	МодульВариантыОтчетов = ОбщегоНазначения.ОбщийМодуль("ВариантыОтчетов");
-//  	МодульВариантыОтчетов.<Имя метода>();
-//  КонецЕсли;
+// Example:
+//  If Common.SubsystemExists("StandardSubsystems.ReportOptions") Then
+//  	ModuleReportOptions = Common.CommonModule("ReportOptions");
+//  	ModuleReportOptions.<Method name>();
+//  EndIf.
 //
-// Возвращаемое значение:
-//  Булево - Истина, если существует.
+// Returns:
+//  Boolean - True if exists.
 //
-Функция ПодсистемаСуществует(ПолноеИмяПодсистемы) Экспорт
-
-	ИменаПодсистем = UT_CommonCached.SubsytemsNames();
-	Возврат ИменаПодсистем.Получить(ПолноеИмяПодсистемы) <> Неопределено;
-
-КонецФункции
+Function SubsystemExists(FullSubsystemName) Export
+	
+	SubsystemsNames = UT_CommonCached.SubsystemsNames();
+	Return SubsystemsNames.Get(FullSubsystemName) <> Undefined;
+	
+EndFunction
 
 // Return ref to common module by name .
 //
-// Параметры:
-//  Name          - Строка - имя общего модуля, например:
-//                 "ОбщегоНазначения",
-//                 "ОбщегоНазначенияКлиент".
+//  Parameters:
+//  Name - String - name of a common module.
+//                 "Common",
+//                 "CommonClient".
 //
-// Возвращаемое значение:
-//  ОбщийМодуль - общий модуль.
+// Returns:
+//  CommonModule - a common module.
 //
-Функция CommonModule(Name) Экспорт
+Function CommonModule(Name) Export
 
-	Если Metadata.CommonModules.Найти(Name) <> Неопределено Тогда
-		Модуль = Вычислить(Name); // ВычислитьВБезопасномРежиме не требуется, т.к. проверка надежная.
-	ИначеЕсли СтрЧислоВхождений(Name, ".") = 1 Тогда
-		Возврат СерверныйМодульМенеджера(Name);
-	Иначе
-		Модуль = Неопределено;
-	КонецЕсли;
+	If Metadata.CommonModules.Find(Name) <> Undefined Then
+		Module = Eval(Name); // ВычислитьВБезопасномРежиме не требуется, т.к. проверка надежная.
+	ElsIf StrOccurrenceCount(Name, ".") = 1 Then
+		Return ServerManagerModule(Name);
+	Else
+		Module = Undefined;
+	EndIf;
 	
-//	Если ТипЗнч(Модуль) <> Тип("ОбщийМодуль") Тогда
-//		ВызватьИсключение СтрШаблон(НСтр("ru = 'Общий модуль ""%1"" не найден.'"), Имя);
-//	КонецЕсли;
+//	If TypeOf(Module) <> Type("CommonModule") Then
+//	Raise StringFunctionsClientServer.SubstituteParametersToString(
+//			NStr("ru = 'Общий модуль ""%1"" не найден.'; en = 'Common module %1 is not found.'"),
+//			Name);
+//	EndIf
 
-	Возврат Модуль;
+	Return Module;
+	
+EndFunction
 
-КонецФункции
+// Returns a server manager module by object name.
+Function ServerManagerModule(Name)
+	ObjectFound = False;
+	
+	NameParts = StrSplit(Name, ".");
+	If NameParts.Count() = 2 Then
+		
+		KindName = Upper(NameParts[0]);
+		ObjectName = NameParts[1];
+		
+		If KindName = Upper("Constants") Then
+			If Metadata.Constants.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("InformationRegisters") Then
+			If Metadata.InformationRegisters.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("AccumulationRegisters") Then
+			If Metadata.AccumulationRegisters.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("AccountingRegisters") Then
+			If Metadata.AccountingRegisters.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("CalculationRegisters") Then
+			If Metadata.CalculationRegisters.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("Catalogs") Then
+			If Metadata.Catalogs.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("Documents") Then
+			If Metadata.Documents.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("Reports") Then
+			If Metadata.Reports.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("DataProcessors") Then
+			If Metadata.DataProcessors.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("BusinessProcesses") Then
+			If Metadata.BusinessProcesses.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("DocumentJournals") Then
+			If Metadata.DocumentJournals.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("Tasks") Then
+			If Metadata.Tasks.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("ChartsOfAccounts") Then
+			If Metadata.ChartsOfAccounts.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("ExchangePlans") Then
+			If Metadata.ExchangePlans.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("ChartsOfCharacteristicTypes") Then
+			If Metadata.ChartsOfCharacteristicTypes.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		ElsIf KindName = Upper("ChartsOfCalculationTypes") Then
+			If Metadata.ChartsOfCalculationTypes.Find(ObjectName) <> Undefined Then
+				ObjectFound = True;
+			EndIf;
+		EndIf;
+		
+	EndIf;
+	
+	If Not ObjectFound Then
+		Raise StringFunctionsClientServer.SubstituteParametersToString(
+			NStr("ru = 'Объект метаданных ""%1"" не найден,
+			           |либо для него не поддерживается получение модуля менеджера.'; 
+			           |en = 'Metadata object ""%1"" is not found
+			           |or it does not support getting manager modules.'"),
+			Name);
+	EndIf;
 
-// Возвращает серверный модуль менеджера по имени объекта.
-Функция СерверныйМодульМенеджера(Имя)
-	ОбъектНайден = Ложь;
+	Module = Eval(Name); // ВычислитьВБезопасномРежиме не требуется, т.к. проверка надежная.
 
-	ЧастиИмени = СтрРазделить(Имя, ".");
-	Если ЧастиИмени.Количество() = 2 Тогда
+	Return Module;
+EndFunction
 
-		ИмяВида = ВРег(ЧастиИмени[0]);
-		ИмяОбъекта = ЧастиИмени[1];
-
-		Если ИмяВида = ВРег("Константы") Тогда
-			Если Метаданные.Константы.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("РегистрыСведений") Тогда
-			Если Метаданные.РегистрыСведений.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("РегистрыНакопления") Тогда
-			Если Метаданные.РегистрыНакопления.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("РегистрыБухгалтерии") Тогда
-			Если Метаданные.РегистрыБухгалтерии.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("РегистрыРасчета") Тогда
-			Если Метаданные.РегистрыРасчета.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("Справочники") Тогда
-			Если Метаданные.Справочники.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("Документы") Тогда
-			Если Метаданные.Документы.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("Отчеты") Тогда
-			Если Метаданные.Отчеты.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("Обработки") Тогда
-			Если Метаданные.Обработки.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("БизнесПроцессы") Тогда
-			Если Метаданные.БизнесПроцессы.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("ЖурналыДокументов") Тогда
-			Если Метаданные.ЖурналыДокументов.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("Задачи") Тогда
-			Если Метаданные.Задачи.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("ПланыСчетов") Тогда
-			Если Метаданные.ПланыСчетов.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("ПланыОбмена") Тогда
-			Если Метаданные.ПланыОбмена.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("ПланыВидовХарактеристик") Тогда
-			Если Метаданные.ПланыВидовХарактеристик.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		ИначеЕсли ИмяВида = ВРег("ПланыВидовРасчета") Тогда
-			Если Метаданные.ПланыВидовРасчета.Найти(ИмяОбъекта) <> Неопределено Тогда
-				ОбъектНайден = Истина;
-			КонецЕсли;
-		КонецЕсли;
-
-	КонецЕсли;
-
-	Если Не ОбъектНайден Тогда
-		ВызватьИсключение СтрШаблон(
-			НСтр("ru = 'Объект метаданных ""%1"" не найден,
-				 |либо для него не поддерживается получение модуля менеджера.'"), Имя);
-	КонецЕсли;
-
-	Модуль = Вычислить(Имя); // ВычислитьВБезопасномРежиме не требуется, т.к. проверка надежная.
-
-	Возврат Модуль;
-КонецФункции
-
-// Возвращает признак возможности обращения к разделенным данным (которые входят в состав разделителей).
-// Признак относится к сеансу, но может меняться во время работы сеанса, если разделение было включено
-// в самом сеансе, поэтому проверку следует делать непосредственно перед обращением к разделенным данным.
+// Returns a flag indicating whether separated data (included in the separators) can be accessed.
+// The flag is session-specific, but can change its value if data separation is enabled on the 
+// session run. So, check the flag right before addressing the shared data.
 // 
-// Возвращает Истина, если конфигурация не может работать в режиме разделения данных
-// (не содержит общих реквизитов, предназначенных для разделения данных).
+// Returns True if the configuration does not support data separation mode (does not contain 
+// attributes to share).
 //
-// Возвращаемое значение:
-//   Булево - Истина, если разделение не поддерживается, либо разделение выключено,
-//                    либо разделение включено и разделители    установлены.
-//          - Ложь,   если разделение включено и разделители не установлены.
+// Returns:
+//   Boolean - True if separation is not supported or disabled or separation is enabled and 
+//                    separators are set.
+//          - False if separation is enabled and separators are not set.
 //
-Функция ДоступноИспользованиеРазделенныхДанных() Экспорт
+Function SeparatedDataUsageAvailable() Export
 
-	//Если ПодсистемаСуществует("СтандартныеПодсистемы.РаботаВМоделиСервиса") Тогда
-	//	МодульРаботаВМоделиСервиса = ОбщийМодуль("РаботаВМоделиСервиса");
-	//	Возврат МодульРаботаВМоделиСервиса.ДоступноИспользованиеРазделенныхДанных();
-	//Иначе
-		Возврат Истина;
-	//КонецЕсли;
+	//If SubsystemExists("StandardSubsystems.SaaS") Then
+	//	ModuleSaaS = CommonModule("SaaS");
+	//	Return ModuleSaaS.SeparatedDataUsageAvailable();
+	//Else
+		Return True;
+	//EndIf;
+	
+EndFunction
 
-КонецФункции
-
-// Определяет, что эта информационная база является подчиненным узлом
-// распределенной информационной базы (РИБ).
+// Determines whether this infobase is a subordinate node of a distributed infobase (DIB).
+// 
 //
-// Возвращаемое значение: 
-//  Булево - Истина, если эта информационная база является подчиненным узлом РИБ.
+// Returns:
+//  Boolean - True if the infobase is a subordinate DIB node.
 //
-Функция ЭтоПодчиненныйУзелРИБ() Экспорт
-
-	УстановитьПривилегированныйРежим(Истина);
-
-	Возврат ПланыОбмена.ГлавныйУзел() <> Неопределено;
-
-КонецФункции
+Function IsSubordinateDIBNode() Export
+	
+	SetPrivilegedMode(True);
+	
+	Return ExchangePlans.MasterNode() <> Undefined;
+	
+EndFunction
 
 // Convert (serializes) any value to XML-string.
 // Converted to may be only those objects for which the syntax helper indicate that they are serialized.
@@ -227,68 +232,65 @@ Function ValueToXMLString(Value) Export
 	Return XMLWriter.Close();
 EndFunction
 
-// Выполняет преобразование (десериализацию) XML-строки в значение.
-// См. также ValueToXMLString.
+// Converts (deserializes) an XML string into a value.
+// See also ValueToXMLString.
 //
-// Параметры:
-//  СтрокаXML - Строка - XML-строка, с сериализованным объектом..
+// Parameters:
+//  XMLString - String - an XML string with a serialized object.
 //
-// Возвращаемое значение:
-//  Произвольный - значение, полученное из переданной XML-строки.
+// Returns:
+//  Arbitrary - the value extracted from an XML string.
 //
-Функция ЗначениеИзСтрокиXML(СтрокаXML, Тип = Неопределено) Экспорт
+Function ValueFromXMLString(XMLString, Type = Undefined) Export
 
-	ЧтениеXML = Новый ЧтениеXML;
-	ЧтениеXML.УстановитьСтроку(СтрокаXML);
+	XMLReader = New XMLReader;
+	XMLReader.SetString(XMLString);
 
-	Если Тип = Неопределено Тогда
-		Возврат СериализаторXDTO.ПрочитатьXML(ЧтениеXML);
-	Иначе
-		Возврат СериализаторXDTO.ПрочитатьXML(ЧтениеXML, Тип);
-	КонецЕсли;
-КонецФункции
+	If Type = Undefined Then
+		Return XDTOSerializer.ReadXML(XMLReader);
+	Else
+		Return XDTOSerializer.ReadXML(XMLReader, Type);
+	EndIf;
+EndFunction
 
+// Determines the infobase mode: file (True) or client/server (False).
+// This function uses the InfobaseConnectionString parameter. You can specify this parameter explicitly.
+//
+// Parameters:
+//  InfobaseConnectionString - String - the parameter is applied if you need to check a connection 
+//                 string for another infobase.
+//
+// Returns:
+//  Boolean - True if it is a file infobase.
+//
+Function FileInfobase(Val InfobaseConnectionString = "") Export
+	
+	If IsBlankString(InfobaseConnectionString) Then
+		InfobaseConnectionString =  InfoBaseConnectionString();
+	EndIf;
+	Return StrFind(Upper(InfobaseConnectionString), "FILE=") = 1;
+	
+EndFunction
 
-// Определяет режим эксплуатации информационной базы файловый (Истина) или серверный (Ложь).
-// При проверке используется СтрокаСоединенияИнформационнойБазы, которую можно указать явно.
+Procedure SetSafeModeSSL()
+//	If SubsystemExists("StandardSubsystems.SecurityProfiles") Then
+//		ModuleSafeModeManager = CommonModule("SafeModeManager");
+//			If ModuleSafeModeManager.UseSecurityProfiles()
+//			AND Not ModuleSafeModeManager.SafeModeSet() Then
 //
-// Параметры:
-//  СтрокаСоединенияИнформационнойБазы - Строка - параметр используется, если
-//                 нужно проверить строку соединения не текущей информационной базы.
+//			InfobaseProfile = ModuleSafeModeManager.InfobaseSecurityProfile();
+//			If ValueIsFilled(InfobaseProfile) Then
+//				
+//				SetSafeMode(InfobaseProfile);
+//				If SafeMode() = True Then
+//					SetSafeMode(False);
+//				EndIf;
+//				
+//			EndIf;
 //
-// Возвращаемое значение:
-//  Булево - Истина, если файловая.
-//
-Функция ИнформационнаяБазаФайловая(Знач СтрокаСоединенияИнформационнойБазы = "") Экспорт
-
-	Если ПустаяСтрока(СтрокаСоединенияИнформационнойБазы) Тогда
-		СтрокаСоединенияИнформационнойБазы =  СтрокаСоединенияИнформационнойБазы();
-	КонецЕсли;
-	Возврат СтрНайти(ВРег(СтрокаСоединенияИнформационнойБазы), "FILE=") = 1;
-
-КонецФункции 
-
-Процедура УстановитьБезопасныйРежимБСП()
-//	Если ПодсистемаСуществует("СтандартныеПодсистемы.ПрофилиБезопасности") Тогда
-//		МодульРаботаВБезопасномРежиме = ОбщийМодуль("РаботаВБезопасномРежиме");
-//		Если МодульРаботаВБезопасномРежиме.ИспользуютсяПрофилиБезопасности()
-//			И Не МодульРаботаВБезопасномРежиме.УстановленБезопасныйРежим() Тогда
-//
-//			МодульРаботаВБезопасномРежиме = ОбщийМодуль("РаботаВБезопасномРежиме");
-//			ПрофильИнформационнойБазы = МодульРаботаВБезопасномРежиме.ПрофильБезопасностиИнформационнойБазы();
-//
-//			Если ЗначениеЗаполнено(ПрофильИнформационнойБазы) Тогда
-//
-//				УстановитьБезопасныйРежим(ПрофильИнформационнойБазы);
-//				Если БезопасныйРежим() = Истина Тогда
-//					УстановитьБезопасныйРежим(Ложь);
-//				КонецЕсли;
-//
-//			КонецЕсли;
-//
-//		КонецЕсли;
-//	КонецЕсли;
-КонецПроцедуры
+//		EndIf;
+//	EndIf;
+EndProcedure
 
 // Выполнить экспортную процедуру объекта встроенного языка по имени.
 // При включении профилей безопасности для вызова оператора Выполнить() используется
