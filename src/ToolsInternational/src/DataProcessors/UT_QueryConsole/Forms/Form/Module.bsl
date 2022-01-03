@@ -4561,12 +4561,12 @@ Function RunDataProcessorAtServer(Algorithm, fLineByLine = True)
 	Try
 		Version = StandardSubsystemsServerModule.LibraryVersion();
 	Except
-		Return New Structure("Успешно, ErrorDescription", False, "Модули БСП не найдены");
+		Return New Structure("Success, ErrorDescription", False, "Модули БСП не найдены");
 	EndTry;
 
 	маВерсия = StrSplit(Version, ".");
 	If Число(маВерсия[0]) <= 2 И Не (Число(маВерсия[0]) = 2 И Число(маВерсия[1]) >= 3) Then
-		Return New Structure("Успешно, ErrorDescription", False, StrTemplate(
+		Return New Structure("Success, ErrorDescription", False, StrTemplate(
 			"Необходима БСП версии не ниже 2.3 (версия БСП текущей конфигурации %1)", Version));
 	EndIf;
 
