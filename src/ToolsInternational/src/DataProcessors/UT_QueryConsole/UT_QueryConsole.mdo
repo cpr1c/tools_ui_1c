@@ -413,7 +413,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="9b9cd922-fd95-463c-ba6e-9ffea4282576">
-    <name>Информация</name>
+    <name>Info</name>
+    <synonym>
+      <key>en</key>
+      <value>Info</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Информация</value>
@@ -435,7 +439,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="c3adee8e-1f0b-46c0-8b38-f56a4b58939e">
-    <name>ФормаТабличногоДокумента</name>
+    <name>SpreadsheetDocumentForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Spreadsheet document form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма табличного документа</value>
