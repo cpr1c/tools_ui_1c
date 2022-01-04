@@ -2560,6 +2560,10 @@
     <items xsi:type="form:Button">
       <name>ФормаЗакрытьИнструмент</name>
       <id>109</id>
+      <title>
+        <key>ru</key>
+        <value>Close</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
