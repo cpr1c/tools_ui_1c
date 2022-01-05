@@ -23,60 +23,61 @@
 	Возврат ПараметрыСтартаСеанса;
 КонецФункции
 
-// Устанавливает жирное оформление шрифта заголовков групп формы для их корректного отображения в интерфейсе 8.2.
-// В интерфейсе Такси заголовки групп с обычным выделением и без выделения выводится большим шрифтом.
-// В интерфейсе 8.2 такие заголовки выводятся как обычные надписи и не ассоциируются с заголовками.
-// Эта функция предназначена для визуального выделения (жирным шрифтом) заголовков групп в режиме интерфейса 8.2.
+// Sets the bold font for form group titles so they are correctly displayed in the 8.2 interface.2.
+// In the Taxi interface, group titles with standard highlight and without one are displayed in large font.
+// In the 8.2 interface such titles are displayed as regular labels and are not associated with titles.
+// This function is designed for visually highlighting (in bold) of group titles in the mode of the 8.2 interface.
 //
-// Параметры:
-//  Форма - УправляемаяФорма - форма для изменения шрифта заголовков групп;
-//  ИменаГрупп - Строка - список имен групп формы, разделенных запятыми. Если имена групп не указаны,
-//                        то оформление будет применено ко всем группам на форме.
+// Parameters:
+//  Form - ManagedForm - a form where group title fonts are changed.
+//  GroupsNames - String - a list of the form group names separated with commas. If the group names 
+//                        are not specified, the appearance will be applied to all groups on the form.
 //
-// Пример:
-//  Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-//    СтандартныеПодсистемыСервер.УстановитьОтображениеЗаголовковГрупп(ЭтотОбъект);
+// Example:
+//  Procedure OnCreateAtServer(Cancel, StandardProcessing)
+//    StandardSubsystemsServer.SetGroupsTitlesRepresentation(ThisObject);
 //
-Процедура УстановитьОтображениеЗаголовковГрупп(Форма, ИменаГрупп = "") Экспорт
+Procedure SetGroupTitleRepresentation(Form, GroupNames = "") Export
+	
+	If ClientApplication.CurrentInterfaceVariant() = ClientApplicationInterfaceVariant.Version8_2 Then
+		BoldFont = New Font(,, True);
+		If NOT ValueIsFilled(GroupNames) Then 
+			For Each Item In Form.Items Do 
+				If Type(Item) = Type("FormGroup")
+					AND Item.Type = FormGroupType.UsualGroup
+					AND Item.ShowTitle = True 
+					AND (Item.Representation = UsualGroupRepresentation.NormalSeparation
+					Or Item.Representation = UsualGroupRepresentation.None) Then 
+						Item.TitleFont = BoldFont;
+				EndIf;
+			EndDo;
+		Else
+			TitleArray = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(GroupNames,,, True);
+			For Each TitleName In TitleArray Do
+				Item = Form.Items[TitleName];
+				If Item.Representation = UsualGroupRepresentation.NormalSeparation OR Item.Representation = UsualGroupRepresentation.None Then 
+					Item.TitleFont = BoldFont;
+				EndIf;
+			EndDo;
+		EndIf;
+	EndIf;
 
-	Если КлиентскоеПриложение.ТекущийВариантИнтерфейса() = ВариантИнтерфейсаКлиентскогоПриложения.Версия8_2 Тогда
-		ЖирныйШрифт = Новый Шрифт(, , Истина);
-		Если Не ЗначениеЗаполнено(ИменаГрупп) Тогда
-			Для Каждого Элемент Из Форма.Элементы Цикл
-				Если Тип(Элемент) = Тип("ГруппаФормы") И Элемент.Вид = ВидГруппыФормы.ОбычнаяГруппа
-					И Элемент.ОтображатьЗаголовок = Истина И (Элемент.Отображение = ОтображениеОбычнойГруппы.ОбычноеВыделение
-					Или Элемент.Отображение = ОтображениеОбычнойГруппы.Нет) Тогда
-					Элемент.ШрифтЗаголовка = ЖирныйШрифт;
-				КонецЕсли;
-			КонецЦикла;
-		Иначе
-			МассивЗаголовков = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(ИменаГрупп, , , Истина);
-			Для Каждого ИмяЗаголовка Из МассивЗаголовков Цикл
-				Элемент = Форма.Элементы[ИмяЗаголовка];
-				Если Элемент.Отображение = ОтображениеОбычнойГруппы.ОбычноеВыделение Или Элемент.Отображение
-					= ОтображениеОбычнойГруппы.Нет Тогда
-					Элемент.ШрифтЗаголовка = ЖирныйШрифт;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЕсли;
-
-КонецПроцедуры
+EndProcedure
 
 Function DefaultLanguageCode() Export
-	Возврат UT_CommonServerCall.DefaultLanguageCode();
+	Return UT_CommonServerCall.DefaultLanguageCode();
 EndFunction
 
-// См. СтандартныеПодсистемыПовтИсп.СсылкиПоИменамПредопределенных
-Функция RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
+// See. StandardSubsystemsCached.RefsByPredefinedItemsNames
+Function RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
 
 	Возврат UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
 
-КонецФункции
+EndFunction
 
 Функция ЗначенияРеквизитовОбъекта(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
 
-	Возврат UT_Common.ЗначенияРеквизитовОбъекта(Ссылка, Реквизиты, ВыбратьРазрешенные);
+	Возврат UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
 
 КонецФункции
 
@@ -103,7 +104,7 @@ EndFunction
 //
 Функция ЗначениеРеквизитаОбъекта(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
 
-	Возврат UT_Common.ЗначениеРеквизитаОбъекта(Ссылка, ИмяРеквизита, ВыбратьРазрешенные);
+	Возврат UT_Common.ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные);
 
 КонецФункции
 
