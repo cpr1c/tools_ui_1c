@@ -5,7 +5,7 @@
 // Текст лицензии доступен по ссылке:
 // https://creativecommons.org/licenses/by/4.0/legalcode
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-#Область ПрограммныйИнтерфейс
+#Region ПрограммныйИнтерфейс
 
 // Returns the data separation mode flag (conditional separation).
 // 
@@ -75,7 +75,7 @@ Function CommonModule(Name) Export
 	EndIf;
 	
 //	If TypeOf(Module) <> Type("CommonModule") Then
-//	Raise StringFunctionsClientServer.SubstituteParametersToString(
+//	Raise StrTemplate(
 //			NStr("ru = 'Общий модуль ""%1"" не найден.'; en = 'Common module %1 is not found.'"),
 //			Name);
 //	EndIf
@@ -163,7 +163,7 @@ Function ServerManagerModule(Name)
 	EndIf;
 	
 	If Not ObjectFound Then
-		Raise StringFunctionsClientServer.SubstituteParametersToString(
+		Raise StrTemplate(
 			NStr("ru = 'Объект метаданных ""%1"" не найден,
 			           |либо для него не поддерживается получение модуля менеджера.'; 
 			           |en = 'Metadata object ""%1"" is not found
@@ -997,7 +997,7 @@ Function FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Expression
 	
 	If ObjectMetadata = Undefined Then 
 		Return New Structure("Error, ErrorDescription", True, 
-			StringFunctionsClientServer.SubstituteParametersToString(
+			StrTemplate(
 				NStr("ru = 'Ошибка получения метаданных ""%1""'; en = 'Cannot get metadata ""%1""'"), FullMetadataObjectName));
 	EndIf;
 
@@ -1016,7 +1016,7 @@ Function FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Expression
 	For Each CurrentExpression In ExpressionsToCheck Do
 		
 		If Not QuerySchemaSourceFieldAvailable(Source, CurrentExpression) Then 
-			ErrorText = ErrorText + Chars.LF + StringFunctionsClientServer.SubstituteParametersToString(
+			ErrorText = ErrorText + Chars.LF + StrTemplate(
 				NStr("ru = '- Поле объекта ""%1"" не найдено'; en = '- The ""%1"" object field not found.'"), CurrentExpression);
 		EndIf;
 		
@@ -1074,7 +1074,7 @@ Function CanUseUniversalTools() Export
 EndFunction
 
 
-#Область РаботаСФормамиИнструментов
+#Region WorkWithUniversalToolsForm
 
 Procedure AddToCommonCommandsCommandBar(Form, FormMainCommandBar)
 	Если Form.ПоложениеКоманднойПанели=ПоложениеКоманднойПанелиФормы.Нет 
@@ -1088,315 +1088,332 @@ Procedure AddToCommonCommandsCommandBar(Form, FormMainCommandBar)
 		КоманднаяПанель=FormMainCommandBar;
 	КонецЕсли;
 	
-	ОписаниеКоманды = UT_Forms.ButtonCommandNewDescription();
-	ОписаниеКоманды.Name = "УИ_ОткрытьНовуюФормуИнструмента";
-	ОписаниеКоманды.CommandName = ОписаниеКоманды.Name;
-	ОписаниеКоманды.Action="Подключаемый_ВыполнитьОбщуюКомандуИнструментов";
-	ОписаниеКоманды.ItemParent=КоманднаяПанель;
-	ОписаниеКоманды.Picture = БиблиотекаКартинок.НовоеОкно;
-	ОписаниеКоманды.Representation = ОтображениеКнопки.Картинка;
-	ОписаниеКоманды.ToolTip = "Открывает еще одну пустую форму текущего инструмента";
-	ОписаниеКоманды.Title = "Открыть новую форму";
-	UT_Forms.CreateCommandByDescription(Form, ОписаниеКоманды);
-	UT_Forms.CreateButtonByDescription(Form, ОписаниеКоманды);
+	CommandDescription = UT_Forms.ButtonCommandNewDescription();
+	CommandDescription.Name = "УИ_ОткрытьНовуюФормуИнструмента";
+	CommandDescription.CommandName = CommandDescription.Name;
+	CommandDescription.Action="Подключаемый_ВыполнитьОбщуюКомандуИнструментов";
+	CommandDescription.ItemParent=КоманднаяПанель;
+	CommandDescription.Picture = БиблиотекаКартинок.НовоеОкно;
+	CommandDescription.Representation = ОтображениеКнопки.Картинка;
+	CommandDescription.ToolTip = "Открывает еще одну пустую форму текущего инструмента";
+	CommandDescription.Title = "Открыть новую форму";
+	UT_Forms.CreateCommandByDescription(Form, CommandDescription);
+	UT_Forms.CreateButtonByDescription(Form, CommandDescription);
 EndProcedure
 
 Procedure ToolFormOnCreateAtServer(Form, Cancel, StandardProcessing, FormMainCommandBar = Undefined) Export
 	AddToCommonCommandsCommandBar(Form, FormMainCommandBar);
 EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область НастройкиИнструментов
+#Region UniversalToolsSettings
 
 
-#КонецОбласти
+#EndRegion
 
-#КонецОбласти
+#EndRegion
 
-// Возвращает исключения при поиске мест использования объектов.
+// Returns an exception when searching for object usage locations.
 //
-// Возвращаемое значение:
-//   Соответствие - Исключения поиска ссылок в разрезе объектов метаданных:
-//       * Ключ - ОбъектМетаданных - Объект метаданных, для которого применяются исключения.
-//       * Значение - Строка, Массив - описание исключенных реквизитов.
-//           Если "*", то исключены все реквизиты объекта метаданных.
-//           Если массив строк, то содержит относительные имена исключенных реквизитов.
+// Returns:
+//   Map - reference search exceptions by metadata objects.
+//       * Key - MetadataObject - the metadata object to apply exceptions to.
+//       * Value - String, Array - descriptions of excluded attributes.
+//           If "*", all the metadata object attributes are excluded.
+//           If a string array, contains the relative names of the excluded attributes.
 //
-Функция ИсключенияПоискаСсылок() Экспорт
+Function RefSearchExclusions() Export
 
-	ИсключенияПоискаИнтеграция = Новый Массив;
+	SearchExceptionsIntegration = New Array;
 
-//	МодульИнтеграцияПодсистемБСП=ОбщийМодуль("ИнтеграцияПодсистемБСП");
-//	Если МодульИнтеграцияПодсистемБСП <> Неопределено Тогда
-//		МодульИнтеграцияПодсистемБСП.ПриДобавленииИсключенийПоискаСсылок(ИсключенияПоискаИнтеграция);
-//	КонецЕсли;
+//	ModuleSSLSubsystemsIntegration=CommonModule("SSLSubsystemsIntegration");
+//	If ModuleSSLSubsystemsIntegration <> Undefined Then
+//		ModuleSSLSubsystemsIntegration.OnAddReferenceSearchExceptions(OnAddReferenceSearchExceptions);
+//	Endif;
 
-	ИсключенияПоиска = Новый Массив;
-//	МодульОбщегоНазначенияПереопределяемый=ОбщийМодуль("ОбщегоНазначенияПереопределяемый");
-//	Если МодульОбщегоНазначенияПереопределяемый <> Неопределено Тогда
-//		МодульОбщегоНазначенияПереопределяемый.ПриДобавленииИсключенийПоискаСсылок(ИсключенияПоиска);
-//	КонецЕсли;
+	SearchExceptions = New Array;
+//	ModuleCommonOverridable=ОбщийМодуль("CommonOverridable");
+//	If ModuleCommonOverridable <> Undefined Then
+//		ModuleCommonOverridable.OnAddReferenceSearchExceptions(SearchExceptions);
+//	EndIf;
 
-	UT_CommonClientServer.SupplementArray(ИсключенияПоиска, ИсключенияПоискаИнтеграция);
+	UT_CommonClientServer.SupplementArray(SearchExceptions, SearchExceptionsIntegration);
 
-	Результат = Новый Соответствие;
-	Для Каждого ИсключениеПоиска Из ИсключенияПоиска Цикл
-		// Определение полного имени реквизита и объекта метаданных - носителя реквизита.
-		Если ТипЗнч(ИсключениеПоиска) = Тип("Строка") Тогда
-			ПолноеИмя          = ИсключениеПоиска;
-			МассивПодстрок     = СтрРазделить(ПолноеИмя, ".");
-			КоличествоПодстрок = МассивПодстрок.Количество();
-			ОбъектМетаданных   = Метаданные.НайтиПоПолномуИмени(МассивПодстрок[0] + "." + МассивПодстрок[1]);
-		Иначе
-			ОбъектМетаданных   = ИсключениеПоиска;
-			ПолноеИмя          = ОбъектМетаданных.ПолноеИмя();
-			МассивПодстрок     = СтрРазделить(ПолноеИмя, ".");
-			КоличествоПодстрок = МассивПодстрок.Количество();
-			Если КоличествоПодстрок > 2 Тогда
-				Пока Истина Цикл
-					Родитель = ОбъектМетаданных.Родитель();
-					Если ТипЗнч(Родитель) = Тип("ОбъектМетаданныхКонфигурация") Тогда
-						Прервать;
-					Иначе
-						ОбъектМетаданных = Родитель;
-					КонецЕсли;
-				КонецЦикла;
-			КонецЕсли;
-		КонецЕсли;
-		// Регистрация.
-		Если КоличествоПодстрок < 4 Тогда
-			Результат.Вставить(ОбъектМетаданных, "*");
-		Иначе
-			ПутиКРеквизитам = Результат.Получить(ОбъектМетаданных);
-			Если ПутиКРеквизитам = "*" Тогда
-				Продолжить; // Весь объект метаданных уже исключен.
-			ИначеЕсли ПутиКРеквизитам = Неопределено Тогда
-				ПутиКРеквизитам = Новый Массив;
-				Результат.Вставить(ОбъектМетаданных, ПутиКРеквизитам);
-			КонецЕсли;
-			// Формат реквизита:
-			//   "<ВидОМ>.<ИмяОМ>.<ТипРеквизитаИлиТЧ>.<ИмяРеквизитаИлиТЧ>[.<ТипРеквизита>.<ИмяРеквизитаТЧ>]".
-			//   Примеры:
-			//     "РегистрСведений.ВерсииОбъектов.Реквизит.АвторВерсии",
-			//     "Документ._ДемоЗаказПокупателя.ТабличнаяЧасть.СчетаНаОплату.Реквизит.Счет",
-			//     "ПланВидовРасчета._ДемоОсновныеНачисления.СтандартнаяТабличнаяЧасть.БазовыеВидыРасчета.СтандартныйРеквизит.ВидРасчета".
-			// Относительный путь к реквизиту должен получиться таким, чтобы его можно было использовать в условиях запроса:
-			//   "<ИмяРеквизитаИлиТЧ>[.<ИмяРеквизитаТЧ>]".
-			Если КоличествоПодстрок = 4 Тогда
-				ОтносительныйПутьКРеквизиту = МассивПодстрок[3];
-			Иначе
-				ОтносительныйПутьКРеквизиту = МассивПодстрок[3] + "." + МассивПодстрок[5];
-			КонецЕсли;
-			ПутиКРеквизитам.Добавить(ОтносительныйПутьКРеквизиту);
-		КонецЕсли;
-	КонецЦикла;
-	Возврат Результат;
-
-КонецФункции
-
-// Подключает компоненту, выполненную по технологии Native API и COM.
-// Компонента должна храниться в макете конфигурации в виде ZIP-архива.
-//
-// Параметры:
-//  Идентификатор   - Строка - идентификатор объекта внешней компоненты.
-//  ПолноеИмяМакета - Строка - полное имя макета конфигурации, хранящего ZIP-архив.
-//
-// Возвращаемое значение:
-//  AddIn, Неопределено - экземпляр объекта внешней компоненты или Неопределено, если не удалось создать.
-//
-// Пример:
-//
-//  ПодключаемыйМодуль = ОбщегоНазначения.ПодключитьКомпонентуИзМакета(
-//      "QRCodeExtension",
-//      "ОбщийМакет.КомпонентаПечатиQRКода");
-//
-//  Если ПодключаемыйМодуль <> Неопределено Тогда 
-//      // ПодключаемыйМодуль содержит созданный экземпляр подключенной компоненты.
-//  КонецЕсли;
-//
-//  ПодключаемыйМодуль = Неопределено;
-//
-Функция ПодключитьКомпонентуИзМакета(Идентификатор, ПолноеИмяМакета) Экспорт
-
-	ПодключаемыйМодуль = Неопределено;
-
-	Если Не МакетСуществует(ПолноеИмяМакета) Тогда
-		ВызватьИсключение СтрШаблон(
-			НСтр("ru = 'Не удалось подключить внешнюю компоненту ""%1"" на сервере
-				 |из %2
-				 |по причине:
-				 |Подключение на сервере не из макета запрещено'"), Идентификатор, ПолноеИмяМакета);
-	КонецЕсли;
-
-	Местоположение = ПолноеИмяМакета;
-	СимволическоеИмя = Идентификатор + "SymbolicName";
-
-	Если ПодключитьВнешнююКомпоненту(Местоположение, СимволическоеИмя) Тогда
-
-		Попытка
-			ПодключаемыйМодуль = Новый ("AddIn." + СимволическоеИмя + "." + Идентификатор);
-			Если ПодключаемыйМодуль = Неопределено Тогда
-				ВызватьИсключение НСтр("ru = 'Оператор Новый вернул Неопределено'");
-			КонецЕсли;
-		Исключение
-			ПодключаемыйМодуль = Неопределено;
-			ТекстОшибки = КраткоеПредставлениеОшибки(ИнформацияОбОшибке());
-		КонецПопытки;
-
-		Если ПодключаемыйМодуль = Неопределено Тогда
-
-			ТекстОшибки = СтрШаблон(
-				НСтр("ru = 'Не удалось создать объект внешней компоненты ""%1"", подключенной на сервере
-					 |из макета ""%2"",
-					 |по причине:
-					 |%3'"), Идентификатор, Местоположение, ТекстОшибки);
-
-			ЗаписьЖурналаРегистрации(
-				НСтр("ru = 'Подключение внешней компоненты на сервере'",
-				UT_CommonClientServer.DefaultLanguageCode()), УровеньЖурналаРегистрации.Ошибка, , , ТекстОшибки);
-
-		КонецЕсли;
-
-	Иначе
-
-		ТекстОшибки = СтрШаблон(
-			НСтр("ru = 'Не удалось подключить внешнюю компоненту ""%1"" на сервере
-				 |из макета ""%2""
-				 |по причине:
-				 |Метод ПодключитьВнешнююКомпоненту вернул Ложь.'"), Идентификатор, Местоположение);
-
-		ЗаписьЖурналаРегистрации(
-			НСтр("ru = 'Подключение внешней компоненты на сервере'",
-			UT_CommonClientServer.DefaultLanguageCode()), УровеньЖурналаРегистрации.Ошибка, , , ТекстОшибки);
-
-	КонецЕсли;
-
-	Возврат ПодключаемыйМодуль;
-
-КонецФункции
-
-
-// Возвращает описание предмета в виде текстовой строки.
-// 
-// Параметры:
-//  СсылкаНаПредмет - ЛюбаяСсылка - объект ссылочного типа.
-//
-// Возвращаемое значение:
-//   Строка - представление предмета.
-// 
-Функция ПредметСтрокой(СсылкаНаПредмет) Экспорт
-
-	Результат = "";
+	Result = New Map;
+	For Each SearchException In SearchExceptions Do
+		// Defining the full name of the attribute and the metadata object that owns the attribute.
+		If TypeOf(SearchException) = Type("String") Then
+			FullName          = SearchException;
+			SubstringsArray     = StrSplit(FullName, ".");
+			SubstringCount = SubstringsArray.Count();
+			MetadataObject   = Metadata.FindByFullName(SubstringsArray[0] + "." + SubstringsArray[1]);
+		Else
+			MetadataObject   = SearchException;
+			FullName          = MetadataObject.FullName();
+			SubstringsArray     = StrSplit(FullName, ".");
+			SubstringCount = SubstringsArray.Count();
+			If SubstringCount > 2 Then
+				While True Do
+					Parent = MetadataObject.Parent();
+					If TypeOf(Parent) = Type("ConfigurationMetadataObject") Then
+						Break;
+					Else
+						MetadataObject = Parent;
+					EndIf;
+				EndDo;
+			EndIf;
+		EndIf;
+		// Registration.
+		If SubstringCount < 4 Then
+			Result.Insert(MetadataObject, "*");
+		Else
+			PathsToAttributes = Result.Get(MetadataObject);
+			If PathsToAttributes = "*" Then
+				Continue; // The whole metadata object is excluded.
+			ElsIf PathsToAttributes = Undefined Then
+				PathsToAttributes = New Array;
+				Result.Insert(MetadataObject, PathsToAttributes);
+			EndIf;
+			// The attribute format:
+			//   "<MOType>.<MOName>.<TabularSectionOrAttributeType>.<TabularPartOrAttributeName>[.<AttributeType>.<TabularPartName>]".
+			//   Examples:
+			//     "InformationRegister.ObjectVersions.Attribute.VersionAuthor",
+			//     "Document._DemoSalesOrder.TabularPart.SalesProformaInvoice.Attribute.ProformaInvoice",
+			//     "ChartOfCalculationTypes._DemoWages.StandardTabularSection.BaseCalculationTypes.StandardAttribute.CalculationType".
+			// The relative path to an attribute must conform to query condition text format:
+			//   "<TabularPartOrAttributeName>[.<TabularPartAttributeName>]".
+			If SubstringCount = 4 Then
+				RelativePathToAttribute = SubstringsArray[3];
+			Else
+				RelativePathToAttribute = SubstringsArray[3] + "." + SubstringsArray[5];
+			EndIf;
+			PathsToAttributes.Add(RelativePathToAttribute);
+		EndIf;
+	EndDo;
+	Return Result;
 	
+EndFunction
+
+// Connects an add-in based on Native API and COM technologies.
+// The add-inn must be stored in the configuration template in as a ZIP file.
+//
+// Parameters:
+//  ID - String - the add-in identification code.
+//  FullTemplateName - String - full name of the configuration template that stores the ZIP file.
+//
+// Returns:
+//  AddIn, Undefined - an instance of the add-in or Undefined if failed to create one.
+//
+// Example:
+//
+//  AttachableModule = Common.AttachAddInFromTemplate(
+//      "CNameDecl",
+//      "CommonTemplate.FullNameDeclensionComponent");
+//
+//  If AttachableModule <> Undefined Then
+//            // AttachableModule contains the instance of the attached add-in.
+//  EndIf.
+//
+//  AttachableModule = Undefined;
+//
+Function AttachAddInFromTemplate(ID, FullTemplateName) Export
+
+	AttachableModule = Undefined;
+	
+	If Not TemplateExists(FullTemplateName) Then 
+		Raise StrTemplate(
+			NStr("ru = 'Не удалось подключить внешнюю компоненту ""%1"" на сервере
+			           |из %2
+			           |по причине:
+			           |Подключение на сервере не из макета запрещено'; 
+			           |en = 'Cannot attach add-in ""%1"" on the server
+			           |from %2.
+			           |Reason:
+			           |On the server, add-ins can only be attached from templates.'"),
+			ID,
+			FullTemplateName);
+	EndIf;
+
+		Location = FullTemplateName;
+	SymbolicName = ID + "SymbolicName";
+	
+	If AttachAddIn(Location, SymbolicName) Then
+		
+		Try
+			AttachableModule = New("AddIn." + SymbolicName + "." + ID);
+			If AttachableModule = Undefined Then 
+				Raise NStr("ru = 'Оператор Новый вернул Неопределено'; en = 'The New operator returned Undefined.'");
+			EndIf;
+		Except
+			AttachableModule = Undefined;
+			ErrorText = BriefErrorDescription(ErrorInfo());
+		EndTry;
+
+		If AttachableModule = Undefined Then
+
+			ErrorText = StrTemplate(
+					NStr("ru = 'Не удалось создать объект внешней компоненты ""%1"", подключенной на сервере
+				           |из макета ""%2"",
+				           |по причине:
+				           |%3'; 
+				           |en = 'Cannot create an object for add-in ""%1"" that was attached on the server
+				           |from template ""%2.""
+				           |Reason:
+				           |%3'"),
+				ID,
+				Location,
+				ErrorText);
+
+			WriteLogEvent(
+				NStr("ru = 'Подключение внешней компоненты на сервере'; en = 'Attaching add-in on the server'",					
+				UT_CommonClientServer.DefaultLanguageCode()),EventLogLevel.Error,,,ErrorText);
+
+		EndIf;
+
+	Else
+
+		ErrorText = StrTemplate(
+			NStr("ru = 'Не удалось подключить внешнюю компоненту ""%1"" на сервере
+			           |из макета ""%2""
+			           |по причине:
+			           |Метод ПодключитьВнешнююКомпоненту вернул Ложь.'; 
+			           |en = 'Cannot attach add-in ""%1"" on the server
+			           |from template ""%2.""
+			           |Reason:
+			           |Method AttachAddInSSL returned False.'"),
+			ID,
+			Location);
+
+		WriteLogEvent(
+			NStr("ru = 'Подключение внешней компоненты на сервере'; en = 'Attaching add-in on the server'",
+			UT_CommonClientServer.DefaultLanguageCode()),
+			EventLogLevel.Error,,,
+			ErrorText);
+
+	EndIf;
+	
+	Return AttachableModule;
+	
+EndFunction
+
+// Returns subject details in the string format.
+// 
+// Parameters:
+//  ReferenceToSubject - AnyRef - a reference object.
+//
+// Returns:
+//   String - the subject presentation.
+// 
+Function SubjectString(ReferenceToSubject) Export
+
+	Result = "";
 	//@skip-warning
-	Если СсылкаНаПредмет = Неопределено Или СсылкаНаПредмет.Пустая() Тогда
-		Результат = НСтр("ru = 'не задан'");
-	ИначеЕсли Метаданные.Документы.Содержит(СсылкаНаПредмет.Метаданные()) Или Метаданные.Перечисления.Содержит(
-		СсылкаНаПредмет.Метаданные()) Тогда
-		Результат = Строка(СсылкаНаПредмет);
-	Иначе	
-		//@skip-warning
-		ПредставлениеОбъекта = СсылкаНаПредмет.Метаданные().ПредставлениеОбъекта;
-		Если ПустаяСтрока(ПредставлениеОбъекта) Тогда
+	If ReferenceToSubject = Undefined Or ReferenceToSubject.IsEmpty() Then
+		Result = NStr("ru = 'не задан'; en = 'not specified'");
+	ElsIf Metadata.Documents.Contains(ReferenceToSubject.Metadata()) Or Metadata.Enums.Contains(ReferenceToSubject.Metadata()) Then
+		Result = String(ReferenceToSubject);
+	Else
+		//@skip-warning	
+		ObjectPresentation = ReferenceToSubject.Metadata().ObjectPresentation;
+		If IsBlankString(ObjectPresentation) Then
 			//@skip-warning
-			ПредставлениеОбъекта = СсылкаНаПредмет.Метаданные().Представление();
-		КонецЕсли;
-		Результат = СтрШаблон("%1 (%2)", Строка(СсылкаНаПредмет), ПредставлениеОбъекта);
-	КонецЕсли;
+			ObjectPresentation = ReferenceToSubject.Metadata().Presentation();
+		EndIf;
+			Result = StrTemplate("%1 (%2)", String(ReferenceToSubject), ObjectPresentation);
+	EndIf;
+	
+	Return Result;
+EndFunction
 
-	Возврат Результат;
+Procedure RegisterReplacementError(Result, Val Ref, Val ErrorDescription)
+	
+	Result.HasErrors = True;
+	
+	String = Result.Errors.Add();
+	String.Ref = Ref;
+	String.ErrorObjectPresentation = ErrorDescription.ErrorObjectPresentation;
+	String.ErrorObject               = ErrorDescription.ErrorObject;
+	String.ErrorText                = ErrorDescription.ErrorText;
+	String.ErrorType                  = ErrorDescription.ErrorType;
+	
+EndProcedure
 
-КонецФункции
+Function ReplacementErrorDescription(Val ErrorType, Val ErrorObject, Val ErrorObjectPresentation, Val ErrorText)
+	Result = New Structure;
+	
+	Result.Insert("ErrorType",                  ErrorType);
+	Result.Insert("ErrorObject",               ErrorObject);
+	Result.Insert("ErrorObjectPresentation", ErrorObjectPresentation);
+	Result.Insert("ErrorText",                ErrorText);
+	
+	Return Result;
+EndFunction
 
-Процедура ЗарегистрироватьОшибкуЗамены(Результат, Знач Ссылка, Знач ОписаниеОшибки)
-
-	Результат.ЕстьОшибки = Истина;
-
-	Строка = Результат.Ошибки.Добавить();
-	Строка.Ссылка = Ссылка;
-	Строка.ПредставлениеОбъектаОшибки = ОписаниеОшибки.ПредставлениеОбъектаОшибки;
-	Строка.ОбъектОшибки               = ОписаниеОшибки.ОбъектОшибки;
-	Строка.ТекстОшибки                = ОписаниеОшибки.ТекстОшибки;
-	Строка.ТипОшибки                  = ОписаниеОшибки.ТипОшибки;
-
-КонецПроцедуры
-
-Функция ОписаниеОшибкиЗамены(Знач ТипОшибки, Знач ОбъектОшибки, Знач ПредставлениеОбъектаОшибки, Знач ТекстОшибки)
-	Результат = Новый Структура;
-
-	Результат.Вставить("ТипОшибки", ТипОшибки);
-	Результат.Вставить("ОбъектОшибки", ОбъектОшибки);
-	Результат.Вставить("ПредставлениеОбъектаОшибки", ПредставлениеОбъектаОшибки);
-	Результат.Вставить("ТекстОшибки", ТекстОшибки);
-
-	Возврат Результат;
-КонецФункции
-
-// Возвращает описание типа, включающего в себя все возможные ссылочные типы конфигурации.
+// Returns a type description that includes all configuration reference types.
 //
-// Возвращаемое значение:
-//  ОписаниеТипов - все ссылочные типы конфигурации.
-//
-Функция AllRefsTypeDescription() Экспорт
+// Returns:
+//  TypesDescription - all reference types in the configuration.
 
-	Возврат UT_CommonCached.AllRefsTypeDescription();
+Function AllRefsTypeDescription() Export
 
-КонецФункции
+	Return UT_CommonCached.AllRefsTypeDescription();
 
-#Область СравнениеОбъектов
+EndFunction
 
-Процедура ДобавитьОбъектВМассивОбъектовКСравнению(МассивОБъектов, СсылкаНаОбъект)
-	Если МассивОБъектов.Найти(СсылкаНаОбъект) = Неопределено Тогда
-		МассивОБъектов.Добавить(СсылкаНаОбъект);
-	КонецЕсли;
+#Region СравнениеОбъектов
+
+Procedure AddObjectToComparingObjectsArray(ObjectsArray, ObjectRef)
+	If ObjectsArray.Find(ObjectRef) = Undefined Then
+		ObjectsArray.Add(ObjectRef);
+	EndIf;
+EndProcedure
+
+Function ObjectsToCompareSettingsKey() Export
+	Return "ObjectsToCompare";
+EndFunction
+
+Procedure AddObjectsArrayToCompare(Objects) Export
+	ObjectsArrayToCompare=ObjectsAddedToTheComparison();
+
+	If TypeOf(Objects) = Type("Array") Then
+		For Each Itm In Objects Do
+			AddObjectToComparingObjectsArray(ObjectsArrayToCompare, Itm);
+		EndDo;
+	ElsIf TypeOf(Objects) = Type("ValueList") Then
+		For Each Itm In Objects Do
+			AddObjectToComparingObjectsArray(ObjectsArrayToCompare, Itm.Value);
+		EndDo;
+	Else
+		AddObjectToComparingObjectsArray(ObjectsArrayToCompare, Objects);
+	Endif;
+
+	UT_Common.SystemSettingsStorageSave(
+		UT_CommonClientServer.ObjectKeyInSettingsStorage(), ObjectsToCompareSettingsKey(),
+		ObjectsArrayToCompare);
+
 КонецПроцедуры
 
-Функция КлючНастроекОбъектовКСравнению() Экспорт
-	Возврат "ОбъектыКСравнению";
-КонецФункции
+Function ObjectsAddedToTheComparison() Export
+	ObjectKey=UT_CommonClientServer.ObjectKeyInSettingsStorage();
+	SettingsKey=ObjectsToCompareSettingsKey();
 
-Процедура AddObjectsArrayToCompare(Объекты) Экспорт
-	МассивОбъектовКСравнению=ОбъектыДобавленныеКСравнению();
+	ObjectsArrayToCompare=SystemSettingsStorageLoad(ObjectKey, SettingsKey, , , UserName());
+	If ObjectsArrayToCompare = Undefined Then
+		ObjectsArrayToCompare=New Array;
+	Endif;
 
-	Если ТипЗнч(Объекты) = Тип("Массив") Тогда
-		Для Каждого Эл Из Объекты Цикл
-			ДобавитьОбъектВМассивОбъектовКСравнению(МассивОбъектовКСравнению, Эл);
-		КонецЦикла;
-	ИначеЕсли ТипЗнч(Объекты) = Тип("СписокЗначений") Тогда
-		Для Каждого Эл Из Объекты Цикл
-			ДобавитьОбъектВМассивОбъектовКСравнению(МассивОбъектовКСравнению, Эл.Значение);
-		КонецЦикла;
-	Иначе
-		ДобавитьОбъектВМассивОбъектовКСравнению(МассивОбъектовКСравнению, Объекты);
-	КонецЕсли;
+	Return ObjectsArrayToCompare;
+EndFunction
 
-	UT_Common.ХранилищеСистемныхНастроекСохранить(
-		UT_CommonClientServer.ObjectKeyInSettingsStorage(), КлючНастроекОбъектовКСравнению(),
-		МассивОбъектовКСравнению);
+Procedure ClearObjectsAddedToTheComparison() Export
+	UT_Common.SystemSettingsStorageSave(
+		UT_CommonClientServer.ObjectKeyInSettingsStorage(), ObjectsToCompareSettingsKey(), New Array);
+EndProcedure
 
-КонецПроцедуры
+#EndRegion
 
-Функция ОбъектыДобавленныеКСравнению() Экспорт
-	КлючОбъекта=UT_CommonClientServer.ObjectKeyInSettingsStorage();
-	КлючНастроек=КлючНастроекОбъектовКСравнению();
-
-	МассивОбъектовКСравнению=ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек, , , ИмяПользователя());
-	Если МассивОбъектовКСравнению = Неопределено Тогда
-		МассивОбъектовКСравнению=Новый Массив;
-	КонецЕсли;
-
-	Возврат МассивОбъектовКСравнению;
-КонецФункции
-
-Процедура ОчиститьОбъектыДобавленныеКСравнению() Экспорт
-	UT_Common.ХранилищеСистемныхНастроекСохранить(
-		UT_CommonClientServer.ObjectKeyInSettingsStorage(), КлючНастроекОбъектовКСравнению(), Новый Массив);
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область НастройкаОтладкаДополнительныхОтчетовИОбработок
+#Region НастройкаОтладкаДополнительныхОтчетовИОбработок
 
 Функция КлючНастроекОтладкиДополнительныхОтчетовИОбработок() Экспорт
 	Возврат "НастройкиОтладкиДополнительныхОтчетовИОбработок";
@@ -1445,3325 +1462,3385 @@ EndProcedure
 
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-#Область ДанныеВБазе
+#Region ДанныеВБазе
 
 ////////////////////////////////////////////////////////////////////////////////
-// Общие процедуры и функции для работы с данными в базе.
+// Common procedures and functions to manage infobase data.
 
-// Производит замену ссылок во всех данных. После замены неиспользуемые ссылки опционально удаляются.
-// Замена ссылок происходит с транзакциями по изменяемому объекту и его связям, не по анализируемой ссылке.
-// При вызове в неразделенном сеансе не выявляет ссылок в разделенных областях.
+// Replaces references in all data. There is an option to delete all unused references after the replacement.
+// References are replaced in transactions by the object to be changed and its relations but not by the analyzing reference.
+// When called in a shared session, does not find references in separated areas.
 //
-// Параметры:
-//   ПарыЗамен - Соответствие - пары замен.
-//       * Ключ     - ЛюбаяСсылка - что ищем (дубль).
-//       * Значение - ЛюбаяСсылка - на что заменяем (оригинал).
-//       Ссылки сами на себя и пустые ссылки для поиска будут проигнорированы.
+// Parameters:
+//   ReplacementPairs - Map - replacement pairs.
+//       * Key     - AnyRef - a reference to be replaced.
+//       * Value - AnyRef - a reference to use as a replacement.
+//       Self-references and empty search references are ignored.
 //   
-//   Параметры - Структура - Необязательный. Параметры замены.
+//   Parameters - Structure - Optional. Replacement parameters.
 //       
-//       * СпособУдаления - Строка - необязательный. Что делать с дублем после успешной замены.
-//           ""                - по умолчанию. Не предпринимать никаких действий.
-//           "Пометка"         - помечать на удаление.
-//           "Непосредственно" - удалять непосредственно.
+//       * DeletionMethod - String - optional. What to do with the duplicate after a successful replacement.
+//           ""                - default. Do nothing.
+//           "Mark"         - mark for deletion.
+//           "Directly" - delete directly.
 //       
-//       * УчитыватьПрикладныеПравила - Булево - необязательный. Режим проверки параметра ПарыЗамен.
-//           Истина - по умолчанию. Проверять каждую пару "дубль-оригинал" (вызывается функция
-//                    ВозможностьЗаменыЭлементов модуля менеджера).
-//           Ложь   - отключить прикладные проверки пар.
+//       * ConsiderAppliedRules - Boolean - optional. ReplacementPairs parameter check mode.
+//           True - default. Check each replacement pair by calling
+//                    the CanReplaceItems function from the manager module.
+//           False   - do not check the replacement pairs.
 //       
-//       * ПараметрыЗаписи.ЗаписьВРежимеЗагрузки  - Булево - необязательный. Режим записи мест использования при замене дублей на оригиналы.
+//         * WriteParameters.WritingInLoadMode  - Булево - необязательный. Режим записи мест использования при замене дублей на оригиналы.
 //           Истина - по умолчанию. Места использования дублей записываются в режиме ОбменДанными.Загрузка = Ложь.
 //           Ложь   - запись ведется в режиме ОбменДанными.Загрузка = Истина.
+//                
+//       * ReplacePairsInTransaction - Boolean - optional. Defines transaction size.
+//           True - default. Transaction covers all the instances of a duplicate. Can be very 
+//                    resource-demanding in case of a large number of usage instances.
+//           False   - use a separate transaction to replace each usage instance.
 //       
-//       * ЗаменаПарыВТранзакции - Булево - необязательный. Определяет размер транзакции.
-//           Истина - по умолчанию. Транзакция охватывает все места использования одного дубля. Может быть очень ресурсоемко 
-//                    в случае большого количества мест использований.
-//           Ложь   - замена каждого места использования выполняется в отдельной транзакции.
-//       
-//       * ПараметрыЗаписи.ПривелигированныйРежим - Булево - необязательный. Требуется ли устанавливать привилегированный режим перед запись.
-//           Ложь   - по умолчанию. Записывать с текущими правами.
-//           Истина - записывать в привилегированном режиме.
+//       * WriteParameters.WriteInPrivilegedMode - Boolean - optional. A flag that shows whether privileged mode must be set.
+//           False   - default value. Write with the current rights.
+//           True - write in privileged mode.
 //
-// Возвращаемое значение:
-//   ТаблицаЗначений - неуспешные замены (ошибки).
-//       * Ссылка - ЛюбаяСсылка - ссылка, которую заменяли.
-//       * ОбъектОшибки - Произвольный - объект - причина ошибки.
-//       * ПредставлениеОбъектаОшибки - Строка - строковое представление объекта ошибки.
-//       * ТипОшибки - Строка - тип ошибки:
-//           "ОшибкаБлокировки"  - при обработке ссылки некоторые объекты были заблокированы.
-//           "ДанныеИзменены"    - в процессе обработки данные были изменены другим пользователем.
-//           "ОшибкаЗаписи"      - не смогли записать объект, или метод ВозможностьЗаменыЭлементов вернул отказ.
-//           "ОшибкаУдаления"    - не смогли удалить объект.
-//           "НеизвестныеДанные" - при обработке были найдены данные, которые не планировались к анализу, замена не реализована.
-//       * ТекстОшибки - Строка - подробное описание ошибки.
+// Returns:
+//   ValueTable - unsuccessful replacements (errors).
+//       * Reference - AnyRef - a reference that was replaced.
+//       * ErrorObject - Arbitrary - object that has caused an error.
+//       * ErrorObjectPresentation - String - string representation of an error object.
+//       * ErrorType - String - an error type:
+//           "LockError" - some objects were locked during the reference processing.
+//           "DataChanged" - data was changed by another user during the processing.
+//           "WritingError"      - cannot write the object, or the CanReplaceItems method returned a failure.
+//           "DeletionError"    - cannot delete the object.
+//           "UnknownData" - unexpected data was found during the replacement process. The replacement failed.
+//       * ErrorText - String - a detailed error description.
 //
-Функция ЗаменитьСсылки(Знач ПарыЗамен, Знач Параметры = Неопределено) Экспорт
-
-	ТипСтрока = Новый ОписаниеТипов("Строка");
-
-	ОшибкиЗамены = Новый ТаблицаЗначений;
-	ОшибкиЗамены.Колонки.Добавить("Ссылка");
-	ОшибкиЗамены.Колонки.Добавить("ОбъектОшибки");
-	ОшибкиЗамены.Колонки.Добавить("ПредставлениеОбъектаОшибки", ТипСтрока);
-	ОшибкиЗамены.Колонки.Добавить("ТипОшибки", ТипСтрока);
-	ОшибкиЗамены.Колонки.Добавить("ТекстОшибки", ТипСтрока);
-
-	ОшибкиЗамены.Индексы.Добавить("Ссылка");
-	ОшибкиЗамены.Индексы.Добавить("Ссылка, ОбъектОшибки, ТипОшибки");
-
-	Результат = Новый Структура;
-	Результат.Вставить("ЕстьОшибки", Ложь);
-	Результат.Вставить("Ошибки", ОшибкиЗамены);
+Function ReplaceReferences(Val ReplacementPairs, Val Parameters = Undefined) Export
 	
-	// Значения по умолчанию.
-	ПараметрыВыполнения = Новый Структура;
-	ПараметрыВыполнения.Вставить("УдалятьНепосредственно", Ложь);
-	ПараметрыВыполнения.Вставить("ПомечатьНаУдаление", Ложь);
-	ПараметрыВыполнения.Вставить("УчитыватьПрикладныеПравила", Ложь);
-	ЗаменаПарыВТранзакции = Истина;
-
-	ПараметрыЗаписи=UT_CommonClientServer.WriteParametersStructureByDefaults();
+	StringType = New TypeDescription("String");
 	
-	// Переданные значения.
-	ЗначениеПараметра = UT_CommonClientServer.StructureProperty(Параметры, "СпособУдаления");
-	Если ЗначениеПараметра = "Непосредственно" Тогда
-		ПараметрыВыполнения.УдалятьНепосредственно = Истина;
-		ПараметрыВыполнения.ПомечатьНаУдаление     = Ложь;
-	ИначеЕсли ЗначениеПараметра = "Пометка" Тогда
-		ПараметрыВыполнения.УдалятьНепосредственно = Ложь;
-		ПараметрыВыполнения.ПомечатьНаУдаление     = Истина;
-	КонецЕсли;
+	ReplacementErrors = New ValueTable;
+	ReplacementErrors.Columns.Add("Ref");
+	ReplacementErrors.Columns.Add("ErrorObject");
+	ReplacementErrors.Columns.Add("ErrorObjectPresentation", StringType);
+	ReplacementErrors.Columns.Add("ErrorType", StringType);
+	ReplacementErrors.Columns.Add("ErrorText", StringType);
+	
+	ReplacementErrors.Indexes.Add("Ref");
+	ReplacementErrors.Indexes.Add("Ref, ErrorObject, ErrorType");
+	
+	Result = New Structure;
+	Result.Insert("HasErrors", False);
+	Result.Insert("Errors", ReplacementErrors);
+	
+	ExecutionParameters = New Structure;
+	ExecutionParameters.Insert("DeleteDirectly",     False);
+	ExecutionParameters.Insert("MarkForDeletion",         False);
+	ExecutionParameters.Insert("ConsiderAppliedRules", False);
+	ReplacePairsInTransaction = True;
 
-	ЗначениеПараметра = UT_CommonClientServer.StructureProperty(Параметры, "ЗаменаПарыВТранзакции");
-	Если ТипЗнч(ЗначениеПараметра) = Тип("Булево") Тогда
-		ЗаменаПарыВТранзакции = ЗначениеПараметра;
-	КонецЕсли;
+	WriteParameters=UT_CommonClientServer.WriteParametersStructureByDefaults();
+	
+	// Passed values.
+	ParameterValue = UT_CommonClientServer.StructureProperty(Parameters, "DeletionMethod");
+	If ParameterValue = "Directly" Then
+		ExecutionParameters.DeleteDirectly = True;
+		ExecutionParameters.MarkForDeletion     = False;
+	ElsIf ParameterValue = "Check" Then
+		ExecutionParameters.DeleteDirectly = False;
+		ExecutionParameters.MarkForDeletion     = True;
+	EndIf;
 
-	ЗначениеПараметра = UT_CommonClientServer.StructureProperty(Параметры, "УчитыватьПрикладныеПравила");
-	Если ТипЗнч(ЗначениеПараметра) = Тип("Булево") Тогда
-		ПараметрыВыполнения.УчитыватьПрикладныеПравила = ЗначениеПараметра;
-	КонецЕсли;
+	ParameterValue = UT_CommonClientServer.StructureProperty(Parameters, "ReplacePairsInTransaction");
+	If TypeOf(ParameterValue) = Type("Boolean") Then
+		ReplacePairsInTransaction = ParameterValue;
+	EndIf;;
 
-	ЗначениеПараметра = UT_CommonClientServer.StructureProperty(Параметры, "ПараметрыЗаписи");
-	Если ТипЗнч(ЗначениеПараметра) = Тип("Структура") Тогда
-		ЗаполнитьЗначенияСвойств(ПараметрыЗаписи, ЗначениеПараметра);
-	КонецЕсли;
-	ПараметрыВыполнения.Вставить("ПараметрыЗаписи", ПараметрыЗаписи);
-	Если ПарыЗамен.Количество() = 0 Тогда
-		Возврат Результат.Ошибки;
-	КонецЕсли;
+	ParameterValue = UT_CommonClientServer.StructureProperty(Parameters, "ConsiderAppliedRules");
+	If TypeOf(ParameterValue) = Type("Boolean") Then
+		ExecutionParameters.ConsiderAppliedRules = ParameterValue;
+	EndIf;
 
-	Дубли = Новый Массив;
-	Для Каждого КлючЗначение Из ПарыЗамен Цикл
-		Дубль = КлючЗначение.Ключ;
-		Оригинал = КлючЗначение.Значение;
-		Если Дубль = Оригинал Или Дубль.Пустая() Тогда
-			Продолжить; // Самого на себя и пустые ссылки не заменяем.
-		КонецЕсли;
-		Дубли.Добавить(Дубль);
-		// Пропускаем промежуточные замены, чтобы не строить граф (если A->B и B->C то вместо A->B производится замена A->C).
-		ОригиналОригинала = ПарыЗамен[Оригинал];
-		ЕстьОригиналОригинала = (ОригиналОригинала <> Неопределено И ОригиналОригинала <> Дубль И ОригиналОригинала
-			<> Оригинал);
-		Если ЕстьОригиналОригинала Тогда
-			Пока ЕстьОригиналОригинала Цикл
-				Оригинал = ОригиналОригинала;
-				ОригиналОригинала = ПарыЗамен[Оригинал];
-				ЕстьОригиналОригинала = (ОригиналОригинала <> Неопределено И ОригиналОригинала <> Дубль
-					И ОригиналОригинала <> Оригинал);
-			КонецЦикла;
-			ПарыЗамен.Вставить(Дубль, Оригинал);
-		КонецЕсли;
-	КонецЦикла;
+	ParameterValue = UT_CommonClientServer.StructureProperty(Parameters, "WriteParameters");
+	If TypeOf(ParameterValue) = Type("Structure") then
+		FillPropertyValues(WriteParameters, ParameterValue);
+	EndIf;
+	ExecutionParameters.Insert("WriteParameters", WriteParameters);
+	If ReplacementPairs.Count() = 0 Then
+		Return Result.Errors;
+	EndIf;
 
-//	Если ПараметрыВыполнения.УчитыватьПрикладныеПравила И ПодсистемаСуществует(
-//		"СтандартныеПодсистемы.ПоискИУдалениеДублей") Тогда
-//		МодульПоискИУдалениеДублей = ОбщийМодуль("ПоискИУдалениеДублей");
-//		Ошибки = МодульПоискИУдалениеДублей.ПроверитьВозможностьЗаменыЭлементов(ПарыЗамен, Параметры);
-//		Для Каждого КлючЗначение Из Ошибки Цикл
-//			Дубль = КлючЗначение.Ключ;
-//			Оригинал = ПарыЗамен[Дубль];
-//			ТекстОшибки = КлючЗначение.Значение;
-//			Причина = ОписаниеОшибкиЗамены("ОшибкаЗаписи", Оригинал, ПредметСтрокой(Оригинал), ТекстОшибки);
-//			ЗарегистрироватьОшибкуЗамены(Результат, Дубль, Причина);
+	Duplicates = New Array;
+	For Each KeyValue In ReplacementPairs Do
+		Duplicate = KeyValue.Key;
+		Original = KeyValue.Value;
+		If Duplicate = Original Or Duplicate.IsEmpty() Then
+			Continue; // Not replacing self-references and empty references.
+		EndIf;
+		Duplicates.Add(Duplicate);
+	// Skipping intermediate replacements to avoid building a graph (if A->B and B->C, replacing A->C).
+		OriginalOriginal = ReplacementPairs[Original];
+		HasOriginalOriginal = (OriginalOriginal <> Undefined AND OriginalOriginal <> Duplicate AND OriginalOriginal <> Original);
+		If HasOriginalOriginal Then
+			While HasOriginalOriginal Do
+				Original = OriginalOriginal;
+				OriginalOriginal = ReplacementPairs[Original];
+				HasOriginalOriginal = (OriginalOriginal <> Undefined AND OriginalOriginal <> Duplicate AND OriginalOriginal <> Original);
+			EndDo;
+			ReplacementPairs.Insert(Duplicate, Original);
+		EndIf;
+	EndDo;
+
+//	If ExecutionParameters.TakeAppliedRulesIntoAccount AND SubsystemExists("StandardSubsystems.DuplicateObjectDetection") Then
+//		ModuleDuplicateObjectsDetection = CommonModule("DuplicateObjectDetection");
+//		Errors = ModuleDuplicateObjectsDetection.CheckCanReplaceItems(ReplacementPairs, Parameters);
+//		For Each KeyValue In Errors Do
+//			Duplicate = KeyValue.Key;
+//			Original = ReplacementPairs[Duplicate];
+//			ErrorText = KeyValue.Value;
+//			Reason = ReplacementErrorDescription("WritingError", Original, SubjectString(Original), ErrorText);
+//			RegisterReplacementError(Result, Duplicate, Reason);
+//			
+//			Index = Duplicates.Find(Duplicate);
+//			If Index <> Undefined Then
+//				Duplicates.Delete(Index); // skipping the problem item.
+//			EndIf;
+//		EndDo;
+//	EndIf;
+
+	SearchTable = UsageInstances(Duplicates);
+	
+	// Replacements for each object reference are executed in the following order: "Constant", "Object", "Set".
+	// Blank row in this column is also a flag indicating that the replacement is not needed or already done.
+	SearchTable.Columns.Add("ReplacementKey", StringType);
+	SearchTable.Indexes.Add("Ref, ReplacementKey");
+	SearchTable.Indexes.Add("Data, ReplacementKey");
+	
+	// Auxiliary data
+	SearchTable.Columns.Add("DestinationRef");
+	SearchTable.Columns.Add("Processed", New TypeDescription("Boolean"));
+	
+	// Defining the processing order and validating items that can be handled.
+	Count = Duplicates.Count();
+	For Number = 1 To Count Do
+		ReverseIndex = Count - Number;
+		Duplicate = Duplicates[ReverseIndex];
+		MarkupResult = MarkUsageInstances(ExecutionParameters, Duplicate, ReplacementPairs[Duplicate], SearchTable);
+		If Not MarkupResult.Success Then
+			// Unknown replacement types are found, skipping the reference to prevent data incoherence.
+			Duplicates.Delete(ReverseIndex);
+			For Each Error In MarkupResult.MarkupErrors Do
+				ErrorObjectPresentation = SubjectString(Error.Object);
+				RegisterReplacementError(Result, Duplicate,
+					ReplacementErrorDescription("UnknownData", Error.Object, ErrorObjectPresentation, Error.Text));
+			EndDo;
+		EndIf;
+	EndDo;
+
+	ExecutionParameters.Insert("ReplacementPairs",      ReplacementPairs);
+	ExecutionParameters.Insert("SuccessfulReplacements", New Map);
+
+//	If SubsystemExists("StandardSubsystems.AccessManagement") Then
+//		ModuleAccessManagement = CommonModule("AccessManagement");
+//		ModuleAccessManagement.DisableAccessKeysUpdate(True);
+//	EndIf;
+
+	Try
+		If ReplacePairsInTransaction Then
+			For Each Duplicate In Duplicates Do
+				ReplaceRefUsingSingleTransaction(Result, Duplicate, ExecutionParameters, SearchTable);
+			EndDo;
+		Else
+			ReplaceRefsUsingShortTransactions(Result, ExecutionParameters, Duplicates, SearchTable);
+		EndIf;
+
+		//If SubsystemExists("StandardSubsystems.AccessManagement") Then
+		//			ModuleAccessManagement = CommonModule("AccessManagement");
+		//			ModuleAccessManagement.DisableAccessKeysUpdate(False);
+		//		EndIf;
+
+	Except
+		//If SubsystemExists("StandardSubsystems.AccessManagement") Then
+		//			ModuleAccessManagement = CommonModule("AccessManagement");
+		//			ModuleAccessManagement.DisableAccessKeysUpdate(False);
+		//		EndIf;
+		Raise;
+	EndTry;
+	
+	Return Result.Errors;
+EndFunction
+
+// Retrieves all places where references are used.
+// If any of the references is not used, it will not be presented in the result table.
+// When called in a shared session, does not find references in separated areas.
 //
-//			Индекс = Дубли.Найти(Дубль);
-//			Если Индекс <> Неопределено Тогда
-//				Дубли.Удалить(Индекс); // пропускаем проблемный элемент.
-//			КонецЕсли;
-//		КонецЦикла;
-//	КонецЕсли;
-
-	ТаблицаПоиска = МестаИспользования(Дубли);
-	
-	// Для каждой ссылки объекта будем производить замены в порядке "Константа", "Объект", "Набор".
-	// Одновременно пустая строка в этой колонке - флаг того, что эта замена не нужна или уже была произведена.
-	ТаблицаПоиска.Колонки.Добавить("КлючЗамены", ТипСтрока);
-	ТаблицаПоиска.Индексы.Добавить("Ссылка, КлючЗамены");
-	ТаблицаПоиска.Индексы.Добавить("Данные, КлючЗамены");
-	
-	// Вспомогательные данные
-	ТаблицаПоиска.Колонки.Добавить("ЦелеваяСсылка");
-	ТаблицаПоиска.Колонки.Добавить("Обработано", Новый ОписаниеТипов("Булево"));
-	
-	// Определяем порядок обработки и проверяем то, что мы можем обработать.
-	Количество = Дубли.Количество();
-	Для Номер = 1 По Количество Цикл
-		ОбратныйИндекс = Количество - Номер;
-		Дубль = Дубли[ОбратныйИндекс];
-		РезультатРазметки = РазметитьМестаИспользования(ПараметрыВыполнения, Дубль, ПарыЗамен[Дубль], ТаблицаПоиска);
-		Если Не РезультатРазметки.Успех Тогда
-			// Найдены неизвестные типы замены, не будем работать с этой ссылкой, возможно нарушение связности.
-			Дубли.Удалить(ОбратныйИндекс);
-			Для Каждого Ошибка Из РезультатРазметки.ОшибкиРазметки Цикл
-				ПредставлениеОбъектаОшибки = ПредметСтрокой(Ошибка.Объект);
-				ЗарегистрироватьОшибкуЗамены(Результат, Дубль, ОписаниеОшибкиЗамены("НеизвестныеДанные", Ошибка.Объект,
-					ПредставлениеОбъектаОшибки, Ошибка.Текст));
-			КонецЦикла;
-		КонецЕсли;
-	КонецЦикла;
-
-	ПараметрыВыполнения.Вставить("ПарыЗамен", ПарыЗамен);
-	ПараметрыВыполнения.Вставить("УспешныеЗамены", Новый Соответствие);
-
-//	Если ПодсистемаСуществует("СтандартныеПодсистемы.УправлениеДоступом") Тогда
-//		МодульУправлениеДоступом = ОбщийМодуль("УправлениеДоступом");
-//		МодульУправлениеДоступом.ОтключитьОбновлениеКлючейДоступа(Истина);
-//	КонецЕсли;
-
-	Попытка
-		Если ЗаменаПарыВТранзакции Тогда
-			Для Каждого Дубль Из Дубли Цикл
-				ЗаменитьСсылкуОднойТранзакцией(Результат, Дубль, ПараметрыВыполнения, ТаблицаПоиска);
-			КонецЦикла;
-		Иначе
-			ЗаменитьСсылкиКороткимиТранзакциями(Результат, ПараметрыВыполнения, Дубли, ТаблицаПоиска);
-		КонецЕсли;
-
-//		Если ПодсистемаСуществует("СтандартныеПодсистемы.УправлениеДоступом") Тогда
-//			МодульУправлениеДоступом = ОбщийМодуль("УправлениеДоступом");
-//			МодульУправлениеДоступом.ОтключитьОбновлениеКлючейДоступа(Ложь);
-//		КонецЕсли;
-
-	Исключение
-//		Если ПодсистемаСуществует("СтандартныеПодсистемы.УправлениеДоступом") Тогда
-//			МодульУправлениеДоступом = ОбщийМодуль("УправлениеДоступом");
-//			МодульУправлениеДоступом.ОтключитьОбновлениеКлючейДоступа(Ложь);
-//		КонецЕсли;
-		ВызватьИсключение;
-	КонецПопытки;
-
-	Возврат Результат.Ошибки;
-КонецФункции
-
-// Получает все места использования ссылок.
-// Если какая-либо ссылка нигде не используется, то строк для нее в результирующей таблице не будет.
-// При вызове в неразделенном сеансе не выявляет ссылок в разделенных областях.
-//
-// Параметры:
-//     НаборСсылок     - Массив - ссылки, для которых ищем места использования.
-//     АдресРезультата - Строка - необязательный адрес во временном хранилище, куда будет помещен копия результата
-//                                замены.
+// Parameters:
+//     RefSet     - Array - references whose usage instances are to be found.
+//     ResultAddress - String - an optional address in the temporary storage where the replacement 
+//                                result copy will be stored.
 // 
-// Возвращаемое значение:
-//     ТаблицаЗначений - состоит из колонок:
-//       * Ссылка - ЛюбаяСсылка - ссылка, которая анализируется.
-//       * Данные - Произвольный - данные, содержащие анализируемую ссылку.
-//       * Метаданные - ОбъектМетаданных - метаданные найденных данных.
-//       * ПредставлениеДанных - Строка - представление данных, содержащих анализируемую ссылку.
-//       * ТипСсылки - Тип - тип анализируемой ссылки.
-//       * ВспомогательныеДанные - Булево - Истина, если данные используются анализируемой ссылкой как
-//           вспомогательные данные (ведущее измерение или попали в исключение ПриДобавленииИсключенийПоискаСсылок).
-//       * ЭтоСлужебныеДанные - Булево - данные попали в исключение ПриДобавленииИсключенийПоискаСсылок
+// Returns:
+//     ValueTable - contains the following columns:
+//       * Ref - AnyRef - the reference to analyze.
+//       * Data - Arbitrary - the data that contains the reference to analyze.
+//       * Metadata - MetadataObject - metadata for the found data.
+//       * DataPresentation - String - presentation of the data containing the reference.
+//       * RefType - Type - the type of reference to analyze.
+//       * AuxiliaryData - Boolean - True if the data is used by the reference as auxiliary data 
+//           (leading dimension, or covered by the OnAddReferenceSearchExceptions exception).
+//       * IsInternalData - Boolean - the data is covered by the OnAddReferenceSearchExceptions exception.
 //
-Функция МестаИспользования(Знач НаборСсылок, Знач АдресРезультата = "") Экспорт
-
-	МестаИспользования = Новый ТаблицаЗначений;
-
-	УстановитьПривилегированныйРежим(Истина);
-	МестаИспользования = НайтиПоСсылкам(НаборСсылок);
-	УстановитьПривилегированныйРежим(Ложь);
+Function UsageInstances(Val RefSet, Val ResultAddress = "") Export
 	
-	// МестаИспользования - ТаблицаЗначений - где:
-	// * Ссылка - ЛюбаяСсылка - Ссылка, которая анализируется.
-	// * Данные - Произвольный - Данные, содержащие анализируемую ссылку.
-	// * Метаданные - ОбъектМетаданных - Метаданные найденных данных.
-
-	МестаИспользования.Колонки.Добавить("ПредставлениеДанных", Новый ОписаниеТипов("Строка"));
-	МестаИспользования.Колонки.Добавить("ТипСсылки");
-	МестаИспользования.Колонки.Добавить("ИнформацияОМестеИспользования");
-	МестаИспользования.Колонки.Добавить("ВспомогательныеДанные", Новый ОписаниеТипов("Булево"));
-	МестаИспользования.Колонки.Добавить("ЭтоСлужебныеДанные", Новый ОписаниеТипов("Булево"));
-
-	МестаИспользования.Индексы.Добавить("Ссылка");
-	МестаИспользования.Индексы.Добавить("Данные");
-	МестаИспользования.Индексы.Добавить("ВспомогательныеДанные");
-	МестаИспользования.Индексы.Добавить("Ссылка, ВспомогательныеДанные");
-
-	ТипКлючиЗаписей = ОписаниеТипаКлючиЗаписей();
-	ТипВсеСсылки = AllRefsTypeDescription();
-
-	МетаданныеПоследовательностей = Метаданные.Последовательности;
-	МетаданныеКонстант = Метаданные.Константы;
-	МетаданныеДокументов = Метаданные.Документы;
-
-	ИсключенияПоискаСсылок = ИсключенияПоискаСсылок();
-
-	КэшИзмеренийРегистров = Новый Соответствие;
-
-	Для Каждого МестоИспользования Из МестаИспользования Цикл
-		ТипДанных = ТипЗнч(МестоИспользования.Данные);
-
-		ЭтоСлужебныеДанные = ЭтоСлужебныеДанные(МестоИспользования, ИсключенияПоискаСсылок);
-		ЭтоВспомогательныеДанные = ЭтоСлужебныеДанные;
-
-		Если МетаданныеДокументов.Содержит(МестоИспользования.Метаданные) Тогда
-			Представление = Строка(МестоИспользования.Данные);
-
-		ИначеЕсли МетаданныеКонстант.Содержит(МестоИспользования.Метаданные) Тогда
-			Представление = МестоИспользования.Метаданные.Представление() + " (" + НСтр("ru = 'константа'") + ")";
-
-		ИначеЕсли МетаданныеПоследовательностей.Содержит(МестоИспользования.Метаданные) Тогда
-			Представление = МестоИспользования.Метаданные.Представление() + " (" + НСтр("ru = 'последовательность'")
-				+ ")";
-
-		ИначеЕсли ТипДанных = Неопределено Тогда
-			Представление = Строка(МестоИспользования.Данные);
-
-		ИначеЕсли ТипВсеСсылки.СодержитТип(ТипДанных) Тогда
-			МетаПредставлениеОбъекта = Новый Структура("ПредставлениеОбъекта");
-			ЗаполнитьЗначенияСвойств(МетаПредставлениеОбъекта, МестоИспользования.Метаданные);
-			Если ПустаяСтрока(МетаПредставлениеОбъекта.ПредставлениеОбъекта) Тогда
-				МетаПредставление = МестоИспользования.Метаданные.Представление();
-			Иначе
-				МетаПредставление = МетаПредставлениеОбъекта.ПредставлениеОбъекта;
-			КонецЕсли;
-			Представление = Строка(МестоИспользования.Данные);
-			Если Не ПустаяСтрока(МетаПредставление) Тогда
-				Представление = Представление + " (" + МетаПредставление + ")";
-			КонецЕсли;
-
-		ИначеЕсли ТипКлючиЗаписей.СодержитТип(ТипДанных) Тогда
-			Представление = МестоИспользования.Метаданные.ПредставлениеЗаписи;
-			Если ПустаяСтрока(Представление) Тогда
-				Представление = МестоИспользования.Метаданные.Представление();
-			КонецЕсли;
-
-			ОписаниеИзмерений = "";
-			Для Каждого КлючЗначение Из ОписаниеИзмеренийНабора(МестоИспользования.Метаданные, КэшИзмеренийРегистров) Цикл
-				Значение = МестоИспользования.Данные[КлючЗначение.Ключ];
-				Описание = КлючЗначение.Значение;
-				Если МестоИспользования.Ссылка = Значение Тогда
-					Если Описание.Ведущее Тогда
-						ЭтоВспомогательныеДанные = Истина;
-					КонецЕсли;
-				КонецЕсли;
-				ФорматЗначения = Описание.Формат;
-				ОписаниеИзмерений = ОписаниеИзмерений + ", " + Описание.Представление + " """ + ?(ФорматЗначения
-					= Неопределено, Строка(Значение), Формат(Значение, ФорматЗначения)) + """";
-			КонецЦикла;
-
-			ОписаниеИзмерений = Сред(ОписаниеИзмерений, 3);
-			Если Не ПустаяСтрока(ОписаниеИзмерений) Тогда
-				Представление = Представление + " (" + ОписаниеИзмерений + ")";
-			КонецЕсли;
-
-		Иначе
-			Представление = Строка(МестоИспользования.Данные);
-
-		КонецЕсли;
-
-		МестоИспользования.ПредставлениеДанных = Представление;
-		МестоИспользования.ВспомогательныеДанные = ЭтоВспомогательныеДанные;
-		МестоИспользования.ЭтоСлужебныеДанные = ЭтоСлужебныеДанные;
-		МестоИспользования.ТипСсылки = ТипЗнч(МестоИспользования.Ссылка);
-	КонецЦикла;
-
-	Если Не ПустаяСтрока(АдресРезультата) Тогда
-		ПоместитьВоВременноеХранилище(МестаИспользования, АдресРезультата);
-	КонецЕсли;
-
-	Возврат МестаИспользования;
-КонецФункции
-
-#КонецОбласти
-#Область ВнешниеКомпоненты
-
-// Проверка существования макета по метаданным конфигурации и расширений.
-//
-// Параметры:
-//  ПолноеИмяМакета - Строка - полное имя макета.
-//
-// Возвращаемое значение:
-//  Булево - признак существования макета.
-//
-Функция МакетСуществует(ПолноеИмяМакета)
-
-	Макет = Метаданные.НайтиПоПолномуИмени(ПолноеИмяМакета);
-	Если ТипЗнч(Макет) = Тип("ОбъектМетаданных") Тогда
-
-		Шаблон = Новый Структура("ТипМакета");
-		ЗаполнитьЗначенияСвойств(Шаблон, Макет);
-		ТипМакета = Неопределено;
-		Если Шаблон.Свойство("ТипМакета", ТипМакета) Тогда
-			Возврат ТипМакета <> Неопределено;
-		КонецЕсли;
-
-	КонецЕсли;
-
-	Возврат Ложь;
-
-КонецФункции
-
-#КонецОбласти
-
-#Область МестаИспользования
-
-Функция ОписаниеТипаКлючиЗаписей()
-
-	ДобавляемыеТипы = Новый Массив;
-	Для Каждого Мета Из Метаданные.РегистрыСведений Цикл
-		ДобавляемыеТипы.Добавить(Тип("РегистрСведенийКлючЗаписи." + Мета.Имя));
-	КонецЦикла;
-	Для Каждого Мета Из Метаданные.РегистрыНакопления Цикл
-		ДобавляемыеТипы.Добавить(Тип("РегистрНакопленияКлючЗаписи." + Мета.Имя));
-	КонецЦикла;
-	Для Каждого Мета Из Метаданные.РегистрыБухгалтерии Цикл
-		ДобавляемыеТипы.Добавить(Тип("РегистрБухгалтерииКлючЗаписи." + Мета.Имя));
-	КонецЦикла;
-	Для Каждого Мета Из Метаданные.РегистрыРасчета Цикл
-		ДобавляемыеТипы.Добавить(Тип("РегистрРасчетаКлючЗаписи." + Мета.Имя));
-	КонецЦикла;
-
-	Возврат Новый ОписаниеТипов(ДобавляемыеТипы);
-КонецФункции
-
-Функция ОписаниеИзмеренийНабора(Знач МетаданныеРегистра, КэшИзмеренийРегистров)
-
-	ОписаниеИзмерений = КэшИзмеренийРегистров[МетаданныеРегистра];
-	Если ОписаниеИзмерений <> Неопределено Тогда
-		Возврат ОписаниеИзмерений;
-	КонецЕсли;
+	UsageInstances = New ValueTable;
 	
-	// Период и регистратор, если есть.
-	ОписаниеИзмерений = Новый Структура;
-
-	ДанныеИзмерения = Новый Структура("Ведущее, Представление, Формат, Тип", Ложь);
-
-	Если Метаданные.РегистрыСведений.Содержит(МетаданныеРегистра) Тогда
-		// Возможно есть период
-		МетаПериод = МетаданныеРегистра.ПериодичностьРегистраСведений;
-		Периодичность = Метаданные.СвойстваОбъектов.ПериодичностьРегистраСведений;
-
-		Если МетаПериод = Периодичность.ПозицияРегистратора Тогда
-			ДанныеИзмерения.Тип           = Документы.ТипВсеСсылки();
-			ДанныеИзмерения.Представление = НСтр("ru='Регистратор'");
-			ДанныеИзмерения.Ведущее       = Истина;
-			ОписаниеИзмерений.Вставить("Регистратор", ДанныеИзмерения);
-
-		ИначеЕсли МетаПериод = Периодичность.Год Тогда
-			ДанныеИзмерения.Тип           = Новый ОписаниеТипов("Дата");
-			ДанныеИзмерения.Представление = НСтр("ru='Период'");
-			ДанныеИзмерения.Формат        = НСтр("ru = 'ДФ=''yyyy ""г.""''; ДП=''Дата не задана'''");
-			ОписаниеИзмерений.Вставить("Период", ДанныеИзмерения);
-
-		ИначеЕсли МетаПериод = Периодичность.День Тогда
-			ДанныеИзмерения.Тип           = Новый ОписаниеТипов("Дата");
-			ДанныеИзмерения.Представление = НСтр("ru='Период'");
-			ДанныеИзмерения.Формат        = НСтр("ru = 'ДЛФ=D; ДП=''Дата не задана'''");
-			ОписаниеИзмерений.Вставить("Период", ДанныеИзмерения);
-
-		ИначеЕсли МетаПериод = Периодичность.Квартал Тогда
-			ДанныеИзмерения.Тип           = Новый ОписаниеТипов("Дата");
-			ДанныеИзмерения.Представление = НСтр("ru='Период'");
-			ДанныеИзмерения.Формат        =  НСтр(
-				"ru = 'ДФ=''к """"квартал """"yyyy """"г.""""''; ДП=''Дата не задана'''");
-			ОписаниеИзмерений.Вставить("Период", ДанныеИзмерения);
-
-		ИначеЕсли МетаПериод = Периодичность.Месяц Тогда
-			ДанныеИзмерения.Тип           = Новый ОписаниеТипов("Дата");
-			ДанныеИзмерения.Представление = НСтр("ru='Период'");
-			ДанныеИзмерения.Формат        = НСтр("ru = 'ДФ=''ММММ yyyy """"г.""""''; ДП=''Дата не задана'''");
-			ОписаниеИзмерений.Вставить("Период", ДанныеИзмерения);
-
-		ИначеЕсли МетаПериод = Периодичность.Секунда Тогда
-			ДанныеИзмерения.Тип           = Новый ОписаниеТипов("Дата");
-			ДанныеИзмерения.Представление = НСтр("ru='Период'");
-			ДанныеИзмерения.Формат        = НСтр("ru = 'ДЛФ=DT; ДП=''Дата не задана'''");
-			ОписаниеИзмерений.Вставить("Период", ДанныеИзмерения);
-
-		КонецЕсли;
-
-	Иначе
-		ДанныеИзмерения.Тип           = Документы.ТипВсеСсылки();
-		ДанныеИзмерения.Представление = НСтр("ru='Регистратор'");
-		ДанныеИзмерения.Ведущее       = Истина;
-		ОписаниеИзмерений.Вставить("Регистратор", ДанныеИзмерения);
-
-	КонецЕсли;
+	SetPrivilegedMode(True);
+	UsageInstances = FindByRef(RefSet);
+	SetPrivilegedMode(False);
 	
-	// Все измерения
-	Для Каждого МетаИзмерение Из МетаданныеРегистра.Измерения Цикл
-		ДанныеИзмерения = Новый Структура("Ведущее, Представление, Формат, Тип");
-		ДанныеИзмерения.Тип           = МетаИзмерение.Тип;
-		ДанныеИзмерения.Представление = МетаИзмерение.Представление();
-		ДанныеИзмерения.Ведущее       = МетаИзмерение.Ведущее;
-		ОписаниеИзмерений.Вставить(МетаИзмерение.Имя, ДанныеИзмерения);
-	КонецЦикла;
-
-	КэшИзмеренийРегистров[МетаданныеРегистра] = ОписаниеИзмерений;
-	Возврат ОписаниеИзмерений;
-
-КонецФункции
-
-#КонецОбласти
-
-#Область ЗаменитьСсылки
-
-Функция РазметитьМестаИспользования(Знач ПараметрыВыполнения, Знач Ссылка, Знач ЦелеваяСсылка, Знач ТаблицаПоиска)
-	УстановитьПривилегированныйРежим(Истина);
+		// UsageInstances - ValueTable - where:
+	// * Ref - AnyRef - the reference to analyze.
+	// * Data - Arbitrary - the data that contains the reference to analyze.
+	// * Metadata - MetadataObject - metadata for the found data.
 	
-	// Устанавливаем порядок известных и проверяем наличие неопознанных объектов.
-	Результат = Новый Структура;
-	Результат.Вставить("МестаИспользования", ТаблицаПоиска.НайтиСтроки(Новый Структура("Ссылка", Ссылка)));
-	Результат.Вставить("ОшибкиРазметки", Новый Массив);
-	Результат.Вставить("Успех", Истина);
-
-	Для Каждого МестоИспользования Из Результат.МестаИспользования Цикл
-		Если МестоИспользования.ЭтоСлужебныеДанные Тогда
-			Продолжить; // Зависимые данные не обрабатываются.
-		КонецЕсли;
-
-		Информация = ИнформацияОТипе(МестоИспользования.Метаданные, ПараметрыВыполнения);
-		Если Информация.Вид = "КОНСТАНТА" Тогда
-			МестоИспользования.КлючЗамены = "Константа";
-			МестоИспользования.ЦелеваяСсылка = ЦелеваяСсылка;
-
-		ИначеЕсли Информация.Вид = "ПОСЛЕДОВАТЕЛЬНОСТЬ" Тогда
-			МестоИспользования.КлючЗамены = "Последовательность";
-			МестоИспользования.ЦелеваяСсылка = ЦелеваяСсылка;
-
-		ИначеЕсли Информация.Вид = "РЕГИСТРСВЕДЕНИЙ" Тогда
-			МестоИспользования.КлючЗамены = "РегистрСведений";
-			МестоИспользования.ЦелеваяСсылка = ЦелеваяСсылка;
-
-		ИначеЕсли Информация.Вид = "РЕГИСТРБУХГАЛТЕРИИ" Или Информация.Вид = "РЕГИСТРНАКОПЛЕНИЯ" Или Информация.Вид
-			= "РЕГИСТРРАСЧЕТА" Тогда
-			МестоИспользования.КлючЗамены = "КлючЗаписи";
-			МестоИспользования.ЦелеваяСсылка = ЦелеваяСсылка;
-
-		ИначеЕсли Информация.Ссылочный Тогда
-			МестоИспользования.КлючЗамены = "Объект";
-			МестоИспользования.ЦелеваяСсылка = ЦелеваяСсылка;
-
-		Иначе
-			// Неизвестный объект для замены ссылок.
-			Результат.Успех = Ложь;
-			Текст = СтрШаблон(НСтр("ru = 'Замена ссылок в ""%1"" не поддерживается.'"), Информация.ПолноеИмя);
-			ОписаниеОшибки = Новый Структура("Объект, Текст", МестоИспользования.Данные, Текст);
-			Результат.ОшибкиРазметки.Добавить(ОписаниеОшибки);
-		КонецЕсли;
-
-	КонецЦикла;
-
-	Возврат Результат;
-КонецФункции
-
-Процедура ЗаменитьСсылкиКороткимиТранзакциями(Результат, Знач ПараметрыВыполнения, Знач Дубли, Знач ТаблицаПоиска)
+	UsageInstances.Columns.Add("DataPresentation", New TypeDescription("String"));
+	UsageInstances.Columns.Add("RefType");
+	UsageInstances.Columns.Add("UsageInstanceInfo");
+	UsageInstances.Columns.Add("AuxiliaryData", New TypeDescription("Boolean"));
+	UsageInstances.Columns.Add("IsInternalData", New TypeDescription("Boolean"));
 	
-	// Основной цикл обработки
-	ФильтрСсылок = Новый Структура("Ссылка, КлючЗамены");
-	Для Каждого Дубль Из Дубли Цикл
-		БылиОшибки = Результат.ЕстьОшибки;
-		Результат.ЕстьОшибки = Ложь;
+	UsageInstances.Indexes.Add("Ref");
+	UsageInstances.Indexes.Add("Data");
+	UsageInstances.Indexes.Add("AuxiliaryData");
+	UsageInstances.Indexes.Add("Ref, AuxiliaryData");
 
-		ФильтрСсылок.Ссылка = Дубль;
+	RecordKeysType = RecordKeysTypeDetails();
+	AllRefsType =   AllRefsTypeDescription();
 
-		ФильтрСсылок.КлючЗамены = "Константа";
-		МестаИспользования = ТаблицаПоиска.НайтиСтроки(ФильтрСсылок);
-		Для Каждого МестоИспользования Из МестаИспользования Цикл
-			ПроизвестиЗаменуВКонстанте(Результат, МестоИспользования, ПараметрыВыполнения, Истина);
-		КонецЦикла;
-
-		ФильтрСсылок.КлючЗамены = "Объект";
-		МестаИспользования = ТаблицаПоиска.НайтиСтроки(ФильтрСсылок);
-		Для Каждого МестоИспользования Из МестаИспользования Цикл
-			ПроизвестиЗаменуВОбъекте(Результат, МестоИспользования, ПараметрыВыполнения, Истина);
-		КонецЦикла;
-
-		ФильтрСсылок.КлючЗамены = "КлючЗаписи";
-		МестаИспользования = ТаблицаПоиска.НайтиСтроки(ФильтрСсылок);
-		Для Каждого МестоИспользования Из МестаИспользования Цикл
-			ПроизвестиЗаменуВНаборе(Результат, МестоИспользования, ПараметрыВыполнения, Истина);
-		КонецЦикла;
-
-		ФильтрСсылок.КлючЗамены = "Последовательность";
-		МестаИспользования = ТаблицаПоиска.НайтиСтроки(ФильтрСсылок);
-		Для Каждого МестоИспользования Из МестаИспользования Цикл
-			ПроизвестиЗаменуВНаборе(Результат, МестоИспользования, ПараметрыВыполнения, Истина);
-		КонецЦикла;
-
-		ФильтрСсылок.КлючЗамены = "РегистрСведений";
-		МестаИспользования = ТаблицаПоиска.НайтиСтроки(ФильтрСсылок);
-		Для Каждого МестоИспользования Из МестаИспользования Цикл
-			ПроизвестиЗаменуВРегистреСведений(Результат, МестоИспользования, ПараметрыВыполнения, Истина);
-		КонецЦикла;
-
-		Если Не Результат.ЕстьОшибки Тогда
-			ПараметрыВыполнения.УспешныеЗамены.Вставить(Дубль, ПараметрыВыполнения.ПарыЗамен[Дубль]);
-		КонецЕсли;
-		Результат.ЕстьОшибки = Результат.ЕстьОшибки Или БылиОшибки;
-
-	КонецЦикла;
+	SequenceMetadata = Metadata.Sequences;
+	ConstantMetadata = Metadata.Constants;
+	DocumentMetadata = Metadata.Documents;
 	
-	// Окончательные действия
-	Если ПараметрыВыполнения.УдалятьНепосредственно Тогда
-		УдалитьСсылкиНемонопольно(Результат, Дубли, ПараметрыВыполнения, Истина);
+	RefSearchExclusions = RefSearchExclusions();
 
-	ИначеЕсли ПараметрыВыполнения.ПомечатьНаУдаление Тогда
-		УдалитьСсылкиНемонопольно(Результат, Дубли, ПараметрыВыполнения, Ложь);
+	RegisterDimensionCache = New Map;
 
-	Иначе
-		// Поиск новых
-		ТаблицаПовторногоПоиска = МестаИспользования(Дубли);
-		ДобавитьРезультатыЗаменыИзмененныхОбъектов(Результат, ТаблицаПовторногоПоиска);
-	КонецЕсли;
-
-КонецПроцедуры
-
-Процедура ЗаменитьСсылкуОднойТранзакцией(Результат, Знач Дубль, Знач ПараметрыВыполнения, Знач ТаблицаПоиска)
-	УстановитьПривилегированныйРежим(Истина);
-
-	НачатьТранзакцию();
-	Попытка
-		// 1. Блокирование всех мест использования.
-		СостояниеОперации = "ОшибкаБлокировки";
-		Блокировка = Новый БлокировкаДанных;
-
-		МестаИспользования = ТаблицаПоиска.НайтиСтроки(Новый Структура("Ссылка", Дубль));
-		ЗаблокироватьМестаИспользования(ПараметрыВыполнения, Блокировка, МестаИспользования);
-		Блокировка.Заблокировать();
-		СостояниеОперации = "";
-
-		УстановитьПривилегированныйРежим(Ложь);
+	For Each UsageInstance In UsageInstances Do
+		DataType = TypeOf(UsageInstance.Data);
 		
-		// 2. Замена везде до первой ошибки.
-		Результат.ЕстьОшибки = Ложь;
+		IsInternalData = IsInternalData(UsageInstance, RefSearchExclusions);
+		IsAuxiliaryData = IsInternalData;
 
-		Для Каждого МестоИспользования Из МестаИспользования Цикл
+		If DocumentMetadata.Contains(UsageInstance.Metadata) Then
+			Presentation = String(UsageInstance.Data);
 
-			Если МестоИспользования.КлючЗамены = "Константа" Тогда
-				ПроизвестиЗаменуВКонстанте(Результат, МестоИспользования, ПараметрыВыполнения, Ложь);
-			ИначеЕсли МестоИспользования.КлючЗамены = "Объект" Тогда
-				ПроизвестиЗаменуВОбъекте(Результат, МестоИспользования, ПараметрыВыполнения, Ложь);
-			ИначеЕсли МестоИспользования.КлючЗамены = "Последовательность" Тогда
-				ПроизвестиЗаменуВНаборе(Результат, МестоИспользования, ПараметрыВыполнения, Ложь);
-			ИначеЕсли МестоИспользования.КлючЗамены = "КлючЗаписи" Тогда
-				ПроизвестиЗаменуВНаборе(Результат, МестоИспользования, ПараметрыВыполнения, Ложь);
-			ИначеЕсли МестоИспользования.КлючЗамены = "РегистрСведений" Тогда
-				ПроизвестиЗаменуВРегистреСведений(Результат, МестоИспользования, ПараметрыВыполнения, Ложь);
-			КонецЕсли;
+		ElsIf ConstantMetadata.Contains(UsageInstance.Metadata) Then
+			Presentation = UsageInstance.Metadata.Presentation() + " (" + NStr("ru = 'константа'; en = 'constant'") + ")";
+			
+		ElsIf SequenceMetadata.Contains(UsageInstance.Metadata) Then
+			Presentation = UsageInstance.Metadata.Presentation() + " (" + NStr("ru = 'последовательность'; en = 'sequence'") + ")";
+			
+		ElsIf DataType = Undefined Then
+			Presentation = String(UsageInstance.Data);
 
-			Если Результат.ЕстьОшибки Тогда
-				ОтменитьТранзакцию();
-				Возврат;
-			КонецЕсли;
+		ElsIf AllRefsType.ContainsType(DataType) Then
+			ObjectMetaPresentation = New Structure("ObjectPresentation");
+			FillPropertyValues(ObjectMetaPresentation, UsageInstance.Metadata);
+			If IsBlankString(ObjectMetaPresentation.ObjectPresentation) Then
+				MetaPresentation = UsageInstance.Metadata.Presentation();
+			Else
+				MetaPresentation = ObjectMetaPresentation.ObjectPresentation;
+			EndIf;
+			Presentation = String(UsageInstance.Data);
+			If Not IsBlankString(MetaPresentation) Then
+				Presentation = Presentation + " (" + MetaPresentation + ")";
+			EndIf;
 
-		КонецЦикла;
+		ElsIf RecordKeysType.ContainsType(DataType) Then
+			Presentation = UsageInstance.Metadata.RecordPresentation;
+			If IsBlankString(Presentation) Then
+				Presentation = UsageInstance.Metadata.Presentation();
+			EndIf;
+
+				DimensionsDetails = "";
+			For Each KeyValue In RecordSetDimensionsDetails(UsageInstance.Metadata, RegisterDimensionCache) Do
+				Value = UsageInstance.Data[KeyValue.Key];
+				Details = KeyValue.Value;
+				If UsageInstance.Ref = Value Then
+					If Details.Master Then
+						IsAuxiliaryData = True;
+					EndIf;
+				EndIf;
+				ValueFormat = Details.Format; 
+				DimensionsDetails = DimensionsDetails + ", " + Details.Presentation + " """ 
+					+ ?(ValueFormat = Undefined, String(Value), Format(Value, ValueFormat)) + """";
+			EndDo;
+
+			DimensionsDetails = Mid(DimensionsDetails, 3);
+			If Not IsBlankString(DimensionsDetails) Then
+				Presentation = Presentation + " (" + DimensionsDetails + ")";
+			EndIf;
+
+		Else
+			Presentation = String(UsageInstance.Data);
+			
+		EndIf;
 		
-		// 3. Удаление 
-		ПроизводимыеЗамены = Новый Массив;
-		ПроизводимыеЗамены.Добавить(Дубль);
+		UsageInstance.DataPresentation = Presentation;
+		UsageInstance.AuxiliaryData = IsAuxiliaryData;
+		UsageInstance.IsInternalData = IsInternalData;
+		UsageInstance.RefType = TypeOf(UsageInstance.Ref);
+	EndDo;
 
-		Если ПараметрыВыполнения.УдалятьНепосредственно Тогда
-			УдалитьСсылкиНемонопольно(Результат, ПроизводимыеЗамены, ПараметрыВыполнения, Истина);
-
-		ИначеЕсли ПараметрыВыполнения.ПомечатьНаУдаление Тогда
-			УдалитьСсылкиНемонопольно(Результат, ПроизводимыеЗамены, ПараметрыВыполнения, Ложь);
-
-		Иначе
-			// Поиск новых
-			ТаблицаПовторногоПоиска = МестаИспользования(ПроизводимыеЗамены);
-			ДобавитьРезультатыЗаменыИзмененныхОбъектов(Результат, ТаблицаПовторногоПоиска);
-		КонецЕсли;
-
-		Если Результат.ЕстьОшибки Тогда
-			ОтменитьТранзакцию();
-			Возврат;
-		КонецЕсли;
-
-		ПараметрыВыполнения.УспешныеЗамены.Вставить(Дубль, ПараметрыВыполнения.ПарыЗамен[Дубль]);
-		ЗафиксироватьТранзакцию();
-
-	Исключение
-		ОтменитьТранзакцию();
-		Если СостояниеОперации = "ОшибкаБлокировки" Тогда
-			ПредставлениеОшибки = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
-			Ошибка = СтрШаблон(НСтр("ru = 'Не удалось заблокировать все места использования %1:'") + Символы.ПС
-				+ ПредставлениеОшибки, Дубль);
-			ЗарегистрироватьОшибкуЗамены(Результат, Дубль, ОписаниеОшибкиЗамены("ОшибкаБлокировки", Неопределено,
-				Неопределено, Ошибка));
-		Иначе
-			ВызватьИсключение;
-		КонецЕсли;
-	КонецПопытки;
-
-КонецПроцедуры
-
-Процедура ПроизвестиЗаменуВКонстанте(Результат, Знач МестоИспользования, Знач ПараметрыЗаписи,
-	Знач ВнутренняяТранзакция = Истина)
-
-	УстановитьПривилегированныйРежим(Истина);
-
-	Данные = МестоИспользования.Данные;
-	Мета   = МестоИспользования.Метаданные;
-
-	ПредставлениеДанных = Строка(Данные);
+	If Not IsBlankString(ResultAddress) Then
+		PutToTempStorage(UsageInstances, ResultAddress);
+	EndIf;
 	
-	// Будем производить сразу все замены для этих данных.
-	Фильтр = Новый Структура("Данные, КлючЗамены", Данные, "Константа");
-	ОбрабатываемыеСтроки = МестоИспользования.Владелец().НайтиСтроки(Фильтр);
-	// Помечаем как обработанные
-	Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-		Строка.КлючЗамены = "";
-	КонецЦикла;
+	Return UsageInstances;
+EndFunction
 
-	СостояниеОперации = "";
-	Ошибка = "";
-	Если ВнутренняяТранзакция Тогда
-		НачатьТранзакцию();
-	КонецЕсли;
+#EndRegion
+#Region ВнешниеКомпоненты
 
-	Попытка
-		Если ВнутренняяТранзакция Тогда
-			Блокировка = Новый БлокировкаДанных;
-			Блокировка.Добавить(Мета.ПолноеИмя());
-			Попытка
-				Блокировка.Заблокировать();
-			Исключение
-				Ошибка = СтрШаблон(НСтр("ru = 'Не удалось заблокировать константу %1'"), ПредставлениеДанных);
-				СостояниеОперации = "ОшибкаБлокировки";
-				ВызватьИсключение;
-			КонецПопытки;
-		КонецЕсли;
+// Checking extension and configuration metadata for the template.
+//
+// Parameters:
+//  FullTemplateName - String - template's full name.
+//
+// Returns:
+//  Boolean - indicates whether the template exists.
+//
+Function TemplateExists(FullTemplateName)
+	
+	Template = Metadata.FindByFullName(FullTemplateName);
+	If TypeOf(Template) = Type("MetadataObject") Then 
+		
+		Pattern = New Structure("TemplateType");
+		FillPropertyValues(Pattern, Template);
+		TemplateType = Undefined;
+		If Pattern.Property("TemplateType", TemplateType) Then 
+			Return TemplateType <> Undefined;
+		EndIf;
+		
+	EndIf;
+	
+	Return False;
+	
+EndFunction
 
-		Менеджер = Константы[Мета.Имя].СоздатьМенеджерЗначения();
-		Менеджер.Прочитать();
+#EndRegion
 
-		ЗаменаПроизведена = Ложь;
-		Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-			Если Менеджер.Значение = Строка.Ссылка Тогда
-				Менеджер.Значение = Строка.ЦелеваяСсылка;
-				ЗаменаПроизведена = Истина;
-			КонецЕсли;
-		КонецЦикла;
+#Region МестаИспользования
 
-		Если Не ЗаменаПроизведена Тогда
-			Если ВнутренняяТранзакция Тогда
-				ОтменитьТранзакцию();
-			КонецЕсли;
-			Возврат;
-		КонецЕсли;	
+Function RecordKeysTypeDetails()
+	
+	TypesToAdd = New Array;
+	For Each Meta In Metadata.InformationRegisters Do
+		TypesToAdd.Add(Type("InformationRegisterRecordKey." + Meta.Name));
+	EndDo;
+	For Each Meta In Metadata.AccumulationRegisters Do
+		TypesToAdd.Add(Type("AccumulationRegisterRecordKey." + Meta.Name));
+	EndDo;
+	For Each Meta In Metadata.AccountingRegisters Do
+		TypesToAdd.Add(Type("AccountingRegisterRecordKey." + Meta.Name));
+	EndDo;
+	For Each Meta In Metadata.CalculationRegisters Do
+		TypesToAdd.Add(Type("CalculationRegisterRecordKey." + Meta.Name));
+	EndDo;
+	
+	Return New TypeDescription(TypesToAdd); 
+EndFunction
+
+Function RecordSetDimensionsDetails(Val RegisterMetadata, RegisterDimensionCache)
+	
+	DimensionsDetails = RegisterDimensionCache[RegisterMetadata];
+	If DimensionsDetails <> Undefined Then
+		Return DimensionsDetails;
+	EndIf;
+	
+	// Period and recorder, if any.
+	DimensionsDetails = New Structure;
+	
+	DimensionData = New Structure("Master, Presentation, Format, Type", False);
+
+	If Metadata.InformationRegisters.Contains(RegisterMetadata) Then
+		// There might be a period.
+		MetaPeriod = RegisterMetadata.InformationRegisterPeriodicity; 
+		Periodicity = Metadata.ObjectProperties.InformationRegisterPeriodicity;
+		
+		If MetaPeriod = Periodicity.RecorderPosition Then
+			DimensionData.Type           = Documents.AllRefsType();
+			DimensionData.Presentation = NStr("ru='Регистратор'; en = 'Recorder'");
+			DimensionData.Master       = True;
+			DimensionsDetails.Insert("Recorder", DimensionData);
+
+		ElsIf MetaPeriod = Periodicity.Year Then
+			DimensionData.Type           = New TypeDescription("Date");
+			DimensionData.Presentation = NStr("ru='Период'; en = 'Period'");
+			DimensionData.Format        = NStr("ru = 'ДФ=''yyyy ""г.""''; ДП=''Дата не задана'''; en = 'DF=''yyyy''; DE=''No date set'''");
+			DimensionsDetails.Insert("Period", DimensionData);
+			
+		ElsIf MetaPeriod = Periodicity.Day Then
+			DimensionData.Type           = New TypeDescription("Date");
+			DimensionData.Presentation = NStr("ru='Период'; en = 'Period'");
+			DimensionData.Format        = NStr("ru = 'ДЛФ=D; ДП=''Дата не задана'''; en = 'DLF=D; DE=''No date set'''");
+			DimensionsDetails.Insert("Period", DimensionData);
+			
+		ElsIf MetaPeriod = Periodicity.Quarter Then
+			DimensionData.Type           = New TypeDescription("Date");
+			DimensionData.Presentation = NStr("ru='Период'; en = 'Period'");
+			DimensionData.Format        =  NStr("ru = 'ДФ=''к """"квартал """"yyyy """"г.""""''; ДП=''Дата не задана'''; en = 'DF=''""""Q""""q yyyy''; DE=''No date set'''");
+			DimensionsDetails.Insert("Period", DimensionData);
+			
+		ElsIf MetaPeriod = Periodicity.Month Then
+			DimensionData.Type           = New TypeDescription("Date");
+			DimensionData.Presentation = NStr("ru='Период'; en = 'Period'");
+			DimensionData.Format        = NStr("ru = 'ДФ=''ММММ yyyy """"г.""""''; ДП=''Дата не задана'''; en = 'DF=''MMMM yyyy''; DE=''No date set'''");
+			DimensionsDetails.Insert("Period", DimensionData);
+			
+		ElsIf MetaPeriod = Periodicity.Second Then
+			DimensionData.Type           = New TypeDescription("Date");
+			DimensionData.Presentation = NStr("ru='Период'; en = 'Period'");
+			DimensionData.Format        = NStr("ru = 'ДЛФ=DT; ДП=''Дата не задана'''; en = 'DLF=DT; DE=''No date set'''");
+			DimensionsDetails.Insert("Period", DimensionData);
+			
+		EndIf;
+
+	Else
+		DimensionData.Type           = Documents.AllRefsType();
+		DimensionData.Presentation = NStr("ru='Регистратор'; en = 'Recorder'");
+		DimensionData.Master       = True;
+		DimensionsDetails.Insert("Recorder", DimensionData);
+		
+	EndIf;
+	
+		// All dimensions.
+	For Each MetaDimension In RegisterMetadata.Dimensions Do
+		DimensionData = New Structure("Master, Presentation, Format, Type");
+		DimensionData.Type           = MetaDimension.Type;
+		DimensionData.Presentation = MetaDimension.Presentation();
+		DimensionData.Master       = MetaDimension.Master;
+		DimensionsDetails.Insert(MetaDimension.Name, DimensionData);
+	EndDo;
+	
+	RegisterDimensionCache[RegisterMetadata] = DimensionsDetails;
+	Return DimensionsDetails;
+	
+EndFunction
+
+#EndRegion
+
+#Region ReplaceReferences
+
+Function MarkUsageInstances(Val ExecutionParameters, Val Ref, Val DestinationRef, Val SearchTable)
+	SetPrivilegedMode(True);
+	
+	// Setting the order of known objects and checking whether there are unidentified ones.
+	Result = New Structure;
+	Result.Insert("UsageInstances", SearchTable.FindRows(New Structure("Ref", Ref)));
+	Result.Insert("MarkupErrors",     New Array);
+	Result.Insert("Success",              True);
+	
+	For Each UsageInstance In Result.UsageInstances Do
+		If UsageInstance.IsInternalData Then
+			Continue; // Skipping dependent data.
+		EndIf;
+
+		Information = TypeInformation(UsageInstance.Metadata, ExecutionParameters);
+		If Information.Kind = "CONSTANT" Then
+			UsageInstance.ReplacementKey = "Constant";
+			UsageInstance.DestinationRef = DestinationRef;
+			
+		ElsIf Information.Kind = "SEQUENCE" Then
+			UsageInstance.ReplacementKey = "Sequence";
+			UsageInstance.DestinationRef = DestinationRef;
+			
+		ElsIf Information.Kind = "INFORMATIONREGISTER" Then
+			UsageInstance.ReplacementKey = "InformationRegister";
+			UsageInstance.DestinationRef = DestinationRef;
+			
+		ElsIf Information.Kind = "ACCOUNTINGREGISTER"
+			Or Information.Kind = "ACCUMULATIONREGISTER"
+			Or Information.Kind = "CALCULATIONREGISTER" Then
+			UsageInstance.ReplacementKey = "RecordKey";
+			UsageInstance.DestinationRef = DestinationRef;
+			
+		ElsIf Information.Reference Then
+			UsageInstance.ReplacementKey = "Object";
+			UsageInstance.DestinationRef = DestinationRef;
+			
+		Else
+			// Unknown object for reference replacement.
+			Result.Success = False;
+			Text = StrTemplate(NStr("ru = 'Замена ссылок в ""%1"" не поддерживается.'; en = 'Replacement of references in ""%1"" is not supported.'"), Information.FullName);
+			ErrorDescription = New Structure("Object, Text", UsageInstance.Data, Text);
+			Result.MarkupErrors.Add(ErrorDescription);
+		EndIf;
+		
+	EndDo;
+	
+	Return Result;
+EndFunction
+
+Procedure ReplaceRefsUsingShortTransactions(Result, Val ExecutionParameters, Val Duplicates, Val SearchTable)
+	
+	// Main data processor loop.
+	RefFilter = New Structure("Ref, ReplacementKey");
+	For Each Duplicate In Duplicates Do
+		HadErrors = Result.HasErrors;
+		Result.HasErrors = False;
+		
+		RefFilter.Ref = Duplicate;
+		
+		RefFilter.ReplacementKey = "Constant";
+		UsageInstances = SearchTable.FindRows(RefFilter);
+		For Each UsageInstance In UsageInstances Do
+			ReplaceInConstant(Result, UsageInstance, ExecutionParameters, True);
+		EndDo;
+		
+		RefFilter.ReplacementKey = "Object";
+		UsageInstances = SearchTable.FindRows(RefFilter);
+		For Each UsageInstance In UsageInstances Do
+			ReplaceInObject(Result, UsageInstance, ExecutionParameters, True);
+		EndDo;
+		
+		RefFilter.ReplacementKey = "RecordKey";
+		UsageInstances = SearchTable.FindRows(RefFilter);
+		For Each UsageInstance In UsageInstances Do
+			ReplaceInSet(Result, UsageInstance, ExecutionParameters, True);
+		EndDo;
+		
+		RefFilter.ReplacementKey = "Sequence";
+		UsageInstances = SearchTable.FindRows(RefFilter);
+		For Each UsageInstance In UsageInstances Do
+			ReplaceInSet(Result, UsageInstance, ExecutionParameters, True);
+		EndDo;
+		
+		RefFilter.ReplacementKey = "InformationRegister";
+		UsageInstances = SearchTable.FindRows(RefFilter);
+		For Each UsageInstance In UsageInstances Do
+			ReplaceInInformationRegister(Result, UsageInstance, ExecutionParameters, True);
+		EndDo;
+		
+		If Not Result.HasErrors Then
+			ExecutionParameters.SuccessfulReplacements.Insert(Duplicate, ExecutionParameters.ReplacementPairs[Duplicate]);
+		EndIf;
+		Result.HasErrors = Result.HasErrors Or HadErrors;
+		
+	EndDo;
+	
+	// Final procedures.
+	If ExecutionParameters.DeleteDirectly Then
+		DeleteRefsNotExclusive(Result, Duplicates, ExecutionParameters, True);
+		
+	ElsIf ExecutionParameters.MarkForDeletion Then
+		DeleteRefsNotExclusive(Result, Duplicates, ExecutionParameters, False);
+		
+	Else
+		// Searching for new items.
+		RepeatSearchTable = UsageInstances(Duplicates);
+		AddModifiedObjectReplacementResults(Result, RepeatSearchTable);
+	EndIf;
+	
+EndProcedure
+
+Procedure ReplaceRefUsingSingleTransaction(Result, Val Duplicate, Val ExecutionParameters, Val SearchTable)
+	SetPrivilegedMode(True);
+
+	BeginTransaction();
+	Try
+		// 1. Locking all usage instances.
+		ActionState = "LockError";
+		Lock = New DataLock;
+		
+		UsageInstances = SearchTable.FindRows(New Structure("Ref", Duplicate));
+		LockUsageInstances(ExecutionParameters, Lock, UsageInstances);
+		Lock.Lock();
+		ActionState = "";
+
+		SetPrivilegedMode(False);
+
+		// 2. Replacing everywhere till the first errors.
+		Result.HasErrors = False;
+		
+		For Each UsageInstance In UsageInstances Do
+			
+			If UsageInstance.ReplacementKey = "Constant" Then
+				ReplaceInConstant(Result, UsageInstance, ExecutionParameters, False);
+			ElsIf UsageInstance.ReplacementKey = "Object" Then
+				ReplaceInObject(Result, UsageInstance, ExecutionParameters, False);
+			ElsIf UsageInstance.ReplacementKey = "Sequence" Then
+				ReplaceInSet(Result, UsageInstance, ExecutionParameters, False);
+			ElsIf UsageInstance.ReplacementKey = "RecordKey" Then
+				ReplaceInSet(Result, UsageInstance, ExecutionParameters, False);
+			ElsIf UsageInstance.ReplacementKey = "InformationRegister" Then
+				ReplaceInInformationRegister(Result, UsageInstance, ExecutionParameters, False);
+			EndIf;
+			
+			If Result.HasErrors Then
+				RollbackTransaction();
+				Return;
+			EndIf;
+			
+		EndDo;
+		
+		// 3. Delete.
+		ReplacementsToProcess = New Array;
+		ReplacementsToProcess.Add(Duplicate);
+		
+		If ExecutionParameters.DeleteDirectly Then
+			DeleteRefsNotExclusive(Result, ReplacementsToProcess, ExecutionParameters, True);
+			
+		ElsIf ExecutionParameters.MarkForDeletion Then
+			DeleteRefsNotExclusive(Result, ReplacementsToProcess, ExecutionParameters, False);
+			
+		Else
+			// Searching for new items.
+			RepeatSearchTable = UsageInstances(ReplacementsToProcess);
+			AddModifiedObjectReplacementResults(Result, RepeatSearchTable);
+		EndIf;
+		
+		If Result.HasErrors Then
+			RollbackTransaction();
+			Return;
+		EndIf;
+		
+		ExecutionParameters.SuccessfulReplacements.Insert(Duplicate, ExecutionParameters.ReplacementPairs[Duplicate]);
+		CommitTransaction();
+
+	Except
+		RollbackTransaction();
+		If ActionState = "LockError" Then
+			ErrorPresentation = DetailErrorDescription(ErrorInfo());
+			Error = StrTemplate(NStr("ru = 'Не удалось заблокировать все места использования %1:'; en = 'Cannot lock all usage instances of %1:'") 
+				+ Chars.LF + ErrorPresentation, Duplicate);
+			RegisterReplacementError(Result, Duplicate, 
+				ReplacementErrorDescription("LockError", Undefined, Undefined, Error));
+		Else
+			Raise;	
+		EndIf;
+	EndTry
+	
+EndProcedure
+
+Procedure ReplaceInConstant(Result, Val UsageInstance, Val WriteParameters, Val InnerTransaction = True)
+	
+	SetPrivilegedMode(True);
+	
+	Data = UsageInstance.Data;
+	Meta   = UsageInstance.Metadata;
+	
+	DataPresentation = String(Data);
+	
+	// Performing all replacement of the data in the same time.
+	Filter = New Structure("Data, ReplacementKey", Data, "Constant");
+	RowsToProcess = UsageInstance.Owner().FindRows(Filter);
+	// Marking as processed.
+	For Each Row In RowsToProcess Do
+		Row.ReplacementKey = "";
+	EndDo;
+
+	ActionState = "";
+	Error = "";
+	If InnerTransaction Then
+		BeginTransaction();
+	EndIf;
+
+	Try
+		If InnerTransaction Then
+			Lock = New DataLock;
+			Lock.Add(Meta.FullName());
+			Try
+				Lock.Lock();
+			Except
+				Error = StrTemplate(NStr("ru = 'Не удалось заблокировать константу %1'; en = 'Cannot lock the constant %1.'"), 
+					DataPresentation);
+				ActionState = "LockError";
+				Raise;
+			EndTry;
+		EndIf;
+
+		Manager = Constants[Meta.Name].CreateValueManager();
+		Manager.Read();
+		
+		ReplacementPerformed = False;
+		For Each Row In RowsToProcess Do
+			If Manager.Value = Row.Ref Then
+				Manager.Value = Row.DestinationRef;
+				ReplacementPerformed = True;
+			EndIf;
+		EndDo;
+		
+		If Not ReplacementPerformed Then
+			If InnerTransaction Then
+				RollbackTransaction();
+			EndIf;	
+			Return;
+		EndIf;	
 		 
-		// Пытаемся сохранить
-		Если Не ПараметрыЗаписи.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-			УстановитьПривилегированныйРежим(Ложь);
-		КонецЕсли;
+		// Attempting to save.
+		If Not WriteParameters.WriteInPrivilegedMode Then
+			SetPrivilegedMode(False);
+		EndIf;
 
 		Попытка
-			ЗаписатьОбъектПриЗаменеСсылок(Менеджер, ПараметрыЗаписи);
-		Исключение
-			ОписаниеОшибки = КраткоеПредставлениеОшибки(ИнформацияОбОшибке());
-			Ошибка = СтрШаблон(НСтр("ru = 'Не удалось записать %1 по причине: %2'"), ПредставлениеДанных,
-				ОписаниеОшибки);
-			СостояниеОперации = "ОшибкаЗаписи";
-			ВызватьИсключение;
-		КонецПопытки;
-
-		Если Не ПараметрыЗаписи.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-			УстановитьПривилегированныйРежим(Истина);
-		КонецЕсли;
-
-		Если ВнутренняяТранзакция Тогда
-			ЗафиксироватьТранзакцию();
-		КонецЕсли;
-	Исключение
-		Если ВнутренняяТранзакция Тогда
-			ОтменитьТранзакцию();
-		КонецЕсли;
-		ЗаписьЖурналаРегистрации(СобытиеЖурналаРегистрацииЗаменыСсылок(), УровеньЖурналаРегистрации.Ошибка, Мета, ,
-			ПодробноеПредставлениеОшибки(ИнформацияОбОшибке()));
-		Если СостояниеОперации = "ОшибкаЗаписи" Тогда
-			Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-				ЗарегистрироватьОшибкуЗамены(Результат, Строка.Ссылка, ОписаниеОшибкиЗамены("ОшибкаЗаписи", Данные,
-					ПредставлениеДанных, Ошибка));
-			КонецЦикла;
-		Иначе
-			ЗарегистрироватьОшибкуЗамены(Результат, Строка.Ссылка, ОписаниеОшибкиЗамены(СостояниеОперации, Данные,
-				ПредставлениеДанных, Ошибка));
-		КонецЕсли;
-	КонецПопытки;
-
-КонецПроцедуры
-
-Процедура ПроизвестиЗаменуВОбъекте(Результат, Знач МестоИспользования, Знач ПараметрыВыполнения,
-	Знач ВнутренняяТранзакция = Истина)
-
-	УстановитьПривилегированныйРежим(Истина);
-
-	Данные = МестоИспользования.Данные;
-	
-	// Будем производить сразу все замены для этих данных.
-	Фильтр = Новый Структура("Данные, КлючЗамены", Данные, "Объект");
-	ОбрабатываемыеСтроки = МестоИспользования.Владелец().НайтиСтроки(Фильтр);
-
-	ПредставлениеДанных = ПредметСтрокой(Данные);
-	СостояниеОперации = "";
-	ТекстОшибки = "";
-	Если ВнутренняяТранзакция Тогда
-		НачатьТранзакцию();
-	КонецЕсли;
-
-	Попытка
-
-		Если ВнутренняяТранзакция Тогда
-			Блокировка = Новый БлокировкаДанных;
-			ЗаблокироватьМестоИспользования(ПараметрыВыполнения, Блокировка, МестоИспользования);
-			Попытка
-				Блокировка.Заблокировать();
-			Исключение
-				СостояниеОперации = "ОшибкаБлокировки";
-				ТекстОшибки = СтрШаблон(
-					НСтр("ru = 'Не удалось заблокировать объект ""%1"":
-						 |%2'"), ПредставлениеДанных, КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-				ВызватьИсключение;
-			КонецПопытки;
-		КонецЕсли;
-
-		ОбъектыЗаписи = ИзмененныеОбъектыПриЗаменеВОбъекте(ПараметрыВыполнения, МестоИспользования,
-			ОбрабатываемыеСтроки);
+			ЗаписатьОбъектПриЗаменеСсылок(Manager, WriteParameters);
+		Except
+			ErrorDescription = BriefErrorDescription(ErrorInfo());
+			Error = StrTemplate(NStr("ru = 'Не удалось записать %1 по причине: %2'; en = 'Cannot save %1. Reason: %2'"), 
+				DataPresentation, ErrorDescription);
+			ActionState = "WritingError";
+			Raise;
+		EndTry;
 		
-		// Пытаемся сохранить, сам объект идет последним.
-		Если Не ПараметрыВыполнения.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-			УстановитьПривилегированныйРежим(Ложь);
-		КонецЕсли;
-
-		Попытка
-			Если ПараметрыВыполнения.ПараметрыЗаписи.ЗаписьВРежимеЗагрузки Тогда
-				// Первая запись без контроля, чтобы устранить циклические ссылки.
-				НовыеПараметрыВыполнения = UT_CommonClientServer.CopyRecursively(ПараметрыВыполнения);
-				НовыеПараметрыВыполнения.ПараметрыЗаписи.ЗаписьВРежимеЗагрузки  = Ложь;
-				Для Каждого КлючЗначение Из ОбъектыЗаписи Цикл
-					ЗаписатьОбъектПриЗаменеСсылок(КлючЗначение.Ключ, НовыеПараметрыВыполнения);
-				КонецЦикла;
-				// Вторая запись c контролем.
-				НовыеПараметрыВыполнения.ПараметрыЗаписи.ЗаписьВРежимеЗагрузки  = Истина;
-				Для Каждого КлючЗначение Из ОбъектыЗаписи Цикл
-					ЗаписатьОбъектПриЗаменеСсылок(КлючЗначение.Ключ, НовыеПараметрыВыполнения);
-				КонецЦикла;
-			Иначе
-				// Запись без контроля бизнес-логики.
-				Для Каждого КлючЗначение Из ОбъектыЗаписи Цикл
-					ЗаписатьОбъектПриЗаменеСсылок(КлючЗначение.Ключ, ПараметрыВыполнения);
-				КонецЦикла;
-			КонецЕсли;
-		Исключение
-			СостояниеОперации = "ОшибкаЗаписи";
-			ОписаниеОшибки = КраткоеПредставлениеОшибки(ИнформацияОбОшибке());
-			ТекстОшибки = СтрШаблон(НСтр("ru = 'Не удалось записать %1 по причине: %2'"), ПредставлениеДанных,
-				ОписаниеОшибки);
-			ВызватьИсключение;
-		КонецПопытки;
-
-		Если ВнутренняяТранзакция Тогда
-			ЗафиксироватьТранзакцию();
-		КонецЕсли;
-
-	Исключение
-		Если ВнутренняяТранзакция Тогда
-			ОтменитьТранзакцию();
-		КонецЕсли;
-		Информация = ИнформацияОбОшибке();
-		ЗаписьЖурналаРегистрации(СобытиеЖурналаРегистрацииЗаменыСсылок(), УровеньЖурналаРегистрации.Ошибка,
-			МестоИспользования.Метаданные, , ПодробноеПредставлениеОшибки(Информация));
-		Ошибка = ОписаниеОшибкиЗамены(СостояниеОперации, Данные, ПредставлениеДанных, ТекстОшибки);
-		Если СостояниеОперации = "ОшибкаЗаписи" Тогда
-			Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-				ЗарегистрироватьОшибкуЗамены(Результат, Строка.Ссылка, Ошибка);
-			КонецЦикла;
-		Иначе
-			ЗарегистрироватьОшибкуЗамены(Результат, МестоИспользования.Ссылка, Ошибка);
-		КонецЕсли;
-	КонецПопытки;
+		If Not WriteParameters.WriteInPrivilegedMode Then
+			SetPrivilegedMode(True);
+		EndIf;
+			
+		If InnerTransaction Then
+			CommitTransaction();
+		EndIf;	
+	Except
+		If InnerTransaction Then
+			RollbackTransaction();
+		EndIf;
+		WriteLogEvent(RefReplacementEventLogMessageText(), EventLogLevel.Error,
+			Meta,, DetailErrorDescription(ErrorInfo()));
+		If ActionState = "WritingError" Then
+			For Each Row In RowsToProcess Do
+				RegisterReplacementError(Result, Row.Ref, 
+					ReplacementErrorDescription("WritingError", Data, DataPresentation, Error));
+			EndDo;
+		Else		
+			RegisterReplacementError(Result, Row.Ref, 
+				ReplacementErrorDescription(ActionState, Data, DataPresentation, Error));
+		EndIf;		
+	EndTry;
 	
-	// Помечаем как обработанные
-	Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-		Строка.КлючЗамены = "";
-	КонецЦикла;
+EndProcedure
 
-КонецПроцедуры
-
-Процедура ПроизвестиЗаменуВНаборе(Результат, Знач МестоИспользования, Знач ПараметрыВыполнения,
-	Знач ВнутренняяТранзакция = Истина)
-	УстановитьПривилегированныйРежим(Истина);
-
-	Данные = МестоИспользования.Данные;
-	Мета   = МестоИспользования.Метаданные;
-
-	ПредставлениеДанных = Строка(Данные);
+Procedure ReplaceInObject(Result, Val UsageInstance, Val ExecutionParameters, Val InnerTransaction = True)
 	
-	// Будем производить сразу все замены для этих данных.
-	Фильтр = Новый Структура("Данные, КлючЗамены");
-	ЗаполнитьЗначенияСвойств(Фильтр, МестоИспользования);
-	ОбрабатываемыеСтроки = МестоИспользования.Владелец().НайтиСтроки(Фильтр);
-
-	ОписаниеНабора = ОписаниеКлючаЗаписи(Мета);
-	НаборЗаписей = ОписаниеНабора.НаборЗаписей;
-
-	ПарыЗамен = Новый Соответствие;
-	Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-		ПарыЗамен.Вставить(Строка.Ссылка, Строка.ЦелеваяСсылка);
-	КонецЦикла;
+	SetPrivilegedMode(True);
 	
-	// Помечаем как обработанные
-	Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-		Строка.КлючЗамены = "";
-	КонецЦикла;
-
-	СостояниеОперации = "";
-	Ошибка = "";
-	Если ВнутренняяТранзакция Тогда
-		НачатьТранзакцию();
-	КонецЕсли;
-
-	Попытка
-
-		Если ВнутренняяТранзакция Тогда
-			// Блокировка и подготовка набора.
-			Блокировка = Новый БлокировкаДанных;
-			Для Каждого КлючЗначение Из ОписаниеНабора.СписокИзмерений Цикл
-				ТипИзмерения = КлючЗначение.Значение;
-				Имя          = КлючЗначение.Ключ;
-				Значение     = Данные[Имя];
-
-				Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-					ТекущаяСсылка = Строка.Ссылка;
-					Если ТипИзмерения.СодержитТип(ТипЗнч(ТекущаяСсылка)) Тогда
-						Блокировка.Добавить(ОписаниеНабора.ПространствоБлокировки).УстановитьЗначение(Имя,
-							ТекущаяСсылка);
-					КонецЕсли;
-				КонецЦикла;
-
-				НаборЗаписей.Отбор[Имя].Установить(Значение);
-			КонецЦикла;
-
-			Попытка
-				Блокировка.Заблокировать();
-			Исключение
-				Ошибка = СтрШаблон(НСтр("ru = 'Не удалось заблокировать набор %1'"), ПредставлениеДанных);
-				СостояниеОперации = "ОшибкаБлокировки";
-				ВызватьИсключение;
-			КонецПопытки;
-
-		КонецЕсли;
-
-		НаборЗаписей.Прочитать();
-		ЗаменитьВКоллекцииСтрок("НаборЗаписей", "НаборЗаписей", НаборЗаписей, НаборЗаписей, ОписаниеНабора.СписокПолей,
-			ПарыЗамен);
-
-		Если НаборЗаписей.Модифицированность() Тогда
-			Если ВнутренняяТранзакция Тогда
-				ОтменитьТранзакцию();
-			КонецЕсли;
-			Возврат;
-		КонецЕсли;
-
-		Если Не ПараметрыВыполнения.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-			УстановитьПривилегированныйРежим(Ложь);
-		КонецЕсли;
-
-		Попытка
-			ЗаписатьОбъектПриЗаменеСсылок(НаборЗаписей, ПараметрыВыполнения);
-		Исключение
-			ОписаниеОшибки = КраткоеПредставлениеОшибки(ИнформацияОбОшибке());
-			Ошибка = СтрШаблон(НСтр("ru = 'Не удалось записать %1 по причине: %2'"), ПредставлениеДанных,
-				ОписаниеОшибки);
-			СостояниеОперации = "ОшибкаЗаписи";
-			ВызватьИсключение;
-		КонецПопытки;
-
-		Если Не ПараметрыВыполнения.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-			УстановитьПривилегированныйРежим(Истина);
-		КонецЕсли;
-
-		Если ВнутренняяТранзакция Тогда
-			ЗафиксироватьТранзакцию();
-		КонецЕсли;
-
-	Исключение
-		Если ВнутренняяТранзакция Тогда
-			ОтменитьТранзакцию();
-		КонецЕсли;
-		Информация = ИнформацияОбОшибке();
-		ЗаписьЖурналаРегистрации(СобытиеЖурналаРегистрацииЗаменыСсылок(), УровеньЖурналаРегистрации.Ошибка, Мета, ,
-			ПодробноеПредставлениеОшибки(Информация));
-		Ошибка = ОписаниеОшибкиЗамены(СостояниеОперации, Данные, ПредставлениеДанных, Ошибка);
-		Если СостояниеОперации = "ОшибкаЗаписи" Тогда
-			Для Каждого Строка Из ОбрабатываемыеСтроки Цикл
-				ЗарегистрироватьОшибкуЗамены(Результат, Строка.Ссылка, Ошибка);
-			КонецЦикла;
-		Иначе
-			ЗарегистрироватьОшибкуЗамены(Результат, МестоИспользования.Ссылка, Ошибка);
-		КонецЕсли;
-	КонецПопытки;
-
-КонецПроцедуры
-
-Процедура ПроизвестиЗаменуВРегистреСведений(Результат, Знач МестоИспользования, Знач ПараметрыВыполнения,
-	Знач ВнутренняяТранзакция = Истина)
-
-	Если МестоИспользования.Обработано Тогда
-		Возврат;
-	КонецЕсли;
-	МестоИспользования.Обработано = Истина;
+	Data = UsageInstance.Data;
 	
-	// В случае, если дубль указан в измерениях набора, тогда используется 2 набора записей:
-	//     НаборЗаписейДубля - чтение старых значений (по старым измерениям) и удаление старых значений.
-	//     НаборЗаписейОригинала - чтение актуальных значений (по новым измерениям) и запись новых значений.
-	//     Данные дублей и оригиналов объединяются по правилам:
-	//         Приоритет у данных оригинала.
-	//         Если в оригинале нет данных, то берутся данные из дубля.
-	//     Набор оригинала записывается, а набор дубля удаляется.
+	// Performing all replacement of the data in the same time.
+	Filter = New Structure("Data, ReplacementKey", Data, "Object");
+	RowsToProcess = UsageInstance.Owner().FindRows(Filter);
+	
+	DataPresentation = SubjectString(Data);
+	ActionState = "";
+	ErrorText = "";
+	If InnerTransaction Then
+		BeginTransaction();
+	EndIf;
+
+	Try
+		
+		If InnerTransaction Then
+			Lock = New DataLock;
+			LockUsageInstance(ExecutionParameters, Lock, UsageInstance);
+			Try
+				Lock.Lock();
+			Except
+				ActionState = "LockError";
+				ErrorText = StrTemplate(
+					NStr("ru = 'Не удалось заблокировать объект ""%1"":
+					|%2'; 
+					|en = 'Cannot lock object %1:
+					|%2'"),
+					DataPresentation,
+					BriefErrorDescription(ErrorInfo()));
+				Raise;
+			EndTry;
+		EndIf;
+
+		WritingObjects = ModifiedObjectsOnReplaceInObject(ExecutionParameters, UsageInstance, RowsToProcess);
+		
+		// Attempting to save. The object goes last.
+		If Not ExecutionParameters.WriteInPrivilegedMode Then
+			SetPrivilegedMode(False);
+		EndIf;
+
+		Try
+			If ExecutionParameters.IncludeBusinessLogic Then
+				// First writing iteration without the control to fix loop references.
+				NewExecutionParameters = UT_CommonClientServer.CopyRecursively(ExecutionParameters);
+				NewExecutionParameters.IncludeBusinessLogic = False;
+				For Each KeyValue In WritingObjects Do
+					ЗаписатьОбъектПриЗаменеСсылок(KeyValue.Key, NewExecutionParameters);
+				EndDo;
+				// Second writing iteration with the control.
+				NewExecutionParameters.IncludeBusinessLogic = True;
+				For Each KeyValue In WritingObjects Do
+					ЗаписатьОбъектПриЗаменеСсылок(KeyValue.Key, NewExecutionParameters);
+				EndDo;
+			Else
+				// Writing without the business logic control.
+				For Each KeyValue In WritingObjects Do
+					ЗаписатьОбъектПриЗаменеСсылок(KeyValue.Key, ExecutionParameters);
+				EndDo;
+			EndIf;
+		Except
+			ActionState = "WritingError";
+			ErrorDescription = BriefErrorDescription(ErrorInfo());
+			ErrorText = StrTemplate(NStr("ru = 'Не удалось записать %1 по причине: %2'; en = 'Cannot save %1. Reason: %2'"), 
+				DataPresentation, ErrorDescription);
+			Raise;
+		EndTry;
+		
+		If InnerTransaction Then
+			CommitTransaction();
+		EndIf;
+
+	Except
+		If InnerTransaction Then
+			RollbackTransaction();
+		EndIf;
+		Information = ErrorInfo();
+		WriteLogEvent(RefReplacementEventLogMessageText(), EventLogLevel.Error,
+			UsageInstance.Metadata,,	DetailErrorDescription(Information));
+		Error = ReplacementErrorDescription(ActionState, Data, DataPresentation, ErrorText);
+		If ActionState = "WritingError" Then
+			For Each Row In RowsToProcess Do
+				RegisterReplacementError(Result, Row.Ref, Error);
+			EndDo;
+		Else	
+			RegisterReplacementError(Result, UsageInstance.Ref, Error);
+		EndIf;
+	EndTry;
+	
+	// Marking as processed.
+	For Each Row In RowsToProcess Do
+		Row.ReplacementKey = "";
+	EndDo;
+	
+EndProcedure
+
+Procedure ReplaceInSet(Result, Val UsageInstance, Val ExecutionParameters, Val InnerTransaction = True)
+	SetPrivilegedMode(True);
+
+	Data = UsageInstance.Data;
+	Meta   = UsageInstance.Metadata;
+	
+	DataPresentation = String(Data);
+	
+	// Performing all replacement of the data in the same time.
+	Filter = New Structure("Data, ReplacementKey");
+	FillPropertyValues(Filter, UsageInstance);
+	RowsToProcess = UsageInstance.Owner().FindRows(Filter);
+
+	SetDetails = RecordKeyDetails(Meta);
+	RecordSet = SetDetails.RecordSet;
+	
+	ReplacementPairs = New Map;
+	For Each Row In RowsToProcess Do
+		ReplacementPairs.Insert(Row.Ref, Row.DestinationRef);
+	EndDo;
+	
+	// Marking as processed.
+	For Each Row In RowsToProcess Do
+		Row.ReplacementKey = "";
+	EndDo;
+	
+	ActionState = "";
+	Error = "";
+	If InnerTransaction Then
+		BeginTransaction();
+	EndIf;
+
+	Try
+		
+		If InnerTransaction Then
+			// Locking and preparing the set.
+			Lock = New DataLock;
+			For Each KeyValue In SetDetails.MeasurementList Do
+				DimensionType = KeyValue.Value;
+				Name          = KeyValue.Key;
+				Value     = Data[Name];
+				
+				For Each Row In RowsToProcess Do
+					CurrentRef = Row.Ref;
+					If DimensionType.ContainsType(TypeOf(CurrentRef)) Then
+						Lock.Add(SetDetails.LockSpace).SetValue(Name, CurrentRef);
+					EndIf;
+				EndDo;
+				
+				RecordSet.Filter[Name].Set(Value);
+			EndDo;
+
+			Try
+				Lock.Lock();
+			Except
+				Error = StrTemplate(NStr("ru = 'Не удалось заблокировать набор %1'; en = 'Cannot lock record set %1.'"), 
+					DataPresentation);
+				ActionState = "LockError";
+				Raise;
+			EndTry;
+			
+		EndIf;
+
+		RecordSet.Read();
+		ReplaceInRowCollection("RecordSet", "RecordSet", RecordSet, RecordSet, SetDetails.FieldList, ReplacementPairs);
+		
+		If RecordSet.Modified() Then
+			If InnerTransaction Then
+				RollbackTransaction();
+			EndIf;
+			Return;
+		EndIf;
+
+		If Not ExecutionParameters.WriteParameters.PrivilegedMode Then
+			SetPrivilegedMode(False);
+		EndIf;
+		
+		Try
+			ЗаписатьОбъектПриЗаменеСсылок(RecordSet, ExecutionParameters);
+		Except
+			ErrorDescription = BriefErrorDescription(ErrorInfo());
+			Error = StrTemplate(NStr("ru = 'Не удалось записать %1 по причине: %2'; en = 'Cannot save %1. Reason: %2'"), 
+				DataPresentation, ErrorDescription);
+			ActionState = "WritingError";
+			Raise;
+		EndTry;
+
+		If Not ExecutionParameters.WriteParameters.PrivilegedMode Then
+			SetPrivilegedMode(True);
+		EndIf;
+		
+		If InnerTransaction Then
+			CommitTransaction();
+		EndIf;
+		
+	Except
+		If InnerTransaction Then
+			RollbackTransaction();
+		EndIf;
+		Information = ErrorInfo();
+		WriteLogEvent(RefReplacementEventLogMessageText(), EventLogLevel.Error,
+			Meta,, DetailErrorDescription(Information));
+		Error = ReplacementErrorDescription(ActionState, Data, DataPresentation, Error);
+		If ActionState = "WritingError" Then
+			For Each Row In RowsToProcess Do
+				RegisterReplacementError(Result, Row.Ref, Error);
+			EndDo;
+		Else	
+			RegisterReplacementError(Result, UsageInstance.Ref, Error);
+		EndIf;	
+	EndTry;
+	
+EndProcedure
+
+Procedure ReplaceInInformationRegister(Result, Val UsageInstance, Val ExecutionParameters, Val InnerTransaction = True)
+	
+	If UsageInstance.Processed Then
+		Return;
+	EndIf;
+	UsageInstance.Processed = True;
+	
+		// If the duplicate is specified in set dimensions, two record sets are used:
+	//     DuplicateRecordSet - reads old values (by old dimensions) and deletes old values.
+	//     OriginalRecordSet - reads actual values (by new dimensions) and writes new values.
+	//     Data of duplicates and originals are merged by the rules:
+	//         Original object data has the priority.
+	//         If the original has no data, the data is received from the duplicate.
+	//     The original set is written and the duplicate set is deleted.
 	//
-	// В случае, если дубль не указан в измерениях набора, тогда используется 1 набор записей:
-	//     НаборЗаписейДубля - чтение старых значений и запись новых значений.
+	// If the duplicate is not specified in a set dimensions, one record sets is used:
+	//     DuplicateRecordSet - reads old values and writes new values.
 	//
-	// Замена ссылок в ресурсах и реквизитах производится в обоих случаях.
+	// In both cases, reference in resources and attributes are replaced.
+	
+	SetPrivilegedMode(True);
+	
+	Duplicate    = UsageInstance.Ref;
+	Original = UsageInstance.DestinationRef;
+	
+	RegisterMetadata = UsageInstance.Metadata;
+	RegisterRecordKey = UsageInstance.Data;
 
-	УстановитьПривилегированныйРежим(Истина);
+	Information = TypeInformation(RegisterMetadata, ExecutionParameters);
+	
+	TwoSetsRequired = False;
+	For Each KeyValue In Information.Dimensions Do
+		DuplicateDimensionValue = RegisterRecordKey[KeyValue.Key];
+		If DuplicateDimensionValue = Duplicate
+			Or ExecutionParameters.SuccessfulReplacements[DuplicateDimensionValue] = Duplicate Then
+			TwoSetsRequired = True; // Duplicate is specified in dimensions.
+			Break;
+		EndIf;
+	EndDo;
 
-	Дубль    = МестоИспользования.Ссылка;
-	Оригинал = МестоИспользования.ЦелеваяСсылка;
-
-	МетаданныеРегистра = МестоИспользования.Метаданные;
-	КлючЗаписиРегистра = МестоИспользования.Данные;
-
-	Информация = ИнформацияОТипе(МетаданныеРегистра, ПараметрыВыполнения);
-
-	ТребуетсяДваНабора = Ложь;
-	Для Каждого КлючЗначение Из Информация.Измерения Цикл
-		ЗначениеИзмеренияДубля = КлючЗаписиРегистра[КлючЗначение.Ключ];
-		Если ЗначениеИзмеренияДубля = Дубль Или ПараметрыВыполнения.УспешныеЗамены[ЗначениеИзмеренияДубля] = Дубль Тогда
-			ТребуетсяДваНабора = Истина; // Дубль указан в измерениях.
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
-
-	Менеджер = МенеджерОбъектаПоПолномуИмени(Информация.ПолноеИмя);
+	Manager = ObjectManagerByFullName(Information.FullName);
 	//@skip-warning
-	НаборЗаписейДубля = Менеджер.СоздатьНаборЗаписей();
-
-	Если ТребуетсяДваНабора Тогда
-		ЗначенияИзмеренийОригинала = Новый Структура;
+	DuplicateRecordSet = Manager.CreateRecordSet();
+	
+	If TwoSetsRequired Then
+		OriginalDimensionValues = New Structure;
 		//@skip-warning
-		НаборЗаписейОригинала = Менеджер.СоздатьНаборЗаписей();
-	КонецЕсли;
+		OriginalRecordSet = Manager.CreateRecordSet();
+	EndIf;
 
-	Если ВнутренняяТранзакция Тогда
-		НачатьТранзакцию();
-	КонецЕсли;
+	If InnerTransaction Then
+		BeginTransaction();
+	EndIf;
+	
+	Try
+		If InnerTransaction Then
+			Lock = New DataLock;
+			DuplicateLock = Lock.Add(Information.FullName);
+			If TwoSetsRequired Then
+				OriginalLock = Lock.Add(Information.FullName);
+			EndIf;
+		EndIf;
 
-	Попытка
-		Если ВнутренняяТранзакция Тогда
-			Блокировка = Новый БлокировкаДанных;
-			БлокировкаДубля = Блокировка.Добавить(Информация.ПолноеИмя);
-			Если ТребуетсяДваНабора Тогда
-				БлокировкаОригинала = Блокировка.Добавить(Информация.ПолноеИмя);
-			КонецЕсли;
-		КонецЕсли;
-
-		Для Каждого КлючЗначение Из Информация.Измерения Цикл
-			ЗначениеИзмеренияДубля = КлючЗаписиРегистра[КлючЗначение.Ключ];
+		For Each KeyValue In Information.Dimensions Do
+			DuplicateDimensionValue = RegisterRecordKey[KeyValue.Key];
 			
-			// Для решения проблемы уникальности
-			//   выполняется замена старых значений измерений ключа записи на актуальные.
-			//   Соответствие старых и актуальных обеспечивает соответствием УспешныеЗамены.
-			//   Данные соответствия актуальны на текущий момент времени,
-			//   т.к. пополняются только после успешной обработки очередной пары и фиксации транзакции.
-			НовоеЗначениеИзмеренияДубля = ПараметрыВыполнения.УспешныеЗамены[ЗначениеИзмеренияДубля];
-			Если НовоеЗначениеИзмеренияДубля <> Неопределено Тогда
-				ЗначениеИзмеренияДубля = НовоеЗначениеИзмеренияДубля;
-			КонецЕсли;
+			// To solve the problem of uniqueness, replacing old record key dimension values for new ones.
+			//   
+			//   Map of old and current provides SuccessfulReplacements.
+			//   Map data is actual at the current point in time as it is updated only after processing a next 
+			//   couple and committing the transaction.
+			NewDuplicateDimensionValue = ExecutionParameters.SuccessfulReplacements[DuplicateDimensionValue];
+			If NewDuplicateDimensionValue <> Undefined Then
+				DuplicateDimensionValue = NewDuplicateDimensionValue;
+			EndIf;
 
-			НаборЗаписейДубля.Отбор[КлючЗначение.Ключ].Установить(ЗначениеИзмеренияДубля);
+			DuplicateRecordSet.Filter[KeyValue.Key].Set(DuplicateDimensionValue);
+			
+			If InnerTransaction Then // Replacement in the pair and lock for the replacement.
+				DuplicateLock.SetValue(KeyValue.Key, DuplicateDimensionValue);
+			EndIf;
 
-			Если ВнутренняяТранзакция Тогда // Замена в конкретной паре и блокировка на конкретную замену.
-				БлокировкаДубля.УстановитьЗначение(КлючЗначение.Ключ, ЗначениеИзмеренияДубля);
-			КонецЕсли;
-
-			Если ТребуетсяДваНабора Тогда
-				Если ЗначениеИзмеренияДубля = Дубль Тогда
-					ЗначениеИзмеренияОригинала = Оригинал;
-				Иначе
-					ЗначениеИзмеренияОригинала = ЗначениеИзмеренияДубля;
-				КонецЕсли;
-
-				НаборЗаписейОригинала.Отбор[КлючЗначение.Ключ].Установить(ЗначениеИзмеренияОригинала);
-				ЗначенияИзмеренийОригинала.Вставить(КлючЗначение.Ключ, ЗначениеИзмеренияОригинала);
-
-				Если ВнутренняяТранзакция Тогда // Замена в конкретной паре и блокировка на конкретную замену.
-					БлокировкаОригинала.УстановитьЗначение(КлючЗначение.Ключ, ЗначениеИзмеренияОригинала);
-				КонецЕсли;
-			КонецЕсли;
-		КонецЦикла;
+			If TwoSetsRequired Then
+				If DuplicateDimensionValue = Duplicate Then
+					OriginalDimensionValue = Original;
+				Else
+					OriginalDimensionValue = DuplicateDimensionValue;
+				EndIf;
+				
+				OriginalRecordSet.Filter[KeyValue.Key].Set(OriginalDimensionValue);
+				OriginalDimensionValues.Insert(KeyValue.Key, OriginalDimensionValue);
+				
+				If InnerTransaction Then // Replacement in the pair and lock for the replacement.
+					OriginalLock.SetValue(KeyValue.Key, OriginalDimensionValue);
+				EndIf;
+			EndIf;
+		EndDo;
 		
-		// Установка блокировки.
-		Если ВнутренняяТранзакция Тогда
-			Попытка
-				Блокировка.Заблокировать();
-			Исключение
-				// Вид ошибки "БлокировкаДляРегистра".
-				ВызватьИсключение;
-			КонецПопытки;
-		КонецЕсли;
+		// Setting lock.
+		If InnerTransaction Then
+			Try
+				Lock.Lock();
+			Except
+				// Error type: LockForRegister.
+				Raise;
+			EndTry;
+		EndIf;
 		
-		// Откуда читаем?
-		НаборЗаписейДубля.Прочитать();
-		Если НаборЗаписейДубля.Количество() = 0 Тогда // Нечего писать.
-			Если ВнутренняяТранзакция Тогда
-				ОтменитьТранзакцию(); // Замена не требуется.
-			КонецЕсли;
-			Возврат;
-		КонецЕсли;
-		ЗаписьДубля = НаборЗаписейДубля[0];
+		// The source.
+		DuplicateRecordSet.Read();
+		If DuplicateRecordSet.Count() = 0 Then // Nothing to write.
+			If InnerTransaction Then
+				RollbackTransaction(); // Replacement is not required.
+			EndIf;
+			Return;
+		EndIf;
+		DuplicateRecord = DuplicateRecordSet[0];
 		
-		// Куда пишем?
-		Если ТребуетсяДваНабора Тогда
-			// Пишем в набор с другими измерениями.
-			НаборЗаписейОригинала.Прочитать();
-			Если НаборЗаписейОригинала.Количество() = 0 Тогда
-				ЗаписьОригинала = НаборЗаписейОригинала.Добавить();
-				ЗаполнитьЗначенияСвойств(ЗаписьОригинала, ЗаписьДубля);
-				ЗаполнитьЗначенияСвойств(ЗаписьОригинала, ЗначенияИзмеренийОригинала);
-			Иначе
-				ЗаписьОригинала = НаборЗаписейОригинала[0];
-			КонецЕсли;
-		Иначе
-			// Пишем туда-же, откуда и читаем.
-			НаборЗаписейОригинала = НаборЗаписейДубля;
-			ЗаписьОригинала = ЗаписьДубля; // Ситуация с нулевым количеством записей в наборе обработана выше.
-		КонецЕсли;
+		// The destination.
+		If TwoSetsRequired Then
+			// Writing to a set with other dimensions.
+			OriginalRecordSet.Read();
+			If OriginalRecordSet.Count() = 0 Then
+				OriginalRecord = OriginalRecordSet.Add();
+				FillPropertyValues(OriginalRecord, DuplicateRecord);
+				FillPropertyValues(OriginalRecord, OriginalDimensionValues);
+			Else
+				OriginalRecord = OriginalRecordSet[0];
+			EndIf;
+		Else
+			// Writing to the source.
+			OriginalRecordSet = DuplicateRecordSet;
+			OriginalRecord = DuplicateRecord; // The zero record set case is processed above.
+		EndIf;
 		
-		// Замена дубля на оригинал в ресурсах и реквизитах.
-		Для Каждого КлючЗначение Из Информация.Ресурсы Цикл
-			ЗначениеРеквизитаВОригинале = ЗаписьОригинала[КлючЗначение.Ключ];
-			Если ЗначениеРеквизитаВОригинале = Дубль Тогда
-				ЗаписьОригинала[КлючЗначение.Ключ] = Оригинал;
-			КонецЕсли;
-		КонецЦикла;
-		Для Каждого КлючЗначение Из Информация.Реквизиты Цикл
-			ЗначениеРеквизитаВОригинале = ЗаписьОригинала[КлючЗначение.Ключ];
-			Если ЗначениеРеквизитаВОригинале = Дубль Тогда
-				ЗаписьОригинала[КлючЗначение.Ключ] = Оригинал;
-			КонецЕсли;
-		КонецЦикла;
+		// Substituting the original for duplicate in resource and attributes.
+		For Each KeyValue In Information.Resources Do
+			AttributeValueInOriginal = OriginalRecord[KeyValue.Key];
+			If AttributeValueInOriginal = Duplicate Then
+				OriginalRecord[KeyValue.Key] = Original;
+			EndIf;
+		EndDo;
+		For Each KeyValue In Information.Attributes Do
+			AttributeValueInOriginal = OriginalRecord[KeyValue.Key];
+			If AttributeValueInOriginal = Duplicate Then
+				OriginalRecord[KeyValue.Key] = Original;
+			EndIf;
+		EndDo;
 
-		Если Не ПараметрыВыполнения.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-			УстановитьПривилегированныйРежим(Ложь);
-		КонецЕсли;
+		If Not ExecutionParameters.WriteParameters.PrivilegedMode Then
+			SetPrivilegedMode(False);
+		EndIf;
 		
-		// Удаление данных дубля.
-		Если ТребуетсяДваНабора Тогда
-			НаборЗаписейДубля.Очистить();
-			Попытка
+		// Deleting the duplicate data.
+		If TwoSetsRequired Then
+			DuplicateRecordSet.Clear();
+			Try
 				ЗаписатьОбъектПриЗаменеСсылок(НаборЗаписейДубля, ПараметрыВыполнения);
-			Исключение
-				// Вид ошибки "УдалитьНаборДубля".
-				ВызватьИсключение;
-			КонецПопытки;
-		КонецЕсли;
+			Except
+				// Error type: DeleteDuplicateSet.
+				Raise;
+			EndTry;
+		EndIf;
 		
-		// Запись данных оригинала.
-		Если НаборЗаписейОригинала.Модифицированность() Тогда
-			Попытка
+		// Writing original object data.
+		If OriginalRecordSet.Modified() Then
+			Try
 				ЗаписатьОбъектПриЗаменеСсылок(НаборЗаписейОригинала, ПараметрыВыполнения);
-			Исключение
-				// Вид ошибки "ЗаписатьНаборОригинала".
-				ВызватьИсключение;
-			КонецПопытки;
-		КонецЕсли;
-
-		Если ВнутренняяТранзакция Тогда
-			ЗафиксироватьТранзакцию();
-		КонецЕсли;
-	Исключение
-		Если ВнутренняяТранзакция Тогда
-			ОтменитьТранзакцию();
-		КонецЕсли;
-		ЗарегистрироватьОшибкуВТаблицу(Результат, Дубль, Оригинал, КлючЗаписиРегистра, Информация,
-			"БлокировкаДляРегистра", ИнформацияОбОшибке());
-	КонецПопытки;
-
-КонецПроцедуры
-
-Функция ИзмененныеОбъектыПриЗаменеВОбъекте(ПараметрыВыполнения, МестоИспользования, ОбрабатываемыеСтроки)
-	Данные = МестоИспользования.Данные;
-	ОписаниеПоследовательностей = ОписаниеПоследовательностей(МестоИспользования.Метаданные);
-	ОписаниеДвижений            = ОписаниеДвижений(МестоИспользования.Метаданные);
-
-	УстановитьПривилегированныйРежим(Истина);
-	
-	// Возвращаем измененные обработанные объекты.
-	Измененные = Новый Соответствие;
-	
-	// Считываем
-	Описание = ОписаниеОбъекта(Данные.Метаданные());
-	Попытка
-		Объект = Данные.ПолучитьОбъект();
-	Исключение
-		// Был уже обработан с ошибками.
-		Объект = Неопределено;
-	КонецПопытки;
-
-	Если Объект = Неопределено Тогда
-		Возврат Измененные;
-	КонецЕсли;
-
-	Для Каждого ОписаниеДвижения Из ОписаниеДвижений Цикл
-		ОписаниеДвижения.НаборЗаписей.Отбор.Регистратор.Установить(Данные);
-		ОписаниеДвижения.НаборЗаписей.Прочитать();
-	КонецЦикла;
-
-	Для Каждого ОписаниеПоследовательности Из ОписаниеПоследовательностей Цикл
-		ОписаниеПоследовательности.НаборЗаписей.Отбор.Регистратор.Установить(Данные);
-		ОписаниеПоследовательности.НаборЗаписей.Прочитать();
-	КонецЦикла;
-	
-	// Заменяем сразу все варианты.
-	ПарыЗамен = Новый Соответствие;
-	Для Каждого МестоИспользования Из ОбрабатываемыеСтроки Цикл
-		ПарыЗамен.Вставить(МестоИспользования.Ссылка, МестоИспользования.ЦелеваяСсылка);
-	КонецЦикла;
-	
-	// Реквизиты
-	Для Каждого КлючЗначение Из Описание.Реквизиты Цикл
-		Имя = КлючЗначение.Ключ;
-		ЦелеваяСсылка = ПарыЗамен[Объект[Имя]];
-		Если ЦелеваяСсылка <> Неопределено Тогда
-			ЗарегистрироватьФактЗамены(Объект, Объект[Имя], ЦелеваяСсылка, "Реквизиты", Имя);
-			Объект[Имя] = ЦелеваяСсылка;
-		КонецЕсли;
-	КонецЦикла;
-	
-	// Стандартные реквизиты
-	Для Каждого КлючЗначение Из Описание.СтандартныеРеквизиты Цикл
-		Имя = КлючЗначение.Ключ;
-		ЦелеваяСсылка = ПарыЗамен[Объект[Имя]];
-		Если ЦелеваяСсылка <> Неопределено Тогда
-			ЗарегистрироватьФактЗамены(Объект, Объект[Имя], ЦелеваяСсылка, "СтандартныеРеквизиты", Имя);
-			Объект[Имя] = ЦелеваяСсылка;
-		КонецЕсли;
-	КонецЦикла;
+			Except
+				// Error type: WriteOriginalSet.
+				Raise;
+			EndTry;
+		EndIf;
 		
-	// Табличные части
-	Для Каждого Элемент Из Описание.ТабличныеЧасти Цикл
-		ЗаменитьВКоллекцииСтрок(
-			"ТабличныеЧасти", Элемент.Имя, Объект, Объект[Элемент.Имя], Элемент.СписокПолей, ПарыЗамен);
-	КонецЦикла;
+		If InnerTransaction Then
+			CommitTransaction();
+		EndIf;
+	Except
+		If InnerTransaction Then
+			RollbackTransaction();
+		EndIf;
+		RegisterErrorInTable(Result, Duplicate, Original, RegisterRecordKey, Information, 
+			"LockForRegister", ErrorInfo());
+	EndTry
 	
-	// Стандартные табличные части.
-	Для Каждого Элемент Из Описание.СтандартныеТабличныеЧасти Цикл
-		ЗаменитьВКоллекцииСтрок(
-			"СтандартныеТабличныеЧасти", Элемент.Имя, Объект, Объект[Элемент.Имя], Элемент.СписокПолей, ПарыЗамен);
-	КонецЦикла;
-		
-	// Движения
-	Для Каждого ОписаниеДвижения Из ОписаниеДвижений Цикл
-		ЗаменитьВКоллекцииСтрок(
-			"Движения", ОписаниеДвижения.ПространствоБлокировки, ОписаниеДвижения.НаборЗаписей,
-			ОписаниеДвижения.НаборЗаписей, ОписаниеДвижения.СписокПолей, ПарыЗамен);
-	КонецЦикла;
+EndProcedure
+
+Function ModifiedObjectsOnReplaceInObject(ExecutionParameters, UsageInstance, RowsToProcess)
+	Data = UsageInstance.Data;
+	SequencesDetails = SequencesDetails(UsageInstance.Metadata);
+	RegisterRecordsDetails            = RegisterRecordsDetails(UsageInstance.Metadata);
 	
-	// Последовательности
-	Для Каждого ОписаниеПоследовательности Из ОписаниеПоследовательностей Цикл
-		ЗаменитьВКоллекцииСтрок(
-			"Последовательности", ОписаниеПоследовательности.ПространствоБлокировки,
-			ОписаниеПоследовательности.НаборЗаписей, ОписаниеПоследовательности.НаборЗаписей,
-			ОписаниеПоследовательности.СписокПолей, ПарыЗамен);
-	КонецЦикла;
-
-	Для Каждого ОписаниеДвижения Из ОписаниеДвижений Цикл
-		Если ОписаниеДвижения.НаборЗаписей.Модифицированность() Тогда
-			Измененные.Вставить(ОписаниеДвижения.НаборЗаписей, Ложь);
-		КонецЕсли;
-	КонецЦикла;
-
-	Для Каждого ОписаниеПоследовательности Из ОписаниеПоследовательностей Цикл
-		Если ОписаниеПоследовательности.НаборЗаписей.Модифицированность() Тогда
-			Измененные.Вставить(ОписаниеПоследовательности.НаборЗаписей, Ложь);
-		КонецЕсли;
-	КонецЦикла;
+	SetPrivilegedMode(True);
 	
-	// Сам объект последний - для возможного перепроведения.
-	Если Объект.Модифицированность() Тогда
-		Измененные.Вставить(Объект, Описание.МожетБытьПроведен);
-	КонецЕсли;
-
-	Возврат Измененные;
-КонецФункции
-
-Процедура ЗарегистрироватьФактЗамены(Объект, СсылкаДубля, СсылкаОригинала, ВидРеквизита, ИмяРеквизита,
-	Индекс = Неопределено, ИмяКолонки = Неопределено)
-	Структура = Новый Структура("ДополнительныеСвойства");
-	ЗаполнитьЗначенияСвойств(Структура, Объект);
-	Если ТипЗнч(Структура.ДополнительныеСвойства) <> Тип("Структура") Тогда
-		Возврат;
-	КонецЕсли;
-	ДопСвойства = Объект.ДополнительныеСвойства;
-	ДопСвойства.Вставить("ЗаменаСсылок", Истина);
-	ВыполненныеЗамены = UT_CommonClientServer.StructureProperty(ДопСвойства, "ВыполненныеЗамены");
-	Если ВыполненныеЗамены = Неопределено Тогда
-		ВыполненныеЗамены = Новый Массив;
-		ДопСвойства.Вставить("ВыполненныеЗамены", ВыполненныеЗамены);
-	КонецЕсли;
-	ОписаниеЗамены = Новый Структура;
-	ОписаниеЗамены.Вставить("СсылкаДубля", СсылкаДубля);
-	ОписаниеЗамены.Вставить("СсылкаОригинала", СсылкаОригинала);
-	ОписаниеЗамены.Вставить("ВидРеквизита", ВидРеквизита);
-	ОписаниеЗамены.Вставить("ИмяРеквизита", ИмяРеквизита);
-	ОписаниеЗамены.Вставить("Индекс", Индекс);
-	ОписаниеЗамены.Вставить("ИмяКолонки", ИмяКолонки);
-	ВыполненныеЗамены.Добавить(ОписаниеЗамены);
-КонецПроцедуры
-
-Процедура УдалитьСсылкиНемонопольно(Результат, Знач СписокСсылок, Знач ПараметрыВыполнения, Знач УдалятьНепосредственно)
-
-	УстановитьПривилегированныйРежим(Истина);
-
-	Удаляемые = Новый Массив;
-
-	ЛокальнаяТранзакция = Не ТранзакцияАктивна();
-	Если ЛокальнаяТранзакция Тогда
-		НачатьТранзакцию();
-	КонецЕсли;
-
-	Попытка
-		Для Каждого Ссылка Из СписокСсылок Цикл
-			Информация = ИнформацияОТипе(ТипЗнч(Ссылка), ПараметрыВыполнения);
-			Блокировка = Новый БлокировкаДанных;
-			Блокировка.Добавить(Информация.ПолноеИмя).УстановитьЗначение("Ссылка", Ссылка);
-			Попытка
-				Блокировка.Заблокировать();
-				Удаляемые.Добавить(Ссылка);
-			Исключение
-				ЗарегистрироватьОшибкуВТаблицу(Результат, Ссылка, Неопределено, Ссылка, Информация,
-					"БлокировкаДляУдаленияДубля", ИнформацияОбОшибке());
-			КонецПопытки;
-		КонецЦикла;
-
-		ТаблицаПоиска = МестаИспользования(Удаляемые);
-		Фильтр = Новый Структура("Ссылка");
-
-		Для Каждого Ссылка Из Удаляемые Цикл
-			ПредставлениеСсылки = ПредметСтрокой(Ссылка);
-
-			Фильтр.Ссылка = Ссылка;
-			МестаИспользования = ТаблицаПоиска.НайтиСтроки(Фильтр);
-
-			Индекс = МестаИспользования.ВГраница();
-			Пока Индекс >= 0 Цикл
-				Если МестаИспользования[Индекс].ВспомогательныеДанные Тогда
-					МестаИспользования.Удалить(Индекс);
-				КонецЕсли;
-				Индекс = Индекс - 1;
-			КонецЦикла;
-
-			Если МестаИспользования.Количество() > 0 Тогда
-				ДобавитьРезультатыЗаменыИзмененныхОбъектов(Результат, МестаИспользования);
-				Продолжить; // Остались места использования, нельзя удалять.
-			КонецЕсли;
-
-			Объект = Ссылка.ПолучитьОбъект();
-			Если Объект = Неопределено Тогда
-				Продолжить; // Уже удален.
-			КонецЕсли;
-
-			Если Не ПараметрыВыполнения.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-				УстановитьПривилегированныйРежим(Ложь);
-			КонецЕсли;
-
-			Попытка
-				Если УдалятьНепосредственно Тогда
-					ОбработатьОбъектСПерехватомСообщенийПриЗаменеСсылок(Объект, "НепосредственноеУдаление", Неопределено,
-						ПараметрыВыполнения);
-				Иначе
-					ОбработатьОбъектСПерехватомСообщенийПриЗаменеСсылок(Объект, "УстановитьПометкуУдаления",
-						Неопределено, ПараметрыВыполнения);
-				КонецЕсли;
-			Исключение
-				ТекстОшибки = НСтр("ru = 'Ошибка удаления'") + Символы.ПС + СокрЛП(КраткоеПредставлениеОшибки(
-					ИнформацияОбОшибке()));
-				ОписаниеОшибки = ОписаниеОшибкиЗамены("ОшибкаУдаления", Ссылка, ПредставлениеСсылки, ТекстОшибки);
-				ЗарегистрироватьОшибкуЗамены(Результат, Ссылка, ОписаниеОшибки);
-			КонецПопытки;
-
-			Если Не ПараметрыВыполнения.ПараметрыЗаписи.ПривелигированныйРежим Тогда
-				УстановитьПривилегированныйРежим(Истина);
-			КонецЕсли;
-		КонецЦикла;
-
-		Если ЛокальнаяТранзакция Тогда
-			ЗафиксироватьТранзакцию();
-		КонецЕсли;
-	Исключение
-		Если ЛокальнаяТранзакция Тогда
-			ОтменитьТранзакцию();
-		КонецЕсли;
-	КонецПопытки;
-
-КонецПроцедуры
-
-Процедура ДобавитьРезультатыЗаменыИзмененныхОбъектов(Результат, ТаблицаПовторногоПоиска)
-
-	Фильтр = Новый Структура("ТипОшибки, Ссылка, ОбъектОшибки", "");
-	Для Каждого Строка Из ТаблицаПовторногоПоиска Цикл
-		Тест = Новый Структура("ВспомогательныеДанные", Ложь);
-		ЗаполнитьЗначенияСвойств(Тест, Строка);
-		Если Тест.ВспомогательныеДанные Тогда
-			Продолжить;
-		КонецЕсли;
-
-		Данные = Строка.Данные;
-		Ссылка = Строка.Ссылка;
-
-		ПредставлениеДанных = Строка(Данные);
-
-		Фильтр.ОбъектОшибки = Данные;
-		Фильтр.Ссылка       = Ссылка;
-		Если Результат.Ошибки.НайтиСтроки(Фильтр).Количество() > 0 Тогда
-			Продолжить; // По данной проблеме уже записана ошибка.
-		КонецЕсли;
-		ЗарегистрироватьОшибкуЗамены(Результат, Ссылка, ОписаниеОшибкиЗамены("ДанныеИзменены", Данные,
-			ПредставлениеДанных, НСтр(
-			"ru = 'Заменены не все места использования. Возможно места использования были добавлены или изменены другим пользователем.'")));
-	КонецЦикла;
-
-КонецПроцедуры
-
-Процедура ЗаблокироватьМестаИспользования(ПараметрыВыполнения, Блокировка, МестаИспользования)
-
-	Для Каждого МестоИспользования Из МестаИспользования Цикл
-
-		ЗаблокироватьМестоИспользования(ПараметрыВыполнения, Блокировка, МестоИспользования);
-
-	КонецЦикла;
-
-КонецПроцедуры
-
-Процедура ЗаблокироватьМестоИспользования(ПараметрыВыполнения, Блокировка, МестоИспользования)
-
-	Если МестоИспользования.КлючЗамены = "Константа" Тогда
-
-		Блокировка.Добавить(МестоИспользования.Метаданные.ПолноеИмя());
-
-	ИначеЕсли МестоИспользования.КлючЗамены = "Объект" Тогда
-
-		СсылкаОбъекта     = МестоИспользования.Данные;
-		МетаданныеОбъекта = МестоИспользования.Метаданные;
-		
-		// Сам объект.
-		Блокировка.Добавить(МетаданныеОбъекта.ПолноеИмя()).УстановитьЗначение("Ссылка", СсылкаОбъекта);
-		
-		// Движения по регистратору.
-		ОписаниеДвижений = ОписаниеДвижений(МетаданныеОбъекта);
-		Для Каждого Элемент Из ОписаниеДвижений Цикл
-			Блокировка.Добавить(Элемент.ПространствоБлокировки + ".НаборЗаписей").УстановитьЗначение("Регистратор",
-				СсылкаОбъекта);
-		КонецЦикла;
-		
-		// Последовательности.
-		ОписаниеПоследовательностей = ОписаниеПоследовательностей(МетаданныеОбъекта);
-		Для Каждого Элемент Из ОписаниеПоследовательностей Цикл
-			Блокировка.Добавить(Элемент.ПространствоБлокировки).УстановитьЗначение("Регистратор", СсылкаОбъекта);
-		КонецЦикла;
-
-	ИначеЕсли МестоИспользования.КлючЗамены = "Последовательность" Тогда
-
-		СсылкаОбъекта     = МестоИспользования.Данные;
-		МетаданныеОбъекта = МестоИспользования.Метаданные;
-
-		ОписаниеПоследовательностей = ОписаниеПоследовательностей(МетаданныеОбъекта);
-		Для Каждого Элемент Из ОписаниеПоследовательностей Цикл
-			Блокировка.Добавить(Элемент.ПространствоБлокировки).УстановитьЗначение("Регистратор", СсылкаОбъекта);
-		КонецЦикла;
-
-	ИначеЕсли МестоИспользования.КлючЗамены = "КлючЗаписи" Или МестоИспользования.КлючЗамены = "РегистрСведений" Тогда
-
-		Информация = ИнформацияОТипе(МестоИспользования.Метаданные, ПараметрыВыполнения);
-		ТипДубля = МестоИспользования.ТипСсылки;
-		ТипОригинала = ТипЗнч(МестоИспользования.ЦелеваяСсылка);
-
-		Для Каждого КлючЗначение Из Информация.Измерения Цикл
-			ТипИзмерения = КлючЗначение.Значение.Тип;
-			Если ТипИзмерения.СодержитТип(ТипДубля) Тогда
-				БлокировкаПоИзмерению = Блокировка.Добавить(Информация.ПолноеИмя);
-				БлокировкаПоИзмерению.УстановитьЗначение(КлючЗначение.Ключ, МестоИспользования.Ссылка);
-			КонецЕсли;
-			Если ТипИзмерения.СодержитТип(ТипОригинала) Тогда
-				БлокировкаПоИзмерению = Блокировка.Добавить(Информация.ПолноеИмя);
-				БлокировкаПоИзмерению.УстановитьЗначение(КлючЗначение.Ключ, МестоИспользования.ЦелеваяСсылка);
-			КонецЕсли;
-		КонецЦикла;
-
-	КонецЕсли;
-
-КонецПроцедуры
-
-Функция ОписаниеДвижений(Знач Мета)
-	// можно закэшировать по Мета
-
-	ОписаниеДвижений = Новый Массив;
-	Если Не Метаданные.Документы.Содержит(Мета) Тогда
-		Возврат ОписаниеДвижений;
-	КонецЕсли;
-
-	Для Каждого Движение Из Мета.Движения Цикл
-
-		Если Метаданные.РегистрыНакопления.Содержит(Движение) Тогда
-			НаборЗаписей = РегистрыНакопления[Движение.Имя].СоздатьНаборЗаписей();
-			ИсключатьПоля = "Активность, НомерСтроки, Период, Регистратор";
-
-		ИначеЕсли Метаданные.РегистрыСведений.Содержит(Движение) Тогда
-			НаборЗаписей = РегистрыСведений[Движение.Имя].СоздатьНаборЗаписей();
-			ИсключатьПоля = "Активность, ВидДвижения, НомерСтроки, Период, Регистратор";
-
-		ИначеЕсли Метаданные.РегистрыБухгалтерии.Содержит(Движение) Тогда
-			НаборЗаписей = РегистрыБухгалтерии[Движение.Имя].СоздатьНаборЗаписей();
-			ИсключатьПоля = "Активность, ВидДвижения, НомерСтроки, Период, Регистратор";
-
-		ИначеЕсли Метаданные.РегистрыРасчета.Содержит(Движение) Тогда
-			НаборЗаписей = РегистрыРасчета[Движение.Имя].СоздатьНаборЗаписей();
-			ИсключатьПоля = "Активность, БазовыйПериодКонец, БазовыйПериодНачало, НомерСтроки, ПериодДействия,
-							|ПериодДействияКонец, ПериодДействияНачало, ПериодРегистрации, Регистратор, Сторно,
-							|ФактическийПериодДействия";
-		Иначе
-			// Неизвестный тип
-			Продолжить;
-		КонецЕсли;
-		
-		// Поля ссылочного типа и измерения - кандидаты.
-		Описание = СпискиПолейПоТипу(НаборЗаписей, Движение.Измерения, ИсключатьПоля);
-		Если Описание.СписокПолей.Количество() = 0 Тогда
-			// Незачем обрабатывать
-			Продолжить;
-		КонецЕсли;
-
-		Описание.Вставить("НаборЗаписей", НаборЗаписей);
-		Описание.Вставить("ПространствоБлокировки", Движение.ПолноеИмя());
-
-		ОписаниеДвижений.Добавить(Описание);
-	КонецЦикла;	// Метаданные движений
-
-	Возврат ОписаниеДвижений;
-КонецФункции
-
-Функция ОписаниеПоследовательностей(Знач Мета)
-
-	ОписаниеПоследовательностей = Новый Массив;
-	Если Не Метаданные.Документы.Содержит(Мета) Тогда
-		Возврат ОписаниеПоследовательностей;
-	КонецЕсли;
-
-	Для Каждого Последовательность Из Метаданные.Последовательности Цикл
-		Если Не Последовательность.Документы.Содержит(Мета) Тогда
-			Продолжить;
-		КонецЕсли;
-
-		ИмяТаблицы = Последовательность.ПолноеИмя();
-		
-		// Список полей и измерений
-		Описание = СпискиПолейПоТипу(ИмяТаблицы, Последовательность.Измерения, "Регистратор");
-		Если Описание.СписокПолей.Количество() > 0 Тогда
-
-			Описание.Вставить("НаборЗаписей", Последовательности[Последовательность.Имя].СоздатьНаборЗаписей());
-			Описание.Вставить("ПространствоБлокировки", ИмяТаблицы + ".Записи");
-			Описание.Вставить("Измерения", Новый Структура);
-
-			ОписаниеПоследовательностей.Добавить(Описание);
-		КонецЕсли;
-
-	КонецЦикла;
-
-	Возврат ОписаниеПоследовательностей;
-КонецФункции
-
-Функция ОписаниеОбъекта(Знач Мета)
-	// можно закэшировать по Мета
-
-	ТипВсеСсылки = AllRefsTypeDescription();
-
-	Кандидаты = Новый Структура("Реквизиты, СтандартныеРеквизиты, ТабличныеЧасти, СтандартныеТабличныеЧасти");
-	ЗаполнитьЗначенияСвойств(Кандидаты, Мета);
-
-	ОписаниеОбъекта = Новый Структура;
-
-	ОписаниеОбъекта.Вставить("Реквизиты", Новый Структура);
-	Если Кандидаты.Реквизиты <> Неопределено Тогда
-		Для Каждого МетаРеквизит Из Кандидаты.Реквизиты Цикл
-			Если ОписанияТиповПересекаются(МетаРеквизит.Тип, ТипВсеСсылки) Тогда
-				ОписаниеОбъекта.Реквизиты.Вставить(МетаРеквизит.Имя);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-
-	ОписаниеОбъекта.Вставить("СтандартныеРеквизиты", Новый Структура);
-	Если Кандидаты.СтандартныеРеквизиты <> Неопределено Тогда
-		Исключаемые = Новый Структура("Ссылка");
-
-		Для Каждого МетаРеквизит Из Кандидаты.СтандартныеРеквизиты Цикл
-			Имя = МетаРеквизит.Имя;
-			Если Не Исключаемые.Свойство(Имя) И ОписанияТиповПересекаются(МетаРеквизит.Тип, ТипВсеСсылки) Тогда
-				ОписаниеОбъекта.Реквизиты.Вставить(МетаРеквизит.Имя);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-
-	ОписаниеОбъекта.Вставить("ТабличныеЧасти", Новый Массив);
-	Если Кандидаты.ТабличныеЧасти <> Неопределено Тогда
-		Для Каждого МетаТаблица Из Кандидаты.ТабличныеЧасти Цикл
-
-			СписокПолей = Новый Структура;
-			Для Каждого МетаРеквизит Из МетаТаблица.Реквизиты Цикл
-				Если ОписанияТиповПересекаются(МетаРеквизит.Тип, ТипВсеСсылки) Тогда
-					СписокПолей.Вставить(МетаРеквизит.Имя);
-				КонецЕсли;
-			КонецЦикла;
-
-			Если СписокПолей.Количество() > 0 Тогда
-				ОписаниеОбъекта.ТабличныеЧасти.Добавить(Новый Структура("Имя, СписокПолей", МетаТаблица.Имя,
-					СписокПолей));
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-
-	ОписаниеОбъекта.Вставить("СтандартныеТабличныеЧасти", Новый Массив);
-	Если Кандидаты.СтандартныеТабличныеЧасти <> Неопределено Тогда
-		Для Каждого МетаТаблица Из Кандидаты.СтандартныеТабличныеЧасти Цикл
-
-			СписокПолей = Новый Структура;
-			Для Каждого МетаРеквизит Из МетаТаблица.СтандартныеРеквизиты Цикл
-				Если ОписанияТиповПересекаются(МетаРеквизит.Тип, ТипВсеСсылки) Тогда
-					СписокПолей.Вставить(МетаРеквизит.Имя);
-				КонецЕсли;
-			КонецЦикла;
-
-			Если СписокПолей.Количество() > 0 Тогда
-				ОписаниеОбъекта.СтандартныеТабличныеЧасти.Добавить(Новый Структура("Имя, СписокПолей", МетаТаблица.Имя,
-					СписокПолей));
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-
-	ОписаниеОбъекта.Вставить("МожетБытьПроведен", Метаданные.Документы.Содержит(Мета));
-	Возврат ОписаниеОбъекта;
-КонецФункции
-
-Функция ОписаниеКлючаЗаписи(Знач Мета)
-	// можно закэшировать по Мета
-
-	ИмяТаблицы = Мета.ПолноеИмя();
+	// Returning modified processed objects.
+	Modified = New Map;
 	
-	// Поля ссылочного типа - кандидаты и набор измерений.
-	ОписаниеКлюча = СпискиПолейПоТипу(ИмяТаблицы, Мета.Измерения, "Период, Регистратор");
+	// Reading
+	Details = ObjectDetails(Data.Metadata());
+	Try
+		Object = Data.GetObject();
+	Except
+		// Has already been processed with errors.
+		Object = Undefined;
+	EndTry;
+	
+	If Object = Undefined Then
+		Return Modified;
+	EndIf;
 
-	Если Метаданные.РегистрыСведений.Содержит(Мета) Тогда
-		НаборЗаписей = РегистрыСведений[Мета.Имя].СоздатьНаборЗаписей();
+		For Each RegisterRecordDetails In RegisterRecordsDetails Do
+		RegisterRecordDetails.RecordSet.Filter.Recorder.Set(Data);
+		RegisterRecordDetails.RecordSet.Read();
+	EndDo;
+	
+	For Each SequenceDetails In SequencesDetails Do
+		SequenceDetails.RecordSet.Filter.Recorder.Set(Data);
+		SequenceDetails.RecordSet.Read();
+	EndDo;
+	
+	// Replacing all at once.
+	ReplacementPairs = New Map;
+	For Each UsageInstance In RowsToProcess Do
+		ReplacementPairs.Insert(UsageInstance.Ref, UsageInstance.DestinationRef);
+	EndDo;
+		// Attributes
+	For Each KeyValue In Details.Attributes Do
+		Name = KeyValue.Key;
+		DestinationRef = ReplacementPairs[ Object[Name] ];
+		If DestinationRef <> Undefined Then
+			RegisterReplacement(Object, Object[Name], DestinationRef, "Attributes", Name);
+			Object[Name] = DestinationRef;
+		EndIf;
+	EndDo;
+	
+	// Standard attributes.
+	For Each KeyValue In Details.StandardAttributes Do
+		Name = KeyValue.Key;
+		DestinationRef = ReplacementPairs[ Object[Name] ];
+		If DestinationRef <> Undefined Then
+			RegisterReplacement(Object, Object[Name], DestinationRef, "StandardAttributes", Name);
+			Object[Name] = DestinationRef;
+		EndIf;
+	EndDo;
+		
+	// Tabular sections
+	For Each Item In Details.TabularSections Do
+		ReplaceInRowCollection(
+			"TabularSections",
+			Item.Name,
+			Object,
+			Object[Item.Name],
+			Item.FieldList,
+			ReplacementPairs);
+	EndDo;
+	
+	// Standard tabular section.
+	For Each Item In Details.StandardTabularSections Do
+		ReplaceInRowCollection(
+			"StandardTabularSections",
+			Item.Name,
+			Object,
+			Object[Item.Name],
+			Item.FieldList,
+			ReplacementPairs);
+	EndDo;
+		
+	// RegisterRecords
+	For Each RegisterRecordDetails In RegisterRecordsDetails Do
+		ReplaceInRowCollection(
+			"RegisterRecords",
+			RegisterRecordDetails.LockSpace,
+			RegisterRecordDetails.RecordSet,
+			RegisterRecordDetails.RecordSet,
+			RegisterRecordDetails.FieldList,
+			ReplacementPairs);
+	EndDo;
+	
+	// Sequences
+	For Each SequenceDetails In SequencesDetails Do
+		ReplaceInRowCollection(
+			"Sequences",
+			SequenceDetails.LockSpace,
+			SequenceDetails.RecordSet,
+			SequenceDetails.RecordSet,
+			SequenceDetails.FieldList,
+			ReplacementPairs);
+	EndDo;
+	
+	For Each RegisterRecordDetails In RegisterRecordsDetails Do
+		If RegisterRecordDetails.RecordSet.Modified() Then
+			Modified.Insert(RegisterRecordDetails.RecordSet, False);
+		EndIf;
+	EndDo;
+	
+	For Each SequenceDetails In SequencesDetails Do
+		If SequenceDetails.RecordSet.Modified() Then
+			Modified.Insert(SequenceDetails.RecordSet, False);
+		EndIf;
+	EndDo;
+	
+	// The object goes last in case a reposting is required.
+	If Object.Modified() Then
+		Modified.Insert(Object, Details.CanBePosted);
+	EndIf;
+	
+	Return Modified;
+EndFunction
 
-	ИначеЕсли Метаданные.РегистрыНакопления.Содержит(Мета) Тогда
-		НаборЗаписей = РегистрыНакопления[Мета.Имя].СоздатьНаборЗаписей();
+Procedure RegisterReplacement(Object, DuplicateRef, OriginalRef, AttributeKind, AttributeName, Index = Undefined, ColumnName = Undefined)
+	Structure = New Structure("AdditionalProperties");
+	FillPropertyValues(Structure, Object);
+	If TypeOf(Structure.AdditionalProperties) <> Type("Structure") Then
+		Return;
+	EndIf;
+AuxProperties = Object.AdditionalProperties;
+	AuxProperties.Insert("ReferenceReplacement", True);
+	CompletedReplacements = UT_CommonClientServer.StructureProperty(AuxProperties, "CompletedReplacements");
+	If CompletedReplacements = Undefined Then
+		CompletedReplacements = New Array;
+		AuxProperties.Insert("CompletedReplacements", CompletedReplacements);
+	EndIf;
+	ReplacementDetails = New Structure;
+	ReplacementDetails.Insert("DuplicateRef", DuplicateRef);
+	ReplacementDetails.Insert("OriginalRef", OriginalRef);
+	ReplacementDetails.Insert("AttributeKind", AttributeKind);
+	ReplacementDetails.Insert("AttributeName", AttributeName);
+	ReplacementDetails.Insert("IndexOf", Index);
+	ReplacementDetails.Insert("ColumnName", ColumnName);
+	CompletedReplacements.Add(ReplacementDetails);
+EndProcedure
 
-	ИначеЕсли Метаданные.РегистрыБухгалтерии.Содержит(Мета) Тогда
-		НаборЗаписей = РегистрыБухгалтерии[Мета.Имя].СоздатьНаборЗаписей();
+Procedure DeleteRefsNotExclusive(Result, Val RefsList, Val ExecutionParameters, Val DeleteDirectly)
+	
+	SetPrivilegedMode(True);
+	
+	ToDelete = New Array;
+	
+	LocalTransaction = Not TransactionActive();
+	If LocalTransaction Then
+		BeginTransaction();
+	EndIf;
 
-	ИначеЕсли Метаданные.РегистрыРасчета.Содержит(Мета) Тогда
-		НаборЗаписей = РегистрыРасчета[Мета.Имя].СоздатьНаборЗаписей();
-
-	ИначеЕсли Метаданные.Последовательности.Содержит(Мета) Тогда
-		НаборЗаписей = Последовательности[Мета.Имя].СоздатьНаборЗаписей();
-
-	Иначе
-		НаборЗаписей = Неопределено;
-
-	КонецЕсли;
-
-	ОписаниеКлюча.Вставить("НаборЗаписей", НаборЗаписей);
-	ОписаниеКлюча.Вставить("ПространствоБлокировки", ИмяТаблицы);
-
-	Возврат ОписаниеКлюча;
-КонецФункции
-
-Функция ОписанияТиповПересекаются(Знач Описание1, Знач Описание2)
-
-	Для Каждого Тип Из Описание1.Типы() Цикл
-		Если Описание2.СодержитТип(Тип) Тогда
-			Возврат Истина;
-		КонецЕсли;
-	КонецЦикла;
-
-	Возврат Ложь;
-КонецФункции
-
-// Возвращает описание по имени таблицы или по набору записей.
-Функция СпискиПолейПоТипу(Знач ИсточникДанных, Знач МетаИзмерения, Знач ИсключатьПоля)
-	// можно закэшировать
-
-	Описание = Новый Структура;
-	Описание.Вставить("СписокПолей", Новый Структура);
-	Описание.Вставить("СтруктураИзмерений", Новый Структура);
-	Описание.Вставить("СписокВедущих", Новый Структура);
-
-	ТипКонтроля = AllRefsTypeDescription();
-	Исключаемые = Новый Структура(ИсключатьПоля);
-
-	ТипИсточникаДанных = ТипЗнч(ИсточникДанных);
-
-	Если ТипИсточникаДанных = Тип("Строка") Тогда
-		// Источник - имя таблицы, получаем поля запросом.
-		Запрос = Новый Запрос("ВЫБРАТЬ * ИЗ " + ИсточникДанных + " ГДЕ ЛОЖЬ");
-		ИсточникПолей = Запрос.Выполнить();
-	Иначе
-		// Источник - набор записей
-		ИсточникПолей = ИсточникДанных.ВыгрузитьКолонки();
-	КонецЕсли;
-
-	Для Каждого Колонка Из ИсточникПолей.Колонки Цикл
-		Имя = Колонка.Имя;
-		Если Не Исключаемые.Свойство(Имя) И ОписанияТиповПересекаются(Колонка.ТипЗначения, ТипКонтроля) Тогда
-			Описание.СписокПолей.Вставить(Имя);
+	Try
+		For Each Ref In RefsList Do
+			Information = TypeInformation(TypeOf(Ref), ExecutionParameters);
+			Lock = New DataLock;
+			Lock.Add(Information.FullName).SetValue("Ref", Ref);
+			Try
+				Lock.Lock();
+				ToDelete.Add(Ref);
+			Except
+				RegisterErrorInTable(Result, Ref, Undefined, Ref, Information, 
+					"DataLockForDuplicateDeletion", ErrorInfo());
+			EndTry;
+		EndDo;
+		
+		SearchTable = UsageInstances(ToDelete);
+		Filter = New Structure("Ref");
+		
+		For Each Ref In ToDelete Do
+			RefPresentation = SubjectString(Ref);
 			
-			// И проверка на ведущее измерение.
-			Мета = МетаИзмерения.Найти(Имя);
-			Если Мета <> Неопределено Тогда
-				Описание.СтруктураИзмерений.Вставить(Имя, Мета.Тип);
-				Тест = Новый Структура("Ведущее", Ложь);
-				ЗаполнитьЗначенияСвойств(Тест, Мета);
-				Если Тест.Ведущее Тогда
-					Описание.СписокВедущих.Вставить(Имя, Мета.Тип);
-				КонецЕсли;
-			КонецЕсли;
+			Filter.Ref = Ref;
+			UsageInstances = SearchTable.FindRows(Filter);
+			
+			Index = UsageInstances.UBound();
+			While Index >= 0 Do
+				If UsageInstances[Index].AuxiliaryData Then
+					UsageInstances.Delete(Index);
+				EndIf;
+				Index = Index - 1;
+			EndDo;
+			
+			If UsageInstances.Count() > 0 Then
+				AddModifiedObjectReplacementResults(Result, UsageInstances);
+				Continue; // Cannot delete the object because other objects refer to it.
+			EndIf;
+			
+			Object = Ref.GetObject();
+			If Object = Undefined Then
+				Continue; // Has already been deleted.
+			EndIf;
 
-		КонецЕсли;
-
-	КонецЦикла;
-
-	Возврат Описание;
-КонецФункции
-
-Процедура ЗаменитьВКоллекцииСтрок(ВидКоллекции, ИмяКоллекции, Объект, Коллекция, Знач СписокПолей, Знач ПарыЗамен)
-	РабочаяКоллекция = Коллекция.Выгрузить();
-	Модифицировано = Ложь;
-
-	Для Каждого Строка Из РабочаяКоллекция Цикл
-
-		Для Каждого КлючЗначение Из СписокПолей Цикл
-			Имя = КлючЗначение.Ключ;
-			ЦелеваяСсылка = ПарыЗамен[Строка[Имя]];
-			Если ЦелеваяСсылка <> Неопределено Тогда
-				ЗарегистрироватьФактЗамены(Объект, Строка[Имя], ЦелеваяСсылка, ВидКоллекции, ИмяКоллекции,
-					РабочаяКоллекция.Индекс(Строка), Имя);
-				Строка[Имя] = ЦелеваяСсылка;
-				Модифицировано = Истина;
-			КонецЕсли;
-		КонецЦикла;
-
-	КонецЦикла;
-
-	Если Модифицировано Тогда
-		Коллекция.Загрузить(РабочаяКоллекция);
-	КонецЕсли;
-КонецПроцедуры
-
-Процедура ОбработатьОбъектСПерехватомСообщенийПриЗаменеСсылок(Знач Объект, Знач Действие, Знач РежимЗаписи,
-	Знач ПараметрыЗаписи)
-	
-	// Текущие сообщения до исключения запоминаем.
-	ПредыдущиеСообщения = ПолучитьСообщенияПользователю(Истина);
-	СообщатьПовторно    = ТекущийРежимЗапуска() <> Неопределено;
-
-	Если Не ЗаписатьОбъектВБазу(Объект, ПараметрыЗаписи.ПараметрыЗаписи, Действие, РежимЗаписи, Истина) Тогда
-		// Перехватываем все сообщенное при ошибке и добавляем их в одно исключение.
-		ТекстИсключения = "";
-		Для Каждого Сообщение Из ПолучитьСообщенияПользователю(Ложь) Цикл
-			ТекстИсключения = ТекстИсключения + Символы.ПС + Сообщение.Текст;
-		КонецЦикла;
+			If Not ExecutionParameters.WriteParameters.PrivilegedMode Then
+				SetPrivilegedMode(False);
+			EndIf;
+			
+			Try
+				If DeleteDirectly Then
+					ProcessObjectWithMessageInterception(Object, "DirectDeletion", Undefined, ExecutionParameters);
+				Else
+					ProcessObjectWithMessageInterception(Object, "DeletionMark", Undefined, ExecutionParameters);
+				EndIf;
+			Except
+				ErrorText = NStr("ru = 'Ошибка удаления'; en = 'Deletion error.'")
+					+ Chars.LF
+					+ TrimAll(BriefErrorDescription(ErrorInfo()));
+				ErrorDescription = ReplacementErrorDescription("DeletionError", Ref, RefPresentation, ErrorText);
+				RegisterReplacementError(Result, Ref, ErrorDescription);
+			EndTry;
+			
+			If Not ExecutionParameters.WriteParameters.PrivilegedMode Then
+				SetPrivilegedMode(True);
+			EndIf;
+		EndDo;
 		
-		// Сообщаем предыдущие
-		Если СообщатьПовторно Тогда
-			СообщитьОтложенныеСообщения(ПредыдущиеСообщения);
-		КонецЕсли;
-
-		Если ТекстИсключения = "" Тогда
-			ВызватьИсключение "";
-		Иначе
-			ВызватьИсключение СокрЛП(ТекстИсключения);
-		КонецЕсли;
-	КонецЕсли;
-
-	Если СообщатьПовторно Тогда
-		СообщитьОтложенныеСообщения(ПредыдущиеСообщения);
-	КонецЕсли;
-
-КонецПроцедуры
-
-Процедура СообщитьОтложенныеСообщения(Знач Сообщения)
-
-	Для Каждого Сообщение Из Сообщения Цикл
-		Сообщение.Сообщить();
-	КонецЦикла;
-
-КонецПроцедуры
-
-Процедура ЗаписатьОбъектПриЗаменеСсылок(Знач Объект, Знач ПараметрыЗаписи)
-
-	МетаданныеОбъекта = Объект.Метаданные();
-
-	Если ЭтоДокумент(МетаданныеОбъекта) Тогда
-		ОбработатьОбъектСПерехватомСообщенийПриЗаменеСсылок(Объект, "Запись", РежимЗаписиДокумента.Запись,
-			ПараметрыЗаписи);
-		Возврат;
-	КонецЕсли;
+		If LocalTransaction Then
+			CommitTransaction();
+		EndIf;
+	Except
+		If LocalTransaction Then
+			RollbackTransaction();
+		EndIf;
+	EndTry;
 	
-	// Проверка на возможные циклические ссылки.
-	СвойстваОбъекта = Новый Структура("Иерархический, ВидыСубконто, Владельцы", Ложь, Неопределено, Новый Массив);
-	ЗаполнитьЗначенияСвойств(СвойстваОбъекта, МетаданныеОбъекта);
+EndProcedure
+
+Procedure AddModifiedObjectReplacementResults(Result, RepeatSearchTable)
 	
-	// По родителю
-	Если СвойстваОбъекта.Иерархический Или СвойстваОбъекта.ВидыСубконто <> Неопределено Тогда
-
-		Если Объект.Родитель = Объект.Ссылка Тогда
-			ВызватьИсключение СтрШаблон(
-				НСтр("ru = 'При записи ""%1"" возникает циклическая ссылка в иерархии.'"), Строка(Объект));
-		КонецЕсли;
-
-	КонецЕсли;
+	Filter = New Structure("ErrorType, Ref, ErrorObject", "");
+	For Each Row In RepeatSearchTable Do
+		Test = New Structure("AuxiliaryData", False);
+		FillPropertyValues(Test, Row);
+		If Test.AuxiliaryData Then
+			Continue;
+		EndIf;
+		
+		Data = Row.Data;
+		Ref = Row.Ref;
+		
+		DataPresentation = String(Data);
+		
+		Filter.ErrorObject = Data;
+		Filter.Ref       = Ref;
+		If Result.Errors.FindRows(Filter).Count() > 0 Then
+			Continue; // Error on this issue has already been recorded.
+		EndIf;
+		RegisterReplacementError(Result, Ref, 
+			ReplacementErrorDescription("DataChanged", Data, DataPresentation,
+			NStr("ru = 'Заменены не все места использования. Возможно места использования были добавлены или изменены другим пользователем.'; en = 'Some of the instances were not replaced. Probably these instances were added or edited by other users.'")));
+	EndDo;
 	
-	// По владельцу
-	Если СвойстваОбъекта.Владельцы.Количество() > 1 И Объект.Владелец = Объект.Ссылка Тогда
-		ВызватьИсключение СтрШаблон(
-			НСтр("ru = 'При записи ""%1"" возникает циклическая ссылка в подчинении.'"), Строка(Объект));
-	КонецЕсли;
+EndProcedure
+
+Procedure LockUsageInstances(ExecutionParameters, Lock, UsageInstances)
 	
-	// Для последовательностей право "Изменение" может отсутствовать даже у роли "АдминистраторСистемы".
-	Если ЭтоПоследовательность(МетаданныеОбъекта) И Не ПравоДоступа("Изменение", МетаданныеОбъекта)
-		И UT_Users.IsFullUser( , , Ложь) Тогда
-
-		УстановитьПривилегированныйРежим(Истина);
-	КонецЕсли;
+	For Each UsageInstance In UsageInstances Do
+		
+		LockUsageInstance(ExecutionParameters, Lock, UsageInstance);
+		
+	EndDo;
 	
-	// Просто запись
-	ОбработатьОбъектСПерехватомСообщенийПриЗаменеСсылок(Объект, "Запись", Неопределено, ПараметрыЗаписи);
-КонецПроцедуры
+EndProcedure
 
-Функция СобытиеЖурналаРегистрацииЗаменыСсылок()
-
-	Возврат НСтр("ru='Поиск и удаление ссылок'", UT_CommonClientServer.DefaultLanguageCode());
-
-КонецФункции
-
-Процедура ЗарегистрироватьОшибкуВТаблицу(Результат, Дубль, Оригинал, Данные, Информация, ТипОшибки, ИнформацияОбОшибке)
-	Результат.ЕстьОшибки = Истина;
-
-	ЗаписьЖурналаРегистрации(
-		СобытиеЖурналаРегистрацииЗаменыСсылок(), УровеньЖурналаРегистрации.Ошибка, , , ПодробноеПредставлениеОшибки(
-		ИнформацияОбОшибке));
-
-	ПолноеПредставлениеДанных = Строка(Данные) + " (" + Информация.ПредставлениеЭлемента + ")";
-
-	Ошибка = Результат.Ошибки.Добавить();
-	Ошибка.Ссылка       = Дубль;
-	Ошибка.ОбъектОшибки = Данные;
-	Ошибка.ПредставлениеОбъектаОшибки = ПолноеПредставлениеДанных;
-
-	Если ТипОшибки = "БлокировкаДляРегистра" Тогда
-		НовыйШаблон = НСтр("ru = 'Не удалось начать редактирование %1: %2'");
-		Ошибка.ТипОшибки = "ОшибкаБлокировки";
-	ИначеЕсли ТипОшибки = "БлокировкаДляУдаленияДубля" Тогда
-		НовыйШаблон = НСтр("ru = 'Не удалось начать удаление: %2'");
-		Ошибка.ТипОшибки = "ОшибкаБлокировки";
-	ИначеЕсли ТипОшибки = "УдалитьНаборДубля" Тогда
-		НовыйШаблон = НСтр("ru = 'Не удалось очистить сведения о дубле в %1: %2'");
-		Ошибка.ТипОшибки = "ОшибкаЗаписи";
-	ИначеЕсли ТипОшибки = "ЗаписатьНаборОригинала" Тогда
-		НовыйШаблон = НСтр("ru = 'Не удалось обновить сведения в %1: %2'");
-		Ошибка.ТипОшибки = "ОшибкаЗаписи";
-	Иначе
-		НовыйШаблон = ТипОшибки + " (%1): %2";
-		Ошибка.ТипОшибки = ТипОшибки;
-	КонецЕсли;
-
-	НовыйШаблон = НовыйШаблон + Символы.ПС + Символы.ПС + НСтр("ru = 'Подробности в журнале регистрации.'");
-
-	КраткоеПредставление = КраткоеПредставлениеОшибки(ИнформацияОбОшибке);
-	Ошибка.ТекстОшибки = СтрШаблон(НовыйШаблон, ПолноеПредставлениеДанных, КраткоеПредставление);
-
-КонецПроцедуры
-
-// Формирует информацию о типе объекта метаданных: полное имя, представления, вид и т.п.
-Функция ИнформацияОТипе(ПолноеИмяИлиМетаданныеИлиТип, Кэш)
-	ТипПервогоПараметра = ТипЗнч(ПолноеИмяИлиМетаданныеИлиТип);
-	Если ТипПервогоПараметра = Тип("Строка") Тогда
-		ОбъектМетаданных = Метаданные.НайтиПоПолномуИмени(ПолноеИмяИлиМетаданныеИлиТип);
-	Иначе
-		Если ТипПервогоПараметра = Тип("Тип") Тогда // Поиск объекта метаданных.
-			ОбъектМетаданных = Метаданные.НайтиПоТипу(ПолноеИмяИлиМетаданныеИлиТип);
-		Иначе
-			ОбъектМетаданных = ПолноеИмяИлиМетаданныеИлиТип;
-		КонецЕсли;
-	КонецЕсли;
-	ПолноеИмя = ВРег(ОбъектМетаданных.ПолноеИмя());
-
-	ИнформацияОТипах = UT_CommonClientServer.StructureProperty(Кэш, "ИнформацияОТипах");
-	Если ИнформацияОТипах = Неопределено Тогда
-		ИнформацияОТипах = Новый Соответствие;
-		Кэш.Вставить("ИнформацияОТипах", ИнформацияОТипах);
-	Иначе
-		Информация = ИнформацияОТипах.Получить(ПолноеИмя);
-		Если Информация <> Неопределено Тогда
-			Возврат Информация;
-		КонецЕсли;
-	КонецЕсли;
-
-	Информация = Новый Структура("ПолноеИмя, ПредставлениеЭлемента, ПредставлениеСписка,
-								 |Вид, Ссылочный, Технический, Разделенный,
-								 |Иерархический,
-								 |ЕстьПодчиненные, ИменаПодчиненных,
-								 |Измерения, Реквизиты, Ресурсы");
-	ИнформацияОТипах.Вставить(ПолноеИмя, Информация);
+Procedure LockUsageInstance(ExecutionParameters, Lock, UsageInstance)
 	
-	// Заполнение базовой информации.
-	Информация.ПолноеИмя = ПолноеИмя;
+	If UsageInstance.ReplacementKey = "Constant" Then
+		
+		Lock.Add(UsageInstance.Metadata.FullName());
+		
+	ElsIf UsageInstance.ReplacementKey = "Object" Then
+		
+		ObjectRef     = UsageInstance.Data;
+		ObjectMetadata = UsageInstance.Metadata;
+		
+		// The object.
+		Lock.Add(ObjectMetadata.FullName()).SetValue("Ref", ObjectRef);
+		
+		// Register records by recorder.
+		RegisterRecordsDetails = RegisterRecordsDetails(ObjectMetadata);
+		For Each Item In RegisterRecordsDetails Do
+			Lock.Add(Item.LockSpace + ".RecordSet").SetValue("Recorder", ObjectRef);
+		EndDo;
+		
+		/// Sequences.
+		SequencesDetails = SequencesDetails(ObjectMetadata);
+		For Each Item In SequencesDetails Do
+			Lock.Add(Item.LockSpace).SetValue("Recorder", ObjectRef);
+		EndDo;
+		
+	ElsIf UsageInstance.ReplacementKey = "Sequence" Then
+		
+		ObjectRef     = UsageInstance.Data;
+		ObjectMetadata = UsageInstance.Metadata;
+		
+		SequencesDetails = SequencesDetails(ObjectMetadata);
+		For Each Item In SequencesDetails Do
+			Lock.Add(Item.LockSpace).SetValue("Recorder", ObjectRef);
+		EndDo;
+
+	ElsIf UsageInstance.ReplacementKey = "RecordKey"
+		Or UsageInstance.ReplacementKey = "InformationRegister" Then
+		
+		Information = TypeInformation(UsageInstance.Metadata, ExecutionParameters);
+		DuplicateType = UsageInstance.RefType;
+		OriginalType = TypeOf(UsageInstance.DestinationRef);
+		
+		For Each KeyValue In Information.Dimensions Do
+			DimensionType = KeyValue.Value.Type;
+			If DimensionType.ContainsType(DuplicateType) Then
+				DataLockByDimension = Lock.Add(Information.FullName);
+				DataLockByDimension.SetValue(KeyValue.Key, UsageInstance.Ref);
+			EndIf;
+			If DimensionType.ContainsType(OriginalType) Then
+				DataLockByDimension = Lock.Add(Information.FullName);
+				DataLockByDimension.SetValue(KeyValue.Key, UsageInstance.DestinationRef);
+			EndIf;
+		EndDo;
+		
+	EndIf;
 	
-	// Представления: элемента и списка.
-	СтандартныеСвойства = Новый Структура("ПредставлениеОбъекта, РасширенноеПредставлениеОбъекта, ПредставлениеСписка, РасширенноеПредставлениеСписка");
-	ЗаполнитьЗначенияСвойств(СтандартныеСвойства, ОбъектМетаданных);
-	Если ЗначениеЗаполнено(СтандартныеСвойства.ПредставлениеОбъекта) Тогда
-		Информация.ПредставлениеЭлемента = СтандартныеСвойства.ПредставлениеОбъекта;
-	ИначеЕсли ЗначениеЗаполнено(СтандартныеСвойства.РасширенноеПредставлениеОбъекта) Тогда
-		Информация.ПредставлениеЭлемента = СтандартныеСвойства.РасширенноеПредставлениеОбъекта;
-	Иначе
-		Информация.ПредставлениеЭлемента = ОбъектМетаданных.Представление();
-	КонецЕсли;
-	Если ЗначениеЗаполнено(СтандартныеСвойства.ПредставлениеСписка) Тогда
-		Информация.ПредставлениеСписка = СтандартныеСвойства.ПредставлениеСписка;
-	ИначеЕсли ЗначениеЗаполнено(СтандартныеСвойства.РасширенноеПредставлениеСписка) Тогда
-		Информация.ПредставлениеСписка = СтандартныеСвойства.РасширенноеПредставлениеСписка;
-	Иначе
-		Информация.ПредставлениеСписка = ОбъектМетаданных.Представление();
-	КонецЕсли;
+EndProcedure
+
+Function RegisterRecordsDetails(Val Meta)
+	// Can be cached by Meta.
 	
-	// Вид и его свойства.
-	Информация.Вид = Лев(Информация.ПолноеИмя, СтрНайти(Информация.ПолноеИмя, ".") - 1);
-	Если Информация.Вид = "СПРАВОЧНИК" Или Информация.Вид = "ДОКУМЕНТ" Или Информация.Вид = "ПЕРЕЧИСЛЕНИЕ"
-		Или Информация.Вид = "ПЛАНВИДОВХАРАКТЕРИСТИК" Или Информация.Вид = "ПЛАНСЧЕТОВ" Или Информация.Вид = "ПЛАНВИДОВРАСЧЕТА"
-		Или Информация.Вид = "БИЗНЕСПРОЦЕСС" Или Информация.Вид = "ЗАДАЧА" Или Информация.Вид = "ПЛАНОБМЕНА" Тогда
-		Информация.Ссылочный = Истина;
-	Иначе
-		Информация.Ссылочный = Ложь;
-	КонецЕсли;
+	RegisterRecordsDetails = New Array;
+	If Not Metadata.Documents.Contains(Meta) Then
+		Return RegisterRecordsDetails;
+	EndIf;
+	
+	For Each RegisterRecord In Meta.RegisterRecords Do
+		
+		If Metadata.AccumulationRegisters.Contains(RegisterRecord) Then
+			RecordSet = AccumulationRegisters[RegisterRecord.Name].CreateRecordSet();
+			ExcludeFields = "Active, LineNumber, Period, Recorder"; 
+			
+		ElsIf Metadata.InformationRegisters.Contains(RegisterRecord) Then
+			RecordSet = InformationRegisters[RegisterRecord.Name].CreateRecordSet();
+			ExcludeFields = "Active, RecordType, LineNumber, Period, Recorder"; 
+			
+		ElsIf Metadata.AccountingRegisters.Contains(RegisterRecord) Then
+			RecordSet = AccountingRegisters[RegisterRecord.Name].CreateRecordSet();
+			ExcludeFields = "Active, RecordType, LineNumber, Period, Recorder"; 
+			
+		ElsIf Metadata.CalculationRegisters.Contains(RegisterRecord) Then
+			RecordSet = CalculationRegisters[RegisterRecord.Name].CreateRecordSet();
+			ExcludeFields = "Active, EndOfBasePeriod, BegOfBasePeriod, LineNumber, ActionPeriod,
+			                |EndOfActionPeriod, BegOfActionPeriod, RegistrationPeriod, Recorder, ReversingEntry,
+			                |ActualActionPeriod";
+		Else
+			// Unknown type.
+			Continue;
+		EndIf;
+		
+		// Reference type fields and candidate dimensions.
+		Details = FieldListsByType(RecordSet, RegisterRecord.Dimensions, ExcludeFields);
+		If Details.FieldList.Count() = 0 Then
+			// No need to process.
+			Continue;
+		EndIf;
+		
+		Details.Insert("RecordSet", RecordSet);
+		Details.Insert("LockSpace", RegisterRecord.FullName() );
+		
+		RegisterRecordsDetails.Add(Details);
+	EndDo;	// Register record metadata.
+	
+	Return RegisterRecordsDetails;
+EndFunction
 
-	Если Информация.Вид = "СПРАВОЧНИК" Или Информация.Вид = "ПЛАНВИДОВХАРАКТЕРИСТИК" Тогда
-		Информация.Иерархический = ОбъектМетаданных.Иерархический;
-	ИначеЕсли Информация.Вид = "ПЛАНСЧЕТОВ" Тогда
-		Информация.Иерархический = Истина;
-	Иначе
-		Информация.Иерархический = Ложь;
-	КонецЕсли;
+Function SequencesDetails(Val Meta)
+	
+	SequencesDetails = New Array;
+	If Not Metadata.Documents.Contains(Meta) Then
+		Return SequencesDetails;
+	EndIf;
+	
+	For Each Sequence In Metadata.Sequences Do
+		If Not Sequence.Documents.Contains(Meta) Then
+			Continue;
+		EndIf;
+		
+		TableName = Sequence.FullName();
+		
+		// List of fields and dimensions
+		Details = FieldListsByType(TableName, Sequence.Dimensions, "Recorder");
+		If Details.FieldList.Count() > 0 Then
+			
+			Details.Insert("RecordSet",           Sequences[Sequence.Name].CreateRecordSet());
+			Details.Insert("LockSpace", TableName + ".Records");
+			Details.Insert("Dimensions",              New Structure);
+			
+			SequencesDetails.Add(Details);
+		EndIf;
+		
+	EndDo;
+	
+	Return SequencesDetails;
+EndFunction
 
-	Информация.ЕстьПодчиненные = Ложь;
-	Если Информация.Вид = "СПРАВОЧНИК" Или Информация.Вид = "ПЛАНВИДОВХАРАКТЕРИСТИК" Или Информация.Вид = "ПЛАНОБМЕНА"
-		Или Информация.Вид = "ПЛАНСЧЕТОВ" Или Информация.Вид = "ПЛАНВИДОВРАСЧЕТА" Тогда
-		Для Каждого Справочник Из Метаданные.Справочники Цикл
-			Если Справочник.Владельцы.Содержит(ОбъектМетаданных) Тогда
-				Если Информация.ЕстьПодчиненные = Ложь Тогда
-					Информация.ЕстьПодчиненные = Истина;
-					Информация.ИменаПодчиненных = Новый Массив;
-				КонецЕсли;
-				Информация.ИменаПодчиненных.Добавить(Справочник.ПолноеИмя());
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
+Function ObjectDetails(Val Meta)
+	// Can be cached by Meta.
+	
+	AllRefsType = AllRefsTypeDescription();
 
-	Если Информация.ПолноеИмя = "СПРАВОЧНИК.ИДЕНТИФИКАТОРЫОБЪЕКТОВМЕТАДАННЫХ" Или Информация.ПолноеИмя
-		= "СПРАВОЧНИК.ПРЕДОПРЕДЕЛЕННЫЕВАРИАНТЫОТЧЕТОВ" Тогда
-		Информация.Технический = Истина;
-		Информация.Разделенный = Ложь;
-	Иначе
-		Информация.Технический = Ложь;
-		Если Не Кэш.Свойство("МодельСервиса") Тогда
-			Кэш.Вставить("МодельСервиса", DataSeparationEnabled());
-			Если Кэш.МодельСервиса Тогда
+	Candidates = New Structure("Attributes, StandardAttributes, TabularSections, StandardTabularSections");
+	FillPropertyValues(Candidates, Meta);
+	
+	ObjectDetails = New Structure;
+	
+	ObjectDetails.Insert("Attributes", New Structure);
+	If Candidates.Attributes <> Undefined Then
+		For Each MetaAttribute In Candidates.Attributes Do
+			If DescriptionTypesOverlap(MetaAttribute.Type, AllRefsType) Then
+				ObjectDetails.Attributes.Insert(MetaAttribute.Name);
+			EndIf;
+		EndDo;
+	EndIf;
+
+	ObjectDetails.Insert("StandardAttributes", New Structure);
+	If Candidates.StandardAttributes <> Undefined Then
+		ToExclude = New Structure("Ref");
+		
+		For Each MetaAttribute In Candidates.StandardAttributes Do
+			Name = MetaAttribute.Name;
+			If Not ToExclude.Property(Name) AND DescriptionTypesOverlap(MetaAttribute.Type, AllRefsType) Then
+				ObjectDetails.Attributes.Insert(MetaAttribute.Name);
+			EndIf;
+		EndDo;
+	EndIf;
+	
+	ObjectDetails.Insert("TabularSections", New Array);
+	If Candidates.TabularSections <> Undefined Then
+		For Each MetaTable In Candidates.TabularSections Do
+			
+			FieldsList = New Structure;
+			For Each MetaAttribute In MetaTable.Attributes Do
+				If DescriptionTypesOverlap(MetaAttribute.Type, AllRefsType) Then
+					FieldsList.Insert(MetaAttribute.Name);
+				EndIf;
+			EndDo;
+			
+			If FieldsList.Count() > 0 Then
+				ObjectDetails.TabularSections.Add(New Structure("Name, FieldList", MetaTable.Name, FieldsList));
+			EndIf;
+		EndDo;
+	EndIf;
+	
+	ObjectDetails.Insert("StandardTabularSections", New Array);
+	If Candidates.StandardTabularSections <> Undefined Then
+		For Each MetaTable In Candidates.StandardTabularSections Do
+			
+			FieldsList = New Structure;
+			For Each MetaAttribute In MetaTable.StandardAttributes Do
+				If DescriptionTypesOverlap(MetaAttribute.Type, AllRefsType) Then
+					FieldsList.Insert(MetaAttribute.Name);
+				EndIf;
+			EndDo;
+			
+			If FieldsList.Count() > 0 Then
+				ObjectDetails.StandardTabularSections.Add(New Structure("Name, FieldList", MetaTable.Name, FieldsList));
+			EndIf;
+		EndDo;
+	EndIf;
+	
+	ObjectDetails.Insert("CanBePosted", Metadata.Documents.Contains(Meta));
+	Return ObjectDetails;
+EndFunction
+
+Function RecordKeyDetails(Val Meta)
+	// Can be cached by Meta.
+	
+	TableName = Meta.FullName();
+	
+	// Candidate reference type fields and a dimension set.
+	KeyDetails = FieldListsByType(TableName, Meta.Dimensions, "Period, Recorder");
+	
+	If Metadata.InformationRegisters.Contains(Meta) Then
+		RecordSet = InformationRegisters[Meta.Name].CreateRecordSet();
+	
+	ElsIf Metadata.AccumulationRegisters.Contains(Meta) Then
+		RecordSet = AccumulationRegisters[Meta.Name].CreateRecordSet();
+	
+	ElsIf Metadata.AccountingRegisters.Contains(Meta) Then
+		RecordSet = AccountingRegisters[Meta.Name].CreateRecordSet();
+	
+	ElsIf Metadata.CalculationRegisters.Contains(Meta) Then
+		RecordSet = CalculationRegisters[Meta.Name].CreateRecordSet();
+	
+	ElsIf Metadata.Sequences.Contains(Meta) Then
+		RecordSet = Sequences[Meta.Name].CreateRecordSet();
+	
+	Else
+		RecordSet = Undefined;
+	
+	EndIf;
+	
+	KeyDetails.Insert("RecordSet", RecordSet);
+	KeyDetails.Insert("LockSpace", TableName);
+	
+	Return KeyDetails;
+EndFunction
+
+Function DescriptionTypesOverlap(Val Details1, Val Details2)
+	
+	For Each Type In Details1.Types() Do
+		If Details2.ContainsType(Type) Then
+			Return True;
+		EndIf;
+	EndDo;
+	
+	Return False;
+EndFunction
+
+// Returns a description by the table name or by the record set.
+Function FieldListsByType(Val DataSource, Val MetaDimensions, Val ExcludeFields)
+	// Can be cached.
+	
+	Details = New Structure;
+	Details.Insert("FieldList",     New Structure);
+	Details.Insert("DimensionStructure", New Structure);
+	Details.Insert("MasterDimentionList",   New Structure);
+	
+
+	ControlType = AllRefsTypeDescription();
+	ToExclude = New Structure(ExcludeFields);
+	
+	DataSourceType = TypeOf(DataSource);
+	
+	If DataSourceType = Type("String") Then
+		// The source is the table name. The fields are received with a query.
+		Query = New Query("SELECT * FROM " + DataSource + " WHERE FALSE");
+		FieldSource = Query.Execute();
+	Else
+		// The source is a record set.
+		FieldSource = DataSource.UnloadColumns();
+	EndIf;
+
+	For Each Column In FieldSource.Columns Do
+		Name = Column.Name;
+		If Not ToExclude.Property(Name) AND DescriptionTypesOverlap(Column.ValueType, ControlType) Then
+			Details.FieldList.Insert(Name);
+			
+			// Checking for a master dimension.
+			Meta = MetaDimensions.Find(Name);
+			If Meta <> Undefined Then
+				Details.DimensionStructure.Insert(Name, Meta.Type);
+				Test = New Structure("Master", False);
+				FillPropertyValues(Test, Meta);
+				If Test.Master Then
+					Details.MasterDimentionList.Insert(Name, Meta.Type);
+				EndIf;
+			EndIf;
+			
+		EndIf;
+		
+	EndDo;
+	
+	Return Details;
+EndFunction
+
+Procedure ReplaceInRowCollection(CollectionKind, CollectionName, Object, Collection, Val FieldsList, Val ReplacementPairs)
+	WorkingCollection = Collection.Unload();
+	Modified = False;
+	
+	For Each Row In WorkingCollection Do
+		
+		For Each KeyValue In FieldsList Do
+			Name = KeyValue.Key;
+			DestinationRef = ReplacementPairs[ Row[Name] ];
+			If DestinationRef <> Undefined Then
+				RegisterReplacement(Object, Row[Name], DestinationRef, CollectionKind, CollectionName, WorkingCollection.IndexOf(Row), Name);
+				Row[Name] = DestinationRef;
+				Modified = True;
+			EndIf;
+		EndDo;
+		
+	EndDo;
+	
+	If Modified Then
+		Collection.Load(WorkingCollection);
+	EndIf;
+EndProcedure
+
+Процедура ProcessObjectWithMessageInterceptionOnRefsReplace(Val Object, Val Action, Val WriteMode, Val WriteParameters)
+	
+    // Saving the current messages before the exception.
+	PreviousMessages = GetUserMessages(True);
+	ReportAgain    = CurrentRunMode() <> Undefined;
+
+	If Not ЗаписатьОбъектВБазу(Object, WriteParameters.WriteParameters, Action, WriteMode, True) Then
+		// Intercepting all reported error messages and merging them into a single exception text.
+		ExceptionText = "";
+		For Each Message In GetUserMessages(False) Do
+			ExceptionText = ExceptionText + Chars.LF + Message.Text;
+		EndDo;
+		
+		// Reporting the previous message.
+		If ReportAgain Then
+			ReportDeferredMessages(PreviousMessages);
+		EndIf;
+
+		If ExceptionText = "" Then
+			Raise "";
+		Else
+			Raise TrimAll(ExceptionText);
+		EndIf;
+	EndIf;
+
+	If ReportAgain Then
+		ReportDeferredMessages(PreviousMessages);
+	EndIf;
+
+EndProcedure
+
+Procedure ReportDeferredMessages(Val Messages)
+	
+	For Each Message In Messages Do
+		Message.Message();
+	EndDo;
+	
+EndProcedure
+
+Procedure WriteObjectOnRefsReplace (Val Object, Val WriteParameters)
+
+	ObjectMetadata = Object.Metadata();
+	
+	If IsDocument(ObjectMetadata) Then
+		ProcessObjectWithMessageInterceptionOnRefsReplace(Object, "Write", DocumentWriteMode.Write, WriteParameters);
+		Return;
+	EndIf;
+	
+	// Checking for loop references.
+	ObjectProperties = New Structure("Hierarchical, ExtDimensionTypes, Owners", False, Undefined, New Array);
+	FillPropertyValues(ObjectProperties, ObjectMetadata);
+	
+	// Checking the parent.
+	If ObjectProperties.Hierarchical Or ObjectProperties.ExtDimensionTypes <> Undefined Then 
+		
+		If Object.Parent = Object.Ref Then
+			Raise StrTemplate(
+				NStr("ru = 'При записи ""%1"" возникает циклическая ссылка в иерархии.'; en = 'Writing ""%1"" causes an infinite loop in the hierarchy.'"),
+				String(Object));
+			EndIf;
+			
+	EndIf;
+	
+	// Checking the owner.
+	If ObjectProperties.Owners.Count() > 1 AND Object.Owner = Object.Ref Then
+		Raise StrTemplate(
+			NStr("ru = 'При записи ""%1"" возникает циклическая ссылка в подчинении.'; en = 'Writing ""%1"" causes an infinite loop in the subordination.'"),
+			String(Object));
+	EndIf;
+	
+	// For sequences, the Update right can be absent even in the FullAdministrator role.
+	If IsSequence(ObjectMetadata)
+		AND Not AccessRight("Update", ObjectMetadata)
+		AND Users.IsFullUser(,, False) Then
+		
+		SetPrivilegedMode(True);
+	EndIf;
+	
+	// Only writing.
+	ProcessObjectWithMessageInterceptionOnRefsReplace(Object, "Write", Undefined, WriteParameters);
+EndProcedure
+
+Function RefReplacementEventLogMessageText()
+	
+	Return NStr("ru='Поиск и удаление ссылок'; en = 'Searching for references and deleting them'", DefaultLanguageCode());
+	
+EndFunction
+
+Procedure RegisterErrorInTable(Result, Duplicate, Original, Data, Information, ErrorType, ErrorInformation)
+	Result.HasErrors = True;
+	
+	WriteLogEvent(
+		RefReplacementEventLogMessageText(),
+		EventLogLevel.Error,
+		,
+		,
+		DetailErrorDescription(ErrorInformation));
+	
+	FullDataPresentation = String(Data) + " (" + Information.ItemPresentation + ")";
+	
+	Error = Result.Errors.Add();
+	Error.Ref       = Duplicate;
+	Error.ErrorObject = Data;
+	Error.ErrorObjectPresentation = FullDataPresentation;
+	
+	If ErrorType = "LockForRegister" Then
+		NewTemplate = NStr("ru = 'Не удалось начать редактирование %1: %2'; en = 'Cannot start editing %1: %2'");
+		Error.ErrorType = "LockError";
+	ElsIf ErrorType = "DataLockForDuplicateDeletion" Then
+		NewTemplate = NStr("ru = 'Не удалось начать удаление: %2'; en = 'Cannot start deletion: %2'");
+		Error.ErrorType = "LockError";
+	ElsIf ErrorType = "DeleteDuplicateSet" Then
+		NewTemplate = NStr("ru = 'Не удалось очистить сведения о дубле в %1: %2'; en = 'Cannot clear duplicate''s details in %1: %2'");
+		Error.ErrorType = "WritingError";
+	ElsIf ErrorType = "WriteOriginalSet" Then
+		NewTemplate = NStr("ru = 'Не удалось обновить сведения в %1: %2'; en = 'Cannot update additional data in %1: %2'");
+		Error.ErrorType = "WritingError";
+	Else
+		NewTemplate = ErrorType + " (%1): %2";
+		Error.ErrorType = ErrorType;
+	EndIf;
+	
+	NewTemplate = NewTemplate + Chars.LF + Chars.LF + NStr("ru = 'Подробности в журнале регистрации.'; en = 'See the event log for details.'");
+	
+	BriefPresentation = BriefErrorDescription(ErrorInformation);
+	Error.ErrorText = StrTemplate(NewTemplate, FullDataPresentation, BriefPresentation);
+	
+EndProcedure
+
+// Generates details on the metadata object type: full name, presentations, kind, and so on.
+Function TypeInformation(FullNameOrMetadataOrType, Cache)
+	FirstParameterType = TypeOf(FullNameOrMetadataOrType);
+	If FirstParameterType = Type("String") Then
+		MetadataObject = Metadata.FindByFullName(FullNameOrMetadataOrType);
+	Else
+		If FirstParameterType = Type("Type") Then // Search for the metadata object.
+			MetadataObject = Metadata.FindByType(FullNameOrMetadataOrType);
+		Else
+			MetadataObject = FullNameOrMetadataOrType;
+		EndIf;
+	EndIf;
+	FullName = Upper(MetadataObject.FullName());
+
+	TypesInformation = UT_CommonClientServer.StructureProperty(Cache, "TypesInformation");
+	If TypesInformation = Undefined Then
+		TypesInformation = New Map;
+		Cache.Insert("TypesInformation", TypesInformation);
+	Else
+		Information = TypesInformation.Get(FullName);
+		If Information <> Undefined Then
+			Return Information;
+		EndIf;
+	EndIf;
+
+	Information = New Structure("FullName, ItemPresentation, ListPresentation,
+	|Kind, Reference, Technical, Separated,
+	|Hierarchical,
+	|HasSubordinate, SubordinateItemNames,
+	|Dimensions, Attributes, Resources");
+	TypesInformation.Insert(FullName, Information);
+	
+	// Fill in basic information.
+	Information.FullName = FullName;
+	
+	// Item and list presentations.
+	StandardProperties = New Structure("ObjectPresentation, ExtendedObjectPresentation, ListPresentation, ExtendedListPresentation");
+	FillPropertyValues(StandardProperties, MetadataObject);
+	If ValueIsFilled(StandardProperties.ObjectPresentation) Then
+		Information.ItemPresentation = StandardProperties.ObjectPresentation;
+	ElsIf ValueIsFilled(StandardProperties.ExtendedObjectPresentation) Then
+		Information.ItemPresentation = StandardProperties.ExtendedObjectPresentation;
+	Else
+		Information.ItemPresentation = MetadataObject.Presentation();
+	EndIf;
+	If ValueIsFilled(StandardProperties.ListPresentation) Then
+		Information.ListPresentation = StandardProperties.ListPresentation;
+	ElsIf ValueIsFilled(StandardProperties.ExtendedListPresentation) Then
+		Information.ListPresentation = StandardProperties.ExtendedListPresentation;
+	Else
+		Information.ListPresentation = MetadataObject.Presentation();
+	EndIf;
+	
+		// Kind and its properties.
+	Information.Kind = Left(Information.FullName, StrFind(Information.FullName, ".")-1);
+	If Information.Kind = "CATALOG"
+		Or Information.Kind = "DOCUMENT"
+		Or Information.Kind = "ENUM"
+		Or Information.Kind = "CHARTOFCHARACTERISTICTYPES"
+		Or Information.Kind = "CHARTOFACCOUNTS"
+		Or Information.Kind = "CHARTOFCALCULATIONTYPES"
+		Or Information.Kind = "BUSINESSPROCESS"
+		Or Information.Kind = "TASK"
+		Or Information.Kind = "EXCHANGEPLAN" Then
+		Information.Reference = True;
+	Else
+		Information.Reference = False;
+	EndIf;
+
+		If Information.Kind = "CATALOG"
+		Or Information.Kind = "CHARTOFCHARACTERISTICTYPES" Then
+		Information.Hierarchical = MetadataObject.Hierarchical;
+	ElsIf Information.Kind = "CHARTOFACCOUNTS" Then
+		Information.Hierarchical = True;
+	Else
+		Information.Hierarchical = False;
+	EndIf;
+
+		Information.HasSubordinate = False;
+	If Information.Kind = "CATALOG"
+		Or Information.Kind = "CHARTOFCHARACTERISTICTYPES"
+		Or Information.Kind = "EXCHANGEPLAN"
+		Or Information.Kind = "CHARTOFACCOUNTS"
+		Or Information.Kind = "CHARTOFCALCULATIONTYPES" Then
+		For Each Catalog In Metadata.Catalogs Do
+			If Catalog.Owners.Contains(MetadataObject) Then
+				If Information.HasSubordinate = False Then
+					Information.HasSubordinate = True;
+					Information.SubordinateItemNames = New Array;
+				EndIf;
+				Information.SubordinateItemNames.Add(Catalog.FullName());
+			EndIf;
+		EndDo;
+	EndIf;
+
+	If Information.FullName = "CATALOG.METADATAOBJECTIDS"
+		Or Information.FullName = "CATALOG.PREDEFINEDREPORTSOPTIONS" Then
+		Information.Technical = True;
+		Information.Separated = False;
+	Else
+		Information.Technical = False;
+		If Not Cache.Property("SaaSModel") Then
+			Cache.Insert("SaaSModel", DataSeparationEnabled());
+			If Cache.SaaSModel Then
 //
-//				Если ПодсистемаСуществует("ТехнологияСервиса.БазоваяФункциональность") Тогда
-//					МодульРаботаВМоделиСервиса = ОбщийМодуль("РаботаВМоделиСервиса");
-//					РазделительОсновныхДанных = МодульРаботаВМоделиСервиса.РазделительОсновныхДанных();
-//					РазделительВспомогательныхДанных = МодульРаботаВМоделиСервиса.РазделительВспомогательныхДанных();
-//				Иначе
-					РазделительОсновныхДанных = Неопределено;
-					РазделительВспомогательныхДанных = Неопределено;
+//				If SubsystemExists("StandardSubsystems.SaaS") Then
+//					ModuleSaaS = CommonModule("SaaS");
+//					MainDataSeparator = ModuleSaaS.MainDataSeparator();
+//					AuxiliaryDataSeparator = ModuleSaaS.AuxiliaryDataSeparator();
+//				Else
+					MainDataSeparator = Undefined;
+					AuxiliaryDataSeparator = Undefined;
 //				КонецЕсли;
 
-				Кэш.Вставить("ВОбластиДанных", DataSeparationEnabled() И SeparatedDataUsageAvailable());
-				Кэш.Вставить("РазделительОсновныхДанных", РазделительОсновныхДанных);
-				Кэш.Вставить("РазделительВспомогательныхДанных", РазделительВспомогательныхДанных);
-			КонецЕсли;
-		КонецЕсли;
-		Если Кэш.МодельСервиса Тогда
-//			Если ПодсистемаСуществует("ТехнологияСервиса.БазоваяФункциональность") Тогда
-//				МодульРаботаВМоделиСервиса = ОбщийМодуль("РаботаВМоделиСервиса");
-//				Попытка
-//					ЭтоРазделенныйОбъектМетаданных = МодульРаботаВМоделиСервиса.ЭтоРазделенныйОбъектМетаданных(
-//					ОбъектМетаданных);
-//				Исключение
-//					ЭтоРазделенныйОбъектМетаданных = Истина;
-//				КонецПопытки;
-//			Иначе
-				ЭтоРазделенныйОбъектМетаданных = Истина;
-//			КонецЕсли;
-			Информация.Разделенный = ЭтоРазделенныйОбъектМетаданных;
-		КонецЕсли;
-	КонецЕсли;
+				Cache.Insert("InDataArea", DataSeparationEnabled() AND SeparatedDataUsageAvailable());
+				Cache.Insert("MainDataSeparator",        MainDataSeparator);
+				Cache.Insert("AuxiliaryDataSeparator", AuxiliaryDataSeparator);
+			EndIf;
+		EndIf;
+		If Cache.SaaSModel Then
+//			If SubsystemExists("StandardSubsystems.SaaS") Then
+//				ModuleSaaS = CommonModule("SaaS");
+//				Try
+//					IsSeparatedMetadataObject = ModuleSaaS.IsSeparatedMetadataObject(MetadataObject);
+//				Except
+//					IsSeparatedMetadataObject = True;
+//				Endtry;
+//			Else
+				IsSeparatedMetadataObject = True;
+//			EndIf;
+			Information.Separated = IsSeparatedMetadataObject;
+		EndIf;
+	EndIf;
 
-	Информация.Измерения = Новый Структура;
-	Информация.Реквизиты = Новый Структура;
-	Информация.Ресурсы = Новый Структура;
-
-	ВидыРеквизитов = Новый Структура("СтандартныеРеквизиты, Реквизиты, Измерения, Ресурсы");
-	ЗаполнитьЗначенияСвойств(ВидыРеквизитов, ОбъектМетаданных);
-	Для Каждого КлючИЗначение Из ВидыРеквизитов Цикл
-		Коллекция = КлючИЗначение.Значение;
-		Если ТипЗнч(Коллекция) = Тип("КоллекцияОбъектовМетаданных") Тогда
-			КудаПишем = ?(Информация.Свойство(КлючИЗначение.Ключ), Информация[КлючИЗначение.Ключ], Информация.Реквизиты);
-			Для Каждого Реквизит Из Коллекция Цикл
-				КудаПишем.Вставить(Реквизит.Имя, ИнформацияПоРеквизиту(Реквизит));
-			КонецЦикла;
-		КонецЕсли;
-	КонецЦикла;
-	Если Информация.Вид = "РЕГИСТРСВЕДЕНИЙ" И ОбъектМетаданных.ПериодичностьРегистраСведений
-		<> Метаданные.СвойстваОбъектов.ПериодичностьРегистраСведений.Непериодический Тогда
-		ИнформацияПоРеквизиту = Новый Структура("Ведущее, Представление, Формат, Тип, ЗначениеПоУмолчанию, ЗаполнятьИзДанныхЗаполнения");
-		ИнформацияПоРеквизиту.Ведущее = Ложь;
-		ИнформацияПоРеквизиту.ЗаполнятьИзДанныхЗаполнения = Ложь;
-		Если ОбъектМетаданных.ПериодичностьРегистраСведений
-			= Метаданные.СвойстваОбъектов.ПериодичностьРегистраСведений.ПозицияРегистратора Тогда
-			ИнформацияПоРеквизиту.Тип = Новый ОписаниеТипов("МоментВремени");
-		ИначеЕсли ОбъектМетаданных.ПериодичностьРегистраСведений
-			= Метаданные.СвойстваОбъектов.ПериодичностьРегистраСведений.Секунда Тогда
-			ИнформацияПоРеквизиту.Тип = Новый ОписаниеТипов("Дата", , , Новый КвалификаторыДаты(ЧастиДаты.ДатаВремя));
-		Иначе
-			ИнформацияПоРеквизиту.Тип = Новый ОписаниеТипов("Дата", , , Новый КвалификаторыДаты(ЧастиДаты.Дата));
-		КонецЕсли;
-		Информация.Измерения.Вставить("Период", ИнформацияПоРеквизиту);
-	КонецЕсли;
-
-	Возврат Информация;
-КонецФункции
-
-Функция ИнформацияПоРеквизиту(МетаданныеРеквизита)
-	// ОписаниеСтандартногоРеквизита
-	// ОбъектМетаданных: Измерение
-	// ОбъектМетаданных: Ресурс
-	// ОбъектМетаданных: Реквизит
-	Информация = Новый Структура("Ведущее, Представление, Формат, Тип, ЗначениеПоУмолчанию, ЗаполнятьИзДанныхЗаполнения");
-	ЗаполнитьЗначенияСвойств(Информация, МетаданныеРеквизита);
-	Информация.Представление = МетаданныеРеквизита.Представление();
-	Если Информация.ЗаполнятьИзДанныхЗаполнения = Истина Тогда
-		Информация.ЗначениеПоУмолчанию = МетаданныеРеквизита.ЗначениеЗаполнения;
-	Иначе
-		Информация.ЗначениеПоУмолчанию = МетаданныеРеквизита.Тип.ПривестиЗначение();
-	КонецЕсли;
-	Возврат Информация;
-КонецФункции
-
-Функция ЭтоСлужебныеДанные(МестоИспользования, ИсключенияПоискаСсылок)
-
-	ИсключениеПоиска = ИсключенияПоискаСсылок[МестоИспользования.Метаданные];
+	Information.Dimensions = New Structure;
+	Information.Attributes = New Structure;
+	Information.Resources = New Structure;
 	
-	// Данные может быть как ссылкой так и ключом записи регистра.
+	AttributesKinds = New Structure("StandardAttributes, Attributes, Dimensions, Resources");
+	FillPropertyValues(AttributesKinds, MetadataObject);
+	For Each KeyAndValue In AttributesKinds Do
+		Collection = KeyAndValue.Value;
+		If TypeOf(Collection) = Type("MetadataObjectCollection") Then
+			WhereToWrite = ?(Information.Property(KeyAndValue.Key), Information[KeyAndValue.Key], Information.Attributes);
+			For Each Attribute In Collection Do
+				WhereToWrite.Insert(Attribute.Name, AttributeInformation(Attribute));
+			EndDo;
+		EndIf;
+	EndDo;
+	If Information.Kind = "INFORMATIONREGISTER"
+		AND MetadataObject.InformationRegisterPeriodicity <> Metadata.ObjectProperties.InformationRegisterPeriodicity.Nonperiodical Then
+		AttributeInformation = New Structure("Master, Presentation, Format, Type, DefaultValue, FillFromFillingValue");
+		AttributeInformation.Master = False;
+		AttributeInformation.FillFromFillingValue = False;
+		If MetadataObject.InformationRegisterPeriodicity = Metadata.ObjectProperties.InformationRegisterPeriodicity.RecorderPosition Then
+			AttributeInformation.Type = New TypeDescription("PointInTime");
+		ElsIf MetadataObject.InformationRegisterPeriodicity = Metadata.ObjectProperties.InformationRegisterPeriodicity.Second Then
+			AttributeInformation.Type = New TypeDescription("Date", , , New DateQualifiers(DateFractions.DateTime));
+		Else
+			AttributeInformation.Type = New TypeDescription("Date", , , New DateQualifiers(DateFractions.Date));
+		EndIf;
+		Information.Dimensions.Insert("Period", AttributeInformation);
+	EndIf;
+	
+	Return Information;
+EndFunction
 
-	Если ИсключениеПоиска = Неопределено Тогда
-		Возврат (МестоИспользования.Ссылка = МестоИспользования.Данные); // Ссылку саму на себя исключаем.
-	ИначеЕсли ИсключениеПоиска = "*" Тогда
-		Возврат Истина; // Если указано исключить все - считаем все исключением.
-	Иначе
-		Для Каждого ПутьКРеквизиту Из ИсключениеПоиска Цикл
-			// Если указаны исключения.
+Function AttributeInformation(AttributeMetadata)
+	// StandardAttributeDetails
+	// MetadataObject: Dimension
+	// MetadataObject: Resource
+	// MetadataObject: Attribute
+	Information = New Structure("Master, Presentation, Format, Type, DefaultValue, FillFromFillingValue");
+	FillPropertyValues(Information, AttributeMetadata);
+	Information.Presentation = AttributeMetadata.Presentation();
+	If Information.FillFromFillingValue = True Then
+		Information.DefaultValue = AttributeMetadata.FillingValue;
+	Else
+		Information.DefaultValue = AttributeMetadata.Type.AdjustValue();
+	EndIf;
+	Return Information;
+EndFunction
+
+Function IsInternalData(UsageInstance, RefSearchExclusions)
+	
+	SearchException = RefSearchExclusions[UsageInstance.Metadata];
+	
+	// The data can be either a reference or a register record key.
+
+	If SearchException = Undefined Then
+		Return (UsageInstance.Ref = UsageInstance.Data); // Excluding self-reference.
+	ElsIf SearchException = "*" Then
+		Return True; // Excluding everything.
+	Else
+		For Each AttributePath In SearchException Do
+			// If any exceptions are specified.
 			
-			// Относительный путь к реквизиту:
-			//   "<ИмяРеквизитаИлиТЧ>[.<ИмяРеквизитаТЧ>]".
-
-			Если ЭтоСсылка(ТипЗнч(МестоИспользования.Данные)) Тогда 
+			// Relative path to the attribute:
+			//   "<TabularPartOrAttributeName>[.<TabularPartAttributeName>]".
+			
+			If IsReference(TypeOf(UsageInstance.Data)) Then 
 				
-				// Проверка есть ли по исключаемому пути в указанных данных проверяемая ссылка
+				// Checking whether the excluded path data contains the reference.
+				
+				FullMetadataObjectName = UsageInstance.Metadata.FullName();
+				
+				QueryText = 
+					"SELECT
+					|	TRUE
+					|FROM
+					|	&FullMetadataObjectName AS Table
+					|WHERE
+					|	&AttributePath = &RefToCheck
+					|	AND Table.Ref = &Ref";
+				
+				QueryText = StrReplace(QueryText, "&FullMetadataObjectName", FullMetadataObjectName);
+				QueryText = StrReplace(QueryText, "&AttributePath", AttributePath);
+				
+				Query = New Query;
+				Query.Text = QueryText;
+				Query.SetParameter("RefToCheck", UsageInstance.Ref);
+				Query.SetParameter("Ref", UsageInstance.Data);
+				
+				Result = Query.Execute();
+				
+				If Not Result.IsEmpty() Then 
+					Return True;
+				EndIf;
 
-				ПолноеИмяОбъектаМетаданных = МестоИспользования.Метаданные.ПолноеИмя();
+			Else
 
-				ТекстЗапроса =
-				"ВЫБРАТЬ
-				|	ИСТИНА
-				|ИЗ
-				|	&ПолноеИмяОбъектаМетаданных КАК Таблица
-				|ГДЕ
-				|	&ПутьКРеквизиту = &ПроверяемаяСсылка
-				|	И Таблица.Ссылка = &Ссылка";
+				DataBuffer = New Structure(AttributePath);
+				FillPropertyValues(DataBuffer, UsageInstance.Data);
+				If DataBuffer[AttributePath] = UsageInstance.Ref Then 
+					Return True;
+				EndIf;
 
-				ТекстЗапроса = СтрЗаменить(ТекстЗапроса, "&ПолноеИмяОбъектаМетаданных", ПолноеИмяОбъектаМетаданных);
-				ТекстЗапроса = СтрЗаменить(ТекстЗапроса, "&ПутьКРеквизиту", ПутьКРеквизиту);
+			EndIf;
 
-				Запрос = Новый Запрос;
-				Запрос.Текст = ТекстЗапроса;
-				Запрос.УстановитьПараметр("ПроверяемаяСсылка", МестоИспользования.Ссылка);
-				Запрос.УстановитьПараметр("Ссылка", МестоИспользования.Данные);
+		EndDo;
+	EndIf;
+	
+	Return False;
+	
+EndFunction
 
-				Результат = Запрос.Выполнить();
+#EndRegion
 
-				Если Не Результат.Пустой() Тогда
-					Возврат Истина;
-				КонецЕсли;
-
-			Иначе
-
-				БуферДанных = Новый Структура(ПутьКРеквизиту);
-				ЗаполнитьЗначенияСвойств(БуферДанных, МестоИспользования.Данные);
-				Если БуферДанных[ПутьКРеквизиту] = МестоИспользования.Ссылка Тогда
-					Возврат Истина;
-				КонецЕсли;
-
-			КонецЕсли;
-
-		КонецЦикла;
-	КонецЕсли;
-
-	Возврат Ложь;
-
-КонецФункции
-
-#КонецОбласти
-
-#Область Метаданные
+#Region Метаданные
 
 ////////////////////////////////////////////////////////////////////////////////
-// Функции определения типов объектов метаданных.
+// Metadata object type definition functions.
 
-// Ссылочные типы данных
+// Reference data types.
 
-// Определяет принадлежность объекта метаданных к общему типу "Документ".
+// Checks whether the metadata object belongs to the Document common  type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к документам.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against Document type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является документом.
+// Returns:
+//   Boolean - True if the object is a document.
 //
-Функция ЭтоДокумент(ОбъектМетаданных) Экспорт
+Function IsDocument(MetadataObject) Export
+	
+	Return Metadata.Documents.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.Документы.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "Справочник".
+// Checks whether the metadata object belongs to the Catalog common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является справочником.
+// Returns:
+//   Boolean - True if the object is a catalog.
 //
-Функция ЭтоСправочник(ОбъектМетаданных) Экспорт
+Function IsCatalog(MetadataObject) Export
+	
+	Return Metadata.Catalogs.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.Справочники.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "Перечисление".
+// Checks whether the metadata object belongs to the Enumeration common  type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является перечислением.
+// Returns:
+//   Boolean - True if the object is an enumeration.
 //
-Функция ЭтоПеречисление(ОбъектМетаданных) Экспорт
+Function IsEnum(MetadataObject) Export
+	
+	Return Metadata.Enums.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.Перечисления.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "План обмена".
+// Checks whether the metadata object belongs to the Exchange Plan common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является планом обмена.
+// Returns:
+//   Boolean - True if the object is an exchange plan.
 //
-Функция ЭтоПланОбмена(ОбъектМетаданных) Экспорт
+Function IsExchangePlan(MetadataObject) Export
+	
+	Return Metadata.ExchangePlans.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.ПланыОбмена.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "План видов характеристик".
+// Checks whether the metadata object belongs to the Chart of Characteristic Types common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является планом видов характеристик.
+// Returns:
+//   Boolean - True if the object is a chart of characteristic types.
 //
-Функция ЭтоПланВидовХарактеристик(ОбъектМетаданных) Экспорт
+Function IsChartOfCharacteristicTypes(MetadataObject) Export
+	
+	Return Metadata.ChartsOfCharacteristicTypes.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.ПланыВидовХарактеристик.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "Бизнес-процесс".
+// Checks whether the metadata object belongs to the Business Process common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является бизнес-процессом.
+// Returns:
+//   Boolean - True if the object is a business process.
 //
-Функция ЭтоБизнесПроцесс(ОбъектМетаданных) Экспорт
+Function IsBusinessProcess(MetadataObject) Export
+	
+	Return Metadata.BusinessProcesses.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.БизнесПроцессы.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "Задача".
+// Checks whether the metadata object belongs to the Task common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является задачей.
+// Returns:
+//   Boolean - True if the object is a task.
 //
-Функция ЭтоЗадача(ОбъектМетаданных) Экспорт
+Function IsTask(MetadataObject) Export
+	
+	Return Metadata.Tasks.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.Задачи.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "План счетов".
+// Checks whether the metadata object belongs to the Chart of Accounts common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является планом счетов.
+// Returns:
+//   Boolean - True if the object is a chart of accounts.
 //
-Функция ЭтоПланСчетов(ОбъектМетаданных) Экспорт
+Function IsChartOfAccounts(MetadataObject) Export
+	
+	Return Metadata.ChartsOfAccounts.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.ПланыСчетов.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "План видов расчета".
+// Checks whether the metadata object belongs to the Chart of Calculation Types common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является планом видов расчета.
+// Returns:
+//   Boolean - True if the object is a chart of calculation types.
 //
-Функция ЭтоПланВидовРасчета(ОбъектМетаданных) Экспорт
+Function IsChartOfCalculationTypes(MetadataObject) Export
+	
+	Return Metadata.ChartsOfCalculationTypes.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.ПланыВидовРасчета.Содержит(ОбъектМетаданных);
+// Registers
 
-КонецФункции
-
-// Регистры
-
-// Определяет принадлежность объекта метаданных к общему типу "Регистр сведений".
+// Checks whether the metadata object belongs to the Information Register common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является регистром сведений.
+// Returns:
+//   Boolean - True if the object is an information register.
 //
-Функция ЭтоРегистрСведений(ОбъектМетаданных) Экспорт
+Function IsInformationRegister(MetadataObject) Export
+	
+	Return Metadata.InformationRegisters.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.РегистрыСведений.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "Регистр накопления".
+// Checks whether the metadata object belongs to the Accumulation Register common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является регистром накопления.
+// Returns:
+//   Boolean - True if the object is an accumulation register.
 //
-Функция ЭтоРегистрНакопления(ОбъектМетаданных) Экспорт
+Function IsAccumulationRegister(MetadataObject) Export
+	
+	Return Metadata.AccumulationRegisters.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.РегистрыНакопления.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "Регистр бухгалтерии".
+// Checks whether the metadata object belongs to the Accounting Register common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является регистром бухгалтерии.
+// Returns:
+//   Boolean - True if the object is an accounting register.
 //
-Функция ЭтоРегистрБухгалтерии(ОбъектМетаданных) Экспорт
+Function IsAccountingRegister(MetadataObject) Export
+	
+	Return Metadata.AccountingRegisters.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.РегистрыБухгалтерии.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к общему типу "Регистр расчета".
+// Checks whether the metadata object belongs to the Calculation Register common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является регистром расчета.
+// Returns:
+//   Boolean - True if the object is a calculation register.
 //
-Функция ЭтоРегистрРасчета(ОбъектМетаданных) Экспорт
+Function IsCalculationRegister(MetadataObject) Export
+	
+	Return Metadata.CalculationRegisters.Contains(MetadataObject);
+	
+EndFunction
+// Constants
 
-	Возврат Метаданные.РегистрыРасчета.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Константы
-
-// Определяет принадлежность объекта метаданных к общему типу "Константа".
+// Checks whether the metadata object belongs to the Constant common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является константой.
+// Returns:
+//   Boolean - True if the object is a constant.
 //
-Функция ЭтоКонстанта(ОбъектМетаданных) Экспорт
+Function IsConstant(MetadataObject) Export
+	
+	Return Metadata.Constants.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.Константы.Содержит(ОбъектМетаданных);
+// Document journals
 
-КонецФункции
-
-// Журналы документов
-
-// Определяет принадлежность объекта метаданных к общему типу "Журнал документов".
+// Checks whether the metadata object belongs to the Document Journal common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является журналом документов.
+// Returns:
+//   Boolean - True if the object is a document journal.
 //
-Функция ЭтоЖурналДокументов(ОбъектМетаданных) Экспорт
+Function IsDocumentJournal(MetadataObject) Export
+	
+	Return Metadata.DocumentJournals.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.ЖурналыДокументов.Содержит(ОбъектМетаданных);
+// Sequences
 
-КонецФункции
-
-// Последовательности
-
-// Определяет принадлежность объекта метаданных к общему типу "Последовательности".
+// Checks whether the metadata object belongs to the Sequences common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является последовательностью.
+// Returns:
+//   Boolean - True if the object is a sequence.
 //
-Функция ЭтоПоследовательность(ОбъектМетаданных) Экспорт
+Function IsSequence(MetadataObject) Export
+	
+	Return Metadata.Sequences.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.Последовательности.Содержит(ОбъектМетаданных);
+// ScheduledJobs
 
-КонецФункции
-
-// РегламентныеЗадания
-
-// Определяет принадлежность объекта метаданных к общему типу "Регламентные задания".
+// Checks whether the metadata object belongs to the Scheduled Jobs common type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является регламентным заданием.
+// Returns:
+//   Boolean - True if the object is a scheduled job.
 //
-Функция ЭтоРегламентноеЗадание(ОбъектМетаданных) Экспорт
+Function IsScheduledJob(MetadataObject) Export
+	
+	Return Metadata.ScheduledJobs.Contains(MetadataObject);
+	
+EndFunction
 
-	Возврат Метаданные.РегламентныеЗадания.Содержит(ОбъектМетаданных);
+// Common
 
-КонецФункции
-
-// Общие
-
-// Определяет принадлежность объекта метаданных к типу регистр.
+// Checks whether the metadata object belongs to the register type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект является каким-либо регистром.
+// Returns:
+//    Boolean - True if the object is a register.
 //
-Функция ЭтоРегистр(ОбъектМетаданных) Экспорт
+Function IsRegister(MetadataObject) Export
+	
+	Return Metadata.AccountingRegisters.Contains(MetadataObject)
+		Or Metadata.AccumulationRegisters.Contains(MetadataObject)
+		Or Metadata.CalculationRegisters.Contains(MetadataObject)
+		Or Metadata.InformationRegisters.Contains(MetadataObject);
+		
+EndFunction
 
-	Возврат Метаданные.РегистрыБухгалтерии.Содержит(ОбъектМетаданных) Или Метаданные.РегистрыНакопления.Содержит(
-		ОбъектМетаданных) Или Метаданные.РегистрыРасчета.Содержит(ОбъектМетаданных)
-		Или Метаданные.РегистрыСведений.Содержит(ОбъектМетаданных);
-
-КонецФункции
-
-// Определяет принадлежность объекта метаданных к ссылочному типу.
+// Checks whether the metadata object belongs to the reference type.
 //
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект, для которого необходимо определить принадлежность к заданному типу.
+// Parameters:
+//  MetadataObject - MetadataObject - object to compare against the specified type.
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если объект ссылочного типа.
+// Returns:
+//   Boolean - True if the object is a reference type object.
 //
-Функция ЭтоОбъектСсылочногоТипа(ОбъектМетаданных) Экспорт
-
-	ИмяОбъектаМетаданных = ОбъектМетаданных.ПолноеИмя();
-	Позиция = СтрНайти(ИмяОбъектаМетаданных, ".");
-	Если Позиция > 0 Тогда
-		ИмяБазовогоТипа = Лев(ИмяОбъектаМетаданных, Позиция - 1);
-		Возврат ИмяБазовогоТипа = "Справочник" Или ИмяБазовогоТипа = "Документ" Или ИмяБазовогоТипа = "БизнесПроцесс"
-			Или ИмяБазовогоТипа = "Задача" Или ИмяБазовогоТипа = "ПланСчетов" Или ИмяБазовогоТипа = "ПланОбмена"
-			Или ИмяБазовогоТипа = "ПланВидовХарактеристик" Или ИмяБазовогоТипа = "ПланВидовРасчета";
-	Иначе
-		Возврат Ложь;
-	КонецЕсли;
-
-КонецФункции
+Function IsRefTypeObject(MetadataObject) Export
+	
+	MetadataObjectName = MetadataObject.FullName();
+	Position = StrFind(MetadataObjectName, ".");
+	If Position > 0 Then 
+		BaseTypeName = Left(MetadataObjectName, Position - 1);
+		Return BaseTypeName = "Catalog"
+			Or BaseTypeName = "Document"
+			Or BaseTypeName = "BusinessProcess"
+			Or BaseTypeName = "Task"
+			Or BaseTypeName = "ChartOfAccounts"
+			Or BaseTypeName = "ExchangePlan"
+			Or BaseTypeName = "ChartOfCharacteristicTypes"
+			Or BaseTypeName = "ChartOfCalculationTypes";
+	Else
+		Return False;
+	EndIf;
+	
+EndFunction
 
 ////////////////////////////////////////////////////////////////////////////////
-// Процедуры и функции для работы с типами, объектами метаданных и их строковыми представлениями.
+// Procedures and functions for operations with types, metadata objects, and their string presentations.
 
-// Возвращает имена реквизитов объекта заданного типа.
+// Returns names of attributes for an object of the specified type.
 //
-// Параметры:
-//  Ссылка - ЛюбаяСсылка - ссылка на элемент базы данных, для которого требуется получить результат функции;
-//  Тип    - Тип - тип значения реквизита.
+// Parameters:
+//  Ref - AnyRef - a reference to a database item to use with the function.
+//  Type - Type - attribute value type.
 // 
-// Возвращаемое значение:
-//  Строка - строка реквизитов объекта метаданных конфигурации, разделенных символом ",".
+// Returns:
+//  String - a comma-separated string of configuration metadata object attributes.
 //
-// Пример:
-//  РеквизитыОрганизации = ОбщегоНазначения.ИменаРеквизитовПоТипу(Документ.Ссылка, Тип("СправочникСсылка.Организации"));
+// Example:
+//  CompanyAttributes = Common.AttributeNamesByType (Document.Ref, Type("CatalogRef.Companies"));
 //
-Функция ИменаРеквизитовПоТипу(Ссылка, Тип) Экспорт
-
-	Результат = "";
+Function AttributeNamesByType(Ref, Type) Export
+	
+	Result = "";
 	//@skip-warning
-	МетаданныеОбъекта = Ссылка.Метаданные();
-
-	Для Каждого Реквизит Из МетаданныеОбъекта.Реквизиты Цикл
-		Если Реквизит.Тип.СодержитТип(Тип) Тогда
-			Результат = Результат + ?(ПустаяСтрока(Результат), "", ", ") + Реквизит.Имя;
-		КонецЕсли;
-	КонецЦикла;
-
-	Возврат Результат;
-КонецФункции
-
-// Возвращает имя базового типа по переданному значению объекта метаданных.
-//
-// Параметры:
-//  ОбъектМетаданных - ОбъектМетаданных - объект метаданных, по которому необходимо определить базовый тип.
-// 
-// Возвращаемое значение:
-//  Строка - имя базового типа по переданному значению объекта метаданных.
-//
-// Пример:
-//  ИмяБазовогоТипа = ОбщегоНазначения.ИмяБазовогоТипаПоОбъектуМетаданных(Метаданные.Справочники.Номенклатура); = "Справочники".
-//
-Функция ИмяБазовогоТипаПоОбъектуМетаданных(ОбъектМетаданных) Экспорт
-
-	Если Метаданные.Документы.Содержит(ОбъектМетаданных) Тогда
-		Возврат "Документы";
-
-	ИначеЕсли Метаданные.Справочники.Содержит(ОбъектМетаданных) Тогда
-		Возврат "Справочники";
-
-	ИначеЕсли Метаданные.Перечисления.Содержит(ОбъектМетаданных) Тогда
-		Возврат "Перечисления";
-
-	ИначеЕсли Метаданные.РегистрыСведений.Содержит(ОбъектМетаданных) Тогда
-		Возврат "РегистрыСведений";
-
-	ИначеЕсли Метаданные.РегистрыНакопления.Содержит(ОбъектМетаданных) Тогда
-		Возврат "РегистрыНакопления";
-
-	ИначеЕсли Метаданные.РегистрыБухгалтерии.Содержит(ОбъектМетаданных) Тогда
-		Возврат "РегистрыБухгалтерии";
-
-	ИначеЕсли Метаданные.РегистрыРасчета.Содержит(ОбъектМетаданных) Тогда
-		Возврат "РегистрыРасчета";
-
-	ИначеЕсли Метаданные.ПланыОбмена.Содержит(ОбъектМетаданных) Тогда
-		Возврат "ПланыОбмена";
-
-	ИначеЕсли Метаданные.ПланыВидовХарактеристик.Содержит(ОбъектМетаданных) Тогда
-		Возврат "ПланыВидовХарактеристик";
-
-	ИначеЕсли Метаданные.БизнесПроцессы.Содержит(ОбъектМетаданных) Тогда
-		Возврат "БизнесПроцессы";
-
-	ИначеЕсли Метаданные.Задачи.Содержит(ОбъектМетаданных) Тогда
-		Возврат "Задачи";
-
-	ИначеЕсли Метаданные.ПланыСчетов.Содержит(ОбъектМетаданных) Тогда
-		Возврат "ПланыСчетов";
-
-	ИначеЕсли Метаданные.ПланыВидовРасчета.Содержит(ОбъектМетаданных) Тогда
-		Возврат "ПланыВидовРасчета";
-
-	ИначеЕсли Метаданные.Константы.Содержит(ОбъектМетаданных) Тогда
-		Возврат "Константы";
-
-	ИначеЕсли Метаданные.ЖурналыДокументов.Содержит(ОбъектМетаданных) Тогда
-		Возврат "ЖурналыДокументов";
-
-	ИначеЕсли Метаданные.Последовательности.Содержит(ОбъектМетаданных) Тогда
-		Возврат "Последовательности";
-
-	ИначеЕсли Метаданные.РегламентныеЗадания.Содержит(ОбъектМетаданных) Тогда
-		Возврат "РегламентныеЗадания";
-
-	ИначеЕсли Метаданные.РегистрыРасчета.Содержит(ОбъектМетаданных.Родитель())
-		И ОбъектМетаданных.Родитель().Перерасчеты.Найти(ОбъектМетаданных.Имя) = ОбъектМетаданных Тогда
-		Возврат "Перерасчеты";
-
-	ИначеЕсли Метаданные.ВнешниеИсточникиДанных.Содержит(ОбъектМетаданных) Тогда
-		Возврат "ВнешниеИсточникиДанных";
-
-	Иначе
-
-		Возврат "";
-
-	КонецЕсли;
-
-КонецФункции
-
-// Возвращает менеджер объекта по полному имени объекта метаданных.
-// Ограничение: не обрабатываются точки маршрутов бизнес-процессов.
-//
-// Параметры:
-//  ПолноеИмя - Строка - полное имя объекта метаданных. Пример: "Справочник.Организации".
-//
-// Возвращаемое значение:
-//  СправочникМенеджер, ДокументМенеджер, ОбработкаМенеджер, РегистрСведенийМенеджер - менеджер объекта.
-// 
-// Пример:
-//  МенеджерСправочника = ОбщегоНазначения.МенеджерОбъектаПоПолномуИмени("Справочник.Организации");
-//  ПустаяСсылка = МенеджерСправочника.ПустаяСсылка();
-//
-Функция МенеджерОбъектаПоПолномуИмени(ПолноеИмя) Экспорт
-	Перем КлассОМ, ИмяОМ, Менеджер;
-
-	ЧастиИмени = СтрРазделить(ПолноеИмя, ".");
-
-	Если ЧастиИмени.Количество() >= 2 Тогда
-		КлассОМ = ЧастиИмени[0];
-		ИмяОМ  = ЧастиИмени[1];
-	КонецЕсли;
-
-	Если ВРег(КлассОМ) = "ПЛАНОБМЕНА" Тогда
-		Менеджер = ПланыОбмена;
-
-	ИначеЕсли ВРег(КлассОМ) = "СПРАВОЧНИК" Тогда
-		Менеджер = Справочники;
-
-	ИначеЕсли ВРег(КлассОМ) = "ДОКУМЕНТ" Тогда
-		Менеджер = Документы;
-
-	ИначеЕсли ВРег(КлассОМ) = "ЖУРНАЛДОКУМЕНТОВ" Тогда
-		Менеджер = ЖурналыДокументов;
-
-	ИначеЕсли ВРег(КлассОМ) = "ПЕРЕЧИСЛЕНИЕ" Тогда
-		Менеджер = Перечисления;
-
-	ИначеЕсли ВРег(КлассОМ) = "ОТЧЕТ" Тогда
-		Менеджер = Отчеты;
-
-	ИначеЕсли ВРег(КлассОМ) = "ОБРАБОТКА" Тогда
-		Менеджер = Обработки;
-
-	ИначеЕсли ВРег(КлассОМ) = "ПЛАНВИДОВХАРАКТЕРИСТИК" Тогда
-		Менеджер = ПланыВидовХарактеристик;
-
-	ИначеЕсли ВРег(КлассОМ) = "ПЛАНСЧЕТОВ" Тогда
-		Менеджер = ПланыСчетов;
-
-	ИначеЕсли ВРег(КлассОМ) = "ПЛАНВИДОВРАСЧЕТА" Тогда
-		Менеджер = ПланыВидовРасчета;
-
-	ИначеЕсли ВРег(КлассОМ) = "РЕГИСТРСВЕДЕНИЙ" Тогда
-		Менеджер = РегистрыСведений;
-
-	ИначеЕсли ВРег(КлассОМ) = "РЕГИСТРНАКОПЛЕНИЯ" Тогда
-		Менеджер = РегистрыНакопления;
-
-	ИначеЕсли ВРег(КлассОМ) = "РЕГИСТРБУХГАЛТЕРИИ" Тогда
-		Менеджер = РегистрыБухгалтерии;
-
-	ИначеЕсли ВРег(КлассОМ) = "РЕГИСТРРАСЧЕТА" Тогда
-		Если ЧастиИмени.Количество() = 2 Тогда
-			// Регистр расчета
-			Менеджер = РегистрыРасчета;
-		Иначе
-			КлассПодчиненногоОМ = ЧастиИмени[2];
-			ИмяПодчиненногоОМ = ЧастиИмени[3];
-			Если ВРег(КлассПодчиненногоОМ) = "ПЕРЕРАСЧЕТ" Тогда
-				// Перерасчет
-				Попытка
-					Менеджер = РегистрыРасчета[ИмяОМ].Перерасчеты;
-					ИмяОм = ИмяПодчиненногоОМ;
-				Исключение
-					Менеджер = Неопределено;
-				КонецПопытки;
-			КонецЕсли;
-		КонецЕсли;
-
-	ИначеЕсли ВРег(КлассОМ) = "БИЗНЕСПРОЦЕСС" Тогда
-		Менеджер = БизнесПроцессы;
-
-	ИначеЕсли ВРег(КлассОМ) = "ЗАДАЧА" Тогда
-		Менеджер = Задачи;
-
-	ИначеЕсли ВРег(КлассОМ) = "КОНСТАНТА" Тогда
-		Менеджер = Константы;
-
-	ИначеЕсли ВРег(КлассОМ) = "ПОСЛЕДОВАТЕЛЬНОСТЬ" Тогда
-		Менеджер = Последовательности;
-	КонецЕсли;
-
-	Если Менеджер <> Неопределено Тогда
-		Попытка
-			Возврат Менеджер[ИмяОМ];
-		Исключение
-			Менеджер = Неопределено;
-		КонецПопытки;
-	КонецЕсли;
-
-	ВызватьИсключение СтрШаблон(НСтр("ru = 'Неизвестный тип объекта метаданных ""%1""'"), ПолноеИмя);
-
-КонецФункции
-
-// Возвращает менеджер объекта по ссылке на объект.
-// Ограничение: не обрабатываются точки маршрутов бизнес-процессов.
-// См. также ОбщегоНазначения.МенеджерОбъектаПоПолномуИмени.
-//
-// Параметры:
-//  Ссылка - ЛюбаяСсылка - объект, менеджер которого требуется получить.
-//
-// Возвращаемое значение:
-//  СправочникМенеджер, ДокументМенеджер, ОбработкаМенеджер, РегистрСведенийМенеджер - менеджер объекта.
-//
-// Пример:
-//  МенеджерСправочника = ОбщегоНазначения.МенеджерОбъектаПоСсылке(СсылкаНаОрганизацию);
-//  ПустаяСсылка = МенеджерСправочника.ПустаяСсылка();
-//
-Функция МенеджерОбъектаПоСсылке(Ссылка) Экспорт
+	ObjectMetadata = Ref.Metadata();
 	
-	//@skip-warning
-	ИмяОбъекта = Ссылка.Метаданные().Имя;
-	ТипСсылки = ТипЗнч(Ссылка);
+	For Each Attribute In ObjectMetadata.Attributes Do
+		If Attribute.Type.ContainsType(Type) Then
+			Result = Result + ?(IsBlankString(Result), "", ", ") + Attribute.Name;
+		EndIf;
+	EndDo;
+	
+	Return Result;
+EndFunction
 
-	Если Справочники.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат Справочники[ИмяОбъекта];
-
-	ИначеЕсли Документы.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат Документы[ИмяОбъекта];
-
-	ИначеЕсли БизнесПроцессы.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат БизнесПроцессы[ИмяОбъекта];
-
-	ИначеЕсли ПланыВидовХарактеристик.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат ПланыВидовХарактеристик[ИмяОбъекта];
-
-	ИначеЕсли ПланыСчетов.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат ПланыСчетов[ИмяОбъекта];
-
-	ИначеЕсли ПланыВидовРасчета.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат ПланыВидовРасчета[ИмяОбъекта];
-
-	ИначеЕсли Задачи.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат Задачи[ИмяОбъекта];
-
-	ИначеЕсли ПланыОбмена.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат ПланыОбмена[ИмяОбъекта];
-
-	ИначеЕсли Перечисления.ТипВсеСсылки().СодержитТип(ТипСсылки) Тогда
-		Возврат Перечисления[ИмяОбъекта];
-	Иначе
-		Возврат Неопределено;
-	КонецЕсли;
-
-КонецФункции
-
-// Проверка того, что переданный тип является ссылочным типом данных.
-// Для типа "Неопределено" возвращается Ложь.
+// Returns a base type name by the passed metadata object value.
 //
-// Параметры:
-//  ПроверяемыйТип - Тип - для проверки на ссылочный тип данных.
-//
-// Возвращаемое значение:
-//  Булево - Истина, если это ссылка.
-//
-Функция ЭтоСсылка(ПроверяемыйТип) Экспорт
-
-	Возврат ПроверяемыйТип <> Тип("Неопределено") И AllRefsTypeDescription().СодержитТип(ПроверяемыйТип);
-
-КонецФункции
-
-// Проверяет физическое наличие записи в информационной базе данных о переданном значении ссылки.
-//
-// Параметры:
-//  ПроверяемаяСсылка - ЛюбаяСсылка - значение любой ссылки информационной базы данных.
+// Parameters:
+//  MetadataObject - MetadataObject - a metadata object whose base type is to be determined.
 // 
-// Возвращаемое значение:
-//  Булево - Истина, если существует.
+// Returns:
+//  String - name of the base type for the passed metadata object value.
 //
-Функция СсылкаСуществует(ПроверяемаяСсылка) Экспорт
-
-	ТекстЗапроса = "
-				   |ВЫБРАТЬ ПЕРВЫЕ 1
-				   |	1
-				   |ИЗ
-				   |	[ИмяТаблицы]
-				   |ГДЕ
-				   |	Ссылка = &Ссылка
-				   |";
-
-	ТекстЗапроса = СтрЗаменить(ТекстЗапроса, "[ИмяТаблицы]", ИмяТаблицыПоСсылке(ПроверяемаяСсылка));
-
-	Запрос = Новый Запрос;
-	Запрос.Текст = ТекстЗапроса;
-	Запрос.УстановитьПараметр("Ссылка", ПроверяемаяСсылка);
-
-	УстановитьПривилегированныйРежим(Истина);
-
-	Возврат Не Запрос.Выполнить().Пустой();
-
-КонецФункции
-
-// Возвращает имя вида объектов метаданных по ссылке на объект.
-// Ограничение: не обрабатываются точки маршрутов бизнес-процессов.
-// См. так же ВидОбъектаПоТипу.
+// Example:
+//  BaseTypeName = Common.BaseTypeNameByMetadataObject(Metadata.Catalogs.Products); = "Catalogs".
 //
-// Параметры:
-//  Ссылка - ЛюбаяСсылка - объект, вид которого требуется получить.
+Function BaseTypeNameByMetadataObject(MetadataObject) Export
+	
+	If Metadata.Documents.Contains(MetadataObject) Then
+		Return "Documents";
+		
+	ElsIf Metadata.Catalogs.Contains(MetadataObject) Then
+		Return "Catalogs";
+		
+	ElsIf Metadata.Enums.Contains(MetadataObject) Then
+		Return "Enums";
+		
+	ElsIf Metadata.InformationRegisters.Contains(MetadataObject) Then
+		Return "InformationRegisters";
+		
+	ElsIf Metadata.AccumulationRegisters.Contains(MetadataObject) Then
+		Return "AccumulationRegisters";
+		
+	ElsIf Metadata.AccountingRegisters.Contains(MetadataObject) Then
+		Return "AccountingRegisters";
+		
+	ElsIf Metadata.CalculationRegisters.Contains(MetadataObject) Then
+		Return "CalculationRegisters";
+		
+	ElsIf Metadata.ExchangePlans.Contains(MetadataObject) Then
+		Return "ExchangePlans";
+		
+	ElsIf Metadata.ChartsOfCharacteristicTypes.Contains(MetadataObject) Then
+		Return "ChartsOfCharacteristicTypes";
+		
+	ElsIf Metadata.BusinessProcesses.Contains(MetadataObject) Then
+		Return "BusinessProcesses";
+		
+	ElsIf Metadata.Tasks.Contains(MetadataObject) Then
+		Return "Tasks";
+		
+	ElsIf Metadata.ChartsOfAccounts.Contains(MetadataObject) Then
+		Return "ChartsOfAccounts";
+		
+	ElsIf Metadata.ChartsOfCalculationTypes.Contains(MetadataObject) Then
+		Return "ChartsOfCalculationTypes";
+		
+	ElsIf Metadata.Constants.Contains(MetadataObject) Then
+		Return "Constants";
+		
+	ElsIf Metadata.DocumentJournals.Contains(MetadataObject) Then
+		Return "DocumentJournals";
+		
+	ElsIf Metadata.Sequences.Contains(MetadataObject) Then
+		Return "Sequences";
+		
+	ElsIf Metadata.ScheduledJobs.Contains(MetadataObject) Then
+		Return "ScheduledJobs";
+		
+	ElsIf Metadata.CalculationRegisters.Contains(MetadataObject.Parent())
+		AND MetadataObject.Parent().Recalculations.Find(MetadataObject.Name) = MetadataObject Then
+		Return "Recalculations";
+		
+	Else
+		
+		Return "";
+		
+	EndIf;
+	
+EndFunction
+
+// Returns an object manager by the passed full name of a metadata object.
+// Restriction: does not process business process route points.
 //
-// Возвращаемое значение:
-//  Строка - имя вида объектов метаданных. Например: "Справочник", "Документ".
+// Parameters:
+//  FullName - String - full name of a metadata object. Example: "Catalog.Company".
+//
+// Returns:
+//  CatalogManager, DocumentManager, DataProcessorManager, InformationRegisterManager - an object manager.
 // 
-Функция ВидОбъектаПоСсылке(Ссылка) Экспорт
-
-	Возврат ВидОбъектаПоТипу(ТипЗнч(Ссылка));
-
-КонецФункции 
-
-// Возвращает имя вида объектов метаданных по типу объекта.
-// Ограничение: не обрабатываются точки маршрутов бизнес-процессов.
-// См. так же ВидОбъектаПоСсылке.
+// Example:
+//  CatalogManager= Common.ObjectManagerByFullName("Catalog.Companies");
+//  EmptyRef = CatalogManager.EmptyRef();
 //
-// Параметры:
-//  ТипОбъекта - Тип - Тип прикладного объекта, определенный в конфигурации.
+Function ObjectManagerByFullName(FullName) Export
+	Var MOClass, MetadataObjectName, Manager;
+	
+	NameParts = StrSplit(FullName, ".");
+	
+	If NameParts.Count() >= 2 Then
+		MOClass = NameParts[0];
+		MetadataObjectName  = NameParts[1];
+	EndIf;
+	
+	If      Upper(MOClass) = "EXCHANGEPLAN" Then
+		Manager = ExchangePlans;
+		
+	ElsIf Upper(MOClass) = "CATALOG" Then
+		Manager = Catalogs;
+		
+	ElsIf Upper(MOClass) = "DOCUMENT" Then
+		Manager = Documents;
+		
+	ElsIf Upper(MOClass) = "DOCUMENTJOURNAL" Then
+		Manager = DocumentJournals;
+		
+	ElsIf Upper(MOClass) = "ENUM" Then
+		Manager = Enums;
+		
+	ElsIf Upper(MOClass) = "REPORT" Then
+		Manager = Reports;
+		
+	ElsIf Upper(MOClass) = "DATAPROCESSOR" Then
+		Manager = DataProcessors;
+		
+	ElsIf Upper(MOClass) = "CHARTOFCHARACTERISTICTYPES" Then
+		Manager = ChartsOfCharacteristicTypes;
+		
+	ElsIf Upper(MOClass) = "CHARTOFACCOUNTS" Then
+		Manager = ChartsOfAccounts;
+		
+	ElsIf Upper(MOClass) = "CHARTOFCALCULATIONTYPES" Then
+		Manager = ChartsOfCalculationTypes;
+		
+	ElsIf Upper(MOClass) = "INFORMATIONREGISTER" Then
+		Manager = InformationRegisters;
+		
+	ElsIf Upper(MOClass) = "ACCUMULATIONREGISTER" Then
+		Manager = AccumulationRegisters;
+		
+	ElsIf Upper(MOClass) = "ACCOUNTINGREGISTER" Then
+		Manager = AccountingRegisters;
+		
+	ElsIf Upper(MOClass) = "CALCULATIONREGISTER" Then
+		If NameParts.Count() = 2 Then
+			// Calculation register
+			Manager = CalculationRegisters;
+		Else
+			SubordinateMOClass = NameParts[2];
+			SubordinateMOName = NameParts[3];
+			If Upper(SubordinateMOClass) = "RECALCULATION" Then
+				// Recalculation
+				Try
+					Manager = CalculationRegisters[MetadataObjectName].Recalculations;
+					MetadataObjectName = SubordinateMOName;
+				Except
+					Manager = Undefined;
+				EndTry;
+			EndIf;
+		EndIf;
+		
+	ElsIf Upper(MOClass) = "BUSINESSPROCESS" Then
+		Manager = BusinessProcesses;
+		
+	ElsIf Upper(MOClass) = "TASK" Then
+		Manager = Tasks;
+		
+	ElsIf Upper(MOClass) = "CONSTANT" Then
+		Manager = Constants;
+		
+	ElsIf Upper(MOClass) = "SEQUENCE" Then
+		Manager = Sequences;
+	EndIf;
+	
+	If Manager <> Undefined Then
+		Try
+			Return Manager[MetadataObjectName];
+		Except
+			Manager = Undefined;
+		EndTry;
+	EndIf;
+
+	Raise StrTemplate(NStr("ru = 'Неизвестный тип объекта метаданных ""%1""'; en = 'Invalid metadata object type: %1.'"), FullName);
+EndFunction
+
+// Returns an object manager by the passed object reference.
+// Restriction: does not process business process route points.
+// See also: Common.ObjectManagerByFullName.
 //
-// Возвращаемое значение:
-//  Строка - имя вида объектов метаданных. Например: "Справочник", "Документ".
+// Parameters:
+//  Ref - AnyRef - an object whose manager is sought.
+//
+// Returns:
+//  CatalogManager, DocumentManager, DataProcessorManager, InformationRegisterManager - an object manager.
+//
+// Example:
+//  CatalogManager = Common.ObjectManagerByRef(RefToCompany);
+//  EmptyRef = CatalogManager.EmptyRef();
+//
+Function ObjectManagerByRef(Ref) Export
+	
+	ObjectName = Ref.Metadata().Name;
+	RefType = TypeOf(Ref);
+	
+	If Catalogs.AllRefsType().ContainsType(RefType) Then
+		Return Catalogs[ObjectName];
+		
+	ElsIf Documents.AllRefsType().ContainsType(RefType) Then
+		Return Documents[ObjectName];
+		
+	ElsIf BusinessProcesses.AllRefsType().ContainsType(RefType) Then
+		Return BusinessProcesses[ObjectName];
+		
+	ElsIf ChartsOfCharacteristicTypes.AllRefsType().ContainsType(RefType) Then
+		Return ChartsOfCharacteristicTypes[ObjectName];
+		
+	ElsIf ChartsOfAccounts.AllRefsType().ContainsType(RefType) Then
+		Return ChartsOfAccounts[ObjectName];
+		
+	ElsIf ChartsOfCalculationTypes.AllRefsType().ContainsType(RefType) Then
+		Return ChartsOfCalculationTypes[ObjectName];
+		
+	ElsIf Tasks.AllRefsType().ContainsType(RefType) Then
+		Return Tasks[ObjectName];
+		
+	ElsIf ExchangePlans.AllRefsType().ContainsType(RefType) Then
+		Return ExchangePlans[ObjectName];
+		
+	ElsIf Enums.AllRefsType().ContainsType(RefType) Then
+		Return Enums[ObjectName];
+	Else
+		Return Undefined;
+	EndIf;
+	
+EndFunction
+
+// Checking whether the passed type is a reference data type.
+// Returns False for Undefined type.
+//
+// Parameters:
+//  TypeToCheck - Type - a reference type to check.
+//
+// Returns:
+//  Boolean - True if the type is a reference type.
+//
+Function IsReference(TypeToCheck) Export
+	
+	Return TypeToCheck <> Type("Undefined") AND AllRefsTypeDescription().ContainsType(TypeToCheck);
+	
+EndFunction
+
+// Checks whether the infobase record exists by its reference.
+//
+// Parameters:
+//  RefToCheck - AnyRef - a value of an infobase reference.
 // 
-Функция ВидОбъектаПоТипу(ТипОбъекта) Экспорт
-
-	Если Справочники.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "Справочник";
-
-	ИначеЕсли Документы.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "Документ";
-
-	ИначеЕсли БизнесПроцессы.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "БизнесПроцесс";
-
-	ИначеЕсли ПланыВидовХарактеристик.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "ПланВидовХарактеристик";
-
-	ИначеЕсли ПланыСчетов.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "ПланСчетов";
-
-	ИначеЕсли ПланыВидовРасчета.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "ПланВидовРасчета";
-
-	ИначеЕсли Задачи.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "Задача";
-
-	ИначеЕсли ПланыОбмена.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "ПланОбмена";
-
-	ИначеЕсли Перечисления.ТипВсеСсылки().СодержитТип(ТипОбъекта) Тогда
-		Возврат "Перечисление";
-
-	Иначе
-		ВызватьИсключение СтрШаблон(НСтр("ru='Неверный тип значения параметра (%1)'"), Строка(ТипОбъекта));
-
-	КонецЕсли;
-
-КонецФункции
-
-// Возвращает полное имя объекта метаданных по переданному значению ссылки.
+// Returns:
+//  Boolean - True if exists.
 //
-// Параметры:
-//  Ссылка - ЛюбаяСсылка - объект, для которого необходимо получить имя таблицы ИБ.
+Function RefExists(RefToCheck) Export
+	
+	QueryText = "
+	|SELECT TOP 1
+	|	1
+	|FROM
+	|	[TableName]
+	|WHERE
+	|	Ref = &Ref
+	|";
+	
+	QueryText = StrReplace(QueryText, "[TableName]", TableNameByRef(RefToCheck));
+	
+	Query = New Query;
+	Query.Text = QueryText;
+	Query.SetParameter("Ref", RefToCheck);
+	
+	SetPrivilegedMode(True);
+	
+	Return NOT Query.Execute().IsEmpty();
+	
+EndFunction
+
+// Returns a metadata object kind name by the passed object reference.
+// Restriction: does not process business process route points.
+// See also: ObjectKindByType.
+//
+// Parameters:
+//  Ref - AnyRef - an object of the kind to search for.
+//
+// Returns:
+//  String - a metadata object kind name. For example: "Catalog", "Document".
 // 
-// Возвращаемое значение:
-//  Строка - полное имя объекта метаданных для указанного объекта. Например: "Справочник.Номенклатура".
-//
-Функция ИмяТаблицыПоСсылке(Ссылка) Экспорт
+Function ObjectKindByRef(Ref) Export
 	
-	//@skip-warning
-	Возврат Ссылка.Метаданные().ПолноеИмя();
-
-КонецФункции
-
-// Проверяет, что переданное значение имеет ссылочный тип данных.
-//
-// Параметры:
-//  Значение - Произвольный - проверяемое значение.
-//
-// Возвращаемое значение:
-//  Булево - Истина, если тип значения ссылочный.
-//
-Функция ЗначениеСсылочногоТипа(Значение) Экспорт
-
-	Возврат ЭтоСсылка(ТипЗнч(Значение));
-
-КонецФункции
-
-// Проверяет, является ли объект группой элементов.
-//
-// Параметры:
-//  Объект - ЛюбаяСсылка, Объект - проверяемый объект.
-//
-// Возвращаемое значение:
-//  Булево - Истина, если является.
-//
-Функция ОбъектЯвляетсяГруппой(Объект) Экспорт
-
-	Если ЗначениеСсылочногоТипа(Объект) Тогда
-		Ссылка = Объект;
-	Иначе
-		//@skip-warning
-		Ссылка = Объект.Ссылка;
-	КонецЕсли;
+	Return ObjectKindByType(TypeOf(Ref));
 	
-	//@skip-warning
-	МетаданныеОбъекта = Ссылка.Метаданные();
+EndFunction 
 
-	Если ЭтоСправочник(МетаданныеОбъекта) Тогда
-
-		Если Не МетаданныеОбъекта.Иерархический Или МетаданныеОбъекта.ВидИерархии
-			<> Метаданные.СвойстваОбъектов.ВидИерархии.ИерархияГруппИЭлементов Тогда
-
-			Возврат Ложь;
-		КонецЕсли;
-
-	ИначеЕсли Не ЭтоПланВидовХарактеристик(МетаданныеОбъекта) Тогда
-		Возврат Ложь;
-
-	ИначеЕсли Не МетаданныеОбъекта.Иерархический Тогда
-		Возврат Ложь;
-	КонецЕсли;
-
-	Если Ссылка <> Объект Тогда
-		//@skip-warning
-		Возврат Объект.ЭтоГруппа;
-	КонецЕсли;
-
-	Возврат ObjectAttributeValue(Ссылка, "ЭтоГруппа") = Истина;
-
-КонецФункции
-
-// Возвращает строковое представление типа. 
-// Для ссылочных типов возвращает в формате "СправочникСсылка.ИмяОбъекта" или "ДокументСсылка.ИмяОбъекта".
-// Для остальных типов приводит тип к строке, например "Число".
+// Returns a metadata object kind name by the passed object type.
+// Restriction: does not process business process route points.
+// See also: ObjectKindByRef.
 //
-// Параметры:
-//  Тип - тип - для которого надо получить представление.
+// Parameters:
+//  ObjectType - Type - an applied object type defined in the configuration.
 //
-// Возвращаемое значение:
-//  Строка - представление типа.
-//
-Функция СтроковоеПредставлениеТипа(Тип) Экспорт
-
-	Представление = "";
-
-	Если ЭтоСсылка(Тип) Тогда
-
-		ПолноеИмя = Метаданные.НайтиПоТипу(Тип).ПолноеИмя();
-		ИмяОбъекта = СтрРазделить(ПолноеИмя, ".")[1];
-
-		Если Справочники.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "СправочникСсылка";
-
-		ИначеЕсли Документы.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "ДокументСсылка";
-
-		ИначеЕсли БизнесПроцессы.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "БизнесПроцессСсылка";
-
-		ИначеЕсли ПланыВидовХарактеристик.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "ПланВидовХарактеристикСсылка";
-
-		ИначеЕсли ПланыСчетов.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "ПланСчетовСсылка";
-
-		ИначеЕсли ПланыВидовРасчета.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "ПланВидовРасчетаСсылка";
-
-		ИначеЕсли Задачи.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "ЗадачаСсылка";
-
-		ИначеЕсли ПланыОбмена.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "ПланОбменаСсылка";
-
-		ИначеЕсли Перечисления.ТипВсеСсылки().СодержитТип(Тип) Тогда
-			Представление = "ПеречислениеСсылка";
-
-		КонецЕсли;
-
-		Результат = ?(Представление = "", Представление, Представление + "." + ИмяОбъекта);
-
-	Иначе
-
-		Результат = Строка(Тип);
-
-	КонецЕсли;
-
-	Возврат Результат;
-
-КонецФункции
-
-// Возвращает таблицу значений с описанием требуемых свойств всех реквизитов объекта метаданных.
-// Получает значения свойств стандартных реквизитов и пользовательских реквизитов (созданных в режиме конфигуратора).
-//
-// Параметры:
-//  ОбъектМетаданных  - ОбъектМетаданных - объект, для которого необходимо получить значение свойств реквизитов.
-//                      Например: Метаданные.Документ.РеализацияТоваровИУслуг
-//  Свойства - Строка - свойства реквизитов, перечисленные через запятую, значение которых необходимо получить.
-//                      Например: "Имя, Тип, Синоним, Подсказка".
-//
-// Возвращаемое значение:
-//  ТаблицаЗначений - описание требуемых свойств всех реквизитов объекта метаданных.
-//
-Функция ОписаниеСвойствОбъекта(ОбъектМетаданных, Свойства) Экспорт
-
-	МассивСвойств = СтрРазделить(Свойства, ",");
-	
-	// Возвращаемое значение функции.
-	ТаблицаОписанияСвойствОбъекта = Новый ТаблицаЗначений;
-	
-	// Добавляем в таблицу поля согласно именам переданных свойств.
-	Для Каждого ИмяСвойства Из МассивСвойств Цикл
-		ТаблицаОписанияСвойствОбъекта.Колонки.Добавить(СокрЛП(ИмяСвойства));
-	КонецЦикла;
-	
-	// Заполняем строку таблицы свойствами реквизитов объекта метаданных.
-	Для Каждого Реквизит Из ОбъектМетаданных.Реквизиты Цикл
-		ЗаполнитьЗначенияСвойств(ТаблицаОписанияСвойствОбъекта.Добавить(), Реквизит);
-	КонецЦикла;
-	
-	// Заполняем строку таблицы свойствами стандартных реквизитов объекта метаданных.
-	Для Каждого Реквизит Из ОбъектМетаданных.СтандартныеРеквизиты Цикл
-		ЗаполнитьЗначенияСвойств(ТаблицаОписанияСвойствОбъекта.Добавить(), Реквизит);
-	КонецЦикла;
-
-	Возврат ТаблицаОписанияСвойствОбъекта;
-
-КонецФункции
-
-// Возвращает признак того, что реквизит входит в подмножество стандартных реквизитов.
-//
-// Параметры:
-//  СтандартныеРеквизиты - ОписанияСтандартныхРеквизитов - тип и значение, описывающие коллекцию настроек различных
-//                                                         стандартных реквизитов;
-//  ИмяРеквизита         - Строка - реквизит, который необходимо проверить на принадлежность множеству стандартных
-//                                  реквизитов.
+// Returns:
+//  String - a metadata object kind name. For example: "Catalog", "Document".
 // 
-// Возвращаемое значение:
-//   Булево - Истина, если реквизит входит в подмножество стандартных реквизитов.
+Function ObjectKindByType(ObjectType) Export
+	
+	If Catalogs.AllRefsType().ContainsType(ObjectType) Then
+		Return "Catalog";
+	
+	ElsIf Documents.AllRefsType().ContainsType(ObjectType) Then
+		Return "Document";
+	
+	ElsIf BusinessProcesses.AllRefsType().ContainsType(ObjectType) Then
+		Return "BusinessProcess";
+	
+	ElsIf ChartsOfCharacteristicTypes.AllRefsType().ContainsType(ObjectType) Then
+		Return "ChartOfCharacteristicTypes";
+	
+	ElsIf ChartsOfAccounts.AllRefsType().ContainsType(ObjectType) Then
+		Return "ChartOfAccounts";
+	
+	ElsIf ChartsOfCalculationTypes.AllRefsType().ContainsType(ObjectType) Then
+		Return "ChartOfCalculationTypes";
+	
+	ElsIf Tasks.AllRefsType().ContainsType(ObjectType) Then
+		Return "Task";
+	
+	ElsIf ExchangePlans.AllRefsType().ContainsType(ObjectType) Then
+		Return "ExchangePlan";
+	
+	ElsIf Enums.AllRefsType().ContainsType(ObjectType) Then
+		Return "Enum";
+	
+	Else
+		
+    Raise StrTemplate(NStr("ru='Неверный тип значения параметра (%1)'; en = 'Invalid parameter value type: %1.'"), String(ObjectType));
+	
+	EndIf;
+	
+EndFunction
+// Returns full metadata object name by the passed reference value.
 //
-Функция ЭтоСтандартныйРеквизит(СтандартныеРеквизиты, ИмяРеквизита) Экспорт
-
-	Для Каждого Реквизит Из СтандартныеРеквизиты Цикл
-		Если Реквизит.Имя = ИмяРеквизита Тогда
-			Возврат Истина;
-		КонецЕсли;
-	КонецЦикла;
-	Возврат Ложь;
-
-КонецФункции
-
-// Позволяет определить, есть ли среди реквизитов объекта реквизит с переданным именем.
+// Parameters:
+//  Ref - AnyRef - an object whose infobase table name is sought.
+// 
+// Returns:
+//  String - the full name of the metadata object for the specified object. For example, "Catalog.Products".
 //
-// Параметры:
-//  ИмяРеквизита - Строка - имя реквизита;
-//  МетаданныеОбъекта - ОбъектМетаданных - объект, в котором требуется проверить наличие реквизита.
+Function TableNameByRef(Ref) Export
+	
+	Return Ref.Metadata().FullName();
+	
+EndFunction
+
+// Checks whether the value is a reference type value.
 //
-// Возвращаемое значение:
-//  Булево - Истина, если есть.
+// Parameters:
+//  Value - Arbitrary - a value to check.
 //
-Функция ЕстьРеквизитОбъекта(ИмяРеквизита, МетаданныеОбъекта) Экспорт
-
-	Возврат Не (МетаданныеОбъекта.Реквизиты.Найти(ИмяРеквизита) = Неопределено);
-
-КонецФункции
-
-// Проверить, что описание типа состоит из единственного типа значения и 
-// совпадает с нужным типом.
+// Returns:
+//  Boolean - True if the value is a reference type value.
 //
-// Параметры:
-//   ОписаниеТипа - ОписаниеТипов - проверяемая коллекция типов;
-//   ТипЗначения  - Тип - проверяемый тип.
+Function RefTypeValue(Value) Export
+	
+	Return IsReference(TypeOf(Value));
+	
+EndFunction
+
+// Checks whether the object is an item group.
 //
-// Возвращаемое значение:
-//   Булево - Истина, если совпадает.
+// Parameters:
+//  Object - AnyRef, Object - an object to check.
 //
-// Пример:
-//  Если ОбщегоНазначения.ОписаниеТипаСостоитИзТипа(ТипЗначенияСвойства, Тип("Булево") Тогда
-//    // Выводим поле в виде флажка.
-//  КонецЕсли;
+// Returns:
+//  Boolean - True if the object is an item group.
 //
-Функция ОписаниеТипаСостоитИзТипа(ОписаниеТипа, ТипЗначения) Экспорт
+Function ObjectIsFolder(Object) Export
+	
+	If RefTypeValue(Object) Then
+		Ref = Object;
+	Else
+		Ref = Object.Ref;
+	EndIf;
+	
+	ObjectMetadata = Ref.Metadata();
+	
+	If IsCatalog(ObjectMetadata) Then
+		
+		If NOT ObjectMetadata.Hierarchical
+		 OR ObjectMetadata.HierarchyType
+		     <> Metadata.ObjectProperties.HierarchyType.HierarchyFoldersAndItems Then
+			
+			Return False;
+		EndIf;
+		
+	ElsIf NOT IsChartOfCharacteristicTypes(ObjectMetadata) Then
+		Return False;
+		
+	ElsIf NOT ObjectMetadata.Hierarchical Then
+		Return False;
+	EndIf;
+	
+	If Ref <> Object Then
+		Return Object.IsFolder;
+	EndIf;
+	
+	Return ObjectAttributeValue(Ref, "IsFolder") = True;
+	
+EndFunction
 
-	Если ОписаниеТипа.Типы().Количество() = 1 И ОписаниеТипа.Типы().Получить(0) = ТипЗначения Тогда
-		Возврат Истина;
-	КонецЕсли;
-
-	Возврат Ложь;
-
-КонецФункции
-
-// Создает объект ОписаниеТипов, содержащий тип Строка.
+/// Returns a string presentation of the type.
+// For reference types, returns a string in format "CatalogRef.ObjectName" or "DocumentRef.ObjectName".
+// For any other types, converts the type to string. Example: "Number".
 //
-// Параметры:
-//  ДлинаСтроки - Число - длина строки.
+// Parameters:
+//  Type - type - a type whose presentation is sought.
 //
-// Возвращаемое значение:
-//  ОписаниеТипов - описание типа Строка.
+// Returns:
+//  String - a type presentation.
 //
-Функция ОписаниеТипаСтрока(ДлинаСтроки) Экспорт
+Function TypePresentationString(Type) Export
+	
+	Presentation = "";
+	
+	If IsReference(Type) Then
+	
+		FullName = Metadata.FindByType(Type).FullName();
+		ObjectName = StrSplit(FullName, ".")[1];
+		
+		If Catalogs.AllRefsType().ContainsType(Type) Then
+			Presentation = "CatalogRef";
+		
+		ElsIf Documents.AllRefsType().ContainsType(Type) Then
+			Presentation = "DocumentRef";
+		
+		ElsIf BusinessProcesses.AllRefsType().ContainsType(Type) Then
+			Presentation = "BusinessProcessRef";
+		
+		ElsIf ChartsOfCharacteristicTypes.AllRefsType().ContainsType(Type) Then
+			Presentation = "ChartOfCharacteristicTypesRef";
+		
+		ElsIf ChartsOfAccounts.AllRefsType().ContainsType(Type) Then
+			Presentation = "ChartOfAccountsRef";
+		
+		ElsIf ChartsOfCalculationTypes.AllRefsType().ContainsType(Type) Then
+			Presentation = "ChartOfCalculationTypesRef";
+		
+		ElsIf Tasks.AllRefsType().ContainsType(Type) Then
+			Presentation = "TaskRef";
+		
+		ElsIf ExchangePlans.AllRefsType().ContainsType(Type) Then
+			Presentation = "ExchangePlanRef";
+		
+		ElsIf Enums.AllRefsType().ContainsType(Type) Then
+			Presentation = "EnumRef";
+		
+		EndIf;
+		
+		Result = ?(Presentation = "", Presentation, Presentation + "." + ObjectName);
+		
+	Else
+		
+		Result = String(Type);
+		
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
 
-	Массив = Новый Массив;
-	Массив.Добавить(Тип("Строка"));
-
-	КвалификаторСтроки = Новый КвалификаторыСтроки(ДлинаСтроки, ДопустимаяДлина.Переменная);
-
-	Возврат Новый ОписаниеТипов(Массив, , КвалификаторСтроки);
-
-КонецФункции
-
-// Создает объект ОписаниеТипов, содержащий тип Число.
+//  Returns a value table with the required property information for all attributes of a metadata object.
+// Gets property values of standard and custom attributes (custom attributes are the attributes created in Designer mode).
 //
-// Параметры:
-//  Разрядность - Число - общее количество разрядов числа (количество разрядов
-//                        целой части плюс количество разрядов дробной части).
-//  РазрядностьДробнойЧасти - Число - число разрядов дробной части.
-//  ЗнакЧисла - ДопустимыйЗнак - допустимый знак числа.
+// Parameters:
+//  MetadataObject  - MetadataObject - an object whose attribute property values are sought.
+//                      Example: Metadata.Document.Invoice
+//  Properties - String - comma-separated attribute properties whose values to be retrieved.
+//                      Example: "Name, Type, Synonym, Tooltip".
 //
-// Возвращаемое значение:
-//  ОписаниеТипов - описание типа Число.
-Функция ОписаниеТипаЧисло(Разрядность, РазрядностьДробнойЧасти = 0, ЗнакЧисла = Неопределено) Экспорт
-
-	Если ЗнакЧисла = Неопределено Тогда
-		КвалификаторЧисла = Новый КвалификаторыЧисла(Разрядность, РазрядностьДробнойЧасти);
-	Иначе
-		КвалификаторЧисла = Новый КвалификаторыЧисла(Разрядность, РазрядностьДробнойЧасти, ЗнакЧисла);
-	КонецЕсли;
-
-	Возврат Новый ОписаниеТипов("Число", КвалификаторЧисла);
-
-КонецФункции
-
-// Создает объект ОписаниеТипов, содержащий тип Дата.
+// Returns:
+//  ValueTable - required property information for all attributes of the metadata object.
 //
-// Параметры:
-//  ЧастиДаты - ЧастиДаты - набор вариантов использования значений типа Дата.
+Function ObjectPropertiesDetails(MetadataObject, Properties) Export
+	
+	PropertiesArray = StrSplit(Properties, ",");
+	
+	// Function return value.
+	ObjectPropertyDetailsTable = New ValueTable;
+	
+	// Adding fields to the value table according to the names of the passed properties.
+	For Each PropertyName In PropertiesArray Do
+		ObjectPropertyDetailsTable.Columns.Add(TrimAll(PropertyName));
+	EndDo;
+	
+	// Filling table rows with metadata object attribute values.
+	For Each Attribute In MetadataObject.Attributes Do
+		FillPropertyValues(ObjectPropertyDetailsTable.Add(), Attribute);
+	EndDo;
+	
+	// Filling table rows with standard metadata object attribute properties.
+	For Each Attribute In MetadataObject.StandardAttributes Do
+		FillPropertyValues(ObjectPropertyDetailsTable.Add(), Attribute);
+	EndDo;
+	
+	Return ObjectPropertyDetailsTable;
+	
+EndFunction
+
+// Returns a flag indicating whether the attribute is a standard attribute.
 //
-// Возвращаемое значение:
-//  ОписаниеТипов - описание типа Дата.
-Функция ОписаниеТипаДата(ЧастиДаты) Экспорт
+// Parameters:
+//  StandardAttributes - StandardAttributeDescriptions - the type and value describe a collection of 
+//                                                         settings for various standard attributes;
+//  AttributeName         - String - an attribute to check whether it is a standard attribute or not.
+//                                  
+// 
+// Returns:
+//   Boolean - True if the attribute is a standard attribute.
+//
+Function IsStandardAttribute(StandardAttributes, AttributeName) Export
+	
+	For Each Attribute In StandardAttributes Do
+		If Attribute.Name = AttributeName Then
+			Return True;
+		EndIf;
+	EndDo;
+	Return False;
+	
+EndFunction
 
-	Массив = Новый Массив;
-	Массив.Добавить(Тип("Дата"));
+// Checks whether the attribute with the passed name exists among the object attributes.
+//
+// Parameters:
+//  AttributeName - String - attribute name.
+//  MetadataObject - MetadataObject - an object to search for the attribute.
+//
+// Returns:
+//  Boolean - True if the attribute is found.
+//
+Function HasObjectAttribute(AttributeName, ObjectMetadata) Export
 
-	КвалификаторДаты = Новый КвалификаторыДаты(ЧастиДаты);
+	Return NOT (ObjectMetadata.Attributes.Find(AttributeName) = Undefined);
 
-	Возврат Новый ОписаниеТипов(Массив, , , КвалификаторДаты);
+EndFunction
 
-КонецФункции
-#КонецОбласти
+// Checks whether the type description contains only one value type and it is equal to the specified 
+// type.
+//
+// Parameters:
+//   TypeDetails - TypesDetails - a type collection to check.
+//   ValueType  - Type - a type to check.
+//
+// Returns:
+//   Boolean - True if the types match.
+//
+// Example:
+//  If Common.TypeDetailsContainsType(ValueTypeProperties, Type("Boolean") Then
+//    // Displaying the field as a check box.
+//  EndIf.
+//
+Function TypeDetailsContainsType(TypeDetails, ValueType) Export
+	
+	If TypeDetails.Types().Count() = 1
+	   AND TypeDetails.Types().Get(0) = ValueType Then
+		Return True;
+	EndIf;
+	
+	Return False;
+	
+EndFunction
 
-#Область ХранилищеНастроек
+// Creates a TypesDetails object that contains the String type.
+//
+// Parameters:
+//  StringLength - Number - string length.
+//
+// Returns:
+//  TypesDetails - description of the String type.
+//
+Function StringTypeDetails(StringLength) Export
+
+	Array = New Array;
+	Array.Add(Type("String"));
+
+	StringQualifier = New StringQualifiers(StringLength, AllowedLength.Variable);
+
+	Return New TypeDescription(Array, , StringQualifier);
+
+EndFunction
+
+// Creates a TypesDetails object that contains the Number type.
+//
+// Parameters:
+//  NumberOfDigits - Number - the total number of digits in a number (both in the integer part and 
+//                        the fractional part).
+//  DigitsInFractionalPart - Number - number of digits in the fractional part.
+//  NumberSign - AllowedSign - allowed sign of the number.
+//
+// Returns:
+//  TypesDetails - description of Number type.
+Function TypeDescriptionNumber(NumberOfDigits, DigitsInFractionalPart = 0, NumberSign = Undefined) Export
+
+	If NumberSign = Undefined Then
+		NumberQualifier = New NumberQualifiers(NumberOfDigits, DigitsInFractionalPart);
+	Else
+		NumberQualifier = New NumberQualifiers(NumberOfDigits, DigitsInFractionalPart, NumberSign);
+	EndIf;
+
+	Return New TypeDescription("Number", NumberQualifier);
+
+EndFunction
+
+// Creates a TypesDetails object that contains the Date type.
+//
+// Parameters:
+//  DateParts - DateParts - a set of Date type value usage options.
+//
+// Returns:
+//  TypesDetails - description of Date type.
+Function DateTypeDetails(DateParts) Export
+
+	Array = New Array;
+	Array.Add(Type("Date"));
+
+	DateQualifier = New DateQualifiers(DateParts);
+
+	Return New TypeDescription(Array, , , DateQualifier);
+
+EndFunction
+
+#EndRegion
+
+#Region SettingsStorage
 
 ////////////////////////////////////////////////////////////////////////////////
-// Сохранение, чтение и удаление настроек из хранилищ.
+// Saving, reading, and deleting settings from storages.
 
-// Сохраняет настройку в хранилище общих настроек, как метод платформы Сохранить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
-//
-// Параметры:
-//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
-//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
-//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
-//
-Процедура ХранилищеОбщихНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-
-	StorageSave(ХранилищеОбщихНастроек, КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек, ИмяПользователя,
-		ОбновитьПовторноИспользуемыеЗначения);
-
-КонецПроцедуры
-
-// Сохраняет несколько настроек в хранилище общих настроек, как метод платформы Сохранить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
+// Saves a setting to the common settings storage as the Save method of 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
 // 
-// Параметры:
-//   НесколькоНастроек - Массив - со значениями:
-//     * Значение - Структура - со свойствами:
-//         * Объект    - Строка       - см. параметр КлючОбъекта  в синтакс-помощнике платформы.
-//         * Настройка - Строка       - см. параметр КлючНастроек в синтакс-помощнике платформы.
-//         * Значение  - Произвольный - см. параметр Настройки    в синтакс-помощнике платформы.
+// If the SaveUserData right is not granted, data save fails and no error is raised.
 //
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   Settings - Arbitrary - see the Syntax Assistant.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
 //
-Процедура ХранилищеОбщихНастроекСохранитьМассив(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
+Procedure CommonSettingsStorageSave(ObjectKey, SettingsKey, Settings,
+			SettingsDetails = Undefined,
+			Username = Undefined,
+			UpdateCachedValues = False) Export
+	
+	StorageSave(CommonSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		Settings,
+		SettingsDetails,
+		Username,
+		UpdateCachedValues);
+	
+EndProcedure
 
-	Если Не ПравоДоступа("СохранениеДанныхПользователя", Метаданные) Тогда
-		Возврат;
-	КонецЕсли;
-
-	Для Каждого Элемент Из НесколькоНастроек Цикл
-		ХранилищеОбщихНастроек.Сохранить(Элемент.Объект, SettingsKey(Элемент.Настройка), Элемент.Значение);
-	КонецЦикла;
-
-	Если ОбновитьПовторноИспользуемыеЗначения Тогда
-		ОбновитьПовторноИспользуемыеЗначения();
-	КонецЕсли;
-
-КонецПроцедуры
-
-// Загружает настройку из хранилища общих настроек, как метод платформы Загрузить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
-// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
+// Saves settings to the common settings storage as the Save method of 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, data save fails and no error is raised.
+// 
+// Parameters:
+//   MultipleSettings - Array of the following values:
+//     * Value - Structure - with the following properties:
+//         * Object - String - see the ObjectKey parameter in the Syntax Assistant.
+//         * Setting - String - see the SettingsKey parameter in the Syntax Assistant.
+//         * Value - Arbitrary - see the Settings parameter in the Syntax Assistant.
 //
-// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно
-// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
-// - из данных типа Массив ссылки удаляются;
-// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
-// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
 //
-// Параметры:
-//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
-//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
-//                                             Если не указано, возвращается значение Неопределено.
-//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
+Procedure CommonSettingsStorageSaveArray(MultipleSettings,
+			UpdateCachedValues = False) Export
+	
+	If Not AccessRight("SaveUserData", Metadata) Then
+		Return;
+	EndIf;
+	
+	For Each Item In MultipleSettings Do
+		CommonSettingsStorage.Save(Item.Object, SettingsKey(Item.Settings), Item.Value);
+	EndDo;
+	
+	If UpdateCachedValues Then
+		RefreshReusableValues();
+	EndIf;
+	
+EndProcedure
+
+// Loads a setting from the general settings storage as the Load method, 
+// StandardSettingsStorageManager objects, or SettingsStorageManager.<Storage name>. The setting key 
+// supports more than 128 characters by hashing the part that exceeds 96 characters.
+// 
+// If no settings are found, returns the default value.
+// If the SaveUserData right is not granted, the default value is returned and no error is raised.
 //
-// Возвращаемое значение: 
-//   Произвольный - см. синтакс-помощник платформы.
+// References to database objects that do not exist are cleared from the return value:
+// - The returned reference is replaced by the default value.
+// - The references are deleted from the data of Array type.
+// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
+// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
 //
-Функция ХранилищеОбщихНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-
-	Возврат StorageLoad(ХранилищеОбщихНастроек, КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию, ОписаниеНастроек,
-		ИмяПользователя);
-
-КонецФункции
-
-// Удаляет настройку из хранилища общих настроек, как метод платформы Удалить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
+//                                             If not specified, returns Undefined.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
 //
-// Параметры:
-//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
-//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
-//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
+// Returns:
+//   Arbitrary - see the Syntax Assistant.
 //
-Процедура ХранилищеОбщихНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
+Function CommonSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
+			SettingsDetails = Undefined, Username = Undefined) Export
+	
+	Return StorageLoad(CommonSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		DefaultValue,
+		SettingsDetails,
+		Username);
+	
+EndFunction
 
-	StorageDelete(ХранилищеОбщихНастроек, КлючОбъекта, КлючНастроек, ИмяПользователя);
-
-КонецПроцедуры
-
-// Сохраняет настройку в хранилище системных настроек, как метод платформы Сохранить
-// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
-// более 128 символов путем хеширования части, которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
+// Removes a setting from the general settings storage as the Remove method, 
+// StandardSettingsStorageManager objects, or SettingsStorageManager.<Storage name>. The setting key 
+// supports more than 128 characters by hashing the part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, no data is deleted and no error is raised.
 //
-// Параметры:
-//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
-//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
-//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
+// Parameters:
+//   ObjectKey - String, Undefined - see the Syntax Assistant.
+//   SettingsKey - String, Undefined - see the Syntax Assistant.
+//   UserName - String, Undefined - see the Syntax Assistant.
 //
-Процедура ХранилищеСистемныхНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
+Procedure CommonSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+	
+	StorageDelete(CommonSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		Username);
+	
+EndProcedure
 
-	StorageSave(ХранилищеСистемныхНастроек, КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
-		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
-
-КонецПроцедуры
-
-// Загружает настройку из хранилища системных настроек, как метод платформы Загрузить,
-// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
-// более 128 символов путем хеширования части, которая превышает 96 символов.
-// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
-// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
+// Saves a setting to the system settings storage as the Save method of 
+// StandardSettingsStorageManager object. Setting keys exceeding 128 characters are supported by 
+// hashing the key part that exceeds 96 characters.
+// If the SaveUserData right is not granted, data save fails and no error is raised.
 //
-// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно:
-// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
-// - из данных типа Массив ссылки удаляются;
-// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
-// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   Settings - Arbitrary - see the Syntax Assistant.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
 //
-// Параметры:
-//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
-//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
-//                                             Если не указано, возвращается значение Неопределено.
-//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
+Procedure SystemSettingsStorageSave(ObjectKey, SettingsKey, Settings,
+			SettingsDetails = Undefined,
+			Username = Undefined,
+			UpdateCachedValues = False) Export
+	
+	StorageSave(SystemSettingsStorage, 
+		ObjectKey,
+		SettingsKey,
+		Settings,
+		SettingsDetails,
+		Username,
+		UpdateCachedValues);
+	
+EndProcedure
+
+// Loads a setting from the system settings storage as the Load method or the 
+// StandardSettingsStorageManager object. The setting key supports more than 128 characters by 
+// hashing the part that exceeds 96 characters.
+// If no settings are found, returns the default value.
+// If the SaveUserData right is not granted, the default value is returned and no error is raised.
 //
-// Возвращаемое значение: 
-//   Произвольный - см. синтакс-помощник платформы.
+// The return value clears references to a non-existent object in the database, namely:
+// - The returned reference is replaced by the default value.
+// - The references are deleted from the data of Array type.
+// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
+// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
 //
-Функция ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-
-	Возврат StorageLoad(ХранилищеСистемныхНастроек, КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
-		ОписаниеНастроек, ИмяПользователя);
-
-КонецФункции
-
-// Удаляет настройку из хранилища системных настроек, как метод платформы Удалить,
-// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
-// более 128 символов путем хеширования части, которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
+//                                             If not specified, returns Undefined.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
 //
-// Параметры:
-//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
-//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
-//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
+// Returns:
+//   Arbitrary - see the Syntax Assistant.
 //
-Процедура ХранилищеСистемныхНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
+Function SystemSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
+			SettingsDetails = Undefined, Username = Undefined) Export
+	
+	Return StorageLoad(SystemSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		DefaultValue,
+		SettingsDetails,
+		Username);
+	
+EndFunction
 
-	StorageDelete(ХранилищеСистемныхНастроек, КлючОбъекта, КлючНастроек, ИмяПользователя);
-
-КонецПроцедуры
-
-// Сохраняет настройку в хранилище настроек данных форм, как метод платформы Сохранить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
+// Removes a setting from the system settings storage as the Remove method or the 
+// StandardSettingsStorageManager object. The setting key supports more than 128 characters by 
+// hashing the part that exceeds 96 characters.
+// If the SaveUserData right is not granted, no data is deleted and no error is raised.
 //
-// Параметры:
-//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
-//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
-//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
+// Parameters:
+//   ObjectKey - String, Undefined - see the Syntax Assistant.
+//   SettingsKey - String, Undefined - see the Syntax Assistant.
+//   UserName - String, Undefined - see the Syntax Assistant.
 //
-Процедура ХранилищеНастроекДанныхФормСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
+Procedure SystemSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+	
+	StorageDelete(SystemSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		Username);
+	
+EndProcedure
 
-	StorageSave(ХранилищеНастроекДанныхФорм, КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
-		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
-
-КонецПроцедуры
-
-// Загружает настройку из хранилища настроек данных форм, как метод платформы Загрузить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
-// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
+// Saves a setting to the form data settings storage as the Save method of 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, data save fails and no error is raised.
 //
-// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно
-// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
-// - из данных типа Массив ссылки удаляются;
-// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
-// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   Settings - Arbitrary - see the Syntax Assistant.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
 //
-// Параметры:
-//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
-//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
-//                                             Если не указано, возвращается значение Неопределено.
-//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
+Procedure FormDataSettingsStorageSave(ObjectKey, SettingsKey, Settings,
+			SettingsDetails = Undefined,
+			Username = Undefined, 
+			UpdateCachedValues = False) Export
+	
+	StorageSave(FormDataSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		Settings,
+		SettingsDetails,
+		Username,
+		UpdateCachedValues);
+	
+EndProcedure
+
+// Retrieves the setting from the form data settings storage using the Load method for 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> objects. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If no settings are found, returns the default value.
+// If the SaveUserData right is not granted, the default value is returned and no error is raised.
 //
-// Возвращаемое значение: 
-//   Произвольный - см. синтакс-помощник платформы.
+// References to database objects that do not exist are cleared from the return value:
+// - The returned reference is replaced by the default value.
+// - The references are deleted from the data of Array type.
+// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
+// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
 //
-Функция ХранилищеНастроекДанныхФормЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-
-	Возврат StorageLoad(ХранилищеНастроекДанныхФорм, КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
-		ОписаниеНастроек, ИмяПользователя);
-
-КонецФункции
-
-// Удаляет настройку из хранилища настроек данных форм, как метод платформы Удалить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
+//                                             If not specified, returns Undefined.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
 //
-// Параметры:
-//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
-//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
-//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
+// Returns:
+//   Arbitrary - see the Syntax Assistant.
 //
-Процедура ХранилищеНастроекДанныхФормУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
+Function FormDataSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
+			SettingsDetails = Undefined, Username = Undefined) Export
+	
+	Return StorageLoad(FormDataSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		DefaultValue,
+		SettingsDetails, 
+		Username);
+	
+EndFunction
 
-	StorageDelete(ХранилищеНастроекДанныхФорм, КлючОбъекта, КлючНастроек, ИмяПользователя);
+// Deletes the setting from the form data settings storage using the Delete method for 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> objects. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, no data is deleted and no error is raised.
+//
+// Parameters:
+//   ObjectKey - String, Undefined - see the Syntax Assistant.
+//   SettingsKey - String, Undefined - see the Syntax Assistant.
+//   UserName - String, Undefined - see the Syntax Assistant.
+//
+Procedure FormDataSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+	
+	StorageDelete(FormDataSettingsStorage,
+		ObjectKey,
+		SettingsKey,
+		Username);
+	
+EndProcedure
 
-КонецПроцедуры
+#EndRegion
 
-#КонецОбласти
-
-#Область Алгоритмы
+#Region Алгоритмы
 
 Функция ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры = Неопределено, ОшибкаВыполнения = Ложь,
 	СообщениеОбОшибке = "") Экспорт
@@ -4803,9 +4880,9 @@ EndProcedure
 	КонецЕсли;
 КонецФункции
 
-#КонецОбласти
+#EndRegion
 
-#Область ЗаписьОбъектов
+#Region ЗаписьОбъектов
 
 Процедура УстановитьПризнакЗаписиБезАвторегистрацииИзменений(Объект, БезАвторегистрации = Ложь)
 	Если Не БезАвторегистрации Тогда
@@ -4904,7 +4981,7 @@ EndProcedure
 
 	Возврат Результат;
 КонецФункции
-#КонецОбласти
+#EndRegion
 
 #Region EnglishCode
     #Region ProgramInterface
