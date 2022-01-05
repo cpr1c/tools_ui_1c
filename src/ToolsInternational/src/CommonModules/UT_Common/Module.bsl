@@ -1090,7 +1090,7 @@ Procedure AddToCommonCommandsCommandBar(Form, FormMainCommandBar)
 	
 	ОписаниеКоманды = UT_Forms.ButtonCommandNewDescription();
 	ОписаниеКоманды.Name = "УИ_ОткрытьНовуюФормуИнструмента";
-	ОписаниеКоманды.CommandName = ОписаниеКоманды.Имя;
+	ОписаниеКоманды.CommandName = ОписаниеКоманды.Name;
 	ОписаниеКоманды.Action="Подключаемый_ВыполнитьОбщуюКомандуИнструментов";
 	ОписаниеКоманды.ItemParent=КоманднаяПанель;
 	ОписаниеКоманды.Picture = БиблиотекаКартинок.НовоеОкно;

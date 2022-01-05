@@ -1601,7 +1601,7 @@ Procedure SetOnFormWriteParameters(Form, WriteParameters, FormAttributePrefix = 
 				NS.Value=KV.Value;
 			EndDo;
 		Else
-			Form[FormAttributePrefix + KeyValue.Ключ]=KeyValue.Value;
+			Form[FormAttributePrefix + KeyValue.Key]=KeyValue.Value;
 		EndIf;
 	EndDo;
 EndProcedure
