@@ -3,7 +3,7 @@
 // Returns the correspondence of the names of the "functional" subsystems and the value True.
 // The "Functional" subsystem has the "Include in command interface" checkbox unchecked.
 //
-Function SubsytemsNames() Export
+Function SubsystemsNames() Export
 
 	DisabledSubsystems = New Map;
 
@@ -172,7 +172,7 @@ Procedure AddTypesByMetaDataObjectTypes(TypesArray, MetadataJbjectTypeName, Type
 EndProcedure
 
 Function HTMLFieldBasedOnWebkit() export
-	UT_CommonClientServer.HTMLFieldBasedOnWebkit();
+	Return UT_CommonClientServer.HTMLFieldBasedOnWebkit();
 EndFunction
 
 #EndRegion

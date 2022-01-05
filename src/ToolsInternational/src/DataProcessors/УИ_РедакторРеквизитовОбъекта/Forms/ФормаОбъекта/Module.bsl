@@ -36,7 +36,7 @@
 
 	КонецЕсли;
 
-	UT_Forms.ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи(ЭтотОбъект,
+	UT_Forms.CreateWriteParametersAttributesFormOnCreateAtServer(ЭтотОбъект,
 		Элементы.ГруппаПараметрыЗаписи);
 	UT_Common.ToolFormOnCreateAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка);
 КонецПроцедуры

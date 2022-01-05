@@ -1,77 +1,77 @@
-&После("ПриОпределенииВидовПодключаемыхКоманд")
-Процедура УИ_ПриОпределенииВидовПодключаемыхКоманд(ВидыПодключаемыхКоманд)
-	Если Не UT_Common.ЕстьПравоНаИспользованиеИнструментов() Тогда
-		Возврат;
-	КонецЕсли;
-	Вид = ВидыПодключаемыхКоманд.Добавить();
-	Вид.Имя         = "UT_UniversalTools";
-	Вид.ИмяПодменю  = "UT_UniversalTools";
-	Вид.Заголовок   = НСтр("ru = 'Инструменты'");
-	Вид.Картинка    = БиблиотекаКартинок.UT_ПодсистемаУниверсальныеИнструмены;
-	Вид.Отображение = ОтображениеКнопки.Картинка;
-	Вид.Порядок = 1;
-	Вид.ВидГруппыФормы=ВидГруппыФормы.Подменю;
+&After("OnDefineAttachableCommandsKinds")
+Процедура UT_OnDefineAttachableCommandsKinds(AttachableCommandsKinds)
+	If Not UT_Common.CanUseUniversalTools() Then
+		Return;
+	EndIf;
+	Kind = AttachableCommandsKinds.Add();
+	Kind.Name         = "UT_UniversalTools";
+	Kind.SubmenuName  = "UT_UniversalTools";
+	Kind.Title   = НСтр("ru = 'Инструменты';en = 'Universal tools'");
+	Kind.Picture    = PictureLib.UT_UniversalToolsSybsystem;
+	Kind.Representation = ButtonRepresentation.Picture;
+	Kind.Order = 1;
+	Kind.FormGroupType=FormGroupType.Popup;
 КонецПроцедуры
 
-&После("ПриОпределенииКомандПодключенныхКОбъекту")
-Процедура УИ_ПриОпределенииКомандПодключенныхКОбъекту(НастройкиФормы, Источники, ПодключенныеОтчетыИОбработки, Команды)
-	Если Не UT_Common.ЕстьПравоНаИспользованиеИнструментов() Тогда
-		Возврат;
-	КонецЕсли;
-	Команда = Команды.Добавить();
-	Команда.Вид="UT_UniversalTools";
-	Команда.Идентификатор="УИ_СравнениеОбъектов";
-	Команда.Представление="Сравнить объекты";
-	Команда.ТипПараметра=UT_CommonCached.AllRefsTypeDescription();
-	Команда.Назначение="ДляСписка";
-	Команда.ИзменяетВыбранныеОбъекты=Ложь;
-	Команда.МножественныйВыбор=Истина;
-	//		Команда.Менеджер = "Обработка.УИ_СравнениеОбъектов";
-	Команда.ИмяФормы = "Обработка.УИ_СравнениеОбъектов.Форма";
-	Команда.ИмяПараметраФормы = "СравниваемыеОбъекты";
-	Команда.Порядок=0;
+&После("OnDefineCommandsAttachedToObject")
+Процедура UT_OnDefineCommandsAttachedToObject(FormSettings, Sources, AttachedReportsAndDataProcessors, Commands)
+	If Not UT_Common.CanUseUniversalTools() Then
+		Return;
+	EndIf;
+	Command = Commands.Add();
+	Command.Kind="UT_UniversalTools";
+	Command.ID="УИ_СравнениеОбъектов";
+	Command.Presentation="Сравнить объекты";
+	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
+	Command.Purpose="ДляСписка";
+	Command.ChangesSelectedObjects=Ложь;
+	Command.MultipleChoice=Истина;
+	//		Command.Менеджер = "Обработка.УИ_СравнениеОбъектов";
+	Command.FormName = "Обработка.УИ_СравнениеОбъектов.Форма";
+	Command.FormParameterName = "СравниваемыеОбъекты";
+	Command.Order=0;
 
-	Команда = Команды.Добавить();
-	Команда.Вид="UT_UniversalTools";
-	Команда.Идентификатор="УИ_ДобавитьКСравнению";
-	Команда.Представление="Добавить к сравнению";
-	Команда.ТипПараметра=UT_CommonCached.AllRefsTypeDescription();
-	Команда.ИзменяетВыбранныеОбъекты=Ложь;
-	Команда.МножественныйВыбор=Истина;
-	Команда.Обработчик = "UT_CommonClient.ДобавитьОбъектыКСравнению";
-	Команда.Порядок=1;
+	Command = Commands.Add();
+	Command.Kind="UT_UniversalTools";
+	Command.ID="УИ_ДобавитьКСравнению";
+	Command.Presentation="Добавить к сравнению";
+	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
+	Command.ChangesSelectedObjects=Ложь;
+	Command.MultipleChoice=Истина;
+	Command.Handler = "UT_CommonClient.ДобавитьОбъектыКСравнению";
+	Command.Order=1;
 
-	Команда = Команды.Добавить();
-	Команда.Вид="UT_UniversalTools";
-	Команда.Идентификатор="УИ_ВыгрузитьОбъектыВXML";
-	Команда.Представление="Выгрузить объекты в XML";
-	Команда.ТипПараметра=UT_CommonCached.AllRefsTypeDescription();
-	Команда.ИзменяетВыбранныеОбъекты=Ложь;
-	Команда.МножественныйВыбор=Истина;
-	Команда.Картинка=БиблиотекаКартинок.UT_UploadingResult;
-	Команда.Обработчик = "UT_CommonClient.ВыгрузитьОбъектыВXML";
-	Команда.Порядок=1;
+	Command = Commands.Add();
+	Command.Kind="UT_UniversalTools";
+	Command.ID="УИ_ВыгрузитьОбъектыВXML";
+	Command.Presentation="Выгрузить объекты в XML";
+	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
+	Command.ChangesSelectedObjects=Ложь;
+	Command.MultipleChoice=Истина;
+	Command.Picture=БиблиотекаКартинок.UT_UploadingResult;
+	Command.Handler = "UT_CommonClient.ВыгрузитьОбъектыВXML";
+	Command.Order=1;
 
-	Команда = Команды.Добавить();
-	Команда.Вид="UT_UniversalTools";
-	Команда.Идентификатор="УИ_РедактироватьОбъект";
-	Команда.Представление="Редактировать объект";
-	Команда.ТипПараметра=UT_CommonCached.AllRefsTypeDescription();
-	Команда.ИзменяетВыбранныеОбъекты=Ложь;
-	Команда.МножественныйВыбор=Ложь;
-	Команда.Картинка=БиблиотекаКартинок.UT_DatabaseObjectEditor;
-	Команда.Обработчик = "UT_CommonClient.ОбработчикКомандыРедактироватьОбъект";
-	Команда.Порядок=2;
+	Command = Commands.Add();
+	Command.Kind="UT_UniversalTools";
+	Command.ID="УИ_РедактироватьОбъект";
+	Command.Presentation="Редактировать объект";
+	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
+	Command.ChangesSelectedObjects=Ложь;
+	Command.MultipleChoice=Ложь;
+	Command.Картинка=БиблиотекаКартинок.UT_DatabaseObjectEditor;
+	Command.Handler = "UT_CommonClient.ОбработчикКомандыРедактироватьОбъект";
+	Command.Order=2;
 	
-	Команда = Команды.Добавить();
-	Команда.Вид="UT_UniversalTools";
-	Команда.Идентификатор="УИ_ПоискСсылокНаОбъект";
-	Команда.Представление="Найти ссылки объект";
-	Команда.ТипПараметра=UT_CommonCached.AllRefsTypeDescription();
-	Команда.ИзменяетВыбранныеОбъекты=Ложь;
-	Команда.МножественныйВыбор=Ложь;
-	Команда.Картинка=БиблиотекаКартинок.НайтиВСодержании;
-	Команда.Обработчик = "UT_CommonClient.ОбработчикКомандыНайтиСсылкиНаОбъект";
-	Команда.Порядок=3;
+	Command = Commands.Add();
+	Command.Kind="UT_UniversalTools";
+	Command.ID="УИ_ПоискСсылокНаОбъект";
+	Command.Presentation="Найти ссылки объект";
+	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
+	Command.ChangesSelectedObjects=Ложь;
+	Command.MultipleChoice=Ложь;
+	Command.Picture=БиблиотекаКартинок.НайтиВСодержании;
+	Command.Handler = "UT_CommonClient.ОбработчикКомандыНайтиСсылкиНаОбъект";
+	Command.Order=3;
 	
 КонецПроцедуры
