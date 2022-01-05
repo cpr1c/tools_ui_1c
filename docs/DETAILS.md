@@ -145,65 +145,6 @@
 
 
 ## Соотвествие процедур общих модулей 
-   ### UT_FORMS
-
-<table width="488">
-<tbody>
-<tr>
-<td style="width: 496.487px;">НовыйОписаниеРеквизитаЭлемента</td>
-<td style="width: 227.587px;">ItemAttributeNewDescription</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">НовыйПараметрыРеквизита</td>
-<td style="width: 227.587px;">AttributePropertiesNew</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">НовыйОписаниеКомандыКнопки</td>
-<td style="width: 227.587px;">ButtonCommandNewDescription</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">НовыйОписаниеГруппыФормы</td>
-<td style="width: 227.587px;">FormGroupNewDescription</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">СоздатьКомандуПоОписанию</td>
-<td style="width: 227.587px;">CreateCommandByDescription</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">СоздатьЭлементПоОписанию</td>
-<td style="width: 227.587px;">CreateItemByDescription</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">СоздатьКнопкуПоОписанию</td>
-<td style="width: 227.587px;">CreateButtonByDescription</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">СоздатьГруппуПоОписанию</td>
-<td style="width: 227.587px;">CreateGroupByDescription</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">ЭтоКнопкаКоманднойПанели</td>
-<td style="width: 227.587px;">IsCommandBarButton</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">ИмяТаблицыПоляФормы</td>
-<td style="width: 227.587px;">FormFieldTableName</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">ЭлементФормы</td>
-<td style="width: 227.587px;">FormItem</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">Реквизит</td>
-<td style="width: 227.587px;">Attribute</td>
-</tr>
-<tr>
-<td style="width: 496.487px;">ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи</td>
-<td style="width: 227.587px;">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-
 ### CommonClientServer
 
 <table>
@@ -795,7 +736,7 @@
 </tbody>
 </table>
 
-### CommonClientServer
+### UT_FORMS
 
 <table width="488">
 <tbody>
@@ -849,7 +790,7 @@
 </tr>
 <tr>
 <td style="width: 496.487px;">ФормаПриСозданииНаСервереСоздатьРеквизитыПараметровЗаписи</td>
-<td style="width: 227.587px;">&nbsp;</td>
+<td style="width: 227.587px;">CreateWriteParametersAttributesFormOnCreateAtServer</td>
 </tr>
 </tbody>
 </table>
@@ -942,7 +883,7 @@
 <p>РазделениеВключено</p>
 </td>
 <td width="270">
-<p></p>
+<p>DataSeparationEnabled</p>
 </td>
 </tr>
 <tr>
@@ -987,7 +928,7 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ЗначениеВСтрокуXML</p>
 </td>
 <td width="270">
 <p>ValueToXMLString</p>
@@ -1126,7 +1067,7 @@
 <p>ЕстьПравоНаИспользованиеИнструментов</p>
 </td>
 <td width="270">
-<p></p>
+<p>CanUseUniversalTools</p>
 </td>
 </tr>
 <tr>

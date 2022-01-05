@@ -40,7 +40,7 @@ Procedure FillConstantsTable()
 
 EndProcedure
 &AtServer
-Procedure PutConstantItemsКонстантOnForm()
+Procedure PutConstantItemsOnForm()
 	AddedAtrubutesArray = New Array;
 
 	For each CurrentConstant in ConstantsTable Do
@@ -80,7 +80,7 @@ Procedure PutConstantItemsКонстантOnForm()
 		ItemDescription.Title=ConstantItemTitle(CurrentConstant.ConstantName, CurrentConstant.ConstantSynonym,
 			ShowSynonym);
 		ItemDescription.ItemParent = CurrentConstantGroup;
-		ItemDescription.Properties.FormItemType =Type("FormDecoration");
+		ItemDescription.Properties.FieldType =Type("FormDecoration");
 		ItemDescription.Properties.Insert("Type", FormDecorationType.Label);
 		ItemDescription.Properties.Insert("HorizontalStretch", True);
 
@@ -120,7 +120,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	ShowSynonym=True;
 
 	FillConstantsTable();
-	PutConstantItemsКонстантOnForm();
+	PutConstantItemsOnForm();
 	SetConstantValuesToFormAttribute();
 
 	UT_Forms.CreateWriteParametersAttributesFormOnCreateAtServer(ThisObject,
@@ -153,7 +153,7 @@ Procedure WriteAtServer()
 		ConstantManager.Value = ThisObject[ConstantRow.ConstantName];
 
 		If UT_Common.WriteObjectToDB(ConstantManager,
-			UT_CommonClientServer.ПараметрыЗаписиФормы(ThisObject)) Then
+			UT_CommonClientServer.FormWriteSettings(ThisObject)) Then
 			ConstantRow.IsChanged = False;
 
 			// Set color of changed Constant to it's Ui Group

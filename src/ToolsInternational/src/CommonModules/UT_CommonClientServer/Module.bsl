@@ -1557,7 +1557,7 @@ EndFunction
 
 Function WriteParametersStructureByDefaults() Export
 	WriteParameters=New Structure;
-	WriteParameters.Insert("WithOutChangeRecording", False);
+	WriteParameters.Insert("WithOutChangesAutoRecording", False);
 	WriteParameters.Insert("WritingInLoadMode", False);
 	WriteParameters.Insert("PrivilegedMode", False);
 	WriteParameters.Insert("UseAdditionalProperties", False);
@@ -1572,7 +1572,7 @@ Function ToolsFormOutputWriteSettings() Export
 	Array=New Array;
 	Array.Add("WritingInLoadMode");    
 	Array.Add("PrivilegedMode");     
-	Array.Add("WithOutChangeRecording");
+	Array.Add("WithOutChangesAutoRecording");
 	Return Array;
 EndFunction
 
