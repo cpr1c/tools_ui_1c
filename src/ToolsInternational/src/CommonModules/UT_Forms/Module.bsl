@@ -347,7 +347,7 @@ EndFunction
 		UT_Forms.CreateItemByDescription(Form, ItemDescription);
 	КонецЦикла;
 	
-	//Добавляем кнопку редактирования настроек
+	//Add кнопку редактирования настроек
 	ButtonDescription=ButtonCommandNewDescription();
 	ButtonDescription.Name=ParameterPrefix + "РедактироватьПараметрыЗаписи";
 	ButtonDescription.CommandName=ButtonDescription.Name;
