@@ -452,7 +452,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="48b19d1d-d512-4562-8be3-f02e086643df">
-    <name>ВыборПредопределенного</name>
+    <name>ChoicePredefined</name>
+    <synonym>
+      <key>en</key>
+      <value>Choice predefined</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выбор предопределенного</value>
@@ -461,7 +465,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="72b37439-8e60-4bd8-b308-2b80fa441cd5">
-    <name>Справка</name>
+    <name>Help</name>
+    <synonym>
+      <key>en</key>
+      <value>Help</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Справка</value>
@@ -479,7 +487,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="1a8e52ef-0a1b-48c8-a087-5f06fbecc869">
-    <name>ФормаПланаЗапроса</name>
+    <name>QueryPlanForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Query plan form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма плана запроса</value>
