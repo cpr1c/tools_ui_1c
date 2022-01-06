@@ -2886,7 +2886,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	arAttributesToBeAdded.Add(Attribute);
 	ChangeAttributes(arAttributesToBeAdded);
 	Item = Items.Add("Empty", Type("FormField"), Items.QueryResult);
-	Item.DataPath = "QueryResult.IsEmpty";
+	Item.DataPath = "QueryResult.Empty";
 	Item.ShowInHeader = False;
 
 	ContainerAttributeSuffix=DataProcessorObject.ContainerAttributeSuffix();
@@ -3103,9 +3103,9 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 			CurrentData.ValueType, CurrentData.Name, CurrentData.Container, CurrentData.ContainerType);
 
 		If CurrentData.ContainerType = 3 Then
-			EditingFormName = "TableEdit";
+			EditingFormName = "EditTable";
 		Else
-			EditingFormName = "SelectionToList";
+			EditingFormName = "PickupToList";
 		EndIf;
 
 		OpenForm(FormFullName(EditingFormName), OpeningParameters, ThisForm, False, , ,
@@ -3120,7 +3120,7 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
 				ThisForm, NotifyParameters);
 			OpeningParameters = New Structure("Object, Value", Object, CurrentData.Container);
-			OpenForm(FormFullName("PointInTimeBoundaryEdit"), OpeningParameters, ThisForm, False, , ,
+			OpenForm(FormFullName("EditPointInTimeBoundary"), OpeningParameters, ThisForm, False, , ,
 				ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 		ElsIf CurrentData.Container.Type = "Type" Then
 			StandardProcessing = False;
@@ -3130,7 +3130,7 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 				ThisForm, NotifyParameters);
 			OpeningParameters = New Structure("Object, ValueType, ContainerType", Object, CurrentData.Container,
 				CurrentData.ContainerType);
-			OpenForm(FormFullName("TypeEdit"), OpeningParameters, ThisForm, True, , ,
+			OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, True, , ,
 				ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
 
@@ -3142,7 +3142,7 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
 				ThisForm, NotifyParameters);
 			OpeningParameters = New Structure("Object, Value", Object, CurrentData.Value);
-			OpenForm(FormFullName("UUIDEdit"), OpeningParameters, ThisForm,
+			OpenForm(FormFullName("EditUUID"), OpeningParameters, ThisForm,
 				True, , , ClosingFormNotifyDescription,
 				FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
@@ -3314,7 +3314,7 @@ Procedure QueryParametersParameterTypeStartChoice(Item, ChoiceData, StandardProc
 		NotifyParameters);
 	OpeningParameters = New Structure("Object, ValueType, ContainerType, Name, EnabledInQuery", Object,
 		ValueType, CurrentData.ContainerType, CurrentData.Name, True);
-	OpenForm(FormFullName("TypeEdit"), OpeningParameters, ThisForm, True, , ,
+	OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, True, , ,
 		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
@@ -3349,7 +3349,7 @@ Procedure TempTablesValueStartChoice(Item, ChoiceData, StandardProcessing)
 	OpeningParameters = New Structure("Object, ValueType, Title, Value, ContainerType", Object, ,
 		CurrentData.Name, CurrentData.Container, 3);
 
-	OpenForm(FormFullName("TypeEdit"), OpeningParameters, ThisForm, False, , ,
+	OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, False, , ,
 		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
@@ -3401,7 +3401,7 @@ Procedure QueryResultSelection(Item, SelectedRow, Field, StandardProcessing)
 		If Container.Type = "ValueTable" Then
 			OpeningParameters = New Structure("Object, Title, Value, ReadOnly", Object, ColumnName,
 				Container, True);
-			OpenForm(FormFullName("TableEdit"), OpeningParameters, ThisForm, False, , , ,
+			OpenForm(FormFullName("EditTable"), OpeningParameters, ThisForm, False, , , ,
 				FormWindowOpeningMode.LockOwnerWindow);
 		ElsIf Container.Type = Undefined Then
 			//Container is empty. Value is contained in the main field.
@@ -4958,7 +4958,7 @@ Procedure ResultToParameter_Command(Command)
 		NotifyParameters);
 	OpeningParameters = New Structure("Object, ValueType, ContainerType, Name, EnabledInQuery, ToParameter", Object,
 		vtTable, 3, ResultQueryName, False, True);
-	OpenForm(FormFullName("TypeEdit"), OpeningParameters, ThisForm, True, , ,
+	OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, True, , ,
 		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
