@@ -71,13 +71,13 @@ EndFunction
 // See. StandardSubsystemsCached.RefsByPredefinedItemsNames
 Function RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
 
-	Возврат UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
+	Return UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
 
 EndFunction
 
 Функция ЗначенияРеквизитовОбъекта(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
 
-	Возврат UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
+	Return UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
 
 КонецФункции
 
