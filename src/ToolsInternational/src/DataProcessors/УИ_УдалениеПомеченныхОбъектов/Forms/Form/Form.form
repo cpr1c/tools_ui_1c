@@ -78,7 +78,7 @@
         <titleLocation>Top</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>РежимУдаленияПриИзменении</name>
+          <name>DeleteModeOnChange</name>
         </handlers>
         <extendedTooltip>
           <name>DeleteModeExtendedTooltip</name>
@@ -174,7 +174,7 @@
       <name>MarkedForDelete</name>
       <id>25</id>
       <items xsi:type="form:Table">
-        <name>MarkedForDeletionItems</name>
+        <name>MarkedForDeletionItemsTree</name>
         <id>26</id>
         <title>
           <key>ru</key>
@@ -220,7 +220,7 @@
             </dataPath>
             <handlers>
               <event>OnChange</event>
-              <name>ПометкаПриИзменении</name>
+              <name>MarkOnChange</name>
             </handlers>
             <extendedTooltip>
               <name>MarkExtendedTooltip</name>
@@ -345,7 +345,7 @@
         </items>
         <commandBarLocation>Top</commandBarLocation>
         <autoCommandBar>
-          <name>MarkedForDeletionItemsCommandBar</name>
+          <name>MarkedForDeletionItemsTreeCommandBar</name>
           <id>28</id>
           <items xsi:type="form:FormGroup">
             <name>SelectCommand</name>
@@ -577,7 +577,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.MarkedForDeletionItems.StandardCommand.OutputList</commandName>
+            <commandName>Form.Item.MarkedForDeletionItemsTree.StandardCommand.OutputList</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -593,7 +593,7 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>СписокПомеченныхНаУдалениеВыбор</name>
+          <name>MarkedForDeletionItemsTreeSelection</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -601,10 +601,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>MarkedForDeletionItemsSearchString</name>
+          <name>MarkedForDeletionItemsTreeSearchString</name>
           <id>120</id>
           <extendedTooltip>
-            <name>MarkedForDeletionItemsSearchStringExtendedTooltip</name>
+            <name>MarkedForDeletionItemsTreeSearchStringExtendedTooltip</name>
             <id>122</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -619,7 +619,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>MarkedForDeletionItemsSearchStringContextMenu</name>
+            <name>MarkedForDeletionItemsTreeSearchStringContextMenu</name>
             <id>121</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -638,10 +638,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>MarkedForDeletionItemsViewStatus</name>
+          <name>MarkedForDeletionItemsTreeViewStatus</name>
           <id>123</id>
           <extendedTooltip>
-            <name>MarkedForDeletionItemsViewStatusExtendedTooltip</name>
+            <name>MarkedForDeletionItemsTreeViewStatusExtendedTooltip</name>
             <id>125</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -656,7 +656,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>MarkedForDeletionItemsViewStatusContextMenu</name>
+            <name>MarkedForDeletionItemsTreeViewStatusContextMenu</name>
             <id>124</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -677,10 +677,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>MarkedForDeletionItemsSearchControl</name>
+          <name>MarkedForDeletionItemsTreeSearchControl</name>
           <id>126</id>
           <extendedTooltip>
-            <name>MarkedForDeletionItemsSearchControlExtendedTooltip</name>
+            <name>MarkedForDeletionItemsTreeSearchControlExtendedTooltip</name>
             <id>128</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -695,7 +695,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>MarkedForDeletionItemsSearchControlContextMenu</name>
+            <name>MarkedForDeletionItemsTreeSearchControlContextMenu</name>
             <id>127</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -710,7 +710,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>MarkedForDeletionItemsExtendedTooltip</name>
+          <name>MarkedForDeletionItemsTreeExtendedTooltip</name>
           <id>97</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -725,7 +725,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>MarkedForDeletionItemsContextMenu</name>
+          <name>MarkedForDeletionItemsTreeContextMenu</name>
           <id>27</id>
           <items xsi:type="form:Button">
             <name>MarkedForDeletionItemsContextMenuChangeObject</name>
@@ -899,7 +899,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.MarkedForDeletionItems.StandardCommand.CopyToClipboard</commandName>
+            <commandName>Form.Item.MarkedForDeletionItemsTree.StandardCommand.CopyToClipboard</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -929,7 +929,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.MarkedForDeletionItems.StandardCommand.SelectAll</commandName>
+            <commandName>Form.Item.MarkedForDeletionItemsTree.StandardCommand.SelectAll</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1006,7 +1006,7 @@
       <name>DeletionFailureReasonsPage</name>
       <id>39</id>
       <items xsi:type="form:Table">
-        <name>NotDeletedItems</name>
+        <name>NotDeletedItemsTree</name>
         <id>40</id>
         <title>
           <key>ru</key>
@@ -1090,7 +1090,7 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>NotDeletedItemsCommandBar</name>
+          <name>NotDeletedItemsTreeCommandBar</name>
           <id>42</id>
           <items xsi:type="form:Button">
             <name>NotDeletedItemsChangeObject</name>
@@ -1175,7 +1175,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.NotDeletedItems.StandardCommand.OutputList</commandName>
+            <commandName>Form.Item.NotDeletedItemsTree.StandardCommand.OutputList</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1192,11 +1192,11 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ДеревоОставшихсяОбъектовВыбор</name>
+          <name>NotDeletedItemsTreeSelection</name>
         </handlers>
         <handlers>
           <event>BeforeRowChange</event>
-          <name>ДеревоОставшихсяОбъектовПередНачаломИзменения</name>
+          <name>NotDeletedItemsTreeBeforeRowChange</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -1204,10 +1204,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>NotDeletedItemsSearchString</name>
+          <name>NotDeletedItemsTreeSearchString</name>
           <id>129</id>
           <extendedTooltip>
-            <name>NotDeletedItemsSearchStringExtendedTooltip</name>
+            <name>NotDeletedItemsTreeSearchStringExtendedTooltip</name>
             <id>131</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1222,7 +1222,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>NotDeletedItemsSearchStringContextMenu</name>
+            <name>NotDeletedItemsTreeSearchStringContextMenu</name>
             <id>130</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1241,10 +1241,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>NotDeletedItemsViewStatus</name>
+          <name>NotDeletedItemsTreeViewStatus</name>
           <id>132</id>
           <extendedTooltip>
-            <name>NotDeletedItemsViewStatusExtendedTooltip</name>
+            <name>NotDeletedItemsTreeViewStatusExtendedTooltip</name>
             <id>134</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1259,7 +1259,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>NotDeletedItemsViewStatusContextMenu</name>
+            <name>NotDeletedItemsTreeViewStatusContextMenu</name>
             <id>133</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1280,10 +1280,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>NotDeletedItemsSearchControl</name>
+          <name>NotDeletedItemsTreeSearchControl</name>
           <id>135</id>
           <extendedTooltip>
-            <name>NotDeletedItemsSearchControlExtendedTooltip</name>
+            <name>NotDeletedItemsTreeSearchControlExtendedTooltip</name>
             <id>137</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1298,7 +1298,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>NotDeletedItemsSearchControlContextMenu</name>
+            <name>NotDeletedItemsTreeSearchControlContextMenu</name>
             <id>136</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1313,7 +1313,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>NotDeletedItemsExtendedTooltip</name>
+          <name>NotDeletedItemsTreeExtendedTooltip</name>
           <id>108</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1328,7 +1328,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>NotDeletedItemsContextMenu</name>
+          <name>NotDeletedItemsTreeContextMenu</name>
           <id>41</id>
           <items xsi:type="form:Button">
             <name>NotDeletedItemsChangeObjectFromMenu</name>
@@ -1416,7 +1416,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.NotDeletedItems.StandardCommand.SelectAll</commandName>
+              <commandName>Form.Item.NotDeletedItemsTree.StandardCommand.SelectAll</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1446,7 +1446,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.NotDeletedItems.StandardCommand.CopyToClipboard</commandName>
+              <commandName>Form.Item.NotDeletedItemsTree.StandardCommand.CopyToClipboard</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -2025,7 +2025,7 @@
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <excludedCommands>Abort</excludedCommands>
   <excludedCommands>Cancel</excludedCommands>
@@ -2364,14 +2364,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>IdleHandlerParametrs</name>
+    <name>IdleHandlerParameters</name>
     <title>
       <key>ru</key>
       <value>Параметры обработчика ожидания</value>
     </title>
     <title>
       <key>en</key>
-      <value>Idle handler parametrs</value>
+      <value>Idle handler parameters</value>
     </title>
     <id>11</id>
     <valueType/>
