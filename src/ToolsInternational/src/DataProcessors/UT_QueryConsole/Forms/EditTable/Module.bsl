@@ -1,114 +1,115 @@
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	КопироватьДанныеФормы(Параметры.Объект, Объект);
+	CopyFormData(Parameters.Object, Object);
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	Заголовок = Параметры.Заголовок + " (таблица значений)";
+	Title = Parameters.Title + NStr("ru = ' (таблица значений)'; en = ' (value table)'");
 	
-	Таблица = Обработка.StringToValue(Параметры.Значение.Значение);
+	Table = DataProcessor.StringToValue(Parameters.Value.Value);
 	
-	Обработка.CreateTableAttributesByColumns(ЭтаФорма, "ТаблицаЗначений", "ТаблицаЗначенийСоответствиеКолонок", "ТаблицаЗначенийКолонкиКонтейнера", Таблица.Колонки, Истина);
+	DataProcessor.CreateTableAttributesByColumns(ThisForm, "ValueTable", "ValueTableColumnMap", "ValueTableContainerColumns", Table.Columns, True);
 
-	Обработка.TableToFormAttribute(Таблица, ТаблицаЗначений, ТаблицаЗначенийКолонкиКонтейнера);
+	DataProcessor.TableToFormAttribute(Table, ValueTable, ValueTableContainerColumns);
 	
-	фТолькоПросмотр = Ложь;
-	Если Параметры.Свойство("ТолькоПросмотр", фТолькоПросмотр) И фТолькоПросмотр = Истина Тогда
-		Элементы.ТаблицаЗначений.ТолькоПросмотр = Истина;
-		Элементы.КнопкаОК.Видимость = Ложь;
-	КонецЕсли;
+	fReadOnly = False;
+	If Parameters.Property("ReadOnly", fReadOnly) And fReadOnly = True Then
+		Items.ValueTable.ReadOnly = True;
+		Items.OKCommand.Visible = False;
+	EndIf;
 
-	ContainerAttributeSuffix=Обработка.ContainerAttributeSuffix();
-КонецПроцедуры
+	ContainerAttributeSuffix=DataProcessor.ContainerAttributeSuffix();
+EndProcedure
 
-&НаСервере
-Функция ПолучитьВозвращаемуюТаблицу()
-	Обработка = РеквизитФормыВЗначение("Объект");
-	тзВозвращаемаяТаблица = Обработка.TableFromFormAttributes(ТаблицаЗначений, ТаблицаЗначенийКолонкиКонтейнера);
-	Возврат Обработка.Container_SaveValue(тзВозвращаемаяТаблица);
-КонецФункции
+&AtServer
+Function GetReturnTable()
+	DataProcessor = FormAttributeToValue("Object");
+	vtReturnTable = DataProcessor.TableFromFormAttributes(ValueTable, ValueTableContainerColumns);
+	Return DataProcessor.Container_SaveValue(vtReturnTable);
+EndFunction
 
-&НаСервере
-Процедура InitializeRowContainersByTypes(чСтрока, ТаблицаЗначенийКолонкиКонтейнера)
-	РеквизитФормыВЗначение("Объект").InitializeRowContainersByTypes(ТаблицаЗначений.НайтиПоИдентификатору(чСтрока), ТаблицаЗначенийКолонкиКонтейнера);
-КонецПроцедуры
+&AtServer
+Procedure InitializeRowContainersByTypes(nRow, ValueTableContainerColumns)
+	FormAttributeToValue("Object").InitializeRowContainersByTypes(ValueTable.FindByID(nRow), ValueTableContainerColumns);
+EndProcedure
 
-&НаКлиенте
-Функция ПолноеИмяФормы(ИмяФормы)
-	Возврат СтрШаблон("%1.Форма.%2", Объект.MetadataPath, ИмяФормы);
-КонецФункции
+&AtClient
+Function FormFullName(FormName)
+	Return StrTemplate("%1.Form.%2", Object.MetadataPath, FormName);
+EndFunction
+
 
 //@skip-warning
-&НаКлиенте
-Процедура ПолеТаблицыНачалоВыбора(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	Перем Контейнер;
+&AtClient
+Procedure TableFieldStartChoice(Item, ChoiceData, StandardProcessing)
+	Var Container;
 	
-	ИмяКолонки = ТаблицаЗначенийСоответствиеКолонок[Элемент.Имя];
-	ИмяКолонкиКонтейнера = ИмяКолонки + ContainerAttributeSuffix;
+	ColumnName = ValueTableColumnMap[Item.Name];
+	ContainerColumnName = ColumnName + ContainerAttributeSuffix;
 	
-	Если ТаблицаЗначенийКолонкиКонтейнера.Свойство(ИмяКолонки) Тогда
+	If ValueTableContainerColumns.Property(ColumnName) Then
 		
-		СтрокаТаблицы = ТаблицаЗначений.НайтиПоИдентификатору(Элементы.ТаблицаЗначений.ТекущаяСтрока);
-		Контейнер = СтрокаТаблицы[ИмяКолонкиКонтейнера];
+		TableRow = ValueTable.FindByID(Items.ValueTable.CurrentRow);
+		Container = TableRow[ContainerColumnName];
 		
-		Если НЕ ЗначениеЗаполнено(Контейнер) Тогда
-			InitializeRowContainersByTypes(Элементы.ТаблицаЗначений.ТекущаяСтрока, ТаблицаЗначенийКолонкиКонтейнера);
-			Контейнер = СтрокаТаблицы[ИмяКолонкиКонтейнера];
-		КонецЕсли;
+		If Not ValueIsFilled(Container) Then
+			InitializeRowContainersByTypes(Items.ValueTable.CurrentRow, ValueTableContainerColumns);
+			Container = TableRow[ContainerColumnName];
+		EndIf;
 		
-		Если ЗначениеЗаполнено(Контейнер.Тип) Тогда
+		If ValueIsFilled(Container.Type) Then
 			
-			Если Контейнер.Тип = "Тип" Тогда
-				СтандартнаяОбработка = Ложь;
-				ПараметрыОповещения = Новый Структура("Таблица, Строка, Поле", "ТаблицаЗначений", Элементы.ТаблицаЗначений.ТекущаяСтрока, ИмяКолонки);
-				ОписаниеОповещенияОЗакрытииОткрываемойФормы = Новый ОписаниеОповещения("ОкончаниеРедактированияСтроки", ЭтаФорма, ПараметрыОповещения);
-				ПараметрыОткрытия = Новый Структура("Объект, ТипЗначения", Объект, Контейнер);
-				ОткрытьФорму(ПолноеИмяФормы("РедактированиеТипа"), ПараметрыОткрытия, ЭтаФорма, Истина, , , ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-			ИначеЕсли Контейнер.Тип = "МоментВремени" Тогда
-				СтандартнаяОбработка = Ложь;
-				ПараметрыОповещения = Новый Структура("Таблица, Строка, Поле", "ТаблицаЗначений", Элементы.ТаблицаЗначений.ТекущаяСтрока, ИмяКолонки);
-				ОписаниеОповещенияОЗакрытииОткрываемойФормы = Новый ОписаниеОповещения("ОкончаниеРедактированияСтроки", ЭтаФорма, ПараметрыОповещения);
-				ПараметрыОткрытия = Новый Структура("Объект, Значение", Объект, Контейнер);
-				ОткрытьФорму(ПолноеИмяФормы("РедактированиеГраницыМомента"), ПараметрыОткрытия, ЭтаФорма, Ложь, , , ОписаниеОповещенияОЗакрытииОткрываемойФормы, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-			КонецЕсли;
+			If Container.Type = "Type" Then
+				StandardProcessing = False;
+				NotifyParameters = New Structure("Table, Row, Field", "ValueTable", Items.ValueTable.CurrentRow, ColumnName);
+				CloseFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm, NotifyParameters);
+				OpeningParameters = New Structure("Object, ValueType", Object, Container);
+				OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, True, , , CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+			ElsIf Container.Type = "PointInTime" Then
+				StandardProcessing = False;
+				NotifyParameters = New Structure("Table, Row, Field", "ValueTable", Items.ValueTable.CurrentRow, ColumnName);
+				CloseFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm, NotifyParameters);
+				OpeningParameters = New Structure("Object, Value", Object, Container);
+				OpenForm(FormFullName("EditPointInTimeBoundary"), OpeningParameters, ThisForm, False, , , CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+			EndIf;
 			
-		КонецЕсли;
+		EndIf;
 		
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ОкончаниеРедактированияСтроки(РезультатЗакрытия, ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure RowEditEnd(Result, AdditionalParameters) Export
 	
-	Если РезультатЗакрытия <> Неопределено Тогда
+	If Result <> Undefined Then
 		
-		чИдентификаторСтроки = ДополнительныеПараметры.Строка;
-		Значение = Неопределено;
-		Если РезультатЗакрытия.Свойство("Значение", Значение) Тогда
-			ТаблицаЗначений[чИдентификаторСтроки][ДополнительныеПараметры.Поле + ContainerAttributeSuffix] = Значение;
-			ТаблицаЗначений[чИдентификаторСтроки][ДополнительныеПараметры.Поле] = Значение.Представление;
-		Иначе
-			ТаблицаЗначений[чИдентификаторСтроки][ДополнительныеПараметры.Поле + ContainerAttributeSuffix] = РезультатЗакрытия.ОписаниеКонтейнера;
-			ТаблицаЗначений[чИдентификаторСтроки][ДополнительныеПараметры.Поле] = РезультатЗакрытия.ОписаниеКонтейнера.Представление;
-		КонецЕсли;
+		nRowID = AdditionalParameters.Row;
+		Value = Undefined;
+		If Result.Property("Value", Value) Then
+			ValueTable[nRowID][AdditionalParameters.Field + ContainerAttributeSuffix] = Value;
+			ValueTable[nRowID][AdditionalParameters.Field] = Value.Presentation;
+		Else
+			ValueTable[nRowID][AdditionalParameters.Field + ContainerAttributeSuffix] = Result.ContainerDescription;
+			ValueTable[nRowID][AdditionalParameters.Field] = Result.ContainerDescription.Presentation;
+		EndIf;
 		
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура КомандаОчистить(Команда)
-	ТаблицаЗначений.Очистить();
-КонецПроцедуры
+&AtClient
+Procedure ClearCommand(Command)
+	ValueTable.Clear();
+EndProcedure
 
-&НаКлиенте
-Процедура КомандаОК(Команда)
-	ВозвращаемоеЗначение = Новый Структура("Значение", ПолучитьВозвращаемуюТаблицу());
-	Закрыть(ВозвращаемоеЗначение);
-КонецПроцедуры
+&AtClient
+Procedure OKCommand(Command)
+	ReturnValue = New Structure("Value", GetReturnTable());
+	Close(ReturnValue);
+EndProcedure
 
 
 

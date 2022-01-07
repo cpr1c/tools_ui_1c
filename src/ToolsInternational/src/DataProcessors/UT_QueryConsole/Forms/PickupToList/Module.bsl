@@ -79,23 +79,23 @@ Procedure EditValue()
 
 		NotifyParameters = New Structure("Row", Items.ItemList.CurrentRow);
 		//@skip-warning
-		ClosingFormNotifyDescription = New NotifyDescription("TypeEditFinish", ThisForm, NotifyParameters);
+		CloseFormNotifyDescription = New NotifyDescription("TypeEditFinish", ThisForm, NotifyParameters);
 		
 		If TypeOf(Value) <> Type("Type") Then
 			Value = Type("Undefined");
 		EndIf;
 		
 		OpeningParameters = New Structure("Object, ValueType", Object, Value);
-		OpenForm(FullFormName("TypeEdit"), OpeningParameters, ThisForm, True, , , ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+		OpenForm(FullFormName("TypeEdit"), OpeningParameters, ThisForm, True, , , CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 		
 	ElsIf TypeOf(Value) = Type("UUID") Then
 
 		NotifyParameters = New Structure("Row", Items.ItemList.CurrentRow);
 		//@skip-warning
-		ClosingFormNotifyDescription = New NotifyDescription("TypeEditFinish", ThisForm, NotifyParameters);
+		CloseFormNotifyDescription = New NotifyDescription("TypeEditFinish", ThisForm, NotifyParameters);
 		
 		OpeningParameters = New Structure("Object, Value", Object, Value);
-		OpenForm(FullFormName("UUIDEdit"), OpeningParameters, ThisForm, True, , , ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+		OpenForm(FullFormName("UUIDEdit"), OpeningParameters, ThisForm, True, , , CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 		
 	EndIf;
 	

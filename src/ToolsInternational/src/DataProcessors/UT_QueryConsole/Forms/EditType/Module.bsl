@@ -770,9 +770,9 @@ Procedure TableStructureValueTypeStartChoice(Item, ChoiceData, StandardProcessin
 	ValueType = Items.TableStructure.CurrentData.ValueType;
 	
 	NotifyParameters = New Structure("Table, Row, Field", TableStructure, Items.TableStructure.CurrentRow, "ValueType");
-	ClosingFormNotifyDescription = New NotifyDescription("TypeEditFinish", ThisForm, NotifyParameters);
+	CloseFormNotifyDescription = New NotifyDescription("TypeEditFinish", ThisForm, NotifyParameters);
 	OpeningParameters = New Structure("Object, ValueType", Object, ValueType);
-	OpenForm(FullFormName("EditType"), OpeningParameters, ThisForm, True, , , ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+	OpenForm(FullFormName("EditType"), OpeningParameters, ThisForm, True, , , CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 	
 	StandardProcessing = False;
 	
