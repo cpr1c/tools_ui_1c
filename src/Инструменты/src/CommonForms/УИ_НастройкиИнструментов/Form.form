@@ -227,6 +227,10 @@
         <items xsi:type="form:FormField">
           <name>ИспользоватьКартуКода</name>
           <id>16</id>
+          <title>
+            <key>ru</key>
+            <value>Карта кода</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>

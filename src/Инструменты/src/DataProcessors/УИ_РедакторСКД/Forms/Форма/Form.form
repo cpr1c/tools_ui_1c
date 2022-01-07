@@ -2699,16 +2699,10 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Запрос</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>ПолеТекстЗапроса</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
-                    <handlers>
-                      <event>OnChange</event>
-                      <name>НаборыДанныхЗапросПриИзменении</name>
-                    </handlers>
                     <extendedTooltip>
                       <name>НаборыДанныхЗапросРасширеннаяПодсказка</name>
                       <id>112</id>
@@ -2730,7 +2724,6 @@
                       <items xsi:type="form:Button">
                         <name>НаборыДанныхЗапросКонтекстноеМенюОткрытьКонструкторЗапроса</name>
                         <id>120</id>
-                        <visible>true</visible>
                         <enabled>true</enabled>
                         <userVisible>
                           <common>true</common>
@@ -2762,7 +2755,6 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <autoFill>true</autoFill>
                     </contextMenu>
                     <type>TextDocumentField</type>
                     <editMode>Enter</editMode>
@@ -12864,6 +12856,24 @@
         <common>true</common>
       </edit>
     </columns>
+    <columns>
+      <name>ЗапросОриганальный</name>
+      <title>
+        <key>ru</key>
+        <value>Запрос ориганальный</value>
+      </title>
+      <id>116</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
         <segments>НаборыДанных.Поля</segments>
@@ -14580,6 +14590,44 @@
     <id>113</id>
     <valueType>
       <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПолеТекстЗапроса</name>
+    <title>
+      <key>ru</key>
+      <value>Поле текст запроса</value>
+    </title>
+    <id>115</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИдентификаторСтрокиТекущегоНабораДанных</name>
+    <title>
+      <key>ru</key>
+      <value>Идентификатор строки текущего набора данных</value>
+    </title>
+    <id>117</id>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
     </valueType>
     <view>
       <common>true</common>
