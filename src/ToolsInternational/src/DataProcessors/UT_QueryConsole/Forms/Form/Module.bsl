@@ -3097,7 +3097,7 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 		StandardProcessing = False;
 		NotifyParameters = New Structure("Table, Row, Field", "QueryParameters",
 			Item.Parent.CurrentRow, "Container");
-		ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+		CloseFormNotifyDescription = New NotifyDescription("RowEditEnd",
 			ThisForm, NotifyParameters);
 		OpeningParameters = New Structure("Object, ValueType, Title, Value, ContainerType", Object,
 			CurrentData.ValueType, CurrentData.Name, CurrentData.Container, CurrentData.ContainerType);
@@ -3109,7 +3109,7 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 		EndIf;
 
 		OpenForm(FormFullName(EditingFormName), OpeningParameters, ThisForm, False, , ,
-			ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+			CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 	ElsIf TypeOf(CurrentData.Container) = Type("Structure") Then
 
@@ -3117,21 +3117,21 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 			StandardProcessing = False;
 			NotifyParameters = New Structure("Table, Row, Field", "QueryParameters",
 				Item.Parent.CurrentRow, "Container");
-			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+			CloseFormNotifyDescription = New NotifyDescription("RowEditEnd",
 				ThisForm, NotifyParameters);
 			OpeningParameters = New Structure("Object, Value", Object, CurrentData.Container);
 			OpenForm(FormFullName("EditPointInTimeBoundary"), OpeningParameters, ThisForm, False, , ,
-				ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+				CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 		ElsIf CurrentData.Container.Type = "Type" Then
 			StandardProcessing = False;
 			NotifyParameters = New Structure("Table, Row, Field", "QueryParameters",
 				Item.Parent.CurrentRow, "ContainerAsType");
-			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+			CloseFormNotifyDescription = New NotifyDescription("RowEditEnd",
 				ThisForm, NotifyParameters);
 			OpeningParameters = New Structure("Object, ValueType, ContainerType", Object, CurrentData.Container,
 				CurrentData.ContainerType);
 			OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, True, , ,
-				ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+				CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
 
 	Else
@@ -3139,11 +3139,11 @@ Procedure QueryParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 			StandardProcessing = False;
 			NotifyParameters = New Structure("Table, Row, Field", "QueryParameters",
 				Item.Parent.CurrentRow, "Value");
-			ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd",
+			CloseFormNotifyDescription = New NotifyDescription("RowEditEnd",
 				ThisForm, NotifyParameters);
 			OpeningParameters = New Structure("Object, Value", Object, CurrentData.Value);
 			OpenForm(FormFullName("EditUUID"), OpeningParameters, ThisForm,
-				True, , , ClosingFormNotifyDescription,
+				True, , , CloseFormNotifyDescription,
 				FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
 	EndIf;
@@ -3310,12 +3310,12 @@ Procedure QueryParametersParameterTypeStartChoice(Item, ChoiceData, StandardProc
 
 	NotifyParameters = New Structure("Table, Row, Field", "QueryParameters",
 		Items.QueryParameters.CurrentRow, "ValueType");
-	ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm,
+	CloseFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm,
 		NotifyParameters);
 	OpeningParameters = New Structure("Object, ValueType, ContainerType, Name, EnabledInQuery", Object,
 		ValueType, CurrentData.ContainerType, CurrentData.Name, True);
 	OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, True, , ,
-		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+		CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -3344,13 +3344,13 @@ Procedure TempTablesValueStartChoice(Item, ChoiceData, StandardProcessing)
 
 	NotifyParameters = New Structure("Table, Row, Field", "TempTables",
 		Items.TempTables.CurrentRow, "Container");
-	ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm,
+	CloseFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm,
 		NotifyParameters);
 	OpeningParameters = New Structure("Object, ValueType, Title, Value, ContainerType", Object, ,
 		CurrentData.Name, CurrentData.Container, 3);
 
 	OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, False, , ,
-		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+		CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -4933,14 +4933,14 @@ Procedure InsertPredefinedValue_Command(Command)
 	Items.QueryText.GetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
 	NotifyParameters = New Structure("BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn",
 		BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
-	ClosingFormNotifyDescription = New NotifyDescription("ChoicePredefinedCompletion",
+	CloseFormNotifyDescription = New NotifyDescription("ChoicePredefinedCompletion",
 		ThisForm, NotifyParameters);
 	OpeningParameters = New Structure("Object, FormData, QueryText, BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn",
 		Object, FormDataChoicePredefined, QueryText, BeginningOfRow, BeginningOfColumn, EndOfRow,
 		EndOfColumn);
 
 	OpenForm(FormFullName("ВыборПредопределенного"), OpeningParameters, ThisForm, True, , ,
-		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+		CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
@@ -4954,12 +4954,12 @@ Procedure ResultToParameter_Command(Command)
 	vtTable = ExtractResultAsContainer();
 
 	NotifyParameters = New Structure("Table, Row, Field", "QueryParameters", Undefined, "ValueType");
-	ClosingFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm,
+	CloseFormNotifyDescription = New NotifyDescription("RowEditEnd", ThisForm,
 		NotifyParameters);
 	OpeningParameters = New Structure("Object, ValueType, ContainerType, Name, EnabledInQuery, ToParameter", Object,
 		vtTable, 3, ResultQueryName, False, True);
 	OpenForm(FormFullName("EditType"), OpeningParameters, ThisForm, True, , ,
-		ClosingFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+		CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 
