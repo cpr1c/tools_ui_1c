@@ -1392,7 +1392,7 @@ Procedure AddObjectsArrayToCompare(Objects) Export
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(), ObjectsToCompareSettingsKey(),
 		ObjectsArrayToCompare);
 
-КонецПроцедуры
+EndProcedure
 
 Function ObjectsAddedToTheComparison() Export
 	ObjectKey=UT_CommonClientServer.ObjectKeyInSettingsStorage();
@@ -1413,54 +1413,53 @@ EndProcedure
 
 #EndRegion
 
-#Region НастройкаОтладкаДополнительныхОтчетовИОбработок
+#Region AdditionalReportsAndDataProcessorsDebugSettings
 
-Функция КлючНастроекОтладкиДополнительныхОтчетовИОбработок() Экспорт
-	Возврат "НастройкиОтладкиДополнительныхОтчетовИОбработок";
+Function KeyOfAdditionalReportsAndDataProcessorsDebugSettings() Export
+	Return "AdditionalReportsAndDataProcessorsDebugSettings";
+EndFunction
+
+Function NewKeyOfAdditionalDataProcessorDebugSettings ()  Export
+	Structure=New Structure;
+	Structure.Insert("DebugEnabled", False);
+	Structure.Insert("FileNameOnServer", "");
+	Structure.Insert("User", Undefined);
+	Return Structure;
+EndFunction
+
+Function AdditionalDataProcessorDebugSettings(AdditionalDataProcessor) Экспорт
+	ObjectKey=UT_CommonClientServer.ObjectKeyInSettingsStorage();
+	SettingsKey=KeyOfAdditionalReportsAndDataProcessorsDebugSettings();
+
+	SettingsMap=SystemSettingsStorageLoad(ObjectKey, SettingsKey);
+	If SettingsMap = Undefined Then
+		SettingsMap=New Map;
+	EndIf;
+
+	SettingsStructure=NewKeyOfAdditionalDataProcessorDebugSettings();
+	SavedSetting = SettingsMap[AdditionalDataProcessor];
+	If SavedSetting <> Undefined Then
+		FillPropertyValues(SettingsStructure, SavedSetting);
+	EndIf;
+
+	Возврат SettingsStructure;
 КонецФункции
 
-Функция НовыйСтруктураНастройкиОтладкиДополнительнойОбработки() Экспорт
-	Структура=Новый Структура;
-	Структура.Вставить("ОтладкаВключена", Ложь);
-	Структура.Вставить("ИмяФайлаНаСервере", "");
-	Структура.Вставить("Пользователь", Неопределено);
+Procedure SaveAdditionalDataProcessorDebugSettings(AdditionalDataProcessor, Settings) Export
+	ObjectKey=UT_CommonClientServer.ObjectKeyInSettingsStorage();
+	SettingsKey=KeyOfAdditionalReportsAndDataProcessorsDebugSettings();
 
-	Возврат Структура;
-КонецФункции
+	SettingsMap=SystemSettingsStorageLoad(ObjectKey, SettingsKey);
+	If SettingsMap = Undefined Then
+		SettingsMap=New Map;
+	EndIf;
 
-Функция НастройкиОтладкиДополнительнойОбработки(ДополнительнаяОбработка) Экспорт
-	КлючОбъекта=UT_CommonClientServer.ObjectKeyInSettingsStorage();
-	КлючНастроек=КлючНастроекОтладкиДополнительныхОтчетовИОбработок();
+	SettingsMap.Insert(AdditionalDataProcessor, Settings);
 
-	СоответствиеНастроек=ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек);
-	Если СоответствиеНастроек = Неопределено Тогда
-		СоответствиеНастроек=Новый Соответствие;
-	КонецЕсли;
+	UT_Common.SystemSettingsStorageSave(
+		ObjectKey, SettingsKey, SettingsMap);
 
-	СтруктураНастройки=НовыйСтруктураНастройкиОтладкиДополнительнойОбработки();
-	СохраненнаяНастройка=СоответствиеНастроек[ДополнительнаяОбработка];
-	Если СохраненнаяНастройка <> Неопределено Тогда
-		ЗаполнитьЗначенияСвойств(СтруктураНастройки, СохраненнаяНастройка);
-	КонецЕсли;
-
-	Возврат СтруктураНастройки;
-КонецФункции
-
-Процедура ЗаписатьНастройкиОтладкиДополнительнойОбработки(ДополнительнаяОбработка, Настройки) Экспорт
-	КлючОбъекта=UT_CommonClientServer.ObjectKeyInSettingsStorage();
-	КлючНастроек=КлючНастроекОтладкиДополнительныхОтчетовИОбработок();
-
-	СоответствиеНастроек=ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек);
-	Если СоответствиеНастроек = Неопределено Тогда
-		СоответствиеНастроек=Новый Соответствие;
-	КонецЕсли;
-
-	СоответствиеНастроек.Вставить(ДополнительнаяОбработка, Настройки);
-
-	UT_Common.ХранилищеСистемныхНастроекСохранить(
-		КлючОбъекта, КлючНастроек, СоответствиеНастроек);
-
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
@@ -4840,45 +4839,45 @@ EndProcedure
 
 #EndRegion
 
-#Region Алгоритмы
+#Region Algorithms
 
-Функция ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры = Неопределено, ОшибкаВыполнения = Ложь,
-	СообщениеОбОшибке = "") Экспорт
-	Возврат UT_AlgorithmsClientServer.ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры, ОшибкаВыполнения,
-		СообщениеОбОшибке)
-КонецФункции
+Function ExecuteAlgorithm(AlgorithmRef, IncomingParameters = Undefined, ExecutionError = False,
+	ErrorMessage = "") Export
+	Return UT_AlgorithmsClientServer.ExecuteAlgorithm(AlgorithmRef, IncomingParameters, ExecutionError,
+		ErrorMessage)
+EndFunction
 
-Функция ПолучитьСсылкуСправочникАлгоритмы(Алгоритм) Экспорт
-	Если ТипЗнч(Алгоритм) = Тип("СправочникСсылка.УИ_Алгоритмы") Тогда
-		Возврат Алгоритм;
-	ИначеЕсли ТипЗнч(Алгоритм) = Тип("УникальныйИдентификатор") Тогда
-		Возврат Справочники.УИ_Алгоритмы.ПолучитьСсылку(Алгоритм);
-	ИначеЕсли ТипЗнч(Алгоритм) = Тип("Строка") Тогда
-		Если Лев(Алгоритм, 5) = "GUID_" Тогда // БСП внеш. обработка
-			СтрокаУИД = Сред(Алгоритм, 6);
-			ref = Справочники.УИ_Алгоритмы.ПолучитьСсылку(Новый УникальныйИдентификатор(СтрокаУИД));
-			Возврат ?(ПустаяСтрока(ref.Наименование), Неопределено, ref);
-		КонецЕсли;
-		НайденПоНаименованию = Справочники.УИ_Алгоритмы.НайтиПоНаименованию(Алгоритм, Истина);
-		Если НайденПоНаименованию = Неопределено Тогда
-			Попытка
-				ЧислоКод = Число(Прав(Алгоритм, 5));
-				НайденПоКоду = Справочники.УИ_Алгоритмы.НайтиПоКоду(ЧислоКод);
-				Если НайденПоКоду = Неопределено Тогда
-					Возврат Неопределено;
+Function GetRefCatalogAlgorithms(Algorithm) Export
+	If TypeOf(Algorithm) = Type("CatalogRef.UT_Algorithms") Then
+		Return Algorithm;
+	ElsIf TypeOf(Algorithm) = Type("UUID") Then
+		Return Catalogs.UT_Algorithms.GetRef(Algorithm);
+	ElsIf TypeOf(Algorithm) = Type("String") Then
+		If Left(Algorithm, 5) = "GUID_" Then // SSL Additional DataProcessor 
+			UUIDString = Mid(Algorithm, 6);
+			ref = Catalogs.UT_Algorithms.GetRef(New UUID(UUIDString));
+			Return ?(IsBlankString(ref.Наименование), Undefined, ref);
+		EndIf;
+		FoundedByName = Catalogs.UT_Algorithms.FindByDescription(Algorithm, True);
+		If FoundedByName = Undefined Then
+			Try
+				CodeNumber = Number(Right(Algorithm, 5));
+				FoundedByCode = Catalogs.UT_Algorithms.FindByCode(CodeNumber);
+				Если FoundedByCode = Undefined Then
+					Return Undefined;
 				Иначе
-					Возврат НайденПоКоду;
+					Return FoundedByCode;
 				КонецЕсли;
-			Исключение
-				Возврат Неопределено;
-			КонецПопытки;
-		Иначе
-			Возврат НайденПоНаименованию;
-		КонецЕсли;
-	Иначе
-		Возврат Неопределено;
-	КонецЕсли;
-КонецФункции
+			Except
+				Return Undefined;
+			EndTry;
+		Else
+			Return FoundedByName;
+		EndIf;
+	Else
+		Return Undefined;
+	EndIf;
+EndFunction
 
 #EndRegion
 
