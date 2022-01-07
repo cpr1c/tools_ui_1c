@@ -7060,6 +7060,42 @@
         <common>true</common>
       </edit>
     </columns>
+    <columns>
+      <name>ТекстКодОригинальный</name>
+      <title>
+        <key>ru</key>
+        <value>Текст код оригинальный</value>
+      </title>
+      <id>55</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТекстЗапросаОригинальный</name>
+      <title>
+        <key>ru</key>
+        <value>Текст запроса</value>
+      </title>
+      <id>56</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
   </attributes>
   <attributes>
     <name>ПараметрыЗапроса</name>
