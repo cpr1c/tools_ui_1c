@@ -50,7 +50,6 @@
     <headerHorizontalAlign>Left</headerHorizontalAlign>
     <showInFooter>true</showInFooter>
     <extInfo xsi:type="form:InputFieldExtInfo">
-      <autoMaxWidth>true</autoMaxWidth>
       <height>5</height>
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
@@ -97,7 +96,6 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <autoFill>true</autoFill>
     </contextMenu>
     <type>TextDocumentField</type>
     <editMode>Enter</editMode>
@@ -106,7 +104,6 @@
     <showInFooter>true</showInFooter>
     <extInfo xsi:type="form:TextDocFieldExtInfo">
       <width>50</width>
-      <autoMaxWidth>true</autoMaxWidth>
       <height>10</height>
       <autoMaxHeight>true</autoMaxHeight>
       <horizontalStretch>true</horizontalStretch>
@@ -228,7 +225,10 @@
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
   </handlers>
-  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
+  <handlers>
+    <event>OnOpen</event>
+    <name>ПриОткрытии</name>
+  </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -278,7 +278,60 @@
     </title>
     <id>3</id>
     <valueType>
-      <types>TextDocument</types>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ТекстВыражения</name>
+    <title>
+      <key>ru</key>
+      <value>Текст выражения</value>
+    </title>
+    <id>4</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ТипРезультата</name>
+    <title>
+      <key>ru</key>
+      <value>Тип результата</value>
+    </title>
+    <id>5</id>
+    <valueType>
+      <types>TypeDescription</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>КолонкиСтроки</name>
+    <title>
+      <key>ru</key>
+      <value>Колонки строки</value>
+    </title>
+    <id>6</id>
+    <valueType>
+      <types>Arbitrary</types>
     </valueType>
     <view>
       <common>true</common>

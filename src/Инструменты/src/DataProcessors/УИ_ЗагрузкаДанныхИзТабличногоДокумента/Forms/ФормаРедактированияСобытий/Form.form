@@ -50,7 +50,6 @@
     <headerHorizontalAlign>Left</headerHorizontalAlign>
     <showInFooter>true</showInFooter>
     <extInfo xsi:type="form:InputFieldExtInfo">
-      <autoMaxWidth>true</autoMaxWidth>
       <height>5</height>
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
@@ -74,10 +73,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПередЗаписьюОбъекта</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПолеПередЗаписьюОбъекта</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -103,7 +100,6 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <autoFill>true</autoFill>
         </contextMenu>
         <type>TextDocumentField</type>
         <editMode>Enter</editMode>
@@ -164,10 +160,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПриЗаписиОбъекта</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПолеПриЗаписиОбъекта</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -193,7 +187,6 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <autoFill>true</autoFill>
         </contextMenu>
         <type>TextDocumentField</type>
         <editMode>Enter</editMode>
@@ -254,10 +247,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПослеДобавленияСтроки</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПолеПослеДобавленияСтроки</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -283,7 +274,6 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <autoFill>true</autoFill>
         </contextMenu>
         <type>TextDocumentField</type>
         <editMode>Enter</editMode>
@@ -399,6 +389,7 @@
       </extendedTooltip>
       <commandName>Form.Command.ОК</commandName>
       <representation>Auto</representation>
+      <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
@@ -484,7 +475,10 @@
     <event>OnOpen</event>
     <name>ПриОткрытии</name>
   </handlers>
-  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
+  <handlers>
+    <event>OnCreateAtServer</event>
+    <name>ПриСозданииНаСервере</name>
+  </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -534,7 +528,8 @@
     </title>
     <id>3</id>
     <valueType>
-      <types>TextDocument</types>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
@@ -551,7 +546,8 @@
     </title>
     <id>4</id>
     <valueType>
-      <types>TextDocument</types>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
@@ -568,7 +564,8 @@
     </title>
     <id>5</id>
     <valueType>
-      <types>TextDocument</types>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
@@ -589,6 +586,77 @@
       <numberQualifiers>
         <precision>1</precision>
       </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПолеПередЗаписьюОбъекта</name>
+    <title>
+      <key>ru</key>
+      <value>Перед записью объекта</value>
+    </title>
+    <id>7</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПолеПослеДобавленияСтроки</name>
+    <title>
+      <key>ru</key>
+      <value>После добавления строки</value>
+    </title>
+    <id>8</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПолеПриЗаписиОбъекта</name>
+    <title>
+      <key>ru</key>
+      <value>При записи объекта</value>
+    </title>
+    <id>10</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ТипОбъекта</name>
+    <title>
+      <key>ru</key>
+      <value>Тип объекта</value>
+    </title>
+    <id>11</id>
+    <valueType>
+      <types>Arbitrary</types>
     </valueType>
     <view>
       <common>true</common>
