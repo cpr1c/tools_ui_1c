@@ -1,27 +1,27 @@
-Функция ПараметрыСтартаСеанса() Экспорт
+Function SessionStartParameters() Export
 
-	ПараметрыСтартаСеанса=Новый Структура;
+	SessionStartParameters=New Structure;
 
-	Если Не UT_CommonClientServer.IsPortableDistribution() Тогда
-		Если ПравоДоступа("Administration", Метаданные) И Не РольДоступна("UT_UniversalTools")
-			И ПользователиИнформационнойБазы.ПолучитьПользователей().Количество() > 0 Тогда
-			ТекущийПользователь = ПользователиИнформационнойБазы.ТекущийПользователь();
-			ТекущийПользователь.Роли.Добавить(Метаданные.Роли.UT_UniversalTools);
-			ТекущийПользователь.Записать();
+	If Not UT_CommonClientServer.IsPortableDistribution() Then
+		If AccessRight("Administration", Metadata) And Not IsInRole("UT_UniversalTools")
+			And InfoBaseUsers.GetUsers().Count() > 0 Then
+			CurrentUser = InfoBaseUsers.CurrentUser();
+			CurrentUser.Roles.Add(Metadata.Roles.UT_UniversalTools);
+			CurrentUser.Write();
 
-			ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Истина);
-		Иначе
-			ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Ложь);
-		КонецЕсли;
-	Иначе
-		ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Ложь);	
-	КонецЕсли;
+			SessionStartParameters.Insert("ExtensionRightsAdded", True);
+		Else
+			SessionStartParameters.Insert("ExtensionRightsAdded", False);
+		EndIf;
+	Else
+		SessionStartParameters.Insert("ExtensionRightsAdded", False);	
+	EndIf;
 
-	ПараметрыСтартаСеанса.Вставить("НомерСеанса", НомерСеансаИнформационнойБазы());
-	ПараметрыСтартаСеанса.Вставить("ЯзыкСинтаксисаКонфигурации", UT_CodeEditorServer.ЯзыкСинтаксисаКонфигурации());
+	SessionStartParameters.Insert("SessionNumber", InfoBaseSessionNumber());
+	SessionStartParameters.Insert("AppScriptVariant", UT_CodeEditorServer.ЯзыкСинтаксисаКонфигурации());
 
-	Возврат ПараметрыСтартаСеанса;
-КонецФункции
+	Return SessionStartParameters;
+EndFunction
 
 // Sets the bold font for form group titles so they are correctly displayed in the 8.2 interface.2.
 // In the Taxi interface, group titles with standard highlight and without one are displayed in large font.
@@ -108,11 +108,11 @@ EndFunction
 
 КонецФункции
 
-Функция ДанныеСохраненногоПароляПользователяИБ(ИмяПользователя) Экспорт
+Функция StoredIBUserPasswordData(ИмяПользователя) Экспорт
 	Возврат UT_Users.StoredIBUserPasswordData(ИмяПользователя);
 КонецФункции
 
-Процедура УстановитьПарольПользователюИБ(ИмяПользователя, Пароль) Экспорт
+Процедура SetIBUserPassword(ИмяПользователя, Пароль) Экспорт
 	UT_Users.SetIBUserPassword(ИмяПользователя, Пароль);
 КонецПроцедуры
 
@@ -208,8 +208,6 @@ Function mWriteJSON(DataStructure) Export
 	Return UT_CommonClientServer.mWriteJSON(DataStructure);
 EndFunction // WriteJSON(
 #КонецОбласти
-
-
 
 #Область ХранилищеНастроек
 
