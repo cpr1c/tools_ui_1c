@@ -361,10 +361,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="97329590-6e8b-4bb4-acf0-10ce647242c9">
-    <name>SelectionToList</name>
+    <name>PickupToList</name>
     <synonym>
       <key>en</key>
-      <value>Selection to list</value>
+      <value>Pickup to list</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -374,10 +374,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="4adca824-4233-4718-9b1f-960d26ea5426">
-    <name>TypeEdit</name>
+    <name>EditType</name>
     <synonym>
       <key>en</key>
-      <value>Type edit</value>
+      <value>Edit type</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -387,10 +387,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e624ba28-4b3b-4306-ad29-ff42e5fc2594">
-    <name>PointInTimeBoundaryEdit</name>
+    <name>EditPointInTimeBoundary</name>
     <synonym>
       <key>en</key>
-      <value>Point in time boundary edit</value>
+      <value>Edit point in time boundary</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -400,10 +400,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="5181d4cb-7faf-4a01-b280-c85d15888cfe">
-    <name>TableEdit</name>
+    <name>EditTable</name>
     <synonym>
       <key>en</key>
-      <value>Table edit</value>
+      <value>Edit table</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -426,10 +426,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="2be29826-2171-481f-b8a7-e20380331e62">
-    <name>UUIDEdit</name>
+    <name>EditUUID</name>
     <synonym>
       <key>en</key>
-      <value>UUID edit</value>
+      <value>Edit UUID</value>
     </synonym>
     <synonym>
       <key>ru</key>
