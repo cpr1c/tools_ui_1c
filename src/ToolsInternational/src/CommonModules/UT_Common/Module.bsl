@@ -5,7 +5,7 @@
 // Текст лицензии доступен по ссылке:
 // https://creativecommons.org/licenses/by/4.0/legalcode
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-#Region ПрограммныйИнтерфейс
+#Region ProgramInterface
 
 // Returns the data separation mode flag (conditional separation).
 // 
@@ -67,7 +67,7 @@ EndFunction
 Function CommonModule(Name) Export
 
 	If Metadata.CommonModules.Find(Name) <> Undefined Then
-		Module = Eval(Name); // ВычислитьВБезопасномРежиме не требуется, т.к. проверка надежная.
+		Module = Eval(Name); 
 	ElsIf StrOccurrenceCount(Name, ".") = 1 Then
 		Return ServerManagerModule(Name);
 	Else
@@ -171,7 +171,7 @@ Function ServerManagerModule(Name)
 			Name);
 	EndIf;
 
-	Module = Eval(Name); // ВычислитьВБезопасномРежиме не требуется, т.к. проверка надежная.
+	Module = Eval(Name); 
 
 	Return Module;
 EndFunction
@@ -292,46 +292,44 @@ Procedure SetSafeModeSSL()
 //	EndIf;
 EndProcedure
 
-// Выполнить экспортную процедуру объекта встроенного языка по имени.
-// При включении профилей безопасности для вызова оператора Выполнить() используется
-// переход в безопасный режим с профилем безопасности, используемом для информационной базы
-// (если выше по стеку не был установлен другой безопасный режим).
-//
-// Параметры:
-//  Объект    - Произвольный - объект встроенного языка 1С:Предприятия, содержащий методы (например, ОбработкаОбъект).
-//  ИмяМетода - Строка       - имя экспортной процедуры модуля объекта обработки.
-//  Параметры - Массив       - параметры передаются в процедуру <ИмяПроцедуры>
-//                             в порядке расположения элементов массива.
-//
-Процедура ВыполнитьМетодОбъекта(Знач Объект, Знач ИмяМетода, Знач Параметры = Неопределено) Экспорт
+// Executes the export procedure of Object by the name
+// When enabling security profiles, to call the Execute() operator
+// switching to safe mode with the security profile used for the information base
+// is used (if no other safe mode was set higher up the stack).
+// Parameters:
+// 		Object - Arbitrary - object of the 1C Script:An object containing methods (for example, a processing object).
+// 		MethodName - String - the name of the export procedure of the processing object module
+//      Parameters - Array - parameters are passed to the procedure <Procedure Name>  in the order of the array elements.
+		
+Procedure ExecuteObjectMethod(Val Object, Val MethodName, Val Parameters = Undefined) Export
 	
-	// Проверка имени метода на корректность.
-	Попытка
+	// Check  that Method Name is Correct.
+	Try
 		//@skip-warning
-		Тест = Новый Структура(ИмяМетода, ИмяМетода);
-	Исключение
-		ВызватьИсключение СтрШаблон(
-			НСтр("ru='Некорректное значение параметра ИмяМетода (%1) в ОбщегоНазначения.ВыполнитьМетодОбъекта'"),
-			ИмяМетода);
-	КонецПопытки;
+		Test = New Structure(MethodName, MethodName);
+	Except
+		Raise StrTemplate(
+			NStr("ru = 'Некорректное значение параметра MethodName (%1) в Common.ExecuteObjectMethod';en = 'Invalid parameter value MethodName (%1) In Common.ExecuteObjectMethod'"),
+			MethodName);
+	EndTry;
 	
-	Попытка
+	Try
 		SetSafeModeSSL();
-	Исключение
-	КонецПопытки;
+	Except
+		
+	EndTry;
 
-	ПараметрыСтрока = "";
-	Если Параметры <> Неопределено И Параметры.Количество() > 0 Тогда
-		Для Индекс = 0 По Параметры.ВГраница() Цикл
-			ПараметрыСтрока = ПараметрыСтрока + "Параметры[" + Индекс + "],";
-		КонецЦикла;
-		ПараметрыСтрока = Сред(ПараметрыСтрока, 1, СтрДлина(ПараметрыСтрока) - 1);
-	КонецЕсли;
+	ParametersString = "";
+	If Parameters <> Undefined AND Parameters.Count() > 0 Then
+		For Index = 0 To Parameters.UBound() Do
+			ParametersString = ParametersString + "Parameters[" + Index + "],";
+		EndDo;
+		ParametersString = Mid(ParametersString, 1, StrLen(ParametersString) - 1);
+	EndIf;
 
-	Выполнить "Объект." + ИмяМетода + "(" + ПараметрыСтрока + ")";
+	Execute "Object." + MethodName + "(" + ParametersString + ")";
 
-КонецПроцедуры
-
+EndProcedure
 
 // Executes the export procedure by the name with the configuration privilege level.
 // To enable the security profile for calling the Execute() operator, the safe mode with the 
@@ -372,7 +370,6 @@ Procedure ExecuteConfigurationMethod(Val MethodName, Val Parameters = Undefined)
 	
 EndProcedure
 
-
 // Checks whether the passed ProcedureName is the name of a configuration export procedure.
 // Can be used for checking whether the passed string does not contain an arbitrary algorithm in the 
 // 1C:Enterprise in-built language before using it in the Execute and Evaluate operators upon the 
@@ -390,7 +387,7 @@ Procedure CheckConfigurationProcedureName(Val ProcedureName)
 	NameParts = StrSplit(ProcedureName, ".");
 	If NameParts.Count() <> 2 AND NameParts.Count() <> 3 Then
 		Raise StrTemplate(
-			NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации'; 
+			NStr("ru = 'Неправильный формат параметра ProcedureName (передано значение: ""%1"") в Common.ExecuteConfigurationMethod'; 
 				|en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod.'"),
 				ProcedureName);
 	EndIf;
@@ -398,7 +395,7 @@ Procedure CheckConfigurationProcedureName(Val ProcedureName)
 	ObjectName = NameParts[0];
 	If NameParts.Count() = 2 AND Metadata.CommonModules.Find(ObjectName) = Undefined Then
 		Raise StrTemplate(
-			NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
+			NStr("ru = 'Неправильный формат параметра ProcedureName (передано значение: ""%1"") в Common.ExecuteConfigurationMethod:
 				|Не найден общий модуль ""%2"".'; 
 				|en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod.
 				|Common module ""%2"" is not found.'"),
@@ -415,7 +412,7 @@ Procedure CheckConfigurationProcedureName(Val ProcedureName)
 		EndTry;
 		If Manager = Undefined Then
 			Raise StrTemplate(
-				NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
+				NStr("ru = 'Неправильный формат параметра ProcedureName (передано значение: ""%1"") в Common.ExecuteConfigurationMethod:
 				           |Не найден менеджер объекта ""%2"".'; 
 				           |en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod:
 				           |Manager of ""%2"" object is not found.'"), 
@@ -433,7 +430,7 @@ Procedure CheckConfigurationProcedureName(Val ProcedureName)
 		WriteLogEvent(NStr("ru = 'Безопасное выполнение метода'; en = 'Executing method in safe mode'",UT_CommonClientServer.DefaultLanguageCode()),
 			EventLogLevel.Error, , , DetailErrorDescription(ErrorInfo()));
 		Raise StrTemplate(
-			NStr("ru = 'Неправильный формат параметра ИмяПроцедуры (передано значение: ""%1"") в ОбщегоНазначения.ВыполнитьМетодКонфигурации:
+			NStr("ru = 'Неправильный формат параметра ProcedureName (передано значение: ""%1"") в Common.ExecuteConfigurationMethod:
 			           |Имя метода ""%2"" не соответствует требованиям образования имен процедур и функций.'; 
 			           |en = 'Invalid format of ProcedureName parameter (passed value: ""%1"") in Common.ExecuteConfigurationMethod.
 			           |Method name %2 does not comply with the procedure and function naming convention.'"),
@@ -766,7 +763,7 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 			Ref = UT_CommonClientServer.PredefinedItem(FullNameOfPredefinedItem);
 		Except
 			ErrorText = StrTemplate(
-			NStr("ru = 'Неверный первый параметр Ссылка в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта:
+			NStr("ru = 'Неверный первый параметр Ref в функции Common.ObjectAttributesValues:
 			           |%1'; 
 			           |en = 'Invalid value of the Ref parameter, function Common.ObjectAttributesValues:
 			           |%1.'"), BriefErrorDescription(ErrorInfo()));
@@ -794,7 +791,7 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 		Try
 			FullMetadataObjectName = Ref.Metadata().FullName(); 
 		Except
-			Raise NStr("ru = 'Неверный первый параметр Ссылка в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: 
+			Raise NStr("ru = 'Неверный первый параметр Ref в функции Common.ObjectAttributesValues: 
 				           |- Значение должно быть ссылкой или именем предопределенного элемента'; 
 				           |en = 'Invalid value of the Ref parameter, function Common.ObjectAttributesValues:
 				           |The value must contain predefined item name or reference.'");
@@ -835,7 +832,7 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 				Result = FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Attributes);
 				If Result.Error Then 
 					Raise СтрШаблон(
-						NStr("ru = 'Неверный второй параметр Реквизиты в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"),
+						NStr("ru = 'Неверный второй параметр Attributes в функции Common.ObjectAttributesValues: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"),
 						Result.ErrorDescription);
 				EndIf;
 				
@@ -846,7 +843,7 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 		EndDo;
 	Else
 		Raise СтрШаблон(
-			NStr("ru = 'Неверный тип второго параметра Реквизиты в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: %1'; en = 'Invalid value type for the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
+			NStr("ru = 'Неверный тип второго параметра Attributes в функции Common.ObjectAttributesValues: %1'; en = 'Invalid value type for the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
 			String(TypeOf(Attributes)));
 	EndIf;
 	
@@ -912,7 +909,7 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 		Result = FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Attributes);
 		If Result.Error Then 
 			Raise СтрШаблон(
-				NStr("ru = 'Неверный второй параметр Реквизиты в функции ОбщегоНазначения.ЗначенияРеквизитовОбъекта: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
+				NStr("ru = 'Неверный второй параметр Attributes в функции Common.ObjectAttributesValues: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
 				Result.ErrorDescription);
 		EndIf;
 		
@@ -957,7 +954,7 @@ Function ObjectAttributeValue(Ref, AttributeName, SelectAllowedItems = False) Ex
 	
 	If IsBlankString(AttributeName) Then 
 		Raise 
-			NStr("ru = 'Неверный второй параметр ИмяРеквизита в функции ОбщегоНазначения.ЗначениеРеквизитаОбъекта: 
+			NStr("ru = 'Неверный второй параметр AttributeName в функции Common.ObjectAttributeValue: 
 			           |- Имя реквизита должно быть заполнено'; 
 			           |en = 'Invalid value of the AttributeName parameter, function Common.ObjectAttributeValue:
 			           |The parameter cannot be empty.'");
@@ -1077,22 +1074,22 @@ EndFunction
 #Region WorkWithUniversalToolsForm
 
 Procedure AddToCommonCommandsCommandBar(Form, FormMainCommandBar)
-	Если Form.ПоложениеКоманднойПанели=ПоложениеКоманднойПанелиФормы.Нет 
-		И FormMainCommandBar=Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If Form.CommandBarLocation=FormItemCommandBarLabelLocation.None 
+		And FormMainCommandBar=Undefined Then
+		Return;
+	Endif;
 
-	Если FormMainCommandBar=Неопределено Тогда
-		КоманднаяПанель= Form.КоманднаяПанель;
-	Иначе
-		КоманднаяПанель=FormMainCommandBar;
-	КонецЕсли;
+	If FormMainCommandBar=Undefined Then
+		CommandBar= Form.CommandBar;
+	Else
+		CommandBar=FormMainCommandBar;
+	EndIf;
 	
 	CommandDescription = UT_Forms.ButtonCommandNewDescription();
 	CommandDescription.Name = "УИ_ОткрытьНовуюФормуИнструмента";
 	CommandDescription.CommandName = CommandDescription.Name;
 	CommandDescription.Action="Подключаемый_ВыполнитьОбщуюКомандуИнструментов";
-	CommandDescription.ItemParent=КоманднаяПанель;
+	CommandDescription.ItemParent=CommandBar;
 	CommandDescription.Picture = БиблиотекаКартинок.НовоеОкно;
 	CommandDescription.Representation = ОтображениеКнопки.Картинка;
 	CommandDescription.ToolTip = "Открывает еще одну пустую форму текущего инструмента";
@@ -1133,7 +1130,7 @@ Function RefSearchExclusions() Export
 //	Endif;
 
 	SearchExceptions = New Array;
-//	ModuleCommonOverridable=ОбщийМодуль("CommonOverridable");
+//	ModuleCommonOverridable=CommonModule("CommonOverridable");
 //	If ModuleCommonOverridable <> Undefined Then
 //		ModuleCommonOverridable.OnAddReferenceSearchExceptions(SearchExceptions);
 //	EndIf;
@@ -1361,7 +1358,7 @@ Function AllRefsTypeDescription() Export
 
 EndFunction
 
-#Region СравнениеОбъектов
+#Region ObjectsComparison
 
 Procedure AddObjectToComparingObjectsArray(ObjectsArray, ObjectRef)
 	If ObjectsArray.Find(ObjectRef) = Undefined Then
@@ -1419,7 +1416,7 @@ Function KeyOfAdditionalReportsAndDataProcessorsDebugSettings() Export
 	Return "AdditionalReportsAndDataProcessorsDebugSettings";
 EndFunction
 
-Function NewKeyOfAdditionalDataProcessorDebugSettings ()  Export
+Function NewStructureOfAdditionalDataProcessorDebugSettings ()  Export
 	Structure=New Structure;
 	Structure.Insert("DebugEnabled", False);
 	Structure.Insert("FileNameOnServer", "");
@@ -1436,7 +1433,7 @@ Function AdditionalDataProcessorDebugSettings(AdditionalDataProcessor) Эксп�
 		SettingsMap=New Map;
 	EndIf;
 
-	SettingsStructure=NewKeyOfAdditionalDataProcessorDebugSettings();
+	SettingsStructure=NewStructureOfAdditionalDataProcessorDebugSettings();
 	SavedSetting = SettingsMap[AdditionalDataProcessor];
 	If SavedSetting <> Undefined Then
 		FillPropertyValues(SettingsStructure, SavedSetting);
@@ -1463,7 +1460,7 @@ EndProcedure
 
 #EndRegion
 
-#Region ДанныеВБазе
+#Region DataInDB
 
 ////////////////////////////////////////////////////////////////////////////////
 // Common procedures and functions to manage infobase data.
@@ -1801,7 +1798,7 @@ Function UsageInstances(Val RefSet, Val ResultAddress = "") Export
 EndFunction
 
 #EndRegion
-#Region ВнешниеКомпоненты
+#Region AddIn
 
 // Checking extension and configuration metadata for the template.
 //
@@ -1831,7 +1828,7 @@ EndFunction
 
 #EndRegion
 
-#Region МестаИспользования
+#Region UsageInstances
 
 Function RecordKeysTypeDetails()
 	
@@ -2185,7 +2182,7 @@ Procedure ReplaceInConstant(Result, Val UsageInstance, Val WriteParameters, Val 
 		EndIf;
 
 		Попытка
-			ЗаписатьОбъектПриЗаменеСсылок(Manager, WriteParameters);
+			WriteObjectOnRefsReplace(Manager, WriteParameters);
 		Except
 			ErrorDescription = BriefErrorDescription(ErrorInfo());
 			Error = StrTemplate(NStr("ru = 'Не удалось записать %1 по причине: %2'; en = 'Cannot save %1. Reason: %2'"), 
@@ -2270,17 +2267,17 @@ Procedure ReplaceInObject(Result, Val UsageInstance, Val ExecutionParameters, Va
 				NewExecutionParameters = UT_CommonClientServer.CopyRecursively(ExecutionParameters);
 				NewExecutionParameters.IncludeBusinessLogic = False;
 				For Each KeyValue In WritingObjects Do
-					ЗаписатьОбъектПриЗаменеСсылок(KeyValue.Key, NewExecutionParameters);
+					WriteObjectOnRefsReplace(KeyValue.Key, NewExecutionParameters);
 				EndDo;
 				// Second writing iteration with the control.
 				NewExecutionParameters.IncludeBusinessLogic = True;
 				For Each KeyValue In WritingObjects Do
-					ЗаписатьОбъектПриЗаменеСсылок(KeyValue.Key, NewExecutionParameters);
+					WriteObjectOnRefsReplace(KeyValue.Key, NewExecutionParameters);
 				EndDo;
 			Else
 				// Writing without the business logic control.
 				For Each KeyValue In WritingObjects Do
-					ЗаписатьОбъектПриЗаменеСсылок(KeyValue.Key, ExecutionParameters);
+					WriteObjectOnRefsReplace(KeyValue.Key, ExecutionParameters);
 				EndDo;
 			EndIf;
 		Except
@@ -2397,7 +2394,7 @@ Procedure ReplaceInSet(Result, Val UsageInstance, Val ExecutionParameters, Val I
 		EndIf;
 		
 		Try
-			ЗаписатьОбъектПриЗаменеСсылок(RecordSet, ExecutionParameters);
+			WriteObjectOnRefsReplace(RecordSet, ExecutionParameters);
 		Except
 			ErrorDescription = BriefErrorDescription(ErrorInfo());
 			Error = StrTemplate(NStr("ru = 'Не удалось записать %1 по причине: %2'; en = 'Cannot save %1. Reason: %2'"), 
@@ -2590,7 +2587,7 @@ Procedure ReplaceInInformationRegister(Result, Val UsageInstance, Val ExecutionP
 		If TwoSetsRequired Then
 			DuplicateRecordSet.Clear();
 			Try
-				ЗаписатьОбъектПриЗаменеСсылок(НаборЗаписейДубля, ПараметрыВыполнения);
+				WriteObjectOnRefsReplace(DuplicateRecordSet, ExecutionParameters);
 			Except
 				// Error type: DeleteDuplicateSet.
 				Raise;
@@ -2600,7 +2597,7 @@ Procedure ReplaceInInformationRegister(Result, Val UsageInstance, Val ExecutionP
 		// Writing original object data.
 		If OriginalRecordSet.Modified() Then
 			Try
-				ЗаписатьОбъектПриЗаменеСсылок(НаборЗаписейОригинала, ПараметрыВыполнения);
+				WriteObjectOnRefsReplace(OriginalRecordSet, ExecutionParameters);
 			Except
 				// Error type: WriteOriginalSet.
 				Raise;
@@ -2823,9 +2820,9 @@ Procedure DeleteRefsNotExclusive(Result, Val RefsList, Val ExecutionParameters, 
 			
 			Try
 				If DeleteDirectly Then
-					ProcessObjectWithMessageInterception(Object, "DirectDeletion", Undefined, ExecutionParameters);
+					ProcessObjectWithMessageInterceptionOnRefsReplace(Object, "DirectDeletion", Undefined, ExecutionParameters);
 				Else
-					ProcessObjectWithMessageInterception(Object, "DeletionMark", Undefined, ExecutionParameters);
+					ProcessObjectWithMessageInterceptionOnRefsReplace(Object, "DeletionMark", Undefined, ExecutionParameters);
 				EndIf;
 			Except
 				ErrorText = NStr("ru = 'Ошибка удаления'; en = 'Deletion error.'")
@@ -3215,7 +3212,7 @@ EndProcedure
 	PreviousMessages = GetUserMessages(True);
 	ReportAgain    = CurrentRunMode() <> Undefined;
 
-	If Not ЗаписатьОбъектВБазу(Object, WriteParameters.WriteParameters, Action, WriteMode, True) Then
+	If Not WriteObjectToDB(Object, WriteParameters.WriteParameters, Action, WriteMode, True) Then
 		// Intercepting all reported error messages and merging them into a single exception text.
 		ExceptionText = "";
 		For Each Message In GetUserMessages(False) Do
@@ -3293,7 +3290,7 @@ EndProcedure
 
 Function RefReplacementEventLogMessageText()
 	
-	Return NStr("ru='Поиск и удаление ссылок'; en = 'Searching for references and deleting them'", DefaultLanguageCode());
+	Return NStr("ru='Поиск и удаление ссылок'; en = 'Searching for references and deleting them'",UT_CommonClientServer.DefaultLanguageCode());
 	
 EndFunction
 
@@ -3586,7 +3583,7 @@ EndFunction
 
 #EndRegion
 
-#Region Метаданные
+#Region Metadata
 
 ////////////////////////////////////////////////////////////////////////////////
 // Metadata object type definition functions.
@@ -4856,7 +4853,7 @@ Function GetRefCatalogAlgorithms(Algorithm) Export
 		If Left(Algorithm, 5) = "GUID_" Then // SSL Additional DataProcessor 
 			UUIDString = Mid(Algorithm, 6);
 			ref = Catalogs.UT_Algorithms.GetRef(New UUID(UUIDString));
-			Return ?(IsBlankString(ref.Наименование), Undefined, ref);
+			Return ?(IsBlankString(ref.Description), Undefined, ref);
 		EndIf;
 		FoundedByName = Catalogs.UT_Algorithms.FindByDescription(Algorithm, True);
 		If FoundedByName = Undefined Then
@@ -4881,117 +4878,99 @@ EndFunction
 
 #EndRegion
 
-#Region ЗаписьОбъектов
+#Region WriteObjects
 
-Процедура УстановитьПризнакЗаписиБезАвторегистрацииИзменений(Объект, БезАвторегистрации = Ложь)
-	Если Не БезАвторегистрации Тогда
-		Возврат;
-	КонецЕсли;
+Procedure  SetMarkOfWritingWithOutChangesAutoRecording (Object, WithOutAutoRecording = False)
+	If Not WithOutAutoRecording Then
+		Return;
+	EndIf;
 
-	Попытка
-		Объект.ОбменДанными.Получатели.Автозаполнение= Не БезАвторегистрации;
-	Исключение
-				// Элемент плана обмена в 8.3.5+
-	КонецПопытки;
-КонецПроцедуры
+	Try
+		Object.DataExchange.Recipients.AutoFill = Not WithOutAutoRecording;
+	Except
+				// It's item of  ExchangePlan at 8.3.5+ platform
+	EndTry;
+EndProcedure
 
-Функция ВыполнитьПроцедуруПередЗаписьюОбъекта(Объект, _ТекстПроцедурыПередЗаписью)
-	Результат=Истина;
+Function ExecuteObjectBeforeWriteProcedure(Object, _BeforeWriteProcedureText)
+	Result=True;
 
-	Если Не ЗначениеЗаполнено(_ТекстПроцедурыПередЗаписью) Тогда
-		Возврат Результат;
-	КонецЕсли;
+	If Not ValueIsFilled(_BeforeWriteProcedureText) Then
+		Return Result;
+	EndIf;
 
-	Попытка
-		Выполнить (_ТекстПроцедурыПередЗаписью);
-	Исключение
-		UT_CommonClientServer.MessageToUser(СтрШаблон("Объект: %1. Ошибка при выполнении процедуры ПередЗаписью:
-																	   |%2", Объект, КраткоеПредставлениеОшибки(
-			ИнформацияОбОшибке())));
-		Результат=Ложь;
-		;
-	КонецПопытки;
+	Try
+		Execute (_BeforeWriteProcedureText);
+	Except
+		UT_CommonClientServer.MessageToUser(StrTemplate(NSTR("ru = 'Объект: %1. Ошибка при выполнении процедуры ПередЗаписью: %2';en = 'Object: %1. Error when executing procedure BeforeWrite: %2'"), 
+						Object, BriefErrorDescription(ErrorInfo())));
+		Result=False;
+		
+	EndTry;
+	Return Result;
+EndFunction
 
-	Возврат Результат;
-КонецФункции
+Function WriteObjectToDB(Object, WriteSettings, Val Action = "Write", Val WriteMode = Undefined,
+	ReplaceRefs = False) Export
+	
+	If WriteSettings.PrivilegedMode Then
+		SetPrivilegedMode(True);
+	EndIf;
 
-Функция ЗаписатьОбъектВБазу(Объект, ПараметрыЗаписи, Знач Действие = "Запись", Знач РежимЗаписи = Неопределено,
-	ЗаменаСсылок = Ложь) Экспорт
+	If WriteSettings.WritingInLoadMode Then
+		Object.DataExchange.Load = True;
+	EndIf;
 
-	Если ПараметрыЗаписи.ПривелигированныйРежим Тогда
-		УстановитьПривилегированныйРежим(Истина);
-	КонецЕсли;
+	SetMarkOfWritingWithOutChangesAutoRecording(Object, WriteSettings.WithOutChangesAutoRecording);
 
-	Если ПараметрыЗаписи.ЗаписьВРежимеЗагрузки Тогда
-		Объект.ОбменДанными.Загрузка = Истина;
-	КонецЕсли;
+	If WriteSettings.UseAdditionalProperties And WriteSettings.AdditionalProperties.Count() > 0 Then
+		For Each KeyValue In WriteSettings.AdditionalProperties Do
+			Object.AdditionalProperties.Insert(KeyValue.Key, KeyValue.Value);
+		EndDo;
+	EndIf;
 
-	УстановитьПризнакЗаписиБезАвторегистрацииИзменений(Объект, ПараметрыЗаписи.БезАвторегистрацииИзменений);
+	If WriteSettings.UseBeforeWriteProcedure Then
+		If Not ExecuteObjectBeforeWriteProcedure(Object, WriteSettings.BeforeWriteProcedure) Then
+			Return False;
+		EndIf;
+	EndIf;
 
-	Если ПараметрыЗаписи.ИспользоватьДопСвойства И ПараметрыЗаписи.ДополнительныеСвойства.Количество() > 0 Тогда
-		Для Каждого КлючЗначение Из ПараметрыЗаписи.ДополнительныеСвойства Цикл
-			Объект.ДополнительныеСвойства.Вставить(КлючЗначение.Ключ, КлючЗначение.Значение);
-		КонецЦикла;
-	КонецЕсли;
+	Result=True;
+	Try
+		If Action = "Write" Then
 
-	Если ПараметрыЗаписи.ИспользоватьПроцедуруПередЗаписью Тогда
-		Если Не ВыполнитьПроцедуруПередЗаписьюОбъекта(Объект, ПараметрыЗаписи.ПроцедураПередЗаписью) Тогда
-			Возврат Ложь;
-		КонецЕсли;
-	КонецЕсли;
+			If WriteMode <> Undefined Then
+				Object.Write(WriteMode);
+			Else
+				Object.Write();
+			EndIf;
 
-	Результат=Истина;
-	Попытка
-		Если Действие = "Запись" Тогда
+		ElsIf Action = "SetDeletionMark" Then
+			IncludingSubordinates=False;
+			Если ReplaceRefs Then
+				ObjectMetadata = Object.Metadata();
+				If IsCatalog(ObjectMetadata) Or IsChartOfCharacteristicTypes(ObjectMetadata) Or IsChartOfAccounts(
+				ObjectMetadata) Then
+					IncludingSubordinates=False;
+				EndIf;
+			EndIf;
+			Object.SetDeletionMark(True, IncludingSubordinates);
 
-			Если РежимЗаписи <> Неопределено Тогда
-				Объект.Записать(РежимЗаписи);
-			Иначе
-				Объект.Записать();
-			КонецЕсли;
+		ElsIf Action = "UnSetDeletionMark" Then
+			Object.SetDeletionMark(False);
+		ElsIf Action = "DirectDeletion" Then
+			Object.Delete();
+		EndIf;
 
-		ИначеЕсли Действие = "УстановитьПометкуУдаления" Тогда
-			ВключаяПодчиненные=Ложь;
-			Если ЗаменаСсылок Тогда
-				МетаданныеОбъекта = Объект.Метаданные();
-				Если ЭтоСправочник(МетаданныеОбъекта) Или ЭтоПланВидовХарактеристик(МетаданныеОбъекта) Или ЭтоПланСчетов(
-				МетаданныеОбъекта) Тогда
-					ВключаяПодчиненные=Ложь;
-				КонецЕсли;
-			КонецЕсли;
-			Объект.УстановитьПометкуУдаления(Истина, ВключаяПодчиненные);
+	Except
+		UT_CommonClientServer.MessageToUser(BriefErrorDescription(ErrorInfo()));
+		Result=False;
+	EndTry;
 
-		ИначеЕсли Действие = "СнятьПометкуУдаления" Тогда
-			Объект.УстановитьПометкуУдаления(Ложь);
-		ИначеЕсли Действие = "НепосредственноеУдаление" Тогда
+	If WriteSettings.PrivilegedMode Then
+		SetPrivilegedMode(False);
+	EndIf;
 
-			Объект.Удалить();
-
-		КонецЕсли;
-
-	Исключение
-		UT_CommonClientServer.MessageToUser(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-		Результат=Ложь;
-	КонецПопытки;
-
-	Если ПараметрыЗаписи.ПривелигированныйРежим Тогда
-		УстановитьПривилегированныйРежим(Ложь);
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
-#EndRegion
-
-#Region EnglishCode
-    #Region ProgramInterface
-	Функция WriteObjectToDB(Object, WriterSettings, Val Action = "Write", Val WiteMode = Undefined,
-	ReplaceRefs = False) Экспорт
-
-    ЗаменаСсылок = 	ReplaceRefs;
- 
-	Result = ЗаписатьОбъектВБазу(Object, WriterSettings, , ,ЗаменаСсылок = Ложь);
-
-	Возврат Result;
-КонецФункции
-		#EndRegion
+	Return Result;
+EndFunction
 #EndRegion
