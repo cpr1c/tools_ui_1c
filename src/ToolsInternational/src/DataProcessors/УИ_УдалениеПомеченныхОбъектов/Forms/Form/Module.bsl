@@ -269,8 +269,8 @@ Procedure OpenValueByType(Value)
 	If TypeOf(Value) = Type("ValueList") Then
 		ValueDescripton = Value.Get(0);
 
-		FormParametrs = New Structure;
-		FormParametrs.Insert("Key", ValueDescripton.Value);
+		FormParametrs = New Структура;
+		FormParametrs.Вставить("Key", ValueDescripton.Value);
 
 		OpenForm(ValueDescripton.Presentation + ".RecordForm", FormParametrs, ThisForm);
 	Else
@@ -295,25 +295,22 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 	UpdateMarkedTree = True;
 	If NomberNotDeletedObjects = 0 Then
 		If DeletedObjects = 0 Then
-			Text = Nstr("en = 'Not a single object is marked for deletion. Objects were not deleted.' ; 
-							|ru = 'Не помечено на удаление ни одного объекта. Удаление объектов не выполнялось.'");
+			Text = Nstr("ru = 'Не помечено на удаление ни одного объекта. Удаление объектов не выполнялось.'");
 			UpdateMarkedTree = False;
 		Else
-			Text = StrTemplate(
-			             НСтр("en = 'Deletion of marked objects has been completed successfully.' 
-			               |Deleted objects: %1.'; 
-			               |ru = 'Удаление помеченных объектов успешно завершено.
+			Текст = СтрШаблон(
+			             НСтр("ru = 'Удаление помеченных объектов успешно завершено.
 							  |Удалено объектов: %1.'"), DeletedObjects);
 		EndIf;
 		PageName = "SelectDeleteMode";
-		ShowMessageBox( , Text);
+		ПоказатьПредупреждение( , Текст);
 	Else
 		PageName = "DeletionFailureReasonsPage";
-		For Each Item In NotDeletedItemsTree.GetItems() Do
-			RowId = Item.GetId();
-			Items.NotDeletedItems.Expand(RowId, False);
+		For Each Элемент In NotDeletedItemsTree.ПолучитьЭлементы() Do
+			Идентификатор = Элемент.ПолучитьИдентификатор();
+			Items.NotDeletedItems.Развернуть(Идентификатор, False);
 		EndDo;
-		ShowMessageBox( , ResultLine);
+		ПоказатьПредупреждение( , ResultLine);
 	EndIf;
 
 	If UpdateMarkedTree Then
@@ -325,9 +322,9 @@ EndProcedure
 &AtClient
 Procedure SwitchPage()
 	If PageName <> "" Then
-		Page = Items.Find(PageName);
-		If Page <> Undefined Then
-			Items.FormPages.CurrentPage = Page;
+		Страница = Items.Найти(PageName);
+		If Страница <> Undefined Then
+			Items.FormPages.ТекущаяСтраница = Страница;
 			UpdateAvailablButtons();
 		EndIf;
 		PageName = "";
@@ -337,208 +334,206 @@ EndProcedure
 &AtClient
 Procedure UpdateAvailablButtons()
 
-	CurrentPage = Items.FormPages.CurrentPage;
+	ТекущаяСтраница = Items.FormPages.ТекущаяСтраница;
 
-	If CurrentPage = Items.SelectDeleteMode Then
-		Items.CommandBack.Enabled   = False;
+	If ТекущаяСтраница = Items.SelectDeleteMode Then
+		Items.CommandBack.Доступность   = False;
 		If DeletionMode = "Full" Then
-			Items.CommandNext.Enabled   = False;
-			Items.CommandDelete.Enabled = True;
-		ElsIf DeletionMode = "Selective" Then
-			Items.CommandNext.Enabled 	= True;
-			Items.CommandDelete.Enabled = False;
+			Items.CommandNext.Доступность   = False;
+			Items.CommandDelete.Доступность = True;
+		ElsIf DeletionMode = "Выборочный" Then
+			Items.CommandNext.Доступность 	= True;
+			Items.CommandDelete.Доступность = False;
 		EndIf;
-	ElsIf CurrentPage = Items.MarkedForDelete Then
-		Items.CommandBack.Enabled   = True;
-		Items.CommandNext.Enabled   = False;
-		Items.CommandDelete.Enabled = True;
-	ElsIf CurrentPage = Items.DeletionFailureReasonsPage Then
-		Items.CommandBack.Enabled   = True;
-		Items.CommandNext.Enabled   = False;
-		Items.CommandDelete.Enabled = False;
+	ElsIf ТекущаяСтраница = Items.MarkedForDelete Then
+		Items.CommandBack.Доступность   = True;
+		Items.CommandNext.Доступность   = False;
+		Items.CommandDelete.Доступность = True;
+	ElsIf ТекущаяСтраница = Items.DeletionFailureReasonsPage Then
+		Items.CommandBack.Доступность   = True;
+		Items.CommandNext.Доступность   = False;
+		Items.CommandDelete.Доступность = False;
 	EndIf;
 
 EndProcedure
 
-// Returns the tree branch to the TreeRow branches by Value.
-// If the branch is not found, a new one is created.
+// Возвращает ветвь дерева в ветви СтрокиДерева по значению Value.
+// Если ветвь не найдена - создается новая.
 &AtServer
-Function FindOrAddTreeBranch(TreeRows, Value, Presentation, Mark)
+Function НайтиИлиДобавитьВетвьДерева(СтрокиДерева, Value, Представление, Пометка)
 	
 	// Попытка найти существующую ветвь в СтрокиДерева без вложенных
-	// Tring to find an exist branch in TreeRows whithout internal 
-	Branch = TreeRows.Find(Value, "Value", False);
+	Ветвь = СтрокиДерева.Найти(Value, "Value", False);
 
-	If Branch = Undefined Then
-		// There is no such branch, we will create a new one
-		Branch = TreeRows.Add();
-		Branch.Value      = ValueByType(Value);
-		Branch.Presentation = Presentation;
-		Branch.Mark       = Mark;
+	If Ветвь = Undefined Then
+		// Такой ветки нет, создадим новую
+		Ветвь = СтрокиДерева.Добавить();
+		Ветвь.Value      = ValueByType(Value);
+		Ветвь.Presentation = Представление;
+		Ветвь.Mark       = Пометка;
 	EndIf;
 
-	Возврат Branch;
+	Возврат Ветвь;
 
 EndFunction
 
 &AtServer
-Function FindOrAddTreeBranchWithPicture(TreeRows, Value, Presentation, PictureNumber)
+Function НайтиИлиДобавитьВетвьДереваСКартинкой(СтрокиДерева, Value, Представление, НомерКартинки)
 	
-	//Tring to find an exist branch in TreeRows whithout internal
-	Branch = TreeRows.Find(Value, "Value", False);
-	If Branch = Undefined Then
-		// There is no such branch, we will create a new one
-		Branch = TreeRows.Добавить();
-		Branch.Value      = ValueByType(Value);
-		Branch.Presentation = Presentation;
-		Branch.НомерКартинки = PictureNumber;
+	// Попытка найти существующую ветвь в СтрокиДерева без вложенных
+	Ветвь = СтрокиДерева.Найти(Value, "Value", False);
+	If Ветвь = Undefined Then
+		// Такой ветки нет, создадим новую
+		Ветвь = СтрокиДерева.Добавить();
+		Ветвь.Value      = ValueByType(Value);
+		Ветвь.Presentation = Представление;
+		Ветвь.НомерКартинки = НомерКартинки;
 	EndIf;
 
-	Возврат Branch;
+	Возврат Ветвь;
 
 EndFunction
-
-// Returns marked for deletion objects. Select by filter is possible.
+// Возвращает помеченные на удаление объекты. Возможен отбор по фильтру.//
 &AtServer
-Function GetMarkedForDeletion()
+Function ПолучитьПомеченныеНаУдаление()
 
-	SetPrivilegedMode(True);
-	MarkedArray = FindMarkedForDeletion();
-	SetPrivilegedMode(False);
+	УстановитьПривилегированныйРежим(True);
+	МассивПомеченные = НайтиПомеченныеНаУдаление();
+	УстановитьПривилегированныйРежим(False);
 
-	Result = New Array;
-	For Each MarkedItem In MarkedArray Do
-		If AccessRight("InteractiveDeleteMarked", MarkedItem.Metadata()) Then
-			Result.Add(MarkedItem);
+	Результат = Новый Массив;
+	For Each ЭлементПомеченный In МассивПомеченные Do
+		If ПравоДоступа("ИнтерактивноеУдалениеПомеченных", ЭлементПомеченный.Метаданные()) Then
+			Результат.Добавить(ЭлементПомеченный);
 		EndIf;
 	EndDo;
 
-	Возврат Result;
+	Возврат Результат;
 
 EndFunction
 &AtServer
 Procedure FullMarkedForDeletionTree()
 	
-	// Fulling a marked for deletion tree
-	MarkedTree = FormAttributeToValue("MarkedForDeletionItemsTree");
+	// Заполнение дерева помеченных на удаление
+	ДеревоПомеченных = РеквизитФормыВЗначение("MarkedForDeletionItemsTree");
 
-	MarkedTree.Rows.Clear();
+	ДеревоПомеченных.Строки.Очистить();
 	
-	// Processing marked
-	MarkedArray = FindMarkedForDeletion();
+	// обработка помеченных
+	МассивПомеченных = ПолучитьПомеченныеНаУдаление();
 
-	For Each MarkedArrayItem In MarkedArray Do
-		MetadataObjectValue = MarkedArrayItem.Metadata().FullName();
-		MetadataObjectPresentation = MarkedArrayItem.Metadata().Presentation();
-		MetadataObjectRow = FindOrAddTreeBranch(MarkedTree.Rows, MetadataObjectValue,
-			MetadataObjectPresentation, True);
-		FindOrAddTreeBranch(MetadataObjectRow.Rows, MarkedArrayItem, String(
-			MarkedArrayItem), True);
+	For Each МассивПомеченныхЭлемент In МассивПомеченных Do
+		ОбъектМетаданныхЗначение = МассивПомеченныхЭлемент.Метаданные().ПолноеИмя();
+		ОбъектМетаданныхПредставление = МассивПомеченныхЭлемент.Метаданные().Представление();
+		СтрокаОбъектаМетаданных = НайтиИлиДобавитьВетвьДерева(ДеревоПомеченных.Строки, ОбъектМетаданныхЗначение,
+			ОбъектМетаданныхПредставление, True);
+		НайтиИлиДобавитьВетвьДерева(СтрокаОбъектаМетаданных.Строки, МассивПомеченныхЭлемент, Строка(
+			МассивПомеченныхЭлемент), True);
 	EndDo;
 
-	MarkedTree.Rows.Sort("Value", True);
+	ДеревоПомеченных.Строки.Сортировать("Value", True);
 
-	For Each MetadataObjectRow In MarkedTree.Rows Do
-		// create a Presentation for rows displaying a branch of a metadata object
-		MetadataObjectRow.Presentation = MetadataObjectRow.Presentation + " ("
-			+ MetadataObjectRow.Rows.Count() + ")";
+	For Each СтрокаОбъектаМетаданных In ДеревоПомеченных.Строки Do
+		// создать Presentation для строк, отображающих ветвь объекта метаданных
+		СтрокаОбъектаМетаданных.Presentation = СтрокаОбъектаМетаданных.Presentation + " ("
+			+ СтрокаОбъектаМетаданных.Строки.Количество() + ")";
 	EndDo;
 
-	NomberOfLevelsMarkedForDeletion = MarkedTree.Rows.Count();
+	NomberOfLevelsMarkedForDeletion = ДеревоПомеченных.Строки.Количество();
 
-	ValueToFormAttribute(MarkedTree, "MarkedForDeletionItemsTree");
+	ЗначениеВРеквизитФормы(ДеревоПомеченных, "MarkedForDeletionItemsTree");
 
 EndProcedure
 
 &AtClient
-Procedure SetMarkInList(Data, Mark, CheckParent)
+Procedure SetMarkInList(Данные, Пометка, ПроверятьРодителя)
 	
-	// Install subordinate items
-	RowItems = Data.GetItems();
+	// Устанавливаем подчиненным
+	ЭлементыСтроки = Данные.ПолучитьЭлементы();
 
-	For Each Item In RowItems Do
-		Item.Mark = Mark;
-		SetMarkInList(Item, Mark, False);
+	For Each Элемент In ЭлементыСтроки Do
+		Элемент.Mark = Пометка;
+		SetMarkInList(Элемент, Пометка, False);
 	EndDo;
 	
-	// Cheking the parent
-	Parent = Data.GetParent();
+	// Проверяем родителя
+	Родитель = Данные.ПолучитьРодителя();
 
-	If CheckParent And Parent <> Undefined Then
-		CheckParent(Parent);
+	If ПроверятьРодителя And Родитель <> Undefined Then
+		CheckParent(Родитель);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure CheckParent(Parent)
+Procedure CheckParent(Родитель)
 
-	ParentMark = True;
-	RowItems = Parent.GetItems();
-	For Each Item In RowItems Do
-		If Не Item.Mark Then
-			ParentMark = False;
+	ПометкаРодителя = True;
+	ЭлементыСтроки = Родитель.ПолучитьЭлементы();
+	For Each Элемент In ЭлементыСтроки Do
+		If Не Элемент.Mark Then
+			ПометкаРодителя = False;
 			Прервать;
 		EndIf;
 	EndDo;
-	Parent.Mark = ParentMark;
+	Родитель.Mark = ПометкаРодителя;
 
 EndProcedure
 
 &AtServer
-Function GetArrayMarkedForDeletion(MarkedForDeletionItems, DeletionMode)
+Function ПолучитьМассивПомеченныхОбъектовНаУдаление(MarkedForDeletionItemsTree, DeletionMode)
 
-	Deleted = Новый Array;
+	Удаляемые = Новый Массив;
 
 	If DeletionMode = "Full" Then
-		// If deletion was completed, we get all a marked for deletion list
-		Deleted = GetMarkedForDeletion();
+		// При полном удалении получаем весь список помеченных на удаление
+		Удаляемые = ПолучитьПомеченныеНаУдаление();
 	Else
-		// We fill the array with references to the selected items marked for deletion
-		MetadataRowCollection = MarkedForDeletionItems.GetItems();
-		For Each MetadataObjectRow In MetadataRowCollection Do
-			ReferenceRowCollection = MetadataObjectRow.GetItems();
-			For Each ReferenceRow In ReferenceRowCollection Do
-				If ReferenceRow.Mark Then
-					Deleted.Добавить(ReferenceRow.Value);
+		// Заполняем массив ссылками на выбранные элементы, помеченные на удаление
+		КоллекцияСтрокМетаданных = MarkedForDeletionItemsTree.ПолучитьЭлементы();
+		For Each СтрокаОбъектаМетаданных In КоллекцияСтрокМетаданных Do
+			КоллекцияСтрокСсылок = СтрокаОбъектаМетаданных.ПолучитьЭлементы();
+			For Each СтрокаСсылки In КоллекцияСтрокСсылок Do
+				If СтрокаСсылки.Mark Then
+					Удаляемые.Добавить(СтрокаСсылки.Value);
 				EndIf;
 			EndDo;
 		EndDo;
 	EndIf;
 
-	Возврат Deleted;
+	Возврат Удаляемые;
 
 EndFunction
 &AtServer
-Procedure DeleteListedObjects(ListedObjects, Check, PreventingDeletion)
-	If Check = True Then
-		AllReferences= FindByRef(ListedObjects); //PreventingDeletion
-		PreventingDeletion.Columns.Add("DeletionRef");
-		PreventingDeletion.Columns.Add("DetectedRef");
-		PreventingDeletion.Columns.Add("DetectedMetadata");
+Procedure УдалитьОбъектыНМ(УдаляемыеОбъекты, РежимНМ, ПрепятствуюшиеУдалению)
+	If РежимНМ = True Then
+		ВсеСсылки = НайтиПоСсылкам(УдаляемыеОбъекты); //ПрепятствуюшиеУдалению
+		ПрепятствуюшиеУдалению.Колонки.Добавить("УдаляемыйСсылка");
+		ПрепятствуюшиеУдалению.Колонки.Добавить("ОбнаруженныйСсылка");
+		ПрепятствуюшиеУдалению.Колонки.Добавить("ОбнаруженныйМетаданные");
 
-		For Each Ref In AllReferences Do
-			DeletionRef =Ref[0];
-			ObjectRef = Ref[1];
-			MetadataObject=Ref[2];
-			If DeletionRef = ObjectRef Then
-				Continue;   // ссылается сам на себя
+		For Each ССылка In ВсеСсылки Do
+			УдаляемыйСсылка =ССылка[0];
+			ССылкаНаобъект = ССылка[1];
+			ОбъектМетаданных=ССылка[2];
+			If УдаляемыйСсылка = ССылкаНаобъект Then
+				Продолжить;   // ссылается сам на себя
 			Else
-				Preventing=PreventingDeletion.Add();
-				Preventing.DeletionRef=DeletionRef;
-				Preventing.DetectedRef=ObjectRef;
-				Preventing.DetectedMetadata=MetadataObject;
+				Мешает=ПрепятствуюшиеУдалению.Добавить();
+				Мешает.УдаляемыйСсылка=УдаляемыйСсылка;
+				Мешает.ОбнаруженныйСсылка=ССылкаНаобъект;
+				Мешает.ОбнаруженныйМетаданные=ОбъектМетаданных;
 			EndIf;
 		EndDo;
 	Else
-		DeleteObjects(ListedObjects, Check);//unconditional deletion
+		УдалитьОбъекты(УдаляемыеОбъекты, РежимНМ);//безусловное удаление
 	EndIf;
 EndProcedure
 &AtServer
-Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдаленныхОбъектовМассив)
-	DeletionResult = Новый Structure("Status, Value", False, "");
+Function ВыполнитьУдалениеДок(Знач Удаляемые, ТипыУдаленныхОбъектовМассив)
+	РезультатУдаления = Новый Структура("Статус, Value", False, "");
 
-	If Не UT_Users.IsFullUser() Then
+	If Не UT_Users.ЭтоПолноправныйПользователь() Then
 		ВызватьИсключение НСтр("ru = 'Недостаточно прав для выполнения операции.'");
 	EndIf;
 
@@ -553,7 +548,7 @@ Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдален�
 	НеУдаленные = Новый Массив;
 
 	Найденные = Новый ТаблицаЗначений;
-	Найденные.Колонки.Добавить("DeletionRef");
+	Найденные.Колонки.Добавить("УдаляемыйСсылка");
 	Найденные.Колонки.Добавить("ОбнаруженныйСсылка");
 	Найденные.Колонки.Добавить("ОбнаруженныйМетаданные");
 
@@ -576,7 +571,7 @@ Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдален�
 		// Попытка удалить с контролем ссылочной целостности.
 		Попытка
 			УстановитьПривилегированныйРежим(True);
-			DeleteListedObjects(УдаляемыеОбъекты, True, ПрепятствуюшиеУдалению);
+			УдалитьОбъектыНМ(УдаляемыеОбъекты, True, ПрепятствуюшиеУдалению);
 			УстановитьПривилегированныйРежим(False);
 		Исключение
 //			УстановитьМонопольныйРежим(False);
@@ -587,7 +582,7 @@ Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдален�
 		КоличествоУдаляемыхОбъектов = УдаляемыеОбъекты.Количество();
 		
 		// Назначение имен колонок для таблицы конфликтов, возникших при удалении.
-		ПрепятствуюшиеУдалению.Колонки[0].Имя = "DeletionRef";
+		ПрепятствуюшиеУдалению.Колонки[0].Имя = "УдаляемыйСсылка";
 		ПрепятствуюшиеУдалению.Колонки[1].Имя = "ОбнаруженныйСсылка";
 		ПрепятствуюшиеУдалению.Колонки[2].Имя = "ОбнаруженныйМетаданные";
 		
@@ -742,8 +737,8 @@ Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдален�
 			Исключение
 				УстановитьМонопольныйРежим(False);
 				;
-				DeletionResult.Value = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
-				Возврат DeletionResult;
+				РезультатУдаления.Value = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
+				Возврат РезультатУдаления;
 			КонецПопытки;
 			
 			// Удаление всего, что возможно, завершено - выход из цикла.
@@ -752,7 +747,7 @@ Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдален�
 	EndDo;
 
 	For Each НеУдаленныйОбъект In НеУдаленные Do
-		НайденныеСтроки = DeletionObjectsTypes.НайтиСтроки(Новый Structure("Тип", ТипЗнч(НеУдаленныйОбъект)));
+		НайденныеСтроки = DeletionObjectsTypes.НайтиСтроки(Новый Структура("Тип", ТипЗнч(НеУдаленныйОбъект)));
 		If НайденныеСтроки.Количество() > 0 Then
 			DeletionObjectsTypes.Удалить(НайденныеСтроки[0]);
 		EndIf;
@@ -766,52 +761,52 @@ Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдален�
 	Найденные.Колонки.ОбнаруженныйСсылка.Имя     = "Данные";
 	Найденные.Колонки.ОбнаруженныйМетаданные.Имя = "Метаданные";
 
-	DeletionResult.Статус = True;
-	DeletionResult.Value = Новый Structure("Найденные, NotDeleted", Найденные, NotDeleted);
+	РезультатУдаления.Статус = True;
+	РезультатУдаления.Value = Новый Структура("Найденные, НеУдаленные", Найденные, НеУдаленные);
 
-	Возврат DeletionResult;
+	Возврат РезультатУдаления;
 EndFunction
 &AtServer
-Procedure DeleteMarkedObjects(ПараметрыУдаления, StorageAddress) 
+Procedure УдалитьПомеченныеОбъекты(ПараметрыУдаления, StorageAddress) 
 	
-	// Extracting the parameters
-	MarkedForDeletionList	= ПараметрыУдаления.MarkedForDeletionItems;
+	// Извлекаем параметры
+	СписокПомеченныхНаУдал	= ПараметрыУдаления.MarkedForDeletionItemsTree;
 	DeletionMode				= ПараметрыУдаления.DeletionMode;
 	DeletionObjectsTypes		= ПараметрыУдаления.DeletionObjectsTypes;
 
-	DeletedItems = GetArrayMarkedForDeletion(MarkedForDeletionList, DeletionMode);
-	NomberDeleted = DeletedItems.Count();
+	Удаляемые = ПолучитьМассивПомеченныхОбъектовНаУдаление(СписокПомеченныхНаУдал, DeletionMode);
+	NomberDeleted = Удаляемые.Количество();
 	
-	// Do Deletion
-	Result = RunDocumentsDeletion(DeletedItems, DeletionObjectsTypes);
+	// Выполняем удаление
+	Result = ВыполнитьУдалениеДок(Удаляемые, DeletionObjectsTypes);
 	
-	// Add parameters 
-	If TypeOf(Result.Value) = Type("Structure") Then
-		NomberNotDeletedObjects = Result.Value.NotDeleted.Count();
+	// Добавляем параметры 
+	If ТипЗнч(Result.Value) = Тип("Структура") Then
+		NomberNotDeletedObjects = Result.Value.НеУдаленные.Количество();
 	Else
 		NomberNotDeletedObjects = 0;
 	EndIf;
-	Result.Insetrt("NomberNotDeletedObjects", NomberNotDeletedObjects);
-	Result.Insetrt("NomberDeleted", NomberDeleted);
-	Result.Insetrt("DeletionObjectsTypes", DeletionObjectsTypes);
+	Result.Вставить("NomberNotDeletedObjects", NomberNotDeletedObjects);
+	Result.Вставить("NomberDeleted", NomberDeleted);
+	Result.Вставить("DeletionObjectsTypes", DeletionObjectsTypes);
 
-	PutToTempStorage(Result, StorageAddress);
+	ПоместитьВоВременноеХранилище(Result, StorageAddress);
 
 EndProcedure
-// Attempts to delete the selected objects.
-// Not deleted objects are shown in another table
+// Производит попытку удаления выбранных объектов.
+// Объекты, которые не были удалены показываются в отдельной таблице.
 &AtServer
 Function DeletionMarkedAtServer(DeletionObjectsTypes)
 
-	DeletionParameters = New Structure("MarkedForDeletionItemsTree, DeletionMode, DeletionObjectsTypes, ",
+	ПараметрыУдаления = Новый Структура("MarkedForDeletionItemsTree, DeletionMode, DeletionObjectsTypes, ",
 		MarkedForDeletionItemsTree, DeletionMode, DeletionObjectsTypes);
 
-	StorageAddress = PutToTempStorage(Undefined, UUID);
-	DeleteMarkedObjects(DeletionParameters, StorageAddress);
-	Result = New Structure("JobCompleted", True);
+	StorageAddress = ПоместитьВоВременноеХранилище(Undefined, УникальныйИдентификатор);
+	УдалитьПомеченныеОбъекты(ПараметрыУдаления, StorageAddress);
+	Result = Новый Структура("JobCompleted", True);
 
 	If Result.JobCompleted Then
-		Result = FillResults(StorageAddress, Result);
+		Result = ЗаполнитьРезультаты(StorageAddress, Result);
 	EndIf;
 
 	Возврат Result;
@@ -819,28 +814,28 @@ Function DeletionMarkedAtServer(DeletionObjectsTypes)
 EndFunction
 
 &AtServer
-Function FillResults(StorageAddress, Result)
+Function ЗаполнитьРезультаты(StorageAddress, Result)
 
-	DeletionResult = GetFromTempStorage(StorageAddress);
-	If Не DeletionResult.Status Then
-		Result.Insert("DeletionResult", DeletionResult);
-		Result.Insert("ErrorMessage", DeletionResult.Value);
-		Return Result;
+	DeletionResult = ПолучитьИзВременногоХранилища(StorageAddress);
+	If Не DeletionResult.Статус Then
+		Result.Вставить("DeletionResult", DeletionResult);
+		Result.Вставить("ErrorMessage", DeletionResult.Value);
+		Возврат Result;
 	EndIf;
 
-	Tree = FillTreeOfRemainingObjects(DeletionResult);
-	ValueToFormAttribute(Tree, "NotDeletedItems");
+	Дерево = ЗаполнитьДеревоОставшихсяОбъектов(DeletionResult);
+	ЗначениеВРеквизитФормы(Дерево, "NotDeletedItems");
 
 	NomberDeleted 			= DeletionResult.NomberDeleted;
 	NomberNotDeletedObjects 	= DeletionResult.NomberNotDeletedObjects;
-	FillRusultsLine(NomberDeleted);
+	ЗаполнитьСтрокуРезультатов(NomberDeleted);
 
-	If TypeOf(DeletionResult.Value) = Type("Structure") Then
-		DeletionResult.Delete("Value");
+	If ТипЗнч(DeletionResult.Value) = Тип("Структура") Then
+		DeletionResult.Удалить("Value");
 	EndIf;
 
-	Result.Insert("DeletionResult", DeletionResult);
-	Result.Insert("ErrorMessage", "");
+	Result.Вставить("DeletionResult", DeletionResult);
+	Result.Вставить("ErrorMessage", "");
 	Возврат Result;
 
 EndFunction
@@ -849,35 +844,35 @@ EndFunction
 &AtClient
 Procedure Attachable_CheckTaskCompletion()
 
-	Try
-		If Items.FormPages.CurrentPage = Items.TimeConsumingOperationPage Then
-			If JobCompleted(ScheduledJobID) Then
-				Result = FillResults(StorageAddress, New Structure);
+	Попытка
+		If Items.FormPages.ТекущаяСтраница = Items.TimeConsumingOperationPage Then
+			If ЗаданиеВыполнено(ScheduledJobID) Then
+				Result = ЗаполнитьРезультаты(StorageAddress, Новый Структура);
 				//@skip-warning
 				DeletionObjectsTypes = Undefined;
-				UpdateContent(Result.DeletionResult, Result.DeletionResult.Value,
-					Result.DeletionResult.DeletionObjectsTypes);
+				UpdateContent(Result.РезультатУдаления, Result.РезультатУдаления.Value,
+					Result.РезультатУдаления.DeletionObjectsTypes);
 			Else
-				UT_TimeConsumingOperationsClient.UpdateIdleHandlerParameters(IdleHandlerParameters);
-				AttachIdleHandler(
-					"Attachable_CheckTaskCompletion", IdleHandlerParameters.CurrentInterval, True);
+				UT_TimeConsumingOperationsClient.ОбновитьIdleHandlerParametrs(IdleHandlerParameters);
+				ПодключитьОбработчикОжидания(
+					"Attachable_CheckTaskCompletion", IdleHandlerParameters.ТекущийИнтервал, True);
 			EndIf;
 		EndIf;
-	Except
-		Raise;
-	EndTry;
+	Исключение
+		ВызватьИсключение;
+	КонецПопытки;
 
 EndProcedure
 
 &AtServerNoContext
-Function JobCompleted(ScheduledJobID)
+Function ЗаданиеВыполнено(ScheduledJobID)
 
-	Возврат UT_TimeConsumingOperations.JobCompleted(ScheduledJobID);
+	Возврат UT_TimeConsumingOperations.ЗаданиеВыполнено(ScheduledJobID);
 
 EndFunction
 
 &AtServer
-Function FillTreeOfRemainingObjects(Result)
+Function ЗаполнитьДеревоОставшихсяОбъектов(Result)
 
 	Найденные   = Result.Value.Найденные;
 	НеУдаленные = Result.Value.НеУдаленные;
@@ -885,7 +880,7 @@ Function FillTreeOfRemainingObjects(Result)
 	NomberNotDeletedObjects = НеУдаленные.Количество();
 	
 	// Создадим таблицу оставшихся (не удаленных) объектов
-	NotDeletedItemsTree.GetItems().Очистить();
+	NotDeletedItemsTree.ПолучитьЭлементы().Очистить();
 
 	Дерево = РеквизитФормыВЗначение("NotDeletedItems");
 
@@ -896,10 +891,10 @@ Function FillTreeOfRemainingObjects(Result)
 		ОбъектМетаданныхНеУдаленногоЗначение = НеУдаленный.Метаданные().ПолноеИмя();
 		ОбъектМетаданныхНеУдаленногоПредставление = НеУдаленный.Метаданные().Представление();
 		//ветвь метаданного
-		MetadataObjectRow = НайтиИлиДобавитьВетвьДереваСКартинкой(Дерево.Строки,
+		СтрокаОбъектаМетаданных = НайтиИлиДобавитьВетвьДереваСКартинкой(Дерево.Строки,
 			ОбъектМетаданныхНеУдаленногоЗначение, ОбъектМетаданныхНеУдаленногоПредставление, 0);
 		//ветвь не удаленного объекта
-		СтрокаСсылкиНаНеУдаленныйОбъектБД = НайтиИлиДобавитьВетвьДереваСКартинкой(MetadataObjectRow.Строки,
+		СтрокаСсылкиНаНеУдаленныйОбъектБД = НайтиИлиДобавитьВетвьДереваСКартинкой(СтрокаОбъектаМетаданных.Строки,
 			НеУдаленный, Строка(НеУдаленный), 2);
 		//ветвь ссылки на не удаленный объект
 		НайтиИлиДобавитьВетвьДереваСКартинкой(СтрокаСсылкиНаНеУдаленныйОбъектБД.Строки, Ссылающийся, Строка(
@@ -913,7 +908,7 @@ Function FillTreeOfRemainingObjects(Result)
 EndFunction
 
 &AtServer
-Procedure FillRusultsLine(NomberDeleted)
+Procedure ЗаполнитьСтрокуРезультатов(NomberDeleted)
 
 
 	DeletedObjects = NomberDeleted - NomberNotDeletedObjects;
