@@ -7,14 +7,18 @@
     <listType typeId="e4ab5f66-6f4c-11e9-1495-002522f8f390" valueTypeId="e4ab5f67-6f4c-11e9-1495-002522f8f390"/>
     <managerType typeId="e4ab5f6e-6f4c-11e9-1495-002522f8f390" valueTypeId="e4ab5f6f-6f4c-11e9-1495-002522f8f390"/>
   </producedTypes>
-  <name>УИ_Алгоритмы</name>
+  <name>UT_Algorithms</name>
+  <synonym>
+    <key>en</key>
+    <value>Algorithms [UT]</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Алгоритмы [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <inputByString>Catalog.УИ_Алгоритмы.StandardAttribute.Description</inputByString>
-  <inputByString>Catalog.УИ_Алгоритмы.StandardAttribute.Code</inputByString>
+  <inputByString>Catalog.UT_Algorithms.StandardAttribute.Description</inputByString>
+  <inputByString>Catalog.UT_Algorithms.StandardAttribute.Code</inputByString>
   <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
   <standardAttributes>
     <dataHistory>Use</dataHistory>
@@ -97,6 +101,9 @@
     <pages>
       <lang>ru</lang>
     </pages>
+    <pages>
+      <lang>en</lang>
+    </pages>
   </help>
   <dataLockControlMode>Managed</dataLockControlMode>
   <fullTextSearch>Use</fullTextSearch>
@@ -112,7 +119,7 @@
   <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
-  <defaultObjectForm>Catalog.УИ_Алгоритмы.Form.ФормаЭлемента</defaultObjectForm>
+  <defaultObjectForm>Catalog.UT_Algorithms.Form.ФормаЭлемента</defaultObjectForm>
   <attributes uuid="e4ac9d02-6f4c-11e9-1495-002522f8f390">
     <name>ТекстАлгоритма</name>
     <synonym>
@@ -417,7 +424,7 @@
     </synonym>
     <group>FormCommandBarImportant</group>
     <commandParameterType>
-      <types>CatalogRef.УИ_Алгоритмы</types>
+      <types>CatalogRef.UT_Algorithms</types>
     </commandParameterType>
     <parameterUseMode>Multiple</parameterUseMode>
     <representation>PictureAndText</representation>

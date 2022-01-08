@@ -133,7 +133,7 @@
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <commonForms>CommonForm.UT_Settings</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
-  <catalogs>Catalog.УИ_Алгоритмы</catalogs>
+  <catalogs>Catalog.UT_Algorithms</catalogs>
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.UT_CodeConsole</dataProcessors>
