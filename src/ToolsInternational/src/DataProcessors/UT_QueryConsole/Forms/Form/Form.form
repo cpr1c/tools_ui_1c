@@ -9380,7 +9380,7 @@
     <shortcut>Ctrl+F8</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_ФорматироватьТекстЗапроса</name>
+        <name>FormatQueryText_Command</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
