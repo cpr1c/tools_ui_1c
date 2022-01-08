@@ -105,10 +105,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>РедакторHEAD</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторHEAD</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
@@ -286,10 +284,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>РедакторBODY</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторBODY</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
@@ -434,10 +430,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ВключатьТекстCSSВТело</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ВключатьТекстCSSВТело</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ВключатьТекстCSSВТелоРасширеннаяПодсказка</name>
@@ -522,10 +516,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>РедакторCSS</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторCSS</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
@@ -670,10 +662,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ВключатьТекстJSВТело</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ВключатьТекстJSВТело</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ВключатьТекстJSВТелоРасширеннаяПодсказка</name>
@@ -758,10 +748,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>РедакторJS</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторJS</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
@@ -880,10 +868,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>РедакторРезультирующегоHTML</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РедакторРезультирующегоHTML</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -981,10 +967,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ПодключаемыеБиблиотеки.Путь</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ПодключаемыеБиблиотеки.Путь</segments>
             </dataPath>
             <extendedTooltip>
               <name>ПодключаемыеБиблиотекиПутьРасширеннаяПодсказка</name>
@@ -1038,10 +1022,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ПодключаемыеБиблиотеки.ДополнительныеПараметры</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ПодключаемыеБиблиотеки.ДополнительныеПараметры</segments>
             </dataPath>
             <extendedTooltip>
               <name>ПодключаемыеБиблиотекиДополнительныеПараметрыРасширеннаяПодсказка</name>
@@ -1548,10 +1530,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>РедакторБиблиотеки</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РедакторБиблиотеки</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -1666,10 +1646,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>РезультирущийHTML</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РезультирущийHTML</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -1795,10 +1773,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ИспользоватьКонсоль</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ИспользоватьКонсоль</segments>
             </dataPath>
             <extendedTooltip>
               <name>ИспользоватьКонсольРасширеннаяПодсказка</name>
@@ -1873,10 +1849,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВыводКонсолиРезультирующегоHTML</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВыводКонсолиРезультирующегоHTML</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -2011,10 +1985,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>РедакторСобытияДокументСформирован</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>РедакторСобытияДокументСформирован</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <extendedTooltip>
@@ -2146,10 +2118,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>РедакторСобытияПриНажатии</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>РедакторСобытияПриНажатии</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <extendedTooltip>

@@ -18,10 +18,10 @@
   <defaultForm>DataProcessor.УИ_КонсольСравненияДанных.Form.ФормаУправляемая</defaultForm>
   <help>
     <pages>
-      <lang>ru</lang>
+      <lang>en</lang>
     </pages>
     <pages>
-      <lang>en</lang>
+      <lang>ru</lang>
     </pages>
   </help>
   <extendedPresentation>

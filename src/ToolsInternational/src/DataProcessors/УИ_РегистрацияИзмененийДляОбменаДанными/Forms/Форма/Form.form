@@ -15,10 +15,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>УзелОбменаСсылка</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>УзелОбменаСсылка</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
@@ -125,10 +123,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ВариантОтбораПоНомеруСообщения</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ВариантОтбораПоНомеруСообщения</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
@@ -1021,10 +1017,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Пометка</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ДеревоМетаданных.Пометка</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <handlers>
@@ -1076,10 +1070,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Наименование</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ДеревоМетаданных.Наименование</segments>
             </dataPath>
             <extendedTooltip>
               <name>ДеревоМетаданныхНаименованиеExtendedTooltip</name>
@@ -1164,10 +1156,8 @@
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible/>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Авторегистрация</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ДеревоМетаданных.Авторегистрация</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
@@ -1223,10 +1213,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.КоличествоИзмененийСтрокой</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ДеревоМетаданных.КоличествоИзмененийСтрокой</segments>
             </dataPath>
             <extendedTooltip>
               <name>ДеревоМетаданныхКоличествоИзмененийСтрокойExtendedTooltip</name>
@@ -2020,10 +2008,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокКонстант.Наименование</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>СписокКонстант.Наименование</segments>
               </dataPath>
               <extendedTooltip>
                 <name>СписокКонстантНаименованиеExtendedTooltip</name>
@@ -2074,10 +2060,8 @@
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible/>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>СписокКонстант.ИндексКартинкиАвторегистрация</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>СписокКонстант.ИндексКартинкиАвторегистрация</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
@@ -2132,10 +2116,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>СписокКонстант.НомерСообщения</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>СписокКонстант.НомерСообщения</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>СписокКонстантНомерСообщенияExtendedTooltip</name>
@@ -2858,10 +2840,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокСсылок.Ссылка</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>СписокСсылок.Ссылка</segments>
               </dataPath>
               <extendedTooltip>
                 <name>СписокСсылокСсылкаПредставлениеExtendedTooltip</name>
@@ -2911,10 +2891,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокСсылок.НомерСообщения</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>СписокСсылок.НомерСообщения</segments>
               </dataPath>
               <extendedTooltip>
                 <name>СписокСсылокНомерСообщенияExtendedTooltip</name>
@@ -3814,10 +3792,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокНаборовЗаписей.НомерСообщения</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>СписокНаборовЗаписей.НомерСообщения</segments>
               </dataPath>
               <extendedTooltip>
                 <name>СписокНаборовЗаписейНомерСообщенияExtendedTooltip</name>
@@ -5146,20 +5122,14 @@
     <edit>
       <common>true</common>
     </edit>
-    <notDefaultUseAlwaysAttributes xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>СписокСсылок.ИндексКартинки</segments>
-      </paths>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>СписокСсылок.ИндексКартинки</segments>
     </notDefaultUseAlwaysAttributes>
-    <notDefaultUseAlwaysAttributes xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>СписокСсылок.СсылкаПредставление</segments>
-      </paths>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>СписокСсылок.СсылкаПредставление</segments>
     </notDefaultUseAlwaysAttributes>
-    <notDefaultUseAlwaysAttributes xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>СписокСсылок.Узел</segments>
-      </paths>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>СписокСсылок.Узел</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
       <segments>СписокСсылок.НеВыгружалось</segments>

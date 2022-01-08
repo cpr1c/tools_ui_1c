@@ -15,7 +15,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ТолькоПросмотр</dcscor:parameter>
+				<dcscor:parameter>ReadOnly</dcscor:parameter>
 				<dcscor:value xsi:type="xs:boolean">true</dcscor:value>
 			</dcscor:item>
 		</appearance>

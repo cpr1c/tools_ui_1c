@@ -16,10 +16,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТекущаяНастройкаПредставление</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТекущаяНастройкаПредставление</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -102,10 +100,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Реквизиты.Выбрать</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Реквизиты.Выбрать</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
@@ -152,10 +148,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Реквизиты.РеквизитТЧ</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Реквизиты.РеквизитТЧ</segments>
       </dataPath>
       <extendedTooltip>
         <name>РеквизитыРеквизитТЧExtendedTooltip</name>
@@ -198,10 +192,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Реквизиты.Реквизит</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Реквизиты.Реквизит</segments>
       </dataPath>
       <extendedTooltip>
         <name>РеквизитыРеквизитExtendedTooltip</name>
@@ -251,10 +243,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Реквизиты.Значение</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Реквизиты.Значение</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
@@ -334,6 +324,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
@@ -365,6 +356,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>
@@ -571,6 +563,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -602,6 +595,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -633,6 +627,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -929,9 +924,7 @@
         <value>Значение</value>
       </title>
       <id>4</id>
-      <valueType>
-        <types>Arbitrary</types>
-      </valueType>
+      <valueType/>
       <view>
         <common>true</common>
       </view>

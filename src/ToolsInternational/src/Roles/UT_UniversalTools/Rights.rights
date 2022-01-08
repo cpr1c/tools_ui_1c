@@ -26,11 +26,25 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.UT_Settings</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ИнформацияОЛицензиях1С</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -250,6 +264,13 @@
 		</right>
 	</object>
 	<object>
+		<name>Catalog.AdditionalReportsAndDataProcessors.Command.UT_DebugSettings</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.UT_JSONEditor</name>
 		<right>
 			<name>Use</name>
@@ -333,6 +354,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ПоискИУдалениеДублей</name>
 		<right>
 			<name>Use</name>
@@ -345,6 +373,13 @@
 	</object>
 	<object>
 		<name>DataProcessor.УИ_ДанныеДляОтладки.Command.ДанныеДляОтладки</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Catalog.UT_Algorithms.Command.ВыполнитьАлгоритм</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -554,6 +589,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonCommand.UT_Settings</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>CommonForm.UT_ValueTableForm</name>
 		<right>
 			<name>View</name>
@@ -580,48 +622,6 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Catalog.AdditionalReportsAndDataProcessors.Command.UT_DebugSettings</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.UT_Settings</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonCommand.UT_Settings</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Catalog.UT_Algorithms.Command.ВыполнитьАлгоритм</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

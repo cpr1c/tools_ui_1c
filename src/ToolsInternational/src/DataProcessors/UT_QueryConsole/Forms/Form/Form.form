@@ -42,6 +42,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
@@ -72,6 +73,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
@@ -102,6 +104,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
@@ -132,6 +135,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
@@ -162,6 +166,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>
@@ -214,10 +219,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>OutputLinesLimitTopEnabled</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>OutputLinesLimitTopEnabled</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <handlers>
@@ -271,10 +274,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>OutputLinesLimitTop</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>OutputLinesLimitTop</segments>
       </dataPath>
       <extendedTooltip>
         <name>OutputLinesLimitTopOptionExtendedTooltip</name>
@@ -347,6 +348,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
         <locationInCommandBar>InCommandBar</locationInCommandBar>
       </items>
@@ -378,6 +380,7 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
         <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
@@ -495,10 +498,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>QueryBatch.Name</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>QueryBatch.Name</segments>
             </dataPath>
             <toolTip>
               <key>en</key>
@@ -555,10 +556,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>QueryBatch.Info</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>QueryBatch.Info</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <toolTip>
@@ -647,6 +646,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -678,6 +678,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -717,6 +718,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -748,6 +750,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -779,6 +782,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -810,6 +814,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -841,6 +846,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -913,6 +919,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
@@ -943,6 +950,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -974,6 +982,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <visible>true</visible>
@@ -1256,10 +1265,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>SaveCommentsOption</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>SaveCommentsOption</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <titleHeight>3</titleHeight>
@@ -1307,10 +1314,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>AutoSaveBeforeQueryExecutionOption</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>AutoSaveBeforeQueryExecutionOption</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -1353,10 +1358,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Object.OptionProcessing__</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Object.OptionProcessing__</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <handlers>
@@ -1403,10 +1406,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>AutoSaveIntervalOption</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>AutoSaveIntervalOption</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -1468,10 +1469,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Object.AlgorithmExecutionUpdateIntervalOption</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Object.AlgorithmExecutionUpdateIntervalOption</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -1650,6 +1649,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>OnlyInContextMenu</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
@@ -1681,6 +1681,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                 </items>
@@ -1713,6 +1714,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
@@ -1744,6 +1746,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                   <commandUniqueness>false</commandUniqueness>
@@ -1777,6 +1780,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                   <commandUniqueness>false</commandUniqueness>
@@ -1810,6 +1814,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
@@ -1842,6 +1847,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
@@ -1874,6 +1880,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
@@ -1905,6 +1912,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <visible>true</visible>
@@ -1985,6 +1993,7 @@
                   <groupHorizontalAlign>Right</groupHorizontalAlign>
                   <placementArea>UserCmds</placementArea>
                   <check>true</check>
+                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <pictureLocation>Right</pictureLocation>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
@@ -2020,6 +2029,7 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
+                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                     <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                   </items>
@@ -2051,6 +2061,7 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
+                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                     <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                   </items>
@@ -2085,6 +2096,7 @@
                     <picture xsi:type="core:PictureRef">
                       <picture>StdPicture.DataCompositionSettingsWizard</picture>
                     </picture>
+                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                     <locationInCommandBar>InAdditionalSubmenu</locationInCommandBar>
                   </items>
@@ -2215,10 +2227,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>QueryText</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>QueryText</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <handlers>
@@ -2271,6 +2281,7 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
+                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
@@ -2301,6 +2312,7 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
+                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
@@ -2331,6 +2343,7 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
+                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <visible>true</visible>
@@ -2382,10 +2395,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>QueryParameters.Name</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>QueryParameters.Name</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>QueryParametersNameExtendedTooltip</name>
@@ -2433,10 +2444,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>QueryParameters.ValueType</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>QueryParameters.ValueType</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>QueryParametersParameterTypeExtendedTooltip</name>
@@ -2487,10 +2496,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>QueryParameters.ContainerType</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>QueryParameters.ContainerType</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>QueryParametersFormExtendedTooltip</name>
@@ -2536,10 +2543,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>QueryParameters.Value</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>QueryParameters.Value</segments>
                     </dataPath>
                     <handlers>
                       <event>OnChange</event>
@@ -2632,6 +2637,7 @@
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
+                      <toolTipRepresentation>Auto</toolTipRepresentation>
                       <representationInContextMenu>Auto</representationInContextMenu>
                     </items>
                     <items xsi:type="form:Button">
@@ -2662,6 +2668,7 @@
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
+                      <toolTipRepresentation>Auto</toolTipRepresentation>
                       <representationInContextMenu>Auto</representationInContextMenu>
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
@@ -2693,6 +2700,7 @@
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
+                      <toolTipRepresentation>Auto</toolTipRepresentation>
                       <representationInContextMenu>Auto</representationInContextMenu>
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
@@ -2724,6 +2732,7 @@
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
+                      <toolTipRepresentation>Auto</toolTipRepresentation>
                       <representationInContextMenu>Auto</representationInContextMenu>
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
@@ -2755,6 +2764,7 @@
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
+                      <toolTipRepresentation>Auto</toolTipRepresentation>
                       <representationInContextMenu>Auto</representationInContextMenu>
                       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                     </items>
@@ -2786,6 +2796,7 @@
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
+                      <toolTipRepresentation>Auto</toolTipRepresentation>
                       <representationInContextMenu>Auto</representationInContextMenu>
                     </items>
                     <items xsi:type="form:Button">
@@ -2816,6 +2827,7 @@
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
+                      <toolTipRepresentation>Auto</toolTipRepresentation>
                       <representationInContextMenu>Auto</representationInContextMenu>
                     </items>
                     <visible>true</visible>
@@ -3245,10 +3257,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>TempTables.Name</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>TempTables.Name</segments>
               </dataPath>
               <extendedTooltip>
                 <name>TempTablesNameExtendedTooltip</name>
@@ -3297,10 +3307,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>TempTables.Value</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>TempTables.Value</segments>
               </dataPath>
               <extendedTooltip>
                 <name>TempTablesValueExtendedTooltip</name>
@@ -3374,6 +3382,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -3405,6 +3414,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -3436,6 +3446,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -3467,6 +3478,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
               </items>
@@ -3716,6 +3728,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3747,6 +3760,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3778,6 +3792,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3809,6 +3824,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3866,10 +3882,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>CodeExecutionMethod</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>CodeExecutionMethod</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>CodeExecutionMethodExtendedTooltip</name>
@@ -3967,6 +3981,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:FormField">
@@ -3977,10 +3992,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>ExecutionStatus</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>ExecutionStatus</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
@@ -4058,6 +4071,7 @@
                 <picture xsi:type="core:PictureRef">
                   <picture>StdPicture.Help</picture>
                 </picture>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <visible>true</visible>
@@ -4161,10 +4175,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>AlgorithmText</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>AlgorithmText</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <extendedTooltip>
@@ -4225,10 +4237,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>ResultRecordStructure.Имя</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>ResultRecordStructure.Имя</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>СтруктураЗаписиРезультатаИмяРасширеннаяПодсказка</name>
@@ -4449,7 +4459,6 @@
               <verticalStretch>true</verticalStretch>
               <enableStartDrag>true</enableStartDrag>
               <enableDrag>true</enableDrag>
-              <fileDragMode>AsFileRef</fileDragMode>
               <rowPictureDataPath xsi:type="form:DataPath">
                 <segments>ResultRecordStructure.Картинка</segments>
               </rowPictureDataPath>
@@ -4717,6 +4726,7 @@
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
               <check>true</check>
+              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -4773,10 +4783,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ResultInBatch</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ResultInBatch</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <handlers>
@@ -4850,6 +4858,7 @@
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
+              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <enabled>true</enabled>
@@ -4952,10 +4961,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ResultKind</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ResultKind</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
@@ -5025,10 +5032,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>OutputLinesLimitEnabled</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>OutputLinesLimitEnabled</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <handlers>
@@ -5082,10 +5087,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>OutputLinesLimit</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>OutputLinesLimit</segments>
             </dataPath>
             <extendedTooltip>
               <name>OutputLinesLimitOptionExtendedTooltip</name>
@@ -5154,6 +5157,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
@@ -5200,7 +5204,7 @@
             <showLeftMargin>true</showLeftMargin>
             <united>true</united>
             <backColor xsi:type="core:ColorRef">
-              <color>-42</color>
+              <color>0</color>
             </backColor>
             <throughAlign>Auto</throughAlign>
             <currentRowUse>Auto</currentRowUse>
@@ -5234,6 +5238,7 @@
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
+          <toolTipRepresentation>Auto</toolTipRepresentation>
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:FormField">
@@ -5244,10 +5249,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ResultQueryName</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ResultQueryName</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -5318,6 +5321,7 @@
             <autoMaxHeight>true</autoMaxHeight>
             <groupHorizontalAlign>Left</groupHorizontalAlign>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
@@ -5350,6 +5354,7 @@
             <autoMaxHeight>true</autoMaxHeight>
             <groupHorizontalAlign>Left</groupHorizontalAlign>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
@@ -5381,6 +5386,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
@@ -5412,6 +5418,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <enabled>true</enabled>
@@ -5533,6 +5540,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -5563,6 +5571,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
@@ -5594,6 +5603,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
@@ -5625,6 +5635,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
             <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
           </items>
@@ -5656,6 +5667,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -5686,6 +5698,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <enabled>true</enabled>
@@ -5761,6 +5774,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <enabled>true</enabled>
@@ -5918,10 +5932,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>QueryResultBatch.Name</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>QueryResultBatch.Name</segments>
           </dataPath>
           <extendedTooltip>
             <name>QueryResultBatchNameExtendedTooltip</name>
@@ -5971,10 +5983,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>QueryResultBatch.Info</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>QueryResultBatch.Info</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -6193,7 +6203,6 @@
         <initialListView>Auto</initialListView>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
-        <fileDragMode>AsFileRef</fileDragMode>
         <rowPictureDataPath xsi:type="form:DataPath">
           <segments>QueryResultBatch.ResultKind</segments>
         </rowPictureDataPath>
@@ -6442,6 +6451,7 @@
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
+              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -6668,6 +6678,7 @@
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
+              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -9380,7 +9391,7 @@
     <shortcut>Ctrl+F8</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>FormatQueryText_Command</name>
+        <name>Команда_ФорматироватьТекстЗапроса</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

@@ -17,7 +17,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;AdditionalReportsAndDataProcessors</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">40%</td>
 <td style="width: 43.875px; height: 17px;">47</td>
 </tr>
 <tr style="height: 17px;">
@@ -62,7 +62,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_Common</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">4870</td>
 </tr>
 <tr style="height: 17px;">
@@ -92,7 +92,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_Forms</td>
-<td style="height: 17px; width: 66.8125px;">90%</td>
+<td style="height: 17px; width: 66.8125px;">99%</td>
 <td style="width: 43.875px; height: 17px;">370</td>
 </tr>
 <tr style="height: 17px;">
@@ -145,7 +145,7 @@
 
 
 ## Соотвествие процедур общих модулей 
-### CommonClientServer
+### UT_CommonClientServer
 
 <table>
 <tbody>
@@ -795,7 +795,7 @@
 </tbody>
 </table>
 
-### CommonClientServer
+### UT_CommonServerCall
 
 <table>
 <tbody>
@@ -816,6 +816,15 @@
 </td>
 </tr>
 <tr>
+<tr>
+<td width="404">
+<p>КодОсновногоЯзыка</p>
+</td>
+<td width="270">
+<p>DefaultLanguageCode</p>
+</td>
+</tr>
+<tr>
 <td width="404">
 <p>СсылкиПоИменамПредопределенных</p>
 </td>
@@ -825,7 +834,39 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ЗначенияРеквизитовОбъекта</p>
+</td>
+<td width="270">
+<p>ObjectAttributesValues</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЗначениеРеквизитаОбъекта</p>
+</td>
+<td width="270">
+<p>ObjectAttributeValue</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ДанныеСохраненногоПароляПользователяИБ</p>
+</td>
+<td width="270">
+<p>StoredIBUserPasswordData</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>УстановитьПарольПользователюИБ</p>
+</td>
+<td width="270">
+<p>SetIBUserPassword</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ВосстановитьДанныеПользователяПослеЗапускаСеансаПодПользователем</p>
 </td>
 <td width="270">
 <p></p>
@@ -833,7 +874,7 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ДобавитьМассивОбъектовКСравнению</p>
 </td>
 <td width="270">
 <p></p>
@@ -841,7 +882,7 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ВыгрузитьОбъектыВXMLНаСервере</p>
 </td>
 <td width="270">
 <p></p>
@@ -849,7 +890,7 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ЗначениеВСтрокуXML</p>
 </td>
 <td width="270">
 <p></p>
@@ -857,7 +898,7 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ЗначениеИзСтрокиXML</p>
 </td>
 <td width="270">
 <p></p>
@@ -865,12 +906,181 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>АдресОписанияМетаданныхКонфигурации</p>
 </td>
 <td width="270">
 <p></p>
 </td>
 </tr>
+<tr>
+<td width="404">
+<p>мПрочитатьJSON</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>мЗаписатьJSON</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеОбщихНастроекСохранить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеОбщихНастроекСохранитьМассив</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеОбщихНастроекЗагрузить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеОбщихНастроекУдалить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеСистемныхНастроекСохранить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеСистемныхНастроекЗагрузить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеСистемныхНастроекУдалить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеНастроекДанныхФормСохранить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеНастроекДанныхФормЗагрузить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ХранилищеНастроекДанныхФормУдалить</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПолучитьСсылкуСправочникАлгоритмы</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ВыполнитьАлгоритм</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЗаписатьДанныеДляОтладкиВСправочник</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СтруктураДанныхОбъектаОтладкиИзСправочникаДанныхОтладки</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СериализоватьОбъектСКДДляОтладки</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СтруктураВременныхТаблицМенеджераВременныхТаблиц</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ВыполнитьСравнениеДвухТаблицЗначений</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПодготовленныеДанныеКонсолиДляЗаписиВФайл</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+
 </tbody>
 </table>
 
@@ -1139,7 +1349,7 @@
 <p>ДобавитьОбъектВМассивОбъектовКСравнению</p>
 </td>
 <td width="270">
-<p></p>
+<p>AddObjectToComparingObjectsArray</p>
 </td>
 </tr>
 <tr>
@@ -1147,7 +1357,7 @@
 <p>КлючНастроекОбъектовКСравнению</p>
 </td>
 <td width="270">
-<p></p>
+<p>ObjectsToCompareSettingsKey</p>
 </td>
 </tr>
 <tr>
@@ -1155,7 +1365,7 @@
 <p>ДобавитьМассивОбъектовКСравнению</p>
 </td>
 <td width="270">
-<p></p>
+<p>AddObjectsArrayToCompare</p>
 </td>
 </tr>
 <tr>
@@ -1163,7 +1373,15 @@
 <p>ОбъектыДобавленныеКСравнению</p>
 </td>
 <td width="270">
-<p></p>
+<p>ObjectsAddedToTheComparison</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОчиститьОбъектыДобавленныеКСравнению</p>
+</td>
+<td width="270">
+<p>ClearObjectsAddedToTheComparison</p>
 </td>
 </tr>
 <tr>
@@ -1171,7 +1389,7 @@
 <p>КлючНастроекОтладкиДополнительныхОтчетовИОбработок</p>
 </td>
 <td width="270">
-<p></p>
+<p>KeyOfAdditionalReportsAndDataProcessorsDebugSettings</p>
 </td>
 </tr>
 <tr>
@@ -1179,7 +1397,7 @@
 <p>НовыйСтруктураНастройкиОтладкиДополнительнойОбработки</p>
 </td>
 <td width="270">
-<p></p>
+<p>NewStructureOfAdditionalDataProcessorDebugSettings</p>
 </td>
 </tr>
 <tr>
@@ -1187,7 +1405,7 @@
 <p>НастройкиОтладкиДополнительнойОбработки</p>
 </td>
 <td width="270">
-<p></p>
+<p>AdditionalDataProcessorDebugSettings</p>
 </td>
 </tr>
 <tr>
@@ -1195,7 +1413,7 @@
 <p>ЗаписатьНастройкиОтладкиДополнительнойОбработки</p>
 </td>
 <td width="270">
-<p></p>
+<p>SaveAdditionalDataProcessorDebugSettings</p>
 </td>
 </tr>
 <tr>
@@ -1404,7 +1622,7 @@
 <p>ОбработатьОбъектСПерехватомСообщенийПриЗаменеСсылок</p>
 </td>
 <td width="270">
-<p>!!!!!!ProcessObjectWithMessageInterception</p>
+<p>ProcessObjectWithMessageInterceptionOnRefsReplace</p>
 </td>
 </tr>
 <tr>
@@ -1420,7 +1638,7 @@
 <p>ЗаписатьОбъектПриЗаменеСсылок</p>
 </td>
 <td width="270">
-<p></p>
+<p>WriteObjectOnRefsReplace</p>
 </td>
 </tr>
 <tr>
@@ -1452,7 +1670,7 @@
 <p>ИнформацияПоРеквизиту</p>
 </td>
 <td width="270">
-<p></p>
+<p>AttributeInformation</p>
 </td>
 </tr>
 <tr>
@@ -1460,7 +1678,7 @@
 <p>ЭтоСлужебныеДанные</p>
 </td>
 <td width="270">
-<p></p>
+<p>IsInternalData</p>
 </td>
 </tr>
 <tr>
@@ -1852,7 +2070,7 @@
 <p>ВыполнитьАлгоритм</p>
 </td>
 <td width="270">
-<p></p>
+<p>ExecuteAlgorithm</p>
 </td>
 </tr>
 <tr>
@@ -1860,7 +2078,7 @@
 <p>ПолучитьСсылкуСправочникАлгоритмы</p>
 </td>
 <td width="270">
-<p></p>
+<p>GetRefCatalogAlgorithms</p>
 </td>
 </tr>
 <tr>
@@ -1868,7 +2086,7 @@
 <p>УстановитьПризнакЗаписиБезАвторегистрацииИзменений</p>
 </td>
 <td width="270">
-<p></p>
+<p>SetMarkOfWritingWithOutChangesAutoRecording</p>
 </td>
 </tr>
 <tr>
@@ -1876,7 +2094,7 @@
 <p>ВыполнитьПроцедуруПередЗаписьюОбъекта</p>
 </td>
 <td width="270">
-<p></p>
+<p>ExecuteObjectBeforeWriteProcedure</p>
 </td>
 </tr>
 <tr>
@@ -1884,8 +2102,66 @@
 <p>ЗаписатьОбъектВБазу</p>
 </td>
 <td width="270">
-<p></p>
+<p>WriteObjectToDB</p>
 </td>
+</tr>
+<td width="404">
+<p>ВыполнитьМетодОбъекта</p>
+</td>
+<td width="270">
+<p>ExecuteObjectMethod</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+Параметры действий -для функции ЗаписатьОбъектВБазу :  
+
+<table>
+<tbody>
+<tr >
+<td>
+<div>
+<div>УстановитьПометкуУдаления</div>
+</div>
+</td>
+<td >
+<div>
+<div>SetDeletionMark</div>
+</div>
+</td>
+</tr>
+<tr >
+<td >
+<div>
+<div>Запись</div>
+</div>
+</td>
+<td >Write</td>
+</tr>
+<tr >
+<td >
+<div>
+<div>СнятьПометкуУдаления</div>
+</div>
+</td>
+<td >UnSetDeletionMark</td>
+</tr>
+<tr >
+<td >
+<div>
+<div>НепосредственноеУдаление</div>
+</div>
+</td>
+<td >DirectDeletion</td>
+</tr>
+</tbody>
+</table>
+
+## UT_CommonClient
+<table style="width: 97.5852%; border-collapse: collapse;" border="1">
+<tbody>
+
 </tr>
 </tbody>
 </table>

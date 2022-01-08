@@ -4853,7 +4853,7 @@ Function GetRefCatalogAlgorithms(Algorithm) Export
 		If Left(Algorithm, 5) = "GUID_" Then // SSL Additional DataProcessor 
 			UUIDString = Mid(Algorithm, 6);
 			ref = Catalogs.UT_Algorithms.GetRef(New UUID(UUIDString));
-			Return ?(IsBlankString(ref.Наименование), Undefined, ref);
+			Return ?(IsBlankString(ref.Description), Undefined, ref);
 		EndIf;
 		FoundedByName = Catalogs.UT_Algorithms.FindByDescription(Algorithm, True);
 		If FoundedByName = Undefined Then

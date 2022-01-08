@@ -117,10 +117,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Номер</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаРегламентныхЗаданий.Номер</segments>
       </dataPath>
       <extendedTooltip>
         <name>РегламентныеЗаданияНомерРасширеннаяПодсказка</name>
@@ -171,10 +169,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Выполнять</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаРегламентныхЗаданий.Выполнять</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <toolTip>
@@ -225,10 +221,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.РегламентноеЗадание</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаРегламентныхЗаданий.РегламентноеЗадание</segments>
       </dataPath>
       <extendedTooltip>
         <name>РегламентныеЗаданияРегламентноеЗаданиеРасширеннаяПодсказка</name>
@@ -278,10 +272,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Статус</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаРегламентныхЗаданий.Статус</segments>
       </dataPath>
       <extendedTooltip>
         <name>РегламентныеЗаданияСтатусРасширеннаяПодсказка</name>
@@ -335,10 +327,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Выполнено</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаРегламентныхЗаданий.Выполнено</segments>
       </dataPath>
       <extendedTooltip>
         <name>РегламентныеЗаданияВыполненоРасширеннаяПодсказка</name>
@@ -599,10 +589,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ИнтервалВремениПроверкиВыполнения</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ИнтервалВремениПроверкиВыполнения</segments>
       </dataPath>
       <defaultItem>true</defaultItem>
       <toolTip>
@@ -798,7 +786,6 @@
         </extendedTooltip>
         <commandName>Form.Item.РегламентныеЗадания.StandardCommand.Find</commandName>
         <representation>Auto</representation>
-        <onlyInAllActions>true</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
@@ -830,7 +817,6 @@
         </extendedTooltip>
         <commandName>Form.Item.РегламентныеЗадания.StandardCommand.CancelSearch</commandName>
         <representation>Auto</representation>
-        <onlyInAllActions>true</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
@@ -923,7 +909,6 @@
       </extendedTooltip>
       <commandName>Form.Command.ОчиститьКоличествоЗапусков</commandName>
       <representation>Auto</representation>
-      <onlyInAllActions>true</onlyInAllActions>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
