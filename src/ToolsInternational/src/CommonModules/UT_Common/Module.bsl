@@ -1416,7 +1416,7 @@ Function KeyOfAdditionalReportsAndDataProcessorsDebugSettings() Export
 	Return "AdditionalReportsAndDataProcessorsDebugSettings";
 EndFunction
 
-Function NewKeyOfAdditionalDataProcessorDebugSettings ()  Export
+Function NewStructureOfAdditionalDataProcessorDebugSettings ()  Export
 	Structure=New Structure;
 	Structure.Insert("DebugEnabled", False);
 	Structure.Insert("FileNameOnServer", "");
@@ -1433,7 +1433,7 @@ Function AdditionalDataProcessorDebugSettings(AdditionalDataProcessor) Эксп�
 		SettingsMap=New Map;
 	EndIf;
 
-	SettingsStructure=NewKeyOfAdditionalDataProcessorDebugSettings();
+	SettingsStructure=NewStructureOfAdditionalDataProcessorDebugSettings();
 	SavedSetting = SettingsMap[AdditionalDataProcessor];
 	If SavedSetting <> Undefined Then
 		FillPropertyValues(SettingsStructure, SavedSetting);
