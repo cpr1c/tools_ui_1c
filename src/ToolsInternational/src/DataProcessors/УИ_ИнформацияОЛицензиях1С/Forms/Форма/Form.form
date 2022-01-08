@@ -23,10 +23,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.LineNumber</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.LineNumber</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийНомерСтрокиРасширеннаяПодсказка</name>
@@ -71,10 +69,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.НомерЛицензии</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.НомерЛицензии</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийНомерЛицензииРасширеннаяПодсказка</name>
@@ -123,10 +119,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.Описание</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.Описание</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийОписаниеРасширеннаяПодсказка</name>
@@ -175,10 +169,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.КоличествоЛицензий</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.КоличествоЛицензий</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийКоличествоЛицензийРасширеннаяПодсказка</name>
@@ -227,10 +219,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.ПинКод</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.ПинКод</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийПинКодРасширеннаяПодсказка</name>
@@ -279,10 +269,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.Активна</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.Активна</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийАктивнаРасширеннаяПодсказка</name>
@@ -324,10 +312,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.ДатаАктивации</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.ДатаАктивации</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийДатаАктивацииРасширеннаяПодсказка</name>
@@ -376,10 +362,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.РегистрационныйНомер</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.РегистрационныйНомер</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийРегистрационныйНомерРасширеннаяПодсказка</name>
@@ -428,10 +412,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.КодПродукта</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.КодПродукта</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийКодПродуктаРасширеннаяПодсказка</name>
@@ -480,10 +462,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.ИмяФайлаЛицензии</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.СписокЛицензий.ИмяФайлаЛицензии</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЛицензийИмяФайлаЛицензииРасширеннаяПодсказка</name>
@@ -783,10 +763,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Описание</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Описание</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийОписание1РасширеннаяПодсказка</name>
@@ -835,10 +813,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.КоличествоЛицензий</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.КоличествоЛицензий</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийКоличествоЛицензий1РасширеннаяПодсказка</name>
@@ -887,10 +863,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.НомерЛицензии</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.НомерЛицензии</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийНомерЛицензии1РасширеннаяПодсказка</name>
@@ -939,10 +913,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ПинКод</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.ПинКод</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийПинКод1РасширеннаяПодсказка</name>
@@ -991,10 +963,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.КодПродукта</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.КодПродукта</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийКодПродукта1РасширеннаяПодсказка</name>
@@ -1043,10 +1013,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Активна</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Активна</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийАктивна1РасширеннаяПодсказка</name>
@@ -1088,10 +1056,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.РегистрационныйНомер</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.РегистрационныйНомер</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийРегистрационныйНомер1РасширеннаяПодсказка</name>
@@ -1140,10 +1106,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ИмяФайлаЛицензии</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.ИмяФайлаЛицензии</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийИмяФайлаЛицензии1РасширеннаяПодсказка</name>
@@ -1230,10 +1194,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Фамилия</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Фамилия</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийФамилияРасширеннаяПодсказка</name>
@@ -1282,10 +1244,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Имя</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Имя</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийИмяРасширеннаяПодсказка</name>
@@ -1334,10 +1294,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Отчество</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Отчество</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийОтчествоРасширеннаяПодсказка</name>
@@ -1386,10 +1344,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.EMail</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.EMail</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийEMailРасширеннаяПодсказка</name>
@@ -1438,10 +1394,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Компания</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Компания</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийКомпанияРасширеннаяПодсказка</name>
@@ -1490,10 +1444,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Страна</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Страна</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийСтранаРасширеннаяПодсказка</name>
@@ -1542,10 +1494,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Регион</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Регион</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийРегионРасширеннаяПодсказка</name>
@@ -1594,10 +1544,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Индекс</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Индекс</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийИндексРасширеннаяПодсказка</name>
@@ -1646,10 +1594,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Район</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Район</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийРайонРасширеннаяПодсказка</name>
@@ -1698,10 +1644,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Город</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Город</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийГородРасширеннаяПодсказка</name>
@@ -1750,10 +1694,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Улица</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Улица</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийУлицаРасширеннаяПодсказка</name>
@@ -1802,10 +1744,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Дом</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Дом</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийДомРасширеннаяПодсказка</name>
@@ -1854,10 +1794,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Строение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Строение</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийСтроениеРасширеннаяПодсказка</name>
@@ -1906,10 +1844,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Квартира</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.Квартира</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийКвартираРасширеннаяПодсказка</name>
@@ -1958,10 +1894,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ДатаАктивации</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.ДатаАктивации</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийДатаАктивации1РасширеннаяПодсказка</name>
@@ -2048,10 +1982,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ТекстоваяИнформация</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.СписокЛицензий.CurrentData.ТекстоваяИнформация</segments>
           </dataPath>
           <extendedTooltip>
             <name>СписокЛицензийТекстоваяИнформацияРасширеннаяПодсказка</name>

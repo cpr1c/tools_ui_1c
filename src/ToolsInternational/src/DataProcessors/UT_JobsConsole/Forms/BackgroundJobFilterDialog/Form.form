@@ -11,10 +11,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Scheduled</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Scheduled</segments>
       </dataPath>
       <extendedTooltip>
         <name>ScheduledExtendedTooltip</name>
@@ -66,10 +64,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Description</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Description</segments>
       </dataPath>
       <extendedTooltip>
         <name>DescriprtionExtendedTooltip</name>
@@ -119,10 +115,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Method</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Method</segments>
       </dataPath>
       <extendedTooltip>
         <name>MethodExtendedTooltip</name>
@@ -172,10 +166,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Key</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Key</segments>
       </dataPath>
       <extendedTooltip>
         <name>KeyExtendedTooltip</name>
@@ -225,10 +217,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Begin</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Begin</segments>
       </dataPath>
       <extendedTooltip>
         <name>BeginExtendedTooltip</name>
@@ -277,10 +267,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>End</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>End</segments>
       </dataPath>
       <extendedTooltip>
         <name>EndExtendedTooltip</name>
@@ -379,10 +367,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Active</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Active</segments>
       </dataPath>
       <extendedTooltip>
         <name>ActiveExtendedTooltip</name>
@@ -424,10 +410,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Completed</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Completed</segments>
       </dataPath>
       <extendedTooltip>
         <name>CompletedExtendedTooltip</name>
@@ -469,10 +453,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Failed</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Failed</segments>
       </dataPath>
       <extendedTooltip>
         <name>FailedExtendedTooltip</name>
@@ -514,10 +496,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Canceled</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Canceled</segments>
       </dataPath>
       <extendedTooltip>
         <name>CanceledExtendedTooltip</name>
@@ -632,6 +612,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -663,6 +644,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -953,4 +935,5 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

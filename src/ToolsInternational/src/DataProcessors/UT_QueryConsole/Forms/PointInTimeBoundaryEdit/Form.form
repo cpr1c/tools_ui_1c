@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>PointInTimeGroup</name>
+    <name>ГруппаМоментВремени</name>
     <id>1</id>
     <items xsi:type="form:FormField">
-      <name>PointInTimeDate</name>
+      <name>ДатаМомента</name>
       <id>11</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>PointInTimeDate</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ДатаМомента</segments>
       </dataPath>
       <extendedTooltip>
-        <name>PointInTimeDateExtendedTooltip</name>
+        <name>ДатаМоментаРасширеннаяПодсказка</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -32,7 +30,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>PointInTimeDateContextMenu</name>
+        <name>ДатаМоментаКонтекстноеМеню</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -56,24 +54,22 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>PointInTimeRef</name>
+      <name>СсылкаМомента</name>
       <id>14</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>PointInTimeRef</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СсылкаМомента</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>PointInTimeRefOnChange</name>
+        <name>СсылкаМоментаПриИзменении</name>
       </handlers>
       <extendedTooltip>
-        <name>PointInTimeRefExtendedTooltip</name>
+        <name>СсылкаМоментаРасширеннаяПодсказка</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -88,7 +84,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>PointInTimeRefContextMenu</name>
+        <name>СсылкаМоментаКонтекстноеМеню</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -117,23 +113,15 @@
       <common>true</common>
     </userVisible>
     <title>
-      <key>en</key>
-      <value>Point in time group</value>
-    </title>
-    <title>
       <key>ru</key>
       <value>Группа момент времени</value>
     </title>
-    <toolTip>
-      <key>en</key>
-      <value>Point in time group</value>
-    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа момент времени</value>
     </toolTip>
     <extendedTooltip>
-      <name>PointInTimeGroupExtendedTooltip</name>
+      <name>ГруппаМоментВремениРасширеннаяПодсказка</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -157,23 +145,21 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>BoundaryGroup</name>
+    <name>ГруппаГраница</name>
     <id>3</id>
     <items xsi:type="form:FormField">
-      <name>BoundaryType</name>
+      <name>ВидГраницы</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>BoundaryType</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ВидГраницы</segments>
       </dataPath>
       <extendedTooltip>
-        <name>BoundaryTypeExtendedTooltip</name>
+        <name>ВидГраницыРасширеннаяПодсказка</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -188,7 +174,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BoundaryTypeContextMenu</name>
+        <name>ВидГраницыКонтекстноеМеню</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -211,31 +197,29 @@
         <textEdit>true</textEdit>
         <choiceList>
           <value xsi:type="core:StringValue">
-            <value>Including</value>
+            <value>Включая</value>
           </value>
         </choiceList>
         <choiceList>
           <value xsi:type="core:StringValue">
-            <value>Excluding</value>
+            <value>Исключая</value>
           </value>
         </choiceList>
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>BoundaryValue</name>
+      <name>ЗначениеГраницы</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>BoundaryValue</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ЗначениеГраницы</segments>
       </dataPath>
       <extendedTooltip>
-        <name>BoundaryValueExtendedTooltip</name>
+        <name>ЗначениеГраницыРасширеннаяПодсказка</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -250,7 +234,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>BoundaryValueContextMenu</name>
+        <name>ЗначениеГраницыКонтекстноеМеню</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -279,23 +263,15 @@
       <common>true</common>
     </userVisible>
     <title>
-      <key>en</key>
-      <value>Boundary group</value>
-    </title>
-    <title>
       <key>ru</key>
       <value>Группа граница</value>
     </title>
-    <toolTip>
-      <key>en</key>
-      <value>Boundary group</value>
-    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа граница</value>
     </toolTip>
     <extendedTooltip>
-      <name>BoundaryGroupExtendedTooltip</name>
+      <name>ГруппаГраницаРасширеннаяПодсказка</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -319,10 +295,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>CommandBarFooterGroup</name>
+    <name>ГруппаКоманднаяПанельВнизу</name>
     <id>21</id>
     <items xsi:type="form:Button">
-      <name>CloseButton</name>
+      <name>КнопкаЗакрыть</name>
       <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -330,7 +306,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>CloseButtonExtendedTooltip</name>
+        <name>КнопкаЗакрытьРасширеннаяПодсказка</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -349,15 +325,12 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>OKCommand</name>
+      <name>КомандаОК</name>
       <id>23</id>
-      <title>
-        <key>en</key>
-        <value>OK</value>
-      </title>
       <title>
         <key>ru</key>
         <value>ОК</value>
@@ -368,7 +341,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>OKCommandExtendedTooltip</name>
+        <name>КомандаОКРасширеннаяПодсказка</name>
         <id>24</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -382,12 +355,13 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.OKCommand</commandName>
+      <commandName>Form.Command.КомандаОК</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -396,23 +370,15 @@
       <common>true</common>
     </userVisible>
     <title>
-      <key>en</key>
-      <value>Command bar footer group</value>
-    </title>
-    <title>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </title>
-    <toolTip>
-      <key>en</key>
-      <value>Command bar footer group</value>
-    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </toolTip>
     <extendedTooltip>
-      <name>CommandBarFooterGroupExtendedTooltip</name>
+      <name>ГруппаКоманднаяПанельВнизуРасширеннаяПодсказка</name>
       <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -445,7 +411,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>OnCreateAtServer</name>
+    <name>ПриСозданииНаСервере</name>
   </handlers>
   <width>50</width>
   <autoUrl>true</autoUrl>
@@ -456,7 +422,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Object</name>
+    <name>Объект</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -470,14 +436,10 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>BoundaryType</name>
-    <title>
-      <key>en</key>
-      <value>Boundary type</value>
-    </title>
+    <name>ВидГраницы</name>
     <title>
       <key>ru</key>
-      <value>Тип границы</value>
+      <value>Вид границы</value>
     </title>
     <id>2</id>
     <valueType>
@@ -492,11 +454,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>BoundaryValue</name>
-    <title>
-      <key>en</key>
-      <value>Value</value>
-    </title>
+    <name>ЗначениеГраницы</name>
     <title>
       <key>ru</key>
       <value>Значение</value>
@@ -514,11 +472,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>PointInTimeDate</name>
-    <title>
-      <key>en</key>
-      <value>Date</value>
-    </title>
+    <name>ДатаМомента</name>
     <title>
       <key>ru</key>
       <value>Дата</value>
@@ -536,11 +490,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>PointInTimeRef</name>
-    <title>
-      <key>en</key>
-      <value>Ref</value>
-    </title>
+    <name>СсылкаМомента</name>
     <title>
       <key>ru</key>
       <value>Ссылка</value>
@@ -557,11 +507,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Value</name>
-    <title>
-      <key>en</key>
-      <value>Value</value>
-    </title>
+    <name>Значение</name>
     <title>
       <key>ru</key>
       <value>Значение</value>
@@ -576,20 +522,12 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>OKCommand</name>
-    <title>
-      <key>en</key>
-      <value>OK command</value>
-    </title>
+    <name>КомандаОК</name>
     <title>
       <key>ru</key>
       <value>Команда ОК</value>
     </title>
     <id>1</id>
-    <toolTip>
-      <key>en</key>
-      <value>OK command</value>
-    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда ОК</value>
@@ -599,7 +537,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OKCommand</name>
+        <name>КомандаОК</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

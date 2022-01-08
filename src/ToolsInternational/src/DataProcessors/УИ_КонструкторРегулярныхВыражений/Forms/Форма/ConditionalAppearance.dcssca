@@ -16,15 +16,15 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#96B2D7</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#000000</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>Шрифт</dcscor:parameter>
+				<dcscor:parameter>Font</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" height="12" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
@@ -44,7 +44,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#D0F0C0</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -64,7 +64,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#CADABA</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -84,7 +84,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#ACE1AF</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -104,12 +104,12 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#AFEEEE</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>Шрифт</dcscor:parameter>
+				<dcscor:parameter>Font</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" height="12" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
@@ -129,17 +129,17 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#C7FCEC</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#274162</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>Шрифт</dcscor:parameter>
+				<dcscor:parameter>Font</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" height="12" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
@@ -159,17 +159,17 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#FADADD</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#403152</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>Шрифт</dcscor:parameter>
+				<dcscor:parameter>Font</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" height="12" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
@@ -189,17 +189,17 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#FFC0CB</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#274162</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>Шрифт</dcscor:parameter>
+				<dcscor:parameter>Font</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" height="12" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
@@ -219,17 +219,17 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#FFFDD0</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#4F6328</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>Шрифт</dcscor:parameter>
+				<dcscor:parameter>Font</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" height="12" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
@@ -249,17 +249,17 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#FAF0BE</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#403152</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>Шрифт</dcscor:parameter>
+				<dcscor:parameter>Font</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" height="12" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
@@ -279,7 +279,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">web:Salmon</dcscor:value>
 			</dcscor:item>
 		</appearance>

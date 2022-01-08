@@ -12,7 +12,7 @@
 	ЭтоWindowsКлиент = Ложь;
 	ЭтоВебКлиент = Истина;
 	
-	ПараметрыСеансаВХранилище = UT_CommonServerCall.CommonSettingsStorageLoad(
+	ПараметрыСеансаВХранилище = UT_CommonServerCall.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 	Если Тип(ПараметрыСеансаВХранилище) = Тип("Структура") Тогда
@@ -153,7 +153,7 @@
 	
 	РедакторКода = ПараметрыРедактораКода.Вариант;
 	
-	УИ_ПараметрыСеанса = UT_Common.CommonSettingsStorageLoad(
+	УИ_ПараметрыСеанса = UT_Common.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 		
@@ -167,13 +167,13 @@
 КонецФункции
 
 Процедура УстановитьНовыеНастройкиРедактораКода(НовыеНастройки) Экспорт
-	UT_Common.CommonSettingsStorageSave(
+	UT_Common.ХранилищеОбщихНастроекСохранить(
 		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода",
 		НовыеНастройки);
 КонецПроцедуры
 
 Функция ТекущиеПараметрыРедактораКода() Экспорт
-	СохраненныеПараметрыРедактора = UT_Common.CommonSettingsStorageLoad(
+	СохраненныеПараметрыРедактора = UT_Common.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода");
 
 	ПараметрыПоУмолчанию = UT_CodeEditorClientServer.ПараметрыРедактораКодаПоУмолчанию();
@@ -195,7 +195,7 @@
 #Область Метаданные
 
 Функция ЯзыкСинтаксисаКонфигурации() Экспорт
-	Если Метаданные.ScriptVariant = Метаданные.ObjectProperties.ВариантВстроенногоЯзыка.Английский Тогда
+	Если Метаданные.ВариантВстроенногоЯзыка = Метаданные.СвойстваОбъектов.ВариантВстроенногоЯзыка.Английский Тогда
 		Возврат "Английский";
 	Иначе
 		Возврат "Русский";
@@ -364,7 +364,7 @@
 			
 		ОписаниеКоллекции.Вставить(ОбъектМетаданных.Имя, ОписаниеЭлемента);
 		
-		Если UT_Common.IsRefTypeObject(ОбъектМетаданных) Тогда
+		Если UT_Common.ЭтоОбъектСсылочногоТипа(ОбъектМетаданных) Тогда
 			СоответствиеТипов.Вставить(Тип(ВидОбъекта+"Ссылка."+ОписаниеЭлемента.Имя), ОписаниеЭлемента);
 		КонецЕсли;
 		
@@ -485,7 +485,7 @@
 #Область СлужебныйПрограммныйИнтерфейс
 
 Функция ТекущиеПараметрыРедактораMonaco() Экспорт
-	ПараметрыИзХранилища =  UT_Common.CommonSettingsStorageLoad(
+	ПараметрыИзХранилища =  UT_Common.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораMonaco",
 		UT_CodeEditorClientServer.ПараметрыРедактораMonacoПоУмолчанию());
 

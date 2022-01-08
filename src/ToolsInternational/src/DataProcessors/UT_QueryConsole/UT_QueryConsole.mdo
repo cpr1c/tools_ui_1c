@@ -361,10 +361,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="97329590-6e8b-4bb4-acf0-10ce647242c9">
-    <name>PickupToList</name>
+    <name>SelectionToList</name>
     <synonym>
       <key>en</key>
-      <value>Pickup to list</value>
+      <value>Selection to list</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -374,10 +374,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="4adca824-4233-4718-9b1f-960d26ea5426">
-    <name>EditType</name>
+    <name>TypeEdit</name>
     <synonym>
       <key>en</key>
-      <value>Edit type</value>
+      <value>Type edit</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -387,10 +387,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e624ba28-4b3b-4306-ad29-ff42e5fc2594">
-    <name>EditPointInTimeBoundary</name>
+    <name>PointInTimeBoundaryEdit</name>
     <synonym>
       <key>en</key>
-      <value>Edit point in time boundary</value>
+      <value>Point in time boundary edit</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -400,10 +400,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="5181d4cb-7faf-4a01-b280-c85d15888cfe">
-    <name>EditTable</name>
+    <name>TableEdit</name>
     <synonym>
       <key>en</key>
-      <value>Edit table</value>
+      <value>Table edit</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -413,11 +413,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="9b9cd922-fd95-463c-ba6e-9ffea4282576">
-    <name>Info</name>
-    <synonym>
-      <key>en</key>
-      <value>Info</value>
-    </synonym>
+    <name>Информация</name>
     <synonym>
       <key>ru</key>
       <value>Информация</value>
@@ -426,10 +422,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="2be29826-2171-481f-b8a7-e20380331e62">
-    <name>EditUUID</name>
+    <name>UUIDEdit</name>
     <synonym>
       <key>en</key>
-      <value>Edit UUID</value>
+      <value>UUID edit</value>
     </synonym>
     <synonym>
       <key>ru</key>
@@ -439,11 +435,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="c3adee8e-1f0b-46c0-8b38-f56a4b58939e">
-    <name>SpreadsheetDocumentForm</name>
-    <synonym>
-      <key>en</key>
-      <value>Spreadsheet document form</value>
-    </synonym>
+    <name>ФормаТабличногоДокумента</name>
     <synonym>
       <key>ru</key>
       <value>Форма табличного документа</value>
@@ -452,11 +444,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="48b19d1d-d512-4562-8be3-f02e086643df">
-    <name>ChoicePredefined</name>
-    <synonym>
-      <key>en</key>
-      <value>Choice predefined</value>
-    </synonym>
+    <name>ВыборПредопределенного</name>
     <synonym>
       <key>ru</key>
       <value>Выбор предопределенного</value>
@@ -465,11 +453,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="72b37439-8e60-4bd8-b308-2b80fa441cd5">
-    <name>Help</name>
-    <synonym>
-      <key>en</key>
-      <value>Help</value>
-    </synonym>
+    <name>Справка</name>
     <synonym>
       <key>ru</key>
       <value>Справка</value>
@@ -487,11 +471,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="1a8e52ef-0a1b-48c8-a087-5f06fbecc869">
-    <name>QueryPlanForm</name>
-    <synonym>
-      <key>en</key>
-      <value>Query plan form</value>
-    </synonym>
+    <name>ФормаПланаЗапроса</name>
     <synonym>
       <key>ru</key>
       <value>Форма плана запроса</value>

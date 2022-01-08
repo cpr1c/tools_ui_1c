@@ -16,10 +16,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>AutoUpdate</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>AutoUpdate</segments>
     </dataPath>
     <extendedTooltip>
       <name>AutoUpdateExtendedTooltip</name>
@@ -61,10 +59,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>AutoUpdatePeriod</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>AutoUpdatePeriod</segments>
     </dataPath>
     <extendedTooltip>
       <name>AutoUpdatePeriodExtendedTooltip</name>
@@ -139,6 +135,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -170,6 +167,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -307,4 +305,5 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

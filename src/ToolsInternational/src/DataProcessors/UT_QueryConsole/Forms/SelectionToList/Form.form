@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Table">
-    <name>ItemList</name>
+    <name>СписокЭлементов</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,24 +9,22 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ItemList</segments>
+      <segments>СписокЭлементов</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
-      <name>ItemListValue</name>
+      <name>СписокЭлементовЗначение</name>
       <id>14</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ItemList.Value</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СписокЭлементов.Value</segments>
       </dataPath>
       <extendedTooltip>
-        <name>ItemListValueExtendedTooltip</name>
+        <name>СписокЭлементовЗначениеРасширеннаяПодсказка</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -41,7 +39,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ItemListValueContextMenu</name>
+        <name>СписокЭлементовЗначениеКонтекстноеМеню</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -58,11 +56,11 @@
       <extInfo xsi:type="form:InputFieldExtInfo">
         <handlers>
           <event>StartChoice</event>
-          <name>ItemListValueStartChoice</name>
+          <name>СписокЭлементовЗначениеНачалоВыбора</name>
         </handlers>
         <handlers>
           <event>ChoiceProcessing</event>
-          <name>ItemListValueChoiceProcessing</name>
+          <name>СписокЭлементовЗначениеОбработкаВыбора</name>
         </handlers>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -76,10 +74,10 @@
       </extInfo>
     </items>
     <autoCommandBar>
-      <name>ItemListCommandBar</name>
+      <name>СписокЭлементовКоманднаяПанель</name>
       <id>3</id>
       <items xsi:type="form:Button">
-        <name>ItemListAdd</name>
+        <name>СписокЭлементовДобавить</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -87,7 +85,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ItemListAddExtendedTooltip</name>
+          <name>СписокЭлементовДобавитьРасширеннаяПодсказка</name>
           <id>18</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -101,15 +99,16 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ItemList.StandardCommand.Add</commandName>
+        <commandName>Form.Item.СписокЭлементов.StandardCommand.Add</commandName>
         <representation>PictureAndText</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ItemListPickup</name>
+        <name>СписокЭлементовПодбор</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -117,7 +116,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ItemListPickupExtendedTooltip</name>
+          <name>СписокЭлементовПодборРасширеннаяПодсказка</name>
           <id>20</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -131,15 +130,16 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ItemList.StandardCommand.Pickup</commandName>
+        <commandName>Form.Item.СписокЭлементов.StandardCommand.Pickup</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ItemListCopy</name>
+        <name>СписокЭлементовСкопировать</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -147,7 +147,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ItemListCopyExtendedTooltip</name>
+          <name>СписокЭлементовСкопироватьРасширеннаяПодсказка</name>
           <id>28</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -161,16 +161,16 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ItemList.StandardCommand.Copy</commandName>
+        <commandName>Form.Item.СписокЭлементов.StandardCommand.Copy</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
-        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ItemListDelete</name>
+        <name>СписокЭлементовУдалить</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -178,7 +178,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ItemListDeleteExtendedTooltip</name>
+          <name>СписокЭлементовУдалитьРасширеннаяПодсказка</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -192,16 +192,16 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ItemList.StandardCommand.Delete</commandName>
+        <commandName>Form.Item.СписокЭлементов.StandardCommand.Delete</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
-        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ItemListMoveUp</name>
+        <name>СписокЭлементовПереместитьВверх</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -209,7 +209,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ItemListMoveUpExtendedTooltip</name>
+          <name>СписокЭлементовПереместитьВверхРасширеннаяПодсказка</name>
           <id>24</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -223,16 +223,16 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ItemList.StandardCommand.MoveUp</commandName>
+        <commandName>Form.Item.СписокЭлементов.StandardCommand.MoveUp</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
-        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ItemListMoveDown</name>
+        <name>СписокЭлементовПереместитьВниз</name>
         <id>25</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -240,7 +240,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ItemListMoveDownExtendedTooltip</name>
+          <name>СписокЭлементовПереместитьВнизРасширеннаяПодсказка</name>
           <id>26</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -254,16 +254,16 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ItemList.StandardCommand.MoveDown</commandName>
+        <commandName>Form.Item.СписокЭлементов.StandardCommand.MoveDown</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
-        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ItemListClearCommand</name>
+        <name>СписокЭлементовКомандаОчистить</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -271,7 +271,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ItemListClearCommandExtendedTooltip</name>
+          <name>СписокЭлементовКомандаОчиститьРасширеннаяПодсказка</name>
           <id>42</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -285,11 +285,12 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ClearCommand</commandName>
+        <commandName>Form.Command.КомандаОчистить</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>
@@ -306,10 +307,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ItemListSearchString</name>
+      <name>СписокЭлементовСтрокаПоиска</name>
       <id>5</id>
       <extendedTooltip>
-        <name>ItemListSearchStringExtendedTooltip</name>
+        <name>СписокЭлементовСтрокаПоискаРасширеннаяПодсказка</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -324,7 +325,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ItemListSearchStringContextMenu</name>
+        <name>СписокЭлементовСтрокаПоискаКонтекстноеМеню</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -343,10 +344,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ItemListViewStatus</name>
+      <name>СписокЭлементовСостояниеПросмотра</name>
       <id>8</id>
       <extendedTooltip>
-        <name>ItemListViewStatusExtendedTooltip</name>
+        <name>СписокЭлементовСостояниеПросмотраРасширеннаяПодсказка</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -361,7 +362,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ItemListViewStatusContextMenu</name>
+        <name>СписокЭлементовСостояниеПросмотраКонтекстноеМеню</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -381,10 +382,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ItemListSearchControl</name>
+      <name>СписокЭлементовУправлениеПоиском</name>
       <id>11</id>
       <extendedTooltip>
-        <name>ItemListSearchControlExtendedTooltip</name>
+        <name>СписокЭлементовУправлениеПоискомРасширеннаяПодсказка</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -399,7 +400,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ItemListSearchControlContextMenu</name>
+        <name>СписокЭлементовУправлениеПоискомКонтекстноеМеню</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -414,7 +415,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>ItemListExtendedTooltip</name>
+      <name>СписокЭлементовРасширеннаяПодсказка</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -429,7 +430,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ItemListContextMenu</name>
+      <name>СписокЭлементовКонтекстноеМеню</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -453,19 +454,15 @@
     <horizontalStretch>true</horizontalStretch>
     <verticalStretch>true</verticalStretch>
     <rowPictureDataPath xsi:type="form:DataPath">
-      <segments>ItemList.Picture</segments>
+      <segments>СписокЭлементов.Picture</segments>
     </rowPictureDataPath>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>CommandBarBottomGroup</name>
+    <name>ГруппаКоманднаяПанельНижняя</name>
     <id>33</id>
     <items xsi:type="form:Button">
-      <name>OKButton</name>
+      <name>КнопкаОК</name>
       <id>39</id>
-      <title>
-        <key>en</key>
-        <value>OK</value>
-      </title>
       <title>
         <key>ru</key>
         <value>ОК</value>
@@ -477,7 +474,7 @@
       </userVisible>
       <defaultItem>true</defaultItem>
       <extendedTooltip>
-        <name>OKButtonExtendedTooltip</name>
+        <name>КнопкаОКРасширеннаяПодсказка</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -491,22 +488,18 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.OKCommand</commandName>
+      <commandName>Form.Command.КомандаОК</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
-      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <items xsi:type="form:Button">
-      <name>CancelCommand</name>
+      <name>КомандаОтмена</name>
       <id>37</id>
-      <title>
-        <key>en</key>
-        <value>Cancel</value>
-      </title>
       <title>
         <key>ru</key>
         <value>Отмена</value>
@@ -517,7 +510,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>CancelCommandExtendedTooltip</name>
+        <name>КомандаОтменаРасширеннаяПодсказка</name>
         <id>38</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -536,8 +529,8 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
-      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -545,23 +538,15 @@
       <common>true</common>
     </userVisible>
     <title>
-      <key>en</key>
-      <value>Command bar bottom group</value>
-    </title>
-    <title>
       <key>ru</key>
       <value>Группа командная панель нижняя</value>
     </title>
-    <toolTip>
-      <key>en</key>
-      <value>Command bar bottom group</value>
-    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа командная панель нижняя</value>
     </toolTip>
     <extendedTooltip>
-      <name>CommandBarBottomGroupExtendedTooltip</name>
+      <name>ГруппаКоманднаяПанельНижняяРасширеннаяПодсказка</name>
       <id>34</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -592,7 +577,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>OnCreateAtServer</name>
+    <name>ПриСозданииНаСервере</name>
   </handlers>
   <excludedCommands>Abort</excludedCommands>
   <excludedCommands>Cancel</excludedCommands>
@@ -614,7 +599,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Object</name>
+    <name>Объект</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -628,11 +613,7 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ItemList</name>
-    <title>
-      <key>en</key>
-      <value>Item list</value>
-    </title>
+    <name>СписокЭлементов</name>
     <title>
       <key>ru</key>
       <value>Список элементов</value>
@@ -652,11 +633,7 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>ContainerType</name>
-    <title>
-      <key>en</key>
-      <value>Container type</value>
-    </title>
+    <name>ТипКонтейнера</name>
     <title>
       <key>ru</key>
       <value>Тип контейнера</value>
@@ -676,20 +653,12 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>OKCommand</name>
-    <title>
-      <key>en</key>
-      <value>OK command</value>
-    </title>
+    <name>КомандаОК</name>
     <title>
       <key>ru</key>
       <value>Команда ОК</value>
     </title>
     <id>1</id>
-    <toolTip>
-      <key>en</key>
-      <value>OK command</value>
-    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда ОК</value>
@@ -699,26 +668,18 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OKCommand</name>
+        <name>КомандаОК</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ClearCommand</name>
-    <title>
-      <key>en</key>
-      <value>Clear</value>
-    </title>
+    <name>КомандаОчистить</name>
     <title>
       <key>ru</key>
       <value>Очистить</value>
     </title>
     <id>2</id>
-    <toolTip>
-      <key>en</key>
-      <value>Clear command</value>
-    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда очистить</value>
@@ -728,7 +689,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ClearCommand</name>
+        <name>КомандаОчистить</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>

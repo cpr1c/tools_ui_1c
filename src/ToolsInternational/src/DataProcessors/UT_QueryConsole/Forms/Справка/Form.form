@@ -8,10 +8,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>Текст</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>Текст</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
@@ -87,6 +85,7 @@
       <picture xsi:type="core:PictureRef">
         <picture>StdPicture.Close</picture>
       </picture>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>

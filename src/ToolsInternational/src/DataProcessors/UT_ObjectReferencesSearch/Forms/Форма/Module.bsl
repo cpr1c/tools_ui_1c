@@ -93,7 +93,7 @@ Procedure РедактироватьОбъект(Command)
 		Return;
 	EndIf;
 
-	UT_CommonClient.EditObject(CurrentData.НайденныйОбъект);
+	UT_CommonClient.РедактироватьОбъект(CurrentData.НайденныйОбъект);
 EndProcedure
 
 &AtClient
@@ -102,7 +102,7 @@ Procedure РедактироватьИсходныйОбъект(Command)
 		Return;
 	EndIf;
 
-	UT_CommonClient.EditObject(Объект.ИсходныйОбъект);
+	UT_CommonClient.РедактироватьОбъект(Объект.ИсходныйОбъект);
 EndProcedure
 
 &AtClient
@@ -127,7 +127,7 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Attachable_ExecuteToolsCommonCommand(Command) 
+Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
