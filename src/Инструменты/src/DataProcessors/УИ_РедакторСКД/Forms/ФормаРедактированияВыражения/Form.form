@@ -610,41 +610,6 @@
         <common>true</common>
       </edit>
     </columns>
-    <columns>
-      <name>Вид</name>
-      <title>
-        <key>ru</key>
-        <value>Вид</value>
-      </title>
-      <id>10</id>
-      <valueType>
-        <types>String</types>
-        <stringQualifiers/>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>Вычисляемое</name>
-      <title>
-        <key>ru</key>
-        <value>Вычисляемое</value>
-      </title>
-      <id>11</id>
-      <valueType>
-        <types>Boolean</types>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
   </attributes>
   <formCommands>
     <name>Применить</name>
