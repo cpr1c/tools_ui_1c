@@ -333,36 +333,37 @@ Procedure SystemSettingsStorageSave(ObjectKey, SettingsKey, Settings,
 
 EndProcedure
 
-// Загружает настройку из хранилища системных настроек, как метод платформы Загрузить,
-// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
-// более 128 символов путем хеширования части, которая превышает 96 символов.
-// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
-// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
-//
-// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно:
-// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
-// - из данных типа Массив ссылки удаляются;
-// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
-// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
-//
-// Параметры:
-//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
-//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
-//                                             Если не указано, возвращается значение Неопределено.
-//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
-//
-// Возвращаемое значение: 
-//   Произвольный - см. синтакс-помощник платформы.
-//
-Функция SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Export
 
-	Возврат UT_Common.SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
-		ОписаниеНастроек, ИмяПользователя);
+// Loads a setting from the system settings storage as the Load method or the 
+// StandardSettingsStorageManager object. The setting key supports more than 128 characters by 
+// hashing the part that exceeds 96 characters.
+// If no settings are found, returns the default value.
+// If the SaveUserData right is not granted, the default value is returned and no error is raised.
+//
+// The return value clears references to a non-existent object in the database, namely:
+// - The returned reference is replaced by the default value.
+// - The references are deleted from the data of Array type.
+// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
+// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
+//
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
+//                                             If not specified, returns Undefined.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//
+// Returns:
+//   Arbitrary - see the Syntax Assistant.
+//
+Function SystemSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
+			SettingsDetails = Undefined, Username = Undefined) Export
 
-КонецФункции
+	Return UT_Common.SystemSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue, 
+			SettingsDetails , Username );
+
+EndFunction
 
 // Удаляет настройку из хранилища системных настроек, как метод платформы Удалить,
 // объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
