@@ -62,10 +62,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Filter</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Filter</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -173,10 +171,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>IncludingFields</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>IncludingFields</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -222,10 +218,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ExactMap</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ExactMap</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -268,7 +262,6 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <shortcut>- на цифр. клав.</shortcut>
         <horizontalStretch>false</horizontalStretch>
         <extendedTooltip>
           <name>AdditionalFiltersExtendedTooltip</name>
@@ -352,6 +345,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -418,10 +412,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Result.TableName</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Result.TableName</segments>
       </dataPath>
       <extendedTooltip>
         <name>ResultTableNameExtendedTooltip</name>
@@ -478,10 +470,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Result.Metadata</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Result.Metadata</segments>
       </dataPath>
       <extendedTooltip>
         <name>ResultMetadataExtendedTooltip</name>
@@ -538,10 +528,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Result.Purpose</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Result.Purpose</segments>
       </dataPath>
       <extendedTooltip>
         <name>ResultPurposeExtendedTooltip</name>
@@ -598,10 +586,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Result.StorageTableName</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Result.StorageTableName</segments>
       </dataPath>
       <extendedTooltip>
         <name>ResultStorageTableNameExtendedTooltip</name>
@@ -847,10 +833,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Items.Result.CurrentData.Fields.StorageFieldName</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Items.Result.CurrentData.Fields.StorageFieldName</segments>
         </dataPath>
         <extendedTooltip>
           <name>FieldsStorageFieldNameExtendedTooltip</name>
@@ -899,10 +883,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Items.Result.CurrentData.Fields.FieldName</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Items.Result.CurrentData.Fields.FieldName</segments>
         </dataPath>
         <extendedTooltip>
           <name>FieldsFieldNameExtendedTooltip</name>
@@ -951,10 +933,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Items.Result.CurrentData.Fields.Metadata</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Items.Result.CurrentData.Fields.Metadata</segments>
         </dataPath>
         <extendedTooltip>
           <name>FieldsMetadataExtendedTooltip</name>
@@ -1202,10 +1182,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.Result.CurrentData.Indexes.StorageIndexName</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.Result.CurrentData.Indexes.StorageIndexName</segments>
           </dataPath>
           <extendedTooltip>
             <name>IndexesStorageIndexNameExtendedTooltip</name>
@@ -1451,10 +1429,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.Indexes.CurrentData.IndexFields.StorageFieldName</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.Indexes.CurrentData.IndexFields.StorageFieldName</segments>
           </dataPath>
           <extendedTooltip>
             <name>IndexesFieldsStorageFieldNameExtendedTooltip</name>
@@ -1503,10 +1479,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.Indexes.CurrentData.IndexFields.FieldName</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.Indexes.CurrentData.IndexFields.FieldName</segments>
           </dataPath>
           <extendedTooltip>
             <name>IndexesFieldsFieldNameExtendedTooltip</name>
@@ -1555,10 +1529,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Items.Indexes.CurrentData.IndexFields.Metadata</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Items.Indexes.CurrentData.IndexFields.Metadata</segments>
           </dataPath>
           <extendedTooltip>
             <name>IndexesFieldsMetadataExtendedTooltip</name>

@@ -40,10 +40,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаПараметров.Действие</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаПараметров.Действие</segments>
       </dataPath>
       <extendedTooltip>
         <name>ТаблицаПараметровДействиеРасширеннаяПодсказка</name>
@@ -93,10 +91,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаПараметров.Наименование</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаПараметров.Наименование</segments>
       </dataPath>
       <extendedTooltip>
         <name>ТаблицаПараметровНаименованиеРасширеннаяПодсказка</name>
@@ -146,10 +142,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаПараметров.НовыйПараметр</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаПараметров.НовыйПараметр</segments>
       </dataPath>
       <extendedTooltip>
         <name>ТаблицаПараметровНовыйПараметрРасширеннаяПодсказка</name>
@@ -195,10 +189,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ТаблицаПараметров.НовоеЗначениеПараметра</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ТаблицаПараметров.НовоеЗначениеПараметра</segments>
         </dataPath>
         <extendedTooltip>
           <name>ТаблицаПараметровНовоеЗначениеПараметраРасширеннаяПодсказка</name>
@@ -252,10 +244,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ТаблицаПараметров.ПрежнееЗначениеПараметра</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ТаблицаПараметров.ПрежнееЗначениеПараметра</segments>
         </dataPath>
         <extendedTooltip>
           <name>ТаблицаПараметровПрежнееЗначениеПараметраРасширеннаяПодсказка</name>
@@ -515,10 +505,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>СтрокаДляСравнения</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>СтрокаДляСравнения</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
@@ -598,6 +586,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -628,6 +617,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>

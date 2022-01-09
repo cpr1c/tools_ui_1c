@@ -20,10 +20,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТЗ_Структура.Ключ</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТЗ_Структура.Ключ</segments>
       </dataPath>
       <extendedTooltip>
         <name>СтруктураКлючРасширеннаяПодсказка</name>
@@ -72,10 +70,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТЗ_Структура.Значение</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТЗ_Структура.Значение</segments>
       </dataPath>
       <extendedTooltip>
         <name>СтруктураЗначениеРасширеннаяПодсказка</name>
@@ -320,6 +316,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -444,4 +441,5 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

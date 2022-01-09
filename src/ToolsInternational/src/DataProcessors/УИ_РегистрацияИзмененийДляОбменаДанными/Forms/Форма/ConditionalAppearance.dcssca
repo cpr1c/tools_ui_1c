@@ -15,11 +15,11 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">web:LightGray</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>Текст</dcscor:parameter>
+				<dcscor:parameter>Text</dcscor:parameter>
 				<dcscor:value xsi:type="xs:string">Не выгружалось</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -39,11 +39,11 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">web:LightGray</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>Текст</dcscor:parameter>
+				<dcscor:parameter>Text</dcscor:parameter>
 				<dcscor:value xsi:type="xs:string">Не выгружалось</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -63,11 +63,11 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">web:LightGray</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>Текст</dcscor:parameter>
+				<dcscor:parameter>Text</dcscor:parameter>
 				<dcscor:value xsi:type="xs:string">Не выгружалось</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -87,11 +87,11 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветТекста</dcscor:parameter>
+				<dcscor:parameter>TextColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">web:DarkGray</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>Текст</dcscor:parameter>
+				<dcscor:parameter>Text</dcscor:parameter>
 				<dcscor:value xsi:type="xs:string">Нет изменений</dcscor:value>
 			</dcscor:item>
 		</appearance>

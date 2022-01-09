@@ -15,7 +15,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>ЦветФона</dcscor:parameter>
+				<dcscor:parameter>BackColor</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">web:LightGreen</dcscor:value>
 			</dcscor:item>
 		</appearance>

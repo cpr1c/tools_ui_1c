@@ -1208,10 +1208,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ЛокальныеВыбранныеПоля</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ЛокальныеВыбранныеПоля</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <handlers>
@@ -1990,10 +1988,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ЛокальныйОтбор</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ЛокальныйОтбор</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <handlers>
@@ -2774,10 +2770,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ЛокальныйПорядок</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ЛокальныйПорядок</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <handlers>
@@ -3554,10 +3548,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ЛокальноеУсловноеОформление</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ЛокальноеУсловноеОформление</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <handlers>
@@ -4145,10 +4137,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ЛокальныеПараметрыВывода</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ЛокальныеПараметрыВывода</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <handlers>

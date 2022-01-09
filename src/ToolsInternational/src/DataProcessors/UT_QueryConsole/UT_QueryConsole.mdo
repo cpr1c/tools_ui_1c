@@ -413,11 +413,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="9b9cd922-fd95-463c-ba6e-9ffea4282576">
-    <name>Info</name>
-    <synonym>
-      <key>en</key>
-      <value>Info</value>
-    </synonym>
+    <name>Информация</name>
     <synonym>
       <key>ru</key>
       <value>Информация</value>
@@ -439,11 +435,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="c3adee8e-1f0b-46c0-8b38-f56a4b58939e">
-    <name>SpreadsheetDocumentForm</name>
-    <synonym>
-      <key>en</key>
-      <value>Spreadsheet document form</value>
-    </synonym>
+    <name>ФормаТабличногоДокумента</name>
     <synonym>
       <key>ru</key>
       <value>Форма табличного документа</value>
@@ -452,11 +444,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="48b19d1d-d512-4562-8be3-f02e086643df">
-    <name>ChoicePredefined</name>
-    <synonym>
-      <key>en</key>
-      <value>Choice predefined</value>
-    </synonym>
+    <name>ВыборПредопределенного</name>
     <synonym>
       <key>ru</key>
       <value>Выбор предопределенного</value>
@@ -465,11 +453,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="72b37439-8e60-4bd8-b308-2b80fa441cd5">
-    <name>Help</name>
-    <synonym>
-      <key>en</key>
-      <value>Help</value>
-    </synonym>
+    <name>Справка</name>
     <synonym>
       <key>ru</key>
       <value>Справка</value>
@@ -487,11 +471,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="1a8e52ef-0a1b-48c8-a087-5f06fbecc869">
-    <name>QueryPlanForm</name>
-    <synonym>
-      <key>en</key>
-      <value>Query plan form</value>
-    </synonym>
+    <name>ФормаПланаЗапроса</name>
     <synonym>
       <key>ru</key>
       <value>Форма плана запроса</value>

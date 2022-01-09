@@ -282,26 +282,27 @@ EndFunction
 
 #Region PostingSettings  
  
-  Procedure CreateWriteParametersAttributesFormOnCreateAtServer(Form, FormGroup) Export
+ Procedure CreateWriteParametersAttributesFormOnCreateAtServer(Form, FormGroup) Export
 	WriteSettings=New Structure;
-	WriteSettings.Insert("WithOutChangesAutoRecording", New Structure("Value,Title", Ложь,
-		"Без авторегистрации изменений"));
-	WriteSettings.Insert("WritingInLoadMode", New Structure("Value,Title", Ложь,
-		"Запись в режиме загрузки(Без проверок)"));
-	WriteSettings.Insert("PrivilegedMode", New Structure("Value,Title", Ложь,
-		"Привелигированный режим"));
-	WriteSettings.Insert("UseAdditionalProperties", New Structure("Value,Title", Ложь,
-		"Использовать доп. свойства"));
+	WriteSettings.Insert("WithOutChangesAutoRecording", New Structure("Value,Title", False,
+	NStr("ru = 'Без авторегистрации изменений';en = 'Without changes auto recording'")));
+	WriteSettings.Insert("WritingInLoadMode", New Structure("Value,Title", False,
+		NStr("ru = 'Запись в режиме загрузки(Без проверок)';en = 'Recording in load mode (without checks)'")));
+	WriteSettings.Insert("PrivilegedMode", New Structure("Value,Title", False,
+	NStr("ru = 'Привелигированный режим';en = 'Privileged mode'")));
+	WriteSettings.Insert("UseAdditionalProperties", New Structure("Value,Title", False,
+		NStr("ru = 'Использовать доп. свойства';en = 'Use additional properties'")));
 	WriteSettings.Insert("AdditionalProperties", New Structure("Value,Title", New Structure,
-		"Дополнительные свойства"));
-	WriteSettings.Insert("UseBeforeWriteProcedure", New Structure("Value,Title", Ложь,
-		"Без авторегистрации изменений"));
+		NStr("ru = 'Дополнительные свойства';en = 'Additional properties'")));
+	WriteSettings.Insert("UseBeforeWriteProcedure", New Structure("Value,Title", False,
+		NStr("ru = 'Без авторегистрации изменений';en = 'Without changes auto recording'")));
 	WriteSettings.Insert("BeforeWriteProcedure", New Structure("Value,Title", "",
-		"Без авторегистрации изменений"));
+		NStr("ru = 'Без авторегистрации изменений';en = 'Without changes auto recording'")));
 
 	ParameterPrefix="WriteParameter_";
 
 	AddedAtributesArray=New Array;
+
 
 	For Each KeyValue In WriteSettings Do
 		AttributeType=TypeOf(KeyValue.Value.Value);
@@ -325,36 +326,35 @@ EndFunction
 		+ "AdditionalProperties", "Key", False));
 
 	ValueTypesArray=New Массив;
-	ValueTypesArray.Add("Булево");
-	ValueTypesArray.Add("Строка");
-	ValueTypesArray.Add("Число");
-	ValueTypesArray.Add("Дата");
-	ValueTypesArray.Add("УникальныйИдентификатор");
-	ValueTypesArray.Add("ЛюбаяСсылка");
+	ValueTypesArray.Add("Boolean");
+	ValueTypesArray.Add("String");
+	ValueTypesArray.Add("Number");
+	ValueTypesArray.Add("Date");
+	ValueTypesArray.Add("UUID");
+	ValueTypesArray.Add("AnyRef");
 	AddedAtributesArray.Add(New FormAttribute("Value", New TypeDescription(ValueTypesArray),
 		ParameterPrefix + "AdditionalProperties", "Value", False));
 	Form.ChangeAttributes(AddedAtributesArray);
 
 	CreatingAttributesArray=UT_CommonClientServer.ToolsFormOutputWriteSettings();
 
-	Для Каждого CreatingAttributeName Из CreatingAttributesArray Цикл
+	For Each CreatingAttributeName In CreatingAttributesArray Do
 		ItemDescription=ItemAttributeNewDescription();
-		ItemDescription.CreateItem = Истина;
+		ItemDescription.CreateItem = True;
 		ItemDescription.Name=ParameterPrefix + CreatingAttributeName;
 		ItemDescription.ItemParent = FormGroup;
 		ItemDescription.Properties.Insert("FormItemType", FormFieldType.CheckBoxField);
-
 		UT_Forms.CreateItemByDescription(Form, ItemDescription);
-	КонецЦикла;
+	EndDo;
 	
-	//Add кнопку редактирования настроек
+	//Add parameters editing button
 	ButtonDescription=ButtonCommandNewDescription();
-	ButtonDescription.Name=ParameterPrefix + "РедактироватьПараметрыЗаписи";
+	ButtonDescription.Name=ParameterPrefix + "EditWriteParameters";
 	ButtonDescription.CommandName=ButtonDescription.Name;
 	ButtonDescription.ItemParent=FormGroup;
-	ButtonDescription.Title="Другие параметры записи";
+	ButtonDescription.Title=NStr("ru = 'Другие параметры записи';en = 'Other write parameters'");
 	ButtonDescription.Picture=PictureLib.DataCompositionOutputParameters;
-	ButtonDescription.IsHyperLink=Истина;
+	ButtonDescription.IsHyperLink=True;
 	ButtonDescription.Action="Attachable_SetWriteSettings";
 
 	UT_Forms.CreateCommandByDescription(Form, ButtonDescription);

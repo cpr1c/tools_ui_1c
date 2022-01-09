@@ -11,7 +11,7 @@
   </synonym>
   <comment>Поиск и удаление объектов, помеченных на удаление</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_УдалениеПомеченныхОбъектов.Form.ОсновнаяФорма</defaultForm>
+  <defaultForm>DataProcessor.УИ_УдалениеПомеченныхОбъектов.Form.Form</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
@@ -26,7 +26,7 @@
     <value>копия стандартной обработки из БСП, адаптированной для жизни вне БСП</value>
   </explanation>
   <forms uuid="c43e4792-2a12-11ea-8480-e86a6452d1f2">
-    <name>ОсновнаяФорма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
       <value>Удаление помеченных объектов</value>
