@@ -6,5 +6,7 @@
     <value>Коннектор HTTP</value>
   </synonym>
   <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
   <serverCall>true</serverCall>
 </mdclass:CommonModule>
