@@ -4,7 +4,7 @@
 	<Attributes>
 		<Attribute name="Объект" id="1">
 			<Type>
-				<v8:Type>cfg:ExternalDataProcessor.ШаблонОбработки</v8:Type>
+				<v8:Type>cfg:ExternalDataProcessorObject.ШаблонОбработки</v8:Type>
 			</Type>
 			<MainAttribute>true</MainAttribute>
 		</Attribute>
