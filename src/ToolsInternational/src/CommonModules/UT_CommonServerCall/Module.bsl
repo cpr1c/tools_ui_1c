@@ -193,8 +193,8 @@ Function ValueFromXMLString(XMLString, Type = Undefined) Export
 	EndIf;
 EndFunction
 
-Function АдресОписанияМетаданныхКонфигурации() Export
-	Возврат UT_Common.АдресОписанияМетаданныхКонфигурации();
+Function ConfigurationMetadataDescriptionAdress() Export
+	Возврат UT_Common.ConfigurationMetadataDescriptionAdress();
 EndFunction
 
 #Region JSON
@@ -211,7 +211,6 @@ EndFunction // WriteJSON(
 #Region SettingsStorage
 
 ////////////////////////////////////////////////////////////////////////////////
-// Сохранение, чтение и удаление настроек из хранилищ.
 
 // Saving, reading, and deleting settings from storages.
 
@@ -465,9 +464,9 @@ EndFunction
 
 #EndRegion
 
-#Region Отладка
+#Region Debug
 
-Function SaveDebuggingDataToStorage(DebuggingObjectType, DebuggingData) Export
+Function SaveDebuggingDataToCatalog(DebuggingObjectType, DebuggingData) Export
 	SettingsKey=DebuggingObjectType + "/" + UserName() + "/" + Format(CurrentDate(), "DF=yyyyMMddHHmmss;");
 	DebuggingDataObjectData=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 
@@ -476,7 +475,7 @@ Function SaveDebuggingDataToStorage(DebuggingObjectType, DebuggingData) Export
 	Return "Data Saved successfully. Settings Key " + SettingsKey;
 EndFunction
 
-Function  DebuggingObjectDataStructureFromDebugDataCatalog(DataPath) Export
+Function DebuggingObjectDataStructureFromDebugDataCatalog(DataPath) Export
 	Result = New Structure;
 	Result.Insert("DebuggingObjectType", DataPath.DebuggingObjectType);
 	Result.Insert("DebuggingObjectAddress", PutToTempStorage(
@@ -561,68 +560,68 @@ Function TempTablesManagerTempTablesStructure(TempTablesManager) Export
 EndFunction
 
 //https://infostart.ru/public/1207287/
-Функция ВыполнитьСравнениеДвухТаблицЗначений(ТаблицаБазовая, ТаблицаСравнения, СписокКолонокСравнения) Export
-	СписокКолонок = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(СписокКолонокСравнения, ",", Истина);
-	//Результирующая таблица
-	ВременнаяТаблица = Новый ТаблицаЗначений;
-	Для Каждого Колонка Из СписокКолонок Цикл
-		ВременнаяТаблица.Колонки.Добавить(Колонка);
-		ВременнаяТаблица.Колонки.Добавить(Колонка + "Сравнение");
-	КонецЦикла;
-	ВременнаяТаблица.Колонки.Добавить("НомерСтр");
-	ВременнаяТаблица.Колонки.Добавить("НомерСтр" + "Сравнение");
+Function ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable, ListOfComparisonColumns) Export
+	ColumsList = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(ListOfComparisonColumns, ",", True);
+	//The resulting table
+	TempTable = New ValueTable;
+	For Each Colum In ColumsList Do
+		TempTable.Columns.Add(Colum);
+		TempTable.Columns.Add(Colum + "Comparison");
+	EndDo;
+	TempTable.Columns.Add("NumberOfRow");
+	TempTable.Columns.Add("NumberOfRow" + "Comparison");
 	//---------
-	СравниваемаяТаблица = ТаблицаСравнения.Скопировать();
-	СравниваемаяТаблица.Колонки.Добавить("УжеИспользуем", Новый ОписаниеТипов("Булево"));
+	ComparableTable = ComparisonTable.Copy();
+	ComparableTable.Columns.Add("AlreadyUsing", New TypeDescription("Boolean"));
 
-	Для Каждого Строка Из ТаблицаБазовая Цикл
-		НоваяСтрока = ВременнаяТаблица.Добавить();
-		ЗаполнитьЗначенияСвойств(НоваяСтрока, Строка);
-		НоваяСтрока.НомерСтр = Строка.НомерСтроки;
-		//формируем структуру для поиска по заданному сопоставлению
-		ОтборДляПоискаСтрок = Новый Структура("УжеИспользуем", Ложь);
-		Для Каждого Колонка Из СписокКолонок Цикл
-			ОтборДляПоискаСтрок.Вставить(Колонка, Строка[Колонка]);
-		КонецЦикла;
+	For Each Row In BaseTable Do
+		NewRow = TempTable.Add();
+		FillPropertyValues(NewRow, Row);
+		NewRow.NumberOfRow = Row.RowNumber;
+		//forming a structure for searching by a given mapping
+		SearchStringsFilter = New Structure("AlreadyUsing", False);
+		For Each Colum In ColumsList Do
+			SearchStringsFilter.Insert(Colum, Row[Colum]);
+		EndDo;
 
-		НайдемСтроки = СравниваемаяТаблица.НайтиСтроки(ОтборДляПоискаСтрок);
-		Если НайдемСтроки.Количество() > 0 Тогда
-			СтрокаСопоставления = НайдемСтроки[0];
-			НоваяСтрока.НомерСтрСравнение = СтрокаСопоставления.НомерСтроки;
-			Для Каждого Колонка Из СписокКолонок Цикл
-				Реквизит = Колонка + "Сравнение";
-				НоваяСтрока[Реквизит] = СтрокаСопоставления[Колонка];
-			КонецЦикла;
-			СтрокаСопоставления.УжеИспользуем = Истина;
-		КонецЕсли;
-	КонецЦикла;
-	//Смотрим что осталось +++
-	ОтборДляПоискаСтрок = Новый Структура("УжеИспользуем", Ложь);
-	НайдемСтроки = СравниваемаяТаблица.НайтиСтроки(ОтборДляПоискаСтрок);
-	Для Каждого Строка Из НайдемСтроки Цикл
-		НоваяСтрока = ВременнаяТаблица.Добавить();
-		НоваяСтрока.НомерСтрСравнение = Строка.НомерСтроки;
-		Для Каждого Колонка Из СписокКолонок Цикл
-			Реквизит = Колонка + "Сравнение";
-			НоваяСтрока[Реквизит] = Строка[Колонка];
-		КонецЦикла;
-	КонецЦикла;
-	//Проверяем что получилось
-	ТаблицыИдентичны = Истина;
-	Для Каждого Строка Из ВременнаяТаблица Цикл
-		Для Каждого Колонка Из СписокКолонок Цикл
-			Если (Не ЗначениеЗаполнено(Строка[Колонка])) Или (Не ЗначениеЗаполнено(Строка[Колонка + "Сравнение"])) Тогда
-				ТаблицыИдентичны = Ложь;
-				Прервать;
-			КонецЕсли;
-		КонецЦикла;
-		Если Не ТаблицыИдентичны Тогда
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
+		FindRows = ComparableTable.FindRows(SearchStringsFilter);
+		If FindRows.Count() > 0 Then
+			ComparsionString = FindRows[0];
+			NewRow.NumberOfRowComparison = ComparsionString.RowNumber;
+			For Each Colum In ColumsList Do
+				Attribute = Colum + "Comparison";
+				NewRow[Attribute] = ComparsionString[Colum];
+			EndDo;
+			ComparsionString.AlreadyUsing = True;
+		EndIf;
+	EndDo;
+	//See what's left +++
+	SearchStringFilter = New Structure("AlreadyUsing", False);
+	FindRows = ComparableTable.FindRows(SearchStringFilter);
+	For Each Row In FindRows Do
+		NewRow = TempTable.Add();
+		NewRow.NumberOfRowComparsion = Row.RowNumber;
+		For Each Colum In ColumsList Do
+			Attribute = Colum + "Comparison";
+			NewRow[Attribute] = Row[Colum];
+		EndDo;
+	EndDo;
+	//We check what happened
+	TablesIdentical = True;
+	For Each Row In TempTable Do
+		For Each Colum In ColumsList Do
+			If (Not ValueIsFilled(Row[Colum])) Or (Not ValueIsFilled(Row[Colum + "Comparison"])) Then
+				TablesIdentical = False;
+				Break;
+			EndIf;
+		EndDo;
+		If Not TablesIdentical Then
+			Break;
+		EndIf;
+	EndDo;
 
-	Возврат Новый Структура("ИдентичныеТаблицы,ТаблицаРасхождений", ТаблицыИдентичны, ВременнаяТаблица);
-КонецФункции
+	Return New Structure("IdenticalTables,DifferencesTable", TablesIdentical, TempTable);
+EndFunction
 
 #EndRegion
 

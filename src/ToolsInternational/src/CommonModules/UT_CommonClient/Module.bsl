@@ -17,7 +17,7 @@
 	UT_ApplicationParameters.Вставить("HTMLFieldBasedOnWebkit",UT_CommonClientServer.HTMLFieldBasedOnWebkit());
 	UT_ApplicationParameters.Вставить("ВерсияПлатформы",
 	UT_CommonClientServer.CurrentAppVersion());
-	//UT_ApplicationParameters.Вставить("АдресОписанияМетаданныхКонфигурации", УИ_ОбщегоНазначенияВызовСервера.АдресОписанияМетаданныхКонфигурации());
+	//UT_ApplicationParameters.Вставить("ConfigurationMetadataDescriptionAdress", УИ_ОбщегоНазначенияВызовСервера.АдресОписанияМетаданныхКонфигурации());
 	
 	ПараметрыСеансаВХранилище = Новый Структура;
 	ПараметрыСеансаВХранилище.Вставить("ЭтоLinuxКлиент", UT_ApplicationParameters["ЭтоLinuxКлиент"]);
@@ -26,7 +26,7 @@
 	ПараметрыСеансаВХранилище.Вставить("IsPortableDistribution", UT_ApplicationParameters["IsPortableDistribution"]);
 	ПараметрыСеансаВХранилище.Вставить("HTMLFieldBasedOnWebkit", UT_ApplicationParameters["HTMLFieldBasedOnWebkit"]);
 	ПараметрыСеансаВХранилище.Вставить("ВерсияПлатформы", UT_ApplicationParameters["ВерсияПлатформы"]);
-	//ПараметрыСеансаВХранилище.Вставить("АдресОписанияМетаданныхКонфигурации", UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"]);
+	//ПараметрыСеансаВХранилище.Вставить("ConfigurationMetadataDescriptionAdress", UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"]);
 
 	UT_CommonServerCall.CommonSettingsStorageSave(
 	UT_CommonClientServer.ObjectKeyInSettingsStorage(),
@@ -239,7 +239,7 @@
 		Возврат;
 	КонецЕсли;
 
-	ДанныеОтладки = UT_CommonServerCall.СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек(
+	ДанныеОтладки = UT_CommonServerCall.DebuggingObjectDataStructureFromSystemSettingsStorage(
 		КлючНастройкиОтладки, ИдентификаторФормы);
 
 	Если ДанныеОтладки = Неопределено Тогда
@@ -398,7 +398,7 @@
 
 Процедура ВыгрузитьОбъектыВXML(МассивОбъектов, Контекст) Экспорт
 	АдресФайлаВоВременномХранилище="";
-	UT_CommonServerCall.ВыгрузитьОбъектыВXMLНаСервере(МассивОбъектов, АдресФайлаВоВременномХранилище,
+	UT_CommonServerCall.UploadObjectsToXMLonServer(МассивОбъектов, АдресФайлаВоВременномХранилище,
 		Контекст.Форма.УникальныйИдентификатор);
 
 	Если ЭтоАдресВременногоХранилища(АдресФайлаВоВременномХранилище) Тогда
