@@ -414,10 +414,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <commands uuid="bfe3f57a-904a-48da-b4dc-8c5271289365">
-    <name>ВыполнитьАлгоритм</name>
+    <name>ExecuteAlgorithm</name>
     <synonym>
       <key>ru</key>
-      <value>Выполнить алгоритм</value>
+      <value>Execute algorithm</value>
     </synonym>
     <group>FormCommandBarImportant</group>
     <commandParameterType>
