@@ -467,46 +467,47 @@ EndFunction
 
 #Region Отладка
 
-Function SaveDebuggingDataToStorage(ТипОбъектаОтладки, ДанныеДляОтладки) Export
-	КлючНастроек=ТипОбъектаОтладки + "/" + ИмяПользователя() + "/" + Формат(ТекущаяДата(), "ДФ=yyyyMMddHHmmss;");
-	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
+Function SaveDebuggingDataToStorage(DebuggingObjectType, DebuggingData) Export
+	SettingsKey=DebuggingObjectType + "/" + UserName() + "/" + Format(CurrentDate(), "DF=yyyyMMddHHmmss;");
+	DebuggingDataObjectData=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 
-	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
+	UT_Common.SystemSettingsStorageSave(DebuggingDataObjectData, SettingsKey, DebuggingData);
 
-	Возврат "Запись выполнена успешно. Ключ настроек " + КлючНастроек;
+	Return "Data Saved successfully. Settings Key " + SettingsKey;
 EndFunction
 
-Функция СтруктураДанныхОбъектаОтладкиИзСправочникаДанныхОтладки(СсылкаНаДанные) Export
-	Результат = Новый Структура;
-	Результат.Вставить("ТипОбъектаОтладки", СсылкаНаДанные.ТипОбъектаОтладки);
-	Результат.Вставить("АдресОбъектаОтладки", ПоместитьВоВременноеХранилище(
-		СсылкаНаДанные.ХранилищеОбъектаОтладки.Получить()));
+Function  DebuggingObjectDataStructureFromDebugDataCatalog(DataPath) Export
+	Result = New Structure;
+	Result.Insert("DebuggingObjectType", DataPath.DebuggingObjectType);
+	Result.Insert("DebuggingObjectAddress", PutToTempStorage(
+		DataPath.DebuggingObjectStorage.Get()));
 
-	Возврат Результат;
-КонецФункции
+	Return Result;
+EndFunction
 
-Функция СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек(КлючНастроек, ИдентификаторФормы=Неопределено) Export
-	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
-	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
+Function DebuggingObjectDataStructureFromSystemSettingsStorage(SettingsKey, FormID=Undefined) Export
+	
+	DebuggingDataObjectKey=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
+	DebugSettings=UT_Common.SystemSettingsStorageLoad(DebuggingDataObjectKey, SettingsKey);
 
-	Если НастройкиОтладки = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
+	If DebugSettings = Undefined Then
+		Return Undefined;
+	EndIf;
 
-	МассивПодСтрокКлюча=СтрРазделить(КлючНастроек, "/");
+	KeySubstringsArray=StrSplit(SettingsKey, "/");
 
-	Если ИдентификаторФормы=Неопределено Тогда
-		АдресОбъектаОтладки=ПоместитьВоВременноеХранилище(НастройкиОтладки);
-	Иначе
-		АдресОбъектаОтладки=ПоместитьВоВременноеХранилище(НастройкиОтладки, ИдентификаторФормы);
-	КонецЕсли;
+	If FormID=Undefined Then
+		DebuggingObjectAddress=PutToTempStorage(DebugSettings);
+	Else
+		DebuggingObjectAddress=PutToTempStorage(DebugSettings, FormID);
+	EndIf;
 
-	Результат = Новый Структура;
-	Результат.Вставить("ТипОбъектаОтладки", МассивПодСтрокКлюча[0]);
-	Результат.Вставить("АдресОбъектаОтладки", АдресОбъектаОтладки);
+	Result = New Structure;
+	Result.Insert("DebuggingObjectType", KeySubstringsArray[0]);
+	Result.Insert("DebuggingObjectAddress", DebuggingObjectAddress);
 
-	Возврат Результат;
-КонецФункции
+	Return Result;
+EndFunction
 
 Function SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets) Export
 	ObjectStructure = New Structure;
@@ -627,43 +628,43 @@ EndFunction
 
 #Region ConsolesDataSaveRead
 
-Function ConsolePreparedDataForFileWriting(ConsoleName, ИмяФайла, АдресДанныхСохранения,
-	СтруктураОписанияСохраняемогоФайла) Export
-	Файл=Новый Файл(ИмяФайла);
+Function ConsolePreparedDataForFileWriting(ConsoleName, FileName, SaveDataPath,
+	SavingFileDescriptionStructure) Export
+	File=Новый File(FileName);
 
-	If  IsTempStorageURL(АдресДанныхСохранения) Then
-		ДанныеСохранения=GetFromTempStorage(АдресДанныхСохранения);
+	If  IsTempStorageURL(SaveDataPath) Then
+		SaveData=GetFromTempStorage(SaveDataPath);
 	Else
-		ДанныеСохранения=АдресДанныхСохранения;
+		SaveData=SaveDataPath;
 	EndIf;
 
 	If Upper(ConsoleName) = "HTTPREQUESTCONSOLE" Then
-		МенеджерКонсоли=Обработки.UT_HttpRequestConsole;
+		ConsoleManager=DataProcessors.UT_HttpRequestConsole;
 	Else
-		МенеджерКонсоли=Undefined;
+		ConsoleManager=Undefined;
 	EndIf;
 
-	If МенеджерКонсоли = Undefined Then
-		Если TypeOf(ДанныеСохранения) = Type("Строка") Then
-			НовыеДанныеСохранения=ДанныеСохранения;
+	If ConsoleManager = Undefined Then
+		Если TypeOf(SaveData) = Type("String") Then
+			NewSaveData=SaveData;
 		Else
-			НовыеДанныеСохранения=ValueToStringInternal(ДанныеСохранения);
+			NewSaveData=ValueToStringInternal(SaveData);
 		EndIf;
 	Else
-		Попытка
-			НовыеДанныеСохранения=МенеджерКонсоли.СериализованныеДанныеСохранения(Файл.Расширение, ДанныеСохранения);
-		Исключение
-			НовыеДанныеСохранения=ValueToStringInternal(ДанныеСохранения);
-		КонецПопытки;
+		Try
+			NewSaveData=ConsoleManager.SerializedSaveData(File.Extension, SaveData);
+		Except
+			NewSaveData=ValueToStringInternal(SaveData);
+		EndTry;
 	EndIf;
 
 	Stream=New MemoryStream;
 	TextWriter=New DataWriter(Stream);
-	TextWriter.WriteLine(НовыеДанныеСохранения);
+	TextWriter.WriteLine(NewSaveData);
 
 	Return PutToTempStorage(Stream.CloseAndGetBinaryData());
 	
-//	Return НовыеДанныеСохранения;	
+//	Return NewSavingData;	
 
 EndFunction
 
