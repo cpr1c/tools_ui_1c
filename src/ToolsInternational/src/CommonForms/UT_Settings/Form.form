@@ -475,14 +475,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
-            <paths xsi:type="form:DataPath">
-              <segments>КаталогиИсходныхФайловКонфигурации.Каталог</segments>
-            </paths>
-            <paths xsi:type="form:DataPath">
-              <segments>КаталогиИсходныхФайловКонфигурации.Каталог</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>КаталогиИсходныхФайловКонфигурации.Каталог</segments>
           </dataPath>
           <extendedTooltip>
             <name>КаталогиИсходныхФайловКонфигурацииКаталогРасширеннаяПодсказка</name>
@@ -556,10 +550,10 @@
             </extendedTooltip>
             <commandName>Form.Command.СохранитьМодулиКонфигурацииВФайлы</commandName>
             <representation>Auto</representation>
-            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -725,6 +719,7 @@
         <initialListView>Auto</initialListView>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
+        <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -827,6 +822,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -857,6 +853,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>

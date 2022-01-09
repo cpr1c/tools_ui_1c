@@ -21,7 +21,7 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>СписокЗначений.Пометка</segments>
+        <segments>СписокЗначений.Check</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЗначенийПометкаРасширеннаяПодсказка</name>
@@ -63,14 +63,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <activeLanguage>1</activeLanguage>
-        <paths xsi:type="form:DataPath">
-          <segments>СписокЗначений.Value</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>СписокЗначений.Значение</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СписокЗначений.Value</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЗначенийЗначениеРасширеннаяПодсказка</name>
@@ -120,7 +114,7 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>СписокЗначений.Представление</segments>
+        <segments>СписокЗначений.Presentation</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЗначенийПредставлениеРасширеннаяПодсказка</name>
@@ -359,6 +353,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -389,6 +384,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>

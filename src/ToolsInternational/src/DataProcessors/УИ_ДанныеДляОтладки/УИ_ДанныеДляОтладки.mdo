@@ -30,6 +30,7 @@
       <value>Данные для отладки</value>
     </synonym>
     <group>NavigationPanelOrdinary</group>
+    <commandParameterType/>
     <representation>Auto</representation>
   </commands>
 </mdclass:DataProcessor>

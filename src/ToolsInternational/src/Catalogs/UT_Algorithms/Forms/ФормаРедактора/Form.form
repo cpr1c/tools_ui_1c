@@ -12,10 +12,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТекстHTML</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТекстHTML</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
@@ -65,10 +63,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТабличныйДокумент</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТабличныйДокумент</segments>
     </dataPath>
     <extendedTooltip>
       <name>ТабличныйДокументРасширеннаяПодсказка</name>
@@ -198,7 +194,7 @@
   <parameters>
     <name>Алгоритм</name>
     <valueType>
-      <types>CatalogRef.УИ_Алгоритмы</types>
+      <types>CatalogRef.UT_Algorithms</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>

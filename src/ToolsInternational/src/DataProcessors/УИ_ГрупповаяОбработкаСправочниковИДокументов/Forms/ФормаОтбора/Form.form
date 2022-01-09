@@ -16,10 +16,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>РежимПоиска</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>РежимПоиска</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -264,10 +262,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СтрокаПоиска</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СтрокаПоиска</segments>
         </dataPath>
         <extendedTooltip>
           <name>СтрокаПоискаExtendedTooltip</name>
@@ -354,10 +350,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ТекстПроизвольногоЗапроса</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ТекстПроизвольногоЗапроса</segments>
         </dataPath>
         <extendedTooltip>
           <name>ТекстЗапросаExtendedTooltip</name>
@@ -405,6 +399,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -449,10 +444,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыЗапроса.ИмяПараметра</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыЗапроса.ИмяПараметра</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыЗапросаИмяПараметраExtendedTooltip</name>
@@ -501,10 +494,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыЗапроса.ЭтоВыражение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыЗапроса.ЭтоВыражение</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыЗапросаЭтоВыражениеExtendedTooltip</name>
@@ -546,10 +537,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыЗапроса.ЗначениеПараметра</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыЗапроса.ЗначениеПараметра</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыЗапросаЗначениеПараметраExtendedTooltip</name>
@@ -629,6 +618,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -904,6 +894,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -935,6 +926,7 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
