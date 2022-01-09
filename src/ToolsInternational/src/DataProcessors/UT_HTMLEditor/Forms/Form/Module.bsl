@@ -764,6 +764,7 @@ Procedure SetupEditorTextForCurrentEditor()
 		
 EndProcedure
 
+//append
 &AtClient
 Procedure SetupEditorsTexts()
 	
