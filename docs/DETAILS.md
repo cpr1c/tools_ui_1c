@@ -2117,7 +2117,7 @@
 
 Параметры действий -для функции ЗаписатьОбъектВБазу :  
 
-<table>
+<table width="804">
 <tbody>
 <tr >
 <td>
@@ -2159,7 +2159,7 @@
 </table>
 
 ## UT_CommonClient
-<table style="width: 97.5852%; border-collapse: collapse;" border="1">
+<table style="width: 808; border-collapse: collapse;" border="1">
 <tbody>
 <tr>
 <td width="404">
