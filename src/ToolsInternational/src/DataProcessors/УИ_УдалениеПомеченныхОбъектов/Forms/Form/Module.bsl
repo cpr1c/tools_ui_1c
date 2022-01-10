@@ -446,7 +446,7 @@ Procedure FullMarkedForDeletionTree()
 
 	NomberOfLevelsMarkedForDeletion = MarkedTree.Строки.Количество();
 
-	ЗначениеВРеквизитФормы(MarkedTree, "MarkedForDeletionItemsTree");
+	ValueToFormAttribute(MarkedTree, "MarkedForDeletionItemsTree");
 
 EndProcedure
 
@@ -538,7 +538,7 @@ EndProcedure
 Function ВыполнитьУдалениеДок(Знач Удаляемые, ТипыУдаленныхОбъектовМассив)
 	РезультатУдаления = Новый Структура("Статус, Value", False, "");
 
-	If Не UT_Users.ЭтоПолноправныйПользователь() Then
+	If Не UT_Users.IsFullUser() Then
 		ВызватьИсключение НСтр("ru = 'Недостаточно прав для выполнения операции.'");
 	EndIf;
 
@@ -829,7 +829,7 @@ Function ЗаполнитьРезультаты(StorageAddress, Result)
 	EndIf;
 
 	Дерево = ЗаполнитьДеревоОставшихсяОбъектов(DeletionResult);
-	ЗначениеВРеквизитФормы(Дерево, "NotDeletedItems");
+	ValueToFormAttribute(Дерево, "NotDeletedItems");
 
 	NomberDeleted 			= DeletionResult.NomberDeleted;
 	NomberNotDeletedObjects 	= DeletionResult.NomberNotDeletedObjects;
@@ -858,7 +858,7 @@ Procedure Attachable_CheckTaskCompletion()
 				UpdateContent(Result.РезультатУдаления, Result.РезультатУдаления.Value,
 					Result.РезультатУдаления.DeletionObjectsTypes);
 			Else
-				UT_TimeConsumingOperationsClient.ОбновитьIdleHandlerParametrs(IdleHandlerParameters);
+				UT_TimeConsumingOperationsClient.ОбновитьПараметрыОбработчикаОжидания(IdleHandlerParameters);
 				ПодключитьОбработчикОжидания(
 					"Attachable_CheckTaskCompletion", IdleHandlerParameters.ТекущийИнтервал, True);
 			EndIf;
