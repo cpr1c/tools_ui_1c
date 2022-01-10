@@ -1,27 +1,27 @@
-Function SessionStartParameters() export
+Функция ПараметрыСтартаСеанса() Экспорт
 
-	SessionStartParameters= New Structure;
+	ПараметрыСтартаСеанса=Новый Структура;
 
-	if Not UT_CommonClientServer.IsPortableDistribution() Then
-		If AccessRight("Administration", Metadata) AND Not IsInRole("UT_UniversalTools")
-			and InfoBaseUsers.GetUsers().Count() > 0 then
-			CurrentUser = InfoBaseUsers.CurrentUser();
-			CurrentUser.Roles.Add(Metadata.Roles.UT_UniversalTools);
-			CurrentUser.Write();
+	Если Не UT_CommonClientServer.IsPortableDistribution() Тогда
+		Если ПравоДоступа("Administration", Метаданные) И Не РольДоступна("UT_UniversalTools")
+			И ПользователиИнформационнойБазы.ПолучитьПользователей().Количество() > 0 Тогда
+			ТекущийПользователь = ПользователиИнформационнойБазы.ТекущийПользователь();
+			ТекущийПользователь.Роли.Добавить(Метаданные.Роли.UT_UniversalTools);
+			ТекущийПользователь.Записать();
 
-			SessionStartParameters.Insert("ExtensionRightsAdded", True);
-		else
-			SessionStartParameters.Insert("ExtensionRightsAdded", False);
-		endif;
+			ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Истина);
+		Иначе
+			ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Ложь);
+		КонецЕсли;
 	Иначе
-		SessionStartParameters.Insert("ExtensionRightsAdded", False);	
+		ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Ложь);	
 	КонецЕсли;
 
-	SessionStartParameters.Insert("SessionNumber", InfoBaseSessionNumber());
-	SessionStartParameters.Insert("ConfigurationScriptVariant", UT_CodeEditorServer.ConfigurationScriptVariant());
+	ПараметрыСтартаСеанса.Вставить("НомерСеанса", НомерСеансаИнформационнойБазы());
+	ПараметрыСтартаСеанса.Вставить("ЯзыкСинтаксисаКонфигурации", UT_CodeEditorServer.ЯзыкСинтаксисаКонфигурации());
 
-	Return SessionStartParameters;
-EndFunction
+	Возврат ПараметрыСтартаСеанса;
+КонецФункции
 
 // Sets the bold font for form group titles so they are correctly displayed in the 8.2 interface.2.
 // In the Taxi interface, group titles with standard highlight and without one are displayed in large font.
@@ -69,89 +69,90 @@ Function DefaultLanguageCode() Export
 EndFunction
 
 // See. StandardSubsystemsCached.RefsByPredefinedItemsNames
-Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
+Function RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
 
 	Return UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
 
 EndFunction
 
-Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False) Export
+Функция ObjectAttributesValues(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
 
-	Return UT_Common.ObjectAttributesValues(Ref, Attributes, SelectAllowedItems);
+	Return UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
 
-EndFunction
+КонецФункции
 
-// Returns attribute values retrieved from the infobase using the object reference.
+// Значение реквизита, прочитанного из информационной базы по ссылке на объект.
 //
-// To read attribute values regardless of current user rights, enable privileged mode.
+// Если необходимо зачитать реквизит независимо от прав текущего пользователя,
+// то следует использовать предварительный переход в привилегированный режим.
 //
-// Parameters:
-//  Ref - AnyRef - the object whose attribute values will be read.
-//            - String - full name of the predefined item whose attribute values will be read.
-//  AttributeName - String - the name of the attribute.
-//  SelectAllowedItems - Boolean - if True, user rights are considered when executing the object query.
-//                                If a record-level restriction is set, return Undefined.
-//                                if the user has no rights to access the table, an exception is raised.
-//                                if False, an exception is raised if the user has no rights to 
-//                                access the table or any attribute.
+// Параметры:
+//  Ссылка    - ЛюбаяСсылка - объект, значения реквизитов которого необходимо получить.
+//            - Строка      - полное имя предопределенного элемента, значения реквизитов которого необходимо получить.
+//  ИмяРеквизита       - Строка - имя получаемого реквизита.
+//  ВыбратьРазрешенные - Булево - если Истина, то запрос к объекту выполняется с учетом прав пользователя, и в случае,
+//                                    - если есть ограничение на уровне записей, то возвращается Неопределено;
+//                                    - если нет прав для работы с таблицей, то возникнет исключение.
+//                              - если Ложь, то возникнет исключение при отсутствии прав на таблицу
+//                                или любой из реквизитов.
 //
-// Returns:
-//  Arbitrary - depends on the type of the read atrribute value.
-//               - if a blank reference is passed to Ref, return Undefined.
-//               - if a reference to a nonexisting object (invalid reference) is passed to Ref, 
-//                 return Undefined.
+// Возвращаемое значение:
+//  Произвольный - зависит от типа значения прочитанного реквизита.
+//               - если в параметр Ссылка передана пустая ссылка, то возвращается Неопределено.
+//               - если в параметр Ссылка передана ссылка несуществующего объекта (битая ссылка), 
+//                 то возвращается Неопределено.
 //
-Function ObjectAttributeValue(Ref, AttributeName, SelectAllowedItems = False) Export
+Функция ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
 
-	Return UT_Common.ObjectAttributeValue(Ref, AttributeName, SelectAllowedItems);
+	Возврат UT_Common.ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные);
 
-EndFunction
+КонецФункции
 
-Function StoredIBUserPasswordData(Username) Export
-	Return UT_Users.StoredIBUserPasswordData(Username);
-EndFunction
+Функция ДанныеСохраненногоПароляПользователяИБ(ИмяПользователя) Экспорт
+	Возврат UT_Users.StoredIBUserPasswordData(ИмяПользователя);
+КонецФункции
 
-Procedure SetIBUserPassword(Username, Password) Export
-	UT_Users.SetIBUserPassword(Username, Password);
-EndProcedure
+Процедура УстановитьПарольПользователюИБ(ИмяПользователя, Пароль) Экспорт
+	UT_Users.SetIBUserPassword(ИмяПользователя, Пароль);
+КонецПроцедуры
 
-Procedure RestoreUserDataAfterUserSessionStart(UserName,
-	StoredIBUserPasswordData) Export
-	UT_Users.RestoreUserDataAfterUserSessionStart(UserName,
-		StoredIBUserPasswordData);
-EndProcedure
+Процедура ВосстановитьДанныеПользователяПослеЗапускаСеансаПодПользователем(ИмяПользователя,
+	ДанныеСохраненногоПароляПользователяИБ) Экспорт
+	UT_Users.RestoreUserDataAfterUserSessionStart(ИмяПользователя,
+		ДанныеСохраненногоПароляПользователяИБ);
+КонецПроцедуры
 
-Procedure AddObjectsArrayToCompare(Objects) Export
-	UT_Common.AddObjectsArrayToCompare(Objects);
-EndProcedure
+Процедура AddObjectsArrayToCompare(Объекты) Экспорт
+	UT_Common.AddObjectsArrayToCompare(Объекты);
+КонецПроцедуры
 
-Procedure UploadObjectsToXMLonServer(ObjectsArray, FileAdressInTempStorage, FormID=Undefined) Export
-	UploadingDataProcessor = Обработки.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами.Создать();
-	UploadingDataProcessor.Инициализация();
-	UploadingDataProcessor.ВыгружатьСДокументомЕгоДвижения=Истина;
-	UploadingDataProcessor.ИспользоватьФорматFastInfoSet=Ложь;
+Процедура ВыгрузитьОбъектыВXMLНаСервере(МассивОбъектов, АдресФайлаВоВременномХранилище, ИдентфикаторФормы=Неопределено) Экспорт
+	ОбработкаВыгрузки= Обработки.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами.Создать();
+	ОбработкаВыгрузки.Инициализация();
+	ОбработкаВыгрузки.ВыгружатьСДокументомЕгоДвижения=Истина;
+	ОбработкаВыгрузки.ИспользоватьФорматFastInfoSet=Ложь;
 	
-	For Each CurrentObject In ObjectsArray Do
-		NR=UploadingDataProcessor.ДополнительныеОбъектыДляВыгрузки.Add();
-		NR.Объект=CurrentObject;
-		NR.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(CurrentObject);
-	EndDo;
+	Для Каждого ТекОбъект Из МассивОбъектов Цикл
+		НС=ОбработкаВыгрузки.ДополнительныеОбъектыДляВыгрузки.Добавить();
+		НС.Объект=ТекОбъект;
+		НС.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(ТекОбъект);
+	КонецЦикла;
 		
-	TempFileName = GetTempFileName(".xml");
+	ИмяВременногоФайла = ПолучитьИмяВременногоФайла(".xml");
 	
-	UploadingDataProcessor.ВыполнитьВыгрузку(TempFileName, , New ValueTable);
+	ОбработкаВыгрузки.ВыполнитьВыгрузку(ИмяВременногоФайла, , Новый ТаблицаЗначений);
 		
-	File = New File(TempFileName);
+	Файл = Новый Файл(ИмяВременногоФайла);
 
-	If File.Exist() Then
+	Если Файл.Существует() Тогда
 
-		BinaryData = New BinaryData(TempFileName);
-		FileAdressInTempStorage = PutToTempStorage(BinaryData, FormID);
-		DeleteFiles(TempFileName);
+		ДвоичныеДанные = Новый ДвоичныеДанные(ИмяВременногоФайла);
+		АдресФайлаВоВременномХранилище = ПоместитьВоВременноеХранилище(ДвоичныеДанные, ИдентфикаторФормы);
+		УдалитьФайлы(ИмяВременногоФайла);
 
-	EndIf;
+	КонецЕсли;
 	
-EndProcedure
+КонецПроцедуры
 
 // Convert (serializes) any value to XML-string.
 // Converted to may be only those objects for which the syntax helper indicate that they are serialized.
@@ -172,341 +173,337 @@ Function ValueToXMLString(Value) Export
 	Return XMLWriter.Close();
 EndFunction
 
-// Converts (deserializes) an XML string into a value.
-// See also ValueToXMLString.
+// Выполняет преобразование (десериализацию) XML-строки в значение.
+// См. также ValueToXMLString.
 //
-// Parameters:
-//  XMLString - String - an XML string with a serialized object.
+// Параметры:
+//  СтрокаXML - Строка - XML-строка, с сериализованным объектом..
 //
-// Returns:
-//  Arbitrary - the value extracted from an XML string.
+// Возвращаемое значение:
+//  Произвольный - значение, полученное из переданной XML-строки.
 //
-Function ValueFromXMLString(XMLString, Type = Undefined) Export
+Функция ValueFromXMLString(СтрокаXML, Тип = Неопределено) Экспорт
 
-	XMLReader = New XMLReader;
-	XMLReader.SetString(XMLString);
+	ЧтениеXML = Новый ЧтениеXML;
+	ЧтениеXML.УстановитьСтроку(СтрокаXML);
 
-	If Type = Undefined Then
-		Return XDTOSerializer.ReadXML(XMLReader);
-	Else
-		Return XDTOSerializer.ReadXML(XMLReader, Type);
-	EndIf;
-EndFunction
+	Если Тип = Неопределено Тогда
+		Возврат СериализаторXDTO.ПрочитатьXML(ЧтениеXML);
+	Иначе
+		Возврат СериализаторXDTO.ПрочитатьXML(ЧтениеXML, Тип);
+	КонецЕсли;
+КонецФункции
 
-Function ConfigurationMetadataDescriptionAdress() Export
-	Возврат UT_Common.ConfigurationMetadataDescriptionAdress();
-EndFunction
+Функция АдресОписанияМетаданныхКонфигурации() Экспорт
+	Возврат UT_Common.АдресОписанияМетаданныхКонфигурации();
+КонецФункции
 
 #Region JSON
 
 Function mReadJSON(Value) Export
 	Return UT_CommonClientServer.mReadJSON(Value);
-EndFunction // ReadJSON()
+EndFunction // ПрочитатьJSON()
 
 Function mWriteJSON(DataStructure) Export
 	Return UT_CommonClientServer.mWriteJSON(DataStructure);
 EndFunction // WriteJSON(
-#EndRegion
+#КонецОбласти
 
-#Region SettingsStorage
+
+
+#Область ХранилищеНастроек
 
 ////////////////////////////////////////////////////////////////////////////////
+// Сохранение, чтение и удаление настроек из хранилищ.
 
-// Saving, reading, and deleting settings from storages.
-
-// Saves a setting to the common settings storage as the Save method of 
-// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
-// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
-// 
-// If the SaveUserData right is not granted, data save fails and no error is raised.
+// Сохраняет настройку в хранилище общих настроек, как метод платформы Сохранить,
+// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
+// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
+// которая превышает 96 символов.
+// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
 //
-// Parameters:
-//   ObjectKey - String - see the Syntax Assistant.
-//   SettingsKey - String - see the Syntax Assistant.
-//   Settings - Arbitrary - see the Syntax Assistant.
-//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
-//   UserName - String - see the Syntax Assistant.
-//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
-
-Procedure CommonSettingsStorageSave(ObjectKey, SettingsKey, Settings,
-			SettingsDetails = Undefined,
-			Username = Undefined,
-			UpdateCachedValues = False) Export
-
-	UT_Common.CommonSettingsStorageSave(ObjectKey, SettingsKey, Settings,SettingsDetails,Username,UpdateCachedValues = False);
-
-EndProcedure
-
-// Saves settings to the common settings storage as the Save method of 
-// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
-// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
-// 
-// If the SaveUserData right is not granted, data save fails and no error is raised.
-// 
-// Parameters:
-//   MultipleSettings - Array of the following values:
-//     * Value - Structure - with the following properties:
-//         * Object - String - see the ObjectKey parameter in the Syntax Assistant.
-//         * Setting - String - see the SettingsKey parameter in the Syntax Assistant.
-//         * Value - Arbitrary - see the Settings parameter in the Syntax Assistant.
+// Параметры:
+//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
+//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
+//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
+//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
+//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
+//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
 //
-//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
-//
+Процедура CommonSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
+	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
-Procedure CommonSettingsStorageSaveArray(MultipleSettings, UpdateCachedValues = False) Export
+	UT_Common.CommonSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
+		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
+
+КонецПроцедуры
+
+// Сохраняет несколько настроек в хранилище общих настроек, как метод платформы Сохранить,
+// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
+// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
+// которая превышает 96 символов.
+// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
+// 
+// Параметры:
+//   НесколькоНастроек - Массив - со значениями:
+//     * Значение - Структура - со свойствами:
+//         * Объект    - Строка       - см. параметр КлючОбъекта  в синтакс-помощнике платформы.
+//         * Настройка - Строка       - см. параметр КлючНастроек в синтакс-помощнике платформы.
+//         * Значение  - Произвольный - см. параметр Настройки    в синтакс-помощнике платформы.
+//
+//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
+//
+Процедура CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 	
-	UT_Common.CommonSettingsStorageSaveArray(MultipleSettings, UpdateCachedValues);
+	UT_Common.CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
 
-EndProcedure
+КонецПроцедуры
 
-// Loads a setting from the general settings storage as the Load method, 
-// StandardSettingsStorageManager objects, or SettingsStorageManager.<Storage name>. The setting key 
-// supports more than 128 characters by hashing the part that exceeds 96 characters.
-// 
-// If no settings are found, returns the default value.
-// If the SaveUserData right is not granted, the default value is returned and no error is raised.
+// Загружает настройку из хранилища общих настроек, как метод платформы Загрузить,
+// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
+// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
+// которая превышает 96 символов.
+// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
+// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
 //
-// References to database objects that do not exist are cleared from the return value:
-// - The returned reference is replaced by the default value.
-// - The references are deleted from the data of Array type.
-// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
-// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
+// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно
+// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
+// - из данных типа Массив ссылки удаляются;
+// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
+// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
 //
-// Parameters:
-//   ObjectKey - String - see the Syntax Assistant.
-//   SettingsKey - String - see the Syntax Assistant.
-//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
-//                                             If not specified, returns Undefined.
-//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
-//   UserName - String - see the Syntax Assistant.
+// Параметры:
+//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
+//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
+//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
+//                                             Если не указано, возвращается значение Неопределено.
+//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
+//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
 //
-// Returns:
-//   Arbitrary - see the Syntax Assistant.
+// Возвращаемое значение: 
+//   Произвольный - см. синтакс-помощник платформы.
 //
-Function CommonSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
-			SettingsDetails = Undefined, Username = Undefined) Export
-	Return UT_Common.CommonSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue, 
-			SettingsDetails, Username)
+Функция CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
+	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
+	Возврат UT_Common.CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
+		ОписаниеНастроек, ИмяПользователя)
 
-EndFunction
+КонецФункции
 
-// Removes a setting from the general settings storage as the Remove method, 
-// StandardSettingsStorageManager objects, or SettingsStorageManager.<Storage name>. The setting key 
-// supports more than 128 characters by hashing the part that exceeds 96 characters.
-// 
-// If the SaveUserData right is not granted, no data is deleted and no error is raised.
+// Удаляет настройку из хранилища общих настроек, как метод платформы Удалить,
+// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
+// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
+// которая превышает 96 символов.
+// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
 //
-// Parameters:
-//   ObjectKey - String, Undefined - see the Syntax Assistant.
-//   SettingsKey - String, Undefined - see the Syntax Assistant.
-//   UserName - String, Undefined - see the Syntax Assistant.
+// Параметры:
+//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
+//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
+//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
 //
-Procedure CommonSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+Процедура CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
 
-	UT_Common.CommonSettingsStorageDelete(ObjectKey, SettingsKey, Username);
+	UT_Common.CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
 
-EndProcedure
+КонецПроцедуры
 
-/// Saves a setting to the system settings storage as the Save method of 
-// StandardSettingsStorageManager object. Setting keys exceeding 128 characters are supported by 
-// hashing the key part that exceeds 96 characters.
-// If the SaveUserData right is not granted, data save fails and no error is raised.
+// Сохраняет настройку в хранилище системных настроек, как метод платформы Сохранить
+// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
+// более 128 символов путем хеширования части, которая превышает 96 символов.
+// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
 //
-// Parameters:
-//   ObjectKey - String - see the Syntax Assistant.
-//   SettingsKey - String - see the Syntax Assistant.
-//   Settings - Arbitrary - see the Syntax Assistant.
-//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
-//   UserName - String - see the Syntax Assistant.
-//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
+// Параметры:
+//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
+//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
+//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
+//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
+//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
+//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
 //
-Procedure SystemSettingsStorageSave(ObjectKey, SettingsKey, Settings,
-			SettingsDetails = Undefined,
-			Username = Undefined,
-			UpdateCachedValues = False) Export
+Процедура SystemSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
+	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
-	UT_Common.SystemSettingsStorageSave(ObjectKey, SettingsKey, Settings,
-			SettingsDetails,Username,UpdateCachedValues);
+	UT_Common.SystemSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
+		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
 
-EndProcedure
+КонецПроцедуры
 
-
-// Loads a setting from the system settings storage as the Load method or the 
-// StandardSettingsStorageManager object. The setting key supports more than 128 characters by 
-// hashing the part that exceeds 96 characters.
-// If no settings are found, returns the default value.
-// If the SaveUserData right is not granted, the default value is returned and no error is raised.
+// Загружает настройку из хранилища системных настроек, как метод платформы Загрузить,
+// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
+// более 128 символов путем хеширования части, которая превышает 96 символов.
+// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
+// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
 //
-// The return value clears references to a non-existent object in the database, namely:
-// - The returned reference is replaced by the default value.
-// - The references are deleted from the data of Array type.
-// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
-// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
+// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно:
+// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
+// - из данных типа Массив ссылки удаляются;
+// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
+// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
 //
-// Parameters:
-//   ObjectKey - String - see the Syntax Assistant.
-//   SettingsKey - String - see the Syntax Assistant.
-//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
-//                                             If not specified, returns Undefined.
-//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
-//   UserName - String - see the Syntax Assistant.
+// Параметры:
+//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
+//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
+//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
+//                                             Если не указано, возвращается значение Неопределено.
+//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
+//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
 //
-// Returns:
-//   Arbitrary - see the Syntax Assistant.
+// Возвращаемое значение: 
+//   Произвольный - см. синтакс-помощник платформы.
 //
-Function SystemSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
-			SettingsDetails = Undefined, Username = Undefined) Export
+Функция SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
+	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 
-	Return UT_Common.SystemSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue, 
-			SettingsDetails , Username );
+	Возврат UT_Common.SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
+		ОписаниеНастроек, ИмяПользователя);
 
-EndFunction
+КонецФункции
 
-// Removes a setting from the system settings storage as the Remove method or the 
-// StandardSettingsStorageManager object. The setting key supports more than 128 characters by 
-// hashing the part that exceeds 96 characters.
-// If the SaveUserData right is not granted, no data is deleted and no error is raised.
+// Удаляет настройку из хранилища системных настроек, как метод платформы Удалить,
+// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
+// более 128 символов путем хеширования части, которая превышает 96 символов.
+// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
 //
-// Parameters:
-//   ObjectKey - String, Undefined - see the Syntax Assistant.
-//   SettingsKey - String, Undefined - see the Syntax Assistant.
-//   UserName - String, Undefined - see the Syntax Assistant.
+// Параметры:
+//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
+//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
+//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
 //
-Procedure SystemSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+Процедура SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
 
-	UT_Common.SystemSettingsStorageDelete(ObjectKey, SettingsKey, Username);
+	UT_Common.SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
 
-EndProcedure
+КонецПроцедуры
 
-// Saves a setting to the form data settings storage as the Save method of 
-// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
-// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
-// 
-// If the SaveUserData right is not granted, data save fails and no error is raised.
+// Сохраняет настройку в хранилище настроек данных форм, как метод платформы Сохранить,
+// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
+// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
+// которая превышает 96 символов.
+// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
 //
-// Parameters:
-//   ObjectKey - String - see the Syntax Assistant.
-//   SettingsKey - String - see the Syntax Assistant.
-//   Settings - Arbitrary - see the Syntax Assistant.
-//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
-//   UserName - String - see the Syntax Assistant.
-//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
+// Параметры:
+//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
+//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
+//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
+//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
+//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
+//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
 //
-Procedure FormDataSettingsStorageSave(ObjectKey, SettingsKey, Settings,
-			SettingsDetails = Undefined,Username = Undefined, 
-			UpdateCachedValues = False) Export
+Процедура FormDataSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
+	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
-	UT_Common.FormDataSettingsStorageSave(ObjectKey, SettingsKey, Settings, SettingsDetails,
-		Username, UpdateCachedValues);
+	UT_Common.FormDataSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
+		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
 
-EndProcedure
+КонецПроцедуры
 
-// Retrieves the setting from the form data settings storage using the Load method for 
-// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> objects. Setting keys 
-// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
-// 
-// If no settings are found, returns the default value.
-// If the SaveUserData right is not granted, the default value is returned and no error is raised.
+// Загружает настройку из хранилища настроек данных форм, как метод платформы Загрузить,
+// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
+// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
+// которая превышает 96 символов.
+// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
+// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
 //
-// References to database objects that do not exist are cleared from the return value:
-// - The returned reference is replaced by the default value.
-// - The references are deleted from the data of Array type.
-// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
-// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
+// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно
+// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
+// - из данных типа Массив ссылки удаляются;
+// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
+// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
 //
-// Parameters:
-//   ObjectKey - String - see the Syntax Assistant.
-//   SettingsKey - String - see the Syntax Assistant.
-//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
-//                                             If not specified, returns Undefined.
-//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
-//   UserName - String - see the Syntax Assistant.
+// Параметры:
+//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
+//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
+//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
+//                                             Если не указано, возвращается значение Неопределено.
+//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
+//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
 //
-// Returns:
-//   Arbitrary - see the Syntax Assistant.
+// Возвращаемое значение: 
+//   Произвольный - см. синтакс-помощник платформы.
 //
-Function FormDataSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
-			SettingsDetails = Undefined, Username = Undefined) Export
+Функция FormDataSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
+	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 
-	Return UT_Common.FormDataSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue,
-		SettingsDetails, Username);
+	Возврат UT_Common.FormDataSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
+		ОписаниеНастроек, ИмяПользователя);
 
-EndFunction
+КонецФункции
 
-// Deletes the setting from the form data settings storage using the Delete method for 
-// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> objects. Setting keys 
-// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
-// 
-// If the SaveUserData right is not granted, no data is deleted and no error is raised.
+// Удаляет настройку из хранилища настроек данных форм, как метод платформы Удалить,
+// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
+// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
+// которая превышает 96 символов.
+// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
 //
-// Parameters:
-//   ObjectKey - String, Undefined - see the Syntax Assistant.
-//   SettingsKey - String, Undefined - see the Syntax Assistant.
-//   UserName - String, Undefined - see the Syntax Assistant.
+// Параметры:
+//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
+//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
+//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
 //
-Procedure FormDataSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
-	UT_Common.FormDataSettingsStorageDelete(ObjectKey, SettingsKey, Username);
-EndProcedure
+Процедура FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
 
-#EndRegion
+	UT_Common.FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
 
-#Region Algorithms
+КонецПроцедуры
 
-Function GetRefCatalogAlgorithms(Algorithm) Export
-	Return UT_Common.GetRefCatalogAlgorithms(Algorithm);
-EndFunction
+#КонецОбласти
 
-Function ExecuteAlgorithm(AlgorithmRef, IncomingParameters = Undefined, ExecutionError = False,
-	ErrorMessage = "") Export
-	Return UT_Common.ExecuteAlgorithm(AlgorithmRef, IncomingParameters, ExecutionError,
-		ErrorMessage);
-EndFunction
+#Область Алгоритмы
 
-#EndRegion
+Функция GetRefCatalogAlgorithms(Алгоритм) Экспорт
+	Возврат UT_Common.GetRefCatalogAlgorithms(Алгоритм);
+КонецФункции
 
-#Region Debug
+Функция ExecuteAlgorithm(АлгоритмСсылка, ВходящиеПараметры = Неопределено, ОшибкаВыполнения = Ложь,
+	СообщениеОбОшибке = "") Экспорт
+	Возврат UT_Common.ExecuteAlgorithm(АлгоритмСсылка, ВходящиеПараметры, ОшибкаВыполнения,
+		СообщениеОбОшибке);
+КонецФункции
 
-Function SaveDebuggingDataToCatalog(DebuggingObjectType, DebuggingData) Export
-	SettingsKey=DebuggingObjectType + "/" + UserName() + "/" + Format(CurrentDate(), "DF=yyyyMMddHHmmss;");
-	DebuggingDataObjectData=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
+#КонецОбласти
 
-	UT_Common.SystemSettingsStorageSave(DebuggingDataObjectData, SettingsKey, DebuggingData);
+#Область Отладка
 
-	Return "Data Saved successfully. Settings Key " + SettingsKey;
-EndFunction
+Функция SaveDebuggingDataToStorage(ТипОбъектаОтладки, ДанныеДляОтладки) Экспорт
+	КлючНастроек=ТипОбъектаОтладки + "/" + ИмяПользователя() + "/" + Формат(ТекущаяДата(), "ДФ=yyyyMMddHHmmss;");
+	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 
-Function DebuggingObjectDataStructureFromDebugDataCatalog(DataPath) Export
-	Result = New Structure;
-	Result.Insert("DebuggingObjectType", DataPath.DebuggingObjectType);
-	Result.Insert("DebuggingObjectAddress", PutToTempStorage(
-		DataPath.DebuggingObjectStorage.Get()));
+	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
 
-	Return Result;
-EndFunction
+	Возврат "Запись выполнена успешно. Ключ настроек " + КлючНастроек;
+КонецФункции
 
-Function DebuggingObjectDataStructureFromSystemSettingsStorage(SettingsKey, FormID=Undefined) Export
-	
-	DebuggingDataObjectKey=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
-	DebugSettings=UT_Common.SystemSettingsStorageLoad(DebuggingDataObjectKey, SettingsKey);
+Функция СтруктураДанныхОбъектаОтладкиИзСправочникаДанныхОтладки(СсылкаНаДанные) Экспорт
+	Результат = Новый Структура;
+	Результат.Вставить("ТипОбъектаОтладки", СсылкаНаДанные.ТипОбъектаОтладки);
+	Результат.Вставить("АдресОбъектаОтладки", ПоместитьВоВременноеХранилище(
+		СсылкаНаДанные.ХранилищеОбъектаОтладки.Получить()));
 
-	If DebugSettings = Undefined Then
-		Return Undefined;
-	EndIf;
+	Возврат Результат;
+КонецФункции
 
-	KeySubstringsArray=StrSplit(SettingsKey, "/");
+Функция СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек(КлючНастроек, ИдентификаторФормы=Неопределено) Экспорт
+	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
+	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
 
-	If FormID=Undefined Then
-		DebuggingObjectAddress=PutToTempStorage(DebugSettings);
-	Else
-		DebuggingObjectAddress=PutToTempStorage(DebugSettings, FormID);
-	EndIf;
+	Если НастройкиОтладки = Неопределено Тогда
+		Возврат Неопределено;
+	КонецЕсли;
 
-	Result = New Structure;
-	Result.Insert("DebuggingObjectType", KeySubstringsArray[0]);
-	Result.Insert("DebuggingObjectAddress", DebuggingObjectAddress);
+	МассивПодСтрокКлюча=СтрРазделить(КлючНастроек, "/");
 
-	Return Result;
-EndFunction
+	Если ИдентификаторФормы=Неопределено Тогда
+		АдресОбъектаОтладки=ПоместитьВоВременноеХранилище(НастройкиОтладки);
+	Иначе
+		АдресОбъектаОтладки=ПоместитьВоВременноеХранилище(НастройкиОтладки, ИдентификаторФормы);
+	КонецЕсли;
+
+	Результат = Новый Структура;
+	Результат.Вставить("ТипОбъектаОтладки", МассивПодСтрокКлюча[0]);
+	Результат.Вставить("АдресОбъектаОтладки", АдресОбъектаОтладки);
+
+	Возврат Результат;
+КонецФункции
 
 Function SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets) Export
 	ObjectStructure = New Structure;
@@ -550,7 +547,7 @@ Function SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets) Export
 
 EndFunction
 
-Function TempTablesManagerTempTablesStructure(TempTablesManager) Export
+Function TempTablesManagerTempTablesStructure(TempTablesManager) Экспорт
 	TempTablesStructure = New Structure;
 	For each TempTable In TempTablesManager.Tables Do
 		TempTablesStructure.Insert(TempTable.FullName, TempTable.GetData().Unload());
@@ -560,111 +557,111 @@ Function TempTablesManagerTempTablesStructure(TempTablesManager) Export
 EndFunction
 
 //https://infostart.ru/public/1207287/
-Function ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable, ListOfComparisonColumns) Export
-	ColumsList = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(ListOfComparisonColumns, ",", True);
-	//The resulting table
-	TempTable = New ValueTable;
-	For Each Colum In ColumsList Do
-		TempTable.Columns.Add(Colum);
-		TempTable.Columns.Add(Colum + "Comparison");
-	EndDo;
-	TempTable.Columns.Add("NumberOfRow");
-	TempTable.Columns.Add("NumberOfRow" + "Comparison");
+Функция ВыполнитьСравнениеДвухТаблицЗначений(ТаблицаБазовая, ТаблицаСравнения, СписокКолонокСравнения) Экспорт
+	СписокКолонок = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(СписокКолонокСравнения, ",", Истина);
+	//Результирующая таблица
+	ВременнаяТаблица = Новый ТаблицаЗначений;
+	Для Каждого Колонка Из СписокКолонок Цикл
+		ВременнаяТаблица.Колонки.Добавить(Колонка);
+		ВременнаяТаблица.Колонки.Добавить(Колонка + "Сравнение");
+	КонецЦикла;
+	ВременнаяТаблица.Колонки.Добавить("НомерСтр");
+	ВременнаяТаблица.Колонки.Добавить("НомерСтр" + "Сравнение");
 	//---------
-	ComparableTable = ComparisonTable.Copy();
-	ComparableTable.Columns.Add("AlreadyUsing", New TypeDescription("Boolean"));
+	СравниваемаяТаблица = ТаблицаСравнения.Скопировать();
+	СравниваемаяТаблица.Колонки.Добавить("УжеИспользуем", Новый ОписаниеТипов("Булево"));
 
-	For Each Row In BaseTable Do
-		NewRow = TempTable.Add();
-		FillPropertyValues(NewRow, Row);
-		NewRow.NumberOfRow = Row.RowNumber;
-		//forming a structure for searching by a given mapping
-		SearchStringsFilter = New Structure("AlreadyUsing", False);
-		For Each Colum In ColumsList Do
-			SearchStringsFilter.Insert(Colum, Row[Colum]);
-		EndDo;
+	Для Каждого Строка Из ТаблицаБазовая Цикл
+		НоваяСтрока = ВременнаяТаблица.Добавить();
+		ЗаполнитьЗначенияСвойств(НоваяСтрока, Строка);
+		НоваяСтрока.НомерСтр = Строка.НомерСтроки;
+		//формируем структуру для поиска по заданному сопоставлению
+		ОтборДляПоискаСтрок = Новый Структура("УжеИспользуем", Ложь);
+		Для Каждого Колонка Из СписокКолонок Цикл
+			ОтборДляПоискаСтрок.Вставить(Колонка, Строка[Колонка]);
+		КонецЦикла;
 
-		FindRows = ComparableTable.FindRows(SearchStringsFilter);
-		If FindRows.Count() > 0 Then
-			ComparsionString = FindRows[0];
-			NewRow.NumberOfRowComparison = ComparsionString.RowNumber;
-			For Each Colum In ColumsList Do
-				Attribute = Colum + "Comparison";
-				NewRow[Attribute] = ComparsionString[Colum];
-			EndDo;
-			ComparsionString.AlreadyUsing = True;
-		EndIf;
-	EndDo;
-	//See what's left +++
-	SearchStringFilter = New Structure("AlreadyUsing", False);
-	FindRows = ComparableTable.FindRows(SearchStringFilter);
-	For Each Row In FindRows Do
-		NewRow = TempTable.Add();
-		NewRow.NumberOfRowComparsion = Row.RowNumber;
-		For Each Colum In ColumsList Do
-			Attribute = Colum + "Comparison";
-			NewRow[Attribute] = Row[Colum];
-		EndDo;
-	EndDo;
-	//We check what happened
-	TablesIdentical = True;
-	For Each Row In TempTable Do
-		For Each Colum In ColumsList Do
-			If (Not ValueIsFilled(Row[Colum])) Or (Not ValueIsFilled(Row[Colum + "Comparison"])) Then
-				TablesIdentical = False;
-				Break;
-			EndIf;
-		EndDo;
-		If Not TablesIdentical Then
-			Break;
-		EndIf;
-	EndDo;
+		НайдемСтроки = СравниваемаяТаблица.НайтиСтроки(ОтборДляПоискаСтрок);
+		Если НайдемСтроки.Количество() > 0 Тогда
+			СтрокаСопоставления = НайдемСтроки[0];
+			НоваяСтрока.НомерСтрСравнение = СтрокаСопоставления.НомерСтроки;
+			Для Каждого Колонка Из СписокКолонок Цикл
+				Реквизит = Колонка + "Сравнение";
+				НоваяСтрока[Реквизит] = СтрокаСопоставления[Колонка];
+			КонецЦикла;
+			СтрокаСопоставления.УжеИспользуем = Истина;
+		КонецЕсли;
+	КонецЦикла;
+	//Смотрим что осталось +++
+	ОтборДляПоискаСтрок = Новый Структура("УжеИспользуем", Ложь);
+	НайдемСтроки = СравниваемаяТаблица.НайтиСтроки(ОтборДляПоискаСтрок);
+	Для Каждого Строка Из НайдемСтроки Цикл
+		НоваяСтрока = ВременнаяТаблица.Добавить();
+		НоваяСтрока.НомерСтрСравнение = Строка.НомерСтроки;
+		Для Каждого Колонка Из СписокКолонок Цикл
+			Реквизит = Колонка + "Сравнение";
+			НоваяСтрока[Реквизит] = Строка[Колонка];
+		КонецЦикла;
+	КонецЦикла;
+	//Проверяем что получилось
+	ТаблицыИдентичны = Истина;
+	Для Каждого Строка Из ВременнаяТаблица Цикл
+		Для Каждого Колонка Из СписокКолонок Цикл
+			Если (Не ЗначениеЗаполнено(Строка[Колонка])) Или (Не ЗначениеЗаполнено(Строка[Колонка + "Сравнение"])) Тогда
+				ТаблицыИдентичны = Ложь;
+				Прервать;
+			КонецЕсли;
+		КонецЦикла;
+		Если Не ТаблицыИдентичны Тогда
+			Прервать;
+		КонецЕсли;
+	КонецЦикла;
 
-	Return New Structure("IdenticalTables,DifferencesTable", TablesIdentical, TempTable);
-EndFunction
+	Возврат Новый Структура("ИдентичныеТаблицы,ТаблицаРасхождений", ТаблицыИдентичны, ВременнаяТаблица);
+КонецФункции
 
-#EndRegion
+#КонецОбласти
 
-#Region ConsolesDataSaveRead
+#Область СохранениеЧтениеДанныхКонсолей
 
-Function ConsolePreparedDataForFileWriting(ConsoleName, FileName, SaveDataPath,
-	SavingFileDescriptionStructure) Export
-	File=Новый File(FileName);
+Функция ПодготовленныеДанныеКонсолиДляЗаписиВФайл(ИмяКонсоли, ИмяФайла, АдресДанныхСохранения,
+	СтруктураОписанияСохраняемогоФайла) Экспорт
+	Файл=Новый Файл(ИмяФайла);
 
-	If  IsTempStorageURL(SaveDataPath) Then
-		SaveData=GetFromTempStorage(SaveDataPath);
-	Else
-		SaveData=SaveDataPath;
-	EndIf;
+	Если ЭтоАдресВременногоХранилища(АдресДанныхСохранения) Тогда
+		ДанныеСохранения=ПолучитьИзВременногоХранилища(АдресДанныхСохранения);
+	Иначе
+		ДанныеСохранения=АдресДанныхСохранения;
+	КонецЕсли;
 
-	If Upper(ConsoleName) = "HTTPREQUESTCONSOLE" Then
-		ConsoleManager=DataProcessors.UT_HttpRequestConsole;
-	Else
-		ConsoleManager=Undefined;
-	EndIf;
+	Если ВРег(ИмяКонсоли) = "КОНСОЛЬHTTPЗАПРОСОВ" Тогда
+		МенеджерКонсоли=Обработки.УИ_КонсольHTTPЗапросов;
+	Иначе
+		МенеджерКонсоли=Неопределено;
+	КонецЕсли;
 
-	If ConsoleManager = Undefined Then
-		Если TypeOf(SaveData) = Type("String") Then
-			NewSaveData=SaveData;
-		Else
-			NewSaveData=ValueToStringInternal(SaveData);
-		EndIf;
-	Else
-		Try
-			NewSaveData=ConsoleManager.SerializedSaveData(File.Extension, SaveData);
-		Except
-			NewSaveData=ValueToStringInternal(SaveData);
-		EndTry;
-	EndIf;
+	Если МенеджерКонсоли = Неопределено Тогда
+		Если ТипЗнч(ДанныеСохранения) = Тип("Строка") Тогда
+			НовыеДанныеСохранения=ДанныеСохранения;
+		Иначе
+			НовыеДанныеСохранения=ЗначениеВСтрокуВнутр(ДанныеСохранения);
+		КонецЕсли;
+	Иначе
+		Попытка
+			НовыеДанныеСохранения=МенеджерКонсоли.СериализованныеДанныеСохранения(Файл.Расширение, ДанныеСохранения);
+		Исключение
+			НовыеДанныеСохранения=ЗначениеВСтрокуВнутр(ДанныеСохранения);
+		КонецПопытки;
+	КонецЕсли;
 
-	Stream=New MemoryStream;
-	TextWriter=New DataWriter(Stream);
-	TextWriter.WriteLine(NewSaveData);
+	Поток=Новый ПотокВПамяти;
+	ЗаписьТекста=Новый ЗаписьДанных(Поток);
+	ЗаписьТекста.ЗаписатьСтроку(НовыеДанныеСохранения);
 
-	Return PutToTempStorage(Stream.CloseAndGetBinaryData());
+	Возврат ПоместитьВоВременноеХранилище(Поток.ЗакрытьИПолучитьДвоичныеДанные());
 	
-//	Return NewSavingData;	
+//	Возврат НовыеДанныеСохранения;	
 
-EndFunction
+КонецФункции
 
-#EndRegion
+#КонецОбласти

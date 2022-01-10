@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="420d125a-5388-46d1-a2c2-ba1347e3e5fd">
   <name>UT_UniversalTools</name>
@@ -112,3 +113,119 @@
   <subsystems>UT_Support</subsystems>
   <subsystems>UT_Debug</subsystems>
 </mdclass:Subsystem>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="420d125a-5388-46d1-a2c2-ba1347e3e5fd">
+  <name>UT_UniversalTools</name>
+  <synonym>
+    <key>en</key>
+    <value>Universal Tools</value>
+  </synonym>
+  <synonym>
+    <key>ru</key>
+    <value>Инструменты</value>
+  </synonym>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <picture xsi:type="core:PictureRef">
+    <picture>CommonPicture.UT_UniversalToolsSybsystem</picture>
+  </picture>
+  <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
+  <content>DataProcessor.UT_ConstantsEditor</content>
+  <content>DataProcessor.UT_DatabaseStorageStructure</content>
+  <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
+  <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
+  <content>DataProcessor.UT_QueryConsole</content>
+  <content>DataProcessor.UT_JobsConsole</content>
+  <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
+  <content>DataProcessor.UT_CodeConsole</content>
+  <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
+  <content>Catalog.UT_Algorithms</content>
+  <content>DataProcessor.UT_ObjectReferencesSearch</content>
+  <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
+  <content>Report.УИ_КонсольОтчетов</content>
+  <content>DataProcessor.УИ_ДинамическийСписок</content>
+  <content>DataProcessor.УИ_КонсольHTTPЗапросов</content>
+  <content>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</content>
+  <content>CommonPicture.UT_UniversalToolsSybsystem</content>
+  <content>CommonPicture.UT_ExecuteScheduledJobManually</content>
+  <content>CommonPicture.UT_ExchangePlanStates</content>
+  <content>CommonPicture.UI_MetadataObjectsTypes</content>
+  <content>CommonPicture.UT_Information32</content>
+  <content>CommonPicture.UT_QueryResult</content>
+  <content>CommonPicture.UT_UploadingResult</content>
+  <content>CommonPicture.UT_AutoRegistrationStatus</content>
+  <content>CommonPicture.UT_Semaphore</content>
+  <content>CommonPicture.UT_QuestionToDeveloper</content>
+  <content>CommonPicture.UT_Repository</content>
+  <content>CommonPicture.UT_Debug</content>
+  <content>CommonTemplate.UT_StringSearchComponent</content>
+  <content>CommonForm.УИ_ДлительнаяОперация</content>
+  <content>CommonForm.UT_ValueTableForm</content>
+  <content>CommonForm.УИ_ФормаСпецЗначения</content>
+  <content>CommonForm.УИ_ФормаРедактированияТекста</content>
+  <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
+  <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
+  <content>Role.UT_UniversalTools</content>
+  <content>CommonModule.UT_Forms</content>
+  <content>CommonModule.UT_TimeConsumingOperationsServerCall</content>
+  <content>CommonModule.UT_TimeConsumingOperationsGlobal</content>
+  <content>CommonModule.UT_TimeConsumingOperationsClient</content>
+  <content>CommonModule.UT_TimeConsumingOperations</content>
+  <content>CommonModule.UT_ScheduledJobsInternal</content>
+  <content>CommonModule.UT_ScheduledJobsServer</content>
+  <content>CommonModule.UT_CommonCached</content>
+  <content>CommonModule.UT_CommonClientServer</content>
+  <content>CommonModule.UT_CommonServerCall</content>
+  <content>CommonModule.UT_Common</content>
+  <content>CommonModule.UT_CommonClientCached</content>
+  <content>CommonModule.UT_Users</content>
+  <content>CommonModule.UT_StringFunctionsClientServer</content>
+  <content>CommonModule.UT_CommonClient</content>
+  <content>CommonModule.UT_AlgorithmsClientServer</content>
+  <content>CommonModule.UT_HTTPConnector</content>
+  <content>CommonModule.UT_</content>
+  <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
+  <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
+  <content>DataProcessor.УИ_ФайловыйМенеджер</content>
+  <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
+  <content>DataProcessor.УИ_КонсольСравненияДанных</content>
+  <content>DataProcessor.УИ_КонсольВебСервисов</content>
+  <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
+  <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
+  <content>DataProcessor.UT_JSONEditor</content>
+  <content>DataProcessor.UT_HTMLEditor</content>
+  <content>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</content>
+  <content>CommonModule.UT_RegexpsClientServer</content>
+  <content>CommonModule.UT_CodeEditorServer</content>
+  <content>CommonModule.UT_CodeEditorClient</content>
+  <content>CommonForm.UT_WriteSettings</content>
+  <content>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</content>
+  <content>CommonTemplate.UT_RegularExpressionsComponentRegEx</content>
+  <content>CommonTemplate.UT_Ace</content>
+  <content>CommonPicture.UT_Question32</content>
+  <content>CommonPicture.UT_FilesPictogramsCollection48</content>
+  <content>CommonPicture.UT_JSON</content>
+  <content>CommonPicture.UT_FilesPictogramsCollection</content>
+  <content>CommonPicture.UT_DatabaseObjectEditor</content>
+  <content>CommonPicture.UT_Information</content>
+  <content>HTTPService.УИ_ПубликуемыеФункции</content>
+  <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
+  <content>CommonTemplate.UT_ClipboardComponent</content>
+  <content>CommonModule.UT_ClipboardClient</content>
+  <content>DataProcessor.УИ_РедакторСКД</content>
+  <content>CommonPicture.UT_String</content>
+  <content>CommonPicture.UT_Date</content>
+  <content>CommonPicture.UT_Boolean</content>
+  <content>CommonPicture.UT_UUID</content>
+  <content>CommonPicture.UT_Null</content>
+  <content>CommonPicture.UT_СustomType</content>
+  <content>CommonPicture.UT_AccumulationRecordType</content>
+  <content>CommonPicture.UT_Array</content>
+  <content>DataProcessor.УИ_СравнениеОбъектов</content>
+  <content>CommonForm.UT_Settings</content>
+  <content>CommonCommand.UT_Settings</content>
+  <subsystems>UT_Support</subsystems>
+  <subsystems>UT_Debug</subsystems>
+</mdclass:Subsystem>
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
