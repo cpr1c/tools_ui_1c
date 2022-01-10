@@ -11,5 +11,5 @@ Function DataBaseObjectEditorAvalibleObjectsTypes() Export
 EndFunction
 
 Function HTMLFieldBasedOnWebkit() Export
-	return UT_CommonClientServer.HTMLFieldBasedOnWebkit();
+	UT_CommonClientServer.HTMLFieldBasedOnWebkit();
 EndFunction

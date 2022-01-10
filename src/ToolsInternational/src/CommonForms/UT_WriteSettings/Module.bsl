@@ -37,8 +37,21 @@
 
 &НаКлиенте
 Процедура Применить(Команда)
+<<<<<<< HEAD
 	ПроцедураПередЗаписью = UT_CodeEditorClient.ТекстКодаРедактора(ЭтотОбъект, "Редактор");
-	Закрыть(UT_CommonClientServer.FormWriteSettings(ЭтотОбъект, ""));
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	ПроцедураПередЗаписью = UT_CodeEditorClient.EditorCodeText(ЭтотОбъект, "Редактор");
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+	Закрыть(UT_CommonClientServer.ПараметрыЗаписиФормы(ЭтотОбъект, ""));
 КонецПроцедуры
 
 &НаКлиенте
@@ -86,25 +99,25 @@
 //@skip-warning
 &НаКлиенте
 Процедура Подключаемый_ПолеРедактораДокументСформирован(Элемент)
-	UT_CodeEditorClient.ПолеРедактораHTMLДокументСформирован(ЭтотОбъект, Элемент);
+	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ЭтотОбъект, Элемент);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте
 Процедура Подключаемый_ПолеРедактораПриНажатии(Элемент, ДанныеСобытия, СтандартнаяОбработка)
-	UT_CodeEditorClient.ПолеРедактораHTMLПриНажатии(ЭтотОбъект, Элемент, ДанныеСобытия, СтандартнаяОбработка);
+	UT_CodeEditorClient.HTMLEditorFieldOnClick(ЭтотОбъект, Элемент, ДанныеСобытия, СтандартнаяОбработка);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте
 Процедура Подключаемый_РедакторКодаОтложеннаяИнициализацияРедакторов()
-	UT_CodeEditorClient.РедакторКодаОтложеннаяИнициализацияРедакторов(ЭтотОбъект);
+	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ЭтотОбъект);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте 
 Процедура Подключаемый_РедакторКодаЗавершениеИнициализации() Экспорт
-	UT_CodeEditorClient.УстановитьТекстРедактора(ЭтотОбъект, "Редактор", ПроцедураПередЗаписью);
+	UT_CodeEditorClient.SetEditorText(ЭтотОбъект, "Редактор", ПроцедураПередЗаписью);
 	
 	ДобавляемыйКонтекст = Новый Структура;
 	Если ТипОбъекта <> Новый ОписаниеТипов Тогда
@@ -112,7 +125,7 @@
 	Иначе
 		ДобавляемыйКонтекст.Вставить("Объект");
 	КонецЕсли;
-	UT_CodeEditorClient.ДобавитьКонтекстРедактораКода(ЭтотОбъект, "Редактор", ДобавляемыйКонтекст);
+	UT_CodeEditorClient.AddCodeEditorContext(ЭтотОбъект, "Редактор", ДобавляемыйКонтекст);
 КонецПроцедуры
 
 #КонецОбласти

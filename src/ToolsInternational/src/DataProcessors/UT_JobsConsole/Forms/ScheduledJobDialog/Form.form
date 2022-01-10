@@ -22,8 +22,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>Description</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>Description</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>DescriptionExtendedTooltip</name>
@@ -76,8 +78,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>MetadataChioce</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>MetadataChioce</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>MetadataChoiceExtendedTooltip</name>
@@ -134,8 +138,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>Method</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>Method</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>MethodExtendedTooltip</name>
@@ -184,8 +190,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>UsersChoice</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>UsersChoice</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>UsersChoiceExtendedTooltip</name>
@@ -238,8 +246,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>Key</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>Key</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>KeyExtendedTooltip</name>
@@ -291,8 +301,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>Use</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>Use</segments>
+            </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -478,8 +490,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>RestartCountOnFailure</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>RestartCountOnFailure</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>RestartCountOnFailureExtendedTooltip</name>
@@ -528,8 +542,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>RestartIntervalOnFailure</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>RestartIntervalOnFailure</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>RestartIntervalOnFailureExtendedTooltip</name>
@@ -686,8 +702,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>JobParameters.LineNumber</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>JobParameters.LineNumber</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>JobParametersLineNumberExtendedTooltip</name>
@@ -737,8 +755,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>JobParameters.Value</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>JobParameters.Value</segments>
+            </paths>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -790,8 +810,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>JobParameters.Type</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>JobParameters.Type</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>JobParametersTypeExtendedTooltip</name>
@@ -1127,7 +1149,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -1159,7 +1180,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -1612,5 +1632,4 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
-  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

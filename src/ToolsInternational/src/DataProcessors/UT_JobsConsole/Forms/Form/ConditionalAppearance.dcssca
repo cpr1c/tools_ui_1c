@@ -15,7 +15,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>TextColor</dcscor:parameter>
+				<dcscor:parameter>ЦветТекста</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#A0A0A3</dcscor:value>
 			</dcscor:item>
 		</appearance>

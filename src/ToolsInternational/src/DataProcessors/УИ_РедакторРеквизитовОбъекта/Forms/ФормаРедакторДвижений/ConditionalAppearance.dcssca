@@ -16,11 +16,11 @@
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>BackColor</dcscor:parameter>
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">style:ToolTipBackColor</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>TextColor</dcscor:parameter>
+				<dcscor:parameter>ЦветТекста</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">style:FieldSelectionBackColor</dcscor:value>
 			</dcscor:item>
 		</appearance>

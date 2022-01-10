@@ -378,8 +378,14 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ДополнительныеСвойства.Ключ</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ДополнительныеСвойства.Ключ</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ДополнительныеСвойства.Ключ</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка3</name>
@@ -428,8 +434,14 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ДополнительныеСвойства.Значение</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ДополнительныеСвойства.Значение</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ДополнительныеСвойства.Значение</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка4</name>
@@ -501,7 +513,6 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -668,7 +679,6 @@
         <initialListView>Auto</initialListView>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
-        <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -762,7 +772,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -793,7 +802,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -805,12 +813,12 @@
     <autoFill>true</autoFill>
   </autoCommandBar>
   <handlers>
-    <event>OnOpen</event>
-    <name>ПриОткрытии</name>
-  </handlers>
-  <handlers>
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
+  </handlers>
+  <handlers>
+    <event>OnOpen</event>
+    <name>ПриОткрытии</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>

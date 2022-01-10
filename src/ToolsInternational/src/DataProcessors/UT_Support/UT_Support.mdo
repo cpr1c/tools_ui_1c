@@ -48,6 +48,7 @@
     <picture xsi:type="core:PictureRef">
       <picture>CommonPicture.UT_QuestionToDeveloper</picture>
     </picture>
+    <shortcut></shortcut>
   </commands>
   <commands uuid="9d0b01dc-bd74-428c-b8ce-667da8dbae28">
     <name>СтраницаРазработки</name>
@@ -61,6 +62,7 @@
     <picture xsi:type="core:PictureRef">
       <picture>CommonPicture.UT_Repository</picture>
     </picture>
+    <shortcut></shortcut>
   </commands>
   <commands uuid="158df35e-cd25-431e-a84d-d13952262078">
     <name>ПроверитьНеобходимостьОбновления</name>
@@ -73,7 +75,6 @@
       <value>Проверить необходимость обновления</value>
     </synonym>
     <group>NavigationPanelOrdinary</group>
-    <commandParameterType/>
     <representation>Auto</representation>
   </commands>
 </mdclass:DataProcessor>

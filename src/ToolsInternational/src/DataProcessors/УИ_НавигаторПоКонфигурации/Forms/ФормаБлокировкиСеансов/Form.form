@@ -22,8 +22,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Установлена</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Установлена</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>УстановленаРасширеннаяПодсказка</name>
@@ -65,8 +67,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>КодРазрешения</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>КодРазрешения</segments>
+        </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
@@ -119,8 +123,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Начало</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Начало</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>НачалоРасширеннаяПодсказка</name>
@@ -174,8 +180,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Конец</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Конец</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>КонецРасширеннаяПодсказка</name>
@@ -229,8 +237,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Сообщение</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Сообщение</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СообщениеРасширеннаяПодсказка</name>
@@ -341,7 +351,6 @@
     <autoMaxWidth>true</autoMaxWidth>
     <autoMaxHeight>true</autoMaxHeight>
     <placementArea>UserCmds</placementArea>
-    <toolTipRepresentation>Auto</toolTipRepresentation>
     <representationInContextMenu>Auto</representationInContextMenu>
   </items>
   <autoCommandBar>

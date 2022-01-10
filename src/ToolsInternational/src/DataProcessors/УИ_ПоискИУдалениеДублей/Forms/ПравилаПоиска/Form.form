@@ -27,8 +27,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>ПравилаПоиска.Использовать</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ПравилаПоиска.Использовать</segments>
+          </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
         <handlers>
@@ -75,8 +77,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>ПравилаПоиска.ПредставлениеРеквизита</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>ПравилаПоиска.ПредставлениеРеквизита</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>ПравилаПоискаПредставлениеРеквизитаРасширеннаяПодсказка</name>
@@ -155,8 +159,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ПравилаПоиска.Правило</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ПравилаПоиска.Правило</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>ПравилаПоискаВидСравненияРасширеннаяПодсказка</name>
@@ -400,8 +406,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>УчитыватьПрикладныеПравила</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>УчитыватьПрикладныеПравила</segments>
+        </paths>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <handlers>
@@ -448,8 +456,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ОписаниеПрикладныхПравил</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ОписаниеПрикладныхПравил</segments>
+        </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
@@ -563,7 +573,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -594,7 +603,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
@@ -628,7 +636,6 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
-        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>
