@@ -41,9 +41,12 @@
 	ПроцедураПередЗаписью = UT_CodeEditorClient.ТекстКодаРедактора(ЭтотОбъект, "Редактор");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	ПроцедураПередЗаписью = UT_CodeEditorClient.EditorCodeText(ЭтотОбъект, "Редактор");
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 =======
 >>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 =======
