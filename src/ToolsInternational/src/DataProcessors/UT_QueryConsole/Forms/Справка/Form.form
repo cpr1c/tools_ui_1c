@@ -85,7 +85,6 @@
       <picture xsi:type="core:PictureRef">
         <picture>StdPicture.Close</picture>
       </picture>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
