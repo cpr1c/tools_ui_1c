@@ -4765,7 +4765,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.UT_HttpRequestConsole</types>
+      <types>DataProcessorObject.УИ_КонсольHTTPЗапросов</types>
     </valueType>
     <view>
       <common>true</common>

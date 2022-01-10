@@ -4,13 +4,13 @@
     <objectType typeId="b5a7c7f4-73c9-4ab8-a922-1eb707b3ec32" valueTypeId="511cbe5a-371d-4268-b75e-5e2b09aae4b1"/>
     <managerType typeId="4180c058-1588-4849-a624-227e169a467e" valueTypeId="bec28676-3d17-4ce3-81e4-d70df3808885"/>
   </producedTypes>
-  <name>UT_HttpRequestConsole</name>
+  <name>УИ_КонсольHTTPЗапросов</name>
   <synonym>
     <key>ru</key>
     <value>Консоль HTTP запросов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_HttpRequestConsole.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.УИ_КонсольHTTPЗапросов.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Консоль HTTP запросов</value>
