@@ -303,7 +303,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_КонсольHTTPЗапросов</name>
+		<name>DataProcessor.UT_HttpRequestConsole</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -379,7 +379,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.UT_Algorithms.Command.ВыполнитьАлгоритм</name>
+		<name>Catalog.UT_Algorithms.Command.ExecuteAlgorithm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
