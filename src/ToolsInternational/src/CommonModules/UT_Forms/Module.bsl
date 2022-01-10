@@ -1,7 +1,7 @@
 // English Code Area 
 
 #Region ItemsDescription 
-//Функция НовыйОписаниеРеквизитаЭлемента(
+
 Function ItemAttributeNewDescription() Export
 	AttributeStructure = New Structure;
 
@@ -58,7 +58,7 @@ Function ButtonCommandNewDescription () export
 
 	Возврат Structure;
 EndFunction
-//Original НовыйОписаниеГруппыФормы
+
 Function FormGroupNewDescription() Export
 	Parameters = New Structure;
 
@@ -77,7 +77,7 @@ EndFunction
 #EndRegion
 
 #Region FormItemsProgramingCreation  
-//Функция СоздатьКомандуПоОписанию(Форма, ОписаниеКоманды) Экспорт,
+
 Function CreateCommandByDescription(Form, CommandDescription) Export
 	If Не CommandDescription.CreateCommand Then
 		Return Undefined;
@@ -102,7 +102,7 @@ Function CreateCommandByDescription(Form, CommandDescription) Export
 
 	Return Command;
 EndFunction
-// Функция СоздатьЭлементПоОписанию(Форма, ItemDescription) Экспорт
+
 Function CreateItemByDescription(Form, ItemDescription) Export
 	If  NOT ItemDescription.CreateItem Then
 		Return Undefined;
@@ -165,7 +165,7 @@ Function CreateItemByDescription(Form, ItemDescription) Export
 	EndDo;
 	Return FormItem;
 EndFunction
-//Original Функция СоздатьКнопкуПоОписанию(Форма, ОписаниеКнопки) Экспорт
+
 Function CreateButtonByDescription(Form, ButtonDescription) Export
 	If Not ButtonDescription.CreateButton Then
 		Return Undefined;
@@ -191,7 +191,7 @@ Function CreateButtonByDescription(Form, ButtonDescription) Export
 	EndIf;
 	Button.CommandName = ButtonDescription.CommandName;
 EndFunction
-// Original СоздатьГруппуПоОписанию
+
 Function CreateGroupByDescription(Form, Description) Export
 
 	FormItemName = FormFieldTableName(Form, Description.Parent) + Description.Name;
@@ -218,7 +218,7 @@ Function CreateGroupByDescription(Form, Description) Export
 	//	Endif;
 	Return FormGroup;
 EndFunction
-//TODO Функция ЭтоКнопкаКоманднойПанели(Форма, Знач РодительКнопки)
+
 Function IsCommandBarButton(Form, Val ButtonParent)
 //@skip-warning
 	if ButtonParent = Undefined then
@@ -232,8 +232,7 @@ Function IsCommandBarButton(Form, Val ButtonParent)
 		Return IsCommandBarButton(Form, ButtonParent.Parent);
 	EndIf;
 EndFunction
-// Original ИмяТаблицыПоляФормы
-//@skip-warning  
+  
 Function FormFieldTableName(Form, Val ItemParent)
 //@skip-warning
 	If ItemParent = Undefined Then
@@ -248,7 +247,6 @@ Function FormFieldTableName(Form, Val ItemParent)
 	Endif;
 EndFunction
 
-// Original ЭлементФормы
 Function FormItem(Form, ID) Export
 	If TypeOf(ID) = Type("String") Then
 		Return Form.Items.Find(ID);
@@ -256,7 +254,7 @@ Function FormItem(Form, ID) Export
 		Return ID;
 	Endif;
 EndFunction
-//Функция Реквизит(Форма, ИмяРеквизита, ПутьКРеквизиту = "") Экспорт
+
  Function Attribute(Form, AttributeName, AttributeDataPath = "") Export
 	If AttributeDataPath <> "" Then
 		Separator = StrFind(AttributeDataPath, ".");
@@ -360,5 +358,4 @@ EndFunction
 	UT_Forms.CreateCommandByDescription(Form, ButtonDescription);
 	UT_Forms.CreateButtonByDescription(Form, ButtonDescription);
 EndProcedure
-  
 #EndRegion
