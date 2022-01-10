@@ -77,7 +77,7 @@
 	КонецЕсли;
 	
 	ФайлЗапускаПлатформы = ФайлЗапускаПлатформы + "1cv8";	
-	Если UT_CommonClientServer.ЭтоWindows() Тогда
+	Если UT_CommonClientServer.IsWindows() Тогда
 		ФайлЗапускаПлатформы = ФайлЗапускаПлатформы + ".exe";
 	КонецЕсли;
 	
@@ -101,7 +101,7 @@
 
 	ИмяФайла = "1cv8";
 	
-	Если UT_CommonClientServer.ЭтоWindows() Тогда
+	Если UT_CommonClientServer.IsWindows() Тогда
 		ИмяФайла = ИмяФайла+".exe";
 	КонецЕсли;
 	
