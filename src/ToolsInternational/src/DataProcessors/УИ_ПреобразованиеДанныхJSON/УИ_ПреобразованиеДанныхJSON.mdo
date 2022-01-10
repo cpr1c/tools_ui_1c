@@ -9,6 +9,7 @@
     <key>ru</key>
     <value>Преобразование данных JSON [УИ]</value>
   </synonym>
+  <comment></comment>
   <useStandardCommands>true</useStandardCommands>
   <extendedPresentation>
     <key>ru</key>

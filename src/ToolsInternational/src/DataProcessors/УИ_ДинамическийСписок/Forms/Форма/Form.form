@@ -26,8 +26,14 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ДеревоМетаданных.Представление</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ДеревоМетаданных.Представление</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ДеревоМетаданных.Представление</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка1</name>
@@ -308,7 +314,6 @@
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
-          <toolTipRepresentation>Auto</toolTipRepresentation>
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <visible>true</visible>

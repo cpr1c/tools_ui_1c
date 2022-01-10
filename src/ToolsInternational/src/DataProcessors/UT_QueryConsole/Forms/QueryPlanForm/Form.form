@@ -47,7 +47,6 @@
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
@@ -78,7 +77,6 @@
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -125,8 +123,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>ОтображатьВТерминах1С</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>ОтображатьВТерминах1С</segments>
+                </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
               <extendedTooltip>
@@ -169,8 +169,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>ДоляОтображенияТяжелых</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>ДоляОтображенияТяжелых</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ДоляОтображенияТяжелыхРасширеннаяПодсказка</name>
@@ -244,7 +246,6 @@
               <autoMaxHeight>true</autoMaxHeight>
               <groupHorizontalAlign>Right</groupHorizontalAlign>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -344,8 +345,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>План.Оператор</segments>
+            <dataPath xsi:type="form:MultiLanguageDataPath">
+              <paths xsi:type="form:DataPath">
+                <segments>План.Оператор</segments>
+              </paths>
             </dataPath>
             <extendedTooltip>
               <name>ПланОператорРасширеннаяПодсказка</name>
@@ -396,8 +399,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>План.СреднийРазмерСтроки</segments>
+            <dataPath xsi:type="form:MultiLanguageDataPath">
+              <paths xsi:type="form:DataPath">
+                <segments>План.СреднийРазмерСтроки</segments>
+              </paths>
             </dataPath>
             <toolTip>
               <key>ru</key>
@@ -454,8 +459,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.СтоимостьОператора</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.СтоимостьОператора</segments>
+                </paths>
               </dataPath>
               <toolTip>
                 <key>ru</key>
@@ -516,8 +523,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.СтоимостьОператораПроцент</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.СтоимостьОператораПроцент</segments>
+                </paths>
               </dataPath>
               <toolTip>
                 <key>ru</key>
@@ -609,8 +618,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.СтоимостьУзла</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.СтоимостьУзла</segments>
+                </paths>
               </dataPath>
               <toolTip>
                 <key>ru</key>
@@ -664,8 +675,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.СтоимостьУзлаПроцент</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.СтоимостьУзлаПроцент</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ПланСтоимостьУзлаПроцентРасширеннаяПодсказка</name>
@@ -752,8 +765,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.СтрокПлан</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.СтрокПлан</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ПланСтрокПланРасширеннаяПодсказка</name>
@@ -810,8 +825,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.СтрокФакт</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.СтрокФакт</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ПланСтрокФактРасширеннаяПодсказка</name>
@@ -907,8 +924,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.ВызовыПлан</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.ВызовыПлан</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ПланВызовыПланРасширеннаяПодсказка</name>
@@ -964,8 +983,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.ВызовыФакт</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.ВызовыФакт</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ПланВызовыФактРасширеннаяПодсказка</name>
@@ -1060,8 +1081,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.ЗатратыВВ</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.ЗатратыВВ</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ПланЗатратыВВРасширеннаяПодсказка</name>
@@ -1109,8 +1132,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:DataPath">
-                <segments>План.ЗатратыЦП</segments>
+              <dataPath xsi:type="form:MultiLanguageDataPath">
+                <paths xsi:type="form:DataPath">
+                  <segments>План.ЗатратыЦП</segments>
+                </paths>
               </dataPath>
               <extendedTooltip>
                 <name>ПланЗатратыЦПРасширеннаяПодсказка</name>
@@ -1357,6 +1382,7 @@
           <verticalStretch>true</verticalStretch>
           <enableStartDrag>true</enableStartDrag>
           <enableDrag>true</enableDrag>
+          <fileDragMode>AsFileRef</fileDragMode>
         </items>
         <items xsi:type="form:FormField">
           <name>ТекущийОператор</name>
@@ -1366,8 +1392,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ТекущийОператор</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ТекущийОператор</segments>
+            </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -1458,8 +1486,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ПланТекстовый</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ПланТекстовый</segments>
+            </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -1546,8 +1576,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ПланТекстовый1С</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ПланТекстовый1С</segments>
+            </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -1714,8 +1746,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ТекстЗапроса</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ТекстЗапроса</segments>
+            </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -1803,8 +1837,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ПараметрыЗапроса</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ПараметрыЗапроса</segments>
+            </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -1891,8 +1927,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ТекстЗапросаВТерминах1С</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ТекстЗапросаВТерминах1С</segments>
+            </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -2055,8 +2093,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ТекстСобытияЖурнала</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ТекстСобытияЖурнала</segments>
+        </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
@@ -2173,7 +2213,6 @@
       <autoMaxHeight>true</autoMaxHeight>
       <groupHorizontalAlign>Right</groupHorizontalAlign>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>

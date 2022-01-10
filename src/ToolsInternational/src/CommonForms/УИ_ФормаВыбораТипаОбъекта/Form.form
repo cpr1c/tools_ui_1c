@@ -26,8 +26,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ДеревоОбъектов.Имя</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ДеревоОбъектов.Имя</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>ДеревоОбъектовИмяРасширеннаяПодсказка</name>
@@ -77,8 +79,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ДеревоОбъектов.Синоним</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ДеревоОбъектов.Синоним</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>ДеревоОбъектовСинонимРасширеннаяПодсказка</name>
@@ -152,7 +156,6 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
-        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>

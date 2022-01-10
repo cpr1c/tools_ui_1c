@@ -10,6 +10,5 @@
     <value>Настройки инструментов</value>
   </synonym>
   <group>NavigationPanelOrdinary</group>
-  <commandParameterType/>
   <representation>Auto</representation>
 </mdclass:CommonCommand>

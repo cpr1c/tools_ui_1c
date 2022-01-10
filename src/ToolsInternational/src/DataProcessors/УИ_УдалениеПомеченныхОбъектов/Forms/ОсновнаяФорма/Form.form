@@ -5,7 +5,7 @@
     <value>Удаление помеченных объектов</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>RecordParams</name>
+    <name>ГруппаПараметрыЗаписи</name>
     <id>138</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -16,12 +16,8 @@
       <key>ru</key>
       <value>Параметры записи</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Record params</value>
-    </title>
     <extendedTooltip>
-      <name>RecordParamsExtendedTooltip</name>
+      <name>Группа1РасширеннаяПодсказка</name>
       <id>139</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -53,13 +49,13 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>FormPages</name>
+    <name>СтраницыФормы</name>
     <id>1</id>
     <items xsi:type="form:FormGroup">
-      <name>SelectDeleteMode</name>
+      <name>ВыборРежимаУдаления</name>
       <id>6</id>
       <items xsi:type="form:FormField">
-        <name>DeleteMode</name>
+        <name>РежимУдаления</name>
         <id>15</id>
         <title>
           <key>ru</key>
@@ -70,16 +66,18 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>DeletionMode</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>РежимУдаления</segments>
+          </paths>
         </dataPath>
         <titleLocation>Top</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>DeleteModeOnChange</name>
+          <name>РежимУдаленияПриИзменении</name>
         </handlers>
         <extendedTooltip>
-          <name>DeleteModeExtendedTooltip</name>
+          <name>РежимУдаленияExtendedTooltip</name>
           <id>83</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -94,7 +92,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>DeleteModeContextMenu</name>
+          <name>РежимУдаленияКонтекстноеМеню</name>
           <id>16</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -139,16 +137,12 @@
         <key>ru</key>
         <value>Выбор режима удаления</value>
       </title>
-      <title>
-        <key>en</key>
-        <value>Select delete mode</value>
-      </title>
       <toolTip>
         <key>ru</key>
         <value>Выбор режима удаления</value>
       </toolTip>
       <extendedTooltip>
-        <name>SelectDeleteModeExtendedTooltip</name>
+        <name>ВыборРежимаУдаленияExtendedTooltip</name>
         <id>82</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -169,10 +163,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>MarkedForDelete</name>
+      <name>ПомеченныеНаУдаление</name>
       <id>25</id>
       <items xsi:type="form:Table">
-        <name>MarkedForDeletionItemsTree</name>
+        <name>СписокПомеченныхНаУдаление</name>
         <id>26</id>
         <title>
           <key>ru</key>
@@ -184,7 +178,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>MarkedForDeletionItemsTree</segments>
+          <segments>СписокПомеченныхНаУдаление</segments>
         </dataPath>
         <skipOnInput>false</skipOnInput>
         <titleLocation>Top</titleLocation>
@@ -201,25 +195,27 @@
         <excludedCommands>SortListDesc</excludedCommands>
         <excludedCommands>Tree</excludedCommands>
         <items xsi:type="form:FormGroup">
-          <name>MarketItemsString</name>
+          <name>СтрокаСпискаПомеченных</name>
           <id>29</id>
           <items xsi:type="form:FormField">
-            <name>Mark</name>
+            <name>Пометка</name>
             <id>30</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>MarkedForDeletionItemsTree.Пометка</segments>
+            <dataPath xsi:type="form:MultiLanguageDataPath">
+              <paths xsi:type="form:DataPath">
+                <segments>СписокПомеченныхНаУдаление.Пометка</segments>
+              </paths>
             </dataPath>
             <handlers>
               <event>OnChange</event>
-              <name>MarkOnChange</name>
+              <name>ПометкаПриИзменении</name>
             </handlers>
             <extendedTooltip>
-              <name>MarkExtendedTooltip</name>
+              <name>ПометкаExtendedTooltip</name>
               <id>99</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -234,7 +230,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>MarkContextMenu</name>
+              <name>ПометкаКонтекстноеМеню</name>
               <id>31</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -249,18 +245,20 @@
             <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
           </items>
           <items xsi:type="form:FormField">
-            <name>Presentation</name>
+            <name>Представление</name>
             <id>32</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:DataPath">
-              <segments>MarkedForDeletionItemsTree.Представление</segments>
+            <dataPath xsi:type="form:MultiLanguageDataPath">
+              <paths xsi:type="form:DataPath">
+                <segments>СписокПомеченныхНаУдаление.Представление</segments>
+              </paths>
             </dataPath>
             <extendedTooltip>
-              <name>PresentationExtendedTooltip</name>
+              <name>ПредставлениеExtendedTooltip</name>
               <id>100</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -275,7 +273,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>PresentationContextMenu</name>
+              <name>ПредставлениеКонтекстноеМеню</name>
               <id>33</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -308,16 +306,12 @@
             <key>ru</key>
             <value>Строка списка помеченных</value>
           </title>
-          <title>
-            <key>en</key>
-            <value>Market items string</value>
-          </title>
           <toolTip>
             <key>ru</key>
             <value>Строка списка помеченных</value>
           </toolTip>
           <extendedTooltip>
-            <name>MarketItemsStringExtendedTooltip</name>
+            <name>СтрокаСпискаПомеченныхExtendedTooltip</name>
             <id>98</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -339,13 +333,13 @@
         </items>
         <commandBarLocation>Top</commandBarLocation>
         <autoCommandBar>
-          <name>MarkedForDeletionItemsTreeCommandBar</name>
+          <name>СписокПомеченныхНаУдалениеКоманднаяПанель</name>
           <id>28</id>
           <items xsi:type="form:FormGroup">
-            <name>SelectCommand</name>
+            <name>КомандыВыбора</name>
             <id>57</id>
             <items xsi:type="form:Button">
-              <name>MarkedForDeletionItemsSetAll</name>
+              <name>КомандаСписокПомеченныхУстановитьВсе</name>
               <id>37</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -354,7 +348,7 @@
               </userVisible>
               <skipOnInput>false</skipOnInput>
               <extendedTooltip>
-                <name>MarkedForDeletionItemsSetAllExtendedTooltip</name>
+                <name>КомандаСписокПомеченныхУстановитьВсеExtendedTooltip</name>
                 <id>92</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -368,7 +362,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.CommandSelectedListSetAll</commandName>
+              <commandName>Form.Command.КомандаСписокПомеченныхУстановитьВсе</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -382,11 +376,10 @@
               <borderColor xsi:type="core:ColorRef">
                 <color>Style.BorderColor</color>
               </borderColor>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>MarkedForDeletionItemsClearAll</name>
+              <name>КомандаСписокПомеченныхСнятьВсе</name>
               <id>38</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -395,7 +388,7 @@
               </userVisible>
               <skipOnInput>false</skipOnInput>
               <extendedTooltip>
-                <name>MarkedForDeletionItemsClearAllExtendedTooltip</name>
+                <name>КомандаСписокПомеченныхСнятьВсеExtendedTooltip</name>
                 <id>93</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -409,7 +402,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.CommandSelectedListClearAll</commandName>
+              <commandName>Form.Command.КомандаСписокПомеченныхСнятьВсе</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -423,7 +416,6 @@
               <borderColor xsi:type="core:ColorRef">
                 <color>Style.BorderColor</color>
               </borderColor>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -435,16 +427,12 @@
               <key>ru</key>
               <value>Команды выбора</value>
             </title>
-            <title>
-              <key>en</key>
-              <value>Select command</value>
-            </title>
             <toolTip>
               <key>ru</key>
               <value>Команды выбора</value>
             </toolTip>
             <extendedTooltip>
-              <name>SelectCommandExtendedTooltip</name>
+              <name>КомандыВыбораExtendedTooltip</name>
               <id>91</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -461,7 +449,7 @@
             <extInfo xsi:type="form:ButtonGroupExtInfo"/>
           </items>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsChangeObject</name>
+            <name>СписокПомеченныхНаУдалениеИзменитьОбъект</name>
             <id>68</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -469,7 +457,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsChangeObjectExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеИзменитьОбъектExtendedTooltip</name>
               <id>94</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -483,16 +471,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ChangeObject</commandName>
+            <commandName>Form.Command.ИзменитьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsUpdateDelete</name>
+            <name>ОбновитьСписокПомеченныхНаУдаление</name>
             <id>70</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -500,7 +487,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsUpdateDeleteExtendedTooltip</name>
+              <name>ОбновитьСписокПомеченныхНаУдалениеExtendedTooltip</name>
               <id>95</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -514,16 +501,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.UpdateDeleteMarkedList</commandName>
+            <commandName>Form.Command.ОбновитьСписокПомеченныхНаУдаление</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsEditObject</name>
+            <name>СписокПомеченныхНаУдалениеРедактироватьОбъект</name>
             <id>140</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -531,7 +517,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsEditObjectExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеРедактироватьОбъектРасширеннаяПодсказка</name>
               <id>141</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -545,16 +531,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.EditObject</commandName>
+            <commandName>Form.Command.РедактироватьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsOutputList</name>
+            <name>СписокПомеченныхНаУдалениеВывестиСписок</name>
             <id>65</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -562,7 +547,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsOutputListExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеВывестиСписокExtendedTooltip</name>
               <id>96</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -576,12 +561,11 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.MarkedForDeletionItemsTree.StandardCommand.OutputList</commandName>
+            <commandName>Form.Item.СписокПомеченныхНаУдаление.StandardCommand.OutputList</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -593,7 +577,7 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>MarkedForDeletionItemsTreeSelection</name>
+          <name>СписокПомеченныхНаУдалениеВыбор</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -601,10 +585,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>MarkedForDeletionItemsTreeSearchString</name>
+          <name>СписокПомеченныхНаУдалениеСтрокаПоиска</name>
           <id>120</id>
           <extendedTooltip>
-            <name>MarkedForDeletionItemsTreeSearchStringExtendedTooltip</name>
+            <name>СписокПомеченныхНаУдалениеСтрокаПоискаРасширеннаяПодсказка</name>
             <id>122</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -619,7 +603,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>MarkedForDeletionItemsTreeSearchStringContextMenu</name>
+            <name>СписокПомеченныхНаУдалениеСтрокаПоискаКонтекстноеМеню</name>
             <id>121</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -638,10 +622,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>MarkedForDeletionItemsTreeViewStatus</name>
+          <name>СписокПомеченныхНаУдалениеСостояниеПросмотра</name>
           <id>123</id>
           <extendedTooltip>
-            <name>MarkedForDeletionItemsTreeViewStatusExtendedTooltip</name>
+            <name>СписокПомеченныхНаУдалениеСостояниеПросмотраРасширеннаяПодсказка</name>
             <id>125</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -656,7 +640,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>MarkedForDeletionItemsTreeViewStatusContextMenu</name>
+            <name>СписокПомеченныхНаУдалениеСостояниеПросмотраКонтекстноеМеню</name>
             <id>124</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -677,10 +661,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>MarkedForDeletionItemsTreeSearchControl</name>
+          <name>СписокПомеченныхНаУдалениеУправлениеПоиском</name>
           <id>126</id>
           <extendedTooltip>
-            <name>MarkedForDeletionItemsTreeSearchControlExtendedTooltip</name>
+            <name>СписокПомеченныхНаУдалениеУправлениеПоискомРасширеннаяПодсказка</name>
             <id>128</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -695,7 +679,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>MarkedForDeletionItemsTreeSearchControlContextMenu</name>
+            <name>СписокПомеченныхНаУдалениеУправлениеПоискомКонтекстноеМеню</name>
             <id>127</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -710,7 +694,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>MarkedForDeletionItemsTreeExtendedTooltip</name>
+          <name>СписокПомеченныхНаУдалениеExtendedTooltip</name>
           <id>97</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -725,10 +709,10 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>MarkedForDeletionItemsTreeContextMenu</name>
+          <name>СписокПомеченныхНаУдалениеКонтекстноеМеню</name>
           <id>27</id>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsContextMenuChangeObject</name>
+            <name>СписокПомеченныхНаУдалениеКонтекстноеМенюИзменитьОбъект</name>
             <id>76</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -736,7 +720,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsContextMenuChangeObjectExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеКонтекстноеМенюИзменитьОбъектExtendedTooltip</name>
               <id>85</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -750,16 +734,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ChangeObject</commandName>
+            <commandName>Form.Command.ИзменитьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsContextMenuEditObject</name>
+            <name>СписокПомеченныхНаУдалениеКонтекстноеМенюРедактироватьОбъект</name>
             <id>146</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -767,7 +750,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsContextMenuEditObjectExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеКонтекстноеМенюРедактироватьОбъектРасширеннаяПодсказка</name>
               <id>147</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -781,19 +764,18 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.EditObject</commandName>
+            <commandName>Form.Command.РедактироватьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>MarkedForDeletionItemsContextMenuGroup</name>
+            <name>СписокПомеченныхНаУдалениеКонтекстноеМенюГруппа</name>
             <id>75</id>
             <items xsi:type="form:Button">
-              <name>MarkedForDeletionItemsContextMenuSetAll</name>
+              <name>СписокПомеченныхНаУдалениеКонтекстноеМенюКомандаСписокПомеченныхУстановитьВсе</name>
               <id>72</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -801,7 +783,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>MarkedForDeletionItemsContextMenuSetAllExtendedTooltip</name>
+                <name>СписокПомеченныхНаУдалениеКонтекстноеМенюКомандаСписокПомеченныхУстановитьВсеExtendedTooltip</name>
                 <id>87</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -815,16 +797,15 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.CommandSelectedListSetAll</commandName>
+              <commandName>Form.Command.КомандаСписокПомеченныхУстановитьВсе</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>MarkedForDeletionItemsContextMenuClearAll</name>
+              <name>СписокПомеченныхНаУдалениеКонтекстноеМенюКомандаСписокПомеченныхСнятьВсе</name>
               <id>71</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -832,7 +813,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>MarkedForDeletionItemsContextMenuClearAllExtendedTooltip</name>
+                <name>СписокПомеченныхНаУдалениеКонтекстноеМенюКомандаСписокПомеченныхСнятьВсеExtendedTooltip</name>
                 <id>88</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -846,12 +827,11 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.CommandSelectedListClearAll</commandName>
+              <commandName>Form.Command.КомандаСписокПомеченныхСнятьВсе</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -859,12 +839,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <title>
-              <key>en</key>
-              <value>Marked for deletion items context menu group</value>
-            </title>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsContextMenuGroupExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеКонтекстноеМенюГруппаExtendedTooltip</name>
               <id>86</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -881,7 +857,7 @@
             <extInfo xsi:type="form:ButtonGroupExtInfo"/>
           </items>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsContextMenuCopyToClipboard</name>
+            <name>СписокПомеченныхНаУдалениеКонтекстноеМенюКопироватьВБуферОбмена</name>
             <id>73</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -889,7 +865,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsContextMenuCopyToClipboardExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеКонтекстноеМенюКопироватьВБуферОбменаExtendedTooltip</name>
               <id>89</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -903,16 +879,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.MarkedForDeletionItemsTree.StandardCommand.CopyToClipboard</commandName>
+            <commandName>Form.Item.СписокПомеченныхНаУдаление.StandardCommand.CopyToClipboard</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>MarkedForDeletionItemsContextMenuSelectAll</name>
+            <name>СписокПомеченныхНаУдалениеКонтекстноеМенюВыделитьВсе</name>
             <id>74</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -920,7 +895,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>MarkedForDeletionItemsContextMenuSelectAllExtendedTooltip</name>
+              <name>СписокПомеченныхНаУдалениеКонтекстноеМенюВыделитьВсеExtendedTooltip</name>
               <id>90</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -934,12 +909,11 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.MarkedForDeletionItemsTree.StandardCommand.SelectAll</commandName>
+            <commandName>Form.Item.СписокПомеченныхНаУдаление.StandardCommand.SelectAll</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -979,16 +953,12 @@
         <key>ru</key>
         <value>Помеченные на удаление</value>
       </title>
-      <title>
-        <key>en</key>
-        <value>Marked for delete</value>
-      </title>
       <toolTip>
         <key>ru</key>
         <value>Помеченные на удаление</value>
       </toolTip>
       <extendedTooltip>
-        <name>MarkedForDeleteExtendedTooltip</name>
+        <name>ПомеченныеНаУдалениеExtendedTooltip</name>
         <id>84</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1009,10 +979,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>DeletionFailureReasonsPage</name>
+      <name>ПричиныНевозможностиУдаления</name>
       <id>39</id>
       <items xsi:type="form:Table">
-        <name>NotDeletedItemsTree</name>
+        <name>ДеревоОставшихсяОбъектов</name>
         <id>40</id>
         <title>
           <key>ru</key>
@@ -1024,7 +994,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>NotDeletedItemsTree</segments>
+          <segments>ДеревоОставшихсяОбъектов</segments>
         </dataPath>
         <skipOnInput>false</skipOnInput>
         <titleLocation>Top</titleLocation>
@@ -1041,18 +1011,20 @@
         <excludedCommands>SortListDesc</excludedCommands>
         <excludedCommands>Tree</excludedCommands>
         <items xsi:type="form:FormField">
-          <name>NotDeletedItemsPresentation</name>
+          <name>ПредставлениеОставшегося</name>
           <id>43</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>NotDeletedItemsTree.Представление</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <paths xsi:type="form:DataPath">
+              <segments>ДеревоОставшихсяОбъектов.Представление</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
-            <name>NotDeletedItemsPresentationExtendedTooltip</name>
+            <name>ПредставлениеОставшегосяExtendedTooltip</name>
             <id>109</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1067,7 +1039,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>NotDeletedItemsPresentationContextMenu</name>
+            <name>ПредставлениеОставшегосяКонтекстноеМеню</name>
             <id>44</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1094,10 +1066,10 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>NotDeletedItemsTreeCommandBar</name>
+          <name>ДеревоОставшихсяОбъектовКоманднаяПанель</name>
           <id>42</id>
           <items xsi:type="form:Button">
-            <name>NotDeletedItemsChangeObject</name>
+            <name>ДеревоОставшихсяОбъектовИзменитьОбъект</name>
             <id>69</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1105,7 +1077,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>NotDeletedItemsChangeObjectExtendedTooltip</name>
+              <name>ДеревоОставшихсяОбъектовИзменитьОбъектExtendedTooltip</name>
               <id>106</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1119,16 +1091,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ChangeObject</commandName>
+            <commandName>Form.Command.ИзменитьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>NotDeletedItemsEditObject</name>
+            <name>ДеревоОставшихсяОбъектовРедактироватьОбъект</name>
             <id>142</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1136,7 +1107,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>NotDeletedItemsEditObjectExtendedTooltip</name>
+              <name>ДеревоОставшихсяОбъектовРедактироватьОбъектРасширеннаяПодсказка</name>
               <id>143</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1150,16 +1121,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.EditObject</commandName>
+            <commandName>Form.Command.РедактироватьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>NotDeletedItemsOutputList</name>
+            <name>ДеревоОставшихсяОбъектовВывестиСписок</name>
             <id>67</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1167,7 +1137,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>NotDeletedItemsOutputListExtendedTooltip</name>
+              <name>ДеревоОставшихсяОбъектовВывестиСписокExtendedTooltip</name>
               <id>107</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1181,12 +1151,11 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.NotDeletedItemsTree.StandardCommand.OutputList</commandName>
+            <commandName>Form.Item.ДеревоОставшихсяОбъектов.StandardCommand.OutputList</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -1199,11 +1168,11 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>NotDeletedItemsTreeSelection</name>
+          <name>ДеревоОставшихсяОбъектовВыбор</name>
         </handlers>
         <handlers>
           <event>BeforeRowChange</event>
-          <name>NotDeletedItemsTreeBeforeRowChange</name>
+          <name>ДеревоОставшихсяОбъектовПередНачаломИзменения</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -1211,10 +1180,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>NotDeletedItemsTreeSearchString</name>
+          <name>ДеревоОставшихсяОбъектовСтрокаПоиска</name>
           <id>129</id>
           <extendedTooltip>
-            <name>NotDeletedItemsTreeSearchStringExtendedTooltip</name>
+            <name>ДеревоОставшихсяОбъектовСтрокаПоискаРасширеннаяПодсказка</name>
             <id>131</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1229,7 +1198,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>NotDeletedItemsTreeSearchStringContextMenu</name>
+            <name>ДеревоОставшихсяОбъектовСтрокаПоискаКонтекстноеМеню</name>
             <id>130</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1248,10 +1217,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>NotDeletedItemsTreeViewStatus</name>
+          <name>ДеревоОставшихсяОбъектовСостояниеПросмотра</name>
           <id>132</id>
           <extendedTooltip>
-            <name>NotDeletedItemsTreeViewStatusExtendedTooltip</name>
+            <name>ДеревоОставшихсяОбъектовСостояниеПросмотраРасширеннаяПодсказка</name>
             <id>134</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1266,7 +1235,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>NotDeletedItemsTreeViewStatusContextMenu</name>
+            <name>ДеревоОставшихсяОбъектовСостояниеПросмотраКонтекстноеМеню</name>
             <id>133</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1287,10 +1256,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>NotDeletedItemsTreeSearchControl</name>
+          <name>ДеревоОставшихсяОбъектовУправлениеПоиском</name>
           <id>135</id>
           <extendedTooltip>
-            <name>NotDeletedItemsTreeSearchControlExtendedTooltip</name>
+            <name>ДеревоОставшихсяОбъектовУправлениеПоискомРасширеннаяПодсказка</name>
             <id>137</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1305,7 +1274,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>NotDeletedItemsTreeSearchControlContextMenu</name>
+            <name>ДеревоОставшихсяОбъектовУправлениеПоискомКонтекстноеМеню</name>
             <id>136</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1320,7 +1289,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>NotDeletedItemsTreeExtendedTooltip</name>
+          <name>ДеревоОставшихсяОбъектовExtendedTooltip</name>
           <id>108</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1335,10 +1304,10 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>NotDeletedItemsTreeContextMenu</name>
+          <name>ДеревоОставшихсяОбъектовКонтекстноеМеню</name>
           <id>41</id>
           <items xsi:type="form:Button">
-            <name>NotDeletedItemsChangeObjectFromMenu</name>
+            <name>ДеревоОставшихсяОбъектовКонтекстноеМенюИзменитьОбъект</name>
             <id>79</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1346,7 +1315,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>NotDeletedItemsChangeObjectFromMenuExtendedTooltip</name>
+              <name>ДеревоОставшихсяОбъектовКонтекстноеМенюИзменитьОбъектExtendedTooltip</name>
               <id>102</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1360,16 +1329,15 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ChangeObject</commandName>
+            <commandName>Form.Command.ИзменитьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>NotDeletedItemsEditObjectFromMenu</name>
+            <name>ДеревоОставшихсяОбъектовКонтекстноеМенюРедактироватьОбъект</name>
             <id>144</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1377,7 +1345,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>NotDeletedItemsEditObjectFromMenuExtendedTooltip</name>
+              <name>ДеревоОставшихсяОбъектовКонтекстноеМенюРедактироватьОбъектРасширеннаяПодсказка</name>
               <id>145</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1391,19 +1359,18 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.EditObject</commandName>
+            <commandName>Form.Command.РедактироватьОбъект</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>NotDeletedItemsFromMenuGroup</name>
+            <name>ДеревоОставшихсяОбъектовКонтекстноеМенюГруппа</name>
             <id>80</id>
             <items xsi:type="form:Button">
-              <name>NotDeletedItemsSelectAllFromMenu</name>
+              <name>ДеревоОставшихсяОбъектовКонтекстноеМенюВыделитьВсе</name>
               <id>78</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1411,7 +1378,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>NotDeletedItemsSelectAllFromMenuExtendedTooltip</name>
+                <name>ДеревоОставшихсяОбъектовКонтекстноеМенюВыделитьВсеExtendedTooltip</name>
                 <id>104</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1425,16 +1392,15 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.NotDeletedItemsTree.StandardCommand.SelectAll</commandName>
+              <commandName>Form.Item.ДеревоОставшихсяОбъектов.StandardCommand.SelectAll</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>NotDeletedItemsCopyToClipboardFromMenu</name>
+              <name>ДеревоОставшихсяОбъектовКонтекстноеМенюКопироватьВБуферОбмена</name>
               <id>77</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1442,7 +1408,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>NotDeletedItemsCopyToClipboardFromMenuExtendedTooltip</name>
+                <name>ДеревоОставшихсяОбъектовКонтекстноеМенюКопироватьВБуферОбменаExtendedTooltip</name>
                 <id>105</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1456,12 +1422,11 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.NotDeletedItemsTree.StandardCommand.CopyToClipboard</commandName>
+              <commandName>Form.Item.ДеревоОставшихсяОбъектов.StandardCommand.CopyToClipboard</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -1469,12 +1434,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <title>
-              <key>en</key>
-              <value>Not deleted items from menu group</value>
-            </title>
             <extendedTooltip>
-              <name>NotDeletedItemsFromMenuGroupExtendedTooltip</name>
+              <name>ДеревоОставшихсяОбъектовКонтекстноеМенюГруппаExtendedTooltip</name>
               <id>103</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1512,7 +1473,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>NotDeletedItemsTree.НомерКартинки</segments>
+          <segments>ДеревоОставшихсяОбъектов.НомерКартинки</segments>
         </rowPictureDataPath>
         <borderColor xsi:type="core:ColorRef">
           <color>Style.BorderColor</color>
@@ -1530,17 +1491,13 @@
         <key>ru</key>
         <value>Причины невозможности удаления</value>
       </title>
-      <title>
-        <key>en</key>
-        <value>Deletion failure reasons page</value>
-      </title>
       <toolTip>
         <key>ru</key>
         <value>Причины невозможности удаления</value>
       </toolTip>
       <enableContentChange>true</enableContentChange>
       <extendedTooltip>
-        <name>DeletionFailureReasonsPageExtendedTooltip</name>
+        <name>ПричиныНевозможностиУдаленияExtendedTooltip</name>
         <id>101</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1561,21 +1518,17 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>TimeConsumingOperationPage</name>
+      <name>ДлительнаяОперация</name>
       <id>59</id>
       <items xsi:type="form:FormGroup">
-        <name>TimeConsumingOperationMain</name>
+        <name>ОсновнаяГруппаДлительнойОперации</name>
         <id>62</id>
         <items xsi:type="form:Decoration">
-          <name>TimeConsumingOperationPicture</name>
+          <name>КартинкаДлительнаяОперация</name>
           <id>60</id>
           <title>
             <key>ru</key>
             <value>Картинка длительная операция</value>
-          </title>
-          <title>
-            <key>en</key>
-            <value>Time consuming operation picture</value>
           </title>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1583,7 +1536,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>TimeConsumingOperationPictureExtendedTooltip</name>
+            <name>КартинкаДлительнаяОперацияExtendedTooltip</name>
             <id>112</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1598,7 +1551,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>TimeConsumingOperationPictureContextMenu</name>
+            <name>КартинкаДлительнаяОперацияКонтекстноеМеню</name>
             <id>61</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1613,15 +1566,11 @@
           <extInfo xsi:type="form:PictureDecorationExtInfo"/>
         </items>
         <items xsi:type="form:Decoration">
-          <name>DelitionMarkedObjects</name>
+          <name>УдалениеПомеченныхОбъектов</name>
           <id>63</id>
           <title>
             <key>ru</key>
             <value>Удаление помеченных объектов</value>
-          </title>
-          <title>
-            <key>en</key>
-            <value>Delition marked objects</value>
           </title>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1629,7 +1578,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>DelitionMarkedObjectsExtendedTooltip</name>
+            <name>УдалениеПомеченныхОбъектовExtendedTooltip</name>
             <id>113</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1644,7 +1593,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>DelitionMarkedObjectsContextMenu</name>
+            <name>УдалениеПомеченныхОбъектовКонтекстноеМеню</name>
             <id>64</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1670,16 +1619,12 @@
           <key>ru</key>
           <value>Основная группа длительной операции</value>
         </title>
-        <title>
-          <key>en</key>
-          <value>Time consuming operation main</value>
-        </title>
         <toolTip>
           <key>ru</key>
           <value>Основная группа длительной операции</value>
         </toolTip>
         <extendedTooltip>
-          <name>TimeConsumingOperationMainExtendedTooltip</name>
+          <name>ОсновнаяГруппаДлительнойОперацииExtendedTooltip</name>
           <id>111</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1710,16 +1655,12 @@
         <key>ru</key>
         <value>Длительная операция</value>
       </title>
-      <title>
-        <key>en</key>
-        <value>Time consuming operation page</value>
-      </title>
       <toolTip>
         <key>ru</key>
         <value>Длительная операция</value>
       </toolTip>
       <extendedTooltip>
-        <name>TimeConsumingOperationPageExtendedTooltip</name>
+        <name>ДлительнаяОперацияExtendedTooltip</name>
         <id>110</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1748,17 +1689,13 @@
       <key>ru</key>
       <value>Страницы формы</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Form pages</value>
-    </title>
     <toolTip>
       <key>ru</key>
       <value>Страницы формы</value>
     </toolTip>
     <enableContentChange>true</enableContentChange>
     <extendedTooltip>
-      <name>FormPagesExtendedTooltip</name>
+      <name>СтраницыФормыExtendedTooltip</name>
       <id>81</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1778,10 +1715,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>CommandBars</name>
+    <name>КомандыФормы</name>
     <id>2</id>
     <items xsi:type="form:Button">
-      <name>CommandBack</name>
+      <name>КомандаНазад</name>
       <id>52</id>
       <title>
         <key>ru</key>
@@ -1793,7 +1730,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>CommandBackExtendedTooltip</name>
+        <name>КомандаНазадExtendedTooltip</name>
         <id>115</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1807,16 +1744,15 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.CommandBack</commandName>
+      <commandName>Form.Command.КомандаНазад</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>CommandNext</name>
+      <name>КомандаДалее</name>
       <id>3</id>
       <title>
         <key>ru</key>
@@ -1828,7 +1764,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>CommandNextExtendedTooltip</name>
+        <name>КомандаДалееExtendedTooltip</name>
         <id>116</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1842,7 +1778,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.CommandNext</commandName>
+      <commandName>Form.Command.КомандаДалее</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -1856,11 +1792,10 @@
       <borderColor xsi:type="core:ColorRef">
         <color>Style.BorderColor</color>
       </borderColor>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>CommandDelete</name>
+      <name>КомандаУдалить</name>
       <id>45</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1869,7 +1804,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>CommandDeleteExtendedTooltip</name>
+        <name>КомандаУдалитьExtendedTooltip</name>
         <id>117</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1883,7 +1818,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.CommandDelete</commandName>
+      <commandName>Form.Command.КомандаУдалить</commandName>
       <representation>PictureAndText</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -1898,11 +1833,10 @@
       <borderColor xsi:type="core:ColorRef">
         <color>Style.BorderColor</color>
       </borderColor>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Close</name>
+      <name>Закрыть</name>
       <id>4</id>
       <title>
         <key>ru</key>
@@ -1915,7 +1849,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>CloseExtendedTooltip</name>
+        <name>ЗакрытьExtendedTooltip</name>
         <id>118</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1942,11 +1876,10 @@
       <borderColor xsi:type="core:ColorRef">
         <color>Style.BorderColor</color>
       </borderColor>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Help</name>
+      <name>Справка</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1955,7 +1888,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>HelpExtendedTooltip</name>
+        <name>СправкаExtendedTooltip</name>
         <id>119</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1983,7 +1916,6 @@
       <borderColor xsi:type="core:ColorRef">
         <color>Style.BorderColor</color>
       </borderColor>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -1995,17 +1927,13 @@
       <key>ru</key>
       <value>Команды формы</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Command bars</value>
-    </title>
     <toolTip>
       <key>ru</key>
       <value>Команды формы</value>
     </toolTip>
     <enableContentChange>true</enableContentChange>
     <extendedTooltip>
-      <name>CommandBarsExtendedTooltip</name>
+      <name>КомандыФормыExtendedTooltip</name>
       <id>114</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2037,11 +1965,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>OnOpen</name>
+    <name>ПриОткрытии</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>OnCreateAtServer</name>
+    <name>ПриСозданииНаСервере</name>
   </handlers>
   <excludedCommands>Abort</excludedCommands>
   <excludedCommands>Cancel</excludedCommands>
@@ -2060,11 +1988,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Object</name>
-    <title>
-      <key>en</key>
-      <value>Object</value>
-    </title>
+    <name>Объект</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.УИ_УдалениеПомеченныхОбъектов</types>
@@ -2078,14 +2002,10 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>DeletionMode</name>
+    <name>РежимУдаления</name>
     <title>
       <key>ru</key>
       <value>Режим удаления</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Deletion mode</value>
     </title>
     <id>2</id>
     <valueType>
@@ -2100,14 +2020,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>EmptyString</name>
+    <name>ПустаяСтрока</name>
     <title>
       <key>ru</key>
       <value>Пустая строка</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Empty string</value>
     </title>
     <id>5</id>
     <valueType>
@@ -2122,14 +2038,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>MarkedForDeletionItemsTree</name>
+    <name>СписокПомеченныхНаУдаление</name>
     <title>
       <key>ru</key>
       <value>Список помеченных на удаление</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Marked for deletion items tree</value>
     </title>
     <id>6</id>
     <valueType>
@@ -2193,14 +2105,10 @@
     </columns>
   </attributes>
   <attributes>
-    <name>NotDeletedItemsTree</name>
+    <name>ДеревоОставшихсяОбъектов</name>
     <title>
       <key>ru</key>
       <value>Дерево оставшихся объектов</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Not deleted items tree</value>
     </title>
     <id>8</id>
     <valueType>
@@ -2268,14 +2176,10 @@
     </columns>
   </attributes>
   <attributes>
-    <name>Label</name>
+    <name>Надпись</name>
     <title>
       <key>ru</key>
       <value>Надпись</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Label</value>
     </title>
     <id>9</id>
     <valueType>
@@ -2290,14 +2194,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>NomberNotDeletedObjects</name>
+    <name>КоличествоНеУдаленныхОбъектов</name>
     <title>
       <key>ru</key>
       <value>Количество оставшихся (не удаленных) объектов</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Nomber not deleted objects</value>
     </title>
     <id>3</id>
     <valueType>
@@ -2314,7 +2214,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ResultLine</name>
+    <name>СтрокаРезультатов</name>
     <title>
       <key>ru</key>
       <value>Строка результатов</value>
@@ -2332,14 +2232,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>DeletedObjects</name>
+    <name>УдаленныхОбъектов</name>
     <title>
       <key>ru</key>
       <value>Удаленных объектов</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Deleted objects</value>
     </title>
     <id>7</id>
     <valueType>
@@ -2356,14 +2252,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>NomberOfLevelsMarkedForDeletion</name>
+    <name>КоличествоУровнейПомеченныхНаУдаление</name>
     <title>
       <key>ru</key>
       <value>Количество уровней помеченных на удаление</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Nomber of levels marked for deletion</value>
     </title>
     <id>10</id>
     <valueType>
@@ -2380,14 +2272,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>IdleHandlerParameters</name>
+    <name>ПараметрыОбработчикаОжидания</name>
     <title>
       <key>ru</key>
       <value>Параметры обработчика ожидания</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Idle handler parameters</value>
     </title>
     <id>11</id>
     <valueType/>
@@ -2399,14 +2287,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ScheduledJobID</name>
+    <name>ИдентификаторЗадания</name>
     <title>
       <key>ru</key>
       <value>Идентификатор задания</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Scheduled job ID</value>
     </title>
     <id>12</id>
     <valueType/>
@@ -2418,14 +2302,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>StorageAddress</name>
+    <name>АдресХранилища</name>
     <title>
       <key>ru</key>
       <value>Адрес хранилища</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Storage address</value>
     </title>
     <id>13</id>
     <valueType>
@@ -2440,14 +2320,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>PageName</name>
+    <name>ИмяСтраницы</name>
     <title>
       <key>ru</key>
       <value>Имя страницы</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Page name</value>
     </title>
     <id>14</id>
     <valueType>
@@ -2462,14 +2338,10 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>CommandNext</name>
+    <name>КомандаДалее</name>
     <title>
       <key>ru</key>
       <value>Далее</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Command next</value>
     </title>
     <id>1</id>
     <use>
@@ -2477,20 +2349,16 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>RunNext</name>
+        <name>ВыполнитьДалее</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>CommandSelectedListSetAll</name>
+    <name>КомандаСписокПомеченныхУстановитьВсе</name>
     <title>
       <key>ru</key>
       <value>Пометить все объекты на удаление</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Command selected list set all</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -2505,20 +2373,16 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>CommandSelectedListSetAll</name>
+        <name>КомандаСписокПомеченныхУстановитьВсе</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>CommandSelectedListClearAll</name>
+    <name>КомандаСписокПомеченныхСнятьВсе</name>
     <title>
       <key>ru</key>
       <value>Снять все пометки удаления</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Command selected list clear all</value>
     </title>
     <id>3</id>
     <toolTip>
@@ -2533,20 +2397,16 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>CommandSelectedListClearAll</name>
+        <name>КомандаСписокПомеченныхСнятьВсе</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>CommandDelete</name>
+    <name>КомандаУдалить</name>
     <title>
       <key>ru</key>
       <value>Удалить</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Command delete</value>
     </title>
     <id>4</id>
     <toolTip>
@@ -2558,20 +2418,16 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>RunDelete</name>
+        <name>ВыполнитьУдаление</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>CommandBack</name>
+    <name>КомандаНазад</name>
     <title>
       <key>ru</key>
       <value>Команда назад</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Command back</value>
     </title>
     <id>5</id>
     <toolTip>
@@ -2583,20 +2439,16 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>RunBack</name>
+        <name>ВыполнитьНазад</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ChangeObject</name>
+    <name>ИзменитьОбъект</name>
     <title>
       <key>ru</key>
       <value>Изменить</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Change object</value>
     </title>
     <id>6</id>
     <toolTip>
@@ -2612,21 +2464,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ChangeObject</name>
+        <name>ИзменитьОбъект</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>UpdateDeleteMarkedList</name>
+    <name>ОбновитьСписокПомеченныхНаУдаление</name>
     <title>
       <key>ru</key>
       <value>Обновить</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Update delete marked list</value>
     </title>
     <id>7</id>
     <toolTip>
@@ -2642,21 +2490,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>UpdateDeleteMarkedList</name>
+        <name>ОбновитьСписокПомеченныхНаУдаление</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>EditObject</name>
+    <name>РедактироватьОбъект</name>
     <title>
       <key>ru</key>
       <value>Редактировать объект</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Edit object</value>
     </title>
     <id>8</id>
     <use>
@@ -2667,7 +2511,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>EditObject</name>
+        <name>РедактироватьОбъект</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

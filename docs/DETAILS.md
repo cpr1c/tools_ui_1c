@@ -17,7 +17,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;AdditionalReportsAndDataProcessors</td>
-<td style="height: 17px; width: 66.8125px;">40%</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
 <td style="width: 43.875px; height: 17px;">47</td>
 </tr>
 <tr style="height: 17px;">
@@ -62,7 +62,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_Common</td>
-<td style="height: 17px; width: 66.8125px;">100%</td>
+<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
 <td style="width: 43.875px; height: 17px;">4870</td>
 </tr>
 <tr style="height: 17px;">
@@ -92,7 +92,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_Forms</td>
-<td style="height: 17px; width: 66.8125px;">99%</td>
+<td style="height: 17px; width: 66.8125px;">90%</td>
 <td style="width: 43.875px; height: 17px;">370</td>
 </tr>
 <tr style="height: 17px;">
@@ -145,7 +145,7 @@
 
 
 ## Соотвествие процедур общих модулей 
-### UT_CommonClientServer
+### CommonClientServer
 
 <table>
 <tbody>
@@ -795,7 +795,7 @@
 </tbody>
 </table>
 
-### UT_CommonServerCall
+### CommonClientServer
 
 <table>
 <tbody>
@@ -816,15 +816,6 @@
 </td>
 </tr>
 <tr>
-<tr>
-<td width="404">
-<p>КодОсновногоЯзыка</p>
-</td>
-<td width="270">
-<p>DefaultLanguageCode</p>
-</td>
-</tr>
-<tr>
 <td width="404">
 <p>СсылкиПоИменамПредопределенных</p>
 </td>
@@ -834,6 +825,7 @@
 </tr>
 <tr>
 <td width="404">
+<<<<<<< HEAD
 <p>ЗначенияРеквизитовОбъекта</p>
 </td>
 <td width="270">
@@ -1035,6 +1027,9 @@
 <tr>
 <td width="404">
 <p>СтруктураДанныхОбъектаОтладкиИзСправочникаДанныхОтладки</p>
+=======
+<p></p>
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 </td>
 <td width="270">
 <p></p>
@@ -1042,7 +1037,7 @@
 </tr>
 <tr>
 <td width="404">
-<p>СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек</p>
+<p></p>
 </td>
 <td width="270">
 <p></p>
@@ -1050,7 +1045,7 @@
 </tr>
 <tr>
 <td width="404">
-<p>СериализоватьОбъектСКДДляОтладки</p>
+<p></p>
 </td>
 <td width="270">
 <p></p>
@@ -1058,7 +1053,7 @@
 </tr>
 <tr>
 <td width="404">
-<p>СтруктураВременныхТаблицМенеджераВременныхТаблиц</p>
+<p></p>
 </td>
 <td width="270">
 <p></p>
@@ -1066,7 +1061,7 @@
 </tr>
 <tr>
 <td width="404">
-<p>ВыполнитьСравнениеДвухТаблицЗначений</p>
+<p></p>
 </td>
 <td width="270">
 <p></p>
@@ -1074,13 +1069,12 @@
 </tr>
 <tr>
 <td width="404">
-<p>ПодготовленныеДанныеКонсолиДляЗаписиВФайл</p>
+<p></p>
 </td>
 <td width="270">
 <p></p>
 </td>
 </tr>
-
 </tbody>
 </table>
 
@@ -1282,129 +1276,66 @@
 </tr>
 <tr>
 <td width="404">
-<p>ДобавитьВКоманднуюПанельОбщиеКоманды</p>
+<p></p>
 </td>
 <td width="270">
-<p>AddToCommonCommandsCommandBar</p>
+<p></p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>ФормаИнструментаПриСозданииНаСервере</p>
+<p></p>
 </td>
 <td width="270">
-<p>ToolFormOnCreateAtServer</p>
+<p></p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>ИсключенияПоискаСсылок</p>
+<p></p>
 </td>
 <td width="270">
-<p>RefSearchExclusions</p>
+<p></p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>ПодключитьКомпонентуИзМакета</p>
+<p></p>
 </td>
 <td width="270">
-<p>AttachAddInFromTemplate</p>
+<p></p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>ПредметСтрокой</p>
+<p></p>
 </td>
 <td width="270">
-<p>SubjectString</p>
+<p></p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>ЗарегистрироватьОшибкуЗамены</p>
+<p></p>
 </td>
 <td width="270">
-<p>RegisterReplacementError</p>
+<p></p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>ОписаниеОшибкиЗамены</p>
+<p></p>
 </td>
 <td width="270">
-<p>ReplacementErrorDescription</p>
+<p></p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p>ОписаниеТипаВсеСсылки</p>
+<p></p>
 </td>
 <td width="270">
-<p>AllRefsTypeDescription</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>ДобавитьОбъектВМассивОбъектовКСравнению</p>
-</td>
-<td width="270">
-<p>AddObjectToComparingObjectsArray</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>КлючНастроекОбъектовКСравнению</p>
-</td>
-<td width="270">
-<p>ObjectsToCompareSettingsKey</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>ДобавитьМассивОбъектовКСравнению</p>
-</td>
-<td width="270">
-<p>AddObjectsArrayToCompare</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>ОбъектыДобавленныеКСравнению</p>
-</td>
-<td width="270">
-<p>ObjectsAddedToTheComparison</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>ОчиститьОбъектыДобавленныеКСравнению</p>
-</td>
-<td width="270">
-<p>ClearObjectsAddedToTheComparison</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>КлючНастроекОтладкиДополнительныхОтчетовИОбработок</p>
-</td>
-<td width="270">
-<p>KeyOfAdditionalReportsAndDataProcessorsDebugSettings</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>НовыйСтруктураНастройкиОтладкиДополнительнойОбработки</p>
-</td>
-<td width="270">
-<p>NewStructureOfAdditionalDataProcessorDebugSettings</p>
-</td>
-</tr>
-<tr>
-<td width="404">
-<p>НастройкиОтладкиДополнительнойОбработки</p>
-</td>
-<td width="270">
+<<<<<<< HEAD
 <p>AdditionalDataProcessorDebugSettings</p>
 </td>
 </tr>
@@ -2162,6 +2093,11 @@
 <table style="width: 97.5852%; border-collapse: collapse;" border="1">
 <tbody>
 
+=======
+<p></p>
+</td>
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 </tr>
+
 </tbody>
 </table>

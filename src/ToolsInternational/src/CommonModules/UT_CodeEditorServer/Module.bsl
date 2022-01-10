@@ -12,7 +12,7 @@
 	ЭтоWindowsКлиент = Ложь;
 	ЭтоВебКлиент = Истина;
 	
-	ПараметрыСеансаВХранилище = UT_CommonServerCall.CommonSettingsStorageLoad(
+	ПараметрыСеансаВХранилище = UT_CommonServerCall.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 	Если Тип(ПараметрыСеансаВХранилище) = Тип("Структура") Тогда
@@ -153,7 +153,7 @@
 	
 	РедакторКода = ПараметрыРедактораКода.Вариант;
 	
-	УИ_ПараметрыСеанса = UT_Common.CommonSettingsStorageLoad(
+	УИ_ПараметрыСеанса = UT_Common.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 		
@@ -173,7 +173,7 @@
 КонецПроцедуры
 
 Функция ТекущиеПараметрыРедактораКода() Экспорт
-	СохраненныеПараметрыРедактора = UT_Common.CommonSettingsStorageLoad(
+	СохраненныеПараметрыРедактора = UT_Common.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода");
 
 	ПараметрыПоУмолчанию = UT_CodeEditorClientServer.ПараметрыРедактораКодаПоУмолчанию();
@@ -485,7 +485,7 @@
 #Область СлужебныйПрограммныйИнтерфейс
 
 Функция ТекущиеПараметрыРедактораMonaco() Экспорт
-	ПараметрыИзХранилища =  UT_Common.CommonSettingsStorageLoad(
+	ПараметрыИзХранилища =  UT_Common.ХранилищеОбщихНастроекЗагрузить(
 		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораMonaco",
 		UT_CodeEditorClientServer.ПараметрыРедактораMonacoПоУмолчанию());
 

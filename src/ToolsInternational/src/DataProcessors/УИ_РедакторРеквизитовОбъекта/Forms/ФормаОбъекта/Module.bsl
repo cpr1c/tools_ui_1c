@@ -351,7 +351,7 @@
 			вПоказатьЗначениеХЗ(Значение);
 
 		ИначеЕсли вЭтоОбъектМетаданных(ТипЗнч(Значение)) Тогда
-			UT_CommonClient.РедактироватьОбъект(Значение);
+			UT_CommonClient.EditObject(Значение);
 		КонецЕсли;
 	КонецЕсли;
 КонецПроцедуры
@@ -801,7 +801,11 @@
 //		КонецЕсли;
 //
 //		ОбъектДляЗаписи.Записать();
+<<<<<<< HEAD
 		Если UT_Common.WriteObjectToDB(ОбъектДляЗаписи,
+=======
+		Если UT_Common.ЗаписатьОбъектВБазу(ОбъектДляЗаписи,
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 			UT_CommonClientServer.ПараметрыЗаписиФормы(ЭтотОбъект)) Тогда
 			мОбъектСсылка = ОбъектДляЗаписи.Ссылка;
 			вОбновитьДанныеОбъекта();
@@ -849,7 +853,11 @@
 //		Если ЗаписьВРежимеЗагрузки Тогда
 //			пОбъект.ОбменДанными.Загрузка = Истина;
 //		КонецЕсли;
+<<<<<<< HEAD
 		Если UT_Common.WriteObjectToDB(пОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+=======
+		Если UT_Common.ЗаписатьОбъектВБазу(пОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 			ЭтотОбъект)) Тогда
 //		пОбъект.Удалить();
 
@@ -2047,7 +2055,11 @@
 
 	ДокОбъект = Ссылка.ПолучитьОбъект();
 
+<<<<<<< HEAD
 	Возврат UT_Common.WriteObjectToDB(ДокОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+=======
+	Возврат UT_Common.ЗаписатьОбъектВБазу(ДокОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 		ЭтотОбъект), , Режим);
 
 КонецФункции
@@ -2418,7 +2430,7 @@
 //@skip-warning
 &НаКлиенте
 Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
-	UT_CommonClient.Подключаемый_ВыполнитьОбщуюКомандуИнструментов(ЭтотОбъект, Команда);
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 КонецПроцедуры
 
 //@skip-warning

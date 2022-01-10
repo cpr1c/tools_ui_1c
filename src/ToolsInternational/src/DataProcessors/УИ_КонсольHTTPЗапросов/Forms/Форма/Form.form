@@ -40,7 +40,6 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -71,7 +70,6 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -102,7 +100,6 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -133,7 +130,6 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -264,8 +260,14 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияЗапросов.HTTPФункция</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияЗапросов.HTTPФункция</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияЗапросов.HTTPФункция</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка1</name>
@@ -364,8 +366,14 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияЗапросов.АдресСервера</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияЗапросов.АдресСервера</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияЗапросов.АдресСервера</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка2</name>
@@ -514,8 +522,14 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияЗапросов.Дата</segments>
+          <dataPath xsi:type="form:MultiLanguageDataPath">
+            <activeLanguage>1</activeLanguage>
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияЗапросов.Дата</segments>
+            </paths>
+            <paths xsi:type="form:DataPath">
+              <segments>ИсторияЗапросов.Дата</segments>
+            </paths>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка</name>
@@ -732,7 +746,6 @@
         <rowPictureDataPath xsi:type="form:DataPath">
           <segments>ИсторияЗапросов.Картинка</segments>
         </rowPictureDataPath>
-        <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1013,7 +1026,6 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -1711,8 +1723,14 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:DataPath">
-                    <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
+                  <dataPath xsi:type="form:MultiLanguageDataPath">
+                    <activeLanguage>1</activeLanguage>
+                    <paths xsi:type="form:DataPath">
+                      <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
+                    </paths>
+                    <paths xsi:type="form:DataPath">
+                      <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
+                    </paths>
                   </dataPath>
                   <extendedTooltip>
                     <name>ПолеРасширеннаяПодсказка22</name>
@@ -1765,8 +1783,14 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:DataPath">
-                    <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
+                  <dataPath xsi:type="form:MultiLanguageDataPath">
+                    <activeLanguage>1</activeLanguage>
+                    <paths xsi:type="form:DataPath">
+                      <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
+                    </paths>
+                    <paths xsi:type="form:DataPath">
+                      <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
+                    </paths>
                   </dataPath>
                   <extendedTooltip>
                     <name>ПолеРасширеннаяПодсказка23</name>
@@ -1974,7 +1998,6 @@
                 <initialListView>Auto</initialListView>
                 <horizontalStretch>true</horizontalStretch>
                 <verticalStretch>true</verticalStretch>
-                <rowFilter xsi:type="core:UndefinedValue"/>
               </items>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2228,7 +2251,6 @@
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
@@ -2559,7 +2581,6 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
-                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:FormField">
@@ -2896,7 +2917,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ИсторияЗапросов.CurrentData.ДлительностьВыполнения</segments>
+                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ДлительностьВыполнения</segments>
               </dataPath>
               <toolTip>
                 <key>ru</key>
@@ -3435,7 +3456,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ИсторияЗапросов.CurrentData.HTTPФункция</segments>
+                  <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.HTTPФункция</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
@@ -3488,7 +3509,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ИсторияЗапросов.CurrentData.URL</segments>
+                  <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.URL</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>ПолеРасширеннаяПодсказка16</name>
@@ -3538,7 +3559,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ИсторияЗапросов.CurrentData.Таймаут</segments>
+                  <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.Таймаут</segments>
                 </dataPath>
                 <toolTip>
                   <key>ru</key>
@@ -3621,7 +3642,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ИсторияЗапросов.CurrentData.ЗаголовкиЗапроса</segments>
+                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ЗаголовкиЗапроса</segments>
               </dataPath>
               <titleLocation>Top</titleLocation>
               <extendedTooltip>
@@ -3678,7 +3699,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>Items.ИсторияЗапросов.CurrentData.ВидТелаЗапроса</segments>
+                    <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ВидТелаЗапроса</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ПолеРасширеннаяПодсказка30</name>
@@ -3748,7 +3769,6 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <toolTipRepresentation>Auto</toolTipRepresentation>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <visible>true</visible>
@@ -3795,7 +3815,7 @@
                       <common>true</common>
                     </userVisible>
                     <dataPath xsi:type="form:DataPath">
-                      <segments>Items.ИсторияЗапросов.CurrentData.ТелоЗапросаСтрока</segments>
+                      <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ТелоЗапросаСтрока</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
@@ -3903,7 +3923,6 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
-                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:FormField">
@@ -3915,7 +3934,7 @@
                       <common>true</common>
                     </userVisible>
                     <dataPath xsi:type="form:DataPath">
-                      <segments>Items.ИсторияЗапросов.CurrentData.ТелоЗапросаДвоичныеДанныеСтрокой</segments>
+                      <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ТелоЗапросаДвоичныеДанныеСтрокой</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
@@ -4001,7 +4020,7 @@
                       <common>true</common>
                     </userVisible>
                     <dataPath xsi:type="form:DataPath">
-                      <segments>Items.ИсторияЗапросов.CurrentData.ТелоЗапросаИмяФайла</segments>
+                      <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ТелоЗапросаИмяФайла</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
@@ -4183,7 +4202,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ИсторияЗапросов.CurrentData.КодСостояния</segments>
+                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.КодСостояния</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ПолеРасширеннаяПодсказка19</name>
@@ -4233,7 +4252,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ИсторияЗапросов.CurrentData.ЗаголовкиОтвета</segments>
+                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ЗаголовкиОтвета</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ПолеРасширеннаяПодсказка20</name>
@@ -4313,7 +4332,6 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
-                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:FormField">
@@ -4434,7 +4452,6 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
-                    <toolTipRepresentation>Auto</toolTipRepresentation>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:FormField">
@@ -4746,12 +4763,12 @@
     <horizontalAlign>Left</horizontalAlign>
   </autoCommandBar>
   <handlers>
-    <event>OnOpen</event>
-    <name>ПриОткрытии</name>
-  </handlers>
-  <handlers>
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
+  </handlers>
+  <handlers>
+    <event>OnOpen</event>
+    <name>ПриОткрытии</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>

@@ -92,10 +92,14 @@
 КонецПроцедуры
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Процедура CodeEditorDeferredInitializingEditors(Форма) Экспорт
 =======
 Процедура РедакторКодаОтложеннаяИнициализацияРедакторов(Форма) Экспорт
 >>>>>>> parent of abeacf4 (Merge pull request #68 from tolixxtech/develop)
+=======
+Процедура CodeEditorDeferredInitializingEditors(Форма) Экспорт
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 	ВидРедактора = Форма[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
 	ВидыРедактора = UT_CodeEditorClientServer.ВариантыРедактораКода();
 	РедакторыФормы = Форма[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];

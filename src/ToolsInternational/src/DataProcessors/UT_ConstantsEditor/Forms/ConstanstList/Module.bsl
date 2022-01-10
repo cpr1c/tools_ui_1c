@@ -310,12 +310,12 @@ Procedure ConstantClick(Item, StandardProcessing)
 		Return;
 	EndIf;
 
-	UT_CommonClient.РедактироватьХранилищеЗначения(ThisObject, FindedRows[0].ConstantValue);
+	UT_CommonClient.EditValueStorage(ThisObject, FindedRows[0].ConstantValue);
 EndProcedure
 
 &AtClient
 Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) Экспорт
-	UT_CommonClient.Подключаемый_ВыполнитьОбщуюКомандуИнструментов(ThisObject, Command);
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
 //@skip-warning

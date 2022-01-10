@@ -15,8 +15,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Сервер</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Сервер</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>СерверРасширеннаяПодсказка</name>
@@ -65,8 +67,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>БазаДанных</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>БазаДанных</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>БазаДанныхРасширеннаяПодсказка</name>
@@ -115,8 +119,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>РежимЗапуска</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>РежимЗапуска</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>РежимЗапускаРасширеннаяПодсказка</name>
@@ -201,8 +207,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>ДопПараметры</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>ДопПараметры</segments>
+        </paths>
       </dataPath>
       <extendedTooltip>
         <name>ДопПараметрыРасширеннаяПодсказка</name>
@@ -295,8 +303,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>Стартер1С</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>Стартер1С</segments>
+        </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
@@ -354,8 +364,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>СтрокаКоманды</segments>
+      <dataPath xsi:type="form:MultiLanguageDataPath">
+        <paths xsi:type="form:DataPath">
+          <segments>СтрокаКоманды</segments>
+        </paths>
       </dataPath>
       <toolTip>
         <key>ru</key>
@@ -430,7 +442,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -546,7 +557,6 @@
     <autoMaxWidth>true</autoMaxWidth>
     <autoMaxHeight>true</autoMaxHeight>
     <placementArea>UserCmds</placementArea>
-    <toolTipRepresentation>Auto</toolTipRepresentation>
     <representationInContextMenu>Auto</representationInContextMenu>
   </items>
   <autoCommandBar>

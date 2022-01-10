@@ -15,7 +15,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>TextColor</dcscor:parameter>
+				<dcscor:parameter>ЦветТекста</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#000080</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -36,11 +36,11 @@
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>TextColor</dcscor:parameter>
+				<dcscor:parameter>ЦветТекста</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#000080</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>Font</dcscor:parameter>
+				<dcscor:parameter>Шрифт</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Font" ref="sys:DefaultGUIFont" bold="false" italic="false" underline="false" strikeout="true" kind="WindowsFont"/>
 			</dcscor:item>
 		</appearance>
