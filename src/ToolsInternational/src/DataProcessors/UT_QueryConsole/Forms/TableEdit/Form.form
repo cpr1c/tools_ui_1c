@@ -76,6 +76,7 @@
         <placementArea>UserCmds</placementArea>
         <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
+        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
         <name>ТаблицаКнопкаУдалить</name>
@@ -107,6 +108,7 @@
         <placementArea>UserCmds</placementArea>
         <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
+        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
         <name>ТаблицаКнопкаПереместитьВниз</name>
@@ -138,6 +140,7 @@
         <placementArea>UserCmds</placementArea>
         <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
+        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
         <name>ТаблицаКнопкаПереместитьВверх</name>
@@ -169,6 +172,7 @@
         <placementArea>UserCmds</placementArea>
         <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
+        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
         <name>ТаблицаЗначенийКомандаОчистить</name>
@@ -408,6 +412,7 @@
       <placementArea>UserCmds</placementArea>
       <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
+      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <items xsi:type="form:Button">
       <name>КомандаОтмена</name>
@@ -443,6 +448,7 @@
       <placementArea>UserCmds</placementArea>
       <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
+      <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <visible>true</visible>
     <enabled>true</enabled>
