@@ -76,6 +76,7 @@ Function RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
 EndFunction
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Функция ObjectAttributesValues(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
 
 	Return UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
@@ -85,6 +86,12 @@ EndFunction
 	Возврат UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 
+=======
+Функция ObjectAttributesValues(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
+
+	Return UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
+
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 КонецФункции
 
 // Значение реквизита, прочитанного из информационной базы по ссылке на объект.
@@ -109,10 +116,14 @@ EndFunction
 //                 то возвращается Неопределено.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 Функция ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
 =======
 Функция ЗначениеРеквизитаОбъекта(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+Функция ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 	Возврат UT_Common.ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные);
 
@@ -146,10 +157,14 @@ EndFunction
 		НС=ОбработкаВыгрузки.ДополнительныеОбъектыДляВыгрузки.Добавить();
 		НС.Объект=ТекОбъект;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		НС.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(ТекОбъект);
 =======
 		НС.ИмяОбъектаДляЗапроса=UT_Common.ИмяТаблицыПоСсылке(ТекОбъект);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+		НС.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(ТекОбъект);
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 	КонецЦикла;
 		
 	ИмяВременногоФайла = ПолучитьИмяВременногоФайла(".xml");
@@ -197,10 +212,14 @@ EndFunction
 //  Произвольный - значение, полученное из переданной XML-строки.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 Функция ValueFromXMLString(СтрокаXML, Тип = Неопределено) Экспорт
 =======
 Функция ЗначениеИзСтрокиXML(СтрокаXML, Тип = Неопределено) Экспорт
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+Функция ValueFromXMLString(СтрокаXML, Тип = Неопределено) Экспорт
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 	ЧтениеXML = Новый ЧтениеXML;
 	ЧтениеXML.УстановитьСтроку(СтрокаXML);
@@ -249,16 +268,22 @@ EndFunction // WriteJSON(
 //   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 Процедура CommonSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
 	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
 	UT_Common.CommonSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
+<<<<<<< HEAD
 =======
 Процедура ХранилищеОбщихНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
 	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
 	UT_Common.ХранилищеОбщихНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
 
 КонецПроцедуры
@@ -279,6 +304,7 @@ EndFunction // WriteJSON(
 //   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 Процедура CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 	
 	UT_Common.CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
@@ -287,6 +313,11 @@ EndFunction // WriteJSON(
 	
 	UT_Common.ХранилищеОбщихНастроекСохранитьМассив(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+Процедура CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
+	
+	UT_Common.CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 КонецПроцедуры
 
@@ -315,6 +346,7 @@ EndFunction // WriteJSON(
 //   Произвольный - см. синтакс-помощник платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 Функция CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
 	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 	Возврат UT_Common.CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
@@ -323,6 +355,11 @@ EndFunction // WriteJSON(
 	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 	Возврат UT_Common.ХранилищеОбщихНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+Функция CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
+	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
+	Возврат UT_Common.CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		ОписаниеНастроек, ИмяПользователя)
 
 КонецФункции
@@ -339,6 +376,7 @@ EndFunction // WriteJSON(
 //   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 Процедура CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
 
 	UT_Common.CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
@@ -347,6 +385,11 @@ EndFunction // WriteJSON(
 
 	UT_Common.ХранилищеОбщихНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+Процедура CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
+
+	UT_Common.CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 КонецПроцедуры
 
@@ -364,16 +407,22 @@ EndFunction // WriteJSON(
 //   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 Процедура SystemSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
 	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
 	UT_Common.SystemSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
+<<<<<<< HEAD
 =======
 Процедура ХранилищеСистемныхНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
 	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
 	UT_Common.ХранилищеСистемныхНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
 
 КонецПроцедуры
@@ -402,16 +451,22 @@ EndFunction // WriteJSON(
 //   Произвольный - см. синтакс-помощник платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 Функция SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
 	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 
 	Возврат UT_Common.SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
+<<<<<<< HEAD
 =======
 Функция ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
 	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 
 	Возврат UT_Common.ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		ОписаниеНастроек, ИмяПользователя);
 
 КонецФункции
@@ -427,6 +482,7 @@ EndFunction // WriteJSON(
 //   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 Процедура SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
 
 	UT_Common.SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
@@ -435,6 +491,11 @@ EndFunction // WriteJSON(
 
 	UT_Common.ХранилищеСистемныхНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+Процедура SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
+
+	UT_Common.SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 КонецПроцедуры
 
@@ -453,16 +514,22 @@ EndFunction // WriteJSON(
 //   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 Процедура FormDataSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
 	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
 	UT_Common.FormDataSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
+<<<<<<< HEAD
 =======
 Процедура ХранилищеНастроекДанныхФормСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
 	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
 
 	UT_Common.ХранилищеНастроекДанныхФормСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
 
 КонецПроцедуры
@@ -492,16 +559,22 @@ EndFunction // WriteJSON(
 //   Произвольный - см. синтакс-помощник платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 Функция FormDataSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
 	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 
 	Возврат UT_Common.FormDataSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
+<<<<<<< HEAD
 =======
 Функция ХранилищеНастроекДанныхФормЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
 	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
 
 	Возврат UT_Common.ХранилищеНастроекДанныхФормЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		ОписаниеНастроек, ИмяПользователя);
 
 КонецФункции
@@ -518,6 +591,7 @@ EndFunction // WriteJSON(
 //   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 Процедура FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
 
 	UT_Common.FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
@@ -526,6 +600,11 @@ EndFunction // WriteJSON(
 
 	UT_Common.ХранилищеНастроекДанныхФормУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+Процедура FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
+
+	UT_Common.FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 КонецПроцедуры
 
@@ -534,6 +613,9 @@ EndFunction // WriteJSON(
 #Область Алгоритмы
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 Функция GetRefCatalogAlgorithms(Алгоритм) Экспорт
 	Возврат UT_Common.GetRefCatalogAlgorithms(Алгоритм);
 КонецФункции
@@ -541,6 +623,7 @@ EndFunction // WriteJSON(
 Функция ExecuteAlgorithm(АлгоритмСсылка, ВходящиеПараметры = Неопределено, ОшибкаВыполнения = Ложь,
 	СообщениеОбОшибке = "") Экспорт
 	Возврат UT_Common.ExecuteAlgorithm(АлгоритмСсылка, ВходящиеПараметры, ОшибкаВыполнения,
+<<<<<<< HEAD
 =======
 Функция ПолучитьСсылкуСправочникАлгоритмы(Алгоритм) Экспорт
 	Возврат UT_Common.ПолучитьСсылкуСправочникАлгоритмы(Алгоритм);
@@ -550,6 +633,8 @@ EndFunction // WriteJSON(
 	СообщениеОбОшибке = "") Экспорт
 	Возврат UT_Common.ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры, ОшибкаВыполнения,
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		СообщениеОбОшибке);
 КонецФункции
 
@@ -562,10 +647,14 @@ EndFunction // WriteJSON(
 	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
 =======
 	UT_Common.ХранилищеСистемныхНастроекСохранить(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 	Возврат "Запись выполнена успешно. Ключ настроек " + КлючНастроек;
 КонецФункции
@@ -582,10 +671,14 @@ EndFunction // WriteJSON(
 Функция СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек(КлючНастроек, ИдентификаторФормы=Неопределено) Экспорт
 	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
 =======
 	НастройкиОтладки=UT_Common.ХранилищеСистемныхНастроекЗагрузить(КлючОбъектаДанныхОтладки, КлючНастроек);
 >>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 
 	Если НастройкиОтладки = Неопределено Тогда
 		Возврат Неопределено;

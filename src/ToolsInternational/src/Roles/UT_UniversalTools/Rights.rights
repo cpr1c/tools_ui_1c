@@ -352,6 +352,9 @@
 	</object>
 	<object>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		<name>Catalog.UT_Algorithms.Command.ВыполнитьАлгоритм</name>
 		<right>
 			<name>View</name>
