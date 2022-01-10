@@ -220,7 +220,7 @@ Procedure UpdateGeneratedHTML(Command)
 		If ValueIsFilled(HEADText) Then
 			HTML = HTML + "
 						  |
-						  |" + СокрЛП(HEADText);
+						  |" + TrimAll(HEADText);
 		EndIf;
 		
 		For Each LibraryRow In LinkedLibraries Do
