@@ -351,7 +351,7 @@
 			вПоказатьЗначениеХЗ(Значение);
 
 		ИначеЕсли вЭтоОбъектМетаданных(ТипЗнч(Значение)) Тогда
-			UT_CommonClient.РедактироватьОбъект(Значение);
+			UT_CommonClient.EditObject(Значение);
 		КонецЕсли;
 	КонецЕсли;
 КонецПроцедуры
@@ -801,8 +801,21 @@
 //		КонецЕсли;
 //
 //		ОбъектДляЗаписи.Записать();
+<<<<<<< HEAD
 		Если UT_Common.WriteObjectToDB(ОбъектДляЗаписи,
-			UT_CommonClientServer.FormWriteSettings(ЭтотОбъект)) Тогда
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		Если UT_Common.ЗаписатьОбъектВБазу(ОбъектДляЗаписи,
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+			UT_CommonClientServer.ПараметрыЗаписиФормы(ЭтотОбъект)) Тогда
 			мОбъектСсылка = ОбъектДляЗаписи.Ссылка;
 			вОбновитьДанныеОбъекта();
 			Возврат Истина;
@@ -849,7 +862,23 @@
 //		Если ЗаписьВРежимеЗагрузки Тогда
 //			пОбъект.ОбменДанными.Загрузка = Истина;
 //		КонецЕсли;
-		Если UT_Common.WriteObjectToDB(пОбъект, UT_CommonClientServer.FormWriteSettings(
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+		Если UT_Common.WriteObjectToDB(пОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+=======
+		Если UT_Common.ЗаписатьОбъектВБазу(пОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+		Если UT_Common.WriteObjectToDB(пОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+		Если UT_Common.WriteObjectToDB(пОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+		Если UT_Common.WriteObjectToDB(пОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 			ЭтотОбъект)) Тогда
 //		пОбъект.Удалить();
 
@@ -969,7 +998,7 @@
 		Если Менеджер <> Неопределено Тогда
 			Набор = Менеджер.СоздатьНаборЗаписей();
 			Набор.Отбор.Регистратор.Установить(мОбъектСсылка);
-			ПараметрыЗаписи=UT_CommonClientServer.FormWriteSettings(ЭтотОбъект);
+			ПараметрыЗаписи=UT_CommonClientServer.ПараметрыЗаписиФормы(ЭтотОбъект);
 
 			Если ПараметрыЗаписи.ЗаписьВРежимеЗагрузки Тогда
 				Набор.ОбменДанными.Загрузка = Истина;
@@ -2047,7 +2076,23 @@
 
 	ДокОбъект = Ссылка.ПолучитьОбъект();
 
-	Возврат UT_Common.WriteObjectToDB(ДокОбъект, UT_CommonClientServer.FormWriteSettings(
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+	Возврат UT_Common.WriteObjectToDB(ДокОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+=======
+	Возврат UT_Common.ЗаписатьОбъектВБазу(ДокОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+=======
+	Возврат UT_Common.WriteObjectToDB(ДокОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+	Возврат UT_Common.WriteObjectToDB(ДокОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+=======
+	Возврат UT_Common.WriteObjectToDB(ДокОбъект, UT_CommonClientServer.ПараметрыЗаписиФормы(
+>>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		ЭтотОбъект), , Режим);
 
 КонецФункции
@@ -2418,7 +2463,7 @@
 //@skip-warning
 &НаКлиенте
 Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
-	UT_CommonClient.Подключаемый_ВыполнитьОбщуюКомандуИнструментов(ЭтотОбъект, Команда);
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 КонецПроцедуры
 
 //@skip-warning

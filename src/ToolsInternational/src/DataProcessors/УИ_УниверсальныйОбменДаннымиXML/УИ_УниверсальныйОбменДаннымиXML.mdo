@@ -1254,8 +1254,6 @@
       <types>String</types>
       <stringQualifiers/>
     </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="4ffcfb35-70c9-4264-b7d0-efa02700eaf4">
     <name>УИ_ВыгрузкаЧерезВебСервис</name>
@@ -1266,8 +1264,6 @@
     <type>
       <types>Boolean</types>
     </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="6192831e-8f8a-11ea-4a9c-e86a6452d1f2">
     <name>УправляемаяФорма</name>

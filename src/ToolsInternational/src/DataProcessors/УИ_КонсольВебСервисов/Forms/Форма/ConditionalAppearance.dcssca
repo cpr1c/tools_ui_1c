@@ -11,7 +11,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>Enabled</dcscor:parameter>
+				<dcscor:parameter>Доступность</dcscor:parameter>
 				<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
 			</dcscor:item>
 		</appearance>

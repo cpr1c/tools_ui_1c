@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>MainGroup</name>
+    <name>ГруппаОсновная</name>
     <id>23</id>
     <items xsi:type="form:FormGroup">
-      <name>HTMLEditorPagesGroup</name>
+      <name>ГруппаСтраницыРедактированияHTML</name>
       <id>81</id>
       <items xsi:type="form:FormGroup">
-        <name>EditorModeAllPagesGroup</name>
+        <name>ГруппаСтраницаРежимаРедактированияВсеСразу</name>
         <id>60</id>
         <items xsi:type="form:FormGroup">
-          <name>HEADEditorGroup</name>
+          <name>ГруппаРедакторHEAD</name>
           <id>146</id>
           <items xsi:type="form:FormGroup">
-            <name>HEADEditorTitleGroup</name>
+            <name>ГруппаРедакторHEADЗаголовок</name>
             <id>162</id>
             <items xsi:type="form:Decoration">
-              <name>HEADEditorTitleCollapse</name>
+              <name>ГруппаРедакторHEADЗаголовокСворачивание</name>
               <id>164</id>
-              <title>
-                <key>en</key>
-                <value>HEAD</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>HEAD</value>
@@ -32,7 +28,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>HEADEditorTitleCollapseExtendedTooltip</name>
+                <name>ГруппаРедакторHEADЗаголовокСворачиваниеРасширеннаяПодсказка</name>
                 <id>166</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -47,7 +43,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>HEADEditorTitleCollapseContextMenu</name>
+                <name>ГруппаРедакторHEADЗаголовокСворачиваниеКонтекстноеМеню</name>
                 <id>165</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -62,7 +58,7 @@
               <extInfo xsi:type="form:LabelDecorationExtInfo">
                 <handlers>
                   <event>Click</event>
-                  <name>HEADEditorTitleCollapseClick</name>
+                  <name>ГруппаРедакторHEADЗаголовокСворачиваниеНажатие</name>
                 </handlers>
                 <hyperlink>true</hyperlink>
                 <horizontalAlign>Left</horizontalAlign>
@@ -74,15 +70,11 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>en</key>
-              <value>HEAD title</value>
-            </title>
-            <title>
               <key>ru</key>
-              <value>HEAD заголовок</value>
+              <value>Группа редактор HEADЗаголовок</value>
             </title>
             <extendedTooltip>
-              <name>HEADEditorTitleGroupExtendedTooltip</name>
+              <name>ГруппаРедакторHEADЗаголовокРасширеннаяПодсказка</name>
               <id>163</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -106,29 +98,19 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>HEADEditor</name>
+            <name>РедакторHEAD</name>
             <id>150</id>
-            <title>
-              <key>en</key>
-              <value>HTML (Head)</value>
-            </title>
-            <title>
-              <key>ru</key>
-              <value>HTML (Head)</value>
-            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>HEADEditor</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторHEAD</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>HEADEditorExtendedTooltip</name>
+              <name>РедакторHEADРасширеннаяПодсказка</name>
               <id>152</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -143,7 +125,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>HEADEditorContextMenu</name>
+              <name>РедакторHEADКонтекстноеМеню</name>
               <id>151</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -159,7 +141,7 @@
             <extInfo xsi:type="form:HtmlFieldExtInfo">
               <handlers>
                 <event>DocumentComplete</event>
-                <name>HEADEditorDocumentComplete</name>
+                <name>РедакторHEADДокументСформирован</name>
               </handlers>
               <width>50</width>
               <autoMaxWidth>true</autoMaxWidth>
@@ -175,15 +157,11 @@
             <common>true</common>
           </userVisible>
           <title>
-            <key>en</key>
-            <value>HEAD</value>
-          </title>
-          <title>
             <key>ru</key>
             <value>HEAD</value>
           </title>
           <extendedTooltip>
-            <name>HEADEditorGroupExtendedTooltip</name>
+            <name>ГруппаРедакторHEADРасширеннаяПодсказка</name>
             <id>147</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -207,18 +185,14 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>BODYEditorGroup</name>
+          <name>ГруппаРедакторBODY</name>
           <id>148</id>
           <items xsi:type="form:FormGroup">
-            <name>BODYEditorTitleGroup</name>
+            <name>ГруппаРедакторBODYЗаголовок</name>
             <id>173</id>
             <items xsi:type="form:Decoration">
-              <name>BODYEditorTitleCollapse</name>
+              <name>ГруппаРедакторBODYЗаголовокСворачивание</name>
               <id>175</id>
-              <title>
-                <key>en</key>
-                <value>BODY</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>BODY</value>
@@ -229,7 +203,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>BODYEditorTitleCollapseExtendedTooltip</name>
+                <name>ГруппаРедакторBODYЗаголовокСворачиваниеРасширеннаяПодсказка</name>
                 <id>177</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -244,7 +218,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>BODYEditorTitleCollapseContextMenu</name>
+                <name>ГруппаРедакторBODYЗаголовокСворачиваниеКонтекстноеМеню</name>
                 <id>176</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -259,7 +233,7 @@
               <extInfo xsi:type="form:LabelDecorationExtInfo">
                 <handlers>
                   <event>Click</event>
-                  <name>BODYEditorTitleCollapseClick</name>
+                  <name>ГруппаРедакторBODYЗаголовокСворачиваниеНажатие</name>
                 </handlers>
                 <hyperlink>true</hyperlink>
                 <horizontalAlign>Left</horizontalAlign>
@@ -271,15 +245,11 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>en</key>
-              <value>BODY title</value>
-            </title>
-            <title>
               <key>ru</key>
-              <value>BODY заголовок</value>
+              <value>Группа редактор BODY Заголовок</value>
             </title>
             <extendedTooltip>
-              <name>BODYEditorTitleGroupExtendedTooltip</name>
+              <name>ГруппаРедакторBODYЗаголовокРасширеннаяПодсказка</name>
               <id>174</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -303,29 +273,23 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>BODYEditor</name>
+            <name>РедакторBODY</name>
             <id>62</id>
             <title>
-              <key>en</key>
-              <value>HTML (Body)</value>
-            </title>
-            <title>
               <key>ru</key>
-              <value>HTML (Body)</value>
+              <value>HTML(Тело)</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>BODYEditor</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторBODY</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>BODYEditorExtendedTooltip</name>
+              <name>РедакторBODYРасширеннаяПодсказка</name>
               <id>64</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -340,7 +304,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>BODYEditorContextMenu</name>
+              <name>РедакторBODYКонтекстноеМеню</name>
               <id>63</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -356,7 +320,7 @@
             <extInfo xsi:type="form:HtmlFieldExtInfo">
               <handlers>
                 <event>DocumentComplete</event>
-                <name>BODYEditorDocumentComplete</name>
+                <name>РедакторBODYДокументСформирован</name>
               </handlers>
               <width>50</width>
               <autoMaxWidth>true</autoMaxWidth>
@@ -372,15 +336,11 @@
             <common>true</common>
           </userVisible>
           <title>
-            <key>en</key>
-            <value>BODY</value>
-          </title>
-          <title>
             <key>ru</key>
             <value>BODY</value>
           </title>
           <extendedTooltip>
-            <name>BODYEditorGroupExtendedTooltip</name>
+            <name>ГруппаРедакторBODYРасширеннаяПодсказка</name>
             <id>149</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -404,18 +364,14 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>CSSEditorGroup</name>
+          <name>ГруппаРедакторCSS</name>
           <id>153</id>
           <items xsi:type="form:FormGroup">
-            <name>CSSEditorTitleGroup</name>
+            <name>ГруппаРедакторCSSЗаголовок</name>
             <id>178</id>
             <items xsi:type="form:Decoration">
-              <name>CSSEditorTitleCollapse</name>
+              <name>ГруппаРедакторCSSЗаголовокСворачивание</name>
               <id>180</id>
-              <title>
-                <key>en</key>
-                <value>CSS</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>CSS</value>
@@ -426,7 +382,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>CSSEditorTitleCollapseExtendedTooltip</name>
+                <name>ГруппаРедакторCSSЗаголовокСворачиваниеРасширеннаяПодсказка</name>
                 <id>182</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -441,7 +397,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>CSSEditorTitleCollapseContextMenu</name>
+                <name>ГруппаРедакторCSSЗаголовокСворачиваниеКонтекстноеМеню</name>
                 <id>181</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -456,19 +412,15 @@
               <extInfo xsi:type="form:LabelDecorationExtInfo">
                 <handlers>
                   <event>Click</event>
-                  <name>CSSEditorTitleCollapseClick</name>
+                  <name>ГруппаРедакторCSSЗаголовокСворачиваниеНажатие</name>
                 </handlers>
                 <hyperlink>true</hyperlink>
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>BodyIncludesCSSText</name>
+              <name>ВключатьТекстCSSВТело</name>
               <id>188</id>
-              <title>
-                <key>en</key>
-                <value>Include into</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>Включать в</value>
@@ -478,13 +430,11 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>BodyIncludesCSSText</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ВключатьТекстCSSВТело</segments>
               </dataPath>
               <extendedTooltip>
-                <name>BodyIncludesCSSTextExtendedTooltip</name>
+                <name>ВключатьТекстCSSВТелоРасширеннаяПодсказка</name>
                 <id>190</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -499,7 +449,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>BodyIncludesCSSTextContextMenu</name>
+                <name>ВключатьТекстCSSВТелоКонтекстноеМеню</name>
                 <id>189</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -516,10 +466,6 @@
               <extInfo xsi:type="form:CheckBoxFieldExtInfo">
                 <checkBoxType>Tumbler</checkBoxType>
                 <editFormat>
-                  <key>en</key>
-                  <value>BF=HEAD; BT=BODY</value>
-                </editFormat>
-                <editFormat>
                   <key>ru</key>
                   <value>БЛ=HEAD; БИ=BODY</value>
                 </editFormat>
@@ -531,15 +477,11 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>en</key>
-              <value>CSS title</value>
-            </title>
-            <title>
               <key>ru</key>
-              <value>CSS заголовок</value>
+              <value>Группа редактор CSS Заголовок</value>
             </title>
             <extendedTooltip>
-              <name>CSSEditorTitleGroupExtendedTooltip</name>
+              <name>ГруппаРедакторCSSЗаголовокРасширеннаяПодсказка</name>
               <id>179</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -563,29 +505,23 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>CSSEditor</name>
+            <name>РедакторCSS</name>
             <id>68</id>
             <title>
-              <key>en</key>
-              <value>HTML (CSS)</value>
-            </title>
-            <title>
               <key>ru</key>
-              <value>HTML (CSS)</value>
+              <value>CSS</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>CSSEditor</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторCSS</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>CSSEditorExtendedTooltip</name>
+              <name>РедакторCSSРасширеннаяПодсказка</name>
               <id>70</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -600,7 +536,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>CSSEditorContextMenu</name>
+              <name>РедакторCSSКонтекстноеМеню</name>
               <id>69</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -616,7 +552,7 @@
             <extInfo xsi:type="form:HtmlFieldExtInfo">
               <handlers>
                 <event>DocumentComplete</event>
-                <name>CSSEditorDocumentComplete</name>
+                <name>РедакторCSSДокументСформирован</name>
               </handlers>
               <width>50</width>
               <autoMaxWidth>true</autoMaxWidth>
@@ -632,15 +568,11 @@
             <common>true</common>
           </userVisible>
           <title>
-            <key>en</key>
-            <value>CSS</value>
-          </title>
-          <title>
             <key>ru</key>
             <value>CSS</value>
           </title>
           <extendedTooltip>
-            <name>CSSEditorGroupExtendedTooltip</name>
+            <name>ГруппаРедакторCSSРасширеннаяПодсказка</name>
             <id>154</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -664,18 +596,14 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>JSEditorGroup</name>
+          <name>ГруппаРедакторJS</name>
           <id>155</id>
           <items xsi:type="form:FormGroup">
-            <name>JSEditorTitleGroup</name>
+            <name>ГруппаРедакторJSЗаголовок</name>
             <id>183</id>
             <items xsi:type="form:Decoration">
-              <name>JSEditorTitleCollapse</name>
+              <name>ГруппаРедакторJSЗаголовокСворачивание</name>
               <id>185</id>
-              <title>
-                <key>en</key>
-                <value>JS</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>JS</value>
@@ -686,7 +614,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>JSEditorTitleCollapseExtendedTooltip</name>
+                <name>ГруппаРедакторJSЗаголовокСворачиваниеРасширеннаяПодсказка</name>
                 <id>187</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -701,7 +629,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>JSEditorTitleCollapseContextMenu</name>
+                <name>ГруппаРедакторJSЗаголовокСворачиваниеКонтекстноеМеню</name>
                 <id>186</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -716,19 +644,15 @@
               <extInfo xsi:type="form:LabelDecorationExtInfo">
                 <handlers>
                   <event>Click</event>
-                  <name>JSEditorTitleCollapseClick</name>
+                  <name>ГруппаРедакторJSЗаголовокСворачиваниеНажатие</name>
                 </handlers>
                 <hyperlink>true</hyperlink>
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>BodyIncludesJSText</name>
+              <name>ВключатьТекстJSВТело</name>
               <id>191</id>
-              <title>
-                <key>en</key>
-                <value>Include into</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>Включать в</value>
@@ -738,13 +662,11 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>BodyIncludesJSText</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ВключатьТекстJSВТело</segments>
               </dataPath>
               <extendedTooltip>
-                <name>BodyIncludesJSTextExtendedTooltip</name>
+                <name>ВключатьТекстJSВТелоРасширеннаяПодсказка</name>
                 <id>193</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -759,7 +681,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>BodyIncludesJSTextContextMenu</name>
+                <name>ВключатьТекстJSВТелоКонтекстноеМеню</name>
                 <id>192</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -776,10 +698,6 @@
               <extInfo xsi:type="form:CheckBoxFieldExtInfo">
                 <checkBoxType>Tumbler</checkBoxType>
                 <editFormat>
-                  <key>en</key>
-                  <value>BF=HEAD; BT=BODY</value>
-                </editFormat>
-                <editFormat>
                   <key>ru</key>
                   <value>БЛ=HEAD; БИ=BODY</value>
                 </editFormat>
@@ -791,15 +709,11 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>en</key>
-              <value>JS title</value>
-            </title>
-            <title>
               <key>ru</key>
-              <value>JS заголовок</value>
+              <value>Группа редактор JS Заголовок</value>
             </title>
             <extendedTooltip>
-              <name>JSEditorTitleGroupExtendedTooltip</name>
+              <name>ГруппаРедакторJSЗаголовокРасширеннаяПодсказка</name>
               <id>184</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -823,29 +737,23 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>JSEditor</name>
+            <name>РедакторJS</name>
             <id>65</id>
             <title>
-              <key>en</key>
-              <value>HTML (JS)</value>
-            </title>
-            <title>
               <key>ru</key>
-              <value>HTML (JS)</value>
+              <value>JS</value>
             </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>JSEditor</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>РедакторJS</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>JSEditorExtendedTooltip</name>
+              <name>РедакторJSРасширеннаяПодсказка</name>
               <id>67</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -860,7 +768,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>JSEditorContextMenu</name>
+              <name>РедакторJSКонтекстноеМеню</name>
               <id>66</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -876,7 +784,7 @@
             <extInfo xsi:type="form:HtmlFieldExtInfo">
               <handlers>
                 <event>DocumentComplete</event>
-                <name>JSEditorDocumentComplete</name>
+                <name>РедакторJSДокументСформирован</name>
               </handlers>
               <width>50</width>
               <autoMaxWidth>true</autoMaxWidth>
@@ -892,15 +800,11 @@
             <common>true</common>
           </userVisible>
           <title>
-            <key>en</key>
-            <value>JS</value>
-          </title>
-          <title>
             <key>ru</key>
             <value>JS</value>
           </title>
           <extendedTooltip>
-            <name>JSEditorGroupExtendedTooltip</name>
+            <name>ГруппаРедакторJSРасширеннаяПодсказка</name>
             <id>156</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -929,15 +833,11 @@
           <common>true</common>
         </userVisible>
         <title>
-          <key>en</key>
-          <value>Parts</value>
-        </title>
-        <title>
           <key>ru</key>
           <value>Отдельно</value>
         </title>
         <extendedTooltip>
-          <name>EditorModeAllPagesGroupExtendedTooltip</name>
+          <name>ГруппаСтраницаРежимаРедактированияВсеСразуРасширеннаяПодсказка</name>
           <id>61</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -958,32 +858,22 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>GeneratedHTMLTextGroup</name>
+        <name>ГруппаТекстРезультирующегоHTML</name>
         <id>55</id>
         <items xsi:type="form:FormField">
-          <name>GeneratedHTMLEditor</name>
+          <name>РедакторРезультирующегоHTML</name>
           <id>75</id>
-          <title>
-            <key>en</key>
-            <value>Generated HTML editor</value>
-          </title>
-          <title>
-            <key>ru</key>
-            <value>Редактор полученного HTML</value>
-          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>GeneratedHTMLEditor</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РедакторРезультирующегоHTML</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>GeneratedHTMLEditorExtendedTooltip</name>
+            <name>РедакторРезультирующегоHTMLРасширеннаяПодсказка</name>
             <id>77</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -998,7 +888,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>GeneratedHTMLEditorContextMenu</name>
+            <name>РедакторРезультирующегоHTMLКонтекстноеМеню</name>
             <id>76</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1014,7 +904,7 @@
           <extInfo xsi:type="form:HtmlFieldExtInfo">
             <handlers>
               <event>DocumentComplete</event>
-              <name>GeneratedHTMLEditorDocumentComplete</name>
+              <name>РедакторРезультирующегоHTMLДокументСформирован</name>
             </handlers>
             <width>50</width>
             <autoMaxWidth>true</autoMaxWidth>
@@ -1030,15 +920,11 @@
           <common>true</common>
         </userVisible>
         <title>
-          <key>en</key>
-          <value>HTML</value>
-        </title>
-        <title>
           <key>ru</key>
           <value>Весь текст</value>
         </title>
         <extendedTooltip>
-          <name>GeneratedHTMLTextGroupExtendedTooltip</name>
+          <name>ГруппаТекстРезультирующегоHTMLРасширеннаяПодсказка</name>
           <id>56</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1059,10 +945,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>LinkedLibrariesPageGroup</name>
+        <name>ГруппаСтраницаПодключаемыеБиблиотеки</name>
         <id>28</id>
         <items xsi:type="form:Table">
-          <name>LinkedLibraries</name>
+          <name>ПодключаемыеБиблиотеки</name>
           <id>30</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1070,24 +956,22 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>LinkedLibraries</segments>
+            <segments>ПодключаемыеБиблиотеки</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
-            <name>LinkedLibrariesPath</name>
+            <name>ПодключаемыеБиблиотекиПуть</name>
             <id>46</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>LinkedLibraries.Path</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ПодключаемыеБиблиотеки.Путь</segments>
             </dataPath>
             <extendedTooltip>
-              <name>LinkedLibrariesPathExtendedTooltip</name>
+              <name>ПодключаемыеБиблиотекиПутьРасширеннаяПодсказка</name>
               <id>48</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1102,7 +986,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>LinkedLibrariesPathContextMenu</name>
+              <name>ПодключаемыеБиблиотекиПутьКонтекстноеМеню</name>
               <id>47</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1119,7 +1003,7 @@
             <extInfo xsi:type="form:InputFieldExtInfo">
               <handlers>
                 <event>StartChoice</event>
-                <name>LinkedLibrariesPathStartChoice</name>
+                <name>ПодключаемыеБиблиотекиПутьНачалоВыбора</name>
               </handlers>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1131,20 +1015,18 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>LinkedLibrariesAdditionalParameters</name>
+            <name>ПодключаемыеБиблиотекиДополнительныеПараметры</name>
             <id>78</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>LinkedLibraries.AdditionalParameters</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ПодключаемыеБиблиотеки.ДополнительныеПараметры</segments>
             </dataPath>
             <extendedTooltip>
-              <name>LinkedLibrariesAdditionalParametersExtendedTooltip</name>
+              <name>ПодключаемыеБиблиотекиДополнительныеПараметрыРасширеннаяПодсказка</name>
               <id>80</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1159,7 +1041,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>LinkedLibrariesAdditionalParametersContextMenu</name>
+              <name>ПодключаемыеБиблиотекиДополнительныеПараметрыКонтекстноеМеню</name>
               <id>79</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1183,10 +1065,10 @@
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>LinkedLibrariesCommandBar</name>
+            <name>ПодключаемыеБиблиотекиКоманднаяПанель</name>
             <id>31</id>
             <items xsi:type="form:Button">
-              <name>LinkedLibrariesSaveLibrary</name>
+              <name>ПодключаемыеБиблиотекиСохранитьБиблиотеку</name>
               <id>160</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1194,7 +1076,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>LinkedLibrariesSaveLibraryExtendedTooltip</name>
+                <name>ПодключаемыеБиблиотекиСохранитьБиблиотекуРасширеннаяПодсказка</name>
                 <id>161</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1208,18 +1090,19 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.SaveLibrary</commandName>
+              <commandName>Form.Command.СохранитьБиблиотеку</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
+              <toolTipRepresentation>Auto</toolTipRepresentation>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>LinkedLibrariesSamplesGroup</name>
+              <name>ПодключаемыеБиблиотекиГруппаТиповыеБибилиотеки</name>
               <id>83</id>
               <items xsi:type="form:Button">
-                <name>LinkedLibrariesLibrarySampleBootstrap4</name>
+                <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаBootstrap4</name>
                 <id>85</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1227,7 +1110,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>LinkedLibrariesLibrarySampleBootstrap4ExtendedTooltip</name>
+                  <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаBootstrap4РасширеннаяПодсказка</name>
                   <id>86</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1241,15 +1124,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.LibrarySampleBootstrap4</commandName>
+                <commandName>Form.Command.ТиповаяБиблиотекаBootstrap4</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>LinkedLibrariesLibrarySampleJQuery</name>
+                <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаJQuery</name>
                 <id>87</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1257,7 +1141,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>LinkedLibrariesLibrarySampleJQueryExtendedTooltip</name>
+                  <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаJQueryРасширеннаяПодсказка</name>
                   <id>88</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1271,15 +1155,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.LibrarySampleJQuery</commandName>
+                <commandName>Form.Command.ТиповаяБиблиотекаJQuery</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>LinkedLibrariesLibrarySampleFontAwesome</name>
+                <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаFontAwesome</name>
                 <id>89</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1287,7 +1172,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>LinkedLibrariesLibrarySampleFontAwesomeExtendedTooltip</name>
+                  <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаFontAwesomeРасширеннаяПодсказка</name>
                   <id>90</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1301,15 +1186,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.LibrarySampleFontAwesome</commandName>
+                <commandName>Form.Command.ТиповаяБиблиотекаFontAwesome</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>LinkedLibrariesLibrarySamplePoperJS</name>
+                <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаPoperJS</name>
                 <id>91</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1317,7 +1203,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>LinkedLibrariesLibrarySamplePoperJSExtendedTooltip</name>
+                  <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаPoperJSРасширеннаяПодсказка</name>
                   <id>92</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1331,15 +1217,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.LibrarySamplePoperJS</commandName>
+                <commandName>Form.Command.ТиповаяБиблиотекаPoperJS</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>LinkedLibrariesLibrarySampleResetCSS</name>
+                <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаResetCSS</name>
                 <id>93</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1347,7 +1234,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>LinkedLibrariesLibrarySampleResetCSSExtendedTooltip</name>
+                  <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаResetCSSРасширеннаяПодсказка</name>
                   <id>94</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1361,15 +1248,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.LibrarySampleResetCSS</commandName>
+                <commandName>Form.Command.ТиповаяБиблиотекаResetCSS</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>LinkedLibrariesLibrarySampleAnimateCSS</name>
+                <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаAnimateCSS</name>
                 <id>95</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1377,7 +1265,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>LinkedLibrariesLibrarySampleAnimateCSSExtendedTooltip</name>
+                  <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаAnimateCSSРасширеннаяПодсказка</name>
                   <id>96</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1391,15 +1279,16 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.LibrarySampleAnimateCSS</commandName>
+                <commandName>Form.Command.ТиповаяБиблиотекаAnimateCSS</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>LinkedLibrariesLibrarySampleSocketIO</name>
+                <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаSocketIO</name>
                 <id>97</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1407,7 +1296,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>LinkedLibrariesLibrarySampleSocketIOExtendedTooltip</name>
+                  <name>ПодключаемыеБиблиотекиТиповаяБиблиотекаSocketIOРасширеннаяПодсказка</name>
                   <id>98</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1421,11 +1310,12 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.LibrarySampleSocketIO</commandName>
+                <commandName>Form.Command.ТиповаяБиблиотекаSocketIO</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <toolTipRepresentation>Auto</toolTipRepresentation>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <visible>true</visible>
@@ -1434,15 +1324,11 @@
                 <common>true</common>
               </userVisible>
               <title>
-                <key>en</key>
-                <value>Library samples</value>
-              </title>
-              <title>
                 <key>ru</key>
                 <value>Типовые библиотеки</value>
               </title>
               <extendedTooltip>
-                <name>LinkedLibrariesSamplesGroupExtendedTooltip</name>
+                <name>ПодключаемыеБиблиотекиГруппаТиповыеБибилиотекиРасширеннаяПодсказка</name>
                 <id>84</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1471,7 +1357,7 @@
           </autoCommandBar>
           <handlers>
             <event>OnActivateRow</event>
-            <name>LinkedLibrariesOnActivateRow</name>
+            <name>ПодключаемыеБиблиотекиПриАктивизацииСтроки</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -1479,10 +1365,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>LinkedLibrariesSearchString</name>
+            <name>ПодключаемыеБиблиотекиСтрокаПоиска</name>
             <id>34</id>
             <extendedTooltip>
-              <name>LinkedLibrariesSearchStringExtendedTooltip</name>
+              <name>ПодключаемыеБиблиотекиСтрокаПоискаРасширеннаяПодсказка</name>
               <id>36</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1497,7 +1383,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>LinkedLibrariesSearchStringContextMenu</name>
+              <name>ПодключаемыеБиблиотекиСтрокаПоискаКонтекстноеМеню</name>
               <id>35</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1516,10 +1402,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>LinkedLibrariesViewStatus</name>
+            <name>ПодключаемыеБиблиотекиСостояниеПросмотра</name>
             <id>40</id>
             <extendedTooltip>
-              <name>LinkedLibrariesViewStatusExtendedTooltip</name>
+              <name>ПодключаемыеБиблиотекиСостояниеПросмотраРасширеннаяПодсказка</name>
               <id>42</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1534,7 +1420,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>LinkedLibrariesViewStatusContextMenu</name>
+              <name>ПодключаемыеБиблиотекиСостояниеПросмотраКонтекстноеМеню</name>
               <id>41</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1555,10 +1441,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>LinkedLibrariesSearchControl</name>
+            <name>ПодключаемыеБиблиотекиУправлениеПоиском</name>
             <id>37</id>
             <extendedTooltip>
-              <name>LinkedLibrariesSearchControlExtendedTooltip</name>
+              <name>ПодключаемыеБиблиотекиУправлениеПоискомРасширеннаяПодсказка</name>
               <id>39</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1573,7 +1459,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>LinkedLibrariesSearchControlContextMenu</name>
+              <name>ПодключаемыеБиблиотекиУправлениеПоискомКонтекстноеМеню</name>
               <id>38</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1588,7 +1474,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>LinkedLibrariesExtendedTooltip</name>
+            <name>ПодключаемыеБиблиотекиРасширеннаяПодсказка</name>
             <id>33</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1603,7 +1489,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>LinkedLibrariesContextMenu</name>
+            <name>ПодключаемыеБиблиотекиКонтекстноеМеню</name>
             <id>32</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1633,7 +1519,7 @@
           <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>LibraryEditor</name>
+          <name>РедакторБиблиотеки</name>
           <id>157</id>
           <title>
             <key>ru</key>
@@ -1644,14 +1530,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>LibraryEditor</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РедакторБиблиотеки</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>LibraryEditorExtendedTooltip</name>
+            <name>РедакторБиблиотекиРасширеннаяПодсказка</name>
             <id>159</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1666,7 +1550,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>LibraryEditorContextMenu</name>
+            <name>РедакторБиблиотекиКонтекстноеМеню</name>
             <id>158</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1694,15 +1578,11 @@
           <common>true</common>
         </userVisible>
         <title>
-          <key>en</key>
-          <value>Linked libraries</value>
-        </title>
-        <title>
           <key>ru</key>
           <value>Подключаемые библиотеки</value>
         </title>
         <extendedTooltip>
-          <name>LinkedLibrariesPageGroupExtendedTooltip</name>
+          <name>ГруппаСтраницаПодключаемыеБиблиотекиРасширеннаяПодсказка</name>
           <id>29</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1728,15 +1608,11 @@
         <common>true</common>
       </userVisible>
       <title>
-        <key>en</key>
-        <value>HTML editors pages group</value>
-      </title>
-      <title>
         <key>ru</key>
-        <value>Страницы редакторов HTML</value>
+        <value>Группа страницы редактирования HTML</value>
       </title>
       <extendedTooltip>
-        <name>HTMLEditorPagesGroupExtendedTooltip</name>
+        <name>ГруппаСтраницыРедактированияHTMLРасширеннаяПодсказка</name>
         <id>82</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1757,35 +1633,25 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>GeneratedHTMLPagesGroup</name>
+      <name>ГруппаСтраницыРезультирующегоHTML</name>
       <id>51</id>
       <items xsi:type="form:FormGroup">
-        <name>GeneratedHTMLPresentationGroup</name>
+        <name>ГруппаПредставлениеРезультирующегоHTML</name>
         <id>53</id>
         <items xsi:type="form:FormField">
-          <name>GeneratedHTML</name>
+          <name>РезультирущийHTML</name>
           <id>25</id>
-          <title>
-            <key>en</key>
-            <value>Generated HTML</value>
-          </title>
-          <title>
-            <key>ru</key>
-            <value>HTML</value>
-          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>GeneratedHTML</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РезультирущийHTML</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>GeneratedHTMLExtendedTooltip</name>
+            <name>РезультирущийHTMLРасширеннаяПодсказка</name>
             <id>27</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1800,7 +1666,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>GeneratedHTMLContextMenu</name>
+            <name>РезультирущийHTMLКонтекстноеМеню</name>
             <id>26</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1817,11 +1683,11 @@
           <extInfo xsi:type="form:HtmlFieldExtInfo">
             <handlers>
               <event>DocumentComplete</event>
-              <name>GeneratedHTMLDocumentComplete</name>
+              <name>РезультирущийHTMLДокументСформирован</name>
             </handlers>
             <handlers>
               <event>OnClick</event>
-              <name>GeneratedHTMLOnClick</name>
+              <name>РезультирущийHTMLПриНажатии</name>
             </handlers>
             <width>50</width>
             <autoMaxWidth>true</autoMaxWidth>
@@ -1837,15 +1703,11 @@
           <common>true</common>
         </userVisible>
         <title>
-          <key>en</key>
-          <value>Presentation</value>
-        </title>
-        <title>
           <key>ru</key>
           <value>Представление</value>
         </title>
         <extendedTooltip>
-          <name>GeneratedHTMLPresentationGroupExtendedTooltip</name>
+          <name>ГруппаПредставлениеРезультирующегоHTMLРасширеннаяПодсказка</name>
           <id>54</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1866,10 +1728,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ConsolePageGroup</name>
+        <name>ГруппаСтраницаКонсоль</name>
         <id>111</id>
         <items xsi:type="form:FormGroup">
-          <name>CommandsAndConsoleSetupGroup</name>
+          <name>ГруппаКомандыИНастройкиКонсоли</name>
           <id>197</id>
           <items xsi:type="form:Button">
             <name>ОбновитьВыводКонсоли</name>
@@ -1895,37 +1757,26 @@
               </extInfo>
             </extendedTooltip>
             <type>UsualButton</type>
-            <commandName>Form.Command.UpdateConsoleOutput</commandName>
+            <commandName>Form.Command.ОбновитьВыводКонсоли</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
-            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormField">
-            <name>UseConsole</name>
+            <name>ИспользоватьКонсоль</name>
             <id>194</id>
-            <title>
-              <key>en</key>
-              <value>Use console</value>
-            </title>
-            <title>
-              <key>ru</key>
-              <value>Использовать консоль	</value>
-            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>UseConsole</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ИспользоватьКонсоль</segments>
             </dataPath>
             <extendedTooltip>
-              <name>UseConsoleExtendedTooltip</name>
+              <name>ИспользоватьКонсольРасширеннаяПодсказка</name>
               <id>196</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1940,7 +1791,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>UseConsoleContextMenu</name>
+              <name>ИспользоватьКонсольКонтекстноеМеню</name>
               <id>195</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1962,15 +1813,11 @@
             <common>true</common>
           </userVisible>
           <title>
-            <key>en</key>
-            <value>Commands and console setup group</value>
-          </title>
-          <title>
             <key>ru</key>
-            <value>Команды и настройка консоли</value>
+            <value>Группа команды и настройки консоли</value>
           </title>
           <extendedTooltip>
-            <name>CommandsAndConsoleSetupGroupExtendedTooltip</name>
+            <name>ГруппаКомандыИНастройкиКонсолиРасширеннаяПодсказка</name>
             <id>198</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1994,29 +1841,19 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>GeneratedHTMLConsoleOutput</name>
+          <name>ВыводКонсолиРезультирующегоHTML</name>
           <id>113</id>
-          <title>
-            <key>en</key>
-            <value>Generated HTML console output</value>
-          </title>
-          <title>
-            <key>ru</key>
-            <value>Вывод консоли полученного HTML</value>
-          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>GeneratedHTMLConsoleOutput</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВыводКонсолиРезультирующегоHTML</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>GeneratedHTMLConsoleOutputExtendedTooltip</name>
+            <name>ВыводКонсолиРезультирующегоHTMLРасширеннаяПодсказка</name>
             <id>115</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2031,7 +1868,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>GeneratedHTMLConsoleOutputContextMenu</name>
+            <name>ВыводКонсолиРезультирующегоHTMLКонтекстноеМеню</name>
             <id>114</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2060,15 +1897,11 @@
           <common>true</common>
         </userVisible>
         <title>
-          <key>en</key>
-          <value>Console</value>
-        </title>
-        <title>
           <key>ru</key>
           <value>Консоль</value>
         </title>
         <extendedTooltip>
-          <name>ConsolePageGroupExtendedTooltip</name>
+          <name>ГруппаСтраницаКонсольРасширеннаяПодсказка</name>
           <id>112</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2089,23 +1922,17 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>EventHandlersPageGroup</name>
+        <name>ГруппаСтраницаОбработчикиСобытий</name>
         <id>122</id>
         <items xsi:type="form:FormGroup">
-          <name>EventHandlersGroupPages</name>
+          <name>ГруппаСтраницыОбрабочиковСобытий</name>
           <id>126</id>
           <items xsi:type="form:FormGroup">
-            <name>EventHandlerDocumentCompletePageGroup</name>
+            <name>ГруппаСтраницаРедаторОбработчикаДокументСформирован</name>
             <id>128</id>
             <items xsi:type="form:Decoration">
-              <name>DocumentCompleteEventTitleLabel</name>
+              <name>НаписьЗаголовокСобытияДокументСформирован</name>
               <id>130</id>
-              <title>
-                <key>en</key>
-                <value>&lt;color #e9967a>&amp;AtClient&lt;/>
-GeneratedHTMLDocumentComplete(Item)
-</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>&lt;color #e9967a>&amp;НаКлиенте&lt;/>
@@ -2117,7 +1944,7 @@ GeneratedHTMLDocumentComplete(Item)
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>DocumentCompleteEventTitleLabelExtendedTooltip</name>
+                <name>НаписьЗаголовокСобытияДокументСформированРасширеннаяПодсказка</name>
                 <id>132</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2132,7 +1959,7 @@ GeneratedHTMLDocumentComplete(Item)
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>DocumentCompleteEventTitleLabelContextMenu</name>
+                <name>НаписьЗаголовокСобытияДокументСформированКонтекстноеМеню</name>
                 <id>131</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2150,21 +1977,19 @@ GeneratedHTMLDocumentComplete(Item)
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>DocumentCompleteEventEditor</name>
+              <name>РедакторСобытияДокументСформирован</name>
               <id>133</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>DocumentCompleteEventEditor</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>РедакторСобытияДокументСформирован</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <extendedTooltip>
-                <name>DocumentCompleteEventEditorExtendedTooltip</name>
+                <name>РедакторСобытияДокументСформированРасширеннаяПодсказка</name>
                 <id>135</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2179,7 +2004,7 @@ GeneratedHTMLDocumentComplete(Item)
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>DocumentCompleteEventEditorContextMenu</name>
+                <name>РедакторСобытияДокументСформированКонтекстноеМеню</name>
                 <id>134</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2195,7 +2020,7 @@ GeneratedHTMLDocumentComplete(Item)
               <extInfo xsi:type="form:HtmlFieldExtInfo">
                 <handlers>
                   <event>DocumentComplete</event>
-                  <name>EventHandlerDocumentCompleteDocumentComplete</name>
+                  <name>РедакторСобытияДокументСформированДокументСформирован</name>
                 </handlers>
                 <width>50</width>
                 <autoMaxWidth>true</autoMaxWidth>
@@ -2211,15 +2036,11 @@ GeneratedHTMLDocumentComplete(Item)
               <common>true</common>
             </userVisible>
             <title>
-              <key>en</key>
-              <value>&quot;Document complete&quot; event</value>
-            </title>
-            <title>
               <key>ru</key>
               <value>Событие &quot;Документ сформирован&quot;</value>
             </title>
             <extendedTooltip>
-              <name>EventHandlerDocumentCompletePageGroupExtendedTooltip</name>
+              <name>ГруппаСтраницаРедаторОбработчикаДокументСформированРасширеннаяПодсказка</name>
               <id>129</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2240,17 +2061,11 @@ GeneratedHTMLDocumentComplete(Item)
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>EventHandlerOnClickPageGroup</name>
+            <name>ГруппаСтраницаРедаторОбработчикаПриНажатии</name>
             <id>136</id>
             <items xsi:type="form:Decoration">
-              <name>OnClickEventTitleLabel</name>
+              <name>НаписьЗаголовокСобытияПриНажатии</name>
               <id>138</id>
-              <title>
-                <key>en</key>
-                <value>&lt;color #e9967a>&amp;AtClient&lt;/>
-GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
-</value>
-              </title>
               <title>
                 <key>ru</key>
                 <value>&lt;color #e9967a>&amp;НаКлиенте&lt;/>
@@ -2262,7 +2077,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>OnClickEventTitleLabelExtendedTooltip</name>
+                <name>НаписьЗаголовокСобытияПриНажатииРасширеннаяПодсказка</name>
                 <id>140</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2277,7 +2092,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>OnClickEventTitleLabelContextMenu</name>
+                <name>НаписьЗаголовокСобытияПриНажатииКонтекстноеМеню</name>
                 <id>139</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2295,7 +2110,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>OnClickEventEditor</name>
+              <name>РедакторСобытияПриНажатии</name>
               <id>141</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2303,11 +2118,11 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>OnClickEventEditor</segments>
+                <segments>РедакторСобытияПриНажатии</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <extendedTooltip>
-                <name>OnClickEventEditorExtendedTooltip</name>
+                <name>РедакторСобытияПриНажатииРасширеннаяПодсказка</name>
                 <id>143</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2322,7 +2137,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>OnClickEventEditorContextMenu</name>
+                <name>РедакторСобытияПриНажатииКонтекстноеМеню</name>
                 <id>142</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2339,7 +2154,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
               <extInfo xsi:type="form:HtmlFieldExtInfo">
                 <handlers>
                   <event>DocumentComplete</event>
-                  <name>EventHandlerOnClickDocumentComplete</name>
+                  <name>РедакторСобытияПриНажатииДокументСформирован</name>
                 </handlers>
                 <width>50</width>
                 <autoMaxWidth>true</autoMaxWidth>
@@ -2355,15 +2170,11 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
               <common>true</common>
             </userVisible>
             <title>
-              <key>en</key>
-              <value>&quot;On click&quot; event</value>
-            </title>
-            <title>
               <key>ru</key>
               <value>Событие &quot;При нажатии&quot;</value>
             </title>
             <extendedTooltip>
-              <name>EventHandlerOnClickPageGroupExtendedTooltip</name>
+              <name>ГруппаСтраницаРедаторОбработчикаПриНажатииРасширеннаяПодсказка</name>
               <id>137</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2389,17 +2200,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
             <common>true</common>
           </userVisible>
           <title>
-            <key>en</key>
-            <value>Event handlers group pages</value>
-          </title>
-          <title>
             <key>ru</key>
-            <value>Cтраницы обрабочиков событий</value>
+            <value>Группа страницы обрабочиков событий</value>
           </title>
           <horizontalStretch>true</horizontalStretch>
           <verticalStretch>true</verticalStretch>
           <extendedTooltip>
-            <name>EventHandlersGroupPagesExtendedTooltip</name>
+            <name>ГруппаСтраницыОбрабочиковСобытийРасширеннаяПодсказка</name>
             <id>127</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2425,15 +2232,11 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <common>true</common>
         </userVisible>
         <title>
-          <key>en</key>
-          <value>Event handlers</value>
-        </title>
-        <title>
           <key>ru</key>
           <value>Обработчики событий</value>
         </title>
         <extendedTooltip>
-          <name>EventHandlersPageGroupExtendedTooltip</name>
+          <name>ГруппаСтраницаОбработчикиСобытийРасширеннаяПодсказка</name>
           <id>123</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2459,15 +2262,11 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
         <common>true</common>
       </userVisible>
       <title>
-        <key>en</key>
-        <value>Generated HTML pages group</value>
-      </title>
-      <title>
         <key>ru</key>
-        <value>Страницы группы результирующего HTML</value>
+        <value>Группа страницы результирующего HTML</value>
       </title>
       <extendedTooltip>
-        <name>GeneratedHTMLPagesGroupExtendedTooltip</name>
+        <name>ГруппаСтраницыРезультирующегоHTMLРасширеннаяПодсказка</name>
         <id>52</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2485,7 +2284,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
       <extInfo xsi:type="form:PagesGroupExtInfo">
         <handlers>
           <event>OnCurrentPageChange</event>
-          <name>GeneratedHTMLPagesGroupOnCurrentPageChange</name>
+          <name>ГруппаСтраницыРезультирующегоHTMLПриСменеСтраницы</name>
         </handlers>
         <pagesRepresentation>TabsOnTop</pagesRepresentation>
         <currentRowUse>Auto</currentRowUse>
@@ -2496,16 +2295,8 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     <userVisible>
       <common>true</common>
     </userVisible>
-    <title>
-      <key>en</key>
-      <value>Main</value>
-    </title>
-    <title>
-      <key>ru</key>
-      <value>Основная</value>
-    </title>
     <extendedTooltip>
-      <name>MainGroupExtendedTooltip</name>
+      <name>ГруппаОсновнаяРасширеннаяПодсказка</name>
       <id>24</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2532,10 +2323,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:FormGroup">
-      <name>FormFileGroup</name>
+      <name>ФормаГруппаФайл</name>
       <id>99</id>
       <items xsi:type="form:Button">
-        <name>FormNewFile</name>
+        <name>ФормаНовыйФайл</name>
         <id>101</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2543,7 +2334,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>FormNewFileExtendedTooltip</name>
+          <name>ФормаНовыйФайлРасширеннаяПодсказка</name>
           <id>102</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2557,15 +2348,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.NewFile</commandName>
+        <commandName>Form.Command.НовыйФайл</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>FormOpenFile</name>
+        <name>ФормаОткрытьФайл</name>
         <id>107</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2573,7 +2365,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>FormOpenFileExtendedTooltip</name>
+          <name>ФормаОткрытьФайлРасширеннаяПодсказка</name>
           <id>108</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2587,15 +2379,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.OpenFile</commandName>
+        <commandName>Form.Command.ОткрытьФайл</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>FormSaveFile</name>
+        <name>ФормаСохранитьФайл</name>
         <id>103</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2603,7 +2396,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>FormSaveFileExtendedTooltip</name>
+          <name>ФормаСохранитьФайлРасширеннаяПодсказка</name>
           <id>104</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2617,15 +2410,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.SaveFile</commandName>
+        <commandName>Form.Command.СохранитьФайл</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>FormSaveFileAs</name>
+        <name>ФормаСохранитьФайлКак</name>
         <id>105</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2633,7 +2427,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>FormSaveFileAsExtendedTooltip</name>
+          <name>ФормаСохранитьФайлКакРасширеннаяПодсказка</name>
           <id>106</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2647,11 +2441,12 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.SaveFileAs</commandName>
+        <commandName>Form.Command.СохранитьФайлКак</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <toolTipRepresentation>Auto</toolTipRepresentation>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>
@@ -2660,15 +2455,11 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
         <common>true</common>
       </userVisible>
       <title>
-        <key>en</key>
-        <value>File</value>
-      </title>
-      <title>
         <key>ru</key>
         <value>Файл</value>
       </title>
       <extendedTooltip>
-        <name>FormFileGroupExtendedTooltip</name>
+        <name>ФормаГруппаФайлРасширеннаяПодсказка</name>
         <id>100</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2688,7 +2479,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
       </extInfo>
     </items>
     <items xsi:type="form:Button">
-      <name>CollapseExpandViewportToForm</name>
+      <name>ФормаРазвернутьСвернутьПолеПросмотраНаВсюФорму</name>
       <id>120</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2696,7 +2487,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>CollapseExpandViewportToFormExtendedTooltip</name>
+        <name>ФормаРазвернутьСвернутьПолеПросмотраНаВсюФормуРасширеннаяПодсказка</name>
         <id>121</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2710,15 +2501,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.CollapseExpandViewportToForm</commandName>
+      <commandName>Form.Command.РазвернутьСвернутьПолеПросмотраНаВсюФорму</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>UpdateGeneratedHTML</name>
+      <name>ФормаОбновитьРезультирующийHTML</name>
       <id>49</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2726,7 +2518,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>UpdateGeneratedHTMLExtendedTooltip</name>
+        <name>ФормаОбновитьРезультирующийHTMLРасширеннаяПодсказка</name>
         <id>50</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2740,16 +2532,17 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.UpdateGeneratedHTML</commandName>
+      <commandName>Form.Command.ОбновитьРезультирующийHTML</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>FormCloseTool</name>
+      <name>ФормаЗакрытьИнструмент</name>
       <id>109</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2757,7 +2550,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>FormCloseToolExtendedTooltip</name>
+        <name>ФормаЗакрытьИнструментРасширеннаяПодсказка</name>
         <id>110</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2771,11 +2564,12 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.CloseTool</commandName>
+      <commandName>Form.Command.ЗакрытьИнструмент</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
+      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>
@@ -2787,16 +2581,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     <autoFill>true</autoFill>
   </autoCommandBar>
   <handlers>
-    <event>OnCreateAtServer</event>
-    <name>OnCreateAtServer</name>
-  </handlers>
-  <handlers>
     <event>OnOpen</event>
-    <name>OnOpen</name>
+    <name>ПриОткрытии</name>
   </handlers>
   <handlers>
     <event>BeforeClose</event>
-    <name>BeforeClose</name>
+    <name>ПередЗакрытием</name>
+  </handlers>
+  <handlers>
+    <event>OnCreateAtServer</event>
+    <name>ПриСозданииНаСервере</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -2807,11 +2601,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Object</name>
-    <title>
-      <key>ru</key>
-      <value>Object</value>
-    </title>
+    <name>Объект</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_HTMLEditor</types>
@@ -2825,10 +2615,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     <main>true</main>
   </attributes>
   <attributes>
-    <name>JSEditor</name>
+    <name>РедакторJS</name>
     <title>
       <key>ru</key>
-      <value>JSEditor</value>
+      <value>Редактор JS</value>
     </title>
     <id>2</id>
     <valueType>
@@ -2843,14 +2633,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>GeneratedHTML</name>
-    <title>
-      <key>en</key>
-      <value>Generated HTML</value>
-    </title>
+    <name>РезультирущийHTML</name>
     <title>
       <key>ru</key>
-      <value>HTML</value>
+      <value>Результирущий HTML</value>
     </title>
     <id>3</id>
     <valueType>
@@ -2865,10 +2651,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>CSSEditor</name>
+    <name>РедакторCSS</name>
     <title>
       <key>ru</key>
-      <value>CSSEditor</value>
+      <value>Редактор CSS</value>
     </title>
     <id>4</id>
     <valueType>
@@ -2883,10 +2669,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>BODYEditor</name>
+    <name>РедакторBODY</name>
     <title>
       <key>ru</key>
-      <value>BODYEditor</value>
+      <value>Редактор BODY</value>
     </title>
     <id>5</id>
     <valueType>
@@ -2901,10 +2687,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>LinkedLibraries</name>
+    <name>ПодключаемыеБиблиотеки</name>
     <title>
       <key>ru</key>
-      <value>Linked libraries</value>
+      <value>Подключаемые библиотеки</value>
     </title>
     <id>6</id>
     <valueType>
@@ -2917,10 +2703,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
       <common>true</common>
     </edit>
     <columns>
-      <name>Path</name>
+      <name>Путь</name>
       <title>
         <key>ru</key>
-        <value>Path</value>
+        <value>Путь</value>
       </title>
       <id>8</id>
       <valueType>
@@ -2935,10 +2721,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
       </edit>
     </columns>
     <columns>
-      <name>AdditionalParameters</name>
+      <name>ДополнительныеПараметры</name>
       <title>
         <key>ru</key>
-        <value>Additional parameters</value>
+        <value>Дополнительные параметры</value>
       </title>
       <id>10</id>
       <valueType>
@@ -2954,14 +2740,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </columns>
   </attributes>
   <attributes>
-    <name>GeneratedHTMLEditor</name>
-    <title>
-      <key>en</key>
-      <value>Generated HTML editor</value>
-    </title>
+    <name>РедакторРезультирующегоHTML</name>
     <title>
       <key>ru</key>
-      <value>Редактор полученного HTML</value>
+      <value>Редактор результирующего HTML</value>
     </title>
     <id>9</id>
     <valueType>
@@ -2976,10 +2758,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>ToolDataFileName</name>
+    <name>ИмяФайлаДанныхИнструмента</name>
     <title>
       <key>ru</key>
-      <value>Tool data file name</value>
+      <value>Имя файла данных инструмента</value>
     </title>
     <id>11</id>
     <valueType>
@@ -2994,14 +2776,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>GeneratedHTMLConsoleOutput</name>
-    <title>
-      <key>en</key>
-      <value>Generated HTML console output</value>
-    </title>
+    <name>ВыводКонсолиРезультирующегоHTML</name>
     <title>
       <key>ru</key>
-      <value>Вывод консоли полученного HTML</value>
+      <value>Вывод консоли результирующего HTML</value>
     </title>
     <id>13</id>
     <valueType>
@@ -3016,10 +2794,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>ViewportScaledToForm</name>
+    <name>ПолеПросмотраРазвернутоНаВсюФорму</name>
     <title>
       <key>ru</key>
-      <value>Viewport scaled to form</value>
+      <value>Поле просмотра развернуто на всю форму</value>
     </title>
     <id>14</id>
     <valueType>
@@ -3033,10 +2811,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>DocumentCompleteEventEditor</name>
+    <name>РедакторСобытияДокументСформирован</name>
     <title>
       <key>ru</key>
-      <value>Document complete event editor</value>
+      <value>Редактор события документ сформирован</value>
     </title>
     <id>15</id>
     <valueType>
@@ -3051,10 +2829,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>OnClickEventEditor</name>
+    <name>РедакторСобытияПриНажатии</name>
     <title>
       <key>ru</key>
-      <value>On click event editor</value>
+      <value>Редактор события при нажатии</value>
     </title>
     <id>16</id>
     <valueType>
@@ -3069,10 +2847,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>LibraryAddress</name>
+    <name>АдресБиблиотеки</name>
     <title>
       <key>ru</key>
-      <value>Library address</value>
+      <value>Адрес библиотеки</value>
     </title>
     <id>18</id>
     <valueType>
@@ -3087,10 +2865,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>HEADEditor</name>
+    <name>РедакторHEAD</name>
     <title>
       <key>ru</key>
-      <value>HEADEditor</value>
+      <value>Редактор HEAD</value>
     </title>
     <id>19</id>
     <valueType>
@@ -3105,10 +2883,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>LibraryEditor</name>
+    <name>РедакторБиблиотеки</name>
     <title>
       <key>ru</key>
-      <value>Library editor</value>
+      <value>Редактор библиотеки</value>
     </title>
     <id>20</id>
     <valueType>
@@ -3123,10 +2901,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>BodyIncludesCSSText</name>
+    <name>ВключатьТекстCSSВТело</name>
     <title>
       <key>ru</key>
-      <value>Body includes CSSText</value>
+      <value>Включать текст CSSВТело</value>
     </title>
     <id>21</id>
     <valueType>
@@ -3140,7 +2918,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>BodyIncludesJSText</name>
+    <name>ВключатьТекстJSВТело</name>
     <title>
       <key>ru</key>
       <value>Включать текст JS ВТело</value>
@@ -3157,10 +2935,10 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </edit>
   </attributes>
   <attributes>
-    <name>UseConsole</name>
+    <name>ИспользоватьКонсоль</name>
     <title>
       <key>ru</key>
-      <value>Use console</value>
+      <value>Использовать консоль</value>
     </title>
     <id>23</id>
     <valueType>
@@ -3173,53 +2951,11 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
       <common>true</common>
     </edit>
   </attributes>
-  <attributes>
-    <name>SavedEditorText</name>
-    <title>
-      <key>ru</key>
-      <value>Saved editor text</value>
-    </title>
-    <id>24</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers/>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>CurrentEditorName</name>
-    <title>
-      <key>ru</key>
-      <value>Current editor name</value>
-    </title>
-    <id>25</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers>
-        <length>1000</length>
-      </stringQualifiers>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
   <formCommands>
-    <name>UpdateGeneratedHTML</name>
-    <title>
-      <key>en</key>
-      <value>Update HTML (Ctrl+Q)</value>
-    </title>
+    <name>ОбновитьРезультирующийHTML</name>
     <title>
       <key>ru</key>
-      <value>Обновить HTML (Ctrl+Q)</value>
+      <value>Обновить HTML(Ctrl+Q)</value>
     </title>
     <id>1</id>
     <use>
@@ -3231,18 +2967,14 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>UpdateGeneratedHTML</name>
+        <name>ОбновитьРезультирующийHTML</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>LibrarySampleBootstrap4</name>
-    <title>
-      <key>en</key>
-      <value>Bootstrap 4</value>
-    </title>
+    <name>ТиповаяБиблиотекаBootstrap4</name>
     <title>
       <key>ru</key>
       <value>Bootstrap 4</value>
@@ -3253,17 +2985,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>LibrarySampleBootstrap4</name>
+        <name>ТиповаяБиблиотекаBootstrap4</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>LibrarySampleJQuery</name>
-    <title>
-      <key>en</key>
-      <value>JQuery</value>
-    </title>
+    <name>ТиповаяБиблиотекаJQuery</name>
     <title>
       <key>ru</key>
       <value>JQuery</value>
@@ -3274,17 +3002,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>LibrarySampleJQuery</name>
+        <name>ТиповаяБиблиотекаJQuery</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>LibrarySampleFontAwesome</name>
-    <title>
-      <key>en</key>
-      <value>Font awesome</value>
-    </title>
+    <name>ТиповаяБиблиотекаFontAwesome</name>
     <title>
       <key>ru</key>
       <value>Font awesome</value>
@@ -3295,17 +3019,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>LibrarySampleFontAwesome</name>
+        <name>ТиповаяБиблиотекаFontAwesome</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>LibrarySamplePoperJS</name>
-    <title>
-      <key>en</key>
-      <value>Poper JS</value>
-    </title>
+    <name>ТиповаяБиблиотекаPoperJS</name>
     <title>
       <key>ru</key>
       <value>Poper JS</value>
@@ -3316,17 +3036,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>LibrarySamplePoperJS</name>
+        <name>ТиповаяБиблиотекаPoperJS</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>LibrarySampleResetCSS</name>
-    <title>
-      <key>en</key>
-      <value>Reset CSS</value>
-    </title>
+    <name>ТиповаяБиблиотекаResetCSS</name>
     <title>
       <key>ru</key>
       <value>Reset CSS</value>
@@ -3337,17 +3053,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>LibrarySampleResetCSS</name>
+        <name>ТиповаяБиблиотекаResetCSS</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>LibrarySampleAnimateCSS</name>
-    <title>
-      <key>en</key>
-      <value>Animate CSS</value>
-    </title>
+    <name>ТиповаяБиблиотекаAnimateCSS</name>
     <title>
       <key>ru</key>
       <value>Animate CSS</value>
@@ -3358,17 +3070,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>LibrarySampleAnimateCSS</name>
+        <name>ТиповаяБиблиотекаAnimateCSS</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>LibrarySampleSocketIO</name>
-    <title>
-      <key>en</key>
-      <value>Socket IO</value>
-    </title>
+    <name>ТиповаяБиблиотекаSocketIO</name>
     <title>
       <key>ru</key>
       <value>Socket IO</value>
@@ -3379,20 +3087,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>LibrarySampleSocketIO</name>
+        <name>ТиповаяБиблиотекаSocketIO</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>SaveFile</name>
-    <title>
-      <key>en</key>
-      <value>Save (Ctrl+S)</value>
-    </title>
+    <name>СохранитьФайл</name>
     <title>
       <key>ru</key>
-      <value>Сохранить (Ctrl+S)</value>
+      <value>Сохранить файл</value>
     </title>
     <id>12</id>
     <use>
@@ -3404,20 +3108,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>SaveFile</name>
+        <name>СохранитьФайл</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>SaveFileAs</name>
-    <title>
-      <key>en</key>
-      <value>Save As</value>
-    </title>
+    <name>СохранитьФайлКак</name>
     <title>
       <key>ru</key>
-      <value>Сохранить как</value>
+      <value>Сохранить файл как</value>
     </title>
     <id>13</id>
     <use>
@@ -3428,20 +3128,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>SaveFileAs</name>
+        <name>СохранитьФайлКак</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>NewFile</name>
-    <title>
-      <key>en</key>
-      <value>New (Ctrl+N)</value>
-    </title>
+    <name>НовыйФайл</name>
     <title>
       <key>ru</key>
-      <value>Новый (Ctrl+N)</value>
+      <value>Новый</value>
     </title>
     <id>14</id>
     <toolTip>
@@ -3457,17 +3153,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>CreateNewFile</name>
+        <name>НовыйФайл</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>CloseTool</name>
-    <title>
-      <key>en</key>
-      <value>Close</value>
-    </title>
+    <name>ЗакрытьИнструмент</name>
     <title>
       <key>ru</key>
       <value>Закрыть</value>
@@ -3481,21 +3173,17 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>CloseTool</name>
+        <name>ЗакрытьИнструмент</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>OpenFile</name>
-    <title>
-      <key>en</key>
-      <value>Open (Ctrl+O)</value>
-    </title>
+    <name>ОткрытьФайл</name>
     <title>
       <key>ru</key>
-      <value>Открыть (Ctrl+O)</value>
+      <value>Открыть файл</value>
     </title>
     <id>16</id>
     <use>
@@ -3507,17 +3195,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>OpenFile</name>
+        <name>ОткрытьФайл</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>UpdateConsoleOutput</name>
-    <title>
-      <key>en</key>
-      <value>Update console output</value>
-    </title>
+    <name>ОбновитьВыводКонсоли</name>
     <title>
       <key>ru</key>
       <value>Обновить вывод консоли</value>
@@ -3528,20 +3212,16 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>UpdateConsoleOutput</name>
+        <name>ОбновитьВыводКонсоли</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>CollapseExpandViewportToForm</name>
-    <title>
-      <key>en</key>
-      <value>Collapse/Expand viewport to form</value>
-    </title>
+    <name>РазвернутьСвернутьПолеПросмотраНаВсюФорму</name>
     <title>
       <key>ru</key>
-      <value>Развернуть/свернуть просмотр на всю форму</value>
+      <value>Развернуть/Свернуть поле просмотра</value>
     </title>
     <id>18</id>
     <use>
@@ -3552,17 +3232,13 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>CollapseExpandViewportToForm</name>
+        <name>РазвернутьСвернутьПолеПросмотраНаВсюФорму</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>SaveLibrary</name>
-    <title>
-      <key>en</key>
-      <value>Save library</value>
-    </title>
+    <name>СохранитьБиблиотеку</name>
     <title>
       <key>ru</key>
       <value>Сохранить библиотеку</value>
@@ -3580,7 +3256,7 @@ GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>SaveLibrary</name>
+        <name>СохранитьБиблиотеку</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

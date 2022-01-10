@@ -16,11 +16,11 @@
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
 				<dcscor:use>false</dcscor:use>
-				<dcscor:parameter>BackColor</dcscor:parameter>
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">#FF6600</dcscor:value>
 			</dcscor:item>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>TextColor</dcscor:parameter>
+				<dcscor:parameter>ЦветТекста</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">style:SpecialTextColor</dcscor:value>
 			</dcscor:item>
 		</appearance>
@@ -43,7 +43,7 @@
 		</filter>
 		<appearance>
 			<dcscor:item xsi:type="SettingsParameterValue">
-				<dcscor:parameter>BackColor</dcscor:parameter>
+				<dcscor:parameter>ЦветФона</dcscor:parameter>
 				<dcscor:value xsi:type="v8ui:Color">win:ScrollBar</dcscor:value>
 			</dcscor:item>
 		</appearance>

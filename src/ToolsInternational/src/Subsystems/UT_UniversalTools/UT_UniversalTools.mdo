@@ -24,12 +24,12 @@
   <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
   <content>DataProcessor.UT_CodeConsole</content>
   <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
-  <content>Catalog.UT_Algorithms</content>
+  <content>Catalog.УИ_Алгоритмы</content>
   <content>DataProcessor.UT_ObjectReferencesSearch</content>
   <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
   <content>Report.УИ_КонсольОтчетов</content>
   <content>DataProcessor.УИ_ДинамическийСписок</content>
-  <content>DataProcessor.UT_HttpRequestConsole</content>
+  <content>DataProcessor.УИ_КонсольHTTPЗапросов</content>
   <content>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</content>
   <content>CommonPicture.UT_UniversalToolsSybsystem</content>
   <content>CommonPicture.UT_ExecuteScheduledJobManually</content>

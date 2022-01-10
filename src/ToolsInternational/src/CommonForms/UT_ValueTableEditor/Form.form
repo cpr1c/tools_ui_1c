@@ -23,8 +23,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>КолонкиТаблицы.Имя</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>КолонкиТаблицы.Имя</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыИмяРасширеннаяПодсказка</name>
@@ -73,8 +75,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>КолонкиТаблицы.ТипЗначения</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>КолонкиТаблицы.ТипЗначения</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыТипЗначенияРасширеннаяПодсказка</name>
@@ -126,8 +130,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:DataPath">
-          <segments>КолонкиТаблицы.Квалификаторы</segments>
+        <dataPath xsi:type="form:MultiLanguageDataPath">
+          <paths xsi:type="form:DataPath">
+            <segments>КолонкиТаблицы.Квалификаторы</segments>
+          </paths>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыКвалификаторыРасширеннаяПодсказка</name>
@@ -599,7 +605,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
@@ -630,7 +635,6 @@
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
-      <toolTipRepresentation>Auto</toolTipRepresentation>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <visible>true</visible>

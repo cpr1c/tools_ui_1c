@@ -1,226 +1,206 @@
-&AtClient
-Var FormCloseConfirmed;
+&НаКлиенте
+Перем ЗакрытиеФормыПодтверждено;
 
-&AtClient
-Var SavedEditorsValues;
+&НаКлиенте
+Перем СохраненныеЗначенияРедаторов;
 
-#Region FormEvents
+#Область СобытияФормы
 
-&AtServer
-Procedure OnCreateAtServer(Cancel, StandardProcessing)
+&НаСервере
+Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+	UT_CodeEditorServer.ФормаПриСозданииНаСервере(ЭтотОбъект,"Ace");
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "BODY", Элементы.РедакторBODY, "html");
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "CSS", Элементы.РедакторCSS, "css");
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "HEAD", Элементы.РедакторHEAD, "html");
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "JS", Элементы.РедакторJS, "javascript");
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "HTML", Элементы.РедакторРезультирующегоHTML, "html");
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "БИБЛИОТЕКА", Элементы.РедакторБиблиотеки, "javascript");
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "СФОРМИРОВАН", Элементы.РедакторСобытияДокументСформирован);
+	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "НАЖАТИЕ", Элементы.РедакторСобытияПриНажатии);
+
+	ВыводКонсолиРезультирующегоHTML=ТекстПоляКонсолиРезультата();
 	
-	UT_CodeEditorServer.FormOnCreateAtServer(ThisObject, "Ace");
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "BODY", Items.BODYEditor, "html");
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "CSS", Items.CSSEditor, "css");
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "HEAD", Items.HEADEditor, "html");
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "JS", Items.JSEditor, "javascript");
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "HTML", Items.GeneratedHTMLEditor, "html");
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "LIBRARY", Items.LibraryEditor, "javascript");
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "COMPLETE", Items.DocumentCompleteEventEditor);
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "CLICK", Items.OnClickEventEditor);
-
-	GeneratedHTMLConsoleOutput = GeneratedHTMLConsoleText();
+	UT_Common.ToolFormOnCreateAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка);
 	
-	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
+КонецПроцедуры
+&НаКлиенте
+Процедура ПередЗакрытием(Отказ, ЗавершениеРаботы, ТекстПредупреждения, СтандартнаяОбработка)
+	Если Не ЗакрытиеФормыПодтверждено Тогда
+		Отказ = Истина;
+	КонецЕсли;
+КонецПроцедуры
+&НаКлиенте
+Процедура ГруппаСтраницыРезультирующегоHTMLПриСменеСтраницы(Элемент, ТекущаяСтраница)
+	Если ТекущаяСтраница = Элементы.ГруппаСтраницаКонсоль Тогда
+		ОбновитьВыводКонсолиРезультата();
+	КонецЕсли;
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ПриОткрытии(Отказ)
+	СохраненныеЗначенияРедаторов=Новый Структура;
+	СохраненныеЗначенияРедаторов.Вставить("РедакторРезультирующегоHTML", "");
+	СохраненныеЗначенияРедаторов.Вставить("РедакторBODY", "");
+	СохраненныеЗначенияРедаторов.Вставить("РедакторHEAD", "");
+	СохраненныеЗначенияРедаторов.Вставить("РедакторCSS", "");
+	СохраненныеЗначенияРедаторов.Вставить("РедакторJS", "");
+	СохраненныеЗначенияРедаторов.Вставить("РедакторСобытияДокументСформирован", "");
+	СохраненныеЗначенияРедаторов.Вставить("РедакторСобытияПриНажатии", "");
 	
-EndProcedure
-
-&AtClient
-Procedure BeforeClose(Cancel, Exit, WarningText, StandardProcessing)
-	If Not FormCloseConfirmed Then
-		Cancel = True;
-	EndIf;
-EndProcedure
-
-&AtClient
-Procedure GeneratedHTMLPagesGroupOnCurrentPageChange(Item, CurrentPage)
+	UT_CodeEditorClient.FormOnOpen(ЭтотОбъект, Новый ОписаниеОповещения("ПриОткрытииЗавершение",ЭтотОбъект));
 	
-	If CurrentPage = Items.ConsolePageGroup Then
-		UpdateResultConsoleOutput();
-	EndIf;
-	
-EndProcedure
+КонецПроцедуры
+#КонецОбласти
 
-&AtClient
-Procedure OnOpen(Cancel)
-	
-	SavedEditorsValues = New Structure;
-	SavedEditorsValues.Insert("GeneratedHTMLEditor", "");
-	SavedEditorsValues.Insert("BODYEditor", "");
-	SavedEditorsValues.Insert("HEADEditor", "");
-	SavedEditorsValues.Insert("CSSEditor", "");
-	SavedEditorsValues.Insert("JSEditor", "");
-	SavedEditorsValues.Insert("DocumentCompleteEventEditor", "");
-	SavedEditorsValues.Insert("OnClickEventEditor", "");
-	
-	UT_CodeEditorClient.FormOnOpen(ThisObject, New NotifyDescription("OnOpenComplete", ThisObject));
-	
-EndProcedure
+#Область СобытияЭлементовФормы
 
-#EndRegion
+&НаКлиенте
+Процедура РедакторBODYДокументСформирован(Элемент)
+	УстановитьТекстРедактораИзСохраненныхЗначений(Элемент);
+КонецПроцедуры
 
-#Region FormItemsEvents
+&НаКлиенте
+Процедура РедакторHEADДокументСформирован(Элемент)
+	УстановитьТекстРедактораИзСохраненныхЗначений(Элемент);
+КонецПроцедуры
+&НаКлиенте
+Процедура РедакторCSSДокументСформирован(Элемент)
+	УстановитьТекстРедактораИзСохраненныхЗначений(Элемент);
+КонецПроцедуры
 
-&AtClient
-Procedure BODYEditorDocumentComplete(Item)
-	SetEditorTextFromSavedValues(Item);
-EndProcedure
+&НаКлиенте
+Процедура РедакторJSДокументСформирован(Элемент)
+	УстановитьТекстРедактораИзСохраненныхЗначений(Элемент);
+КонецПроцедуры
 
-&AtClient
-Procedure HEADEditorDocumentComplete(Item)
-	SetEditorTextFromSavedValues(Item);
-EndProcedure
+&НаКлиенте
+Процедура РедакторРезультирующегоHTMLДокументСформирован(Элемент)
+	УстановитьТекстРедактораИзСохраненныхЗначений(Элемент);
+КонецПроцедуры
 
-&AtClient
-Procedure CSSEditorDocumentComplete(Item)
-	SetEditorTextFromSavedValues(Item);
-EndProcedure
+&НаКлиенте
+Процедура РедакторСобытияДокументСформированДокументСформирован(Элемент)
+	УстановитьТекстРедактораИзСохраненныхЗначений(Элемент);
+КонецПроцедуры
 
-&AtClient
-Procedure JSEditorDocumentComplete(Item)
-	SetEditorTextFromSavedValues(Item);
-EndProcedure
+&НаКлиенте
+Процедура РедакторСобытияПриНажатииДокументСформирован(Элемент)
+	УстановитьТекстРедактораИзСохраненныхЗначений(Элемент);
+КонецПроцедуры
+&НаКлиенте
+Процедура РезультирущийHTMLДокументСформирован(Элемент)
+	ТекстАлготима=ТекстРедактораЭлемента(Элементы.РедакторСобытияДокументСформирован);
+	Попытка
+		Выполнить (ТекстАлготима);
+	Исключение
+		ОписаниеОшибки = ОписаниеОшибки();
+		Сообщить(ОписаниеОшибки);
+	КонецПопытки;
+КонецПроцедуры
 
-&AtClient
-Procedure GeneratedHTMLEditorDocumentComplete(Item)
-	SetEditorTextFromSavedValues(Item);
-EndProcedure
+&НаКлиенте
+Процедура РезультирущийHTMLПриНажатии(Элемент, ДанныеСобытия, СтандартнаяОбработка)
+	ТекстАлготима=ТекстРедактораЭлемента(Элементы.РедакторСобытияПриНажатии);
+	Попытка
+		Выполнить (ТекстАлготима);
+	Исключение
+		ОписаниеОшибки = ОписаниеОшибки();
+		Сообщить(ОписаниеОшибки);
+	КонецПопытки;
+КонецПроцедуры
 
-&AtClient
-Procedure EventHandlerDocumentCompleteDocumentComplete(Item)
-	SetEditorTextFromSavedValues(Item);
-EndProcedure
+&НаКлиенте
+Процедура ПодключаемыеБиблиотекиПриАктивизацииСтроки(Элемент)
+	ТекущиеДанные = Элементы.ПодключаемыеБиблиотеки.ТекущиеДанные;
+	Если ТекущиеДанные = Неопределено Тогда
+		Возврат;
+	КонецЕсли;
 
-&AtClient
-Procedure EventHandlerOnClickDocumentComplete(Item)
-	SetEditorTextFromSavedValues(Item);
-EndProcedure
+	Файл = Новый Файл(ТекущиеДанные.Путь);
+	Если НРег(Файл.Расширение) <> ".css" Тогда
+		РедакторБиблиотеки=UT_CodeEditorClient.ИмяФайлаРедактораAceДляЯзыка("css");
+	Иначе
+		РедакторБиблиотеки = UT_CodeEditorClient.ИмяФайлаРедактораAceДляЯзыка("javascript");
+	КонецЕсли;
 
-&AtClient
-Procedure GeneratedHTMLOnClick(Item, EventData, StandardProcessing)
-	
-	AlgoText = EditorItemText(Items.OnClickEventEditor);
-	Try
-		Execute (AlgoText);
-	Except
-		ErrorDesc = ErrorDescription();
-		Message(ErrorDesc);
-	EndTry;
-	
-EndProcedure
+	ПодключитьОбработчикОжидания("УстановитьТекстРедактораБиблиотеки", 1, Истина);
+КонецПроцедуры
 
-&AtClient
-Procedure GeneratedHTMLDocumentComplete(Item)
-	
-	AlgoText = EditorItemText(Items.DocumentCompleteEventEditor);
-	Try
-		Execute (AlgoText);
-	Except
-		ErrorDesc = ErrorDescription();
-		Message(ErrorDesc);
-	EndTry;
-	
-EndProcedure
+&НаКлиенте
+Процедура ПодключаемыеБиблиотекиПутьНачалоВыбора(Элемент, ДанныеВыбора, СтандартнаяОбработка)
+	СтандартнаяОбработка = Ложь;
 
+	ТекущиеДанные = Элементы.ПодключаемыеБиблиотеки.ТекущиеДанные;
 
-&AtClient
-Procedure LinkedLibrariesOnActivateRow(Item)
-	
-	CurrentData = Items.LinkedLibraries.CurrentData;
-	If CurrentData = Undefined Then
-		Return;
-	EndIf;
+	ДиалогВыбораФайла = Новый ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Открытие);
+	ДиалогВыбораФайла.Фильтр = "*.*|*.*";
+	ДиалогВыбораФайла.ПредварительныйПросмотр = Ложь; // по-умолчанию Истина
+	ДиалогВыбораФайла.ПроверятьСуществованиеФайла = Истина;
+	ДиалогВыбораФайла.Показать(Новый ОписаниеОповещения("ВыборПодключаемойБиблиотеки", ЭтаФорма,
+		Новый Структура("ТекущиеДанные", ТекущиеДанные)));
+КонецПроцедуры
+&НаКлиенте
+Процедура ГруппаРедакторHEADЗаголовокСворачиваниеНажатие(Элемент)
+	ПереключитьВидимостьРедактора(Элементы.РедакторHEAD);
+КонецПроцедуры
 
-	File = New File(CurrentData.Path);
-	If Lower(File.Extension) <> ".css" Then
-		LibraryEditor = UT_CodeEditorClient.ИмяФайлаРедактораAceДляЯзыка("css");
-	Else
-		LibraryEditor = UT_CodeEditorClient.ИмяФайлаРедактораAceДляЯзыка("javascript");
-	EndIf;
+&НаКлиенте
+Процедура ГруппаРедакторBODYЗаголовокСворачиваниеНажатие(Элемент)
+	ПереключитьВидимостьРедактора(Элементы.РедакторBODY);
+КонецПроцедуры
 
-	AttachIdleHandler("SetupLibraryEditorText", 1, True);
-	
-EndProcedure
+&НаКлиенте
+Процедура ГруппаРедакторCSSЗаголовокСворачиваниеНажатие(Элемент)
+	ПереключитьВидимостьРедактора(Элементы.РедакторCSS);
+КонецПроцедуры
 
-&AtClient
-Procedure LinkedLibrariesPathStartChoice(Item, ChoiceData, StandardProcessing)
-	
-	StandardProcessing = False;
+&НаКлиенте
+Процедура ГруппаРедакторJSЗаголовокСворачиваниеНажатие(Элемент)
+	ПереключитьВидимостьРедактора(Элементы.РедакторJS);
+КонецПроцедуры
+#КонецОбласти
 
-	CurrentData = Items.LinkedLibraries.CurrentData;
+#Область СобытияКомандФормы
 
-	FileChooseDialog = New FileDialog(FileDialogMode.Open);
-	FileChooseDialog.Filter = "*.*|*.*";
-	FileChooseDialog.Preview = False; 
-	FileChooseDialog.CheckFileExist = True;
-	FileChooseDialog.Show(New NotifyDescription("LinkedLibrarySelection", ThisForm,
-		New Structure("CurrentData", CurrentData)));
-		
-EndProcedure
+&НаКлиенте
+Процедура ОбновитьРезультирующийHTML(Команда)
+	Если Элементы.ГруппаСтраницыРедактированияHTML.ТекущаяСтраница
+		= Элементы.ГруппаСтраницаРежимаРедактированияВсеСразу Тогда
 
-&AtClient
-Procedure HEADEditorTitleCollapseClick(Item)
-	ToggleEditorVisibility(Items.HEADEditor);
-EndProcedure
-
-&AtClient
-Procedure BODYEditorTitleCollapseClick(Item)
-	ToggleEditorVisibility(Items.BODYEditor);
-EndProcedure
-
-&AtClient
-Procedure CSSEditorTitleCollapseClick(Item)
-	ToggleEditorVisibility(Items.CSSEditor);
-EndProcedure
-
-&AtClient
-Procedure JSEditorTitleCollapseClick(Item)
-	ToggleEditorVisibility(Items.JSEditor);
-EndProcedure
-
-#EndRegion
-
-#Region FormCommandsEvents
-
-&AtClient
-Procedure UpdateGeneratedHTML(Command)
-	
-	If Items.HTMLEditorPagesGroup.CurrentPage
-		= Items.EditorModeAllPagesGroup Then
-
-		CSSText = EditorItemText(Items.CSSEditor);
-		If ValueIsFilled(CSSText) Then
-			CSSText="
+		ТекстCSS=ТекстРедактораЭлемента(Элементы.РедакторCSS);
+		Если ЗначениеЗаполнено(ТекстCSS) Тогда
+			ТекстCSS="
 					 |<style type=""text/css"">
-					 |" + CSSText + "
+					 |" + ТекстCSS + "
 									 |</style>";
-		EndIf;
+		КонецЕсли;
 
-		JSText = EditorItemText(Items.JSEditor);
-		If ValueIsFilled(JSText) Then
-			JSText="
+		ТекстJS=ТекстРедактораЭлемента(Элементы.РедакторJS);
+		Если ЗначениеЗаполнено(ТекстJS) Тогда
+			ТекстJS="
 					|<script>
-					| " + JSText + "
+					| " + ТекстJS + "
 									|</script>";
-		EndIf;
+		КонецЕсли;
 
 		HTML=
 		"<!DOCTYPE html>
 		|<html lang=""ru"">";
 
-		HEADText = EditorItemText(Items.HEADEditor);
-		HEADText = StrReplace(HEADText, "<head>", "");
-		HEADText = StrReplace(HEADText, "</head>", "");
+		ТекстHEAD = ТекстРедактораЭлемента(Элементы.РедакторHEAD);
+		ТекстHEAD = СтрЗаменить(ТекстHEAD, "<head>", "");
+		ТекстHEAD = СтрЗаменить(ТекстHEAD, "</head>", "");
 
-		If StrFind(Lower(HEADText), "<head") = 0 Then
+		Если СтрНайти(НРег(ТекстHEAD), "<head") = 0 Тогда
 			HTML = HTML + "
 						  |<head>";
-		EndIf;
+		КонецЕсли;
 
-		If ValueIsFilled(HEADText) Then
+		Если ЗначениеЗаполнено(ТекстHEAD) Тогда
 			HTML = HTML + "
 						  |
-						  |" + СокрЛП(HEADText);
+<<<<<<< HEAD
+						  |" + TrimAll(HEADText);
 		EndIf;
 		
 		For Each LibraryRow In LinkedLibraries Do
@@ -244,176 +224,192 @@ Procedure UpdateGeneratedHTML(Command)
 		EndIf;
 
 		If StrFind(Lower(HEADText), "</head") = 0 Then
+=======
+						  |" + СокрЛП(ТекстHEAD);
+		КонецЕсли;
+		Для Каждого СтрокаБиблиотеки Из ПодключаемыеБиблиотеки Цикл
+			Файл=Новый Файл(СтрокаБиблиотеки.Путь);
+			Если НРег(Файл.Расширение) = ".css" Тогда
+				HTML=HTML + "
+							|<link rel=""stylesheet"" href=""" + СтрокаБиблиотеки.Путь + """ "
+					+ СтрокаБиблиотеки.ДополнительныеПараметры + " >";
+			Иначе
+				HTML=HTML + "
+							|<script src=""" + СтрокаБиблиотеки.Путь + """ type=""text/javascript"" charset=""utf-8"" "
+					+ СтрокаБиблиотеки.ДополнительныеПараметры + "></script>";
+			КонецЕсли;
+		КонецЦикла;
+
+		Если Не ВключатьТекстCSSВТело Тогда
+			HTML=HTML + ТекстCSS;
+		КонецЕсли;
+		Если Не ВключатьТекстJSВТело Тогда
+			HTML=HTML + ТекстJS;
+		КонецЕсли;
+
+		Если СтрНайти(НРег(ТекстHEAD), "</head") = 0 Тогда
+>>>>>>> parent of abeacf4 (Merge pull request #68 from tolixxtech/develop)
 			HTML = HTML + "
 						  |
 						  |</head>";
-		EndIf;
+		КонецЕсли;
 
-		BODYText = EditorItemText(Items.BODYEditor);
-		BODYText = StrReplace(BODYText, "<body>", "");
-		BODYText = StrReplace(BODYText, "</body>", "");
+		ТекстBODY = ТекстРедактораЭлемента(Элементы.РедакторBODY);
+		ТекстBODY = СтрЗаменить(ТекстBODY, "<body>", "");
+		ТекстBODY = СтрЗаменить(ТекстBODY, "</body>", "");
 
-		If StrFind(Lower(BODYText), "<body") = 0 Then
+		Если СтрНайти(НРег(ТекстBODY), "<body") = 0 Тогда
 			HTML = HTML + "
 						  |
 						  |<body>";
-		EndIf;
+		КонецЕсли;
 
-		If ValueIsFilled(BODYText) Then
-			HTML = HTML + "
-						| " + BODYText;
-		EndIf;
+		Если ЗначениеЗаполнено(ТекстBODY) Тогда
+			HTML=HTML + "
+						| " + ТекстBODY;
+		КонецЕсли;
 
-		If BodyIncludesCSSText Then
-			HTML = HTML + CSSText;
-		EndIf;
-		If BodyIncludesJSText Then
-			HTML = HTML + JSText;
-		EndIf;
-		If StrFind(Lower(BODYText), "</body") = 0 Then
+		Если ВключатьТекстCSSВТело Тогда
+			HTML=HTML + ТекстCSS;
+		КонецЕсли;
+		Если ВключатьТекстJSВТело Тогда
+			HTML=HTML + ТекстJS;
+		КонецЕсли;
+		Если СтрНайти(НРег(ТекстBODY), "</body") = 0 Тогда
 			HTML = HTML + "
 						  |</body>";
-		EndIf;
-		HTML = HTML + "
+		КонецЕсли;
+		HTML=HTML + "
 					|</html>";
 
-		GeneratedHTML=HTML;
-		SetEditorText(Items.GeneratedHTMLEditor, GeneratedHTML);
-		SetupConsoleSupportIntoHTML(GeneratedHTML);
+		РезультирущийHTML=HTML;
+		УстановитьТекстРедактораЭлемента(Элементы.РедакторРезультирующегоHTML, РезультирущийHTML);
+		УстановитьПоддержкуКонсолиВHTMLКод(РезультирущийHTML);
 
-	Else
-		HTML=EditorItemText(Items.GeneratedHTMLEditor);
+	Иначе
+		HTML=ТекстРедактораЭлемента(Элементы.РедакторРезультирующегоHTML);
 
-		SetupConsoleSupportIntoHTML(HTML);
-		GeneratedHTML=HTML;
-	EndIf;
-	
-EndProcedure
+		УстановитьПоддержкуКонсолиВHTMLКод(HTML);
+		РезультирущийHTML=HTML;
+	КонецЕсли;
+КонецПроцедуры
 
-&AtClient
-Procedure LibrarySampleBootstrap4(Command)
-	AddLinkedLibrary("https://stackpath.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css",
+&НаКлиенте
+Процедура ТиповаяБиблиотекаBootstrap4(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://stackpath.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css",
 		"integrity=""sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"" crossorigin=""anonymous""");
-	AddLinkedLibrary("https://code.jquery.com/jquery-latest.min.js",
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://code.jquery.com/jquery-latest.min.js",
 		"integrity=""sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"" crossorigin=""anonymous""");
-	AddLinkedLibrary("https://cdn.jsdelivr.net/npm/popper.js/dist/umd/popper.min.js",
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://cdn.jsdelivr.net/npm/popper.js/dist/umd/popper.min.js",
 		"integrity=""sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"" crossorigin=""anonymous""");
-	AddLinkedLibrary("https://stackpath.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js",
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://stackpath.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js",
 		"integrity=""sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"" crossorigin=""anonymous""");
-EndProcedure
+КонецПроцедуры
 
-&AtClient
-Procedure LibrarySampleJQuery(Command)
-	AddLinkedLibrary("https://code.jquery.com/jquery-latest.min.js",
+&НаКлиенте
+Процедура ТиповаяБиблиотекаJQuery(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://code.jquery.com/jquery-latest.min.js",
 		"integrity=""sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"" crossorigin=""anonymous""");
-EndProcedure
+КонецПроцедуры
 
-&AtClient
-Procedure LibrarySampleFontAwesome(Command)
-	AddLinkedLibrary(
+&НаКлиенте
+Процедура ТиповаяБиблиотекаFontAwesome(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки(
 		"https://stackpath.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css", "");
-EndProcedure
+КонецПроцедуры
 
-&AtClient
-Procedure LibrarySamplePoperJS(Command)
-	AddLinkedLibrary("https://unpkg.com/@popperjs/core@2", "");
-EndProcedure
+&НаКлиенте
+Процедура ТиповаяБиблиотекаPoperJS(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://unpkg.com/@popperjs/core@2", "");
+КонецПроцедуры
 
-&AtClient
-Procedure LibrarySampleResetCSS(Command)
-	AddLinkedLibrary("https://unpkg.com/reset-css/reset.css", "");
-EndProcedure
+&НаКлиенте
+Процедура ТиповаяБиблиотекаResetCSS(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://unpkg.com/reset-css/reset.css", "");
+КонецПроцедуры
+&НаКлиенте
+Процедура ТиповаяБиблиотекаAnimateCSS(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://cdn.jsdelivr.net/npm/animate.css/animate.min.css", "");
+КонецПроцедуры
 
-&AtClient
-Procedure LibrarySampleAnimateCSS(Command)
-	AddLinkedLibrary("https://cdn.jsdelivr.net/npm/animate.css/animate.min.css", "");
-EndProcedure
+&НаКлиенте
+Процедура ТиповаяБиблиотекаSocketIO(Команда)
+	ДобавитьЗаписьВПодключаемыеБибилиотеки("https://cdn.jsdelivr.net/npm/socket.io-client/dist/socket.io.js", "");
+КонецПроцедуры
+&НаКлиенте
+Процедура ОбновитьВыводКонсоли(Команда)
+	ОбновитьВыводКонсолиРезультата();
+КонецПроцедуры
 
-&AtClient
-Procedure LibrarySampleSocketIO(Command)
-	AddLinkedLibrary("https://cdn.jsdelivr.net/npm/socket.io-client/dist/socket.io.js", "");
-EndProcedure
+&НаКлиенте
+Процедура РазвернутьСвернутьПолеПросмотраНаВсюФорму(Команда)
+	ПолеПросмотраРазвернутоНаВсюФорму=Не ПолеПросмотраРазвернутоНаВсюФорму;
 
-&AtClient
-Procedure UpdateConsoleOutput(Command)
-	UpdateResultConsoleOutput();
-EndProcedure
+	Если ПолеПросмотраРазвернутоНаВсюФорму Тогда
+		Элементы.ГруппаСтраницыРезультирующегоHTML.ТекущаяСтраница=Элементы.ГруппаПредставлениеРезультирующегоHTML;
+		Элементы.ГруппаСтраницыРезультирующегоHTML.ОтображениеСтраниц=ОтображениеСтраницФормы.Нет;
 
-&AtClient
-Procedure CollapseExpandViewportToForm(Command)
-	
-	ViewportScaledToForm = Not ViewportScaledToForm;
+		СохраненныеЗначенияРедаторов.РедакторРезультирующегоHTML= ТекстРедактораЭлемента(
+			Элементы.РедакторРезультирующегоHTML);
+		СохраненныеЗначенияРедаторов.РедакторBODY=ТекстРедактораЭлемента(Элементы.РедакторBODY);
+		СохраненныеЗначенияРедаторов.РедакторHEAD= ТекстРедактораЭлемента(Элементы.РедакторHEAD);
+		СохраненныеЗначенияРедаторов.РедакторCSS= ТекстРедактораЭлемента(Элементы.РедакторCSS);
+		СохраненныеЗначенияРедаторов.РедакторJS= ТекстРедактораЭлемента(Элементы.РедакторJS);
+		СохраненныеЗначенияРедаторов.РедакторСобытияДокументСформирован= ТекстРедактораЭлемента(
+			Элементы.РедакторСобытияДокументСформирован);
+		СохраненныеЗначенияРедаторов.РедакторСобытияПриНажатии= ТекстРедактораЭлемента(
+			Элементы.РедакторСобытияПриНажатии);
+	Иначе
+		Элементы.ГруппаСтраницыРезультирующегоHTML.ОтображениеСтраниц=ОтображениеСтраницФормы.ЗакладкиСверху;
+	КонецЕсли;
 
-	If ViewportScaledToForm Then
-		Items.GeneratedHTMLPagesGroup.CurrentPage = Items.GeneratedHTMLPresentationGroup;
-		Items.GeneratedHTMLPagesGroup.PagesRepresentation = FormPagesRepresentation.None;
+	Элементы.ГруппаСтраницыРедактированияHTML.Видимость=Не ПолеПросмотраРазвернутоНаВсюФорму;
 
-		SavedEditorsValues.GeneratedHTMLEditor= EditorItemText(
-			Items.GeneratedHTMLEditor);
-		SavedEditorsValues.BODYEditor=EditorItemText(Items.BODYEditor);
-		SavedEditorsValues.HEADEditor= EditorItemText(Items.HEADEditor);
-		SavedEditorsValues.CSSEditor= EditorItemText(Items.CSSEditor);
-		SavedEditorsValues.JSEditor= EditorItemText(Items.JSEditor);
-		SavedEditorsValues.DocumentCompleteEventEditor= EditorItemText(
-			Items.DocumentCompleteEventEditor);
-		SavedEditorsValues.OnClickEventEditor= EditorItemText(
-			Items.OnClickEventEditor);
-	Else
-		Items.GeneratedHTMLPagesGroup.PagesRepresentation = FormPagesRepresentation.TabsOnTop;
-		AttachIdleHandler("SetupEditorsTexts", 0.1, True);
-	EndIf;
+КонецПроцедуры
 
-	Items.HTMLEditorPagesGroup.Visible = Not ViewportScaledToForm;
+&НаКлиенте
+Процедура СохранитьБиблиотеку(Команда)
+	ТекущиеДанные = Элементы.ПодключаемыеБиблиотеки.ТекущиеДанные;
 
-EndProcedure
-
-&AtClient
-Procedure SaveLibrary(Command)
-	
-	CurrentData = Items.LinkedLibraries.CurrentData;
-	
-	TextWriter = New TextWriter(CurrentData.Path);
-	TextWriter.Write(EditorItemText(Items.LibraryEditor));
-	TextWriter.Close();
-	
-EndProcedure
+	ЗаписьТекста = Новый ЗаписьТекста(ТекущиеДанные.Путь);
+	ЗаписьТекста.Записать(ТекстРедактораЭлемента(Элементы.РедакторБиблиотеки));
+	ЗаписьТекста.Закрыть();
+КонецПроцедуры
 
 //@skip-warning
-&AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
-EndProcedure
+&НаКлиенте
+Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
+	UT_CommonClient.Подключаемый_ВыполнитьОбщуюКомандуИнструментов(ЭтотОбъект, Команда);
+КонецПроцедуры
 
-#EndRegion
 
-#Region ToolsStandardProcedures
 
-&AtClient
-Procedure SetupConsoleSupportIntoHTML(HTML)
-	
-	If Not UseConsole Then
-		Return;
-	EndIf;
-	
-	HeaderStartPosition = StrFind(Lower(HTML), "<head>");
-	If HeaderStartPosition = 0 Then
-		Return;
-	EndIf;
-	
-	NewText = Left(HTML, HeaderStartPosition + 5);
-	NewText = NewText + ConsoleSupportJSScript();
-	NewText = NewText + Mid(HTML, HeaderStartPosition + 6);
+#КонецОбласти
 
-	HTML = NewText;
-	
-EndProcedure
+#Область СтандартныеПроцедурыИнструментов
 
-&AtClient
-Function ConsoleSupportJSScript()
+&НаКлиенте
+Процедура УстановитьПоддержкуКонсолиВHTMLКод(HTML)
+	Если Не ИспользоватьКонсоль Тогда
+		Возврат;
+	КонецЕсли;
 	
-	Text =
+	ПозицияНачалаШапки=СтрНайти(НРег(HTML), "<head>");
+	Если ПозицияНачалаШапки = 0 Тогда
+		Возврат;
+	КонецЕсли;
+	НовыйТекст=Лев(HTML, ПозицияНачалаШапки + 5);
+	НовыйТекст=НовыйТекст + ТекстСкриптаДляПоддержкиКонсоли();
+	НовыйТекст=НовыйТекст + Сред(HTML, ПозицияНачалаШапки + 6);
+
+	HTML=НовыйТекст;
+КонецПроцедуры
+
+&НаКлиенте
+Функция ТекстСкриптаДляПоддержкиКонсоли()
+	Текст=
 	"<script type=""text/javascript"" charset=""utf-8"">
-	|	console.output = []; // Take what U want 
+	|	console.output = []; // Из этого массива заберете все что вам нужно
 	|	console.log = (function(log) {
 	|		return function() {
 	|			log.apply(console, arguments);
@@ -425,201 +421,173 @@ Function ConsoleSupportJSScript()
 	|		return JSON.stringify(console.output);
 	|	}
 	|</script>";
-	
-	Return Text;
-	
-EndFunction
+	Возврат Текст;
+КонецФункции
 
-&AtClient
-Function SavedFileDescriptionStructure()
+&НаКлиенте
+Функция СтруктураОписанияСохраняемогоФайла()
+	Структура=UT_CommonClient.ПустаяСтруктураОписанияВыбираемогоФайла();
+	Структура.ИмяФайла=ИмяФайлаДанныхИнструмента;
 	
-	Structure = UT_CommonClient.ПустаяСтруктураОписанияВыбираемогоФайла();
-	Structure.ИмяФайла=ToolDataFileName;
+//	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Структура, "Данные редактора HTML(*.bslhtml)", "bslhtml");
+	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Структура, "Файл HTML(*.html)", "html");
+	Возврат Структура;
+КонецФункции
+&НаКлиенте
+Процедура ОткрытьФайл(Команда)
+	UT_CommonClient.ПрочитатьДанныеКонсолиИзФайла("РедактовHTML", СтруктураОписанияСохраняемогоФайла(),
+		Новый ОписаниеОповещения("ОткрытьФайлЗавершение", ЭтотОбъект));
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ОткрытьФайлЗавершение(Результат, ДополнительныеПараметры) Экспорт
+	Если Результат = Неопределено Тогда
+		Возврат;
+	КонецЕсли;
+
+	Модифицированность=Ложь;
+	ИмяФайлаДанныхИнструмента = Результат.ИмяФайла;
+
+	ДанныеФайла=ПолучитьИзВременногоХранилища(Результат.Адрес);
+
+	Текст=Новый ТекстовыйДокумент;
+	Текст.НачатьЧтение(Новый ОписаниеОповещения("ОткрытьФайлЗавершениеЧтенияТекста", ЭтаФорма, Новый Структура("Текст", Текст)), ДанныеФайла.ОткрытьПотокДляЧтения()); 
+КонецПроцедуры
+
+&НаКлиенте
+Процедура ОткрытьФайлЗавершениеЧтенияТекста(ДополнительныеПараметры1) Экспорт
 	
-//	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Structure, "Данные редактора HTML(*.bslhtml)", "bslhtml");
-	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Structure, "Файл HTML(*.html)", "html");
-	Return Structure;
-	
-EndFunction
-
-&AtClient
-Procedure OpenFile(Command)
-	
-	UT_CommonClient.ПрочитатьДанныеКонсолиИзФайла("РедактовHTML", SavedFileDescriptionStructure(),
-		New NotifyDescription("OpenFileComplete", ThisObject));
-		
-EndProcedure
-
-&AtClient
-Procedure OpenFileComplete(Result, AdditionalParams) Export
-	
-	If Result = Undefined Then
-		Return;
-	EndIf;
-
-	Modified = False;
-	ToolDataFileName = Result.ИмяФайла;
-
-	FileData = GetFromTempStorage(Result.Адрес);
-
-	Text = New TextDocument;
-	Text.BeginReading(New NotifyDescription("OpenFileTextReadingComplete", ThisForm, 
-		New Structure("Text", Text)), FileData.OpenStreamForRead());
-	 
-EndProcedure
-
-&AtClient
-Procedure OpenFileTextReadingComplete(AdditionalParams) Export
-	
-	Text = AdditionalParams.Text;
+	Текст = ДополнительныеПараметры1.Текст;
 	
 	
-	SetEditorText(Items.CSSEditor, "");
-	SetEditorText(Items.BODYEditor, "");
-	SetEditorText(Items.HEADEditor, "");
-	SetEditorText(Items.JSEditor, "");
-	SetEditorText(Items.GeneratedHTMLEditor, Text.GetText());
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторCSS, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторBODY, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторHEAD, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторJS, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторРезультирующегоHTML, Текст.ПолучитьТекст());
 	
-	GeneratedHTML="";
+	РезультирущийHTML="";
 	
-	SetupTitle();
+	УстановитьЗаголовок();
 	
-	Items.HTMLEditorPagesGroup.CurrentPage = Items.GeneratedHTMLTextGroup; 
-	UpdateGeneratedHTML(Undefined);
+	Элементы.ГруппаСтраницыРедактированияHTML.ТекущаяСтраница = Элементы.ГруппаТекстРезультирующегоHTML; 
+	ОбновитьРезультирующийHTML(Неопределено);
 
-EndProcedure
+КонецПроцедуры
 
-&AtClient
-Procedure SaveFile(Command)
-	
-	SaveFileOnDisk();
-	
-EndProcedure
+&НаКлиенте
+Процедура СохранитьФайл(Команда)
+	СохранитьФайлНаДиск();
+КонецПроцедуры
 
-&AtClient
-Procedure SaveFileAs(Command)
-	
-	SaveFileOnDisk(True);
-	
-EndProcedure
+&НаКлиенте
+Процедура СохранитьФайлКак(Команда)
+	СохранитьФайлНаДиск(Истина);
+КонецПроцедуры
 
-&AtClient
-Procedure SaveFileOnDisk(SaveAs = False)
-	
-	UT_CommonClient.СохранитьДанныеКонсолиВФайл("РедакторHTML", SaveAs,
-		SavedFileDescriptionStructure(), EditorItemText(Items.GeneratedHTMLEditor),
-		New NotifyDescription("SaveFileComplete", ThisObject));
-		
-EndProcedure
+&НаКлиенте
+Процедура СохранитьФайлНаДиск(СохранитьКак = Ложь)
+	UT_CommonClient.СохранитьДанныеКонсолиВФайл("РедактовHTML", СохранитьКак,
+		СтруктураОписанияСохраняемогоФайла(), ТекстРедактораЭлемента(Элементы.РедакторРезультирующегоHTML),
+		Новый ОписаниеОповещения("СохранитьФайлЗавершение", ЭтотОбъект));
+КонецПроцедуры
 
-&AtClient
-Procedure SaveFileComplete(SaveFileName, AdditionalParams) Export
-	
-	If SaveFileName = Undefined Then
-		Return;
-	EndIf;
+&НаКлиенте
+Процедура СохранитьФайлЗавершение(ИмяФайлаСохранения, ДополнительныеПараметры) Экспорт
+	Если ИмяФайлаСохранения = Неопределено Тогда
+		Возврат;
+	КонецЕсли;
 
-	If Not ValueIsFilled(SaveFileName) Тогда
-		Return;
-	EndIf;
+	Если Не ЗначениеЗаполнено(ИмяФайлаСохранения) Тогда
+		Возврат;
+	КонецЕсли;
 
-	Modified = False;
-	ToolDataFileName = SaveFileName;
-	SetupTitle();
-	
-EndProcedure
+	Модифицированность=Ложь;
+	ИмяФайлаДанныхИнструмента=ИмяФайлаСохранения;
+	УстановитьЗаголовок();
+КонецПроцедуры
 
-&AtClient
-Procedure CreateNewFile(Command)
-	
-	ToolDataFileName="";
+&НаКлиенте
+Процедура НовыйФайл(Команда)
+	ИмяФайлаДанныхИнструмента="";
 
-	SetEditorText(Items.CSSEditor, "");
-	SetEditorText(Items.HEADEditor, "");
-	SetEditorText(Items.BODYEditor, "");
-	SetEditorText(Items.JSEditor, "");
-	SetEditorText(Items.GeneratedHTMLEditor, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторCSS, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторHEAD, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторBODY, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторJS, "");
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторРезультирующегоHTML, "");
 
-	LinkedLibraries.Очистить();
+	ПодключаемыеБиблиотеки.Очистить();
 
-	SetupTitle();
-	
-EndProcedure
+	УстановитьЗаголовок();
+КонецПроцедуры
 
-&AtClient
-Procedure CloseTool(Command)
-	
-	ShowQueryBox(New NotifyDescription("CloseToolComplete", ThisForm), NStr("ru = 'Выйти из редактора?'; en = 'Exit editor?'"),
-		QuestionDialogMode.YesNo);
-		
-EndProcedure
+&НаКлиенте
+Процедура ЗакрытьИнструмент(Команда)
+	ПоказатьВопрос(Новый ОписаниеОповещения("ЗакрытьИнструментЗавершение", ЭтаФорма), "Выйти из редактора?",
+		РежимДиалогаВопрос.ДаНет);
+КонецПроцедуры
 
-&AtClient
-Procedure CloseToolComplete(Result, AdditionalParams) Export
+&НаКлиенте
+Процедура ЗакрытьИнструментЗавершение(Результат, ДополнительныеПараметры) Экспорт
 
-	If Result = DialogReturnCode.Yes Then
-		FormCloseConfirmed = True;
-		ThisForm.Close();
-	EndIf;
+	Если Результат = КодВозвратаДиалога.Да Тогда
+		ЗакрытиеФормыПодтверждено = Истина;
+		Закрыть();
+	КонецЕсли;
 
-EndProcedure
+КонецПроцедуры
 
-&AtClient
-Procedure SetupTitle()
-	
-	ThisObject.Title = ToolDataFileName;
-	
-EndProcedure
+&НаКлиенте
+Процедура УстановитьЗаголовок()
+	Заголовок=ИмяФайлаДанныхИнструмента;
+КонецПроцедуры
 
-#EndRegion
+#КонецОбласти
+#Область СлужебныеПроцедурыИФункции
 
-#Region UtilizationProceduresAndFunctions
+&НаКлиенте
+Процедура Подключаемый_ПолеРедактораДокументСформирован(Элемент)
+	UT_CodeEditorClient.ПолеРедактораHTMLДокументСформирован(ЭтотОбъект, Элемент);
+КонецПроцедуры
 
-&AtClient
-Procedure Подключаемый_ПолеРедактораДокументСформирован(Item)
-	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ThisObject, Item);
-EndProcedure
-
-&AtClient
-Procedure Подключаемый_ПолеРедактораПриНажатии(Item, EventData, StandardProcessing)
-	UT_CodeEditorClient.HTMLEditorFieldOnClick(ThisObject, Item, EventData, StandardProcessing);
-EndProcedure
+&НаКлиенте
+Процедура Подключаемый_ПолеРедактораПриНажатии(Элемент, ДанныеСобытия, СтандартнаяОбработка)
+	UT_CodeEditorClient.ПолеРедактораHTMLПриНажатии(ЭтотОбъект, Элемент, ДанныеСобытия, СтандартнаяОбработка);
+КонецПроцедуры
 
 //@skip-warning
-&AtClient
-Procedure Attached_CodeEditorDeferredInitializingEditors()
-	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ThisObject);
-EndProcedure
+&НаКлиенте
+Процедура Подключаемый_РедакторКодаОтложеннаяИнициализацияРедакторов()
+	UT_CodeEditorClient.РедакторКодаОтложеннаяИнициализацияРедакторов(ЭтотОбъект);
+КонецПроцедуры
 
-&AtClient 
-Procedure Attachable_CodeEditorInitializingCompletion() Export
+&НаКлиенте 
+Процедура Подключаемый_РедакторКодаЗавершениеИнициализации() Экспорт
 	
-EndProcedure
+КонецПроцедуры
 
 
-&AtClient
-Procedure OnOpenComplete(Result, AdditionalParams) Export
+&НаКлиенте
+Процедура ПриОткрытииЗавершение(Результат, ДополнительныеПараметры) Экспорт
 
-EndProcedure
+КонецПроцедуры
 
-&AtClient
-Procedure UpdateResultConsoleOutput()
-	
-	Try
-		DocumentResultView=Items.GeneratedHTML.Document.defaultView;
+&НаКлиенте
+Процедура ОбновитьВыводКонсолиРезультата()
+	Попытка
+		ДокРезультатView=Элементы.РезультирущийHTML.Документ.defaultView;
 
-		DocView=Items.GeneratedHTMLConsoleOutput.Document.defaultView;
-		DocView.clearConsole();
-		DocView.outputInfo(DocumentResultView.my__consoleOutput__string());
-	Except
-	EndTry;
-	
-EndProcedure
+		ДокView=Элементы.ВыводКонсолиРезультирующегоHTML.Документ.defaultView;
+		ДокView.clearConsole();
+		ДокView.outputInfo(ДокРезультатView.my__consoleOutput__string());
+	Исключение
+	КонецПопытки;
+КонецПроцедуры
 
-&AtServer
-Function GeneratedHTMLConsoleText()
-	
-	Text =
+&НаСервере
+Функция ТекстПоляКонсолиРезультата()
+	Текст=
 	"<!DOCTYPE html>
 	|<html>
 	|    <head>
@@ -655,131 +623,78 @@ Function GeneratedHTMLConsoleText()
 	|    </body>
 	|</html>";
 
-	Return Text;
-	
-EndFunction
+	Возврат Текст;
+КонецФункции
+&НаКлиенте
+Функция ТекстРедактораЭлемента(ЭлементПоляРедактора)
+	Если Не ЭлементПоляРедактора.Видимость Тогда
+		Возврат СохраненныеЗначенияРедаторов[ЭлементПоляРедактора.Имя];
+	Иначе
+		Возврат UT_CodeEditorClient.ТекстКодаРедактораЭлементаФормы(ЭтотОбъект,ЭлементПоляРедактора);
+	КонецЕсли;
+КонецФункции
 
-&AtClient
-Function EditorItemText(EditorItemField)
-	
-	If Not EditorItemField.Visible Then
-		Return SavedEditorsValues[EditorItemField.Name];
-	Else
-		Return UT_CodeEditorClient.ТекстКодаРедактораЭлементаФормы(ThisObject, EditorItemField);
-	EndIf;
-	
-EndFunction
+&НаКлиенте
+Процедура УстановитьТекстРедактораЭлемента(ЭлементПоляРедактора, ТекстУстановки)
+	UT_CodeEditorClient.УстановитьТекстРедактораЭлементаФормы(ЭтотОбъект, ЭлементПоляРедактора, ТекстУстановки);
+КонецПроцедуры
 
-&AtClient
-Procedure SetEditorText(EditorItem, SetupText)
-	
-	UT_CodeEditorClient.УстановитьТекстРедактораЭлементаФормы(ThisObject, EditorItem, SetupText);
-	
-EndProcedure
+&НаКлиенте
+Процедура ДобавитьЗаписьВПодключаемыеБибилиотеки(Путь, ДополнительныеПараметры)
+	НС=ПодключаемыеБиблиотеки.Добавить();
+	НС.Путь=Путь;
+	НС.ДополнительныеПараметры=ДополнительныеПараметры;
+КонецПроцедуры
 
-&AtClient
-Procedure AddLinkedLibrary(Path, AdditionalParameters)
-	
-	Rec 						= LinkedLibraries.Add();
-	Rec.Path					= Path;
-	Rec.AdditionalParameters	= AdditionalParameters;
-	
-EndProcedure
+&НаКлиенте
+Процедура УстановитьТекстРедактораИзСохраненныхЗначений(ЭлементРедатора)
+	Если ТипЗнч(СохраненныеЗначенияРедаторов) <> Тип("Структура") Тогда
+		Возврат;
+	КонецЕсли;
 
-&AtClient
-Procedure SetEditorTextFromSavedValues(EditorItem)
+	Если Не СохраненныеЗначенияРедаторов.Свойство(ЭлементРедатора.Имя) Тогда
+		Возврат;
+	КонецЕсли;
 	
-	If TypeOf(SavedEditorsValues) <> Type("Structure") Then
-		Return;
-	EndIf;
+	Если Не ЗначениеЗаполнено(СохраненныеЗначенияРедаторов[ЭлементРедатора.Имя]) Тогда
+		Возврат;
+	КонецЕсли;
 
-	If Not SavedEditorsValues.Property(EditorItem.Name) Then
-		Return;
-	Endif;
-	
-	If Not ValueIsFilled(SavedEditorsValues[EditorItem.Name]) Then
-		Return;
-	EndIf;
+	УстановитьТекстРедактораЭлемента(ЭлементРедатора, СохраненныеЗначенияРедаторов[ЭлементРедатора.Имя]);
+КонецПроцедуры
 
-	SetEditorText(EditorItem, SavedEditorsValues[EditorItem.Name]);
-	
-EndProcedure
+&НаКлиенте
+Процедура УстановитьТекстРедактораБиблиотеки()
+	ТекущиеДанные = Элементы.ПодключаемыеБиблиотеки.ТекущиеДанные;
+	Если ТекущиеДанные = Неопределено Тогда
+		Возврат;
+	КонецЕсли;
+	Если Не ЗначениеЗаполнено(ТекущиеДанные.Путь) Тогда
+		Возврат;
+	КонецЕсли;
 
-&AtClient
-Procedure SetupLibraryEditorText()
-	
-	CurrentData = Items.LinkedLibraries.CurrentData;
-	If CurrentData = Undefined Then
-		Return;
-	EndIf;
-	If Not ValueIsFilled(CurrentData.Path) Then
-		Return;
-	EndIf;
-	
-	FileReading = New TextReader(CurrentData.Path);
-	LibraryEditorText = FileReading.Read();
-	FileReading.Close();
-	
-	SetEditorText(Items.LibraryEditor, LibraryEditorText);
-	
-EndProcedure
+	ЧтениеТекста = Новый ЧтениеТекста(ТекущиеДанные.Путь);
+	ТекстРедактораБиблиотеки = ЧтениеТекста.Прочитать();
+	ЧтениеТекста.Закрыть();
 
-&AtClient
-Procedure LinkedLibrarySelection(SelectedFiles, AdditionalParams) Export
-	
-	If SelectedFiles = Undefined Then
-		Return;
-	EndIf;
-	AdditionalParams.CurrentData.Path = SelectedFiles[0];
-	
-EndProcedure
+	УстановитьТекстРедактораЭлемента(Элементы.РедакторБиблиотеки, ТекстРедактораБиблиотеки);
+КонецПроцедуры
+&НаКлиенте
+Процедура ВыборПодключаемойБиблиотеки(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
+	Если ВыбранныеФайлы = Неопределено Тогда
+		Возврат;
+	КонецЕсли;
+	ДополнительныеПараметры.ТекущиеДанные.Путь = ВыбранныеФайлы[0];
+КонецПроцедуры // ВыборПодключаемойБиблиотеки()
 
-&AtClient
-Procedure ToggleEditorVisibility(EditorItem)
-	
-	If EditorItem.Visible Then
-		SavedEditorsValues[EditorItem.Name] = EditorItemText(EditorItem);
-	Else
-		SavedEditorText = EditorItemText(EditorItem);		
-	EndIf;
+&НаКлиенте
+Процедура ПереключитьВидимостьРедактора(ЭлементРедактора)
+	Если ЭлементРедактора.Видимость Тогда
+		СохраненныеЗначенияРедаторов[ЭлементРедактора.Имя]=ТекстРедактораЭлемента(ЭлементРедактора);
+	КонецЕсли;
 
-	EditorItem.Visible = Not EditorItem.Visible;
-	
-	If EditorItem.Visible Then
-		CurrentEditorName = EditorItem.Name;
-		AttachIdleHandler("SetupEditorTextForCurrentEditor", 0.1, True);
-	EndIf;	
-	
-EndProcedure
+	ЭлементРедактора.Видимость=Не ЭлементРедактора.Видимость;
+КонецПроцедуры
+#КонецОбласти
 
-&AtClient 
-Procedure SetupEditorTextForCurrentEditor()
-	
-	If ValueIsFilled(CurrentEditorName) And ValueIsFilled(SavedEditorText) Then
-		SetEditorText(Items[CurrentEditorName], SavedEditorText);
-		CurrentEditorName = "";
-		SavedEditorText = "";
-		DetachIdleHandler("SetupEditorTextForCurrentEditor");
-	EndIf;	
-		
-EndProcedure
-
-//append
-&AtClient
-Procedure SetupEditorsTexts()
-	
-	SetEditorText(Items.GeneratedHTMLEditor, 			SavedEditorsValues.GeneratedHTMLEditor);	
-	SetEditorText(Items.BODYEditor, 					SavedEditorsValues.BODYEditor);	
-	SetEditorText(Items.HEADEditor, 					SavedEditorsValues.HEADEditor);	
-	SetEditorText(Items.CSSEditor, 						SavedEditorsValues.CSSEditor);	
-	SetEditorText(Items.JSEditor, 						SavedEditorsValues.JSEditor);	
-	SetEditorText(Items.DocumentCompleteEventEditor, 	SavedEditorsValues.DocumentCompleteEventEditor);	
-	SetEditorText(Items.OnClickEventEditor, 			SavedEditorsValues.OnClickEventEditor);	
-	DetachIdleHandler("SetupEditorsTexts");	
-		
-EndProcedure	
-	
-
-#EndRegion
-
-FormCloseConfirmed = False;
+ЗакрытиеФормыПодтверждено=Ложь;
