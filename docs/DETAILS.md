@@ -2159,8 +2159,10 @@
 </table>
 
 ## UT_CommonClient
-<table style="width: 808; border-collapse: collapse;" border="1">
+
+<table>
 <tbody>
+
 <tr>
 <td width="404">
 <p>ПоказатьПодробнуюИнформацию</p>
@@ -2633,5 +2635,7 @@
 <p></p>
 </td>
 </tr>
+
+
 </tbody>
 </table>
