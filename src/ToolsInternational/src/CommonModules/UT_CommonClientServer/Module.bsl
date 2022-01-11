@@ -406,7 +406,7 @@ Function PredefinedItem(FullPredefinedItemName) Export
 	// Parsing the full name of the predefined item.
 	FullNameParts = StrSplit(FullPredefinedItemName, ".");
 	If FullNameParts.Count() <> 3 Then 
-		Raise CommonInternalClientServer.PredefinedValueNotFoundErrorText(
+		Raise UT_CommonClientServer.PredefinedValueNotFoundErrorText(
 			FullPredefinedItemName);
 	EndIf;
 
@@ -1315,7 +1315,7 @@ Function SerializeHTTPRequestForDebug(RequestHTTP, ConnectionHTTP)
 
 	ObjectStructure.Insert("Request", RequestHTTP.ResourceAddress);
 	ObjectStructure.Insert("RequestBody", RequestHTTP.GetBodyAsString());
-	ObjectStructure.Insert("Заголовки", UT_CommonClientServer.GetHTTPHeadersString(
+	ObjectStructure.Insert("Headers", UT_CommonClientServer.GetHTTPHeadersString(
 		RequestHTTP.Headers));
 
 	BodyBinaryData = RequestHTTP.GetBodyAsBinaryData();

@@ -38,7 +38,7 @@
 &НаКлиенте
 Процедура Применить(Команда)
 	ПроцедураПередЗаписью = UT_CodeEditorClient.EditorCodeText(ЭтотОбъект, "Редактор");
-	Закрыть(UT_CommonClientServer.ПараметрыЗаписиФормы(ЭтотОбъект, ""));
+	Закрыть(UT_CommonClientServer.FormWriteSettings(ЭтотОбъект, ""));
 КонецПроцедуры
 
 &НаКлиенте
