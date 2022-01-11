@@ -151,11 +151,11 @@
 	Для Каждого ТекРелиз Из МассивРелизов Цикл
 		ВерсияТекРелиза = СтрЗаменить(ТекРелиз["tag_name"], "v", "");
 
-		Если UT_CommonClientServer.CompareVersionsWithOutReleaseSubnumber(ВерсияТекРелиза, ТекущаяВерсия) > 0 Тогда
+		Если UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ВерсияТекРелиза, ТекущаяВерсия) > 0 Тогда
 			СоответствиеОписанияРелизов.Вставить(ВерсияТекРелиза, ТекРелиз);
 		КонецЕсли;
 
-		Если UT_CommonClientServer.CompareVersionsWithOutReleaseSubnumber(ВерсияТекРелиза, МаксимальныйРелиз) <= 0 Тогда
+		Если UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ВерсияТекРелиза, МаксимальныйРелиз) <= 0 Тогда
 			Продолжить;
 		КонецЕсли;
 
@@ -188,7 +188,7 @@
 
 &НаСервере
 Процедура УстановитьНеобходимостьОбновления()
-	Если UT_CommonClientServer.CompareVersionsWithOutReleaseSubnumber(АктуальнаяВерсия, ТекущаяВерсия) > 0 Тогда
+	Если UT_CommonClientServer.CompareVersionsWithoutBuildNumber(АктуальнаяВерсия, ТекущаяВерсия) > 0 Тогда
 		НеобходимостьОбновления = Истина;
 	КонецЕсли;
 
