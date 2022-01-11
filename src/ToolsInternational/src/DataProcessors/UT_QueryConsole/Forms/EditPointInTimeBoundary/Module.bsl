@@ -1,95 +1,95 @@
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	КопироватьДанныеФормы(Параметры.Объект, Объект);
+	CopyFormData(Parameters.Object, Object);
 	
-	Значение = Параметры.Значение;
-	Если Значение.Тип = "Граница" Тогда
+	Value = Parameters.Value;
+	If Value.Type = "Boundary" Then
 		
-		Элементы.ГруппаГраница.Видимость = Истина;
-		Элементы.ГруппаМоментВремени.Видимость = Ложь;
-		Заголовок = "Граница времени";
+		Items.BoundaryGroup.Visible = True;
+		Items.PointInTimeGroup.Visible = False;
+		Title = NStr("ru = 'Граница времени'; en = 'Time boundary'");
 		
-		ЗначениеГраницы = Значение.Значение;
-		ВидГраницы = Значение.ВидГраницы;
+		BoundaryValue = Value.Value;
+		BoundaryType = Value.BoundaryType;
 		
-	ИначеЕсли Значение.Тип = "МоментВремени" Тогда
+	ElsIf Value.Type = "PointInTime" Then
 		
-		Элементы.ГруппаГраница.Видимость = Ложь;
-		Элементы.ГруппаМоментВремени.Видимость = Истина;
-		Заголовок = "Момент времени";
+		Items.BoundaryGroup.Visible = False;
+		Items.PointInTimeGroup.Visible = True;
+		Title = NStr("ru = 'Момент времени'; en = 'Point in time'");
 		
-		ДатаМомента = Значение.Дата;
-		СсылкаМомента = Значение.Ссылка;
+		PointInTimeDate = Value.Date;
+		PointInTimeRef = Value.Ref;
 		
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-//Дублирование кода, конечно, но избежим обращение на сервер. В модуле объекта есть Container_GetPresentation.
-Функция ПолучитьПредставлениеГраницы()
-	Возврат Строка(Значение.Значение) + " " + Значение.ВидГраницы;
-КонецФункции
+&AtClient
+//Code duplication for avoid serevr call. In the object module the Container_GetPresentation function does the same.
+Function GetBoundaryPresentation()
+	Return String(Value.Value) + " " + Value.BoundaryType;
+EndFunction
 	
-&НаКлиенте
-//Дублирование кода, конечно, но избежим обращение на сервер. В модуле объекта есть Container_GetPresentation.
-Функция ПолучитьПредставлениеМомента()
-	Возврат Строка(Значение.Дата) + ";" + Значение.Ссылка;
-КонецФункции
+&AtClient
+//Code duplication for avoid serevr call. In the object module the Container_GetPresentation function does the same.
+Function GetPointInTimePresentation()
+	Return Строка(Value.Date) + ";" + Value.Ref;
+EndFunction
 
-&НаКлиенте
-Процедура КомандаОК(Команда)
+&AtClient
+Procedure OKCommand(Command)
 	
-	Если Значение.Тип = "Граница" Тогда
+	If Value.Type = "Boundary" Then
 		
-		Значение.Значение = ЗначениеГраницы;
-		Значение.ВидГраницы = ВидГраницы;
-		Значение.Представление = ПолучитьПредставлениеГраницы();
+		Value.Value = BoundaryValue;
+		Value.BoundaryType = BoundaryType;
+		Value.Presentation = GetBoundaryPresentation();
 		
-	ИначеЕсли Значение.Тип = "МоментВремени" Тогда
+	ElsIf Value.Type = "PointInTime" Then
 		
-		Значение.Дата = ДатаМомента;
-		Значение.Ссылка = СсылкаМомента;
-		Значение.Представление = ПолучитьПредставлениеМомента();
+		Value.Date = PointInTimeDate;
+		Value.Ref = PointInTimeRef;
+		Value.Presentation = GetPointInTimePresentation();
 		
-	КонецЕсли;
+	EndIf;
 	
-	ВозвращаемоеЗначение = Новый Структура("Значение", Значение);
-	Закрыть(ВозвращаемоеЗначение);
+	ReturnValue = New Структура("Value", Value);
+	Close(ReturnValue);
 		
-КонецПроцедуры
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция ПолучитьДатуСсылки(Ссылка)
-	Перем ТаблицаБазы;
+&AtServerNoContext
+Function GetRefDate(Ref)
+	Var IBTable;
 	
-	Если Документы.ТипВсеСсылки().СодержитТип(ТипЗнч(Ссылка)) Тогда
+	If Documents.AllRefsType().ContainsType(TypeOf(Ref)) Then
 		//@skip-warning
-		ТаблицаБазы = "Документ." + Ссылка.Метаданные().Имя;
-	ИначеЕсли Задачи.ТипВсеСсылки().СодержитТип(ТипЗнч(Ссылка)) Тогда
+		IBTable = "Document." + Ref.Metadata().Name;
+	ElsIf Tasks.AllRefsType().ContainsType(TypeOf(Ref)) Then
 		//@skip-warning
-		ТаблицаБазы = "Задача." + Ссылка.Метаданные().Имя;
-	КонецЕсли;
+		IBTable = "Task." + Ref.Metadata().Name;
+	EndIf;
 	
-	Если ЗначениеЗаполнено(ТаблицаБазы) Тогда
-		Запрос = Новый Запрос("ВЫБРАТЬ Дата ИЗ " + ТаблицаБазы + " ГДЕ Ссылка = &Ссылка");
-		Запрос.УстановитьПараметр("Ссылка", Ссылка);
-		Выборка = Запрос.Выполнить().Выбрать();
-		Если Выборка.Следующий() Тогда
-			Возврат Выборка.Дата;
-		КонецЕсли;
-	КонецЕсли;
+	If ValueIsFilled(IBTable) Then
+		Query = New Query("SELECT Date FROM " + IBTable + " WHERE Ref = &Ref");
+		Query.SetParameter("Ref", Ref);
+		Selection = Query.Execute().Select();
+		If Selection.Next() Then
+			Return Selection.Date;
+		EndIf;
+	EndIf;
 	
-	Возврат Неопределено;
+	Return Undefined;
 	
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Процедура СсылкаМоментаПриИзменении(Элемент)
-	ДатаСсылки = ПолучитьДатуСсылки(СсылкаМомента);
-	Если ЗначениеЗаполнено(ДатаСсылки) Тогда
-		ДатаМомента = ДатаСсылки;
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure PointInTimeRefOnChange(Item)
+	RefDate = GetRefDate(PointInTimeRef);
+	If ValueIsFilled(RefDate) Then
+		PointInTimeDate = RefDate;
+	EndIf;
+EndProcedure
