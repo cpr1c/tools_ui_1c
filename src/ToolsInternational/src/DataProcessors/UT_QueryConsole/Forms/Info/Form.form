@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОсновная</name>
+    <name>MainGroup</name>
     <id>16</id>
     <items xsi:type="form:Decoration">
-      <name>Информация</name>
+      <name>Info</name>
       <id>13</id>
+      <title>
+        <key>en</key>
+        <value>Information</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Информация</value>
@@ -16,7 +20,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ИнформацияРасширеннаяПодсказка</name>
+        <name>InfoExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -31,7 +35,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ИнформацияКонтекстноеМеню</name>
+        <name>InfoContextMenu</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -48,7 +52,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>КодДляКопирования</name>
+      <name>CodeToCopy</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -57,12 +61,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>КодДляКопирования</segments>
+          <segments>CodeToCopy</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>КодДляКопированияРасширеннаяПодсказка</name>
+        <name>CodeToCopyExtendedTooltip</name>
         <id>3</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -77,7 +81,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КодДляКопированияКонтекстноеМеню</name>
+        <name>CodeToCopyContextMenu</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -109,15 +113,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Main group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа основная</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Main group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа основная</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаОсновнаяРасширеннаяПодсказка</name>
+      <name>MainGroupExtendedTooltip</name>
       <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -141,11 +153,15 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНижняяПанель</name>
+    <name>BottomPanelGroup</name>
     <id>7</id>
     <items xsi:type="form:Button">
-      <name>КомандаОтмена</name>
+      <name>CancelCommand</name>
       <id>11</id>
+      <title>
+        <key>en</key>
+        <value>Close</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Закрыть</value>
@@ -156,7 +172,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаОтменаРасширеннаяПодсказка</name>
+        <name>CancelCommandExtendedTooltip</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -184,15 +200,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Bottom panel group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа нижняя панель</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Bottom panel group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа нижняя панель</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаНижняяПанельРасширеннаяПодсказка</name>
+      <name>BottomPanelGroupExtendedTooltip</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -212,11 +236,15 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКартинки</name>
+    <name>PicturesGroup</name>
     <id>18</id>
     <items xsi:type="form:Decoration">
-      <name>Картинка_Копировать</name>
+      <name>Copy_Picture</name>
       <id>20</id>
+      <title>
+        <key>en</key>
+        <value>Copy picture</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Картинка копировать</value>
@@ -227,7 +255,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>Картинка_КопироватьРасширеннаяПодсказка</name>
+        <name>Copy_PictureExtendedTooltip</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -242,7 +270,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>Картинка_КопироватьКонтекстноеМеню</name>
+        <name>Copy_PictureContextMenu</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -253,24 +281,30 @@
       </contextMenu>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:PictureDecorationExtInfo">
-        <picture xsi:type="form:FormPicture"/>
-      </extInfo>
+      <extInfo xsi:type="form:PictureDecorationExtInfo"/>
     </items>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Pictures group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа картинки</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Pictures group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа картинки</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКартинкиРасширеннаяПодсказка</name>
+      <name>PicturesGroupExtendedTooltip</name>
       <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -305,7 +339,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <width>80</width>
   <autoUrl>true</autoUrl>
@@ -316,7 +350,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -330,7 +364,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>КодДляКопирования</name>
+    <name>CodeToCopy</name>
+    <title>
+      <key>en</key>
+      <value>Code to copy</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Код для копирования</value>
@@ -348,7 +386,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Информация</name>
+    <name>Info</name>
+    <title>
+      <key>en</key>
+      <value>Information</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Информация</value>
@@ -366,7 +408,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИнформацияФорматированная</name>
+    <name>FormattedInfo</name>
+    <title>
+      <key>en</key>
+      <value>Formatted information</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Информация форматированная</value>

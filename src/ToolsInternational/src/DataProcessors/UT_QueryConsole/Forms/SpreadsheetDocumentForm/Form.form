@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>КоманднаяПанельДокумента</name>
+    <name>DocumentCommandBar</name>
     <id>4</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаДокумент</name>
+      <name>DocumentGroup</name>
       <id>22</id>
       <items xsi:type="form:Button">
-        <name>ДокументКнопкаСохранить</name>
+        <name>SaveDocumentButton</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -15,7 +15,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДокументКнопкаСохранитьРасширеннаяПодсказка</name>
+          <name>SaveDocumentButtonExtendedTooltip</name>
           <id>7</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -29,7 +29,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.Документ.StandardCommand.Save</commandName>
+        <commandName>Form.Item.Document.StandardCommand.Save</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -38,7 +38,7 @@
         <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ДокументКнопкаПечать</name>
+        <name>PrintDocumentButton</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -46,7 +46,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДокументКнопкаПечатьРасширеннаяПодсказка</name>
+          <name>PrintDocumentButtonExtendedTooltip</name>
           <id>21</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -60,7 +60,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.Документ.StandardCommand.Print</commandName>
+        <commandName>Form.Item.Document.StandardCommand.Print</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -69,7 +69,7 @@
         <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ДокументКнопкаПредварительныйПросмотр</name>
+        <name>PreviewDocumentButton</name>
         <id>24</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -77,7 +77,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДокументКнопкаПредварительныйПросмотрРасширеннаяПодсказка</name>
+          <name>PreviewDocumentButtonExtendedTooltip</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -91,7 +91,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.Документ.StandardCommand.Preview</commandName>
+        <commandName>Form.Item.Document.StandardCommand.Preview</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -100,7 +100,7 @@
         <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ДокументКнопкаПараметрыСтраницы</name>
+        <name>PageSetupDocumentButton</name>
         <id>26</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -108,7 +108,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДокументКнопкаПараметрыСтраницыРасширеннаяПодсказка</name>
+          <name>PageSetupDocumentButtonExtendedTooltip</name>
           <id>27</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -122,7 +122,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.Документ.StandardCommand.PageSetup</commandName>
+        <commandName>Form.Item.Document.StandardCommand.PageSetup</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -136,15 +136,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Document</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Документ</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Document group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа документ</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаДокументРасширеннаяПодсказка</name>
+        <name>DocumentGroupExtendedTooltip</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -164,7 +172,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:Button">
-      <name>ДокументКнопкаОтображатьЗаголовки</name>
+      <name>ShowHeadersDocumentButton</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -172,7 +180,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДокументКнопкаОтображатьЗаголовкиРасширеннаяПодсказка</name>
+        <name>ShowHeadersDocumentButtonExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -186,7 +194,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Item.Документ.StandardCommand.ShowHeaders</commandName>
+      <commandName>Form.Item.Document.StandardCommand.ShowHeaders</commandName>
       <representation>Picture</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -195,7 +203,7 @@
       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <items xsi:type="form:Button">
-      <name>ДокументКнопкаРедактирование</name>
+      <name>EditDocumentButton</name>
       <id>30</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -203,7 +211,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДокументКнопкаРедактированиеРасширеннаяПодсказка</name>
+        <name>EditDocumentButtonExtendedTooltip</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -217,7 +225,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Item.Документ.StandardCommand.Edit</commandName>
+      <commandName>Form.Item.Document.StandardCommand.Edit</commandName>
       <representation>Picture</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -226,7 +234,7 @@
       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <items xsi:type="form:Button">
-      <name>ДокументКнопкаОбъединить</name>
+      <name>MergeDocumentButton</name>
       <id>36</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -234,7 +242,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДокументКнопкаОбъединитьРасширеннаяПодсказка</name>
+        <name>MergeDocumentButtonExtendedTooltip</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -248,7 +256,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Item.Документ.StandardCommand.Merge</commandName>
+      <commandName>Form.Item.Document.StandardCommand.Merge</commandName>
       <representation>Picture</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -257,7 +265,7 @@
       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <items xsi:type="form:Button">
-      <name>ДокументКнопкаОтменить</name>
+      <name>UndoDocumentButton</name>
       <id>32</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -265,7 +273,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДокументКнопкаОтменитьРасширеннаяПодсказка</name>
+        <name>UndoDocumentButtonExtendedTooltip</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -279,7 +287,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Item.Документ.StandardCommand.Undo</commandName>
+      <commandName>Form.Item.Document.StandardCommand.Undo</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -288,7 +296,7 @@
       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <items xsi:type="form:Button">
-      <name>ДокументКнопкаВернуть</name>
+      <name>RedoDocumentButton</name>
       <id>34</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -296,7 +304,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДокументКнопкаВернутьРасширеннаяПодсказка</name>
+        <name>RedoDocumentButtonExtendedTooltip</name>
         <id>35</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -310,7 +318,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Item.Документ.StandardCommand.Redo</commandName>
+      <commandName>Form.Item.Document.StandardCommand.Redo</commandName>
       <representation>Picture</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -319,10 +327,10 @@
       <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаДерево</name>
+      <name>TreeGroup</name>
       <id>28</id>
       <items xsi:type="form:Button">
-        <name>ДокументКнопкаОтображатьГруппировки</name>
+        <name>ShowGroupsDocumentButton</name>
         <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -330,7 +338,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДокументКнопкаОтображатьГруппировкиРасширеннаяПодсказка</name>
+          <name>ShowGroupsDocumentButtonExtendedTooltip</name>
           <id>9</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -344,7 +352,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.Документ.StandardCommand.ShowGroups</commandName>
+        <commandName>Form.Item.Document.StandardCommand.ShowGroups</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -353,7 +361,7 @@
         <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ДокументКнопкаСвернутьВсеГруппы</name>
+        <name>CollapseAllGroupsDocumentButton</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -361,7 +369,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДокументКнопкаСвернутьВсеГруппыРасширеннаяПодсказка</name>
+          <name>CollapseAllGroupsDocumentButtonExtendedTooltip</name>
           <id>15</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -375,7 +383,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.Документ.StandardCommand.CollapseAllGroups</commandName>
+        <commandName>Form.Item.Document.StandardCommand.CollapseAllGroups</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -384,7 +392,7 @@
         <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
-        <name>ДокументКнопкаРазвернутьВсеГруппы</name>
+        <name>ExpandAllGroupsDocumentButton</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -392,7 +400,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДокументКнопкаРазвернутьВсеГруппыРасширеннаяПодсказка</name>
+          <name>ExpandAllGroupsDocumentButtonExtendedTooltip</name>
           <id>17</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -406,7 +414,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.Документ.StandardCommand.ExpandAllGroups</commandName>
+        <commandName>Form.Item.Document.StandardCommand.ExpandAllGroups</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -421,6 +429,10 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Tree group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа дерево</value>
       </title>
@@ -429,7 +441,7 @@
         <value>Группа дерево</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаДеревоРасширеннаяПодсказка</name>
+        <name>TreeGroupExtendedTooltip</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -451,15 +463,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Document command bar</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Командная панель документа</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Document command bar</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Командная панель документа</value>
     </toolTip>
     <extendedTooltip>
-      <name>КоманднаяПанельДокументаРасширеннаяПодсказка</name>
+      <name>DocumentCommandBarExtendedTooltip</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -476,11 +496,11 @@
     <type>CommandBar</type>
     <extInfo xsi:type="form:CommandBarExtInfo">
       <horizontalAlign>Left</horizontalAlign>
-      <commandSource>Item.Документ</commandSource>
+      <commandSource>Item.Document</commandSource>
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>Документ</name>
+    <name>Document</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -489,12 +509,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Документ</segments>
+        <segments>Document</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ДокументРасширеннаяПодсказка</name>
+      <name>DocumentExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -509,7 +529,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ДокументКонтекстноеМеню</name>
+      <name>DocumentContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -552,15 +572,15 @@
   </autoCommandBar>
   <handlers>
     <event>NotificationProcessing</event>
-    <name>ОбработкаОповещения</name>
+    <name>NotificationProcessing</name>
   </handlers>
   <handlers>
     <event>OnReopen</event>
-    <name>ПриПовторномОткрытии</name>
+    <name>OnReopen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <width>80</width>
   <height>30</height>
@@ -572,7 +592,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -586,7 +606,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Документ</name>
+    <name>Document</name>
+    <title>
+      <key>en</key>
+      <value>Document</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Документ</value>
@@ -605,7 +629,11 @@
     <extInfo xsi:type="form:SpreadsheetDocumentExtInfo"/>
   </attributes>
   <attributes>
-    <name>Инициализированна</name>
+    <name>Initialized</name>
+    <title>
+      <key>en</key>
+      <value>Initialized</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Инициализированна</value>

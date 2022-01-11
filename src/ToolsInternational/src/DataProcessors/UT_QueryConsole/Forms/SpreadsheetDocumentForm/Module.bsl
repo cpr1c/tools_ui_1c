@@ -1,263 +1,263 @@
 
-&НаСервере
-Функция ПолучитьРазмерыКолонок(тзРазмерыДанных)
+&AtServer
+Function GetColumnSizes(vtDataSizes)
 	
-	чМинимальныйРазмерКолонки = 8;
-	чОтброс = 1.0;//%
-	маРазмерыКолонок = Новый Массив;
-	Для Каждого Колонка Из тзРазмерыДанных.Колонки Цикл
+	nMinimumColumnSize = 8;
+	nDiscard = 1.0;//%
+	arColumnSizes = New Array;
+	For Each Column In vtDataSizes.Columns Do
 		
-		тз1к = тзРазмерыДанных.Скопировать(, Колонка.Имя);
-		тз1к.Сортировать(Колонка.Имя + " Убыв");
+		vt1c = vtDataSizes.Copy(, Column.Name);
+		vt1c.Sort(Column.Name + " Desc");
 		
-		Если тз1к.Количество() > 0 Тогда
-			маРазмерыКолонок.Добавить(Макс(тз1к[Цел(тз1к.Количество() * чОтброс / 100)][0], чМинимальныйРазмерКолонки));
-		Иначе
-			маРазмерыКолонок.Добавить(чМинимальныйРазмерКолонки);
-		КонецЕсли;
+		If vt1c.Count() > 0 Then
+			arColumnSizes.Add(Max(vt1c[Int(vt1c.Count() * nDiscard / 100)][0], nMinimumColumnSize));
+		Else
+			arColumnSizes.Add(nMinimumColumnSize);
+		EndIf;
 		
-	КонецЦикла;
+	EndDo;
 	
-	Возврат маРазмерыКолонок;
+	Return arColumnSizes;
 	
-КонецФункции
+EndFunction
 
-&НаСервере
-Процедура ВывестиВетку(Документ, СтрокаВывода, СтрокаВыводаГруппировка1, СтрокаВыводаГруппировка2, Выборка, тзРазмерыПолей, Обработка, фЕстьМакроколонки, стМакроколонки)
+&AtServer
+Procedure OutputBranch(Document, OutputRow, OutputRowGroup1, OutputRowGroup2, Selection, vtFieldSizes, DataProcessor, fMacrocolumnsExists, stMacrocolumns)
 	
-	Пока Выборка.Следующий() Цикл
+	While Selection.Next() Do
 		
-		ВыборкаПодчиненные = Выборка.Выбрать();
-		фГруппировка = ВыборкаПодчиненные.Количество() > 0;
+		ChildSelection = Selection.Select();
+		fGroup = ChildSelection.Count() > 0;
 		
-		Если фГруппировка Тогда
+		If fGroup Then
 			
-			Если Выборка.Уровень() = 0 Тогда
+			If Selection.Level() = 0 Then
 				
-				СтрокаВыводаГруппировка1.Параметры.Заполнить(Выборка);
-				Если фЕстьМакроколонки Тогда
-					Обработка.ProcessMacrocolumns(СтрокаВыводаГруппировка1.Параметры, Выборка, стМакроколонки);
-				КонецЕсли;
+				OutputRowGroup1.Parameters.Fill(Selection);
+				If fMacrocolumnsExists Then
+					DataProcessor.ProcessMacrocolumns(OutputRowGroup1.Parameters, Selection, stMacrocolumns);
+				EndIf;
 				
-			    Документ.Вывести(СтрокаВыводаГруппировка1, Выборка.Уровень());
+			    Document.Put(OutputRowGroup1, Selection.Level());
 				
-			Иначе
+			Else
 				
-				СтрокаВыводаГруппировка2.Параметры.Заполнить(Выборка);
-				Если фЕстьМакроколонки Тогда
-					Обработка.ProcessMacrocolumns(СтрокаВыводаГруппировка2.Параметры, Выборка, стМакроколонки);
-				КонецЕсли;
+				OutputRowGroup2.Parameters.Fill(Selection);
+				If fMacrocolumnsExists Then
+					DataProcessor.ProcessMacrocolumns(OutputRowGroup2.Parameters, Selection, stMacrocolumns);
+				EndIf;
 				
-			    Документ.Вывести(СтрокаВыводаГруппировка2, Выборка.Уровень());
+			    Document.Put(OutputRowGroup2, Selection.Level());
 				
-			КонецЕсли;
+			EndIf;
 			
-		Иначе
+		Else
 			
-			СтрокаВывода.Параметры.Заполнить(Выборка);
-			Если фЕстьМакроколонки Тогда
-				Обработка.ProcessMacrocolumns(СтрокаВывода.Параметры, Выборка, стМакроколонки);
-			КонецЕсли;
+			OutputRow.Parameters.Fill(Selection);
+			If fMacrocolumnsExists Then
+				DataProcessor.ProcessMacrocolumns(OutputRow.Parameters, Selection, stMacrocolumns);
+			EndIf;
 			
-		    Документ.Вывести(СтрокаВывода, Выборка.Уровень());
+		    Document.Put(OutputRow, Selection.Level());
 			
-		КонецЕсли;
+		EndIf;
 		
-		СтрокаДлин = тзРазмерыПолей.Добавить();
-		Для Каждого Колонка Из тзРазмерыПолей.Колонки Цикл
-			СтрокаДлин[Колонка.Имя] = СтрДлина(СтрокаВывода.Параметры[Колонка.Имя]);
-		КонецЦикла;
+		SizesRow = vtFieldSizes.Add();
+		For Each Column In vtFieldSizes.Columns Do
+			SizesRow[Column.Name] = StrLen(OutputRow.Parameters[Column.Name]);
+		EndDo;
 		
-		Если фГруппировка Тогда
-			ВывестиВетку(Документ, СтрокаВывода, СтрокаВыводаГруппировка1, СтрокаВыводаГруппировка2, ВыборкаПодчиненные, тзРазмерыПолей, Обработка, фЕстьМакроколонки, стМакроколонки);
-		КонецЕсли;
+		If fGroup Then
+			OutputBranch(Document, OutputRow, OutputRowGroup1, OutputRowGroup2, ChildSelection, vtFieldSizes, DataProcessor, fMacrocolumnsExists, stMacrocolumns);
+		EndIf;
 		
-	КонецЦикла;	
+	EndDo;	
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура СформироватьДокумент(Параметры)
+&AtServer
+Procedure GenerateDocument(Parameters)
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	стРезультатЗапроса = ПолучитьИзВременногоХранилища(Параметры.АдресРезультатаЗапроса);
-	маРезультатЗапроса = стРезультатЗапроса.Результат;
-	стРезультатПакета = маРезультатЗапроса[Число(Параметры.РезультатВПакете) - 1];
-	рзВыборка = стРезультатПакета.Результат;
-	ИмяРезультата = стРезультатПакета.ИмяРезультата;
-	стМакроколонки = стРезультатПакета.Макроколонки;
-	ЕстьМакроколонки = стМакроколонки.Количество() > 0;
+	stQueryResult = GetFromTempStorage(Parameters.QueryResultAddress);
+	arQueryResult = stQueryResult.Result;
+	stBatchResult = arQueryResult[Number(Parameters.ResultInBatch) - 1];
+	qrSelection = stBatchResult.Result;
+	ResultName = stBatchResult.ResultName;
+	stMacrocolumns = stBatchResult.Macrocolumns;
+	MacrocolumnsExists = stMacrocolumns.Count() > 0;
 	
-	Документ.Очистить();
+	Document.Clear();
 	
-	ЛинияОтчета = Новый Линия(ТипЛинииЯчейкиТабличногоДокумента.Сплошная, 1);
-	//ЦветЛинииШапки = ЦветаСтиля.ЦветЛинииОтчета;
-	ШрифтЗаголовка = Новый Шрифт("Arial", 12, Истина);
-	ШрифтПодзаголовка = Новый Шрифт("Arial", 8, Истина);
-	//ШрифтШапки = ШрифтыСтиля.шрифтшНовый Шрифт(, 8, Ложь);
-	ЦветШапки = ЦветаСтиля.ЦветФонаШапкиТаблицы;
+	ReportRow = New Line(SpreadsheetDocumentCellLineType.Solid, 1);
+	//HeaderRowColor = StyleColors.ReportRowColor;
+	TitleFont = New Font("Arial", 12, True);
+	SmallTitleFont = New Font("Arial", 8, True);
+	//HeaderFont = StyleFonts.fontfNew Font(, 8, False);
+	HeaderColor = StyleColors.TableHeaderBackColor;
 	
-    чЗаголовкиКолонок = Новый Структура;
-    СтрокаВывода = Документ.ПолучитьОбласть(1, 1, 1, рзВыборка.Колонки.Количество());
-    СтрокаВыводаГруппировка1 = Документ.ПолучитьОбласть(1, 1, 1, рзВыборка.Колонки.Количество());
-    СтрокаВыводаГруппировка2 = Документ.ПолучитьОбласть(1, 1, 1, рзВыборка.Колонки.Количество());
-    СтрокаШапки = Документ.ПолучитьОбласть(1, 1, 1, рзВыборка.Колонки.Количество());
-    СтрокаПустая = Документ.ПолучитьОбласть(1, 1, 1, рзВыборка.Колонки.Количество());
-	Для й = 1 по рзВыборка.Колонки.Количество() Цикл
+    nColumnTitles = New Structure;
+    OutputRow = Document.GetArea(1, 1, 1, qrSelection.Columns.Count());
+    OutputRowGroup1 = Document.GetArea(1, 1, 1, qrSelection.Columns.Count());
+    OutputRowGroup2 = Document.GetArea(1, 1, 1, qrSelection.Columns.Count());
+    HeaderRow = Document.GetArea(1, 1, 1, qrSelection.Columns.Count());
+    BlankRow = Document.GetArea(1, 1, 1, qrSelection.Columns.Count());
+	For j = 1 To qrSelection.Columns.Count() Do
 		
-		Колонка = рзВыборка.Колонки[й - 1];
-        ИмяКолонки = Колонка.Имя;
+		Column = qrSelection.Columns[j - 1];
+        ColumnName = Column.Name;
 		
-		//строка данных
-        ОбластьЗаполнения = СтрокаВывода.Область(1, й, 1, й);
-        ОбластьЗаполнения.Параметр = ИмяКолонки;
-        ОбластьЗаполнения.Заполнение = ТипЗаполненияОбластиТабличногоДокумента.Параметр;
-		ОбластьЗаполнения.ГраницаСверху = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСнизу = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСлева = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСправа = ЛинияОтчета;
-		//ОбластьЗаполнения.АвтоОтступ = 4;
+		//data row
+        FillingArea = OutputRow.Area(1, j, 1, j);
+        FillingArea.Parameter = ColumnName;
+        FillingArea.FillType = SpreadsheetDocumentAreaFillType.Parameter;
+		FillingArea.TopBorder = ReportRow;
+		FillingArea.BottomBorder = ReportRow;
+		FillingArea.LeftBorder = ReportRow;
+		FillingArea.RightBorder = ReportRow;
+		//FillingArea.AutoIndent = 4;
 		
-		//заголовок группировки 1
-        ОбластьЗаполнения = СтрокаВыводаГруппировка1.Область(1, й, 1, й);
-		ОбластьЗаполнения.ЦветФона = ЦветаСтиля.ЦветФонаГруппировкиОтчета1;
-        ОбластьЗаполнения.Параметр = ИмяКолонки;
-        ОбластьЗаполнения.Заполнение = ТипЗаполненияОбластиТабличногоДокумента.Параметр;
-		ОбластьЗаполнения.ГраницаСверху = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСнизу = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСлева = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСправа = ЛинияОтчета;
-		//ОбластьЗаполнения.АвтоОтступ = 4;
+		//group 1 title
+        FillingArea = OutputRowGroup1.Area(1, j, 1, j);
+		FillingArea.BackColor = StyleColors.ReportGroup1BackColor;
+        FillingArea.Parameter = ColumnName;
+        FillingArea.FillType = SpreadsheetDocumentAreaFillType.Parameter;
+		FillingArea.TopBorder = ReportRow;
+		FillingArea.BottomBorder = ReportRow;
+		FillingArea.LeftBorder = ReportRow;
+		FillingArea.RightBorder = ReportRow;
+		//FillingArea.AutoIndent = 4;
 		
-		//заголовок группировки 2
-        ОбластьЗаполнения = СтрокаВыводаГруппировка2.Область(1, й, 1, й);
-		ОбластьЗаполнения.ЦветФона = ЦветаСтиля.ЦветФонаГруппировкиОтчета2;
-        ОбластьЗаполнения.Параметр = ИмяКолонки;
-        ОбластьЗаполнения.Заполнение = ТипЗаполненияОбластиТабличногоДокумента.Параметр;
-		ОбластьЗаполнения.ГраницаСверху = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСнизу = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСлева = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСправа = ЛинияОтчета;
-		//ОбластьЗаполнения.АвтоОтступ = 4;
+		//group 2 title
+        FillingArea = OutputRowGroup2.Area(1, j, 1, j);
+		FillingArea.BackColor = StyleColors.ReportGroup2BackColor;
+        FillingArea.Parameter = ColumnName;
+        FillingArea.FillType = SpreadsheetDocumentAreaFillType.Parameter;
+		FillingArea.TopBorder = ReportRow;
+		FillingArea.BottomBorder = ReportRow;
+		FillingArea.LeftBorder = ReportRow;
+		FillingArea.RightBorder = ReportRow;
+		//FillingArea.AutoIndent = 4;
 		
 		//шапка
-        ОбластьЗаполнения = СтрокаШапки.Область(1, й, 1, й);
-		//ОбластьЗаполнения.Шрифт = ШрифтШапки;
-		ОбластьЗаполнения.ГраницаСверху = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСнизу = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСлева = ЛинияОтчета;
-		ОбластьЗаполнения.ГраницаСправа = ЛинияОтчета;
-		ОбластьЗаполнения.ЦветФона = ЦветШапки;
-        ОбластьЗаполнения.Параметр = ИмяКолонки;
-		ОбластьЗаполнения.ГоризонтальноеПоложение = ГоризонтальноеПоложение.ПоШирине;
-		//ОбластьЗаполнения.ГоризонтальноеПоложение = ГоризонтальноеПоложение.Центр;
-		ОбластьЗаполнения.ВертикальноеПоложение = ВертикальноеПоложение.Центр;
-        ОбластьЗаполнения.Заполнение = ТипЗаполненияОбластиТабличногоДокумента.Параметр;
-		ОбластьЗаполнения.Примечание.Текст = Колонка.ТипЗначения;
+        FillingArea = HeaderRow.Area(1, j, 1, j);
+		//FillingArea.Font = HeaderFont;
+		FillingArea.TopBorder = ReportRow;
+		FillingArea.BottomBorder = ReportRow;
+		FillingArea.LeftBorder = ReportRow;
+		FillingArea.RightBorder = ReportRow;
+		FillingArea.BackColor = HeaderColor;
+        FillingArea.Parameter = ColumnName;
+		FillingArea.HorizontalAlign = HorizontalAlign.Justify;
+		//FillingArea.HorizontalAlign = HorizontalAlign.Center;
+		FillingArea.VerticalAlign = VerticalAlign.Center;
+        FillingArea.FillType = SpreadsheetDocumentAreaFillType.Parameter;
+		FillingArea.Comment.Text = Column.ValueType;
 		
-        чЗаголовкиКолонок.Вставить(ИмяКолонки, ИмяКолонки);
+        nColumnTitles.Insert(ColumnName, ColumnName);
 		
-	КонецЦикла;
+	EndDo;
 	
-    СтрокаЗаголовка = Документ.ПолучитьОбласть(1, 1);
-	ОбластьЗаголовка = СтрокаЗаголовка.Область(1, 1, 1, 1);
-	ОбластьЗаголовка.Текст = Параметры.ИмяЗапроса;
-	ОбластьЗаголовка.Шрифт = ШрифтЗаголовка;
-    Документ.Вывести(СтрокаЗаголовка);
-	ОбластьЗаголовка.Текст = ИмяРезультата;
-	ОбластьЗаголовка.Шрифт = ШрифтПодзаголовка;
-	ОбластьЗаголовка.Отступ = 4;
-    Документ.Вывести(СтрокаЗаголовка);
-	Документ.Вывести(СтрокаПустая);
-    СтрокаШапки.Параметры.Заполнить(чЗаголовкиКолонок);
-    Документ.Вывести(СтрокаШапки);
+    TitleRow = Document.GetArea(1, 1);
+	TitleArea = TitleRow.Area(1, 1, 1, 1);
+	TitleArea.Text = Parameters.QueryName;
+	TitleArea.Font = TitleFont;
+    Document.Put(TitleRow);
+	TitleArea.Text = ResultName;
+	TitleArea.Font = SmallTitleFont;
+	TitleArea.Indent = 4;
+    Document.Put(TitleRow);
+	Document.Put(BlankRow);
+    HeaderRow.Parameters.Fill(nColumnTitles);
+    Document.Put(HeaderRow);
 	
-	тзРазмерыДанных = Новый ТаблицаЗначений;
-	Для Каждого кз Из чЗаголовкиКолонок Цикл
-		ИмяКолонки = кз.Ключ;
-		тзРазмерыДанных.Колонки.Добавить(ИмяКолонки, Новый ОписаниеТипов("Число", Новый КвалификаторыЧисла(5, 0)));
-	КонецЦикла;
+	vtDataSizes = New ValueTable;
+	For Each kv In nColumnTitles Do
+		ColumnName = kv.Key;
+		vtDataSizes.Columns.Add(ColumnName, New TypeDescription("Number", New NumberQualifiers(5, 0)));
+	EndDo;
 	
-	Если Параметры.ВидРезультата = "таблица" Тогда
+	If Parameters.ResultKind = "table" Then
 		
-		выбВыборка = рзВыборка.Выбрать();
-		Пока выбВыборка.Следующий() Цикл
+		selSelection = qrSelection.Выбрать();
+		While selSelection.Next() Do
 			
-	        СтрокаВывода.Параметры.Заполнить(выбВыборка);
-			Если ЕстьМакроколонки Тогда
-				Обработка.ProcessMacrocolumns(СтрокаВывода.Параметры, выбВыборка, стМакроколонки);
-			КонецЕсли;
+	        OutputRow.Parameters.Fill(selSelection);
+			If MacrocolumnsExists Then
+				DataProcessor.ProcessMacrocolumns(OutputRow.Parameters, selSelection, stMacrocolumns);
+			EndIf;
 			
-	        Документ.Вывести(СтрокаВывода);
+	        Document.Put(OutputRow);
 			
-			СтрокаДлин = тзРазмерыДанных.Добавить();
-			Если ЕстьМакроколонки Тогда
-				Для Каждого Колонка Из тзРазмерыДанных.Колонки Цикл
-					СтрокаДлин[Колонка.Имя] = СтрДлина(СтрокаВывода.Параметры[Колонка.Имя]);
-				КонецЦикла;
-			Иначе
-				Для й = 0 По тзРазмерыДанных.Колонки.Количество() - 1 Цикл
-					СтрокаДлин[й] = СтрДлина(выбВыборка[й]);
-				КонецЦикла;
-			КонецЕсли;
+			SizesRow = vtDataSizes.Add();
+			If MacrocolumnsExists Then
+				For Each Column In vtDataSizes.Columns Do
+					SizesRow[Column.Name] = StrLen(OutputRow.Parameters[Column.Name]);
+				EndDo;
+			Else
+				For j = 0 To vtDataSizes.Columns.Count() - 1 Do
+					SizesRow[j] = StrLen(selSelection[j]);
+				EndDo;
+			EndIf;
 		
-		КонецЦикла;	
+		EndDo;	
 		
-		маРазмерыКолонок = ПолучитьРазмерыКолонок(тзРазмерыДанных);
+		arColumnSizes = GetColumnSizes(vtDataSizes);
 		
-		Для й = 0 По маРазмерыКолонок.Количество() - 1 Цикл
-			Документ.Область(1, й + 1, Документ.ВысотаТаблицы, й + 1).ШиринаКолонки = маРазмерыКолонок[й];
-		КонецЦикла;
+		For j = 0 To arColumnSizes.Count() - 1 Do
+			Document.Area(1, j + 1, Document.TableHeight, j + 1).ColumnWidth = arColumnSizes[j];
+		EndDo;
 		
-	ИначеЕсли Параметры.ВидРезультата = "дерево" Тогда
+	ElsIf Parameters.ResultKind = "tree" Then
 		
-		Документ.НачатьАвтогруппировкуСтрок();
+		Document.StartRowAutoGrouping();
 		
-		//чСчетчик = 0;
-		выбВыборка = рзВыборка.Выбрать(ОбходРезультатаЗапроса.ПоГруппировкам);
-		ВывестиВетку(Документ, СтрокаВывода, СтрокаВыводаГруппировка1, СтрокаВыводаГруппировка1, выбВыборка, тзРазмерыДанных, Обработка, ЕстьМакроколонки, стМакроколонки);
+		//nCounter = 0;
+		selSelection = qrSelection.Select(QueryResultIteration.ByGroups);
+		OutputBranch(Document, OutputRow, OutputRowGroup1, OutputRowGroup1, selSelection, vtDataSizes, DataProcessor, MacrocolumnsExists, stMacrocolumns);
 		
-		Документ.ЗакончитьАвтогруппировкуСтрок();
+		Document.EndRowAutoGrouping();
 		
-		маРазмерыКолонок = ПолучитьРазмерыКолонок(тзРазмерыДанных);
+		arColumnSizes = GetColumnSizes(vtDataSizes);
 		
-		Для й = 0 По маРазмерыКолонок.Количество() - 1 Цикл
-			Документ.Область(1, й + 1, Документ.ВысотаТаблицы, й + 1).ШиринаКолонки = маРазмерыКолонок[й];
-		КонецЦикла;
+		For j = 0 To arColumnSizes.Count() - 1 Do
+			Document.Area(1, j + 1, Document.TableHeight, j + 1).ColumnWidth = arColumnSizes[j];
+		EndDo;
 		
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 	
-&НаСервере
-Процедура ОбновитьДокументНаСервере(Параметры)
+&AtServer
+Procedure RefreshDocumentAtServer(Parameters)
 	
-	КопироватьДанныеФормы(Параметры.Объект, Объект);
+	CopyFormData(Parameters.Object, Object);
 	
-	Заголовок = СтрШаблон("%1 / Результат%2", Параметры.ИмяЗапроса, Параметры.РезультатВПакете - 1);
+	Title = StrTemplate(NStr("ru = '%1 / Результат%2'; en = '%1 / Result%2'"), Parameters.QueryName, Parameters.ResultInBatch - 1);
 	
-	Элементы.ГруппаДерево.Видимость = Параметры.ВидРезультата = "дерево";
+	Items.TreeGroup.Visible = Parameters.ResultKind = "tree";
 	
-	СформироватьДокумент(Параметры);
+	GenerateDocument(Parameters);
 	
-	Инициализированна = Истина;
+	Initialized = True;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ПриПовторномОткрытии()
-	Инициализированна = Ложь;
-КонецПроцедуры
+&AtClient
+Procedure OnReopen()
+	Initialized = False;
+EndProcedure
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	ОбновитьДокументНаСервере(Параметры);
-КонецПроцедуры
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	RefreshDocumentAtServer(Parameters);
+EndProcedure
 
-&НаКлиенте
-Процедура ОбработкаОповещения(ИмяСобытия, Параметр, Источник)
-	Если ИмяСобытия = "Обновить" Тогда
-		ОбновитьДокументНаСервере(Параметр);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure NotificationProcessing(EventName, Parameter, Source)
+	If EventName = "Refresh" Then
+		RefreshDocumentAtServer(Parameter);
+	EndIf;
+EndProcedure
