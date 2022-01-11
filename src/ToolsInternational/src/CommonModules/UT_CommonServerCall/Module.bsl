@@ -1,27 +1,27 @@
-Функция ПараметрыСтартаСеанса() Экспорт
+Function SessionStartParameters() export
 
-	ПараметрыСтартаСеанса=Новый Структура;
+	SessionStartParameters= New Structure;
 
-	Если Не UT_CommonClientServer.IsPortableDistribution() Тогда
-		Если ПравоДоступа("Administration", Метаданные) И Не РольДоступна("UT_UniversalTools")
-			И ПользователиИнформационнойБазы.ПолучитьПользователей().Количество() > 0 Тогда
-			ТекущийПользователь = ПользователиИнформационнойБазы.ТекущийПользователь();
-			ТекущийПользователь.Роли.Добавить(Метаданные.Роли.UT_UniversalTools);
-			ТекущийПользователь.Записать();
+	if Not UT_CommonClientServer.IsPortableDistribution() Then
+		If AccessRight("Administration", Metadata) AND Not IsInRole("UT_UniversalTools")
+			and InfoBaseUsers.GetUsers().Count() > 0 then
+			CurrentUser = InfoBaseUsers.CurrentUser();
+			CurrentUser.Roles.Add(Metadata.Roles.UT_UniversalTools);
+			CurrentUser.Write();
 
-			ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Истина);
-		Иначе
-			ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Ложь);
-		КонецЕсли;
+			SessionStartParameters.Insert("ExtensionRightsAdded", True);
+		else
+			SessionStartParameters.Insert("ExtensionRightsAdded", False);
+		endif;
 	Иначе
-		ПараметрыСтартаСеанса.Вставить("ДобавленыПраваНаРасширение", Ложь);	
+		SessionStartParameters.Insert("ExtensionRightsAdded", False);	
 	КонецЕсли;
 
-	ПараметрыСтартаСеанса.Вставить("НомерСеанса", НомерСеансаИнформационнойБазы());
-	ПараметрыСтартаСеанса.Вставить("ЯзыкСинтаксисаКонфигурации", UT_CodeEditorServer.ЯзыкСинтаксисаКонфигурации());
+	SessionStartParameters.Insert("SessionNumber", InfoBaseSessionNumber());
+	SessionStartParameters.Insert("ConfigurationScriptVariant", UT_CodeEditorServer.ConfigurationScriptVariant());
 
-	Возврат ПараметрыСтартаСеанса;
-КонецФункции
+	Return SessionStartParameters;
+EndFunction
 
 // Sets the bold font for form group titles so they are correctly displayed in the 8.2 interface.2.
 // In the Taxi interface, group titles with standard highlight and without one are displayed in large font.
@@ -69,195 +69,89 @@ Function DefaultLanguageCode() Export
 EndFunction
 
 // See. StandardSubsystemsCached.RefsByPredefinedItemsNames
-Function RefsByPredefinedItemsNames(FullMetadataObjectName) Экспорт
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	Возврат UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
-=======
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+Function RefsByPredefinedItemsNames(FullMetadataObjectName) Export
 
 	Return UT_CommonCached.RefsByPredefinedItemsNames(FullMetadataObjectName);
 
 EndFunction
 
-Функция ObjectAttributesValues(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
+Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False) Export
 
-	Return UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
+	Return UT_Common.ObjectAttributesValues(Ref, Attributes, SelectAllowedItems);
 
-КонецФункции
+EndFunction
 
-// Значение реквизита, прочитанного из информационной базы по ссылке на объект.
+// Returns attribute values retrieved from the infobase using the object reference.
 //
-// Если необходимо зачитать реквизит независимо от прав текущего пользователя,
-// то следует использовать предварительный переход в привилегированный режим.
+// To read attribute values regardless of current user rights, enable privileged mode.
 //
-// Параметры:
-//  Ссылка    - ЛюбаяСсылка - объект, значения реквизитов которого необходимо получить.
-//            - Строка      - полное имя предопределенного элемента, значения реквизитов которого необходимо получить.
-//  ИмяРеквизита       - Строка - имя получаемого реквизита.
-//  ВыбратьРазрешенные - Булево - если Истина, то запрос к объекту выполняется с учетом прав пользователя, и в случае,
-//                                    - если есть ограничение на уровне записей, то возвращается Неопределено;
-//                                    - если нет прав для работы с таблицей, то возникнет исключение.
-//                              - если Ложь, то возникнет исключение при отсутствии прав на таблицу
-//                                или любой из реквизитов.
+// Parameters:
+//  Ref - AnyRef - the object whose attribute values will be read.
+//            - String - full name of the predefined item whose attribute values will be read.
+//  AttributeName - String - the name of the attribute.
+//  SelectAllowedItems - Boolean - if True, user rights are considered when executing the object query.
+//                                If a record-level restriction is set, return Undefined.
+//                                if the user has no rights to access the table, an exception is raised.
+//                                if False, an exception is raised if the user has no rights to 
+//                                access the table or any attribute.
 //
-// Возвращаемое значение:
-//  Произвольный - зависит от типа значения прочитанного реквизита.
-//               - если в параметр Ссылка передана пустая ссылка, то возвращается Неопределено.
-//               - если в параметр Ссылка передана ссылка несуществующего объекта (битая ссылка), 
-//                 то возвращается Неопределено.
+// Returns:
+//  Arbitrary - depends on the type of the read atrribute value.
+//               - if a blank reference is passed to Ref, return Undefined.
+//               - if a reference to a nonexisting object (invalid reference) is passed to Ref, 
+//                 return Undefined.
 //
-Функция ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
+Function ObjectAttributeValue(Ref, AttributeName, SelectAllowedItems = False) Export
 
-	Возврат UT_Common.ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные);
-<<<<<<< HEAD
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+	Return UT_Common.ObjectAttributeValue(Ref, AttributeName, SelectAllowedItems);
 
-КонецФункции
+EndFunction
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Функция ObjectAttributesValues(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
+Function StoredIBUserPasswordData(Username) Export
+	Return UT_Users.StoredIBUserPasswordData(Username);
+EndFunction
 
-	Return UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
-=======
-Функция ЗначенияРеквизитовОбъекта(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
+Procedure SetIBUserPassword(Username, Password) Export
+	UT_Users.SetIBUserPassword(Username, Password);
+EndProcedure
 
-	Возврат UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
+Procedure RestoreUserDataAfterUserSessionStart(UserName,
+	StoredIBUserPasswordData) Export
+	UT_Users.RestoreUserDataAfterUserSessionStart(UserName,
+		StoredIBUserPasswordData);
+EndProcedure
 
-=======
-Функция ObjectAttributesValues(Ссылка, Знач Реквизиты, ВыбратьРазрешенные = Ложь) Экспорт
+Procedure AddObjectsArrayToCompare(Objects) Export
+	UT_Common.AddObjectsArrayToCompare(Objects);
+EndProcedure
 
-	Return UT_Common.ObjectAttributesValues(Ссылка, Реквизиты, ВыбратьРазрешенные);
-
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-КонецФункции
-
-// Значение реквизита, прочитанного из информационной базы по ссылке на объект.
-//
-// Если необходимо зачитать реквизит независимо от прав текущего пользователя,
-// то следует использовать предварительный переход в привилегированный режим.
-//
-// Параметры:
-//  Ссылка    - ЛюбаяСсылка - объект, значения реквизитов которого необходимо получить.
-//            - Строка      - полное имя предопределенного элемента, значения реквизитов которого необходимо получить.
-//  ИмяРеквизита       - Строка - имя получаемого реквизита.
-//  ВыбратьРазрешенные - Булево - если Истина, то запрос к объекту выполняется с учетом прав пользователя, и в случае,
-//                                    - если есть ограничение на уровне записей, то возвращается Неопределено;
-//                                    - если нет прав для работы с таблицей, то возникнет исключение.
-//                              - если Ложь, то возникнет исключение при отсутствии прав на таблицу
-//                                или любой из реквизитов.
-//
-// Возвращаемое значение:
-//  Произвольный - зависит от типа значения прочитанного реквизита.
-//               - если в параметр Ссылка передана пустая ссылка, то возвращается Неопределено.
-//               - если в параметр Ссылка передана ссылка несуществующего объекта (битая ссылка), 
-//                 то возвращается Неопределено.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-Функция ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
-=======
-Функция ЗначениеРеквизитаОбъекта(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-Функция ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные = Ложь) Экспорт
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-
-	Возврат UT_Common.ObjectAttributeValue(Ссылка, ИмяРеквизита, ВыбратьРазрешенные);
-
-КонецФункции
-
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Функция ДанныеСохраненногоПароляПользователяИБ(ИмяПользователя) Экспорт
-	Возврат UT_Users.StoredIBUserPasswordData(ИмяПользователя);
-КонецФункции
-
-Процедура УстановитьПарольПользователюИБ(ИмяПользователя, Пароль) Экспорт
-	UT_Users.SetIBUserPassword(ИмяПользователя, Пароль);
-КонецПроцедуры
-
-Процедура ВосстановитьДанныеПользователяПослеЗапускаСеансаПодПользователем(ИмяПользователя,
-	ДанныеСохраненногоПароляПользователяИБ) Экспорт
-	UT_Users.RestoreUserDataAfterUserSessionStart(ИмяПользователя,
-		ДанныеСохраненногоПароляПользователяИБ);
-КонецПроцедуры
-
-Процедура AddObjectsArrayToCompare(Объекты) Экспорт
-	UT_Common.AddObjectsArrayToCompare(Объекты);
-КонецПроцедуры
-
-=======
-
-КонецФункции
-
-Функция ДанныеСохраненногоПароляПользователяИБ(ИмяПользователя) Экспорт
-	Возврат UT_Users.StoredIBUserPasswordData(ИмяПользователя);
-КонецФункции
-
-Процедура УстановитьПарольПользователюИБ(ИмяПользователя, Пароль) Экспорт
-	UT_Users.SetIBUserPassword(ИмяПользователя, Пароль);
-КонецПроцедуры
-
-Процедура ВосстановитьДанныеПользователяПослеЗапускаСеансаПодПользователем(ИмяПользователя,
-	ДанныеСохраненногоПароляПользователяИБ) Экспорт
-	UT_Users.RestoreUserDataAfterUserSessionStart(ИмяПользователя,
-		ДанныеСохраненногоПароляПользователяИБ);
-КонецПроцедуры
-
-Процедура AddObjectsArrayToCompare(Объекты) Экспорт
-	UT_Common.AddObjectsArrayToCompare(Объекты);
-КонецПроцедуры
-
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Процедура ВыгрузитьОбъектыВXMLНаСервере(МассивОбъектов, АдресФайлаВоВременномХранилище, ИдентфикаторФормы=Неопределено) Экспорт
-	ОбработкаВыгрузки= Обработки.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами.Создать();
-	ОбработкаВыгрузки.Инициализация();
-	ОбработкаВыгрузки.ВыгружатьСДокументомЕгоДвижения=Истина;
-	ОбработкаВыгрузки.ИспользоватьФорматFastInfoSet=Ложь;
+Procedure UploadObjectsToXMLonServer(ObjectsArray, FileAdressInTempStorage, FormID=Undefined) Export
+	UploadingDataProcessor = Обработки.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами.Создать();
+	UploadingDataProcessor.Инициализация();
+	UploadingDataProcessor.ВыгружатьСДокументомЕгоДвижения=Истина;
+	UploadingDataProcessor.ИспользоватьФорматFastInfoSet=Ложь;
 	
-	Для Каждого ТекОбъект Из МассивОбъектов Цикл
-		НС=ОбработкаВыгрузки.ДополнительныеОбъектыДляВыгрузки.Добавить();
-		НС.Объект=ТекОбъект;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-		НС.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(ТекОбъект);
-=======
-		НС.ИмяОбъектаДляЗапроса=UT_Common.ИмяТаблицыПоСсылке(ТекОбъект);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-		НС.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(ТекОбъект);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-		НС.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(ТекОбъект);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-		НС.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(ТекОбъект);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-	КонецЦикла;
+	For Each CurrentObject In ObjectsArray Do
+		NR=UploadingDataProcessor.ДополнительныеОбъектыДляВыгрузки.Add();
+		NR.Объект=CurrentObject;
+		NR.ИмяОбъектаДляЗапроса=UT_Common.TableNameByRef(CurrentObject);
+	EndDo;
 		
-	ИмяВременногоФайла = ПолучитьИмяВременногоФайла(".xml");
+	TempFileName = GetTempFileName(".xml");
 	
-	ОбработкаВыгрузки.ВыполнитьВыгрузку(ИмяВременногоФайла, , Новый ТаблицаЗначений);
+	UploadingDataProcessor.ВыполнитьВыгрузку(TempFileName, , New ValueTable);
 		
-	Файл = Новый Файл(ИмяВременногоФайла);
+	File = New File(TempFileName);
 
-	Если Файл.Существует() Тогда
+	If File.Exist() Then
 
-		ДвоичныеДанные = Новый ДвоичныеДанные(ИмяВременногоФайла);
-		АдресФайлаВоВременномХранилище = ПоместитьВоВременноеХранилище(ДвоичныеДанные, ИдентфикаторФормы);
-		УдалитьФайлы(ИмяВременногоФайла);
+		BinaryData = New BinaryData(TempFileName);
+		FileAdressInTempStorage = PutToTempStorage(BinaryData, FormID);
+		DeleteFiles(TempFileName);
 
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
 // Convert (serializes) any value to XML-string.
 // Converted to may be only those objects for which the syntax helper indicate that they are serialized.
@@ -278,666 +172,341 @@ Function ValueToXMLString(Value) Export
 	Return XMLWriter.Close();
 EndFunction
 
-// Выполняет преобразование (десериализацию) XML-строки в значение.
-// См. также ValueToXMLString.
+// Converts (deserializes) an XML string into a value.
+// See also ValueToXMLString.
 //
-// Параметры:
-//  СтрокаXML - Строка - XML-строка, с сериализованным объектом..
+// Parameters:
+//  XMLString - String - an XML string with a serialized object.
 //
-// Возвращаемое значение:
-//  Произвольный - значение, полученное из переданной XML-строки.
+// Returns:
+//  Arbitrary - the value extracted from an XML string.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Функция ValueFromXMLString(СтрокаXML, Тип = Неопределено) Экспорт
-=======
-Функция ЗначениеИзСтрокиXML(СтрокаXML, Тип = Неопределено) Экспорт
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-Функция ValueFromXMLString(СтрокаXML, Тип = Неопределено) Экспорт
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Функция ValueFromXMLString(СтрокаXML, Тип = Неопределено) Экспорт
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Функция ValueFromXMLString(СтрокаXML, Тип = Неопределено) Экспорт
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+Function ValueFromXMLString(XMLString, Type = Undefined) Export
 
-	ЧтениеXML = Новый ЧтениеXML;
-	ЧтениеXML.УстановитьСтроку(СтрокаXML);
+	XMLReader = New XMLReader;
+	XMLReader.SetString(XMLString);
 
-	Если Тип = Неопределено Тогда
-		Возврат СериализаторXDTO.ПрочитатьXML(ЧтениеXML);
-	Иначе
-		Возврат СериализаторXDTO.ПрочитатьXML(ЧтениеXML, Тип);
-	КонецЕсли;
-КонецФункции
+	If Type = Undefined Then
+		Return XDTOSerializer.ReadXML(XMLReader);
+	Else
+		Return XDTOSerializer.ReadXML(XMLReader, Type);
+	EndIf;
+EndFunction
 
-Функция АдресОписанияМетаданныхКонфигурации() Экспорт
-	Возврат UT_Common.АдресОписанияМетаданныхКонфигурации();
-КонецФункции
+Function ConfigurationMetadataDescriptionAdress() Export
+	Возврат UT_Common.ConfigurationMetadataDescriptionAdress();
+EndFunction
 
 #Region JSON
 
 Function mReadJSON(Value) Export
 	Return UT_CommonClientServer.mReadJSON(Value);
-EndFunction // ПрочитатьJSON()
+EndFunction // ReadJSON()
 
 Function mWriteJSON(DataStructure) Export
 	Return UT_CommonClientServer.mWriteJSON(DataStructure);
 EndFunction // WriteJSON(
-#КонецОбласти
-<<<<<<< HEAD
+#EndRegion
 
+#Region SettingsStorage
 
-
-#Область ХранилищеНастроек
-
-=======
-
-
-
-#Область ХранилищеНастроек
-
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 ////////////////////////////////////////////////////////////////////////////////
-// Сохранение, чтение и удаление настроек из хранилищ.
 
-// Сохраняет настройку в хранилище общих настроек, как метод платформы Сохранить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
-//
-// Параметры:
-//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
-//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
-//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Процедура CommonSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
+// Saving, reading, and deleting settings from storages.
 
-	UT_Common.CommonSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Процедура ХранилищеОбщихНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-
-	UT_Common.ХранилищеОбщихНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
-
-КонецПроцедуры
-
-// Сохраняет несколько настроек в хранилище общих настроек, как метод платформы Сохранить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
+// Saves a setting to the common settings storage as the Save method of 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
 // 
-// Параметры:
-//   НесколькоНастроек - Массив - со значениями:
-//     * Значение - Структура - со свойствами:
-//         * Объект    - Строка       - см. параметр КлючОбъекта  в синтакс-помощнике платформы.
-//         * Настройка - Строка       - см. параметр КлючНастроек в синтакс-помощнике платформы.
-//         * Значение  - Произвольный - см. параметр Настройки    в синтакс-помощнике платформы.
+// If the SaveUserData right is not granted, data save fails and no error is raised.
 //
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   Settings - Arbitrary - see the Syntax Assistant.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
+
+Procedure CommonSettingsStorageSave(ObjectKey, SettingsKey, Settings,
+			SettingsDetails = Undefined,
+			Username = Undefined,
+			UpdateCachedValues = False) Export
+
+	UT_Common.CommonSettingsStorageSave(ObjectKey, SettingsKey, Settings,SettingsDetails,Username,UpdateCachedValues = False);
+
+EndProcedure
+
+// Saves settings to the common settings storage as the Save method of 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, data save fails and no error is raised.
+// 
+// Parameters:
+//   MultipleSettings - Array of the following values:
+//     * Value - Structure - with the following properties:
+//         * Object - String - see the ObjectKey parameter in the Syntax Assistant.
+//         * Setting - String - see the SettingsKey parameter in the Syntax Assistant.
+//         * Value - Arbitrary - see the Settings parameter in the Syntax Assistant.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Процедура CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
+//
+
+Procedure CommonSettingsStorageSaveArray(MultipleSettings, UpdateCachedValues = False) Export
 	
-	UT_Common.CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
-=======
-Процедура ХранилищеОбщихНастроекСохранитьМассив(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
+	UT_Common.CommonSettingsStorageSaveArray(MultipleSettings, UpdateCachedValues);
+
+EndProcedure
+
+// Loads a setting from the general settings storage as the Load method, 
+// StandardSettingsStorageManager objects, or SettingsStorageManager.<Storage name>. The setting key 
+// supports more than 128 characters by hashing the part that exceeds 96 characters.
+// 
+// If no settings are found, returns the default value.
+// If the SaveUserData right is not granted, the default value is returned and no error is raised.
+//
+// References to database objects that do not exist are cleared from the return value:
+// - The returned reference is replaced by the default value.
+// - The references are deleted from the data of Array type.
+// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
+// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
+//
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
+//                                             If not specified, returns Undefined.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//
+// Returns:
+//   Arbitrary - see the Syntax Assistant.
+//
+Function CommonSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
+			SettingsDetails = Undefined, Username = Undefined) Export
+	Return UT_Common.CommonSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue, 
+			SettingsDetails, Username)
+
+EndFunction
+
+// Removes a setting from the general settings storage as the Remove method, 
+// StandardSettingsStorageManager objects, or SettingsStorageManager.<Storage name>. The setting key 
+// supports more than 128 characters by hashing the part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, no data is deleted and no error is raised.
+//
+// Parameters:
+//   ObjectKey - String, Undefined - see the Syntax Assistant.
+//   SettingsKey - String, Undefined - see the Syntax Assistant.
+//   UserName - String, Undefined - see the Syntax Assistant.
+//
+Procedure CommonSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+
+	UT_Common.CommonSettingsStorageDelete(ObjectKey, SettingsKey, Username);
+
+EndProcedure
+
+/// Saves a setting to the system settings storage as the Save method of 
+// StandardSettingsStorageManager object. Setting keys exceeding 128 characters are supported by 
+// hashing the key part that exceeds 96 characters.
+// If the SaveUserData right is not granted, data save fails and no error is raised.
+//
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   Settings - Arbitrary - see the Syntax Assistant.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
+//
+Procedure SystemSettingsStorageSave(ObjectKey, SettingsKey, Settings,
+			SettingsDetails = Undefined,
+			Username = Undefined,
+			UpdateCachedValues = False) Export
+
+	UT_Common.SystemSettingsStorageSave(ObjectKey, SettingsKey, Settings,
+			SettingsDetails,Username,UpdateCachedValues);
+
+EndProcedure
+
+
+// Loads a setting from the system settings storage as the Load method or the 
+// StandardSettingsStorageManager object. The setting key supports more than 128 characters by 
+// hashing the part that exceeds 96 characters.
+// If no settings are found, returns the default value.
+// If the SaveUserData right is not granted, the default value is returned and no error is raised.
+//
+// The return value clears references to a non-existent object in the database, namely:
+// - The returned reference is replaced by the default value.
+// - The references are deleted from the data of Array type.
+// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
+// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
+//
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
+//                                             If not specified, returns Undefined.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//
+// Returns:
+//   Arbitrary - see the Syntax Assistant.
+//
+Function SystemSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
+			SettingsDetails = Undefined, Username = Undefined) Export
+
+	Return UT_Common.SystemSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue, 
+			SettingsDetails , Username );
+
+EndFunction
+
+// Removes a setting from the system settings storage as the Remove method or the 
+// StandardSettingsStorageManager object. The setting key supports more than 128 characters by 
+// hashing the part that exceeds 96 characters.
+// If the SaveUserData right is not granted, no data is deleted and no error is raised.
+//
+// Parameters:
+//   ObjectKey - String, Undefined - see the Syntax Assistant.
+//   SettingsKey - String, Undefined - see the Syntax Assistant.
+//   UserName - String, Undefined - see the Syntax Assistant.
+//
+Procedure SystemSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+
+	UT_Common.SystemSettingsStorageDelete(ObjectKey, SettingsKey, Username);
+
+EndProcedure
+
+// Saves a setting to the form data settings storage as the Save method of 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> object. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, data save fails and no error is raised.
+//
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   Settings - Arbitrary - see the Syntax Assistant.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//   UpdateCachedValues - Boolean - the flag that indicates whether to execute the method.
+//
+Procedure FormDataSettingsStorageSave(ObjectKey, SettingsKey, Settings,
+			SettingsDetails = Undefined,Username = Undefined, 
+			UpdateCachedValues = False) Export
+
+	UT_Common.FormDataSettingsStorageSave(ObjectKey, SettingsKey, Settings, SettingsDetails,
+		Username, UpdateCachedValues);
+
+EndProcedure
+
+// Retrieves the setting from the form data settings storage using the Load method for 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> objects. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If no settings are found, returns the default value.
+// If the SaveUserData right is not granted, the default value is returned and no error is raised.
+//
+// References to database objects that do not exist are cleared from the return value:
+// - The returned reference is replaced by the default value.
+// - The references are deleted from the data of Array type.
+// - Key is not changed for the data of Structure or Map types, and value is set to Undefined.
+// - Recursive analysis of values in the data of Array, Structure, Map types is performed.
+//
+// Parameters:
+//   ObjectKey - String - see the Syntax Assistant.
+//   SettingsKey - String - see the Syntax Assistant.
+//   DefaultValue - Arbitrary - a value that is returned if no settings are found.
+//                                             If not specified, returns Undefined.
+//   SettingsDescription - SettingsDescription - see the Syntax Assistant.
+//   UserName - String - see the Syntax Assistant.
+//
+// Returns:
+//   Arbitrary - see the Syntax Assistant.
+//
+Function FormDataSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue = Undefined, 
+			SettingsDetails = Undefined, Username = Undefined) Export
+
+	Return UT_Common.FormDataSettingsStorageLoad(ObjectKey, SettingsKey, DefaultValue,
+		SettingsDetails, Username);
+
+EndFunction
+
+// Deletes the setting from the form data settings storage using the Delete method for 
+// StandardSettingsStorageManager or SettingsStorageManager.<Storage name> objects. Setting keys 
+// exceeding 128 characters are supported by hashing the key part that exceeds 96 characters.
+// 
+// If the SaveUserData right is not granted, no data is deleted and no error is raised.
+//
+// Parameters:
+//   ObjectKey - String, Undefined - see the Syntax Assistant.
+//   SettingsKey - String, Undefined - see the Syntax Assistant.
+//   UserName - String, Undefined - see the Syntax Assistant.
+//
+Procedure FormDataSettingsStorageDelete(ObjectKey, SettingsKey, Username) Export
+	UT_Common.FormDataSettingsStorageDelete(ObjectKey, SettingsKey, Username);
+EndProcedure
+
+#EndRegion
+
+#Region Algorithms
+
+Function GetRefCatalogAlgorithms(Algorithm) Export
+	Return UT_Common.GetRefCatalogAlgorithms(Algorithm);
+EndFunction
+
+Function ExecuteAlgorithm(AlgorithmRef, IncomingParameters = Undefined, ExecutionError = False,
+	ErrorMessage = "") Export
+	Return UT_Common.ExecuteAlgorithm(AlgorithmRef, IncomingParameters, ExecutionError,
+		ErrorMessage);
+EndFunction
+
+#EndRegion
+
+#Region Debug
+
+Function SaveDebuggingDataToCatalog(DebuggingObjectType, DebuggingData) Export
+	SettingsKey=DebuggingObjectType + "/" + UserName() + "/" + Format(CurrentDate(), "DF=yyyyMMddHHmmss;");
+	DebuggingDataObjectData=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
+
+	UT_Common.SystemSettingsStorageSave(DebuggingDataObjectData, SettingsKey, DebuggingData);
+
+	Return "Data Saved successfully. Settings Key " + SettingsKey;
+EndFunction
+
+Function DebuggingObjectDataStructureFromDebugDataCatalog(DataPath) Export
+	Result = New Structure;
+	Result.Insert("DebuggingObjectType", DataPath.DebuggingObjectType);
+	Result.Insert("DebuggingObjectAddress", PutToTempStorage(
+		DataPath.DebuggingObjectStorage.Get()));
+
+	Return Result;
+EndFunction
+
+Function DebuggingObjectDataStructureFromSystemSettingsStorage(SettingsKey, FormID=Undefined) Export
 	
-	UT_Common.ХранилищеОбщихНастроекСохранитьМассив(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-Процедура CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-	
-	UT_Common.CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-	
-	UT_Common.CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-	
-	UT_Common.CommonSettingsStorageSaveArray(НесколькоНастроек, ОбновитьПовторноИспользуемыеЗначения);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
+	DebuggingDataObjectKey=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
+	DebugSettings=UT_Common.SystemSettingsStorageLoad(DebuggingDataObjectKey, SettingsKey);
 
-КонецПроцедуры
+	If DebugSettings = Undefined Then
+		Return Undefined;
+	EndIf;
 
-// Загружает настройку из хранилища общих настроек, как метод платформы Загрузить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
-// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
-//
-// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно
-// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
-// - из данных типа Массив ссылки удаляются;
-// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
-// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
-//
-// Параметры:
-//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
-//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
-//                                             Если не указано, возвращается значение Неопределено.
-//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
-//
-// Возвращаемое значение: 
-//   Произвольный - см. синтакс-помощник платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Функция CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-	Возврат UT_Common.CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
-=======
-Функция ХранилищеОбщихНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-	Возврат UT_Common.ХранилищеОбщихНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-Функция CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-	Возврат UT_Common.CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Функция CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-	Возврат UT_Common.CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Функция CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-	Возврат UT_Common.CommonSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-		ОписаниеНастроек, ИмяПользователя)
+	KeySubstringsArray=StrSplit(SettingsKey, "/");
 
-КонецФункции
+	If FormID=Undefined Then
+		DebuggingObjectAddress=PutToTempStorage(DebugSettings);
+	Else
+		DebuggingObjectAddress=PutToTempStorage(DebugSettings, FormID);
+	EndIf;
 
-// Удаляет настройку из хранилища общих настроек, как метод платформы Удалить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
-//
-// Параметры:
-//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
-//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
-//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Процедура CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
+	Result = New Structure;
+	Result.Insert("DebuggingObjectType", KeySubstringsArray[0]);
+	Result.Insert("DebuggingObjectAddress", DebuggingObjectAddress);
 
-	UT_Common.CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
-=======
-Процедура ХранилищеОбщихНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.ХранилищеОбщихНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-Процедура CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.CommonSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-
-КонецПроцедуры
-
-// Сохраняет настройку в хранилище системных настроек, как метод платформы Сохранить
-// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
-// более 128 символов путем хеширования части, которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
-//
-// Параметры:
-//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
-//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
-//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Процедура SystemSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-
-	UT_Common.SystemSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Процедура ХранилищеСистемныхНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-
-	UT_Common.ХранилищеСистемныхНастроекСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
-
-КонецПроцедуры
-
-// Загружает настройку из хранилища системных настроек, как метод платформы Загрузить,
-// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
-// более 128 символов путем хеширования части, которая превышает 96 символов.
-// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
-// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
-//
-// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно:
-// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
-// - из данных типа Массив ссылки удаляются;
-// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
-// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
-//
-// Параметры:
-//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
-//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
-//                                             Если не указано, возвращается значение Неопределено.
-//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
-//
-// Возвращаемое значение: 
-//   Произвольный - см. синтакс-помощник платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Функция SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-
-	Возврат UT_Common.SystemSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Функция ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-
-	Возврат UT_Common.ХранилищеСистемныхНастроекЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-		ОписаниеНастроек, ИмяПользователя);
-
-КонецФункции
-
-// Удаляет настройку из хранилища системных настроек, как метод платформы Удалить,
-// объекта СтандартноеХранилищеНастроекМенеджер, но с поддержкой длины ключа настроек
-// более 128 символов путем хеширования части, которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
-//
-// Параметры:
-//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
-//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
-//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Процедура SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
-=======
-Процедура ХранилищеСистемныхНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.ХранилищеСистемныхНастроекУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-Процедура SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.SystemSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-
-КонецПроцедуры
-
-// Сохраняет настройку в хранилище настроек данных форм, как метод платформы Сохранить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, сохранение пропускается без ошибки.
-//
-// Параметры:
-//   КлючОбъекта       - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек      - Строка           - см. синтакс-помощник платформы.
-//   Настройки         - Произвольный     - см. синтакс-помощник платформы.
-//   ОписаниеНастроек  - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя   - Строка           - см. синтакс-помощник платформы.
-//   ОбновитьПовторноИспользуемыеЗначения - Булево - выполнить одноименный метод платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Процедура FormDataSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-
-	UT_Common.FormDataSettingsStorageSave(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Процедура ХранилищеНастроекДанныхФормСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек = Неопределено,
-	ИмяПользователя = Неопределено, ОбновитьПовторноИспользуемыеЗначения = Ложь) Экспорт
-
-	UT_Common.ХранилищеНастроекДанныхФормСохранить(КлючОбъекта, КлючНастроек, Настройки, ОписаниеНастроек,
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-		ИмяПользователя, ОбновитьПовторноИспользуемыеЗначения);
-
-КонецПроцедуры
-
-// Загружает настройку из хранилища настроек данных форм, как метод платформы Загрузить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Кроме того, возвращает указанное значение по умолчанию, если настройки не найдены.
-// Если нет права СохранениеДанныхПользователя, возвращается значение по умолчанию без ошибки.
-//
-// В возвращаемом значении очищаются ссылки на несуществующий объект в базе данных, а именно
-// - возвращаемая ссылка заменяется на указанное значение по умолчанию;
-// - из данных типа Массив ссылки удаляются;
-// - у данных типа Структура и Соответствие ключ не меняется, а значение устанавливается Неопределено;
-// - анализ значений в данных типа Массив, Структура, Соответствие выполняется рекурсивно.
-//
-// Параметры:
-//   КлючОбъекта          - Строка           - см. синтакс-помощник платформы.
-//   КлючНастроек         - Строка           - см. синтакс-помощник платформы.
-//   ЗначениеПоУмолчанию  - Произвольный     - значение, которое возвращается, если настройки не найдены.
-//                                             Если не указано, возвращается значение Неопределено.
-//   ОписаниеНастроек     - ОписаниеНастроек - см. синтакс-помощник платформы.
-//   ИмяПользователя      - Строка           - см. синтакс-помощник платформы.
-//
-// Возвращаемое значение: 
-//   Произвольный - см. синтакс-помощник платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Функция FormDataSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-
-	Возврат UT_Common.FormDataSettingsStorageLoad(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Функция ХранилищеНастроекДанныхФормЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию = Неопределено,
-	ОписаниеНастроек = Неопределено, ИмяПользователя = Неопределено) Экспорт
-
-	Возврат UT_Common.ХранилищеНастроекДанныхФормЗагрузить(КлючОбъекта, КлючНастроек, ЗначениеПоУмолчанию,
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-		ОписаниеНастроек, ИмяПользователя);
-
-КонецФункции
-
-// Удаляет настройку из хранилища настроек данных форм, как метод платформы Удалить,
-// объектов СтандартноеХранилищеНастроекМенеджер или ХранилищеНастроекМенеджер.<Имя хранилища>,
-// но с поддержкой длины ключа настроек более 128 символов путем хеширования части,
-// которая превышает 96 символов.
-// Если нет права СохранениеДанныхПользователя, удаление пропускается без ошибки.
-//
-// Параметры:
-//   КлючОбъекта     - Строка, Неопределено - см. синтакс-помощник платформы.
-//   КлючНастроек    - Строка, Неопределено - см. синтакс-помощник платформы.
-//   ИмяПользователя - Строка, Неопределено - см. синтакс-помощник платформы.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-Процедура FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
-=======
-Процедура ХранилищеНастроекДанныхФормУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.ХранилищеНастроекДанныхФормУдалить(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-Процедура FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-Процедура FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя) Экспорт
-
-	UT_Common.FormDataSettingsStorageDelete(КлючОбъекта, КлючНастроек, ИмяПользователя);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область Алгоритмы
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-Функция GetRefCatalogAlgorithms(Алгоритм) Экспорт
-	Возврат UT_Common.GetRefCatalogAlgorithms(Алгоритм);
-КонецФункции
-
-Функция ExecuteAlgorithm(АлгоритмСсылка, ВходящиеПараметры = Неопределено, ОшибкаВыполнения = Ложь,
-	СообщениеОбОшибке = "") Экспорт
-	Возврат UT_Common.ExecuteAlgorithm(АлгоритмСсылка, ВходящиеПараметры, ОшибкаВыполнения,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Функция ПолучитьСсылкуСправочникАлгоритмы(Алгоритм) Экспорт
-	Возврат UT_Common.ПолучитьСсылкуСправочникАлгоритмы(Алгоритм);
-КонецФункции
-
-Функция ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры = Неопределено, ОшибкаВыполнения = Ложь,
-	СообщениеОбОшибке = "") Экспорт
-	Возврат UT_Common.ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры, ОшибкаВыполнения,
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-		СообщениеОбОшибке);
-КонецФункции
-
-#КонецОбласти
-
-#Область Отладка
-
-Функция SaveDebuggingDataToStorage(ТипОбъектаОтладки, ДанныеДляОтладки) Экспорт
-	КлючНастроек=ТипОбъектаОтладки + "/" + ИмяПользователя() + "/" + Формат(ТекущаяДата(), "ДФ=yyyyMMddHHmmss;");
-	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
-=======
-	UT_Common.ХранилищеСистемныхНастроекСохранить(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-	UT_Common.SystemSettingsStorageSave(КлючОбъектаДанныхОтладки, КлючНастроек, ДанныеДляОтладки);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-
-	Возврат "Запись выполнена успешно. Ключ настроек " + КлючНастроек;
-КонецФункции
-
-Функция СтруктураДанныхОбъектаОтладкиИзСправочникаДанныхОтладки(СсылкаНаДанные) Экспорт
-	Результат = Новый Структура;
-	Результат.Вставить("ТипОбъектаОтладки", СсылкаНаДанные.ТипОбъектаОтладки);
-	Результат.Вставить("АдресОбъектаОтладки", ПоместитьВоВременноеХранилище(
-		СсылкаНаДанные.ХранилищеОбъектаОтладки.Получить()));
-
-	Возврат Результат;
-КонецФункции
-
-Функция СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек(КлючНастроек, ИдентификаторФормы=Неопределено) Экспорт
-	КлючОбъектаДанныхОтладки=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
-=======
-	НастройкиОтладки=UT_Common.ХранилищеСистемныхНастроекЗагрузить(КлючОбъектаДанныхОтладки, КлючНастроек);
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
-	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
-	НастройкиОтладки=UT_Common.SystemSettingsStorageLoad(КлючОбъектаДанныхОтладки, КлючНастроек);
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-
-	Если НастройкиОтладки = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
-
-	МассивПодСтрокКлюча=СтрРазделить(КлючНастроек, "/");
-
-	Если ИдентификаторФормы=Неопределено Тогда
-		АдресОбъектаОтладки=ПоместитьВоВременноеХранилище(НастройкиОтладки);
-	Иначе
-		АдресОбъектаОтладки=ПоместитьВоВременноеХранилище(НастройкиОтладки, ИдентификаторФормы);
-	КонецЕсли;
-
-	Результат = Новый Структура;
-	Результат.Вставить("ТипОбъектаОтладки", МассивПодСтрокКлюча[0]);
-	Результат.Вставить("АдресОбъектаОтладки", АдресОбъектаОтладки);
-
-	Возврат Результат;
-КонецФункции
+	Return Result;
+EndFunction
 
 Function SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets) Export
 	ObjectStructure = New Structure;
@@ -981,7 +550,7 @@ Function SerializeDCSForDebug(DCS, DcsSettings, ExternalDataSets) Export
 
 EndFunction
 
-Function TempTablesManagerTempTablesStructure(TempTablesManager) Экспорт
+Function TempTablesManagerTempTablesStructure(TempTablesManager) Export
 	TempTablesStructure = New Structure;
 	For each TempTable In TempTablesManager.Tables Do
 		TempTablesStructure.Insert(TempTable.FullName, TempTable.GetData().Unload());
@@ -991,111 +560,111 @@ Function TempTablesManagerTempTablesStructure(TempTablesManager) Экспорт
 EndFunction
 
 //https://infostart.ru/public/1207287/
-Функция ВыполнитьСравнениеДвухТаблицЗначений(ТаблицаБазовая, ТаблицаСравнения, СписокКолонокСравнения) Экспорт
-	СписокКолонок = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(СписокКолонокСравнения, ",", Истина);
-	//Результирующая таблица
-	ВременнаяТаблица = Новый ТаблицаЗначений;
-	Для Каждого Колонка Из СписокКолонок Цикл
-		ВременнаяТаблица.Колонки.Добавить(Колонка);
-		ВременнаяТаблица.Колонки.Добавить(Колонка + "Сравнение");
-	КонецЦикла;
-	ВременнаяТаблица.Колонки.Добавить("НомерСтр");
-	ВременнаяТаблица.Колонки.Добавить("НомерСтр" + "Сравнение");
+Function ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable, ListOfComparisonColumns) Export
+	ColumsList = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(ListOfComparisonColumns, ",", True);
+	//The resulting table
+	TempTable = New ValueTable;
+	For Each Colum In ColumsList Do
+		TempTable.Columns.Add(Colum);
+		TempTable.Columns.Add(Colum + "Comparison");
+	EndDo;
+	TempTable.Columns.Add("NumberOfRow");
+	TempTable.Columns.Add("NumberOfRow" + "Comparison");
 	//---------
-	СравниваемаяТаблица = ТаблицаСравнения.Скопировать();
-	СравниваемаяТаблица.Колонки.Добавить("УжеИспользуем", Новый ОписаниеТипов("Булево"));
+	ComparableTable = ComparisonTable.Copy();
+	ComparableTable.Columns.Add("AlreadyUsing", New TypeDescription("Boolean"));
 
-	Для Каждого Строка Из ТаблицаБазовая Цикл
-		НоваяСтрока = ВременнаяТаблица.Добавить();
-		ЗаполнитьЗначенияСвойств(НоваяСтрока, Строка);
-		НоваяСтрока.НомерСтр = Строка.НомерСтроки;
-		//формируем структуру для поиска по заданному сопоставлению
-		ОтборДляПоискаСтрок = Новый Структура("УжеИспользуем", Ложь);
-		Для Каждого Колонка Из СписокКолонок Цикл
-			ОтборДляПоискаСтрок.Вставить(Колонка, Строка[Колонка]);
-		КонецЦикла;
+	For Each Row In BaseTable Do
+		NewRow = TempTable.Add();
+		FillPropertyValues(NewRow, Row);
+		NewRow.NumberOfRow = Row.RowNumber;
+		//forming a structure for searching by a given mapping
+		SearchStringsFilter = New Structure("AlreadyUsing", False);
+		For Each Colum In ColumsList Do
+			SearchStringsFilter.Insert(Colum, Row[Colum]);
+		EndDo;
 
-		НайдемСтроки = СравниваемаяТаблица.НайтиСтроки(ОтборДляПоискаСтрок);
-		Если НайдемСтроки.Количество() > 0 Тогда
-			СтрокаСопоставления = НайдемСтроки[0];
-			НоваяСтрока.НомерСтрСравнение = СтрокаСопоставления.НомерСтроки;
-			Для Каждого Колонка Из СписокКолонок Цикл
-				Реквизит = Колонка + "Сравнение";
-				НоваяСтрока[Реквизит] = СтрокаСопоставления[Колонка];
-			КонецЦикла;
-			СтрокаСопоставления.УжеИспользуем = Истина;
-		КонецЕсли;
-	КонецЦикла;
-	//Смотрим что осталось +++
-	ОтборДляПоискаСтрок = Новый Структура("УжеИспользуем", Ложь);
-	НайдемСтроки = СравниваемаяТаблица.НайтиСтроки(ОтборДляПоискаСтрок);
-	Для Каждого Строка Из НайдемСтроки Цикл
-		НоваяСтрока = ВременнаяТаблица.Добавить();
-		НоваяСтрока.НомерСтрСравнение = Строка.НомерСтроки;
-		Для Каждого Колонка Из СписокКолонок Цикл
-			Реквизит = Колонка + "Сравнение";
-			НоваяСтрока[Реквизит] = Строка[Колонка];
-		КонецЦикла;
-	КонецЦикла;
-	//Проверяем что получилось
-	ТаблицыИдентичны = Истина;
-	Для Каждого Строка Из ВременнаяТаблица Цикл
-		Для Каждого Колонка Из СписокКолонок Цикл
-			Если (Не ЗначениеЗаполнено(Строка[Колонка])) Или (Не ЗначениеЗаполнено(Строка[Колонка + "Сравнение"])) Тогда
-				ТаблицыИдентичны = Ложь;
-				Прервать;
-			КонецЕсли;
-		КонецЦикла;
-		Если Не ТаблицыИдентичны Тогда
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
+		FindRows = ComparableTable.FindRows(SearchStringsFilter);
+		If FindRows.Count() > 0 Then
+			ComparsionString = FindRows[0];
+			NewRow.NumberOfRowComparison = ComparsionString.RowNumber;
+			For Each Colum In ColumsList Do
+				Attribute = Colum + "Comparison";
+				NewRow[Attribute] = ComparsionString[Colum];
+			EndDo;
+			ComparsionString.AlreadyUsing = True;
+		EndIf;
+	EndDo;
+	//See what's left +++
+	SearchStringFilter = New Structure("AlreadyUsing", False);
+	FindRows = ComparableTable.FindRows(SearchStringFilter);
+	For Each Row In FindRows Do
+		NewRow = TempTable.Add();
+		NewRow.NumberOfRowComparsion = Row.RowNumber;
+		For Each Colum In ColumsList Do
+			Attribute = Colum + "Comparison";
+			NewRow[Attribute] = Row[Colum];
+		EndDo;
+	EndDo;
+	//We check what happened
+	TablesIdentical = True;
+	For Each Row In TempTable Do
+		For Each Colum In ColumsList Do
+			If (Not ValueIsFilled(Row[Colum])) Or (Not ValueIsFilled(Row[Colum + "Comparison"])) Then
+				TablesIdentical = False;
+				Break;
+			EndIf;
+		EndDo;
+		If Not TablesIdentical Then
+			Break;
+		EndIf;
+	EndDo;
 
-	Возврат Новый Структура("ИдентичныеТаблицы,ТаблицаРасхождений", ТаблицыИдентичны, ВременнаяТаблица);
-КонецФункции
+	Return New Structure("IdenticalTables,DifferencesTable", TablesIdentical, TempTable);
+EndFunction
 
-#КонецОбласти
+#EndRegion
 
-#Область СохранениеЧтениеДанныхКонсолей
+#Region ConsolesDataSaveRead
 
-Функция ПодготовленныеДанныеКонсолиДляЗаписиВФайл(ИмяКонсоли, ИмяФайла, АдресДанныхСохранения,
-	СтруктураОписанияСохраняемогоФайла) Экспорт
-	Файл=Новый Файл(ИмяФайла);
+Function ConsolePreparedDataForFileWriting(ConsoleName, FileName, SaveDataPath,
+	SavingFileDescriptionStructure) Export
+	File=Новый File(FileName);
 
-	Если ЭтоАдресВременногоХранилища(АдресДанныхСохранения) Тогда
-		ДанныеСохранения=ПолучитьИзВременногоХранилища(АдресДанныхСохранения);
-	Иначе
-		ДанныеСохранения=АдресДанныхСохранения;
-	КонецЕсли;
+	If  IsTempStorageURL(SaveDataPath) Then
+		SaveData=GetFromTempStorage(SaveDataPath);
+	Else
+		SaveData=SaveDataPath;
+	EndIf;
 
-	Если ВРег(ИмяКонсоли) = "КОНСОЛЬHTTPЗАПРОСОВ" Тогда
-		МенеджерКонсоли=Обработки.УИ_КонсольHTTPЗапросов;
-	Иначе
-		МенеджерКонсоли=Неопределено;
-	КонецЕсли;
+	If Upper(ConsoleName) = "HTTPREQUESTCONSOLE" Then
+		ConsoleManager=DataProcessors.UT_HttpRequestConsole;
+	Else
+		ConsoleManager=Undefined;
+	EndIf;
 
-	Если МенеджерКонсоли = Неопределено Тогда
-		Если ТипЗнч(ДанныеСохранения) = Тип("Строка") Тогда
-			НовыеДанныеСохранения=ДанныеСохранения;
-		Иначе
-			НовыеДанныеСохранения=ЗначениеВСтрокуВнутр(ДанныеСохранения);
-		КонецЕсли;
-	Иначе
-		Попытка
-			НовыеДанныеСохранения=МенеджерКонсоли.СериализованныеДанныеСохранения(Файл.Расширение, ДанныеСохранения);
-		Исключение
-			НовыеДанныеСохранения=ЗначениеВСтрокуВнутр(ДанныеСохранения);
-		КонецПопытки;
-	КонецЕсли;
+	If ConsoleManager = Undefined Then
+		Если TypeOf(SaveData) = Type("String") Then
+			NewSaveData=SaveData;
+		Else
+			NewSaveData=ValueToStringInternal(SaveData);
+		EndIf;
+	Else
+		Try
+			NewSaveData=ConsoleManager.SerializedSaveData(File.Extension, SaveData);
+		Except
+			NewSaveData=ValueToStringInternal(SaveData);
+		EndTry;
+	EndIf;
 
-	Поток=Новый ПотокВПамяти;
-	ЗаписьТекста=Новый ЗаписьДанных(Поток);
-	ЗаписьТекста.ЗаписатьСтроку(НовыеДанныеСохранения);
+	Stream=New MemoryStream;
+	TextWriter=New DataWriter(Stream);
+	TextWriter.WriteLine(NewSaveData);
 
-	Возврат ПоместитьВоВременноеХранилище(Поток.ЗакрытьИПолучитьДвоичныеДанные());
+	Return PutToTempStorage(Stream.CloseAndGetBinaryData());
 	
-//	Возврат НовыеДанныеСохранения;	
+//	Return NewSavingData;	
 
-КонецФункции
+EndFunction
 
-#КонецОбласти
+#EndRegion

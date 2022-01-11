@@ -351,16 +351,6 @@
 		</right>
 	</object>
 	<object>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 		<name>Catalog.UT_Algorithms.Command.ВыполнитьАлгоритм</name>
 		<right>
 			<name>View</name>
@@ -368,9 +358,7 @@
 		</right>
 	</object>
 	<object>
-=======
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-		<name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
+    <name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

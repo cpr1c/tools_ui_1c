@@ -17,7 +17,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;AdditionalReportsAndDataProcessors</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">40%</td>
 <td style="width: 43.875px; height: 17px;">47</td>
 </tr>
 <tr style="height: 17px;">
@@ -62,7 +62,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_Common</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">4870</td>
 </tr>
 <tr style="height: 17px;">
@@ -87,12 +87,12 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonServerCall</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">668</td>
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_Forms</td>
-<td style="height: 17px; width: 66.8125px;">90%</td>
+<td style="height: 17px; width: 66.8125px;">99%</td>
 <td style="width: 43.875px; height: 17px;">370</td>
 </tr>
 <tr style="height: 17px;">
@@ -145,7 +145,7 @@
 
 
 ## Соотвествие процедур общих модулей 
-### CommonClientServer
+### UT_CommonClientServer
 
 <table>
 <tbody>
@@ -795,7 +795,7 @@
 </tbody>
 </table>
 
-### CommonClientServer
+### UT_CommonServerCall
 
 <table>
 <tbody>
@@ -804,7 +804,7 @@
 <p>ПараметрыСтартаСеанса</p>
 </td>
 <td width="270">
-<p>1</p>
+<p>SessionStartParameters</p>
 </td>
 </tr>
 <tr>
@@ -813,6 +813,15 @@
 </td>
 <td width="270">
 <p>SetGroupTitleRepresentation</p>
+</td>
+</tr>
+<tr>
+<tr>
+<td width="404">
+<p>КодОсновногоЯзыка</p>
+</td>
+<td width="270">
+<p>DefaultLanguageCode</p>
 </td>
 </tr>
 <tr>
@@ -825,7 +834,6 @@
 </tr>
 <tr>
 <td width="404">
-<<<<<<< HEAD
 <p>ЗначенияРеквизитовОбъекта</p>
 </td>
 <td width="270">
@@ -861,7 +869,7 @@
 <p>ВосстановитьДанныеПользователяПослеЗапускаСеансаПодПользователем</p>
 </td>
 <td width="270">
-<p></p>
+<p>RestoreUserDataAfterUserSessionStart</p>
 </td>
 </tr>
 <tr>
@@ -869,7 +877,7 @@
 <p>ДобавитьМассивОбъектовКСравнению</p>
 </td>
 <td width="270">
-<p></p>
+<p>AddObjectsArrayToCompare</p>
 </td>
 </tr>
 <tr>
@@ -877,7 +885,7 @@
 <p>ВыгрузитьОбъектыВXMLНаСервере</p>
 </td>
 <td width="270">
-<p></p>
+<p>UploadObjectsToXMLonServer</p>
 </td>
 </tr>
 <tr>
@@ -885,7 +893,7 @@
 <p>ЗначениеВСтрокуXML</p>
 </td>
 <td width="270">
-<p></p>
+<p>ValueToXMLString</p>
 </td>
 </tr>
 <tr>
@@ -893,7 +901,7 @@
 <p>ЗначениеИзСтрокиXML</p>
 </td>
 <td width="270">
-<p></p>
+<p>ValueFromXMLString</p>
 </td>
 </tr>
 <tr>
@@ -901,7 +909,7 @@
 <p>АдресОписанияМетаданныхКонфигурации</p>
 </td>
 <td width="270">
-<p></p>
+<p>ConfigurationMetadataDescriptionAdress</p>
 </td>
 </tr>
 <tr>
@@ -909,7 +917,7 @@
 <p>мПрочитатьJSON</p>
 </td>
 <td width="270">
-<p></p>
+<p>mReadJSON</p>
 </td>
 </tr>
 <tr>
@@ -917,7 +925,7 @@
 <p>мЗаписатьJSON</p>
 </td>
 <td width="270">
-<p></p>
+<p>mWriteJSON</p>
 </td>
 </tr>
 <tr>
@@ -925,7 +933,7 @@
 <p>ХранилищеОбщихНастроекСохранить</p>
 </td>
 <td width="270">
-<p></p>
+<p>CommonSettingsStorageSave</p>
 </td>
 </tr>
 <tr>
@@ -933,7 +941,7 @@
 <p>ХранилищеОбщихНастроекСохранитьМассив</p>
 </td>
 <td width="270">
-<p></p>
+<p>CommonSettingsStorageSaveArray</p>
 </td>
 </tr>
 <tr>
@@ -941,7 +949,7 @@
 <p>ХранилищеОбщихНастроекЗагрузить</p>
 </td>
 <td width="270">
-<p></p>
+<p>CommonSettingsStorageLoad</p>
 </td>
 </tr>
 <tr>
@@ -949,7 +957,7 @@
 <p>ХранилищеОбщихНастроекУдалить</p>
 </td>
 <td width="270">
-<p></p>
+<p>CommonSettingsStorageDelete</p>
 </td>
 </tr>
 <tr>
@@ -957,7 +965,7 @@
 <p>ХранилищеСистемныхНастроекСохранить</p>
 </td>
 <td width="270">
-<p></p>
+<p>SystemSettingsStorageSave</p>
 </td>
 </tr>
 <tr>
@@ -965,7 +973,7 @@
 <p>ХранилищеСистемныхНастроекЗагрузить</p>
 </td>
 <td width="270">
-<p></p>
+<p>SystemSettingsStorageLoad</p>
 </td>
 </tr>
 <tr>
@@ -973,7 +981,7 @@
 <p>ХранилищеСистемныхНастроекУдалить</p>
 </td>
 <td width="270">
-<p></p>
+<p>SystemSettingsStorageDelete</p>
 </td>
 </tr>
 <tr>
@@ -981,7 +989,7 @@
 <p>ХранилищеНастроекДанныхФормСохранить</p>
 </td>
 <td width="270">
-<p></p>
+<p>FormDataSettingsStorageSave</p>
 </td>
 </tr>
 <tr>
@@ -989,7 +997,7 @@
 <p>ХранилищеНастроекДанныхФормЗагрузить</p>
 </td>
 <td width="270">
-<p></p>
+<p>FormDataSettingsStorageLoad</p>
 </td>
 </tr>
 <tr>
@@ -997,7 +1005,7 @@
 <p>ХранилищеНастроекДанныхФормУдалить</p>
 </td>
 <td width="270">
-<p></p>
+<p>FormDataSettingsStorageDelete</p>
 </td>
 </tr>
 <tr>
@@ -1005,7 +1013,7 @@
 <p>ПолучитьСсылкуСправочникАлгоритмы</p>
 </td>
 <td width="270">
-<p></p>
+<p>GetRefCatalogAlgorithms</p>
 </td>
 </tr>
 <tr>
@@ -1013,7 +1021,7 @@
 <p>ВыполнитьАлгоритм</p>
 </td>
 <td width="270">
-<p></p>
+<p>ExecuteAlgorithm</p>
 </td>
 </tr>
 <tr>
@@ -1021,60 +1029,58 @@
 <p>ЗаписатьДанныеДляОтладкиВСправочник</p>
 </td>
 <td width="270">
-<p></p>
+<p>SaveDebuggingDataToCatalog</p>
 </td>
 </tr>
 <tr>
 <td width="404">
 <p>СтруктураДанныхОбъектаОтладкиИзСправочникаДанныхОтладки</p>
-=======
-<p></p>
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
 </td>
 <td width="270">
-<p></p>
+<p>DebuggingObjectDataStructureFromDebugDataCatalog</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>СтруктураДанныхОбъектаОтладкиИзСистемногоХранилищаНастроек</p>
 </td>
 <td width="270">
-<p></p>
+<p>DebuggingObjectDataStructureFromSystemSettingsStorage</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>СериализоватьОбъектСКДДляОтладки</p>
 </td>
 <td width="270">
-<p></p>
+<p>SerializeDCSForDebug</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>СтруктураВременныхТаблицМенеджераВременныхТаблиц</p>
 </td>
 <td width="270">
-<p></p>
+<p>TempTablesManagerTempTablesStructure</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ВыполнитьСравнениеДвухТаблицЗначений</p>
 </td>
 <td width="270">
-<p></p>
+<p>ExecuteTwoValueTablesComparsion</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ПодготовленныеДанныеКонсолиДляЗаписиВФайл</p>
 </td>
 <td width="270">
-<p></p>
+<p>ConsolePreparedDataForFileWriting</p>
 </td>
 </tr>
+
 </tbody>
 </table>
 
@@ -1276,66 +1282,129 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ДобавитьВКоманднуюПанельОбщиеКоманды</p>
 </td>
 <td width="270">
-<p></p>
+<p>AddToCommonCommandsCommandBar</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ФормаИнструментаПриСозданииНаСервере</p>
 </td>
 <td width="270">
-<p></p>
+<p>ToolFormOnCreateAtServer</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ИсключенияПоискаСсылок</p>
 </td>
 <td width="270">
-<p></p>
+<p>RefSearchExclusions</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ПодключитьКомпонентуИзМакета</p>
 </td>
 <td width="270">
-<p></p>
+<p>AttachAddInFromTemplate</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ПредметСтрокой</p>
 </td>
 <td width="270">
-<p></p>
+<p>SubjectString</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ЗарегистрироватьОшибкуЗамены</p>
 </td>
 <td width="270">
-<p></p>
+<p>RegisterReplacementError</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ОписаниеОшибкиЗамены</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReplacementErrorDescription</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ОписаниеТипаВсеСсылки</p>
 </td>
 <td width="270">
-<<<<<<< HEAD
+<p>AllRefsTypeDescription</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ДобавитьОбъектВМассивОбъектовКСравнению</p>
+</td>
+<td width="270">
+<p>AddObjectToComparingObjectsArray</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>КлючНастроекОбъектовКСравнению</p>
+</td>
+<td width="270">
+<p>ObjectsToCompareSettingsKey</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ДобавитьМассивОбъектовКСравнению</p>
+</td>
+<td width="270">
+<p>AddObjectsArrayToCompare</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОбъектыДобавленныеКСравнению</p>
+</td>
+<td width="270">
+<p>ObjectsAddedToTheComparison</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОчиститьОбъектыДобавленныеКСравнению</p>
+</td>
+<td width="270">
+<p>ClearObjectsAddedToTheComparison</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>КлючНастроекОтладкиДополнительныхОтчетовИОбработок</p>
+</td>
+<td width="270">
+<p>KeyOfAdditionalReportsAndDataProcessorsDebugSettings</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>НовыйСтруктураНастройкиОтладкиДополнительнойОбработки</p>
+</td>
+<td width="270">
+<p>NewStructureOfAdditionalDataProcessorDebugSettings</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>НастройкиОтладкиДополнительнойОбработки</p>
+</td>
+<td width="270">
 <p>AdditionalDataProcessorDebugSettings</p>
 </td>
 </tr>
@@ -2048,7 +2117,7 @@
 
 Параметры действий -для функции ЗаписатьОбъектВБазу :  
 
-<table>
+<table width="804">
 <tbody>
 <tr >
 <td>
@@ -2089,24 +2158,480 @@
 </tbody>
 </table>
 
-## UT_CommonClient
-<table style="width: 97.5852%; border-collapse: collapse;" border="1">
+## UT_CommonClient
+<table style="width: 808; border-collapse: collapse;" border="1">
 <tbody>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+<tr>
+<td width="404">
+<p>ПоказатьПодробнуюИнформацию</p>
+</td>
+<td width="270">
 <p></p>
 </td>
->>>>>>> parent of 962f542 (Merge remote-tracking branch 'origin/develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
-=======
->>>>>>> parent of 099b94f (Merge branch 'i-neti:develop' into develop)
 </tr>
-
+<tr>
+<td width="404">
+<p>ПоказатьВопросПользователю</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПараметрыВопросаПользователю</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>КодВозвратаДиалогаВСтроку</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p></p>
+</td>
+<td width="270">
+<p>ExecuteAlgorithm</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p></p>
+</td>
+<td width="270">
+<p>OpenDebuggingConsole</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЗапуститьКонсольОтладкиПоКлючуНастройкиДанныхОтладки</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЭтоВебКлиент</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПустоеОписаниеОповещенияДляЗапускаПриложения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>НачатьЗапускПриложенияЗавершениеПустое</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОткрытьФормуРедактированияТекста</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОткрытьФормуВыбораЭлементовСпискаЗначений</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p></p>
+</td>
+<td width="270">
+<p>EditObject</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>РедактироватьJSON</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОткрытьДинамическийСписок</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>НайтиСсылкиНаОбъект</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЗадатьВопросРазработчику</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОткрытьСтраницуРазработки</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОткрытьСтраницуОсобенностейОтладкиПортативныхИнструметов</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЗапуститьПроверкуОбновленияИнструментов</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОткрытьНовуюФормуИнструмента</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p></p>
+</td>
+<td width="270">
+<p>Attachable_ExecuteToolsCommonCommand</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ДобавитьОбъектыКСравнению</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ВыгрузитьОбъектыВXML</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОбработчикКомандыРедактироватьОбъект</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОбработчикКомандыНайтиСсылкиНаОбъект</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ОткрытьНастройкиОтладкиДополнительнойОбработки</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>РедактироватьТип</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>РедактироватьТаблицуЗначений</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПолеФормыНачалоВыбораЗначения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПолеФормыИмяФайлаНачалоВыбора</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПолеФормыИмяФайлаНачалоВыбораЗавершениеПодключенияРасширенияРаботыСФайлами</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СохранитьВспомогательныеБиблиотекиНаКлиентеПриНачалеРаботыСистемы</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>КаталогВспомогательныхБиблиотекИнструментов</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>РедактироватьХранилищеЗначения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>РедактироватьХранилищеЗначенияЗавершение</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p></p>
+</td>
+<td width="270">
+<p>EditRecordingParameters</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>РедактироватьПараметрыЗаписиЗавершение</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПустоеОписаниеФорматаВыбираемогоФайла</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ДобавитьФорматВОписаниеФайлаСохранения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПустаяСтруктураОписанияВыбираемогоФайла</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьДанныеКонсолиИзФайла</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьДанныеКонсолиИзФайлаПослеПодключенияРасширения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьДанныеКонсолиИзФайлаПослеВыбораФайла</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьДанныеКонсолиИзФайлаПослеПомещенияФайлов</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьДанныеКонсолиИзФайлаОтработкаЗагрузкиФайла</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеПодключенияРасширения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеЧтенияФайловыхПеременныхСеанса</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеУстановкиРасширения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>НомерСеанса</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ИмяПараметраФайловыхПеременныхСеанса</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СтруктураФайловыхПеременныхСеанса</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеКаталогаВременныхФайловЗавершение</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЗапуститьСеанс1С</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ЗапуститьСеанс1СЗавершениеЗапуска</p>
+</td>
+<td width="270">
+<p></p>
+</td>
+</tr>
 </tbody>
 </table>
