@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>UUID</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Уникальный идентификатор</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОсновная</name>
+    <name>MainGroup</name>
     <id>27</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаИДИСсылка</name>
+      <name>UUIDRefGroup</name>
       <id>13</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаУникальныйИдентификатор</name>
+        <name>UUIDGroup</name>
         <id>15</id>
         <items xsi:type="form:FormField">
-          <name>УникальныйИдентификатор</name>
+          <name>UUIDString</name>
           <id>1</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -23,16 +27,16 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>СтрокаУникальныйИдентификатор</segments>
+              <segments>UUIDString</segments>
             </paths>
           </dataPath>
           <titleLocation>Left</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>УникальныйИдентификаторПриИзменении</name>
+            <name>UUIDOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>УникальныйИдентификаторРасширеннаяПодсказка</name>
+            <name>UUIDStringExtendedTooltip</name>
             <id>3</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -47,7 +51,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>УникальныйИдентификаторКонтекстноеМеню</name>
+            <name>UUIDStringContextMenu</name>
             <id>2</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -64,7 +68,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>TextEditEnd</event>
-              <name>УникальныйИдентификаторОкончаниеВводаТекста</name>
+              <name>UUIDTextEditEnd</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -75,7 +79,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:Button">
-          <name>КомандаНайти</name>
+          <name>FindCommand</name>
           <id>17</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -83,7 +87,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>КомандаНайтиРасширеннаяПодсказка</name>
+            <name>FindCommandExtendedTooltip</name>
             <id>18</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -98,7 +102,7 @@
             </extInfo>
           </extendedTooltip>
           <type>UsualButton</type>
-          <commandName>Form.Command.КомандаНайти</commandName>
+          <commandName>Form.Command.FindCommand</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -111,15 +115,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>UUID group</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Группа уникальный идентификатор</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>UUID group</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Группа уникальный идентификатор</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаУникальныйИдентификаторРасширеннаяПодсказка</name>
+          <name>UUIDGroupExtendedTooltip</name>
           <id>16</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -142,7 +154,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>Ссылка</name>
+        <name>Ref</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -151,16 +163,16 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Ссылка</segments>
+            <segments>Ref</segments>
           </paths>
         </dataPath>
         <titleLocation>Left</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>СсылкаПриИзменении</name>
+          <name>RefOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>СсылкаРасширеннаяПодсказка</name>
+          <name>RefExtendedTooltip</name>
           <id>12</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -175,7 +187,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>СсылкаКонтекстноеМеню</name>
+          <name>RefContextMenu</name>
           <id>11</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -206,15 +218,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>UUIDRef group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа ИДИСсылка</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>UUIDRef group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа ИДИСсылка</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаИДИСсылкаРасширеннаяПодсказка</name>
+        <name>UUIDRefGroupExtendedTooltip</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -243,15 +263,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Main group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа основная</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Main group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа основная</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаОсновнаяРасширеннаяПодсказка</name>
+      <name>MainGroupExtendedTooltip</name>
       <id>28</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -274,10 +302,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманднаяПанельВнизу</name>
+    <name>CommandBarBottomGroup</name>
     <id>4</id>
     <items xsi:type="form:Button">
-      <name>КнопкаЗакрыть</name>
+      <name>CloseButton</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -285,7 +313,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КнопкаЗакрытьРасширеннаяПодсказка</name>
+        <name>CloseButtonExtendedTooltip</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -307,8 +335,12 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>КомандаОК</name>
+      <name>OKCommand</name>
       <id>8</id>
+      <title>
+        <key>en</key>
+        <value>OK</value>
+      </title>
       <title>
         <key>ru</key>
         <value>ОК</value>
@@ -319,7 +351,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаОКРасширеннаяПодсказка</name>
+        <name>OKCommandExtendedTooltip</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -333,7 +365,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.КомандаОК</commandName>
+      <commandName>Form.Command.OKCommand</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -347,15 +379,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Command bar bottom group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Command bar bottom group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКоманднаяПанельВнизуРасширеннаяПодсказка</name>
+      <name>CommandBarBottomGroupExtendedTooltip</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -386,7 +426,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -396,7 +436,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -410,7 +450,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>СтрокаУникальныйИдентификатор</name>
+    <name>UUIDString</name>
+    <title>
+      <key>en</key>
+      <value>UUID</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Уникальный идентификатор</value>
@@ -430,7 +474,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Ссылка</name>
+    <name>Ref</name>
+    <title>
+      <key>en</key>
+      <value>Ref</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Ссылка</value>
@@ -454,12 +502,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>КомандаОК</name>
+    <name>OKCommand</name>
+    <title>
+      <key>en</key>
+      <value>OK command</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Команда ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>OK command</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда ОК</value>
@@ -469,18 +525,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаОК</name>
+        <name>OKCommand</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КомандаНайти</name>
+    <name>FindCommand</name>
+    <title>
+      <key>en</key>
+      <value>Find command</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Команда найти</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Find command</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда найти</value>
@@ -493,7 +557,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаНайти</name>
+        <name>FindCommand</name>
       </handler>
     </action>
     <representation>Picture</representation>

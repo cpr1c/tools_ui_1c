@@ -1,15 +1,15 @@
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	КопироватьДанныеФормы(Параметры.Объект, Объект);
+	CopyFormData(Parameters.Object, Object);
 	
-	Заголовок = Параметры.Заголовок;
-	Элементы.Информация.Заголовок = Параметры.Информация;
-	КодДляКопирования = Параметры.КодДляКопирования;
-	ИнформацияФорматированная = Новый ФорматированнаяСтрока(Параметры.Информация);
+	Title = Parameters.Title;
+	Items.Info.Title = Parameters.Info;
+	CodeToCopy = Parameters.CodeToCopy;
+	FormattedInfo = New FormattedString(Parameters.Info);
 	
-	Элементы.КодДляКопирования.КартинкаКнопкиВыбора = Элементы.Картинка_Копировать.Картинка;
+	Items.CodeToCopy.ChoiceButtonPicture = Items.Copy_Picture.Picture;
 	
-КонецПроцедуры
+EndProcedure
 
