@@ -4776,7 +4776,7 @@
     <name>Отчет</name>
     <id>1</id>
     <valueType>
-      <types>ReportObject.УИ_КонсольОтчетов</types>
+      <types>ReportObject.UT_ReportsConsole</types>
     </valueType>
     <view>
       <common>true</common>

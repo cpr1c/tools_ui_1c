@@ -1,238 +1,236 @@
-#Region МетодыСобытияПриложения
+#Region ConfigurationMethodsEvents
 
-Процедура OnStart() Экспорт
-	ПараметрыСтартаСеанса=UT_CommonServerCall.SessionStartParameters();
+Procedure OnStart() Export
+	SessionStartParameters=UT_CommonServerCall.SessionStartParameters();
 
-	Если ПараметрыСтартаСеанса.ДобавленыПраваНаРасширение Тогда
-		ЗавершитьРаботуСистемы(Ложь, Истина);
-	КонецЕсли;
+	If SessionStartParameters.ExtensionRightsAdded Then
+		Exit(False, True);
+	EndIf;
 
-	UT_ApplicationParameters.Вставить("НомерСеанса", ПараметрыСтартаСеанса.НомерСеанса);
-	UT_ApplicationParameters.Вставить("ЯзыкСинтаксисаКонфигурации", ПараметрыСтартаСеанса.ЯзыкСинтаксисаКонфигурации);
+	UT_ApplicationParameters.Insert("SessionNumber", SessionStartParameters.SessionNumber);
+	UT_ApplicationParameters.Insert("ConfigurationScriptVariant", SessionStartParameters.ConfigurationScriptVariant);
 
-	UT_ApplicationParameters.Вставить("ЭтоLinuxКлиент", UT_CommonClientServer.IsLinux());
-	UT_ApplicationParameters.Вставить("ЭтоWindowsКлиент", UT_CommonClientServer.IsWindows());
-	UT_ApplicationParameters.Вставить("ЭтоВебКлиент", ЭтоВебКлиент());
-	UT_ApplicationParameters.Вставить("IsPortableDistribution", UT_CommonClientServer.IsPortableDistribution());
-	UT_ApplicationParameters.Вставить("HTMLFieldBasedOnWebkit",UT_CommonClientServer.HTMLFieldBasedOnWebkit());
-	UT_ApplicationParameters.Вставить("ВерсияПлатформы",
+	UT_ApplicationParameters.Insert("IsLinuxClient", UT_CommonClientServer.IsLinux());
+	UT_ApplicationParameters.Insert("IsWindowsClient", UT_CommonClientServer.IsWindows());
+	UT_ApplicationParameters.Insert("IsWebClient", IsWebClient());
+	UT_ApplicationParameters.Insert("IsPortableDistribution", UT_CommonClientServer.IsPortableDistribution());
+	UT_ApplicationParameters.Insert("HTMLFieldBasedOnWebkit",UT_CommonClientServer.HTMLFieldBasedOnWebkit());
+	UT_ApplicationParameters.Insert("AppVersion",
 	UT_CommonClientServer.CurrentAppVersion());
-	//UT_ApplicationParameters.Вставить("АдресОписанияМетаданныхКонфигурации", УИ_ОбщегоНазначенияВызовСервера.АдресОписанияМетаданныхКонфигурации());
+	//UT_ApplicationParameters.Insert("ConfigurationMetadataDescriptionAdress", UT_CommonServerCall.ConfigurationMetadataDescriptionAdress());
 	
-	ПараметрыСеансаВХранилище = Новый Структура;
-	ПараметрыСеансаВХранилище.Вставить("ЭтоLinuxКлиент", UT_ApplicationParameters["ЭтоLinuxКлиент"]);
-	ПараметрыСеансаВХранилище.Вставить("ЭтоВебКлиент", UT_ApplicationParameters["ЭтоВебКлиент"]);
-	ПараметрыСеансаВХранилище.Вставить("ЭтоWindowsКлиент", UT_ApplicationParameters["ЭтоWindowsКлиент"]);
-	ПараметрыСеансаВХранилище.Вставить("IsPortableDistribution", UT_ApplicationParameters["IsPortableDistribution"]);
-	ПараметрыСеансаВХранилище.Вставить("HTMLFieldBasedOnWebkit", UT_ApplicationParameters["HTMLFieldBasedOnWebkit"]);
-	ПараметрыСеансаВХранилище.Вставить("ВерсияПлатформы", UT_ApplicationParameters["ВерсияПлатформы"]);
-	//ПараметрыСеансаВХранилище.Вставить("АдресОписанияМетаданныхКонфигурации", UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"]);
+	SessionParametersInStorage = New Structure;
+	SessionParametersInStorage.Insert("IsLinuxClient", UT_ApplicationParameters["IsLinuxClient"]);
+	SessionParametersInStorage.Insert("IsWebClient", UT_ApplicationParameters["IsWebClient"]);
+	SessionParametersInStorage.Insert("IsWindowsClient", UT_ApplicationParameters["IsWindowsClient"]);
+	SessionParametersInStorage.Insert("IsPortableDistribution", UT_ApplicationParameters["IsPortableDistribution"]);
+	SessionParametersInStorage.Insert("HTMLFieldBasedOnWebkit", UT_ApplicationParameters["HTMLFieldBasedOnWebkit"]);
+	SessionParametersInStorage.Insert("AppVersion", UT_ApplicationParameters["AppVersion"]);
+	//SessionParametersInStorage.Insert("ConfigurationMetadataDescriptionAdress", UT_ApplicationParameters["ConfigurationMetadataDescriptionAdress"]);
 
 	UT_CommonServerCall.CommonSettingsStorageSave(
 	UT_CommonClientServer.ObjectKeyInSettingsStorage(),
-	UT_CommonClientServer.SessionParametersSettingsKey(), ПараметрыСеансаВХранилище);
+	UT_CommonClientServer.SessionParametersSettingsKey(), SessionParametersInStorage);
 
-КонецПроцедуры
+EndProcedure
 
-Процедура OnExit() Экспорт
-	КаталогВспомогательныхБиблиотекИнструментов=КаталогВспомогательныхБиблиотекИнструментов();
-	Попытка
-		НачатьУдалениеФайлов(,КаталогВспомогательныхБиблиотекИнструментов);
-	Исключение
+Procedure OnExit() Export
+	UT_AdditionalLibrariesDirectory=UT_AdditionalLibrariesDirectory();
+	Try
+		BeginDeletingFiles(,UT_AdditionalLibrariesDirectory);
+	Except
 
-	КонецПопытки;
-КонецПроцедуры
+	EndTry;
+EndProcedure
 
 #EndRegion
 
-// Выводит текст, который пользователь может скопировать.
+// Displays the text, which users can copy.
 //
-// Параметры:
-//   Обработчик - ОписаниеОповещения - Описание процедуры, которая будет вызвана после завершения показа.
-//       Возвращаемое значение аналогично ПоказатьВопросПользователю().
-//   Текст     - Строка - Текст информации.
-//   Заголовок - Строка - Необязательный. Заголовок окна. По умолчанию "Подробнее".
+// Parameters:
+//   Handler - NotifyDescription - description of the procedure to be called after showing the message.
+//       Returns a value like ShowQuestionToUser().
+//   Text - String - an information text.
+//   Title - String - Optional. window title. "Details" by default.
 //
-Процедура ПоказатьПодробнуюИнформацию(Обработчик, Текст, Заголовок = Неопределено) Экспорт
-	НастройкиДиалога = Новый Структура;
-	НастройкиДиалога.Вставить("ПредлагатьБольшеНеЗадаватьЭтотВопрос", Ложь);
-	НастройкиДиалога.Вставить("Картинка", Неопределено);
-	НастройкиДиалога.Вставить("ПоказыватьКартинку", Ложь);
-	НастройкиДиалога.Вставить("МожноКопировать", Истина);
-	НастройкиДиалога.Вставить("КнопкаПоУмолчанию", 0);
-	НастройкиДиалога.Вставить("ВыделятьКнопкуПоУмолчанию", Ложь);
-	НастройкиДиалога.Вставить("Заголовок", Заголовок);
+Procedure ShowDetailedInfo(Handler, Text, Title = Undefined) Export
+	DialogSettings = New Structure;
+	DialogSettings.Insert("SuggestDontAskAgain", False);
+	DialogSettings.Insert("Picture", Undefined);
+	DialogSettings.Insert("ShowPicture", False);
+	DialogSettings.Insert("CanCopy", True);
+	DialogSettings.Insert("DefaultButton", 0);
+	DialogSettings.Insert("HighlightDefaultButton", False);
+	DialogSettings.Insert("Title", Title);
+	
+	If Not ValueIsFilled(DialogSettings.Title) Then
+		DialogSettings.Title = NStr("ru = 'Подробнее'; en = 'Details'");
+	EndIf;
+	
+	Buttons = New ValueList;
+	Buttons.Add(0, NStr("ru = 'Закрыть'; en = 'Close'"));
+	
+	ShowQuestionToUser(Handler, Text, Buttons, DialogSettings);
+EndProcedure
 
-	Если Не ЗначениеЗаполнено(НастройкиДиалога.Заголовок) Тогда
-		НастройкиДиалога.Заголовок = НСтр("ru = 'Подробнее'");
-	КонецЕсли;
+// Show the question form.
+//
+// Parameters:
+//   CompletionNotifyDescription - NotifyDescription - description of the procedures to be called 
+//                                                        after the question window is closed with the following parameters:
+//                                                          QuestionResult - Structure - a structure with the following properties:
+//                                                            Value - a user selection result: a 
+//                                                                       system enumeration value or 
+//                                                                       a value associated with the clicked button. 
+//                                                                       If the dialog is closed by a timeout - value
+//                                                                       Timeout.
+//                                                            DontAskAgain - Boolean - a user 
+//                                                                                                  
+//                                                                                                  selection result in the check box with the same name.
+//                                                          AdditionalParameters - Structure
+//   QuestionText - String - a question text.
+//   Buttons                        - QuestionDialogMode, ValueList - a value list may be specified in which:
+//                                       Value - contains the value connected to the button and 
+//                                                  returned when the button is selected. You can 
+//                                                  pass a value of the DialogReturnCode enumeration 
+//                                                  or any value that can be XDTO serialized.
+//                                                  
+//                                       Presentation - sets the button text.
+//
+//   AdditionalParameters - Structure - see StandardSubsystemsClient.QuestionToUserParameters 
+//
+// Returns:
+//   The user selection result is passed to the method specified in the NotifyDescriptionOnCompletion parameter.
+//
+Procedure ShowQuestionToUser(CompletionNotifyDescription, QuestionText, Buttons, AdditionalParameters = Undefined) Export
 
-	Кнопки = Новый СписокЗначений;
-	Кнопки.Добавить(0, НСтр("ru = 'Закрыть'"));
+	If AdditionalParameters <> Undefined Then
+		Parameters = AdditionalParameters;
+	Else
+		Parameters = New Structure;
+	EndIf;
 
-	ПоказатьВопросПользователю(Обработчик, Текст, Кнопки, НастройкиДиалога);
+	UT_CommonClientServer.SupplementStructure(Parameters, QuestionToUserParameters(), False);
+
+	ButtonsParameter = Buttons;
+
+		If TypeOf(Parameters.DefaultButton) = Type("DialogReturnCode") Then
+		Parameters.DefaultButton = DialogReturnCodeToString(Parameters.DefaultButton);
+	EndIf;
+	
+	If TypeOf(Parameters.TimeoutButton) = Type("DialogReturnCode") Then
+		Parameters.TimeoutButton = DialogReturnCodeToString(Parameters.TimeoutButton);
+	EndIf;
+	
+	Parameters.Insert("Buttons",         ButtonsParameter);
+	Parameters.Insert("MessageText", QuestionText);
+	
+	NotifyDescriptionForApplicationRun=CompletionNotifyDescription;
+	If NotifyDescriptionForApplicationRun = Undefined Then
+		NotifyDescriptionForApplicationRun=ApplicationRunEmptyNotifyDescription();
+	EndIf;
+
+	ShowQueryBox(NotifyDescriptionForApplicationRun, QuestionText, ButtonsParameter, , Parameters.DefaultButton, "",
+		Parameters.TimeoutButton);
+
 КонецПроцедуры
 
-// Показать форму вопроса.
+// Returns a new structure with additional parameters for the ShowQuestionToUser procedure.
 //
-// Параметры:
-//   ОписаниеОповещенияОЗавершении - ОписаниеОповещения - описание процедуры, которая будет вызвана после закрытия окна
-//                                                        вопроса со следующими параметрами:
-//                                                          РезультатВопроса - Структура - структура со свойствами:
-//                                                            Значение - результат выбора пользователя: значение
-//                                                                       системного перечисления или значение,
-//                                                                       связанное с нажатой кнопкой. В случае закрытия
-//                                                                       диалога по истечении времени - значение
-//                                                                       Таймаут.
-//                                                            БольшеНеЗадаватьЭтотВопрос - Булево - результат выбора
-//                                                                                                  пользователя в
-//                                                                                                  одноименном флажке.
-//                                                          ДополнительныеПараметры - Структура 
-//   ТекстВопроса                  - Строка             - текст задаваемого вопроса. 
-//   Кнопки                        - РежимДиалогаВопрос, СписокЗначений - может быть задан список значений, в котором:
-//                                       Значение - содержит значение, связанное с 
-//                                                  кнопкой и возвращаемое при выборе кнопки. В качестве значения может
-//                                                  использоваться значение
-//                                                  перечисления КодВозвратаДиалога, а также другие значения,
-//                                                  поддерживающее XDTO-сериализацию.
-//                                       Представление - задает текст кнопки.
+// Returns:
+//  Structure - structure with the following properties:
+//    * DefaultButton - Arbitrary - defines the default button by the button type or by the value 
+//                                                     associated with it.
+//    * Timeout - Number - a period of time in seconds in which the question window waits for user 
+//                                                     to respond.
+//    * TimeoutButton - Arbitrary - a button (by button type or value associated with it) on which 
+//                                                     the timeout remaining seconds are displayed.
+//                                                     
+//    * Title - String - a question title.
+//    * SuggestDontAskAgain - Boolean - if True, a check box with the same name is available in the window.
+//    * DontAskAgain - Boolean - a value set by the user in the matching check box.
+//                                                     
+//    * LockWholeInterface - Boolean - if True, the question window opens locking all other opened 
+//                                                     windows including the main one.
+//    * Picture - Picture - a picture displayed in the question window.
 //
-//   ДополнительныеПараметры       - Структура          - см. СтандартныеПодсистемыКлиент.ПараметрыВопросаПользователю.
-//
-// Возвращаемое значение:
-//   Результат выбора пользователя будет передан в метод, описанный параметром ОписаниеОповещенияОЗавершении. 
-//
-Процедура ПоказатьВопросПользователю(ОписаниеОповещенияОЗавершении, ТекстВопроса, Кнопки,
-	ДополнительныеПараметры = Неопределено) Экспорт
+Function QuestionToUserParameters() Export
+	
+	Parameters = New Structure;
+	Parameters.Insert("DefaultButton", Undefined);
+	Parameters.Insert("Timeout", 0);
+	Parameters.Insert("TimeoutButton", Undefined);
+	Parameters.Insert("Title", ClientApplication.GetCaption());
+	Parameters.Insert("SuggestDontAskAgain", True);
+	Parameters.Insert("DoNotAskAgain", False);
+	Parameters.Insert("LockWholeInterface", False);
+	Parameters.Insert("Picture", PictureLib.Question32);
+	Return Parameters;
+	
+EndFunction
 
-	Если ДополнительныеПараметры <> Неопределено Тогда
-		Параметры = ДополнительныеПараметры;
-	Иначе
-		Параметры = Новый Структура;
-	КонецЕсли;
+// Returns String Representation of type DialogReturnCode 
+Function DialogReturnCodeToString(Value)
 
-	UT_CommonClientServer.SupplementStructure(Параметры, ПараметрыВопросаПользователю(), Ложь);
+	Result = "DialogReturnCode." + String(Value);
 
-	КнопкиПараметр = Кнопки;
+	If Value = DialogReturnCode.Yes Then
+		Result = "DialogReturnCode.Yes";
+	ElsIf Value = DialogReturnCode.No Then
+		Result = "DialogReturnCode.No";
+	ElsIf Value = DialogReturnCode.OK Then
+		Result = "DialogReturnCode.OK";
+	ElsIf Value = DialogReturnCode.Cancel Then
+		Result = "DialogReturnCode.Cancel";
+	ElsIf Value = DialogReturnCode.Retry Then
+		Result = "DialogReturnCode.Retry";
+	ElsIf Value = DialogReturnCode.Abort Then
+		Result = "DialogReturnCode.Abort";
+	ElsIf Value = DialogReturnCode.Ignore Then
+		Result = "DialogReturnCode.Ignore";
+	EndIf;
 
-	Если ТипЗнч(Параметры.КнопкаПоУмолчанию) = Тип("КодВозвратаДиалога") Тогда
-	//@skip-warning
-		Параметры.КнопкаПоУмолчанию = КодВозвратаДиалогаВСтроку(Параметры.КнопкаПоУмолчанию);
-	КонецЕсли;
+	Return Result;
 
-	Если ТипЗнч(Параметры.КнопкаТаймаута) = Тип("КодВозвратаДиалога") Тогда
-		Параметры.КнопкаТаймаута = КодВозвратаДиалогаВСтроку(Параметры.КнопкаТаймаута);
-	КонецЕсли;
+EndFunction
 
-	Параметры.Вставить("Кнопки", КнопкиПараметр);
-	Параметры.Вставить("ТекстСообщения", ТекстВопроса);
+#Region ExecuteAlgorithms
 
-	ОповещениеДляЗапуска=ОписаниеОповещенияОЗавершении;
-	Если ОповещениеДляЗапуска = Неопределено Тогда
-		ОповещениеДляЗапуска=ПустоеОписаниеОповещенияДляЗапускаПриложения();
-	КонецЕсли;
+Function ExecuteAlgorithm(AlgorithmRef, IncomingParameters = Undefined, ExecutionError = False,
+	ErrorMessage = "") Export
+	Return UT_AlgorithmsClientServer.ExecuteAlgorithm(AlgorithmRef, IncomingParameters, ExecutionError,
+		ErrorMessage)
+EndFunction
 
-	ПоказатьВопрос(ОповещениеДляЗапуска, ТекстВопроса, КнопкиПараметр, , Параметры.КнопкаПоУмолчанию, "",
-		Параметры.КнопкаТаймаута);
+#EndRegion
 
-КонецПроцедуры
+#Region Debug
 
-// Возвращает новую структуру дополнительных параметров для процедуры ПоказатьВопросПользователю.
-//
-// Возвращаемое значение:
-//  Структура   - структура со свойствами:
-//    * КнопкаПоУмолчанию             - Произвольный - определяет кнопку по умолчанию по типу кнопки или по связанному
-//                                                     с ней значению.
-//    * Таймаут                       - Число        - интервал времени в секундах до автоматического закрытия окна
-//                                                     вопроса.
-//    * КнопкаТаймаута                - Произвольный - кнопка (по типу кнопки или по связанному с ней значению), 
-//                                                     на которой отображается количество секунд, оставшихся до
-//                                                     истечения таймаута.
-//    * Заголовок                     - Строка       - заголовок вопроса. 
-//    * ПредлагатьБольшеНеЗадаватьЭтотВопрос - Булево - если Истина, то в окне вопроса будет доступен одноименный флажок.
-//    * БольшеНеЗадаватьЭтотВопрос    - Булево       - принимает значение, выбранное пользователем в соответствующем
-//                                                     флажке.
-//    * БлокироватьВесьИнтерфейс      - Булево       - если Истина, форма вопроса открывается, блокируя работу всех
-//                                                     остальных открытых окон, включая главное окно.
-//    * Картинка                      - Картинка     - картинка, выводимая в окне вопроса.
-//
-Функция ПараметрыВопросаПользователю() Экспорт
+Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUnique = Undefined) Экспорт
+	If Upper(DebuggingObjectType) = "QUERY" Then
+		ConsoleFormName = "DataProcessor.UT_QueryConsole.Form";
+	ElsIf Upper(DebuggingObjectType) = "DATACOMPOSITIONSCHEMA" Then
+		ConsoleFormName = "Report.UT_ReportsConsole.Форма";
+	ElsIf Upper(DebuggingObjectType) = "DATABASEOBJECT" Then
+		ConsoleFormName = "DataProcessor.УИ_РедакторРеквизитовОбъекта.Форма";
+	ElsIf Upper(DebuggingObjectType) = "HTTPREQUEST" Then
+		ConsoleFormName = "DataProcessor.УИ_КонсольHTTPЗапросов.Форма";
+	Else
+		Return;
+	EndIf;
 
-	Параметры = Новый Структура;
-	Параметры.Вставить("КнопкаПоУмолчанию", Неопределено);
-	Параметры.Вставить("Таймаут", 0);
-	Параметры.Вставить("КнопкаТаймаута", Неопределено);
-	Параметры.Вставить("Заголовок", КлиентскоеПриложение.ПолучитьЗаголовок());
-	Параметры.Вставить("ПредлагатьБольшеНеЗадаватьЭтотВопрос", Истина);
-	Параметры.Вставить("БольшеНеЗадаватьЭтотВопрос", Ложь);
-	Параметры.Вставить("БлокироватьВесьИнтерфейс", Ложь);
-	Параметры.Вставить("Картинка", БиблиотекаКартинок.UT_Question32);
-	Возврат Параметры;
+	FormParameters = New Structure;
+	FormParameters.Insert("ДанныеОтладки", DebuggingData);
 
-КонецФункции
+	If ConsoleFormUnique = Undefined Then
+		Uniqueness = New UUID;
+	Else
+		Uniqueness = ConsoleFormUnique;
+	EndIf;
 
-// Возвращает строковое представление значения типа КодВозвратаДиалога.
-Function КодВозвратаДиалогаВСтроку(Значение)
+	OpenForm(ConsoleFormName, FormParameters, , Uniqueness);
 
-	Результат = "КодВозвратаДиалога." + Строка(Значение);
-
-	Если Значение = КодВозвратаДиалога.Да Тогда
-		Результат = "КодВозвратаДиалога.Да";
-	ИначеЕсли Значение = КодВозвратаДиалога.Нет Тогда
-		Результат = "КодВозвратаДиалога.Нет";
-	ИначеЕсли Значение = КодВозвратаДиалога.ОК Тогда
-		Результат = "КодВозвратаДиалога.ОК";
-	ИначеЕсли Значение = КодВозвратаДиалога.Отмена Тогда
-		Результат = "КодВозвратаДиалога.Отмена";
-	ИначеЕсли Значение = КодВозвратаДиалога.Повторить Тогда
-		Результат = "КодВозвратаДиалога.Повторить";
-	ИначеЕсли Значение = КодВозвратаДиалога.Прервать Тогда
-		Результат = "КодВозвратаДиалога.Прервать";
-	ИначеЕсли Значение = КодВозвратаДиалога.Пропустить Тогда
-		Результат = "КодВозвратаДиалога.Пропустить";
-	КонецЕсли;
-
-	Возврат Результат;
-
-КонецФункции
-
-#Область Алгоритмы
-
-Функция ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры = Неопределено, ОшибкаВыполнения = Ложь,
-	СообщениеОбОшибке = "") Экспорт
-	Возврат UT_AlgorithmsClientServer.ВыполнитьАлгоритм(АлгоритмСсылка, ВходящиеПараметры, ОшибкаВыполнения,
-		СообщениеОбОшибке)
-КонецФункции
-
-#КонецОбласти
-
-#Область Отладка
-
-Процедура OpenDebuggingConsole(ТипОбъектаОтладки, ДанныеДляОтладки, УникальностьФормыКонсоли = Неопределено) Экспорт
-	Если ВРег(ТипОбъектаОтладки) = "QUERY" Тогда
-		ИмяФормыКонсоли = "Обработка.УИ_КонсольЗапросов.Форма";
-	ИначеЕсли ВРег(ТипОбъектаОтладки) = "DATACOMPOSITIONSCHEMA" Тогда
-		ИмяФормыКонсоли = "Отчет.УИ_КонсольОтчетов.Форма";
-	ИначеЕсли ВРег(ТипОбъектаОтладки) = "DATABASEOBJECT" Тогда
-		ИмяФормыКонсоли = "Обработка.УИ_РедакторРеквизитовОбъекта.Форма";
-	ИначеЕсли ВРег(ТипОбъектаОтладки) = "HTTPREQUEST" Тогда
-		ИмяФормыКонсоли = "Обработка.УИ_КонсольHTTPЗапросов.Форма";
-	Иначе
-		Возврат;
-	КонецЕсли;
-
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("ДанныеОтладки", ДанныеДляОтладки);
-
-	Если УникальностьФормыКонсоли = Неопределено Тогда
-		Уникальность = Новый УникальныйИдентификатор;
-	Иначе
-		Уникальность = УникальностьФормыКонсоли;
-	КонецЕсли;
-
-	ОткрытьФорму(ИмяФормыКонсоли, ПараметрыФормы, , Уникальность);
-
-КонецПроцедуры
+EndProcedure
 
 Процедура ЗапуститьКонсольОтладкиПоКлючуНастройкиДанныхОтладки(КлючНастройкиОтладки, ИдентификаторФормы = Неопределено) Экспорт
 	Если Не ЗначениеЗаполнено(КлючНастройкиОтладки) Тогда
@@ -249,25 +247,25 @@ Function КодВозвратаДиалогаВСтроку(Значение)
 	OpenDebuggingConsole(ДанныеОтладки.ТипОбъектаОтладки, ДанныеОтладки.АдресОбъектаОтладки);
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-Функция ЭтоВебКлиент() Экспорт
-	#Если ВебКлиент Тогда
-		Возврат Истина;
+Function IsWebClient() Export
+	#Если WebClient Тогда
+		Return True;
 	#Иначе 
-		Возврат Ложь;
+		Return False;
 	#КонецЕсли
-КонецФункции
+EndFunction
 
-Функция ПустоеОписаниеОповещенияДляЗапускаПриложения() Экспорт
-	Возврат Новый ОписаниеОповещения("НачатьЗапускПриложенияЗавершениеПустое", ЭтотОбъект);
-КонецФункции
+Function ApplicationRunEmptyNotifyDescription() Export
+	Return New NotifyDescription("BeginRunningApplicationEndEmpty", ThisObject);
+EndFunction
 
-Процедура НачатьЗапускПриложенияЗавершениеПустое(КодВозврата, ДополнительныеПараметры) Экспорт
-	Если КодВозврата = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-КонецПроцедуры
+Procedure BeginRunningApplicationEndEmpty(ReturnCode, AdditionalParameters) Export
+	If ReturnCode = Undefined Then
+		Return;
+	EndIf;
+EndProcedure
 
 Процедура ОткрытьФормуРедактированияТекста(Текст, ОписаниеОповещенияОЗакрытии, Заголовок = "",
 	РежимОткрытия = Неопределено) Экспорт
@@ -354,18 +352,18 @@ Function КодВозвратаДиалогаВСтроку(Значение)
 КонецПроцедуры
 
 Процедура ЗадатьВопросРазработчику() Экспорт
-	НачатьЗапускПриложения(ПустоеОписаниеОповещенияДляЗапускаПриложения(),
+	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(),
 		"https://github.com/cpr1c/tools_ui_1c/issues");
 
 КонецПроцедуры
 
 Процедура ОткрытьСтраницуРазработки() Экспорт
-	НачатьЗапускПриложения(ПустоеОписаниеОповещенияДляЗапускаПриложения(), "https://github.com/cpr1c/tools_ui_1c");
+	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(), "https://github.com/cpr1c/tools_ui_1c");
 
 КонецПроцедуры
 
 Процедура ОткрытьСтраницуОсобенностейОтладкиПортативныхИнструметов() Экспорт
-	НачатьЗапускПриложения(ПустоеОписаниеОповещенияДляЗапускаПриложения(),
+	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(),
 		"https://github.com/cpr1c/tools_ui_1c/wiki/Особенности-использования-отладки-в-портативном-варианте");
 
 КонецПроцедуры
@@ -498,20 +496,20 @@ Function КодВозвратаДиалогаВСтроку(Значение)
 #Область ВспомогательныеБиблиотекиИнструментов
 
 Процедура СохранитьВспомогательныеБиблиотекиНаКлиентеПриНачалеРаботыСистемы() Экспорт
-	КаталогБиблиотек=КаталогВспомогательныхБиблиотекИнструментов();
+	КаталогБиблиотек=UT_AdditionalLibrariesDirectory();
 	
 	//1. очищаем наш каталог. Под каждую базу он свой
 	Сообщить(КаталогБиблиотек);
 КонецПроцедуры
 
-Функция КаталогВспомогательныхБиблиотекИнструментов() Экспорт
-	СтруктураФайловыхПеременных=СтруктураФайловыхПеременныхСеанса();
-	Если Не СтруктураФайловыхПеременных.Свойство("КаталогВременныхФайлов") Тогда
-		Возврат "";
-	КонецЕсли;
+Function UT_AdditionalLibrariesDirectory() Export
+	FileVariablesStructure=SessionFileVariablesStructure();
+	If Not FileVariablesStructure.Property("TempFilesDirectory") Then
+		Return "";
+	EndIf;
 	
-	Возврат СтруктураФайловыхПеременных.КаталогВременныхФайлов + ПолучитьРазделительПути() + "tools_ui_1c" + ПолучитьРазделительПути()
-КонецФункции
+	Return FileVariablesStructure.TempFilesDirectory + GetPathSeparator() + "tools_ui_1c" + GetPathSeparator()
+EndFunction
 #КонецОбласти
 
 #Область ХранилищеЗначения
@@ -866,8 +864,8 @@ Function КодВозвратаДиалогаВСтроку(Значение)
 	ДополнительныеПараметры) Экспорт
 
 	Если Подключено Тогда
-		СтруктураФайловыхПеременныхСеанса=UT_ApplicationParameters[ИмяПараметраФайловыхПеременныхСеанса()];
-		Если СтруктураФайловыхПеременныхСеанса = Неопределено Тогда
+		SessionFileVariablesStructure=UT_ApplicationParameters[SessionFileVariablesParameterName()];
+		Если SessionFileVariablesStructure = Неопределено Тогда
 			ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(
 				Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеЧтенияФайловыхПеременныхСеанса",
 				ЭтотОбъект, ДополнительныеПараметры));
@@ -908,21 +906,21 @@ Function КодВозвратаДиалогаВСтроку(Значение)
 
 #Область ЧтениеФайловыхПараметровСеансаВПараметрыПриложения
 
-Функция ИмяПараметраФайловыхПеременныхСеанса() Экспорт
-	Возврат "ФАЙЛОВЫЕ_ПЕРЕМЕННЫЕ";
-КонецФункции
+Function SessionFileVariablesParameterName () Export	
+	Return "FILE_VARIABLES";
+EndFunction
 
-Функция СтруктураФайловыхПеременныхСеанса() Экспорт
-	ТекущиеПараметрыПриложения=UT_ApplicationParameters;
+Function SessionFileVariablesStructure() Export
+	CurrentApplicationParameters=UT_ApplicationParameters;
 
-	СтруктураФайловыхПеременных=ТекущиеПараметрыПриложения[ИмяПараметраФайловыхПеременныхСеанса()];
-	Если СтруктураФайловыхПеременных = Неопределено Тогда
-		ТекущиеПараметрыПриложения[ИмяПараметраФайловыхПеременныхСеанса()]=Новый Структура;
-		СтруктураФайловыхПеременных=ТекущиеПараметрыПриложения[ИмяПараметраФайловыхПеременныхСеанса()];
-	КонецЕсли;
+	FileVariablesStructure=CurrentApplicationParameters[SessionFileVariablesParameterName()];
+	If FileVariablesStructure = Undefined Then
+		CurrentApplicationParameters[SessionFileVariablesParameterName()]=New Structure;
+		FileVariablesStructure=CurrentApplicationParameters[SessionFileVariablesParameterName()];
+	EndIf;
 
-	Возврат СтруктураФайловыхПеременных;
-КонецФункции
+	Return FileVariablesStructure;
+EndFunction
 
 Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(ОписаниеОповещенияОЗавершении) Экспорт
 	ДополнительныеПараметрыОповещения=Новый Структура;
@@ -936,8 +934,8 @@ Function КодВозвратаДиалогаВСтроку(Значение)
 
 Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеКаталогаВременныхФайловЗавершение(ИмяКаталога,
 	ДополнительныеПараметры) Экспорт
-	СтруктураФайловыхПеременных=СтруктураФайловыхПеременныхСеанса();
-	СтруктураФайловыхПеременных.Вставить("КаталогВременныхФайлов", ИмяКаталога);
+	СтруктураФайловыхПеременных=SessionFileVariablesStructure();
+	СтруктураФайловыхПеременных.Вставить("TempFilesDirectory", ИмяКаталога);
 
 	НачатьПолучениеРабочегоКаталогаДанныхПользователя(
 		Новый ОписаниеОповещения("ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение",
@@ -946,7 +944,7 @@ Function КодВозвратаДиалогаВСтроку(Значение)
 
 Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение(ИмяКаталога,
 	ДополнительныеПараметры) Экспорт
-	СтруктураФайловыхПеременных=СтруктураФайловыхПеременныхСеанса();
+	СтруктураФайловыхПеременных=SessionFileVariablesStructure();
 	СтруктураФайловыхПеременных.Вставить("РабочийКаталогДанныхПользователя", ИмяКаталога);
 
 	ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);

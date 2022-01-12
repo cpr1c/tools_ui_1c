@@ -322,7 +322,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Report.УИ_КонсольОтчетов</name>
+		<name>Report.UT_ReportsConsole</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -358,7 +358,7 @@
 		</right>
 	</object>
 	<object>
-    <name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
+		<name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
