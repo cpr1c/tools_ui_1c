@@ -254,7 +254,7 @@ Function ValueByType(Value)
 
 	If MetadataObject <> Undefined And UT_Common.IsRegister(MetadataObject) Then
 
-		List = Новый ValueList();
+		List = New ValueList();
 		List.Add(Value, MetadataObject.FullName());
 		Возврат List;
 	EndIf;
@@ -294,7 +294,7 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 
 	UpdateMarkedTree = True;
 	If NomberNotDeletedObjects = 0 Then
-		If DeletedObjects = 0 Then
+		If NumberDeletedObjects = 0 Then
 			Text = Nstr("en = 'Not a single object is marked for deletion. Objects were not deleted.' ; 
 							|ru = 'Не помечено на удаление ни одного объекта. Удаление объектов не выполнялось.'");
 			UpdateMarkedTree = False;
@@ -303,7 +303,7 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 			             НСтр("en = 'Deletion of marked objects has been completed successfully.' 
 			               |Deleted objects: %1.'; 
 			               |ru = 'Удаление помеченных объектов успешно завершено.
-							  |Удалено объектов: %1.'"), DeletedObjects);
+							  |Удалено объектов: %1.'"), NumberDeletedObjects);
 		EndIf;
 		PageName = "SelectDeleteMode";
 		ShowMessageBox( , Text);
@@ -365,7 +365,6 @@ EndProcedure
 &AtServer
 Function FindOrAddTreeBranch(TreeRows, Value, Presentation, Mark)
 	
-	// Попытка найти существующую ветвь в СтрокиДерева без вложенных
 	// Tring to find an exist branch in TreeRows whithout internal 
 	Branch = TreeRows.Find(Value, "Value", False);
 
@@ -388,7 +387,7 @@ Function FindOrAddTreeBranchWithPicture(TreeRows, Value, Presentation, PictureNu
 	Branch = TreeRows.Find(Value, "Value", False);
 	If Branch = Undefined Then
 		// There is no such branch, we will create a new one
-		Branch = TreeRows.Добавить();
+		Branch = TreeRows.Add();
 		Branch.Value      = ValueByType(Value);
 		Branch.Presentation = Presentation;
 		Branch.НомерКартинки = PictureNumber;
@@ -478,7 +477,7 @@ Procedure CheckParent(Parent)
 	For Each Item In RowItems Do
 		If Не Item.Mark Then
 			ParentMark = False;
-			Прервать;
+			Break;
 		EndIf;
 	EndDo;
 	Parent.Mark = ParentMark;
@@ -488,7 +487,7 @@ EndProcedure
 &AtServer
 Function GetArrayMarkedForDeletion(MarkedForDeletionItems, DeletionMode)
 
-	Deleted = Новый Array;
+	Deleted = New Array;
 
 	If DeletionMode = "Full" Then
 		// If deletion was completed, we get all a marked for deletion list
@@ -500,7 +499,7 @@ Function GetArrayMarkedForDeletion(MarkedForDeletionItems, DeletionMode)
 			ReferenceRowCollection = MetadataObjectRow.GetItems();
 			For Each ReferenceRow In ReferenceRowCollection Do
 				If ReferenceRow.Mark Then
-					Deleted.Добавить(ReferenceRow.Value);
+					Deleted.Add(ReferenceRow.Value);
 				EndIf;
 			EndDo;
 		EndDo;
@@ -535,239 +534,239 @@ Procedure DeleteListedObjects(ListedObjects, Check, PreventingDeletion)
 	EndIf;
 EndProcedure
 &AtServer
-Function RunDocumentsDeletion(Знач Удаляемые, ТипыУдаленныхОбъектовМассив)
-	DeletionResult = Новый Structure("Status, Value", False, "");
+Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
+	DeletionResult = New Structure("Status, Value", False, "");
 
 	If Не UT_Users.IsFullUser() Then
-		ВызватьИсключение НСтр("ru = 'Недостаточно прав для выполнения операции.'");
+		Raise NStr("en = 'Not enough permissions to perform the operation' ; ru = 'Недостаточно прав для выполнения операции.'");
 	EndIf;
 
-	DeletionObjectsTypes = Новый ТаблицаЗначений;
-	DeletionObjectsTypes.Колонки.Добавить("Тип", Новый ОписаниеТипов("Тип"));
-	For Each УдаляемыйОбъект In Удаляемые Do
-		НовыйТип = DeletionObjectsTypes.Добавить();
-		НовыйТип.Тип = ТипЗнч(УдаляемыйОбъект);
+	DeletionObjectsTypes = New ValueTable;
+	DeletionObjectsTypes.Colums.Add("Type", New TypeDescription("Type"));
+	For Each DeletedObject In DeletedArray Do
+		NewType = DeletionObjectsTypes.Add();
+		NewType.Type = TypeOf(DeletedObject);
 	EndDo;
-	DeletionObjectsTypes.Свернуть("Тип");
+	DeletionObjectsTypes.Groupby("Type");
 
-	НеУдаленные = Новый Массив;
+	NotDeletedObjectsArray = New Array;
 
-	Найденные = Новый ТаблицаЗначений;
-	Найденные.Колонки.Добавить("DeletionRef");
-	Найденные.Колонки.Добавить("ОбнаруженныйСсылка");
-	Найденные.Колонки.Добавить("ОбнаруженныйМетаданные");
+	Found = New ValueTable;
+	Found.Colums.Add("DeletionRef");
+	Found.Colums.Add("DetectedRef");
+	Found.Colums.Add("DetectedMetadata");
 
-	УдаляемыеОбъекты = Новый Массив;
-	For Each СсылкаНаОбъект In Удаляемые Do
-		УдаляемыеОбъекты.Добавить(СсылкаНаОбъект);
+	DeletedObjectsArray = New Array;
+	For Each ObjectRef In DeletedArray Do
+		DeletedObjectsArray.Add(ObjectRef);
 	EndDo;
 
-	МетаданныеРегистрыСведений = Метаданные.РегистрыСведений;
-	МетаданныеРегистрыНакопления = Метаданные.РегистрыНакопления;
-	МетаданныеРегистрыБухгалтерии = Метаданные.РегистрыБухгалтерии;
+	MetadataInformationRegisters = Metadata.InformationRegisters;
+	MetadataAccumulationRegisters = Metadata.AccumulationRegisters;
+	MetadataAccountingRegisters = Metadata.AccountingRegisters;
 
-	ИсключенияПоискаСсылок = UT_Common.RefSearchExclusions();
+	RefSearchExclusions = UT_Common.RefSearchExclusions();
 
-	ИсключающиеПравилаОбъектаМетаданных = Новый Соответствие;
+	ExcludingMetadataObjectRules = New Map;
 
-	Пока УдаляемыеОбъекты.Количество() > 0 Do
-		ПрепятствуюшиеУдалению = Новый ТаблицаЗначений;
+	While DeletedObjectsArray.Count() > 0 Do
+		PreventingDeletion = New ValueTable;
 		
-		// Попытка удалить с контролем ссылочной целостности.
-		Попытка
-			УстановитьПривилегированныйРежим(True);
-			DeleteListedObjects(УдаляемыеОбъекты, True, ПрепятствуюшиеУдалению);
-			УстановитьПривилегированныйРежим(False);
-		Исключение
-//			УстановитьМонопольныйРежим(False);
-			РезультатУдаления.Value = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
-			Возврат РезультатУдаления;
-		КонецПопытки;
+		// Attempt to delete with reference integrity control.
+		Try
 
-		КоличествоУдаляемыхОбъектов = УдаляемыеОбъекты.Количество();
-		
-		// Назначение имен колонок для таблицы конфликтов, возникших при удалении.
-		ПрепятствуюшиеУдалению.Колонки[0].Имя = "DeletionRef";
-		ПрепятствуюшиеУдалению.Колонки[1].Имя = "ОбнаруженныйСсылка";
-		ПрепятствуюшиеУдалению.Колонки[2].Имя = "ОбнаруженныйМетаданные";
-		
-		// Перемещение удаляемых объектов в список не удаленных
-		// и добавление в список найденных зависимых объектов
-		// с учетом исключения поиска ссылок.
-		For Each СтрокаТаблицы In ПрепятствуюшиеУдалению Do
-			ИсключениеПоиска = ИсключенияПоискаСсылок[СтрокаТаблицы.ОбнаруженныйМетаданные];
+			SetPrivilegedMode(True);
+			DeleteListedObjects(DeletedObjectsArray, True, PreventingDeletion);
+			SetPrivilegedMode(False);
+		Except
+//			SetPrivilegedMode(False);
+			DeletionResult.Value = DetailErrorDescription(ИнформацияОбОшибке());
+			Return DeletionResult;
+		EndTry;
 
-			If ИсключениеПоиска = "*" Then
-				Продолжить; // Можно удалять (обнаруженный объект метаданных не мешает).
+		NomberDeletedObjects = DeletedObjectsArray.Count();
+		
+		// Column names are set for the conflict tables that occurred during deletion.
+		PreventingDeletion.Columns[0].Name = "DeletionRef";
+		PreventingDeletion.Columns[1].Name = "DetectedRef";
+		PreventingDeletion.Columns[2].Name = "DetectedMetadata";
+		
+		// We move deleted objects to the list  undeleted one 
+		// and add found objects to the list by taking into account references
+		// that were excluded
+		For Each TableRow In PreventingDeletion Do
+			ExcludedRefs = RefSearchExclusions[TableRow.DetectedMetadata];
+
+			If ExcludedRefs = "*" Then
+				Continue; // Can delete (a found metadata object does not interfere).
 			EndIf;
 			
-			// Определение исключащего правила для объекта метаданных, препятствующего удалению:
-			// Для регистров (т.н. "необъектных таблиц") - массива реквизитов для поиска в записи регистра.
-			// Для ссылочных типов (т.н. "объектных таблиц") - готового запроса для поиска в реквизитах.
-			ИменаРеквизитовИлиЗапрос = ИсключающиеПравилаОбъектаМетаданных[СтрокаТаблицы.ОбнаруженныйМетаданные];
-			If ИменаРеквизитовИлиЗапрос = Undefined Then
+			//	Looks for an excluding rule for a metadata object that interfere deletion
+			//	For registers (so-called "non-object tables") - an array of attributes for search in a register record.
+			// For reference types (so-called "object tables") - a ready-made query for search in attributes.  
+			NameOfAttributesOrQuery = ExcludingMetadataObjectRules[TableRow.DetectedMetadata];
+			If NameOfAttributesOrQuery = Undefined Then
 				
-				// Формирование исключащего правила.
-				ЭтоРегистрСведений = МетаданныеРегистрыСведений.Содержит(СтрокаТаблицы.ОбнаруженныйМетаданные);
-				If ЭтоРегистрСведений Или МетаданныеРегистрыБухгалтерии.Содержит(СтрокаТаблицы.ОбнаруженныйМетаданные) // IsAccountingRegister
+				// We make an excluding rule
+				ThisInformationRegister = MetadataInformationRegisters.Contains(TableRow.DetectedMetadata);
+				If ThisInformationRegister Or MetadataAccountingRegisters.Contains(TableRow.DetectedMetadata) // IsAccountingRegister
 
-					Или МетаданныеРегистрыНакопления.Содержит(СтрокаТаблицы.ОбнаруженныйМетаданные) Then // IsAccumulationRegister
+					Or MetadataAccumulationRegisters.Contains(TableRow.DetectedMetadata) Then // IsAccumulationRegister
 
-					ИменаРеквизитовИлиЗапрос = Новый Массив;
-					If ЭтоРегистрСведений Then
-						For Each Измерение In СтрокаТаблицы.ОбнаруженныйМетаданные.Измерения Do
-							If Измерение.Ведущее Then
-								ИменаРеквизитовИлиЗапрос.Добавить(Измерение.Имя);
+					NameOfAttributesOrQuery = New Array;
+					If ThisInformationRegister Then
+						For Each Dimension In TableRow.DetectedMetadata.Dimensions Do
+							If Dimension.Master Then
+								NameOfAttributesOrQuery.Add(Dimension.Name);
 							EndIf;
 						EndDo;
 					Else
-						For Each Измерение In СтрокаТаблицы.ОбнаруженныйМетаданные.Измерения Do
-							ИменаРеквизитовИлиЗапрос.Добавить(Измерение.Имя);
+						For Each Dimension In TableRow.DetectedMetadata.Dimensions Do
+							NameOfAttributesOrQuery.Add(Dimension.Name);
 						EndDo;
 					EndIf;
 
-					If ТипЗнч(ИсключениеПоиска) = Тип("Массив") Then
-						For Each ИмяРеквизита In ИсключениеПоиска Do
-							If ИменаРеквизитовИлиЗапрос.Найти(ИмяРеквизита) = Undefined Then
-								ИменаРеквизитовИлиЗапрос.Добавить(ИмяРеквизита);
+					If TypeOf(ExcludedRefs) = Type("Array") Then
+						For Each AttributeName In ExcludedRefs Do
+							If NameOfAttributesOrQuery.Find(AttributeName) = Undefined Then
+								NameOfAttributesOrQuery.Add(AttributeName);
 							EndIf;
 						EndDo;
 					EndIf;
 
-				ElsIf ТипЗнч(ИсключениеПоиска) = Тип("Массив") Then
+				ElsIf TypeOf(ExcludedRefs) = Type("Array") Then
 
-					ТекстыЗапросов = Новый Соответствие;
-					ИмяКорневойТаблицы = СтрокаТаблицы.ОбнаруженныйМетаданные.ПолноеИмя();
+					QueryTexts = New Map;
+					NameOfRootTable = TableRow.DetectedMetadata.FullName();
 
-					For Each ПутьКРеквизиту In ИсключениеПоиска Do
-						ПозицияТочки = Найти(ПутьКРеквизиту, ".");
-						If ПозицияТочки = 0 Then
-							ПолноеИмяТаблицы = ИмяКорневойТаблицы;
-							ИмяРеквизита = ПутьКРеквизиту;
+					For Each AttributeWay In ExcludedRefs Do
+						PointPosition = Find(AttributeWay, ".");
+						If PointPosition = 0 Then
+							TableFullName = NameOfRootTable;
+							AttributeName = AttributeWay;
 						Else
-							ПолноеИмяТаблицы = ИмяКорневойТаблицы + "." + Лев(ПутьКРеквизиту, ПозицияТочки - 1);
-							ИмяРеквизита = Сред(ПутьКРеквизиту, ПозицияТочки + 1);
+							TableFullName = NameOfRootTable + "." + Left(AttributeWay, PointPosition - 1);
+							AttributeName = Mid(AttributeWay, PointPosition + 1);
 						EndIf;
 
-						ТекстВложенногоЗапроса = ТекстыЗапросов.Получить(ПолноеИмяТаблицы);
-						If ТекстВложенногоЗапроса = Undefined Then
-							ТекстВложенногоЗапроса = "ВЫБРАТЬ ПЕРВЫЕ 1
+						IncludedQueryText = QueryTexts.Получить(TableFullName);
+						If IncludedQueryText = Undefined Then
+							IncludedQueryText = "SELECT TOP 1
 													 |	1
-													 |ИЗ
-													 |	" + ПолноеИмяТаблицы + " КАК Таблица
-																				 |ГДЕ
-																				 |	Таблица.Ссылка = &ОбнаруженныйСсылка
+													 |FROM
+													 |	" + TableFullName + " AS TABLE
+																				 |WHERE
+																				 |	Table.Ref = &DetectedRef
 																				 |	And (";
 						Else
-							ТекстВложенногоЗапроса = ТекстВложенногоЗапроса + Символы.ПС + Символы.Таб + Символы.Таб
-								+ "ИЛИ ";
+							IncludedQueryText = IncludedQueryText + Chars.LF + Chars.Tab + Chars.Tab
+								+ "OR ";
 						EndIf;
-						ТекстВложенногоЗапроса = ТекстВложенногоЗапроса + "Таблица." + ИмяРеквизита
-							+ " = &УдаляемыйСсылка";
+						IncludedQueryText = IncludedQueryText + "Table." + AttributeName
+							+ " = &DetectedRef";
 
-						ТекстыЗапросов.Вставить(ПолноеИмяТаблицы, ТекстВложенногоЗапроса);
+						QueryTexts.Insert(TableFullName, IncludedQueryText);
 					EndDo;
 
-					ТекстЗапроса = "";
-					For Each КлючИЗначение In ТекстыЗапросов Do
-						If ТекстЗапроса <> "" Then
-							ТекстЗапроса = ТекстЗапроса + Символы.ПС + Символы.ПС + "ОБЪЕДИНИТЬ ВСЕ" + Символы.ПС
-								+ Символы.ПС;
+					QueryText = "";
+					For Each KeyAndValue In QueryTexts Do
+						If QueryText <> "" Then
+							QueryText = QueryText + Chars.LF + Chars.LF + "UNION ALL" + Chars.LF
+								+ Chars.LF;
 						EndIf;
-						ТекстЗапроса = ТекстЗапроса + КлючИЗначение.Value + ")";
+						QueryText = QueryText + KeyAndValue.Value + ")";
 					EndDo;
 
-					ИменаРеквизитовИлиЗапрос = Новый Запрос;
-					ИменаРеквизитовИлиЗапрос.Текст = ТекстЗапроса;
+					NameOfAttributesOrQuery = New Запрос;
+					NameOfAttributesOrQuery.Text = QueryText;
 
 				Else
 
-					ИменаРеквизитовИлиЗапрос = "";
+					NameOfAttributesOrQuery = "";
 
 				EndIf;
 
-				ИсключающиеПравилаОбъектаМетаданных.Вставить(СтрокаТаблицы.ОбнаруженныйМетаданные,
-					ИменаРеквизитовИлиЗапрос);
+				ExcludingMetadataObjectRules.Insert(TableRow.DetectedMetadata,
+					NameOfAttributesOrQuery);
 
 			EndIf;
 			
-			// Проверка исключащего правила.
-			If ТипЗнч(ИменаРеквизитовИлиЗапрос) = Тип("Массив") Then
-				УдаляемаяСсылкаВИсключаемомРеквизите = False;
+			// Checks an excluding rule.
+			If TypeOf(NameOfAttributesOrQuery) = Type("Array") Then
+				DeletedRefInExcludedAttribute = False;
 
-				For Each ИмяРеквизита In ИменаРеквизитовИлиЗапрос Do
-					If СтрокаТаблицы.ОбнаруженныйСсылка[ИмяРеквизита] = СтрокаТаблицы.УдаляемыйСсылка Then
-						УдаляемаяСсылкаВИсключаемомРеквизите = True;
-						Прервать;
+				For Each AttributeName In NameOfAttributesOrQuery Do
+					If TableRow.DetectedRef[AttributeName] = TableRow.DeletionRef Then
+						DeletedRefInExcludedAttribute = True;
+						Break;
 					EndIf;
 				EndDo;
 
-				If УдаляемаяСсылкаВИсключаемомРеквизите Then
-					Продолжить; // Можно удалять (обнаруженная запись регистра не мешает).
+				If DeletedRefInExcludedAttribute Then
+					Continue; // Can delete (a found record does not interfere).
 				EndIf;
-			ElsIf ТипЗнч(ИменаРеквизитовИлиЗапрос) = Тип("Запрос") Then
-				ИменаРеквизитовИлиЗапрос.УстановитьПараметр("УдаляемыйСсылка", СтрокаТаблицы.УдаляемыйСсылка);
-				ИменаРеквизитовИлиЗапрос.УстановитьПараметр("ОбнаруженныйСсылка", СтрокаТаблицы.ОбнаруженныйСсылка);
-				If Не ИменаРеквизитовИлиЗапрос.Выполнить().Пустой() Then
-					Продолжить; // Можно удалять (обнаруженная ссылка не мешает).
+			ElsIf TypeOf(NameOfAttributesOrQuery) = Type("Query") Then
+				NameOfAttributesOrQuery.SetParameter("DeletionRef", TableRow.DeletionRef);
+				NameOfAttributesOrQuery.SetParameter("DetectedRef", TableRow.DetectedRef);
+				If Not NameOfAttributesOrQuery.Execute().IsEmpty() Then
+					Continue; // Can delete (a found reference does not interfere).
 				EndIf;
 			EndIf;
 			
-			// Все исключающие правила пройдены.
-			// Невозможно удалить объект (мешает обнаруженная ссылка или запись регистра).
-			// Сокращение удаляемых объектов.
-			Индекс = УдаляемыеОбъекты.Найти(СтрокаТаблицы.УдаляемыйСсылка);
-			If Индекс <> Undefined Then
-				УдаляемыеОбъекты.Удалить(Индекс);
+			// All excluded rules were passed
+			// Can not delete the object (The found reference or the register record interferes).
+			// Removes deleted objects
+			Index = DeletedObjectsArray.Find(TableRow.DeletionRef);
+			If Index <> Undefined Then
+				DeletedObjectsArray.Delete(Index);
 			EndIf;
 			
-			// Добавление не удаленных объектов.
-			If НеУдаленные.Найти(СтрокаТаблицы.УдаляемыйСсылка) = Undefined Then
-				НеУдаленные.Добавить(СтрокаТаблицы.УдаляемыйСсылка);
+			// Adding undeleted objects.
+			If NotDeletedObjectsArray.Find(TableRow.DeletionRef) = Undefined Then
+				NotDeletedObjectsArray.Add(TableRow.DeletionRef);
 			EndIf;
 			
-			// Добавление найденных зависимых объектов.
-			НоваяСтрока = Найденные.Добавить();
-			ЗаполнитьЗначенияСвойств(НоваяСтрока, СтрокаТаблицы);
+			// Adding found dependent objects
+			NewRow = Found.Add();
+			FillPropertyValues(NewRow, TableRow);
 
 		EndDo;
 		
-		// Удаление без контроля, If состав удаляемых объектов не был изменён на этом шаге Doа.
-		If КоличествоУдаляемыхОбъектов = УдаляемыеОбъекты.Количество() Then
-			Попытка
-				// Удаление без контроля ссылочной целостности.
-				УстановитьПривилегированныйРежим(True);
-				УдалитьОбъекты(УдаляемыеОбъекты, False);
-				УстановитьПривилегированныйРежим(False);
-			Исключение
-				УстановитьМонопольныйРежим(False);
-				;
-				DeletionResult.Value = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
+		// Deletes without control, if the composition of the deleted objects has not been changed at this step of the cycle.
+		If NomberDeletedObjects = DeletedObjectsArray.Count() Then
+			Try
+				//Delete objects without reference control
+				SetPrivilegedMode(True);
+				DeleteObjects(DeletedObjectsArray, False);
+				SetPrivilegedMode(False);
+			Except
+				SetExclusiveMode(False);
+				DeletionResult.Value = DetailErrorDescription(ErrorInfo());
 				Возврат DeletionResult;
-			КонецПопытки;
-			
-			// Удаление всего, что возможно, завершено - выход из цикла.
-			Прервать;
+			Endtry;
+
+			// Deleting everything that is possible was completed - exit the loop.
+			Break;
 		EndIf;
 	EndDo;
 
-	For Each НеУдаленныйОбъект In НеУдаленные Do
-		НайденныеСтроки = DeletionObjectsTypes.НайтиСтроки(Новый Structure("Тип", ТипЗнч(НеУдаленныйОбъект)));
-		If НайденныеСтроки.Количество() > 0 Then
-			DeletionObjectsTypes.Удалить(НайденныеСтроки[0]);
+	For Each NotDeletedObject In NotDeletedObjectsArray Do
+		FoundRows = DeletionObjectsTypes.FindRows(New Structure("Type", TypeOf(NotDeletedObject)));
+		If FoundRows.Count() > 0 Then
+			DeletionObjectsTypes.Delete(FoundRows[0]);
 		EndIf;
 	EndDo;
 
-	ТипыУдаленныхОбъектовМассив = DeletionObjectsTypes.ВыгрузитьКолонку("Тип");
+	DeletedObjectsTypes = DeletionObjectsTypes.UnloadColumn("Type");
 
-	УстановитьМонопольныйРежим(False);
+	SetExclusiveMode(False);
 
-	Найденные.Колонки.УдаляемыйСсылка.Имя        = "Ссылка";
-	Найденные.Колонки.ОбнаруженныйСсылка.Имя     = "Данные";
-	Найденные.Колонки.ОбнаруженныйМетаданные.Имя = "Метаданные";
+	Found.Columns.DeletionRef.Name        = "Ref";
+	Found.Columns.DetectedRef.Name     = "Data";
+	Found.Columns.DetectedMetadata.Name = "Metadata";
 
-	DeletionResult.Статус = True;
-	DeletionResult.Value = Новый Structure("Найденные, NotDeleted", Найденные, NotDeleted);
+	DeletionResult.Status = True;
+	DeletionResult.Value = New Structure("Found, NotDeleted", Found, NotDeletedObjectsArray);
 
 	Возврат DeletionResult;
 EndFunction
@@ -879,20 +878,20 @@ EndFunction
 &AtServer
 Function FillTreeOfRemainingObjects(Result)
 
-	Найденные   = Result.Value.Найденные;
-	НеУдаленные = Result.Value.НеУдаленные;
+	Found   = Result.Value.Found;
+	UnDeleted = Result.Value.UnDeleted;
 
-	NomberNotDeletedObjects = НеУдаленные.Количество();
+	NomberNotDeletedObjects = UnDeleted.Количество();
 	
 	// Создадим таблицу оставшихся (не удаленных) объектов
 	NotDeletedItemsTree.GetItems().Очистить();
 
 	Дерево = РеквизитФормыВЗначение("NotDeletedItems");
 
-	For Each Найденный In Найденные Do
-		НеУдаленный = Найденный[0];
-		Ссылающийся = Найденный[1];
-		ОбъектМетаданныхСсылающегося = Найденный[2].Представление();
+	For Each FoundItem In Found Do
+		НеУдаленный = FoundItem[0];
+		Ссылающийся = FoundItem[1];
+		ОбъектМетаданныхСсылающегося = FoundItem[2].Представление();
 		ОбъектМетаданныхНеУдаленногоЗначение = НеУдаленный.Метаданные().ПолноеИмя();
 		ОбъектМетаданныхНеУдаленногоПредставление = НеУдаленный.Метаданные().Представление();
 		//ветвь метаданного
@@ -916,19 +915,19 @@ EndFunction
 Procedure FillRusultsLine(NomberDeleted)
 
 
-	DeletedObjects = NomberDeleted - NomberNotDeletedObjects;
+	NumberDeletedObjects = NomberDeleted - NomberNotDeletedObjects;
 
-	If DeletedObjects = 0 Then
+	If NumberDeletedObjects = 0 Then
 		ResultLine = НСтр(
 			"ru = 'Не удален ни один из объектов, так как в информационной базе существуют ссылки на удаляемые объекты'");
 	Else
 		ResultLine = СтрШаблон(
 				НСтр("ru = 'Удаление помеченных объектов завершено.
-					 |Удалено объектов: %1.'"), Строка(DeletedObjects));
+					 |Удалено объектов: %1.'"), Строка(NumberDeletedObjects));
 	EndIf;
 
 	If NomberNotDeletedObjects > 0 Then
-		ResultLine = ResultLine + Символы.ПС + СтрШаблон(
+		ResultLine = ResultLine + Chars.LF + СтрШаблон(
 				НСтр("ru = 'Не удалено объектов: %1.
 					 |Объекты не удалены для сохранения целостности информационной базы, т.к. на них еще имеются ссылки.
 					 |Нажмите ОК для просмотра списка оставшихся (не удаленных) объектов.'"), Строка(
