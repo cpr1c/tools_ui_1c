@@ -12,7 +12,7 @@
 	ЭтоWindowsКлиент = Ложь;
 	ЭтоВебКлиент = Истина;
 	
-	ПараметрыСеансаВХранилище = UT_CommonServerCall.ХранилищеОбщихНастроекЗагрузить(
+	ПараметрыСеансаВХранилище = UT_CommonServerCall.CommonSettingsStorageLoad(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 	Если Тип(ПараметрыСеансаВХранилище) = Тип("Структура") Тогда

@@ -1,129 +1,129 @@
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	КопироватьДанныеФормы(Параметры.Объект, Объект);
+	CopyFormData(Parameters.Object, Object);
 	
-	СтрокаУникальныйИдентификатор = Параметры.Значение;
+	UUIDString = Parameters.Value;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура КомандаОК(Команда)
+&AtClient
+Procedure OKCommand(Command)
 	
-	Если ЗначениеЗаполнено(СтрокаУникальныйИдентификатор) Тогда
-		Значение = Новый УникальныйИдентификатор(СтрокаУникальныйИдентификатор);
-	Иначе
-		Значение = Новый УникальныйИдентификатор;
-	КонецЕсли;
+	If ValueIsFilled(UUIDString) Then
+		Value = New UUID(UUIDString);
+	Else
+		Value = New UUID;
+	EndIf;
 	
-	ВозвращаемоеЗначение = Новый Структура("Значение", Значение);
+	ReturnValue = New Structure("Value", Value);
 
-	Закрыть(ВозвращаемоеЗначение);
+	Close(ReturnValue);
 		
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УникальныйИдентификаторОкончаниеВводаТекста(Элемент, Текст, ДанныеВыбора, ПараметрыПолученияДанных, СтандартнаяОбработка)
-	//СтандартнаяОбработка = Ложь;
-	Если ЗначениеЗаполнено(Текст) Тогда
-		Попытка
+&AtClient
+Procedure UUIDTextEditEnd(Item, Text, ChoiceData, DataGetParameters, StandardProcessing)
+	//StandardProcessing = False;
+	If ValueIsFilled(Text) Then
+		Try
 			//@skip-warning
-			ъ = Новый УникальныйИдентификатор(Текст);
-		Исключение
-			ВызватьИсключение "Некорректный уникальный идентификатор!";
-		КонецПопытки;
-	КонецЕсли;
-КонецПроцедуры
+			j = New UUID(Text);
+		Except
+			Raise NStr("ru = 'Некорректный уникальный идентификатор!'; en = 'UUID is incorrect.'");
+		EndTry;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура УникальныйИдентификаторПриИзменении(Элемент)
+&AtClient
+Procedure UUIDOnChange(Item)
 	//@skip-warning
-	Если ЗначениеЗаполнено(Ссылка) И Строка(Ссылка.УникальныйИдентификатор()) <> СтрокаУникальныйИдентификатор Тогда
-		Ссылка = Неопределено;
-	КонецЕсли;
-КонецПроцедуры
+	If ValueIsFilled(Ref) And String(Ref.UUID()) <> UUIDString Then
+		Ref = Undefined;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура СсылкаПриИзменении(Элемент)
-	Если Ссылка <> Неопределено Тогда
+&AtClient
+Procedure RefOnChange(Item)
+	If Ref <> Undefined Then
 		//@skip-warning
-		СтрокаУникальныйИдентификатор = Ссылка.УникальныйИдентификатор();
-	КонецЕсли;
-КонецПроцедуры
+		UUIDString = Ref.UUID();
+	EndIf;
+EndProcedure
 
-&НаСервереБезКонтекста
-Процедура ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, КлассСсылки, Менеджер, СтрокаУникальныйИдентификатор)
+&AtServerNoContext
+Procedure AddQuery(arSearchQuery, SearchQuery, RefClass, Manager, UUIDString)
 	
-	Ссылка = Менеджер.ПолучитьСсылку(Новый УникальныйИдентификатор(СтрокаУникальныйИдентификатор));
-	ИмяМетаданных = Ссылка.Метаданные().Имя;
-	ТаблицаБазы = КлассСсылки + "." + ИмяМетаданных;
-	ИмяПараметра = КлассСсылки + ИмяМетаданных;;
+	Ref = Manager.GetRef(New UUID(UUIDString));
+	MetadataName = Ref.Metadata().Name;
+	IBTable = RefClass + "." + MetadataName;
+	ParameterName = RefClass + MetadataName;;
 	
-	маЗапросПоиска.Добавить(
-		"ВЫБРАТЬ ПЕРВЫЕ 1
-		|	Таблица.Ссылка КАК Ссылка
-		|ИЗ
-		|	" + ТаблицаБазы + " КАК Таблица
-		|ГДЕ
-		|	Таблица.Ссылка = &" + ИмяПараметра);
-	ЗапросПоиска.УстановитьПараметр(ИмяПараметра, Ссылка);
+	arSearchQuery.Добавить(
+		"SELCT TOP 1
+		|	Table.Ref AS Ref
+		|FROM
+		|	" + IBTable + " AS Table
+		|WHERE
+		|	Table.Ref = &" + ParameterName);
+	SearchQuery.SetParameter(ParameterName, Ref);
 		
-КонецПроцедуры
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция КомандаНайтиНаСервере(СтрокаУникальныйИдентификатор)
+&AtServerNoContext
+Function FindCommandAtServer(UUIDString)
 	
-	ЗапросПоиска = Новый Запрос;
-	маЗапросПоиска = Новый Массив;
+	SearchQuery = New Query;
+	arSearchQuery = New Array;
 	
-	Для Каждого Менеджер Из Справочники Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "Справочник", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In Catalogs Do
+		AddQuery(arSearchQuery, SearchQuery, "Catalog", Manager, UUIDString);
+	EndDo;
 	
-	Для Каждого Менеджер Из Документы Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "Документ", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In Documents Do
+		AddQuery(arSearchQuery, SearchQuery, "Document", Manager, UUIDString);
+	EndDo;
 	
-	Для Каждого Менеджер Из ПланыСчетов Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "ПланСчетов", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In ChartsOfAccounts Do
+		AddQuery(arSearchQuery, SearchQuery, "ChartOfAccounts", Manager, UUIDString);
+	EndDo;
 	                                                         
-	Для Каждого Менеджер Из ПланыВидовХарактеристик Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "ПланВидовХарактеристик", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In ChartsOfCharacteristicTypes Do
+		AddQuery(arSearchQuery, SearchQuery, "ChartOfCharacteristicTypes", Manager, UUIDString);
+	EndDo;
 	
-	Для Каждого Менеджер Из ПланыВидовРасчета Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "ПланВидовРасчета", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In ChartsOfCalculationTypes Do
+		AddQuery(arSearchQuery, SearchQuery, "ChartOfCalculationTypes", Manager, UUIDString);
+	EndDo;
 	
-	Для Каждого Менеджер Из БизнесПроцессы Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "БизнесПроцесс", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In BusinessProcesses Do
+		AddQuery(arSearchQuery, SearchQuery, "BusinessProcess", Manager, UUIDString);
+	EndDo;
 	
-	Для Каждого Менеджер Из Задачи Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "Задача", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In Tasks Do
+		AddQuery(arSearchQuery, SearchQuery, "Task", Manager, UUIDString);
+	EndDo;
 	
-	Для Каждого Менеджер Из ПланыОбмена Цикл
-		ДобавитьЗапрос(маЗапросПоиска, ЗапросПоиска, "ПланОбмена", Менеджер, СтрокаУникальныйИдентификатор);
-	КонецЦикла;
+	For Each Manager In ExchangePlans Do
+		AddQuery(arSearchQuery, SearchQuery, "ExchangePlan", Manager, UUIDString);
+	EndDo;
 	
-	ТекстЗапроса = СтрСоединить(маЗапросПоиска, "
-		|ОБЪЕДИНИТЬ ВСЕ
+	QueryText = StrConcat(arSearchQuery, "
+		|UNION ALL
 		|");
 	
-	ЗапросПоиска.Текст = ТекстЗапроса;
-	Выборка = ЗапросПоиска.Выполнить().Выбрать();
-	Если Выборка.Следующий() Тогда
-		Возврат Выборка.Ссылка;
-	КонецЕсли;
+	SearchQuery.Text = QueryText;
+	Selection = SearchQuery.Execute().Select();
+	If Selection.Next() Then
+		Return Selection.Ref;
+	EndIf;
 	
-	Возврат Неопределено;
+	Return Undefined;
 	
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Процедура КомандаНайти(Команда)
-	Ссылка = КомандаНайтиНаСервере(СтрокаУникальныйИдентификатор);
-КонецПроцедуры
+&AtClient
+Procedure FindCommand(Command)
+	Ref = FindCommandAtServer(UUIDString);
+EndProcedure
