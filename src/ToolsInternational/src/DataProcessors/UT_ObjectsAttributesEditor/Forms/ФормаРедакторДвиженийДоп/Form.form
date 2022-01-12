@@ -2197,7 +2197,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_РедакторРеквизитовОбъекта</types>
+      <types>DataProcessorObject.UT_ObjectsAttributesEditor</types>
     </valueType>
     <view>
       <common>true</common>

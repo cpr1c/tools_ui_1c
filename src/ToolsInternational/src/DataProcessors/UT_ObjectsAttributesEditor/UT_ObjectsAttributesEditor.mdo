@@ -4,13 +4,14 @@
     <objectType typeId="df50963a-8057-4804-a412-d0c3dfb45fe3" valueTypeId="02e83650-6a68-491f-9600-bfea03555e98"/>
     <managerType typeId="8cd41156-16d1-4d2b-b23f-d1b8256e235d" valueTypeId="08dc800f-6a67-42d8-8e04-b1ea3576ec77"/>
   </producedTypes>
-  <name>УИ_РедакторРеквизитовОбъекта</name>
+  <name>UT_ObjectsAttributesEditor</name>
   <synonym>
     <key>ru</key>
     <value>Редактор реквизитов объекта базы данных [УИ]</value>
   </synonym>
+  <comment>УИ_РедакторРеквизитовОбъекта</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_РедакторРеквизитовОбъекта.Form.ФормаОбъекта</defaultForm>
+  <defaultForm>DataProcessor.UT_ObjectsAttributesEditor.Form.ObjectForm</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Редактор реквизитов объекта базы данных</value>
@@ -20,10 +21,10 @@
     <value>позволяет низкоуровневое редактирование ссылочных объектов. Поддерживает редактирование движений документа.</value>
   </explanation>
   <forms uuid="87ecb0de-09b8-43aa-9296-9c80a11b8fd2">
-    <name>ФормаОбъекта</name>
+    <name>ObjectForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма объекта</value>
+      <value>Object form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

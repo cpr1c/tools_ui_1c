@@ -212,15 +212,15 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 	ElsIf Upper(DebuggingObjectType) = "DATACOMPOSITIONSCHEMA" Then
 		ConsoleFormName = "Report.UT_ReportsConsole.Форма";
 	ElsIf Upper(DebuggingObjectType) = "DATABASEOBJECT" Then
-		ConsoleFormName = "DataProcessor.УИ_РедакторРеквизитовОбъекта.Форма";
+		ConsoleFormName = "DataProcessor.UT_ObjectsAttributesEditor.ObjectForm";
 	ElsIf Upper(DebuggingObjectType) = "HTTPREQUEST" Then
-		ConsoleFormName = "DataProcessor.УИ_КонсольHTTPЗапросов.Форма";
+		ConsoleFormName = "DataProcessor.UT_HTTPRequestConsole.Form";
 	Else
 		Return;
 	EndIf;
 
 	FormParameters = New Structure;
-	FormParameters.Insert("ДанныеОтладки", DebuggingData);
+	FormParameters.Insert("DebuggingData", DebuggingData);
 
 	If ConsoleFormUnique = Undefined Then
 		Uniqueness = New UUID;
@@ -316,7 +316,7 @@ EndProcedure
 	ПараметрыФормы=Новый Структура;
 	ПараметрыФормы.Вставить("мОбъектСсылка", СсылкаНаОбъект);
 
-	ОткрытьФорму("Обработка.УИ_РедакторРеквизитовОбъекта.Форма", ПараметрыФормы);
+	ОткрытьФорму("Обработка.UT_ObjectsAttributesEditor.Форма", ПараметрыФормы);
 КонецПроцедуры
 
 Процедура РедактироватьJSON(СтрокаJSON, РежимПросмотра, ОписаниеОповещенияОЗавершении = Неопределено) Экспорт

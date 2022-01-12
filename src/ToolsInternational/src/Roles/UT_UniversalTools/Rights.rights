@@ -159,7 +159,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РедакторРеквизитовОбъекта</name>
+		<name>DataProcessor.UT_ObjectsAttributesEditor</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
