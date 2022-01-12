@@ -284,7 +284,7 @@ EndProcedure
 Procedure  OpenValueListChoiceItemsForm(List, OnCloseNotifyDescription, Title = "",
 	ItemsType = Undefined, MarkVisibility = True, ResresentationVisibility = True, SelectionMode = True,
 	ReturnOnlySelectedValues = True, WindowOpeningMode = Undefined, AvailableValues = Undefined) Export
-	FormParameters = Новый Структура;
+	FormParameters = New Structure;
 	FormParameters.Insert("List", List);
 	FormParameters.Insert("Title", Title);
 	FormParameters.Insert("ReturnOnlySelectedValues", ReturnOnlySelectedValues);
@@ -307,49 +307,49 @@ Procedure  OpenValueListChoiceItemsForm(List, OnCloseNotifyDescription, Title = 
 	EndIf;
 EndProcedure
 
-Процедура EditObject(СсылкаНаОбъект) Экспорт
-	МассивТиповДоступныхДляРедактирования=UT_CommonClientCached.DataBaseObjectEditorAvalibleObjectsTypes();
-	Если МассивТиповДоступныхДляРедактирования.Найти(ТипЗнч(СсылкаНаОбъект)) = Undefined Тогда
-		Возврат;
-	КонецЕсли;
+Procedure EditObject(ObjectRef) Export
+	AvalibleForEditingObjectsArray=UT_CommonClientCached.DataBaseObjectEditorAvalibleObjectsTypes();
+	If AvalibleForEditingObjectsArray.Find(TypeOf(ObjectRef)) = Undefined Then
+		Return;
+	EndIf;
 
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("мОбъектСсылка", СсылкаНаОбъект);
+	FormParameters = New Structure;
+	FormParameters.Insert("mObjectRef", ObjectRef);
 
-	ОткрытьФорму("Обработка.UT_ObjectsAttributesEditor.Форма", ПараметрыФормы);
-КонецПроцедуры
+	OpenForm("DataProcessor.UT_ObjectsAttributesEditor.Form", FormParameters);
+EndProcedure
 
-Процедура РедактироватьJSON(СтрокаJSON, РежимПросмотра, ОписаниеОповещенияОЗавершении = Неопределено) Экспорт
-	СтруктураПараметров=Новый Структура;
-	СтруктураПараметров.Вставить("СтрокаJSON", СтрокаJSON);
-	СтруктураПараметров.Вставить("РежимПросмотра", РежимПросмотра);
+Procedure EditJSON(JSONString, ViewMode, OnEndNotifyDescription = Undefined) Export
+	Parameters=New Structure;
+	Parameters.Insert("JSONString", JSONString);
+	Parameters.Insert("ViewMode", ViewMode);
 
-	Если ОписаниеОповещенияОЗавершении = Неопределено Тогда
-		ОткрытьФорму("Обработка.UT_JSONEditor.Форма", СтруктураПараметров);
-	Иначе
-		ОткрытьФорму("Обработка.UT_JSONEditor.Форма", СтруктураПараметров, , , , , ОписаниеОповещенияОЗавершении);
-	КонецЕсли;
-КонецПроцедуры
+	If OnEndNotifyDescription = Undefined then
+		OpenForm("DataProcessor.UT_JSONEditor.Form", Parameters);
+	else
+		OpenForm("DataProcessor.UT_JSONEditor.Form", Parameters, , , , , OnEndNotifyDescription);
+	Endif;
+EndProcedure
 
-Процедура ОткрытьДинамическийСписок(ИмяОбъектаМетаданных, ОписаниеОповещенияОЗавершении = Неопределено) Экспорт
+Процедура ОткрытьДинамическийСписок(ИмяОбъектаМетаданных, OnEndNotifyDescription = Неопределено) Экспорт
 	СтрукПараметры = Новый Структура("ИмяОбъектаМетаданных", ИмяОбъектаМетаданных);
 
-	Если ОписаниеОповещенияОЗавершении = Неопределено Тогда
-		ОткрытьФорму("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных);
+	Если OnEndNotifyDescription = Неопределено Тогда
+		OpenForm("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных);
 	Иначе
-		ОткрытьФорму("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных, , ,
-			ОписаниеОповещенияОЗавершении);
+		OpenForm("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных, , ,
+			OnEndNotifyDescription);
 	КонецЕсли;
 
 КонецПроцедуры
 
-Процедура НайтиСсылкиНаОбъект(СсылкаНаОбъект) Экспорт
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("SearchObject", СсылкаНаОбъект);
+Procedure НайтиСсылкиНаОбъект(ObjectRef) Export
+	FormParameters=New Structure;
+	FormParameters.Insert("SearchObject", ObjectRef);
 
-	ОткрытьФорму("Обработка.UT_ObjectReferencesSearch.Форма", ПараметрыФормы);
+	OpenForm("Обработка.UT_ObjectReferencesSearch.Form", FormParameters);
 
-КонецПроцедуры
+EndProcedure
 
 Процедура ЗадатьВопросРазработчику() Экспорт
 	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(),
