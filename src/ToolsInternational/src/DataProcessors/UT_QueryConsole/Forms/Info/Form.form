@@ -281,7 +281,9 @@
       </contextMenu>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:PictureDecorationExtInfo"/>
+      <extInfo xsi:type="form:PictureDecorationExtInfo">
+        <picture xsi:type="form:FormPicture"/>
+      </extInfo>
     </items>
     <enabled>true</enabled>
     <userVisible>
