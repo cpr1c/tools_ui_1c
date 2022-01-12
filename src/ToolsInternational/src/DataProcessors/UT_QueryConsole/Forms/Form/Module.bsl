@@ -4708,7 +4708,7 @@ Procedure ShowBackgroundJobState() Export
 		EndDo;
 	EndIf;
 
-	If JobState.Состояние = 0 Then
+	If JobState.State = 0 Then
 		ShowAlgorithmExecutionStatus(JobState.ProgressState, CurrentDate()
 			- JobState.Begin);
 		AttachIdleHandler("ShowBackgroundJobState",
@@ -4928,18 +4928,18 @@ EndProcedure
 
 &AtClient
 Procedure InsertPredefinedValue_Command(Command)
-	Var BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn;
+	Var BeginLine, BeginColumn, EndLine, EndColumn;
 
-	Items.QueryText.GetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
-	NotifyParameters = New Structure("BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn",
-		BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+	Items.QueryText.GetTextSelectionBounds(BeginLine, BeginColumn, EndLine, EndColumn);
+	NotifyParameters = New Structure("BeginLine, BeginColumn, EndLine, EndColumn",
+		BeginLine, BeginColumn, EndLine, EndColumn);
 	CloseFormNotifyDescription = New NotifyDescription("ChoicePredefinedCompletion",
 		ThisForm, NotifyParameters);
-	OpeningParameters = New Structure("Object, FormData, QueryText, BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn",
-		Object, FormDataChoicePredefined, QueryText, BeginningOfRow, BeginningOfColumn, EndOfRow,
-		EndOfColumn);
+	OpeningParameters = New Structure("Object, FormData, QueryText, BeginLine, BeginColumn, EndLine, EndColumn",
+		Object, FormDataChoicePredefined, QueryText, BeginLine, BeginColumn, EndLine,
+		EndColumn);
 
-	OpenForm(FormFullName("ВыборПредопределенного"), OpeningParameters, ThisForm, True, , ,
+	OpenForm(FormFullName("ChoicePredefined"), OpeningParameters, ThisForm, True, , ,
 		CloseFormNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
