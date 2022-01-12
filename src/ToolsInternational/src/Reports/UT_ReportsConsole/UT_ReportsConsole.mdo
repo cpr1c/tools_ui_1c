@@ -4,23 +4,23 @@
     <objectType typeId="af8053d0-33c3-11ea-7b99-e86a6452d1f2" valueTypeId="af8053d1-33c3-11ea-7b99-e86a6452d1f2"/>
     <managerType typeId="af8053d2-33c3-11ea-7b99-e86a6452d1f2" valueTypeId="af8053d3-33c3-11ea-7b99-e86a6452d1f2"/>
   </producedTypes>
-  <name>УИ_КонсольОтчетов</name>
+  <name>UT_ReportsConsole</name>
   <synonym>
     <key></key>
-    <value>У и консоль отчетов</value>
+    <value>U t reports console</value>
   </synonym>
   <synonym>
     <key>ru</key>
     <value>Консоль отчетов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>Report.УИ_КонсольОтчетов.Form.Форма</defaultForm>
-  <mainDataCompositionSchema>Report.УИ_КонсольОтчетов.Template.ОсновнаяСхемаКомпоновкиДанных</mainDataCompositionSchema>
+  <defaultForm>Report.UT_ReportsConsole.Form.Form</defaultForm>
+  <mainDataCompositionSchema>Report.UT_ReportsConsole.Template.ОсновнаяСхемаКомпоновкиДанных</mainDataCompositionSchema>
   <forms uuid="46a8420d-50a4-4e52-8afb-7e54119d6923">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
