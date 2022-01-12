@@ -2222,7 +2222,7 @@
 <p>ЭтоВебКлиент</p>
 </td>
 <td width="270">
-<p></p>
+<p>IsWebClient</p>
 </td>
 </tr>
 <tr>
@@ -2582,7 +2582,7 @@
 <p>ИмяПараметраФайловыхПеременныхСеанса</p>
 </td>
 <td width="270">
-<p></p>
+<p>SessionFileVariablesParameterName</p>
 </td>
 </tr>
 <tr>
@@ -2590,7 +2590,7 @@
 <p>СтруктураФайловыхПеременныхСеанса</p>
 </td>
 <td width="270">
-<p></p>
+<p>SessionFileVariablesStructure</p>
 </td>
 </tr>
 <tr>
