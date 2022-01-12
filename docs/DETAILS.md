@@ -2161,12 +2161,30 @@
 ## UT_CommonClient
 <table style="width: 808; border-collapse: collapse;" border="1">
 <tbody>
+  <tr>
+<td width="404">
+<p>ПриНачалеРаботыСистемы</p>
+</td>
+<td width="270">
+<p>OnStart</p>
+</td>
+</tr>
+<tr>
+  <tr>
+<td width="404">
+<p>ПриЗавершенииРаботыСистемы</p>
+</td>
+<td width="270">
+<p>OnExit</p>
+</td>
+</tr>
+<tr>
 <tr>
 <td width="404">
 <p>ПоказатьПодробнуюИнформацию</p>
 </td>
 <td width="270">
-<p></p>
+<p>ShowDetailedInfo</p>
 </td>
 </tr>
 <tr>
@@ -2174,7 +2192,7 @@
 <p>ПоказатьВопросПользователю</p>
 </td>
 <td width="270">
-<p></p>
+<p>ShowQuestionToUser</p>
 </td>
 </tr>
 <tr>
@@ -2182,7 +2200,7 @@
 <p>ПараметрыВопросаПользователю</p>
 </td>
 <td width="270">
-<p></p>
+<p>QuestionToUserParameters</p>
 </td>
 </tr>
 <tr>
@@ -2190,12 +2208,12 @@
 <p>КодВозвратаДиалогаВСтроку</p>
 </td>
 <td width="270">
-<p></p>
+<p>DialogReturnCodeToString</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ВыполнитьАлгоритм</p>
 </td>
 <td width="270">
 <p>ExecuteAlgorithm</p>
@@ -2203,7 +2221,7 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ОткрытьКонсольОтладки</p>
 </td>
 <td width="270">
 <p>OpenDebuggingConsole</p>
@@ -2230,7 +2248,7 @@
 <p>ПустоеОписаниеОповещенияДляЗапускаПриложения</p>
 </td>
 <td width="270">
-<p></p>
+<p>ApplicationRunEmptyNotifyDescription</p>
 </td>
 </tr>
 <tr>
@@ -2238,7 +2256,7 @@
 <p>НачатьЗапускПриложенияЗавершениеПустое</p>
 </td>
 <td width="270">
-<p></p>
+<p>BeginRunningApplicationEndEmpty</p>
 </td>
 </tr>
 <tr>
