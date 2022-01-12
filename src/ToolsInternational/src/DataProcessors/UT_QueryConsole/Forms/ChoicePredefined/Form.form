@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Predefined item</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Предопределенный элемент</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОсновная</name>
+    <name>MainGroup</name>
     <id>20</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаЗначений</name>
+      <name>ValueGroup</name>
       <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -16,15 +20,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Value group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа значений</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Value group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа значений</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаЗначенийРасширеннаяПодсказка</name>
+        <name>ValueGroupExtendedTooltip</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -48,7 +60,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаКнопок</name>
+      <name>ButtonGroup</name>
       <id>24</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -56,15 +68,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Button group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа кнопок</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Button group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа кнопок</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаКнопокРасширеннаяПодсказка</name>
+        <name>ButtonGroupExtendedTooltip</name>
         <id>25</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -93,15 +113,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Main group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа основная</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Main group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа основная</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаОсновнаяРасширеннаяПодсказка</name>
+      <name>MainGroupExtendedTooltip</name>
       <id>21</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -124,7 +152,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ТипОбъекта</name>
+    <name>ObjectType</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -133,15 +161,15 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ТипОбъекта</segments>
+        <segments>ObjectType</segments>
       </paths>
     </dataPath>
     <handlers>
       <event>OnChange</event>
-      <name>ТипОбъектаПриИзменении</name>
+      <name>ObjectTypeOnChange</name>
     </handlers>
     <extendedTooltip>
-      <name>ТипОбъектаРасширеннаяПодсказка</name>
+      <name>ObjectTypeExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -156,7 +184,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТипОбъектаКонтекстноеМеню</name>
+      <name>ObjectTypeContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -182,7 +210,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ИмяОбъекта</name>
+    <name>ObjectName</name>
     <id>4</id>
     <visible>true</visible>
     <userVisible>
@@ -190,15 +218,15 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ИмяОбъекта</segments>
+        <segments>ObjectName</segments>
       </paths>
     </dataPath>
     <handlers>
       <event>OnChange</event>
-      <name>ИмяОбъектаПриИзменении</name>
+      <name>ObjectNameOnChange</name>
     </handlers>
     <extendedTooltip>
-      <name>ИмяОбъектаРасширеннаяПодсказка</name>
+      <name>ObjectNameExtendedTooltip</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -213,7 +241,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ИмяОбъектаКонтекстноеМеню</name>
+      <name>ObjectNameContextMenu</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -239,7 +267,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>Элемент</name>
+    <name>Item</name>
     <id>7</id>
     <visible>true</visible>
     <userVisible>
@@ -247,15 +275,15 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Элемент</segments>
+        <segments>Item</segments>
       </paths>
     </dataPath>
     <handlers>
       <event>OnChange</event>
-      <name>ЭлементПриИзменении</name>
+      <name>ItemOnChange</name>
     </handlers>
     <extendedTooltip>
-      <name>ЭлементРасширеннаяПодсказка</name>
+      <name>ItemExtendedTooltip</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -270,7 +298,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ЭлементКонтекстноеМеню</name>
+      <name>ItemContextMenu</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -297,17 +325,17 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНижняяПанель</name>
+    <name>BottomPanelGroup</name>
     <id>12</id>
     <items xsi:type="form:Button">
-      <name>КомандаВставитьССЫЛКА</name>
+      <name>InsertRefCommand</name>
       <id>14</id>
       <visible>true</visible>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаВставитьССЫЛКАРасширеннаяПодсказка</name>
+        <name>InsertRefCommandExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -322,7 +350,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.КомандаВставитьССЫЛКА</commandName>
+      <commandName>Form.Command.InsertRefCommand</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -330,14 +358,14 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>КомандаВставитьПустаяСсылка</name>
+      <name>InsertEmptyRefCommand</name>
       <id>26</id>
       <visible>true</visible>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаВставитьПустаяСсылкаРасширеннаяПодсказка</name>
+        <name>InsertEmptyRefCommandExtendedTooltip</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -352,7 +380,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.КомандаВставитьПустаяСсылка</commandName>
+      <commandName>Form.Command.InsertEmptyRefCommand</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -360,14 +388,14 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>КомандаВставитьИмя</name>
+      <name>InsertNameCommand</name>
       <id>10</id>
       <visible>true</visible>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаВставитьИмяРасширеннаяПодсказка</name>
+        <name>InsertNameCommandExtendedTooltip</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -382,7 +410,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.КомандаВставитьИмя</commandName>
+      <commandName>Form.Command.InsertNameCommand</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -390,14 +418,14 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>КомандаВставитьЗНАЧЕНИЕ</name>
+      <name>InsertValueCommand</name>
       <id>16</id>
       <visible>true</visible>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаВставитьЗНАЧЕНИЕРасширеннаяПодсказка</name>
+        <name>InsertValueCommandExtendedTooltip</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -412,7 +440,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.КомандаВставитьЗНАЧЕНИЕ</commandName>
+      <commandName>Form.Command.InsertValueCommand</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -421,7 +449,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>КнопкаЗакрыть</name>
+      <name>CloseButton</name>
       <id>18</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -429,7 +457,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КнопкаЗакрытьРасширеннаяПодсказка</name>
+        <name>CloseButtonExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -457,15 +485,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Bottom panel group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа нижняя панель</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Bottom panel group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа нижняя панель</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаНижняяПанельРасширеннаяПодсказка</name>
+      <name>BottomPanelGroupExtendedTooltip</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -499,11 +535,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -513,7 +549,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -527,7 +563,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ИмяОбъекта</name>
+    <name>ObjectName</name>
+    <title>
+      <key>en</key>
+      <value>Object name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя объекта</value>
@@ -548,7 +588,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТипОбъекта</name>
+    <name>ObjectType</name>
+    <title>
+      <key>en</key>
+      <value>Object type</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Тип объекта</value>
@@ -566,7 +610,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Элемент</name>
+    <name>Item</name>
+    <title>
+      <key>en</key>
+      <value>Item</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Элемент</value>
@@ -583,7 +631,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДанныеФормы</name>
+    <name>FormData</name>
+    <title>
+      <key>en</key>
+      <value>Form data</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Данные формы</value>
@@ -602,12 +654,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>КомандаВставитьИмя</name>
+    <name>InsertNameCommand</name>
+    <title>
+      <key>en</key>
+      <value>Name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Insert name command</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда вставить имя</value>
@@ -617,18 +677,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаВставитьИмя</name>
+        <name>InsertNameCommand</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КомандаВставитьЗНАЧЕНИЕ</name>
+    <name>InsertValueCommand</name>
+    <title>
+      <key>en</key>
+      <value>VALUE(...)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ЗНАЧЕНИЕ(...)</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Insert value command</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда вставить ЗНАЧЕНИЕ</value>
@@ -638,18 +706,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаВставитьЗНАЧЕНИЕ</name>
+        <name>InsertValueCommand</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КомандаВставитьССЫЛКА</name>
+    <name>InsertRefCommand</name>
+    <title>
+      <key>en</key>
+      <value>REF...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ССЫЛКА ...</value>
     </title>
     <id>3</id>
+    <toolTip>
+      <key>en</key>
+      <value>Insert ref command</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда вставить ССЫЛКА</value>
@@ -659,18 +735,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаВставитьССЫЛКА</name>
+        <name>InsertRefCommand</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КомандаВставитьПустаяСсылка</name>
+    <name>InsertEmptyRefCommand</name>
+    <title>
+      <key>en</key>
+      <value>Empty ref</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Пустая ссылка</value>
     </title>
     <id>4</id>
+    <toolTip>
+      <key>en</key>
+      <value>Insert empty ref command</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Команда вставить пустая ссылка</value>
@@ -680,7 +764,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаВставитьПустаяСсылка</name>
+        <name>InsertEmptyRefCommand</name>
       </handler>
     </action>
     <currentRowUse>DontUse</currentRowUse>
