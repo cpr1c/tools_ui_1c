@@ -47,7 +47,7 @@
   <content>CommonForm.УИ_ДлительнаяОперация</content>
   <content>CommonForm.UT_ValueTableForm</content>
   <content>CommonForm.УИ_ФормаСпецЗначения</content>
-  <content>CommonForm.УИ_ФормаРедактированияТекста</content>
+  <content>CommonForm.UT_TextEditingForm</content>
   <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
   <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
   <content>Role.UT_UniversalTools</content>

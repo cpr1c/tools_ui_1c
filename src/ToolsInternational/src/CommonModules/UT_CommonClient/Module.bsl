@@ -210,7 +210,7 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 	If Upper(DebuggingObjectType) = "QUERY" Then
 		ConsoleFormName = "DataProcessor.UT_QueryConsole.Form";
 	ElsIf Upper(DebuggingObjectType) = "DATACOMPOSITIONSCHEMA" Then
-		ConsoleFormName = "Report.UT_ReportsConsole.Форма";
+		ConsoleFormName = "Report.UT_ReportsConsole.Form";
 	ElsIf Upper(DebuggingObjectType) = "DATABASEOBJECT" Then
 		ConsoleFormName = "DataProcessor.UT_ObjectsAttributesEditor.ObjectForm";
 	ElsIf Upper(DebuggingObjectType) = "HTTPREQUEST" Then
@@ -232,20 +232,20 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 
 EndProcedure
 
-Процедура ЗапуститьКонсольОтладкиПоКлючуНастройкиДанныхОтладки(КлючНастройкиОтладки, ИдентификаторФормы = Неопределено) Экспорт
-	Если Не ЗначениеЗаполнено(КлючНастройкиОтладки) Тогда
-		Возврат;
-	КонецЕсли;
+Procedure  RunDebugConsoleByDebugDataSettingsKey(DebugSettingsKey, FormID = Undefined) Export
+	If Not ValueIsFilled(DebugSettingsKey) Then
+		Return;
+	EndIf;
 
-	ДанныеОтладки = UT_CommonServerCall.DebuggingObjectDataStructureFromSystemSettingsStorage(
-		КлючНастройкиОтладки, ИдентификаторФормы);
+	DebugData = UT_CommonServerCall.DebuggingObjectDataStructureFromSystemSettingsStorage(
+		DebugSettingsKey, FormID);
 
-	Если ДанныеОтладки = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If DebugData = Undefined Then
+		Return;
+	EndIf;
 
-	OpenDebuggingConsole(ДанныеОтладки.ТипОбъектаОтладки, ДанныеОтладки.АдресОбъектаОтладки);
-КонецПроцедуры
+	OpenDebuggingConsole(DebugData.DebuggingObjectType, DebugData.DebuggingObjectAddress);
+EndProcedure
 
 #EndRegion
 
@@ -267,49 +267,49 @@ Procedure BeginRunningApplicationEndEmpty(ReturnCode, AdditionalParameters) Expo
 	EndIf;
 EndProcedure
 
-Процедура ОткрытьФормуРедактированияТекста(Текст, ОписаниеОповещенияОЗакрытии, Заголовок = "",
-	РежимОткрытия = Неопределено) Экспорт
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("Текст", Текст);
-	ПараметрыФормы.Вставить("Заголовок", Заголовок);
+Procedure OpenTextEditingForm(Text, OnCloseNotifyDescription, Title = "",
+	WindowOpeningMode = Undefined) Export
+	FormParameters = New Структура;
+	FormParameters.Insert("Text", Text);
+	FormParameters.Insert("Title", Title);
 
-	Если РежимОткрытия = Неопределено Тогда
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияТекста", ПараметрыФормы, , , , , ОписаниеОповещенияОЗакрытии);
-	Иначе
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияТекста", ПараметрыФормы, , , , , ОписаниеОповещенияОЗакрытии,
-			РежимОткрытия);
-	КонецЕсли;
-КонецПроцедуры
+	If WindowOpeningMode = Undefined Then
+		OpenForm("CommonForm.UT_TextEditingForm", FormParameters, , , , , OnCloseNotifyDescription);
+	Else
+		OpenForm("CommonForm.UT_TextEditingForm", FormParameters, , , , , OnCloseNotifyDescription,
+			WindowOpeningMode);
+	EndIf;
+EndProcedure
 
-Процедура ОткрытьФормуВыбораЭлементовСпискаЗначений(Список, ОписаниеОповещенияОЗакрытии, Заголовок = "",
-	ТипЭлементов = Неопределено, ВидимостьПометки = Истина, ВидимостьПредставления = Истина, РежимПодбора = Истина,
-	ВозвращатьТолькоВыбранныеЗначения = Истина, РежимОткрытия = Неопределено, ДоступныеЗначения = Неопределено) Экспорт
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("Список", Список);
-	ПараметрыФормы.Вставить("Заголовок", Заголовок);
-	ПараметрыФормы.Вставить("ВозвращатьТолькоВыбранныеЗначения", ВозвращатьТолькоВыбранныеЗначения);
-	ПараметрыФормы.Вставить("ВидимостьПометки", ВидимостьПометки);
-	ПараметрыФормы.Вставить("ВидимостьПредставления", ВидимостьПредставления);
-	ПараметрыФормы.Вставить("РежимПодбора", РежимПодбора);
-	Если ТипЭлементов <> Неопределено Тогда
-		ПараметрыФормы.Вставить("ТипЭлементов", ТипЭлементов);
-	КонецЕсли;
-	Если ДоступныеЗначения <> Неопределено Тогда
-		ПараметрыФормы.Вставить("ДоступныеЗначения", ДоступныеЗначения);
-	КонецЕсли;
+Procedure  OpenValueListChoiceItemsForm(List, OnCloseNotifyDescription, Title = "",
+	ItemsType = Undefined, MarkVisibility = True, ResresentationVisibility = True, SelectionMode = True,
+	ReturnOnlySelectedValues = True, WindowOpeningMode = Undefined, AvailableValues = Undefined) Export
+	FormParameters = Новый Структура;
+	FormParameters.Insert("List", List);
+	FormParameters.Insert("Title", Title);
+	FormParameters.Insert("ReturnOnlySelectedValues", ReturnOnlySelectedValues);
+	FormParameters.Insert("MarkVisibility", MarkVisibility);
+	FormParameters.Insert("ResresentationVisibility", ResresentationVisibility);
+	FormParameters.Insert("SelectionMode", SelectionMode);
+	If ItemsType <> Undefined Then
+		FormParameters.Insert("ItemsType", ItemsType);
+	EndIf;
+	If AvailableValues <> Undefined Then
+		FormParameters.Insert("AvailableValues", AvailableValues);
+	Endif;
 
-	Если РежимОткрытия = Неопределено Тогда
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияСпискаЗначений", ПараметрыФормы, , , , ,
-			ОписаниеОповещенияОЗакрытии);
-	Иначе
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияСпискаЗначений", ПараметрыФормы, , , , ,
-			ОписаниеОповещенияОЗакрытии, РежимОткрытия);
-	КонецЕсли;
-КонецПроцедуры
+	If WindowOpeningMode = Undefined Then
+		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+			OnCloseNotifyDescription);
+	Else
+		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+			OnCloseNotifyDescription, WindowOpeningMode);
+	EndIf;
+EndProcedure
 
 Процедура EditObject(СсылкаНаОбъект) Экспорт
 	МассивТиповДоступныхДляРедактирования=UT_CommonClientCached.DataBaseObjectEditorAvalibleObjectsTypes();
-	Если МассивТиповДоступныхДляРедактирования.Найти(ТипЗнч(СсылкаНаОбъект)) = Неопределено Тогда
+	Если МассивТиповДоступныхДляРедактирования.Найти(ТипЗнч(СсылкаНаОбъект)) = Undefined Тогда
 		Возврат;
 	КонецЕсли;
 

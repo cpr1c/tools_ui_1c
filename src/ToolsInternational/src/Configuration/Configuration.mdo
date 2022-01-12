@@ -123,11 +123,11 @@
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
   <commonForms>CommonForm.UT_ValueTableForm</commonForms>
   <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
-  <commonForms>CommonForm.УИ_ФормаРедактированияТекста</commonForms>
+  <commonForms>CommonForm.UT_TextEditingForm</commonForms>
   <commonForms>CommonForm.УИ_ФормаХранилищаЗначения</commonForms>
   <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
   <commonForms>CommonForm.UT_WriteSettings</commonForms>
-  <commonForms>CommonForm.УИ_ФормаРедактированияСпискаЗначений</commonForms>
+  <commonForms>CommonForm.UT_ValueListChoiceItemsForm</commonForms>
   <commonForms>CommonForm.UT_ValueTypeEditor</commonForms>
   <commonForms>CommonForm.UT_ValueTableEditor</commonForms>
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
