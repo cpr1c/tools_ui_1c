@@ -550,7 +550,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ДинамическийСписок</name>
+		<name>DataProcessor.UT_DynamicList</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -593,7 +593,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</name>
+		<name>CommonForm.UT_AdditionalDataProcessorDebugSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

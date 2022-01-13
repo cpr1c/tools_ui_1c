@@ -71,7 +71,7 @@
 	Command.ChangesSelectedObjects=Ложь;
 	Command.MultipleChoice=Ложь;
 	Command.Picture=БиблиотекаКартинок.НайтиВСодержании;
-	Command.Handler = "UT_CommonClient.ОбработчикКомандыНайтиСсылкиНаОбъект";
+	Command.Handler = "UT_CommonClient.FindObjectRefsCommandHandler";
 	Command.Order=3;
 	
 КонецПроцедуры

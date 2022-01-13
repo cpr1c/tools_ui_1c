@@ -331,133 +331,132 @@ Procedure EditJSON(JSONString, ViewMode, OnEndNotifyDescription = Undefined) Exp
 	Endif;
 EndProcedure
 
-Процедура ОткрытьДинамическийСписок(ИмяОбъектаМетаданных, OnEndNotifyDescription = Неопределено) Экспорт
-	СтрукПараметры = Новый Структура("ИмяОбъектаМетаданных", ИмяОбъектаМетаданных);
+Procedure ОpenDynamicList(MetadataObjectName, OnEndNotifyDescription = Undefined) Export
+	ParametersStructure = New Structure("MetadataObjectName", MetadataObjectName);
 
-	Если OnEndNotifyDescription = Неопределено Тогда
-		OpenForm("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных);
-	Иначе
-		OpenForm("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных, , ,
+	If OnEndNotifyDescription = Undefined Then
+		OpenForm("DataProcessor.UT_DynamicList.Форма", ParametersStructure, , MetadataObjectName);
+	Else
+		OpenForm("DataProcessor.UT_DynamicList.Форма", ParametersStructure, , MetadataObjectName, , ,
 			OnEndNotifyDescription);
-	КонецЕсли;
-
-КонецПроцедуры
-
-Procedure НайтиСсылкиНаОбъект(ObjectRef) Export
-	FormParameters=New Structure;
-	FormParameters.Insert("SearchObject", ObjectRef);
-
-	OpenForm("Обработка.UT_ObjectReferencesSearch.Form", FormParameters);
+	EndIf;
 
 EndProcedure
 
-Процедура ЗадатьВопросРазработчику() Экспорт
-	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(),
-		"https://github.com/cpr1c/tools_ui_1c/issues");
+Procedure FindObjectRefs(ObjectRef) Export
+	FormParameters=New Structure;
+	FormParameters.Insert("SearchObject", ObjectRef);
 
+	OpenForm("DataProcessor.UT_ObjectReferencesSearch.Form", FormParameters);
+
+EndProcedure
+
+Procedure AskQuestionToDeveloper() Export
+	BeginRunningApplication(ApplicationRunEmptyNotifyDescription(),
+		"https://github.com/i-neti/tools_ui_1c_international/issues");
+
+EndProcedure
+
+Procedure OpenAboutPage() Export
+	BeginRunningApplication(ApplicationRunEmptyNotifyDescription(), "https://github.com/i-neti/tools_ui_1c_international");
+
+EndProcedure
+
+Procedure OpenPortableToolsDebugSpecificityPage () Export
+	BeginRunningApplication(ApplicationRunEmptyNotifyDescription(),
+		"https://github.com/cpr1c/tools_ui_1c/wiki/Portable-Tools-Debug-Specificity");
+EndProcedure
+
+Procedure RunToolsUpdateCheck () Export
+	FormParameters = New Structure;;
+	OpenForm("DataProcessor.UT_Support.Form.UpdateTools", FormParameters);
+EndProcedure
+
+Procedure OpenNewToolForm(SourceForm)
+	OpenForm(SourceForm.FormName, , , New UUID, , , , FormWindowOpeningMode.Independent);
+EndProcedure
+
+#Region ToolsAttachableCommandMethods
+
+Procedure Attachable_ExecuteToolsCommonCommand(Form, Command) Export
+	If Command.Name = "UT_OpenNewToolForm" Then
+		OpenNewToolForm(Form);
+	Endif;
+
+EndProcedure
+
+#EndRegion
+
+#Region SSLCommands
+
+Procedure AddObjectsToComparsion(ObjectsArray, Context) Экспорт
+	UT_CommonClientServer.AddObjectsArrayToCompare(ObjectsArray);
+EndProcedure
+
+Procedure UploadObjectsToXML(ObjectsArray, Context) Export
+	FileURLInTempStorage="";
+	UT_CommonServerCall.UploadObjectsToXMLonServer(ObjectsArray, FileURLInTempStorage,
+		Context.Form.UUID);
+
+	If IsTempStorageURL(FileURLInTempStorage) Then
+		FileName="Uploading file.xml";
+		GetFile(FileURLInTempStorage, FileName);
+	EndIf;
+
+EndProcedure
+
+Procedure EditObjectCommandHandler(ObjectRef, Context) Export
+	EditObject(ObjectRef);
+EndProcedure
+
+Процедура FindObjectRefsCommandHandler(ObjectRef, Context) Export
+	FindObjectRefs(ObjectRef);
 КонецПроцедуры
 
-Процедура ОткрытьСтраницуРазработки() Экспорт
-	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(), "https://github.com/cpr1c/tools_ui_1c");
+Procedure OpenAdditionalDataProcessorDebugSettings(ObjectRef) Export
+	FormParameters=New Structure;
+	FormParameters.Insert("AdditionalDataProcessor", ObjectRef);
 
-КонецПроцедуры
+	OpenForm("CommonForm.UT_AdditionalDataProcessorDebugSettings", FormParameters);
+EndProcedure
 
-Процедура ОткрытьСтраницуОсобенностейОтладкиПортативныхИнструметов() Экспорт
-	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(),
-		"https://github.com/cpr1c/tools_ui_1c/wiki/Особенности-использования-отладки-в-портативном-варианте");
+#EndRegion
+#Region TypesEditingAndVariables
 
-КонецПроцедуры
-
-Процедура ЗапуститьПроверкуОбновленияИнструментов() Экспорт
-	ПараметрыФормы = Новый Структура;
-	ОткрытьФорму("Обработка.UT_Support.Форма.ОбновлениеИнструментов", ПараметрыФормы);
-КонецПроцедуры
-
-Процедура ОткрытьНовуюФормуИнструмента(ФормаНачальная)
-	ОткрытьФорму(ФормаНачальная.ИмяФормы, , , Новый УникальныйИдентификатор, , , , РежимОткрытияОкнаФормы.Независимый);
-КонецПроцедуры
-
-#Область ПодключаемыеМетодыКомандИнструментов
-
-Процедура Attachable_ExecuteToolsCommonCommand(Форма, Команда) Экспорт
-	Если Команда.Имя = "УИ_ОткрытьНовуюФормуИнструмента" Тогда
-		ОткрытьНовуюФормуИнструмента(Форма);
-	КонецЕсли;
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область КомандыБСП
-
-Процедура ДобавитьОбъектыКСравнению(МассивОбъектов, Контекст) Экспорт
-	UT_CommonClientServer.AddObjectsArrayToCompare(МассивОбъектов);
-КонецПроцедуры
-
-Процедура ВыгрузитьОбъектыВXML(МассивОбъектов, Контекст) Экспорт
-	АдресФайлаВоВременномХранилище="";
-	UT_CommonServerCall.UploadObjectsToXMLonServer(МассивОбъектов, АдресФайлаВоВременномХранилище,
-		Контекст.Форма.УникальныйИдентификатор);
-
-	Если ЭтоАдресВременногоХранилища(АдресФайлаВоВременномХранилище) Тогда
-		ИмяФайла="Файл выгрузки.xml";
-		ПолучитьФайл(АдресФайлаВоВременномХранилище, ИмяФайла);
-	КонецЕсли;
-
-КонецПроцедуры
-
-Процедура ОбработчикКомандыРедактироватьОбъект(СсылкаНаОбъект, Контекст) Экспорт
-	EditObject(СсылкаНаОбъект);
-КонецПроцедуры
-
-Процедура ОбработчикКомандыНайтиСсылкиНаОбъект(СсылкаНаОбъект, Контекст) Экспорт
-	НайтиСсылкиНаОбъект(СсылкаНаОбъект);
-КонецПроцедуры
-
-Процедура ОткрытьНастройкиОтладкиДополнительнойОбработки(СсылкаНаОбъект) Экспорт
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("ДополнительнаяОбработка", СсылкаНаОбъект);
-
-	ОткрытьФорму("ОбщаяФорма.УИ_НастройкиОтладкиДополнительныхОбработок", ПараметрыФормы);
-КонецПроцедуры
-
-#КонецОбласти
-#Область РедактированиеТиповИПеременные
-
-// Процедура - Редактировать тип
+// Procedure - Edit type
 //
-// Параметры:
-//  ТипДанных						 - 	 - Текущий тип значения
-//  РежимЗапуска					 - Число - режим запуска редактора типа
-// 0- Выбор хранимых типов
-// 1- типы для запроса
-// 2- типы для поля СКД
-// 3- типы для параметра СКД
-//  СтандартнаяОбработка			 - Булево - Стандартная обработка события начало выбора
-//  ВладелецФормы					 - 	 - 
-//  ОписаниеОповещенияОЗавершении	 - 	 - 
+// Parameters:
+//  DataType					 - 	 - Current value type
+//  StartMode					 - Number - type editor start mode
+// 0- selection of stored types
+// 1- type for query
+// 2- type for field DCS
+// 3- type for parameter DCS 
+//  StandardProcessing			 - Boolean - StartChoise event standard processing
+//  FormOwner					 - 	 - 
+//  OnEndNotifyDescription	 - 	 - 
 //
-Процедура РедактироватьТип(ТипДанных, РежимЗапуска, СтандартнаяОбработка, ВладелецФормы, ОписаниеОповещенияОЗавершении) Экспорт
-	СтандартнаяОбработка=Ложь;
+Procedure EditType(DataType, StartMode, StandardProcessing, FormOwner, OnEndNotifyDescription) Export
+	StandardProcessing=False;
 
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("ТипДанных", ТипДанных);
-	ПараметрыФормы.Вставить("РежимЗапуска", РежимЗапуска);
-	ОткрытьФорму("ОбщаяФорма.UT_ValueTypeEditor", ПараметрыФормы, ВладелецФормы, , , ,
-		ОписаниеОповещенияОЗавершении, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+	FormParameters=New Structure;
+	FormParameters.Insert("DataType", DataType);
+	FormParameters.Insert("StartMode", StartMode);
+	OpenForm("CommonForm.UT_ValueTypeEditor", FormParameters, FormOwner, , , ,
+		OnEndNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-Процедура РедактироватьТаблицуЗначений(ТаблицаЗначенийСтрокой, ВладелецФормы, ОписаниеОповещенияОЗавершении) Экспорт
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("ТаблицаЗначенийСтрокой", ТаблицаЗначенийСтрокой);
+Procedure EditValueTable(ValueTableAsString, FormOwner, OnEndNotifyDescription) Export
+	FormParameters=New Структура;
+	FormParameters.Insert("ValueTableAsString", ValueTableAsString);
 
-	ОткрытьФорму("ОбщаяФорма.UT_ValueTableEditor", ПараметрыФормы, ВладелецФормы, , , ,
-		ОписаниеОповещенияОЗавершении);
-КонецПроцедуры
+	OpenForm("CommonForm.UT_ValueTableEditor", FormParameters, FormOwner, , , ,
+		OnEndNotifyDescription);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область СобытияЭлементовФормы
+#Region СобытияЭлементовФормы
 
 Процедура ПолеФормыНачалоВыбораЗначения(Значение, СтандартнаяОбработка, ОписаниеОповещенияОЗавершении,
 	ТипЗначения = Неопределено, ДоступныеЗначения = Неопределено) Экспорт
@@ -491,9 +490,9 @@ EndProcedure
 	ВыборФайла.Показать(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении);
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-#Область ВспомогательныеБиблиотекиИнструментов
+#Region ВспомогательныеБиблиотекиИнструментов
 
 Процедура СохранитьВспомогательныеБиблиотекиНаКлиентеПриНачалеРаботыСистемы() Экспорт
 	КаталогБиблиотек=UT_AdditionalLibrariesDirectory();
@@ -510,9 +509,9 @@ Function UT_AdditionalLibrariesDirectory() Export
 	
 	Return FileVariablesStructure.TempFilesDirectory + GetPathSeparator() + "tools_ui_1c" + GetPathSeparator()
 EndFunction
-#КонецОбласти
+#EndRegion
 
-#Область ХранилищеЗначения
+#Region ХранилищеЗначения
 
 Процедура EditValueStorage(Форма, АдресВременногоХранилищаЗначенияИлиЗначение,
 	ОписаниеОповещения = Неопределено) Экспорт
@@ -544,9 +543,9 @@ EndFunction
 	//	Форма=ДополнительныеПараметры.Форма;
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-#Область ПараметрыЗаписи
+#Region ПараметрыЗаписи
 
 Процедура РедактироватьПараметрыЗаписи(Форма) Экспорт
 	ПараметрыФормы = Новый Структура;
@@ -578,9 +577,9 @@ EndFunction
 	UT_CommonClientServer.SetOnFormWriteParameters(Форма, Результат);
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-#Область СохранениеЧтениеДанныхКонсолей
+#Region СохранениеЧтениеДанныхКонсолей
 
 Функция ПустоеОписаниеФорматаВыбираемогоФайла() Экспорт
 	Описание=Новый Структура;
@@ -645,7 +644,7 @@ EndFunction
 	Возврат ВыборФайла;
 КонецФункции
 
-#Область СохранениеДанныхКонсолей
+#Region СохранениеДанныхКонсолей
 
 // Описание
 // 
@@ -736,9 +735,9 @@ EndFunction
 
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-#Область ЧтениеДанныхКонсолей
+#Region ЧтениеДанныхКонсолей
 
 Процедура ПрочитатьДанныеКонсолиИзФайла(ИмяКонсоли, СтруктураОписанияЧитаемогоФайла, ОписаниеОповещенияОЗавершении, БезВыбораФайла = Ложь) Экспорт
 
@@ -843,11 +842,11 @@ EndFunction
 
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-#КонецОбласти
+#EndRegion
 
-#Область ПодключениеИУстановкаРасширенияРаботыСФайлами
+#Region ПодключениеИУстановкаРасширенияРаботыСФайлами
 
 Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(ОписаниеОповещенияОЗавершении, ПослеУстановки = Ложь) Экспорт
 	ДополнительныеПараметрыОповещения=Новый Структура;
@@ -894,17 +893,17 @@ EndFunction
 		Истина);
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
 
-#Область ПараметрыПриложения
+#Region ApplicationParameters
 
-Функция НомерСеанса() Экспорт
-	Возврат UT_ApplicationParameters["НомерСеанса"];
-КонецФункции
+Function SessionNumber() Export
+	Return UT_ApplicationParameters["SessionNumber"];
+EndFunction
 
-#КонецОбласти
+#EndRegion
 
-#Область ЧтениеФайловыхПараметровСеансаВПараметрыПриложения
+#Region ЧтениеФайловыхПараметровСеансаВПараметрыПриложения
 
 Function SessionFileVariablesParameterName () Export	
 	Return "FILE_VARIABLES";
@@ -950,8 +949,8 @@ EndFunction
 	ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);
 КонецПроцедуры
 
-#КонецОбласти
-#Область ЗапускПриложения1С
+#EndRegion
+#Region ЗапускПриложения1С
 
 
 // Описание
@@ -1061,4 +1060,4 @@ EndFunction
 		ДополнительныеПараметры.Пользователь, ДополнительныеПараметры.ДанныеСохраненногоПароляПользователяИБ);
 КонецПроцедуры
 
-#КонецОбласти
+#EndRegion
