@@ -447,7 +447,7 @@ Procedure EditType(DataType, StartMode, StandardProcessing, FormOwner, OnEndNoti
 EndProcedure
 
 Procedure EditValueTable(ValueTableAsString, FormOwner, OnEndNotifyDescription) Export
-	FormParameters=New Структура;
+	FormParameters=New Structure;
 	FormParameters.Insert("ValueTableAsString", ValueTableAsString);
 
 	OpenForm("CommonForm.UT_ValueTableEditor", FormParameters, FormOwner, , , ,
@@ -456,49 +456,48 @@ EndProcedure
 
 #EndRegion
 
-#Region СобытияЭлементовФормы
+#Region FormItemsEvents
 
-Процедура ПолеФормыНачалоВыбораЗначения(Значение, СтандартнаяОбработка, ОписаниеОповещенияОЗавершении,
-	ТипЗначения = Неопределено, ДоступныеЗначения = Неопределено) Экспорт
-	ТипТекущегоЗначения=ТипЗнч(Значение);
+Процедура FormFieldValueStartChoice (Value, StandardProcessing, OnEndNotifyDescription,
+	ValueType = Undefined, AvailableValues = Undefined) Export
+	CurrentValueType=TypeOf(Value);
 
-	Если ТипТекущегоЗначения = Тип("СписокЗначений") Тогда
-		СтандартнаяОбработка=Ложь;
-
-	КонецЕсли;
+	If CurrentValueType = Тип("ValueList") Then
+		StandardProcessing=False;
+	EndIf;
 КонецПроцедуры
 
-Процедура ПолеФормыИмяФайлаНачалоВыбора(СтруктураОписанияФайла, Элемент, ДанныеВыбора, СтандартнаяОбработка,
-	РежимДиалога, ОписаниеОповещенияОЗавершении) Экспорт
-	СтандартнаяОбработка=Ложь;
+Procedure FormFieldFileNameStartChoice (FileDescriptionStructure, Item, ChoiseData, StandardProcessing,
+	DialogMode, OnEndNotifyDescription) Export
+	StandardProcessing=False;
 
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("Элемент", Элемент);
-	ДополнительныеПараметрыОповещения.Вставить("СтруктураОписанияФайла", СтруктураОписанияФайла);
-	ДополнительныеПараметрыОповещения.Вставить("РежимДиалога", РежимДиалога);
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("Item", Item);
+	NotifyAdditionalParameters.Insert("FileDescriptionStructure", FileDescriptionStructure);
+	NotifyAdditionalParameters.Insert("DialogMode", DialogMode);
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
 
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(
-		Новый ОписаниеОповещения("ПолеФормыИмяФайлаНачалоВыбораЗавершениеПодключенияРасширенияРаботыСФайлами",
-		ЭтотОбъект, ДополнительныеПараметрыОповещения));
-КонецПроцедуры
+	AttachFileSystemExtensionWithPossibleInstallation(
+		New NotifyDescription("FormFieldFileNameStartChoiceEndAttachFileSystemExtension",
+		ThisObject, NotifyAdditionalParameters));
+EndProcedure
 
-Процедура ПолеФормыИмяФайлаНачалоВыбораЗавершениеПодключенияРасширенияРаботыСФайлами(Подключено,
-	ДополнительныеПараметры) Экспорт
-	ВыборФайла = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(ДополнительныеПараметры.РежимДиалога,
-		ДополнительныеПараметры.СтруктураОписанияФайла);
-	ВыборФайла.Показать(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении);
-КонецПроцедуры
+Procedure FormFieldFileNameStartChoiceEndAttachFileSystemExtension(Connected,
+	AdditionalParameters) Export
+	FileChoise = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(AdditionalParameters.DialogMode,
+		AdditionalParameters.FileDescriptionStructure);
+	FileChoise.Show(AdditionalParameters.OnEndNotifyDescription);
+EndProcedure
 
 #EndRegion
 
 #Region ВспомогательныеБиблиотекиИнструментов
 
 Процедура СохранитьВспомогательныеБиблиотекиНаКлиентеПриНачалеРаботыСистемы() Экспорт
-	КаталогБиблиотек=UT_AdditionalLibrariesDirectory();
+	LibrariesDirectory=UT_AdditionalLibrariesDirectory();
 	
 	//1. очищаем наш каталог. Под каждую базу он свой
-	Сообщить(КаталогБиблиотек);
+	Message(LibrariesDirectory);
 КонецПроцедуры
 
 Function UT_AdditionalLibrariesDirectory() Export
@@ -667,7 +666,7 @@ EndFunction
 	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
 	ДополнительныеПараметрыОповещения.Вставить("ИмяКонсоли", ИмяКонсоли);
 
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(
+	AttachFileSystemExtensionWithPossibleInstallation(
 		Новый ОписаниеОповещения("СохранитьДанныеКонсолиВФайлПослеПодключенияРасширенияРаботыСФайлами", ЭтотОбъект,
 		ДополнительныеПараметрыОповещения));
 
@@ -747,7 +746,7 @@ EndFunction
 	ДополнительныеПараметрыОповещения.Вставить("ИмяКонсоли", ИмяКонсоли);
 	ДополнительныеПараметрыОповещения.Вставить("БезВыбораФайла", БезВыбораФайла);
 
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(
+	AttachFileSystemExtensionWithPossibleInstallation(
 		Новый ОписаниеОповещения("ПрочитатьДанныеКонсолиИзФайлаПослеПодключенияРасширения", ЭтотОбъект,
 		ДополнительныеПараметрыОповещения));
 
@@ -848,12 +847,12 @@ EndFunction
 
 #Region ПодключениеИУстановкаРасширенияРаботыСФайлами
 
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(ОписаниеОповещенияОЗавершении, ПослеУстановки = Ложь) Экспорт
+Процедура AttachFileSystemExtensionWithPossibleInstallation(ОписаниеОповещенияОЗавершении, ПослеУстановки = Ложь) Экспорт
 	ДополнительныеПараметрыОповещения=Новый Структура;
 	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
 	ДополнительныеПараметрыОповещения.Вставить("ПослеУстановки", ПослеУстановки);
 
-	НачатьПодключениеРасширенияРаботыСФайлами(
+	BeginAttachingFileSystemExtension(
 		Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеПодключенияРасширения",
 		ЭтотОбъект, ДополнительныеПараметрыОповещения));
 
@@ -889,7 +888,7 @@ EndFunction
 КонецПроцедуры
 
 Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеУстановкиРасширения(ДополнительныеПараметры) Экспорт
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении,
+	AttachFileSystemExtensionWithPossibleInstallation(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении,
 		Истина);
 КонецПроцедуры
 
