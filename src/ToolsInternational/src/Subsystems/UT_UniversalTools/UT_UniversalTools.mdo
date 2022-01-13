@@ -29,7 +29,7 @@
   <content>DataProcessor.UT_ObjectsAttributesEditor</content>
   <content>Report.UT_ReportsConsole</content>
   <content>DataProcessor.УИ_ДинамическийСписок</content>
-  <content>DataProcessor.УИ_КонсольHTTPЗапросов</content>
+  <content>DataProcessor.UT_HTTPRequestConsole</content>
   <content>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</content>
   <content>CommonPicture.UT_UniversalToolsSybsystem</content>
   <content>CommonPicture.UT_ExecuteScheduledJobManually</content>
