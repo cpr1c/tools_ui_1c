@@ -214,7 +214,7 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 	ElsIf Upper(DebuggingObjectType) = "DATABASEOBJECT" Then
 		ConsoleFormName = "DataProcessor.УИ_РедакторРеквизитовОбъекта.Форма";
 	ElsIf Upper(DebuggingObjectType) = "HTTPREQUEST" Then
-		ConsoleFormName = "DataProcessor.UT_HTTPRequestConsole.Форма";
+		ConsoleFormName = "DataProcessor.UT_HTTPRequestConsole.Form";
 	Else
 		Return;
 	EndIf;
