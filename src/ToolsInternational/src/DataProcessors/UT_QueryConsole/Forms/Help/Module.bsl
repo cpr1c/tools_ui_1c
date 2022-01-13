@@ -1,7 +1,7 @@
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	Макет = РеквизитФормыВЗначение("Объект").ПолучитьМакет(Параметры.ИмяМакета);
-	Текст = Макет.ПолучитьТекст();
-	Заголовок = Параметры.Заголовок;
-КонецПроцедуры
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	Template = FormAttributeToValue("Object").GetTemplate(Parameters.TemplateName);
+	Text = Template.GetText();
+	Title = Parameters.Title;
+EndProcedure
