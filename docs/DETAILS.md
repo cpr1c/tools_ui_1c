@@ -2232,7 +2232,7 @@
 <p>ЗапуститьКонсольОтладкиПоКлючуНастройкиДанныхОтладки</p>
 </td>
 <td width="270">
-<p></p>
+<p>RunDebugConsoleByDebugDataSettingsKey</p>
 </td>
 </tr>
 <tr>
@@ -2264,7 +2264,7 @@
 <p>ОткрытьФормуРедактированияТекста</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenTextEditingForm</p>
 </td>
 </tr>
 <tr>
@@ -2272,7 +2272,7 @@
 <p>ОткрытьФормуВыбораЭлементовСпискаЗначений</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenValueListChoiceItemsForm</p>
 </td>
 </tr>
 <tr>
@@ -2288,7 +2288,7 @@
 <p>РедактироватьJSON</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditJSON</p>
 </td>
 </tr>
 <tr>

@@ -282,7 +282,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_КонсольHTTPЗапросов</name>
+		<name>DataProcessor.UT_HTTPRequestConsole</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
