@@ -152,7 +152,7 @@
   <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
