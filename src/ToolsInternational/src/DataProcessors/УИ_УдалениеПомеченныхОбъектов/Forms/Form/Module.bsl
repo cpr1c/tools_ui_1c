@@ -300,7 +300,7 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 			UpdateMarkedTree = False;
 		Else
 			Text = StrTemplate(
-			             НСтр("en = 'Deletion of marked objects has been completed successfully.' 
+			             Nstr("en = 'Deletion of marked objects has been completed successfully.' 
 			               |Deleted objects: %1.'; 
 			               |ru = 'Удаление помеченных объектов успешно завершено.
 							  |Удалено объектов: %1.'"), NumberDeletedObjects);
@@ -828,7 +828,7 @@ Function FillResults(StorageAddress, Result)
 	EndIf;
 
 	Tree = FillTreeOfRemainingObjects(DeletionResult);
-	ValueToFormAttribute(Tree, "NotDeletedItems");
+	ValueToFormAttribute(Tree, "NotDeletedItemsTree");
 
 	NomberDeleted 			= DeletionResult.NomberDeleted;
 	NomberNotDeletedObjects 	= DeletionResult.NomberNotDeletedObjects;
@@ -883,31 +883,31 @@ Function FillTreeOfRemainingObjects(Result)
 
 	NomberNotDeletedObjects = UnDeleted.Количество();
 	
-	// Создадим таблицу оставшихся (не удаленных) объектов
-	NotDeletedItemsTree.GetItems().Очистить();
+	// Creates a table not deleted ojects
+	NotDeletedItemsTree.GetItems().Clear();
 
-	Дерево = РеквизитФормыВЗначение("NotDeletedItems");
+	Tree = FormAttributeToValue("NotDeletedItemsTree");
 
 	For Each FoundItem In Found Do
-		НеУдаленный = FoundItem[0];
-		Ссылающийся = FoundItem[1];
-		ОбъектМетаданныхСсылающегося = FoundItem[2].Представление();
-		ОбъектМетаданныхНеУдаленногоЗначение = НеУдаленный.Метаданные().ПолноеИмя();
-		ОбъектМетаданныхНеУдаленногоПредставление = НеУдаленный.Метаданные().Представление();
-		//ветвь метаданного
-		MetadataObjectRow = НайтиИлиДобавитьВетвьДереваСКартинкой(Дерево.Строки,
-			ОбъектМетаданныхНеУдаленногоЗначение, ОбъектМетаданныхНеУдаленногоПредставление, 0);
-		//ветвь не удаленного объекта
-		СтрокаСсылкиНаНеУдаленныйОбъектБД = НайтиИлиДобавитьВетвьДереваСКартинкой(MetadataObjectRow.Строки,
-			НеУдаленный, Строка(НеУдаленный), 2);
-		//ветвь ссылки на не удаленный объект
-		НайтиИлиДобавитьВетвьДереваСКартинкой(СтрокаСсылкиНаНеУдаленныйОбъектБД.Строки, Ссылающийся, Строка(
-			Ссылающийся) + " - " + ОбъектМетаданныхСсылающегося, 1);
+		NotDeleted = FoundItem[0];
+		Referencing = FoundItem[1];
+		ReferencingMetadataObject = FoundItem[2].Presentation();
+		ValueOfNotDeledetMetadataObject  = NotDeleted.Метаданные().FullName();
+		PresentationOfNotDeledetMetadataObject = NotDeleted.Метаданные().Presentation();
+		//a metadata branch
+		MetadataObjectRow = FindOrAddTreeBranchWithPicture(Tree.Rows,
+			ValueOfNotDeledetMetadataObject, PresentationOfNotDeledetMetadataObject, 0);
+		//a non-deleted object branch
+		ReferenceRowToNonDeletedDBObject = FindOrAddTreeBranchWithPicture(MetadataObjectRow.Rows,
+			NotDeleted, String(NotDeleted), 2);
+		//a branch of a reference non-deleted object
+		FindOrAddTreeBranchWithPicture(ReferenceRowToNonDeletedDBObject.Rows, Referencing, String(
+			Referencing) + " - " + ReferencingMetadataObject, 1);
 	EndDo;
 
-	Дерево.Строки.Сортировать("Value", True);
+	Tree.Rows.Sort("Value", True);
 
-	Возврат Дерево;
+	Возврат Tree;
 
 EndFunction
 
@@ -918,19 +918,25 @@ Procedure FillRusultsLine(NomberDeleted)
 	NumberDeletedObjects = NomberDeleted - NomberNotDeletedObjects;
 
 	If NumberDeletedObjects = 0 Then
-		ResultLine = НСтр(
-			"ru = 'Не удален ни один из объектов, так как в информационной базе существуют ссылки на удаляемые объекты'");
+		ResultLine = Nstr(
+			"en = 'None of the objects has been deleted, since there are references to the  deleted objects in the information databas'; 
+			|ru = 'Не удален ни один из объектов, так как в информационной базе существуют ссылки на удаляемые объекты'");
 	Else
-		ResultLine = СтрШаблон(
-				НСтр("ru = 'Удаление помеченных объектов завершено.
-					 |Удалено объектов: %1.'"), Строка(NumberDeletedObjects));
+		ResultLine = StrTemplate(
+				Nstr("en = '';
+				|ru = 'Удаление помеченных объектов завершено. Удалено объектов: %1.'"),
+				 String(NumberDeletedObjects));
 	EndIf;
 
 	If NomberNotDeletedObjects > 0 Then
-		ResultLine = ResultLine + Chars.LF + СтрШаблон(
-				НСтр("ru = 'Не удалено объектов: %1.
+		ResultLine = ResultLine + Chars.LF + StrTemplate(
+				Nstr("en = 'No objects deleted: %1.
+					|The objects have not been deleted to preserve the integrity of the information base, because there are still references to them.
+					|Click OK to view the list of remaining (not deleted) objects'
+					|;
+					|ru = 'Не удалено объектов: %1.
 					 |Объекты не удалены для сохранения целостности информационной базы, т.к. на них еще имеются ссылки.
-					 |Нажмите ОК для просмотра списка оставшихся (не удаленных) объектов.'"), Строка(
+					 |Нажмите ОК для просмотра списка оставшихся (не удаленных) объектов.'"), String(
 			NomberNotDeletedObjects));
 	EndIf;
 
