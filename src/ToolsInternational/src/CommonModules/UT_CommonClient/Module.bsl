@@ -35,7 +35,7 @@ Procedure OnStart() Export
 EndProcedure
 
 Procedure OnExit() Export
-	UT_AdditionalLibrariesDirectory=UT_AdditionalLibrariesDirectory();
+	UT_AdditionalLibrariesDirectory=UT_AssistiveLibrariesDirectory();
 	Try
 		BeginDeletingFiles(,UT_AdditionalLibrariesDirectory);
 	Except
@@ -738,159 +738,158 @@ EndProcedure
 
 #Region ConsoleDataReading
 
-Procedure ReadConsoleFromFile(ConsoleName, СтруктураОписанияЧитаемогоФайла, ОписаниеОповещенияОЗавершении, БезВыбораФайла = Ложь) Экспорт
+Procedure ReadConsoleFromFile(ConsoleName, ReadableFileDescriptionStructure, OnEndNotifyDescription, WithoutFileSelection = False) Export
 
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("СтруктураОписанияЧитаемогоФайла", СтруктураОписанияЧитаемогоФайла);
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДополнительныеПараметрыОповещения.Вставить("ConsoleName", ConsoleName);
-	ДополнительныеПараметрыОповещения.Вставить("БезВыбораФайла", БезВыбораФайла);
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("ReadableFileDescriptionStructure", ReadableFileDescriptionStructure);
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
+	NotifyAdditionalParameters.Insert("ConsoleName", ConsoleName);
+	NotifyAdditionalParameters.Insert("WithoutFileSelection", WithoutFileSelection);
 
 	AttachFileSystemExtensionWithPossibleInstallation(
-		Новый ОписаниеОповещения("ReadConsoleFromFileAfterExtensionConnection", ЭтотОбъект,
-		ДополнительныеПараметрыОповещения));
+		New NotifyDescription("ReadConsoleFromFileAfterExtensionConnection", ThisObject,
+		NotifyAdditionalParameters));
 
 EndProcedure
 
-Процедура ReadConsoleFromFileAfterExtensionConnection(Подключено, ДополнительныеПараметры) Экспорт
+Procedure ReadConsoleFromFileAfterExtensionConnection(Connected, AdditionalParameters) Export
 
-	ЗагружаемоеИмяФайла = ДополнительныеПараметры.СтруктураОписанияЧитаемогоФайла.ИмяФайла;
-	БезВыбораФайла = ДополнительныеПараметры.БезВыбораФайла;
+	UploadFileName  = AdditionalParameters.ReadableFileDescriptionStructure.FileName;
+	WithoutFileSelection = AdditionalParameters.WithoutFileSelection;
 
-	Если Подключено Тогда
+	If Connected Then
 
-		Если БезВыбораФайла Тогда
-			Если ЗначениеЗаполнено(ЗагружаемоеИмяФайла) Тогда
-				ПомещаемыеФайлы=Новый Массив;
-				ПомещаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ЗагружаемоеИмяФайла));
+		If WithoutFileSelection Then
+			If ValueIsFilled(UploadFileName) Then
+				PutableFiles=New Array;
+				PutableFiles.Add(New TransferableFileDescription(UploadFileName));
 
-				НачатьПомещениеФайлов(
-					Новый ОписаниеОповещения("ReadConsoleFromFileAfterPutFiles", ЭтотОбъект,
-					ДополнительныеПараметры), ПомещаемыеФайлы, , Ложь);
-			КонецЕсли;
-		Иначе
-			ВыборФайла = FileSelectionDialogByDescriptionStructureOfSelectedFile(РежимДиалогаВыбораФайла.Открытие,
-				ДополнительныеПараметры.СтруктураОписанияЧитаемогоФайла);
+				BeginPuttingFiles(
+					New NotifyDescription("ReadConsoleFromFileAfterPutFiles", ThisObject,
+					AdditionalParameters), PutableFiles, , False);
+			EndIf;
+		Else
+			FileChoose = FileSelectionDialogByDescriptionStructureOfSelectedFile(FileDialogMode.Open,
+				AdditionalParameters.ReadableFileDescriptionStructure);
 
-			ВыборФайла.Показать(Новый ОписаниеОповещения("ReadConsoleFromFileAfterFileChoose", ЭтотОбъект,
-				ДополнительныеПараметры));
-		КонецЕсли;
-	Иначе
-		ПомещаемыеФайлы=Новый Массив;
-		ПомещаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ЗагружаемоеИмяФайла));
+			FileChoose.Show(New NotifyDescription("ReadConsoleFromFileAfterFileChoose", ThisObject,
+				AdditionalParameters));
+		EndIf;
+	Else
+		PutableFiles=New Array;
+		PutableFiles.Add(New TransferableFileDescription(UploadFileName));
 
-		НачатьПомещениеФайлов(
-			Новый ОписаниеОповещения("ReadConsoleFromFileAfterPutFiles", ЭтотОбъект,
-			ДополнительныеПараметры), ПомещаемыеФайлы, , ЗагружаемоеИмяФайла = "");
+		BeginPuttingFiles(
+			New NotifyDescription("ReadConsoleFromFileAfterPutFiles", ThisObject,
+			AdditionalParameters), PutableFiles, , UploadFileName = "");
 
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ReadConsoleFromFileAfterFileChoose(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
+Procedure ReadConsoleFromFileAfterFileChoose(SelectedFiles, AdditionalParameters) Export
 
-	Если ВыбранныеФайлы = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If SelectedFiles = Undefined Then
+		Return;
+	EndIf;
 
-	Если ВыбранныеФайлы.Количество() = 0 Тогда
-		Возврат;
-	КонецЕсли;
+	If SelectedFiles.Count() = 0 Then
+		Return;
+	EndIf;
 
-	ПомещаемыеФайлы=Новый Массив;
-	ПомещаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ВыбранныеФайлы[0]));
+	PutableFiles=New Array;
+	PutableFiles.Add(New TransferableFileDescription(SelectedFiles[0]));
 
-	НачатьПомещениеФайлов(
-				Новый ОписаниеОповещения("ReadConsoleFromFileAfterPutFiles", ЭтотОбъект,
-		ДополнительныеПараметры), ПомещаемыеФайлы, , Ложь);
-КонецПроцедуры
+	BeginPuttingFiles(
+				New NotifyDescription("ReadConsoleFromFileAfterPutFiles", ThisObject,
+		AdditionalParameters), PutableFiles, , False);
+EndProcedure
 
-Процедура ReadConsoleFromFileAfterPutFiles(ПомещенныеФайлы, ДополнительныеПараметры) Экспорт
+Procedure ReadConsoleFromFileAfterPutFiles(PuttedFiles, AdditionalParameters) Export
 
-	Если ПомещенныеФайлы = Неопределено Тогда
-		Возврат;
+	If PuttedFiles = Undefined Then
+		Return;
+	EndIf;
 
-	КонецЕсли;
+	ReadConsoleFromFileProcessingFileUploading(PuttedFiles, AdditionalParameters);
+EndProcedure
 
-	ReadConsoleFromFileProcessingFileUploading(ПомещенныеФайлы, ДополнительныеПараметры);
-КонецПроцедуры
+Procedure ReadConsoleFromFileProcessingFileUploading(PuttedFiles, AdditionalParameters)
 
-Процедура ReadConsoleFromFileProcessingFileUploading(ПомещенныеФайлы, ДополнительныеПараметры)
+	ResultStructure=Undefined;
 
-	СтруктураРезультата=Неопределено;
+	For Each PuttedFile In PuttedFiles Do
 
-	Для Каждого ПомещенныйФайл Из ПомещенныеФайлы Цикл
+		If PuttedFile.Location <> "" Then
 
-		Если ПомещенныйФайл.Хранение <> "" Тогда
+			ResultStructure=New Structure;
+			ResultStructure.Insert("Url", PuttedFile.Location);
+			If UT_CommonClientServer.PlatformVersionNotLess("8.3.13") Then
+				ResultStructure.Insert("FileName", PuttedFile.FullName);
+			Else
+				ResultStructure.Insert("FileName", PuttedFile.Name);
+			EndIf;
+		
+			Break;
+		
+		EndIf;
 
-			СтруктураРезультата=Новый Структура;
-			СтруктураРезультата.Вставить("Адрес", ПомещенныйФайл.Хранение);
-			Если UT_CommonClientServer.PlatformVersionNotLess("8.3.13") Тогда
-				СтруктураРезультата.Вставить("ИмяФайла", ПомещенныйФайл.ПолноеИмя);
-			Иначе
-				СтруктураРезультата.Вставить("ИмяФайла", ПомещенныйФайл.Имя);
-			КонецЕсли;
+	EndDo;
 
-			Прервать;
+	ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, ResultStructure);
 
-		КонецЕсли;
-
-	КонецЦикла;
-
-	ExecuteNotifyProcessing(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, СтруктураРезультата);
-
-КонецПроцедуры
-
-#EndRegion
+EndProcedure
 
 #EndRegion
 
-#Region ПодключениеИУстановкаРасширенияРаботыСФайлами
+#EndRegion
 
-Процедура AttachFileSystemExtensionWithPossibleInstallation(ОписаниеОповещенияОЗавершении, ПослеУстановки = Ложь) Экспорт
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДополнительныеПараметрыОповещения.Вставить("ПослеУстановки", ПослеУстановки);
+#Region FileSystemExtensionConnectAndSetup
+
+Procedure AttachFileSystemExtensionWithPossibleInstallation(OnEndNotifyDescription, AfterInstall = False) Export
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
+	NotifyAdditionalParameters.Insert("AfterInstall", AfterInstall);
 
 	BeginAttachingFileSystemExtension(
-		Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеПодключенияРасширения",
-		ЭтотОбъект, ДополнительныеПараметрыОповещения));
+		New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionConnect",
+		ThisObject, NotifyAdditionalParameters));
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеПодключенияРасширения(Подключено,
-	ДополнительныеПараметры) Экспорт
+Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionConnect(Connected,
+	AdditionalParameters) Export
 
-	Если Подключено Тогда
+	If Connected Then
 		SessionFileVariablesStructure=UT_ApplicationParameters[SessionFileVariablesParameterName()];
-		Если SessionFileVariablesStructure = Неопределено Тогда
+		If SessionFileVariablesStructure = Undefined Then
 			ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(
-				Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеЧтенияФайловыхПеременныхСеанса",
-				ЭтотОбъект, ДополнительныеПараметры));
-		Иначе
-			ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);
-		КонецЕсли;
-	ИначеЕсли Не ДополнительныеПараметры.ПослеУстановки Тогда
-		НачатьУстановкуРасширенияРаботыСФайлами(
-			Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеУстановкиРасширения",
-			ЭтотОбъект, ДополнительныеПараметры));
-	Иначе
-		ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Ложь);
-	КонецЕсли;
+				New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndSessionFileVariablesReading",
+				ЭтотОбъект, AdditionalParameters));
+		Else
+			ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, True);
+		EndIf;
+	ElsIf Not AdditionalParameters.AfterInstall Then
+		BeginInstallFileSystemExtension(
+			New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionInstallation",
+			ЭтотОбъект, AdditionalParameters));
+	Else
+		ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, False);
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеЧтенияФайловыхПеременныхСеанса(Результат,
-	ДополнительныеПараметры) Экспорт
+Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndSessionFileVariablesReading(Result,
+	AdditionalParameters) Export
 
-	ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);
+	ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, True);
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеУстановкиРасширения(ДополнительныеПараметры) Экспорт
-	AttachFileSystemExtensionWithPossibleInstallation(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении,
-		Истина);
-КонецПроцедуры
+Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionInstallation(AdditionalParameters) Export
+	AttachFileSystemExtensionWithPossibleInstallation(AdditionalParameters.OnEndNotifyDescription,
+		True);
+EndProcedure
 
 #EndRegion
 
@@ -902,7 +901,7 @@ EndFunction
 
 #EndRegion
 
-#Region ЧтениеФайловыхПараметровСеансаВПараметрыПриложения
+#Region SessionFileParametersReadingToApplicationParameters
 
 Function SessionFileVariablesParameterName () Export	
 	Return "FILE_VARIABLES";
@@ -920,41 +919,42 @@ Function SessionFileVariablesStructure() Export
 	Return FileVariablesStructure;
 EndFunction
 
-Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(ОписаниеОповещенияОЗавершении) Экспорт
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
+Procedure ReadMainSessionFileVariablesToApplicationParameters(OnEndNotifyDescription) Export
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
 
-	//1. каталог временных файлов
-	НачатьПолучениеКаталогаВременныхФайлов(
-		Новый ОписаниеОповещения("ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеКаталогаВременныхФайловЗавершение",
-		ЭтотОбъект, ДополнительныеПараметрыОповещения));
-КонецПроцедуры
+	//1. Temp files directory
+	BeginGettingTempFilesDir(
+		New NotifyDescription("ReadMainSessionFileVariablesToApplicationParametersOnEndGettingTempFilesDir",
+		ThisObject, NotifyAdditionalParameters));
+EndProcedure
 
-Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеКаталогаВременныхФайловЗавершение(ИмяКаталога,
-	ДополнительныеПараметры) Экспорт
-	СтруктураФайловыхПеременных=SessionFileVariablesStructure();
-	СтруктураФайловыхПеременных.Вставить("TempFilesDirectory", ИмяКаталога);
+Procedure ReadMainSessionFileVariablesToApplicationParametersOnEndGettingTempFilesDir(DirectoryName,
+	AdditionalParameters) Export
+	FileVariablesStructure=SessionFileVariablesStructure();
+	FileVariablesStructure.Insert("TempFilesDirectory", DirectoryName);
 
-	НачатьПолучениеРабочегоКаталогаДанныхПользователя(
-		Новый ОписаниеОповещения("ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение",
-		ЭтотОбъект, ДополнительныеПараметры));
-КонецПроцедуры
+	BeginGettingUserDataWorkDir(
+		New NotifyDescription("ReadMainSessionFileVariablesToApplicationParametersOnEndGettingUserDataWorkDir",
+		ThisObject, AdditionalParameters));
+EndProcedure
 
-Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение(ИмяКаталога,
-	ДополнительныеПараметры) Экспорт
-	СтруктураФайловыхПеременных=SessionFileVariablesStructure();
-	СтруктураФайловыхПеременных.Вставить("РабочийКаталогДанныхПользователя", ИмяКаталога);
+Procedure ReadMainSessionFileVariablesToApplicationParametersOnEndGettingUserDataWorkDir(DirectoryName,
+	AdditionalParameters) Export
+	FileVariablesStructure=SessionFileVariablesStructure();
+	FileVariablesStructure.Insert("UserDataWorkDir", DirectoryName);
 
-	ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);
-КонецПроцедуры
+	ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, Истина);
+EndProcedure
 
 #EndRegion
-#Region ЗапускПриложения1С
+
+#Region ApplicationRun1С
 
 
-// Описание
+// Description
 // 
-// Параметры:
+// Parameters:
 // 	ТипКлиента - Число - Код режима запуска
 // 		1 - Конфигуратор
 // 		2 - Толстый клиент обычное приложение
