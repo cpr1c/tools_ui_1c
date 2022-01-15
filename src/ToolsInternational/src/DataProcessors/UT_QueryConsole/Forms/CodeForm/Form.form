@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаВерхняя</name>
+    <name>TopGroup</name>
     <id>11</id>
     <items xsi:type="form:FormField">
-      <name>ИмяЗапроса</name>
+      <name>QueryName</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -13,11 +13,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ИмяЗапроса</segments>
+          <segments>QueryName</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ИмяЗапросаРасширеннаяПодсказка</name>
+        <name>QueryNameExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -32,7 +32,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ИмяЗапросаКонтекстноеМеню</name>
+        <name>QueryNameContextMenu</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -57,7 +57,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>УстановитьЗначенияПараметров</name>
+      <name>SetParameterValues</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -66,11 +66,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>УстановитьЗначенияПараметров</segments>
+          <segments>SetParameterValues</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>УстановитьЗначенияПараметровРасширеннаяПодсказка</name>
+        <name>SetParameterValuesExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -85,7 +85,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>УстановитьЗначенияПараметровКонтекстноеМеню</name>
+        <name>SetParameterValuesContextMenu</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -103,7 +103,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:Button">
-      <name>Обновить</name>
+      <name>Refresh</name>
       <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -111,7 +111,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ОбновитьРасширеннаяПодсказка</name>
+        <name>RefreshExtendedTooltip</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -126,7 +126,7 @@
         </extInfo>
       </extendedTooltip>
       <type>UsualButton</type>
-      <commandName>Form.Command.Обновить</commandName>
+      <commandName>Form.Command.Refresh</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -139,16 +139,24 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Top group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа верхняя</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Top group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа верхняя</value>
     </toolTip>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>ГруппаВерхняяРасширеннаяПодсказка</name>
+      <name>TopGroupExtendedTooltip</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -173,7 +181,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>Текст</name>
+    <name>Text</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -182,12 +190,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Текст</segments>
+        <segments>Text</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ТекстРасширеннаяПодсказка</name>
+      <name>TextExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -202,7 +210,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТекстКонтекстноеМеню</name>
+      <name>TextContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -226,10 +234,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманднаяПанельВнизу</name>
+    <name>BottomCommandBarGroup</name>
     <id>6</id>
     <items xsi:type="form:Button">
-      <name>ФормаЗакрыть</name>
+      <name>CloseForm</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -237,7 +245,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗакрытьРасширеннаяПодсказка</name>
+        <name>CloseFormExtendedTooltip</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -265,15 +273,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Bottom command bar group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Bottom command bar group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКоманднаяПанельВнизуРасширеннаяПодсказка</name>
+      <name>BottomCommandBarGroupExtendedTooltip</name>
       <id>7</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -304,11 +320,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
     <event>OnClose</event>
-    <name>ПриЗакрытии</name>
+    <name>OnClose</name>
   </handlers>
   <width>100</width>
   <height>30</height>
@@ -321,7 +337,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -335,7 +351,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Текст</name>
+    <name>Text</name>
+    <title>
+      <key>en</key>
+      <value>Text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текст</value>
@@ -352,7 +372,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяЗапроса</name>
+    <name>QueryName</name>
+    <title>
+      <key>en</key>
+      <value>Query name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имя запроса</value>
@@ -370,7 +394,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>УстановитьЗначенияПараметров</name>
+    <name>SetParameterValues</name>
+    <title>
+      <key>en</key>
+      <value>Parameter values</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Значения параметров</value>
@@ -387,7 +415,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстЗапроса</name>
+    <name>QueryText</name>
+    <title>
+      <key>en</key>
+      <value>Query text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текст запроса</value>
@@ -404,7 +436,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПараметрыЗапроса</name>
+    <name>QueryParameters</name>
+    <title>
+      <key>en</key>
+      <value>Query parameters</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Параметры запроса</value>
@@ -422,12 +458,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Обновить</name>
+    <name>Refresh</name>
+    <title>
+      <key>en</key>
+      <value>Refresh</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Refresh</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Обновить</value>
@@ -440,7 +484,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_Обновить</name>
+        <name>Refresh_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
