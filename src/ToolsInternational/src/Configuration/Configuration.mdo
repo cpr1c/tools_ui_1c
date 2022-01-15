@@ -132,7 +132,7 @@
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
   <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
   <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
-  <commonForms>CommonForm.УИ_ФормаХранилищаЗначения</commonForms>
+  <commonForms>CommonForm.UT_ValueStorageForm</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.UT_ReportsConsole</reports>

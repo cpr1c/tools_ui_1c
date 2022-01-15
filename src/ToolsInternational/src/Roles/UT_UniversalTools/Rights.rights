@@ -105,7 +105,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ФормаХранилищаЗначения</name>
+		<name>CommonForm.UT_ValueStorageForm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

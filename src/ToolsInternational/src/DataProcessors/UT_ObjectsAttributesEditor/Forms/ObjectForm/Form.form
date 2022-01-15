@@ -4,7 +4,7 @@
     <name>ГруппаОбъект</name>
     <id>78</id>
     <items xsi:type="form:FormField">
-      <name>мОбъектСсылка</name>
+      <name>mObjectRef</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -13,7 +13,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>мОбъектСсылка</segments>
+          <segments>mObjectRef</segments>
         </paths>
       </dataPath>
       <titleLocation>Left</titleLocation>
@@ -22,7 +22,7 @@
         <name>мОбъектСсылкаПриИзменении</name>
       </handlers>
       <extendedTooltip>
-        <name>мОбъектСсылкаРасширеннаяПодсказка</name>
+        <name>mObjectRefExtendedTooltip</name>
         <id>3</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -37,7 +37,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>мОбъектСсылкаКонтекстноеМеню</name>
+        <name>mObjectRefContextMenu</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -3653,10 +3653,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>мОбъектСсылка</name>
+    <name>mObjectRef</name>
     <title>
       <key>ru</key>
       <value>Объект ИБ</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>M object ref</value>
     </title>
     <id>2</id>
     <valueType>
