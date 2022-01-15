@@ -1010,7 +1010,7 @@ Function Run1CSession(ClientType, User, UnderUserRunMode = False,
 		ElsIf MatchOfConnectionStringParameters.Property("srvr") Then
 			DataBasePath = UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.srvr) + "\"
 				+ UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.ref);
-			ПутьКБазе = UT_StringFunctionsClientServer.ОбернутьВКавычки(DataBasePath);
+			DataBasePath = UT_StringFunctionsClientServer.ОбернутьВКавычки(DataBasePath);
 			LaunchString = LaunchString + " /S " + DataBasePath;
 		ElsIf MatchOfConnectionStringParameters.Property("ws") Then
 			LaunchString = LaunchString + " /WS " + MatchOfConnectionStringParameters.ws;
