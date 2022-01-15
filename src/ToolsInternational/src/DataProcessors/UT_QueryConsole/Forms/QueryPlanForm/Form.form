@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Query plan</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>План запроса</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаПланЗапроса</name>
+    <name>QueryPlanGroup</name>
     <id>15</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСтраницыПланЗапроса</name>
+      <name>QueryPlanPagesGroup</name>
       <id>62</id>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаПланДерево</name>
+        <name>PlanTreePage</name>
         <id>64</id>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаПараметрыДерева</name>
+          <name>TreeParametersGroup</name>
           <id>110</id>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаПараметрыДереваКоманды</name>
+            <name>TreeParametersCommandGroup</name>
             <id>114</id>
             <items xsi:type="form:Button">
-              <name>РазвернутьВсе</name>
+              <name>ExpandAll</name>
               <id>116</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -28,7 +32,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>РазвернутьВсеРасширеннаяПодсказка</name>
+                <name>ExpandAllExtendedTooltip</name>
                 <id>117</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -42,7 +46,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.РазвернутьВсе</commandName>
+              <commandName>Form.Command.ExpandAll</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -50,7 +54,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>СвернутьВсе</name>
+              <name>CollapseAll</name>
               <id>118</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -58,7 +62,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>СвернутьВсеРасширеннаяПодсказка</name>
+                <name>CollapseAllExtendedTooltip</name>
                 <id>119</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -72,7 +76,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.СвернутьВсе</commandName>
+              <commandName>Form.Command.CollapseAll</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -85,15 +89,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Tree parameters command group</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Группа параметры дерева команды</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Tree parameters command group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Группа параметры дерева команды</value>
             </toolTip>
             <extendedTooltip>
-              <name>ГруппаПараметрыДереваКомандыРасширеннаяПодсказка</name>
+              <name>TreeParametersCommandGroupExtendedTooltip</name>
               <id>115</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -113,10 +125,10 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаПараметрыДереваПраво</name>
+            <name>TreeParametersRightGroup</name>
             <id>112</id>
             <items xsi:type="form:FormField">
-              <name>ОтображатьВТерминах1С</name>
+              <name>ShowIn1CTerms</name>
               <id>120</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -125,12 +137,12 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ОтображатьВТерминах1С</segments>
+                  <segments>ShowIn1CTerms</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
               <extendedTooltip>
-                <name>ОтображатьВТерминах1СРасширеннаяПодсказка</name>
+                <name>ShowIn1CTermsExtendedTooltip</name>
                 <id>122</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -145,7 +157,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ОтображатьВТерминах1СКонтекстноеМеню</name>
+                <name>ShowIn1CTermsContextMenu</name>
                 <id>121</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -162,7 +174,7 @@
               <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
             </items>
             <items xsi:type="form:FormField">
-              <name>ДоляОтображенияТяжелых</name>
+              <name>HeavyQueriesProportion</name>
               <id>105</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -171,11 +183,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ДоляОтображенияТяжелых</segments>
+                  <segments>HeavyQueriesProportion</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ДоляОтображенияТяжелыхРасширеннаяПодсказка</name>
+                <name>HeavyQueriesProportionExtendedTooltip</name>
                 <id>107</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -190,7 +202,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоляОтображенияТяжелыхКонтекстноеМеню</name>
+                <name>HeavyQueriesProportionContextMenu</name>
                 <id>106</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -217,7 +229,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:Button">
-              <name>Обновить</name>
+              <name>Refresh</name>
               <id>108</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -225,7 +237,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ОбновитьРасширеннаяПодсказка</name>
+                <name>RefreshExtendedTooltip</name>
                 <id>109</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -240,7 +252,7 @@
                 </extInfo>
               </extendedTooltip>
               <type>UsualButton</type>
-              <commandName>Form.Command.Обновить</commandName>
+              <commandName>Form.Command.Refresh</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -254,16 +266,24 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Tree parameters right group</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Группа параметры дерева право</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Tree parameters right group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Группа параметры дерева право</value>
             </toolTip>
             <groupHorizontalAlign>Right</groupHorizontalAlign>
             <extendedTooltip>
-              <name>ГруппаПараметрыДереваПравоРасширеннаяПодсказка</name>
+              <name>TreeParametersRightGroupExtendedTooltip</name>
               <id>113</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -292,9 +312,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Tree parameters group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа параметры дерева</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Tree parameters group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа параметры дерева</value>
@@ -302,7 +330,7 @@
           <horizontalStretch>true</horizontalStretch>
           <groupHorizontalAlign>Right</groupHorizontalAlign>
           <extendedTooltip>
-            <name>ГруппаПараметрыДереваРасширеннаяПодсказка</name>
+            <name>TreeParametersGroupExtendedTooltip</name>
             <id>111</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -326,7 +354,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:Table">
-          <name>План</name>
+          <name>Plan</name>
           <id>17</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -334,11 +362,11 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>План</segments>
+            <segments>Plan</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
-            <name>ПланОператор</name>
+            <name>PlanOperator</name>
             <id>30</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -347,11 +375,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>План.Оператор</segments>
+                <segments>Plan.Operator</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПланОператорРасширеннаяПодсказка</name>
+              <name>PlanOperatorExtendedTooltip</name>
               <id>32</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -366,7 +394,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПланОператорКонтекстноеМеню</name>
+              <name>PlanOperatorContextMenu</name>
               <id>31</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -392,7 +420,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПланСреднийРазмерСтроки</name>
+            <name>PlanAverageRowSize</name>
             <id>99</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -401,15 +429,19 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>План.СреднийРазмерСтроки</segments>
+                <segments>Plan.AverageRowSize</segments>
               </paths>
             </dataPath>
+            <toolTip>
+              <key>en</key>
+              <value>Average data row size</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Средний размер строки данных.</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПланСреднийРазмерСтрокиРасширеннаяПодсказка</name>
+              <name>PlanAverageRowSizeExtendedTooltip</name>
               <id>101</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -424,7 +456,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПланСреднийРазмерСтрокиКонтекстноеМеню</name>
+              <name>PlanAverageRowSizeContextMenu</name>
               <id>100</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -449,10 +481,10 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ПланГруппаСтоимостьОператора</name>
+            <name>PlanOperatorCostGroup</name>
             <id>71</id>
             <items xsi:type="form:FormField">
-              <name>ПланСтоимостьОператора</name>
+              <name>PlanOperatorCost</name>
               <id>53</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -461,15 +493,19 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.СтоимостьОператора</segments>
+                  <segments>Plan.OperatorCost</segments>
                 </paths>
               </dataPath>
+              <toolTip>
+                <key>en</key>
+                <value>Operator cost in common units</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Стоимость оператора в условных единицах.</value>
               </toolTip>
               <extendedTooltip>
-                <name>ПланСтоимостьОператораРасширеннаяПодсказка</name>
+                <name>PlanOperatorCostExtendedTooltip</name>
                 <id>55</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -484,7 +520,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланСтоимостьОператораКонтекстноеМеню</name>
+                <name>PlanOperatorCostContextMenu</name>
                 <id>54</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -516,7 +552,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ПланСтоимостьОператораПроцент</name>
+              <name>PlanOperatorCostPercent</name>
               <id>59</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -525,15 +561,19 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.СтоимостьОператораПроцент</segments>
+                  <segments>Plan.OperatorCostPercent</segments>
                 </paths>
               </dataPath>
+              <toolTip>
+                <key>en</key>
+                <value>Operator cost as a percentage of the cost of all query operators. </value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Стоимость оператора, в процентах к стоимости всех оперпторов запроса.</value>
               </toolTip>
               <extendedTooltip>
-                <name>ПланСтоимостьОператораПроцентРасширеннаяПодсказка</name>
+                <name>PlanOperatorCostPercentExtendedTooltip</name>
                 <id>61</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -548,7 +588,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланСтоимостьОператораПроцентКонтекстноеМеню</name>
+                <name>PlanOperatorCostPercentContextMenu</name>
                 <id>60</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -577,15 +617,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Operator cost</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Стоимость оператора</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Operator cost units/percent</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Стоимость оператора единицы/процент</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПланГруппаСтоимостьОператораРасширеннаяПодсказка</name>
+              <name>PlanOperatorCostGroupExtendedTooltip</name>
               <id>72</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -608,10 +656,10 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ПланГруппаСтоимостьУзлаРазмерСтроки</name>
+            <name>PlanNodeCostRowSizeGroup</name>
             <id>97</id>
             <items xsi:type="form:FormField">
-              <name>ПланСтоимостьУзла</name>
+              <name>PlanNodeCost</name>
               <id>50</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -620,15 +668,19 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.СтоимостьУзла</segments>
+                  <segments>Plan.NodeCost</segments>
                 </paths>
               </dataPath>
+              <toolTip>
+                <key>en</key>
+                <value>Full node cost in common units. Including child nodes cost.</value>
+              </toolTip>
               <toolTip>
                 <key>ru</key>
                 <value>Полная стоимость узла в условных единицах. Включает стоимость подчиненных.</value>
               </toolTip>
               <extendedTooltip>
-                <name>ПланСтоимостьУзлаРасширеннаяПодсказка</name>
+                <name>PlanNodeCostExtendedTooltip</name>
                 <id>52</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -643,7 +695,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланСтоимостьУзлаКонтекстноеМеню</name>
+                <name>PlanNodeCostContextMenu</name>
                 <id>51</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -668,7 +720,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ПланСтоимостьУзлаПроцент</name>
+              <name>PlanNodeCostPercent</name>
               <id>102</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -677,11 +729,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.СтоимостьУзлаПроцент</segments>
+                  <segments>Plan.NodeCostPercent</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ПланСтоимостьУзлаПроцентРасширеннаяПодсказка</name>
+                <name>PlanNodeCostPercentExtendedTooltip</name>
                 <id>104</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -696,7 +748,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланСтоимостьУзлаПроцентКонтекстноеМеню</name>
+                <name>PlanNodeCostPercentContextMenu</name>
                 <id>103</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -725,15 +777,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Node cost</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Стоимость узла</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Node cost units/percent</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Стоимость узла единицы/процент</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПланГруппаСтоимостьУзлаРазмерСтрокиРасширеннаяПодсказка</name>
+              <name>PlanNodeCostRowSizeGroupExtendedTooltip</name>
               <id>98</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -755,10 +815,10 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ПланГруппаСтрок</name>
+            <name>PlanRowGroup</name>
             <id>73</id>
             <items xsi:type="form:FormField">
-              <name>ПланСтрокПлан</name>
+              <name>PlanRowCountPlan</name>
               <id>56</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -767,11 +827,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.СтрокПлан</segments>
+                  <segments>Plan.RowCountPlan</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ПланСтрокПланРасширеннаяПодсказка</name>
+                <name>PlanRowCountPlanExtendedTooltip</name>
                 <id>58</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -786,7 +846,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланСтрокПланКонтекстноеМеню</name>
+                <name>PlanRowCountPlanContextMenu</name>
                 <id>57</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -805,9 +865,17 @@
                 <autoMaxHeight>true</autoMaxHeight>
                 <wrap>true</wrap>
                 <format>
+                  <key>en</key>
+                  <value>NZ=</value>
+                </format>
+                <format>
                   <key>ru</key>
                   <value>ЧН=</value>
                 </format>
+                <editFormat>
+                  <key>en</key>
+                  <value>NZ=</value>
+                </editFormat>
                 <editFormat>
                   <key>ru</key>
                   <value>ЧН=</value>
@@ -818,7 +886,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ПланСтрокФакт</name>
+              <name>PlanRowCountFact</name>
               <id>75</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -827,11 +895,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.СтрокФакт</segments>
+                  <segments>Plan.RowCountFact</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ПланСтрокФактРасширеннаяПодсказка</name>
+                <name>PlanRowCountFactExtendedTooltip</name>
                 <id>77</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -846,7 +914,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланСтрокФактКонтекстноеМеню</name>
+                <name>PlanRowCountFactContextMenu</name>
                 <id>76</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -865,9 +933,17 @@
                 <autoMaxHeight>true</autoMaxHeight>
                 <wrap>true</wrap>
                 <format>
+                  <key>en</key>
+                  <value>NZ=</value>
+                </format>
+                <format>
                   <key>ru</key>
                   <value>ЧН=</value>
                 </format>
+                <editFormat>
+                  <key>en</key>
+                  <value>NZ=</value>
+                </editFormat>
                 <editFormat>
                   <key>ru</key>
                   <value>ЧН=</value>
@@ -883,15 +959,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Row count (plan/fact)</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Строк (план/факт)</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Row count (plan/fact)</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Строк (план/факт)</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПланГруппаСтрокРасширеннаяПодсказка</name>
+              <name>PlanRowGroupExtendedTooltip</name>
               <id>74</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -914,10 +998,10 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ПланГруппаВызовы</name>
+            <name>PlanCallsGroup</name>
             <id>78</id>
             <items xsi:type="form:FormField">
-              <name>ПланВызовыПлан</name>
+              <name>PlanCallsPlan</name>
               <id>80</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -926,11 +1010,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.ВызовыПлан</segments>
+                  <segments>Plan.CallsPlan</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ПланВызовыПланРасширеннаяПодсказка</name>
+                <name>PlanCallsPlanExtendedTooltip</name>
                 <id>82</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -945,7 +1029,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланВызовыПланКонтекстноеМеню</name>
+                <name>PlanCallsPlanContextMenu</name>
                 <id>81</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -963,9 +1047,17 @@
                 <autoMaxHeight>true</autoMaxHeight>
                 <wrap>true</wrap>
                 <format>
+                  <key>en</key>
+                  <value>NZ=</value>
+                </format>
+                <format>
                   <key>ru</key>
                   <value>ЧН=</value>
                 </format>
+                <editFormat>
+                  <key>en</key>
+                  <value>NZ=</value>
+                </editFormat>
                 <editFormat>
                   <key>ru</key>
                   <value>ЧН=</value>
@@ -976,7 +1068,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ПланВызовыФакт</name>
+              <name>PlanCallsFact</name>
               <id>83</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -985,11 +1077,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.ВызовыФакт</segments>
+                  <segments>Plan.CallsFact</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ПланВызовыФактРасширеннаяПодсказка</name>
+                <name>PlanCallsFactExtendedTooltip</name>
                 <id>85</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1004,7 +1096,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланВызовыФактКонтекстноеМеню</name>
+                <name>PlanCallsFactContextMenu</name>
                 <id>84</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1040,15 +1132,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Calls (plan/fact)</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Вызовы (план/факт)</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Plan calls group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>План группа вызовы</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПланГруппаВызовыРасширеннаяПодсказка</name>
+              <name>PlanCallsGroupExtendedTooltip</name>
               <id>79</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1071,10 +1171,10 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ПланГруппаЗатраты</name>
+            <name>PlanExpensesGroup</name>
             <id>86</id>
             <items xsi:type="form:FormField">
-              <name>ПланЗатратыВВ</name>
+              <name>PlanIOExpenses</name>
               <id>88</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1083,11 +1183,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.ЗатратыВВ</segments>
+                  <segments>Plan.IOExpenses</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ПланЗатратыВВРасширеннаяПодсказка</name>
+                <name>PlanIOExpensesExtendedTooltip</name>
                 <id>90</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1102,7 +1202,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланЗатратыВВКонтекстноеМеню</name>
+                <name>PlanIOExpensesContextMenu</name>
                 <id>89</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1125,7 +1225,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ПланЗатратыЦП</name>
+              <name>PlanCPUExpenses</name>
               <id>91</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1134,11 +1234,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>План.ЗатратыЦП</segments>
+                  <segments>Plan.CPUExpenses</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ПланЗатратыЦПРасширеннаяПодсказка</name>
+                <name>PlanCPUExpensesExtendedTooltip</name>
                 <id>93</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1153,7 +1253,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПланЗатратыЦПКонтекстноеМеню</name>
+                <name>PlanCPUExpensesContextMenu</name>
                 <id>92</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1181,15 +1281,23 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Expenses (IO/CPU)</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Затраты (ВВ/ЦП)</value>
             </title>
+            <toolTip>
+              <key>en</key>
+              <value>Plan expenses group</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>План группа затраты</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПланГруппаЗатратыРасширеннаяПодсказка</name>
+              <name>PlanExpensesGroupExtendedTooltip</name>
               <id>87</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1211,7 +1319,7 @@
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>ПланКоманднаяПанель</name>
+            <name>PlanCommandBar</name>
             <id>19</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1222,7 +1330,7 @@
           </autoCommandBar>
           <handlers>
             <event>OnActivateRow</event>
-            <name>ПланПриАктивизацииСтроки</name>
+            <name>PlanOnActivateRow</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -1230,10 +1338,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПланСтрокаПоиска</name>
+            <name>PlanSearchString</name>
             <id>21</id>
             <extendedTooltip>
-              <name>ПланСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>PlanSearchStringExtendedTooltip</name>
               <id>23</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1248,7 +1356,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПланСтрокаПоискаКонтекстноеМеню</name>
+              <name>PlanSearchStringContextMenu</name>
               <id>22</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1267,10 +1375,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПланСостояниеПросмотра</name>
+            <name>PlanViewStatus</name>
             <id>24</id>
             <extendedTooltip>
-              <name>ПланСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>PlanViewStatusExtendedTooltip</name>
               <id>26</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1285,7 +1393,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПланСостояниеПросмотраКонтекстноеМеню</name>
+              <name>PlanViewStatusContextMenu</name>
               <id>25</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1305,10 +1413,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПланУправлениеПоиском</name>
+            <name>PlanSearchControl</name>
             <id>27</id>
             <extendedTooltip>
-              <name>ПланУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>PlanSearchControlExtendedTooltip</name>
               <id>29</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1323,7 +1431,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПланУправлениеПоискомКонтекстноеМеню</name>
+              <name>PlanSearchControlContextMenu</name>
               <id>28</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1338,7 +1446,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>ПланРасширеннаяПодсказка</name>
+            <name>PlanExtendedTooltip</name>
             <id>20</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1353,7 +1461,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПланКонтекстноеМеню</name>
+            <name>PlanContextMenu</name>
             <id>18</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1385,7 +1493,7 @@
           <fileDragMode>AsFileRef</fileDragMode>
         </items>
         <items xsi:type="form:FormField">
-          <name>ТекущийОператор</name>
+          <name>CurrentOperator</name>
           <id>94</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1394,12 +1502,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекущийОператор</segments>
+              <segments>CurrentOperator</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ТекущийОператорРасширеннаяПодсказка</name>
+            <name>CurrentOperatorExtendedTooltip</name>
             <id>96</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1414,7 +1522,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТекущийОператорКонтекстноеМеню</name>
+            <name>CurrentOperatorContextMenu</name>
             <id>95</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1447,15 +1555,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Tree</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Дерево</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Plan tree page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница план дерево</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницаПланДеревоРасширеннаяПодсказка</name>
+          <name>PlanTreePageExtendedTooltip</name>
           <id>65</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1476,10 +1592,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаПланТекст</name>
+        <name>PlanTextPage</name>
         <id>66</id>
         <items xsi:type="form:FormField">
-          <name>ПланТекст</name>
+          <name>PlanText</name>
           <id>68</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1488,12 +1604,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПланТекстовый</segments>
+              <segments>PlanText</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ПланТекстРасширеннаяПодсказка</name>
+            <name>PlanTextExtendedTooltip</name>
             <id>70</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1508,7 +1624,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПланТекстКонтекстноеМеню</name>
+            <name>PlanTextContextMenu</name>
             <id>69</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1537,15 +1653,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Text</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Текст</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Plan text page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница план текст</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницаПланТекстРасширеннаяПодсказка</name>
+          <name>PlanTextPageExtendedTooltip</name>
           <id>67</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1566,10 +1690,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаПланТекст1С</name>
+        <name>Plan1CTextPage</name>
         <id>130</id>
         <items xsi:type="form:FormField">
-          <name>ПланТекст1С</name>
+          <name>Plan1CText</name>
           <id>132</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1578,12 +1702,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПланТекстовый1С</segments>
+              <segments>Plan1CText</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ПланТекст1СРасширеннаяПодсказка</name>
+            <name>Plan1CTextExtendedTooltip</name>
             <id>134</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1598,7 +1722,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПланТекст1СКонтекстноеМеню</name>
+            <name>Plan1CTextContextMenu</name>
             <id>133</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1627,15 +1751,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Text in 1C terms</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Текст в терминах 1С</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Plan text page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница план текст</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницаПланТекст1СРасширеннаяПодсказка</name>
+          <name>Plan1CTextPageExtendedTooltip</name>
           <id>131</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1661,15 +1793,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Query plan pages group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа страницы план запроса</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Query plan pages group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа страницы план запроса</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаСтраницыПланЗапросаРасширеннаяПодсказка</name>
+        <name>QueryPlanPagesGroupExtendedTooltip</name>
         <id>63</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1695,15 +1835,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Query plan</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>План запроса</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Query plan group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа план запроса</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаПланЗапросаРасширеннаяПодсказка</name>
+      <name>QueryPlanGroupExtendedTooltip</name>
       <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1730,16 +1878,16 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаТекстЗапроса</name>
+    <name>QueryTextGroup</name>
     <id>10</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСтраницыЗапроса</name>
+      <name>QueryPagesGroup</name>
       <id>44</id>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаТекст</name>
+        <name>TextPage</name>
         <id>46</id>
         <items xsi:type="form:FormField">
-          <name>ТекстЗапроса</name>
+          <name>QueryText</name>
           <id>12</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1748,12 +1896,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекстЗапроса</segments>
+              <segments>QueryText</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ТекстЗапросаРасширеннаяПодсказка</name>
+            <name>QueryTextExtendedTooltip</name>
             <id>14</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1768,7 +1916,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТекстЗапросаКонтекстноеМеню</name>
+            <name>QueryTextContextMenu</name>
             <id>13</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1798,15 +1946,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Query</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Запрос</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Text page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница текст</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницаТекстРасширеннаяПодсказка</name>
+          <name>TextPageExtendedTooltip</name>
           <id>47</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1827,10 +1983,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаПараметрыЗапроса</name>
+        <name>QueryParametersPage</name>
         <id>48</id>
         <items xsi:type="form:FormField">
-          <name>ПараметрыЗапроса</name>
+          <name>QueryParameters</name>
           <id>41</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1839,12 +1995,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыЗапроса</segments>
+              <segments>QueryParameters</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ПараметрыЗапросаРасширеннаяПодсказка</name>
+            <name>QueryParametersExtendedTooltip</name>
             <id>43</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1859,7 +2015,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыЗапросаКонтекстноеМеню</name>
+            <name>QueryParametersContextMenu</name>
             <id>42</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1888,15 +2044,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Add. parameters</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Доп. параметры</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Query parameters page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница параметры запроса</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницаПараметрыЗапросаРасширеннаяПодсказка</name>
+          <name>QueryParametersPageExtendedTooltip</name>
           <id>49</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1917,10 +2081,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницаТекстВТерминах1С</name>
+        <name>TextIn1CTermsPage</name>
         <id>125</id>
         <items xsi:type="form:FormField">
-          <name>ТекстЗапросаВТерминах1С</name>
+          <name>QueryTextIn1CTerms</name>
           <id>127</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1929,12 +2093,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекстЗапросаВТерминах1С</segments>
+              <segments>QueryTextIn1CTerms</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ТекстЗапросаВТерминах1СРасширеннаяПодсказка</name>
+            <name>QueryTextIn1CTermsExtendedTooltip</name>
             <id>129</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1949,7 +2113,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТекстЗапросаВТерминах1СКонтекстноеМеню</name>
+            <name>QueryTextIn1CTermsContextMenu</name>
             <id>128</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1979,15 +2143,23 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Query in 1C terms</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Запрос в терминах 1С</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Text in 1C terms page</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Страница текст в терминах1 С</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницаТекстВТерминах1СРасширеннаяПодсказка</name>
+          <name>TextIn1CTermsPageExtendedTooltip</name>
           <id>126</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2013,15 +2185,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Query pages group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа страницы запроса</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Query pages group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа страницы запроса</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаСтраницыЗапросаРасширеннаяПодсказка</name>
+        <name>QueryPagesGroupExtendedTooltip</name>
         <id>45</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2047,15 +2227,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Query text</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Текст запроса</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Query text group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа текст запроса</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаТекстЗапросаРасширеннаяПодсказка</name>
+      <name>QueryTextGroupExtendedTooltip</name>
       <id>11</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2083,10 +2271,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСобытиеЖурнала</name>
+    <name>LogEventGroup</name>
     <id>1</id>
     <items xsi:type="form:FormField">
-      <name>СобытиеЖурнала</name>
+      <name>LogEvent</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2095,12 +2283,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТекстСобытияЖурнала</segments>
+          <segments>LogEventText</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>СобытиеЖурналаРасширеннаяПодсказка</name>
+        <name>LogEventExtendedTooltip</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2115,7 +2303,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СобытиеЖурналаКонтекстноеМеню</name>
+        <name>LogEventContextMenu</name>
         <id>4</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2145,15 +2333,23 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Technological log (fragment)</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Технологический журнал (фрагмент)</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Log event group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа событие журнала</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаСобытиеЖурналаРасширеннаяПодсказка</name>
+      <name>LogEventGroupExtendedTooltip</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2181,10 +2377,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманднаяПанельВнизу</name>
+    <name>BottomCommandBarGroup</name>
     <id>123</id>
     <items xsi:type="form:Button">
-      <name>КнопкаЗакрыть</name>
+      <name>CloseButton</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2192,7 +2388,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КнопкаЗакрытьРасширеннаяПодсказка</name>
+        <name>CloseButtonExtendedTooltip</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2221,16 +2417,24 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Bottom command bar group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Bottom command bar group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </toolTip>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>ГруппаКоманднаяПанельВнизуРасширеннаяПодсказка</name>
+      <name>BottomCommandBarGroupExtendedTooltip</name>
       <id>124</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2265,15 +2469,15 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
     <event>OnClose</event>
-    <name>ПриЗакрытии</name>
+    <name>OnClose</name>
   </handlers>
   <width>120</width>
   <height>30</height>
@@ -2285,7 +2489,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -2299,7 +2503,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ТекстСобытияЖурнала</name>
+    <name>LogEventText</name>
+    <title>
+      <key>en</key>
+      <value>Log event</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Событие журнала</value>
@@ -2316,10 +2524,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>План</name>
+    <name>Plan</name>
     <title>
       <key>ru</key>
-      <value>План</value>
+      <value>Plan</value>
     </title>
     <id>3</id>
     <valueType>
@@ -2332,7 +2540,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Оператор</name>
+      <name>Operator</name>
+      <title>
+        <key>en</key>
+        <value>Operator</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Оператор</value>
@@ -2350,7 +2562,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СтоимостьУзла</name>
+      <name>NodeCost</name>
+      <title>
+        <key>en</key>
+        <value>Node cost</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Стоимость узла</value>
@@ -2371,7 +2587,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СтоимостьОператора</name>
+      <name>OperatorCost</name>
+      <title>
+        <key>en</key>
+        <value>Operator cost</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Стоимость оператора</value>
@@ -2392,7 +2612,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СтрокПлан</name>
+      <name>RowCountPlan</name>
+      <title>
+        <key>en</key>
+        <value>Row count plan</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Строк план</value>
@@ -2410,7 +2634,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Выделено</name>
+      <name>Selected</name>
+      <title>
+        <key>en</key>
+        <value>Selected</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Выделено</value>
@@ -2427,7 +2655,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СтоимостьОператораПроцент</name>
+      <name>OperatorCostPercent</name>
+      <title>
+        <key>en</key>
+        <value>Operator cost, %</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Стоимость оператора, %</value>
@@ -2445,10 +2677,14 @@
       </edit>
     </columns>
     <columns>
-      <name>СтрокФакт</name>
+      <name>RowCountFact</name>
+      <title>
+        <key>en</key>
+        <value>Row count fact</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>Строк факт</value>
+        <value>СтрокФакт</value>
       </title>
       <id>7</id>
       <valueType>
@@ -2465,7 +2701,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ВызовыПлан</name>
+      <name>CallsPlan</name>
+      <title>
+        <key>en</key>
+        <value>Calls plan</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Вызовы план</value>
@@ -2485,7 +2725,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ВызовыФакт</name>
+      <name>CallsFact</name>
+      <title>
+        <key>en</key>
+        <value>Calls fact</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Вызовы факт</value>
@@ -2505,7 +2749,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗатратыВВ</name>
+      <name>IOExpenses</name>
+      <title>
+        <key>en</key>
+        <value>Input/output expenses</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Затраты ввода/вывода</value>
@@ -2526,7 +2774,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗатратыЦП</name>
+      <name>CPUExpenses</name>
+      <title>
+        <key>en</key>
+        <value>CPU expenses</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Затраты ЦП</value>
@@ -2547,7 +2799,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СреднийРазмерСтроки</name>
+      <name>AverageRowSize</name>
+      <title>
+        <key>en</key>
+        <value>Average row size</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Средний размер строки</value>
@@ -2567,7 +2823,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СтоимостьУзлаПроцент</name>
+      <name>NodeCostPercent</name>
+      <title>
+        <key>en</key>
+        <value>Node cost percent</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Стоимость узла процент</value>
@@ -2585,7 +2845,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИсходныйОператор</name>
+      <name>SourceOperator</name>
+      <title>
+        <key>en</key>
+        <value>Operator</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Оператор</value>
@@ -2604,7 +2868,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ТекстЗапроса</name>
+    <name>QueryText</name>
+    <title>
+      <key>en</key>
+      <value>Query text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текст запроса</value>
@@ -2622,7 +2890,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Событие</name>
+    <name>Event</name>
+    <title>
+      <key>en</key>
+      <value>Event</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Событие</value>
@@ -2637,7 +2909,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПараметрыЗапроса</name>
+    <name>QueryParameters</name>
+    <title>
+      <key>en</key>
+      <value>Query parameters</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Параметры запроса</value>
@@ -2655,7 +2931,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПланТекстовый</name>
+    <name>PlanText</name>
+    <title>
+      <key>en</key>
+      <value>Plan text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>План текстовый</value>
@@ -2672,7 +2952,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекущийОператор</name>
+    <name>CurrentOperator</name>
+    <title>
+      <key>en</key>
+      <value>Current operator</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текущий оператор</value>
@@ -2690,7 +2974,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресРезультатаЗапроса</name>
+    <name>QueryResultAddress</name>
+    <title>
+      <key>en</key>
+      <value>Query result address</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Адрес результата запроса</value>
@@ -2708,7 +2996,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИндексРезультата</name>
+    <name>ResultIndex</name>
+    <title>
+      <key>en</key>
+      <value>Result index</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Индекс результата</value>
@@ -2728,7 +3020,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПланПрочитан</name>
+    <name>PlanRead</name>
+    <title>
+      <key>en</key>
+      <value>Plan read</value>
+    </title>
     <title>
       <key>ru</key>
       <value>План прочитан</value>
@@ -2745,7 +3041,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДоляОтображенияТяжелых</name>
+    <name>HeavyQueriesProportion</name>
+    <title>
+      <key>en</key>
+      <value>Heavy queries proportion, %</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Доля отображения тяжелых, %</value>
@@ -2765,7 +3065,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОтображатьВТерминах1С</name>
+    <name>ShowIn1CTerms</name>
+    <title>
+      <key>en</key>
+      <value>Show in 1C terms</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Отображать в терминах 1С</value>
@@ -2782,7 +3086,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстЗапросаВТерминах1С</name>
+    <name>QueryTextIn1CTerms</name>
+    <title>
+      <key>en</key>
+      <value>Query text in 1C terms</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текст запроса в терминах 1С</value>
@@ -2800,7 +3108,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПланТекстовый1С</name>
+    <name>Plan1CText</name>
+    <title>
+      <key>en</key>
+      <value>Plan text in 1C terms</value>
+    </title>
     <title>
       <key>ru</key>
       <value>План текстовый в терминах 1С</value>
@@ -2817,12 +3129,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Обновить</name>
+    <name>Refresh</name>
+    <title>
+      <key>en</key>
+      <value>Refresh</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Refresh</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Обновить</value>
@@ -2843,12 +3163,20 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РазвернутьВсе</name>
+    <name>ExpandAll</name>
+    <title>
+      <key>en</key>
+      <value>Expand all</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Развернуть все</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Expand all</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Развернуть все</value>
@@ -2861,19 +3189,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_РазвернутьВсе</name>
+        <name>ExpandAll_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СвернутьВсе</name>
+    <name>CollapseAll</name>
+    <title>
+      <key>en</key>
+      <value>Collapse all</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Свернуть все</value>
     </title>
     <id>3</id>
+    <toolTip>
+      <key>en</key>
+      <value>Collapse all</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Свернуть все</value>
@@ -2886,7 +3222,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_СвернутьВсе</name>
+        <name>CollapseAll_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
