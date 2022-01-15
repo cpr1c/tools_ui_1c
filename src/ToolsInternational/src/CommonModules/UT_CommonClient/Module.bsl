@@ -35,7 +35,7 @@ Procedure OnStart() Export
 EndProcedure
 
 Procedure OnExit() Export
-	UT_AdditionalLibrariesDirectory=UT_AdditionalLibrariesDirectory();
+	UT_AdditionalLibrariesDirectory=UT_AssistiveLibrariesDirectory();
 	Try
 		BeginDeletingFiles(,UT_AdditionalLibrariesDirectory);
 	Except
@@ -210,9 +210,9 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 	If Upper(DebuggingObjectType) = "QUERY" Then
 		ConsoleFormName = "DataProcessor.UT_QueryConsole.Form";
 	ElsIf Upper(DebuggingObjectType) = "DATACOMPOSITIONSCHEMA" Then
-		ConsoleFormName = "Report.UT_ReportsConsole.Форма";
+		ConsoleFormName = "Report.UT_ReportsConsole.Form";
 	ElsIf Upper(DebuggingObjectType) = "DATABASEOBJECT" Then
-		ConsoleFormName = "DataProcessor.УИ_РедакторРеквизитовОбъекта.Форма";
+		ConsoleFormName = "DataProcessor.UT_ObjectsAttributesEditor.ObjectForm";
 	ElsIf Upper(DebuggingObjectType) = "HTTPREQUEST" Then
 		ConsoleFormName = "DataProcessor.UT_HTTPRequestConsole.Form";
 	Else
@@ -220,7 +220,7 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 	EndIf;
 
 	FormParameters = New Structure;
-	FormParameters.Insert("ДанныеОтладки", DebuggingData);
+	FormParameters.Insert("DebuggingData", DebuggingData);
 
 	If ConsoleFormUnique = Undefined Then
 		Uniqueness = New UUID;
@@ -232,20 +232,20 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 
 EndProcedure
 
-Процедура ЗапуститьКонсольОтладкиПоКлючуНастройкиДанныхОтладки(КлючНастройкиОтладки, ИдентификаторФормы = Неопределено) Экспорт
-	Если Не ЗначениеЗаполнено(КлючНастройкиОтладки) Тогда
-		Возврат;
-	КонецЕсли;
+Procedure  RunDebugConsoleByDebugDataSettingsKey(DebugSettingsKey, FormID = Undefined) Export
+	If Not ValueIsFilled(DebugSettingsKey) Then
+		Return;
+	EndIf;
 
-	ДанныеОтладки = UT_CommonServerCall.DebuggingObjectDataStructureFromSystemSettingsStorage(
-		КлючНастройкиОтладки, ИдентификаторФормы);
+	DebugData = UT_CommonServerCall.DebuggingObjectDataStructureFromSystemSettingsStorage(
+		DebugSettingsKey, FormID);
 
-	Если ДанныеОтладки = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If DebugData = Undefined Then
+		Return;
+	EndIf;
 
-	OpenDebuggingConsole(ДанныеОтладки.ТипОбъектаОтладки, ДанныеОтладки.АдресОбъектаОтладки);
-КонецПроцедуры
+	OpenDebuggingConsole(DebugData.DebuggingObjectType, DebugData.DebuggingObjectAddress);
+EndProcedure
 
 #EndRegion
 
@@ -267,242 +267,240 @@ Procedure BeginRunningApplicationEndEmpty(ReturnCode, AdditionalParameters) Expo
 	EndIf;
 EndProcedure
 
-Процедура ОткрытьФормуРедактированияТекста(Текст, ОписаниеОповещенияОЗакрытии, Заголовок = "",
-	РежимОткрытия = Неопределено) Экспорт
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("Текст", Текст);
-	ПараметрыФормы.Вставить("Заголовок", Заголовок);
+Procedure OpenTextEditingForm(Text, OnCloseNotifyDescription, Title = "",
+	WindowOpeningMode = Undefined) Export
+	FormParameters = New Структура;
+	FormParameters.Insert("Text", Text);
+	FormParameters.Insert("Title", Title);
 
-	Если РежимОткрытия = Неопределено Тогда
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияТекста", ПараметрыФормы, , , , , ОписаниеОповещенияОЗакрытии);
-	Иначе
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияТекста", ПараметрыФормы, , , , , ОписаниеОповещенияОЗакрытии,
-			РежимОткрытия);
-	КонецЕсли;
+	If WindowOpeningMode = Undefined Then
+		OpenForm("CommonForm.UT_TextEditingForm", FormParameters, , , , , OnCloseNotifyDescription);
+	Else
+		OpenForm("CommonForm.UT_TextEditingForm", FormParameters, , , , , OnCloseNotifyDescription,
+			WindowOpeningMode);
+	EndIf;
+EndProcedure
+
+Procedure OpenValueListChoiceItemsForm(List, OnCloseNotifyDescription, Title = "",
+	ItemsType = Undefined, MarkVisibility = True, ResresentationVisibility = True, SelectionMode = True,
+	ReturnOnlySelectedValues = True, WindowOpeningMode = Undefined, AvailableValues = Undefined) Export
+	FormParameters = New Structure;
+	FormParameters.Insert("List", List);
+	FormParameters.Insert("Title", Title);
+	FormParameters.Insert("ReturnOnlySelectedValues", ReturnOnlySelectedValues);
+	FormParameters.Insert("MarkVisibility", MarkVisibility);
+	FormParameters.Insert("ResresentationVisibility", ResresentationVisibility);
+	FormParameters.Insert("SelectionMode", SelectionMode);
+	If ItemsType <> Undefined Then
+		FormParameters.Insert("ItemsType", ItemsType);
+	EndIf;
+	If AvailableValues <> Undefined Then
+		FormParameters.Insert("AvailableValues", AvailableValues);
+	Endif;
+
+	If WindowOpeningMode = Undefined Then
+		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+			OnCloseNotifyDescription);
+	Else
+		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+			OnCloseNotifyDescription, WindowOpeningMode);
+	EndIf;
+EndProcedure
+
+Procedure EditObject(ObjectRef) Export
+	AvalibleForEditingObjectsArray=UT_CommonClientCached.DataBaseObjectEditorAvalibleObjectsTypes();
+	If AvalibleForEditingObjectsArray.Find(TypeOf(ObjectRef)) = Undefined Then
+		Return;
+	EndIf;
+
+	FormParameters = New Structure;
+	FormParameters.Insert("mObjectRef", ObjectRef);
+
+	OpenForm("DataProcessor.UT_ObjectsAttributesEditor.Form", FormParameters);
+EndProcedure
+
+Procedure EditJSON(JSONString, ViewMode, OnEndNotifyDescription = Undefined) Export
+	Parameters=New Structure;
+	Parameters.Insert("JSONString", JSONString);
+	Parameters.Insert("ViewMode", ViewMode);
+
+	If OnEndNotifyDescription = Undefined then
+		OpenForm("DataProcessor.UT_JSONEditor.Form", Parameters);
+	else
+		OpenForm("DataProcessor.UT_JSONEditor.Form", Parameters, , , , , OnEndNotifyDescription);
+	Endif;
+EndProcedure
+
+Procedure ОpenDynamicList(MetadataObjectName, OnEndNotifyDescription = Undefined) Export
+	ParametersStructure = New Structure("MetadataObjectName", MetadataObjectName);
+
+	If OnEndNotifyDescription = Undefined Then
+		OpenForm("DataProcessor.UT_DynamicList.Форма", ParametersStructure, , MetadataObjectName);
+	Else
+		OpenForm("DataProcessor.UT_DynamicList.Форма", ParametersStructure, , MetadataObjectName, , ,
+			OnEndNotifyDescription);
+	EndIf;
+
+EndProcedure
+
+Procedure FindObjectRefs(ObjectRef) Export
+	FormParameters=New Structure;
+	FormParameters.Insert("SearchObject", ObjectRef);
+
+	OpenForm("DataProcessor.UT_ObjectReferencesSearch.Form", FormParameters);
+
+EndProcedure
+
+Procedure AskQuestionToDeveloper() Export
+	BeginRunningApplication(ApplicationRunEmptyNotifyDescription(),
+		"https://github.com/i-neti/tools_ui_1c_international/issues");
+
+EndProcedure
+
+Procedure OpenAboutPage() Export
+	BeginRunningApplication(ApplicationRunEmptyNotifyDescription(), "https://github.com/i-neti/tools_ui_1c_international");
+
+EndProcedure
+
+Procedure OpenPortableToolsDebugSpecificityPage () Export
+	BeginRunningApplication(ApplicationRunEmptyNotifyDescription(),
+		"https://github.com/cpr1c/tools_ui_1c/wiki/Portable-Tools-Debug-Specificity");
+EndProcedure
+
+Procedure RunToolsUpdateCheck () Export
+	FormParameters = New Structure;;
+	OpenForm("DataProcessor.UT_Support.Form.UpdateTools", FormParameters);
+EndProcedure
+
+Procedure OpenNewToolForm(SourceForm)
+	OpenForm(SourceForm.FormName, , , New UUID, , , , FormWindowOpeningMode.Independent);
+EndProcedure
+
+#Region ToolsAttachableCommandMethods
+
+Procedure Attachable_ExecuteToolsCommonCommand(Form, Command) Export
+	If Command.Name = "UT_OpenNewToolForm" Then
+		OpenNewToolForm(Form);
+	Endif;
+
+EndProcedure
+
+#EndRegion
+
+#Region SSLCommands
+
+Procedure AddObjectsToComparsion(ObjectsArray, Context) Экспорт
+	UT_CommonClientServer.AddObjectsArrayToCompare(ObjectsArray);
+EndProcedure
+
+Procedure UploadObjectsToXML(ObjectsArray, Context) Export
+	FileURLInTempStorage="";
+	UT_CommonServerCall.UploadObjectsToXMLonServer(ObjectsArray, FileURLInTempStorage,
+		Context.Form.UUID);
+
+	If IsTempStorageURL(FileURLInTempStorage) Then
+		FileName="Uploading file.xml";
+		GetFile(FileURLInTempStorage, FileName);
+	EndIf;
+
+EndProcedure
+
+Procedure EditObjectCommandHandler(ObjectRef, Context) Export
+	EditObject(ObjectRef);
+EndProcedure
+
+Процедура FindObjectRefsCommandHandler(ObjectRef, Context) Export
+	FindObjectRefs(ObjectRef);
 КонецПроцедуры
 
-Процедура ОткрытьФормуВыбораЭлементовСпискаЗначений(Список, ОписаниеОповещенияОЗакрытии, Заголовок = "",
-	ТипЭлементов = Неопределено, ВидимостьПометки = Истина, ВидимостьПредставления = Истина, РежимПодбора = Истина,
-	ВозвращатьТолькоВыбранныеЗначения = Истина, РежимОткрытия = Неопределено, ДоступныеЗначения = Неопределено) Экспорт
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("Список", Список);
-	ПараметрыФормы.Вставить("Заголовок", Заголовок);
-	ПараметрыФормы.Вставить("ВозвращатьТолькоВыбранныеЗначения", ВозвращатьТолькоВыбранныеЗначения);
-	ПараметрыФормы.Вставить("ВидимостьПометки", ВидимостьПометки);
-	ПараметрыФормы.Вставить("ВидимостьПредставления", ВидимостьПредставления);
-	ПараметрыФормы.Вставить("РежимПодбора", РежимПодбора);
-	Если ТипЭлементов <> Неопределено Тогда
-		ПараметрыФормы.Вставить("ТипЭлементов", ТипЭлементов);
-	КонецЕсли;
-	Если ДоступныеЗначения <> Неопределено Тогда
-		ПараметрыФормы.Вставить("ДоступныеЗначения", ДоступныеЗначения);
-	КонецЕсли;
+Procedure OpenAdditionalDataProcessorDebugSettings(ObjectRef) Export
+	FormParameters=New Structure;
+	FormParameters.Insert("AdditionalDataProcessor", ObjectRef);
 
-	Если РежимОткрытия = Неопределено Тогда
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияСпискаЗначений", ПараметрыФормы, , , , ,
-			ОписаниеОповещенияОЗакрытии);
-	Иначе
-		ОткрытьФорму("ОбщаяФорма.УИ_ФормаРедактированияСпискаЗначений", ПараметрыФормы, , , , ,
-			ОписаниеОповещенияОЗакрытии, РежимОткрытия);
-	КонецЕсли;
-КонецПроцедуры
+	OpenForm("CommonForm.UT_AdditionalDataProcessorDebugSettings", FormParameters);
+EndProcedure
 
-Процедура EditObject(СсылкаНаОбъект) Экспорт
-	МассивТиповДоступныхДляРедактирования=UT_CommonClientCached.DataBaseObjectEditorAvalibleObjectsTypes();
-	Если МассивТиповДоступныхДляРедактирования.Найти(ТипЗнч(СсылкаНаОбъект)) = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+#EndRegion
+#Region TypesEditingAndVariables
 
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("мОбъектСсылка", СсылкаНаОбъект);
-
-	ОткрытьФорму("Обработка.УИ_РедакторРеквизитовОбъекта.Форма", ПараметрыФормы);
-КонецПроцедуры
-
-Процедура РедактироватьJSON(СтрокаJSON, РежимПросмотра, ОписаниеОповещенияОЗавершении = Неопределено) Экспорт
-	СтруктураПараметров=Новый Структура;
-	СтруктураПараметров.Вставить("СтрокаJSON", СтрокаJSON);
-	СтруктураПараметров.Вставить("РежимПросмотра", РежимПросмотра);
-
-	Если ОписаниеОповещенияОЗавершении = Неопределено Тогда
-		ОткрытьФорму("Обработка.UT_JSONEditor.Форма", СтруктураПараметров);
-	Иначе
-		ОткрытьФорму("Обработка.UT_JSONEditor.Форма", СтруктураПараметров, , , , , ОписаниеОповещенияОЗавершении);
-	КонецЕсли;
-КонецПроцедуры
-
-Процедура ОткрытьДинамическийСписок(ИмяОбъектаМетаданных, ОписаниеОповещенияОЗавершении = Неопределено) Экспорт
-	СтрукПараметры = Новый Структура("ИмяОбъектаМетаданных", ИмяОбъектаМетаданных);
-
-	Если ОписаниеОповещенияОЗавершении = Неопределено Тогда
-		ОткрытьФорму("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных);
-	Иначе
-		ОткрытьФорму("Обработка.УИ_ДинамическийСписок.Форма", СтрукПараметры, , ИмяОбъектаМетаданных, , ,
-			ОписаниеОповещенияОЗавершении);
-	КонецЕсли;
-
-КонецПроцедуры
-
-Процедура НайтиСсылкиНаОбъект(СсылкаНаОбъект) Экспорт
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("SearchObject", СсылкаНаОбъект);
-
-	ОткрытьФорму("Обработка.UT_ObjectReferencesSearch.Форма", ПараметрыФормы);
-
-КонецПроцедуры
-
-Процедура ЗадатьВопросРазработчику() Экспорт
-	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(),
-		"https://github.com/cpr1c/tools_ui_1c/issues");
-
-КонецПроцедуры
-
-Процедура ОткрытьСтраницуРазработки() Экспорт
-	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(), "https://github.com/cpr1c/tools_ui_1c");
-
-КонецПроцедуры
-
-Процедура ОткрытьСтраницуОсобенностейОтладкиПортативныхИнструметов() Экспорт
-	НачатьЗапускПриложения(ApplicationRunEmptyNotifyDescription(),
-		"https://github.com/cpr1c/tools_ui_1c/wiki/Особенности-использования-отладки-в-портативном-варианте");
-
-КонецПроцедуры
-
-Процедура ЗапуститьПроверкуОбновленияИнструментов() Экспорт
-	ПараметрыФормы = Новый Структура;
-	ОткрытьФорму("Обработка.UT_Support.Форма.ОбновлениеИнструментов", ПараметрыФормы);
-КонецПроцедуры
-
-Процедура ОткрытьНовуюФормуИнструмента(ФормаНачальная)
-	ОткрытьФорму(ФормаНачальная.ИмяФормы, , , Новый УникальныйИдентификатор, , , , РежимОткрытияОкнаФормы.Независимый);
-КонецПроцедуры
-
-#Область ПодключаемыеМетодыКомандИнструментов
-
-Процедура Attachable_ExecuteToolsCommonCommand(Форма, Команда) Экспорт
-	Если Команда.Имя = "УИ_ОткрытьНовуюФормуИнструмента" Тогда
-		ОткрытьНовуюФормуИнструмента(Форма);
-	КонецЕсли;
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область КомандыБСП
-
-Процедура ДобавитьОбъектыКСравнению(МассивОбъектов, Контекст) Экспорт
-	UT_CommonClientServer.AddObjectsArrayToCompare(МассивОбъектов);
-КонецПроцедуры
-
-Процедура ВыгрузитьОбъектыВXML(МассивОбъектов, Контекст) Экспорт
-	АдресФайлаВоВременномХранилище="";
-	UT_CommonServerCall.UploadObjectsToXMLonServer(МассивОбъектов, АдресФайлаВоВременномХранилище,
-		Контекст.Форма.УникальныйИдентификатор);
-
-	Если ЭтоАдресВременногоХранилища(АдресФайлаВоВременномХранилище) Тогда
-		ИмяФайла="Файл выгрузки.xml";
-		ПолучитьФайл(АдресФайлаВоВременномХранилище, ИмяФайла);
-	КонецЕсли;
-
-КонецПроцедуры
-
-Процедура ОбработчикКомандыРедактироватьОбъект(СсылкаНаОбъект, Контекст) Экспорт
-	EditObject(СсылкаНаОбъект);
-КонецПроцедуры
-
-Процедура ОбработчикКомандыНайтиСсылкиНаОбъект(СсылкаНаОбъект, Контекст) Экспорт
-	НайтиСсылкиНаОбъект(СсылкаНаОбъект);
-КонецПроцедуры
-
-Процедура ОткрытьНастройкиОтладкиДополнительнойОбработки(СсылкаНаОбъект) Экспорт
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("ДополнительнаяОбработка", СсылкаНаОбъект);
-
-	ОткрытьФорму("ОбщаяФорма.УИ_НастройкиОтладкиДополнительныхОбработок", ПараметрыФормы);
-КонецПроцедуры
-
-#КонецОбласти
-#Область РедактированиеТиповИПеременные
-
-// Процедура - Редактировать тип
+// Procedure - Edit type
 //
-// Параметры:
-//  ТипДанных						 - 	 - Текущий тип значения
-//  РежимЗапуска					 - Число - режим запуска редактора типа
-// 0- Выбор хранимых типов
-// 1- типы для запроса
-// 2- типы для поля СКД
-// 3- типы для параметра СКД
-//  СтандартнаяОбработка			 - Булево - Стандартная обработка события начало выбора
-//  ВладелецФормы					 - 	 - 
-//  ОписаниеОповещенияОЗавершении	 - 	 - 
+// Parameters:
+//  DataType					 - 	 - Current value type
+//  StartMode					 - Number - type editor start mode
+// 0- selection of stored types
+// 1- type for query
+// 2- type for field DCS
+// 3- type for parameter DCS 
+//  StandardProcessing			 - Boolean - StartChoise event standard processing
+//  FormOwner					 - 	 - 
+//  OnEndNotifyDescription	 - 	 - 
 //
-Процедура РедактироватьТип(ТипДанных, РежимЗапуска, СтандартнаяОбработка, ВладелецФормы, ОписаниеОповещенияОЗавершении) Экспорт
-	СтандартнаяОбработка=Ложь;
+Procedure EditType(DataType, StartMode, StandardProcessing, FormOwner, OnEndNotifyDescription) Export
+	StandardProcessing=False;
 
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("ТипДанных", ТипДанных);
-	ПараметрыФормы.Вставить("РежимЗапуска", РежимЗапуска);
-	ОткрытьФорму("ОбщаяФорма.UT_ValueTypeEditor", ПараметрыФормы, ВладелецФормы, , , ,
-		ОписаниеОповещенияОЗавершении, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+	FormParameters=New Structure;
+	FormParameters.Insert("DataType", DataType);
+	FormParameters.Insert("StartMode", StartMode);
+	OpenForm("CommonForm.UT_ValueTypeEditor", FormParameters, FormOwner, , , ,
+		OnEndNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
+
+Procedure EditValueTable(ValueTableAsString, FormOwner, OnEndNotifyDescription) Export
+	FormParameters=New Structure;
+	FormParameters.Insert("ValueTableAsString", ValueTableAsString);
+
+	OpenForm("CommonForm.UT_ValueTableEditor", FormParameters, FormOwner, , , ,
+		OnEndNotifyDescription);
+EndProcedure
+
+#EndRegion
+
+#Region FormItemsEvents
+
+Процедура FormFieldValueStartChoice (Value, StandardProcessing, OnEndNotifyDescription,
+	ValueType = Undefined, AvailableValues = Undefined) Export
+	CurrentValueType=TypeOf(Value);
+
+	If CurrentValueType = Тип("ValueList") Then
+		StandardProcessing=False;
+	EndIf;
 КонецПроцедуры
 
-Процедура РедактироватьТаблицуЗначений(ТаблицаЗначенийСтрокой, ВладелецФормы, ОписаниеОповещенияОЗавершении) Экспорт
-	ПараметрыФормы=Новый Структура;
-	ПараметрыФормы.Вставить("ТаблицаЗначенийСтрокой", ТаблицаЗначенийСтрокой);
+Procedure FormFieldFileNameStartChoice (FileDescriptionStructure, Item, ChoiseData, StandardProcessing,
+	DialogMode, OnEndNotifyDescription) Export
+	StandardProcessing=False;
 
-	ОткрытьФорму("ОбщаяФорма.UT_ValueTableEditor", ПараметрыФормы, ВладелецФормы, , , ,
-		ОписаниеОповещенияОЗавершении);
-КонецПроцедуры
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("Item", Item);
+	NotifyAdditionalParameters.Insert("FileDescriptionStructure", FileDescriptionStructure);
+	NotifyAdditionalParameters.Insert("DialogMode", DialogMode);
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
 
-#КонецОбласти
+	AttachFileSystemExtensionWithPossibleInstallation(
+		New NotifyDescription("FormFieldFileNameStartChoiceEndAttachFileSystemExtension",
+		ThisObject, NotifyAdditionalParameters));
+EndProcedure
 
-#Область СобытияЭлементовФормы
+Procedure FormFieldFileNameStartChoiceEndAttachFileSystemExtension(Connected,
+	AdditionalParameters) Export
+	FileChoise = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(AdditionalParameters.DialogMode,
+		AdditionalParameters.FileDescriptionStructure);
+	FileChoise.Show(AdditionalParameters.OnEndNotifyDescription);
+EndProcedure
 
-Процедура ПолеФормыНачалоВыбораЗначения(Значение, СтандартнаяОбработка, ОписаниеОповещенияОЗавершении,
-	ТипЗначения = Неопределено, ДоступныеЗначения = Неопределено) Экспорт
-	ТипТекущегоЗначения=ТипЗнч(Значение);
+#EndRegion
 
-	Если ТипТекущегоЗначения = Тип("СписокЗначений") Тогда
-		СтандартнаяОбработка=Ложь;
+#Region ToolsAssistiveLibraries
 
-	КонецЕсли;
-КонецПроцедуры
-
-Процедура ПолеФормыИмяФайлаНачалоВыбора(СтруктураОписанияФайла, Элемент, ДанныеВыбора, СтандартнаяОбработка,
-	РежимДиалога, ОписаниеОповещенияОЗавершении) Экспорт
-	СтандартнаяОбработка=Ложь;
-
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("Элемент", Элемент);
-	ДополнительныеПараметрыОповещения.Вставить("СтруктураОписанияФайла", СтруктураОписанияФайла);
-	ДополнительныеПараметрыОповещения.Вставить("РежимДиалога", РежимДиалога);
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(
-		Новый ОписаниеОповещения("ПолеФормыИмяФайлаНачалоВыбораЗавершениеПодключенияРасширенияРаботыСФайлами",
-		ЭтотОбъект, ДополнительныеПараметрыОповещения));
-КонецПроцедуры
-
-Процедура ПолеФормыИмяФайлаНачалоВыбораЗавершениеПодключенияРасширенияРаботыСФайлами(Подключено,
-	ДополнительныеПараметры) Экспорт
-	ВыборФайла = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(ДополнительныеПараметры.РежимДиалога,
-		ДополнительныеПараметры.СтруктураОписанияФайла);
-	ВыборФайла.Показать(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении);
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область ВспомогательныеБиблиотекиИнструментов
-
-Процедура СохранитьВспомогательныеБиблиотекиНаКлиентеПриНачалеРаботыСистемы() Экспорт
-	КаталогБиблиотек=UT_AdditionalLibrariesDirectory();
+Procedure SaveAssistiveLibrariesAtClientOnStart() Export
+	LibrariesDirectory=UT_AssistiveLibrariesDirectory();
 	
-	//1. очищаем наш каталог. Под каждую базу он свой
-	Сообщить(КаталогБиблиотек);
-КонецПроцедуры
+	//1. Clear directory . it's separate for each database 
+	Message(LibrariesDirectory);
+EndProcedure
 
-Function UT_AdditionalLibrariesDirectory() Export
+Function UT_AssistiveLibrariesDirectory() Export
 	FileVariablesStructure=SessionFileVariablesStructure();
 	If Not FileVariablesStructure.Property("TempFilesDirectory") Then
 		Return "";
@@ -510,401 +508,400 @@ Function UT_AdditionalLibrariesDirectory() Export
 	
 	Return FileVariablesStructure.TempFilesDirectory + GetPathSeparator() + "tools_ui_1c" + GetPathSeparator()
 EndFunction
-#КонецОбласти
+#EndRegion
 
-#Область ХранилищеЗначения
+#Region ValueStorage
 
-Процедура EditValueStorage(Форма, АдресВременногоХранилищаЗначенияИлиЗначение,
-	ОписаниеОповещения = Неопределено) Экспорт
+Procedure EditValueStorage(Form, ValueTempStorageUrlOrValue,
+	NotifyDescription = Undefined) Export
 
-	Если ОписаниеОповещения = Неопределено Тогда
-		ПараметрыОписанияОповещения = Новый Структура;
-		ПараметрыОписанияОповещения.Вставить("Форма", Форма);
-		ПараметрыОписанияОповещения.Вставить("АдресВременногоХранилищаЗначенияИлиЗначение",
-			АдресВременногоХранилищаЗначенияИлиЗначение);
-		ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("РедактироватьПараметрыЗаписиЗавершение", ЭтотОбъект,
-			ПараметрыОписанияОповещения);
-	Иначе
-		ОписаниеОповещенияОЗакрытии = ОписаниеОповещения;
-	КонецЕсли;
+	If NotifyDescription = Undefined Then
+		NotifyDescriptionParameters = New Structure;
+		NotifyDescriptionParameters.Insert("Form", Form);
+		NotifyDescriptionParameters.Insert("ValueTempStorageUrlOrValue",
+			ValueTempStorageUrlOrValue);
+		OnCloseNotifyDescription = New NotifyDescription("EditWriteSettingsOnEnd", ThisObject,
+			NotifyDescriptionParameters);
+	Else
+		OnCloseNotifyDescription = NotifyDescription;
+	EndIf;
 
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("ДанныеХЗ", АдресВременногоХранилищаЗначенияИлиЗначение);
+	FormParameters = New Structure;
+	FormParameters.Insert("ValueStorageData", ValueTempStorageUrlOrValue);
 
-	ОткрытьФорму("ОбщаяФорма.УИ_ФормаХранилищаЗначения", ПараметрыФормы, Форма, Форма.УникальныйИдентификатор, , ,
-		ОписаниеОповещенияОЗакрытии, РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
+	OpenForm("CommonForm.UT_ValueStorageForm", FormParameters, Form, Form.UUID, , ,
+		OnCloseNotifyDescription, FormWindowOpeningMode.FormWindowOpeningMode);
 
-КонецПроцедуры
+EndProcedure
 
-Процедура РедактироватьХранилищеЗначенияЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+Procedure EditValueStorageOnEnd(Result, AdditionalParameters) Export
+	If Result = Undefined Then
+		Return;
+	EndIf;
 
-	//	Форма=ДополнительныеПараметры.Форма;
-КонецПроцедуры
+	//	Form=AdditionalParameters.Form;
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ПараметрыЗаписи
+#Region WriteSettings
 
-Процедура РедактироватьПараметрыЗаписи(Форма) Экспорт
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("ПараметрыЗаписи", UT_CommonClientServer.FormWriteSettings(Форма));
+Процедура EditWriteSettings(Form) Export
+	FormParameters = New Structure;
+	FormParameters.Insert("WriteSettings", UT_CommonClientServer.FormWriteSettings(Form));
 	
-	Если Форма.ИмяФормы = "Обработка.УИ_РедакторРеквизитовОбъекта.Форма.ФормаОбъекта" Тогда
-		МассивТипа = Новый Массив;
-		МассивТипа.Добавить(ТипЗнч(Форма.мОбъектСсылка));
+	If Form.FormName ="DataProcessor.UT_ObjectsAttributesEditor.Form.ObjectForm" Then
+		TypeArray = New Array;
+		TypeArray.Add(TypeOf(Form.mObjectRef));
 		
-		ПараметрыФормы.Вставить("ТипОбъекта", Новый ОписаниеТипов(МассивТипа));
-	КонецЕсли;
+		FormParameters.Insert("ObjectType", New TypeDescription(TypeArray));
+	EndIf;
 
-	ПараметрыОписанияОповещения = Новый Структура;
-	ПараметрыОписанияОповещения.Вставить("Форма", Форма);
-	ОписаниеОповещенияОЗакрытии = Новый ОписаниеОповещения("РедактироватьПараметрыЗаписиЗавершение", ЭтотОбъект,
-		ПараметрыОписанияОповещения);
+	NotifyDescriptionParameters = New Structure;
+	NotifyDescriptionParameters.Insert("Form", Form);
+	OnCloseNotifyDescription = New NotifyDescription("EditWriteSettingsOnEnd", ThisObject,
+		NotifyDescriptionParameters);
 
-	ОткрытьФорму("ОбщаяФорма.UT_WriteSettings", ПараметрыФормы, Форма, , , , ОписаниеОповещенияОЗакрытии,
-		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+	OpenForm("CommonForm.UT_WriteSettings", FormParameters, Form, , , , OnCloseNotifyDescription,
+		FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-Процедура РедактироватьПараметрыЗаписиЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+Procedure EditWriteSettingsOnEnd(Result, AdditionalParameters) Export
+	If Result = Undefined Then
+		Return;
+	EndIf;
 
-	Форма = ДополнительныеПараметры.Форма;
+	Form = AdditionalParameters.Form;
 
-	UT_CommonClientServer.SetOnFormWriteParameters(Форма, Результат);
-КонецПроцедуры
+	UT_CommonClientServer.SetOnFormWriteParameters(Form, Result);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область СохранениеЧтениеДанныхКонсолей
+#Region SaveAndReadConsoleData
 
-Функция ПустоеОписаниеФорматаВыбираемогоФайла() Экспорт
-	Описание=Новый Структура;
-	Описание.Вставить("Расширение", "");
-	ОПисание.Вставить("Имя", "");
-	ОПисание.Вставить("Фильтр", "");
+Function EmptySelectedFileFormatDescription() Export
+	Description=New Structure;
+	Description.Insert("Extension", "");
+	Description.Insert("Name", "");
+	Description.Insert("Filter", "");
 
-	Возврат Описание;
-КонецФункции
+	Return Description;
+EndFunction
 
-Процедура ДобавитьФорматВОписаниеФайлаСохранения(СтруктураОписанияВыбираемогоФайла, ИмяФормата, РасширениеФайла, Фильтр = "") Экспорт
-	Формат=ПустоеОписаниеФорматаВыбираемогоФайла();
-	Формат.Имя=ИмяФормата;
-	Формат.Расширение=РасширениеФайла;
-	Формат.Фильтр = Фильтр;
-	СтруктураОписанияВыбираемогоФайла.Форматы.Добавить(Формат);
-КонецПроцедуры
+Procedure AddFormatToSavingFileDescription(DescriptionStructureOfSelectedFile, FormatName, FileExtension, Filter = "") Export
+	FileFormat=EmptySelectedFileFormatDescription();
+	FileFormat.Name=FormatName;
+	FileFormat.Extension=FileExtension;
+	FileFormat.Filter = Filter;
+	DescriptionStructureOfSelectedFile.Formats.Add(FileFormat);
+EndProcedure
 
-Функция ПустаяСтруктураОписанияВыбираемогоФайла() Экспорт
-	СтруктураОписания=Новый Структура;
-	СтруктураОписания.Вставить("ИмяФайла", "");
-	СтруктураОписания.Вставить("СериализуемыеФорматыФайлов", Новый Массив);
-	СтруктураОписания.Вставить("Форматы", Новый Массив);
+Function EmptyDescriptionStructureOfSelectedFile() Export
+	DescriptionStructure=New Structure;
+	DescriptionStructure.Insert("FileName", "");
+	DescriptionStructure.Insert("SerializableFileFormats", New Array);
+	DescriptionStructure.Insert("Formats", New Array);
 
-	Возврат СтруктураОписания;
-КонецФункции
+	Return DescriptionStructure;
+EndFunction
 
-Функция ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(Режим, СтруктураОписанияВыбираемогоФайла) Экспорт
-			// Нужно запросить имя файла.
-	ВыборФайла = Новый ДиалогВыбораФайла(Режим);
-	ВыборФайла.МножественныйВыбор = Ложь;
+Function FileSelectionDialogByDescriptionStructureOfSelectedFile(Mode, DescriptionStructureOfSelectedFile) Export
+	// You need to request a file name.
+	FileSelection = New FileDialog(Mode);
+	FileSelection.Multiselect = False;
 	
-	//В линуксе есть проблемы с выбором файла, если в существующем есть тире
-	Если Не (UT_CommonClientServer.IsLinix() И Найти(СтруктураОписанияВыбираемогоФайла.ИмяФайла, "-") > 0) Тогда
-		ВыборФайла.ПолноеИмяФайла = СтруктураОписанияВыбираемогоФайла.ИмяФайла;
-	КонецЕсли;
+	//Linux has problems with selecting a file if there is a dash in the existing one
+	If Not (UT_CommonClientServer.IsLinux() And Find(DescriptionStructureOfSelectedFile.FileName, "-") > 0) Then
+		FileSelection.FullFileName = DescriptionStructureOfSelectedFile.FileName;
+	EndIf;
 
-	Фильтр="";
-	Для Каждого ТекФорматФайла Из СтруктураОписанияВыбираемогоФайла.Форматы Цикл
-		РасширениеФормата=ТекФорматФайла.Расширение;
-		Если ЗначениеЗаполнено(РасширениеФормата) Тогда
-			ФильтрФормата="*." + РасширениеФормата;
-		Иначе
-			ФильтрФормата="*.*";
-		КонецЕсли;
+	Filter="";
+	For each CurrentFileFormat In DescriptionStructureOfSelectedFile.Formats Do
+		FormatExtension=CurrentFileFormat.Extension;
+		If ValueIsFilled(FormatExtension) Then
+			FormatFilter="*." + FormatExtension;
+		Else
+			FormatFilter="*.*";
+		EndIf;
 		
-		Если ЗначениеЗаполнено(ТекФорматФайла.Фильтр) Тогда
-			ФильтрФормата = ТекФорматФайла.Фильтр;
-		КонецЕсли;
+		If ValueIsFilled(CurrentFileFormat.Filter) Then
+			FormatFilter = CurrentFileFormat.Filter;
+		EndIf;
 
-		Фильтр=Фильтр + ?(ЗначениеЗаполнено(Фильтр), "|", "") + СтрШаблон("%1|%2", ТекФорматФайла.Имя, ФильтрФормата);
-	КонецЦикла;
+		Filter=Filter + ?(ValueIsFilled(Filter), "|", "") + StrTemplate("%1|%2", CurrentFileFormat.Name, FormatFilter);
+	EndDo;
 
-	ВыборФайла.Фильтр = Фильтр;
+	FileSelection.Filter = Filter;
 
-	Если СтруктураОписанияВыбираемогоФайла.СериализуемыеФорматыФайлов.Количество() > 0 Тогда
-		ВыборФайла.Расширение=СтруктураОписанияВыбираемогоФайла.СериализуемыеФорматыФайлов[0];
-	ИначеЕсли СтруктураОписанияВыбираемогоФайла.Форматы.Количество() > 0 Тогда
-		ВыборФайла.Расширение=СтруктураОписанияВыбираемогоФайла.Форматы[0].Расширение;
-	КонецЕсли;
+	If DescriptionStructureOfSelectedFile.SerializableFileFormats.Count() > 0 Then
+		FileSelection.Extension=DescriptionStructureOfSelectedFile.SerializableFileFormats[0];
+	ElsIf DescriptionStructureOfSelectedFile.Formats.Count() > 0 Then
+		FileSelection.Extension=DescriptionStructureOfSelectedFile.Formats[0].Extension;
+	EndIf;
 
-	Возврат ВыборФайла;
-КонецФункции
+	Return FileSelection;
+EndFunction
 
-#Область СохранениеДанныхКонсолей
+#Region SaveConsoleData
 
-// Описание
+// Description
 // 
-// Параметры:
-// 	СохранитьКак - Булево - Включен ли режим сохранения файла КАК. Т.е. всегда запрашивать куда сохранять, даже если уже есть имяфайла
-// 	СтруктураОписанияСохраняемогоФайла -Структура - Содержит информацию, необходимую для идентификации файла, куда сохранять
-// 		Содержит поля:
-// 			ИмяФайла- Строка - Имя сохраняемого файла. Если не указано покажется диалог для сохранения
-// 			Расширение- Строка- Расширение сохраняемого файла
-// 			ИмяСохраняемогоФормата- Строка- описание формата сохраняемого файла
-// 	АдресДанныхСохранения - Строка- Адрес во временном хранилище с сохраняемым значением. Сохраняемые данные будут дополнительно сериализованы с использованием сериализатора JSON
-// 	ОписаниеОповещенияОЗавершении- ОписаниеОповещения- Описание оповещения после сохранения данных в файл
-Процедура СохранитьДанныеКонсолиВФайл(ИмяКонсоли, СохранитьКак, СтруктураОписанияСохраняемогоФайла,
-	АдресДанныхСохранения, ОписаниеОповещенияОЗавершении) Экспорт
+// Parameters:
+// 	SaveAs - Boolean - Is file saving mode enabled AS. I.e. always ask where to save, even if there is already a file name
+// 	SavedFilesDescriptionStructure -Structure - Contains the information necessary to identify the file to save
+// 		Contains the fields:
+// 			FileName- String - Name of the saved file. If not specified, a dialog for saving will appear
+// 			Extension- String- Extension of the saved file
+// 			SavedFormatName- String- description of the saved file format
+// 	SavedDataUrl - String- The address in the temporary storage with the stored value. The stored data will be additionally implemented using a JSON serializer.
+// 	OnEndNotifyDescription- NotifyDescription- Notify description after data saved to file
+Procedure SaveConsoleDataToFile(ConsoleName, SaveAs, SavedFilesDescriptionStructure,
+	SavedDataUrl, OnEndNotifyDescription) Экспорт
 
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("СохранитьКак", СохранитьКак);
-	ДополнительныеПараметрыОповещения.Вставить("СтруктураОписанияСохраняемогоФайла", СтруктураОписанияСохраняемогоФайла);
-	ДополнительныеПараметрыОповещения.Вставить("АдресДанныхСохранения", АдресДанныхСохранения);
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДополнительныеПараметрыОповещения.Вставить("ИмяКонсоли", ИмяКонсоли);
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("SaveAs", SaveAs);
+	NotifyAdditionalParameters.Insert("SavedFilesDescriptionStructure", SavedFilesDescriptionStructure);
+	NotifyAdditionalParameters.Insert("SavedDataUrl", SavedDataUrl);
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
+	NotifyAdditionalParameters.Insert("ConsoleName", ConsoleName);
 
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(
-		Новый ОписаниеОповещения("СохранитьДанныеКонсолиВФайлПослеПодключенияРасширенияРаботыСФайлами", ЭтотОбъект,
-		ДополнительныеПараметрыОповещения));
+	AttachFileSystemExtensionWithPossibleInstallation(
+		New  NotifyDescription ("SaveConsoleDataToFileAfterFileSystemExtensionConnection", ThisObject,
+		NotifyAdditionalParameters));
 
-КонецПроцедуры
+EndProcedure
 
-Процедура СохранитьДанныеКонсолиВФайлПослеПодключенияРасширенияРаботыСФайлами(Подключено, ДополнительныеПараметры) Экспорт
-	СохранитьКак = ДополнительныеПараметры.СохранитьКак;
-	СтруктураОписанияСохраняемогоФайла=ДополнительныеПараметры.СтруктураОписанияСохраняемогоФайла;
+Procedure SaveConsoleDataToFileAfterFileSystemExtensionConnection(Connected, AdditionalParameters) Export
+	SaveAS = AdditionalParameters.SaveAs;
+	SavedFilesDescriptionStructure=AdditionalParameters.SavedFilesDescriptionStructure;
 
-	Если СохранитьКак Или СтруктураОписанияСохраняемогоФайла.ИмяФайла = "" Тогда
-		ВыборФайла = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(РежимДиалогаВыбораФайла.Сохранение,
-			СтруктураОписанияСохраняемогоФайла);
-		ВыборФайла.Показать(Новый ОписаниеОповещения("СохранитьДанныеКонсолиВФайлПослеВыбораИмениФайла", ЭтотОбъект,
-			ДополнительныеПараметры));
-	Иначе
-		СохранитьДанныеКонсолиВФайлНачатьПолучениеФайла(СтруктураОписанияСохраняемогоФайла.ИмяФайла,
-			ДополнительныеПараметры);
-	КонецЕсли;
+	If SaveAS Or SavedFilesDescriptionStructure.FileName = "" Then
+		FileSelection = FileSelectionDialogByDescriptionStructureOfSelectedFile(FileDialogMode.Save,
+			SavedFilesDescriptionStructure);
+		FileSelection.Show(New NotifyDescription("SaveConsoleDataToFileAfterFileNameChoose", ThisObject,
+			AdditionalParameters));
+	Else
+		SaveConsoleDataToFileBeginGettingFile(SavedFilesDescriptionStructure.FileName,
+			AdditionalParameters);
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-Процедура СохранитьДанныеКонсолиВФайлПослеВыбораИмениФайла(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
-	Если ВыбранныеФайлы = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+Procedure SaveConsoleDataToFileAfterFileNameChoose(SelectedFiles, AdditionalParameters) Export
+	If SelectedFiles = Undefined Then
+		Return;
+	Endif;
 
-	Если ВыбранныеФайлы.Количество() = 0 Тогда
-		Возврат;
-	КонецЕсли;
+	If SelectedFiles.Count() = 0 Then
+		Return;
+	Endif;
 
-	СохранитьДанныеКонсолиВФайлНачатьПолучениеФайла(ВыбранныеФайлы[0], ДополнительныеПараметры);
-КонецПроцедуры
+	SaveConsoleDataToFileBeginGettingFile(SelectedFiles[0], AdditionalParameters);
+EndProcedure
 
-Процедура СохранитьДанныеКонсолиВФайлНачатьПолучениеФайла(ИмяФайла, ДополнительныеПараметры) Экспорт
+Procedure SaveConsoleDataToFileBeginGettingFile(FileName, AdditionalParameters) Export
 
-	ПодготовленныеДанныеДляЗаписи=UT_CommonServerCall.ConsolePreparedDataForFileWriting(
-		ДополнительныеПараметры.ИмяКонсоли, ИмяФайла, ДополнительныеПараметры.АдресДанныхСохранения,
-		ДополнительныеПараметры.СтруктураОписанияСохраняемогоФайла);
-	ПолучаемыеФайлы = Новый Массив;
-	ПолучаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ИмяФайла, ПодготовленныеДанныеДляЗаписи));
-	НачатьПолучениеФайлов(Новый ОписаниеОповещения("СохранитьДанныеКонсолиВФайлПослеПолученияФайлов", ЭтотОбъект,
-		ДополнительныеПараметры), ПолучаемыеФайлы, ИмяФайла, Ложь);
-КонецПроцедуры
+	PreparedDateToSave=UT_CommonServerCall.ConsolePreparedDataForFileWriting(
+		AdditionalParameters.ConsoleName, FileName, AdditionalParameters.SavedDataUrl,
+		AdditionalParameters.SavedFilesDescriptionStructure);
+	ReceivedFiles = New Array;
+	ReceivedFiles.Add(New TransferableFileDescription(FileName, PreparedDateToSave));
+	BeginGettingFiles(New NotifyDescription("SaveConsoleDataToFileAfterGettingFiles", ThisObject,
+		AdditionalParameters), ReceivedFiles, FileName, False);
+EndProcedure
 
-Процедура СохранитьДанныеКонсолиВФайлПослеПолученияФайлов(ПолученныеФайлы, ДополнительныеПараметры) Экспорт
+Procedure SaveConsoleDataToFileAfterGettingFiles(ReceivedFiles, AdditionalParameters) Export
 
-	ОбработкаОповещения = ДополнительныеПараметры.ОписаниеОповещенияОЗавершении;
+	NotificationProcessing = AdditionalParameters.OnEndNotifyDescription;
 
-	Если ПолученныеФайлы = Неопределено Тогда
+	If ReceivedFiles = Undefined Then
 
-		Если ОбработкаОповещения <> Неопределено Тогда
-			ВыполнитьОбработкуОповещения(ОбработкаОповещения, Неопределено);
-		КонецЕсли;
-	Иначе
-		Если UT_CommonClientServer.PlatformVersionNotLess("8.3.13") Тогда
-			ИмяФайла = ПолученныеФайлы[0].ПолноеИмя;
-		Иначе
-			ИмяФайла = ПолученныеФайлы[0].Имя;
-		КонецЕсли;
-		Если ОбработкаОповещения <> Неопределено Тогда
-			ВыполнитьОбработкуОповещения(ОбработкаОповещения, ИмяФайла);
-		КонецЕсли;
+		If NotificationProcessing <> Undefined Then
+			ExecuteNotifyProcessing(NotificationProcessing, Undefined);
+		EndIf;
+	Else
+		If UT_CommonClientServer.PlatformVersionNotLess("8.3.13") Then
+			FileName = ReceivedFiles[0].FullName;
+		Else
+			FileName = ReceivedFiles[0].Name;
+		EndIf;
+		If NotificationProcessing <> Undefined Then
+			ExecuteNotifyProcessing(NotificationProcessing, FileName);
+		EndIf;
 
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ЧтениеДанныхКонсолей
+#Region ConsoleDataReading
 
-Процедура ПрочитатьДанныеКонсолиИзФайла(ИмяКонсоли, СтруктураОписанияЧитаемогоФайла, ОписаниеОповещенияОЗавершении, БезВыбораФайла = Ложь) Экспорт
+Procedure ReadConsoleFromFile(ConsoleName, ReadableFileDescriptionStructure, OnEndNotifyDescription, WithoutFileSelection = False) Export
 
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("СтруктураОписанияЧитаемогоФайла", СтруктураОписанияЧитаемогоФайла);
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДополнительныеПараметрыОповещения.Вставить("ИмяКонсоли", ИмяКонсоли);
-	ДополнительныеПараметрыОповещения.Вставить("БезВыбораФайла", БезВыбораФайла);
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("ReadableFileDescriptionStructure", ReadableFileDescriptionStructure);
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
+	NotifyAdditionalParameters.Insert("ConsoleName", ConsoleName);
+	NotifyAdditionalParameters.Insert("WithoutFileSelection", WithoutFileSelection);
 
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(
-		Новый ОписаниеОповещения("ПрочитатьДанныеКонсолиИзФайлаПослеПодключенияРасширения", ЭтотОбъект,
-		ДополнительныеПараметрыОповещения));
+	AttachFileSystemExtensionWithPossibleInstallation(
+		New NotifyDescription("ReadConsoleFromFileAfterExtensionConnection", ThisObject,
+		NotifyAdditionalParameters));
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ПрочитатьДанныеКонсолиИзФайлаПослеПодключенияРасширения(Подключено, ДополнительныеПараметры) Экспорт
+Procedure ReadConsoleFromFileAfterExtensionConnection(Connected, AdditionalParameters) Export
 
-	ЗагружаемоеИмяФайла = ДополнительныеПараметры.СтруктураОписанияЧитаемогоФайла.ИмяФайла;
-	БезВыбораФайла = ДополнительныеПараметры.БезВыбораФайла;
+	UploadFileName  = AdditionalParameters.ReadableFileDescriptionStructure.FileName;
+	WithoutFileSelection = AdditionalParameters.WithoutFileSelection;
 
-	Если Подключено Тогда
+	If Connected Then
 
-		Если БезВыбораФайла Тогда
-			Если ЗначениеЗаполнено(ЗагружаемоеИмяФайла) Тогда
-				ПомещаемыеФайлы=Новый Массив;
-				ПомещаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ЗагружаемоеИмяФайла));
+		If WithoutFileSelection Then
+			If ValueIsFilled(UploadFileName) Then
+				PutableFiles=New Array;
+				PutableFiles.Add(New TransferableFileDescription(UploadFileName));
 
-				НачатьПомещениеФайлов(
-					Новый ОписаниеОповещения("ПрочитатьДанныеКонсолиИзФайлаПослеПомещенияФайлов", ЭтотОбъект,
-					ДополнительныеПараметры), ПомещаемыеФайлы, , Ложь);
-			КонецЕсли;
-		Иначе
-			ВыборФайла = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(РежимДиалогаВыбораФайла.Открытие,
-				ДополнительныеПараметры.СтруктураОписанияЧитаемогоФайла);
+				BeginPuttingFiles(
+					New NotifyDescription("ReadConsoleFromFileAfterPutFiles", ThisObject,
+					AdditionalParameters), PutableFiles, , False);
+			EndIf;
+		Else
+			FileChoose = FileSelectionDialogByDescriptionStructureOfSelectedFile(FileDialogMode.Open,
+				AdditionalParameters.ReadableFileDescriptionStructure);
 
-			ВыборФайла.Показать(Новый ОписаниеОповещения("ПрочитатьДанныеКонсолиИзФайлаПослеВыбораФайла", ЭтотОбъект,
-				ДополнительныеПараметры));
-		КонецЕсли;
-	Иначе
-		ПомещаемыеФайлы=Новый Массив;
-		ПомещаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ЗагружаемоеИмяФайла));
+			FileChoose.Show(New NotifyDescription("ReadConsoleFromFileAfterFileChoose", ThisObject,
+				AdditionalParameters));
+		EndIf;
+	Else
+		PutableFiles=New Array;
+		PutableFiles.Add(New TransferableFileDescription(UploadFileName));
 
-		НачатьПомещениеФайлов(
-			Новый ОписаниеОповещения("ПрочитатьДанныеКонсолиИзФайлаПослеПомещенияФайлов", ЭтотОбъект,
-			ДополнительныеПараметры), ПомещаемыеФайлы, , ЗагружаемоеИмяФайла = "");
+		BeginPuttingFiles(
+			New NotifyDescription("ReadConsoleFromFileAfterPutFiles", ThisObject,
+			AdditionalParameters), PutableFiles, , UploadFileName = "");
 
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ПрочитатьДанныеКонсолиИзФайлаПослеВыбораФайла(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
+Procedure ReadConsoleFromFileAfterFileChoose(SelectedFiles, AdditionalParameters) Export
 
-	Если ВыбранныеФайлы = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If SelectedFiles = Undefined Then
+		Return;
+	EndIf;
 
-	Если ВыбранныеФайлы.Количество() = 0 Тогда
-		Возврат;
-	КонецЕсли;
+	If SelectedFiles.Count() = 0 Then
+		Return;
+	EndIf;
 
-	ПомещаемыеФайлы=Новый Массив;
-	ПомещаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ВыбранныеФайлы[0]));
+	PutableFiles=New Array;
+	PutableFiles.Add(New TransferableFileDescription(SelectedFiles[0]));
 
-	НачатьПомещениеФайлов(
-				Новый ОписаниеОповещения("ПрочитатьДанныеКонсолиИзФайлаПослеПомещенияФайлов", ЭтотОбъект,
-		ДополнительныеПараметры), ПомещаемыеФайлы, , Ложь);
-КонецПроцедуры
+	BeginPuttingFiles(
+				New NotifyDescription("ReadConsoleFromFileAfterPutFiles", ThisObject,
+		AdditionalParameters), PutableFiles, , False);
+EndProcedure
 
-Процедура ПрочитатьДанныеКонсолиИзФайлаПослеПомещенияФайлов(ПомещенныеФайлы, ДополнительныеПараметры) Экспорт
+Procedure ReadConsoleFromFileAfterPutFiles(PuttedFiles, AdditionalParameters) Export
 
-	Если ПомещенныеФайлы = Неопределено Тогда
-		Возврат;
+	If PuttedFiles = Undefined Then
+		Return;
+	EndIf;
 
-	КонецЕсли;
+	ReadConsoleFromFileProcessingFileUploading(PuttedFiles, AdditionalParameters);
+EndProcedure
 
-	ПрочитатьДанныеКонсолиИзФайлаОтработкаЗагрузкиФайла(ПомещенныеФайлы, ДополнительныеПараметры);
-КонецПроцедуры
+Procedure ReadConsoleFromFileProcessingFileUploading(PuttedFiles, AdditionalParameters)
 
-Процедура ПрочитатьДанныеКонсолиИзФайлаОтработкаЗагрузкиФайла(ПомещенныеФайлы, ДополнительныеПараметры)
+	ResultStructure=Undefined;
 
-	СтруктураРезультата=Неопределено;
+	For Each PuttedFile In PuttedFiles Do
 
-	Для Каждого ПомещенныйФайл Из ПомещенныеФайлы Цикл
+		If PuttedFile.Location <> "" Then
 
-		Если ПомещенныйФайл.Хранение <> "" Тогда
+			ResultStructure=New Structure;
+			ResultStructure.Insert("Url", PuttedFile.Location);
+			If UT_CommonClientServer.PlatformVersionNotLess("8.3.13") Then
+				ResultStructure.Insert("FileName", PuttedFile.FullName);
+			Else
+				ResultStructure.Insert("FileName", PuttedFile.Name);
+			EndIf;
+		
+			Break;
+		
+		EndIf;
 
-			СтруктураРезультата=Новый Структура;
-			СтруктураРезультата.Вставить("Адрес", ПомещенныйФайл.Хранение);
-			Если UT_CommonClientServer.PlatformVersionNotLess("8.3.13") Тогда
-				СтруктураРезультата.Вставить("ИмяФайла", ПомещенныйФайл.ПолноеИмя);
-			Иначе
-				СтруктураРезультата.Вставить("ИмяФайла", ПомещенныйФайл.Имя);
-			КонецЕсли;
+	EndDo;
 
-			Прервать;
+	ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, ResultStructure);
 
-		КонецЕсли;
+EndProcedure
 
-	КонецЦикла;
+#EndRegion
 
-	ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, СтруктураРезультата);
+#EndRegion
 
-КонецПроцедуры
+#Region FileSystemExtensionConnectAndSetup
 
-#КонецОбласти
+Procedure AttachFileSystemExtensionWithPossibleInstallation(OnEndNotifyDescription, AfterInstall = False) Export
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
+	NotifyAdditionalParameters.Insert("AfterInstall", AfterInstall);
 
-#КонецОбласти
+	BeginAttachingFileSystemExtension(
+		New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionConnect",
+		ThisObject, NotifyAdditionalParameters));
 
-#Область ПодключениеИУстановкаРасширенияРаботыСФайлами
+EndProcedure
 
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(ОписаниеОповещенияОЗавершении, ПослеУстановки = Ложь) Экспорт
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДополнительныеПараметрыОповещения.Вставить("ПослеУстановки", ПослеУстановки);
+Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionConnect(Connected,
+	AdditionalParameters) Export
 
-	НачатьПодключениеРасширенияРаботыСФайлами(
-		Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеПодключенияРасширения",
-		ЭтотОбъект, ДополнительныеПараметрыОповещения));
-
-КонецПроцедуры
-
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеПодключенияРасширения(Подключено,
-	ДополнительныеПараметры) Экспорт
-
-	Если Подключено Тогда
+	If Connected Then
 		SessionFileVariablesStructure=UT_ApplicationParameters[SessionFileVariablesParameterName()];
-		Если SessionFileVariablesStructure = Неопределено Тогда
+		If SessionFileVariablesStructure = Undefined Then
 			ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(
-				Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеЧтенияФайловыхПеременныхСеанса",
-				ЭтотОбъект, ДополнительныеПараметры));
-		Иначе
-			ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);
-		КонецЕсли;
-	ИначеЕсли Не ДополнительныеПараметры.ПослеУстановки Тогда
-		НачатьУстановкуРасширенияРаботыСФайлами(
-			Новый ОписаниеОповещения("ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеУстановкиРасширения",
-			ЭтотОбъект, ДополнительныеПараметры));
-	Иначе
-		ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Ложь);
-	КонецЕсли;
+				New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndSessionFileVariablesReading",
+				ЭтотОбъект, AdditionalParameters));
+		Else
+			ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, True);
+		EndIf;
+	ElsIf Not AdditionalParameters.AfterInstall Then
+		BeginInstallFileSystemExtension(
+			New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionInstallation",
+			ЭтотОбъект, AdditionalParameters));
+	Else
+		ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, False);
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеЧтенияФайловыхПеременныхСеанса(Результат,
-	ДополнительныеПараметры) Экспорт
+Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndSessionFileVariablesReading(Result,
+	AdditionalParameters) Export
 
-	ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);
+	ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, True);
 
-КонецПроцедуры
+EndProcedure
 
-Процедура ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеУстановкиРасширения(ДополнительныеПараметры) Экспорт
-	ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении,
-		Истина);
-КонецПроцедуры
+Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionInstallation(AdditionalParameters) Export
+	AttachFileSystemExtensionWithPossibleInstallation(AdditionalParameters.OnEndNotifyDescription,
+		True);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ПараметрыПриложения
+#Region ApplicationParameters
 
-Функция НомерСеанса() Экспорт
-	Возврат UT_ApplicationParameters["НомерСеанса"];
-КонецФункции
+Function SessionNumber() Export
+	Return UT_ApplicationParameters["SessionNumber"];
+EndFunction
 
-#КонецОбласти
+#EndRegion
 
-#Область ЧтениеФайловыхПараметровСеансаВПараметрыПриложения
+#Region SessionFileParametersReadingToApplicationParameters
 
 Function SessionFileVariablesParameterName () Export	
 	Return "FILE_VARIABLES";
@@ -922,143 +919,144 @@ Function SessionFileVariablesStructure() Export
 	Return FileVariablesStructure;
 EndFunction
 
-Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(ОписаниеОповещенияОЗавершении) Экспорт
-	ДополнительныеПараметрыОповещения=Новый Структура;
-	ДополнительныеПараметрыОповещения.Вставить("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
+Procedure ReadMainSessionFileVariablesToApplicationParameters(OnEndNotifyDescription) Export
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("OnEndNotifyDescription", OnEndNotifyDescription);
 
-	//1. каталог временных файлов
-	НачатьПолучениеКаталогаВременныхФайлов(
-		Новый ОписаниеОповещения("ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеКаталогаВременныхФайловЗавершение",
-		ЭтотОбъект, ДополнительныеПараметрыОповещения));
-КонецПроцедуры
+	//1. Temp files directory
+	BeginGettingTempFilesDir(
+		New NotifyDescription("ReadMainSessionFileVariablesToApplicationParametersOnEndGettingTempFilesDir",
+		ThisObject, NotifyAdditionalParameters));
+EndProcedure
 
-Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеКаталогаВременныхФайловЗавершение(ИмяКаталога,
-	ДополнительныеПараметры) Экспорт
-	СтруктураФайловыхПеременных=SessionFileVariablesStructure();
-	СтруктураФайловыхПеременных.Вставить("TempFilesDirectory", ИмяКаталога);
+Procedure ReadMainSessionFileVariablesToApplicationParametersOnEndGettingTempFilesDir(DirectoryName,
+	AdditionalParameters) Export
+	FileVariablesStructure=SessionFileVariablesStructure();
+	FileVariablesStructure.Insert("TempFilesDirectory", DirectoryName);
 
-	НачатьПолучениеРабочегоКаталогаДанныхПользователя(
-		Новый ОписаниеОповещения("ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение",
-		ЭтотОбъект, ДополнительныеПараметры));
-КонецПроцедуры
+	BeginGettingUserDataWorkDir(
+		New NotifyDescription("ReadMainSessionFileVariablesToApplicationParametersOnEndGettingUserDataWorkDir",
+		ThisObject, AdditionalParameters));
+EndProcedure
 
-Процедура ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение(ИмяКаталога,
-	ДополнительныеПараметры) Экспорт
-	СтруктураФайловыхПеременных=SessionFileVariablesStructure();
-	СтруктураФайловыхПеременных.Вставить("РабочийКаталогДанныхПользователя", ИмяКаталога);
+Procedure ReadMainSessionFileVariablesToApplicationParametersOnEndGettingUserDataWorkDir(DirectoryName,
+	AdditionalParameters) Export
+	FileVariablesStructure=SessionFileVariablesStructure();
+	FileVariablesStructure.Insert("UserDataWorkDir", DirectoryName);
 
-	ВыполнитьОбработкуОповещения(ДополнительныеПараметры.ОписаниеОповещенияОЗавершении, Истина);
-КонецПроцедуры
+	ExecuteNotifyProcessing(AdditionalParameters.OnEndNotifyDescription, Истина);
+EndProcedure
 
-#КонецОбласти
-#Область ЗапускПриложения1С
+#EndRegion
+
+#Region ApplicationRun1С
 
 
-// Описание
+// Description
 // 
-// Параметры:
-// 	ТипКлиента - Число - Код режима запуска
-// 		1 - Конфигуратор
-// 		2 - Толстый клиент обычное приложение
-// 		3 - Толстый клиент управляемое приложение
-// 		4 - Тонкий клиент
-// 	Пользователь - Строка - Имя пользователя БД, под которым нужно выполнить запуск
-// 	РежимЗапускаПодПользователем - Булево - Определяет, будет ли изменен пароль пользователя перед запуском. После запуска пароль вернется назад
-// Возвращаемое значение:
+// Parameters:
+// 	ClientType - Numeric - Run mode code
+// 		1 - Designer
+// 		2 - Thick client ordinary mode
+// 		3 - Thick client managed application
+// 		4 - Thin client
+// 	User - String - Name of Database User , to run application 
+// 	UnderUserRunMode - Boolean - Determines whether the user's password will be changed before launching. After the launch, the password will be returned back
+// Returned value:
 // 	
-Функция ЗапуститьСеанс1С(ТипКлиента, Пользователь, РежимЗапускаПодПользователем = Ложь,
-	ПаузаПередВосстановлениемПароля = 20) Экспорт
-#Если ВебКлиент Тогда
+Function Run1CSession(ClientType, User, UnderUserRunMode = False,
+	PauseBeforePasswordRestore = 20) Export
+#If WebClient Then
 
-#Иначе
-		Папка1С = КаталогПрограммы();
+#Else
+		Directory1C = BinDir();
 
-		СтрокаЗапуска = Папка1С;
+		LaunchString = Directory1C;
 
-		РасширениеФайлаЗапуска = "";
-		Если UT_CommonClientServer.IsWindows() Тогда
-			РасширениеФайлаЗапуска=".EXE";
-		КонецЕсли;
+		LaunchFileExtension = "";
+		If UT_CommonClientServer.IsWindows() Then
+			LaunchFileExtension=".EXE";
+		EndIf;
 
-		Если ТипКлиента = 1 Тогда
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8" + РасширениеФайлаЗапуска + " DESIGNER";
-		ИначеЕсли ТипКлиента = 2 Тогда
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8" + РасширениеФайлаЗапуска + " ENTERPRISE /RunModeOrdinaryApplication";
-		ИначеЕсли ТипКлиента = 3 Тогда
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8" + РасширениеФайлаЗапуска + " ENTERPRISE /RunModeManagedApplication";
-		Иначе
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8c" + РасширениеФайлаЗапуска + " ENTERPRISE";
-		КонецЕсли;
+		If ClientType = 1 Then
+			LaunchString = LaunchString + "1cv8" + LaunchFileExtension + " DESIGNER";
+		ElsIf ClientType = 2 Then
+			LaunchString = LaunchString + "1cv8" + LaunchFileExtension + " ENTERPRISE /RunModeOrdinaryApplication";
+		ElsIf ClientType = 3 Then
+			LaunchString = LaunchString + "1cv8" + LaunchFileExtension + " ENTERPRISE /RunModeManagedApplication";
+		Else
+			LaunchString = LaunchString + "1cv8c" + LaunchFileExtension + " ENTERPRISE";
+		Endif;
 
-		СтрокаСоединения=СтрокаСоединенияИнформационнойБазы();
-		МассивПоказателейСтрокиСоединения = СтрРазделить(СтрокаСоединения, ";");
+		ConnectionString=InfoBaseConnectionString();
+		ConnectionStringParametersArray = StrSplit(ConnectionString, ";");
 
-		СоответствиеПоказателейСтрокиСоединения = Новый Структура;
-		Для Каждого СтрокаПоказателяСтрокиСоединения Из МассивПоказателейСтрокиСоединения Цикл
-			МассивПоказателя = СтрРазделить(СтрокаПоказателяСтрокиСоединения, "=");
+		MatchOfConnectionStringParameters = New Structure;
+		
+		For Each StringParameterOfConnectionString In ConnectionStringParametersArray Do
+			ParameterArray = StrSplit(StringParameterOfConnectionString, "=");
 
-			Если МассивПоказателя.Количество() <> 2 Тогда
-				Продолжить;
-			КонецЕсли;
+			If ParameterArray.Count() <> 2 Then
+				Continue;
+			Endif;
 
-			Показатель = НРег(МассивПоказателя[0]);
-			ЗначениеПоказателя = МассивПоказателя[1];
-			СоответствиеПоказателейСтрокиСоединения.Вставить(Показатель, ЗначениеПоказателя);
-		КонецЦикла;
+			Parameter = Lower(ParameterArray[0]);
+			ParameterValue = ParameterArray[1];
+			MatchOfConnectionStringParameters.Insert(Parameter, ParameterValue);
+		EndDo;
 
-		Если СоответствиеПоказателейСтрокиСоединения.Свойство("file") Тогда
-			СтрокаЗапуска = СтрокаЗапуска + " /F" + СоответствиеПоказателейСтрокиСоединения.File;
-		ИначеЕсли СоответствиеПоказателейСтрокиСоединения.Свойство("srvr") Тогда
-			ПутьКБазе = UT_StringFunctionsClientServer.ПутьБезКавычек(СоответствиеПоказателейСтрокиСоединения.srvr) + "\"
-				+ UT_StringFunctionsClientServer.ПутьБезКавычек(СоответствиеПоказателейСтрокиСоединения.ref);
-			ПутьКБазе = UT_StringFunctionsClientServer.ОбернутьВКавычки(ПутьКБазе);
-			СтрокаЗапуска = СтрокаЗапуска + " /S " + ПутьКБазе;
-		ИначеЕсли СоответствиеПоказателейСтрокиСоединения.Свойство("ws") Тогда
-			СтрокаЗапуска = СтрокаЗапуска + " /WS " + СоответствиеПоказателейСтрокиСоединения.ws;
-		Иначе
-			Сообщить(СтрокаСоединения);
-		КонецЕсли;
+		If MatchOfConnectionStringParameters.Property("file") Then
+			LaunchString = LaunchString + " /F" + MatchOfConnectionStringParameters.File;
+		ElsIf MatchOfConnectionStringParameters.Property("srvr") Then
+			DataBasePath = UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.srvr) + "\"
+				+ UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.ref);
+			DataBasePath = UT_StringFunctionsClientServer.ОбернутьВКавычки(DataBasePath);
+			LaunchString = LaunchString + " /S " + DataBasePath;
+		ElsIf MatchOfConnectionStringParameters.Property("ws") Then
+			LaunchString = LaunchString + " /WS " + MatchOfConnectionStringParameters.ws;
+		Else
+			Message(ConnectionString);
+		EndIf;
 
-		СтрокаЗапуска = СтрокаЗапуска + " /N""" + Пользователь + """";
+		LaunchString = LaunchString + " /N""" + User + """";
 
-		ДанныеСохраненногоПароляПользователяИБ = Неопределено;
-		Если РежимЗапускаПодПользователем Тогда
-			ВременныйПароль = "qwerty123456";
-			ДанныеСохраненногоПароляПользователяИБ = UT_CommonServerCall.StoredIBUserPasswordData(
-				Пользователь);
-			UT_CommonServerCall.SetIBUserPassword(Пользователь, ВременныйПароль);
+		StoredIBUserPasswordData = Undefined;
+		If UnderUserRunMode Then
+			TempPassword = "qwerty123456";
+			StoredIBUserPasswordData = UT_CommonServerCall.StoredIBUserPasswordData(
+				User);
+			UT_CommonServerCall.SetIBUserPassword(User, TempPassword);
 
-			СтрокаЗапуска = СтрокаЗапуска + " /P" + ВременныйПароль;
-		КонецЕсли;
+			LaunchString = LaunchString + " /P" + TempPassword;
+		EndIf;
 
-		ДополнительныеПараметрыОповещения = Новый Структура;
-		ДополнительныеПараметрыОповещения.Вставить("РежимЗапускаПодПользователем", РежимЗапускаПодПользователем);
-		ДополнительныеПараметрыОповещения.Вставить("ДанныеСохраненногоПароляПользователяИБ",
-			ДанныеСохраненногоПароляПользователяИБ);
-		ДополнительныеПараметрыОповещения.Вставить("Пользователь", Пользователь);
-		ДополнительныеПараметрыОповещения.Вставить("ПаузаПередВосстановлениемПароля", ПаузаПередВосстановлениемПароля);
+		NotifyAdditionalParameters = New Structure;
+		NotifyAdditionalParameters.Insert("UnderUserRunMode", UnderUserRunMode);
+		NotifyAdditionalParameters.Insert("StoredIBUserPasswordData",StoredIBUserPasswordData);
+		NotifyAdditionalParameters.Insert("User", User);
+		NotifyAdditionalParameters.Insert("PauseBeforePasswordRestore", PauseBeforePasswordRestore);
 
-		Попытка
-			BeginRunningApplication(Новый ОписаниеОповещения("ЗапуститьСеанс1СЗавершениеЗапуска", ЭтотОбъект,
-				ДополнительныеПараметрыОповещения), СтрокаЗапуска);
-		Исключение
-			Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-		КонецПопытки;
-#КонецЕсли
-КонецФункции
+		Try
+			BeginRunningApplication(New NotifyDescription("Run1CSessionEndLaunch", ThisObject,
+				NotifyAdditionalParameters), LaunchString);
+		Except
+			Message(BriefErrorDescription(ErrorInfo()));
+		EndTry;
+#EndIf
+EndFunction
 
-Процедура ЗапуститьСеанс1СЗавершениеЗапуска(КодВозврата, ДополнительныеПараметры) Экспорт
-	Если Не ДополнительныеПараметры.РежимЗапускаПодПользователем Тогда
-		Возврат;
-	КонецЕсли;
+Procedure Run1CSessionEndLaunch(ReturnCode, AdditionalParameters) Export
+	If Not AdditionalParameters.UnderUserRunMode Then
+		Return;
+	EndIf;
 
-	ВремяЗапуска = ТекущаяДата();
-	Пока (ТекущаяДата() - ВремяЗапуска) < ДополнительныеПараметры.ПаузаПередВосстановлениемПароля Цикл
-		ОбработкаПрерыванияПользователя();
-	КонецЦикла;
+	LaunchTime = CurrentDate();
+	While (CurrentDate() - LaunchTime) < AdditionalParameters.PauseBeforePasswordRestore Do
+		UserInterruptProcessing();
+	EndDo;
 
 	UT_CommonServerCall.RestoreUserDataAfterUserSessionStart(
-		ДополнительныеПараметры.Пользователь, ДополнительныеПараметры.ДанныеСохраненногоПароляПользователяИБ);
-КонецПроцедуры
+		AdditionalParameters.User, AdditionalParameters.StoredIBUserPasswordData);
+EndProcedure
 
-#КонецОбласти
+#EndRegion

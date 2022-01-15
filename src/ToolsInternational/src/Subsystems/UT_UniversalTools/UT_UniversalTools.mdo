@@ -26,9 +26,9 @@
   <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
   <content>Catalog.УИ_Алгоритмы</content>
   <content>DataProcessor.UT_ObjectReferencesSearch</content>
-  <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
+  <content>DataProcessor.UT_ObjectsAttributesEditor</content>
   <content>Report.UT_ReportsConsole</content>
-  <content>DataProcessor.УИ_ДинамическийСписок</content>
+  <content>DataProcessor.UT_DynamicList</content>
   <content>DataProcessor.UT_HTTPRequestConsole</content>
   <content>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</content>
   <content>CommonPicture.UT_UniversalToolsSybsystem</content>
@@ -47,8 +47,8 @@
   <content>CommonForm.УИ_ДлительнаяОперация</content>
   <content>CommonForm.UT_ValueTableForm</content>
   <content>CommonForm.УИ_ФормаСпецЗначения</content>
-  <content>CommonForm.УИ_ФормаРедактированияТекста</content>
-  <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
+  <content>CommonForm.UT_TextEditingForm</content>
+  <content>CommonForm.UT_ValueStorageForm</content>
   <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
   <content>Role.UT_UniversalTools</content>
   <content>CommonModule.UT_Forms</content>
