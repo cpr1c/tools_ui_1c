@@ -955,108 +955,108 @@ EndProcedure
 // Description
 // 
 // Parameters:
-// 	ТипКлиента - Число - Код режима запуска
-// 		1 - Конфигуратор
-// 		2 - Толстый клиент обычное приложение
-// 		3 - Толстый клиент управляемое приложение
-// 		4 - Тонкий клиент
-// 	Пользователь - Строка - Имя пользователя БД, под которым нужно выполнить запуск
-// 	РежимЗапускаПодПользователем - Булево - Определяет, будет ли изменен пароль пользователя перед запуском. После запуска пароль вернется назад
-// Возвращаемое значение:
+// 	ClientType - Numeric - Run mode code
+// 		1 - Designer
+// 		2 - Thick client ordinary mode
+// 		3 - Thick client managed application
+// 		4 - Thin client
+// 	User - String - Name of Database User , to run application 
+// 	UnderUserRunMode - Boolean - Determines whether the user's password will be changed before launching. After the launch, the password will be returned back
+// Returned value:
 // 	
-Функция ЗапуститьСеанс1С(ТипКлиента, Пользователь, РежимЗапускаПодПользователем = Ложь,
-	ПаузаПередВосстановлениемПароля = 20) Экспорт
-#Если ВебКлиент Тогда
+Function Run1CSession(ClientType, User, UnderUserRunMode = False,
+	PauseBeforePasswordRestore = 20) Export
+#If WebClient Then
 
-#Иначе
-		Папка1С = КаталогПрограммы();
+#Else
+		Directory1C = BinDir();
 
-		СтрокаЗапуска = Папка1С;
+		LaunchString = Directory1C;
 
-		РасширениеФайлаЗапуска = "";
-		Если UT_CommonClientServer.IsWindows() Тогда
-			РасширениеФайлаЗапуска=".EXE";
-		КонецЕсли;
+		LaunchFileExtension = "";
+		If UT_CommonClientServer.IsWindows() Then
+			LaunchFileExtension=".EXE";
+		EndIf;
 
-		Если ТипКлиента = 1 Тогда
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8" + РасширениеФайлаЗапуска + " DESIGNER";
-		ИначеЕсли ТипКлиента = 2 Тогда
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8" + РасширениеФайлаЗапуска + " ENTERPRISE /RunModeOrdinaryApplication";
-		ИначеЕсли ТипКлиента = 3 Тогда
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8" + РасширениеФайлаЗапуска + " ENTERPRISE /RunModeManagedApplication";
-		Иначе
-			СтрокаЗапуска = СтрокаЗапуска + "1cv8c" + РасширениеФайлаЗапуска + " ENTERPRISE";
-		КонецЕсли;
+		If ClientType = 1 Then
+			LaunchString = LaunchString + "1cv8" + LaunchFileExtension + " DESIGNER";
+		ElsIf ClientType = 2 Then
+			LaunchString = LaunchString + "1cv8" + LaunchFileExtension + " ENTERPRISE /RunModeOrdinaryApplication";
+		ElsIf ClientType = 3 Then
+			LaunchString = LaunchString + "1cv8" + LaunchFileExtension + " ENTERPRISE /RunModeManagedApplication";
+		Else
+			LaunchString = LaunchString + "1cv8c" + LaunchFileExtension + " ENTERPRISE";
+		Endif;
 
-		СтрокаСоединения=СтрокаСоединенияИнформационнойБазы();
-		МассивПоказателейСтрокиСоединения = СтрРазделить(СтрокаСоединения, ";");
+		ConnectionString=InfoBaseConnectionString();
+		ConnectionStringParametersArray = StrSplit(ConnectionString, ";");
 
-		СоответствиеПоказателейСтрокиСоединения = Новый Структура;
-		Для Каждого СтрокаПоказателяСтрокиСоединения Из МассивПоказателейСтрокиСоединения Цикл
-			МассивПоказателя = СтрРазделить(СтрокаПоказателяСтрокиСоединения, "=");
+		MatchOfConnectionStringParameters = New Structure;
+		
+		For Each StringParameterOfConnectionString In ConnectionStringParametersArray Do
+			ParameterArray = StrSplit(StringParameterOfConnectionString, "=");
 
-			Если МассивПоказателя.Количество() <> 2 Тогда
-				Продолжить;
-			КонецЕсли;
+			If ParameterArray.Count() <> 2 Then
+				Continue;
+			Endif;
 
-			Показатель = НРег(МассивПоказателя[0]);
-			ЗначениеПоказателя = МассивПоказателя[1];
-			СоответствиеПоказателейСтрокиСоединения.Вставить(Показатель, ЗначениеПоказателя);
-		КонецЦикла;
+			Parameter = Lower(ParameterArray[0]);
+			ParameterValue = ParameterArray[1];
+			MatchOfConnectionStringParameters.Insert(Parameter, ParameterValue);
+		EndDo;
 
-		Если СоответствиеПоказателейСтрокиСоединения.Свойство("file") Тогда
-			СтрокаЗапуска = СтрокаЗапуска + " /F" + СоответствиеПоказателейСтрокиСоединения.File;
-		ИначеЕсли СоответствиеПоказателейСтрокиСоединения.Свойство("srvr") Тогда
-			ПутьКБазе = UT_StringFunctionsClientServer.ПутьБезКавычек(СоответствиеПоказателейСтрокиСоединения.srvr) + "\"
-				+ UT_StringFunctionsClientServer.ПутьБезКавычек(СоответствиеПоказателейСтрокиСоединения.ref);
-			ПутьКБазе = UT_StringFunctionsClientServer.ОбернутьВКавычки(ПутьКБазе);
-			СтрокаЗапуска = СтрокаЗапуска + " /S " + ПутьКБазе;
-		ИначеЕсли СоответствиеПоказателейСтрокиСоединения.Свойство("ws") Тогда
-			СтрокаЗапуска = СтрокаЗапуска + " /WS " + СоответствиеПоказателейСтрокиСоединения.ws;
-		Иначе
-			Сообщить(СтрокаСоединения);
-		КонецЕсли;
+		If MatchOfConnectionStringParameters.Property("file") Then
+			LaunchString = LaunchString + " /F" + MatchOfConnectionStringParameters.File;
+		ElsIf MatchOfConnectionStringParameters.Property("srvr") Then
+			DataBasePath = UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.srvr) + "\"
+				+ UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.ref);
+			ПутьКБазе = UT_StringFunctionsClientServer.ОбернутьВКавычки(DataBasePath);
+			LaunchString = LaunchString + " /S " + DataBasePath;
+		ElsIf MatchOfConnectionStringParameters.Property("ws") Then
+			LaunchString = LaunchString + " /WS " + MatchOfConnectionStringParameters.ws;
+		Else
+			Message(ConnectionString);
+		EndIf;
 
-		СтрокаЗапуска = СтрокаЗапуска + " /N""" + Пользователь + """";
+		LaunchString = LaunchString + " /N""" + User + """";
 
-		ДанныеСохраненногоПароляПользователяИБ = Неопределено;
-		Если РежимЗапускаПодПользователем Тогда
-			ВременныйПароль = "qwerty123456";
-			ДанныеСохраненногоПароляПользователяИБ = UT_CommonServerCall.StoredIBUserPasswordData(
-				Пользователь);
-			UT_CommonServerCall.SetIBUserPassword(Пользователь, ВременныйПароль);
+		StoredIBUserPasswordData = Undefined;
+		If UnderUserRunMode Then
+			TempPassword = "qwerty123456";
+			StoredIBUserPasswordData = UT_CommonServerCall.StoredIBUserPasswordData(
+				User);
+			UT_CommonServerCall.SetIBUserPassword(User, TempPassword);
 
-			СтрокаЗапуска = СтрокаЗапуска + " /P" + ВременныйПароль;
-		КонецЕсли;
+			LaunchString = LaunchString + " /P" + TempPassword;
+		EndIf;
 
-		ДополнительныеПараметрыОповещения = Новый Структура;
-		ДополнительныеПараметрыОповещения.Вставить("РежимЗапускаПодПользователем", РежимЗапускаПодПользователем);
-		ДополнительныеПараметрыОповещения.Вставить("ДанныеСохраненногоПароляПользователяИБ",
-			ДанныеСохраненногоПароляПользователяИБ);
-		ДополнительныеПараметрыОповещения.Вставить("Пользователь", Пользователь);
-		ДополнительныеПараметрыОповещения.Вставить("ПаузаПередВосстановлениемПароля", ПаузаПередВосстановлениемПароля);
+		NotifyAdditionalParameters = New Structure;
+		NotifyAdditionalParameters.Insert("UnderUserRunMode", UnderUserRunMode);
+		NotifyAdditionalParameters.Insert("StoredIBUserPasswordData",StoredIBUserPasswordData);
+		NotifyAdditionalParameters.Insert("User", User);
+		NotifyAdditionalParameters.Insert("PauseBeforePasswordRestore", PauseBeforePasswordRestore);
 
-		Попытка
-			BeginRunningApplication(Новый ОписаниеОповещения("ЗапуститьСеанс1СЗавершениеЗапуска", ЭтотОбъект,
-				ДополнительныеПараметрыОповещения), СтрокаЗапуска);
-		Исключение
-			Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-		КонецПопытки;
-#КонецЕсли
-КонецФункции
+		Try
+			BeginRunningApplication(New NotifyDescription("Run1CSessionEndLaunch", ThisObject,
+				NotifyAdditionalParameters), LaunchString);
+		Except
+			Message(BriefErrorDescription(ErrorInfo()));
+		EndTry;
+#EndIf
+EndFunction
 
-Процедура ЗапуститьСеанс1СЗавершениеЗапуска(КодВозврата, ДополнительныеПараметры) Экспорт
-	Если Не ДополнительныеПараметры.РежимЗапускаПодПользователем Тогда
-		Возврат;
-	КонецЕсли;
+Procedure Run1CSessionEndLaunch(ReturnCode, AdditionalParameters) Export
+	If Not AdditionalParameters.UnderUserRunMode Then
+		Return;
+	EndIf;
 
-	ВремяЗапуска = ТекущаяДата();
-	Пока (ТекущаяДата() - ВремяЗапуска) < ДополнительныеПараметры.ПаузаПередВосстановлениемПароля Цикл
-		ОбработкаПрерыванияПользователя();
-	КонецЦикла;
+	LaunchTime = CurrentDate();
+	While (CurrentDate() - LaunchTime) < AdditionalParameters.PauseBeforePasswordRestore Do
+		UserInterruptProcessing();
+	EndDo;
 
 	UT_CommonServerCall.RestoreUserDataAfterUserSessionStart(
-		ДополнительныеПараметры.Пользователь, ДополнительныеПараметры.ДанныеСохраненногоПароляПользователяИБ);
-КонецПроцедуры
+		AdditionalParameters.User, AdditionalParameters.StoredIBUserPasswordData);
+EndProcedure
 
 #EndRegion
