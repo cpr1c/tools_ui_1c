@@ -433,11 +433,11 @@ EndFunction
 &AtClient
 Function SavedFileDescriptionStructure()
 	
-	Structure = UT_CommonClient.ПустаяСтруктураОписанияВыбираемогоФайла();
+	Structure = UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
 	Structure.ИмяФайла=ToolDataFileName;
 	
-//	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Structure, "Данные редактора HTML(*.bslhtml)", "bslhtml");
-	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Structure, "Файл HTML(*.html)", "html");
+//	UT_CommonClient.AddFormatToSavingFileDescription(Structure, "Данные редактора HTML(*.bslhtml)", "bslhtml");
+	UT_CommonClient.AddFormatToSavingFileDescription(Structure, "Файл HTML(*.html)", "html");
 	Return Structure;
 	
 EndFunction
@@ -445,7 +445,7 @@ EndFunction
 &AtClient
 Procedure OpenFile(Command)
 	
-	UT_CommonClient.ПрочитатьДанныеКонсолиИзФайла("РедактовHTML", SavedFileDescriptionStructure(),
+	UT_CommonClient.ReadConsoleFromFile("РедактовHTML", SavedFileDescriptionStructure(),
 		New NotifyDescription("OpenFileComplete", ThisObject));
 		
 EndProcedure
@@ -506,7 +506,7 @@ EndProcedure
 &AtClient
 Procedure SaveFileOnDisk(SaveAs = False)
 	
-	UT_CommonClient.СохранитьДанныеКонсолиВФайл("РедакторHTML", SaveAs,
+	UT_CommonClient.SaveConsoleDataToFile("РедакторHTML", SaveAs,
 		SavedFileDescriptionStructure(), EditorItemText(Items.GeneratedHTMLEditor),
 		New NotifyDescription("SaveFileComplete", ThisObject));
 		

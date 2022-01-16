@@ -2,5 +2,5 @@
 &НаКлиенте
 Procedure CommandProcessing(CommandParameter, CommandExecuteParameters)
 	
-	UT_CommonClient.ОткрытьНастройкиОтладкиДополнительнойОбработки(CommandParameter);
+	UT_CommonClient.OpenAdditionalDataProcessorDebugSettings(CommandParameter);
 EndProcedure

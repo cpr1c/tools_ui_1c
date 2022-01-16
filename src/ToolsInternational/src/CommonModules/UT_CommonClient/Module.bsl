@@ -14,7 +14,8 @@ Procedure OnStart() Export
 	UT_ApplicationParameters.Insert("IsWindowsClient", UT_CommonClientServer.IsWindows());
 	UT_ApplicationParameters.Insert("IsWebClient", IsWebClient());
 	UT_ApplicationParameters.Insert("IsPortableDistribution", UT_CommonClientServer.IsPortableDistribution());
-	UT_ApplicationParameters.Insert("HTMLFieldBasedOnWebkit",UT_CommonClientServer.HTMLFieldBasedOnWebkit());
+	UT_ApplicationParameters.Insert("HTMLFieldBasedOnWebkit",
+		UT_CommonClientServer.HTMLFieldBasedOnWebkit());
 	UT_ApplicationParameters.Insert("AppVersion",
 	UT_CommonClientServer.CurrentAppVersion());
 	//UT_ApplicationParameters.Insert("ConfigurationMetadataDescriptionAdress", UT_CommonServerCall.ConfigurationMetadataDescriptionAdress());
@@ -102,7 +103,8 @@ EndProcedure
 // Returns:
 //   The user selection result is passed to the method specified in the NotifyDescriptionOnCompletion parameter.
 //
-Procedure ShowQuestionToUser(CompletionNotifyDescription, QuestionText, Buttons, AdditionalParameters = Undefined) Export
+Procedure ShowQuestionToUser(CompletionNotifyDescription, QuestionText, Buttons,
+ AdditionalParameters = Undefined) Export
 
 	If AdditionalParameters <> Undefined Then
 		Parameters = AdditionalParameters;
@@ -114,7 +116,8 @@ Procedure ShowQuestionToUser(CompletionNotifyDescription, QuestionText, Buttons,
 
 	ButtonsParameter = Buttons;
 
-		If TypeOf(Parameters.DefaultButton) = Type("DialogReturnCode") Then
+	If TypeOf(Parameters.DefaultButton) = Type("DialogReturnCode") Then
+	 //@skip-warning
 		Parameters.DefaultButton = DialogReturnCodeToString(Parameters.DefaultButton);
 	EndIf;
 	
@@ -133,7 +136,7 @@ Procedure ShowQuestionToUser(CompletionNotifyDescription, QuestionText, Buttons,
 	ShowQueryBox(NotifyDescriptionForApplicationRun, QuestionText, ButtonsParameter, , Parameters.DefaultButton, "",
 		Parameters.TimeoutButton);
 
-КонецПроцедуры
+EndProcedure
 
 // Returns a new structure with additional parameters for the ShowQuestionToUser procedure.
 //
@@ -232,13 +235,14 @@ Procedure OpenDebuggingConsole(DebuggingObjectType, DebuggingData, ConsoleFormUn
 
 EndProcedure
 
-Procedure  RunDebugConsoleByDebugDataSettingsKey(DebugSettingsKey, FormID = Undefined) Export
+Procedure  RunDebugConsoleByDebugDataSettingsKey(DebugSettingsKey,User=Undefined, 
+	FormID = Undefined) Export
 	If Not ValueIsFilled(DebugSettingsKey) Then
 		Return;
 	EndIf;
 
 	DebugData = UT_CommonServerCall.DebuggingObjectDataStructureFromSystemSettingsStorage(
-		DebugSettingsKey, FormID);
+		DebugSettingsKey,user, FormID);
 
 	If DebugData = Undefined Then
 		Return;
@@ -365,9 +369,10 @@ EndProcedure
 Procedure OpenPortableToolsDebugSpecificityPage () Export
 	BeginRunningApplication(ApplicationRunEmptyNotifyDescription(),
 		"https://github.com/cpr1c/tools_ui_1c/wiki/Portable-Tools-Debug-Specificity");
+
 EndProcedure
 
-Procedure RunToolsUpdateCheck () Export
+Procedure RunToolsUpdateCheck() Export
 	FormParameters = New Structure;;
 	OpenForm("DataProcessor.UT_Support.Form.UpdateTools", FormParameters);
 EndProcedure
@@ -409,9 +414,9 @@ Procedure EditObjectCommandHandler(ObjectRef, Context) Export
 	EditObject(ObjectRef);
 EndProcedure
 
-Процедура FindObjectRefsCommandHandler(ObjectRef, Context) Export
+Procedure FindObjectRefsCommandHandler(ObjectRef, Context) Export
 	FindObjectRefs(ObjectRef);
-КонецПроцедуры
+EndProcedure
 
 Procedure OpenAdditionalDataProcessorDebugSettings(ObjectRef) Export
 	FormParameters=New Structure;
@@ -458,14 +463,15 @@ EndProcedure
 
 #Region FormItemsEvents
 
-Процедура FormFieldValueStartChoice (Value, StandardProcessing, OnEndNotifyDescription,
+Procedure FormFieldValueStartChoice (Value, StandardProcessing, OnEndNotifyDescription,
 	ValueType = Undefined, AvailableValues = Undefined) Export
 	CurrentValueType=TypeOf(Value);
 
 	If CurrentValueType = Тип("ValueList") Then
 		StandardProcessing=False;
+		
 	EndIf;
-КонецПроцедуры
+EndProcedure
 
 Procedure FormFieldFileNameStartChoice (FileDescriptionStructure, Item, ChoiseData, StandardProcessing,
 	DialogMode, OnEndNotifyDescription) Export
@@ -484,7 +490,7 @@ EndProcedure
 
 Procedure FormFieldFileNameStartChoiceEndAttachFileSystemExtension(Connected,
 	AdditionalParameters) Export
-	FileChoise = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(AdditionalParameters.DialogMode,
+	FileChoise = FileSelectionDialogByDescriptionStructureOfSelectedFile(AdditionalParameters.DialogMode,
 		AdditionalParameters.FileDescriptionStructure);
 	FileChoise.Show(AdditionalParameters.OnEndNotifyDescription);
 EndProcedure
@@ -809,6 +815,7 @@ Procedure ReadConsoleFromFileAfterPutFiles(PuttedFiles, AdditionalParameters) Ex
 
 	If PuttedFiles = Undefined Then
 		Return;
+		
 	EndIf;
 
 	ReadConsoleFromFileProcessingFileUploading(PuttedFiles, AdditionalParameters);
@@ -863,7 +870,7 @@ Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionConnect
 	If Connected Then
 		SessionFileVariablesStructure=UT_ApplicationParameters[SessionFileVariablesParameterName()];
 		If SessionFileVariablesStructure = Undefined Then
-			ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(
+			ReadMainSessionFileVariablesToApplicationParameters(
 				New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndSessionFileVariablesReading",
 				ЭтотОбъект, AdditionalParameters));
 		Else

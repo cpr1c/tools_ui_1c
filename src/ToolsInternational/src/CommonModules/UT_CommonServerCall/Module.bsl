@@ -484,7 +484,7 @@ Function DebuggingObjectDataStructureFromDebugDataCatalog(DataPath) Export
 	Return Result;
 EndFunction
 
-Function DebuggingObjectDataStructureFromSystemSettingsStorage(SettingsKey, FormID=Undefined) Export
+Function DebuggingObjectDataStructureFromSystemSettingsStorage(SettingsKey,User=Undefined, FormID=Undefined) Export
 	
 	DebuggingDataObjectKey=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 	DebugSettings=UT_Common.SystemSettingsStorageLoad(DebuggingDataObjectKey, SettingsKey);
