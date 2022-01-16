@@ -17,10 +17,10 @@ Procedure DeleteMarkedObjectsInteractively(ExecutionParameters, StorageAddress) 
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// Удаление помеченных из регламентного задания.
+// Deletion of marked objects from a scheduled job.
 
-// Удаляет помеченные объекты из регламентного задания.
-Procedure УдалитьПомеченныеОбъектыИзРегламентногоЗадания() Export
+// Deletes marked objects from a scheduled job.
+Procedure DeleteMarkedObjectsFromScheduledJob() Export
 
 	ExecutionParameters = New Structure;
 	DeleteMarkedObjects(ExecutionParameters);
@@ -28,1121 +28,1116 @@ Procedure УдалитьПомеченныеОбъектыИзРегламент
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// Инициализация и запуск.
+// Initialization and startup.
 
-// Основная механика удаления помеченных объектов.
+// The main mechanics of deleting marked objects.InitializeParameters
 Procedure DeleteMarkedObjects(ExecutionParameters)
-
-	If Not UT_Users.ЭтоПолноправныйПользователь() Then
-		ВызватьИсключение НСтр("ru = 'Недостаточно прав для выполнения операции.'");
+	
+	If NOT UT_Users.IsFullUser() Then
+		Raise NStr("ru = 'Недостаточно прав для выполнения операции.'; en = 'Insufficient rights to perform the operation.'");
 	EndIf;
-
-	ИнициализироватьПараметры(ПараметрыВыполнения);
-
-	If ПараметрыВыполнения.ИскатьПомеченные Then
-		ПолучитьПомеченныеНаУдаление(ПараметрыВыполнения);
+	
+	InitializeParameters(ExecutionParameters);
+	
+	If ExecutionParameters.SearchMarked Then
+		GetItemsMarkedForDeletion(ExecutionParameters);
 	EndIf;
-
-	If Not ПараметрыВыполнения.УдалятьПомеченные Then
+	
+	If Not ExecutionParameters.DeleteMarked Then
 		Return;
 	EndIf;
 
-	If ПараметрыВыполнения.Интерактивное И ПараметрыВыполнения.ВсеПомеченныеНаУдаление.Количество() = 0 Then
-		Return; // Не удалять технологические объекты при интерактивном запуске если нет пользовательских объектов.
+	If ExecutionParameters.Interactive	AND ExecutionParameters.AllObjectsMarkedForDeletion.Count() = 0 Then
+		Return; // Do not delete technological objects on interactive startup if there are no user objects.
 	EndIf;
 
-	If ПараметрыВыполнения.Монопольно Then
-		УдалитьПомеченныеОбъектыМонопольно(ПараметрыВыполнения);
-	Else // Не монопольно.
-		УдалитьПомеченныеОбъектыКонкурентно(ПараметрыВыполнения);
+	If ExecutionParameters.Exclusive Then
+		DeleteMarkedObjectsExclusively(ExecutionParameters);
+	Else // Not exclusive.
+		DeleteMarkedObjectsCompetitively(ExecutionParameters);
 	EndIf;
 
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// Конкурентное удаление помеченных.
+// Competitive deletion of marked objects.
 
-// Основная механика.
-Procedure УдалитьПомеченныеОбъектыКонкурентно(ПараметрыВыполнения)
-	УстановитьПривилегированныйРежим(Истина);
+// Main mechanics.
+Procedure DeleteMarkedObjectsCompetitively(ExecutionParameters)
+	SetPrivilegedMode(True);
 	
-	// Удаление технологических объектов (которые создавались и помечались на удаление без участия пользователя).
-	If ПараметрыВыполнения.ТехнологическиеОбъекты <> Неопределено Then
-		ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "ТехнологическиеОбъекты");
-		Для Каждого Ссылка Из ПараметрыВыполнения.ТехнологическиеОбъекты Цикл
-			УдалитьСсылку(ПараметрыВыполнения, Ссылка); // Для технологических объектов результат не выводится.
-			ОтметитьПрогрессОбходаКоллекции(ПараметрыВыполнения, "ТехнологическиеОбъекты");
-		КонецЦикла;
+	// Deletion of technological objects (that are created and marked for deletion without user participation).
+	If ExecutionParameters.TechnologicalObjects <> Undefined Then
+		MarkCollectionTraversalStart(ExecutionParameters, "TechnologicalObjects");
+		For Each Ref In ExecutionParameters.TechnologicalObjects Do
+			DeleteReference(ExecutionParameters, Ref); // The result is not displayed for technological objects.
+			MarkCollectionTraversalProgress(ExecutionParameters, "TechnologicalObjects");
+		EndDo;
 	EndIf;
 	
-	// Удаление помеченных на удаление.
-	ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "ПользовательскиеОбъекты");
-	Для Каждого Ссылка Из ПараметрыВыполнения.ПользовательскиеОбъекты Цикл
-		Результат = УдалитьСсылку(ПараметрыВыполнения, Ссылка);
-		ЗарегистрироватьРезультатУдаления(ПараметрыВыполнения, Ссылка, Результат, "ПользовательскиеОбъекты");
-		ОтметитьПрогрессОбходаКоллекции(ПараметрыВыполнения, "ПользовательскиеОбъекты");
-	КонецЦикла;
+	// Deletion of objects marked for deletion.
+	MarkCollectionTraversalStart(ExecutionParameters, "UserObjects");
+	For Each Ref In ExecutionParameters.UserObjects Do
+		Result = DeleteReference(ExecutionParameters, Ref);
+		RegisterDeletionResult(ExecutionParameters, Ref, Result, "UserObjects");
+		MarkCollectionTraversalProgress(ExecutionParameters, "UserObjects");
+	EndDo;
 	
-	// Удаление цепочек (линейно связанных объектов).
-	ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "ПовторноУдаляемые");
-	Пока ПараметрыВыполнения.ПовторноУдаляемые.Количество() > 0 Цикл
-		Ссылка = ПараметрыВыполнения.ПовторноУдаляемые[0];
-		ПараметрыВыполнения.ПовторноУдаляемые.Delete(0);
-
-		Результат = УдалитьСсылку(ПараметрыВыполнения, Ссылка);
-
-		ЗарегистрироватьРезультатУдаления(ПараметрыВыполнения, Ссылка, Результат, "ПовторноУдаляемые");
-		ОтметитьПрогрессОбходаКоллекции(ПараметрыВыполнения, "ПовторноУдаляемые");
-	КонецЦикла;
+	// Deletion of chains (straight-line linked objects).
+	MarkCollectionTraversalStart(ExecutionParameters, "ToRedelete");
+	While ExecutionParameters.ToRedelete.Count() > 0 Do
+		Ref = ExecutionParameters.ToRedelete[0];
+		ExecutionParameters.ToRedelete.Delete(0);
+		
+		Result = DeleteReference(ExecutionParameters, Ref);
+		RegisterDeletionResult(ExecutionParameters, Ref, Result, "ToRedelete");
+		MarkCollectionTraversalProgress(ExecutionParameters, "ToRedelete");
+	EndDo;
 	
-	// Удаление циклов (кольцевых связей объектов).
-	УдалитьОставшиесяОбъектыВОднойТранзакции(ПараметрыВыполнения);
+	// Deletion of cycles (ring object links).
+	DeleteRemainingObjectsInOneTransaction(ExecutionParameters);
 	
-	// Очистка от "спама".
-	ОчиститьСвязиОтИсключенийПоискаСсылок(ПараметрыВыполнения);
-
+	// Clear from spam.
+	ClearLinksFromReferenceSearchExceptions(ExecutionParameters);
+	
 EndProcedure
 
-// Удаление одиночного объекта с контролем результата и откатом транзакции в случае неудачи.
-Function УдалитьСсылку(ПараметрыВыполнения, Ссылка)
-	Результат = New Structure; // Результат обрабатывается в ЗарегистрироватьРезультатУдаления().
-	Результат.Вставить("Успех", Неопределено);
-	Результат.Вставить("ИнформацияОбОшибке", Неопределено);
-	Результат.Вставить("ПрепятствующиеУдалению", Неопределено);
-	Результат.Вставить("ВложенныеИПодчиненныеОбъекты", New Массив);
-	Результат.Вставить("Количество", 0);
-	Результат.Вставить("Сообщения", Неопределено);
+// Deletion of a single object with result control and transaction rollback in case of failure.
+Function DeleteReference(ExecutionParameters, Ref)
+	Result = New Structure; // Результат обрабатывается в ЗарегистрироватьРезультатУдаления().
+	Result.Insert("Success", Undefined);
+	Result.Insert("ErrorInfo", Undefined);
+	Result.Insert("ItemsPreventingDeletion", Undefined);
+	Result.Insert("NestedAndSubordinateObjects", New Array);
+	Result.Insert("Count", 0);
+	Result.Insert("Messages", Undefined);
 
-	Информация = СформироватьИнформациюОТипах(ПараметрыВыполнения, ТипЗнч(Ссылка));
+	Information = GenerateTypesInformation(ExecutionParameters, TypeOf(Ref));
 
-	НачатьТранзакцию();
-	Попытка
-		ПопробоватьУдалитьСсылку(ПараметрыВыполнения, Ссылка, Информация, Результат);
-		If Результат.Успех Then
-			ЗафиксироватьТранзакцию();
+	BeginTransaction();
+	Try
+		TryToDeleteReference(ExecutionParameters, Ref, Information, Result);
+		If Result.Success Then
+			CommitTransaction();
 		Else
-			ОтменитьТранзакцию();
+			RollbackTransaction();
 		EndIf;
-	Исключение
-		ОтменитьТранзакцию();
-		Результат.Успех = Ложь;
-		Результат.ИнформацияОбОшибке = ИнформацияОбОшибке();
-	КонецПопытки;
-	Результат.Сообщения = UT_TimeConsumingOperations.СообщенияПользователю(Истина);
+	Except
+		RollbackTransaction();
+		Result.Success = False;
+		Result.ErrorInfo = ErrorInfo();
+	EndTry;;
+	Result.Messages = UT_TimeConsumingOperations.UserMessages(True);
 
-	If Not Результат.Успех Then
-		ЗаписатьПредупреждение(Ссылка, Результат.ИнформацияОбОшибке);
+	If Not Result.Success Then
+		WriteWarning(Ref, Result.ErrorInfo);
 	EndIf;
 
-	If ТипЗнч(Результат.ПрепятствующиеУдалению) = Тип("ТаблицаЗначений") Then
-		Результат.ПрепятствующиеУдалению.Колонки[0].Имя = "УдаляемыйСсылка";
-		Результат.ПрепятствующиеУдалению.Колонки[1].Имя = "ОбнаруженныйСсылка";
-		Результат.ПрепятствующиеУдалению.Колонки[2].Имя = "ОбнаруженныйМетаданные";
-		Для Каждого ОбнаруженныйСсылка Из Результат.ВложенныеИПодчиненныеОбъекты Цикл
-			СтрокаТаблицы = Результат.ПрепятствующиеУдалению.Добавить();
-			СтрокаТаблицы.УдаляемыйСсылка        = Ссылка;
-			СтрокаТаблицы.ОбнаруженныйСсылка     = ОбнаруженныйСсылка;
-		КонецЦикла;
+	If TypeOf(Result.ItemsPreventingDeletion) = Type("ValueTable") Then
+		Result.ItemsPreventingDeletion.Columns[0].Name = "ItemToDeleteRef";
+		Result.ItemsPreventingDeletion.Columns[1].Name = "FoundItemReference";
+		Result.ItemsPreventingDeletion.Columns[2].Name = "FoundMetadata";
+		For Each FoundItemReference In Result.NestedAndSubordinateObjects Do
+			TableRow = Result.ПреItemsPreventingDeletionбавить();
+			TableRow.ItemToDeleteRef        = Ref;
+			TableRow.FoundItemReference     = FoundItemReference;
+		EndDo;
 	EndIf;
 
-	Return Результат;
+	Return Result;
 EndFunction
 
-// Механика удаления объекта и поиска ссылок.
-Procedure ПопробоватьУдалитьСсылку(ПараметрыВыполнения, Ссылка, Информация, Результат)
-	Блокировка = New БлокировкаДанных;
-	ЭлементБлокировки = Блокировка.Добавить(Информация.ПолноеИмя);
-	ЭлементБлокировки.УстановитьЗначение("Ссылка", Ссылка);
-	Блокировка.Заблокировать();
-
-	Объект = Ссылка.ПолучитьОбъект();
-	If Объект = Неопределено Then
-		Результат.Успех = Истина; // Объект уже удален.
+// Mechanics of deleting an object and finding links.
+Procedure TryToDeleteReference(ExecutionParameters, Ref, Information, Result)
+	Lock = New DataLock;
+	LockItem = Lock.Add(Information.FullName);
+	LockItem.SetValue("Ref", Ref);
+	Lock.Lock();
+	
+	Object = Ref.GetObject();
+	If Object = Undefined Then
+		Result.Success = True; // Object has already been deleted.
 		Return;
 	EndIf;
-	If Объект.ПометкаУдаления <> Истина Then
-		Результат.Успех = Ложь;
-		Результат.ИнформацияОбОшибке = НСтр("ru = 'Объект не помечен на удаление.'");
+	If Object.DeletionMark <> True Then
+		Result.Success = False;
+		Result.ErrorInfo = NStr("ru = 'Объект не помечен на удаление.'; en = 'The Object is not marked for deletion.'");
 		Return;
 	EndIf;
 
-	НайтиВложенныеИПодчиненныеОбъекты(ПараметрыВыполнения, Ссылка, Информация, Результат);
+	FindChildAndSubordinateObjects(ExecutionParameters, Ref, Information, Result);
 
-	Объект.Delete();
+	Object.Delete();
 
-	НайтиПрепятствующиеУдалению(ПараметрыВыполнения, Ссылка, Информация, Результат);
+	FindItemsPreventingDeletion(ExecutionParameters, Ref, Information, Result);
 
-	If Результат.Количество = 0 Then
-		Результат.Успех = Истина;
+	If Result.Count = 0 Then
+		Result.Success = True;
 	Else
-		Результат.Успех = Ложь;
-		Результат.ИнформацияОбОшибке = НСтр("ru = 'Объект используется в других объектах программы.'");
+		Result.Success = False;
+		Result.ErrorInfo = NStr("ru = 'Объект используется в других объектах программы.'; en = 'Object is in use by other application objects.'");
 	EndIf;
 EndProcedure
 
-// Поиск ссылок вложенных и подчиненных (иерархия и связь по владельцу). Выполняется до удаления.
-Procedure НайтиВложенныеИПодчиненныеОбъекты(ПараметрыВыполнения, Ссылка, Информация, Результат)
+// Search for references to nested and subordinate objects (hierarchy and link by an owner). Executed before deletion.
+Procedure FindChildAndSubordinateObjects(ExecutionParameters, Ref, Information, Result)
 
-	If Информация.Иерархический Then
-		Запрос = New Запрос(Информация.ТекстЗапросаПоИерархии);
-		Запрос.УстановитьПараметр("УдаляемыйСсылка", Ссылка);
-		ВложенныеОбъекты = Запрос.Выполнить().Выгрузить();
-		Для Каждого СтрокаТаблицы Из ВложенныеОбъекты Цикл
-			Результат.ВложенныеИПодчиненныеОбъекты.Добавить(СтрокаТаблицы.Ссылка);
-		КонецЦикла;
-		Результат.Количество = Результат.Количество + ВложенныеОбъекты.Количество();
+	If Information.Hierarchical Then
+		Query = New Query(Information.QueryTextByHierarchy);
+		Query.SetParameter("ItemToDeleteRef", Ref);
+		NestedObjects = Query.Execute().Unload();
+		For Each TableRow In NestedObjects Do
+			Result.NestedAndSubordinateObjects.Add(TableRow.Ref);
+		EndDo;
+		Result.Count = Result.Count + NestedObjects.Count();
 	EndIf;
 
-	If Информация.ЕстьПодчиненные Then
-		Запрос = New Запрос(Информация.ТекстЗапросаПоПодчиненным);
-		Запрос.УстановитьПараметр("УдаляемыйСсылка", Ссылка);
-		ПодчиненныеОбъекты = Запрос.Выполнить().Выгрузить();
-		Для Каждого СтрокаТаблицы Из ПодчиненныеОбъекты Цикл
-			Результат.ВложенныеИПодчиненныеОбъекты.Добавить(СтрокаТаблицы.Ссылка);
-		КонецЦикла;
-		Результат.Количество = Результат.Количество + ПодчиненныеОбъекты.Количество();
+	If Information.HasSubordinate Then
+		Query = New Query(Information.QueryTextBySubordinated);
+		Query.SetParameter("ItemToDeleteRef", Ref);
+		SubordinateObjects = Query.Execute().Unload();
+		For Each TableRow In SubordinateObjects Do
+			Result.NestedAndSubordinateObjects.Add(TableRow.Ref);
+		EndDo;
+		Result.Count = Result.Count + SubordinateObjects.Count();
 	EndIf;
 
 EndProcedure
 
-// Поиск ссылок путем сканирования всех таблиц. Выполняется после удаления.
-Procedure НайтиПрепятствующиеУдалению(ПараметрыВыполнения, Ссылка, Информация, Результат)
+// Search for references by scanning all tables. Executed after deletion.
+Procedure FindItemsPreventingDeletion(ExecutionParameters, Ref, Information, Result)
 
-	ПоискСсылок = New Массив;
-	ПоискСсылок.Добавить(Ссылка);
+	RefsSearch = New Array;
+	RefsSearch.Add(Ref);
 
-	ПрепятствующиеУдалению = НайтиПоСсылкам(ПоискСсылок);
+	ItemsPreventingDeletion = FindByRef(RefsSearch);
 	
-	// Пропуск ссылок из границ последовательности.
-	Количество = ПрепятствующиеУдалению.Количество();
-	ИмяКолонки = ПрепятствующиеУдалению.Колонки[1].Имя;
-	Для Номер = 1 По Количество Цикл
-		ОбратныйИндекс = Количество - Номер;
-		СтрокаТаблицы = ПрепятствующиеУдалению[ОбратныйИндекс];
-		ПрепятствующийСсылка = СтрокаТаблицы[ИмяКолонки];
-		If ПрепятствующийСсылка = Ссылка Или ДокументУжеУдален(ПараметрыВыполнения, ПрепятствующийСсылка) Then
-			ПрепятствующиеУдалению.Delete(СтрокаТаблицы);
+	// Skip references from sequence boundaries.
+	Count = ItemsPreventingDeletion.Count();
+	ColumnName = ItemsPreventingDeletion.Columns[1].Name;
+	For Number = 1 To Count Do
+		ReverseIndex = Count - Number;
+		TableRow = ItemsPreventingDeletion[ReverseIndex];
+		PreventingReference = TableRow[ColumnName];
+		If PreventingReference = Ref Or DocumentAlreadyDeleted(ExecutionParameters, PreventingReference) Then
+			ItemsPreventingDeletion.Delete(TableRow);
 		EndIf;
-	КонецЦикла;
+	EndDo;
 	
-	// Регистрация результата.
-	Результат.ПрепятствующиеУдалению = ПрепятствующиеУдалению;
-	Результат.Количество = Результат.Количество + Результат.ПрепятствующиеУдалению.Количество();
+	// Registration of the result.
+	Result.ItemsPreventingDeletion = ItemsPreventingDeletion;
+	Result.Count = Result.Count + Result.ItemsPreventingDeletion.Count();
 
 EndProcedure
 
-// Поиск ссылки документа в базе данных.
-Function ДокументУжеУдален(ПараметрыВыполнения, Ссылка)
-	If Ссылка = Неопределено Then
-		Return Ложь; // Не документ.
+// Search for reference to the document in the database.
+Function DocumentAlreadyDeleted(ExecutionParameters, Ref)
+	If Ref = Undefined Then
+		Return False; // Not a document.
 	EndIf;
-	Информация = СформироватьИнформациюОТипах(ПараметрыВыполнения, ТипЗнч(Ссылка));
-	If Информация.Вид <> "ДОКУМЕНТ" Then
-		Return Ложь; // Не документ.
+	Information = GenerateTypesInformation(ExecutionParameters, TypeOf(Ref));
+	If Information.Kind <> "DOCUMENT" Then
+		Return False; // Not a document.
 	EndIf;
-	Запрос = New Запрос("ВЫБРАТЬ ПЕРВЫЕ 1 1 ИЗ " + Информация.ПолноеИмя + " Где Ссылка = &Ссылка");
-	Запрос.УстановитьПараметр("Ссылка", Ссылка);
-	Return Запрос.Выполнить().Пустой();
+	Query = New Query("SELECT TOP 1 1 FROM " + Information.FullName + " WHERE Ref = &Ref");
+	Query.SetParameter("Ref", Ref);
+	Return Query.Execute().IsEmpty();
 EndFunction
 
-// Удаление циклов (кольцевых связей объектов).
-Procedure УдалитьОставшиесяОбъектыВОднойТранзакции(ПараметрыВыполнения)
+// Deletion of cycles (ring object links).
+Procedure DeleteRemainingObjectsInOneTransaction(ExecutionParameters)
 	
-	// 1. Объекты, которые невозможно удалить, получаются путем определения неразрешимых связей.
-	ОбъектыКоторыеНевозможноУдалить = New Массив;
-	ВложенныеНеразрешимыеСвязи = New Массив;
-
-	Для Каждого Препятствующий Из ПараметрыВыполнения.ПрепятствующиеУдалению Цикл
-		// 1.1. Критерием для определения неразрешимых связей является тот факт, что объект, препятствующий удалению, 
-		// не является регистром. В случае с регистрами предполагаем, что записи регистра будут удалены автоматически,
-		// при удалении объекта в его ведущем измерении.
-		If Препятствующий.ОбнаруженныйТип <> Тип("Строка") И Not UT_Common.IsRefTypeObject(
-			Метаданные.НайтиПоТипу(Препятствующий.ОбнаруженныйТип)) Then
-			Продолжить;
-		EndIf;
-		// 1.2. А также то, что объект, препятствующий удалению, не отмечен для удаления.
-		If ПараметрыВыполнения.НеУдаленные.Найти(Препятствующий.ОбнаруженныйСсылка) = Неопределено
-			И ОбъектыКоторыеНевозможноУдалить.Найти(Препятствующий.УдаляемыйСсылка) = Неопределено Then
-			ОбъектыКоторыеНевозможноУдалить.Добавить(Препятствующий.УдаляемыйСсылка);
-			Найденные = ПараметрыВыполнения.ПрепятствующиеУдалению.НайтиСтроки(New Structure("ОбнаруженныйСсылка",
-				Препятствующий.УдаляемыйСсылка));
-			ВложенныеНеразрешимыеСвязи.Добавить(Найденные);
-		EndIf;
-	КонецЦикла;
+	// 1. Objects that cannot be deleted are got by determining unresolvable links.
+	ObjectsThatCannotBeDeleted = New Array;
+	NestedUnresolvableLinks = New Array;
 	
-	// 1.3. Далее при помощи массива ВложенныеНеразрешимыеСвязи
-	// получаются неразрешимые подчиненные - "связи связей", "связи связей связей" и т.д...
-	Индекс = 0;
-	Пока Индекс < ВложенныеНеразрешимыеСвязи.Количество() Цикл
-		Найденные = ВложенныеНеразрешимыеСвязи[Индекс];
-		Индекс = Индекс + 1;
-		Для Каждого Препятствующий Из Найденные Цикл
-			If ОбъектыКоторыеНевозможноУдалить.Найти(Препятствующий.УдаляемыйСсылка) = Неопределено Then
-				ОбъектыКоторыеНевозможноУдалить.Добавить(Препятствующий.УдаляемыйСсылка);
-				Найденные = ПараметрыВыполнения.ПрепятствующиеУдалению.НайтиСтроки(
-					New Structure("ОбнаруженныйСсылка", Препятствующий.УдаляемыйСсылка));
-				ВложенныеНеразрешимыеСвязи.Добавить(Найденные);
+	For Each Preventing In ExecutionParameters.ItemsPreventingDeletion Do
+			// 1.1. The fact that the object preventing deletion is not a register serves as a criterion for 
+			// determining unresolvable links. In case of registers, we assume that register entries will be 
+			// deleted automatically upon deleting an object in its leading dimension.
+		If Preventing.FoundType <> Type("String") And Not UT_Common.IsRefTypeObject(
+			Metadata.FindByType(Preventing.FoundType)) Then
+			Continue;
+		EndIf;
+		// 1.2. We also assume that object preventing deletion is not marked for deletion.
+		If ExecutionParameters.NotDeletedItems.Find(Preventing.FoundItemReference) = Undefined
+			AND ObjectsThatCannotBeDeleted.Find(Preventing.ItemToDeleteRef) = Undefined Then
+			ObjectsThatCannotBeDeleted.Add(Preventing.ItemToDeleteRef);
+			FoundItems = ExecutionParameters.ItemsPreventingDeletion.FindRows(New Structure("FoundItemReference", Preventing.ItemToDeleteRef));
+			NestedUnresolvableLinks.Add(FoundItems);
+		EndIf;
+	EndDo;
+	
+	// 1.3. Then, using the NestedUnresolvableLinks array, get unresolvable subordinate links - "links 
+	// of links", "links of links of links", and so on ...
+	Index = 0;
+	While Index < NestedUnresolvableLinks.Count() Do
+		FoundItems = NestedUnresolvableLinks[Index];
+		Index = Index + 1;
+		For Each Preventing In FoundItems Do
+			If ObjectsThatCannotBeDeleted.Find(Preventing.ItemToDeleteRef) = Undefined Then
+				ObjectsThatCannotBeDeleted.Add(Preventing.ItemToDeleteRef);
+				FoundItems = ExecutionParameters.ItemsPreventingDeletion.FindRows(New Structure("FoundItemReference", Preventing.ItemToDeleteRef));
+				NestedUnresolvableLinks.Add(FoundItems);
 			EndIf;
-		КонецЦикла;
-	КонецЦикла;
+		EndDo;
+	EndDo;
 	
-	// 2. Объекты, которые можно попробовать удалить в одной транзакции.
-	//    = Массив удаляемых - Массив объектов, которые невозможно удалить.
-	УдаляемыеОбъекты = New Массив;
-	Для Каждого НеУдаленныйОбъект Из ПараметрыВыполнения.НеУдаленные Цикл
-		If ОбъектыКоторыеНевозможноУдалить.Найти(НеУдаленныйОбъект) = Неопределено Then
-			УдаляемыеОбъекты.Добавить(НеУдаленныйОбъект);
+	// 2. Objects that you can try to delete in one transaction.
+	//    = Array of objects to delete - an array of objects that cannot be deleted.
+	ObjectsToDelete = New Array;
+	For Each NotDeletedObject In ExecutionParameters.NotDeletedItems Do
+		If ObjectsThatCannotBeDeleted.Find(NotDeletedObject) = Undefined Then
+			ObjectsToDelete.Add(NotDeletedObject);
 		EndIf;
-	КонецЦикла;
-
-	Количество = УдаляемыеОбъекты.Количество();
-	If Количество = 0 Then
-		Return; // Нет объектов для удаления.
+	EndDo;
+	
+	Count = ObjectsToDelete.Count();
+	If Count = 0 Then
+		Return; // There are no objects for deletion.
 	EndIf;
 	
-	// 3. Включение всех объектов в одну транзакцию и попытка удалить.
-	Успех = Ложь;
-	НачатьТранзакцию();
-	Попытка
-		Для Номер = 1 По Количество Цикл
-			ОбратныйИндекс = Количество - Номер;
-			НеУдаленныйОбъект = УдаляемыеОбъекты[ОбратныйИндекс];
-
-			Информация = СформироватьИнформациюОТипах(ПараметрыВыполнения, ТипЗнч(НеУдаленныйОбъект));
-
-			Блокировка = New БлокировкаДанных;
-			ЭлементБлокировки = Блокировка.Добавить(Информация.ПолноеИмя);
-			ЭлементБлокировки.УстановитьЗначение("Ссылка", НеУдаленныйОбъект);
-			Блокировка.Заблокировать();
-
-			Объект = НеУдаленныйОбъект.ПолучитьОбъект();
-			If Объект = Неопределено Then // Объект уже удален.
-				Продолжить;
+	// 3. Include all objects in one transaction and try to delete them.
+	Success = False;
+	BeginTransaction();
+	Try
+		For Number = 1 To Count Do
+			ReverseIndex = Count - Number;
+			NotDeletedObject = ObjectsToDelete[ReverseIndex];
+			
+			Information = GenerateTypesInformation(ExecutionParameters, TypeOf(NotDeletedObject));
+			
+			Lock = New DataLock;
+			LockItem = Lock.Add(Information.FullName);
+			LockItem.SetValue("Ref", NotDeletedObject);
+			Lock.Lock();
+			
+			Object = NotDeletedObject.GetObject();
+			If Object = Undefined Then // Object has already been deleted.
+				Continue;
 			EndIf;
-			If Объект.ПометкаУдаления <> Истина Then
-				УдаляемыеОбъекты.Delete(ОбратныйИндекс); // Объект уже не помечен на удаление.
-				Продолжить;
-			EndIf;
-
-			Объект.Delete();
-		КонецЦикла;
-		НеУдаленныйОбъект = Неопределено;
-
-		If УдаляемыеОбъекты.Количество() > 0 Then
-			ПрепятствующиеУдалению = НайтиПоСсылкам(УдаляемыеОбъекты);
-
-			ИмяКолонки = ПрепятствующиеУдалению.Колонки[1].Имя;
-			Для Каждого НеУдаленныйОбъект Из УдаляемыеОбъекты Цикл
-				ПоискНеПрепятствующих = New Structure(ИмяКолонки, НеУдаленныйОбъект);
-				НеПрепятствующие = ПрепятствующиеУдалению.НайтиСтроки(ПоискНеПрепятствующих);
-				Для Каждого Препятствующий Из НеПрепятствующие Цикл
-					ПрепятствующиеУдалению.Delete(Препятствующий);
-				КонецЦикла;
-			КонецЦикла;
-
-			If ПрепятствующиеУдалению.Количество() = 0 Then
-				Успех = Истина;
-			EndIf;
-		EndIf;
-
-		If Успех Then
-			ЗафиксироватьТранзакцию();
-		Else
-			ОтменитьТранзакцию();
-		EndIf;
-
-	Исключение
-		ОтменитьТранзакцию();
-		Успех = Ложь;
-		ЗаписатьПредупреждение(НеУдаленныйОбъект, ИнформацияОбОшибке());
-	КонецПопытки;
-	
-	// 4. Регистрация результата (если успех).
-	If Успех Then
-		Для Каждого НеУдаленныйОбъект Из УдаляемыеОбъекты Цикл
-			// Регистрация ссылки в коллекции удаленных.
-			If ПараметрыВыполнения.Удаленные.Найти(НеУдаленныйОбъект) = Неопределено Then
-				ПараметрыВыполнения.Удаленные.Добавить(НеУдаленныйОбъект);
+			If Object.DeletionMark <> True Then
+				ObjectsToDelete.Delete(ReverseIndex); // Object is no longer marked for deletion.
+				Continue;
 			EndIf;
 			
-			// Удаление ссылки из коллекции не удаленных.
-			Индекс = ПараметрыВыполнения.НеУдаленные.Найти(НеУдаленныйОбъект);
-			If Индекс <> Неопределено Then
-				ПараметрыВыполнения.НеУдаленные.Delete(Индекс);
-			EndIf;
+			Object.Delete();
+		EndDo;
+		NotDeletedObject = Undefined;
+
+		If ObjectsToDelete.Count() > 0 Then
+			ItemsPreventingDeletion = FindByRef(ObjectsToDelete);
+
+			ColumnName = ItemsPreventingDeletion.Columns[1].Name;
+			For Each NotDeletedObject In ObjectsToDelete Do
+				SearchForNotPreventingItems = New Structure(ColumnName, NotDeletedObject);
+				NotPreventingItems = ItemsPreventingDeletion.FindRows(SearchForNotPreventingItems);
+				For Each Preventing In NotPreventingItems Do
+					ItemsPreventingDeletion.Delete(Preventing);
+				EndDo;
+			EndDo;
 			
-			// Очистка информации о связях "от" удаленных объектов.
-			Найденные = ПараметрыВыполнения.ПрепятствующиеУдалению.НайтиСтроки(New Structure("УдаляемыйСсылка",
-				НеУдаленныйОбъект));
-			Для Каждого Препятствующий Из Найденные Цикл
-				ПараметрыВыполнения.ПрепятствующиеУдалению.Delete(Препятствующий);
-			КонецЦикла;
-			
-			// Очистка информации о связях "к" удаленным объектам.
-			Найденные = ПараметрыВыполнения.ПрепятствующиеУдалению.НайтиСтроки(New Structure("ОбнаруженныйСсылка",
-				НеУдаленныйОбъект));
-			Для Каждого Препятствующий Из Найденные Цикл
-				ПараметрыВыполнения.ПрепятствующиеУдалению.Delete(Препятствующий);
-			КонецЦикла;
-		КонецЦикла;
-	EndIf;
-EndProcedure
-
-// Очистка причин неудаления объектов от исключений поиска ссылок.
-//   Применяется при оперативном удалении помеченных для того, чтобы удалить из результата "дублирующие" связи.
-Procedure ОчиститьСвязиОтИсключенийПоискаСсылок(ПараметрыВыполнения)
-	If Not ПараметрыВыполнения.Свойство("ИсключенияПоискаСсылок") Then
-		ПараметрыВыполнения.Вставить("ИсключенияПоискаСсылок", UT_Common.ИсключенияПоискаСсылок());
-	EndIf;
-	If Not ПараметрыВыполнения.Свойство("ИсключающиеПравила") Then
-		ПараметрыВыполнения.Вставить("ИсключающиеПравила", New Map); // Кэш правил исключений поиска.
-	EndIf;
-
-	ОбъектыСНеИсключениями = New Map;
-	ОбъектыТолькоСИсключениями = New Map;
-	
-	// Определение "спама".
-	ПрепятствующиеУдалению = ПараметрыВыполнения.ПрепятствующиеУдалению;
-	ПрепятствующиеУдалению.Колонки.Добавить("ЭтоИсключение", New ОписаниеТипов("Булево"));
-	Для Каждого Причина Из ПрепятствующиеУдалению Цикл
-		If Причина.ОбнаруженныйТип <> Тип("Строка") Then
-			ОбнаруженныйМетаданные = Метаданные.НайтиПоТипу(Причина.ОбнаруженныйТип);
-			Причина.ЭтоИсключение = СвязьВИсключенияхПоискаСсылок(ПараметрыВыполнения, ОбнаруженныйМетаданные, Причина);
-		EndIf;
-		If Причина.ЭтоИсключение Then
-			If ОбъектыСНеИсключениями[Причина.УдаляемыйСсылка] = Неопределено Then
-				ОбъектыТолькоСИсключениями.Вставить(Причина.УдаляемыйСсылка, Истина);
+			If ItemsPreventingDeletion.Count() = 0 Then
+				Success = True;
 			EndIf;
-		Else
-			ОбъектыСНеИсключениями.Вставить(Причина.УдаляемыйСсылка, Истина);
-			ОбъектыТолькоСИсключениями.Delete(Причина.УдаляемыйСсылка);
 		EndIf;
-	КонецЦикла;
-	
-	// Если кроме "спама" ничего не осталось,
-	// то это ситуация, когда разработчик забыл добавить авто-очистку при удалении объекта.
-	// В таких редких случаях вместо вывода пустого списка причин, можно вывести "спам".
-	Для Каждого КлючИЗначение Из ОбъектыТолькоСИсключениями Цикл
-		Найденные = ПрепятствующиеУдалению.НайтиСтроки(New Structure("УдаляемыйСсылка", КлючИЗначение.Ключ));
-		Для Каждого Причина Из Найденные Цикл
-			Причина.ЭтоИсключение = Ложь;
-		КонецЦикла;
-	КонецЦикла;
-	
-	// Удаление "спама".
-	Найденные = ПрепятствующиеУдалению.НайтиСтроки(New Structure("ЭтоИсключение", Истина));
-	Для Каждого Причина Из Найденные Цикл
-		ПрепятствующиеУдалению.Delete(Причина);
-	КонецЦикла;
-
-	ПрепятствующиеУдалению.Колонки.Delete("ЭтоИсключение");
-	ПараметрыВыполнения.Delete("ИсключенияПоискаСсылок");
-	ПараметрыВыполнения.Delete("ИсключающиеПравила");
-EndProcedure
-
-// Регистрация результата удаления и заполнение коллекции ПовторноУдаляемые.
-Procedure ЗарегистрироватьРезультатУдаления(ПараметрыВыполнения, Ссылка, Результат, ИмяКоллекции)
-	// Результат формируется в УдалитьСсылку().
-	If Результат.Успех Then
-		// Регистрация ссылки в коллекции удаленных.
-		ПараметрыВыполнения.Удаленные.Добавить(Ссылка);
 		
-		// Исключение удаленного объекта из причин неудаления других объектов. Поиск.
-		НеактуальныеПричины = ПараметрыВыполнения.ПрепятствующиеУдалению.НайтиСтроки(
-			New Structure("ОбнаруженныйСсылка", Ссылка));
-		Для Каждого Причина Из НеактуальныеПричины Цикл
-			// Удаление причины неудаления другого объекта.
-			УдаляемыйСсылка = Причина.УдаляемыйСсылка;
-			ПараметрыВыполнения.ПрепятствующиеУдалению.Delete(Причина);
-			// Поиск других причин неудаления другого объекта.
-			If ПараметрыВыполнения.ПрепятствующиеУдалению.Найти(УдаляемыйСсылка, "УдаляемыйСсылка") = Неопределено Then
-				// Устранены все причины неудаления другого объекта.
-				// Регистрация другого объекта для повторного удаления.
-				ПараметрыВыполнения.ПовторноУдаляемые.Добавить(УдаляемыйСсылка);
-				If ИмяКоллекции = "ПовторноУдаляемые" И ПараметрыВыполнения.Интерактивное Then
-					ПараметрыВыполнения.Всего = ПараметрыВыполнения.Всего + 1;
+		If Success Then
+			CommitTransaction();
+		Else
+			RollbackTransaction();
+		EndIf;
+		
+	Except
+		RollbackTransaction();
+		Success = False;
+		WriteWarning(NotDeletedObject, ErrorInfo());
+	EndTry;
+	
+	// 4. Register the result (if success).
+	If Success Then
+		For Each NotDeletedObject In ObjectsToDelete Do
+			// Register the reference in the collection of deleted objects.
+			If ExecutionParameters.DeletedItems.Find(NotDeletedObject) = Undefined Then
+				ExecutionParameters.DeletedItems.Add(NotDeletedObject);
+			EndIf;
+			
+			// Delete the reference from the collection of not deleted objects.
+			Index = ExecutionParameters.NotDeletedItems.Find(NotDeletedObject);
+			If Index <> Undefined Then
+				ExecutionParameters.NotDeletedItems.Delete(Index);
+			EndIf;
+			
+			// Clear information about links "from" deleted objects.
+			FoundItems = ExecutionParameters.ItemsPreventingDeletion.FindRows(New Structure("ItemToDeleteRef", NotDeletedObject));
+			For Each Preventing In FoundItems Do
+				ExecutionParameters.ItemsPreventingDeletion.Delete(Preventing);
+			EndDo;
+			
+			// Clear information about links "to" deleted objects.
+			FoundItems = ExecutionParameters.ItemsPreventingDeletion.FindRows(New Structure("FoundItemReference", NotDeletedObject));
+			For Each Preventing In FoundItems Do
+				ExecutionParameters.ItemsPreventingDeletion.Delete(Preventing);
+			EndDo;
+		EndDo;
+	EndIf;
+EndProcedure
+
+// Clearing reasons for not deleting objects from reference search exceptions.
+//   It is applied upon real-time deletion of marked objects to delete duplicate links form the result.
+Procedure ClearLinksFromReferenceSearchExceptions(ExecutionParameters)
+	If Not ExecutionParameters.Property("RefSearchExclusions") Then
+		ExecutionParameters.Insert("RefSearchExclusions", Common.RefSearchExclusions());
+	EndIf;
+	If Not ExecutionParameters.Property("ExcludingRules") Then
+		ExecutionParameters.Insert("ExcludingRules", New Map); // Cache of search exceptions rules.
+	EndIf;
+	
+	ObjectsWithNonExceptions = New Map;
+	ObjectsWithExceptionsOnly = New Map;
+	
+	// Define spam.
+	ItemsPreventingDeletion = ExecutionParameters.ItemsPreventingDeletion;
+	ItemsPreventingDeletion.Columns.Add("IsException", New TypeDescription("Boolean"));
+	For Each Reason In ItemsPreventingDeletion Do
+		If Reason.FoundType <> Type("String")Then
+			FoundMetadata = Metadata.FindByType(Reason.FoundType);
+			Reason.IsException = LinkInReferencesSearchExceptions(ExecutionParameters, FoundMetadata, Reason);
+		EndIf;
+		If Reason.IsException Then
+			If ObjectsWithNonExceptions[Reason.ItemToDeleteRef] = Undefined Then
+				ObjectsWithExceptionsOnly.Insert(Reason.ItemToDeleteRef, True);
+			EndIf;
+		Else
+			ObjectsWithNonExceptions.Insert(Reason.ItemToDeleteRef, True);
+			ObjectsWithExceptionsOnly.Delete(Reason.ItemToDeleteRef);
+		EndIf;
+	EndDo;
+	
+	// If nothing left, except for spam, this means that a developer forgot to add auto-clearing upon 
+	// deleting an object.
+	// In such rare cases, you can display "spam" instead of a blank list of reasons.
+	For Each KeyAndValue In ObjectsWithExceptionsOnly Do
+		FoundItems = ItemsPreventingDeletion.FindRows(New Structure("ItemToDeleteRef", KeyAndValue.Key));
+		For Each Reason In FoundItems Do
+			Reason.IsException = False;
+		EndDo;
+	EndDo;
+	
+	// Delete spam.
+	FoundItems = ItemsPreventingDeletion.FindRows(New Structure("IsException", True));
+	For Each Reason In FoundItems Do
+		ItemsPreventingDeletion.Delete(Reason);
+	EndDo;
+// Exclude objects previously deleted in this transaction.	
+	ItemsPreventingDeletion.Columns.Delete("IsException");
+	ExecutionParameters.Delete("RefSearchExclusions");
+	ExecutionParameters.Delete("ExcludingRules");
+EndProcedure
+
+// Register the deletion result and fill the ToRedelete collection.
+Procedure RegisterDeletionResult(ExecutionParameters, Ref, Result, CollectionName)
+	// The result is generated as DeleteReference(). 
+	If Result.Success Then
+		// Register the reference in the collection of deleted objects.
+		ExecutionParameters.DeletedItems.Add(Ref);
+		
+		// Exclude the deleted object from reasons for not deleting other objects. Search.
+		IrrelevantReasons = ExecutionParameters.ItemsPreventingDeletion.FindRows(New Structure("FoundItemReference", Ref));
+		For Each Reason In IrrelevantReasons Do
+			// Delete a reason for not deleting another object.
+			ItemToDeleteRef = Reason.ItemToDeleteRef;
+			ExecutionParameters.ItemsPreventingDeletion.Delete(Reason);
+			// Search for other reasons for not deleting another object.
+			If ExecutionParameters.ItemsPreventingDeletion.Find(ItemToDeleteRef, "ItemToDeleteRef") = Undefined Then
+				// All reasons for not deleting another object are eliminated.
+				// Register another object for redeletion.
+				ExecutionParameters.ToRedelete.Add(ItemToDeleteRef);
+				If CollectionName = "ToRedelete" AND ExecutionParameters.Interactive Then
+					ExecutionParameters.Total = ExecutionParameters.Total + 1;
 				EndIf;
-				// Очистка записи о другом объекте из коллекции "НеУдаленные".
-				Индекс = ПараметрыВыполнения.НеУдаленные.Найти(УдаляемыйСсылка);
-				If Индекс <> Неопределено Then
-					ПараметрыВыполнения.НеУдаленные.Delete(Индекс);
+				// Clear a record about another object from the NotDeletedItems collection.
+				Index = ExecutionParameters.NotDeletedItems.Find(ItemToDeleteRef);
+				If Index <> Undefined Then
+					ExecutionParameters.NotDeletedItems.Delete(Index);
 				EndIf;
 			EndIf;
-		КонецЦикла;
+		EndDo;
 
-	Else // Не успешно.
+	Else // Unsuccessful.
 
-		ПараметрыВыполнения.НеУдаленные.Добавить(Ссылка);
+		ExecutionParameters.NotDeletedItems.Add(Ref);
 
-		If ТипЗнч(Результат.ИнформацияОбОшибке) = Тип("ИнформацияОбОшибке") Или Результат.ПрепятствующиеУдалению
-			= Неопределено Then // Текст ошибки
-			If ТипЗнч(Результат.ИнформацияОбОшибке) = Тип("ИнформацияОбОшибке") Then
-				ТекстОшибки = КраткоеПредставлениеОшибки(Результат.ИнформацияОбОшибке);
-				Подробно    = ПодробноеПредставлениеОшибки(Результат.ИнформацияОбОшибке);
+		If TypeOf(Result.ErrorInfo) = Type("ErrorInfo")
+			Or Result.ItemsPreventingDeletion = Undefined Then // Error text
+			If TypeOf(Result.ErrorInfo) = Type("ErrorInfo") Then
+				ErrorText = BriefErrorDescription(Result.ErrorInfo);
+				More    = DetailErrorDescription(Result.ErrorInfo);
 			Else
-				ТекстОшибки = Результат.ИнформацияОбОшибке;
-				Подробно    = "";
+				ErrorText = Result.ErrorInfo;
+				More    = "";
 			EndIf;
-			Для Каждого СообщениеОтОбъекта Из Результат.Сообщения Цикл
-				ТекстОшибки = СокрП(ТекстОшибки + Символы.ПС + Символы.ПС + СокрЛ(СообщениеОтОбъекта.Текст));
-				Подробно    = СокрП(Подробно + Символы.ПС + Символы.ПС + СокрЛ(СообщениеОтОбъекта.Текст));
-			КонецЦикла;
-			Причина = ПараметрыВыполнения.ПрепятствующиеУдалению.Добавить();
-			Причина.УдаляемыйСсылка    = Ссылка;
-			Причина.УдаляемыйТип       = ТипЗнч(Причина.УдаляемыйСсылка);
-			Причина.ОбнаруженныйСсылка = ТекстОшибки;
-			Причина.ОбнаруженныйТип    = Тип("Строка");
-			Причина.Подробно           = Подробно;
-			СформироватьИнформациюОТипах(ПараметрыВыполнения, Причина.УдаляемыйТип);
-		Else // Регистрация связей (причин не удаления) для вывода пользователю.
-			Для Каждого СтрокаТаблицы Из Результат.ПрепятствующиеУдалению Цикл
-				ЗаписатьПричинуВРезультат(ПараметрыВыполнения, СтрокаТаблицы);
-			КонецЦикла;
+			For Each MessageFromObject In Result.Messages Do
+				ErrorText = TrimR(ErrorText + Chars.LF + Chars.LF + TrimL(MessageFromObject.Text));
+				More    = TrimR(More + Chars.LF + Chars.LF + TrimL(MessageFromObject.Text));
+			EndDo;
+			Reason = ExecutionParameters.ItemsPreventingDeletion.Add();
+			Reason.ItemToDeleteRef    = Ref;
+			Reason.TypeToDelete       = TypeOf(Reason.ItemToDeleteRef);
+			Reason.FoundItemReference = ErrorText;
+			Reason.FoundType    = Type("String");
+			Reason.More           = More;
+			GenerateTypesInformation(ExecutionParameters, Reason.TypeToDelete);
+		Else // Register links (reasons for not deleting) to display them to the user.
+			For Each TableRow In Result.ItemsPreventingDeletion Do
+				WriteReasonToResult(ExecutionParameters, TableRow);
+			EndDo;
 		EndIf;
 
-	EndIf; // Результат.Успех.
+	EndIf; // Result.Success.
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// Монопольное удаление помеченных.
+// Exclusive deletion of marked objects.
 
-// Основная механика удаления помеченных объектов.
-Procedure УдалитьПомеченныеОбъектыМонопольно(ПараметрыВыполнения)
-
-	If Not ПараметрыВыполнения.Свойство("ИсключенияПоискаСсылок") Then
-		ПараметрыВыполнения.Вставить("ИсключенияПоискаСсылок", UT_Common.RefSearchExclusions());
+// The main mechanics of deleting marked objects.
+Procedure DeleteMarkedObjectsExclusively(ExecutionParameters)
+	
+	If Not ExecutionParameters.Property("RefSearchExclusions") Then
+		ExecutionParameters.Insert("RefSearchExclusions", Common.RefSearchExclusions());
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("ИсключающиеПравила") Then
-		ПараметрыВыполнения.Вставить("ИсключающиеПравила", New Map); // Кэш правил исключений поиска.
+	If Not ExecutionParameters.Property("ExcludingRules") Then
+		ExecutionParameters.Insert("ExcludingRules", New Map); // Cache of search exceptions rules.
 	EndIf;
-
-	УдаляемыеОбъекты = ПараметрыВыполнения.ВсеПомеченныеНаУдаление;
-
-	Пока УдаляемыеОбъекты.Количество() > 0 Цикл
-
-		ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "МонопольноеУдаление");
-
-		ПрепятствующиеУдалению = New ТаблицаЗначений;
+	
+	ObjectsToDelete = ExecutionParameters.AllObjectsMarkedForDeletion;
+	
+	While ObjectsToDelete.Count() > 0 Do
 		
-		// Попытка удалить с контролем ссылочной целостности.
-		УстановитьПривилегированныйРежим(Истина);
-		УдалитьОбъекты(УдаляемыеОбъекты, Истина, ПрепятствующиеУдалению);
-		УстановитьПривилегированныйРежим(Ложь);
-		If ПрепятствующиеУдалению.Колонки.Количество() < 3 Then
-			ВызватьИсключение НСтр("ru = 'Не удалось выполнить удаление объектов.'");
+		MarkCollectionTraversalStart(ExecutionParameters, "ExclusiveDeletion");
+		
+		ItemsPreventingDeletion = New ValueTable;
+		
+		// Attempt to delete objects with reference integrity control.
+		SetPrivilegedMode(True);
+		DeleteObjects(ObjectsToDelete, True, ItemsPreventingDeletion);
+		SetPrivilegedMode(False);
+		
+		If ItemsPreventingDeletion.Columns.Count() < 3 Then
+			Raise NStr("ru = 'Не удалось выполнить удаление объектов.'; en = 'Cannot delete objects.'");
 		EndIf;
 		
-		// Назначение имен колонок для таблицы конфликтов, возникших при удалении.
-		ПрепятствующиеУдалению.Колонки[0].Имя = "УдаляемыйСсылка";
-		ПрепятствующиеУдалению.Колонки[1].Имя = "ОбнаруженныйСсылка";
-		ПрепятствующиеУдалению.Колонки[2].Имя = "ОбнаруженныйМетаданные";
-
-		ВсеСвязиВИсключениях = Истина;
+		// Assign column names to the table of conflicts occurred upon deletion.
+		ItemsPreventingDeletion.Columns[0].Name = "ItemToDeleteRef";
+		ItemsPreventingDeletion.Columns[1].Name = "FoundItemReference";
+		ItemsPreventingDeletion.Columns[2].Name = "FoundMetadata";
 		
-		// Анализ причин не удаления (мест использования помеченных на удаление).
-		ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "ПрепятствующиеУдалению", ПрепятствующиеУдалению);
-		Для Каждого СтрокаТаблицы Из ПрепятствующиеУдалению Цикл
-			ОтметитьПрогрессОбходаКоллекции(ПараметрыВыполнения, "ПрепятствующиеУдалению");
+		AllLinksInExceptions = True;
+		
+		// Analyze reasons for non-deletion (locations where objects marked for deletion are used).
+		MarkCollectionTraversalStart(ExecutionParameters, "ItemsPreventingDeletion", ItemsPreventingDeletion);
+		For Each TableRow In ItemsPreventingDeletion Do
+			MarkCollectionTraversalProgress(ExecutionParameters, "ItemsPreventingDeletion");
 			
-			// Проверка исключающих правил.
-			If СвязьВИсключенияхПоискаСсылок(ПараметрыВыполнения, СтрокаТаблицы.ОбнаруженныйМетаданные,
-				СтрокаТаблицы) Then
-				Продолжить; // Связь не препятствует удалению.
+			// Check excluding rights.
+			If LinkInReferencesSearchExceptions(ExecutionParameters, TableRow.FoundMetadata,
+				TableRow) Then
+				Continue; // The link does not prevent deletion.
 			EndIf;
 			
-			// Невозможно удалить объект (мешает обнаруженная ссылка или запись регистра).
-			ВсеСвязиВИсключениях = Ложь;
+			// Cannot delete the object (a detected reference or register record prevents deletion).
+			AllLinksInExceptions = False;
 			
-			// Сокращение удаляемых объектов.
-			Индекс = УдаляемыеОбъекты.Найти(СтрокаТаблицы.УдаляемыйСсылка);
-			If Индекс <> Неопределено Then
-				УдаляемыеОбъекты.Delete(Индекс);
+			// Reduce objects to be deleted.
+			Index = ObjectsToDelete.Find(TableRow.ItemToDeleteRef);
+			If Index <> Undefined Then
+				ObjectsToDelete.Delete(Index);
 			EndIf;
 			
-			// Регистрация связи для вывода пользователю.
-			ЗаписатьПричинуВРезультат(ПараметрыВыполнения, СтрокаТаблицы);
-		КонецЦикла;
+			// Register the link to display it to the user.
+			WriteReasonToResult(ExecutionParameters, TableRow);
+		EndDo;
 		
-		// Удаление без контроля, если все связи в исключениях поиска ссылок.
-		If ВсеСвязиВИсключениях Then
-			УстановитьПривилегированныйРежим(Истина);
-			УдалитьОбъекты(УдаляемыеОбъекты, Ложь);
-			УстановитьПривилегированныйРежим(Ложь);
-			Прервать; // Выход из цикла.
+		// Delete objects without control if all the links are in reference search exceptions.
+		If AllLinksInExceptions Then
+			SetPrivilegedMode(True);
+			DeleteObjects(ObjectsToDelete, False);
+			SetPrivilegedMode(False);
+			Break; // Exit the loop.
 		EndIf;
-	КонецЦикла;
-
-	ПараметрыВыполнения.Вставить("Удаленные", УдаляемыеОбъекты);
-	ПараметрыВыполнения.Delete("ИсключенияПоискаСсылок");
-	ПараметрыВыполнения.Delete("ИсключающиеПравила");
+	EndDo;
+	
+	ExecutionParameters.Insert("DeletedItems", ObjectsToDelete);
+	ExecutionParameters.Delete("RefSearchExclusions");
+	ExecutionParameters.Delete("ExcludingRules");
 
 EndProcedure
 
-// Проверяет что связь в исключениях.
-Function СвязьВИсключенияхПоискаСсылок(ПараметрыВыполнения, ОбнаруженныйМетаданные, СтрокаТаблицы)
-	// Определение исключающего правила для объекта метаданных, препятствующего удалению:
-	// Для регистров (т.н. "необъектных таблиц") - массива реквизитов для поиска в записи регистра.
-	// Для ссылочных типов (т.н. "объектных таблиц") - готового запроса для поиска в реквизитах.
-	Правило = ПараметрыВыполнения.ИсключающиеПравила[ОбнаруженныйМетаданные]; // Кэш.
-	If Правило = Неопределено Then
-		Правило = СформироватьИсключающееПравило(ПараметрыВыполнения, ОбнаруженныйМетаданные);
-		ПараметрыВыполнения.ИсключающиеПравила.Вставить(ОбнаруженныйМетаданные, Правило);
+// Checks whether the link is in exceptions.
+Function LinkInReferencesSearchExceptions(ExecutionParameters, FoundMetadata, TableRow)
+	// Define an excluding rule for a metadata object that prevents deletion:
+	// For registers (the so-called non-object tables) - attributes array for search in a register record. 
+	// For reference types (the so-called object tables) - a ready-to-use query for search in attributes.
+	Rule = ExecutionParameters.ExcludingRules[FoundMetadata]; // Cache.
+	If Rule = Undefined Then
+		Rule = GenerateExcludingRule(ExecutionParameters, FoundMetadata);
+		ExecutionParameters.ExcludingRules.Insert(FoundMetadata, Rule);
 	EndIf;
 	
-	// Проверка исключающего правила.
-	If Правило = "*" Then
-		Return Истина; // Можно удалять (обнаруженный объект метаданных не мешает).
-	ElsIf ТипЗнч(Правило) = Тип("Массив") Then // Имена измерений регистра.
-		Для Каждого ИмяРеквизита Из Правило Цикл
-			If СтрокаТаблицы.ОбнаруженныйСсылка[ИмяРеквизита] = СтрокаТаблицы.УдаляемыйСсылка Then
-				Return Истина; // Можно удалять (обнаруженная запись регистра не мешает).
+	// Check the excluding rule.
+	If Rule = "*" Then
+		Return True; // The object can be deleted (a detected metadata object does not prevent deletion).
+	ElsIf TypeOf(Rule) = Type("Array") Then // Register dimensions names.
+		For Each AttributeName In Rule Do
+			If TableRow.FoundItemReference[AttributeName] = TableRow.ItemToDeleteRef Then
+				Return True; // The object can be deleted (a detected register record does not prevent deletion).
 			EndIf;
-		КонецЦикла;
-	ElsIf ТипЗнч(Правило) = Тип("Запрос") Then // Запрос к ссылочному объекту.
-		Правило.УстановитьПараметр("УдаляемыйСсылка", СтрокаТаблицы.УдаляемыйСсылка);
-		Правило.УстановитьПараметр("ОбнаруженныйСсылка", СтрокаТаблицы.ОбнаруженныйСсылка);
-		If Not Правило.Выполнить().Пустой() Then
-			Return Истина; // Можно удалять (обнаруженная ссылка не мешает).
+		EndDo;
+	ElsIf TypeOf(Rule) = Type("Query") Then // Query to a reference object.
+		Rule.SetParameter("ItemToDeleteRef", TableRow.ItemToDeleteRef);
+		Rule.SetParameter("FoundItemReference", TableRow.FoundItemReference);
+		If Not Rule.Execute().IsEmpty() Then
+			Return True; // The object can be deleted (a detected reference does not prevent deletion).
 		EndIf;
 	EndIf;
-
-	Return Ложь;
+	
+	Return False;
 EndFunction
 
-// Компонует правило оптимально для проверки.
-Function СформироватьИсключающееПравило(ПараметрыВыполнения, ОбнаруженныйМетаданные)
-	ИсключениеПоиска = ПараметрыВыполнения.ИсключенияПоискаСсылок[ОбнаруженныйМетаданные];
-	If ИсключениеПоиска = "*" Then
-		Return "*"; // Можно удалять (обнаруженный объект метаданных не мешает).
+// Composes the rule optimally for checking.
+Function GenerateExcludingRule(ExecutionParameters, FoundMetadata)
+	SearchException = ExecutionParameters.RefSearchExclusions[FoundMetadata];
+	If SearchException = "*" Then
+		Return "*"; // The object can be deleted (a detected metadata object does not prevent deletion).
 	EndIf;
 	
-	// Формирование исключающего правила.
-	ЭтоРегистрСведений = Метаданные.РегистрыСведений.Содержит(ОбнаруженныйМетаданные);
-	If ЭтоРегистрСведений Или Метаданные.РегистрыБухгалтерии.Содержит(ОбнаруженныйМетаданные) // IsAccountingRegister
-
-		Или Метаданные.РегистрыНакопления.Содержит(ОбнаруженныйМетаданные) Then // IsAccumulationRegister
-
-		Правило = New Массив;
-		If ЭтоРегистрСведений Then
-			Для Каждого Измерение Из ОбнаруженныйМетаданные.Измерения Цикл
-				If Измерение.Ведущее Then
-					Правило.Добавить(Измерение.Имя);
+	// Generate an excluding rule.
+	IsInformationRegister = Metadata.InformationRegisters.Contains(FoundMetadata);
+	If IsInformationRegister
+		Or Metadata.AccountingRegisters.Contains(FoundMetadata) // IsAccountingRegister
+		Or Metadata.AccumulationRegisters.Contains(FoundMetadata) Then // IsAccumulationRegister
+		
+		Rule = New Array;
+		If IsInformationRegister Then
+			For Each Dimension In FoundMetadata.Dimensions Do
+				If Dimension.Master Then
+					Rule.Add(Dimension.Name);
 				EndIf;
-			КонецЦикла;
+			EndDo;
 		Else
-			Для Каждого Измерение Из ОбнаруженныйМетаданные.Измерения Цикл
-				Правило.Добавить(Измерение.Имя);
-			КонецЦикла;
+			For Each Dimension In FoundMetadata.Dimensions Do
+				Rule.Add(Dimension.Name);
+			EndDo;
 		EndIf;
-
-		If ТипЗнч(ИсключениеПоиска) = Тип("Массив") Then
-			Для Каждого ИмяРеквизита Из ИсключениеПоиска Цикл
-				If Правило.Найти(ИмяРеквизита) = Неопределено Then
-					Правило.Добавить(ИмяРеквизита);
+		
+		If TypeOf(SearchException) = Type("Array") Then
+			For Each AttributeName In SearchException Do
+				If Rule.Find(AttributeName) = Undefined Then
+					Rule.Add(AttributeName);
 				EndIf;
-			КонецЦикла;
+			EndDo;
 		EndIf;
-
-	ElsIf ТипЗнч(ИсключениеПоиска) = Тип("Массив") Then
-
-		ТекстыЗапросов = New Map;
-		ИмяКорневойТаблицы = ОбнаруженныйМетаданные.ПолноеИмя();
-
-		Для Каждого ПутьКРеквизиту Из ИсключениеПоиска Цикл
-			ПозицияТочки = СтрНайти(ПутьКРеквизиту, ".");
-			If ПозицияТочки = 0 Then
-				ПолноеИмяТаблицы = ИмяКорневойТаблицы;
-				ИмяРеквизита = ПутьКРеквизиту;
+		
+	ElsIf TypeOf(SearchException) = Type("Array") Then
+		
+		QueriesTexts = New Map;
+		RootTableName = FoundMetadata.FullName();
+		
+		For Each AttributePath In SearchException Do
+			PointPosition = StrFind(AttributePath, ".");
+			If PointPosition = 0 Then
+				FullTableName = RootTableName;
+				AttributeName = AttributePath;
 			Else
-				ПолноеИмяТаблицы = ИмяКорневойТаблицы + "." + Лев(ПутьКРеквизиту, ПозицияТочки - 1);
-				ИмяРеквизита = Сред(ПутьКРеквизиту, ПозицияТочки + 1);
+				FullTableName = RootTableName + "." + Left(AttributePath, PointPosition - 1);
+				AttributeName = Mid(AttributePath, PointPosition + 1);
 			EndIf;
-
-			ТекстВложенногоЗапроса = ТекстыЗапросов.Получить(ПолноеИмяТаблицы);
-			If ТекстВложенногоЗапроса = Неопределено Then
-				ТекстВложенногоЗапроса = "ВЫБРАТЬ ПЕРВЫЕ 1
+			
+			NestedQueryText = QueriesTexts.Get(FullTableName);
+			If NestedQueryText = Undefined Then
+				NestedQueryText = "SELECT TOP 1
 										 |	1
-										 |ИЗ
-										 |	" + ПолноеИмяТаблицы + " КАК Таблица
-																	 |ГДЕ
-																	 |	Таблица.Ссылка = &ОбнаруженныйСсылка
-																	 |	И (";
+										 |FROM
+										 |	" + FullTableName + " AS Table
+										 							|WHERE
+																	|	Table.Ref = &FoundItemReference
+																	|	AND (";
 			Else
-				ТекстВложенногоЗапроса = ТекстВложенногоЗапроса + Символы.ПС + Символы.Таб + Символы.Таб + "ИЛИ ";
+				NestedQueryText = NestedQueryText + Chars.LF + Chars.Tab + Chars.Tab + "OR ";
 			EndIf;
-			ТекстВложенногоЗапроса = ТекстВложенногоЗапроса + "Таблица." + ИмяРеквизита + " = &УдаляемыйСсылка";
-
-			ТекстыЗапросов.Вставить(ПолноеИмяТаблицы, ТекстВложенногоЗапроса);
-		КонецЦикла;
-
-		ТекстЗапроса = "";
-		Для Каждого КлючИЗначение Из ТекстыЗапросов Цикл
-			If ТекстЗапроса <> "" Then
-				ТекстЗапроса = ТекстЗапроса + Символы.ПС + Символы.ПС + "ОБЪЕДИНИТЬ ВСЕ" + Символы.ПС + Символы.ПС;
+			NestedQueryText = NestedQueryText + "Table." + AttributeName + " = &ItemToDeleteRef";
+			
+			QueriesTexts.Insert(FullTableName, NestedQueryText);
+		EndDo;
+		
+		QueryText = "";
+		For Each KeyAndValue In QueriesTexts Do
+			If QueryText <> "" Then
+				QueryText = QueryText + Chars.LF + Chars.LF + "UNION ALL" + Chars.LF + Chars.LF;
 			EndIf;
-			ТекстЗапроса = ТекстЗапроса + КлючИЗначение.Значение + ")";
-		КонецЦикла;
-
-		Правило = New Запрос;
-		Правило.Текст = ТекстЗапроса;
-
+			QueryText = QueryText + KeyAndValue.Value + ")";
+		EndDo;
+		
+		Rule = New Query;
+		Rule.Text = QueryText;
+		
 	Else
-
-		Правило = "";
-
+		
+		Rule = "";
+		
 	EndIf;
-
-	Return Правило;
+	
+	Return Rule;
 EndFunction
 
 ////////////////////////////////////////////////////////////////////////////////
-// Общая механика.
+// Common mechanics.
 
-// Инициализирует структуру параметров, необходимых для выполнения других служебных методов.
-Procedure ИнициализироватьПараметры(ПараметрыВыполнения)
-	// Определение параметров работы программы.
-	If Not ПараметрыВыполнения.Свойство("ИскатьПомеченные") Then
-		ПараметрыВыполнения.Вставить("ИскатьПомеченные", Истина);
+// Initializes the structure of parameters necessary to execute other service methods.
+Procedure InitializeParameters(ExecutionParameters)
+	// Define application work parameters.
+	If Not ExecutionParameters.Property("SearchMarked") Then
+		ExecutionParameters.Insert("SearchMarked", True);
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("УдалятьПомеченные") Then
-		ПараметрыВыполнения.Вставить("УдалятьПомеченные", Истина);
+	If Not ExecutionParameters.Property("DeleteMarked") Then
+		ExecutionParameters.Insert("DeleteMarked", True);
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("Монопольно") Then
-		ПараметрыВыполнения.Вставить("Монопольно", Ложь);
+	If Not ExecutionParameters.Property("Exclusive") Then
+		ExecutionParameters.Insert("Exclusive", False);
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("ТехнологическиеОбъекты") Then
-		ПараметрыВыполнения.Вставить("ТехнологическиеОбъекты", New Массив);
+	If Not ExecutionParameters.Property("TechnologicalObjects") Then
+		ExecutionParameters.Insert("TechnologicalObjects", New Array);
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("ПользовательскиеОбъекты") Then
-		ПараметрыВыполнения.Вставить("ПользовательскиеОбъекты", New Массив);
+	If Not ExecutionParameters.Property("UserObjects") Then
+		ExecutionParameters.Insert("UserObjects", New Array);
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("ВсеПомеченныеНаУдаление") Then
-		ПараметрыВыполнения.Вставить("ВсеПомеченныеНаУдаление", New Массив);
-		UT_CommonClientServer.SupplementArray(ПараметрыВыполнения.ВсеПомеченныеНаУдаление,
-			ПараметрыВыполнения.ТехнологическиеОбъекты);
-		UT_CommonClientServer.SupplementArray(ПараметрыВыполнения.ВсеПомеченныеНаУдаление,
-			ПараметрыВыполнения.ПользовательскиеОбъекты);
+	If Not ExecutionParameters.Property("AllObjectsMarkedForDeletion") Then
+		ExecutionParameters.Insert("AllObjectsMarkedForDeletion", New Array);
+		UT_CommonClientServer.SupplementArray(ExecutionParameters.AllObjectsMarkedForDeletion, ExecutionParameters.TechnologicalObjects);
+		UT_CommonClientServer.SupplementArray(ExecutionParameters.AllObjectsMarkedForDeletion, ExecutionParameters.UserObjects);
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("МодельСервиса") Then
-		ПараметрыВыполнения.Вставить("МодельСервиса", UT_Common.DataSeparationEnabled());
-		If ПараметрыВыполнения.МодельСервиса Then
-//			If UT_Common.SubsystemExists("СтандартныеПодсистемы.РаботаВМоделиСервиса") Then
-//				МодульРаботаВМоделиСервиса = UT_Common.CommonModule("РаботаВМоделиСервиса");
-//				РазделительОсновныхДанных = МодульРаботаВМоделиСервиса.РазделительОсновныхДанных();
-//				РазделительВспомогательныхДанных = МодульРаботаВМоделиСервиса.РазделительВспомогательныхДанных();
+	If Not ExecutionParameters.Property("SaaSModel") Then
+		ExecutionParameters.Insert("SaaSModel", UT_Common.DataSeparationEnabled());
+		If ExecutionParameters.SaaSModel Then
+//			If UT_Common.SubsystemExists("StandardSubsystems.SaaS") Then
+//				ModuleSaaS = UT_Common.CommonModule("SaaS");
+//				MainDataSeparator = ModuleSaaS.MainDataSeparator();
+//				AuxiliaryDataSeparator = ModuleSaaS.AuxiliaryDataSeparator();
 //			Else
-				РазделительОсновныхДанных = Неопределено;
-				РазделительВспомогательныхДанных = Неопределено;
+				MainDataSeparator = Undefined;
+				AuxiliaryDataSeparator = Undefined;
 //			EndIf;
-
-			ПараметрыВыполнения.Вставить("ВОбластиДанных", UT_Common.SeparatedDataUsageAvailable());
-			ПараметрыВыполнения.Вставить("РазделительОсновныхДанных", РазделительОсновныхДанных);
-			ПараметрыВыполнения.Вставить("РазделительВспомогательныхДанных", РазделительВспомогательныхДанных);
+			
+			ExecutionParameters.Insert("InDataArea",UT_Common.SeparatedDataUsageAvailable());
+			ExecutionParameters.Insert("MainDataSeparator", MainDataSeparator);
+			ExecutionParameters.Insert("AuxiliaryDataSeparator", AuxiliaryDataSeparator);
 		EndIf;
 	EndIf;
-	If Not ПараметрыВыполнения.Свойство("ИнформацияОТипах") Then
-		ПараметрыВыполнения.Вставить("ИнформацияОТипах", New Map);
+	If Not ExecutionParameters.Property("TypesInformation") Then
+		ExecutionParameters.Insert("TypesInformation", New Map);
 	EndIf;
-
-	ПрепятствующиеУдалению = New ТаблицаЗначений;
-	ПрепятствующиеУдалению.Колонки.Добавить("УдаляемыйСсылка");
-	ПрепятствующиеУдалению.Колонки.Добавить("УдаляемыйТип", New ОписаниеТипов("Тип"));
-	ПрепятствующиеУдалению.Колонки.Добавить("ОбнаруженныйСсылка");
-	ПрепятствующиеУдалению.Колонки.Добавить("ОбнаруженныйТип", New ОписаниеТипов("Тип"));
-	ПрепятствующиеУдалению.Колонки.Добавить("ОбнаруженныйПометкаУдаления", New ОписаниеТипов("Булево"));
-	ПрепятствующиеУдалению.Колонки.Добавить("Подробно", New ОписаниеТипов("Строка"));
-
-	ПрепятствующиеУдалению.Индексы.Добавить("УдаляемыйСсылка");
-	ПрепятствующиеУдалению.Индексы.Добавить("ОбнаруженныйСсылка");
-
-	ПараметрыВыполнения.Вставить("Удаленные", New Массив);
-	ПараметрыВыполнения.Вставить("НеУдаленные", New Массив);
-	ПараметрыВыполнения.Вставить("ПрепятствующиеУдалению", ПрепятствующиеУдалению);
-	ПараметрыВыполнения.Вставить("ПовторноУдаляемые", New Массив);
-	ПараметрыВыполнения.Вставить("Интерактивное", ПараметрыВыполнения.Свойство("ПериодЗаписи"));
-
-	ИнициализироватьПараметрыДляРегистрацииПрогресса(ПараметрыВыполнения);
+	
+	ItemsPreventingDeletion = New ValueTable;
+	ItemsPreventingDeletion.Columns.Add("ItemToDeleteRef");
+	ItemsPreventingDeletion.Columns.Add("TypeToDelete", New TypeDescription("Type"));
+	ItemsPreventingDeletion.Columns.Add("FoundItemReference");
+	ItemsPreventingDeletion.Columns.Add("FoundType", New TypeDescription("Type"));
+	ItemsPreventingDeletion.Columns.Add("FoundDeletionMark", New TypeDescription("Boolean"));
+	ItemsPreventingDeletion.Columns.Add("More", New TypeDescription("String"));
+	
+	ItemsPreventingDeletion.Indexes.Add("ItemToDeleteRef");
+	ItemsPreventingDeletion.Indexes.Add("FoundItemReference");
+	
+	ExecutionParameters.Insert("DeletedItems",              New Array);
+	ExecutionParameters.Insert("NotDeletedItems",            New Array);
+	ExecutionParameters.Insert("ItemsPreventingDeletion", ItemsPreventingDeletion);
+	ExecutionParameters.Insert("ToRedelete",      New Array);
+	ExecutionParameters.Insert("Interactive",          ExecutionParameters.Property("RecordPeriod"));
+	
+	InitializeParametersToRegisterProgress(ExecutionParameters);
 EndProcedure
 
-// Формирует массив помеченных на удаление с учетом разделения.
-Procedure ПолучитьПомеченныеНаУдаление(ПараметрыВыполнения)
+// Generates an array of objects marked for deletion considering separation.
+Procedure GetItemsMarkedForDeletion(ExecutionParameters)
 
-	ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "ПередПоискомПомеченныхНаУдаление");
-//	МодульУдалениеПомеченныхОбъектовПереопределяемый=UT_Common.CommonModule(
-//		"УдалениеПомеченныхОбъектовПереопределяемый");
-//	If МодульУдалениеПомеченныхОбъектовПереопределяемый <> Неопределено Then
-//		МодульУдалениеПомеченныхОбъектовПереопределяемый.ПередПоискомПомеченныхНаУдаление(ПараметрыВыполнения);
+	MarkCollectionTraversalStart(ExecutionParameters, "BeforeSearchForItemsMarkedForDeletion");
+//	DeleteMarkedObjectsRedefinedModule=UT_Common.CommonModule(
+//		"DeleteMarkedObjectsRedefined");
+//	If DeleteMarkedObjectsRedefinedModule <> Undefined Then
+//		DeleteMarkedObjectsRedefinedModule.BeforeSearchForItemsMarkedForDeletion(ExecutionParameters);
 //	EndIf;
 
-	УстановитьПривилегированныйРежим(Истина);
+	SetPrivilegedMode(True);
 	
-	// Получение списка помеченных на удаление.
-	ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "ПоискПомеченныхНаУдаление");
-	ПараметрыВыполнения.ВсеПомеченныеНаУдаление = НайтиПомеченныеНаУдаление();
+	// Get the list of objects marked for deletion.
+	MarkCollectionTraversalStart(ExecutionParameters, "SearchForItemsmarkedForDeletion");
+	ExecutionParameters.AllObjectsMarkedForDeletion = FindMarkedForDeletion();
 	
-	// Распределение помеченных на удаление по коллекциям.
-	ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, "ВсеПомеченныеНаУдаление");
-	Количество = ПараметрыВыполнения.ВсеПомеченныеНаУдаление.Количество();
-	Для Номер = 1 По Количество Цикл
-		ОбратныйИндекс = Количество - Номер;
-		Ссылка = ПараметрыВыполнения.ВсеПомеченныеНаУдаление[ОбратныйИндекс];
-
-		Информация = СформироватьИнформациюОТипах(ПараметрыВыполнения, ТипЗнч(Ссылка));
-		ОтметитьПрогрессОбходаКоллекции(ПараметрыВыполнения, "ВсеПомеченныеНаУдаление");
-
-		If ПараметрыВыполнения.МодельСервиса И ПараметрыВыполнения.ВОбластиДанных И Not Информация.Разделенный Then
-			ПараметрыВыполнения.ВсеПомеченныеНаУдаление.Delete(ОбратныйИндекс);
-			Продолжить; // Неразделенные объекты запрещено изменять из области данных.
+	// Distribute objects marked for deletion to collections.
+	MarkCollectionTraversalStart(ExecutionParameters, "AllObjectsMarkedForDeletion");
+	Count = ExecutionParameters.AllObjectsMarkedForDeletion.Count();
+	For Number = 1 To Count Do
+		Index = Count - Number;
+		Ref = ExecutionParameters.AllObjectsMarkedForDeletion[Index];
+		
+		Information = GenerateTypesInformation(ExecutionParameters, TypeOf(Ref));
+		MarkCollectionTraversalProgress(ExecutionParameters, "AllObjectsMarkedForDeletion");
+		
+		If ExecutionParameters.SaaSModel
+			AND ExecutionParameters.InDataArea
+			AND Not Information.Separated Then
+			ExecutionParameters.AllObjectsMarkedForDeletion.Delete(Index);
+			Continue; // You cannot change shared objects from a data area.
 		EndIf;
-
-		If Информация.ЕстьПредопределенные И Информация.Предопределенные.Найти(Ссылка) <> Неопределено Then
-			ПараметрыВыполнения.ВсеПомеченныеНаУдаление.Delete(ОбратныйИндекс);
-			Продолжить; // Предопределенные элементы создаются и удаляются только автоматически.
+		
+		If Information.HasPredefined AND Information.Predefined.Find(Ref) <> Undefined Then
+			ExecutionParameters.AllObjectsMarkedForDeletion.Delete(Index);
+			Continue; // Predefined items are created and deleted only automatically.
 		EndIf;
-
-		If Информация.Технический = Истина Then
-			ПараметрыВыполнения.ТехнологическиеОбъекты.Добавить(Ссылка);
+		
+		If Information.Technical = True Then
+			ExecutionParameters.TechnologicalObjects.Add(Ref);
 		Else
-			ПараметрыВыполнения.ПользовательскиеОбъекты.Добавить(Ссылка);
+			ExecutionParameters.UserObjects.Add(Ref);
 		EndIf;
-	КонецЦикла;
+	EndDo;
 EndProcedure
 
-// Формирует информацию о типе объекта метаданных, как то: полное имя, представления, вид и т.п.
-Function СформироватьИнформациюОТипах(ПараметрыВыполнения, Тип) Export
-	Информация = ПараметрыВыполнения.ИнформацияОТипах.Получить(Тип); // Кэш.
-	If Информация <> Неопределено Then
-		Return Информация;
-	EndIf;
-
-	Информация = New Structure("ПолноеИмя, ПредставлениеЭлемента, ПредставлениеСписка,
-								 |Вид, Ссылочный, Технический, Разделенный,
-								 |Иерархический, ТекстЗапросаПоИерархии,
-								 |ЕстьПодчиненные, ТекстЗапросаПоПодчиненным,
-								 |ЕстьПредопределенные, Предопределенные");
-	
-	// Поиск объекта метаданных.
-	ОбъектМетаданных = Метаданные.НайтиПоТипу(Тип);
-	
-	// Заполнение базовой информации.
-	Информация.ПолноеИмя = ВРег(ОбъектМетаданных.ПолноеИмя());
-	
-	// Представления: элемента и списка.
-	СтандартныеСвойства = New Structure("ПредставлениеОбъекта, РасширенноеПредставлениеОбъекта, ПредставлениеСписка, РасширенноеПредставлениеСписка");
-	ЗаполнитьЗначенияСвойств(СтандартныеСвойства, ОбъектМетаданных);
-	If ЗначениеЗаполнено(СтандартныеСвойства.ПредставлениеОбъекта) Then
-		Информация.ПредставлениеЭлемента = СтандартныеСвойства.ПредставлениеОбъекта;
-	ElsIf ЗначениеЗаполнено(СтандартныеСвойства.РасширенноеПредставлениеОбъекта) Then
-		Информация.ПредставлениеЭлемента = СтандартныеСвойства.РасширенноеПредставлениеОбъекта;
-	Else
-		Информация.ПредставлениеЭлемента = ОбъектМетаданных.Представление();
-	EndIf;
-	If ЗначениеЗаполнено(СтандартныеСвойства.ПредставлениеСписка) Then
-		Информация.ПредставлениеСписка = СтандартныеСвойства.ПредставлениеСписка;
-	ElsIf ЗначениеЗаполнено(СтандартныеСвойства.РасширенноеПредставлениеСписка) Then
-		Информация.ПредставлениеСписка = СтандартныеСвойства.РасширенноеПредставлениеСписка;
-	Else
-		Информация.ПредставлениеСписка = ОбъектМетаданных.Представление();
+// Generates information on the metadata object type: full name, presentation, kind, and so on.
+Function GenerateTypesInformation(ExecutionParameters, Type) Export
+	Information = ExecutionParameters.TypesInformation.Get(Type); // Cache.
+	If Information <> Undefined Then
+		Return Information;
 	EndIf;
 	
-	// Вид и его свойства.
-	Информация.Вид = Лев(Информация.ПолноеИмя, СтрНайти(Информация.ПолноеИмя, ".") - 1);
-	If Информация.Вид = "СПРАВОЧНИК" Или Информация.Вид = "ДОКУМЕНТ" Или Информация.Вид = "ПЕРЕЧИСЛЕНИЕ"
-		Или Информация.Вид = "ПЛАНВИДОВХАРАКТЕРИСТИК" Или Информация.Вид = "ПЛАНСЧЕТОВ" Или Информация.Вид = "ПЛАНВИДОВРАСЧЕТА"
-		Или Информация.Вид = "БИЗНЕСПРОЦЕСС" Или Информация.Вид = "ЗАДАЧА" Или Информация.Вид = "ПЛАНОБМЕНА" Then
-		Информация.Ссылочный = Истина;
+	Information = New Structure("FullName, ItemPresentation, ListPresentation,
+	|Kind, Reference, Technical, Separated,
+	|Hierarchical, QueryTextByHierarchy,
+	|HasSubordinate, QueryTextBySubordinated, 
+	|HasPredefined, Predefined");
+	
+	// Search for the metadata object.
+	MetadataObject = Metadata.FindByType(Type);
+	
+	// Fill in basic information.
+	Information.FullName = Upper(MetadataObject.FullName());
+	
+	// Item and list presentations.
+	StandardProperties = New Structure("ObjectPresentation, ExtendedObjectPresentation, ListPresentation, ExtendedListPresentation");
+	FillPropertyValues(StandardProperties, MetadataObject);
+	If ValueIsFilled(StandardProperties.ObjectPresentation) Then
+		Information.ItemPresentation = StandardProperties.ObjectPresentation;
+	ElsIf ValueIsFilled(StandardProperties.ExtendedObjectPresentation) Then
+		Information.ItemPresentation = StandardProperties.ExtendedObjectPresentation;
 	Else
-		Информация.Ссылочный = Ложь;
+		Information.ItemPresentation = MetadataObject.Presentation();
 	EndIf;
-
-	If Информация.Вид = "СПРАВОЧНИК" Или Информация.Вид = "ПЛАНВИДОВХАРАКТЕРИСТИК" Then
-		Информация.Иерархический = ОбъектМетаданных.Иерархический;
-	ElsIf Информация.Вид = "ПЛАНСЧЕТОВ" Then
-		Информация.Иерархический = Истина;
+	If ValueIsFilled(StandardProperties.ListPresentation) Then
+		Information.ListPresentation = StandardProperties.ListPresentation;
+	ElsIf ValueIsFilled(StandardProperties.ExtendedListPresentation) Then
+		Information.ListPresentation = StandardProperties.ExtendedListPresentation;
 	Else
-		Информация.Иерархический = Ложь;
+		Information.ListPresentation = MetadataObject.Presentation();
 	EndIf;
-	If Информация.Иерархический Then
-		ШаблонЗапроса = "ВЫБРАТЬ Ссылка ИЗ &ПолноеИмя ГДЕ Родитель = &УдаляемыйСсылка";
-		Информация.ТекстЗапросаПоИерархии = СтрЗаменить(ШаблонЗапроса, "&ПолноеИмя", Информация.ПолноеИмя);
+	
+	// Kind and its properties.
+	Information.Kind = Left(Information.FullName, StrFind(Information.FullName, ".") - 1);
+	If Information.Kind = "CATALOG" Or Information.Kind = "DOCUMENT" Or Information.Kind = "ENUM"
+		Or Information.Kind = "CHARTOFCHARACTERISTICTYPES" Or Information.Kind = "CHARTOFACCOUNTS" Or Information.Kind = "CHARTOFCALCULATIONTYPES"
+		Or Information.Kind = "BUSINESSPROCESS" Or Information.Kind = "TASK" Or Information.Kind = "EXCHANGEPLAN" Then
+		Information.Reference = True;
+	Else
+		Information.Reference = False;
 	EndIf;
 
-	Информация.ЕстьПодчиненные = Ложь;
-	Информация.ТекстЗапросаПоПодчиненным = "";
-	If Информация.Вид = "СПРАВОЧНИК" Или Информация.Вид = "ПЛАНВИДОВХАРАКТЕРИСТИК" Или Информация.Вид = "ПЛАНОБМЕНА"
-		Или Информация.Вид = "ПЛАНСЧЕТОВ" Или Информация.Вид = "ПЛАНВИДОВРАСЧЕТА" Then
+	If Information.Kind = "CATALOG" Or Information.Kind = "CHARTOFCHARACTERISTICTYPES" Then
+		Information.Hierarchical = MetadataObject.Hierarchical;
+	ElsIf Information.Kind = "CHARTOFACCOUNTS" Then
+		Information.Hierarchical = True;
+	Else
+		Information.Hierarchical = False;
+	EndIf;
+	If Information.Hierarchical Then
+		QueryTemplate = "SELECT Ref FROM &FullName WHERE Parent = &ItemToDeleteRef";
+		Information.QueryTextByHierarchy = StrReplace(QueryTemplate, "&FullName", Information.FullName);
+	EndIf;
 
-		ШаблонЗапроса = "ВЫБРАТЬ Ссылка ИЗ Справочник.&Имя ГДЕ Владелец = &УдаляемыйСсылка";
-		ТекстЗапроса = "";
+	Information.HasSubordinate = False;
+	Information.QueryTextBySubordinated = "";
+	If Information.Kind = "CATALOG" Or Information.Kind = "CHARTOFCHARACTERISTICTYPES" Or Information.Kind = "EXCHANGEPLAN"
+		Or Information.Kind = "CHARTOFACCOUNTS" Or Information.Kind = "CHARTOFCALCULATIONTYPES" Then
 
-		Для Каждого Справочник Из Метаданные.Справочники Цикл
-			If Справочник.Владельцы.Содержит(ОбъектМетаданных) Then
-				If Информация.ЕстьПодчиненные = Ложь Then
-					Информация.ЕстьПодчиненные = Истина;
+		QueryTemplate = "SELECT Ref FROM Catalog.&Name WHERE Owner = &ItemToDeleteRef";
+		QueryText = "";
+
+		For Each Catalog In Metadata.Catalogs Do
+			If Catalog.Owners.Contains(MetadataObject) Then
+				If Information.HasSubordinate = False Then
+					Information.HasSubordinate = True;
 				Else
-					ТекстЗапроса = ТекстЗапроса + Символы.ПС + "ОБЪЕДИНИТЬ ВСЕ" + Символы.ПС;
+					QueryText = QueryText + Chars.LF + "UNION ALL" + Chars.LF;
 				EndIf;
-				ТекстЗапроса = ТекстЗапроса + СтрЗаменить(ШаблонЗапроса, "&Имя", Справочник.Имя);
+				QueryText = QueryText + StrReplace(QueryTemplate, "&Name", Catalog.Name);
 			EndIf;
-		КонецЦикла;
+		EndDo;
 
-		Информация.ТекстЗапросаПоПодчиненным = ТекстЗапроса;
+		Information.QueryTextBySubordinated = QueryText;
 	EndIf;
 
-	Информация.Технический = ЭтоТехническийОбъект(Информация.ПолноеИмя);
-	If ПараметрыВыполнения.МодельСервиса Then
-
-//		If UT_Common.SubsystemExists("СтандартныеПодсистемы.РаботаВМоделиСервиса") Then
-//			МодульРаботаВМоделиСервиса = UT_Common.CommonModule("РаботаВМоделиСервиса");
-//			ЭтоРазделенныйОбъектМетаданных = МодульРаботаВМоделиСервиса.ЭтоРазделенныйОбъектМетаданных(ОбъектМетаданных);
+	Information.Technical = IsTechnicalObject(Information.FullName);
+	If ExecutionParameters.SaaSModel Then
+		
+//		If UT_Common.SubsystemExists("StandardSubsystems.SaaS") Then
+//			ModuleSaaS = UT_Common.CommonModule("SaaS");
+//			IsSeparatedMetadataObject = ModuleSaaS.IsSeparatedMetadataObject(MetadataObject);
 //		Else
-			ЭтоРазделенныйОбъектМетаданных = Ложь;
+			IsSeparatedMetadataObject = False;
 //		EndIf;
-
-		Информация.Разделенный = ЭтоРазделенныйОбъектМетаданных;
-
+		Information.Separated = IsSeparatedMetadataObject;
+		
 	EndIf;
 
-	If Информация.Вид = "СПРАВОЧНИК" Или Информация.Вид = "ПЛАНВИДОВХАРАКТЕРИСТИК" Или Информация.Вид = "ПЛАНСЧЕТОВ"
-		Или Информация.Вид = "ПЛАНВИДОВРАСЧЕТА" Then
-		Запрос = New Запрос("ВЫБРАТЬ Ссылка ИЗ " + Информация.ПолноеИмя + " ГДЕ Предопределенный И ПометкаУдаления");
-		Информация.Предопределенные = Запрос.Выполнить().Выгрузить().ВыгрузитьКолонку("Ссылка");
-		Информация.ЕстьПредопределенные = Информация.Предопределенные.Количество() > 0;
+	If Information.Kind = "CATALOG" Or Information.Kind = "CHARTOFCHARACTERISTICTYPES" Or Information.Kind = "CHARTOFACCOUNTS"
+		Or Information.Kind = "CHARTOFCALCULATIONTYPES" Then
+		Query = New Query("SELECT Ref FROM " + Information.FullName + " WHERE Predefined AND DeletionMark");
+		Information.Predefined = Query.Execute().Unload().UnloadColumn("Ref");
+		Information.HasPredefined = Information.Predefined.Count() > 0;
 	Else
-		Информация.ЕстьПредопределенные = Ложь;
+		Information.HasPredefined = False;
 	EndIf;
 
-	ПараметрыВыполнения.ИнформацияОТипах.Вставить(Тип, Информация);
+	ExecutionParameters.TypesInformation.Insert(Type, Information);
 
-	Return Информация;
+	Return Information;
 EndFunction
 
-Function ЭтоТехническийОбъект(Знач ПолноеИмяОбъекта)
-	Return ПолноеИмяОбъекта = "СПРАВОЧНИК.ИДЕНТИФИКАТОРЫОБЪЕКТОВМЕТАДАННЫХ" Или ПолноеИмяОбъекта = "СПРАВОЧНИК.ПРЕДОПРЕДЕЛЕННЫЕВАРИАНТЫОТЧЕТОВ"
-		Или ПолноеИмяОбъекта = "СПРАВОЧНИК.ИДЕНТИФИКАТОРЫОБЪЕКТОВРАСШИРЕНИЙ" Или ПолноеИмяОбъекта
-		= "СПРАВОЧНИК.ПРЕДОПРЕДЕЛЕННЫЕВАРИАНТЫОТЧЕТОВРАСШИРЕНИЙ";
+Function IsTechnicalObject(Знач FullObjectName)
+	Return FullObjectName = "CATALOG.METADATAOBJECTIDS" Or FullObjectName = "CATALOG.PREDEFINEDREPORTSOPTIONS"
+		Or FullObjectName = "CATALOG.EXTENSIONOBJECTIDS" Or FullObjectName
+		= "CATALOG.PREDEFINEDEXTENSIONSREPORTSOPTIONS";
 EndFunction
 
-// Регистрирует предупреждение в журнале регистрации.
-Procedure ЗаписатьПредупреждение(Ссылка, ИнформацияОбОшибке)
-	If ТипЗнч(ИнформацияОбОшибке) = Тип("ИнформацияОбОшибке") Then
-		ТекстДляЖурнала = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке);
+// Registers a warning in the event log.
+Procedure WriteWarning(Ref, ErrorInformation)
+	If TypeOf(ErrorInformation) = Type("ErrorInfo") Then
+		TextForLog = DetailErrorDescription(ErrorInformation);
 	Else
-		ТекстДляЖурнала = ИнформацияОбОшибке;
+		TextForLog = ErrorInformation;
 	EndIf;
 
-	ЗаписьЖурналаРегистрации(
-		НСтр("ru = 'Удаление помеченных'", UT_CommonClientServer.DefaultLanguageCode()),
-		УровеньЖурналаРегистрации.Предупреждение, , Ссылка, ТекстДляЖурнала);
+	WriteLogEvent(
+		NStr("ru = 'Удаление помеченных'; en = 'Deletion of marked objects'", UT_CommonClientServer.DefaultLanguageCode()),
+		EventLogLevel.Warning, , Ref, TextForLog);
 EndProcedure
 
-// Регистрация причины неудаления.
-Procedure ЗаписатьПричинуВРезультат(ПараметрыВыполнения, СтрокаТаблицы)
-	УдаляемыйТип        = ТипЗнч(СтрокаТаблицы.УдаляемыйСсылка);
-	УдаляемыйИнформация = СформироватьИнформациюОТипах(ПараметрыВыполнения, УдаляемыйТип);
-	If УдаляемыйИнформация.Технический Then
+// Register a reason for non-deletion.
+Procedure WriteReasonToResult(ExecutionParameters, TableRow)
+	TypeToDelete        = TypeOf(TableRow.ItemToDeleteRef);
+	ItemToDeleteInfo = GenerateTypesInformation(ExecutionParameters, TypeToDelete);
+	If ItemToDeleteInfo.Technical Then
 		Return;
 	EndIf;
 	
-	// Добавление не удаленных объектов.
-	If ПараметрыВыполнения.НеУдаленные.Найти(СтрокаТаблицы.УдаляемыйСсылка) = Неопределено Then
-		ПараметрыВыполнения.НеУдаленные.Добавить(СтрокаТаблицы.УдаляемыйСсылка);
+	// Add non-deleted objects.
+	If ExecutionParameters.NotDeletedItems.Find(TableRow.ItemToDeleteRef) = Undefined Then
+		ExecutionParameters.NotDeletedItems.Add(TableRow.ItemToDeleteRef);
 	EndIf;
-
-	Причина = ПараметрыВыполнения.ПрепятствующиеУдалению.Добавить();
-	ЗаполнитьЗначенияСвойств(Причина, СтрокаТаблицы);
-	Причина.УдаляемыйТип    = УдаляемыйТип;
-	Причина.ОбнаруженныйТип = ТипЗнч(Причина.ОбнаруженныйСсылка);
-
-	If СтрокаТаблицы.ОбнаруженныйСсылка = Неопределено Then
-		If Метаданные.Константы.Содержит(СтрокаТаблицы.ОбнаруженныйМетаданные) Then
-			Причина.ОбнаруженныйТип = Тип("КонстантаМенеджерЗначения." + СтрокаТаблицы.ОбнаруженныйМетаданные.Имя);
+	
+	Reason = ExecutionParameters.ItemsPreventingDeletion.Add();
+	FillPropertyValues(Reason, TableRow);
+	Reason.TypeToDelete    = TypeToDelete;
+	Reason.FoundType = TypeOf(Reason.FoundItemReference);
+	
+	If TableRow.FoundItemReference = Undefined Then
+		If Metadata.Constants.Contains(TableRow.FoundMetadata) Then
+			Reason.FoundType = Type("ConstantValueManager." + TableRow.FoundMetadata.Name);
 		Else
-			Причина.ОбнаруженныйСсылка = СтрШаблон(
-				НСтр("ru = 'Обнаружены неразрешимые ссылки (%1)'"),
-				СтрокаТаблицы.ОбнаруженныйМетаданные.Представление());
-			Причина.ОбнаруженныйТип = Тип("Строка");
+			Reason.FoundItemReference = StrTemplate(
+				NStr("ru = 'Обнаружены неразрешимые ссылки (%1)';en = 'Incorrect references are detected (%1)'"),
+				TableRow.FoundItemReference.Presentation());
+			Reason.FoundType = Type("String");
 			Return;
 		EndIf;
 	EndIf;
 	
-	// Регистрация информации об объектах метаданных (если требуется).
-	ОбнаруженныйИнформация = СформироватьИнформациюОТипах(ПараметрыВыполнения, Причина.ОбнаруженныйТип);
+	// Register information on metadata objects (if necessary).
+	FoundItemInfo = GenerateTypesInformation(ExecutionParameters, Reason.FoundType);
 	
-	// Заполнение подчиненных полей.
-	If ОбнаруженныйИнформация.Ссылочный Then
-		Причина.ОбнаруженныйПометкаУдаления = UT_Common.ObjectAttributeValue(Причина.ОбнаруженныйСсылка,
-			"ПометкаУдаления");
+	// Fill in subordinate fields.
+	If FoundItemInfo.Reference Then
+		Reason.FoundDeletionMark = Common.ObjectAttributeValue(Reason.FoundItemReference, "DeletionMark");
 	Else
-		Причина.ОбнаруженныйПометкаУдаления = Ложь;
+		Reason.FoundDeletionMark = False;
 	EndIf;
 EndProcedure
 
-// Основная механика удаления помеченных объектов.
+// The basic mechanics of deleting marked objects.
 Function ExtractResult(ExecutionParameters)
 	DeletionResult = ExecutionParameters;
-	DeletionResult.Delete("ВсеПомеченныеНаУдаление");
-	DeletionResult.Delete("ВсеПомеченныеНаУдаление");
+	DeletionResult.Delete("AllObjectsMarkedForDeletion");
+	DeletionResult.Delete("AllObjectsMarkedForDeletion");
 	Return DeletionResult;
 EndFunction
 
 ////////////////////////////////////////////////////////////////////////////////
-// Передача информации на клиент.
+// Transfer information to the client.
 
-// Инициализирует структуру параметров, необходимых для передачи на клиент.
-Procedure ИнициализироватьПараметрыДляРегистрацииПрогресса(ПараметрыВыполнения)
-	If Not ПараметрыВыполнения.Интерактивное Then
+// Initializes the structure of parameters required to transfer data to the client.
+Procedure InitializeParametersToRegisterProgress(ExecutionParameters)
+	If Not ExecutionParameters.Interactive Then
 		Return;
 	EndIf;
-
-	ПараметрыВыполнения.Вставить("ДостигнутыйПроцент", 0);
-	ПараметрыВыполнения.Вставить("Диапазон", 0);
-	ПараметрыВыполнения.Вставить("СледующийКонтрольныйНомер", 0);
-	ПараметрыВыполнения.Вставить("Номер", 0);
-	ПараметрыВыполнения.Вставить("Всего", 0);
-	ПараметрыВыполнения.Вставить("Время", ТекущаяДатаСеанса() - 0.1);
-
-	ПараметрыВыполнения.Вставить("Диапазоны", New Map);
-
-	ОбщийВес = 0;
-	If ПараметрыВыполнения.ИскатьПомеченные Then
-		ПараметрыВыполнения.Диапазоны.Вставить("ПередПоискомПомеченныхНаУдаление", 5);
-		ПараметрыВыполнения.Диапазоны.Вставить("ПоискПомеченныхНаУдаление", 4);
-		ПараметрыВыполнения.Диапазоны.Вставить("ВсеПомеченныеНаУдаление", 1);
-		ОбщийВес = ОбщийВес + 10;
+	
+	ExecutionParameters.Insert("PercentAchieved", 0);
+	ExecutionParameters.Insert("Range", 0);
+	ExecutionParameters.Insert("NextControlNumber", 0);
+	ExecutionParameters.Insert("Number", 0);
+	ExecutionParameters.Insert("Total", 0);
+	ExecutionParameters.Insert("Time", CurrentSessionDate() - 0.1);
+	
+	ExecutionParameters.Insert("Ranges", New Map);
+	
+	TotalWeight = 0;
+	If ExecutionParameters.SearchMarked Then
+		ExecutionParameters.Ranges.Insert("BeforeSearchForItemsMarkedForDeletion", 5);
+		ExecutionParameters.Ranges.Insert("SearchForItemsmarkedForDeletion", 4);
+		ExecutionParameters.Ranges.Insert("AllObjectsMarkedForDeletion", 1);
+		TotalWeight = TotalWeight + 10;
 	EndIf;
-	If ПараметрыВыполнения.УдалятьПомеченные Then
-		If ПараметрыВыполнения.Монопольно Then
-			ПараметрыВыполнения.Диапазоны.Вставить("МонопольноеУдаление", 80);
-			ПараметрыВыполнения.Диапазоны.Вставить("ПрепятствующиеУдалению", 10);
-		Else // Не монопольно.
-			ПараметрыВыполнения.Диапазоны.Вставить("ТехнологическиеОбъекты", 10);
-			ПараметрыВыполнения.Диапазоны.Вставить("ПользовательскиеОбъекты", 70);
-			ПараметрыВыполнения.Диапазоны.Вставить("ПовторноУдаляемые", 10);
+	If ExecutionParameters.DeleteMarked Then
+		If ExecutionParameters.Exclusive Then
+			ExecutionParameters.Ranges.Insert("ExclusiveDeletion", 80);
+			ExecutionParameters.Ranges.Insert("ItemsPreventingDeletion", 10);
+		Else // Not exclusive.
+			ExecutionParameters.Ranges.Insert("TechnologicalObjects", 10);
+			ExecutionParameters.Ranges.Insert("UserObjects", 70);
+			ExecutionParameters.Ranges.Insert("ToRedelete", 10);
 		EndIf;
-		ОбщийВес = ОбщийВес + 90;
+		TotalWeight = TotalWeight + 90;
 	EndIf;
-	If ОбщийВес <> 0 И ОбщийВес <> 100 Then
-		Коэффициент = 100 / ОбщийВес;
-		Для Каждого КлючИЗначение Из ПараметрыВыполнения.Диапазоны Цикл
-			ПараметрыВыполнения.Диапазоны.Вставить(КлючИЗначение.Ключ, Окр(КлючИЗначение.Значение * Коэффициент, 0));
-		КонецЦикла;
+	If TotalWeight <> 0 AND TotalWeight <> 100 Then
+		Coefficient = 100/TotalWeight;
+		For Each KeyAndValue In ExecutionParameters.Ranges Do
+			ExecutionParameters.Ranges.Insert(KeyAndValue.Key, Round(KeyAndValue.Value*Coefficient, 0));
+		EndDo;
 	EndIf;
-
+	
 EndProcedure
 
-// Регистрирует начало процесса.
-Procedure ОтметитьНачалоОбходаКоллекции(ПараметрыВыполнения, ИмяКоллекции, Коллекция = Неопределено)
-	If Not ПараметрыВыполнения.Интерактивное Then
+// Registers the process start.
+Procedure MarkCollectionTraversalStart(ExecutionParameters, CollectionName, Collection = Undefined)
+	If Not ExecutionParameters.Interactive Then
 		Return;
 	EndIf;
-	ПараметрыВыполнения.ДостигнутыйПроцент = ПараметрыВыполнения.ДостигнутыйПроцент + ПараметрыВыполнения.Диапазон;
-	ПараметрыВыполнения.Диапазон = ПараметрыВыполнения.Диапазоны[ИмяКоллекции];
-	ПараметрыВыполнения.СледующийКонтрольныйНомер = 0;
-	ПараметрыВыполнения.Номер = 0;
+	ExecutionParameters.PercentAchieved = ExecutionParameters.PercentAchieved + ExecutionParameters.Range;
+	ExecutionParameters.Range = ExecutionParameters.Ranges[CollectionName];
+	ExecutionParameters.NextControlNumber = 0;
+	ExecutionParameters.Number = 0;
 
-	If Коллекция <> Неопределено Или ПараметрыВыполнения.Свойство(ИмяКоллекции, Коллекция) Then
-		ПараметрыВыполнения.Всего = Коллекция.Количество();
+	If Collection <> Undefined Or ExecutionParameters.Property(CollectionName, Collection) Then
+		ExecutionParameters.Total = Collection.Count();
 	Else
-		ПараметрыВыполнения.Всего = 1;
-		ОтметитьПрогрессОбходаКоллекции(ПараметрыВыполнения, ИмяКоллекции);
+		ExecutionParameters.Total = 1;
+		MarkCollectionTraversalProgress(ExecutionParameters, CollectionName);
 	EndIf;
 EndProcedure
 
-// Регистрирует прогресс.
-Procedure ОтметитьПрогрессОбходаКоллекции(ПараметрыВыполнения, ИмяКоллекции)
-	If Not ПараметрыВыполнения.Интерактивное Then
+
+Procedure MarkCollectionTraversalProgress(ExecutionParameters, CollectionName)
+	If Not ExecutionParameters.Interactive Then
 		Return;
 	EndIf;
 	
-	// Проверяется целесообразность передачи информации на клиент.
-	If ПараметрыВыполнения.ИскатьПомеченные Then
-		Return; // Если текущий шаг - расчет помеченных, то оповещать клиент не требуется.
+	// Check whether it is reasonable to transfer information to the client.
+	If ExecutionParameters.SearchMarked Then 
+		Return; // If the current step is calculation of marked objects, notification of the client is not required.
 	EndIf;
 	
-	// Проверяется целесообразность передачи информации на клиент.
-	If ПараметрыВыполнения.Всего < 10 Then
-		Return; // Если всего обрабатывается меньше 10 объектов - то оповещать клиент не требуется.
+	// Check whether it is reasonable to transfer information to the client.
+	If ExecutionParameters.Total < 10 Then 
+		Return; // If less than 10 objects are processed, notification of the client is not required.
 	EndIf;
 	
-	// Регистрация прогресса.
-	ПараметрыВыполнения.Номер = ПараметрыВыполнения.Номер + 1;
+	// Progress registration.
+	ExecutionParameters.Number = ExecutionParameters.Number + 1;
 	
-	// Проверка что подошло время передачи информации на клиент.
-	If ТекущаяДатаСеанса() < ПараметрыВыполнения.Время Then
-		Return; // Не чаще, чем раз в 3 секунды.
+	// Check that it is time to transfer information to the client.
+	If CurrentSessionDate() < ExecutionParameters.Time Then
+		Return; // No more often than once every 3 seconds.
 	EndIf;
 	
-	// Установка следующего времени передачи информации на клиент.
-	ПараметрыВыполнения.Время = ПараметрыВыполнения.Время + ПараметрыВыполнения.ПериодЗаписи;
+	// Set the next time of transferring information to the client.
+	ExecutionParameters.Time = ExecutionParameters.Time + ExecutionParameters.RecordPeriod;
 	
-	// Проверка что набралось достаточно изменений для передачи информации на клиент.
-	If ПараметрыВыполнения.Номер < ПараметрыВыполнения.СледующийКонтрольныйНомер Then
-		Return; // Не чаще, чем набралось измененных объектов для изменения прогресса на 1 шаг.
+	// Check if there are enough changes to send information to the client.
+	If ExecutionParameters.Number < ExecutionParameters.NextControlNumber Then 
+		Return; // No more often than changed objects are gathered to change the progress by 1 step .
 	EndIf;
-	ШагОповещения = Цел(ПараметрыВыполнения.Всего / 100) + 1;
-	ПараметрыВыполнения.СледующийКонтрольныйНомер = ПараметрыВыполнения.Номер + ШагОповещения;
+	NotificationStep = Int(ExecutionParameters.Total / 100) + 1;
+	ExecutionParameters.NextControlNumber = ExecutionParameters.Number + NotificationStep;
 	
-	// Расчет информации для передачи на клиент.
-
-	Процент = ПараметрыВыполнения.ДостигнутыйПроцент + ПараметрыВыполнения.Диапазон * ПараметрыВыполнения.Номер
-		/ ПараметрыВыполнения.Всего;
+	// Calculate information to transfer it to the client.
 	
-	// Подготовка передаваемых параметров.
-	If ИмяКоллекции = "ПередПоискомПомеченныхНаУдаление" Then
-
-		Текст = НСтр("ru = 'Подготовка к поиску объектов, помеченных на удаление.'");
-
-	ElsIf ИмяКоллекции = "НайтиПомеченныеНаУдаление" Then
-
-		Текст = НСтр("ru = 'Поиск объектов, помеченных на удаление.'");
-
-	ElsIf ИмяКоллекции = "ВсеПомеченныеНаУдаление" Then
-
-		Текст = НСтр("ru = 'Анализ помеченных на удаление.'");
-
-	ElsIf ИмяКоллекции = "ТехнологическиеОбъекты" Then
-
-		Текст = НСтр("ru = 'Подготовка к удалению.'");
-
-	ElsIf ИмяКоллекции = "МонопольноеУдаление" Then
-
-		Текст = НСтр("ru = 'Выполняется удаление объектов.'");
-
-	ElsIf ИмяКоллекции = "ПользовательскиеОбъекты" Then
-
-		НеУдалено = ПараметрыВыполнения.НеУдаленные.Количество();
-		ПредставлениеНомер     = Формат(ПараметрыВыполнения.Номер, "ЧН=0; ЧГ=");
-		ПредставлениеВсего     = Формат(ПараметрыВыполнения.Всего, "ЧН=0; ЧГ=");
-		ПредставлениеНеУдалено = Формат(НеУдалено, "ЧН=0; ЧГ=");
-		If НеУдалено = 0 Then // Переход на СтрШаблон невозможен.
-			Текст = НСтр("ru = 'Удалено: %1 из %2 объектов.'");
-			Текст = СтрШаблон(Текст, ПредставлениеНомер, ПредставлениеВсего);
+	Percent = ExecutionParameters.PercentAchieved
+		+ ExecutionParameters.Range * ExecutionParameters.Number / ExecutionParameters.Total;
+	
+	// Prepare parameters to be passed.
+	If CollectionName = "BeforeSearchForItemsMarkedForDeletion" Then
+		
+		Text = NStr("ru = 'Подготовка к поиску объектов, помеченных на удаление.'; en = 'Preparing to search for objects marked for deletion.'");
+		
+	ElsIf CollectionName = "FindMarkedForDeletion" Then
+		
+		Text = NStr("ru = 'Поиск объектов, помеченных на удаление.'; en = 'Search for objects marked for deletion.'");
+		
+	ElsIf CollectionName = "AllObjectsMarkedForDeletion" Then
+		
+		Text = NStr("ru = 'Анализ помеченных на удаление.'; en = 'Analysis of objects marked for deletion.'");
+		
+	ElsIf CollectionName = "TechnologicalObjects" Then
+		
+		Text = NStr("ru = 'Подготовка к удалению.'; en = 'Prepare for deletion.'");
+		
+	ElsIf CollectionName = "ExclusiveDeletion" Then
+		
+		Text = NStr("ru = 'Выполняется удаление объектов.'; en = 'Deleting objects.'");
+		
+	ElsIf CollectionName = "UserObjects" Then
+		
+		NotDeleted = ExecutionParameters.NotDeletedItems.Count();
+		PresentationNumber     = Format(ExecutionParameters.Number, "NZ=0; NG=");
+		PresentationTotal     = Format(ExecutionParameters.Total, "NZ=0; NG=");
+		PresentationNotDeleted = Format(NotDeleted, "NZ=0; NG=");
+		If NotDeleted = 0 Then // Cannot go to the StrTemplate.
+			Text = NStr("ru = 'Удалено: %1 из %2 объектов.'; en = 'Deleted: %1 of %2 objects.'");
+			Text = StrTemplate(Text, PresentationNumber, PresentationTotal);
 		Else
-			Текст = НСтр("ru = 'Обработано: %1 из %2 объектов, из них не удалено: %3.'");
-			Текст = СтрШаблон(Текст, ПредставлениеНомер, ПредставлениеВсего, ПредставлениеНеУдалено);
+			Text = NStr("ru = 'Обработано: %1 из %2 объектов, из них не удалено: %3.'; en = 'Processed: %1 out of %2 objects; not deleted: %3.'");
+			Text = StrTemplate(Text, PresentationNumber, PresentationTotal, PresentationNotDeleted);
 		EndIf;
-
-	ElsIf ИмяКоллекции = "ПовторноУдаляемые" Then
-
-		Текст = СтрШаблон(
-			НСтр("ru = 'Повторная проверка не удаленных объектов: %1 из %2.'"), Формат(ПараметрыВыполнения.Номер,
-			"ЧН=0; ЧГ="), Формат(ПараметрыВыполнения.Всего, "ЧН=0; ЧГ="));
-
-	ElsIf ИмяКоллекции = "ПрепятствующиеУдалению" Then
-
-		Текст = СтрШаблон(
-			НСтр("ru = 'Анализ объектов, препятствующих удалению: %1 из %2.'"), Формат(ПараметрыВыполнения.Номер,
-			"ЧН=0; ЧГ="), Формат(ПараметрыВыполнения.Всего, "ЧН=0; ЧГ="));
-
+		
+	ElsIf CollectionName = "ToRedelete" Then
+		
+		Text = StrTemplate(
+			NStr("ru = 'Повторная проверка не удаленных объектов: %1 из %2.'; en = 'Recheck not deleted objects: %1 out of %2.'"),
+			Format(ExecutionParameters.Number, "NZ=0; NG="),
+			Format(ExecutionParameters.Total, "NZ=0; NG="));
+		
+	ElsIf CollectionName = "ItemsPreventingDeletion" Then
+		
+		Text = StrTemplate(
+			NStr("ru = 'Анализ объектов, препятствующих удалению: %1 из %2.'; en = 'Analysis of objects that prevent from deletion: %1 out of %2.'"),
+			Format(ExecutionParameters.Number, "NZ=0; NG="),
+			Format(ExecutionParameters.Total, "NZ=0; NG="));
+		
 	Else
-
+		
 		Return;
-
+		
 	EndIf;
 	
-	// Регистрация сообщения для чтения из клиентского сеанса.
-	UT_TimeConsumingOperations.СообщитьПрогресс(Процент, Текст);
+	// Register a message to read it from the client session.
+	TimeConsumingOperations.ReportProgress(Percent, Text);
 EndProcedure
 
 #EndRegion
