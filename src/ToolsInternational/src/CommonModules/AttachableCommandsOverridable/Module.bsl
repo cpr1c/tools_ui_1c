@@ -33,39 +33,39 @@
 
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
-	Command.ID="УИ_ДобавитьКСравнению";
+	Command.ID="UT_AddToComparsion";
 	Command.Presentation="Добавить к сравнению";
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
 	Command.ChangesSelectedObjects=Ложь;
 	Command.MultipleChoice=Истина;
-	Command.Handler = "UT_CommonClient.ДобавитьОбъектыКСравнению";
+	Command.Handler = "UT_CommonClient.AddObjectsToComparsion";
 	Command.Order=1;
 
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
-	Command.ID="УИ_ВыгрузитьОбъектыВXML";
+	Command.ID="UT_UploadObjectsToXML";
 	Command.Presentation="Выгрузить объекты в XML";
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
 	Command.ChangesSelectedObjects=Ложь;
 	Command.MultipleChoice=Истина;
 	Command.Picture=БиблиотекаКартинок.UT_UploadingResult;
-	Command.Handler = "UT_CommonClient.ВыгрузитьОбъектыВXML";
+	Command.Handler = "UT_CommonClient.UploadObjectsToXML";
 	Command.Order=1;
 
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
-	Command.ID="УИ_РедактироватьОбъект";
+	Command.ID="UT_EditObject";
 	Command.Presentation="Редактировать объект";
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
 	Command.ChangesSelectedObjects=Ложь;
 	Command.MultipleChoice=Ложь;
 	Command.Картинка=БиблиотекаКартинок.UT_DatabaseObjectEditor;
-	Command.Handler = "UT_CommonClient.ОбработчикКомандыРедактироватьОбъект";
+	Command.Handler = "UT_CommonClient.EditObjectCommandHandler";
 	Command.Order=2;
 	
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
-	Command.ID="УИ_ПоискСсылокНаОбъект";
+	Command.ID="UT_FindObjectRefs";
 	Command.Presentation="Найти ссылки объект";
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
 	Command.ChangesSelectedObjects=Ложь;

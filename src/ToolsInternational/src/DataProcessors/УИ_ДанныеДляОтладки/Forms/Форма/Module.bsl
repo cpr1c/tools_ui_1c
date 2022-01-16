@@ -5,7 +5,7 @@ Procedure ВыполнитьОтладку(Команда)
 		Возврат;
 	КонецЕсли;
 
-	UT_CommonClient.ЗапуститьКонсольОтладкиПоКлючуНастройкиДанныхОтладки(ТекДанные.КлючНастроек);
+	UT_CommonClient.RunDebugConsoleByDebugDataSettingsKey(ТекДанные.КлючНастроек);
 
 EndProcedure
 

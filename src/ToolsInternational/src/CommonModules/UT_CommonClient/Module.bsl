@@ -490,7 +490,7 @@ EndProcedure
 
 Procedure FormFieldFileNameStartChoiceEndAttachFileSystemExtension(Connected,
 	AdditionalParameters) Export
-	FileChoise = ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла(AdditionalParameters.DialogMode,
+	FileChoise = FileSelectionDialogByDescriptionStructureOfSelectedFile(AdditionalParameters.DialogMode,
 		AdditionalParameters.FileDescriptionStructure);
 	FileChoise.Show(AdditionalParameters.OnEndNotifyDescription);
 EndProcedure
@@ -870,7 +870,7 @@ Procedure AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionConnect
 	If Connected Then
 		SessionFileVariablesStructure=UT_ApplicationParameters[SessionFileVariablesParameterName()];
 		If SessionFileVariablesStructure = Undefined Then
-			ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения(
+			ReadMainSessionFileVariablesToApplicationParameters(
 				New NotifyDescription("AttachFileSystemExtensionWithPossibleInstallationOnEndSessionFileVariablesReading",
 				ЭтотОбъект, AdditionalParameters));
 		Else

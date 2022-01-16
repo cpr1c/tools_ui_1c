@@ -347,7 +347,7 @@ EndFunction
 	
 	//Add кнопку редактирования настроек
 	ButtonDescription=ButtonCommandNewDescription();
-	ButtonDescription.Name=ParameterPrefix + "РедактироватьПараметрыЗаписи";
+	ButtonDescription.Name=ParameterPrefix + "EditWriteSettings";
 	ButtonDescription.CommandName=ButtonDescription.Name;
 	ButtonDescription.ItemParent=FormGroup;
 	ButtonDescription.Title="Другие параметры записи";
