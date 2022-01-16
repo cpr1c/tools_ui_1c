@@ -84,7 +84,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.UT_TextEditingForm</name>
+		<name>CommonForm.УИ_ФормаРедактированияТекста</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -105,7 +105,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.UT_ValueStorageForm</name>
+		<name>CommonForm.УИ_ФормаХранилищаЗначения</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -159,7 +159,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_ObjectsAttributesEditor</name>
+		<name>DataProcessor.УИ_РедакторРеквизитовОбъекта</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -268,7 +268,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.UT_ValueListChoiceItemsForm</name>
+		<name>CommonForm.УИ_ФормаРедактированияСпискаЗначений</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -282,7 +282,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_HTTPRequestConsole</name>
+		<name>DataProcessor.УИ_КонсольHTTPЗапросов</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -322,7 +322,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Report.UT_ReportsConsole</name>
+		<name>Report.УИ_КонсольОтчетов</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -358,7 +358,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
+		<name>DataProcessor.UT_MarkedObjectsDeletion</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -550,7 +550,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_DynamicList</name>
+		<name>DataProcessor.УИ_ДинамическийСписок</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -593,7 +593,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.UT_AdditionalDataProcessorDebugSettings</name>
+		<name>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
