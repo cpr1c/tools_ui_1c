@@ -2043,7 +2043,7 @@
     </title>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_УдалениеПомеченныхОбъектов</types>
+      <types>DataProcessorObject.UT_MarkedObjectsDeletion</types>
     </valueType>
     <view>
       <common>true</common>

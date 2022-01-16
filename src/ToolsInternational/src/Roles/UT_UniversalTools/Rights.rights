@@ -358,7 +358,7 @@
 		</right>
 	</object>
 	<object>
-    <name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
+		<name>DataProcessor.UT_MarkedObjectsDeletion</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

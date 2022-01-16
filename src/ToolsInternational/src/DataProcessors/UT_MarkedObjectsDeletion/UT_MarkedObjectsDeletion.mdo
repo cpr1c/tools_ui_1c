@@ -4,14 +4,14 @@
     <objectType typeId="c43ce1d6-2a12-11ea-8480-e86a6452d1f2" valueTypeId="c43ce1d7-2a12-11ea-8480-e86a6452d1f2"/>
     <managerType typeId="c43ce1e0-2a12-11ea-8480-e86a6452d1f2" valueTypeId="c43ce1e1-2a12-11ea-8480-e86a6452d1f2"/>
   </producedTypes>
-  <name>УИ_УдалениеПомеченныхОбъектов</name>
+  <name>UT_MarkedObjectsDeletion</name>
   <synonym>
     <key>ru</key>
     <value>Удаление помеченных объектов [УИ]</value>
   </synonym>
-  <comment>Поиск и удаление объектов, помеченных на удаление</comment>
+  <comment>Search and delete objects marked for deletion</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_УдалениеПомеченныхОбъектов.Form.Form</defaultForm>
+  <defaultForm>DataProcessor.UT_MarkedObjectsDeletion.Form.Form</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
