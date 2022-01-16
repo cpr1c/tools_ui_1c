@@ -1,6 +1,6 @@
-// Коннектор: удобный HTTP-клиент для 1С:Предприятие 8
+// Connector: handy HTTP-client for 1C:Enterprise 8 platform
 //
-// Copyright 2017-2020 Vladimir Bondarevskiy
+// Copyright 2017-2021 Vladimir Bondarevskiy
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -17,2800 +17,3061 @@
 //
 // URL:    https://github.com/vbondarevsky/Connector
 // e-mail: vbondarevsky@gmail.com
-// Версия: 2.1.3
+// Version: 2.3.1
 //
-// Требования: платформа 1С версии 8.3.10 и выше
+// Requirements: 1C:Enterprise platform version **8.3.10** and higher.
 
-#Область ПрограммныйИнтерфейс
+#Region Public
 
-#Область МетодыHTTP
+#Region HTTPMethods
 
-#Область МетодыОбщегоНазначения
+#Region CommonUseMethods
 
-// Отправляет GET запрос
+// Sends a GET request
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ПараметрыЗапроса - Структура, Соответствие - параметры, которые будут отправлены в URL (часть после ?).
-//                                                См. описание Сессия.ПараметрыЗапроса.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?):
+//     * Key - String - URL parameter key.
+//     * Value - String - URL parameter value
+//                  - Array - makes a string from several parameters: key=value1&key=value2 и т.д.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос. См. описание возвращаемого значения в ВызватьМетод.
+// Returns:
+//   see CallMethod
 //
-Функция Get(URL, ПараметрыЗапроса = Неопределено, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+Function Get(URL, RequestParameters = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, ПараметрыЗапроса, Неопределено, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, "GET", URL, ДополнительныеПараметры);
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, RequestParameters, Undefined, Undefined);
+	Return CallHTTPMethod(CurrentSession, "GET", URL, AdditionalParameters);
+
+EndFunction
+
+// Sends an OPTION request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   see CallMethod
+//
+Function Options(URL, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
+	Return CallHTTPMethod(CurrentSession, "OPTIONS", URL, AdditionalParameters);
+
+EndFunction
+
+// Sends a HEAD request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   see CallMethod
+//
+Function Head(URL, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
+	Return CallHTTPMethod(CurrentSession, "HEAD", URL, AdditionalParameters);
+
+EndFunction
+
+// Sends a POST request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   see CallMethod
+//
+Function Post(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
+	Return CallHTTPMethod(CurrentSession, "POST", URL, AdditionalParameters);
+
+EndFunction
+
+// Sends a PUT request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   see CallMethod
+//
+Function Put(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
+	Return CallHTTPMethod(CurrentSession, "PUT", URL, AdditionalParameters);
+
+EndFunction
+
+// Sends a PATCH request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   see CallMethod
+//
+Function Patch(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
+	Return CallHTTPMethod(CurrentSession, "PATCH", URL, AdditionalParameters);
+
+EndFunction
+
+// Sends a DELETE request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Data - Structure, Map, String, BinaryData - see details in AdditionalParameters.Data.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   see CallMethod
+//
+Function Delete(URL, Data = Undefined, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Data, Undefined);
+	Return CallHTTPMethod(CurrentSession, "DELETE", URL, AdditionalParameters);
+
+EndFunction
+
+#EndRegion
+
+#Region SimplifiedMethodsForJSONRequests
+
+// Sends a GET request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?).
+//     see details in Session.RequestParameters.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters.
+//
+Function GetJson(URL,
+				RequestParameters = Undefined,
+				AdditionalParameters = Undefined,
+				Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, RequestParameters, Undefined, Undefined);
+	JSONConversionParameters =
+		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "GET", URL, AdditionalParameters), JSONConversionParameters);
+
+EndFunction
+
+// Sends a POST request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Json - Structure, Map - data to serialize into JSON.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters
+//
+Function PostJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	JSONConversionParameters =
+		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "POST", URL, AdditionalParameters), JSONConversionParameters);
+
+EndFunction
+
+// Sends a PUT request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Json - Structure, Map - data to serialize into JSON.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters
+//
+Function PutJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	JSONConversionParameters =
+		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "PUT", URL, AdditionalParameters), JSONConversionParameters);
+
+EndFunction
+
+// Sends a DELETE request
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//   Json - Structure, Map - data to serialize into JSON.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
+//
+// Returns:
+//   Map, Structure - deserialized response from JSON.
+//     Conversion parameters see in AdditionalParameters.JSONConversionParameters
+//
+Function DeleteJson(URL, Json, AdditionalParameters = Undefined, Session = Undefined) Export
+
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Json);
+	JSONConversionParameters =
+		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
+	Return AsJson(CallHTTPMethod(CurrentSession, "DELETE", URL, AdditionalParameters), JSONConversionParameters);
+
+EndFunction
+
+#EndRegion
+
+// Additional parameters constructor
+//
+// Returns:
+//  Structure - Allows you to set additional parameters.:
+//    * Headers - Map - see details in Session.Headers.
+//    * Authentication - Structure - see details in Session.Authentication
+//    * Proxy - InternetProxy - see details in Session.Proxy.
+//    * RequestParameters - Structure, Map - see details in Session.RequestParameters.
+//    * VerifySSL - Boolean - see details in Session.VerifySSL.
+//    * ClientSSLCertificate - FileClientCertificate, WindowsClientCertificate - Default value: Undefined.
+//    * Cookies - Array - see details in Session.Cookies.
+//    * Timeout - Number - connections and operations timeout, in seconds.
+//        Default value - 30 sec.
+//    * AllowRedirect - Boolean - True - redirects are allowed automatically.
+//                                          False - a single request will be sent to the host.
+//    * Json - Structure, Map - data to serialize into JSON.
+//    * JSONConversionParameters - Structure - sets JSON conversion parameters:
+//        ** ReadToMap - Boolean - If True, JSON object will be read in Map, otherwise in Structure.
+//        ** JSONDateFormat - JSONDateFormat - Sets the date serialization format.
+//        ** PropertiesNamesWithDateValues -  String, Array of Strings - JSON properties names,
+//             For the specified properties date restoration from string will be called.
+//    * JSONWriterSettings - JSONWriterSettings - Defines a set of parameters used for JSON writing..
+//    * Data - String, BinaryData - arnitrary data to send in a request. 
+//             - Structure, Map - form fields to send in a request:
+//                 ** Key - String - field name.
+//                 ** Value - String - field value.
+//    * Files - see NewFileToSend, Array from NewFileToSend - files to send
+//    * MaximumNumberOfRetries - Number - Number of connection/request sending retries.
+//        Delay duration between attempts grows exponentially.
+//        But, if the status code is one of 413, 429, 503
+//        and response has the Retry-After header,
+//        delay duration value is taken from this header value
+//        Default value: 0 - no retries.
+//    * MaximumTimeOfRetries - Number - max. total time (in seconds) of sending request and retries.
+//        Default value: 600.
+//    * ExponentialDelayRatio - Number - exponential delay factor.
+//        1 forms the delays sequence: 1, 2, 4, 8 и т.д.
+//        2 forms the delays sequence: 2, 4, 8, 16 и т.д.
+//        ...
+//        Default value: 1.
+//    * ToRetryForStatusesCodes - Undefined - retries will run for status codes >= 500.
+//                                 - Array - retries will run for specific status codes.
+//        Default value: Undefined.
+//
+Function NewParameters() Export
+
+	Parameters = New Structure;
+	Parameters.Insert("Headers", New Map);
+	Parameters.Insert("Authentication", Undefined);
+	Parameters.Insert("Proxy", Undefined);
+	Parameters.Insert("RequestParameters", Undefined);
+	Parameters.Insert("VerifySSL", True);
+	Parameters.Insert("ClientSSLCertificate", Undefined);
+	Parameters.Insert("Cookies", New Map);
+	Parameters.Insert("Timeout", TimeoutByDefault());
+	Parameters.Insert("AllowRedirect", True);
+	Parameters.Insert("Json", Undefined);
+	Parameters.Insert("JSONConversionParameters", New Structure);
+	Parameters.Insert("Data", Undefined);
+	Parameters.Insert("Files", New Array);
+	Parameters.Insert("MaximumNumberOfRetries", 0);
+	Parameters.Insert("MaximumTimeOfRetries", 600);
+	Parameters.Insert("ExponentialDelayRatio", 1);
+	Parameters.Insert("ToRetryForStatusesCodes", Undefined);
 	
-КонецФункции
+	Return Parameters;
 
-// Отправляет OPTIONS запрос
+EndFunction
+
+// A constructor of a submitting file description
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
+// Parameters:
+//   Name - String - form field name.
+//   FileName - String - file name.
+//   Data - BinaryData - file binary data.
+//   Type - String - file MIME-type
 //
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос. См. описание возвращаемого значения в ВызватьМетод.
+// Returns:
+//  Structure:
+//    * Name - String - form field name.
+//    * FileName - String - file name.
+//    * Data - BinaryData - file binary data.
+//    * Type - String - file MIME-type.
+//    * Headers - Map - HTTP request headers.
 //
-Функция Options(URL, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+Function NewFileToSend(Name, FileName, Data = Undefined, Type = Undefined) Export
 	
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Неопределено, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, "OPTIONS", URL, ДополнительныеПараметры);
+	File = New Structure;
+	File.Insert("Name", Name);
+	File.Insert("FileName", FileName);
+	File.Insert("Data", ?(Data = Undefined, Base64Value(""), Data));
+	File.Insert("Type", Type);
+	File.Insert("Headers", New Map);
 	
-КонецФункции
-
-// Отправляет HEAD запрос
-//
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос. См. описание возвращаемого значения в ВызватьМетод.
-//
-Функция Head(URL, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+	Return File;
 	
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Неопределено, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, "HEAD", URL, ДополнительныеПараметры);
-	
-КонецФункции
+EndFunction
 
-// Отправляет POST запрос
+// Sends data to a specific URL with a specific HTTP verb.
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
+// Parameters:
+//   Method - String - HTTP request verb name.
+//   URL - String - HTTP URL to send the request to.
+//   AdditionalParameters - see NewParameters
+//   Session - see NewSession
 //
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос. См. описание возвращаемого значения в ВызватьМетод.
+// Returns:
+//   Structure - a response for the executed request:
+//     * ExecutionTime - Number - execution response duration in milliseconds.
+//     * Cookies - Map - cookies received from host.
+//     * Headers - Map - HTTP response headers.
+//     * IsPermanentRedirect - Boolean - permanent redirect flag.
+//     * IsRedirect - Boolean - redirect flag.
+//     * Encoding - String - response text encoding.
+//     * Body - BinaryData - response body.
+//     * StatusCode - Number - response status code.
+//     * URL - String - final request URL.
 //
-Функция Post(URL, Данные = Неопределено, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
-	
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Данные, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, "POST", URL, ДополнительныеПараметры);
+Function CallMethod(Method, URL, AdditionalParameters = Undefined, Session = Undefined) Export
 
-КонецФункции
+	CurrentSession = CurrentSession(Session);
+	FillAdditionalData(AdditionalParameters, Undefined, Undefined, Undefined);
+	Return CallHTTPMethod(CurrentSession, Method, URL, AdditionalParameters);
 
-// Отправляет PUT запрос
-//
-// Параметры:
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос. См. описание возвращаемого значения в ВызватьМетод.
-//
-Функция Put(URL, Данные = Неопределено, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+EndFunction
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Данные, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, "PUT", URL, ДополнительныеПараметры);
-	
-КонецФункции
+// Session constructor.
+//
+// Returns:
+//  Structure - session parameters:
+//    * Headers - Map - HTTP request headers.
+//    * Authentication - Structure - request authentication parameters.
+//          ** UseOSAuthentication - Boolean - Contains the current value of NTLM or Negotiate authentication use.
+//                                                   Default value: False.
+//          ** Type - String - authentication type. The Basic type can be omitted.
+//       If Type = Digest or Basic:
+//          ** User - String - user name.
+//          ** Password - String - user password.
+//       If Type = AWS4-HMAC-SHA256:
+//          ** AccessKeyID - String - Access key ID.
+//          ** SecretKey - String - secret key.
+//          ** Service - String - service to be connected.
+//          ** Region - String - region to be connected.
+//    * Proxy - InternetProxy - proxy parameters to send request.
+//        Default value: Undefined. If your configuration based on `SSL`,
+//        proxy settings will be taken from `SSL` by default.
+//    * RequestParameters - Structure, Map - URL parameters to append to the URL (a part after ?):
+//        * Key - String - URL parameter key.
+//        * Value - String - URL parameter value
+//                     - Array - makes a string from several parameters: key=value1&key=value2 etc.
+//    * VerifySSL - Boolean - False - If it is not specified, the server certificate is not verified.
+//                            - True - the value OSCertificationAuthorityCertificates is used.
+//                   - FileCertificationAuthorityCertificates - see FileCertificationAuthorityCertificates.
+//        Default value: True.
+//    * ClientSSLCertificate - FileClientCertificate, WindowsClientCertificate - Default value: Undefined.
+//    * MaximumNumberOfRedirects - Number - max. number of redirections. Looping protection.
+//        Default value: 30
+//    * Cookies - Map - cookies set.
+//
+Function NewSession() Export
 
-// Отправляет PATCH запрос
-//
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос. См. описание возвращаемого значения в ВызватьМетод.
-//
-Функция Patch(URL, Данные = Неопределено, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+	Session = New Structure;
+	Session.Insert("Headers", DefaultHeaders());
+	Session.Insert("Authentication", Undefined);
+	Session.Insert("Proxy", Undefined);
+	Session.Insert("RequestParameters", New Structure);
+	Session.Insert("VerifySSL", True);
+	Session.Insert("ClientSSLCertificate", Undefined);
+	Session.Insert("MaximumNumberOfRedirects", MaximumNumberOfRedirects());
+	Session.Insert("Cookies", New Map);
+	Session.Insert("ServiceData", New Structure("DigestParameters"));
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Данные, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, "PATCH", URL, ДополнительныеПараметры);
-	
-КонецФункции
+	Return Session;
 
-// Отправляет DELETE запрос
-//
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Данные - Структура, Соответствие, Строка, ДвоичныеДанные - см. описание ДополнительныеПараметры.Данные.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос. См. описание возвращаемого значения в ВызватьМетод.
-//
-Функция Delete(URL, Данные = Неопределено, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+EndFunction
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Данные, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, "DELETE", URL, ДополнительныеПараметры);
-	
-КонецФункции
+#EndRegion
 
-#КонецОбласти
+#Region ResponsesFormats
 
-#Область УпрощенныеМетодыДляРаботыСЗапросамиВФорматеJSON
+// Returns host response as deserialized JSON value.
+//
+// Parameters:
+//   Response - see CallMethod
+//   JSONConversionParameters - Structure - sets JSON conversion parameters.
+//     * ReadToMap - Boolean - If True, JSON object will be read in Map, otherwise in Structure.
+//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
+//     * PropertiesNamesWithDateValues -  Array, String - JSON properties names,
+//          For the specified properties date restoration from string will be called.
+//
+// Returns:
+//   Map - host response as JSON deserialized value.
+//     If ConversionParameters.ReadToMap = True (by default).
+//   Structure - If ConversionParameters.ReadToMap = False.
+//
+Function AsJson(Response, JSONConversionParameters = Undefined) Export
 
-// Отправляет GET запрос
-//
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ПараметрыЗапроса - Структура, Соответствие - параметры, которые будут отправлены в URL (часть после ?).
-//                                                См. описание Сессия.ПараметрыЗапроса.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON. 
-//                             Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON.
-//
-Функция GetJson(URL, ПараметрыЗапроса = Неопределено, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+	Try
+		Return JsonToObject(UnpackResponse(Response), Response.Encoding, JSONConversionParameters);
+	Except
+		ResponseAsText = AsText(Response);
+		ExceptionTextMaxLength = 1000;
+		If StrLen(ResponseAsText) <= ExceptionTextMaxLength Then
+			ExceptionText = ResponseAsText;
+		Else
+			HalfOfExceptionTextMaxLength = ExceptionTextMaxLength / 2;
+			ExceptionText = Left(ResponseAsText, HalfOfExceptionTextMaxLength);
+			ExceptionText = ExceptionText + Chars.LF + "..." + Chars.LF;
+			ExceptionText = ExceptionText + Прав(ResponseAsText, HalfOfExceptionTextMaxLength);
+		EndIf;
+		Raise ExceptionText;
+	EndTry;
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, ПараметрыЗапроса, Неопределено, Неопределено);
-	ПараметрыПреобразованияJSON = 
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "ПараметрыПреобразованияJSON", Неопределено);
-	Возврат КакJson(ВызватьHTTPМетод(ТекущаяСессия, "GET", URL, ДополнительныеПараметры), ПараметрыПреобразованияJSON);
-	
-КонецФункции
+EndFunction
 
-// Отправляет POST запрос
+// Returns host response as text.
 //
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Json - Структура, Соответствие - данные, которые необходимо сериализовать в JSON.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
+// Parameters:
+//   Response - see CallMethod
+//   Encoding - String, TextEncoding - contains text encoding.
+//     If value is empty, the encoding is taken from Response.Encoding.
 //
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON. 
-//                             Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON 
+// Returns:
+//   String - host response as text.
 //
-Функция PostJson(URL, Json, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
-	
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Неопределено, Json);
-	ПараметрыПреобразованияJSON = 
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "ПараметрыПреобразованияJSON", Неопределено);
-	Возврат КакJson(ВызватьHTTPМетод(ТекущаяСессия, "POST", URL, ДополнительныеПараметры), ПараметрыПреобразованияJSON);
+Function AsText(Response, Encoding = Undefined) Export
 
-КонецФункции
+	If Not ValueIsFilled(Encoding) Then
+		Encoding = Response.Encoding;
+	EndIf;
 
-// Отправляет PUT запрос
-//
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Json - Структура, Соответствие - данные, которые необходимо сериализовать в JSON.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON. 
-//                             Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON 
-//
-Функция PutJson(URL, Json, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+	TextReader = New TextReader(UnpackResponse(Response).OpenStreamForRead(), Encoding);
+	Text = TextReader.Read();
+	TextReader.Close();
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Неопределено, Json);
-	ПараметрыПреобразованияJSON = 
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "ПараметрыПреобразованияJSON", Неопределено);
-	Возврат КакJson(ВызватьHTTPМетод(ТекущаяСессия, "PUT", URL, ДополнительныеПараметры), ПараметрыПреобразованияJSON);
-	
-КонецФункции
+	If Text = Undefined Then
+		Text = "";
+	EndIf;
 
-// Отправляет DELETE запрос
-//
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   Json - Структура, Соответствие - данные, которые необходимо сериализовать в JSON.
-//   ДополнительныеПараметры - Структура - см. описание параметра в ВызватьМетод.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Соответствие, Структура - ответ, десериализованный из JSON. 
-//                             Параметры преобразования см. ДополнительныеПараметры.ПараметрыПреобразованияJSON 
-// 
-Функция DeleteJson(URL, Json, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт
+	Return Text;
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Неопределено, Json);
-	ПараметрыПреобразованияJSON = 
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "ПараметрыПреобразованияJSON", Неопределено);
-	Возврат КакJson(ВызватьHTTPМетод(ТекущаяСессия, "DELETE", URL, ДополнительныеПараметры), ПараметрыПреобразованияJSON);
-	
-КонецФункции
+EndFunction
 
-#КонецОбласти
+// Returns host response as binary data.
+//
+// Parameters:
+//   Response - see CallMethod
+//
+// Returns:
+//   String - host response as binary data.
+//
+Function AsBinaryData(Response) Export
 
-// Отправляет данные на указанный адрес для обработки с использованием указанного HTTP-метода.
-//
-// Параметры:
-//   Метод - Строка - имя HTTP-метода для запроса.
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//   ДополнительныеПараметры - Структура - позволяет задать дополнительные параметры:
-//      *Заголовки - Соответствие - см. описание Сессия.Заголовки.
-//      *Аутентификация - Структура - см. описание Сессия.Аутентификация
-//      *Прокси - ИнтернетПрокси - см. описание Сессия.Прокси.
-//      *ПараметрыЗапроса - Структура, Соответствие - см. описание Сессия.ПараметрыЗапроса.
-//      *ПроверятьSSL - Булево - см. описание Сессия.ПроверятьSSL.
-//      *КлиентскийСертификатSSL - см. описание Сессия.КлиентскийСертификатSSL.
-//      *Cookies - Массив - см. описание Сессия.Cookies.
-//      *Таймаут - Число - время ожидания осуществляемого соединения и операций, в секундах.
-//                 Значение по умолчанию - 30 сек.
-//      *РазрешитьПеренаправление - Булево - Истина - редиректы будут автоматически разрешены.
-//                                           Ложь - будет выполнен только один запрос к серверу.
-//      *Json - Структура, Соответствие - данные, которые необходимо сериализовать в JSON.
-//      *ПараметрыПреобразованияJSON - Структура - задает параметры преобразования JSON:
-//          **ПрочитатьВСоответствие - Булево - Если Истина, чтение объекта JSON будет выполнено в Соответствие.
-//                                              Если Ложь, объекты будут считываться в объект типа Структура.
-//          **ФорматДатыJSON - ФорматДатыJSON - формат, в котором представлена дата в строке,
-//                             подлежащей преобразованию. 
-//          **ИменаСвойствСоЗначениямиДата -  Массив, Строка - имена свойств JSON,
-//                                            для которых нужно вызывать восстановление даты из строки.
-//      *ПараметрыЗаписиJSON - Структура - параметры, используемые при записи объекта JSON.
-//                                         См. в синтаксис-помощнике описание ПараметрыЗаписиJSON.
-//      *Данные - Структура, Соответствие - поля формы, которые необходимо отправить в запрос:
-//          **<Ключ> - Строка - имя поля.
-//          **<Значение> - Строка - значение поля.
-//              - Строка, ДвоичныеДанные - произвольные данные, которые необходимо отправить в запросе.
-//      *Файлы - Структура, Массив - файлы, которые необходимо отправить в запросе:
-//          **Имя - Строка - имя поля формы.
-//          **Данные - ДвоичныеДанные - двоичные данные файла.
-//          **ИмяФайла - Строка - имя файла.
-//          **Тип - Строка - MIME-тип файла.
-//          **Заголовки - Соответствие, Неопределено - HTTP заголовки запроса.
-//      *МаксимальноеКоличествоПовторов - Число - количество повторных попыток соединения/отправки запроса.
-//                                        Между попытками выполняется задержка, растущая по экспоненте.
-//                                        Но если код состояния один из 413, 429, 503
-//                                        и в ответе есть заголовок Retry-After,
-//                                        то время задержки формируется из значения этого заголовка
-//                                        Значение по умолчанию: 0 - повторы не выполняются.
-//      *МаксимальноеВремяПовторов - Число - максимальное общее время (в секундах) отправки запроса с учетом повторов.
-//                                   Значение по умолчанию: 600.
-//      *КоэффициентЭкспоненциальнойЗадержки - Число - коэффициент изменения экспоненциальной задержки.
-//                                             1 формирует последовательность задержек: 1, 2, 4, 8 и т.д.
-//                                             2 формируется последовательность задержек: 2, 4, 8, 16 и т.д.
-//                                             ...
-//                                             Значение по умолчанию: 1.
-//      *ПовторятьДляКодовСостояний - Неопределено - повторы будут выполняться для кодов состояний >= 500.
-//                                  - Массив - повторы будут выполняться для конкретных кодов состояний.
-//                                    Значение по умолчанию: Неопределено.
-//   Сессия - Структура - см. возвращаемое значение функции СоздатьСессию.
-//
-// Возвращаемое значение:
-//   Структура - ответ на выполненный запрос:
-//      *ВремяВыполнения - Число - время выполнения запроса в миллисекундах.
-//      *Cookies - Соответствие - cookies полученные с сервера.
-//      *Заголовки - Соответствие - HTTP заголовки ответа.
-//      *ЭтоПостоянныйРедирект - Булево - признак постоянного редиректа.
-//      *ЭтоРедирект - Булево - признак редиректа.
-//      *Кодировка - Строка - кодировка текста ответа.
-//      *Тело - ДвоичныеДанные - тело ответа.
-//      *КодСостояния - Число - код состояния ответа.
-//      *URL - Строка - итоговый URL, по которому был выполнен запрос.
-//
-Функция ВызватьМетод(Метод, URL, ДополнительныеПараметры = Неопределено, Сессия = Неопределено) Экспорт 
+	Return UnpackResponse(Response);
 
-	ТекущаяСессия = ТекущаяСессия(Сессия);
-	ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, Неопределено, Неопределено, Неопределено);
-	Возврат ВызватьHTTPМетод(ТекущаяСессия, Метод, URL, ДополнительныеПараметры);
-	
-КонецФункции
+EndFunction
 
-// Создает объект для хранения параметров сессии.
+// Returns host response as XDTO.
 //
-// Возвращаемое значение:
-//   Структура - параметры сессии:
-//      *Заголовки - Соответствие - HTTP заголовки запроса.
-//      *Аутентификация - Структура - параметры аутентификации запроса.
-//          *ИспользоватьАутентификациюОС - Булево - включает использование аутентификации NTLM или Negotiate.
-//                                                   Значение по умолчанию: Ложь.
-//          *Тип - Строка - тип аутентификации. Для Basic Тип можно не указывать.
-//       Если Тип = Digest или Basic: 
-//          *Пользователь - Строка - имя пользователя.
-//          *Пароль - Строка - пароль пользователя.
-//       Если Тип = AWS4-HMAC-SHA256:
-//          *ИдентификаторКлючаДоступа - Строка - идентификатор ключа доступа.
-//          *СекретныйКлюч - Строка - секретный ключ.
-//          *Сервис - Строка - сервис, к которому выполняется подключение.
-//          *Регион - Строка - регион, к которому выполняется подключение.
-//      *Прокси - ИнтернетПрокси - параметры прокси, которые будут использованы при отправке запроса.
-//                Значение по умолчанию: Неопределено. При этом если в конфигурации используется БСП, 
-//                                                     то значения прокси будет взято из БСП.
-//      *ПараметрыЗапроса - Структура, Соответствие - параметры, которые будут отправлены в URL (часть после ?):
-//          *<Ключ> - Строка - ключ параметра в URL.
-//          *<Значение> - Строка - значение параметра URL
-//                      - Массив - сформирует строку из нескольких параметров: key=value1&key=value2 и т.д.
-//      *ПроверятьSSL - Булево - Ложь - проверка сертификата сервера не выполняется.
-//                             - Истина - используется значение СертификатыУдостоверяющихЦентровОС. 
-//                    - СертификатыУдостоверяющихЦентровФайл - см. в синтаксис-помощнике описание
-//                                                             СертификатыУдостоверяющихЦентровФайл.
-//                      Значение по умолчанию: Истина.
-//      *КлиентскийСертификатSSL - СертификатКлиентаФайл - см. в синтаксис-помощнике описание СертификатКлиентаФайл.
-//                               - СертификатКлиентаWindows - см. в синтаксис-помощнике описание
-//                                                            СертификатКлиентаWindows.
-//                                 Значение по умолчанию: Неопределено.
-//      *МаксимальноеКоличествоПеренаправлений - Число - максимальное количество редиректов. Защита от зацикливания.
-//                                               Значение по умолчанию:
-//                                               см. функцию МаксимальноеКоличествоПеренаправлений 
-//      *Cookies - Соответствие - хранилище cookies.
+// Parameters:
+//   Response - see CallMethod
+//   XMLReaderSettings - XMLReaderSettings - Parameters for reading XML data
+//     See details of the method XMLReader.OpenStream in the Syntax Assistant
+//   XMLSchemaSet - XMLSchemaSet - An XML schema set used for validation of the document being read.
+//     If a schema set is speficied but not validated and XML document validation is enabled, the schema set is validated.
+//     See details of the method XMLReader.OpenStream in the Syntax Assistant
+//   Encoding - String, TextEncoding - Contains the input stream encoding.
+//     See details of the method XMLReader.OpenStream in the Syntax Assistant
 //
-Функция СоздатьСессию() Экспорт
-	
-	Сессия = Новый Структура;
-	Сессия.Вставить("Заголовки", ЗаголовкиПоУмолчанию());
-	Сессия.Вставить("Аутентификация", Неопределено);
-	Сессия.Вставить("Прокси", Неопределено);
-	Сессия.Вставить("ПараметрыЗапроса", Новый Структура);
-	Сессия.Вставить("ПроверятьSSL", Истина);
-	Сессия.Вставить("КлиентскийСертификатSSL", Неопределено);
-	Сессия.Вставить("МаксимальноеКоличествоПеренаправлений", МаксимальноеКоличествоПеренаправлений());
-	Сессия.Вставить("Cookies", Новый Соответствие);
-	Сессия.Вставить("СлужебныеДанные", Новый Структура("ПараметрыDigest"));
-	
-	Возврат Сессия;
-	
-КонецФункции
+// Returns:
+//   XDTOObject, XDTOList - Return value can have any type that supports serialization to XDTO.
+//
+Function AsXDTO(Response,
+				XMLReaderSettings = Undefined,
+				XMLSchemaSet = Undefined,
+				Encoding = Undefined) Export
 
-#КонецОбласти
+	BinaryData = UnpackResponse(Response);
+	StreamForRead = BinaryData.OpenStreamForRead();
 
-#Область ФорматыОтветов
+	If Not ValueIsFilled(Encoding) Then
+		Encoding = Response.Encoding;
+	EndIf;
 
-// Возвращает ответ сервера в виде десериализованного значения JSON.
-//
-// Параметры:
-//   Ответ - Структура - ответ сервера на отправленный запрос. 
-//                      См. описание возвращаемого значения ВызватьМетод.
-//   ПараметрыПреобразованияJSON - Структура - задает параметры преобразования JSON.
-//      *ПрочитатьВСоответствие - Булево - Если Истина, чтение объекта JSON будет выполнено в Соответствие.
-//                                         Если Ложь, объекты будут считываться в объект типа Структура.
-//      *ФорматДатыJSON - ФорматДатыJSON - формат, в котором представлена дата в строке, подлежащей преобразованию. 
-//      *ИменаСвойствСоЗначениямиДата -  Массив, Строка - имена свойств JSON,
-//                                       для которых нужно вызывать восстановление даты из строки.
-// 
-// Возвращаемое значение:
-//   Соответствие - ответ сервера в виде десериализованного значения JSON.
-//                  Если ПараметрыПреобразования.ПрочитатьВСоответствие = Истина (по умолчанию).
-//   Структура - если ПараметрыПреобразования.ПрочитатьВСоответствие = Ложь. 
-//
-Функция КакJson(Ответ, ПараметрыПреобразованияJSON = Неопределено) Экспорт
-	
-	Возврат JsonВОбъект(РаспаковатьОтвет(Ответ), Ответ.Кодировка, ПараметрыПреобразованияJSON);
-	
-КонецФункции
+	XMLReader = New XMLReader;
+	XMLReader.OpenStream(StreamForRead, XMLReaderSettings, XMLSchemaSet, Encoding);
 
-// Возвращает ответ сервера в виде текста.
-//
-// Параметры:
-//   Ответ - Структура - ответ сервера на отправленный запрос. 
-//                       См. описание возвращаемого значения ВызватьМетод.
-//   Кодировка - Строка, КодировкаТекста - определяет кодировку текста.
-//                                         Если значение не задано, то кодировка извлекается из Ответ.Кодировка.
-// 
-// Возвращаемое значение:
-//   Строка - ответ сервера в виде текста. 
-//
-Функция КакТекст(Ответ, Кодировка = Неопределено) Экспорт
-	
-	Если Не ЗначениеЗаполнено(Кодировка) Тогда
-		Кодировка = Ответ.Кодировка;
-	КонецЕсли;
-	
-	ЧтениеТекста = Новый ЧтениеТекста(РаспаковатьОтвет(Ответ).ОткрытьПотокДляЧтения(), Кодировка);
-	Текст = ЧтениеТекста.Прочитать();
-	ЧтениеТекста.Закрыть();
-	
-	Если Текст = Неопределено Тогда
-		Текст = "";
-	КонецЕсли;
-	
-	Возврат Текст;
-	
-КонецФункции
+	XDTOObject = XDTOFactory.ReadXML(XMLReader);
 
-// Возвращает ответ сервера в двоичных данных.
-//
-// Параметры:
-//   Ответ - Структура - ответ сервера на отправленный запрос. 
-//                       См. описание возвращаемого значения ВызватьМетод.
-//
-// Возвращаемое значение:
-//   Строка - ответ сервера в виде двоичных данных. 
-//
-Функция КакДвоичныеДанные(Ответ) Экспорт
-	
-	Возврат РаспаковатьОтвет(Ответ);
-	
-КонецФункции
+	Return XDTOObject;
 
-#КонецОбласти
+EndFunction
 
-#Область ВспомогательныеФункции
+#EndRegion
 
-// Возвращает структурированное представление URL.
-//
-// Параметры:
-//   URL - Строка - URL ресурса, к которому будет отправлен запрос.
-//
-// Возвращаемое значение:
-//   Структура - структура URL:
-//      *Схема - Строка - схема обращения к серверу (http, https).
-//      *Аутентификация - Структура - параметры аутентификации:
-//          *Пользователь - Строка - имя пользователя.
-//          *Пароль - Строка - пароль пользователя.
-//      *Сервер - Строка - адрес сервера.
-//      *Порт - Число - порт сервера.
-//      *Путь - Строка - адрес ресурса на сервере.
-//      *ПараметрыЗапроса - Соответствие - параметры запроса передаваемые на сервер в URL (часть после ?):
-//          *<Ключ> - Строка - ключ параметра в URL.
-//          *<Значение> - Строка - значение параметра URL;
-//                      - Массив - значения параметра (key=value1&key=value2).
-//      *Фрагмент - Строка - часть URL после #. 
-//
-Функция РазобратьURL(Знач URL) Экспорт
+#Region SupportingMethods
 
-	Схема = "";
-	Путь = "";
-	Аутентификация = Новый Структура("Пользователь, Пароль", "", "");
-	Сервер = "";
-	Порт = "";
-	Фрагмент = "";
-	
-	ДопустимыеСхемы = СтрРазделить("http,https", ",");
-	
-	URLБезСхемы = URL;
-	РазбитьСтрокуПоРазделителю(Схема, URLБезСхемы, "://");
-	Если ДопустимыеСхемы.Найти(НРег(Схема)) <> Неопределено Тогда
-		URL = URLБезСхемы;
-	Иначе
-		Схема = "";
-	КонецЕсли;
-	
-	Результат = РазделитьПоПервомуНайденномуРазделителю(URL, СтрРазделить("/,?,#", ","));
-	URL = Результат[0];
-	Если ЗначениеЗаполнено(Результат[2]) Тогда
-		Путь = Результат[2] + Результат[1];
-	КонецЕсли;
-	
-	АутентификацияСтрока = "";
-	РазбитьСтрокуПоРазделителю(АутентификацияСтрока, URL, "@");
-	Если ЗначениеЗаполнено(АутентификацияСтрока) Тогда
-		АутентификацияЧасти = СтрРазделить(АутентификацияСтрока, ":");
-		Аутентификация.Пользователь = АутентификацияЧасти[0];
-		Аутентификация.Пароль       = АутентификацияЧасти[1];
-	КонецЕсли;
+// Returns a structured URL presentation.
+//
+// Parameters:
+//   URL - String - HTTP URL to send the request to.
+//
+// Returns:
+//   Structure - Structure URL:
+//     * Scheme - String - access server scheme (http, https).
+//     * Authentification - Structure - authentification parameters:
+//         ** User - String - user name.
+//         ** Password - String - user password.
+//     * Host - String - host address.
+//     * Port - Number - host port.
+//     * Path - String - адрес ресурса на сервере.
+//     * RequestParameters - Map - URL parameters to append to the URL (a part after ?):
+//         ** Key - String - URL parameter key.
+//         ** Value - String - URL parameter value;
+//                       - Array - parameter's values (key=value1&key=value2).
+//     * Fragment - String - a part of URL after #.
+//
+Function ParseURL(Val URL) Export
+
+	Scheme = "";
+	Path = "";
+	Authentication = New Structure("User, Password", "", "");
+	Host = "";
+	Port = "";
+	Fragment = "";
+
+	ValidSchemes = StrSplit("http,https", ",");
+
+	URLWithoutScheme = URL;
+	SplitStringByDelimiter(Scheme, URLWithoutScheme, "://");
+	If ValidSchemes.Find(Lower(Scheme)) <> Undefined Then
+		URL = URLWithoutScheme;
+	Else
+		Scheme = "";
+	EndIf;
+
+	Result = SplitByFirstFoundDelimiter(URL, StrSplit("/,?,#", ","));
+	URL = Result[0];
+	If ValueIsFilled(Result[2]) Then
+		Path = Result[2] + Result[1];
+	EndIf;
+
+	AuthString = "";
+	SplitStringByDelimiter(AuthString, URL, "@");
+	If ValueIsFilled(AuthString) Then
+		AuthParts = StrSplit(AuthString, ":");
+		Authentication.User = AuthParts[0];
+		If AuthParts.Count() > 1 Then
+			Authentication.Password = AuthParts[1];
+		EndIf;
+	EndIf;
 
 	// IPv6
-	РазбитьСтрокуПоРазделителю(Сервер, URL, "]");
-	Если ЗначениеЗаполнено(Сервер) Тогда
-		Сервер = Сервер + "]";
-	КонецЕсли;
-	
-	URL = СтрЗаменить(URL, "/", "");
-	
-	РазбитьСтрокуПоРазделителю(Порт, URL, ":", Истина);
-	
-	Если Не ЗначениеЗаполнено(Сервер) Тогда
-		Сервер = URL;
-	КонецЕсли;
-	
-	Если ЗначениеЗаполнено(Порт) Тогда 
-		Порт = Число(Порт);
-	Иначе
-		Порт = 0;
-	КонецЕсли;
-	
-	РазбитьСтрокуПоРазделителю(Фрагмент, Путь, "#", Истина);
-	
-	ПараметрыЗапроса = ЗаполнитьПараметрыЗапроса(Путь);
-	
-	Если Не ЗначениеЗаполнено(Схема) Тогда
-		Схема = "http";
-	КонецЕсли;
-	Путь = ?(ЗначениеЗаполнено(Путь), Путь, "/");
-	
-	Результат = Новый Структура;
-	Результат.Вставить("Схема", Схема);
-	Результат.Вставить("Аутентификация", Аутентификация);
-	Результат.Вставить("Сервер", Сервер);
-	Результат.Вставить("Порт", Порт);
-	Результат.Вставить("Путь", Путь);
-	Результат.Вставить("ПараметрыЗапроса", ПараметрыЗапроса);
-	Результат.Вставить("Фрагмент", Фрагмент);
+	SplitStringByDelimiter(Host, URL, "]");
+	If ValueIsFilled(Host) Then
+		Host = Host + "]";
+	EndIf;
 
-	Возврат Результат;
-	
-КонецФункции
+	URL = StrReplace(URL, "/", "");
 
-// Преобразование Объекта в JSON.
+	SplitStringByDelimiter(Port, URL, ":", True);
+
+	If Not ValueIsFilled(Host) Then
+		Host = URL;
+	EndIf;
+
+	If ValueIsFilled(Port) Then
+		Port = Number(Port);
+	Else
+		Port = 0;
+	EndIf;
+
+	SplitStringByDelimiter(Fragment, Path, "#", True);
+
+	RequestParameters = FillRequestParameters(Path);
+
+	If Not ValueIsFilled(Scheme) Then
+		Scheme = "http";
+	EndIf;
+
+	If Not ValueIsFilled(Path) Then
+		Path = "/";
+	EndIf;
+
+	Result = New Structure;
+	Result.Insert("Scheme", Scheme);
+	Result.Insert("Authentication", Authentication);
+	Result.Insert("Host", Host);
+	Result.Insert("Port", Port);
+	Result.Insert("Path", Path);
+	Result.Insert("RequestParameters", RequestParameters);
+	Result.Insert("Fragment", Fragment);
+
+	Return Result;
+
+EndFunction
+
+// Converts Object into JSON.
 //
-// Параметры:
-//   Объект - Произвольный - данные, которые необходимо преобразовать в JSON.
-//   ПараметрыПреобразования - Структура - кодировка текста JSON. Значение по умолчанию - utf-8.
-//      *ФорматДатыJSON - ФорматДатыJSON - определяет формат сериализации дат JSON-объектов.
-//   ПараметрыЗаписи - Структура - параметры преобразования JSON:
-//      *ПереносСтрок - ПереносСтрокJSON - определяет способ переноса строк,
-//                      который будет использован при записи данных JSON.
-//      *СимволыОтступа - Строка - определяет символы отступа, используемые при записи данных JSON.
-//      *ИспользоватьДвойныеКавычки - Булево - определяет, будут ли при записи имена свойств JSON
-//                                    записываться в двойных кавычках.
-//      *ЭкранированиеСимволов - ЭкранированиеСимволовJSON - определяет используемый способ экранирования (замены)
-//                               символов при записи данных JSON.
-//      *ЭкранироватьУгловыеСкобки - Булево - определяет, будут ли при записи экранироваться символы "<" и ">".
-//      *ЭкранироватьРазделителиСтрок - Булево - определяет, будут ли экранироваться разделители строк
-//                                      U+2028 (line-separator) и U+2029 (page-separator).
-//      *ЭкранироватьАмперсанд - Булево - определяет, будет ли при записи экранироваться символ амперсанда "&".
-//      *ЭкранироватьОдинарныеКавычки - Булево - определяет, будут ли экранироваться одинарные кавычки.
-//      *ЭкранироватьСлеш - Булево - определяет, будет ли экранироваться слеш (косая черта) при записи значения.
-// 
-// Возвращаемое значение:
-//   Строка - объект в формате JSON. 
+// Parameters:
+//   Object - Arbitrary - data to convert into JSON.
+//   ConversionParameters - Structure.
+//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
+//     * JSONDateWritingVariant - JSONDateWritingVariant - Specifies JSON date writing options.
+//     * ConvertionFunctionName - String - This function is called for all properties if their types
+//         do not support direct conversion to JSON format.
+//         Function should be exported and must have the following parameters:
+//           ** Property - String - Name of property is transferred into the parameter if the structure
+//                or mapping is written.
+//           ** Value - String - The source value is transferred into the parameter.
+//           ** AdditionalParameters - Arbitrary - Additional parameters specified in the call to the
+//                WriteJSON method.
+//           ** Cancel - Boolean - Cancels the property write operation.
+//         Function return value:
+//           Arbitrary - conversion result.
+//     * ConvertionFunctionModule - Arbitrary - Specifies the module, in which the JSON conversion function is implemented.
+//     * ConvertionFunctionAdditionalParameters - Arbitrary - Additional parameters to be transferred to the conversion function.
+//   WriterSettings - Structure - JSON conversion parameters:
+//     * NewLines - JSONLineBreak - Manages the setting of the start and the end of the objects and arrays,
+//         keys and values in a new string.
+//     * PaddingSymbols - String - Specifies the indent characters used when writing a JSON document.
+//     * UseDoubleQuotes - Boolean - Specifies to use double quotes when writing the JSON properties and values.
+//     * EscapeCharacters - JSONCharactersEscapeMode - Specifies the character screening method when writing
+//         a JSON document.
+//     * EscapeAngleBrackets - Boolean - Specifies if the angle brackets characters will be screened when
+//         writing a JSON document.
+//     * EscapeLineTerminators - Boolean - Specifies screening of the characters "U+2028" (string separator)
+//         and "U+2029" (paragraph separator) for JavaScript compatibility.
+//     * EscapeAmpersand - Boolean - Specifies if the ampersand character will be screened when writing a JSON document.
+//     * EscapeSingleQuotes - Boolean - Specifies if the single quotes character will be screened when writing a JSON document.
+//     * EscapeSlash - Boolean - Defines whether slash is screened while writing a value.
 //
-Функция ОбъектВJson(Объект, Знач ПараметрыПреобразования = Неопределено, Знач ПараметрыЗаписи = Неопределено) Экспорт
-	
-	ПараметрыПреобразованияJSON = ДополнитьПараметрыПреобразованияJSON(ПараметрыПреобразования);
-	
-	НастройкиСериализации = Новый НастройкиСериализацииJSON;
-	НастройкиСериализации.ФорматСериализацииДаты = ПараметрыПреобразованияJSON.ФорматДатыJSON;
-	
-	ПараметрыЗаписи = ДополнитьПараметрыЗаписиJSON(ПараметрыЗаписи);
-	
-	ПараметрыЗаписиJSON = Новый ПараметрыЗаписиJSON(
-		ПараметрыЗаписи.ПереносСтрок,
-		ПараметрыЗаписи.СимволыОтступа,
-		ПараметрыЗаписи.ИспользоватьДвойныеКавычки,
-		ПараметрыЗаписи.ЭкранированиеСимволов,
-		ПараметрыЗаписи.ЭкранироватьУгловыеСкобки,
-		ПараметрыЗаписи.ЭкранироватьРазделителиСтрок,
-		ПараметрыЗаписи.ЭкранироватьАмперсанд,
-		ПараметрыЗаписи.ЭкранироватьОдинарныеКавычки,
-		ПараметрыЗаписи.ЭкранироватьСлеш);
-	
-	ЗаписьJSON = Новый ЗаписьJSON;
-	ЗаписьJSON.УстановитьСтроку(ПараметрыЗаписиJSON);
-	ЗаписатьJSON(ЗаписьJSON, Объект, НастройкиСериализации);
-	
-	Возврат ЗаписьJSON.Закрыть();
-	
-КонецФункции
-
-// Преобразование JSON в Объект.
+// Returns:
+//   String - object in JSON format.
 //
-// Параметры:
-//   Json - Поток, ДвоичныеДанные, Строка - данные в формате JSON.
-//   Кодировка - Строка - кодировка текста JSON. Значение по умолчанию - utf-8.
-//   ПараметрыПреобразования - Структура - параметры преобразования JSON:
-//      *ПрочитатьВСоответствие - Булево - если Истина, чтение объекта JSON будет выполнено в Соответствие,
-//                                         иначе в Структура.
-//      *ИменаСвойствСоЗначениямиДата - Массив, Строка, ФиксированныйМассив - имена свойств JSON,
-//                                      для которых нужно вызывать восстановление даты из строки.
-//      *ФорматДатыJSON - ФорматДатыJSON - определяет формат десериализации дат JSON-объектов.
-// 
-// Возвращаемое значение:
-//   Произвольный - значение, десериализованное из JSON. 
+Function ObjectToJson(Object, Val ConversionParameters = Undefined, Val WriterSettings = Undefined) Export
+
+	JSONConversionParameters = SupplementJSONConversionParameters(ConversionParameters);
+
+	SerializerSettings = New JSONSerializerSettings;
+	SerializerSettings.DateSerializationFormat = JSONConversionParameters.JSONDateFormat;
+	SerializerSettings.DateWritingVariant = JSONConversionParameters.JSONDateWritingVariant;
+
+	WriterSettings = SupplementJSONWriterSettings(WriterSettings);
+
+	JSONWriterSettings = New JSONWriterSettings(
+		WriterSettings.NewLines,
+		WriterSettings.PaddingSymbols,
+		WriterSettings.UseDoubleQuotes,
+		WriterSettings.EscapeCharacters,
+		WriterSettings.EscapeAngleBrackets,
+		WriterSettings.EscapeLineTerminators,
+		WriterSettings.EscapeAmpersand,
+		WriterSettings.EscapeSingleQuotes,
+		WriterSettings.EscapeSlash);
+
+	JSONWriter = New JSONWriter;
+	JSONWriter.SetString(JSONWriterSettings);
+
+	If JSONConversionParameters.ConvertionFunctionName <> Undefined
+		And JSONConversionParameters.ConvertionFunctionModule <> Undefined Then
+		WriteJSON(JSONWriter, Object, SerializerSettings,
+			JSONConversionParameters.ConvertionFunctionName,
+			JSONConversionParameters.ConvertionFunctionModule,
+			JSONConversionParameters.ConvertionFunctionAdditionalParameters);
+	Else
+		WriteJSON(JSONWriter, Object, SerializerSettings);
+	EndIf;
+
+	Return JSONWriter.Close();
+
+EndFunction
+
+// Converts JSON into Object.
 //
-Функция JsonВОбъект(Json, Кодировка = "utf-8", ПараметрыПреобразования = Неопределено) Экспорт
-	
-	ПараметрыПреобразованияJSON = ДополнитьПараметрыПреобразованияJSON(ПараметрыПреобразования);
-	
-	ЧтениеJSON = Новый ЧтениеJSON;
-	Если ТипЗнч(Json) = Тип("ДвоичныеДанные") Тогда
-		ЧтениеJSON.ОткрытьПоток(Json.ОткрытьПотокДляЧтения(), Кодировка);
-	ИначеЕсли ТипЗнч(Json) = Тип("Строка") Тогда
-		ЧтениеJSON.УстановитьСтроку(Json);
-	Иначе
-		ЧтениеJSON.ОткрытьПоток(Json, Кодировка);
-	КонецЕсли;
-	Объект = ПрочитатьJSON(
-		ЧтениеJSON, 
-		ПараметрыПреобразованияJSON.ПрочитатьВСоответствие,
-		ПараметрыПреобразованияJSON.ИменаСвойствСоЗначениямиДата,
-		ПараметрыПреобразованияJSON.ФорматДатыJSON);
-	ЧтениеJSON.Закрыть();
-	
-	Возврат Объект;
-
-КонецФункции
-
-// Вычисляет HMAC (hash-based message authentication code).
+// Parameters:
+//   Json - Stream, BinaryData, String - JSON data.
+//   Encoding - String - JSON text encoding. Default value - utf-8.
+//   ConversionParameters - Structure - JSON conversion parameters:
+//     * ReadToMap - Boolean - If True, JSON object will be read in Map,
+//                                         otherwise in Structure.
+//     * PropertiesNamesWithDateValues - Array, String, FixedArray - JSON properties names,
+//             For the specified properties date restoration from string will be called.
+//     * JSONDateFormat - JSONDateFormat - Specifies a deserialization format of dates of the JSON objects.
 //
-// Параметры:
-//   Ключ - ДвоичныеДанные - секретный ключ.
-//   Данные - ДвоичныеДанные - данные, для которых нужно посчитать HMAC.
-//   Алгоритм - ХешФункция - алгоритм, используемый для вычисления хеша.
+// Returns:
+//   Arbitrary - deserialized value from JSON.
 //
-// Возвращаемое значение:
-//   ДвоичныеДанные - вычисленное значение HMAC. 
+Function JsonToObject(Json, Encoding = "utf-8", ConversionParameters = Undefined) Export
+
+	JSONConversionParameters = SupplementJSONConversionParameters(ConversionParameters);
+
+	JSONReader = New JSONReader;
+	If TypeOf(Json) = Type("BinaryData") Then
+		JSONReader.OpenStream(Json.OpenStreamForRead(), Encoding);
+	ElsIf TypeOf(Json) = Type("String") Then
+		JSONReader.SetString(Json);
+	Else
+		JSONReader.OpenStream(Json, Encoding);
+	EndIf;
+	Object = ReadJSON(
+		JSONReader,
+		JSONConversionParameters.ReadToMap,
+		JSONConversionParameters.PropertiesNamesWithDateValues,
+		JSONConversionParameters.JSONDateFormat);
+	JSONReader.Close();
+
+	Return Object;
+
+EndFunction
+
+// Calculates HMAC (hash-based message authentication code).
 //
-Функция HMAC(Ключ, Данные, Алгоритм) Экспорт
-	
-	ДлинаБлока = 64;
-	
-	Если Ключ.Размер() > ДлинаБлока Тогда
-		Хеширование = Новый ХешированиеДанных(Алгоритм);
-		Хеширование.Добавить(Ключ);
-		
-		КлючБуфер = ПолучитьБуферДвоичныхДанныхИзДвоичныхДанных(Хеширование.ХешСумма);
-	Иначе
-		КлючБуфер = ПолучитьБуферДвоичныхДанныхИзДвоичныхДанных(Ключ);
-	КонецЕсли;
-	
-	ИзмененныйКлюч = Новый БуферДвоичныхДанных(ДлинаБлока);
-	ИзмененныйКлюч.Записать(0, КлючБуфер);
-	
-	ВнутреннийКлюч = ИзмененныйКлюч.Скопировать();
-	ВнешнийКлюч = ИзмененныйКлюч;
-	
-	ВнутреннееВыравнивание = Новый БуферДвоичныхДанных(ДлинаБлока);
-	ВнешнееВыравнивание = Новый БуферДвоичныхДанных(ДлинаБлока);
-	Для Индекс = 0 По ДлинаБлока - 1 Цикл
-		ВнутреннееВыравнивание.Установить(Индекс, 54);
-		ВнешнееВыравнивание.Установить(Индекс, 92);
-	КонецЦикла;
-	
-	ВнутреннееХеширование = Новый ХешированиеДанных(Алгоритм);
-	ВнешнееХеширование = Новый ХешированиеДанных(Алгоритм);
-	
-	ВнутреннийКлюч.ЗаписатьПобитовоеИсключительноеИли(0, ВнутреннееВыравнивание);
-	ВнешнийКлюч.ЗаписатьПобитовоеИсключительноеИли(0, ВнешнееВыравнивание);
-	
-	ВнешнееХеширование.Добавить(ПолучитьДвоичныеДанныеИзБуфераДвоичныхДанных(ВнешнийКлюч));
-	ВнутреннееХеширование.Добавить(ПолучитьДвоичныеДанныеИзБуфераДвоичныхДанных(ВнутреннийКлюч));
-	
-	Если ЗначениеЗаполнено(Данные) Тогда
-		ВнутреннееХеширование.Добавить(Данные);
-	КонецЕсли;
-	
-	ВнешнееХеширование.Добавить(ВнутреннееХеширование.ХешСумма);
-	
-	Возврат ВнешнееХеширование.ХешСумма;
-
-КонецФункции
-
-// Возвращает структуру именованных кодов состояний HTTP.
+// Parameters:
+//   Key - BinaryData - secret key.
+//   Data - BinaryData - data to calculate HMAC.
+//   Algorithm - HashFunction - Defines method for calculating the hash-sum.
 //
-// Возвращаемое значение:
-//   Структура - именованные коды состояний HTTP.
+// Returns:
+//   BinaryData - calculated HMAC value.
 //
-Функция КодыСостоянияHTTP() Экспорт
+Function HMAC(Key_, Data, Algorithm) Export
 
-	КодыСостояния = Новый Структура;
-	КодыСостояния.Вставить("ОК_200", 200);
-	КодыСостояния.Вставить("Принято_202", 202);
-	КодыСостояния.Вставить("ПеремещеноНавсегда_301", 301);
-	КодыСостояния.Вставить("ПеремещеноВременно_302", 302);
-	КодыСостояния.Вставить("СмотретьДругое_303", 303);
-	КодыСостояния.Вставить("ВременноеПеренаправление_307", 307);
-	КодыСостояния.Вставить("ПостоянноеПеренаправление_308", 308);
-	КодыСостояния.Вставить("НеверныйЗапрос_400", 400);
-	КодыСостояния.Вставить("НеАвторизован_401", 401);
-	КодыСостояния.Вставить("НеобходимаОплата_402", 402);
-	КодыСостояния.Вставить("Запрещено_403", 403);
-	КодыСостояния.Вставить("ПолезнаяНагрузкаСлишкомВелика_413", 413);
-	КодыСостояния.Вставить("СлишкомМногоЗапросов_429", 429);
-	КодыСостояния.Вставить("ВнутренняяОшибкаСервера_500", 500);
-	КодыСостояния.Вставить("ОшибочныйШлюз_502", 502);
-	КодыСостояния.Вставить("СервисНедоступен_503", 503);
-	КодыСостояния.Вставить("ШлюзНеОтвечает_504", 504);
-	
-	Возврат КодыСостояния;
+	BlockSize = 64;
 
-КонецФункции
+	If Key_.Size() > BlockSize Then
+		Hashing = New DataHashing(Algorithm);
+		Hashing.Append(Key_);
 
-// Выполняет чтение данных из архива GZip.
+		BufferKey = GetBinaryDataBufferFromBinaryData(Hashing.HashSum);
+	Else
+		BufferKey = GetBinaryDataBufferFromBinaryData(Key_);
+	EndIf;
+
+	ModifiedKey = New BinaryDataBuffer(BlockSize);
+	ModifiedKey.Write(0, BufferKey);
+
+	InternalKey = ModifiedKey.Copy();
+	ExternalKey = ModifiedKey;
+
+	InternalAlignment = New BinaryDataBuffer(BlockSize);
+	ExternalAlignment = New BinaryDataBuffer(BlockSize);
+	For Index = 0 To BlockSize - 1 Do
+		InternalAlignment.Set(Index, 54);
+		ExternalAlignment.Set(Index, 92);
+	EndDo;
+
+	InternalHashing = New DataHashing(Algorithm);
+	ExternalHashing = New DataHashing(Algorithm);
+
+	InternalKey.WriteBitwiseXor(0, InternalAlignment);
+	ExternalKey.WriteBitwiseXor(0, ExternalAlignment);
+
+	ExternalHashing.Append(GetBinaryDataFromBinaryDataBuffer(ExternalKey));
+	InternalHashing.Append(GetBinaryDataFromBinaryDataBuffer(InternalKey));
+
+	If ValueIsFilled(Data) Then
+		InternalHashing.Append(Data);
+	EndIf;
+
+	ExternalHashing.Append(InternalHashing.HashSum);
+
+	Return ExternalHashing.HashSum;
+
+EndFunction
+
+// Returns the structure of the named HTTP status codes.
 //
-// Параметры:
-//   СжатыеДанные - ДвоичныеДанные - данные упакованные GZip.
+// Returns:
+//   Structure - named HTTP status codes.
 //
-// Возвращаемое значение:
-//   ДвоичныеДанные - распакованные данные. 
+Function HTTPStatusCodes() Export
+
+	StatusCodes = New Structure;
+	For Each Description In HTTPStatusesCodesDescriptions() Do
+		StatusCodes.Insert(Description.Key, Description.Code);
+	EndDo;
+
+	Return StatusCodes;
+
+EndFunction
+
+// Returns a text presentation of HTTP status code.
 //
-Функция ПрочитатьGZip(СжатыеДанные) Экспорт
-	
-	РазмерПрефиксаGZip = 10;
-	РазмерПостфиксаGZip = 8;
-	
-	ЧтениеДанных = Новый ЧтениеДанных(СжатыеДанные);
-	ЧтениеДанных.Пропустить(РазмерПрефиксаGZip);
-	РазмерСжатыхДанных = ЧтениеДанных.ИсходныйПоток().Размер() - РазмерПрефиксаGZip - РазмерПостфиксаGZip; 
-	
-	ПотокZip = Новый ПотокВПамяти(ZipРазмерLFH() + РазмерСжатыхДанных + ZipРазмерDD() + ZipРазмерCDH() + ZipРазмерEOCD());
-	ЗаписьДанных = Новый ЗаписьДанных(ПотокZip);
-	ЗаписьДанных.ЗаписатьБуферДвоичныхДанных(ZipLFH());
-	ЧтениеДанных.КопироватьВ(ЗаписьДанных, РазмерСжатыхДанных);
-	
-	ЗаписьДанных.Закрыть();
-	ЗаписьДанных = Новый ЗаписьДанных(ПотокZip);
-	
-	CRC32 = ЧтениеДанных.ПрочитатьЦелое32();
-	РазмерНесжатыхДанных = ЧтениеДанных.ПрочитатьЦелое32();
-	ЧтениеДанных.Закрыть();
-	
-	ЗаписьДанных.ЗаписатьБуферДвоичныхДанных(ZipDD(CRC32, РазмерСжатыхДанных, РазмерНесжатыхДанных));
-	ЗаписьДанных.ЗаписатьБуферДвоичныхДанных(ZipCDH(CRC32, РазмерСжатыхДанных, РазмерНесжатыхДанных));
-	ЗаписьДанных.ЗаписатьБуферДвоичныхДанных(ZipEOCD(РазмерСжатыхДанных));
-	ЗаписьДанных.Закрыть();
-		
-	Возврат ПрочитатьZip(ПотокZip);
-	
-КонецФункции
-
-// Выполняет запись данных в архив GZip.
+// Parameters:
+//   StatusCode - Number - HTTP status code to get a text presentation.
 //
-// Параметры:
-//   Данные - ДвоичныеДанные - исходные данные.
+// Returns:
+//   String - HTTP status code as text presentation.
 //
-// Возвращаемое значение:
-//   ДвоичныеДанные - данные упакованные GZip.
+Function HTTPStatusCodePresentation(StatusCode) Export
+
+	StatusCodeDescription = Undefined;
+	For Each Description In HTTPStatusesCodesDescriptions() Do
+		If Description.Code = StatusCode Then
+			StatusCodeDescription = Description;
+			Break;
+		EndIf;
+	EndDo;
+
+	If StatusCodeDescription = Undefined Then
+		Raise(StrTemplate(НСтр("ru = 'Неизвестный код состояния HTTP: %1'; en = 'Неизвестный код состояния HTTP: %1'"), StatusCode));
+	Else
+		Return StrTemplate("%1: %2", StatusCodeDescription.Code, StatusCodeDescription.Description);
+	EndIf;
+
+EndFunction
+
+// Reads data from a GZip archive.
 //
-Функция ЗаписатьGZip(Данные) Экспорт
+// Parameters:
+//   CompressedData - BinaryData - data packed into GZip.
+//
+// Returns:
+//   BinaryData - unpacked data.
+//
+Function ReadGZip(CompressedData) Export
 
-	ЧтениеДанных = Новый ЧтениеДанных(ЗаписатьZip(Данные));
+	GZipPrefixSize = 10;
+	GZipPostfixSize = 8;
 
-	НачальноеСмещение = 14;
-	ЧтениеДанных.Пропустить(НачальноеСмещение);
-	CRC32 = ЧтениеДанных.ПрочитатьЦелое32();
+	DataReader = New DataReader(CompressedData);
+	DataReader.Skip(GZipPrefixSize);
+	CompressedDataSize = DataReader.SourceStream().Size() - GZipPrefixSize - GZipPostfixSize;
 
-	РазмерСжатыхДанных = ЧтениеДанных.ПрочитатьЦелое32();
-	РазмерИсходныхДанных = ЧтениеДанных.ПрочитатьЦелое32();
-	
-	РазмерИмениФайла = ЧтениеДанных.ПрочитатьЦелое16();
-	РазмерДополнительногоПоля = ЧтениеДанных.ПрочитатьЦелое16();
-	ЧтениеДанных.Пропустить(РазмерИмениФайла + РазмерДополнительногоПоля);
+	ZipStream = New MemoryStream(ZipLFHSize() + CompressedDataSize + ZipDDSize() + ZipCDHSize() + ZipEOCDSize());
+	DataWriter = New DataWriter(ZipStream);
+	DataWriter.WriteBinaryDataBuffer(ZipLFH());
+	DataReader.CopyTo(DataWriter, CompressedDataSize);
 
-	ПотокGZip = Новый ПотокВПамяти;
-	ЗаписьДанных = Новый ЗаписьДанных(ПотокGZip);
-	ЗаписьДанных.ЗаписатьБуферДвоичныхДанных(GZipHeader());
-	ЧтениеДанных.КопироватьВ(ЗаписьДанных, РазмерСжатыхДанных);
-	ЗаписьДанных.Закрыть();
-	ЗаписьДанных = Новый ЗаписьДанных(ПотокGZip);
+	DataWriter.Close();
+	DataWriter = New DataWriter(ZipStream);
 
-	ЗаписьДанных.ЗаписатьБуферДвоичныхДанных(GZipFooter(CRC32, РазмерИсходныхДанных));
+	CRC32 = DataReader.ReadInt32();
+	UncompressedDataSize = DataReader.ReadInt32();
+	DataReader.Close();
 
-	Возврат ПотокGZip.ЗакрытьИПолучитьДвоичныеДанные();
+	DataWriter.WriteBinaryDataBuffer(ZipDD(CRC32, CompressedDataSize, UncompressedDataSize));
+	DataWriter.WriteBinaryDataBuffer(ZipCDH(CRC32, CompressedDataSize, UncompressedDataSize));
+	DataWriter.WriteBinaryDataBuffer(ZipEOCD(CompressedDataSize));
+	DataWriter.Close();
 
-КонецФункции
+	Return ReadZip(ZipStream);
 
-#КонецОбласти
+EndFunction
 
-#КонецОбласти
+// Writes data to GZip archive.
+//
+// Parameters:
+//   Data - BinaryData - initial data.
+//
+// Returns:
+//   BinaryData - data packed into GZip.
+//
+Function WriteGZip(Data) Export
 
-#Область СлужебныйПрограммныйИнтерфейс
+	DataReader = New DataReader(WriteZip(Data));
 
-Функция ПодготовитьЗапрос(Сессия, Метод, URL, ДополнительныеПараметры) Экспорт
-	
-	Cookies = ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "Cookies", Новый Массив);
-	Cookies = ОбъединитьCookies(ДозаполнитьCookie(Сессия.Cookies, URL), ДозаполнитьCookie(Cookies, URL));
-	
-	АутентификацияИзДополнительныхПараметров =
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "Аутентификация", Новый Структура);
-	ПараметрыЗапросаИзДополнительныхПараметров =
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "ПараметрыЗапроса", Новый Структура);
-	ЗаголовкиИзДополнительныхПараметров =
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "Заголовки", Новый Соответствие);
+	InitialOffset = 14;
+	DataReader.Skip(InitialOffset);
+	CRC32 = DataReader.ReadInt32();
 
-	Аутентификация = ОбъединитьПараметрыАутентификации(АутентификацияИзДополнительныхПараметров, Сессия.Аутентификация);
-	ПараметрыЗапроса = ОбъединитьПараметрыЗапроса(ПараметрыЗапросаИзДополнительныхПараметров, Сессия.ПараметрыЗапроса);
-	Заголовки = ОбъединитьЗаголовки(ЗаголовкиИзДополнительныхПараметров, Сессия.Заголовки);
-	ПараметрыПреобразованияJSON = 
-		ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "ПараметрыПреобразованияJSON", Неопределено);
-		
-	ПодготовленныйЗапрос = Новый Структура;
-	ПодготовленныйЗапрос.Вставить("Cookies", Cookies);
-	ПодготовленныйЗапрос.Вставить("Аутентификация", Аутентификация);
-	ПодготовленныйЗапрос.Вставить("Метод", Метод);
-	ПодготовленныйЗапрос.Вставить("Заголовки", Заголовки);
-	ПодготовленныйЗапрос.Вставить("ПараметрыЗапроса", ПараметрыЗапроса);
-	ПодготовленныйЗапрос.Вставить("URL", ПодготовитьURL(URL, ПараметрыЗапроса));
-	ПодготовленныйЗапрос.Вставить("ПараметрыПреобразованияJSON", ПараметрыПреобразованияJSON);
-	
-	ПодготовитьCookies(ПодготовленныйЗапрос);
+	CompressedDataSize = DataReader.ReadInt32();
+	SourceDataSize = DataReader.ReadInt32();
 
-	Данные = ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "Данные", Новый Структура);
-	Файлы = ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "Файлы", Новый Массив);
-	Json = ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "Json", Неопределено);
-	ПараметрыЗаписиJSON = ВыбратьЗначение(Неопределено, ДополнительныеПараметры, "ПараметрыЗаписиJSON", Неопределено);
+	FileNameSize = DataReader.ReadInt16();
+	AdditionalFieldSize = DataReader.ReadInt16();
+	DataReader.Skip(FileNameSize + AdditionalFieldSize);
 
-	ПодготовитьТелоЗапроса(ПодготовленныйЗапрос, Данные, Файлы, Json, ПараметрыЗаписиJSON);
-	ПодготовитьАутентификацию(ПодготовленныйЗапрос);
+	GZipStream = New MemoryStream;
+	DataWriter = New DataWriter(GZipStream);
+	DataWriter.WriteBinaryDataBuffer(GZipHeader());
+	DataReader.CopyTo(DataWriter, CompressedDataSize);
+	DataWriter.Close();
+	DataWriter = New DataWriter(GZipStream);
 
-	Возврат ПодготовленныйЗапрос;
-	
-КонецФункции
+	DataWriter.WriteBinaryDataBuffer(GZipFooter(CRC32, SourceDataSize));
 
-#КонецОбласти
+	Return GZipStream.CloseAndGetBinaryData();
 
-#Область СлужебныеПроцедурыИФункции
+EndFunction
 
-Функция ЭтоКодСостоянияПриКоторомНужноУчитыватьЗаголовокRetryAfter(КодСостояния)
+#EndRegion
 
-	Коды = КодыСостоянияHTTP();
-	Возврат КодСостояния = Коды.ПолезнаяНагрузкаСлишкомВелика_413
-		ИЛИ КодСостояния = Коды.СлишкомМногоЗапросов_429
-		ИЛИ КодСостояния = Коды.СервисНедоступен_503;
+#EndRegion
 
-КонецФункции
+#Region Protected
 
-Функция ЧислоИзСтроки(Знач Строка) Экспорт
+Function PrepareRequest(Session, Method, URL, AdditionalParameters) Export
 
-	ОписаниеТипа = Новый ОписаниеТипов("Число");
-	Возврат ОписаниеТипа.ПривестиЗначение(Строка);
+	Cookies = SelectValue(Undefined, AdditionalParameters, "Cookies", New Array);
+	Cookies = MergeCookies(RefillCookie(Session.Cookies, URL), RefillCookie(Cookies, URL));
 
-КонецФункции
+	AuthenticationFromAdditionalParameters =
+		SelectValue(Undefined, AdditionalParameters, "Authentication", New Structure);
+	RequestParametersFromAdditionalParameters =
+		SelectValue(Undefined, AdditionalParameters, "RequestParameters", New Structure);
+	HeadersFromAdditionalParameters =
+		SelectValue(Undefined, AdditionalParameters, "Headers", New Map);
 
-Функция ДатаИзСтроки(Знач Строка) Экспорт
+	Authentication = MergeAuthenticationParameters(AuthenticationFromAdditionalParameters, Session.Authentication);
+	RequestParameters = MergeRequestParameters(RequestParametersFromAdditionalParameters, Session.RequestParameters);
+	Headers = MergeHeaders(HeadersFromAdditionalParameters, Session.Headers);
+	JSONConversionParameters =
+		SelectValue(Undefined, AdditionalParameters, "JSONConversionParameters", Undefined);
 
-	КвалификаторДаты = Новый КвалификаторыДаты(ЧастиДаты.ДатаВремя);
-	ОписаниеТипа = Новый ОписаниеТипов("Дата", Неопределено, Неопределено, КвалификаторДаты);
-	Возврат ОписаниеТипа.ПривестиЗначение(Строка);
+	PreparedRequest = New Structure;
+	PreparedRequest.Insert("Cookies", Cookies);
+	PreparedRequest.Insert("Authentication", Authentication);
+	PreparedRequest.Insert("Method", Method);
+	PreparedRequest.Insert("Headers", Headers);
+	PreparedRequest.Insert("RequestParameters", RequestParameters);
+	PreparedRequest.Insert("URL", PrepareURL(URL, RequestParameters));
+	PreparedRequest.Insert("JSONConversionParameters", JSONConversionParameters);
 
-КонецФункции
+	PrepareCookies(PreparedRequest);
 
-Функция ДатаИзСтрокиRFC7231(Знач Строка) Экспорт
-	
-	Разделители = ",-:/\.";
-	Для Индекс = 1 По СтрДлина(Разделители) Цикл
-		Разделитель = Сред(Разделители, Индекс, 1);
-		Строка = СтрЗаменить(Строка, Разделитель, " ");
-	КонецЦикла;
-	Строка = СтрЗаменить(Строка, "  ", " ");
-	СоставляющиеДаты = СтрРазделить(Строка, " ");
-	МесяцСтр = СоставляющиеДаты[2];
+	Data = SelectValue(Undefined, AdditionalParameters, "Data", New Structure);
+	Files = SelectValue(Undefined, AdditionalParameters, "Files", New Array);
+	Json = SelectValue(Undefined, AdditionalParameters, "Json", Undefined);
+	JSONWriterSettings = SelectValue(Undefined, AdditionalParameters, "JSONWriterSettings", Undefined);
 
-	Месяцы = СтрРазделить("Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", ",");
-	Месяц = Месяцы.Найти(МесяцСтр);
-	Если Месяц = Неопределено Тогда
-		Возврат '00010101';
-	КонецЕсли;
-	
-	Дата = СоставляющиеДаты[3] + Формат(Месяц + 1, "ЧЦ=2; ЧВН=;") + СоставляющиеДаты[1];
-	Время = СоставляющиеДаты[4] + СоставляющиеДаты[5] + СоставляющиеДаты[6];
+	PrepareRequestBody(PreparedRequest, Data, Files, Json, JSONWriterSettings);
+	PrepareAuthentication(PreparedRequest);
 
-	Возврат ДатаИзСтроки(Дата + Время);
- 
-КонецФункции
+	Return PreparedRequest;
 
-Функция ВызватьHTTPМетод(Сессия, Метод, URL, ДополнительныеПараметры)
-	
-	КодыСостоянияHTTP = КодыСостоянияHTTP();
-	
-	ПодготовленныйЗапрос = ПодготовитьЗапрос(Сессия, Метод, URL, ДополнительныеПараметры);
-	
-	НастройкиПодключения = ПолучитьНастройкиПодключения(Метод, URL, ДополнительныеПараметры);
-	
-	Ответ = ОтправитьЗапрос(Сессия, ПодготовленныйЗапрос, НастройкиПодключения);
-	
-	Перенаправление = 0;
-	Пока Перенаправление < Сессия.МаксимальноеКоличествоПеренаправлений Цикл
-		Если Не НастройкиПодключения.РазрешитьПеренаправление ИЛИ Не Ответ.ЭтоРедирект Тогда
-			Возврат Ответ;
-		КонецЕсли;
-		
-		НовыйURL = СформироватьНовыйURLПриПеренаправлении(Ответ);
+EndFunction
 
-		ПодготовленныйЗапрос.URL = КодироватьСтроку(НовыйURL, СпособКодированияСтроки.URLВКодировкеURL);
-		НовыйHTTPЗапрос = Новый HTTPЗапрос(СобратьАдресРесурса(РазобратьURL(НовыйURL), Неопределено));
-		ПереопределитьМетод(ПодготовленныйЗапрос, Ответ);
-			
-		Если Ответ.КодСостояния <> КодыСостоянияHTTP.ВременноеПеренаправление_307 
-			И Ответ.КодСостояния <> КодыСостоянияHTTP.ПостоянноеПеренаправление_308 Тогда
-			УдалитьЗаголовки(ПодготовленныйЗапрос.Заголовки, "content-length,content-type,transfer-encoding");
-			НовыйHTTPЗапрос.Заголовки = ПодготовленныйЗапрос.Заголовки;
-		Иначе
-			ИсходныйПоток = ПодготовленныйЗапрос.HTTPЗапрос.ПолучитьТелоКакПоток();
-			ИсходныйПоток.КопироватьВ(НовыйHTTPЗапрос.ПолучитьТелоКакПоток());
-		КонецЕсли;
-		ПодготовленныйЗапрос.HTTPЗапрос = НовыйHTTPЗапрос;
-		УдалитьЗаголовки(ПодготовленныйЗапрос.Заголовки, "cookies");
+#EndRegion
 
-		ПодготовленныйЗапрос.Cookies = ОбъединитьCookies(Сессия.Cookies, ПодготовленныйЗапрос.Cookies);
-		ПодготовитьCookies(ПодготовленныйЗапрос);
-		
+#Region Private
+
+Function IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(StatusCode)
+
+	Codes = HTTPStatusCodes();
+	Return StatusCode = Codes.PayloadTooLarge_413
+		Or StatusCode = Codes.TooManyRequests_429
+		Or StatusCode = Codes.ServiceUnavailable_503;
+
+EndFunction
+
+Function NumberFromString(Val String) Export
+
+	ATypeDescription = New TypeDescription("Number");
+	Return ATypeDescription.AdjustValue(String);
+
+EndFunction
+
+Function DateFromString(Val String) Export
+
+	DateQualifier = New DateQualifiers(DateFractions.DateTime);
+	ATypeDescription = New TypeDescription("Date", Undefined, Undefined, DateQualifier);
+	Return ATypeDescription.AdjustValue(String);
+
+EndFunction
+
+Function DateFromStringRFC7231(Val String) Export
+
+	Delimiters = ",-:/\.";
+	For Index = 1 To StrLen(Delimiters) Do
+		Delimiter = Mid(Delimiters, Index, 1);
+		String = StrReplace(String, Delimiter, " ");
+	EndDo;
+	String = StrReplace(String, "  ", " ");
+	DateComponents = StrSplit(String, " ");
+	MonthString = DateComponents[2];
+
+	Months = StrSplit("Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", ",");
+	Month = Months.Find(MonthString);
+	If Month = Undefined Then
+		Return '00010101';
+	EndIf;
+
+	Date = DateComponents[3] + Format(Month + 1, "ЧЦ=2; ЧВН=;") + DateComponents[1];
+	Time = DateComponents[4] + DateComponents[5] + DateComponents[6];
+
+	Return DateFromString(Date + Time);
+
+EndFunction
+
+Function CallHTTPMethod(Session, Method, URL, AdditionalParameters)
+
+	HTTPStatusCodes = HTTPStatusCodes();
+
+	PreparedRequest = PrepareRequest(Session, Method, URL, AdditionalParameters);
+
+	ConnectionSettings = ConnectionSettings(Method, URL, AdditionalParameters);
+
+	Response = SendRequest(Session, PreparedRequest, ConnectionSettings);
+
+	NumberOfRedirects = 0;
+	While NumberOfRedirects < Session.MaximumNumberOfRedirects Do
+		If Not ConnectionSettings.AllowRedirect Or Not Response.IsRedirect Then
+			Return Response;
+		EndIf;
+
+		NewURL = NewURLOnRedirect(Response);
+
+		PreparedRequest.URL = EncodeString(NewURL, StringEncodingMethod.URLInURLEncoding);
+		NewHTTPRequest = New HTTPRequest(AssembleResourceAddress(ParseURL(NewURL), Undefined));
+		OverrideMethod(PreparedRequest, Response);
+
+		If Response.StatusCode <> HTTPStatusCodes.TemporaryRedirect_307
+			And Response.StatusCode <> HTTPStatusCodes.PermanentRedirect_308 Then
+			RemoveHeaders(PreparedRequest.Headers, "content-length,content-type,transfer-encoding");
+			NewHTTPRequest.Headers = PreparedRequest.Headers;
+		Else
+			SourceStream = PreparedRequest.HTTPRequest.GetBodyAsStream();
+			SourceStream.CopyTo(NewHTTPRequest.GetBodyAsStream());
+		EndIf;
+		PreparedRequest.HTTPRequest = NewHTTPRequest;
+		RemoveHeaders(PreparedRequest.Headers, "cookies");
+
+		PreparedRequest.Cookies = MergeCookies(Session.Cookies, PreparedRequest.Cookies);
+		PrepareCookies(PreparedRequest);
+
 		// INFO: по хорошему аутентификацию нужно привести к новых параметрам, но пока будем игнорировать.
-		
-		Ответ = ОтправитьЗапрос(Сессия, ПодготовленныйЗапрос, НастройкиПодключения);
-		
-		Перенаправление = Перенаправление + 1;
-	КонецЦикла;
-	
-	ВызватьИсключение("СлишкомМногоПеренаправлений");
-	
-КонецФункции
 
-Функция СформироватьНовыйURLПриПеренаправлении(Ответ)
+		Response = SendRequest(Session, PreparedRequest, ConnectionSettings);
 
-	НовыйURL = ПолучитьЗначениеЗаголовка("location", Ответ.Заголовки);
-	НовыйURL = РаскодироватьСтроку(НовыйURL, СпособКодированияСтроки.URLВКодировкеURL);
-	
+		NumberOfRedirects = NumberOfRedirects + 1;
+	EndDo;
+
+	Raise("TooManyRedirects");
+
+EndFunction
+
+Function NewURLOnRedirect(Response)
+
+	NewURL = HeaderValue("location", Response.Headers);
+	NewURL = DecodeString(NewURL, StringEncodingMethod.URLInURLEncoding);
+
 	// Редирект без схемы
-	Если СтрНачинаетсяС(НовыйURL, "//") Тогда
-		СтруктураURL = РазобратьURL(Ответ.URL);
-		НовыйURL = СтруктураURL.Схема + ":" + НовыйURL;
-	КонецЕсли;
+	If StrStartsWith_ThisModule(NewURL, "//") Then
+		URLComposition = ParseURL(Response.URL);
+		NewURL = URLComposition.Scheme + ":" + NewURL;
+	EndIf;
 
-	СтруктураURL = РазобратьURL(НовыйURL);
-	Если Не ЗначениеЗаполнено(СтруктураURL.Сервер) Тогда
-		СтруктураURLОтвета = РазобратьURL(Ответ.URL);
-		БазовыйURL = СтрШаблон("%1://%2", СтруктураURLОтвета.Схема, СтруктураURLОтвета.Сервер);
-		Если ЗначениеЗаполнено(СтруктураURLОтвета.Порт) Тогда
-			БазовыйURL = БазовыйURL + Формат(СтруктураURLОтвета.Порт, "ЧРГ=; ЧГ=");
-		КонецЕсли;
-		НовыйURL = БазовыйURL + НовыйURL;
-	КонецЕсли;
+	URLComposition = ParseURL(NewURL);
+	If Not ValueIsFilled(URLComposition.Host) Then
+		URLResponseComposition = ParseURL(Response.URL);
+		BaseURL = StrTemplate("%1://%2", URLResponseComposition.Scheme, URLResponseComposition.Host);
+		If ValueIsFilled(URLResponseComposition.Port) Then
+			BaseURL = BaseURL + ":" + Format(URLResponseComposition.Port, "ЧРГ=; ЧГ=");
+		EndIf;
+		NewURL = BaseURL + NewURL;
+	EndIf;
 
-	Возврат НовыйURL;
+	Return NewURL;
 
-КонецФункции
+EndFunction
 
-Процедура УдалитьЗаголовки(Заголовки, СписокЗаголовковСтрокой)
+Procedure RemoveHeaders(Headers, HeadersListAsString)
 
-	ЗаголовкиДляУдаления = Новый Массив;
-	СписокЗаголовков = СтрРазделить(СписокЗаголовковСтрокой, ",", Ложь);
-	Для Каждого Заголовок Из Заголовки Цикл
-		Если СписокЗаголовков.Найти(НРег(Заголовок.Ключ)) <> Неопределено Тогда
-			ЗаголовкиДляУдаления.Добавить(Заголовок.Ключ);
-		КонецЕсли;
-	КонецЦикла;
-	Для Каждого ЗаголовокДляУдаления Из ЗаголовкиДляУдаления Цикл
-		Заголовки.Удалить(ЗаголовокДляУдаления);
-	КонецЦикла;
+	HeadersToRemove = New Array;
+	HeadersList = StrSplit(HeadersListAsString, ",", False);
+	For Each Header In Headers Do
+		If HeadersList.Find(Lower(Header.Key)) <> Undefined Then
+			HeadersToRemove.Add(Header.Key);
+		EndIf;
+	EndDo;
+	For Each HeaderToRemove In HeadersToRemove Do
+		Headers.Delete(HeaderToRemove);
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
-Функция ПолучитьНастройкиПодключения(Метод, URL, ДополнительныеПараметры) 
+Function ConnectionSettings(Method, URL, AdditionalParameters)
 
-	РазрешитьПеренаправление = 
-		ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "РазрешитьПеренаправление", ВРег(Метод) <> "HEAD");
-	ПроверятьSSL = ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "ПроверятьSSL", Истина);
-	КлиентскийСертификатSSL = ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "КлиентскийСертификатSSL");
-	Прокси = ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "Прокси", ПолучитьПроксиПоУмолчанию(URL));
-	МаксимальноеКоличествоПовторов = ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "МаксимальноеКоличествоПовторов", 0);
-	ПовторятьДляКодовСостояний = 
-		ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "ПовторятьДляКодовСостояний", Неопределено);
-	КоэффициентЭкспоненциальнойЗадержки = 
-		ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "КоэффициентЭкспоненциальнойЗадержки", 1);
-	МаксимальноеВремяПовторов = ПолучитьЗначениеПоКлючу(ДополнительныеПараметры, "МаксимальноеВремяПовторов", 600);
+	AllowRedirect =
+		ValueByKey(AdditionalParameters, "AllowRedirect", Upper(Method) <> "HEAD");
+	VerifySSL = ValueByKey(AdditionalParameters, "VerifySSL", True);
+	ClientSSLCertificate = ValueByKey(AdditionalParameters, "ClientSSLCertificate");
+	Proxy = ValueByKey(AdditionalParameters, "Proxy", ProxyByDefault(URL));
+	MaximumNumberOfRetries = ValueByKey(AdditionalParameters, "MaximumNumberOfRetries", 0);
+	ToRetryForStatusesCodes =
+		ValueByKey(AdditionalParameters, "ToRetryForStatusesCodes", Undefined);
+	ExponentialDelayRatio =
+		ValueByKey(AdditionalParameters, "ExponentialDelayRatio", 1);
+	MaximumTimeOfRetries = ValueByKey(AdditionalParameters, "MaximumTimeOfRetries", 600);
 
-	Настройки = Новый Структура;
-	Настройки.Вставить("Таймаут", ПолучитьТаймаут(ДополнительныеПараметры));
-	Настройки.Вставить("РазрешитьПеренаправление", РазрешитьПеренаправление);
-	Настройки.Вставить("ПроверятьSSL", ПроверятьSSL);
-	Настройки.Вставить("КлиентскийСертификатSSL", КлиентскийСертификатSSL);
-	Настройки.Вставить("Прокси", Прокси);
-	Настройки.Вставить("МаксимальноеКоличествоПовторов", МаксимальноеКоличествоПовторов);
-	Настройки.Вставить("ПовторятьДляКодовСостояний", ПовторятьДляКодовСостояний);
-	Настройки.Вставить("КоэффициентЭкспоненциальнойЗадержки", КоэффициентЭкспоненциальнойЗадержки);
-	Настройки.Вставить("МаксимальноеВремяПовторов", МаксимальноеВремяПовторов);
+	Settings = New Structure;
+	Settings.Insert("Timeout", Timeout(AdditionalParameters));
+	Settings.Insert("AllowRedirect", AllowRedirect);
+	Settings.Insert("VerifySSL", VerifySSL);
+	Settings.Insert("ClientSSLCertificate", ClientSSLCertificate);
+	Settings.Insert("Proxy", Proxy);
+	Settings.Insert("MaximumNumberOfRetries", MaximumNumberOfRetries);
+	Settings.Insert("ToRetryForStatusesCodes", ToRetryForStatusesCodes);
+	Settings.Insert("ExponentialDelayRatio", ExponentialDelayRatio);
+	Settings.Insert("MaximumTimeOfRetries", MaximumTimeOfRetries);
 
-	Возврат Настройки;
+	Return Settings;
 
-КонецФункции
+EndFunction
 
-Функция ПолучитьТаймаут(ДополнительныеПараметры)
-	
-	Если ДополнительныеПараметры.Свойство("Таймаут") И ЗначениеЗаполнено(ДополнительныеПараметры.Таймаут) Тогда
-		Таймаут = ДополнительныеПараметры.Таймаут;
-	Иначе
-		Таймаут = СтандартныйТаймаут();
-	КонецЕсли;
-	
-	Возврат Таймаут;
-	
-КонецФункции
+Function Timeout(AdditionalParameters)
 
-Функция ПолучитьПроксиПоУмолчанию(URL)
-	
-	ПроксиПоУмолчанию = Новый ИнтернетПрокси;
+	If AdditionalParameters.Property("Timeout") And ValueIsFilled(AdditionalParameters.Timeout) Then
+		Timeout = AdditionalParameters.Timeout;
+	Else
+		Timeout = TimeoutByDefault();
+	EndIf;
+
+	Return Timeout;
+
+EndFunction
+
+Function ProxyByDefault(URL)
+
+	ProxyByDefault = New InternetProxy;
 	// BSLLS:ExecuteExternalCodeInCommonModule-off
-	ИмяОМПолученияФайловБСП = "ПолучениеФайловИзИнтернета";
-	Если Метаданные.ОбщиеМодули.Найти(ИмяОМПолученияФайловБСП) <> Неопределено Тогда
-		СтруктураURL = РазобратьURL(URL);
-		Модуль = Вычислить(ИмяОМПолученияФайловБСП);
-		Попытка
-			ПроксиПоУмолчанию = Модуль.ПолучитьПрокси(СтруктураURL.Схема);
-		Исключение
-				
-		КонецПопытки;
-	КонецЕсли;
+	CMNameGetFilesSSL = "GetFilesFromInternet";
+	If Metadata.CommonModules.Find(CMNameGetFilesSSL) <> Undefined Then
+		URLComposition = ParseURL(URL);
+		Модуль = Eval(CMNameGetFilesSSL);
+		ProxyByDefault = Модуль.GetProxy(URLComposition.Scheme);
+	EndIf;
 	// BSLLS:ExecuteExternalCodeInCommonModule-on
-	
-	Возврат ПроксиПоУмолчанию;
-	
-КонецФункции
 
-Функция ДозаполнитьCookie(Cookies, URL)
-	
-	СтруктураURL = РазобратьURL(URL);
-	НовыеCookies = Новый Массив;
-	Если ТипЗнч(Cookies) = Тип("Массив") Тогда
-		Для Каждого Cookie Из Cookies Цикл
-			НовыйCookie = КонструкторCookie(Cookie.Наименование, Cookie.Значение);
-			ЗаполнитьЗначенияСвойств(НовыйCookie, Cookie);
-			
-			Если Не ЗначениеЗаполнено(НовыйCookie.Домен) Тогда
-				НовыйCookie.Домен = СтруктураURL.Сервер;
-			КонецЕсли;
-			Если Не ЗначениеЗаполнено(НовыйCookie.Путь) Тогда
-				НовыйCookie.Путь = "/";
-			КонецЕсли;
-			
-			НовыеCookies.Добавить(НовыйCookie);
-		КонецЦикла;
-		
-		Возврат НовыеCookies;
-	КонецЕсли;
-	
-	Возврат Cookies;
-	
-КонецФункции
+	Return ProxyByDefault;
 
-Процедура УдалитьCookieИзХранилища(ХранилищеCookies, Cookie)
+EndFunction
 
-	Если ХранилищеCookies.Получить(Cookie.Домен) <> Неопределено
-		И ХранилищеCookies[Cookie.Домен].Получить(Cookie.Путь) <> Неопределено
-		И ХранилищеCookies[Cookie.Домен][Cookie.Путь].Получить(Cookie.Наименование) <> Неопределено Тогда
-		ХранилищеCookies[Cookie.Домен][Cookie.Путь].Удалить(Cookie.Наименование);
-	КонецЕсли;
+Function RefillCookie(Cookies, URL)
 
-КонецПроцедуры
+	URLComposition = ParseURL(URL);
+	NewCookies = New Array;
+	If TypeOf(Cookies) = Type("Array") Then
+		For Each Cookie In Cookies Do
+			NewCookie = CookieConstructor(Cookie.Description, Cookie.Value);
+			FillPropertyValues(NewCookie, Cookie);
 
-Процедура ДобавитьCookieВХранилище(ХранилищеCookies, Cookie, Замещать = Ложь)
-	
-	Если ХранилищеCookies.Получить(Cookie.Домен) = Неопределено Тогда
-		ХранилищеCookies[Cookie.Домен] = Новый Соответствие;
-	КонецЕсли;
-	Если ХранилищеCookies[Cookie.Домен].Получить(Cookie.Путь) = Неопределено Тогда
-		ХранилищеCookies[Cookie.Домен][Cookie.Путь] = Новый Соответствие;
-	КонецЕсли;
-	Если ХранилищеCookies[Cookie.Домен][Cookie.Путь].Получить(Cookie.Наименование) = Неопределено ИЛИ Замещать Тогда
-		ХранилищеCookies[Cookie.Домен][Cookie.Путь][Cookie.Наименование] = Cookie;
-	КонецЕсли;
-	
-КонецПроцедуры
+			If Not ValueIsFilled(NewCookie.Domain) Then
+				NewCookie.Domain = URLComposition.Host;
+			EndIf;
+			If Not ValueIsFilled(NewCookie.Path) Then
+				NewCookie.Path = "/";
+			EndIf;
 
-Функция ДобавитьЛидирующуюТочку(Знач Домен)
-	
-	Если Не СтрНачинаетсяС(Домен, ".") Тогда
-		Домен = "." + Домен;
-	КонецЕсли;
-	
-	Возврат Домен;
-	
-КонецФункции
+			NewCookies.Add(NewCookie);
+		EndDo;
 
-Процедура ЗаполнитьСписокОтфильтрованнымиCookies(Cookies, СтруктураURL, Список)
+		Return NewCookies;
+	EndIf;
 
-	Для Каждого Cookie Из Cookies Цикл
-		Если Cookie.Значение.ТолькоБезопасноеСоединение = Истина И СтруктураURL.Схема <> "https" Тогда
-			Продолжить;
-		КонецЕсли;
-		// INFO: проверка срока действия игнорируется (Cookie.Значение.СрокДействия)
+	Return Cookies;
+
+EndFunction
+
+Procedure DeleteCookieFromRepository(CookiesRepository, Cookie)
+
+	If CookiesRepository.Get(Cookie.Domain) <> Undefined
+		And CookiesRepository[Cookie.Domain].Get(Cookie.Path) <> Undefined
+		And CookiesRepository[Cookie.Domain][Cookie.Path].Get(Cookie.Description) <> Undefined Then
+		CookiesRepository[Cookie.Domain][Cookie.Path].Delete(Cookie.Description);
+	EndIf;
+
+EndProcedure
+
+Procedure AddCookieToRepository(CookiesRepository, Cookie, ToReplace = False)
+
+	If CookiesRepository.Get(Cookie.Domain) = Undefined Then
+		CookiesRepository[Cookie.Domain] = New Map;
+	EndIf;
+	If CookiesRepository[Cookie.Domain].Get(Cookie.Path) = Undefined Then
+		CookiesRepository[Cookie.Domain][Cookie.Path] = New Map;
+	EndIf;
+	If CookiesRepository[Cookie.Domain][Cookie.Path].Get(Cookie.Description) = Undefined Or ToReplace Then
+		CookiesRepository[Cookie.Domain][Cookie.Path][Cookie.Description] = Cookie;
+	EndIf;
+
+EndProcedure
+
+Function AddLeadingDot(Val Domain)
+
+	If Not StrStartsWith(Domain, ".") Then
+		Domain = "." + Domain;
+	EndIf;
+
+	Return Domain;
+
+EndFunction
+
+Procedure FillListWithFilteredCookies(Cookies, URLComposition, List)
+
+	For Each Cookie In Cookies Do
+		If Cookie.Value.OnlySecureConnection = True And URLComposition.Scheme <> "https" Then
+			Continue;
+		EndIf;
+		// INFO: проверка срока действия игнорируется (Cookie.Value.ExpiresOn)
 		// INFO: проверка порта игнорируется
-		
-		Список.Добавить(Cookie.Значение);
-	КонецЦикла;
 
-КонецПроцедуры
+		List.Add(Cookie.Value);
+	EndDo;
 
-Функция ОтобратьCookiesДляЗапроса(СтруктураURL, Cookies)
-	
-	СерверВЗапросе = ДобавитьЛидирующуюТочку(СтруктураURL.Сервер);
-	
-	Результат = Новый Массив;
-	Для Каждого Домен Из Cookies Цикл
-		Если Не СтрЗаканчиваетсяНа(СерверВЗапросе, Домен.Ключ) Тогда
-			Продолжить;
-		КонецЕсли;
-		Для Каждого Путь Из Домен.Значение Цикл
-			Если Не СтрНачинаетсяС(СтруктураURL.Путь, Путь.Ключ) Тогда
-				Продолжить;
-			КонецЕсли;
-			ЗаполнитьСписокОтфильтрованнымиCookies(Путь.Значение, СтруктураURL, Результат);
-		КонецЦикла;
-	КонецЦикла;
-	
-	Возврат Результат;
-	
-КонецФункции
+EndProcedure
 
-Функция ПодготовитьЗаголовокCookie(ПодготовленныйЗапрос)
-	
-	СтруктураURL = РазобратьURL(ПодготовленныйЗапрос.URL);
-	
-	Cookies = Новый Массив;
-	Для Каждого Cookie Из ОтобратьCookiesДляЗапроса(СтруктураURL, ПодготовленныйЗапрос.Cookies) Цикл
-		Cookies.Добавить(СтрШаблон("%1=%2", Cookie.Наименование, Cookie.Значение));
-	КонецЦикла;
-	
-	Возврат СтрСоединить(Cookies, "; ");
-	
-КонецФункции
+Function SelectCookiesForRequest(URLComposition, Cookies)
 
-Процедура ПодготовитьCookies(ПодготовленныйЗапрос)
-	
-	ЗаголовокCookie = ПодготовитьЗаголовокCookie(ПодготовленныйЗапрос);
-	Если ЗначениеЗаполнено(ЗаголовокCookie) Тогда
-		ПодготовленныйЗапрос.Заголовки["Cookie"] = ЗаголовокCookie;
-	КонецЕсли;
-	
-КонецПроцедуры
+	IsHostInRequest = AddLeadingDot(URLComposition.Host);
 
-Функция КодироватьПараметрыЗапроса(ПараметрыЗапроса)
-	
-	ЧастиПараметрыЗапроса = Новый Массив;
-	Для Каждого Параметр Из ПараметрыЗапроса Цикл
-		Если ТипЗнч(Параметр.Значение) = Тип("Массив") Тогда
-			Значения = Параметр.Значение;
-		Иначе
-			Значения = Новый Массив;
-			Значения.Добавить(Параметр.Значение);
-		КонецЕсли;
-		
-		Если Параметр.Значение = Неопределено Тогда
-			ЧастиПараметрыЗапроса.Добавить(Параметр.Ключ);
-		Иначе
-			Для Каждого Значение Из Значения Цикл
-				ЗначениеПараметра = КодироватьСтроку(Значение, СпособКодированияСтроки.КодировкаURL);
-				ЧастиПараметрыЗапроса.Добавить(СтрШаблон("%1=%2", Параметр.Ключ, ЗначениеПараметра));
-			КонецЦикла;
-		КонецЕсли;
-	КонецЦикла;
-	
-	Возврат СтрСоединить(ЧастиПараметрыЗапроса, "&");
-	
-КонецФункции
+	Result = New Array;
+	For Each Domain In Cookies Do
+		If Not StrEndsWith(IsHostInRequest, Domain.Key) Then
+			Continue;
+		EndIf;
+		For Each Path In Domain.Value Do
+			If Not StrStartsWith(URLComposition.Path, Path.Key) Then
+				Continue;
+			EndIf;
+			FillListWithFilteredCookies(Path.Value, URLComposition, Result);
+		EndDo;
+	EndDo;
 
-Функция ПодготовитьURL(Знач URL, ПараметрыЗапроса = Неопределено)
-	
-	URL = СокрЛ(URL);
-	
-	СтруктураURL = РазобратьURL(URL);
-	
-	ПодготовленныйURL = СтруктураURL.Схема + "://";
-	Если ЗначениеЗаполнено(СтруктураURL.Аутентификация.Пользователь) Тогда
-		ПодготовленныйURL = ПодготовленныйURL 
-			+ СтруктураURL.Аутентификация.Пользователь + ":"
-			+ СтруктураURL.Аутентификация.Пароль + "@";
-	КонецЕсли;
-	ПодготовленныйURL = ПодготовленныйURL + СтруктураURL.Сервер;
-	Если ЗначениеЗаполнено(СтруктураURL.Порт) Тогда
-		ПодготовленныйURL = ПодготовленныйURL + ":" + Формат(СтруктураURL.Порт, "ЧРГ=; ЧГ=");
-	КонецЕсли;
-	
-	ПодготовленныйURL = ПодготовленныйURL + СобратьАдресРесурса(СтруктураURL, ПараметрыЗапроса);
-		
-	Возврат ПодготовленныйURL;
-	
-КонецФункции
+	Return Result;
 
-Функция ЗаголовкиВСтроку(Заголовки)
-	
-	РазделительСтрок = Символы.ВК + Символы.ПС;
-	Строки = Новый Массив;
-	
-	СортированныеЗаголовки = "Content-Disposition,Content-Type,Content-Location";
-	Для Каждого Ключ Из СтрРазделить(СортированныеЗаголовки, ",") Цикл
-		Значение = ПолучитьЗначениеЗаголовка(Ключ, Заголовки);
-		Если Значение <> Ложь И ЗначениеЗаполнено(Значение) Тогда
-			Строки.Добавить(СтрШаблон("%1: %2", Ключ, Значение));
-		КонецЕсли;
-	КонецЦикла;
-	
-	Ключи = СтрРазделить(ВРег(СортированныеЗаголовки), ",");
-	Для Каждого Заголовок Из Заголовки Цикл
-		Если Ключи.Найти(ВРег(Заголовок.Ключ)) = Неопределено Тогда
-			Строки.Добавить(СтрШаблон("%1: %2", Заголовок.Ключ, Заголовок.Значение));
-		КонецЕсли;
-	КонецЦикла;
-	Строки.Добавить(РазделительСтрок);
-	
-	Возврат СтрСоединить(Строки, РазделительСтрок);
-	
-КонецФункции
+EndFunction
 
-Функция ПолучитьЗначениеПоКлючу(Структура, Ключ, ЗначениеПоУмолчанию = Неопределено)
-	
-	Если ТипЗнч(Структура) = Тип("Структура") И Структура.Свойство(Ключ) Тогда
-		Значение = Структура[Ключ];
-	ИначеЕсли ТипЗнч(Структура) = Тип("Соответствие") И Структура.Получить(Ключ) <> Неопределено Тогда
-		Значение = Структура.Получить(Ключ);
-	Иначе
-		Значение = ЗначениеПоУмолчанию;
-	КонецЕсли;
-	
-	Возврат Значение;
-	
-КонецФункции
-	
-Функция СоздатьПолеФормы(ИсходныеПараметры)
-	
-	Поле = Новый Структура("Имя,ИмяФайла,Данные,Тип,Заголовки");
-	Поле.Имя = ИсходныеПараметры.Имя;
-	Поле.Данные = ИсходныеПараметры.Данные;
-	
-	Поле.Тип = ПолучитьЗначениеПоКлючу(ИсходныеПараметры, "Тип");
-	Поле.Заголовки = ПолучитьЗначениеПоКлючу(ИсходныеПараметры, "Заголовки", Новый Соответствие);
-	Поле.ИмяФайла = ПолучитьЗначениеПоКлючу(ИсходныеПараметры, "ИмяФайла");
-	
-	Ключ = "Content-Disposition";
-	Если ПолучитьЗначениеЗаголовка("content-disposition", Поле.Заголовки, Ключ) = Ложь Тогда
-		Поле.Заголовки.Вставить("Content-Disposition", "form-data");
-	КонецЕсли;
-	
-	Части = Новый Массив;
-	Части.Добавить(Поле.Заголовки[Ключ]);
-	Части.Добавить(СтрШаблон("name=""%1""", Поле.Имя));
-	Если ЗначениеЗаполнено(Поле.ИмяФайла) Тогда
-		Части.Добавить(СтрШаблон("filename=""%1""", Поле.ИмяФайла));
-	КонецЕсли;
-	
-	Поле.Заголовки[Ключ] = СтрСоединить(Части, "; ");
-	Поле.Заголовки["Content-Type"] = Поле.Тип;
-	
-	Возврат Поле;
-	
-КонецФункции
+Function PrepareCookieHeader(PreparedRequest)
 
-Функция ЗакодироватьФайлы(HTTPЗапрос, Файлы, Данные)
-	
-	Части = Новый Массив;
-	Если ЗначениеЗаполнено(Данные) Тогда
-		Для Каждого Поле Из Данные Цикл
-			Части.Добавить(СоздатьПолеФормы(Новый Структура("Имя,Данные", Поле.Ключ, Поле.Значение)));
-		КонецЦикла;
-	КонецЕсли;
-	Если ТипЗнч(Файлы) = Тип("Массив") Тогда
-		Для Каждого Файл Из Файлы Цикл
-			Части.Добавить(СоздатьПолеФормы(Файл));
-		КонецЦикла;
-	Иначе
-		Части.Добавить(СоздатьПолеФормы(Файлы));
-	КонецЕсли;
-	
-	Разделитель = СтрЗаменить(Новый УникальныйИдентификатор, "-", "");
-	РазделительСтрок = Символы.ВК + Символы.ПС;
-	
-	ТелоЗапроса = HTTPЗапрос.ПолучитьТелоКакПоток();
-	ЗаписьДанных = Новый ЗаписьДанных(ТелоЗапроса, КодировкаТекста.UTF8, ПорядокБайтов.LittleEndian, "", "", Ложь);
-	Для Каждого Часть Из Части Цикл
-		ЗаписьДанных.ЗаписатьСтроку("--" + Разделитель + РазделительСтрок);
-		ЗаписьДанных.ЗаписатьСтроку(ЗаголовкиВСтроку(Часть.Заголовки));
-		Если ТипЗнч(Часть.Данные) = Тип("ДвоичныеДанные") Тогда
-			ЗаписьДанных.Записать(Часть.Данные);
-		Иначе
-			ЗаписьДанных.ЗаписатьСтроку(Часть.Данные);
-		КонецЕсли;
-		ЗаписьДанных.ЗаписатьСтроку(РазделительСтрок);
-	КонецЦикла;
-	ЗаписьДанных.ЗаписатьСтроку("--" + Разделитель + "--" + РазделительСтрок);
-	ЗаписьДанных.Закрыть();
-	
-	Возврат СтрШаблон("multipart/form-data; boundary=%1", Разделитель);
-	
-КонецФункции
+	URLComposition = ParseURL(PreparedRequest.URL);
 
-Процедура ПодготовитьТелоЗапроса(ПодготовленныйЗапрос, Данные, Файлы, Json, ПараметрыЗаписиJSON)
-	
-	СтруктураURL = РазобратьURL(ПодготовленныйЗапрос.URL);
+	Cookies = New Array;
+	For Each Cookie In SelectCookiesForRequest(URLComposition, PreparedRequest.Cookies) Do
+		Cookies.Add(StrTemplate("%1=%2", Cookie.Description, Cookie.Value));
+	EndDo;
 
-	HTTPЗапрос = Новый HTTPЗапрос;
-	HTTPЗапрос.АдресРесурса = СобратьАдресРесурса(СтруктураURL, ПодготовленныйЗапрос.ПараметрыЗапроса);
-	Если ЗначениеЗаполнено(Файлы) Тогда
-		ContentType = ЗакодироватьФайлы(HTTPЗапрос, Файлы, Данные);
-	ИначеЕсли ЗначениеЗаполнено(Данные) Тогда
+	Return StrConcat(Cookies, "; ");
+
+EndFunction
+
+Procedure PrepareCookies(PreparedRequest)
+
+	CookieHeader = PrepareCookieHeader(PreparedRequest);
+	If ValueIsFilled(CookieHeader) Then
+		PreparedRequest.Headers["Cookie"] = CookieHeader;
+	EndIf;
+
+EndProcedure
+
+Function EncodeRequestParameters(RequestParameters)
+
+	RequestParametersParts = New Array;
+	For Each Parameter In RequestParameters Do
+		If TypeOf(Parameter.Value) = Type("Array") Then
+			Values = Parameter.Value;
+		Else
+			Values = New Array;
+			Values.Add(Parameter.Value);
+		EndIf;
+
+		If Parameter.Value = Undefined Then
+			RequestParametersParts.Add(Parameter.Key);
+		Else
+			For Each Value In Values Do
+				ParameterValue = EncodeString(Value, StringEncodingMethod.URLEncoding);
+				RequestParametersParts.Add(StrTemplate("%1=%2", Parameter.Key, ParameterValue));
+			EndDo;
+		EndIf;
+	EndDo;
+
+	Return StrConcat(RequestParametersParts, "&");
+
+EndFunction
+
+Function PrepareURL(Val URL, RequestParameters = Undefined)
+
+	URL = TrimL(URL);
+
+	URLComposition = ParseURL(URL);
+
+	PreparedURL = URLComposition.Scheme + "://";
+	If ValueIsFilled(URLComposition.Authentication.User) Then
+		PreparedURL = PreparedURL
+			+ URLComposition.Authentication.User + ":"
+			+ URLComposition.Authentication.Password + "@";
+	EndIf;
+	PreparedURL = PreparedURL + URLComposition.Host;
+	If ValueIsFilled(URLComposition.Port) Then
+		PreparedURL = PreparedURL + ":" + Format(URLComposition.Port, "ЧРГ=; ЧГ=");
+	EndIf;
+
+	PreparedURL = PreparedURL + AssembleResourceAddress(URLComposition, RequestParameters);
+
+	Return PreparedURL;
+
+EndFunction
+
+Function HeadersToString(Headers)
+
+	StringDelimiter = Chars.CR + Chars.LF;
+	Strings = New Array;
+
+	SortedHeaders = "Content-Disposition,Content-Type,Content-Location";
+	For Each Key_ In StrSplit(SortedHeaders, ",") Do
+		Value = HeaderValue(Key_, Headers);
+		If Value <> False And ValueIsFilled(Value) Then
+			Strings.Add(StrTemplate("%1: %2", Key_, Value));
+		EndIf;
+	EndDo;
+
+	Keys = StrSplit(Upper(SortedHeaders), ",");
+	For Each Header In Headers Do
+		If Keys.Find(Upper(Header.Key)) = Undefined Then
+			Strings.Add(StrTemplate("%1: %2", Header.Key, Header.Value));
+		EndIf;
+	EndDo;
+	Strings.Add(StringDelimiter);
+
+	Return StrConcat(Strings, StringDelimiter);
+
+EndFunction
+
+Function ValueByKey(Structure, Key_, ValueByDefault = Undefined)
+
+	If TypeOf(Structure) = Type("Structure") And Structure.Property(Key_) Then
+		Value = Structure[Key_];
+	ElsIf TypeOf(Structure) = Type("Map") And Structure.Get(Key_) <> Undefined Then
+		Value = Structure.Get(Key_);
+	Else
+		Value = ValueByDefault;
+	EndIf;
+
+	Return Value;
+
+EndFunction
+
+Function NewFormField(SourceParameters)
+
+	Field = New Structure("Name,FileName,Data,Type,Headers");
+	Field.Name = SourceParameters.Name;
+	Field.Data = SourceParameters.Data;
+
+	Field.Type = ValueByKey(SourceParameters, "Type");
+	Field.Headers = ValueByKey(SourceParameters, "Headers", New Map);
+	Field.FileName = ValueByKey(SourceParameters, "FileName");
+
+	Key_ = "Content-Disposition";
+	If HeaderValue("content-disposition", Field.Headers, Key_) = False Then
+		Field.Headers.Insert("Content-Disposition", "form-data");
+	EndIf;
+
+	Parts = New Array;
+	Parts.Add(Field.Headers[Key_]);
+	Parts.Add(StrTemplate("name=""%1""", Field.Name));
+	If ValueIsFilled(Field.FileName) Then
+		Parts.Add(StrTemplate("filename=""%1""", Field.FileName));
+	EndIf;
+
+	Field.Headers[Key_] = StrConcat(Parts, "; ");
+	Field.Headers["Content-Type"] = Field.Type;
+
+	Return Field;
+
+EndFunction
+
+Function EnocodeFiles(HTTPRequest, Files, Data)
+
+	Parts = New Array;
+	If ValueIsFilled(Data) Then
+		For Each Field In Data Do
+			Parts.Add(NewFormField(New Structure("Name,Data", Field.Key, Field.Value)));
+		EndDo;
+	EndIf;
+	If TypeOf(Files) = Type("Array") Then
+		For Each File In Files Do
+			Parts.Add(NewFormField(File));
+		EndDo;
+	Else
+		Parts.Add(NewFormField(Files));
+	EndIf;
+
+	Delimiter = StrReplace(New UUID, "-", "");
+	StringDelimiter = Chars.CR + Chars.LF;
+
+	RequestBody = HTTPRequest.GetBodyAsStream();
+	DataWriter = New DataWriter(RequestBody, TextEncoding.UTF8, ByteOrder.LittleEndian, "", "", False);
+	For Each Part In Parts Do
+		DataWriter.WriteLine("--" + Delimiter + StringDelimiter);
+		DataWriter.WriteLine(HeadersToString(Part.Headers));
+		If TypeOf(Part.Data) = Type("BinaryData") Then
+			DataWriter.Write(Part.Data);
+		Else
+			DataWriter.WriteLine(Part.Data);
+		EndIf;
+		DataWriter.WriteLine(StringDelimiter);
+	EndDo;
+	DataWriter.WriteLine("--" + Delimiter + "--" + StringDelimiter);
+	DataWriter.Close();
+
+	Return StrTemplate("multipart/form-data; boundary=%1", Delimiter);
+
+EndFunction
+
+Procedure PrepareRequestBody(PreparedRequest, Data, Files, Json, JSONWriterSettings)
+
+	URLComposition = ParseURL(PreparedRequest.URL);
+
+	HTTPRequest = New HTTPRequest;
+	HTTPRequest.ResourceAddress = AssembleResourceAddress(URLComposition, PreparedRequest.RequestParameters);
+	If ValueIsFilled(Files) Then
+		ContentType = EnocodeFiles(HTTPRequest, Files, Data);
+	ElsIf ValueIsFilled(Data) Then
 		ContentType = "application/x-www-form-urlencoded";
-		Если ТипЗнч(Данные) = Тип("ДвоичныеДанные") Тогда
-			HTTPЗапрос.УстановитьТелоИзДвоичныхДанных(Данные);
-		Иначе
-			Если ТипЗнч(Данные) = Тип("Строка") Тогда
-				Тело = Данные;
-			Иначе
-				Тело = КодироватьПараметрыЗапроса(Данные);
-			КонецЕсли;
-			HTTPЗапрос.УстановитьТелоИзСтроки(Тело, КодировкаТекста.UTF8, ИспользованиеByteOrderMark.НеИспользовать);
-		КонецЕсли;
-	ИначеЕсли Json <> Неопределено Тогда
+		If TypeOf(Data) = Type("BinaryData") Then
+			HTTPRequest.SetBodyFromBinaryData(Data);
+		Else
+			If TypeOf(Data) = Type("String") Then
+				Body = Data;
+			Else
+				Body = EncodeRequestParameters(Data);
+			EndIf;
+			HTTPRequest.SetBodyFromString(Body, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
+		EndIf;
+	ElsIf Json <> Undefined Then
 		ContentType = "application/json";
-		СтрокаJson = ОбъектВJson(Json, ПодготовленныйЗапрос.ПараметрыПреобразованияJSON, ПараметрыЗаписиJSON);
-		HTTPЗапрос.УстановитьТелоИзСтроки(СтрокаJson, КодировкаТекста.UTF8, ИспользованиеByteOrderMark.НеИспользовать);
-	Иначе
-		ContentType = Неопределено;
-	КонецЕсли;
-	ЗначениеЗаголовка = ПолучитьЗначениеЗаголовка("content-type", ПодготовленныйЗапрос.Заголовки);
-	Если ЗначениеЗаголовка = Ложь И ЗначениеЗаполнено(ContentType) Тогда
-		ПодготовленныйЗапрос.Заголовки.Вставить("Content-Type", ContentType);
-	КонецЕсли;
-	
-	HTTPЗапрос.Заголовки = ПодготовленныйЗапрос.Заголовки;
-	
-	УпаковатьЗапрос(HTTPЗапрос);
+		JsonString = ObjectToJson(Json, PreparedRequest.JSONConversionParameters, JSONWriterSettings);
+		HTTPRequest.SetBodyFromString(JsonString, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
+	Else
+		ContentType = Undefined;
+	EndIf;
+	HeaderValue = HeaderValue("content-type", PreparedRequest.Headers);
+	If HeaderValue = False And ValueIsFilled(ContentType) Then
+		PreparedRequest.Headers.Insert("Content-Type", ContentType);
+	EndIf;
 
-	ПодготовленныйЗапрос.Вставить("HTTPЗапрос", HTTPЗапрос);
-	
-КонецПроцедуры
+	HTTPRequest.Headers = PreparedRequest.Headers;
 
-Процедура ПодготовитьАутентификацию(ПодготовленныйЗапрос)
-	
-	ПодготовленныйЗапрос.Вставить("СобытияНаОтвет", Новый Массив);
-	Если Не ЗначениеЗаполнено(ПодготовленныйЗапрос.Аутентификация) Тогда
-		СтруктураURL = РазобратьURL(ПодготовленныйЗапрос.URL);
-		Если ЗначениеЗаполнено(СтруктураURL.Аутентификация) Тогда
-			ПодготовленныйЗапрос.Аутентификация = СтруктураURL.Аутентификация;
-		КонецЕсли;
-	КонецЕсли;
-	
-	Если ЗначениеЗаполнено(ПодготовленныйЗапрос.Аутентификация) Тогда
-		Если ПодготовленныйЗапрос.Аутентификация.Свойство("Тип") Тогда
-			ТипАутентификации = НРег(ПодготовленныйЗапрос.Аутентификация.Тип);
-			Если ТипАутентификации = "digest" Тогда
-				ПодготовленныйЗапрос.СобытияНаОтвет.Добавить("ОбработкаОтветаСКодом401");
-			КонецЕсли;
-			Если ТипАутентификации = "aws4-hmac-sha256" Тогда
-				ПодготовитьАутентификациюAWS4(ПодготовленныйЗапрос);
-			КонецЕсли;
-		КонецЕсли;
-	КонецЕсли;
-	
-КонецПроцедуры
+	PackRequest(HTTPRequest);
 
-Функция ОбъединитьCookies(ГлавныйИсточник, ДополнительныйИсточник)
-	
-	Cookies = Новый Соответствие;
-	Для Каждого Cookie Из ПреобразоватьХранилищеCookiesВМассивCookies(ГлавныйИсточник) Цикл
-		ДобавитьCookieВХранилище(Cookies, Cookie, Ложь);
-	КонецЦикла;
-	Для Каждого Cookie Из ПреобразоватьХранилищеCookiesВМассивCookies(ДополнительныйИсточник) Цикл
-		ДобавитьCookieВХранилище(Cookies, Cookie, Ложь);
-	КонецЦикла;
-	
-	Возврат Cookies;
-	
-КонецФункции
+	PreparedRequest.Insert("HTTPRequest", HTTPRequest);
 
-Функция ПреобразоватьХранилищеCookiesВМассивCookies(ХранилищеCookies)
-	
-	Cookies = Новый Массив;
-	Если ТипЗнч(ХранилищеCookies) = Тип("Массив") Тогда
-		Для Каждого Cookie Из ХранилищеCookies Цикл
-			НоваяCookie = КонструкторCookie();
-			ЗаполнитьЗначенияСвойств(НоваяCookie, Cookie);
-			Cookies.Добавить(НоваяCookie);
-		КонецЦикла;
-		
-		Возврат Cookies;
-	КонецЕсли;
-	
-	Для Каждого Домен Из ХранилищеCookies Цикл
-		Для Каждого Путь Из Домен.Значение Цикл
-			Для Каждого Наименование Из Путь.Значение Цикл
-				Cookies.Добавить(Наименование.Значение);
-			КонецЦикла;
-		КонецЦикла;
-	КонецЦикла;
-	
-	Возврат Cookies;
-	
-КонецФункции
+EndProcedure
 
-Функция ОбъединитьПараметрыАутентификации(ГлавныйИсточник, ДополнительныйИсточник)
-	
-	ПараметрыАутентификации = Новый Структура;
-	Если ТипЗнч(ГлавныйИсточник) = Тип("Структура") Тогда
-		Для Каждого Параметр Из ГлавныйИсточник Цикл
-			ПараметрыАутентификации.Вставить(Параметр.Ключ, Параметр.Значение);
-		КонецЦикла;
-	КонецЕсли;
-	Если ТипЗнч(ДополнительныйИсточник) = Тип("Структура") Тогда
-		Для Каждого Параметр Из ДополнительныйИсточник Цикл
-			Если Не ПараметрыАутентификации.Свойство(Параметр) Тогда
-				ПараметрыАутентификации.Вставить(Параметр.Ключ, Параметр.Значение);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-	
-	Возврат ПараметрыАутентификации;
-	
-КонецФункции
+Procedure PrepareAuthentication(PreparedRequest)
 
-Функция ОбъединитьЗаголовки(ГлавныйИсточник, ДополнительныйИсточник)
-	
-	Заголовки = Новый Соответствие;
-	Для Каждого Заголовок Из ГлавныйИсточник Цикл
-		Заголовки.Вставить(Заголовок.Ключ, Заголовок.Значение);
-	КонецЦикла;
-	Для Каждого Заголовок Из ДополнительныйИсточник Цикл
-		Если Заголовки.Получить(Заголовок.Ключ) = Неопределено Тогда
-			Заголовки.Вставить(Заголовок.Ключ, Заголовок.Значение);
-		КонецЕсли;
-	КонецЦикла;
-	
-	Возврат Заголовки;
-	
-КонецФункции
+	PreparedRequest.Insert("ResponseEvents", New Array);
+	If Not ValueIsFilled(PreparedRequest.Authentication) Then
+		URLComposition = ParseURL(PreparedRequest.URL);
+		If ValueIsFilled(URLComposition.Authentication) Then
+			PreparedRequest.Authentication = URLComposition.Authentication;
+		EndIf;
+	EndIf;
 
-Функция ОбъединитьПараметрыЗапроса(ГлавныйИсточник, ДополнительныйИсточник)
-	
-	ПараметрыЗапроса = Новый Соответствие;
-	Если ТипЗнч(ГлавныйИсточник) = Тип("Структура") ИЛИ ТипЗнч(ГлавныйИсточник) = Тип("Соответствие") Тогда
-		Для Каждого Параметр Из ГлавныйИсточник Цикл
-			ПараметрыЗапроса.Вставить(Параметр.Ключ, Параметр.Значение);
-		КонецЦикла;
-	КонецЕсли;
-	Если ТипЗнч(ДополнительныйИсточник) = Тип("Структура") ИЛИ ТипЗнч(ДополнительныйИсточник) = Тип("Соответствие") Тогда
-		Для Каждого Параметр Из ДополнительныйИсточник Цикл
-			Если ПараметрыЗапроса.Получить(Параметр) = Неопределено Тогда
-				ПараметрыЗапроса.Вставить(Параметр.Ключ, Параметр.Значение);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-	
-	Возврат ПараметрыЗапроса;
-	
-КонецФункции
+	If ValueIsFilled(PreparedRequest.Authentication) Then
+		If PreparedRequest.Authentication.Property("Type") Then
+			AuthenticationType = Lower(PreparedRequest.Authentication.Type);
+			If AuthenticationType = "digest" Then
+				PreparedRequest.ResponseEvents.Add("Code401_ResponseHandler");
+			EndIf;
+			If AuthenticationType = "aws4-hmac-sha256" Then
+				PrepareAuthenticationAWS4(PreparedRequest);
+			EndIf;
+		EndIf;
+	EndIf;
 
-Функция ОтправитьHTTPЗапрос(Сессия, ПодготовленныйЗапрос, Настройки)
-	
-	СтруктураURL = РазобратьURL(ПодготовленныйЗапрос.URL);
-	Соединение = ПолучитьСоединение(СтруктураURL, ПодготовленныйЗапрос.Аутентификация, Настройки, Сессия);
-	Ответ = Соединение.ВызватьHTTPМетод(ПодготовленныйЗапрос.Метод, ПодготовленныйЗапрос.HTTPЗапрос);
-	
-	Для Каждого Обработчик Из ПодготовленныйЗапрос.СобытияНаОтвет Цикл
-		Если Обработчик = "ОбработкаОтветаСКодом401" Тогда
-			ОбработкаОтветаСКодом401(Сессия, ПодготовленныйЗапрос, Настройки, Ответ);
-		КонецЕсли;
-	КонецЦикла;
-	
-	Возврат Ответ;
-	
-КонецФункции
+EndProcedure
 
-Функция РассчитатьДлительностьПриостановки(Повтор, КоэффициентЭкспоненциальнойЗадержки, ЗаголовокRetryAfter, Остаток)
+Function MergeCookies(MainSource, AdditionalSource)
 
-	Если ЗаголовокRetryAfter <> Ложь Тогда
-		Длительность = ЧислоИзСтроки(ЗаголовокRetryAfter);
+	Cookies = New Map;
+	For Each Cookie In TransformCookiesRepositoryToArray(MainSource) Do
+		AddCookieToRepository(Cookies, Cookie, False);
+	EndDo;
+	For Each Cookie In TransformCookiesRepositoryToArray(AdditionalSource) Do
+		AddCookieToRepository(Cookies, Cookie, False);
+	EndDo;
 
-		Если Длительность = 0 Тогда
-			Дата = ДатаИзСтрокиRFC7231(ЗаголовокRetryAfter);
-			Если ЗначениеЗаполнено(Дата) Тогда
-				Длительность = Дата - ТекущаяУниверсальнаяДата();
-			КонецЕсли;
-		КонецЕсли;
-	Иначе
-		Длительность = КоэффициентЭкспоненциальнойЗадержки * Pow(2, Повтор - 1);
-	КонецЕсли;
+	Return Cookies;
 
-	Длительность = Мин(Длительность, Остаток);
+EndFunction
 
-	Если Длительность < 0 Тогда
-		Длительность = 0;
-	КонецЕсли;
+Function TransformCookiesRepositoryToArray(CookiesRepository)
 
-	Возврат Длительность;
+	Cookies = New Array;
+	If TypeOf(CookiesRepository) = Type("Array") Then
+		For Each Cookie In CookiesRepository Do
+			NewCookie = CookieConstructor();
+			FillPropertyValues(NewCookie, Cookie);
+			Cookies.Add(NewCookie);
+		EndDo;
 
-КонецФункции
+		Return Cookies;
+	EndIf;
 
-Функция НеобходимоПовторитьЗапрос(Ответ, Настройки, ОшибкаВыполненияЗапроса)
+	For Each Domain In CookiesRepository Do
+		For Each Path In Domain.Value Do
+			For Each Description In Path.Value Do
+				Cookies.Add(Description.Value);
+			EndDo;
+		EndDo;
+	EndDo;
 
-	Если Настройки.МаксимальноеКоличествоПовторов < 1 Тогда
-		Возврат Ложь;
-	КонецЕсли;
-	
-	Если ОшибкаВыполненияЗапроса <> Неопределено Тогда
-		Возврат Истина;
-	КонецЕсли;
+	Return Cookies;
 
-	ПовторПриЛюбомКодеСостоянияБольшеИлиРавным500 = Настройки.ПовторятьДляКодовСостояний = Неопределено
-		И Ответ.КодСостояния >= КодыСостоянияHTTP().ВнутренняяОшибкаСервера_500;
-	КодСостоянияСоответствуетКодуСостоянияПовтора = ТипЗнч(Настройки.ПовторятьДляКодовСостояний) = Тип("Массив")
-		И Настройки.ПовторятьДляКодовСостояний.Найти(Ответ.КодСостояния) <> Неопределено;
-	Если ПовторПриЛюбомКодеСостоянияБольшеИлиРавным500 ИЛИ КодСостоянияСоответствуетКодуСостоянияПовтора Тогда
-		Возврат Истина;
-	КонецЕсли;
+EndFunction
 
-	ЗаголовокRetryAfter = ПолучитьЗначениеЗаголовка("retry-after", Ответ.Заголовки);
-	Возврат ЗаголовокRetryAfter <> Ложь 
-		И ЭтоКодСостоянияПриКоторомНужноУчитыватьЗаголовокRetryAfter(Ответ.КодСостояния);
+Function MergeAuthenticationParameters(MainSource, AdditionalSource)
 
-КонецФункции
+	AuthenticationParameters = New Structure;
+	If TypeOf(MainSource) = Type("Structure") Then
+		For Each Parameter In MainSource Do
+			AuthenticationParameters.Insert(Parameter.Key, Parameter.Value);
+		EndDo;
+	EndIf;
+	If TypeOf(AdditionalSource) = Type("Structure") Then
+		For Each Parameter In AdditionalSource Do
+			If Not AuthenticationParameters.Property(Parameter) Then
+				AuthenticationParameters.Insert(Parameter.Key, Parameter.Value);
+			EndIf;
+		EndDo;
+	EndIf;
 
-Функция ОтправитьЗапрос(Сессия, ПодготовленныйЗапрос, Настройки)
-	
-	Начало = ТекущаяУниверсальнаяДатаВМиллисекундах();
-	МиллисекундВСекунде = 1000;
+	Return AuthenticationParameters;
 
-	Повтор = 0;
-	Длительность = 0;
-	Пока Истина Цикл
-		Попытка
-			Ответ = ОтправитьHTTPЗапрос(Сессия, ПодготовленныйЗапрос, Настройки);
-		Исключение
-			ОшибкаВыполненияЗапроса = ИнформацияОбОшибке();
-		КонецПопытки;
+EndFunction
 
-		Повтор = Повтор + 1;
-		Длительность = (ТекущаяУниверсальнаяДатаВМиллисекундах() - Начало) / МиллисекундВСекунде;
+Function MergeHeaders(MainSource, AdditionalSource)
 
-		Если Не НеобходимоПовторитьЗапрос(Ответ, Настройки, ОшибкаВыполненияЗапроса) Тогда
-			Прервать;
-		КонецЕсли;
+	Headers = New Map;
+	For Each Header In MainSource Do
+		Headers.Insert(Header.Key, Header.Value);
+	EndDo;
+	For Each Header In AdditionalSource Do
+		If Headers.Get(Header.Key) = Undefined Then
+			Headers.Insert(Header.Key, Header.Value);
+		EndIf;
+	EndDo;
 
-		Если Повтор > Настройки.МаксимальноеКоличествоПовторов 
-			ИЛИ Длительность > Настройки.МаксимальноеВремяПовторов Тогда
-			Прервать;
-		КонецЕсли;
-	
-		Если ОшибкаВыполненияЗапроса <> Неопределено 
-			ИЛИ НЕ ЭтоКодСостоянияПриКоторомНужноУчитыватьЗаголовокRetryAfter(Ответ.КодСостояния) Тогда
-			ЗаголовокRetryAfter = Ложь;
-		Иначе
-			ЗаголовокRetryAfter = ПолучитьЗначениеЗаголовка("retry-after", Ответ.Заголовки);
-		КонецЕсли;
-		ДлительностьПриостановки = РассчитатьДлительностьПриостановки(
-			Повтор,
-			Настройки.КоэффициентЭкспоненциальнойЗадержки,
-			ЗаголовокRetryAfter,
-			Настройки.МаксимальноеВремяПовторов - Длительность);
-		Приостановить(ДлительностьПриостановки);
-	КонецЦикла;
-	
-	Если ОшибкаВыполненияЗапроса <> Неопределено Тогда
-		ВызватьИсключение(ПодробноеПредставлениеОшибки(ОшибкаВыполненияЗапроса));
-	КонецЕсли;
+	Return Headers;
 
-	ЗаголовокContentType = ПолучитьЗначениеЗаголовка("content-type", Ответ.Заголовки);
-	Если ЗаголовокContentType = Ложь Тогда
-		ЗаголовокContentType = "";
-	КонецЕсли;
-	
-	ПодготовленныйОтвет = Новый Структура;
-	ПодготовленныйОтвет.Вставить("ВремяВыполнения", ТекущаяУниверсальнаяДатаВМиллисекундах() - Начало);
-	ПодготовленныйОтвет.Вставить("Cookies", ИзвлечьCookies(Ответ.Заголовки, ПодготовленныйЗапрос.URL)); 
-	ПодготовленныйОтвет.Вставить("Заголовки", Ответ.Заголовки);
-	ПодготовленныйОтвет.Вставить("ЭтоПостоянныйРедирект", ЭтоПостоянныйРедирект(Ответ.КодСостояния, Ответ.Заголовки));
-	ПодготовленныйОтвет.Вставить("ЭтоРедирект", ЭтоРедирект(Ответ.КодСостояния, Ответ.Заголовки));
-	ПодготовленныйОтвет.Вставить("Кодировка", ПолучитьКодировкуИзЗаголовка(ЗаголовокContentType));
-	ПодготовленныйОтвет.Вставить("Тело", Ответ.ПолучитьТелоКакДвоичныеДанные());
-	ПодготовленныйОтвет.Вставить("КодСостояния", Ответ.КодСостояния);
-	ПодготовленныйОтвет.Вставить("URL", ПодготовленныйЗапрос.URL);
-	
-	Сессия.Cookies = ОбъединитьCookies(Сессия.Cookies, ПодготовленныйОтвет.Cookies);
-	
-	Возврат ПодготовленныйОтвет;
-	
-КонецФункции
+EndFunction
 
-Процедура ПереопределитьМетод(ПодготовленныйЗапрос, Ответ)
-	
-	КодыСостоянияHTTP = КодыСостоянияHTTP();
-	
-	Метод = ПодготовленныйЗапрос.Метод;
+Function MergeRequestParameters(MainSource, AdditionalSource)
+
+	RequestParameters = New Map;
+	If TypeOf(MainSource) = Type("Structure") Or TypeOf(MainSource) = Type("Map") Then
+		For Each Parameter In MainSource Do
+			RequestParameters.Insert(Parameter.Key, Parameter.Value);
+		EndDo;
+	EndIf;
+	If TypeOf(AdditionalSource) = Type("Structure") Or TypeOf(AdditionalSource) = Type("Map") Then
+		For Each Parameter In AdditionalSource Do
+			If RequestParameters.Get(Parameter) = Undefined Then
+				RequestParameters.Insert(Parameter.Key, Parameter.Value);
+			EndIf;
+		EndDo;
+	EndIf;
+
+	Return RequestParameters;
+
+EndFunction
+
+Function SendHTTPRequest(Session, PreparedRequest, Settings)
+
+	URLComposition = ParseURL(PreparedRequest.URL);
+	Connection = Connection(URLComposition, PreparedRequest.Authentication, Settings, Session);
+	Response = Connection.CallHTTPMethod(PreparedRequest.Method, PreparedRequest.HTTPRequest);
+
+	For Each Handler In PreparedRequest.ResponseEvents Do
+		If Handler = "Code401_ResponseHandler" Then
+			Code401_ResponseHandler(Session, PreparedRequest, Settings, Response);
+		EndIf;
+	EndDo;
+
+	Return Response;
+
+EndFunction
+
+Function CalculatePauseDuration(RetriesNumber, ExponentialDelayRatio, RetryAfterHeader, Remainder)
+
+	If RetryAfterHeader <> False Then
+		Duration = NumberFromString(RetryAfterHeader);
+
+		If Duration = 0 Then
+			Date = DateFromStringRFC7231(RetryAfterHeader);
+			If ValueIsFilled(Date) Then
+				Duration = Date - CurrentUniversalDate();
+			EndIf;
+		EndIf;
+	Else
+		Duration = ExponentialDelayRatio * Pow(2, RetriesNumber - 1);
+	EndIf;
+
+	Duration = Min(Duration, Remainder);
+
+	If Duration < 0 Then
+		Duration = 0;
+	EndIf;
+
+	Return Duration;
+
+EndFunction
+
+Function RequestMustBeRepeated(Response, Settings, RequestExecutionError)
+
+	If Settings.MaximumNumberOfRetries < 1 Then
+		RetryRequest = False;
+	ElsIf RequestExecutionError <> Undefined Or RetryOnStatusCode(Response.StatusCode, Settings) Then
+		RetryRequest = True;
+	Else
+		RetryAfterHeader = HeaderValue("retry-after", Response.Headers);
+		RetryRequest = RetryAfterHeader <> False
+			And IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(Response.StatusCode);
+	EndIf;
+
+	Return RetryRequest;
+
+EndFunction
+
+Function RetryOnStatusCode(StatusCode, Settings)
+
+	RetryOnAnyStatusCodeMoreOrEqual500 = Settings.ToRetryForStatusesCodes = Undefined
+		And StatusCode >= HTTPStatusCodes().InternalServerError_500;
+	StatusCodeMatchesRetryStatusCode = TypeOf(Settings.ToRetryForStatusesCodes) = Type("Array")
+		And Settings.ToRetryForStatusesCodes.Find(StatusCode) <> Undefined;
+	Return RetryOnAnyStatusCodeMoreOrEqual500 Or StatusCodeMatchesRetryStatusCode;
+
+EndFunction
+
+Function SendRequest(Session, PreparedRequest, Settings)
+
+	Start = CurrentUniversalDateInMilliseconds();
+	MillisecondsInSecond = 1000;
+
+	RetriesNumber = 0;
+	Duration = 0;
+	While True Do
+		Try
+			Response = SendHTTPRequest(Session, PreparedRequest, Settings);
+		Except
+			RequestExecutionError = ErrorInfo();
+		EndTry;
+
+		RetriesNumber = RetriesNumber + 1;
+		Duration = (CurrentUniversalDateInMilliseconds() - Start) / MillisecondsInSecond;
+
+		If Not RequestMustBeRepeated(Response, Settings, RequestExecutionError) Then
+			Break;
+		EndIf;
+
+		If RetriesNumber > Settings.MaximumNumberOfRetries
+			Or Duration > Settings.MaximumTimeOfRetries Then
+			Break;
+		EndIf;
+
+		If RequestExecutionError <> Undefined
+			Or НЕ IsStatusCodeForWhichRetryAfterHeaderMustBeConsidered(Response.StatusCode) Then
+			RetryAfterHeader = False;
+		Else
+			RetryAfterHeader = HeaderValue("retry-after", Response.Headers);
+		EndIf;
+		PauseDuration = CalculatePauseDuration(
+			RetriesNumber,
+			Settings.ExponentialDelayRatio,
+			RetryAfterHeader,
+			Settings.MaximumTimeOfRetries - Duration);
+		Pause(PauseDuration);
+	EndDo;
+
+	If RequestExecutionError <> Undefined Then
+		Raise(DetailErrorDescription(RequestExecutionError));
+	EndIf;
+
+	ContentTypeHeader = HeaderValue("content-type", Response.Headers);
+	If ContentTypeHeader = False Then
+		ContentTypeHeader = "";
+	EndIf;
+
+	PreparedResponse = New Structure;
+	PreparedResponse.Insert("ExecutionTime", CurrentUniversalDateInMilliseconds() - Start);
+	PreparedResponse.Insert("Cookies", ExtractCookies(Response.Headers, PreparedRequest.URL));
+	PreparedResponse.Insert("Headers", Response.Headers);
+	PreparedResponse.Insert("IsPermanentRedirect", IsPermanentRedirect(Response.StatusCode, Response.Headers));
+	PreparedResponse.Insert("IsRedirect", IsRedirect(Response.StatusCode, Response.Headers));
+	PreparedResponse.Insert("Encoding", EncodingFromHeader(ContentTypeHeader));
+	PreparedResponse.Insert("Body", Response.GetBodyAsBinaryData());
+	PreparedResponse.Insert("StatusCode", Response.StatusCode);
+	PreparedResponse.Insert("URL", PreparedRequest.URL);
+
+	Session.Cookies = MergeCookies(Session.Cookies, PreparedResponse.Cookies);
+
+	Return PreparedResponse;
+
+EndFunction
+
+Procedure OverrideMethod(PreparedRequest, Response)
+
+	HTTPStatusCodes = HTTPStatusCodes();
+
+	Method = PreparedRequest.Method;
 
 	// http://tools.ietf.org/html/rfc7231#section-6.4.4
-	Если Ответ.КодСостояния = КодыСостоянияHTTP.СмотретьДругое_303 И Метод <> "HEAD" Тогда
-		Метод = "GET";
-	КонецЕсли;
-	
+	If Response.StatusCode = HTTPStatusCodes.SeeOther_303 And Method <> "HEAD" Then
+		Method = "GET";
+	EndIf;
+
 	// Поведение браузеров
-	Если Ответ.КодСостояния = КодыСостоянияHTTP.ПеремещеноВременно_302 И Метод <> "HEAD" Тогда
-		Метод = "GET";
-	КонецЕсли;
-	
-	ПодготовленныйЗапрос.Метод = Метод;
-	
-КонецПроцедуры	
-
-Функция ИзвлечьCookies(Заголовки, URL)
-	
-	ТекущееВремя = ТекущаяУниверсальнаяДата();
-	Cookies = Новый Соответствие;
-	Для Каждого ОчереднойЗаголовок Из Заголовки Цикл
-		Если НРег(ОчереднойЗаголовок.Ключ) = "set-cookie" Тогда
-			Для Каждого ЗаголовокCookie Из РазбитьНаОтдельныеЗаголовкиCookies(ОчереднойЗаголовок.Значение) Цикл
-				Cookie = РаспарситьCookie(ЗаголовокCookie, URL, ТекущееВремя);
-				Если Cookie = Неопределено Тогда
-					Продолжить;
-				КонецЕсли;
-				Если Cookie.СрокДействия <= ТекущееВремя Тогда
-					УдалитьCookieИзХранилища(Cookies, Cookie);
-				Иначе
-					ДобавитьCookieВХранилище(Cookies, Cookie);
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЦикла;
-	
-	Возврат Cookies;
-	
-КонецФункции
-
-Функция РазбитьНаОтдельныеЗаголовкиCookies(Знач Заголовок)
-	
-	Заголовки = Новый Массив;
-	
-	Если Не ЗначениеЗаполнено(Заголовок) Тогда
-		Возврат Заголовки;
-	КонецЕсли;
-	
-	ЗапчастиЗаголовков = СтрРазделить(Заголовок, ",", Ложь);
-	
-	ОтдельныйЗаголовок = ЗапчастиЗаголовков[0];
-	Для Индекс = 1 По ЗапчастиЗаголовков.ВГраница() Цикл
-		ТочкаСЗапятой = СтрНайти(ЗапчастиЗаголовков[Индекс], ";");
-		Равно = СтрНайти(ЗапчастиЗаголовков[Индекс], "=");
-		Если ТочкаСЗапятой И Равно И Равно < ТочкаСЗапятой Тогда
-			Заголовки.Добавить(ОтдельныйЗаголовок);
-			ОтдельныйЗаголовок = ЗапчастиЗаголовков[Индекс];
-		Иначе
-			ОтдельныйЗаголовок = ОтдельныйЗаголовок + ЗапчастиЗаголовков[Индекс];
-		КонецЕсли;
-	КонецЦикла;
-	Заголовки.Добавить(ОтдельныйЗаголовок);
-	
-	Возврат Заголовки;
-	
-КонецФункции
-
-Функция КонструкторCookie(Наименование = "", Значение = Неопределено)
-	
-	НовыйCookie = Новый Структура;
-	НовыйCookie.Вставить("Наименование", Наименование);
-	НовыйCookie.Вставить("Значение", Значение);
-	НовыйCookie.Вставить("Домен", "");
-	НовыйCookie.Вставить("Путь", "");
-	НовыйCookie.Вставить("Порт");
-	НовыйCookie.Вставить("СрокДействия", '39990101');
-	НовыйCookie.Вставить("ТолькоБезопасноеСоединение");
-	
-	Возврат НовыйCookie;
-	
-КонецФункции
-
-Функция СоздатьCookieИЗаполнитьОсновныеПараметры(Параметр)
-
-	Части = СтрРазделить(Параметр, "=", Ложь);
-	Наименование = Части[0];
-	Если Части.Количество() > 1 Тогда
-		Значение = Части[1];
-	КонецЕсли;
-
-	Возврат КонструкторCookie(Наименование, Значение);
-
-КонецФункции
-
-Функция РаспарситьCookie(Заголовок, URL, ТекущееВремя)
-	
-	Cookie = Неопределено;
-	Индекс = 0;
-	
-	Для Каждого Параметр Из СтрРазделить(Заголовок, ";", Ложь) Цикл
-		Индекс = Индекс + 1;
-		Параметр = СокрЛП(Параметр);
-		
-		Если Индекс = 1 Тогда
-			Cookie = СоздатьCookieИЗаполнитьОсновныеПараметры(Параметр);
-			Продолжить;
-		КонецЕсли;
-		
-		Части = СтрРазделить(Параметр, "=", Ложь);
-		Ключ = НРег(Части[0]);
-		Если Части.Количество() > 1 Тогда
-			Значение = Части[1];
-		КонецЕсли;
-
-		Если Ключ = "domain" Тогда
-			Cookie.Домен = Значение;
-		ИначеЕсли Ключ = "path" Тогда
-			Cookie.Путь = Значение;
-		ИначеЕсли Ключ = "secure" Тогда
-			Cookie.ТолькоБезопасноеСоединение = Истина;
-		ИначеЕсли Ключ = "max-age" Тогда
-			СрокДействияMaxAge = ТекущееВремя + ЧислоИзСтроки(Значение);
-		ИначеЕсли Ключ = "expires" Тогда
-			Cookie.СрокДействия = ДатаИзСтрокиRFC7231(Значение);
-		Иначе
-			Продолжить;
-		КонецЕсли;
-	КонецЦикла;
-	Если ЗначениеЗаполнено(Cookie) И ЗначениеЗаполнено(СрокДействияMaxAge) Тогда
-		Cookie.СрокДействия = СрокДействияMaxAge;
-	КонецЕсли;
-	
-	ДозаполнитьCookieНеявнымиЗначениями(Cookie, URL);
-
-	Возврат Cookie;
-	
-КонецФункции
-
-Процедура ДозаполнитьCookieНеявнымиЗначениями(Cookie, URL)
-
-	Если Cookie = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	СтруктураURL = РазобратьURL(URL);
-	Если Не ЗначениеЗаполнено(Cookie.Домен) Тогда
-		Cookie.Домен = СтруктураURL.Сервер;
-	КонецЕсли;
-	Если Не ЗначениеЗаполнено(Cookie.Порт) И ЗначениеЗаполнено(СтруктураURL.Порт) Тогда
-		Cookie.Порт = СтруктураURL.Порт;
-	КонецЕсли;
-	Если Не ЗначениеЗаполнено(Cookie.Путь) Тогда
-		ПозицияПоследнегоСлеша = СтрНайти(СтруктураURL.Путь, "/", НаправлениеПоиска.СКонца);
-		Если ПозицияПоследнегоСлеша <= 1 Тогда
-			Cookie.Путь = "/";
-		Иначе
-			Cookie.Путь = Лев(СтруктураURL.Путь, ПозицияПоследнегоСлеша - 1);
-		КонецЕсли;
-	КонецЕсли;
-
-КонецПроцедуры
-
-Функция ПолучитьЗначениеЗаголовка(Заголовок, ВсеЗаголовки, Ключ = Неопределено)
-	
-	Для Каждого ОчереднойЗаголовок Из ВсеЗаголовки Цикл
-		Если НРег(ОчереднойЗаголовок.Ключ) = НРег(Заголовок) Тогда
-			Ключ = ОчереднойЗаголовок.Ключ;
-			Возврат ОчереднойЗаголовок.Значение;
-		КонецЕсли;
-	КонецЦикла;
-	
-	Возврат Ложь;
-	
-КонецФункции
-
-Функция ЭтоПостоянныйРедирект(КодСостояния, Заголовки)
-	
-	КодыСостоянияHTTP = КодыСостоянияHTTP();
-	
-	Возврат ЕстьЗаголовокLocation(Заголовки) И 
-		(КодСостояния = КодыСостоянияHTTP.ПеремещеноНавсегда_301 
-		ИЛИ КодСостояния = КодыСостоянияHTTP.ПостоянноеПеренаправление_308);
-	
-КонецФункции
-
-Функция ЭтоРедирект(КодСостояния, Заголовки)
-	
-	КодыСостоянияHTTP = КодыСостоянияHTTP();
-	
-	СостоянияРедиректа = Новый Массив;
-	СостоянияРедиректа.Добавить(КодыСостоянияHTTP.ПеремещеноНавсегда_301);
-	СостоянияРедиректа.Добавить(КодыСостоянияHTTP.ПеремещеноВременно_302);
-	СостоянияРедиректа.Добавить(КодыСостоянияHTTP.СмотретьДругое_303);
-	СостоянияРедиректа.Добавить(КодыСостоянияHTTP.ВременноеПеренаправление_307);
-	СостоянияРедиректа.Добавить(КодыСостоянияHTTP.ПостоянноеПеренаправление_308);
-	
-	Возврат ЕстьЗаголовокLocation(Заголовки) И СостоянияРедиректа.Найти(КодСостояния) <> Неопределено;
-	
-КонецФункции
-
-Функция ЕстьЗаголовокLocation(Заголовки)
-	
-	Возврат ПолучитьЗначениеЗаголовка("location", Заголовки) <> Ложь;
-	
-КонецФункции
-
-Функция ПолучитьКодировкуИзЗаголовка(Знач Заголовок)
-
-	Кодировка = Неопределено;
-	
-	Заголовок = НРег(СокрЛП(Заголовок));
-	ИндексРазделителя = СтрНайти(Заголовок, ";");
-	Если ИндексРазделителя Тогда
-		ТипСодержимого = СокрЛП(Лев(Заголовок, ИндексРазделителя - 1));
-		КлючКодировки = "charset=";
-		ИндексКодировки = СтрНайти(Заголовок, КлючКодировки);
-		Если ИндексКодировки Тогда
-			ИндексРазделителя = СтрНайти(Заголовок, ";", НаправлениеПоиска.СНачала, ИндексКодировки);
-			НачальнаяПозиция = ИндексКодировки + СтрДлина(КлючКодировки);
-			Если ИндексРазделителя Тогда
-				ДлинаКодировки = ИндексРазделителя - НачальнаяПозиция;
-			Иначе
-				ДлинаКодировки = СтрДлина(Заголовок);
-			КонецЕсли;
-			Кодировка = Сред(Заголовок, НачальнаяПозиция, ДлинаКодировки);
-			Кодировка = СтрЗаменить(Кодировка, """", "");
-			Кодировка = СтрЗаменить(Кодировка, "'", "");
-		КонецЕсли;
-	Иначе
-		ТипСодержимого = Заголовок;
-	КонецЕсли;
-	
-	Если Кодировка = Неопределено И СтрНайти(ТипСодержимого, "text") Тогда
-		Кодировка = "iso-8859-1";
-	КонецЕсли;
-	
-	Возврат Кодировка;
-	
-КонецФункции
-
-Функция СобратьАдресРесурса(СтруктураURL, ПараметрыЗапроса)
-	
-	АдресРесурса = СтруктураURL.Путь;
-	
-	ОбъединенныеПараметрыЗапроса = ОбъединитьПараметрыЗапроса(ПараметрыЗапроса, СтруктураURL.ПараметрыЗапроса);
-	Если ЗначениеЗаполнено(ОбъединенныеПараметрыЗапроса) Тогда
-		АдресРесурса = АдресРесурса + "?" + КодироватьПараметрыЗапроса(ОбъединенныеПараметрыЗапроса);
-	КонецЕсли;
-	Если ЗначениеЗаполнено(СтруктураURL.Фрагмент) Тогда
-		АдресРесурса = АдресРесурса + "#" + СтруктураURL.Фрагмент;
-	КонецЕсли;
-	
-	Возврат АдресРесурса;
-	
-КонецФункции
-
-Функция ПолучитьЗащищенноеСоединение(ДополнительныеПараметры)
-	
-	Если ДополнительныеПараметры.ПроверятьSSL = Ложь Тогда
-		СертификатыУЦ = Неопределено;
-	ИначеЕсли ТипЗнч(ДополнительныеПараметры.ПроверятьSSL) = Тип("СертификатыУдостоверяющихЦентровФайл") Тогда
-		СертификатыУЦ = ДополнительныеПараметры.ПроверятьSSL;
-	Иначе
-		СертификатыУЦ = Новый СертификатыУдостоверяющихЦентровОС;
-	КонецЕсли;
-	КлиентскийСертификат = Неопределено;
-	Если ДополнительныеПараметры.КлиентскийСертификатSSL = Тип("СертификатКлиентаФайл") 
-		ИЛИ ДополнительныеПараметры.КлиентскийСертификатSSL = Тип("СертификатКлиентаWindows") Тогда
-		КлиентскийСертификат = ДополнительныеПараметры.КлиентскийСертификатSSL;
-	КонецЕсли;
-	
-	Возврат Новый ЗащищенноеСоединениеOpenSSL(КлиентскийСертификат, СертификатыУЦ);
-	
-КонецФункции
-
-Функция ПолучитьСоединение(ПараметрыСоединения, Аутентификация, ДополнительныеПараметры, Сессия)
-	
-	Если Не ЗначениеЗаполнено(ПараметрыСоединения.Порт) Тогда
-		Если ПараметрыСоединения.Схема = "https" Тогда
-			ПараметрыСоединения.Порт = 443;
-		Иначе
-			ПараметрыСоединения.Порт = 80;
-		КонецЕсли;
-	КонецЕсли;
-	
-	ЗащищенноеСоединение = Неопределено;
-	Если ПараметрыСоединения.Схема = "https" Тогда
-		ЗащищенноеСоединение = ПолучитьЗащищенноеСоединение(ДополнительныеПараметры);
-	КонецЕсли;
-	
-	Пользователь = "";
-	Пароль = "";
-	Если ЗначениеЗаполнено(Аутентификация) Тогда
-		Если Аутентификация.Свойство("Пользователь") И Аутентификация.Свойство("Пароль") Тогда
-			Пользователь = Аутентификация.Пользователь;
-			Пароль = Аутентификация.Пароль;
-		КонецЕсли;
-	КонецЕсли;
-	
-	ИспользоватьАутентификациюОС = Аутентификация.Свойство("ИспользоватьАутентификациюОС") 
-		И Аутентификация.ИспользоватьАутентификациюОС = Истина;
-		
-	ПараметрыДляРасчетаИдентификатора = Новый Массив;
-	ПараметрыДляРасчетаИдентификатора.Добавить(ПараметрыСоединения.Сервер);
-	ПараметрыДляРасчетаИдентификатора.Добавить(ПараметрыСоединения.Порт);
-	ПараметрыДляРасчетаИдентификатора.Добавить(Пользователь);
-	ПараметрыДляРасчетаИдентификатора.Добавить(Пароль);
-	ПараметрыДляРасчетаИдентификатора.Добавить(ДополнительныеПараметры.Таймаут);
-	ПараметрыДляРасчетаИдентификатора.Добавить(ИспользоватьАутентификациюОС);
-	ПараметрыДляРасчетаИдентификатора.Добавить(ЗащищенноеСоединение);
-	ПараметрыДляРасчетаИдентификатора.Добавить(ДополнительныеПараметры.Прокси);
-	
-	Если Не Сессия.Свойство("СлужебныеДанные") ИЛИ ТипЗнч(Сессия.СлужебныеДанные) <> Тип("Структура") Тогда
-		Сессия.Вставить("СлужебныеДанные", Новый Структура);
-	КонецЕсли;
-	Если Не Сессия.СлужебныеДанные.Свойство("ПулСоединений") Тогда
-		Сессия.СлужебныеДанные.Вставить("ПулСоединений", Новый Соответствие);
-	КонецЕсли;
-	ПулСоединений = Сессия.СлужебныеДанные.ПулСоединений;
-	
-	ИдентификаторСоединения = ПолучитьИдентификаторСоединения(ПараметрыДляРасчетаИдентификатора);
-	
-	Если ПулСоединений.Получить(ИдентификаторСоединения) = Неопределено Тогда
-		НовоеСоединение = Новый HTTPСоединение(
-			ПараметрыСоединения.Сервер,
-			ПараметрыСоединения.Порт,
-			Пользователь, Пароль,
-			ДополнительныеПараметры.Прокси, 
-			ДополнительныеПараметры.Таймаут, 
-			ЗащищенноеСоединение,
-			ИспользоватьАутентификациюОС);
-		ПулСоединений.Вставить(ИдентификаторСоединения, НовоеСоединение);
-	КонецЕсли;
-	
-	Возврат ПулСоединений[ИдентификаторСоединения];
-	
-КонецФункции
-
-Функция ПолучитьИдентификаторСоединения(ПараметрыСоединения)
-	
-	ПараметрыДляРасчетаИдентификатора = Новый Массив;
-	
-	Для Каждого Элемент Из ПараметрыСоединения Цикл
-		ТипЭлемента = ТипЗнч(Элемент);
-		Если ТипЭлемента = Тип("ИнтернетПрокси") Тогда
-			ПараметрыДляРасчетаИдентификатора.Добавить(СтрСоединить(Элемент.НеИспользоватьПроксиДляАдресов, ""));
-			ПараметрыДляРасчетаИдентификатора.Добавить(XMLСтрока(Элемент.НеИспользоватьПроксиДляЛокальныхАдресов));
-			ПараметрыДляРасчетаИдентификатора.Добавить(Элемент.Пользователь);
-			ПараметрыДляРасчетаИдентификатора.Добавить(Элемент.Пароль);
-		ИначеЕсли ТипЭлемента = Тип("ЗащищенноеСоединениеOpenSSL") Тогда
-			// Для упрощения будет считать, что сертификаты в рамках сессии не меняются
-			Если Элемент.СертификатКлиента = Неопределено Тогда
-				ПараметрыДляРасчетаИдентификатора.Добавить("");
-			Иначе
-				ПараметрыДляРасчетаИдентификатора.Добавить(Строка(ТипЗнч(Элемент.СертификатКлиента)));
-			КонецЕсли;
-			Если Элемент.СертификатыУдостоверяющихЦентров = Неопределено Тогда
-				ПараметрыДляРасчетаИдентификатора.Добавить("");
-			Иначе
-				ПараметрыДляРасчетаИдентификатора.Добавить(Строка(ТипЗнч(Элемент.СертификатыУдостоверяющихЦентров)));
-			КонецЕсли;
-		Иначе
-			ПараметрыДляРасчетаИдентификатора.Добавить(XMLСтрока(Элемент));
-		КонецЕсли;
-	КонецЦикла;
-	
-	Возврат ХешированиеДанных(ХешФункция.MD5, СтрСоединить(ПараметрыДляРасчетаИдентификатора, ""));
-	
-КонецФункции
-
-Функция ВыбратьЗначение(ОсновноеЗначение, ДополнительныеЗначения, Ключ, ЗначениеПоУмолчанию)
-	
-	Если ОсновноеЗначение <> Неопределено Тогда
-		Возврат ОсновноеЗначение;
-	КонецЕсли;
-	
-	Значение = ПолучитьЗначениеПоКлючу(ДополнительныеЗначения, Ключ);
-	Если Значение <> Неопределено Тогда
-		Возврат Значение;
-	КонецЕсли;
-	
-	Возврат ЗначениеПоУмолчанию;
-	
-КонецФункции
-
-Функция ЗаполнитьПараметрыЗапроса(Путь)
-
-	ПараметрыЗапроса = Новый Соответствие;
-	
-	Запрос = "";
-	РазбитьСтрокуПоРазделителю(Запрос, Путь, "?", Истина);
-	Для Каждого СтрокаКлючРавноПараметр Из СтрРазделить(Запрос, "&", Ложь) Цикл
-		СтрокаКлючРавноПараметр = РаскодироватьСтроку(
-			СтрокаКлючРавноПараметр, СпособКодированияСтроки.URLВКодировкеURL);
-
-		ПозицияРавно = СтрНайти(СтрокаКлючРавноПараметр, "=");
-		Если ПозицияРавно = 0 Тогда
-			Ключ = СтрокаКлючРавноПараметр;
-			Значение = Неопределено;
-		Иначе
-			Ключ = Лев(СтрокаКлючРавноПараметр, ПозицияРавно - 1);
-			Значение = Сред(СтрокаКлючРавноПараметр, ПозицияРавно + 1);
-		КонецЕсли;
-
-		Если ПараметрыЗапроса.Получить(Ключ) <> Неопределено Тогда
-			Если ТипЗнч(ПараметрыЗапроса[Ключ]) = Тип("Массив") Тогда
-				ПараметрыЗапроса[Ключ].Добавить(Значение);
-			Иначе
-				Значения = Новый Массив;
-				Значения.Добавить(ПараметрыЗапроса[Ключ]);
-				Значения.Добавить(Значение);
-				ПараметрыЗапроса[Ключ] = Значения;
-			КонецЕсли;
-		Иначе
-			ПараметрыЗапроса.Вставить(Ключ, Значение);
-		КонецЕсли;
-		
-	КонецЦикла;
-	
-	Возврат ПараметрыЗапроса;
-
-КонецФункции
-
-Процедура РазбитьСтрокуПоРазделителю(ИзвлекаемаяЧасть, ОстальнаяЧасть, Разделитель, Инверсия = Ложь)
-	
-	Индекс = СтрНайти(ОстальнаяЧасть, Разделитель);
-	Если Индекс Тогда
-		ИзвлекаемаяЧасть = Лев(ОстальнаяЧасть, Индекс - 1);
-		ОстальнаяЧасть = Сред(ОстальнаяЧасть, Индекс + СтрДлина(Разделитель));
-		Если Инверсия Тогда
-			ДляОбмена = ИзвлекаемаяЧасть;
-			ИзвлекаемаяЧасть = ОстальнаяЧасть;
-			ОстальнаяЧасть = ДляОбмена;
-		КонецЕсли;
-	КонецЕсли;
-	
-КонецПроцедуры
-
-Функция РазделитьПоПервомуНайденномуРазделителю(Строка, Разделители)
-	
-	МинимальныйИндекс = СтрДлина(Строка);
-	ПервыйРазделитель = "";
-	
-	Для Каждого Разделитель Из Разделители Цикл
-		Индекс = СтрНайти(Строка, Разделитель);
-		Если Индекс = 0 Тогда
-			Продолжить;
-		КонецЕсли;
-		Если Индекс < МинимальныйИндекс Тогда
-			МинимальныйИндекс = Индекс;
-			ПервыйРазделитель = Разделитель;
-		КонецЕсли;
-	КонецЦикла;
-	
-	Результат = Новый Массив;
-	Если ЗначениеЗаполнено(ПервыйРазделитель) Тогда
-		Результат.Добавить(Лев(Строка, МинимальныйИндекс - 1));
-		Результат.Добавить(Сред(Строка, МинимальныйИндекс + СтрДлина(ПервыйРазделитель)));
-		Результат.Добавить(ПервыйРазделитель);
-	Иначе
-		Результат.Добавить(Строка);
-		Результат.Добавить("");
-		Результат.Добавить(Неопределено);
-	КонецЕсли;
-	
-	Возврат Результат;
-	
-КонецФункции
-
-Функция ДополнитьПараметрыПреобразованияJSON(ПараметрыПреобразования)
-	
-	ПараметрыПреобразованияJSON = ПолучитьПараметрыПреобразованияJSONПоУмолчанию();
-	Если ЗначениеЗаполнено(ПараметрыПреобразования) Тогда
-		Для Каждого Параметр Из ПараметрыПреобразования Цикл
-			Если ПараметрыПреобразованияJSON.Свойство(Параметр.Ключ) Тогда
-				ПараметрыПреобразованияJSON.Вставить(Параметр.Ключ, Параметр.Значение);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-	
-	Возврат ПараметрыПреобразованияJSON;
-	
-КонецФункции
-
-Функция ДополнитьПараметрыЗаписиJSON(ПараметрыЗаписи)
-	
-	ПараметрыЗаписиJSON = ПолучитьПараметрыЗаписиJSONПоУмолчанию();
-	Если ЗначениеЗаполнено(ПараметрыЗаписи) Тогда
-		Для Каждого Параметр Из ПараметрыЗаписи Цикл
-			Если ПараметрыЗаписиJSON.Свойство(Параметр.Ключ) Тогда
-				ПараметрыЗаписиJSON.Вставить(Параметр.Ключ, Параметр.Значение);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-	
-	Возврат ПараметрыЗаписиJSON;
-	
-КонецФункции
-
-#Область АутентификацияAWS4
-
-Функция ПолучитьКлючПодписиAWS4(СекретныйКлюч, Дата, Регион, Сервис)
-	
-	КлючДата = ПодписатьСообщениеHMAC("AWS4" + СекретныйКлюч, Дата);
-	КлючРегион = ПодписатьСообщениеHMAC(КлючДата, Регион);
-	КлючСервис = ПодписатьСообщениеHMAC(КлючРегион, Сервис);
-	
-	Возврат ПодписатьСообщениеHMAC(КлючСервис, "aws4_request");
-	
-КонецФункции
-
-Функция ПодписатьСообщениеHMAC(Знач Ключ, Знач Сообщение, Знач Алгоритм = Неопределено)
-	
-	Если Алгоритм = Неопределено Тогда
-		Алгоритм = ХешФункция.SHA256;
-	КонецЕсли;
-	
-	Если ТипЗнч(Ключ) = Тип("Строка") Тогда
-		Ключ = ПолучитьДвоичныеДанныеИзСтроки(Ключ, КодировкаТекста.UTF8, Ложь);
-	КонецЕсли;
-	Если ТипЗнч(Сообщение) = Тип("Строка") Тогда
-		Сообщение = ПолучитьДвоичныеДанныеИзСтроки(Сообщение, КодировкаТекста.UTF8, Ложь);
-	КонецЕсли;
-
-	Возврат HMAC(Ключ, Сообщение, Алгоритм);
-	
-КонецФункции
-
-Процедура ПодготовитьАутентификациюAWS4(ПодготовленныйЗапрос)
-
-	ЗначениеЗаголовка = ПолучитьЗначениеЗаголовка("x-amz-date", ПодготовленныйЗапрос.Заголовки);
-	Если ЗначениеЗаголовка <> Ложь Тогда
-		ТекущееВремя = Дата(СтрЗаменить(СтрЗаменить(ЗначениеЗаголовка, "T", ""), "Z", ""));
-	Иначе
-		ТекущееВремя = ТекущаяУниверсальнаяДата();
-	КонецЕсли;
-	ПодготовленныйЗапрос.Заголовки["x-amz-date"] = Формат(ТекущееВремя, "ДФ=yyyyMMddTHHmmssZ");
-	ОбластьДействияДата = Формат(ТекущееВремя, "ДФ=yyyyMMdd");
-	
-	ПодготовленныйЗапрос.Заголовки["x-amz-content-sha256"] = 
-		ХешированиеДанных(ХешФункция.SHA256, ПодготовленныйЗапрос.HTTPЗапрос.ПолучитьТелоКакПоток());
-		
-	СтруктураURL = РазобратьURL(ПодготовленныйЗапрос.URL);
-	
-	КаноническиеЗаголовки = ПолучитьКаноническиеЗаголовкиAWS4(ПодготовленныйЗапрос.Заголовки, СтруктураURL);
-	
-	КаноническийПуть = СтруктураURL.Путь;
-	КаноническиеПараметрыЗапроса = ПолучитьКаноническиеПараметрыЗапросаAWS4(СтруктураURL.ПараметрыЗапроса);
-	
-	ЧастиЗапроса = Новый Массив;
-	ЧастиЗапроса.Добавить(ПодготовленныйЗапрос.Метод);
-	ЧастиЗапроса.Добавить(КаноническийПуть);
-	ЧастиЗапроса.Добавить(КаноническиеПараметрыЗапроса);
-	ЧастиЗапроса.Добавить(КаноническиеЗаголовки.КаноническиеЗаголовки);
-	ЧастиЗапроса.Добавить(КаноническиеЗаголовки.ПодписываемыеЗаголовки);
-	ЧастиЗапроса.Добавить(ПодготовленныйЗапрос.Заголовки["x-amz-content-sha256"]);
-	КаноническийЗапрос = СтрСоединить(ЧастиЗапроса, Символы.ПС);
-	
-	ЧастиОбластиДействия = Новый Массив;
-	ЧастиОбластиДействия.Добавить(ОбластьДействияДата);
-	ЧастиОбластиДействия.Добавить(ПодготовленныйЗапрос.Аутентификация.Регион);
-	ЧастиОбластиДействия.Добавить(ПодготовленныйЗапрос.Аутентификация.Сервис);
-	ЧастиОбластиДействия.Добавить("aws4_request");
-	ОбластьДействия = СтрСоединить(ЧастиОбластиДействия, "/");
-	
-	ЧастиСтрокиДляПодписи = Новый Массив;
-	ЧастиСтрокиДляПодписи.Добавить(ПодготовленныйЗапрос.Аутентификация.Тип);
-	ЧастиСтрокиДляПодписи.Добавить(ПодготовленныйЗапрос.Заголовки["x-amz-date"]);
-	ЧастиСтрокиДляПодписи.Добавить(ОбластьДействия);
-	ЧастиСтрокиДляПодписи.Добавить(ХешированиеДанных(ХешФункция.SHA256, КаноническийЗапрос));
-	СтрокаДляПодписи = СтрСоединить(ЧастиСтрокиДляПодписи, Символы.ПС);
-	
-	Ключ = ПолучитьКлючПодписиAWS4(
-		ПодготовленныйЗапрос.Аутентификация.СекретныйКлюч,
-		ОбластьДействияДата,
-		ПодготовленныйЗапрос.Аутентификация.Регион,
-		ПодготовленныйЗапрос.Аутентификация.Сервис);
-	Подпись = НРег(ПолучитьHexСтрокуИзДвоичныхДанных(ПодписатьСообщениеHMAC(Ключ, СтрокаДляПодписи)));
-	
-	ПодготовленныйЗапрос.Заголовки["Authorization"] = СтрШаблон(
-		"%1 Credential=%2/%3, SignedHeaders=%4, Signature=%5",
-		ПодготовленныйЗапрос.Аутентификация.Тип,
-		ПодготовленныйЗапрос.Аутентификация.ИдентификаторКлючаДоступа,
-		ОбластьДействия,
-		КаноническиеЗаголовки.ПодписываемыеЗаголовки,
-		Подпись);
-	
-	ПодготовленныйЗапрос.HTTPЗапрос.Заголовки = ПодготовленныйЗапрос.Заголовки;
-
-КонецПроцедуры
-
-Функция ЭтоСтандартныйПорт(СтруктураURL)
-	
-	СтандартныйПортHTTP = 80;
-	СтандартныйПортHTTPS = 443;
-	
-	Возврат (СтруктураURL.Схема = "http" И СтруктураURL.Порт = СтандартныйПортHTTP) 
-		ИЛИ (СтруктураURL.Схема = "https" И СтруктураURL.Порт = СтандартныйПортHTTPS);
-	
-КонецФункции
-
-Функция СформироватьЗначениеЗаголовкаHost(СтруктураURL)
-	
-	Host = СтруктураURL.Сервер;
-	Если ЗначениеЗаполнено(СтруктураURL.Порт) И НЕ ЭтоСтандартныйПорт(СтруктураURL) Тогда
-		Host = Host + ":" + Формат(СтруктураURL.Порт, "ЧРГ=; ЧГ=");
-	КонецЕсли;
-	
-	Возврат Host;
-	
-КонецФункции
-
-Функция ПолучитьКаноническиеЗаголовкиAWS4(Заголовки, СтруктураURL)
-	
-	Список = Новый СписокЗначений;
-	
-	ЗаголовокHostЕстьВЗапросе = Ложь;
-	ЗаголовкиПоУмолчанию = ЗаголовкиПоУмолчаниюAWS4();
-	Для Каждого ОчереднойЗаголовок Из Заголовки Цикл
-		Заголовок = НРег(ОчереднойЗаголовок.Ключ);
-		Если ЗаголовкиПоУмолчанию.Исключения.Найти(Заголовок) <> Неопределено Тогда
-			Продолжить;
-		КонецЕсли;
-		ЗаголовокHostЕстьВЗапросе = Макс(ЗаголовокHostЕстьВЗапросе, Заголовок = "host");
-		
-		Если ЗаголовкиПоУмолчанию.Равно.Найти(Заголовок) <> Неопределено Тогда
-			Список.Добавить(Заголовок, СокрЛП(ОчереднойЗаголовок.Значение));
-		Иначе
-			Для Каждого Префикс Из ЗаголовкиПоУмолчанию.НачинаетсяС Цикл
-				Если СтрНачинаетсяС(Заголовок, Префикс) Тогда
-					Список.Добавить(Заголовок, СокрЛП(ОчереднойЗаголовок.Значение));
-					Прервать;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЦикла;
-	
-	Если Не ЗаголовокHostЕстьВЗапросе Тогда
-		Список.Добавить("host", СформироватьЗначениеЗаголовкаHost(СтруктураURL));
-	КонецЕсли;
-	
-	Список.СортироватьПоЗначению(НаправлениеСортировки.Возр);
-	
-	КаноническиеЗаголовки = Новый Массив;
-	ПодписываемыеЗаголовки = Новый Массив;
-	Для Каждого ЭлементСписка Из Список Цикл
-		КаноническиеЗаголовки.Добавить(ЭлементСписка.Значение + ":" + ЭлементСписка.Представление);
-		ПодписываемыеЗаголовки.Добавить(ЭлементСписка.Значение);
-	КонецЦикла;
-	КаноническиеЗаголовки.Добавить("");
-	
-	КаноническиеЗаголовки = СтрСоединить(КаноническиеЗаголовки, Символы.ПС);
-	ПодписываемыеЗаголовки = СтрСоединить(ПодписываемыеЗаголовки, ";");
-	Возврат Новый Структура(
-		"КаноническиеЗаголовки, ПодписываемыеЗаголовки",
-		КаноническиеЗаголовки, ПодписываемыеЗаголовки);
-	
-КонецФункции
-
-Функция ПолучитьКаноническиеПараметрыЗапросаAWS4(ПараметрыЗапроса)
-	
-	Список = Новый СписокЗначений;
-	Для Каждого ОчереднойПараметрЗапроса Из ПараметрыЗапроса Цикл
-		Список.Добавить(ОчереднойПараметрЗапроса.Ключ, СокрЛП(ОчереднойПараметрЗапроса.Значение));
-	КонецЦикла;
-	Список.СортироватьПоЗначению(НаправлениеСортировки.Возр);
-	
-	КаноническиеПараметры = Новый Массив;
-	Для Каждого ЭлементСписка Из Список Цикл
-		ЗначениеПараметра = КодироватьСтроку(ЭлементСписка.Представление, СпособКодированияСтроки.КодировкаURL);
-		КаноническиеПараметры.Добавить(ЭлементСписка.Значение + "=" + ЗначениеПараметра);
-	КонецЦикла;
-	
-	Возврат СтрСоединить(КаноническиеПараметры, "&");
-		
-КонецФункции
-
-Функция ЗаголовкиПоУмолчаниюAWS4()
-	
-	Заголовки = Новый Структура;
-	Заголовки.Вставить("Равно", СтрРазделить("host,content-type,date", ","));
-	Заголовки.Вставить("НачинаетсяС", СтрРазделить("x-amz-", ","));
-	Заголовки.Вставить("Исключения", СтрРазделить("x-amz-client-context", ","));
-	
-	Возврат Заголовки;
-	
-КонецФункции
-
-#КонецОбласти
-
-#Область КодированиеДекодированиеДанных
-
-#Область СлужебныеСтруктурыZip
-
-// Описание структур см. здесь https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
-
-Функция ZipРазмерLFH()
-	
-	Возврат 34;
-	
-КонецФункции
-
-Функция ZipРазмерDD()
-	
-	Возврат 16;
-	
-КонецФункции
-
-Функция ZipРазмерCDH()
-	
-	Возврат 50;
-	
-КонецФункции
-
-Функция ZipРазмерEOCD()
-	
-	Возврат 22;
-	
-КонецФункции
-
-Функция ZipLFH()
-	
-	// Local file header
-	Буфер = Новый БуферДвоичныхДанных(ZipРазмерLFH());
-	Буфер.ЗаписатьЦелое32(0, 67324752); // signature 0x04034b50
-	Буфер.ЗаписатьЦелое16(4, 20);       // version
-	Буфер.ЗаписатьЦелое16(6, 10);       // bit flags	
-	Буфер.ЗаписатьЦелое16(8, 8);        // compression method
-	Буфер.ЗаписатьЦелое16(10, 0);       // time
-	Буфер.ЗаписатьЦелое16(12, 0);       // date
-	Буфер.ЗаписатьЦелое32(14, 0);       // crc-32
-	Буфер.ЗаписатьЦелое32(18, 0);       // compressed size
-	Буфер.ЗаписатьЦелое32(22, 0);       // uncompressed size
-	Буфер.ЗаписатьЦелое16(26, 4);       // filename legth - "data"
-	Буфер.ЗаписатьЦелое16(28, 0);       // extra field length
-	Буфер.Записать(30, ПолучитьБуферДвоичныхДанныхИзСтроки("data", "ascii", Ложь));
-	
-	Возврат Буфер;
-	
-КонецФункции
-
-Функция ZipDD(CRC32, РазмерСжатыхДанных, РазмерНесжатыхДанных)
-	
-	// Data descriptor
-	Буфер = Новый БуферДвоичныхДанных(ZipРазмерDD());
-	Буфер.ЗаписатьЦелое32(0, 134695760);
-	Буфер.ЗаписатьЦелое32(4, CRC32);
-	Буфер.ЗаписатьЦелое32(8, РазмерСжатыхДанных);
-	Буфер.ЗаписатьЦелое32(12, РазмерНесжатыхДанных);
-	
-	Возврат Буфер;
-	
-КонецФункции
-
-Функция ZipCDH(CRC32, РазмерСжатыхДанных, РазмерНесжатыхДанных)
-	
-	// Central directory header
-	Буфер = Новый БуферДвоичныхДанных(ZipРазмерCDH());
-	Буфер.ЗаписатьЦелое32(0, 33639248);              // signature 0x02014b50
-	Буфер.ЗаписатьЦелое16(4, 798);                   // version made by
-	Буфер.ЗаписатьЦелое16(6, 20);                    // version needed to extract
-	Буфер.ЗаписатьЦелое16(8, 10);                    // bit flags
-	Буфер.ЗаписатьЦелое16(10, 8);                    // compression method
-	Буфер.ЗаписатьЦелое16(12, 0);                    // time
-	Буфер.ЗаписатьЦелое16(14, 0);                    // date
-	Буфер.ЗаписатьЦелое32(16, CRC32);                // crc-32
-	Буфер.ЗаписатьЦелое32(20, РазмерСжатыхДанных);   // compressed size
-	Буфер.ЗаписатьЦелое32(24, РазмерНесжатыхДанных); // uncompressed size
-	Буфер.ЗаписатьЦелое16(28, 4);                    // file name length
-	Буфер.ЗаписатьЦелое16(30, 0);                    // extra field length
-	Буфер.ЗаписатьЦелое16(32, 0);                    // file comment length
-	Буфер.ЗаписатьЦелое16(34, 0);                    // disk number start
-	Буфер.ЗаписатьЦелое16(36, 0);                    // internal file attributes
-	Буфер.ЗаписатьЦелое32(38, 2176057344);           // external file attributes
-	Буфер.ЗаписатьЦелое32(42, 0);                    // relative offset of local header
-	Буфер.Записать(46, ПолучитьБуферДвоичныхДанныхИзСтроки("data", "ascii", Ложь));
-	
-	Возврат Буфер;
-
-КонецФункции
-
-Функция ZipEOCD(РазмерСжатыхДанных)
-	
-	// End of central directory
-	РазмерCDH = 50;
-	Буфер = Новый БуферДвоичныхДанных(ZipРазмерEOCD());
-	Буфер.ЗаписатьЦелое32(0, 101010256); // signature 0x06054b50
-	Буфер.ЗаписатьЦелое16(4, 0); // number of this disk
-	Буфер.ЗаписатьЦелое16(6, 0); // number of the disk with the start of the central directory
-	Буфер.ЗаписатьЦелое16(8, 1); // total number of entries in the central directory on this disk
-	Буфер.ЗаписатьЦелое16(10, 1); // total number of entries in the central directory
-	Буфер.ЗаписатьЦелое32(12, РазмерCDH); // size of the central directory	
-	// offset of start of central directory with respect to the starting disk number
-	Буфер.ЗаписатьЦелое32(16, ZipРазмерLFH() + РазмерСжатыхДанных + ZipРазмерDD()); 
-	Буфер.ЗаписатьЦелое16(20, 0); // the starting disk number
-	
-	Возврат Буфер;
-	
-КонецФункции
-
-#КонецОбласти
-
-#Область СлужебныеСтруктурыGZip
-
-// Описание структур см. здесь https://www.ietf.org/rfc/rfc1952.txt
-
-Функция GZipРазмерHeader()
-
-	Возврат 10;
-
-КонецФункции
-
-Функция GZipРазмерFooter()
-
-	Возврат 8;
-
-КонецФункции
-
-Функция GZipHeader()
-
-	Буфер = Новый БуферДвоичныхДанных(GZipРазмерHeader());
-	Буфер[0] = 31;               // ID1 0x1f
-	Буфер[1] = 139;              // ID2 0x8b
-	Буфер[2] = 8;                // compression method (08 for DEFLATE)
-	Буфер[3] = 0;                // header flags
-	Буфер.ЗаписатьЦелое32(4, 0); // timestamp
-	Буфер[8] = 0;                // compression flags
-	Буфер[9] = 255;              // operating system ID
-
-	Возврат Буфер;
-
-КонецФункции
-
-Функция GZipFooter(CRC32, РазмерИсходныхДанных)
-	
-	Буфер = Новый БуферДвоичныхДанных(GZipРазмерFooter());
-	Буфер.ЗаписатьЦелое32(0, CRC32);
-	Буфер.ЗаписатьЦелое32(4, РазмерИсходныхДанных);
-
-	Возврат Буфер;
-
-КонецФункции
-
-#КонецОбласти
-
-Функция ПрочитатьZip(СжатыеДанные, ТекстОшибки = Неопределено)
-	
-#Если МобильноеПриложениеСервер Тогда
-	ВызватьИсключение(НСтр("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается'"));
-#Иначе
-	Каталог = ПолучитьИмяВременногоФайла();
-	ЧтениеZip = Новый ЧтениеZipФайла(СжатыеДанные);
-	ИмяФайла = ЧтениеZip.Элементы[0].Имя;
-	Попытка
-		ЧтениеZip.Извлечь(ЧтениеZip.Элементы[0], Каталог, РежимВосстановленияПутейФайловZIP.НеВосстанавливать);
-	Исключение
-		// Игнорируем проверку целостности архива, просто читаем результат
-		ТекстОшибки = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
-	КонецПопытки;
-	ЧтениеZip.Закрыть();
-	
-	Результат = Новый ДвоичныеДанные(Каталог + ПолучитьРазделительПути() + ИмяФайла);
-	УдалитьФайлы(Каталог);
-	
-	Возврат Результат;
-#КонецЕсли
-	
-КонецФункции
-
-Функция ЗаписатьZip(Данные)
-
-#Если МобильноеПриложениеСервер Тогда
-	ВызватьИсключение(НСтр("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается'"));
-#Иначе
-	ВременныйФайл = ПолучитьИмяВременногоФайла(".bin");
-	Данные.Записать(ВременныйФайл);
-	ПотокZip = Новый ПотокВПамяти;
-	ЗаписьZip = Новый ЗаписьZipФайла(ПотокZip);
-	ЗаписьZip.Добавить(ВременныйФайл);
-	ЗаписьZip.Записать();
-	УдалитьФайлы(ВременныйФайл);
-
-	Возврат ПотокZip.ЗакрытьИПолучитьДвоичныеДанные();
-#КонецЕсли
-
-КонецФункции
-
-#КонецОбласти
-
-#Область ОбработчикиСобытий
-
-Процедура ОбработкаОтветаСКодом401(Сессия, ПодготовленныйЗапрос, Настройки, Ответ)
-	
-	Если ЭтоРедирект(Ответ.КодСостояния, Ответ.Заголовки) Тогда
-		Возврат;
-	КонецЕсли;
-	
-	КодыСостоянияHTTP = КодыСостоянияHTTP();
-	Если Ответ.КодСостояния < КодыСостоянияHTTP.НеверныйЗапрос_400 
-		ИЛИ Ответ.КодСостояния >= КодыСостоянияHTTP.ВнутренняяОшибкаСервера_500 Тогда
-		Возврат;
-	КонецЕсли;
-	
-	Значение = ПолучитьЗначениеЗаголовка("www-authenticate", Ответ.Заголовки);
-	Если Значение <> Ложь И СтрНайти(НРег(Значение), "digest") Тогда
-		Позиция = СтрНайти(НРег(Значение), "digest");
-		Значение = Сред(Значение, Позиция + СтрДлина("digest") + 1);
-		Значение = СтрЗаменить(Значение, """", "");
-		Значение = СтрЗаменить(Значение, Символы.ПС, "");
-		
-		ПараметрыDigest = Новый Структура("algorithm,realm,nonce,qop,opaque");
-		Для Каждого Часть Из РазбитьСтрокуПоСтроке(Значение, ", ") Цикл
-			КлючЗначение = СтрРазделить(Часть, "=");
-			ПараметрыDigest.Вставить(КлючЗначение[0], КлючЗначение[1]);
-		КонецЦикла;
-		
-		Сессия.СлужебныеДанные.ПараметрыDigest = ПараметрыDigest;
-		
-		ПодготовленныйЗапрос.Заголовки.Вставить("Authorization", ПодготовитьЗаголовокDigest(Сессия, ПодготовленныйЗапрос));
-		ПодготовленныйЗапрос.HTTPЗапрос.Заголовки = ПодготовленныйЗапрос.Заголовки;
-		
-		Ответ = ОтправитьHTTPЗапрос(Сессия, ПодготовленныйЗапрос, Настройки);
-	КонецЕсли;
-	
-КонецПроцедуры
-
-Функция ОпределитьХешФункцию(Знач Алгоритм)
-	
-	Алгоритм = ВРег(Алгоритм);
-	Если Не ЗначениеЗаполнено(Алгоритм) ИЛИ Алгоритм = "MD5" ИЛИ Алгоритм = "MD5-SESS" Тогда
-		Возврат ХешФункция.MD5;
-	ИначеЕсли Алгоритм = "SHA" Тогда
-		Возврат ХешФункция.SHA1;
-	ИначеЕсли Алгоритм = "SHA-256" Тогда
-		Возврат ХешФункция.SHA256;
-	Иначе
-		Возврат Неопределено;
-	КонецЕсли;
-	
-КонецФункции
-
-Функция ПодготовитьЗаголовокDigest(Сессия, ПодготовленныйЗапрос)
-	
-	ПараметрыDigest = Сессия.СлужебныеДанные.ПараметрыDigest;
-	
-	Алгоритм = ОпределитьХешФункцию(ПараметрыDigest.algorithm);
-	АлгоритмСтрокой = ВРег(ПараметрыDigest.algorithm);
-	Если Алгоритм = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
-	
-	СтруктураURL = РазобратьURL(ПодготовленныйЗапрос.URL);
-	Путь = СтруктураURL.Путь;
-	Если ЗначениеЗаполнено(СтруктураURL.ПараметрыЗапроса) Тогда
-		Путь = Путь + "?" + КодироватьПараметрыЗапроса(СтруктураURL.ПараметрыЗапроса);
-	КонецЕсли;
-	
-	A1 = СтрШаблон("%1:%2:%3", 
-		ПодготовленныйЗапрос.Аутентификация.Пользователь,
-		ПараметрыDigest.realm,
-		ПодготовленныйЗапрос.Аутентификация.Пароль);
-	A2 = СтрШаблон("%1:%2", ПодготовленныйЗапрос.Метод, Путь);
-	
-	HA1 = ХешированиеДанных(Алгоритм, A1);
-	HA2 = ХешированиеДанных(Алгоритм, A2);
-	
-	Если Не ПараметрыDigest.Свойство("last_nonce") Тогда
-		ПараметрыDigest.Вставить("last_nonce");
-	КонецЕсли;
-	
-	Если ПараметрыDigest.nonce = ПараметрыDigest.last_nonce Тогда
-		ПараметрыDigest.nonce_count = ПараметрыDigest.nonce_count + 1;
-	Иначе
-		ПараметрыDigest.Вставить("nonce_count", 1);
-	КонецЕсли;
-	
-	ЗначениеNC = Формат(ПараметрыDigest.nonce_count, "ЧЦ=8; ЧВН=; ЧГ=");
-	ЗначениеNonce = Лев(СтрЗаменить(НРег(Новый УникальныйИдентификатор), "-", ""), 16);
-
-	Если АлгоритмСтрокой = "MD5-SESS" Тогда
-		HA1 = ХешированиеДанных(Алгоритм, СтрШаблон("%1:%2:%3", HA1, ПараметрыDigest.nonce, ЗначениеNonce)); 
-	КонецЕсли;
-	
-	Если Не ЗначениеЗаполнено(ПараметрыDigest.qop) Тогда
-		ЗначениеResponse = ХешированиеДанных(Алгоритм, СтрШаблон("%1:%2:%3", HA1, ПараметрыDigest.nonce, HA2));
-	ИначеЕсли ПараметрыDigest.qop = "auth"
-		ИЛИ СтрРазделить(ПараметрыDigest.qop, ",", Ложь).Найти("auth") <> Неопределено Тогда
-		ЗначениеNonceBit = СтрШаблон("%1:%2:%3:%4:%5", ПараметрыDigest.nonce, ЗначениеNC, ЗначениеNonce, "auth", HA2);
-		ЗначениеResponse = ХешированиеДанных(Алгоритм, СтрШаблон("%1:%2", HA1, ЗначениеNonceBit));
-	Иначе
-		// INFO: auth-int не реализовано
-		Возврат Неопределено;
-	КонецЕсли;
-	
-	ПараметрыDigest.last_nonce = ПараметрыDigest.nonce;
-
-	База = СтрШаблон("username=""%1"", realm=""%2"", nonce=""%3"", uri=""%4"", response=""%5""", 
-		ПодготовленныйЗапрос.Аутентификация.Пользователь,
-		ПараметрыDigest.realm,
-		ПараметрыDigest.nonce,
-		Путь,
-		ЗначениеResponse);
-	Строки = Новый Массив;
-	Строки.Добавить(База);
-		
-	Если ЗначениеЗаполнено(ПараметрыDigest.opaque) Тогда
-		Строки.Добавить(СтрШаблон(", opaque=""%1""", ПараметрыDigest.opaque));
-	КонецЕсли;
-	Если ЗначениеЗаполнено(ПараметрыDigest.algorithm) Тогда
-		Строки.Добавить(СтрШаблон(", algorithm=""%1""", ПараметрыDigest.algorithm));
-	КонецЕсли;
-	Если ЗначениеЗаполнено(ПараметрыDigest.qop) Тогда
-		Строки.Добавить(СтрШаблон(", qop=""auth"", nc=%1, cnonce=""%2""", ЗначениеNC, ЗначениеNonce));
-	КонецЕсли;
-	
-	Возврат СтрШаблон("Digest %1", СтрСоединить(Строки, ""));
-	
-КонецФункции
-
-Функция ХешированиеДанных(Знач Алгоритм, Знач Данные)
-	
-	Если ТипЗнч(Данные) = Тип("Строка") Тогда
-		Данные = ПолучитьДвоичныеДанныеИзСтроки(Данные, КодировкаТекста.UTF8, Ложь);
-	КонецЕсли;
-	
-	Хеширование = Новый ХешированиеДанных(Алгоритм);
-	Хеширование.Добавить(Данные);
-	
-	Возврат НРег(ПолучитьHexСтрокуИзДвоичныхДанных(Хеширование.ХешСумма));
-	
-КонецФункции
-
-Функция РазбитьСтрокуПоСтроке(Знач Строка, Разделитель)
-	
-	Результат = Новый Массив;
-	Пока Истина Цикл
-		Позиция = СтрНайти(Строка, Разделитель);
-		Если Позиция = 0 И ЗначениеЗаполнено(Строка) Тогда
-			Результат.Добавить(Строка);
-			Прервать;
-		КонецЕсли;
-		
-		ПерваяЧасть = Лев(Строка, Позиция - СтрДлина(Разделитель) + 1);
-		Результат.Добавить(ПерваяЧасть);
-		Строка = Сред(Строка, Позиция + СтрДлина(Разделитель));
-	КонецЦикла;
-	
-	Возврат Результат;
-	
-КонецФункции
-
-#КонецОбласти
-
-Функция РаспаковатьОтвет(Ответ)
-	
-	Заголовок = ПолучитьЗначениеЗаголовка("content-encoding", Ответ.Заголовки);
-	Если Заголовок <> Ложь Тогда
-		Если НРег(Заголовок) = "gzip" Тогда
-			Возврат ПрочитатьGZip(Ответ.Тело);
-		КонецЕсли;
-	КонецЕсли;
-	
-	Возврат Ответ.Тело;
-	
-КонецФункции
-
-Процедура УпаковатьЗапрос(Запрос)
-
-	Заголовок = ПолучитьЗначениеЗаголовка("content-encoding", Запрос.Заголовки);
-	Если Заголовок <> Ложь Тогда
-		Если НРег(Заголовок) = "gzip" Тогда
-			Запрос.УстановитьТелоИзДвоичныхДанных(ЗаписатьGZip(Запрос.ПолучитьТелоКакДвоичныеДанные()));
-		КонецЕсли;
-	КонецЕсли;
-
-КонецПроцедуры
-
-#Область ПараметрыПоУмолчанию
-
-Функция ЗаголовкиПоУмолчанию()
-	
-	Заголовки = Новый Соответствие;
-#Если МобильноеПриложениеСервер Тогда
-	Заголовки.Вставить("Accept-Encoding", "identity");
-#Иначе
-	Заголовки.Вставить("Accept-Encoding", "gzip");
-#КонецЕсли
-	Заголовки.Вставить("Accept", "*/*");
-	Заголовки.Вставить("Connection", "keep-alive");
-	
-	Возврат Заголовки;
-	
-КонецФункции
-
-Функция МаксимальноеКоличествоПеренаправлений()
-	
-	Возврат 30;
-	
-КонецФункции
-
-Функция СтандартныйТаймаут()
-	
-	Возврат 30;
-	
-КонецФункции
-
-Функция ПолучитьПараметрыПреобразованияJSONПоУмолчанию()
-	
-	ПараметрыПреобразованияПоУмолчанию = Новый Структура;
-	ПараметрыПреобразованияПоУмолчанию.Вставить("ПрочитатьВСоответствие", Истина);
-	ПараметрыПреобразованияПоУмолчанию.Вставить("ФорматДатыJSON", ФорматДатыJSON.ISO);
-	ПараметрыПреобразованияПоУмолчанию.Вставить("ИменаСвойствСоЗначениямиДата", Неопределено);
-	
-	Возврат ПараметрыПреобразованияПоУмолчанию;
-	
-КонецФункции
-
-Функция ПолучитьПараметрыЗаписиJSONПоУмолчанию()
-	
-	ПараметрыЗаписиJSONПоУмолчанию = Новый Структура;
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ПереносСтрок", ПереносСтрокJSON.Авто);
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("СимволыОтступа", " ");
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ИспользоватьДвойныеКавычки", Истина);
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ЭкранированиеСимволов", ЭкранированиеСимволовJSON.Нет);
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ЭкранироватьУгловыеСкобки", Ложь);
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ЭкранироватьРазделителиСтрок", Истина);
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ЭкранироватьАмперсанд", Ложь);
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ЭкранироватьОдинарныеКавычки", Ложь);
-	ПараметрыЗаписиJSONПоУмолчанию.Вставить("ЭкранироватьСлеш", Ложь);
-	
-	Возврат ПараметрыЗаписиJSONПоУмолчанию;
-	
-КонецФункции
-
-#КонецОбласти
-
-Процедура ЗаполнитьДополнительныеДанные(ДополнительныеПараметры, ПараметрыЗапроса, Данные, Json)
-
-	Если ДополнительныеПараметры = Неопределено Тогда
-		ДополнительныеПараметры = Новый Структура();
-	КонецЕсли;
-	Если Не ДополнительныеПараметры.Свойство("ПараметрыЗапроса") Тогда
-		ДополнительныеПараметры.Вставить("ПараметрыЗапроса", ПараметрыЗапроса);
-	КонецЕсли;
-	Если Не ДополнительныеПараметры.Свойство("Данные") Тогда
-		ДополнительныеПараметры.Вставить("Данные", Данные);
-	КонецЕсли;
-	Если Не ДополнительныеПараметры.Свойство("Json") Тогда
-		ДополнительныеПараметры.Вставить("Json", Json);
-	КонецЕсли;
-
-КонецПроцедуры
-
-// Когда-нибудь в платформе сделают паузу и это можно будет выкинуть
+	If Response.StatusCode = HTTPStatusCodes.MovedTemporarily_302 And Method <> "HEAD" Then
+		Method = "GET";
+	EndIf;
+
+	PreparedRequest.Method = Method;
+
+EndProcedure
+
+Function ExtractCookies(Headers, URL)
+
+	CurrentTime = CurrentUniversalDate();
+	Cookies = New Map;
+	For Each NextHeader In Headers Do
+		If Lower(NextHeader.Key) = "set-cookie" Then
+			For Each CookieHeader In SplitIntoSeparateCookiesHeaders(NextHeader.Value) Do
+				Cookie = ParseCookie(CookieHeader, URL, CurrentTime);
+				If Cookie = Undefined Then
+					Continue;
+				EndIf;
+				If Cookie.ExpiresOn <= CurrentTime Then
+					DeleteCookieFromRepository(Cookies, Cookie);
+				Else
+					AddCookieToRepository(Cookies, Cookie);
+				EndIf;
+			EndDo;
+		EndIf;
+	EndDo;
+
+	Return Cookies;
+
+EndFunction
+
+Function SplitIntoSeparateCookiesHeaders(Val Header)
+
+	Headers = New Array;
+
+	If Not ValueIsFilled(Header) Then
+		Return Headers;
+	EndIf;
+
+	HeadersParts = StrSplit(Header, ",", False);
+
+	SeparateHeader = HeadersParts[0];
+	For Index = 1 To HeadersParts.ВГраница() Do
+		Semicolon = StrFind(HeadersParts[Index], ";");
+		EqualSign = StrFind(HeadersParts[Index], "=");
+		If Semicolon And EqualSign And EqualSign < Semicolon Then
+			Headers.Add(SeparateHeader);
+			SeparateHeader = HeadersParts[Index];
+		Else
+			SeparateHeader = SeparateHeader + HeadersParts[Index];
+		EndIf;
+	EndDo;
+	Headers.Add(SeparateHeader);
+
+	Return Headers;
+
+EndFunction
+
+Function CookieConstructor(Description = "", Value = Undefined)
+
+	NewCookie = New Structure;
+	NewCookie.Insert("Description", Description);
+	NewCookie.Insert("Value", Value);
+	NewCookie.Insert("Domain", "");
+	NewCookie.Insert("Path", "");
+	NewCookie.Insert("Port");
+	NewCookie.Insert("ExpiresOn", '39990101');
+	NewCookie.Insert("OnlySecureConnection");
+
+	Return NewCookie;
+
+EndFunction
+
+Function CreateCookieAndFillBasicParameters(Parameter)
+
+	Parts = StrSplit(Parameter, "=", False);
+	Description = Parts[0];
+	If Parts.Count() > 1 Then
+		Value = Parts[1];
+	EndIf;
+
+	Return CookieConstructor(Description, Value);
+
+EndFunction
+
+Function ParseCookie(Header, URL, CurrentTime)
+
+	Cookie = Undefined;
+	Index = 0;
+
+	For Each Parameter In StrSplit(Header, ";", False) Do
+		Index = Index + 1;
+		Parameter = TrimAll(Parameter);
+
+		If Index = 1 Then
+			Cookie = CreateCookieAndFillBasicParameters(Parameter);
+			Continue;
+		EndIf;
+
+		Parts = StrSplit(Parameter, "=", False);
+		Key_ = Lower(Parts[0]);
+		If Parts.Count() > 1 Then
+			Value = Parts[1];
+		EndIf;
+
+		If Key_ = "domain" Then
+			Cookie.Domain = Value;
+		ElsIf Key_ = "path" Then
+			Cookie.Path = Value;
+		ElsIf Key_ = "secure" Then
+			Cookie.OnlySecureConnection = True;
+		ElsIf Key_ = "max-age" Then
+			ExpiresOnMaxAge = CurrentTime + NumberFromString(Value);
+		ElsIf Key_ = "expires" Then
+			Cookie.ExpiresOn = DateFromStringRFC7231(Value);
+		Else
+			Continue;
+		EndIf;
+	EndDo;
+	If ValueIsFilled(Cookie) And ValueIsFilled(ExpiresOnMaxAge) Then
+		Cookie.ExpiresOn = ExpiresOnMaxAge;
+	EndIf;
+
+	SipplementCookieWithImplicitValues(Cookie, URL);
+
+	Return Cookie;
+
+EndFunction
+
+Procedure SipplementCookieWithImplicitValues(Cookie, URL)
+
+	If Cookie = Undefined Then
+		Return;
+	EndIf;
+
+	URLComposition = ParseURL(URL);
+	If Not ValueIsFilled(Cookie.Domain) Then
+		Cookie.Domain = URLComposition.Host;
+	EndIf;
+	If Not ValueIsFilled(Cookie.Port) And ValueIsFilled(URLComposition.Port) Then
+		Cookie.Port = URLComposition.Port;
+	EndIf;
+	If Not ValueIsFilled(Cookie.Path) Then
+		LastSlashPosition = StrFind(URLComposition.Path, "/", SearchDirection.FromEnd);
+		If LastSlashPosition <= 1 Then
+			Cookie.Path = "/";
+		Else
+			Cookie.Path = Left(URLComposition.Path, LastSlashPosition - 1);
+		EndIf;
+	EndIf;
+
+EndProcedure
+
+Function HeaderValue(Header, AllHeaders, Key_ = Undefined)
+
+	For Each NextHeader In AllHeaders Do
+		If Lower(NextHeader.Key) = Lower(Header) Then
+			Key_ = NextHeader.Key;
+			Return NextHeader.Value;
+		EndIf;
+	EndDo;
+
+	Return False;
+
+EndFunction
+
+Function IsPermanentRedirect(StatusCode, Headers)
+
+	HTTPStatusCodes = HTTPStatusCodes();
+
+	Return ExistsLocationHeader(Headers)
+		And (StatusCode = HTTPStatusCodes.MovedPermanently_301
+		Or StatusCode = HTTPStatusCodes.PermanentRedirect_308);
+
+EndFunction
+
+Function IsRedirect(StatusCode, Headers)
+
+	HTTPStatusCodes = HTTPStatusCodes();
+
+	RedirectState = New Array;
+	RedirectState.Add(HTTPStatusCodes.MovedPermanently_301);
+	RedirectState.Add(HTTPStatusCodes.MovedTemporarily_302);
+	RedirectState.Add(HTTPStatusCodes.SeeOther_303);
+	RedirectState.Add(HTTPStatusCodes.TemporaryRedirect_307);
+	RedirectState.Add(HTTPStatusCodes.PermanentRedirect_308);
+
+	Return ExistsLocationHeader(Headers) And RedirectState.Find(StatusCode) <> Undefined;
+
+EndFunction
+
+Function ExistsLocationHeader(Headers)
+
+	Return HeaderValue("location", Headers) <> False;
+
+EndFunction
+
+Function EncodingFromHeader(Val Header)
+
+	Encoding = Undefined;
+
+	Header = Lower(TrimAll(Header));
+	DelimiterIndex = StrFind(Header, ";");
+	If DelimiterIndex Then
+		ContentType = TrimAll(Left(Header, DelimiterIndex - 1));
+		EncodingKey = "charset=";
+		EncodingIndex = StrFind(Header, EncodingKey);
+		If EncodingIndex Then
+			DelimiterIndex = StrFind(Header, ";", SearchDirection.FromBegin, EncodingIndex);
+			InitialPosition = EncodingIndex + StrLen(EncodingKey);
+			If DelimiterIndex Then
+				EncodingLength = DelimiterIndex - InitialPosition;
+			Else
+				EncodingLength = StrLen(Header);
+			EndIf;
+			Encoding = Mid(Header, InitialPosition, EncodingLength);
+			Encoding = StrReplace(Encoding, """", "");
+			Encoding = StrReplace(Encoding, "'", "");
+		EndIf;
+	Else
+		ContentType = Header;
+	EndIf;
+
+	If Encoding = Undefined And StrFind(ContentType, "text") Then
+		Encoding = "iso-8859-1";
+	EndIf;
+
+	Return Encoding;
+
+EndFunction
+
+Function AssembleResourceAddress(URLComposition, RequestParameters)
+
+	ResourceAddress = URLComposition.Path;
+
+	MergedRequestParameters = MergeRequestParameters(RequestParameters, URLComposition.RequestParameters);
+	If ValueIsFilled(MergedRequestParameters) Then
+		ResourceAddress = ResourceAddress + "?" + EncodeRequestParameters(MergedRequestParameters);
+	EndIf;
+	If ValueIsFilled(URLComposition.Fragment) Then
+		ResourceAddress = ResourceAddress + "#" + URLComposition.Fragment;
+	EndIf;
+
+	Return ResourceAddress;
+
+EndFunction
+
+Function SecureConnectionObject(AdditionalParameters)
+
+	If AdditionalParameters.VerifySSL = False Then
+		CertificatesCA = Undefined;
+	ElsIf TypeOf(AdditionalParameters.VerifySSL) = Type("FileCertificationAuthorityCertificates") Then
+		CertificatesCA = AdditionalParameters.VerifySSL;
+	Else
+		CertificatesCA = New OSCertificationAuthorityCertificates;
+	EndIf;
+	ClientCertificate = Undefined;
+	If TypeOf(AdditionalParameters.ClientSSLCertificate) = Type("FileClientCertificate")
+		Or TypeOf(AdditionalParameters.ClientSSLCertificate) = Type("WindowsClientCertificate") Then
+		ClientCertificate = AdditionalParameters.ClientSSLCertificate;
+	EndIf;
+
+	Return New OpenSSLSecureConnection(ClientCertificate, CertificatesCA);
+
+EndFunction
+
+Function Connection(ConnectionParameters, Authentication, AdditionalParameters, Session)
+
+	If Not ValueIsFilled(ConnectionParameters.Port) Then
+		If ConnectionParameters.Scheme = "https" Then
+			ConnectionParameters.Port = 443;
+		Else
+			ConnectionParameters.Port = 80;
+		EndIf;
+	EndIf;
+
+	SecureConnection = Undefined;
+	If ConnectionParameters.Scheme = "https" Then
+		SecureConnection = SecureConnectionObject(AdditionalParameters);
+	EndIf;
+
+	User = "";
+	Password = "";
+	If ValueIsFilled(Authentication) Then
+		If Authentication.Property("User") And Authentication.Property("Password") Then
+			User = Authentication.User;
+			Password = Authentication.Password;
+		EndIf;
+	EndIf;
+
+	UseOSAuthentication = Authentication.Property("UseOSAuthentication")
+		And Authentication.UseOSAuthentication = True;
+
+	CalculateIDParameters = New Array;
+	CalculateIDParameters.Add(ConnectionParameters.Host);
+	CalculateIDParameters.Add(ConnectionParameters.Port);
+	CalculateIDParameters.Add(User);
+	CalculateIDParameters.Add(Password);
+	CalculateIDParameters.Add(AdditionalParameters.Timeout);
+	CalculateIDParameters.Add(UseOSAuthentication);
+	CalculateIDParameters.Add(SecureConnection);
+	CalculateIDParameters.Add(AdditionalParameters.Proxy);
+
+	If Not Session.Property("ServiceData") Or TypeOf(Session.ServiceData) <> Type("Structure") Then
+		Session.Insert("ServiceData", New Structure);
+	EndIf;
+	If Not Session.ServiceData.Property("ConnectionsPool") Then
+		Session.ServiceData.Insert("ConnectionsPool", New Map);
+	EndIf;
+	ConnectionsPool = Session.ServiceData.ConnectionsPool;
+
+	ConnectionID = ConnectionID(CalculateIDParameters);
+
+	If ConnectionsPool.Get(ConnectionID) = Undefined Then
+		NewConnection = New HTTPConnection(
+			ConnectionParameters.Host,
+			ConnectionParameters.Port,
+			User, Password,
+			AdditionalParameters.Proxy,
+			AdditionalParameters.Timeout,
+			SecureConnection,
+			UseOSAuthentication);
+		ConnectionsPool.Insert(ConnectionID, NewConnection);
+	EndIf;
+
+	Return ConnectionsPool[ConnectionID];
+
+EndFunction
+
+Function ConnectionID(ConnectionParameters)
+
+	CalculateIDParameters = New Array;
+
+	For Each Item In ConnectionParameters Do
+		ItemType = TypeOf(Item);
+		If ItemType = Type("InternetProxy") Then
+			CalculateIDParameters.Add(StrConcat(Item.BypassProxyOnAddresses, ""));
+			CalculateIDParameters.Add(XMLString(Item.BypassProxyOnLocal));
+			CalculateIDParameters.Add(Item.User);
+			CalculateIDParameters.Add(Item.Password);
+		ElsIf ItemType = Type("OpenSSLSecureConnection") Then
+			// For упрощения будет считать, что сертификаты в рамках сессии не меняются
+			If Item.ClientCertificate = Undefined Then
+				CalculateIDParameters.Add("");
+			Else
+				CalculateIDParameters.Add(String(TypeOf(Item.ClientCertificate)));
+			EndIf;
+			If Item.CertificationAuthorityCertificates = Undefined Then
+				CalculateIDParameters.Add("");
+			Else
+				CalculateIDParameters.Add(String(TypeOf(Item.CertificationAuthorityCertificates)));
+			EndIf;
+		Else
+			CalculateIDParameters.Add(XMLString(Item));
+		EndIf;
+	EndDo;
+
+	Return DataHashing(HashFunction.MD5, StrConcat(CalculateIDParameters, ""));
+
+EndFunction
+
+Function SelectValue(MainValue, AdditionalValues, Key_, ValueByDefault)
+
+	If MainValue <> Undefined Then
+		Return MainValue;
+	EndIf;
+
+	Value = ValueByKey(AdditionalValues, Key_);
+	If Value <> Undefined Then
+		Return Value;
+	EndIf;
+
+	Return ValueByDefault;
+
+EndFunction
+
+Function FillRequestParameters(Path)
+
+	RequestParameters = New Map;
+
+	Query = "";
+	SplitStringByDelimiter(Query, Path, "?", True);
+	For Each KeyEqualParameterString In StrSplit(Query, "&", False) Do
+		KeyEqualParameterString = DecodeString(
+			KeyEqualParameterString, StringEncodingMethod.URLInURLEncoding);
+
+		EqualSignPosition = StrFind(KeyEqualParameterString, "=");
+		If EqualSignPosition = 0 Then
+			Key_ = KeyEqualParameterString;
+			Value = Undefined;
+		Else
+			Key_ = Left(KeyEqualParameterString, EqualSignPosition - 1);
+			Value = Mid(KeyEqualParameterString, EqualSignPosition + 1);
+		EndIf;
+
+		If RequestParameters.Get(Key_) <> Undefined Then
+			If TypeOf(RequestParameters[Key_]) = Type("Array") Then
+				RequestParameters[Key_].Add(Value);
+			Else
+				Values = New Array;
+				Values.Add(RequestParameters[Key_]);
+				Values.Add(Value);
+				RequestParameters[Key_] = Values;
+			EndIf;
+		Else
+			RequestParameters.Insert(Key_, Value);
+		EndIf;
+
+	EndDo;
+
+	Return RequestParameters;
+
+EndFunction
+
+Procedure SplitStringByDelimiter(ExtractedPart, RemainingPart, Delimiter, Inversion = False)
+
+	Index = StrFind(RemainingPart, Delimiter);
+	If Index Then
+		ExtractedPart = Left(RemainingPart, Index - 1);
+		RemainingPart = Mid(RemainingPart, Index + StrLen(Delimiter));
+		If Inversion Then
+			ForValuesSwap = ExtractedPart;
+			ExtractedPart = RemainingPart;
+			RemainingPart = ForValuesSwap;
+		EndIf;
+	EndIf;
+
+EndProcedure
+
+Function SplitByFirstFoundDelimiter(String, Delimiters)
+
+	MinimalIndex = StrLen(String);
+	FirstDelimiter = "";
+
+	For Each Delimiter In Delimiters Do
+		Index = StrFind(String, Delimiter);
+		If Index = 0 Then
+			Continue;
+		EndIf;
+		If Index < MinimalIndex Then
+			MinimalIndex = Index;
+			FirstDelimiter = Delimiter;
+		EndIf;
+	EndDo;
+
+	Result = New Array;
+	If ValueIsFilled(FirstDelimiter) Then
+		Result.Add(Left(String, MinimalIndex - 1));
+		Result.Add(Mid(String, MinimalIndex + StrLen(FirstDelimiter)));
+		Result.Add(FirstDelimiter);
+	Else
+		Result.Add(String);
+		Result.Add("");
+		Result.Add(Undefined);
+	EndIf;
+
+	Return Result;
+
+EndFunction
+
+Function SupplementJSONConversionParameters(ConversionParameters)
+
+	JSONConversionParameters = JSONConversionParametersByDefault();
+	If ValueIsFilled(ConversionParameters) Then
+		For Each Parameter In ConversionParameters Do
+			If JSONConversionParameters.Property(Parameter.Key) Then
+				JSONConversionParameters.Insert(Parameter.Key, Parameter.Value);
+			EndIf;
+		EndDo;
+	EndIf;
+
+	Return JSONConversionParameters;
+
+EndFunction
+
+Function SupplementJSONWriterSettings(WriterSettings)
+
+	JSONWriterSettings = JSONWriterSettingsByDeafult();
+	If ValueIsFilled(WriterSettings) Then
+		For Each Parameter In WriterSettings Do
+			If JSONWriterSettings.Property(Parameter.Key) Then
+				JSONWriterSettings.Insert(Parameter.Key, Parameter.Value);
+			EndIf;
+		EndDo;
+	EndIf;
+
+	Return JSONWriterSettings;
+
+EndFunction
+
+// Converts a type value into a type, that can be serialized.
 //
-Процедура Приостановить(ДлительностьОстановкиВСекундах)
+// Parameters:
+//   Property - String - property name, if the structure or map is writing.
+//   Value - Arbitrary - initial value.
+//   AdditionalParameters - Arbitrary - additional parameters of the WriteJSON method.
+//   Cancel - Boolean - cancel to write a property.
+//
+// Returns:
+//   Arbitrary - see WriteJSON types.
+//
+Function JsonConversion(Property, Value, AdditionalParameters, Cancel) Export
 
-	Если ДлительностьОстановкиВСекундах < 1 Тогда
-		Возврат;
-	КонецЕсли;
+	If TypeOf(Value) = Type("UUID") Then
+		Return String(Value);
+	ElsIf TypeOf(Value) = Type("BinaryData") Then
+		Return GetBase64StringFromBinaryData(Value);
+	Else
+		// If the value doesn't support JSON serialization, an exception will be thrown
+		Return Value;
+	EndIf;
+
+EndFunction
+
+#Region AWS4Authentication
+
+Function SignatureKeyAWS4(SecretKey, Date, Region, Service)
+
+	DateKey = SignMessageHMAC("AWS4" + SecretKey, Date);
+	RegionKey = SignMessageHMAC(DateKey, Region);
+	ServiceKey = SignMessageHMAC(RegionKey, Service);
+
+	Return SignMessageHMAC(ServiceKey, "aws4_request");
+
+EndFunction
+
+Function SignMessageHMAC(Val Key_, Val Message, Val Algorithm = Undefined)
+
+	If Algorithm = Undefined Then
+		Algorithm = HashFunction.SHA256;
+	EndIf;
+
+	If TypeOf(Key_) = Type("String") Then
+		Key_ = GetBinaryDataFromString(Key_, TextEncoding.UTF8, False);
+	EndIf;
+	If TypeOf(Message) = Type("String") Then
+		Message = GetBinaryDataFromString(Message, TextEncoding.UTF8, False);
+	EndIf;
+
+	Return HMAC(Key_, Message, Algorithm);
+
+EndFunction
+
+Procedure PrepareAuthenticationAWS4(PreparedRequest)
+
+	HeaderValue = HeaderValue("x-amz-date", PreparedRequest.Headers);
+	If HeaderValue <> False Then
+		CurrentTime = Date(StrReplace(StrReplace(HeaderValue, "T", ""), "Z", ""));
+	Else
+		CurrentTime = CurrentUniversalDate();
+	EndIf;
+	PreparedRequest.Headers["x-amz-date"] = Format(CurrentTime, "ДФ=yyyyMMddTHHmmssZ");
+	ScopeDate = Format(CurrentTime, "ДФ=yyyyMMdd");
+
+	PreparedRequest.Headers["x-amz-content-sha256"] =
+		DataHashing(HashFunction.SHA256, PreparedRequest.HTTPRequest.GetBodyAsStream());
+
+	URLComposition = ParseURL(PreparedRequest.URL);
+
+	CanonicalHeaders = CanonicalHeadersAWS4(PreparedRequest.Headers, URLComposition);
+
+	CanonicalPath = URLComposition.Path;
+	CanonicalRequestParameters = CanonicalRequestParametersAWS4(URLComposition.RequestParameters);
+
+	RequestParts = New Array;
+	RequestParts.Add(PreparedRequest.Method);
+	RequestParts.Add(CanonicalPath);
+	RequestParts.Add(CanonicalRequestParameters);
+	RequestParts.Add(CanonicalHeaders.CanonicalHeaders);
+	RequestParts.Add(CanonicalHeaders.SignedHeaders);
+	RequestParts.Add(PreparedRequest.Headers["x-amz-content-sha256"]);
+	CanonicalRequest = StrConcat(RequestParts, Chars.LF);
+
+	ScopeParts = New Array;
+	ScopeParts.Add(ScopeDate);
+	ScopeParts.Add(PreparedRequest.Authentication.Region);
+	ScopeParts.Add(PreparedRequest.Authentication.Service);
+	ScopeParts.Add("aws4_request");
+	Scope = StrConcat(ScopeParts, "/");
+
+	StringForSignatureParts = New Array;
+	StringForSignatureParts.Add(PreparedRequest.Authentication.Type);
+	StringForSignatureParts.Add(PreparedRequest.Headers["x-amz-date"]);
+	StringForSignatureParts.Add(Scope);
+	StringForSignatureParts.Add(DataHashing(HashFunction.SHA256, CanonicalRequest));
+	StringForSignature = StrConcat(StringForSignatureParts, Chars.LF);
+
+	Key_ = SignatureKeyAWS4(
+		PreparedRequest.Authentication.SecretKey,
+		ScopeDate,
+		PreparedRequest.Authentication.Region,
+		PreparedRequest.Authentication.Service);
+	Signature = Lower(GetHexStringFromBinaryData(SignMessageHMAC(Key_, StringForSignature)));
+
+	PreparedRequest.Headers["Authorization"] = StrTemplate(
+		"%1 Credential=%2/%3, SignedHeaders=%4, Signature=%5",
+		PreparedRequest.Authentication.Type,
+		PreparedRequest.Authentication.AccessKeyID,
+		Scope,
+		CanonicalHeaders.SignedHeaders,
+		Signature);
+
+	PreparedRequest.HTTPRequest.Headers = PreparedRequest.Headers;
+
+EndProcedure
+
+Function IsHTTPStandardPort(URLComposition)
+
+	HTTPStandardPort = 80;
+	HTTPSStandardPort = 443;
+
+	Return (URLComposition.Scheme = "http" And URLComposition.Port = HTTPStandardPort)
+		Or (URLComposition.Scheme = "https" And URLComposition.Port = HTTPSStandardPort);
+
+EndFunction
+
+Function CreateHostHeaderValue(URLComposition)
+
+	Host = URLComposition.Host;
+	If ValueIsFilled(URLComposition.Port) And НЕ IsHTTPStandardPort(URLComposition) Then
+		Host = Host + ":" + Format(URLComposition.Port, "ЧРГ=; ЧГ=");
+	EndIf;
+
+	Return Host;
+
+EndFunction
+
+Function CanonicalHeadersAWS4(Headers, URLComposition)
+
+	List = New ValueList;
+
+	HostHeadersIsInRequest = False;
+	DefaultHeaders = HeadersByDefaultAWS4();
+	For Each NextHeader In Headers Do
+		Header = Lower(NextHeader.Key);
+		If DefaultHeaders.Exceptions.Find(Header) <> Undefined Then
+			Continue;
+		EndIf;
+		HostHeadersIsInRequest = Макс(HostHeadersIsInRequest, Header = "host");
+
+		If DefaultHeaders.EqualSign.Find(Header) <> Undefined Then
+			List.Add(Header, TrimAll(NextHeader.Value));
+		Else
+			For Each Prefix In DefaultHeaders.BeginsWith Do
+				If StrStartsWith(Header, Prefix) Then
+					List.Add(Header, TrimAll(NextHeader.Value));
+					Break;
+				EndIf;
+			EndDo;
+		EndIf;
+	EndDo;
+
+	If Not HostHeadersIsInRequest Then
+		List.Add("host", CreateHostHeaderValue(URLComposition));
+	EndIf;
+
+	List.SortByValue(SortDirection.Asc);
+
+	CanonicalHeaders = New Array;
+	SignedHeaders = New Array;
+	For Each ListItem In List Do
+		CanonicalHeaders.Add(ListItem.Value + ":" + ListItem.Presentation);
+		SignedHeaders.Add(ListItem.Value);
+	EndDo;
+	CanonicalHeaders.Add("");
+
+	CanonicalHeaders = StrConcat(CanonicalHeaders, Chars.LF);
+	SignedHeaders = StrConcat(SignedHeaders, ";");
+	Return New Structure(
+		"CanonicalHeaders, SignedHeaders",
+		CanonicalHeaders, SignedHeaders);
+
+EndFunction
+
+Function CanonicalRequestParametersAWS4(RequestParameters)
+
+	List = New ValueList;
+	For Each NextRequestParameter In RequestParameters Do
+		List.Add(NextRequestParameter.Key, TrimAll(NextRequestParameter.Value));
+	EndDo;
+	List.SortByValue(SortDirection.Asc);
+
+	CanonicalParameters = New Array;
+	For Each ListItem In List Do
+		ParameterValue = EncodeString(ListItem.Presentation, StringEncodingMethod.URLEncoding);
+		CanonicalParameters.Add(ListItem.Value + "=" + ParameterValue);
+	EndDo;
+
+	Return StrConcat(CanonicalParameters, "&");
+
+EndFunction
+
+Function HeadersByDefaultAWS4()
+
+	Headers = New Structure;
+	Headers.Insert("EqualSign", StrSplit("host,content-type,date", ","));
+	Headers.Insert("BeginsWith", StrSplit("x-amz-", ","));
+	Headers.Insert("Exceptions", StrSplit("x-amz-client-context", ","));
+
+	Return Headers;
+
+EndFunction
+
+#EndRegion
+
+#Region EncodingDecodingData
+
+#Region ServiceStructuresZip
+
+// Structures description see here https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
+
+Function ZipLFHSize()
+
+	Return 34;
+
+EndFunction
+
+Function ZipDDSize()
+
+	Return 16;
+
+EndFunction
+
+Function ZipCDHSize()
+
+	Return 50;
+
+EndFunction
+
+Function ZipEOCDSize()
+
+	Return 22;
+
+EndFunction
+
+Function ZipLFH()
+
+	// Local file header
+	Buffer = New BinaryDataBuffer(ZipLFHSize());
+	Buffer.WriteInt32(0, 67324752); // signature 0x04034b50
+	Buffer.WriteInt16(4, 20);       // version
+	Buffer.WriteInt16(6, 10);       // bit flags
+	Buffer.WriteInt16(8, 8);        // compression method
+	Buffer.WriteInt16(10, 0);       // time
+	Buffer.WriteInt16(12, 0);       // date
+	Buffer.WriteInt32(14, 0);       // crc-32
+	Buffer.WriteInt32(18, 0);       // compressed size
+	Buffer.WriteInt32(22, 0);       // uncompressed size
+	Buffer.WriteInt16(26, 4);       // filename legth - "data"
+	Buffer.WriteInt16(28, 0);       // extra field length
+	Buffer.Write(30, GetBinaryDataBufferFromString("data", "ascii", False));
+
+	Return Buffer;
+
+EndFunction
+
+Function ZipDD(CRC32, CompressedDataSize, UncompressedDataSize)
+
+	// Data descriptor
+	Buffer = New BinaryDataBuffer(ZipDDSize());
+	Buffer.WriteInt32(0, 134695760);
+	Buffer.WriteInt32(4, CRC32);
+	Buffer.WriteInt32(8, CompressedDataSize);
+	Buffer.WriteInt32(12, UncompressedDataSize);
+
+	Return Buffer;
+
+EndFunction
+
+Function ZipCDH(CRC32, CompressedDataSize, UncompressedDataSize)
+
+	// Central directory header
+	Buffer = New BinaryDataBuffer(ZipCDHSize());
+	Buffer.WriteInt32(0, 33639248);              // signature 0x02014b50
+	Buffer.WriteInt16(4, 798);                   // version made by
+	Buffer.WriteInt16(6, 20);                    // version needed to extract
+	Buffer.WriteInt16(8, 10);                    // bit flags
+	Buffer.WriteInt16(10, 8);                    // compression method
+	Buffer.WriteInt16(12, 0);                    // time
+	Buffer.WriteInt16(14, 0);                    // date
+	Buffer.WriteInt32(16, CRC32);                // crc-32
+	Buffer.WriteInt32(20, CompressedDataSize);   // compressed size
+	Buffer.WriteInt32(24, UncompressedDataSize); // uncompressed size
+	Buffer.WriteInt16(28, 4);                    // file name length
+	Buffer.WriteInt16(30, 0);                    // extra field length
+	Buffer.WriteInt16(32, 0);                    // file comment length
+	Buffer.WriteInt16(34, 0);                    // disk number start
+	Buffer.WriteInt16(36, 0);                    // internal file attributes
+	Buffer.WriteInt32(38, 2176057344);           // external file attributes
+	Buffer.WriteInt32(42, 0);                    // relative offset of local header
+	Buffer.Write(46, GetBinaryDataBufferFromString("data", "ascii", False));
+
+	Return Buffer;
+
+EndFunction
+
+Function ZipEOCD(CompressedDataSize)
+
+	// End of central directory
+	CDHSize = 50;
+	Buffer = New BinaryDataBuffer(ZipEOCDSize());
+	Buffer.WriteInt32(0, 101010256); // signature 0x06054b50
+	Buffer.WriteInt16(4, 0); // number of this disk
+	Buffer.WriteInt16(6, 0); // number of the disk with the start of the central directory
+	Buffer.WriteInt16(8, 1); // total number of entries in the central directory on this disk
+	Buffer.WriteInt16(10, 1); // total number of entries in the central directory
+	Buffer.WriteInt32(12, CDHSize); // size of the central directory
+	// offset of start of central directory with respect to the starting disk number
+	Buffer.WriteInt32(16, ZipLFHSize() + CompressedDataSize + ZipDDSize());
+	Buffer.WriteInt16(20, 0); // the starting disk number
+
+	Return Buffer;
+
+EndFunction
+
+#EndRegion
+
+#Region ServiceStructuresGZip
+
+// Structures description see here https://www.ietf.org/rfc/rfc1952.txt
+
+Function GZipHeaderSize()
+
+	Return 10;
+
+EndFunction
+
+Function GZipFooterSize()
+
+	Return 8;
+
+EndFunction
+
+Function GZipHeader()
+
+	Buffer = New BinaryDataBuffer(GZipHeaderSize());
+	Buffer[0] = 31;               // ID1 0x1f
+	Buffer[1] = 139;              // ID2 0x8b
+	Buffer[2] = 8;                // compression method (08 for DEFLATE)
+	Buffer[3] = 0;                // header flags
+	Buffer.WriteInt32(4, 0); // timestamp
+	Buffer[8] = 0;                // compression flags
+	Buffer[9] = 255;              // operating system ID
+
+	Return Buffer;
+
+EndFunction
+
+Function GZipFooter(CRC32, SourceDataSize)
+
+	Buffer = New BinaryDataBuffer(GZipFooterSize());
+	Buffer.WriteInt32(0, CRC32);
+	Buffer.WriteInt32(4, SourceDataSize);
+
+	Return Buffer;
+
+EndFunction
+
+#EndRegion
+
+Function ReadZip(CompressedData, ErrorText = Undefined)
+
+#If MobileAppServer Then
+	Raise(НСтр("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается'; en = 'Работа с Zip-файлами в мобильной платформе не поддерживается'"));
+#Else
+	FolderName = GetTempFileName();
+	ZipReader = New ZipFileReader(CompressedData);
+	FileName = ZipReader.Items[0].Name;
+	Try
+		ZipReader.Extract(ZipReader.Items[0], FolderName, ZIPRestoreFilePathsMode.DontRestore);
+	Except
+		// Игнорируем проверку целостности архива, просто читаем результат
+		ErrorText = DetailErrorDescription(ErrorInfo());
+	EndTry;
+	ZipReader.Close();
+
+	Result = New BinaryData(FolderName + GetPathSeparator() + FileName);
+	DeleteFiles(FolderName);
+
+	Return Result;
+#EndIf
+
+EndFunction
+
+Function WriteZip(Data)
+
+#If MobileAppServer Then
+	Raise(НСтр("ru = 'Работа с Zip-файлами в мобильной платформе не поддерживается'; en = 'Работа с Zip-файлами в мобильной платформе не поддерживается'"));
+#Else
+	TemporaryFile = GetTempFileName(".bin");
+	Data.Write(TemporaryFile);
+	ZipStream = New MemoryStream;
+	ЗаписьZip = New ZipFileWriter(ZipStream);
+	ЗаписьZip.Add(TemporaryFile);
+	ЗаписьZip.Write();
+	DeleteFiles(TemporaryFile);
+
+	Return ZipStream.CloseAndGetBinaryData();
+#EndIf
+
+EndFunction
+
+#EndRegion
+
+#Region EventsHandlers
+
+Procedure Code401_ResponseHandler(Session, PreparedRequest, Settings, Response)
+
+	If IsRedirect(Response.StatusCode, Response.Headers) Then
+		Return;
+	EndIf;
+
+	HTTPStatusCodes = HTTPStatusCodes();
+	If Response.StatusCode < HTTPStatusCodes.BadRequest_400
+		Or Response.StatusCode >= HTTPStatusCodes.InternalServerError_500 Then
+		Return;
+	EndIf;
+
+	Value = HeaderValue("www-authenticate", Response.Headers);
+	If Value <> False And StrFind(Lower(Value), "digest") Then
+		Position = StrFind(Lower(Value), "digest");
+		Value = Mid(Value, Position + StrLen("digest") + 1);
+		Value = StrReplace(Value, """", "");
+		Value = StrReplace(Value, Chars.LF, "");
+
+		DigestParameters = New Structure("algorithm,realm,nonce,qop,opaque");
+		For Each Part In SplitStringByString(Value, ", ") Do
+			KeyValue = StrSplit(Part, "=");
+			DigestParameters.Insert(KeyValue[0], KeyValue[1]);
+		EndDo;
+
+		Session.ServiceData.DigestParameters = DigestParameters;
+
+		PreparedRequest.Headers.Insert("Authorization", PrepareHeaderDigest(Session, PreparedRequest));
+		PreparedRequest.HTTPRequest.Headers = PreparedRequest.Headers;
+
+		Response = SendHTTPRequest(Session, PreparedRequest, Settings);
+	EndIf;
+
+EndProcedure
+
+Function DetermineHashFunction(Val Algorithm)
+
+	Algorithm = Upper(Algorithm);
+	If Not ValueIsFilled(Algorithm) Or Algorithm = "MD5" Or Algorithm = "MD5-SESS" Then
+		HashingAlgorithm = HashFunction.MD5;
+	ElsIf Algorithm = "SHA" Then
+		HashingAlgorithm = HashFunction.SHA1;
+	ElsIf Algorithm = "SHA-256" Then
+		HashingAlgorithm = HashFunction.SHA256;
+	Else
+		HashingAlgorithm = Undefined;
+	EndIf;
+
+	Return HashingAlgorithm;
+
+EndFunction
+
+Function PrepareHeaderDigest(Session, PreparedRequest)
+
+	DigestParameters = Session.ServiceData.DigestParameters;
+
+	Algorithm = DetermineHashFunction(DigestParameters.algorithm);
+	AlgorithmString = Upper(DigestParameters.algorithm);
+	If Algorithm = Undefined Then
+		Return Undefined;
+	EndIf;
+
+	URLComposition = ParseURL(PreparedRequest.URL);
+	Path = URLComposition.Path;
+	If ValueIsFilled(URLComposition.RequestParameters) Then
+		Path = Path + "?" + EncodeRequestParameters(URLComposition.RequestParameters);
+	EndIf;
+
+	A1 = StrTemplate("%1:%2:%3",
+		PreparedRequest.Authentication.User,
+		DigestParameters.realm,
+		PreparedRequest.Authentication.Password);
+	A2 = StrTemplate("%1:%2", PreparedRequest.Method, Path);
+
+	HA1 = DataHashing(Algorithm, A1);
+	HA2 = DataHashing(Algorithm, A2);
+
+	If Not DigestParameters.Property("last_nonce") Then
+		DigestParameters.Insert("last_nonce");
+	EndIf;
+
+	If DigestParameters.nonce = DigestParameters.last_nonce Then
+		DigestParameters.nonce_count = DigestParameters.nonce_count + 1;
+	Else
+		DigestParameters.Insert("nonce_count", 1);
+	EndIf;
+
+	NCValue = Format(DigestParameters.nonce_count, "ЧЦ=8; ЧВН=; ЧГ=");
+	NonceValue = Left(StrReplace(Lower(New UUID), "-", ""), 16);
+
+	If AlgorithmString = "MD5-SESS" Then
+		HA1 = DataHashing(Algorithm, StrTemplate("%1:%2:%3", HA1, DigestParameters.nonce, NonceValue));
+	EndIf;
+
+	If Not ValueIsFilled(DigestParameters.qop) Then
+		ResponseValue = DataHashing(Algorithm, StrTemplate("%1:%2:%3", HA1, DigestParameters.nonce, HA2));
+	ElsIf DigestParameters.qop = "auth"
+		Or StrSplit(DigestParameters.qop, ",", False).Find("auth") <> Undefined Then
+		NonceBitValue = StrTemplate("%1:%2:%3:%4:%5", DigestParameters.nonce, NCValue, NonceValue, "auth", HA2);
+		ResponseValue = DataHashing(Algorithm, StrTemplate("%1:%2", HA1, NonceBitValue));
+	Else
+		// INFO: auth-int не реализовано
+		Return Undefined;
+	EndIf;
+
+	DigestParameters.last_nonce = DigestParameters.nonce;
+
+	Basis = StrTemplate("username=""%1"", realm=""%2"", nonce=""%3"", uri=""%4"", response=""%5""",
+		PreparedRequest.Authentication.User,
+		DigestParameters.realm,
+		DigestParameters.nonce,
+		Path,
+		ResponseValue);
+	Strings = New Array;
+	Strings.Add(Basis);
+
+	If ValueIsFilled(DigestParameters.opaque) Then
+		Strings.Add(StrTemplate(", opaque=""%1""", DigestParameters.opaque));
+	EndIf;
+	If ValueIsFilled(DigestParameters.algorithm) Then
+		Strings.Add(StrTemplate(", algorithm=""%1""", DigestParameters.algorithm));
+	EndIf;
+	If ValueIsFilled(DigestParameters.qop) Then
+		Strings.Add(StrTemplate(", qop=""auth"", nc=%1, cnonce=""%2""", NCValue, NonceValue));
+	EndIf;
+
+	Return StrTemplate("Digest %1", StrConcat(Strings, ""));
+
+EndFunction
+
+Function DataHashing(Val Algorithm, Val Data)
+
+	If TypeOf(Data) = Type("String") Then
+		Data = GetBinaryDataFromString(Data, TextEncoding.UTF8, False);
+	EndIf;
+
+	Hashing = New DataHashing(Algorithm);
+	Hashing.Append(Data);
+
+	Return Lower(GetHexStringFromBinaryData(Hashing.HashSum));
+
+EndFunction
+
+Function SplitStringByString(Val String, Delimiter)
+
+	Result = New Array;
+	While True Do
+		Position = StrFind(String, Delimiter);
+		If Position = 0 And ValueIsFilled(String) Then
+			Result.Add(String);
+			Break;
+		EndIf;
+
+		FirstPart = Left(String, Position - StrLen(Delimiter) + 1);
+		Result.Add(FirstPart);
+		String = Mid(String, Position + StrLen(Delimiter));
+	EndDo;
+
+	Return Result;
+
+EndFunction
+
+#EndRegion
+
+Function UnpackResponse(Response)
+
+	Header = HeaderValue("content-encoding", Response.Headers);
+	If Header <> False Then
+		If Lower(Header) = "gzip" Then
+			Return ReadGZip(Response.Body);
+		EndIf;
+	EndIf;
+
+	Return Response.Body;
+
+EndFunction
+
+Procedure PackRequest(Query)
+
+	Header = HeaderValue("content-encoding", Query.Headers);
+	If Header <> False Then
+		If Lower(Header) = "gzip" Then
+			Query.SetBodyFromBinaryData(WriteGZip(Query.GetBodyAsBinaryData()));
+		EndIf;
+	EndIf;
+
+EndProcedure
+
+#Region ParametersByDefault
+
+Function DefaultHeaders()
+
+	Headers = New Map;
+#If MobileAppServer Then
+	Headers.Insert("Accept-Encoding", "identity");
+#Else
+	Headers.Insert("Accept-Encoding", "gzip");
+#EndIf
+	Headers.Insert("Accept", "*/*");
+	Headers.Insert("Connection", "keep-alive");
+
+	Return Headers;
+
+EndFunction
+
+Function MaximumNumberOfRedirects()
+
+	Return 30;
+
+EndFunction
+
+Function TimeoutByDefault()
+
+	Return 30;
+
+EndFunction
+
+Function JSONConversionParametersByDefault()
+
+	ConversionParametersByDefault = New Structure;
+	ConversionParametersByDefault.Insert("ReadToMap", True);
+	ConversionParametersByDefault.Insert("JSONDateFormat", JSONDateFormat.ISO);
+	ConversionParametersByDefault.Insert("PropertiesNamesWithDateValues", Undefined);
+	ConversionParametersByDefault.Insert("JSONDateWritingVariant", JSONDateWritingVariant.LocalDate);
+	ConversionParametersByDefault.Insert("ConvertionFunctionName", Undefined);
+	ConversionParametersByDefault.Insert("ConvertionFunctionModule", Undefined);
+	ConversionParametersByDefault.Insert("ConvertionFunctionAdditionalParameters", Undefined);
+
+	Return ConversionParametersByDefault;
+
+EndFunction
+
+Function JSONWriterSettingsByDeafult()
+
+	JSONWriterSettingsByDeafult = New Structure;
+	JSONWriterSettingsByDeafult.Insert("NewLines", ПереносСтрокJSON.Авто);
+	JSONWriterSettingsByDeafult.Insert("PaddingSymbols", " ");
+	JSONWriterSettingsByDeafult.Insert("UseDoubleQuotes", True);
+	JSONWriterSettingsByDeafult.Insert("EscapeCharacters", JSONCharactersEscapeMode.None);
+	JSONWriterSettingsByDeafult.Insert("EscapeAngleBrackets", False);
+	JSONWriterSettingsByDeafult.Insert("EscapeLineTerminators", True);
+	JSONWriterSettingsByDeafult.Insert("EscapeAmpersand", False);
+	JSONWriterSettingsByDeafult.Insert("EscapeSingleQuotes", False);
+	JSONWriterSettingsByDeafult.Insert("EscapeSlash", False);
+
+	Return JSONWriterSettingsByDeafult;
+
+EndFunction
+
+#EndRegion
+
+Procedure FillAdditionalData(AdditionalParameters, RequestParameters, Data, Json)
+
+	If AdditionalParameters = Undefined Then
+		AdditionalParameters = New Structure();
+	EndIf;
+	If Not AdditionalParameters.Property("RequestParameters") Then
+		AdditionalParameters.Insert("RequestParameters", RequestParameters);
+	EndIf;
+	If Not AdditionalParameters.Property("Data") Then
+		AdditionalParameters.Insert("Data", Data);
+	EndIf;
+	If Not AdditionalParameters.Property("Json") Then
+		AdditionalParameters.Insert("Json", Json);
+	EndIf;
+
+EndProcedure
+
+Procedure Pause(StopDurationInSeconds)
 	
-	ТекущаяДата = ТекущаяУниверсальнаяДата();
-	ЖдатьДо = ТекущаяДата + ДлительностьОстановкиВСекундах;
+	// Когда-нибудь в платформе сделают паузу и это можно будет выкинуть
 	
+	If StopDurationInSeconds < 1 Then
+		Return;
+	EndIf;
+
+	CurrentDate = CurrentUniversalDate();
+	WaitUntill = CurrentDate + StopDurationInSeconds;
+
 	// BSLLS:UsingHardcodeNetworkAddress-off
-	ЛокальныйХост = "127.0.0.0";
-	КакойНибудьСвободныйПорт = 56476;
+	LocalHost = "127.0.0.0";
+	RandomFreePort = 56476;
 	// BSLLS:UsingHardcodeNetworkAddress-on
-	Пока ТекущаяДата < ЖдатьДо Цикл
-		Таймаут = ЖдатьДо - ТекущаяДата;
-		Начало = ТекущаяУниверсальнаяДатаВМиллисекундах();
-		Попытка
-			Соединение = Новый HTTPСоединение(
-				ЛокальныйХост, КакойНибудьСвободныйПорт, Неопределено, Неопределено, Неопределено, Таймаут);
-			Соединение.Получить(Новый HTTPЗапрос("/does_not_matter"));
-		Исключение
-			РеальныйТаймаут = ТекущаяУниверсальнаяДатаВМиллисекундах() - Начало;
-		КонецПопытки;
-		МинимальныйТаймаутВМиллисекундах = 1000;
-		Если РеальныйТаймаут < МинимальныйТаймаутВМиллисекундах Тогда
-			ВызватьИсключение(НСтр("ru = 'Процедура Приостановить не работает должным образом'"));
-		КонецЕсли;
-		ТекущаяДата = ТекущаяУниверсальнаяДата();
-	КонецЦикла;
-	
-КонецПроцедуры
+	While CurrentDate < WaitUntill Do
+		Timeout = WaitUntill - CurrentDate;
+		Start = CurrentUniversalDateInMilliseconds();
+		Try
+			Connection = New HTTPConnection(
+				LocalHost, RandomFreePort, Undefined, Undefined, Undefined, Timeout);
+			Connection.Get(New HTTPRequest("/does_not_matter"));
+		Except
+			RealTimeout = CurrentUniversalDateInMilliseconds() - Start;
+		EndTry;
+		MinimalTimeoutInMilliseconds = 1000;
+		If RealTimeout < MinimalTimeoutInMilliseconds Then
+			Raise(НСтр("ru = 'Процедура Pause не работает должным образом'; en = 'Процедура Pause не работает должным образом'"));
+		EndIf;
+		CurrentDate = CurrentUniversalDate();
+	EndDo;
 
-Функция ТекущаяСессия(Сессия)
+EndProcedure
+
+Function CurrentSession(Session)
+
+	If Session = Undefined Then
+		Session = NewSession();
+	EndIf;
+
+	Return Session;
+
+EndFunction
+
+Function HTTPStatusesCodesDescriptions()
+
+	Codes = New Array;
+	Codes.Add(NewHTTPCode(100, "Continue_100", "Continue"));
+	Codes.Add(NewHTTPCode(101, "SwitchingProtocols_101", "Switching Protocols"));
+	Codes.Add(NewHTTPCode(102, "Processing_102", "Processing"));
+	Codes.Add(NewHTTPCode(103, "EarlyHints_103", "Early Hints"));
+
+	Codes.Add(NewHTTPCode(200, "OK_200", "OK"));
+	Codes.Add(NewHTTPCode(201, "Created_201", "Created"));
+	Codes.Add(NewHTTPCode(202, "Accepted_202", "Accepted"));
+	Codes.Add(NewHTTPCode(203, "NonAuthoritativeInformation_203", "Non-Authoritative Information"));
+	Codes.Add(NewHTTPCode(204, "NoContent_204", "No Content"));
+	Codes.Add(NewHTTPCode(205, "ResetContent_205", "Reset Content"));
+	Codes.Add(NewHTTPCode(206, "PartialContent_206", "Partial Content"));
+	Codes.Add(NewHTTPCode(207, "MultiStatus_207", "Multi-Status"));
+	Codes.Add(NewHTTPCode(208, "AlreadyReported_208", "Already Reported"));
+	Codes.Add(NewHTTPCode(226, "IMUsed_226", "IM Used"));
+
+	Codes.Add(NewHTTPCode(300, "MultipleChoices_300", "Multiple Choices"));
+	Codes.Add(NewHTTPCode(301, "MovedPermanently_301", "Moved Permanently"));
+	Codes.Add(NewHTTPCode(302, "MovedTemporarily_302", "Moved Temporarily"));
+	Codes.Add(NewHTTPCode(303, "SeeOther_303", "See Other"));
+	Codes.Add(NewHTTPCode(304, "NotModified_304", "Not Modified"));
+	Codes.Add(NewHTTPCode(305, "UseProxy_305", "Use Proxy"));
+	Codes.Add(NewHTTPCode(307, "TemporaryRedirect_307", "Temporary Redirect"));
+	Codes.Add(NewHTTPCode(308, "PermanentRedirect_308", "Permanent Redirect"));
+
+	Codes.Add(NewHTTPCode(400, "BadRequest_400", "Bad Request"));
+	Codes.Add(NewHTTPCode(401, "Unauthorized_401", "Unauthorized"));
+	Codes.Add(NewHTTPCode(402, "PaymentRequired_402", "Payment Required"));
+	Codes.Add(NewHTTPCode(403, "Forbidden_403", "Forbidden"));
+	Codes.Add(NewHTTPCode(404, "NotFound_404", "Not Found"));
+	Codes.Add(NewHTTPCode(405, "MethodNotAllowed_405", "Method Not Allowed"));
+	Codes.Add(NewHTTPCode(406, "NotAcceptable_406", "Not Acceptable"));
+	Codes.Add(NewHTTPCode(407, "ProxyAuthenticationRequired_407", "Proxy Authentication Required"));
+	Codes.Add(NewHTTPCode(408, "RequestTimeout_408", "Request Timeout"));
+	Codes.Add(NewHTTPCode(409, "Conflict_409", "Conflict"));
+	Codes.Add(NewHTTPCode(410, "Gone_410", "Gone"));
+	Codes.Add(NewHTTPCode(411, "LengthRequired_411", "Length Required"));
+	Codes.Add(NewHTTPCode(412, "PreconditionFailed_412", "Precondition Failed"));
+	Codes.Add(NewHTTPCode(413, "PayloadTooLarge_413", "Payload Too Large"));
+	Codes.Add(NewHTTPCode(414, "URITooLong_414", "URI Too Long"));
+	Codes.Add(NewHTTPCode(415, "UnsupportedMediaType_415", "Unsupported Media Type"));
+	Codes.Add(NewHTTPCode(416, "RangeNotSatisfiable_416", "Range Not Satisfiable"));
+	Codes.Add(NewHTTPCode(417, "ExpectationFailed_417", "Expectation Failed"));
+	Codes.Add(NewHTTPCode(419, "AuthenticationTimeout_419", "Authentication Timeout"));
+	Codes.Add(NewHTTPCode(421, "MisdirectedRequest_421", "Misdirected Request"));
+	Codes.Add(NewHTTPCode(422, "UnprocessableEntity_422", "Unprocessable Entity"));
+	Codes.Add(NewHTTPCode(423, "Locked_423", "Locked"));
+	Codes.Add(NewHTTPCode(424, "FailedDependency_424", "Failed Dependency"));
+	Codes.Add(NewHTTPCode(425, "TooEarly_425", "Too Early"));
+	Codes.Add(NewHTTPCode(426, "UpgradeRequired_426", "Upgrade Required"));
+	Codes.Add(NewHTTPCode(428, "PreconditionRequired_428", "Precondition Required"));
+	Codes.Add(NewHTTPCode(429, "TooManyRequests_429", "Too Many Requests"));
+	Codes.Add(NewHTTPCode(431, "RequestHeaderFieldsTooLarge_431", "Request Header Fields Too Large"));
+	Codes.Add(NewHTTPCode(449, "RetryWith_449", "Retry With"));
+	Codes.Add(NewHTTPCode(451, "UnavailableForLegalReasons_451", "Unavailable For Legal Reasons"));
+	Codes.Add(NewHTTPCode(499, "ClientClosedRequest_499", "Client Closed Request"));
+
+	Codes.Add(NewHTTPCode(500, "InternalServerError_500", "Internal Server Error"));
+	Codes.Add(NewHTTPCode(501, "NotImplemented_501", "Not Implemented"));
+	Codes.Add(NewHTTPCode(502, "BadGateway_502", "Bad Gateway"));
+	Codes.Add(NewHTTPCode(503, "ServiceUnavailable_503", "Service Unavailable"));
+	Codes.Add(NewHTTPCode(504, "GatewayTimeout_504", "Gateway Timeout"));
+	Codes.Add(NewHTTPCode(505, "HTTPVersionNotSupported_505", "HTTP Version Not Supported"));
+	Codes.Add(NewHTTPCode(506, "VariantAlsoNegotiates_506", "Variant Also Negotiates"));
+	Codes.Add(NewHTTPCode(507, "InsufficientStorage_507", "Insufficient Storage"));
+	Codes.Add(NewHTTPCode(508, "LoopDetected_508", "Loop Detected"));
+	Codes.Add(NewHTTPCode(509, "BandwidthLimitExceeded_509", "Bandwidth Limit Exceeded"));
+	Codes.Add(NewHTTPCode(510, "NotExtended_510", "Not Extended"));
+	Codes.Add(NewHTTPCode(511, "NetworkAuthenticationRequired_511", "Network Authentication Required"));
+	Codes.Add(NewHTTPCode(520, "UnknownError_520", "Unknown Error"));
+	Codes.Add(NewHTTPCode(521, "WebServerIsDown_521", "Web Server Is Down"));
+	Codes.Add(NewHTTPCode(522, "ConnectionTimedOut_522", "Connection Timed Out"));
+	Codes.Add(NewHTTPCode(523, "OriginIsUnreachable_523", "Origin Is Unreachable"));
+	Codes.Add(NewHTTPCode(524, "ATimeoutOccurred_524", "A Timeout Occurred"));
+	Codes.Add(NewHTTPCode(525, "SSLHandshakeFailed_525", "SSL Handshake Failed"));
+	Codes.Add(NewHTTPCode(526, "InvalidSSLCertificate_526", "Invalid SSL Certificate"));
+
+	Return Codes;
+
+EndFunction
+
+Function NewHTTPCode(Code, Key_, Description)
+
+	Return New Structure("Code, Key, Description", Code, Key_, Description);
+
+EndFunction
+
+Function StrStartsWith_ThisModule( String, SearchString ) Export
 	
-	Если Сессия = Неопределено Тогда
-		Сессия = СоздатьСессию();	
-	КонецЕсли;
+	Return(Left( String, StrLen( SearchString ) ) = SearchString );
 	
-	Возврат Сессия;
-	
-КонецФункции
- 
-#КонецОбласти
+EndFunction // StrStartsWith
+
+#EndRegion
