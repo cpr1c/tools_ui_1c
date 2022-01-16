@@ -1595,7 +1595,7 @@
         <name>PlanTextPage</name>
         <id>66</id>
         <items xsi:type="form:FormField">
-          <name>PlanText</name>
+          <name>PlanAsText</name>
           <id>68</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1604,12 +1604,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>PlanText</segments>
+              <segments>PlanAsText</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>PlanTextExtendedTooltip</name>
+            <name>PlanAsTextExtendedTooltip</name>
             <id>70</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1624,7 +1624,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>PlanTextContextMenu</name>
+            <name>PlanAsTextContextMenu</name>
             <id>69</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2931,10 +2931,10 @@
     </edit>
   </attributes>
   <attributes>
-    <name>PlanText</name>
+    <name>PlanAsText</name>
     <title>
       <key>en</key>
-      <value>Plan text</value>
+      <value>Plan as text</value>
     </title>
     <title>
       <key>ru</key>
@@ -3156,7 +3156,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Команда_Обновить</name>
+        <name>Refresh_Command</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
