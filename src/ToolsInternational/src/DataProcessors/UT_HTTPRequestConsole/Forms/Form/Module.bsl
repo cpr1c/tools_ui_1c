@@ -18,7 +18,7 @@
 
 	УстановитьДоступностьТелаЗапроса(ThisObject);
 	
-	UT_Common.ФормаИнструментаПриСозданииНаСервере(ThisObject, Отказ, СтандартнаяОбработка, Элементы.ГруппаКоманднаяПанельФормы);
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Отказ, СтандартнаяОбработка, Элементы.ГруппаКоманднаяПанельФормы);
 	
 КонецПроцедуры
 
@@ -73,7 +73,7 @@
 		Возврат;
 	КонецЕсли;
 
-	НачатьЗапускПриложения(UT_CommonClient.ПустоеОписаниеОповещенияДляЗапускаПриложения(),
+	НачатьЗапускПриложения(UT_CommonClient.ApplicationRunEmptyNotifyDescription(),
 		ТекДанные.ТелоЗапросаИмяФайла);
 КонецПроцедуры
 
@@ -252,13 +252,13 @@
 
 &НаКлиенте
 Функция СтруктураОписанияСохраняемогоФайла()
-	Структура=UT_CommonClient.ПустаяСтруктураОписанияВыбираемогоФайла();
-	Структура.ИмяФайла=RequestsFileName;
+	Структура=UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
+	Структура.FileName = RequestsFileName;
 
 	// Пока закоментим сохранение в JSON, т.к. библиотека ошибки выдает на двоичных данных
-	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Структура,
+	UT_CommonClient.AddFormatToSavingFileDescription(Структура,
 		"Файл запросов консоли HTPP в JSON (*.jhttp)", "jhttp");
-	UT_CommonClient.ДобавитьФорматВОписаниеФайлаСохранения(Структура, "Файл запросов консоли HTPP (*.xhttp)",
+	UT_CommonClient.AddFormatToSavingFileDescription(Структура, "Файл запросов консоли HTPP (*.xhttp)",
 		"xhttp");
 
 	Возврат Структура;
