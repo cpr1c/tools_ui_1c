@@ -20,17 +20,17 @@
 //  Array - an array of strings.
 //
 // Example:
-//  StringFunctionsClientServer.SplitStringIntoSubstringsArray(",one,,two", ",")
+//  UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(",one,,two", ",")
 //  - returns an array of 5 items, three of which are empty: "", "one", "", "two", "";
-//  StringFunctionsClientServer.SplitStringIntoSubstringsArray(",one,,two,", ",", True)
+//   UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(",one,,two,", ",", True)
 //  - returns an array of two items: "one", "two";
-//  StringFunctionsClientServer.SplitStringIntoSubstringsArray(" one   two  ", " ")
+//   UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(" one   two  ", " ")
 //  - returns an array of two items: "one", "two";
-//  StringFunctionsClientServer.SplitStringIntoSubstringsArray("")
+//   UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray("")
 //  - Returns an empty array.
-//  StringFunctionsClientServer.SplitStringIntoSubstringsArrayy("",,False)
+//   UT_StringFunctionsClientServer.SplitStringIntoSubstringsArrayy("",,False)
 //  - returns an array with one item ""(empty string);
-//  StringFunctionsClientServer.SplitStringIntoSubstringsArray("", " ")
+//   UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray("", " ")
 //  - returns an array with one item "" (empty string).
 //
 Function SplitStringIntoSubstringsArray(Val Value, Val Separator = ",", Val SkipEmptyStrings = Undefined, 
@@ -124,8 +124,8 @@ EndFunction
 //  Array - a words list.
 //
 // Example:
-//  StringFunctionsClientServer.SplitStringIntoWordsArray("one-@#two2_!three") will return an array of values: "one",
-//  "two2_", "three"; StringFunctionsClientServer.SplitStringIntoWordsArray("one-@#two2_!three", 
+//   UT_StringFunctionsClientServer.SplitStringIntoWordsArray("one-@#two2_!three") will return an array of values: "one",
+//  "two2_", "three";  UT_StringFunctionsClientServer.SplitStringIntoWordsArray("one-@#two2_!three", 
 //  "#@!_") wil return an array of values: "one-", "two2", "three".
 Function SplitStringIntoWordArray(Val Value, WordSeparators = Undefined) Export
 	
@@ -277,7 +277,7 @@ EndFunction
 //  Structure - parameters values, where the key is the name of the parameter, the value is the parameter value.
 //
 // Example:
-//  Result = StringFunctionsClientServer.ParametersFromString("File=""c:\InfoBases\Trade""; Usr=""Director"";""", ";");
+//  Result =  UT_StringFunctionsClientServer.ParametersFromString("File=""c:\InfoBases\Trade""; Usr=""Director"";""", ";");
 //  - returns the structure:
 //     the File key and the c:\InfoBases\Trade value
 //     the Usr key and the Director value.
@@ -322,9 +322,9 @@ EndFunction
 //   Boolean - True - the string contains only numbers or is empty, False - the string contains other characters.
 //
 // Example:
-//  Result = StringFunctionsClientServer.OnlyDigitsInString("0123"); // True
-//  Result = StringFunctionsClientServer.OnlyDigitsInString("0123abc"); // False
-//  Result = StringFunctionsClientServer.OnlyDigitsInString("01 2 3",, False); // True
+//  Result =  UT_StringFunctionsClientServer.OnlyDigitsInString("0123"); // True
+//  Result =  UT_StringFunctionsClientServer.OnlyDigitsInString("0123abc"); // False
+//  Result =  UT_StringFunctionsClientServer.OnlyDigitsInString("01 2 3",, False); // True
 //
 Function OnlyNumbersInString(Val Value, Val Obsolete = True, Val SpacesProhibited = True) Export
 	
@@ -531,7 +531,7 @@ EndFunction
 //  String - a string supplemented with characters.
 //
 // Example:
-//  1. Result = StringFunctionsClientServer.SupplementString("1234", 10, "0", "Left");
+//  1. Result =  UT_StringFunctionsClientServer.SupplementString("1234", 10, "0", "Left");
 //  Returns: "0000001234".
 //
 //  2. Result = StringFunctionsClientServer.SupplementString(" 1234  ", 10, "#", "Right");
@@ -622,7 +622,7 @@ EndFunction
 //  String - a number in Latin notation.
 //
 // Example:
-//  StringFunctionsClientServer.ConvertNumberIntoRomanNotation(17) = "ХVII".
+//   UT_StringFunctionsClientServer.ConvertNumberIntoRomanNotation(17) = "ХVII".
 //
 Function ConvertNumberIntoRomanNotation(ArabicNumber, UseLatinChars = True) Export
 	
@@ -671,7 +671,7 @@ EndFunction
 //  Number - a converted number.
 //
 // Example:
-//  StringFunctionsClientServer.ConvertNumberIntoArabicNotation("ХVII") = 17.
+//   UT_StringFunctionsClientServer.ConvertNumberIntoArabicNotation("ХVII") = 17.
 //
 Function ConvertNumberIntoArabicNotation(RomanNumber, UseLatinChars = True) Export
 	
@@ -1030,7 +1030,7 @@ EndFunction
 //  // X - any number.
 //  // / - except for.
 //  
-//  String = StringFunctionsClientServer.StringWithNumberForAnyLanguage(
+//  String =  UT_StringFunctionsClientServer.StringWithNumberForAnyLanguage(
 //		NStr("ru=';остался %1 день;;осталось %1 дня;осталось %1 дней;осталось %1 дня';
 //		     |en=';left %1 day;;;;left %1 days'"), 
 //		0.05,, "NFD=1");
@@ -1119,7 +1119,7 @@ Function PathWithoutQuotes(Val String) Export
 		Return String;
 	EndIf;
 	
-КонецФункции 
+EndFunction 
 
 // Analog of the platform function StrStartsWith
 Function StringStartsWithSubString(AnalyzedString, SubString) Export
@@ -1155,9 +1155,9 @@ Function FindCharFromEnd(Val Row, Val Char) Export
 		
 EndFunction
 
-#КонецОбласти
+#EndRegion
 
-#Область СлужебныеПроцедурыИФункции
+#Region Internal
 
 // Converts the Arabic numerals into Roman numerals.
 //
@@ -1169,7 +1169,7 @@ EndFunction
 //	String - a figure in Latin notation.
 //
 // Example: 
-//	StringFunctionsClientServer.ConvertDigitIntoRomanNotation(7,"I","V","X") = "VII".
+//	 UT_StringFunctionsClientServer.ConvertDigitIntoRomanNotation(7,"I","V","X") = "VII".
 //
 Function ConvertFigureIntoRomanNotation(Figure, RomanOne, RomanFive, RomanTen)
 	
@@ -1282,4 +1282,4 @@ Function MapOfCyrillicAndLatinAlphabets()
 	Return Map;
 EndFunction
 
-#КонецОбласти
+#EndRegion
