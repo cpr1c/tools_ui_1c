@@ -98,8 +98,8 @@
   <commonModules>CommonModule.UT_ClipboardClient</commonModules>
   <commonModules>CommonModule.UT_CodeEditorClient</commonModules>
   <commonModules>CommonModule.UT_CodeEditorClientServer</commonModules>
-  <commonModules>CommonModule.UT_CodeEditorServer</commonModules>
   <commonModules>CommonModule.UT_CodeEditorServerCall</commonModules>
+  <commonModules>CommonModule.UT_CodeEditorServer</commonModules>
   <commonModules>CommonModule.UT_Common</commonModules>
   <commonModules>CommonModule.UT_CommonCached</commonModules>
   <commonModules>CommonModule.UT_CommonClient</commonModules>
