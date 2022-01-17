@@ -387,7 +387,7 @@ EndProcedure
 //   It is applied upon real-time deletion of marked objects to delete duplicate links form the result.
 Procedure ClearLinksFromReferenceSearchExceptions(ExecutionParameters)
 	If Not ExecutionParameters.Property("RefSearchExclusions") Then
-		ExecutionParameters.Insert("RefSearchExclusions", Common.RefSearchExclusions());
+		ExecutionParameters.Insert("RefSearchExclusions", UT_Common.RefSearchExclusions());
 	EndIf;
 	If Not ExecutionParameters.Property("ExcludingRules") Then
 		ExecutionParameters.Insert("ExcludingRules", New Map); // Cache of search exceptions rules.
@@ -504,7 +504,7 @@ EndProcedure
 Procedure DeleteMarkedObjectsExclusively(ExecutionParameters)
 	
 	If Not ExecutionParameters.Property("RefSearchExclusions") Then
-		ExecutionParameters.Insert("RefSearchExclusions", Common.RefSearchExclusions());
+		ExecutionParameters.Insert("RefSearchExclusions", UT_Common.RefSearchExclusions());
 	EndIf;
 	If Not ExecutionParameters.Property("ExcludingRules") Then
 		ExecutionParameters.Insert("ExcludingRules", New Map); // Cache of search exceptions rules.
@@ -965,7 +965,7 @@ Procedure WriteReasonToResult(ExecutionParameters, TableRow)
 	
 	// Fill in subordinate fields.
 	If FoundItemInfo.Reference Then
-		Reason.FoundDeletionMark = Common.ObjectAttributeValue(Reason.FoundItemReference, "DeletionMark");
+		Reason.FoundDeletionMark = UT_Common.ObjectAttributeValue(Reason.FoundItemReference, "DeletionMark");
 	Else
 		Reason.FoundDeletionMark = False;
 	EndIf;
