@@ -165,5 +165,5 @@
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
+  <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
 </mdclass:Configuration>
