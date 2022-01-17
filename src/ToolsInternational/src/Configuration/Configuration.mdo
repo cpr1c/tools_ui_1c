@@ -161,9 +161,9 @@
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
+  <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
 </mdclass:Configuration>
