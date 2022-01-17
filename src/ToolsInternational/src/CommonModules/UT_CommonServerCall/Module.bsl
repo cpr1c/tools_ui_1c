@@ -125,7 +125,7 @@ Procedure AddObjectsArrayToCompare(Objects) Export
 	UT_Common.AddObjectsArrayToCompare(Objects);
 EndProcedure
 
-Procedure UploadObjectsToXMLonServer(ObjectsArray, FileAdressInTempStorage, FormID=Undefined) Export
+Procedure UploadObjectsToXMLonServer(ObjectsArray, FileURLInTempStorage, FormID=Undefined) Export
 	UploadingDataProcessor = Обработки.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами.Создать();
 	UploadingDataProcessor.Инициализация();
 	UploadingDataProcessor.ВыгружатьСДокументомЕгоДвижения=Истина;
@@ -146,7 +146,7 @@ Procedure UploadObjectsToXMLonServer(ObjectsArray, FileAdressInTempStorage, Form
 	If File.Exist() Then
 
 		BinaryData = New BinaryData(TempFileName);
-		FileAdressInTempStorage = PutToTempStorage(BinaryData, FormID);
+		FileURLInTempStorage = PutToTempStorage(BinaryData, FormID);
 		DeleteFiles(TempFileName);
 
 	EndIf;
@@ -484,7 +484,7 @@ Function DebuggingObjectDataStructureFromDebugDataCatalog(DataPath) Export
 	Return Result;
 EndFunction
 
-Function DebuggingObjectDataStructureFromSystemSettingsStorage(SettingsKey, FormID=Undefined) Export
+Function DebuggingObjectDataStructureFromSystemSettingsStorage(SettingsKey,User=Undefined, FormID=Undefined) Export
 	
 	DebuggingDataObjectKey=UT_CommonClientServer.DebuggingDataObjectDataKeyInSettingsStorage();
 	DebugSettings=UT_Common.SystemSettingsStorageLoad(DebuggingDataObjectKey, SettingsKey);
