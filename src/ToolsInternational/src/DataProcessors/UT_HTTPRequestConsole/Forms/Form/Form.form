@@ -191,7 +191,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Table">
-        <name>ИсторияЗапросов</name>
+        <name>RequestHistory</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -199,7 +199,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ИсторияЗапросов</segments>
+          <segments>RequestHistory</segments>
         </dataPath>
         <titleLocation>Top</titleLocation>
         <items xsi:type="form:FormField">
@@ -211,7 +211,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияЗапросов.КодСостояния</segments>
+            <segments>RequestHistory.HTTPStatusCode</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка11</name>
@@ -263,10 +263,10 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.HTTPФункция</segments>
+              <segments>RequestHistory.HTTPMethod</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.HTTPФункция</segments>
+              <segments>RequestHistory.HTTPMethod</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -317,7 +317,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияЗапросов.Протокол</segments>
+            <segments>RequestHistory.Protocol</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка10</name>
@@ -369,10 +369,10 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.АдресСервера</segments>
+              <segments>RequestHistory.ServerAddress</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.АдресСервера</segments>
+              <segments>RequestHistory.ServerAddress</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -423,7 +423,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияЗапросов.Запрос</segments>
+            <segments>RequestHistory.Request</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка3</name>
@@ -473,7 +473,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ИсторияЗапросов.ДлительностьВыполнения</segments>
+            <segments>RequestHistory.RequestTiming</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка12</name>
@@ -525,10 +525,10 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.Дата</segments>
+              <segments>RequestHistory.Date</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.Дата</segments>
+              <segments>RequestHistory.Date</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -571,7 +571,7 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>КоманднаяПанель</name>
+          <name>RequestHistoryCommandBar</name>
           <id>6</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -594,10 +594,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>RequestHistorySearchString</name>
           <id>9</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>RequestHistorySearchStringExtendedTooltip</name>
             <id>11</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -612,7 +612,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>RequestHistorySearchStringContextMenu</name>
             <id>10</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -631,10 +631,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>RequestHistoryViewStatus</name>
           <id>15</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>RequestHistoryViewStatusExtendedTooltip</name>
             <id>17</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -649,7 +649,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>RequestHistoryViewStatusContextMenu</name>
             <id>16</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -670,10 +670,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>RequestHistorySearchControl</name>
           <id>12</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>RequestHistorySearchControlExtendedTooltip</name>
             <id>14</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -688,7 +688,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>RequestHistorySearchControlContextMenu</name>
             <id>13</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -703,7 +703,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>РасширеннаяПодсказка</name>
+          <name>RequestHistoryExtendedTooltip</name>
           <id>8</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -718,7 +718,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>КонтекстноеМеню</name>
+          <name>RequestHistoryContextMenu</name>
           <id>7</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -744,7 +744,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ИсторияЗапросов.Картинка</segments>
+          <segments>RequestHistory.Picture</segments>
         </rowPictureDataPath>
       </items>
       <visible>true</visible>
@@ -794,7 +794,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>HTTPRequest</segments>
+              <segments>HTTPMethod</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <handlers>
@@ -1712,7 +1712,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>ТаблицаЗаголовковЗапроса</segments>
+                  <segments>RequestHeadersTable</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <items xsi:type="form:FormField">
@@ -1726,10 +1726,10 @@
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <activeLanguage>1</activeLanguage>
                     <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
+                      <segments>RequestHeadersTable.Key</segments>
                     </paths>
                     <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
+                      <segments>RequestHeadersTable.Key</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -1786,10 +1786,10 @@
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <activeLanguage>1</activeLanguage>
                     <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
+                      <segments>RequestHeadersTable.Value</segments>
                     </paths>
                     <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
+                      <segments>RequestHeadersTable.Value</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -2867,7 +2867,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ИсторияЗапросов.CurrentData.Дата</segments>
+                <segments>Items.RequestHistory.CurrentData.Date</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ПолеРасширеннаяПодсказка13</name>
@@ -2917,7 +2917,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ДлительностьВыполнения</segments>
+                <segments>Элементы.RequestHistory.ТекущиеДанные.RequestTiming</segments>
               </dataPath>
               <toolTip>
                 <key>ru</key>
@@ -3003,7 +3003,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ИсторияЗапросов.CurrentData.ИспользоватьПрокси</segments>
+                <segments>Items.RequestHistory.CurrentData.UseProxy</segments>
               </dataPath>
               <handlers>
                 <event>OnChange</event>
@@ -3053,7 +3053,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ИсторияЗапросов.CurrentData.ПроксиСервер</segments>
+                  <segments>Items.RequestHistory.CurrentData.ProxyServer</segments>
                 </dataPath>
                 <handlers>
                   <event>OnChange</event>
@@ -3107,7 +3107,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ИсторияЗапросов.CurrentData.ПроксиПорт</segments>
+                  <segments>Items.RequestHistory.CurrentData.ProxyPort</segments>
                 </dataPath>
                 <handlers>
                   <event>OnChange</event>
@@ -3193,7 +3193,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ИсторияЗапросов.CurrentData.ПроксиПользователь</segments>
+                  <segments>Items.RequestHistory.CurrentData.ProxyUser</segments>
                 </dataPath>
                 <handlers>
                   <event>OnChange</event>
@@ -3247,7 +3247,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ИсторияЗапросов.CurrentData.ПроксиПароль</segments>
+                  <segments>Items.RequestHistory.CurrentData.ProxyPassword</segments>
                 </dataPath>
                 <handlers>
                   <event>OnChange</event>
@@ -3330,7 +3330,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ИсторияЗапросов.CurrentData.ПроксиАутентификацияОС</segments>
+                <segments>Items.RequestHistory.CurrentData.OSAuthentificationProxy</segments>
               </dataPath>
               <handlers>
                 <event>OnChange</event>
@@ -3456,7 +3456,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.HTTPФункция</segments>
+                  <segments>Элементы.RequestHistory.ТекущиеДанные.HTTPMethod</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
@@ -3509,7 +3509,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.URL</segments>
+                  <segments>Элементы.RequestHistory.ТекущиеДанные.URL</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>ПолеРасширеннаяПодсказка16</name>
@@ -3559,7 +3559,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.Таймаут</segments>
+                  <segments>Элементы.RequestHistory.ТекущиеДанные.Timeout</segments>
                 </dataPath>
                 <toolTip>
                   <key>ru</key>
@@ -3642,7 +3642,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ЗаголовкиЗапроса</segments>
+                <segments>Элементы.RequestHistory.ТекущиеДанные.RequestHeaders</segments>
               </dataPath>
               <titleLocation>Top</titleLocation>
               <extendedTooltip>
@@ -3699,7 +3699,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ВидТелаЗапроса</segments>
+                    <segments>Элементы.RequestHistory.ТекущиеДанные.RequestBodyFormat</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ПолеРасширеннаяПодсказка30</name>
@@ -3815,7 +3815,7 @@
                       <common>true</common>
                     </userVisible>
                     <dataPath xsi:type="form:DataPath">
-                      <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ТелоЗапросаСтрока</segments>
+                      <segments>Элементы.RequestHistory.ТекущиеДанные.RequestBodyString</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
@@ -3934,7 +3934,7 @@
                       <common>true</common>
                     </userVisible>
                     <dataPath xsi:type="form:DataPath">
-                      <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ТелоЗапросаДвоичныеДанныеСтрокой</segments>
+                      <segments>Элементы.RequestHistory.ТекущиеДанные.RequestBodyBinaryDataString</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
@@ -4020,7 +4020,7 @@
                       <common>true</common>
                     </userVisible>
                     <dataPath xsi:type="form:DataPath">
-                      <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ТелоЗапросаИмяФайла</segments>
+                      <segments>Элементы.RequestHistory.ТекущиеДанные.RequestBodyFileName</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
@@ -4202,7 +4202,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.КодСостояния</segments>
+                <segments>Элементы.RequestHistory.ТекущиеДанные.HTTPStatusCode</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ПолеРасширеннаяПодсказка19</name>
@@ -4252,7 +4252,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Элементы.ИсторияЗапросов.ТекущиеДанные.ЗаголовкиОтвета</segments>
+                <segments>Элементы.RequestHistory.ТекущиеДанные.ResponseHeaders</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ПолеРасширеннаяПодсказка20</name>
@@ -4463,7 +4463,7 @@
                       <common>true</common>
                     </userVisible>
                     <dataPath xsi:type="form:DataPath">
-                      <segments>Items.ИсторияЗапросов.CurrentData.ТелоОтветаДвоичныеДанныеСтрокой</segments>
+                      <segments>Items.RequestHistory.CurrentData.ResponseBodyBinaryDataString</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
@@ -4801,7 +4801,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ИсторияЗапросов</name>
+    <name>RequestHistory</name>
+    <title>
+      <key>en</key>
+      <value>Request history</value>
+    </title>
     <title>
       <key>ru</key>
       <value>История запросов</value>
@@ -4817,7 +4821,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Дата</name>
+      <name>Date</name>
+      <title>
+        <key>en</key>
+        <value>Date</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Дата</value>
@@ -4835,10 +4843,14 @@
       </edit>
     </columns>
     <columns>
-      <name>HTTPФункция</name>
+      <name>HTTPMethod</name>
+      <title>
+        <key>en</key>
+        <value>Метод</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>Метод</value>
+        <value>Method</value>
       </title>
       <id>4</id>
       <valueType>
@@ -4853,7 +4865,11 @@
       </edit>
     </columns>
     <columns>
-      <name>АдресСервера</name>
+      <name>ServerAddress</name>
+      <title>
+        <key>en</key>
+        <value>Server address</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Адрес сервера</value>
@@ -4871,7 +4887,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Картинка</value>
@@ -4888,7 +4908,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ДлительностьВыполнения</name>
+      <name>RequestTiming</name>
+      <title>
+        <key>en</key>
+        <value>Request timing</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Длительность выполнения</value>
@@ -4908,7 +4932,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Запрос</name>
+      <name>Request</name>
+      <title>
+        <key>en</key>
+        <value>Request</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Запрос</value>
@@ -4926,10 +4954,10 @@
       </edit>
     </columns>
     <columns>
-      <name>КодСостояния</name>
+      <name>HTTPStatusCode</name>
       <title>
         <key>ru</key>
-        <value>Код состояния</value>
+        <value>HTTPStatus code</value>
       </title>
       <id>14</id>
       <valueType>
@@ -4946,7 +4974,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗаголовкиЗапроса</name>
+      <name>RequestHeaders</name>
+      <title>
+        <key>en</key>
+        <value>Request headers</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Заголовки запроса</value>
@@ -4964,10 +4996,10 @@
       </edit>
     </columns>
     <columns>
-      <name>ТелоЗапросаСтрока</name>
+      <name>RequestBodyString</name>
       <title>
         <key>ru</key>
-        <value>Тело запроса строка</value>
+        <value>Request body string</value>
       </title>
       <id>16</id>
       <valueType>
@@ -4982,7 +5014,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗаголовкиОтвета</name>
+      <name>ResponseHeaders</name>
+      <title>
+        <key>en</key>
+        <value>Response headers</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Заголовки ответа</value>
@@ -5000,7 +5036,11 @@
       </edit>
     </columns>
     <columns>
-      <name>АдресТелаОтветаСтрокой</name>
+      <name>ResponseBodyAddressString</name>
+      <title>
+        <key>en</key>
+        <value>Response body address string</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Адрес тела ответа строкой</value>
@@ -5018,7 +5058,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Протокол</name>
+      <name>Protocol</name>
+      <title>
+        <key>en</key>
+        <value>Protocol</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Протокол</value>
@@ -5056,7 +5100,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КодировкаТелаЗапроса</name>
+      <name>RequestBodyEncoding</name>
+      <title>
+        <key>en</key>
+        <value>Request body encoding</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Кодировка тела запроса</value>
@@ -5094,7 +5142,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТелоЗапросаАдресДвоичныхДанных</name>
+      <name>RequestBodyBinaryDataAddress</name>
+      <title>
+        <key>en</key>
+        <value>Request body binary data address</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тело запроса адрес двоичных данных</value>
@@ -5112,7 +5164,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТелоЗапросаИмяФайла</name>
+      <name>RequestBodyFileName</name>
+      <title>
+        <key>en</key>
+        <value>Request body file name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тело запроса имя файла</value>
@@ -5130,7 +5186,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТелоОтветаАдресДвоичныхДанных</name>
+      <name>ResponseBodyBinaryDataAddress</name>
+      <title>
+        <key>en</key>
+        <value>Response body binary data address</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тело ответа адрес двоичных данных</value>
@@ -5148,7 +5208,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ВидТелаЗапроса</name>
+      <name>RequestBodyFormat</name>
+      <title>
+        <key>en</key>
+        <value>Request body format</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Вид тела запроса</value>
@@ -5166,10 +5230,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТелоЗапросаДвоичныеДанныеСтрокой</name>
+      <name>RequestBodyBinaryDataString</name>
+      <title>
+        <key>en</key>
+        <value>Request body binary data string</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>Тело запроса двоичные данные строкой</value>
+        <value>Двоичные данные тела запроса</value>
       </title>
       <id>38</id>
       <valueType>
@@ -5184,7 +5252,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТелоОтветаДвоичныеДанныеСтрокой</name>
+      <name>ResponseBodyBinaryDataString</name>
+      <title>
+        <key>en</key>
+        <value>Response body binary data string</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тело ответа двоичные данные строкой</value>
@@ -5202,10 +5274,10 @@
       </edit>
     </columns>
     <columns>
-      <name>ИспользоватьПрокси</name>
+      <name>UseProxy</name>
       <title>
         <key>ru</key>
-        <value>Использовать прокси</value>
+        <value>Use proxy</value>
       </title>
       <id>50</id>
       <valueType>
@@ -5219,7 +5291,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПроксиСервер</name>
+      <name>ProxyServer</name>
+      <title>
+        <key>en</key>
+        <value>Proxy server</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Прокси сервер</value>
@@ -5237,7 +5313,15 @@
       </edit>
     </columns>
     <columns>
-      <name>ПроксиПорт</name>
+      <name>ProxyPort</name>
+      <title>
+        <key>en</key>
+        <value>Proxy port</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Прокси порт</value>
+      </title>
       <id>52</id>
       <valueType>
         <types>Number</types>
@@ -5253,7 +5337,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПроксиПользователь</name>
+      <name>ProxyUser</name>
+      <title>
+        <key>en</key>
+        <value>Proxy user</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Прокси пользователь</value>
@@ -5271,7 +5359,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПроксиПароль</name>
+      <name>ProxyPassword</name>
+      <title>
+        <key>en</key>
+        <value>Proxy password</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Прокси пароль</value>
@@ -5289,7 +5381,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПроксиАутентификацияОС</name>
+      <name>OSAuthentificationProxy</name>
+      <title>
+        <key>en</key>
+        <value>OS аuthentification proxy</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Прокси аутентификация ОС</value>
@@ -5306,7 +5402,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Таймаут</name>
+      <name>Timeout</name>
+      <title>
+        <key>en</key>
+        <value>Timeout</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Таймаут</value>
@@ -5327,7 +5427,7 @@
     </columns>
   </attributes>
   <attributes>
-    <name>HTTPRequest</name>
+    <name>HTTPMethod</name>
     <title>
       <key>en</key>
       <value>HTTP request</value>
@@ -5457,7 +5557,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТаблицаЗаголовковЗапроса</name>
+    <name>RequestHeadersTable</name>
+    <title>
+      <key>en</key>
+      <value>Request headers table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица заголовков запроса</value>
@@ -5473,7 +5577,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Ключ</name>
+      <name>Key</name>
+      <title>
+        <key>en</key>
+        <value>Key</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Ключ</value>
@@ -5491,10 +5599,10 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
-        <value>Значение</value>
+        <value>Value</value>
       </title>
       <id>26</id>
       <valueType>
@@ -5531,7 +5639,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СписокИспользованныхЗаголовков</name>
+    <name>UsedHeadersList</name>
+    <title>
+      <key>en</key>
+      <value>Used headers list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список использованных заголовков</value>
@@ -5817,8 +5929,12 @@
   <attributes>
     <name>OSAuthentificationProxy</name>
     <title>
+      <key>en</key>
+      <value>OS аuthentification proxy</value>
+    </title>
+    <title>
       <key>ru</key>
-      <value>OSAuthentification proxy</value>
+      <value>Прокси аутентификация ОС</value>
     </title>
     <id>48</id>
     <valueType>
