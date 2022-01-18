@@ -52,7 +52,7 @@ Procedure SetGroupTitleRepresentation(Form, GroupNames = "") Export
 				EndIf;
 			EndDo;
 		Else
-			TitleArray = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(GroupNames,,, True);
+			TitleArray = UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(GroupNames,,, True);
 			For Each TitleName In TitleArray Do
 				Item = Form.Items[TitleName];
 				If Item.Representation = UsualGroupRepresentation.NormalSeparation OR Item.Representation = UsualGroupRepresentation.None Then 
@@ -561,7 +561,7 @@ EndFunction
 
 //https://infostart.ru/public/1207287/
 Function ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable, ListOfComparisonColumns) Export
-	ColumsList = UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(ListOfComparisonColumns, ",", True);
+	ColumsList = UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(ListOfComparisonColumns, ",", True);
 	//The resulting table
 	TempTable = New ValueTable;
 	For Each Colum In ColumsList Do

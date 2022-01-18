@@ -659,28 +659,28 @@
 КонецПроцедуры
 
 Процедура СохранитьМодулиКонфигурацииВФайлыЗАпуститьКонфигуратовДляВыгрузкиМетаданных(ПараметрыСохранения) Экспорт
-	СтрокаЗапускаПриложения = UT_StringFunctionsClientServer.ОбернутьВКавычки(
+	СтрокаЗапускаПриложения = UT_StringFunctionsClientServer.WrapInOuotationMarks(
 		ПараметрыСохранения.Параметры.ФайлЗапускаПлатформы) + " DESIGNER";
 
 	Если ПараметрыСохранения.Параметры.РасположениеБазы = 0 Тогда
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /F " + UT_StringFunctionsClientServer.ОбернутьВКавычки(
+		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /F " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
 			ПараметрыСохранения.Параметры.КаталогИнформационнойБазы);
 	Иначе
 		ПутьКБазе = ПараметрыСохранения.Параметры.СерверИБ + "\" + ПараметрыСохранения.Параметры.ИмяБазы;
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /S " + UT_StringFunctionsClientServer.ОбернутьВКавычки(
+		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /S " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
 			ПутьКБазе);
 	КонецЕсли;
-	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /N" + UT_StringFunctionsClientServer.ОбернутьВКавычки(
+	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /N" + UT_StringFunctionsClientServer.WrapInOuotationMarks(
 		ПараметрыСохранения.Параметры.Пользователь);
 
 	Если ЗначениеЗаполнено(ПараметрыСохранения.Параметры.Пароль) Тогда
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /P" + UT_StringFunctionsClientServer.ОбернутьВКавычки(
+		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /P" + UT_StringFunctionsClientServer.WrapInOuotationMarks(
 			ПараметрыСохранения.Параметры.Пароль);
 	КонецЕсли;
 	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения +" /DisableStartupMessages /DisableStartupDialogs";
 
 	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /DumpConfigToFiles "
-		+ UT_StringFunctionsClientServer.ОбернутьВКавычки(ПараметрыСохранения.ОписаниеКаталогаИсточника.Каталог)
+		+ UT_StringFunctionsClientServer.WrapInOuotationMarks(ПараметрыСохранения.ОписаниеКаталогаИсточника.Каталог)
 		+ " -format Hierarchical";
 		
 	Если ПараметрыСохранения.ОписаниеКаталогаИсточника.Источник <> "ОсновнаяКонфигурация" Тогда
@@ -689,7 +689,7 @@
 	КонецЕсли;
 	Если ПараметрыСохранения.ОписаниеКаталогаИсточника.ТолькоМодули Тогда
 		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " -listFile "
-			+ UT_StringFunctionsClientServer.ОбернутьВКавычки(ПараметрыСохранения.ИмяФайлаСпискаМетаданных);
+			+ UT_StringFunctionsClientServer.WrapInOuotationMarks(ПараметрыСохранения.ИмяФайлаСпискаМетаданных);
 
 	КонецЕсли;
 	SessionFileVariablesStructure = UT_CommonClient.SessionFileVariablesStructure();
@@ -698,7 +698,7 @@
 		SessionFileVariablesStructure.TempFilesDirectory + GetPathSeparator()
 		+ "tools_ui_1c_list_metadata_out.txt");
 
-	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /Out " + UT_StringFunctionsClientServer.ОбернутьВКавычки(
+	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /Out " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
 		ПараметрыСохранения.ИмяФайлаЛогаЗапускаКонфигуратора);
 
 	НачатьЗапускПриложения(

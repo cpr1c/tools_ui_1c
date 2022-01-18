@@ -1015,9 +1015,9 @@ Function Run1CSession(ClientType, User, UnderUserRunMode = False,
 		If MatchOfConnectionStringParameters.Property("file") Then
 			LaunchString = LaunchString + " /F" + MatchOfConnectionStringParameters.File;
 		ElsIf MatchOfConnectionStringParameters.Property("srvr") Then
-			DataBasePath = UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.srvr) + "\"
-				+ UT_StringFunctionsClientServer.ПутьБезКавычек(MatchOfConnectionStringParameters.ref);
-			DataBasePath = UT_StringFunctionsClientServer.ОбернутьВКавычки(DataBasePath);
+			DataBasePath = UT_StringFunctionsClientServer.PathWithoutQuotes(MatchOfConnectionStringParameters.srvr) + "\"
+				+ UT_StringFunctionsClientServer.PathWithoutQuotes(MatchOfConnectionStringParameters.ref);
+			DataBasePath = UT_StringFunctionsClientServer.WrapInOuotationMarks(DataBasePath);
 			LaunchString = LaunchString + " /S " + DataBasePath;
 		ElsIf MatchOfConnectionStringParameters.Property("ws") Then
 			LaunchString = LaunchString + " /WS " + MatchOfConnectionStringParameters.ws;

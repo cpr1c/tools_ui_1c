@@ -2043,7 +2043,7 @@
     </title>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_УдалениеПомеченныхОбъектов</types>
+      <types>DataProcessorObject.UT_MarkedObjectsDeletion</types>
     </valueType>
     <view>
       <common>true</common>
@@ -2308,14 +2308,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>DeletedObjects</name>
+    <name>NumberDeletedObjects</name>
     <title>
       <key>ru</key>
       <value>Удаленных объектов</value>
     </title>
     <title>
       <key>en</key>
-      <value>Deleted objects</value>
+      <value>Number deleted objects</value>
     </title>
     <id>7</id>
     <valueType>

@@ -35,12 +35,12 @@
 
 	Если СоответствиеПоказателейСтрокиСоединения.Свойство("file") Тогда
 		РасположениеБазы = 0;
-		КаталогИнформационнойБазы = UT_StringFunctionsClientServer.ПутьБезКавычек(
+		КаталогИнформационнойБазы = UT_StringFunctionsClientServer.PathWithoutQuotes(
 			СоответствиеПоказателейСтрокиСоединения.File);
 	ИначеЕсли СоответствиеПоказателейСтрокиСоединения.Свойство("srvr") Тогда
 		РасположениеБазы = 1;
-		СерверИБ = UT_StringFunctionsClientServer.ПутьБезКавычек(СоответствиеПоказателейСтрокиСоединения.srvr);
-		ИмяБазы = UT_StringFunctionsClientServer.ПутьБезКавычек(СоответствиеПоказателейСтрокиСоединения.ref);
+		СерверИБ = UT_StringFunctionsClientServer.PathWithoutQuotes(СоответствиеПоказателейСтрокиСоединения.srvr);
+		ИмяБазы = UT_StringFunctionsClientServer.PathWithoutQuotes(СоответствиеПоказателейСтрокиСоединения.ref);
 	КонецЕсли;
 	Пользователь = ИмяПользователя();
 
