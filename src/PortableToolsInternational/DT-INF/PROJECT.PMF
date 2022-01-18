@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
 Runtime-Version: 8.3.12
-Base-Project: TestForUniToolsDev
+X-External-Script-Variant: English
+X-External-Languages: en;name="English",
+ ru;name="Russian"
