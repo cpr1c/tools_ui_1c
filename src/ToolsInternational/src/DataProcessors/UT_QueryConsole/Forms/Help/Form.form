@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>Текст</name>
+    <name>Text</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -10,12 +10,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Текст</segments>
+        <segments>Text</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ТекстРасширеннаяПодсказка</name>
+      <name>TextExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -30,7 +30,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТекстКонтекстноеМеню</name>
+      <name>TextContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -54,10 +54,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманднаяПанельВнизу</name>
+    <name>BottomCommandBarGroup</name>
     <id>4</id>
     <items xsi:type="form:Button">
-      <name>КнопкаЗакрыть</name>
+      <name>CloseButton</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -65,7 +65,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КнопкаЗакрытьРасширеннаяПодсказка</name>
+        <name>CloseButtonExtendedTooltip</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -95,6 +95,10 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Bottom command bar group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа командная панель внизу</value>
     </title>
@@ -104,7 +108,7 @@
     </toolTip>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>ГруппаКоманднаяПанельВнизуРасширеннаяПодсказка</name>
+      <name>BottomCommandBarGroupExtendedTooltip</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -137,7 +141,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -148,7 +152,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_QueryConsole</types>
@@ -162,7 +166,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Текст</name>
+    <name>Text</name>
+    <title>
+      <key>en</key>
+      <value>Text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текст</value>

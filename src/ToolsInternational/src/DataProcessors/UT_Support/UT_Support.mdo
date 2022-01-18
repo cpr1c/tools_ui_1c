@@ -13,25 +13,25 @@
     <key>ru</key>
     <value>Тех поддержка [УИ]</value>
   </synonym>
-  <defaultForm>DataProcessor.UT_Support.Form.СписокЗадач</defaultForm>
+  <defaultForm>DataProcessor.UT_Support.Form.TasksList</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Тех поддержка</value>
   </extendedPresentation>
   <forms uuid="bb47cc80-4bf9-4987-a88b-c714884aa200">
-    <name>СписокЗадач</name>
+    <name>TasksList</name>
     <synonym>
       <key>ru</key>
-      <value>Список задач</value>
+      <value>Tasks list</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="107ebfc0-3d53-4088-ba5e-d4ce08b5bb51">
-    <name>ОбновлениеИнструментов</name>
+    <name>UpdateTools</name>
     <synonym>
       <key>ru</key>
-      <value>Обновление инструментов</value>
+      <value>Update tools</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

@@ -478,7 +478,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="1c158134-fb55-4780-a54a-d216a67719c9">
-    <name>ФормаКода</name>
+    <name>CodeForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Code form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма кода</value>

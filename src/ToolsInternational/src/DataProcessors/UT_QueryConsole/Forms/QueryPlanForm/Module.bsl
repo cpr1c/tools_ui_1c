@@ -1,365 +1,365 @@
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	КопироватьДанныеФормы(Параметры.Объект, Объект);
+	CopyFormData(Parameters.Object, Object);
 	
-	АдресРезультатаЗапроса = Параметры.АдресРезультатаЗапроса;
-	ИндексРезультата = Параметры.РезультатВПакете - 1;
+	QueryResultAddress = Parameters.QueryResultAddress;
+	ResultIndex = Parameters.ResultInBatch - 1;
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	ДоляОтображенияТяжелых = Обработка.SavedStates_Get("ДоляОтображенияТяжелых", 30);
-	ОтображатьВТерминах1С = Обработка.SavedStates_Get("ОтображатьВТерминах1С", Истина);
+	HeavyQueriesProportion = DataProcessor.SavedStates_Get("HeavyQueriesProportion", 30);
+	ShowIn1CTerms = DataProcessor.SavedStates_Get("ShowIn1CTerms", True);
 	
-	ПланПрочитан = ПолучитьПланЗапросаИзЖурнала();
+	PlanRead = GetQueryPlanFromLog();
 																	 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Функция ПолучитьПланЗапросаИзЖурнала()
+&AtServer
+Function GetQueryPlanFromLog()
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	стРезультатЗапроса = ПолучитьИзВременногоХранилища(АдресРезультатаЗапроса);
-	маРезультатЗапроса = стРезультатЗапроса.Результат;
-	стРезультат = маРезультатЗапроса[ИндексРезультата];
+	stQueryResult = GetFromTempStorage(QueryResultAddress);
+	arQueryResult = stQueryResult.Result;
+	stResult = arQueryResult[ResultIndex];
 	
-	СтрокаСобытияТЖ = Обработка.TechnologicalLog_GetInfoByQuery(стРезультат.ЗапросИД, 
-	                                                                 стРезультат.ВремяНачалаЗапроса, стРезультат.ДлительностьВМиллисекундах);
-	ТекстСобытияЖурнала.УстановитьТекст(СтрокаСобытияТЖ);
+	TLEventRow = DataProcessor.TechnologicalLog_GetInfoByQuery(stResult.QueryID, 
+	                                                                 stResult.QueryStartTime, stResult.DurationInMilliseconds);
+	LogEventText.SetText(TLEventRow);
 	
-	маТекстыСобытий = Новый Массив;
-	маСобытия = Новый Массив;
-	чСтрока = 1;
-	Пока Истина Цикл
+	arEventTexts = New Array;
+	arEvents = New Array;
+	nRow = 1;
+	While True Do
 		
-		стСобытие = ТехнологическийЖурнал_НайтиСобытиеПоСтрокам(ТекстСобытияЖурнала, чСтрока);
+		stEvent = TechnologicalLog_FindEventByRows(LogEventText, nRow);
 		
-		Если стСобытие = Неопределено Тогда
-			Прервать;
-		КонецЕсли;
+		If stEvent = Undefined Then
+			Break;
+		EndIf;
 		
-		чСтрока = стСобытие.КонечнаяСтрока + 1;
+		nRow = stEvent.EndRow + 1;
 	
-		маТекстСобытия = Новый Массив;
-		Для й = стСобытие.НачальнаяСтрока По стСобытие.КонечнаяСтрока Цикл
-			маТекстСобытия.Добавить(ТекстСобытияЖурнала.ПолучитьСтроку(й));
-		КонецЦикла;
+		arEventText = New Array;
+		For j = stEvent.BeginRow To stEvent.EndRow Do
+			arEventText.Add(LogEventText.GetString(j));
+		EndDo;
 		
-		ТекстСобытия = СтрСоединить(маТекстСобытия, "
+		EventText = StrConcat(arEventText, "
 		                                              |");
 		
-		стСобытие = ТехнологическийЖурнал_РазобратьСобытие(ТекстСобытия);
+		stEvent = TechnologicalLog_ParseEvent(EventText);
 		
-		ТекстЗапросаСУБД = Неопределено;
-		Если НЕ стСобытие.Свойство("Sql", ТекстЗапросаСУБД) Тогда
-			Продолжить;
-		КонецЕсли;
+		DBMSQueryText = Undefined;
+		If Not stEvent.Property("Sql", DBMSQueryText) Then
+			Continue;
+		EndIf;
 		
-		Если ТекстЗапросаСУБД = "COMMIT TRANSACTION" Тогда
-			Продолжить;
-		КонецЕсли;
+		If DBMSQueryText = "COMMIT TRANSACTION" Then
+			Continue;
+		EndIf;
 		
-		Если НЕ стСобытие.Свойство("planSQLText") Тогда
-			Продолжить;
-		КонецЕсли;
+		If Not stEvent.Property("planSQLText") Then
+			Continue;
+		EndIf;
 		
-		маТекстыСобытий.Добавить(ТекстСобытия);
-		маСобытия.Добавить(стСобытие);
+		arEventTexts.Add(EventText);
+		arEvents.Add(stEvent);
 		
-	КонецЦикла;
+	EndDo;
 	
-	Если маСобытия.Количество() < 1 Тогда
-		Возврат Ложь;
-	КонецЕсли;
+	If arEvents.Count() < 1 Then
+		Return False;
+	EndIf;
 	
-	РазделительПланов = "
+	PlanSplitter = "
 		|=====================================================================================================================================
 		|";
 	
-	Для Каждого Событие Из маСобытия Цикл
+	For Each Event In arEvents Do
 		
-		ДанныеТерминов = Неопределено;
-		ДобавитьТекстЗапроса(ДанныеТерминов);
+		TermsData = Undefined;
+		AddQueryText(TermsData);
 		
-		Если ПланТекстовый.КоличествоСтрок() > 0 Тогда
-			ПланТекстовый.ДобавитьСтроку(РазделительПланов);
-			ПланТекстовый1С.ДобавитьСтроку(РазделительПланов);
-		КонецЕсли;
+		If PlanAsText.RoowCount() > 0 Then
+			PlanAsText.AddRow(PlanSplitter);
+			Plan1CText.AddRow(PlanSplitter);
+		EndIf;
 		
-		Если Событие.DBMS = "DBMSSQL" Тогда
-			ДобавитьПланЗапроса_DBMSSQL(ДанныеТерминов);
-		ИначеЕсли Событие.DBMS = "DBPOSTGRS" Тогда
-			ДобавитьПланЗапроса_DBPOSTGRS(ДанныеТерминов);
-		Иначе
-			СтрокаОшибки = СтрШаблон("Получение плана запроса для СУБД ""%1"" не поддерживается.", Событие.DBMS);
-			ПланТекстовый.УстановитьТекст(СтрокаОшибки);
-			ПланТекстовый1С.УстановитьТекст(СтрокаОшибки);
-		КонецЕсли;
+		If Event.DBMS = "DBMSSQL" Then
+			AddQueryPlan_DBMSSQL(TermsData);
+		ElsIf Event.DBMS = "DBPOSTGRS" Then
+			AddQueryPlan_DBPOSTGRS(TermsData);
+		Else
+			ErrorString = StrTemplate(NStr("ru = 'Получение плана запроса для СУБД ""%1"" не поддерживается.'; en = 'Getting query plan for ""%1"" DBMS is not available.'"), Event.DBMS);
+			PlanAsText.SetText(ErrorString);
+			Plan1CText.SetText(ErrorString);
+		EndIf;
 		
-	КонецЦикла;
+	EndDo;
 	
-	РассчитатьСтоимостиИДорогиеСтроки();
+	CalculateCostsAndExpensiveStrings ();
 
-	Возврат Истина;
+	Return True;
 
-КонецФункции
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция УбратьКавычки(Строка, СимволКавычек = Неопределено)
+&AtClientAtServerNoContext
+Function RemoveQuotes(Row, QuoteChar = Undefined)
 	
-	Если СимволКавычек = Неопределено Тогда
-		Возврат УбратьКавычки(УбратьКавычки(Строка, "'"), """");
-	КонецЕсли;
+	If QuoteChar = Undefined Then
+		Return RemoveQuotes(RemoveQuotes(Row, "'"), """");
+	EndIf;
 	
-	Если Лев(Строка, 1) = СимволКавычек Тогда
-		Результат = Прав(Строка, СтрДлина(Строка) - 1);
-	Иначе
-		Результат = Строка;
-	КонецЕсли;
+	If Left(Row, 1) = QuoteChar Then
+		Result = Right(Row, StrLen(Row) - 1);
+	Else
+		Result = Row;
+	EndIf;
 	
-	Если Прав(Результат, 1) = СимволКавычек Тогда
-		Возврат Лев(Результат, СтрДлина(Результат) - 1);
-	КонецЕсли;
+	If Right(Result, 1) = QuoteChar Then
+		Return Left(Result, StrLen(Result) - 1);
+	EndIf;
 	
-	Возврат Результат;
+	Return Result;
 	
-КонецФункции
+EndFunction
 
 
-&НаСервереБезКонтекста
-Функция ДобавитьРазделительЗапросовЕслиНеПустой(Текст)
+&AtServerNoContext
+Function AddQuerySplitterIfNotEmpty(Text)
 	
-	Если ПустаяСтрока(Текст) Тогда
-		Возврат Текст;
-	КонецЕсли;
+	If IsBlankString(Text) Then
+		Return Text;
+	EndIf;
 	
-	Возврат Текст + ";
+	Return Text + ";
 	|////////////////////////////////////////////////////////////////////////////////
 	|";
 	
-КонецФункции
+EndFunction
 
-&НаСервере
-Процедура ДобавитьТекстЗапроса(ДанныеТерминов)
-	Перем ТекстСвойства, ТекстПараметров;
+&AtServer
+Procedure AddQueryText(TermsData)
+	Var PropertyText, ParametersText;
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	Если Событие.Свойство("Sql", ТекстСвойства) Тогда
-		ТекстСвойства = УбратьКавычки(ТекстСвойства);
-		ТекстЗапроса = ДобавитьРазделительЗапросовЕслиНеПустой(ТекстЗапроса) + ТекстСвойства;
-		ТекстЗапросаВТерминах1С = ДобавитьРазделительЗапросовЕслиНеПустой(ТекстЗапросаВТерминах1С) + Обработка.SQLQueryTo1CTerms(ТекстСвойства, ДанныеТерминов);
-	КонецЕсли;
+	If Event.Property("Sql", PropertyText) Then
+		PropertyText = RemoveQuotes(PropertyText);
+		QueryText = AddQuerySplitterIfNotEmpty(QueryText) + PropertyText;
+		QueryTextIn1CTerms = AddQuerySplitterIfNotEmpty(QueryTextIn1CTerms) + DataProcessor.SQLQueryTo1CTerms(PropertyText, TermsData);
+	EndIf;
 	
-	Если Событие.Свойство("Prm", ТекстПараметров) Тогда
-		ПараметрыЗапроса = ДобавитьРазделительЗапросовЕслиНеПустой(ПараметрыЗапроса) + УбратьКавычки(ТекстПараметров);
-		Элементы.СтраницаПараметрыЗапроса.Видимость = Истина;
-	Иначе
-		Элементы.СтраницаПараметрыЗапроса.Видимость = Ложь;
-	КонецЕсли;
+	If Event.Property("Prm", ParametersText) Then
+		QueryParameters = AddQuerySplitterIfNotEmpty(QueryParameters) + RemoveQuotes(ParametersText);
+		Items.QueryParametersPage.Visible = True;
+	Else
+		Items.QueryParametersPage.Visible = False;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиентеНаСервереБезКонтекста
-Функция ПолучитьЧисло(Знач Значение)
+&AtClientAtServerNoContext
+Function GetNumber(Val Value)
 	
-	Если ТипЗнч(Значение) = Тип("Строка") Тогда
+	If TypeOf(Value) = Type("String") Then
 		
-		Значение = СокрЛП(Значение);
-		ъ = СтрНайти(Значение, "E");
-		Если ъ > 0 Тогда
-			Мантисса = Число(Лев(Значение, ъ - 1));
-			Порядок = Число(Прав(Значение, СтрДлина(Значение) - ъ));
-			Ч = Мантисса * Pow(10, Порядок);
-		Иначе
-			Ч = Число(Значение);
-		КонецЕсли;
+		Value = TrimAll(Value);
+		j = StrFind(Value, "E");
+		If j > 0 Then
+			Significand = Number(Left(Value, j - 1));
+			Exponent = Number(Right(Value, StrLen(Value) - j));
+			N = Significand * Pow(10, Exponent);
+		Else
+			N = Number(Value);
+		EndIf;
 		
-	Иначе
+	Else
 		
-		Ч  = Значение;
+		N  = Value;
 		
-	КонецЕсли;
+	EndIf;
 	
-	Возврат Ч;
+	Return N;
 	
-КонецФункции
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция ФорматироватьЧисло(Ч, Точность, ДесятичныйРазделитель = ",")
+&AtClientAtServerNoContext
+Function FormatNumber(N, Precision, DecimalSeparator = ",")
 	
-	ДлинаРезультата = ?(Точность.Точность > 0, Точность.Длина + 1, Точность.Длина);
+	ResultLength = ?(Precision.Precision > 0, Precision.Length + 1, Precision.Length);
 	
-	Если Ч = 0 Тогда
-		ДлинаЦелойЧасти = 1;
-	ИначеЕсли Ч > 0 Тогда
-		ДлинаЦелойЧасти = Цел(Log10(Ч)) + 1;
-	Иначе
-		ДлинаЦелойЧасти = Цел(Log10(-Ч)) + 1;
-	КонецЕсли;
+	If N = 0 Then
+		IntegerPartLength = 1;
+	ElsIf N > 0 Then
+		IntegerPartLength = Int(Log10(N)) + 1;
+	Else
+		IntegerPartLength = Int(Log10(-N)) + 1;
+	EndIf;
 	
-	Если ДлинаЦелойЧасти > Точность.Длина - Точность.Точность Тогда
-		Возврат Лев("##############################", ДлинаРезультата);
-	КонецЕсли;
+	If IntegerPartLength > Precision.Length - Precision.PrecisionPrecision Then
+		Return Left("##############################", ResultLength);
+	EndIf;
 	
-	ПредставлениеЧисла = Формат(Ч, СтрШаблон("ЧЦ=%1; ЧДЦ=%2; ЧН=; ЧГ=; ЧРД=%3", Точность.Длина, Точность.Точность, ДесятичныйРазделитель));
+	NumberPresentation = Format(N, StrTemplate("ND=%1; NFD=%2; NZ=; NG=; NDS=%3", Precision.Length, Precision.Precision, DecimalSeparator));
 			
-	Возврат Лев("                              ", ДлинаРезультата - СтрДлина(ПредставлениеЧисла)) + ПредставлениеЧисла;
+	Return Left("                              ", ResultLength - StrLen(NumberPresentation)) + NumberPresentation;
 	
-КонецФункции
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция Точность_Инициализировать(Длина = 1, Точность = 0)
-	Возврат Новый Структура("Длина, Точность", Длина, Точность);
-КонецФункции
+&AtClientAtServerNoContext
+Function Precision_Initialize(Length = 1, Precision = 0)
+	Return New Structure("Length, Precision", Length, Precision);
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Процедура Точность_ДобавитьЗначение(Точность, Знач Ч)
+&AtClientAtServerNoContext
+Procedure Precision_AddValue(Precision, Val N)
 	
-	Если Ч < 0 Тогда
-		Ч = -Ч;
-	КонецЕсли;
+	If N < 0 Then
+		N = -N;
+	EndIf;
 	
-	Если Ч < 1 Тогда
-		ДлинаЦелойЧасти = 1;
-	Иначе
-		ДлинаЦелойЧасти = Цел(Log10(Ч)) + 1;
-	КонецЕсли;
+	If N < 1 Then
+		IntegerPartLength = 1;
+	Else
+		IntegerPartLength = Int(Log10(N)) + 1;
+	EndIf;
 	
-	Н = Ч;
-	ДлинаДробнойЧасти = 15;
-	Для й = 0 По ДлинаДробнойЧасти Цикл
-		Если Н = Цел(Н) Тогда
-			ДлинаДробнойЧасти = й;
-			Прервать;
-		КонецЕсли;
-		Н = Н * 10;
-	КонецЦикла;
+	NN = N;
+	FractionalPartLength = 15;
+	For j = 0 To FractionalPartLength Do
+		If NN = Int(NN) Then
+			FractionalPartLength = j;
+			Break;
+		EndIf;
+		NN = NN * 10;
+	EndDo;
 	
-	ДлинаЦелойЧасти = Макс(ДлинаЦелойЧасти, Точность.Длина - Точность.Точность);
-	ДлинаДробнойЧасти = Макс(ДлинаДробнойЧасти, Точность.Точность);
+	IntegerPartLength = Max(IntegerPartLength, Precision.Length - Precision.Precision);
+	FractionalPartLength = Max(FractionalPartLength, Precision.Precision);
 	
-	Точность.Длина = ДлинаЦелойЧасти + ДлинаДробнойЧасти;
-	Точность.Точность = ДлинаДробнойЧасти;
+	Precision.Length = IntegerPartLength + FractionalPartLength;
+	Precision.Precision = FractionalPartLength;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ДобавитьПланЗапроса_DBMSSQL(ДанныеТерминов)
+&AtServer
+Procedure AddQueryPlan_DBMSSQL(TermsData)
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	ТекстПлана = УбратьКавычки(Событие.planSQLText);
+	PlanText = RemoveQuotes(Event.planSQLText);
 	
-	ТекстПлан = Новый ТекстовыйДокумент;
-	ТекстПлан.УстановитьТекст(ТекстПлана);
+	PlanTextDoc = New TextDocument;
+	PlanTextDoc.SetText(PlanText);
 	
-	Если ОтображатьВТерминах1С Тогда
-		ТекстПланВТерминах1С = Новый ТекстовыйДокумент;
-		ТекстПланВТерминах1С.УстановитьТекст(Обработка.SQLPlanTo1CTerms(ТекстПлана, ДанныеТерминов));
-	КонецЕсли;
+	If ShowIn1CTerms Then
+		PlanTextDocIn1CTerms = New TextDocument;
+		PlanTextDocIn1CTerms.SetText(DataProcessor.SQLPlanTo1CTerms(PlanAsText, TermsData));
+	EndIf;
 	
-	й = 1;
-	Пока й <= ТекстПлан.КоличествоСтрок() Цикл
+	j = 1;
+	While j <= PlanTextDoc.LineCount() Do
 		
-		Если ЗначениеЗаполнено(ТекстПлан.ПолучитьСтроку(й)) Тогда
-			й = й + 1;
-		Иначе
+		If ValueIsFilled(PlanTextDoc.GetLine(j)) Then
+			j = j + 1;
+		Else
 			
-			ТекстПлан.УдалитьСтроку(й);
+			PlanTextDoc.DeleteLine(j);
 			
-			Если ОтображатьВТерминах1С Тогда
-				ТекстПланВТерминах1С.УдалитьСтроку(й);
-			КонецЕсли;
+			If ShowIn1CTerms Then
+				PlanTextDocIn1CTerms.DeleteLine(j);
+			EndIf;
 			
-		КонецЕсли;
+		EndIf;
 		
-	КонецЦикла;
+	EndDo;
 	
-	Если ТекстПлан.КоличествоСтрок() < 1 Тогда
-		Возврат;
-	КонецЕсли;
+	If PlanTextDoc.LineCount() < 1 Then
+		Return;
+	EndIf;
 	
-	Строка = ТекстПлан.ПолучитьСтроку(1);
-	Ъ = СтрНайти(Строка, "|");
-	СтрокаПоказателей = Лев(Строка, Ъ - 1);
-	чКоличествоПоказателей = СтрЧислоВхождений(СтрокаПоказателей, ",");
+	Line = PlanTextDoc.GetLine(1);
+	j = StrFind(Line, "|");
+	IndicatorsString = Left(Line, j - 1);
+	nIndicatorCount = StrOccurrenceCount(IndicatorsString, ",");
 	
-	СтрокаУзла = "|--";
-	чДлинаУзла = СтрДлина(СтрокаУзла);
+	NodeString = "|--";
+	nNodeLength = StrLen(NodeString);
 	
-	ПланТекстовый.ДобавитьСтроку("(rows, executes, estimate rows, estimate i/o, estimate cpu, avg. row size, totat subtree cost, estimate executions, |-- operators...)");
-	ПланТекстовый.ДобавитьСтроку("");
+	PlanAsText.AddLine("(rows, executes, estimate rows, estimate i/o, estimate cpu, avg. row size, totat subtree cost, estimate executions, |-- operators...)'");
+	PlanAsText.AddLine("");
 
-	соРодители = Новый Соответствие;
-	ПредыдущийУзел = План;
+	mapParents = New Map;
+	PreviousNode = Plan;
 	
-	Точность_Rows = Точность_Инициализировать();
-	Точность_Executes = Точность_Инициализировать();
-	Точность_Estimate_rows = Точность_Инициализировать();
-	Точность_Estimate_IO = Точность_Инициализировать(4, 3);
-	Точность_Estimate_CPU = Точность_Инициализировать(4, 3);
-	Точность_Avg_row_size = Точность_Инициализировать();
-	Точность_Totat_subtree_cost = Точность_Инициализировать(4, 3);
-	Точность_Estimate_executions = Точность_Инициализировать();
+	Precision_Rows = Precision_Initialize();
+	Precision_Executes = Precision_Initialize();
+	Precision_Estimate_rows = Precision_Initialize();
+	Precision_Estimate_IO = Precision_Initialize(4, 3);
+	Precision_Estimate_CPU = Precision_Initialize(4, 3);
+	Precision_Avg_row_size = Precision_Initialize();
+	Precision_Totat_subtree_cost = Precision_Initialize(4, 3);
+	Precision_Estimate_executions = Precision_Initialize();
 	
-	маПданТекст = Новый Массив;
+	arPlanText = New Array;
 	
-	чПредыдущийУровень = 0;
-	Для й = 1 По ТекстПлан.КоличествоСтрок() Цикл
+	nPreviousLevel = 0;
+	For j = 1 To PlanTextDoc.LineCount() Do
 		
-		Строка = ТекстПлан.ПолучитьСтроку(й);
-		Ъ = СтрНайти(Строка, ",", , , чКоличествоПоказателей);
-		СтрокаПоказателей = Лев(Строка, Ъ - 1);
-		СтрокаОператоров = Прав(Строка, СтрДлина(Строка) - Ъ);
+		Line = PlanTextDoc.GetLine(j);
+		X = StrFind(Line, ",", , , nIndicatorCount);
+		IndicatorsString = Left(Line, X - 1);
+		OperatorsString = Right(Line, StrLen(Line) - X);
 		
-		маПоказатели = СтрРазделить(СтрокаПоказателей, ",");
+		arIndicators = StrSplit(IndicatorsString, ",");
 		
-		Ъ = СтрНайти(СтрокаОператоров, СтрокаУзла);
-		СтрокаПропусков = Лев(СтрокаОператоров, Ъ - 1);
-		стрОператоры = Прав(СтрокаОператоров, СтрДлина(СтрокаОператоров) - Ъ + 1 - чДлинаУзла);
+		X = StrFind(OperatorsString, NodeString);
+		GapsString = Left(OperatorsString, X - 1);
+		strOperators = Right(OperatorsString, StrLen(OperatorsString) - X + 1 - nNodeLength);
 		
-		чУровень = СтрДлина(СтрокаПропусков);
+		nLevel = StrLen(GapsString);
 		
-		Если чУровень > чПредыдущийУровень Тогда
-			Родитель = ПредыдущийУзел;
-			соРодители[чУровень] = Родитель;
-		ИначеЕсли чУровень < чПредыдущийУровень Тогда
-			Родитель = соРодители[чУровень];
-		КонецЕсли;
+		If nLevel > nPreviousLevel Then
+			Parent = PreviousNode;
+			mapParents[nLevel] = Parent;
+		ElsIf nLevel < nPreviousLevel Then
+			Parent = mapParents[nLevel];
+		EndIf;
 		
-		НовыйУзел = Родитель.ПолучитьЭлементы().Добавить();
-		НовыйУзел.ИсходныйОператор = стрОператоры;
-		Если ОтображатьВТерминах1С Тогда
-			СтрокаВТерминах1С = ТекстПланВТерминах1С.ПолучитьСтроку(й);
-			Ъ = СтрНайти(СтрокаВТерминах1С, СтрокаУзла);
-			НовыйУзел.Оператор = Прав(СтрокаВТерминах1С, СтрДлина(СтрокаВТерминах1С) - Ъ + 1 - чДлинаУзла);
-		Иначе
-			НовыйУзел.Оператор = стрОператоры;
-		КонецЕсли;
+		NewNode = Parent.GetItems().Add();
+		NewNode.SourceOperator = strOperators;
+		If ShowIn1CTerms Then
+			LineIn1CTerms = PlanTextDocIn1CTerms.GetLine(j);
+			X = StrFind(LineIn1CTerms, NodeString);
+			NewNode.Operator = Right(LineIn1CTerms, StrLen(LineIn1CTerms) - X + 1 - nNodeLength);
+		Else
+			NewNode.Operator = strOperators;
+		EndIf;
 		
-		Rows = ПолучитьЧисло(маПоказатели[0]);                                    	
-		Executes = ПолучитьЧисло(маПоказатели[1]);
-		Estimate_rows = ПолучитьЧисло(маПоказатели[2]);
-		Estimate_IO = ПолучитьЧисло(маПоказатели[3]);
-		Estimate_CPU = ПолучитьЧисло(маПоказатели[4]);
-		Avg_row_size = ПолучитьЧисло(маПоказатели[5]);
-		Totat_subtree_cost = ПолучитьЧисло(маПоказатели[6]);
-		Estimate_executions = ПолучитьЧисло(маПоказатели[7]);
+		Rows = GetNumber(arIndicators[0]);                                    	
+		Executes = GetNumber(arIndicators[1]);
+		Estimate_rows = GetNumber(arIndicators[2]);
+		Estimate_IO = GetNumber(arIndicators[3]);
+		Estimate_CPU = GetNumber(arIndicators[4]);
+		Avg_row_size = GetNumber(arIndicators[5]);
+		Totat_subtree_cost = GetNumber(arIndicators[6]);
+		Estimate_executions = GetNumber(arIndicators[7]);
 		
-		Точность_ДобавитьЗначение(Точность_Rows, Rows);
-		Точность_ДобавитьЗначение(Точность_Executes, Executes);
-		Точность_ДобавитьЗначение(Точность_Estimate_rows, Estimate_rows);
-		Точность_ДобавитьЗначение(Точность_Estimate_IO, Estimate_IO);
-		Точность_ДобавитьЗначение(Точность_Estimate_CPU, Estimate_CPU);
-		Точность_ДобавитьЗначение(Точность_Avg_row_size, Avg_row_size);
-		Точность_ДобавитьЗначение(Точность_Totat_subtree_cost, Totat_subtree_cost);
-		Точность_ДобавитьЗначение(Точность_Estimate_executions, Estimate_executions);
+		Precision_AddValue(Precision_Rows, Rows);
+		Precision_AddValue(Precision_Executes, Executes);
+		Precision_AddValue(Precision_Estimate_rows, Estimate_rows);
+		Precision_AddValue(Precision_Estimate_IO, Estimate_IO);
+		Precision_AddValue(Precision_Estimate_CPU, Estimate_CPU);
+		Precision_AddValue(Precision_Avg_row_size, Avg_row_size);
+		Precision_AddValue(Precision_Totat_subtree_cost, Totat_subtree_cost);
+		Precision_AddValue(Precision_Estimate_executions, Estimate_executions);
 		
-		ДанныеОператора = Новый Структура(
-			"Rows, Executes, Estimate_rows, Estimate_IO, Estimate_CPU, Avg_row_size, Totat_subtree_cost, Estimate_executions, СтрокаОператоров",
+		OperatorData = New Structure(
+			"Rows, Executes, Estimate_rows, Estimate_IO, Estimate_CPU, Avg_row_size, Totat_subtree_cost, Estimate_executions, OperatorsString",
 			Rows,
 			Executes,
 			Estimate_rows,
@@ -368,372 +368,372 @@
 			Avg_row_size,
 			Totat_subtree_cost,
 			Estimate_executions,
-			СтрокаОператоров);
+			OperatorsString);
 					
 					
-		маПданТекст.Добавить(ДанныеОператора);
+		arPlanText.Add(OperatorData);
 		
-		НовыйУзел.СтоимостьУзла = Totat_subtree_cost; 
-		НовыйУзел.СтрокПлан = Estimate_rows;
-		НовыйУзел.СтрокФакт = Rows; 
-		НовыйУзел.ВызовыПлан = Estimate_executions;
-		НовыйУзел.ВызовыФакт = Executes;
-		НовыйУзел.ЗатратыВВ = Estimate_IO;
-		НовыйУзел.ЗатратыЦП = Estimate_CPU;
-		НовыйУзел.СреднийРазмерСтроки = Avg_row_size;
+		NewNode.NodeCost = Totat_subtree_cost; 
+		NewNode.RowCountPlan = Estimate_rows;
+		NewNode.RowCountFact = Rows; 
+		NewNode.CallsPlan = Estimate_executions;
+		NewNode.CallsFact = Executes;
+		NewNode.IOExpenses = Estimate_IO;
+		NewNode.CPUExpenses = Estimate_CPU;
+		NewNode.AverageRowSize = Avg_row_size;
 		
-		ПредыдущийУзел = НовыйУзел;
-		чПредыдущийУровень = чУровень;
+		PreviousNode = NewNode;
+		nPreviousLevel = nLevel;
 		
-	КонецЦикла;
+	EndDo;
 	
-	Для Каждого стДанныеОператора Из маПданТекст Цикл       
+	For Each stOperatorData In arPlanText Do       
 		
-		СтрокаТекстовогоПлана = СтрШаблон("%1, %2, %3, %4, %5, %6, %7, %8, %9",
-			ФорматироватьЧисло(стДанныеОператора.Rows, Точность_Rows, "."),
-			ФорматироватьЧисло(стДанныеОператора.Executes, Точность_Executes, "."),
-			ФорматироватьЧисло(стДанныеОператора.Estimate_rows, Точность_Estimate_rows, "."),
-			ФорматироватьЧисло(стДанныеОператора.Estimate_IO, Точность_Estimate_IO, "."),
-			ФорматироватьЧисло(стДанныеОператора.Estimate_CPU, Точность_Estimate_CPU, "."),
-			ФорматироватьЧисло(стДанныеОператора.Avg_row_size, Точность_Avg_row_size, "."),
-			ФорматироватьЧисло(стДанныеОператора.Totat_subtree_cost, Точность_Totat_subtree_cost, "."),
-			ФорматироватьЧисло(стДанныеОператора.Estimate_executions, Точность_Estimate_executions, "."),
-			стДанныеОператора.СтрокаОператоров);
+		TextPlanString = StrTemplate("%1, %2, %3, %4, %5, %6, %7, %8, %9",
+			FormatNumber(stOperatorData.Rows, Precision_Rows, "."),
+			FormatNumber(stOperatorData.Executes, Precision_Executes, "."),
+			FormatNumber(stOperatorData.Estimate_rows, Precision_Estimate_rows, "."),
+			FormatNumber(stOperatorData.Estimate_IO, Precision_Estimate_IO, "."),
+			FormatNumber(stOperatorData.Estimate_CPU, Precision_Estimate_CPU, "."),
+			FormatNumber(stOperatorData.Avg_row_size, Precision_Avg_row_size, "."),
+			FormatNumber(stOperatorData.Totat_subtree_cost, Precision_Totat_subtree_cost, "."),
+			FormatNumber(stOperatorData.Estimate_executions, Precision_Estimate_executions, "."),
+			stOperatorData.OperatorsString);
 			
-		ПланТекстовый.ДобавитьСтроку(СтрокаТекстовогоПлана);
+		PlanAsText.AddLine(TextPlanString);
 		
-	КонецЦикла;
+	EndDo;
 		
-	ПланТекстовый1С.УстановитьТекст(Обработка.SQLPlanTo1CTerms(ПланТекстовый.ПолучитьТекст(), ДанныеТерминов));
+	Plan1CText.SetText(DataProcessor.SQLPlanTo1CTerms(PlanAsText.GetText(), TermsData));
 	
-	//РассчитатьСтоимостиИДорогиеСтроки();
+	//CalculateCostsAndExpensiveStrings ();
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ДобавитьПланЗапроса_DBPOSTGRS(ДанныеТерминов)
+&AtServer
+Procedure AddQueryPlan_DBPOSTGRS(TermsData)
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	ТекстПлана = УбратьКавычки(Событие.planSQLText);
+	PlanText = RemoveQuotes(Event.planSQLText);
 	
-	ПланТекстовый.УстановитьТекст(ТекстПлана);
-	ПланТекстовый1С.УстановитьТекст(Обработка.SQLPlanTo1CTerms(ТекстПлана, ДанныеТерминов, 1));
+	PlanText.SetText(PlanText);
+	Plan1CText.SetText(DataProcessor.SQLPlanTo1CTerms(PlanText, TermsData, 1));
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура РассчитатьСтоимостиИДорогиеСтроки(Узел = Неопределено, тзСтоимости = Неопределено)
+&AtServer
+Procedure CalculateCostsAndExpensiveStrings (Node = Undefined, vtCosts = Undefined)
 	
-	Если Узел = Неопределено Тогда
-		Узел = План;
-		тзСтоимости = Новый ТаблицаЗначений;
-		тзСтоимости.Колонки.Добавить("СтоимостьОператора", Новый ОписаниеТипов("Число"));
-		тзСтоимости.Колонки.Добавить("СтоимостьУзла", Новый ОписаниеТипов("Число"));
-		тзСтоимости.Колонки.Добавить("Узел");
-	КонецЕсли;
+	If Node = Undefined Then
+		Node = Plan;
+		vtCosts = New ValueTable;
+		vtCosts.Columns.Add("OperatorCost", New TypeDescription("Number"));
+		vtCosts.Columns.Add("NodeCost", New TypeDescription("Number"));
+		vtCosts.Columns.Add("Node");
+	EndIf;
 	
-	ОбщаяСтоимость = 0;
-	Для Каждого ПодчиненныйУзел Из Узел.ПолучитьЭлементы() Цикл
+	TotalCost = 0;
+	For Each ChildNode In Node.GetItems() Do
 		
-		РассчитатьСтоимостиИДорогиеСтроки(ПодчиненныйУзел, тзСтоимости);
+		CalculateCostsAndExpensiveStrings (ChildNode, vtCosts);
 		
-		ОбщаяСтоимость = ОбщаяСтоимость + ПодчиненныйУзел.СтоимостьУзла;
+		TotalCost = TotalCost + ChildNode.NodeCost;
 		
-	КонецЦикла;
+	EndDo;
 	
-	Если ТипЗнч(Узел) = Тип("ДанныеФормыЭлементДерева") Тогда
+	If TypeOf(Node) = Type("FormDataTreeItem") Then
 		
-		СтоимостьОператора = Узел.СтоимостьУзла - ОбщаяСтоимость;
-		Узел.СтоимостьОператора = ?(СтоимостьОператора < 0, 0, СтоимостьОператора);
+		OperatorCost = Node.NodeCost - TotalCost;
+		Node.OperatorCost = ?(OperatorCost < 0, 0, OperatorCost);
 		
-		СтрокаСтоимости = тзСтоимости.Добавить();
-		СтрокаСтоимости.Узел = Узел;
-		СтрокаСтоимости.СтоимостьОператора = Узел.СтоимостьОператора;
-		СтрокаСтоимости.СтоимостьУзла = Узел.СтоимостьУзла;
+		CostRow = vtCosts.Add();
+		CostRow.Node = Node;
+		CostRow.OperatorCost = Node.OperatorCost;
+		CostRow.NodeCost = Node.NodeCost;
 		
-	Иначе
+	Else
 		
-		Если тзСтоимости.Количество() > 0 Тогда
+		If vtCosts.Count() > 0 Then
 			
-			тзИтоги = тзСтоимости.Скопировать();
-			тзИтоги.Свернуть(, "СтоимостьОператора, СтоимостьУзла");
-			чСтоимостьВсего = тзИтоги[0].СтоимостьОператора;
+			vtTotals = vtCosts.Copy();
+			vtTotals.GroupBy(, "OperatorCost, NodeCost");
+			nCountTotal = vtTotals[0].OperatorCost;
 			
-			Для Каждого Строка Из тзСтоимости Цикл
-				Строка.Узел.СтоимостьОператораПроцент = СтрШаблон("%1%%", Формат(Строка.СтоимостьОператора * 100 / чСтоимостьВсего, "ЧЦ=5; ЧДЦ=2; ЧН="));
-				Строка.Узел.СтоимостьУзлаПроцент = СтрШаблон("%1%%", Формат(Строка.СтоимостьУзла * 100 / чСтоимостьВсего, "ЧЦ=5; ЧДЦ=2; ЧН="));
-			КонецЦикла;
+			For Each Row Из vtCosts Do
+				Row.Node.OperatorCostPercent = StrTemplate("%1%%", Format(Row.OperatorCost * 100 / nCountTotal, "ND=5; NFD=2; NZ="));
+				Row.Node.NodeCostPercent = StrTemplate("%1%%", Format(Row.NodeCost * 100 / nCountTotal, "ND=5; NFD=2; NZ="));
+			EndDo;
 			
-			РасчитатьДорогиеСтроки(План);
+			CalculateExpensiveRows(Plan);
 			
-		КонецЕсли;
+		EndIf;
 	
-	КонецЕсли;
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура РасчитатьДорогиеСтроки(Узел)
+&AtServer
+Procedure CalculateExpensiveRows(Node)
 	
-	тзСтоимости = Новый ТаблицаЗначений;
-	тзСтоимости.Колонки.Добавить("Стоимость", Новый ОписаниеТипов("Число"));
-	тзСтоимости.Колонки.Добавить("Узел");
+	vtCosts = New ValueTable;
+	vtCosts.Columns.Add("Cost", New TypeDescription("Number"));
+	vtCosts.Columns.Add("Node");
 	
-	Если ТипЗнч(Узел) = Тип("ДанныеФормыЭлементДерева") Тогда
-		СтоимостьКорня = Узел.СтоимостьОператора;
-	Иначе
-		СтоимостьКорня = 0;
-	КонецЕсли;
+	If TypeOf(Node) = Type("FormDataTreeItem") Then
+		RootCost = Node.OperatorCost;
+	Else
+		RootCost = 0;
+	EndIf;
 	
-	СтоимостьСумма = СтоимостьКорня;
-	Для Каждого ПодчиненныйУзел Из Узел.ПолучитьЭлементы() Цикл
-		СтрокаСтоимости = тзСтоимости.Добавить();
-		СтрокаСтоимости.Узел = ПодчиненныйУзел;
-		СтрокаСтоимости.Стоимость = ПодчиненныйУзел.СтоимостьУзла;
-		СтоимостьСумма = СтоимостьСумма + СтрокаСтоимости.Стоимость;
-	КонецЦикла;
+	CostSum = RootCost;
+	For Each ChildNode In Node.GetItems() Do
+		CostRow = vtCosts.Add();
+		CostRow.Node = ChildNode;
+		CostRow.Cost = ChildNode.NodeCost;
+		CostSum = CostSum + CostRow.Cost;
+	EndDo;
 	
-	тзСтоимости.Сортировать("Стоимость Убыв");
-	Отобразить = СтоимостьСумма * ДоляОтображенияТяжелых / 100 - СтоимостьКорня;
+	vtCosts.Sort("Cost Desc");
+	CostToDisplay = CostSum * HeavyQueriesProportion / 100 - RootCost;
 	
-	Для Каждого Строка Из тзСтоимости Цикл
-		Если Отобразить <= 0 Тогда
-			Прервать;
-		КонецЕсли;
-		Строка.Узел.Выделено = Истина;
-		РасчитатьДорогиеСтроки(Строка.Узел);
-		Отобразить = Отобразить - Строка.Стоимость;                          	
-	КонецЦикла;
+	For Each Row In vtCosts Do
+		If CostToDisplay <= 0 Then
+			Break;
+		EndIf;
+		Row.Node.Selected = True;
+		CalculateExpensiveRows(Row.Node);
+		CostToDisplay = CostToDisplay - Row.Cost;                          	
+	EndDo;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Функция ТехнологическийЖурнал_НайтиСобытиеПоСтрокам(СобытиеЖурнала, чНачальнаяСтрокаПоиска = 1)
+&AtServer
+Function TechnologicalLog_FindEventByRows(LogEvent, nSearchBeginLine = 1)
 	
-	Обработка = РеквизитФормыВЗначение("Объект");
+	DataProcessor = FormAttributeToValue("Object");
 	
-	ШаблонСтрокиНачалаСобытия = Обработка.RegTemplate_GetTemplateObject("\d\d:\d\d.\d+-\d+,.*");
+	EventBeginLineTemplate = DataProcessor.RegTemplate_GetTemplateObject("\d\d:\d\d.\d+-\d+,.*");
 	
-	чНачальнаяСтрока = Неопределено;
-	Для й = чНачальнаяСтрокаПоиска По СобытиеЖурнала.КоличествоСтрок() Цикл
-		Строка = СобытиеЖурнала.ПолучитьСтроку(й);
-		Если Обработка.RegTemplate_Match(Строка, ШаблонСтрокиНачалаСобытия) Тогда
-			Если ЗначениеЗаполнено(чНачальнаяСтрока) Тогда
-				чКонечнаяСтрока = й - 1;
-				Прервать;
-			Иначе
-				чНачальнаяСтрока = й;
-				чКонечнаяСтрока = СобытиеЖурнала.КОличествоСтрок();
-			КонецЕсли;
-		КонецЕсли;
-	КонецЦикла;
+	nBeginLine = Undefined;
+	For j = nSearchBeginLine To LogEvent.LineCount() Do
+		Line = LogEvent.GetLine(j);
+		If DataProcessor.RegTemplate_Match(Line, EventBeginLineTemplate) Then
+			If ValueIsFilled(nBeginLine) Then
+				nEndLine = j - 1;
+				Break;
+			Else
+				nBeginRow = j;
+				nEndLine = LogEvent.LineCount();
+			EndIf;
+		EndIf;
+	EndDo;
 	
-	Если чНачальнаяСтрока = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
+	If nBeginRow = Undefined Then
+		Return Undefined;
+	EndIf;
 	
-	//маСвойства = СтрРазделить(Строка, ",");
+	//arProperties = StrSplit(Line, ",");
 	
-	Возврат Новый Структура("НачальнаяСтрока, КонечнаяСтрока", чНачальнаяСтрока, чКонечнаяСтрока);
+	Return New Structure("BeginLine, EndLine", nBeginLine, nEndLine);
 	
-КонецФункции
+EndFunction
 
-&НаСервере
-Функция ТехнологическийЖурнал_РазобратьСобытие(Знач СтрокаТехнологическогоЖурнала)
+&AtServer
+Function TechnologicalLog_ParseEvent(Val TechLogString)
 	
-	стСобытие = Новый Структура;
+	stEvent = New Structure;
 	
-	стСобытияСложноеЗначение = Новый Структура("Sql, Prm, planSQLText, Context", "Prm, Rows, Context, planSQLText", "RowsAffected, planSQLText", "Context, RowsAffected");
-	Для Каждого кз Из стСобытияСложноеЗначение Цикл
+	stEventsComplexValue = New Structure("Sql, Prm, planSQLText, Context", "Prm, Rows, Context, planSQLText", "RowsAffected, planSQLText", "Context, RowsAffected");
+	For Each kv In stEventsComplexValue Do
 		
-		СтрокаПоиска = "," + кз.Ключ + "=";
-		чНачальнаяПозиция = СтрНайти(СтрокаТехнологическогоЖурнала, СтрокаПоиска);
+		SearchString = "," + kv.Key + "=";
+		nStartIndex = StrFind(TechLogString, SearchString);
 		
-		Если чНачальнаяПозиция = 0 Тогда
-			Продолжить;
-		КонецЕсли;
+		If nStartIndex = 0 Then
+			Continue;
+		EndIf;
 		
-		чНачальнаяПозицияЗначения = чНачальнаяПозиция + СтрДлина(СтрокаПоиска);
+		nValueStartIndex = nStartIndex + StrLen(SearchString);
 		
-		Если кз.Значение <> Неопределено Тогда
+		If kv.Value <> Undefined Then
 			
-			чКонечнаяПозиция = 0;
-			маСледИмена = СтрРазделить(кз.Значение, ",");
-			Для Каждого СледующееИмя Из маСледИмена Цикл
-				ч = СтрНайти(СтрокаТехнологическогоЖурнала, "," + СокрЛП(СледующееИмя) + "=", , чНачальнаяПозицияЗначения);
-				Если ч > 0 И (чКонечнаяПозиция = 0 ИЛИ чКонечнаяПозиция > ч) Тогда
-					чКонечнаяПозиция = ч;
-				КонецЕсли;
-			КонецЦикла;
+			nEndIndex = 0;
+			arNextNames = StrSplit(kv.Value, ",");
+			For Each NextName In arNextNames Do
+				n = StrFind(TechLogString, "," + TrimAll(NextName) + "=", , nValueStartIndex);
+				If n > 0 And (nEndIndex = 0 Or nEndIndex > n) Then
+					nEndIndex = n;
+				EndIf;
+			EndDo;
 			
-		Иначе
-			чКонечнаяПозиция = 0;
-		КонецЕсли;
+		Else
+			nEndIndex = 0;
+		EndIf;
 		
-		Если чКонечнаяПозиция = 0 Тогда
-			чКонечнаяПозиция = СтрДлина(СтрокаТехнологическогоЖурнала);
-		КонецЕсли;
+		If nEndIndex = 0 Then
+			nEndIndex = StrLen(TechLogString);
+		EndIf;
 		
-		стСобытие.Вставить(кз.Ключ, Сред(СтрокаТехнологическогоЖурнала, чНачальнаяПозицияЗначения, чКонечнаяПозиция - чНачальнаяПозицияЗначения));
+		stEvent.Insert(kv.Key, Mid(TechLogString, nValueStartIndex, nEndIndex - nValueStartIndex));
 		
-		СтрокаТехнологическогоЖурнала = Лев(СтрокаТехнологическогоЖурнала, чНачальнаяПозиция) + Прав(СтрокаТехнологическогоЖурнала, СтрДлина(СтрокаТехнологическогоЖурнала) - чКонечнаяПозиция);
+		TechLogString = Left(TechLogString, nStartIndex) + Right(TechLogString, StrLen(TechLogString) - nEndIndex);
 		
-	КонецЦикла;
+	EndDo;
 	
-	маСвойства = СтрРазделить(СтрокаТехнологическогоЖурнала, ",");
+	arProperties = StrSplit(TechLogString, ",");
 	
-	СтрокаВремяДлительность = маСвойства[0];
+	DurationString = arProperties[0];
 	
-	чПозицияМинус = СтрНайти(СтрокаВремяДлительность, "-");
-	стСобытие.Вставить("Длительность", Прав(СтрокаВремяДлительность, СтрДлина(СтрокаВремяДлительность) - чПозицияМинус));
+	nMinusIndex = StrFind(DurationString, "-");
+	stEvent.Insert("Duration", Right(DurationString, StrLen(DurationString) - nMinusIndex));
 	
-	СтрокаВремя = Лев(СтрокаВремяДлительность, чПозицияМинус - 1);
-	стСобытие.Вставить("Время", СтрокаВремя);
+	TimeString = Left(DurationString, nMinusIndex - 1);
+	stEvent.Insert("Time", TimeString);
 	
-	стСобытие.Вставить("Событие", маСвойства[1]);
-	стСобытие.Вставить("УровеньСобытия", Число(маСвойства[2]));
+	stEvent.Insert("Event", arProperties[1]);
+	stEvent.Insert("EventLevel", Number(arProperties[2]));
 	
-	Для й = 3 По маСвойства.ВГраница() Цикл
+	For j = 3 To arProperties.UBound() Do
 		
-		СтрокаСвойства = маСвойства[й];
-		чПозицияРавно = СтрНайти(СтрокаСвойства, "=");
+		PropertyString = arProperties[j];
+		nEqualIndex = StrFind(PropertyString, "=");
 		
-		Если чПозицияРавно = 0 Тогда
-			Продолжить;
-		КонецЕсли;
+		If nEqualIndex = 0 Then
+			Continue;
+		EndIf;
 		
-		ИмяСвойства = СтрЗаменить(Лев(СтрокаСвойства, чПозицияРавно - 1), ":", "_");
-		стСобытие.Вставить(ИмяСвойства, Прав(СтрокаСвойства, СтрДлина(СтрокаСвойства) - чПозицияРавно));
+		PropertyName = StrReplace(Left(PropertyString, nEqualIndex - 1), ":", "_");
+		stEvent.Insert(PropertyName, Right(PropertyString, StrLen(PropertyString) - nEqualIndex));
 		
-	КонецЦикла;
+	EndDo;
 	
-	Возврат стСобытие;
+	Return stEvent;
 	
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Процедура ПланПриАктивизацииСтроки(Элемент)
-	Если Элементы.План.ТекущиеДанные <> Неопределено Тогда
-		ТекущийОператор = Элементы.План.ТекущиеДанные.Оператор;
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure PlanOnActivateRow(Item)
+	If Items.Plan.CurrentData <> Undefined Then
+		CurrentOperator = Items.Plan.CurrentData.Operator;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
-	Если НЕ ПланПрочитан Тогда
-		//Попробуем еще раз через секунду. Если пользователь очень шустрый, событие могло не успеть попасть в журнал.
-		ПодключитьОбработчикОжидания("ОтложенноеЧтениеЖурнала", 1, Истина);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure OnOpen(Cancel)
+	If Not PlanRead Then
+		//Trying again in 1 second. Event might not have been recorded to log yet.
+		AttachIdleHandler("DeferredLogRead", 1, True);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ОтложенноеЧтениеЖурнала()
+&AtClient
+Procedure DeferredLogRead()
 	
-	ОбновитьПлан();
+	RefreshPlan();
 	
-	Если НЕ ПланПрочитан Тогда
-		Оповещение = Новый ОписаниеОповещения("ЗакрытиеПослеПредупреждения", ЭтаФорма);
-		ПоказатьПредупреждение(Оповещение, "Не удалось получить информацию о запросе", , Объект.Title);
-	КонецЕсли;
+	If Not PlanRead Then
+		Notification = New NotifyDescription("CloseAfterMessage", ThisForm);
+		ShowMessageBox(Notification, NStr("ru = 'Не удалось получить информацию о запросе'; en = 'Cannot get query information'"), , Object.Title);
+	EndIf;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ЗакрытиеПослеПредупреждения(ДополнительныеПараметры) Экспорт
-	Закрыть();
-КонецПроцедуры
+&AtClient
+Procedure CloseAfterMessage(AdditionalParameters) Export
+	Close();
+EndProcedure
 
-&НаКлиенте
-Процедура ПриЗакрытии(ЗавершениеРаботы)
-	ВладелецФормы.SavedStates_Save("ДоляОтображенияТяжелых", ДоляОтображенияТяжелых);
-	ВладелецФормы.SavedStates_Save("ОтображатьВТерминах1С", ОтображатьВТерминах1С);
-КонецПроцедуры
+&AtClient
+Procedure OnClose(Exit)
+	FormOwner.SavedStates_Save("HeavyQueriesProportion", HeavyQueriesProportion);
+	FormOwner.SavedStates_Save("ShowIn1CTerms", ShowIn1CTerms);
+EndProcedure
 
-&НаКлиенте
-Процедура ОбновитьПлан()
+&AtClient
+Procedure RefreshPlan()
 	
-	ПланТекстовый.Очистить();
-	План.ПолучитьЭлементы().Очистить();
+	PlanAsText.Clear();
+	Plan.GetItems().Clear();
 	
-	ПланПрочитан = ПолучитьПланЗапросаИзЖурнала();
+	PlanRead = GetQueryPlanFromLog();
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура Команда_Обновить(Команда)
+&AtClient
+Procedure Refresh_Command(Command)
 	
-	соСостояние = ПолучитьСостояниеДерева();
+	mapState = GetTreeState();
 	
-	ОбновитьПлан();
+	RefreshPlan();
 	
-	Если НЕ ПланПрочитан Тогда
-		ПоказатьПредупреждение(, "Не удалось получить информацию о запросе", , Объект.Title);
-	Иначе
-		РазвернутьПоСостояниюДерево(соСостояние);
-	КонецЕсли;
+	If Not PlanRead Then
+		ShowMessageBox(, NStr("ru = 'Не удалось получить информацию о запросе'; en = 'Cannot get query information'"), , Object.Title);
+	Else
+		ExpandTreeByState(mapState);
+	EndIf;
 	                     
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура Команда_РазвернутьВсе(Команда)
-	Для Каждого ЭлементДерева Из План.ПолучитьЭлементы() Цикл
-		Элементы.План.Развернуть(ЭлементДерева.ПолучитьИдентификатор(), Истина);
-	КонецЦикла;
-КонецПроцедуры
+&AtClient
+Procedure ExpandAll_Command(Command)
+	For Each TreeItem In Plan.GetItems() Do
+		Items.Plan.Expand(TreeItem.GetID(), True);
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура Команда_СвернутьВсе(Команда)
-	Для Каждого ЭлементДерева Из План.ПолучитьЭлементы() Цикл
-		Элементы.План.Свернуть(ЭлементДерева.ПолучитьИдентификатор());
-	КонецЦикла;
-КонецПроцедуры
+&AtClient
+Procedure CollapseAll_Command(Command)
+	For Each TreeItem In Plan.GetItems() Do
+		Items.Plan.Collapse(TreeItem.GetID());
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура РазвернутьПоСостояниюДерево(соСостояние, Путь = "", Узел = Неопределено)
+&AtClient
+Procedure ExpandTreeByState(mapState, Path = "", Node = Undefined)
 	
-	Если Узел = Неопределено Тогда
-		Узел = План;
-	КонецЕсли;
+	If Node = Undefined Then
+		Node = Plan;
+	EndIf;
 	
-	Для Каждого ЭлементДерева Из Узел.ПолучитьЭлементы() Цикл
+	For Each TreeItem In Node.GetItems() Do
 		
-		ПутьУзла = Путь + "/" + ЭлементДерева.ИсходныйОператор;
-		РазвернутьПоСостояниюДерево(соСостояние, ПутьУзла, ЭлементДерева);		
+		NodePath = Path + "/" + TreeItem.SourceOperator;
+		ExpandTreeByState(mapState, NodePath, TreeItem);		
 		
-		Развернут = соСостояние[ПутьУзла];
+		Expanded = mapState[NodePath];
 		
-		Если Развернут <> Неопределено Тогда
-			Если Развернут Тогда
-				Элементы.План.Развернуть(ЭлементДерева.ПолучитьИдентификатор(), Ложь);
-			Иначе
-				Элементы.План.Свернуть(ЭлементДерева.ПолучитьИдентификатор());
-			КонецЕсли;
-		КонецЕсли;
+		If Expanded <> Undefined Then
+			If Expanded Then
+				Items.Plan.Expand(TreeItem.GetID(), False);
+			Else
+				Items.Plan.Collapse(TreeItem.GetID());
+			EndIf;
+		EndIf;
 		
-	КонецЦикла;
+	EndDo;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Функция ПолучитьСостояниеДерева(Путь = "", Узел = Неопределено, соСостояние = Неопределено)
+&AtClient
+Function GetTreeState(Path = "", Node = Undefined, mapState = Undefined)
 	
-	Если Узел = Неопределено Тогда
-		Узел = План;
-	КонецЕсли;
+	If Node = Undefined Then
+		Node = Plan;
+	EndIf;
 	
-	Если соСостояние = Неопределено Тогда
-		соСостояние = Новый Соответствие;
-	КонецЕсли;
+	If mapState = Undefined Then
+		mapState = New Map;
+	EndIf;
 	
-	Для Каждого ЭлементДерева Из Узел.ПолучитьЭлементы() Цикл
-		ПутьУзла = Путь + "/" + ЭлементДерева.ИсходныйОператор;
-		соСостояние[ПутьУзла] = Элементы.План.Развернут(ЭлементДерева.ПолучитьИдентификатор());
-		соСостояние = ПолучитьСостояниеДерева(ПутьУзла, ЭлементДерева, соСостояние);
-	КонецЦикла;
+	For Each TreeItem In Node.GetItems() Do
+		NodePath = Path + "/" + TreeItem.SourceOperator;
+		mapState[NodePath] = Items.Plan.Expanded(TreeItem.GetID());
+		mapState = GetTreeState(NodePath, TreeItem, mapState);
+	EndDo;
 	
-	Возврат соСостояние;
+	Return mapState;
 	
-КонецФункции
+EndFunction
 
 

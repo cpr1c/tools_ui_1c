@@ -72,7 +72,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_CommonClient</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">99.9%</td>
 <td style="width: 43.875px; height: 17px;">1066</td>
 </tr>
 <tr style="height: 17px;">
@@ -97,7 +97,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_HTTPConnector</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">2816</td>
 </tr>
 <tr style="height: 17px;">
@@ -2159,14 +2159,31 @@
 </table>
 
 ## UT_CommonClient
-<table style="width: 808; border-collapse: collapse;" border="1">
+
+<table width="804">
 <tbody>
+<tr>
+<td width="404">
+<p>ПриНачалеРаботыСистемы</p>
+</td>
+<td width="270">
+<p>OnStart</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>ПриЗавершенииРаботыСистемы</p>
+</td>
+<td width="270">
+<p>OnExit</p>
+</td>
+</tr>
 <tr>
 <td width="404">
 <p>ПоказатьПодробнуюИнформацию</p>
 </td>
 <td width="270">
-<p></p>
+<p>ShowDetailedInfo</p>
 </td>
 </tr>
 <tr>
@@ -2174,7 +2191,7 @@
 <p>ПоказатьВопросПользователю</p>
 </td>
 <td width="270">
-<p></p>
+<p>ShowQuestionToUser</p>
 </td>
 </tr>
 <tr>
@@ -2182,7 +2199,7 @@
 <p>ПараметрыВопросаПользователю</p>
 </td>
 <td width="270">
-<p></p>
+<p>QuestionToUserParameters</p>
 </td>
 </tr>
 <tr>
@@ -2190,12 +2207,12 @@
 <p>КодВозвратаДиалогаВСтроку</p>
 </td>
 <td width="270">
-<p></p>
+<p>DialogReturnCodeToString</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ВыполнитьАлгоритм</p>
 </td>
 <td width="270">
 <p>ExecuteAlgorithm</p>
@@ -2203,7 +2220,7 @@
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>ОткрытьКонсольОтладки</p>
 </td>
 <td width="270">
 <p>OpenDebuggingConsole</p>
@@ -2214,7 +2231,7 @@
 <p>ЗапуститьКонсольОтладкиПоКлючуНастройкиДанныхОтладки</p>
 </td>
 <td width="270">
-<p></p>
+<p>RunDebugConsoleByDebugDataSettingsKey</p>
 </td>
 </tr>
 <tr>
@@ -2222,7 +2239,7 @@
 <p>ЭтоВебКлиент</p>
 </td>
 <td width="270">
-<p></p>
+<p>IsWebClient</p>
 </td>
 </tr>
 <tr>
@@ -2230,7 +2247,7 @@
 <p>ПустоеОписаниеОповещенияДляЗапускаПриложения</p>
 </td>
 <td width="270">
-<p></p>
+<p>ApplicationRunEmptyNotifyDescription</p>
 </td>
 </tr>
 <tr>
@@ -2238,7 +2255,7 @@
 <p>НачатьЗапускПриложенияЗавершениеПустое</p>
 </td>
 <td width="270">
-<p></p>
+<p>BeginRunningApplicationEndEmpty</p>
 </td>
 </tr>
 <tr>
@@ -2246,7 +2263,7 @@
 <p>ОткрытьФормуРедактированияТекста</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenTextEditingForm</p>
 </td>
 </tr>
 <tr>
@@ -2254,12 +2271,12 @@
 <p>ОткрытьФормуВыбораЭлементовСпискаЗначений</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenValueListChoiceItemsForm</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>РедактироватьОбъект</p>
 </td>
 <td width="270">
 <p>EditObject</p>
@@ -2270,7 +2287,7 @@
 <p>РедактироватьJSON</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditJSON</p>
 </td>
 </tr>
 <tr>
@@ -2278,7 +2295,7 @@
 <p>ОткрытьДинамическийСписок</p>
 </td>
 <td width="270">
-<p></p>
+<p>ОpenDynamicList</p>
 </td>
 </tr>
 <tr>
@@ -2286,7 +2303,7 @@
 <p>НайтиСсылкиНаОбъект</p>
 </td>
 <td width="270">
-<p></p>
+<p>FindObjectRefs</p>
 </td>
 </tr>
 <tr>
@@ -2294,7 +2311,7 @@
 <p>ЗадатьВопросРазработчику</p>
 </td>
 <td width="270">
-<p></p>
+<p>AskQuestionToDeveloper</p>
 </td>
 </tr>
 <tr>
@@ -2302,15 +2319,14 @@
 <p>ОткрытьСтраницуРазработки</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenAboutPage</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ОткрытьСтраницуОсобенностейОтладкиПортативныхИнструметов</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenPortableToolsDebugSpecificityPage</p>
 </td>
 </tr>
 <tr>
@@ -2318,31 +2334,29 @@
 <p>ЗапуститьПроверкуОбновленияИнструментов</p>
 </td>
 <td width="270">
-<p></p>
+<p>RunToolsUpdateCheck</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ОткрытьНовуюФормуИнструмента</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenNewToolForm</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>Подключаемый_ВыполнитьОбщуюКомандуИнструментов</p>
 </td>
 <td width="270">
 <p>Attachable_ExecuteToolsCommonCommand</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ДобавитьОбъектыКСравнению</p>
 </td>
 <td width="270">
-<p></p>
+<p>AddObjectsToComparsion</p>
 </td>
 </tr>
 <tr>
@@ -2350,15 +2364,14 @@
 <p>ВыгрузитьОбъектыВXML</p>
 </td>
 <td width="270">
-<p></p>
+<p>UploadObjectsToXML</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ОбработчикКомандыРедактироватьОбъект</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditObjectCommandHandler</p>
 </td>
 </tr>
 <tr>
@@ -2366,15 +2379,14 @@
 <p>ОбработчикКомандыНайтиСсылкиНаОбъект</p>
 </td>
 <td width="270">
-<p></p>
+<p>FindObjectRefsCommandHandler</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ОткрытьНастройкиОтладкиДополнительнойОбработки</p>
 </td>
 <td width="270">
-<p></p>
+<p>OpenAdditionalDataProcessorDebugSettings</p>
 </td>
 </tr>
 <tr>
@@ -2382,15 +2394,14 @@
 <p>РедактироватьТип</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditType</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>РедактироватьТаблицуЗначений</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditValueTable</p>
 </td>
 </tr>
 <tr>
@@ -2398,15 +2409,14 @@
 <p>ПолеФормыНачалоВыбораЗначения</p>
 </td>
 <td width="270">
-<p></p>
+<p>FormFieldValueStartChoice</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ПолеФормыИмяФайлаНачалоВыбора</p>
 </td>
 <td width="270">
-<p></p>
+<p>FormFieldFileNameStartChoice</p>
 </td>
 </tr>
 <tr>
@@ -2414,15 +2424,14 @@
 <p>ПолеФормыИмяФайлаНачалоВыбораЗавершениеПодключенияРасширенияРаботыСФайлами</p>
 </td>
 <td width="270">
-<p></p>
+<p>FormFieldFileNameStartChoiceEndAttachFileSystemExtension</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>СохранитьВспомогательныеБиблиотекиНаКлиентеПриНачалеРаботыСистемы</p>
 </td>
 <td width="270">
-<p></p>
+<p>SaveAssistiveLibrariesAtClientOnStart</p>
 </td>
 </tr>
 <tr>
@@ -2430,15 +2439,14 @@
 <p>КаталогВспомогательныхБиблиотекИнструментов</p>
 </td>
 <td width="270">
-<p></p>
+<p>UT_AssistiveLibrariesDirectory</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>РедактироватьХранилищеЗначения</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditValueStorage</p>
 </td>
 </tr>
 <tr>
@@ -2446,15 +2454,15 @@
 <p>РедактироватьХранилищеЗначенияЗавершение</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditValueStorageOnEnd</p>
 </td>
 </tr>
 <tr>
 <td width="404">
-<p></p>
+<p>РедактироватьПараметрыЗаписи</p>
 </td>
 <td width="270">
-<p>EditRecordingParameters</p>
+<p>EditWriteSettings</p>
 </td>
 </tr>
 <tr>
@@ -2462,7 +2470,7 @@
 <p>РедактироватьПараметрыЗаписиЗавершение</p>
 </td>
 <td width="270">
-<p></p>
+<p>EditWriteSettingsOnEnd</p>
 </td>
 </tr>
 <tr>
@@ -2470,7 +2478,7 @@
 <p>ПустоеОписаниеФорматаВыбираемогоФайла</p>
 </td>
 <td width="270">
-<p></p>
+<p>EmptySelectedFileFormatDescription</p>
 </td>
 </tr>
 <tr>
@@ -2478,15 +2486,14 @@
 <p>ДобавитьФорматВОписаниеФайлаСохранения</p>
 </td>
 <td width="270">
-<p></p>
+<p>AddFormatToSavingFileDescription</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ПустаяСтруктураОписанияВыбираемогоФайла</p>
 </td>
 <td width="270">
-<p></p>
+<p>EmptyDescriptionStructureOfSelectedFile</p>
 </td>
 </tr>
 <tr>
@@ -2494,7 +2501,44 @@
 <p>ДиалогВыбораФайлаПоСтруктуреОписанияВыбираемогоФайла</p>
 </td>
 <td width="270">
-<p></p>
+<p>FileSelectionDialogByDescriptionStructureOfSelectedFile</p>
+</td>
+</tr><tr>
+<td width="404">
+<p>СохранитьДанныеКонсолиВФайл</p>
+</td>
+<td width="270">
+<p>SaveConsoleDataToFile</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СохранитьДанныеКонсолиВФайлПослеПодключенияРасширенияРаботыСФайлами</p>
+</td>
+<td width="270">
+<p>SaveConsoleDataToFileAfterFileSystemExtensionConnection</p>
+</td>
+</tr><tr>
+<td width="404">
+<p>СохранитьДанныеКонсолиВФайлПослеВыбораИмениФайла</p>
+</td>
+<td width="270">
+<p>SaveConsoleDataToFileAfterFileNameChoose</p>
+</td>
+</tr>
+<tr>
+<td width="404">
+<p>СохранитьДанныеКонсолиВФайлНачатьПолучениеФайла</p>
+</td>
+<td width="270">
+<p>SaveConsoleDataToFileBeginGettingFile</p>
+</td>
+</tr><tr>
+<td width="404">
+<p>СохранитьДанныеКонсолиВФайлПослеПолученияФайлов</p>
+</td>
+<td width="270">
+<p>SaveConsoleDataToFileAfterGettingFiles</p>
 </td>
 </tr>
 <tr>
@@ -2502,15 +2546,14 @@
 <p>ПрочитатьДанныеКонсолиИзФайла</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadConsoleFromFile</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ПрочитатьДанныеКонсолиИзФайлаПослеПодключенияРасширения</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadConsoleFromFileAfterExtensionConnection</p>
 </td>
 </tr>
 <tr>
@@ -2518,15 +2561,14 @@
 <p>ПрочитатьДанныеКонсолиИзФайлаПослеВыбораФайла</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadConsoleFromFileAfterFileChoose</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ПрочитатьДанныеКонсолиИзФайлаПослеПомещенияФайлов</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadConsoleFromFileAfterPutFiles</p>
 </td>
 </tr>
 <tr>
@@ -2534,15 +2576,14 @@
 <p>ПрочитатьДанныеКонсолиИзФайлаОтработкаЗагрузкиФайла</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadConsoleFromFileProcessingFileUploading</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкой</p>
 </td>
 <td width="270">
-<p></p>
+<p>AttachFileSystemExtensionWithPossibleInstallation</p>
 </td>
 </tr>
 <tr>
@@ -2550,15 +2591,14 @@
 <p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеПодключенияРасширения</p>
 </td>
 <td width="270">
-<p></p>
+<p>AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionConnect</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеЧтенияФайловыхПеременныхСеанса</p>
 </td>
 <td width="270">
-<p></p>
+<p>AttachFileSystemExtensionWithPossibleInstallationOnEndSessionFileVariablesReading</p>
 </td>
 </tr>
 <tr>
@@ -2566,15 +2606,14 @@
 <p>ПодключитьРасширениеРаботыСФайламиСВозможнойУстановкойЗавершениеУстановкиРасширения</p>
 </td>
 <td width="270">
-<p></p>
+<p>AttachFileSystemExtensionWithPossibleInstallationOnEndExtensionInstallation</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>НомерСеанса</p>
 </td>
 <td width="270">
-<p></p>
+<p>SessionNumber</p>
 </td>
 </tr>
 <tr>
@@ -2582,15 +2621,14 @@
 <p>ИмяПараметраФайловыхПеременныхСеанса</p>
 </td>
 <td width="270">
-<p></p>
+<p>SessionFileVariablesParameterName</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>СтруктураФайловыхПеременныхСеанса</p>
 </td>
 <td width="270">
-<p></p>
+<p>SessionFileVariablesStructure</p>
 </td>
 </tr>
 <tr>
@@ -2598,15 +2636,14 @@
 <p>ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложения</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadMainSessionFileVariablesToApplicationParameters</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеКаталогаВременныхФайловЗавершение</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadMainSessionFileVariablesToApplicationParametersOnEndGettingTempFilesDir</p>
 </td>
 </tr>
 <tr>
@@ -2614,15 +2651,14 @@
 <p>ПрочитатьОсновныеФайловыеПеременныеСеансаВПараметрыПриложенияПолучениеРабочегоКаталогаДанныхПользователяЗавершение</p>
 </td>
 <td width="270">
-<p></p>
+<p>ReadMainSessionFileVariablesToApplicationParametersOnEndGettingUserDataWorkDir</p>
 </td>
-</tr>
-<tr>
+</tr><tr>
 <td width="404">
 <p>ЗапуститьСеанс1С</p>
 </td>
 <td width="270">
-<p></p>
+<p>Run1CSession</p>
 </td>
 </tr>
 <tr>
@@ -2630,7 +2666,7 @@
 <p>ЗапуститьСеанс1СЗавершениеЗапуска</p>
 </td>
 <td width="270">
-<p></p>
+<p>Run1CSessionEndLaunch</p>
 </td>
 </tr>
 </tbody>

@@ -120,51 +120,50 @@
   <commonModules>CommonModule.UT_XMLParcer</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.UT_Settings</commonCommands>
-  <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
-  <commonForms>CommonForm.UT_ValueTableForm</commonForms>
-  <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
-  <commonForms>CommonForm.УИ_ФормаРедактированияТекста</commonForms>
-  <commonForms>CommonForm.УИ_ФормаХранилищаЗначения</commonForms>
-  <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
-  <commonForms>CommonForm.UT_WriteSettings</commonForms>
-  <commonForms>CommonForm.УИ_ФормаРедактированияСпискаЗначений</commonForms>
-  <commonForms>CommonForm.UT_ValueTypeEditor</commonForms>
-  <commonForms>CommonForm.UT_ValueTableEditor</commonForms>
-  <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <commonForms>CommonForm.UT_Settings</commonForms>
+  <commonForms>CommonForm.UT_WriteSettings</commonForms>
+  <commonForms>CommonForm.UT_TextEditingForm</commonForms>
+  <commonForms>CommonForm.UT_ValueListChoiceItemsForm</commonForms>
+  <commonForms>CommonForm.UT_ValueTableEditor</commonForms>
+  <commonForms>CommonForm.UT_ValueTableForm</commonForms>
+  <commonForms>CommonForm.UT_ValueTypeEditor</commonForms>
+  <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
+  <commonForms>CommonForm.UT_AdditionalDataProcessorDebugSettings</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
+  <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
+  <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
+  <commonForms>CommonForm.UT_ValueStorageForm</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
-  <reports>Report.УИ_КонсольОтчетов</reports>
+  <reports>Report.UT_ReportsConsole</reports>
   <dataProcessors>DataProcessor.UT_CodeConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_ConstantsEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DynamicList</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTMLEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_JobsConsole</dataProcessors>
+  <dataProcessors>DataProcessor.UT_JSONEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
+  <dataProcessors>DataProcessor.UT_Support</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
-  <dataProcessors>DataProcessor.UT_JSONEditor</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
+  <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
-  <dataProcessors>DataProcessor.UT_Support</dataProcessors>
   <dataProcessors>DataProcessor.UT_MarkedObjectsDeletion</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
 </mdclass:Configuration>
