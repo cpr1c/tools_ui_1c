@@ -13,34 +13,40 @@
 // Использование (на примере СообщенияДляЖурналаРегистрации):
 //   ПараметрыПриложения["СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации"].Добавить(...);
 //   ПараметрыПриложения["СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации"] = ...;
-&НаКлиенте
-Перем УИ_ПараметрыПриложения_Портативные Экспорт;
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	ОбработкаОбъект=РеквизитФормыВЗначение("Объект");
+&AtClient
+Var UT_ApplicationParameters_Portable Export;
 
-	Файл=Новый Файл(ОбработкаОбъект.ИспользуемоеИмяФайла);
-	КаталогИнструментов=Файл.Путь;
+
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	
+	DataProcessorObject=FormAttributeToValue("Object");
+
+	File=New File (DataProcessorObject.UsedFileName);
+	ToolsDirectory=File.Path;
 
 	СоздатьКомандыОткрытияИнструментовНаФорме();
 
-	Заголовок=Версия();
+	Title=Version();
 
-	AlgorithmForCallingDebuggingAtServer="ВнешниеОбработки.Создать(""УИ_"")._От(ПараметрыОтладки)";
-	AlgorithmForCallingDebuggingAtClient="ПолучитьФорму(""ВнешняяОбработка.УИ_.Форма"")._От(ПараметрыОтладки)";
-	AlgorithmForCallingDebuggingThroughDataProcessor="ВнешниеОбработки.Создать(""" + ОбработкаОбъект.ИспользуемоеИмяФайла
+	AlgorithmForCallingDebuggingAtServer="ВнешниеОбработки.Создать(""UT_"")._От(ПараметрыОтладки)";
+	AlgorithmForCallingDebuggingAtClient="ПолучитьФорму(""ВнешняяОбработка.UT_.Форма"")._От(ПараметрыОтладки)";
+	AlgorithmForCallingDebuggingThroughDataProcessor="ВнешниеОбработки.Создать(""" + DataProcessorObject.UsedFileName
 		+ """, Ложь)._От(Запрос)";
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
+
+&AtClient
+Procedure OnOpen(Cancel)
 	ПодключитьВнешниеМодули();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ПриЗакрытии(ЗавершениеРаботы)
-	UT_CommonClient.OnExit();
-КонецПроцедуры
+&AtClient
+Procedure OnClose(Exit)
+		UT_CommonClient.OnExit();
+EndProcedure
+
+
 
 &НаКлиентеНаСервереБезКонтекста
 Функция ЗаголовокЭлементаИнструмента(Имя, Синоним, ТекстПоиска = "")
@@ -326,113 +332,116 @@ EndProcedure
 &НаСервере
 Процедура ПодключитьВнешниеМодулиНаСервере(МодулиДляПодключенияНаСервере)
 	Для Каждого ВнешнийМодуль Из МодулиДляПодключенияНаСервере Цикл
-		ПодключитьВнешнююОбработку(ВнешнийМодуль.Адрес, ВнешнийМодуль.ЭтоОтчет);
+		ConnectExternalDataProcessor(ВнешнийМодуль.Адрес, ВнешнийМодуль.ЭтоОтчет);
 	КонецЦикла;
 КонецПроцедуры
 
-&НаКлиенте
-Процедура ПриОткрытииЗапускОбработчиковЗапускаИнструментов()
+&AtClient
+Procedure ПриОткрытииЗапускОбработчиковЗапускаИнструментов()
 
 	UT_CommonClient.OnStart();
 
-	Элементы.GroupFormPages.ТекущаяСтраница=Элементы.GroupPageWorkWithTools;
+	Items.GroupFormPages.CurrentPage=Items.GroupPageWorkWithTools;
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Функция ПодключитьВнешнююОбработку(АдресХранилища, ЭтоОтчет)
+&AtServer
+Function ConnectExternalDataProcessor(StorageURL, IsReport)
 
-	ОписаниеЗащитыОтОпасныхДействий =Новый ОписаниеЗащитыОтОпасныхДействий;
-	ОписаниеЗащитыОтОпасныхДействий.ПредупреждатьОбОпасныхДействиях=Ложь;
-	Если ЭтоОтчет Тогда
-		Возврат ВнешниеОтчеты.Подключить(АдресХранилища, , Ложь, ОписаниеЗащитыОтОпасныхДействий);
-	Иначе
-		Возврат ВнешниеОбработки.Подключить(АдресХранилища, , Ложь, ОписаниеЗащитыОтОпасныхДействий);
-	КонецЕсли;
-КонецФункции
+	UnsafeOperationProtectionDescription =New UnsafeOperationProtectionDescription;
+	UnsafeOperationProtectionDescription.UnsafeOperationWarnings=False;
+	If IsReport Then
+		Return ExternalReports.Connect(StorageURL, , False, UnsafeOperationProtectionDescription);
+	Else
+		Return ExternalDataProcessors.Connect(StorageURL, , False, UnsafeOperationProtectionDescription);
+	EndIf;
+EndFunction
 
 &НаСервере
 Процедура ЗаписатьАдресЛокальнойБиблиотекиКартинокВХранилищеНастроек(Адрес)
-	UT_Common.ХранилищеНастроекДанныхФормСохранить(
+	UT_Common.FormDataSettingsStorageSave(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(), "АдресЛокальнойБиблиотекиКартинок", Адрес, ,
-		ИмяПользователя());
+		UserName());
 КонецПроцедуры
 
-&НаКлиенте
-Функция ВерсияПлатформыНеМладше(ВерсияДляСравнения) Экспорт
-	ВерсияБезСборки=ВерсияКонфигурацииБезНомераСборки(ТекущаяВерсияПлатформы1СПредприятие());
+&AtClient
+Function PlatformVersionNotLess(ComparingVersion) Export
+	VersionWithOutReleaseSubnumber=ConfigurationVersionWithoutBuildNumber(CurrentAppVersion());
 
-	Возврат СравнитьВерсииБезНомераСборки(ВерсияБезСборки, ВерсияДляСравнения) >= 0;
-КонецФункции
+	Return CompareVersionsWithoutBuildNumber(VersionWithOutReleaseSubnumber, ComparingVersion)>=0;
+EndFunction
 
-&НаКлиенте
-Функция ВерсияКонфигурацииБезНомераСборки(Знач Версия) Экспорт
+&AtClient
+Function ConfigurationVersionWithoutBuildNumber(Val Version) Export
 
-	Массив = СтрРазделить(Версия, ".");
+	Array = StrSplit(Version, ".");
 
-	Если Массив.Количество() < 3 Тогда
-		Возврат Версия;
-	КонецЕсли;
+	If Array.Count() < 3 Then
+		Return Version;
+	EndIf;
 
-	Результат = "[Редакция].[Подредакция].[Релиз]";
-	Результат = СтрЗаменить(Результат, "[Редакция]", Массив[0]);
-	Результат = СтрЗаменить(Результат, "[Подредакция]", Массив[1]);
-	Результат = СтрЗаменить(Результат, "[Релиз]", Массив[2]);
+	Result = "[Edition].[Subedition].[Release]";
+	Result = StrReplace(Result, "[Edition]",    Array[0]);
+	Result = StrReplace(Result, "[Subedition]", Array[1]);
+	Result = StrReplace(Result, "[Release]",       Array[2]);
+	
+	Return Result;
+EndFunction
 
-	Возврат Результат;
-КонецФункции
+&AtClient
+Function CurrentAppVersion() Export
 
-&НаКлиенте
-Функция ТекущаяВерсияПлатформы1СПредприятие() Экспорт
+	SystemInfo = New SystemInfo;
+	Return SystemInfo.AppVersion;
 
-	СистИнфо = Новый СистемнаяИнформация;
-	Возврат СистИнфо.ВерсияПриложения;
+EndFunction
 
-КонецФункции
-
-// Сравнить две строки версий.
+// Compare two strings that contains version info
 //
-// Параметры:
-//  СтрокаВерсии1  - Строка - номер версии в формате РР.{П|ПП}.ЗЗ.
-//  СтрокаВерсии2  - Строка - второй сравниваемый номер версии.
+// Parameters:
+//  Version1String  - String - number of version in  РР.{M|MM}.RR format
+//  Version2String  - String - secound compared version number.
 //
-// Возвращаемое значение:
-//   Число   - больше 0, если СтрокаВерсии1 > СтрокаВерсии2; 0, если версии равны.
+// Return Value значение:
+//   Integer   - more than 0, if Version1String > Version2String; 0, if version values is equal.
 //
-&НаКлиенте
-Функция СравнитьВерсииБезНомераСборки(Знач СтрокаВерсии1, Знач СтрокаВерсии2) Экспорт
+&AtClient
+Function CompareVersionsWithoutBuildNumber(Val Version1String, Val Version2String) Export
 
-	Строка1 = ?(ПустаяСтрока(СтрокаВерсии1), "0.0.0", СтрокаВерсии1);
-	Строка2 = ?(ПустаяСтрока(СтрокаВерсии2), "0.0.0", СтрокаВерсии2);
-	Версия1 = СтрРазделить(Строка1, ".");
-	Если Версия1.Количество() <> 3 Тогда
-		ВызватьИсключение СтрШаблон(НСтр("ru = 'Неправильный формат параметра СтрокаВерсии1: %1'"), СтрокаВерсии1);
-	КонецЕсли;
-	Версия2 = СтрРазделить(Строка2, ".");
-	Если Версия2.Количество() <> 3 Тогда
-		ВызватьИсключение СтрШаблон(НСтр("ru = 'Неправильный формат параметра СтрокаВерсии2: %1'"), СтрокаВерсии2);
-	КонецЕсли;
+	String1 = ?(IsBlankString(Version1String), "0.0.0", Version1String);
+	String2 = ?(IsBlankString(Version2String), "0.0.0", Version2String);
+	Version1 = StrSplit(String1, ".");
+	If Version1.Count() <> 3 Then
+		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version1String: %1'; en='Wrong format of parameter Version1String: %1'"), Version1String);
+	EndIf;
+	Version2 = StrSplit(String2, ".");
+	If Version2.Count() <> 3 Then
+		Raise StrTemplate(NStr("ru = 'Неправильный формат параметра Version2String: %1'; en='Wrong format of parameter Version2String: %1'"), Version2String);
+	EndIf;
 
-	Результат = 0;
-	Для Разряд = 0 По 2 Цикл
-		Результат = Число(Версия1[Разряд]) - Число(Версия2[Разряд]);
-		Если Результат <> 0 Тогда
-			Возврат Результат;
-		КонецЕсли;
+	Result = 0;
+	For Digit = 0 to 2 do
+		Result = Number(Version1[Digit]) - Number(Version2[Digit]);
+		If Result <> 0 Then
+			Return Result;
+		EndIf;
 	КонецЦикла;
-	Возврат Результат;
+	Return Result;
 
-КонецФункции
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция Версия() Экспорт
+&AtClientAtServerNoContext
+Function Version() Export
 
-КонецФункции
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция Поставщик() Экспорт
+&AtClientAtServerNoContext
+Function Vendor() Export
 
-КонецФункции
+EndFunction
+
+
+
 
 
 
