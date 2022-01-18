@@ -1,18 +1,18 @@
-﻿// Хранилище глобальных переменных.
+// Storage of global variables.
 //
-// ПараметрыПриложения - Соответствие - хранилище переменных, где:
-//   * Ключ - Строка - имя переменной в формате "ИмяБиблиотеки.ИмяПеременной";
-//   * Значение - Произвольный - значение переменной.
+// ApplicationParameters - Map - value storage, where:
+//   * Key - String - a variable name in the format of  "LibraryName.VariableName";
+//   * Value - Arbitrary - a variable value.
 //
-// Инициализация (на примере СообщенияДляЖурналаРегистрации):
-//   ИмяПараметра = "СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации";
-//   Если ПараметрыПриложения[ИмяПараметра] = Неопределено Тогда
-//     ПараметрыПриложения.Вставить(ИмяПараметра, Новый СписокЗначений);
-//   КонецЕсли;
+// Initialization (see the example of MessagesForEventLog):
+//   ParameterName = "StandardSubsystems.MessagesForEventLog";
+//   If ApplicationParameters[ParameterName] = Undefined Then
+//     ApplicationParameters.Insert(ParameterName, New ValueList);
+//   EndIf.
 //  
-// Использование (на примере СообщенияДляЖурналаРегистрации):
-//   ПараметрыПриложения["СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации"].Добавить(...);
-//   ПараметрыПриложения["СтандартныеПодсистемы.СообщенияДляЖурналаРегистрации"] = ...;
+// Usage (as illustrated by MessagesForEventLog):
+//   ApplicationParameters["StandardSubsystems.MessagesForEventLog"].Add(...);
+//   ApplicationParameters["StandardSubsystems.MessagesForEventLog"] = ...;
 &AtClient
 Var UT_ApplicationParameters_Portable Export;
 
@@ -24,8 +24,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
 	File=New File (DataProcessorObject.UsedFileName);
 	ToolsDirectory=File.Path;
-
-	СоздатьКомандыОткрытияИнструментовНаФорме();
+    CreateToolsOpenCommandsOnForm();
 
 	Title=Version();
 
@@ -38,7 +37,7 @@ EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-	ПодключитьВнешниеМодули();
+	ConnectExternalModules();
 EndProcedure
 
 &AtClient
@@ -46,17 +45,15 @@ Procedure OnClose(Exit)
 		UT_CommonClient.OnExit();
 EndProcedure
 
+&AtClientAtServerNoContext
+Function ЗаголовокЭлементаИнструмента(Имя, Синоним, ТекстПоиска = "")
+	Title=Синоним;
+	If Not ValueIsFilled(Title) Then
+		Title=Имя;
+	EndIf;
 
-
-&НаКлиентеНаСервереБезКонтекста
-Функция ЗаголовокЭлементаИнструмента(Имя, Синоним, ТекстПоиска = "")
-	Заголовок=Синоним;
-	Если Не ЗначениеЗаполнено(Заголовок) Тогда
-		Заголовок=Имя;
-	КонецЕсли;
-
-	Если ЗначениеЗаполнено(ТекстПоиска) Тогда
-		ЗаголовокИзначальный=Заголовок;
+	Если ValueIsFilled(ТекстПоиска) Then
+		ЗаголовокИзначальный=Title;
 		ЗаголовокДляПоиска=НРег(ЗаголовокИзначальный);
 		НовыйЗаголовок="";
 		ДлинаСтрокиПоиска=СтрДлина(ТекстПоиска);
@@ -75,32 +72,32 @@ EndProcedure
 
 		КонецЦикла;
 
-		Если ЗначениеЗаполнено(НовыйЗаголовок) Тогда
-			НовыйЗаголовок=Новый ФорматированнаяСтрока(НовыйЗаголовок, ЗаголовокИзначальный);
-			Заголовок=НовыйЗаголовок;
-		КонецЕсли;
-	КонецЕсли;
-	Возврат Заголовок;
-КонецФункции
-&НаКлиенте
-Процедура ОбработатьПоиск(СтрокаПоискаПереданная)
-	СортированныйСписок=СортированныйСписокМодулейИнструментовДляКнопок();
+		If ValueIsFilled(НовыйЗаголовок) Then
+			НовыйЗаголовок=New ФорматированнаяСтрока(НовыйЗаголовок, ЗаголовокИзначальный);
+			Title=НовыйЗаголовок;
+		Endif;
+	EndIf;
+	Return Title;
+EndFunction
+&AtClient
+Procedure ОбработатьПоиск(СтрокаПоискаПереданная)
+	СортированныйСписок=SortedModulesListToolsForButtons();
 
-	Поиск=СокрЛП(НРег(СтрокаПоискаПереданная));
+	Поиск=TrimAll(Lower(СтрокаПоискаПереданная));
 
-	Для Каждого ЭлементСпискаИнструментов Из СортированныйСписок Цикл
-		ВидимостьЭлемента=Истина;
-		Если ЗначениеЗаполнено(Поиск) Тогда
-			ВидимостьЭлемента=СтрНайти(НРег(ЭлементСпискаИнструментов.Значение), Поиск) > 0 Или СтрНайти(
-				НРег(ЭлементСпискаИнструментов.Представление), Поиск) > 0;
-		КонецЕсли;
+	For Each ЭлементСпискаИнструментов In СортированныйСписок Do
+		ВидимостьЭлемента=True;
+		If ValueIsFilled(Поиск) Then
+			ВидимостьЭлемента=StrFind(Lower(ЭлементСпискаИнструментов.Значение), Поиск) > 0 Or StrFind(
+				Lower(ЭлементСпискаИнструментов.Представление), Поиск) > 0;
+		Endif;
 
 		Элементы[ЭлементСпискаИнструментов.Значение].Видимость=ВидимостьЭлемента;
 		Элементы[ЭлементСпискаИнструментов.Значение].Заголовок=ЗаголовокЭлементаИнструмента(
 			ЭлементСпискаИнструментов.Значение, ЭлементСпискаИнструментов.Представление, Поиск);
-	КонецЦикла;
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 &AtClient
 Procedure SeacrhStringClearing(Item, StandardProcessing)
 	ОбработатьПоиск("");
@@ -112,93 +109,93 @@ Procedure SeacrhStringEditTextChange(Item, Text, StandardProcessing)
 	ОбработатьПоиск(Text);
 EndProcedure
 
-&НаКлиенте
-Процедура Подключаемый_ОткрытьКомандуИнструмента(Команда)
-	ОписанияМодулей=ОписаниеМодулейИнструментовДляПодключения();
-	ОписаниеМодуля=ОписанияМодулей[Команда.Имя];
+&AtClient
+Procedure Attachable_OpenToolsCommand(Command)
+	ModulesDescription=ToolsModulesDescriptionForConnect();
+	ModuleDescription=ModulesDescription[Command.Name];
 
-	Если ОписаниеМодуля.Вид = "Отчет" Тогда
-		ОткрытьФорму("ВнешнийОтчет." + Команда.Имя + ".Форма", , ЭтаФорма);
-	Иначе
-		ОткрытьФорму("ВнешняяОбработка." + Команда.Имя + ".Форма", , ЭтаФорма);
-	КонецЕсли;
-КонецПроцедуры
+	If ModuleDescription.MetadataType = "Report" Then
+		OpenForm("ExternalReport." + Command.Name + ".Form", , ThisForm);
+	Else
+		OpenForm("ExternalDataProcessor." + Command.Name + ".Form", , ThisForm);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура СоздатьКомандыОткрытияИнструментовНаФорме()
-	ОписаниеИнструментов=СортированныйСписокМодулейИнструментовДляКнопок();
-	ОписаниеМодулей=ОписаниеМодулейИнструментовДляПодключения();
+&AtServer
+Procedure CreateToolsOpenCommandsOnForm()
+	ToolsDescription=SortedModulesListToolsForButtons();
+	ModulesDescription=ToolsModulesDescriptionForConnect();
 
-	Четный=Ложь;
-	Для Каждого ЭлементСписка Из ОписаниеИнструментов Цикл
-		Описание=ОписаниеМодулей[ЭлементСписка.Значение];
+	Even=False;
+	For each ListItem In ToolsDescription Do
+		Description=ModulesDescription[ListItem.Value];
 
-		Если Описание.НеВыводитьВИнтерфейс Тогда
-			Продолжить;
-		КонецЕсли;
+		If Description.NotShowInUserInterface Then
+			Continue;
+		EndIf;
 
-		Если Четный Тогда
-			Родитель=Элементы.GroupToolsCommandsRigth;
-		Иначе
-			Родитель=Элементы.ГруппаКомандыИнструментовЛево;
-		КонецЕсли;
+		If Even Then
+			Parent=Items.GroupToolsCommandsRigth;
+		Else
+			Parent=Items.GroupToolsCommandsLeft;
+		Endif;
 
-		Элемент=Элементы.Добавить(Описание.Имя, Тип("ДекорацияФормы"), Родитель);
-		//Элемент.ИмяКоманды=Описание.Имя;
-		Элемент.Заголовок=ЗаголовокЭлементаИнструмента(Описание.Имя, Описание.Синоним);
-		Элемент.Вид=ВидДекорацииФормы.Надпись;
-		Элемент.Гиперссылка=Истина;
-		Элемент.Подсказка=Описание.Подсказка;
-		Элемент.ОтображениеПодсказки=ОтображениеПодсказки.ОтображатьСнизу;
-		Элемент.УстановитьДействие("Нажатие", "Подключаемый_ОткрытьКомандуИнструмента");
+		Item=Items.Add(Description.Name, Type("FormDecoration"), Parent);
+		//Item.CommandName=Description.Name;
+		Item.Title=ЗаголовокЭлементаИнструмента(Description.Name, Description.Synonym);
+		Item.Type=FormDecorationType.Label;
+		Item.Hyperlink=True;
+		Item.ToolTip=Description.ToolTip;
+		Item.ToolTipRepresentation=ToolTipRepresentation.ShowBottom;
+		Item.SetAction("Click", "Attachable_OpenToolsCommand");
 
-		Четный=Не Четный;
-	КонецЦикла;
-КонецПроцедуры
+		Even=Not Even;
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура UT_Settings(Команда)
-	ОткрытьФорму("CommonForm.UT_Settings");
-КонецПроцедуры
+&AtClient
+Procedure UT_Settings(Command)
+	OpenForm("CommonForm.UT_Settings");
+EndProcedure
 
-&НаКлиенте
-Процедура AskQuestionToDeveloper(Команда)
+&AtClient
+Procedure AskQuestionToDeveloper(Command)
 	UT_CommonClient.AskQuestionToDeveloper();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура OpenAboutPage(Команда)
+&AtClient
+Procedure OpenAboutPage(Command)
 	UT_CommonClient.OpenAboutPage();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура PortableToolsDebugSpecificity(Команда)
+&AtClient
+Procedure PortableToolsDebugSpecificity(Command)
 	UT_CommonClient.OpenPortableToolsDebugSpecificityPage();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура RunToolsUpdateCheck(Команда)
+&AtClient
+Procedure RunToolsUpdateCheck(Command)
 	UT_CommonClient.RunToolsUpdateCheck();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиентеНаСервереБезКонтекста
-Функция НовыйОписаниеМодуля() Экспорт
-	Описание=Новый Структура;
-	Описание.Вставить("Имя", "");
-	Описание.Вставить("Синоним", "");
-	Описание.Вставить("ИмяФайла", "");
-	Описание.Вставить("Подсказка", "");
-	Описание.Вставить("НеВыводитьВИнтерфейс", Ложь);
-	Описание.Вставить("Тип", "Инструмент");
-	Описание.Вставить("Вид", "Обработка");
-	Описание.Вставить("Команды", Неопределено);
+&AtClientAtServerNoContext
+Function ModuleDesciptionNew() Export
+	Desciption=New Structure;
+	Desciption.Insert("Name", "");
+	Desciption.Insert("Synonym", "");
+	Desciption.Insert("FileName", "");
+	Desciption.Insert("ToolTip", "");
+	Desciption.Insert("NotShowInUserInterface", False);
+	Desciption.Insert("Type", "Tool");
+	Desciption.Insert("MetadataType", "DataProcessor");
+	Desciption.Insert("Commands", Undefined);
 
-	Возврат Описание;
-КонецФункции
+	Return Desciption;
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция ОписаниеМодулейИнструментовДляПодключения()
-	Описания=Новый Структура;
+&AtClientAtServerNoContext
+Function ToolsModulesDescriptionForConnect()
+	Descriptions=New Structure;
 	
 	// МЕТОД ГЕНЕРИРУЕТСЯ ПРИ СБОРКЕ
 	
@@ -231,118 +228,113 @@ EndProcedure
 //	ОписаниеИнструмента.Тип="ОбщийМодуль";
 //	Описания.Вставить(ОписаниеИнструмента.Имя,ОписаниеИнструмента);
 
-	Возврат Описания;
-КонецФункции
+	Return Descriptions;
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция СортированныйСписокМодулейИнструментовДляКнопок()
-	ОписаниеМодулей=ОписаниеМодулейИнструментовДляПодключения();
+&AtClientAtServerNoContext
+Function SortedModulesListToolsForButtons()
+	ModulesDescription=ОписаниеМодулейИнструментовДляПодключения();
 
-	СписокМодулей=Новый СписокЗначений;
+	ModulesList=New ValueList;
 
-	Для Каждого КлючЗначение Из ОписаниеМодулей Цикл
-		Описание=КлючЗначение.Значение;
-		Если Описание.Тип <> "Инструмент" Тогда
-			Продолжить;
-		КонецЕсли;
-		Если Описание.НеВыводитьВИнтерфейс Тогда
-			Продолжить;
-		КонецЕсли;
+	For Each KeyValue In ModulesDescription Do
+		Description=KeyValue.Value;
+		If Description.Type <> "Tool" Then
+			Continue;
+		EndIf;
+		If Description.NotShowInUserInterface Then
+			Continue;
+		Endif;
 
-		СписокМодулей.Добавить(Описание.Имя, Описание.Синоним);
-	КонецЦикла;
+		ModulesList.Add(Description.Name, Description.Synonym);
+	EndDo;
 
-	СписокМодулей.СортироватьПоПредставлению();
-	Возврат СписокМодулей;
-КонецФункции
-
-&НаКлиенте
-Функция ИмяФайлаМодуля(ОписаниеМодуля)
-	Если ОписаниеМодуля.Тип = "ОбщийМодуль" Тогда
-		КаталогМодуля="ОбщиеМодули";
-	ИначеЕсли ОписаниеМодуля.Тип = "ОбщаяКартинка" Тогда
-		Возврат КаталогИнструментов + ПолучитьРазделительПути() + "Картинки" + ПолучитьРазделительПути()
-			+ ОписаниеМодуля.ИмяФайла;
-	Иначе
-		КаталогМодуля="Инструменты";
-	КонецЕсли;
-
-	Если ОписаниеМодуля.Вид = "Отчет" Тогда
-		Расширение="erf";
-	Иначе
-		Расширение="epf";
-	КонецЕсли;
-
-	Возврат КаталогИнструментов + ПолучитьРазделительПути() + КаталогМодуля + ПолучитьРазделительПути()
-		+ ОписаниеМодуля.Имя + "." + Расширение;
-КонецФункции
-
-&НаКлиенте
-Процедура ПодключитьВнешниеМодули()
-	Описание=ОписаниеМодулейИнструментовДляПодключения();
-
-	ПомещаемыеФайлы=Новый Массив;
-
-	Для Каждого КлючЗначение Из Описание Цикл
-		ТекОписаниеИнструмента=КлючЗначение.Значение;
-		ПомещаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(ИмяФайлаМодуля(ТекОписаниеИнструмента)));
-	КонецЦикла;
-
-	НачатьПомещениеФайлов(Новый ОписаниеОповещения("ПодключитьВнешниеМодулиЗавершение", ЭтаФорма,
-		Новый Структура("ОписаниеИнструментов", Описание)), ПомещаемыеФайлы, , Ложь, УникальныйИдентификатор);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПодключитьВнешниеМодулиЗавершение(ПомещенныеФайлы, ДополнительныеПараметры) Экспорт
-	Если ПомещенныеФайлы = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	УИ_БиблиотекаКартинок=Новый Структура;
-
-	МодулиДляПодключенияНаСервере=Новый Массив;
-
-	Для Каждого ПомещенныйФайл Из ПомещенныеФайлы Цикл
-		Если ВерсияПлатформыНеМладше("8.3.13") Тогда
-			ИмяФайла = ПомещенныйФайл.ПолноеИмя;
-		Иначе
-			ИмяФайла = ПомещенныйФайл.Имя;
-		КонецЕсли;
-
-		Файл=Новый Файл(ИмяФайла);
-		Если НРег(Файл.Расширение) = ".erf" Тогда
-			МодулиДляПодключенияНаСервере.Добавить(Новый Структура("ЭтоОтчет, Адрес", Истина, ПомещенныйФайл.Хранение));
-		ИначеЕсли НРег(Файл.Расширение) = ".epf" Тогда
-			МодулиДляПодключенияНаСервере.Добавить(Новый Структура("ЭтоОтчет, Адрес", Ложь, ПомещенныйФайл.Хранение));
-		Иначе
-			УИ_БиблиотекаКартинок.Вставить(Файл.ИмяБезРасширения, Новый Картинка(Файл.ПолноеИмя));
-			Продолжить;
-		КонецЕсли;
-	КонецЦикла;
-
-	ПодключитьВнешниеМодулиНаСервере(МодулиДляПодключенияНаСервере);
-	//Теперь можно использовать общие модули
-
-	АдресЛокальнойБиблиотекиКартинок=ПоместитьВоВременноеХранилище(УИ_БиблиотекаКартинок, УникальныйИдентификатор);
-	ЗаписатьАдресЛокальнойБиблиотекиКартинокВХранилищеНастроек(АдресЛокальнойБиблиотекиКартинок);
-
-	ПодключитьОбработчикОжидания("ПриОткрытииЗапускОбработчиковЗапускаИнструментов", 0.1, Истина);
-КонецПроцедуры
-
-&НаСервере
-Процедура ПодключитьВнешниеМодулиНаСервере(МодулиДляПодключенияНаСервере)
-	Для Каждого ВнешнийМодуль Из МодулиДляПодключенияНаСервере Цикл
-		ConnectExternalDataProcessor(ВнешнийМодуль.Адрес, ВнешнийМодуль.ЭтоОтчет);
-	КонецЦикла;
-КонецПроцедуры
+	ModulesList.SortByPresentation();
+	Return ModulesList;
+EndFunction
 
 &AtClient
-Procedure ПриОткрытииЗапускОбработчиковЗапускаИнструментов()
+Function ModuleFileName(ModuleDescription)
+	If ModuleDescription.Type = "CommonModule" Then
+		ModuleDirectory="CommonModules";
+	ElsIf ModuleDescription.Type = "CommonPicture" Then
+		Return ToolsDirectory + GetPathSeparator() + "Pictures" + GetPathSeparator()
+			+ ModuleDescription.FileName;
+	Else
+		ModuleDirectory="Tools";
+	EndIf;
 
+	If ModuleDescription.MetadataType = "Report" Then
+		Extension="erf";
+	Else
+		Extension="epf";
+	EndIf;
+
+	Return ToolsDirectory + GetPathSeparator() + ModuleDirectory + GetPathSeparator()
+		+ ModuleDescription.Name + "." + Extension;
+EndFunction
+
+&AtClient
+Procedure ConnectExternalModules()
+	Description=ОписаниеМодулейИнструментовДляПодключения();
+
+	PuttedFiles=New Array;
+
+	For Each KeyValue In Description Do
+		CurrentToolDescription=KeyValue.Value;
+		PuttedFiles.Добавить(New TransferableFileDescription(ModuleFileName(CurrentToolDescription)));
+	EndDo;
+
+	BeginPuttingFiles(New NotifyDescription("ConnectExternalModulesOnEnd", ThisForm,
+		New Structure("ToolsDescription", Description)), PuttedFiles, , False, UUID);
+EndProcedure
+
+&AtClient
+Procedure ConnectExternalModulesOnEnd(PuttedFiles, AdditionalParameters) Export
+	If PuttedFiles = Undefined Then
+		Return;
+	EndIf;
+
+	UT_PicturesLibrary=New Structure;
+
+	ModulesForConnectAtServer=New Array;
+
+	For each PuttedFile in PuttedFiles Do
+		If PlatformVersionNotLess("8.3.13") Then
+			FileName = PuttedFile.FullName;
+		Else
+			FileName = PuttedFile.Name;
+		EndIf;
+
+		File=New File(FileName);
+		If Lower(File.Extension) = ".erf" Then
+			ModulesForConnectAtServer.Add(New Structure("IsReport, Location", True, PuttedFile.Location));
+		ElsIf Lower(File.Extension) = ".epf" Then
+			ModulesForConnectAtServer.Add(New Structure("IsReport, Location", False, PuttedFile.Location));
+		Else
+			UT_PicturesLibrary.Insert(File.BaseName, New Picture(File.FullName));
+			Continue;
+		Endif;
+	EndDo;
+
+	ConnectExternalModulesAtServer(ModulesForConnectAtServer);
+	//Now we can use common modules
+	LocalPicturesLibraryURL=PutToTempStorage(UT_PicturesLibrary, UUID);
+	WriteLocalPicturesLibraryURLToSettingsStorage(LocalPicturesLibraryURL);
+	AttachIdleHandler("OnOpenRunHandlersOfToolsLaunch", 0.1, True);
+EndProcedure
+
+&AtServer
+Procedure ConnectExternalModulesAtServer(ModulesForConnectAtServer)
+	For Each ExternalModule In ModulesForConnectAtServer Do
+		ConnectExternalDataProcessor(ExternalModule.Location, ExternalModule.IsReport);
+	EndDo;
+EndProcedure
+
+&AtClient
+Procedure OnOpenRunHandlersOfToolsLaunch()
 	UT_CommonClient.OnStart();
-
 	Items.GroupFormPages.CurrentPage=Items.GroupPageWorkWithTools;
-
 EndProcedure
 
 &AtServer
@@ -357,12 +349,12 @@ Function ConnectExternalDataProcessor(StorageURL, IsReport)
 	EndIf;
 EndFunction
 
-&НаСервере
-Процедура ЗаписатьАдресЛокальнойБиблиотекиКартинокВХранилищеНастроек(Адрес)
+&AtServer
+Procedure WriteLocalPicturesLibraryURLToSettingsStorage(URL)
 	UT_Common.FormDataSettingsStorageSave(
-		UT_CommonClientServer.ObjectKeyInSettingsStorage(), "АдресЛокальнойБиблиотекиКартинок", Адрес, ,
+		UT_CommonClientServer.ObjectKeyInSettingsStorage(), "LocalPicturesLibraryURL", URL, ,
 		UserName());
-КонецПроцедуры
+EndProcedure
 
 &AtClient
 Function PlatformVersionNotLess(ComparingVersion) Export
@@ -442,19 +434,4 @@ EndFunction
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-УИ_ПараметрыПриложения_Портативные = Новый Соответствие;
+UT_ApplicationParameters_Portable = New Map;
