@@ -17,7 +17,7 @@
   <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
   <content>DataProcessor.UT_ConstantsEditor</content>
   <content>DataProcessor.UT_DatabaseStorageStructure</content>
-  <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
+  <content>DataProcessor.UT_MarkedObjectsDeletion</content>
   <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
   <content>DataProcessor.UT_QueryConsole</content>
   <content>DataProcessor.UT_JobsConsole</content>
