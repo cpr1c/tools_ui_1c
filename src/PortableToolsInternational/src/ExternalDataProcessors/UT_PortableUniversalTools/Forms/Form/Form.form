@@ -60,17 +60,21 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСтраницыФормы</name>
+    <name>GroupFormPages</name>
     <id>14</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСтраницаЗагрузкиИнтрументов</name>
+      <name>GroupPageToolsLoading</name>
       <id>16</id>
       <items xsi:type="form:Decoration">
-        <name>ДекорацияКартинкаЗагрузки</name>
-        <id>20</id>
+        <name>DecorationLoadingPicture</name>
+        <id>58</id>
         <title>
           <key>ru</key>
           <value>Декорация картинка загрузки</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Decoration loading picture</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -78,8 +82,8 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДекорацияКартинкаЗагрузкиРасширеннаяПодсказка</name>
-          <id>22</id>
+          <name>DecorationLoadingPictureExtendedTooltip</name>
+          <id>60</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -93,8 +97,8 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДекорацияКартинкаЗагрузкиКонтекстноеМеню</name>
-          <id>21</id>
+          <name>DecorationLoadingPictureContextMenu</name>
+          <id>59</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -110,8 +114,12 @@
         </extInfo>
       </items>
       <items xsi:type="form:Decoration">
-        <name>ДекорацияНаписьЗагрузки</name>
+        <name>DecorationLoadingLabel</name>
         <id>23</id>
+        <title>
+          <key>en</key>
+          <value>Please wait tools are loading</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Подождите пока инструменты загрузятся</value>
@@ -122,7 +130,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДекорацияНаписьЗагрузкиРасширеннаяПодсказка</name>
+          <name>DecorationLoadingLabelExtendedTooltip</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -137,7 +145,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДекорацияНаписьЗагрузкиКонтекстноеМеню</name>
+          <name>DecorationLoadingLabelContextMenu</name>
           <id>24</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -165,8 +173,12 @@
         <key>ru</key>
         <value>Группа страница загрузки интрументов</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group page tools loading</value>
+      </title>
       <extendedTooltip>
-        <name>ГруппаСтраницаЗагрузкиИнтрументовРасширеннаяПодсказка</name>
+        <name>GroupPageToolsLoadingExtendedTooltip</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -188,13 +200,13 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСтраницаРаботыСИнструментами</name>
+      <name>GroupPageWorkWithTools</name>
       <id>18</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаКомандыИнструментов</name>
+        <name>GroupToolsCommands</name>
         <id>1</id>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаКомандыИнструментовЛево</name>
+          <name>GroupToolsCommandsLeft</name>
           <id>3</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -205,8 +217,12 @@
             <key>ru</key>
             <value>Группа команды инструментов лево</value>
           </title>
+          <title>
+            <key>en</key>
+            <value>Group tools commands left</value>
+          </title>
           <extendedTooltip>
-            <name>ГруппаКомандыИнструментовЛевоРасширеннаяПодсказка</name>
+            <name>GroupToolsCommandsLeftExtendedTooltip</name>
             <id>4</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -230,7 +246,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаКомандыИнструментовПраво</name>
+          <name>GroupToolsCommandsRigth</name>
           <id>5</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -241,8 +257,12 @@
             <key>ru</key>
             <value>Группа команды инструментов право</value>
           </title>
+          <title>
+            <key>en</key>
+            <value>Group tools commands rigth</value>
+          </title>
           <extendedTooltip>
-            <name>ГруппаКомандыИнструментовПравоРасширеннаяПодсказка</name>
+            <name>GroupToolsCommandsRigthExtendedTooltip</name>
             <id>6</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -266,10 +286,10 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаКомандыИнструментовПоддержки</name>
+          <name>GroupSupportToolsCommands</name>
           <id>26</id>
           <items xsi:type="form:Button">
-            <name>НастройкиИнструментов</name>
+            <name>ToolsSettings</name>
             <id>56</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -277,7 +297,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НастройкиИнструментовРасширеннаяПодсказка</name>
+              <name>ToolsSettingsExtendedTooltip</name>
               <id>57</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -300,7 +320,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ВопросРазработчику</name>
+            <name>AskQuestionToDeveloper</name>
             <id>28</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -308,7 +328,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ВопросРазработчикуРасширеннаяПодсказка</name>
+              <name>AskQuestionToDeveloperExtendedTooltip</name>
               <id>29</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -332,7 +352,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>СтраницаРазработки</name>
+            <name>OpenAboutPage</name>
             <id>30</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -340,7 +360,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>СтраницаРазработкиРасширеннаяПодсказка</name>
+              <name>OpenAboutPageExtendedTooltip</name>
               <id>31</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -364,7 +384,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ПроверитьНеобходимостьОбновления</name>
+            <name>CheckUpdate</name>
             <id>32</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -372,7 +392,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПроверитьНеобходимостьОбновленияРасширеннаяПодсказка</name>
+              <name>CheckUpdateExtendedTooltip</name>
               <id>33</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -395,10 +415,10 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаКомандыИнструментовПоддержкиОтладка</name>
+            <name>GroupSupportToolsCommandsDebug</name>
             <id>36</id>
             <items xsi:type="form:Button">
-              <name>ОсобенностиОтладкиВПортативныхИнструментах</name>
+              <name>PortableToolsDebugSpecificity</name>
               <id>34</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -406,7 +426,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ОсобенностиОтладкиВПортативныхИнструментахРасширеннаяПодсказка</name>
+                <name>PortableToolsDebugSpecificityExtendedTooltip</name>
                 <id>35</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -429,11 +449,15 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаКодДляВыполненияОтладки</name>
+              <name>GroupCodeForPerformDebugging</name>
               <id>38</id>
               <items xsi:type="form:Decoration">
-                <name>ИнструкцияПоВыполнениюОтладки</name>
+                <name>DebuggingInstruction</name>
                 <id>40</id>
+                <title>
+                  <key>en</key>
+                  <value>To intercept the request in the debugger, copy and execute the specified code by Shift+F9.</value>
+                </title>
                 <title>
                   <key>ru</key>
                   <value>Для перехвата запроса в отладчике скопируйте и выполните по Shift+F9 указанный код.
@@ -445,7 +469,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ИнструкцияПоВыполнениюОтладкиРасширеннаяПодсказка</name>
+                  <name>DebuggingInstructionExtendedTooltip</name>
                   <id>42</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -460,7 +484,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ИнструкцияПоВыполнениюОтладкиКонтекстноеМеню</name>
+                  <name>DebuggingInstructionContextMenu</name>
                   <id>41</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -477,11 +501,15 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ГруппаКодДляВыполненияОтладкиСеансСЗапущеннымиИнструментами</name>
+                <name>GroupCodeForDebuggingSessionWithRunningTools</name>
                 <id>49</id>
                 <items xsi:type="form:FormField">
-                  <name>АлгоритмВызоваОтладкиНаКлиенте</name>
+                  <name>AlgorithmForCallingDebuggingOnClient</name>
                   <id>43</id>
+                  <title>
+                    <key>en</key>
+                    <value>In a client context, in a thin client of any database and in a thick client in a client-server database</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>В клиентском контексте в тонком клиенте любой базы и в толстом клиенте в клиент-серверной базе</value>
@@ -492,10 +520,10 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>АлгоритмВызоваОтладкиНаКлиенте</segments>
+                    <segments>AlgorithmForCallingDebuggingAtClient</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>АлгоритмВызоваОтладкиНаКлиентеРасширеннаяПодсказка</name>
+                    <name>AlgorithmForCallingDebuggingOnClientExtendedTooltip</name>
                     <id>45</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -510,7 +538,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>АлгоритмВызоваОтладкиНаКлиентеКонтекстноеМеню</name>
+                    <name>AlgorithmForCallingDebuggingOnClientContextMenu</name>
                     <id>44</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -536,8 +564,12 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormField">
-                  <name>АлгоритмВызоваОтладкиНаСервере</name>
+                  <name>AlgorithmForCallingDebuggingAtServer</name>
                   <id>46</id>
+                  <title>
+                    <key>en</key>
+                    <value>In the server context of any database and in the thick client of the file database</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>В серверном контексте любой базы и в толстом клиенте файловой базы</value>
@@ -548,10 +580,10 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>АлгоритмВызоваОтладкиНаСервере</segments>
+                    <segments>AlgorithmForCallingDebuggingAtServer</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>АлгоритмВызоваОтладкиНаСервереРасширеннаяПодсказка</name>
+                    <name>AlgorithmForCallingDebuggingAtServerExtendedTooltip</name>
                     <id>48</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -566,7 +598,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>АлгоритмВызоваОтладкиНаСервереКонтекстноеМеню</name>
+                    <name>AlgorithmForCallingDebuggingAtServerContextMenu</name>
                     <id>47</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -597,11 +629,15 @@
                   <common>true</common>
                 </userVisible>
                 <title>
+                  <key>en</key>
+                  <value>In the session where the tools were launched</value>
+                </title>
+                <title>
                   <key>ru</key>
                   <value>В сеансе, где запускались инструменты</value>
                 </title>
                 <extendedTooltip>
-                  <name>ГруппаКодДляВыполненияОтладкиСеансСЗапущеннымиИнструментамиРасширеннаяПодсказка</name>
+                  <name>GroupCodeForDebuggingSessionWithRunningToolsExtendedTooltip</name>
                   <id>50</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -627,11 +663,15 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ГруппаКодДляВыполненияОтладкиЧерезДоступКОбработке</name>
+                <name>GroupCodeToPerformDebuggingViaDataProcessorAccess</name>
                 <id>51</id>
                 <items xsi:type="form:FormField">
-                  <name>АлгоритмВызоваОтладкиЧерезОбработку</name>
+                  <name>AlgorithmForCallingDebuggingThroughDataProcessor</name>
                   <id>53</id>
+                  <title>
+                    <key>en</key>
+                    <value>In the context of the server and in the thick client</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>В контексте сервера и в толстом клиенте</value>
@@ -642,10 +682,10 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>АлгоритмВызоваОтладкиЧерезОбработку</segments>
+                    <segments>AlgorithmForCallingDebuggingThroughDataProcessor</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>АлгоритмВызоваОтладкиЧерезОбработкуРасширеннаяПодсказка</name>
+                    <name>AlgorithmForCallingDebuggingThroughDataProcessorExtendedTooltip</name>
                     <id>55</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -660,7 +700,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>АлгоритмВызоваОтладкиЧерезОбработкуКонтекстноеМеню</name>
+                    <name>AlgorithmForCallingDebuggingThroughDataProcessorContextMenu</name>
                     <id>54</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -689,11 +729,15 @@
                   <common>true</common>
                 </userVisible>
                 <title>
+                  <key>en</key>
+                  <value>Via data processor file  of portable edition</value>
+                </title>
+                <title>
                   <key>ru</key>
                   <value>Через файл обработки портативной поставки</value>
                 </title>
                 <extendedTooltip>
-                  <name>ГруппаКодДляВыполненияОтладкиЧерезДоступКОбработкеРасширеннаяПодсказка</name>
+                  <name>GroupCodeToPerformDebuggingViaDataProcessorAccessExtendedTooltip</name>
                   <id>52</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -724,11 +768,15 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Code for perform debugging</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Код для выполнения отладки</value>
               </title>
               <extendedTooltip>
-                <name>ГруппаКодДляВыполненияОтладкиРасширеннаяПодсказка</name>
+                <name>GroupCodeForPerformDebuggingExtendedTooltip</name>
                 <id>39</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -759,11 +807,15 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Debug</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Отладка</value>
             </title>
             <extendedTooltip>
-              <name>ГруппаКомандыИнструментовПоддержкиОтладкаРасширеннаяПодсказка</name>
+              <name>GroupSupportToolsCommandsDebugExtendedTooltip</name>
               <id>37</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -797,8 +849,12 @@
             <key>ru</key>
             <value>Группа команды инструментов поддержки</value>
           </title>
+          <title>
+            <key>en</key>
+            <value>Group support tools commands</value>
+          </title>
           <extendedTooltip>
-            <name>ГруппаКомандыИнструментовПоддержкиРасширеннаяПодсказка</name>
+            <name>GroupSupportToolsCommandsExtendedTooltip</name>
             <id>27</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -830,8 +886,12 @@
           <key>ru</key>
           <value>Группа команды инструментов</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Group tools commands</value>
+        </title>
         <extendedTooltip>
-          <name>ГруппаКомандыИнструментовРасширеннаяПодсказка</name>
+          <name>GroupToolsCommandsExtendedTooltip</name>
           <id>2</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -863,8 +923,12 @@
         <key>ru</key>
         <value>Группа страница работы с инструментами</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group page work with tools</value>
+      </title>
       <extendedTooltip>
-        <name>ГруппаСтраницаРаботыСИнструментамиРасширеннаяПодсказка</name>
+        <name>GroupPageWorkWithToolsExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -893,8 +957,12 @@
       <key>ru</key>
       <value>Группа страницы формы</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group form pages</value>
+    </title>
     <extendedTooltip>
-      <name>ГруппаСтраницыФормыРасширеннаяПодсказка</name>
+      <name>GroupFormPagesExtendedTooltip</name>
       <id>15</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -964,10 +1032,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>КаталогИнструментов</name>
+    <name>ToolsDirectory</name>
     <title>
       <key>ru</key>
       <value>Каталог инструментов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tools directory</value>
     </title>
     <id>2</id>
     <valueType>
@@ -1004,7 +1076,17 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АлгоритмВызоваОтладкиНаКлиенте</name>
+    <name>AlgorithmForCallingDebuggingAtClient</name>
+    <title>
+      <key>en</key>
+      <value>Algorithm for calling debugging on client
+
+</value>
+    </title>
+    <title>
+      <key>ru</key>
+      <value>Алгоритм вызова отладки на клиенте</value>
+    </title>
     <id>4</id>
     <valueType>
       <types>String</types>
@@ -1018,10 +1100,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АлгоритмВызоваОтладкиНаСервере</name>
+    <name>AlgorithmForCallingDebuggingAtServer</name>
     <title>
       <key>ru</key>
       <value>Алгоритм вызова отладки на сервере</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Algorithm for calling debugging at server</value>
     </title>
     <id>5</id>
     <valueType>
@@ -1036,10 +1122,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АлгоритмВызоваОтладкиЧерезОбработку</name>
+    <name>AlgorithmForCallingDebuggingThroughDataProcessor</name>
     <title>
       <key>ru</key>
       <value>Алгоритм вызова отладки через обработку</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Algorithm for calling debugging through data processor</value>
     </title>
     <id>6</id>
     <valueType>
