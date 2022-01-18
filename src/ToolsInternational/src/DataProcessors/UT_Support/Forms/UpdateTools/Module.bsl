@@ -10,7 +10,7 @@
 &НаКлиенте 
 Процедура ОбновитьЧерезСкачиваниеФайла()
 	ИмяФайла=UT_CommonClientServer.DownloadFileName();
-	МассивИмениФайла=UT_StringFunctionsClientServer.РазложитьСтрокуВМассивПодстрок(ИмяФайла, ".");
+	МассивИмениФайла=UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(ИмяФайла, ".");
 	РасширениеФайла=МассивИмениФайла[МассивИмениФайла.Количество()-1];
 	
 	

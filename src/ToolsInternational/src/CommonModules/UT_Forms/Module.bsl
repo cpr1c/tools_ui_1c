@@ -1,5 +1,3 @@
-// English Code Area 
-
 #Region ItemsDescription 
 
 Function ItemAttributeNewDescription() Export
