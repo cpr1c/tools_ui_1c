@@ -1137,7 +1137,7 @@ Procedure MarkCollectionTraversalProgress(ExecutionParameters, CollectionName)
 	EndIf;
 	
 	// Register a message to read it from the client session.
-	TimeConsumingOperations.ReportProgress(Percent, Text);
+	UT_TimeConsumingOperations.ReportProgress(Percent, Text);
 EndProcedure
 
 #EndRegion
