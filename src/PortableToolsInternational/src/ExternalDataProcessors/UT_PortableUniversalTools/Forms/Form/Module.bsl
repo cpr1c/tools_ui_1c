@@ -46,67 +46,67 @@ Procedure OnClose(Exit)
 EndProcedure
 
 &AtClientAtServerNoContext
-Function ЗаголовокЭлементаИнструмента(Name, Синоним, ТекстПоиска = "")
-	Title=Синоним;
+Function ToolItemTitle(Name, Synonym, SearchText = "")
+	Title=Synonym;
 	If Not ValueIsFilled(Title) Then
 		Title=Name;
 	EndIf;
 
-	Если ValueIsFilled(ТекстПоиска) Then
-		ЗаголовокИзначальный=Title;
-		ЗаголовокДляПоиска=НРег(ЗаголовокИзначальный);
-		НовыйЗаголовок="";
-		ДлинаСтрокиПоиска=СтрДлина(ТекстПоиска);
+	Если ValueIsFilled(SearchText) Then
+		OriginalTitle=Title;
+		SearchTitle=Lower(OriginalTitle);
+		NewTitle="";
+		SearchStringLength=StrLen(SearchText);
 
-		ПозицияСимвола=СтрНайти(ЗаголовокДляПоиска, ТекстПоиска);
-		Пока ПозицияСимвола > 0 Цикл
-			ФорматированнаяСтрокаПоиска=Новый ФорматированнаяСтрока(Сред(ЗаголовокИзначальный, ПозицияСимвола,
-				ДлинаСтрокиПоиска), Новый Шрифт(, , , Истина), WebЦвета.Красный);
-			НовыйЗаголовок=Новый ФорматированнаяСтрока(НовыйЗаголовок, Лев(ЗаголовокИзначальный, ПозицияСимвола - 1),
-				ФорматированнаяСтрокаПоиска);
+		CharPosition=StrFind(SearchTitle, SearchText);
+		While CharPosition > 0 Do
+			FormattedSearchString=New FormattedString(Mid(OriginalTitle, CharPosition,
+				SearchStringLength), New Font(, , , True), WebColors.Red);
+			NewTitle=New FormattedString(NewTitle, Left(OriginalTitle, CharPosition - 1),
+				FormattedSearchString);
 
-			ЗаголовокИзначальный=Сред(ЗаголовокИзначальный, ПозицияСимвола + ДлинаСтрокиПоиска);
-			ЗаголовокДляПоиска=НРег(ЗаголовокИзначальный);
+			OriginalTitle=Mid(OriginalTitle, CharPosition + SearchStringLength);
+			SearchTitle=Lower(OriginalTitle);
 
-			ПозицияСимвола=СтрНайти(ЗаголовокДляПоиска, ТекстПоиска);
+			CharPosition=StrFind(SearchTitle, SearchText);
 
-		КонецЦикла;
+		EndDo;
 
-		If ValueIsFilled(НовыйЗаголовок) Then
-			НовыйЗаголовок=New ФорматированнаяСтрока(НовыйЗаголовок, ЗаголовокИзначальный);
-			Title=НовыйЗаголовок;
+		If ValueIsFilled(NewTitle) Then
+			NewTitle=New FormattedString(NewTitle, OriginalTitle);
+			Title=NewTitle;
 		Endif;
 	EndIf;
 	Return Title;
 EndFunction
 &AtClient
-Procedure ОбработатьПоиск(СтрокаПоискаПереданная)
-	СортированныйСписок=SortedModulesListToolsForButtons();
+Procedure ProcessSearch(InputSearchString)
+	SortedLust=SortedModulesListToolsForButtons();
 
-	Поиск=TrimAll(Lower(СтрокаПоискаПереданная));
+	Search=TrimAll(Lower(InputSearchString));
 
-	For Each ЭлементСпискаИнструментов In СортированныйСписок Do
-		ВидимостьЭлемента=True;
-		If ValueIsFilled(Поиск) Then
-			ВидимостьЭлемента=StrFind(Lower(ЭлементСпискаИнструментов.Значение), Поиск) > 0 Or StrFind(
-				Lower(ЭлементСпискаИнструментов.Представление), Поиск) > 0;
+	For Each ToolsListItem In SortedLust Do
+		ItemVisibility=True;
+		If ValueIsFilled(Search) Then
+			ItemVisibility=StrFind(Lower(ToolsListItem.Value), Search) > 0 Or StrFind(
+				Lower(ToolsListItem.Presentation), Search) > 0;
 		Endif;
 
-		Элементы[ЭлементСпискаИнструментов.Значение].Видимость=ВидимостьЭлемента;
-		Элементы[ЭлементСпискаИнструментов.Значение].Заголовок=ЗаголовокЭлементаИнструмента(
-			ЭлементСпискаИнструментов.Значение, ЭлементСпискаИнструментов.Представление, Поиск);
+		Items[ToolsListItem.Value].Visible=ItemVisibility;
+		Items[ToolsListItem.Value].Title=ToolItemTitle(
+			ToolsListItem.Value, ToolsListItem.Presentation, Search);
 	EndDo;
 
 EndProcedure
 &AtClient
 Procedure SeacrhStringClearing(Item, StandardProcessing)
-	ОбработатьПоиск("");
+	ProcessSearch("");
 EndProcedure
 
 &AtClient
 Procedure SeacrhStringEditTextChange(Item, Text, StandardProcessing)
 	SearchString = Text;
-	ОбработатьПоиск(Text);
+	ProcessSearch(Text);
 EndProcedure
 
 &AtClient
@@ -142,7 +142,7 @@ Procedure CreateToolsOpenCommandsOnForm()
 
 		Item=Items.Add(Description.Name, Type("FormDecoration"), Parent);
 		//Item.CommandName=Description.Name;
-		Item.Title=ЗаголовокЭлементаИнструмента(Description.Name, Description.Synonym);
+		Item.Title=ToolItemTitle(Description.Name, Description.Synonym);
 		Item.Type=FormDecorationType.Label;
 		Item.Hyperlink=True;
 		Item.ToolTip=Description.ToolTip;
@@ -200,32 +200,32 @@ Function ToolsModulesDescriptionForConnect()
 // METHOD GENERATED IN BUILDING PROCESS
 	
 //	ToolDescription=ModuleDesciptionNew();
-//	ToolDescription.Name="УИ_РедакторСКД";
+//	ToolDescription.Name="UT_DCSEditor";
 //	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
 //	ToolDescription=ModuleDesciptionNew();
-//	ToolDescription.Name="УИ_КонсольОтчетов";
+//	ToolDescription.Name="UT_ReportsConsole";
 //	ToolDescription.MetadataType="Report";
 //	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
 //	ToolDescription=ModuleDesciptionNew();
-//	ToolDescription.Name="УИ_БуферОбменаКлиент";
+//	ToolDescription.Name="UT_ClipboardClient";
 //	ToolDescription.Type="CommonModule";
 //	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
 //	ToolDescription=ModuleDesciptionNew();
-//	ToolDescription.Name="УИ_ОбщегоНазначенияКлиент";
+//	ToolDescription.Name="UT_CommonClient";
 //	ToolDescription.Type="CommonModule";
 //	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
 //	ToolDescription=ModuleDesciptionNew();
 //	
-//	ToolDescription.Name="УИ_ОбщегоНазначенияКлиентСервер";
+//	ToolDescription.Name="UT_CommonClientServer";
 //	ToolDescription.Type="CommonModule";
 //	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
 //	ToolDescription=ModuleDesciptionNew();
-//	ToolDescription.Name="УИ_РаботаСФормами";
+//	ToolDescription.Name="UT_CommonClientServer";
 //	ToolDescription.Type="CommonModule";
 //	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 
@@ -234,7 +234,7 @@ EndFunction
 
 &AtClientAtServerNoContext
 Function SortedModulesListToolsForButtons()
-	ModulesDescription=ОписаниеМодулейИнструментовДляПодключения();
+	ModulesDescription=ToolsModulesDescriptionForConnect();
 
 	ModulesList=New ValueList;
 
@@ -277,7 +277,7 @@ EndFunction
 
 &AtClient
 Procedure ConnectExternalModules()
-	Description=ОписаниеМодулейИнструментовДляПодключения();
+	Description=ToolsModulesDescriptionForConnect();
 
 	PuttedFiles=New Array;
 

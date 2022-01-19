@@ -139,6 +139,7 @@
   <dataProcessors>DataProcessor.UT_CodeConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_ConstantsEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DCSEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DynamicList</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTMLEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
@@ -163,7 +164,6 @@
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
-  <dataProcessors>DataProcessor.UT_DCSEditor</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
 </mdclass:Configuration>
