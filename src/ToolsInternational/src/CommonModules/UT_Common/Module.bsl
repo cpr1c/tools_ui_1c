@@ -309,7 +309,8 @@ Procedure ExecuteObjectMethod(Val Object, Val MethodName, Val Parameters = Undef
 		Test = New Structure(MethodName, MethodName);
 	Except
 		Raise StrTemplate(
-			NStr("ru = 'Некорректное значение параметра MethodName (%1) в Common.ExecuteObjectMethod';en = 'Invalid parameter value MethodName (%1) In Common.ExecuteObjectMethod'"),
+			NStr("ru = 'Некорректное значение параметра MethodName (%1) в Common.ExecuteObjectMethod';
+				 |en = 'Invalid parameter value MethodName (%1) In Common.ExecuteObjectMethod'"),
 			MethodName);
 	EndTry;
 	
@@ -550,7 +551,8 @@ Function ObjectManagerByName(Name)
 		EndIf;
 	EndIf;
 
-	Raise StrTemplate(NStr("ru = 'Не удалось получить менеджер для объекта ""%1""'; en = 'Cannot get a manager for object %1.'"), Name);
+	Raise StrTemplate(NStr("ru = 'Не удалось получить менеджер для объекта ""%1""'; 
+							|en = 'Cannot get a manager for object %1.'"), Name);
 
 EndFunction
 
@@ -630,8 +632,8 @@ EndFunction
 //   String - a string within the maximum length limit.
 //
 Function TrimStringUsingChecksum(String, MaxLength) Export
-	UT_CommonClientServer.Validate(MaxLength >= 32, NStr("ru = 'Параметр МаксимальнаяДлина не может быть меньше 32'; en = 'The MaxLength parameter cannot be less than 32.'"),
-		"Common.TrimStringUsingChecksum");
+	UT_CommonClientServer.Validate(MaxLength >= 32, NStr("ru = 'Параметр МаксимальнаяДлина не может быть меньше 32'; 
+							|en = 'The MaxLength parameter cannot be less than 32.'"),"Common.TrimStringUsingChecksum");
 
 	Result = String;
 	If StrLen(String) > MaxLength Then
@@ -782,7 +784,8 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 
 			If Not AccessRight("Read", ObjectMetadata) Then
 				Raise StrTemplate(
-						NStr("ru = 'Недостаточно прав для работы с таблицей ""%1""'; en = 'Insufficient rights to access table %1.'"), FullMetadataObjectName);
+						NStr("ru = 'Недостаточно прав для работы с таблицей ""%1""'; 
+							  |en = 'Insufficient rights to access table %1.'"), FullMetadataObjectName);
 			EndIf;
 		EndIf;
 
@@ -832,7 +835,8 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 				Result = FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Attributes);
 				If Result.Error Then 
 					Raise СтрШаблон(
-						NStr("ru = 'Неверный второй параметр Attributes в функции Common.ObjectAttributesValues: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"),
+						NStr("ru = 'Неверный второй параметр Attributes в функции Common.ObjectAttributesValues: %1'; 
+							 |en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"),
 						Result.ErrorDescription);
 				EndIf;
 				
@@ -843,7 +847,8 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 		EndDo;
 	Else
 		Raise СтрШаблон(
-			NStr("ru = 'Неверный тип второго параметра Attributes в функции Common.ObjectAttributesValues: %1'; en = 'Invalid value type for the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
+			NStr("ru = 'Неверный тип второго параметра Attributes в функции Common.ObjectAttributesValues: %1';
+				| en = 'Invalid value type for the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
 			String(TypeOf(Attributes)));
 	EndIf;
 	
@@ -909,7 +914,8 @@ Function ObjectAttributesValues(Ref, Val Attributes, SelectAllowedItems = False)
 		Result = FindObjectAttirbuteAvailabilityError(FullMetadataObjectName, Attributes);
 		If Result.Error Then 
 			Raise СтрШаблон(
-				NStr("ru = 'Неверный второй параметр Attributes в функции Common.ObjectAttributesValues: %1'; en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
+				NStr("ru = 'Неверный второй параметр Attributes в функции Common.ObjectAttributesValues: %1'; 
+					 |en = 'Invalid value of the Attributes parameter, function Common.ObjectAttributesValues: %1.'"), 
 				Result.ErrorDescription);
 		EndIf;
 		
@@ -1066,7 +1072,7 @@ Function IsStandaloneWorkplace() Export
 	
 EndFunction
 
-Function CanUseUniversalTools() Export
+Function HasRightToUseUniversalTools() Export
 	Return AccessRight("View", Metadata.Subsystems.UT_UniversalTools);
 EndFunction
 
@@ -1090,10 +1096,11 @@ Procedure AddToCommonCommandsCommandBar(Form, FormMainCommandBar)
 	CommandDescription.CommandName = CommandDescription.Name;
 	CommandDescription.Action="Attachable_ExecuteToolsCommonCommand";
 	CommandDescription.ItemParent=CommandBar;
-	CommandDescription.Picture = БиблиотекаКартинок.НовоеОкно;
-	CommandDescription.Representation = ОтображениеКнопки.Картинка;
-	CommandDescription.ToolTip = "Открывает еще одну пустую форму текущего инструмента";
-	CommandDescription.Title = "Открыть новую форму";
+	CommandDescription.Picture = PictureLib.NewWindow;
+	CommandDescription.Representation = ButtonRepresentation.Picture;
+	CommandDescription.ToolTip =NStr("ru = 'Открывает еще одну пустую форму текущего инструмента';
+									 |en = 'Open one more empty form of current tool'");
+	CommandDescription.Title = NStr("ru = 'Открыть новую форму';en = 'Open new form'");
 	UT_Forms.CreateCommandByDescription(Form, CommandDescription);
 	UT_Forms.CreateButtonByDescription(Form, CommandDescription);
 EndProcedure
@@ -2110,7 +2117,8 @@ Procedure ReplaceRefUsingSingleTransaction(Result, Val Duplicate, Val ExecutionP
 		RollbackTransaction();
 		If ActionState = "LockError" Then
 			ErrorPresentation = DetailErrorDescription(ErrorInfo());
-			Error = StrTemplate(NStr("ru = 'Не удалось заблокировать все места использования %1:'; en = 'Cannot lock all usage instances of %1:'") 
+			Error = StrTemplate(NStr("ru = 'Не удалось заблокировать все места использования %1:';
+			| en = 'Cannot lock all usage instances of %1:'") 
 				+ Chars.LF + ErrorPresentation, Duplicate);
 			RegisterReplacementError(Result, Duplicate, 
 				ReplacementErrorDescription("LockError", Undefined, Undefined, Error));
@@ -2151,7 +2159,8 @@ Procedure ReplaceInConstant(Result, Val UsageInstance, Val WriteParameters, Val 
 			Try
 				Lock.Lock();
 			Except
-				Error = StrTemplate(NStr("ru = 'Не удалось заблокировать константу %1'; en = 'Cannot lock the constant %1.'"), 
+				Error = StrTemplate(NStr("ru = 'Не удалось заблокировать константу %1'; 
+				|en = 'Cannot lock the constant %1.'"), 
 					DataPresentation);
 				ActionState = "LockError";
 				Raise;
@@ -2185,7 +2194,8 @@ Procedure ReplaceInConstant(Result, Val UsageInstance, Val WriteParameters, Val 
 			WriteObjectOnRefsReplace(Manager, WriteParameters);
 		Except
 			ErrorDescription = BriefErrorDescription(ErrorInfo());
-			Error = StrTemplate(NStr("ru = 'Не удалось записать %1 по причине: %2'; en = 'Cannot save %1. Reason: %2'"), 
+			Error = StrTemplate(NStr("ru = 'Не удалось записать %1 по причине: %2'; 
+			|en = 'Cannot save %1. Reason: %2'"), 
 				DataPresentation, ErrorDescription);
 			ActionState = "WritingError";
 			Raise;
@@ -2870,7 +2880,8 @@ Procedure AddModifiedObjectReplacementResults(Result, RepeatSearchTable)
 		EndIf;
 		RegisterReplacementError(Result, Ref, 
 			ReplacementErrorDescription("DataChanged", Data, DataPresentation,
-			NStr("ru = 'Заменены не все места использования. Возможно места использования были добавлены или изменены другим пользователем.'; en = 'Some of the instances were not replaced. Probably these instances were added or edited by other users.'")));
+			NStr("ru = 'Заменены не все места использования. Возможно места использования были добавлены или изменены другим пользователем.';
+			|en = 'Some of the instances were not replaced. Probably these instances were added or edited by other users.'")));
 	EndDo;
 	
 EndProcedure
@@ -3206,7 +3217,7 @@ Procedure ReplaceInRowCollection(CollectionKind, CollectionName, Object, Collect
 	EndIf;
 EndProcedure
 
-Процедура ProcessObjectWithMessageInterceptionOnRefsReplace(Val Object, Val Action, Val WriteMode, Val WriteParameters)
+Procedure ProcessObjectWithMessageInterceptionOnRefsReplace(Val Object, Val Action, Val WriteMode, Val WriteParameters)
 	
     // Saving the current messages before the exception.
 	PreviousMessages = GetUserMessages(True);
@@ -3263,7 +3274,8 @@ Procedure WriteObjectOnRefsReplace (Val Object, Val WriteParameters)
 		
 		If Object.Parent = Object.Ref Then
 			Raise StrTemplate(
-				NStr("ru = 'При записи ""%1"" возникает циклическая ссылка в иерархии.'; en = 'Writing ""%1"" causes an infinite loop in the hierarchy.'"),
+				NStr("ru = 'При записи ""%1"" возникает циклическая ссылка в иерархии.'; 
+				|en = 'Writing ""%1"" causes an infinite loop in the hierarchy.'"),
 				String(Object));
 			EndIf;
 			
@@ -3272,7 +3284,8 @@ Procedure WriteObjectOnRefsReplace (Val Object, Val WriteParameters)
 	// Checking the owner.
 	If ObjectProperties.Owners.Count() > 1 AND Object.Owner = Object.Ref Then
 		Raise StrTemplate(
-			NStr("ru = 'При записи ""%1"" возникает циклическая ссылка в подчинении.'; en = 'Writing ""%1"" causes an infinite loop in the subordination.'"),
+			NStr("ru = 'При записи ""%1"" возникает циклическая ссылка в подчинении.'; 
+			|en = 'Writing ""%1"" causes an infinite loop in the subordination.'"),
 			String(Object));
 	EndIf;
 	
@@ -3447,7 +3460,7 @@ Function TypeInformation(FullNameOrMetadataOrType, Cache)
 //				Else
 					MainDataSeparator = Undefined;
 					AuxiliaryDataSeparator = Undefined;
-//				КонецЕсли;
+//				EndIf;
 
 				Cache.Insert("InDataArea", DataSeparationEnabled() AND SeparatedDataUsageAvailable());
 				Cache.Insert("MainDataSeparator",        MainDataSeparator);
