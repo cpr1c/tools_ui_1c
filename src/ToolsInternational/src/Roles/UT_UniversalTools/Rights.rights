@@ -148,7 +148,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ФайловыйМенеджер</name>
+		<name>DataProcessor.UT_FileManager</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
