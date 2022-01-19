@@ -167,4 +167,5 @@
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
 </mdclass:Configuration>
