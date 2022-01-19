@@ -141,8 +141,10 @@
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
   <dataProcessors>DataProcessor.UT_DynamicList</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTMLEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_JobsConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_JSONEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_MarkedObjectsDeletion</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
@@ -161,9 +163,7 @@
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
-  <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
-  <dataProcessors>DataProcessor.UT_MarkedObjectsDeletion</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
 </mdclass:Configuration>
