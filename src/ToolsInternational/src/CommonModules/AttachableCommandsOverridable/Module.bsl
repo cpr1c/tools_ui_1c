@@ -1,77 +1,77 @@
 &After("OnDefineAttachableCommandsKinds")
-Процедура UT_OnDefineAttachableCommandsKinds(AttachableCommandsKinds)
-	If Not UT_Common.CanUseUniversalTools() Then
+Procedure UT_OnDefineAttachableCommandsKinds(AttachableCommandsKinds)
+	If Not UT_Common.HasRightToUseUniversalTools() Then
 		Return;
 	EndIf;
 	Kind = AttachableCommandsKinds.Add();
 	Kind.Name         = "UT_UniversalTools";
 	Kind.SubmenuName  = "UT_UniversalTools";
-	Kind.Title   = НСтр("ru = 'Инструменты';en = 'Universal tools'");
+	Kind.Title   = NStr("ru = 'Инструменты';en = 'Universal tools'");
 	Kind.Picture    = PictureLib.UT_UniversalToolsSybsystem;
 	Kind.Representation = ButtonRepresentation.Picture;
 	Kind.Order = 1;
 	Kind.FormGroupType=FormGroupType.Popup;
-КонецПроцедуры
+EndProcedure
 
-&После("OnDefineCommandsAttachedToObject")
-Процедура UT_OnDefineCommandsAttachedToObject(FormSettings, Sources, AttachedReportsAndDataProcessors, Commands)
-	If Not UT_Common.CanUseUniversalTools() Then
+&After("OnDefineCommandsAttachedToObject")
+Procedure UT_OnDefineCommandsAttachedToObject(FormSettings, Sources, AttachedReportsAndDataProcessors, Commands)
+	If Not UT_Common.HasRightToUseUniversalTools() Then
 		Return;
 	EndIf;
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
-	Command.ID="УИ_СравнениеОбъектов";
-	Command.Presentation="Сравнить объекты";
+	Command.ID="UT_ObjectsComparsion";
+	Command.Presentation=NStr("ru = 'Сравнить объекты';en = 'Compare objects'");
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
-	Command.Purpose="ДляСписка";
-	Command.ChangesSelectedObjects=Ложь;
-	Command.MultipleChoice=Истина;
-	//		Command.Менеджер = "Обработка.УИ_СравнениеОбъектов";
-	Command.FormName = "Обработка.УИ_СравнениеОбъектов.Форма";
-	Command.FormParameterName = "СравниваемыеОбъекты";
+	Command.Purpose="ForList";
+	Command.ChangesSelectedObjects=False;
+	Command.MultipleChoice=True;
+	//	Command.Manager = "DataProcessor.UT_ObjectsComparsion";
+	Command.FormName = "DataProcessor.UT_ObjectsComparsion.Form";
+	Command.FormParameterName = "ComparedObjects";
 	Command.Order=0;
 
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
 	Command.ID="UT_AddToComparsion";
-	Command.Presentation="Добавить к сравнению";
+	Command.Presentation=NStr("ru = 'Добавить к сравнению';en = 'Add to comparsion'");
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
-	Command.ChangesSelectedObjects=Ложь;
-	Command.MultipleChoice=Истина;
+	Command.ChangesSelectedObjects=False;
+	Command.MultipleChoice=True;
 	Command.Handler = "UT_CommonClient.AddObjectsToComparsion";
 	Command.Order=1;
 
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
 	Command.ID="UT_UploadObjectsToXML";
-	Command.Presentation="Выгрузить объекты в XML";
+	Command.Presentation=NStr("ru = 'Выгрузить объекты в XML';en = 'Upload objects to XML'");
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
-	Command.ChangesSelectedObjects=Ложь;
-	Command.MultipleChoice=Истина;
-	Command.Picture=БиблиотекаКартинок.UT_UploadingResult;
+	Command.ChangesSelectedObjects=False;
+	Command.MultipleChoice=True;
+	Command.Picture=PictureLib.UT_UploadingResult;
 	Command.Handler = "UT_CommonClient.UploadObjectsToXML";
 	Command.Order=1;
 
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
 	Command.ID="UT_EditObject";
-	Command.Presentation="Редактировать объект";
+	Command.Presentation=NStr("ru = 'Редактировать объект';en = 'Edit object'");
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
-	Command.ChangesSelectedObjects=Ложь;
-	Command.MultipleChoice=Ложь;
-	Command.Картинка=БиблиотекаКартинок.UT_DatabaseObjectEditor;
+	Command.ChangesSelectedObjects=False;
+	Command.MultipleChoice=False;
+	Command.Картинка=PictureLib.UT_DatabaseObjectEditor;
 	Command.Handler = "UT_CommonClient.EditObjectCommandHandler";
 	Command.Order=2;
 	
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
 	Command.ID="UT_FindObjectRefs";
-	Command.Presentation="Найти ссылки объект";
+	Command.Presentation=NStr("ru = 'Найти ссылки объект';en = 'Find references to object'");
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
-	Command.ChangesSelectedObjects=Ложь;
-	Command.MultipleChoice=Ложь;
-	Command.Picture=БиблиотекаКартинок.НайтиВСодержании;
+	Command.ChangesSelectedObjects=False;
+	Command.MultipleChoice=False;
+	Command.Picture=PictureLib.SyncContents;
 	Command.Handler = "UT_CommonClient.FindObjectRefsCommandHandler";
 	Command.Order=3;
 	
-КонецПроцедуры
+EndProcedure

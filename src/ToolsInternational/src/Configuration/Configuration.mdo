@@ -139,6 +139,7 @@
   <dataProcessors>DataProcessor.UT_CodeConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_ConstantsEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DCSEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DynamicList</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTMLEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
@@ -147,6 +148,7 @@
   <dataProcessors>DataProcessor.UT_MarkedObjectsDeletion</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ObjectsComparsion</dataProcessors>
   <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_Support</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
@@ -163,8 +165,6 @@
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
+  <dataProcessors>DataProcessor.UT_FileManager</dataProcessors>
 </mdclass:Configuration>
