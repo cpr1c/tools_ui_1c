@@ -46,10 +46,10 @@ Procedure OnClose(Exit)
 EndProcedure
 
 &AtClientAtServerNoContext
-Function ЗаголовокЭлементаИнструмента(Имя, Синоним, ТекстПоиска = "")
+Function ЗаголовокЭлементаИнструмента(Name, Синоним, ТекстПоиска = "")
 	Title=Синоним;
 	If Not ValueIsFilled(Title) Then
-		Title=Имя;
+		Title=Name;
 	EndIf;
 
 	Если ValueIsFilled(ТекстПоиска) Then
@@ -197,36 +197,37 @@ EndFunction
 Function ToolsModulesDescriptionForConnect()
 	Descriptions=New Structure;
 	
-	// МЕТОД ГЕНЕРИРУЕТСЯ ПРИ СБОРКЕ
+// METHOD GENERATED IN BUILDING PROCESS
 	
-//	ОписаниеИнструмента=НовыйОписаниеМодуля();
-//	ОписаниеИнструмента.Имя="УИ_РедакторСКД";
-//	Описания.Вставить(ОписаниеИнструмента.Имя,ОписаниеИнструмента);
+//	ToolDescription=ModuleDesciptionNew();
+//	ToolDescription.Name="УИ_РедакторСКД";
+//	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
-//	ОписаниеИнструмента=НовыйОписаниеМодуля();
-//	ОписаниеИнструмента.Имя="УИ_КонсольОтчетов";
-//	ОписаниеИнструмента.Вид="Отчет";
-//	Описания.Вставить(ОписаниеИнструмента.Имя,ОписаниеИнструмента);
+//	ToolDescription=ModuleDesciptionNew();
+//	ToolDescription.Name="УИ_КонсольОтчетов";
+//	ToolDescription.MetadataType="Report";
+//	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
-//	ОписаниеИнструмента=НовыйОписаниеМодуля();
-//	ОписаниеИнструмента.Имя="УИ_БуферОбменаКлиент";
-//	ОписаниеИнструмента.Тип="ОбщийМодуль";
-//	Описания.Вставить(ОписаниеИнструмента.Имя,ОписаниеИнструмента);
+//	ToolDescription=ModuleDesciptionNew();
+//	ToolDescription.Name="УИ_БуферОбменаКлиент";
+//	ToolDescription.Type="CommonModule";
+//	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
-//	ОписаниеИнструмента=НовыйОписаниеМодуля();
-//	ОписаниеИнструмента.Имя="УИ_ОбщегоНазначенияКлиент";
-//	ОписаниеИнструмента.Тип="ОбщийМодуль";
-//	Описания.Вставить(ОписаниеИнструмента.Имя,ОписаниеИнструмента);
-//	ОписаниеИнструмента=НовыйОписаниеМодуля();
+//	ToolDescription=ModuleDesciptionNew();
+//	ToolDescription.Name="УИ_ОбщегоНазначенияКлиент";
+//	ToolDescription.Type="CommonModule";
+//	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 //	
-//	ОписаниеИнструмента.Имя="УИ_ОбщегоНазначенияКлиентСервер";
-//	ОписаниеИнструмента.Тип="ОбщийМодуль";
-//	Описания.Вставить(ОписаниеИнструмента.Имя,ОписаниеИнструмента);
+//	ToolDescription=ModuleDesciptionNew();
 //	
-//	ОписаниеИнструмента=НовыйОписаниеМодуля();
-//	ОписаниеИнструмента.Имя="УИ_РаботаСФормами";
-//	ОписаниеИнструмента.Тип="ОбщийМодуль";
-//	Описания.Вставить(ОписаниеИнструмента.Имя,ОписаниеИнструмента);
+//	ToolDescription.Name="УИ_ОбщегоНазначенияКлиентСервер";
+//	ToolDescription.Type="CommonModule";
+//	Descriptions.Insert(ToolDescription.Name,ToolDescription);
+//	
+//	ToolDescription=ModuleDesciptionNew();
+//	ToolDescription.Name="УИ_РаботаСФормами";
+//	ToolDescription.Type="CommonModule";
+//	Descriptions.Insert(ToolDescription.Name,ToolDescription);
 
 	Return Descriptions;
 EndFunction

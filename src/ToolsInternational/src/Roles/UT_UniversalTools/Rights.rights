@@ -293,7 +293,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РедакторСКД</name>
+		<name>DataProcessor.UT_DCSEditor</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

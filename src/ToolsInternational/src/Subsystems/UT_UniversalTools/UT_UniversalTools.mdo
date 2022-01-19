@@ -97,7 +97,7 @@
   <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
   <content>CommonTemplate.UT_ClipboardComponent</content>
   <content>CommonModule.UT_ClipboardClient</content>
-  <content>DataProcessor.УИ_РедакторСКД</content>
+  <content>DataProcessor.UT_DCSEditor</content>
   <content>CommonPicture.UT_String</content>
   <content>CommonPicture.UT_Date</content>
   <content>CommonPicture.UT_Boolean</content>
