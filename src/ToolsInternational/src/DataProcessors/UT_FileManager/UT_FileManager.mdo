@@ -4,13 +4,13 @@
     <objectType typeId="56072940-548f-11ea-a08b-e86a6452d1f2" valueTypeId="56072941-548f-11ea-a08b-e86a6452d1f2"/>
     <managerType typeId="56072942-548f-11ea-a08b-e86a6452d1f2" valueTypeId="56072943-548f-11ea-a08b-e86a6452d1f2"/>
   </producedTypes>
-  <name>УИ_ФайловыйМенеджер</name>
+  <name>UT_FileManager</name>
   <synonym>
     <key>ru</key>
     <value>Файловый менеджер [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_ФайловыйМенеджер.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_FileManager.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Файловый менеджер</value>
