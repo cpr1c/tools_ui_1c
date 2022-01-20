@@ -18,7 +18,7 @@ EndProcedure
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	If Parameters.Property("AutoTest") Then // Возврат при получении формы для анализа.
+	If Parameters.Property("AutoTest") Then // Return при получении формы для анализа.
 		Return;
 	EndIf;
 
@@ -131,7 +131,7 @@ Procedure ChangeObject(Command)
 		Return;
 	EndIf;
 
-	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItems Then
+	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItemsTree Then
 		Return;
 	EndIf;
 
@@ -146,7 +146,7 @@ Procedure EditObject(Command)
 		Return;
 	EndIf;
 
-	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItems Then
+	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItemsTree Then
 		Return;
 	EndIf;
 
@@ -256,10 +256,10 @@ Function ValueByType(Value)
 
 		List = New ValueList();
 		List.Add(Value, MetadataObject.FullName());
-		Возврат List;
+		Return List;
 	EndIf;
 
-	Возврат Value;
+	Return Value;
 
 EndFunction
 
@@ -282,7 +282,7 @@ EndProcedure
 &AtClient
 Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 
-	If Result.Статус Then
+	If Result.Status Then
 		For Each DeletionObjectType In DeletionObjectsTypes Do
 			NotifyChanged(DeletionObjectType);
 		EndDo;
@@ -300,7 +300,7 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 			UpdateMarkedTree = False;
 		Else
 			Text = StrTemplate(
-			             Nstr("en = 'Deletion of marked objects has been completed successfully.' 
+			             Nstr("en = 'Deletion of marked objects has been completed successfully. 
 			               |Deleted objects: %1.'; 
 			               |ru = 'Удаление помеченных объектов успешно завершено.
 							  |Удалено объектов: %1.'"), NumberDeletedObjects);
@@ -311,7 +311,7 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 		PageName = "DeletionFailureReasonsPage";
 		For Each Item In NotDeletedItemsTree.GetItems() Do
 			RowId = Item.GetId();
-			Items.NotDeletedItems.Expand(RowId, False);
+			Items.NotDeletedItemsTree.Expand(RowId, False);
 		EndDo;
 		ShowMessageBox( , ResultLine);
 	EndIf;
@@ -376,7 +376,7 @@ Function FindOrAddTreeBranch(TreeRows, Value, Presentation, Mark)
 		Branch.Mark       = Mark;
 	EndIf;
 
-	Возврат Branch;
+	Return Branch;
 
 EndFunction
 
@@ -390,10 +390,10 @@ Function FindOrAddTreeBranchWithPicture(TreeRows, Value, Presentation, PictureNu
 		Branch = TreeRows.Add();
 		Branch.Value      = ValueByType(Value);
 		Branch.Presentation = Presentation;
-		Branch.НомерКартинки = PictureNumber;
+		Branch.PictureNumber = PictureNumber;
 	EndIf;
 
-	Возврат Branch;
+	Return Branch;
 
 EndFunction
 
@@ -412,7 +412,7 @@ Function GetMarkedForDeletion()
 		EndIf;
 	EndDo;
 
-	Возврат Result;
+	Return Result;
 
 EndFunction
 &AtServer
@@ -505,7 +505,7 @@ Function GetArrayMarkedForDeletion(MarkedForDeletionItems, DeletionMode)
 		EndDo;
 	EndIf;
 
-	Возврат Deleted;
+	Return Deleted;
 
 EndFunction
 &AtServer
@@ -542,7 +542,7 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 	EndIf;
 
 	DeletionObjectsTypes = New ValueTable;
-	DeletionObjectsTypes.Colums.Add("Type", New TypeDescription("Type"));
+	DeletionObjectsTypes.Columns.Add("Type", New TypeDescription("Type"));
 	For Each DeletedObject In DeletedArray Do
 		NewType = DeletionObjectsTypes.Add();
 		NewType.Type = TypeOf(DeletedObject);
@@ -552,9 +552,9 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 	NotDeletedObjectsArray = New Array;
 
 	Found = New ValueTable;
-	Found.Colums.Add("DeletionRef");
-	Found.Colums.Add("DetectedRef");
-	Found.Colums.Add("DetectedMetadata");
+	Found.Columns.Add("DeletionRef");
+	Found.Columns.Add("DetectedRef");
+	Found.Columns.Add("DetectedMetadata");
 
 	DeletedObjectsArray = New Array;
 	For Each ObjectRef In DeletedArray Do
@@ -580,7 +580,7 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 			SetPrivilegedMode(False);
 		Except
 //			SetPrivilegedMode(False);
-			DeletionResult.Value = DetailErrorDescription(ИнформацияОбОшибке());
+			DeletionResult.Value = DetailErrorDescription(ErrorInfo());
 			Return DeletionResult;
 		EndTry;
 
@@ -742,7 +742,7 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 			Except
 				SetExclusiveMode(False);
 				DeletionResult.Value = DetailErrorDescription(ErrorInfo());
-				Возврат DeletionResult;
+				Return DeletionResult;
 			Endtry;
 
 			// Deleting everything that is possible was completed - exit the loop.
@@ -768,15 +768,15 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 	DeletionResult.Status = True;
 	DeletionResult.Value = New Structure("Found, NotDeleted", Found, NotDeletedObjectsArray);
 
-	Возврат DeletionResult;
+	Return DeletionResult;
 EndFunction
 &AtServer
-Procedure DeleteMarkedObjects(ПараметрыУдаления, StorageAddress) 
+Procedure DeleteMarkedObjects(DeletionParameters, StorageAddress) 
 	
 	// Extracting the parameters
-	MarkedForDeletionList	= ПараметрыУдаления.MarkedForDeletionItems;
-	DeletionMode				= ПараметрыУдаления.DeletionMode;
-	DeletionObjectsTypes		= ПараметрыУдаления.DeletionObjectsTypes;
+	MarkedForDeletionList	= DeletionParameters.MarkedForDeletionItemsTree;
+	DeletionMode				= DeletionParameters.DeletionMode;
+	DeletionObjectsTypes		= DeletionParameters.DeletionObjectsTypes;
 
 	DeletedItems = GetArrayMarkedForDeletion(MarkedForDeletionList, DeletionMode);
 	NomberDeleted = DeletedItems.Count();
@@ -790,9 +790,9 @@ Procedure DeleteMarkedObjects(ПараметрыУдаления, StorageAddress
 	Else
 		NomberNotDeletedObjects = 0;
 	EndIf;
-	Result.Insetrt("NomberNotDeletedObjects", NomberNotDeletedObjects);
-	Result.Insetrt("NomberDeleted", NomberDeleted);
-	Result.Insetrt("DeletionObjectsTypes", DeletionObjectsTypes);
+	Result.Insert("NomberNotDeletedObjects", NomberNotDeletedObjects);
+	Result.Insert("NomberDeleted", NomberDeleted);
+	Result.Insert("DeletionObjectsTypes", DeletionObjectsTypes);
 
 	PutToTempStorage(Result, StorageAddress);
 
@@ -813,7 +813,7 @@ Function DeletionMarkedAtServer(DeletionObjectsTypes)
 		Result = FillResults(StorageAddress, Result);
 	EndIf;
 
-	Возврат Result;
+	Return Result;
 
 EndFunction
 
@@ -840,7 +840,7 @@ Function FillResults(StorageAddress, Result)
 
 	Result.Insert("DeletionResult", DeletionResult);
 	Result.Insert("ErrorMessage", "");
-	Возврат Result;
+	Return Result;
 
 EndFunction
 
@@ -871,7 +871,7 @@ EndProcedure
 &AtServerNoContext
 Function JobCompleted(ScheduledJobID)
 
-	Возврат UT_TimeConsumingOperations.JobCompleted(ScheduledJobID);
+	Return UT_TimeConsumingOperations.JobCompleted(ScheduledJobID);
 
 EndFunction
 
@@ -879,7 +879,7 @@ EndFunction
 Function FillTreeOfRemainingObjects(Result)
 
 	Found   = Result.Value.Found;
-	UnDeleted = Result.Value.UnDeleted;
+	UnDeleted = Result.Value.NotDeleted;
 
 	NomberNotDeletedObjects = UnDeleted.Количество();
 	
@@ -907,7 +907,7 @@ Function FillTreeOfRemainingObjects(Result)
 
 	Tree.Rows.Sort("Value", True);
 
-	Возврат Tree;
+	Return Tree;
 
 EndFunction
 
@@ -923,7 +923,7 @@ Procedure FillRusultsLine(NomberDeleted)
 			|ru = 'Не удален ни один из объектов, так как в информационной базе существуют ссылки на удаляемые объекты'");
 	Else
 		ResultLine = StrTemplate(
-				Nstr("en = '';
+				Nstr("en = 'Deletion of marked objects was completed. Deleted objects: %1.';
 				|ru = 'Удаление помеченных объектов завершено. Удалено объектов: %1.'"),
 				 String(NumberDeletedObjects));
 	EndIf;

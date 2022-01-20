@@ -212,7 +212,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>MarkedForDeletionItemsTree.Пометка</segments>
+              <segments>MarkedForDeletionItemsTree.Mark</segments>
             </dataPath>
             <handlers>
               <event>OnChange</event>
@@ -257,7 +257,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>MarkedForDeletionItemsTree.Представление</segments>
+              <segments>MarkedForDeletionItemsTree.Presentation</segments>
             </dataPath>
             <extendedTooltip>
               <name>PresentationExtendedTooltip</name>
@@ -1037,7 +1037,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>NotDeletedItemsTree.Представление</segments>
+            <segments>NotDeletedItemsTree.Presentation</segments>
           </dataPath>
           <extendedTooltip>
             <name>NotDeletedItemsPresentationExtendedTooltip</name>
@@ -1493,7 +1493,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>NotDeletedItemsTree.НомерКартинки</segments>
+          <segments>NotDeletedItemsTree.PictureNumber</segments>
         </rowPictureDataPath>
         <borderColor xsi:type="core:ColorRef">
           <color>Style.BorderColor</color>
@@ -2118,10 +2118,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Пометка</name>
+      <name>Mark</name>
       <title>
         <key>ru</key>
         <value>Пометка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Mark</value>
       </title>
       <id>1</id>
       <valueType>
@@ -2135,10 +2139,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value</value>
       </title>
       <id>2</id>
       <valueType/>
@@ -2150,10 +2158,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>3</id>
       <valueType>
@@ -2189,10 +2201,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>НомерКартинки</name>
+      <name>PictureNumber</name>
       <title>
         <key>ru</key>
         <value>Номер картинки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture number</value>
       </title>
       <id>1</id>
       <valueType>
@@ -2210,10 +2226,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value</value>
       </title>
       <id>2</id>
       <valueType/>
@@ -2225,10 +2245,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>3</id>
       <valueType>
@@ -2440,12 +2464,12 @@
   <formCommands>
     <name>CommandNext</name>
     <title>
-      <key>ru</key>
-      <value>Далее</value>
+      <key>en</key>
+      <value>Next</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Command next</value>
+      <key>ru</key>
+      <value>Далее</value>
     </title>
     <id>1</id>
     <use>
@@ -2461,12 +2485,12 @@
   <formCommands>
     <name>CommandSelectedListSetAll</name>
     <title>
-      <key>ru</key>
-      <value>Пометить все объекты на удаление</value>
+      <key>en</key>
+      <value>Select all objects</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Command selected list set all</value>
+      <key>ru</key>
+      <value>Пометить все объекты на удаление</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -2489,12 +2513,12 @@
   <formCommands>
     <name>CommandSelectedListClearAll</name>
     <title>
-      <key>ru</key>
-      <value>Снять все пометки удаления</value>
+      <key>en</key>
+      <value>Clear all objects</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Command selected list clear all</value>
+      <key>ru</key>
+      <value>Снять все пометки удаления</value>
     </title>
     <id>3</id>
     <toolTip>
@@ -2517,12 +2541,12 @@
   <formCommands>
     <name>CommandDelete</name>
     <title>
-      <key>ru</key>
-      <value>Удалить</value>
+      <key>en</key>
+      <value>Delete</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Command delete</value>
+      <key>ru</key>
+      <value>Удалить</value>
     </title>
     <id>4</id>
     <toolTip>
@@ -2542,12 +2566,12 @@
   <formCommands>
     <name>CommandBack</name>
     <title>
-      <key>ru</key>
-      <value>Команда назад</value>
+      <key>en</key>
+      <value>Back</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Command back</value>
+      <key>ru</key>
+      <value>Команда назад</value>
     </title>
     <id>5</id>
     <toolTip>
@@ -2567,12 +2591,12 @@
   <formCommands>
     <name>ChangeObject</name>
     <title>
-      <key>ru</key>
-      <value>Изменить</value>
+      <key>en</key>
+      <value>Change</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Change object</value>
+      <key>ru</key>
+      <value>Изменить</value>
     </title>
     <id>6</id>
     <toolTip>
@@ -2597,12 +2621,12 @@
   <formCommands>
     <name>UpdateDeleteMarkedList</name>
     <title>
-      <key>ru</key>
-      <value>Обновить</value>
+      <key>en</key>
+      <value>Update</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Update delete marked list</value>
+      <key>ru</key>
+      <value>Обновить</value>
     </title>
     <id>7</id>
     <toolTip>
