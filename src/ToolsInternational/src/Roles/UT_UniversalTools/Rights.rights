@@ -148,7 +148,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ФайловыйМенеджер</name>
+		<name>DataProcessor.UT_FileManager</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -293,7 +293,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РедакторСКД</name>
+		<name>DataProcessor.UT_DCSEditor</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -369,7 +369,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_СравнениеОбъектов</name>
+		<name>DataProcessor.UT_ObjectsComparsion</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

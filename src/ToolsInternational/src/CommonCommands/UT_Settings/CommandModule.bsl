@@ -1,9 +1,9 @@
-#Область ОбработчикиСобытий
+#Region EventsHandlers
 
-&НаКлиенте
-Процедура ОбработкаКоманды(ПараметрКоманды, ПараметрыВыполненияКоманды)
-	ПараметрыФормы = Новый Структура;
-	ОткрытьФорму("ОбщаяФорма.UT_Settings", ПараметрыФормы, ПараметрыВыполненияКоманды.Источник, ПараметрыВыполненияКоманды.Уникальность, ПараметрыВыполненияКоманды.Окно, ПараметрыВыполненияКоманды.НавигационнаяСсылка);
-КонецПроцедуры
+&AtClient
+Procedure CommandProcessing(CommandParameter, CommandExecuteParameters)
+	FormParameters = New Structure;
+	OpenForm("CommonForm.UT_Settings", FormParameters, CommandExecuteParameters.Source, CommandExecuteParameters.Uniqueness, CommandExecuteParameters.Window, CommandExecuteParameters.URL);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
