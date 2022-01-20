@@ -865,7 +865,7 @@ Procedure FillByDebugData(DebugDataAddress)
 
 	//Удаляем неиспользуемые символы из строки заголовков
 	SymPos = НайтиНедопустимыеСимволыXML(RequestHeaders);
-	While SymPos > 0 Do
+	While (SymPos > 0) do
 		If SymPos = 1 Then
 			RequestHeaders = Mid(RequestHeaders, 2);
 		Else If SymPos = StrLen(RequestHeaders) Then
