@@ -13,7 +13,7 @@
 	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("UTF16");
 
 	Если Параметры.Свойство("ДанныеОтладки") Тогда
-		ЗаполнитьПоДаннымОтладки(Параметры.ДанныеОтладки);
+		FillByDebugData(Параметры.ДанныеОтладки);
 	КонецЕсли;
 
 	УстановитьДоступностьТелаЗапроса(ThisObject);
@@ -801,7 +801,7 @@
 
 	HTTPMethod = ТекДанные.HTTPMethod;
 	RequestURL = ТекДанные.URL;
-	ЗаголовкиСтрока = ТекДанные.RequestHeaders;
+	HeadersString = ТекДанные.RequestHeaders;
 	RequestBody = ТекДанные.RequestBodyString;
 	RequestBodyEncoding = ТекДанные.RequestBodyEncoding;
 	UseBOM = ТекДанные.BOM;
@@ -828,54 +828,55 @@
 
 	RequestHeadersTable.Очистить();
 	Если TableHeadersEditor Тогда
-		ЗаполнитьТаблицуЗаголовковПоСтроке(ЗаголовкиСтрока);
+		ЗаполнитьТаблицуЗаголовковПоСтроке(HeadersString);
 	КонецЕсли;
 
 	Элементы.ГруппаСтраницыЗапроса.ТекущаяСтраница = Элементы.ГруппаЗапрос;
 КонецПроцедуры
 
-&НаСервере
-Процедура ЗаполнитьПоДаннымОтладки(АдресДанныхОтладки)
-	ДанныеДляОтладки = ПолучитьИзВременногоХранилища(АдресДанныхОтладки);
+&AtServer
+Procedure FillByDebugData(DebugDataAddress)
+	
+	DebugData = GetFromTempStorage(DebugDataAddress);
 
 	RequestURL = "";
-	Если Не ЗначениеЗаполнено(ДанныеДляОтладки.Протокол) Тогда
+	If Not ValueIsFilled(DebugData.Protocol) Then
 		RequestURL = "http";
-	Иначе
-		RequestURL = ДанныеДляОтладки.Протокол;
-	КонецЕсли;
+	Else
+		RequestURL = DebugData.Protocol;
+	EndIf;
 
-	RequestURL = RequestURL + "://" + ДанныеДляОтладки.АдресСервера;
+	RequestURL = RequestURL + "://" + DebugData.ServerAddress;
 
-	Если ЗначениеЗаполнено(ДанныеДляОтладки.Порт) Тогда
-		RequestURL = RequestURL + ":" + Формат(ДанныеДляОтладки.Порт, "ЧГ=0;");
-	КонецЕсли;
+	If ValueIsFilled(DebugData.Port) Then
+		RequestURL = RequestURL + ":" + Format(DebugData.Port, "ЧГ=0;");
+	EndIf;
 
-	Если Не СтрНачинаетсяС(ДанныеДляОтладки.Запрос, "/") Тогда
+	If Not StrStartsWith(DebugData.Request, "/") Then
 		RequestURL = RequestURL + "/";
-	КонецЕсли;
+	EndIf;
 
-	RequestURL = RequestURL + ДанныеДляОтладки.Запрос;
-	TableHeadersEditor = Истина;
+	RequestURL = RequestURL + DebugData.Request;
+	TableHeadersEditor = True;
 
-	Элементы.ГруппаСраницыРедактированияЗаголовковЗапроса.ТекущаяСтраница = Элементы.ГруппаСтраницаРедактированияЗаголовковЗапросаТаблицей;
+	Items.ГруппаСраницыРедактированияЗаголовковЗапроса.CurrentPage = Элементы.ГруппаСтраницаРедактированияЗаголовковЗапросаТаблицей;
 
-	Заголовки = ДанныеДляОтладки.Заголовки;
+	RequestHeaders = DebugData.RequestHeaders;
 
 	//Удаляем неиспользуемые символы из строки заголовков
-	ПозицияСимвола = НайтиНедопустимыеСимволыXML(Заголовки);
-	Пока ПозицияСимвола > 0 Цикл
-		Если ПозицияСимвола = 1 Тогда
-			Заголовки = Сред(Заголовки, 2);
-		ИначеЕсли ПозицияСимвола = СтрДлина(Заголовки) Тогда
-			Заголовки = Лев(Заголовки, СтрДлина(Заголовки) - 1);
-		Иначе
-			НовыеЗаголовки = Лев(Заголовки, ПозицияСимвола - 1) + Сред(Заголовки, ПозицияСимвола + 1);
-			Заголовки = НовыеЗаголовки;
-		КонецЕсли;
+	SymPos = НайтиНедопустимыеСимволыXML(RequestHeaders);
+	While SymPos > 0 Do
+		If SymPos = 1 Then
+			RequestHeaders = Mid(RequestHeaders, 2);
+		Else If SymPos = StrLen(RequestHeaders) Then
+			RequestHeaders = Left(RequestHeaders, StrLen(RequestHeaders) - 1);
+		Else
+			NewHeaders = Left(RequestHeaders, SymPos - 1) + Mid(RequestHeaders, SymPos + 1);
+			RequestHeaders = NewHeaders;
+		EndIf;
 
-		ПозицияСимвола = НайтиНедопустимыеСимволыXML(Заголовки);
-	КонецЦикла;
+		SymPos = НайтиНедопустимыеСимволыXML(RequestHeaders);
+	EndDo;
 
 	ЗаполнитьТаблицуЗаголовковПоСтроке(Заголовки);
 
@@ -907,7 +908,8 @@
 	Иначе
 		UseProxy = Ложь;
 	КонецЕсли;
-КонецПроцедуры
+	
+EndProcedure
 
 &AtServer
 Procedure InitializeForm()
@@ -948,7 +950,6 @@ Procedure InitializeRequest()
 	RequestBodyFileName = "";
 	
 EndProcedure
-
 
 &AtClient
 Procedure РедактироватьТелоЗапросаВРедактореJSONЗавершение(Результат, ДополнительныеПараметры) Экспорт
