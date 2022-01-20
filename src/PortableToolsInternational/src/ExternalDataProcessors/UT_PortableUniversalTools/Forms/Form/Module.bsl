@@ -28,10 +28,10 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
 	Title=Version();
 
-	AlgorithmForCallingDebuggingAtServer="ВнешниеОбработки.Создать(""UT_"")._От(ПараметрыОтладки)";
-	AlgorithmForCallingDebuggingAtClient="ПолучитьФорму(""ВнешняяОбработка.UT_.Форма"")._От(ПараметрыОтладки)";
-	AlgorithmForCallingDebuggingThroughDataProcessor="ВнешниеОбработки.Создать(""" + DataProcessorObject.UsedFileName
-		+ """, Ложь)._От(Запрос)";
+	AlgorithmForCallingDebuggingAtServer="ExternalDataProcessors.Create(""UT_"")._Debug(DebugSettings)";
+	AlgorithmForCallingDebuggingAtClient="GetForm(""ExternalDataProcessor.UT_.Form"")._Debug(DebugSettings)";
+	AlgorithmForCallingDebuggingThroughDataProcessor="ExternalDataProcessors.Create(""" + DataProcessorObject.UsedFileName
+		+ """, False)._Debug(Query)";
 EndProcedure
 
 

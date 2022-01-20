@@ -10,7 +10,7 @@
 //  the necessary information is stored in UT_DebugData
 // 
 // Parameters:
-// 	DebugObject - Object of Query type
+// 	ObjectForDebugging - Object of Query type
 // Return value:
 // DebugDataRef- type String.
 // The result of saving debugging data
