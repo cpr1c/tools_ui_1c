@@ -12719,7 +12719,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_РедакторСКД</types>
+      <types>DataProcessorObject.UT_DCSEditor</types>
     </valueType>
     <view>
       <common>true</common>

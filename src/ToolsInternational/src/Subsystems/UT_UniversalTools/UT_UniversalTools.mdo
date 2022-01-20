@@ -71,7 +71,7 @@
   <content>CommonModule.UT_</content>
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
   <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
-  <content>DataProcessor.УИ_ФайловыйМенеджер</content>
+  <content>DataProcessor.UT_FileManager</content>
   <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
@@ -97,7 +97,7 @@
   <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
   <content>CommonTemplate.UT_ClipboardComponent</content>
   <content>CommonModule.UT_ClipboardClient</content>
-  <content>DataProcessor.УИ_РедакторСКД</content>
+  <content>DataProcessor.UT_DCSEditor</content>
   <content>CommonPicture.UT_String</content>
   <content>CommonPicture.UT_Date</content>
   <content>CommonPicture.UT_Boolean</content>
@@ -106,7 +106,7 @@
   <content>CommonPicture.UT_СustomType</content>
   <content>CommonPicture.UT_AccumulationRecordType</content>
   <content>CommonPicture.UT_Array</content>
-  <content>DataProcessor.УИ_СравнениеОбъектов</content>
+  <content>DataProcessor.UT_ObjectsComparsion</content>
   <content>CommonForm.UT_Settings</content>
   <content>CommonCommand.UT_Settings</content>
   <subsystems>UT_Support</subsystems>

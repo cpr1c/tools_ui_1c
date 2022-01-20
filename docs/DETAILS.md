@@ -17,12 +17,12 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;AdditionalReportsAndDataProcessors</td>
-<td style="height: 17px; width: 66.8125px;">40%</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">47</td>
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;AttachableCommandsOverridable</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">77</td>
 </tr>
 <tr style="height: 17px;">
@@ -117,7 +117,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_StringFunctionsClientServer</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">1293</td>
 </tr>
 <tr style="height: 17px;">
@@ -2667,6 +2667,292 @@
 </td>
 <td width="270">
 <p>Run1CSessionEndLaunch</p>
+</td>
+</tr>
+</tbody>
+</table>
+## UT_StringFunctionClientServer
+
+<table width="850">
+<tbody>
+<tr>
+<td width="445">
+<p>РазложитьСтрокуВМассивПодстрок</p>
+</td>
+<td width="404">
+<p>SplitStringIntoSubstringsArray</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ЭтоРазделительСлов</p>
+</td>
+<td width="404">
+<p>IsWordSeparator</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>РазложитьСтрокуВМассивСлов</p>
+</td>
+<td width="404">
+<p>SplitStringIntoWordArray</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПодставитьПараметрыВСтроку</p>
+</td>
+<td width="404">
+<p>SubstituteParametersToString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПодставитьПараметрыВСтрокуИзМассива</p>
+</td>
+<td width="404">
+<p>SubstituteParametersToStringFromArray</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ВставитьПараметрыВСтроку</p>
+</td>
+<td width="404">
+<p>InsertParametersIntoString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПараметрыИзСтроки</p>
+</td>
+<td width="404">
+<p>ParametersFromString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ТолькоЦифрыВСтроке</p>
+</td>
+<td width="404">
+<p>OnlyNumbersInString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ТолькоКириллицаВСтроке</p>
+</td>
+<td width="404">
+<p>OnlyCyrillicInString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ТолькоЛатиницаВСтроке</p>
+</td>
+<td width="404">
+<p>OnlyRomanInString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СократитьДвойныеКавычки</p>
+</td>
+<td width="404">
+<p>RemoveDoubleQuotationMarks</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>УдалитьПоследнийСимволВСтроке</p>
+</td>
+<td width="404">
+<p>DeleteLastCharInString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ЭтоУникальныйИдентификатор</p>
+</td>
+<td width="404">
+<p>IsUUID</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СформироватьСтрокуСимволов</p>
+</td>
+<td width="404">
+<p>GenerateCharacterString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ДополнитьСтроку</p>
+</td>
+<td width="404">
+<p>SupplementString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>УдалитьПовторяющиесяСимволы</p>
+</td>
+<td width="404">
+<p>DeleteDuplicateChars</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ЗаменитьОдниСимволыДругими</p>
+</td>
+<td width="404">
+<p>ReplaceCharsWithOther</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПреобразоватьЧислоВРимскуюНотацию</p>
+</td>
+<td width="404">
+<p>ConvertNumberIntoRomanNotation</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПреобразоватьЧислоВАрабскуюНотацию</p>
+</td>
+<td width="404">
+<p>ConvertNumberIntoArabicNotation</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ИзвлечьТекстИзHTML</p>
+</td>
+<td width="404">
+<p>ExtractTextFromHTML</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СтрокаЛатиницей</p>
+</td>
+<td width="404">
+<p>LatinString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ФорматированнаяСтрока</p>
+</td>
+<td width="404">
+<p>FormattedString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СтрокаВЧисло</p>
+</td>
+<td width="404">
+<p>StringToNumber</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СтрокаВДату</p>
+</td>
+<td width="404">
+<p>StringToDate</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СтрокаСЧисломДляЛюбогоЯзыка</p>
+</td>
+<td width="404">
+<p>StringWithNumberForAnyLanguage</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПредставлениеИдентификатора</p>
+</td>
+<td width="404">
+<p>IdentifierPresentation</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ЧислоВКонцеСтроки</p>
+</td>
+<td width="404">
+<p>NumberAtStringEnd</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ОбернутьВКавычки</p>
+</td>
+<td width="404">
+<p>WrapInOuotationMarks</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПутьБезКавычек</p>
+</td>
+<td width="404">
+<p>PathWithoutQuotes</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СтрокаНачинаетсяСПодстроки</p>
+</td>
+<td width="404">
+<p>StringStartsWithSubString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СтрокаЗаканчиваетсяПодстрокой</p>
+</td>
+<td width="404">
+<p>StringsEndsWithSubString</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>НайтиСимволСКонца</p>
+</td>
+<td width="404">
+<p>FindCharFromEnd</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПреобразоватьЦифруВРимскуюНотацию</p>
+</td>
+<td width="404">
+<p>ConvertFigureIntoRomanNotation</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>ПодставитьПараметрыСПроцентом</p>
+</td>
+<td width="404">
+<p>SubstituteParametersWithPercentageChar</p>
+</td>
+</tr>
+<tr>
+<td width="445">
+<p>СоответствиеНациональногоАлфавитаИЛатиницы</p>
+</td>
+<td width="404">
+<p>MapOfCyrillicAndLatinAlphabets</p>
 </td>
 </tr>
 </tbody>

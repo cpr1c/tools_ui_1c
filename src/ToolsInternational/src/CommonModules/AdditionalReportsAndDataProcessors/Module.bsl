@@ -1,46 +1,42 @@
-&Вместо("ПодключитьВнешнююОбработку")
-Функция УИ_ПодключитьВнешнююОбработку(Ссылка) Экспорт
-	НастройкаОтладки=UT_Common.AdditionalDataProcessorDebugSettings(Ссылка);
+&Around("AttachExternalDataProcessor")
+Function UT_AttachExternalDataProcessor(Ref) Export
+	DebugSettings=UT_Common.AdditionalDataProcessorDebugSettings(Ref);
 
-	ЕстьОтладка=Ложь;
-	Если НастройкаОтладки.ОтладкаВключена И ЗначениеЗаполнено(НастройкаОтладки.ИмяФайлаНаСервере) Тогда
-		Если НастройкаОтладки.Пользователь=Неопределено 
-			Или Не ЗначениеЗаполнено(НастройкаОтладки.Пользователь) Тогда
-				
-			ЕстьОтладка=Истина;
-		ИначеЕсли НастройкаОтладки.Пользователь=Users.CurrentUser() Тогда
-			ЕстьОтладка=Истина;
-			
-		КонецЕсли;
-	КонецЕсли;
+	HasDebug=False;
+	If DebugSettings.DebugEnabled And ValueIsFilled(DebugSettings.FileNameOnServer) Then
+		If DebugSettings.User=Undefined 
+			Or Not ValueIsFilled(DebugSettings.User) Then
+			HasDebug=True;
+		ElsIf DebugSettings.User=Users.CurrentUser() Then
+			HasDebug=True;
+		EndIf;
+	EndIf;
 
-	Если Не ЕстьОтладка Тогда
-		Возврат ПродолжитьВызов(Ссылка);
-	Иначе
+	If Not HasDebug Then
+		Return ProceedWithCall(Ref);
+	Else
 		
-		ФайлОбработки = Новый Файл(НастройкаОтладки.ИмяФайлаНаСервере);
-		Если НЕ ФайлОбработки.Существует() Тогда
+		DataProcessorFile = New File(DebugSettings.FileNameOnServer);
+		If Not DataProcessorFile.Exist() Then
 		
-			ХранилищеОбработки = Common.ЗначениеРеквизитаОбъекта(Ссылка, "ХранилищеОбработки");
-			ДвоичныеДанные = ХранилищеОбработки.Получить();
-			ДвоичныеДанные.Записать(НастройкаОтладки.ИмяФайлаНаСервере);
+			DataProcessorStorage = Common.ObjectAttributeValue(Ref, "DataProcessorStorage");
+			BinaryData = DataProcessorStorage.Get();
+			BinaryData.Write(DebugSettings.FileNameOnServer);
 		
-		КонецЕсли; 
+		EndIf; 
 		
-		Вид = Common.ObjectAttributeValue(Ссылка, "Вид");
-		Если Вид = Перечисления.ВидыДополнительныхОтчетовИОбработок.Отчет
-			Или Вид = Перечисления.ВидыДополнительныхОтчетовИОбработок.ДополнительныйОтчет Тогда
-			Менеджер = ВнешниеОтчеты;
-		Иначе
-			Менеджер = ВнешниеОбработки;
-		КонецЕсли;
+		Kind = Common.ObjectAttributeValue(Ref, "Kind");
+		If Kind = Enums.AdditionalReportsAndDataProcessorsKinds.Report
+			Or Kind = Enums.AdditionalReportsAndDataProcessorsKinds.AdditionalReport Then
+			Manager = ExternalReports;
+		Else
+			Manager = ExternalDataProcessors;
+		EndIf;
 
-		ОбработкаОбъект = Менеджер.Создать(НастройкаОтладки.ИмяФайлаНаСервере, Ложь);
+		DataProcessorObject = Manager.Create(DebugSettings.FileNameOnServer, False);
 		
-		Возврат СокрЛП(ОбработкаОбъект.Метаданные().Имя);
+		Return TrimAll(DataProcessorObject.Metadata().Name);
 
-		
-		Возврат НастройкаОтладки.ИмяФайлаНаСервере;
-	КонецЕсли;
-	
-КонецФункции
+		Return DebugSettings.FileNameOnServer;
+	EndIf;
+EndFunction
