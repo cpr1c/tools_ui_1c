@@ -35,7 +35,7 @@ EndFunction
 
 #EndIf
 
-#If Сервер Или ТолстыйКлиентОбычноеПриложение Или ТолстыйКлиентУправляемоеПриложение Then
+#If Server Or ThickClientOrdinaryApplication Or ThickClientManagedApplication Then
 	
 // Description
 // 
@@ -51,31 +51,31 @@ EndFunction
 // Key- Name of Temporary Table
 // Value- Content of temporary table
 Function _TempTable(QueryORTempTablesManager) Export
-	If TypeOf(QueryORTempTablesManager) = Type("TempTablesManager") Тогда
-		Возврат UT_CommonServerCall.TempTablesManagerTempTablesStructure(
+	If TypeOf(QueryORTempTablesManager) = Type("TempTablesManager") Then
+		Return UT_CommonServerCall.TempTablesManagerTempTablesStructure(
 			QueryORTempTablesManager);
-	ИначеЕсли ТипЗнч(QueryORTempTablesManager) = Тип("Запрос") Тогда
-		Запрос=Новый Запрос;
-		Запрос.Текст=QueryORTempTablesManager.Текст;
-		Для Каждого Пар Из QueryORTempTablesManager.Параметры Цикл
-			Запрос.УстановитьПараметр(Пар.Ключ, Пар.Значение);
-		КонецЦикла;
+	ElsIf TypeOf(QueryORTempTablesManager) = Type("Query") Then
+		Query=New Query;
+		Query.Text=QueryORTempTablesManager.Text;
+		For Each Parameter In QueryORTempTablesManager.Parameters Do
+			Query.SetParameter(Parameter.Key, Parameter.Value);
+		EndDo;
 
-		Если QueryORTempTablesManager.TempTablesManager = Неопределено Тогда
-			Запрос.TempTablesManager=Новый TempTablesManager;
-		Иначе
-			Запрос.TempTablesManager=QueryORTempTablesManager.TempTablesManager;
-		КонецЕсли;
+		If QueryORTempTablesManager.TempTablesManager = Undefined Then
+			Query.TempTablesManager=New TempTablesManager;
+		Else
+			Query.TempTablesManager=QueryORTempTablesManager.TempTablesManager;
+		EndIf;
 
-		Попытка
-			Запрос.ВыполнитьПакет();
-		Исключение
-			Возврат "Ошибка выполнения запроса " + ОписаниеОшибки();
-		КонецПопытки;
+		Try
+			Query.ExecuteBatch();
+		Except
+			Return NStr("ru = 'Ошибка выполнения запроса';en = 'Query execution error'") + ErrorDescription();
+		EndTry;
 
-		Возврат UT_CommonServerCall.TempTablesManagerTempTablesStructure(
-			Запрос.МенеджерВременныхТаблиц);
-	КонецЕсли;
+		Return UT_CommonServerCall.TempTablesManagerTempTablesStructure(
+			Query.TempTablesManager);
+	EndIf;
 EndFunction
 
 
