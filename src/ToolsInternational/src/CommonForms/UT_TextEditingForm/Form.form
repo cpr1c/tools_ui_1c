@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>Текст</name>
+    <name>Text</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -10,12 +10,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Текст</segments>
+        <segments>Text</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>_ТекстРасширеннаяПодсказка</name>
+      <name>TextExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -30,7 +30,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>_ТекстКонтекстноеМеню</name>
+      <name>TextContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -54,10 +54,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>КоманднаяПанельФормы</name>
+    <name>FormCommandBar</name>
     <id>4</id>
     <items xsi:type="form:Button">
-      <name>_Выполнить</name>
+      <name>_Execute</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -65,7 +65,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>_ВыполнитьРасширеннаяПодсказка</name>
+        <name>_ExecuteExtendedTooltip</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -79,7 +79,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОК</commandName>
+      <commandName>Form.Command.OK</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -88,7 +88,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Закрыть</name>
+      <name>Close</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -96,7 +96,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗакрытьРасширеннаяПодсказка</name>
+        <name>CloseExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -127,12 +127,16 @@
       <key>ru</key>
       <value>Командная панель формы</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Form command bar</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Командная панель формы</value>
     </toolTip>
     <extendedTooltip>
-      <name>КоманднаяПанельФормыРасширеннаяПодсказка</name>
+      <name>FormCommandBarExtendedTooltip</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -163,7 +167,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
@@ -174,7 +178,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Текст</name>
+    <name>Text</name>
     <title>
       <key>ru</key>
       <value>Текст</value>
@@ -192,10 +196,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ОК</name>
+    <name>OK</name>
     <title>
       <key>ru</key>
       <value>ОК</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>OK</value>
     </title>
     <id>1</id>
     <toolTip>
