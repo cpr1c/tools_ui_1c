@@ -1,186 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>Текст</name>
-    <id>1</id>
-    <visible>true</visible>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>Текст</segments>
-      </paths>
-    </dataPath>
-    <titleLocation>None</titleLocation>
-    <extendedTooltip>
-      <name>_ТекстРасширеннаяПодсказка</name>
-      <id>3</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <horizontalAlign>Left</horizontalAlign>
-      </extInfo>
-    </extendedTooltip>
-    <contextMenu>
-      <name>_ТекстКонтекстноеМеню</name>
-      <id>2</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <autoFill>true</autoFill>
-    </contextMenu>
-    <type>TextDocumentField</type>
-    <editMode>Enter</editMode>
-    <showInHeader>true</showInHeader>
-    <headerHorizontalAlign>Left</headerHorizontalAlign>
-    <showInFooter>true</showInFooter>
-    <extInfo xsi:type="form:TextDocFieldExtInfo">
-      <width>50</width>
-      <autoMaxWidth>true</autoMaxWidth>
-      <height>10</height>
-      <autoMaxHeight>true</autoMaxHeight>
-      <horizontalStretch>true</horizontalStretch>
-      <verticalStretch>true</verticalStretch>
-    </extInfo>
-  </items>
-  <items xsi:type="form:FormGroup">
-    <name>КоманднаяПанельФормы</name>
-    <id>4</id>
-    <items xsi:type="form:Button">
-      <name>_Выполнить</name>
-      <id>10</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <extendedTooltip>
-        <name>_ВыполнитьРасширеннаяПодсказка</name>
-        <id>11</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <commandName>Form.Command.ОК</commandName>
-      <representation>Auto</representation>
-      <defaultButton>true</defaultButton>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <placementArea>UserCmds</placementArea>
-      <representationInContextMenu>Auto</representationInContextMenu>
-    </items>
-    <items xsi:type="form:Button">
-      <name>Закрыть</name>
-      <id>12</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <extendedTooltip>
-        <name>ЗакрытьРасширеннаяПодсказка</name>
-        <id>13</id>
-        <visible>true</visible>
-        <enabled>true</enabled>
-        <userVisible>
-          <common>true</common>
-        </userVisible>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <commandName>Form.StandardCommand.Close</commandName>
-      <representation>PictureAndText</representation>
-      <onlyInAllActions>false</onlyInAllActions>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <placementArea>UserCmds</placementArea>
-      <representationInContextMenu>Auto</representationInContextMenu>
-    </items>
-    <visible>true</visible>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <title>
-      <key>ru</key>
-      <value>Командная панель формы</value>
-    </title>
-    <toolTip>
-      <key>ru</key>
-      <value>Командная панель формы</value>
-    </toolTip>
-    <extendedTooltip>
-      <name>КоманднаяПанельФормыРасширеннаяПодсказка</name>
-      <id>5</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <horizontalAlign>Left</horizontalAlign>
-      </extInfo>
-    </extendedTooltip>
-    <type>CommandBar</type>
-    <extInfo xsi:type="form:CommandBarExtInfo">
-      <horizontalAlign>Right</horizontalAlign>
-    </extInfo>
-  </items>
-  <autoCommandBar>
-    <name>ФормаКоманднаяПанель</name>
-    <id>-1</id>
-    <visible>true</visible>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <horizontalAlign>Left</horizontalAlign>
-  </autoCommand
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
-  <items xsi:type="form:FormField">
     <name>Text</name>
-    <id>1</id>
+    <id>21</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>Text</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>Text</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
       <name>TextExtendedTooltip</name>
-      <id>3</id>
+      <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -195,7 +29,7 @@
     </extendedTooltip>
     <contextMenu>
       <name>TextContextMenu</name>
-      <id>2</id>
+      <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -221,16 +55,16 @@
     <name>FormCommandBar</name>
     <id>4</id>
     <items xsi:type="form:Button">
-      <name>_Execute</name>
-      <id>10</id>
+      <name>_Run</name>
+      <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>_ExecuteExtendedTooltip</name>
-        <id>11</id>
+        <name>_RunExtendedTooltip</name>
+        <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -243,7 +77,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.OK</commandName>
+      <commandName>Form.Command.ОК</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -253,7 +87,7 @@
     </items>
     <items xsi:type="form:Button">
       <name>Close</name>
-      <id>12</id>
+      <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -261,7 +95,7 @@
       </userVisible>
       <extendedTooltip>
         <name>CloseExtendedTooltip</name>
-        <id>13</id>
+        <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -333,19 +167,15 @@
     <event>OnCreateAtServer</event>
     <name>OnCreateAtServer</name>
   </handlers>
-  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
-  <autoUrl>true</autoUrl>
-  <group>Vertical</group>
-  <autoFillCheck>true</autoFillCheck>
-  <allowFormCustomize>true</allowFormCustomize>
-  <enabled>true</enabled>
-  <showTitle>true</showTitle>
-  <showCloseButton>true</showCloseButton>
   <attributes>
     <name>Text</name>
     <title>
       <key>ru</key>
       <value>Текст</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text</value>
     </title>
     <id>2</id>
     <valueType>
@@ -360,14 +190,10 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>OK</name>
+    <name>ОК</name>
     <title>
       <key>ru</key>
       <value>ОК</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>OK</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -384,8 +210,4 @@
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
-  <commandInterface>
-    <navigationPanel/>
-    <commandBar/>
-  </commandInterface>
 </form:Form>
