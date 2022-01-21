@@ -2,7 +2,7 @@
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
     <name>Text</name>
-    <id>14</id>
+    <id>21</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -14,7 +14,7 @@
     <titleLocation>None</titleLocation>
     <extendedTooltip>
       <name>TextExtendedTooltip</name>
-      <id>16</id>
+      <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -29,7 +29,7 @@
     </extendedTooltip>
     <contextMenu>
       <name>TextContextMenu</name>
-      <id>15</id>
+      <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -52,19 +52,19 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>КоманднаяПанельФормы</name>
+    <name>FormCommandBar</name>
     <id>4</id>
     <items xsi:type="form:Button">
-      <name>_Выполнить</name>
-      <id>10</id>
+      <name>_Run</name>
+      <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>_ВыполнитьРасширеннаяПодсказка</name>
-        <id>11</id>
+        <name>_RunExtendedTooltip</name>
+        <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -86,16 +86,16 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Закрыть</name>
-      <id>12</id>
+      <name>Close</name>
+      <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗакрытьРасширеннаяПодсказка</name>
-        <id>13</id>
+        <name>CloseExtendedTooltip</name>
+        <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -125,12 +125,16 @@
       <key>ru</key>
       <value>Командная панель формы</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Form command bar</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Командная панель формы</value>
     </toolTip>
     <extendedTooltip>
-      <name>КоманднаяПанельФормыРасширеннаяПодсказка</name>
+      <name>FormCommandBarExtendedTooltip</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -166,10 +170,14 @@
   <attributes>
     <name>Text</name>
     <title>
+      <key>ru</key>
+      <value>Текст</value>
+    </title>
+    <title>
       <key>en</key>
       <value>Text</value>
     </title>
-    <id>1</id>
+    <id>2</id>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -181,4 +189,25 @@
       <common>true</common>
     </edit>
   </attributes>
+  <formCommands>
+    <name>ОК</name>
+    <title>
+      <key>ru</key>
+      <value>ОК</value>
+    </title>
+    <id>1</id>
+    <toolTip>
+      <key>ru</key>
+      <value>ОК</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ОК</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
 </form:Form>
