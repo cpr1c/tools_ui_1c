@@ -2146,7 +2146,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>RequestBodyFormat</name>
+              <name>ВидТелаЗапроса</name>
               <id>158</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2162,7 +2162,7 @@
                 <name>ВидТелаЗапросаПриИзменении</name>
               </handlers>
               <extendedTooltip>
-                <name>RequestBodyFormatExtendedTooltip</name>
+                <name>ПолеРасширеннаяПодсказка25</name>
                 <id>160</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2177,7 +2177,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>RequestBodyFormatContextMenu</name>
+                <name>ПолеКонтекстноеМеню25</name>
                 <id>159</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2193,32 +2193,31 @@
               <showInFooter>true</showInFooter>
               <extInfo xsi:type="form:RadioButtonsFieldExtInfo">
                 <radioButtonsType>Tumbler</radioButtonsType>
-                <equalElementsWidth>true</equalElementsWidth>
                 <choiceList>
                   <presentation>
                     <key>ru</key>
-                    <value>String</value>
+                    <value>Строкой</value>
                   </presentation>
                   <value xsi:type="core:StringValue">
-                    <value>String</value>
+                    <value>Строкой</value>
                   </value>
                 </choiceList>
                 <choiceList>
                   <presentation>
                     <key>ru</key>
-                    <value>Binary data</value>
+                    <value>Двоичные данные</value>
                   </presentation>
                   <value xsi:type="core:StringValue">
-                    <value>BinaryData</value>
+                    <value>ДвоичныеДанные</value>
                   </value>
                 </choiceList>
                 <choiceList>
                   <presentation>
                     <key>ru</key>
-                    <value>File</value>
+                    <value>Файл</value>
                   </presentation>
                   <value xsi:type="core:StringValue">
-                    <value>File</value>
+                    <value>Файл</value>
                   </value>
                 </choiceList>
               </extInfo>
@@ -2313,7 +2312,7 @@
                   <choiceList>
                     <presentation>
                       <key>ru</key>
-                      <value>Auto</value>
+                      <value>Авто</value>
                     </presentation>
                     <value xsi:type="core:NumberValue">
                       <value>0</value>
@@ -2322,7 +2321,7 @@
                   <choiceList>
                     <presentation>
                       <key>ru</key>
-                      <value>Enabled</value>
+                      <value>Использовать</value>
                     </presentation>
                     <value xsi:type="core:NumberValue">
                       <value>1</value>
@@ -2331,7 +2330,7 @@
                   <choiceList>
                     <presentation>
                       <key>ru</key>
-                      <value>Disabled</value>
+                      <value>Не использовать</value>
                     </presentation>
                     <value xsi:type="core:NumberValue">
                       <value>2</value>
@@ -2340,7 +2339,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormField">
-                <name>RequestBodyEncoding</name>
+                <name>КодировкаТелаЗапроса</name>
                 <id>57</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2352,7 +2351,7 @@
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
-                  <name>RequestBodyEncodingExtendedTooltip</name>
+                  <name>ПолеРасширеннаяПодсказка8</name>
                   <id>59</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2367,7 +2366,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>RequestBodyEncodingContextMenu</name>
+                  <name>ПолеКонтекстноеМеню8</name>
                   <id>58</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2392,10 +2391,10 @@
                   <choiceList>
                     <presentation>
                       <key>ru</key>
-                      <value>Auto</value>
+                      <value>Авто</value>
                     </presentation>
                     <value xsi:type="core:StringValue">
-                      <value>Auto</value>
+                      <value>Авто</value>
                     </value>
                   </choiceList>
                 </extInfo>

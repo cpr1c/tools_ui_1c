@@ -4,7 +4,7 @@
 Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
 	StartHeader = Заголовок;
 
-	InitializeForm();
+	ИнициализироватьФорму();
 
 	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("Системная");
 	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("ANSI");
@@ -309,7 +309,7 @@
 Процедура ОтработкаЗагрузкиИзАдреса(Адрес)
 	Попытка
 		ЗагрузитьФайлКонсолиНаСервере(Адрес);
-		InitializeRequest();
+		ИнициализироватьЗапрос();
 	Исключение
 		RequestsFileName = "";
 		Возврат;
@@ -379,7 +379,7 @@
 &НаКлиенте
 Процедура ИнициализироватьКонсоль()
 	RequestHistory.Очистить();
-	InitializeRequest();
+	ИнициализироватьЗапрос();
 КонецПроцедуры
 
 // Завершение обработчика создания нового файла запросов.
@@ -806,7 +806,7 @@
 	RequestBodyEncoding = ТекДанные.RequestBodyEncoding;
 	UseBOM = ТекДанные.BOM;
 	RequestBodyFormat = ТекДанные.RequestBodyFormat;
-	ВидТелаЗапросаПриИзменении(Элементы.RequestBodyFormat);
+	ВидТелаЗапросаПриИзменении(Элементы.ВидТелаЗапроса);
 	RequestBodyFileName = ТекДанные.RequestBodyFileName;
 	Timeout=ТекДанные.Timeout;
 
@@ -909,54 +909,49 @@
 	КонецЕсли;
 КонецПроцедуры
 
-&AtServer
-Procedure InitializeForm()
-	
+&НаСервере
+Процедура ИнициализироватьФорму()
 	HTTPMethod = "GET";
-	RequestBodyEncoding = "Auto";
-	RequestBodyFormat = "String";
+	RequestBodyEncoding = "Авто";
+	RequestBodyFormat = "Строкой";
 	Timeout=30;
-	RequestBodyFileAddress = PutToTempStorage(New Structure, UUID);
-	RequestBodyBinaryDataAddress = PutToTempStorage(Undefined, UUID);
-	
-EndProcedure
+	RequestBodyFileAddress = ПоместитьВоВременноеХранилище(Новый Структура, УникальныйИдентификатор);
+	RequestBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(Неопределено, УникальныйИдентификатор);
+КонецПроцедуры
 
-&AtClient
-Procedure InitializeRequest()
-	
+&НаКлиенте
+Процедура ИнициализироватьЗапрос()
 	HTTPMethod = "GET";
-	RequestBodyEncoding = "Auto";
-	RequestBodyFormat = "String";
-	RequestBodyFileAddress = PutToTempStorage(New Structure, UUID);
-	RequestBodyBinaryDataAddress = PutToTempStorage(Undefined, UUID);
+	RequestBodyEncoding = "Авто";
+	RequestBodyFormat = "Строкой";
+	RequestBodyFileAddress = ПоместитьВоВременноеХранилище(Новый Структура, УникальныйИдентификатор);
+	RequestBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(Неопределено, УникальныйИдентификатор);
 	RequestURL = "";
 	UseBOM = 0;
 
-	//proxy
-	UseProxy = False;
+	//прокси
+	UseProxy = Ложь;
 	ProxyServer = "";
 	ProxyPort = 0;
 	ProxyUser = "";
 	ProxyPassword = "";
-	OSAuthentificationProxy = False;
+	OSAuthentificationProxy = Ложь;
 
 	HeadersString = "";
-	RequestHeadersTable.Clear();
+	RequestHeadersTable.Очистить();
 
 	RequestBody = "";
 	RequestBodyBinaryDataString = "";
 	RequestBodyFileName = "";
-	
-EndProcedure
+КонецПроцедуры
 
-
-&AtClient
-Procedure РедактироватьТелоЗапросаВРедактореJSONЗавершение(Результат, ДополнительныеПараметры) Экспорт
+&НаКлиенте
+Процедура РедактироватьТелоЗапросаВРедактореJSONЗавершение(Результат, ДополнительныеПараметры) Экспорт
 	Если Результат = Неопределено Тогда
 		Возврат;
 	КонецЕсли;
 
 	RequestBody=Результат;
-EndProcedure
+КонецПроцедуры
 
 #EndRegion

@@ -26,10 +26,6 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Картинки</v8:content>
 						</v8:item>
-						<v8:item>
-							<v8:lang>en</v8:lang>
-							<v8:content>Pictures</v8:content>
-						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -244,13 +240,13 @@
 		<id>28</id>
 		<formatIndex>0</formatIndex>
 		<beginRow>5</beginRow>
-		<beginRowOffset>12</beginRowOffset>
+		<beginRowOffset>0</beginRowOffset>
 		<endRow>6</endRow>
-		<endRowOffset>15</endRowOffset>
-		<beginColumn>1</beginColumn>
-		<beginColumnOffset>117</beginColumnOffset>
-		<endColumn>1</endColumn>
-		<endColumnOffset>165</endColumnOffset>
+		<endRowOffset>3</endRowOffset>
+		<beginColumn>2</beginColumn>
+		<beginColumnOffset>0</beginColumnOffset>
+		<endColumn>2</endColumn>
+		<endColumnOffset>48</endColumnOffset>
 		<autoSize>false</autoSize>
 		<pictureSize>RealSize</pictureSize>
 		<zOrder>0</zOrder>
@@ -499,112 +495,112 @@
 	<height>15</height>
 	<vgRows>15</vgRows>
 	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_ValueList</name>
-		<drawingID>42</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Number</name>
-		<drawingID>13</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_String</name>
-		<drawingID>14</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Boundary</name>
-		<drawingID>22</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_PointInTime</name>
-		<drawingID>21</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Date</name>
-		<drawingID>15</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Boolean</name>
-		<drawingID>16</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_UUID</name>
-		<drawingID>17</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Undefined</name>
-		<drawingID>38</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Type</name>
-		<drawingID>19</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Null</name>
-		<drawingID>37</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_CalculationType</name>
-		<drawingID>34</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_AccumulationRecordType</name>
-		<drawingID>27</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_ValueTable</name>
-		<drawingID>40</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_AccountingRecordType</name>
-		<drawingID>35</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_AccountType</name>
-		<drawingID>36</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_Array</name>
-		<drawingID>41</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Progress</name>
+		<name>ПрогрессВыполнения</name>
 		<drawingID>39</drawingID>
 	</namedItem>
 	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_CatalogRef</name>
-		<drawingID>24</drawingID>
+		<name>Тип_Null</name>
+		<drawingID>37</drawingID>
 	</namedItem>
 	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_DocumentRef</name>
-		<drawingID>26</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_ExchangePlanRef</name>
-		<drawingID>30</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_ChartOfCalculationTypesRef</name>
-		<drawingID>28</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_ChartOfCharacteristicTypesRef</name>
-		<drawingID>29</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_ChartOfAccountsRef</name>
-		<drawingID>31</drawingID>
-	</namedItem>
-	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_BusinessProcessRef</name>
+		<name>Тип_БизнесПроцессСсылка</name>
 		<drawingID>32</drawingID>
 	</namedItem>
 	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_TaskRef</name>
+		<name>Тип_Булево</name>
+		<drawingID>16</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ВидДвиженияБухгалтерии</name>
+		<drawingID>35</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ВидДвиженияНакопления</name>
+		<drawingID>27</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ВидРасчета</name>
+		<drawingID>34</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ВидСчета</name>
+		<drawingID>36</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_Граница</name>
+		<drawingID>22</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_Дата</name>
+		<drawingID>15</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ДокументСсылка</name>
+		<drawingID>26</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ЗадачаСсылка</name>
 		<drawingID>33</drawingID>
 	</namedItem>
 	<namedItem xsi:type="NamedItemDrawing">
-		<name>Type_EnumRef</name>
+		<name>Тип_Массив</name>
+		<drawingID>41</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_МоментВремени</name>
+		<drawingID>21</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_Неопределено</name>
+		<drawingID>38</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ПеречислениеСсылка</name>
 		<drawingID>25</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ПланВидовРасчетаСсылка</name>
+		<drawingID>28</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ПланВидовХарактеристикСсылка</name>
+		<drawingID>29</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ПланОбменаСсылка</name>
+		<drawingID>30</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ПланСчетовСсылка</name>
+		<drawingID>31</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_СписокЗначений</name>
+		<drawingID>42</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_СправочникСсылка</name>
+		<drawingID>24</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_Строка</name>
+		<drawingID>14</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_ТаблицаЗначений</name>
+		<drawingID>40</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_Тип</name>
+		<drawingID>19</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_УникальныйИдентификатор</name>
+		<drawingID>17</drawingID>
+	</namedItem>
+	<namedItem xsi:type="NamedItemDrawing">
+		<name>Тип_Число</name>
+		<drawingID>13</drawingID>
 	</namedItem>
 	<format>
 		<width>72</width>
