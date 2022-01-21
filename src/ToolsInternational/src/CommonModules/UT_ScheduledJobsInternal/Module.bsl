@@ -82,252 +82,252 @@ Procedure AddBackgroundJobProperties(Val BackgroundJobArray, Val BackgroundJobPr
 	
 EndProcedure
 
-// Возвращает таблицу свойств фоновых заданий.
-//  Структуру таблицы смотри в функции ПустаяТаблицаСвойствФоновыхЗаданий().
+// Returns a background job property table.
+//  See the table structure in the EmptyBackgroundJobPropertyTable() function.
 // 
-// Параметры:
-//  Отбор        - Структура - допустимые поля:
-//                 Идентификатор, Ключ, Состояние, Начало, Конец,
-//                 Наименование, ИмяМетода, РегламентноеЗадание. 
+// Parameters:
+//  Filter - Structure - valid fields:
+//                 ID, Key, State, Beginning, End,
+//                 Description, MethodName, and ScheduledJob.
 //
-// Возвращаемое значение:
-//  ТаблицаЗначений  - возвращается таблица после отбора.
+// Returns:
+//  ValueTable returns a table after filter.
 //
-Функция СвойстваФоновыхЗаданий(Отбор = Неопределено) Экспорт
-
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
-
-	Таблица = НовыеСвойстваФоновыхЗаданий();
-
-	Если ЗначениеЗаполнено(Отбор) И Отбор.Свойство("ПолучитьПоследнееФоновоеЗаданиеРегламентногоЗадания") Тогда
-		Отбор.Удалить("ПолучитьПоследнееФоновоеЗаданиеРегламентногоЗадания");
-		ПолучитьПоследнее = Истина;
-	Иначе
-		ПолучитьПоследнее = Ложь;
-	КонецЕсли;
-
-	РегламентноеЗадание = Неопределено;
+Function BackgroundJobsProperties(Filter = Undefined) Export
 	
-	// Добавление истории фоновых заданий, полученных с сервера.
-	Если ЗначениеЗаполнено(Отбор) И Отбор.Свойство("ИдентификаторРегламентногоЗадания") Тогда
-		Если Отбор.ИдентификаторРегламентногоЗадания <> "" Тогда
-			РегламентноеЗадание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(
-				Новый УникальныйИдентификатор(Отбор.ИдентификаторРегламентногоЗадания));
-			ТекущийОтбор = Новый Структура("Ключ", Отбор.ИдентификаторРегламентногоЗадания);
-			ФоновыеЗаданияЗапущенныеВручную = ФоновыеЗадания.ПолучитьФоновыеЗадания(ТекущийОтбор);
-			Если РегламентноеЗадание <> Неопределено Тогда
-				ПоследнееФоновоеЗадание = РегламентноеЗадание.ПоследнееЗадание;
-			КонецЕсли;
-			Если Не ПолучитьПоследнее Или ПоследнееФоновоеЗадание = Неопределено Тогда
-				ТекущийОтбор = Новый Структура("РегламентноеЗадание", РегламентноеЗадание);
-				АвтоматическиеФоновыеЗадания = ФоновыеЗадания.ПолучитьФоновыеЗадания(ТекущийОтбор);
-			КонецЕсли;
-			Если ПолучитьПоследнее Тогда
-				Если ПоследнееФоновоеЗадание = Неопределено Тогда
-					ПоследнееФоновоеЗадание = ПоследнееФоновоеЗаданиеВМассиве(АвтоматическиеФоновыеЗадания);
-				КонецЕсли;
-
-				ПоследнееФоновоеЗадание = ПоследнееФоновоеЗаданиеВМассиве(
-					ФоновыеЗаданияЗапущенныеВручную, ПоследнееФоновоеЗадание);
-
-				Если ПоследнееФоновоеЗадание <> Неопределено Тогда
-					МассивФоновыхЗаданий = Новый Массив;
-					МассивФоновыхЗаданий.Добавить(ПоследнееФоновоеЗадание);
-					ДобавитьСвойстваФоновыхЗаданий(МассивФоновыхЗаданий, Таблица);
-				КонецЕсли;
-				Возврат Таблица;
-			КонецЕсли;
-			ДобавитьСвойстваФоновыхЗаданий(ФоновыеЗаданияЗапущенныеВручную, Таблица);
-			ДобавитьСвойстваФоновыхЗаданий(АвтоматическиеФоновыеЗадания, Таблица);
-		Иначе
-			МассивФоновыхЗаданий = Новый Массив;
-			ВсеИдентификаторыРегламентныхЗаданий = Новый Соответствие;
-			Для Каждого ТекущееЗадание Из РегламентныеЗадания.ПолучитьРегламентныеЗадания() Цикл
-				ВсеИдентификаторыРегламентныхЗаданий.Вставить(
-					Строка(ТекущееЗадание.УникальныйИдентификатор), Истина);
-			КонецЦикла;
-			ВсеФоновыеЗадания = ФоновыеЗадания.ПолучитьФоновыеЗадания();
-			Для Каждого ТекущееЗадание Из ВсеФоновыеЗадания Цикл
-				Если ТекущееЗадание.РегламентноеЗадание = Неопределено
-					И ВсеИдентификаторыРегламентныхЗаданий[ТекущееЗадание.Ключ] = Неопределено Тогда
-
-					МассивФоновыхЗаданий.Добавить(ТекущееЗадание);
-				КонецЕсли;
-			КонецЦикла;
-			ДобавитьСвойстваФоновыхЗаданий(МассивФоновыхЗаданий, Таблица);
-		КонецЕсли;
-	Иначе
-		Если Не ЗначениеЗаполнено(Отбор) Тогда
-			МассивФоновыхЗаданий = ФоновыеЗадания.ПолучитьФоновыеЗадания();
-		Иначе
-			Если Отбор.Свойство("Идентификатор") Тогда
-				Отбор.Вставить("УникальныйИдентификатор", Новый УникальныйИдентификатор(Отбор.Идентификатор));
-				Отбор.Удалить("Идентификатор");
-			КонецЕсли;
-			МассивФоновыхЗаданий = ФоновыеЗадания.ПолучитьФоновыеЗадания(Отбор);
-			Если Отбор.Свойство("УникальныйИдентификатор") Тогда
-				Отбор.Вставить("Идентификатор", Строка(Отбор.УникальныйИдентификатор));
-				Отбор.Удалить("УникальныйИдентификатор");
-			КонецЕсли;
-		КонецЕсли;
-		ДобавитьСвойстваФоновыхЗаданий(МассивФоновыхЗаданий, Таблица);
-	КонецЕсли;
-
-	Если ЗначениеЗаполнено(Отбор) И Отбор.Свойство("ИдентификаторРегламентногоЗадания") Тогда
-		РегламентныеЗаданияДляОбработки = Новый Массив;
-		Если Отбор.ИдентификаторРегламентногоЗадания <> "" Тогда
-			Если РегламентноеЗадание = Неопределено Тогда
-				РегламентноеЗадание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(
-					Новый УникальныйИдентификатор(Отбор.ИдентификаторРегламентногоЗадания));
-			КонецЕсли;
-			Если РегламентноеЗадание <> Неопределено Тогда
-				РегламентныеЗаданияДляОбработки.Добавить(РегламентноеЗадание);
-			КонецЕсли;
-		КонецЕсли;
-	Иначе
-		РегламентныеЗаданияДляОбработки = РегламентныеЗадания.ПолучитьРегламентныеЗадания();
-	КонецЕсли;
-
-	Таблица.Сортировать("Начало Убыв, Конец Убыв");
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
 	
-	// Отбор фоновых заданий.
-	Если ЗначениеЗаполнено(Отбор) Тогда
-		Начало    = Неопределено;
-		Конец     = Неопределено;
-		Состояние = Неопределено;
-		Если Отбор.Свойство("Начало") Тогда
-			Начало = ?(ЗначениеЗаполнено(Отбор.Начало), Отбор.Начало, Неопределено);
-			Отбор.Удалить("Начало");
-		КонецЕсли;
-		Если Отбор.Свойство("Конец") Тогда
-			Конец = ?(ЗначениеЗаполнено(Отбор.Конец), Отбор.Конец, Неопределено);
-			Отбор.Удалить("Конец");
-		КонецЕсли;
-		Если Отбор.Свойство("Состояние") Тогда
-			Если ТипЗнч(Отбор.Состояние) = Тип("Массив") Тогда
-				Состояние = Отбор.Состояние;
-				Отбор.Удалить("Состояние");
-			КонецЕсли;
-		КонецЕсли;
+	Table = NewBackgroundJobsProperties();
+	
+	If ValueIsFilled(Filter) AND Filter.Property("GetLastScheduledJobBackgroundJob") Then
+		Filter.Delete("GetLastScheduledJobBackgroundJob");
+		GetLast = True;
+	Else
+		GetLast = False;
+	EndIf;
+	
+	ScheduledJob = Undefined;
+	
+	// Adding the history of background jobs received from the server.
+	If ValueIsFilled(Filter) AND Filter.Property("ScheduledJobID") Then
+		If Filter.ScheduledJobID <> "" Then
+			ScheduledJob = ScheduledJobs.FindByUUID(
+				New UUID(Filter.ScheduledJobID));
+			CurrentFilter = New Structure("Key", Filter.ScheduledJobID);
+			BackgroundJobsStartedManually = BackgroundJobs.GetBackgroundJobs(CurrentFilter);
+			If ScheduledJob <> Undefined Then
+				LastBackgroundJob = ScheduledJob.LastJob;
+			EndIf;
+			If NOT GetLast OR LastBackgroundJob = Undefined Then
+				CurrentFilter = New Structure("ScheduledJob", ScheduledJob);
+				AutomaticBackgroundJobs = BackgroundJobs.GetBackgroundJobs(CurrentFilter);
+			EndIf;
+			If GetLast Then
+				If LastBackgroundJob = Undefined Then
+					LastBackgroundJob = LastBackgroundJobInArray(AutomaticBackgroundJobs);
+				EndIf;
+				
+				LastBackgroundJob = LastBackgroundJobInArray(
+					BackgroundJobsStartedManually, LastBackgroundJob);
+				
+				If LastBackgroundJob <> Undefined Then
+					BackgroundJobArray = New Array;
+					BackgroundJobArray.Add(LastBackgroundJob);
+					AddBackgroundJobProperties(BackgroundJobArray, Table);
+				EndIf;
+				Return Table;
+			EndIf;
+			AddBackgroundJobProperties(BackgroundJobsStartedManually, Table);
+			AddBackgroundJobProperties(AutomaticBackgroundJobs, Table);
+		Else
+			BackgroundJobArray = New Array;
+			AllScheduledJobIDs = New Map;
+			For each CurrentJob In ScheduledJobs.GetScheduledJobs() Do
+				AllScheduledJobIDs.Insert(
+					String(CurrentJob.UUID), True);
+			EndDo;
+			AllBackgroundJobs = BackgroundJobs.GetBackgroundJobs();
+			For each CurrentJob In AllBackgroundJobs Do
+				If CurrentJob.ScheduledJob = Undefined
+				   AND AllScheduledJobIDs[CurrentJob.Key] = Undefined Then
+				
+					BackgroundJobArray.Add(CurrentJob);
+				EndIf;
+			EndDo;
+			AddBackgroundJobProperties(BackgroundJobArray, Table);
+		EndIf;
+	Else
+		If NOT ValueIsFilled(Filter) Then
+			BackgroundJobArray = BackgroundJobs.GetBackgroundJobs();
+		Else
+			If Filter.Property("ID") Then
+				Filter.Insert("UUID", New UUID(Filter.ID));
+				Filter.Delete("ID");
+			EndIf;
+			BackgroundJobArray = BackgroundJobs.GetBackgroundJobs(Filter);
+			If Filter.Property("UUID") Then
+				Filter.Insert("ID", String(Filter.UUID));
+				Filter.Delete("UUID");
+			EndIf;
+		EndIf;
+		AddBackgroundJobProperties(BackgroundJobArray, Table);
+	EndIf;
+	
+	If ValueIsFilled(Filter) AND Filter.Property("ScheduledJobID") Then
+		ScheduledJobsForProcessing = New Array;
+		If Filter.ScheduledJobID <> "" Then
+			If ScheduledJob = Undefined Then
+				ScheduledJob = ScheduledJobs.FindByUUID(
+					New UUID(Filter.ScheduledJobID));
+			EndIf;
+			If ScheduledJob <> Undefined Then
+				ScheduledJobsForProcessing.Add(ScheduledJob);
+			EndIf;
+		EndIf;
+	Else
+		ScheduledJobsForProcessing = ScheduledJobs.GetScheduledJobs();
+	EndIf;
+	
+	Table.Sort("Begin Desc, End Desc");
+	
+	// Filtering background jobs.
+	If ValueIsFilled(Filter) Then
+		Start    = Undefined;
+		End     = Undefined;
+		State = Undefined;
+		If Filter.Property("Begin") Then
+			Start = ?(ValueIsFilled(Filter.Begin), Filter.Begin, Undefined);
+			Filter.Delete("Begin");
+		EndIf;
+		If Filter.Property("End") Then
+			End = ?(ValueIsFilled(Filter.End), Filter.End, Undefined);
+			Filter.Delete("End");
+		EndIf;
+		If Filter.Property("State") Then
+			If TypeOf(Filter.State) = Type("Array") Then
+				State = Filter.State;
+				Filter.Delete("State");
+			EndIf;
+		EndIf;
+		
+		If Filter.Count() <> 0 Then
+			Rows = Table.FindRows(Filter);
+		Else
+			Rows = Table;
+		EndIf;
+		// Performing additional filter by period and state (if the filter is defined).
+		ItemNumber = Rows.Count() - 1;
+		While ItemNumber >= 0 Do
+			If Start    <> Undefined AND Start > Rows[ItemNumber].Begin
+				Or End     <> Undefined AND End  < ?(ValueIsFilled(Rows[ItemNumber].End), Rows[ItemNumber].End, CurrentSessionDate())
+				Or State <> Undefined AND State.Find(Rows[ItemNumber].State) = Undefined Then
+				Rows.Delete(ItemNumber);
+			EndIf;
+			ItemNumber = ItemNumber - 1;
+		EndDo;
+		// Deleting unnecessary rows from the table.
+		If TypeOf(Rows) = Type("Array") Then
+			RowNumber = Table.Count() - 1;
+			While RowNumber >= 0 Do
+				If Rows.Find(Table[RowNumber]) = Undefined Then
+					Table.Delete(Table[RowNumber]);
+				EndIf;
+				RowNumber = RowNumber - 1;
+			EndDo;
+		EndIf;
+	EndIf;
+	
+	Return Table;
+	
+EndFunction
 
-		Если Отбор.Количество() <> 0 Тогда
-			Строки = Таблица.НайтиСтроки(Отбор);
-		Иначе
-			Строки = Таблица;
-		КонецЕсли;
-		// Выполнение дополнительного отбора по периоду и состоянию (если отбор определен).
-		НомерЭлемента = Строки.Количество() - 1;
-		Пока НомерЭлемента >= 0 Цикл
-			Если Начало <> Неопределено И Начало > Строки[НомерЭлемента].Начало Или Конец <> Неопределено И Конец < ?(
-				ЗначениеЗаполнено(Строки[НомерЭлемента].Конец), Строки[НомерЭлемента].Конец, ТекущаяДатаСеанса())
-				Или Состояние <> Неопределено И Состояние.Найти(Строки[НомерЭлемента].Состояние) = Неопределено Тогда
-				Строки.Удалить(НомерЭлемента);
-			КонецЕсли;
-			НомерЭлемента = НомерЭлемента - 1;
-		КонецЦикла;
-		// Удаление лишних строк из таблицы.
-		Если ТипЗнч(Строки) = Тип("Массив") Тогда
-			НомерСтроки = Таблица.Количество() - 1;
-			Пока НомерСтроки >= 0 Цикл
-				Если Строки.Найти(Таблица[НомерСтроки]) = Неопределено Тогда
-					Таблица.Удалить(Таблица[НомерСтроки]);
-				КонецЕсли;
-				НомерСтроки = НомерСтроки - 1;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЕсли;
-
-	Возврат Таблица;
-
-КонецФункции
-
-// Возвращает свойства ФоновогоЗадания по строке уникального идентификатора.
+// Returns BackgroundJob properties by a UUID string.
 //
-// Параметры:
-//  Идентификатор - Строка - уникального идентификатора ФоновогоЗадания.
-//  ИменаСвойств  - Строка, если заполнено, возвращается структура с указанными свойствами.
+// Parameters:
+//  ID - String - BackgroundJob UUID.
+//  PropertyNames - string, if filled, returns a structure with the specified properties.
 // 
-// Возвращаемое значение:
-//  СтрокаТаблицыЗначений, Структура - свойства ФоновогоЗадания.
+// Returns:
+//  ValueTableRow, Structure - BackgroundJob properties.
 //
-Функция ПолучитьСвойстваФоновогоЗадания(Идентификатор, ИменаСвойств = "") Экспорт
+Function GetBackgroundJobProperties(ID, PropertiesNames = "") Export
+	
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
+	
+	Filter = New Structure("ID", ID);
+	BackgroundJobPropertyTable = BackgroundJobsProperties(Filter);
+	
+	If BackgroundJobPropertyTable.Count() > 0 Then
+		If ValueIsFilled(PropertiesNames) Then
+			Result = New Structure(PropertiesNames);
+			FillPropertyValues(Result, BackgroundJobPropertyTable[0]);
+		Else
+			Result = BackgroundJobPropertyTable[0];
+		EndIf;
+	Else
+		Result = Undefined;
+	EndIf;
+	
+	Return Result;
+	
+EndFunction
 
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
+// Throws an exception if the user does not have the administration right.
+Procedure RaiseIfNoAdministrationRights() Export
 
-	Отбор = Новый Структура("Идентификатор", Идентификатор);
-	ТаблицаСвойствФоновыхЗаданий = СвойстваФоновыхЗаданий(Отбор);
+	If UT_Common.DataSeparationEnabled() And UT_Common.SeparatedDataUsageAvailable() Then
+		If Not UT_Users.IsFullUser() Then
+			Raise NStr("ru = 'Нарушение прав доступа.'; en = 'Access rights violation.'");
+		EndIf;
+	Else
+		If NOT PrivilegedMode() Then
+			VerifyAccessRights("Administration", Metadata);
+		EndIf;
+	EndIf;
+	
+EndProcedure
 
-	Если ТаблицаСвойствФоновыхЗаданий.Количество() > 0 Тогда
-		Если ЗначениеЗаполнено(ИменаСвойств) Тогда
-			Результат = Новый Структура(ИменаСвойств);
-			ЗаполнитьЗначенияСвойств(Результат, ТаблицаСвойствФоновыхЗаданий[0]);
-		Иначе
-			Результат = ТаблицаСвойствФоновыхЗаданий[0];
-		КонецЕсли;
-	Иначе
-		Результат = Неопределено;
-	КонецЕсли;
-
-	Возврат Результат;
-
-КонецФункции
-
-// Вызывает исключение, если у пользователя нет права администрирования.
-Процедура ВызватьИсключениеЕслиНетПраваАдминистрирования() Экспорт
-
-	Если UT_Common.DataSeparationEnabled() И UT_Common.SeparatedDataUsageAvailable() Тогда
-		Если Не UT_Users.IsFullUser() Тогда
-			ВызватьИсключение НСтр("ru = 'Нарушение прав доступа.'");
-		КонецЕсли;
-	Иначе
-		Если Не ПривилегированныйРежим() Тогда
-			ВыполнитьПроверкуПравДоступа("Администрирование", Метаданные);
-		КонецЕсли;
-	КонецЕсли;
-
-КонецПроцедуры
-
-// Формирует таблицу зависимостей регламентных заданий от функциональных опций.
+// Generates a table of dependencies of scheduled jobs on functional options.
 //
-// Возвращаемое значение:
-//  Зависимости - ТаблицаЗначений - таблица значений с колонками:
-//    * РегламентноеЗадание - ОбъектМетаданных:РегламентноеЗадание - регламентное задание.
-//    * ФункциональнаяОпция - ОбъектМетаданных:ФункциональнаяОпция - функциональная опция,
-//        от которой зависит регламентное задание.
-//    * ЗависимостьПоИ      - Булево - если регламентное задание зависит более, чем
-//        от одной функциональной опции и его необходимо включать только тогда,
-//        когда все функциональные опции включены, то следует указывать Истина
-//        для каждой зависимости.
-//        По умолчанию Ложь - если хотя бы одна функциональная опция включена,
-//        то регламентное задание тоже включено.
-//    * ВключатьПриВключенииФункциональнойОпции - Булево, Неопределено - если Ложь, то при
-//        включении функциональной опции регламентное задание не будет включаться. Значение
-//        Неопределено соответствует значению Истина.
-//        По умолчанию - неопределено.
-//    * ДоступноВПодчиненномУзлеРИБ - Булево, Неопределено - Истина или Неопределено, если регламентное
-//        задание доступно в РИБ.
-//        По умолчанию - неопределено.
-//    * ДоступноВМоделиСервиса      - Булево, Неопределено - Истина или Неопределено, если регламентное
-//        задание доступно в модели сервиса.
-//        По умолчанию - неопределено.
-//    * РаботаетСВнешнимиРесурсами   - Булево - Истина, если регламентное задание работает
-//        с внешними ресурсами (получение почты, синхронизация данных и т.п.).
-//        По умолчанию - Ложь.
+// Returns:
+//  Dependencies - ValueTable - a table of values with the following columns:
+//    * ScheduledJob - MetadataObject:ScheduledJob - scheduled job.
+//    * FunctionalOption - MetadataObject:FunctionalOption - functional option the scheduled job 
+//        depends on.
+//    * DependenceByT - Boolean - if the scheduled job depends on more than one functional option 
+//        and you want to enable it only when all functional options are enabled, specify True for 
+//        each dependency.
+//        
+//        The default value is False - if one or more functional options are enabled, the scheduled 
+//        job is also enabled.
+//    * EnableOnEnableFunctionalOption - Boolean, Undefined - if False, the scheduled job will not 
+//        be enabled if the functional option is enabled. Value
+//        Undefined corresponds to True.
+//        The default value is Undefined.
+//    * AvailableInSubordinateDIBNode - Boolean, Undefined - True or Undefined if the scheduled job 
+//        is available in the DIB node.
+//        The default value is Undefined.
+//    * AvailableInSaaS - Boolean, Undefined - True or Undefined if the scheduled job is available 
+//        in the SaaS.
+//        The default value is Undefined.
+//    * UseExternalResources - Boolean - True if the scheduled job is operating with external 
+//        resources (receiving emails, synchronizing data, etc.).
+//        The default value is False.
 //
-Функция РегламентныеЗаданияЗависимыеОтФункциональныхОпций() Экспорт
-
-	Зависимости = Новый ТаблицаЗначений;
-	Зависимости.Колонки.Добавить("РегламентноеЗадание");
-	Зависимости.Колонки.Добавить("ФункциональнаяОпция");
-	Зависимости.Колонки.Добавить("ЗависимостьПоИ", Новый ОписаниеТипов("Булево"));
-	Зависимости.Колонки.Добавить("ДоступноВМоделиСервиса");
-	Зависимости.Колонки.Добавить("ДоступноВПодчиненномУзлеРИБ");
-	Зависимости.Колонки.Добавить("ВключатьПриВключенииФункциональнойОпции");
-	Зависимости.Колонки.Добавить("ДоступноВАвтономномРабочемМесте");
-	Зависимости.Колонки.Добавить("РаботаетСВнешнимиРесурсами", Новый ОписаниеТипов("Булево"));
-	Зависимости.Колонки.Добавить("Параметризуется", Новый ОписаниеТипов("Булево"));
+Function ScheduledJobsDependentOnFunctionalOptions() Export
+	
+	Dependencies = New ValueTable;
+	Dependencies.Columns.Add("ScheduledJob");
+	Dependencies.Columns.Add("FunctionalOption");
+	Dependencies.Columns.Add("DependenceByT", New TypeDescription("Boolean"));
+	Dependencies.Columns.Add("AvailableSaaS");
+	Dependencies.Columns.Add("AvailableInSubordinateDIBNode");
+	Dependencies.Columns.Add("EnableOnEnableFunctionalOption");
+	Dependencies.Columns.Add("AvailableAtStandaloneWorkstation");
+	Dependencies.Columns.Add("UseExternalResources",  New TypeDescription("Boolean"));
+	Dependencies.Columns.Add("IsParameterized",  New TypeDescription("Boolean"));
 
 	//МодульИнтеграцииПодсистемБСП=УИ_ОбщегоНазначения.ОбщийМодуль("ИнтеграцияПодсистемБСП");
 	//Если МодульИнтеграцииПодсистемБСП <> Неопределено Тогда
@@ -338,251 +338,247 @@ EndProcedure
 	//	МодульРегламентныеЗаданияПереопределяемый.ПриОпределенииНастроекРегламентныхЗаданий(Зависимости);
 	//КонецЕсли;
 
-	Зависимости.Сортировать("РегламентноеЗадание");
+	Dependencies.Sort("ScheduledJob");
+	
+	Return Dependencies;
+	
+EndFunction
 
-	Возврат Зависимости;
-
-КонецФункции
-
-// Возвращает многострочную Строку содержащую Сообщения и ОписаниеИнформацииОбОшибке,
-// последнее фоновое задание найдено по идентификатору регламентного задания
-// и сообщения/ошибки есть.
-//
-// Параметры:
-//  Задание      - РегламентноеЗадание, Строка - УникальныйИдентификатор
-//                 РегламентногоЗадания строкой.
-//
-// Возвращаемое значение:
-//  Строка.
-//
-Функция СообщенияИОписанияОшибокРегламентногоЗадания(Знач Задание) Экспорт
-
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
-
-	ИдентификаторРегламентногоЗадания = ?(ТипЗнч(Задание) = Тип("РегламентноеЗадание"), Строка(
-		Задание.УникальныйИдентификатор), Задание);
-	СвойстваПоследнегоФоновогоЗадания = ПолучитьСвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(
-		ИдентификаторРегламентногоЗадания);
-	Возврат ?(СвойстваПоследнегоФоновогоЗадания = Неопределено, "", СообщенияИОписанияОшибокФоновогоЗадания(
-		СвойстваПоследнегоФоновогоЗадания.Идентификатор));
-
-КонецФункции
-
-// Возвращает свойства последнего фонового задания выполненного при выполнении регламентного задания, если оно есть.
-// Процедура работает, как в файл-серверном, так и в клиент-серверном режимах.
-//
-// Параметры:
-//  РегламентноеЗадание - РегламентноеЗадание, Строка - строка уникального идентификатора РегламентногоЗадания.
-//
-// Возвращаемое значение:
-//  СтрокаТаблицыЗначений, Неопределено.
-//
-Функция ПолучитьСвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(РегламентноеЗадание) Экспорт
-
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
-
-	ИдентификаторРегламентногоЗадания = ?(ТипЗнч(РегламентноеЗадание) = Тип("РегламентноеЗадание"), Строка(
-		РегламентноеЗадание.УникальныйИдентификатор), РегламентноеЗадание);
-	Отбор = Новый Структура;
-	Отбор.Вставить("ИдентификаторРегламентногоЗадания", ИдентификаторРегламентногоЗадания);
-	Отбор.Вставить("ПолучитьПоследнееФоновоеЗаданиеРегламентногоЗадания");
-	ТаблицаСвойствФоновыхЗаданий = СвойстваФоновыхЗаданий(Отбор);
-	ТаблицаСвойствФоновыхЗаданий.Сортировать("Конец Возр");
-
-	Если ТаблицаСвойствФоновыхЗаданий.Количество() = 0 Тогда
-		СвойстваФоновогоЗадания = Неопределено;
-	ИначеЕсли Не ЗначениеЗаполнено(ТаблицаСвойствФоновыхЗаданий[0].Конец) Тогда
-		СвойстваФоновогоЗадания = ТаблицаСвойствФоновыхЗаданий[0];
-	Иначе
-		СвойстваФоновогоЗадания = ТаблицаСвойствФоновыхЗаданий[ТаблицаСвойствФоновыхЗаданий.Количество() - 1];
-	КонецЕсли;
-
-	Возврат СвойстваФоновогоЗадания;
-
-КонецФункции
-
-// Возвращает многострочную Строку содержащую Сообщения и ОписаниеИнформацииОбОшибке,
-// если фоновое задание найдено по идентификатору и сообщения/ошибки есть.
-//
-// Параметры:
-//  Задание      - Строка - УникальныйИдентификатор ФоновогоЗадания строкой.
-//
-// Возвращаемое значение:
-//  Строка.
-//
-Функция СообщенияИОписанияОшибокФоновогоЗадания(Идентификатор, СвойстваФоновогоЗадания = Неопределено) Экспорт
-
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
-
-	Если СвойстваФоновогоЗадания = Неопределено Тогда
-		СвойстваФоновогоЗадания = ПолучитьСвойстваФоновогоЗадания(Идентификатор);
-	КонецЕсли;
-
-	Строка = "";
-	Если СвойстваФоновогоЗадания <> Неопределено Тогда
-		Для Каждого Сообщение Из СвойстваФоновогоЗадания.СообщенияПользователю Цикл
-			Строка = Строка + ?(Строка = "", "", "
-												 |
-												 |") + Сообщение.Текст;
-		КонецЦикла;
-		Если ЗначениеЗаполнено(СвойстваФоновогоЗадания.ОписаниеИнформацииОбОшибке) Тогда
-			Строка = Строка + ?(Строка = "", СвойстваФоновогоЗадания.ОписаниеИнформацииОбОшибке, "
-																								 |
-																								 |"
-				+ СвойстваФоновогоЗадания.ОписаниеИнформацииОбОшибке);
-		КонецЕсли;
-	КонецЕсли;
-
-	Возврат Строка;
-
-КонецФункции
-
-// Возвращает представление регламентного задания,
-// это по порядку исключения незаполненных реквизитов:
-// Наименование, Метаданные.Синоним, Метаданные.Имя.
-//
-// Параметры:
-//  Задание      - РегламентноеЗадание, Строка - если строка, тогда УникальныйИдентификатор строкой.
-//
-// Возвращаемое значение:
-//  Строка.
-//
-Функция ПредставлениеРегламентногоЗадания(Знач Задание) Экспорт
-
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
-
-	Если ТипЗнч(Задание) = Тип("РегламентноеЗадание") Тогда
-		РегламентноеЗадание = Задание;
-	Иначе
-		РегламентноеЗадание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(
-			Новый УникальныйИдентификатор(Задание));
-	КонецЕсли;
-
-	Если РегламентноеЗадание <> Неопределено Тогда
-		Представление = РегламентноеЗадание.Наименование;
-
-		Если ПустаяСтрока(РегламентноеЗадание.Наименование) Тогда
-			Представление = РегламентноеЗадание.Метаданные.Синоним;
-
-			Если ПустаяСтрока(Представление) Тогда
-				Представление = РегламентноеЗадание.Метаданные.Имя;
-			КонецЕсли;
-		КонецЕсли
-		;
-	Иначе
-		Представление = ТекстНеОпределено();
-	КонецЕсли;
-
-	Возврат Представление;
-
-КонецФункции
-
-// Возвращает текст "<не определено>".
-Функция ТекстНеОпределено() Экспорт
-
-	Возврат НСтр("ru = '<не определено>'");
-
-КонецФункции
-
-// Отменяет фоновое задание, если это возможно, а именно, если оно выполняется на сервере, и активно.
-//
-// Параметры:
-//  Идентификатор  - Строка уникального идентификатора ФоновогоЗадания.
+// Returns a multiline String containing Messages and ErrorDescription, the last background job is 
+// found by the scheduled job ID and there are messages/errors.
 // 
-Процедура ОтменитьФоновоеЗадание(Идентификатор) Экспорт
+//
+// Parameters:
+//  Job - ScheduledJob, String - UUID
+//                 ScheduledJob string.
+//
+// Returns:
+//  String.
+//
+Function ScheduledJobMessagesAndErrorDescriptions(Val Job) Export
+	
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
 
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
+	ScheduledJobID = ?(TypeOf(Job) = Type("ScheduledJob"), String(Job.UUID), Job);
+	LastBackgroundJobProperties = LastBackgroundJobScheduledJobExecutionProperties(ScheduledJobID);
+	Return ?(LastBackgroundJobProperties = Undefined,
+	          "",
+	          BackgroundJobMessagesAndErrorDescriptions(LastBackgroundJobProperties.ID) );
+	
+EndFunction
 
-	НовыйУникальныйИдентификатор = Новый УникальныйИдентификатор(Идентификатор);
-	Отбор = Новый Структура;
-	Отбор.Вставить("УникальныйИдентификатор", НовыйУникальныйИдентификатор);
-	МассивФоновыхЗаданий = ФоновыеЗадания.ПолучитьФоновыеЗадания(Отбор);
-	Если МассивФоновыхЗаданий.Количество() = 1 Тогда
-		ФоновоеЗадание = МассивФоновыхЗаданий[0];
-	Иначе
-		ВызватьИсключение НСтр("ru = 'Фоновое задание не найдено на сервере.'");
-	КонецЕсли;
+// Returns the properties of the last background job executed with the scheduled job, if there is one.
+// The procedure works both in file mode and client/server mode.
+//
+// Parameters:
+//  ScheduledJob - ScheduledJob, String - ScheduledJob UUID string.
+//
+// Returns:
+//  ValueTableRow, Undefined.
+//
+Function LastBackgroundJobScheduledJobExecutionProperties(ScheduledJob)
+	
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
 
-	Если ФоновоеЗадание.Состояние <> СостояниеФоновогоЗадания.Активно Тогда
-		ВызватьИсключение НСтр("ru = 'Задание не выполняется, его нельзя отменить.'");
-	КонецЕсли;
+	ScheduledJobID = ?(TypeOf(ScheduledJob) = Type("ScheduledJob"), String(ScheduledJob.UUID), ScheduledJob);
+	Filter = New Structure;
+	Filter.Insert("ScheduledJobID", ScheduledJobID);
+	Filter.Insert("GetLastScheduledJobBackgroundJob");
+	BackgroundJobPropertyTable = BackgroundJobsProperties(Filter);
+	BackgroundJobPropertyTable.Sort("End Asc");
+	
+	If BackgroundJobPropertyTable.Count() = 0 Then
+		BackgroundJobProperties = Undefined;
+	ElsIf NOT ValueIsFilled(BackgroundJobPropertyTable[0].End) Then
+		BackgroundJobProperties = BackgroundJobPropertyTable[0];
+	Else
+		BackgroundJobProperties = BackgroundJobPropertyTable[BackgroundJobPropertyTable.Count()-1];
+	EndIf;
+	
+	Return BackgroundJobProperties;
+	
+EndFunction
 
-	ФоновоеЗадание.Отменить();
+// Returns a multiline String containing Messages and ErrorDescription if the background job is 
+// found by the ID and there are messages/errors.
+//
+// Parameters:
+//  Job - String - a BackgroundJob UUID string.
+//
+// Returns:
+//  String.
+//
+Function BackgroundJobMessagesAndErrorDescriptions(ID, BackgroundJobProperties = Undefined) Export
+	
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
+	
+	If BackgroundJobProperties = Undefined Then
+		BackgroundJobProperties = GetBackgroundJobProperties(ID);
+	EndIf;
+	
+	Row = "";
+	If BackgroundJobProperties <> Undefined Then
+		For each Message In BackgroundJobProperties.UserMessages Do
+			Row = Row + ?(Row = "",
+			                    "",
+			                    "
+			                    |
+			                    |") + Message.Text;
+		EndDo;
+		If ValueIsFilled(BackgroundJobProperties.ErrorDescription) Then
+			Row = Row + ?(Row = "",
+			                    BackgroundJobProperties.ErrorDescription,
+			                    "
+			                    |
+			                    |" + BackgroundJobProperties.ErrorDescription);
+		EndIf;
+	EndIf;
+	
+	Return Row;
+	
+EndFunction
 
-КонецПроцедуры
-
-// Предназначена для "ручного" немедленного выполнения процедуры регламентного задания
-// либо в сеансе клиента (в файловой ИБ), либо в фоновом задании на сервере (в серверной ИБ).
-// Применяется в любом режиме соединения.
-// Ручной режим запуска не влияет на выполнение регламентного задания по аварийному
-// и основному расписаниям, т.к. не указывается ссылка на регламентное задание у фонового задания.
-// Тип ФоновоеЗадание не допускает установки такой ссылки, поэтому для файлового режима применяется
-// тоже правило.
+// Returns the scheduled job presentation, according to the blank details exception order:
 // 
-// Параметры:
-//  Задание             - РегламентноеЗадание, Строка - уникального идентификатора РегламентногоЗадания.
+// Description, Metadata.Synonym, and Metadata.Name.
 //
-// Возвращаемое значение:
-//  Структура - со свойствами
-//    * МоментЗапуска -   Неопределено, Дата - для файловой ИБ устанавливает переданный момент, как момент запуска
-//                        метода регламентного задания.
-//                        Для серверной ИБ - возвращает момент запуска фонового задания по факту.
-//    * ИдентификаторФоновогоЗадания - Строка - для серверной ИБ возвращает идентификатор запущенного фонового задания.
+// Parameters:
+//  Job - ScheduledJob, String - if a string, a UUID string.
 //
-Функция ВыполнитьРегламентноеЗаданиеВручную(Знач Задание) Экспорт
+// Returns:
+//  String.
+//
+Function ScheduledJobPresentation(Val Job) Export
+	
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
+	
+	If TypeOf(Job) = Type("ScheduledJob") Then
+		ScheduledJob = Job;
+	Else
+		ScheduledJob = ScheduledJobs.FindByUUID(New UUID(Job));
+	EndIf;
+	
+	If ScheduledJob <> Undefined Then
+		Presentation = ScheduledJob.Description;
+		
+		If IsBlankString(ScheduledJob.Description) Then
+			Presentation = ScheduledJob.Metadata.Synonym;
+			
+			If IsBlankString(Presentation) Then
+				Presentation = ScheduledJob.Metadata.Name;
+			EndIf
+		EndIf;
+	Else
+		Presentation = TextUndefined();
+	EndIf;
+	
+	Return Presentation;
+	
+EndFunction
 
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-	УстановитьПривилегированныйРежим(Истина);
+// Returns the text "<not defined>".
+Function TextUndefined() Export
+	
+	Return NStr("ru = '<не определено>'; en = '<not defined>'");
+	
+EndFunction
 
-	ПараметрыВыполнения = ПараметрыВыполненияРегламентногоЗадания();
-	ПараметрыВыполнения.ПроцедураУжеВыполняется = Ложь;
-	Задание = UT_ScheduledJobsServer.ПолучитьРегламентноеЗадание(Задание);
+// Cancels the background job if possible, i.e. if it is running on the server and is active.
+//
+// Parameters:
+//  ID - a string UUID of a BackgroundJob.
+//
+Procedure CancelBackgroundJob(ID) Export
 
-	ПараметрыВыполнения.ЗапускВыполнен = Ложь;
-	СвойстваПоследнегоФоновогоЗадания = ПолучитьСвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(Задание);
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
 
-	Если СвойстваПоследнегоФоновогоЗадания <> Неопределено И СвойстваПоследнегоФоновогоЗадания.Состояние
-		= СостояниеФоновогоЗадания.Активно Тогда
+	NewUUID = New UUID(ID);
+	Filter = New Structure;
+	Filter.Insert("UUID", NewUUID);
+	BackgroundJobArray = BackgroundJobs.GetBackgroundJobs(Filter);
+	If BackgroundJobArray.Count() = 1 Then
+		BackgroundJob = BackgroundJobArray[0];
+	Else
+		Raise NStr("ru = 'Фоновое задание не найдено на сервере.'; en = 'The background job is not found on the server.'");
+	EndIf;
 
-		ПараметрыВыполнения.МоментЗапуска  = СвойстваПоследнегоФоновогоЗадания.Начало;
-		Если ЗначениеЗаполнено(СвойстваПоследнегоФоновогоЗадания.Наименование) Тогда
-			ПараметрыВыполнения.ПредставлениеФоновогоЗадания = СвойстваПоследнегоФоновогоЗадания.Наименование;
-		Иначе
-			ПараметрыВыполнения.ПредставлениеФоновогоЗадания = ПредставлениеРегламентногоЗадания(Задание);
-		КонецЕсли;
-	Иначе
-		НаименованиеФоновогоЗадания = СтрШаблон(НСтр("ru = 'Запуск вручную: %1'"), ПредставлениеРегламентногоЗадания(
-			Задание));
-		// Не используются длительные операции, т.к. делается вызов метода регламентного задания.
-		ФоновоеЗадание = ФоновыеЗадания.Выполнить(Задание.Метаданные.ИмяМетода, Задание.Параметры, Строка(
-			Задание.УникальныйИдентификатор), НаименованиеФоновогоЗадания);
-		ПараметрыВыполнения.ИдентификаторФоновогоЗадания = Строка(ФоновоеЗадание.УникальныйИдентификатор);
-		ПараметрыВыполнения.МоментЗапуска = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(
-			ФоновоеЗадание.УникальныйИдентификатор).Начало;
-		ПараметрыВыполнения.ЗапускВыполнен = Истина;
-	КонецЕсли;
+	If BackgroundJob.State <> BackgroundJobState.Active Then
+		Raise NStr("ru = 'Задание не выполняется, его нельзя отменить.'; en = 'The job is not being executed, it cannot be canceled.'");
+	EndIf;
+	
+	BackgroundJob.Cancel();
+	
+EndProcedure
 
-	ПараметрыВыполнения.ПроцедураУжеВыполняется = Не ПараметрыВыполнения.ЗапускВыполнен;
-	Возврат ПараметрыВыполнения;
+// It is intended for "manual" immediate execution of the scheduled job procedure either in the 
+// client session (in the file infobase) or in the background job on the server (in the server infobase).
+// It is used in any connection mode.
+// The "manual" run mode does not affect the scheduled job execution according to the emergency and 
+// main schedules, as the background job has no reference to the scheduled job.
+// The BackgroundJob type does not allow such a reference, so the same rule is applied to file mode.
+// 
+// 
+// Parameters:
+//  Job - ScheduledJob, String - ScheduledJob UUID string.
+//
+// Returns:
+//  Structure with the following properties:
+//    * StartTime - Undefined, Date - for the file infobase, sets the passed time as the scheduled 
+//                        job method start time.
+//                        For the server infobase returns the background job start time upon completion.
+//    * BackgroundJobID - String - for the server infobase, returns the running background job ID.
+//
+Function ExecuteScheduledJobManually(Val Job) Export
 
-КонецФункции
+	RaiseIfNoAdministrationRights();
+	SetPrivilegedMode(True);
 
-Функция ПараметрыВыполненияРегламентногоЗадания()
+	ExecutionParameters = ScheduledJobExecutionParameters();
+	ExecutionParameters.ProcedureAlreadyExecuting = False;
+	Job =  UT_ScheduledJobsServer.GetScheduledJob(Job);
 
-	Результат = Новый Структура;
-	Результат.Вставить("МоментЗапуска");
-	Результат.Вставить("ИдентификаторФоновогоЗадания");
-	Результат.Вставить("ПредставлениеФоновогоЗадания");
-	Результат.Вставить("ПроцедураУжеВыполняется");
-	Результат.Вставить("ЗапускВыполнен");
-	Возврат Результат;
+	ExecutionParameters.Started = False;
+	LastBackgroundJobProperties = LastBackgroundJobScheduledJobExecutionProperties(Job);
+	
+	If LastBackgroundJobProperties <> Undefined
+	   AND LastBackgroundJobProperties.State = BackgroundJobState.Active Then
 
-КонецФункции
+		ExecutionParameters.StartedAt  = LastBackgroundJobProperties.Begin;
+		If ValueIsFilled(LastBackgroundJobProperties.Description) Then
+			ExecutionParameters.BackgroundJobPresentation = LastBackgroundJobProperties.Description;
+		Else
+			ExecutionParameters.BackgroundJobPresentation = ScheduledJobPresentation(Job);
+		EndIf;
+	Else
+		BackgroundJobDescription = StringFunctionsClientServer.SubstituteParametersToString(NStr("ru = 'Запуск вручную: %1'; en = 'Manual start: %1'"), ScheduledJobPresentation(Job));
+		// Time-consuming operations are not used, because the method of the scheduled job is called.
+		BackgroundJob = BackgroundJobs.Execute(Job.Metadata.MethodName, Job.Parameters, String(Job.UUID), BackgroundJobDescription);
+		ExecutionParameters.BackgroundJobID = String(BackgroundJob.UUID);
+		ExecutionParameters.StartedAt = BackgroundJobs.FindByUUID(BackgroundJob.UUID).Begin;
+		ExecutionParameters.Started = True;
+	EndIf;
+
+	ExecutionParameters.ProcedureAlreadyExecuting = NOT ExecutionParameters.Started;
+	Return ExecutionParameters;
+	
+EndFunction
+
+Function ScheduledJobExecutionParameters() 
+	
+	Result = New Structure;
+	Result.Insert("StartedAt");
+	Result.Insert("BackgroundJobID");
+	Result.Insert("BackgroundJobPresentation");
+	Result.Insert("ProcedureAlreadyExecuting");
+	Result.Insert("Started");
+	Return Result;
+	
+EndFunction
 
 Процедура ОбновленнаяТаблицаРегламентныхЗаданий(Параметры, АдресХранилища) Экспорт
 
@@ -690,67 +686,66 @@ EndProcedure
 
 КонецПроцедуры
 
-// Проверяет, включено ли регламентное задание по функциональным опциям.
+// Checks whether the scheduled job is enabled according to functional options.
 //
-// Параметры:
-//  Задание - ОбъектМетаданных: РегламентноеЗадание - регламентное задание.
-//  ЗависимостиЗаданий - ТаблицаЗначений - таблица зависимостей регламентных
-//    заданий, полученная методом РегламентныеЗаданияСлужебный.РегламентныеЗаданияЗависимыеОтФункциональныхОпций.
-//    Если не указано, получается автоматически.
+// Parameters:
+//  Job - MetadataObject:ScheduledJob - scheduled job.
+//  JobDependencies - ValueTable - table of scheduled jobs dependencies returned by the 
+//    ScheduledJobsInternal.ScheduledJobsDependentOnFunctionalOptions method.
+//    If it is not specified, it is generated automatically.
 //
-// Возвращаемое значение:
-//  Использование - Булево - Истина, если регламентное задание используется.
+// Returns:
+//  Usage - Boolean - True if the scheduled job is used.
 //
-Функция РегламентноеЗаданиеДоступноПоФункциональнымОпциям(Задание, ЗависимостиЗаданий = Неопределено) Экспорт
+Function ScheduledJobAvailableByFunctionalOptions(Job, JobDependencies = Undefined) Export
+	
+	If JobDependencies = Undefined Then
+		JobDependencies = ScheduledJobsDependentOnFunctionalOptions();
+	EndIf;
 
-	Если ЗависимостиЗаданий = Неопределено Тогда
-		ЗависимостиЗаданий = РегламентныеЗаданияЗависимыеОтФункциональныхОпций();
-	КонецЕсли;
+	DisableInSubordinateDIBNode = False;
+	DisableInStandaloneWorkplace = False;
+	Usage                = Undefined;
+	IsSubordinateDIBNode        = UT_Common.IsSubordinateDIBNode();
+	IsSeparatedMode          = UT_Common.DataSeparationEnabled();
+	IsStandaloneWorkplace 	 = UT_Common.IsStandaloneWorkplace();
 
-	ОтключитьВПодчиненномУзлеРИБ = Ложь;
-	ОтключитьВАвтономномРабочемМесте = Ложь;
-	Использование                = Неопределено;
-	ЭтоПодчиненныйУзелРИБ        = UT_Common.IsSubordinateDIBNode();
-	ЭтоРазделенныйРежим          = UT_Common.DataSeparationEnabled();
-	ЭтоАвтономноеРабочееМесто 	 = UT_Common.IsStandaloneWorkplace();
-
-	НайденныеСтроки = ЗависимостиЗаданий.НайтиСтроки(Новый Структура("РегламентноеЗадание", Задание));
-
-	Для Каждого СтрокаЗависимости Из НайденныеСтроки Цикл
-		Если ЭтоРазделенныйРежим И СтрокаЗависимости.ДоступноВМоделиСервиса = Ложь Тогда
-			Возврат Ложь;
-		КонецЕсли;
-
-		ОтключитьВПодчиненномУзлеРИБ = (СтрокаЗависимости.ДоступноВПодчиненномУзлеРИБ = Ложь) И ЭтоПодчиненныйУзелРИБ;
-		ОтключитьВАвтономномРабочемМесте = (СтрокаЗависимости.ДоступноВАвтономномРабочемМесте = Ложь)
-			И ЭтоАвтономноеРабочееМесто;
-
-		Если ОтключитьВПодчиненномУзлеРИБ Или ОтключитьВАвтономномРабочемМесте Тогда
-			Возврат Ложь;
-		КонецЕсли;
-
-		Если СтрокаЗависимости.ФункциональнаяОпция = Неопределено Тогда
-			Продолжить;
-		КонецЕсли;
-
-		ЗначениеФО = ПолучитьФункциональнуюОпцию(СтрокаЗависимости.ФункциональнаяОпция.Имя);
-
-		Если Использование = Неопределено Тогда
-			Использование = ЗначениеФО;
-		ИначеЕсли СтрокаЗависимости.ЗависимостьПоИ Тогда
-			Использование = Использование И ЗначениеФО;
-		Иначе
-			Использование = Использование Или ЗначениеФО;
-		КонецЕсли;
-	КонецЦикла;
-
-	Если Использование = Неопределено Тогда
-		Возврат Истина;
-	Иначе
-		Возврат Использование;
-	КонецЕсли;
-
-КонецФункции
+	FoundRows = JobDependencies.FindRows(New Structure("ScheduledJob", Job));
+	
+	For Each DependencyString In FoundRows Do
+		If IsSeparatedMode AND DependencyString.AvailableSaaS = False Then
+			Return False;
+		EndIf;
+		
+		DisableInSubordinateDIBNode = (DependencyString.AvailableInSubordinateDIBNode = False) AND IsSubordinateDIBNode;
+		DisableInStandaloneWorkplace = (DependencyString.AvailableAtStandaloneWorkstation = False) AND IsStandaloneWorkplace;
+		
+		If DisableInSubordinateDIBNode Or DisableInStandaloneWorkplace Then
+			Return False;
+		EndIf;
+		
+		If DependencyString.FunctionalOption = Undefined Then
+			Continue;
+		EndIf;
+		
+		FOValue = GetFunctionalOption(DependencyString.FunctionalOption.Name);
+		
+		If Usage = Undefined Then
+			Usage = FOValue;
+		ElsIf DependencyString.DependenceByT Then
+			Usage = Usage AND FOValue;
+		Else
+			Usage = Usage Or FOValue;
+		EndIf;
+	EndDo;
+	
+	If Usage = Undefined Then
+		Return True;
+	Else
+		Return Usage;
+	EndIf;
+	
+EndFunction
 Процедура ОбновитьСтрокуТаблицыРегламентныхЗаданий(Строка, Задание)
 
 	ЗаполнитьЗначенияСвойств(Строка, Задание);
