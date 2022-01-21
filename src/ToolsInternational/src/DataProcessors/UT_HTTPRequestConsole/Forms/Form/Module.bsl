@@ -1,7 +1,8 @@
 #Region FormEvents
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	
 	StartHeader = Заголовок;
 
 	InitializeForm();
@@ -12,121 +13,130 @@
 	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("UTF8");
 	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("UTF16");
 
-	Если Параметры.Свойство("ДанныеОтладки") Тогда
-		FillByDebugData(Параметры.ДанныеОтладки);
-	КонецЕсли;
+	If Parameters.Property("DebugData") Then
+		FillByDebugData(Parameters.DebugData);
+	EndIf;
 
 	УстановитьДоступностьТелаЗапроса(ThisObject);
 	
-	UT_Common.ToolFormOnCreateAtServer(ThisObject, Отказ, СтандартнаяОбработка, Элементы.ГруппаКоманднаяПанельФормы);
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing, Элементы.ГруппаКоманднаяПанельФормы);
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
+&AtClient
+Procedure OnOpen(Cancel)
 	СформироватьЗаголовокНастроекПрокси();
-КонецПроцедуры
+EndProcedure
 
 #EndRegion
 
 #Region FormItemsEvents
 
-&НаКлиенте
-Процедура ИсторияЗапросовВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	ЗаполнитьДанныеТекущегоЗапросаПоИстории(ВыбраннаяСтрока);
-КонецПроцедуры
+&AtClient
+Procedure RequestHistorySelection(Item, SelectedRow, Field, StandardProcessing)
+	ЗаполнитьДанныеТекущегоЗапросаПоИстории(SelectedRow);
+EndProcedure
 
-&НаКлиенте
-Процедура ИсторияЗапросовПриАктивизацииСтроки(Элемент)
-	ТекДанные = Элементы.RequestHistory.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure RequestHistoryOnActivateRow(Item)
+	
+	CurrentRow = Items.RequestHistory.CurrentData;
+	If CurrentRow = Undefined Then
+		Return;
+	EndIf;
 
-	Если ТекДанные.RequestBodyFormat = "Строкой" Тогда
-		НоваяСтраница = Элементы.ГруппаИсторияЗапросовТелоЗапросаСтраницаСтрока;
-	ИначеЕсли ТекДанные.RequestBodyFormat = "ДвоичныеДанные" Тогда
-		НоваяСтраница = Элементы.ГруппаИсторияЗапросовТелоЗапросаСтраницаДвоичныеДанные;
-	Иначе
-		НоваяСтраница = Элементы.ГруппаИсторияЗапросовТелоЗапросаСтраницаФайл;
-	КонецЕсли;
+	If CurrentRow.RequestBodyFormat = "String" Then
+		NewPage = Items.RequestHistoryRequestBodyStringPageGroup;
+	ElsIf CurrentRow.RequestBodyFormat = "BinaryData" Then
+		NewPage = Items.RequestHistoryRequestBodyBinaryDataPageGroup;
+	Else
+		NewPage = Items.RequestHistoryRequestBodyFilePageGroup;
+	EndIf;
 
-	Элементы.ГруппаИсторияЗапросовТелоЗапросаСтраницы.ТекущаяСтраница = НоваяСтраница;
+	Items.RequestHistoryRequestBodyPagesGroup.CurrentPage = NewPage;
 
-	Если ЭтоАдресВременногоХранилища(ТекДанные.ResponseBodyAddressString) Тогда
-		ResponseBodyString = ПолучитьИзВременногоХранилища(ТекДанные.ResponseBodyAddressString);
-	Иначе
+	If IsTempStorageURL(CurrentRow.ResponseBodyAddressString) Then
+		ResponseBodyString = GetFromTempStorage(CurrentRow.ResponseBodyAddressString);
+	Else
 		ResponseBodyString = "";
-	КонецЕсли;
+	EndIf;
 
-	ProxyInspectionOptionsHeader = ЗаголовокНастроекПроксиПоПараметрам(ТекДанные.UseProxy,
-		ТекДанные.ProxyServer, ТекДанные.ProxyPort, ТекДанные.ProxyUser, ТекДанные.ProxyPassword,
-		ТекДанные.OSAuthentificationProxy);
-КонецПроцедуры
+	ProxyInspectionOptionsHeader = ЗаголовокНастроекПроксиПоПараметрам(CurrentRow.UseProxy,
+		CurrentRow.ProxyServer, CurrentRow.ProxyPort, CurrentRow.ProxyUser, CurrentRow.ProxyPassword,
+		CurrentRow.OSAuthentificationProxy);
+		
+EndProcedure
 
-&НаКлиенте
-Процедура ИсторияЗапросовТелоЗапросаИмяФайлаОткрытие(Элемент, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
+&AtClient
+Procedure RequestHistoryRequestBodyFileNameOpen(Item, StandardProcessing)
+	
+	StandardProcessing = False;
 
-	ТекДанные = Элементы.RequestHistory.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	CurrentData = Items.RequestHistory.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	Endif;
 
-	НачатьЗапускПриложения(UT_CommonClient.ApplicationRunEmptyNotifyDescription(),
-		ТекДанные.RequestBodyFileName);
-КонецПроцедуры
+	BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(),
+		CurrentData.RequestBodyFileName);
+		
+EndProcedure
 
-&НаКлиенте
-Процедура РедактированиеЗаголовковТаблицейПриИзменении(Элемент)
+&AtClient
+Procedure TableHeadersEditorOnChange(Item)
+	
 	УстановитьСтраницуРедактированияЗаголовковЗапроса();
-КонецПроцедуры
+	
+EndProcedure
 
-&НаКлиенте
-Процедура ТаблицаЗаголовковЗапросаКлючАвтоПодбор(Элемент, Текст, ДанныеВыбора, ПараметрыПолученияДанных, Ожидание,
-	СтандартнаяОбработка)
+&AtClient
+Procedure RequestHeadersTableKeyAutoComplete(Item, Text, ChoiceData, DataGetParameters, Waiting, StandardProcessing)
 
-	СтандартнаяОбработка = Ложь;
+	StandardProcessing = False;
 
-	Если Не ЗначениеЗаполнено(Текст) Тогда
-		Возврат;
+	If Not ValueIsFilled(Text) Then
+		Return;
 	КонецЕсли;
 
-	ДанныеВыбора = Новый СписокЗначений;
+	ChoiceData = New ValueList;
 
-	Для Каждого ЭлементСписка Из UsedHeadersList Цикл
-		Если СтрНайти(НРег(ЭлементСписка.Value), НРег(Текст)) > 0 Тогда
-			ДанныеВыбора.Добавить(ЭлементСписка.Value);
-		КонецЕсли;
-	КонецЦикла;
+	For Each ListElement In UsedHeadersList Do
+	 	If StrFind(Lower(ListElement.Value), Lower(Text)) > 0 Then
+			ChoiceData.Add(ListElement.Value);
+		EndIf;
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ВидТелаЗапросаПриИзменении(Элемент)
-	ТолькоПросмотрГруппыПараметровСтроковогоТела = Истина;
+&AtClient
+Procedure RequestBodyFormatOnChange(Item)
+	
+	StringBodyGroupParamsReadOnly = True;
 
-	Если RequestBodyFormat = "Строкой" Тогда
-		НоваяСтраница = Элементы.ГруппаСтраницаТелаЗапросаСтрокой;
-		ТолькоПросмотрГруппыПараметровСтроковогоТела = Ложь;
-	ИначеЕсли RequestBodyFormat = "ДвоичныеДанные" Тогда
-		НоваяСтраница = Элементы.ГруппаСтраницаТелаЗапросаДвоичныеДанные;
-	Иначе
-		НоваяСтраница = Элементы.ГруппаСтраницаТелаЗапросаИмяФайлаТела;
-	КонецЕсли;
+	If RequestBodyFormat = "String" Then
+		NewPage = Items.RequestBodyStringPageGroup;
+		StringBodyGroupParamsReadOnly = False;
+	ElsIf RequestBodyFormat = "BinaryData" Then
+		NewPage = Элементы.RequestBodyBinaryDataPageGroup;
+	Else
+		NewPage = Элементы.RequestBodyFilePageGroup;
+	EndIf;
 
-	Элементы.ГруппаСтраницыТелаЗапроса.ТекущаяСтраница = НоваяСтраница;
-	Элементы.ГруппаСвойстваСтроковогоТелаЗапроса.ТолькоПросмотр = ТолькоПросмотрГруппыПараметровСтроковогоТела;
-КонецПроцедуры
+	Items.RequestBodyPagesGroup.CurrentPage = NewPage;
+	Items.RequestBodyStringPropertiesGroup.ReadOnly = StringBodyGroupParamsReadOnly;
+	
+EndProcedure
 
-&НаКлиенте
-Процедура ИмяФайлаТелаЗапросаНачалоВыбора(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	ДВФ = Новый ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Открытие);
-	ДВФ.МножественныйВыбор = Ложь;
-	ДВФ.ПолноеИмяФайла = RequestBodyFileName;
+&AtClient
+Procedure RequestBodyFileNameStartChoice(Item, ChoiceData, StandardProcessing)
+	
+	FileDialog = New FileDialog(FileDialogMode.Open);
+	FileDialog.Multiselect = False;
+	FileDialog.FullFileName = RequestBodyFileName;
 
-	ДВФ.Показать(Новый ОписаниеОповещения("ИмяФайлаТелаЗапросаНачалоВыбораЗавершение", ThisObject));
-КонецПроцедуры
+	FileDialog.Show(New NotifyDescription("RequestBodyFileNameChoiceComplete", ThisObject));
+	
+EndProcedure
 
 &НаКлиенте
 Процедура ЗапросHTTPПриИзменении(Элемент)
@@ -703,8 +713,8 @@
 	Возврат ЗаголовокГруппыПрокси;
 КонецФункции
 
-&НаКлиенте
-Процедура СформироватьЗаголовокНастроекПрокси()
+&AtClient
+Procedure СформироватьЗаголовокНастроекПрокси()
 	ProxyOptionsHeader = ЗаголовокНастроекПроксиПоПараметрам(UseProxy, ProxyServer, ProxyPort,
 		ProxyUser, ProxyPassword, OSAuthentificationProxy);
 КонецПроцедуры
@@ -743,19 +753,20 @@
 	RequestBodyBinaryDataString = Строка(ПолучитьИзВременногоХранилища(Адрес));
 КонецПроцедуры
 
-&НаКлиенте
-Процедура ИмяФайлаТелаЗапросаНачалоВыбораЗавершение(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure RequestBodyFileNameChoiceComplete(SelectedFiles, AdditionalParameters) Export
 
-	Если ВыбранныеФайлы = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If SelectedFiles = Undefined Then
+		Return;
+	EndIf;
 
-	Если ВыбранныеФайлы.Количество() = 0 Тогда
-		Возврат;
-	КонецЕсли;
+	If SelectedFiles.Count() = 0 Then
+		Return;
+	EndIf;
 
-	RequestBodyFileName = ВыбранныеФайлы[0];
-КонецПроцедуры
+	RequestBodyFileName = SelectedFiles[0];
+	
+EndProcedure
 
 &НаСервере
 Процедура ЗаполнитьТаблицуЗаголовковПоСтроке(СтрокаЗаголовков)
@@ -806,7 +817,7 @@
 	RequestBodyEncoding = ТекДанные.RequestBodyEncoding;
 	UseBOM = ТекДанные.BOM;
 	RequestBodyFormat = ТекДанные.RequestBodyFormat;
-	ВидТелаЗапросаПриИзменении(Элементы.RequestBodyFormat);
+	RequestBodyFormatOnChange(Элементы.RequestBodyFormat);
 	RequestBodyFileName = ТекДанные.RequestBodyFileName;
 	Timeout=ТекДанные.Timeout;
 
@@ -868,46 +879,48 @@ Procedure FillByDebugData(DebugDataAddress)
 	While (SymPos > 0) do
 		If SymPos = 1 Then
 			RequestHeaders = Mid(RequestHeaders, 2);
-		Else If SymPos = StrLen(RequestHeaders) Then
+		ElsIf SymPos = StrLen(RequestHeaders) Then
 			RequestHeaders = Left(RequestHeaders, StrLen(RequestHeaders) - 1);
 		Else
 			NewHeaders = Left(RequestHeaders, SymPos - 1) + Mid(RequestHeaders, SymPos + 1);
 			RequestHeaders = NewHeaders;
 		EndIf;
 
+
 		SymPos = НайтиНедопустимыеСимволыXML(RequestHeaders);
 	EndDo;
 
-	ЗаполнитьТаблицуЗаголовковПоСтроке(Заголовки);
+	ЗаполнитьТаблицуЗаголовковПоСтроке(RequestHeaders);
 
-	Если ДанныеДляОтладки.ТелоЗапроса = Неопределено Тогда
+	If DebugData.RequestBody = Undefined Then
 		RequestBody = "";
 	Иначе
-		RequestBody = ДанныеДляОтладки.ТелоЗапроса;
+		RequestBody = DebugData.RequestBody;
 	КонецЕсли;
 
-	Если ДанныеДляОтладки.Свойство("ДвоичныеДанныеТела") Тогда
-		Если ТипЗнч(ДанныеДляОтладки.ДвоичныеДанныеТела) = Тип("ДвоичныеДанные") Тогда
-			RequestBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(ДанныеДляОтладки.ДвоичныеДанныеТела,
+	If DebugData.Property("RequestBodyBinaryData") Then
+		If TypeOf(DebugData.RequestBodyBinaryData) = Type("BinaryData") Тогда
+			RequestBodyBinaryDataAddress = PutToTempStorage(DebugData.RequestBodyBinaryData,
 				RequestBodyBinaryDataAddress);
-			RequestBodyBinaryDataString = ДанныеДляОтладки.ДвоичныеДанныеТелаСтрокой;
-		КонецЕсли;
-	КонецЕсли;
-	Если ДанныеДляОтладки.Свойство("ИмяФайлаЗапроса") Тогда
-		RequestBodyFileName = ДанныеДляОтладки.ИмяФайлаЗапроса;
-	КонецЕсли;
+			RequestBodyBinaryDataString = DebugData.RequestBodyBinaryDataString;
+		EndIf;
+	EndIf;
+	
+	If DebugData.Property("RequestBodyFileName") Then
+		RequestBodyFileName = DebugData.RequestBodyFileName;
+	EndIf;
 
-	Если ЗначениеЗаполнено(ДанныеДляОтладки.ПроксиСервер) Тогда
-		UseProxy = Истина;
+	If ValueIsFilled(DebugData.ProxyServer) Then
+		UseProxy = True;
 
-		ProxyServer = ДанныеДляОтладки.ПроксиСервер;
-		ProxyPort = ДанныеДляОтладки.ПроксиПорт;
-		ProxyUser = ДанныеДляОтладки.ПроксиПользователь;
-		ProxyPassword = ДанныеДляОтладки.ПроксиПароль;
-		OSAuthentificationProxy = ДанныеДляОтладки.ИспользоватьАутентификациюОС;
-	Иначе
-		UseProxy = Ложь;
-	КонецЕсли;
+		ProxyServer = DebugData.ProxyServer;
+		ProxyPort = DebugData.ProxyPort;
+		ProxyUser = DebugData.ProxyUser;
+		ProxyPassword = DebugData.ProxyPassword;
+		OSAuthentificationProxy = DebugData.OSAuthentificationProxy;
+	Else
+		UseProxy = False;
+	EndIf;
 	
 EndProcedure
 

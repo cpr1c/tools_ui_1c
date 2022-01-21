@@ -581,12 +581,12 @@
           <horizontalAlign>Left</horizontalAlign>
         </autoCommandBar>
         <handlers>
-          <event>Selection</event>
-          <name>ИсторияЗапросовВыбор</name>
+          <event>OnActivateRow</event>
+          <name>RequestHistoryOnActivateRow</name>
         </handlers>
         <handlers>
-          <event>OnActivateRow</event>
-          <name>ИсторияЗапросовПриАктивизацииСтроки</name>
+          <event>Selection</event>
+          <name>RequestHistorySelection</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -1124,7 +1124,7 @@
               <titleLocation>None</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>РедактированиеЗаголовковТаблицейПриИзменении</name>
+                <name>TableHeadersEditorOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>TableHeadersEditorExtendedTooltip</name>
@@ -1765,7 +1765,7 @@
                   <extInfo xsi:type="form:InputFieldExtInfo">
                     <handlers>
                       <event>AutoComplete</event>
-                      <name>ТаблицаЗаголовковЗапросаКлючАвтоПодбор</name>
+                      <name>RequestHeadersTableKeyAutoComplete</name>
                     </handlers>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2159,7 +2159,7 @@
               <titleLocation>None</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ВидТелаЗапросаПриИзменении</name>
+                <name>RequestBodyFormatOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>RequestBodyFormatExtendedTooltip</name>
@@ -2255,10 +2255,10 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаСвойстваСтроковогоТелаЗапроса</name>
+              <name>RequestBodyStringPropertiesGroup</name>
               <id>179</id>
               <items xsi:type="form:FormField">
-                <name>ИспользоватьBOM</name>
+                <name>UseBOM</name>
                 <id>60</id>
                 <title>
                   <key>ru</key>
@@ -2273,7 +2273,7 @@
                   <segments>UseBOM</segments>
                 </dataPath>
                 <extendedTooltip>
-                  <name>ПолеРасширеннаяПодсказка9</name>
+                  <name>UseBOMExtendedTooltip</name>
                   <id>62</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2288,7 +2288,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ПолеКонтекстноеМеню9</name>
+                  <name>UseBOMContextMenu</name>
                   <id>61</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2405,8 +2405,16 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Request body string properties group</value>
+              </title>
+              <title>
+                <key>ru</key>
+                <value>Группа свойства строкового тела запроса</value>
+              </title>
               <extendedTooltip>
-                <name>Группа1РасширеннаяПодсказка23</name>
+                <name>RequestBodyStringPropertiesGroupExtendedTooltip</name>
                 <id>180</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2459,10 +2467,10 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаСтраницыТелаЗапроса</name>
+            <name>RequestBodyPagesGroup</name>
             <id>161</id>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаСтраницаТелаЗапросаСтрокой</name>
+              <name>RequestBodyStringPageGroup</name>
               <id>163</id>
               <items xsi:type="form:FormField">
                 <name>ТелоЗапроса</name>
@@ -2522,11 +2530,15 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Request body string page group</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Группа страница тела запроса строкой</value>
               </title>
               <extendedTooltip>
-                <name>Группа1РасширеннаяПодсказка20</name>
+                <name>RequestBodyStringPageGroupExtendedTooltip</name>
                 <id>164</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2547,7 +2559,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаСтраницаТелаЗапросаДвоичныеДанные</name>
+              <name>RequestBodyBinaryDataPageGroup</name>
               <id>165</id>
               <items xsi:type="form:Button">
                 <name>ЗаполнитьДвоичныеДанныеТелаИзФайла</name>
@@ -2643,11 +2655,15 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Request body binary data page group</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Группа страница тела запроса двоичные данные</value>
               </title>
               <extendedTooltip>
-                <name>Группа1РасширеннаяПодсказка21</name>
+                <name>RequestBodyBinaryDataPageGroupExtendedTooltip</name>
                 <id>166</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2668,11 +2684,19 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаСтраницаТелаЗапросаИмяФайлаТела</name>
+              <name>RequestBodyFilePageGroup</name>
               <id>170</id>
               <items xsi:type="form:FormField">
-                <name>ИмяФайлаТелаЗапроса</name>
+                <name>RequestBodyFileName</name>
                 <id>172</id>
+                <title>
+                  <key>en</key>
+                  <value>Request body file name</value>
+                </title>
+                <title>
+                  <key>ru</key>
+                  <value>Имя файла тела запроса</value>
+                </title>
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
@@ -2683,7 +2707,7 @@
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
-                  <name>ПолеРасширеннаяПодсказка27</name>
+                  <name>RequestBodyFileNameExtendedTooltip</name>
                   <id>174</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2698,7 +2722,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ПолеКонтекстноеМеню27</name>
+                  <name>RequestBodyFileNameContextMenu</name>
                   <id>173</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2715,7 +2739,7 @@
                 <extInfo xsi:type="form:InputFieldExtInfo">
                   <handlers>
                     <event>StartChoice</event>
-                    <name>ИмяФайлаТелаЗапросаНачалоВыбора</name>
+                    <name>RequestBodyFileNameStartChoice</name>
                   </handlers>
                   <autoMaxHeight>true</autoMaxHeight>
                   <horizontalStretch>true</horizontalStretch>
@@ -2732,11 +2756,15 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Request body file page group</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Группа страница тела запроса имя файла тела</value>
               </title>
               <extendedTooltip>
-                <name>Группа1РасширеннаяПодсказка22</name>
+                <name>RequestBodyFilePageGroupExtendedTooltip</name>
                 <id>171</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2762,11 +2790,15 @@
               <common>true</common>
             </userVisible>
             <title>
+              <key>en</key>
+              <value>Request body pages group</value>
+            </title>
+            <title>
               <key>ru</key>
               <value>Группа страницы тела запроса</value>
             </title>
             <extendedTooltip>
-              <name>Группа1РасширеннаяПодсказка19</name>
+              <name>RequestBodyPagesGroupExtendedTooltip</name>
               <id>162</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3802,10 +3834,10 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ГруппаИсторияЗапросовТелоЗапросаСтраницы</name>
+                <name>RequestHistoryRequestBodyPagesGroup</name>
                 <id>181</id>
                 <items xsi:type="form:FormGroup">
-                  <name>ГруппаИсторияЗапросовТелоЗапросаСтраницаСтрока</name>
+                  <name>RequestHistoryRequestBodyStringPageGroup</name>
                   <id>183</id>
                   <items xsi:type="form:FormField">
                     <name>ИсторияЗапросовТелоЗапроса</name>
@@ -3864,11 +3896,15 @@
                     <common>true</common>
                   </userVisible>
                   <title>
+                    <key>en</key>
+                    <value>Request history request body string page group</value>
+                  </title>
+                  <title>
                     <key>ru</key>
                     <value>Группа история запросов тело запроса страница строка</value>
                   </title>
                   <extendedTooltip>
-                    <name>Группа1РасширеннаяПодсказка25</name>
+                    <name>RequestHistoryRequestBodyStringPageGroupExtendedTooltip</name>
                     <id>184</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3889,7 +3925,7 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
-                  <name>ГруппаИсторияЗапросовТелоЗапросаСтраницаДвоичныеДанные</name>
+                  <name>RequestHistoryRequestBodyBinaryDataPageGroup</name>
                   <id>187</id>
                   <items xsi:type="form:Button">
                     <name>СохранитьДвоичныеДанныеТелаЗапросаИзИстории</name>
@@ -3985,11 +4021,15 @@
                     <common>true</common>
                   </userVisible>
                   <title>
+                    <key>en</key>
+                    <value>Request history request body binary data page group</value>
+                  </title>
+                  <title>
                     <key>ru</key>
                     <value>Группа история запросов тело запроса страница двоичные данные</value>
                   </title>
                   <extendedTooltip>
-                    <name>Группа1РасширеннаяПодсказка27</name>
+                    <name>RequestHistoryRequestBodyBinaryDataPageGroupExtendedTooltip</name>
                     <id>188</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4010,11 +4050,19 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormGroup">
-                  <name>ГруппаИсторияЗапросовТелоЗапросаСтраницаФайл</name>
+                  <name>RequestHistoryRequestBodyFilePageGroup</name>
                   <id>194</id>
                   <items xsi:type="form:FormField">
-                    <name>ИсторияЗапросовТелоЗапросаИмяФайла</name>
+                    <name>RequestHistoryRequestBodyFileName</name>
                     <id>196</id>
+                    <title>
+                      <key>en</key>
+                      <value>Request history request body file name</value>
+                    </title>
+                    <title>
+                      <key>ru</key>
+                      <value>История запросов тело хапроса имя файла</value>
+                    </title>
                     <visible>true</visible>
                     <enabled>true</enabled>
                     <userVisible>
@@ -4025,7 +4073,7 @@
                     </dataPath>
                     <titleLocation>None</titleLocation>
                     <extendedTooltip>
-                      <name>ПолеРасширеннаяПодсказка29</name>
+                      <name>RequestHistoryRequestBodyFileNameExtendedTooltip</name>
                       <id>198</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4040,7 +4088,7 @@
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПолеКонтекстноеМеню29</name>
+                      <name>RequestHistoryRequestBodyFileNameContextMenu</name>
                       <id>197</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4057,7 +4105,7 @@
                     <extInfo xsi:type="form:InputFieldExtInfo">
                       <handlers>
                         <event>Opening</event>
-                        <name>ИсторияЗапросовТелоЗапросаИмяФайлаОткрытие</name>
+                        <name>RequestHistoryRequestBodyFileNameOpen</name>
                       </handlers>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -4074,11 +4122,16 @@
                     <common>true</common>
                   </userVisible>
                   <title>
+                    <key>en</key>
+                    <value>Request history request body file page group
+</value>
+                  </title>
+                  <title>
                     <key>ru</key>
                     <value>Группа история запросов тело запроса страница файл</value>
                   </title>
                   <extendedTooltip>
-                    <name>Группа1РасширеннаяПодсказка28</name>
+                    <name>RequestHistoryRequestBodyFilePageGroupExtendedTooltip</name>
                     <id>195</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4103,8 +4156,16 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Request history request body pages group</value>
+                </title>
+                <title>
+                  <key>ru</key>
+                  <value>Группа история запросов тело запроса страницы</value>
+                </title>
                 <extendedTooltip>
-                  <name>Группа1РасширеннаяПодсказка24</name>
+                  <name>RequestHistoryRequestBodyPagesGroupExtendedTooltip</name>
                   <id>182</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4765,11 +4826,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
