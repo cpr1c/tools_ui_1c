@@ -1,4 +1,4 @@
-#Область СлужебныеПроцедурыИФункции
+#Region Internal
 
 // Returns a new background job property table.
 //
@@ -580,111 +580,110 @@ Function ScheduledJobExecutionParameters()
 	
 EndFunction
 
-Процедура ОбновленнаяТаблицаРегламентныхЗаданий(Параметры, АдресХранилища) Экспорт
+Procedure UpdatedScheduledJobsTable(Parameters, StorageURL) Export
 
-	ИдентификаторРегламентногоЗадания = Параметры.ИдентификаторРегламентногоЗадания;
-	Таблица                           = Параметры.Таблица;
-	ОтключенныеЗадания                = Параметры.ОтключенныеЗадания;
+	ScheduledJobID 					  = Parameters.JobID;
+	Table                             = Parameters.Table;
+	DisabledJobs                	  = Parameters.DisabledJobs;
 	
-	// Обновление таблицы РегламентныеЗадания и списка СписокВыбора регламентного задания для отбора.
-	ТекущиеЗадания = РегламентныеЗадания.ПолучитьРегламентныеЗадания();
-	ОтключенныеЗадания.Очистить();
+	// Update table ScheduledJobs and list ChoiceList of scheduled jobs for filter.
+	CurrentJobs = ScheduledJobs.GetScheduledJobs();
+	DisabledJobs.Clear();
 
-	ПараметрыРегламентныхЗаданий = РегламентныеЗаданияЗависимыеОтФункциональныхОпций();
-	ПараметрыОтбора        = Новый Структура;
-	ПараметризуемыеЗадания = Новый Массив;
-	ПараметрыОтбора.Вставить("Параметризуется", Истина);
-	РезультатПоиска = ПараметрыРегламентныхЗаданий.НайтиСтроки(ПараметрыОтбора);
-	Для Каждого СтрокаРезультата Из РезультатПоиска Цикл
-		ПараметризуемыеЗадания.Добавить(СтрокаРезультата.РегламентноеЗадание);
-	КонецЦикла;
+	ScheduledJobsParameters = ScheduledJobsDependentOnFunctionalOptions();
+	FilterParameters        = New Structure;
+	ParametrizableJobs = New Array;
+	FilterParameters.Insert("Parameterized", True);
+	SearchResult = ScheduledJobsParameters.FindRows(FilterParameters);
+	For each ResultItem In SearchResult Do
+		ParametrizableJobs.Add(ResultItem.ScheduledJob);
+	EndDo;
 
-	ЗаданияВМоделиСервиса = Новый Соответствие;
-	ПодсистемаРаботаВМоделиСервисаСуществует = UT_Common.SubsystemExists(
-		"СтандартныеПодсистемы.РаботаВМоделиСервиса");
-	ПодсистемаРаботаВМоделиСервиса=Неопределено;
-	Если ПодсистемаРаботаВМоделиСервисаСуществует Тогда
+	JobsSaaS = New Map;
+	SaaSSubSystemExists = UT_Common.SubsystemExists(
+		"StandardSubsystems.SaaS");
+	SaaSSubsystem=Undefined;
+	If SaaSSubSystemExists Then
 		//@skip-warning
-		ПодсистемаРаботаВМоделиСервиса=Метаданные.Подсистемы.СтандартныеПодсистемы.Подсистемы.РаботаВМоделиСервиса;
-	КонецЕсли;
-	Для Каждого ОбъектМетаданных Из Метаданные.РегламентныеЗадания Цикл
-		Если Не РегламентноеЗаданиеДоступноПоФункциональнымОпциям(ОбъектМетаданных, ПараметрыРегламентныхЗаданий) Тогда
-			ОтключенныеЗадания.Добавить(ОбъектМетаданных.Имя);
-			Продолжить;
-		КонецЕсли;
-		Если Не UT_Common.DataSeparationEnabled() И ПодсистемаРаботаВМоделиСервисаСуществует Тогда
-			Если ПодсистемаРаботаВМоделиСервиса.Состав.Содержит(ОбъектМетаданных) Тогда
-				ЗаданияВМоделиСервиса.Вставить(ОбъектМетаданных.Имя, Истина);
-				Продолжить;
-			КонецЕсли;
-			Для Каждого Подсистема Из ПодсистемаРаботаВМоделиСервиса.Подсистемы Цикл
-				Если Подсистема.Состав.Содержит(ОбъектМетаданных) Тогда
-					ЗаданияВМоделиСервиса.Вставить(ОбъектМетаданных.Имя, Истина);
-					Продолжить;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЦикла;
+		SaaSSubsystem=Metadata.Subsystems.StandardSubsystems.Subsystems.SaaS;
+	EndIf;
+	For each MetadataObject In Metadata.ScheduledJobs Do
+		If Not ScheduledJobAvailableByFunctionalOptions(MetadataObject, ScheduledJobsParameters) Then
+			DisabledJobs.Add(MetadataObject.Name);
+			Continue;
+		EndIf;
+		If Not UT_Common.DataSeparationEnabled() and SaaSSubSystemExists Then
+			If SaaSSubsystem.Content.Contains(MetadataObject) Then
+				JobsSaaS.Insert(MetadataObject.Name, True);
+				Continue;
+			EndIf;
+			For each SubSystem in SaaSSubsystem.Subsystems Do
+				If SubSystem.Content.Contains(MetadataObject) Then
+					JobsSaaS.Insert(MetadataObject.Name, True);
+					Continue;
+				EndIf;
+			EndDo;
+		EndIf;
+	EndDo;
 
-	Если ИдентификаторРегламентногоЗадания = Неопределено Тогда
+	If ScheduledJobID = Undefined Then
 
-		Индекс = 0;
-		Для Каждого Задание Из ТекущиеЗадания Цикл
-			Если Не UT_Common.DataSeparationEnabled() И ЗаданияВМоделиСервиса[Задание.Метаданные.Имя]
-				<> Неопределено Тогда
+		Index = 0;
+		For each Job In CurrentJobs Do
+			If Not UT_Common.DataSeparationEnabled() And JobsSaaS[Job.Metadata.Name]
+				<> Undefined Then
+				Continue;
+			EndIf;
 
-				Продолжить;
-			КонецЕсли;
+			ID = String(Job.UUID);
 
-			Идентификатор = Строка(Задание.УникальныйИдентификатор);
-
-			Если Индекс >= Таблица.Количество() Или Таблица[Индекс].Идентификатор <> Идентификатор Тогда
+			If Index >= Table.Count() Or Table[Index].ID <> ID Then
 				
-				// Вставка нового задания.
-				Обновляемое = Таблица.Вставить(Индекс);
+				// Inserting a new job.
+				Updated = Table.Insert(Index);
 				
-				// Установка уникального идентификатора.
-				Обновляемое.Идентификатор = Идентификатор;
-			Иначе
-				Обновляемое = Таблица[Индекс];
-			КонецЕсли;
+				// Setting a unique identifier.
+				Updated.ID = ID;
+			Else
+				Updated = Table[Index];
+			EndIF;
 
-			Если ПараметризуемыеЗадания.Найти(Задание.Метаданные) <> Неопределено Тогда
-				Обновляемое.Параметризуемое = Истина;
-			КонецЕсли;
+			If ParametrizableJobs.Find(Job.Metadata) <> Undefined Then
+				Updated.Parameterizable = True;
+			EndIF;
 
-			ОбновитьСтрокуТаблицыРегламентныхЗаданий(Обновляемое, Задание);
-			Индекс = Индекс + 1;
-		КонецЦикла;
+			UpdateRowOfScheduledJobsTable(Updated, Job);
+			Index = Index + 1;
+		EndDo;
 	
-		// Удаление лишних строк.
-		Пока Индекс < Таблица.Количество() Цикл
-			Таблица.Удалить(Индекс);
-		КонецЦикла;
-	Иначе
-		Задание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(
-			Новый УникальныйИдентификатор(ИдентификаторРегламентногоЗадания));
+		// Deleting extra lines..
+		While Index < Table.Count() Do
+			Table.Delete(Index);
+		EndDo;
+	Else
+		Job = ScheduledJobs.FindByUUID(
+			New UUID(ScheduledJobID));
 
-		Строки = Таблица.НайтиСтроки(
-			Новый Структура("Идентификатор", ИдентификаторРегламентногоЗадания));
+		Rows = Table.FindRows(
+			New Structure("ID", ScheduledJobID));
 
-		Если Задание <> Неопределено И Строки.Количество() > 0 Тогда
+		If Job <> Undefined And Rows.Count() > 0 Then
 
-			СтрокаЗадание = Строки[0];
-			Если ПараметризуемыеЗадания.Найти(Задание.Метаданные) <> Неопределено Тогда
-				СтрокаЗадание.Параметризуемое = Истина;
-			КонецЕсли;
-			ОбновитьСтрокуТаблицыРегламентныхЗаданий(СтрокаЗадание, Задание);
-		КонецЕсли;
-	КонецЕсли;
+			JobRow = Rows[0];
+			If ParametrizableJobs.Find(Job.Metadata) <> Undefined Then
+				JobRow.Parameterizable = True;
+			EndIf;
+			UpdateRowOfScheduledJobsTable(JobRow, Job);
+		EndIf;
+	EndIf;
 
-	Результат = Новый Структура;
-	Результат.Вставить("Таблица", Таблица);
-	Результат.Вставить("ОтключенныеЗадания", ОтключенныеЗадания);
+	Result = New Structure;
+	Result.Insert("Table", Table);
+	Result.Insert("DisabledJobs", DisabledJobs);
 
-	ПоместитьВоВременноеХранилище(Результат, АдресХранилища);
+	PutToTempStorage(Result, StorageURL);
 
-КонецПроцедуры
+EndProcedure
 
 // Checks whether the scheduled job is enabled according to functional options.
 //
@@ -746,43 +745,44 @@ Function ScheduledJobAvailableByFunctionalOptions(Job, JobDependencies = Undefin
 	EndIf;
 	
 EndFunction
-Процедура ОбновитьСтрокуТаблицыРегламентныхЗаданий(Строка, Задание)
 
-	ЗаполнитьЗначенияСвойств(Строка, Задание);
+Procedure UpdateRowOfScheduledJobsTable(Row, Job)
+
+	FillPropertyValues(Row, Job);
 	
-	// Уточнение наименования
-	Строка.Наименование = ПредставлениеРегламентногоЗадания(Задание);
+	// Clarification of the name
+	Row.Name = ScheduledJobPresentation(Job);
 	
-	// Установка Даты завершения и Состояния завершения по последней фоновой процедуре.
-	СвойстваПоследнегоФоновогоЗадания = UT_ScheduledJobsInternal.ПолучитьСвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(
-		Задание);
+	// Setting the Completion Date and Completion Status for the last background procedure.
+	LastBackgroundJobProperties = UT_ScheduledJobsInternal.LastBackgroundJobScheduledJobExecutionProperties(
+		Job);
 
-	Строка.ИмяЗадания = Задание.Метаданные.Имя;
-	Если СвойстваПоследнегоФоновогоЗадания = Неопределено Тогда
-		Строка.ДатаНачала          = ТекстНеОпределено();
-		Строка.ДатаОкончания       = ТекстНеОпределено();
-		Строка.СостояниеВыполнения = ТекстНеОпределено();
-	Иначе
-		Строка.ДатаНачала          = ?(ЗначениеЗаполнено(СвойстваПоследнегоФоновогоЗадания.Начало),
-			СвойстваПоследнегоФоновогоЗадания.Начало, "<>");
-		Строка.ДатаОкончания       = ?(ЗначениеЗаполнено(СвойстваПоследнегоФоновогоЗадания.Конец),
-			СвойстваПоследнегоФоновогоЗадания.Конец, "<>");
-		Строка.СостояниеВыполнения = СвойстваПоследнегоФоновогоЗадания.Состояние;
-	КонецЕсли;
+	Row.JobName = Job.Metadata.Name;
+	If LastBackgroundJobProperties = Undefined Then
+		Row.BeginDate          = TextUndefined();
+		Row.EndDate       = TextUndefined();
+		Row.ExecutionStatus = TextUndefined();
+	Else
+		Row.BeginDate          = ?(ValueIsFilled(LastBackgroundJobProperties.Begin),
+			LastBackgroundJobProperties.Begin, "<>");
+		Row.EndDate       = ?(ValueIsFilled(LastBackgroundJobProperties.End),
+			LastBackgroundJobProperties.End, "<>");
+		Row.ExecutionStatus = LastBackgroundJobProperties.State;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-// Только для внутреннего использования.
-//
-Процедура ТаблицаСвойствФоновыхЗаданийВФоне(Параметры, АдресХранилища) Экспорт
+// Only for internal use.
+//BackgroundJobsPropertiesTableInBackground
+Procedure BackgroundJobsPropertiesTableInBackground(Parameters, StorageURL) Export
 
-	ТаблицаСвойств = СвойстваФоновыхЗаданий(Параметры.Отбор);
+	PropertiesTable = BackgroundJobsProperties(Parameters.Filter);
 
-	Результат = Новый Структура;
-	Результат.Вставить("ТаблицаСвойств", ТаблицаСвойств);
+	Result = New Structure;
+	Result.Insert("PropertiesTable", PropertiesTable);
 
-	ПоместитьВоВременноеХранилище(Результат, АдресХранилища);
+	PutToTempStorage(Result, StorageURL);
 
-КонецПроцедуры
+EndProcedure
 
-#КонецОбласти
+#EndRegion

@@ -12,178 +12,181 @@ Procedure RaiseIfNoAdministrationRights()
 	
 EndProcedure
 
-// Возвращает РегламентноеЗадание из информационной базы.
-// Не предназначена для использования в модели сервиса.
+// Returns ScheduledJob from the infobase.
+// Cannot be used in SaaS mode.
 //
-// Параметры:
-//  Идентификатор - ОбъектМетаданных - объект метаданных регламентного задания для поиска
-//                  предопределенного регламентного задания.
-//                - УникальныйИдентификатор - идентификатор регламентного задания.
-//                - Строка - строка уникального идентификатора регламентного задания.
-//                - РегламентноеЗадание - регламентное задание из которого нужно получить
-//                  уникальный идентификатор для получения свежей копии регламентного задания.
+// Parameters:
+//  ID - MetadataObject - metadata object of a scheduled job to search the predefined scheduled job.
+//                  
+//                - UUID - an ID of the scheduled job.
+//                - String - a scheduled job UUID string.
+//                - ScheduledJob - a scheduled job from which you need to get the UUID for getting a 
+//                  fresh copy of the scheduled job.
 // 
-// Возвращаемое значение:
-//  РегламентноеЗадание - прочитано из базы данных.
+// Returns:
+//  ScheduledJob - read from the database.
 //
-Function ПолучитьРегламентноеЗадание(Знач Идентификатор) Экспорт
-
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-
-	Если ТипЗнч(Идентификатор) = Тип("РегламентноеЗадание") Тогда
-		Идентификатор = Идентификатор.УникальныйИдентификатор;
-	КонецЕсли;
-
-	Если ТипЗнч(Идентификатор) = Тип("Строка") Тогда
-		Идентификатор = Новый УникальныйИдентификатор(Идентификатор);
-	КонецЕсли;
-
-	Если ТипЗнч(Идентификатор) = Тип("ОбъектМетаданных") Тогда
-		РегламентноеЗадание = РегламентныеЗадания.НайтиПредопределенное(Идентификатор);
-	Иначе
-		РегламентноеЗадание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(Идентификатор);
-	КонецЕсли;
-
-	Если РегламентноеЗадание = Неопределено Тогда
-		ВызватьИсключение (НСтр("ru = 'Регламентное задание не найдено.
-								|Возможно, оно удалено другим пользователем.'"));
-	КонецЕсли;
-
-	Возврат РегламентноеЗадание;
-
+Function GetScheduledJob(Val ID) Export
+	
+	RaiseIfNoAdministrationRights();
+	
+	If TypeOf(ID) = Type("ScheduledJob") Then
+		ID = ID.UUID;
+	EndIf;
+	
+	If TypeOf(ID) = Type("String") Then
+		ID = New UUID(ID);
+	EndIf;
+	
+	If TypeOf(ID) = Type("MetadataObject") Then
+		ScheduledJob = ScheduledJobs.FindPredefined(ID);
+	Else
+		ScheduledJob = ScheduledJobs.FindByUUID(ID);
+	EndIf;
+	
+	If ScheduledJob = Undefined Then
+		Raise( NStr("ru = 'Регламентное задание не найдено.
+		                              |Возможно, оно удалено другим пользователем.'; 
+		                              |en = 'The scheduled job is not found.
+		                              |Probably it was deleted by another user.'") );
+	EndIf;
+	
+	Return ScheduledJob;
+	
 EndFunction
 
-// Добавляет новое задание в очередь или как регламентное.
+// Adds a new job to a queue or as a scheduled one.
 // 
-// Параметры: 
-//  Параметры - Структура - Параметры добавляемого задания, возможные ключи:
-//   Использование
-//   Метаданные - обязательно для указания.
-//   Параметры
-//   Ключ
-//   ИнтервалПовтораПриАварийномЗавершении.
-//   Расписание
-//   КоличествоПовторовПриАварийномЗавершении.
+// Parameters:
+//  Parameters - Structure - parameters of the job to be added. The following keys can be used:
+//   * Usage
+//   * Metadata - mandatory
+//   * Parameters
+//   * Key
+//   * RestartIntervalOnFailure
+//   * Schedule
+//   * RestartCountOnFailure
 //
-// Возвращаемое значение: 
-//  РегламентноеЗадание, СправочникСсылка.ОчередьЗаданий, СправочникСсылка.ОчередьЗаданийОбластейДанных - Идентификатор
-//  добавленного задания.
+// Returns:
+//  ScheduledJob, CatalogRef.JobQueue, CatalogRef.DataAreaJobQueue - an added job ID.
+//  
 // 
-Function ДобавитьЗадание(Параметры) Экспорт
+Function AddJob(Parameters) Export
 
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
+	RaiseIfNoAdministrationRights();
+	
+	JobParameters = Common.CopyRecursive(Parameters);
 
-	ПараметрыЗадания = UT_CommonClientServer.CopyStructure(Параметры);
+	//if UT_Common.DataSeparationEnabled() Then
 
-	//Если УИ_ОбщегоНазначения.DataSeparationEnabled() Тогда
+	//	If UT_Common.SubsystemExists("StandardSubsystems.SaaS.JobQueue") Then
+	//		ModuleSaaS = UT_Common.CommonModule("SaaS");
 
-	//	Если УИ_ОбщегоНазначения.ПодсистемаСуществует("СтандартныеПодсистемы.РаботаВМоделиСервиса.ОчередьЗаданий") Тогда
-	//		МодульРаботаВМоделиСервиса = УИ_ОбщегоНазначения.ОбщийМодуль("РаботаВМоделиСервиса");
+	//		If UT_Common.SeparatedDataUsageAvailable() Then
+	//				DataArea = ModuleSaaS.SessionSeparatorValue();
+	//				JobParameters.Insert("DataArea", DataArea);
+	//			EndIf;
 
-	//		Если УИ_ОбщегоНазначения.SeparatedDataUsageAvailable() Тогда
-	//			ОбластьДанных = МодульРаботаВМоделиСервиса.ЗначениеРазделителяСеанса();
-	//			ПараметрыЗадания.Вставить("ОбластьДанных", ОбластьДанных);
-	//		КонецЕсли;
+	//		JobMetadata = JobParameters.Metadata;
+	//			MethodName = JobMetadata.MethodName;
+	//			JobParameters.Insert("MethodName", MethodName);
+	//			
+	//			JobParameters.Delete("Metadata");
+	//			JobParameters.Delete("Description");
+	//			
+	//			ModuleJobQueue = UT_Common.CommonModule("JobQueue");
+	//			Job = ModuleJobQueue.AddJob(JobParameters);
+	//			JobsList = ModuleJobQueue.GetJobs(New Structure("ID", Job));
+	//			For Each Job In JobsList Do
+	//				Return Job;
+	//			EndDo;
+	//			
+	//		EndIf;
 
-	//		МетаданныеЗадания = ПараметрыЗадания.Метаданные;
-	//		ИмяМетода = МетаданныеЗадания.ИмяМетода;
-	//		ПараметрыЗадания.Вставить("ИмяМетода", ИмяМетода);
+	//Else
 
-	//		ПараметрыЗадания.Удалить("Метаданные");
-	//		ПараметрыЗадания.Удалить("Наименование");
+		JobMetadata = JobParameters.Metadata;
+		Job = ScheduledJobs.CreateScheduledJob(JobMetadata);
+		
+		If JobParameters.Property("Description") Then
+			Job.Description = JobParameters.Description;
+		Else
+			Job.Description = JobMetadata.Description;
+		EndIf;
+		
 
-	//		МодульОчередьЗаданий = УИ_ОбщегоНазначения.ОбщийМодуль("ОчередьЗаданий");
-	//		Задание = МодульОчередьЗаданий.ДобавитьЗадание(ПараметрыЗадания);
-	//		СписокЗаданий = МодульОчередьЗаданий.ПолучитьЗадания(Новый Структура("Идентификатор", Задание));
-	//		Для Каждого Задание Из СписокЗаданий Цикл
-	//			Возврат Задание;
-	//		КонецЦикла;
+	If JobParameters.Property("Use") Then
+			Job.Use = JobParameters.Use;
+		Else
+			Job.Use = JobMetadata.Use;
+		EndIf;
+		
+		If JobParameters.Property("Key") Then
+			Job.Key = JobParameters.Key;
+		Else
+			Job.Key = JobMetadata.Key;
+		EndIf;
+		
+		If JobParameters.Property("UserName") Then
+			Job.UserName = JobParameters.UserName;
+		EndIf;
+		
+		If JobParameters.Property("RestartIntervalOnFailure") Then
+			Job.RestartIntervalOnFailure = JobParameters.RestartIntervalOnFailure;
+		Else
+			Job.RestartIntervalOnFailure = JobMetadata.RestartIntervalOnFailure;
+		EndIf;
 
-	//	КонецЕсли;
+		If JobParameters.Property("RestartCountOnFailure") Then
+			Job.RestartCountOnFailure = JobParameters.RestartCountOnFailure;
+		Else
+			Job.RestartCountOnFailure = JobMetadata.RestartCountOnFailure;
+		EndIf;
+		
+		If JobParameters.Property("Parameters") Then
+			Job.Parameters = JobParameters.Parameters;
+		EndIf;
+		
+		If JobParameters.Property("Schedule") Then
+			Job.Schedule = JobParameters.Schedule;
+		EndIf;
+		
+		Job.Write();
 
-	//Иначе
+	//EndIf;
 
-		МетаданныеЗадания = ПараметрыЗадания.Метаданные;
-		Задание = РегламентныеЗадания.СоздатьРегламентноеЗадание(МетаданныеЗадания);
-
-		Если ПараметрыЗадания.Свойство("Наименование") Тогда
-			Задание.Наименование = ПараметрыЗадания.Наименование;
-		Иначе
-			Задание.Наименование = МетаданныеЗадания.Наименование;
-		КонецЕсли;
-
-		Если ПараметрыЗадания.Свойство("Использование") Тогда
-			Задание.Использование = ПараметрыЗадания.Использование;
-		Иначе
-			Задание.Использование = МетаданныеЗадания.Использование;
-		КонецЕсли;
-
-		Если ПараметрыЗадания.Свойство("Ключ") Тогда
-			Задание.Ключ = ПараметрыЗадания.Ключ;
-		Иначе
-			Задание.Ключ = МетаданныеЗадания.Ключ;
-		КонецЕсли;
-
-		Если ПараметрыЗадания.Свойство("ИмяПользователя") Тогда
-			Задание.ИмяПользователя = ПараметрыЗадания.ИмяПользователя;
-		КонецЕсли;
-
-		Если ПараметрыЗадания.Свойство("ИнтервалПовтораПриАварийномЗавершении") Тогда
-			Задание.ИнтервалПовтораПриАварийномЗавершении = ПараметрыЗадания.ИнтервалПовтораПриАварийномЗавершении;
-		Иначе
-			Задание.ИнтервалПовтораПриАварийномЗавершении = МетаданныеЗадания.ИнтервалПовтораПриАварийномЗавершении;
-		КонецЕсли;
-
-		Если ПараметрыЗадания.Свойство("КоличествоПовторовПриАварийномЗавершении") Тогда
-			Задание.КоличествоПовторовПриАварийномЗавершении = ПараметрыЗадания.КоличествоПовторовПриАварийномЗавершении;
-		Иначе
-			Задание.КоличествоПовторовПриАварийномЗавершении = МетаданныеЗадания.КоличествоПовторовПриАварийномЗавершении;
-		КонецЕсли;
-
-		Если ПараметрыЗадания.Свойство("Параметры") Тогда
-			Задание.Параметры = ПараметрыЗадания.Параметры;
-		КонецЕсли;
-
-		Если ПараметрыЗадания.Свойство("Расписание") Тогда
-			Задание.Расписание = ПараметрыЗадания.Расписание;
-		КонецЕсли;
-
-		Задание.Записать();
-
-	//КонецЕсли;
-
-	Возврат Задание;
+	Return Job;
 
 EndFunction
-// Возвращает расписание регламентного задания.
-// Перед вызовом требуется иметь право Администрирования или УстановитьПривилегированныйРежим.
-// Не предназначена для использования в модели сервиса.
+// Returns the scheduled job schedule.
+// Before calling, it is required to have the administrator rights or SetPrivilegedMode.
+// Cannot be used in SaaS mode.
 //
-// Параметры:
-//  Идентификатор - ОбъектМетаданных - объект метаданных регламентного задания для поиска
-//                  предопределенного регламентного задания.
-//                - УникальныйИдентификатор - идентификатор регламентного задания.
-//                - Строка - строка уникального идентификатора регламентного задания.
-//                - РегламентноеЗадание - регламентное задание.
+// Parameters:
+//  ID - MetadataObject - metadata object of a scheduled job to search the predefined scheduled job.
+//                  
+//                - UUID - an ID of the scheduled job.
+//                - String - a scheduled job UUID string.
+//                - ScheduledJob - a scheduled job.
 //
-//  ВСтруктуре    - Булево - если Истина, тогда расписание будет преобразовано
-//                  в структуру, которую можно передать на клиент.
+//  InStructure - Boolean - if True, the schedule will be transformed into a structure that you can 
+//                  pass to the client.
 // 
-// Возвращаемое значение:
-//  РасписаниеРегламентногоЗадания, Структура - структура содержит те же свойства, что и расписание.
+// Returns:
+//  JobSchedule, Structure - the structure contains the same properties as the schedule.
 // 
-Function РасписаниеРегламентногоЗадания(Знач Идентификатор, Знач ВСтруктуре = Ложь) Экспорт
-
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
-
-	Задание = ПолучитьРегламентноеЗадание(Идентификатор);
-
-	Если ВСтруктуре Тогда
-		Возврат UT_CommonClientServer.ScheduleToStructure(Задание.Расписание);
-	КонецЕсли;
-
-	Возврат Задание.Расписание;
-
+Function JobSchedule(Val ID, Val InStructure = False) Export
+	
+	RaiseIfNoAdministrationRights();
+	
+	Job = GetScheduledJob(ID);
+	
+	If InStructure Then
+		Return UT_CommonClientServer.ScheduleToStructure(Job.Schedule);
+	EndIf;
+	
+	Return Job.Schedule;
+	
 EndFunction
 
 // Sets the scheduled job schedule.
@@ -235,21 +238,21 @@ Function GetScheduledJobObject(JobUniqueNumber) Export
 	
 EndFunction
 
-Function ПолучитьОбъектФоновогоЗадания(УникальныйНомерЗадания) Экспорт
-
-	Попытка
-
-		Если Не ПустаяСтрока(УникальныйНомерЗадания) Тогда
-			УникальныйИдентификаторЗадания = Новый УникальныйИдентификатор(УникальныйНомерЗадания);
-			ТекущееФоновоеЗадание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(УникальныйИдентификаторЗадания);
-		Иначе
-			ТекущееФоновоеЗадание = Неопределено;
-		КонецЕсли;
-
-	Исключение
-		ТекущееФоновоеЗадание = Неопределено;
-	КонецПопытки;
-
-	Возврат ТекущееФоновоеЗадание;
-
-КонецФункции
+Function GetBackgroundJobObject(JobUniqueNumber) Export
+	
+	Try
+		
+		If Not IsBlankString(JobUniqueNumber) Then
+			JobUUID = New UUID(JobUniqueNumber);
+			CurrentBackgroundJob = BackgroundJobs.FindByUUID(JobUUID);
+		Else
+			CurrentBackgroundJob = Undefined;
+		EndIf;
+		
+	Except
+		CurrentBackgroundJob = Undefined;
+    EndTry;
+	
+	Return CurrentBackgroundJob;
+	
+EndFunction
