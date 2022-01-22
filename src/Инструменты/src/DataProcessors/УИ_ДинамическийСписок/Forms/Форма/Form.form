@@ -6,17 +6,24 @@
     <items xsi:type="form:FormGroup">
       <name>ГруппаМетаданные</name>
       <id>28</id>
-      <items xsi:type="form:Addition">
+      <items xsi:type="form:FormField">
+        <name>СтрокаПоиска</name>
+        <id>146</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
         </userVisible>
-        <name>ДеревоМетеданныхСтрокаПоиска</name>
-        <id>143</id>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СтрокаПоиска</segments>
+        </dataPath>
+        <handlers>
+          <event>OnChange</event>
+          <name>СтрокаПоискаПриИзменении</name>
+        </handlers>
         <extendedTooltip>
-          <name>ДеревоМетеданныхСтрокаПоискаРасширеннаяПодсказка</name>
-          <id>145</id>
+          <name>СтрокаПоискаРасширеннаяПодсказка</name>
+          <id>148</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -30,8 +37,8 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоМетеданныхСтрокаПоискаКонтекстноеМеню</name>
-          <id>144</id>
+          <name>СтрокаПоискаКонтекстноеМеню</name>
+          <id>147</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -39,9 +46,18 @@
           </userVisible>
           <autoFill>true</autoFill>
         </contextMenu>
-        <source>Addition</source>
-        <extInfo xsi:type="form:SearchStringAdditionExtInfo">
+        <type>InputField</type>
+        <editMode>Enter</editMode>
+        <showInHeader>true</showInHeader>
+        <headerHorizontalAlign>Left</headerHorizontalAlign>
+        <showInFooter>true</showInFooter>
+        <extInfo xsi:type="form:InputFieldExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <wrap>true</wrap>
+          <chooseType>true</chooseType>
+          <typeDomainEnabled>true</typeDomainEnabled>
+          <textEdit>true</textEdit>
         </extInfo>
       </items>
       <items xsi:type="form:Table">
@@ -888,6 +904,24 @@
       <numberQualifiers>
         <precision>10</precision>
       </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>СтрокаПоиска</name>
+    <title>
+      <key>ru</key>
+      <value>Строка поиска</value>
+    </title>
+    <id>20</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
