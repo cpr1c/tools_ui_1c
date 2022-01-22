@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><html><head><meta http-equiv="content-type" content="text/html;charset=utf-8"></meta><link rel="stylesheet" type="text/css" href="__STYLE__"></link></head><body>
+<h2>Query result processing by code</h2>
+<div><font size="4">Five code execution modes are available.</font></div>
+<h2>Simple execution</h2>
+<p><font size="4">The code is just executed at&nbsp;server, the execution occurs once.&nbsp;In this mode, there is no progress indication at client. Query result iteration must be organized independently.&nbsp;</font><span style="font-size: large;">Using <em>Message&nbsp;</em>is available, but<em>&nbsp;</em>the messages can only be seen when the execution is complete.&nbsp;</span><span style="font-size: large;">This mode is recommended&nbsp;if the algorithm does not run for a long time.</span></p>
+<p><span style="font-size: large;">Variables available:</span></p><blockquote style="margin: 0px 0px 0px 40px; padding: 0px; border: currentColor; border-image: none;">
+<p><b><font size="4">Selection</font></b><span style="font-size: large;">&nbsp;- query result selection.</span></p>
+<p><span style="font-size: large;"><b>Parameters</b>&nbsp;- query parameters.</span></p></blockquote>
+<dt><font size="4">Example.</font></dt>
+<dt><font face="Courier New"><font color="#ff0000">While</font>&nbsp;<font color="#0000ff">Selection</font><font color="#ff0000">.</font><font color="#0000ff">Next</font><font color="#ff0000">()</font> <font color="#ff0000">Do</font></font></dt>
+<dt><font face="Courier New">&nbsp;&nbsp;&nbsp; <font color="#0000ff">Selection</font><font color="#ff0000">.</font><font color="#0000ff">Ref</font><font color="#ff0000">.</font><font color="#0000ff">GetObject</font><font color="#ff0000">().</font><font color="#0000ff">Delete</font><font color="#ff0000">();</font></font></dt>
+<dt><font color="#ff0000" face="Courier New">EndDo;</font></dt>
+<dt><span style="font-size: large;"><br></span></dt>
+<h2>Line by line without indication</h2>
+<p><font size="4">In this mode, the code execution called&nbsp;for each line separately. No need to organize query result iteration.&nbsp;<span style="font-size: large;">Using <em>Message&nbsp;</em>is also available</span></font><span style="font-size: large;">, messages can be seen when the execution is complete.</span></p>
+<p><span style="font-size: large;"><span style="font-size: large;">Variables available</span>:</span></p><blockquote style="margin: 0px 0px 0px 40px; padding: 0px; border: currentColor; border-image: none;"></blockquote><blockquote style="margin: 0px 0px 0px 40px; padding: 0px; border: currentColor; border-image: none;">
+<p><font size="4"><strong>Selection</strong><span style="font-size: large;">&nbsp;</span>- query result selection with a selected row.</font></p>
+<p><font size="4"><span style="font-size: large;"><b>Parameters</b>&nbsp;- query parameters</span>.</font></p></blockquote>
+<dt><font size="4">Example.</font></dt>
+<dt><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff">Selection</font><font color="#ff0000">.</font><font color="#0000ff">Ref</font><font color="#ff0000">.</font><font color="#0000ff">GetObject</font><font color="#ff0000">().</font><font color="#0000ff">Delete</font><font color="#ff0000">();</font></font></dt>
+<dt><br></dt>
+<h2>Line by line with indication</h2>
+<dt>
+<p><font size="4">Unlike "Line by line without indication", the execution progress, the elapsed execution time, the forecast for remaining time are available at client.&nbsp;Execution break with&nbsp;Ctrl+Break is available. <span style="font-size: large;">Using <em>Message&nbsp;</em>is available</span>, but<em>&nbsp;</em>the messages can only be seen when the execution is complete. Algorithm code is the same as in "Line by line without indication" mode. This is the most convenient mode if SSL 2.3 is not available and a line-by-line iteration is suitable.</font></p>
+<p><font size="4"><span style="font-size: large;"><span style="font-size: large;">Variables available</span></span>:</font></p>
+<div><blockquote style="margin: 0px 0px 0px 40px; padding: 0px; border: currentColor; border-image: none;">
+<p><font size="4"><strong>Selection</strong><span style="font-size: large;">&nbsp;- query result selection</span>.</font></p>
+<p><font size="4"><span style="font-size: large;"><b>Parameters</b>&nbsp;- query parameters</span>.</font></p>
+<div><font size="4"><br></font></div></blockquote></div>
+<h2>Simple in the background&nbsp;(SSL 2.3)</h2>
+<div><font size="4">In this mode, SSL version&nbsp;2.3 or later must be&nbsp;included in the configuration. The code executed in the background job. Query result iteration must be organized independently. Only the execution time available at client. Since the execution takes place in the background, the user can continue working at client. In this mode, user also can&nbsp;interrupt the execution by clicking the "Interrupt" (Ctrl+F5) button.&nbsp;One more advantage&nbsp;-&nbsp;using&nbsp;<em>Message</em> is available,&nbsp;messages will be seen at client with a status display refresh period. Th default status display refresh period is 1 second, it could be changed in "Options".</font></div>
+<p><font size="4"><span style="font-size: large;"><span style="font-size: large;">Variables available</span></span>:</font></p>
+<div><blockquote style="margin: 0px 0px 0px 40px; padding: 0px; border: currentColor; border-image: none;">
+<p><font size="4"><strong>Selection</strong><span style="font-size: large;">&nbsp;- query result selection</span>.</font></p>
+<p><font size="4"><span style="font-size: large;"><b>Parameters</b>&nbsp;- query parameters</span>.</font></p>
+<p><font size="4"><b>ProgressSign</b>&nbsp;-&nbsp;variable to send to&nbsp;<em>MessageProgress</em> (see below).&nbsp;</font></p></blockquote>
+<p><font size="4">Example.</font></p></div></dt>
+<dt><font color="#ff0000" face="Courier New">While<font color="#000000">&nbsp;</font><font color="#0000ff">Selection</font><font color="#ff0000">.</font><font color="#0000ff">Next</font><font color="#ff0000">()</font><font color="#000000"> </font><font color="#ff0000">Do</font></font></dt>
+<dt><font color="#ff0000" face="Courier New" style="caret-color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000ff" face="Courier New">Object </font><font color="#ff0000" face="Courier New">=</font><font color="#0000ff" face="Courier New">&nbsp;Selection<font color="#ff0000">.</font><font color="#0000ff">Ref</font><font color="#ff0000">.</font><font color="#0000ff">GetObject</font><font color="#ff0000">();</font></font></dt>
+<dt><font color="#ff0000" face="Courier New" style="caret-color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000ff" face="Courier New">Message</font><font color="#ff0000" face="Courier New">(<font color="#0000ff" face="Courier New">Object</font></font><font color="#ff0000" face="Courier New">);</font></dt>
+<dt><font color="#ff0000" face="Courier New" style="caret-color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff" face="Courier New">Object</font></font><font color="#ff0000" face="Courier New">.<font color="#0000ff">Delete</font><font color="#ff0000"></font></font><font color="#ff0000" face="Courier New">();</font></dt>
+<dt>
+<div></div></dt>
+<dt><font color="#ff0000"><font face="Courier New">EndDo;</font></font></dt>
+<dt><font size="4"><br></font></dt>
+<dt><font size="4">Also&nbsp;"</font><span style="font-size: large;">Simple in the background&nbsp;(SSL 2.3)" mode&nbsp;allows display the progress,&nbsp;if use&nbsp;the <em>MessageProgress</em></span><font size="4"><em> </em>function</font><span style="font-size: large;">:</span></dt>
+<dt><font color="#008200" face="Courier New">//Displays progress.</font></dt>
+<dt><font color="#008200" face="Courier New">//Parameters:</font></dt>
+<dt><font color="#008200" face="Courier New">//<span class="Apple-tab-span" style="white-space: pre;">&nbsp;</span>Processed - Number -&nbsp;count of records processed.</font></dt>
+<dt><font color="#008200" face="Courier New">//<span class="Apple-tab-span" style="white-space: pre;">&nbsp;</span>CountTotal - Number - total count of records.</font></dt>
+<dt><font color="#008200" face="Courier New">//<span class="Apple-tab-span" style="white-space: pre;">&nbsp;</span>StartDateInMilliseconds - Number -&nbsp;processing start date received</font></dt><dt><font color="#008200" face="Courier New">// from&nbsp;CurrentUniversalDateInMilliseconds().</font></dt>
+<dt><font color="#008200" face="Courier New">//<span class="Apple-tab-span" style="white-space: pre;">&nbsp;	</span>It is needed to calculate the remaining time.</font></dt>
+<dt><font color="#008200" face="Courier New">//<span class="Apple-tab-span" style="white-space: pre;">&nbsp;</span>ProgressSign - String -&nbsp;special value to send progress values to client<font color="#008200" face="Courier New">.</font></font></dt><dt><font color="#008200" face="Courier New">//</font></dt>
+<dt><font color="#0000ff" face="Courier New">MessageProgress</font><font color="#ff0000" face="Courier New">(</font><font color="#0000ff" face="Courier New">Processed</font><font color="#ff0000" face="Courier New">,</font><font color="#0000ff" face="Courier New"> CountTotal</font><font color="#ff0000" face="Courier New">,</font><font color="#0000ff" face="Courier New">&nbsp;StartDateInMilliseconds</font><font color="#ff0000" face="Courier New">,</font><font color="#0000ff" face="Courier New"> ProgressSign</font><font color="#ff0000" face="Courier New">)</font></dt>
+<dt><br></dt>
+<div><font size="4">Progress displaying example.</font></div>
+<div><font face="Courier New">
+</font><div><font face="Courier New"><font color="#0000ff">j&nbsp;</font><font color="#ff0000">=</font><font color="#0000ff"> </font>0<font color="#ff0000">;</font></font></div><font face="Courier New">
+</font><div><font face="Courier New"><span style="color: rgb(0, 0, 255);">CountTotal&nbsp;</span><font color="#ff0000">=</font><font color="#0000ff"> Selection.Count</font><font color="#ff0000">();</font></font></div><font face="Courier New">
+</font><div><font face="Courier New"><span style="color: rgb(0, 0, 255);">StartDateInMilliseconds<font color="#ff0000"></font> </span><font color="#ff0000">=</font><font color="#0000ff"> CurrentUniversalDateInMilliseconds<font color="#ff0000"></font></font><font color="#ff0000">();</font></font></div><font face="Courier New">
+</font><div><font face="Courier New"><span style="color: rgb(0, 0, 255);"><font color="#ff0000">While</font>&nbsp;Selection</span><font color="#ff0000">.</font><span style="color: rgb(0, 0, 255);">Next</span><font color="#ff0000">() Do</font></font></div><font face="Courier New">
+</font><div style="color: rgb(0, 0, 255);"><span class="Apple-tab-span" style="white-space: pre;"><font face="Courier New">	</font></span></div><font face="Courier New">
+</font><div><font face="Courier New"><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;&nbsp;&nbsp;Object </span><font color="#ff0000">=</font><font color="#0000ff">&nbsp;Selection</font><font color="#ff0000">.</font><font color="#0000ff">Ref</font><font color="#ff0000">.</font><font color="#0000ff">GetObject</font><font color="#ff0000">();</font></font></div><font face="Courier New">
+</font><div><font face="Courier New"><span style="color: rgb(0, 0, 255);">&nbsp;&nbsp;&nbsp; Object</span><font color="#ff0000">.</font><span style="color: rgb(0, 0, 255);">Delete</span><font color="#ff0000">();</font></font></div><font face="Courier New">
+</font><dt><font face="Courier New">
+</font><div></div></dt><font face="Courier New">
+</font><div style="color: rgb(0, 0, 255);"><span class="Apple-tab-span" style="white-space: pre;"><font face="Courier New">	</font></span></div><font face="Courier New">
+</font><div><font face="Courier New"><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;j </font><font color="#ff0000">=</font><font color="#0000ff">&nbsp;j </font><font color="#ff0000">+</font><font color="#0000ff"> </font>1<font color="#ff0000">;</font></font></div><font face="Courier New">
+</font><div><font color="#008200" face="Courier New">&nbsp; &nbsp; //Sending progress once per 10 recordsПередаём прогресс один раз на 10 записей, so as not to slow down the main processing.</font></div></div><font face="Courier New">
+</font><dt><font face="Courier New">
+</font><div><font face="Courier New"><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;If</font><font color="#0000ff">&nbsp;j </font><font color="#ff0000">%</font><font color="#0000ff"> </font>10<font color="#0000ff"> </font><font color="#ff0000">=</font><font color="#0000ff"> </font>0<font color="#0000ff">&nbsp;</font><font color="#ff0000">Then</font></font></div></dt><dt><div><font face="Courier New"><font color="#ff0000">
+<font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MessageProgress<font color="#ff0000" face="Courier New"></font></font><font color="#ff0000">(</font><font color="#ff0000"><font color="#0000ff">j</font>,</font><font color="#0000ff"> <span style="color: rgb(0, 0, 255);">CountTotal</span></font><font color="#ff0000">,</font><font color="#0000ff">&nbsp;<span style="color: rgb(0, 0, 255);">StartDateInMilliseconds</span></font><font color="#ff0000">,</font><font color="#0000ff"> ProgressSign<font color="#ff0000" face="Courier New"></font></font><font color="#ff0000">);</font></font></font></div>
+<div><font color="#0000ff" face="Courier New">&nbsp;&nbsp;&nbsp; </font><font color="#ff0000"><font face="Courier New">EndIf</font><font face="Courier New">;</font></font></div>
+<div><span class="Apple-tab-span" style="white-space: pre;"><font color="#0000ff" face="Courier New">	</font></span></div>
+<div><font color="#ff0000" face="Courier New">EndDo;</font></div>
+<div><br></div>
+<div style="font-size: large;">
+<h2>Line by line in the background with indication&nbsp;(SSL 2.3)</h2></div><strong>
+</strong><div style="font-size: large;">In this mode, SSL version&nbsp;2.3 or later must be&nbsp;included in the configuration. It works the same as "Line by line with indication", but with execution in the background. The code execution is called&nbsp;for each line separately. The progress is refreshed with a period specified in the options (1 second by default).&nbsp;Using&nbsp;<em>Сообщить </em>is available, messages will be seen at client with a progress refreshing. User can continue working at client at a processing time. Interruption is available as in previous mode. This is the most convenient mode if SSL 2.3 is not available and a line-by-line iteration is suitable.</div></dt>
+<dt><span style="font-size: large;"><br></span></dt>
+<dt><span style="font-size: large;"><span style="font-size: large;"><span style="font-size: large;">Variables available</span></span>:</span></dt>
+<dt>
+<div><blockquote style="margin: 0px 0px 0px 40px; padding: 0px; border: currentColor; border-image: none;">
+<p><font size="4"><strong>Selection</strong><span style="font-size: large;">&nbsp;- query result selection</span>.</font></p>
+<p><font size="4"><span style="font-size: large;"><b>Parameters</b>&nbsp;- query parameters</span>.</font></p>
+<div><font size="4"><br></font></div></blockquote></div></dt>
+<dt><font size="4">Example.</font></dt>
+<div><font face="Courier New"><font><font color="#0000ff">Object&nbsp;</font><font color="#ff0000">=</font><font color="#0000ff">&nbsp;</font></font><font color="#0000ff">Selection</font><font color="#ff0000">.</font><font color="#0000ff">Ref</font><font color="#ff0000">.</font><font color="#0000ff">GetObject</font><font color="#ff0000">();</font></font></div>
+<div><font color="#0000ff" face="Courier New">Message</font><font color="#ff0000" face="Courier New">(</font><font color="#0000ff" face="Courier New">Object</font><font color="#ff0000" face="Courier New">);</font></div>
+<div><font color="#0000ff" face="Courier New">Объект</font><font color="#ff0000" face="Courier New">.</font><font color="#0000ff" face="Courier New">Удалить</font><font color="#ff0000" face="Courier New">();</font></div>
+<div><blockquote style="margin: 0px 0px 0px 40px; padding: 0px; border: currentColor; border-image: none;">
+<div><br></div></blockquote>
+<dt style="font-size: large;">
+<div></div></dt></div></body></html>

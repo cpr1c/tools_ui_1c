@@ -211,9 +211,9 @@ EndProcedure
 // Parameters:
 //	ErrorString - String - error description string.
 //	Query - Query - query with parameters.
-//	OriginalQueryText - Original query text.
-//	LineNumber - number of error location line.
-//	ColumnNumber - number of error location column.
+//	OriginalQueryText - String - original query text.
+//	LineNumber - Number - number of error location line.
+//	ColumnNumber - Number - number of error location column.
 //
 &AtServerNoContext
 Procedure DisassembleSpecifiedQueryError(ErrorString, Query, OriginalQueryText, LineNumber, ColumnNumber)
@@ -223,7 +223,7 @@ Procedure DisassembleSpecifiedQueryError(ErrorString, Query, OriginalQueryText, 
 	RealLineNumber = LineNumber;
 	RealColumnNumber = ColumnNumber;
 
-	Query.Текст = OriginalQueryText;
+	Query.Text = OriginalQueryText;
 	Try
 		Query.FindParameters();
 		Query.Execute();
@@ -4904,7 +4904,7 @@ Procedure ExecuteDataProcessor_Command(Command)
 		If stResult.Success Then
 			Items.ExecuteDataProcessor.Title = "Interrupt";
 			//Pictures = GetFromTempStorage(Object.Pictures);
-			//Items.ВыполнитьОбработку.Picture = Pictures.ExecutionPogress;
+			//Items.ExecuteDataProcessor.Picture = Pictures.ExecutionPogress;
 			Items.ExecuteDataProcessor.Picture = PictureLib.Stop;
 			ShowBackgroundJobState();
 		EndIf;
@@ -4964,8 +4964,9 @@ Procedure ResultToParameter_Command(Command)
 EndProcedure
 
 &AtClient
-Procedure AlgorithmInfo_Command(Command)
-	OpeningParameters = New Structure("TemplateName, Title", "AlgorithmInfo", NStr("ru = 'Обработка результата запроса кодом'; en = 'Query result processing by code'"));
+Procedure AlgorithmHelp_Command(Command)
+	CurrentLanguage = Upper(CurrentSystemLanguage());
+	OpeningParameters = New Structure("TemplateName, Title", "AlgorithmHelp_"+CurrentLanguage, NStr("ru = 'Обработка результата запроса кодом'; en = 'Query result processing by code'"));
 	OpenForm(FormFullName("Help"), OpeningParameters, ThisForm);
 EndProcedure
 
