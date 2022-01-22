@@ -515,10 +515,26 @@
     </synonym>
   </templates>
   <templates uuid="48a5e95a-0c91-4d1f-ac00-24db282a2e22">
-    <name>СправкаАлгоритм</name>
+    <name>AlgorithmHelp_RU</name>
+    <synonym>
+      <key>en</key>
+      <value>Processing by code help (russian)</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Справка по обработке кодом</value>
+      <value>Справка по обработке кодом (рус)</value>
+    </synonym>
+    <templateType>HTMLDocument</templateType>
+  </templates>
+  <templates uuid="5b163fd0-a4f4-4135-9ddc-199de7cb429d">
+    <name>AlgorithmHelp_EN</name>
+    <synonym>
+      <key>en</key>
+      <value>Processing by code help (english)</value>
+    </synonym>
+    <synonym>
+      <key>ru</key>
+      <value>Справка по обработке кодом (англ)</value>
     </synonym>
     <templateType>HTMLDocument</templateType>
   </templates>

@@ -1194,11 +1194,11 @@ EndFunction
 
 // Displays progress.
 // Parameters:
-//	Processed - Number, number of records processed.
-//	CountTotal - Number, total number of records.
-//	StartDateInMilliseconds - Number, processing start date received from CurrentUniversalDateInMilliseconds(). 
-//		Needed to calculate the remaining time.
-//	ProgressSign - String, special value to send progress values to client.
+//	Processed - Number - count of records processed.
+//	CountTotal - Number - total count of records.
+//	StartDateInMilliseconds - Number - processing start date received from CurrentUniversalDateInMilliseconds(). 
+//		It is needed to calculate the remaining time.
+//	ProgressSign - String - special value to send progress values to client.
 //
 Function MessageProgress(Processed, CountTotal, StartDateInMilliseconds, ProgressSign)
 	DateInMilliseconds = CurrentUniversalDateInMilliseconds();

@@ -3,12 +3,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>ПакетЗапросовКол</field>
+				<field>QueryBatchCount</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">ПакетЗапросов.РазницаМеждуКоличествомВозвращенныхСтрокИКоличествомСтрокРезультата</left>
+				<left xsi:type="dcscor:Field">QueryBatch.RowCountDifference</left>
 				<comparisonType>NotEqual</comparisonType>
 				<right xsi:type="xs:decimal">0</right>
 			</item>
@@ -28,15 +28,15 @@
 	<item>
 		<selection>
 			<item>
-				<field>ПакетРезультатаЗапросаИмя</field>
+				<field>QueryResultBatchName</field>
 			</item>
 			<item>
-				<field>ПакетРезультатаЗапросаИнфо</field>
+				<field>QueryResultBatchInfo</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">ПакетРезультатаЗапроса.ТекущийОтображаемый</left>
+				<left xsi:type="dcscor:Field">QueryResultBatch.Current</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:boolean">true</right>
 			</item>

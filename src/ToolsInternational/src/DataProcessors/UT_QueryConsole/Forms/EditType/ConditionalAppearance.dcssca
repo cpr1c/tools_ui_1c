@@ -3,12 +3,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>СоставТипа</field>
+				<field>TypeContent</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">СоставТипа.ВыбранПодч</left>
+				<left xsi:type="dcscor:Field">TypeContent.SelectedChild</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:boolean">true</right>
 			</item>

@@ -3,12 +3,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>ПланОператор</field>
+				<field>PlanOperator</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">План.Выделено</left>
+				<left xsi:type="dcscor:Field">Plan.Selected</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:boolean">true</right>
 			</item>
