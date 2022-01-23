@@ -127,7 +127,7 @@
   <commonForms>CommonForm.UT_ValueTableEditor</commonForms>
   <commonForms>CommonForm.UT_ValueTableForm</commonForms>
   <commonForms>CommonForm.UT_ValueTypeEditor</commonForms>
-  <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
+  <commonForms>CommonForm.UT_TimeConsumingOperation</commonForms>
   <commonForms>CommonForm.UT_AdditionalDataProcessorDebugSettings</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
   <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
