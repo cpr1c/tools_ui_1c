@@ -170,7 +170,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ДлительнаяОперация</name>
+		<name>CommonForm.UT_TimeConsumingOperation</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
