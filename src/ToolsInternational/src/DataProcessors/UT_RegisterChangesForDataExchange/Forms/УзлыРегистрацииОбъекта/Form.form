@@ -1122,7 +1122,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_РегистрацияИзмененийДляОбменаДанными</types>
+      <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
     </valueType>
     <view>
       <common>true</common>

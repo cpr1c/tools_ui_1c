@@ -21,7 +21,7 @@
   <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
   <content>DataProcessor.UT_QueryConsole</content>
   <content>DataProcessor.UT_JobsConsole</content>
-  <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
+  <content>DataProcessor.UT_RegisterChangesForDataExchange</content>
   <content>DataProcessor.UT_CodeConsole</content>
   <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
   <content>Catalog.УИ_Алгоритмы</content>
