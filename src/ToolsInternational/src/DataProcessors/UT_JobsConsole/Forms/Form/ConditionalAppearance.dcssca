@@ -3,12 +3,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>СписокРегламентныхЗаданий</field>
+				<field>ScheduledJobsList</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">СписокРегламентныхЗаданий.Использование</left>
+				<left xsi:type="dcscor:Field">ScheduledJobsList.Use</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:string">Нет</right>
 			</item>
