@@ -1,14 +1,14 @@
-#Область СлужебныеПроцедурыИФункции
+#Region Private
 
-Функция ОперацииВыполнены(Знач ЗаданияДляПроверки, ЗаданияДляОтмены) Экспорт
+Function ActionsCompleted(Val JobsToCheck, JobsToCancel) Export
 
-	Результат = UT_TimeConsumingOperations.ОперацииВыполнены(ЗаданияДляПроверки);
-	Для Каждого ИдентификаторЗадания Из ЗаданияДляОтмены Цикл
-		UT_TimeConsumingOperations.ОтменитьВыполнениеЗадания(ИдентификаторЗадания);
-		Результат.Вставить(ИдентификаторЗадания, Новый Структура("Статус", "Отменено"));
-	КонецЦикла;
-	Возврат Результат;
+	Result = UT_TimeConsumingOperations.ActionsCompleted(JobsToCheck);
+	For each JobID In JobsToCancel Do
+		UT_TimeConsumingOperations.CancelJobExecution(JobID);
+		Result.Insert(JobID, New Structure("Status", "Canceled"));
+	EndDo;
+	Return Result;
+	
+EndFunction
 
-КонецФункции
-
-#КонецОбласти
+#EndRegion

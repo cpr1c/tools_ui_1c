@@ -1,150 +1,149 @@
-Процедура УИ_КонтрольДлительныхОпераций() Экспорт
+Procedure UT_TimeConsumingOperationMonitor() Export
 
-	АктивныеДлительныеОперации = UT_TimeConsumingOperationsClient.АктивныеДлительныеОперации();
-	Если АктивныеДлительныеОперации.Обработка Тогда
-		Возврат;
-	КонецЕсли;
+	TimeConsumingOperationsInProgress = UT_TimeConsumingOperationsClient.TimeConsumingOperationsInProgress();
+	If TimeConsumingOperationsInProgress.DataProcessor Then
+		Return;
+	EndIf;
+	
+	TimeConsumingOperationsInProgress.DataProcessor = True;
+	Try
+		MonitorTimeConsumingOperations(TimeConsumingOperationsInProgress.List);
+		
+		TimeConsumingOperationsInProgress.DataProcessor = False;
+	Except
+		TimeConsumingOperationsInProgress.DataProcessor = False;
+		Raise;
+	EndTry;
+	
+EndProcedure
 
-	АктивныеДлительныеОперации.Обработка = Истина;
-	Попытка
-		ПроконтролироватьДлительныеОперации(АктивныеДлительныеОперации.Список);
+Procedure MonitorTimeConsumingOperations(TimeConsumingOperationsInProgress)
+	
+	CurrentDate = CurrentDate(); // The session date is ignored.
+	
+	ActionsUnderControl = New Map;
+	JobsToCheck = New Array;
+	JobsToCancel = New Array;
+	
+	For each TimeConsumingOperation In TimeConsumingOperationsInProgress Do
 
-		АктивныеДлительныеОперации.Обработка = Ложь;
-	Исключение
-		АктивныеДлительныеОперации.Обработка = Ложь;
-		ВызватьИсключение;
-	КонецПопытки;
+	TimeConsumingOperation = TimeConsumingOperation.Value;
+		
+		ActionCancelled = False;
+		If TimeConsumingOperation.OwnerForm <> Undefined AND Not TimeConsumingOperation.OwnerForm.IsOpen() Then
+			ActionCancelled = True;
+		EndIf;
+		If TimeConsumingOperation.CompletionNotification <> Undefined AND TypeOf(TimeConsumingOperation.CompletionNotification.Module) = UT_CommonClientServer.ManagedFormType()
+			AND Not TimeConsumingOperation.CompletionNotification.Module.IsOpen() Then
+			ActionCancelled = True;
+		EndIf;
+		
+		If ActionCancelled Then
 
-КонецПроцедуры
+			ActionsUnderControl.Insert(TimeConsumingOperation.JobID, TimeConsumingOperation);
+			JobsToCancel.Add(TimeConsumingOperation.JobID);
+			
+		ElsIf TimeConsumingOperation.Control <= CurrentDate Then
+			
+			ActionsUnderControl.Insert(TimeConsumingOperation.JobID, TimeConsumingOperation);
+			
+			JobToCheck = New Structure("JobID,OutputProgressBar,OutputMessages");
+			FillPropertyValues(JobToCheck, TimeConsumingOperation);
+			JobsToCheck.Add(JobToCheck);
+			
+		EndIf;
+		
+	EndDo;
 
-Процедура ПроконтролироватьДлительныеОперации(АктивныеДлительныеОперации)
+	Statuses = New Map;
+	Statuses = UT_TimeConsumingOperationsServerCall.ActionsCompleted(JobsToCheck, JobsToCancel);
+	For each OperationStatus In Statuses Do
+		Operation = ActionsUnderControl[OperationStatus.Key];
+		Status = OperationStatus.Value;
+		Try
+			If MonitorTimeConsumingOperation(Operation, Status) Then
+				TimeConsumingOperationsInProgress.Delete(OperationStatus.Key);
+			EndIf;
+		Except
+			// do not track any longer
+			TimeConsumingOperationsInProgress.Delete(OperationStatus.Key);
+			Raise;
+		EndTry;
+	EndDo;
 
-	ТекущаяДата = ТекущаяДата(); // дата сеанса не используется 
+	If TimeConsumingOperationsInProgress.Count() = 0 Then
+		Return;
+	EndIf;
+	
+	CurrentDate = CurrentDate(); // The session date is ignored.
+	Interval = 120; 
+	For each Operation In TimeConsumingOperationsInProgress Do
+		Interval = Max(Min(Interval, Operation.Value.Control - CurrentDate), 1);
+	EndDo;
 
-	КонтролируемыеОперации = Новый Соответствие;
-	ЗаданияДляПроверки = Новый Массив;
-	ЗаданияДляОтмены = Новый Массив;
+	AttachIdleHandler("UT_TimeConsumingOperationMonitor", Interval, True);
 
-	Для Каждого ДлительнаяОперация Из АктивныеДлительныеОперации Цикл
+EndProcedure
 
-		ДлительнаяОперация = ДлительнаяОперация.Значение;
+Function MonitorTimeConsumingOperation(TimeConsumingOperation, Status)
+	
+	If Status.Status <> "Canceled" AND TimeConsumingOperation.ExecutionProgressNotification <> Undefined Then
+		Progress = New Structure;
+		Progress.Insert("Status", Status.Status);
+		Progress.Insert("JobID", TimeConsumingOperation.JobID);
+		Progress.Insert("Progress", Status.Progress);
+		Progress.Insert("Messages", Status.Messages);
+		ExecuteNotifyProcessing(TimeConsumingOperation.ExecutionProgressNotification, Progress);
+	EndIf;
 
-		ОперацияОтменена = Ложь;
-		Если ДлительнаяОперация.ФормаВладелец <> Неопределено И Не ДлительнаяОперация.ФормаВладелец.Открыта() Тогда
-			ОперацияОтменена = Истина;
-		КонецЕсли;
-		Если ДлительнаяОперация.ОповещениеОЗавершении <> Неопределено И ТипЗнч(
-			ДлительнаяОперация.ОповещениеОЗавершении.Модуль) = UT_CommonClientServer.ManagedFormType()
-			И Не ДлительнаяОперация.ОповещениеОЗавершении.Модуль.Открыта() Тогда
-			ОперацияОтменена = Истина;
-		КонецЕсли;
+	If Status.Status = "Completed" Then
 
-		Если ОперацияОтменена Тогда
+		UT_TimeConsumingOperationsClient.ShowNotification(TimeConsumingOperation.UserNotification);
+		ExecuteNotification(TimeConsumingOperation, Status);
+		Return True;
+		
+	ElsIf Status.Status = "Error" Then
+		
+		ExecuteNotification(TimeConsumingOperation, Status);
+		Return True;
+		
+	ElsIf Status.Status = "Canceled" Then
+		
+		ExecuteNotification(TimeConsumingOperation, Status);
+		Return True;
+		
+	EndIf;
 
-			КонтролируемыеОперации.Вставить(ДлительнаяОперация.ИдентификаторЗадания, ДлительнаяОперация);
-			ЗаданияДляОтмены.Добавить(ДлительнаяОперация.ИдентификаторЗадания);
+	IdleInterval = TimeConsumingOperation.CurrentInterval;
+	If TimeConsumingOperation.Interval = 0 Then
+		IdleInterval = IdleInterval * 1.4;
+		If IdleInterval > 15 Then
+			IdleInterval = 15;
+		EndIf;
+		TimeConsumingOperation.CurrentInterval = IdleInterval;
+	EndIf;
+	TimeConsumingOperation.Control = CurrentDate() + IdleInterval;  // The session date is ignored.
+	Return False;
+		
+EndFunction
+Procedure ExecuteNotification(Val TimeConsumingOperation, Val Status)
+	
+	If TimeConsumingOperation.CompletionNotification = Undefined Then
+		Return;
+	EndIf;
+	
+	If Status.Status = "Canceled" Then
+		Result = Undefined;
+	Else
+		Result = New Structure;
+		Result.Insert("Status",    Status.Status);
+		Result.Insert("ResultAddress", TimeConsumingOperation.ResultAddress);
+		Result.Insert("AdditionalResultAddress", TimeConsumingOperation.AdditionalResultAddress);
+		Result.Insert("BriefErrorPresentation", Status.BriefErrorPresentation);
+		Result.Insert("DetailedErrorPresentation", Status.DetailedErrorPresentation);
+		Result.Insert("Messages", Status.Messages);
+	EndIf;
+	
+	ExecuteNotifyProcessing(TimeConsumingOperation.CompletionNotification, Result);
 
-		ИначеЕсли ДлительнаяОперация.Контроль <= ТекущаяДата Тогда
-
-			КонтролируемыеОперации.Вставить(ДлительнаяОперация.ИдентификаторЗадания, ДлительнаяОперация);
-
-			ЗаданиеДляПроверки = Новый Структура("ИдентификаторЗадания,ВыводитьПрогрессВыполнения,ВыводитьСообщения");
-			ЗаполнитьЗначенияСвойств(ЗаданиеДляПроверки, ДлительнаяОперация);
-			ЗаданияДляПроверки.Добавить(ЗаданиеДляПроверки);
-
-		КонецЕсли;
-
-	КонецЦикла;
-
-	Статусы = Новый Соответствие;
-	Статусы = UT_TimeConsumingOperationsServerCall.ОперацииВыполнены(ЗаданияДляПроверки, ЗаданияДляОтмены);
-	Для Каждого СтатусОперации Из Статусы Цикл
-		Операция = КонтролируемыеОперации[СтатусОперации.Ключ];
-		Статус = СтатусОперации.Значение;
-		Попытка
-			Если ПроконтролироватьДлительнуюОперацию(Операция, Статус) Тогда
-				АктивныеДлительныеОперации.Удалить(СтатусОперации.Ключ);
-			КонецЕсли;
-		Исключение
-			// далее не отслеживаем
-			АктивныеДлительныеОперации.Удалить(СтатусОперации.Ключ);
-			ВызватьИсключение;
-		КонецПопытки;
-	КонецЦикла;
-
-	Если АктивныеДлительныеОперации.Количество() = 0 Тогда
-		Возврат;
-	КонецЕсли;
-
-	ТекущаяДата = ТекущаяДата(); // дата сеанса не используется
-	Интервал = 120;
-	Для Каждого Операция Из АктивныеДлительныеОперации Цикл
-		Интервал = Макс(Мин(Интервал, Операция.Значение.Контроль - ТекущаяДата), 1);
-	КонецЦикла;
-
-	ПодключитьОбработчикОжидания("УИ_КонтрольДлительныхОпераций", Интервал, Истина);
-
-КонецПроцедуры
-
-Функция ПроконтролироватьДлительнуюОперацию(ДлительнаяОперация, Статус)
-
-	Если Статус.Статус <> "Отменено" И ДлительнаяОперация.ОповещениеОПрогрессеВыполнения <> Неопределено Тогда
-		Прогресс = Новый Структура;
-		Прогресс.Вставить("Статус", Статус.Статус);
-		Прогресс.Вставить("ИдентификаторЗадания", ДлительнаяОперация.ИдентификаторЗадания);
-		Прогресс.Вставить("Прогресс", Статус.Прогресс);
-		Прогресс.Вставить("Сообщения", Статус.Сообщения);
-		ВыполнитьОбработкуОповещения(ДлительнаяОперация.ОповещениеОПрогрессеВыполнения, Прогресс);
-	КонецЕсли;
-
-	Если Статус.Статус = "Выполнено" Тогда
-
-		UT_TimeConsumingOperationsClient.ПоказатьОповещение(ДлительнаяОперация);
-		ВыполнитьОповещение(ДлительнаяОперация, Статус);
-		Возврат Истина;
-
-	ИначеЕсли Статус.Статус = "Ошибка" Тогда
-
-		ВыполнитьОповещение(ДлительнаяОперация, Статус);
-		Возврат Истина;
-
-	ИначеЕсли Статус.Статус = "Отменено" Тогда
-
-		ВыполнитьОповещение(ДлительнаяОперация, Статус);
-		Возврат Истина;
-
-	КонецЕсли;
-
-	ИнтервалОжидания = ДлительнаяОперация.ТекущийИнтервал;
-	Если ДлительнаяОперация.Интервал = 0 Тогда
-		ИнтервалОжидания = ИнтервалОжидания * 1.4;
-		Если ИнтервалОжидания > 15 Тогда
-			ИнтервалОжидания = 15;
-		КонецЕсли;
-		ДлительнаяОперация.ТекущийИнтервал = ИнтервалОжидания;
-	КонецЕсли;
-	ДлительнаяОперация.Контроль = ТекущаяДата() + ИнтервалОжидания;  // дата сеанса не используется
-	Возврат Ложь;
-
-КонецФункции
-Процедура ВыполнитьОповещение(Знач ДлительнаяОперация, Знач Статус)
-
-	Если ДлительнаяОперация.ОповещениеОЗавершении = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	Если Статус.Статус = "Отменено" Тогда
-		Результат = Неопределено;
-	Иначе
-		Результат = Новый Структура;
-		Результат.Вставить("Статус", Статус.Статус);
-		Результат.Вставить("АдресРезультата", ДлительнаяОперация.АдресРезультата);
-		Результат.Вставить("АдресДополнительногоРезультата", ДлительнаяОперация.АдресДополнительногоРезультата);
-		Результат.Вставить("КраткоеПредставлениеОшибки", Статус.КраткоеПредставлениеОшибки);
-		Результат.Вставить("ПодробноеПредставлениеОшибки", Статус.ПодробноеПредставлениеОшибки);
-		Результат.Вставить("Сообщения", Статус.Сообщения);
-	КонецЕсли;
-
-	ВыполнитьОбработкуОповещения(ДлительнаяОперация.ОповещениеОЗавершении, Результат);
-
-КонецПроцедуры
+EndProcedure
