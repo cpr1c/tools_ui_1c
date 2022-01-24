@@ -68,7 +68,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.НастройкаАвторегистрацияДвижений</segments>
+              <segments>Объект.RegisterRecordAutoRecordSetting</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
@@ -118,7 +118,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.НастройкаАвторегистрацияПоследовательностей</segments>
+              <segments>Объект.SequenceAutoRecordSetting</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
@@ -231,7 +231,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.НастройкаВариантНомераСообщения</segments>
+            <segments>Объект.MessageNumberOptionSetting</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
@@ -521,7 +521,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.НастройкаАдресВнешнейОбработкиЗапросов</segments>
+              <segments>Объект.QueryExternalDataProcessorAddressSetting</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -684,7 +684,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.НастройкаКонтрольВыгрузкиОбъектов</segments>
+          <segments>Объект.ObjectExportControlSetting</segments>
         </paths>
       </dataPath>
       <titleLocation>Right</titleLocation>
@@ -858,7 +858,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_РегистрацияИзмененийДляОбменаДанными</types>
+      <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
     </valueType>
     <view>
       <common>true</common>

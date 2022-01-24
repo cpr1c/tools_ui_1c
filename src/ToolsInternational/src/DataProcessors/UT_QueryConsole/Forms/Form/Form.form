@@ -4027,7 +4027,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:Button">
-                <name>AlgorithmInfo</name>
+                <name>AlgorithmHelp</name>
                 <id>390</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4035,7 +4035,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>AlgorithmInfoExtendedTooltip</name>
+                  <name>AlgorithmHelpExtendedTooltip</name>
                   <id>391</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4050,7 +4050,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <type>UsualButton</type>
-                <commandName>Form.Command.AlgorithmInfo</commandName>
+                <commandName>Form.Command.AlgorithmHelp</commandName>
                 <representation>Picture</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -9813,10 +9813,10 @@
     <currentRowUse>DontUse</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>AlgorithmInfo</name>
+    <name>AlgorithmHelp</name>
     <title>
       <key>en</key>
-      <value>Info</value>
+      <value>Help</value>
     </title>
     <title>
       <key>ru</key>
@@ -9825,7 +9825,7 @@
     <id>29</id>
     <toolTip>
       <key>en</key>
-      <value>Algorithm info</value>
+      <value>Algorithm help</value>
     </toolTip>
     <toolTip>
       <key>ru</key>
@@ -9836,7 +9836,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>AlgorithmInfo_Command</name>
+        <name>AlgorithmHelp_Command</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

@@ -170,7 +170,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ДлительнаяОперация</name>
+		<name>CommonForm.UT_TimeConsumingOperation</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -304,7 +304,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</name>
+		<name>DataProcessor.UT_RegisterChangesForDataExchange</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

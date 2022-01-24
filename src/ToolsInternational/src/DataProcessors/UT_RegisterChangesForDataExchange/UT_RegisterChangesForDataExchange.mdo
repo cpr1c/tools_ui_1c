@@ -4,24 +4,40 @@
     <objectType typeId="ac41faa2-2e32-11ea-cc81-e86a6452d1f2" valueTypeId="ac41faa3-2e32-11ea-cc81-e86a6452d1f2"/>
     <managerType typeId="ac41faac-2e32-11ea-cc81-e86a6452d1f2" valueTypeId="ac41faad-2e32-11ea-cc81-e86a6452d1f2"/>
   </producedTypes>
-  <name>УИ_РегистрацияИзмененийДляОбменаДанными</name>
+  <name>UT_RegisterChangesForDataExchange</name>
+  <synonym>
+    <key>en</key>
+    <value>Register changes for data exchange [UT]</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Регистрация изменений для обмена данными [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_RegisterChangesForDataExchange.Form.Форма</defaultForm>
   <auxiliaryForm>ac4674ba-2e32-11ea-cc81-e86a6452d1f2</auxiliaryForm>
+  <extendedPresentation>
+    <key>en</key>
+    <value>Register changes for data exchange</value>
+  </extendedPresentation>
   <extendedPresentation>
     <key>ru</key>
     <value>Регистрация изменений для обмена данными</value>
   </extendedPresentation>
   <explanation>
+    <key>en</key>
+    <value>ITS data processor fork with SSL adaptation</value>
+  </explanation>
+  <explanation>
     <key>ru</key>
     <value>Форк обработки с диска ИТС с адаптациями под подсистему</value>
   </explanation>
   <attributes uuid="ac435c76-2e32-11ea-cc81-e86a6452d1f2">
-    <name>НастройкаАвторегистрацияПоследовательностей</name>
+    <name>SequenceAutoRecordSetting</name>
+    <synonym>
+      <key>en</key>
+      <value>Auto register sequences</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Авторегистрация последовательностей</value>
@@ -29,6 +45,10 @@
     <type>
       <types>Boolean</types>
     </type>
+    <toolTip>
+      <key>en</key>
+      <value>Auto register sequences</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Авторегистрация последовательностей</value>
@@ -37,7 +57,11 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="ac436478-2e32-11ea-cc81-e86a6452d1f2">
-    <name>НастройкаАвторегистрацияДвижений</name>
+    <name>RegisterRecordAutoRecordSetting</name>
+    <synonym>
+      <key>en</key>
+      <value>Auto register records</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Авторегистрация движений</value>
@@ -46,6 +70,10 @@
       <types>Boolean</types>
     </type>
     <toolTip>
+      <key>en</key>
+      <value>Auto register records</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Авторегистрация движений</value>
     </toolTip>
@@ -53,7 +81,11 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="ac436d24-2e32-11ea-cc81-e86a6452d1f2">
-    <name>НастройкаАдресВнешнейОбработкиЗапросов</name>
+    <name>QueryExternalDataProcessorAddressSetting</name>
+    <synonym>
+      <key>en</key>
+      <value>Address of external query data processor</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Адрес внешней обработки запросов</value>
@@ -63,6 +95,10 @@
       <stringQualifiers/>
     </type>
     <toolTip>
+      <key>en</key>
+      <value>Address of external query data processor</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Адрес внешней обработки запросов</value>
     </toolTip>
@@ -70,7 +106,11 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="ac4372b0-2e32-11ea-cc81-e86a6452d1f2">
-    <name>НастройкаВариантНомераСообщения</name>
+    <name>MessageNumberOptionSetting</name>
+    <synonym>
+      <key>en</key>
+      <value>Message numbering option</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Настройка вариант номера сообщения</value>
@@ -85,12 +125,16 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="ac43779c-2e32-11ea-cc81-e86a6452d1f2">
-    <name>НастройкаКонтрольВыгрузкиОбъектов</name>
+    <name>ObjectExportControlSetting</name>
+    <synonym>
+      <key>en</key>
+      <value>Configuration can control object export</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Конфигурация может контролировать выгрузку объектов</value>
     </synonym>
-    <comment>При использовании в составе БСП 2.1.2 и старше</comment>
+    <comment>Configurations with SSL 2.1.2 or later can control object export.</comment>
     <type>
       <types>Boolean</types>
     </type>
@@ -98,13 +142,16 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="ac437c88-2e32-11ea-cc81-e86a6452d1f2">
-    <name>КонфигурацияПоддерживаетБСП</name>
+    <name>ConfigurationSupportsSSL</name>
+    <synonym>
+      <key>en</key>
+      <value>Configuration supports SSL</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Конфигурация поддерживает БСП</value>
     </synonym>
-    <comment>Вычисляется при чтении настроек, ограничивает варианты
-			настроек</comment>
+    <comment>Calculated on settings read to limit settings options</comment>
     <type>
       <types>Boolean</types>
     </type>
@@ -112,7 +159,11 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="ac438278-2e32-11ea-cc81-e86a6452d1f2">
-    <name>ДоступнаРегистрацияСредствамиБСП</name>
+    <name>RegisterWithSSLMethodsAvailable</name>
+    <synonym>
+      <key>en</key>
+      <value>Register with SSLMethods available</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Доступна регистрация средствами БСП</value>

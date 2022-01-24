@@ -21,7 +21,7 @@
   <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
   <content>DataProcessor.UT_QueryConsole</content>
   <content>DataProcessor.UT_JobsConsole</content>
-  <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
+  <content>DataProcessor.UT_RegisterChangesForDataExchange</content>
   <content>DataProcessor.UT_CodeConsole</content>
   <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
   <content>Catalog.УИ_Алгоритмы</content>
@@ -44,7 +44,7 @@
   <content>CommonPicture.UT_Repository</content>
   <content>CommonPicture.UT_Debug</content>
   <content>CommonTemplate.UT_StringSearchComponent</content>
-  <content>CommonForm.УИ_ДлительнаяОперация</content>
+  <content>CommonForm.UT_TimeConsumingOperation</content>
   <content>CommonForm.UT_ValueTableForm</content>
   <content>CommonForm.УИ_ФормаСпецЗначения</content>
   <content>CommonForm.UT_TextEditingForm</content>

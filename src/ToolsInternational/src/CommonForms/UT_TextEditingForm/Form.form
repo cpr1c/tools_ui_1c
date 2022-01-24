@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>Текст</name>
-    <id>1</id>
+    <name>Text</name>
+    <id>21</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>Текст</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>Text</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>_ТекстРасширеннаяПодсказка</name>
-      <id>3</id>
+      <name>TextExtendedTooltip</name>
+      <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -30,8 +28,8 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>_ТекстКонтекстноеМеню</name>
-      <id>2</id>
+      <name>TextContextMenu</name>
+      <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -54,19 +52,19 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>КоманднаяПанельФормы</name>
+    <name>FormCommandBar</name>
     <id>4</id>
     <items xsi:type="form:Button">
-      <name>_Выполнить</name>
-      <id>10</id>
+      <name>_Run</name>
+      <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>_ВыполнитьРасширеннаяПодсказка</name>
-        <id>11</id>
+        <name>_RunExtendedTooltip</name>
+        <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -88,16 +86,16 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Закрыть</name>
-      <id>12</id>
+      <name>Close</name>
+      <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗакрытьРасширеннаяПодсказка</name>
-        <id>13</id>
+        <name>CloseExtendedTooltip</name>
+        <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -127,12 +125,16 @@
       <key>ru</key>
       <value>Командная панель формы</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Form command bar</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Командная панель формы</value>
     </toolTip>
     <extendedTooltip>
-      <name>КоманднаяПанельФормыРасширеннаяПодсказка</name>
+      <name>FormCommandBarExtendedTooltip</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -163,21 +165,17 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
-  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
-  <autoUrl>true</autoUrl>
-  <group>Vertical</group>
-  <autoFillCheck>true</autoFillCheck>
-  <allowFormCustomize>true</allowFormCustomize>
-  <enabled>true</enabled>
-  <showTitle>true</showTitle>
-  <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Текст</name>
+    <name>Text</name>
     <title>
       <key>ru</key>
       <value>Текст</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text</value>
     </title>
     <id>2</id>
     <valueType>
@@ -212,8 +210,4 @@
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
-  <commandInterface>
-    <navigationPanel/>
-    <commandBar/>
-  </commandInterface>
 </form:Form>

@@ -1,630 +1,635 @@
-// Запустить выполнение процедуры в фоновом задании, если это возможно.
-// При выполнении любого из следующих условий запуск выполняется не в фоне, а сразу в основном потоке:
-//  * если вызов выполняется в файловой базе во внешнем соединении (в этом режиме фоновые задания не поддерживаются);
-//  * если приложение запущено в режиме отладки (параметр /C РежимОтладки) - для упрощения отладки конфигурации;
-//  * если в файловой ИБ имеются активные фоновые задания - для снижения времени ожидания пользователя;
-//  * если выполняется процедура модуля внешней обработки или внешнего отчета.
+// Starts the procedure execution in a background job if possible.
+// A job runs in a main thread, not in a background, if any of the following conditions is met:
+//  * The procedure is called in a file infobase through an external connection (this mode has no background job support).
+//  * The application was started in debug mode using /C DebugMode command-line parameter (this is for configuration debug purposes).
+//  * The file infobase already has active background jobs (this is to avoid slow application response to user actions).
+//  * The procedure belongs to an external data processor module or external report module.
 //
-// Не следует использовать эту функцию, если необходимо безусловно запускать фоновое задание.
-// Может применяться совместно с функцией ДлительныеОперацииКлиент.ОжидатьЗавершение.
+// Do not use this function if the background job must be started unconditionally.
+// You can use it together with TimeConsumingOperationsClient.WaitForCompletion function.
 // 
-// Параметры:
-//  ИмяПроцедуры           - Строка    - имя экспортной процедуры общего модуля, модуля менеджера объекта 
-//                                       или модуля обработки, которую необходимо выполнить в фоне.
-//                                       Например, "МойОбщийМодуль.МояПроцедура", "Отчет.ЗагруженныеДанные.Сформировать"
-//                                       или "Обработка.ЗагрузкаДанных.МодульОбъекта.Загрузить". 
-//                                       У процедуры может быть два или три формальных параметра:
-//                                        * Параметры       - Структура - произвольные параметры ПараметрыПроцедуры;
-//                                        * АдресРезультата - Строка    - адрес временного хранилища, в которое нужно
-//                                          поместить результат работы процедуры. Обязательно;
-//                                        * АдресДополнительногоРезультата - Строка - если в ПараметрыВыполнения установлен 
-//                                          параметр ДополнительныйРезультат, то содержит адрес дополнительного временного
-//                                          хранилища, в которое нужно поместить результат работы процедуры. Опционально.
-//                                       При необходимости выполнить в фоне функцию, ее следует обернуть в процедуру,
-//                                       а ее результат возвращать через второй параметр АдресРезультата.
-//  ПараметрыПроцедуры     - Структура - произвольные параметры вызова процедуры ИмяПроцедуры.
-//  ПараметрыВыполнения    - Структура - см. функцию ПараметрыВыполненияВФоне.
+// Parameters:
+//  ProcedureName           - String    - the name of the export procedure in a common module, 
+//                                       object manager module, or data processor module that you want to start in a background job.
+//                                       Examples: "MyCommonModule.MyProcedure", "Reports.ImportedData.Generate"
+//                                       or "DataProcessors.DataImport.ObjectModule.Import".
+//                                       The procedure must have two or three formal parameters:
+//                                        * Parameters       - Structure - arbitrary parameters ProcedureParameters.
+//                                        * ResultAddress - String    - the address of the temporary 
+//                                          storage where the procedure puts its result. This parameter is mandatory.
+//                                        * AdditionalResultAddress - String - if 
+//                                          ExecutionParameters include the AdditionalResult 
+//                                          parameter, this parameter contains the address of the additional temporary storage where the procedure puts its result. This parameter is optional.
+//                                       If you need to run a function in background, it is 
+//                                       recommended that you wrap it in a function and return its result in the second parameter ResultAddress.
+//  ProcedureParameters     - Structure - arbitrary parameters used to call the ProcedureName procedure.
+//  ExecutionParameters    - Structure - see function TimeConsumingOperations.BackgroundExecutionParameters.
 //
-// Возвращаемое значение:
-//  Структура              - параметры выполнения задания: 
-//   * Статус               - Строка - "Выполняется", если задание еще не завершилось;
-//                                     "Выполнено", если задание было успешно выполнено;
-//                                     "Ошибка", если задание завершено с ошибкой;
-//                                     "Отменено", если задание отменено пользователем или администратором.
-//   * ИдентификаторЗадания - УникальныйИдентификатор - если Статус = "Выполняется", то содержит 
-//                                     идентификатор запущенного фонового задания.
-//   * АдресРезультата       - Строка - адрес временного хранилища, в которое будет
-//                                     помещен (или уже помещен) результат работы процедуры.
-//   * АдресДополнительногоРезультата - Строка - если установлен параметр ДополнительныйРезультат, 
-//                                     содержит адрес дополнительного временного хранилища,
-//                                     в которое будет помещен (или уже помещен) результат работы процедуры.
-//   * КраткоеПредставлениеОшибки   - Строка - краткая информация об исключении, если Статус = "Ошибка".
-//   * ПодробноеПредставлениеОшибки - Строка - подробная информация об исключении, если Статус = "Ошибка".
-// 
-Функция ВыполнитьВФоне(Знач ИмяПроцедуры, Знач ПараметрыПроцедуры, Знач ПараметрыВыполнения) Экспорт
+// Returns:
+//  Structure              - job execution parameters: 
+//   * Status               - String - "Running" if the job is running.
+//                                     "Completed " if the job has completed.
+//                                     "Error" if the job has completed with error.
+//                                     "Canceled" if the job is canceled by a user or by an administrator.
+//   * JobID - UUID - contains the ID of the running background job if Status = "Running".
+//                                     
+//   * ResultAddress       - String  - the address of the temporary storage where the procedure 
+//                                     result must be (or already is) stored.
+//   * AdditionalResultAddress - String - if the AdditionalResult parameter is set, it contains the 
+//                                     address of the additional temporary storage where the 
+//                                     procedure result must be (or already is) stored.
+//   * BriefErrorDescription   - String - contains brief description of the exception if Status = "Error".
+//   * DetailErrorDescription - String - contains detailed description of the exception if Status = "Error".
+//  
+Function ExecuteInBackground(Val ProcedureName, Val ProcedureParameters, Val ExecutionParameters) Export
 
-	UT_CommonClientServer.CheckParameter("УИ_ДлительныеОперации.ВыполнитьВФоне", "ПараметрыВыполнения",
-		ПараметрыВыполнения, Тип("Структура"));
-	Если ПараметрыВыполнения.ЗапуститьНеВФоне И ПараметрыВыполнения.ЗапуститьВФоне Тогда
-		ВызватьИсключение НСтр("ru = 'Параметры ""ВсегдаНеВФоне"" и ""ВсегдаВФоне""
-							   |не могут одновременно принимать значение Истина в УИ_ДлительныеОперации.ВыполнитьВФоне.'");
-	КонецЕсли;
+	UT_CommonClientServer.CheckParameter("UT_TimeConsumingOperations.ExecuteInBackground", "ExecutionParameters", 
+		ExecutionParameters, Type("Structure")); 
+	If ExecutionParameters.RunNotInBackground AND ExecutionParameters.RunInBackground Then
+		Raise NStr("ru = 'Параметры ""ВсегдаНеВФоне"" и ""ВсегдаВФоне""
+			|не могут одновременно принимать значение Истина в UT_TimeConsumingOperations.ExecuteInBackground.'; 
+			|en = 'Parameters ""RunNotInBackground"" and ""RunInBackground""
+			|cannot both be True at the same time in UT_TimeConsumingOperations.ExecuteInBackground.'");
+	EndIf;
 
-	АдресРезультата = ?(ПараметрыВыполнения.АдресРезультата <> Неопределено, ПараметрыВыполнения.АдресРезультата,
-		ПоместитьВоВременноеХранилище(Неопределено, ПараметрыВыполнения.ИдентификаторФормы));
+		ResultAddress = ?(ExecutionParameters.ResultAddress <> Undefined, 
+	    ExecutionParameters.ResultAddress,
+		PutToTempStorage(Undefined, ExecutionParameters.FormID));
 
-	Результат = Новый Структура;
-	Результат.Вставить("Статус", "Выполняется");
-	Результат.Вставить("ИдентификаторЗадания", Неопределено);
-	Результат.Вставить("АдресРезультата", АдресРезультата);
-	Результат.Вставить("АдресДополнительногоРезультата", "");
-	Результат.Вставить("КраткоеПредставлениеОшибки", "");
-	Результат.Вставить("ПодробноеПредставлениеОшибки", "");
-	Результат.Вставить("Сообщения", Новый ФиксированныйМассив(Новый Массив));
-
-	Если ПараметрыВыполнения.БезРасширений Тогда
-		//ПараметрыВыполнения.БезРасширений = ЗначениеЗаполнено(ПараметрыСеанса.ПодключенныеРасширения);
-	КонецЕсли;
-
-	ПараметрыЭкспортнойПроцедуры = Новый Массив;
-	ПараметрыЭкспортнойПроцедуры.Добавить(ПараметрыПроцедуры);
-	ПараметрыЭкспортнойПроцедуры.Добавить(АдресРезультата);
-
-	Если ПараметрыВыполнения.ДополнительныйРезультат Тогда
-		Результат.АдресДополнительногоРезультата = ПоместитьВоВременноеХранилище(Неопределено,
-			ПараметрыВыполнения.ИдентификаторФормы);
-		ПараметрыЭкспортнойПроцедуры.Добавить(Результат.АдресДополнительногоРезультата);
-	КонецЕсли;
-
-	ВыполнитьБезФоновогоЗадания = Не ПараметрыВыполнения.БезРасширений И (ПараметрыВыполнения.ЗапуститьНеВФоне
-		Или (ЕстьФоновыеЗаданияВФайловойИБ() И Не ПараметрыВыполнения.ЗапуститьВФоне) Или Не ВозможноВыполнитьВФоне(
-		ИмяПроцедуры));
-
-	// Выполнить в основном потоке.
-	Если ВыполнитьБезФоновогоЗадания Тогда
-		Попытка
-			ВыполнитьПроцедуру(ИмяПроцедуры, ПараметрыЭкспортнойПроцедуры);
-			Результат.Статус = "Выполнено";
-		Исключение
-			Результат.Статус = "Ошибка";
-			Результат.КраткоеПредставлениеОшибки = КраткоеПредставлениеОшибки(ИнформацияОбОшибке());
-			Результат.ПодробноеПредставлениеОшибки = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
-			ЗаписьЖурналаРегистрации(НСтр("ru = 'Ошибка выполнения'",
-				UT_CommonClientServer.DefaultLanguageCode()), УровеньЖурналаРегистрации.Ошибка, , ,
-				Результат.ПодробноеПредставлениеОшибки);
-		КонецПопытки;
-		Возврат Результат;
-	КонецЕсли;
+	Result = New Structure;
+	Result.Insert("Status",    "Running");
+	Result.Insert("JobID", Undefined);
+	Result.Insert("ResultAddress", ResultAddress);
+	Result.Insert("AdditionalResultAddress", "");
+	Result.Insert("BriefErrorPresentation", "");
+	Result.Insert("DetailedErrorPresentation", "");
+	Result.Insert("Messages", New FixedArray(New Array));
 	
-	// Выполнить в фоне.
-	Попытка
-		Задание = ЗапуститьФоновоеЗаданиеСКонтекстомКлиента(ИмяПроцедуры, ПараметрыВыполнения,
-			ПараметрыЭкспортнойПроцедуры);
-	Исключение
-		Результат.Статус = "Ошибка";
-		Если Задание <> Неопределено И Задание.ИнформацияОбОшибке <> Неопределено Тогда
-			Результат.КраткоеПредставлениеОшибки = КраткоеПредставлениеОшибки(Задание.ИнформацияОбОшибке);
-			Результат.ПодробноеПредставлениеОшибки = ПодробноеПредставлениеОшибки(Задание.ИнформацияОбОшибке);
-		Иначе
-			Результат.КраткоеПредставлениеОшибки = КраткоеПредставлениеОшибки(ИнформацияОбОшибке());
-			Результат.ПодробноеПредставлениеОшибки = ПодробноеПредставлениеОшибки(ИнформацияОбОшибке());
-		КонецЕсли;
-		Возврат Результат;
-	КонецПопытки;
+	If ExecutionParameters.NoExtensions Then
+		//ExecutionParameters.NoExtensions = ValueIsFilled(SessionParameters.AttachedExtensions);
+	EndIf;
 
-	Если Задание <> Неопределено И Задание.ИнформацияОбОшибке <> Неопределено Тогда
-		Результат.Статус = "Ошибка";
-		Результат.КраткоеПредставлениеОшибки = КраткоеПредставлениеОшибки(Задание.ИнформацияОбОшибке);
-		Результат.ПодробноеПредставлениеОшибки = ПодробноеПредставлениеОшибки(Задание.ИнформацияОбОшибке);
-		Возврат Результат;
-	КонецЕсли;
+	ExportProcedureParameters = New Array;
+	ExportProcedureParameters.Add(ProcedureParameters);
+	ExportProcedureParameters.Add(ResultAddress);
+	
+	If ExecutionParameters.AdditionalResult Then
+		Result.AdditionalResultAddress = PutToTempStorage(Undefined, ExecutionParameters.FormID);
+		ExportProcedureParameters.Add(Result.AdditionalResultAddress);
+	EndIf;
 
-	Результат.ИдентификаторЗадания = Задание.УникальныйИдентификатор;
-	ЗаданиеВыполнено = Ложь;
+	ExecuteWithoutBackgroundJob = Not ExecutionParameters.NoExtensions AND (ExecutionParameters.RunNotInBackground
+		OR (BackgroundJobsExistInFileIB() AND Not ExecutionParameters.RunInBackground) Or Not CanRunInBackground(ProcedureName));
 
-	Если ПараметрыВыполнения.ОжидатьЗавершение <> 0 Тогда
-		Попытка
-			Задание.ОжидатьЗавершения(ПараметрыВыполнения.ОжидатьЗавершение);
-			ЗаданиеВыполнено = Истина;
-		Исключение
-			// Специальная обработка не требуется, возможно исключение вызвано истечением времени ожидания.
-		КонецПопытки;
-	КонецЕсли;
+	// Executing in the main thread.
+	If ExecuteWithoutBackgroundJob Then
+		Try
+			ExecuteProcedure(ProcedureName, ExportProcedureParameters);
+			Result.Status = "Completed";
+		Except
+			Result.Status = "Error";
+			Result.BriefErrorPresentation = BriefErrorDescription(ErrorInfo());
+			Result.DetailedErrorPresentation = DetailErrorDescription(ErrorInfo());
+			WriteLogEvent(
+			NStr("ru = 'Ошибка выполнения'; en = 'Runtime error'", UT_CommonClientServer.DefaultLanguageCode()),
+			EventLogLevel.Error, , , Result.DetailedErrorPresentation);
+		EndTry;
+		Return Result;
+	EndIf;
+	
+	// Executing in background.
+	Try
+		Job = RunBackgroundJobWithClientContext(ProcedureName, ExecutionParameters, ExportProcedureParameters);
+	Except
+		Result.Status = "Error";
+		If Job <> Undefined AND Job.ErrorInfo <> Undefined Then
+			Result.BriefErrorPresentation = BriefErrorDescription(Job.ErrorInfo);
+			Result.DetailedErrorPresentation = DetailErrorDescription(Job.ErrorInfo);
+		Else
+			Result.BriefErrorPresentation = BriefErrorDescription(ErrorInfo());
+			Result.DetailedErrorPresentation = DetailErrorDescription(ErrorInfo());
+		EndIf;
+		Return Result;
+	EndTry;
 
-	Если ЗаданиеВыполнено Тогда
-		ПрогрессИСообщения = ПрочитатьПрогрессИСообщения(Задание.УникальныйИдентификатор, "ПрогрессИСообщения");
-		Результат.Сообщения = ПрогрессИСообщения.Сообщения;
-	КонецЕсли;
+		If Job <> Undefined AND Job.ErrorInfo <> Undefined Then
+		Result.Status = "Error";
+		Result.BriefErrorPresentation = BriefErrorDescription(Job.ErrorInfo);
+		Result.DetailedErrorPresentation = DetailErrorDescription(Job.ErrorInfo);
+		Return Result;
+	EndIf;
+	
+	Result.JobID = Job.UUID;
+	JobCompleted = False;
 
-	ЗаполнитьЗначенияСвойств(Результат, ОперацияВыполнена(Задание.УникальныйИдентификатор), , "Сообщения");
-	Возврат Результат;
+	If ExecutionParameters.WaitForCompletion <> 0 Then
+		Try
+			Job.WaitForCompletion(ExecutionParameters.WaitForCompletion);
+			JobCompleted = True;
+		Except
+			// No special processing is required. Perhaps the exception was raised because a timeout occurred.
+		EndTry;
+	EndIf;
+	
+	If JobCompleted Then
+		ProgressAndMessages = ReadProgressAndMessages(Job.UUID, "ProgressAndMessages");
+		Result.Messages = ProgressAndMessages.Messages;
+	EndIf;
+	
+	FillPropertyValues(Result, ActionCompleted(Job.UUID), , "Messages");
+	Return Result;
+	
+EndFunction
 
-КонецФункции
+Function ActionCompleted(Val JobID, Val ExceptionOnError = False, Val OutputProgressBar = False, 
+	Val OutputMessages = False) Export
 
-Функция ОперацияВыполнена(Знач ИдентификаторЗадания, Знач ИсключениеПриОшибке = Ложь,
-	Знач ВыводитьПрогрессВыполнения = Ложь, Знач ВыводитьСообщения = Ложь) Экспорт
+	Result = New Structure;
+	Result.Insert("Status", "Running");
+	Result.Insert("BriefErrorPresentation", Undefined);
+	Result.Insert("DetailedErrorPresentation", Undefined);
+	Result.Insert("Progress", Undefined);
+	Result.Insert("Messages", Undefined);
 
-	Результат = Новый Структура;
-	Результат.Вставить("Статус", "Выполняется");
-	Результат.Вставить("КраткоеПредставлениеОшибки", Неопределено);
-	Результат.Вставить("ПодробноеПредставлениеОшибки", Неопределено);
-	Результат.Вставить("Прогресс", Неопределено);
-	Результат.Вставить("Сообщения", Неопределено);
+	Job = FindJobByID(JobID);
+	If Job = Undefined Then
+		WriteLogEvent(NStr("ru = 'Длительные операции'; en = 'Time-consuming operations'", UT_CommonClientServer.DefaultLanguageCode()),
+			EventLogLevel.Error, , , NStr("ru = 'Фоновое задание не найдено:'; en = 'The background job is not found'") + " " + String(JobID));
+			If ExceptionOnError Then
+			Raise(NStr("ru = 'Не удалось выполнить данную операцию.'; en = 'Cannot perform the operation.'"));
+		EndIf;
+		Result.Status = "Error";
+		Return Result;
+	EndIf;
 
-	Задание = НайтиЗаданиеПоИдентификатору(ИдентификаторЗадания);
-	Если Задание = Неопределено Тогда
-		ЗаписьЖурналаРегистрации(НСтр("ru = 'Длительные операции'", UT_CommonClientServer.DefaultLanguageCode()),
-			УровеньЖурналаРегистрации.Ошибка, , , НСтр("ru = 'Фоновое задание не найдено:'") + " " + Строка(
-			ИдентификаторЗадания));
-		Если ИсключениеПриОшибке Тогда
-			ВызватьИсключение (НСтр("ru = 'Не удалось выполнить данную операцию.'"));
-		КонецЕсли;
-		Результат.Статус = "Ошибка";
-		Возврат Результат;
-	КонецЕсли;
+	If OutputProgressBar Then
+		ProgressAndMessages = ReadProgressAndMessages(JobID, ?(OutputMessages, "ProgressAndMessages", "Progress"));
+		Result.Progress = ProgressAndMessages.Progress;
+		If OutputMessages Then
+			Result.Messages = ProgressAndMessages.Messages;
+		EndIf;
+		ElsIf OutputMessages Then
+		Result.Messages = Job.GetUserMessages(True);
+	EndIf;
 
-	Если ВыводитьПрогрессВыполнения Тогда
-		ПрогрессИСообщения = ПрочитатьПрогрессИСообщения(ИдентификаторЗадания, ?(ВыводитьСообщения,
-			"ПрогрессИСообщения", "Прогресс"));
-		Результат.Прогресс = ПрогрессИСообщения.Прогресс;
-		Если ВыводитьСообщения Тогда
-			Результат.Сообщения = ПрогрессИСообщения.Сообщения;
-		КонецЕсли;
-	ИначеЕсли ВыводитьСообщения Тогда
-		Результат.Сообщения = Задание.ПолучитьСообщенияПользователю(Истина);
-	КонецЕсли;
+	If Job.State = BackgroundJobState.Active Then
+		Return Result;
+	EndIf;
 
-	Если Задание.Состояние = СостояниеФоновогоЗадания.Активно Тогда
-		Возврат Результат;
-	КонецЕсли;
-
-	Если Задание.Состояние = СостояниеФоновогоЗадания.Отменено Тогда
-		УстановитьПривилегированныйРежим(Истина);
+	If Job.State = BackgroundJobState.Canceled Then
+		SetPrivilegedMode(True);
 		
-		//TODO Переделать на работу через хранилище настроек
-//		Если ПараметрыСеанса.ИмяПараметраСеанса.Найти(ИдентификаторЗадания) = Неопределено Тогда
-//			Результат.Статус = "Ошибка";
-//			Если Задание.ИнформацияОбОшибке <> Неопределено Тогда
-//				Результат.КраткоеПредставлениеОшибки   = НСтр("ru = 'Операция отменена администратором.'");
-//				Результат.ПодробноеПредставлениеОшибки = Результат.КраткоеПредставлениеОшибки;
-//			КонецЕсли;
-//			Если ИсключениеПриОшибке Тогда
-//				Если Не ПустаяСтрока(Результат.КраткоеПредставлениеОшибки) Тогда
-//					ТекстСообщения = Результат.КраткоеПредставлениеОшибки;
-//				Иначе
-//					ТекстСообщения = НСтр("ru = 'Не удалось выполнить данную операцию.'");
-//				КонецЕсли;
-//				ВызватьИсключение ТекстСообщения;
-//			КонецЕсли;
-//		Иначе
-		Результат.Статус = "Отменено";
-//		КонецЕсли;
-		УстановитьПривилегированныйРежим(Ложь);
-		Возврат Результат;
-	КонецЕсли;
+		//TODO Change to work with ValueStorage
+//		If SessionParameters.CanceledTimeConsumingOperations.Find(JobID) = Undefined Then
+//			Result.Status = "Error";
+//			If Job.ErrorInfo <> Undefined Then
+//				Result.BriefErrorPresentation   = NStr("ru = 'Операция отменена администратором.'; en = 'Operation canceled by administrator.'");
+//				Result.DetailedErrorPresentation = Result.BriefErrorPresentation;
+//			EndIf;
+//			If ExceptionOnError Then
+//				If Not IsBlankString(Result.BriefErrorPresentation) Then
+//					MessageText = Result.BriefErrorPresentation;
+//				Else
+//					MessageText = NStr("ru = 'Не удалось выполнить данную операцию.'; en = 'Cannot perform the operation.'");
+//				EndIf;
+//				Raise MessageText;
+//			EndIf;
+//		Else
+		Result.Status = "Canceled";
+//		EndIf;
+		SetPrivilegedMode(False);
+		Return Result;
+	EndIf;
 
-	Если Задание.Состояние = СостояниеФоновогоЗадания.ЗавершеноАварийно Или Задание.Состояние
-		= СостояниеФоновогоЗадания.Отменено Тогда
+	If Job.State = BackgroundJobState.Failed 
+		Or Job.State = BackgroundJobState.Canceled Then
 
-		Результат.Статус = "Ошибка";
-		Если Задание.ИнформацияОбОшибке <> Неопределено Тогда
-			Результат.КраткоеПредставлениеОшибки   = КраткоеПредставлениеОшибки(Задание.ИнформацияОбОшибке);
-			Результат.ПодробноеПредставлениеОшибки = ПодробноеПредставлениеОшибки(Задание.ИнформацияОбОшибке);
-		КонецЕсли;
-		Если ИсключениеПриОшибке Тогда
-			Если Не ПустаяСтрока(Результат.КраткоеПредставлениеОшибки) Тогда
-				ТекстСообщения = Результат.КраткоеПредставлениеОшибки;
-			Иначе
-				ТекстСообщения = НСтр("ru = 'Не удалось выполнить данную операцию.'");
-			КонецЕсли;
-			ВызватьИсключение ТекстСообщения;
-		КонецЕсли;
-		Возврат Результат;
-	КонецЕсли;
-
-	Результат.Статус = "Выполнено";
-	Возврат Результат;
-
-КонецФункции
-
-// Считывает информацию о ходе выполнения фонового задания и сообщения, которые в нем были сформированы.
-//
-// Параметры:
-//   ИдентификаторЗадания - УникальныйИдентификатор - идентификатор фонового задания.
-//   Режим                - Строка - "ПрогрессИСообщения", "Прогресс" или "Сообщения".
-//
-// Возвращаемое значение:
-//   Структура - со свойствами:
-//    * Прогресс  - Неопределено, Структура - Информация о ходе выполнения фонового задания, записанная процедурой СообщитьПрогресс:
-//     ** Процент                 - Число  - Необязательный. Процент выполнения.
-//     ** Текст                   - Строка - Необязательный. Информация о текущей операции.
-//     ** ДополнительныеПараметры - Произвольный - Необязательный. Любая дополнительная информация.
-//    * Сообщения - ФиксированныйМассив - Массив объектов СообщениеПользователю, которые были сформированы в фоновом задании.
-//
-Функция ПрочитатьПрогрессИСообщения(Знач ИдентификаторЗадания, Знач Режим = "ПрогрессИСообщения")
-
-	Сообщения = Новый ФиксированныйМассив(Новый Массив);
-	Результат = Новый Структура("Сообщения, Прогресс", Сообщения, Неопределено);
-
-	Задание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(ИдентификаторЗадания);
-	Если Задание = Неопределено Тогда
-		Возврат Результат;
-	КонецЕсли;
-
-	МассивСообщений = Задание.ПолучитьСообщенияПользователю(Истина);
-	Если МассивСообщений = Неопределено Тогда
-		Возврат Результат;
-	КонецЕсли;
-
-	Количество = МассивСообщений.Количество();
-	Сообщения = Новый Массив;
-	ЧитатьСообщения = (Режим = "ПрогрессИСообщения" Или Режим = "Сообщения");
-	ЧитатьПрогресс  = (Режим = "ПрогрессИСообщения" Или Режим = "Прогресс");
-
-	Если ЧитатьСообщения И Не ЧитатьПрогресс Тогда
-		Результат.Сообщения = Новый ФиксированныйМассив(МассивСообщений);
-		Возврат Результат;
-	КонецЕсли;
-
-	Для Номер = 0 По Количество - 1 Цикл
-		Сообщение = МассивСообщений[Номер];
-
-		Если ЧитатьПрогресс И СтрНачинаетсяС(Сообщение.Текст, "{") Тогда
-			Позиция = СтрНайти(Сообщение.Текст, "}");
-			Если Позиция > 2 Тогда
-				ИдентификаторМеханизма = Сред(Сообщение.Текст, 2, Позиция - 2);
-				Если ИдентификаторМеханизма = СообщениеПрогресса() Тогда
-					ПолученныйТекст = Сред(Сообщение.Текст, Позиция + 1);
-					Результат.Прогресс = UT_Common.ValueFromXMLString(ПолученныйТекст);
-					Продолжить;
-				КонецЕсли;
-			КонецЕсли;
-		КонецЕсли;
-		Если ЧитатьСообщения Тогда
-			Сообщения.Добавить(Сообщение);
-		КонецЕсли;
-	КонецЦикла;
-
-	Результат.Сообщения = Новый ФиксированныйМассив(Сообщения);
-	Возврат Результат;
-
-КонецФункции
-
-Функция ЕстьФоновыеЗаданияВФайловойИБ()
-
-	ЗапущеноЗаданийВФайловойИБ = 0;
-	Если UT_Common.ИнформационнаяБазаФайловая() Тогда
-		Отбор = Новый Структура;
-		Отбор.Вставить("Состояние", СостояниеФоновогоЗадания.Активно);
-		ЗапущеноЗаданийВФайловойИБ = ФоновыеЗадания.ПолучитьФоновыеЗадания(Отбор).Количество();
-	КонецЕсли;
-	Возврат ЗапущеноЗаданийВФайловойИБ > 0;
-
-КонецФункции
-
-Функция ВозможноВыполнитьВФоне(ИмяПроцедуры)
-
-	ЧастиИмени = СтрРазделить(ИмяПроцедуры, ".");
-	Если ЧастиИмени.Количество() = 0 Тогда
-		Возврат Ложь;
-	КонецЕсли;
-
-	ЭтоВнешняяОбработка = (ВРег(ЧастиИмени[0]) = "ВНЕШНЯЯОБРАБОТКА");
-	ЭтоВнешнийОтчет = (ВРег(ЧастиИмени[0]) = "ВНЕШНИЙОТЧЕТ");
-	Возврат Не (ЭтоВнешняяОбработка Или ЭтоВнешнийОтчет);
-
-КонецФункции
-Процедура ВыполнитьПроцедуру(ИмяПроцедуры, ПараметрыПроцедуры)
-
-	ЧастиИмени = СтрРазделить(ИмяПроцедуры, ".");
-	ЭтоПроцедураМодуляОбработки = (ЧастиИмени.Количество() = 4) И ВРег(ЧастиИмени[2]) = "МОДУЛЬОБЪЕКТА";
-	Если Не ЭтоПроцедураМодуляОбработки Тогда
-		UT_Common.ExecuteConfigurationMethod(ИмяПроцедуры, ПараметрыПроцедуры);
-		Возврат;
-	КонецЕсли;
-
-	ЭтоОбработка = ВРег(ЧастиИмени[0]) = "ОБРАБОТКА";
-	ЭтоОтчет = ВРег(ЧастиИмени[0]) = "ОТЧЕТ";
-	Если ЭтоОбработка Или ЭтоОтчет Тогда
-		МенеджерОбъекта = ?(ЭтоОтчет, Отчеты, Обработки);
-		ОбработкаОтчетОбъект = МенеджерОбъекта[ЧастиИмени[1]].Создать();
-		UT_Common.ВыполнитьМетодОбъекта(ОбработкаОтчетОбъект, ЧастиИмени[3], ПараметрыПроцедуры);
-		Возврат;
-	КонецЕсли;
-
-	ЭтоВнешняяОбработка = ВРег(ЧастиИмени[0]) = "ВНЕШНЯЯОБРАБОТКА";
-	ЭтоВнешнийОтчет = ВРег(ЧастиИмени[0]) = "ВНЕШНИЙОТЧЕТ";
-	Если ЭтоВнешняяОбработка Или ЭтоВнешнийОтчет Тогда
-		ВыполнитьПроверкуПравДоступа("ИнтерактивноеОткрытиеВнешнихОбработок", Метаданные);
-		МенеджерОбъекта = ?(ЭтоВнешнийОтчет, ВнешниеОтчеты, ВнешниеОбработки);
-		ОбработкаОтчетОбъект = МенеджерОбъекта.Создать(ЧастиИмени[1], БезопасныйРежим());
-		UT_Common.ВыполнитьМетодОбъекта(ОбработкаОтчетОбъект, ЧастиИмени[3], ПараметрыПроцедуры);
-		Возврат;
-	КонецЕсли;
-
-	ВызватьИсключение СтрШаблон(
-		НСтр("ru = 'Неверный формат параметра ИмяПроцедуры (переданное значение: %1)'"), ИмяПроцедуры);
-
-КонецПроцедуры
-
-Функция ЗапуститьФоновоеЗаданиеСКонтекстомКлиента(ИмяПроцедуры, ПараметрыВыполнения, ПараметрыПроцедуры = Неопределено) Экспорт
-
-	КлючФоновогоЗадания = ПараметрыВыполнения.КлючФоновогоЗадания;
-	НаименованиеФоновогоЗадания = ?(ПустаяСтрока(ПараметрыВыполнения.НаименованиеФоновогоЗадания), ИмяПроцедуры,
-		ПараметрыВыполнения.НаименованиеФоновогоЗадания);
-
-	ВсеПараметры = Новый Структура;
-	ВсеПараметры.Вставить("ИмяПроцедуры", ИмяПроцедуры);
-	ВсеПараметры.Вставить("ПараметрыПроцедуры", ПараметрыПроцедуры);
-//	..ВсеПараметры.Вставить("ПараметрыКлиентаНаСервере", СтандартныеПодсистемыСервер.ПараметрыКлиентаНаСервере());
-
-	ПараметрыПроцедурыФоновогоЗадания = Новый Массив;
-	ПараметрыПроцедурыФоновогоЗадания.Добавить(ВсеПараметры);
-
-	Возврат ВыполнитьФоновоеЗадание(ПараметрыВыполнения, "УИ_ДлительныеОперации.ВыполнитьСКонтекстомКлиента",
-		ПараметрыПроцедурыФоновогоЗадания, КлючФоновогоЗадания, НаименованиеФоновогоЗадания);
-
-КонецФункции
-
-Функция НайтиЗаданиеПоИдентификатору(Знач ИдентификаторЗадания)
-
-	Если ТипЗнч(ИдентификаторЗадания) = Тип("Строка") Тогда
-		ИдентификаторЗадания = Новый УникальныйИдентификатор(ИдентификаторЗадания);
-	КонецЕсли;
-
-	Задание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(ИдентификаторЗадания);
-	Возврат Задание;
-
-КонецФункции
-
-Функция СообщениеПрогресса() Экспорт
-	Возврат "UT_UniversalTools.ДлительныеОперации";
-КонецФункции
-Функция ВыполнитьФоновоеЗадание(ПараметрыВыполнения, ИмяМетода, Параметры, Ключ, Наименование)
-
-	Если ТекущийРежимЗапуска() = Неопределено И UT_Common.ИнформационнаяБазаФайловая() Тогда
-
-		Сеанс = ПолучитьТекущийСеансИнформационнойБазы();
-		Если ПараметрыВыполнения.ОжидатьЗавершение = Неопределено И Сеанс.ИмяПриложения = "BackgroundJob" Тогда
-			ВызватьИсключение НСтр(
-				"ru = 'В файловой информационной базе невозможно одновременно выполнять более одного фонового задания'");
-		ИначеЕсли Сеанс.ИмяПриложения = "COMConnection" Тогда
-			ВызватьИсключение НСтр(
-				"ru = 'В файловой информационной базе можно запустить фоновое задание только из клиентского приложения'");
-		КонецЕсли;
-
-	КонецЕсли;
-
-	Если ПараметрыВыполнения.БезРасширений Тогда
-		Возврат РасширенияКонфигурации.ВыполнитьФоновоеЗаданиеБезРасширений(ИмяМетода, Параметры, Ключ, Наименование);
-	Иначе
-		Возврат ФоновыеЗадания.Выполнить(ИмяМетода, Параметры, Ключ, Наименование);
-	КонецЕсли;
-
-КонецФункции
-
-// Продолжение процедуры ЗапуститьФоновоеЗаданиеСКонтекстомКлиента.
-Процедура ВыполнитьСКонтекстомКлиента(ВсеПараметры) Экспорт
+		Result.Status = "Error";
+		If Job.ErrorInfo <> Undefined Then
+			Result.BriefErrorPresentation   = BriefErrorDescription(Job.ErrorInfo);
+			Result.DetailedErrorPresentation = DetailErrorDescription(Job.ErrorInfo);
+		EndIf;
+		If ExceptionOnError Then
+			If Not IsBlankString(Result.BriefErrorPresentation) Then
+				MessageText = Result.BriefErrorPresentation;
+			Else
+				MessageText = NStr("ru = 'Не удалось выполнить данную операцию.'; en = 'Cannot perform the operation.'");
+			EndIf;
+			Raise MessageText;
+		EndIf;
+		Return Result;
+	EndIf;
 	
-//	УстановитьПривилегированныйРежим(Истина);
-//	Если ПравоДоступа("Установка", Метаданные.ПараметрыСеанса.ПараметрыКлиентаНаСервере) Тогда
-//		ПараметрыСеанса.ПараметрыКлиентаНаСервере = ВсеПараметры.ПараметрыКлиентаНаСервере;
-//	КонецЕсли;
-//	Справочники.ВерсииРасширений.ЗарегистрироватьИспользованиеВерсииРасширений();
-//	УстановитьПривилегированныйРежим(Ложь);
-
-	ВыполнитьПроцедуру(ВсеПараметры.ИмяПроцедуры, ВсеПараметры.ПараметрыПроцедуры);
-
-КонецПроцедуры
-
-// Возвращает новую структуру для параметра ПараметрыВыполнения функции ВыполнитьВФоне.
-//
-// Параметры:
-//   ИдентификаторФормы - УникальныйИдентификатор - уникальный идентификатор формы, 
-//                               во временное хранилище которой надо поместить результат выполнения процедуры.
-//
-// Возвращаемое значение:
-//   Структура - со свойствами:
-//     * ИдентификаторФормы      - УникальныйИдентификатор - уникальный идентификатор формы, 
-//                               во временное хранилище которой надо поместить результат выполнения процедуры.
-//     * ДополнительныйРезультат - Булево     - признак использования дополнительного временного хранилища для передачи 
-//                                 результата из фонового задания в родительский сеанс. По умолчанию - Ложь.
-//     * ОжидатьЗавершение       - Число, Неопределено - таймаут в секундах ожидания завершения фонового задания. 
-//                               Если задано Неопределено, то ждать до момента завершения задания. 
-//                               Если задано 0, то ждать завершения задания не требуется. 
-//                               По умолчанию - 2 секунды; а для низкой скорости соединения - 4. 
-//     * НаименованиеФоновогоЗадания - Строка - описание фонового задания. По умолчанию - имя процедуры.
-//     * КлючФоновогоЗадания      - Строка    - уникальный ключ для активных фоновых заданий, имеющих такое же имя процедуры.
-//                                              По умолчанию, не задан.
-//     * АдресРезультата          - Строка - адрес временного хранилища, в которое должен быть помещен результат
-//                                           работы процедуры. Если не задан, адрес формируется автоматически.
-//     * ЗапуститьВФоне           - Булево - если Истина, то задание будет всегда выполняться в фоне,
-//                               за исключением режима отладки.
-//                               В файловом варианте, при наличии ранее запущенных заданий,
-//                               новое задание становится в очередь и начинает выполняться после завершения предыдущих.
-//     * ЗапуститьНеВФоне         - Булево - если Истина, задание всегда будет запускаться непосредственно,
-//                               без использования фонового задания.
-//     * БезРасширений            - Булево - если Истина, то фоновое задание будет запущено без подключения
-//                               расширений конфигурации.
-//
-Функция ПараметрыВыполненияВФоне(Знач ИдентификаторФормы) Экспорт
-
-	Результат = Новый Структура;
-	Результат.Вставить("ИдентификаторФормы", ИдентификаторФормы);
-	Результат.Вставить("ДополнительныйРезультат", Ложь);
-	Результат.Вставить("ОжидатьЗавершение", ?(ПолучитьСкоростьКлиентскогоСоединения()
-		= СкоростьКлиентскогоСоединения.Низкая, 4, 0.8));
-	Результат.Вставить("НаименованиеФоновогоЗадания", "");
-	Результат.Вставить("КлючФоновогоЗадания", "");
-	Результат.Вставить("АдресРезультата", Неопределено);
-	Результат.Вставить("ЗапуститьНеВФоне", Ложь);
-	Результат.Вставить("ЗапуститьВФоне", Ложь);
-	Результат.Вставить("БезРасширений", Ложь);
-	Возврат Результат;
-
-КонецФункции
-
-// Отменяет выполнение фонового задания по переданному идентификатору.
-// 
-// Параметры:
-//  ИдентификаторЗадания - УникальныйИдентификатор - идентификатор фонового задания. 
-// 
-Процедура ОтменитьВыполнениеЗадания(Знач ИдентификаторЗадания) Экспорт
-
-	Если Не ЗначениеЗаполнено(ИдентификаторЗадания) Тогда
-		Возврат;
-	КонецЕсли;
+	Result.Status = "Completed";
+	Return Result;
 	
-//	УстановитьПривилегированныйРежим(Истина);
-//	Если ПараметрыСеанса.UT_СancelledTimeConsumingOperations.Найти(ИдентификаторЗадания) = Неопределено Тогда
-//		ОтмененныеДлительныеОперации = Новый Массив(ПараметрыСеанса.UT_СancelledTimeConsumingOperations);
-//		ОтмененныеДлительныеОперации.Добавить(ИдентификаторЗадания);
-//		ПараметрыСеанса.UT_СancelledTimeConsumingOperations = Новый ФиксированныйМассив(ОтмененныеДлительныеОперации);
-//	КонецЕсли;
-//	УстановитьПривилегированныйРежим(Ложь);
+EndFunction
 
-	Задание = НайтиЗаданиеПоИдентификатору(ИдентификаторЗадания);
-	Если Задание = Неопределено Или Задание.Состояние <> СостояниеФоновогоЗадания.Активно Тогда
+// Reads background job execution process details and messages that were generated.
+//
+// Parameters:
+//   JobID - UUID - the background job ID.
+//   Mode                - String - "ProgressAndMessages", "Progress", or "Messages".
+//
+// Returns:
+//   Structure - with the following properties:
+//    * Progress  - Undefined, Structure - background job progress information that was recorded by the ReportProgress function:
+//     ** Percentage                 - Number  - optional. Progress percentage.
+//     ** Text                   - String - optional. Details on the current action.
+//     ** AdditionalParameters - Arbitrary - optional. Any additional information.
+//    * Messages - FixedArray - the array of UserMessage objects that were generated in the background job.
+//
+Function ReadProgressAndMessages(Val JobID, Val Mode = "ProgressAndMessages")
+	
+	Messages = New FixedArray(New Array);
+	Result = New Structure("Messages, Progress", Messages, Undefined);
+	
+	Job = BackgroundJobs.FindByUUID(JobID);
+	If Job = Undefined Then
+		Return Result;
+	EndIf;
 
-		Возврат;
-	КонецЕсли;
+	MessagesArray = Job.GetUserMessages(True);
+	If MessagesArray = Undefined Then
+		Return Result;
+	EndIf;
 
-	Попытка
-		Задание.Отменить();
-	Исключение
-		// Возможно задание как раз в этот момент закончилось и ошибки нет.
-		ЗаписьЖурналаРегистрации(НСтр("ru = 'Длительные операции.Отмена выполнения фонового задания'",
-			UT_CommonClientServer.DefaultLanguageCode()), УровеньЖурналаРегистрации.Предупреждение, , ,
-			ПодробноеПредставлениеОшибки(ИнформацияОбОшибке()));
-	КонецПопытки;
+	Count = MessagesArray.Count();
+	Messages = New Array;
+	MustReadMessages = (Mode = "ProgressAndMessages" Or Mode = "Messages"); 
+	MustReadProgress  = (Mode = "ProgressAndMessages" Or Mode = "Progress"); 
+	
+	If MustReadMessages AND Not MustReadProgress Then
+		Result.Messages = New FixedArray(MessagesArray);
+		Return Result;
+	EndIf;
 
-КонецПроцедуры
-Функция ОперацииВыполнены(Знач Задания) Экспорт
+	For Number = 0 To Count - 1 Do
+		Message = MessagesArray[Number];
+		
+		If MustReadProgress AND StrStartsWith(Message.Text, "{") Then
+			Position = StrFind(Message.Text, "}");
+			If Position > 2 Then
+				MechanismID = Mid(Message.Text, 2, Position - 2);
+				If MechanismID = ProgressMessage() Then
+					ReceivedText = Mid(Message.Text, Position + 1);
+					Result.Progress = UT_Common.ValueFromXMLString(ReceivedText);
+					Continue;
+				EndIf;
+			EndIf;
+		EndIf;
+		If MustReadMessages Then
+			Messages.Add(Message);
+		EndIf;
+	EndDo;
+	
+	Result.Messages = New FixedArray(Messages);
+	Return Result;
+	
+EndFunction
 
-	Результат = Новый Соответствие;
-	Для Каждого Задание Из Задания Цикл
-		Результат.Вставить(Задание.ИдентификаторЗадания, ОперацияВыполнена(Задание.ИдентификаторЗадания, Ложь,
-			Задание.ВыводитьПрогрессВыполнения, Задание.ВыводитьСообщения));
-	КонецЦикла;
-	Возврат Результат;
+Function BackgroundJobsExistInFileIB()
+	
+	JobsRunningInFileIB = 0;
+	IF UT_Common.FileInfobase() Then
+		Filter = New Structure;
+		Filter.Insert("State", BackgroundJobState.Active);
+		JobsRunningInFileIB = BackgroundJobs.GetBackgroundJobs(Filter).Count();
+	EndIf;
+	Return JobsRunningInFileIB > 0;
+
+EndFunction
+
+Function CanRunInBackground(ProcedureName)
+	
+	NameParts = StrSplit(ProcedureName, ".");
+	If NameParts.Count() = 0 Then
+		Return False;
+	EndIf;
+	
+	IsExternalDataProcessor = (Upper(NameParts[0]) = "EXTERNALDATAPROCESSOR");
+	IsExternalReport = (Upper(NameParts[0]) = "EXTERNALREPORT");
+	Return Not (IsExternalDataProcessor Or IsExternalReport);
+
+EndFunction
+Procedure ExecuteProcedure(ProcedureName, ProcedureParameters)
+	
+	NameParts = StrSplit(ProcedureName, ".");
+	IsDataProcessorModuleProcedure = (NameParts.Count() = 4) AND Upper(NameParts[2]) = "OBJECTMODULE";
+	If Not IsDataProcessorModuleProcedure Then
+		UT_Common.ExecuteConfigurationMethod(ProcedureName, ProcedureParameters);
+		Return;
+	EndIf;
+	
+	IsDataProcessor = Upper(NameParts[0]) = "DATAPROCESSOR";
+	IsReport = Upper(NameParts[0]) = "REPORT";
+	If IsDataProcessor Or IsReport Then
+		ObjectManager = ?(IsReport, Reports, DataProcessors);
+		DataProcessorReportObject = ObjectManager[NameParts[1]].Create();
+		UT_Common.ExecuteObjectMethod(DataProcessorReportObject, NameParts[3], ProcedureParameters);
+		Return;
+	EndIf;
+	
+	IsExternalDataProcessor = Upper(NameParts[0]) = "EXTERNALDATAPROCESSOR";
+	IsExternalReport = Upper(NameParts[0]) = "EXTERNALREPORT";
+	If IsExternalDataProcessor Or IsExternalReport Then
+		VerifyAccessRights("InteractiveOpenExtDataProcessors", Metadata);
+		ObjectManager = ?(IsExternalReport, ExternalReports, ExternalDataProcessors);
+		DataProcessorReportObject = ObjectManager.Create(NameParts[1], SafeMode());
+		UT_Common.ExecuteObjectMethod(DataProcessorReportObject, NameParts[3], ProcedureParameters);
+		Return;
+	EndIf;
+
+	Raise StrTemplate(
+		NStr("ru = 'Неверный формат параметра ИмяПроцедуры (переданное значение: %1)'; 
+		|	  en = 'Invalid format of ProcedureName parameter (passed value: %1)'"), ProcedureName);
+
+EndProcedure
+
+Function RunBackgroundJobWithClientContext(ProcedureName,
+	ExecutionParameters, ProcedureParameters = Undefined) Export
+
+	BackgroundJobKey = ExecutionParameters.BackgroundJobKey;
+	BackgroundJobDescription = ?(IsBlankString(ExecutionParameters.BackgroundJobDescription),
+		ProcedureName, ExecutionParameters.BackgroundJobDescription);
+
+    AllParameters = New Structure;
+	AllParameters.Insert("ProcedureName",       ProcedureName);
+	AllParameters.Insert("ProcedureParameters", ProcedureParameters);
+	//...AllParameters.Insert("ClientParametersAtServer", StandardSubsystemsServer.ClientParametersAtServer());
+
+	BackgroundJobProcedureParameters = New Array;
+	BackgroundJobProcedureParameters.Add(AllParameters);
+
+	Return RunBackgroundJob(ExecutionParameters, "UT_TimeConsumingOperations.ExecuteWithClientContext",
+		BackgroundJobProcedureParameters,BackgroundJobKey, BackgroundJobDescription);
 
 КонецФункции
 
-// Регистрирует информацию о ходе выполнения фонового задания.
-// В дальнейшем ее можно считать при помощи функции ПрочитатьПрогресс.
+Function FindJobByID(Val JobID)
+	
+	If TypeOf(JobID) = Type("String") Then
+		JobID = New UUID(JobID);
+	EndIf;
+	
+	Job = BackgroundJobs.FindByUUID(JobID);
+	Return Job;
+	
+EndFunction
+
+Function ProgressMessage() Export
+	Return "UT_UniversalTools.TimeConsumingOperations";
+EndFunction
+Function RunBackgroundJob(ExecutionParameters, MethodName, Parameters, varKey, Description)
+
+	If CurrentRunMode() = Undefined AND UT_Common.FileInfobase() Then
+
+		Session = GetCurrentInfoBaseSession();
+		If ExecutionParameters.WaitForCompletion = Undefined AND Session.ApplicationName = "BackgroundJob" Then
+			Raise NStr("ru = 'В файловой информационной базе невозможно одновременно выполнять более одного фонового задания'; en = 'In a file infobase, only one background job can run at a time.'");
+		ElsIf Session.ApplicationName = "COMConnection" Then
+			Raise NStr("ru = 'В файловой информационной базе можно запустить фоновое задание только из клиентского приложения'; en = 'In a file infobase, background jobs can only be started from the client application.'");
+		EndIf;
+		
+	EndIf;
+
+	If ExecutionParameters.NoExtensions Then
+		Return ConfigurationExtensions.ExecuteBackgroundJobWithoutExtensions(MethodName, Parameters, varKey, Description);
+	Else
+		Return BackgroundJobs.Execute(MethodName, Parameters, varKey, Description);
+	EndIf;
+	
+EndFunction
+
+// Continuation of the RunBackgroundJobWithClientContext procedure.
+Procedure ExecuteWithClientContext(AllParameters) Export
+	
+//	SetPrivilegedMode(True);
+//	If AccessRight("Set", Metadata.SessionParameters.ClientParametersAtServer) Then
+//		SessionParameters.ClientParametersAtServer = AllParameters.ClientParametersAtServer;
+//	EndIf;
+//	Catalogs.ExtensionsVersions.RegisterExtensionsVersionUsage();
+//	SetPrivilegedMode(False);
+
+	ExecuteProcedure(AllParameters.ProcedureName, AllParameters.ProcedureParameters);
+	
+EndProcedure
+
+// Returns a new structure for the ExecutionParameters parameter of the ExecuteInBackground function.
 //
-// Параметры:
-//  Процент - Число  - Необязательный. Процент выполнения.
-//  Текст   - Строка - Необязательный. Информация о текущей операции.
-//  ДополнительныеПараметры - Произвольный - Необязательный. Любая дополнительная информация,
-//      которую необходимо передать на клиент. Значение должно быть простым (сериализуемым в XML строку).
+// Parameters:
+//   FormID - UUID - a UUID of the form containing the temporary storage where the procedure puts 
+//                               its result.
 //
-Процедура ReportProgress(Знач Процент = Неопределено, Знач Текст = Неопределено,
-	Знач ДополнительныеПараметры = Неопределено) Экспорт
+// Returns:
+//   Structure - with the following properties:
+//     * FormID      - UUID - a UUID of the form containing the temporary storage where the 
+//                               procedure puts its result.
+//     * AdditionalResult - Boolean     - the flag indicates whether additional temporary storage is 
+//                                 to be used to pass the result from the background job to the parent session. The default value is False.
+//     * WaitForCompletion       - Number, Undefined - background job completion timeout, in seconds.
+//                               Wait for completion if Undefined.
+//                               If set to 0, means "do not wait for completion."
+//                               The default value is 2 seconds (or 4 seconds for slow connections).
+//     * BackgroundJobDescription - String - the description of the background job. The default value is the procedure name.
+//     * BackgroundJobKey      - String    - the unique key for active background jobs that have the same procedure name.
+//                                              Not set by default.
+//     * ResultAddress          - String -  the address of the temporary storage where the procedure 
+//                                           result must be stored. If the address is not set, it is generated automatically.
+//     * RunInBackground           - Boolean - if True, the job always runs in background, unless in 
+//                               debug mode.
+//                               When in file mode, if any other jobs are running, the new job is 
+//                               queued and does not start running until all previous jobs are completed.
+//     * RunNotInBackground         - Boolean - if True, the job always runs naturally rather than 
+//                               in background.
+//     * NoExtensions            - Boolean - if True, no configuration extensions are attached to 
+//                               run the background job.
+//
+Function BackgroundExecutionParameters(Val FormID) Export
+	
+	Result = New Structure;
+	Result.Insert("FormID", FormID); 
+	Result.Insert("AdditionalResult", False);
+	Result.Insert("WaitForCompletion", ?(GetClientConnectionSpeed() = ClientConnectionSpeed.Low, 4, 0.8));
+	Result.Insert("BackgroundJobDescription", "");
+	Result.Insert("BackgroundJobKey", "");
+	Result.Insert("ResultAddress", Undefined);
+	Result.Insert("RunNotInBackground", False);
+	Result.Insert("RunInBackground", False);
+	Result.Insert("NoExtensions", False);
+	Return Result;
+	
+EndFunction
 
-	Если ПолучитьТекущийСеансИнформационнойБазы().ПолучитьФоновоеЗадание() = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	ПередаваемоеЗначение = Новый Структура;
-	Если Процент <> Неопределено Тогда
-		ПередаваемоеЗначение.Вставить("Процент", Процент);
-	КонецЕсли;
-	Если Текст <> Неопределено Тогда
-		ПередаваемоеЗначение.Вставить("Текст", Текст);
-	КонецЕсли;
-	Если ДополнительныеПараметры <> Неопределено Тогда
-		ПередаваемоеЗначение.Вставить("ДополнительныеПараметры", ДополнительныеПараметры);
-	КонецЕсли;
-
-	ПередаваемыйТекст = UT_Common.ValueToXMLString(ПередаваемоеЗначение);
-
-	Текст = "{" + СообщениеПрогресса() + "}" + ПередаваемыйТекст;
-	UT_CommonClientServer.MessageToUser(Текст);
-
-КонецПроцедуры
-
-// Получает сообщения пользователю, отфильтровывает служебные сообщения о состоянии длительной операции.
+// Cancels background job execution by the passed ID.
 // 
-// Параметры:
-//  УдалятьПолученные - Булево - Признак необходимости удаления полученных сообщений.
-//  ИдентификаторЗадания - УникальныйИдентификатор - идентификатор фонового задания.
+// Parameters:
+//  JobID - UUID - the background job ID
 // 
-// Возвращаемое значение:
-//  Массив - ФиксированныйМассив - Массив объектов СообщениеПользователю, которые были сформированы в
-//  фоновом задании.
-Функция СообщенияПользователю(УдалятьПолученные = Ложь, ИдентификаторЗадания = Неопределено) Экспорт
+Procedure CancelJobExecution(Val JobID) Export 
+	
+	If Not ValueIsFilled(JobID) Then
+		Return;
+	EndIf;
+	
+//	SetPrivilegedMode(True);
+//	If SessionParameters.UT_CanceledTimeConsumingOperations.Find(JobID) = Undefined Then
+//		CanceledTimeConsumingOperations = New Array(SessionParameters.UT_CanceledTimeConsumingOperations);
+//		CanceledTimeConsumingOperations.Add(JobID);
+//		SessionParameters.UT_CanceledTimeConsumingOperations = New FixedArray(CanceledTimeConsumingOperations);
+//	EndIf;
+//	SetPrivilegedMode(False);
 
-	Если ЗначениеЗаполнено(ИдентификаторЗадания) Тогда
-		ФоновоеЗадание = ФоновыеЗадания.НайтиПоУникальномуИдентификатору(ИдентификаторЗадания);
-		Если ФоновоеЗадание <> Неопределено Тогда
-			ВсеСообщения = ФоновоеЗадание.ПолучитьСообщенияПользователю(УдалятьПолученные);
-		КонецЕсли;
-	Иначе
-		ВсеСообщения = ПолучитьСообщенияПользователю(УдалятьПолученные);
-	КонецЕсли;
+	Job = FindJobByID(JobID);
+	If Job = Undefined	Or Job.State <> BackgroundJobState.Active Then
+		Return;
+	EndIf;
 
-	Результат = Новый Массив;
+	Try
+		Job.Cancel();
+	Except
+		// It is possible that the job has completed at that moment and no error has occurred.
+		WriteLogEvent(NStr("ru = 'Длительные операции.Отмена выполнения фонового задания';
+		| en = 'Time-consuming operations.Cancel background job'",
+			UT_CommonClientServer.DefaultLanguageCode()),EventLogLevel.Information, , , BriefErrorDescription(ErrorInfo()));
+	EndTry;
+	
+EndProcedure
+Function ActionsCompleted(Val Jobs) Export
+	
+	Result = New Map;
+	For each Job In Jobs Do
+		Result.Insert(Job.JobID, 
+			ActionCompleted(Job.JobID, False, Job.OutputProgressBar, Job.OutputMessages));
+	EndDo;
+	Return Result;
+	
+EndFunction
 
-	Для Каждого Сообщение Из ВсеСообщения Цикл
-		Если СтрНачинаетсяС(Сообщение.Текст, "{" + СообщениеПрогресса() + "}") Тогда
-			Если УдалятьПолученные Тогда
-				Сообщение.Сообщить();
-			КонецЕсли;
-		Иначе
-			Результат.Добавить(Сообщение);
-		КонецЕсли;
-	КонецЦикла;
-
-	Возврат Новый ФиксированныйМассив(Результат);
-
-КонецФункции
-
-// Проверяет состояние фонового задания по переданному идентификатору.
-// При аварийном завершении задания вызывает исключение.
+// Records progress of a time-consuming operation.
+// To read the recorded information, use the ReadProgress function.
 //
-// Параметры:
-//  ИдентификаторЗадания - УникальныйИдентификатор - идентификатор фонового задания. 
+// Parameters:
+//  Percentage                 - Number        - completion percentage.
+//  Text                   - String       - information about the current operation.
+//  AdditionalParameters - Arbitrary - any additional information that must be passed to the client.
+//                                           The value must be serialized into the XML string.
 //
-// Возвращаемое значение:
-//  Булево - состояние выполнения задания.
+Процедура ReportProgress(Val Percent = Undefined, Val Text = Undefined, Val AdditionalParameters = Undefined) Export
+	
+	If GetCurrentInfoBaseSession().GetBackgroundJob() = Undefined Then
+		Return;
+	EndIf;
+		
+	ValueToPass = New Structure;
+	If Percent <> Undefined Then
+		ValueToPass.Insert("Percent", Percent);
+	EndIf;
+	If Text <> Undefined Then
+		ValueToPass.Insert("Text", Text);
+	EndIf;
+	If AdditionalParameters <> Undefined Then
+		ValueToPass.Insert("AdditionalParameters", AdditionalParameters);
+	EndIf;
+	
+	TextToPass = UT_Common.ValueToXMLString(ValueToPass);
+	
+	Text = "{" + ProgressMessage() + "}" + TextToPass;
+	UT_CommonClientServer.MessageToUser(Text);
+
+EndProcedure
+
+// Gets messages intended for the user, and blocks system messages regarding the time-consuming operation status.
 // 
-Функция JobCompleted(Знач ИдентификаторЗадания) Экспорт
+// Parameters:
+//  DeleteReceived    - Boolean                  - the flag indicates whether the received messages need to be deleted.
+//  JobID - UUID - the ID of the background job corresponding to a time-consuming operation that 
+//                                                   generates messages intended for the user.
+//                                                   If not set, the messages intended for the user 
+//                                                   are returned from the current user session.
+// 
+// Returns:
+//  FixedArray - UserMessage objects that were generated in the background job.
+//
+Function UserMessages(DeleteReceived = False, JobID = Undefined) Export
+	
+	If ValueIsFilled(JobID) Then
+		BackgroundJob = BackgroundJobs.FindByUUID(JobID);
+		If BackgroundJob <> Undefined Then
+			AllMessages = BackgroundJob.GetUserMessages(DeleteReceived);
+		EndIf;
+	Else
+		AllMessages = GetUserMessages(DeleteReceived);
+	EndIf;
+	
+	Result = New Array;
 
-	Задание = НайтиЗаданиеПоИдентификатору(ИдентификаторЗадания);
+		For Each Message In AllMessages Do
+		If StrStartsWith(Message.Text, "{" + ProgressMessage() + "}") Then
+			If DeleteReceived Then
+				Message.Message();
+			EndIf;
+		Else
+			Result.Add(Message);
+		EndIf;
+	EndDo;
+	
+	Return New FixedArray(Result);
+	
+EndFunction
 
-	Если Задание <> Неопределено И Задание.Состояние = СостояниеФоновогоЗадания.Активно Тогда
-		Возврат Ложь;
-	КонецЕсли;
+// Checks background job state by the passed ID.
+// If the job terminates abnormally, raises the exception that was generated or a common exception 
+// "Cannot perform the operation. See the event log for details.
+//
+// Parameters:
+//  JobID - UUID - the background job ID.
+//
+// Returns:
+//  Boolean - job execution status.
+// 
+Function JobCompleted(Val JobID) Export
+	
+	Job = FindJobByID(JobID);
+	
+	If Job <> Undefined
+		AND Job.State = BackgroundJobState.Active Then
+		Return False;
+	EndIf;
+	
+	ActionNotExecuted = True;
+	ShowFullErrorText = False;
+	If Job = Undefined Then
+		WriteLogEvent(NStr("ru = 'Длительные операции.Фоновое задание не найдено'; 
+		|en = 'Time-consuming operations.Background job not found'",
+			UT_CommonClientServer.DefaultLanguageCode()), EventLogLevel.Error, , , String(JobID));
+	Else
+		If Job.State = BackgroundJobState.Failed Then
+			JobError = Job.ErrorInfo;
+			If JobError <> Undefined Then
+				ShowFullErrorText = True;
+			EndIf;
+		ElsIf Job.State = BackgroundJobState.Canceled Then
+			WriteLogEvent(
+				NStr("ru = 'Длительные операции.Фоновое задание отменено администратором'; 
+				|en = 'Time-consuming operations.Background job canceled by administrator'",
+				UT_CommonClientServer.DefaultLanguageCode()), EventLogLevel.Error,
+				,
+				,
+				NStr("ru = 'Задание завершилось с неизвестной ошибкой.'; en = 'The job completed with an unknown error.'"));
+		Else
+			Return True;
+		EndIf;
+	EndIf;
 
-	ОперацияНеВыполнена = Истина;
-	ПоказатьПолныйТекстОшибки = Ложь;
-	Если Задание = Неопределено Тогда
-		ЗаписьЖурналаРегистрации(НСтр("ru = 'Длительные операции.Фоновое задание не найдено'",
-			UT_CommonClientServer.DefaultLanguageCode()), УровеньЖурналаРегистрации.Ошибка, , , Строка(
-			ИдентификаторЗадания));
-	Иначе
-		Если Задание.Состояние = СостояниеФоновогоЗадания.ЗавершеноАварийно Тогда
-			ОшибкаЗадания = Задание.ИнформацияОбОшибке;
-			Если ОшибкаЗадания <> Неопределено Тогда
-				ПоказатьПолныйТекстОшибки = Истина;
-			КонецЕсли;
-		ИначеЕсли Задание.Состояние = СостояниеФоновогоЗадания.Отменено Тогда
-			ЗаписьЖурналаРегистрации(
-				НСтр("ru = 'Длительные операции.Фоновое задание отменено администратором'",
-				UT_CommonClientServer.DefaultLanguageCode()), УровеньЖурналаРегистрации.Ошибка, , , НСтр(
-				"ru = 'Задание завершилось с неизвестной ошибкой.'"));
-		Иначе
-			Возврат Истина;
-		КонецЕсли;
-	КонецЕсли;
-
-	Если ПоказатьПолныйТекстОшибки Тогда
-		ТекстОшибки = КраткоеПредставлениеОшибки(Задание.ИнформацияОбОшибке);
-		ВызватьИсключение (ТекстОшибки);
-	ИначеЕсли ОперацияНеВыполнена Тогда
-		ВызватьИсключение (НСтр("ru = 'Не удалось выполнить данную операцию. 
-								|Подробности см. в Журнале регистрации.'"));
-	КонецЕсли;
-
-КонецФункции
+	If ShowFullErrorText Then
+		ErrorText = BriefErrorDescription(Job.ErrorInfo);
+		Raise(ErrorText);
+	ElsIf ActionNotExecuted Then
+		Raise(NStr("ru = 'Не удалось выполнить данную операцию. 
+		                             |Подробности см. в Журнале регистрации.'; 
+		                             |en = 'Cannot perform the operation. 
+		                             |For more information, see the event log.'"));
+	EndIf;
+	
+EndFunction
