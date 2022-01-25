@@ -162,10 +162,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ПолеРедактораДерево</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ПолеРедактораДерево</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
