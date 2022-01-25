@@ -1,86 +1,84 @@
 #Region Internal
 
-// Returns a new background job property table.
+// Возвращает новую таблицу свойств фоновых заданий.
 //
-// Returns:
-//  ValueTable.
+// Возвращаемое значение:
+//  ТаблицаЗначений.
 //
-Function NewBackgroundJobsProperties()
-	
-	NewTable = New ValueTable;
-	NewTable.Columns.Add("ID",                     New TypeDescription("String"));
-	NewTable.Columns.Add("Description",                      New TypeDescription("String"));
-	NewTable.Columns.Add("Key",                              New TypeDescription("String"));
-	NewTable.Columns.Add("Begin",                            New TypeDescription("Date"));
-	NewTable.Columns.Add("End",                             New TypeDescription("Date"));
-	NewTable.Columns.Add("ScheduledJobID", New TypeDescription("String"));
-	NewTable.Columns.Add("State",                         New TypeDescription("BackgroundJobState"));
-	NewTable.Columns.Add("MethodName",                         New TypeDescription("String"));
-	NewTable.Columns.Add("Location",                      New TypeDescription("String"));
-	NewTable.Columns.Add("ErrorDescription",        New TypeDescription("String"));
-	NewTable.Columns.Add("StartAttempt",                    New TypeDescription("Number"));
-	NewTable.Columns.Add("UserMessages",             New TypeDescription("Array"));
-	NewTable.Columns.Add("SessionNumber",                       New TypeDescription("Number"));
-	NewTable.Columns.Add("SessionStarted",                      New TypeDescription("Date"));
-	NewTable.Indexes.Add("ID, Begin");
-	
-	Return NewTable;
-	
-EndFunction
+Функция НовыеСвойстваФоновыхЗаданий()
 
-Function LastBackgroundJobInArray(BackgroundJobArray, LastBackgroundJob = Undefined)
-	
-	For each CurrentBackgroundJob In BackgroundJobArray Do
-		If LastBackgroundJob = Undefined Then
-			LastBackgroundJob = CurrentBackgroundJob;
-			Continue;
-		EndIf;
-		If ValueIsFilled(LastBackgroundJob.End) Then
-			If NOT ValueIsFilled(CurrentBackgroundJob.End)
-			 OR LastBackgroundJob.End < CurrentBackgroundJob.End Then
-				LastBackgroundJob = CurrentBackgroundJob;
-			EndIf;
-		Else
-			If NOT ValueIsFilled(CurrentBackgroundJob.End)
-			   AND LastBackgroundJob.Begin < CurrentBackgroundJob.Begin Then
-				LastBackgroundJob = CurrentBackgroundJob;
-			EndIf;
-		EndIf;
-	EndDo;
-	
-	Return LastBackgroundJob;
-	
-EndFunction
+	НоваяТаблица = Новый ТаблицаЗначений;
+	НоваяТаблица.Колонки.Добавить("Идентификатор", Новый ОписаниеТипов("Строка"));
+	НоваяТаблица.Колонки.Добавить("Наименование", Новый ОписаниеТипов("Строка"));
+	НоваяТаблица.Колонки.Добавить("Ключ", Новый ОписаниеТипов("Строка"));
+	НоваяТаблица.Колонки.Добавить("Начало", Новый ОписаниеТипов("Дата"));
+	НоваяТаблица.Колонки.Добавить("Конец", Новый ОписаниеТипов("Дата"));
+	НоваяТаблица.Колонки.Добавить("ИдентификаторРегламентногоЗадания", Новый ОписаниеТипов("Строка"));
+	НоваяТаблица.Колонки.Добавить("Состояние", Новый ОписаниеТипов("СостояниеФоновогоЗадания"));
+	НоваяТаблица.Колонки.Добавить("ИмяМетода", Новый ОписаниеТипов("Строка"));
+	НоваяТаблица.Колонки.Добавить("Расположение", Новый ОписаниеТипов("Строка"));
+	НоваяТаблица.Колонки.Добавить("ОписаниеИнформацииОбОшибке", Новый ОписаниеТипов("Строка"));
+	НоваяТаблица.Колонки.Добавить("ПопыткаЗапуска", Новый ОписаниеТипов("Число"));
+	НоваяТаблица.Колонки.Добавить("СообщенияПользователю", Новый ОписаниеТипов("Массив"));
+	НоваяТаблица.Колонки.Добавить("НомерСеанса", Новый ОписаниеТипов("Число"));
+	НоваяТаблица.Колонки.Добавить("НачалоСеанса", Новый ОписаниеТипов("Дата"));
+	НоваяТаблица.Индексы.Добавить("Идентификатор, Начало");
 
-Procedure AddBackgroundJobProperties(Val BackgroundJobArray, Val BackgroundJobPropertyTable)
-	
-	Index = BackgroundJobArray.Count() - 1;
-	While Index >= 0 Do
-		BackgroundJob = BackgroundJobArray[Index];
-		Row = BackgroundJobPropertyTable.Add();
-		FillPropertyValues(Row, BackgroundJob);
-		Row.ID = BackgroundJob.UUID;
-		ScheduledJob = BackgroundJob.ScheduledJob;
-		
-		If ScheduledJob = Undefined AND UT_StringFunctionsClientServer.IsUUID(
-			BackgroundJob.Key) Then
-			
-			ScheduledJob = ScheduledJobs.FindByUUID(New UUID(BackgroundJob.Key));
-		EndIf;
-		Row.ScheduledJobID = ?(
-			ScheduledJob = Undefined,
-			"",
-			ScheduledJob.UUID);
-		
-		Row.ErrorDescription = ?(
-			BackgroundJob.ErrorInfo = Undefined,
-			"",
-			DetailErrorDescription(BackgroundJob.ErrorInfo));
-		
-		Index = Index - 1;
-	EndDo;
-	
-EndProcedure
+	Возврат НоваяТаблица;
+
+КонецФункции
+
+Функция ПоследнееФоновоеЗаданиеВМассиве(МассивФоновыхЗаданий, ПоследнееФоновоеЗадание = Неопределено)
+
+	Для Каждого ТекущееФоновоеЗадание Из МассивФоновыхЗаданий Цикл
+		Если ПоследнееФоновоеЗадание = Неопределено Тогда
+			ПоследнееФоновоеЗадание = ТекущееФоновоеЗадание;
+			Продолжить;
+		КонецЕсли;
+		Если ЗначениеЗаполнено(ПоследнееФоновоеЗадание.Конец) Тогда
+			Если Не ЗначениеЗаполнено(ТекущееФоновоеЗадание.Конец) Или ПоследнееФоновоеЗадание.Конец
+				< ТекущееФоновоеЗадание.Конец Тогда
+				ПоследнееФоновоеЗадание = ТекущееФоновоеЗадание;
+			КонецЕсли;
+		Иначе
+			Если Не ЗначениеЗаполнено(ТекущееФоновоеЗадание.Конец) И ПоследнееФоновоеЗадание.Начало
+				< ТекущееФоновоеЗадание.Начало Тогда
+				ПоследнееФоновоеЗадание = ТекущееФоновоеЗадание;
+			КонецЕсли;
+		КонецЕсли;
+	КонецЦикла;
+
+	Возврат ПоследнееФоновоеЗадание;
+
+КонецФункции
+
+Процедура ДобавитьСвойстваФоновыхЗаданий(Знач МассивФоновыхЗаданий, Знач ТаблицаСвойствФоновыхЗаданий)
+
+	Индекс = МассивФоновыхЗаданий.Количество() - 1;
+	Пока Индекс >= 0 Цикл
+		ФоновоеЗадание = МассивФоновыхЗаданий[Индекс];
+		Строка = ТаблицаСвойствФоновыхЗаданий.Добавить();
+		ЗаполнитьЗначенияСвойств(Строка, ФоновоеЗадание);
+		Строка.Идентификатор = ФоновоеЗадание.УникальныйИдентификатор;
+		РегламентноеЗадание = ФоновоеЗадание.РегламентноеЗадание;
+
+		Если РегламентноеЗадание = Неопределено И UT_StringFunctionsClientServer.IsUUID(
+			ФоновоеЗадание.Ключ) Тогда
+
+			РегламентноеЗадание = РегламентныеЗадания.НайтиПоУникальномуИдентификатору(
+				Новый УникальныйИдентификатор(ФоновоеЗадание.Ключ));
+		КонецЕсли;
+		Строка.ИдентификаторРегламентногоЗадания = ?(
+			РегламентноеЗадание = Неопределено, "", РегламентноеЗадание.УникальныйИдентификатор);
+
+		Строка.ОписаниеИнформацииОбОшибке = ?(
+			ФоновоеЗадание.ИнформацияОбОшибке = Неопределено, "", ПодробноеПредставлениеОшибки(
+			ФоновоеЗадание.ИнформацияОбОшибке));
+
+		Индекс = Индекс - 1;
+	КонецЦикла;
+
+КонецПроцедуры
 
 // Returns a background job property table.
 //  See the table structure in the EmptyBackgroundJobPropertyTable() function.

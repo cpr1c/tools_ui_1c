@@ -1,13 +1,13 @@
-&AtServer
-Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	If Parameters.Property("Title") Then
-		Title  = Parameters.Title;
-	EndIf;
+&НаСервере
+Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+	Если Параметры.Свойство("Заголовок") Тогда
+		Заголовок  = Параметры.Заголовок;
+	КонецЕсли;
 
-	Text=Parameters.Text;
-EndProcedure
+	Текст=Параметры.Текст;
+КонецПроцедуры
 
-&AtClient
-Procedure ОК(Command)
-	Close(Text);
-EndProcedure
+&НаКлиенте
+Процедура ОК(Команда)
+	Закрыть(Текст);
+КонецПроцедуры
