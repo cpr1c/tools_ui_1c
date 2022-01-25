@@ -3,15 +3,15 @@
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	StartHeader = Заголовок;
+	StartHeader = Title;
 
 	InitializeForm();
 
-	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("Системная");
-	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("ANSI");
-	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("OEM");
-	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("UTF8");
-	Элементы.RequestBodyEncoding.СписокВыбора.Добавить("UTF16");
+	Items.RequestBodyEncoding.ChoiceList.Add("System");
+	Items.RequestBodyEncoding.ChoiceList.Add("ANSI");
+	Items.RequestBodyEncoding.ChoiceList.Add("OEM");
+	Items.RequestBodyEncoding.ChoiceList.Add("UTF8");
+	Items.RequestBodyEncoding.ChoiceList.Add("UTF16");
 
 	If Parameters.Property("DebugData") Then
 		FillByDebugData(Parameters.DebugData);
@@ -34,7 +34,7 @@ EndProcedure
 
 &AtClient
 Procedure RequestHistorySelection(Item, SelectedRow, Field, StandardProcessing)
-	ЗаполнитьДанныеТекущегоЗапросаПоИстории(SelectedRow);
+	FillCurentRequestByHistory(SelectedRow);
 EndProcedure
 
 &AtClient
@@ -85,7 +85,7 @@ EndProcedure
 &AtClient
 Procedure TableHeadersEditorOnChange(Item)
 	
-	УстановитьСтраницуРедактированияЗаголовковЗапроса();
+	SetupRequestHeadersEditorPage();
 	
 EndProcedure
 
@@ -96,7 +96,7 @@ Procedure RequestHeadersTableKeyAutoComplete(Item, Text, ChoiceData, DataGetPara
 
 	If Not ValueIsFilled(Text) Then
 		Return;
-	КонецЕсли;
+	EndIf;
 
 	ChoiceData = New ValueList;
 
@@ -196,274 +196,301 @@ EndProcedure
 
 &AtClient
 Procedure FillRequestBinaryDataFromFile(Command)
-	НачатьПомещениеФайла(Новый ОписаниеОповещения("ЗаполнитьДвоичныеДанныеТелаИзФайлаЗавершение", ThisObject),
-		RequestBodyBinaryDataAddress, "", Истина, УникальныйИдентификатор);
+	
+	BeginPutFile(New NotifyDescription("FillRequestBinaryDataFromFileComplete", ThisObject),
+		RequestBodyBinaryDataAddress, "", True, UUID);
+		
 EndProcedure
 
 &AtClient
 Procedure SaveRequestBodyBinaryDataFromHistory(Command)
-	ТекДанныеИсторииЗапроса = Элементы.RequestHistory.ТекущиеДанные;
-	Если ТекДанныеИсторииЗапроса = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	
+	RequestHistoryCurrentData = Items.RequestHistory.CurrentData;
+	If RequestHistoryCurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	Если Не ЭтоАдресВременногоХранилища(ТекДанныеИсторииЗапроса.RequestBodyBinaryDataAddress) Тогда
-		Возврат;
-	КонецЕсли;
+	If Not IsTempStorageURL(RequestHistoryCurrentData.RequestBodyBinaryDataAddress) Then
+		Return;
+	EndIf;
 
-	ДВФ = Новый ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Сохранение);
-	ДВФ.МножественныйВыбор = Ложь;
+	FileDialog = New FileDialog(FileDialogMode.Save);
+	FileDialog.Multiselect = False;
 
-	ПолучаемыеФайлы = Новый Массив;
-	ПолучаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(, ТекДанныеИсторииЗапроса.RequestBodyBinaryDataAddress));
+	ResponseFiles = New Array;
+	ResponseFiles.Add(New TransferableFileDescription(, RequestHistoryCurrentData.RequestBodyBinaryDataAddress));
 
-	НачатьПолучениеФайлов(Новый ОписаниеОповещения("СохранитьДвоичныеДанныеТелаЗапросаИзИсторииПриЗавершении",
-		ThisObject), ПолучаемыеФайлы, ДВФ, Истина);
+	BeginGettingFiles(New NotifyDescription("SaveRequestBodyBinaryDataFromHistoryComplete",
+		ThisObject), ResponseFiles, FileDialog, True);
+		
 EndProcedure
 
 &AtClient
 Procedure SaveResponseBodyBinaryDataToFile(Command)
-	ТекДанныеИсторииЗапроса = Элементы.RequestHistory.ТекущиеДанные;
-	Если ТекДанныеИсторииЗапроса = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	
+	RequestHistoryCurrentData = Items.RequestHistory.CurrentData;
+	If RequestHistoryCurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	Если Не ЭтоАдресВременногоХранилища(ТекДанныеИсторииЗапроса.ResponseBodyBinaryDataAddress) Тогда
-		Возврат;
-	КонецЕсли;
+	If Not IsTempStorageURL(RequestHistoryCurrentData.ResponseBodyBinaryDataAddress) Then
+		Return;
+	EndIf;
 
-	ДВФ = Новый ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Сохранение);
-	ДВФ.МножественныйВыбор = Ложь;
+	FileDialog = New FileDialog(FileDialogMode.Save);
+	FileDialog.Multiselect = False;
 
-	ПолучаемыеФайлы = Новый Массив;
-	ПолучаемыеФайлы.Добавить(Новый ОписаниеПередаваемогоФайла(, ТекДанныеИсторииЗапроса.ResponseBodyBinaryDataAddress));
+	ResponseFiles = New Array;
+	ResponseFiles.Add(New TransferableFileDescription(, RequestHistoryCurrentData.ResponseBodyBinaryDataAddress));
 
-	НачатьПолучениеФайлов(Новый ОписаниеОповещения("СохранитьДвоичныеДанныеТелаЗапросаИзИсторииПриЗавершении",
-		ThisObject), ПолучаемыеФайлы, ДВФ, Истина);
+	BeginGettingFiles(New NotifyDescription("SaveRequestBodyBinaryDataFromHistoryComplete",
+		ThisObject), ResponseFiles, FileDialog, True);
+		
 EndProcedure
 
 &AtClient
 Procedure NewRequestsFile(Command)
 	
-	Если RequestHistory.Количество() = 0 Тогда
-		ИнициализироватьКонсоль();
-	Иначе
-		ПоказатьВопрос(Новый ОписаниеОповещения("НовыйФайлЗапросовЗавершение", ThisObject),
-			"История запросов непустая. Продолжить?", РежимДиалогаВопрос.ДаНет, 15, КодВозвратаДиалога.Нет);
-	КонецЕсли;
+	If RequestHistory.Count() = 0 Then
+		InitializeConsole();
+	Else
+		ShowQueryBox(New NotifyDescription("NewRequestsFileComplete", ThisObject),
+			NStr("en = 'Request history is not empty. Continue?'"), QuestionDialogMode.YesNo, 15, DialogReturnCode.No);
+	EndIf;
 	
 EndProcedure
 
 &AtClient
 Procedure OpenRequestsFile(Command)	
-	Если RequestHistory.Количество() = 0 Тогда
-		ЗагрузитьФайлКонсоли();
-	Иначе
-		ПоказатьВопрос(Новый ОписаниеОповещения("ОткрытьФайлОтчетовЗавершение", ThisObject),
-			"История запросов непустая. Продолжить?", РежимДиалогаВопрос.ДаНет, 15, КодВозвратаДиалога.Нет);
-	КонецЕсли;
+	
+	If RequestHistory.Count() = 0 Then
+		LoadConsoleFile();
+	Else
+		ShowQueryBox(New NotifyDescription("OpenRequestsFileComplete", ThisObject),
+			NStr("en = 'Request history is not empty. Continue?"), QuestionDialogMode.YesNo, 15, DialogReturnCode.No);
+	EndIf;
+	
 EndProcedure
 
 &AtClient
-Function СтруктураОписанияСохраняемогоФайла()
-	Структура=UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
-	Структура.FileName = RequestsFileName;
+Function SavedFileDescriptionStructure()
+	
+	Struct = UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
+	Struct.FileName = RequestsFileName;
 
-	// Пока закоментим сохранение в JSON, т.к. библиотека ошибки выдает на двоичных данных
-	UT_CommonClient.AddFormatToSavingFileDescription(Структура,
-		"Файл запросов консоли HTPP в JSON (*.jhttp)", "jhttp");
-	UT_CommonClient.AddFormatToSavingFileDescription(Структура, "Файл запросов консоли HTPP (*.xhttp)",
+	UT_CommonClient.AddFormatToSavingFileDescription(Struct,
+		"Console request file HTTP with JSON (*.jhttp)", "jhttp");
+	UT_CommonClient.AddFormatToSavingFileDescription(Struct, "Console request file HTTP (*.xhttp)",
 		"xhttp");
 
-	Возврат Структура;
+	Return Struct;
+	
 EndFunction
 
 &AtClient
 Procedure SaveRequestsToFile(Command)
-	UT_CommonClient.SaveConsoleDataToFile("КонсольHTTPЗапросов", Ложь,
-		СтруктураОписанияСохраняемогоФайла(), ПоместитьДанныеИсторииВоВременноеХранилище(),
-		Новый ОписаниеОповещения("СохранениеВФайлЗавершение", ThisObject));
+	
+	UT_CommonClient.SaveConsoleDataToFile("HTTPRequestConsole", False,
+		SavedFileDescriptionStructure(), PutHistoryDataToTempStorage(),
+		New NotifyDescription("SaveToFileComplete", ThisObject));
+		
 EndProcedure
 
 &AtClient
 Procedure SaveAsRequestsToFile(Command)
-	UT_CommonClient.SaveConsoleDataToFile("КонсольHTTPЗапросов", Истина,
-		СтруктураОписанияСохраняемогоФайла(), ПоместитьДанныеИсторииВоВременноеХранилище(),
-		Новый ОписаниеОповещения("СохранениеВФайлЗавершение", ThisObject));
+	
+	UT_CommonClient.SaveConsoleDataToFile("HTTPRequestConsole", True,
+		SavedFileDescriptionStructure(), PutHistoryDataToTempStorage(),
+		New NotifyDescription("SaveToFileComplete", ThisObject));
+		
 EndProcedure
 
 &AtClient
 Procedure EditRequestBodyInJSONEditor(Command)
-	UT_CommonClient.EditJSON(RequestBody, Ложь,
-		Новый ОписаниеОповещения("РедактироватьТелоЗапросаВРедактореJSONЗавершение", ThisObject));
+	
+	UT_CommonClient.EditJSON(RequestBody, False,
+		New NotifyDescription("EditRequestBodyInJSONEditorComplete", ThisObject));
+		
 EndProcedure
 
 &AtClient
 Procedure EditRequestBodyInJSONEditorAnalyzedRequest(Command)
-	UT_CommonClient.EditJSON(Элементы.RequestHistory.ТекущиеДанные.ТелоЗапросаСтрока, Истина);
+	
+	UT_CommonClient.EditJSON(Items.RequestHistory.CurrentData.RequestBodyString, True);
+	
 EndProcedure
 
 &AtClient
 Procedure EditResponseBodyInJSONEditorAnalyzedRequest(Command)
-	UT_CommonClient.EditJSON(ResponseBodyString, Истина);
+	
+	UT_CommonClient.EditJSON(ResponseBodyString, True);
+	
 EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Команда);
+Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
+	
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
+	
 EndProcedure
 
 #EndRegion
 
 #Region RequestFiles
 
-// Отработка загрузки файла с отчетами из адреса.
 &AtClient
-Procedure ОтработкаЗагрузкиИзАдреса(Адрес)
-	Попытка
-		ЗагрузитьФайлКонсолиНаСервере(Адрес);
+Procedure DoLoadByAddress(Address)
+	
+	Try
+		LoadConsoleFileAtServer(Address);
 		InitializeRequest();
-	Исключение
+	Except
 		RequestsFileName = "";
-		Возврат;
-	КонецПопытки;
-	ОбновитьЗаголовок();
+		Return;
+	EndTry;
+	
+	UpdateTitle();
+	
 EndProcedure
 
-// Загрузить файл консоли на сервере.
+// Load console file at server.
 //
-// Параметры:
-//  Адрес - адрес хранилища, из которого нужно загрузить файл.
+// Params:
+//  Address - temporary storage url for loading file.
 &AtServer
-Procedure ЗагрузитьФайлКонсолиНаСервере(Адрес)
+Procedure LoadConsoleFileAtServer(Address)
 
-	ТаблицаИстории = Обработки.UT_HTTPRequestConsole.ДанныеСохраненияИзСериализованнойСтроки(Адрес, RequestsFileName);
+	HistoryTable = DataProcessors.UT_HTTPRequestConsole.SavedDataFromSerializedString(Address, RequestsFileName);
 
-	RequestHistory.Очистить();
+	RequestHistory.Clear();
 
-	Для Каждого СтрокаТз Из ТаблицаИстории Цикл
-		НС = RequestHistory.Добавить();
-		ЗаполнитьЗначенияСвойств(НС, СтрокаТз);
+	For Each TableRow In HistoryTable Do
+		
+		NewRow = RequestHistory.Add();
+		FillPropertyValues(NewRow, TableRow);
 
-		НС.RequestBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(СтрокаТз.ТелоЗапросаДвоичныеДанные,
-			УникальныйИдентификатор);
-		НС.ResponseBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(СтрокаТз.ТелоОтветаДвоичныеДанные,
-			УникальныйИдентификатор);
-		НС.АдресТелаОтветаСтрокой = ПоместитьВоВременноеХранилище(СтрокаТз.ТелоОтвета, УникальныйИдентификатор);
-	КонецЦикла;
+		NewRow.RequestBodyBinaryDataAddress = PutToTempStorage(TableRow.RequestBodyBinaryData,
+			UUID);
+		NewRow.ResponseBodyBinaryDataAddress = PutToTempStorage(TableRow.RequestBodyBinaryData,
+			UUID);
+		NewRow.ResponseBodyAddressString = PutToTempStorage(TableRow.ResponseBody, UUID);
+		
+	EndDo;
+	
 EndProcedure
 
 &AtClient
-Procedure ЗагрузитьФайлКонсолиПослеПомещенияФайла(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+Procedure LoadConsoleFileComplete(Result, AdditionalParameters) Export
+	
+	If Result = Undefined Then
+		Return;
+	Endif;
 
-	RequestsFileName = Результат.ИмяФайла;
-	ОтработкаЗагрузкиИзАдреса(Результат.Адрес);
+	RequestsFileName = Result.FileName;
+	DoLoadByAddress(Result.Address);
 
 EndProcedure
 
-// Загрузить файл.
-//
-// Параметры:
-//  ЗагружаемоеИмяФайла - имя файла, из которого нужно загрузить. Если имя файла
-//						  пустое, то нужно запросить у пользователя имя файла.
+// Load file.
 &AtClient
-Procedure ЗагрузитьФайлКонсоли()
+Procedure LoadConsoleFile()
 
-	UT_CommonClient.ReadConsoleFromFile("КонсольHTTPЗапросов",
-		СтруктураОписанияСохраняемогоФайла(), Новый ОписаниеОповещения("ЗагрузитьФайлКонсолиПослеПомещенияФайла",
+	UT_CommonClient.ReadConsoleFromFile("HTTPRequestConsole",
+		SavedFileDescriptionStructure(), New NotifyDescription("LoadConsoleFileComplete",
 		ThisObject));
 
 EndProcedure
 
-// Завершение обработчика открытия файла.
+// Open requests file complete.
 &AtClient
-Procedure ОткрытьФайлОтчетовЗавершение(РезультатВопроса, ДополнительныеПараметры) Экспорт
+Procedure OpenRequestsFileComplete(Result, AdditionalParameters) Export
 
-	Если РезультатВопроса = КодВозвратаДиалога.Нет Тогда
-		Возврат;
-	КонецЕсли;
-	ЗагрузитьФайлКонсоли();
+	If Result = DialogReturnCode.No Then
+		Return;
+	EndIf;
+	LoadConsoleFile();
 
 EndProcedure
 
 &AtClient
-Procedure ИнициализироватьКонсоль()
-	RequestHistory.Очистить();
+Procedure InitializeConsole()
+	
+	RequestHistory.Clear();
 	InitializeRequest();
+	
 EndProcedure
 
-// Завершение обработчика создания нового файла запросов.
+// new requests file complete.
 &AtClient
-Procedure НовыйФайлЗапросовЗавершение(РезультатВопроса, ДополнительныеПараметры) Экспорт
+Procedure NewRequestsFileComplete(QuestionResult, AdditionalParameters) Export
 
-	Если РезультатВопроса = КодВозвратаДиалога.Нет Тогда
-		Возврат;
-	КонецЕсли;
+	If QuestionResult = DialogReturnCode.No Then
+		Return;
+	EndIf;
 
-	ИнициализироватьКонсоль();
+	InitializeConsole();
 
 EndProcedure
 
-// Завершение обработчика открытия файла.
+
 &AtClient
-Procedure СохранениеВФайлЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+Procedure SaveToFileComplete(Result, AdditionalParameters) Export
+	
+	If Result = Undefined Then
+		Return;
+	EndIf;
 
-	RequestsFileName=Результат;
-	Модифицированность = Ложь;
-	ОбновитьЗаголовок();
+	RequestsFileName = Result;
+	Modified = False;
+	UpdateTitle();
 
 EndProcedure
 
-// Поместить файл во временное хранилище.
+// Put file to temporary storage
 &AtServer
-Function ПоместитьДанныеИсторииВоВременноеХранилище()
+Function PutHistoryDataToTempStorage()
 
-	ТаблицаЗначенийИстории = РеквизитФормыВЗначение("RequestHistory");
+	HistoryTable = FormAttributeToValue("RequestHistory");
 
-	ТаблицаЗначенийИстории.Колонки.Добавить("RequestBodyBinaryData");
-	ТаблицаЗначенийИстории.Колонки.Добавить("ResponseBodyBinaryData");
-	ТаблицаЗначенийИстории.Колонки.Добавить("ResponseBody");
-	Для Каждого СтрокаТЗ Из ТаблицаЗначенийИстории Цикл
-		Если ЭтоАдресВременногоХранилища(СтрокаТЗ.RequestBodyBinaryDataAddress) Тогда
-			СтрокаТЗ.RequestBodyBinaryData = ПолучитьИзВременногоХранилища(СтрокаТЗ.RequestBodyBinaryDataAddress);
-		КонецЕсли;
-		Если ЭтоАдресВременногоХранилища(СтрокаТЗ.ResponseBodyBinaryDataAddress) Тогда
-			СтрокаТЗ.ResponseBodyBinaryData = ПолучитьИзВременногоХранилища(СтрокаТЗ.ResponseBodyBinaryDataAddress);
-		КонецЕсли;
-		Если ЭтоАдресВременногоХранилища(СтрокаТЗ.ResponseBodyAddressString) Тогда
-			СтрокаТЗ.ResponseBody = ПолучитьИзВременногоХранилища(СтрокаТЗ.ResponseBodyAddressString);
-		КонецЕсли;
-	КонецЦикла;
+	HistoryTable.Columns.Add("RequestBodyBinaryData");
+	HistoryTable.Columns.Add("ResponseBodyBinaryData");
+	HistoryTable.Columns.Add("ResponseBody");
+	
+	For Each TableRow In HistoryTable Do
+		If IsTempStorageURL(TableRow.RequestBodyBinaryDataAddress) Then
+			TableRow.RequestBodyBinaryData = GetFromTempStorage(TableRow.RequestBodyBinaryDataAddress);
+		EndIf;
+		If IsTempStorageURL(TableRow.ResponseBodyBinaryDataAddress) Then
+			TableRow.ResponseBodyBinaryData = GetFromTempStorage(TableRow.ResponseBodyBinaryDataAddress);
+		EndIf;
+		If IsTempStorageURL(TableRow.ResponseBodyAddressString) Then
+			TableRow.ResponseBody = GetFromTempStorage(TableRow.ResponseBodyAddressString);
+		EndIf;
+	EndDo;
 
-	ТаблицаЗначенийИстории.Колонки.Удалить("RequestBodyBinaryDataAddress");
-	ТаблицаЗначенийИстории.Колонки.Удалить("ResponseBodyBinaryDataAddress");
-	ТаблицаЗначенийИстории.Колонки.Удалить("ResponseBodyAddressString");
+	HistoryTable.Columns.Delete("RequestBodyBinaryDataAddress");
+	HistoryTable.Columns.Delete("ResponseBodyBinaryDataAddress");
+	HistoryTable.Columns.Delete("ResponseBodyAddressString");
 
-	Результат = ПоместитьВоВременноеХранилище(ТаблицаЗначенийИстории, УникальныйИдентификатор);
-	Возврат Результат;
+	Result = PutToTempStorage(HistoryTable, UUID);
+	Return Result;
 
-	СериализаторJSON=Обработки.УИ_ПреобразованиеДанныхJSON.Создать();
+	JSONSerializer = DataProcessors.УИ_ПреобразованиеДанныхJSON.Create();
 
-	СтруктураИстории=СериализаторJSON.ЗначениеВСтруктуру(ТаблицаЗначенийИстории);
-	JSONСтрокаИстории=СериализаторJSON.ЗаписатьОписаниеОбъектаВJSON(СтруктураИстории);
-	ИмяВременногоФайла = ПолучитьИмяВременногоФайла();
+	HistoryStruct = JSONSerializer.ЗначениеВСтруктуру(HistoryTable);
+	HistoryRowJSON = JSONSerializer.ЗаписатьОписаниеОбъектаВJSON(HistoryStruct);
+	TempFileName = GetTempFileName();
 
-	ЗначениеВФайл(ИмяВременногоФайла, ТаблицаЗначенийИстории);
-	Результат = ПоместитьВоВременноеХранилище(Новый ДвоичныеДанные(ИмяВременногоФайла));
+	ValueToFile(TempFileName, HistoryTable);
+	Result = PutToTempStorage(New BinaryData(TempFileName));
 
-	Попытка
-		УдалитьФайлы(ИмяВременногоФайла);
-	Исключение
-	КонецПопытки;
+	Try
+		DeleteFiles(TempFileName);
+	Except
+	EndTry;
 
-	Возврат Результат;
+	Return Result;
 
 EndFunction
 
@@ -506,7 +533,7 @@ Function PreparedHTTPRequest(URLStructure)
 	RequestString = URLStructure.Path;
 
 	ParamsString = "";
-	For Each KeyAndValue Из URLStructure.RequestParameters Do
+	For Each KeyAndValue In URLStructure.RequestParameters Do
 		ParamsString = ParamsString + ?(ValueIsFilled(ParamsString), "?", "&") + KeyAndValue.Key + "="
 			+ KeyAndValue.Value;
 	EndDo;
@@ -531,12 +558,12 @@ Function PreparedHTTPRequest(URLStructure)
 			EndIf;
 		ElsIf RequestBodyFormat = "BinaryData" Then
 			BodyBinaryData = GetFromTempStorage(RequestBodyBinaryDataAddress);
-			If TypeOf(BodyBinaryData) = Тип("BinaryData") Then
+			If TypeOf(BodyBinaryData) = Type("BinaryData") Then
 				NewRequest.SetBodyFromBinaryData(BodyBinaryData);
 			EndIf;
 		Else
 			BodyBinaryData = GetFromTempStorage(RequestBodyFileAddress);
-			If TypeOf(BodyBinaryData) = Тип("BinaryData") Then
+			If TypeOf(BodyBinaryData) = Type("BinaryData") Then
 				File = New File(RequestBodyFileName);
 				TempFile = GetTempFileName(File.Extension);
 				BodyBinaryData.Write(TempFile);
@@ -577,13 +604,13 @@ Procedure ExecuteRequestServer()
 		If HTTPMethod = "GET" Then
 			Response = HTTPConnection.Get(Request);
 		ElsIf HTTPMethod = "POST" Then
-			Response = HTTPConnection.ОтправитьДляОбработки(Request);
+			Response = HTTPConnection.Post(Request);
 		ElsIf HTTPMethod = "DELETE" Then
-			Response = HTTPConnection.Удалить(Request);
+			Response = HTTPConnection.Delete(Request);
 		ElsIf HTTPMethod = "PUT" Then
-			Response = HTTPConnection.Записать(Request);
+			Response = HTTPConnection.Put(Request);
 		ElsIf HTTPMethod = "PATCH" Then
-			Response = HTTPConnection.Изменить(Request);
+			Response = HTTPConnection.Patch(Request);
 		Else
 			Return;
 		EndIf;
@@ -594,108 +621,107 @@ Procedure ExecuteRequestServer()
 
 	MillisecondsDuration = ExecutionEnd - ExecutionStart;
 
-	ЗафиксироватьЛогЗапроса(URLStructure.Host, URLStructure.Scheme, Request, Response, DateStart,
+	WriteRequestLog(URLStructure.Host, URLStructure.Scheme, Request, Response, DateStart,
 		MillisecondsDuration);
 
-	ДополнитьСписокИспользованныхРанееЗаголовков(Request.Headers);
+	AppendUsedHeadersList(Request.Headers);
 	
 EndProcedure
 
 &AtServer
-Procedure ДополнитьСписокИспользованныхРанееЗаголовков(Заголовки)
-	Для Каждого КлючЗначение Из Заголовки Цикл
-		Если UsedHeadersList.НайтиПоЗначению(КлючЗначение.Ключ) = Неопределено Тогда
-			UsedHeadersList.Добавить(КлючЗначение.Ключ);
-		КонецЕсли;
-	КонецЦикла;
+Procedure AppendUsedHeadersList(Headers)
+	
+	For Each KeyAndValue In Headers Do
+		If UsedHeadersList.FindByValue(KeyAndValue.Key) = Undefined Then
+			UsedHeadersList.Add(KeyAndValue.Key);
+		EndIf;
+	EndDo;
+	
 EndProcedure
 
+
 &AtServer
-Procedure ЗафиксироватьЛогЗапроса(АдресСервера, Протокол, HTTPЗапрос, HTTPОтвет, ДатаНачала, Длительность)
+Procedure WriteRequestLog(Host, Scheme, HTTPRequest, HTTPResponse, DateStart, Duration)
 
-		//	Если HTTPОтвет = Неопределено Тогда 
-	//		Ошибка = Истина;
-	//	Иначе 
-	//		Ошибка=Не ПроверитьУспешностьВыполненияЗапроса(HTTPОтвет);//.HTTPStatusCode<>КодУспешногоЗапроса;
-	//	КонецЕсли;
-	ЗаписьЛога = RequestHistory.Добавить();
-	ЗаписьЛога.URL = RequestURL;
+	//	If HTTPResponse = Undefined Then 
+	//		Error = True;
+	//	Else 
+	//		Error = Not RequestExecuteSuccessful(HTTPResponse);//.HTTPStatusCode<>SuccessCode;
+	//	EndIf;
+	LogRec = RequestHistory.Add();
+	LogRec.URL = RequestURL;
 
-	ЗаписьЛога.HTTPMethod = HTTPMethod;
-	ЗаписьЛога.Host = АдресСервера;
-	ЗаписьЛога.Date = ДатаНачала;
-	ЗаписьЛога.RequestTiming = Длительность;
-	ЗаписьЛога.Request = HTTPЗапрос.АдресРесурса;
-	ЗаписьЛога.RequestHeaders = UT_CommonClientServer.GetHTTPHeadersString(HTTPЗапрос.Заголовки);
-	ЗаписьЛога.BOM = UseBOM;
-	ЗаписьЛога.RequestBodyEncoding = RequestBodyEncoding;
-	ЗаписьЛога.RequestBodyFormat = RequestBodyFormat;
-	ЗаписьЛога.Timeout = Timeout;
+	LogRec.HTTPMethod = HTTPMethod;
+	LogRec.Host = Host;
+	LogRec.Date = DateStart;
+	LogRec.RequestTiming = Duration;
+	LogRec.Request = HTTPRequest.ResourceAddress;
+	LogRec.RequestHeaders = UT_CommonClientServer.GetHTTPHeadersString(HTTPRequest.Headers);
+	LogRec.BOM = UseBOM;
+	LogRec.RequestBodyEncoding = RequestBodyEncoding;
+	LogRec.RequestBodyFormat = RequestBodyFormat;
+	LogRec.Timeout = Timeout;
 
-	ЗаписьЛога.RequestBodyString = HTTPЗапрос.ПолучитьТелоКакСтроку();
+	LogRec.RequestBodyString = HTTPRequest.GetBodyAsString();
 
-	ДвоичныеДанныеТела = HTTPЗапрос.ПолучитьТелоКакДвоичныеДанные();
-	ЗаписьЛога.RequestBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(ДвоичныеДанныеТела,
-		УникальныйИдентификатор);
-	ЗаписьЛога.RequestBodyBinaryDataString = Строка(ДвоичныеДанныеТела);
-	ЗаписьЛога.RequestBodyFileName = RequestBodyFileName;
-	ЗаписьЛога.Scheme = Протокол;
+	BodyBinaryData = HTTPRequest.GetBodyAsBinaryData();
+	LogRec.RequestBodyBinaryDataAddress = PutToTempStorage(BodyBinaryData, UUID);
+	LogRec.RequestBodyBinaryDataString = String(BodyBinaryData);
+	LogRec.RequestBodyFileName = RequestBodyFileName;
+	LogRec.Scheme = Scheme;
 
-	// Прокси
-	ЗаписьЛога.UseProxy = UseProxy;
-	ЗаписьЛога.ProxyServer = ProxyServer;
-	ЗаписьЛога.ProxyPort = ProxyPort;
-	ЗаписьЛога.ProxyUser = ProxyUser;
-	ЗаписьЛога.ProxyPassword = ProxyPassword;
-	ЗаписьЛога.OSAuthentificationProxy = OSAuthentificationProxy;
+	// Proxy
+	LogRec.UseProxy = UseProxy;
+	LogRec.ProxyServer = ProxyServer;
+	LogRec.ProxyPort = ProxyPort;
+	LogRec.ProxyUser = ProxyUser;
+	LogRec.ProxyPassword = ProxyPassword;
+	LogRec.OSAuthentificationProxy = OSAuthentificationProxy;
 
-	ЗаписьЛога.HTTPStatusCode = ?(HTTPОтвет = Неопределено, 500, HTTPОтвет.КодСостояния);
+	LogRec.HTTPStatusCode = ?(HTTPResponse = Undefined, 500, HTTPResponse.StatusCode);
 
-	Если HTTPОтвет = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If HTTPResponse = Undefined Then
+		Return;
+	EndIf;
 
-	ЗаписьЛога.ResponseHeaders = UT_CommonClientServer.GetHTTPHeadersString(HTTPОтвет.Заголовки);
+	LogRec.ResponseHeaders = UT_CommonClientServer.GetHTTPHeadersString(HTTPResponse.Headers);
 
-	ТелоОтветаСтрокойЛог = HTTPОтвет.ПолучитьТелоКакСтроку();
-	Если ЗначениеЗаполнено(ТелоОтветаСтрокойЛог) Тогда
-		Если НайтиНедопустимыеСимволыXML(ТелоОтветаСтрокойЛог) = 0 Тогда
-			ЗаписьЛога.АдресТелаОтветаСтрокой = ПоместитьВоВременноеХранилище(ТелоОтветаСтрокойЛог,
-				УникальныйИдентификатор);
-		Иначе
-			ЗаписьЛога.АдресТелаОтветаСтрокой = ПоместитьВоВременноеХранилище("Содержит недопустимые символы XML",
-				УникальныйИдентификатор);
-		КонецЕсли;
-	КонецЕсли;
-	ДвоичныеДанныеОтвета = HTTPОтвет.ПолучитьТелоКакДвоичныеДанные();
-	Если ДвоичныеДанныеОтвета <> Неопределено Тогда
-		ЗаписьЛога.ResponseBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(ДвоичныеДанныеОтвета,
-			УникальныйИдентификатор);
-		ЗаписьЛога.ResponseBodyBinaryDataString = Строка(ДвоичныеДанныеОтвета);
-	КонецЕсли;
+	ResponseBodyStringLog = HTTPResponse.GetBodyAsString();
+	If ValueIsFilled(ResponseBodyStringLog) Then
+		If FindDisallowedXMLCharacters(ResponseBodyStringLog) = 0 Then
+			LogRec.ResponseBodyAddressString = PutToTempStorage(ResponseBodyStringLog, UUID);
+		Else
+			LogRec.ResponseBodyAddressString = PutToTempStorage("Contains disallowed XML characters", UUID);
+		EndIf;
+	EndIf;
+	ResposeBinaryData = HTTPResponse.GetBodyAsBinaryData();
+	If ResposeBinaryData <> Undefined Then
+		LogRec.ResponseBodyBinaryDataAddress = PutToTempStorage(ResposeBinaryData, UUID);
+		LogRec.ResponseBodyBinaryDataString = String(ResposeBinaryData);
+	EndIf;
 
-	ИмяФайлаОтвета = HTTPОтвет.ПолучитьИмяФайлаТела();
-	Если ИмяФайлаОтвета <> Неопределено Тогда
-		Файл = Новый Файл(ИмяФайлаОтвета);
-		Если Файл.Существует() Тогда
-			ДвоичныеДанныеОтвета = Новый ДвоичныеДанные(ИмяФайлаОтвета);
-			ЗаписьЛога.ResponseBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(ДвоичныеДанныеОтвета,
-				УникальныйИдентификатор);
-			ЗаписьЛога.ResponseBodyBinaryDataString = Строка(ДвоичныеДанныеОтвета);
+	ResponseFileName = HTTPResponse.GetBodyFileName();
+	If ResponseFileName <> Undefined Then
+		File = New File(ResponseFileName);
+		If File.Exist() Then
+			ResponseBinaryData = New BinaryData(ResponseFileName);
+			LogRec.ResponseBodyBinaryDataAddress = PutToTempStorage(ResponseBinaryData, UUID);
+			LogRec.ResponseBodyBinaryDataString = String(ResponseBinaryData);
 
-		КонецЕсли;
-	КонецЕсли;
+		EndIf;
+	EndIf;
+	
 EndProcedure
 
 #EndRegion
 
 #Region UtilizationProceduresAndFunctions
 
-// Обновить заголовок формы.
+// update form title
 &AtClient
-Procedure ОбновитьЗаголовок()
+Procedure UpdateTitle()
 
-	Заголовок = StartHeader + ?(RequestsFileName <> "", ": " + RequestsFileName, "");
+	Title = StartHeader + ?(RequestsFileName <> "", ": " + RequestsFileName, "");
 
 EndProcedure
 
@@ -718,7 +744,7 @@ Function ProxyOptionsHeaderByParams(ParamUseProxy, ParamServer, ParamPort, Param
 		EndIf;
 
 	Else
-		HeaderGroupProxy = HeaderPrefix + " Не используется";
+		HeaderGroupProxy = HeaderPrefix + " Not selected";
 	EndIf;
 
 	Return HeaderGroupProxy;
@@ -734,10 +760,11 @@ Procedure BuildProxyOptionsHeader()
 EndProcedure
 
 &AtClient
-Procedure СохранитьДвоичныеДанныеТелаЗапросаИзИсторииПриЗавершении(ПолученныеФайлы, ДополнительныеПараметры) Экспорт
-	Если ПолученныеФайлы = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+Procedure SaveRequestBodyBinaryDataFromHistoryComplete(ReceiveFiles, AdditionalParameters) Export
+	
+	If ReceiveFiles = Undefined Then
+		Return;
+	EndIf;
 
 EndProcedure
 
@@ -760,14 +787,16 @@ Procedure EnableOrDisableRequestBody(Form)
 EndProcedure
 
 &AtClient
-Procedure ЗаполнитьДвоичныеДанныеТелаИзФайлаЗавершение(Результат, Адрес, ВыбранноеИмяФайла, ДополнительныеПараметры) Экспорт
-	Если Не Результат Тогда
-		Возврат;
-	КонецЕсли;
+Procedure FillRequestBinaryDataFromFileComplete(Result, Address, SelectedFileName, AdditionalParameters) Export
+	
+	If Not Result Then
+		Return;
+	EndIf;
 
-	RequestBodyBinaryDataAddress = Адрес;
+	RequestBodyBinaryDataAddress = Address;
 
-	RequestBodyBinaryDataString = Строка(ПолучитьИзВременногоХранилища(Адрес));
+	RequestBodyBinaryDataString = String(GetFromTempStorage(Address));
+	
 EndProcedure
 
 &AtClient
@@ -786,80 +815,84 @@ Procedure RequestBodyFileNameChoiceComplete(SelectedFiles, AdditionalParameters)
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьТаблицуЗаголовковПоСтроке(СтрокаЗаголовков)
-	ЗаголовкиПоСтроке = UT_CommonClientServer.HTTPRequestHeadersFromString(СтрокаЗаголовков);
+Procedure FillHeaderTableByRow(HeadersRow)
+	
+	HeadersByRow = UT_CommonClientServer.HTTPRequestHeadersFromString(HeadersRow);
 
-	RequestHeadersTable.Очистить();
+	RequestHeadersTable.Clear();
 
-	Для Каждого КлючЗначение Из ЗаголовкиПоСтроке Цикл
-		НС = RequestHeadersTable.Добавить();
-		НС.Key = КлючЗначение.Key;
-		НС.Value = КлючЗначение.Value;
-	КонецЦикла;
+	For Each KeyAndValue In HeadersByRow Do
+		NewRec = RequestHeadersTable.Add();
+		NewRec.Key = KeyAndValue.Key;
+		NewRec.Value = KeyAndValue.Value;
+	EndDo;
 
 EndProcedure
 
 &AtClient
-Procedure УстановитьСтраницуРедактированияЗаголовковЗапроса()
-	Если TableHeadersEditor Тогда
-		НоваяСтраница = Элементы.RequestHeadersTableEditPageGroup;
-	Иначе
-		НоваяСтраница = Элементы.RequestHeadersTextEditPageGroup;
-	КонецЕсли;
+Procedure SetupRequestHeadersEditorPage()
+	
+	If TableHeadersEditor Then
+		NewPage = Items.RequestHeadersTableEditPageGroup;
+	Else
+		NewPage = Items.RequestHeadersTextEditPageGroup;
+	EndIf;
 
-	Элементы.RequestHeadersEditPagesGroup.ТекущаяСтраница = НоваяСтраница;
+	Items.RequestHeadersEditPagesGroup.CurrentPage = NewPage;
 
-	//Теперь нужно заполнить заголовки на новой странице по старой странице
-	Если TableHeadersEditor Тогда
-		ЗаполнитьТаблицуЗаголовковПоСтроке(HeadersString);
-	Иначе
+	//now we will copy headers from old page to new one
+	If TableHeadersEditor Then
+		FillHeaderTableByRow(HeadersString);
+	Else
 		HeadersString = UT_CommonClientServer.GetHTTPHeadersString(RequestHeadersTable);
-	КонецЕсли;
+	EndIf;
+	
 EndProcedure
 
 &AtClient
-Procedure ЗаполнитьДанныеТекущегоЗапросаПоИстории(ВыбраннаяСтрока)
+Procedure FillCurentRequestByHistory(SelectedRow)
 
-//Нужно установить текущую строку в параметры выполнения запроса
-	ТекДанные = RequestHistory.НайтиПоИдентификатору(ВыбраннаяСтрока);
+	//copy data from current row
+	CurrentData = RequestHistory.FindByID(SelectedRow);
 
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	HTTPMethod = ТекДанные.HTTPMethod;
-	RequestURL = ТекДанные.URL;
-	HeadersString = ТекДанные.RequestHeaders;
-	RequestBody = ТекДанные.RequestBodyString;
-	RequestBodyEncoding = ТекДанные.RequestBodyEncoding;
-	UseBOM = ТекДанные.BOM;
-	RequestBodyFormat = ТекДанные.RequestBodyFormat;
-	RequestBodyFormatOnChange(Элементы.RequestBodyFormat);
-	RequestBodyFileName = ТекДанные.RequestBodyFileName;
-	Timeout=ТекДанные.Timeout;
+	HTTPMethod = CurrentData.HTTPMethod;
+	RequestURL = CurrentData.URL;
+	HeadersString = CurrentData.RequestHeaders;
+	RequestBody = CurrentData.RequestBodyString;
+	RequestBodyEncoding = CurrentData.RequestBodyEncoding;
+	UseBOM = CurrentData.BOM;
+	RequestBodyFormat = CurrentData.RequestBodyFormat;
+	RequestBodyFormatOnChange(Items.RequestBodyFormat);
+	RequestBodyFileName = CurrentData.RequestBodyFileName;
+	Timeout = CurrentData.Timeout;
 
-	UseProxy = ТекДанные.UseProxy;
-	ProxyServer = ТекДанные.ProxyServer;
-	ProxyPort = ТекДанные.ProxyPort;
-	ProxyUser = ТекДанные.ProxyUser;
-	ProxyPassword = ТекДанные.ProxyPassword;
-	OSAuthentificationProxy = ТекДанные.OSAuthentificationProxy;
+	UseProxy = CurrentData.UseProxy;
+	ProxyServer = CurrentData.ProxyServer;
+	ProxyPort = CurrentData.ProxyPort;
+	ProxyUser = CurrentData.ProxyUser;
+	ProxyPassword = CurrentData.ProxyPassword;
+	OSAuthentificationProxy = CurrentData.OSAuthentificationProxy;
 
-	Если ЭтоАдресВременногоХранилища(ТекДанные.RequestBodyBinaryDataAddress) Тогда
-		ДвоичныеДанныеТелаЗапроса = ПолучитьИзВременногоХранилища(ТекДанные.RequestBodyBinaryDataAddress);
-		RequestBodyBinaryDataString = Строка(ДвоичныеДанныеТелаЗапроса);
-		Если ТипЗнч(ДвоичныеДанныеТелаЗапроса) = Тип("ДвоичныеДанные") Тогда
-			RequestBodyBinaryDataAddress = ПоместитьВоВременноеХранилище(ДвоичныеДанныеТелаЗапроса,
+	If IsTempStorageURL(CurrentData.RequestBodyBinaryDataAddress) Then
+		RequestBodyBinaryData = GetFromTempStorage(CurrentData.RequestBodyBinaryDataAddress);
+		RequestBodyBinaryDataString = String(RequestBodyBinaryData);
+		If TypeOf(RequestBodyBinaryData) = Type("BinaryData") Then
+			RequestBodyBinaryDataAddress = PutToTempStorage(RequestBodyBinaryData,
 				RequestBodyBinaryDataAddress);
-		КонецЕсли;
-	КонецЕсли;
+		EndIf;
+	EndIf;
 
-	RequestHeadersTable.Очистить();
-	Если TableHeadersEditor Тогда
-		ЗаполнитьТаблицуЗаголовковПоСтроке(HeadersString);
-	КонецЕсли;
+	RequestHeadersTable.Clear();
+	If TableHeadersEditor Then
+		FillHeaderTableByRow(HeadersString);
+	EndIf;
 
-	Элементы.RequestPagesGroup.ТекущаяСтраница = Элементы.RequestGroup;
+	Items.RequestPagesGroup.CurrentPage = Items.RequestGroup;
+	
 EndProcedure
 
 &AtServer
@@ -887,12 +920,12 @@ Procedure FillByDebugData(DebugDataAddress)
 	RequestURL = RequestURL + DebugData.Request;
 	TableHeadersEditor = True;
 
-	Items.RequestHeadersEditPagesGroup.CurrentPage = Элементы.RequestHeadersTableEditPageGroup;
+	Items.RequestHeadersEditPagesGroup.CurrentPage = Items.RequestHeadersTableEditPageGroup;
 
 	RequestHeaders = DebugData.RequestHeaders;
 
-	//Удаляем неиспользуемые символы из строки заголовков
-	SymPos = НайтиНедопустимыеСимволыXML(RequestHeaders);
+	//Delete disallowed chars from headers
+	SymPos = FindDisallowedXMLCharacters(RequestHeaders);
 	While (SymPos > 0) do
 		If SymPos = 1 Then
 			RequestHeaders = Mid(RequestHeaders, 2);
@@ -904,19 +937,19 @@ Procedure FillByDebugData(DebugDataAddress)
 		EndIf;
 
 
-		SymPos = НайтиНедопустимыеСимволыXML(RequestHeaders);
+		SymPos = FindDisallowedXMLCharacters(RequestHeaders);
 	EndDo;
 
-	ЗаполнитьТаблицуЗаголовковПоСтроке(RequestHeaders);
+	FillHeaderTableByRow(RequestHeaders);
 
 	If DebugData.RequestBody = Undefined Then
 		RequestBody = "";
-	Иначе
+	Else
 		RequestBody = DebugData.RequestBody;
-	КонецЕсли;
+	EndIf;
 
 	If DebugData.Property("RequestBodyBinaryData") Then
-		If TypeOf(DebugData.RequestBodyBinaryData) = Type("BinaryData") Тогда
+		If TypeOf(DebugData.RequestBodyBinaryData) = Type("BinaryData") Then
 			RequestBodyBinaryDataAddress = PutToTempStorage(DebugData.RequestBodyBinaryData,
 				RequestBodyBinaryDataAddress);
 			RequestBodyBinaryDataString = DebugData.RequestBodyBinaryDataString;
@@ -982,12 +1015,14 @@ Procedure InitializeRequest()
 EndProcedure
 
 &AtClient
-Procedure РедактироватьТелоЗапросаВРедактореJSONЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+Procedure EditRequestBodyInJSONEditorComplete(Result, AdditionalParameters) Export
+	
+	If Result = Undefined Then
+		Return;
+	EndIf;
 
-	RequestBody=Результат;
+	RequestBody = Result;
+	
 EndProcedure
 
 #EndRegion

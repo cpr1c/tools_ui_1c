@@ -1263,8 +1263,12 @@
               <extInfo xsi:type="form:CheckBoxFieldExtInfo">
                 <checkBoxType>Tumbler</checkBoxType>
                 <editFormat>
-                  <key>ru</key>
+                  <key>en</key>
                   <value>BF=String; BT=Table</value>
+                </editFormat>
+                <editFormat>
+                  <key>ru</key>
+                  <value>BF=Строкой; BT=Таблицей</value>
                 </editFormat>
               </extInfo>
             </items>

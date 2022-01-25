@@ -1,37 +1,40 @@
-Функция СериализованныеДанныеСохранения(Формат, ДанныеСохранения) Экспорт
-	Если Формат = "xhttp" Или Формат = ".xhttp" Тогда
+Function SerializedDataForSave(Format, SavedData) Export
+	
+	If Format = "xhttp" Or Format = ".xhttp" Then
 
-		СериализуемаяСтрока=ЗначениеВСтрокуВнутр(ДанныеСохранения);
+		SerializedString = ValueToStringInternal(SavedData);
 
-	Иначе
-		СериализаторJSON=Обработки.УИ_ПреобразованиеДанныхJSON.Создать();
+	Else
+		JSONSerializer = DataProcessors.УИ_ПреобразованиеДанныхJSON.Create();
 
-		СтруктураИстории=СериализаторJSON.ЗначениеВСтруктуру(ДанныеСохранения);
-		СериализуемаяСтрока=СериализаторJSON.ЗаписатьОписаниеОбъектаВJSON(СтруктураИстории);
+		HistoryStruct = JSONSerializer.ЗначениеВСтруктуру(SavedData);
+		SerializedString=JSONSerializer.ЗаписатьОписаниеОбъектаВJSON(HistoryStruct);
 
-	КонецЕсли;
+	EndIf;
 
-	Возврат СериализуемаяСтрока;
+	Return SerializedString;
 
-КонецФункции
+EndFunction
 
-Функция ДанныеСохраненияИзСериализованнойСтроки(АдресФайлаВоВременномХранилище, ИмяФайлаЗапросов) Экспорт
-	Файл=Новый Файл(ИмяФайлаЗапросов);
+Function SavedDataFromSerializedString(TempStorageAddress, RequestsFileName) Export
+	
+	File = New File(RequestsFileName);
 
-	Если Файл.Расширение = "xhttp" Или Файл.Расширение = ".xhttp" Тогда
-		ИмяВременногоФайла = ПолучитьИмяВременногоФайла();
-		Данные = ПолучитьИзВременногоХранилища(АдресФайлаВоВременномХранилище);
-		Данные.Записать(ИмяВременногоФайла);
+	If File.Extension = "xhttp" Or File.Extension = ".xhttp" Then
+		TempFileName = GetTempFileName();
+		TempData = GetFromTempStorage(TempStorageAddress);
+		TempData.Write(TempFileName);
 
-		Возврат ЗначениеИзФайла(ИмяВременногоФайла);
-	Иначе
-		ДанныеФайла=ПолучитьИзВременногоХранилища(АдресФайлаВоВременномХранилище);
+		Return ValueFromFile(TempFileName);
+	Else
+		FileData = GetFromTempStorage(TempStorageAddress);
 
-		ТекстовыйДокумент=Новый ТекстовыйДокумент;
-		ТекстовыйДокумент.Прочитать(ДанныеФайла.ОткрытьПотокДляЧтения());
+		TextDocument = New TextDocument;
+		TextDocument.Read(FileData.OpenStreamForRead());
 
-		СериализаторJSON=Обработки.УИ_ПреобразованиеДанныхJSON.Создать();
-		СтруктураТЗ= СериализаторJSON.ПрочитатьОписаниеОбъектаИзJSON(ТекстовыйДокумент.ПолучитьТекст());
-		Возврат СериализаторJSON.ЗначениеИзСтруктуры(СтруктураТЗ, Истина);
-	КонецЕсли;
-КонецФункции
+		JSONSerialize = DataProcessors.УИ_ПреобразованиеДанныхJSON.Create();
+		TableStruct = JSONSerialize.ПрочитатьОписаниеОбъектаИзJSON(TextDocument.GetText());
+		Return JSONSerialize.ЗначениеИзСтруктуры(TableStruct, True);
+	EndIf;
+	
+EndFunction
