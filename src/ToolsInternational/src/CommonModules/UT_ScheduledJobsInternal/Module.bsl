@@ -329,14 +329,14 @@ Function ScheduledJobsDependentOnFunctionalOptions() Export
 	Dependencies.Columns.Add("UseExternalResources",  New TypeDescription("Boolean"));
 	Dependencies.Columns.Add("IsParameterized",  New TypeDescription("Boolean"));
 
-	//МодульИнтеграцииПодсистемБСП=УИ_ОбщегоНазначения.ОбщийМодуль("ИнтеграцияПодсистемБСП");
-	//Если МодульИнтеграцииПодсистемБСП <> Неопределено Тогда
-	//	МодульИнтеграцииПодсистемБСП.ПриОпределенииНастроекРегламентныхЗаданий(Зависимости);
-	//КонецЕсли;
-	//МодульРегламентныеЗаданияПереопределяемый=УИ_ОбщегоНазначения.ОбщийМодуль("РегламентныеЗаданияПереопределяемый");
-	//Если МодульРегламентныеЗаданияПереопределяемый <> Неопределено Тогда
-	//	МодульРегламентныеЗаданияПереопределяемый.ПриОпределенииНастроекРегламентныхЗаданий(Зависимости);
-	//КонецЕсли;
+	//SSLSubsystemsIntegrationModule=UT_Common.CommonModule("SSLSubsystemsIntegration");
+	//If SSLSubsystemsIntegrationModule <> Undefined Then
+	//	SSLSubsystemsIntegrationModule.OnDefineScheduledJobSettings(Dependencies);
+	//EndIf;
+	//ScheduledJobsOverridableModule=UT_Common.CommonModule("ScheduledJobsOverridable");
+	//If ScheduledJobsOverridableModule <> Undefined Then
+	//	ScheduledJobsOverridableModule.OnDefineScheduledJobSettings(Dependencies);
+	//EndIf;
 
 	Dependencies.Sort("ScheduledJob");
 	
