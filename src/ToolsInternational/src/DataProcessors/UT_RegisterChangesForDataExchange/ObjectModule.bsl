@@ -8,11 +8,11 @@
 // exchange plan -> exchange nodes. Internal nodes are not included in the tree. 
 //
 // Parameters:
-//    DataObject - AnyRef, Structure - a reference or a structure that contains record set dimensions. 
+//    DataObject - AnyRef, Structure - (optional) a reference or a structure that contains record set dimensions. 
 //                   Data to analyze exchange nodes. If DataObject is not specified, all metadata objects are used.
-//    TableName   - String - if DataObject is a structure, then the table name is for  records set.
+//    TableName   - String - (optional) if DataObject is a structure, then the table name is for  records set.
 //
-// Returns:
+// Return value:
 //    ValueTree with the following columns:
 //    	  * Description                 - String - presentation of exchange plan or exchange node.
 //        * PictureIndex                - Number - 1 = exchange plan, 2 = node, 3 = node marked for deletion.
@@ -204,11 +204,11 @@ EndFunction
 // Objects that are not included in an exchange plan, to be excluded.
 //
 // Parameters:
-//    ExchangePlanName - String - name of the exchange plan metadata that is used to generate a configuration tree.
+//    ExchangePlanName - String - (optional) name of the exchange plan metadata that is used to generate a configuration tree.
 //                     - ExchangePlanRef - the configuration tree is generated for its exchange plan.
 //                     - Undefined - the tree of all configuration is generated.
 //
-// Returns:
+// Return value:
 //    Structure - metadata details. Fields:
 //         * NamesStructure - Structure - Key - metadata group (constants, catalogs and 
 //                                        so on), value is an array of full names.
@@ -305,7 +305,7 @@ EndFunction
 //     TablesList - Array - names. Can be a key/value collection where values are name arrays.
 //     NodesList  - ExchangePlanRef, Array - nodes.
 //
-// Returns:
+// Return value:
 //     ValueTable - columns:
 //         * MetaFullName - String - a full name of metadata that needs the count calculated.
 //         * ExchangeNode - ExchangePlanRef - a reference to an exchange node that needs the count calculated.
@@ -397,7 +397,7 @@ EndFunction
 // Parameters:
 //    MetadataName - String - a metadata object name, for example, "Catalog.Currencies" or "Constants".
 //
-// Returns:
+// Return value:
 //    MetadataObject - search result.
 //
 Function MetadataByFullName(MetadataName) Export
@@ -421,9 +421,9 @@ EndFunction
 //    Node - ExchangePlanRef - an exchange plan node for which we receive information,
 //    RegistrationObject - String, AnyRef, Structure - an object whose data is analyzed.
 //                        The structure contains change values of record set dimensions.
-//    TableName        - String - if RegistrationObject is a structure, then contains a table name for dimensions set.
+//    TableName - String - (optional) if RegistrationObject is a structure, then contains a table name for dimensions set.
 //
-// Returns:
+// Return value:
 //    Boolean - the result of the registration.
 //
 Function ObjectRegisteredForNode(Node, RegistrationObject, TableName = Undefined) Export
@@ -454,9 +454,9 @@ EndFunction
 //     NoAutoRegistration - Boolean - True if no need to analyze the autorecord flag.
 //     Node - ExchangePlanRef - a reference to the exchange plan node.
 //     Data - AnyRef, String, Structure - data or data array.
-//     TableName - String - if Data is a structure, then contains a table name.
+//     TableName - String - (optional) if Data is a structure, then contains a table name.
 //
-// Returns:
+// Return value:
 //     Structure - an operation result:
 //         * Total - Number - a total object count.
 //         * Success - Number - a successfully processed objects count.
@@ -602,7 +602,13 @@ Function EditRegistrationAtServer(Command, NoAutoRegistration, Node, Data, Table
 	Return Result;
 EndFunction
 
-// Returns the beginning of the full form name to open by the passed object.
+// Returns the beginning of the full form name to open.
+//
+// Parameters:
+//    CurrentObject - String, DynamicList - (optional) object whose form name returns.
+//    
+// Return value:
+//    String - a full name of the form.
 //
 Function GetFormName(CurrentObject = Undefined) Export
 	
@@ -666,610 +672,643 @@ Procedure SetMarksForParents(RowData) Export
 	EndIf;
 EndProcedure
 
-// Чтение реквизитов узла обмена.
+// Exchange node attribute reading.
 //
-// Параметры:
-//    - Ссылка - Ссылка на узел обмена
-//    - Данные - Список имен реквизитов для чтения через запятую
+// Parameters:
+//    Ref - ExchangePlanRef - a reference to the exchange node.
+//    Data - String - a list of attribute names to read, separated by commas.
 //
-// Возвращает структуру с данными или Неопределено, если нет данных по переданной ссылке
+// Return value:
+//    Structure    - read data.
 //
-Функция ПолучитьПараметрыУзлаОбмена(Ссылка, Данные) Экспорт
-	Запрос = Новый Запрос("
-						  |ВЫБРАТЬ " + Данные + " ИЗ " + Ссылка.Метаданные().ПолноеИмя() + "
-																						   |ГДЕ Ссылка=&Ссылка
-																						   |");
-	Запрос.УстановитьПараметр("Ссылка", Ссылка);
-	Времянка = Запрос.Выполнить().Выгрузить();
-	Если Времянка.Количество() = 0 Тогда
-		Возврат Неопределено;
-	КонецЕсли;
+Function GetExchangeNodeParameters(Ref, Data) Export
+	Query = New Query("
+					  |SELECT " + Data + " FROM " + Ref.Metadata().FullName() + "
+																				|WHERE Ref=&Ref
+																				|");
+	Query.SetParameter("Ref", Ref);
+	Temp = Query.Execute().Unload();
+	If Temp.Count() = 0 Then
+		Return Undefined;
+	EndIf;
 
-	Результат = Новый Структура(Данные);
-	ЗаполнитьЗначенияСвойств(Результат, Времянка[0]);
-	Возврат Результат;
-КонецФункции	
+	Result = New Structure(Data);
+	FillPropertyValues(Result, Temp[0]);
+	Return Result;
+EndFunction	
 
-// Запись реквизитов узла обмена.
+// Exchange node attribute writing.
 //
-// Параметры:
-//    - Ссылка - Ссылка на узел обмена
-//    - Данные - Список имен реквизитов для чтения через запятую
+// Parameters:
+//    Ref - ExchangePlanRef - a reference to the exchange node.
+//    Data - Structure - contains node attribute values.
 //
-Процедура УстановитьПараметрыУзлаОбмена(Ссылка, Данные) Экспорт
-
-	ОбъектУзла = Ссылка.ПолучитьОбъект();
-	Если ОбъектУзла = Неопределено Тогда
-		// Ссылка на удаленный объект
-		Возврат;
-	КонецЕсли;
-
-	Изменен = Ложь;
-	Для Каждого Элемент Из Данные Цикл
-		Если ОбъектУзла[Элемент.Ключ] <> Элемент.Значение Тогда
-			Изменен = Истина;
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
-
-	Если Изменен Тогда
-		ЗаполнитьЗначенияСвойств(ОбъектУзла, Данные);
-		ОбъектУзла.Записать();
-	КонецЕсли;
-КонецПроцедуры
-
-// Возвращает описание данных по имени таблицы/полному имени метаданных или метаданным
-//
-// Параметры:
-//    - ИмяТаблицы - Имя таблицы, например "Справочник.Валюты"
-//
-Функция ХарактеристикиПоМетаданным(ИмяТаблицыМетаданных) Экспорт
-
-	ЭтоПоследовательность = Ложь;
-	ЭтоКоллекция          = Ложь;
-	ЭтоКонстанта          = Ложь;
-	ЭтоСсылка             = Ложь;
-	ЭтоНабор              = Ложь;
-	Менеджер              = Неопределено;
-	ИмяТаблицы            = "";
-
-	Если ТипЗнч(ИмяТаблицыМетаданных) = Тип("Строка") Тогда
-		Мета = МетаданныеПоПолномуИмени(ИмяТаблицыМетаданных);
-		ИмяТаблицы = ИмяТаблицыМетаданных;
-	ИначеЕсли ТипЗнч(ИмяТаблицыМетаданных) = Тип("Тип") Тогда
-		Мета = Метаданные.НайтиПоТипу(ИмяТаблицыМетаданных);
-		ИмяТаблицы = Мета.ПолноеИмя();
-	Иначе
-		Мета = ИмяТаблицыМетаданных;
-		ИмяТаблицы = Мета.ПолноеИмя();
-	КонецЕсли;
-
-	Если Мета = Метаданные.Константы Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоКонстанта = Истина;
-		Менеджер     = Константы;
-
-	ИначеЕсли Мета = Метаданные.Справочники Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер      = Справочники;
-
-	ИначеЕсли Мета = Метаданные.Документы Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер     = Документы;
-
-	ИначеЕсли Мета = Метаданные.Перечисления Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер     = Перечисления;
-
-	ИначеЕсли Мета = Метаданные.ПланыВидовХарактеристик Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер     = ПланыВидовХарактеристик;
-
-	ИначеЕсли Мета = Метаданные.ПланыСчетов Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер     = ПланыСчетов;
-
-	ИначеЕсли Мета = Метаданные.ПланыВидовРасчета Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер     = ПланыВидовРасчета;
-
-	ИначеЕсли Мета = Метаданные.БизнесПроцессы Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер     = БизнесПроцессы;
-
-	ИначеЕсли Мета = Метаданные.Задачи Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоСсылка    = Истина;
-		Менеджер     = Задачи;
-
-	ИначеЕсли Мета = Метаданные.Последовательности Тогда
-		ЭтоНабор              = Истина;
-		ЭтоПоследовательность = Истина;
-		ЭтоКоллекция          = Истина;
-		Менеджер              = Последовательности;
-
-	ИначеЕсли Мета = Метаданные.РегистрыСведений Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоНабор     = Истина;
-		Менеджер 	 = РегистрыСведений;
-
-	ИначеЕсли Мета = Метаданные.РегистрыНакопления Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоНабор     = Истина;
-		Менеджер     = РегистрыНакопления;
-
-	ИначеЕсли Мета = Метаданные.РегистрыБухгалтерии Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоНабор     = Истина;
-		Менеджер     = РегистрыБухгалтерии;
-
-	ИначеЕсли Мета = Метаданные.РегистрыРасчета Тогда
-		ЭтоКоллекция = Истина;
-		ЭтоНабор     = Истина;
-		Менеджер     = РегистрыРасчета;
-
-	ИначеЕсли Метаданные.Константы.Содержит(Мета) Тогда
-		ЭтоКонстанта = Истина;
-		Менеджер     = Константы[Мета.Имя];
-
-	ИначеЕсли Метаданные.Справочники.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер  = Справочники[Мета.Имя];
-
-	ИначеЕсли Метаданные.Документы.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер  = Документы[Мета.Имя];
-
-	ИначеЕсли Метаданные.Последовательности.Содержит(Мета) Тогда
-		ЭтоНабор              = Истина;
-		ЭтоПоследовательность = Истина;
-		Менеджер              = Последовательности[Мета.Имя];
-
-	ИначеЕсли Метаданные.Перечисления.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер  = Перечисления[Мета.Имя];
-
-	ИначеЕсли Метаданные.ПланыВидовХарактеристик.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер  = ПланыВидовХарактеристик[Мета.Имя];
-
-	ИначеЕсли Метаданные.ПланыСчетов.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер = ПланыСчетов[Мета.Имя];
-
-	ИначеЕсли Метаданные.ПланыВидовРасчета.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер  = ПланыВидовРасчета[Мета.Имя];
-
-	ИначеЕсли Метаданные.РегистрыСведений.Содержит(Мета) Тогда
-		ЭтоНабор = Истина;
-		Менеджер = РегистрыСведений[Мета.Имя];
-
-	ИначеЕсли Метаданные.РегистрыНакопления.Содержит(Мета) Тогда
-		ЭтоНабор = Истина;
-		Менеджер = РегистрыНакопления[Мета.Имя];
-
-	ИначеЕсли Метаданные.РегистрыБухгалтерии.Содержит(Мета) Тогда
-		ЭтоНабор = Истина;
-		Менеджер = РегистрыБухгалтерии[Мета.Имя];
-
-	ИначеЕсли Метаданные.РегистрыРасчета.Содержит(Мета) Тогда
-		ЭтоНабор = Истина;
-		Менеджер = РегистрыРасчета[Мета.Имя];
-
-	ИначеЕсли Метаданные.БизнесПроцессы.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер = БизнесПроцессы[Мета.Имя];
-
-	ИначеЕсли Метаданные.Задачи.Содержит(Мета) Тогда
-		ЭтоСсылка = Истина;
-		Менеджер = Задачи[Мета.Имя];
-
-	Иначе
-		МетаРодитель = Мета.Родитель();
-		Если МетаРодитель <> Неопределено И Метаданные.РегистрыРасчета.Содержит(МетаРодитель) Тогда
-			// Перерасчет
-			ЭтоНабор = Истина;
-			Менеджер = РегистрыРасчета[МетаРодитель.Имя].Перерасчеты[Мета.Имя];
-		КонецЕсли;
-
-	КонецЕсли;
-
-	Возврат Новый Структура("ИмяТаблицы, Метаданные, Менеджер, ЭтоНабор, ЭтоСсылка, ЭтоКонстанта, ЭтоПоследовательность, ЭтоКоллекция",
-		ИмяТаблицы, Мета, Менеджер, ЭтоНабор, ЭтоСсылка, ЭтоКонстанта, ЭтоПоследовательность, ЭтоКоллекция);
-
-КонецФункции
-
-// Возвращает таблицу, описывающую измерения для регистрации изменений набора данных
-//
-// Параметры:
-//    - ИмяТаблицы   - Имя таблицы, например "РегистрСведений.КурсыВалют"
-//    - ВсеИзмерения - Флаг того, что для регистра сведений получаем все измерения, а не 
-//                     только основные и ведущие
-//
-// Возвращает таблицу с колонками:
-//    - Имя         - Строка имени измерения
-//    - ТипЗначения - ОписаниеТипов
-//    - Заголовок   - Представление для измерения
-//
-Функция ИзмеренияНабораЗаписей(ИмяТаблицы, ВсеИзмерения = Ложь) Экспорт
-
-	Если ТипЗнч(ИмяТаблицы) = Тип("Строка") Тогда
-		Мета = МетаданныеПоПолномуИмени(ИмяТаблицы);
-	Иначе
-		Мета = ИмяТаблицы;
-	КонецЕсли;
+Procedure SetExchangeNodeParameters(Ref, Data) Export
 	
-	// Определяем ключевые поля
-	Измерения = Новый ТаблицаЗначений;
-	Колонки = Измерения.Колонки;
-	Колонки.Добавить("Имя");
-	Колонки.Добавить("ТипЗначения");
-	Колонки.Добавить("Заголовок");
+	NodeObject = Ref.GetObject();
+	If NodeObject = Undefined Then
+		// Reference on deleted object.
+		Return;
+	EndIf;
 
-	Если Не ВсеИзмерения Тогда
-		// Что-то регистрируемое
-		НеУчитывать = "НомерСообщения, Узел,";
+	Changed = False;
+	For Each Item In Data Do
+		If NodeObject[Item.Key] = Item.Value Then
+			Changed = True;
+			Break;
+		EndIf;
+	EndDo;
 
-		Запрос = Новый Запрос("ВЫБРАТЬ * ИЗ " + Мета.ПолноеИмя() + ".Изменения ГДЕ ЛОЖЬ");
-		ПустойРезультат = Запрос.Выполнить();
-		Для Каждого КолонкаРезультата Из ПустойРезультат.Колонки Цикл
-			ИмяКолонки = КолонкаРезультата.Имя;
-			Если Найти(НеУчитывать, ИмяКолонки + ",") = 0 Тогда
-				Строка = Измерения.Добавить();
-				Строка.Имя         = ИмяКолонки;
-				Строка.ТипЗначения = КолонкаРезультата.ТипЗначения;
+	If Changed Then
+		FillPropertyValues(NodeObject, Data);
+		NodeObject.Write();
+	EndIf;
+EndProcedure
 
-				МетаИзм = Мета.Измерения.Найти(ИмяКолонки);
-				Строка.Заголовок = ?(МетаИзм = Неопределено, ИмяКолонки, МетаИзм.Представление());
-			КонецЕсли;
-		КонецЦикла;
-
-		Возврат Измерения;
-	КонецЕсли;
-	
-	// Все измерения
-
-	ЭтоРегистрСведений = Метаданные.РегистрыСведений.Содержит(Мета);
-	
-	// Регистратор
-	Если Метаданные.РегистрыНакопления.Содержит(Мета) Или Метаданные.РегистрыБухгалтерии.Содержит(Мета)
-		Или Метаданные.РегистрыРасчета.Содержит(Мета) Или (ЭтоРегистрСведений И Мета.РежимЗаписи
-		= Метаданные.СвойстваОбъектов.РежимЗаписиРегистра.ПодчинениеРегистратору)
-		Или Метаданные.Последовательности.Содержит(Мета) Тогда
-		Строка = Измерения.Добавить();
-		Строка.Имя         = "Регистратор";
-		Строка.ТипЗначения = Документы.ТипВсеСсылки();
-		Строка.Заголовок   = "Регистратор";
-	КонецЕсли;
-	
-	// Период
-	Если ЭтоРегистрСведений И Мета.ОсновнойОтборПоПериоду Тогда
-		Строка = Измерения.Добавить();
-		Строка.Имя         = "Период";
-		Строка.ТипЗначения = Новый ОписаниеТипов("Дата");
-		Строка.Заголовок   = "Период";
-	КонецЕсли;
-	
-	// Измерения
-	Если ЭтоРегистрСведений Тогда
-		Для Каждого МетаИзм Из Мета.Измерения Цикл
-			Строка = Измерения.Добавить();
-			Строка.Имя         = МетаИзм.Имя;
-			Строка.ТипЗначения = МетаИзм.Тип;
-			Строка.Заголовок   = МетаИзм.Представление();
-		КонецЦикла;
-	КонецЕсли;
-	
-	// Перерасчет
-	Если Метаданные.РегистрыРасчета.Содержит(Мета.Родитель()) Тогда
-		Строка = Измерения.Добавить();
-		Строка.Имя         = "ОбъектПерерасчета";
-		Строка.ТипЗначения = Документы.ТипВсеСсылки();
-		Строка.Заголовок   = "Объект перерасчета";
-	КонецЕсли;
-
-	Возврат Измерения;
-КонецФункции
-
-// Модифицирует таблицу формы, добавляя туда колонки
+// Returns data details by the full table name/full metadata name or metadata.
 //
-// Параметры:
-//    - ТаблицаФормы   - Элемент, связанный с данными, в который будут добавлены колонки данных
-//    - СохранятьИмена - Список имен колонок, которые будут сохранены, через запятую.
-//    - Добавлять      - Коллекция добавляемых колонок  или перечислимое с атрибутами Имя, ТипЗначения, Заголовок
-//    - ГруппаКолонок  - Группа колонок, в которую происходит добавление
+// Parameters:
+//    - MetadataTableName - String - table name, for example "Catalog.Currencies".
 //
-Процедура ДобавитьКолонкиВТаблицуФормы(ТаблицаФормы, СохранятьИмена, Добавлять, ГруппаКолонок = Неопределено) Экспорт
-
-	Форма = ФормаЭлементаФормы(ТаблицаФормы);
-	ЭлементыФормы = Форма.Элементы;
-	ИмяРеквизитаТаблицы = ТаблицаФормы.ПутьКДанным;
-
-	Сохраняемые = Новый Структура(СохранятьИмена);
-	СохраняемыеПутиДанных = Новый Соответствие;
-	Для Каждого Элемент Из Сохраняемые Цикл
-		СохраняемыеПутиДанных.Вставить(ИмяРеквизитаТаблицы + "." + Элемент.Ключ, Истина);
-	КонецЦикла;
-
-	ЭтоДинамическийСписок = Ложь;
-	Для Каждого Реквизит Из Форма.ПолучитьРеквизиты() Цикл
-		Если Реквизит.Имя = ИмяРеквизитаТаблицы И Реквизит.ТипЗначения.СодержитТип(Тип("ДинамическийСписок")) Тогда
-			ЭтоДинамическийСписок = Истина;
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
-
-	// Динамический пересоздает реквизиты сам
-	Если Не ЭтоДинамическийСписок Тогда
-		УдаляемыеИмена = Новый Массив;
+// Return value:
+//    Structure - data description as a value set. Contains the following data.
+//      IsSequence - Boolean - a sequence flag.
+//      IsCollection - Boolean - a value collection flag.
+//      IsConstant - Boolean - a constant flag.
+//      IsReference - Boolean - a flag indicating a reference data type.
+//      IsSet - Boolean - a flag indicating a register record set.
+//      Manager - ValueManager - table value manager.
+//      Metadata - MetadataObject - metadata object.
+//      TableName - String - a name of the table.
+//
+Function MetadataCharacteristics(MetadataTableName) Export
+	
+	IsSequence = False;
+	IsCollection          = False;
+	IsConstant          = False;
+	IsRef             = False;
+	IsSet              = False;
+	Manager              = Undefined;
+	TableName            = "";
+	
+	If TypeOf(MetadataTableName) = Type("String") Then
+		Meta = MetadataByFullName(MetadataTableName);
+		TableName = MetadataTableName;
+	ElsIf TypeOf(MetadataTableName) = Type("Type") Then
+		Meta = Metadata.FindByType(MetadataTableName);
+		TableName = Meta.FullName();
+	Else
+		Meta = MetadataTableName;
+		TableName = Meta.FullName();
+	EndIf;
+	
+	If Meta = Metadata.Constants Then
+		IsCollection = True;
+		IsConstant = True;
+		Manager     = Constants;
 		
-		// Удаляем все реквизиты, которые не перечислены в СохранятьИмена
-		Для Каждого Реквизит Из Форма.ПолучитьРеквизиты(ИмяРеквизитаТаблицы) Цикл
-			ТекИмя = Реквизит.Имя;
-			Если Не Сохраняемые.Свойство(ТекИмя) Тогда
-				УдаляемыеИмена.Добавить(Реквизит.Путь + "." + ТекИмя);
-			КонецЕсли;
-		КонецЦикла;
-
-		Добавляемые = Новый Массив;
-		Для Каждого Колонка Из Добавлять Цикл
-			ТекИмя = Колонка.Имя;
-			Если Не Сохраняемые.Свойство(ТекИмя) Тогда
-				Добавляемые.Добавить( Новый РеквизитФормы(ТекИмя, Колонка.ТипЗначения, ИмяРеквизитаТаблицы,
-					Колонка.Заголовок));
-			КонецЕсли;
-		КонецЦикла;
-
-		Форма.ИзменитьРеквизиты(Добавляемые, УдаляемыеИмена);
-	КонецЕсли;
-	
-	// Удаляем элементы
-	Родитель = ?(ГруппаКолонок = Неопределено, ТаблицаФормы, ГруппаКолонок);
-
-	Удалять = Новый Массив;
-	Для Каждого Элемент Из Родитель.ПодчиненныеЭлементы Цикл
-		Удалять.Добавить(Элемент);
-	КонецЦикла;
-	Для Каждого Элемент Из Удалять Цикл
-		Если ТипЗнч(Элемент) <> Тип("ГруппаФормы") И СохраняемыеПутиДанных[Элемент.ПутьКДанным] = Неопределено Тогда
-			ЭлементыФормы.Удалить(Элемент);
-		КонецЕсли;
-	КонецЦикла;
-	
-	// Создаем элементы
-	Префикс = ТаблицаФормы.Имя;
-	Для Каждого Колонка Из Добавлять Цикл
-		ТекИмя = Колонка.Имя;
-		ЭлФормы = ЭлементыФормы.Вставить(Префикс + ТекИмя, Тип("ПолеФормы"), Родитель);
-		ЭлФормы.Вид = ВидПоляФормы.ПолеВвода;
-		ЭлФормы.ПутьКДанным = ИмяРеквизитаТаблицы + "." + ТекИмя;
-		ЭлФормы.Заголовок = Колонка.Заголовок;
-	КонецЦикла;
-
-КонецПроцедуры	
-
-// Возвращает подробное представление объекта.
-//
-// Параметры:
-//    - ОбъектПредставления - Объект, представление которого получаем
-//
-Функция ПредставлениеСсылки(ОбъектПредставления) Экспорт
-
-	Если ТипЗнч(ОбъектПредставления) = Тип("Строка") Тогда
-		// Метаданные 
-		Мета = Метаданные.НайтиПоПолномуИмени(ОбъектПредставления);
-		Результат = Мета.Представление();
-		Если Метаданные.Константы.Содержит(Мета) Тогда
-			Результат = Результат + " (константа)";
-		КонецЕсли;
-		Возврат Результат;
-	КонецЕсли;
-	
-	// Ссылка
-	Результат = "";
-	Если Метаданные.ОбщиеМодули.Найти("ОбщегоНазначения") <> Неопределено Тогда
-		Попытка
-			Результат = Вычислить("UT_Common.SubjectString(ОбъектПредставления)");
-		Исключение
-		КонецПопытки;
-	КонецЕсли;
-
-	Если ПустаяСтрока(Результат) И ОбъектПредставления <> Неопределено И Не ОбъектПредставления.Пустая() Тогда
-		Мета = ОбъектПредставления.Метаданные();
-		Если Метаданные.Документы.Содержит(Мета) Тогда
-			Результат = Строка(ОбъектПредставления);
-		Иначе
-			Представление = Мета.ПредставлениеОбъекта;
-			Если ПустаяСтрока(Представление) Тогда
-				Представление = Мета.Представление();
-			КонецЕсли;
-			Результат = Строка(ОбъектПредставления);
-			Если Не ПустаяСтрока(Представление) Тогда
-				Результат = Результат + " (" + Представление + ")";
-			КонецЕсли;
-		КонецЕсли;
-	КонецЕсли;
-
-	Если ПустаяСтрока(Результат) Тогда
-		Результат = НСтр("ru = 'не задано'");
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
-
-// Возвращает флаг того, что работа происходит в файловой базе
-//
-Функция ЭтоФайловаяБаза() Экспорт
-	Возврат Найти(СтрокаСоединенияИнформационнойБазы(), "File=") > 0;
-КонецФункции
-
-//  Читает текущие данные из динамического списка по его настройкам и возвращает в виде таблицы значений
-//
-// Параметры:
-//    - ИсточникДанных - ДинамическийСписок, реквизит формы
-//
-Функция ТекущиеДанныеДинамическогоСписка(ИсточникДанных) Экспорт
-
-	СхемаКомпоновки = Новый СхемаКомпоновкиДанных;
-
-	Источник = СхемаКомпоновки.ИсточникиДанных.Добавить();
-	Источник.Имя = "Источник";
-	Источник.ТипИсточникаДанных = "local";
-
-	Набор = СхемаКомпоновки.НаборыДанных.Добавить(Тип("НаборДанныхЗапросСхемыКомпоновкиДанных"));
-	Набор.Запрос = ИсточникДанных.ТекстЗапроса;
-	Набор.АвтоЗаполнениеДоступныхПолей = Истина;
-	Набор.ИсточникДанных = Источник.Имя;
-	Набор.Имя = Источник.Имя;
-
-	ИсточникНастроек = Новый ИсточникДоступныхНастроекКомпоновкиДанных(СхемаКомпоновки);
-	Компоновщик = Новый КомпоновщикНастроекКомпоновкиДанных;
-	Компоновщик.Инициализировать(ИсточникНастроек);
-
-	ТекНастройки = Компоновщик.Настройки;
-	
-	// Выбранные поля
-	Для Каждого Элемент Из ТекНастройки.Выбор.ДоступныеПоляВыбора.Элементы Цикл
-		Если Не Элемент.Папка Тогда
-			Поле = ТекНастройки.Выбор.Элементы.Добавить(Тип("ВыбранноеПолеКомпоновкиДанных"));
-			Поле.Использование = Истина;
-			Поле.Поле = Элемент.Поле;
-		КонецЕсли;
-	КонецЦикла;
-	Группа = ТекНастройки.Структура.Добавить(Тип("ГруппировкаКомпоновкиДанных"));
-	Группа.Выбор.Элементы.Добавить(Тип("АвтоВыбранноеПолеКомпоновкиДанных"));
-
-	// Отбор
-	СкопироватьОтборКомпоновкиДанных(ТекНастройки.Отбор, ИсточникДанных.Отбор);
-
-	// Выводим
-	КомпоновщикМакета = Новый КомпоновщикМакетаКомпоновкиДанных;
-	Макет = КомпоновщикМакета.Выполнить(СхемаКомпоновки, ТекНастройки, , , Тип(
-		"ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений"));
-	Процессор = Новый ПроцессорКомпоновкиДанных;
-	Процессор.Инициализировать(Макет);
-	Вывод  = Новый ПроцессорВыводаРезультатаКомпоновкиДанныхВКоллекциюЗначений;
-
-	Результат = Новый ТаблицаЗначений;
-	Вывод.УстановитьОбъект(Результат);
-	Вывод.Вывести(Процессор);
-
-	Возврат Результат;
-КонецФункции
-
-// Читаем настройки из общего хранилища
-//
-Процедура ПрочитатьНастройки(КлючНастройки = "") Экспорт
-
-	КлючОбъекта = Метаданные().ПолноеИмя() + ".Форма.Форма";
-
-	ТекущиеНастройки = ХранилищеОбщихНастроек.Загрузить(КлючОбъекта);
-	Если ТипЗнч(ТекущиеНастройки) <> Тип("Соответствие") Тогда
-		// Умолчания
-		ТекущиеНастройки = Новый Соответствие;
-		ТекущиеНастройки.Вставить("RegisterRecordAutoRecordSetting", Ложь);
-		ТекущиеНастройки.Вставить("SequenceAutoRecordSetting", Ложь);
-		ТекущиеНастройки.Вставить("QueryExternalDataProcessorAddressSetting", "");
-		ТекущиеНастройки.Вставить("ObjectExportControlSetting", Истина); // Проверять через БСП
-		ТекущиеНастройки.Вставить("MessageNumberOptionSetting", 0);     // Регистрировать как новое
-	КонецЕсли;
-
-	НастройкаАвторегистрацияДвижений            = ТекущиеНастройки["RegisterRecordAutoRecordSetting"];
-	SequenceAutoRecordSetting = ТекущиеНастройки["SequenceAutoRecordSetting"];
-	НастройкаАдресВнешнейОбработкиЗапросов      = ТекущиеНастройки["QueryExternalDataProcessorAddressSetting"];
-	НастройкаКонтрольВыгрузкиОбъектов           = ТекущиеНастройки["ObjectExportControlSetting"];
-	НастройкаВариантНомераСообщения             = ТекущиеНастройки["MessageNumberOptionSetting"];
-
-	ПроверитьКорректностьНастроек(КлючНастройки);
-КонецПроцедуры
-
-// Устанавливаем флаги поддержки БСП
-//
-Процедура ПрочитатьПризнакПоддержкиБСП() Экспорт
-	КонфигурацияПоддерживаетБСП = БСП_ДоступнаТребуемаяВерсия();
-
-	Если КонфигурацияПоддерживаетБСП Тогда
-		// Используем внешний интерфейс регистрации
-		ДоступнаРегистрацияСредствамиБСП  = БСП_ДоступнаТребуемаяВерсия("2.1.5.11");
-	Иначе
-		ДоступнаРегистрацияСредствамиБСП = Ложь;
-	КонецЕсли;
-КонецПроцедуры
-
-// Пишем настройки в общее хранилище
-//
-Процедура СохранитьНастройки(КлючНастройки = "") Экспорт
-
-	КлючОбъекта = Метаданные().ПолноеИмя() + ".Форма.Форма";
-
-	ТекущиеНастройки = Новый Соответствие;
-	ТекущиеНастройки.Вставить("RegisterRecordAutoRecordSetting", НастройкаАвторегистрацияДвижений);
-	ТекущиеНастройки.Вставить("SequenceAutoRecordSetting",
-		SequenceAutoRecordSetting);
-	ТекущиеНастройки.Вставить("QueryExternalDataProcessorAddressSetting", НастройкаАдресВнешнейОбработкиЗапросов);
-	ТекущиеНастройки.Вставить("ObjectExportControlSetting", НастройкаКонтрольВыгрузкиОбъектов);
-	ТекущиеНастройки.Вставить("MessageNumberOptionSetting", НастройкаВариантНомераСообщения);
-
-	ХранилищеОбщихНастроек.Сохранить(КлючОбъекта, "", ТекущиеНастройки);
-КонецПроцедуры	
-
-// Проверяем настройки на корректность, сбрасываем в случае нарушения.
-//    Возвращает структуру с ключом - именем настройки, значением содержит описанием ошибки или Неопределено
-// при отсутствии ошибки для данного параметра
-//
-Функция ПроверитьКорректностьНастроек(КлючНастройки = "") Экспорт
-
-	Результат = Новый Структура("ЕстьОшибки,
-								|RegisterRecordAutoRecordSetting, SequenceAutoRecordSetting, 
-								|QueryExternalDataProcessorAddressSetting, ObjectExportControlSetting,
-								|MessageNumberOptionSetting", Ложь);
+	ElsIf Meta = Metadata.Catalogs Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager      = Catalogs;
 		
-	// Доступность внешней обработки
-	Если ПустаяСтрока(НастройкаАдресВнешнейОбработкиЗапросов) Тогда
-		// Убираем возможные пробелы, вариант отключен
-		НастройкаАдресВнешнейОбработкиЗапросов = "";
+	ElsIf Meta = Metadata.Documents Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager     = Documents;
+		
+	ElsIf Meta = Metadata.Enums Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager     = Enums;
+		
+	ElsIf Meta = Metadata.ChartsOfCharacteristicTypes Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager     = ChartsOfCharacteristicTypes;
+		
+	ElsIf Meta = Metadata.ChartsOfAccounts Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager     = ChartsOfAccounts;
+		
+	ElsIf Meta = Metadata.ChartsOfCalculationTypes Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager     = ChartsOfCalculationTypes;
+		
+	ElsIf Meta = Metadata.BusinessProcesses Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager     = BusinessProcesses;
+		
+	ElsIf Meta = Metadata.Tasks Then
+		IsCollection = True;
+		IsRef    = True;
+		Manager     = Tasks;
+		
+	ElsIf Meta = Metadata.Sequences Then
+		IsSet              = True;
+		IsSequence = True;
+		IsCollection          = True;
+		Manager              = Sequences;
+		
+	ElsIf Meta = Metadata.InformationRegisters Then
+		IsCollection = True;
+		IsSet     = True;
+		Manager 	 = InformationRegisters;
+		
+	ElsIf Meta = Metadata.AccumulationRegisters Then
+		IsCollection = True;
+		IsSet     = True;
+		Manager     = AccumulationRegisters;
+		
+	ElsIf Meta = Metadata.AccountingRegisters Then
+		IsCollection = True;
+		IsSet     = True;
+		Manager     = AccountingRegisters;
+		
+	ElsIf Meta = Metadata.CalculationRegisters Then
+		IsCollection = True;
+		IsSet     = True;
+		Manager     = CalculationRegisters;
+		
+	ElsIf Metadata.Constants.Contains(Meta) Then
+		IsConstant = True;
+		Manager     = Constants[Meta.Name];
+		
+	ElsIf Metadata.Catalogs.Contains(Meta) Then
+		IsRef = True;
+		Manager  = Catalogs[Meta.Name];
+		
+	ElsIf Metadata.Documents.Contains(Meta) Then
+		IsRef = True;
+		Manager  = Documents[Meta.Name];
+		
+	ElsIf Metadata.Sequences.Contains(Meta) Then
+		IsSet              = True;
+		IsSequence = True;
+		Manager              = Sequences[Meta.Name];
+		
+	ElsIf Metadata.Enums.Contains(Meta) Then
+		IsRef = True;
+		Manager  = Enums[Meta.Name];
+		
+	ElsIf Metadata.ChartsOfCharacteristicTypes.Contains(Meta) Then
+		IsRef = True;
+		Manager  = ChartsOfCharacteristicTypes[Meta.Name];
+		
+	ElsIf Metadata.ChartsOfAccounts.Contains(Meta) Then
+		IsRef = True;
+		Manager = ChartsOfAccounts[Meta.Name];
+		
+	ElsIf Metadata.ChartsOfCalculationTypes.Contains(Meta) Then
+		IsRef = True;
+		Manager  = ChartsOfCalculationTypes[Meta.Name];
+		
+	ElsIf Metadata.InformationRegisters.Contains(Meta) Then
+		IsSet = True;
+		Manager = InformationRegisters[Meta.Name];
+		
+	ElsIf Metadata.AccumulationRegisters.Contains(Meta) Then
+		IsSet = True;
+		Manager = AccumulationRegisters[Meta.Name];
+		
+	ElsIf Metadata.AccountingRegisters.Contains(Meta) Then
+		IsSet = True;
+		Manager = AccountingRegisters[Meta.Name];
+		
+	ElsIf Metadata.CalculationRegisters.Contains(Meta) Then
+		IsSet = True;
+		Manager = CalculationRegisters[Meta.Name];
+		
+	ElsIf Metadata.BusinessProcesses.Contains(Meta) Then
+		IsRef = True;
+		Manager = BusinessProcesses[Meta.Name];
+		
+	ElsIf Metadata.Tasks.Contains(Meta) Then
+		IsRef = True;
+		Manager = Tasks[Meta.Name];
+		
+	Else
+		MetaParent = Meta.Parent();
+		If MetaParent <> Undefined AND Metadata.CalculationRegisters.Contains(MetaParent) Then
+			// Recalculation
+			IsSet = True;
+			Manager = CalculationRegisters[MetaParent.Name].Recalculations[Meta.Name];
+		EndIf;
+		
+	EndIf;
 
-	ИначеЕсли НРег(Прав(СокрЛП(НастройкаАдресВнешнейОбработкиЗапросов), 4)) = ".epf" Тогда
-		// Файл обработки
-		Файл = Новый Файл(НастройкаАдресВнешнейОбработкиЗапросов);
-		Если Не Файл.Существует() Тогда
-			Текст = НСтр("ru='Файл ""%1"" не доступен %2'");
+	Return New Structure("TableName, Metadata, Manager, IsSet, IsRef, IsConstant, IsSequence, IsCollection",
+		TableName, Meta, Manager, IsSet, IsRef, IsConstant, IsSequence, IsCollection);
 
-			Текст = СтрЗаменить(Текст, "%1", НастройкаАдресВнешнейОбработкиЗапросов);
-			Если ЭтоФайловаяБаза() Тогда
-				РасположениеФайла = "";
-			Иначе
-				РасположениеФайла = НСтр("ru='на сервере'");
-			КонецЕсли;
+EndFunction
 
-			Текст = СтрЗаменить(Текст, "%2", РасположениеФайла);
-			Результат.QueryExternalDataProcessorAddressSetting = Текст;
+// Returns a table describing dimensions for data set change record.
+//
+// Parameters:
+//    TableName   - String - Table name, for example "InformationRegister.CurrencyRates".
+//    AllDimensions - Boolean - (optional) if true, all register dimensions selected,  
+//                              		   if false, only basic and master dimensions selected.
+//
+// Return value:
+//    ValueTable - columns:
+//         * Name - String - a dimension name.
+//         * ValueType - TypeDescription - types.
+//         * Title - String - dimension presentation.
+//
+Function RecordSetDimensions(TableName, AllDimensions = False) Export
+	
+	If TypeOf(TableName) = Type("String") Then
+		Meta = MetadataByFullName(TableName);
+	Else
+		Meta = TableName;
+	EndIf;
+	
+	// Specifying key fields
+	Dimensions = New ValueTable;
+	Columns = Dimensions.Columns;
+	Columns.Add("Name");
+	Columns.Add("ValueType");
+	Columns.Add("Title");
+	
+	If Not AllDimensions Then
+		// Data to register
+		DontConsider = "MessageNo, Node,";
 
-			Результат.ЕстьОшибки = Истина;
-		КонецЕсли;
+		Query = New Query("SELECT * FROM " + Meta.FullName() + ".Changes WHERE FALSE");
+		EmptyResult = Query.Execute();
+		For Each ResultColumn In EmptyResult.Columns Do
+			ColumnName = ResultColumn.Name;
+			If StrFind(DontConsider, ColumnName + ",") = 0 Then
+				Row = Dimensions.Add();
+				Row.Name         = ColumnName;
+				Row.ValueType = ResultColumn.ValueType;
+				
+				MetaDimension = Meta.Dimensions.Find(ColumnName);
+				Row.Title = ?(MetaDimension = Undefined, ColumnName, MetaDimension.Presentation());
+			EndIf;
+		EndDo;
+		
+		Return Dimensions;
+	EndIf;
+	
+	// All dimensions.
+	
+	IsInformationRegister = Metadata.InformationRegisters.Contains(Meta);
+	
+	// Recorder
+	If Metadata.AccumulationRegisters.Contains(Meta) Or Metadata.AccountingRegisters.Contains(Meta)
+		Or Metadata.CalculationRegisters.Contains(Meta) Or (IsInformationRegister And Meta.WriteMode
+		= Metadata.ObjectProperties.RegisterWriteMode.RecorderSubordinate)
+		Or Metadata.Sequences.Contains(Meta) Then
+		Row = Dimensions.Add();
+		Row.Name         = "Recorder";
+		Row.ValueType = Documents.AllRefsType();
+		Row.Title   = NStr("ru = 'Регистратор'; en = 'Recorder'");
+	EndIf;
+	
+	// Period
+	If IsInformationRegister AND Meta.MainFilterOnPeriod Then
+		Row = Dimensions.Add();
+		Row.Name         = "Period";
+		Row.ValueType = New TypeDescription("Date");
+		Row.Title   = NStr("ru = 'Период'; en = 'Period'");
+	EndIf;
+	
+	// Dimensions
+	If IsInformationRegister Then
+		For Each MetaDimension In Meta.Dimensions Do
+			Row = Dimensions.Add();
+			Row.Name         = MetaDimension.Name;
+			Row.ValueType = MetaDimension.Type;
+			Row.Title   = MetaDimension.Presentation();
+		EndDo;
+	EndIf;
+	
+	// Recalculation
+	If Metadata.CalculationRegisters.Contains(Meta.Parent()) Then
+		Row = Dimensions.Add();
+		Row.Name         = "RecalculationObject";
+		Row.ValueType = Documents.AllRefsType();
+		Row.Title   = NStr("ru = 'Объект перерасчета'; en = 'Recalculation object'");
+	EndIf;
+	
+	Return Dimensions;
+EndFunction
 
-	Иначе
-		// В составе конфигурации
-		Если Метаданные.Обработки.Найти(НастройкаАдресВнешнейОбработкиЗапросов) = Неопределено Тогда
-			Текст = НСтр("ru='Обработка ""%1"" не найдена в составе конфигурации'");
-			Результат.QueryExternalDataProcessorAddressSetting = СтрЗаменить(Текст, "%1",
-				НастройкаАдресВнешнейОбработкиЗапросов);
+// Adds columns to the FormTable.
+//
+// Parameters:
+//    FormTable   - FormItem - an item linked to an attribute. The data columns adds to this item.
+//    Save - String - a list of column names, separated by commas.
+//    Add - Array of Structure - contains structures that describe columns to add.
+//    		* Name - new column name. 
+//    		* ValueType - new column value type.
+//    		* Title - new column title.
+//    ColumnGroup - FormItem - (optional) a column group to add new columns.
+//
+Procedure AddColumnsToFormTable(FormTable, Save, Add, ColumnGroup = Undefined) Export
+	
+	Form = FormItemForm(FormTable);
+	FormItems = Form.Items;
+	TableAttributeName = FormTable.DataPath;
+	
+	ToSave = New Structure(Save);
+	DataPathsToSave = New Map;
+	For Each Item In ToSave Do
+		DataPathsToSave.Insert(TableAttributeName + "." + Item.Key, True);
+	EndDo;
+	
+	IsDynamicList = False;
+	For Each Attribute In Form.GetAttributes() Do
+		If Attribute.Name = TableAttributeName And Attribute.ValueType.ContainsType(Type("DynamicList")) Then
+			IsDynamicList = True;
+			Break;
+		EndIf;
+	EndDo;
 
-			Результат.ЕстьОшибки = Истина;
-		КонецЕсли;
+	// If TableForm is not a dynamic list.
+	If Not IsDynamicList Then
+		ToDelete = New Array;
+		
+		// Deleting attributes not included in Save.
+		For Each Attribute In Form.GetAttributes(TableAttributeName) Do
+			CurName = Attribute.Name;
+			If Not ToSave.Property(CurName) Then
+				ToDelete.Add(Attribute.Path + "." + CurName);
+			EndIf;
+		EndDo;
+		
+		ToAdd = New Array;
+		For Each Column In Add Do
+			CurName = Column.Name;
+			If Not ToSave.Property(CurName) Then
+				ToAdd.Add( New FormAttribute(CurName, Column.ValueType, TableAttributeName, Column.Title) );
+			EndIf;
+		EndDo;
+		
+		Form.ChangeAttributes(ToAdd, ToDelete);
+	EndIf;
+	
+	// Deleting form items
+	Parent = ?(ColumnGroup = Undefined, FormTable, ColumnGroup);
+	
+	Delete = New Array;
+	For Each Item In Parent.ChildItems Do
+		Delete.Add(Item);
+	EndDo;
+	For Each Item In Delete Do
+		If TypeOf(Item) <> Type("FormGroup") And DataPathsToSave[Item.DataPath] = Undefined Then
+			FormItems.Delete(Item);
+		EndIf;
+	EndDo;
+	
+	// Creating form items
+	Prefix = FormTable.Name;
+	For Each Column In Add Do
+		CurName = Column.Name;
+		FormItem = FormItems.Insert(Prefix + CurName, Type("FormField"), Parent);
+		FormItem.Type = FormFieldType.InputField;
+		FormItem.DataPath = TableAttributeName + "." + CurName;
+		FormItem.Title = Column.Title;
+	EndDo;
+	
+EndProcedure	
 
-	КонецЕсли;
+// Returns a detailed object presentation.
+//
+// Parameters:
+//    - PresentationObject - AnyRef - an object whose presentation is retrieved.
+//
+// Return value:
+//      String - an object presentation.
+//
+Function RefPresentation(ObjectToGetPresentation) Export
+	
+	If TypeOf(ObjectToGetPresentation) = Type("String") Then
+		// Metadata
+		Meta = Metadata.FindByFullName(ObjectToGetPresentation);
+		Result = Meta.Presentation();
+		If Metadata.Constants.Contains(Meta) Then
+			Result = Result + " (constant)";
+		EndIf;
+		Return Result;
+	EndIf;
+	
+	// Ref
+	Result = "";
+	If Metadata.CommonModules.Find("Common") <> Undefined Then
+		Try
+			Result = Eval("UT_Common.SubjectString(ObjectToGetPresentation)");
+		Except
+		EndTry;
+	EndIf;
 
-	Возврат Результат;
-КонецФункции
+	If IsBlankString(Result) AND ObjectToGetPresentation <> Undefined AND Not ObjectToGetPresentation.IsEmpty() Then
+		Meta = ObjectToGetPresentation.Metadata();
+		If Metadata.Documents.Contains(Meta) Then
+			Result = String(ObjectToGetPresentation);
+		Else
+			Presentation = Meta.ObjectPresentation;
+			If IsBlankString(Presentation) Then
+				Presentation = Meta.Presentation();
+			EndIf;
+			Result = String(ObjectToGetPresentation);
+			If Not IsBlankString(Presentation) Then
+				Result = Result + " (" + Presentation + ")";
+			EndIf;
+		EndIf;
+	EndIf;
+	
+	If IsBlankString(Result) Then
+		Result = NStr("ru = 'не задано'; en = 'not specified'");
+	EndIf;
+	
+	Return Result;
+EndFunction
+
+// Returns a flag specifying whether the infobase runs in file mode.
+// 
+// Return value:
+//       Boolean - if true, then the infobase runs in file mode.
+
+Function IsFileInfobase() Export
+	Return StrFind(InfoBaseConnectionString(), "File=") > 0;
+EndFunction
+
+//  Reads current data from the dynamic list by its setting and returns it as a value table.
+//
+// Parameters:
+//    - DataSource - DynamicList - a form attribute.
+//
+// Return value:
+//      ValueTable - the current data of the dynamic list.
+//
+Function DynamicListCurrentData(DataSource) Export
+	
+	CompositionSchema = New DataCompositionSchema;
+	
+	Source = CompositionSchema.DataSources.Add();
+	Source.Name = "Source";
+	Source.DataSourceType = "local";
+	
+	Set = CompositionSchema.DataSets.Add(Type("DataCompositionSchemaDataSetQuery"));
+	Set.Query = DataSource.QueryText;
+	Set.AutoFillAvailableFields = True;
+	Set.DataSource = Source.Name;
+	Set.Name = Source.Name;
+	
+	SettingsSource = New DataCompositionAvailableSettingsSource(CompositionSchema);
+	Composer = New DataCompositionSettingsComposer;
+	Composer.Initialize(SettingsSource);
+	
+	CurSettings = Composer.Settings;
+	
+	// Selected fields
+	For Each Item In CurSettings.Selection.SelectionAvailableFields.Items Do
+		If Not Item.Folder Then
+			Field = CurSettings.Selection.Items.Add(Type("DataCompositionSelectedField"));
+			Field.Use = True;
+			Field.Field = Item.Field;
+		EndIf;
+	EndDo;
+	Folder = CurSettings.Structure.Add(Type("DataCompositionGroup"));
+	Folder.Selection.Items.Add(Type("DataCompositionAutoSelectedField"));
+
+	// Filter
+	CopyDataCompositionFilter(CurSettings.Filter, DataSource.Filter);
+
+	// Display
+	TemplateComposer = New DataCompositionTemplateComposer;
+	Template = TemplateComposer.Execute(CompositionSchema, CurSettings, , , Type(
+		"DataCompositionValueCollectionTemplateGenerator"));
+	Toller = New DataCompositionProcessor;
+	Toller.Initialize(Template);
+	Output  = New DataCompositionResultValueCollectionOutputProcessor;
+	
+	Result = New ValueTable;
+	Output.SetObject(Result); 
+	Output.Output(Toller);
+	
+	Return Result;
+EndFunction
+
+// Reading settings from the common storage.
+// 
+// Parameters:
+//      SettingKey - String - (optional) a key for reading settings.
+//
+Procedure ReadSettings(SettingKey = "") Export
+	
+	ObjectKey = Metadata().FullName() + ".Form.Form";
+	
+	CurrentSettings = CommonSettingsStorage.Load(ObjectKey);
+	If TypeOf(CurrentSettings) <> Type("Map") Then
+		// Defaults
+		CurrentSettings = New Map;
+		CurrentSettings.Insert("RegisterRecordAutoRecordSetting", False);
+		CurrentSettings.Insert("SequenceAutoRecordSetting", False);
+		CurrentSettings.Insert("QueryExternalDataProcessorAddressSetting", "");
+		CurrentSettings.Insert("ObjectExportControlSetting", True); // Check using SSL.
+		CurrentSettings.Insert("MessageNumberOptionSetting", 0); // First exchange execution
+	EndIf;
+	
+	RegisterRecordAutoRecordSetting = CurrentSettings["RegisterRecordAutoRecordSetting"];
+	SequenceAutoRecordSetting = CurrentSettings["SequenceAutoRecordSetting"];
+	QueryExternalDataProcessorAddressSetting = CurrentSettings["QueryExternalDataProcessorAddressSetting"];
+	ObjectExportControlSetting = CurrentSettings["ObjectExportControlSetting"];
+	MessageNumberOptionSetting = CurrentSettings["MessageNumberOptionSetting"];
+
+	CheckSettingsCorrectness(SettingKey);
+EndProcedure
+
+// Sets SSL support flags.
+//
+Procedure ReadSSLSupportFlags() Export
+	ConfigurationSupportsSSL = SSL_RequiredVersionAvailable();
+	
+	If ConfigurationSupportsSSL Then
+		// Performing registration with an external registration interface.
+		RegisterWithSSLMethodsAvailable  = SSL_RequiredVersionAvailable("2.1.5.11");
+	Else
+		RegisterWithSSLMethodsAvailable = False;
+	EndIf;
+EndProcedure
+
+// Writing settings to the common storage.
+//
+// Parameters:
+//      SettingKey - String - (optional) a key for saving settings.
+//
+Procedure SaveSettings(SettingKey = "") Export
+	
+	ObjectKey = Metadata().FullName() + ".Form.Form";
+	
+	CurrentSettings = New Map;
+	CurrentSettings.Insert("RegisterRecordAutoRecordSetting",            RegisterRecordAutoRecordSetting);
+	CurrentSettings.Insert("SequenceAutoRecordSetting", SequenceAutoRecordSetting);
+	CurrentSettings.Insert("QueryExternalDataProcessorAddressSetting",      QueryExternalDataProcessorAddressSetting);
+	CurrentSettings.Insert("ObjectExportControlSetting",           ObjectExportControlSetting);
+	CurrentSettings.Insert("MessageNumberOptionSetting",             MessageNumberOptionSetting);
+	
+	CommonSettingsStorage.Save(ObjectKey, "", CurrentSettings)
+EndProcedure	
+
+// Checks settings. Resets incorrect settings.
+//
+// Parameters:
+//      SettingKey - String - (optional) a key of setting to check.
+// Returns:
+//     Structure - Key - a setting name.
+//                 Value - String, Undefined - error description.
+//
+Function CheckSettingsCorrectness(SettingKey = "") Export
+	
+	Result = New Structure("HasErrors,
+		|RegisterRecordAutoRecordSetting, SequenceAutoRecordSetting, 
+		|QueryExternalDataProcessorAddressSetting, ObjectExportControlSetting,
+		|MessageNumberOptionSetting",
+		False);
+		
+	// Checking whether an external data processor is available.
+	If IsBlankString(QueryExternalDataProcessorAddressSetting) Then
+		// Setting an empty string value to the QueryExternalDataProcessorAddressSetting.
+		QueryExternalDataProcessorAddressSetting = "";
+		
+	ElsIf Lower(Right(TrimAll(QueryExternalDataProcessorAddressSetting), 4)) = ".epf" Then
+		// External data processor file.
+		File = New File(QueryExternalDataProcessorAddressSetting);
+		If Not File.Exist() Then
+			Text = NStr("ru = 'Файл ""%1"" не доступен %2'; en = 'File %1 is not available %2'");
+
+			Text = StrReplace(Text, "%1", QueryExternalDataProcessorAddressSetting);
+			If IsFileInfobase() Then
+				FileLocatiion = "";
+			Else
+				FileLocatiion = NStr("ru='на сервере'; en = 'at server'");
+			EndIf;
+
+			Text = StrReplace(Text, "%2", FileLocatiion);
+			Result.QueryExternalDataProcessorAddressSetting = Text;
+
+			Result.HasErrors = True;
+		EndIf;
+
+	Else
+		// Data processor is a part of the configuration
+		If Metadata.DataProcessors.Find(QueryExternalDataProcessorAddressSetting) = Undefined Then
+			Text = NStr("ru = 'Обработка ""%1"" не найдена в составе конфигурации'; en = 'Data processor %1 is not found in the configuration'");
+			Result.QueryExternalDataProcessorAddressSetting = StrReplace(Text, "%1", QueryExternalDataProcessorAddressSetting);
+			
+			Result.HasErrors = True;
+		EndIf;
+		
+	EndIf;
+	
+	Return Result;
+EndFunction
 
 // Служебное для регистрации в подключаемых обработках
 //

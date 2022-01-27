@@ -130,7 +130,6 @@
   <commonForms>CommonForm.UT_TimeConsumingOperation</commonForms>
   <commonForms>CommonForm.UT_AdditionalDataProcessorDebugSettings</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
-  <commonForms>CommonForm.UT_MetadataSelectionForm</commonForms>
   <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
   <commonForms>CommonForm.UT_ValueStorageForm</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
