@@ -49,7 +49,7 @@
   <content>CommonForm.УИ_ФормаСпецЗначения</content>
   <content>CommonForm.UT_TextEditingForm</content>
   <content>CommonForm.UT_ValueStorageForm</content>
-  <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
+  <content>CommonForm.UT_MetadataSelectionForm</content>
   <content>Role.UT_UniversalTools</content>
   <content>CommonModule.UT_Forms</content>
   <content>CommonModule.UT_TimeConsumingOperationsServerCall</content>

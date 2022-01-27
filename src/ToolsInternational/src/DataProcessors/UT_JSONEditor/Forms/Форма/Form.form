@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОсновная</name>
+    <name>MainGroup</name>
     <id>4</id>
     <items xsi:type="form:FormField">
-      <name>ПолеРедактораСтрока</name>
+      <name>LineEditField</name>
       <id>21</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -13,12 +13,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ПолеРедактораСтрока</segments>
+          <segments>LineEditField</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>ПолеРедактораСтрокаРасширеннаяПодсказка</name>
+        <name>LineEditFieldExtendedTooltip</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -33,7 +33,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПолеРедактораСтрокаКонтекстноеМеню</name>
+        <name>LineEditFieldContextMenu</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -61,10 +61,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаКомандыМеждуРедакторами</name>
+      <name>GroupOfCommandsBetweenEditors</name>
       <id>15</id>
       <items xsi:type="form:Button">
-        <name>СкопироватьИзСтрокиВДерево</name>
+        <name>CopyFromLineToTree</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -72,7 +72,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СкопироватьИзСтрокиВДеревоРасширеннаяПодсказка</name>
+          <name>CopyFromLineToTreeExtendedTooltip</name>
           <id>18</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -87,7 +87,7 @@
           </extInfo>
         </extendedTooltip>
         <type>UsualButton</type>
-        <commandName>Form.Command.СкопироватьИзСтрокиВДерево</commandName>
+        <commandName>Form.Command.CopyFromLineToTree</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -95,7 +95,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>СкопироватьИзДереваВСтроку</name>
+        <name>CopyFromTreeToLine</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -103,7 +103,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СкопироватьИзДереваВСтрокуРасширеннаяПодсказка</name>
+          <name>CopyFromTreeToLineExtendedTooltip</name>
           <id>20</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -118,7 +118,7 @@
           </extInfo>
         </extendedTooltip>
         <type>UsualButton</type>
-        <commandName>Form.Command.СкопироватьИзДереваВСтроку</commandName>
+        <commandName>Form.Command.CopyFromTreeToLine</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -130,8 +130,12 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>en</key>
+        <value>Group of commands between editors</value>
+      </title>
       <extendedTooltip>
-        <name>ГруппаКомандыМеждуРедакторамиРасширеннаяПодсказка</name>
+        <name>GroupOfCommandsBetweenEditorsExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -155,7 +159,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ПолеРедактораДерево</name>
+      <name>TreeEditField</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -163,11 +167,11 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>ПолеРедактораДерево</segments>
+        <segments>TreeEditField</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>ПолеРедактораДеревоРасширеннаяПодсказка</name>
+        <name>TreeEditFieldExtendedTooltip</name>
         <id>3</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -182,7 +186,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПолеРедактораДеревоКонтекстноеМеню</name>
+        <name>TreeEditFieldContextMenu</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -214,8 +218,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Main group</value>
+    </title>
     <extendedTooltip>
-      <name>ГруппаОсновнаяРасширеннаяПодсказка</name>
+      <name>MainGroupExtendedTooltip</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -242,7 +250,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаЗавершитьРедактирование</name>
+      <name>FinishEditing</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -250,7 +258,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗавершитьРедактированиеРасширеннаяПодсказка</name>
+        <name>FinishEditingExtendedTooltip</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -264,7 +272,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ЗавершитьРедактирование</commandName>
+      <commandName>Form.Command.FinishEditing</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -273,10 +281,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ФормаГруппаФайл</name>
+      <name>FileGroup</name>
       <id>28</id>
       <items xsi:type="form:Button">
-        <name>ФормаНовыйФайл</name>
+        <name>NewFile</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -284,7 +292,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаНовыйФайлРасширеннаяПодсказка</name>
+          <name>NewFileExtendedTooltip</name>
           <id>31</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -298,7 +306,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.НовыйФайл</commandName>
+        <commandName>Form.Command.NewFile</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -306,7 +314,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаОткрытьФайл</name>
+        <name>OpenFile</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -314,7 +322,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаОткрытьФайлРасширеннаяПодсказка</name>
+          <name>OpenFileExtendedTooltip</name>
           <id>33</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -328,7 +336,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьФайл</commandName>
+        <commandName>Form.Command.OpenFile</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -336,7 +344,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаСохранитьФайл</name>
+        <name>SaveFile</name>
         <id>34</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -344,7 +352,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаСохранитьФайлРасширеннаяПодсказка</name>
+          <name>SaveFileExtendedTooltip</name>
           <id>35</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -358,7 +366,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.СохранитьФайл</commandName>
+        <commandName>Form.Command.SaveFile</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -366,7 +374,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаСохранитьФайлКак</name>
+        <name>SaveFileAs</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -374,7 +382,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаСохранитьФайлКакРасширеннаяПодсказка</name>
+          <name>SaveFileAsExtendedTooltip</name>
           <id>37</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -388,7 +396,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.СохранитьФайлКак</commandName>
+        <commandName>Form.Command.SaveFileAs</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -404,8 +412,12 @@
         <key>ru</key>
         <value>Файл</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>File group</value>
+      </title>
       <extendedTooltip>
-        <name>ФормаГруппаФайлРасширеннаяПодсказка</name>
+        <name>FileGroupExtendedTooltip</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -425,7 +437,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаЗакрытьИнструмент</name>
+      <name>CloseTool</name>
       <id>38</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -433,7 +445,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗакрытьИнструментРасширеннаяПодсказка</name>
+        <name>CloseToolExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -447,7 +459,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ЗакрытьИнструмент</commandName>
+      <commandName>Form.Command.CloseTool</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -482,7 +494,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_JSONEditor</types>
@@ -496,10 +512,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ПолеРедактораДерево</name>
+    <name>TreeEditField</name>
     <title>
       <key>ru</key>
       <value>Поле редактора дерево</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tree edit field</value>
     </title>
     <id>3</id>
     <valueType>
@@ -514,10 +534,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресБиблиотеки</name>
+    <name>LibraryAddress</name>
     <title>
       <key>ru</key>
       <value>Адрес библиотеки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Library address</value>
     </title>
     <id>4</id>
     <valueType>
@@ -532,10 +556,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>КаталогСохраненияБибилиотеки</name>
+    <name>LibrarySavingDirectory</name>
     <title>
       <key>ru</key>
       <value>Каталог сохранения бибилиотеки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Library saving directory</value>
     </title>
     <id>5</id>
     <valueType>
@@ -550,10 +578,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПолеРедактораСтрока</name>
+    <name>LineEditField</name>
     <title>
       <key>ru</key>
       <value>Поле редактора строка</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Line edit field</value>
     </title>
     <id>6</id>
     <valueType>
@@ -568,10 +600,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РедактируемаяСтрока</name>
+    <name>EditLine</name>
     <title>
       <key>ru</key>
       <value>Редактируемая строка</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Edit line</value>
     </title>
     <id>7</id>
     <valueType>
@@ -586,10 +622,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РежимРедактирования</name>
+    <name>EditMode</name>
     <title>
       <key>ru</key>
       <value>Режим редактирования</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Edit mode</value>
     </title>
     <id>8</id>
     <valueType>
@@ -603,10 +643,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФайлаДанныхИнструмента</name>
+    <name>ToolDataFileName</name>
     <title>
       <key>ru</key>
       <value>Имя файла данных инструмента</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tool data file name</value>
     </title>
     <id>9</id>
     <valueType>
@@ -621,10 +665,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>СкопироватьИзСтрокиВДерево</name>
+    <name>CopyFromLineToTree</name>
     <title>
       <key>ru</key>
       <value>Скопировать из строки в дерево</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Copy from line to tree</value>
     </title>
     <id>1</id>
     <use>
@@ -635,17 +683,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СкопироватьИзСтрокиВДерево</name>
+        <name>CopyFromLineToTree</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СкопироватьИзДереваВСтроку</name>
+    <name>CopyFromTreeToLine</name>
     <title>
       <key>ru</key>
       <value>Скопировать из дерева в строку</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Copy from tree to line</value>
     </title>
     <id>2</id>
     <use>
@@ -656,17 +708,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СкопироватьИзДереваВСтроку</name>
+        <name>CopyFromTreeToLine</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗавершитьРедактирование</name>
+    <name>FinishEditing</name>
     <title>
       <key>ru</key>
       <value>Завершить редактирование</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Finish editing</value>
     </title>
     <id>3</id>
     <use>
@@ -674,16 +730,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗавершитьРедактирование</name>
+        <name>FinishEditing</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьФайл</name>
+    <name>SaveFile</name>
     <title>
       <key>ru</key>
       <value>Сохранить файл</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Save file</value>
     </title>
     <id>4</id>
     <use>
@@ -695,16 +755,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьФайл</name>
+        <name>SaveFile</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьФайлКак</name>
+    <name>SaveFileAs</name>
     <title>
       <key>ru</key>
       <value>Сохранить файл как</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Save file as</value>
     </title>
     <id>5</id>
     <use>
@@ -715,16 +779,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьФайлКак</name>
+        <name>SaveFileAs</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>НовыйФайл</name>
+    <name>NewFile</name>
     <title>
       <key>ru</key>
       <value>Новый</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>New file</value>
     </title>
     <id>6</id>
     <toolTip>
@@ -743,10 +811,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьФайл</name>
+    <name>OpenFile</name>
     <title>
       <key>ru</key>
       <value>Открыть файл</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Open file</value>
     </title>
     <id>7</id>
     <use>
@@ -758,16 +830,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьФайл</name>
+        <name>OpenFile</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗакрытьИнструмент</name>
+    <name>CloseTool</name>
     <title>
       <key>ru</key>
       <value>Закрыть</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Close tool</value>
     </title>
     <id>8</id>
     <use>
@@ -778,7 +854,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗакрытьИнструмент</name>
+        <name>CloseTool</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
