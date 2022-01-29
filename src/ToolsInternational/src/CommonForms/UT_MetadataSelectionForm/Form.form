@@ -2,7 +2,7 @@
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
     <key>en</key>
-    <value>Configuration objects</value>
+    <value>Configuration object types</value>
   </title>
   <title>
     <key>ru</key>
@@ -352,6 +352,7 @@
     <enableStartDrag>true</enableStartDrag>
     <enableDrag>true</enableDrag>
   </items>
+  <commandBarLocation>None</commandBarLocation>
   <autoCommandBar>
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>

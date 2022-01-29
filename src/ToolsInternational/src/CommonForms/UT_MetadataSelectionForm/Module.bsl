@@ -1,4 +1,3 @@
-
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
