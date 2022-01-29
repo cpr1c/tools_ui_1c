@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Configuration objects</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Объекты конфигурации</value>
   </title>
   <items xsi:type="form:Table">
-    <name>ДеревоОбъектов</name>
+    <name>MetadataTree</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -13,14 +17,22 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ДеревоОбъектов</segments>
+      <segments>MetadataTree</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <excludedCommands>HierarchicalList</excludedCommands>
     <excludedCommands>List</excludedCommands>
     <items xsi:type="form:FormField">
-      <name>ДеревоОбъектовИмя</name>
+      <name>MetadataTreeName</name>
       <id>14</id>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Имя</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -28,11 +40,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ДеревоОбъектов.Имя</segments>
+          <segments>MetadataTree.Name</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ДеревоОбъектовИмяРасширеннаяПодсказка</name>
+        <name>MetadataTreeNameExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -47,7 +59,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоОбъектовИмяКонтекстноеМеню</name>
+        <name>MetadataTreeNameContextMenu</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -72,8 +84,16 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ДеревоОбъектовСиноним</name>
+      <name>MetadataTreeSynonym</name>
       <id>17</id>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Представление</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -81,11 +101,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ДеревоОбъектов.Синоним</segments>
+          <segments>MetadataTree.Synonym</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ДеревоОбъектовСинонимРасширеннаяПодсказка</name>
+        <name>MetadataTreeSynonymExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -100,7 +120,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоОбъектовСинонимКонтекстноеМеню</name>
+        <name>MetadataTreeSynonymContextMenu</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -125,10 +145,10 @@
       </extInfo>
     </items>
     <autoCommandBar>
-      <name>ДеревоОбъектовКоманднаяПанель</name>
+      <name>MetadataTreeCommandBar</name>
       <id>3</id>
       <items xsi:type="form:Button">
-        <name>ДеревоОбъектовВыбратьОбъект</name>
+        <name>MetadataTreeSelectObject</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -136,7 +156,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДеревоОбъектовВыбратьОбъектРасширеннаяПодсказка</name>
+          <name>MetadataTreeSelectObjectExtendedTooltip</name>
           <id>21</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -150,7 +170,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ВыбратьОбъект</commandName>
+        <commandName>Form.Command.SelectObject</commandName>
         <representation>Auto</representation>
         <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
@@ -167,11 +187,11 @@
     </autoCommandBar>
     <handlers>
       <event>Selection</event>
-      <name>ДеревоОбъектовВыбор</name>
+      <name>MetadataTreeSelection</name>
     </handlers>
     <handlers>
       <event>BeforeExpand</event>
-      <name>ДеревоОбъектовПередРазворачиванием</name>
+      <name>MetadataTreeBeforeExpand</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -179,10 +199,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоОбъектовСтрокаПоиска</name>
+      <name>MetadataTreeSearchString</name>
       <id>5</id>
       <extendedTooltip>
-        <name>ДеревоОбъектовСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>MetadataTreeSearchStringExtendedTooltip</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -197,7 +217,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоОбъектовСтрокаПоискаКонтекстноеМеню</name>
+        <name>MetadataTreeSearchStringContextMenu</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -216,10 +236,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоОбъектовСостояниеПросмотра</name>
+      <name>MetadataTreeViewStatus</name>
       <id>8</id>
       <extendedTooltip>
-        <name>ДеревоОбъектовСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>MetadataTreeViewStatusExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -234,7 +254,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоОбъектовСостояниеПросмотраКонтекстноеМеню</name>
+        <name>MetadataTreeViewStatusContextMenu</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -255,10 +275,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоОбъектовУправлениеПоиском</name>
+      <name>MetadataTreeSearchControl</name>
       <id>11</id>
       <extendedTooltip>
-        <name>ДеревоОбъектовУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>MetadataTreeSearchControlExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -273,7 +293,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоОбъектовУправлениеПоискомКонтекстноеМеню</name>
+        <name>MetadataTreeSearchControlContextMenu</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -288,7 +308,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>ДеревоОбъектовРасширеннаяПодсказка</name>
+      <name>MetadataTreeExtendedTooltip</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -303,7 +323,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ДеревоОбъектовКонтекстноеМеню</name>
+      <name>MetadataTreeContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -344,11 +364,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
@@ -359,7 +379,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ДеревоОбъектов</name>
+    <name>MetadataTree</name>
+    <title>
+      <key>en</key>
+      <value>Metadata tree</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Дерево объектов</value>
@@ -375,7 +399,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -393,10 +421,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Синоним</name>
+      <name>Synonym</name>
+      <title>
+        <key>en</key>
+        <value>Представление</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>Представление</value>
+        <value>Synonym</value>
       </title>
       <id>2</id>
       <valueType>
@@ -411,7 +443,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
@@ -429,7 +465,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Картинка</value>
@@ -447,7 +487,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_ПоказыватьПростыеТипы</name>
+    <name>_ShowSimpleTypes</name>
+    <title>
+      <key>en</key>
+      <value>Show simple types</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Показывать простые типы</value>
@@ -464,7 +508,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ПереченьРазделов</name>
+    <name>_MetadataGroups</name>
+    <title>
+      <key>en</key>
+      <value>Group list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Перечень разделов</value>
@@ -482,10 +530,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ТипыДляКонсолиЗапросов</name>
+    <name>_QueryConsoleTypes</name>
+    <title>
+      <key>en</key>
+      <value>Типы для консоли запросов</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Типы для консоли запросов</value>
+      <value>Query console types</value>
     </title>
     <id>5</id>
     <valueType>
@@ -499,7 +551,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ПоказыватьПеречисления</name>
+    <name>_ShowEnums</name>
+    <title>
+      <key>en</key>
+      <value>Show enums</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Показывать перечисления</value>
@@ -516,7 +572,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ВыбратьОбъект</name>
+    <name>SelectObject</name>
+    <title>
+      <key>en</key>
+      <value>Select object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выбрать объект</value>
@@ -534,7 +594,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыбратьОбъект</name>
+        <name>SelectObject</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
