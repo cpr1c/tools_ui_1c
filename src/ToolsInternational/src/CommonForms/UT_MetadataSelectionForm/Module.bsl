@@ -1,165 +1,187 @@
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	Параметры.Свойство("ТипыДляКонсолиЗапросов", _ТипыДляКонсолиЗапросов);
-	Параметры.Свойство("ПоказыватьПростыеТипы", _ПоказыватьПростыеТипы);
-	Параметры.Свойство("ПоказыватьПеречисления", _ПоказыватьПеречисления);
-	Параметры.Свойство("ПереченьРазделов", _ПереченьРазделов);
-
-	Значение = Неопределено;
-	Если Параметры.Свойство("ТипыДляЗаполненияЗначений", Значение) И Значение = Истина Тогда
-		_ПоказыватьПростыеТипы = Истина;
-		_ПоказыватьПеречисления = Истина;
-	КонецЕсли;
-
-	Если _ТипыДляКонсолиЗапросов Тогда
-		_ПоказыватьПеречисления = Истина;
-	КонецЕсли;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
-	СтрокиДЗ = ДеревоОбъектов.ПолучитьЭлементы();
-	СтрокиДЗ.Очистить();
-
-	Если _ПоказыватьПростыеТипы Или _ТипыДляКонсолиЗапросов Тогда
-		КореньДЗ = СтрокиДЗ.Добавить();
-		КореньДЗ.Имя = "ПростыеТипы";
-
-		Струк = Новый Структура("Число, Строка, Дата, Булево");
-		Если _ТипыДляКонсолиЗапросов Тогда
-			Струк.Вставить("СписокЗначений");
-		КонецЕсли;
-
-		СтрокиДЗ = КореньДЗ.ПолучитьЭлементы();
-
-		Для Каждого Элем Из Струк Цикл
-			СтрДЗ = СтрокиДЗ.Добавить();
-			СтрДЗ.Имя = Элем.Ключ;
-			СтрДЗ.ПолноеИмя = Элем.Ключ;
-		КонецЦикла;
-
-		Элементы.ДеревоОбъектов.Развернуть(КореньДЗ.ПолучитьИдентификатор(), Ложь);
-		СтрокиДЗ = ДеревоОбъектов.ПолучитьЭлементы();
-	КонецЕсли;
-
-	КореньДЗ = СтрокиДЗ.Добавить();
-	КореньДЗ.Имя = "Конфигурация";
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	//ПереченьРазделов = "ПланыОбмена, Справочники, Документы, ПланыВидовХарактеристик, ПланыВидовРасчета, ПланыСчетов, БизнесПроцессы, Задачи";
-	//!!! ПланыОбмена надо дорабатывать (отключил) !!!
+	Parameters.Property("ТипыДляКонсолиЗапросов", _QueryConsoleTypes);
+	Parameters.Property("ПоказыватьПростыеТипы", _ShowSimpleTypes);
+	Parameters.Property("ПоказыватьПеречисления", _ShowEnums);
+	Parameters.Property("ПереченьРазделов", _MetadataGroups);
 
-	ПереченьРазделов = "ПланыОбмена, Справочники, Документы, ПланыВидовХарактеристик, ПланыВидовРасчета, ПланыСчетов, БизнесПроцессы, Задачи";
-	Если _ПоказыватьПеречисления Тогда
-		ПереченьРазделов = "ПланыОбмена, Справочники, Документы, Перечисления, ПланыВидовХарактеристик, ПланыВидовРасчета, ПланыСчетов, БизнесПроцессы, Задачи";
-	КонецЕсли;
+	Value = Undefined;
+	If Parameters.Property("ТипыДляЗаполненияЗначений", Value) And Value = True Then
+		_ShowSimpleTypes = True;
+		_ShowEnums = True;
+	EndIf;
 
-	Если Не ПустаяСтрока(_ПереченьРазделов) Тогда
-		ПереченьРазделов = _ПереченьРазделов;
-	КонецЕсли;
+	If _QueryConsoleTypes Then
+		_ShowEnums = True;
+	EndIf;
+	
+EndProcedure
 
-	СтрукРазделы = Новый Структура(ПереченьРазделов);
-	СтрокиДЗ = КореньДЗ.ПолучитьЭлементы();
-	Для Каждого Элем Из СтрукРазделы Цикл
-		СтрДЗ = СтрокиДЗ.Добавить();
-		СтрДЗ.Имя = Элем.Ключ;
-		СтрДЗ.ПолучитьЭлементы().Добавить();
-	КонецЦикла;
+&AtClient
+Procedure OnOpen(Cancel)
+	
+	TreeLines = MetadataTree.GetItems();
+	TreeLines.Clear();
 
-	Элементы.ДеревоОбъектов.Развернуть(КореньДЗ.ПолучитьИдентификатор(), Ложь);
-КонецПроцедуры
+	If _ShowSimpleTypes And _QueryConsoleTypes Then
+		TreeRoot = TreeLines.Add();
+		TreeRoot.Name = "SimpleTypes";
 
-&НаКлиенте
-Процедура ВыбратьОбъект(Команда)
-	ТекДанные = Элементы.ДеревоОбъектов.ТекущиеДанные;
+		Struct = New Structure("Number, String, Date, Boolean");
+		If _QueryConsoleTypes Then
+			Struct.Insert("ValueList"); 
+			
+		EndIf;
 
-	Если ТекДанные <> Неопределено И Не ПустаяСтрока(ТекДанные.ПолноеИмя) Тогда
-		Значение = Неопределено;
-		ИмяРаздела = ТекДанные.ПолучитьРодителя().Имя;
+		TreeLines = TreeRoot.GetItems();
 
-		Если ИмяРаздела = "ПростыеТипы" Тогда
-			Если ТекДанные.Имя = "Число" Тогда
-				Значение = 0;
-			ИначеЕсли ТекДанные.Имя = "Строка" Тогда
-				Значение = "";
-			ИначеЕсли ТекДанные.Имя = "Дата" Тогда
-				Значение = '00010101';
-			ИначеЕсли ТекДанные.Имя = "Булево" Тогда
-				Значение = Ложь;
-			ИначеЕсли ТекДанные.Имя = "СписокЗначений" Тогда
-				Значение = Новый СписокЗначений;
-			Иначе
-				Значение = Неопределено;
-			КонецЕсли;
-		Иначе
-			ИмяРаздела = Лев(ИмяРаздела, Найти(ИмяРаздела, " ") - 1);
-			Значение = вВычислитьВыражениеСервер(ИмяРаздела + "." + ТекДанные.Имя + ".ПустаяСсылка()");
-		КонецЕсли;
+		For Each Item In Struct Do
+			TreeLine = TreeLines.Add();
+			TreeLine.Name = Item.Key;
+			TreeLine.FullName = Item.Key;
+		EndDo;
 
-		Если Значение <> Неопределено Тогда
-			ОповеститьОВыборе(Значение);
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+		Items.MetadataTree.Expand(TreeRoot.GetID(), False);
+		TreeLines = MetadataTree.GetItems();
+	EndIf;
 
-&НаКлиенте
-Процедура ДеревоОбъектовПередРазворачиванием(Элемент, Строка, Отказ)
-	УзелДЗ = ДеревоОбъектов.НайтиПоИдентификатору(Строка);
-	СтрокиДЗ = УзелДЗ.ПолучитьЭлементы();
-	Если СтрокиДЗ.Количество() = 1 И ПустаяСтрока(СтрокиДЗ[0].Имя) Тогда
-		Отказ = Истина;
-		СтрокиДЗ.Очистить();
-		вЗаполнитьРазделМД(Строка);
-		Элементы.ДеревоОбъектов.Развернуть(Строка);
-	КонецЕсли;
-КонецПроцедуры
+	TreeRoot = TreeLines.Add();
+	TreeRoot.Name = "Configuration";
+	
+	MetadataGroups = "ExchangePlans, Catalogs, Documents, ChartsOfCharacteristicTypes, ChartsOfCalculationTypes, ChartsOfAccounts, 
+	|BusinessProcesses, Tasks";
+	If _ShowEnums Then
+		MetadataGroups = "ExchangePlans, Catalogs, Documents, Enums, ChartsOfCharacteristicTypes, 
+		|ChartsOfCalculationTypes, ChartsOfAccounts, BusinessProcesses, Tasks";
+	EndIf;
 
-&НаСервере
-Процедура вЗаполнитьРазделМД(Строка)
-	УзелДЗ = ДеревоОбъектов.НайтиПоИдентификатору(Строка);
-	СтрокиДЗ = УзелДЗ.ПолучитьЭлементы();
-	СтрокиДЗ.Очистить();
+	If Not IsBlankString(_MetadataGroups) Then
+		MetadataGroups = _MetadataGroups;
+	EndIf;
 
-	ТипСтрока = Новый ОписаниеТипов("Строка");
+	StructGroups = New Structure(MetadataGroups);
+	TreeLines = TreeRoot.GetItems();
+	For Each Iten In StructGroups Do
+		TreeLine = TreeLines.Add();
+		TreeLine.Name = Iten.Key;
+		TreeLine.GetItems().Add();
+	EndDo;
 
-	Таблица = Новый ТаблицаЗначений;
-	Таблица.Колонки.Добавить("Имя", ТипСтрока);
-	Таблица.Колонки.Добавить("Синоним", ТипСтрока);
-	Таблица.Колонки.Добавить("ПолноеИмя", ТипСтрока);
+	Items.MetadataTree.Expand(TreeRoot.GetID(), False);
+	
+EndProcedure
 
-	Для Каждого Элем Из Метаданные[УзелДЗ.Имя] Цикл
-		Стр = Таблица.Добавить();
-		Стр.Имя = Элем.Имя;
-		Стр.Синоним = Элем.Представление();
-		Стр.ПолноеИмя = Элем.ПолноеИмя();
-	КонецЦикла;
+&AtClient
+Procedure SelectObject(Command)
+	
+	CurrentData = Items.MetadataTree.CurrentData;
 
-	Таблица.Сортировать("Имя");
-	УзелДЗ.Имя = УзелДЗ.Имя + " (" + Таблица.Количество() + ")";
+	If CurrentData <> Undefined And Not IsBlankString(CurrentData.FullName) Then
+		Value = Undefined;
+		GroupName = CurrentData.GetParent().Name;
 
-	Для Каждого Стр Из Таблица Цикл
-		СтрДЗ = СтрокиДЗ.Добавить();
-		ЗаполнитьЗначенияСвойств(СтрДЗ, Стр);
-	КонецЦикла;
-КонецПроцедуры
+		If GroupName = "SimpleTypes" Then
+			If CurrentData.Name = "Number" Then
+				Value = 0;
+			ElsIf CurrentData.Name = "String" Then
+				Value = "";
+			ElsIf CurrentData.Name = "Date" Then
+				Value = '00010101';
+			ElsIf CurrentData.Name = "Boolean" Then
+				Value = False;
+			ElsIf CurrentData.Name = "ValueList" Then
+				Value = New ValueList();
+			Else
+				Value = Undefined;
+			EndIf;
+		Else
+			GroupName = Left(GroupName, Find(GroupName, " ") - 1);
+			Value = EvalExpressionServer(GroupName + "." + CurrentData.Name + ".EmptyRef()");
+		EndIf;
 
-&НаКлиенте
-Процедура ДеревоОбъектовВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	ТекДанные = ДеревоОбъектов.НайтиПоИдентификатору(ВыбраннаяСтрока);
-	Если ТекДанные <> Неопределено И Не ПустаяСтрока(ТекДанные.ПолноеИмя) Тогда
-		Если Не ПустаяСтрока(ТекДанные.ПолноеИмя) Тогда
-			СтандартнаяОбработка = Ложь;
-			ВыбратьОбъект(Неопределено);
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+		If Value <> Undefined Then
+			NotifyChoice(Value);
+		EndIf;
+		
+	EndIf;
+	
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вВычислитьВыражениеСервер(Формула)
-	Попытка
-		Результат = Вычислить(Формула);
-	Исключение
-		Результат = Неопределено;
-	КонецПопытки;
+&AtClient
+Procedure MetadataTreeBeforeExpand(Item, Row, Cancel)
+	
+	Node = MetadataTree.FindByID(Row);
+	TreeLines = Node.GetItems();
+	If TreeLines.Count() = 1 And IsBlankString(TreeLines[0].Name) Then
+		
+	//	Cancel = True;
+		TreeLines.Clear();
+		GroupContent = MetadataGroupContentServer(Node.Name);
+		Node.Name = Node.Name + " (" + String(GroupContent.Count()) + ")";
+		For Each Row In GroupContent Do
+			NewNode = TreeLines.Add();
+			FillPropertyValues(NewNode, Row);
+		EndDo;
+		
+		//Items.MetadataTree.Expand(Row);
+	EndIf;
+	
+EndProcedure
 
-	Возврат Результат;
-КонецФункции
+&AtServerNoContext
+Function MetadataGroupContentServer(NodeName)
+	
+	StringType = New TypeDescription("String");
+
+	Tab = New ValueTable;
+	Tab.Columns.Add("Name", StringType);
+	Tab.Columns.Add("Synonym", StringType);
+	Tab.Columns.Add("FullName", StringType);
+
+	For Each MetadataItem In Metadata[NodeName] Do
+		NewNode = Tab.Add();
+		NewNode.Name = MetadataItem.Name;
+		NewNode.Synonym = MetadataItem.Presentation();
+		NewNode.FullName = MetadataItem.FullName();
+	EndDo;
+	
+	Tab.Sort("Name");
+	
+	GroupContent = New Array;
+	
+	For Each GroupItem In Tab Do
+		ItemStruct = New Structure("Name, FullName, Synonym");
+		FillPropertyValues(ItemStruct, GroupItem);
+		GroupContent.Add(ItemStruct);
+	EndDo;	
+	
+	Return GroupContent;
+	
+EndFunction	
+
+&AtClient
+Procedure MetadataTreeSelection(Item, SelectedRow, Field, StandardProcessing)
+	
+	CurrentData = MetadataTree.FindByID(SelectedRow);
+	If CurrentData <> Undefined And Not IsBlankString(CurrentData.FullName) Then
+		If Not IsBlankString(CurrentData.FullName) Then
+			StandardProcessing = False;
+			SelectObject(Undefined);
+		EndIf;
+	EndIf;
+	
+EndProcedure
+
+&AtServerNoContext
+Function EvalExpressionServer(Formula)
+	
+	Try
+		Result = Eval(Formula);
+	Except
+		Result = Undefined;
+	EndTry;
+
+	Return Result;
+	
+EndFunction

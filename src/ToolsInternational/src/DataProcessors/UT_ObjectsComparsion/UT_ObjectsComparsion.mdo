@@ -7,24 +7,24 @@
   <name>UT_ObjectsComparsion</name>
   <synonym>
     <key>ru</key>
-    <value>Сравнение объектов (УИ)</value>
+    <value>Comparison of objects (UTI)</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_ObjectsComparsion.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_ObjectsComparsion.Form.Form</defaultForm>
   <forms uuid="3862f830-3d26-11eb-5899-e86a6452d1f2">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <templates uuid="3862f9a2-3d26-11eb-5899-e86a6452d1f2">
-    <name>ПФ_MXL_СравнениеОбъектов</name>
+    <name>PF_MXL_ComparisonObjects</name>
     <synonym>
       <key>ru</key>
-      <value>П ф MXL сравнение объектов</value>
+      <value>PF MXL comparison objects</value>
     </synonym>
   </templates>
 </mdclass:DataProcessor>
