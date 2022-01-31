@@ -175,7 +175,11 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="ac4387d2-2e32-11ea-cc81-e86a6452d1f2">
-    <name>ВыборУзлаПланаОбмена</name>
+    <name>SelectExchangePlanNode</name>
+    <synonym>
+      <key>en</key>
+      <value>Select exchange plan node</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выбор узла плана обмена</value>
