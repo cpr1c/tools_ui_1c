@@ -1,10 +1,10 @@
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	
-	Parameters.Property("ТипыДляКонсолиЗапросов", _QueryConsoleTypes);
-	Parameters.Property("ПоказыватьПростыеТипы", _ShowSimpleTypes);
-	Parameters.Property("ПоказыватьПеречисления", _ShowEnums);
-	Parameters.Property("ПереченьРазделов", _MetadataGroups);
+	Parameters.Property("QueryConsoleTypes", _QueryConsoleTypes);
+	Parameters.Property("ShowSimpleTypes", _ShowSimpleTypes);
+	Parameters.Property("ShowEnums", _ShowEnums);
+	Parameters.Property("MetadataGroups", _MetadataGroups);
 
 	Value = Undefined;
 	If Parameters.Property("ТипыДляЗаполненияЗначений", Value) And Value = True Then
