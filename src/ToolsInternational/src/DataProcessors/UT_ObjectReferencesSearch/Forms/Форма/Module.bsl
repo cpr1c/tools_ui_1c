@@ -3,7 +3,7 @@
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	If Parameters.Property("SearchObject") Then
-		Объект.ИсходныйОбъект = Parameters.SearchObject;
+		Объект.SourceObject = Parameters.SearchObject;
 	EndIf;
 	
 	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
@@ -12,8 +12,8 @@ EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-	If ValueIsFilled(Объект.ИсходныйОбъект) Then
-		ИсходныйОбъектПриИзменении(Undefined);
+	If ValueIsFilled(Объект.SourceObject) Then
+		SourceObjectOnChange(Undefined);
 		ExecuteReferencesSearch();
 	EndIf;
 EndProcedure
@@ -23,12 +23,12 @@ EndProcedure
 #Region FormHeaderItemsEventHandlers
 
 &AtClient
-Procedure ИсходныйОбъектПриИзменении(Item)
-	If NOT ValueIsFilled(Объект.ИсходныйОбъект) Then
+Procedure SourceObjectOnChange(Item)
+	If NOT ValueIsFilled(Объект.SourceObject) Then
 		УникальныйИдентификаторИсточника="";
 	Else
 		Try
-			УникальныйИдентификаторИсточника = Объект.ИсходныйОбъект.UUID();
+			УникальныйИдентификаторИсточника = Объект.SourceObject.UUID();
 		Except
 			//TODO Amend the implementation code
 		EndTry;
@@ -38,7 +38,7 @@ EndProcedure
 &AtClient
 Procedure РезультатПоискаВыбор(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
-	ОткрытьОбъектТекущейСтроки();
+	OpenCurrentRowObject();
 EndProcedure
 
 &AtClient
@@ -52,8 +52,8 @@ Procedure РезультатПоискаПриАктивизацииСтроки
 		SearchCommandVisibility = CurrentData.СсылочныйТип;
 	EndIf;
 
-	Items.ТаблицаКонтекстноеМенюОткрытьОбъект.Visible = OpenCommandVisibility;
-	Items.ТаблицаКонтекстноеМенюПоискДляОбъекта.Visible = SearchCommandVisibility;
+	Items.TableContextMenuOpenObject.Visible = OpenCommandVisibility;
+	Items.TableContextMenuSearchForObject.Visible = SearchCommandVisibility;
 EndProcedure
 
 #EndRegion
@@ -61,17 +61,17 @@ EndProcedure
 #Region FormCommandHandlers
 
 &AtClient
-Procedure НайтиСсылки(Command)
+Procedure FindReferences(Command)
 	ExecuteReferencesSearch();
 EndProcedure
 
 &AtClient
-Procedure ОткрытьОбъект(Command)
-	ОткрытьОбъектТекущейСтроки();
+Procedure OpenObject(Command)
+	OpenCurrentRowObject();
 EndProcedure
 
 &AtClient
-Procedure ПоискДляОбъекта(Command)
+Procedure SearchForObject(Command)
 	CurrentData = Items.РезультатПоиска.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
@@ -87,7 +87,7 @@ Procedure ПоискДляОбъекта(Command)
 EndProcedure
 
 &AtClient
-Procedure РедактироватьОбъект(Command)
+Procedure EditObject(Command)
 	CurrentData = Items.РезультатПоиска.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
@@ -97,16 +97,16 @@ Procedure РедактироватьОбъект(Command)
 EndProcedure
 
 &AtClient
-Procedure РедактироватьИсходныйОбъект(Command)
-	If NOT ValueIsFilled(Объект.ИсходныйОбъект) Then
+Procedure EditSourceObject(Command)
+	If NOT ValueIsFilled(Объект.SourceObject) Then
 		Return;
 	EndIf;
 
-	UT_CommonClient.EditObject(Объект.ИсходныйОбъект);
+	UT_CommonClient.EditObject(Объект.SourceObject);
 EndProcedure
 
 &AtClient
-Procedure ИсходныйОбъектПоСсылке(Command)
+Procedure SourceObjectByReference(Command)
 	CompletionHandler = New NotifyDescription("ВводНавигационнойСсылкиЗавершение", ThisObject);
 	ShowInputString(CompletionHandler, , "Нав. ссылка на объект (e1cib/data/...)");
 EndProcedure
@@ -118,9 +118,9 @@ Procedure ВводНавигационнойСсылкиЗавершение(Inp
 	EndIf;	
 	
 	FoundObject = вНайтиОбъектПоURL(InputResult);
-	If Объект.ИсходныйОбъект <> FoundObject Then
-		Объект.ИсходныйОбъект = FoundObject;
-		ИсходныйОбъектПриИзменении(Undefined);
+	If Объект.SourceObject <> FoundObject Then
+		Объект.SourceObject = FoundObject;
+		SourceObjectOnChange(Undefined);
 	EndIf;
 	
 EndProcedure
@@ -137,9 +137,9 @@ EndProcedure
 
 &AtServer
 Procedure ExecuteReferencesSearchAtServer()
-	If NOT ValueIsFilled(Объект.ИсходныйОбъект) Then
+	If NOT ValueIsFilled(Объект.SourceObject) Then
 		UT_CommonClientServer.MessageToUser("Не выбран объект, на который необходимо найти ссылки", ,
-			"Объект.ИсходныйОбъект");
+			"Объект.SourceObject");
 		Return;
 	EndIf;
 
@@ -191,12 +191,12 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapOfPictures.Insert(13, PictureLib.ВнешнийИсточникДанныхТаблица); // 13 External data source set
 	MapOfPictures.Insert(14, PictureLib.ВнешнийИсточникДанныхТаблица); // 14 External data source reference
 	ArrayOfSearch = New Array;
-	ArrayOfSearch.Add(Объект.ИсходныйОбъект);
+	ArrayOfSearch.Add(Объект.SourceObject);
 
 	ReferencesTable = FindByRef(ArrayOfSearch);
 
 	РезультатПоиска.Clear();
-	Объект.КоличествоНайденных = ReferencesTable.Count();
+	Объект.FoundCount = ReferencesTable.Count();
 
 	First = Истина;
 	For Each СтрокаНайденнного In ReferencesTable Do
@@ -205,7 +205,7 @@ Procedure ExecuteReferencesSearchAtServer()
 	// 2 - metadata object
 		БазовыйТипЧислом = ТипМетаданныхЧислом(СтрокаНайденнного.Metadata);
 
-		ПредставлениеНайденного = ПредставлениеНайденногоОбъекта(БазовыйТипЧислом, СтрокаНайденнного.Metadata,
+		ПредставлениеНайденного = FoundObjectPresentation(БазовыйТипЧислом, СтрокаНайденнного.Metadata,
 			СтрокаНайденнного.Data) + " (" + СтрокаНайденнного.Metadata.FullName() + ")";
 
 		NewRow = РезультатПоиска.Add();
@@ -231,7 +231,7 @@ Procedure ExecuteReferencesSearchAtServer()
 EndProcedure
 
 &AtClient
-Procedure ОткрытьОбъектТекущейСтроки()
+Procedure OpenCurrentRowObject()
 	CurrentData = Items.РезультатПоиска.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
@@ -246,9 +246,9 @@ EndProcedure
 
 &AtClient
 Procedure ExecuteReferencesSearch()
-	If NOT ValueIsFilled(Объект.ИсходныйОбъект) Then
+	If NOT ValueIsFilled(Объект.SourceObject) Then
 		UT_CommonClientServer.MessageToUser("Не выбран объект, на который необходимо найти ссылки", ,
-			"Объект.ИсходныйОбъект");
+			"Объект.SourceObject");
 		Return;
 	EndIf;
 
@@ -261,7 +261,7 @@ Procedure ExecuteReferencesSearch()
 EndProcedure
 
 &AtServerNoContext
-Function ПредставлениеНайденногоОбъекта(БазовыйТипЧислом, МетаданныеОбъекта, FoundObject)
+Function FoundObjectPresentation(БазовыйТипЧислом, МетаданныеОбъекта, FoundObject)
 
 	Представление = TrimAll(FoundObject);
 	If БазовыйТипЧислом = 2 OR БазовыйТипЧислом = 3 OR БазовыйТипЧислом = 8 OR БазовыйТипЧислом = 9
