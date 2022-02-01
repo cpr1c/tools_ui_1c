@@ -7,12 +7,12 @@
       <name>DecorationConsumingOperation</name>
       <id>3</id>
       <title>
-        <key>ru</key>
-        <value>Длительная операция</value>
+        <key>en</key>
+        <value>Consuming operation</value>
       </title>
       <title>
-        <key>en</key>
-        <value>Decoration consuming operation</value>
+        <key>ru</key>
+        <value>Длительная операция</value>
       </title>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -55,6 +55,10 @@
     <items xsi:type="form:Decoration">
       <name>DecorationConsumingOperationExplanatoryText</name>
       <id>1</id>
+      <title>
+        <key>en</key>
+        <value>Please wait ...</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Пожалуйста, подождите...</value>
@@ -103,6 +107,10 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Picture and label</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Картинка и надпись</value>
@@ -174,19 +182,19 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
-  </handlers>
-  <handlers>
-    <event>BeforeClose</event>
-    <name>ПередЗакрытием</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
+  </handlers>
+  <handlers>
+    <event>BeforeClose</event>
+    <name>BeforeClose</name>
   </handlers>
   <handlers>
     <event>OnClose</event>
-    <name>ПриЗакрытии</name>
+    <name>OnClose</name>
   </handlers>
   <excludedCommands>Abort</excludedCommands>
   <excludedCommands>Cancel</excludedCommands>
@@ -295,26 +303,26 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ТекстСообщения</name>
+    <name>MessageText</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
     </valueType>
   </parameters>
   <parameters>
-    <name>ВыводитьПрогрессВыполнения</name>
+    <name>DisplayExecutionProgress</name>
     <valueType>
       <types>Boolean</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ОповещениеПользователя</name>
+    <name>UserNotification</name>
     <valueType/>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>АдресРезультата</name>
+    <name>ResultURL</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -322,7 +330,7 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>АдресДополнительногоРезультата</name>
+    <name>AdditionalResultURL</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -330,21 +338,21 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ИдентификаторЗадания</name>
+    <name>JobID</name>
     <valueType>
       <types>UUID</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ВыводитьОкноОжидания</name>
+    <name>ShowWaitWindow</name>
     <valueType>
       <types>Boolean</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>Интервал</name>
+    <name>Interval</name>
     <valueType>
       <types>Number</types>
       <numberQualifiers>
@@ -354,14 +362,14 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ВыводитьСообщения</name>
+    <name>OutputMessages</name>
     <valueType>
       <types>Boolean</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ПолучатьРезультат</name>
+    <name>GetResult</name>
     <valueType>
       <types>Boolean</types>
     </valueType>
