@@ -6,7 +6,10 @@
 
 Для упрощения заполнения документов со сложным форматированием рекомендую использовать онлаин редактор https://html-online.com/editor/
 ## Статус перевода обьектов 
-### Общие модули 
+
+
+
+## Соотвествие функций в общих модулях 
 
 <table style="height: 1040px; width: 825px;" width="375">
 <tbody>
@@ -27,7 +30,7 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">114</td>
 </tr>
 <tr style="height: 17px;">
@@ -107,12 +110,12 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_ScheduledJobsInternal</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">791</td>
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_ScheduledJobsServer</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">257</td>
 </tr>
 <tr style="height: 17px;">
@@ -122,22 +125,22 @@
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperations</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">630</td>
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperationsClient</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">232</td>
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperationsGlobal</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">150</td>
 </tr>
 <tr style="height: 17px;">
 <td style="height: 17px; width: 293.913px;">&nbsp;UT_TimeConsumingOperationsServerCall</td>
-<td style="height: 17px; width: 66.8125px;">&nbsp;</td>
+<td style="height: 17px; width: 66.8125px;">100%</td>
 <td style="width: 43.875px; height: 17px;">14</td>
 </tr>
 </tbody>
@@ -2671,6 +2674,7 @@
 </tr>
 </tbody>
 </table>
+
 ## UT_StringFunctionClientServer
 
 <table width="850">
@@ -2953,6 +2957,527 @@
 </td>
 <td width="404">
 <p>MapOfCyrillicAndLatinAlphabets</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## UT_
+
+<table style="height: 235px;" width="612">
+<tbody>
+<tr style="height: 47px;">
+<td style="width: 130.719px; height: 47px;">
+<p>_От</p>
+</td>
+<td style="width: 465.281px; height: 47px;">
+<p>_Debug</p>
+</td>
+</tr>
+<tr style="height: 47px;">
+<td style="width: 130.719px; height: 47px;">
+<p>_XMLОбъект</p>
+</td>
+<td style="width: 465.281px; height: 47px;">
+<p>_XMLObject</p>
+</td>
+</tr>
+<tr style="height: 47px;">
+<td style="width: 130.719px; height: 47px;">
+<p>_ВТ</p>
+</td>
+<td style="width: 465.281px; height: 47px;">
+<p>_TempTable</p>
+</td>
+</tr>
+<tr style="height: 47px;">
+<td style="width: 130.719px; height: 47px;">
+<p>_ТЗСр</p>
+</td>
+<td style="width: 465.281px; height: 47px;">
+<p>_ValueTablesCompare</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## UT_ScheduledJobsInternal
+
+<table width="964">
+<tbody>
+<tr>
+<td width="572">
+<p>НовыеСвойстваФоновыхЗаданий</p>
+</td>
+<td width="392">
+<p>NewBackgroundJobsProperties</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ПоследнееФоновоеЗаданиеВМассиве</p>
+</td>
+<td width="392">
+<p>LastBackgroundJobInArray</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ДобавитьСвойстваФоновыхЗаданий</p>
+</td>
+<td width="392">
+<p>AddBackgroundJobProperties</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>СвойстваФоновыхЗаданий</p>
+</td>
+<td width="392">
+<p>BackgroundJobsProperties</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ПолучитьСвойстваФоновогоЗадания</p>
+</td>
+<td width="392">
+<p>GetBackgroundJobProperties</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ВызватьИсключениеЕслиНетПраваАдминистрирования</p>
+</td>
+<td width="392">
+<p>RaiseIfNoAdministrationRights</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>РегламентныеЗаданияЗависимыеОтФункциональныхОпций</p>
+</td>
+<td width="392">
+<p>ScheduledJobsDependentOnFunctionalOptions</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>СообщенияИОписанияОшибокРегламентногоЗадания</p>
+</td>
+<td width="392">
+<p>ScheduledJobMessagesAndErrorDescriptions</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ПолучитьСвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания</p>
+</td>
+<td width="392">
+<p>LastBackgroundJobScheduledJobExecutionProperties</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>СообщенияИОписанияОшибокФоновогоЗадания</p>
+</td>
+<td width="392">
+<p>BackgroundJobMessagesAndErrorDescriptions</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ПредставлениеРегламентногоЗадания</p>
+</td>
+<td width="392">
+<p>ScheduledJobPresentation</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ТекстНеОпределено</p>
+</td>
+<td width="392">
+<p>TextUndefined</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ОтменитьФоновоеЗадание</p>
+</td>
+<td width="392">
+<p>CancelBackgroundJob</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ВыполнитьРегламентноеЗаданиеВручную</p>
+</td>
+<td width="392">
+<p>ExecuteScheduledJobManually</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ПараметрыВыполненияРегламентногоЗадания</p>
+</td>
+<td width="392">
+<p>ScheduledJobExecutionParameters</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ОбновленнаяТаблицаРегламентныхЗаданий</p>
+</td>
+<td width="392">
+<p>UpdatedScheduledJobsTable</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>РегламентноеЗаданиеДоступноПоФункциональнымОпциям</p>
+</td>
+<td width="392">
+<p>ScheduledJobAvailableByFunctionalOptions</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ОбновитьСтрокуТаблицыРегламентныхЗаданий</p>
+</td>
+<td width="392">
+<p>UpdateRowOfScheduledJobsTable</p>
+</td>
+</tr>
+<tr>
+<td width="572">
+<p>ТаблицаСвойствФоновыхЗаданийВФоне</p>
+</td>
+<td width="392">
+<p>BackgroundJobsPropertiesTableInBackground</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## UT_ScheduledJobsServer
+
+<table width="956">
+<tbody>
+<tr>
+<td width="568">
+<p>ВызватьИсключениеЕслиНетПраваАдминистрирования</p>
+</td>
+<td width="388">
+<p>RaiseIfNoAdministrationRights</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПолучитьРегламентноеЗадание</p>
+</td>
+<td width="388">
+<p>GetScheduledJob</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ДобавитьЗадание</p>
+</td>
+<td width="388">
+<p>AddJob</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>РасписаниеРегламентногоЗадания</p>
+</td>
+<td width="388">
+<p>JobSchedule</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>УстановитьРасписаниеРегламентногоЗадания</p>
+</td>
+<td width="388">
+<p>SetJobSchedule</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПолучитьОбъектРегламентногоЗадания</p>
+</td>
+<td width="388">
+<p>GetScheduledJobObject</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПолучитьОбъектФоновогоЗадания</p>
+</td>
+<td width="388">
+<p>GetBackgroundJobObject</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## UT_TimeConsumingOperations
+
+<table width="956">
+<tbody>
+<tr>
+<td width="568">
+<p>ВыполнитьВФоне</p>
+</td>
+<td width="388">
+<p>ExecuteInBackground</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ОперацияВыполнена</p>
+</td>
+<td width="388">
+<p>ActionCompleted</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПрочитатьПрогрессИСообщения</p>
+</td>
+<td width="388">
+<p>ReadProgressAndMessages</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ЕстьФоновыеЗаданияВФайловойИБ</p>
+</td>
+<td width="388">
+<p>BackgroundJobsExistInFileIB</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ВозможноВыполнитьВФоне</p>
+</td>
+<td width="388">
+<p>CanRunInBackground</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ВыполнитьПроцедуру</p>
+</td>
+<td width="388">
+<p>ExecuteProcedure</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ЗапуститьФоновоеЗаданиеСКонтекстомКлиента</p>
+</td>
+<td width="388">
+<p>RunBackgroundJobWithClientContext</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>НайтиЗаданиеПоИдентификатору</p>
+</td>
+<td width="388">
+<p>FindJobByID</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>СообщениеПрогресса</p>
+</td>
+<td width="388">
+<p>ProgressMessage</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ВыполнитьФоновоеЗадание</p>
+</td>
+<td width="388">
+<p>RunBackgroundJob</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ВыполнитьСКонтекстомКлиента</p>
+</td>
+<td width="388">
+<p>ExecuteWithClientContext</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПараметрыВыполненияВФоне</p>
+</td>
+<td width="388">
+<p>BackgroundExecutionParameters</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ОтменитьВыполнениеЗадания</p>
+</td>
+<td width="388">
+<p>CancelJobExecution</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ОперацииВыполнены</p>
+</td>
+<td width="388">
+<p>ActionsCompleted</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>СообщитьПрогресс</p>
+</td>
+<td width="388">
+<p>ReportProgress</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>СообщенияПользователю</p>
+</td>
+<td width="388">
+<p>UserMessages</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ЗаданиеВыполнено</p>
+</td>
+<td width="388">
+<p>JobCompleted</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## UT_TimeConsumingOperationsClient
+
+<table width="956">
+<tbody>
+<tr>
+<td width="568">
+<p>ОжидатьЗавершение</p>
+</td>
+<td width="388">
+<p>WaitForCompletion</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>АктивныеДлительныеОперации</p>
+</td>
+<td width="388">
+<p>TimeConsumingOperationsInProgress</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПроверитьПараметрыОжидатьЗавершение</p>
+</td>
+<td width="388">
+<p>CheckParametersWaitForCompletion</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПоказатьОповещение</p>
+</td>
+<td width="388">
+<p>ShowNotification</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПараметрыОжидания</p>
+</td>
+<td width="388">
+<p>IdleParameters</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ОбновитьПараметрыОбработчикаОжидания</p>
+</td>
+<td width="388">
+<p>UpdateIdleHandlerParameters</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ИнициализироватьПараметрыОбработчикаОжидания</p>
+</td>
+<td width="388">
+<p>InitializeIdleHandlerParameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## UT_TimeConsumingOperationsGlobal
+
+<table width="956">
+<tbody>
+<tr>
+<td width="568">
+<p>УИ_КонтрольДлительныхОпераций</p>
+</td>
+<td width="388">
+<p>UT_TimeConsumingOperationMonitor</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПроконтролироватьДлительныеОперации</p>
+</td>
+<td width="388">
+<p>MonitorTimeConsumingOperations</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ПроконтролироватьДлительнуюОперацию</p>
+</td>
+<td width="388">
+<p>MonitorTimeConsumingOperation</p>
+</td>
+</tr>
+<tr>
+<td width="568">
+<p>ВыполнитьОповещение</p>
+</td>
+<td width="388">
+<p>ExecuteNotification</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## UT_TimeConsumingOperationsServerCall
+
+<table width="956">
+<tbody>
+<tr>
+<td width="568">
+<p>ОперацииВыполнены</p>
+</td>
+<td width="388">
+<p>ActionsCompleted</p>
 </td>
 </tr>
 </tbody>

@@ -32,7 +32,7 @@
     <value> аналог стандартной обработки из меню &quot;Все функции&quot;.</value>
   </explanation>
   <attributes uuid="4d56ac76-3eb4-493a-a4da-30d9fa7b68e5">
-    <name>ИсходныйОбъект</name>
+    <name>SourceObject</name>
     <synonym>
       <key>en</key>
       <value>Source object</value>
@@ -49,7 +49,11 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <attributes uuid="9cc3d7f2-ab36-4244-93e9-6e9453396090">
-    <name>КоличествоНайденных</name>
+    <name>FoundCount</name>
+    <synonym>
+      <key>en</key>
+      <value>Found count</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Количество найденных</value>

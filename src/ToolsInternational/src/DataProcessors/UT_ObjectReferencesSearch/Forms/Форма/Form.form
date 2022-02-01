@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаШапка</name>
+    <name>HeaderGroup</name>
     <id>20</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаПоиск</name>
+      <name>SearchGroup</name>
       <id>27</id>
       <items xsi:type="form:FormField">
-        <name>ИсходныйОбъект</name>
+        <name>SourceObject</name>
         <id>1</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -16,15 +16,15 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.ИсходныйОбъект</segments>
+            <segments>Объект.SourceObject</segments>
           </paths>
         </dataPath>
         <handlers>
           <event>OnChange</event>
-          <name>ИсходныйОбъектПриИзменении</name>
+          <name>SourceObjectOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ИсходныйОбъектРасширеннаяПодсказка</name>
+          <name>SourceObjectExtendedTooltip</name>
           <id>3</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -39,7 +39,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ИсходныйОбъектКонтекстноеМеню</name>
+          <name>SourceObjectContextMenu</name>
           <id>2</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -63,7 +63,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Button">
-        <name>ИсходныйОбъектПоСсылке</name>
+        <name>SourceObjectByReference</name>
         <id>86</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -71,7 +71,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ИсходныйОбъектПоСсылкеРасширеннаяПодсказка</name>
+          <name>SourceObjectByReferenceExtendedTooltip</name>
           <id>87</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -86,7 +86,7 @@
           </extInfo>
         </extendedTooltip>
         <type>UsualButton</type>
-        <commandName>Form.Command.ИсходныйОбъектПоСсылке</commandName>
+        <commandName>Form.Command.SourceObjectByReference</commandName>
         <representation>Picture</representation>
         <width>3</width>
         <autoMaxWidth>true</autoMaxWidth>
@@ -95,7 +95,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>РедактироватьИсходныйОбъект</name>
+        <name>EditSourceObject</name>
         <id>84</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -103,7 +103,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>РедактироватьИсходныйОбъектРасширеннаяПодсказка</name>
+          <name>EditSourceObjectExtendedTooltip</name>
           <id>85</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -118,7 +118,7 @@
           </extInfo>
         </extendedTooltip>
         <type>UsualButton</type>
-        <commandName>Form.Command.РедактироватьИсходныйОбъект</commandName>
+        <commandName>Form.Command.EditSourceObject</commandName>
         <representation>Auto</representation>
         <width>3</width>
         <placementArea>UserCmds</placementArea>
@@ -186,7 +186,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Button">
-        <name>НайтиСсылки</name>
+        <name>FindReferences</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -194,7 +194,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>НайтиСсылкиРасширеннаяПодсказка</name>
+          <name>FindReferencesExtendedTooltip</name>
           <id>23</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -209,7 +209,7 @@
           </extInfo>
         </extendedTooltip>
         <type>UsualButton</type>
-        <commandName>Form.Command.НайтиСсылки</commandName>
+        <commandName>Form.Command.FindReferences</commandName>
         <representation>Auto</representation>
         <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
@@ -223,7 +223,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка1</name>
+        <name>SearchGroupExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -252,7 +252,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка</name>
+      <name>HeaderGroupExtendedTooltip</name>
       <id>21</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -335,7 +335,7 @@
       <showInFooter>true</showInFooter>
       <footerDataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.КоличествоНайденных</segments>
+          <segments>Объект.FoundCount</segments>
         </paths>
       </footerDataPath>
       <footerText>
@@ -411,7 +411,7 @@
       <name>КоманднаяПанель</name>
       <id>35</id>
       <items xsi:type="form:Button">
-        <name>РезультатПоискаОткрытьОбъект</name>
+        <name>SearchResultOpenObject</name>
         <id>72</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -419,7 +419,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>РезультатПоискаОткрытьОбъектРасширеннаяПодсказка</name>
+          <name>SearchResultOpenObjectExtendedTooltip</name>
           <id>73</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -433,7 +433,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьОбъект</commandName>
+        <commandName>Form.Command.OpenObject</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -441,7 +441,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>РезультатПоискаПоискДляОбъекта</name>
+        <name>SearchResultSearchForObject</name>
         <id>74</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -449,7 +449,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>РезультатПоискаПоискДляОбъектаРасширеннаяПодсказка</name>
+          <name>SearchResultSearchForObjectExtendedTooltip</name>
           <id>75</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -463,7 +463,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПоискДляОбъекта</commandName>
+        <commandName>Form.Command.SearchForObject</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -471,7 +471,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>Найти</name>
+        <name>Find</name>
         <id>76</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -479,7 +479,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>НайтиРасширеннаяПодсказка</name>
+          <name>FindExtendedTooltip</name>
           <id>77</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -501,7 +501,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>РезультатПоискаОтменитьПоиск</name>
+        <name>SearchResultCancelSearch</name>
         <id>78</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -509,7 +509,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>РезультатПоискаОтменитьПоискРасширеннаяПодсказка</name>
+          <name>SearchResultCancelSearchExtendedTooltip</name>
           <id>79</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -531,7 +531,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>РезультатПоискаВывестиСписок</name>
+        <name>SearchResultOutputList</name>
         <id>80</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -539,7 +539,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>РезультатПоискаВывестиСписокРасширеннаяПодсказка</name>
+          <name>SearchResultOutputListExtendedTooltip</name>
           <id>81</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -562,7 +562,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>РезультатПоискаРедактироватьОбъект</name>
+        <name>SearchResultEditObject</name>
         <id>82</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -570,7 +570,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>РезультатПоискаРедактироватьОбъектРасширеннаяПодсказка</name>
+          <name>SearchResultEditObjectExtendedTooltip</name>
           <id>83</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -584,7 +584,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.РедактироватьОбъект</commandName>
+        <commandName>Form.Command.EditObject</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -739,7 +739,7 @@
       <name>ТаблицаКонтекстноеМеню</name>
       <id>36</id>
       <items xsi:type="form:Button">
-        <name>ТаблицаКонтекстноеМенюОткрытьОбъект</name>
+        <name>TableContextMenuOpenObject</name>
         <id>68</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -747,7 +747,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТаблицаКонтекстноеМенюОткрытьОбъектРасширеннаяПодсказка</name>
+          <name>TableContextMenuOpenObjectExtendedTooltip</name>
           <id>69</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -761,7 +761,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьОбъект</commandName>
+        <commandName>Form.Command.OpenObject</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -769,7 +769,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ТаблицаКонтекстноеМенюПоискДляОбъекта</name>
+        <name>TableContextMenuSearchForObject</name>
         <id>70</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -777,7 +777,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТаблицаКонтекстноеМенюПоискДляОбъектаРасширеннаяПодсказка</name>
+          <name>TableContextMenuSearchForObjectExtendedTooltip</name>
           <id>71</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -791,7 +791,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПоискДляОбъекта</commandName>
+        <commandName>Form.Command.SearchForObject</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1030,7 +1030,7 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>НайтиСсылки</name>
+    <name>FindReferences</name>
     <title>
       <key>en</key>
       <value>Find references</value>
@@ -1041,6 +1041,10 @@
     </title>
     <id>1</id>
     <toolTip>
+      <key>en</key>
+      <value>Find references</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Найти ссылки</value>
     </toolTip>
@@ -1049,13 +1053,13 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>НайтиСсылки</name>
+        <name>FindReferences</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьОбъект</name>
+    <name>OpenObject</name>
     <title>
       <key>en</key>
       <value>Open object</value>
@@ -1070,13 +1074,13 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьОбъект</name>
+        <name>OpenObject</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПоискДляОбъекта</name>
+    <name>SearchForObject</name>
     <title>
       <key>en</key>
       <value>Search for object</value>
@@ -1091,13 +1095,13 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПоискДляОбъекта</name>
+        <name>SearchForObject</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьОбъект</name>
+    <name>EditObject</name>
     <title>
       <key>en</key>
       <value>Edit object</value>
@@ -1115,14 +1119,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьОбъект</name>
+        <name>EditObject</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьИсходныйОбъект</name>
+    <name>EditSourceObject</name>
+    <title>
+      <key>en</key>
+      <value>Edit source object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать исходный объект</value>
@@ -1136,19 +1144,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьИсходныйОбъект</name>
+        <name>EditSourceObject</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ИсходныйОбъектПоСсылке</name>
+    <name>SourceObjectByReference</name>
+    <title>
+      <key>en</key>
+      <value>Source object by reference</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Исходный объект по ссылке</value>
     </title>
     <id>6</id>
+    <toolTip>
+      <key>en</key>
+      <value>Source object by reference</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Исходный объект по навигационной ссылке</value>
@@ -1161,7 +1177,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ИсходныйОбъектПоСсылке</name>
+        <name>SourceObjectByReference</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

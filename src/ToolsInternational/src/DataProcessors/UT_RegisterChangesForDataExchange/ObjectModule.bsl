@@ -157,12 +157,12 @@ Function GenerateNodeTree(DataObject = Undefined, TableName = Undefined) Export
 
 		AutoRecord = Undefined;
 		If MetaObject <> Undefined Then
-			CompositionItem = Meta.Content.Find(MetaObject);
-			If CompositionItem = Undefined Then
+			ContentItem = Meta.Content.Find(MetaObject);
+			If ContentItem = Undefined Then
 				// Not in the current exchange plan
 				Continue;
 			EndIf;
-			AutoRecord = ?(CompositionItem.AutoRecord = AutoChangeRecord.Deny, 1, 2);
+			AutoRecord = ?(ContentItem.AutoRecord = AutoChangeRecord.Deny, 1, 2);
 		EndIf;
 
 		PlanName = Meta.Name;
@@ -467,7 +467,7 @@ Function EditRegistrationAtServer(Command, NoAutoRegistration, Node, Data, Table
 	Result = New Structure("Total, Success", 0, 0);
 	
 	// This flag is required only when adding registration results to the Result structure. The flag value can be True only if the configuration supports SSL.
-	SSLFilterRequired = TypeOf(Command) = Type("Boolean") AND Command AND ConfigurationSupportsSSL AND ObjectExportControlSetting;
+	SSLFilterRequired = TypeOf(Command) = Type("Boolean") AND Command AND ConfigurationSupportsSSL And ObjectExportControlSetting;
 
 	If TypeOf(Data) = Type("Array") Then
 		RegistrationData = Data;
@@ -484,7 +484,7 @@ Function EditRegistrationAtServer(Command, NoAutoRegistration, Node, Data, Table
 		If Item = Undefined Then
 			// Whole configuration
 			
-			If TypeOf(Command) = Type("Boolean") AND Command Then
+			If TypeOf(Command) = Type("Boolean") And Command Then
 				// Adding registration in parts.
 				AddResults(Result, EditRegistrationAtServer(Command, NoAutoRegistration, Node, "Constants", TableName) );
 				AddResults(Result, EditRegistrationAtServer(Command, NoAutoRegistration, Node, "Catalogs", TableName) );
@@ -520,8 +520,8 @@ Function EditRegistrationAtServer(Command, NoAutoRegistration, Node, Data, Table
 					Continue;
 				Else
 					Meta = Details.Metadata;
-					CompositionItem = Node.Metadata().Content.Find(Meta);
-					If CompositionItem = Undefined Then
+					ContentItem = Node.Metadata().Content.Find(Meta);
+					If ContentItem = Undefined Then
 						Continue;
 					EndIf;
 					// Constant?
@@ -538,8 +538,8 @@ Function EditRegistrationAtServer(Command, NoAutoRegistration, Node, Data, Table
 					Continue;
 				Else
 					Meta = Details.Metadata;
-					CompositionItem = Node.Metadata().Content.Find(Meta);
-					If CompositionItem = Undefined Or CompositionItem.AutoRecord <> AutoChangeRecord.Allow Then
+					ContentItem = Node.Metadata().Content.Find(Meta);
+					If ContentItem = Undefined Or ContentItem.AutoRecord <> AutoChangeRecord.Allow Then
 						Continue;
 					EndIf;
 					// Constant?
@@ -658,7 +658,7 @@ Procedure SetMarksForParents(RowData) Export
 		AllTrue = True;
 		NotAllFalse = False;
 		For Each Child In RowParent.GetItems() Do
-			AllTrue = AllTrue AND (Child.Mark = 1);
+			AllTrue = AllTrue And (Child.Mark = 1);
 			NotAllFalse = NotAllFalse Or Boolean(Child.Mark);
 		EndDo;
 		If AllTrue Then
@@ -892,7 +892,7 @@ Function MetadataCharacteristics(MetadataTableName) Export
 		
 	Else
 		MetaParent = Meta.Parent();
-		If MetaParent <> Undefined AND Metadata.CalculationRegisters.Contains(MetaParent) Then
+		If MetaParent <> Undefined And Metadata.CalculationRegisters.Contains(MetaParent) Then
 			// Recalculation
 			IsSet = True;
 			Manager = CalculationRegisters[MetaParent.Name].Recalculations[Meta.Name];
@@ -970,7 +970,7 @@ Function RecordSetDimensions(TableName, AllDimensions = False) Export
 	EndIf;
 	
 	// Period
-	If IsInformationRegister AND Meta.MainFilterOnPeriod Then
+	If IsInformationRegister And Meta.MainFilterOnPeriod Then
 		Row = Dimensions.Add();
 		Row.Name         = "Period";
 		Row.ValueType = New TypeDescription("Date");
@@ -1106,7 +1106,7 @@ Function RefPresentation(ObjectToGetPresentation) Export
 		EndTry;
 	EndIf;
 
-	If IsBlankString(Result) AND ObjectToGetPresentation <> Undefined AND Not ObjectToGetPresentation.IsEmpty() Then
+	If IsBlankString(Result) And ObjectToGetPresentation <> Undefined And Not ObjectToGetPresentation.IsEmpty() Then
 		Meta = ObjectToGetPresentation.Metadata();
 		If Metadata.Documents.Contains(Meta) Then
 			Result = String(ObjectToGetPresentation);
@@ -1310,623 +1310,619 @@ Function CheckSettingsCorrectness(SettingKey = "") Export
 	Return Result;
 EndFunction
 
-// Служебное для регистрации в подключаемых обработках
+// Internal for registration in data processors to be attached.
 //
-Функция СведенияОВнешнейОбработке() Экспорт
+// Returns:
+//     Structure - contains info about data processor.
+//
+Function ExternalDataProcessorInfo() Export
 
-	Инфо = Новый Структура("Вид, Команды, БезопасныйРежим, Назначение, Наименование, Версия, Информация, ВерсияБСП",
-		"СозданиеСвязанныхОбъектов", Новый ТаблицаЗначений, Истина, Новый Массив);
+	Info = New Structure("Kind, Commands, SafeMode, Purpose, Description, Version, Information, SSLVersion",
+		"RelatedObjectsCreation", New ValueTable, True, New Array);
 
-	Инфо.Наименование = НСтр("ru='Регистрация изменений для обмена данными'");
-	Инфо.Версия       = "0.1";
-	Инфо.ВерсияБСП    = "1.2.1.4";
-	Инфо.Информация   = НСтр("ru='"
+	Info.Description = NStr("ru = 'Регистрация изменений для обмена данными'; en = 'Register changes for data exchange'");
+	Info.Version       = "0.1";
+	Info.SSLVersion    = "1.2.1.4";
+	Info.Information   = NStr("ru='"
 		+ "Обработка для управления регистрацией объектов на узлах обмена до формирования выгрузки. "
 		+ "При работе в составе конфигурации с БСП версии 2.1.2.0 и старше производит контроль "
-		+ "ограничений миграции данных для узлов обмена." + "'");
+		+ "ограничений миграции данных для узлов обмена." + "'; "
+		+ "en = 'The data processor is intended for managing registration of objects at exchange nodes before exporting data. "
+		+ "When used in configurations with SSL version 2.1.2.0 or later, it manages data migration restrictions.'");
 
-	Инфо.Назначение.Добавить("ПланыОбмена.*");
-	Инфо.Назначение.Добавить("Константы.*");
-	Инфо.Назначение.Добавить("Справочники.*");
-	Инфо.Назначение.Добавить("Документы.*");
-	Инфо.Назначение.Добавить("Последовательности.*");
-	Инфо.Назначение.Добавить("ПланыВидовХарактеристик.*");
-	Инфо.Назначение.Добавить("ПланыСчетов.*");
-	Инфо.Назначение.Добавить("ПланыВидовРасчета.*");
-	Инфо.Назначение.Добавить("РегистрыСведений.*");
-	Инфо.Назначение.Добавить("РегистрыНакопления.*");
-	Инфо.Назначение.Добавить("РегистрыБухгалтерии.*");
-	Инфо.Назначение.Добавить("РегистрыРасчета.*");
-	Инфо.Назначение.Добавить("БизнесПроцессы.*");
-	Инфо.Назначение.Добавить("Задачи.*");
+	Info.Purpose.Add("ExchangePlans.*");
+	Info.Purpose.Add("Constants.*");
+	Info.Purpose.Add("Catalogs.*");
+	Info.Purpose.Add("Documents.*");
+	Info.Purpose.Add("Sequences.*");
+	Info.Purpose.Add("ChartsOfCharacteristicTypes.*");
+	Info.Purpose.Add("ChartsOfAccounts.*");
+	Info.Purpose.Add("ChartsOfCalculationTypes.*");
+	Info.Purpose.Add("InformationRegisters.*");
+	Info.Purpose.Add("AccumulationRegisters.*");
+	Info.Purpose.Add("AccountingRegisters.*");
+	Info.Purpose.Add("CalculationRegisters.*");
+	Info.Purpose.Add("BusinessProcesses.*");
+	Info.Purpose.Add("Tasks.*");
 
-	Колонки = Инфо.Команды.Колонки;
-	ТипСтрока = Новый ОписаниеТипов("Строка");
-	Колонки.Добавить("Представление", ТипСтрока);
-	Колонки.Добавить("Идентификатор", ТипСтрока);
-	Колонки.Добавить("Использование", ТипСтрока);
-	Колонки.Добавить("Модификатор", ТипСтрока);
-	Колонки.Добавить("ПоказыватьОповещение", Новый ОписаниеТипов("Булево"));
+	Columns = Info.Commands.Columns;
+	StringType = New TypeDescription("String");
+	Columns.Add("Presentation", StringType);
+	Columns.Add("ID", StringType);
+	Columns.Add("Use", StringType);
+	Columns.Add("Modifier",   StringType);
+	Columns.Add("ShowNotification", New TypeDescription("Boolean"));
 	
-	// Единственная команда, что делать - определяем по типу переданного
-	Команда = Инфо.Команды.Добавить();
-	Команда.Представление = НСтр("ru='Редактирование регистрации изменений объекта'");
-	Команда.Идентификатор = "ОткрытьФормуРедактированияРегистрации";
-	Команда.Использование = "ОткрытиеФормы";
+	// The only command. Determine what to do by type of the passed item.
+	Command = Info.Commands.Add();
+	Command.Presentation = NStr("ru = 'Редактирование регистрации изменений объекта'; en = 'Edit object changes registration'");
+	Command.ID = "OpenRegistrationEditingForm";
+	Command.Use = "FormOpening";
 
-	Возврат Инфо;
-КонецФункции
+	Return Info;
+EndFunction
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
+// PRIVATE
 //
 
 //
-// Копирует отбор компоновки данных
+// Copies data composition filter to existing data.
 //
-Процедура СкопироватьОтборКомпоновкиДанных(ГруппаПриемник, ГруппаИсточник)
-
-	КоллекцияИсточник = ГруппаИсточник.Элементы;
-	КоллекцияПриемник = ГруппаПриемник.Элементы;
-	Для Каждого Элемент Из КоллекцияИсточник Цикл
-		ТипЭлемента  = ТипЗнч(Элемент);
-		НовыйЭлемент = КоллекцияПриемник.Добавить(ТипЭлемента);
-
-		ЗаполнитьЗначенияСвойств(НовыйЭлемент, Элемент);
-		Если ТипЭлемента = Тип("ГруппаЭлементовОтбораКомпоновкиДанных") Тогда
-			СкопироватьОтборКомпоновкиДанных(НовыйЭлемент, Элемент);
-		КонецЕсли
-		;
-
-	КонецЦикла;
-
-КонецПроцедуры
-
-// Выполняет непосредственное действие с конечным объектом
-//
-Процедура ВыполнитьКомандуРегистрацииОбъекта(Знач Команда, Знач Узел, Знач ОбъектРегистрации)
-
-	Если ТипЗнч(Команда) = Тип("Булево") Тогда
-		Если Команда Тогда
-			// Регистрация
-			Если НастройкаВариантНомераСообщения = 1 Тогда
-				// Как отправленного
-				Команда = 1 + Узел.НомерОтправленного;
-			Иначе
-				// Как нового
-				ЗарегистрироватьИзменения(Узел, ОбъектРегистрации);
-			КонецЕсли;
-		Иначе
-			// Отмена регистрации
-			ПланыОбмена.УдалитьРегистрациюИзменений(Узел, ОбъектРегистрации);
-		КонецЕсли;
-	КонецЕсли;
-
-	Если ТипЗнч(Команда) = Тип("Число") Тогда
-		// Одиночная регистрация с указанным номером сообщения
-		Если Команда = 0 Тогда
-			// Аналогично регистрации нового
-			ЗарегистрироватьИзменения(Узел, ОбъектРегистрации);
-		Иначе
-			// Изменение номера регистрации, БСП не проверяем
-			ПланыОбмена.ЗарегистрироватьИзменения(Узел, ОбъектРегистрации);
-			Выборка = ПланыОбмена.ВыбратьИзменения(Узел, Команда, ОбъектРегистрации);
-			Пока Выборка.Следующий() Цикл
-				// Выбираем изменения для простановки номера сообщения обмена данными
-			КонецЦикла;
-		КонецЕсли;
-
-	КонецЕсли;
-
-КонецПроцедуры
-
-Процедура ЗарегистрироватьИзменения(Знач Узел, Знач ОбъектРегистрации)
-
-	Если Не ДоступнаРегистрацияСредствамиБСП Тогда
-		ПланыОбмена.ЗарегистрироватьИзменения(Узел, ОбъектРегистрации);
-	КонецЕсли;
+Procedure CopyDataCompositionFilter(DestinationGroup, SourceGroup) 
+	
+	SourceCollection = SourceGroup.Items;
+	DestinationCollection = DestinationGroup.Items;
+	For Each Item In SourceCollection Do
+		ItemType  = TypeOf(Item);
+		NewItem = DestinationCollection.Add(ItemType);
 		
-	// Заводим на регистрацию в БСП всегда, необходимы дополнительные действия
-	МодульБСП = Вычислить("ОбменДаннымиСобытия");
+		FillPropertyValues(NewItem, Item);
+		If ItemType = Type("DataCompositionFilterItemGroup") Then
+			CopyDataCompositionFilter(NewItem, Item) 
+		EndIf;
+		
+	EndDo;
 	
-	// На входе или объект метаданных или непосредственно объект
-	Если ТипЗнч(ОбъектРегистрации) = Тип("ОбъектМетаданных") Тогда
-		Характеристики = ХарактеристикиПоМетаданным(ОбъектРегистрации);
-		Если Характеристики.ЭтоСсылка Тогда
-			Выборка = Характеристики.Менеджер.Выбрать();
-			Пока Выборка.Следующий() Цикл
-				МодульБСП.ЗарегистрироватьИзмененияДанных(Узел, Выборка.Ссылка,
-					ЭтотОбъект.НастройкаКонтрольВыгрузкиОбъектов);
-			КонецЦикла;
-			Возврат;
-		КонецЕсли;
-	КонецЕсли;
-	
-	// Обычный объект
-	МодульБСП.ЗарегистрироватьИзмененияДанных(Узел, ОбъектРегистрации, ЭтотОбъект.НастройкаКонтрольВыгрузкиОбъектов);
-КонецПроцедуры
+EndProcedure
 
-// Возвращает управляемую форму, которой принадлежит элемент
+// Performs direct action with the target object.
 //
-Функция ФормаЭлементаФормы(ЭлементФормы)
-	Результат = ЭлементФормы;
+Procedure ExecuteObjectRegistrationCommand(Val Command, Val Node, Val RegistrationObject)
+	
+	If TypeOf(Command) = Type("Boolean") Then
+		If Command Then
+			// Registration
+			If MessageNumberOptionSetting = 1 Then
+				// Registering an object as a sent one
+				Command = 1 + Node.SentNo;
+			Else
+				// Registering an object as a new one
+				RecordChanges(Node, RegistrationObject);
+			EndIf;
+		Else
+			// Canceling registration
+			ExchangePlans.DeleteChangeRecords(Node, RegistrationObject);
+		EndIf;
+	EndIf;
+	
+	If TypeOf(Command) = Type("Number") Then
+		// A single registration with a specified message number.
+		If Command = 0 Then
+			// Similarly if a new object is being registered.
+			RecordChanges(Node, RegistrationObject)
+		Else
+			// Changing the registration number, no SSL check.
+			ExchangePlans.RecordChanges(Node, RegistrationObject);
+			Selection = ExchangePlans.SelectChanges(Node, Command, RegistrationObject);
+			While Selection.Next() Do
+				// Selecting changes to set a data exchange message number.
+			EndDo;
+		EndIf;
+		
+	EndIf;
+	
+EndProcedure
+
+Procedure RecordChanges(Val Node, Val RegistrationObject)
+	
+	If Not RegisterWithSSLMethodsAvailable Then
+		ExchangePlans.RecordChanges(Node, RegistrationObject);
+	EndIf;
+		
+	// To register the changes using SSL tools, additional actions are required.
+	SSLModule = EVAL("DataExchangeEvents");
+	
+	// RegistrationObject contains a metadata object or an infobase object.
+	If TypeOf(RegistrationObject) = Type("MetadataObject") Then
+		Characteristics = MetadataCharacteristics(RegistrationObject);
+		If Characteristics.IsReference Then
+			Selection = Characteristics.Manager.Select();
+			While Selection.Next() Do
+				SSLModule.RecordDataChanges(Node, Selection.Ref,
+					ThisObject.ObjectExportControlSetting);
+			EndDo;
+			Return;
+		EndIf;
+	EndIf;
+	
+	// Common object
+	SSLModule.RecordDataChanges(Node, RegistrationObject, ThisObject.ObjectExportControlSetting);
+EndProcedure
+
+// Returns a managed form that contains a passed form item.
+//
+Function FormItemForm(FormItem)
+	Result = FormItem;
 	//@skip-warning
-	ТипыФормы = Новый ОписаниеТипов("УправляемаяФорма");
-	Пока Не ТипыФормы.СодержитТип(ТипЗнч(Результат)) Цикл
-		Результат = Результат.Родитель;
-	КонецЦикла;
-	Возврат Результат;
-КонецФункции
+	FormTypes = New TypeDescription("ManagedForm");
+	While Not FormTypes.ContainsType(TypeOf(Result)) Do
+		Result = Result.Parent;
+	EndDo;
+	Return Result;
+EndFunction
 
-// Внутренняя для формирования группы метаданных (например справочников) в дереве метаданных
+// Internal, for generating a metadata group (for example, catalogs) in a metadata tree.
 //
-Процедура СформироватьУровеньМетаданных(ТекущийНомерСтроки, Параметры, ИндексКартинки, ИндексКартинкиУзлов,
-	ДобавлятьПодчиненные, ИмяМета, ПредставлениеМета)
-
-	ПредставленияУровня = Новый Массив;
-	Авторегистрации     = Новый Массив;
-	ИменаУровня         = Новый Массив;
-
-	ВсеСтроки = Параметры.Строки;
-	МетаПлан  = Параметры.ПланОбмена;
-
-	СтрокаГруппа = ВсеСтроки.Добавить();
-	СтрокаГруппа.ИдентификаторСтроки = ТекущийНомерСтроки;
-
-	СтрокаГруппа.МетаПолноеИмя  = ИмяМета;
-	СтрокаГруппа.Наименование   = ПредставлениеМета;
-	СтрокаГруппа.ИндексКартинки = ИндексКартинки;
-
-	Строки = СтрокаГруппа.Строки;
-	БылиПодчиненные = Ложь;
-
-	Для Каждого Мета Из Метаданные[ИмяМета] Цикл
-
-		Если МетаПлан = Неопределено Тогда
-			// Без учета плана обмена
-			БылиПодчиненные = Истина;
-			МетаПолноеИмя   = Мета.ПолноеИмя();
-			Наименование    = Мета.Представление();
-			Если ДобавлятьПодчиненные Тогда
-				НовСтрока = Строки.Добавить();
-				НовСтрока.МетаПолноеИмя  = МетаПолноеИмя;
-				НовСтрока.Наименование   = Наименование;
-				НовСтрока.ИндексКартинки = ИндексКартинкиУзлов;
-
-				ТекущийНомерСтроки = ТекущийНомерСтроки + 1;
-				НовСтрока.ИдентификаторСтроки = ТекущийНомерСтроки;
-			КонецЕсли;
-			ИменаУровня.Добавить(МетаПолноеИмя);
-			ПредставленияУровня.Добавить(Наименование);
-
-		Иначе
-			Элемент = МетаПлан.Состав.Найти(Мета);
-			Если Элемент <> Неопределено Тогда
-				БылиПодчиненные = Истина;
-				МетаПолноеИмя   = Мета.ПолноеИмя();
-				Наименование    = Мета.Представление();
-				Авторегистрация = ?(Элемент.Авторегистрация = АвтоРегистрацияИзменений.Запретить, 1, 2);
-				Если ДобавлятьПодчиненные Тогда
-					НовСтрока = Строки.Добавить();
-					НовСтрока.МетаПолноеИмя   = МетаПолноеИмя;
-					НовСтрока.Наименование    = Наименование;
-					НовСтрока.ИндексКартинки  = ИндексКартинкиУзлов;
-					НовСтрока.Авторегистрация = Авторегистрация;
-
-					ТекущийНомерСтроки = ТекущийНомерСтроки + 1;
-					НовСтрока.ИдентификаторСтроки = ТекущийНомерСтроки;
-				КонецЕсли;
-				ИменаУровня.Добавить(МетаПолноеИмя);
-				ПредставленияУровня.Добавить(Наименование);
-				Авторегистрации.Добавить(Авторегистрация);
-			КонецЕсли;
-		КонецЕсли;
-
-	КонецЦикла;
-
-	Если БылиПодчиненные Тогда
-		Строки.Сортировать("Наименование");
-		Параметры.СтруктураИмен.Вставить(ИмяМета, ИменаУровня);
-		Параметры.СтруктураПредставлений.Вставить(ИмяМета, ПредставленияУровня);
-		Если Не ДобавлятьПодчиненные Тогда
-			Параметры.СтруктураАвторегистрации.Вставить(ИмяМета, Авторегистрации);
-		КонецЕсли;
-	Иначе
-		// Виды объектов без регистрации не вставляем
-		ВсеСтроки.Удалить(СтрокаГруппа);
-	КонецЕсли;
-
-КонецПроцедуры
-
-// Накапливаем результаты регистраций
-//
-Процедура ДобавитьРезультаты(Приемник, Источник)
-	Приемник.Успешно = Приемник.Успешно + Источник.Успешно;
-	Приемник.Всего   = Приемник.Всего + Источник.Всего;
-КонецПроцедуры	
-
-// Возвращает массив дополнительно регистрируемых объектов согласно флагам
-//
-Функция ПолучитьДополнительныеОбъектыРегистрации(ОбъектРегистрации, УзелКонтроляАвторегистрации, БезАвторегистрации,
-	ИмяТаблицы = Неопределено)
-	Результат = Новый Массив;
+Procedure GenerateMetadataLevel(CurrentRowNumber, Parameters, PictureIndex, NodePictureIndex, AddChild, MetaName, MetaPresentation)
 	
-	// Смотрим на глобальные параметры
-	Если (Не НастройкаАвторегистрацияДвижений) И (Не SequenceAutoRecordSetting) Тогда
-		Возврат Результат;
-	КонецЕсли;
-
-	ТипЗначения = ТипЗнч(ОбъектРегистрации);
-	НаВходеИмя = ТипЗначения = Тип("Строка");
-	Если НаВходеИмя Тогда
-		Описание = ХарактеристикиПоМетаданным(ОбъектРегистрации);
-	ИначеЕсли ТипЗначения = Тип("Структура") Тогда
-		Описание = ХарактеристикиПоМетаданным(ИмяТаблицы);
-		Если Описание.ЭтоПоследовательность Тогда
-			Возврат Результат;
-		КонецЕсли;
-	Иначе
-		Описание = ХарактеристикиПоМетаданным(ОбъектРегистрации.Метаданные());
-	КонецЕсли;
-
-	МетаОбъект = Описание.Метаданные;
+	LevelPresentation = New Array;
+	AutoRecords     = New Array;
+	LevelNames         = New Array;
 	
-	// Коллекцию рекурсивно	
-	Если Описание.ЭтоКоллекция Тогда
-		Для Каждого Мета Из МетаОбъект Цикл
-			ДополнительныйНабор = ПолучитьДополнительныеОбъектыРегистрации(Мета.ПолноеИмя(),
-				УзелКонтроляАвторегистрации, БезАвторегистрации, ИмяТаблицы);
-			Для Каждого Элемент Из ДополнительныйНабор Цикл
-				Результат.Добавить(Элемент);
-			КонецЦикла;
-		КонецЦикла;
-		Возврат Результат;
-	КонецЕсли;
+	AllRows = Parameters.Rows;
+	MetaPlan  = Parameters.ExchangePlan;
+
+	GroupRow = AllRows.Add();
+	GroupRow.RowID = CurrentRowNumber;
 	
-	// Одиночное
-	СоставУзла = УзелКонтроляАвторегистрации.Метаданные().Состав;
+	GroupRow.MetaFullName  = MetaName;
+	GroupRow.Description   = MetaPresentation;
+	GroupRow.PictureIndex = PictureIndex;
 	
-	// Документы. Могут влиять на последовательности и движения
-	Если Метаданные.Документы.Содержит(МетаОбъект) Тогда
-
-		Если НастройкаАвторегистрацияДвижений Тогда
-			Для Каждого Мета Из МетаОбъект.Движения Цикл
-
-				ЭлементСостава = СоставУзла.Найти(Мета);
-				Если ЭлементСостава <> Неопределено И (БезАвторегистрации Или ЭлементСостава.Авторегистрация
-					= АвтоРегистрацияИзменений.Разрешить) Тогда
-					Если НаВходеИмя Тогда
-						Результат.Добавить(Мета);
-					Иначе
-						Описание = ХарактеристикиПоМетаданным(Мета);
-						Набор = Описание.Менеджер.СоздатьНаборЗаписей();
-						Набор.Отбор.Регистратор.Установить(ОбъектРегистрации);
-						Набор.Прочитать();
-						Результат.Добавить(Набор);
-						// И проверим полученный набор рекурсивно
-						ДополнительныйНабор = ПолучитьДополнительныеОбъектыРегистрации(Набор,
-							УзелКонтроляАвторегистрации, БезАвторегистрации, ИмяТаблицы);
-						Для Каждого Элемент Из ДополнительныйНабор Цикл
-							Результат.Добавить(Элемент);
-						КонецЦикла;
-					КонецЕсли;
-				КонецЕсли;
-
-			КонецЦикла;
-		КонецЕсли;
-
-		Если SequenceAutoRecordSetting Тогда
-			Для Каждого Мета Из Метаданные.Последовательности Цикл
-
-				Описание = ХарактеристикиПоМетаданным(Мета);
-				Если Мета.Документы.Содержит(МетаОбъект) Тогда
-					// Последовательность регистрируется для данного документа
-					ЭлементСостава = СоставУзла.Найти(Мета);
-					Если ЭлементСостава <> Неопределено И (БезАвторегистрации Или ЭлементСостава.Авторегистрация
-						= АвтоРегистрацияИзменений.Разрешить) Тогда
-						// Регистрируется на этом узле
-						Если НаВходеИмя Тогда
-							Результат.Добавить(Мета);
-						Иначе
-							Набор = Описание.Менеджер.СоздатьНаборЗаписей();
-							Набор.Отбор.Регистратор.Установить(ОбъектРегистрации);
-							Набор.Прочитать();
-							Результат.Добавить(Набор);
-						КонецЕсли;
-					КонецЕсли;
-				КонецЕсли;
-
-			КонецЦикла;
-
-		КонецЕсли;
+	Rows = GroupRow.Rows;
+	HadChild = False;
+	
+	For Each Meta In Metadata[MetaName] Do
 		
-	// Записи регистров. Могут влиять на последовательности
-	ИначеЕсли SequenceAutoRecordSetting И (Метаданные.РегистрыСведений.Содержит(МетаОбъект)
-		Или Метаданные.РегистрыНакопления.Содержит(МетаОбъект) Или Метаданные.РегистрыБухгалтерии.Содержит(МетаОбъект)
-		Или Метаданные.РегистрыРасчета.Содержит(МетаОбъект)) Тогда
-		Для Каждого Мета Из Метаданные.Последовательности Цикл
-			Если Мета.Движения.Содержит(МетаОбъект) Тогда
-				// Последовательность регистрируется для набора записей
-				ЭлементСостава = СоставУзла.Найти(Мета);
-				Если ЭлементСостава <> Неопределено И (БезАвторегистрации Или ЭлементСостава.Авторегистрация
-					= АвтоРегистрацияИзменений.Разрешить) Тогда
-					Результат.Добавить(Мета);
-				КонецЕсли;
-			КонецЕсли;
-		КонецЦикла;
+		If MetaPlan = Undefined Then
+			// An exchange plan is not specified
+			HadChild = True;
+			MetaFullName   = Meta.FullName();
+			Description    = Meta.Presentation();
+			If AddChild Then
+				NewRow = Rows.Add();
+				NewRow.MetaFullName  = MetaFullName;
+				NewRow.Description   = Description ;
+				NewRow.PictureIndex = NodePictureIndex;
 
-	КонецЕсли;
+				CurrentRowNumber = CurrentRowNumber + 1;
+				NewRow.RowID = CurrentRowNumber;
+			EndIf;
+			LevelNames.Add(MetaFullName);
+			LevelPresentation.Add(Description);
 
-	Возврат Результат;
-КонецФункции
+		Else
+			Item = MetaPlan.Content.Find(Meta);
+			If Item <> Undefined Then
+				HadChild = True;
+				MetaFullName   = Meta.FullName();
+				Description    = Meta.Presentation();
+				AutoRegistration = ?(Item.AutoRecord = AutoChangeRecord.Deny, 1, 2);
+				If AddChild Then
+					NewRow = Rows.Add();
+					NewRow.MetaFullName   = MetaFullName;
+					NewRow.Description    = Description ;
+					NewRow.PictureIndex  = NodePictureIndex;
+					NewRow.AutoRegistration = AutoRegistration;
 
-// Преобразует строку в число
+					CurrentRowNumber = CurrentRowNumber + 1;
+					NewRow.RowID = CurrentRowNumber;
+				EndIf;
+				LevelNames.Add(MetaFullName);
+				LevelPresentation.Add(Description);
+				AutoRecords.Add(AutoRegistration);
+			EndIf;
+		EndIf;
+
+	EndDo;
+
+	If HadChild Then
+		Rows.Sort("Description");
+		Parameters.NamesStructure.Insert(MetaName, LevelNames);
+		Parameters.PresentationsStructure.Insert(MetaName, LevelPresentation);
+		If Not AddChild Then
+			Parameters.AutoRecordStructure.Insert(MetaName, AutoRecords);
+		EndIf;
+	Else
+		// Deleting rows that do not match conditions.
+		AllRows.Delete(GroupRow);
+	EndIf;
+	
+EndProcedure
+
+// Accumulates registration results.
 //
-// Параметры:
-//     Текст - Строка - строковое представление числа
+Procedure AddResults(Destination, Source)
+	Destination.Success = Destination.Success + Source.Success;
+	Destination.Total   = Destination.Total   + Source.Total;
+EndProcedure	
+
+// Returns the array of additional objects registered according to check boxes.
+//
+Function GetAdditionalRegistrationObjects(RegistrationObject, AutoRecordControlNode, WithoutAutoRecord, TableName = Undefined)
+	Result = New Array;
+	
+	// Analyzing global parameters.
+	If (Not RegisterRecordAutoRecordSetting) And (Not SequenceAutoRecordSetting) Then
+		Return Result;
+	EndIf;
+
+	ValueType = TypeOf(RegistrationObject);
+	NamePassed = ValueType = Type("String");
+	If NamePassed Then
+		Details = MetadataCharacteristics(RegistrationObject);
+	ElsIf ValueType = Type("Structure") Then
+		Details = MetadataCharacteristics(TableName);
+		If Details.IsSequence Then
+			Return Result;
+		EndIf;
+	Else
+		Details = MetadataCharacteristics(RegistrationObject.Metadata());
+	EndIf;
+	
+	MetaObject = Details.Metadata;
+	
+	// Collection recursively	
+	If Details.IsCollection Then
+		For Each Meta In MetaObject Do
+			AdditionalSet = GetAdditionalRegistrationObjects(Meta.FullName(), AutoRecordControlNode, WithoutAutoRecord, TableName);
+			For Each Item In AdditionalSet Do
+				Result.Add(Item);
+			EndDo;
+		EndDo;
+		Return Result;
+	EndIf;
+	
+	// Single
+	NodeContent = AutoRecordControlNode.Metadata().Content;
+	
+	// Documents may affect sequences and register records.
+	If Metadata.Documents.Contains(MetaObject) Then
+		
+		If RegisterRecordAutoRecordSetting Then
+			For Each Meta In MetaObject.RegisterRecords Do
+				
+				ContentItem = NodeContent.Find(Meta);
+				If ContentItem <> Undefined And (WithoutAutoRecord Or ContentItem.AutoRecord = AutoChangeRecord.Allow) Then
+					If NamePassed Then
+						Result.Add(Meta);
+					Else
+						Details = MetadataCharacteristics(Meta);
+						Set = Details.Manager.CreateRecordSet();
+						Set.Filter.Recorder.Set(RegistrationObject);
+						Set.Read();
+						Result.Add(Set);
+						// Checking the passed set recursively.
+						AdditionalSet = GetAdditionalRegistrationObjects(Set, 
+							AutoRecordControlNode, WithoutAutoRecord, TableName);
+						For Each Item In AdditionalSet Do
+							Result.Add(Item);
+						EndDo;
+					EndIf;
+				EndIf;
+				
+			EndDo;
+		EndIf;
+
+		If SequenceAutoRecordSetting Then
+			For Each Meta In Metadata.Sequences Do
+				
+				Details = MetadataCharacteristics(Meta);
+				If Meta.Documents.Contains(MetaObject) Then
+					// A sequence registered for a specific document type.
+					ContentItem = NodeContent.Find(Meta);
+					If ContentItem <> Undefined And (WithoutAutoRecord Or ContentItem.AutoRecord = AutoChangeRecord.Allow) Then
+						// Registering data for the current node.
+						If NamePassed Then
+							Result.Add(Meta);
+						Else
+							Set = Details.Manager.CreateRecordSet();
+							Set.Filter.Recorder.Set(RegistrationObject);
+							Set.Read();
+							Result.Add(Set);
+						EndIf;
+					EndIf;
+				EndIf;
+				
+			EndDo;
+			
+		EndIf;
+		
+	// Register records may affect sequences.
+	ElsIf SequenceAutoRecordSetting And (
+		Metadata.InformationRegisters.Contains(MetaObject)
+		Or Metadata.AccumulationRegisters.Contains(MetaObject)
+		Or Metadata.AccountingRegisters.Contains(MetaObject)
+		Or Metadata.CalculationRegisters.Contains(MetaObject)) Then
+		For Each Meta In Metadata.Sequences Do
+			If Meta.RegisterRecords.Contains(MetaObject) Then
+				// A sequence registered for a register record set.
+				ContentItem = NodeContent.Find(Meta);
+				If ContentItem <> Undefined And (WithoutAutoRecord Or ContentItem.AutoRecord = AutoChangeRecord.Allow) Then
+					Result.Add(Meta);
+				EndIf;
+			EndIf;
+		EndDo;
+		
+	EndIf;
+	
+	Return Result;
+EndFunction
+
+// Converts a string value to a number value
+//
+// Parameters:
+//     Text - String - string presentation of a number.
 // 
-// Возвращаемое значение:
-//     Число        - преобразованная строка
-//     Неопределено - если строка не может быть преобразована
+// Returns:
+//     Number    - a converted string.
+//     Undefined - if a string cannot be converted.
 //
-Функция СтрокаВЧисло(Знач Текст)
-	ТекстЧисла = СокрЛП(СтрЗаменить(Текст, Символы.НПП, ""));
-
-	Если ПустаяСтрока(ТекстЧисла) Тогда
-		Возврат 0;
-	КонецЕсли;
+Function StringToNumber(Val Text)
+	NumberText = TrimAll(StrReplace(Text, Chars.NBSp, ""));
 	
-	// Ведущие нули
-	Позиция = 1;
-	Пока Сред(ТекстЧисла, Позиция, 1) = "0" Цикл
-		Позиция = Позиция + 1;
-	КонецЦикла;
-	ТекстЧисла = Сред(ТекстЧисла, Позиция);
+	If IsBlankString(NumberText) Then
+		Return 0;
+	EndIf;
 	
-	// Проверяем на результат по умолчанию
-	Если ТекстЧисла = "0" Тогда
-		Результат = 0;
-	Иначе
-		ТипЧисло = Новый ОписаниеТипов("Число");
-		Результат = ТипЧисло.ПривестиЗначение(ТекстЧисла);
-		Если Результат = 0 Тогда
-			// Результат по умолчанию обработан выше, это ошибка преобразования
-			Результат = Неопределено;
-		КонецЕсли;
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
-
-// Возвращает флаг того, что БСП в текущей конфигурации обеспечивает функционал
-//
-Функция БСП_ДоступнаТребуемаяВерсия(Знач Версия = Неопределено) Экспорт
-
-	НужнаяВерсия = СтрЗаменить(?(Версия = Неопределено, "2.1.2", Версия), ".", Символы.ПС);
-
-	Попытка
-		ТекущаяВерсия = Вычислить("СтандартныеПодсистемыСервер.ВерсияБиблиотеки()");
-	Исключение
-		// Отсутствует или поломан метод определения версии, считаем БСП недоступной
-		Возврат Ложь;
-	КонецПопытки;
-
-	ТекущаяВерсия = СтрЗаменить(ТекущаяВерсия, ".", Символы.ПС);
-
-	Для Индекс = 1 По СтрЧислоСтрок(НужнаяВерсия) Цикл
-
-		ЧастьТекущейВерсии = СтрокаВЧисло(СтрПолучитьСтроку(ТекущаяВерсия, Индекс));
-		ЧастьНужнойВерсии  = СтрокаВЧисло(СтрПолучитьСтроку(НужнаяВерсия, Индекс));
-
-		Если ЧастьТекущейВерсии = Неопределено Тогда
-			Возврат Ложь;
-		ИначеЕсли ЧастьТекущейВерсии > ЧастьНужнойВерсии Тогда
-			Возврат Истина;
-		ИначеЕсли ЧастьТекущейВерсии < ЧастьНужнойВерсии Тогда
-			Возврат Ложь;
-		КонецЕсли;
-	КонецЦикла;
-
-	Возврат Истина;
-КонецФункции
-
-// Возвращает флаг контроля объекта в БСП
-//
-Функция БСП_КонтрольВыгрузкиОбъекта(Узлы, ОбъектРегистрации)
-	Отправка = ОтправкаЭлементаДанных.Авто;
-	Выполнить ("ОбменДаннымиСобытия.ПриОтправкеДанныхКорреспонденту(ОбъектРегистрации, Отправка, , Узлы)");
-	Возврат Отправка <> ОтправкаЭлементаДанных.Удалить;
-КонецФункции
-
-// Проверяет ссылку на возможность регистрации изменения в БСП.
-// Возвращает структуру с полями "Всего" и "Успешно", описывающей количества регистраций
-//
-Функция БСП_РегистрацияИзмененийСсылки(Узел, Ссылка, БезУчетаАвторегистрации = Истина)
-
-	Результат = Новый Структура("Всего, Успешно", 0, 0);
-
-	Если БезУчетаАвторегистрации Тогда
-		СоставУзла = Неопределено;
-	Иначе
-		СоставУзла = Узел.Метаданные().Состав;
-	КонецЕсли;
-
-	ЭлементСостава = ?(СоставУзла = Неопределено, Неопределено, СоставУзла.Найти(Ссылка.Метаданные()));
-	Если ЭлементСостава = Неопределено Или ЭлементСостава.Авторегистрация = АвтоРегистрацияИзменений.Разрешить Тогда
-		// Сам объект
-		Результат.Всего = 1;
-		ОбъектРегистрации = Ссылка.ПолучитьОбъект();
-		// Для битых ссылок ОбъектРегистрации будет Неопределено
-		Если ОбъектРегистрации = Неопределено Или БСП_КонтрольВыгрузкиОбъекта(Узел, ОбъектРегистрации) Тогда
-			ВыполнитьКомандуРегистрацииОбъекта(Истина, Узел, Ссылка);
-			Результат.Успешно = 1;
-		КонецЕсли;
-		ОбъектРегистрации = Неопределено;
-	КонецЕсли;	
+	// Leading zeroes
+	Position = 1;
+	While Mid(NumberText, Position, 1) = "0" Do
+		Position = Position + 1;
+	EndDo;
+	NumberText = Mid(NumberText, Position);
 	
-	// Смотрим опциональные варианты
-	Если Результат.Успешно > 0 Тогда
-		Для Каждого Элемент Из ПолучитьДополнительныеОбъектыРегистрации(Ссылка, Узел, БезУчетаАвторегистрации) Цикл
-			Результат.Всего = Результат.Всего + 1;
-			Если БСП_КонтрольВыгрузкиОбъекта(Узел, Элемент) Тогда
-				ВыполнитьКомандуРегистрацииОбъекта(Истина, Узел, Элемент);
-				Результат.Успешно = Результат.Успешно + 1;
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
-
-// Проверяет набор значений на возможность регистрации изменения в БСП.
-// Возвращает структуру с полями "Всего" и "Успешно", описывающей количества регистраций
-//
-Функция БСП_РегистрацияИзмененийНабора(Узел, СтруктураПолей, Описание, БезУчетаАвторегистрации = Истина)
-
-	Результат = Новый Структура("Всего, Успешно", 0, 0);
-
-	Если БезУчетаАвторегистрации Тогда
-		СоставУзла = Неопределено;
-	Иначе
-		СоставУзла = Узел.Метаданные().Состав;
-	КонецЕсли;
-
-	ЭлементСостава = ?(СоставУзла = Неопределено, Неопределено, СоставУзла.Найти(Описание.Метаданные));
-	Если ЭлементСостава = Неопределено Или ЭлементСостава.Авторегистрация = АвтоРегистрацияИзменений.Разрешить Тогда
-		Результат.Всего = 1;
-
-		Набор = Описание.Менеджер.СоздатьНаборЗаписей();
-		Для Каждого КлючЗначение Из СтруктураПолей Цикл
-			Набор.Отбор[КлючЗначение.Ключ].Установить(КлючЗначение.Значение);
-		КонецЦикла;
-		Набор.Прочитать();
-
-		Если БСП_КонтрольВыгрузкиОбъекта(Узел, Набор) Тогда
-			ВыполнитьКомандуРегистрацииОбъекта(Истина, Узел, Набор);
-			Результат.Успешно = 1;
-		КонецЕсли;
-
-	КонецЕсли;
+	// Checking whether there is a default result.
+	If NumberText = "0" Then
+		Result = 0;
+	Else
+		NumberType = New TypeDescription("Number");
+		Result = NumberType.AdjustValue(NumberText);
+		If Result = 0 Then
+			// The default result was processed above, this is a conversion error.
+			Result = Undefined;
+		EndIf;
+	EndIf;
 	
-	// Смотрим опциональные варианты
-	Если Результат.Успешно > 0 Тогда
-		Для Каждого Элемент Из ПолучитьДополнительныеОбъектыРегистрации(Набор, Узел, БезУчетаАвторегистрации) Цикл
-			Результат.Всего = Результат.Всего + 1;
-			Если БСП_КонтрольВыгрузкиОбъекта(Узел, Элемент) Тогда
-				ВыполнитьКомандуРегистрацииОбъекта(Истина, Узел, Элемент);
-				Результат.Успешно = Результат.Успешно + 1;
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
+	Return Result;
+EndFunction
 
-	Возврат Результат;
-КонецФункции
-
-// Проверяет константу на возможность регистрации изменения в БСП.
-// Возвращает структуру с полями "Всего" и "Успешно", описывающей количества регистраций
+// Returns the flag showing that SSL in the current configuration provides functionality.
 //
-Функция БСП_РегистрацияИзмененийКонстанты(Узел, Описание, БезУчетаАвторегистрации = Истина)
+Function SSL_RequiredVersionAvailable(Val Version = Undefined) Export
 
-	Результат = Новый Структура("Всего, Успешно", 0, 0);
+	RequiredVersion = StrReplace(?(Version = Undefined, "2.2.2", Version), ".", Chars.LF);
 
-	Если БезУчетаАвторегистрации Тогда
-		СоставУзла = Неопределено;
-	Иначе
-		СоставУзла = Узел.Метаданные().Состав;
-	КонецЕсли;
+	Try
+		CurrentVersion = Eval("StandardSubsystemsServer.LibraryVersion()");
+	Except
+		// The method of determining the version is missing or broken, consider SSL unavailable.
+		Return False
+	EndTry;
 
-	ЭлементСостава = ?(СоставУзла = Неопределено, Неопределено, СоставУзла.Найти(Описание.Метаданные));
-	Если ЭлементСостава = Неопределено Или ЭлементСостава.Авторегистрация = АвтоРегистрацияИзменений.Разрешить Тогда
-		Результат.Всего = 1;
-		ОбъектРегистрации = Описание.Менеджер.СоздатьМенеджерЗначения();
-		Если БСП_КонтрольВыгрузкиОбъекта(Узел, ОбъектРегистрации) Тогда
-			ВыполнитьКомандуРегистрацииОбъекта(Истина, Узел, ОбъектРегистрации);
-			Результат.Успешно = 1;
-		КонецЕсли;
+	CurrentVersion = StrReplace(CurrentVersion, ".", Chars.LF);
 
-	КонецЕсли;
+	For Index = 1 To StrLineCount(RequiredVersion) Do
+		
+		CurrentVersionPart = StringToNumber(StrGetLine(CurrentVersion, Index));
+		RequiredVersionPart  = StringToNumber(StrGetLine(RequiredVersion,  Index));
+		
+		If CurrentVersionPart = Undefined Then
+			Return False;
+		ElsIf CurrentVersionPart > RequiredVersionPart Then
+			Return True;
+		ElsIf CurrentVersionPart < RequiredVersionPart Then
+			Return False;
+		EndIf;
+	EndDo;
+	
+	Return True;
+EndFunction
 
-	Возврат Результат;
-КонецФункции
-
-// Проверяет набор метаданных на возможность регистрации изменения в БСП.
-// Возвращает структуру с полями "Всего" и "Успешно", описывающей количества регистраций
+// Returns the flag of object control in SSL.
 //
-Функция БСП_РегистрацияИзмененийМетаданных(Узел, Описание, БезУчетаАвторегистрации)
+Function SSL_ObjectExportControl(Nodes, RegistrationObject)
+	Sending = DataItemSend.Auto;
+	Execute ("DataExchangeEvents.OnSendDataToRecipient(RegistrationObject, Sending, , Nodes)");
+	Return Sending <> DataItemSend.Delete;
+EndFunction
 
-	Результат = Новый Структура("Всего, Успешно", 0, 0);
-
-	Если Описание.ЭтоКоллекция Тогда
-		Для Каждого МетаВид Из Описание.Метаданные Цикл
-			ТекОписание = ХарактеристикиПоМетаданным(МетаВид);
-			ДобавитьРезультаты(Результат, БСП_РегистрацияИзмененийМетаданных(Узел, ТекОписание,
-				БезУчетаАвторегистрации));
-		КонецЦикла;
-	Иначе
-		;
-		ДобавитьРезультаты(Результат, БСП_РегистрацияИзмененийОбъектаМетаданных(Узел, Описание,
-			БезУчетаАвторегистрации));
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
-
-// Проверяет объект метаданных на возможность регистрации изменения в БСП.
-// Возвращает структуру с полями "Всего" и "Успешно", описывающей количества регистраций
+// Checks whether a reference change can be registered in SSL.
+// Returns the structure with the Total and Success fields that describes registration quantity.
 //
-Функция БСП_РегистрацияИзмененийОбъектаМетаданных(Узел, Описание, БезУчетаАвторегистрации)
+Function SSL_RefChangesRegistration(Node, Ref, NoAutoRegistration = True)
+	
+	Result = New Structure("Total, Success", 0, 0);
+	
+	If NoAutoRegistration Then
+		NodeContent = Undefined;
+	Else
+		NodeContent = Node.Metadata().Content;
+	EndIf;
+	
+	ContentItem = ?(NodeContent = Undefined, Undefined, NodeContent.Find(Ref.Metadata()));
+	If ContentItem = Undefined Or ContentItem.AutoRecord = AutoChangeRecord.Allow Then
+		// Getting an object from the Ref
+		Result.Total = 1;
+		RegistrationObject = Ref.GetObject();
+		// RegistrationObject value is Undefined if a passed reference is invalid.
+		If RegistrationObject = Undefined Or SSL_ObjectExportControl(Node, RegistrationObject) Then
+			ExecuteObjectRegistrationCommand(True, Node, Ref);
+			Result.Success = 1;
+		EndIf;
+		RegistrationObject = Undefined;
+	EndIf;	
+	
+	// Adding additional registration objects.
+	If Result.Success > 0 Then
+		For Each Item In GetAdditionalRegistrationObjects(Ref, Node, NoAutoRegistration) Do
+			Result.Total = Result.Total + 1;
+			If SSL_ObjectExportControl(Node, Item) Then
+				ExecuteObjectRegistrationCommand(True, Node, Item);
+				Result.Success = Result.Success + 1;
+			EndIf;
+		EndDo;
+	EndIf;
+	
+	Return Result;
+EndFunction
 
-	Результат = Новый Структура("Всего, Успешно", 0, 0);
+// Checks whether a record set change can be registered in SSL.
+// Returns the structure with the Total and Success fields that describes registration quantity.
+//
+Function SSL_SetChangesRegistration(Node, FieldsStructure, Details, NoAutoRegistration = True)
+	
+	Result = New Structure("Total, Success", 0, 0);
+	
+	If NoAutoRegistration Then
+		NodeContent = Undefined;
+	Else
+		NodeContent = Node.Metadata().Content;
+	EndIf;
+	
+	ContentItem = ?(NodeContent = Undefined, Undefined, NodeContent.Find(Details.Metadata));
+	If ContentItem = Undefined Or ContentItem.AutoRecord = AutoChangeRecord.Allow Then
+		Result.Total = 1;
+		
+		Set = Details.Manager.CreateRecordSet();
+		For Each KeyValue In FieldsStructure Do
+			Set.Filter[KeyValue.Key].Set(KeyValue.Value);
+		EndDo;
+		Set.Read();
+		
+		If SSL_ObjectExportControl(Node, Set) Then
+			ExecuteObjectRegistrationCommand(True, Node, Set);
+			Result.Success = 1;
+		EndIf;
+		
+	EndIf;
+	
+	// Adding additional registration objects.
+	If Result.Success > 0 Then
+		For Each Item In GetAdditionalRegistrationObjects(Set, Node, NoAutoRegistration) Do
+			Result.Total = Result.Total + 1;
+			If SSL_ObjectExportControl(Node, Item) Then
+				ExecuteObjectRegistrationCommand(True, Node, Item);
+				Result.Success = Result.Success + 1;
+			EndIf;
+		EndDo;
+	EndIf;
+	
+	Return Result;
+EndFunction
 
-	ЭлементСостава = Узел.Метаданные().Состав.Найти(Описание.Метаданные);
-	Если ЭлементСостава = Неопределено Тогда
-		// Вообще не регистрируется
-		Возврат Результат;
-	КонецЕсли;
+// Checks whether a constant change can be registered in SSL.
+// Returns the structure with the Total and Success fields that describes registration quantity.
+//
+Function SSL_ConstantChangesRegistration(Node, Details, NoAutoRegistration = True)
+	
+	Result = New Structure("Total, Success", 0, 0);
+	
+	If NoAutoRegistration Then
+		NodeContent = Undefined;
+	Else
+		NodeContent = Node.Metadata().Content;
+	EndIf;
+	
+	ContentItem = ?(NodeContent = Undefined, Undefined, NodeContent.Find(Details.Metadata));
+	If ContentItem = Undefined Or ContentItem.AutoRecord = AutoChangeRecord.Allow Then
+		Result.Total = 1;
+		RegistrationObject = Details.Manager.CreateValueManager();
+		If SSL_ObjectExportControl(Node, RegistrationObject) Then
+			ExecuteObjectRegistrationCommand(True, Node, RegistrationObject);
+			Result.Success = 1;
+		EndIf;
+		
+	EndIf;	
+	
+	Return Result;
+EndFunction
 
-	Если (Не БезУчетаАвторегистрации) И ЭлементСостава.Авторегистрация <> АвтоРегистрацияИзменений.Разрешить Тогда
-		// Отсечение по авторегистрации
-		Возврат Результат;
-	КонецЕсли;
+// Checks whether a metadata set can be registered in SSL.
+// Returns the structure with the Total and Success fields that describes registration quantity.
+//
+Function SSL_MetadataChangesRegistration(Node, Details, NoAutoRegistration)
+	
+	Result = New Structure("Total, Success", 0, 0);
+	
+	If Details.IsCollection Then
+		For Each MetaKind In Details.Metadata Do
+			CurDetails = MetadataCharacteristics(MetaKind);
+			AddResults(Result, SSL_MetadataChangesRegistration(Node, CurDetails, NoAutoRegistration) );
+		EndDo;
+	Else;
+		AddResults(Result, SSL_MetadataObjectChangesRegistration(Node, Details, NoAutoRegistration) );
+	EndIf;
+	
+	Return Result;
+EndFunction
 
-	ТекИмяТаблицы = Описание.ИмяТаблицы;
-	Если Описание.ЭтоКонстанта Тогда
-		ДобавитьРезультаты(Результат, БСП_РегистрацияИзмененийКонстанты(Узел, Описание));
-		Возврат Результат;
+// Checks whether a metadata object can be registered in SSL.
+// Returns the structure with the Total and Success fields that describes registration quantity.
+//
+Function SSL_MetadataObjectChangesRegistration(Node, Details, NoAutoRegistration)
+	
+	Result = New Structure("Total, Success", 0, 0);
+	
+	ContentItem = Node.Metadata().Content.Find(Details.Metadata);
+	If ContentItem = Undefined Then
+		// Cannot execute a registration
+		Return Result;
+	EndIf;
+	
+	If (Not NoAutoRegistration) And ContentItem.AutoRecord <> AutoChangeRecord.Allow Then
+		// Auto record is not supported.
+		Return Result;
+	EndIf;
+	
+	CurTableName = Details.TableName;
+	If Details.IsConstant Then
+		AddResults(Result, SSL_ConstantChangesRegistration(Node, Details) );
+		Return Result;
+		
+	ElsIf Details.IsReference Then
+		DimensionFields = "Ref";
+		
+	ElsIf Details.IsSet Then
+		DimensionFields = "";
+		For Each Row In RecordSetDimensions(CurTableName) Do
+			DimensionFields = DimensionFields + "," + Row.Name
+		EndDo;
+		DimensionFields = Mid(DimensionFields, 2);
 
-	ИначеЕсли Описание.ЭтоСсылка Тогда
-		ПоляИзмерений = "Ссылка";
+	Else
+		Return Result;
+	EndIf;
 
-	ИначеЕсли Описание.ЭтоНабор Тогда
-		ПоляИзмерений = "";
-		Для Каждого Строка Из ИзмеренияНабораЗаписей(ТекИмяТаблицы) Цикл
-			ПоляИзмерений = ПоляИзмерений + "," + Строка.Имя;
-		КонецЦикла
-		;
-		ПоляИзмерений = Сред(ПоляИзмерений, 2);
+	Query = New Query("
+					  |SELECT DISTINCT 
+					  |	" + ?(IsBlankString(DimensionFields), "*", DimensionFields) + "
+																					   |FROM 
+																					   |	" + CurTableName + "
+																											   |");
+	Selection = Query.Execute().Select();
+	While Selection.Next() Do
+		If Details.IsSet Then
+			Data = New Structure(DimensionFields);
+			FillPropertyValues(Data, Selection);
+			AddResults(Result, SSL_SetChangesRegistration(Node, Data, Details));
+		ElsIf Details.IsRef Then
+			AddResults(Result, SSL_RefChangesRegistration(Node, Selection.Ref, NoAutoRegistration));
+		EndIf;
+	EndDo;
 
-	Иначе
-		Возврат Результат;
-	КонецЕсли;
+	Return Result;
+EndFunction
 
-	Запрос = Новый Запрос("
-						  |ВЫБРАТЬ РАЗЛИЧНЫЕ 
-						  |	" + ?(ПустаяСтрока(ПоляИзмерений), "*", ПоляИзмерений) + "
-																						|ИЗ 
-																						|	" + ТекИмяТаблицы + "
-																												 |");
-	Выборка = Запрос.Выполнить().Выбрать();
-	Пока Выборка.Следующий() Цикл
-		Если Описание.ЭтоНабор Тогда
-			Данные = Новый Структура(ПоляИзмерений);
-			ЗаполнитьЗначенияСвойств(Данные, Выборка);
-			ДобавитьРезультаты(Результат, БСП_РегистрацияИзмененийНабора(Узел, Данные, Описание));
-		ИначеЕсли Описание.ЭтоСсылка Тогда
-			ДобавитьРезультаты(Результат, БСП_РегистрацияИзмененийСсылки(Узел, Выборка.Ссылка, БезУчетаАвторегистрации));
-		КонецЕсли;
-	КонецЦикла;
-
-	Возврат Результат;
-КонецФункции
-
-#КонецЕсли
+#EndIf
