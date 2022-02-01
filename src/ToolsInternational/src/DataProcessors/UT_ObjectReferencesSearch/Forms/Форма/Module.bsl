@@ -3,7 +3,7 @@
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	If Parameters.Property("SearchObject") Then
-		Объект.SourceObject = Parameters.SearchObject;
+		Object.SourceObject = Parameters.SearchObject;
 	EndIf;
 	
 	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
@@ -12,7 +12,7 @@ EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-	If ValueIsFilled(Объект.SourceObject) Then
+	If ValueIsFilled(Object.SourceObject) Then
 		SourceObjectOnChange(Undefined);
 		ExecuteReferencesSearch();
 	EndIf;
@@ -24,11 +24,11 @@ EndProcedure
 
 &AtClient
 Procedure SourceObjectOnChange(Item)
-	If NOT ValueIsFilled(Объект.SourceObject) Then
-		УникальныйИдентификаторИсточника="";
+	If NOT ValueIsFilled(Object.SourceObject) Then
+		SourceUUID="";
 	Else
 		Try
-			УникальныйИдентификаторИсточника = Объект.SourceObject.UUID();
+			SourceUUID = Object.SourceObject.UUID();
 		Except
 			//TODO Amend the implementation code
 		EndTry;
@@ -36,20 +36,20 @@ Procedure SourceObjectOnChange(Item)
 EndProcedure
 
 &AtClient
-Procedure РезультатПоискаВыбор(Item, RowSelected, Field, StandardProcessing)
+Procedure SearchResultSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
 	OpenCurrentRowObject();
 EndProcedure
 
 &AtClient
-Procedure РезультатПоискаПриАктивизацииСтроки(Item)
-	CurrentData = Items.РезультатПоиска.CurrentData;
+Procedure SearchResultOnRowActivation(Item)
+	CurrentData = Items.SearchResult.CurrentData;
 	If CurrentData = Undefined Then
 		OpenCommandVisibility = False;
 		SearchCommandVisibility = False;
 	Else
-		OpenCommandVisibility = CurrentData.МожноОткрыть;
-		SearchCommandVisibility = CurrentData.СсылочныйТип;
+		OpenCommandVisibility = CurrentData.CanBeOpened;
+		SearchCommandVisibility = CurrentData.ReferenceType;
 	EndIf;
 
 	Items.TableContextMenuOpenObject.Visible = OpenCommandVisibility;
@@ -72,37 +72,37 @@ EndProcedure
 
 &AtClient
 Procedure SearchForObject(Command)
-	CurrentData = Items.РезультатПоиска.CurrentData;
+	CurrentData = Items.SearchResult.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
-	If NOT CurrentData.СсылочныйТип Then
+	If NOT CurrentData.ReferenceType Then
 		Return;
 	EndIf;
 
 	FormParameters = New Structure;
-	FormParameters.Insert("SearchObject", CurrentData.НайденныйОбъект);
+	FormParameters.Insert("SearchObject", CurrentData.FoundObject);
 
 	OpenForm("Обработка.UT_ObjectReferencesSearch.Форма", FormParameters, , New UUID);
 EndProcedure
 
 &AtClient
 Procedure EditObject(Command)
-	CurrentData = Items.РезультатПоиска.CurrentData;
+	CurrentData = Items.SearchResult.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	UT_CommonClient.EditObject(CurrentData.НайденныйОбъект);
+	UT_CommonClient.EditObject(CurrentData.FoundObject);
 EndProcedure
 
 &AtClient
 Procedure EditSourceObject(Command)
-	If NOT ValueIsFilled(Объект.SourceObject) Then
+	If NOT ValueIsFilled(Object.SourceObject) Then
 		Return;
 	EndIf;
 
-	UT_CommonClient.EditObject(Объект.SourceObject);
+	UT_CommonClient.EditObject(Object.SourceObject);
 EndProcedure
 
 &AtClient
@@ -113,13 +113,13 @@ EndProcedure
 
 &AtClient
 Procedure ВводНавигационнойСсылкиЗавершение(InputResult, AdditionalParameters) Export
-	If InputResult = Неопределено Then
+	If InputResult = Undefined Then
 		Return;
 	EndIf;	
 	
 	FoundObject = вНайтиОбъектПоURL(InputResult);
-	If Объект.SourceObject <> FoundObject Then
-		Объект.SourceObject = FoundObject;
+	If Object.SourceObject <> FoundObject Then
+		Object.SourceObject = FoundObject;
 		SourceObjectOnChange(Undefined);
 	EndIf;
 	
@@ -137,9 +137,9 @@ EndProcedure
 
 &AtServer
 Procedure ExecuteReferencesSearchAtServer()
-	If NOT ValueIsFilled(Объект.SourceObject) Then
+	If NOT ValueIsFilled(Object.SourceObject) Then
 		UT_CommonClientServer.MessageToUser("Не выбран объект, на который необходимо найти ссылки", ,
-			"Объект.SourceObject");
+			"Object.SourceObject");
 		Return;
 	EndIf;
 
@@ -175,7 +175,7 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapReferenceType.Insert(13, False); // 13 External data source set
 	MapReferenceType.Insert(14, True); // 14 External data source reference
 	MapOfPictures = New Map;
-	MapOfPictures.Insert(0, New Картинка); // 0
+	MapOfPictures.Insert(0, New Picture); // 0
 	MapOfPictures.Insert(1, PictureLib.Константа); // 1 Constant
 	MapOfPictures.Insert(2, PictureLib.Справочник); // 2 Catalog
 	MapOfPictures.Insert(3, PictureLib.Документ); // 3 Document
@@ -191,12 +191,12 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapOfPictures.Insert(13, PictureLib.ВнешнийИсточникДанныхТаблица); // 13 External data source set
 	MapOfPictures.Insert(14, PictureLib.ВнешнийИсточникДанныхТаблица); // 14 External data source reference
 	ArrayOfSearch = New Array;
-	ArrayOfSearch.Add(Объект.SourceObject);
+	ArrayOfSearch.Add(Object.SourceObject);
 
 	ReferencesTable = FindByRef(ArrayOfSearch);
 
-	РезультатПоиска.Clear();
-	Объект.FoundCount = ReferencesTable.Count();
+	SearchResult.Clear();
+	Object.FoundCount = ReferencesTable.Count();
 
 	First = Истина;
 	For Each СтрокаНайденнного In ReferencesTable Do
@@ -205,23 +205,23 @@ Procedure ExecuteReferencesSearchAtServer()
 	// 2 - metadata object
 		БазовыйТипЧислом = ТипМетаданныхЧислом(СтрокаНайденнного.Metadata);
 
-		ПредставлениеНайденного = FoundObjectPresentation(БазовыйТипЧислом, СтрокаНайденнного.Metadata,
+		FoundPresentation = FoundObjectPresentation(БазовыйТипЧислом, СтрокаНайденнного.Metadata,
 			СтрокаНайденнного.Data) + " (" + СтрокаНайденнного.Metadata.FullName() + ")";
 
-		NewRow = РезультатПоиска.Add();
-		NewRow.Ссылка = СтрокаНайденнного.Ref;
-		NewRow.ПредставлениеОбъекта = ПредставлениеНайденного;
-		NewRow.НайденныйОбъект = СтрокаНайденнного.Data;
-		NewRow.Картинка = MapOfPictures[БазовыйТипЧислом];
-		NewRow.МожноОткрыть = MapCanBeOpened[БазовыйТипЧислом];
-		NewRow.СсылочныйТип = MapReferenceType[БазовыйТипЧислом];
-		If NewRow.СсылочныйТип Then
-			NewRow.УникальныйИдентификатор = NewRow.НайденныйОбъект.UUID();
+		NewRow = SearchResult.Add();
+		NewRow.Ref = СтрокаНайденнного.Ref;
+		NewRow.ObjectPresentation = FoundPresentation;
+		NewRow.FoundObject = СтрокаНайденнного.Data;
+		NewRow.Picture = MapOfPictures[БазовыйТипЧислом];
+		NewRow.CanBeOpened = MapCanBeOpened[БазовыйТипЧислом];
+		NewRow.ReferenceType = MapReferenceType[БазовыйТипЧислом];
+		If NewRow.ReferenceType Then
+			NewRow.UUID = NewRow.FoundObject.UUID();
 		EndIf;
 
 		If First Then
 
-			Items.РезультатПоиска.CurrentRow = NewRow.GetID();
+			Items.SearchResult.CurrentRow = NewRow.GetID();
 			First = Ложь;
 
 		EndIf;
@@ -232,23 +232,23 @@ EndProcedure
 
 &AtClient
 Procedure OpenCurrentRowObject()
-	CurrentData = Items.РезультатПоиска.CurrentData;
+	CurrentData = Items.SearchResult.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
-	If NOT CurrentData.МожноОткрыть Then
+	If NOT CurrentData.CanBeOpened Then
 		Return;
 	EndIf;
 
-	ПоказатьЗначение( , CurrentData.НайденныйОбъект);
+	ПоказатьЗначение( , CurrentData.FoundObject);
 
 EndProcedure
 
 &AtClient
 Procedure ExecuteReferencesSearch()
-	If NOT ValueIsFilled(Объект.SourceObject) Then
+	If NOT ValueIsFilled(Object.SourceObject) Then
 		UT_CommonClientServer.MessageToUser("Не выбран объект, на который необходимо найти ссылки", ,
-			"Объект.SourceObject");
+			"Object.SourceObject");
 		Return;
 	EndIf;
 
@@ -256,53 +256,53 @@ Procedure ExecuteReferencesSearch()
 	ExecuteReferencesSearchAtServer();
 	Status("Поиск ссылок на объект завершен", , , PictureLib.УправлениеПоиском);
 
-	ThisObject.CurrentItem = Items.РезультатПоиска;
+	ThisObject.CurrentItem = Items.SearchResult;
 
 EndProcedure
 
 &AtServerNoContext
 Function FoundObjectPresentation(БазовыйТипЧислом, МетаданныеОбъекта, FoundObject)
 
-	Представление = TrimAll(FoundObject);
+	Presentation = TrimAll(FoundObject);
 	If БазовыйТипЧислом = 2 OR БазовыйТипЧислом = 3 OR БазовыйТипЧислом = 8 OR БазовыйТипЧислом = 9
 		OR БазовыйТипЧислом = 10 OR БазовыйТипЧислом = 11 OR БазовыйТипЧислом = 12 OR БазовыйТипЧислом = 14 Then
 
 	ElsIf БазовыйТипЧислом = 4 OR БазовыйТипЧислом = 5 OR БазовыйТипЧислом = 6 OR БазовыйТипЧислом = 7 Then
 
-		Представление = "";
+		Presentation = "";
 		If МетаданныеОбъекта.InformationRegisterPeriodicity
 			<> Metadata.ObjectProperties.InformationRegisterPeriodicity.Nonperiodical Then
 
-			Представление = String(FoundObject.Период);
+			Presentation = String(FoundObject.Период);
 
 		EndIf;
 
 		If МетаданныеОбъекта.WriteMode = Metadata.ObjectProperties.RegisterWriteMode.RecorderSubordinate Then
 
-			Представление = ?(StrLen(Представление) = 0, "", Представление + "; ") + String(
+			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
 				FoundObject.Регистратор);
 
 		EndIf;
 
 		For Each Измерение In МетаданныеОбъекта.Измерения Do
 
-			Представление = ?(StrLen(Представление) = 0, "", Представление + "; ") + String(
+			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
 				FoundObject[Измерение.Имя]);
 
 		EndDo;
 
 	ElsIf БазовыйТипЧислом = 13 Then
 
-		Представление = "";
+		Presentation = "";
 		For Each Измерение In МетаданныеОбъекта.KeyFields Do
 
-			Представление = ?(StrLen(Представление) = 0, "", Представление + "; ") + String(
+			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
 				FoundObject[Измерение.Имя]);
 
 		EndDo;
 	EndIf;
 
-	Return Представление;
+	Return Presentation;
 
 EndFunction
 
@@ -382,12 +382,12 @@ Function вНайтиОбъектПоURL(Знач URL)
 		TypeName = Mid(URL, Pos1 + 11, Pos2 - Pos1 - 11);
 		ШаблонЗначения = ValueToStringInternal(PredefinedValue(TypeName + ".EmptyRef"));
 		ЗначениеСсылки = StrReplace(ШаблонЗначения, "00000000000000000000000000000000", Mid(URL, Pos2 + 5));
-		Ссылка = ValueFromStringInternal(ЗначениеСсылки);
+		Ref = ValueFromStringInternal(ЗначениеСсылки);
 	Except
 		Return Undefined;
 	EndTry;
 
-	Return Ссылка;
+	Return Ref;
 EndFunction
 
 #EndRegion
