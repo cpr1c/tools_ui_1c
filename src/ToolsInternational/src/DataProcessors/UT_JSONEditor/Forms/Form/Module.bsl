@@ -170,7 +170,7 @@ EndProcedure
 
 &AtClient
 Procedure SetJSONIntoHTML(EditorFormField, JSONString)
-	HTMLDocument=EditorFormField.Документ;
+	HTMLDocument=EditorFormField.Document;
 	If HTMLDocument.parentWindow = Undefined Then
 		DocumentSructureDOM = HTMLDocument.defaultView;
 	Else
@@ -207,16 +207,16 @@ EndFunction
 
 &AtClient
 Procedure SetEditorFieldHTMLText()
-	ТекстCSS=LibrarySavingDirectory + GetPathSeparator() + "jsoneditor.css";
-	ТекстJS=LibrarySavingDirectory + GetPathSeparator() + "jsoneditor.js";
+	CSSText=LibrarySavingDirectory + GetPathSeparator() + "jsoneditor.css";
+	JSText=LibrarySavingDirectory + GetPathSeparator() + "jsoneditor.js";
 
-	Шаблон= "<!DOCTYPE HTML>
+	Template= "<!DOCTYPE HTML>
 			|<html>
 			|<head>
 			|  <title>JSONEditor | Synchronize two editors</title>
 			|
-			|	<link href=""" + ТекстCSS + """ rel=""stylesheet"" type=""text/css"">
-											 |  <script src=""" + ТекстJS + """></script>
+			|	<link href=""" + CSSText + """ rel=""stylesheet"" type=""text/css"">
+											 |  <script src=""" + JSText + """></script>
 																			|
 																			|  <style type=""text/css"">
 																			|    body {
@@ -238,8 +238,8 @@ Procedure SetEditorFieldHTMLText()
 																			|  var options = {
 																			|    // switch between pt-BR or en for testing forcing a language
 																			|    // leave blank to get language
-																			|   'language': 'ru-RU',
-																			|   mode: '###РежимРедактора###'
+																			|   'language': 'en-EN',
+																			|   mode: '###EditorMode###'
 																			|  }
 																			|  var editor = new JSONEditor(container, options)
 																			|
@@ -254,34 +254,34 @@ Procedure SetEditorFieldHTMLText()
 																			|</body>
 																			|</html>";
 
-	СохранитьФайлHTMLПоляРедатора(StrReplace(Шаблон, "###РежимРедактора###", "tree"), LibrarySavingDirectory + GetPathSeparator() + "tree.html" ,"TreeEditField");
-	СохранитьФайлHTMLПоляРедатора(StrReplace(Шаблон, "###РежимРедактора###", "code"), LibrarySavingDirectory + GetPathSeparator() + "code.html","LineEditField");
+	SaveFileEditorHTMLFild(StrReplace(Template, "###EditorMode###", "tree"), LibrarySavingDirectory + GetPathSeparator() + "tree.html" ,"TreeEditField");
+	SaveFileEditorHTMLFild(StrReplace(Template, "###EditorMode###", "code"), LibrarySavingDirectory + GetPathSeparator() + "code.html","LineEditField");
 EndProcedure
 
 &AtClient
-Procedure СохранитьФайлHTMLПоляРедатора(ТекстHTML, ИмяФайла, ИмяПоляРедактора)
-	Текст=New ТекстовыйДокумент;
-	Текст.УстановитьТекст(ТекстHTML);
+Procedure SaveFileEditorHTMLFild(HTMLText, FileName, EditorFieldName)
+	Text=New TextDocument;
+	Text.SetText(HTMLText);
 	
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("ИмяПоляРедактора", ИмяПоляРедактора);
-	ДопПараметры.Insert("ИмяФайла", ИмяФайла);
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("HTMLText", EditorFieldName);
+	AdditionalParameters.Insert("FileName", FileName);
 	
-	Текст.НачатьЗапись(New NotifyDescription("СохранитьФайлHTMLПоляРедатораЗаверешение", ThisObject, ДопПараметры), ИмяФайла);
+	Text.BeginWriting(New NotifyDescription("SaveFileEditorHTMLFildCompletion", ThisObject, AdditionalParameters), FileName);
 EndProcedure
 
 &AtClient
-Procedure СохранитьФайлHTMLПоляРедатораЗаверешение(Result, AdditionalParameters) Export
-	ThisObject[AdditionalParameters.ИмяПоляРедактора] = AdditionalParameters.ИмяФайла;
+Procedure SaveFileEditorHTMLFildCompletion(Result, AdditionalParameters) Export
+	ThisObject[AdditionalParameters.EditorFieldName] = AdditionalParameters.FileName;
 EndProcedure
 
 &AtClient
 Procedure SaveEditorLibraryToDisk()
-	СоответствиеФайловБиблиотеки=GetFromTempStorage(LibraryAddress);
-	For Each КлючЗначение In СоответствиеФайловБиблиотеки Do
-		ИмяФайла=LibrarySavingDirectory + GetPathSeparator() + КлючЗначение.Ключ;
+	LibraryFilesMap=GetFromTempStorage(LibraryAddress);
+	For Each KeyValue In LibraryFilesMap Do
+		FileName=LibrarySavingDirectory + GetPathSeparator() + KeyValue.Key;
 
-		КлючЗначение.Значение.Записать(ИмяФайла);
+		KeyValue.Value.Save(FileName);
 	EndDo;
 EndProcedure
 
@@ -296,8 +296,8 @@ Procedure SetLibraryAddressOnServer()
 
 	Stream=BinaryLibraryData.OpenStreamForRead();
 
-	ЧтениеZIP=New ZipFileReader(Stream);
-	ЧтениеZIP.ExtractAll(FolderOnServer, ZIPRestoreFilePathsMode.Restore);
+	ZIPReader=New ZipFileReader(Stream);
+	ZIPReader.ExtractAll(FolderOnServer, ZIPRestoreFilePathsMode.Restore);
 
 	LibraryMap =New Map;
 
@@ -323,19 +323,19 @@ EndProcedure
 
 #EndRegion
 
-#Region СтандартныеПроцедурыИнструментов
+#Region StandartFunctions
 
 &AtClient
-Function СтруктураОписанияСохраняемогоФайла()
-	Структура=UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
-	Структура.ИмяФайла=ToolDataFileName;
+Function StructureDescriptionSaveFile()
+	Structure=UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
+	Structure.FileName=ToolDataFileName;
 
-	UT_CommonClient.AddFormatToSavingFileDescription(Структура, "Файл JSOM(*.json)", "json");
-	Return Структура;
+	UT_CommonClient.AddFormatToSavingFileDescription(Structure, "File JSOM(*.json)", "json");
+	Return Structure;
 EndFunction
 &AtClient
 Procedure OpenFile(Command)
-	UT_CommonClient.ReadConsoleFromFile("РедактовJSON", СтруктураОписанияСохраняемогоФайла(),
+	UT_CommonClient.ReadConsoleFromFile("JSONEditor", StructureDescriptionSaveFile(),
 		New NotifyDescription("OpenFileComplеtion", ThisObject));
 EndProcedure
 
@@ -345,55 +345,55 @@ Procedure OpenFileComplеtion(Result, AdditionalParameters) Export
 		Return;
 	EndIf;
 
-	Модифицированность=False;
-	ToolDataFileName = Result.ИмяФайла;
+	Modified=False;
+	ToolDataFileName = Result.FileName;
 
-	ДанныеФайла=GetFromTempStorage(Result.Адрес);
+	FileData=GetFromTempStorage(Result.Adress);
 
-	Текст=New ТекстовыйДокумент;
-	Текст.НачатьЧтение(New NotifyDescription("ОткрытьФайлЗавершениеЧтенияТекста", ThisForm, New Structure("Текст", Текст)), ДанныеФайла.OpenStreamForRead());
+	Text=New TextDocument;
+	Text.BeginReading(New NotifyDescription("OpenFileReadingTextCopletion", ThisForm, New Structure("Text", Text)), FileData.OpenStreamForRead());
 EndProcedure
 
 &AtClient
-Procedure ОткрытьФайлЗавершениеЧтенияТекста(AdditionalParameters1) Export
+Procedure OpenFileReadingTextCopletion(AdditionalParameters1) Export
 	
-	Текст = AdditionalParameters1.Текст;
+	Text = AdditionalParameters1.Text;
 	
-	SetJSONIntoHTML(Items.LineEditField, Текст.ПолучитьТекст());
-	SetJSONIntoHTML(Items.TreeEditField, Текст.ПолучитьТекст());
+	SetJSONIntoHTML(Items.LineEditField, Text.GetText());
+	SetJSONIntoHTML(Items.TreeEditField, Text.GetText());
 	SetTitle();
 
 EndProcedure
 
 &AtClient
 Procedure SaveFile(Command)
-	СохранитьФайлНаДиск();
+	SaveFileToDisk();
 EndProcedure
 
 &AtClient
 Procedure SaveFileAs(Command)
-	СохранитьФайлНаДиск(True);
+	SaveFileToDisk(True);
 EndProcedure
 
 &AtClient
-Procedure СохранитьФайлНаДиск(СохранитьКак = False)
-	UT_CommonClient.SaveConsoleDataToFile("РедактовHTML", СохранитьКак,
-		СтруктураОписанияСохраняемогоФайла(), JSONLineFromEditorField(Items.LineEditField),
-		New NotifyDescription("СохранитьФайлЗавершение", ThisObject));
+Procedure SaveFileToDisk(SaveAs = False)
+	UT_CommonClient.SaveConsoleDataToFile("HTMLEditor", SaveAs,
+		StructureDescriptionSaveFile(), JSONLineFromEditorField(Items.LineEditField),
+		New NotifyDescription("SaveFileCompletion", ThisObject));
 EndProcedure
 
 &AtClient
-Procedure СохранитьФайлЗавершение(ИмяФайлаСохранения, AdditionalParameters) Export
-	If ИмяФайлаСохранения = Undefined Then
+Procedure SaveFileCompletion(SaveFileName, AdditionalParameters) Export
+	If SaveFileName = Undefined Then
 		Return;
 	EndIf;
 
-	If Not ValueIsFilled(ИмяФайлаСохранения) Then
+	If Not ValueIsFilled(SaveFileName) Then
 		Return;
 	EndIf;
 
-	Модифицированность=False;
-	ToolDataFileName=ИмяФайлаСохранения;
+	Modified=False;
+	ToolDataFileName=SaveFileName;
 	SetTitle();
 EndProcedure
 
@@ -409,7 +409,7 @@ EndProcedure
 
 &AtClient
 Procedure SetTitle()
-	Заголовок=ToolDataFileName;
+	Title=ToolDataFileName;
 EndProcedure
 
 &AtClient
@@ -422,7 +422,7 @@ EndProcedure
 &AtClient
 Procedure CloseToolComplеtion(Result, AdditionalParameters) Export
 
-	If Result = КодВозвратаДиалога.Да Then
+	If Result = DialogReturnCode.Yes Then
 		ClosingFormConfirmed = True;
 		Close();
 	EndIf;
