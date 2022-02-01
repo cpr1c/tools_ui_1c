@@ -16,7 +16,7 @@
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>РедакторКода1СПриИзменении</name>
+        <name>EditorOf1CScriptOnChange</name>
       </handlers>
       <extendedTooltip>
         <name>EditorOf1CScriptExtendedTooltip</name>
@@ -174,7 +174,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ЯзыкСинтаксисаРедактораMonaco</name>
+          <name>MonacoEditorScriptVariant</name>
           <id>13</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -185,7 +185,7 @@
             <segments>MonacoEditorScriptVariant</segments>
           </dataPath>
           <extendedTooltip>
-            <name>ЯзыкСинтаксисаРедактораMonacoРасширеннаяПодсказка</name>
+            <name>MonacoEditorScriptVariantExtendedTooltip</name>
             <id>15</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -200,7 +200,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ЯзыкСинтаксисаРедактораMonacoКонтекстноеМеню</name>
+            <name>MonacoEditorScriptVariantContextMenu</name>
             <id>14</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -881,11 +881,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
     <event>FillCheckProcessingAtServer</event>
-    <name>ОбработкаПроверкиЗаполненияНаСервере</name>
+    <name>FillCheckProcessingAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
