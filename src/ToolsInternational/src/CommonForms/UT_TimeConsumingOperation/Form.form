@@ -229,14 +229,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>State</name>
+    <name>Status</name>
     <title>
       <key>ru</key>
       <value>Статус</value>
     </title>
     <title>
       <key>en</key>
-      <value>State</value>
+      <value>Status</value>
     </title>
     <id>1</id>
     <valueType>
