@@ -66,5 +66,4 @@ Procedure RestoreUserDataAfterUserSessionStart(UserName, StoredIBUserPasswordDat
 	
 EndProcedure
 
-
 #EndRegion

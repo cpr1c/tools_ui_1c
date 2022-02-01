@@ -292,7 +292,7 @@ EndProcedure
 //@skip-warning 
 &AtClient
 Procedure Attachable_SetWriteSettings(Command)
-	UT_CommonClient.РедактироватьПараметрыЗаписи(ThisObject);
+	UT_CommonClient.EditWriteSettings(ThisObject);
 EndProcedure
 
 //@skip-warning
@@ -314,14 +314,14 @@ Procedure ConstantClick(Item, StandardProcessing)
 EndProcedure
 
 &AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) Экспорт
+Procedure Attachable_ExecuteToolsCommonCommand(Command) Export
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
 //@skip-warning
 &AtClient
 Procedure ConstantOnChange(Item)
-	ConstantName = Item.Имя;
+	ConstantName = Item.Name;
 
 	// Set color of changed Constant at Form
 	ItemGroup = Items["Group_" + ConstantName];
