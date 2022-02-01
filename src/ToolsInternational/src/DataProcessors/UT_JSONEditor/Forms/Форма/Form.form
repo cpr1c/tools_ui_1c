@@ -202,7 +202,7 @@
       <extInfo xsi:type="form:HtmlFieldExtInfo">
         <handlers>
           <event>DocumentComplete</event>
-          <name>ПолеРедактораДокументСформирован</name>
+          <name>TreeEditFieldDocumentGenerated</name>
         </handlers>
         <width>15</width>
         <autoMaxWidth>true</autoMaxWidth>

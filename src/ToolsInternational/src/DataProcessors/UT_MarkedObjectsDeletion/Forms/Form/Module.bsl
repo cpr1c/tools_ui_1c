@@ -18,7 +18,7 @@ EndProcedure
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	If Parameters.Property("AutoTest") Then // Возврат при получении формы для анализа.
+	If Parameters.Property("AutoTest") Then // Return If the form is got for analysis
 		Return;
 	EndIf;
 
