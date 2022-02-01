@@ -37,7 +37,7 @@ Procedure BeforeClose(Cancel, Exit, WarningText, StandardProcessing)
 EndProcedure
 
 &AtClient
-Procedure BeforeCloseDeletingFilesComplеtion(AdditionalParameters) Экспорт
+Procedure BeforeCloseDeletingFilesComplеtion(AdditionalParameters) Export
 	
 	
 
@@ -48,165 +48,165 @@ EndProcedure
 #Region FormItemsEvents
 
 &AtClient
-Procedure ПолеРедактораДокументСформирован(Элемент)
-	If ЗначениеЗаполнено(EditLine) Then
-		ПодключитьОбработчикОжидания("ОбработчикОжиданияУстановитьРедактируемуюСтрокуВРедакторДерево", 0.5, True);
+Procedure TreeEditFieldDocumentGenerated(Item)
+	If ValueIsFilled(EditLine) Then
+		AttachIdleHandler("IdleHandlerSetEditingLineInTreeEditor", 0.5, True);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ПолеРедактораСтрокаДокументСформирован(Элемент)
-	If ЗначениеЗаполнено(EditLine) Then
-		ПодключитьОбработчикОжидания("ОбработчикОжиданияУстановитьРедактируемуюСтрокуВРедакторСтроки", 0.1, True);
+Procedure LineEditFieldDocumentGenerated(Item)
+	If ValueIsFilled(EditLine) Then
+		AttachIdleHandler("IdleHandlerSetEditingLineInLineEditor", 0.1, True);
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure CopyFromLineToTree(Command)
-	JSONString=СтрокаJSONИзПоляРедактора(Items.LineEditField);
-	СтрокаДерева=СтрокаJSONИзПоляРедактора(Items.TreeEditField);
+	JSONString=JSONLineFromEditorField(Items.LineEditField);
+	TreeLine=JSONLineFromEditorField(Items.TreeEditField);
 
-	УстановитьJSONВHTML(Items.TreeEditField, JSONString);
-	If Not ЗначениеЗаполнено(СтрокаДерева) Then
-		РазвернутьСтрокиДереваJSON(Items.TreeEditField);
+	SetJSONIntoHTML(Items.TreeEditField, JSONString);
+	If Not ValueIsFilled(TreeLine) Then
+		ExpandTreeLinesJSON(Items.TreeEditField);
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure CopyFromTreeToLine(Command)
-	JSONString=СтрокаJSONИзПоляРедактора(Items.TreeEditField);
-	УстановитьJSONВHTML(Items.LineEditField, JSONString);
+	JSONString=JSONLineFromEditorField(Items.TreeEditField);
+	SetJSONIntoHTML(Items.LineEditField, JSONString);
 EndProcedure
 
 &AtClient
 Procedure FinishEditing(Command)
 	ClosingFormConfirmed=True;
-	Закрыть(СтрокаJSONИзПоляРедактора(Items.LineEditField));
+	Close(JSONLineFromEditorField(Items.LineEditField));
 EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Команда);
+Procedure Attachable_ExecuteToolsCommonToolsCommand(Command) 
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
 
 
 #EndRegion
 
-#Region СлужебныеПроцедурыИФункции
+#Region Private
 
 &AtClient
-Procedure OnOpenComplеtion(Result, AdditionalParameters) Экспорт
-	СтруктураФайловыхПеременных=UT_CommonClient.SessionFileVariablesStructure();
-	LibrarySavingDirectory=СтруктураФайловыхПеременных.TempFilesDirectory + "tools_ui_1c"
-		+ GetPathSeparator() + Формат(UT_CommonClientServer.Version(), "ЧГ=0;") + GetPathSeparator() + "jsoneditor";
-	ФайлРедактора=New Файл(LibrarySavingDirectory);
-	ФайлРедактора.НачатьПроверкуСуществования(New NotifyDescription("ПриОткрытииЗавершениеПроверкиСуществованияБиблиотеки", ThisForm));
+Procedure OnOpenComplеtion(Result, AdditionalParameters) Export
+	FileVarsStructure=UT_CommonClient.SessionFileVariablesStructure();
+	LibrarySavingDirectory=FileVarsStructure.TempFilesDirectory + "tools_ui_1c"
+		+ GetPathSeparator() + Format(UT_CommonClientServer.Version(), "NG=0;") + GetPathSeparator() + "jsoneditor";
+	EditorFile=New File(LibrarySavingDirectory);
+	EditorFile.BeginCheckingExistence(New NotifyDescription("OnOpenCheckExistLibraryCompletion", ThisForm));
 
 EndProcedure
 
 &AtClient
-Procedure ПриОткрытииЗавершениеПроверкиСуществованияБиблиотеки(Существует, AdditionalParameters1) Экспорт
+Procedure OnOpenCheckExistLibraryCompletion(Exist, AdditionalParameters) Export
 	
-	If Существует Then
-		НачатьУдалениеФайлов(New NotifyDescription("ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиЗавершениеУдаленияФайлов", ThisForm,,"ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиЗавершениеОшибкаУдаленияФайлов", ThisObject), LibrarySavingDirectory);
+	If Exist Then
+		BeginDeletingFiles(New NotifyDescription("OnOpenCheckExistLibraryDeletionFilesCompletion", ThisForm,,"OnOpenCheckExistLibraryDeletionFilesErrorCompletion", ThisObject), LibrarySavingDirectory);
 	Else
-		ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиФрагмент();
+		OnOpenCheckExistLibraryCompletionFragment();
 	EndIf;
 	
 EndProcedure
 
 &AtClient
-Procedure ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиЗавершениеУдаленияФайлов(AdditionalParameters) Экспорт
-	ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиФрагмент();
+Procedure OnOpenCheckExistLibraryDeletionFilesCompletion(AdditionalParameters) Export
+	OnOpenCheckExistLibraryCompletionFragment();
 EndProcedure  
 
 &AtClient
-Procedure ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиЗавершениеОшибкаУдаленияФайлов(AdditionalParameters) Экспорт
+Procedure OnOpenCheckExistLibraryDeletionFilesErrorCompletion(AdditionalParameters) Export
 	LibrarySavingDirectory=LibrarySavingDirectory + "1";
 	
-	НачатьУдалениеФайлов(New NotifyDescription("ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиЗавершениеУдаленияФайлов", ThisForm,,"ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиЗавершениеОшибкаУдаленияФайлов", ThisObject), LibrarySavingDirectory);
+	BeginDeletingFiles(New NotifyDescription("OnOpenCheckExistLibraryDeletionFilesCompletion", ThisForm,,"OnOpenCheckExistLibraryDeletionFilesErrorCompletion", ThisObject), LibrarySavingDirectory);
 EndProcedure  
 
 
 
 &AtClient
-Procedure ПриОткрытииЗавершениеПроверкиСуществованияБиблиотекиФрагмент()
+Procedure OnOpenCheckExistLibraryCompletionFragment()
 	
-	НачатьСозданиеКаталога(New NotifyDescription("ПриОткрытииЗавершениеСозданияКаталогаБиблиотеки", ThisForm), LibrarySavingDirectory);
+	BeginCreatingDirectory(New NotifyDescription("OnOpenCreatingDirectoryLibraryCompletion", ThisForm), LibrarySavingDirectory);
 
 EndProcedure
 
 &AtClient
-Procedure ПриОткрытииЗавершениеСозданияКаталогаБиблиотеки(ИмяКаталога, AdditionalParameters) Экспорт
+Procedure OnOpenCreatingDirectoryLibraryCompletion(DirectoryName, AdditionalParameters) Export
 	
-	СохранитьБиблиотекуРедактораНаДиск();
-	УстановитьТекстHTMLПоляРедактора();
+	SaveEditorLibraryToDisk();
+	SetEditorFieldHTMLText();
 
 EndProcedure
 
 &AtClient
-Procedure ОбработчикОжиданияУстановитьРедактируемуюСтрокуВРедакторДерево()
+Procedure IdleHandlerSetEditingLineInTreeEditor()
 	Try
-		УстановитьJSONВHTML(Items.TreeEditField, EditLine);
-		РазвернутьСтрокиДереваJSON(Items.TreeEditField);
+		SetJSONIntoHTML(Items.TreeEditField, EditLine);
+		ExpandTreeLinesJSON(Items.TreeEditField);
 	Except
-		ПодключитьОбработчикОжидания("ОбработчикОжиданияУстановитьРедактируемуюСтрокуВРедакторДерево", 0.5, True);
+		AttachIdleHandler("IdleHandlerSetEditingLineInTreeEditor", 0.5, True);
 	EndTry;
 EndProcedure
 
 &AtClient
-Procedure ОбработчикОжиданияУстановитьРедактируемуюСтрокуВРедакторСтроки()
+Procedure IdleHandlerSetEditingLineInLineEditor()
 	Try
-		УстановитьJSONВHTML(Items.LineEditField, EditLine);
-		//Форматируем строку JSON по формату редактора
-		УстановитьJSONВHTML(Items.LineEditField, СтрокаJSONИзПоляРедактора(Items.LineEditField));
+		SetJSONIntoHTML(Items.LineEditField, EditLine);
+		//Formats JSON line by editor format
+		SetJSONIntoHTML(Items.LineEditField, JSONLineFromEditorField(Items.LineEditField));
 
 	Except
-		ПодключитьОбработчикОжидания("ОбработчикОжиданияУстановитьРедактируемуюСтрокуВРедакторСтроки", 0.5, True);
+		AttachIdleHandler("IdleHandlerSetEditingLineInLineEditor", 0.5, True);
 	EndTry;
 EndProcedure
 
 &AtClient
-Procedure УстановитьJSONВHTML(ЭлементПоляРедактора, JSONString)
-	ДокументHTML=ЭлементПоляРедактора.Документ;
-	If ДокументHTML.parentWindow = Undefined Then
-		СтруктураДокументаДОМ = ДокументHTML.defaultView;
+Procedure SetJSONIntoHTML(EditorFormField, JSONString)
+	HTMLDocument=EditorFormField.Документ;
+	If HTMLDocument.parentWindow = Undefined Then
+		DocumentSructureDOM = HTMLDocument.defaultView;
 	Else
-		СтруктураДокументаДОМ = ДокументHTML.parentWindow;
+		DocumentSructureDOM = HTMLDocument.parentWindow;
 	EndIf;
-	СтруктураДокументаДОМ.editor.setText(JSONString);
+	DocumentSructureDOM.editor.setText(JSONString);
 
 EndProcedure
 
 &AtClient
-Procedure РазвернутьСтрокиДереваJSON(ЭлементПоляРедактора)
-	ДокументHTML=ЭлементПоляРедактора.Документ;
-	If ДокументHTML.parentWindow = Undefined Then
-		СтруктураДокументаДОМ = ДокументHTML.defaultView;
+Procedure ExpandTreeLinesJSON(EditorFormField)
+	HTMLDocument=EditorFormField.Document;
+	If HTMLDocument.parentWindow = Undefined Then
+		DocumentStructureDOM = HTMLDocument.defaultView;
 	Else
-		СтруктураДокументаДОМ = ДокументHTML.parentWindow;
+		DocumentStructureDOM = HTMLDocument.parentWindow;
 	EndIf;
-	СтруктураДокументаДОМ.editor.expandAll();
+	DocumentStructureDOM.editor.expandAll();
 
 EndProcedure
 
 &AtClient
-Function СтрокаJSONИзПоляРедактора(ЭлементПоляРедактора)
-	ДокументHTML=ЭлементПоляРедактора.Документ;
-	If ДокументHTML.parentWindow = Undefined Then
-		СтруктураДокументаДОМ = ДокументHTML.defaultView;
+Function JSONLineFromEditorField(EditorFormField)
+	DocumentHTML=EditorFormField.Document;
+	If DocumentHTML.parentWindow = Undefined Then
+		DocumentStructureDOM = DocumentHTML.defaultView;
 	Else
-		СтруктураДокументаДОМ = ДокументHTML.parentWindow;
+		DocumentStructureDOM = DocumentHTML.parentWindow;
 	EndIf;
-//	Возврат СтруктураДокументаДОМ.editor.getText();
-	Return СтруктураДокументаДОМ.getJSON();
+//	Return DocumentStructureDOM.editor.getText();
+	Return DocumentStructureDOM.getJSON();
 
 EndFunction
 
 &AtClient
-Procedure УстановитьТекстHTMLПоляРедактора()
+Procedure SetEditorFieldHTMLText()
 	ТекстCSS=LibrarySavingDirectory + GetPathSeparator() + "jsoneditor.css";
 	ТекстJS=LibrarySavingDirectory + GetPathSeparator() + "jsoneditor.js";
 
@@ -271,12 +271,12 @@ Procedure СохранитьФайлHTMLПоляРедатора(ТекстHTML,
 EndProcedure
 
 &AtClient
-Procedure СохранитьФайлHTMLПоляРедатораЗаверешение(Result, AdditionalParameters) Экспорт
+Procedure СохранитьФайлHTMLПоляРедатораЗаверешение(Result, AdditionalParameters) Export
 	ThisObject[AdditionalParameters.ИмяПоляРедактора] = AdditionalParameters.ИмяФайла;
 EndProcedure
 
 &AtClient
-Procedure СохранитьБиблиотекуРедактораНаДиск()
+Procedure SaveEditorLibraryToDisk()
 	СоответствиеФайловБиблиотеки=GetFromTempStorage(LibraryAddress);
 	For Each КлючЗначение In СоответствиеФайловБиблиотеки Do
 		ИмяФайла=LibrarySavingDirectory + GetPathSeparator() + КлючЗначение.Ключ;
@@ -340,7 +340,7 @@ Procedure OpenFile(Command)
 EndProcedure
 
 &AtClient
-Procedure OpenFileComplеtion(Result, AdditionalParameters) Экспорт
+Procedure OpenFileComplеtion(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
@@ -355,13 +355,13 @@ Procedure OpenFileComplеtion(Result, AdditionalParameters) Экспорт
 EndProcedure
 
 &AtClient
-Procedure ОткрытьФайлЗавершениеЧтенияТекста(AdditionalParameters1) Экспорт
+Procedure ОткрытьФайлЗавершениеЧтенияТекста(AdditionalParameters1) Export
 	
 	Текст = AdditionalParameters1.Текст;
 	
-	УстановитьJSONВHTML(Items.LineEditField, Текст.ПолучитьТекст());
-	УстановитьJSONВHTML(Items.TreeEditField, Текст.ПолучитьТекст());
-	УстановитьЗаголовок();
+	SetJSONIntoHTML(Items.LineEditField, Текст.ПолучитьТекст());
+	SetJSONIntoHTML(Items.TreeEditField, Текст.ПолучитьТекст());
+	SetTitle();
 
 EndProcedure
 
@@ -378,37 +378,37 @@ EndProcedure
 &AtClient
 Procedure СохранитьФайлНаДиск(СохранитьКак = False)
 	UT_CommonClient.SaveConsoleDataToFile("РедактовHTML", СохранитьКак,
-		СтруктураОписанияСохраняемогоФайла(), СтрокаJSONИзПоляРедактора(Items.LineEditField),
+		СтруктураОписанияСохраняемогоФайла(), JSONLineFromEditorField(Items.LineEditField),
 		New NotifyDescription("СохранитьФайлЗавершение", ThisObject));
 EndProcedure
 
 &AtClient
-Procedure СохранитьФайлЗавершение(ИмяФайлаСохранения, AdditionalParameters) Экспорт
+Procedure СохранитьФайлЗавершение(ИмяФайлаСохранения, AdditionalParameters) Export
 	If ИмяФайлаСохранения = Undefined Then
 		Return;
 	EndIf;
 
-	If Not ЗначениеЗаполнено(ИмяФайлаСохранения) Then
+	If Not ValueIsFilled(ИмяФайлаСохранения) Then
 		Return;
 	EndIf;
 
 	Модифицированность=False;
 	ToolDataFileName=ИмяФайлаСохранения;
-	УстановитьЗаголовок();
+	SetTitle();
 EndProcedure
 
 &AtClient
 Procedure NewFile(Command)
 	ToolDataFileName="";
 
-	УстановитьJSONВHTML(Items.LineEditField, "");
-	УстановитьJSONВHTML(Items.TreeEditField, "");
+	SetJSONIntoHTML(Items.LineEditField, "");
+	SetJSONIntoHTML(Items.TreeEditField, "");
 
-	УстановитьЗаголовок();
+	SetTitle();
 EndProcedure
 
 &AtClient
-Procedure УстановитьЗаголовок()
+Procedure SetTitle()
 	Заголовок=ToolDataFileName;
 EndProcedure
 
@@ -420,11 +420,11 @@ Procedure CloseTool(Command)
 EndProcedure
 
 &AtClient
-Procedure CloseToolComplеtion(Result, AdditionalParameters) Экспорт
+Procedure CloseToolComplеtion(Result, AdditionalParameters) Export
 
 	If Result = КодВозвратаДиалога.Да Then
 		ClosingFormConfirmed = True;
-		Закрыть();
+		Close();
 	EndIf;
 
 EndProcedure
