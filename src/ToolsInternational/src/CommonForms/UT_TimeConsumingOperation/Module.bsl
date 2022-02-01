@@ -85,13 +85,13 @@ EndProcedure
 &AtClient
 Процедура Подключаемый_ПроверитьВыполнениеЗадания()
 
-	Задание = ПроверитьЗаданиеВыполнено(FormClosing);
+	Задание = CheckJobIsCompleted(FormClosing);
 	Статус = Задание.Статус;
 
-	Если Задание.Прогресс <> Неопределено Тогда
-		ПрогрессСтрокой = ПрогрессСтрокой(Задание.Прогресс);
-		Если Не ПустаяСтрока(ПрогрессСтрокой) Тогда
-			Элементы.ДекорацияПоясняющийТекстДлительнойОперации.Заголовок = MessageText + " " + ПрогрессСтрокой;
+	Если Задание.Progress <> Неопределено Тогда
+		ProgressAsString = ProgressAsString(Задание.Progress);
+		Если Не ПустаяСтрока(ProgressAsString) Тогда
+			Элементы.ДекорацияПоясняющийТекстДлительнойОперации.Заголовок = MessageText + " " + ProgressAsString;
 		КонецЕсли;
 	КонецЕсли;
 	Если Задание.Сообщения <> Неопределено И ВладелецФормы <> Неопределено Тогда
@@ -144,72 +144,72 @@ EndProcedure
 &AtClient
 Procedure ShowNotification()
 
-	If Parameters.ОповещениеПользователя = Undefined Or Not Parameters.ОповещениеПользователя.Показать Then
+	If Parameters.UserNotification = Undefined Or Not Parameters.UserNotification.Show Then
 		Return;
 	EndIf;
 
-	Оповещение = Parameters.ОповещениеПользователя;
+	Notification = Parameters.UserNotification;
 
-	НавигационнаяСсылкаОповещения = Оповещение.НавигационнаяСсылка;
+	НавигационнаяСсылкаОповещения = Notification.URL;
 	If НавигационнаяСсылкаОповещения = Undefined And ВладелецФормы <> Undefined And ВладелецФормы.Окно
 		<> Undefined Then
 		НавигационнаяСсылкаОповещения = ВладелецФормы.Окно.ПолучитьНавигационнуюСсылку();
 	EndIf;
-	ПояснениеОповещения = Оповещение.Пояснение;
+	ПояснениеОповещения = Notification.Пояснение;
 	If ПояснениеОповещения = Undefined And ВладелецФормы <> Undefined And ВладелецФормы.Окно <> Undefined Then
 		ПояснениеОповещения = ВладелецФормы.Окно.Заголовок;
 	EndIf;
 
-	ShowUserNotification(?(Оповещение.Текст <> Undefined, Оповещение.Текст, NStr(
+	ShowUserNotification(?(Notification.Текст <> Undefined, Notification.Текст, NStr(
 		"ru = 'Действие выполнено'")), НавигационнаяСсылкаОповещения, ПояснениеОповещения);
 
 EndProcedure
 
 &AtServer
-Function ПроверитьЗаданиеВыполнено(FormClosing)
+Function CheckJobIsCompleted(FormClosing)
 
-	Задание = UT_TimeConsumingOperations.ActionCompleted(JobID, False, Parameters.ВыводитьПрогрессВыполнения,
-		Parameters.ВыводитьСообщения);
+	Job = UT_TimeConsumingOperations.ActionCompleted(JobID, False, Parameters.DisplayExecutionProgress,
+		Parameters.OutputMessages);
 
 	If Parameters.GetResult Then
-		If Задание.Статус = "Completed" Then
-			Задание.Insert("Результат", ПолучитьИзВременногоХранилища(Parameters.АдресРезультата));
+		If Job.Статус = "Completed" Then
+			Job.Insert("Result", GetFromTempStorage(Parameters.ResultAddress));
 		Иначе
-			Задание.Insert("Результат", Undefined);
+			Job.Insert("Result", Undefined);
 		EndIf;
 	EndIf;
 
 	If FormClosing = True Then
 		CancelJobExecution();
-		Задание.Статус = "Canceled";
+		Job.Статус = "Canceled";
 	EndIf;
 
-	Return Задание;
+	Return Job;
 
 EndFunction
 
 &AtClient
-Function ПрогрессСтрокой(Прогресс)
+Function ProgressAsString(Progress)
 
-	Результат = "";
-	If Прогресс = Undefined Then
-		Return Результат;
+	Result = "";
+	If Progress = Undefined Then
+		Return Result;
 	EndIf;
 
-	Процент = 0;
-	If Прогресс.Свойство("Процент", Процент) Then
-		Результат = Строка(Процент) + "%";
+	Percent = 0;
+	If Progress.Property("Percent", Percent) Then
+		Result = String(Percent) + "%";
 	EndIf;
-	Текст = 0;
-	If Прогресс.Свойство("Текст", Текст) Then
-		If Not ПустаяСтрока(Результат) Then
-			Результат = Результат + " (" + Текст + ")";
-		Иначе
-			Результат = Текст;
+	Text = 0;
+	If Progress.Property("Text", Text) Then
+		If Not IsBlankString(Result) Then
+			Result = Result + " (" + Text + ")";
+		Else
+			Result = Text;
 		EndIf;
 	EndIf;
 
-	Return Результат;
+	Return Result;
 
 EndFunction
 
@@ -222,8 +222,8 @@ Function ExecutionResult(Job)
 
 	Result = New Structure;
 	Result.Insert("Status", Job.Status);
-	Result.Insert("ResultURL", Parameters.ResultURL);
-	Result.Insert("AdditionalResultURL", Parameters.AdditionalResultURL);
+	Result.Insert("ResultURL", Parameters.ResultAddress);
+	Result.Insert("AdditionalResultURL", Parameters.AdditionalResultAddress);
 	Result.Insert("BriefErrorPresentation", Job.BriefErrorPresentation);
 	Result.Insert("DetailedErrorPresentation", Job.DetailedErrorPresentation);
 	Result.Insert("Messages", Job.Messages);

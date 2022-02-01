@@ -322,7 +322,7 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ResultURL</name>
+    <name>ResultAddress</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -330,7 +330,7 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>AdditionalResultURL</name>
+    <name>AdditionalResultAddress</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
