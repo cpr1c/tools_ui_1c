@@ -286,15 +286,15 @@ Procedure OpenTextEditingForm(Text, OnCloseNotifyDescription, Title = "",
 EndProcedure
 
 Procedure OpenValueListChoiceItemsForm(List, OnCloseNotifyDescription, Title = "",
-	ItemsType = Undefined, MarkVisibility = True, ResresentationVisibility = True, SelectionMode = True,
+	ItemsType = Undefined, CheckVisible = True, PresentationVisible = True, PickMode = True,
 	ReturnOnlySelectedValues = True, WindowOpeningMode = Undefined, AvailableValues = Undefined) Export
 	FormParameters = New Structure;
 	FormParameters.Insert("List", List);
 	FormParameters.Insert("Title", Title);
 	FormParameters.Insert("ReturnOnlySelectedValues", ReturnOnlySelectedValues);
-	FormParameters.Insert("MarkVisibility", MarkVisibility);
-	FormParameters.Insert("ResresentationVisibility", ResresentationVisibility);
-	FormParameters.Insert("SelectionMode", SelectionMode);
+	FormParameters.Insert("CheckVisible", CheckVisible);
+	FormParameters.Insert("PresentationVisible", PresentationVisible);
+	FormParameters.Insert("PickMode", PickMode);
 	If ItemsType <> Undefined Then
 		FormParameters.Insert("ItemsType", ItemsType);
 	EndIf;
@@ -303,10 +303,10 @@ Procedure OpenValueListChoiceItemsForm(List, OnCloseNotifyDescription, Title = "
 	Endif;
 
 	If WindowOpeningMode = Undefined Then
-		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+		OpenForm("CommonForm.UT_ValueListEditingForm", FormParameters, , , , ,
 			OnCloseNotifyDescription);
 	Else
-		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+		OpenForm("CommonForm.UT_ValueListEditingForm", FormParameters, , , , ,
 			OnCloseNotifyDescription, WindowOpeningMode);
 	EndIf;
 EndProcedure

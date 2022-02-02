@@ -122,17 +122,17 @@
   <commonCommands>CommonCommand.UT_Settings</commonCommands>
   <commonForms>CommonForm.UT_AdditionalDataProcessorDebugSettings</commonForms>
   <commonForms>CommonForm.UT_MetadataSelectionForm</commonForms>
-  <commonForms>CommonForm.UT_ToolsSettings</commonForms>
+  <commonForms>CommonForm.UT_SpecialValueForm</commonForms>
   <commonForms>CommonForm.UT_TextEditingForm</commonForms>
   <commonForms>CommonForm.UT_TimeConsumingOperation</commonForms>
-  <commonForms>CommonForm.UT_ValueListChoiceItemsForm</commonForms>
+  <commonForms>CommonForm.UT_ToolsSettings</commonForms>
+  <commonForms>CommonForm.UT_ValueListEditingForm</commonForms>
   <commonForms>CommonForm.UT_ValueStorageForm</commonForms>
   <commonForms>CommonForm.UT_ValueTableEditor</commonForms>
   <commonForms>CommonForm.UT_ValueTableForm</commonForms>
   <commonForms>CommonForm.UT_ValueTypeEditor</commonForms>
   <commonForms>CommonForm.UT_WriteSettings</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
-  <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.UT_ReportsConsole</reports>
