@@ -641,9 +641,9 @@ Function FileSelectionDialogByDescriptionStructureOfSelectedFile(Mode, Descripti
 	FileSelection.Filter = Filter;
 
 	If DescriptionStructureOfSelectedFile.SerializableFileFormats.Count() > 0 Then
-		FileSelection.Extension=DescriptionStructureOfSelectedFile.SerializableFileFormats[0];
+		FileSelection.DefaultExt=DescriptionStructureOfSelectedFile.SerializableFileFormats[0];
 	ElsIf DescriptionStructureOfSelectedFile.Formats.Count() > 0 Then
-		FileSelection.Extension=DescriptionStructureOfSelectedFile.Formats[0].Extension;
+		FileSelection.DefaultExt=DescriptionStructureOfSelectedFile.Formats[0].Extension;
 	EndIf;
 
 	Return FileSelection;
