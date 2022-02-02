@@ -232,7 +232,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ФормаСпецЗначения</name>
+		<name>CommonForm.UT_SpecialValueForm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

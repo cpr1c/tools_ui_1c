@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСтраницы</name>
+    <name>GroupPages</name>
     <id>5</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаГраница</name>
+      <name>GroupBoundary</name>
       <id>7</id>
       <items xsi:type="form:FormField">
         <name>_ГраницаЗначение</name>
@@ -16,7 +16,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>_ГраницаЗначение</segments>
+            <segments>_BoundaryValue</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -70,7 +70,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>_ГраницаВидГраницы</segments>
+            <segments>_BoundaryBoundaryType</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -128,11 +128,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Boundary</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Граница</value>
       </title>
       <extendedTooltip>
-        <name>ГруппаГраницаРасширеннаяПодсказка</name>
+        <name>GroupBoundaryExtendedTooltip</name>
         <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -153,7 +157,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаМоментВремени</name>
+      <name>GroupPointInTime</name>
       <id>9</id>
       <items xsi:type="form:FormField">
         <name>_МоментВремениДата</name>
@@ -165,7 +169,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>_МоментВремениДата</segments>
+            <segments>_PointInTimeDate</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -217,7 +221,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>_МоментВремениСсылка</segments>
+            <segments>_PointInTimeRef</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -267,11 +271,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Point In time</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Момент времени</value>
       </title>
       <extendedTooltip>
-        <name>ГруппаМоментВремениРасширеннаяПодсказка</name>
+        <name>GroupPointInTimeExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -296,9 +304,13 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Group pages</value>
+    </title>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>ГруппаСтраницыРасширеннаяПодсказка</name>
+      <name>GroupPagesExtendedTooltip</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -345,7 +357,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.КомандаОК</commandName>
+      <commandName>Form.Command.CommandOK</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -376,7 +388,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.КомандаЗакрыть</commandName>
+      <commandName>Form.Command.CommandClose</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -392,7 +404,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -402,10 +414,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>_ГраницаЗначение</name>
+    <name>_BoundaryValue</name>
     <title>
       <key>ru</key>
       <value>Значение</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Boundary value</value>
     </title>
     <id>2</id>
     <valueType>
@@ -421,10 +437,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ГраницаВидГраницы</name>
+    <name>_BoundaryBoundaryType</name>
     <title>
       <key>ru</key>
       <value>Вид границы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Boundary boundary type</value>
     </title>
     <id>3</id>
     <valueType>
@@ -439,10 +459,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_МоментВремениДата</name>
+    <name>_PointInTimeDate</name>
     <title>
       <key>ru</key>
       <value>Дата</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Point in time date</value>
     </title>
     <id>4</id>
     <valueType>
@@ -457,10 +481,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_МоментВремениСсылка</name>
+    <name>_PointInTimeRef</name>
     <title>
       <key>ru</key>
       <value>Ссылка</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Point in time ref</value>
     </title>
     <id>5</id>
     <valueType>
@@ -474,10 +502,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ТипЗначения</name>
+    <name>_ValueType</name>
     <title>
       <key>ru</key>
       <value>Тип значения</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Value type</value>
     </title>
     <id>6</id>
     <valueType>
@@ -492,10 +524,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>КомандаЗакрыть</name>
+    <name>CommandClose</name>
     <title>
       <key>ru</key>
       <value>Закрыть</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Command close</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -507,16 +543,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаЗакрыть</name>
+        <name>CommandClose</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КомандаОК</name>
+    <name>CommandOK</name>
     <title>
       <key>ru</key>
       <value>ОК</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Command OK</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -528,7 +568,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаОК</name>
+        <name>CommandOK</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

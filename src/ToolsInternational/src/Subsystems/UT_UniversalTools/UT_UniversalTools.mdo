@@ -46,7 +46,7 @@
   <content>CommonTemplate.UT_StringSearchComponent</content>
   <content>CommonForm.UT_TimeConsumingOperation</content>
   <content>CommonForm.UT_ValueTableForm</content>
-  <content>CommonForm.УИ_ФормаСпецЗначения</content>
+  <content>CommonForm.UT_SpecialValueForm</content>
   <content>CommonForm.UT_TextEditingForm</content>
   <content>CommonForm.UT_ValueStorageForm</content>
   <content>CommonForm.UT_MetadataSelectionForm</content>
