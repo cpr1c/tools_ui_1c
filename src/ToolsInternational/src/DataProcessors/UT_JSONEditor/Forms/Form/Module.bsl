@@ -238,7 +238,7 @@ Procedure SetEditorFieldHTMLText()
 																			|  var options = {
 																			|    // switch between pt-BR or en for testing forcing a language
 																			|    // leave blank to get language
-																			|   'language': 'en-EN',
+																			|   'language': 'en',
 																			|   mode: '###EditorMode###'
 																			|  }
 																			|  var editor = new JSONEditor(container, options)
@@ -272,7 +272,7 @@ EndProcedure
 
 &AtClient
 Procedure SaveFileEditorHTMLFildCompletion(Result, AdditionalParameters) Export
-	ThisObject[AdditionalParameters.EditorFieldName] = AdditionalParameters.FileName;
+	ThisObject[AdditionalParameters.HTMLText] = AdditionalParameters.FileName;
 EndProcedure
 
 &AtClient
@@ -281,7 +281,7 @@ Procedure SaveEditorLibraryToDisk()
 	For Each KeyValue In LibraryFilesMap Do
 		FileName=LibrarySavingDirectory + GetPathSeparator() + KeyValue.Key;
 
-		KeyValue.Value.Save(FileName);
+		KeyValue.Value.Write(FileName);
 	EndDo;
 EndProcedure
 
@@ -348,7 +348,7 @@ Procedure OpenFileComplеtion(Result, AdditionalParameters) Export
 	Modified=False;
 	ToolDataFileName = Result.FileName;
 
-	FileData=GetFromTempStorage(Result.Adress);
+	FileData=GetFromTempStorage(Result.Url);
 
 	Text=New TextDocument;
 	Text.BeginReading(New NotifyDescription("OpenFileReadingTextCopletion", ThisForm, New Structure("Text", Text)), FileData.OpenStreamForRead());
@@ -415,7 +415,7 @@ EndProcedure
 &AtClient
 Procedure CloseTool(Command)
 	ShowQueryBox(New NotifyDescription("CloseToolComplеtion", ThisForm), 
-		Nstr("en='Do you want to exit editor?' : ru='Выйти из редактора?'"),
+		NStr("en='Do you want to exit editor?' ; ru='Выйти из редактора?'"),
 		QuestionDialogMode.YesNo);
 EndProcedure
 
