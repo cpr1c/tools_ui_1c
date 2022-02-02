@@ -1,73 +1,74 @@
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	МассивНовыхРеквизитов=Новый Массив;
-	МассивНовыхРеквизитов.Добавить(Новый РеквизитФормы("Пользователь", Новый ОписаниеТипов("СправочникСсылка.Пользователи"), "", "Пользователь", Истина));
-	МассивНовыхРеквизитов.Добавить(Новый РеквизитФормы("ДополнительнаяОбработка", Новый ОписаниеТипов("СправочникСсылка.AdditionalReportsAndDataProcessors"), "", "Дополнительная обработка", Истина));
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	NewAttributesArray=New Array;
+	NewAttributesArray.Add(New FormAttribute("User", New TypeDescription("CatalogRef.Users"), "", NStr("ru = 'Пользователь';en = 'User'"), True));
+	NewAttributesArray.Add(New FormAttribute("AdditionalDataProcessor", New TypeDescription("CatalogRef.AdditionalReportsAndDataProcessors"), "", Nstr("ru = 'Дополнительная обработка';en = 'Additional dataprocessor'"), True));
 	
-	ИзменитьРеквизиты(МассивНовыхРеквизитов,);
+	ChangeAttributes(NewAttributesArray,);
 
-	ДополнительнаяОбработка=Параметры.ДополнительнаяОбработка;
+	AdditionalDataProcessor=Parameters.AdditionalDataProcessor;
 	
-	ЭтотОбъект.ДополнительнаяОбработка = ДополнительнаяОбработка;
+	ThisObject.AdditionalDataProcessor = AdditionalDataProcessor;
 
-	Вид = UT_Common.ObjectAttributeValue(ДополнительнаяОбработка, "Вид");
-	Если Вид = Перечисления.ВидыДополнительныхОтчетовИОбработок.Отчет Или Вид
-		= Перечисления.ВидыДополнительныхОтчетовИОбработок.ДополнительныйОтчет Тогда
-		ЭтоОтчет=Истина;
-	КонецЕсли;
-	
-	
-	ОписаниеЭлемента=UT_Forms.ItemAttributeNewDescription();
-	ОписаниеЭлемента.Имя="Пользователь";
-	ОписаниеЭлемента.ПутьКДанным="Пользователь";
-	UT_Forms.CreateItemByDescription(ЭтотОбъект, ОписаниеЭлемента);
+	Kind = UT_Common.ObjectAttributeValue(AdditionalDataProcessor, "Kind");
+	If Kind = Enums.AdditionalReportsAndDataProcessorsKinds.Report Or Kind
+		= Enums.AdditionalReportsAndDataProcessorsKinds.AdditionalReport Then
+		IsReport=True;
+	EndIf;
 	
 	
-	СохраненныеНастройки=UT_Common.AdditionalDataProcessorDebugSettings(ДополнительнаяОбработка);
-	ЗаполнитьЗначенияСвойств(ЭтотОбъект, СохраненныеНастройки);
-КонецПроцедуры
-
-&НаСервере
-Процедура ПрименитьНаСервере()
-	СтруктураНастройки=UT_Common.NewStructureOfAdditionalDataProcessorDebugSettings();
-	ЗаполнитьЗначенияСвойств(СтруктураНастройки, ЭтотОбъект);
+	ItemDescription=UT_Forms.ItemAttributeNewDescription();
+	ItemDescription.Name="User";
+	ItemDescription.DataPath="User";
+	UT_Forms.CreateItemByDescription(ThisObject, ItemDescription);
 	
-	UT_Common.SaveAdditionalDataProcessorDebugSettings(ЭтотОбъект.ДополнительнаяОбработка, СтруктураНастройки);	
-КонецПроцедуры
+	
+	SavedSettings=UT_Common.AdditionalDataProcessorDebugSettings(AdditionalDataProcessor);
+	FillPropertyValues(ThisObject, SavedSettings);
+EndProcedure
 
-&НаКлиенте
-Процедура Применить(Команда)
-	ПрименитьНаСервере();
-	Закрыть();
-КонецПроцедуры
+&AtServer
+Procedure ApplyAtServer()
+	SettingsStructure=UT_Common.NewStructureOfAdditionalDataProcessorDebugSettings();
+	FillPropertyValues(SettingsStructure, ThisObject);
+	
+	UT_Common.SaveAdditionalDataProcessorDebugSettings(ThisObject.AdditionalDataProcessor, SettingsStructure);	
+EndProcedure
 
-&НаКлиенте
-Процедура ИмяФайлаНаСервереНачалоВыбора(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	СтруктураОписанияВыбираемогоФайла=UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
-	СтруктураОписанияВыбираемогоФайла.ИмяФайла=ИмяФайлаНаСервере;
+&AtClient
+Procedure Apply(Command)
+	ApplyAtServer();
+	Close();
+EndProcedure
 
-	Если ЭтоОтчет Тогда
-		UT_CommonClient.AddFormatToSavingFileDescription(СтруктураОписанияВыбираемогоФайла,
-			"Отчет (*.erf)", "erf");
-	Иначе
-		UT_CommonClient.AddFormatToSavingFileDescription(СтруктураОписанияВыбираемогоФайла,
-			"Обработка (*.epf)", "epf");
-	КонецЕсли;
+&AtClient
+Procedure FileNameAtServerStartChoice(Item, ChoiceData, StandardProcessing)
+				DescriptionStructureOfSelectedFile=UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
+	DescriptionStructureOfSelectedFile.FileName=FileNameAtServer;
 
-	UT_CommonClient.FormFieldFileNameStartChoice(СтруктураОписанияВыбираемогоФайла, Элемент, ДанныеВыбора,
-		СтандартнаяОбработка, РежимДиалогаВыбораФайла.Открытие,
-		Новый ОписаниеОповещения("ИмяФайлаНаСервереНачалоВыбораЗавершение", ЭтотОбъект));
-КонецПроцедуры
+	If IsReport Then
+		UT_CommonClient.AddFormatToSavingFileDescription(DescriptionStructureOfSelectedFile,
+			"Report (*.erf)", "erf");
+	Else
+		UT_CommonClient.AddFormatToSavingFileDescription(DescriptionStructureOfSelectedFile,
+			"Data processor (*.epf)", "epf");
+	EndIf;
 
-&НаКлиенте
-Процедура ИмяФайлаНаСервереНачалоВыбораЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	UT_CommonClient.FormFieldFileNameStartChoice(DescriptionStructureOfSelectedFile, Item, ChoiceData,
+		StandardProcessing, FileDialogMode.Open,
+		New NotifyDescription("FileNameAtServerStartChoiceEnd", ThisObject));
+EndProcedure
 
-	Если Результат.Количество()=0 Тогда
-		Возврат;
-	КонецЕсли;
 
-	ИмяФайлаНаСервере=Результат[0];
-КонецПроцедуры
+&AtClient
+Procedure FileNameAtServerStartChoiceEnd(Result, AdditionalParameters) Export
+	If Result = Undefined Then
+		Return;
+	EndIf;
+
+	If Result.Count()=0 Then
+		Return;
+	EndIf;
+
+	FileNameAtServer=Result[0];
+EndProcedure

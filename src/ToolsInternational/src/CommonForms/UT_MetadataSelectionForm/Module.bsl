@@ -7,7 +7,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	Parameters.Property("MetadataGroups", _MetadataGroups);
 
 	Value = Undefined;
-	If Parameters.Property("ТипыДляЗаполненияЗначений", Value) And Value = True Then
+	If Parameters.Property("TypesToFillValues", Value) And Value = True Then
 		_ShowSimpleTypes = True;
 		_ShowEnums = True;
 	EndIf;

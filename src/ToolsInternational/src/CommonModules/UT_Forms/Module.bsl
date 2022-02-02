@@ -280,20 +280,20 @@ EndFunction
  
   Procedure CreateWriteParametersAttributesFormOnCreateAtServer(Form, FormGroup) Export
 	WriteSettings=New Structure;
-	WriteSettings.Insert("WithOutChangesAutoRecording", New Structure("Value,Title", Ложь,
-		"Без авторегистрации изменений"));
-	WriteSettings.Insert("WritingInLoadMode", New Structure("Value,Title", Ложь,
-		"Запись в режиме загрузки(Без проверок)"));
-	WriteSettings.Insert("PrivilegedMode", New Structure("Value,Title", Ложь,
-		"Привелигированный режим"));
-	WriteSettings.Insert("UseAdditionalProperties", New Structure("Value,Title", Ложь,
-		"Использовать доп. свойства"));
+	WriteSettings.Insert("WithoutChangesAutoRecording", New Structure("Value,Title", False,
+		"Without changes autorecording"));
+	WriteSettings.Insert("WritingInLoadMode", New Structure("Value,Title", False,
+		"Writing in load mode (Without checks)"));
+	WriteSettings.Insert("PrivilegedMode", New Structure("Value,Title", False,
+		"Privileged mode"));
+	WriteSettings.Insert("UseAdditionalProperties", New Structure("Value,Title", False,
+		"Use additional properties"));
 	WriteSettings.Insert("AdditionalProperties", New Structure("Value,Title", New Structure,
-		"Дополнительные свойства"));
-	WriteSettings.Insert("UseBeforeWriteProcedure", New Structure("Value,Title", Ложь,
-		"Без авторегистрации изменений"));
+		"Additional properties"));
+	WriteSettings.Insert("UseBeforeWriteProcedure", New Structure("Value,Title", False,
+		"Without changes autorecording"));
 	WriteSettings.Insert("BeforeWriteProcedure", New Structure("Value,Title", "",
-		"Без авторегистрации изменений"));
+		"Without changes autorecording"));
 
 	ParameterPrefix="WriteParameter_";
 
@@ -321,36 +321,36 @@ EndFunction
 		+ "AdditionalProperties", "Key", False));
 
 	ValueTypesArray=New Массив;
-	ValueTypesArray.Add("Булево");
-	ValueTypesArray.Add("Строка");
-	ValueTypesArray.Add("Число");
-	ValueTypesArray.Add("Дата");
-	ValueTypesArray.Add("УникальныйИдентификатор");
-	ValueTypesArray.Add("ЛюбаяСсылка");
+	ValueTypesArray.Add("Boolean");
+	ValueTypesArray.Add("String");
+	ValueTypesArray.Add("Number");
+	ValueTypesArray.Add("Date");
+	ValueTypesArray.Add("UUID");
+	ValueTypesArray.Add("AnyRef");
 	AddedAtributesArray.Add(New FormAttribute("Value", New TypeDescription(ValueTypesArray),
 		ParameterPrefix + "AdditionalProperties", "Value", False));
 	Form.ChangeAttributes(AddedAtributesArray);
 
 	CreatingAttributesArray=UT_CommonClientServer.ToolsFormOutputWriteSettings();
 
-	Для Каждого CreatingAttributeName Из CreatingAttributesArray Цикл
+	For Each CreatingAttributeName In CreatingAttributesArray Do
 		ItemDescription=ItemAttributeNewDescription();
-		ItemDescription.CreateItem = Истина;
+		ItemDescription.CreateItem = True;
 		ItemDescription.Name=ParameterPrefix + CreatingAttributeName;
 		ItemDescription.ItemParent = FormGroup;
 		ItemDescription.Properties.Insert("FormItemType", FormFieldType.CheckBoxField);
 
 		UT_Forms.CreateItemByDescription(Form, ItemDescription);
-	КонецЦикла;
+	EndDo;
 	
-	//Add кнопку редактирования настроек
+	//Add button for edit settings 
 	ButtonDescription=ButtonCommandNewDescription();
 	ButtonDescription.Name=ParameterPrefix + "EditWriteSettings";
 	ButtonDescription.CommandName=ButtonDescription.Name;
 	ButtonDescription.ItemParent=FormGroup;
-	ButtonDescription.Title="Другие параметры записи";
+	ButtonDescription.Title=NStr("en = 'Other write settings';ru = 'Другие параметры записи'");        //"Другие параметры записи";
 	ButtonDescription.Picture=PictureLib.DataCompositionOutputParameters;
-	ButtonDescription.IsHyperLink=Истина;
+	ButtonDescription.IsHyperLink=True;
 	ButtonDescription.Action="Attachable_SetWriteSettings";
 
 	UT_Forms.CreateCommandByDescription(Form, ButtonDescription);
