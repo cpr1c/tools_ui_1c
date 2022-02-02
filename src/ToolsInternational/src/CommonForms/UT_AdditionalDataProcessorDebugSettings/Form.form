@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>ОтладкаВключена</name>
+    <name>DebugEnabled</name>
     <id>8</id>
     <title>
       <key>ru</key>
@@ -13,10 +13,10 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ОтладкаВключена</segments>
+      <segments>DebugEnabled</segments>
     </dataPath>
     <extendedTooltip>
-      <name>ОтладкаВключенаРасширеннаяПодсказка</name>
+      <name>DebugEnabledExtendedTooltip</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -31,7 +31,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ОтладкаВключенаКонтекстноеМеню</name>
+      <name>DebugEnabledContextMenu</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -54,7 +54,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ИмяФайлаНаСервере</name>
+    <name>FileNameAtServer</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -62,7 +62,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ИмяФайлаНаСервере</segments>
+      <segments>FileNameAtServer</segments>
     </dataPath>
     <toolTip>
       <key>ru</key>
@@ -70,7 +70,7 @@
     </toolTip>
     <toolTipRepresentation>Button</toolTipRepresentation>
     <extendedTooltip>
-      <name>ИмяФайлаНаСервереРасширеннаяПодсказка</name>
+      <name>FileNameAtServerExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -85,7 +85,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ИмяФайлаНаСервереКонтекстноеМеню</name>
+      <name>FileNameAtServerContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -102,7 +102,7 @@
     <extInfo xsi:type="form:InputFieldExtInfo">
       <handlers>
         <event>StartChoice</event>
-        <name>ИмяФайлаНаСервереНачалоВыбора</name>
+        <name>FileNameAtServerStartChoice</name>
       </handlers>
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
@@ -117,7 +117,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаПрименить</name>
+      <name>FormApply</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -125,7 +125,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаПрименитьРасширеннаяПодсказка</name>
+        <name>FormApplyExtendedTooltip</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -139,7 +139,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Применить</commandName>
+      <commandName>Form.Command.Apply</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -148,7 +148,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаЗакрыть</name>
+      <name>FormClose</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -156,7 +156,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗакрытьРасширеннаяПодсказка</name>
+        <name>FormCloseExtendedTooltip</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -186,7 +186,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -197,10 +197,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ИмяФайлаНаСервере</name>
+    <name>FileNameAtServer</name>
     <title>
       <key>ru</key>
       <value>Имя файла на сервере</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>File name at server</value>
     </title>
     <id>1</id>
     <valueType>
@@ -215,10 +219,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЭтоОтчет</name>
+    <name>IsReport</name>
     <title>
       <key>ru</key>
       <value>Это отчет</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Is report</value>
     </title>
     <id>4</id>
     <valueType>
@@ -232,10 +240,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОтладкаВключена</name>
+    <name>DebugEnabled</name>
     <title>
       <key>ru</key>
       <value>Отладка включена</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Debug enabled</value>
     </title>
     <id>5</id>
     <valueType>
@@ -249,10 +261,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Применить</name>
+    <name>Apply</name>
     <title>
       <key>ru</key>
       <value>Применить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Apply</value>
     </title>
     <id>1</id>
     <use>
@@ -260,7 +276,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Применить</name>
+        <name>Apply</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

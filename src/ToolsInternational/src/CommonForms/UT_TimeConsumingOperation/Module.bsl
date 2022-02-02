@@ -1,254 +1,251 @@
-#Область ОписаниеПеременных
+#Region VariablesDescription
 
-&НаКлиенте
-Перем ИнтервалОжидания;
-&НаКлиенте
-Перем ФормаЗакрывается;
+&AtClient
+Var WaitInterval;
+&AtClient
+Var FormClosing;
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиСобытийФормы
+#Region EventHandlers
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	ТекстСообщения = НСтр("ru = 'Пожалуйста, подождите...'");
-	Если Не ПустаяСтрока(Параметры.ТекстСообщения) Тогда
-		ТекстСообщения = Параметры.ТекстСообщения + Символы.ПС + ТекстСообщения;
-		Элементы.DecorationConsumingOperationExplanatoryText.Заголовок = ТекстСообщения;
-	КонецЕсли;
+	MessageText = NStr("ru = 'Пожалуйста, подождите...';en = 'Wait please'");
+	If Not IsBlankString(Parameters.MessageText) Then
+		MessageText = Parameters.MessageText + Chars.LF + MessageText;
+		Items.DecorationConsumingOperationExplanatoryText.Title = MessageText;
+	EndIf;
 
-	Если ЗначениеЗаполнено(Параметры.ИдентификаторЗадания) Тогда
-		JobID = Параметры.ИдентификаторЗадания;
-	КонецЕсли;
+	If ValueIsFilled(Parameters.JobID) Then
+		JobID = Parameters.JobID;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
+&AtClient
+Procedure OnOpen(Cancel)
 
-	Если Параметры.ВыводитьОкноОжидания Тогда
-		ИнтервалОжидания = ?(Параметры.Интервал <> 0, Параметры.Интервал, 1);
-		ПодключитьОбработчикОжидания("Подключаемый_ПроверитьВыполнениеЗадания", ИнтервалОжидания, Истина);
-	КонецЕсли;
+	If Parameters.ShowWaitWindow Then
+		WaitInterval = ?(Parameters.Interval <> 0, Parameters.Interval, 1);
+		AttachIdleHandler("Attachable_CheckJobExecution", WaitInterval, True);
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ПередЗакрытием(Отказ, ЗавершениеРаботы, ТекстПредупреждения, СтандартнаяОбработка)
+&AtClient
+Procedure BeforeClose(Cancel, Exit, WarningText, StandardProcessing)
+	If Status <> "Running" Then
+		Return;
+	EndIf;
 
-	Если State <> "Выполняется" Тогда
-		Возврат;
-	КонецЕсли;
+	Cancel = True;
+	If Exit Then
+		Return;
+	EndIf;
 
-	Отказ = Истина;
-	Если ЗавершениеРаботы Тогда
-		Возврат;
-	КонецЕсли;
+	AttachIdleHandler("Attachable_CancelJob", 0.1, True);
+EndProcedure
 
-	ПодключитьОбработчикОжидания("Подключаемый_ОтменитьЗадание", 0.1, Истина);
+&AtClient
+Procedure OnClose(Exit)
+	If Exit Then
+		Return;
+	EndIf;
 
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПриЗакрытии(ЗавершениеРаботы)
-
-	Если ЗавершениеРаботы Тогда
-		Возврат;
-	КонецЕсли;
-
-	Если State <> "Выполняется" Тогда
-		Возврат;
-	КонецЕсли;
+	If Status <> "Running" Then
+		Return;
+	EndIf;
 
 	CancelJobExecution();
+			
+EndProcedure
 
-КонецПроцедуры
+#EndRegion
 
-#КонецОбласти
+#Region Commands
 
-#Область Команды
+&AtClient
+Procedure Cancel(Command)
 
-&НаКлиенте
-Процедура Cancel(Command)
+	FormClosing = True;
+	Attachable_CheckJobExecution(); // what if the job has already been completed.
+	If Status = "Canceled" Then
+		Status = Undefined;
+		Close(ExecutionResult(Undefined));
+	EndIf;
 
-	ФормаЗакрывается = Истина;
-	Подключаемый_ПроверитьВыполнениеЗадания(); // а вдруг задание уже выполнилось.
-	Если State = "Отменено" Тогда
-		State = Неопределено;
-		Закрыть(РезультатВыполнения(Неопределено));
-	КонецЕсли;
+EndProcedure
 
-КонецПроцедуры
+#EndRegion
 
-#КонецОбласти
+#Region Internal
 
-#Область СлужебныеПроцедурыИФункции
+&AtClient
+Procedure Attachable_CheckJobExecution()
 
-&НаКлиенте
-Процедура Подключаемый_ПроверитьВыполнениеЗадания()
+	Job = CheckJobIsCompleted(FormClosing);
+	Status = Job.Status;
 
-	Задание = ПроверитьЗаданиеВыполнено(ФормаЗакрывается);
-	Статус = Задание.Статус;
+	If Job.Progress <> Undefined Then
+		ProgressAsString = ProgressAsString(Job.Progress);
+		If Not IsBlankString(ProgressAsString) Then
+			Items.DecorationConsumingOperationExplanatoryText.Title = MessageText + " " + ProgressAsString;
+		EndIf;
+	EndIf;
+	If Job.Messages <> Undefined And FormOwner <> Undefined Then
+		TargetID = FormOwner.UUID;
+		For Each UserMessage In Job.Messages Do
+			UserMessage.TargetID = TargetID;
+			UserMessage.Message();
+		EndDo;
+	EndIf;
 
-	Если Задание.Прогресс <> Неопределено Тогда
-		ПрогрессСтрокой = ПрогрессСтрокой(Задание.Прогресс);
-		Если Не ПустаяСтрока(ПрогрессСтрокой) Тогда
-			Элементы.DecorationConsumingOperationExplanatoryText.Заголовок = MessageText + " " + ПрогрессСтрокой;
-		КонецЕсли;
-	КонецЕсли;
-	Если Задание.Сообщения <> Неопределено И ВладелецФормы <> Неопределено Тогда
-		ИдентификаторНазначения = ВладелецФормы.УникальныйИдентификатор;
-		Для Каждого СообщениеПользователю Из Задание.Сообщения Цикл
-			СообщениеПользователю.ИдентификаторНазначения = ИдентификаторНазначения;
-			СообщениеПользователю.Сообщить();
-		КонецЦикла;
-	КонецЕсли;
-
-	Если Статус = "Выполнено" Тогда
+	If Status = "Completed" Then
 
 		ShowNotification();
-		Если ВозвращатьРезультатВОбработкуВыбора() Тогда
-			ОповеститьОВыборе(Задание.Результат);
-			Возврат;
-		КонецЕсли;
-		Закрыть(РезультатВыполнения(Задание));
-		Возврат;
+		If ReturnResultToChoiceProcessing() Then
+			NotifyChoice(Job.Result);
+			Return;
+		EndIf;
+		Close(ExecutionResult(Job));
+		Return;
 
-	ИначеЕсли Статус = "Ошибка" Тогда
+	ElsIf Status = "Error" Then
 
-		Закрыть(РезультатВыполнения(Задание));
-		Если ВозвращатьРезультатВОбработкуВыбора() Тогда
-			ВызватьИсключение Задание.КраткоеПредставлениеОшибки;
-		КонецЕсли;
-		Возврат;
+		Close(ExecutionResult(Job));
+		If ReturnResultToChoiceProcessing() Then
+			Raise Job.BriefErrorDescription;
+		EndIf;
+		Return;
 
-	КонецЕсли;
+	EndIf;
 
-	Если Параметры.ВыводитьОкноОжидания Тогда
-		Если Параметры.Интервал = 0 Тогда
-			ИнтервалОжидания = ИнтервалОжидания * 1.4;
-			Если ИнтервалОжидания > 15 Тогда
-				ИнтервалОжидания = 15;
-			КонецЕсли;
-		КонецЕсли;
-		ПодключитьОбработчикОжидания("Подключаемый_ПроверитьВыполнениеЗадания", ИнтервалОжидания, Истина);
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура Подключаемый_ОтменитьЗадание()
-
-	Cancel(Неопределено);
+	If Parameters.ShowWaitWindow Then
+		If Parameters.Interval = 0 Then
+			WaitInterval = WaitInterval * 1.4;
+			If WaitInterval > 15 Then
+				WaitInterval = 15;
+			EndIf;
+		EndIf;
+		AttachIdleHandler("Attachable_CheckJobExecution", WaitInterval, True);
+	EndIf;
 
 КонецПроцедуры
 
-&НаКлиенте
-Процедура ShowNotification()
+&AtClient
+Procedure Attachable_CancelJob()
 
-	Если Параметры.ОповещениеПользователя = Неопределено Или Не Параметры.ОповещениеПользователя.Показать Тогда
-		Возврат;
-	КонецЕсли;
+	Cancel(Undefined);
 
-	Оповещение = Параметры.ОповещениеПользователя;
+EndProcedure
 
-	НавигационнаяСсылкаОповещения = Оповещение.НавигационнаяСсылка;
-	Если НавигационнаяСсылкаОповещения = Неопределено И ВладелецФормы <> Неопределено И ВладелецФормы.Окно
-		<> Неопределено Тогда
-		НавигационнаяСсылкаОповещения = ВладелецФормы.Окно.ПолучитьНавигационнуюСсылку();
-	КонецЕсли;
-	ПояснениеОповещения = Оповещение.Пояснение;
-	Если ПояснениеОповещения = Неопределено И ВладелецФормы <> Неопределено И ВладелецФормы.Окно <> Неопределено Тогда
-		ПояснениеОповещения = ВладелецФормы.Окно.Заголовок;
-	КонецЕсли;
+&AtClient
+Procedure ShowNotification()
 
-	ПоказатьОповещениеПользователя(?(Оповещение.Текст <> Неопределено, Оповещение.Текст, НСтр(
-		"ru = 'Действие выполнено'")), НавигационнаяСсылкаОповещения, ПояснениеОповещения);
+	If Parameters.UserNotification = Undefined Or Not Parameters.UserNotification.Show Then
+		Return;
+	EndIf;
 
-КонецПроцедуры
+	Notification = Parameters.UserNotification;
 
-&НаСервере
-Функция ПроверитьЗаданиеВыполнено(ФормаЗакрывается)
+	NotificationURL = Notification.URL;
+	If NotificationURL = Undefined And FormOwner <> Undefined And FormOwner.Window
+		<> Undefined Then
+		NotificationURL = FormOwner.Window.ClientApplicationWindow();
+	EndIf;
+	NotificationExplanation = Notification.Explanation;
+	If NotificationExplanation = Undefined And FormOwner <> Undefined And FormOwner.Window <> Undefined Then
+		NotificationExplanation = FormOwner.Window.Caption;
+	EndIf;
 
-	Задание = UT_TimeConsumingOperations.ActionCompleted(JobID, Ложь, Параметры.ВыводитьПрогрессВыполнения,
-		Параметры.ВыводитьСообщения);
+	ShowUserNotification(?(Notification.Текст <> Undefined, Notification.Текст, NStr(
+		"ru = 'Действие выполнено';en = 'Action completed'")), NotificationURL, NotificationExplanation);
 
-	Если Параметры.ПолучатьРезультат Тогда
-		Если Задание.Статус = "Выполнено" Тогда
-			Задание.Вставить("Результат", ПолучитьИзВременногоХранилища(Параметры.АдресРезультата));
+EndProcedure
+
+&AtServer
+Function CheckJobIsCompleted(FormClosing)
+
+	Job = UT_TimeConsumingOperations.ActionCompleted(JobID, False, Parameters.DisplayExecutionProgress,
+		Parameters.OutputMessages);
+
+	If Parameters.GetResult Then
+		If Job.Status = "Completed" Then
+			Job.Insert("Result", GetFromTempStorage(Parameters.ResultAddress));
 		Иначе
-			Задание.Вставить("Результат", Неопределено);
-		КонецЕсли;
-	КонецЕсли;
+			Job.Insert("Result", Undefined);
+		EndIf;
+	EndIf;
 
-	Если ФормаЗакрывается = Истина Тогда
+	If FormClosing = True Then
 		CancelJobExecution();
-		Задание.Статус = "Отменено";
-	КонецЕсли;
+		Job.Status = "Canceled";
+	EndIf;
 
-	Возврат Задание;
+	Return Job;
 
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Функция ПрогрессСтрокой(Прогресс)
+&AtClient
+Function ProgressAsString(Progress)
 
-	Результат = "";
-	Если Прогресс = Неопределено Тогда
-		Возврат Результат;
-	КонецЕсли;
+	Result = "";
+	If Progress = Undefined Then
+		Return Result;
+	EndIf;
 
-	Процент = 0;
-	Если Прогресс.Свойство("Процент", Процент) Тогда
-		Результат = Строка(Процент) + "%";
-	КонецЕсли;
-	Текст = 0;
-	Если Прогресс.Свойство("Текст", Текст) Тогда
-		Если Не ПустаяСтрока(Результат) Тогда
-			Результат = Результат + " (" + Текст + ")";
-		Иначе
-			Результат = Текст;
-		КонецЕсли;
-	КонецЕсли;
+	Percent = 0;
+	If Progress.Property("Percent", Percent) Then
+		Result = String(Percent) + "%";
+	EndIf;
+	Text = 0;
+	If Progress.Property("Text", Text) Then
+		If Not IsBlankString(Result) Then
+			Result = Result + " (" + Text + ")";
+		Else
+			Result = Text;
+		EndIf;
+	EndIf;
 
-	Возврат Результат;
+	Return Result;
 
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Функция РезультатВыполнения(Задание)
+&AtClient
+Function ExecutionResult(Job)
 
-	Если Задание = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
+	If Job = Undefined Then
+		Return Undefined;
+	EndIf;
 
-	Результат = Новый Структура;
-	Результат.Вставить("Статус", Задание.Статус);
-	Результат.Вставить("АдресРезультата", Параметры.АдресРезультата);
-	Результат.Вставить("АдресДополнительногоРезультата", Параметры.АдресДополнительногоРезультата);
-	Результат.Вставить("КраткоеПредставлениеОшибки", Задание.КраткоеПредставлениеОшибки);
-	Результат.Вставить("ПодробноеПредставлениеОшибки", Задание.ПодробноеПредставлениеОшибки);
-	Результат.Вставить("Сообщения", Задание.Сообщения);
+	Result = New Structure;
+	Result.Insert("Status", Job.Status);
+	Result.Insert("ResultURL", Parameters.ResultAddress);
+	Result.Insert("AdditionalResultURL", Parameters.AdditionalResultAddress);
+	Result.Insert("BriefErrorPresentation", Job.BriefErrorPresentation);
+	Result.Insert("DetailedErrorPresentation", Job.DetailedErrorPresentation);
+	Result.Insert("Messages", Job.Messages);
 
-	Если Параметры.ПолучатьРезультат Тогда
-		Результат.Вставить("Результат", Задание.Результат);
-	КонецЕсли;
+	If Parameters.GetResult Then
+		Result.Insert("Result", Job.Result);
+	EndIf;
 
-	Возврат Результат;
+	Return Result;
 
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Функция ВозвращатьРезультатВОбработкуВыбора()
-	Возврат ОписаниеОповещенияОЗакрытии = Неопределено И Параметры.ПолучатьРезультат И ТипЗнч(ВладелецФормы) = UT_CommonClientServer.ManagedFormType();
-КонецФункции
+&AtClient
+Function ReturnResultToChoiceProcessing()
+	Return OnCloseNotifyDescription = Undefined And Parameters.GetResult And TypeOf(FormOwner) = UT_CommonClientServer.ManagedFormType();
+EndFunction
 
-&НаСервере
-Процедура CancelJobExecution()
+&AtServer
+Procedure CancelJobExecution()
 
 	UT_TimeConsumingOperations.CancelJobExecution(JobID);
 
-КонецПроцедуры
+EndProcedure
 
-#КонецОбласти
+#EndRegion

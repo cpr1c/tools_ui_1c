@@ -122,7 +122,7 @@
   <commonCommands>CommonCommand.UT_Settings</commonCommands>
   <commonForms>CommonForm.UT_AdditionalDataProcessorDebugSettings</commonForms>
   <commonForms>CommonForm.UT_MetadataSelectionForm</commonForms>
-  <commonForms>CommonForm.UT_Settings</commonForms>
+  <commonForms>CommonForm.UT_ToolsSettings</commonForms>
   <commonForms>CommonForm.UT_TextEditingForm</commonForms>
   <commonForms>CommonForm.UT_TimeConsumingOperation</commonForms>
   <commonForms>CommonForm.UT_ValueListChoiceItemsForm</commonForms>
