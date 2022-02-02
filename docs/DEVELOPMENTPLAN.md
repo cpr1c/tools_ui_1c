@@ -227,7 +227,7 @@
 <td style="width: 10.5312px; height: 72px;">2</td>
 <td style="width: 18px; height: 72px;">4</td>
 <td style="width: 48.0156px; height: 72px;">2</td>
-<td style="width: 202.141px; height: 72px;">&nbsp;</td>
+<td style="width: 202.141px; height: 72px;">Переведен</td>
 </tr>
 <tr style="height: 90px;">
 <td style="width: 46.0156px; height: 90px;"><span style="background-color: #99cc00;">24</span></td>
