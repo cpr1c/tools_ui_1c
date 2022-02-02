@@ -1,85 +1,85 @@
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	Попытка
-		Значение = ЗначениеИзСтрокиВнутр(Параметры.ЗначениеВнутр);
-	Исключение
-		Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-		Отказ = Истина;
-		Возврат;
-	КонецПопытки;
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	Try
+		Value = ValueFromStringInternal(Parameters.InterValue);
+	Except
+		Message(BriefErrorDescription(ErrorInfo()));
+		Cancel = True;
+		Return;
+	EndTry;
 
-	Если ТипЗнч(Значение) <> Тип("ТаблицаЗначений") Тогда
-		Отказ = Истина;
-		Возврат;
-	КонецЕсли;
+	If TypeOf(Value) <> Type("ValueTable") Then
+		Cancel = True;
+		Return;
+	EndIf;
 
-	_ЧислоЗаписей = Значение.Количество();
+	_RecordsCount = Value.Count();
 	
-	ТипХЗ = Тип("ХранилищеЗначения");
-	ТипТЗ = Тип("ТаблицаЗначений");
-	ТипТТ = Тип("Тип");
-	ТипМВ = Тип("МоментВремени");
+	ValueStorageType = Type("ValueStorage");
+	ValueTableType = Type("ValueTable");
+	TypeType = Type("Type");
+	PointInTimeType = Type("PointInTime");
 
-	РеквизитыКДобавлению = Новый Массив;
-	РеквизитыКУдалению = Новый Массив;
+	AttributesToAdding = New Array;
+	AttributesToDeleting = New Array;
 
-	Для Каждого Колонка Из Значение.Колонки Цикл
-		//Если не Колонка.ТипЗначения.СодержитТип(пТипТаблицаЗначений) Тогда
-		//	РеквизитыКДобавлению.Добавить(новый РеквизитФормы(Колонка.Имя, Колонка.ТипЗначения, "ТаблицаДанных", Колонка.Заголовок, ложь));
-		//КонецЕсли;
+	For each Column In Value.Columns Do
+		//If Not Column.ValueType.ContainsType(varValueTableType) Then
+		//	AttributesToAdding.Add(New FormAttribute(Column.Name, Column.ValueType, "DataTable", Column.Title, False));
+		//EndIf;
 
-		Если Колонка.ТипЗначения.СодержитТип(ТипХЗ) Тогда
-			ТипЗначенияРеквизита = Новый ОписаниеТипов;
-		ИначеЕсли Колонка.ТипЗначения.СодержитТип(ТипТЗ) Тогда
-			ТипЗначенияРеквизита = Новый ОписаниеТипов;
-		ИначеЕсли Колонка.ТипЗначения.СодержитТип(ТипТТ) Тогда
-			ТипЗначенияРеквизита = Новый ОписаниеТипов;
-		ИначеЕсли Колонка.ТипЗначения.СодержитТип(ТипМВ) Тогда
-			ТипЗначенияРеквизита = Новый ОписаниеТипов;
-		Иначе
-			ТипЗначенияРеквизита = Колонка.ТипЗначения;
-		КонецЕсли;
+		If Column.ValueType.ContainsType(ValueStorageType) Then
+			AttributeValueType = New TypeDescription;
+		ElsIf Column.ValueType.ContainsType(ValueTableType) Then
+			AttributeValueType = New TypeDescription;
+		ElsIf Column.ValueType.ContainsType(TypeType) Then
+			AttributeValueType = New TypeDescription;
+		ElsIf Column.ValueType.ContainsType(PointInTimeType) Then
+			AttributeValueType = New TypeDescription;
+		Else
+			AttributeValueType = Column.ValueType;
+		EndIf;
 
-		РеквизитыКДобавлению.Добавить(Новый РеквизитФормы(Колонка.Имя, ТипЗначенияРеквизита, "ТаблицаДанных",
-			Колонка.Заголовок, Ложь));
-	КонецЦикла;
+		AttributesToAdding.Add(New FormAttribute(Column.Name, AttributeValueType, "DataTable",
+			Column.Title, False));
+	EndDo;
 
-	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
-	ЗначениеВРеквизитФормы(Значение, "ТаблицаДанных");
+	ChangeAttributes(AttributesToAdding, AttributesToDeleting);
+	ValueToFormAttribute(Value, "DataTable");
 
-	Для Каждого Колонка Из Значение.Колонки Цикл
-		//Если не Колонка.ТипЗначения.СодержитТип(пТипТаблицаЗначений) Тогда
-		ЭтаФорма.Элементы.Добавить(Колонка.Имя, Тип("ПолеФормы"), ЭтаФорма.Элементы.ТаблицаДанных);
-		ЭтаФорма.Элементы[Колонка.Имя].ПутьКДанным = "ТаблицаДанных." + Колонка.Имя;
-		ЭтаФорма.Элементы[Колонка.Имя].Вид = ВидПоляФормы.ПолеВвода;
-		ЭтаФорма.Элементы[Колонка.Имя].ДоступныеТипы = Колонка.ТипЗначения;
-		//КонецЕсли;
-	КонецЦикла;
+	For each Column In Value.Columns Do
+		//If Not Column.ValueType.ContainsType(varValueTableType) Then
+		ThisForm.Items.Add(Column.Name, Type("FormField"), ThisForm.Items.DataTable);
+		ThisForm.Items[Column.Name].DataPath = "DataTable." + Column.Name;
+		ThisForm.Items[Column.Name].Type = FormFieldType.InputField;
+		ThisForm.Items[Column.Name].AvailableTypes = Column.ValueType;
+		//EndIf;
+	EndDo;
 
-	Если Не ПустаяСтрока(Параметры.Заголовок) Тогда
-		ЭтаФорма.Заголовок = Параметры.Заголовок;
-	КонецЕсли;
-КонецПроцедуры
+	If Not IsBlankString(Parameters.Title) Then
+		ThisForm.Title = Parameters.Title;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура КомандаОК(Команда)
-	Результат = Новый Структура;
-	Результат.Вставить("ТипЗначения", "ТаблицаЗначений");
-	Результат.Вставить("СтрокаВнутр", вТаблицаДанныхКакСтрокаВнутр());
-	Закрыть(Результат);
-КонецПроцедуры
+&AtClient
+Procedure CommandOK(Command)
+	Result = New Structure;
+	Result.Insert("ValueType", "ValueTable");
+	Result.Insert("StringInternal", DataTableAsStringInternal());
+	Close(Result);
+EndProcedure
 
-&НаКлиенте
-Процедура КомандаЗакрыть(Команда)
-	Закрыть();
-КонецПроцедуры
+&AtClient
+Procedure CommandClose(Command)
+	Close();
+EndProcedure
 
-&НаКлиенте
-Процедура КомандаОчиститьТаблицу(Команда)
-	ТаблицаДанных.Очистить();
-КонецПроцедуры
+&AtClient
+Procedure CommandClearTable(Command)
+	DataTable.Clear();
+EndProcedure
 
-&НаСервере
-Функция вТаблицаДанныхКакСтрокаВнутр()
-	Возврат ЗначениеВСтрокуВнутр(РеквизитФормыВЗначение("ТаблицаДанных"));
-КонецФункции
+&AtServer
+Function DataTableAsStringInternal()
+	Return ValueToStringInternal(FormAttributeToValue("DataTable"));
+EndFunction
