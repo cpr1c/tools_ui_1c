@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Value Storage Data</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Данные ХЗ</value>
   </title>
   <items xsi:type="form:Table">
-    <name>_ТаблицаЗначений</name>
+    <name>_ValueTable</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -13,14 +17,14 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>_ТаблицаЗначений</segments>
+      <segments>_ValueTable</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <autoCommandBar>
-      <name>_ТаблицаЗначенийКоманднаяПанель</name>
+      <name>_ValueTableCommandBar</name>
       <id>3</id>
       <items xsi:type="form:Button">
-        <name>_ТаблицаЗначенийОткрытьОбъект</name>
+        <name>_ValueTableOpenObject</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -28,7 +32,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>_ТаблицаЗначенийОткрытьОбъектРасширеннаяПодсказка</name>
+          <name>_ValueTableOpenObjectExtendedTooltip</name>
           <id>15</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -42,7 +46,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьОбъект</commandName>
+        <commandName>Form.Command.OpenObject</commandName>
         <representation>Auto</representation>
         <onlyInAllActions>false</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
@@ -68,10 +72,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>_ТаблицаЗначенийСтрокаПоиска</name>
+      <name>_ValueTableSearchString</name>
       <id>5</id>
       <extendedTooltip>
-        <name>_ТаблицаЗначенийСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>_ValueTableSearchStringExtendedTooltip</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -86,7 +90,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>_ТаблицаЗначенийСтрокаПоискаКонтекстноеМеню</name>
+        <name>_ValueTableSearchStringContextMenu</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -105,10 +109,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>_ТаблицаЗначенийСостояниеПросмотра</name>
+      <name>_ValueTableViewStatus</name>
       <id>8</id>
       <extendedTooltip>
-        <name>_ТаблицаЗначенийСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>_ValueTableViewStatusExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -123,7 +127,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>_ТаблицаЗначенийСостояниеПросмотраКонтекстноеМеню</name>
+        <name>_ValueTableViewStatusContextMenu</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -144,10 +148,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>_ТаблицаЗначенийУправлениеПоиском</name>
+      <name>_ValueTableSearchControl</name>
       <id>11</id>
       <extendedTooltip>
-        <name>_ТаблицаЗначенийУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>_ValueTableSearchControlExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -162,7 +166,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>_ТаблицаЗначенийУправлениеПоискомКонтекстноеМеню</name>
+        <name>_ValueTableSearchControlContextMenu</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -177,7 +181,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>_ТаблицаЗначенийРасширеннаяПодсказка</name>
+      <name>_ValueTableExtendedTooltip</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -192,13 +196,13 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>_ТаблицаЗначенийКонтекстноеМеню</name>
+      <name>_ValueTableContextMenu</name>
       <id>2</id>
       <items xsi:type="form:FormGroup">
-        <name>_ТаблицаЗначенийКонтекстноеМенюГруппа1</name>
+        <name>_ValueTableContextMenuGroup1</name>
         <id>16</id>
         <items xsi:type="form:Button">
-          <name>_ТаблицаЗначенийКонтекстноеМенюОткрытьОбъект</name>
+          <name>_ValueTableContextMenuOpenObject</name>
           <id>18</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -206,7 +210,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>_ТаблицаЗначенийКонтекстноеМенюОткрытьОбъектРасширеннаяПодсказка</name>
+            <name>_ValueTableContextMenuOpenObjectExtendedTooltip</name>
             <id>19</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -220,7 +224,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОткрытьОбъект</commandName>
+          <commandName>Form.Command.OpenObject</commandName>
           <representation>Auto</representation>
           <onlyInAllActions>false</onlyInAllActions>
           <autoMaxWidth>true</autoMaxWidth>
@@ -233,8 +237,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Value table context menu group1</value>
+        </title>
         <extendedTooltip>
-          <name>_ТаблицаЗначенийКонтекстноеМенюГруппа1РасширеннаяПодсказка</name>
+          <name>_ValueTableContextMenuGroup1ExtendedTooltip</name>
           <id>17</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -280,18 +288,18 @@
     <rowFilter xsi:type="core:UndefinedValue"/>
   </items>
   <items xsi:type="form:Table">
-    <name>_ДеревоЗначений</name>
+    <name>_ValueTree</name>
     <id>20</id>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>_ДеревоЗначений</segments>
+      <segments>_ValueTree</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <autoCommandBar>
-      <name>_ДеревоЗначенийКоманднаяПанель</name>
+      <name>_ValueTreeCommandBar</name>
       <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -311,10 +319,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>_ДеревоЗначенийСтрокаПоиска</name>
+      <name>_ValueTreeSearchString</name>
       <id>24</id>
       <extendedTooltip>
-        <name>_ДеревоЗначенийСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>_ValueTreeSearchStringExtendedTooltip</name>
         <id>26</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -329,7 +337,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>_ДеревоЗначенийСтрокаПоискаКонтекстноеМеню</name>
+        <name>_ValueTreeSearchStringContextMenu</name>
         <id>25</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -348,10 +356,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>_ДеревоЗначенийСостояниеПросмотра</name>
+      <name>_ValueTreeViewStatus</name>
       <id>27</id>
       <extendedTooltip>
-        <name>_ДеревоЗначенийСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>_ValueTreeViewStatusExtendedTooltip</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -366,7 +374,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>_ДеревоЗначенийСостояниеПросмотраКонтекстноеМеню</name>
+        <name>_ValueTreeViewStatusContextMenu</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -387,10 +395,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>_ДеревоЗначенийУправлениеПоиском</name>
+      <name>_ValueTreeSearchControl</name>
       <id>30</id>
       <extendedTooltip>
-        <name>_ДеревоЗначенийУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>_ValueTreeSearchControlExtendedTooltip</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -405,7 +413,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>_ДеревоЗначенийУправлениеПоискомКонтекстноеМеню</name>
+        <name>_ValueTreeSearchControlContextMenu</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -420,7 +428,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>_ДеревоЗначенийРасширеннаяПодсказка</name>
+      <name>_ValueTreeExtendedTooltip</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -435,13 +443,13 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>_ДеревоЗначенийКонтекстноеМеню</name>
+      <name>_ValueTreeContextMenu</name>
       <id>21</id>
       <items xsi:type="form:FormGroup">
-        <name>_ДеревоЗначенийКонтекстноеМенюГруппа1</name>
+        <name>_ValueTreeContextMenuGroup1</name>
         <id>33</id>
         <items xsi:type="form:Button">
-          <name>_ДеревоЗначенийКонтекстноеМенюОткрытьОбъект</name>
+          <name>_ValueTreeContextMenuOpenObject</name>
           <id>35</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -449,7 +457,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>_ДеревоЗначенийКонтекстноеМенюОткрытьОбъектРасширеннаяПодсказка</name>
+            <name>_ValueTreeContextMenuOpenObjectExtendedTooltip</name>
             <id>36</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -463,7 +471,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОткрытьОбъект</commandName>
+          <commandName>Form.Command.OpenObject</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -475,8 +483,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Value tree context menu group1</value>
+        </title>
         <extendedTooltip>
-          <name>_ДеревоЗначенийКонтекстноеМенюГруппа1РасширеннаяПодсказка</name>
+          <name>_ValueTreeContextMenuGroup1ExtendedTooltip</name>
           <id>34</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -532,12 +544,12 @@
     <horizontalAlign>Left</horizontalAlign>
   </autoCommandBar>
   <handlers>
-    <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <event>OnCreateAtServer</event>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
-    <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <event>OnOpen</event>
+    <name>OnOpen</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -547,7 +559,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>_ТаблицаЗначений</name>
+    <name>_ValueTable</name>
+    <title>
+      <key>en</key>
+      <value>Value table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица значений</value>
@@ -564,10 +580,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ДанныеДляОтображения</name>
+    <name>_DataForRepresentation</name>
     <title>
       <key>ru</key>
       <value>Данные для отображения</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Data for representation</value>
     </title>
     <id>3</id>
     <valueType/>
@@ -579,7 +599,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ДеревоЗначений</name>
+    <name>_ValueTree</name>
+    <title>
+      <key>en</key>
+      <value>Value tree</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Дерево значений</value>
@@ -596,10 +620,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ОткрытьОбъект</name>
+    <name>OpenObject</name>
     <title>
       <key>ru</key>
       <value>Открыть объект...</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Open object</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -614,7 +642,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьОбъект</name>
+        <name>OpenObject</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

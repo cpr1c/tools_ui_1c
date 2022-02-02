@@ -310,7 +310,7 @@
     </valueType>
   </parameters>
   <parameters>
-    <name>DisplayExecutionProgress</name>
+    <name>OutputProgressBar</name>
     <valueType>
       <types>Boolean</types>
     </valueType>
@@ -345,7 +345,7 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ShowWaitWindow</name>
+    <name>OutputIdleWindow</name>
     <valueType>
       <types>Boolean</types>
     </valueType>
@@ -369,7 +369,7 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>GetResult</name>
+    <name>MustReceiveResult</name>
     <valueType>
       <types>Boolean</types>
     </valueType>
