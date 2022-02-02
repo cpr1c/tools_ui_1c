@@ -29,7 +29,7 @@ Procedure OnOpen(Cancel)
 
 	If Parameters.ShowWaitWindow Then
 		WaitInterval = ?(Parameters.Interval <> 0, Parameters.Interval, 1);
-		AttachIdleHandler("Подключаемый_ПроверитьВыполнениеЗадания", WaitInterval, True);
+		AttachIdleHandler("Attachable_CheckJobExecution", WaitInterval, True);
 	EndIf;
 
 EndProcedure
@@ -45,7 +45,7 @@ Procedure BeforeClose(Cancel, Exit, WarningText, StandardProcessing)
 		Return;
 	EndIf;
 
-	AttachIdleHandler("Подключаемый_ОтменитьЗадание", 0.1, True);
+	AttachIdleHandler("Attachable_CancelJob", 0.1, True);
 EndProcedure
 
 &AtClient
@@ -70,7 +70,7 @@ EndProcedure
 Procedure Cancel(Command)
 
 	FormClosing = True;
-	Подключаемый_ПроверитьВыполнениеЗадания(); // а вдруг Job уже выполнилось.
+	Attachable_CheckJobExecution(); // what if the job has already been completed.
 	If Status = "Canceled" Then
 		Status = Undefined;
 		Close(ExecutionResult(Undefined));
@@ -83,7 +83,7 @@ EndProcedure
 #Region Internal
 
 &AtClient
-Процедура Подключаемый_ПроверитьВыполнениеЗадания()
+Procedure Attachable_CheckJobExecution()
 
 	Job = CheckJobIsCompleted(FormClosing);
 	Status = Job.Status;
@@ -129,13 +129,13 @@ EndProcedure
 				WaitInterval = 15;
 			EndIf;
 		EndIf;
-		AttachIdleHandler("Подключаемый_ПроверитьВыполнениеЗадания", WaitInterval, True);
+		AttachIdleHandler("Attachable_CheckJobExecution", WaitInterval, True);
 	EndIf;
 
 КонецПроцедуры
 
 &AtClient
-Procedure Подключаемый_ОтменитьЗадание()
+Procedure Attachable_CancelJob()
 
 	Cancel(Undefined);
 
@@ -150,18 +150,18 @@ Procedure ShowNotification()
 
 	Notification = Parameters.UserNotification;
 
-	НавигационнаяСсылкаОповещения = Notification.URL;
-	If НавигационнаяСсылкаОповещения = Undefined And ВладелецФормы <> Undefined And ВладелецФормы.Окно
+	NotificationURL = Notification.URL;
+	If NotificationURL = Undefined And FormOwner <> Undefined And FormOwner.Window
 		<> Undefined Then
-		НавигационнаяСсылкаОповещения = ВладелецФормы.Окно.ПолучитьНавигационнуюСсылку();
+		NotificationURL = FormOwner.Window.ClientApplicationWindow();
 	EndIf;
-	ПояснениеОповещения = Notification.Пояснение;
-	If ПояснениеОповещения = Undefined And ВладелецФормы <> Undefined And ВладелецФормы.Окно <> Undefined Then
-		ПояснениеОповещения = ВладелецФормы.Окно.Заголовок;
+	NotificationExplanation = Notification.Explanation;
+	If NotificationExplanation = Undefined And FormOwner <> Undefined And FormOwner.Window <> Undefined Then
+		NotificationExplanation = FormOwner.Window.Caption;
 	EndIf;
 
 	ShowUserNotification(?(Notification.Текст <> Undefined, Notification.Текст, NStr(
-		"ru = 'Действие выполнено'")), НавигационнаяСсылкаОповещения, ПояснениеОповещения);
+		"ru = 'Действие выполнено';en = 'Action completed'")), NotificationURL, NotificationExplanation);
 
 EndProcedure
 
