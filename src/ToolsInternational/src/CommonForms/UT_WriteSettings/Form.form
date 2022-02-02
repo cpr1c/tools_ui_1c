@@ -241,6 +241,10 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>&quot;BeforeWrite&quot; procedure </value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Процедура &quot;Перед записью&quot;</value>
       </title>
@@ -685,6 +689,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>en</key>
+        <value>Additional properties</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Дополнительные свойства</value>
