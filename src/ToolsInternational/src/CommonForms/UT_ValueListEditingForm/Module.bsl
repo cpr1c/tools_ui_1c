@@ -9,58 +9,57 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	EndIf;
 
 	ValueList=Parameters.List;
-	If Parameters.Property("ТипЭлементов") Then
-		If Parameters.ТипЭлементов <> Undefined И Parameters.ТипЭлементов <> Новый ОписаниеТипов Then
-			ValueList.ТипЗначения=Parameters.ТипЭлементов;
+	If Parameters.Property("ItemsType") Then
+		If Parameters.ItemsType <> Undefined И Parameters.ItemsType <> New TypeDescription Then
+			ValueList.ValueType=Parameters.ItemsType;
 		EndIf;
 	EndIf;
 
-	If Parameters.Property("ВидимостьПометки") Then
-		Элементы.СписокЗначенийПометка.Видимость=Parameters.ВидимостьПометки;
+	If Parameters.Property("CheckVisible") Then
+		Items.ValueListCheck.Visible=Parameters.CheckVisible;
 	EndIf;
-	If Parameters.Property("ВидимостьПредставления") Then
-		Элементы.СписокЗначенийПредставление.Видимость=Parameters.ВидимостьПредставления;
+	If Parameters.Property("PresentationVisible") Then
+		Items.ValueListPresentation.Visible=Parameters.PresentationVisible;
 	EndIf;
 
-	If Parameters.Property("РежимПодбора") Then
-		РежимПодбора=Parameters.РежимПодбора;
+	If Parameters.Property("PickMode") Then
+		PickMode=Parameters.PickMode;
 	Else
-		РежимПодбора=Ложь;
+		PickMode=False;
 	EndIf;
 
-	Элементы.ValueList.ИзменятьПорядокСтрок=РежимПодбора;
-	Элементы.ValueList.ИзменятьСоставСтрок=РежимПодбора;
-	Элементы.СписокЗначенийЗначение.ТолькоПросмотр=Не РежимПодбора;
-	Если Не РежимПодбора Then
-		Элементы.ValueList.ПоложениеКоманднойПанели=ПоложениеКоманднойПанелиЭлементаФормы.Нет;
+	Items.ValueList.ChangeRowOrder=PickMode;
+	Items.ValueList.ChangeRowSet=PickMode;
+	Items.ValueListValue.ReadOnly=Not PickMode;
+	If Not PickMode Then
+		Items.ValueList.CommandBarLocation=FormItemCommandBarLabelLocation.None;
 	EndIf;
 
-	Если Parameters.Property("ДоступныеЗначения") Then
-		Элементы.СписокЗначенийЗначение.РежимВыбораИзСписка=Истина;
-		Элементы.СписокЗначенийЗначение.СписокВыбора.Очистить();
+	If Parameters.Property("AvailableValues") Then
+		Items.ValueListValue.ListChoiceMode=True;
+		Items.ValueListValue.ChoiceList.Clear();
 
-		Для Каждого ЭлементСписка Из Parameters.ДоступныеЗначения Цикл
-			Элементы.СписокЗначенийЗначение.СписокВыбора.Добавить(ЭлементСписка.Значение, ЭлементСписка.Представление,
-				ЭлементСписка.Пометка, ЭлементСписка.Картинка);
-		КонецЦикла;
+		For Each ListItem In Parameters.AvailableValues Do
+			Items.ValueListValue.ChoiceList.Add(ListItem.Value, ListItem.Presentation,
+				ListItem.Check, ListItem.Picture);
+		EndDo;
 	EndIf;
 	
 EndProcedure
 
 &AtClient
 Procedure Apply(Command)
-	Если Не ReturnOnlySelectedValues Then
-		СписокВозврата=ValueList;
-	Иначе
-		СписокВозврата=Новый СписокЗначений;
+	If Not ReturnOnlySelectedValues Then
+		ReturnList=ValueList;
+	Else
+		ReturnList=New ValueList;
 
-		Для Каждого Элемент Из ValueList Цикл
-			Если Не Элемент.Пометка Then
-				Продолжить;
+		For Each Item In ValueList Do
+			If Not Item.Check Then
+				Continue;
 			EndIf;
-			СписокВозврата.Добавить(Элемент.Значение, Элемент.Представление, Элемент.Пометка, Элемент.Картинка);
-		КонецЦикла;
+			ReturnList.Add(Item.Value, Item.Presentation, Item.Check, Item.Picture);
+		EndDo;
 	EndIf;
-
-	Закрыть(СписокВозврата);
+	Close(ReturnList);
 EndProcedure

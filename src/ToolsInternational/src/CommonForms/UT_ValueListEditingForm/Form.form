@@ -13,7 +13,7 @@
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
-      <name>СписокЗначенийПометка</name>
+      <name>ValueListCheck</name>
       <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -24,7 +24,7 @@
         <segments>ValueList.Пометка</segments>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЗначенийПометкаРасширеннаяПодсказка</name>
+        <name>ValueListCheckExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -39,7 +39,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЗначенийПометкаКонтекстноеМеню</name>
+        <name>ValueListCheckContextMenu</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -56,7 +56,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЗначенийЗначение</name>
+      <name>ValueListValue</name>
       <id>14</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -73,7 +73,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЗначенийЗначениеРасширеннаяПодсказка</name>
+        <name>ValueListValueExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -88,7 +88,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЗначенийЗначениеКонтекстноеМеню</name>
+        <name>ValueListValueContextMenu</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -112,7 +112,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЗначенийПредставление</name>
+      <name>ValueListPresentation</name>
       <id>24</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -123,7 +123,7 @@
         <segments>ValueList.Представление</segments>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЗначенийПредставлениеРасширеннаяПодсказка</name>
+        <name>ValueListPresentationExtendedTooltip</name>
         <id>26</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -138,7 +138,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЗначенийПредставлениеКонтекстноеМеню</name>
+        <name>ValueListPresentationContextMenu</name>
         <id>25</id>
         <visible>true</visible>
         <enabled>true</enabled>
