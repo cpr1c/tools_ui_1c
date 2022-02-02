@@ -403,6 +403,10 @@
         <name>ConfigurationSourceFilesDirectories</name>
         <id>24</id>
         <title>
+          <key>en</key>
+          <value>Configuration source files directories</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Каталоги исходных файлов конфигурации</value>
         </title>
@@ -415,6 +419,10 @@
           <segments>ConfigurationSourceFilesDirectories</segments>
         </dataPath>
         <titleLocation>Top</titleLocation>
+        <toolTip>
+          <key>en</key>
+          <value>You need to specify that the hints on the export methods of modules in the Monaco editor work</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Нужно указать, чтобы работали подсказки по экспортным методам модулей в вредакторе Monaco</value>

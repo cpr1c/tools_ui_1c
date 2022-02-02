@@ -48,6 +48,10 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo">
       <checkBoxType>Tumbler</checkBoxType>
       <editFormat>
+        <key>en</key>
+        <value>BF=Disabled; BT=Enabled</value>
+      </editFormat>
+      <editFormat>
         <key>ru</key>
         <value>БЛ=Отключена; БИ=Включена</value>
       </editFormat>
@@ -64,6 +68,10 @@
     <dataPath xsi:type="form:DataPath">
       <segments>FileNameAtServer</segments>
     </dataPath>
+    <toolTip>
+      <key>en</key>
+      <value>The file must be available on the server.</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Файл должен быть доступен на сервере. </value>

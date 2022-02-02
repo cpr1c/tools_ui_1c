@@ -1,35 +1,35 @@
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	Попытка
-		Значение = ЗначениеИзСтрокиВнутр(Параметры.ЗначениеВнутр);
-	Исключение
-		Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-		Отказ = Истина;
-		Возврат;
-	КонецПопытки;
+	Try
+		Value = ValueFromStringInternal(Parameters.InterValue);
+	Except
+		Message(BriefErrorDescription(ErrorInfo()));
+		Cancel = True;
+		Return;
+	EndTry;
 
-	Если ТипЗнч(Значение) = Тип("Граница") Тогда
-		_ТипЗначения = "Граница";
-		_ГраницаЗначение = Значение.Значение;
-		_ГраницаВидГраницы = Значение.ВидГраницы;
+	If TypeOf(Value) = Type("Boundary") Then
+		_ValueType = "Boundary";
+		_BoundaryValue = Value.Value;
+		_BoundaryBoundaryType = Value.BoundaryType;
 
-		Элементы.GroupPointInTime.Видимость = Ложь;
+		Items.GroupPointInTime.Visible = False;
 
-	ИначеЕсли ТипЗнч(Значение) = Тип("МоментВремени") Тогда
-		_ТипЗначения = "МоментВремени";
-		_МоментВремениДата = Значение.Дата;
-		_МоментВремениСсылка = Значение.Ссылка;
+	ElsIf TypeOf(Value) = Type("PointInTime") Then
+		_ValueType = "PointInTime";
+		_PointInTimeDate = Value.Date;
+		_PointInTimeRef = Value.Ref;
 
-		Элементы.GroupBoundary.Видимость = Ложь;
+		Items.GroupBoundary.Visible = False;
 
-	Иначе
-		Отказ = Истина;
-		Возврат;
-	КонецЕсли;
+	Else
+		Cancel = True;
+		Return;
+	EndIf;
 
-	Если Не ПустаяСтрока(Параметры.Заголовок) Тогда
-		ЭтаФорма.Заголовок = Параметры.Заголовок;
-	КонецЕсли;
+	If Not IsBlankString(Parameters.Title) Then
+		ThisForm.Title = Parameters.Title;
+	EndIf;
 EndProcedure
 
 &AtClient
@@ -37,61 +37,61 @@ Procedure CommandClose(Command)
 	Close();
 EndProcedure
 
-&НаСервереБезКонтекста
-Функция вСформироватьСпецЗначение(Знач пТип, Знач пЗначение1, Знач пЗначение2)
-	пСтрук = Новый Структура("Отказ, Значение, Представление", Ложь);
+&AtServerNoContext
+Function GenerateSpecialValue(Val varType, Val varValue1, Val varValue2)
+	varStruct = New Structure("Cancel, Value, Presentation", False);
 
-	Попытка
-		Если пТип = "Граница" Тогда
-			Если пЗначение2 = "Исключая" Тогда
-				пЗначение2 = ВидГраницы.Исключая;
-			Иначе
-				пЗначение2 = ВидГраницы.Включая;
-			КонецЕсли;
+	Try
+		If varType = "Boundary" Then
+			If varValue2 = "Excluding" Then
+				varValue2 = BoundaryType.Excluding;
+			Else
+				varValue2 = BoundaryType.Including;
+			EndIf;
 
-			пСтрук.Значение = Новый Граница(пЗначение1, пЗначение2);
-			пСтрук.Представление = Строка(пСтрук.Значение.Значение) + ";" + Строка(пСтрук.Значение.ВидГраницы);
+			varStruct.Value = New Boundary(varValue1, varValue2);
+			varStruct.Presentation = String(varStruct.Value.Value) + ";" + String(varStruct.Value.BoundaryType);
 
-		ИначеЕсли пТип = "МоментВремени" Тогда
-			пСтрук.Значение = Новый МоментВремени(пЗначение1, пЗначение2);
-			пСтрук.Представление = Строка(пСтрук.Значение);
+		ElsIf varType = "PointInTime" Then
+			varStruct.Value = New PointInTime(varValue1, varValue2);
+			varStruct.Presentation = String(varStruct.Value);
 
-		Иначе
-			пСтрук.Отказ = Истина;
-			Сообщить("Неизвестный тип данных!");
-		КонецЕсли;
+		Else
+			varStruct.Cancel = True;
+			Message(Nstr("ru = 'Неизвестный тип данных!';en = 'Unknown data type!'"));
+		EndIf;
 
-	Исключение
-		пСтрук.Отказ = Истина;
-		Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-	КонецПопытки;
+	Except
+		varStruct.Cancel = True;
+		Message(BriefErrorDescription(ErrorInfo()));
+	EndTry;
 
-	Если Не пСтрук.Отказ Тогда
-		пСтрук.Значение = ЗначениеВСтрокуВнутр(пСтрук.Значение);
-	КонецЕсли;
+	If Not varStruct.Cancel Then
+		varStruct.Value = ValueToStringInternal(varStruct.Value);
+	EndIf;
 
-	Возврат пСтрук;
-КонецФункции
+	Return varStruct;
+EndFunction
 
 &AtClient
 Procedure CommandOK(Command)
-	Result = New Структура;
-	Result.Insert("ТипЗначения", _ТипЗначения);
+	Result = New Structure;
+	Result.Insert("ValueType", _ValueType);
 
-	Если _ТипЗначения = "Граница" Тогда
-		пСтрук = вСформироватьСпецЗначение(_ТипЗначения, _ГраницаЗначение, _ГраницаВидГраницы);
-	ИначеЕсли _ТипЗначения = "МоментВремени" Тогда
-		пСтрук = вСформироватьСпецЗначение(_ТипЗначения, _МоментВремениДата, _МоментВремениСсылка);
-	Иначе
-		Возврат;
-	КонецЕсли;
+	If _ValueType = "Boundary" Then
+		varStruct = GenerateSpecialValue(_ValueType, _BoundaryValue, _BoundaryBoundaryType);
+	ElsIf _ValueType = "PointInTime" Then
+		varStruct = GenerateSpecialValue(_ValueType, _PointInTimeDate, _PointInTimeRef);
+	Else
+		Return;
+	EndIf;
 
-	Если пСтрук.Отказ Тогда
-		Возврат;
-	КонецЕсли;
+	If varStruct.Cancel Then
+		Return;
+	EndIf;
 
-	Result.Insert("СтрокаВнутр", пСтрук.Значение);
-	Result.Insert("Представление", пСтрук.Представление);
+	Result.Insert("StringInternal", varStruct.Value);
+	Result.Insert("Presentation", varStruct.Presentation);
 
-	Закрыть(Result);
+	Close(Result);
 EndProcedure

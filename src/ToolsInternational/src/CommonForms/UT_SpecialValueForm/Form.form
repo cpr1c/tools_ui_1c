@@ -7,7 +7,7 @@
       <name>GroupBoundary</name>
       <id>7</id>
       <items xsi:type="form:FormField">
-        <name>_ГраницаЗначение</name>
+        <name>_BoundaryValue</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -20,7 +20,7 @@
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>_ГраницаЗначениеРасширеннаяПодсказка</name>
+          <name>_BoundaryValueExtendedTooltip</name>
           <id>13</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -35,7 +35,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>_ГраницаЗначениеКонтекстноеМеню</name>
+          <name>_BoundaryValueContextMenu</name>
           <id>12</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -61,7 +61,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>_ГраницаВидГраницы</name>
+        <name>_BoundaryBoundaryType</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -74,7 +74,7 @@
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>_ГраницаВидГраницыРасширеннаяПодсказка</name>
+          <name>_BoundaryBoundaryTypeExtendedTooltip</name>
           <id>16</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -89,7 +89,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>_ГраницаВидГраницыКонтекстноеМеню</name>
+          <name>_BoundaryBoundaryTypeContextMenu</name>
           <id>15</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -160,7 +160,7 @@
       <name>GroupPointInTime</name>
       <id>9</id>
       <items xsi:type="form:FormField">
-        <name>_МоментВремениДата</name>
+        <name>_PointInTimeDate</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -173,7 +173,7 @@
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>_МоментВремениДатаРасширеннаяПодсказка</name>
+          <name>_PointInTimeDateExtendedTooltip</name>
           <id>19</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -188,7 +188,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>_МоментВремениДатаКонтекстноеМеню</name>
+          <name>_PointInTimeDateContextMenu</name>
           <id>18</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -212,7 +212,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>_МоментВремениСсылка</name>
+        <name>_PointInTimeRef</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -225,7 +225,7 @@
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>_МоментВремениСсылкаРасширеннаяПодсказка</name>
+          <name>_PointInTimeRefExtendedTooltip</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -240,7 +240,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>_МоментВремениСсылкаКонтекстноеМеню</name>
+          <name>_PointInTimeRefContextMenu</name>
           <id>21</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -272,7 +272,7 @@
       </userVisible>
       <title>
         <key>en</key>
-        <value>Point In time</value>
+        <value>Point in time</value>
       </title>
       <title>
         <key>ru</key>
@@ -335,7 +335,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаКомандаОК</name>
+      <name>FormCommandOK</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -343,7 +343,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаКомандаОКРасширеннаяПодсказка</name>
+        <name>FormCommandOKExtendedTooltip</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -366,7 +366,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаКомандаЗакрыть</name>
+      <name>FormCommandClose</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -374,7 +374,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаКомандаЗакрытьРасширеннаяПодсказка</name>
+        <name>FormCommandCloseExtendedTooltip</name>
         <id>4</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -416,12 +416,12 @@
   <attributes>
     <name>_BoundaryValue</name>
     <title>
-      <key>ru</key>
-      <value>Значение</value>
+      <key>en</key>
+      <value>Value</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Boundary value</value>
+      <key>ru</key>
+      <value>Значение</value>
     </title>
     <id>2</id>
     <valueType>
@@ -439,12 +439,12 @@
   <attributes>
     <name>_BoundaryBoundaryType</name>
     <title>
-      <key>ru</key>
-      <value>Вид границы</value>
+      <key>en</key>
+      <value>Boundary type</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Boundary boundary type</value>
+      <key>ru</key>
+      <value>Вид границы</value>
     </title>
     <id>3</id>
     <valueType>
@@ -461,12 +461,12 @@
   <attributes>
     <name>_PointInTimeDate</name>
     <title>
-      <key>ru</key>
-      <value>Дата</value>
+      <key>en</key>
+      <value>Date</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Point in time date</value>
+      <key>ru</key>
+      <value>Дата</value>
     </title>
     <id>4</id>
     <valueType>
@@ -483,12 +483,12 @@
   <attributes>
     <name>_PointInTimeRef</name>
     <title>
-      <key>ru</key>
-      <value>Ссылка</value>
+      <key>en</key>
+      <value>Reference</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Point in time ref</value>
+      <key>ru</key>
+      <value>Ссылка</value>
     </title>
     <id>5</id>
     <valueType>
@@ -526,12 +526,12 @@
   <formCommands>
     <name>CommandClose</name>
     <title>
-      <key>ru</key>
-      <value>Закрыть</value>
+      <key>en</key>
+      <value>Close</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Command close</value>
+      <key>ru</key>
+      <value>Закрыть</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -551,12 +551,12 @@
   <formCommands>
     <name>CommandOK</name>
     <title>
-      <key>ru</key>
-      <value>ОК</value>
+      <key>en</key>
+      <value>OK</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Command OK</value>
+      <key>ru</key>
+      <value>ОК</value>
     </title>
     <id>2</id>
     <toolTip>
