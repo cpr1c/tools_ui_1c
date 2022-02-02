@@ -268,7 +268,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.UT_ValueListChoiceItemsForm</name>
+		<name>CommonForm.UT_ValueListEditingForm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

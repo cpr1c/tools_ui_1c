@@ -303,10 +303,10 @@ Procedure OpenValueListChoiceItemsForm(List, OnCloseNotifyDescription, Title = "
 	Endif;
 
 	If WindowOpeningMode = Undefined Then
-		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+		OpenForm("CommonForm.UT_ValueListEditingForm", FormParameters, , , , ,
 			OnCloseNotifyDescription);
 	Else
-		OpenForm("CommonForm.UT_ValueListChoiceItemsForm", FormParameters, , , , ,
+		OpenForm("CommonForm.UT_ValueListEditingForm", FormParameters, , , , ,
 			OnCloseNotifyDescription, WindowOpeningMode);
 	EndIf;
 EndProcedure

@@ -126,7 +126,7 @@
   <commonForms>CommonForm.UT_TextEditingForm</commonForms>
   <commonForms>CommonForm.UT_TimeConsumingOperation</commonForms>
   <commonForms>CommonForm.UT_ToolsSettings</commonForms>
-  <commonForms>CommonForm.UT_ValueListChoiceItemsForm</commonForms>
+  <commonForms>CommonForm.UT_ValueListEditingForm</commonForms>
   <commonForms>CommonForm.UT_ValueStorageForm</commonForms>
   <commonForms>CommonForm.UT_ValueTableEditor</commonForms>
   <commonForms>CommonForm.UT_ValueTableForm</commonForms>
