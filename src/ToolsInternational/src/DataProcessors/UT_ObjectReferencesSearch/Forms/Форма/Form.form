@@ -16,7 +16,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.SourceObject</segments>
+            <segments>Object.SourceObject</segments>
           </paths>
         </dataPath>
         <handlers>
@@ -125,7 +125,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:FormField">
-        <name>УникальныйИдентификаторИсточника</name>
+        <name>SourceUUID</name>
         <id>24</id>
         <title>
           <key>en</key>
@@ -142,11 +142,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>УникальныйИдентификаторИсточника</segments>
+            <segments>SourceUUID</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>УИДРасширеннаяПодсказка</name>
+          <name>SourceUUIDExtendedTooltip</name>
           <id>26</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -161,7 +161,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>УИДКонтекстноеМеню</name>
+          <name>SourceUUIDContextMenu</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -276,7 +276,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:Table">
-    <name>РезультатПоиска</name>
+    <name>SearchResult</name>
     <id>34</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -284,11 +284,11 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>РезультатПоиска</segments>
+      <segments>SearchResult</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
-      <name>РезультатПоискаНайденныеСсылки</name>
+      <name>SearchResultFoundReferences</name>
       <id>50</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -297,14 +297,14 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
+          <segments>SearchResult.ObjectPresentation</segments>
         </paths>
         <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
+          <segments>SearchResult.ObjectPresentation</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ПолеРасширеннаяПодсказка1</name>
+        <name>SearchResultFoundReferencesExtendedTooltip</name>
         <id>52</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -319,7 +319,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПолеКонтекстноеМеню1</name>
+        <name>SearchResultFoundReferencesContextMenu</name>
         <id>51</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -335,9 +335,13 @@
       <showInFooter>true</showInFooter>
       <footerDataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.FoundCount</segments>
+          <segments>Object.FoundCount</segments>
         </paths>
       </footerDataPath>
+      <footerText>
+        <key>en</key>
+        <value>References found:</value>
+      </footerText>
       <footerText>
         <key>ru</key>
         <value>Найдено ссылок:</value>
@@ -353,7 +357,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>РезультатПоискаУникальныйИдентификатор</name>
+      <name>SearchResultUUID</name>
       <id>59</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -362,14 +366,14 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.УникальныйИдентификатор</segments>
+          <segments>SearchResult.UUID</segments>
         </paths>
         <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.УникальныйИдентификатор</segments>
+          <segments>SearchResult.UUID</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ПолеРасширеннаяПодсказка4</name>
+        <name>SearchResultUUIDExtendedTooltip</name>
         <id>61</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -384,7 +388,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПолеКонтекстноеМеню4</name>
+        <name>SearchResultUUIDContextMenu</name>
         <id>60</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -408,7 +412,7 @@
       </extInfo>
     </items>
     <autoCommandBar>
-      <name>КоманднаяПанель</name>
+      <name>SearchResultCommandBar</name>
       <id>35</id>
       <items xsi:type="form:Button">
         <name>SearchResultOpenObject</name>
@@ -493,7 +497,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.РезультатПоиска.StandardCommand.Find</commandName>
+        <commandName>Form.Item.SearchResult.StandardCommand.Find</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -523,7 +527,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.РезультатПоиска.StandardCommand.CancelSearch</commandName>
+        <commandName>Form.Item.SearchResult.StandardCommand.CancelSearch</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -553,7 +557,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.РезультатПоиска.StandardCommand.OutputList</commandName>
+        <commandName>Form.Item.SearchResult.StandardCommand.OutputList</commandName>
         <representation>Auto</representation>
         <onlyInAllActions>false</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
@@ -600,11 +604,11 @@
     </autoCommandBar>
     <handlers>
       <event>Selection</event>
-      <name>РезультатПоискаВыбор</name>
+      <name>SearchResultSelection</name>
     </handlers>
     <handlers>
       <event>OnActivateRow</event>
-      <name>РезультатПоискаПриАктивизацииСтроки</name>
+      <name>SearchResultOnRowActivation</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -612,10 +616,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ТаблицаСтрокаПоиска</name>
+      <name>SearchResultSearchString</name>
       <id>38</id>
       <extendedTooltip>
-        <name>ExtendedTooltip</name>
+        <name>SearchResultSearchStringExtendedTooltip</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -630,7 +634,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ContextMenu</name>
+        <name>SearchResultSearchStringContextMenu</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -649,10 +653,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>Addition</name>
+      <name>SearchResultViewStatus</name>
       <id>44</id>
       <extendedTooltip>
-        <name>ExtendedTooltip</name>
+        <name>SearchResultViewStatusExtendedTooltip</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -667,7 +671,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ContextMenu</name>
+        <name>SearchResultViewStatusContextMenu</name>
         <id>45</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -688,10 +692,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ТаблицаУправлениеПоиском</name>
+      <name>SearchResultSearchControl</name>
       <id>41</id>
       <extendedTooltip>
-        <name>ExtendedTooltip</name>
+        <name>SearchResultSearchControlExtendedTooltip</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -706,7 +710,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ContextMenu</name>
+        <name>SearchResultSearchControlContextMenu</name>
         <id>42</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -721,7 +725,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>ТаблицаРасширеннаяПодсказка</name>
+      <name>SearchResultExtendedTooltip</name>
       <id>37</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -736,7 +740,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТаблицаКонтекстноеМеню</name>
+      <name>SearchResultContextMenu</name>
       <id>36</id>
       <items xsi:type="form:Button">
         <name>TableContextMenuOpenObject</name>
@@ -854,7 +858,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_ObjectReferencesSearch</types>
@@ -868,7 +872,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>УникальныйИдентификаторИсточника</name>
+    <name>SourceUUID</name>
+    <title>
+      <key>en</key>
+      <value>Source UUID</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Уникальный идентификатор источника</value>
@@ -886,7 +894,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РезультатПоиска</name>
+    <name>SearchResult</name>
+    <title>
+      <key>en</key>
+      <value>Search result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат поиска</value>
@@ -902,7 +914,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Ссылка</name>
+      <name>Ref</name>
+      <title>
+        <key>en</key>
+        <value>Reference</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Ссылка</value>
@@ -919,7 +935,7 @@
       </edit>
     </columns>
     <columns>
-      <name>ПредставлениеОбъекта</name>
+      <name>ObjectPresentation</name>
       <title>
         <key>en</key>
         <value>Object presentation</value>
@@ -941,7 +957,11 @@
       </edit>
     </columns>
     <columns>
-      <name>НайденныйОбъект</name>
+      <name>FoundObject</name>
+      <title>
+        <key>en</key>
+        <value>Found object</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Найденный объект</value>
@@ -956,7 +976,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Картинка</value>
@@ -973,7 +997,7 @@
       </edit>
     </columns>
     <columns>
-      <name>УникальныйИдентификатор</name>
+      <name>UUID</name>
       <title>
         <key>en</key>
         <value>UUID</value>
@@ -995,7 +1019,11 @@
       </edit>
     </columns>
     <columns>
-      <name>МожноОткрыть</name>
+      <name>CanBeOpened</name>
+      <title>
+        <key>en</key>
+        <value>Can be opened</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Можно открыть</value>
@@ -1012,7 +1040,11 @@
       </edit>
     </columns>
     <columns>
-      <name>СсылочныйТип</name>
+      <name>ReferenceType</name>
+      <title>
+        <key>en</key>
+        <value>Reference type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Ссылочный тип</value>
@@ -1163,7 +1195,7 @@
     <id>6</id>
     <toolTip>
       <key>en</key>
-      <value>Source object by reference</value>
+      <value>Source object by URL</value>
     </toolTip>
     <toolTip>
       <key>ru</key>

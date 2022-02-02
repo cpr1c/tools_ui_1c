@@ -1,74 +1,75 @@
 &AtServerNoContext
-Procedure ДобавитьВДерево(ДЗ, СсылкаНаОбъект)
-	МД = СсылкаНаОбъект.Метаданные();
-	УИД = СсылкаНаОбъект.УникальныйИдентификатор();
-	ГУИД = "id_" + СтрЗаменить(УИД, "-", "_");
+Procedure AddToTree(VT, ObjectRef)
+	MD = ObjectRef.Metadata();
+	UUID = ObjectRef.UUID();
+	GUUID = "id_" + StrReplace(UUID, "-", "_");
 	
-	ДЗ.Колонки.Добавить(ГУИД, Новый ОписаниеТипов());
+	VT.Rows.Add(GUUID, New TypeDescription());
 
-	//Реквизиты
-	Строки = ДЗ.Строки;
-	Строка = Строки.Найти(" Реквизиты", "Реквизит");
-	Если Строка = Неопределено Тогда
-		Строка = Строки.Добавить();
-		Строка.Реквизит = " Реквизиты";
-	КонецЕсли;
-	Строка[ГУИД] = СсылкаНаОбъект;
+	//Attributes
+	Rows = VT.Rows;
+	Row = Rows.Find(" Attributes", "Attributes");
+	If Row = Undefined Then
+		Row = Rows.Add();
+		Row.Attribute = " Attributes";
+	EndIf;
+	Row[GUUID] = ObjectRef;
 
-	Строки = Строка.Строки;
-	Реквизиты = МД.Реквизиты;
-	Для Каждого Реквизит Из Реквизиты Цикл
-		РеквизитИмя = Реквизит.Имя; 
+	Rows = Row.Rows;
+	Attributes = MD.Attributes;
+	For Each Attribute in Attributes Do
+		AttributeName = Attribute.Name; 
 		
-		Строка = Строки.Найти(РеквизитИмя, "Реквизит");
-		Если Строка = Неопределено Тогда
-			Строка = Строки.Добавить();
-			Строка.Реквизит = РеквизитИмя;
-		КонецЕсли;
-		Строка[ГУИД] = СсылкаНаОбъект[РеквизитИмя]; 
-	КонецЦикла;
-
-	//Табличные части
-	Для Каждого ТЧ Из МД.ТабличныеЧасти Цикл
-		Если СсылкаНаОбъект[ТЧ.Имя].Количество() = 0 Тогда Продолжить; КонецЕсли;
-		РеквизитИмя = ТЧ.Имя; 
+		Row = Rows.Find(AttributeName, "Attribute");
+		If Row = Undefined Then
+			Row = Rows.Add();
+			Row.Attribute = AttributeName;
+		EndIf;
+		Row[GUUID] = ObjectRef[AttributeName]; 
+	EndDo;
 		
-		Строки = ДЗ.Строки;
-		Строка = Строки.Найти(РеквизитИмя, "Реквизит");
-		Если Строка = Неопределено Тогда
-			Строка = Строки.Добавить();
-			Строка.Реквизит = РеквизитИмя;
-		КонецЕсли;
 
-		//Строки табличной части
-		СтрокиНС = Строка.Строки;
-		Для Каждого СтрокаТЧ Из СсылкаНаОбъект[ТЧ.Имя] Цикл
-			НомерСтроки = "Строка № " + Формат(СтрокаТЧ.НомерСтроки, "ЧЦ=4; ЧВН=; ЧГ=");
-			СтрокаНС = СтрокиНС.Найти(НомерСтроки, "Реквизит");
-			Если СтрокаНС = Неопределено Тогда 
-				СтрокаНС = СтрокиНС.Добавить();
-				СтрокаНС.Реквизит = НомерСтроки;
-			КонецЕсли;
+	//Tabulars section
+	For Each TS In MD.TabularsSection Do
+		IF ObjectRef[TS.Name].Count() = 0 Then Continue; Endif;
+		AttributeName = TS.Name; 
+		
+		Rows = TS.Rows;
+		Row = Rows.Find(AttributeName, "Attribute");
+		If Row = Undefined Then
+			Row = Rows.Add();
+			Row.Attribute = AttributeName;
+		EndIf;
+
+		//Rows tabular section
+		RowsSet = Row.Rows;
+		For Each RowTS In ObjectRef[TS.Name] Do
+			NumberRow = "Row № " + Format(RowTS.NumberRow, "ND=4; NLZ=; NG=");
+			RowSet = RowsSet.Find(NumberRow, "Attribute");
+			If RowSet = Undefined Then 
+				RowSet = RowsSet.Add();
+				RowSet.Attribute = NumberRow;
+			EndIf;
 			
-			//Значения строк табличной части
-			СтрокиРС = СтрокаНС.Строки;
-			Для Каждого Реквизит Из МД.ТабличныеЧасти[ТЧ.Имя].Реквизиты Цикл
-				РеквизитИмя = Реквизит.Имя; 
+			//Values of the rows tabular section
+			RowsRS = RowSet.Rows;
+			For Each Attribute In MD.ТабличныеЧасти[MD.Имя].Attribute Do
+				AttributeName = Attribute.Name; 
 
-				СтрокаРС = СтрокиРС.Найти(РеквизитИмя, "Реквизит");
-				Если СтрокаРС = Неопределено Тогда
-					СтрокаРС = СтрокиРС.Добавить();
-					СтрокаРС.Реквизит = РеквизитИмя;
-				КонецЕсли;
-				Значение = СтрокаТЧ[РеквизитИмя];
-				СтрокаРС[ГУИД] = ?(ЗначениеЗаполнено(Значение), Значение, Неопределено);
-			КонецЦикла;
+				RowRS = RowsRS.Find(AttributeName, "Attribute");
+				If RowRS = Undefined Then
+					RowRS = RowsRS.Add();
+					RowRS.Name = AttributeName;
+				EndIf;
+				Value = RowRS[AttributeName];
+				RowRS[GUUID] = ?(ValueIsFilled(Value), Value, Undefined);
+			EndDo;
 
-		КонецЦикла;
-	КонецЦикла;
+		EndDo;
+	EndDo;
 	
-	Строки = ДЗ.Строки;
-	Строки.Сортировать("Реквизит", Истина);
+	Rows = VT.Rows;
+	Rows.Sort("Attribute", True);
 EndProcedure
 
 &AtServerNoContext
@@ -121,7 +122,7 @@ Procedure СформироватьПечатнуюФормуСравненияО
 
 	SpreadsheetDocument = Новый ТабличныйДокумент;
 	SpreadsheetDocument.ИмяПараметровПечати = "ПАРАМЕТРЫ_ПЕЧАТИ_Обработка_СравнениеОбъектов";
-	Макет = Обработки.UT_ObjectsComparsion.ПолучитьМакет("PF_MXL_ComparisonObjects");
+	Макет = Обработки.UT_ObjectsComparison.ПолучитьМакет("PF_MXL_ComparisonObjects");
 	
 	SpreadsheetDocument.НачатьАвтогруппировкуСтрок();
 	Уровень = 1;
@@ -229,7 +230,7 @@ EndProcedure
 
 
 &НаКлиенте
-Procedure ДобавитьРанееДобавленныеКСравнению(Команда)
+Procedure AddObjectsAddedToComparisonEarly(Команда)
 	ДобавитьРанееДобавленныеКСравнениюAtServer();
 EndProcedure
 
