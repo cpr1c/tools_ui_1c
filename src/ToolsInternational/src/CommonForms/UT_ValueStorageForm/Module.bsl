@@ -16,49 +16,49 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		EndIf;
 	EndIf;
 
-	If TypeOf(ValueStorageData) = Type("ТабличныйДокумент") Then
-		_DataForRepresentation = New Structure("Значение, ТипЗначения", ValueStorageData, "ТабличныйДокумент");
+	If TypeOf(ValueStorageData) = Type("SpreadsheetDocument") Then
+		_DataForRepresentation = New Structure("Value, ValueType", ValueStorageData, "SpreadsheetDocument");
 		Return;
-	 ElsIf TypeOf(ValueStorageData) = Type("ТекстовыйДокумент") Then
-		_DataForRepresentation = New Structure("Значение, ТипЗначения", ValueStorageData, "ТекстовыйДокумент");
+	 ElsIf TypeOf(ValueStorageData) = Type("TextDocument") Then
+		_DataForRepresentation = New Structure("Value, ValueType", ValueStorageData, "TextDocument");
 		Return;
-	 ElsIf TypeOf(ValueStorageData) <> Type("ХранилищеЗначения") Then
+	 ElsIf TypeOf(ValueStorageData) <> Type("ValueStorage") Then
 		Cancel = True;
 		Return;
 	EndIf;
 
-	ValueStorageData = ValueStorageData.Получить();
+	ValueStorageData = ValueStorageData.Get();
 	If ValueStorageData = Undefined Then
 		Cancel = True;
 		Return;
 	EndIf;
 
-	ТипДанныхХЗ = TypeOf(ValueStorageData);
+	ValueStorageDataType = TypeOf(ValueStorageData);
 
-	If ТипДанныхХЗ = Type("Массив") Then
-		Заголовок = "Массив";
+	If ValueStorageDataType = Type("Array") Then
+		Title = "Array";
 		Cancel = Not вПоказатьМассив(ValueStorageData);
-	 ElsIf ТипДанныхХЗ = Type("Структура") Then
-		Заголовок = "Структура";
+	 ElsIf ValueStorageDataType = Type("Structure") Then
+		Title = "Structure";
 		Cancel = Not вПоказатьСтруктуру(ValueStorageData);
-	 ElsIf ТипДанныхХЗ = Type("Соответствие") Then
-		Заголовок = "Соответствие";
+	 ElsIf ValueStorageDataType = Type("Map") Then
+		Title = "Map";
 		Cancel = Not вПоказатьСоответствие(ValueStorageData);
-	 ElsIf ТипДанныхХЗ = Type("СписокЗначений") Then
-		Заголовок = "СписокЗначений";
+	 ElsIf ValueStorageDataType = Type("ValueList") Then
+		Title = "ValueList";
 		Cancel = Not вПоказатьСписокЗначений(ValueStorageData);
-	 ElsIf ТипДанныхХЗ = Type("ТаблицаЗначений") Then
-		Заголовок = "ТаблицаЗначений";
+	 ElsIf ValueStorageDataType = Type("ValueTable") Then
+		Title = "ValueTable";
 		Cancel = Not вПоказатьТаблицуЗначений(ValueStorageData);
-	 ElsIf ТипДанныхХЗ = Type("ДеревоЗначений") Then
-		Заголовок = "ДеревоЗначений";
-		Items._ValueTable.Видимость = False;
-		Items._ValueTree.Видимость = True;
+	 ElsIf ValueStorageDataType = Type("ValueTree") Then
+		Title = "ValueTree";
+		Items._ValueTable.Visible = False;
+		Items._ValueTree.Visible = True;
 		Cancel = Not вПоказатьДеревоЗначений(ValueStorageData);
-	 ElsIf ТипДанныхХЗ = Type("ТабличныйДокумент") Then
-		_DataForRepresentation = New Structure("Значение, ТипЗначения", ValueStorageData, "ТабличныйДокумент");
-	 ElsIf ТипДанныхХЗ = Type("ТекстовыйДокумент") Then
-		_DataForRepresentation = New Structure("Значение, ТипЗначения", ValueStorageData, "ТекстовыйДокумент");
+	 ElsIf ValueStorageDataType = Type("SpreadsheetDocument") Then
+		_DataForRepresentation = New Structure("Value, ValueType", ValueStorageData, "SpreadsheetDocument");
+	 ElsIf ValueStorageDataType = Type("TextDocument") Then
+		_DataForRepresentation = New Structure("Value, ValueType", ValueStorageData, "TextDocument");
 	Иначе
 		Cancel = True;
 	EndIf;
@@ -67,13 +67,13 @@ EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-	mValueStorageType = Type("ХранилищеЗначения");
+	mValueStorageType = Type("ValueStorage");
 
 	If _DataForRepresentation <> Undefined Then
-		If _DataForRepresentation.ТипЗначения = "ТабличныйДокумент" Then
-			_DataForRepresentation.Значение.Показать(_DataForRepresentation.ТипЗначения);
-		 ElsIf _DataForRepresentation.ТипЗначения = "ТекстовыйДокумент" Then
-			_DataForRepresentation.Значение.Показать(_DataForRepresentation.ТипЗначения);
+		If _DataForRepresentation.ValueType = "SpreadsheetDocument" Then
+			_DataForRepresentation.Value.Show(_DataForRepresentation.ValueType);
+		 ElsIf _DataForRepresentation.ValueType = "TextDocument" Then
+			_DataForRepresentation.Value.Show(_DataForRepresentation.ValueType);
 		EndIf;
 
 		Cancel = True;
@@ -92,24 +92,24 @@ Function вПоказатьМассив(ValueStorageData)
 
 	РеквизитыКДобавлению.Add(New РеквизитФормы("Индекс", New TypeDescription("Число"), "_ValueTable",
 		"Индекс", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Значение", New TypeDescription, "_ValueTable", "Значение",
+	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ТипЗначения", New TypeDescription("Строка"), "_ValueTable",
-		"ТипЗначения", False));
+	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+		"ValueType", False));
 
 	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
 
 	For Инд = 0 По ValueStorageData.ВГраница() Do
-		Значение = ValueStorageData[Инд];
+		Value = ValueStorageData[Инд];
 		НС = _ValueTable.Add();
 
 		НС.Индекс = Инд;
-		НС.ТипЗначения = Строка(TypeOf(Значение));
+		НС.ValueType = Строка(TypeOf(Value));
 
-		If вНадоПреобразоватьЗначение(Значение) Then
-			НС.Значение = New ХранилищеЗначения(Значение);
+		If NeedToConvertValue(Value) Then
+			НС.Value = New ValueStorage(Value);
 		Иначе
-			НС.Значение = Значение;
+			НС.Value = Value;
 		EndIf;
 	EndDo;
 
@@ -134,23 +134,23 @@ Function вПоказатьСтруктуру(ValueStorageData)
 
 	РеквизитыКДобавлению.Add(New РеквизитФормы("Ключ", New TypeDescription("Строка"), "_ValueTable",
 		"Ключ", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Значение", New TypeDescription, "_ValueTable", "Значение",
+	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ТипЗначения", New TypeDescription("Строка"), "_ValueTable",
-		"ТипЗначения", False));
+	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+		"ValueType", False));
 
 	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
 
 	For Each Элем In ValueStorageData Do
 		НС = _ValueTable.Add();
 
-		FillPropertyValues(НС, Элем, , "Значение");
-		НС.ТипЗначения = Строка(TypeOf(Элем.Значение));
+		FillPropertyValues(НС, Элем, , "Value");
+		НС.ValueType = Строка(TypeOf(Элем.Value));
 
-		If вНадоПреобразоватьЗначение(Элем.Значение) Then
-			НС.Значение = New ХранилищеЗначения(Элем.Значение);
+		If NeedToConvertValue(Элем.Value) Then
+			НС.Value = New ValueStorage(Элем.Value);
 		Иначе
-			НС.Значение = Элем.Значение;
+			НС.Value = Элем.Value;
 		EndIf;
 	EndDo;
 
@@ -174,23 +174,23 @@ Function вПоказатьСоответствие(ValueStorageData)
 	РеквизитыКУдалению = New Array;
 
 	РеквизитыКДобавлению.Add(New РеквизитФормы("Ключ", New TypeDescription, "_ValueTable", "Ключ", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Значение", New TypeDescription, "_ValueTable", "Значение",
+	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ТипЗначения", New TypeDescription("Строка"), "_ValueTable",
-		"ТипЗначения", False));
+	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+		"ValueType", False));
 
 	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
 
 	For Each Элем In ValueStorageData Do
 		НС = _ValueTable.Add();
 
-		FillPropertyValues(НС, Элем, , "Значение");
-		НС.ТипЗначения = Строка(TypeOf(Элем.Значение));
+		FillPropertyValues(НС, Элем, , "Value");
+		НС.ValueType = Строка(TypeOf(Элем.Value));
 
-		If вНадоПреобразоватьЗначение(Элем.Значение) Then
-			НС.Значение = New ХранилищеЗначения(Элем.Значение);
+		If NeedToConvertValue(Элем.Value) Then
+			НС.Value = New ValueStorage(Элем.Value);
 		Иначе
-			НС.Значение = Элем.Значение;
+			НС.Value = Элем.Value;
 		EndIf;
 	EndDo;
 
@@ -217,23 +217,23 @@ Function вПоказатьСписокЗначений(ValueStorageData)
 		"Пометка", False));
 	РеквизитыКДобавлению.Add(New РеквизитФормы("Представление", New TypeDescription("Строка"),
 		"_ValueTable", "Представление", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Значение", New TypeDescription, "_ValueTable", "Значение",
+	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ТипЗначения", New TypeDescription("Строка"), "_ValueTable",
-		"ТипЗначения", False));
+	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+		"ValueType", False));
 
 	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
 
 	For Each Элем In ValueStorageData Do
 		НС = _ValueTable.Add();
 
-		FillPropertyValues(НС, Элем, , "Значение");
-		НС.ТипЗначения = Строка(TypeOf(Элем.Значение));
+		FillPropertyValues(НС, Элем, , "Value");
+		НС.ValueType = Строка(TypeOf(Элем.Value));
 
-		If вНадоПреобразоватьЗначение(Элем.Значение) Then
-			НС.Значение = New ХранилищеЗначения(Элем.Значение);
+		If NeedToConvertValue(Элем.Value) Then
+			НС.Value = New ValueStorage(Элем.Value);
 		Иначе
-			НС.Значение = Элем.Значение;
+			НС.Value = Элем.Value;
 		EndIf;
 	EndDo;
 
@@ -254,7 +254,7 @@ Function вПоказатьТаблицуЗначений(ValueStorageData)
 
 	For Each Колонка In ValueStorageData.Колонки Do
 		РеквизитыКДобавлению.Add(New РеквизитФормы(Колонка.Имя, New TypeDescription, "_ValueTable",
-			Колонка.Заголовок, False));
+			Колонка.Title, False));
 	EndDo;
 
 	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
@@ -263,12 +263,12 @@ Function вПоказатьТаблицуЗначений(ValueStorageData)
 		НС = _ValueTable.Add();
 
 		For Each Колонка In ValueStorageData.Колонки Do
-			Значение = Элем[Колонка.Имя];
+			Value = Элем[Колонка.Имя];
 
-			If вНадоПреобразоватьЗначение(Значение) Then
-				Значение = New ХранилищеЗначения(Значение);
+			If NeedToConvertValue(Value) Then
+				Value = New ValueStorage(Value);
 			EndIf;
-			НС[Колонка.Имя] = Значение;
+			НС[Колонка.Имя] = Value;
 		EndDo;
 	EndDo;
 
@@ -289,7 +289,7 @@ Function вПоказатьДеревоЗначений(ValueStorageData)
 
 	For Each Колонка In ValueStorageData.Колонки Do
 		РеквизитыКДобавлению.Add(New РеквизитФормы(Колонка.Имя, New TypeDescription, "_ValueTree",
-			Колонка.Заголовок, False));
+			Колонка.Title, False));
 	EndDo;
 
 	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
@@ -312,12 +312,12 @@ Function вЗаполнитьУзелДЗ(Знач Приемник, Знач И
 		НС = Приемник.ПолучитьЭлементы().Add();
 
 		For Each Колонка In КоллекцияКолонок Do
-			Значение = Элем[Колонка.Имя];
+			Value = Элем[Колонка.Имя];
 
-			If вНадоПреобразоватьЗначение(Значение) Then
-				Значение = New ХранилищеЗначения(Значение);
+			If NeedToConvertValue(Value) Then
+				Value = New ValueStorage(Value);
 			EndIf;
-			НС[Колонка.Имя] = Значение;
+			НС[Колонка.Имя] = Value;
 		EndDo;
 
 		вЗаполнитьУзелДЗ(НС, Элем, КоллекцияКолонок);
@@ -328,7 +328,7 @@ EndFunction
 
 &AtClient
 Procedure OpenObject(Command)
-	Значение = Undefined;
+	Value = Undefined;
 
 	Имя = вПолучитьПутьКДаннымТекущегоЭлемента();
 	If Not ЗначениеЗаполнено(Имя) Then
@@ -337,29 +337,29 @@ Procedure OpenObject(Command)
 
 	ЭФ = ЭтаФорма.ТекущийЭлемент;
 	If TypeOf(ЭФ) = Type("ПолеФормы") Then
-		Значение = ЭтаФорма[Имя];
+		Value = ЭтаФорма[Имя];
 	 ElsIf TypeOf(ЭФ) = Type("ТаблицаФормы") Then
 		ТекДанные = ЭФ.ТекущиеДанные;
 		If ТекДанные <> Undefined Then
-			Значение = ТекДанные[Имя];
+			Value = ТекДанные[Имя];
 		EndIf;
 	EndIf;
 
-	If ЗначениеЗаполнено(Значение) Then
-		If TypeOf(Значение) = mValueStorageType Then
-			вПоказатьЗначениеХЗ(Значение);
+	If ЗначениеЗаполнено(Value) Then
+		If TypeOf(Value) = mValueStorageType Then
+			вПоказатьЗначениеХЗ(Value);
 
-		 ElsIf вЭтоОбъектМетаданных(TypeOf(Значение)) Then
-			СтрукПарам = New Structure("мОбъектСсылка", Значение);
-			ОткрытьФорму("Обработка.UT_ObjectsAttributesEditor.Форма.ObjectForm", СтрукПарам, , Значение);
+		 ElsIf IsMetadataObJect(TypeOf(Value)) Then
+			СтрукПарам = New Structure("мОбъектСсылка", Value);
+			ОткрытьФорму("Обработка.UT_ObjectsAttributesEditor.Форма.ObjectForm", СтрукПарам, , Value);
 
 		EndIf;
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure вПоказатьЗначениеХЗ(Значение)
-	СтрукПарам = New Structure("ValueStorageData", Значение);
+Procedure вПоказатьЗначениеХЗ(Value)
+	СтрукПарам = New Structure("ValueStorageData", Value);
 	ОткрытьФорму("ОбщаяФорма.UT_ValueStorageForm", СтрукПарам, , ТекущаяДата());
 EndProcedure
 
@@ -370,12 +370,12 @@ Procedure _ТаблицаЗначенийВыбор(Элемент, Выбран
 	ТекДанные = Элемент.ТекущиеДанные;
 	If ТекДанные <> Undefined Then
 		ИмяКолонки = Сред(Поле.Имя, СтрДлина(Элемент.Имя) + 2);
-		Значение = ТекДанные[ИмяКолонки];
+		Value = ТекДанные[ИмяКолонки];
 
-		If TypeOf(Значение) = mValueStorageType Then
-			вПоказатьЗначениеХЗ(Значение);
+		If TypeOf(Value) = mValueStorageType Then
+			вПоказатьЗначениеХЗ(Value);
 		Иначе
-			ПоказатьЗначение( , Значение);
+			ПоказатьЗначение( , Value);
 		EndIf;
 	EndIf;
 EndProcedure
@@ -387,12 +387,12 @@ Procedure _ДеревоЗначенийВыбор(Элемент, Выбранн
 	ТекДанные = Элемент.ТекущиеДанные;
 	If ТекДанные <> Undefined Then
 		ИмяКолонки = Сред(Поле.Имя, СтрДлина(Элемент.Имя) + 2);
-		Значение = ТекДанные[ИмяКолонки];
+		Value = ТекДанные[ИмяКолонки];
 
-		If TypeOf(Значение) = mValueStorageType Then
-			вПоказатьЗначениеХЗ(Значение);
+		If TypeOf(Value) = mValueStorageType Then
+			вПоказатьЗначениеХЗ(Value);
 		Иначе
-			ПоказатьЗначение( , Значение);
+			ПоказатьЗначение( , Value);
 		EndIf;
 	EndIf;
 EndProcedure
@@ -403,12 +403,12 @@ Function вПолучитьПутьКДаннымТекущегоЭлемент�
 	If TypeOf(ЭФ) = Type("ТаблицаФормы") Then
 		ТекПоле = ЭФ.ТекущийЭлемент;
 		If TypeOf(ТекПоле) = Type("ПолеФормы") Then
-			Значение = ТекПоле.ПутьКДанным;
-			Поз = Найти(Значение, ".");
+			Value = ТекПоле.ПутьКДанным;
+			Поз = Найти(Value, ".");
 			If Поз <> 0 Then
-				Значение = Сред(Значение, Поз + 1);
-				If Найти(Значение, ".") = 0 Then
-					Return Значение;
+				Value = Сред(Value, Поз + 1);
+				If Найти(Value, ".") = 0 Then
+					Return Value;
 				EndIf;
 			EndIf;
 		EndIf;
@@ -419,34 +419,34 @@ Function вПолучитьПутьКДаннымТекущегоЭлемент�
 	Return "";
 EndFunction
 
-&НаСервереБезКонтекста
-Function вЭтоОбъектМетаданных(Знач Тип)
-	ОбъектМД = Metadata.FindByType(Тип);
-	Return (ОбъектМД <> Undefined And Not Metadata.Перечисления.Содержит(ОбъектМД));
+&AtServerNoContext
+Function IsMetadataObJect(Val Type)
+	ObjectOfMetadata = Metadata.FindByType(Type);
+	Return (ObjectOfMetadata <> Undefined And Not Metadata.Enums.Contains(ObjectOfMetadata));
 EndFunction
 
-&НаСервереБезКонтекста
-Function вЭтоПростойType(Знач Тип)
-	Результат = Тип = Type("Число") Or Тип = Type("Строка") Or Тип = Type("Булево") Or Тип = Type("Дата");
+&AtServerNoContext
+Function IsSimpleType(Val Type)
+	Result = Type = Type("Number") Or Type = Type("String") Or Type = Type("Boolean") Or Type = Type("Date");
 
-	Return Результат;
+	Return Result;
 EndFunction
 
-&НаСервереБезКонтекста
-Function вНадоПреобразоватьЗначение(Знач Значение)
-	If Значение = Undefined Or Значение = Null Then
+&AtServerNoContext
+Function NeedToConvertValue(Знач Value)
+	If Value = Undefined Or Value = Null Then
 		Return False;
 	EndIf;
 
-	ТипЗначения = TypeOf(Значение);
+	ValueType = TypeOf(Value);
 
-	If вЭтоПростойType(ТипЗначения) Then
+	If IsSimpleType(ValueType) Then
 		Return False;
 	EndIf;
 
-	If вЭтоОбъектМетаданных(ТипЗначения) Then
+	If IsMetadataObJect(ValueType) Then
 		Return False;
 	EndIf;
 
-	Return (ТипЗначения <> Type("ХранилищеЗначения"));
+	Return (ValueType <> Type("ValueStorage"));
 EndFunction
