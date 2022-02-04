@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>СоставнойТип</name>
+    <name>CompositeDataType</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -10,7 +10,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>СоставнойТип</segments>
+        <segments>CompositeDataType</segments>
       </paths>
     </dataPath>
     <handlers>
@@ -18,7 +18,7 @@
       <name>СоставнойТипПриИзменении</name>
     </handlers>
     <extendedTooltip>
-      <name>СоставнойТипРасширеннаяПодсказка</name>
+      <name>CompositeDataTypeExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -33,7 +33,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СоставнойТипКонтекстноеМеню</name>
+      <name>CompositeDataTypeContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -59,7 +59,7 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>СтрокаПоиска</segments>
+        <segments>SearchString</segments>
       </paths>
     </dataPath>
     <handlers>
@@ -1009,7 +1009,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаПрименить</name>
+      <name>FormApply</name>
       <id>60</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1017,7 +1017,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаПрименитьРасширеннаяПодсказка</name>
+        <name>FormApplyExtendedTooltip</name>
         <id>61</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1031,7 +1031,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Применить</commandName>
+      <commandName>Form.Command.Apply</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -1040,7 +1040,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаЗакрыть</name>
+      <name>FormClose</name>
       <id>31</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1048,7 +1048,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗакрытьРасширеннаяПодсказка</name>
+        <name>FormCloseExtendedTooltip</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1078,7 +1078,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -1109,10 +1109,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СоставнойТип</name>
+    <name>CompositeDataType</name>
     <title>
       <key>ru</key>
       <value>Составной тип</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Composite data type</value>
     </title>
     <id>2</id>
     <valueType>
@@ -1126,10 +1130,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СтрокаПоиска</name>
+    <name>SearchString</name>
     <title>
       <key>ru</key>
       <value>Строка поиска</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Search string</value>
     </title>
     <id>3</id>
     <valueType>
@@ -1435,10 +1443,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Применить</name>
+    <name>Apply</name>
     <title>
       <key>ru</key>
       <value>Применить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Apply</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -1450,7 +1462,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Применить</name>
+        <name>Apply</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
