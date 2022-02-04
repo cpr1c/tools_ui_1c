@@ -113,7 +113,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormField">
-      <name>ВариантОтбораПоНомеруСообщения</name>
+      <name>FilterByMessageNumberOption</name>
       <id>172</id>
       <title>
         <key>ru</key>
@@ -126,15 +126,15 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ВариантОтбораПоНомеруСообщения</segments>
+          <segments>FilterByMessageNumberOption</segments>
         </paths>
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>ВариантОтбораПоНомеруСообщенияПриИзменении</name>
+        <name>FilterByMessageNumberOptionOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>ВариантОтбораПоНомеруСообщенияExtendedTooltip</name>
+        <name>FilterByMessageNumberOptionExtendedTooltip</name>
         <id>203</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -149,7 +149,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ВариантОтбораПоНомеруСообщенияКонтекстноеМеню</name>
+        <name>FilterByMessageNumberOptionContextMenu</name>
         <id>173</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -172,6 +172,10 @@
         <typeDomainEnabled>true</typeDomainEnabled>
         <choiceList>
           <presentation>
+            <key>en</key>
+            <value>All</value>
+          </presentation>
+          <presentation>
             <key>ru</key>
             <value>Все</value>
           </presentation>
@@ -181,6 +185,10 @@
         </choiceList>
         <choiceList>
           <presentation>
+            <key>en</key>
+            <value>Exported</value>
+          </presentation>
+          <presentation>
             <key>ru</key>
             <value>Только выгруженные </value>
           </presentation>
@@ -189,6 +197,10 @@
           </value>
         </choiceList>
         <choiceList>
+          <presentation>
+            <key>en</key>
+            <value>Skipped</value>
+          </presentation>
           <presentation>
             <key>ru</key>
             <value>Только невыгруженные</value>
@@ -968,8 +980,12 @@
       <name>Группа5</name>
       <id>96</id>
       <items xsi:type="form:Table">
-        <name>ДеревоМетаданных</name>
+        <name>MetadataTree</name>
         <id>6</id>
+        <title>
+          <key>en</key>
+          <value>Registration object types</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Виды объектов регистрации</value>
@@ -980,7 +996,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДеревоМетаданных</segments>
+          <segments>MetadataTree</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <excludedCommands>Add</excludedCommands>
@@ -1008,7 +1024,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Пометка</segments>
+                <segments>MetadataTree.Пометка</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
@@ -1063,7 +1079,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Наименование</segments>
+                <segments>MetadataTree.Наименование</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -1140,8 +1156,12 @@
           <name>ДеревоМетаданныхГруппа2</name>
           <id>26</id>
           <items xsi:type="form:FormField">
-            <name>ДеревоМетаданныхАвторегистрация</name>
+            <name>MetadataTreeAutoRegistration</name>
             <id>27</id>
+            <title>
+              <key>en</key>
+              <value>Auto registration</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Авторегистрация</value>
@@ -1151,12 +1171,12 @@
             <userVisible/>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Авторегистрация</segments>
+                <segments>MetadataTree.AutoRegistration</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>ДеревоМетаданныхАвторегистрацияExtendedTooltip</name>
+              <name>MetadataTreeAutoRegistrationExtendedTooltip</name>
               <id>247</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1171,7 +1191,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоМетаданныхАвторегистрацияКонтекстноеМеню</name>
+              <name>MetadataTreeAutoRegistrationContextMenu</name>
               <id>28</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1197,8 +1217,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоМетаданныхКоличествоИзмененийСтрокой</name>
+            <name>MetadataTreeChangeCountString</name>
             <id>29</id>
+            <title>
+              <key>en</key>
+              <value>Registered/not exported</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Зарегистрировано/не выгружено</value>
@@ -1210,11 +1234,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.КоличествоИзмененийСтрокой</segments>
+                <segments>MetadataTree.ChangeCountString</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоМетаданныхКоличествоИзмененийСтрокойExtendedTooltip</name>
+              <name>MetadataTreeChangeCountStringExtendedTooltip</name>
               <id>248</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1229,7 +1253,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоМетаданныхКоличествоИзмененийСтрокойКонтекстноеМеню</name>
+              <name>MetadataTreeChangeCountStringContextMenu</name>
               <id>30</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1285,7 +1309,7 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ДеревоМетаданныхКоманднаяПанель</name>
+          <name>MetadataTreeCommandBar</name>
           <id>8</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1296,7 +1320,7 @@
         </autoCommandBar>
         <handlers>
           <event>OnActivateRow</event>
-          <name>ДеревоМетаданныхПриАктивизацииСтроки</name>
+          <name>MetadataTreeOnActivateRow</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -1304,10 +1328,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоМетаданныхСтрокаПоиска</name>
+          <name>MetadataTreeSearchString</name>
           <id>314</id>
           <extendedTooltip>
-            <name>ДеревоМетаданныхСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>MetadataTreeSearchStringExtendedTooltip</name>
             <id>316</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1322,7 +1346,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоМетаданныхСтрокаПоискаКонтекстноеМеню</name>
+            <name>MetadataTreeSearchStringContextMenu</name>
             <id>315</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1341,10 +1365,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоМетаданныхСостояниеПросмотра</name>
+          <name>MetadataTreeViewStatus</name>
           <id>317</id>
           <extendedTooltip>
-            <name>ДеревоМетаданныхСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>MetadataTreeViewStatusExtendedTooltip</name>
             <id>319</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1359,7 +1383,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоМетаданныхСостояниеПросмотраКонтекстноеМеню</name>
+            <name>MetadataTreeViewStatusContextMenu</name>
             <id>318</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1380,10 +1404,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоМетаданныхУправлениеПоиском</name>
+          <name>MetadataTreeSearchControl</name>
           <id>320</id>
           <extendedTooltip>
-            <name>ДеревоМетаданныхУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>MetadataTreeSearchControlExtendedTooltip</name>
             <id>322</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1398,7 +1422,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоМетаданныхУправлениеПоискомКонтекстноеМеню</name>
+            <name>MetadataTreeSearchControlContextMenu</name>
             <id>321</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1413,7 +1437,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ДеревоМетаданныхExtendedTooltip</name>
+          <name>MetadataTreeExtendedTooltip</name>
           <id>242</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1428,7 +1452,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоМетаданныхКонтекстноеМеню</name>
+          <name>MetadataTreeContextMenu</name>
           <id>7</id>
           <items xsi:type="form:FormGroup">
             <name>ДеревоМетаданныхКонтекстноеМенюГруппа1</name>
@@ -1867,7 +1891,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.ДеревоМетаданных.StandardCommand.OutputList</commandName>
+              <commandName>Form.Item.MetadataTree.StandardCommand.OutputList</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1897,7 +1921,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.ДеревоМетаданных.StandardCommand.CopyToClipboard</commandName>
+              <commandName>Form.Item.MetadataTree.StandardCommand.CopyToClipboard</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1952,7 +1976,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ДеревоМетаданных.ИндексКартинки</segments>
+          <segments>MetadataTree.PictureIndex</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
           <picture>CommonPicture.UI_MetadataObjectsTypes</picture>
@@ -4846,7 +4870,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
@@ -4880,7 +4904,11 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ДеревоМетаданных</name>
+    <name>MetadataTree</name>
+    <title>
+      <key>en</key>
+      <value>Metadata</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Метаданные</value>
@@ -4932,7 +4960,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
@@ -4972,7 +5004,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Авторегистрация</name>
+      <name>AutoRegistration</name>
+      <title>
+        <key>en</key>
+        <value>Auto registration</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Авторегистрация</value>
@@ -4992,7 +5028,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоИзменений</name>
+      <name>ChangeCount</name>
+      <title>
+        <key>en</key>
+        <value>Change count</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество изменений</value>
@@ -5012,7 +5052,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоВыгруженных</name>
+      <name>ExportedCount</name>
+      <title>
+        <key>en</key>
+        <value>Exported count</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество выгруженных</value>
@@ -5052,7 +5096,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоИзмененийСтрокой</name>
+      <name>ChangeCountString</name>
+      <title>
+        <key>en</key>
+        <value>Change count string</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество изменений строкой</value>
@@ -5266,7 +5314,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВариантОтбораПоНомеруСообщения</name>
+    <name>FilterByMessageNumberOption</name>
+    <title>
+      <key>en</key>
+      <value>Filter by message number option</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вариант отбора по номеру сообщения</value>
@@ -5285,7 +5337,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ВариантОтбораПоНомеруСообщения</segments>
+      <segments>FilterByMessageNumberOption</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
@@ -5319,7 +5371,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗапрещеноВыбиратьУзелОбмена</name>
+    <name>SelectExchangeNodeProhibited</name>
+    <title>
+      <key>en</key>
+      <value>Select exchange node prohibited</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Запрещено выбирать узел обмена</value>
