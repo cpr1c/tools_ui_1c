@@ -37,24 +37,24 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
 	If ValueStorageDataType = Type("Array") Then
 		Title = "Array";
-		Cancel = Not вПоказатьМассив(ValueStorageData);
+		Cancel = Not ShowArray(ValueStorageData);
 	 ElsIf ValueStorageDataType = Type("Structure") Then
 		Title = "Structure";
-		Cancel = Not вПоказатьСтруктуру(ValueStorageData);
+		Cancel = Not ShowStructure(ValueStorageData);
 	 ElsIf ValueStorageDataType = Type("Map") Then
 		Title = "Map";
-		Cancel = Not вПоказатьСоответствие(ValueStorageData);
+		Cancel = Not ShowMap(ValueStorageData);
 	 ElsIf ValueStorageDataType = Type("ValueList") Then
 		Title = "ValueList";
-		Cancel = Not вПоказатьСписокЗначений(ValueStorageData);
+		Cancel = Not ShowValueList(ValueStorageData);
 	 ElsIf ValueStorageDataType = Type("ValueTable") Then
 		Title = "ValueTable";
-		Cancel = Not вПоказатьТаблицуЗначений(ValueStorageData);
+		Cancel = Not ShowValueTable(ValueStorageData);
 	 ElsIf ValueStorageDataType = Type("ValueTree") Then
 		Title = "ValueTree";
 		Items._ValueTable.Visible = False;
 		Items._ValueTree.Visible = True;
-		Cancel = Not вПоказатьДеревоЗначений(ValueStorageData);
+		Cancel = Not ShowValueTree(ValueStorageData);
 	 ElsIf ValueStorageDataType = Type("SpreadsheetDocument") Then
 		_DataForRepresentation = New Structure("Value, ValueType", ValueStorageData, "SpreadsheetDocument");
 	 ElsIf ValueStorageDataType = Type("TextDocument") Then
@@ -82,245 +82,264 @@ Procedure OnOpen(Cancel)
 EndProcedure
 
 &AtServer
-Function вПоказатьМассив(ValueStorageData)
-	If ValueStorageData.Количество() = 0 Then
+Function ShowArray(ValueStorageData)
+	If ValueStorageData.Count() = 0 Then
 		Return False;
 	EndIf;
 
-	РеквизитыКДобавлению = New Array;
-	РеквизитыКУдалению = New Array;
+	AttributesToAdding = New Array;
+	AttributesToDeleting = New Array;
 
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Индекс", New TypeDescription("Число"), "_ValueTable",
-		"Индекс", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
+	AttributesToAdding.Add(New FormAttribute("Index", New TypeDescription("Number"), "_ValueTable",
+		"Index", False));
+	AttributesToAdding.Add(New FormAttribute("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+	AttributesToAdding.Add(New FormAttribute("ValueType", New TypeDescription("String"), "_ValueTable",
 		"ValueType", False));
 
-	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
+	ChangeAttributes(AttributesToAdding, AttributesToDeleting);
 
-	For Инд = 0 По ValueStorageData.ВГраница() Do
-		Value = ValueStorageData[Инд];
-		НС = _ValueTable.Add();
+	For Index = 0 По ValueStorageData.UBound() Do
+		Value = ValueStorageData[Index];
+		NewRow = _ValueTable.Add();
 
-		НС.Индекс = Инд;
-		НС.ValueType = Строка(TypeOf(Value));
+		NewRow.Index = Index;
+		NewRow.ValueType = String(TypeOf(Value));
 
 		If NeedToConvertValue(Value) Then
-			НС.Value = New ValueStorage(Value);
+			NewRow.Value = New ValueStorage(Value);
 		Иначе
-			НС.Value = Value;
+			NewRow.Value = Value;
 		EndIf;
 	EndDo;
 
-	For Each Элем In РеквизитыКДобавлению Do
-		ИмяЭФ = "_ТаблицаЗначений_" + Элем.Имя;
-		ЭтаФорма.Items.Add(ИмяЭФ, Type("ПолеФормы"), ЭтаФорма.Items._ТаблицаЗначений);
-		ЭтаФорма.Элементы[ИмяЭФ].ПутьКДанным = "_ValueTable." + Элем.Имя;
-		ЭтаФорма.Элементы[ИмяЭФ].Вид = ВидПоляФормы.ПолеВвода;
+	For Each Item In AttributesToAdding Do
+		FormItemName = "_ValueTable_" + Item.Name;
+		ThisForm.Items.Add(FormItemName, Type("FormField"), ThisForm.Items._ValueTable);
+		ThisForm.Items[FormItemName].DataPath = "_ValueTable." + Item.Name;
+		ThisForm.Items[FormItemName].Type = FormFieldType.InputField;
 	EndDo;
 
 	Return True;
 EndFunction
 
 &AtServer
-Function вПоказатьСтруктуру(ValueStorageData)
-	If ValueStorageData.Количество() = 0 Then
+Function ShowStructure(ValueStorageData)
+	If ValueStorageData.Count() = 0 Then
 		Return False;
 	EndIf;
 
-	РеквизитыКДобавлению = New Array;
-	РеквизитыКУдалению = New Array;
+	AttributesToAdding = New Array;
+	AttributesToDeleting = New Array;
 
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Ключ", New TypeDescription("Строка"), "_ValueTable",
-		"Ключ", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
+	AttributesToAdding.Add(New FormAttribute("Key", New TypeDescription("String"), "_ValueTable",
+		"Key", False));
+	AttributesToAdding.Add(New FormAttribute("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+	AttributesToAdding.Add(New FormAttribute("ValueType", New TypeDescription("String"), "_ValueTable",
 		"ValueType", False));
 
-	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
+	ChangeAttributes(AttributesToAdding, AttributesToDeleting);
 
-	For Each Элем In ValueStorageData Do
-		НС = _ValueTable.Add();
+	For Each Item In ValueStorageData Do
+		NewRow = _ValueTable.Add();
 
-		FillPropertyValues(НС, Элем, , "Value");
-		НС.ValueType = Строка(TypeOf(Элем.Value));
+		FillPropertyValues(NewRow, Item, , "Value");
+		NewRow.ValueType = String(TypeOf(Item.Value));
 
-		If NeedToConvertValue(Элем.Value) Then
-			НС.Value = New ValueStorage(Элем.Value);
-		Иначе
-			НС.Value = Элем.Value;
+		If NeedToConvertValue(Item.Value) Then
+			NewRow.Value = New ValueStorage(Item.Value);
+		Else
+			NewRow.Value = Item.Value;
 		EndIf;
 	EndDo;
 
-	For Each Элем In РеквизитыКДобавлению Do
-		ИмяЭФ = "_ТаблицаЗначений_" + Элем.Имя;
-		ЭтаФорма.Items.Add(ИмяЭФ, Type("ПолеФормы"), ЭтаФорма.Items._ТаблицаЗначений);
-		ЭтаФорма.Элементы[ИмяЭФ].ПутьКДанным = "_ValueTable." + Элем.Имя;
-		ЭтаФорма.Элементы[ИмяЭФ].Вид = ВидПоляФормы.ПолеВвода;
+	For Each Item In AttributesToAdding Do
+		FormItemName = "_ValueTable_" + Item.Name;
+		ThisForm.Items.Add(FormItemName, Type("FormField"), ThisForm.Items._ValueTable);
+		ThisForm.Items[FormItemName].DataPath = "_ValueTable." + Item.Name;
+		ThisForm.Items[FormItemName].Type = FormFieldType.FormFieldType;
 	EndDo;
 
 	Return True;
 EndFunction
 
 &AtServer
-Function вПоказатьСоответствие(ValueStorageData)
-	If ValueStorageData.Количество() = 0 Then
+Function ShowMap(ValueStorageData)
+	If ValueStorageData.Count() = 0 Then
 		Return False;
 	EndIf;
 
-	РеквизитыКДобавлению = New Array;
-	РеквизитыКУдалению = New Array;
+	AttributesToAdding = New Array;
+	AttributesToDeleting = New Array;
 
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Ключ", New TypeDescription, "_ValueTable", "Ключ", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
+	AttributesToAdding.Add(New FormAttribute("Key", New TypeDescription, "_ValueTable", "Key", False));
+	AttributesToAdding.Add(New FormAttribute("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+	AttributesToAdding.Add(New FormAttribute("ValueType", New TypeDescription("String"), "_ValueTable",
 		"ValueType", False));
 
-	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
+	ChangeAttributes(AttributesToAdding, AttributesToDeleting);
 
-	For Each Элем In ValueStorageData Do
-		НС = _ValueTable.Add();
+	For Each Item In ValueStorageData Do
+		NewRow = _ValueTable.Add();
 
-		FillPropertyValues(НС, Элем, , "Value");
-		НС.ValueType = Строка(TypeOf(Элем.Value));
+		FillPropertyValues(NewRow, Item, , "Value");
+		NewRow.ValueType = String(TypeOf(Item.Value));
 
-		If NeedToConvertValue(Элем.Value) Then
-			НС.Value = New ValueStorage(Элем.Value);
+		If NeedToConvertValue(Item.Value) Then
+			NewRow.Value = New ValueStorage(Item.Value);
 		Иначе
-			НС.Value = Элем.Value;
+			NewRow.Value = Item.Value;
 		EndIf;
 	EndDo;
 
-	For Each Элем In РеквизитыКДобавлению Do
-		ИмяЭФ = "_ТаблицаЗначений_" + Элем.Имя;
-		ЭтаФорма.Items.Add(ИмяЭФ, Type("ПолеФормы"), ЭтаФорма.Items._ТаблицаЗначений);
-		ЭтаФорма.Элементы[ИмяЭФ].ПутьКДанным = "_ValueTable." + Элем.Имя;
-		ЭтаФорма.Элементы[ИмяЭФ].Вид = ВидПоляФормы.ПолеВвода;
+	For Each Item In AttributesToAdding Do
+		FormItemName = "_ValueTable_" + Item.Name;
+		ThisForm.Items.Add(FormItemName, Type("FormField"), ThisForm.Items._ValueTable);
+		ThisForm.Items[FormItemName].DataPath = "_ValueTable." + Item.Name;
+		ThisForm.Items[FormItemName].Type = FormFieldType.InputField;
 	EndDo;
 
 	Return True;
 EndFunction
 
 &AtServer
-Function вПоказатьСписокЗначений(ValueStorageData)
-	If ValueStorageData.Количество() = 0 Then
+Function ShowValueList(ValueStorageData)
+	If ValueStorageData.Count() = 0 Then
 		Return False;
 	EndIf;
 
-	РеквизитыКДобавлению = New Array;
-	РеквизитыКУдалению = New Array;
+	AttributesToAdding = New Array;
+	AttributesToDeleting = New Array;
 
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Пометка", New TypeDescription("Булево"), "_ValueTable",
-		"Пометка", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Представление", New TypeDescription("Строка"),
-		"_ValueTable", "Представление", False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("Value", New TypeDescription, "_ValueTable", "Value",
+	AttributesToAdding.Add(New FormAttribute("Check", New TypeDescription("Boolean"), "_ValueTable",
+		"Check", False));
+	AttributesToAdding.Add(New FormAttribute("Presentation", New TypeDescription("String"),
+		"_ValueTable", "Presentation", False));
+	AttributesToAdding.Add(New FormAttribute("Value", New TypeDescription, "_ValueTable", "Value",
 		False));
-	РеквизитыКДобавлению.Add(New РеквизитФормы("ValueType", New TypeDescription("Строка"), "_ValueTable",
+	AttributesToAdding.Add(New FormAttribute("ValueType", New TypeDescription("String"), "_ValueTable",
 		"ValueType", False));
 
-	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
+	ChangeAttributes(AttributesToAdding, AttributesToDeleting);
 
-	For Each Элем In ValueStorageData Do
-		НС = _ValueTable.Add();
+	For Each Item In ValueStorageData Do
+		NewRow = _ValueTable.Add();
 
-		FillPropertyValues(НС, Элем, , "Value");
-		НС.ValueType = Строка(TypeOf(Элем.Value));
+		FillPropertyValues(NewRow, Item, , "Value");
+		NewRow.ValueType = String(TypeOf(Item.Value));
 
-		If NeedToConvertValue(Элем.Value) Then
-			НС.Value = New ValueStorage(Элем.Value);
+		If NeedToConvertValue(Item.Value) Then
+			NewRow.Value = New ValueStorage(Item.Value);
 		Иначе
-			НС.Value = Элем.Value;
+			NewRow.Value = Item.Value;
 		EndIf;
 	EndDo;
 
-	For Each Элем In РеквизитыКДобавлению Do
-		ИмяЭФ = "_ТаблицаЗначений_" + Элем.Имя;
-		ЭтаФорма.Items.Add(ИмяЭФ, Type("ПолеФормы"), ЭтаФорма.Items._ТаблицаЗначений);
-		ЭтаФорма.Элементы[ИмяЭФ].ПутьКДанным = "_ValueTable." + Элем.Имя;
-		ЭтаФорма.Элементы[ИмяЭФ].Вид = ВидПоляФормы.ПолеВвода;
+	For Each Item In AttributesToAdding Do
+		FormItemName = "_ValueTable_" + Item.Name;
+		ThisForm.Items.Add(FormItemName, Type("FormField"), ThisForm.Items._ValueTable);
+		ThisForm.Items[FormItemName].DataPath = "_ValueTable." + Item.Name;
+		ThisForm.Items[FormItemName].Type = FormFieldType.InputField;
 	EndDo;
 
 	Return True;
 EndFunction
 
 &AtServer
-Function вПоказатьТаблицуЗначений(ValueStorageData)
-	РеквизитыКДобавлению = New Array;
-	РеквизитыКУдалению = New Array;
+Function ShowValueTable(ValueStorageData)
+	AttributesToAdding = New Array;
+	AttributesToDeleting = New Array;
 
-	For Each Колонка In ValueStorageData.Колонки Do
-		РеквизитыКДобавлению.Add(New РеквизитФормы(Колонка.Имя, New TypeDescription, "_ValueTable",
-			Колонка.Title, False));
+	For Each Column In ValueStorageData.Columns Do
+		AttributesToAdding.Add(New FormAttribute(Column.Name, New TypeDescription, "_ValueTable",
+			Column.Title, False));
 	EndDo;
 
-	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
+	ChangeAttributes(AttributesToAdding, AttributesToDeleting);
 
-	For Each Элем In ValueStorageData Do
-		НС = _ValueTable.Add();
+	For Each Item In ValueStorageData Do
+		NewRow = _ValueTable.Add();
 
-		For Each Колонка In ValueStorageData.Колонки Do
-			Value = Элем[Колонка.Имя];
+		For Each Column In ValueStorageData.Columns Do
+			Value = Item[Column.Name];
 
 			If NeedToConvertValue(Value) Then
 				Value = New ValueStorage(Value);
 			EndIf;
-			НС[Колонка.Имя] = Value;
+			NewRow[Column.Name] = Value;
 		EndDo;
 	EndDo;
 
-	For Each Элем In РеквизитыКДобавлению Do
-		ИмяЭФ = "_ТаблицаЗначений_" + Элем.Имя;
-		ЭтаФорма.Items.Add(ИмяЭФ, Type("ПолеФормы"), ЭтаФорма.Items._ТаблицаЗначений);
-		ЭтаФорма.Элементы[ИмяЭФ].ПутьКДанным = "_ValueTable." + Элем.Имя;
-		ЭтаФорма.Элементы[ИмяЭФ].Вид = ВидПоляФормы.ПолеВвода;
+	For Each Item In AttributesToAdding Do
+		FormItemName = "_ValueTable_" + Item.Name;
+		ThisForm.Items.Add(FormItemName, Type("FormField"), ThisForm.Items._ValueTable);
+		ThisForm.Items[FormItemName].DataPath = "_ValueTable." + Item.Name;
+		ThisForm.Items[FormItemName].Type = FormFieldType.InputField;
 	EndDo;
 
 	Return True;
 EndFunction
 
 &AtServer
-Function вПоказатьДеревоЗначений(ValueStorageData)
-	РеквизитыКДобавлению = New Array;
-	РеквизитыКУдалению = New Array;
+Function ShowValueTree(ValueStorageData)
+	AttributesToAdding = New Array;
+	AttributesToDeleting = New Array;
 
-	For Each Колонка In ValueStorageData.Колонки Do
-		РеквизитыКДобавлению.Add(New РеквизитФормы(Колонка.Имя, New TypeDescription, "_ValueTree",
-			Колонка.Title, False));
+	For Each Column In ValueStorageData.Columns Do
+		AttributesToAdding.Add(New FormAttribute(Column.Name, New TypeDescription, "_ValueTree",
+			Column.Title, False));
 	EndDo;
 
-	ИзменитьРеквизиты(РеквизитыКДобавлению, РеквизитыКУдалению);
+	ChangeAttributes(AttributesToAdding, AttributesToDeleting);
 
-	вЗаполнитьУзелДЗ(_ValueTree, ValueStorageData, ValueStorageData.Колонки);
+	FillValueTreeNode(_ValueTree, ValueStorageData, ValueStorageData.Columns);
 
-	For Each Элем In РеквизитыКДобавлению Do
-		ИмяЭФ = "_ДеревоЗначений_" + Элем.Имя;
-		ЭтаФорма.Items.Add(ИмяЭФ, Type("ПолеФормы"), ЭтаФорма.Items._ValueTree);
-		ЭтаФорма.Элементы[ИмяЭФ].ПутьКДанным = "_ValueTree." + Элем.Имя;
-		ЭтаФорма.Элементы[ИмяЭФ].Вид = ВидПоляФормы.ПолеВвода;
+	For Each Item In AttributesToAdding Do
+		FormItemName = "_ValueTree_" + Item.Name;
+		ThisForm.Items.Add(FormItemName, Type("FormField"), ThisForm.Items._ValueTree);
+		ThisForm.Items[FormItemName].DataPath = "_ValueTree." + Item.Name;
+		ThisForm.Items[FormItemName].Type = FormFieldType.InputField;
 	EndDo;
 
 	Return True;
 EndFunction
 
-&AtServer
-Function вЗаполнитьУзелДЗ(Знач Приемник, Знач Источник, Знач КоллекцияКолонок)
-	For Each Элем In Источник.Строки Do
-		НС = Приемник.ПолучитьЭлементы().Add();
+&AtClient
+Procedure _ValueTreeSelection(Item, RowSelected, Field, StandardProcessing)
+	
+	StandardProcessing = False;
 
-		For Each Колонка In КоллекцияКолонок Do
-			Value = Элем[Колонка.Имя];
+	CurrentData = Item.CurrentData;
+	If CurrentData <> Undefined Then
+		ColumnName = Mid(Field.Name, StrLen(Item.Name) + 2);
+		Value = CurrentData[ColumnName];
+
+		If TypeOf(Value) = mValueStorageType Then
+			ShowValueOfValueStorage(Value);
+		Иначе
+			ShowValue( , Value);
+		EndIf;
+	EndIf;
+	
+EndProcedure
+
+&AtServer
+Function FillValueTreeNode (Val Receiver, Val Source, Val ColumnCollection)
+	For Each Item In Source.Rows Do
+		NewRow = Receiver.GetItems().Add();
+
+		For Each Column In ColumnCollection Do
+			Value = Item[Column.Name];
 
 			If NeedToConvertValue(Value) Then
 				Value = New ValueStorage(Value);
 			EndIf;
-			НС[Колонка.Имя] = Value;
+			NewRow[Column.Name] = Value;
 		EndDo;
 
-		вЗаполнитьУзелДЗ(НС, Элем, КоллекцияКолонок);
+		FillValueTreeNode(NewRow, Item, ColumnCollection);
 	EndDo;
 
 	Return True;
@@ -330,90 +349,75 @@ EndFunction
 Procedure OpenObject(Command)
 	Value = Undefined;
 
-	Имя = вПолучитьПутьКДаннымТекущегоЭлемента();
-	If Not ЗначениеЗаполнено(Имя) Then
+	Name = GetCurrentItemDatapath();
+	If Not ValueIsFilled(Name) Then
 		Return;
 	EndIf;
 
-	ЭФ = ЭтаФорма.ТекущийЭлемент;
-	If TypeOf(ЭФ) = Type("ПолеФормы") Then
-		Value = ЭтаФорма[Имя];
-	 ElsIf TypeOf(ЭФ) = Type("ТаблицаФормы") Then
-		ТекДанные = ЭФ.ТекущиеДанные;
-		If ТекДанные <> Undefined Then
-			Value = ТекДанные[Имя];
+	FormItem = ThisForm.CurrentItem;
+	If TypeOf(FormItem) = Type("FormField") Then
+		Value = ThisForm[Name];
+	 ElsIf TypeOf(FormItem) = Type("FormTable") Then
+		CurrentData = FormItem.CurrentData;
+		If CurrentData <> Undefined Then
+			Value = CurrentData[Name];
 		EndIf;
 	EndIf;
 
-	If ЗначениеЗаполнено(Value) Then
+	If ValueIsFilled(Value) Then
 		If TypeOf(Value) = mValueStorageType Then
-			вПоказатьЗначениеХЗ(Value);
+			ShowValueOfValueStorage(Value);
 
 		 ElsIf IsMetadataObJect(TypeOf(Value)) Then
-			СтрукПарам = New Structure("мОбъектСсылка", Value);
-			ОткрытьФорму("Обработка.UT_ObjectsAttributesEditor.Форма.ObjectForm", СтрукПарам, , Value);
+			ParametersStructure = New Structure("mObjectRef", Value);
+			OpenForm("DataProcessor.UT_ObjectsAttributesEditor.Form.ObjectForm", ParametersStructure, , Value);
 
 		EndIf;
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure вПоказатьЗначениеХЗ(Value)
-	СтрукПарам = New Structure("ValueStorageData", Value);
-	ОткрытьФорму("ОбщаяФорма.UT_ValueStorageForm", СтрукПарам, , ТекущаяДата());
+Procedure ShowValueOfValueStorage(Value)
+	ParametersStructure = New Structure("ValueStorageData", Value);
+	OpenForm("CommonForm.UT_ValueStorageForm", ParametersStructure, , CurrentDate());
 EndProcedure
 
-&AtClient
-Procedure _ТаблицаЗначенийВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = False;
-
-	ТекДанные = Элемент.ТекущиеДанные;
-	If ТекДанные <> Undefined Then
-		ИмяКолонки = Сред(Поле.Имя, СтрДлина(Элемент.Имя) + 2);
-		Value = ТекДанные[ИмяКолонки];
-
-		If TypeOf(Value) = mValueStorageType Then
-			вПоказатьЗначениеХЗ(Value);
-		Иначе
-			ПоказатьЗначение( , Value);
-		EndIf;
-	EndIf;
-EndProcedure
 
 &AtClient
-Procedure _ДеревоЗначенийВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = False;
+Procedure _ValueTableSelection(Item, RowSelected, Field, StandardProcessing)
 
-	ТекДанные = Элемент.ТекущиеДанные;
-	If ТекДанные <> Undefined Then
-		ИмяКолонки = Сред(Поле.Имя, СтрДлина(Элемент.Имя) + 2);
-		Value = ТекДанные[ИмяКолонки];
+	StandardProcessing = False;
+
+	CurrentData = Item.CurrentData;
+	If CurrentData <> Undefined Then
+		ColumnName = Mid(Field.Name, StrLen(Item.Name) + 2);
+		Value = CurrentData[ColumnName];
 
 		If TypeOf(Value) = mValueStorageType Then
-			вПоказатьЗначениеХЗ(Value);
+			ShowValueOfValueStorage(Value);
 		Иначе
-			ПоказатьЗначение( , Value);
+			ShowValue( , Value);
 		EndIf;
 	EndIf;
 EndProcedure
 
 &AtServer
-Function вПолучитьПутьКДаннымТекущегоЭлемента()
-	ЭФ = ЭтаФорма.ТекущийЭлемент;
-	If TypeOf(ЭФ) = Type("ТаблицаФормы") Then
-		ТекПоле = ЭФ.ТекущийЭлемент;
-		If TypeOf(ТекПоле) = Type("ПолеФормы") Then
-			Value = ТекПоле.ПутьКДанным;
-			Поз = Найти(Value, ".");
-			If Поз <> 0 Then
-				Value = Сред(Value, Поз + 1);
-				If Найти(Value, ".") = 0 Then
+Function GetCurrentItemDatapath()
+	FormItem = ThisForm.CurrentItem;
+	If TypeOf(FormItem) = Type("FormTable") Then
+		CurrentField = FormItem.CurrentItem;
+		If TypeOf(CurrentField) = Type("FormField") Then
+			Value = CurrentField.DataPath;
+			Position = Find(Value, ".");
+			If Position <> 0 Then
+				Value = Mid(Value, Position + 1);
+				If Find(Value, ".") = 0 Then
 					Return Value;
 				EndIf;
 			EndIf;
 		EndIf;
-	 ElsIf TypeOf(ЭФ) = Type("ПолеФормы") Then
-		Return ЭФ.ПутьКДанным;
+	 ElsIf TypeOf(FormItem) = Type("FormField") Then
+		Return FormItem.DataPath;
 	EndIf;
 
 	Return "";

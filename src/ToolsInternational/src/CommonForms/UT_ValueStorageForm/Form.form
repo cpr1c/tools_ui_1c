@@ -64,7 +64,7 @@
     </autoCommandBar>
     <handlers>
       <event>Selection</event>
-      <name>_ТаблицаЗначенийВыбор</name>
+      <name>_ValueTableSelection</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -311,7 +311,7 @@
     </autoCommandBar>
     <handlers>
       <event>Selection</event>
-      <name>_ДеревоЗначенийВыбор</name>
+      <name>_ValueTreeSelection</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
