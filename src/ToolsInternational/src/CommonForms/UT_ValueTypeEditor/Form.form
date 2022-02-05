@@ -15,7 +15,7 @@
     </dataPath>
     <handlers>
       <event>OnChange</event>
-      <name>СоставнойТипПриИзменении</name>
+      <name>CompositeDataTypeOnChange</name>
     </handlers>
     <extendedTooltip>
       <name>CompositeDataTypeExtendedTooltip</name>
@@ -50,7 +50,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>СтрокаПоиска</name>
+    <name>SearchString</name>
     <id>4</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -64,10 +64,10 @@
     </dataPath>
     <handlers>
       <event>OnChange</event>
-      <name>СтрокаПоискаПриИзменении</name>
+      <name>SearchStringOnChange</name>
     </handlers>
     <extendedTooltip>
-      <name>СтрокаПоискаРасширеннаяПодсказка</name>
+      <name>SearchStringExtendedTooltip</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -82,7 +82,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СтрокаПоискаКонтекстноеМеню</name>
+      <name>SearchStringContextMenu</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -105,7 +105,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:Table">
-    <name>ДеревоТипов</name>
+    <name>TypesTree</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -113,14 +113,14 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ДеревоТипов</segments>
+      <segments>TypesTree</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormGroup">
-      <name>ДеревоТиповГруппаКолонка</name>
+      <name>TypesTreeColumnGroup</name>
       <id>29</id>
       <items xsi:type="form:FormField">
-        <name>ДеревоТиповВыбран</name>
+        <name>TypesTreeSelected</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -129,15 +129,15 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ДеревоТипов.Выбран</segments>
+            <segments>TypesTree.Selected</segments>
           </paths>
         </dataPath>
         <handlers>
           <event>OnChange</event>
-          <name>ДеревоТиповВыбранПриИзменении</name>
+          <name>TypesTreeSelectedOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ДеревоТиповВыбранРасширеннаяПодсказка</name>
+          <name>TypesTreeSelectedExtendedTooltip</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -152,7 +152,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоТиповВыбранКонтекстноеМеню</name>
+          <name>TypesTreeSelectedContextMenu</name>
           <id>21</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -166,7 +166,7 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormField">
-        <name>ДеревоТиповКартинка</name>
+        <name>TypesTreePicture</name>
         <id>26</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -175,11 +175,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ДеревоТипов.Картинка</segments>
+            <segments>TypesTree.Picture</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ДеревоТиповКартинкаРасширеннаяПодсказка</name>
+          <name>TypesTreePictureExtendedTooltip</name>
           <id>28</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -194,7 +194,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоТиповКартинкаКонтекстноеМеню</name>
+          <name>TypesTreePictureContextMenu</name>
           <id>27</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -215,7 +215,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ДеревоТиповПредставление</name>
+        <name>TypesTreePresentation</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -224,11 +224,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ДеревоТипов.Представление</segments>
+            <segments>TypesTree.Presentation</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ДеревоТиповПредставлениеРасширеннаяПодсказка</name>
+          <name>TypesTreePresentationExtendedTooltip</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -243,7 +243,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоТиповПредставлениеКонтекстноеМеню</name>
+          <name>TypesTreePresentationContextMenu</name>
           <id>24</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -276,8 +276,12 @@
         <key>ru</key>
         <value>Дерево типов группа колонка</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Types tree column group</value>
+      </title>
       <extendedTooltip>
-        <name>ДеревоТиповГруппаКолонкаРасширеннаяПодсказка</name>
+        <name>TypesTreeColumnGroupExtendedTooltip</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -299,7 +303,7 @@
     </items>
     <commandBarLocation>None</commandBarLocation>
     <autoCommandBar>
-      <name>ДеревоТиповКоманднаяПанель</name>
+      <name>TypesTreeCommandBar</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -310,7 +314,7 @@
     </autoCommandBar>
     <handlers>
       <event>OnActivateRow</event>
-      <name>ДеревоТиповПриАктивизацииСтроки</name>
+      <name>TypesTreeOnActivateRow</name>
     </handlers>
     <searchStringAddition>
       <title>
@@ -322,10 +326,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоТиповСтрокаПоиска</name>
+      <name>TypesTreeSearchString</name>
       <id>11</id>
       <extendedTooltip>
-        <name>ДеревоТиповСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>TypesTreeSearchStringExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -340,7 +344,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоТиповСтрокаПоискаКонтекстноеМеню</name>
+        <name>TypesTreeSearchStringContextMenu</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -359,10 +363,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоТиповСостояниеПросмотра</name>
+      <name>TypesTreeViewStatus</name>
       <id>17</id>
       <extendedTooltip>
-        <name>ДеревоТиповСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>TypesTreeViewStatusExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -377,7 +381,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоТиповСостояниеПросмотраКонтекстноеМеню</name>
+        <name>TypesTreeViewStatusContextMenu</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -397,10 +401,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоТиповУправлениеПоиском</name>
+      <name>TypesTreeSearchControl</name>
       <id>14</id>
       <extendedTooltip>
-        <name>ДеревоТиповУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>TypesTreeSearchControlExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -415,7 +419,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоТиповУправлениеПоискомКонтекстноеМеню</name>
+        <name>TypesTreeSearchControlContextMenu</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -430,7 +434,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>ДеревоТиповРасширеннаяПодсказка</name>
+      <name>TypesTreeExtendedTooltip</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -445,7 +449,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ДеревоТиповКонтекстноеМеню</name>
+      <name>TypesTreeContextMenu</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -471,10 +475,10 @@
     <verticalStretch>true</verticalStretch>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКвалификаторСтроки</name>
+    <name>GroupStringQualifier</name>
     <id>33</id>
     <items xsi:type="form:FormField">
-      <name>ДлинаСтроки</name>
+      <name>StringLength</name>
       <id>46</id>
       <title>
         <key>ru</key>
@@ -487,15 +491,15 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ДлинаСтроки</segments>
+          <segments>StringLength</segments>
         </paths>
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>ДлинаСтрокиПриИзменении</name>
+        <name>StringLengthOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>ДлинаСтрокиРасширеннаяПодсказка</name>
+        <name>StringLengthExtendedTooltip</name>
         <id>48</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -510,7 +514,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДлинаСтрокиКонтекстноеМеню</name>
+        <name>StringLengthContextMenu</name>
         <id>47</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -538,7 +542,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ДопустамаяДлинаСтрокиФиксированная</name>
+      <name>AcceptableFixedStringLength</name>
       <id>52</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -547,12 +551,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ДопустамаяДлинаСтрокиФиксированная</segments>
+          <segments>AcceptableFixedStringLength</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>ДопустамаяДлинаСтрокиФиксированнаяРасширеннаяПодсказка</name>
+        <name>AcceptableFixedStringLengthExtendedTooltip</name>
         <id>54</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -567,7 +571,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДопустамаяДлинаСтрокиФиксированнаяКонтекстноеМеню</name>
+        <name>AcceptableFixedStringLengthContextMenu</name>
         <id>53</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -595,7 +599,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>НеограниченнаяДлинаСтроки</name>
+      <name>UnlimitedStringLength</name>
       <id>49</id>
       <title>
         <key>ru</key>
@@ -608,15 +612,15 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>НеограниченнаяДлинаСтроки</segments>
+          <segments>UnlimitedStringLength</segments>
         </paths>
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>НеограниченнаяДлинаСтрокиПриИзменении</name>
+        <name>UnlimitedStringLengthOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>НеограниченнаяДлинаСтрокиРасширеннаяПодсказка</name>
+        <name>UnlimitedStringLengthExtendedTooltip</name>
         <id>51</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -631,7 +635,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НеограниченнаяДлинаСтрокиКонтекстноеМеню</name>
+        <name>UnlimitedStringLengthContextMenu</name>
         <id>50</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -655,12 +659,16 @@
       <key>ru</key>
       <value>Группа квалификатор строки</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group string qualifier</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа квалификатор строки</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКвалификаторСтрокиРасширеннаяПодсказка</name>
+      <name>GroupStringQualifierExtendedTooltip</name>
       <id>34</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -684,10 +692,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКвалификаторЧисла</name>
+    <name>GroupNumberQualifier</name>
     <id>35</id>
     <items xsi:type="form:FormField">
-      <name>ДлинаЧисла</name>
+      <name>NumberLength</name>
       <id>37</id>
       <title>
         <key>ru</key>
@@ -700,11 +708,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ДлинаЧисла</segments>
+          <segments>NumberLength</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ДлинаЧислаРасширеннаяПодсказка</name>
+        <name>NumberLengthExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -719,7 +727,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДлинаЧислаКонтекстноеМеню</name>
+        <name>NumberLengthContextMenu</name>
         <id>38</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -747,7 +755,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ТочностьЧисла</name>
+      <name>NumberPrecision</name>
       <id>40</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -756,11 +764,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТочностьЧисла</segments>
+          <segments>NumberPrecision</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ТочностьЧислаРасширеннаяПодсказка</name>
+        <name>NumberPrecisionExtendedTooltip</name>
         <id>42</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -775,7 +783,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТочностьЧислаКонтекстноеМеню</name>
+        <name>NumberPrecisionContextMenu</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -800,7 +808,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>НеотрицательноеЧисло</name>
+      <name>NonnegativeNumber</name>
       <id>43</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -809,12 +817,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>НеотрицательноеЧисло</segments>
+          <segments>NonnegativeNumber</segments>
         </paths>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <extendedTooltip>
-        <name>НеотрицательноеЧислоРасширеннаяПодсказка</name>
+        <name>NonnegativeNumberExtendedTooltip</name>
         <id>45</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -829,7 +837,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НеотрицательноеЧислоКонтекстноеМеню</name>
+        <name>NonnegativeNumberContextMenu</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -853,12 +861,16 @@
       <key>ru</key>
       <value>Группа квалификатор числа</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group number qualifier</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа квалификатор числа</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКвалификаторЧислаРасширеннаяПодсказка</name>
+      <name>GroupNumberQualifierExtendedTooltip</name>
       <id>36</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -882,10 +894,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКвалификаторДаты</name>
+    <name>GroupDateQualifier</name>
     <id>55</id>
     <items xsi:type="form:FormField">
-      <name>СоставДаты</name>
+      <name>DateFormat</name>
       <id>57</id>
       <title>
         <key>ru</key>
@@ -898,11 +910,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>СоставДаты</segments>
+          <segments>DateFormat</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СоставДатыРасширеннаяПодсказка</name>
+        <name>DateFormatExtendedTooltip</name>
         <id>59</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -917,7 +929,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СоставДатыКонтекстноеМеню</name>
+        <name>DateFormatContextMenu</name>
         <id>58</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -976,12 +988,16 @@
       <key>ru</key>
       <value>Группа квалификатор даты</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group date qualifier</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа квалификатор даты</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКвалификаторДатыРасширеннаяПодсказка</name>
+      <name>GroupDateQualifierExtendedTooltip</name>
       <id>56</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1089,10 +1105,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>РежимРаботы</name>
+    <name>WorkMode</name>
     <title>
       <key>ru</key>
       <value>Режим работы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Work mode</value>
     </title>
     <id>1</id>
     <valueType>
@@ -1152,10 +1172,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДеревоТипов</name>
+    <name>TypesTree</name>
     <title>
       <key>ru</key>
       <value>Дерево типов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Types tree</value>
     </title>
     <id>4</id>
     <valueType>
@@ -1168,10 +1192,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Выбран</name>
+      <name>Selected</name>
       <title>
         <key>ru</key>
         <value>Выбран</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Selected</value>
       </title>
       <id>5</id>
       <valueType>
@@ -1185,10 +1213,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>6</id>
       <valueType>
@@ -1203,10 +1235,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>7</id>
       <valueType>
@@ -1221,10 +1257,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЭтоГруппа</name>
+      <name>IsGroup</name>
       <title>
         <key>ru</key>
         <value>Это группа</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Is group</value>
       </title>
       <id>10</id>
       <valueType>
@@ -1238,10 +1278,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
       <title>
         <key>ru</key>
         <value>Картинка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
       </title>
       <id>11</id>
       <valueType>
@@ -1255,10 +1299,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НедоступенДляСоставногоТипа</name>
+      <name>UnavailableForCompositeType</name>
       <title>
         <key>ru</key>
         <value>Недоступен для составного типа</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Unavailable for composite type</value>
       </title>
       <id>1</id>
       <valueType>
@@ -1273,10 +1321,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ДлинаЧисла</name>
+    <name>NumberLength</name>
     <title>
       <key>ru</key>
       <value>Длина</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Number length</value>
     </title>
     <id>5</id>
     <valueType>
@@ -1294,10 +1346,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТочностьЧисла</name>
+    <name>NumberPrecision</name>
     <title>
       <key>ru</key>
       <value>Точность</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Number precision</value>
     </title>
     <id>6</id>
     <valueType>
@@ -1314,10 +1370,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>НеотрицательноеЧисло</name>
+    <name>NonnegativeNumber</name>
     <title>
       <key>ru</key>
       <value>Неотрицательное</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Nonnegative number</value>
     </title>
     <id>7</id>
     <valueType>
@@ -1331,10 +1391,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДлинаСтроки</name>
+    <name>StringLength</name>
     <title>
       <key>ru</key>
       <value>Длина строки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>String length</value>
     </title>
     <id>8</id>
     <valueType>
@@ -1352,10 +1416,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>НеограниченнаяДлинаСтроки</name>
+    <name>UnlimitedStringLength</name>
     <title>
       <key>ru</key>
       <value>Неограниченная длина строки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Unlimited string length</value>
     </title>
     <id>9</id>
     <valueType>
@@ -1369,10 +1437,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДопустамаяДлинаСтрокиФиксированная</name>
+    <name>AcceptableFixedStringLength</name>
     <title>
       <key>ru</key>
       <value>Допустамая длина строки фиксированная</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Acceptable fixed string length</value>
     </title>
     <id>10</id>
     <valueType>
@@ -1386,10 +1458,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СоставДаты</name>
+    <name>DateFormat</name>
     <title>
       <key>ru</key>
       <value>Состав даты</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Date format</value>
     </title>
     <id>11</id>
     <valueType>
@@ -1406,10 +1482,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВыбранныеТипы</name>
+    <name>SelectedTypes</name>
     <title>
       <key>ru</key>
       <value>Выбранные типы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Selected types</value>
     </title>
     <id>12</id>
     <valueType>
@@ -1426,10 +1506,14 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>НачальныйТипДанных</name>
+    <name>InitialDataType</name>
     <title>
       <key>ru</key>
       <value>Начальный тип данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Initial data type</value>
     </title>
     <id>13</id>
     <valueType>
