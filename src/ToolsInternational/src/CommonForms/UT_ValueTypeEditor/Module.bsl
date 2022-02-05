@@ -72,33 +72,33 @@ Procedure TypesTreeSelectedOnChange(Item)
 	If CurrentRow.Selected Then
 		If Not CompositeDataType Then
 			SelectedTypes.Clear();
-		 ElsIf CurrentRow.НедоступенДляСоставногоТипа Then
-			If SelectedTypes.Количество()>0 Then
-				ПоказатьВопрос(New NotifyDescription("ДеревоТиповВыбранПриИзмененииЗавершение", ЭтаФорма, New Structure("CurrentRow",CurrentRow)), "Selected тип, который не может быть включен в составной тип данных.
+		 ElsIf CurrentRow.UnavailableForCompositeType Then
+			If SelectedTypes.Count()>0 Then
+				ShowQueryBox(New NotifyDescription("ДеревоТиповВыбранПриИзмененииЗавершение", ThisForm, New Structure("CurrentRow",CurrentRow)), "Выбран тип, который не может быть включен в составной тип данных.
 				|Будут исключены остальные типы данных.
-				|Продолжить?",РежимДиалогаВопрос.ДаНет);
+				|Продолжить?",QuestionDialogMode.YesNo);
 	        	Return;
 			EndIf;
-		Иначе
-			ЕстьНедоступныйДляСоставногоТипа=False;
-			For Each Эл In SelectedTypes Do
-				If Эл.Пометка Then
-					ЕстьНедоступныйДляСоставногоТипа=True;
+		Else
+			HaveUnavailableForCompositeType=False;
+			For Each SelectedTypesItem In SelectedTypes Do
+				If SelectedTypesItem.Check Then
+					HaveUnavailableForCompositeType=True;
 					Break;
 				EndIf;
 			EndDo;
 			
-			If ЕстьНедоступныйДляСоставногоТипа Then
-				ПоказатьВопрос(New NotifyDescription("ДеревоТиповВыбранПриИзмененииЗавершениеБылЗапрещенныйДляСоставногоТип", ЭтаФорма, New Structure("CurrentRow",CurrentRow)), "Ранее был Selected тип, который не может быть 
+			If HaveUnavailableForCompositeType Then
+				ShowQueryBox(New NotifyDescription("ДеревоТиповВыбранПриИзмененииЗавершениеБылЗапрещенныйДляСоставногоТип", ThisForm, New Structure("CurrentRow",CurrentRow)), "Ранее был выбран тип, который не может быть 
 				|включен в составной тип данных и будет исключен.
-				|Продолжить?",РежимДиалогаВопрос.ДаНет);
+				|Продолжить?",QuestionDialogMode.YesNo);
 				Return;
 			EndIf;
 		EndIf;
-	Иначе
-		Элемент=SelectedTypes.НайтиПоЗначению(CurrentRow.Имя);
-		If Элемент<>Undefined Then
-			SelectedTypes.Удалить(Элемент);
+	Else
+		Item=SelectedTypes.FindByValue(CurrentRow.Name);
+		If Item<>Undefined Then
+			SelectedTypes.Delete(Item);
 		EndIf;
 		
 	EndIf;
@@ -110,12 +110,12 @@ EndProcedure
 &AtClient
 Procedure CompositeDataTypeOnChange(Item)
 	If Not CompositeDataType Then
-		If SelectedTypes.Количество()=0 Then
-			ДобавитьВыбранныйType("Строка");
+		If SelectedTypes.Count()=0 Then
+			AddSelectedType("String");
 		EndIf;
-		Тип=SelectedTypes[SelectedTypes.Количество()-1];
+		Type=SelectedTypes[SelectedTypes.Count()-1];
 		SelectedTypes.Clear();
-		ДобавитьВыбранныйType(Тип);
+		AddSelectedType(Type);
 		
 		УстановитьВыбранныеТипыВДереве(TypesTree,SelectedTypes);
 	EndIf;
@@ -124,51 +124,51 @@ EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиКомандФормы
+#Region FormCommandsHandlers
 
 &AtClient
 Procedure Apply(Command)
-	TypesArray=МассивВыбранныхТипов();
+	TypesArray=SelectedTypesArray();
 	
-	ТипыСтрокой=New Array;
-	ТипыТипом=New Array;
+	TypesByString=New Array;
+	TypesByType=New Array;
 	
-	For Each Тип ИЗ TypesArray Do
-		If TypeOf(Тип) = Type("Тип") Then
-			ТипыТипом.Add(Тип);
+	For Each Type ИЗ TypesArray Do
+		If TypeOf(Type) = Type("Type") Then
+			TypesByType.Add(Type);
 		Иначе
-			ТипыСтрокой.Add(Тип);
+			TypesByString.Add(Type);
 		EndIf;
 	EndDo;
 	
 	If NonnegativeNumber Then
-		Знак=ДопустимыйЗнак.Неотрицательный;
+		Знак=AllowedSign.Nonnegative;
 	Иначе
-		Знак=ДопустимыйЗнак.Любой;
+		Знак=AllowedSign.Any;
 	EndIf;
 		
-	КвалификаторЧисла=New NumberQualifiers(NumberLength,NumberPrecision,Знак);
-	КвалификаторСтроки=New StringQualifiers(StringLength, ?(AcceptableFixedStringLength,ДопустимаяДлина.Фиксированная, ДопустимаяДлина.Переменная));
+	NumberQualifier=New NumberQualifiers(NumberLength,NumberPrecision,Знак);
+	StringQualifier=New StringQualifiers(StringLength, ?(AcceptableFixedStringLength,ДопустимаяДлина.Фиксированная, ДопустимаяДлина.Переменная));
 	
 	If DateFormat=1 Then
-		ЧастьДаты=ЧастиДаты.Время;
+		DateFraction=DateFractions.Time;
 	 ElsIf DateFormat=2 Then
-		ЧастьДаты=ЧастиДаты.ДатаВремя;
+		DateFraction=DateFractions.DateTime;
 	Иначе
-		ЧастьДаты=ЧастиДаты.Дата;
+		DateFraction=DateFractions.Date;
 	EndIf;
 	
-	КвалификаторДаты=New DateQualifiers(ЧастьДаты);
+	DateQualifier=New DateQualifiers(DateFraction);
 	
-	Описание=New TypeDescription;
-	If ТипыТипом.Количество()>0 Then 
-		Описание=New TypeDescription(Описание, ТипыТипом,,КвалификаторЧисла,КвалификаторСтроки,КвалификаторДаты);
+	Description=New TypeDescription;
+	If TypesByType.Количество()>0 Then 
+		Description=New TypeDescription(Description, TypesByType,,NumberQualifier,StringQualifier,DateQualifier);
 	EndIf;
-	If ТипыСтрокой.Количество()>0 Then 
-		Описание=New TypeDescription(Описание, СтрСоединить(ТипыСтрокой,","),,КвалификаторЧисла,КвалификаторСтроки,КвалификаторДаты);
+	If TypesByString.Количество()>0 Then 
+		Description=New TypeDescription(Description, СтрСоединить(TypesByString,","),,NumberQualifier,StringQualifier,DateQualifier);
 	EndIf;
 	
-	Закрыть(Описание);
+	Close(Description);
 EndProcedure
 
 #EndRegion
@@ -189,7 +189,7 @@ Function ТипыДляЗапроса()
 EndFunction
 
 &AtServer
-Function ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,ИмяТипа, Картинка, Представление = "", СтрокаДерева = Undefined, ЭтоГруппа = False, Групповой=False, НедоступенДляСоставногоТипа=False)
+Function ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,ИмяТипа, Картинка, Представление = "", СтрокаДерева = Undefined, ЭтоГруппа = False, Групповой=False, UnavailableForCompositeType=False)
 	
 	If ЗначениеЗаполнено(Представление) Then
 		ПредставлениеТипа=Представление;
@@ -214,7 +214,7 @@ Function ДобавитьТипВДеревоТипов(ЗаполнятьВыб
 	НоваяСтрока.Presentation=ПредставлениеТипа;
 	НоваяСтрока.Picture=Картинка;
 	НоваяСтрока.ЭтоГруппа=ЭтоГруппа;
-	НоваяСтрока.НедоступенДляСоставногоТипа=НедоступенДляСоставногоТипа;
+	НоваяСтрока.UnavailableForCompositeType=UnavailableForCompositeType;
 	
 	If ЗаполнятьВыбранныеТипы Then
 		Try
@@ -224,7 +224,7 @@ Function ДобавитьТипВДеревоТипов(ЗаполнятьВыб
 		EndTry;
 		If ТекТип<>Undefined Then
 			If InitialDataType.СодержитType(ТекТип) Then
-				SelectedTypes.Add(НоваяСтрока.Имя,,НоваяСтрока.НедоступенДляСоставногоТипа);
+				SelectedTypes.Add(НоваяСтрока.Имя,,НоваяСтрока.UnavailableForCompositeType);
 			EndIf;
 		EndIf;
 	EndIf;
@@ -408,20 +408,20 @@ Procedure УстановитьВыбранныеТипыВДереве(Стро�
 EndProcedure
 
 &AtClient
-Procedure ДобавитьВыбранныйType(СтрокаДереваИлиТип)
+Procedure AddSelectedType(СтрокаДереваИлиТип)
 	If TypeOf(СтрокаДереваИлиТип)=Type("Строка") Then
 		ИмяТипа=СтрокаДереваИлиТип;
-		НедоступенДляСоставногоТипа=False;
+		UnavailableForCompositeType=False;
 	 ElsIf TypeOf(СтрокаДереваИлиТип)=Type("ЭлементСпискаЗначений") Then
 		ИмяТипа=СтрокаДереваИлиТип.Значение;
-		НедоступенДляСоставногоТипа=СтрокаДереваИлиТип.Пометка;
+		UnavailableForCompositeType=СтрокаДереваИлиТип.Пометка;
 	Иначе
 		ИмяТипа=СтрокаДереваИлиТип.Имя;
-		НедоступенДляСоставногоТипа=СтрокаДереваИлиТип.НедоступенДляСоставногоТипа;
+		UnavailableForCompositeType=СтрокаДереваИлиТип.UnavailableForCompositeType;
 	EndIf;
 	
 	If SelectedTypes.НайтиПоЗначению(ИмяТипа)=Undefined Then
-		SelectedTypes.Add(ИмяТипа,,НедоступенДляСоставногоТипа);
+		SelectedTypes.Add(ИмяТипа,,UnavailableForCompositeType);
 	EndIf;
 EndProcedure
 &AtClient
@@ -465,11 +465,11 @@ EndProcedure
 Procedure ДеревоТиповВыбранПриИзмененииФрагмент(CurrentRow) Экспорт
 		
 	If CurrentRow.Selected Then
-		ДобавитьВыбранныйType(CurrentRow);
+		AddSelectedType(CurrentRow);
 	EndIf;
 
 	If SelectedTypes.Количество()=0 Then
-		ДобавитьВыбранныйType("Строка");
+		AddSelectedType("Строка");
 	EndIf;
 	
 	УстановитьВыбранныеТипыВДереве(TypesTree,SelectedTypes);
@@ -483,7 +483,7 @@ Procedure AddTypesToArrayByMetadataCollection(TypesArray, Collection, TypePrefix
 EndProcedure
 
 &AtServer
-Function МассивВыбранныхТипов()
+Function SelectedTypesArray()
 	TypesArray=New Array;
 	
 	For Each ЭлементТипа In SelectedTypes Do
