@@ -1955,7 +1955,7 @@
           <segments>ДеревоМетаданных.ИндексКартинки</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
-          <picture>CommonPicture.UI_MetadataObjectsTypes</picture>
+          <picture>CommonPicture.UT_MetadataObjectsTypes</picture>
         </rowsPicture>
         <searchStringLocation>None</searchStringLocation>
         <viewStatusLocation>None</viewStatusLocation>
@@ -2748,7 +2748,7 @@
               <segments>СписокКонстант.ИндексКартинки</segments>
             </rowPictureDataPath>
             <rowsPicture xsi:type="core:PictureRef">
-              <picture>CommonPicture.UI_MetadataObjectsTypes</picture>
+              <picture>CommonPicture.UT_MetadataObjectsTypes</picture>
             </rowsPicture>
             <searchStringLocation>None</searchStringLocation>
             <viewStatusLocation>None</viewStatusLocation>

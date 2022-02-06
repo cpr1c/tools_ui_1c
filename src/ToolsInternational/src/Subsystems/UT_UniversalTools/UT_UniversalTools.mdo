@@ -34,7 +34,7 @@
   <content>CommonPicture.UT_UniversalToolsSybsystem</content>
   <content>CommonPicture.UT_ExecuteScheduledJobManually</content>
   <content>CommonPicture.UT_ExchangePlanStates</content>
-  <content>CommonPicture.UI_MetadataObjectsTypes</content>
+  <content>CommonPicture.UT_MetadataObjectsTypes</content>
   <content>CommonPicture.UT_Information32</content>
   <content>CommonPicture.UT_QueryResult</content>
   <content>CommonPicture.UT_UploadingResult</content>
@@ -103,7 +103,7 @@
   <content>CommonPicture.UT_Boolean</content>
   <content>CommonPicture.UT_UUID</content>
   <content>CommonPicture.UT_Null</content>
-  <content>CommonPicture.UT_СustomType</content>
+  <content>CommonPicture.UT_ArbitraryType</content>
   <content>CommonPicture.UT_AccumulationRecordType</content>
   <content>CommonPicture.UT_Array</content>
   <content>DataProcessor.UT_ObjectsComparsion</content>
