@@ -144,7 +144,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ИспользоватьПроцедуруПередЗаписью</segments>
+          <segments>UseBeforeWriteProcedure</segments>
         </dataPath>
         <extendedTooltip>
           <name>ПолеРасширеннаяПодсказка5</name>
@@ -512,7 +512,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВставитьУникальныйИдентификатор</commandName>
+            <commandName>Form.Command.InsertUUID</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -774,7 +774,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Применить</commandName>
+      <commandName>Form.Command.Apply</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -822,11 +822,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -837,6 +837,10 @@
   <showCloseButton>true</showCloseButton>
   <attributes>
     <name>ПривелигированныйРежим</name>
+    <title>
+      <key>en</key>
+      <value>Privileged mode</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Привелигированный режим</value>
@@ -855,6 +859,10 @@
   <attributes>
     <name>ЗаписьВРежимеЗагрузки</name>
     <title>
+      <key>en</key>
+      <value>Writing in load mode (checks are disabled. DataExchange=True )</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Запись в режиме загрузки ( проверки отключены. ОбменДанными.Загрузка=Истина)</value>
     </title>
@@ -871,6 +879,10 @@
   </attributes>
   <attributes>
     <name>БезАвторегистрацииИзменений</name>
+    <title>
+      <key>en</key>
+      <value>Without changes autorecording</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Без авторегистрации изменений</value>
@@ -889,6 +901,10 @@
   <attributes>
     <name>ИспользоватьДопСвойства</name>
     <title>
+      <key>en</key>
+      <value>Use additional properties</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Использовать доп свойства</value>
     </title>
@@ -905,6 +921,10 @@
   </attributes>
   <attributes>
     <name>ДополнительныеСвойства</name>
+    <title>
+      <key>en</key>
+      <value>Additional properties (set before writing the object)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Дополнительные свойства (устанавилваются перед записью объекта)</value>
@@ -969,7 +989,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ИспользоватьПроцедуруПередЗаписью</name>
+    <name>UseBeforeWriteProcedure</name>
+    <title>
+      <key>en</key>
+      <value>Perform the procedure before recording or posting an object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить процедуру перед записью или проведением объекта</value>
@@ -987,6 +1011,10 @@
   </attributes>
   <attributes>
     <name>ПроцедураПередЗаписью</name>
+    <title>
+      <key>en</key>
+      <value>The algorithm in the 1C Script is executed before recording or posting an Object after setting Additional Properties (accessing the object through the Object variable)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Алгоритм на языке 1С, выполняется перед записью или проведением Объекта после установки ДополнительныхСвойств (обращение к объекту через переменную Объект)</value>
@@ -1009,6 +1037,10 @@
   <attributes>
     <name>ПолеАлгоритмаПередЗаписью</name>
     <title>
+      <key>en</key>
+      <value>Algorithm field before recording</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Поле алгоритма перед записью</value>
     </title>
@@ -1027,6 +1059,10 @@
   <attributes>
     <name>ТипОбъекта</name>
     <title>
+      <key>en</key>
+      <value>Object type</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Тип объекта</value>
     </title>
@@ -1042,7 +1078,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Применить</name>
+    <name>Apply</name>
+    <title>
+      <key>en</key>
+      <value>Apply</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Применить</value>
@@ -1053,13 +1093,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Применить</name>
+        <name>Apply</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВставитьУникальныйИдентификатор</name>
+    <name>InsertUUID</name>
+    <title>
+      <key>en</key>
+      <value>Insert unique reference ID</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вставить уникальный идентификатор...</value>
@@ -1077,7 +1121,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВставитьУникальныйИдентификатор</name>
+        <name>InsertUUID</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

@@ -664,6 +664,10 @@
       <value>Group string qualifier</value>
     </title>
     <toolTip>
+      <key>en</key>
+      <value>Group string qualifier</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Группа квалификатор строки</value>
     </toolTip>
@@ -866,6 +870,10 @@
       <value>Group number qualifier</value>
     </title>
     <toolTip>
+      <key>en</key>
+      <value>Group number qualifier</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Группа квалификатор числа</value>
     </toolTip>
@@ -992,6 +1000,10 @@
       <key>en</key>
       <value>Group date qualifier</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Group date qualifier</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа квалификатор даты</value>
