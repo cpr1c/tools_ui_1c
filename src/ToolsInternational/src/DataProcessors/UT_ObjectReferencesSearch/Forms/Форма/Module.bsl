@@ -1,3 +1,4 @@
+
 #Region EventHandlers
 
 &AtServer
@@ -6,8 +7,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		Object.SourceObject = Parameters.SearchObject;
 	EndIf;
 	
-	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
-	
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);	
 EndProcedure
 
 &AtClient
@@ -19,6 +19,7 @@ Procedure OnOpen(Cancel)
 EndProcedure
 
 #EndRegion
+
 
 #Region FormHeaderItemsEventHandlers
 
@@ -38,6 +39,7 @@ EndProcedure
 &AtClient
 Procedure SearchResultSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
+	
 	OpenCurrentRowObject();
 EndProcedure
 
@@ -57,6 +59,7 @@ Procedure SearchResultOnRowActivation(Item)
 EndProcedure
 
 #EndRegion
+
 
 #Region FormCommandHandlers
 
@@ -122,7 +125,6 @@ Procedure InputURLCompletion(InputResult, AdditionalParameters) Export
 		Object.SourceObject = FoundObject;
 		SourceObjectOnChange(Undefined);
 	EndIf;
-	
 EndProcedure
 
 //@skip-warning
@@ -132,6 +134,7 @@ Procedure Attachable_ExecuteToolsCommonCommand(Command)
 EndProcedure
 
 #EndRegion
+
 
 #Region Private
 
@@ -159,6 +162,7 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapCanBeOpened.Insert(12, True); // 12 Chart of accounts
 	MapCanBeOpened.Insert(13, True); // 13 External data source set
 	MapCanBeOpened.Insert(14, True); // 14 External data source reference
+	
 	MapReferenceType = New Map;
 	MapReferenceType.Insert(0, False); // 0
 	MapReferenceType.Insert(1, False); // 1 Constant
@@ -175,6 +179,7 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapReferenceType.Insert(12, True); // 12 Chart of accounts
 	MapReferenceType.Insert(13, False); // 13 External data source set
 	MapReferenceType.Insert(14, True); // 14 External data source reference
+	
 	MapOfPictures = New Map;
 	MapOfPictures.Insert(0, New Picture); // 0
 	MapOfPictures.Insert(1, PictureLib.Constant); // 1 Constant
@@ -191,6 +196,7 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapOfPictures.Insert(12, PictureLib.ChartOfAccounts); // 12 Chart of accounts
 	MapOfPictures.Insert(13, PictureLib.ExternalDataSourceTable); // 13 External data source set
 	MapOfPictures.Insert(14, PictureLib.ExternalDataSourceTable); // 14 External data source reference
+	
 	ArrayOfSearch = New Array;
 	ArrayOfSearch.Add(Object.SourceObject);
 
@@ -201,9 +207,9 @@ Procedure ExecuteReferencesSearchAtServer()
 
 	First = True;
 	For Each FoundRow In ReferencesTable Do
-	// 0 - find object
-	// 1 - found object
-	// 2 - metadata object
+		// 0 - find object
+		// 1 - found object
+		// 2 - metadata object
 		BaseTypeByNumber = MetadataTypyByNumber(FoundRow.Metadata);
 
 		FoundPresentation = FoundObjectPresentation(BaseTypeByNumber, FoundRow.Metadata,
@@ -225,7 +231,6 @@ Procedure ExecuteReferencesSearchAtServer()
 			First = False;
 		EndIf;
 	EndDo;
-
 EndProcedure
 
 &AtClient
@@ -239,7 +244,6 @@ Procedure OpenCurrentRowObject()
 	EndIf;
 
 	ShowValue( , CurrentData.FoundObject);
-
 EndProcedure
 
 &AtClient
@@ -260,106 +264,88 @@ Procedure ExecuteReferencesSearch()
 	Status(Msg, , , PictureLib.SearchControl);
 
 	ThisObject.CurrentItem = Items.SearchResult;
-
 EndProcedure
 
 &AtServerNoContext
 Function FoundObjectPresentation(BaseTypeByNumber, ObjectMetadata, FoundObject)
-
 	Presentation = TrimAll(FoundObject);
-	If BaseTypeByNumber = 2 OR BaseTypeByNumber = 3 OR BaseTypeByNumber = 8 OR BaseTypeByNumber = 9
-		OR BaseTypeByNumber = 10 OR BaseTypeByNumber = 11 OR BaseTypeByNumber = 12 OR BaseTypeByNumber = 14 Then
+	
+	If BaseTypeByNumber = 2 
+		OR BaseTypeByNumber = 3 
+		OR BaseTypeByNumber = 8 
+		OR BaseTypeByNumber = 9
+		OR BaseTypeByNumber = 10 
+		OR BaseTypeByNumber = 11 
+		OR BaseTypeByNumber = 12 
+		OR BaseTypeByNumber = 14 Then
 
-	ElsIf BaseTypeByNumber = 4 OR BaseTypeByNumber = 5 OR BaseTypeByNumber = 6 OR BaseTypeByNumber = 7 Then
-
+	ElsIf BaseTypeByNumber = 4 
+		OR BaseTypeByNumber = 5 
+		OR BaseTypeByNumber = 6 
+		OR BaseTypeByNumber = 7 Then
 		Presentation = "";
+		
 		If ObjectMetadata.InformationRegisterPeriodicity
 			<> Metadata.ObjectProperties.InformationRegisterPeriodicity.Nonperiodical Then
-
 			Presentation = String(FoundObject.Period);
-
 		EndIf;
 
 		If ObjectMetadata.WriteMode = Metadata.ObjectProperties.RegisterWriteMode.RecorderSubordinate Then
-
 			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
 				FoundObject.Recorder);
-
 		EndIf;
 
 		For Each Dimension In ObjectMetadata.Dimensions Do
-
 			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
 				FoundObject[Dimension.Name]);
-
 		EndDo;
-
 	ElsIf BaseTypeByNumber = 13 Then
-
 		Presentation = "";
+		
 		For Each Dimension In ObjectMetadata.KeyFields Do
-
 			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
 				FoundObject[Dimension.Name]);
-
 		EndDo;
 	EndIf;
 
 	Return Presentation;
-
 EndFunction
 
 &AtServerNoContext
 Function MetadataTypyByNumber(ObjectMetadata)
-
 	MetadataType = 0;
+	
 	If Metadata.Constants.Contains(ObjectMetadata) Then
-
 		MetadataType = 1;
 	ElsIf Metadata.Catalogs.Contains(ObjectMetadata) Then
-
 		MetadataType = 2;
 	ElsIf Metadata.Documents.Contains(ObjectMetadata) Then
-
 		MetadataType = 3;
 	ElsIf Metadata.AccumulationRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 4;
 	ElsIf Metadata.AccountingRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 5;
 	ElsIf Metadata.CalculationRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 6;
 	ElsIf Metadata.InformationRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 7;
 	ElsIf Metadata.BusinessProcesses.Contains(ObjectMetadata) Then
-
 		MetadataType = 8;
 	ElsIf Metadata.Tasks.Contains(ObjectMetadata) Then
-
 		MetadataType = 9;
 	ElsIf Metadata.ChartsOfCharacteristicTypes.Contains(ObjectMetadata) Then
-
 		MetadataType = 10;
 	ElsIf Metadata.ChartsOfCalculationTypes.Contains(ObjectMetadata) Then
-
 		MetadataType = 11;
 	ElsIf Metadata.ChartsOfAccounts.Contains(ObjectMetadata) Then
-
 		MetadataType = 12;
 	Else
 		For Each ExternalSource In Metadata.ExternalDataSources Do
-
 			If ExternalSource.Tables.Contains(ObjectMetadata) Then
-
 				If ObjectMetadata.TableDataType
 					= Metadata.ObjectProperties.ExternalDataSourceTableDataType.ObjectData Then
-
 					MetadataType = 14; // object table
 				Else
-
 					MetadataType = 13; // non-object table
 				EndIf;
 				Break;
@@ -368,7 +354,6 @@ Function MetadataTypyByNumber(ObjectMetadata)
 	EndIf;
 
 	Return MetadataType;
-
 EndFunction
 
 //TODO This function has to be moved to common modules. It is copied from UT_ObjectsAttributesEditor.ObjectForm
@@ -377,7 +362,8 @@ Function FindObjectByURL(Val URL)
 	Pos1 = Find(URL, "e1cib/data/");
 	Pos2 = Find(URL, "?ref=");
 
-	If Pos1 = 0 Or Pos2 = 0 Then
+	If Pos1 = 0
+		OR Pos2 = 0 Then
 		Return Undefined;
 	EndIf;
 
