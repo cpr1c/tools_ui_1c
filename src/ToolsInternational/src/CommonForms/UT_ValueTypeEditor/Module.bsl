@@ -74,9 +74,10 @@ Procedure TypesTreeSelectedOnChange(Item)
 			SelectedTypes.Clear();
 		 ElsIf CurrentRow.UnavailableForCompositeType Then
 			If SelectedTypes.Count()>0 Then
-				ShowQueryBox(New NotifyDescription("ДеревоТиповВыбранПриИзмененииЗавершение", ThisForm, New Structure("CurrentRow",CurrentRow)), "Выбран тип, который не может быть включен в составной тип данных.
-				|Будут исключены остальные типы данных.
-				|Продолжить?",QuestionDialogMode.YesNo);
+				ShowQueryBox(New NotifyDescription("TypesTreeSelectedOnChangeEnd", ThisForm, New Structure("CurrentRow",CurrentRow)),NSTR("ru = 'Выбран тип, который не может быть включен в составной тип данных.Будут исключены остальные типы данных.
+				|Продолжить?';
+				|en = 'A type is selected that cannot be included in a composite data type.Other data types will be excluded.
+				|Continue?'"),QuestionDialogMode.YesNo);
 	        	Return;
 			EndIf;
 		Else
@@ -89,9 +90,9 @@ Procedure TypesTreeSelectedOnChange(Item)
 			EndDo;
 			
 			If HaveUnavailableForCompositeType Then
-				ShowQueryBox(New NotifyDescription("ДеревоТиповВыбранПриИзмененииЗавершениеБылЗапрещенныйДляСоставногоТип", ThisForm, New Structure("CurrentRow",CurrentRow)), "Ранее был выбран тип, который не может быть 
-				|включен в составной тип данных и будет исключен.
-				|Продолжить?",QuestionDialogMode.YesNo);
+				ShowQueryBox(New NotifyDescription("TypesTreeSelectedOnChangeEndWasNotAllowedForCompositeType", ThisForm, New Structure("CurrentRow",CurrentRow)),NSTR("ru = 'Ранее был выбран тип, который не может быть включен в составной тип данных и будет исключен. Продолжить?';
+				|en = 'Previously, a type was selected that cannot be is included in the composite data type and will be excluded.
+				|Continue?'") ,QuestionDialogMode.YesNo);
 				Return;
 			EndIf;
 		EndIf;
@@ -102,7 +103,7 @@ Procedure TypesTreeSelectedOnChange(Item)
 		EndIf;
 		
 	EndIf;
-	ДеревоТиповВыбранПриИзмененииФрагмент(CurrentRow);
+	TypesTreeSelectedOnChangeFragment(CurrentRow);
 
 EndProcedure
 
@@ -205,7 +206,7 @@ Function AddTypeToTypesTree(FillSelectedTypes,TypeName, Picture, Presentation = 
 	
 	If TreeRow = Undefined Then
 		AdditionElement=TypesTree;
-	Иначе
+	Else
 		AdditionElement=TreeRow;
 	EndIf;
 
@@ -391,7 +392,7 @@ EndProcedure
 
 &AtClient
 Procedure ExpandTreeItems()
-	For каждого TreeRow In TypesTree.GetItems() Do 
+	For each TreeRow In TypesTree.GetItems() Do 
 		Items.TypesTree.Expand(TreeRow.GetID());
 	EndDo;
 EndProcedure
@@ -423,44 +424,44 @@ Procedure AddSelectedType(TreeRowOrType)
 	EndIf;
 EndProcedure
 &AtClient
-Procedure ДеревоТиповВыбранПриИзмененииЗавершение(РезультатВопроса, ДополнительныеПараметры) Экспорт
+Procedure TypesTreeSelectedOnChangeEnd(QuestionResult, AdditionalParameters) Export
 	
-	Ответ=РезультатВопроса;
+	Answer=QuestionResult;
 	
-	If Ответ=КодВозвратаДиалога.Нет Then
-		ДополнительныеПараметры.CurrentRow.Selected=False;
+	If Answer=DialogReturnCode.No Then
+		AdditionalParameters.CurrentRow.Selected=False;
 		Return;
-	КОнецЕсли;
+	EndIf;
 
 	SelectedTypes.Clear();
-	ДеревоТиповВыбранПриИзмененииФрагмент(ДополнительныеПараметры.CurrentRow);
+	TypesTreeSelectedOnChangeFragment(AdditionalParameters.CurrentRow);
 EndProcedure
 &AtClient
-Procedure ДеревоТиповВыбранПриИзмененииЗавершениеБылЗапрещенныйДляСоставногоType(РезультатВопроса, ДополнительныеПараметры) Экспорт
+Procedure TypesTreeSelectedOnChangeEndWasNotAllowedForCompositeType(QuestionResult, AdditionalParameters) Экспорт
 	
-	Ответ=РезультатВопроса;
+	Answer=QuestionResult;
 	
-	If Ответ=КодВозвратаДиалога.Нет Then
-		ДополнительныеПараметры.CurrentRow.Selected=False;
+	If Answer=DialogReturnCode.No Then
+		AdditionalParameters.CurrentRow.Selected=False;
 		Return;
-	КОнецЕсли;
+	EndIf;
 
-	МассивУдаляемыхЭлементов=New Array;
-	For Each Эл In SelectedTypes Do 
-		If Эл.Пометка Then
-			МассивУдаляемыхЭлементов.Add(Эл);
+	DeletedItemsArray=New Array;
+	For Each Item In SelectedTypes Do 
+		If Item.Check Then
+			DeletedItemsArray.Add(Item);
 		EndIf;
 	EndDo;
 	
-	For Each Эл In  МассивУдаляемыхЭлементов Do
-		SelectedTypes.Удалить(Эл);
+	For Each Item In  DeletedItemsArray Do
+		SelectedTypes.Delete(Item);
 	EndDo;
 	
-	ДеревоТиповВыбранПриИзмененииФрагмент(ДополнительныеПараметры.CurrentRow);
+	TypesTreeSelectedOnChangeFragment(AdditionalParameters.CurrentRow);
 EndProcedure
 
 &AtClient
-Procedure ДеревоТиповВыбранПриИзмененииФрагмент(CurrentRow) Экспорт
+Procedure TypesTreeSelectedOnChangeFragment(CurrentRow) Export
 		
 	If CurrentRow.Selected Then
 		AddSelectedType(CurrentRow);
