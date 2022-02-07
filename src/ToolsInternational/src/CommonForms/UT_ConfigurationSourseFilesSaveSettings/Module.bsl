@@ -1,48 +1,46 @@
+#Region Variables
 
+#EndRegion
 
-#Область ОписаниеПеременных
-
-#КонецОбласти
-
-#Область EventHandlers
+#Region EventHandlers
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	ИсточникиКода = UT_CodeEditorServer.ДоступныеИсточникиИсходногоКода();
+	CodeSources = UT_CodeEditorServer.ДоступныеИсточникиИсходногоКода();
 	
-	Для Каждого ТекИсточник ИЗ ИсточникиКода Цикл
-		НС = SaveDirectories.Добавить();
-		НС.Check = Истина;
-		НС.Source = ТекИсточник.Значение;
-		НС.OnlyModules = Истина;
+	For Each CurrentSource ИЗ CodeSources Do
+		NewRow = SaveDirectories.Add();
+		NewRow.Check = True;
+		NewRow.Source = CurrentSource.Value;
+		NewRow.OnlyModules = True;
 		
-		НС.Directory = Параметры.ТекущиеКаталоги[НС.Source];
-	КонецЦикла;
+		NewRow.Directory = Parameters.ТекущиеКаталоги[NewRow.Source];
+	EndDo;
 
-	СтрокаСоединения = СтрокаСоединенияИнформационнойБазы();
+	ConnectionString = InfoBaseConnectionString();
 
-	МассивПоказателейСтрокиСоединения = СтрРазделить(СтрокаСоединения, ";");
-	СоответствиеПоказателейСтрокиСоединения = Новый Структура;
-	Для Каждого СтрокаПоказателяСтрокиСоединения Из МассивПоказателейСтрокиСоединения Цикл
+	МассивПоказателейСтрокиСоединения = СтрРазделить(ConnectionString, ";");
+	СоответствиеПоказателейСтрокиСоединения = New Structure;
+	For Each СтрокаПоказателяСтрокиСоединения In МассивПоказателейСтрокиСоединения Do
 		МассивПоказателя = СтрРазделить(СтрокаПоказателяСтрокиСоединения, "=");
-		Если МассивПоказателя.Количество() <> 2 Тогда
-			Продолжить;
-		КонецЕсли;
+		If МассивПоказателя.Количество() <> 2 Then
+			Continue;
+		EndIf;
 		Показатель = НРег(МассивПоказателя[0]);
 		ЗначениеПоказателя = МассивПоказателя[1];
-		СоответствиеПоказателейСтрокиСоединения.Вставить(Показатель, ЗначениеПоказателя);
-	КонецЦикла;
+		СоответствиеПоказателейСтрокиСоединения.Insert(Показатель, ЗначениеПоказателя);
+	EndDo;
 
-	Если СоответствиеПоказателейСтрокиСоединения.Свойство("file") Тогда
+	If СоответствиеПоказателейСтрокиСоединения.Свойство("file") Then
 		InfobasePlacement = 0;
 		InfobaseDirectory = UT_StringFunctionsClientServer.PathWithoutQuotes(
 			СоответствиеПоказателейСтрокиСоединения.File);
-	ИначеЕсли СоответствиеПоказателейСтрокиСоединения.Свойство("srvr") Тогда
+	ElsIf СоответствиеПоказателейСтрокиСоединения.Свойство("srvr") Then
 		InfobasePlacement = 1;
 		InfobaseServer = UT_StringFunctionsClientServer.PathWithoutQuotes(СоответствиеПоказателейСтрокиСоединения.srvr);
-		DataBaseName = UT_StringFunctionsClientServer.PathWithoutQuotes(СоответствиеПоказателейСтрокиСоединения.ref);
-	КонецЕсли;
-	User = ИмяПользователя();
+		InfoBaseName = UT_StringFunctionsClientServer.PathWithoutQuotes(СоответствиеПоказателейСтрокиСоединения.ref);
+	EndIf;
+	User = UserName();
 
 	УстановитьВидимостьДоступность();
 	
@@ -51,43 +49,43 @@ EndProcedure
 
 &AtServer
 Procedure FillCheckProcessingAtServer(Cancel, CheckedAttributes)
-	Для Каждого Стр Из SaveDirectories Цикл
-		Если Не Стр.Check Тогда
-			Продолжить;
-		КонецЕсли;
+	For Each Стр In SaveDirectories Do
+		If Not Стр.Check Then
+			Continue;
+		EndIf;
 		
-		Если Не ЗначениеЗаполнено(Стр.Каталог) Тогда
-			UT_CommonClientServer.MessageToUser("Для источника "+Стр.Source+" не указан Directory сохранения", , , , Cancel);
-		КонецЕсли;
-	КонецЦикла;
+		If Not ValueIsFilled(Стр.Каталог) Then
+			UT_CommonClientServer.MessageToUser("For источника "+Стр.Source+" не указан Directory сохранения", , , , Cancel);
+		EndIf;
+	EndDo;
 	
-	Если InfobasePlacement = 0 Тогда
-		CheckedAttributes.Добавить("InfobaseDirectory");
+	If InfobasePlacement = 0 Then
+		CheckedAttributes.Add("InfobaseDirectory");
 	Иначе
-		CheckedAttributes.Добавить("InfobaseServer");
-		CheckedAttributes.Добавить("InfoBaseName");
-	КонецЕсли;
+		CheckedAttributes.Add("InfobaseServer");
+		CheckedAttributes.Add("InfoBaseName");
+	EndIf;
 EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-	#Если Не ВебКлиент И Не МобильныйКлиент Тогда
-	PlatformLaunchFile = КаталогПрограммы();
-	Если Прав(PlatformLaunchFile, 1) <> ПолучитьРазделительПути() Тогда
-		PlatformLaunchFile = PlatformLaunchFile + ПолучитьРазделительПути();
-	КонецЕсли;
+	#If Not ВебКлиент And Not МобильныйКлиент Then
+	PlatformLaunchFile = BinDir();
+	If Right(PlatformLaunchFile, 1) <> GetPathSeparator() Then
+		PlatformLaunchFile = PlatformLaunchFile + GetPathSeparator();
+	EndIf;
 	
 	PlatformLaunchFile = PlatformLaunchFile + "1cv8";	
-	Если UT_CommonClientServer.IsWindows() Тогда
+	If UT_CommonClientServer.IsWindows() Then
 		PlatformLaunchFile = PlatformLaunchFile + ".exe";
-	КонецЕсли;
+	EndIf;
 	
 	#КонецЕсли
 EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиСобытийЭлементовШапкиФормы
+#Region ОбработчикиСобытийЭлементовШапкиФормы
 
 &AtClient
 Procedure InfobasePlacementOnChange(Item)
@@ -101,33 +99,33 @@ Procedure PlatformLaunchFileStartChoice(Item, ChoiceData, StandardProcessing)
 
 	ИмяФайла = "1cv8";
 	
-	Если UT_CommonClientServer.IsWindows() Тогда
+	If UT_CommonClientServer.IsWindows() Then
 		ИмяФайла = ИмяФайла+".exe";
-	КонецЕсли;
+	EndIf;
 	
 	UT_CommonClient.AddFormatToSavingFileDescription(ОписаниеФайла, "Файл толстого клиента 1С("+ИмяФайла+")", "",ИмяФайла);
 	
 	UT_CommonClient.FormFieldFileNameStartChoice(ОписаниеФайла, Item, ChoiceData, StandardProcessing,
-		РежимДиалогаВыбораФайла.Открытие,
-		Новый ОписаниеОповещения("ФайлЗапускаПлатформыНачалоВыбораЗавершение", ЭтотОбъект));
+		FileDialogMode.Open,
+		New NotifyDescription("ФайлЗапускаПлатформыНачалоВыбораЗавершение", ЭтотОбъект));
 EndProcedure
 
 &AtClient
 Procedure SaveDirectoriesDirectoryStartChoice(Item, ChoiceData, StandardProcessing)
-	ТекДанные = Элементы.SaveDirectories.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	ТекДанные = Items.SaveDirectories.CurrentData;
+	If ТекДанные = Undefined Then
+		Return;
+	EndIf;
 	
 	ОписаниеФайла = UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
 	ОписаниеФайла.ИмяФайла = ТекДанные.Directory;
 	
-	ДопПараметрыОповещения = Новый Структура;
-	ДопПараметрыОповещения.Вставить("ТекущаяСтрока", Элементы.SaveDirectories.ТекущаяСтрока);
+	ДопПараметрыОповещения = New Structure;
+	ДопПараметрыОповещения.Insert("ТекущаяСтрока", Items.SaveDirectories.CurrentRow);
 	
 	UT_CommonClient.FormFieldFileNameStartChoice(ОписаниеФайла, Item, ChoiceData, StandardProcessing,
-		РежимДиалогаВыбораФайла.ВыборКаталога,
-		Новый ОписаниеОповещения("КаталогиСохраненияКаталогНачалоВыбораЗаверешение", ЭтотОбъект,
+		FileDialogMode.ChooseDirectory,
+		New NotifyDescription("КаталогиСохраненияКаталогНачалоВыбораЗаверешение", ЭтотОбъект,
 		ДопПараметрыОповещения));
 EndProcedure
 
@@ -138,148 +136,148 @@ Procedure InfobaseDirectoryStartChoice(Item, ChoiceData, StandardProcessing)
 	
 	UT_CommonClient.FormFieldFileNameStartChoice(ОписаниеФайла, Item, ChoiceData, StandardProcessing,
 		РежимДиалогаВыбораФайла.ВыборКаталога,
-		Новый ОписаниеОповещения("КаталогиСохраненияКаталогНачалоВыбораЗаверешение", ЭтотОбъект));
+		New NotifyDescription("КаталогиСохраненияКаталогНачалоВыбораЗаверешение", ЭтотОбъект));
 EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиКомандФормы
+#Region FormCommandsEventHandlers
 
-&НаКлиенте
-Процедура SelectCommonSaveDirectory(Команда)
-	ДВФ = Новый ДиалогВыбораФайла(РежимДиалогаВыбораФайла.ВыборКаталога);
-	ДВФ.МножественныйВыбор = Ложь;
-	ДВФ.Показать(Новый ОписаниеОповещения("ВыбратьОбщийКаталогСохраненияЗавершение", ЭтотОбъект));
-КонецПроцедуры
+&AtClient
+Procedure SelectCommonSaveDirectory(Команда)
+	ДВФ = New ДиалогВыбораФайла(РежимДиалогаВыбораФайла.ВыборКаталога);
+	ДВФ.МножественныйВыбор = False;
+	ДВФ.Показать(New NotifyDescription("ВыбратьОбщийКаталогСохраненияЗавершение", ЭтотОбъект));
+EndProcedure
 
-&НаКлиенте
-Процедура SetChecks(Command)
-	Для Каждого Стр Из SaveDirectories Цикл
-		Стр.Check = Истина;
-	КонецЦикла;
-КонецПроцедуры
+&AtClient
+Procedure SetChecks(Command)
+	For Each Стр In SaveDirectories Do
+		Стр.Check = True;
+	EndDo;
+EndProcedure
 
 &AtClient
 Procedure UnsetChecks(Command)
-	Для Каждого Стр Из SaveDirectories Цикл
-		Стр.Check = Ложь;
-	КонецЦикла;	
+	For Each Стр In SaveDirectories Do
+		Стр.Check = False;
+	EndDo;	
 EndProcedure
 
-&НаКлиенте
-Процедура UnloadSourceModules(Command)
-	Если Не ПроверитьЗаполнение() Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure UnloadSourceModules(Command)
+	If Not ПроверитьЗаполнение() Then
+		Return;
+	EndIf;
 	
-	КаталогиИсточников= Новый Массив();
+	КаталогиИсточников= New Array();
 	
-	Для Каждого Стр Из SaveDirectories Цикл
-		Если Не Стр.Check Тогда
-			Продолжить;
-		КонецЕсли;
+	For Each Стр In SaveDirectories Do
+		If Not Стр.Check Then
+			Continue;
+		EndIf;
 		
-		ОписаниеИсточника = Новый Структура;
-		ОписаниеИсточника.Вставить("Source", Стр.Источник);
-		ОписаниеИсточника.Вставить("Directory", Стр.Каталог);
-		ОписаниеИсточника.Вставить("OnlyModules", Стр.OnlyModules);
+		ОписаниеИсточника = New Structure;
+		ОписаниеИсточника.Insert("Source", Стр.Источник);
+		ОписаниеИсточника.Insert("Directory", Стр.Каталог);
+		ОписаниеИсточника.Insert("OnlyModules", Стр.OnlyModules);
 		
-		КаталогиИсточников.Добавить(ОписаниеИсточника);
-	КонецЦикла;
+		КаталогиИсточников.Add(ОписаниеИсточника);
+	EndDo;
 	
-	НастройкиСохранения = Новый Структура;
-	НастройкиСохранения.Вставить("PlatformLaunchFile", PlatformLaunchFile);
-	НастройкиСохранения.Вставить("User", User);
-	НастройкиСохранения.Вставить("Password", Password);
-	НастройкиСохранения.Вставить("КаталогиИсточников", КаталогиИсточников);
-	НастройкиСохранения.Вставить("InfobasePlacement", InfobasePlacement);
-	Если InfobasePlacement = 0 Тогда
-		НастройкиСохранения.Вставить("InfobaseDirectory", InfobaseDirectory);
+	НастройкиСохранения = New Structure;
+	НастройкиСохранения.Insert("PlatformLaunchFile", PlatformLaunchFile);
+	НастройкиСохранения.Insert("User", User);
+	НастройкиСохранения.Insert("Password", Password);
+	НастройкиСохранения.Insert("КаталогиИсточников", КаталогиИсточников);
+	НастройкиСохранения.Insert("InfobasePlacement", InfobasePlacement);
+	If InfobasePlacement = 0 Then
+		НастройкиСохранения.Insert("InfobaseDirectory", InfobaseDirectory);
 	Иначе
-		НастройкиСохранения.Вставить("InfobaseServer", InfobaseServer);
-		НастройкиСохранения.Вставить("InfoBaseName", InfoBaseName);
-	КонецЕсли;
+		НастройкиСохранения.Insert("InfobaseServer", InfobaseServer);
+		НастройкиСохранения.Insert("InfoBaseName", InfoBaseName);
+	EndIf;
 	
 	Закрыть(НастройкиСохранения);
-КонецПроцедуры
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область СлужебныеПроцедурыИФункции
+#Region Private
 
-&НаСервере
-Процедура УстановитьВидимостьДоступность()
-	Если InfobasePlacement = 0 Тогда
-		НоваяСтраница = Элементы.GroupFileInfobase;
+&AtServer
+Procedure УстановитьВидимостьДоступность()
+	If InfobasePlacement = 0 Then
+		НоваяСтраница = Items.GroupFileInfobase;
 	Иначе
-		НоваяСтраница = Элементы.GroupServerInfoBase;
-	КонецЕсли;
+		НоваяСтраница = Items.GroupServerInfoBase;
+	EndIf;
 	
-	Элементы.GroupPagesInfobasePlacement.ТекущаяСтраница = НоваяСтраница;
-КонецПроцедуры
+	Items.GroupPagesInfobasePlacement.ТекущаяСтраница = НоваяСтраница;
+EndProcedure
 
-&НаКлиенте
-Процедура ФайлЗапускаПлатформыНачалоВыбораЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure ФайлЗапускаПлатформыНачалоВыбораЗавершение(Результат, ДополнительныеПараметры) Экспорт
+	If Результат = Undefined Then
+		Return;
+	EndIf;
 	
-	Если Результат.Количество() = 0  Тогда
-		Возврат;
-	КонецЕсли;
+	If Результат.Количество() = 0  Then
+		Return;
+	EndIf;
 	
 	PlatformLaunchFile = Результат[0];
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ВыбратьОбщийКаталогСохраненияЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure ВыбратьОбщийКаталогСохраненияЗавершение(Результат, ДополнительныеПараметры) Экспорт
+	If Результат = Undefined Then
+		Return;
+	EndIf;
 	
-	Если Результат.Количество()=0 Тогда
-		Возврат;
-	КонецЕсли;
+	If Результат.Количество()=0 Then
+		Return;
+	EndIf;
 	
 	ОбщийКаталогСохранения = Результат[0];
 	
-	Для Каждого ТекСТр Из SaveDirectories Цикл
-//		Если ЗначениеЗаполнено(ТекСТр.Directory) Тогда
-//			Продолжить;
-//		КонецЕсли;
+	For Each ТекСТр In SaveDirectories Do
+//		If ЗначениеЗаполнено(ТекСТр.Directory) Then
+//			Continue;
+//		EndIf;
 //		
 		ТекСТр.Directory = ОбщийКаталогСохранения + ПолучитьРазделительПути() + ТекСТр.Source;
-	КонецЦикла;
+	EndDo;
 	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура КаталогиСохраненияКаталогНачалоВыбораЗаверешение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure КаталогиСохраненияКаталогНачалоВыбораЗаверешение(Результат, ДополнительныеПараметры) Экспорт
+	If Результат = Undefined Then
+		Return;
+	EndIf;
 	
-	Если Результат.Количество()=0 Тогда
-		Возврат;
-	КонецЕсли;
+	If Результат.Количество()=0 Then
+		Return;
+	EndIf;
 	
 	ТекДанные = SaveDirectories.НайтиПоИдентификатору(ДополнительныеПараметры.ТекущаяСтрока);
 	ТекДанные.Directory = Результат[0];
 	
-	Модифицированность = Истина;
-КонецПроцедуры
+	Модифицированность = True;
+EndProcedure
 
-&НаКлиенте
-Процедура КаталогИнформационнойБазыНачалоВыбораЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure КаталогИнформационнойБазыНачалоВыбораЗавершение(Результат, ДополнительныеПараметры) Экспорт
+	If Результат = Undefined Then
+		Return;
+	EndIf;
 	
-	Если Результат.Количество() = 0  Тогда
-		Возврат;
-	КонецЕсли;
+	If Результат.Количество() = 0  Then
+		Return;
+	EndIf;
 	
 	InfobaseDirectory = Результат[0];
 	
-КонецПроцедуры
-#КонецОбласти
+EndProcedure
+#EndRegion
