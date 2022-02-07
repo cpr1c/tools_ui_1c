@@ -158,6 +158,7 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapCanBeOpened.Insert(7, True); // 7 Information register
 	MapCanBeOpened.Insert(8, True); // 8 Business process
 	MapCanBeOpened.Insert(9, True); // 9 Task
+	MapCanBeOpened.Insert(10, True); // 10 Chart of characteristic types
 	MapCanBeOpened.Insert(11, True); // 11 Chart of calculation types
 	MapCanBeOpened.Insert(12, True); // 12 Chart of accounts
 	MapCanBeOpened.Insert(13, True); // 13 External data source set
@@ -260,7 +261,7 @@ Procedure ExecuteReferencesSearch()
 	
 	ExecuteReferencesSearchAtServer();
 	
-	Msg = NStr("ru = 'Поиск ссылок на объект завершен'; en = 'Object references search has been completed'");
+	Msg = NStr("ru = 'Поиск ссылок на объект завершен'; en = 'Object references search completed'");
 	Status(Msg, , , PictureLib.SearchControl);
 
 	ThisObject.CurrentItem = Items.SearchResult;
