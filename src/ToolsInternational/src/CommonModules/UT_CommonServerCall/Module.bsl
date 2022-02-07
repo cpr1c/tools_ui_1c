@@ -560,7 +560,7 @@ Function TempTablesManagerTempTablesStructure(TempTablesManager) Export
 EndFunction
 
 //https://infostart.ru/public/1207287/
-Function ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable, ListOfComparisonColumns) Export
+Function ExecuteTwoValueTablesComparison(BaseTable, ComparisonTable, ListOfComparisonColumns) Export
 	ColumsList = UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(ListOfComparisonColumns, ",", True);
 	//The resulting table
 	TempTable = New ValueTable;
@@ -586,13 +586,13 @@ Function ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable, ListOfCompa
 
 		FindRows = ComparableTable.FindRows(SearchStringsFilter);
 		If FindRows.Count() > 0 Then
-			ComparsionString = FindRows[0];
-			NewRow.NumberOfRowComparison = ComparsionString.RowNumber;
+			ComparisonString = FindRows[0];
+			NewRow.NumberOfRowComparison = ComparisonString.RowNumber;
 			For Each Colum In ColumsList Do
 				Attribute = Colum + "Comparison";
-				NewRow[Attribute] = ComparsionString[Colum];
+				NewRow[Attribute] = ComparisonString[Colum];
 			EndDo;
-			ComparsionString.AlreadyUsing = True;
+			ComparisonString.AlreadyUsing = True;
 		EndIf;
 	EndDo;
 	//See what's left +++
@@ -600,7 +600,7 @@ Function ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable, ListOfCompa
 	FindRows = ComparableTable.FindRows(SearchStringFilter);
 	For Each Row In FindRows Do
 		NewRow = TempTable.Add();
-		NewRow.NumberOfRowComparsion = Row.RowNumber;
+		NewRow.NumberOfRowComparison = Row.RowNumber;
 		For Each Colum In ColumsList Do
 			Attribute = Colum + "Comparison";
 			NewRow[Attribute] = Row[Colum];
