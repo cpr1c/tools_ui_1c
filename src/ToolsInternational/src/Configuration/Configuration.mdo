@@ -148,7 +148,7 @@
   <dataProcessors>DataProcessor.UT_MarkedObjectsDeletion</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
-  <dataProcessors>DataProcessor.UT_ObjectsComparsion</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ObjectsComparison</dataProcessors>
   <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_Support</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
