@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаПараметры</name>
+    <name>GroupParameters</name>
     <id>65</id>
     <items xsi:type="form:Table">
-      <name>Объекты</name>
+      <name>Objects</name>
       <id>14</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -12,11 +12,11 @@
         <common>true</common>
       </userVisible>
       <dataPath xsi:type="form:DataPath">
-        <segments>Объекты</segments>
+        <segments>Objects</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <items xsi:type="form:FormField">
-        <name>ОбъектыЗначение</name>
+        <name>ObjectsValue</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -25,11 +25,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объекты.Value</segments>
+            <segments>Objects.Value</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ОбъектыЗначениеРасширеннаяПодсказка</name>
+          <name>ObjectsValueExtendedTooltip</name>
           <id>29</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -44,7 +44,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ОбъектыЗначениеКонтекстноеМеню</name>
+          <name>ObjectsValueContextMenu</name>
           <id>28</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -68,10 +68,10 @@
         </extInfo>
       </items>
       <autoCommandBar>
-        <name>ОбъектыКоманднаяПанель</name>
+        <name>ObjectsCommandBar</name>
         <id>16</id>
         <items xsi:type="form:Button">
-          <name>ОбъектыДобавить</name>
+          <name>ObjectsAdd</name>
           <id>51</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -79,7 +79,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОбъектыДобавитьРасширеннаяПодсказка</name>
+            <name>ObjectsAddExtendedTooltip</name>
             <id>52</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -93,7 +93,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.Объекты.StandardCommand.Add</commandName>
+          <commandName>Form.Item.Objects.StandardCommand.Add</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -101,7 +101,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОбъектыИзменить</name>
+          <name>ObjectsEdit</name>
           <id>53</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -109,7 +109,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОбъектыИзменитьРасширеннаяПодсказка</name>
+            <name>ObjectsEditExtendedTooltip</name>
             <id>54</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -123,7 +123,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.Объекты.StandardCommand.Change</commandName>
+          <commandName>Form.Item.Objects.StandardCommand.Change</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -131,7 +131,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОбъектыУдалить</name>
+          <name>ObjectsDelete</name>
           <id>55</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -139,7 +139,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОбъектыУдалитьРасширеннаяПодсказка</name>
+            <name>ObjectsDeleteExtendedTooltip</name>
             <id>56</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -153,7 +153,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.Объекты.StandardCommand.Delete</commandName>
+          <commandName>Form.Item.Objects.StandardCommand.Delete</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -161,7 +161,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОбъектыПереместитьВверх</name>
+          <name>ObjectsMoveUp</name>
           <id>57</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -169,7 +169,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОбъектыПереместитьВверхРасширеннаяПодсказка</name>
+            <name>ObjectsMoveUpExtendedTooltip</name>
             <id>58</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -183,7 +183,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.Объекты.StandardCommand.MoveUp</commandName>
+          <commandName>Form.Item.Objects.StandardCommand.MoveUp</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -191,7 +191,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОбъектыПереместитьВниз</name>
+          <name>ObjectsMoveDown</name>
           <id>59</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -199,7 +199,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОбъектыПереместитьВнизРасширеннаяПодсказка</name>
+            <name>ObjectsMoveDownExtendedTooltip</name>
             <id>60</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -213,7 +213,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.Объекты.StandardCommand.MoveDown</commandName>
+          <commandName>Form.Item.Objects.StandardCommand.MoveDown</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -221,7 +221,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОбъектыСортироватьСписокПоВозрастанию</name>
+          <name>ObjectsSortListAscending</name>
           <id>61</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -229,7 +229,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОбъектыСортироватьСписокПоВозрастаниюРасширеннаяПодсказка</name>
+            <name>ObjectsSortListAscendingExtendedTooltip</name>
             <id>62</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -243,7 +243,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.Объекты.StandardCommand.SortListAsc</commandName>
+          <commandName>Form.Item.Objects.StandardCommand.SortListAsc</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -251,7 +251,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОбъектыСортироватьСписокПоУбыванию</name>
+          <name>ObjectsSortListDescending</name>
           <id>63</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -259,7 +259,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОбъектыСортироватьСписокПоУбываниюРасширеннаяПодсказка</name>
+            <name>ObjectsSortListDescendingExtendedTooltip</name>
             <id>64</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -273,7 +273,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.Объекты.StandardCommand.SortListDesc</commandName>
+          <commandName>Form.Item.Objects.StandardCommand.SortListDesc</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -293,10 +293,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <name>ОбъектыСтрокаПоиска</name>
+        <name>ObjectsSearchString</name>
         <id>18</id>
         <extendedTooltip>
-          <name>ОбъектыСтрокаПоискаРасширеннаяПодсказка</name>
+          <name>ObjectsSearchStringExtendedTooltip</name>
           <id>20</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -311,7 +311,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ОбъектыСтрокаПоискаКонтекстноеМеню</name>
+          <name>ObjectsSearchStringContextMenu</name>
           <id>19</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -330,10 +330,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <name>ОбъектыСостояниеПросмотра</name>
+        <name>ObjectsViewStatus</name>
         <id>21</id>
         <extendedTooltip>
-          <name>ОбъектыСостояниеПросмотраРасширеннаяПодсказка</name>
+          <name>ObjectsViewStatusExtendedTooltip</name>
           <id>23</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -348,7 +348,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ОбъектыСостояниеПросмотраКонтекстноеМеню</name>
+          <name>ObjectsViewStatusContextMenu</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -368,10 +368,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <name>ОбъектыУправлениеПоиском</name>
+        <name>ObjectsSearchControl</name>
         <id>24</id>
         <extendedTooltip>
-          <name>ОбъектыУправлениеПоискомРасширеннаяПодсказка</name>
+          <name>ObjectsSearchControlExtendedTooltip</name>
           <id>26</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -386,7 +386,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ОбъектыУправлениеПоискомКонтекстноеМеню</name>
+          <name>ObjectsSearchControlContextMenu</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -401,7 +401,7 @@
         </extInfo>
       </searchControlAddition>
       <extendedTooltip>
-        <name>ОбъектыРасширеннаяПодсказка</name>
+        <name>ObjectsExtendedTooltip</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -416,7 +416,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ОбъектыКонтекстноеМеню</name>
+        <name>ObjectsContextMenu</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -442,7 +442,7 @@
       <horizontalStretch>true</horizontalStretch>
       <verticalStretch>true</verticalStretch>
       <rowPictureDataPath xsi:type="form:DataPath">
-        <segments>Объекты.Picture</segments>
+        <segments>Objects.Picture</segments>
       </rowPictureDataPath>
     </items>
     <enabled>true</enabled>
@@ -451,14 +451,14 @@
     </userVisible>
     <title>
       <key>ru</key>
-      <value>Группа параметры</value>
+      <value>Group parameters</value>
     </title>
     <toolTip>
       <key>ru</key>
       <value>Группа параметры</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаПараметрыРасширеннаяПодсказка</name>
+      <name>GroupParametersExtendedTooltip</name>
       <id>66</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -482,7 +482,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ТабличныйДокумент</name>
+    <name>SpreadsheetDocument</name>
     <id>72</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -491,12 +491,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ТабличныйДокумент</segments>
+        <segments>SpreadsheetDocument</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ТабличныйДокументРасширеннаяПодсказка</name>
+      <name>SpreadsheetDocumentExtendedTooltip</name>
       <id>74</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -511,7 +511,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТабличныйДокументКонтекстноеМеню</name>
+      <name>SpreadsheetDocumentContextMenu</name>
       <id>73</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -576,7 +576,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаПараметры</name>
+      <name>FormParameters</name>
       <id>67</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -584,7 +584,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаПараметрыРасширеннаяПодсказка</name>
+        <name>FormParametersExtendedTooltip</name>
         <id>68</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -598,7 +598,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Параметры</commandName>
+      <commandName>Form.Command.Parameters</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -606,14 +606,14 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ОбъектыГруппаОбъектыКСравнению</name>
+      <name>ObjectsGroupObjectsToComparision</name>
       <id>77</id>
       <items xsi:type="form:Button">
-        <name>ОбъектыДобавитьРанееДобавленныеКСравнению</name>
+        <name>AddObjectsAddedToComparisonEarly</name>
         <id>75</id>
         <title>
           <key>ru</key>
-          <value>Добавить к списку</value>
+          <value>Add to list</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -621,7 +621,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ОбъектыДобавитьРанееДобавленныеКСравнениюРасширеннаяПодсказка</name>
+          <name>AddObjectsAddedToComparisonEarlyExtendedTooltip</name>
           <id>76</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -635,7 +635,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ДобавитьРанееДобавленныеКСравнению</commandName>
+        <commandName>Form.Command.AddObjectsAddedToComparisonEarly</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -643,11 +643,11 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ОбъектыОчиститьРанееДобавленныеКСравнению</name>
+        <name>ClearObjectsAdedToComparisionEarly</name>
         <id>79</id>
         <title>
           <key>ru</key>
-          <value>Очистить</value>
+          <value>Clear</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -655,7 +655,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ОбъектыОчиститьРанееДобавленныеКСравнениюРасширеннаяПодсказка</name>
+          <name>ClearObjectsAdedToComparisionEarlyExtendedTooltip</name>
           <id>80</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -669,7 +669,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОчиститьРанееДобавленныеКСравнению</commandName>
+        <commandName>Form.Command.ClearObjectsAdedToComparisionEarly</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -683,14 +683,14 @@
       </userVisible>
       <title>
         <key>ru</key>
-        <value>Объекты добавленные к сравнению</value>
+        <value>Objects added to comparison</value>
       </title>
       <toolTip>
         <key>ru</key>
-        <value>Объекты группа объекты к сравнению</value>
+        <value>Objects group objects to comparis</value>
       </toolTip>
       <extendedTooltip>
-        <name>ОбъектыГруппаОбъектыКСравнениюРасширеннаяПодсказка</name>
+        <name>ObjectsGroupObjectsToComparisionExtendedTooltip</name>
         <id>78</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -719,7 +719,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <autoTitle>true</autoTitle>
@@ -733,7 +733,7 @@
   <attributes>
     <name>Object</name>
     <title>
-      <key>en</key>
+      <key>ru</key>
       <value>Object</value>
     </title>
     <id>1</id>
@@ -749,10 +749,10 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Объекты</name>
+    <name>Objects</name>
     <title>
       <key>ru</key>
-      <value>Объекты</value>
+      <value>Objects</value>
     </title>
     <id>3</id>
     <valueType>
@@ -769,10 +769,10 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>ТабличныйДокумент</name>
+    <name>SpreadsheetDocument</name>
     <title>
       <key>ru</key>
-      <value>Табличный документ</value>
+      <value>Spreadsheet document</value>
     </title>
     <id>5</id>
     <valueType>
@@ -808,10 +808,10 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Параметры</name>
+    <name>Parameters</name>
     <title>
       <key>ru</key>
-      <value>Параметры</value>
+      <value>Parameters</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -829,15 +829,15 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРанееДобавленныеКСравнению</name>
+    <name>AddObjectsAddedToComparisonEarly</name>
     <title>
       <key>ru</key>
-      <value>Добавить ранее добавленные к сравнению</value>
+      <value>Add objects added to comparison early</value>
     </title>
     <id>3</id>
     <toolTip>
       <key>ru</key>
-      <value>Добавить ранее добавленные к сравнению</value>
+      <value>Add objects added to comparison early</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -847,17 +847,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРанееДобавленныеКСравнению</name>
+        <name>AddObjectsAddedToComparisonEarly</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОчиститьРанееДобавленныеКСравнению</name>
+    <name>ClearObjectsAdedToComparisionEarly</name>
     <title>
       <key>ru</key>
-      <value>Очистить ранее добавленные к сравнению</value>
+      <value>Clear objects aded to comparision early</value>
     </title>
     <id>4</id>
     <toolTip>
