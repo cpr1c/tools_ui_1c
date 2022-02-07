@@ -3,12 +3,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>СписокСсылокНомерСообщения</field>
+				<field>RefsListMessageNo</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">СписокСсылок.НеВыгружалось</left>
+				<left xsi:type="dcscor:Field">RefsList.NotExported</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:boolean">true</right>
 			</item>
@@ -27,12 +27,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>СписокКонстантНомерСообщения</field>
+				<field>ConstantsListMessageNo</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">СписокКонстант.НеВыгружалось</left>
+				<left xsi:type="dcscor:Field">ConstantsList.NotExported</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:boolean">true</right>
 			</item>
@@ -51,12 +51,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>СписокНаборовЗаписейНомерСообщения</field>
+				<field>RecordSetsListMessageNo</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">СписокНаборовЗаписей.НеВыгружалось</left>
+				<left xsi:type="dcscor:Field">RecordSetsList.NotExported</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:boolean">true</right>
 			</item>
@@ -75,12 +75,12 @@
 	<item>
 		<selection>
 			<item>
-				<field>ДеревоМетаданныхКоличествоИзмененийСтрокой</field>
+				<field>MetadataTreeChangeCountString</field>
 			</item>
 		</selection>
 		<filter>
 			<item xsi:type="FilterItemComparison">
-				<left xsi:type="dcscor:Field">ДеревоМетаданных.КоличествоИзменений</left>
+				<left xsi:type="dcscor:Field">MetadataTree.ChangeCount</left>
 				<comparisonType>Equal</comparisonType>
 				<right xsi:type="xs:decimal">0</right>
 			</item>
