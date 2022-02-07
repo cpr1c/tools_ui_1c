@@ -369,7 +369,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_ObjectsComparsion</name>
+		<name>DataProcessor.UT_ObjectsComparison</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
