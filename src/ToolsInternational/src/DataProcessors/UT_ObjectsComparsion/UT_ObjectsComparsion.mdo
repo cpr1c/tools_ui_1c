@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d01eede0-3d22-11eb-5899-e86a6452d1f2">
+  <producedTypes>
+    <objectType typeId="d01eedcc-3d22-11eb-5899-e86a6452d1f2" valueTypeId="d01eedcd-3d22-11eb-5899-e86a6452d1f2"/>
+    <managerType typeId="d01eedd6-3d22-11eb-5899-e86a6452d1f2" valueTypeId="d01eedd7-3d22-11eb-5899-e86a6452d1f2"/>
+  </producedTypes>
+  <name>UT_ObjectsComparsion</name>
+  <synonym>
+    <key>ru</key>
+    <value>Comparison of objects (UTI)</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.UT_ObjectsComparsion.Form.Form</defaultForm>
+  <forms uuid="3862f830-3d26-11eb-5899-e86a6452d1f2">
+    <name>Form</name>
+    <synonym>
+      <key>ru</key>
+      <value>Form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="3862f9a2-3d26-11eb-5899-e86a6452d1f2">
+    <name>PF_MXL_ComparisonObjects</name>
+    <synonym>
+      <key>ru</key>
+      <value>PF MXL comparison objects</value>
+    </synonym>
+  </templates>
+</mdclass:DataProcessor>

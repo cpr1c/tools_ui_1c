@@ -34,7 +34,7 @@
   <content>CommonPicture.UT_UniversalToolsSybsystem</content>
   <content>CommonPicture.UT_ExecuteScheduledJobManually</content>
   <content>CommonPicture.UT_ExchangePlanStates</content>
-  <content>CommonPicture.UI_MetadataObjectsTypes</content>
+  <content>CommonPicture.UT_MetadataObjectsTypes</content>
   <content>CommonPicture.UT_Information32</content>
   <content>CommonPicture.UT_QueryResult</content>
   <content>CommonPicture.UT_UploadingResult</content>
@@ -46,7 +46,7 @@
   <content>CommonTemplate.UT_StringSearchComponent</content>
   <content>CommonForm.UT_TimeConsumingOperation</content>
   <content>CommonForm.UT_ValueTableForm</content>
-  <content>CommonForm.УИ_ФормаСпецЗначения</content>
+  <content>CommonForm.UT_SpecialValueForm</content>
   <content>CommonForm.UT_TextEditingForm</content>
   <content>CommonForm.UT_ValueStorageForm</content>
   <content>CommonForm.UT_MetadataSelectionForm</content>
@@ -103,11 +103,11 @@
   <content>CommonPicture.UT_Boolean</content>
   <content>CommonPicture.UT_UUID</content>
   <content>CommonPicture.UT_Null</content>
-  <content>CommonPicture.UT_СustomType</content>
+  <content>CommonPicture.UT_ArbitraryType</content>
   <content>CommonPicture.UT_AccumulationRecordType</content>
   <content>CommonPicture.UT_Array</content>
-  <content>DataProcessor.UT_ObjectsComparison</content>
-  <content>CommonForm.UT_Settings</content>
+  <content>DataProcessor.UT_ObjectsComparsion</content>
+  <content>CommonForm.UT_ToolsSettings</content>
   <content>CommonCommand.UT_Settings</content>
   <subsystems>UT_Support</subsystems>
   <subsystems>UT_Debug</subsystems>

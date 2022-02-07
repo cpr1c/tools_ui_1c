@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Register changes for data exchange</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Регистрация изменений для обмена данными</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>Группа2</name>
+    <name>Group2</name>
     <id>35</id>
     <items xsi:type="form:FormField">
-      <name>УзелОбменаСсылка</name>
+      <name>ExchangeNodeRef</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -17,15 +21,15 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>УзелОбменаСсылка</segments>
+          <segments>ExchangeNodeRef</segments>
         </paths>
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>УзелОбменаСсылкаПриИзменении</name>
+        <name>ExchangeNodeRefOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>УзелОбменаСсылкаExtendedTooltip</name>
+        <name>ExchangeNodeRefExtendedTooltip</name>
         <id>201</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -40,7 +44,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>УзелОбменаСсылкаКонтекстноеМеню</name>
+        <name>ExchangeNodeRefContextMenu</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -57,15 +61,15 @@
       <extInfo xsi:type="form:InputFieldExtInfo">
         <handlers>
           <event>StartChoice</event>
-          <name>УзелОбменаСсылкаНачалоВыбора</name>
+          <name>ExchangeNodeRefStartChoice</name>
         </handlers>
         <handlers>
           <event>Clearing</event>
-          <name>УзелОбменаСсылкаОчистка</name>
+          <name>ExchangeNodeRefClear</name>
         </handlers>
         <handlers>
           <event>ChoiceProcessing</event>
-          <name>УзелОбменаСсылкаОбработкаВыбора</name>
+          <name>ExchangeNodeRefChoiceProcessing</name>
         </handlers>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -78,8 +82,12 @@
       </extInfo>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаРедактироватьНомераСообщений</name>
+      <name>FormEditMessageNumbers</name>
       <id>85</id>
+      <title>
+        <key>en</key>
+        <value>Messages #: sent &lt;blank>, received &lt;blank></value>
+      </title>
       <title>
         <key>ru</key>
         <value>№ сообщений: отпр. &lt;нет>, прин. &lt;нет></value>
@@ -90,7 +98,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаРедактироватьНомераСообщенийExtendedTooltip</name>
+        <name>FormEditMessageNumbersExtendedTooltip</name>
         <id>202</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -105,7 +113,7 @@
         </extInfo>
       </extendedTooltip>
       <type>Hyperlink</type>
-      <commandName>Form.Command.РедактироватьНомераСообщений</commandName>
+      <commandName>Form.Command.EditMessageNumbers</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -113,7 +121,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormField">
-      <name>ВариантОтбораПоНомеруСообщения</name>
+      <name>FilterByMessageNumberOption</name>
       <id>172</id>
       <title>
         <key>ru</key>
@@ -126,15 +134,15 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ВариантОтбораПоНомеруСообщения</segments>
+          <segments>FilterByMessageNumberOption</segments>
         </paths>
       </dataPath>
       <handlers>
         <event>OnChange</event>
-        <name>ВариантОтбораПоНомеруСообщенияПриИзменении</name>
+        <name>FilterByMessageNumberOptionOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>ВариантОтбораПоНомеруСообщенияExtendedTooltip</name>
+        <name>FilterByMessageNumberOptionExtendedTooltip</name>
         <id>203</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -149,7 +157,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ВариантОтбораПоНомеруСообщенияКонтекстноеМеню</name>
+        <name>FilterByMessageNumberOptionContextMenu</name>
         <id>173</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -172,6 +180,10 @@
         <typeDomainEnabled>true</typeDomainEnabled>
         <choiceList>
           <presentation>
+            <key>en</key>
+            <value>All</value>
+          </presentation>
+          <presentation>
             <key>ru</key>
             <value>Все</value>
           </presentation>
@@ -181,6 +193,10 @@
         </choiceList>
         <choiceList>
           <presentation>
+            <key>en</key>
+            <value>Exported</value>
+          </presentation>
+          <presentation>
             <key>ru</key>
             <value>Только выгруженные </value>
           </presentation>
@@ -189,6 +205,10 @@
           </value>
         </choiceList>
         <choiceList>
+          <presentation>
+            <key>en</key>
+            <value>Skipped</value>
+          </presentation>
           <presentation>
             <key>ru</key>
             <value>Только невыгруженные</value>
@@ -205,12 +225,16 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Quick filters</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Быстрые отборы</value>
     </title>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>Группа2ExtendedTooltip</name>
+      <name>Group2ExtendedTooltip</name>
       <id>200</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -242,8 +266,12 @@
         <name>ДеревоМетаданныхГруппаДобавить</name>
         <id>39</id>
         <items xsi:type="form:Button">
-          <name>ДеревоМетаданныхДобавитьРегистрациюВсехОбъектов</name>
+          <name>MetadataTreeAddRegistrationForAllObjects</name>
           <id>40</id>
+          <title>
+            <key>en</key>
+            <value>All objects of selected types</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Всех объектов выбранных типов</value>
@@ -254,7 +282,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоМетаданныхДобавитьРегистрациюВсехОбъектовExtendedTooltip</name>
+            <name>MetadataTreeAddRegistrationForAllObjectsExtendedTooltip</name>
             <id>207</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -268,7 +296,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ДобавитьРегистрациюВсехОбъектов</commandName>
+          <commandName>Form.Command.AddRegistrationForAllObjects</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -276,8 +304,12 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ДеревоМетаданныхДобавитьРегистрациюАвтоОбъектов</name>
+          <name>MetadataTreeAddRegistrationForAutoObjects</name>
           <id>41</id>
+          <title>
+            <key>en</key>
+            <value>Objects of selected types with auto registration</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Объектов выбранных типов с авторегистрацией</value>
@@ -288,7 +320,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоМетаданныхДобавитьРегистрациюАвтоОбъектовExtendedTooltip</name>
+            <name>MetadataTreeAddRegistrationForAutoObjectsExtendedTooltip</name>
             <id>208</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -302,7 +334,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ДобавитьРегистрациюАвтоОбъектов</commandName>
+          <commandName>Form.Command.AddRegistrationForAutoObjects</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -313,8 +345,12 @@
           <name>ГруппаКомандДобавить</name>
           <id>183</id>
           <items xsi:type="form:Button">
-            <name>ФормаДобавитьРегистрациюОдногоОбъекта</name>
+            <name>FormAddRegistrationForSingleObject</name>
             <id>184</id>
+            <title>
+              <key>en</key>
+              <value>Single object</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Одиночного объекта</value>
@@ -325,7 +361,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ФормаДобавитьРегистрациюОдногоОбъектаExtendedTooltip</name>
+              <name>FormAddRegistrationForSingleObjectExtendedTooltip</name>
               <id>210</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -339,7 +375,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ДобавитьРегистрациюОдногоОбъекта</commandName>
+            <commandName>Form.Command.AddRegistrationForSingleObject</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -350,8 +386,12 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ФормаДобавитьРегистрациюОтбор</name>
+            <name>FormAddRegistrationFilter</name>
             <id>185</id>
+            <title>
+              <key>en</key>
+              <value>Objects that match a filter</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Объектов при помощи отбора</value>
@@ -362,7 +402,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ФормаДобавитьРегистрациюОтборExtendedTooltip</name>
+              <name>FormAddRegistrationFilterExtendedTooltip</name>
               <id>211</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -376,7 +416,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ДобавитьРегистрациюОтбор</commandName>
+            <commandName>Form.Command.AddRegistrationFilter</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -417,8 +457,12 @@
           <name>ДеревоМетаданныхГруппа3</name>
           <id>60</id>
           <items xsi:type="form:Button">
-            <name>ДеревоМетаданныхДобавитьРегистрациюРезультатаЗапроса</name>
+            <name>MetadataTreeAddQueryResultRegistration</name>
             <id>59</id>
+            <title>
+              <key>en</key>
+              <value>Query result</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Результатов запроса</value>
@@ -429,7 +473,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ДеревоМетаданныхДобавитьРегистрациюРезультатаЗапросаExtendedTooltip</name>
+              <name>MetadataTreeAddQueryResultRegistrationExtendedTooltip</name>
               <id>213</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -443,7 +487,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ДобавитьРегистрациюРезультатаЗапроса</commandName>
+            <commandName>Form.Command.AddQueryResultRegistration</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -519,8 +563,12 @@
         <name>ДеревоМетаданныхГруппаУдалить</name>
         <id>42</id>
         <items xsi:type="form:Button">
-          <name>ДеревоМетаданныхУдалитьРегистрациюВсехОбъектов</name>
+          <name>MetadataTreeDeleteRegistrationForAllObjects</name>
           <id>43</id>
+          <title>
+            <key>en</key>
+            <value>All objects of selected types</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Всех объектов выбранных типов</value>
@@ -531,7 +579,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоМетаданныхУдалитьРегистрациюВсехОбъектовExtendedTooltip</name>
+            <name>MetadataTreeDeleteRegistrationForAllObjectsExtendedTooltip</name>
             <id>215</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -545,7 +593,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УдалитьРегистрациюВсехОбъектов</commandName>
+          <commandName>Form.Command.DeleteRegistrationForAllObjects</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -553,8 +601,12 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ДеревоМетаданныхУдалитьРегистрациюАвтоОбъектов</name>
+          <name>MetadataTreeDeleteRegistrationForAutoObjects</name>
           <id>44</id>
+          <title>
+            <key>en</key>
+            <value>Objects of selected types with auto registration</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Объектов выбранных типов с авторегистрацией</value>
@@ -565,7 +617,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоМетаданныхУдалитьРегистрациюАвтоОбъектовExtendedTooltip</name>
+            <name>MetadataTreeDeleteRegistrationForAutoObjectsExtendedTooltip</name>
             <id>216</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -579,7 +631,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.УдалитьРегистрациюАвтоОбъектов</commandName>
+          <commandName>Form.Command.DeleteRegistrationForAutoObjects</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -590,8 +642,12 @@
           <name>ГруппаКомандУдалить</name>
           <id>186</id>
           <items xsi:type="form:Button">
-            <name>ФормаУдалитьРегистрациюОдногоОбъекта</name>
+            <name>FormDeleteRegistrationForSingleObject</name>
             <id>187</id>
+            <title>
+              <key>en</key>
+              <value>Single object</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Одиночного объекта</value>
@@ -602,7 +658,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ФормаУдалитьРегистрациюОдногоОбъектаExtendedTooltip</name>
+              <name>FormDeleteRegistrationForSingleObjectExtendedTooltip</name>
               <id>218</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -616,7 +672,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.УдалитьРегистрациюОдногоОбъекта</commandName>
+            <commandName>Form.Command.DeleteRegistrationForSingleObject</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -627,8 +683,12 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ФормаУдалитьРегистрациюОтбор</name>
+            <name>FormDeleteRegistrationFilter</name>
             <id>188</id>
+            <title>
+              <key>en</key>
+              <value>Objects that match a filter</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Объектов при помощи отбора</value>
@@ -639,7 +699,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ФормаУдалитьРегистрациюОтборExtendedTooltip</name>
+              <name>FormDeleteRegistrationFilterExtendedTooltip</name>
               <id>219</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -653,7 +713,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.УдалитьРегистрациюОтбор</commandName>
+            <commandName>Form.Command.DeleteRegistrationFilter</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -694,8 +754,12 @@
           <name>ДеревоМетаданныхГруппа4</name>
           <id>61</id>
           <items xsi:type="form:Button">
-            <name>ДеревоМетаданныхУдалитьРегистрациюРезультатаЗапроса</name>
+            <name>MetadataTreeDeleteQueryResultRegistration</name>
             <id>62</id>
+            <title>
+              <key>en</key>
+              <value>Query result</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Результатов запроса</value>
@@ -706,7 +770,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ДеревоМетаданныхУдалитьРегистрациюРезультатаЗапросаExtendedTooltip</name>
+              <name>MetadataTreeDeleteQueryResultRegistrationExtendedTooltip</name>
               <id>221</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -720,7 +784,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.УдалитьРегистрациюРезультатаЗапроса</commandName>
+            <commandName>Form.Command.DeleteQueryResultRegistration</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -793,8 +857,12 @@
         </extInfo>
       </items>
       <items xsi:type="form:Button">
-        <name>ОбновитьВсеДанные</name>
+        <name>RefreshAllData</name>
         <id>97</id>
+        <title>
+          <key>en</key>
+          <value>Refresh</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Обновить</value>
@@ -805,7 +873,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ОбновитьВсеДанныеExtendedTooltip</name>
+          <name>RefreshAllDataExtendedTooltip</name>
           <id>222</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -819,7 +887,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОбновитьВсеДанные</commandName>
+        <commandName>Form.Command.RefreshAllData</commandName>
         <representation>PictureAndText</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -827,8 +895,12 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаОткрытьФормуНастроек</name>
+        <name>FormOpenSettingsForm</name>
         <id>145</id>
+        <title>
+          <key>en</key>
+          <value>Settings</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Настройки</value>
@@ -839,7 +911,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаОткрытьФормуНастроекExtendedTooltip</name>
+          <name>FormOpenSettingsFormExtendedTooltip</name>
           <id>223</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -853,7 +925,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьФормуНастроек</commandName>
+        <commandName>Form.Command.OpenSettingsForm</commandName>
         <representation>PictureAndText</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -861,7 +933,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ПоказатьРезультатВыгрузки</name>
+        <name>ShowExportResult</name>
         <id>133</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -869,7 +941,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ПоказатьРезультатВыгрузкиExtendedTooltip</name>
+          <name>ShowExportResultExtendedTooltip</name>
           <id>224</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -883,7 +955,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПоказатьРезультатВыгрузки</commandName>
+        <commandName>Form.Command.ShowExportResult</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -894,8 +966,12 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаОткрытьФормуРегистрацииНаУзлах</name>
+        <name>FormOpenNodeRegistrationForm</name>
         <id>182</id>
+        <title>
+          <key>en</key>
+          <value>Register object at all nodes</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Регистрация объекта на всех узлах</value>
@@ -906,7 +982,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаОткрытьФормуРегистрацииНаУзлахExtendedTooltip</name>
+          <name>FormOpenNodeRegistrationFormExtendedTooltip</name>
           <id>225</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -920,7 +996,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьФормуРегистрацииНаУзлах</commandName>
+        <commandName>Form.Command.OpenNodeRegistrationForm</commandName>
         <representation>Picture</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -968,8 +1044,12 @@
       <name>Группа5</name>
       <id>96</id>
       <items xsi:type="form:Table">
-        <name>ДеревоМетаданных</name>
+        <name>MetadataTree</name>
         <id>6</id>
+        <title>
+          <key>en</key>
+          <value>Registration object types</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Виды объектов регистрации</value>
@@ -980,7 +1060,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДеревоМетаданных</segments>
+          <segments>MetadataTree</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <excludedCommands>Add</excludedCommands>
@@ -999,7 +1079,7 @@
           <name>ДеревоМетаданныхГруппа1</name>
           <id>9</id>
           <items xsi:type="form:FormField">
-            <name>ДеревоМетаданныхПометка</name>
+            <name>MetadataTreeCheck</name>
             <id>16</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1008,7 +1088,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Пометка</segments>
+                <segments>MetadataTree.Check</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
@@ -1017,7 +1097,7 @@
               <name>ДеревоМетаданныхПометкаПриИзменении</name>
             </handlers>
             <extendedTooltip>
-              <name>ДеревоМетаданныхПометкаExtendedTooltip</name>
+              <name>MetadataTreeCheckExtendedTooltip</name>
               <id>244</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1032,7 +1112,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоМетаданныхПометкаКонтекстноеМеню</name>
+              <name>MetadataTreeCheckContextMenu</name>
               <id>17</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1050,8 +1130,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоМетаданныхНаименование</name>
+            <name>MetadataTreeDescription</name>
             <id>10</id>
+            <title>
+              <key>en</key>
+              <value>Configuration object</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Объект конфигурации</value>
@@ -1063,11 +1147,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Наименование</segments>
+                <segments>MetadataTree.Description</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоМетаданныхНаименованиеExtendedTooltip</name>
+              <name>MetadataTreeDescriptionExtendedTooltip</name>
               <id>245</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1082,7 +1166,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоМетаданныхНаименованиеКонтекстноеМеню</name>
+              <name>MetadataTreeDescriptionContextMenu</name>
               <id>11</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1140,8 +1224,12 @@
           <name>ДеревоМетаданныхГруппа2</name>
           <id>26</id>
           <items xsi:type="form:FormField">
-            <name>ДеревоМетаданныхАвторегистрация</name>
+            <name>MetadataTreeAutoRegistration</name>
             <id>27</id>
+            <title>
+              <key>en</key>
+              <value>Auto registration</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Авторегистрация</value>
@@ -1151,12 +1239,12 @@
             <userVisible/>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.Авторегистрация</segments>
+                <segments>MetadataTree.AutoRegistration</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>ДеревоМетаданныхАвторегистрацияExtendedTooltip</name>
+              <name>MetadataTreeAutoRegistrationExtendedTooltip</name>
               <id>247</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1171,7 +1259,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоМетаданныхАвторегистрацияКонтекстноеМеню</name>
+              <name>MetadataTreeAutoRegistrationContextMenu</name>
               <id>28</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1197,8 +1285,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоМетаданныхКоличествоИзмененийСтрокой</name>
+            <name>MetadataTreeChangeCountString</name>
             <id>29</id>
+            <title>
+              <key>en</key>
+              <value>Registered/not exported</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Зарегистрировано/не выгружено</value>
@@ -1210,11 +1302,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоМетаданных.КоличествоИзмененийСтрокой</segments>
+                <segments>MetadataTree.ChangeCountString</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоМетаданныхКоличествоИзмененийСтрокойExtendedTooltip</name>
+              <name>MetadataTreeChangeCountStringExtendedTooltip</name>
               <id>248</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1229,7 +1321,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоМетаданныхКоличествоИзмененийСтрокойКонтекстноеМеню</name>
+              <name>MetadataTreeChangeCountStringContextMenu</name>
               <id>30</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1285,7 +1377,7 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ДеревоМетаданныхКоманднаяПанель</name>
+          <name>MetadataTreeCommandBar</name>
           <id>8</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1296,7 +1388,7 @@
         </autoCommandBar>
         <handlers>
           <event>OnActivateRow</event>
-          <name>ДеревоМетаданныхПриАктивизацииСтроки</name>
+          <name>MetadataTreeOnActivateRow</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -1304,10 +1396,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоМетаданныхСтрокаПоиска</name>
+          <name>MetadataTreeSearchString</name>
           <id>314</id>
           <extendedTooltip>
-            <name>ДеревоМетаданныхСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>MetadataTreeSearchStringExtendedTooltip</name>
             <id>316</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1322,7 +1414,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоМетаданныхСтрокаПоискаКонтекстноеМеню</name>
+            <name>MetadataTreeSearchStringContextMenu</name>
             <id>315</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1341,10 +1433,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоМетаданныхСостояниеПросмотра</name>
+          <name>MetadataTreeViewStatus</name>
           <id>317</id>
           <extendedTooltip>
-            <name>ДеревоМетаданныхСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>MetadataTreeViewStatusExtendedTooltip</name>
             <id>319</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1359,7 +1451,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоМетаданныхСостояниеПросмотраКонтекстноеМеню</name>
+            <name>MetadataTreeViewStatusContextMenu</name>
             <id>318</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1380,10 +1472,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоМетаданныхУправлениеПоиском</name>
+          <name>MetadataTreeSearchControl</name>
           <id>320</id>
           <extendedTooltip>
-            <name>ДеревоМетаданныхУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>MetadataTreeSearchControlExtendedTooltip</name>
             <id>322</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1398,7 +1490,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоМетаданныхУправлениеПоискомКонтекстноеМеню</name>
+            <name>MetadataTreeSearchControlContextMenu</name>
             <id>321</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1413,7 +1505,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ДеревоМетаданныхExtendedTooltip</name>
+          <name>MetadataTreeExtendedTooltip</name>
           <id>242</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1428,14 +1520,18 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоМетаданныхКонтекстноеМеню</name>
+          <name>MetadataTreeContextMenu</name>
           <id>7</id>
           <items xsi:type="form:FormGroup">
             <name>ДеревоМетаданныхКонтекстноеМенюГруппа1</name>
             <id>114</id>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюВсехОбъектов</name>
+              <name>MetadataTreeContextMenuAddRegistrationForAllObjects</name>
               <id>115</id>
+              <title>
+                <key>en</key>
+                <value>Register changes for all objects of selected types</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Зарегистрировать изменения всех объектов выбранных типов</value>
@@ -1446,7 +1542,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюВсехОбъектовExtendedTooltip</name>
+                <name>MetadataTreeContextMenuAddRegistrationForAllObjectsExtendedTooltip</name>
                 <id>228</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1460,7 +1556,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ДобавитьРегистрациюВсехОбъектов</commandName>
+              <commandName>Form.Command.AddRegistrationForAllObjects</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1471,8 +1567,12 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюАвтоОбъектов</name>
+              <name>MetadataTreeContextMenuAddRegistrationForAutoObjects</name>
               <id>116</id>
+              <title>
+                <key>en</key>
+                <value>Register changes for objects of selected types with auto registration</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Зарегистрировать изменения объектов выбранных типов с
@@ -1484,7 +1584,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюАвтоОбъектовExtendedTooltip</name>
+                <name>MetadataTreeContextMenuAddRegistrationForAutoObjectsExtendedTooltip</name>
                 <id>229</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1498,7 +1598,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ДобавитьРегистрациюАвтоОбъектов</commandName>
+              <commandName>Form.Command.AddRegistrationForAutoObjects</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1535,8 +1635,12 @@
             <name>ГруппаКомандДобавить1</name>
             <id>190</id>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюОдногоОбъекта</name>
+              <name>MetadataTreeContextMenuAddRegistrationForSingleObject</name>
               <id>191</id>
+              <title>
+                <key>en</key>
+                <value>Register changes for a single object</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Зарегистрировать изменения одиночного объекта</value>
@@ -1547,7 +1651,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюОдногоОбъектаExtendedTooltip</name>
+                <name>MetadataTreeContextMenuAddRegistrationForSingleObjectExtendedTooltip</name>
                 <id>231</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1561,7 +1665,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ДобавитьРегистрациюОдногоОбъекта</commandName>
+              <commandName>Form.Command.AddRegistrationForSingleObject</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1572,8 +1676,12 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюОтбор</name>
+              <name>MetadataTreeContextMenuAddRegistrationFilter</name>
               <id>192</id>
+              <title>
+                <key>en</key>
+                <value>Register changes for objects that match a filter</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Зарегистрировать изменения объектов при помощи отбора</value>
@@ -1584,7 +1692,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюДобавитьРегистрациюОтборExtendedTooltip</name>
+                <name>MetadataTreeContextMenuAddRegistrationFilterExtendedTooltip</name>
                 <id>232</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1598,7 +1706,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ДобавитьРегистрациюОтбор</commandName>
+              <commandName>Form.Command.AddRegistrationFilter</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1639,8 +1747,12 @@
             <name>ДеревоМетаданныхКонтекстноеМенюГруппа2</name>
             <id>142</id>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюВсехОбъектов</name>
+              <name>MetadataTreeContextMenuDeleteRegistrationForAllObjects</name>
               <id>143</id>
+              <title>
+                <key>en</key>
+                <value>Unregister changes for all objects of selected types</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Отменить регистрацию изменений всех объектов выбранных
@@ -1652,7 +1764,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюВсехОбъектовExtendedTooltip</name>
+                <name>MetadataTreeContextMenuDeleteRegistrationForAllObjectsExtendedTooltip</name>
                 <id>234</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1666,7 +1778,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.УдалитьРегистрациюВсехОбъектов</commandName>
+              <commandName>Form.Command.DeleteRegistrationForAllObjects</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1677,8 +1789,12 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюАвтоОбъектов</name>
+              <name>MetadataTreeContextMenuDeleteRegistrationForAutoObjects</name>
               <id>144</id>
+              <title>
+                <key>en</key>
+                <value>Unregister changes for objects of selected types with auto registration</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Отменить регистрацию изменений объектов выбранных типов с
@@ -1690,7 +1806,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюАвтоОбъектовExtendedTooltip</name>
+                <name>MetadataTreeContextMenuDeleteRegistrationForAutoObjectsExtendedTooltip</name>
                 <id>235</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1704,7 +1820,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.УдалитьРегистрациюАвтоОбъектов</commandName>
+              <commandName>Form.Command.DeleteRegistrationForAutoObjects</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1741,8 +1857,12 @@
             <name>ГруппаКомандУдалить1</name>
             <id>193</id>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюОдногоОбъекта</name>
+              <name>MetadataTreeContextMenuDeleteRegistrationForSingleObject</name>
               <id>194</id>
+              <title>
+                <key>en</key>
+                <value>Unregister changes for a single object</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Отменить регистрацию изменений одиночного объекта</value>
@@ -1753,7 +1873,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюОдногоОбъектаExtendedTooltip</name>
+                <name>MetadataTreeContextMenuDeleteRegistrationForSingleObjectExtendedTooltip</name>
                 <id>237</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1767,7 +1887,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.УдалитьРегистрациюОдногоОбъекта</commandName>
+              <commandName>Form.Command.DeleteRegistrationForSingleObject</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1778,8 +1898,12 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюОтбор</name>
+              <name>MetadataTreeContextMenuDeleteRegistrationFilter</name>
               <id>195</id>
+              <title>
+                <key>en</key>
+                <value>Unregister changes for objects that match a filter</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Отменить регистрацию изменений объектов при помощи отбора</value>
@@ -1790,7 +1914,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоМетаданныхКонтекстноеМенюУдалитьРегистрациюОтборExtendedTooltip</name>
+                <name>MetadataTreeContextMenuDeleteRegistrationFilterExtendedTooltip</name>
                 <id>238</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1804,7 +1928,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.УдалитьРегистрациюОтбор</commandName>
+              <commandName>Form.Command.DeleteRegistrationFilter</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1867,7 +1991,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.ДеревоМетаданных.StandardCommand.OutputList</commandName>
+              <commandName>Form.Item.MetadataTree.StandardCommand.OutputList</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1897,7 +2021,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.ДеревоМетаданных.StandardCommand.CopyToClipboard</commandName>
+              <commandName>Form.Item.MetadataTree.StandardCommand.CopyToClipboard</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1952,10 +2076,10 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ДеревоМетаданных.ИндексКартинки</segments>
+          <segments>MetadataTree.PictureIndex</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
-          <picture>CommonPicture.UI_MetadataObjectsTypes</picture>
+          <picture>CommonPicture.UT_MetadataObjectsTypes</picture>
         </rowsPicture>
         <searchStringLocation>None</searchStringLocation>
         <viewStatusLocation>None</viewStatusLocation>
@@ -1968,8 +2092,12 @@
           <name>СтраницаКонстанты</name>
           <id>49</id>
           <items xsi:type="form:Table">
-            <name>СписокКонстант</name>
+            <name>ConstantsList</name>
             <id>63</id>
+            <title>
+              <key>en</key>
+              <value>Constants list</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Список констант</value>
@@ -1980,12 +2108,16 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>СписокКонстант</segments>
+              <segments>ConstantsList</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <items xsi:type="form:FormField">
-              <name>СписокКонстантНаименование</name>
+              <name>ConstantsListDescription</name>
               <id>66</id>
+              <title>
+                <key>en</key>
+                <value>Constant</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Константа</value>
@@ -1995,13 +2127,11 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокКонстант.Наименование</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ConstantsList.Description</segments>
               </dataPath>
               <extendedTooltip>
-                <name>СписокКонстантНаименованиеExtendedTooltip</name>
+                <name>ConstantsListDescriptionExtendedTooltip</name>
                 <id>265</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2016,7 +2146,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокКонстантНаименованиеКонтекстноеМеню</name>
+                <name>ConstantsListDescriptionContextMenu</name>
                 <id>67</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2040,8 +2170,12 @@
               <name>СписокКонстантГруппа1</name>
               <id>148</id>
               <items xsi:type="form:FormField">
-                <name>СписокКонстантАвторегистрация</name>
+                <name>ConstantsListAutoRecord</name>
                 <id>146</id>
+                <title>
+                  <key>en</key>
+                  <value>Auto record</value>
+                </title>
                 <title>
                   <key>ru</key>
                   <value>Авторегистрация</value>
@@ -2049,14 +2183,12 @@
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible/>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>СписокКонстант.ИндексКартинкиАвторегистрация</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>ConstantsList.AutoRecordPictureIndex</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
-                  <name>СписокКонстантАвторегистрацияExtendedTooltip</name>
+                  <name>ConstantsListAutoRecordExtendedTooltip</name>
                   <id>267</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2071,7 +2203,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>СписокКонстантАвторегистрацияКонтекстноеМеню</name>
+                  <name>ConstantsListAutoRecordContextMenu</name>
                   <id>147</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2096,8 +2228,12 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormField">
-                <name>СписокКонстантНомерСообщения</name>
+                <name>ConstantsListMessageNo</name>
                 <id>68</id>
+                <title>
+                  <key>en</key>
+                  <value>Sent message number</value>
+                </title>
                 <title>
                   <key>ru</key>
                   <value>Номер отправленного</value>
@@ -2107,13 +2243,11 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>СписокКонстант.НомерСообщения</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>ConstantsList.MessageNo</segments>
                 </dataPath>
                 <extendedTooltip>
-                  <name>СписокКонстантНомерСообщенияExtendedTooltip</name>
+                  <name>ConstantsListMessageNoExtendedTooltip</name>
                   <id>268</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2128,7 +2262,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>СписокКонстантНомерСообщенияКонтекстноеМеню</name>
+                  <name>ConstantsListMessageNoContextMenu</name>
                   <id>69</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2179,7 +2313,7 @@
               </extInfo>
             </items>
             <autoCommandBar>
-              <name>СписокКонстантКоманднаяПанель</name>
+              <name>ConstantsListCommandBar</name>
               <id>65</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2190,7 +2324,7 @@
             </autoCommandBar>
             <handlers>
               <event>ChoiceProcessing</event>
-              <name>СписокКонстантОбработкаВыбора</name>
+              <name>ConstantListChoiceProcessing</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -2198,10 +2332,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокКонстантСтрокаПоиска</name>
+              <name>ConstantsListSearchString</name>
               <id>323</id>
               <extendedTooltip>
-                <name>СписокКонстантСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>ConstantsListSearchStringExtendedTooltip</name>
                 <id>325</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2216,7 +2350,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокКонстантСтрокаПоискаКонтекстноеМеню</name>
+                <name>ConstantsListSearchStringContextMenu</name>
                 <id>324</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2235,10 +2369,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокКонстантСостояниеПросмотра</name>
+              <name>ConstantsListViewStatus</name>
               <id>326</id>
               <extendedTooltip>
-                <name>СписокКонстантСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>ConstantsListViewStatusExtendedTooltip</name>
                 <id>328</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2253,7 +2387,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокКонстантСостояниеПросмотраКонтекстноеМеню</name>
+                <name>ConstantsListViewStatusContextMenu</name>
                 <id>327</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2274,10 +2408,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокКонстантУправлениеПоиском</name>
+              <name>ConstantsListSearchControl</name>
               <id>329</id>
               <extendedTooltip>
-                <name>СписокКонстантУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>ConstantsListSearchControlExtendedTooltip</name>
                 <id>331</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2292,7 +2426,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокКонстантУправлениеПоискомКонтекстноеМеню</name>
+                <name>ConstantsListSearchControlContextMenu</name>
                 <id>330</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2307,7 +2441,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>СписокКонстантExtendedTooltip</name>
+              <name>ConstantsListExtendedTooltip</name>
               <id>264</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2322,14 +2456,18 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокКонстантКонтекстноеМеню</name>
+              <name>ConstantsListContextMenu</name>
               <id>64</id>
               <items xsi:type="form:FormGroup">
                 <name>СписокКонстантКонтекстноеМенюГруппа1</name>
                 <id>101</id>
                 <items xsi:type="form:Button">
-                  <name>СписокКонстантКонтекстноеМенюДобавитьРегистрациюКонстанты</name>
+                  <name>ConstantsListContextMenuAddConstantRegistration</name>
                   <id>98</id>
+                  <title>
+                    <key>en</key>
+                    <value>Register constant change</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Зарегистрировать изменение константы</value>
@@ -2340,7 +2478,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокКонстантКонтекстноеМенюДобавитьРегистрациюКонстантыExtendedTooltip</name>
+                    <name>ConstantsListContextMenuAddConstantRegistrationExtendedTooltip</name>
                     <id>252</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2354,7 +2492,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ДобавитьРегистрациюКонстанты</commandName>
+                  <commandName>Form.Command.AddConstantRegistration</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2365,8 +2503,12 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокКонстантКонтекстноеМенюУдалитьРегистрациюКонстанты</name>
+                  <name>ConstantsListContextMenuDeleteConstantRegistration</name>
                   <id>99</id>
+                  <title>
+                    <key>en</key>
+                    <value>Unregister constant change</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Отменить регистрацию изменений константы</value>
@@ -2377,7 +2519,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокКонстантКонтекстноеМенюУдалитьРегистрациюКонстантыExtendedTooltip</name>
+                    <name>ConstantsListContextMenuDeleteConstantRegistrationExtendedTooltip</name>
                     <id>253</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2391,7 +2533,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.УдалитьРегистрациюКонстанты</commandName>
+                  <commandName>Form.Command.DeleteConstantRegistration</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2428,8 +2570,12 @@
                 <name>СписокКонстантКонтекстноеМенюГруппа3</name>
                 <id>177</id>
                 <items xsi:type="form:Button">
-                  <name>СписокКонстантКонтекстноеМенюПоказатьРезультатВыгрузки</name>
+                  <name>ConstantsListContextMenuShowExportResult</name>
                   <id>100</id>
+                  <title>
+                    <key>en</key>
+                    <value>Standard export result (DIB)</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Результат стандартной выгрузки (РИБ)</value>
@@ -2440,7 +2586,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокКонстантКонтекстноеМенюПоказатьРезультатВыгрузкиExtendedTooltip</name>
+                    <name>ConstantsListContextMenuShowExportResultExtendedTooltip</name>
                     <id>255</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2454,7 +2600,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ПоказатьРезультатВыгрузки</commandName>
+                  <commandName>Form.Command.ShowExportResult</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2465,7 +2611,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокКонстантКонтекстноеМенюОткрытьФормуРегистрацииНаУзлах</name>
+                  <name>ConstantsListContextMenuOpenNodeRegistrationForm</name>
                   <id>178</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2473,7 +2619,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокКонстантКонтекстноеМенюОткрытьФормуРегистрацииНаУзлахExtendedTooltip</name>
+                    <name>ConstantsListContextMenuOpenNodeRegistrationFormExtendedTooltip</name>
                     <id>256</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2487,7 +2633,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ОткрытьФормуРегистрацииНаУзлах</commandName>
+                  <commandName>Form.Command.OpenNodeRegistrationForm</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2498,7 +2644,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокКонстантКонтекстноеМенюРедактироватьНомерСообщенияОбъекта</name>
+                  <name>ConstantsListContextMenuEditObjectMessageNumber</name>
                   <id>197</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2506,7 +2652,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокКонстантКонтекстноеМенюРедактироватьНомерСообщенияОбъектаExtendedTooltip</name>
+                    <name>ConstantsListContextMenuEditObjectMessageNumberExtendedTooltip</name>
                     <id>257</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2520,7 +2666,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.РедактироватьНомерСообщенияОбъекта</commandName>
+                  <commandName>Form.Command.EditObjectMessageNumber</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2575,7 +2721,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокКонстант.StandardCommand.Find</commandName>
+                  <commandName>Form.Item.ConstantsList.StandardCommand.Find</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2605,7 +2751,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокКонстант.StandardCommand.CancelSearch</commandName>
+                  <commandName>Form.Item.ConstantsList.StandardCommand.CancelSearch</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2635,7 +2781,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокКонстант.StandardCommand.ListSettings</commandName>
+                  <commandName>Form.Item.ConstantsList.StandardCommand.ListSettings</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2665,7 +2811,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокКонстант.StandardCommand.OutputList</commandName>
+                  <commandName>Form.Item.ConstantsList.StandardCommand.OutputList</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2695,7 +2841,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокКонстант.StandardCommand.Refresh</commandName>
+                  <commandName>Form.Item.ConstantsList.StandardCommand.Refresh</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -2745,10 +2891,10 @@
             <verticalStretch>true</verticalStretch>
             <enableStartDrag>true</enableStartDrag>
             <rowPictureDataPath xsi:type="form:DataPath">
-              <segments>СписокКонстант.ИндексКартинки</segments>
+              <segments>ConstantsList.ИндексКартинки</segments>
             </rowPictureDataPath>
             <rowsPicture xsi:type="core:PictureRef">
-              <picture>CommonPicture.UI_MetadataObjectsTypes</picture>
+              <picture>CommonPicture.UT_MetadataObjectsTypes</picture>
             </rowsPicture>
             <searchStringLocation>None</searchStringLocation>
             <viewStatusLocation>None</viewStatusLocation>
@@ -2801,8 +2947,12 @@
           <name>СтраницаСписокСсылок</name>
           <id>48</id>
           <items xsi:type="form:Table">
-            <name>СписокСсылок</name>
+            <name>RefsList</name>
             <id>18</id>
+            <title>
+              <key>en</key>
+              <value>Refs list</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Список ссылок</value>
@@ -2813,23 +2963,21 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>СписокСсылок</segments>
+              <segments>RefsList</segments>
             </dataPath>
             <items xsi:type="form:FormField">
-              <name>СписокСсылокСсылкаПредставление</name>
+              <name>RefsListRefPresentation</name>
               <id>21</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокСсылок.Ссылка</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>RefsList.Ref</segments>
               </dataPath>
               <extendedTooltip>
-                <name>СписокСсылокСсылкаПредставлениеExtendedTooltip</name>
+                <name>RefsListRefPresentationExtendedTooltip</name>
                 <id>288</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2844,7 +2992,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокСсылокСсылкаПредставлениеКонтекстноеМеню</name>
+                <name>RefsListRefPresentationContextMenu</name>
                 <id>22</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2865,8 +3013,12 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>СписокСсылокНомерСообщения</name>
+              <name>RefsListMessageNo</name>
               <id>52</id>
+              <title>
+                <key>en</key>
+                <value>Sent message number</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Номер отправленного</value>
@@ -2876,13 +3028,11 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокСсылок.НомерСообщения</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>RefsList.MessageNo</segments>
               </dataPath>
               <extendedTooltip>
-                <name>СписокСсылокНомерСообщенияExtendedTooltip</name>
+                <name>RefsListMessageNoExtendedTooltip</name>
                 <id>289</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2897,7 +3047,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокСсылокНомерСообщенияКонтекстноеМеню</name>
+                <name>RefsListMessageNoContextMenu</name>
                 <id>53</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2918,10 +3068,10 @@
               </extInfo>
             </items>
             <autoCommandBar>
-              <name>СписокСсылокКоманднаяПанель</name>
+              <name>RefsListCommandBar</name>
               <id>20</id>
               <items xsi:type="form:Button">
-                <name>СписокСсылокРедактироватьСсылку</name>
+                <name>RefsListEditReference</name>
                 <id>350</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2929,7 +3079,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>СписокСсылокРедактироватьСсылкуРасширеннаяПодсказка</name>
+                  <name>RefsListEditReferenceExtendedTooltip</name>
                   <id>351</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2943,7 +3093,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.РедактироватьСсылку</commandName>
+                <commandName>Form.Command.EditReference</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -2959,7 +3109,7 @@
             </autoCommandBar>
             <handlers>
               <event>ChoiceProcessing</event>
-              <name>СписокСсылокОбработкаВыбора</name>
+              <name>ReferenceListChoiceProcessing</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -2967,10 +3117,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокСсылокСтрокаПоиска</name>
+              <name>RefsListSearchString</name>
               <id>332</id>
               <extendedTooltip>
-                <name>СписокСсылокСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>RefsListSearchStringExtendedTooltip</name>
                 <id>334</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2985,7 +3135,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокСсылокСтрокаПоискаКонтекстноеМеню</name>
+                <name>RefsListSearchStringContextMenu</name>
                 <id>333</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3004,10 +3154,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокСсылокСостояниеПросмотра</name>
+              <name>RefsListViewStatus</name>
               <id>335</id>
               <extendedTooltip>
-                <name>СписокСсылокСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>RefsListViewStatusExtendedTooltip</name>
                 <id>337</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3022,7 +3172,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокСсылокСостояниеПросмотраКонтекстноеМеню</name>
+                <name>RefsListViewStatusContextMenu</name>
                 <id>336</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3043,10 +3193,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокСсылокУправлениеПоиском</name>
+              <name>RefsListSearchControl</name>
               <id>338</id>
               <extendedTooltip>
-                <name>СписокСсылокУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>RefsListSearchControlExtendedTooltip</name>
                 <id>340</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3061,7 +3211,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокСсылокУправлениеПоискомКонтекстноеМеню</name>
+                <name>RefsListSearchControlContextMenu</name>
                 <id>339</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3076,7 +3226,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>СписокСсылокExtendedTooltip</name>
+              <name>RefsListExtendedTooltip</name>
               <id>287</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3091,14 +3241,18 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокСсылокКонтекстноеМеню</name>
+              <name>RefsListContextMenu</name>
               <id>19</id>
               <items xsi:type="form:FormGroup">
                 <name>СписокСсылокКонтекстноеМенюГруппа1</name>
                 <id>102</id>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюДобавитьРегистрациюСсылкиПодбор</name>
+                  <name>RefsListContextMenuAddRefRegistrationPickup</name>
                   <id>134</id>
+                  <title>
+                    <key>en</key>
+                    <value>Register changes for selected objects</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Зарегистрировать изменение объекта</value>
@@ -3109,7 +3263,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюДобавитьРегистрациюСсылкиПодборExtendedTooltip</name>
+                    <name>RefsListContextMenuAddRefRegistrationPickupExtendedTooltip</name>
                     <id>271</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3123,7 +3277,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ДобавитьРегистрациюСсылкиПодбор</commandName>
+                  <commandName>Form.Command.AddRefRegistrationPickup</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3134,8 +3288,12 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюДобавитьРегистрациюСсылкиОтбор</name>
+                  <name>RefsListContextMenuAddRefRegistrationFilter</name>
                   <id>135</id>
+                  <title>
+                    <key>en</key>
+                    <value>Register changes for objects that match a filter</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Зарегистрировать изменения объектов при помощи отбора</value>
@@ -3146,7 +3304,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюДобавитьРегистрациюСсылкиОтборExtendedTooltip</name>
+                    <name>RefsListContextMenuAddRefRegistrationFilterExtendedTooltip</name>
                     <id>272</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3160,7 +3318,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ДобавитьРегистрациюСсылкиОтбор</commandName>
+                  <commandName>Form.Command.AddRefRegistrationFilter</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3168,8 +3326,12 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюДобавитьРегистрациюУдаленияОбъекта</name>
+                  <name>RefsListContextMenuAddObjectDeletionRegistration</name>
                   <id>196</id>
+                  <title>
+                    <key>en</key>
+                    <value>Register object deletion</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Зарегистрировать удаление объекта</value>
@@ -3180,7 +3342,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюДобавитьРегистрациюУдаленияОбъектаExtendedTooltip</name>
+                    <name>RefsListContextMenuAddObjectDeletionRegistrationExtendedTooltip</name>
                     <id>273</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3194,7 +3356,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ДобавитьРегистрациюУдаленияОбъекта</commandName>
+                  <commandName>Form.Command.AddObjectDeletionRegistration</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3228,8 +3390,12 @@
                 <name>СписокСсылокКонтекстноеМенюГруппа3</name>
                 <id>158</id>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюУдалитьРегистрациюСсылки</name>
+                  <name>RefsListContextMenuDeleteRefRegistration</name>
                   <id>105</id>
+                  <title>
+                    <key>en</key>
+                    <value>Unregister changes for a single object</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Отменить регистрацию изменений объекта</value>
@@ -3240,7 +3406,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюУдалитьРегистрациюСсылкиExtendedTooltip</name>
+                    <name>RefsListContextMenuDeleteRefRegistrationExtendedTooltip</name>
                     <id>275</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3254,7 +3420,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.УдалитьРегистрациюСсылки</commandName>
+                  <commandName>Form.Command.DeleteRefRegistration</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3265,8 +3431,12 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюУдалитьРегистрациюСсылкиОтбор</name>
+                  <name>RefsListContextMenuDeleteRefRegistrationFilter</name>
                   <id>189</id>
+                  <title>
+                    <key>en</key>
+                    <value>Unregister changes for objects that match a filter</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Отменить регистрацию изменения объектов при помощи
@@ -3278,7 +3448,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюУдалитьРегистрациюСсылкиОтборExtendedTooltip</name>
+                    <name>RefsListContextMenuDeleteRefRegistrationFilterExtendedTooltip</name>
                     <id>276</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3292,7 +3462,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.УдалитьРегистрациюСсылкиОтбор</commandName>
+                  <commandName>Form.Command.DeleteRefRegistrationFilter</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3325,8 +3495,12 @@
                 <name>СписокСсылокКонтекстноеМенюГруппа4</name>
                 <id>181</id>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюПоказатьРезультатВыгрузки</name>
+                  <name>RefsListContextMenuShowExportResult</name>
                   <id>106</id>
+                  <title>
+                    <key>en</key>
+                    <value>Show export result</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Показать результат выгрузки</value>
@@ -3337,7 +3511,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюПоказатьРезультатВыгрузкиExtendedTooltip</name>
+                    <name>RefsListContextMenuShowExportResultExtendedTooltip</name>
                     <id>278</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3351,7 +3525,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ПоказатьРезультатВыгрузки</commandName>
+                  <commandName>Form.Command.ShowExportResult</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3362,8 +3536,12 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюОткрытьФормуРегистрацииНаУзлах</name>
+                  <name>RefsListContextMenuOpenNodeRegistrationForm</name>
                   <id>137</id>
+                  <title>
+                    <key>en</key>
+                    <value>Register object at other nodes</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Регистрация на других узлах</value>
@@ -3374,7 +3552,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюОткрытьФормуРегистрацииНаУзлахExtendedTooltip</name>
+                    <name>RefsListContextMenuOpenNodeRegistrationFormExtendedTooltip</name>
                     <id>279</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3388,7 +3566,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ОткрытьФормуРегистрацииНаУзлах</commandName>
+                  <commandName>Form.Command.OpenNodeRegistrationForm</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3399,7 +3577,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокСсылокКонтекстноеМенюРедактироватьНомерСообщенияОбъекта</name>
+                  <name>RefsListContextMenuEditObjectMessageNumber</name>
                   <id>198</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3407,7 +3585,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокСсылокКонтекстноеМенюРедактироватьНомерСообщенияОбъектаExtendedTooltip</name>
+                    <name>RefsListContextMenuEditObjectMessageNumberExtendedTooltip</name>
                     <id>280</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3421,7 +3599,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.РедактироватьНомерСообщенияОбъекта</commandName>
+                  <commandName>Form.Command.EditObjectMessageNumber</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3476,7 +3654,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокСсылок.StandardCommand.Find</commandName>
+                  <commandName>Form.Item.RefsList.StandardCommand.Find</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3506,7 +3684,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокСсылок.StandardCommand.CancelSearch</commandName>
+                  <commandName>Form.Item.RefsList.StandardCommand.CancelSearch</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3536,7 +3714,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокСсылок.StandardCommand.ListSettings</commandName>
+                  <commandName>Form.Item.RefsList.StandardCommand.ListSettings</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3566,7 +3744,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокСсылок.StandardCommand.OutputList</commandName>
+                  <commandName>Form.Item.RefsList.StandardCommand.OutputList</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3596,7 +3774,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокСсылок.StandardCommand.Refresh</commandName>
+                  <commandName>Form.Item.RefsList.StandardCommand.Refresh</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3701,8 +3879,12 @@
           <name>СтраницаНаборЗаписей</name>
           <id>50</id>
           <items xsi:type="form:Table">
-            <name>СписокНаборовЗаписей</name>
+            <name>RecordSetsList</name>
             <id>78</id>
+            <title>
+              <key>en</key>
+              <value>Record set</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Набор записей</value>
@@ -3713,7 +3895,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>СписокНаборовЗаписей</segments>
+              <segments>RecordSetsList</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <items xsi:type="form:FormGroup">
@@ -3754,8 +3936,12 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>СписокНаборовЗаписейНомерСообщения</name>
+              <name>RecordSetsListMessageNo</name>
               <id>83</id>
+              <title>
+                <key>en</key>
+                <value>Sent message number</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Номер отправленного</value>
@@ -3765,13 +3951,11 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокНаборовЗаписей.НомерСообщения</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>RecordSetsList.MessageNo</segments>
               </dataPath>
               <extendedTooltip>
-                <name>СписокНаборовЗаписейНомерСообщенияExtendedTooltip</name>
+                <name>RecordSetsListMessageNoExtendedTooltip</name>
                 <id>308</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3786,7 +3970,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокНаборовЗаписейНомерСообщенияКонтекстноеМеню</name>
+                <name>RecordSetsListMessageNoContextMenu</name>
                 <id>84</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3806,7 +3990,7 @@
               </extInfo>
             </items>
             <autoCommandBar>
-              <name>СписокНаборовЗаписейКоманднаяПанель</name>
+              <name>RecordSetsListCommandBar</name>
               <id>80</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3817,11 +4001,11 @@
             </autoCommandBar>
             <handlers>
               <event>Selection</event>
-              <name>СписокНаборовЗаписейВыбор</name>
+              <name>RecordSetListSelection</name>
             </handlers>
             <handlers>
               <event>ChoiceProcessing</event>
-              <name>СписокНаборовЗаписейОбработкаВыбора</name>
+              <name>RecordSetListChoiceProcessing</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -3829,10 +4013,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокНаборовЗаписейСтрокаПоиска</name>
+              <name>RecordSetsListSearchString</name>
               <id>341</id>
               <extendedTooltip>
-                <name>СписокНаборовЗаписейСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>RecordSetsListSearchStringExtendedTooltip</name>
                 <id>343</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3847,7 +4031,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокНаборовЗаписейСтрокаПоискаКонтекстноеМеню</name>
+                <name>RecordSetsListSearchStringContextMenu</name>
                 <id>342</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3866,10 +4050,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокНаборовЗаписейСостояниеПросмотра</name>
+              <name>RecordSetsListViewStatus</name>
               <id>344</id>
               <extendedTooltip>
-                <name>СписокНаборовЗаписейСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>RecordSetsListViewStatusExtendedTooltip</name>
                 <id>346</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3884,7 +4068,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокНаборовЗаписейСостояниеПросмотраКонтекстноеМеню</name>
+                <name>RecordSetsListViewStatusContextMenu</name>
                 <id>345</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3905,10 +4089,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>СписокНаборовЗаписейУправлениеПоиском</name>
+              <name>RecordSetsListSearchControl</name>
               <id>347</id>
               <extendedTooltip>
-                <name>СписокНаборовЗаписейУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>RecordSetsListSearchControlExtendedTooltip</name>
                 <id>349</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3923,7 +4107,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>СписокНаборовЗаписейУправлениеПоискомКонтекстноеМеню</name>
+                <name>RecordSetsListSearchControlContextMenu</name>
                 <id>348</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3938,7 +4122,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>СписокНаборовЗаписейExtendedTooltip</name>
+              <name>RecordSetsListExtendedTooltip</name>
               <id>306</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3953,14 +4137,18 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокНаборовЗаписейКонтекстноеМеню</name>
+              <name>RecordSetsListContextMenu</name>
               <id>79</id>
               <items xsi:type="form:FormGroup">
                 <name>СписокНаборовЗаписейКонтекстноеМенюГруппа1</name>
                 <id>164</id>
                 <items xsi:type="form:Button">
-                  <name>СписокНаборовЗаписейКонтекстноеМенюДобавитьРегистрациюНабораЗаписейОтбор</name>
+                  <name>RecordSetsListContextMenuAddRecordSetRegistrationFilter</name>
                   <id>138</id>
+                  <title>
+                    <key>en</key>
+                    <value>Register record set changes</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Зарегистрировать изменения набора записей</value>
@@ -3971,7 +4159,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокНаборовЗаписейКонтекстноеМенюДобавитьРегистрациюНабораЗаписейОтборExtendedTooltip</name>
+                    <name>RecordSetsListContextMenuAddRecordSetRegistrationFilterExtendedTooltip</name>
                     <id>292</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3985,7 +4173,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ДобавитьРегистрациюНабораЗаписейОтбор</commandName>
+                  <commandName>Form.Command.AddRecordSetRegistrationFilter</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4021,8 +4209,12 @@
                 <name>СписокНаборовЗаписейКонтекстноеМенюГруппа2</name>
                 <id>165</id>
                 <items xsi:type="form:Button">
-                  <name>СписокНаборовЗаписейКонтекстноеМенюУдалитьРегистрациюНабораЗаписей</name>
+                  <name>RecordSetsListContextMenuDeleteRecordSetRegistration</name>
                   <id>139</id>
+                  <title>
+                    <key>en</key>
+                    <value>Unregister current line changes</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Отменить регистрацию изменений текущей строки</value>
@@ -4033,7 +4225,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокНаборовЗаписейКонтекстноеМенюУдалитьРегистрациюНабораЗаписейExtendedTooltip</name>
+                    <name>RecordSetsListContextMenuDeleteRecordSetRegistrationExtendedTooltip</name>
                     <id>294</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4047,7 +4239,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.УдалитьРегистрациюНабораЗаписей</commandName>
+                  <commandName>Form.Command.DeleteRecordSetRegistration</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4058,7 +4250,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокНаборовЗаписейКонтекстноеМенюУдалитьРегистрациюНабораЗаписейОтбор</name>
+                  <name>RecordSetsListContextMenuDeleteRecordSetRegistrationFilter</name>
                   <id>140</id>
                   <title>
                     <key>ru</key>
@@ -4070,7 +4262,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокНаборовЗаписейКонтекстноеМенюУдалитьРегистрациюНабораЗаписейОтборExtendedTooltip</name>
+                    <name>RecordSetsListContextMenuDeleteRecordSetRegistrationFilterExtendedTooltip</name>
                     <id>295</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4084,7 +4276,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.УдалитьРегистрациюНабораЗаписейОтбор</commandName>
+                  <commandName>Form.Command.DeleteRecordSetRegistrationFilter</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4117,8 +4309,12 @@
                 <name>СписокНаборовЗаписейКонтекстноеМенюГруппа4</name>
                 <id>179</id>
                 <items xsi:type="form:Button">
-                  <name>СписокНаборовЗаписейКонтекстноеМенюПоказатьРезультатВыгрузки</name>
+                  <name>RecordSetsListContextMenuShowExportResult</name>
                   <id>141</id>
+                  <title>
+                    <key>en</key>
+                    <value>Show export result</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Показать результат выгрузки</value>
@@ -4129,7 +4325,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокНаборовЗаписейКонтекстноеМенюПоказатьРезультатВыгрузкиExtendedTooltip</name>
+                    <name>RecordSetsListContextMenuShowExportResultExtendedTooltip</name>
                     <id>297</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4143,7 +4339,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ПоказатьРезультатВыгрузки</commandName>
+                  <commandName>Form.Command.ShowExportResult</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4154,7 +4350,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокНаборовЗаписейКонтекстноеМенюОткрытьФормуРегистрацииНаУзлах</name>
+                  <name>RecordSetsListContextMenuOpenNodeRegistrationForm</name>
                   <id>180</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4162,7 +4358,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокНаборовЗаписейКонтекстноеМенюОткрытьФормуРегистрацииНаУзлахExtendedTooltip</name>
+                    <name>RecordSetsListContextMenuOpenNodeRegistrationFormExtendedTooltip</name>
                     <id>298</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4176,7 +4372,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ОткрытьФормуРегистрацииНаУзлах</commandName>
+                  <commandName>Form.Command.OpenNodeRegistrationForm</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4187,7 +4383,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СписокНаборовЗаписейКонтекстноеМенюРедактироватьНомерСообщенияОбъекта</name>
+                  <name>RecordSetsListContextMenuEditObjectMessageNumber</name>
                   <id>199</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4195,7 +4391,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СписокНаборовЗаписейКонтекстноеМенюРедактироватьНомерСообщенияОбъектаExtendedTooltip</name>
+                    <name>RecordSetsListContextMenuEditObjectMessageNumberExtendedTooltip</name>
                     <id>299</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4209,7 +4405,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.РедактироватьНомерСообщенияОбъекта</commandName>
+                  <commandName>Form.Command.EditObjectMessageNumber</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4264,7 +4460,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокНаборовЗаписей.StandardCommand.Find</commandName>
+                  <commandName>Form.Item.RecordSetsList.StandardCommand.Find</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4294,7 +4490,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокНаборовЗаписей.StandardCommand.Refresh</commandName>
+                  <commandName>Form.Item.RecordSetsList.StandardCommand.Refresh</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4324,7 +4520,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокНаборовЗаписей.StandardCommand.CancelSearch</commandName>
+                  <commandName>Form.Item.RecordSetsList.StandardCommand.CancelSearch</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4354,7 +4550,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокНаборовЗаписей.StandardCommand.ListSettings</commandName>
+                  <commandName>Form.Item.RecordSetsList.StandardCommand.ListSettings</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4384,7 +4580,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Item.СписокНаборовЗаписей.StandardCommand.OutputList</commandName>
+                  <commandName>Form.Item.RecordSetsList.StandardCommand.OutputList</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -4809,31 +5005,31 @@
   </autoCommandBar>
   <handlers>
     <event>OnSaveDataInSettingsAtServer</event>
-    <name>ПриСохраненииДанныхВНастройкахНаСервере</name>
+    <name>OnSaveDataInSettingsAtServer</name>
   </handlers>
   <handlers>
     <event>ChoiceProcessing</event>
-    <name>ОбработкаВыбора</name>
-  </handlers>
-  <handlers>
-    <event>NotificationProcessing</event>
-    <name>ОбработкаОповещения</name>
+    <name>ChoiceProcessing</name>
   </handlers>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnLoadDataFromSettingsAtServer</event>
-    <name>ПриЗагрузкеДанныхИзНастроекНаСервере</name>
+    <name>OnLoadDataFromSettingsAtServer</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
     <event>OnClose</event>
-    <name>ПриЗакрытии</name>
+    <name>OnClose</name>
+  </handlers>
+  <handlers>
+    <event>NotificationProcessing</event>
+    <name>NotificationProcessing</name>
   </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <saveDataInSettings>UseList</saveDataInSettings>
@@ -4846,7 +5042,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
@@ -4860,7 +5056,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>УзелОбменаСсылка</name>
+    <name>ExchangeNodeRef</name>
+    <title>
+      <key>en</key>
+      <value>Exchange node</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Узел обмена</value>
@@ -4876,11 +5076,15 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>УзелОбменаСсылка</segments>
+      <segments>ExchangeNodeRef</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ДеревоМетаданных</name>
+    <name>MetadataTree</name>
+    <title>
+      <key>en</key>
+      <value>Metadata</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Метаданные</value>
@@ -4896,7 +5100,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Наименование</name>
+      <name>Description</name>
+      <title>
+        <key>en</key>
+        <value>Description</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Наименование</value>
@@ -4914,7 +5122,11 @@
       </edit>
     </columns>
     <columns>
-      <name>МетаПолноеИмя</name>
+      <name>MetaFullName</name>
+      <title>
+        <key>en</key>
+        <value>Meta full name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Мета полное имя</value>
@@ -4932,7 +5144,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
@@ -4952,7 +5168,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Пометка</name>
+      <name>Check</name>
+      <title>
+        <key>en</key>
+        <value>Check</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Пометка</value>
@@ -4972,7 +5192,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Авторегистрация</name>
+      <name>AutoRegistration</name>
+      <title>
+        <key>en</key>
+        <value>Auto registration</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Авторегистрация</value>
@@ -4992,7 +5216,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоИзменений</name>
+      <name>ChangeCount</name>
+      <title>
+        <key>en</key>
+        <value>Change count</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество изменений</value>
@@ -5012,7 +5240,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоВыгруженных</name>
+      <name>ExportedCount</name>
+      <title>
+        <key>en</key>
+        <value>Exported count</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество выгруженных</value>
@@ -5032,10 +5264,14 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоНевыгруженных</name>
+      <name>NotExportedCount</name>
+      <title>
+        <key>en</key>
+        <value>Not exported count</value>
+      </title>
       <title>
         <key>ru</key>
-        <value>Количество невыгруженных</value>
+        <value>Коичество невыгруженных</value>
       </title>
       <id>8</id>
       <valueType>
@@ -5052,7 +5288,11 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоИзмененийСтрокой</name>
+      <name>ChangeCountString</name>
+      <title>
+        <key>en</key>
+        <value>Change count string</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Количество изменений строкой</value>
@@ -5071,7 +5311,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>СписокСсылок</name>
+    <name>RefsList</name>
+    <title>
+      <key>en</key>
+      <value>Refs list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список ссылок</value>
@@ -5088,33 +5332,42 @@
     </edit>
     <notDefaultUseAlwaysAttributes xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>СписокСсылок.ИндексКартинки</segments>
+        <segments>RefsList.ИндексКартинки</segments>
       </paths>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>СписокСсылок.СсылкаПредставление</segments>
+        <segments>RefsList.СсылкаПредставление</segments>
       </paths>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>СписокСсылок.Узел</segments>
+        <segments>RefsList.Узел</segments>
       </paths>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокСсылок.НеВыгружалось</segments>
+      <segments>RefsList.НеВыгружалось</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокСсылок.НомерСообщения</segments>
+      <segments>RefsList.НомерСообщения</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокСсылок.Ссылка</segments>
+      <segments>RefsList.Ссылка</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>RefsList.MessageNo</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>RefsList.NotExported</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>RefsList.Ref</segments>
     </notDefaultUseAlwaysAttributes>
     <extInfo xsi:type="form:DynamicListExtInfo">
-      <queryText>ВЫБРАТЬ
-				NULL КАК Ссылка,
-				NULL КАК НомерСообщения,
-				ЛОЖЬ КАК НеВыгружалось</queryText>
+      <queryText>SELECT
+				NULL AS Ref,
+				NULL AS MessageNo,
+				FALSE AS NotExported</queryText>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <customQuery>true</customQuery>
       <autoSaveUserSettings>true</autoSaveUserSettings>
@@ -5122,7 +5375,11 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>СписокКонстант</name>
+    <name>ConstantsList</name>
+    <title>
+      <key>en</key>
+      <value>Constants list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список констант</value>
@@ -5138,32 +5395,50 @@
       <common>true</common>
     </edit>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокКонстант.Зарегистрировано</segments>
+      <segments>ConstantsList.Зарегистрировано</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокКонстант.ИндексКартинки</segments>
+      <segments>ConstantsList.ИндексКартинки</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокКонстант.ИндексКартинкиАвторегистрация</segments>
+      <segments>ConstantsList.ИндексКартинкиАвторегистрация</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокКонстант.МетаПолноеИмя</segments>
+      <segments>ConstantsList.МетаПолноеИмя</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокКонстант.НеВыгружалось</segments>
+      <segments>ConstantsList.НеВыгружалось</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокКонстант.НомерСообщения</segments>
+      <segments>ConstantsList.НомерСообщения</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>ConstantsList.Registered</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>ConstantsList.PictureIndex</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>ConstantsList.AutoRecordPictureIndex</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>ConstantsList.MetaFullName</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>ConstantsList.MessageNo</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>ConstantsList.NotExported</segments>
     </notDefaultUseAlwaysAttributes>
     <extInfo xsi:type="form:DynamicListExtInfo">
-      <queryText>ВЫБРАТЬ
-				0 КАК ИндексКартинки,
-				0 КАК ИндексКартинкиАвторегистрация,
-				NULL КАК Наименование,
-				NULL КАК МетаПолноеИмя,
-				NULL КАК НомерСообщения,
-				ЛОЖЬ КАК НеВыгружалось,
-				ЛОЖЬ КАК Зарегистрировано</queryText>
+      <queryText>SELECT
+				0 AS PictureIndex,
+				0 AS AutoRecordPictureIndex,
+				NULL AS Description,
+				NULL AS MetaFullName,
+				NULL AS MessageNo,
+				FALSE AS NotExported,
+				FALSE AS Registered</queryText>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <customQuery>true</customQuery>
       <autoSaveUserSettings>true</autoSaveUserSettings>
@@ -5171,7 +5446,11 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>СтруктураИменМетаданных</name>
+    <name>MetadataNamesStructure</name>
+    <title>
+      <key>en</key>
+      <value>Metadata names structure</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Структура имен метаданных</value>
@@ -5186,7 +5465,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СтруктураПредставленийМетаданных</name>
+    <name>MetadataPresentationsStructure</name>
+    <title>
+      <key>en</key>
+      <value>Metadata presentations structure</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Структура представлений метаданных</value>
@@ -5201,7 +5484,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СписокНаборовЗаписей</name>
+    <name>RecordSetsList</name>
+    <title>
+      <key>en</key>
+      <value>Record sets list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список наборов записей</value>
@@ -5217,15 +5504,21 @@
       <common>true</common>
     </edit>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокНаборовЗаписей.НеВыгружалось</segments>
+      <segments>RecordSetsList.НеВыгружалось</segments>
     </notDefaultUseAlwaysAttributes>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокНаборовЗаписей.НомерСообщения</segments>
+      <segments>RecordSetsList.НомерСообщения</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>RecordSetsList.MessageNo</segments>
+    </notDefaultUseAlwaysAttributes>
+    <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
+      <segments>RecordSetsList.NotExported</segments>
     </notDefaultUseAlwaysAttributes>
     <extInfo xsi:type="form:DynamicListExtInfo">
-      <queryText>ВЫБРАТЬ
-				NULL КАК НомерСообщения,
-				ЛОЖЬ КАК НеВыгружалось</queryText>
+      <queryText>SELECT
+				NULL AS MessageNo,
+				FALSE AS NotExported</queryText>
       <autoFillAvailableFields>true</autoFillAvailableFields>
       <customQuery>true</customQuery>
       <autoSaveUserSettings>true</autoSaveUserSettings>
@@ -5233,7 +5526,11 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>СписокНаборовЗаписейИмяТаблицы</name>
+    <name>RecordSetsListTableName</name>
+    <title>
+      <key>en</key>
+      <value>Record sets list table name</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список наборов записей имя таблицы</value>
@@ -5251,7 +5548,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СтруктураАвторегистрацииМетаданных</name>
+    <name>MetadataAutoRecordStructure</name>
+    <title>
+      <key>en</key>
+      <value>Metadata auto record structure</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Структура авторегистрации метаданных</value>
@@ -5266,7 +5567,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВариантОтбораПоНомеруСообщения</name>
+    <name>FilterByMessageNumberOption</name>
+    <title>
+      <key>en</key>
+      <value>Filter by message number option</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вариант отбора по номеру сообщения</value>
@@ -5285,11 +5590,15 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ВариантОтбораПоНомеруСообщения</segments>
+      <segments>FilterByMessageNumberOption</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ПараметрОбъектРегистрации</name>
+    <name>RegistrationObjectParameter</name>
+    <title>
+      <key>en</key>
+      <value>Registration object parameter</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Параметр объект регистрации</value>
@@ -5304,7 +5613,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПараметрТаблицаРегистрации</name>
+    <name>RegistrationTableParameter</name>
+    <title>
+      <key>en</key>
+      <value>Registration table parameter</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Параметр таблица регистрации</value>
@@ -5319,7 +5632,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗапрещеноВыбиратьУзелОбмена</name>
+    <name>SelectExchangeNodeProhibited</name>
+    <title>
+      <key>en</key>
+      <value>Select exchange node prohibited</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Запрещено выбирать узел обмена</value>
@@ -5336,7 +5653,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИменаСкрываемыхМетаданных</name>
+    <name>NamesOfMetadataToHide</name>
+    <title>
+      <key>en</key>
+      <value>Names of metadata to hide</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Имена скрываемых метаданных</value>
@@ -5356,12 +5677,20 @@
     </extInfo>
   </attributes>
   <formCommands>
-    <name>ДобавитьРегистрациюСсылки</name>
+    <name>AddRefRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Register reference</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Register reference</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию</value>
@@ -5374,18 +5703,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюСсылки</name>
+        <name>AddRefRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюСсылки</name>
+    <name>DeleteRefRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Unregister</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Delete ref registration</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию ссылки</value>
@@ -5395,18 +5732,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюСсылки</name>
+        <name>DeleteRefRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОбновитьВсеДанные</name>
+    <name>RefreshAllData</name>
+    <title>
+      <key>en</key>
+      <value>Refresh all data</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить все данные</value>
     </title>
     <id>3</id>
+    <toolTip>
+      <key>en</key>
+      <value>Refresh all data</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Обновить все данные</value>
@@ -5419,18 +5764,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбновитьВсеДанные</name>
+        <name>RefreshAllData</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюВсехОбъектов</name>
+    <name>AddRegistrationForAllObjects</name>
+    <title>
+      <key>en</key>
+      <value>Register all objects of selected types</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Зарегистрировать все объекты выбранных типов</value>
     </title>
     <id>4</id>
+    <toolTip>
+      <key>en</key>
+      <value>Register all objects of selected types</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Зарегистрировать все объекты выбранных типов</value>
@@ -5440,13 +5793,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюВсехОбъектов</name>
+        <name>AddRegistrationForAllObjects</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюАвтоОбъектов</name>
+    <name>AddRegistrationForAutoObjects</name>
+    <title>
+      <key>en</key>
+      <value>Register objects of selected types with auto registration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Зарегистрировать только авторегистрируемые объекты выбранных
@@ -5454,6 +5811,10 @@
     </title>
     <id>5</id>
     <toolTip>
+      <key>en</key>
+      <value>Register objects of selected types with auto registration</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Зарегистрировать только авторегистрируемые объекты выбранных
 				типов</value>
@@ -5463,18 +5824,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюАвтоОбъектов</name>
+        <name>AddRegistrationForAutoObjects</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюВсехОбъектов</name>
+    <name>DeleteRegistrationForAllObjects</name>
+    <title>
+      <key>en</key>
+      <value>Unregister all objects of selected types</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию всех объектов выбранных типов</value>
     </title>
     <id>6</id>
+    <toolTip>
+      <key>en</key>
+      <value>Delete registration for all objects</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию всех объектов</value>
@@ -5484,19 +5853,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюВсехОбъектов</name>
+        <name>DeleteRegistrationForAllObjects</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюАвтоОбъектов</name>
+    <name>DeleteRegistrationForAutoObjects</name>
+    <title>
+      <key>en</key>
+      <value>Unregister objects of selected types with auto registration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию только авторегиструемых объектов выбранных
 				типов</value>
     </title>
     <id>7</id>
+    <toolTip>
+      <key>en</key>
+      <value>Delete registration for auto objects</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию авто объектов</value>
@@ -5506,19 +5883,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюАвтоОбъектов</name>
+        <name>DeleteRegistrationForAutoObjects</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюСсылкиПодбор</name>
+    <name>AddRefRegistrationPickup</name>
+    <title>
+      <key>en</key>
+      <value>Register selection result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию результата подбора</value>
     </title>
     <id>9</id>
     <toolTip>
+      <key>en</key>
+      <value>Register selection result</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию результата подбора</value>
     </toolTip>
@@ -5527,19 +5912,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюСсылкиПодбор</name>
+        <name>AddRefRegistrationPickup</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюРезультатаЗапроса</name>
+    <name>AddQueryResultRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Register query result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить по результату запроса</value>
     </title>
     <id>10</id>
     <toolTip>
+      <key>en</key>
+      <value>Register query result</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Добавить по результату запроса</value>
     </toolTip>
@@ -5548,19 +5941,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюРезультатаЗапроса</name>
+        <name>AddQueryResultRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюРезультатаЗапроса</name>
+    <name>DeleteQueryResultRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Unregister query result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить по результату запроса</value>
     </title>
     <id>11</id>
     <toolTip>
+      <key>en</key>
+      <value>Unregister query result</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Удалить по результату запроса</value>
     </toolTip>
@@ -5569,19 +5970,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюРезультатаЗапроса</name>
+        <name>DeleteQueryResultRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюКонстанты</name>
+    <name>AddConstantRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Add constant registration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию константы</value>
     </title>
     <id>12</id>
     <toolTip>
+      <key>en</key>
+      <value>Add constant registration</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию константы</value>
     </toolTip>
@@ -5590,19 +5999,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюКонстанты</name>
+        <name>AddConstantRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюКонстанты</name>
+    <name>DeleteConstantRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Delete constant registration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию константы</value>
     </title>
     <id>13</id>
     <toolTip>
+      <key>en</key>
+      <value>Delete constant registration</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию константы</value>
     </toolTip>
@@ -5611,18 +6028,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюКонстанты</name>
+        <name>DeleteConstantRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьНомераСообщений</name>
+    <name>EditMessageNumbers</name>
+    <title>
+      <key>en</key>
+      <value>Edit message numbers</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать номера сообщений</value>
     </title>
     <id>14</id>
+    <toolTip>
+      <key>en</key>
+      <value>Edit message numbers</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Редактировать номера сообщений</value>
@@ -5632,18 +6057,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьНомераСообщений</name>
+        <name>EditMessageNumbers</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПоказатьРезультатВыгрузки</name>
+    <name>ShowExportResult</name>
+    <title>
+      <key>en</key>
+      <value>Standard export result (DIB)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Результат стандартной выгрузки (РИБ)</value>
     </title>
     <id>15</id>
+    <toolTip>
+      <key>en</key>
+      <value>Show export result</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Показать результат выгрузки</value>
@@ -5653,19 +6086,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПоказатьРезультатВыгрузки</name>
+        <name>ShowExportResult</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюСсылкиОтбор</name>
+    <name>AddRefRegistrationFilter</name>
+    <title>
+      <key>en</key>
+      <value>Register filter result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию результата отбора</value>
     </title>
     <id>8</id>
     <toolTip>
+      <key>en</key>
+      <value>Register filter result</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию результата отбора</value>
     </toolTip>
@@ -5674,19 +6115,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюСсылкиОтбор</name>
+        <name>AddRefRegistrationFilter</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюСсылкиОтбор</name>
+    <name>DeleteRefRegistrationFilter</name>
+    <title>
+      <key>en</key>
+      <value>Unregister filter result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию результата отбора</value>
     </title>
     <id>16</id>
     <toolTip>
+      <key>en</key>
+      <value>Unregister filter result</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию результата отбора</value>
     </toolTip>
@@ -5695,18 +6144,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюСсылкиОтбор</name>
+        <name>DeleteRefRegistrationFilter</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюНабораЗаписейОтбор</name>
+    <name>AddRecordSetRegistrationFilter</name>
+    <title>
+      <key>en</key>
+      <value>Register filter result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию результата отбора</value>
     </title>
     <id>17</id>
+    <toolTip>
+      <key>en</key>
+      <value>Register filter result</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию результата отбора</value>
@@ -5716,18 +6173,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюНабораЗаписейОтбор</name>
+        <name>AddRecordSetRegistrationFilter</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюНабораЗаписейОтбор</name>
+    <name>DeleteRecordSetRegistrationFilter</name>
+    <title>
+      <key>en</key>
+      <value>Unregister filter result</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию по отбору</value>
     </title>
     <id>18</id>
+    <toolTip>
+      <key>en</key>
+      <value>Delete record set registration filter</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию набора записей отбор</value>
@@ -5737,18 +6202,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюНабораЗаписейОтбор</name>
+        <name>DeleteRecordSetRegistrationFilter</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюНабораЗаписей</name>
+    <name>DeleteRecordSetRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Delete record set registration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию набора записей</value>
     </title>
     <id>19</id>
+    <toolTip>
+      <key>en</key>
+      <value>Delete record set registration</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию набора записей</value>
@@ -5758,18 +6231,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюНабораЗаписей</name>
+        <name>DeleteRecordSetRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьФормуРегистрацииНаУзлах</name>
+    <name>OpenNodeRegistrationForm</name>
+    <title>
+      <key>en</key>
+      <value>Open node registration form</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть форму регистрации на узлах</value>
     </title>
     <id>20</id>
+    <toolTip>
+      <key>en</key>
+      <value>Register object at all nodes</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Регистрация объекта на всех узлах</value>
@@ -5779,18 +6260,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьФормуРегистрацииНаУзлах</name>
+        <name>OpenNodeRegistrationForm</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьФормуНастроек</name>
+    <name>OpenSettingsForm</name>
+    <title>
+      <key>en</key>
+      <value>Settings</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Настройки</value>
     </title>
     <id>21</id>
+    <toolTip>
+      <key>en</key>
+      <value>Open settings form</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Открыть форму настроек</value>
@@ -5803,19 +6292,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьФормуНастроек</name>
+        <name>OpenSettingsForm</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюОдногоОбъекта</name>
+    <name>AddRegistrationForSingleObject</name>
+    <title>
+      <key>en</key>
+      <value>Add registration for single object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию одного объекта</value>
     </title>
     <id>22</id>
     <toolTip>
+      <key>en</key>
+      <value>Add registration for single object</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию одного объекта</value>
     </toolTip>
@@ -5824,18 +6321,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюОдногоОбъекта</name>
+        <name>AddRegistrationForSingleObject</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюОтбор</name>
+    <name>AddRegistrationFilter</name>
+    <title>
+      <key>en</key>
+      <value>Add registration filter</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию отбор</value>
     </title>
     <id>23</id>
+    <toolTip>
+      <key>en</key>
+      <value>Add registration filter</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию отбор</value>
@@ -5845,13 +6350,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюОтбор</name>
+        <name>AddRegistrationFilter</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюОдногоОбъекта</name>
+    <name>DeleteRegistrationForSingleObject</name>
+    <title>
+      <key>en</key>
+      <value>Delete registration for single object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию одного объекта</value>
@@ -5866,19 +6375,27 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюОдногоОбъекта</name>
+        <name>DeleteRegistrationForSingleObject</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьРегистрациюОтбор</name>
+    <name>DeleteRegistrationFilter</name>
+    <title>
+      <key>en</key>
+      <value>Delete registration filter</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить регистрацию отбор</value>
     </title>
     <id>25</id>
     <toolTip>
+      <key>en</key>
+      <value>Delete registration filter</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Удалить регистрацию отбор</value>
     </toolTip>
@@ -5887,18 +6404,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегистрациюОтбор</name>
+        <name>DeleteRegistrationFilter</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьРегистрациюУдаленияОбъекта</name>
+    <name>AddObjectDeletionRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Add object deletion registration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить регистрацию удаления объекта</value>
     </title>
     <id>26</id>
+    <toolTip>
+      <key>en</key>
+      <value>Add object deletion registration</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить регистрацию удаления объекта</value>
@@ -5908,18 +6433,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегистрациюУдаленияОбъекта</name>
+        <name>AddObjectDeletionRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьНомерСообщенияОбъекта</name>
+    <name>EditObjectMessageNumber</name>
+    <title>
+      <key>en</key>
+      <value>Edit object message number</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать номер сообщения объекта</value>
     </title>
     <id>27</id>
+    <toolTip>
+      <key>en</key>
+      <value>Edit object message number</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Редактировать номер сообщения объекта</value>
@@ -5932,16 +6465,16 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьНомерСообщенияОбъекта</name>
+        <name>EditObjectMessageNumber</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьСсылку</name>
+    <name>EditReference</name>
     <title>
       <key>ru</key>
-      <value>Редактировать ссылку</value>
+      <value>Edit reference</value>
     </title>
     <id>28</id>
     <use>
@@ -5952,31 +6485,31 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьСсылку</name>
+        <name>EditReference</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
-    <name>ИдентификаторКоманды</name>
+    <name>CommandID</name>
     <valueType/>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ОбъектыНазначения</name>
+    <name>RelatedObjects</name>
     <valueType/>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>УзелОбмена</name>
+    <name>ExchangeNode</name>
     <valueType>
       <types>ExchangePlanRef</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ЗапрещеноВыбиратьУзелОбмена</name>
+    <name>SelectExchangeNodeProhibited</name>
     <valueType>
       <types>Boolean</types>
     </valueType>

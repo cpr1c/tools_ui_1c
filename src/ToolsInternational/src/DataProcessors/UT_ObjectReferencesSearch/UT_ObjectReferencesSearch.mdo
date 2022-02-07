@@ -15,6 +15,11 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_ObjectReferencesSearch.Form.Форма</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
   <extendedPresentation>
     <key>en</key>
     <value>Object references search</value>
@@ -25,11 +30,11 @@
   </extendedPresentation>
   <explanation>
     <key>en</key>
-    <value>An analog of standard processing from the &quot;Functions for technician&quot; menu item.</value>
+    <value>An analog of standard data processor from the &quot;Functions for technician&quot; menu item.</value>
   </explanation>
   <explanation>
     <key>ru</key>
-    <value> аналог стандартной обработки из меню &quot;Все функции&quot;.</value>
+    <value>Аналог стандартной обработки из меню &quot;Все функции&quot;.</value>
   </explanation>
   <attributes uuid="4d56ac76-3eb4-493a-a4da-30d9fa7b68e5">
     <name>SourceObject</name>

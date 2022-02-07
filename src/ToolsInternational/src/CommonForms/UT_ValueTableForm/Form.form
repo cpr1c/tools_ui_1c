@@ -5,7 +5,7 @@
     <value>Таблица значений</value>
   </title>
   <items xsi:type="form:FormField">
-    <name>_ЧислоЗаписей</name>
+    <name>_RecordsCount</name>
     <id>26</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -14,11 +14,11 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>_ЧислоЗаписей</segments>
+        <segments>_RecordsCount</segments>
       </paths>
     </dataPath>
     <extendedTooltip>
-      <name>_ЧислоЗаписейРасширеннаяПодсказка</name>
+      <name>_RecordsCountExtendedTooltip</name>
       <id>28</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -33,7 +33,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>_ЧислоЗаписейКонтекстноеМеню</name>
+      <name>_RecordsCountContextMenu</name>
       <id>27</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -58,7 +58,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:Table">
-    <name>ТаблицаДанных</name>
+    <name>DataTable</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -66,14 +66,14 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ТаблицаДанных</segments>
+      <segments>DataTable</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <autoCommandBar>
-      <name>ТаблицаДанныхКоманднаяПанель</name>
+      <name>DataTableCommandBar</name>
       <id>3</id>
       <items xsi:type="form:Button">
-        <name>ТаблицаДанныхНайти</name>
+        <name>DataTableFind</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -81,7 +81,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТаблицаДанныхНайтиРасширеннаяПодсказка</name>
+          <name>DataTableFindExtendedTooltip</name>
           <id>23</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -95,7 +95,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ТаблицаДанных.StandardCommand.Find</commandName>
+        <commandName>Form.Item.DataTable.StandardCommand.Find</commandName>
         <representation>Auto</representation>
         <onlyInAllActions>false</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
@@ -104,7 +104,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ТаблицаДанныхОтменитьПоиск</name>
+        <name>DataTableCancelSearch</name>
         <id>24</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -112,7 +112,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТаблицаДанныхОтменитьПоискРасширеннаяПодсказка</name>
+          <name>DataTableCancelSearchExtendedTooltip</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -126,7 +126,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.ТаблицаДанных.StandardCommand.CancelSearch</commandName>
+        <commandName>Form.Item.DataTable.StandardCommand.CancelSearch</commandName>
         <representation>Auto</representation>
         <onlyInAllActions>false</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
@@ -135,7 +135,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ТаблицаДанныхКомандаОчиститьТаблицу</name>
+        <name>DataTableCommandClearTable</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -143,7 +143,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТаблицаДанныхКомандаОчиститьТаблицуРасширеннаяПодсказка</name>
+          <name>DataTableCommandClearTableExtendedTooltip</name>
           <id>11</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -157,7 +157,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.КомандаОчиститьТаблицу</commandName>
+        <commandName>Form.Command.CommandClearTable</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -178,10 +178,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ТаблицаДанныхСтрокаПоиска</name>
+      <name>DataTableSearchString</name>
       <id>13</id>
       <extendedTooltip>
-        <name>ТаблицаДанныхСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>DataTableSearchStringExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -196,7 +196,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТаблицаДанныхСтрокаПоискаКонтекстноеМеню</name>
+        <name>DataTableSearchStringContextMenu</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -215,10 +215,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ТаблицаДанныхСостояниеПросмотра</name>
+      <name>DataTableViewStatus</name>
       <id>16</id>
       <extendedTooltip>
-        <name>ТаблицаДанныхСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>DataTableViewStatusExtendedTooltip</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -233,7 +233,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТаблицаДанныхСостояниеПросмотраКонтекстноеМеню</name>
+        <name>DataTableViewStatusContextMenu</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -254,10 +254,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ТаблицаДанныхУправлениеПоиском</name>
+      <name>DataTableSearchControl</name>
       <id>19</id>
       <extendedTooltip>
-        <name>ТаблицаДанныхУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>DataTableSearchControlExtendedTooltip</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -272,7 +272,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ТаблицаДанныхУправлениеПоискомКонтекстноеМеню</name>
+        <name>DataTableSearchControlContextMenu</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -287,7 +287,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>ТаблицаДанныхРасширеннаяПодсказка</name>
+      <name>DataTableExtendedTooltip</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -302,7 +302,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТаблицаДанныхКонтекстноеМеню</name>
+      <name>DataTableContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -341,7 +341,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>КомандаОК</name>
+      <name>CommandOK</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -349,7 +349,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаОКРасширеннаяПодсказка</name>
+        <name>CommandOKExtendedTooltip</name>
         <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -363,7 +363,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.КомандаОК</commandName>
+      <commandName>Form.Command.CommandOK</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -372,7 +372,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>КомандаЗакрыть</name>
+      <name>CommandClose</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -380,7 +380,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаЗакрытьРасширеннаяПодсказка</name>
+        <name>CommandCloseExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -394,7 +394,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.КомандаЗакрыть</commandName>
+      <commandName>Form.Command.CommandClose</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -410,7 +410,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -421,10 +421,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ТаблицаДанных</name>
+    <name>DataTable</name>
     <title>
       <key>ru</key>
       <value>Таблица данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Data table</value>
     </title>
     <id>2</id>
     <valueType>
@@ -438,10 +442,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ЧислоЗаписей</name>
+    <name>_RecordsCount</name>
     <title>
       <key>ru</key>
       <value>Число записей в таблице</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Records count</value>
     </title>
     <id>3</id>
     <valueType>
@@ -458,10 +466,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>КомандаОК</name>
+    <name>CommandOK</name>
     <title>
       <key>ru</key>
       <value>ОК</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Command OK</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -473,16 +485,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаОК</name>
+        <name>CommandOK</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КомандаЗакрыть</name>
+    <name>CommandClose</name>
     <title>
       <key>ru</key>
       <value>Закрыть</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Command close</value>
     </title>
     <id>3</id>
     <toolTip>
@@ -494,16 +510,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаЗакрыть</name>
+        <name>CommandClose</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>КомандаОчиститьТаблицу</name>
+    <name>CommandClearTable</name>
     <title>
       <key>ru</key>
       <value>Очистить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Command clear table</value>
     </title>
     <id>4</id>
     <toolTip>
@@ -515,17 +535,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КомандаОчиститьТаблицу</name>
+        <name>CommandClearTable</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
-    <name>ТаблицаДанных</name>
+    <name>DataTable</name>
     <valueType/>
   </parameters>
   <parameters>
-    <name>Заголовок</name>
+    <name>Title</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>

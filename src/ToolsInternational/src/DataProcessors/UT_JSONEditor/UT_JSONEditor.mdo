@@ -10,7 +10,7 @@
     <value>Редактор JSON [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_JSONEditor.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_JSONEditor.Form.Form</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Редактор JSON</value>
@@ -20,10 +20,10 @@
     <value>Позволяет в удобной форме редактировать строки JSON. Содержит подсветку синтаксиса JSON, редактирование в виде дерева, некоторые автоподстановки</value>
   </explanation>
   <forms uuid="c6d61a86-202a-4d07-b994-ea6492aa2809">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

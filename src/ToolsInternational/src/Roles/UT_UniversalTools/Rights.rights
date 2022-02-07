@@ -232,7 +232,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ФормаСпецЗначения</name>
+		<name>CommonForm.UT_SpecialValueForm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -268,7 +268,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.UT_ValueListChoiceItemsForm</name>
+		<name>CommonForm.UT_ValueListEditingForm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -369,7 +369,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_ObjectsComparison</name>
+		<name>DataProcessor.UT_ObjectsComparsion</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -607,7 +607,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.UT_Settings</name>
+		<name>CommonForm.UT_ToolsSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
