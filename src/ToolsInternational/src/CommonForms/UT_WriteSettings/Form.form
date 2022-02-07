@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>БезПроверок</name>
+    <name>WithoutChecks</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,10 +9,10 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ЗаписьВРежимеЗагрузки</segments>
+      <segments>WritingInLoadMode</segments>
     </dataPath>
     <extendedTooltip>
-      <name>РасширеннаяПодсказка</name>
+      <name>WithoutChecksExtendedTooltip</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -27,7 +27,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>КонтекстноеМеню</name>
+      <name>WithoutChecksContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -44,7 +44,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>ПривелигированныйРежим</name>
+    <name>PrivilegedMode</name>
     <id>4</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -52,10 +52,10 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ПривелигированныйРежим</segments>
+      <segments>PrivilegedMode</segments>
     </dataPath>
     <extendedTooltip>
-      <name>ПолеРасширеннаяПодсказка</name>
+      <name>PrivilegedModeExtendedTooltip</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -70,7 +70,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПолеКонтекстноеМеню</name>
+      <name>PrivilegedModeContextMenu</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -87,7 +87,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>БезАвторегистрацииИзменений</name>
+    <name>WithoutChangesAutoRecording</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -95,10 +95,10 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>БезАвторегистрацииИзменений</segments>
+      <segments>WithoutChangesAutoRecording</segments>
     </dataPath>
     <extendedTooltip>
-      <name>ПолеРасширеннаяПодсказка1</name>
+      <name>WithoutChangesAutoRecordingExtendedTooltip</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -113,7 +113,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПолеКонтекстноеМеню1</name>
+      <name>WithoutChangesAutoRecordingContextMenu</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -130,13 +130,13 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСтраницыПараметровЗаписи</name>
+    <name>GroupPagesWriteSettings</name>
     <id>59</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаПроцедураПередЗаписью</name>
+      <name>GroupBeforeWriteProcedure</name>
       <id>51</id>
       <items xsi:type="form:FormField">
-        <name>ИспользоватьПроцедуруПередЗаписью</name>
+        <name>UseBeforeWriteProcedure</name>
         <id>53</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -147,7 +147,7 @@
           <segments>UseBeforeWriteProcedure</segments>
         </dataPath>
         <extendedTooltip>
-          <name>ПолеРасширеннаяПодсказка5</name>
+          <name>UseBeforeWriteProcedureExtendedTooltip</name>
           <id>55</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -162,7 +162,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПолеКонтекстноеМеню5</name>
+          <name>UseBeforeWriteProcedureContextMenu</name>
           <id>54</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -179,8 +179,12 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormField">
-        <name>ПолеАлгоритмаПередЗаписью</name>
+        <name>FieldOfAlgorithmBeforeRecording</name>
         <id>56</id>
+        <title>
+          <key>en</key>
+          <value>The algorithm in the 1C Script is executed before recording or posting the Object after setting AdditionalProperties (accessing the object through the Object variable)</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Алгоритм на языке 1С, выполняется перед записью или проведением Объекта после установки ДополнительныхСвойств (обращение к объекту через переменную Объект)</value>
@@ -195,10 +199,10 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ПолеАлгоритмаПередЗаписью</segments>
+          <segments>FieldofAlgorithmBeforeRecording</segments>
         </dataPath>
         <extendedTooltip>
-          <name>ПолеАлгоритмаПередЗаписьюРасширеннаяПодсказка</name>
+          <name>FieldOfAlgorithmBeforeRecordingExtendedTooltip</name>
           <id>58</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -213,7 +217,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПолеАлгоритмаПередЗаписьюКонтекстноеМеню</name>
+          <name>FieldOfAlgorithmBeforeRecordingContextMenu</name>
           <id>57</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -242,14 +246,14 @@
       </userVisible>
       <title>
         <key>en</key>
-        <value>&quot;BeforeWrite&quot; procedure </value>
+        <value>procedure &quot;BeforeWrite&quot; </value>
       </title>
       <title>
         <key>ru</key>
         <value>Процедура &quot;Перед записью&quot;</value>
       </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка1</name>
+        <name>GroupBeforeWriteProcedureExtendedTooltip</name>
         <id>52</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -270,10 +274,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаДополнительныеСвойства</name>
+      <name>GroupAdditionalProperties</name>
       <id>15</id>
       <items xsi:type="form:FormField">
-        <name>ИспользоватьДопСвойства</name>
+        <name>UseAdditionalProperties</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -281,10 +285,10 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ИспользоватьДопСвойства</segments>
+          <segments>UseAdditionalProperties</segments>
         </dataPath>
         <extendedTooltip>
-          <name>ПолеРасширеннаяПодсказка2</name>
+          <name>UseAdditionalPropertiesExtendedTooltip</name>
           <id>14</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -299,7 +303,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПолеКонтекстноеМеню2</name>
+          <name>UseAdditionalPropertiesContextMenu</name>
           <id>13</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -316,8 +320,12 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:Decoration">
-        <name>ДекорацияДополнительныеСвойства</name>
+        <name>DecorationAdditionalProperties</name>
         <id>36</id>
+        <title>
+          <key>en</key>
+          <value>A list of properties that will be set in the Object.AdditionalProperties before recording or posting the object</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Перечень свойств, которые будут установлены в Объект.ДополнительныеСвойства перед записью или проведением объекта</value>
@@ -328,7 +336,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДекорацияДополнительныеСвойстваРасширеннаяПодсказка</name>
+          <name>DecorationAdditionalPropertiesExtendedTooltip</name>
           <id>38</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -343,7 +351,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДекорацияДополнительныеСвойстваКонтекстноеМеню</name>
+          <name>DecorationAdditionalPropertiesContextMenu</name>
           <id>37</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -363,7 +371,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Table">
-        <name>ДополнительныеСвойства</name>
+        <name>AdditionalProperties</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -371,11 +379,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДополнительныеСвойства</segments>
+          <segments>AdditionalProperties</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ДополнительныеСвойстваКлюч</name>
+          <name>AdditionalPropertiesKey</name>
           <id>39</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -385,14 +393,14 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ДополнительныеСвойства.Ключ</segments>
+              <segments>AdditionalProperties.Key</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ДополнительныеСвойства.Ключ</segments>
+              <segments>AdditionalProperties.Key</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка3</name>
+            <name>AdditionalPropertiesKeyExtendedTooltip</name>
             <id>41</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -407,7 +415,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню3</name>
+            <name>AdditionalPropertiesKeyContextMenu</name>
             <id>40</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -431,7 +439,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ДополнительныеСвойстваЗначение</name>
+          <name>AdditionalPropertiesValue</name>
           <id>42</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -441,14 +449,14 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ДополнительныеСвойства.Значение</segments>
+              <segments>AdditionalProperties.Value</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ДополнительныеСвойства.Значение</segments>
+              <segments>AdditionalProperties.Value</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка4</name>
+            <name>AdditionalPropertiesValueExtendedTooltip</name>
             <id>44</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -463,7 +471,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню4</name>
+            <name>AdditionalPropertiesValueContextMenu</name>
             <id>43</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -487,10 +495,10 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>КоманднаяПанель</name>
+          <name>AdditionalPropertiesCommandBar</name>
           <id>18</id>
           <items xsi:type="form:Button">
-            <name>ДополнительныеСвойстваВставитьУникальныйИдентификатор</name>
+            <name>AdditionalPropertiesInsertUUID</name>
             <id>49</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -498,7 +506,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ДополнительныеСвойстваВставитьУникальныйИдентификаторРасширеннаяПодсказка</name>
+              <name>AdditionalPropertiesInsertUUIDExtendedTooltip</name>
               <id>50</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -533,10 +541,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаСтрокаПоиска</name>
+          <name>AdditionalPropertiesSearchString</name>
           <id>21</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>AdditionalPropertiesSearchStringExtendedTooltip</name>
             <id>23</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -551,7 +559,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>AdditionalPropertiesSearchStringContextMenu</name>
             <id>22</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -570,10 +578,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>AdditionalPropertiesViewStatus</name>
           <id>27</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>AdditionalPropertiesViewStatusExtendedTooltip</name>
             <id>29</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -588,7 +596,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>AdditionalPropertiesViewStatusContextMenu</name>
             <id>28</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -609,10 +617,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаУправлениеПоиском</name>
+          <name>AdditionalPropertiesSearchControl</name>
           <id>24</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>AdditionalPropertiesSearchControlExtendedTooltip</name>
             <id>26</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -627,7 +635,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>AdditionalPropertiesSearchControlContextMenu</name>
             <id>25</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -642,7 +650,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ТаблицаРасширеннаяПодсказка</name>
+          <name>AdditionalPropertiesExtendedTooltip</name>
           <id>20</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -657,7 +665,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТаблицаКонтекстноеМеню</name>
+          <name>AdditionalPropertiesContextMenu</name>
           <id>19</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -698,7 +706,7 @@
         <value>Дополнительные свойства</value>
       </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка</name>
+        <name>GroupAdditionalPropertiesExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -724,11 +732,15 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Write settings pages group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа страницы параметров записи</value>
     </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка2</name>
+      <name>GroupPagesWriteSettingsExtendedTooltip</name>
       <id>60</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -752,7 +764,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаПрименить</name>
+      <name>FormApply</name>
       <id>45</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -760,7 +772,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаПрименитьРасширеннаяПодсказка</name>
+        <name>FormApplyExtendedTooltip</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -783,7 +795,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаЗакрыть</name>
+      <name>FormClose</name>
       <id>47</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -791,7 +803,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗакрытьРасширеннаяПодсказка</name>
+        <name>FormCloseExtendedTooltip</name>
         <id>48</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -836,7 +848,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ПривелигированныйРежим</name>
+    <name>PrivilegedMode</name>
     <title>
       <key>en</key>
       <value>Privileged mode</value>
@@ -857,7 +869,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаписьВРежимеЗагрузки</name>
+    <name>WritingInLoadMode</name>
     <title>
       <key>en</key>
       <value>Writing in load mode (checks are disabled. DataExchange=True )</value>
@@ -878,7 +890,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>БезАвторегистрацииИзменений</name>
+    <name>WithoutChangesAutoRecording</name>
     <title>
       <key>en</key>
       <value>Without changes autorecording</value>
@@ -899,7 +911,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИспользоватьДопСвойства</name>
+    <name>UseAdditionalProperties</name>
     <title>
       <key>en</key>
       <value>Use additional properties</value>
@@ -920,7 +932,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДополнительныеСвойства</name>
+    <name>AdditionalProperties</name>
     <title>
       <key>en</key>
       <value>Additional properties (set before writing the object)</value>
@@ -940,13 +952,17 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ДополнительныеСвойства</segments>
+      <segments>AdditionalProperties</segments>
     </settingsSavedData>
     <columns>
-      <name>Ключ</name>
+      <name>Key</name>
       <title>
         <key>ru</key>
         <value>Ключ</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Key</value>
       </title>
       <id>1</id>
       <valueType>
@@ -961,10 +977,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value</value>
       </title>
       <id>2</id>
       <valueType>
@@ -1010,7 +1030,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПроцедураПередЗаписью</name>
+    <name>BeforeWriteProcedure</name>
     <title>
       <key>en</key>
       <value>The algorithm in the 1C Script is executed before recording or posting an Object after setting Additional Properties (accessing the object through the Object variable)</value>
@@ -1031,14 +1051,14 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ПроцедураПередЗаписью</segments>
+      <segments>BeforeWriteProcedure</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ПолеАлгоритмаПередЗаписью</name>
+    <name>FieldofAlgorithmBeforeRecording</name>
     <title>
       <key>en</key>
-      <value>Algorithm field before recording</value>
+      <value>Field of Algorithm before recording</value>
     </title>
     <title>
       <key>ru</key>
@@ -1057,7 +1077,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТипОбъекта</name>
+    <name>ObjectType</name>
     <title>
       <key>en</key>
       <value>Object type</value>

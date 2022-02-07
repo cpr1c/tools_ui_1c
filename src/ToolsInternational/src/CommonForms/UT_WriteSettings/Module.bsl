@@ -1,122 +1,119 @@
-#Область ОписаниеПеременных
+#Region VariablesDescription
 
-&НаКлиенте
-Перем мПоследнийUUID;
+&AtClient
+Var mLastUUID;
 
-#КонецОбласти
+#EndRegion
 
-#Область EventHandlers
+#Region EventHandlers
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	UT_CommonClientServer.SetOnFormWriteParameters(ЭтотОбъект, Параметры.ПараметрыЗаписи, "");
+	UT_CommonClientServer.SetOnFormWriteParameters(ThisObject, Parameters.WriteSettings, "");
 	
-	UT_CodeEditorServer.ФормаПриСозданииНаСервере(ЭтотОбъект);
-	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "Редактор", Элементы.ПолеАлгоритмаПередЗаписью);
+	UT_CodeEditorServer.FormOnCreateAtServer(ThisObject);
+	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "Editor", Items.FieldOfAlgorithmBeforeRecording);
 	
-	Если Параметры.Свойство("ТипОбъекта") Тогда
-		ТипОбъекта = Параметры.ТипОбъекта;
-	КонецЕсли;
+	If Parameters.Property("ObjectType") Then
+		ObjectType = Parameters.ObjectType;
+	EndIf;
 EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-	UT_CodeEditorClient.FormOnOpen(ЭтотОбъект, Новый ОписаниеОповещения("ПриОткрытииЗавершение",ЭтотОбъект));
+	UT_CodeEditorClient.FormOnOpen(ThisObject, New NotifyDescription("OnOpenEnd",ThisObject));
 EndProcedure
 
 
-&НаКлиенте
-Процедура ПриОткрытииЗавершение(Результат, ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure OnOpenEnd(Result, AdditionalParameters) Export
 
-КонецПроцедуры
+EndProcedure
 
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиКомандФормы
+#Region FormCommandsHandlers
 
-&НаКлиенте
-Процедура Apply(Command)
-	ПроцедураПередЗаписью = UT_CodeEditorClient.EditorCodeText(ЭтотОбъект, "Редактор");
-	Закрыть(UT_CommonClientServer.FormWriteSettings(ЭтотОбъект, ""));
-КонецПроцедуры
+&AtClient
+Procedure Apply(Command)
+	BeforeWriteProcedure = UT_CodeEditorClient.EditorCodeText(ThisObject, "Editor");
+	Close(UT_CommonClientServer.FormWriteSettings(ThisObject, ""));
+EndProcedure
 
-&НаКлиенте
-Процедура InsertUUID(Command)
-	ТекДанные = Элементы.ДополнительныеСвойства.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure InsertUUID(Command)
+	CurrentData = Items.AdditionalProperties.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	ДопПараметрыОповещения=Новый Структура;
-	ДопПараметрыОповещения.Вставить("ТекущаяСтрока", Элементы.ДополнительныеСвойства.ТекущаяСтрока);
+	NotificationAdditionalParameters=New Structure;
+	NotificationAdditionalParameters.Insert("CurrentRow", Items.AdditionalProperties.CurrentRow);
 
-	ПоказатьВводСтроки(Новый ОписаниеОповещения("ОбработатьВводУникальногоИдентификатора", ЭтаФорма,
-		ДопПараметрыОповещения), мПоследнийUUID, "Введите уникальный идентификатор", , Ложь);
-КонецПроцедуры
+	ShowInputString(New NotifyDescription("ProcessUUIDInput", ThisForm,
+		NotificationAdditionalParameters), mLastUUID,NStr("ru = 'Введите уникальный идентификатор';en = 'Enter a unique identifier (UUID)'"), , False);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область СлужебныеПроцедурыИФункции
+#Region Internal
 
-&НаКлиенте
-Процедура ОбработатьВводУникальногоИдентификатора(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure ProcessUUIDInput(Result, AdditionalParameters) Export
+	If Result = Undefined Then
+		Return;
+	EndIf;
 
-	Если Не ЗначениеЗаполнено(Результат) Тогда
-		Возврат;
-	КонецЕсли;
+	If Not ValueIsFilled(Result) Then
+		Return;
+	EndIf;
 
-	Попытка
-		пЗначение = Новый УникальныйИдентификатор(Результат);
-		мПоследнийUUID = Результат;
-	Исключение
-		ПоказатьПредупреждение( , "Значение не может быть преобразовано в Уникальный идентификатор!", 20);
-		Возврат;
-	КонецПопытки;
+	Try
+		pValue = New UUID(Result);
+		mLastUUID = Result;
+	Except
+		ShowMessageBox( ,NStr("ru = 'Значение не может быть преобразовано в Уникальный идентификатор!';
+		|en = 'The value cannot be converted to a Unique identifier (UUID)!'"), 20);
+		Return;
+	EndTry;
 
-	ТекДанные = ДополнительныеПараметры.НайтиПоИдентификатору(ДополнительныеПараметры.ТекущаяСтрока);
-	Если ТекДанные <> Неопределено Тогда
-		ТекДанные.Значение = пЗначение;
-	КонецЕсли;
-КонецПроцедуры
-
-//@skip-warning
-&НаКлиенте
-Процедура Подключаемый_ПолеРедактораДокументСформирован(Элемент)
-	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ЭтотОбъект, Элемент);
-КонецПроцедуры
+	CurrentData = AdditionalParameters.FindByID(AdditionalParameters.CurrentRow);
+	If CurrentData <> Undefined Then
+		CurrentData.Value = pValue;
+	EndIf;
+EndProcedure
 
 //@skip-warning
-&НаКлиенте
-Процедура Подключаемый_ПолеРедактораПриНажатии(Элемент, ДанныеСобытия, СтандартнаяОбработка)
-	UT_CodeEditorClient.HTMLEditorFieldOnClick(ЭтотОбъект, Элемент, ДанныеСобытия, СтандартнаяОбработка);
-КонецПроцедуры
+&AtClient
+Procedure Подключаемый_ПолеРедактораДокументСформирован(Item)
+	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ThisObject, Item);
+EndProcedure
 
 //@skip-warning
-&НаКлиенте
-Процедура Подключаемый_РедакторКодаОтложеннаяИнициализацияРедакторов()
-	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ЭтотОбъект);
-КонецПроцедуры
+&AtClient
+Procedure Подключаемый_ПолеРедактораПриНажатии(Item, EventData, StandardProcessing)
+	UT_CodeEditorClient.HTMLEditorFieldOnClick(ThisObject, Item, EventData, StandardProcessing);
+EndProcedure
 
 //@skip-warning
-&НаКлиенте 
-Процедура Подключаемый_РедакторКодаЗавершениеИнициализации() Экспорт
-	UT_CodeEditorClient.SetEditorText(ЭтотОбъект, "Редактор", ПроцедураПередЗаписью);
+&AtClient
+Procedure Подключаемый_РедакторКодаОтложеннаяИнициализацияРедакторов()
+	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ThisObject);
+EndProcedure
+
+//@skip-warning
+&AtClient 
+Procedure Подключаемый_РедакторКодаЗавершениеИнициализации() Export
+	UT_CodeEditorClient.SetEditorText(ThisObject, "Editor", BeforeWriteProcedure);
 	
-	ДобавляемыйКонтекст = Новый Структура;
-	Если ТипОбъекта <> Новый ОписаниеТипов Тогда
-		ДобавляемыйКонтекст.Вставить("Объект", ТипОбъекта.Типы()[0]);
-	Иначе
-		ДобавляемыйКонтекст.Вставить("Объект");
-	КонецЕсли;
-	UT_CodeEditorClient.AddCodeEditorContext(ЭтотОбъект, "Редактор", ДобавляемыйКонтекст);
-КонецПроцедуры
+	AddedContext = New Structure;
+	If ObjectType <> New TypeDescription Then
+		AddedContext.Insert("Object", ObjectType.Types()[0]);
+	Else
+		AddedContext.Insert("Object");
+	EndIf;
+	UT_CodeEditorClient.AddCodeEditorContext(ThisObject, "Editor", AddedContext);
+EndProcedure
 
-#КонецОбласти
-
-
-
-
+#EndRegion

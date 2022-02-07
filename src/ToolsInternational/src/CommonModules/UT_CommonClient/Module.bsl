@@ -552,7 +552,7 @@ EndProcedure
 
 #Region WriteSettings
 
-Процедура EditWriteSettings(Form) Export
+Procedure EditWriteSettings(Form) Export
 	FormParameters = New Structure;
 	FormParameters.Insert("WriteSettings", UT_CommonClientServer.FormWriteSettings(Form));
 	
