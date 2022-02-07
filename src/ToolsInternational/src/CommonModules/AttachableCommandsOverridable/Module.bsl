@@ -20,25 +20,25 @@ Procedure UT_OnDefineCommandsAttachedToObject(FormSettings, Sources, AttachedRep
 	EndIf;
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
-	Command.ID="UT_ObjectsComparsion";
+	Command.ID="UT_ObjectsComparison";
 	Command.Presentation=NStr("ru = 'Сравнить объекты';en = 'Compare objects'");
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
 	Command.Purpose="ForList";
 	Command.ChangesSelectedObjects=False;
 	Command.MultipleChoice=True;
-	//	Command.Manager = "DataProcessor.UT_ObjectsComparsion";
-	Command.FormName = "DataProcessor.UT_ObjectsComparsion.Form";
+	//	Command.Manager = "DataProcessor.UT_ObjectsComparison";
+	Command.FormName = "DataProcessor.UT_ObjectsComparison.Form";
 	Command.FormParameterName = "ComparedObjects";
 	Command.Order=0;
 
 	Command = Commands.Add();
 	Command.Kind="UT_UniversalTools";
-	Command.ID="UT_AddToComparsion";
-	Command.Presentation=NStr("ru = 'Добавить к сравнению';en = 'Add to comparsion'");
+	Command.ID="UT_AddToComparison";
+	Command.Presentation=NStr("ru = 'Добавить к сравнению';en = 'Add to Comparison'");
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
 	Command.ChangesSelectedObjects=False;
 	Command.MultipleChoice=True;
-	Command.Handler = "UT_CommonClient.AddObjectsToComparsion";
+	Command.Handler = "UT_CommonClient.AddObjectsToComparison";
 	Command.Order=1;
 
 	Command = Commands.Add();

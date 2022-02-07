@@ -394,7 +394,7 @@ EndProcedure
 
 #Region SSLCommands
 
-Procedure AddObjectsToComparsion(ObjectsArray, Context) Экспорт
+Procedure AddObjectsToComparison(ObjectsArray, Context) Экспорт
 	UT_CommonClientServer.AddObjectsArrayToCompare(ObjectsArray);
 EndProcedure
 

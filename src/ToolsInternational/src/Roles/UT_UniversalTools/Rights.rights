@@ -369,7 +369,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_ObjectsComparsion</name>
+		<name>DataProcessor.UT_ObjectsComparison</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -621,7 +621,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
+		<name>CommonForm.UT_ConfigurationSourseFilesSaveSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
