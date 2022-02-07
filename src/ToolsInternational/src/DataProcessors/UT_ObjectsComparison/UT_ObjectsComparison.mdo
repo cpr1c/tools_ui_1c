@@ -4,13 +4,13 @@
     <objectType typeId="ea14b06b-8058-4d27-a569-a7d2f2c85c2b" valueTypeId="aaf3e5e2-c198-4eb5-91a8-4cb3f4b4ce2d"/>
     <managerType typeId="24c8597f-6cc2-4307-ad71-dd21ca1d0b90" valueTypeId="dc2a9ffd-603d-4262-b716-f4b3658ccbdb"/>
   </producedTypes>
-  <name>UT_ObjectsComparsion</name>
+  <name>UT_ObjectsComparison</name>
   <synonym>
     <key>en</key>
     <value>Objects comparsion</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_ObjectsComparsion.Form.Form</defaultForm>
+  <defaultForm>DataProcessor.UT_ObjectsComparison.Form.Form</defaultForm>
   <forms uuid="3f7c8225-9d29-468a-9f18-d0cacb2284bc">
     <name>Form</name>
     <synonym>

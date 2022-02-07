@@ -166,5 +166,5 @@
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
-  <dataProcessors>DataProcessor.UT_ObjectsComparsion</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ObjectsComparison</dataProcessors>
 </mdclass:Configuration>

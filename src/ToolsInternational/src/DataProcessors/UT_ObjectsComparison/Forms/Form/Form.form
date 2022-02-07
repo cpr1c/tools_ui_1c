@@ -23,7 +23,7 @@
     <name>Object</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.UT_ObjectsComparsion</types>
+      <types>DataProcessorObject.UT_ObjectsComparison</types>
     </valueType>
     <view>
       <common>true</common>
