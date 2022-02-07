@@ -27,7 +27,7 @@ EndProcedure
 &AtClient
 Procedure OnOpen(Cancel)
 
-	If Parameters.ShowWaitWindow Then
+	If Parameters.OutputIdleWindow Then
 		WaitInterval = ?(Parameters.Interval <> 0, Parameters.Interval, 1);
 		AttachIdleHandler("Attachable_CheckJobExecution", WaitInterval, True);
 	EndIf;
@@ -122,7 +122,7 @@ Procedure Attachable_CheckJobExecution()
 
 	EndIf;
 
-	If Parameters.ShowWaitWindow Then
+	If Parameters.OutputIdleWindow Then
 		If Parameters.Interval = 0 Then
 			WaitInterval = WaitInterval * 1.4;
 			If WaitInterval > 15 Then
@@ -168,10 +168,10 @@ EndProcedure
 &AtServer
 Function CheckJobIsCompleted(FormClosing)
 
-	Job = UT_TimeConsumingOperations.ActionCompleted(JobID, False, Parameters.DisplayExecutionProgress,
+	Job = UT_TimeConsumingOperations.ActionCompleted(JobID, False, Parameters.OutputProgressBar,
 		Parameters.OutputMessages);
 
-	If Parameters.GetResult Then
+	If Parameters.MustReceiveResult Then
 		If Job.Status = "Completed" Then
 			Job.Insert("Result", GetFromTempStorage(Parameters.ResultAddress));
 		Иначе
@@ -228,7 +228,7 @@ Function ExecutionResult(Job)
 	Result.Insert("DetailedErrorPresentation", Job.DetailedErrorPresentation);
 	Result.Insert("Messages", Job.Messages);
 
-	If Parameters.GetResult Then
+	If Parameters.MustReceiveResult Then
 		Result.Insert("Result", Job.Result);
 	EndIf;
 
@@ -238,7 +238,7 @@ EndFunction
 
 &AtClient
 Function ReturnResultToChoiceProcessing()
-	Return OnCloseNotifyDescription = Undefined And Parameters.GetResult And TypeOf(FormOwner) = UT_CommonClientServer.ManagedFormType();
+	Return OnCloseNotifyDescription = Undefined And Parameters.MustReceiveResult And TypeOf(FormOwner) = UT_CommonClientServer.ManagedFormType();
 EndFunction
 
 &AtServer
