@@ -17,7 +17,7 @@
 			</selection>
 			<filter>
 				<item xsi:type="FilterItemComparison">
-					<left xsi:type="dcscor:Field">НеВыгружалось</left>
+					<left xsi:type="dcscor:Field">NotExported</left>
 					<comparisonType>Equal</comparisonType>
 					<right xsi:type="xs:boolean">true</right>
 				</item>

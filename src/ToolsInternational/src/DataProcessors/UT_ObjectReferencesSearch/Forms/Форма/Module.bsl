@@ -1,3 +1,4 @@
+
 #Region EventHandlers
 
 &AtServer
@@ -6,8 +7,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		Object.SourceObject = Parameters.SearchObject;
 	EndIf;
 	
-	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
-	
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);	
 EndProcedure
 
 &AtClient
@@ -19,6 +19,7 @@ Procedure OnOpen(Cancel)
 EndProcedure
 
 #EndRegion
+
 
 #Region FormHeaderItemsEventHandlers
 
@@ -38,6 +39,7 @@ EndProcedure
 &AtClient
 Procedure SearchResultSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
+	
 	OpenCurrentRowObject();
 EndProcedure
 
@@ -57,6 +59,7 @@ Procedure SearchResultOnRowActivation(Item)
 EndProcedure
 
 #EndRegion
+
 
 #Region FormCommandHandlers
 
@@ -83,7 +86,7 @@ Procedure SearchForObject(Command)
 	FormParameters = New Structure;
 	FormParameters.Insert("SearchObject", CurrentData.FoundObject);
 
-	OpenForm("Обработка.UT_ObjectReferencesSearch.Форма", FormParameters, , New UUID);
+	OpenForm("DataProcessor.UT_ObjectReferencesSearch.Form", FormParameters, , New UUID);
 EndProcedure
 
 &AtClient
@@ -107,22 +110,21 @@ EndProcedure
 
 &AtClient
 Procedure SourceObjectByReference(Command)
-	CompletionHandler = New NotifyDescription("ВводНавигационнойСсылкиЗавершение", ThisObject);
-	ShowInputString(CompletionHandler, , "Нав. ссылка на объект (e1cib/data/...)");
+	CompletionHandler = New NotifyDescription("InputURLCompletion", ThisObject);
+	ShowInputString(CompletionHandler, , NStr("ru = 'Нав. ссылка на объект (e1cib/data/...)'; en = 'Object URL (e1cib/data/...)'"));
 EndProcedure
 
 &AtClient
-Procedure ВводНавигационнойСсылкиЗавершение(InputResult, AdditionalParameters) Export
+Procedure InputURLCompletion(InputResult, AdditionalParameters) Export
 	If InputResult = Undefined Then
 		Return;
 	EndIf;	
 	
-	FoundObject = вНайтиОбъектПоURL(InputResult);
+	FoundObject = FindObjectByURL(InputResult);
 	If Object.SourceObject <> FoundObject Then
 		Object.SourceObject = FoundObject;
 		SourceObjectOnChange(Undefined);
 	EndIf;
-	
 EndProcedure
 
 //@skip-warning
@@ -133,12 +135,14 @@ EndProcedure
 
 #EndRegion
 
+
 #Region Private
 
 &AtServer
 Procedure ExecuteReferencesSearchAtServer()
 	If NOT ValueIsFilled(Object.SourceObject) Then
-		UT_CommonClientServer.MessageToUser("Не выбран объект, на который необходимо найти ссылки", ,
+		Msg = NStr("ru = 'Не выбран объект, на который необходимо найти ссылки'; en = 'Object to find references is not selected'");
+		UT_CommonClientServer.MessageToUser(Msg, ,
 			"Object.SourceObject");
 		Return;
 	EndIf;
@@ -158,6 +162,7 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapCanBeOpened.Insert(12, True); // 12 Chart of accounts
 	MapCanBeOpened.Insert(13, True); // 13 External data source set
 	MapCanBeOpened.Insert(14, True); // 14 External data source reference
+	
 	MapReferenceType = New Map;
 	MapReferenceType.Insert(0, False); // 0
 	MapReferenceType.Insert(1, False); // 1 Constant
@@ -174,22 +179,24 @@ Procedure ExecuteReferencesSearchAtServer()
 	MapReferenceType.Insert(12, True); // 12 Chart of accounts
 	MapReferenceType.Insert(13, False); // 13 External data source set
 	MapReferenceType.Insert(14, True); // 14 External data source reference
+	
 	MapOfPictures = New Map;
 	MapOfPictures.Insert(0, New Picture); // 0
-	MapOfPictures.Insert(1, PictureLib.Константа); // 1 Constant
-	MapOfPictures.Insert(2, PictureLib.Справочник); // 2 Catalog
-	MapOfPictures.Insert(3, PictureLib.Документ); // 3 Document
-	MapOfPictures.Insert(4, PictureLib.РегистрНакопления); // 4 Accumulation register
-	MapOfPictures.Insert(5, PictureLib.РегистрБухгалтерии); // 5 Accounting register
-	MapOfPictures.Insert(6, PictureLib.РегистрРасчета); // 6 Calculation register
-	MapOfPictures.Insert(7, PictureLib.РегистрСведений); // 7 Information register
-	MapOfPictures.Insert(8, PictureLib.БизнесПроцесс); // 8 Business process
-	MapOfPictures.Insert(9, PictureLib.Задача); // 9 Task
-	MapOfPictures.Insert(10, PictureLib.ПланВидовХарактеристик); // 10 Chart of characteristic types
-	MapOfPictures.Insert(11, PictureLib.ПланВидовРасчета); // 11 Chart of calculation types
-	MapOfPictures.Insert(12, PictureLib.ПланСчетов); // 12 Chart of accounts
-	MapOfPictures.Insert(13, PictureLib.ВнешнийИсточникДанныхТаблица); // 13 External data source set
-	MapOfPictures.Insert(14, PictureLib.ВнешнийИсточникДанныхТаблица); // 14 External data source reference
+	MapOfPictures.Insert(1, PictureLib.Constant); // 1 Constant
+	MapOfPictures.Insert(2, PictureLib.Catalog); // 2 Catalog
+	MapOfPictures.Insert(3, PictureLib.Document); // 3 Document
+	MapOfPictures.Insert(4, PictureLib.AccumulationRegister); // 4 Accumulation register
+	MapOfPictures.Insert(5, PictureLib.AccountingRegister); // 5 Accounting register
+	MapOfPictures.Insert(6, PictureLib.CalculationRegister); // 6 Calculation register
+	MapOfPictures.Insert(7, PictureLib.InformationRegister); // 7 Information register
+	MapOfPictures.Insert(8, PictureLib.BusinessProcess); // 8 Business process
+	MapOfPictures.Insert(9, PictureLib.Task); // 9 Task
+	MapOfPictures.Insert(10, PictureLib.ChartOfCharacteristicTypes); // 10 Chart of characteristic types
+	MapOfPictures.Insert(11, PictureLib.ChartOfCalculationTypes); // 11 Chart of calculation types
+	MapOfPictures.Insert(12, PictureLib.ChartOfAccounts); // 12 Chart of accounts
+	MapOfPictures.Insert(13, PictureLib.ExternalDataSourceTable); // 13 External data source set
+	MapOfPictures.Insert(14, PictureLib.ExternalDataSourceTable); // 14 External data source reference
+	
 	ArrayOfSearch = New Array;
 	ArrayOfSearch.Add(Object.SourceObject);
 
@@ -198,36 +205,32 @@ Procedure ExecuteReferencesSearchAtServer()
 	SearchResult.Clear();
 	Object.FoundCount = ReferencesTable.Count();
 
-	First = Истина;
-	For Each СтрокаНайденнного In ReferencesTable Do
-	// 0 - find object
-	// 1 - found object
-	// 2 - metadata object
-		БазовыйТипЧислом = ТипМетаданныхЧислом(СтрокаНайденнного.Metadata);
+	First = True;
+	For Each FoundRow In ReferencesTable Do
+		// 0 - find object
+		// 1 - found object
+		// 2 - metadata object
+		BaseTypeByNumber = MetadataTypyByNumber(FoundRow.Metadata);
 
-		FoundPresentation = FoundObjectPresentation(БазовыйТипЧислом, СтрокаНайденнного.Metadata,
-			СтрокаНайденнного.Data) + " (" + СтрокаНайденнного.Metadata.FullName() + ")";
+		FoundPresentation = FoundObjectPresentation(BaseTypeByNumber, FoundRow.Metadata,
+			FoundRow.Data) + " (" + FoundRow.Metadata.FullName() + ")";
 
 		NewRow = SearchResult.Add();
-		NewRow.Ref = СтрокаНайденнного.Ref;
+		NewRow.Ref = FoundRow.Ref;
 		NewRow.ObjectPresentation = FoundPresentation;
-		NewRow.FoundObject = СтрокаНайденнного.Data;
-		NewRow.Picture = MapOfPictures[БазовыйТипЧислом];
-		NewRow.CanBeOpened = MapCanBeOpened[БазовыйТипЧислом];
-		NewRow.ReferenceType = MapReferenceType[БазовыйТипЧислом];
+		NewRow.FoundObject = FoundRow.Data;
+		NewRow.Picture = MapOfPictures[BaseTypeByNumber];
+		NewRow.CanBeOpened = MapCanBeOpened[BaseTypeByNumber];
+		NewRow.ReferenceType = MapReferenceType[BaseTypeByNumber];
 		If NewRow.ReferenceType Then
 			NewRow.UUID = NewRow.FoundObject.UUID();
 		EndIf;
 
 		If First Then
-
 			Items.SearchResult.CurrentRow = NewRow.GetID();
-			First = Ложь;
-
+			First = False;
 		EndIf;
-
 	EndDo;
-
 EndProcedure
 
 &AtClient
@@ -240,123 +243,109 @@ Procedure OpenCurrentRowObject()
 		Return;
 	EndIf;
 
-	ПоказатьЗначение( , CurrentData.FoundObject);
-
+	ShowValue( , CurrentData.FoundObject);
 EndProcedure
 
 &AtClient
 Procedure ExecuteReferencesSearch()
 	If NOT ValueIsFilled(Object.SourceObject) Then
-		UT_CommonClientServer.MessageToUser("Не выбран объект, на который необходимо найти ссылки", ,
+		Msg = NStr("ru = 'Не выбран объект, на который необходимо найти ссылки'; en = 'Object to find references is not selected'");
+		UT_CommonClientServer.MessageToUser(Msg, ,
 			"Object.SourceObject");
 		Return;
 	EndIf;
 
-	Status("Выполняется поиск ссылок на объект", , , PictureLib.УправлениеПоиском);
+	Msg = NStr("ru = 'Выполняется поиск ссылок на объект'; en = 'Object references search in progress'");
+	Status(Msg, , , PictureLib.SearchControl);
+	
 	ExecuteReferencesSearchAtServer();
-	Status("Поиск ссылок на объект завершен", , , PictureLib.УправлениеПоиском);
+	
+	Msg = NStr("ru = 'Поиск ссылок на объект завершен'; en = 'Object references search has been completed'");
+	Status(Msg, , , PictureLib.SearchControl);
 
 	ThisObject.CurrentItem = Items.SearchResult;
-
 EndProcedure
 
 &AtServerNoContext
-Function FoundObjectPresentation(БазовыйТипЧислом, МетаданныеОбъекта, FoundObject)
-
+Function FoundObjectPresentation(BaseTypeByNumber, ObjectMetadata, FoundObject)
 	Presentation = TrimAll(FoundObject);
-	If БазовыйТипЧислом = 2 OR БазовыйТипЧислом = 3 OR БазовыйТипЧислом = 8 OR БазовыйТипЧислом = 9
-		OR БазовыйТипЧислом = 10 OR БазовыйТипЧислом = 11 OR БазовыйТипЧислом = 12 OR БазовыйТипЧислом = 14 Then
+	
+	If BaseTypeByNumber = 2 
+		OR BaseTypeByNumber = 3 
+		OR BaseTypeByNumber = 8 
+		OR BaseTypeByNumber = 9
+		OR BaseTypeByNumber = 10 
+		OR BaseTypeByNumber = 11 
+		OR BaseTypeByNumber = 12 
+		OR BaseTypeByNumber = 14 Then
 
-	ElsIf БазовыйТипЧислом = 4 OR БазовыйТипЧислом = 5 OR БазовыйТипЧислом = 6 OR БазовыйТипЧислом = 7 Then
-
+	ElsIf BaseTypeByNumber = 4 
+		OR BaseTypeByNumber = 5 
+		OR BaseTypeByNumber = 6 
+		OR BaseTypeByNumber = 7 Then
 		Presentation = "";
-		If МетаданныеОбъекта.InformationRegisterPeriodicity
+		
+		If ObjectMetadata.InformationRegisterPeriodicity
 			<> Metadata.ObjectProperties.InformationRegisterPeriodicity.Nonperiodical Then
-
-			Presentation = String(FoundObject.Период);
-
+			Presentation = String(FoundObject.Period);
 		EndIf;
 
-		If МетаданныеОбъекта.WriteMode = Metadata.ObjectProperties.RegisterWriteMode.RecorderSubordinate Then
-
+		If ObjectMetadata.WriteMode = Metadata.ObjectProperties.RegisterWriteMode.RecorderSubordinate Then
 			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
-				FoundObject.Регистратор);
-
+				FoundObject.Recorder);
 		EndIf;
 
-		For Each Измерение In МетаданныеОбъекта.Измерения Do
-
+		For Each Dimension In ObjectMetadata.Dimensions Do
 			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
-				FoundObject[Измерение.Имя]);
-
+				FoundObject[Dimension.Name]);
 		EndDo;
-
-	ElsIf БазовыйТипЧислом = 13 Then
-
+	ElsIf BaseTypeByNumber = 13 Then
 		Presentation = "";
-		For Each Измерение In МетаданныеОбъекта.KeyFields Do
-
+		
+		For Each Dimension In ObjectMetadata.KeyFields Do
 			Presentation = ?(StrLen(Presentation) = 0, "", Presentation + "; ") + String(
-				FoundObject[Измерение.Имя]);
-
+				FoundObject[Dimension.Name]);
 		EndDo;
 	EndIf;
 
 	Return Presentation;
-
 EndFunction
 
 &AtServerNoContext
-Function ТипМетаданныхЧислом(ObjectMetadata)
-
+Function MetadataTypyByNumber(ObjectMetadata)
 	MetadataType = 0;
+	
 	If Metadata.Constants.Contains(ObjectMetadata) Then
-
 		MetadataType = 1;
 	ElsIf Metadata.Catalogs.Contains(ObjectMetadata) Then
-
 		MetadataType = 2;
 	ElsIf Metadata.Documents.Contains(ObjectMetadata) Then
-
 		MetadataType = 3;
 	ElsIf Metadata.AccumulationRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 4;
 	ElsIf Metadata.AccountingRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 5;
 	ElsIf Metadata.CalculationRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 6;
 	ElsIf Metadata.InformationRegisters.Contains(ObjectMetadata) Then
-
 		MetadataType = 7;
 	ElsIf Metadata.BusinessProcesses.Contains(ObjectMetadata) Then
-
 		MetadataType = 8;
 	ElsIf Metadata.Tasks.Contains(ObjectMetadata) Then
-
 		MetadataType = 9;
 	ElsIf Metadata.ChartsOfCharacteristicTypes.Contains(ObjectMetadata) Then
-
 		MetadataType = 10;
 	ElsIf Metadata.ChartsOfCalculationTypes.Contains(ObjectMetadata) Then
-
 		MetadataType = 11;
 	ElsIf Metadata.ChartsOfAccounts.Contains(ObjectMetadata) Then
-
 		MetadataType = 12;
 	Else
-		For Each ВнешнийИсточник In Metadata.ExternalDataSources Do
-
-			If ВнешнийИсточник.Tables.Contains(ObjectMetadata) Then
-
+		For Each ExternalSource In Metadata.ExternalDataSources Do
+			If ExternalSource.Tables.Contains(ObjectMetadata) Then
 				If ObjectMetadata.TableDataType
 					= Metadata.ObjectProperties.ExternalDataSourceTableDataType.ObjectData Then
-
 					MetadataType = 14; // object table
 				Else
-
 					MetadataType = 13; // non-object table
 				EndIf;
 				Break;
@@ -365,24 +354,24 @@ Function ТипМетаданныхЧислом(ObjectMetadata)
 	EndIf;
 
 	Return MetadataType;
-
 EndFunction
 
-//TODO Необходимо перенести эту функцию в общий модуль. Сейчас она просто скопирована из УИ_РедакторРеквизитовОбъекта.ФормаОбъекта
+//TODO This function has to be moved to common modules. It is copied from UT_ObjectsAttributesEditor.ObjectForm
 &AtServerNoContext
-Function вНайтиОбъектПоURL(Знач URL)
+Function FindObjectByURL(Val URL)
 	Pos1 = Find(URL, "e1cib/data/");
 	Pos2 = Find(URL, "?ref=");
 
-	If Pos1 = 0 Или Pos2 = 0 Then
+	If Pos1 = 0
+		OR Pos2 = 0 Then
 		Return Undefined;
 	EndIf;
 
 	Try
 		TypeName = Mid(URL, Pos1 + 11, Pos2 - Pos1 - 11);
-		ШаблонЗначения = ValueToStringInternal(PredefinedValue(TypeName + ".EmptyRef"));
-		ЗначениеСсылки = StrReplace(ШаблонЗначения, "00000000000000000000000000000000", Mid(URL, Pos2 + 5));
-		Ref = ValueFromStringInternal(ЗначениеСсылки);
+		ValueTemplate = ValueToStringInternal(PredefinedValue(TypeName + ".EmptyRef"));
+		RefValue = StrReplace(ValueTemplate, "00000000000000000000000000000000", Mid(URL, Pos2 + 5));
+		Ref = ValueFromStringInternal(RefValue);
 	Except
 		Return Undefined;
 	EndTry;
