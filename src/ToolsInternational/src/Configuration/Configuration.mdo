@@ -132,7 +132,7 @@
   <commonForms>CommonForm.UT_ValueTableForm</commonForms>
   <commonForms>CommonForm.UT_ValueTypeEditor</commonForms>
   <commonForms>CommonForm.UT_WriteSettings</commonForms>
-  <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
+  <commonForms>CommonForm.UT_ConfigurationSourseFilesSaveSettings</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.UT_ReportsConsole</reports>

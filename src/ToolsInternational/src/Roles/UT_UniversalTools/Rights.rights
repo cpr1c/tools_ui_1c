@@ -621,7 +621,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
+		<name>CommonForm.UT_ConfigurationSourseFilesSaveSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
