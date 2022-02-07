@@ -7,7 +7,7 @@
   <name>UT_ObjectsComparison</name>
   <synonym>
     <key>en</key>
-    <value>Objects comparsion</value>
+    <value>Objects comparison</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_ObjectsComparison.Form.Form</defaultForm>
