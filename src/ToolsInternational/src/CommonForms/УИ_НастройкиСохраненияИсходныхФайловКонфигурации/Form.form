@@ -47,7 +47,7 @@
       <extInfo xsi:type="form:InputFieldExtInfo">
         <handlers>
           <event>StartChoice</event>
-          <name>ФайлЗапускаПлатформыНачалоВыбора</name>
+          <name>ФайлЗапускаПлатформыStartChoice</name>
         </handlers>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
@@ -478,7 +478,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Пароль</segments>
+          <segments>Password</segments>
         </dataPath>
         <extendedTooltip>
           <name>ПарольРасширеннаяПодсказка</name>
@@ -837,7 +837,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.УстановитьПометки</commandName>
+        <commandName>Form.Command.SetChecks</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -867,7 +867,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.СнятьПометки</commandName>
+        <commandName>Form.Command.UnsetChecks</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -897,7 +897,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ВыбратьОбщийКаталогСохранения</commandName>
+        <commandName>Form.Command.SelectCommonSaveDirectory</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1090,7 +1090,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ВыгрузитьИсходныеМодули</commandName>
+      <commandName>Form.Command.UnloadSourceModules</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -1137,15 +1137,15 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
-  </handlers>
-  <handlers>
-    <event>FillCheckProcessingAtServer</event>
-    <name>ОбработкаПроверкиЗаполненияНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
+  </handlers>
+  <handlers>
+    <event>FillCheckProcessingAtServer</event>
+    <name>FillCheckProcessingAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -1279,10 +1279,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Пароль</name>
+    <name>Password</name>
     <title>
       <key>ru</key>
       <value>Пароль</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Password</value>
     </title>
     <id>11</id>
     <valueType>
@@ -1390,10 +1394,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>УстановитьПометки</name>
+    <name>SetChecks</name>
     <title>
       <key>ru</key>
       <value>Установить пометки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Set checks</value>
     </title>
     <id>1</id>
     <use>
@@ -1404,16 +1412,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УстановитьПометки</name>
+        <name>SetChecks</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СнятьПометки</name>
+    <name>UnsetChecks</name>
     <title>
       <key>ru</key>
       <value>Снять пометки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Unset checks</value>
     </title>
     <id>2</id>
     <use>
@@ -1424,16 +1436,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СнятьПометки</name>
+        <name>UnsetChecks</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВыбратьОбщийКаталогСохранения</name>
+    <name>SelectCommonSaveDirectory</name>
     <title>
       <key>ru</key>
       <value>Выбрать общий каталог сохранения</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Select common save directory</value>
     </title>
     <id>3</id>
     <use>
@@ -1441,16 +1457,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыбратьОбщийКаталогСохранения</name>
+        <name>SelectCommonSaveDirectory</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВыгрузитьИсходныеМодули</name>
+    <name>UnloadSourceModules</name>
     <title>
       <key>ru</key>
       <value>Выгрузить исходные модули</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Unload source modules</value>
     </title>
     <id>4</id>
     <use>
@@ -1458,7 +1478,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыгрузитьИсходныеМодули</name>
+        <name>UnloadSourceModules</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
