@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="e8640d9e-e6fd-4d06-81a8-25e1d938223f">
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="d01eede0-3d22-11eb-5899-e86a6452d1f2">
   <producedTypes>
-    <objectType typeId="ea14b06b-8058-4d27-a569-a7d2f2c85c2b" valueTypeId="aaf3e5e2-c198-4eb5-91a8-4cb3f4b4ce2d"/>
-    <managerType typeId="24c8597f-6cc2-4307-ad71-dd21ca1d0b90" valueTypeId="dc2a9ffd-603d-4262-b716-f4b3658ccbdb"/>
+    <objectType typeId="d01eedcc-3d22-11eb-5899-e86a6452d1f2" valueTypeId="d01eedcd-3d22-11eb-5899-e86a6452d1f2"/>
+    <managerType typeId="d01eedd6-3d22-11eb-5899-e86a6452d1f2" valueTypeId="d01eedd7-3d22-11eb-5899-e86a6452d1f2"/>
   </producedTypes>
   <name>UT_ObjectsComparison</name>
   <synonym>
-    <key>en</key>
-    <value>Objects comparison</value>
+    <key>ru</key>
+    <value>Comparison of objects (UTI)</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_ObjectsComparison.Form.Form</defaultForm>
-  <forms uuid="3f7c8225-9d29-468a-9f18-d0cacb2284bc">
+  <forms uuid="3862f830-3d26-11eb-5899-e86a6452d1f2">
     <name>Form</name>
     <synonym>
-      <key>en</key>
+      <key>ru</key>
       <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <templates uuid="3862f9a2-3d26-11eb-5899-e86a6452d1f2">
+    <name>PF_MXL_ComparisonObjects</name>
+    <synonym>
+      <key>ru</key>
+      <value>PF MXL comparison objects</value>
+    </synonym>
+  </templates>
 </mdclass:DataProcessor>
