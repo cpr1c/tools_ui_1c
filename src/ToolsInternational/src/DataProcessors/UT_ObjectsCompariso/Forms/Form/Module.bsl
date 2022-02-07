@@ -122,7 +122,7 @@ Procedure СформироватьПечатнуюФормуСравненияО
 
 	SpreadsheetDocument = Новый ТабличныйДокумент;
 	SpreadsheetDocument.ИмяПараметровПечати = "ПАРАМЕТРЫ_ПЕЧАТИ_Обработка_СравнениеОбъектов";
-	Макет = Обработки.UT_ObjectsComparison.ПолучитьМакет("PF_MXL_ComparisonObjects");
+	Макет = Обработки.UT_ObjectsCompariso.ПолучитьМакет("PF_MXL_ComparisonObjects");
 	
 	SpreadsheetDocument.НачатьАвтогруппировкуСтрок();
 	Уровень = 1;

@@ -13,9 +13,9 @@ Function SessionStartParameters() export
 		else
 			SessionStartParameters.Insert("ExtensionRightsAdded", False);
 		endif;
-	Иначе
+	Else
 		SessionStartParameters.Insert("ExtensionRightsAdded", False);	
-	КонецЕсли;
+	EndIf;
 
 	SessionStartParameters.Insert("SessionNumber", InfoBaseSessionNumber());
 	SessionStartParameters.Insert("ConfigurationScriptVariant", UT_CodeEditorServer.ConfigurationScriptVariant());
