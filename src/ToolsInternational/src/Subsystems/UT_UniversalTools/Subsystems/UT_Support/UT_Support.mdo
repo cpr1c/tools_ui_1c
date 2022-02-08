@@ -3,11 +3,11 @@
   <name>UT_Support</name>
   <synonym>
     <key>en</key>
-    <value>Suppirt</value>
+    <value>Support</value>
   </synonym>
   <synonym>
     <key>ru</key>
-    <value>Support</value>
+    <value>Поддержка</value>
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>

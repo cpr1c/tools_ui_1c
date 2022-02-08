@@ -1,34 +1,35 @@
 #Region EventHandlers
 
 &AtServer
-Procedure OnCreateAtServer(Cancel, СтандартнаяОбработка)
-	ОбновитьСписокЗадачНаСервере();
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	UpdateIssuesListAtServer();
 EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиСобытийЭлементовФормы
+#Region FormItemsEventsHandlers
 
 &AtClient
-Procedure СписокЗадачВыбор(Item, ВыбраннаяСтрока, Field, СтандартнаяОбработка)
-	СтандартнаяОбработка = False;
+Procedure IssuesListSelection(Item, RowSelected, Field, StandardProcessing)
+	StandardProcessing = False;
 
-	RowData = СписокЗадач.FindByID(ВыбраннаяСтрока);
+	RowData = IssuesList.FindByID(RowSelected);
 
 	BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(), RowData.URL);
+	
 EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиКомандФормы
+#Region FormCommandHandlers
 
 &AtClient
-Procedure ОбновитьСписокЗадач(Command)
-	ОбновитьСписокЗадачНаСервере();
+Procedure UpdateIssuesList(Command)
+	UpdateIssuesListAtServer();
 EndProcedure
 
 &AtClient
-Procedure СтраницаРазработки(Command)
+Procedure AboutPage(Command)
 	UT_CommonClient.OpenAboutPage();
 EndProcedure
 #EndRegion
@@ -36,86 +37,86 @@ EndProcedure
 #Region Private
 
 &AtServer
-Procedure ОбновитьСписокЗадачНаСервере()
-	СписокЗадач.Clear();
+Procedure UpdateIssuesListAtServer()
+	IssuesList.Clear();
 
-	БазовыйАдрес = "https://api.github.com/repos/cpr1c/tools_ui_1c/issues";
+	BaseUrl = "https://api.github.com/repos/cpr1c/tools_ui_1c/issues";
 
 	PageNumber=1;
-	СписокЗадачРепозитория = UT_HTTPConnector.GetJson(БазовыйАдрес+"?per_page=100&page="+Format(PageNumber,"ЧГ=0;"));
-	While СписокЗадачРепозитория.Count() > 0 Do
+	RepositoryIssuesList = UT_HTTPConnector.GetJson(BaseUrl+"?per_page=100&page="+Format(PageNumber,"NG=0;"));
+	While RepositoryIssuesList.Count() > 0 Do
 
-		For Each ЗадачаРепозитория In СписокЗадачРепозитория Do
-			НоваяЗадача = СписокЗадач.Add();
-			НоваяЗадача.Number = ЗадачаРепозитория["number"];
-			НоваяЗадача.URL = ЗадачаРепозитория["html_url"];
-			НоваяЗадача.Subject = ЗадачаРепозитория["title"];
-			НоваяЗадача.Статус = ЗадачаРепозитория["state"];
-			ОтветственныйЗадача = ЗадачаРепозитория["assignee"];
-			If TypeOf(ОтветственныйЗадача) = Type("Map") Then
-				НоваяЗадача.Ответственный = ОтветственныйЗадача["login"];
+		For Each RepositoryIssue In RepositoryIssuesList Do
+			NewIssue = IssuesList.Add();
+			NewIssue.Number = RepositoryIssue["number"];
+			NewIssue.URL = RepositoryIssue["html_url"];
+			NewIssue.Subject = RepositoryIssue["title"];
+			NewIssue.State = RepositoryIssue["state"];
+			ResponsibleIssue = RepositoryIssue["assignee"];
+			If TypeOf(ResponsibleIssue) = Type("Map") Then
+				NewIssue.Responsible = ResponsibleIssue["login"];
 			EndIf;
 
-			ТегиЗадачи = ЗадачаРепозитория["labels"];
-			If TypeOf(ТегиЗадачи) = Type("Array") Then
-				For Each ТекущийТег In ТегиЗадачи Do
-					НоваяЗадача.Теги.Add(ТекущийТег["name"]);
+			IssueLabels = RepositoryIssue["labels"];
+			If TypeOf(IssueLabels) = Type("Array") Then
+				For Each CurrentLabel In IssueLabels Do
+					NewIssue.Labels.Add(CurrentLabel["name"]);
 				EndDo;
 			EndIf;
 
 		EndDo;
 
 		PageNumber=PageNumber+1;
-		СписокЗадачРепозитория = UT_HTTPConnector.GetJson(БазовыйАдрес+"?per_page=100&page="+Format(PageNumber,"ЧГ=0;"));
+		RepositoryIssuesList = UT_HTTPConnector.GetJson(BaseUrl+"?per_page=100&page="+Format(PageNumber,"NG=0;"));
 	
 	EndDo;
 
 EndProcedure
 
 &AtServer
-Function СоздатьНовуюЗадачуНаСервере()
-	ТокенАвторизации = "d1af40528d2ceec322be578bc935a1b46b9af8cc";
+Function CreateNewIssueAtServer()
+	AuthorizationToken = "d1af40528d2ceec322be578bc935a1b46b9af8cc";
 
 	Headers = New Map;
-	Headers.Insert("Authorization", "token " + ТокенАвторизации);
+	Headers.Insert("Authorization", "token " + AuthorizationToken);
 
-	СтруктураТела = New Structure;
-	СтруктураТела.Insert("title", НоваяЗадачаТема);
-	СтруктураТела.Insert("body", НоваяЗадачаОписание);
+	BodyStructure = New Structure;
+	BodyStructure.Insert("title", NewIssueSubject);
+	BodyStructure.Insert("body", NewIssueDescription);
 
-	БазовыйАдрес = "https://api.github.com/repos/cpr1c/tools_ui_1c/issues";
+	BaseUrl = "https://api.github.com/repos/cpr1c/tools_ui_1c/issues";
 
-	Аутентификация = New Structure("User, Password", "tools-ui", ТокенАвторизации);
+	Authentication = New Structure("User, Password", "tools-ui", AuthorizationToken);
 
-	Ответ = UT_HTTPConnector.PostJson(БазовыйАдрес, СтруктураТела, New Structure("Headers, Аутентификация",
-		Headers, Аутентификация));
+	Response = UT_HTTPConnector.PostJson(BaseUrl, BodyStructure, New Structure("Headers, Authentication",
+		Headers, Authentication));
 
-	ОбновитьСписокЗадачНаСервере();
+	UpdateIssuesListAtServer();
 
-	Return Ответ["html_url"];
+	Return Response["html_url"];
 
 EndFunction
 
 &AtClient
-Procedure СоздатьНовуюЗадачу(Command)
+Procedure CreateNewIssue(Command)
 	If Not CheckFilling() Then
 		Return;
 	EndIf;
 
-	АдресЗадачи=СоздатьНовуюЗадачуНаСервере();
+	АдресЗадачи=CreateNewIssueAtServer();
 	If АдресЗадачи <> Undefined Then
-		UT_CommonClientServer.MessageToUser("Task успешно создана");
+		UT_CommonClientServer.MessageToUser(NSTR("ru = 'Задача успешно создана';en = 'Ussue created successfully'"));
 		BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(), АдресЗадачи);
 	Else
-		UT_CommonClientServer.MessageToUser("Creating задачи не удалось");
+		UT_CommonClientServer.MessageToUser(NSTR("ru = 'Создание задачи не удалось';en = 'Issue creation failed'"));
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure СоздатьНовуюЗадачуНаГитхабе(Command)
+Procedure CreateNewIssueAtGitHub(Command)
 	BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(),
-		"https://github.com/cpr1c/tools_ui_1c/issues/new");
+		"https://github.com/i-neti/tools_ui_1c_international/issues/new");
 EndProcedure
 
 #EndRegion
