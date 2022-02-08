@@ -131,7 +131,7 @@ EndFunction
 
 &AtServer
 Procedure ЗаполнитьТекущуюВерсию()
-	ТекущаяВерсия = UT_CommonClientServer.Version();
+	CurrentVersion = UT_CommonClientServer.Version();
 	DistributionType=UT_CommonClientServer.DistributionType();
 	ИмяФайлаСкачки=UT_CommonClientServer.DownloadFileName();
 	ОбновлениеЧерезСкачиваниеФайлаПоставки=Not StrEndsWith(Lower(ИмяФайлаСкачки), "cfe");
@@ -151,7 +151,7 @@ Procedure ЗаполнитьАктуальнуюВерсиюИОписаниеИ
 	For Each ТекРелиз In МассивРелизов Do
 		ВерсияТекРелиза = StrReplace(ТекРелиз["tag_name"], "v", "");
 
-		If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ВерсияТекРелиза, ТекущаяВерсия) > 0 Then
+		If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ВерсияТекРелиза, CurrentVersion) > 0 Then
 			СоответствиеОписанияРелизов.Insert(ВерсияТекРелиза, ТекРелиз);
 		EndIf;
 
@@ -177,26 +177,26 @@ Procedure ЗаполнитьАктуальнуюВерсиюИОписаниеИ
 		EndIf;
 	EndDo;
 
-	АктуальнаяВерсия = МаксимальныйРелиз;
+	ActualVersion = МаксимальныйРелиз;
 
-	ОписаниеИзменений = "";
+	ChangesDescription = "";
 	For Each РелизОписания In СоответствиеОписанияРелизов Do
-		ОписаниеИзменений = ОписаниеИзменений + РелизОписания.Key + Chars.LF;
-		ОписаниеИзменений = ОписаниеИзменений + РелизОписания.Value["body"] + Chars.LF;
+		ChangesDescription = ChangesDescription + РелизОписания.Key + Chars.LF;
+		ChangesDescription = ChangesDescription + РелизОписания.Value["body"] + Chars.LF;
 	EndDo;
 EndProcedure
 
 &AtServer
 Procedure УстановитьНеобходимостьОбновления()
-	If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(АктуальнаяВерсия, ТекущаяВерсия) > 0 Then
+	If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ActualVersion, CurrentVersion) > 0 Then
 		НеобходимостьОбновления = True;
 	EndIf;
 
-	Items.ФормаОбновить.Visible = НеобходимостьОбновления;
-	Items.ОписаниеИзменений.Visible = НеобходимостьОбновления;
+	Items.FormUpdate.Visible = НеобходимостьОбновления;
+	Items.ChangesDescription.Visible = НеобходимостьОбновления;
 	
 	If ОбновлениеЧерезСкачиваниеФайлаПоставки Then
-		Items.ФормаОбновить.Title="Скачать";
+		Items.FormUpdate.Title="Скачать";
 	EndIf;
 EndProcedure
 
