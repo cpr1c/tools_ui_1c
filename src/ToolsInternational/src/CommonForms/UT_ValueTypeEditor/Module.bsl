@@ -1,565 +1,566 @@
-#Область СобытияФормы
+#Region FormEvents
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	РежимРаботы=Параметры.РежимЗапуска;
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	WorkMode=Parameters.StartMode;
 	
-	DataType=Параметры.DataType;
-	Если ТипЗнч(DataType)=Тип("ОписаниеТипов") Тогда
-		НачальныйТипДанных=DataType;
+	DataType=Parameters.DataType;
+	If TypeOf(DataType)=Type("TypeDescription") Then
+		InitialDataType=DataType;
+	Else
+		InitialDataType=New TypeDescription;
+	EndIf;
+	
+	FillQualifiersDataByOriginalDataType();
+	
+	FillTypesTree(True);
+	
+	SetConditionalAppearance();
+EndProcedure
+
+#EndRegion
+
+#Region FormItemsEvents
+
+
+&AtClient
+Procedure TypesTreeOnActivateRow(Item)
+	CurrentData=Items.TypesTree.CurrentData;
+	If CurrentData=Undefined Then
+		Return;
+	EndIf;
+	
+	Items.GroupNumberQualifier.Visible=CurrentData.Имя="Number";
+	Items.GroupStringQualifier.Visible=CurrentData.Имя="String";
+	Items.GroupDateQualifier.Visible=CurrentData.Имя="Date";
+EndProcedure
+
+
+&AtClient
+Procedure UnlimitedStringLengthOnChange(Item)
+	If UnlimitedStringLength Then
+		StringLength=0;
+		AcceptableFixedStringLength=False;
+	EndIf;
+	Items.AcceptableFixedStringLength.Enabled=Not UnlimitedStringLength;
+EndProcedure
+
+&AtClient
+Procedure StringLengthOnChange(Item)
+	If Not ValueIsFilled(StringLength) Then
+		UnlimitedStringLength=True;
+		AcceptableFixedStringLength=False;
 	Иначе
-		НачальныйТипДанных=Новый ОписаниеТипов;
-	КонецЕсли;
+		UnlimitedStringLength=False;
+	EndIf;
+	Items.AcceptableFixedStringLength.Enabled=Not UnlimitedStringLength;
+EndProcedure
+
+&AtClient
+Procedure SearchStringOnChange(Item)
+	FillTypesTree();
+	ExpandTreeItems();
+EndProcedure
+
+&AtClient
+Procedure TypesTreeSelectedOnChange(Item)
+		CurrentRow=Items.TypesTree.CurrentData;
+	If CurrentRow=Undefined Then
+		Return;
+	EndIf;
 	
-	ЗаполнитьДанныеКвалификаторовПоПервоначальномуТипуДанных();
-	
-	ЗаполнитьДеревоТипов(Истина);
-	
-	УстановитьУсловноеОформление();
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область СобытияЭлементовФормы
-
-&НаКлиенте
-Процедура ДеревоТиповПриАктивизацииСтроки(Элемент)
-	ТекДанные=Элементы.ДеревоТипов.ТекущиеДанные;
-	Если ТекДанные=Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-	
-	Элементы.ГруппаКвалификаторЧисла.Видимость=ТекДанные.Имя="Число";
-	Элементы.ГруппаКвалификаторСтроки.Видимость=ТекДанные.Имя="Строка";
-	Элементы.ГруппаКвалификаторДаты.Видимость=ТекДанные.Имя="Дата";
-	
-КонецПроцедуры
-
-&НаКлиенте
-Процедура НеограниченнаяДлинаСтрокиПриИзменении(Элемент)
-	Если НеограниченнаяДлинаСтроки Тогда
-		ДлинаСтроки=0;
-		ДопустамаяДлинаСтрокиФиксированная=Ложь;
-	КонецЕсли;
-	Элементы.ДопустамаяДлинаСтрокиФиксированная.Доступность=Не НеограниченнаяДлинаСтроки;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ДлинаСтрокиПриИзменении(Элемент)
-	Если Не ЗначениеЗаполнено(ДлинаСтроки) Тогда
-		НеограниченнаяДлинаСтроки=Истина;
-		ДопустамаяДлинаСтрокиФиксированная=Ложь;
-	Иначе
-		НеограниченнаяДлинаСтроки=Ложь;
-	КонецЕсли;
-	Элементы.ДопустамаяДлинаСтрокиФиксированная.Доступность=Не НеограниченнаяДлинаСтроки;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура СтрокаПоискаПриИзменении(Элемент)
-	ЗаполнитьДеревоТипов();
-	РазвернутьЭлементыДерева();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ДеревоТиповВыбранПриИзменении(Элемент)
-	ТекСтрока=Элементы.ДеревоТипов.ТекущиеДанные;
-	Если ТекСтрока=Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-	
-	Если ТекСтрока.Выбран Тогда
-		Если Не СоставнойТип Тогда
-			ВыбранныеТипы.Очистить();
-		ИначеЕсли ТекСтрока.НедоступенДляСоставногоТипа Тогда
-			Если ВыбранныеТипы.Количество()>0 Тогда
-				ПоказатьВопрос(Новый ОписаниеОповещения("ДеревоТиповВыбранПриИзмененииЗавершение", ЭтаФорма, Новый Структура("ТекСтрока",ТекСтрока)), "Выбран тип, который не может быть включен в составной тип данных.
-				|Будут исключены остальные типы данных.
-				|Продолжить?",РежимДиалогаВопрос.ДаНет);
-	        	Возврат;
-			КонецЕсли;
-		Иначе
-			ЕстьНедоступныйДляСоставногоТипа=Ложь;
-			Для Каждого Эл Из ВыбранныеТипы Цикл
-				Если Эл.Пометка Тогда
-					ЕстьНедоступныйДляСоставногоТипа=Истина;
-					Прервать;
-				КонецЕсли;
-			КонецЦикла;
+	If CurrentRow.Selected Then
+		If Not CompositeDataType Then
+			SelectedTypes.Clear();
+		 ElsIf CurrentRow.UnavailableForCompositeType Then
+			If SelectedTypes.Count()>0 Then
+				ShowQueryBox(New NotifyDescription("TypesTreeSelectedOnChangeEnd", ThisForm, New Structure("CurrentRow",CurrentRow)),NSTR("ru = 'Выбран тип, который не может быть включен в составной тип данных.Будут исключены остальные типы данных.
+				|Продолжить?';
+				|en = 'A type is selected that cannot be included in a composite data type.Other data types will be excluded.
+				|Continue?'"),QuestionDialogMode.YesNo);
+	        	Return;
+			EndIf;
+		Else
+			HaveUnavailableForCompositeType=False;
+			For Each SelectedTypesItem In SelectedTypes Do
+				If SelectedTypesItem.Check Then
+					HaveUnavailableForCompositeType=True;
+					Break;
+				EndIf;
+			EndDo;
 			
-			Если ЕстьНедоступныйДляСоставногоТипа Тогда
-				ПоказатьВопрос(Новый ОписаниеОповещения("ДеревоТиповВыбранПриИзмененииЗавершениеБылЗапрещенныйДляСоставногоТип", ЭтаФорма, Новый Структура("ТекСтрока",ТекСтрока)), "Ранее был выбран тип, который не может быть 
-				|включен в составной тип данных и будет исключен.
-				|Продолжить?",РежимДиалогаВопрос.ДаНет);
-				Возврат;
-			КонецЕсли;
-		КонецЕсли;
-	Иначе
-		Элемент=ВыбранныеТипы.НайтиПоЗначению(ТекСтрока.Имя);
-		Если Элемент<>Неопределено Тогда
-			ВыбранныеТипы.Удалить(Элемент);
-		КонецЕсли;
+			If HaveUnavailableForCompositeType Then
+				ShowQueryBox(New NotifyDescription("TypesTreeSelectedOnChangeEndWasNotAllowedForCompositeType", ThisForm, New Structure("CurrentRow",CurrentRow)),NSTR("ru = 'Ранее был выбран тип, который не может быть включен в составной тип данных и будет исключен. Продолжить?';
+				|en = 'Previously, a type was selected that cannot be is included in the composite data type and will be excluded.
+				|Continue?'") ,QuestionDialogMode.YesNo);
+				Return;
+			EndIf;
+		EndIf;
+	Else
+		Item=SelectedTypes.FindByValue(CurrentRow.Name);
+		If Item<>Undefined Then
+			SelectedTypes.Delete(Item);
+		EndIf;
 		
-	КонецЕсли;
-	ДеревоТиповВыбранПриИзмененииФрагмент(ТекСтрока);
+	EndIf;
+	TypesTreeSelectedOnChangeFragment(CurrentRow);
 
-	
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура СоставнойТипПриИзменении(Элемент)
-	Если Не СоставнойТип Тогда
-		Если ВыбранныеТипы.Количество()=0 Тогда
-			ДобавитьВыбранныйТип("Строка");
-		КонецЕсли;
-		Тип=ВыбранныеТипы[ВыбранныеТипы.Количество()-1];
-		ВыбранныеТипы.Очистить();
-		ДобавитьВыбранныйТип(Тип);
+
+&AtClient
+Procedure CompositeDataTypeOnChange(Item)
+	If Not CompositeDataType Then
+		If SelectedTypes.Count()=0 Then
+			AddSelectedType("String");
+		EndIf;
+		Type=SelectedTypes[SelectedTypes.Count()-1];
+		SelectedTypes.Clear();
+		AddSelectedType(Type);
 		
-		УстановитьВыбранныеТипыВДереве(ДеревоТипов,ВыбранныеТипы);
-	КонецЕсли;
-КонецПроцедуры
+		SetSelectedTypesInTree(TypesTree,SelectedTypes);
+	EndIf;
+EndProcedure
 
-#КонецОбласти
 
-#Область ОбработчикиКомандФормы
+#EndRegion
 
-&НаКлиенте
-Процедура Применить(Команда)
-	МассивТипов=МассивВыбранныхТипов();
+#Region FormCommandsHandlers
+
+&AtClient
+Procedure Apply(Command)
+	TypesArray=SelectedTypesArray();
 	
-	ТипыСтрокой=Новый Массив;
-	ТипыТипом=Новый Массив;
+	TypesByString=New Array;
+	TypesByType=New Array;
 	
-	Для Каждого Тип ИЗ МассивТипов Цикл
-		Если ТипЗнч(Тип) = Тип("Тип") Тогда
-			ТипыТипом.Добавить(Тип);
+	For Each Type ИЗ TypesArray Do
+		If TypeOf(Type) = Type("Type") Then
+			TypesByType.Add(Type);
 		Иначе
-			ТипыСтрокой.Добавить(Тип);
-		КонецЕсли;
-	КонецЦикла;
+			TypesByString.Add(Type);
+		EndIf;
+	EndDo;
 	
-	Если НеотрицательноеЧисло Тогда
-		Знак=ДопустимыйЗнак.Неотрицательный;
+	If NonnegativeNumber Then
+		Sign=AllowedSign.Nonnegative;
 	Иначе
-		Знак=ДопустимыйЗнак.Любой;
-	КонецЕсли;
+		Sign=AllowedSign.Any;
+	EndIf;
 		
-	КвалификаторЧисла=Новый КвалификаторыЧисла(ДлинаЧисла,ТочностьЧисла,Знак);
-	КвалификаторСтроки=Новый КвалификаторыСтроки(ДлинаСтроки, ?(ДопустамаяДлинаСтрокиФиксированная,ДопустимаяДлина.Фиксированная, ДопустимаяДлина.Переменная));
+	NumberQualifier=New NumberQualifiers(NumberLength,NumberPrecision,Sign);
+	StringQualifier=New StringQualifiers(StringLength, ?(AcceptableFixedStringLength,AllowedLength.Fixed, AllowedLength.Variable));
 	
-	Если СоставДаты=1 Тогда
-		ЧастьДаты=ЧастиДаты.Время;
-	ИначеЕсли СоставДаты=2 Тогда
-		ЧастьДаты=ЧастиДаты.ДатаВремя;
+	If DateFormat=1 Then
+		DateFraction=DateFractions.Time;
+	 ElsIf DateFormat=2 Then
+		DateFraction=DateFractions.DateTime;
 	Иначе
-		ЧастьДаты=ЧастиДаты.Дата;
-	КонецЕсли;
+		DateFraction=DateFractions.Date;
+	EndIf;
 	
-	КвалификаторДаты=Новый КвалификаторыДаты(ЧастьДаты);
+	DateQualifier=New DateQualifiers(DateFraction);
 	
-	Описание=Новый ОписаниеТипов;
-	Если ТипыТипом.Количество()>0 Тогда 
-		Описание=Новый ОписаниеТипов(Описание, ТипыТипом,,КвалификаторЧисла,КвалификаторСтроки,КвалификаторДаты);
-	КонецЕсли;
-	Если ТипыСтрокой.Количество()>0 Тогда 
-		Описание=Новый ОписаниеТипов(Описание, СтрСоединить(ТипыСтрокой,","),,КвалификаторЧисла,КвалификаторСтроки,КвалификаторДаты);
-	КонецЕсли;
+	Description=New TypeDescription;
+	If TypesByType.Count()>0 Then 
+		Description=New TypeDescription(Description, TypesByType,,NumberQualifier,StringQualifier,DateQualifier);
+	EndIf;
+	If TypesByString.Count()>0 Then 
+		Description=New TypeDescription(Description, StrConcat(TypesByString,","),,NumberQualifier,StringQualifier,DateQualifier);
+	EndIf;
 	
-	Закрыть(Описание);
-КонецПроцедуры
+	Close(Description);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область СлужебныеПроцедурыИФункции
+#Region Internal
 
-&НаСервере
-Функция ДоступноХранилищеЗначений()
-	Возврат Истина;	
-КонецФункции
-&НаСервере
-Функция ДоступноNull()
-	Возврат РежимРаботы<>0;	
-КонецФункции
-&НаСервере
-Функция ТипыДляЗапроса()
-	Возврат РежимРаботы=1;	
-КонецФункции
+&AtServer
+Function StorageValueIsAvailable()
+	Return True;	
+EndFunction
+&AtServer
+Function AvailableNull()
+	Return WorkMode<>0;	
+EndFunction
+&AtServer
+Function TypesForQuery()
+	Return WorkMode=1;	
+EndFunction
 
-&НаСервере
-Функция ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,ИмяТипа, Картинка, Представление = "", СтрокаДерева = Неопределено, ЭтоГруппа = Ложь, Групповой=Ложь, НедоступенДляСоставногоТипа=Ложь)
+&AtServer
+Function AddTypeToTypesTree(FillSelectedTypes,TypeName, Picture, Presentation = "", TreeRow = Undefined, IsFolder = False, Group=False, UnavailableForCompositeType=False)
 	
-	Если ЗначениеЗаполнено(Представление) Тогда
-		ПредставлениеТипа=Представление;
+	If ValueIsFilled(Presentation) Then
+		TypePresentation=Presentation;
 	Иначе
-		ПредставлениеТипа=ИмяТипа;
-	КонецЕсли;
+		TypePresentation=TypeName;
+	EndIf;
 
-	Если ЗначениеЗаполнено(СтрокаПоиска) и Не Групповой Тогда
-		Если СтрНайти(НРег(ПредставлениеТипа), НРег(СтрокаПоиска))=0 Тогда
-			Возврат Неопределено;
-		КонецЕсли;
-	КонецЕсли;
+	If ValueIsFilled(SearchString) и Not Group Then
+		If StrFind(Lower(TypePresentation), Lower(SearchString))=0 Then
+			Return Undefined;
+		EndIf;
+	EndIf;
 	
-	Если СтрокаДерева = Неопределено Тогда
-		ЭлементДобавления=ДеревоТипов;
-	Иначе
-		ЭлементДобавления=СтрокаДерева;
-	КонецЕсли;
+	If TreeRow = Undefined Then
+		AdditionElement=TypesTree;
+	Else
+		AdditionElement=TreeRow;
+	EndIf;
 
-	НоваяСтрока=ЭлементДобавления.ПолучитьЭлементы().Добавить();
-	НоваяСтрока.Имя=ИмяТипа;
-	НоваяСтрока.Представление=ПредставлениеТипа;
-	НоваяСтрока.Картинка=Картинка;
-	НоваяСтрока.ЭтоГруппа=ЭтоГруппа;
-	НоваяСтрока.НедоступенДляСоставногоТипа=НедоступенДляСоставногоТипа;
+	NewRow=AdditionElement.GetItems().Add();
+	NewRow.Name=TypeName;
+	NewRow.Presentation=TypePresentation;
+	NewRow.Picture=Picture;
+	NewRow.IsFolder=IsFolder;
+	NewRow.UnavailableForCompositeType=UnavailableForCompositeType;
 	
-	Если ЗаполнятьВыбранныеТипы Тогда
-		Попытка
-			ТекТип=Тип(ИмяТипа);
-		Исключение
-			ТекТип=Неопределено;
-		КонецПопытки;
-		Если ТекТип<>Неопределено Тогда
-			Если НачальныйТипДанных.СодержитТип(ТекТип) Тогда
-				ВыбранныеТипы.Добавить(НоваяСтрока.Имя,,НоваяСтрока.НедоступенДляСоставногоТипа);
-			КонецЕсли;
-		КонецЕсли;
-	КонецЕсли;
+	If FillSelectedTypes Then
+		Try
+			CurrentType=Type(TypeName);
+		Except
+			CurrentType=Undefined;
+		EndTry;
+		If CurrentType<>Undefined Then
+			If InitialDataType.ContainsType(CurrentType) Then
+				SelectedTypes.Add(NewRow.Name,,NewRow.UnavailableForCompositeType);
+			EndIf;
+		EndIf;
+	EndIf;
+
+	Return NewRow;
+EndFunction
+
+&AtServer
+Procedure FillTypesByObjectType(MetadataObjectsType, TypePrefix, Picture,FillSelectedTypes)
+	ObjectsCollection=Metadata[MetadataObjectsType];
+	
+	CollectionRow=AddTypeToTypesTree(FillSelectedTypes,TypePrefix,Picture,TypePrefix,,,True);
+	
+	For Each MetadataObject In ObjectsCollection Do
+		AddTypeToTypesTree(FillSelectedTypes,TypePrefix+"."+MetadataObject.Name, Picture,MetadataObject.Name,CollectionRow);
+	EndDo;
+	
+	DeleteTreeRowIfNotSubordinatesOnSearch(CollectionRow);
+EndProcedure
+
+&AtServer
+Procedure FillPrimitiveTypes(FillSelectedTypes)
+	//AddTypeToTypesTree("Arbitrary", PictureLib.UT_ArbitraryType);
+	AddTypeToTypesTree(FillSelectedTypes,"Number", PictureLib.UT_Number);
+	AddTypeToTypesTree(FillSelectedTypes,"String", PictureLib.UT_String);
+	AddTypeToTypesTree(FillSelectedTypes,"Date", PictureLib.UT_Date);
+	AddTypeToTypesTree(FillSelectedTypes,"Boolean", PictureLib.UT_Boolean);
+	If StorageValueIsAvailable() Then      
+		AddTypeToTypesTree(FillSelectedTypes,"ValueStorage", New Picture);
+	EndIf;
+	If TypesForQuery() Then
+		AddTypeToTypesTree(FillSelectedTypes,"ValueTable", PictureLib.UT_ValueTable);
+		AddTypeToTypesTree(FillSelectedTypes,"ValueList", PictureLib.UT_ValueList);
+		AddTypeToTypesTree(FillSelectedTypes,"Array", PictureLib.UT_Array);
+		AddTypeToTypesTree(FillSelectedTypes,"Type", PictureLib.ChooseType);
+		AddTypeToTypesTree(FillSelectedTypes,"PointInTime", PictureLib.UT_PointInTime);
+		AddTypeToTypesTree(FillSelectedTypes,"Boundary", PictureLib.UT_Boundary);
+	EndIf;
+	
+	AddTypeToTypesTree(FillSelectedTypes,"UUID", PictureLib.UT_UUID);
+	If AvailableNull() Then
+		AddTypeToTypesTree(FillSelectedTypes,"Null", PictureLib.UT_Null);
+	EndIf;
+EndProcedure
+
+&AtServer
+Procedure FillCharacteristicsTypes(FillSelectedTypes)
+	//Characteristics
+	Charts=Metadata.ChartsOfCharacteristicTypes;
+	If Charts.Count()=0 Then
+		Return;
+	EndIf;
+	
+	CharacteristicsRow=AddTypeToTypesTree(FillSelectedTypes,"Characteristics", PictureLib.Folder,,,True,True);
+	
+	For Each Chart In Charts Do
+		AddTypeToTypesTree(FillSelectedTypes,"Characteristic."+Chart.Name,New Picture,Chart.Name,CharacteristicsRow,,,True);
+	EndDo;
+	
+	DeleteTreeRowIfNotSubordinatesOnSearch(CharacteristicsRow);
+
+EndProcedure
+
+&AtServer
+Procedure FillDefinedTypes(FillSelectedTypes)
+	//Characteristics
+	Types=Metadata.DefinedTypes;
+	If Types.Count()=0 Then
+		Return;
+	EndIf;
+	
+	TypeAsString=AddTypeToTypesTree(FillSelectedTypes,"DefinedType", PictureLib.Folder,,,True, True);
+	
+	For Each DefinedType In Types Do
+		AddTypeToTypesTree(FillSelectedTypes,"DefinedType."+DefinedType.Name,New Picture,DefinedType.Name,TypeAsString,,,True);
+	EndDo;
+	DeleteTreeRowIfNotSubordinatesOnSearch(TypeAsString);
+EndProcedure
+
+&AtServer
+Procedure FillTypesOfSystemEnumerations(FillSelectedTypes)
+	TypeAsString=AddTypeToTypesTree(FillSelectedTypes,"SystemEnumerations", PictureLib.Folder,"System Enumerations",,True, True);
+
+	AddTypeToTypesTree(FillSelectedTypes,"AccumulationRecordType",PictureLib.UT_AccumulationRecordType,,TypeAsString);
+	AddTypeToTypesTree(FillSelectedTypes,"AccountType",PictureLib.ChartOfAccountsObject,,TypeAsString);
+	AddTypeToTypesTree(FillSelectedTypes,"AccountingRecordType",PictureLib.ChartOfAccounts,,TypeAsString);
+	AddTypeToTypesTree(FillSelectedTypes,"AccumulationRegisterAggregateUse",New Picture,,TypeAsString);
+	AddTypeToTypesTree(FillSelectedTypes,"AccumulationRegisterAggregatePeriodicity",New Picture,,TypeAsString);
+	
+	DeleteTreeRowIfNotSubordinatesOnSearch(TypeAsString);
+EndProcedure
+
+&AtServer
+Procedure FillTypesTree(FillSelectedTypes=False)
+	TypesTree.GetItems().Clear();
+	FillPrimitiveTypes(FillSelectedTypes);
+	FillTypesByObjectType("Catalogs", "CatalogRef",PictureLib.Catalog,FillSelectedTypes);
+	FillTypesByObjectType("Documents", "DocumentRef",PictureLib.Document,FillSelectedTypes);
+	FillTypesByObjectType("ChartsOfCharacteristicTypes", "ChartOfCharacteristicTypesRef", PictureLib.ChartOfCharacteristicTypes,FillSelectedTypes);
+	FillTypesByObjectType("ChartsOfAccounts", "ChartOfAccountsRef", PictureLib.ChartOfAccounts,FillSelectedTypes);
+	FillTypesByObjectType("ChartsOfCalculationTypes", "ChartOfCalculationTypesRef", PictureLib.ChartOfCalculationTypes,FillSelectedTypes);
+	FillTypesByObjectType("ExchangePlans", "ExchangePlanRef", PictureLib.ExchangePlan,FillSelectedTypes);
+	FillTypesByObjectType("Enums", "EnumRef", PictureLib.Enum,FillSelectedTypes);
+	FillTypesByObjectType("BusinessProcesses", "BusinessProcessRef", PictureLib.BusinessProcess,FillSelectedTypes);
+	FillTypesByObjectType("Tasks", "TaskRef", PictureLib.Task,FillSelectedTypes);
+	//FillTypesByObjectType("BusinessProcessRoutePointsRef", "BusinessProcessRoutePointRef");
+	
+	FillCharacteristicsTypes(FillSelectedTypes);
+	Try
+		FillDefinedTypes(FillSelectedTypes);
+	Except
+	EndTry;
+	AddTypeToTypesTree(FillSelectedTypes,"AnyRef", New Picture, "Any reference");
 
 	
-	Возврат НоваяСтрока;
-КонецФункции
+	If WorkMode=3 Then
+		AddTypeToTypesTree(FillSelectedTypes,"StandardBeginningDate", New Picture, "Standard beginning date");
+		AddTypeToTypesTree(FillSelectedTypes,"StandardPeriod", New Picture, "Standard period");
+		FillTypesOfSystemEnumerations(FillSelectedTypes);
+	EndIf;
+	
+	SetSelectedTypesInTree(TypesTree,SelectedTypes);
+EndProcedure
 
-&НаСервере
-Процедура ЗаполнитьТипыПоВидуОбъекта(ВидОбъектовМетаданных, ПрефиксТипа, Картинка,ЗаполнятьВыбранныеТипы)
-	КоллекцияОбъектов=Метаданные[ВидОбъектовМетаданных];
-	
-	СтрокаКоллекции=ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,ПрефиксТипа,Картинка,ПрефиксТипа,,,Истина);
-	
-	Для Каждого ОбъектМетаданных Из КоллекцияОбъектов Цикл
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,ПрефиксТипа+"."+ОбъектМетаданных.Имя, Картинка,ОбъектМетаданных.Имя,СтрокаКоллекции);
-	КонецЦикла;
-	
-	УдалитьСтрокуДереваЕслиНетПодчиненныхПриПоиске(СтрокаКоллекции);
-КонецПроцедуры
+&AtServer
+Procedure SetConditionalAppearance()
+	// Groups cannot be selected
+	NewCa=ConditionalAppearance.Items.Add();
+	NewCa.Use=True;
+	UT_CommonClientServer.SetFilterItem(NewCa.Filter,
+		"Items.TypesTree.CurrentData.IsFolder", True);
+	Field=NewCa.Fields.Items.Add();
+	Field.Use=True;
+	Field.Field=New DataCompositionField("TypesTreeSelected");
 
-&НаСервере
-Процедура ЗаполнитьПримитивныеТипы(ЗаполнятьВыбранныеТипы)
-	//ДобавитьТипВДеревоТипов("Произвольный", БиблиотекаКартинок.УИ_ПроизвольныйТип);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Число", БиблиотекаКартинок.UT_Number);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Строка", БиблиотекаКартинок.UT_String);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Дата", БиблиотекаКартинок.UT_Date);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Булево", БиблиотекаКартинок.UT_Boolean);
-	Если ДоступноХранилищеЗначений() Тогда      
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ХранилищеЗначения", Новый Картинка);
-	КонецЕсли;
-	Если ТипыДляЗапроса() Тогда
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ТаблицаЗначений", БиблиотекаКартинок.UT_ValueTable);
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"СписокЗначений", БиблиотекаКартинок.UT_ValueList);
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Массив", БиблиотекаКартинок.UT_Array);
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Тип", БиблиотекаКартинок.ВыбратьТип);
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"МоментВремени", БиблиотекаКартинок.UT_PointInTime);
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Граница", БиблиотекаКартинок.UT_Boundary);
-	КонецЕсли;
+	Appearance=NewCa.Appearance.FindParameterValue(New DataCompositionParameter("Show"));
+	Appearance.Use=True;
+	Appearance.Value=False;
 	
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"УникальныйИдентификатор", БиблиотекаКартинок.UT_UUID);
-	Если ДоступноNull() Тогда
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Null", БиблиотекаКартинок.UT_Null);
-	КонецЕсли;
-КонецПроцедуры
+	// If the string is unlimited, then you cannot change the allowed length of the string
+	NewCa=ConditionalAppearance.Items.Add();
+	NewCa.Use=True;
+	UT_CommonClientServer.SetFilterItem(NewCa.Filter,
+		"StringLength", 0);
+	Field=NewCa.Fields.Items.Add();
+	Field.Use=True;
+	Field.Field=New DataCompositionField("AcceptableFixedStringLength");
 
-&НаСервере
-Процедура ЗаполнитьТипыХарактеристик(ЗаполнятьВыбранныеТипы)
-	//Характеристики
-	ПланыВидов=Метаданные.ПланыВидовХарактеристик;
-	Если ПланыВидов.Количество()=0 Тогда
-		Возврат;
-	КонецЕсли;
+	Appearance=NewCa.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
+	Appearance.Use=True;
+	Appearance.Value=True;
 	
-	СтрокаХарактеристик=ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Характеристики", БиблиотекаКартинок.Папка,,,Истина,Истина);
-	
-	Для Каждого План Из ПланыВидов Цикл
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"Характеристика."+План.Имя,Новый Картинка,План.Имя,СтрокаХарактеристик,,,Истина);
-	КонецЦикла;
-	
-	УдалитьСтрокуДереваЕслиНетПодчиненныхПриПоиске(СтрокаХарактеристик);
+EndProcedure
 
-КонецПроцедуры
+&AtServer
+Procedure DeleteTreeRowIfNotSubordinatesOnSearch(TreeRow)
+	If Not ValueIsFilled(SearchString) Then
+		Return;
+	EndIf;
+	If TreeRow.GetItems().Count()=0 Then
+		TypesTree.GetItems().Delete(TreeRow);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура ЗаполнитьОпределяемыеТипы(ЗаполнятьВыбранныеТипы)
-	//Характеристики
-	Типы=Метаданные.ОпределяемыеТипы;
-	Если Типы.Количество()=0 Тогда
-		Возврат;
-	КонецЕсли;
-	
-	СтрокаТипа=ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ОпределяемыйТип", БиблиотекаКартинок.Папка,,,Истина, Истина);
-	
-	Для Каждого ОпределяемыйТип Из Типы Цикл
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ОпределяемыйТип."+ОпределяемыйТип.Имя,Новый Картинка,ОпределяемыйТип.Имя,СтрокаТипа,,,Истина);
-	КонецЦикла;
-	УдалитьСтрокуДереваЕслиНетПодчиненныхПриПоиске(СтрокаТипа);
-КонецПроцедуры
+&AtClient
+Procedure ExpandTreeItems()
+	For each TreeRow In TypesTree.GetItems() Do 
+		Items.TypesTree.Expand(TreeRow.GetID());
+	EndDo;
+EndProcedure
 
-&НаСервере
-Процедура ЗаполнитьТипыСистемныеПеречисления(ЗаполнятьВыбранныеТипы)
-	СтрокаТипа=ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"СистемныеПеречисления", БиблиотекаКартинок.Папка,"Системные перечисления",,Истина, Истина);
-
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ВидДвиженияНакопления",БиблиотекаКартинок.UT_AccumulationRecordType,,СтрокаТипа);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ВидСчета",БиблиотекаКартинок.ПланСчетовОбъект,,СтрокаТипа);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ВидДвиженияБухгалтерии",БиблиотекаКартинок.ПланСчетов,,СтрокаТипа);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ИспользованиеАгрегатаРегистраНакопления",Новый Картинка,,СтрокаТипа);
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ПериодичностьАгрегатаРегистраНакопления",Новый Картинка,,СтрокаТипа);
-	
-	УдалитьСтрокуДереваЕслиНетПодчиненныхПриПоиске(СтрокаТипа);
-КонецПроцедуры
-
-&НаСервере
-Процедура ЗаполнитьДеревоТипов(ЗаполнятьВыбранныеТипы=Ложь)
-	ДеревоТипов.ПолучитьЭлементы().Очистить();
-	ЗаполнитьПримитивныеТипы(ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("Справочники", "СправочникСсылка",БиблиотекаКартинок.Справочник,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("Документы", "ДокументСсылка",БиблиотекаКартинок.Документ,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("ПланыВидовХарактеристик", "ПланВидовХарактеристикСсылка", БиблиотекаКартинок.ПланВидовХарактеристик,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("ПланыСчетов", "ПланСчетовСсылка", БиблиотекаКартинок.ПланСчетов,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("ПланыВидовРасчета", "ПланВидовРасчетаСсылка", БиблиотекаКартинок.ПланВидовРасчета,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("ПланыОбмена", "ПланОбменаСсылка", БиблиотекаКартинок.ПланОбмена,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("Перечисления", "ПеречислениеСсылка", БиблиотекаКартинок.Перечисление,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("БизнесПроцессы", "БизнесПроцессСсылка", БиблиотекаКартинок.БизнесПроцесс,ЗаполнятьВыбранныеТипы);
-	ЗаполнитьТипыПоВидуОбъекта("Задачи", "ЗадачаСсылка", БиблиотекаКартинок.Задача,ЗаполнятьВыбранныеТипы);
-	//ЗаполнитьТипыПоВидуОбъекта("ТочкиМаршрутаБизнесПроцессаСсылка", "ТочкаМаршрутаБизнесПроцессаСсылка");
-	
-	ЗаполнитьТипыХарактеристик(ЗаполнятьВыбранныеТипы);
-	Попытка
-		ЗаполнитьОпределяемыеТипы(ЗаполнятьВыбранныеТипы);
-	Исключение
-	КонецПопытки;
-	ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"ЛюбаяСсылка", Новый Картинка, "Любая ссылка");
-
-	
-	Если РежимРаботы=3 Тогда
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"СтандартнаяДатаНачала", Новый Картинка, "Стандартный дата начала");
-		ДобавитьТипВДеревоТипов(ЗаполнятьВыбранныеТипы,"СтандартныйПериод", Новый Картинка, "Стандартный период");
-		ЗаполнитьТипыСистемныеПеречисления(ЗаполнятьВыбранныеТипы);
-	КонецЕсли;
-	
-	УстановитьВыбранныеТипыВДереве(ДеревоТипов,ВыбранныеТипы);
-КонецПроцедуры
-
-&НаСервере
-Процедура УстановитьУсловноеОформление()
-	// Группы нелья выбирать
-	НовоеУО=УсловноеОформление.Элементы.Добавить();
-	НовоеУО.Использование=Истина;
-	UT_CommonClientServer.SetFilterItem(НовоеУО.Отбор,
-		"Элементы.ДеревоТипов.ТекущиеДанные.ЭтоГруппа", Истина);
-	Поле=НовоеУО.Поля.Элементы.Добавить();
-	Поле.Использование=Истина;
-	Поле.Поле=Новый ПолеКомпоновкиДанных("ДеревоТиповВыбран");
-
-	Оформление=НовоеУО.Оформление.НайтиЗначениеПараметра(Новый ПараметрКомпоновкиДанных("Отображать"));
-	Оформление.Использование=Истина;
-	Оформление.Значение=Ложь;
-	
-	// Если строка неограниченная то нельзя менять допустимую длину строки
-	НовоеУО=УсловноеОформление.Элементы.Добавить();
-	НовоеУО.Использование=Истина;
-	UT_CommonClientServer.SetFilterItem(НовоеУО.Отбор,
-		"ДлинаСтроки", 0);
-	Поле=НовоеУО.Поля.Элементы.Добавить();
-	Поле.Использование=Истина;
-	Поле.Поле=Новый ПолеКомпоновкиДанных("ДопустамаяДлинаСтрокиФиксированная");
-
-	Оформление=НовоеУО.Оформление.НайтиЗначениеПараметра(Новый ПараметрКомпоновкиДанных("ТолькоПросмотр"));
-	Оформление.Использование=Истина;
-	Оформление.Значение=Истина;
-	
-	
-КонецПроцедуры
-
-&НаСервере
-Процедура УдалитьСтрокуДереваЕслиНетПодчиненныхПриПоиске(СтрокаДерева)
-	Если Не ЗначениеЗаполнено(СтрокаПоиска) Тогда
-		Возврат;
-	КонецЕсли;
-	Если СтрокаДерева.ПолучитьЭлементы().Количество()=0 Тогда
-		ДеревоТипов.ПолучитьЭлементы().Удалить(СтрокаДерева);
-	КонецЕсли;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура РазвернутьЭлементыДерева()
-	Для каждого СтрокаДерева Из ДеревоТипов.ПолучитьЭлементы() Цикл 
-		Элементы.ДеревоТипов.Развернуть(СтрокаДерева.ПолучитьИдентификатор());
-	КонецЦикла;
-КонецПроцедуры
-
-&НаКлиентеНаСервереБезКонтекста
-Процедура УстановитьВыбранныеТипыВДереве(СтрокаДерева,ВыбранныеТипы)
-	Для Каждого Стр ИЗ СтрокаДерева.ПолучитьЭлементы() Цикл
-		Стр.Выбран=ВыбранныеТипы.НайтиПоЗначению(Стр.Имя)<>Неопределено;
+&AtClientAtServerNoContext
+Procedure SetSelectedTypesInTree(TreeRow,SelectedTypes)
+	For Each Item In TreeRow.GetItems() Do
+		Item.Selected=SelectedTypes.FindByValue(Item.Name)<>Undefined;
 		
-		УстановитьВыбранныеТипыВДереве(Стр, ВыбранныеТипы);
-	КонецЦикла;
-КонецПроцедуры
+		SetSelectedTypesInTree(Item, SelectedTypes);
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура ДобавитьВыбранныйТип(СтрокаДереваИлиТип)
-	Если ТипЗнч(СтрокаДереваИлиТип)=Тип("Строка") Тогда
-		ИмяТипа=СтрокаДереваИлиТип;
-		НедоступенДляСоставногоТипа=Ложь;
-	ИначеЕсли ТипЗнч(СтрокаДереваИлиТип)=Тип("ЭлементСпискаЗначений") Тогда
-		ИмяТипа=СтрокаДереваИлиТип.Значение;
-		НедоступенДляСоставногоТипа=СтрокаДереваИлиТип.Пометка;
-	Иначе
-		ИмяТипа=СтрокаДереваИлиТип.Имя;
-		НедоступенДляСоставногоТипа=СтрокаДереваИлиТип.НедоступенДляСоставногоТипа;
-	КонецЕсли;
+&AtClient
+Procedure AddSelectedType(TreeRowOrType)
+	If TypeOf(TreeRowOrType)=Type("String") Then
+		TypeName=TreeRowOrType;
+		UnavailableForCompositeType=False;
+	 ElsIf TypeOf(TreeRowOrType)=Type("ValueListItem") Then
+		TypeName=TreeRowOrType.Value;
+		UnavailableForCompositeType=TreeRowOrType.Check;
+	Else
+		TypeName=TreeRowOrType.Name;
+		UnavailableForCompositeType=TreeRowOrType.UnavailableForCompositeType;
+	EndIf;
 	
-	Если ВыбранныеТипы.НайтиПоЗначению(ИмяТипа)=Неопределено Тогда
-		ВыбранныеТипы.Добавить(ИмяТипа,,НедоступенДляСоставногоТипа);
-	КонецЕсли;
-КонецПроцедуры
-&НаКлиенте
-Процедура ДеревоТиповВыбранПриИзмененииЗавершение(РезультатВопроса, ДополнительныеПараметры) Экспорт
+	If SelectedTypes.FindByValue(TypeName)=Undefined Then
+		SelectedTypes.Add(TypeName,,UnavailableForCompositeType);
+	EndIf;
+EndProcedure
+&AtClient
+Procedure TypesTreeSelectedOnChangeEnd(QuestionResult, AdditionalParameters) Export
 	
-	Ответ=РезультатВопроса;
+	Answer=QuestionResult;
 	
-	Если Ответ=КодВозвратаДиалога.Нет Тогда
-		ДополнительныеПараметры.ТекСтрока.Выбран=Ложь;
-		Возврат;
-	КОнецЕсли;
+	If Answer=DialogReturnCode.No Then
+		AdditionalParameters.CurrentRow.Selected=False;
+		Return;
+	EndIf;
 
-	ВыбранныеТипы.Очистить();
-	ДеревоТиповВыбранПриИзмененииФрагмент(ДополнительныеПараметры.ТекСтрока);
-КонецПроцедуры
-&НаКлиенте
-Процедура ДеревоТиповВыбранПриИзмененииЗавершениеБылЗапрещенныйДляСоставногоТип(РезультатВопроса, ДополнительныеПараметры) Экспорт
+	SelectedTypes.Clear();
+	TypesTreeSelectedOnChangeFragment(AdditionalParameters.CurrentRow);
+EndProcedure
+&AtClient
+Procedure TypesTreeSelectedOnChangeEndWasNotAllowedForCompositeType(QuestionResult, AdditionalParameters) Экспорт
 	
-	Ответ=РезультатВопроса;
+	Answer=QuestionResult;
 	
-	Если Ответ=КодВозвратаДиалога.Нет Тогда
-		ДополнительныеПараметры.ТекСтрока.Выбран=Ложь;
-		Возврат;
-	КОнецЕсли;
+	If Answer=DialogReturnCode.No Then
+		AdditionalParameters.CurrentRow.Selected=False;
+		Return;
+	EndIf;
 
-	МассивУдаляемыхЭлементов=Новый Массив;
-	Для Каждого Эл Из ВыбранныеТипы Цикл 
-		Если Эл.Пометка Тогда
-			МассивУдаляемыхЭлементов.Добавить(Эл);
-		КонецЕсли;
-	КонецЦикла;
+	DeletedItemsArray=New Array;
+	For Each Item In SelectedTypes Do 
+		If Item.Check Then
+			DeletedItemsArray.Add(Item);
+		EndIf;
+	EndDo;
 	
-	Для Каждого Эл Из  МассивУдаляемыхЭлементов Цикл
-		ВыбранныеТипы.Удалить(Эл);
-	КонецЦикла;
+	For Each Item In  DeletedItemsArray Do
+		SelectedTypes.Delete(Item);
+	EndDo;
 	
-	ДеревоТиповВыбранПриИзмененииФрагмент(ДополнительныеПараметры.ТекСтрока);
-КонецПроцедуры
+	TypesTreeSelectedOnChangeFragment(AdditionalParameters.CurrentRow);
+EndProcedure
 
-&НаКлиенте
-Процедура ДеревоТиповВыбранПриИзмененииФрагмент(ТекСтрока) Экспорт
+&AtClient
+Procedure TypesTreeSelectedOnChangeFragment(CurrentRow) Export
 		
-	Если ТекСтрока.Выбран Тогда
-		ДобавитьВыбранныйТип(ТекСтрока);
-	КонецЕсли;
+	If CurrentRow.Selected Then
+		AddSelectedType(CurrentRow);
+	EndIf;
 
-	Если ВыбранныеТипы.Количество()=0 Тогда
-		ДобавитьВыбранныйТип("Строка");
-	КонецЕсли;
+	If SelectedTypes.Count()=0 Then
+		AddSelectedType("String");
+	EndIf;
 	
-	УстановитьВыбранныеТипыВДереве(ДеревоТипов,ВыбранныеТипы);
-КонецПроцедуры
+	SetSelectedTypesInTree(TypesTree,SelectedTypes);
+EndProcedure
 
-&НаСервере
-Процедура ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Коллекция, ПрефиксТипа)
-	Для Каждого ОбъектМД ИЗ Коллекция Цикл
-		МассивТипов.Добавить(Тип(ПрефиксТипа+ОбъектМД.Имя));
-	КонецЦикла;
-КонецПроцедуры
+&AtServer
+Procedure AddTypesToArrayByMetadataCollection(TypesArray, Collection, TypePrefix)
+	For each MetadataObject in Collection do
+		TypesArray.Add(Type(TypePrefix+MetadataObject.Name));
+	Enddo;
+EndProcedure
 
-&НаСервере
-Функция МассивВыбранныхТипов()
-	МассивТипов=Новый Массив;
+&AtServer
+Function SelectedTypesArray()
+	TypesArray=New Array;
 	
-	Для Каждого ЭлементТипа Из ВыбранныеТипы Цикл
-		СтрокаТипа=ЭлементТипа.Значение;
+	For Each ItemOfType In SelectedTypes Do
+		TypeAsString=ItemOfType.Value;
 		
-		Если НРег(СтрокаТипа)="любаяссылка" Тогда
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Справочники,"СправочникСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Документы,"ДокументСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыВидовХарактеристик,"ПланВидовХарактеристикСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыСчетов,"ПланСчетовСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыВидовРасчета,"ПланВидовРасчетаСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыОбмена,"ПланОбменаСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Перечисления,"ПеречислениеСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.БизнесПроцессы,"БизнесПроцессСсылка.");
-			ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Задачи,"ЗадачаСсылка.");
-		ИначеЕсли СтрНайти(НРег(СтрокаТипа),"ссылка")>0 И СтрНайти(СтрокаТипа,".")=0 Тогда
-			Если НРег(СтрокаТипа)="справочникссылка" Тогда
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Справочники,"СправочникСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="документссылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Документы,"ДокументСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="планвидовхарактеристикссылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыВидовХарактеристик,"ПланВидовХарактеристикСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="плансчетовссылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыСчетов,"ПланСчетовСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="планвидоврасчетассылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыВидовРасчета,"ПланВидовРасчетаСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="планобменассылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.ПланыОбмена,"ПланОбменаСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="перечислениессылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Перечисления,"ПеречислениеСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="бизнеспроцессссылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.БизнесПроцессы,"БизнесПроцессСсылка.");
-			ИначеЕсли НРег(СтрокаТипа)="задачассылка" Тогда	
-				ДобавитьТипыВМассивПоКоллекцииМетаданных(МассивТипов, Метаданные.Задачи,"ЗадачаСсылка.");
-			КонецЕсли;
-		ИначеЕсли ЭлементТипа.Пометка Тогда
-			МассивИмени=СтрРазделить(СтрокаТипа,".");
-			Если МассивИмени.Количество()<>2 Тогда
-				Продолжить;
-			КонецЕсли;
-			ИмяОбъекта=МассивИмени[1];
-			Если СтрНайти(НРег(СтрокаТипа),"характеристика")>0 Тогда
-				ОбъектМД=Метаданные.ПланыВидовХарактеристик[ИмяОбъекта];
-			ИначеЕсли СтрНайти(НРег(СтрокаТипа),"определяемыйтип")>0 Тогда
-				ОбъектМД=Метаданные.ОпределяемыеТипы[ИмяОбъекта];
+		If Lower(TypeAsString)="AnyRef" Then
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Catalogs,"CatalogRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Documents,"DocumentRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfCharacteristicTypes,"ChartOfCharacteristicTypesRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfAccounts,"ChartOfAccountsRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfCalculationTypes,"ChartOfCalculationTypesRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ExchangePlans,"ExchangePlanRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Enums,"EnumRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.BusinessProcesses,"BusinessProcessRef.");
+			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Tasks,"TaskRef.");
+		 ElsIf StrFind(Lower(TypeAsString),"ref")>0 And StrFind(TypeAsString,".")=0 Then
+			If Lower(TypeAsString)="catalogref" Then
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Catalogs,"CatalogRef.");
+			 ElsIf Lower(TypeAsString)="documentref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Documents,"DocumentRef.");
+			 ElsIf Lower(TypeAsString)="chartofcharacteristictypesref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfCharacteristicTypes,"ChartOfCharacteristicTypesRef.");
+			 ElsIf Lower(TypeAsString)="chartofaccountsref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfAccounts,"ChartOfAccountsRef.");
+			 ElsIf Lower(TypeAsString)="chartofcalculationtypesref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfCalculationTypes,"ChartOfCalculationTypesRef.");
+			 ElsIf Lower(TypeAsString)="exchangeplanref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ExchangePlans,"ExchangePlanRef.");
+			 ElsIf Lower(TypeAsString)="enumref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Enums,"EnumRef.");
+			 ElsIf Lower(TypeAsString)="businessprocessref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.BusinessProcesses,"BusinessProcessRef.");
+			 ElsIf Lower(TypeAsString)="taskref" Then	
+				AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Tasks,"TaskRef.");
+			EndIf;
+		 ElsIf ItemOfType.Check Then
+			ArrayOfName=StrSplit(TypeAsString,".");
+			If ArrayOfName.Count()<>2 Then
+				Continue;
+			EndIf;
+			ObjectName=ArrayOfName[1];
+			If StrFind(Lower(TypeAsString),"characteristic")>0 Then
+				MetadataObject=Metadata.ChartsOfCharacteristicTypes[ObjectName];
+			 ElsIf StrFind(Lower(TypeAsString),"definedtype")>0 Then
+				MetadataObject=Metadata.DefinedTypes[ObjectName];
 			Иначе
-				Продолжить;
-			КонецЕсли;
-			ОписаниеТипа=ОбъектМД.Тип;
+				Continue;
+			EndIf;
+			TypeDescription=MetadataObject.Тип;
 			
-			Для Каждого ТекТип ИЗ ОписаниеТипа.Типы() Цикл
-				МассивТипов.Добавить(ТекТип);
-			КонецЦикла;
+			For Each CurrentType ИЗ TypeDescription.Types() Do
+				TypesArray.Add(CurrentType);
+			EndDo;
 			
-		Иначе
-			МассивТипов.Добавить(ЭлементТипа.Значение);
-		КонецЕсли;
-	КонецЦикла;
+		Else
+			TypesArray.Add(ItemOfType.Value);
+		EndIf;
+	EndDo;
 	
-	Возврат МассивТипов;
+	Return TypesArray;
 	
-КонецФункции
+EndFunction
 
-&НаСервере
-Процедура ЗаполнитьДанныеКвалификаторовПоПервоначальномуТипуДанных()
-	ДлинаЧисла=НачальныйТипДанных.КвалификаторыЧисла.Разрядность;
-	ТочностьЧисла=НачальныйТипДанных.КвалификаторыЧисла.РазрядностьДробнойЧасти;
-	НеотрицательноеЧисло= НачальныйТипДанных.КвалификаторыЧисла.ДопустимыйЗнак=ДопустимыйЗнак.Неотрицательный;
+&AtServer
+Procedure FillQualifiersDataByOriginalDataType()
+	NumberLength=InitialDataType.NumberQualifiers.Digits;
+	NumberPrecision=InitialDataType.NumberQualifiers.FractionDigits;
+	NonnegativeNumber= InitialDataType.NumberQualifiers.AllowedSign=AllowedSign.Nonnegative;
 	
-	ДлинаСтроки=НачальныйТипДанных.КвалификаторыСтроки.Длина;
-	НеограниченнаяДлинаСтроки=Не ЗначениеЗаполнено(ДлинаСтроки);
-	ДопустамаяДлинаСтрокиФиксированная=НачальныйТипДанных.КвалификаторыСтроки.ДопустимаяДлина=ДопустимаяДлина.Фиксированная;
+	StringLength=InitialDataType.StringQualifiers.Length;
+	UnlimitedStringLength=Not ValueIsFilled(StringLength);
+	AcceptableFixedStringLength=InitialDataType.StringQualifiers.AllowedLength=AllowedLength.Fixed;
 
-	Если НачальныйТипДанных.КвалификаторыДаты.ЧастиДаты=ЧастиДаты.Время Тогда
-		СоставДаты= 1;
-	ИначеЕсли НачальныйТипДанных.КвалификаторыДаты.ЧастиДаты=ЧастиДаты.ДатаВремя Тогда
-		СоставДаты=2;
-	КонецЕсли;
-КонецПроцедуры
+	If InitialDataType.DateQualifiers.DateFractions=DateFractions.Time Then
+		DateFormat= 1;
+	 ElsIf InitialDataType.DateQualifiers.DateFractions=DateFractions.DateTime Then
+		DateFormat=2;
+	EndIf;
+EndProcedure
 
-#КонецОбласти
+#EndRegion

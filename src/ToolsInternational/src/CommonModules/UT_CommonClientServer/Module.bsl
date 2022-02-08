@@ -1315,8 +1315,7 @@ Function SerializeHTTPRequestForDebug(RequestHTTP, ConnectionHTTP)
 
 	ObjectStructure.Insert("Request", RequestHTTP.ResourceAddress);
 	ObjectStructure.Insert("RequestBody", RequestHTTP.GetBodyAsString());
-	ObjectStructure.Insert("Headers", UT_CommonClientServer.GetHTTPHeadersString(
-		RequestHTTP.Headers));
+	ObjectStructure.Insert("Headers", UT_CommonClientServer.GetHTTPHeadersString(RequestHTTP.Headers));
 
 	BodyBinaryData = RequestHTTP.GetBodyAsBinaryData();
 	ObjectStructure.Insert("BodyBinaryData", BodyBinaryData);
@@ -1372,8 +1371,7 @@ Function DebugObject(ObjectForDebugging, DcsSettingsOrHTTPConnection = Undefined
 #EndIf
 		Return Undefined;
 	Else
-		Return UT_CommonServerCall.SaveDebuggingDataToStorage(DebugObjectType,
-			SerializeObject);
+		Return UT_CommonServerCall.SaveDebuggingDataToStorage(DebugObjectType,SerializeObject);
 	EndIf;
 EndFunction
 
