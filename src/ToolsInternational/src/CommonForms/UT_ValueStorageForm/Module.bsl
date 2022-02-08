@@ -158,7 +158,7 @@ Function ShowStructure(ValueStorageData)
 		FormItemName = "_ValueTable_" + Item.Name;
 		ThisForm.Items.Add(FormItemName, Type("FormField"), ThisForm.Items._ValueTable);
 		ThisForm.Items[FormItemName].DataPath = "_ValueTable." + Item.Name;
-		ThisForm.Items[FormItemName].Type = FormFieldType.FormFieldType;
+		ThisForm.Items[FormItemName].Type = FormFieldType.InputField;
 	EndDo;
 
 	Return True;
