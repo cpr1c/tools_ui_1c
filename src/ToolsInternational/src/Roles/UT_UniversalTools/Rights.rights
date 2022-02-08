@@ -37,7 +37,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_Support.Command.ПроверитьНеобходимостьОбновления</name>
+		<name>DataProcessor.UT_Support.Command.CheckUpdate</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -91,7 +91,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_Support.Command.ВопросРазработчику</name>
+		<name>DataProcessor.UT_Support.Command.QuestionToDeveloper</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -261,7 +261,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_Support.Command.СтраницаРазработки</name>
+		<name>DataProcessor.UT_Support.Command.AboutPage</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
