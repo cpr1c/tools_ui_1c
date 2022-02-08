@@ -1,121 +1,121 @@
-#Область EventHandlers
+#Region EventHandlers
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, СтандартнаяОбработка)
 	ОбновитьСписокЗадачНаСервере();
-КонецПроцедуры
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиСобытийЭлементовФормы
+#Region ОбработчикиСобытийЭлементовФормы
 
-&НаКлиенте
-Процедура СписокЗадачВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
+&AtClient
+Procedure СписокЗадачВыбор(Item, ВыбраннаяСтрока, Field, СтандартнаяОбработка)
+	СтандартнаяОбработка = False;
 
-	ДанныеСтроки = СписокЗадач.НайтиПоИдентификатору(ВыбраннаяСтрока);
+	RowData = СписокЗадач.FindByID(ВыбраннаяСтрока);
 
-	НачатьЗапускПриложения(UT_CommonClient.ApplicationRunEmptyNotifyDescription(), ДанныеСтроки.URL);
-КонецПроцедуры
+	BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(), RowData.URL);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиКомандФормы
+#Region ОбработчикиКомандФормы
 
-&НаКлиенте
-Процедура ОбновитьСписокЗадач(Команда)
+&AtClient
+Procedure ОбновитьСписокЗадач(Command)
 	ОбновитьСписокЗадачНаСервере();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура СтраницаРазработки(Команда)
+&AtClient
+Procedure СтраницаРазработки(Command)
 	UT_CommonClient.OpenAboutPage();
-КонецПроцедуры
-#КонецОбласти
+EndProcedure
+#EndRegion
 
-#Область СлужебныеПроцедурыИФункции
+#Region Private
 
-&НаСервере
-Процедура ОбновитьСписокЗадачНаСервере()
-	СписокЗадач.Очистить();
+&AtServer
+Procedure ОбновитьСписокЗадачНаСервере()
+	СписокЗадач.Clear();
 
 	БазовыйАдрес = "https://api.github.com/repos/cpr1c/tools_ui_1c/issues";
 
-	НомерСтраницы=1;
-	СписокЗадачРепозитория = UT_HTTPConnector.GetJson(БазовыйАдрес+"?per_page=100&page="+Формат(НомерСтраницы,"ЧГ=0;"));
-	Пока СписокЗадачРепозитория.Количество() > 0 Цикл
+	PageNumber=1;
+	СписокЗадачРепозитория = UT_HTTPConnector.GetJson(БазовыйАдрес+"?per_page=100&page="+Format(PageNumber,"ЧГ=0;"));
+	While СписокЗадачРепозитория.Count() > 0 Do
 
-		Для Каждого ЗадачаРепозитория Из СписокЗадачРепозитория Цикл
-			НоваяЗадача = СписокЗадач.Добавить();
-			НоваяЗадача.Номер = ЗадачаРепозитория["number"];
+		For Each ЗадачаРепозитория In СписокЗадачРепозитория Do
+			НоваяЗадача = СписокЗадач.Add();
+			НоваяЗадача.Number = ЗадачаРепозитория["number"];
 			НоваяЗадача.URL = ЗадачаРепозитория["html_url"];
-			НоваяЗадача.Тема = ЗадачаРепозитория["title"];
+			НоваяЗадача.Subject = ЗадачаРепозитория["title"];
 			НоваяЗадача.Статус = ЗадачаРепозитория["state"];
 			ОтветственныйЗадача = ЗадачаРепозитория["assignee"];
-			Если ТипЗнч(ОтветственныйЗадача) = Тип("Соответствие") Тогда
+			If TypeOf(ОтветственныйЗадача) = Type("Map") Then
 				НоваяЗадача.Ответственный = ОтветственныйЗадача["login"];
-			КонецЕсли;
+			EndIf;
 
 			ТегиЗадачи = ЗадачаРепозитория["labels"];
-			Если ТипЗнч(ТегиЗадачи) = Тип("Массив") Тогда
-				Для Каждого ТекущийТег Из ТегиЗадачи Цикл
-					НоваяЗадача.Теги.Добавить(ТекущийТег["name"]);
-				КонецЦикла;
-			КонецЕсли;
+			If TypeOf(ТегиЗадачи) = Type("Array") Then
+				For Each ТекущийТег In ТегиЗадачи Do
+					НоваяЗадача.Теги.Add(ТекущийТег["name"]);
+				EndDo;
+			EndIf;
 
-		КонецЦикла;
+		EndDo;
 
-		НомерСтраницы=НомерСтраницы+1;
-		СписокЗадачРепозитория = UT_HTTPConnector.GetJson(БазовыйАдрес+"?per_page=100&page="+Формат(НомерСтраницы,"ЧГ=0;"));
+		PageNumber=PageNumber+1;
+		СписокЗадачРепозитория = UT_HTTPConnector.GetJson(БазовыйАдрес+"?per_page=100&page="+Format(PageNumber,"ЧГ=0;"));
 	
-	КонецЦикла;
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Функция СоздатьНовуюЗадачуНаСервере()
+&AtServer
+Function СоздатьНовуюЗадачуНаСервере()
 	ТокенАвторизации = "d1af40528d2ceec322be578bc935a1b46b9af8cc";
 
-	Заголовки = Новый Соответствие;
-	Заголовки.Вставить("Authorization", "token " + ТокенАвторизации);
+	Headers = New Map;
+	Headers.Insert("Authorization", "token " + ТокенАвторизации);
 
-	СтруктураТела = Новый Структура;
-	СтруктураТела.Вставить("title", НоваяЗадачаТема);
-	СтруктураТела.Вставить("body", НоваяЗадачаОписание);
+	СтруктураТела = New Structure;
+	СтруктураТела.Insert("title", НоваяЗадачаТема);
+	СтруктураТела.Insert("body", НоваяЗадачаОписание);
 
 	БазовыйАдрес = "https://api.github.com/repos/cpr1c/tools_ui_1c/issues";
 
-	Аутентификация = Новый Структура("Пользователь, Пароль", "tools-ui", ТокенАвторизации);
+	Аутентификация = New Structure("User, Password", "tools-ui", ТокенАвторизации);
 
-	Ответ = UT_HTTPConnector.PostJson(БазовыйАдрес, СтруктураТела, Новый Структура("Заголовки, Аутентификация",
-		Заголовки, Аутентификация));
+	Ответ = UT_HTTPConnector.PostJson(БазовыйАдрес, СтруктураТела, New Structure("Headers, Аутентификация",
+		Headers, Аутентификация));
 
 	ОбновитьСписокЗадачНаСервере();
 
-	Возврат Ответ["html_url"];
+	Return Ответ["html_url"];
 
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Процедура СоздатьНовуюЗадачу(Команда)
-	Если Не ПроверитьЗаполнение() Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure СоздатьНовуюЗадачу(Command)
+	If Not CheckFilling() Then
+		Return;
+	EndIf;
 
 	АдресЗадачи=СоздатьНовуюЗадачуНаСервере();
-	Если АдресЗадачи <> Неопределено Тогда
-		UT_CommonClientServer.MessageToUser("Задача успешно создана");
-		НачатьЗапускПриложения(UT_CommonClient.ApplicationRunEmptyNotifyDescription(), АдресЗадачи);
-	Иначе
-		UT_CommonClientServer.MessageToUser("Создание задачи не удалось");
-	КонецЕсли;
+	If АдресЗадачи <> Undefined Then
+		UT_CommonClientServer.MessageToUser("Task успешно создана");
+		BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(), АдресЗадачи);
+	Else
+		UT_CommonClientServer.MessageToUser("Creating задачи не удалось");
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура СоздатьНовуюЗадачуНаГитхабе(Команда)
-	НачатьЗапускПриложения(UT_CommonClient.ApplicationRunEmptyNotifyDescription(),
+&AtClient
+Procedure СоздатьНовуюЗадачуНаГитхабе(Command)
+	BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(),
 		"https://github.com/cpr1c/tools_ui_1c/issues/new");
-КонецПроцедуры
+EndProcedure
 
-#КонецОбласти
+#EndRegion
