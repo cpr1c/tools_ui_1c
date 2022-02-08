@@ -1,610 +1,615 @@
-&НаКлиенте
-Перем ТекущаяСтрокаМетаданных;
+&AtClient
+Var MetadataCurrentRow;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ФОРМЫ
+// FORM EVENT HANDLERS
 //
 
-&НаСервере
-Процедура OnCreateAtServer(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	ВыполнитьПроверкуПравДоступа("Администрирование", Метаданные);
+	VerifyAccessRights("Administration", Metadata);
 
-	Если Параметры.Свойство("АвтоТест") Тогда // Возврат при получении формы для анализа.
-		Возврат;
-	КонецЕсли;
+	If Parameters.Property("AutoTests") Then // Return when a form is received for analysis.
+		Return;
+	EndIf;
 
-	RegistrationTableParameter = Неопределено;
-	RegistrationObjectParameter  = Неопределено;
+	RegistrationTableParameter = Undefined;
+	RegistrationObjectParameter  = Undefined;
 	
-//	ОткрытиеСУзломПараметром = Ложь;
-	ТекущийОбъект = ЭтотОбъектОбработки();
+//	OpenWithNodeParameter = False;
+	CurrentObject = ThisObject();
 	
-	// Определяем что создают
-	Если Параметры.CommandID = Неопределено Тогда
-		// Запуск автономно, возможно с параметром-узлом
-		ExchangeNodeRef = Параметры.УзелОбмена;
-		Параметры.Свойство("SelectExchangeNodeProhibited", SelectExchangeNodeProhibited);
-//		ОткрытиеСУзломПараметром = Истина;
+	// Analyzing form parameters.
+	If Parameters.CommandID = Undefined Then
+		// Starting the data processor in standalone mode.
+		ExchangeNodeRef = Parameters.УзелОбмена;
+		Parameters.Property("SelectExchangeNodeProhibited", SelectExchangeNodeProhibited);
+//		OpenWithNodeParameter = True;
 
-	ИначеЕсли Параметры.CommandID = "ОткрытьФормуРедактированияРегистрации" Тогда
-		Если ТипЗнч(Параметры.RelatedObjects) = Тип("Массив") И Параметры.RelatedObjects.Количество() > 0 Тогда
-			// Нас открывают с указанием объекта
-			ОбъектНазначения = Параметры.RelatedObjects[0];
-			Тип = ТипЗнч(ОбъектНазначения);
-			Если ПланыОбмена.ТипВсеСсылки().СодержитТип(Тип) Тогда
-				ExchangeNodeRef = ОбъектНазначения;
-//				ОткрытиеСУзломПараметром = Истина;
-			Иначе
-				// Преобразуем в два наших параметра, при открытии будет создана вторая форма
-				Описание = ТекущийОбъект.ХарактеристикиПоМетаданным(ОбъектНазначения.Метаданные());
-				Если Описание.ЭтоСсылка Тогда
-					RegistrationObjectParameter = ОбъектНазначения;
-				ИначеЕсли Описание.ЭтоНабор Тогда
-					// Структура и имя таблицы
-					RegistrationTableParameter = Описание.ИмяТаблицы;
-					RegistrationObjectParameter  = Новый Структура;
-					Для Каждого Измерение Из ТекущийОбъект.ИзмеренияНабораЗаписей(RegistrationTableParameter) Цикл
-						ТекИмя = Измерение.Имя;
-						RegistrationObjectParameter.Вставить(ТекИмя, ОбъектНазначения.Отбор[ТекИмя].Значение);
-					КонецЦикла;
-				КонецЕсли;
-			КонецЕсли;
+	ElsIf Parameters.CommandID = "OpenRegistrationEditingForm" Then
+		If TypeOf(Parameters.RelatedObjects) = Type("Array") And Parameters.RelatedObjects.Count() > 0 Then
+			// The form is opened with the specified object.
+			RelatedObject = Parameters.RelatedObjects[0];
+			Type = TypeOf(RelatedObject);
+			If ExchangePlans.AllRefsType().ContainsType(Type) Then
+				ExchangeNodeRef = RelatedObject;
+//				OpenWithNodeParameter = True;
+			Else
+				// Filling internal attributes.
+				Details = CurrentObject.MetadataCharacteristics(RelatedObject.Metadata());
+				If Details.IsReference Then
+					RegistrationObjectParameter = RelatedObject;
+				ElsIf Details.IsSet Then
+					// Structure and table name
+					RegistrationTableParameter = Details.TableName;
+					RegistrationObjectParameter  = New Structure;
+					For Each Dimension In CurrentObject.RecordSetDimensions(RegistrationTableParameter) Do
+						CurName = Dimension.Name;
+						RegistrationObjectParameter.Insert(CurName, RelatedObject.Filter[CurName].Value);
+					EndDo;
+				EndIf;
+			EndIf;
 
-		Иначе
-			ВызватьИсключение СтрЗаменить(
-				НСтр("ru='Неверные параметры команды открытия ""%1""'"), "%1", Параметры.CommandID);
+		Else
+			Raise StrReplace(
+				NStr("ru='Неверные параметры команды открытия ""%1""'; en = 'Incorrect parameters for the %1 command'"), "%1", Parameters.CommandID);
 
-		КонецЕсли;
+		EndIf;
 
-	Иначе
-		ВызватьИсключение СтрЗаменить(
-			НСтр("ru='Нераспознанная команда ""%1""'"), "%1", Параметры.CommandID);
-	КонецЕсли;
-	
-	// Настройки объекта инициализируем всегда
-	ТекущийОбъект.ПрочитатьНастройки();
-	ТекущийОбъект.ПрочитатьПризнакПоддержкиБСП();
-	ЭтотОбъектОбработки(ТекущийОбъект);
-	
-	// Остальное инициализируем, только если будем открывать эту форму,
-	Если RegistrationObjectParameter <> Неопределено Тогда
-		Возврат;
+	Else
+		Raise StrReplace(
+			NStr("ru='Undefined command ""%1""'"), "%1", Parameters.CommandID);
 	КонецЕсли;
 	
-	// Список запретных объектов метаданных из параметров
-	Параметры.Свойство("NamesOfMetadataToHide", NamesOfMetadataToHide);
+	// Initializing object settings.
+	CurrentObject.ReadSettings();
+	CurrentObject.ReadSSLSupportFlags();
+	ThisObject(CurrentObject);
+	
+	// Initializing other parameters only if this form will be opened.
+	If RegistrationObjectParameter <> Undefined Then
+		Return;
+	EndIf;
+	
+	// Filling the list of prohibited metadata objects based on form parameters.
+	Parameters.Property("NamesOfMetadataToHide", NamesOfMetadataToHide);
 	
 	//@skip-warning
-	ТекущаяСтрокаМетаданных = Неопределено;
-	Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница = Элементы.СтраницаПустая;
-	Параметры.Свойство("SelectExchangeNodeProhibited", SelectExchangeNodeProhibited);
+	MetadataCurrentRow = Undefined;
+	Items.ObjectsListOptions.CurrentPage = Items.BlankPage;
+	Parameters.Property("SelectExchangeNodeProhibited", SelectExchangeNodeProhibited);
 
-	UT_Common.ФормаИнструментаПриСозданииНаСервере(ЭтотОбъект, Отказ, СтандартнаяОбработка,
-		Элементы.КоманднаяПанельОбщая);
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing,
+		Items.CommonCommandBar);
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура OnOpen(Отказ)
+&AtClient
+Procedure OnOpen(Cancel)
 
-	Если RegistrationObjectParameter <> Неопределено Тогда
-		// Открываем другую форму
-		Отказ = Истина;
-		ОткрытьФорму(
-			ПолучитьИмяФормы() + "Форма.УзлыРегистрацииОбъекта",
-			Новый Структура("ОбъектРегистрации, ТаблицаРегистрации", RegistrationObjectParameter,
+	If RegistrationObjectParameter <> Undefined Then
+		// Opening another form
+		Cancel = True;
+		OpenForm(
+			GetFormName() + "Form.ObjectRegistrationNodes",
+			New Structure("RegistrationObject, RegistrationTable", RegistrationObjectParameter,
 			RegistrationTableParameter));
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура OnClose(Exit)
-	// Автосохранение настроек
-	СохраняемыеВНастройкахДанныеМодифицированы = Истина;
-КонецПроцедуры
+&AtClient
+Procedure OnClose(Exit)
+	// Auto saving settings
+	SavedInSettingsDataModified = Истина;
+EndProcedure
 
-&НаКлиенте
-Процедура ChoiceProcessing(ВыбранноеЗначение, ИсточникВыбора)
+&AtClient
+Procedure ChoiceProcessing(SelectedValue, ChoiceSource)
 	
-	// Результат выбора запроса, ожидаем структуру
-	Если ТипЗнч(ВыбранноеЗначение) <> Тип("Структура") Или (Не ВыбранноеЗначение.Свойство("ДействиеВыбора"))
-		Или (Не ВыбранноеЗначение.Свойство("ДанныеВыбора")) Или ТипЗнч(ВыбранноеЗначение.ДействиеВыбора) <> Тип("Булево")
-		Или ТипЗнч(ВыбранноеЗначение.ДанныеВыбора) <> Тип("Строка") Тогда
-		Ошибка = НСтр("ru='Неожиданный результат выбора из консоли запросов'");
-	Иначе
-		Ошибка = КонтрольСсылокДляВыбораЗапросом(ВыбранноеЗначение.ДанныеВыбора);
-	КонецЕсли;
+	// Analyzing selected value, it must be a structure.
+	If TypeOf(SelectedValue) <> Type("Structure") Or (Not SelectedValue.Property("ChoiceAction"))
+		Or (Not SelectedValue.Property("ChoiceData")) Or TypeOf(SelectedValue.ChoiceAction) <> Type("Boolean")
+		Or TypeOf(SelectedValue.ChoiceData) <> Type("String") Then
+		Error = NStr("ru = 'Неожиданный результат выбора из консоли запросов'; en = 'Unexpected selection result received from the query console.'");
+	Else
+		Error = RefControlForQuerySelection(SelectedValue.ChoiceData);
+	EndIf;
 
-	Если Ошибка <> "" Тогда
-		ПоказатьПредупреждение( , Ошибка);
-		Возврат;
-	КонецЕсли;
+	If Error <> "" Then 
+		ShowMessageBox(,Error);
+		Return;
+	EndIf;
 
-	Если ВыбранноеЗначение.ДействиеВыбора Тогда
-		Текст = НСтр("ru='Зарегистрировать результат запроса
-					 |на узле ""%1""?'");
-	Иначе
-		Текст = НСтр("ru='Отменить регистрацию результата запроса
-					 |на узле ""%1""?'");
-	КонецЕсли;
-	Текст = СтрЗаменить(Текст, "%1", Строка(ExchangeNodeRef));
+	If SelectedValue.ChoiceAction Then
+		Text = NStr("ru = 'Зарегистрировать результат запроса
+		                 |на узле ""%1""?'; 
+		                 |en = 'Do you want to register the query result
+		                 |at node ""%1""?'"); 
+	Else
+		Text = NStr("ru = 'Отменить регистрацию результата запроса
+		                 |на узле ""%1""?'; 
+		                 |en = 'Do you want to cancel registration of the query result
+		                 |at node ""%1""?'");
+	EndIf;
+	Text = StrReplace(Text, "%1", String(ExchangeNodeRef));
+					 
+	QuestionTitle = NStr("ru = 'Подтверждение'; en = 'Confirm operation'");
+	
+	Notification = New NotifyDescription("ChoiceProcessingCompletion", ThisObject, New Structure);
+	Notification.AdditionalParameters.Insert("SelectedValue", SelectedValue);
+	ShowQueryBox(Notification, Text, QuestionDialogMode.YesNo, , , QuestionTitle);
 
-	ЗаголовокВопроса = НСтр("ru='Подтверждение'");
+EndProcedure
 
-	Оповещение = Новый ОписаниеОповещения("ОбработкаВыбораЗавершение", ЭтотОбъект, Новый Структура);
-	Оповещение.ДополнительныеПараметры.Вставить("ВыбранноеЗначение", ВыбранноеЗначение);
-	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
+Procedure NotificationProcessing(EventName, Parameter, Source)
+	
+	If EventName = "ObjectDataExchangeRegistrationEdit" Then
+		FillRegistrationCountInTreeRows();
+		UpdatePageContent();
+	ElsIf EventName = "ExchangeNodeDataEdit" And ExchangeNodeRef = Parameter Then
+		SetMessageNumberTitle();		
+	EndIf;
+	
+EndProcedure
 
-КонецПроцедуры
+&AtServer
+Procedure OnSaveDataInSettingsAtServer(Settings)
+	// Automatic settings
+	CurrentObject = ThisObject();
+	CurrentObject.SaveSettings();
+	ThisObject(CurrentObject);
+EndProcedure
 
-Процедура NotificationProcessing(ИмяСобытия, Параметр, Источник)
-
-	Если ИмяСобытия = "ИзменениеРегистрацииОбменаДаннымиОбъекта" Тогда
-		ЗаполнитьКоличествоРегистрацийВДереве();
-		ОбновитьСодержимоеСтраницы();
-	ИначеЕсли ИмяСобытия = "ИзменениеДанныхУзлаОбмена" И ExchangeNodeRef = Параметр Тогда
-		УстановитьЗаголовокНомеровСообщений();
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаСервере
-Процедура OnSaveDataInSettingsAtServer(Настройки)
-	// Автоматические настройки
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	ТекущийОбъект.СохранитьНастройки();
-	ЭтотОбъектОбработки(ТекущийОбъект);
-КонецПроцедуры
-
-&НаСервере
-Процедура OnLoadDataFromSettingsAtServer(Настройки)
-
-	Если RegistrationObjectParameter <> Неопределено Тогда
-		// Будет работа с другой формой
-		Возврат;
-	КонецЕсли;
-
-	Если ЗначениеЗаполнено(Параметры.УзелОбмена) Тогда
-		ExchangeNodeRef = Параметры.УзелОбмена;
-	Иначе
-		ExchangeNodeRef = Настройки["ExchangeNodeRef"];
-		// Если восстановленный узел обмена был удален, то очищаем его
+&AtServer
+Procedure OnLoadDataFromSettingsAtServer(Settings)
+	
+	If RegistrationObjectParameter <> Undefined Then
+		// Another form will be used.
+		Return;
+	EndIf;
+	
+	If ValueIsFilled(Parameters.ExchangeNode) Then
+		ExchangeNodeRef = Parameters.ExchangeNode;
+	Else
+		ExchangeNodeRef = Settings["ExchangeNodeRef"];
+		/// If restored exchange node is deleted, clearing the ExchangeNodeRef value.
 		//@skip-warning
-		Если ExchangeNodeRef <> Неопределено И ПланыОбмена.ТипВсеСсылки().СодержитТип(ТипЗнч(ExchangeNodeRef))
-			И ПустаяСтрока(ExchangeNodeRef.ВерсияДанных) Тогда
-			ExchangeNodeRef = Неопределено;
-		КонецЕсли;
-	КонецЕсли;
-
-	ПроконтролироватьНастройки();
-КонецПроцедуры
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ЭЛЕМЕНТОВ ШАПКИ ФОРМЫ
-//
-
-&НаКлиенте
-Процедура ExchangeNodeRefStartChoice(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.ВыборУзлаПланаОбмена";
-	ТекПараметры = Новый Структура("МножественныйВыбор, НачальноеЗначениеВыбора", Ложь, ExchangeNodeRef);
-	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элемент);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ExchangeNodeRefChoiceProcessing(Элемент, ВыбранноеЗначение, СтандартнаяОбработка)
-	Если ExchangeNodeRef <> ВыбранноеЗначение Тогда
-		ExchangeNodeRef = ВыбранноеЗначение;
-		ОбработкаВыбораУзлаОбмена();
-	КонецЕсли;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ExchangeNodeRefOnChange(Элемент)
-	ОбработкаВыбораУзлаОбмена();
-	РазвернутьДеревоМетаданных();
-	ОбновитьСодержимоеСтраницы();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ExchangeNodeRefClear(Элемент, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура FilterByMessageNumberOptionOnChange(Элемент)
-	УстановитьОтборПоНомеруСообщения(ConstantsList, FilterByMessageNumberOption);
-	УстановитьОтборПоНомеруСообщения(RefsList, FilterByMessageNumberOption);
-	УстановитьОтборПоНомеруСообщения(RecordSetsList, FilterByMessageNumberOption);
-	ОбновитьСодержимоеСтраницы();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ВариантыСпискаОбъектовПриСменеСтраницы(Элемент, ТекущаяСтраница)
-	ОбновитьСодержимоеСтраницы(ТекущаяСтраница);
-КонецПроцедуры
+		If ExchangeNodeRef <> Undefined And ExchangePlans.AllRefsType().ContainsType(TypeOf(ExchangeNodeRef))
+		    And IsBlankString(ExchangeNodeRef.DataVersion) Then
+			ExchangeNodeRef = Undefined;
+		EndIf;
+	EndIf;
+	
+	ControlSettings();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ТАБЛИЦЫ ФОРМЫ MetadataTree
+// FORM HEADER ITEMS EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура MetadataTreeCheckOnChange(Элемент)
-	ИзменениеПометки(Элементы.MetadataTree.ТекущаяСтрока);
-КонецПроцедуры
+&AtClient
+Procedure ExchangeNodeRefStartChoice(Item, ChoiceData, StandardProcessing)
+	StandardProcessing = False;
+	CurFormName = GetFormName() + "Form.SelectExchangePlanNode";
+	CurParameters = New Structure("MultipleChoice, ChoiceInitialValue", False, ExchangeNodeRef);
+	OpenForm(CurFormName, CurParameters, Item);
+EndProcedure
 
-&НаКлиенте
-Процедура MetadataTreeOnActivateRow(Элемент)
-	Если Элементы.MetadataTree.ТекущаяСтрока <> ТекущаяСтрокаМетаданных Тогда
-		ТекущаяСтрокаМетаданных  = Элементы.MetadataTree.ТекущаяСтрока;
-		ПодключитьОбработчикОжидания("НастроитьРедактированиеИзменений", 0.0000001, Истина);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure ExchangeNodeRefChoiceProcessing(Item, ValueSelected, StandardProcessing)
+	If ExchangeNodeRef <> ValueSelected Then
+		ExchangeNodeRef = ValueSelected;
+		ExchangeNodeChoiceProcessing();
+	EndIf;
+EndProcedure
+
+&AtClient
+Procedure ExchangeNodeRefOnChange(Item)
+	ExchangeNodeChoiceProcessing();
+	ExpandMetadataTree();
+	UpdatePageContent();
+EndProcedure
+
+&AtClient
+Procedure ExchangeNodeRefClear(Item, StandardProcessing)
+	StandardProcessing = False;
+EndProcedure
+
+&AtClient
+Procedure FilterByMessageNumberOptionOnChange(Item)
+	SetFilterByMessageNumber(ConstantsList, FilterByMessageNumberOption);
+	SetFilterByMessageNumber(RefsList, FilterByMessageNumberOption);
+	SetFilterByMessageNumber(RecordSetsList, FilterByMessageNumberOption);
+	UpdatePageContent();
+EndProcedure
+
+&AtClient
+Procedure ObjectsListOptionsOnCurrentPageChange(Item, CurrentPage)
+	UpdatePageContent(CurrentPage);
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ТАБЛИЦЫ ФОРМЫ ConstantsList
+// MetadataTree FORM TABLE ITEMS EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура ConstantListChoiceProcessing(Элемент, ВыбранноеЗначение, СтандартнаяОбработка)
+&AtClient
+Procedure MetadataTreeCheckOnChange(Item)
+	ChangeMark(Items.MetadataTree.CurrentRow);
+EndProcedure
 
-	Результат = ДобавитьРегистрациюНаСервере(Истина, ExchangeNodeRef, ВыбранноеЗначение);
-	Элементы.ConstantsList.Обновить();
-	ЗаполнитьКоличествоРегистрацийВДереве();
-	СообщитьОРезультатахРегистрации(Истина, Результат);
-
-	Если ТипЗнч(ВыбранноеЗначение) = Тип("Массив") И ВыбранноеЗначение.Количество() > 0 Тогда
-		Элемент.ТекущаяСтрока = ВыбранноеЗначение[0];
-	Иначе
-		Элемент.ТекущаяСтрока = ВыбранноеЗначение;
-	КонецЕсли;
-
-КонецПроцедуры
+&AtClient
+Procedure MetadataTreeOnActivateRow(Item)
+	If Items.MetadataTree.CurrentRow <> MetadataCurrentRow Then
+		MetadataCurrentRow  = Items.MetadataTree.CurrentRow;
+		AttachIdleHandler("SetUpChangeEditing", 0.0000001, True);
+	EndIf;
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ТАБЛИЦЫ ФОРМЫ RefsList
+// ConstantsList FORM TABLE ITEMS EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура ReferenceListChoiceProcessing(Элемент, ВыбранноеЗначение, СтандартнаяОбработка)
-	ОбработкаВыбораДанных(Элемент, ВыбранноеЗначение);
-КонецПроцедуры
-&НаКлиенте
-Процедура EditReference(Команда)
-	ТекДанные=Элементы.RefsList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure ConstantListChoiceProcessing(Item, ValueSelected, StandardProcessing)
+	
+	Result = AddRegistrationAtServer(True, ExchangeNodeRef, ValueSelected);
+	Items.ConstantsList.Refresh();
+	FillRegistrationCountInTreeRows();
+	ReportRegistrationResults(True, Result);
 
-	UT_CommonClient.EditObject(ТекДанные.Ссылка);
-КонецПроцедуры
+	If TypeOf(ValueSelected) = Type("Array") And ValueSelected.Count() > 0 Then
+		Item.CurrentRow = ValueSelected[0];
+	Else
+		Item.CurrentRow = ValueSelected;
+	EndIf;
+
+EndProcedure
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// RefsList FORM TABLE ITEMS EVENT HANDLERS
+//
+
+&AtClient
+Procedure ReferenceListChoiceProcessing(Item, ValueSelected, StandardProcessing)
+	DataChoiceProcessing(Item, ValueSelected);
+EndProcedure
+&AtClient
+Procedure EditReference(Command)
+	CurData=Items.RefsList.CurrentData;
+	If CurData = Undefined Then
+		Return;
+	EndIf;
+
+	UT_CommonClient.EditObject(CurData.Ref);
+EndProcedure
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ТАБЛИЦЫ ФОРМЫ RecordSetsList
+// RecordSetsList FORM TABLE ITEMS EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура RecordSetListSelection(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
+&AtClient
+Procedure RecordSetListSelection(Item, RowSelected, Field, StandardProcessing)
+	StandardProcessing = False;
+	
+	WriteParameters = RecordSetKeyStructure(Item.CurrentData);
+	If WriteParameters <> Undefined Then
+		OpenForm(WriteParameters.FormName, New Structure("Key", WriteParameters.Key));
+	EndIf;
 
-	ПараметрыЗаписи = СтруктураКлючаНабораЗаписей(Элемент.ТекущиеДанные);
-	Если ПараметрыЗаписи <> Неопределено Тогда
-		ОткрытьФорму(ПараметрыЗаписи.ИмяФормы, Новый Структура("Ключ", ПараметрыЗаписи.Ключ));
-	КонецЕсли;
+EndProcedure
 
-КонецПроцедуры
-
-&НаКлиенте
-Процедура RecordSetListChoiceProcessing(Элемент, ВыбранноеЗначение, СтандартнаяОбработка)
-	ОбработкаВыбораДанных(Элемент, ВыбранноеЗначение);
-КонецПроцедуры
+&AtClient
+Procedure RecordSetListChoiceProcessing(Item, ValueSelected, StandardProcessing)
+	DataChoiceProcessing(Item, ValueSelected);
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ КОМАНД ФОРМЫ
+// FORM COMMAND HANDLERS
 //
 
-&НаКлиенте
-Процедура AddRegistrationForSingleObject(Команда)
+&AtClient
+Procedure AddRegistrationForSingleObject(Command)
+	
+	If Not ValueIsFilled(ExchangeNodeRef) Then
+		Return;
+	EndIf;
+	
+	CurrPage = Items.ObjectsListOptions.CurrentPage;
+	If CurrPage = Items.ConstantsPage Then
+		AddConstantRegistrationInList();
+	ElsIf CurrPage = Items.ReferencesListPage Then
+		AddRegistrationToReferenceList();		
+	ElsIf CurrPage = Items.RecordSetPage Then
+		AddRegistrationToRecordSetFilter();
+	EndIf;
+	
+EndProcedure
 
-	Если Не ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure DeleteRegistrationForSingleObject(Command)
+	
+	If Not ValueIsFilled(ExchangeNodeRef) Then
+		Return;
+	EndIf;
+	
+	CurrPage = Items.ObjectsListOptions.CurrentPage;
+	If CurrPage = Items.ConstantsPage Then
+		DeleteConstantRegistrationInList();
+	ElsIf CurrPage = Items.ReferencesListPage Then
+		DeleteRegistrationFromReferenceList();
+	ElsIf CurrPage = Items.RecordSetPage Then
+		DeleteRegistrationInRecordSet();
+	EndIf;
+	
+EndProcedure
 
-	ТекСтр = Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница;
-	Если ТекСтр = Элементы.СтраницаКонстанты Тогда
-		ДобавитьРегистрациюКонстантыВСписке();
-	ИначеЕсли ТекСтр = Элементы.СтраницаСписокСсылок Тогда
-		ДобавитьРегистрациюВСписокСсылок();
-	ИначеЕсли ТекСтр = Элементы.СтраницаНаборЗаписей Тогда
-		ДобавитьРегистрациюВНаборЗаписейОтбор();
-	КонецЕсли;
+&AtClient
+Procedure AddRegistrationFilter(Command)
+	
+	If Not ValueIsFilled(ExchangeNodeRef) Then
+		Return;
+	EndIf;
+	
+	CurrPage = Items.ObjectsListOptions.CurrentPage;
+	If CurrPage = Items.ReferencesListPage Then
+		AddRegistrationInListFilter();
+	ElsIf CurrPage = Items.RecordSetPage Then
+		AddRegistrationToRecordSetFilter();
+	EndIf;
+	
+EndProcedure
 
-КонецПроцедуры
+&AtClient
+Procedure DeleteRegistrationFilter(Command)
+	
+	If Not ValueIsFilled(ExchangeNodeRef) Then
+		Return;
+	EndIf;
+	
+	CurrPage = Items.ObjectsListOptions.CurrentPage;
+	If CurrPage = Items.ReferencesListPage Then
+		DeleteRegistrationInListFilter();
+	ElsIf CurrPage = Items.RecordSetPage Then
+		DeleteRegistrationInRecordSetFilter();
+	EndIf;
+	
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteRegistrationForSingleObject(Команда)
+&AtClient
+Procedure OpenNodeRegistrationForm(Command)
+	
+	If SelectExchangeNodeProhibited Then
+		Return;
+	EndIf;
+		
+	Data = GetCurrentObjectToEdit();
+	If Data <> Undefined Then
+		RegistrationTable = ?(TypeOf(Data) = Type("Structure"), RecordSetsListTableName, "");
+		OpenForm(GetFormName() + "Form.ObjectRegistrationNodes",
+			New Structure("RegistrationObject, RegistrationTable, NotifyAboutChanges", Data, RegistrationTable, 
+			True), ThisObject);
+	EndIf;
+	
+EndProcedure
 
-	Если Не ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure ShowExportResult(Command)
+	
+	CurPage = Items.ObjectsListOptions.CurrentPage;
+	Serialization = New Array;
+	
+	If CurPage = Items.ConstantsPage Then 
+		FormItem = Items.ConstantsList;
+		For Each Row In FormItem.SelectedRows Do
+			curData = FormItem.RowData(Row);
+			Serialization.Add(New Structure("TypeFlag, Data", 1, curData.MetaFullName));
+		EndDo;
+		
+	ElsIf CurPage = Items.RecordSetPage Then
+		DimensionList = RecordSetKeyNameArray(RecordSetsListTableName);
+		FormItem = Items.RecordSetsList;
+		Prefix = "RecordSetsList";
+		For Each Item In FormItem.SelectedRows Do
+			curData = New Structure();
+			Data = FormItem.RowData(Item);
+			For Each Name In DimensionList Do
+				curData.Insert(Name, Data[Prefix + Name]);
+			EndDo;
+			Serialization.Add(New Structure("TypeFlag, Data", 2, curData));
+		EndDo;
+		
+	ElsIf CurPage = Items.ReferencesListPage Then
+		FormItem = Items.RefsList;
+		For Each Item In FormItem.SelectedRows Do
+			curData = FormItem.RowData(Item);
+			Serialization.Add(New Structure("TypeFlag, Data", 3, curData.Ref));
+		EndDo;
+		
+	Else
+		Return;
+		
+	EndIf;
+	
+	If Serialization.Count() > 0 Then
+		Text = SerializationText(Serialization);
+		TextTitle = NStr("ru = 'Результат стандартной выгрузки (РИБ)'; en = 'Standard export result (DIB)'");
+		Text.Show(TextTitle);
+	EndIf;
+	
+EndProcedure
 
-	ТекСтр = Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница;
-	Если ТекСтр = Элементы.СтраницаКонстанты Тогда
-		УдалитьРегистрациюКонстантыВСписке();
-	ИначеЕсли ТекСтр = Элементы.СтраницаСписокСсылок Тогда
-		УдалитьРегистрациюИзСпискаСсылок();
-	ИначеЕсли ТекСтр = Элементы.СтраницаНаборЗаписей Тогда
-		УдалитьРегистрациюВНабореЗаписей();
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура AddRegistrationFilter(Команда)
-
-	Если Не ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		Возврат;
-	КонецЕсли;
-
-	ТекСтр = Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница;
-	Если ТекСтр = Элементы.СтраницаСписокСсылок Тогда
-		ДобавитьРегистрациюВСписокОтбор();
-	ИначеЕсли ТекСтр = Элементы.СтраницаНаборЗаписей Тогда
-		ДобавитьРегистрациюВНаборЗаписейОтбор();
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура DeleteRegistrationFilter(Команда)
-
-	Если Не ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		Возврат;
-	КонецЕсли;
-
-	ТекСтр = Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница;
-	Если ТекСтр = Элементы.СтраницаСписокСсылок Тогда
-		УдалитьРегистрациюВСпискеОтбор();
-	ИначеЕсли ТекСтр = Элементы.СтраницаНаборЗаписей Тогда
-		УдалитьРегистрациюВНабореЗаписейОтбор();
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура OpenNodeRegistrationForm(Команда)
-
-	Если SelectExchangeNodeProhibited Тогда
-		Возврат;
-	КонецЕсли;
-
-	Данные = ПолучитьТекущийОбъектРедактирования();
-	Если Данные <> Неопределено Тогда
-		ТаблицаРегистрации = ?(ТипЗнч(Данные) = Тип("Структура"), RecordSetsListTableName, "");
-		ОткрытьФорму(ПолучитьИмяФормы() + "Форма.УзлыРегистрацииОбъекта",
-			Новый Структура("ОбъектРегистрации, ТаблицаРегистрации, ОповещатьОбИзменениях", Данные, ТаблицаРегистрации,
-			Истина), ЭтотОбъект);
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ShowExportResult(Команда)
-
-	ТекСтраница = Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница;
-	Сериализация = Новый Массив;
-
-	Если ТекСтраница = Элементы.СтраницаКонстанты Тогда
-		ЭлементФормы = Элементы.ConstantsList;
-		Для Каждого Строка Из ЭлементФормы.ВыделенныеСтроки Цикл
-			ТекДанные = ЭлементФормы.ДанныеСтроки(Строка);
-			Сериализация.Добавить(Новый Структура("ФлагТипа, Данные", 1, ТекДанные.МетаПолноеИмя));
-		КонецЦикла;
-
-	ИначеЕсли ТекСтраница = Элементы.СтраницаНаборЗаписей Тогда
-		СписокИзмерений = МассивИменКлючейНабораЗаписей(RecordSetsListTableName);
-		ЭлементФормы = Элементы.RecordSetsList;
-		Префикс = "RecordSetsList";
-		Для Каждого Элемент Из ЭлементФормы.ВыделенныеСтроки Цикл
-			ТекДанные = Новый Структура;
-			Данные = ЭлементФормы.ДанныеСтроки(Элемент);
-			Для Каждого Имя Из СписокИзмерений Цикл
-				ТекДанные.Вставить(Имя, Данные[Префикс + Имя]);
-			КонецЦикла;
-			Сериализация.Добавить(Новый Структура("ФлагТипа, Данные", 2, ТекДанные));
-		КонецЦикла;
-
-	ИначеЕсли ТекСтраница = Элементы.СтраницаСписокСсылок Тогда
-		ЭлементФормы = Элементы.RefsList;
-		Для Каждого Элемент Из ЭлементФормы.ВыделенныеСтроки Цикл
-			ТекДанные = ЭлементФормы.ДанныеСтроки(Элемент);
-			Сериализация.Добавить(Новый Структура("ФлагТипа, Данные", 3, ТекДанные.Ссылка));
-		КонецЦикла;
-
-	Иначе
-		Возврат;
-	КонецЕсли;
-
-	Если Сериализация.Количество() > 0 Тогда
-		Текст = ТекстСериализации(Сериализация);
-		ЗаголовокТекста = НСтр("ru='Результат стандартной выгрузки (РИБ)'");
-		Текст.Показать(ЗаголовокТекста);
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура EditMessageNumbers(Команда)
+&AtClient
+Procedure EditMessageNumbers(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ТекИмяФормы = ПолучитьИмяФормы() + "Форма.НомераСообщенийУзлаПланаОбмена";
 		ТекПараметры = Новый Структура("ExchangeNodeRef", ExchangeNodeRef);
 		ОткрытьФорму(ТекИмяФормы, ТекПараметры);
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddConstantRegistration(Команда)
+&AtClient
+Procedure AddConstantRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюКонстантыВСписке();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteConstantRegistration(Команда)
+&AtClient
+Procedure DeleteConstantRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		УдалитьРегистрациюКонстантыВСписке();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddRefRegistration(Команда)
+&AtClient
+Procedure AddRefRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюВСписокСсылок();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddObjectDeletionRegistration(Команда)
+&AtClient
+Procedure AddObjectDeletionRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюУдаленияОбъектаВСписокСсылок();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteRefRegistration(Команда)
+&AtClient
+Procedure DeleteRefRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		УдалитьРегистрациюИзСпискаСсылок();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddRefRegistrationPickup(Команда)
+&AtClient
+Procedure AddRefRegistrationPickup(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюВСписокСсылок(Истина);
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddRefRegistrationFilter(Команда)
+&AtClient
+Procedure AddRefRegistrationFilter(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюВСписокОтбор();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteRefRegistrationFilter(Команда)
+&AtClient
+Procedure DeleteRefRegistrationFilter(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		УдалитьРегистрациюВСпискеОтбор();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddRegistrationForAutoObjects(Команда)
+&AtClient
+Procedure AddRegistrationForAutoObjects(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюВыделенныхОбъектов(Ложь);
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteRegistrationForAutoObjects(Команда)
+&AtClient
+Procedure DeleteRegistrationForAutoObjects(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		УдалитьРегистрациюВыделенныхОбъектов(Ложь);
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddRegistrationForAllObjects(Команда)
+&AtClient
+Procedure AddRegistrationForAllObjects(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюВыделенныхОбъектов();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteRegistrationForAllObjects(Команда)
+&AtClient
+Procedure DeleteRegistrationForAllObjects(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		УдалитьРегистрациюВыделенныхОбъектов();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddRecordSetRegistrationFilter(Команда)
+&AtClient
+Procedure AddRecordSetRegistrationFilter(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ДобавитьРегистрациюВНаборЗаписейОтбор();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteRecordSetRegistration(Команда)
+&AtClient
+Procedure DeleteRecordSetRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		УдалитьРегистрациюВНабореЗаписей();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteRecordSetRegistrationFilter(Команда)
+&AtClient
+Procedure DeleteRecordSetRegistrationFilter(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		УдалитьРегистрациюВНабореЗаписейОтбор();
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура RefreshAllData(Команда)
+&AtClient
+Procedure RefreshAllData(Команда)
 	ЗаполнитьКоличествоРегистрацийВДереве();
 	ОбновитьСодержимоеСтраницы();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура AddQueryResultRegistration(Команда)
+&AtClient
+Procedure AddQueryResultRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ОперацияСРезультатамиЗапроса(Истина);
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура DeleteQueryResultRegistration(Команда)
+&AtClient
+Procedure DeleteQueryResultRegistration(Команда)
 	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
 		ОперацияСРезультатамиЗапроса(Ложь);
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура OpenSettingsForm(Команда)
+&AtClient
+Procedure OpenSettingsForm(Команда)
 	ОткрытьФормуНастроекОбработки();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура EditObjectMessageNumber(Команда)
+&AtClient
+Procedure EditObjectMessageNumber(Команда)
 
-	Если Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница = Элементы.СтраницаКонстанты Тогда
+	Если Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.ConstantsPage Тогда
 		РедактироватьНомерСообщенияКонстанты();
 
-	ИначеЕсли Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница = Элементы.СтраницаСписокСсылок Тогда
+	ИначеЕсли Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.ReferencesListPage Тогда
 		РедактироватьНомерСообщенияСсылки();
 
-	ИначеЕсли Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница = Элементы.СтраницаНаборЗаписей Тогда
+	ИначеЕсли Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.RecordSetPage Тогда
 		РедактироватьНомерСообщенияСписокНаборов();
 		
 	КонецЕсли
 	;
 
-КонецПроцедуры
+EndProcedure
 
 //@skip-warning
-&НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
+&AtClient
+Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
-КонецПроцедуры
+EndProcedure
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
 //
 
-&НаКлиенте
-Процедура ОбработкаВыбораЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure ОбработкаВыбораЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
 	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
 		Возврат;
 	КонецЕсли
@@ -616,10 +621,10 @@
 
 	ЗаполнитьКоличествоРегистрацийВДереве();
 	ОбновитьСодержимоеСтраницы();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура РедактироватьНомерСообщенияКонстанты()
+&AtClient
+Procedure РедактироватьНомерСообщенияКонстанты()
 	ТекДанные = Элементы.ConstantsList.ТекущиеДанные;
 	Если ТекДанные = Неопределено Тогда
 		Возврат;
@@ -632,10 +637,10 @@
 	Подсказка = НСтр("ru='Номер отправленного'");
 
 	ПоказатьВводЧисла(Оповещение, НомерСообщения, Подсказка);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура РедактироватьНомерСообщенияКонстантыЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure РедактироватьНомерСообщенияКонстантыЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
 	Если НомерСообщения = Неопределено Тогда
 		// Отказ от ввода
 		Возврат;
@@ -646,10 +651,10 @@
 
 	Элементы.ConstantsList.Обновить();
 	ЗаполнитьКоличествоРегистрацийВДереве();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура РедактироватьНомерСообщенияСсылки()
+&AtClient
+Procedure РедактироватьНомерСообщенияСсылки()
 	ТекДанные = Элементы.RefsList.ТекущиеДанные;
 	Если ТекДанные = Неопределено Тогда
 		Возврат;
@@ -662,10 +667,10 @@
 	Подсказка = НСтр("ru='Номер отправленного'");
 
 	ПоказатьВводЧисла(Оповещение, НомерСообщения, Подсказка);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура РедактироватьНомерСообщенияСсылкиЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure РедактироватьНомерСообщенияСсылкиЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
 	Если НомерСообщения = Неопределено Тогда
 		// Отказ от ввода
 		Возврат;
@@ -676,10 +681,10 @@
 
 	Элементы.RefsList.Обновить();
 	ЗаполнитьКоличествоРегистрацийВДереве();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура РедактироватьНомерСообщенияСписокНаборов()
+&AtClient
+Procedure РедактироватьНомерСообщенияСписокНаборов()
 	ТекДанные = Элементы.RecordSetsList.ТекущиеДанные;
 	Если ТекДанные = Неопределено Тогда
 		Возврат;
@@ -700,10 +705,10 @@
 	Подсказка = НСтр("ru='Номер отправленного'");
 
 	ПоказатьВводЧисла(Оповещение, НомерСообщения, Подсказка);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура РедактироватьНомерСообщенияСписокНаборовЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure РедактироватьНомерСообщенияСписокНаборовЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
 	Если НомерСообщения = Неопределено Тогда
 		// Отказ от ввода
 		Возврат;
@@ -714,22 +719,22 @@
 
 	Элементы.RecordSetsList.Обновить();
 	ЗаполнитьКоличествоРегистрацийВДереве();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура НастроитьРедактированиеИзменений()
-	НастроитьРедактированиеИзмененийСервер(ТекущаяСтрокаМетаданных);
-КонецПроцедуры
+&AtClient
+Procedure НастроитьРедактированиеИзменений()
+	НастроитьРедактированиеИзмененийСервер(MetadataCurrentRow);
+EndProcedure
 
-&НаКлиенте
-Процедура РазвернутьДеревоМетаданных()
+&AtClient
+Procedure РазвернутьДеревоМетаданных()
 	Для Каждого Строка Из MetadataTree.ПолучитьЭлементы() Цикл
 		Элементы.MetadataTree.Развернуть( Строка.ПолучитьИдентификатор());
 	КонецЦикла;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура УстановитьЗаголовокНомеровСообщений()
+&AtServer
+Procedure УстановитьЗаголовокНомеровСообщений()
 
 	Текст = НСтр("ru='№ сообщений: отпр. %1, прин. %2'");
 
@@ -738,10 +743,10 @@
 	Текст = СтрЗаменить(Текст, "%2", Формат(Данные.НомерПринятого, "ЧДЦ=0; ЧН="));
 
 	Элементы.FormEditMessageNumbers.Заголовок = Текст;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ОбработкаВыбораУзлаОбмена()
+&AtServer
+Procedure ОбработкаВыбораУзлаОбмена()
 	
 	// Изменяем номера узлов в гиперссылке по редактированию
 	УстановитьЗаголовокНомеровСообщений();
@@ -755,12 +760,12 @@
 	ПоследняяАктивнаяКолонкаМетаданных = Неопределено;
 	//@skip-warning
 	ПоследняяАктивнаяСтрокаМетаданных  = Неопределено;
-	Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница = Элементы.СтраницаПустая;
+	Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.BlankPage;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура СообщитьОРезультатахРегистрации(Команда, Результаты)
+&AtClient
+Procedure СообщитьОРезультатахРегистрации(Команда, Результаты)
 
 	Если ТипЗнч(Команда) = Тип("Булево") Тогда
 		Если Команда Тогда
@@ -789,11 +794,11 @@
 		ПоказатьПредупреждение( , ТекстПредупреждения, , ЗаголовокПредупреждения);
 	Иначе
 		ПоказатьОповещениеПользователя(ЗаголовокПредупреждения, ПолучитьНавигационнуюСсылку(ExchangeNodeRef),
-			ТекстПредупреждения, Элементы.СкрытаяКартинкаИнформация32.Картинка);
+			ТекстПредупреждения, Элементы.HiddenPictureInfo32.Картинка);
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
+&AtServer
 Функция ПолучитьФормуВыбораРезультатаЗапроса()
 
 	ТекущийОбъект = ЭтотОбъектОбработки();
@@ -817,17 +822,17 @@
 	Возврат Обработка.Метаданные().ПолноеИмя() + ИдентификаторФормы;
 КонецФункции
 
-&НаКлиенте
-Процедура ДобавитьРегистрациюКонстантыВСписке()
+&AtClient
+Procedure ДобавитьРегистрациюКонстантыВСписке()
 	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.ВыборКонстанты";
 	ТекПараметры = Новый Структура("УзелОбмена, МассивИменМетаданных, МассивПредставлений, МассивАвторегистрации",
 		ExchangeNodeRef, MetadataNamesStructure.Константы, MetadataPresentationsStructure.Константы,
 		MetadataAutoRecordStructure.Константы);
 	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элементы.ConstantsList);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюКонстантыВСписке()
+&AtClient
+Procedure УдалитьРегистрациюКонстантыВСписке()
 
 	Элемент = Элементы.ConstantsList;
 
@@ -858,10 +863,10 @@
 	Оповещение.ДополнительныеПараметры.Вставить("СписокИмен", СписокИмен);
 
 	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюКонстантыВСпискеЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure УдалитьРегистрациюКонстантыВСпискеЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
 	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
 		Возврат;
 	КонецЕсли;
@@ -871,23 +876,23 @@
 
 	Элементы.ConstantsList.Обновить();
 	ЗаполнитьКоличествоРегистрацийВДереве();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ДобавитьРегистрациюВСписокСсылок(ЭтоПодбор = Ложь)
+&AtClient
+Procedure ДобавитьРегистрациюВСписокСсылок(ЭтоПодбор = Ложь)
 	ТекИмяФормы = ПолучитьИмяФормы(RefsList) + "ФормаВыбора";
 	ТекПараметры = Новый Структура("РежимВыбора, МножественныйВыбор, ЗакрыватьПриВыборе, ВыборГруппИЭлементов", Истина,
 		Истина, ЭтоПодбор, ИспользованиеГруппИЭлементов.ГруппыИЭлементы);
 	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элементы.RefsList);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ДобавитьРегистрациюУдаленияОбъектаВСписокСсылок()
+&AtClient
+Procedure ДобавитьРегистрациюУдаленияОбъектаВСписокСсылок()
 	Ссылка = СсылкаДляУдаленияОбъекта();
 	ОбработкаВыбораДанных(Элементы.RefsList, Ссылка);
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
+&AtServer
 Функция СсылкаДляУдаленияОбъекта(Знач УникальныйИдентификатор = Неопределено)
 	Описание = ЭтотОбъектОбработки().ХарактеристикиПоМетаданным(RefsList.ОсновнаяТаблица);
 	Если УникальныйИдентификатор = Неопределено Тогда
@@ -896,23 +901,23 @@
 	Возврат Описание.Менеджер.ПолучитьСсылку(УникальныйИдентификатор);
 КонецФункции
 
-&НаКлиенте
-Процедура ДобавитьРегистрациюВСписокОтбор()
+&AtClient
+Procedure ДобавитьРегистрациюВСписокОтбор()
 	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.ВыборОбъектовОтбором";
 	ТекПараметры = Новый Структура("ДействиеВыбора, ИмяТаблицы", Истина, ОсновнаяТаблицаДинамическогоСписка(
 		RefsList));
 	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элементы.RefsList);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюВСпискеОтбор()
+&AtClient
+Procedure УдалитьРегистрациюВСпискеОтбор()
 	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.ВыборОбъектовОтбором";
 	ТекПараметры = Новый Структура("ДействиеВыбора, ИмяТаблицы", Ложь, ОсновнаяТаблицаДинамическогоСписка(RefsList));
 	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элементы.RefsList);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюИзСпискаСсылок()
+&AtClient
+Procedure УдалитьРегистрациюИзСпискаСсылок()
 
 	Элемент = Элементы.RefsList;
 
@@ -941,10 +946,10 @@
 	Оповещение.ДополнительныеПараметры.Вставить("СписокУдаления", СписокУдаления);
 
 	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюИзСпискаСсылокЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure УдалитьРегистрациюИзСпискаСсылокЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
 	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
 		Возврат;
 	КонецЕсли;
@@ -954,17 +959,17 @@
 
 	Элементы.RefsList.Обновить();
 	ЗаполнитьКоличествоРегистрацийВДереве();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ДобавитьРегистрациюВНаборЗаписейОтбор()
+&AtClient
+Procedure ДобавитьРегистрациюВНаборЗаписейОтбор()
 	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.ВыборОбъектовОтбором";
 	ТекПараметры = Новый Структура("ДействиеВыбора, ИмяТаблицы", Истина, RecordSetsListTableName);
 	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элементы.RecordSetsList);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюВНабореЗаписей()
+&AtClient
+Procedure УдалитьРегистрациюВНабореЗаписей()
 
 	СтруктураДанных = "";
 	ИменаКлючей = МассивИменКлючейНабораЗаписей(RecordSetsListTableName);
@@ -992,17 +997,17 @@
 		Данные, Ложь, СтруктураДанных);
 
 	ОбработкаВыбораДанных(Элементы.RecordSetsList, Выбор);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюВНабореЗаписейОтбор()
+&AtClient
+Procedure УдалитьРегистрациюВНабореЗаписейОтбор()
 	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.ВыборОбъектовОтбором";
 	ТекПараметры = Новый Структура("ДействиеВыбора, ИмяТаблицы", Ложь, RecordSetsListTableName);
 	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элементы.RecordSetsList);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ДобавитьРегистрациюВыделенныхОбъектов(БезУчетаАвторегистрации = Истина)
+&AtClient
+Procedure ДобавитьРегистрациюВыделенныхОбъектов(БезУчетаАвторегистрации = Истина)
 
 	Данные = ПолучитьВыбранныеИменаМетаданных(БезУчетаАвторегистрации);
 	Колво = Данные.МетаИмена.Количество();
@@ -1026,10 +1031,10 @@
 	Оповещение.ДополнительныеПараметры.Вставить("БезУчетаАвторегистрации", БезУчетаАвторегистрации);
 
 	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ДобавитьРегистрациюВыделенныхОбъектовЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure ДобавитьРегистрациюВыделенныхОбъектовЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
 	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
 		Возврат;
 	КонецЕсли;
@@ -1040,10 +1045,10 @@
 	ЗаполнитьКоличествоРегистрацийВДереве();
 	ОбновитьСодержимоеСтраницы();
 	СообщитьОРезультатахРегистрации(Истина, Результат);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюВыделенныхОбъектов(БезУчетаАвторегистрации = Истина)
+&AtClient
+Procedure УдалитьРегистрациюВыделенныхОбъектов(БезУчетаАвторегистрации = Истина)
 
 	Данные = ПолучитьВыбранныеИменаМетаданных(БезУчетаАвторегистрации);
 	Колво = Данные.МетаИмена.Количество();
@@ -1065,10 +1070,10 @@
 	Оповещение.ДополнительныеПараметры.Вставить("БезУчетаАвторегистрации", БезУчетаАвторегистрации);
 
 	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьРегистрациюВыделенныхОбъектовЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure УдалитьРегистрациюВыделенныхОбъектовЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
 	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
 		Возврат;
 	КонецЕсли;
@@ -1078,10 +1083,10 @@
 
 	ЗаполнитьКоличествоРегистрацийВДереве();
 	ОбновитьСодержимоеСтраницы();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ОбработкаВыбораДанных(ТаблицаФормы, ВыбранноеЗначение)
+&AtClient
+Procedure ОбработкаВыбораДанных(ТаблицаФормы, ВыбранноеЗначение)
 
 	Ссылка = Неопределено;
 	Тип    = ТипЗнч(ВыбранноеЗначение);
@@ -1137,10 +1142,10 @@
 	Оповещение.ДополнительныеПараметры.Вставить("Ссылка", Ссылка);
 
 	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ОбработкаВыбораДанныхЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure ОбработкаВыбораДанныхЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
 	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
 		Возврат;
 	КонецЕсли;
@@ -1153,22 +1158,22 @@
 	СообщитьОРезультатахРегистрации(ДополнительныеПараметры.Действие, Результат);
 
 	ДополнительныеПараметры.ТаблицаФормы.ТекущаяСтрока = ДополнительныеПараметры.Ссылка;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ОбновитьСодержимоеСтраницы(Страница = Неопределено)
-	ТекСтр = ?(Страница = Неопределено, Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница, Страница);
+&AtServer
+Procedure ОбновитьСодержимоеСтраницы(Страница = Неопределено)
+	ТекСтр = ?(Страница = Неопределено, Элементы.ObjectsListOptions.ТекущаяСтраница, Страница);
 
-	Если ТекСтр = Элементы.СтраницаСписокСсылок Тогда
+	Если ТекСтр = Элементы.ReferencesListPage Тогда
 		Элементы.RefsList.Обновить();
 
-	ИначеЕсли ТекСтр = Элементы.СтраницаКонстанты Тогда
+	ИначеЕсли ТекСтр = Элементы.ConstantsPage Тогда
 		Элементы.ConstantsList.Обновить();
 
-	ИначеЕсли ТекСтр = Элементы.СтраницаНаборЗаписей Тогда
+	ИначеЕсли ТекСтр = Элементы.RecordSetPage Тогда
 		Элементы.RecordSetsList.Обновить();
 
-	ИначеЕсли ТекСтр = Элементы.СтраницаПустая Тогда
+	ИначеЕсли ТекСтр = Элементы.BlankPage Тогда
 		Строка = Элементы.MetadataTree.ТекущаяСтрока;
 		Если Строка <> Неопределено Тогда
 			Данные = MetadataTree.НайтиПоИдентификатору(Строка);
@@ -1177,26 +1182,26 @@
 			КонецЕсли;
 		КонецЕсли;
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
+&AtClient
 Функция ПолучитьТекущийОбъектРедактирования()
 
-	ТекСтр = Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница;
+	ТекСтр = Элементы.ObjectsListOptions.ТекущаяСтраница;
 
-	Если ТекСтр = Элементы.СтраницаСписокСсылок Тогда
+	Если ТекСтр = Элементы.ReferencesListPage Тогда
 		Данные = Элементы.RefsList.ТекущиеДанные;
 		Если Данные <> Неопределено Тогда
 			Возврат Данные.Ссылка;
 		КонецЕсли;
 
-	ИначеЕсли ТекСтр = Элементы.СтраницаКонстанты Тогда
+	ИначеЕсли ТекСтр = Элементы.ConstantsPage Тогда
 		Данные = Элементы.ConstantsList.ТекущиеДанные;
 		Если Данные <> Неопределено Тогда
 			Возврат Данные.МетаПолноеИмя;
 		КонецЕсли;
 
-	ИначеЕсли ТекСтр = Элементы.СтраницаНаборЗаписей Тогда
+	ИначеЕсли ТекСтр = Элементы.RecordSetPage Тогда
 		Данные = Элементы.RecordSetsList.ТекущиеДанные;
 		Если Данные <> Неопределено Тогда
 			Результат = Новый Структура;
@@ -1213,14 +1218,14 @@
 
 КонецФункции
 
-&НаКлиенте
-Процедура ОткрытьФормуНастроекОбработки()
+&AtClient
+Procedure ОткрытьФормуНастроекОбработки()
 	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.Настройки";
 	ОткрытьФорму(ТекИмяФормы, , ЭтотОбъект);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ОперацияСРезультатамиЗапроса(КомандаОперации)
+&AtClient
+Procedure ОперацияСРезультатамиЗапроса(КомандаОперации)
 
 	ТекИмяФормы = ПолучитьФормуВыбораРезультатаЗапроса();
 	Если ТекИмяФормы <> Неопределено Тогда
@@ -1243,23 +1248,23 @@
 
 	Оповещение = Новый ОписаниеОповещения("ОперацияСРезультатамиЗапросаЗавершение", ЭтотОбъект);
 	ПоказатьВопрос(Оповещение, ТекстВопроса, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ОперацияСРезультатамиЗапросаЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure ОперацияСРезультатамиЗапросаЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
 	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
 		Возврат;
 	КонецЕсли;
 
 	ОткрытьФормуНастроекОбработки();
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
+&AtServer
 Функция ЗакавычитьСтроку(Строка)
 	Возврат СтрЗаменить(Строка, """", """""");
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ЭтотОбъектОбработки(ТекущийОбъект = Неопределено)
 	Если ТекущийОбъект = Неопределено Тогда
 		Возврат РеквизитФормыВЗначение("Объект");
@@ -1268,24 +1273,24 @@
 	Возврат Неопределено;
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ПолучитьИмяФормы(ТекущийОбъект = Неопределено)
 	Возврат ЭтотОбъектОбработки().ПолучитьИмяФормы(ТекущийОбъект);
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ОсновнаяТаблицаДинамическогоСписка(РеквизитФормы)
 	Возврат РеквизитФормы.ОсновнаяТаблица;
 КонецФункции
 
-&НаСервере
-Процедура ИзменениеПометки(Строка)
+&AtServer
+Procedure ИзменениеПометки(Строка)
 	ЭлементДанных = MetadataTree.НайтиПоИдентификатору(Строка);
 	ЭтотОбъектОбработки().ИзменениеПометки(ЭлементДанных);
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ПрочитатьДеревоМетаданных()
+&AtServer
+Procedure ПрочитатьДеревоМетаданных()
 	Данные = ЭтотОбъектОбработки().СформироватьСтруктуруМетаданных(ExchangeNodeRef);
 	
 	// Удаляем строки, которые нельзя редактировать
@@ -1298,10 +1303,10 @@
 	MetadataAutoRecordStructure = Данные.СтруктураАвторегистрации;
 	MetadataPresentationsStructure   = Данные.СтруктураПредставлений;
 	MetadataNamesStructure            = Данные.СтруктураИмен;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура УдалитьСтрокиДереваЗначенийМетаданных(Знач МетаПолноеИмя, СтрокиДерева)
+&AtServer
+Procedure УдалитьСтрокиДереваЗначенийМетаданных(Знач МетаПолноеИмя, СтрокиДерева)
 	Если ПустаяСтрока(МетаПолноеИмя) Тогда
 		Возврат;
 	КонецЕсли;
@@ -1316,16 +1321,16 @@
 	Для Каждого СтрокаДерева Из СтрокиДерева Цикл
 		УдалитьСтрокиДереваЗначенийМетаданных(МетаПолноеИмя, СтрокаДерева.Строки);
 	КонецЦикла;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ФорматироватьКоличествоИзменений(Строка)
+&AtServer
+Procedure ФорматироватьКоличествоИзменений(Строка)
 	Строка.ChangeCountString = Формат(Строка.КоличествоИзменений, "ЧН=") + " / " + Формат(
 		Строка.КоличествоНеВыгруженных, "ЧН=");
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ЗаполнитьКоличествоРегистрацийВДереве()
+&AtServer
+Procedure ЗаполнитьКоличествоРегистрацийВДереве()
 
 	Данные = ЭтотОбъектОбработки().ПолучитьКоличествоИзменений(MetadataNamesStructure, ExchangeNodeRef);
 	
@@ -1394,9 +1399,9 @@
 		ФорматироватьКоличествоИзменений(Корень);
 	КонецЦикла;
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
+&AtServer
 Функция ИзменитьРегистрациюРезультатаЗапросаСервер(Команда, Адрес)
 
 	Результат = ПолучитьИзВременногоХранилища(Адрес);
@@ -1410,7 +1415,7 @@
 	Возврат УдалитьРегистрациюНаСервере(Истина, ExchangeNodeRef, Данные);
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция КонтрольСсылокДляВыбораЗапросом(Адрес)
 
 	Результат = ?(Адрес = Неопределено, Неопределено, ПолучитьИзВременногоХранилища(Адрес));
@@ -1426,8 +1431,8 @@
 	Возврат "";
 КонецФункции
 
-&НаСервере
-Процедура НастроитьРедактированиеИзмененийСервер(ТекущаяСтрока)
+&AtServer
+Procedure НастроитьРедактированиеИзмененийСервер(ТекущаяСтрока)
 
 	Данные = MetadataTree.НайтиПоИдентификатору(ТекущаяСтрока);
 	Если Данные = Неопределено Тогда
@@ -1446,22 +1451,22 @@
 
 	Если Мета = Неопределено Тогда
 		НастроитьПустуюСтраницу(Наименование, ИмяТаблицы);
-		НовСтраница = Элементы.СтраницаПустая;
+		НовСтраница = Элементы.BlankPage;
 
 	ИначеЕсли Мета = Метаданные.Константы Тогда
 		// Все константы системы
 		НастроитьСписокКонстант();
-		НовСтраница = Элементы.СтраницаКонстанты;
+		НовСтраница = Элементы.ConstantsPage;
 
 	ИначеЕсли ТипЗнч(Мета) = Тип("КоллекцияОбъектовМетаданных") Тогда
 		// Все справочники, документы, и т.п.
 		НастроитьПустуюСтраницу(Наименование, ИмяТаблицы);
-		НовСтраница = Элементы.СтраницаПустая;
+		НовСтраница = Элементы.BlankPage;
 
 	ИначеЕсли Метаданные.Константы.Содержит(Мета) Тогда
 		// Одиночная константа
 		НастроитьСписокКонстант(ИмяТаблицы, Наименование);
-		НовСтраница = Элементы.СтраницаКонстанты;
+		НовСтраница = Элементы.ConstantsPage;
 
 	ИначеЕсли Метаданные.Справочники.Содержит(Мета) Или Метаданные.Документы.Содержит(Мета)
 		Или Метаданные.ПланыВидовХарактеристик.Содержит(Мета) Или Метаданные.ПланыСчетов.Содержит(Мета)
@@ -1469,37 +1474,37 @@
 		Или Метаданные.Задачи.Содержит(Мета) Тогда
 		// Ссылочный тип
 		НастроитьСписокСсылок(ИмяТаблицы, Наименование);
-		НовСтраница = Элементы.СтраницаСписокСсылок;
+		НовСтраница = Элементы.ReferencesListPage;
 
 	Иначе
 		// Проверим на набор записей
 		Измерения = ТекущийОбъект.ИзмеренияНабораЗаписей(ИмяТаблицы);
 		Если Измерения <> Неопределено Тогда
 			НастроитьНаборЗаписей(ИмяТаблицы, Измерения, Наименование);
-			НовСтраница = Элементы.СтраницаНаборЗаписей;
+			НовСтраница = Элементы.RecordSetPage;
 		Иначе
 			НастроитьПустуюСтраницу(Наименование, ИмяТаблицы);
-			НовСтраница = Элементы.СтраницаПустая;
+			НовСтраница = Элементы.BlankPage;
 		КонецЕсли;
 
 	КонецЕсли;
 
-	Элементы.СтраницаКонстанты.Видимость    = Ложь;
-	Элементы.СтраницаСписокСсылок.Видимость = Ложь;
-	Элементы.СтраницаНаборЗаписей.Видимость = Ложь;
-	Элементы.СтраницаПустая.Видимость       = Ложь;
+	Элементы.ConstantsPage.Видимость    = Ложь;
+	Элементы.ReferencesListPage.Видимость = Ложь;
+	Элементы.RecordSetPage.Видимость = Ложь;
+	Элементы.BlankPage.Видимость       = Ложь;
 
-	Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница = НовСтраница;
+	Элементы.ObjectsListOptions.ТекущаяСтраница = НовСтраница;
 	НовСтраница.Видимость = Истина;
 
 	НастроитьВидимостьКомандОбщегоМеню();
-КонецПроцедуры
+EndProcedure
 
 // Вывод изменений для ссылочного типа (cправочник, документ, план видов характеристик, 
 // план счетов, вид расчета, бизнес-процессы, задачи)
 //
-&НаСервере
-Процедура НастроитьСписокСсылок(ИмяТаблицы, Наименование)
+&AtServer
+Procedure НастроитьСписокСсылок(ИмяТаблицы, Наименование)
 
 	RefsList.ТекстЗапроса = 
 	"ВЫБРАТЬ
@@ -1526,12 +1531,12 @@
 		ТекЗаголовок = Наименование;
 	КонецЕсли;
 	Элементы.RefsListRefPresentation.Заголовок = ТекЗаголовок;
-КонецПроцедуры
+EndProcedure
 
 // Вывод изменений для констант
 //
-&НаСервере
-Процедура НастроитьСписокКонстант(ИмяТаблицы = Неопределено, Наименование = "")
+&AtServer
+Procedure НастроитьСписокКонстант(ИмяТаблицы = Неопределено, Наименование = "")
 
 	Если ИмяТаблицы = Неопределено Тогда
 		// Все константы
@@ -1599,11 +1604,11 @@
 
 	ConstantsList.Параметры.УстановитьЗначениеПараметра("ВыбранныйУзел", ExchangeNodeRef);
 	ConstantsList.ДинамическоеСчитываниеДанных = Истина;
-КонецПроцедуры	
+EndProcedure	
 
 // Вывод заглушки с пустой страницей.
-&НаСервере
-Процедура НастроитьПустуюСтраницу(Наименование, ИмяТаблицы = Неопределено)
+&AtServer
+Procedure НастроитьПустуюСтраницу(Наименование, ИмяТаблицы = Неопределено)
 
 	Если ИмяТаблицы = Неопределено Тогда
 		ТекстКоличеств = "";
@@ -1633,13 +1638,13 @@
 	Текст = СтрЗаменить(Текст, "%1", Наименование);
 	Текст = СтрЗаменить(Текст, "%2", ТекстКоличеств);
 	Текст = СтрЗаменить(Текст, "%3", ExchangeNodeRef);
-	Элементы.ДекорацияПустаяСтраница.Заголовок = Текст;
-КонецПроцедуры
+	Элементы.BlankPageDecoration.Заголовок = Текст;
+EndProcedure
 
 // Вывод изменений для наборов записей
 //
-&НаСервере
-Процедура НастроитьНаборЗаписей(ИмяТаблицы, Измерения, Наименование)
+&AtServer
+Procedure НастроитьНаборЗаписей(ИмяТаблицы, Измерения, Наименование)
 
 	ТекстВыбора = "";
 	Префикс     = "RecordSetsList";
@@ -1669,15 +1674,15 @@
 	ЭтотОбъектОбработки().ДобавитьКолонкиВТаблицуФормы(
 		Элементы.RecordSetsList, "НомерСообщения, НеВыгружалось, 
 									   |Порядок, Отбор, Группировка, СтандартнаяКартинка, Параметры, УсловноеОформление",
-		Измерения, Элементы.СписокНаборовЗаписейГруппаИзмерений);
+		Измерения, Элементы.RecordSetsListDimensionsGroup);
 	RecordSetsList.ДинамическоеСчитываниеДанных = Истина;
 	RecordSetsListTableName = ИмяТаблицы;
-КонецПроцедуры
+EndProcedure
 
 // Общий отбор по полю "НомерСообщения"
 //
-&НаСервере
-Процедура УстановитьОтборПоНомеруСообщения(ДинамоСписок, Вариант)
+&AtServer
+Procedure SetFilterByMessageNumber(ДинамоСписок, Вариант)
 
 	Поле = Новый ПолеКомпоновкиДанных("НеВыгружалось");
 	// Ищем свое поле, попутно отключаем все по нему
@@ -1707,26 +1712,26 @@
 
 	КонецЕсли;
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура НастроитьВидимостьКомандОбщегоМеню()
+&AtServer
+Procedure НастроитьВидимостьКомандОбщегоМеню()
 
-	ТекСтр = Элементы.ВариантыСпискаОбъектов.ТекущаяСтраница;
+	ТекСтр = Элементы.ObjectsListOptions.ТекущаяСтраница;
 
-	Если ТекСтр = Элементы.СтраницаКонстанты Тогда
+	Если ТекСтр = Элементы.ConstantsPage Тогда
 		Элементы.FormAddRegistrationForSingleObject.Доступность = Истина;
 		Элементы.FormAddRegistrationFilter.Доступность         = Ложь;
 		Элементы.FormDeleteRegistrationForSingleObject.Доступность  = Истина;
 		Элементы.FormDeleteRegistrationFilter.Доступность          = Ложь;
 
-	ИначеЕсли ТекСтр = Элементы.СтраницаСписокСсылок Тогда
+	ИначеЕсли ТекСтр = Элементы.ReferencesListPage Тогда
 		Элементы.FormAddRegistrationForSingleObject.Доступность = Истина;
 		Элементы.FormAddRegistrationFilter.Доступность         = Истина;
 		Элементы.FormDeleteRegistrationForSingleObject.Доступность  = Истина;
 		Элементы.FormDeleteRegistrationFilter.Доступность          = Истина;
 
-	ИначеЕсли ТекСтр = Элементы.СтраницаНаборЗаписей Тогда
+	ИначеЕсли ТекСтр = Элементы.RecordSetPage Тогда
 		Элементы.FormAddRegistrationForSingleObject.Доступность = Истина;
 		Элементы.FormAddRegistrationFilter.Доступность         = Ложь;
 		Элементы.FormDeleteRegistrationForSingleObject.Доступность  = Истина;
@@ -1739,9 +1744,9 @@
 		Элементы.FormDeleteRegistrationFilter.Доступность          = Ложь;
 
 	КонецЕсли;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
+&AtServer
 Функция МассивИменКлючейНабораЗаписей(ИмяТаблицы, ПрефиксИмен = "")
 	Результат = Новый Массив;
 	Измерения = ЭтотОбъектОбработки().ИзмеренияНабораЗаписей(ИмяТаблицы);
@@ -1753,7 +1758,7 @@
 	Возврат Результат;
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция МенеджерПоМетаданным(ИмяТаблицы)
 	Описание = ЭтотОбъектОбработки().ХарактеристикиПоМетаданным(ИмяТаблицы);
 	Если Описание <> Неопределено Тогда
@@ -1762,7 +1767,7 @@
 	Возврат Неопределено;
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ТекстСериализации(Сериализация)
 
 	Текст = Новый ТекстовыйДокумент;
@@ -1802,22 +1807,22 @@
 	Возврат Текст;
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция УдалитьРегистрациюНаСервере(БезУчетаАвторегистрации, Узел, Удаляемые, ИмяТаблицы = Неопределено)
 	Возврат ЭтотОбъектОбработки().ИзменитьРегистрациюНаСервере(Ложь, БезУчетаАвторегистрации, Узел, Удаляемые, ИмяТаблицы);
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ДобавитьРегистрациюНаСервере(БезУчетаАвторегистрации, Узел, Добавляемые, ИмяТаблицы = Неопределено)
 	Возврат ЭтотОбъектОбработки().ИзменитьРегистрациюНаСервере(Истина, БезУчетаАвторегистрации, Узел, Добавляемые, ИмяТаблицы);
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ИзменитьНомерСообщенияНаСервере(Узел, НомерСообщения, Данные, ИмяТаблицы = Неопределено)
 	Возврат ЭтотОбъектОбработки().ИзменитьРегистрациюНаСервере(НомерСообщения, Истина, Узел, Данные, ИмяТаблицы);
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ПолучитьОписаниеВыбранныхМетаданных(БезУчетаАвторегистрации, МетаИмяГруппа = Неопределено,
 	МетаИмяУзел = Неопределено)
 
@@ -1861,7 +1866,7 @@
 	Возврат СокрЛП(Текст);
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ПолучитьИменаМетаданныхТекущейСтроки(БезУчетаАвторегистрации)
 
 	Строка = MetadataTree.НайтиПоИдентификатору(Элементы.MetadataTree.ТекущаяСтрока);
@@ -1889,7 +1894,7 @@
 	Возврат Результат;
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ПолучитьВыбранныеИменаМетаданных(БезУчетаАвторегистрации)
 
 	Результат = Новый Структура("МетаИмена, Описание", Новый Массив, ПолучитьОписаниеВыбранныхМетаданных(
@@ -1961,7 +1966,7 @@
 	Возврат Результат;
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция ПрочитатьНомераСообщений()
 	РеквизитыЗапроса = "НомерОтправленного, НомерПринятого";
 	Данные = ЭтотОбъектОбработки().ПолучитьПараметрыУзлаОбмена(ExchangeNodeRef, РеквизитыЗапроса);
@@ -1972,8 +1977,8 @@
 	Возврат Данные;
 КонецФункции
 
-&НаСервере
-Процедура ОбработатьЗапретИзмененияУзла()
+&AtServer
+Procedure ОбработатьЗапретИзмененияУзла()
 	ОперацииРазрешены = Не SelectExchangeNodeProhibited;
 
 	Если ОперацииРазрешены Тогда
@@ -1989,9 +1994,9 @@
 	Элементы.ConstantsListContextMenuOpenNodeRegistrationForm.Видимость       = ОперацииРазрешены;
 	Элементы.RefsListContextMenuOpenNodeRegistrationForm.Видимость         = ОперацииРазрешены;
 	Элементы.RecordSetsListContextMenuOpenNodeRegistrationForm.Видимость = ОперацииРазрешены;
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
+&AtServer
 Функция ПроконтролироватьНастройки()
 	Результат = Истина;
 	
@@ -2018,14 +2023,14 @@
 	ОбработатьЗапретИзмененияУзла();
 	
 	// Зависимость настроек
-	УстановитьОтборПоНомеруСообщения(ConstantsList, FilterByMessageNumberOption);
-	УстановитьОтборПоНомеруСообщения(RefsList, FilterByMessageNumberOption);
-	УстановитьОтборПоНомеруСообщения(RecordSetsList, FilterByMessageNumberOption);
+	SetFilterByMessageNumber(ConstantsList, FilterByMessageNumberOption);
+	SetFilterByMessageNumber(RefsList, FilterByMessageNumberOption);
+	SetFilterByMessageNumber(RecordSetsList, FilterByMessageNumberOption);
 
 	Возврат Результат;
 КонецФункции
 
-&НаСервере
+&AtServer
 Функция СтруктураКлючаНабораЗаписей(Знач ТекущиеДанные)
 	Описание  = ЭтотОбъектОбработки().ХарактеристикиПоМетаданным(RecordSetsListTableName);
 
