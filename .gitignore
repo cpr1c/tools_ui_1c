@@ -3,3 +3,4 @@ docs/_site
 docs/.jekyll-cache
 docs/coverage
 build/
+.idea
