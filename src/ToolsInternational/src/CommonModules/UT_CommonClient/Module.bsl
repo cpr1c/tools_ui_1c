@@ -394,7 +394,7 @@ EndProcedure
 
 #Region SSLCommands
 
-Procedure AddObjectsToComparsion(ObjectsArray, Context) Экспорт
+Procedure AddObjectsToComparison(ObjectsArray, Context) Экспорт
 	UT_CommonClientServer.AddObjectsArrayToCompare(ObjectsArray);
 EndProcedure
 
@@ -552,7 +552,7 @@ EndProcedure
 
 #Region WriteSettings
 
-Процедура EditWriteSettings(Form) Export
+Procedure EditWriteSettings(Form) Export
 	FormParameters = New Structure;
 	FormParameters.Insert("WriteSettings", UT_CommonClientServer.FormWriteSettings(Form));
 	

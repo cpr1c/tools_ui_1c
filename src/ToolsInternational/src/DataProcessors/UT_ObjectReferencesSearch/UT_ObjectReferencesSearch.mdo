@@ -75,12 +75,8 @@
   <forms uuid="83aa4789-94fb-47b6-a508-a4bbf3f18801">
     <name>Form</name>
     <synonym>
-      <key>en</key>
-      <value>Form</value>
-    </synonym>
-    <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
