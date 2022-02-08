@@ -1,36 +1,38 @@
 &AtClient
 Procedure Update(Command)
-	If ОбновлениеЧерезСкачиваниеФайлаПоставки Then
-		ОбновитьЧерезСкачиваниеФайла();
+	If UpdateViaDownloadOfDistributionPackage Then
+		UpdateViaFileDownload();
 	Else
-		ОбновитьЧерезОбновлениеРасширения();
+		UpdateViaExtensionUpdate();
 	EndIf;
 EndProcedure
 
 &AtClient 
-Procedure ОбновитьЧерезСкачиваниеФайла()
+Procedure UpdateViaFileDownload()
 	FileName=UT_CommonClientServer.DownloadFileName();
-	МассивИмениФайла=UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(FileName, ".");
-	FileExtention=МассивИмениФайла[МассивИмениФайла.Count()-1];
+	FileNameArray=UT_StringFunctionsClientServer.SplitStringIntoSubstringsArray(FileName, ".");
+	FileExtention=FileNameArray[FileNameArray.Count()-1];
 	
 	
 	FileDialog=New FileDialog(FileDialogMode.Save);
 	FileDialog.Extension=FileExtention;
-	FileDialog.Filter="File новой версии универсальных инструментов|*."+FileExtention;
+	FileDialog.Filter=StrTemplate(NStr("ru = 'Файл новой версии универсальных инструментов|*.%1';
+	|en = 'The file of the new version of universal tools|*.%1'"),FileExtention);
 	FileDialog.Multiselect=False;
 	FileDialog.FullFileName=FileName;
-	FileDialog.Show(New NotifyDescription("ОбновитьЧерезСкачиваниеФайлаЗаверешениеВыбораИмениФайла", ThisObject));
+	FileDialog.Show(New NotifyDescription("UpdateViaFileDownloadEndFileNameChoose", ThisObject));
 EndProcedure
 
 &AtClient 
-Procedure ОбновитьЧерезСкачиваниеФайлаЗаверешениеВыбораИмениФайла(SelectedFiles, AdditionalParameters) Export
+Procedure UpdateViaFileDownloadEndFileNameChoose(SelectedFiles, AdditionalParameters) Export
 	If SelectedFiles=Undefined Then
 		Return;
 	EndIf;
 	
-	BinaryData=СкачанныеДвоичныеДанныеОбновления();
+	BinaryData=DownloadedBinaryUpdateData();
 	If BinaryData=Undefined Then
-		Message("Not удалось скачать обновление с сайта обновления");
+		Message(NStr("ru = 'Не удалось скачать обновление с сайта обновления';
+		|en = 'Failed to download the update from the update site'"));
 		Return;
 	EndIf;
 	
@@ -38,30 +40,30 @@ Procedure ОбновитьЧерезСкачиваниеФайлаЗавереш
 		Return;
 	EndIf;
 		
-	BinaryData.BeginWriting(New NotifyDescription("ОбновитьЧерезСкачиваниеФайлаЗаверешениеЗаписиФайла", ThisObject), SelectedFiles[0]);
+	BinaryData.BeginWriting(New NotifyDescription("UpdateViaFileDownloadEndFileWrite", ThisObject), SelectedFiles[0]);
 	
 EndProcedure	
 
 &AtClient 
-Procedure ОбновитьЧерезСкачиваниеФайлаЗаверешениеЗаписиФайла(AdditionalParameters) Export
-	ShowMessageBox(, "File успешно скачан");
+Procedure UpdateViaFileDownloadEndFileWrite(AdditionalParameters) Export
+	ShowMessageBox(, Nstr("ru = 'Файл успешно скачан';en = 'File downloaded successfully'"));
 EndProcedure
 
 &AtClient
-Procedure ОбновитьЧерезОбновлениеРасширения()
-	РезультатьОбновления=РезультатОбновленияЧерезРасширениеНаСервере();
+Procedure UpdateViaExtensionUpdate()
+	UpdateResult=ResultUpdateViaExtensionAtServer();
 
-	If РезультатьОбновления = Undefined Then
-		ShowQueryBox(New NotifyDescription("ОбновитьЧерезОбновлениеРасширенияЗавершение", ThisObject),
-			"Update успешно применено. For использования изменений нужно перезапустить сеанс. Перезапустить?",
+	If UpdateResult = Undefined Then
+		ShowQueryBox(New NotifyDescription("UpdateViaExtensionUpdateOnEnd", ThisObject),Nstr("ru = 'Обновление успешно применено. Для использования изменений нужно перезапустить сеанс. Перезапустить?';
+		|en = 'The update was successfully applied. To use the changes, you need to restart the session. Restart?'"),
 			QuestionDialogMode.YesNo);
 	Else
-		UT_CommonClientServer.MessageToUser("Error применения обновления " + РезультатьОбновления);
+		UT_CommonClientServer.MessageToUser(StrTemplate(Nstr("ru = 'Ошибка применения обновления %1';en = 'Update application error %1'"),UpdateResult));
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ОбновитьЧерезОбновлениеРасширенияЗавершение(Result, AdditionalParameters) Export
+Procedure UpdateViaExtensionUpdateOnEnd(Result, AdditionalParameters) Export
 	If Result = DialogReturnCode.None Then
 		Return;
 	EndIf;
@@ -70,139 +72,139 @@ Procedure ОбновитьЧерезОбновлениеРасширенияЗа
 EndProcedure
 
 &AtServer
-Function СкачанныеДвоичныеДанныеОбновления()
-	Ответ=UT_HTTPConnector.Get(URLАктуальногоРелиза);
+Function DownloadedBinaryUpdateData()
+	Response=UT_HTTPConnector.Get(ActualVersionURL);
 
-	If Ответ.StatusCode > 300 Then
+	If Response.StatusCode > 300 Then
 		Return Undefined;
 	EndIf;
 
-	Return Ответ.Body;
+	Return Response.Body;
 	
 EndFunction
 
 &AtServer
-Function РезультатОбновленияЧерезРасширениеНаСервере()
-	BinaryData=СкачанныеДвоичныеДанныеОбновления();
+Function ResultUpdateViaExtensionAtServer()
+	BinaryData=DownloadedBinaryUpdateData();
 	
 	If BinaryData=Undefined Then
-		Return "Not удалось скачать файл обновления с сервера";
+		Return NStr("ru = 'He удалось скачать файл обновления с сервера';en = 'Failed to download the update file from the server'");
 	EndIf;
 
 	If TypeOf(BinaryData) <> Type("BinaryData") Then
-		Return "Неправильный формат файла облновления";
+		Return NStr("ru = 'Неправильный формат файла обновления';en = 'Incorrect update file format'");
 	EndIf;
 
 	Filter = New Structure;
-	Filter.Insert("Name", "УниверсальныеИнструменты");
+	Filter.Insert("Name", "UniversalTools");
 
-	НайденныеРасширения = ConfigurationExtensions.Get(Filter);
+	FoundExtensions = ConfigurationExtensions.Get(Filter);
 
-	If НайденныеРасширения.Count() = 0 Then
-		Return "Not обнаружено расширение Универсальные инструменты";
+	If FoundExtensions.Count() = 0 Then
+		Return Nstr("ru = 'Не обнаружено расширение Универсальные инструменты';en = 'Universal Tools extension not found'")
 	EndIf;
 
-	НашеРасширение = НайденныеРасширения[0];
+	OurExtension = FoundExtensions[0];
 	
-	// Проверим возможность применения расширения
+	// Let's check the possibility of using the extension
 
-	РезультатПроверки=НашеРасширение.CheckCanApply(BinaryData, False);
+	CheckResult=OurExtension.CheckCanApply(BinaryData, False);
 
-	If РезультатПроверки.Count() > 0 Then
-		СообщениеОбОшибках="";
-		For Each ConfigurationExtensionApplicationIssueInformation In РезультатПроверки Do
-			СообщениеОбОшибках=СообщениеОбОшибках + ?(ValueIsFilled(СообщениеОбОшибках), Chars.LF, "") + "Error применения расширения "
-				+ ConfigurationExtensionApplicationIssueInformation.LongDesc;
+	If CheckResult.Count() > 0 Then
+		MessageAboutErrors="";
+		For Each ConfigurationExtensionApplicationIssueInformation In CheckResult Do
+			MessageAboutErrors=MessageAboutErrors + ?(ValueIsFilled(MessageAboutErrors), Chars.LF, "") + NSTR("ru = 'Ошибка применения расширения';
+			|en = 'Extension apply error'") + ConfigurationExtensionApplicationIssueInformation.Description;
 		EndDo;
 
-		Return СообщениеОбОшибках;
+		Return MessageAboutErrors;
 	EndIf;
 
-	РезультатОбновления=Undefined;
+	UpdateResult=Undefined;
 	Try
-		НашеРасширение.Write(BinaryData);
+		OurExtension.Write(BinaryData);
 	Except
-		РезультатОбновления=ErrorDescription();
+		UpdateResult=ErrorDescription();
 	EndTry;
 
-	Return РезультатОбновления;
+	Return UpdateResult;
 
 EndFunction
 
 &AtServer
-Procedure ЗаполнитьТекущуюВерсию()
+Procedure FillCurrentVersion()
 	CurrentVersion = UT_CommonClientServer.Version();
 	DistributionType=UT_CommonClientServer.DistributionType();
-	ИмяФайлаСкачки=UT_CommonClientServer.DownloadFileName();
-	ОбновлениеЧерезСкачиваниеФайлаПоставки=Not StrEndsWith(Lower(ИмяФайлаСкачки), "cfe");
+	DownloadFileName=UT_CommonClientServer.DownloadFileName();
+	UpdateViaDownloadOfDistributionPackage=Not StrEndsWith(Lower(DownloadFileName), "cfe");
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьАктуальнуюВерсиюИОписаниеИзменений()
-//Получаем список всех релизов
-	АдресЗапроса = "https://api.github.com/repos/cpr1c/tools_ui_1c/releases";
-	ИмяФайлаСкачки=UT_CommonClientServer.DownloadFileName();
+Procedure FillActualVersionAndChangesDescription()
+//Getting a list of all releases
+	RequestUrl = "https://api.github.com/repos/cpr1c/tools_ui_1c/releases";
+	DownloadFileName=UT_CommonClientServer.DownloadFileName();
 	
-	МассивРелизов = UT_HTTPConnector.GetJson(АдресЗапроса);
+	ReleasesArray = UT_HTTPConnector.GetJson(RequestUrl);
 
-	МаксимальныйРелиз = "0.0.0";
-	СоответствиеОписанияРелизов = New Map;
+	MaxRelease = "0.0.0";
+	ReleasesDescriptionMap = New Map;
 
-	For Each ТекРелиз In МассивРелизов Do
-		ВерсияТекРелиза = StrReplace(ТекРелиз["tag_name"], "v", "");
+	For Each CurrentRelease In ReleasesArray Do
+		CurrentReleaseVersion = StrReplace(CurrentRelease["tag_name"], "v", "");
 
-		If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ВерсияТекРелиза, CurrentVersion) > 0 Then
-			СоответствиеОписанияРелизов.Insert(ВерсияТекРелиза, ТекРелиз);
+		If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(CurrentReleaseVersion, CurrentVersion) > 0 Then
+			ReleasesDescriptionMap.Insert(CurrentReleaseVersion, CurrentRelease);
 		EndIf;
 
-		If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ВерсияТекРелиза, МаксимальныйРелиз) <= 0 Then
+		If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(CurrentReleaseVersion, MaxRelease) <= 0 Then
 			Continue;
 		EndIf;
 
-		МаксимальныйРелиз = ВерсияТекРелиза;
-		ВложенияРелиза = ТекРелиз["assets"];
-		If ВложенияРелиза = Undefined Then
-			URLАктуальногоРелиза = "";
+		MaxRelease = CurrentReleaseVersion;
+		ReleaseAssets = CurrentRelease["assets"];
+		If ReleaseAssets = Undefined Then
+			ActualVersionURL = "";
 		Else
-			For Each ТекВложение In ВложенияРелиза Do
-				ИмяФайлаРелиза = ТекВложение["name"];
+			For Each CurrentAsset In ReleaseAssets Do
+				ReleaseFileName = CurrentAsset["name"];
 
-				If StrFind(Lower(ИмяФайлаРелиза), Lower(ИмяФайлаСкачки)) = 0 Then
+				If StrFind(Lower(ReleaseFileName), Lower(DownloadFileName)) = 0 Then
 					Continue;
 				EndIf;
 
-				URLАктуальногоРелиза=ТекВложение["browser_download_url"];
-				Abort;
+				ActualVersionURL=CurrentAsset["browser_download_url"];
+				Break;
 			EndDo;
 		EndIf;
 	EndDo;
 
-	ActualVersion = МаксимальныйРелиз;
+	ActualVersion = MaxRelease;
 
 	ChangesDescription = "";
-	For Each РелизОписания In СоответствиеОписанияРелизов Do
-		ChangesDescription = ChangesDescription + РелизОписания.Key + Chars.LF;
-		ChangesDescription = ChangesDescription + РелизОписания.Value["body"] + Chars.LF;
+	For Each ReleaseDescription In ReleasesDescriptionMap Do
+		ChangesDescription = ChangesDescription + ReleaseDescription.Key + Chars.LF;
+		ChangesDescription = ChangesDescription + ReleaseDescription.Value["body"] + Chars.LF;
 	EndDo;
 EndProcedure
 
 &AtServer
-Procedure УстановитьНеобходимостьОбновления()
+Procedure SetNeedForUpdate()
 	If UT_CommonClientServer.CompareVersionsWithoutBuildNumber(ActualVersion, CurrentVersion) > 0 Then
-		НеобходимостьОбновления = True;
+		NeedForUpdate = True;
 	EndIf;
 
-	Items.FormUpdate.Visible = НеобходимостьОбновления;
-	Items.ChangesDescription.Visible = НеобходимостьОбновления;
+	Items.FormUpdate.Visible = NeedForUpdate;
+	Items.ChangesDescription.Visible = NeedForUpdate;
 	
-	If ОбновлениеЧерезСкачиваниеФайлаПоставки Then
-		Items.FormUpdate.Title="Скачать";
+	If UpdateViaDownloadOfDistributionPackage Then
+		Items.FormUpdate.Title=NStr("ru = 'Скачать';en = 'Download'");
 	EndIf;
 EndProcedure
 
 &AtServer
-Procedure OnCreateAtServer(Cancel, СтандартнаяОбработка)
-	ЗаполнитьТекущуюВерсию();
-	ЗаполнитьАктуальнуюВерсиюИОписаниеИзменений();
-	УстановитьНеобходимостьОбновления();
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	FillCurrentVersion();
+	FillActualVersionAndChangesDescription();
+	SetNeedForUpdate();
 EndProcedure
