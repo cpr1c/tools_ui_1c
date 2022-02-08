@@ -5162,22 +5162,22 @@ EndProcedure
 &AtClient
 Procedure ExecuteContinuation(AdditionalParameters)
 
-	If AdditionalParameters.Continue = "OnOpenFollowUp" Then
+	If AdditionalParameters.FollowUp = "OnOpenFollowUp" Then
 		OnOpenFollowUp(AdditionalParameters);
 		Return;
-	ElsIf AdditionalParameters.Continue = "LoadQueryBatch" Then
+	ElsIf AdditionalParameters.FollowUp = "LoadQueryBatch" Then
 		LoadQueryBatch(AdditionalParameters);
 		Return;
-	ElsIf AdditionalParameters.Continue = "ContinueQueryBatch_New" Then
+	ElsIf AdditionalParameters.FollowUp = "ContinueQueryBatch_New" Then
 		ContinueQueryBatch_New(AdditionalParameters);
 		Return;
-	ElsIf AdditionalParameters.Continue = "AfterChoosingFileForLoadingQueryBatchCompletion" Then
+	ElsIf AdditionalParameters.FollowUp = "AfterChoosingFileForLoadingQueryBatchCompletion" Then
 		AfterChoosingFileForLoadingQueryBatchCompletion(AdditionalParameters);
 		Return;
 	EndIf;
 	
 	//This operator works anywhere except web-client:
-	Execute (AdditionalParameters.Continue + "(AdditionalParameters);");
+	Execute (AdditionalParameters.FollowUp + "(AdditionalParameters);");
 	//This procedure lets the Execute operator work at web-client.
 	//If there is an error at web-client at this line, it means something else required in the condition above.
 

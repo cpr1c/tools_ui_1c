@@ -14,7 +14,7 @@
     <value>Поиск ссылок на объект [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_ObjectReferencesSearch.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_ObjectReferencesSearch.Form.Form</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
@@ -73,10 +73,10 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="83aa4789-94fb-47b6-a508-a4bbf3f18801">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
