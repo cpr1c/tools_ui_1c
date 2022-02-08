@@ -14,7 +14,7 @@
     <value>Регистрация изменений для обмена данными [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_RegisterChangesForDataExchange.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_RegisterChangesForDataExchange.Form.Form</defaultForm>
   <auxiliaryForm>ac4674ba-2e32-11ea-cc81-e86a6452d1f2</auxiliaryForm>
   <extendedPresentation>
     <key>en</key>
@@ -188,7 +188,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac43e59c-2e32-11ea-cc81-e86a6452d1f2">
-    <name>Форма</name>
+    <name>Form</name>
+    <synonym>
+      <key>en</key>
+      <value>Register changes for data exchange</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Регистрация изменений для обмена данными</value>
@@ -224,7 +228,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac47072c-2e32-11ea-cc81-e86a6452d1f2">
-    <name>УзлыРегистрацииОбъекта</name>
+    <name>ObjectRegistrationNodes</name>
+    <synonym>
+      <key>en</key>
+      <value>Object registration nodes</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Узлы регистрации объекта</value>
