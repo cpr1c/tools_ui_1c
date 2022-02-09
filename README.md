@@ -11,8 +11,8 @@
 
 ### Для разработчика 
 План разработки : https://github.com/i-neti/tools_ui_1c_international/blob/develop/docs/DEVELOPMENTPLAN.md
-
-
+Детальное соотвествие русских имен метаданных и имени функций и их англоязычного перевода https://github.com/ElchinGasanov/tools_ui_1c_international/blob/develop/docs/DETAILS.md
+Данный документ в работе и постоянно обновляется 
 
 ### Supported Operation Systems
 * Windows x86
