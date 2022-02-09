@@ -1028,7 +1028,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>CatalogObject.УИ_Алгоритмы</types>
+      <types>CatalogObject.UT_Algorithms</types>
     </valueType>
     <view>
       <common>true</common>
