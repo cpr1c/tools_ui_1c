@@ -438,7 +438,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.УИ_Алгоритмы</name>
+		<name>Catalog.UT_Algorithms</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -628,7 +628,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.УИ_Алгоритмы.Command.ВыполнитьАлгоритм</name>
+		<name>Catalog.UT_Algorithms.Command.ExecuteAlgorithm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
