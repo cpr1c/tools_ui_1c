@@ -1,13 +1,13 @@
 #Region Public
 
-Procedure FormOnOpen(Form, ОписаниеОповещенияОЗавершении = Undefined) Export
-	ДопПараметры = New Structure;
-	ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДопПараметры.Insert("Form", Form);
+Procedure FormOnOpen(Form, CompletionNotifyDescription = Undefined) Export
+	AdditionalParameters = New Structure;
+	AdditionalParameters.Insert("CompletionNotifyDescription", CompletionNotifyDescription);
+	AdditionalParameters.Insert("Form", Form);
 
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
-			New NotifyDescription("ФормаПриОткрытииЗавершениеПодключенияРасширенияРаботыСФайлами", ThisObject,
-		ДопПараметры));
+			New NotifyDescription("FormOnOpenEndAttachFileSystemExtension", ThisObject,
+		AdditionalParameters));
 EndProcedure
 
 Function ВсеРедакторыФормыИнициализированы(РедакторыФормы)
@@ -353,7 +353,7 @@ Procedure AddCodeEditorContext(Form, ИдентификаторРедактор�
 	EndIf;
 EndProcedure
 
-Procedure ОткрытьКонструкторЗапроса(QueryText, ОписаниеОповещенияОЗавершении, РежимКомпоновки = False) Export
+Procedure ОткрытьКонструкторЗапроса(QueryText, CompletionNotifyDescription, РежимКомпоновки = False) Export
 #If Not MobileClient Then
 	Конструктор=New QueryWizard;
 	If UT_CommonClientServer.PlatformVersionNotLess_8_3_14() Then
@@ -364,11 +364,11 @@ Procedure ОткрытьКонструкторЗапроса(QueryText, Опис
 		Конструктор.Text=QueryText;
 	EndIf;
 
-	Конструктор.Show(ОписаниеОповещенияОЗавершении);
+	Конструктор.Show(CompletionNotifyDescription);
 #EndIf
 EndProcedure
 
-Procedure ОткрытьКонструкторФорматнойСтроки(ФорматнаяСтрока, ОписаниеОповещенияОЗавершении) Export
+Procedure ОткрытьКонструкторФорматнойСтроки(ФорматнаяСтрока, CompletionNotifyDescription) Export
 	Конструктор = New FormatStringWizard;
 	Try
 		Конструктор.Text = ФорматнаяСтрока;
@@ -377,16 +377,16 @@ Procedure ОткрытьКонструкторФорматнойСтроки(Ф�
 		ShowMessageBox( , "Error в тексте форматной строки:" + Chars.LF + Инфо.Reason.LongDesc);
 		Return;
 	EndTry;
-	Конструктор.Show(ОписаниеОповещенияОЗавершении);
+	Конструктор.Show(CompletionNotifyDescription);
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлы(ОписаниеОповещенияОЗавершении, ТекущиеКаталоги) Export
+Procedure СохранитьМодулиКонфигурацииВФайлы(CompletionNotifyDescription, ТекущиеКаталоги) Export
 	ДопПараметрыОповещения = New Structure;
-	ДопПараметрыОповещения.Insert("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
+	ДопПараметрыОповещения.Insert("CompletionNotifyDescription", CompletionNotifyDescription);
 	ДопПараметрыОповещения.Insert("ТекущиеКаталоги", ТекущиеКаталоги);
 
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
-		New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыЗавершениеПодключенияРасширенияРаботыСФайлами",
+		New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыEndAttachFileSystemExtension",
 		ThisObject, ДопПараметрыОповещения));
 
 EndProcedure
@@ -395,7 +395,7 @@ EndProcedure
 
 #Region Internal
 
-Procedure ФормаПриОткрытииЗавершениеПодключенияРасширенияРаботыСФайлами(Result, AdditionalParameters) Export
+Procedure FormOnOpenEndAttachFileSystemExtension(Result, AdditionalParameters) Export
 	АдресБиблиотеки =  AdditionalParameters.Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаАдресБиблиотеки()];
 	If АдресБиблиотеки = Undefined Or Not ValueIsFilled(АдресБиблиотеки) Then
 		ФормаПриОткрытииЗавершениеСохраненияБиблиотекиРедактора(True, AdditionalParameters);
@@ -429,12 +429,12 @@ Procedure ФормаПриОткрытииЗавершениеСохранени
 	EndIf;
 	
 	// Оповестим о завершении обработки инициализации редакторов при открытии формы
-	ОписаниеОповещенияОЗавершении= AdditionalParameters.ОписаниеОповещенияОЗавершении;
-	If ОписаниеОповещенияОЗавершении = Undefined Then
+	CompletionNotifyDescription= AdditionalParameters.CompletionNotifyDescription;
+	If CompletionNotifyDescription = Undefined Then
 		Return;
 	EndIf;
 
-	ExecuteNotifyProcessing(ОписаниеОповещенияОЗавершении, True);
+	ExecuteNotifyProcessing(CompletionNotifyDescription, True);
 EndProcedure
 
 Procedure СохранитьБиблиотекуРедактораНаДискЗавершениеСозданияКаталогаБиблиотеки(ИмяКаталога, AdditionalParameters) Export
@@ -507,7 +507,7 @@ EndProcedure
 Procedure СохранитьБиблиотекуРедактораНаДискЗавершениеПроверкиСуществованияБиблиотекиНаДиске(Exists,
 	AdditionalParameters) Export
 	If Exists Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении);
+		ExecuteNotifyProcessing(AdditionalParameters.CompletionNotifyDescription);
 		Return;
 	EndIf;
 
@@ -525,8 +525,8 @@ Procedure СохранитьМодулиКонфигурацииВФайлыЗа
 	ПараметрыФормы.Insert("CurrentDirectories", AdditionalParameters.ТекущиеКаталоги);
 
 	ДополнительныеПараметрыОповещения = New Structure;
-	ДополнительныеПараметрыОповещения.Insert("ОписаниеОповещенияОЗавершении",
-		AdditionalParameters.ОписаниеОповещенияОЗавершении);
+	ДополнительныеПараметрыОповещения.Insert("CompletionNotifyDescription",
+		AdditionalParameters.CompletionNotifyDescription);
 
 	OpenForm("ОбщаяФорма.UT_ConfigurationSourseFilesSaveSettings", ПараметрыФормы, , , , ,
 		New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыЗавершениеНастроек", ThisObject,
@@ -736,7 +736,7 @@ Procedure СохранитьМодулиКонфигурацииВФайлыЗа
 EndProcedure
 
 Procedure СохранитьМодулиКонфигурацииВФайлыЗавершение(ПараметрыСохранения)
-	ExecuteNotifyProcessing(ПараметрыСохранения.AdditionalParameters.ОписаниеОповещенияОЗавершении,
+	ExecuteNotifyProcessing(ПараметрыСохранения.AdditionalParameters.CompletionNotifyDescription,
 		ПараметрыСохранения.Parameters.КаталогиИсточников);
 EndProcedure
 
@@ -1660,18 +1660,18 @@ Function СоответствиеОбновляемыхОбъектовМета�
 EndFunction
 
 #EndRegion
-Procedure СохранитьБиблиотекуРедактораНаДиск(АдресБиблиотеки, ВидРедактора, ОписаниеОповещенияОЗавершении)
+Procedure СохранитьБиблиотекуРедактораНаДиск(АдресБиблиотеки, ВидРедактора, CompletionNotifyDescription)
 	КаталогСохраненияБибилиотеки=КаталогСохраненияРедактора(ВидРедактора);
 	ФайлРедактора=New File(КаталогСохраненияБибилиотеки);
 
-	ДопПараметры= New Structure;
-	ДопПараметры.Insert("АдресБиблиотеки", АдресБиблиотеки);
-	ДопПараметры.Insert("КаталогСохраненияБибилиотеки", КаталогСохраненияБибилиотеки);
-	ДопПараметры.Insert("ВидРедактора", ВидРедактора);
-	ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
+	AdditionalParameters= New Structure;
+	AdditionalParameters.Insert("АдресБиблиотеки", АдресБиблиотеки);
+	AdditionalParameters.Insert("КаталогСохраненияБибилиотеки", КаталогСохраненияБибилиотеки);
+	AdditionalParameters.Insert("ВидРедактора", ВидРедактора);
+	AdditionalParameters.Insert("CompletionNotifyDescription", CompletionNotifyDescription);
 	ФайлРедактора.BeginCheckingExistence(
 		New NotifyDescription("СохранитьБиблиотекуРедактораНаДискЗавершениеПроверкиСуществованияБиблиотекиНаДиске",
-		ThisObject, ДопПараметры));
+		ThisObject, AdditionalParameters));
 EndProcedure
 
 Procedure СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайла(AdditionalParameters)
@@ -1701,7 +1701,7 @@ Procedure СохранитьБиблиотекуРедактораЗаписат
 	EndDo;
 
 	If Not ЕстьНеСохраненное Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, True);
+		ExecuteNotifyProcessing(AdditionalParameters.CompletionNotifyDescription, True);
 	EndIf;
 EndProcedure
 
