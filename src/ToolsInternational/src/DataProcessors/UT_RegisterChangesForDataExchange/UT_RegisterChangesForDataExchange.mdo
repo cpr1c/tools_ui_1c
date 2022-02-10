@@ -201,7 +201,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac46557a-2e32-11ea-cc81-e86a6452d1f2">
-    <name>НомераСообщенийУзлаПланаОбмена</name>
+    <name>ExchangePlanNodeMessageNumbers</name>
+    <synonym>
+      <key>en</key>
+      <value>Exchange plan node message numbers</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Номера сообщений узла плана обмена</value>
