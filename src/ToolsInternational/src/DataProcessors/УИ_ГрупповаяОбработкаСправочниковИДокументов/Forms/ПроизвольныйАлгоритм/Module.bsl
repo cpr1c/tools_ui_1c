@@ -299,7 +299,7 @@
 	КонецЕсли;
 
 	UT_CodeEditorServer.FormOnCreateAtServer(ЭтотОбъект);
-	UT_CodeEditorServer.СоздатьЭлементыРедактораКода(ЭтотОбъект, "Редактор", Элементы.ПолеПроизвольногоАлгоритма);
+	UT_CodeEditorServer.CreateCodeEditorItems(ЭтотОбъект, "Редактор", Элементы.ПолеПроизвольногоАлгоритма);
 
 КонецПроцедуры
 

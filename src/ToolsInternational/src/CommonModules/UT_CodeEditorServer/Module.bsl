@@ -7,7 +7,7 @@ Procedure FormOnCreateAtServer(Form, ВидРедактора = Undefined) Expor
 		ПараметрыРедактора = CodeEditorCurrentSettings();
 		ВидРедактора = ПараметрыРедактора.Variant;
 	EndIf;
-	ВариантыРедактора = UT_CodeEditorClientServer.ВариантыРедактораКода();
+	ВариантыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
 	
 	ЭтоWindowsКлиент = False;
 	ЭтоВебКлиент = True;
@@ -73,14 +73,14 @@ Procedure CreateCodeEditorItems(Form, ИдентификаторРедактор
 	ДанныеРедактора.Insert("ПолеРедактора", ПолеРедактора.Name);
 	ДанныеРедактора.Insert("ИмяРеквизита", ПолеРедактора.DataPath);
 	
-	ВариантыРедактора = UT_CodeEditorClientServer.ВариантыРедактораКода();
+	ВариантыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
 
 	ПараметрыРедактора = CodeEditorCurrentSettings();
 	ДанныеРедактора.Insert("ПараметрыРедактора", ПараметрыРедактора);
 
 	If ВидРедактора = ВариантыРедактора.Monaco Then
-		For Each КлючЗначение ИЗ ПараметрыРедактора.Monaco Do
-			ДанныеРедактора.ПараметрыРедактора.Insert(КлючЗначение.Key, КлючЗначение.Value);
+		For Each KeyValue ИЗ ПараметрыРедактора.Monaco Do
+			ДанныеРедактора.ПараметрыРедактора.Insert(KeyValue.Key, KeyValue.Value);
 		EndDo;
 	EndIf;
 	
@@ -93,7 +93,7 @@ Function ПоместитьБиблиотекуВоВременноеХрани�
 	If ВидРедактора = Undefined Then
 		ВидРедактора = ТекущийВариантРедактораКода1С();
 	EndIf;
-	ВариантыРедактора = UT_CodeEditorClientServer.ВариантыРедактораКода();
+	ВариантыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
 	
 	If ВидРедактора = ВариантыРедактора.Monaco Then
 		If ЭтоWindowsКлиент Then
@@ -159,14 +159,14 @@ Function ТекущийВариантРедактораКода1С() Export
 		
 	If Type(УИ_ПараметрыСеанса) = Type("Structure") Then
 		If УИ_ПараметрыСеанса.HTMLFieldBasedOnWebkit<>True Then
-			РедакторКода = UT_CodeEditorClientServer.ВариантыРедактораКода().Text;
+			РедакторКода = UT_CodeEditorClientServer.CodeEditorVariants().Text;
 		EndIf;
 	EndIf;
 	
 	Return РедакторКода;
 EndFunction
 
-Procedure УстановитьНовыеНастройкиРедактораКода(НовыеНастройки) Export
+Procedure SetCodeEditorNewSettings(НовыеНастройки) Export
 	UT_Common.CommonSettingsStorageSave(
 		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода",
 		НовыеНастройки);
@@ -178,9 +178,9 @@ Function CodeEditorCurrentSettings() Export
 
 	ПараметрыПоУмолчанию = UT_CodeEditorClientServer.ПараметрыРедактораКодаПоУмолчанию();
 	If СохраненныеПараметрыРедактора = Undefined Then		
-		ПараметрыРедактораMonaco = ТекущиеПараметрыРедактораMonaco();
+		MonacoEditorParameters = CurrentMonacoEditorParameters();
 		
-		FillPropertyValues(ПараметрыПоУмолчанию.Monaco, ПараметрыРедактораMonaco);
+		FillPropertyValues(ПараметрыПоУмолчанию.Monaco, MonacoEditorParameters);
 	Else
 		FillPropertyValues(ПараметрыПоУмолчанию, СохраненныеПараметрыРедактора,,"Monaco");
 		FillPropertyValues(ПараметрыПоУмолчанию.Monaco, СохраненныеПараметрыРедактора.Monaco);
@@ -202,23 +202,23 @@ Function ConfigurationScriptVariant() Export
 	EndIf;
 EndFunction
 
-Function ОбъектМетаданныхИмеетПредопределенные(ИмяТипаМетаданного)
+Function MetadataObjectHasPredefined(MetadataTypeName)
 	
 	Objects = New Array();
-	Objects.Add("справочник");
-	Objects.Add("справочники");
-	Objects.Add("плансчетов");	
-	Objects.Add("планысчетов");	
-	Objects.Add("планвидовхарактеристик");
-	Objects.Add("планывидовхарактеристик");
-	Objects.Add("планвидоврасчета");
-	Objects.Add("планывидоврасчета");
+	Objects.Add("сatalog");
+	Objects.Add("catalogs");
+	Objects.Add("chartofaccounts");	
+	Objects.Add("сhartsofaccounts");	
+	Objects.Add("chartofcharacteristictypes");
+	Objects.Add("chartsofcharacteristictypes");
+	Objects.Add("chartofcalculationtypes");
+	Objects.Add("chartsofcalculationtypes");
 	
-	Return Objects.Find(Lower(ИмяТипаМетаданного)) <> Undefined;
+	Return Objects.Find(Lower(MetadataTypeName)) <> Undefined;
 	
 EndFunction
 
-Function ОбъектМетаданныхИмеетВиртуальныеТаблицы(ИмяТипаМетаданного)
+Function MetadataObjectHasVirtualTables(MetadataTypeName)
 	
 	Objects = New Array();
 	Objects.Add("InformationRegisters");
@@ -226,253 +226,253 @@ Function ОбъектМетаданныхИмеетВиртуальныеТаб�
 	Objects.Add("CalculationRegisters");
 	Objects.Add("AccountingRegisters");
 	
-	Return Objects.Find(ИмяТипаМетаданного) <> Undefined;
+	Return Objects.Find(MetadataTypeName) <> Undefined;
 	
 EndFunction
 
 
-Function ОписаниеРеквизитаОбъектаМетаданных(Attribute,AllRefsType)
-	LongDesc = New Structure;
-	LongDesc.Insert("Name", Attribute.Name);
-	LongDesc.Insert("Synonym", Attribute.Synonym);
-	LongDesc.Insert("Comment", Attribute.Comment);
+Function MetadataObjectAttributeDescription(Attribute,AllRefsType)
+	Description = New Structure;
+	Description.Insert("Name", Attribute.Name);
+	Description.Insert("Synonym", Attribute.Synonym);
+	Description.Insert("Comment", Attribute.Comment);
 	
-	СсылочныеТипы = New Array;
-	For каждого ТекТ In Attribute.Type.Types() Do
-		If AllRefsType.ContainsType(ТекТ) Then
-			СсылочныеТипы.Add(ТекТ);
+	RefTypes = New Array;
+	For каждого CurrentType In Attribute.Type.Types() Do
+		If AllRefsType.ContainsType(CurrentType) Then
+			RefTypes.Add(CurrentType);
 		EndIf;
 	EndDo;
-	LongDesc.Insert("Type", New TypeDescription(СсылочныеТипы));
+	Description.Insert("Type", New TypeDescription(RefTypes));
 	
-	Return LongDesc;
+	Return Description;
 EndFunction
 
-Function ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(ВидОбъекта, ObjectName) Export
+Function ConfigurationMetadataObjectDescriptionByName(ObjectType, ObjectName) Export
 	AllRefsType = UT_Common.AllRefsTypeDescription();
 
-	Return ОписаниеОбъектаМетаданныхКонфигурации(Metadata[ВидОбъекта][ObjectName], ВидОбъекта, AllRefsType);	
+	Return ConfigurationMetadataObjectDescription(Metadata[ObjectType][ObjectName], ObjectType, AllRefsType);	
 EndFunction
 
-Function ОписаниеОбъектаМетаданныхКонфигурации(ОбъектМетаданных, ВидОбъекта, AllRefsType, ВключатьОписаниеРеквизитов = True) Export
-	ОписаниеЭлемента = New Structure;
-	ОписаниеЭлемента.Insert("ВидОбъекта", ВидОбъекта);
-	ОписаниеЭлемента.Insert("Name", ОбъектМетаданных.Name);
-	ОписаниеЭлемента.Insert("Synonym", ОбъектМетаданных.Synonym);
-	ОписаниеЭлемента.Insert("Comment", ОбъектМетаданных.Comment);
+Function ConfigurationMetadataObjectDescription(ObjectOfMetadata, ObjectType, AllRefsType, IncludeAttributesDescription = True) Export
+	ItemDescription = New Structure;
+	ItemDescription.Insert("ObjectType", ObjectType);
+	ItemDescription.Insert("Name", ObjectOfMetadata.Name);
+	ItemDescription.Insert("Synonym", ObjectOfMetadata.Synonym);
+	ItemDescription.Insert("Comment", ObjectOfMetadata.Comment);
 	
-	Extension = ОбъектМетаданных.ConfigurationExtension();
+	Extension = ObjectOfMetadata.ConfigurationExtension();
 	If Extension <> Undefined Then
-		ОписаниеЭлемента.Insert("Extension", Extension.Name);
+		ItemDescription.Insert("Extension", Extension.Name);
 	Else
-		ОписаниеЭлемента.Insert("Extension", Undefined);
+		ItemDescription.Insert("Extension", Undefined);
 	EndIf;
-	If Lower(ВидОбъекта) = "константа"
-		Or Lower(ВидОбъекта) = "константы" Then
-		ОписаниеЭлемента.Insert("Type", ОбъектМетаданных.Type);
-	ElsIf Lower(ВидОбъекта) = "перечисление"
-		Or Lower(ВидОбъекта) = "перечисления"Then
+	If Lower(ObjectType) = "constant"
+		Or Lower(ObjectType) = "constants" Then
+		ItemDescription.Insert("Type", ObjectOfMetadata.Type);
+	ElsIf Lower(ObjectType) = "enum"
+		Or Lower(ObjectType) = "enums"Then
 		EnumValues = New Structure;
 
-		For Each ТекЗнч In ОбъектМетаданных.EnumValues Do
-			EnumValues.Insert(ТекЗнч.Name, ТекЗнч.Synonym);
+		For Each CurrentValue In ObjectOfMetadata.EnumValues Do
+			EnumValues.Insert(CurrentValue.Name, CurrentValue.Synonym);
 		EndDo;
 
-		ОписаниеЭлемента.Insert("EnumValues", EnumValues);
+		ItemDescription.Insert("EnumValues", EnumValues);
 	EndIf;
 
-	If Not ВключатьОписаниеРеквизитов Then
-		Return ОписаниеЭлемента;
+	If Not IncludeAttributesDescription Then
+		Return ItemDescription;
 	EndIf;
 	
-	КоллекцииРеквизитов = New Structure("Attributes, StandardAttributes, Dimensions, Resources, AddressingAttributes, AccountingFlags");
-	КоллекцииТЧ = New Structure("TabularSections, StandardTabularSections");
-	FillPropertyValues(КоллекцииРеквизитов, ОбъектМетаданных);
-	FillPropertyValues(КоллекцииТЧ, ОбъектМетаданных);
+	AttributesCollections = New Structure("Attributes, StandardAttributes, Dimensions, Resources, AddressingAttributes, AccountingFlags");
+	TabularSectionsCollections = New Structure("TabularSections, StandardTabularSections");
+	FillPropertyValues(AttributesCollections, ObjectOfMetadata);
+	FillPropertyValues(TabularSectionsCollections, ObjectOfMetadata);
 
-	For Each КлючЗначение In КоллекцииРеквизитов Do
-		If КлючЗначение.Value = Undefined Then
+	For Each KeyValue In AttributesCollections Do
+		If KeyValue.Value = Undefined Then
 			Continue;
 		EndIf;
 
-		ОписаниеКоллекцииРеквизитов= New Structure;
+		AttributesCollectionDescription= New Structure;
 
-		For Each ТекРеквизит In КлючЗначение.Value Do
-			ОписаниеКоллекцииРеквизитов.Insert(ТекРеквизит.Name, ОписаниеРеквизитаОбъектаМетаданных(ТекРеквизит,
+		For Each CurrentAttribute In KeyValue.Value Do
+			AttributesCollectionDescription.Insert(CurrentAttribute.Name, MetadataObjectAttributeDescription(CurrentAttribute,
 				AllRefsType));
 		EndDo;
 
-		ОписаниеЭлемента.Insert(КлючЗначение.Key, ОписаниеКоллекцииРеквизитов);
+		ItemDescription.Insert(KeyValue.Key, AttributesCollectionDescription);
 	EndDo;
 
-	For Each КлючЗначение In КоллекцииТЧ Do
-		If КлючЗначение.Value = Undefined Then
+	For Each KeyValue In TabularSectionsCollections Do
+		If KeyValue.Value = Undefined Then
 			Continue;
 		EndIf;
 
-		ОписаниеКоллекцииТЧ = New Structure;
+		TabularSectionCollectionDescription = New Structure;
 
-		For Each ТЧ In КлючЗначение.Value Do
-			ОписаниеТЧ = New Structure;
-			ОписаниеТЧ.Insert("Name", ТЧ.Name);
-			ОписаниеТЧ.Insert("Synonym", ТЧ.Synonym);
-			ОписаниеТЧ.Insert("Comment", ТЧ.Comment);
+		For Each TabularSection In KeyValue.Value Do
+			TabularSectionDescription = New Structure;
+			TabularSectionDescription.Insert("Name", TabularSection.Name);
+			TabularSectionDescription.Insert("Synonym", TabularSection.Synonym);
+			TabularSectionDescription.Insert("Comment", TabularSection.Comment);
 
-			КоллекцииРеквизитовТЧ = New Structure("Attributes, StandardAttributes");
-			FillPropertyValues(КоллекцииРеквизитовТЧ, ТЧ);
-			For Each ТекКоллекцияРеквизитовТЧ In КоллекцииРеквизитовТЧ Do
-				If ТекКоллекцияРеквизитовТЧ.Value = Undefined Then
+			TabularSectionAttributesCollection = New Structure("Attributes, StandardAttributes");
+			FillPropertyValues(TabularSectionAttributesCollection, TabularSection);
+			For Each CurrentTabularSectionAttributesCollection In TabularSectionAttributesCollection Do
+				If CurrentTabularSectionAttributesCollection.Value = Undefined Then
 					Continue;
 				EndIf;
 
-				ОписаниеКоллекцииРеквизитовТЧ = New Structure;
+				TabularSectionAttributesCollectionDescription = New Structure;
 
-				For Each ТекРеквизит In ТекКоллекцияРеквизитовТЧ.Value Do
-					ОписаниеКоллекцииРеквизитовТЧ.Insert(ТекРеквизит.Name, ОписаниеРеквизитаОбъектаМетаданных(
-						ТекРеквизит, AllRefsType));
+				For Each CurrentAttribute In CurrentTabularSectionAttributesCollection.Value Do
+					TabularSectionAttributesCollectionDescription.Insert(CurrentAttribute.Name, MetadataObjectAttributeDescription(
+						CurrentAttribute, AllRefsType));
 				EndDo;
 
-				ОписаниеТЧ.Insert(ТекКоллекцияРеквизитовТЧ.Key, ОписаниеКоллекцииРеквизитовТЧ);
+				TabularSectionDescription.Insert(CurrentTabularSectionAttributesCollection.Key, TabularSectionAttributesCollectionDescription);
 			EndDo;
-			ОписаниеКоллекцииТЧ.Insert(ТЧ.Name, ОписаниеТЧ);
+			TabularSectionCollectionDescription.Insert(TabularSection.Name, TabularSectionDescription);
 		EndDo;
 
-		ОписаниеЭлемента.Insert(КлючЗначение.Key, ОписаниеКоллекцииТЧ);
+		ItemDescription.Insert(KeyValue.Key, TabularSectionCollectionDescription);
 	EndDo;
 
 
-	If ОбъектМетаданныхИмеетПредопределенные(ВидОбъекта) Then
+	If MetadataObjectHasPredefined(ObjectType) Then
 
-		Predefined = ОбъектМетаданных.GetPredefinedNames();
+		Predefined = ObjectOfMetadata.GetPredefinedNames();
 
-		ОписаниеПредопределенных = New Structure;
+		PredefinedDescription = New Structure;
 		For Each Name In Predefined Do
-			ОписаниеПредопределенных.Insert(Name, "");
+			PredefinedDescription.Insert(Name, "");
 		EndDo;
 
-		ОписаниеЭлемента.Insert("Predefined", ОписаниеПредопределенных);
+		ItemDescription.Insert("Predefined", PredefinedDescription);
 	EndIf;
 	
-	Return ОписаниеЭлемента;
+	Return ItemDescription;
 EndFunction
 
-Function ОписаниеКоллекцииМетаданныхКонфигурации(Коллекция, ВидОбъекта, СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов) 
-	ОписаниеКоллекции = New Structure();
+Function ConfigurationMetadataCollectionDescription(Collection, ObjectType, TypesMap, AllRefsType, IncludeAttributesDescription) 
+	CollectionDescription = New Structure();
 
-	For Each ОбъектМетаданных In Коллекция Do
-		ОписаниеЭлемента = ОписаниеОбъектаМетаданныхКонфигурации(ОбъектМетаданных, ВидОбъекта, AllRefsType, ВключатьОписаниеРеквизитов);
+	For Each ObjectOfMetadata In Collection Do
+		ItemDescription = ConfigurationMetadataObjectDescription(ObjectOfMetadata, ObjectType, AllRefsType, IncludeAttributesDescription);
 			
-		ОписаниеКоллекции.Insert(ОбъектМетаданных.Name, ОписаниеЭлемента);
+		CollectionDescription.Insert(ObjectOfMetadata.Name, ItemDescription);
 		
-		If UT_Common.IsRefTypeObject(ОбъектМетаданных) Then
-			СоответствиеТипов.Insert(Type(ВидОбъекта+"Reference."+ОписаниеЭлемента.Name), ОписаниеЭлемента);
+		If UT_Common.IsRefTypeObject(ObjectOfMetadata) Then
+			TypesMap.Insert(Type(ObjectType+"Ref."+ItemDescription.Name), ItemDescription);
 		EndIf;
 		
 	EndDo;
 	
-	Return ОписаниеКоллекции;
+	Return CollectionDescription;
 EndFunction
 
-Function ОписаниеОбщихМодулейКонфигурации() Export
-	ОписаниеКоллекции = New Structure();
+Function ConfigurationCommonModulesDescription() Export
+	CollectionDescription = New Structure();
 
-	For Each ОбъектМетаданных In Metadata.CommonModules Do
+	For Each ObjectOfMetadata In Metadata.CommonModules Do
 			
-		ОписаниеКоллекции.Insert(ОбъектМетаданных.Name, New Structure);
+		CollectionDescription.Insert(ObjectOfMetadata.Name, New Structure);
 		
 	EndDo;
 	
-	Return ОписаниеКоллекции;
+	Return CollectionDescription;
 EndFunction
 
-Function ОписнаиеМетаданныйДляИнициализацииРедактораMonaco() Export
-	СоответствиеТипов = New Map;
+Function MetaDataDescriptionForMonacoEditorInitialize() Export
+	TypesMap = New Map;
 	AllRefsType = UT_Common.AllRefsTypeDescription();
 
-	ОписаниеМетаданных = New Structure;
-	ОписаниеМетаданных.Insert("CommonModules", ОписаниеОбщихМодулейКонфигурации());
-//	ОписаниеМетаданных.Вставить("Роли", ОписаниеКоллекцииМетаданныхКонфигурации(Метаданные.Роли, "Роль", СоответствиеТипов, ТипВсеСсылки));
-//	ОписаниеМетаданных.Вставить("ОбщиеФормы", ОписаниеКоллекцииМетаданныхКонфигурации(Метаданные.ОбщиеФормы, "ОбщаяФорма", СоответствиеТипов, ТипВсеСсылки));
+	MetadataDescription = New Structure;
+	MetadataDescription.Insert("CommonModules", ConfigurationCommonModulesDescription());
+	//	MetadataDescription.Insert("Roles", ConfigurationMetadataCollectionDescription(Metadata.Roles, "Role", TypesMap, AllRefsType));
+	//	MetadataDescription.Insert("CommonForms", ConfigurationMetadataCollectionDescription(Metadata.CommonForms, "CommonForm", TypesMap, AllRefsType));
 
-	Return ОписаниеМетаданных;	
+	Return MetadataDescription;	
 EndFunction
 
-Function ОписаниеМетаданныхКонфигурации(ВключатьОписаниеРеквизитов = True) Export
+Function ConfigurationMetadataDescription(IncludeAttributesDescription = True) Export
 	AllRefsType = UT_Common.AllRefsTypeDescription();
 	
-	ОписаниеМетаданных = New Structure;
+	MetadataDescription = New Structure;
 	
-	СоответствиеТипов = New Map;
+	TypesMap = New Map;
 	
-	ОписаниеМетаданных.Insert("Name", Metadata.Name);
-	ОписаниеМетаданных.Insert("Version", Metadata.Version);
-	ОписаниеМетаданных.Insert("AllRefsType", AllRefsType);
+	MetadataDescription.Insert("Name", Metadata.Name);
+	MetadataDescription.Insert("Version", Metadata.Version);
+	MetadataDescription.Insert("AllRefsType", AllRefsType);
 	
-	ОписаниеМетаданных.Insert("Catalogs", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.Catalogs, "Catalog", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("Documents", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.Documents, "Document", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("InformationRegisters", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.InformationRegisters, "InformationRegister", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("AccumulationRegisters", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.AccumulationRegisters, "AccumulationRegister", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("AccountingRegisters", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.AccountingRegisters, "AccountingRegister", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("CalculationRegisters", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.CalculationRegisters, "CalculationRegister", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("DataProcessors", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.DataProcessors, "Processing", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("Reports", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.Reports, "Report", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("Enums", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.Enums, "Enum", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("CommonModules", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.CommonModules, "CommonModule", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("ChartsOfAccounts", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.ChartsOfAccounts, "ChartOfAccounts", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("BusinessProcesses", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.BusinessProcesses, "BusinessProcess", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("Tasks", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.Tasks, "Task", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("ChartsOfAccounts", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.ChartsOfAccounts, "ChartOfAccounts", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("ExchangePlans", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.ExchangePlans, "ExchangePlan", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("ChartsOfCharacteristicTypes", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.ChartsOfCharacteristicTypes, "ChartOfCharacteristicTypes", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("ChartsOfCalculationTypes", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.ChartsOfCalculationTypes, "ChartOfCalculationTypes", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("Constants", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.Constants, "Constant", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
-	ОписаниеМетаданных.Insert("SessionParameters", ОписаниеКоллекцииМетаданныхКонфигурации(Metadata.SessionParameters, "ПараметрСеанса", СоответствиеТипов, AllRefsType, ВключатьОписаниеРеквизитов));
+	MetadataDescription.Insert("Catalogs", ConfigurationMetadataCollectionDescription(Metadata.Catalogs, "Catalog", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("Documents", ConfigurationMetadataCollectionDescription(Metadata.Documents, "Document", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("InformationRegisters", ConfigurationMetadataCollectionDescription(Metadata.InformationRegisters, "InformationRegister", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("AccumulationRegisters", ConfigurationMetadataCollectionDescription(Metadata.AccumulationRegisters, "AccumulationRegister", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("AccountingRegisters", ConfigurationMetadataCollectionDescription(Metadata.AccountingRegisters, "AccountingRegister", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("CalculationRegisters", ConfigurationMetadataCollectionDescription(Metadata.CalculationRegisters, "CalculationRegister", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("DataProcessors", ConfigurationMetadataCollectionDescription(Metadata.DataProcessors, "Processing", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("Reports", ConfigurationMetadataCollectionDescription(Metadata.Reports, "Report", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("Enums", ConfigurationMetadataCollectionDescription(Metadata.Enums, "Enum", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("CommonModules", ConfigurationMetadataCollectionDescription(Metadata.CommonModules, "CommonModule", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("ChartsOfAccounts", ConfigurationMetadataCollectionDescription(Metadata.ChartsOfAccounts, "ChartOfAccounts", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("BusinessProcesses", ConfigurationMetadataCollectionDescription(Metadata.BusinessProcesses, "BusinessProcess", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("Tasks", ConfigurationMetadataCollectionDescription(Metadata.Tasks, "Task", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("ChartsOfAccounts", ConfigurationMetadataCollectionDescription(Metadata.ChartsOfAccounts, "ChartOfAccounts", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("ExchangePlans", ConfigurationMetadataCollectionDescription(Metadata.ExchangePlans, "ExchangePlan", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("ChartsOfCharacteristicTypes", ConfigurationMetadataCollectionDescription(Metadata.ChartsOfCharacteristicTypes, "ChartOfCharacteristicTypes", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("ChartsOfCalculationTypes", ConfigurationMetadataCollectionDescription(Metadata.ChartsOfCalculationTypes, "ChartOfCalculationTypes", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("Constants", ConfigurationMetadataCollectionDescription(Metadata.Constants, "Constant", TypesMap, AllRefsType, IncludeAttributesDescription));
+	MetadataDescription.Insert("SessionParameters", ConfigurationMetadataCollectionDescription(Metadata.SessionParameters, "SessionParameter", TypesMap, AllRefsType, IncludeAttributesDescription));
 	
-	ОписаниеМетаданных.Insert("СоответствиеСсылочныхТипов", СоответствиеТипов);
+	MetadataDescription.Insert("ReferenceTypesMap", TypesMap);
 	
-	Return ОписаниеМетаданных;
+	Return MetadataDescription;
 EndFunction
 
-Function АдресОписанияМетаданныхКонфигурации() Export
-	ОПисание = ОписаниеМетаданныхКонфигурации();
+Function ConfigurationMetadataDescriptionURL() Export
+	Description = ConfigurationMetadataDescription();
 	
-	Return PutToTempStorage(ОПисание, New UUID);
+	Return PutToTempStorage(Description, New UUID);
 EndFunction
 
-Function СписокМетаданныхПоВиду(ВидМетаданных) Export
-	КоллекцияМетаданных = Metadata[ВидМетаданных];
+Function MetadataListByType(MetadataType) Export
+	MetadataCollection = Metadata[MetadataType];
 	
-	МассивИмен = New Array;
-	For Each ОбъектМетаданных In КоллекцияМетаданных Do
-		МассивИмен.Add(ОбъектМетаданных.Name);
+	NamesArray = New Array;
+	For Each ObjectOfMetadata In MetadataCollection Do
+		NamesArray.Add(ObjectOfMetadata.Name);
 	EndDo;
 	
-	Return МассивИмен;
+	Return NamesArray;
 EndFunction
 
-Procedure ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(СоответствиеТипов, Коллекция, ВидОбъекта)
-	For Each ОбъектМетаданных In Коллекция Do
-		ОписаниеЭлемента = New Structure;
-		ОписаниеЭлемента.Insert("Name", ОбъектМетаданных.Name);
-		ОписаниеЭлемента.Insert("ВидОбъекта", ВидОбъекта);
+Procedure AddMetadataCollectionToReferenceTypesMap(TypesMap, Collection, ObjectType)
+	For Each ObjectOfMetadata In Collection Do
+		ItemDescription = New Structure;
+		ItemDescription.Insert("Name", ObjectOfMetadata.Name);
+		ItemDescription.Insert("ObjectType", ObjectType);
 			
-		СоответствиеТипов.Insert(Type(ВидОбъекта+"Reference."+ОбъектМетаданных.Name), ОписаниеЭлемента);
+		TypesMap.Insert(Type(ObjectType+"Ref."+ObjectOfMetadata.Name), ItemDescription);
 	EndDo;
 	
 EndProcedure
 
-Function СоответствиеСсылочныхТипов() Export
+Function ReferenceTypesMap() Export
 	Map = New Map;
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.Catalogs, "Catalog");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.Documents, "Document");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.Enums, "Enum");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.ChartsOfAccounts, "ChartOfAccounts");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.BusinessProcesses, "BusinessProcess");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.Tasks, "Task");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.ChartsOfAccounts, "ChartOfAccounts");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.ExchangePlans, "ExchangePlan");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.ChartsOfCharacteristicTypes, "ChartOfCharacteristicTypes");
-	ДобавитьКоллекциюМетаданныхВСоответствиеСсылочныхТипов(Map, Metadata.ChartsOfCalculationTypes, "ChartOfCalculationTypes");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.Catalogs, "Catalog");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.Documents, "Document");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.Enums, "Enum");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.ChartsOfAccounts, "ChartOfAccounts");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.BusinessProcesses, "BusinessProcess");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.Tasks, "Task");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.ChartsOfAccounts, "ChartOfAccounts");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.ExchangePlans, "ExchangePlan");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.ChartsOfCharacteristicTypes, "ChartOfCharacteristicTypes");
+	AddMetadataCollectionToReferenceTypesMap(Map, Metadata.ChartsOfCalculationTypes, "ChartOfCalculationTypes");
 
 	Return Map;
 EndFunction
@@ -484,25 +484,25 @@ EndFunction
 
 #Region Internal
 
-Function ТекущиеПараметрыРедактораMonaco() Export
-	ПараметрыИзХранилища =  UT_Common.CommonSettingsStorageLoad(
-		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораMonaco",
-		UT_CodeEditorClientServer.ПараметрыРедактораMonacoПоУмолчанию());
+Function CurrentMonacoEditorParameters() Export
+	ParametersFromStorage =  UT_Common.CommonSettingsStorageLoad(
+		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "MonacoEditorParameters",
+		UT_CodeEditorClientServer.MonacoEditorParametersByDefault());
 
-	ПараметрыПоУмолчанию = UT_CodeEditorClientServer.ПараметрыРедактораMonacoПоУмолчанию();
-	FillPropertyValues(ПараметрыПоУмолчанию, ПараметрыИзХранилища);
+	ParametersByDefault = UT_CodeEditorClientServer.MonacoEditorParametersByDefault();
+	FillPropertyValues(ParametersByDefault, ParametersFromStorage);
 
-	Return ПараметрыПоУмолчанию;
+	Return ParametersByDefault;
 EndFunction
 
-Function ДоступныеИсточникиИсходногоКода() Export
+Function AvailableSourceCodeSources() Export
 	Array = New ValueList();
 	
-	Array.Add("ОсновнаяКонфигурация", "Main конфигурация");
+	Array.Add("MainConfiguration", "Main configuration");
 	
-	МассивРасширений = ConfigurationExtensions.Get();
-	For Each ТекРасширение In МассивРасширений Do
-		Array.Add(ТекРасширение.Name, ТекРасширение.Synonym);
+	ExtensionsArray = ConfigurationExtensions.Get();
+	For Each CurrentExtension In ExtensionsArray Do
+		Array.Add(CurrentExtension.Name, CurrentExtension.Synonym);
 	EndDo;
 	
 	Return Array;
@@ -510,6 +510,6 @@ EndFunction
 
 #EndRegion
 
-#Region Internal
+#Region Private
 
 #EndRegion

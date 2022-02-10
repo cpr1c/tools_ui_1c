@@ -14,6 +14,6 @@ Function СписокМетаданныхПоВиду(ВидМетаданных
 	Return UT_CodeEditorServer.СписокМетаданныхПоВиду(ВидМетаданных);
 EndFunction
 
-Function СоответствиеСсылочныхТипов() Export
-	Return UT_CodeEditorServer.СоответствиеСсылочныхТипов();
+Function ReferenceTypesMap() Export
+	Return UT_CodeEditorServer.ReferenceTypesMap();
 EndFunction

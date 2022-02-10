@@ -6,7 +6,7 @@
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	CodeSources = UT_CodeEditorServer.ДоступныеИсточникиИсходногоКода();
+	CodeSources = UT_CodeEditorServer.AvailableSourceCodeSources();
 	
 	For Each CurrentSource ИЗ CodeSources Do
 		NewRow = SaveDirectories.Add();
