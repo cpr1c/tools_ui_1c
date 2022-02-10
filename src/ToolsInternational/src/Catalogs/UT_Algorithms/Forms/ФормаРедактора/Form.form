@@ -198,7 +198,7 @@
   <parameters>
     <name>Алгоритм</name>
     <valueType>
-      <types>CatalogRef.УИ_Алгоритмы</types>
+      <types>CatalogRef.UT_Algorithms</types>
     </valueType>
     <keyParameter>true</keyParameter>
   </parameters>

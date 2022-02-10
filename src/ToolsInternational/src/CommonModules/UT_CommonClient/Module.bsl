@@ -536,7 +536,7 @@ Procedure EditValueStorage(Form, ValueTempStorageUrlOrValue,
 	FormParameters.Insert("ValueStorageData", ValueTempStorageUrlOrValue);
 
 	OpenForm("CommonForm.UT_ValueStorageForm", FormParameters, Form, Form.UUID, , ,
-		OnCloseNotifyDescription, FormWindowOpeningMode.FormWindowOpeningMode);
+		OnCloseNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСтраницы</name>
+    <name>GroupPages</name>
     <id>34</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаНоваяЗадача</name>
+      <name>GroupNewIssue</name>
       <id>36</id>
       <items xsi:type="form:FormField">
-        <name>НоваяЗадачаТема</name>
+        <name>NewIssueSubject</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -16,11 +16,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>НоваяЗадачаТема</segments>
+            <segments>NewIssueSubject</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ПолеРасширеннаяПодсказка3</name>
+          <name>NewIssueSubjectExtendedTooltip</name>
           <id>42</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -35,7 +35,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПолеКонтекстноеМеню3</name>
+          <name>NewIssueSubjectContextMenu</name>
           <id>41</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -58,7 +58,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>НоваяЗадачаОписание</name>
+        <name>NewIssueDescription</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -67,11 +67,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>НоваяЗадачаОписание</segments>
+            <segments>NewIssueDescription</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ПолеРасширеннаяПодсказка6</name>
+          <name>NewIssueDescriptionExtendedTooltip</name>
           <id>45</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -86,7 +86,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПолеКонтекстноеМеню6</name>
+          <name>NewIssueDescriptionContextMenu</name>
           <id>44</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -110,11 +110,16 @@
         </extInfo>
       </items>
       <items xsi:type="form:Decoration">
-        <name>ДекорацияПредупреждение</name>
+        <name>DecorationWarning</name>
         <id>52</id>
         <title>
+          <key>en</key>
+          <value>&lt;b>IMPORTANT!!!&lt;/>&lt;b> &lt;/>If you create a task not via  &lt;link https://github.com/cpr1c/tools_ui_1c/issues>https://github.com&lt;/>, and through this form you &lt;b>WILL&lt;/>&lt;b> &lt;/>&lt;b>NOT&lt;/>&lt;b> &lt;/>&lt;b> &lt;/>&lt;b>receive&lt;/>&lt;b> &lt;/>&lt;b>notifications&lt;/> about its change
+</value>
+        </title>
+        <title>
           <key>ru</key>
-          <value>&lt;b>ВАЖНО!!! &lt;/>Если вы создаете задачу не через &lt;link https://github.com/cpr1c/tools_ui_1c/issues>https://github.com&lt;/>, а через эту форму вы &lt;b>НЕ БУДЕТЕ&lt;/> &lt;b>получать оповещения&lt;/> о ее изменении</value>
+          <value>&lt;b>ВАЖНО!!!&lt;/>&lt;b> &lt;/>Если вы создаете задачу не через &lt;link https://github.com/cpr1c/tools_ui_1c/issues>https://github.com&lt;/>, а через эту форму вы &lt;b>НЕ&lt;/>&lt;b> &lt;/>&lt;b>БУДЕТЕ&lt;/> &lt;b>получать&lt;/>&lt;b> &lt;/>&lt;b>оповещения&lt;/> о ее изменении</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -122,7 +127,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>Декорация1РасширеннаяПодсказка</name>
+          <name>DecorationWarningExtendedTooltip</name>
           <id>54</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -137,7 +142,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>Декорация1КонтекстноеМеню</name>
+          <name>DecorationWarningContextMenu</name>
           <id>53</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -156,7 +161,7 @@
         <extInfo xsi:type="form:LabelDecorationExtInfo"/>
       </items>
       <items xsi:type="form:Button">
-        <name>СоздатьНовуюЗадачу</name>
+        <name>CreateNewIssue</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -164,7 +169,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СоздатьНовуюЗадачуРасширеннаяПодсказка</name>
+          <name>CreateNewIssueExtendedTooltip</name>
           <id>47</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -179,7 +184,7 @@
           </extInfo>
         </extendedTooltip>
         <type>UsualButton</type>
-        <commandName>Form.Command.СоздатьНовуюЗадачу</commandName>
+        <commandName>Form.Command.CreateNewIssue</commandName>
         <representation>Auto</representation>
         <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
@@ -195,11 +200,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>New issue</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Новая задача</value>
       </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка1</name>
+        <name>GroupNewIssueExtendedTooltip</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -220,10 +229,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСписокЗадач</name>
+      <name>GroupIssuesList</name>
       <id>38</id>
       <items xsi:type="form:Table">
-        <name>СписокЗадач</name>
+        <name>IssuesList</name>
         <id>1</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -231,11 +240,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>СписокЗадач</segments>
+          <segments>IssuesList</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>СписокЗадачНомер</name>
+          <name>IssuesListNumber</name>
           <id>14</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -244,14 +253,14 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Номер</segments>
+              <segments>IssuesList.Number</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Номер</segments>
+              <segments>IssuesList.Number</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка</name>
+            <name>IssuesListNumberExtendedTooltip</name>
             <id>16</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -266,7 +275,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню</name>
+            <name>IssuesListNumberContextMenu</name>
             <id>15</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -291,7 +300,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЗадачТема</name>
+          <name>IssuesListSubject</name>
           <id>17</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -300,14 +309,14 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Тема</segments>
+              <segments>IssuesList.Subject</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Тема</segments>
+              <segments>IssuesList.Subject</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка1</name>
+            <name>IssuesListSubjectExtendedTooltip</name>
             <id>19</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -322,7 +331,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню1</name>
+            <name>IssuesListSubjectContextMenu</name>
             <id>18</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -346,7 +355,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЗадачОтветственный</name>
+          <name>IssuesListResponsible</name>
           <id>20</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -355,14 +364,14 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Ответственный</segments>
+              <segments>IssuesList.Responsible</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Ответственный</segments>
+              <segments>IssuesList.Responsible</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка2</name>
+            <name>IssuesListResponsibleExtendedTooltip</name>
             <id>22</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -377,7 +386,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню2</name>
+            <name>IssuesListResponsibleContextMenu</name>
             <id>21</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -401,7 +410,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЗадачСтатус</name>
+          <name>IssuesListState</name>
           <id>31</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -410,11 +419,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Статус</segments>
+              <segments>IssuesList.State</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка5</name>
+            <name>IssuesListStateExtendedTooltip</name>
             <id>33</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -429,7 +438,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню5</name>
+            <name>IssuesListStateContextMenu</name>
             <id>32</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -453,7 +462,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЗадачТеги</name>
+          <name>IssuesListLabels</name>
           <id>26</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -462,14 +471,14 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Теги</segments>
+              <segments>IssuesList.Labels</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>СписокЗадач.Теги</segments>
+              <segments>IssuesList.Labels</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка4</name>
+            <name>IssuesListLabelsExtendedTooltip</name>
             <id>28</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -484,7 +493,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню4</name>
+            <name>IssuesListLabelsContextMenu</name>
             <id>27</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -508,7 +517,7 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>КоманднаяПанель</name>
+          <name>IssuesListCommandBar</name>
           <id>2</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -519,7 +528,7 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>СписокЗадачВыбор</name>
+          <name>IssuesListSelection</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -527,10 +536,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>IssuesListSearchString</name>
           <id>5</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>IssuesListSearchStringExtendedTooltip</name>
             <id>7</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -545,7 +554,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>IssuesListSearchStringContextMenu</name>
             <id>6</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -564,10 +573,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>IssuesListViewStatus</name>
           <id>11</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>IssuesListViewStatusExtendedTooltip</name>
             <id>13</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -582,7 +591,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>IssuesListViewStatusContextMenu</name>
             <id>12</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -603,10 +612,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>IssuesListSearchControl</name>
           <id>8</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>IssuesListSearchControlExtendedTooltip</name>
             <id>10</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -621,7 +630,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>IssuesListSearchControlContextMenu</name>
             <id>9</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -636,7 +645,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>РасширеннаяПодсказка</name>
+          <name>IssuesListExtendedTooltip</name>
           <id>4</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -651,7 +660,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>КонтекстноеМеню</name>
+          <name>IssuesListContextMenu</name>
           <id>3</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -685,11 +694,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Issues List</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Список задач</value>
       </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка2</name>
+        <name>GroupIssuesListExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -715,11 +728,15 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Pages group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа страницы</value>
     </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка</name>
+      <name>GroupPagesExtendedTooltip</name>
       <id>35</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -743,7 +760,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаОбновитьСписокЗадач</name>
+      <name>FormUpdateIssuesList</name>
       <id>29</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -751,7 +768,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаОбновитьСписокЗадачРасширеннаяПодсказка</name>
+        <name>FormUpdateIssuesListExtendedTooltip</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -765,7 +782,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОбновитьСписокЗадач</commandName>
+      <commandName>Form.Command.UpdateIssuesList</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -773,7 +790,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаСтраницаРазработки</name>
+      <name>FormAboutPage</name>
       <id>55</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -781,7 +798,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаСтраницаРазработкиРасширеннаяПодсказка</name>
+        <name>FormAboutPageExtendedTooltip</name>
         <id>56</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -795,7 +812,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.СтраницаРазработки</commandName>
+      <commandName>Form.Command.AboutPage</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -803,7 +820,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаСоздатьНовуюЗадачуНаГитхабе</name>
+      <name>FormCreateNewIssueAtGitHub</name>
       <id>50</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -811,7 +828,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаСоздатьНовуюЗадачуНаГитхабеРасширеннаяПодсказка</name>
+        <name>FormCreateNewIssueAtGitHubExtendedTooltip</name>
         <id>51</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -825,7 +842,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.СоздатьНовуюЗадачуНаГитхабе</commandName>
+      <commandName>Form.Command.CreateNewIssueAtGitHub</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -853,7 +870,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_Support</types>
@@ -867,7 +888,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>СписокЗадач</name>
+    <name>IssuesList</name>
+    <title>
+      <key>en</key>
+      <value>Issues list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список задач</value>
@@ -883,7 +908,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Номер</name>
+      <name>Number</name>
+      <title>
+        <key>en</key>
+        <value>Number</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Номер</value>
@@ -901,7 +930,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Тема</name>
+      <name>Subject</name>
+      <title>
+        <key>en</key>
+        <value>Subject</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тема</value>
@@ -919,7 +952,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Ответственный</name>
+      <name>Responsible</name>
+      <title>
+        <key>en</key>
+        <value>Responsible</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Ответственный</value>
@@ -939,6 +976,10 @@
     <columns>
       <name>URL</name>
       <title>
+        <key>en</key>
+        <value>URL</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>URL</value>
       </title>
@@ -955,7 +996,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Теги</name>
+      <name>Labels</name>
+      <title>
+        <key>en</key>
+        <value>Labels</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Теги</value>
@@ -972,7 +1017,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Статус</name>
+      <name>State</name>
+      <title>
+        <key>en</key>
+        <value>State</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Статус</value>
@@ -991,7 +1040,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>НоваяЗадачаТема</name>
+    <name>NewIssueSubject</name>
+    <title>
+      <key>en</key>
+      <value>Subject</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Тема</value>
@@ -1010,7 +1063,11 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <attributes>
-    <name>НоваяЗадачаОписание</name>
+    <name>NewIssueDescription</name>
+    <title>
+      <key>en</key>
+      <value>Description</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Описание</value>
@@ -1029,7 +1086,11 @@
     <fillChecking>ShowError</fillChecking>
   </attributes>
   <formCommands>
-    <name>ОбновитьСписокЗадач</name>
+    <name>UpdateIssuesList</name>
+    <title>
+      <key>en</key>
+      <value>Update issues list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить список задач</value>
@@ -1043,13 +1104,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбновитьСписокЗадач</name>
+        <name>UpdateIssuesList</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СоздатьНовуюЗадачу</name>
+    <name>CreateNewIssue</name>
+    <title>
+      <key>en</key>
+      <value>Create new issue</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Создать новую задачу</value>
@@ -1060,13 +1125,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СоздатьНовуюЗадачу</name>
+        <name>CreateNewIssue</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СоздатьНовуюЗадачуНаГитхабе</name>
+    <name>CreateNewIssueAtGitHub</name>
+    <title>
+      <key>en</key>
+      <value>Create new issue at GitHub</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Создать новую задачу на GitHub</value>
@@ -1077,13 +1146,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СоздатьНовуюЗадачуНаГитхабе</name>
+        <name>CreateNewIssueAtGitHub</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СтраницаРазработки</name>
+    <name>AboutPage</name>
+    <title>
+      <key>en</key>
+      <value>About page</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Страница разработки</value>
@@ -1097,7 +1170,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СтраницаРазработки</name>
+        <name>AboutPage</name>
       </handler>
     </action>
     <representation>TextPicture</representation>

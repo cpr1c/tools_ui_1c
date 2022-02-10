@@ -18,9 +18,9 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
 	MonacoEditorTheme = EditorSettings.Monaco.Тема;
 	MonacoEditorScriptVariant = EditorSettings.Monaco.ЯзыкСинтаксиса;
-	UseScriptMap = EditorSettings.Monaco.UseScriptMap;
-	HideLineNumbers = EditorSettings.Monaco.HideLineNumbers;
-	LinesHeight = EditorSettings.Monaco.LinesHeight;
+	UseScriptMap = EditorSettings.Monaco.ИспользоватьКартуКода;
+	HideLineNumbers = EditorSettings.Monaco.СкрытьНомераСтрок;
+	LinesHeight = EditorSettings.Monaco.ВысотаСтрок;
 
 	ConfigurationSourceFilesDirectories.Clear();
 	Items.ConfigurationSourceFilesDirectoriesSource.ChoiceList.Clear();

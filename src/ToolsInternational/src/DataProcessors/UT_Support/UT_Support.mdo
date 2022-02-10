@@ -37,7 +37,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <commands uuid="3221fe43-c58b-4ba8-b2fa-556e4bb54d0b">
-    <name>ВопросРазработчику</name>
+    <name>QuestionToDeveloper</name>
+    <synonym>
+      <key>en</key>
+      <value>Question to the developer</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Вопрос разработчику</value>
@@ -51,7 +55,11 @@
     <shortcut></shortcut>
   </commands>
   <commands uuid="9d0b01dc-bd74-428c-b8ce-667da8dbae28">
-    <name>СтраницаРазработки</name>
+    <name>AboutPage</name>
+    <synonym>
+      <key>en</key>
+      <value>About page</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Страница разработки</value>
@@ -65,7 +73,7 @@
     <shortcut></shortcut>
   </commands>
   <commands uuid="158df35e-cd25-431e-a84d-d13952262078">
-    <name>ПроверитьНеобходимостьОбновления</name>
+    <name>CheckUpdate</name>
     <synonym>
       <key>en</key>
       <value>Check update</value>
