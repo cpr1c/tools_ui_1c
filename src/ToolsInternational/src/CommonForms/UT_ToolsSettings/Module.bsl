@@ -7,13 +7,13 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		UT_CodeEditorClientServer.CodeEditorVariants());
 	
 	SetChoiseListOfStructureItem(Items.MonacoEditorTheme,
-		UT_CodeEditorClientServer.ВариантыТемыРедактораMonaco());
+		UT_CodeEditorClientServer.MonacoEditorThemeVariants());
 	
 	SetChoiseListOfStructureItem(Items.MonacoEditorScriptVariant,
-		UT_CodeEditorClientServer.ВариантыЯзыкаСинтаксисаРедактораMonaco());
+		UT_CodeEditorClientServer.MonacoEditorSyntaxLanguageVariants());
 
 	EditorSettings = UT_CodeEditorServer.CodeEditorCurrentSettings();	
-	EditorOf1CScript = EditorSettings.Вариант;
+	EditorOf1CScript = EditorSettings.Variant;
 	FontSize = EditorSettings.FontSize;	
 
 	MonacoEditorTheme = EditorSettings.Monaco.Theme;
@@ -217,7 +217,7 @@ EndProcedure
 Procedure ApplyAtServer()
 	CodeEditorParameters = UT_CodeEditorClientServer.CodeEditorCurrentSettingsByDefault();
 	CodeEditorParameters.FontSize = FontSize;
-	CodeEditorParameters.Вариант = EditorOf1CScript;
+	CodeEditorParameters.Variant = EditorOf1CScript;
 	
 	CodeEditorParameters.Monaco.Theme = MonacoEditorTheme;
 	CodeEditorParameters.Monaco.ScriptVariant = MonacoEditorScriptVariant;
@@ -230,9 +230,9 @@ Procedure ApplyAtServer()
 			Continue;
 		EndIf;
 	
-		DirectoryDescription = UT_CodeEditorClientServer.НовыйОписаниеКаталогаИсходныхФайловКонфигурации();
-		DirectoryDescription.Источник = CurrentRow.Source;
-		DirectoryDescription.Каталог = CurrentRow.Directory;
+		DirectoryDescription = UT_CodeEditorClientServer.NewDescriptionOfConfigurationSourceFilesDirectory();
+		DirectoryDescription.Source = CurrentRow.Source;
+		DirectoryDescription.Directory = CurrentRow.Directory;
 		
 		CodeEditorParameters.Monaco.SourceFilesDirectories.Add(DirectoryDescription);
 	EndDo;

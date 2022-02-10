@@ -25,7 +25,7 @@ EndFunction
 Procedure ИнициализироватьРедаторыФормыПослеФормированияПолей(Form, РедакторыФормы, ВидРедактора, ВидыРедактора)
 	For Each КлючЗначение In РедакторыФормы Do
 		EditorSettings = КлючЗначение.Value;
-		ЭлементФормыРедактора = Form.Items[EditorSettings.ПолеРедактора];
+		ЭлементФормыРедактора = Form.Items[EditorSettings.EditorField];
 		If Not ЭлементФормыРедактора.Visible Then
 			Continue;
 		EndIf;
@@ -59,14 +59,14 @@ Procedure ИнициализироватьРедаторыФормыПослеФ
 			ДокументView.disableKeyBinding(9);
 			ДокументView.setOption("dragAndDrop", True);
 
-			ТемыРедактора = UT_CodeEditorClientServer.ВариантыТемыРедактораMonaco();
+			ТемыРедактора = UT_CodeEditorClientServer.MonacoEditorThemeVariants();
 			If EditorSettings.EditorSettings.Subject = ТемыРедактора.Темная Then
 				ДокументView.setTheme("bsl-dark");
 			Else
 				ДокументView.setTheme("bsl-white");
 			EndIf;
 
-			ЯзыкиРедактора = UT_CodeEditorClientServer.ВариантыЯзыкаСинтаксисаРедактораMonaco();
+			ЯзыкиРедактора = UT_CodeEditorClientServer.MonacoEditorSyntaxLanguageVariants();
 			If EditorSettings.EditorSettings.ScriptVariant = ЯзыкиРедактора.English Then
 				ДокументView.switchLang();
 			ElsIf EditorSettings.EditorSettings.ScriptVariant = ЯзыкиРедактора.Auto Then
@@ -95,17 +95,17 @@ Procedure ИнициализироватьРедаторыФормыПослеФ
 EndProcedure
 
 Procedure CodeEditorDeferredInitializingEditors(Form) Export
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 	ВидыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 
 	ИнициализироватьРедаторыФормыПослеФормированияПолей(Form, РедакторыФормы, ВидРедактора, ВидыРедактора);
 	Form.Attachable_CodeEditorInitializingCompletion();
-//	Форма.Attachable_CodeEditorInitializingCompletion(УИ_РедакторКодаКлиентСервер.ИдентификаторРедактораПоЭлементуФормы(Форма, Элемент));
+//	Форма.Attachable_CodeEditorInitializingCompletion(УИ_РедакторКодаКлиентСервер.EditorIDByFormItem(Форма, Элемент));
 EndProcedure
 
 Procedure HTMLEditorFieldDocumentGenerated(Form, Item) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
+	ИдентификаторРедактора = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 
 	EditorSettings = РедакторыФормы[ИдентификаторРедактора];
@@ -118,7 +118,7 @@ Procedure HTMLEditorFieldDocumentGenerated(Form, Item) Export
 EndProcedure
 
 Procedure HTMLEditorFieldOnClick(Form, Item, ДанныеСобытия, СтандартнаяОбработка) Export
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 	ВидыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
 
 	If ВидРедактора = ВидыРедактора.Monaco Then
@@ -127,7 +127,7 @@ Procedure HTMLEditorFieldOnClick(Form, Item, ДанныеСобытия, Ста�
 EndProcedure
 
 Procedure УстановитьТекстРедактораЭлементаФормы(Form, Item, Text) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
+	ИдентификаторРедактора = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If ИдентификаторРедактора = Undefined Then
 		Return;
 	EndIf;
@@ -137,7 +137,7 @@ EndProcedure
 
 Procedure SetEditorText(Form, ИдентификаторРедактора, Text) Export
 	ВидыРедакторов = UT_CodeEditorClientServer.CodeEditorVariants();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
@@ -148,17 +148,17 @@ Procedure SetEditorText(Form, ИдентификаторРедактора, Text
 	If ВидРедактора = ВидыРедакторов.Text Then
 		Form[EditorSettings.ИмяРеквизита] = Text;
 	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.editor.setValue(Text, -1);
 	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.updateText(Text);
 	EndIf;
 EndProcedure
 
 Function EditorCodeText(Form, ИдентификаторРедактора) Export
 	ВидыРедакторов = UT_CodeEditorClientServer.CodeEditorVariants();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
@@ -171,10 +171,10 @@ Function EditorCodeText(Form, ИдентификаторРедактора) Expo
 	If ВидРедактора = ВидыРедакторов.Text Then
 		ТекстКода = Form[EditorSettings.ИмяРеквизита];
 	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		ТекстКода = HTMLDocument.editor.getValue();
 	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		ТекстКода = HTMLDocument.getText();
 	EndIf;
 
@@ -182,7 +182,7 @@ Function EditorCodeText(Form, ИдентификаторРедактора) Expo
 EndFunction
 
 Function ТекстКодаРедактораЭлементаФормы(Form, Item) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
+	ИдентификаторРедактора = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If ИдентификаторРедактора = Undefined Then
 		Return "";
 	EndIf;
@@ -192,7 +192,7 @@ EndFunction
 
 Function EditorSelectionBounds(Form, ИдентификаторРедактора) Export
 	ВидыРедакторов = UT_CodeEditorClientServer.CodeEditorVariants();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
@@ -204,12 +204,12 @@ Function EditorSelectionBounds(Form, ИдентификаторРедактор�
 	ГраницыВыделения = НовыйГраницыВыделения();
 
 	If ВидРедактора = ВидыРедакторов.Text Then
-		ЭлементРедактора = Form.Items[EditorSettings.ПолеРедактора];
+		ЭлементРедактора = Form.Items[EditorSettings.EditorField];
 			
 		ЭлементРедактора.GetTextSelectionBounds(ГраницыВыделения.НачалоСтроки, ГраницыВыделения.НачалоКолонки,
 			ГраницыВыделения.КонецСтроки, ГраницыВыделения.КонецКолонки);		
 	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		ВыделеннаяОбласть = HTMLDocument.editor.getSelectionRange();
 		
 		ГраницыВыделения.НачалоСтроки = ВыделеннаяОбласть.start.row;
@@ -217,7 +217,7 @@ Function EditorSelectionBounds(Form, ИдентификаторРедактор�
 		ГраницыВыделения.КонецСтроки = ВыделеннаяОбласть.end.row;
 		ГраницыВыделения.КонецКолонки = ВыделеннаяОбласть.end.column;
 	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		
 		Select = HTMLDocument.getSelection();
 		ГраницыВыделения.НачалоСтроки = Select.startLineNumber;
@@ -231,7 +231,7 @@ Function EditorSelectionBounds(Form, ИдентификаторРедактор�
 EndFunction
 
 Function ГраницыВыделенияРедактораЭлементаФормы(Form, Item) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
+	ИдентификаторРедактора = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If ИдентификаторРедактора = Undefined Then
 		Return НовыйГраницыВыделения();
 	EndIf;
@@ -243,7 +243,7 @@ Procedure SetTextSelectionBounds(Form, ИдентификаторРедакто�
 	КонецКолонки) Export
 
 	ВидыРедакторов = UT_CodeEditorClientServer.CodeEditorVariants();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
@@ -253,14 +253,14 @@ Procedure SetTextSelectionBounds(Form, ИдентификаторРедакто�
 	EditorSettings = РедакторыФормы[ИдентификаторРедактора];
 
 	If ВидРедактора = ВидыРедакторов.Text Then
-		ЭлементРедактора = Form.Items[EditorSettings.ПолеРедактора];
+		ЭлементРедактора = Form.Items[EditorSettings.EditorField];
 			
 		ЭлементРедактора.SetTextSelectionBounds(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);		
 	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.setSelection(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);
 	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.setSelection(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);
 	EndIf;
 
@@ -269,7 +269,7 @@ EndProcedure
 Procedure УстановитьГраницыВыделенияЭлементаФормы(Form, Item, НачалоСтроки, НачалоКолонки, КонецСтроки,
 	КонецКолонки) Export
 
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
+	ИдентификаторРедактора = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If ИдентификаторРедактора = Undefined Then
 		Return;
 	EndIf;
@@ -280,7 +280,7 @@ EndProcedure
 
 Procedure InsertTextInCursorLocation(Form, ИдентификаторРедактора, Text) Export
 	ВидыРедакторов = UT_CodeEditorClientServer.CodeEditorVariants();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
@@ -290,19 +290,19 @@ Procedure InsertTextInCursorLocation(Form, ИдентификаторРедак�
 	EditorSettings = РедакторыФормы[ИдентификаторРедактора];
 
 	If ВидРедактора = ВидыРедакторов.Text Then
-		ЭлементРедактора = Form.Items[EditorSettings.ПолеРедактора];
+		ЭлементРедактора = Form.Items[EditorSettings.EditorField];
 		ЭлементРедактора.SelectedText = Text;	
 	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.editor.insert(Text);
 	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.selectedText(Text);
 	EndIf;
 EndProcedure
 
 Procedure ВставитьТекстПоПозицииКурсораЭлементаФормы(Form, Item, Text) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
+	ИдентификаторРедактора = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If ИдентификаторРедактора = Undefined Then
 		Return;
 	EndIf;
@@ -313,7 +313,7 @@ EndProcedure
 
 Procedure AddCodeEditorContext(Form, ИдентификаторРедактора, ДобавляемыйКонтекст) Export
 	ВидыРедакторов = UT_CodeEditorClientServer.CodeEditorVariants();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
 	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
@@ -323,7 +323,7 @@ Procedure AddCodeEditorContext(Form, ИдентификаторРедактор�
 	EditorSettings = РедакторыФормы[ИдентификаторРедактора];
 
 	If ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[EditorSettings.ПолеРедактора].Document.defaultView;
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 
 		СоответствиеТипов = СоответствиеСсылочныхТиповКонфигурации();
 
@@ -396,11 +396,11 @@ EndProcedure
 #Region Internal
 
 Procedure FormOnOpenEndAttachFileSystemExtension(Result, AdditionalParameters) Export
-	АдресБиблиотеки =  AdditionalParameters.Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаАдресБиблиотеки()];
+	АдресБиблиотеки =  AdditionalParameters.Form[UT_CodeEditorClientServer.AttributeNameCodeEditorLibraryURL()];
 	If АдресБиблиотеки = Undefined Or Not ValueIsFilled(АдресБиблиотеки) Then
 		ФормаПриОткрытииЗавершениеСохраненияБиблиотекиРедактора(True, AdditionalParameters);
 	Else
-		ВидРедактора = AdditionalParameters.Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+		ВидРедактора = AdditionalParameters.Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
 		СохранитьБиблиотекуРедактораНаДиск(АдресБиблиотеки, ВидРедактора,
 			New NotifyDescription("ФормаПриОткрытииЗавершениеСохраненияБиблиотекиРедактора", ThisObject,
@@ -410,12 +410,12 @@ EndProcedure
 
 Procedure ФормаПриОткрытииЗавершениеСохраненияБиблиотекиРедактора(Result, AdditionalParameters) Export
 	Form = AdditionalParameters.Form;
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	ВидРедактора = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 	ВидыРедакторов = UT_CodeEditorClientServer.CodeEditorVariants();
 
-	If UT_CodeEditorClientServer.РедакторКодаИспользуетПолеHTML(ВидРедактора) Then
+	If UT_CodeEditorClientServer.CodeEditorUsesHTMLField(ВидРедактора) Then
 		For Each КлючЗначение In Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()] Do
-			//ИмяРеквизитаРедактора = УИ_РедакторКодаКлиентСервер.ИмяРеквизитаРедактораКода(КлючЗначение.Value.ИмяРеквизита);	
+			//ИмяРеквизитаРедактора = УИ_РедакторКодаКлиентСервер.AttributeNameCodeEditor(КлючЗначение.Value.ИмяРеквизита);	
 
 			If ВидРедактора = ВидыРедакторов.Monaco Then
 				Form[КлючЗначение.Value.ИмяРеквизита] = КаталогСохраненияРедактора(ВидРедактора)
@@ -539,10 +539,10 @@ Procedure СохранитьМодулиКонфигурацииВФайлыЗа
 		Return;
 	EndIf;
 
-	ОписаниеМетаданныхКонфигурации = UT_CodeEditorServerCall.ОписаниеМетаданныхКонфигурации(False);
+	ConfigurationMetadataDescription = UT_CodeEditorServerCall.ConfigurationMetadataDescription(False);
 
 	ПараметрыСохраненияИсходныхФайлов = New Structure;
-	ПараметрыСохраненияИсходныхФайлов.Insert("ОписаниеМетаданныхКонфигурации", ОписаниеМетаданныхКонфигурации);
+	ПараметрыСохраненияИсходныхФайлов.Insert("ConfigurationMetadataDescription", ConfigurationMetadataDescription);
 	ПараметрыСохраненияИсходныхФайлов.Insert("Parameters", Result);
 	ПараметрыСохраненияИсходныхФайлов.Insert("AdditionalParameters", AdditionalParameters);
 	ПараметрыСохраненияИсходныхФайлов.Insert("ИндексКаталога", 0);
@@ -584,7 +584,7 @@ Procedure СохранитьМодулиКонфигурацииВФайлыСо
 		ИмяРасширения = Undefined;
 	EndIf;
 	
-	For Each ТекКоллекция In ПараметрыСохранения.ОписаниеМетаданныхКонфигурации Do
+	For Each ТекКоллекция In ПараметрыСохранения.ConfigurationMetadataDescription Do
 		If TypeOf(ТекКоллекция.Value)<> Type("Structure") Then
 			Continue;
 		EndIf;
@@ -829,7 +829,7 @@ Function ОписаниеМетаданныйДляИнициализацииР�
 		Return Description;
 	EndIf;
 
-	ОписаниеКонфигурацииДляИнициализации = UT_CodeEditorServerCall.ОписнаиеМетаданныйДляИнициализацииРедактораMonaco();
+	ОписаниеКонфигурацииДляИнициализации = UT_CodeEditorServerCall.MetaDataDescriptionForMonacoEditorInitialize();
 	UT_ApplicationParameters.Insert("ОписаниеМетаданныйДляИнициализацииРедактораMonaco",
 		ОписаниеКонфигурацииДляИнициализации);
 
@@ -994,7 +994,7 @@ Procedure УстановитьОписаниеМодуляДляРедактор
 	EndIf;
 
 	РедакторыФормы = AdditionalParameters.Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(
+	ИдентификаторРедактора = UT_CodeEditorClientServer.EditorIDByFormItem(
 		AdditionalParameters.Form, AdditionalParameters.Item);
 	EditorSettings = РедакторыФормы[ИдентификаторРедактора];
 	AdditionalParameters.Insert("КаталогиИсходников", EditorSettings.EditorSettings.SourceFilesDirectories);
@@ -1011,7 +1011,7 @@ Procedure УстановитьОписаниеМодуляДляРедактор
 	AdditionalParameters.Insert("МассивИменМетаданного", МассивИменМетаданного);
 
 	If ВидМодуля = "manager" Then
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
+		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
 			МассивИменМетаданного[2], МассивИменМетаданного[3]);
 
 		КаталогМодуля = ИмяКаталогаВидаМетаданных(МассивИменМетаданного[2]);
@@ -1020,7 +1020,7 @@ Procedure УстановитьОписаниеМодуляДляРедактор
 		AdditionalParameters.Insert("ЭтоОбщийМодуль", False);
 
 	ElsIf ВидМодуля = "object" Then
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
+		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
 			МассивИменМетаданного[2], МассивИменМетаданного[3]);
 
 		КаталогМодуля = ИмяКаталогаВидаМетаданных(МассивИменМетаданного[2]);
@@ -1028,7 +1028,7 @@ Procedure УстановитьОписаниеМодуляДляРедактор
 
 		AdditionalParameters.Insert("ЭтоОбщийМодуль", False);
 	Else
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
+		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
 			"CommonModules", МассивИменМетаданного[1]);
 
 		КаталогМодуля = "CommonModules";
@@ -1101,12 +1101,12 @@ Procedure УстановитьОписаниеМетаданныхДляРеда
 	If МассивИменМетаданного.Count() = 1 Then
 		ОбновляемыеДанные = New Structure;
 
-		МассивИмен = UT_CodeEditorServerCall.СписокМетаданныхПоВиду(ВидОбъекта);
+		МассивИмен = UT_CodeEditorServerCall.MetadataListByType(ВидОбъекта);
 		For Each ТекИмя In МассивИмен Do
 			ОбновляемыеДанные.Insert(ТекИмя, New Structure);
 		EndDo;
 	Else
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
+		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
 			ВидОбъекта, МассивИменМетаданного[1]);
 		Description = ОписаниеОбъектаМетаданныхДляРедактораMonaco(ОписаниеОбъектаМетаданных);
 
@@ -1568,10 +1568,10 @@ Function ОписаниеМетаданныхКонфигурацииДляРе�
 		Return ОписаниеМетаданных;
 	EndIf;
 
-	АдресОписанияМетаданных = UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"];
+	АдресОписанияМетаданных = UT_ApplicationParameters["ConfigurationMetadataDescriptionAdress"];
 	If Not IsTempStorageURL(АдресОписанияМетаданных) Then
 		АдресОписанияМетаданных = UT_CommonServerCall.ConfigurationMetadataDescriptionAdress();
-		UT_ApplicationParameters.Insert("АдресОписанияМетаданныхКонфигурации", АдресОписанияМетаданных);
+		UT_ApplicationParameters.Insert("ConfigurationMetadataDescriptionAdress", АдресОписанияМетаданных);
 	EndIf;
 	МетаданныеКонфигурации = GetFromTempStorage(АдресОписанияМетаданных);
 

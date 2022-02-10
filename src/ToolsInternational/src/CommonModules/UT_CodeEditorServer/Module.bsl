@@ -30,8 +30,8 @@ Procedure FormOnCreateAtServer(Form, EditorType = Undefined) Export
 		
 	EndIf;
 	
-	AttributeNameEditorType=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора();
-	AttributeNameLibraryURL=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаАдресБиблиотеки();
+	AttributeNameEditorType=UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor();
+	AttributeNameLibraryURL=UT_CodeEditorClientServer.AttributeNameCodeEditorLibraryURL();
 	AttributeNameCodeEditorFormCodeEditors = UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors();
 	
 	AttributesArray=New Array;
@@ -49,13 +49,13 @@ Procedure FormOnCreateAtServer(Form, EditorType = Undefined) Export
 EndProcedure
 
 Procedure CreateCodeEditorItems(Form, EditorID, EditorField, EditorLanguage = "bsl") Export
-	AttributeNameEditorType=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора();
+	AttributeNameEditorType=UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor();
 	
 	EditorType = Form[AttributeNameEditorType];
 	
 	EditorData = New Structure;
 
-	If UT_CodeEditorClientServer.РедакторКодаИспользуетПолеHTML(EditorType) Then
+	If UT_CodeEditorClientServer.CodeEditorUsesHTMLField(EditorType) Then
 		If EditorField.Type <> FormFieldType.HTMLDocumentField Then
 			EditorField.Type = FormFieldType.HTMLDocumentField;
 		EndIf;
@@ -432,7 +432,7 @@ Function ConfigurationMetadataDescription(IncludeAttributesDescription = True) E
 	Return MetadataDescription;
 EndFunction
 
-Function ConfigurationMetadataDescriptionURL() Export
+Function ConfigurationMetadataDescriptionAdress() Export
 	Description = ConfigurationMetadataDescription();
 	
 	Return PutToTempStorage(Description, New UUID);
