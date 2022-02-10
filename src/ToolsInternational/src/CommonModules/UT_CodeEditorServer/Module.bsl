@@ -1,192 +1,191 @@
 #Region Public
 
-#Region СозданиеЭлементовФормы
+#Region FormItemsCreate
 
-Procedure FormOnCreateAtServer(Form, ВидРедактора = Undefined) Export
-	If ВидРедактора = Undefined Then
-		ПараметрыРедактора = CodeEditorCurrentSettings();
-		ВидРедактора = ПараметрыРедактора.Variant;
+Procedure FormOnCreateAtServer(Form, EditorType = Undefined) Export
+	If EditorType = Undefined Then
+		EditorSettings = CodeEditorCurrentSettings();
+		EditorType = EditorSettings.Variant;
 	EndIf;
-	ВариантыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorVariants = UT_CodeEditorClientServer.CodeEditorVariants();
 	
-	ЭтоWindowsКлиент = False;
-	ЭтоВебКлиент = True;
+	IsWindowsClient = False;
+	IsWebClient = True;
 	
-	ПараметрыСеансаВХранилище = UT_CommonServerCall.CommonSettingsStorageLoad(
+	SessionParametersInStorage = UT_CommonServerCall.CommonSettingsStorageLoad(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
-	If Type(ПараметрыСеансаВХранилище) = Type("Structure") Then
-		If ПараметрыСеансаВХранилище.Property("HTMLFieldBasedOnWebkit") Then
-			If Not ПараметрыСеансаВХранилище.HTMLFieldBasedOnWebkit Then
-				ВидРедактора = ВариантыРедактора.Text;
+	If Type(SessionParametersInStorage) = Type("Structure") Then
+		If SessionParametersInStorage.Property("HTMLFieldBasedOnWebkit") Then
+			If Not SessionParametersInStorage.HTMLFieldBasedOnWebkit Then
+				EditorType = EditorVariants.Text;
 			EndIf;
 		EndIf;
-		If ПараметрыСеансаВХранилище.Property("IsWindowsClient") Then
-			ЭтоWindowsКлиент = ПараметрыСеансаВХранилище.IsWindowsClient;
+		If SessionParametersInStorage.Property("IsWindowsClient") Then
+			IsWindowsClient = SessionParametersInStorage.IsWindowsClient;
 		EndIf;
-		If ПараметрыСеансаВХранилище.Property("IsWebClient") Then
-			ЭтоВебКлиент = ПараметрыСеансаВХранилище.IsWebClient;
+		If SessionParametersInStorage.Property("IsWebClient") Then
+			IsWebClient = SessionParametersInStorage.IsWebClient;
 		EndIf;
 		
 	EndIf;
 	
-	ИмяРеквизитаВидРедактора=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора();
-	ИмяРеквизитаАдресБиблиотеки=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаАдресБиблиотеки();
-	ИмяРеквизитаРедактораКодаСписокРедакторовФормы = UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы();
+	AttributeNameEditorType=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора();
+	AttributeNameLibraryURL=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаАдресБиблиотеки();
+	AttributeNameCodeEditorFormCodeEditors = UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors();
 	
-	МассивРеквизитов=New Array;
-	МассивРеквизитов.Add(New FormAttribute(ИмяРеквизитаВидРедактора, New TypeDescription("String", , New StringQualifiers(20,
+	AttributesArray=New Array;
+	AttributesArray.Add(New FormAttribute(AttributeNameEditorType, New TypeDescription("String", , New StringQualifiers(20,
 		AllowedLength.Variable)), "", "", True));
-	МассивРеквизитов.Add(New FormAttribute(ИмяРеквизитаАдресБиблиотеки, New TypeDescription("String", , New StringQualifiers(0,
+	AttributesArray.Add(New FormAttribute(AttributeNameLibraryURL, New TypeDescription("String", , New StringQualifiers(0,
 		AllowedLength.Variable)), "", "", True));
-	МассивРеквизитов.Add(New FormAttribute(ИмяРеквизитаРедактораКодаСписокРедакторовФормы, New TypeDescription, "", "", True));
+	AttributesArray.Add(New FormAttribute(AttributeNameCodeEditorFormCodeEditors, New TypeDescription, "", "", True));
 		
-	Form.ChangeAttributes(МассивРеквизитов);
+	Form.ChangeAttributes(AttributesArray);
 	
-	Form[ИмяРеквизитаВидРедактора]=ВидРедактора;
-	Form[ИмяРеквизитаАдресБиблиотеки] = ПоместитьБиблиотекуВоВременноеХранилище(Form.UUID, ЭтоWindowsКлиент, ЭтоВебКлиент, ВидРедактора);
-	Form[ИмяРеквизитаРедактораКодаСписокРедакторовФормы] = New Structure;
+	Form[AttributeNameEditorType]=EditorType;
+	Form[AttributeNameLibraryURL] = PutLibraryToTempStorage(Form.UUID, IsWindowsClient, IsWebClient, EditorType);
+	Form[AttributeNameCodeEditorFormCodeEditors] = New Structure;
 EndProcedure
 
-Procedure CreateCodeEditorItems(Form, ИдентификаторРедактора, ПолеРедактора, ЯзыкРедактора = "bsl") Export
-	ИмяРеквизитаВидРедактора=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора();
+Procedure CreateCodeEditorItems(Form, EditorID, EditorField, EditorLanguage = "bsl") Export
+	AttributeNameEditorType=UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора();
 	
-	ВидРедактора = Form[ИмяРеквизитаВидРедактора];
+	EditorType = Form[AttributeNameEditorType];
 	
-	ДанныеРедактора = New Structure;
+	EditorData = New Structure;
 
-	If UT_CodeEditorClientServer.РедакторКодаИспользуетПолеHTML(ВидРедактора) Then
-		If ПолеРедактора.Type <> FormFieldType.HTMLDocumentField Then
-			ПолеРедактора.Type = FormFieldType.HTMLDocumentField;
+	If UT_CodeEditorClientServer.РедакторКодаИспользуетПолеHTML(EditorType) Then
+		If EditorField.Type <> FormFieldType.HTMLDocumentField Then
+			EditorField.Type = FormFieldType.HTMLDocumentField;
 		EndIf;
-		ПолеРедактора.SetAction("DocumentComplete", "Подключаемый_ПолеРедактораДокументСформирован");
-		ПолеРедактора.SetAction("OnClick", "Подключаемый_ПолеРедактораПриНажатии");
+		EditorField.SetAction("DocumentComplete", "Подключаемый_ПолеРедактораДокументСформирован");
+		EditorField.SetAction("OnClick", "Подключаемый_ПолеРедактораПриНажатии");
 
-		ДанныеРедактора.Insert("Инициализирован", False);
+		EditorData.Insert("Initialized", False);
 
 	Else
-		ПолеРедактора.Type = FormFieldType.TextDocumentField;
-		ДанныеРедактора.Insert("Инициализирован", True);
+		EditorField.Type = FormFieldType.TextDocumentField;
+		EditorData.Insert("Initialized", True);
 	EndIf;
 
-	ДанныеРедактора.Insert("Lang", ЯзыкРедактора);
-	ДанныеРедактора.Insert("ПолеРедактора", ПолеРедактора.Name);
-	ДанныеРедактора.Insert("ИмяРеквизита", ПолеРедактора.DataPath);
+	EditorData.Insert("EditorLanguage", EditorLanguage);
+	EditorData.Insert("EditorField", EditorField.Name);
+	EditorData.Insert("AttributeName", EditorField.DataPath);
 	
-	ВариантыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorVariants = UT_CodeEditorClientServer.CodeEditorVariants();
 
-	ПараметрыРедактора = CodeEditorCurrentSettings();
-	ДанныеРедактора.Insert("ПараметрыРедактора", ПараметрыРедактора);
+	EditorSettings = CodeEditorCurrentSettings();
+	EditorData.Insert("EditorSettings", EditorSettings);
 
-	If ВидРедактора = ВариантыРедактора.Monaco Then
-		For Each KeyValue ИЗ ПараметрыРедактора.Monaco Do
-			ДанныеРедактора.ПараметрыРедактора.Insert(KeyValue.Key, KeyValue.Value);
+	If EditorType = EditorVariants.Monaco Then
+		For Each KeyValue ИЗ EditorSettings.Monaco Do
+			EditorData.EditorSettings.Insert(KeyValue.Key, KeyValue.Value);
 		EndDo;
 	EndIf;
 	
-	Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()].Insert(ИдентификаторРедактора,  ДанныеРедактора);	
+	Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()].Insert(EditorID,  EditorData);	
 EndProcedure
 
 #EndRegion
 
-Function ПоместитьБиблиотекуВоВременноеХранилище(ИдентификаторФормы, ЭтоWindowsКлиент, ЭтоВебКлиент, ВидРедактора=Undefined) Export
-	If ВидРедактора = Undefined Then
-		ВидРедактора = ТекущийВариантРедактораКода1С();
+Function PutLibraryToTempStorage(FormID, IsWindowsClient, IsWebClient, EditorType=Undefined) Export
+	If EditorType = Undefined Then
+		EditorType = CodeEditor1CCurrentVariant();
 	EndIf;
-	ВариантыРедактора = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorVariants = UT_CodeEditorClientServer.CodeEditorVariants();
 	
-	If ВидРедактора = ВариантыРедактора.Monaco Then
-		If ЭтоWindowsКлиент Then
-			ДвоичныеДанныеБиблиотеки=GetCommonTemplate("UT_MonacoEditorWindows");
+	If EditorType = EditorVariants.Monaco Then
+		If IsWindowsClient Then
+			LibraryBinaryData=GetCommonTemplate("UT_MonacoEditorWindows");
 		Else
-			ДвоичныеДанныеБиблиотеки=GetCommonTemplate("UT_MonacoEditor");
+			LibraryBinaryData=GetCommonTemplate("UT_MonacoEditor");
 		EndIf;
-	ElsIf ВидРедактора = ВариантыРедактора.Ace Then
-		ДвоичныеДанныеБиблиотеки=GetCommonTemplate("UT_Ace");
+	ElsIf EditorType = EditorVariants.Ace Then
+		LibraryBinaryData=GetCommonTemplate("UT_Ace");
 	Else
 		Return Undefined;
 	EndIf;
 	
-	СтруктураБиблиотеки=New Map;
+	LibraryStructure=New Map;
 
-	If Not ЭтоВебКлиент Then
-		СтруктураБиблиотеки.Insert("editor.zip",ДвоичныеДанныеБиблиотеки);
+	If Not IsWebClient Then
+		LibraryStructure.Insert("editor.zip",LibraryBinaryData);
 
-		Return PutToTempStorage(СтруктураБиблиотеки, ИдентификаторФормы);
+		Return PutToTempStorage(LibraryStructure, FormID);
 	EndIf;
 	
-	КаталогНаСервере=GetTempFileName();
-	CreateDirectory(КаталогНаСервере);
+	DirectoryAtServer=GetTempFileName();
+	CreateDirectory(DirectoryAtServer);
 
-	Stream=ДвоичныеДанныеБиблиотеки.OpenStreamForRead();
+	Stream=LibraryBinaryData.OpenStreamForRead();
 
-	ЧтениеZIP=New ZipFileReader(Stream);
-	ЧтениеZIP.ExtractAll(КаталогНаСервере, ZIPRestoreFilePathsMode.Restore);
+	ZipReader=New ZipFileReader(Stream);
+	ZipReader.ExtractAll(DirectoryAtServer, ZIPRestoreFilePathsMode.Restore);
 
 
-	ФайлыАрхива=FindFiles(КаталогНаСервере, "*", True);
-	For Each ФайлБиблиотеки In ФайлыАрхива Do
-		КлючФайла=StrReplace(ФайлБиблиотеки.FullName, КаталогНаСервере + GetPathSeparator(), "");
-		If ФайлБиблиотеки.IsDirectory() Then
+	ArchiveFiles=FindFiles(DirectoryAtServer, "*", True);
+	For Each LibraryFile In ArchiveFiles Do
+		FileKey=StrReplace(LibraryFile.FullName, DirectoryAtServer + GetPathSeparator(), "");
+		If LibraryFile.IsDirectory() Then
 			Continue;
 		EndIf;
 
-		СтруктураБиблиотеки.Insert(КлючФайла, New BinaryData(ФайлБиблиотеки.FullName));
+		LibraryStructure.Insert(FileKey, New BinaryData(LibraryFile.FullName));
 	EndDo;
 
-	АдресБиблиотеки=PutToTempStorage(СтруктураБиблиотеки, ИдентификаторФормы);
+	LibraryUrl=PutToTempStorage(LibraryStructure, FormID);
 
 	Try
-		DeleteFiles(КаталогНаСервере);
+		DeleteFiles(DirectoryAtServer);
 	Except
 		// TODO:
 	EndTry;
 
-	Return АдресБиблиотеки;
+	Return LibraryUrl;
 EndFunction
 
-#Region НастройкиИнструментов
+#Region ToolsSettings
 
-
-Function ТекущийВариантРедактораКода1С() Export
-	ПараметрыРедактораКода = CodeEditorCurrentSettings();
+Function CodeEditor1CCurrentVariant() Export
+	CodeEditorSettings = CodeEditorCurrentSettings();
 	
-	РедакторКода = ПараметрыРедактораКода.Variant;
+	CodeEditor = CodeEditorSettings.Variant;
 	
-	УИ_ПараметрыСеанса = UT_Common.CommonSettingsStorageLoad(
+	UT_SessionParameters = UT_Common.CommonSettingsStorageLoad(
 		UT_CommonClientServer.ObjectKeyInSettingsStorage(),
 		UT_CommonClientServer.SessionParametersSettingsKey());
 		
-	If Type(УИ_ПараметрыСеанса) = Type("Structure") Then
-		If УИ_ПараметрыСеанса.HTMLFieldBasedOnWebkit<>True Then
-			РедакторКода = UT_CodeEditorClientServer.CodeEditorVariants().Text;
+	If Type(UT_SessionParameters) = Type("Structure") Then
+		If UT_SessionParameters.HTMLFieldBasedOnWebkit<>True Then
+			CodeEditor = UT_CodeEditorClientServer.CodeEditorVariants().Text;
 		EndIf;
 	EndIf;
 	
-	Return РедакторКода;
+	Return CodeEditor;
 EndFunction
 
-Procedure SetCodeEditorNewSettings(НовыеНастройки) Export
+Procedure SetCodeEditorNewSettings(NewSettings) Export
 	UT_Common.CommonSettingsStorageSave(
-		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода",
-		НовыеНастройки);
+		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "CodeEditorSettings",
+		NewSettings);
 EndProcedure
 
 Function CodeEditorCurrentSettings() Export
-	СохраненныеПараметрыРедактора = UT_Common.CommonSettingsStorageLoad(
-		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "ПараметрыРедактораКода");
+	EditorSavedSettings = UT_Common.CommonSettingsStorageLoad(
+		UT_CommonClientServer.SettingsDataKeyInSettingsStorage(), "CodeEditorSettings");
 
-	ПараметрыПоУмолчанию = UT_CodeEditorClientServer.ПараметрыРедактораКодаПоУмолчанию();
-	If СохраненныеПараметрыРедактора = Undefined Then		
+	DefaultSettings = UT_CodeEditorClientServer.CodeEditorCurrentSettingsByDefault();
+	If EditorSavedSettings = Undefined Then		
 		MonacoEditorParameters = CurrentMonacoEditorParameters();
 		
-		FillPropertyValues(ПараметрыПоУмолчанию.Monaco, MonacoEditorParameters);
+		FillPropertyValues(DefaultSettings.Monaco, MonacoEditorParameters);
 	Else
-		FillPropertyValues(ПараметрыПоУмолчанию, СохраненныеПараметрыРедактора,,"Monaco");
-		FillPropertyValues(ПараметрыПоУмолчанию.Monaco, СохраненныеПараметрыРедактора.Monaco);
+		FillPropertyValues(DefaultSettings, EditorSavedSettings,,"Monaco");
+		FillPropertyValues(DefaultSettings.Monaco, EditorSavedSettings.Monaco);
 	EndIf;
 	
-	Return ПараметрыПоУмолчанию;
+	Return DefaultSettings;
 	
 EndFunction
 

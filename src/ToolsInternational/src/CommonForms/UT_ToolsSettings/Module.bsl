@@ -215,7 +215,7 @@ EndProcedure
 
 &AtServer
 Procedure ApplyAtServer()
-	CodeEditorParameters = UT_CodeEditorClientServer.ПараметрыРедактораКодаПоУмолчанию();
+	CodeEditorParameters = UT_CodeEditorClientServer.CodeEditorCurrentSettingsByDefault();
 	CodeEditorParameters.FontSize = FontSize;
 	CodeEditorParameters.Вариант = EditorOf1CScript;
 	

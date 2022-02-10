@@ -16,7 +16,7 @@ Function ИмяРеквизитаРедактораКодаАдресБибли�
 	Return ПрефиксЭлементовРедактораКода()+"_АдресБиблиотекиВоВременномХранилище";
 EndFunction
 
-Function ИмяРеквизитаРедактораКодаСписокРедакторовФормы() Export
+Function AttributeNameCodeEditorFormCodeEditors() Export
 	Return ПрефиксЭлементовРедактораКода()+"_СписокРедакторовФормы";
 EndFunction
 
@@ -44,7 +44,7 @@ Function РедакторКодаИспользуетПолеHTML(ВидРеда
 EndFunction
 
 Function ИдентификаторРедактораПоЭлементуФормы(Form, Item) Export
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
+	РедакторыФормы = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 
 	For Each КлючЗначение In РедакторыФормы Do
 		If КлючЗначение.Value.ПолеРедактора = Item.Name Then
@@ -113,24 +113,24 @@ Function ЯзыкСинтаксисаРедактораMonacoПоУмолчан�
 EndFunction
 
 Function    MonacoEditorParametersByDefault() Export
-	ПараметрыРедактора = New Structure;
-	ПараметрыРедактора.Insert("LinesHeight", 0);
-	ПараметрыРедактора.Insert("Theme", ТемаРедактораMonacoПоУмолчанию());
-	ПараметрыРедактора.Insert("ScriptVariant", ЯзыкСинтаксисаРедактораMonacoПоУмолчанию());
-	ПараметрыРедактора.Insert("UseScriptMap", False);
-	ПараметрыРедактора.Insert("HideLineNumbers", False);
-	ПараметрыРедактора.Insert("SourceFilesDirectories", New Array);
+	EditorSettings = New Structure;
+	EditorSettings.Insert("LinesHeight", 0);
+	EditorSettings.Insert("Theme", ТемаРедактораMonacoПоУмолчанию());
+	EditorSettings.Insert("ScriptVariant", ЯзыкСинтаксисаРедактораMonacoПоУмолчанию());
+	EditorSettings.Insert("UseScriptMap", False);
+	EditorSettings.Insert("HideLineNumbers", False);
+	EditorSettings.Insert("SourceFilesDirectories", New Array);
 	
-	Return ПараметрыРедактора;
+	Return EditorSettings;
 EndFunction
 
-Function ПараметрыРедактораКодаПоУмолчанию() Export
-	ПараметрыРедактора = New Structure;
-	ПараметрыРедактора.Insert("Variant",  ВариантРедактораПоУмолчанию());
-	ПараметрыРедактора.Insert("FontSize", 0);
-	ПараметрыРедактора.Insert("Monaco", MonacoEditorParametersByDefault());
+Function CodeEditorCurrentSettingsByDefault() Export
+	EditorSettings = New Structure;
+	EditorSettings.Insert("Variant",  ВариантРедактораПоУмолчанию());
+	EditorSettings.Insert("FontSize", 0);
+	EditorSettings.Insert("Monaco", MonacoEditorParametersByDefault());
 	
-	Return ПараметрыРедактора;
+	Return EditorSettings;
 EndFunction
 
 Function НовыйОписаниеКаталогаИсходныхФайловКонфигурации() Export
