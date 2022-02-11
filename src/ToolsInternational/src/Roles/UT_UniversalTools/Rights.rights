@@ -351,7 +351,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.UT_Algorithms.Command.ВыполнитьАлгоритм</name>
+		<name>Catalog.UT_Algorithms.Command.ExecuteAlgorithm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

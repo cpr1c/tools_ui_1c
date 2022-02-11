@@ -442,231 +442,231 @@ Procedure ShowExportResult(Command)
 EndProcedure
 
 &AtClient
-Procedure EditMessageNumbers(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ТекИмяФормы = ПолучитьИмяФормы() + "Форма.НомераСообщенийУзлаПланаОбмена";
-		ТекПараметры = Новый Структура("ExchangeNodeRef", ExchangeNodeRef);
-		ОткрытьФорму(ТекИмяФормы, ТекПараметры);
-	КонецЕсли;
+Procedure EditMessagesNumbers(Command)
+	
+	If ValueIsFilled(ExchangeNodeRef) Then
+		CurFormName = GetFormName() + "Form.ExchangePlanNodeMessageNumbers";
+		CurParameters = New Structure("ExchangeNodeRef", ExchangeNodeRef);
+		OpenForm(CurFormName, CurParameters);
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddConstantRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюКонстантыВСписке();
-	КонецЕсли;
+Procedure AddConstantRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddConstantRegistrationInList();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteConstantRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		УдалитьРегистрациюКонстантыВСписке();
-	КонецЕсли;
+Procedure DeleteConstantRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		DeleteConstantRegistrationInList();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddRefRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюВСписокСсылок();
-	КонецЕсли;
+Procedure AddRefRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddRegistrationInReferenceList();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddObjectDeletionRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюУдаленияОбъектаВСписокСсылок();
-	КонецЕсли;
+Procedure AddObjectDeletionRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddObjectDeletionRegistrationInReferenceList();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteRefRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		УдалитьРегистрациюИзСпискаСсылок();
-	КонецЕсли;
+Procedure DeleteRefRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		DeleteRegistrationFromReferenceList();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddRefRegistrationPickup(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюВСписокСсылок(Истина);
-	КонецЕсли;
+Procedure AddRefRegistrationPickup(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddRegistrationInReferenceList(True);
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddRefRegistrationFilter(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюВСписокОтбор();
-	КонецЕсли;
+Procedure AddRefRegistrationFilter(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddRegistrationInListFilter();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteRefRegistrationFilter(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		УдалитьРегистрациюВСпискеОтбор();
-	КонецЕсли;
+Procedure DeleteRefRegistrationFilter(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		DeleteRegistrationInListFilter();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddRegistrationForAutoObjects(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюВыделенныхОбъектов(Ложь);
-	КонецЕсли;
+Procedure AddRegistrationForAutoObjects(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddSelectedObjectRegistration(False);
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteRegistrationForAutoObjects(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		УдалитьРегистрациюВыделенныхОбъектов(Ложь);
-	КонецЕсли;
+Procedure DeleteRegistrationForAutoObjects(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		DeleteSelectedObjectRegistration(False);
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddRegistrationForAllObjects(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюВыделенныхОбъектов();
-	КонецЕсли;
+Procedure AddRegistrationForAllObjects(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddSelectedObjectRegistration();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteRegistrationForAllObjects(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		УдалитьРегистрациюВыделенныхОбъектов();
-	КонецЕсли;
+Procedure DeleteRegistrationForAllObjects(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		DeleteSelectedObjectRegistration();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure AddRecordSetRegistrationFilter(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ДобавитьРегистрациюВНаборЗаписейОтбор();
-	КонецЕсли;
+Procedure AddRecordSetRegistrationFilter(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		AddRegistrationToRecordSetFilter();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteRecordSetRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		УдалитьРегистрациюВНабореЗаписей();
-	КонецЕсли;
+Procedure DeleteRecordSetRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		DeleteRegistrationInRecordSet();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteRecordSetRegistrationFilter(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		УдалитьРегистрациюВНабореЗаписейОтбор();
-	КонецЕсли;
+Procedure DeleteRecordSetRegistrationFilter(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		DeleteRegistrationInRecordSetFilter();
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure RefreshAllData(Команда)
-	ЗаполнитьКоличествоРегистрацийВДереве();
-	ОбновитьСодержимоеСтраницы();
+Procedure RefreshAllData(Command)
+	FillRegistrationCountInTreeRows();
+	UpdatePageContent();
 EndProcedure
 
 &AtClient
-Procedure AddQueryResultRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ОперацияСРезультатамиЗапроса(Истина);
-	КонецЕсли;
+Procedure AddQueryResultRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		ActionWithQueryResult(True);
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure DeleteQueryResultRegistration(Команда)
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ОперацияСРезультатамиЗапроса(Ложь);
-	КонецЕсли;
+Procedure DeleteQueryResultRegistration(Command)
+	If ValueIsFilled(ExchangeNodeRef) Then
+		ActionWithQueryResult(False);
+	EndIf;
 EndProcedure
 
 &AtClient
-Procedure OpenSettingsForm(Команда)
-	ОткрытьФормуНастроекОбработки();
+Procedure OpenSettingsForm(Command)
+	OpenDataProcessorSettingsForm();
 EndProcedure
 
 &AtClient
-Procedure EditObjectMessageNumber(Команда)
-
-	Если Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.ConstantsPage Тогда
-		РедактироватьНомерСообщенияКонстанты();
-
-	ИначеЕсли Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.ReferencesListPage Тогда
-		РедактироватьНомерСообщенияСсылки();
-
-	ИначеЕсли Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.RecordSetPage Тогда
-		РедактироватьНомерСообщенияСписокНаборов();
+Procedure EditObjectMessageNumber(Command)
+	
+	If Items.ObjectsListOptions.CurrentPage = Items.ConstantsPage Then
+		EditConstantMessageNo();
 		
-	КонецЕсли
-	;
-
+	ElsIf Items.ObjectsListOptions.CurrentPage = Items.ReferencesListPage Then
+		EditRefMessageNo();
+		
+	ElsIf Items.ObjectsListOptions.CurrentPage = Items.RecordSetPage Then
+		EditMessageNoSetList()
+		
+	EndIf;
+	
 EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Attachable_ExecuteToolsCommonCommand(Команда) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
+
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
+// PRIVATE
 //
 
 &AtClient
-Procedure ОбработкаВыбораЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
-	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
-		Возврат;
-	КонецЕсли
-	;
-	ВыбранноеЗначение = ДополнительныеПараметры.ВыбранноеЗначение;
+Procedure ChoiceProcessingCompletion(Val QuestionResult, Val AdditionalParameters) Export
+	If QuestionResult <> DialogReturnCode.Yes Then
+		Return
+	EndIf;
+	SelectedValue = AdditionalParameters.SelectedValue;
 
-	СообщитьОРезультатахРегистрации(ВыбранноеЗначение.ДействиеВыбора, ИзменитьРегистрациюРезультатаЗапросаСервер(
-		ВыбранноеЗначение.ДействиеВыбора, ВыбранноеЗначение.ДанныеВыбора));
+	ReportRegistrationResults(SelectedValue.ChoiceAction, ChangeQueryResultRegistrationServer(
+		SelectedValue.ChoiceAction, SelectedValue.ChoiceData));
 
-	ЗаполнитьКоличествоРегистрацийВДереве();
-	ОбновитьСодержимоеСтраницы();
+	FillRegistrationCountInTreeRows();
+	UpdatePageContent();
 EndProcedure
 
 &AtClient
-Procedure РедактироватьНомерСообщенияКонстанты()
-	ТекДанные = Элементы.ConstantsList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	Оповещение = Новый ОписаниеОповещения("РедактироватьНомерСообщенияКонстантыЗавершение", ЭтотОбъект, Новый Структура);
-	Оповещение.ДополнительныеПараметры.Вставить("МетаПолноеИмя", ТекДанные.МетаПолноеИмя);
-
-	НомерСообщения = ТекДанные.НомерСообщения;
-	Подсказка = НСтр("ru='Номер отправленного'");
-
-	ПоказатьВводЧисла(Оповещение, НомерСообщения, Подсказка);
+Procedure EditConstantMessageNo()
+	curData = Items.ConstantsList.CurrentData;
+	If curData = Undefined Then
+		Return;
+	EndIf;
+	
+	Notification = New NotifyDescription("EditConstantMessageNoCompletion", ThisObject, New Structure);
+	Notification.AdditionalParameters.Insert("MetaFullName", curData.MetaFullName);
+	
+	MessageNumber = curData.MessageNo;
+	Tooltip = NStr("ru = 'Номер отправленного'; en = 'Number of the last sent message'"); 
+	
+	ShowInputNumber(Notification, MessageNumber, Tooltip);
 EndProcedure
 
 &AtClient
-Procedure РедактироватьНомерСообщенияКонстантыЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
-	Если НомерСообщения = Неопределено Тогда
-		// Отказ от ввода
-		Возврат;
-	КонецЕсли;
+Procedure EditConstantMessageNoCompletion(Val MessageNumber, Val AdditionalParameters) Export
+	If MessageNumber = Undefined Then
+		// Canceling input.
+		Return;
+	EndIf;
 
-	СообщитьОРезультатахРегистрации(НомерСообщения, ИзменитьНомерСообщенияНаСервере(ExchangeNodeRef, НомерСообщения,
-		ДополнительныеПараметры.МетаПолноеИмя));
+	ReportRegistrationResults(MessageNumber, EditMessageNumberAtServer(ExchangeNodeRef, MessageNumber,
+		AdditionalParameters.MetaFullName));
 
-	Элементы.ConstantsList.Обновить();
-	ЗаполнитьКоличествоРегистрацийВДереве();
+	Items.ConstantsList.Refresh();
+	FillRegistrationCountInTreeRows();
 EndProcedure
 
 &AtClient
-Procedure РедактироватьНомерСообщенияСсылки()
-	ТекДанные = Элементы.RefsList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	Оповещение = Новый ОписаниеОповещения("РедактироватьНомерСообщенияСсылкиЗавершение", ЭтотОбъект, Новый Структура);
-	Оповещение.ДополнительныеПараметры.Вставить("Ссылка", ТекДанные.Ссылка);
-
-	НомерСообщения = ТекДанные.НомерСообщения;
-	Подсказка = НСтр("ru='Номер отправленного'");
-
-	ПоказатьВводЧисла(Оповещение, НомерСообщения, Подсказка);
+Procedure EditRefMessageNo()
+	curData = Items.RefsList.CurrentData;
+	If curData = Undefined Then
+		Return;
+	EndIf;
+	
+	Notification = New NotifyDescription("EditRefMessageNoCompletion", ThisObject, New Structure);
+	Notification.AdditionalParameters.Insert("Ref", curData.Ref);
+	
+	MessageNumber = curData.MessageNo;
+	Tooltip = NStr("ru = 'Номер отправленного'; en = 'Number of the last sent message'"); 
+	
+	ShowInputNumber(Notification, MessageNumber, Tooltip);
 EndProcedure
 
 &AtClient
