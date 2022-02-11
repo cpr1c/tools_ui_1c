@@ -180,7 +180,7 @@ Procedure UnloadSourceModules(Command)
 		EndIf;
 		
 		SourceDescription = New Structure;
-		SourceDescription.Insert("Source", Row.Src);
+		SourceDescription.Insert("Source", Row.Source);
 		SourceDescription.Insert("Directory", Row.Directory);
 		SourceDescription.Insert("OnlyModules", Row.OnlyModules);
 		
