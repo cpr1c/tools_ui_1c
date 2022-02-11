@@ -139,7 +139,7 @@ Function AllRefsTypeDescription() Export
 	AddTypesByMetaDataObjectTypes(TypesArray, "BusinessProcesses", "BusinessProcess");
 	AddTypesByMetaDataObjectTypes(TypesArray, "Tasks", "Task");
 	AddTypesByMetaDataObjectTypes(TypesArray, "ExchangePlans", "ExchangePlan");
-	AddTypesByMetaDataObjectTypes(TypesArray, "Enumerations", "Enumeration");
+	AddTypesByMetaDataObjectTypes(TypesArray, "Enums", "Enum");
 	Return New TypeDescription(TypesArray);
 
 EndFunction
