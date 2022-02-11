@@ -88,7 +88,7 @@ Procedure InitializeFormEditorsAfterFieldsFormed(Form, FormEditors, EditorType, 
 
 	//		ConfigurationMetadata = MetadataDescriptionForMonacoEditorInitialization();
 			DocumentView.updateMetadata(UT_CommonClientServer.mWriteJSON(
-				ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(
+				GetMetadataObjectsListFromCollectionForMonacoEditor(
 				ConfigurationDescriptionForInitialization.CommonModules)), "commonModules.items");
 		EndIf;
 	EndDo;
@@ -1084,7 +1084,7 @@ Procedure SetModuleDescriptionForMonacoEditorEndFileReading(AdditionalParameters
 	If AdditionalParameters.IsCommonModule Then
 		DocumentView.parseCommonModule(AdditionalParameters.MetadataObjectDescription.Name, ModuleText, False);
 	Else
-		UpdatedMetadataObjectsMap = СоответствиеОбновляемыхОбъектовМетаданныхРедактораMonacoИПараметровСобытияОблновленияМетаданных();
+		UpdatedMetadataObjectsMap = MapOfMonacoEditorUpdatedMetadataObjectsAndMetadataUpdateEventParameters();
 		UpdatedEditorCollection = UpdatedMetadataObjectsMap[AdditionalParameters.MetadataObjectDescription.ObjectType];
 		UpdatedEditorCollection = UpdatedEditorCollection + "."
 			+ AdditionalParameters.MetadataObjectDescription.Name + "."
@@ -1102,7 +1102,7 @@ Procedure SetMetadataEditorForMonacoEditor(UpdatedMetadataObject, AdditionalPara
 
 	ObjectType = MetadataNamesArray[0];
 
-	UpdatedMetadataObjectsMap = СоответствиеОбновляемыхОбъектовМетаданныхРедактораMonacoИПараметровСобытияОблновленияМетаданных();
+	UpdatedMetadataObjectsMap = MapOfMonacoEditorUpdatedMetadataObjectsAndMetadataUpdateEventParameters();
 	UpdatedEditorCollection = UpdatedMetadataObjectsMap[ObjectType];
 
 	If MetadataNamesArray.Count() = 1 Then
@@ -1185,7 +1185,7 @@ Function MonacoEditorTypeBy1CTypeAsString(Type1COrString, ReferenceTypesMap)
 	Return "";
 EndFunction
 
-Function GetLInkToMetadataObjectForMonacoEditor(Attribute, TypesMap)
+Function GetLinkToMetadataObjectForMonacoEditor(Attribute, TypesMap)
 
 	Link = "";
 
@@ -1204,78 +1204,78 @@ Function GetLInkToMetadataObjectForMonacoEditor(Attribute, TypesMap)
 
 EndFunction
 
-Procedure AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, Attribute, ПолучатьСвязиРеквизита,
+Procedure AddAttributeDescriptionForMonacoEditor(AttributesDescription, Attribute, GetAttributeLinks,
 	TypesMap)
 
 	Link = "";
-	If ПолучатьСвязиРеквизита Then
-		Link= GetLInkToMetadataObjectForMonacoEditor(Attribute, TypesMap);
+	If GetAttributeLinks Then
+		Link= GetLinkToMetadataObjectForMonacoEditor(Attribute, TypesMap);
 	EndIf;
 
-	ОписаниеРеквизита = New Structure("name", Attribute.Name);
+	AttributeDescription = New Structure("name", Attribute.Name);
 
 	If ValueIsFilled(Link) Then
-		ОписаниеРеквизита.Insert("ref", Link);
+		AttributeDescription.Insert("ref", Link);
 	EndIf;
 
-	ОписаниеРеквизитов.Insert(Attribute.Name, ОписаниеРеквизита);
+	AttributesDescription.Insert(Attribute.Name, AttributeDescription);
 
 EndProcedure
 
 Function MetadataObjectDescriptionForMonacoEditor(MetadataObjectDescription)
 	TypesMap = ConfigurationReferenceTypesMap();
-	ОписаниеРеквизитов = New Structure;
-	ОписаниеРесурсов = New Structure;
-	ОписаниеПредопределенных = New Structure;
-	ОписаниеТабличныхЧастей = New Structure;
+	AttributesDescription = New Structure;
+	ResourcesDescription = New Structure;
+	PredefinedDescription = New Structure;
+	TabularSectionsDescription = New Structure;
 	AdditionalProperties = New Structure;
 
 	If MetadataObjectDescription.ObjectType = "Enum" Or MetadataObjectDescription.ObjectType
-		= "перечисления" Then
+		= "enums" Then
 
-		For Each КлючЗначениеЗначенияПеречисления In MetadataObjectDescription.EnumValues Do
-			ОписаниеРеквизитов.Insert(КлючЗначениеЗначенияПеречисления.Key, New Structure("name",
-				КлючЗначениеЗначенияПеречисления.Value));
+		For Each EmunValueKeyValue In MetadataObjectDescription.EnumValues Do
+			AttributesDescription.Insert(EmunValueKeyValue.Key, New Structure("name",
+				EmunValueKeyValue.Value));
 		EndDo;
 
 	Else
 
 		If MetadataObjectDescription.Property("Attributes") Then
-			For Each КлючЗначениеРеквизит In MetadataObjectDescription.Attributes Do
-				AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, True,
+			For Each AttributeKeyValue In MetadataObjectDescription.Attributes Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, True,
 					TypesMap);
 			EndDo;
 		EndIf;
 		If MetadataObjectDescription.Property("StandardAttributes") Then
-			For Each КлючЗначениеРеквизит In MetadataObjectDescription.StandardAttributes Do
-				AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, False,
+			For Each AttributeKeyValue In MetadataObjectDescription.StandardAttributes Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, False,
 					TypesMap);
 			EndDo;
 		EndIf;
 		If MetadataObjectDescription.Property("Predefined") Then
 				
-				//If ИмяМетаданных(FullName) = "ChartOfAccounts" Then
+				//If MetadataName(FullName) = "ChartOfAccounts" Then
 				//	
 				//	Query = New Query(
-				//	"ВЫБРАТЬ
-				//	|	ChartOfAccounts.Code КАК Code,
-				//	|	ChartOfAccounts.PredefinedDataName КАК Name
-				//	|ИЗ
-				//	|	&Table КАК ChartOfAccounts
-				//	|ГДЕ
+				//	"SELECT
+				//	|	ChartOfAccounts.Code AS Code,
+				//	|	ChartOfAccounts.PredefinedDataName AS Name
+				//	|FROM
+				//	|	&Table AS ChartOfAccounts
+				//	|WHERE
 				//	|	ChartOfAccounts.Predefined");				
 				//						
 				//	Query.Text = StrReplace(Query.Text, "&Table", FullName);
 				//	
-				//	Выборка = Query.Execute().StartChoosing();
+				//	Selection = Query.Execute().StartChoosing();
 				//	
-				//	While Выборка.Next() Do 
-				//		ОписаниеПредопределенных.Insert(Выборка.Name, StrTemplate("%1 (%2)", Выборка.Name, Выборка.Code));
+				//	While Selection.Next() Do 
+				//		PredefinedDescription.Insert(Selection.Name, StrTemplate("%1 (%2)", Selection.Name, Selection.Code));
 				//	EndDo;
 				//	
 				//Else				
-			For Each КлючЗначениеИмя In MetadataObjectDescription.Predefined Do
-				ОписаниеПредопределенных.Insert(КлючЗначениеИмя.Key, "");
+			For Each NameKeyValue In MetadataObjectDescription.Predefined Do
+				PredefinedDescription.Insert(NameKeyValue.Key, "");
 			EndDo;
 				
 				//EndIf;
@@ -1284,71 +1284,71 @@ Function MetadataObjectDescriptionForMonacoEditor(MetadataObjectDescription)
 
 		If MetadataObjectDescription.Property("Dimensions") Then
 
-			For Each КлючЗначениеРеквизит In MetadataObjectDescription.Dimensions Do
-				AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, True,
+			For Each AttributeKeyValue In MetadataObjectDescription.Dimensions Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, True,
 					TypesMap);
 			EndDo;
-			For Each КлючЗначениеРеквизит In MetadataObjectDescription.Resources Do
-				AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, True,
+			For Each AttributeKeyValue In MetadataObjectDescription.Resources Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, True,
 					TypesMap);
 			EndDo;
 				
-				//ЗаполнитьТипРегистра(AdditionalProperties, ОбъектМетаданных, FullName);				
+				//FillRegisterType(AdditionalProperties, MetadataObject, FullName);				
 
 		EndIf;
 
 		If MetadataObjectDescription.Property("TabularSections") Then
 
-			For Each КлючЗначениеТабличнаяЧасть In MetadataObjectDescription.TabularSections Do
+			For Each TabularSectionKeyValue In MetadataObjectDescription.TabularSections Do
 
-				ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-				ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-					+ ТабличнаяЧасть.Synonym));
+				TabularSection = TabularSectionKeyValue.Value;
+				AttributesDescription.Insert(TabularSection.Name, New Structure("name", "TS: "
+					+ TabularSection.Synonym));
 
-				ОписаниеТабличнойЧасти = New Structure;
+				TabularSectionDescription = New Structure;
 
-				If ТабличнаяЧасть.Property("StandardAttributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-						ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+				If TabularSection.Property("StandardAttributes") Then
+					For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+						TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 					EndDo;
 				EndIf;
 
-				If ТабличнаяЧасть.Property("Attributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-						AddAttributeDescriptionForMonacoEditor(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
+				If TabularSection.Property("Attributes") Then
+					For Each TabularSectionAttribute In TabularSection.Attributes Do
+						AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
 							True, TypesMap);
 					EndDo;
 				EndIf;
 
-				ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+				TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 			EndDo;
 
 		EndIf;
 		If MetadataObjectDescription.Property("StandardTabularSections") Then
 
-			For Each КлючЗначениеТабличнаяЧасть In MetadataObjectDescription.StandardTabularSections Do
+			For Each TabularSectionKeyValue In MetadataObjectDescription.StandardTabularSections Do
 
-				ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-				ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-					+ ТабличнаяЧасть.Synonym));
+				TabularSection = TabularSectionKeyValue.Value;
+				AttributesDescription.Insert(TabularSection.Name, New Structure("name", "ТЧ: "
+					+ TabularSection.Synonym));
 
-				ОписаниеТабличнойЧасти = New Structure;
+				TabularSectionDescription = New Structure;
 
-				If ТабличнаяЧасть.Property("StandardAttributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-						ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+				If TabularSection.Property("StandardAttributes") Then
+					For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+						TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 					EndDo;
 				EndIf;
 
-				If ТабличнаяЧасть.Property("Attributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-						AddAttributeDescriptionForMonacoEditor(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
+				If TabularSection.Property("Attributes") Then
+					For Each TabularSectionAttribute In TabularSection.Attributes Do
+						AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
 							True, TypesMap);
 					EndDo;
 				EndIf;
 
-				ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+				TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 			EndDo;
 
@@ -1356,161 +1356,161 @@ Function MetadataObjectDescriptionForMonacoEditor(MetadataObjectDescription)
 
 	EndIf;
 
-	СтруктураОбъекта = New Structure;
-	СтруктураОбъекта.Insert("properties", ОписаниеРеквизитов);
+	ObjectStructure = New Structure;
+	ObjectStructure.Insert("properties", AttributesDescription);
 
-	For Each Обход In AdditionalProperties Do
-		СтруктураОбъекта.Insert(Обход.Key, Обход.Value);
+	For Each Iterator In AdditionalProperties Do
+		ObjectStructure.Insert(Iterator.Key, Iterator.Value);
 	EndDo;
 
-	If ОписаниеРесурсов.Count() > 0 Then
-		СтруктураОбъекта.Insert("resources", ОписаниеРесурсов);
+	If ResourcesDescription.Count() > 0 Then
+		ObjectStructure.Insert("resources", ResourcesDescription);
 	EndIf;
 
-	If ОписаниеПредопределенных.Count() > 0 Then
-		СтруктураОбъекта.Insert("predefined", ОписаниеПредопределенных);
+	If PredefinedDescription.Count() > 0 Then
+		ObjectStructure.Insert("predefined", PredefinedDescription);
 	EndIf;
 
-	If ОписаниеТабличныхЧастей.Count() > 0 Then
-		СтруктураОбъекта.Insert("tabulars", ОписаниеТабличныхЧастей);
+	If TabularSectionsDescription.Count() > 0 Then
+		ObjectStructure.Insert("tabulars", TabularSectionsDescription);
 	EndIf;
 
-	Return СтруктураОбъекта;
+	Return ObjectStructure;
 EndFunction
 
-Function ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(Коллекция, TypesMap)
+Function DescribeMetadataObjectsCollectionForMonacoEditor(Collection, TypesMap)
 
-	ОписаниеКоллекции = New Structure;
+	CollectionDescription = New Structure;
 
-	For Each КлючЗначениеЭлементКоллекции In Коллекция Do
+	For Each CollectionItemKeyValue In Collection Do
 
-		ОписаниеРеквизитов = New Structure;
-		ОписаниеРесурсов = New Structure;
-		ОписаниеПредопределенных = New Structure;
-		ОписаниеТабличныхЧастей = New Structure;
+		AttributesDescription = New Structure;
+		ResourcesDescription = New Structure;
+		PredefinedDescription = New Structure;
+		TabularSectionsDescription = New Structure;
 		AdditionalProperties = New Structure;
 
-		ОбъектМетаданных = КлючЗначениеЭлементКоллекции.Value;
+		MetadataObject = CollectionItemKeyValue.Value;
 
-		If ОбъектМетаданных.ObjectType = "Enum" Then
+		If MetadataObject.ObjectType = "Enum" Then
 
-			For Each КлючЗначениеЗначенияПеречисления In ОбъектМетаданных.EnumValues Do
-				ОписаниеРеквизитов.Insert(КлючЗначениеЗначенияПеречисления.Key, New Structure("name",
-					КлючЗначениеЗначенияПеречисления.Value));
+			For Each EmunValueKeyValue In MetadataObject.EnumValues Do
+				AttributesDescription.Insert(EmunValueKeyValue.Key, New Structure("name",
+					EmunValueKeyValue.Value));
 			EndDo;
 
 		Else
 
-			If ОбъектМетаданных.Property("Attributes") Then
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.Attributes Do
-					AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value,
+			If MetadataObject.Property("Attributes") Then
+				For Each AttributeKeyValue In MetadataObject.Attributes Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value,
 						True, TypesMap);
 				EndDo;
 			EndIf;
-			If ОбъектМетаданных.Property("StandardAttributes") Then
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.StandardAttributes Do
-					AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, False,
+			If MetadataObject.Property("StandardAttributes") Then
+				For Each AttributeKeyValue In MetadataObject.StandardAttributes Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, False,
 						TypesMap);
 				EndDo;
 			EndIf;
-			If ОбъектМетаданных.Property("Predefined") Then
+			If MetadataObject.Property("Predefined") Then
 				
-				//If ИмяМетаданных(FullName) = "ChartOfAccounts" Then
+				//If MetadataObject(FullName) = "ChartOfAccounts" Then
 				//	
 				//	Query = New Query(
-				//	"ВЫБРАТЬ
-				//	|	ChartOfAccounts.Code КАК Code,
-				//	|	ChartOfAccounts.PredefinedDataName КАК Name
-				//	|ИЗ
-				//	|	&Table КАК ChartOfAccounts
-				//	|ГДЕ
+				//	"SELECT
+				//	|	ChartOfAccounts.Code AS Code,
+				//	|	ChartOfAccounts.PredefinedDataName AS Name
+				//	|FROM
+				//	|	&Table AS ChartOfAccounts
+				//	|WHERE
 				//	|	ChartOfAccounts.Predefined");				
 				//						
 				//	Query.Text = StrReplace(Query.Text, "&Table", FullName);
 				//	
-				//	Выборка = Query.Execute().StartChoosing();
+				//	Selection = Query.Execute().StartChoosing();
 				//	
-				//	While Выборка.Next() Do 
-				//		ОписаниеПредопределенных.Insert(Выборка.Name, StrTemplate("%1 (%2)", Выборка.Name, Выборка.Code));
+				//	While Selection.Next() Do 
+				//		PredefinedDescription.Insert(Selection.Name, StrTemplate("%1 (%2)", Selection.Name, Selection.Code));
 				//	EndDo;
 				//	
 				//Else				
-				For Each КлючЗначениеИмя In ОбъектМетаданных.Predefined Do
-					ОписаниеПредопределенных.Insert(КлючЗначениеИмя.Key, New Structure("name, ref",
-						КлючЗначениеИмя.Key, ""));
+				For Each NameKeyValue In MetadataObject.Predefined Do
+					PredefinedDescription.Insert(NameKeyValue.Key, New Structure("name, ref",
+						NameKeyValue.Key, ""));
 				EndDo;
 				
 				//EndIf;
 
 			EndIf;
 
-			If ОбъектМетаданных.Property("Dimensions") Then
+			If MetadataObject.Property("Dimensions") Then
 
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.Dimensions Do
-					AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value,
+				For Each AttributeKeyValue In MetadataObject.Dimensions Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value,
 						True, TypesMap);
 				EndDo;
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.Resources Do
-					AddAttributeDescriptionForMonacoEditor(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value,
+				For Each AttributeKeyValue In MetadataObject.Resources Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value,
 						True, TypesMap);
 				EndDo;
 				
-				//ЗаполнитьТипРегистра(AdditionalProperties, ОбъектМетаданных, FullName);				
+				//FillRegisterType(AdditionalProperties, MetadataObject, FullName);				
 
 			EndIf;
 
-			If ОбъектМетаданных.Property("TabularSections") Then
+			If MetadataObject.Property("TabularSections") Then
 
-				For Each КлючЗначениеТабличнаяЧасть In ОбъектМетаданных.TabularSections Do
+				For Each TabularSectionKeyValue In MetadataObject.TabularSections Do
 
-					ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-					ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-						+ ТабличнаяЧасть.Synonym));
+					TabularSection = TabularSectionKeyValue.Value;
+					AttributesDescription.Insert(TabularSection.Name, New Structure("name", "TS: "
+						+ TabularSection.Synonym));
 
-					ОписаниеТабличнойЧасти = New Structure;
+					TabularSectionDescription = New Structure;
 
-					If ТабличнаяЧасть.Property("StandardAttributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-							ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+					If TabularSection.Property("StandardAttributes") Then
+						For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+							TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 						EndDo;
 					EndIf;
 
-					If ТабличнаяЧасть.Property("Attributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-							AddAttributeDescriptionForMonacoEditor(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
+					If TabularSection.Property("Attributes") Then
+						For Each TabularSectionAttribute In TabularSection.Attributes Do
+							AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
 								True, TypesMap);
 						EndDo;
 					EndIf;
 
-					ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+					TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 				EndDo;
 
 			EndIf;
-			If ОбъектМетаданных.Property("StandardTabularSections") Then
+			If MetadataObject.Property("StandardTabularSections") Then
 
-				For Each КлючЗначениеТабличнаяЧасть In ОбъектМетаданных.StandardTabularSections Do
+				For Each TabularSectionKeyValue In MetadataObject.StandardTabularSections Do
 
-					ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-					ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-						+ ТабличнаяЧасть.Synonym));
+					TabularSection = TabularSectionKeyValue.Value;
+					AttributesDescription.Insert(TabularSection.Name, New Structure("name", "TS: "
+						+ TabularSection.Synonym));
 
-					ОписаниеТабличнойЧасти = New Structure;
+					TabularSectionDescription = New Structure;
 
-					If ТабличнаяЧасть.Property("StandardAttributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-							ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+					If TabularSection.Property("StandardAttributes") Then
+						For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+							TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 						EndDo;
 					EndIf;
 
-					If ТабличнаяЧасть.Property("Attributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-							AddAttributeDescriptionForMonacoEditor(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
+					If TabularSection.Property("Attributes") Then
+						For Each TabularSectionAttribute In TabularSection.Attributes Do
+							AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
 								True, TypesMap);
 						EndDo;
 					EndIf;
 
-					ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+					TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 				EndDo;
 
@@ -1518,42 +1518,42 @@ Function ОписатьКоллекциюОбъектовМетаданыхДл�
 
 		EndIf;
 
-		СтруктураОбъекта = New Structure;
-		СтруктураОбъекта.Insert("properties", ОписаниеРеквизитов);
+		ObjectStructure = New Structure;
+		ObjectStructure.Insert("properties", AttributesDescription);
 
-		For Each Обход In AdditionalProperties Do
-			СтруктураОбъекта.Insert(Обход.Key, Обход.Value);
+		For Each Iterator In AdditionalProperties Do
+			ObjectStructure.Insert(Iterator.Key, Iterator.Value);
 		EndDo;
 
-		If 0 < ОписаниеРесурсов.Count() Then
-			СтруктураОбъекта.Insert("resources", ОписаниеРесурсов);
+		If 0 < ResourcesDescription.Count() Then
+			ObjectStructure.Insert("resources", ResourcesDescription);
 		EndIf;
 
-		If 0 < ОписаниеПредопределенных.Count() Then
-			СтруктураОбъекта.Insert("predefined", ОписаниеПредопределенных);
+		If 0 < PredefinedDescription.Count() Then
+			ObjectStructure.Insert("predefined", PredefinedDescription);
 		EndIf;
 
-		If 0 < ОписаниеТабличныхЧастей.Count() Then
-			СтруктураОбъекта.Insert("tabulars", ОписаниеТабличныхЧастей);
+		If 0 < TabularSectionsDescription.Count() Then
+			ObjectStructure.Insert("tabulars", TabularSectionsDescription);
 		EndIf;
 
-		ОписаниеКоллекции.Insert(ОбъектМетаданных.Name, СтруктураОбъекта);
+		CollectionDescription.Insert(MetadataObject.Name, ObjectStructure);
 
 	EndDo;
 
-	Return ОписаниеКоллекции;
+	Return CollectionDescription;
 
 EndFunction
 
-Function ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(Коллекция)
+Function GetMetadataObjectsListFromCollectionForMonacoEditor(Collection)
 
-	ОписаниеКоллекции = New Structure;
+	CollectionDescription = New Structure;
 
-	For Each KeyValue In Коллекция Do
-		ОписаниеКоллекции.Insert(KeyValue.Key, New Structure);
+	For Each KeyValue In Collection Do
+		CollectionDescription.Insert(KeyValue.Key, New Structure);
 	EndDo;
 
-	Return ОписаниеКоллекции;
+	Return CollectionDescription;
 
 EndFunction
 
@@ -1569,65 +1569,65 @@ Function ConfigurationReferenceTypesMap()
 	Return TypesMap;
 EndFunction
 
-Function ОписаниеМетаданныхКонфигурацииДляРедактораMonaco()
-	ОписаниеМетаданных = UT_ApplicationParameters["ОписаниеМетаданныхДляРедактораMonaco"];
-	If ОписаниеМетаданных <> Undefined Then
-		Return ОписаниеМетаданных;
+Function ConfigurationMetadataDescriptionForMonacoEditor()
+	MetadataDescription = UT_ApplicationParameters["MetadataDescriptionForMonacoEditor"];
+	If MetadataDescription <> Undefined Then
+		Return MetadataDescription;
 	EndIf;
 
-	АдресОписанияМетаданных = UT_ApplicationParameters["ConfigurationMetadataDescriptionAdress"];
-	If Not IsTempStorageURL(АдресОписанияМетаданных) Then
-		АдресОписанияМетаданных = UT_CommonServerCall.ConfigurationMetadataDescriptionAdress();
-		UT_ApplicationParameters.Insert("ConfigurationMetadataDescriptionAdress", АдресОписанияМетаданных);
+	MetadataDescriptionURL = UT_ApplicationParameters["ConfigurationMetadataDescriptionAdress"];
+	If Not IsTempStorageURL(MetadataDescriptionURL) Then
+		MetadataDescriptionURL = UT_CommonServerCall.ConfigurationMetadataDescriptionAdress();
+		UT_ApplicationParameters.Insert("ConfigurationMetadataDescriptionAdress", MetadataDescriptionURL);
 	EndIf;
-	МетаданныеКонфигурации = GetFromTempStorage(АдресОписанияМетаданных);
+	ConfigurationMetadata = GetFromTempStorage(MetadataDescriptionURL);
 
-	TypesMap = МетаданныеКонфигурации.ReferenceTypesMap;
+	TypesMap = ConfigurationMetadata.ReferenceTypesMap;
 
-	КоллекцияМетаданных = New Structure;
-	КоллекцияМетаданных.Insert("catalogs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Catalogs, TypesMap));
-	КоллекцияМетаданных.Insert("documents", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Documents, TypesMap));
-	КоллекцияМетаданных.Insert("infoRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.InformationRegisters, TypesMap));
-	КоллекцияМетаданных.Insert("accumRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.AccumulationRegisters, TypesMap));
-	КоллекцияМетаданных.Insert("accountRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.AccountingRegisters, TypesMap));
-	КоллекцияМетаданных.Insert("calcRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.CalculationRegisters, TypesMap));
-	КоллекцияМетаданных.Insert("dataProc", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.DataProcessors, TypesMap));
-	КоллекцияМетаданных.Insert("reports", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Reports, TypesMap));
-	КоллекцияМетаданных.Insert("enums", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Enums, TypesMap));
-	КоллекцияМетаданных.Insert("commonModules", ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(
-		МетаданныеКонфигурации.CommonModules));
-	КоллекцияМетаданных.Insert("сhartsOfAccounts", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ChartsOfAccounts, TypesMap));
-	КоллекцияМетаданных.Insert("businessProcesses", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.BusinessProcesses, TypesMap));
-	КоллекцияМетаданных.Insert("tasks", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Tasks, TypesMap));
-	КоллекцияМетаданных.Insert("exchangePlans", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ExchangePlans, TypesMap));
-	КоллекцияМетаданных.Insert("chartsOfCharacteristicTypes", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ChartsOfCharacteristicTypes, TypesMap));
-	КоллекцияМетаданных.Insert("chartsOfCalculationTypes", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ChartsOfCalculationTypes, TypesMap));
-	КоллекцияМетаданных.Insert("constants", ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(
-		МетаданныеКонфигурации.Constants));
+	MetadataCollection = New Structure;
+	MetadataCollection.Insert("catalogs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Catalogs, TypesMap));
+	MetadataCollection.Insert("documents", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Documents, TypesMap));
+	MetadataCollection.Insert("infoRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.InformationRegisters, TypesMap));
+	MetadataCollection.Insert("accumRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.AccumulationRegisters, TypesMap));
+	MetadataCollection.Insert("accountRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.AccountingRegisters, TypesMap));
+	MetadataCollection.Insert("calcRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.CalculationRegisters, TypesMap));
+	MetadataCollection.Insert("dataProc", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.DataProcessors, TypesMap));
+	MetadataCollection.Insert("reports", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Reports, TypesMap));
+	MetadataCollection.Insert("enums", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Enums, TypesMap));
+	MetadataCollection.Insert("commonModules", GetMetadataObjectsListFromCollectionForMonacoEditor(
+		ConfigurationMetadata.CommonModules));
+	MetadataCollection.Insert("сhartsOfAccounts", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ChartsOfAccounts, TypesMap));
+	MetadataCollection.Insert("businessProcesses", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.BusinessProcesses, TypesMap));
+	MetadataCollection.Insert("tasks", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Tasks, TypesMap));
+	MetadataCollection.Insert("exchangePlans", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ExchangePlans, TypesMap));
+	MetadataCollection.Insert("chartsOfCharacteristicTypes", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ChartsOfCharacteristicTypes, TypesMap));
+	MetadataCollection.Insert("chartsOfCalculationTypes", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ChartsOfCalculationTypes, TypesMap));
+	MetadataCollection.Insert("constants", GetMetadataObjectsListFromCollectionForMonacoEditor(
+		ConfigurationMetadata.Constants));
 
-	UT_ApplicationParameters.Insert("ОписаниеМетаданныхДляРедактораMonaco",
-		UT_CommonClientServer.CopyStructure(КоллекцияМетаданных));
+	UT_ApplicationParameters.Insert("MetadataDescriptionForMonacoEditor",
+		UT_CommonClientServer.CopyStructure(MetadataCollection));
 	UT_ApplicationParameters.Insert("ConfigurationReferenceTypesMap", TypesMap);
 
-	Return КоллекцияМетаданных;
+	Return MetadataCollection;
 EndFunction
 
-Function СоответствиеОбновляемыхОбъектовМетаданныхРедактораMonacoИПараметровСобытияОблновленияМетаданных()
+Function MapOfMonacoEditorUpdatedMetadataObjectsAndMetadataUpdateEventParameters()
 	Map = New Structure;
 	Map.Insert("справочники", "catalogs.items");
 	Map.Insert("catalogs", "catalogs.items");
@@ -1660,7 +1660,7 @@ Function СоответствиеОбновляемыхОбъектовМета�
 	Map.Insert("планывидоврасчета", "chartsOfCalculationTypes.items");
 	Map.Insert("chartsofcalculationtypes", "chartsOfCalculationTypes.items");
 	Map.Insert("константы", "constants.items");
-	Map.Insert("constants", "chartsOfCalculationTypes.items");
+	Map.Insert("constants", "constants.items");
 	Map.Insert("module", "commonModules.items");
 
 	Return Map;
