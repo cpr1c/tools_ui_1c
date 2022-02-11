@@ -181,7 +181,7 @@ Function EditorCodeText(Form, EditorID) Export
 	Return TrimAll(CodeText);
 EndFunction
 
-Function ItemFormEditorCodeText(Form, Item) Export
+Function EditorCodeTextItemForm(Form, Item) Export
 	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If EditorID = Undefined Then
 		Return "";
@@ -230,7 +230,7 @@ Function EditorSelectionBorders(Form, EditorID) Export
 	
 EndFunction
 
-Function EditorFormItemSelectionBounds(Form, Item) Export
+Function EditorSelectionBordersFormItem(Form, Item) Export
 	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If EditorID = Undefined Then
 		Return NewSelectionBorders();
@@ -239,7 +239,7 @@ Function EditorFormItemSelectionBounds(Form, Item) Export
 	Return EditorSelectionBorders(Form, EditorID);	
 EndFunction
 
-Procedure SetTextSelectionBounds(Form, EditorID, RowBeginning, ColumnBeginning, RowEnd,
+Procedure SetTextSelectionBorders(Form, EditorID, RowBeginning, ColumnBeginning, RowEnd,
 	ColumnEnd) Export
 
 	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
@@ -255,7 +255,7 @@ Procedure SetTextSelectionBounds(Form, EditorID, RowBeginning, ColumnBeginning, 
 	If EditorType = EditorsTypes.Text Then
 		EditorItem = Form.Items[EditorSettings.EditorField];
 			
-		EditorItem.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);		
+		EditorItem.SetTextSelectionBorders(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);		
 	ElsIf EditorType = EditorsTypes.Ace Then
 		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.setSelection(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
@@ -266,7 +266,7 @@ Procedure SetTextSelectionBounds(Form, EditorID, RowBeginning, ColumnBeginning, 
 
 EndProcedure
 
-Procedure SetTextSelectionBoundsOfFormItem(Form, Item, RowBeginning, ColumnBeginning, LineEnd,
+Procedure SetTextSelectionBordersFormItem(Form, Item, RowBeginning, ColumnBeginning, LineEnd,
 	ColumnEnd) Export
 
 	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
@@ -274,7 +274,7 @@ Procedure SetTextSelectionBoundsOfFormItem(Form, Item, RowBeginning, ColumnBegin
 		Return;
 	EndIf;
 
-	SetTextSelectionBounds(Form, EditorID, RowBeginning, ColumnBeginning, LineEnd, ColumnEnd);
+	SetTextSelectionBorders(Form, EditorID, RowBeginning, ColumnBeginning, LineEnd, ColumnEnd);
 
 EndProcedure
 
@@ -301,7 +301,7 @@ Procedure InsertTextInCursorLocation(Form, EditorID, Text) Export
 	EndIf;
 EndProcedure
 
-Procedure FormItemInsertTextInCursorLocation(Form, Item, Text) Export
+Procedure InsertTextInCursorLocationFormItem(Form, Item, Text) Export
 	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
 	If EditorID = Undefined Then
 		Return;

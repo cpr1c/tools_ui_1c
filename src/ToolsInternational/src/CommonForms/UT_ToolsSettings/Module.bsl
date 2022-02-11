@@ -147,7 +147,7 @@ Procedure SaveConfigurationModulesToFiles(Command)
 		CurrentDirectories.Insert(CurrentRow.Source, CurrentRow.Directory);
 	EndDo;
 	
-	UT_CodeEditorClient.СохранитьМодулиКонфигурацииВФайлы(
+	UT_CodeEditorClient.SaveConfigurationModulesToFiles(
 		New NotifyDescription("SaveConfigurationModulesToFilesEnd", ThisObject), CurrentDirectories);
 EndProcedure
 

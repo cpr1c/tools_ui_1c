@@ -133,9 +133,9 @@ Procedure LinkedLibrariesOnActivateRow(Item)
 
 	File = New File(CurrentData.Path);
 	If Lower(File.Extension) <> ".css" Then
-		LibraryEditor = UT_CodeEditorClient.ИмяФайлаРедактораAceДляЯзыка("css");
+		LibraryEditor = UT_CodeEditorClient.AceEditorFileNameForLanguage("css");
 	Else
-		LibraryEditor = UT_CodeEditorClient.ИмяФайлаРедактораAceДляЯзыка("javascript");
+		LibraryEditor = UT_CodeEditorClient.AceEditorFileNameForLanguage("javascript");
 	EndIf;
 
 	AttachIdleHandler("SetupLibraryEditorText", 1, True);
@@ -665,7 +665,7 @@ Function EditorItemText(EditorItemField)
 	If Not EditorItemField.Visible Then
 		Return SavedEditorsValues[EditorItemField.Name];
 	Else
-		Return UT_CodeEditorClient.ТекстКодаРедактораЭлементаФормы(ThisObject, EditorItemField);
+		Return UT_CodeEditorClient.EditorCodeTextItemForm(ThisObject, EditorItemField);
 	EndIf;
 	
 EndFunction
@@ -673,7 +673,7 @@ EndFunction
 &AtClient
 Procedure SetEditorText(EditorItem, SetupText)
 	
-	UT_CodeEditorClient.УстановитьТекстРедактораЭлементаФормы(ThisObject, EditorItem, SetupText);
+	UT_CodeEditorClient.SetFormItemEditorText(ThisObject, EditorItem, SetupText);
 	
 EndProcedure
 

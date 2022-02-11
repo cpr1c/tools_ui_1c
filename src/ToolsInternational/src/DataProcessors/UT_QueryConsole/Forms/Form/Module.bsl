@@ -5259,7 +5259,7 @@ EndFunction
 &AtClient
 Procedure SetAlgorithmSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn)
 	If UT_IsPartOfUniversalTools Then
-		UT_CodeEditorClient.SetTextSelectionBounds(ThisObject, "Algorithm", BeginningOfRow, BeginningOfColumn,
+		UT_CodeEditorClient.SetTextSelectionBorders(ThisObject, "Algorithm", BeginningOfRow, BeginningOfColumn,
 			EndOfRow, EndOfColumn);
 	Else
 		Items.AlgorithmText.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
