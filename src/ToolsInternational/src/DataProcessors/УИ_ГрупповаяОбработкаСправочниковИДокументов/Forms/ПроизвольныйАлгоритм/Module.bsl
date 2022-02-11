@@ -372,25 +372,25 @@
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_ПолеРедактораДокументСформирован(Элемент)
+Процедура Attachable_EditorFieldDocumentGenerated(Элемент)
 	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ЭтотОбъект, Элемент);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_ПолеРедактораПриНажатии(Элемент, ДанныеСобытия, СтандартнаяОбработка)
+Процедура Attachable_EditorFieldOnClick(Элемент, ДанныеСобытия, СтандартнаяОбработка)
 	UT_CodeEditorClient.HTMLEditorFieldOnClick(ЭтотОбъект, Элемент, ДанныеСобытия, СтандартнаяОбработка);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_РедакторКодаОтложеннаяИнициализацияРедакторов()
+Процедура Attachable_CodeEditorDeferredInitializingEditors()
 	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ЭтотОбъект);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте 
-Процедура Подключаемый_РедакторКодаЗавершениеИнициализации() Экспорт
+Процедура Attachable_CodeEditorInitializingCompletion() Экспорт
 	UT_CodeEditorClient.SetEditorText(ЭтотОбъект, "Редактор", ТекстПроизвольногоАлгоритма);
 	
 	ДобавляемыйКонтекст = Новый Структура;

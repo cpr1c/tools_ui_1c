@@ -1773,7 +1773,7 @@
 КонецПроцедуры
 
 &НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) Экспорт
+Процедура Attachable_ExecuteToolsCommonCommand(Команда) Экспорт
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 КонецПроцедуры
 

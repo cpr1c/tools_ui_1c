@@ -599,7 +599,7 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
+Procedure Attachable_ExecuteToolsCommonCommand(Команда) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 EndProcedure
 

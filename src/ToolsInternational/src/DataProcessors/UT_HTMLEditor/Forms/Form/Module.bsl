@@ -380,7 +380,7 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
@@ -576,18 +576,18 @@ EndProcedure
 #Region UtilizationProceduresAndFunctions
 
 &AtClient
-Procedure Подключаемый_ПолеРедактораДокументСформирован(Item)
+Procedure Attachable_EditorFieldDocumentGenerated(Item)
 	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ThisObject, Item);
 EndProcedure
 
 &AtClient
-Procedure Подключаемый_ПолеРедактораПриНажатии(Item, EventData, StandardProcessing)
+Procedure Attachable_EditorFieldOnClick(Item, EventData, StandardProcessing)
 	UT_CodeEditorClient.HTMLEditorFieldOnClick(ThisObject, Item, EventData, StandardProcessing);
 EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Attached_CodeEditorDeferredInitializingEditors()
+Procedure Attachable_CodeEditorDeferredInitializingEditors()
 	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ThisObject);
 EndProcedure
 

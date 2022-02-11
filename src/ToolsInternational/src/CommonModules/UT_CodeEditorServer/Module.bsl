@@ -59,8 +59,8 @@ Procedure CreateCodeEditorItems(Form, EditorID, EditorField, EditorLanguage = "b
 		If EditorField.Type <> FormFieldType.HTMLDocumentField Then
 			EditorField.Type = FormFieldType.HTMLDocumentField;
 		EndIf;
-		EditorField.SetAction("DocumentComplete", "Подключаемый_ПолеРедактораДокументСформирован");
-		EditorField.SetAction("OnClick", "Подключаемый_ПолеРедактораПриНажатии");
+		EditorField.SetAction("DocumentComplete", "Attachable_EditorFieldDocumentGenerated");
+		EditorField.SetAction("OnClick", "Attachable_EditorFieldOnClick");
 
 		EditorData.Insert("Initialized", False);
 

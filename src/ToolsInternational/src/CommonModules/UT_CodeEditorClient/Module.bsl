@@ -114,7 +114,7 @@ Procedure HTMLEditorFieldDocumentGenerated(Form, Item) Export
 	If Not AllFormEditorsInitialized(FormEditors) Then
 		Return;
 	EndIf;
-	Form.AttachIdleHandler("Attached_CodeEditorDeferredInitializingEditors", 0.1, True);
+	Form.AttachIdleHandler("Attachable_CodeEditorDeferredInitializingEditors", 0.1, True);
 EndProcedure
 
 Procedure HTMLEditorFieldOnClick(Form, Item, EventData, StandardProcessing) Export

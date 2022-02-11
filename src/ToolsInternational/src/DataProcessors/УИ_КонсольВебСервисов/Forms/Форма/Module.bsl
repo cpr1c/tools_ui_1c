@@ -377,7 +377,7 @@
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
+Процедура Attachable_ExecuteToolsCommonCommand(Команда) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 КонецПроцедуры
 

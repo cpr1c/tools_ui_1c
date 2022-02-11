@@ -37,24 +37,24 @@
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_ПолеРедактораДокументСформирован(Элемент)
+Процедура Attachable_EditorFieldDocumentGenerated(Элемент)
 	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ЭтотОбъект, Элемент);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_ПолеРедактораПриНажатии(Элемент, ДанныеСобытия, СтандартнаяОбработка)
+Процедура Attachable_EditorFieldOnClick(Элемент, ДанныеСобытия, СтандартнаяОбработка)
 	UT_CodeEditorClient.HTMLEditorFieldOnClick(ЭтотОбъект, Элемент, ДанныеСобытия, СтандартнаяОбработка);
 КонецПроцедуры
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_РедакторКодаОтложеннаяИнициализацияРедакторов()
+Процедура Attachable_CodeEditorDeferredInitializingEditors()
 	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ЭтотОбъект);
 КонецПроцедуры
 
 &НаКлиенте 
-Процедура Подключаемый_РедакторКодаЗавершениеИнициализации() Экспорт
+Процедура Attachable_CodeEditorInitializingCompletion() Экспорт
 	Если ЗначениеЗаполнено(AlgorithmFileName) Тогда
 		UT_CommonClient.ReadConsoleFromFile("КонсольКода", СтруктураОписанияСохраняемогоФайла(),
 			Новый ОписаниеОповещения("ОткрытьФайлЗавершение", ЭтотОбъект), Истина);
@@ -125,7 +125,7 @@
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
+Процедура Attachable_ExecuteToolsCommonCommand(Команда) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 КонецПроцедуры
 
