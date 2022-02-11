@@ -214,7 +214,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac469044-2e32-11ea-cc81-e86a6452d1f2">
-    <name>ВыборКонстанты</name>
+    <name>SelectConstant</name>
+    <synonym>
+      <key>en</key>
+      <value>Select constant</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выбор константы</value>

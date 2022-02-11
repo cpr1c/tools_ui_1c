@@ -670,199 +670,208 @@ Procedure EditRefMessageNo()
 EndProcedure
 
 &AtClient
-Procedure РедактироватьНомерСообщенияСсылкиЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
-	Если НомерСообщения = Неопределено Тогда
-		// Отказ от ввода
-		Возврат;
-	КонецЕсли;
+Procedure EditRefMessageNoCompletion(Val MessageNumber, Val AdditionalParameters) Export
+	If MessageNumber = Undefined Then
+		// Canceling input.
+		Return;
+	EndIf;
+	
+	ReportRegistrationResults(MessageNumber, EditMessageNumberAtServer(ExchangeNodeRef, MessageNumber,
+		AdditionalParameters.Ref));
 
-	СообщитьОРезультатахРегистрации(НомерСообщения, ИзменитьНомерСообщенияНаСервере(ExchangeNodeRef, НомерСообщения,
-		ДополнительныеПараметры.Ссылка));
-
-	Элементы.RefsList.Обновить();
-	ЗаполнитьКоличествоРегистрацийВДереве();
+	Items.RefsList.Refresh();
+	FillRegistrationCountInTreeRows();
 EndProcedure
 
 &AtClient
-Procedure РедактироватьНомерСообщенияСписокНаборов()
-	ТекДанные = Элементы.RecordSetsList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	Оповещение = Новый ОписаниеОповещения("РедактироватьНомерСообщенияСписокНаборовЗавершение", ЭтотОбъект,
-		Новый Структура);
-
-	ДанныеСтроки = Новый Структура;
-	ИменаКлючей = МассивИменКлючейНабораЗаписей(RecordSetsListTableName);
-	Для Каждого Имя Из ИменаКлючей Цикл
-		ДанныеСтроки.Вставить(Имя, ТекДанные["RecordSetsList" + Имя]);
-	КонецЦикла;
-
-	Оповещение.ДополнительныеПараметры.Вставить("ДанныеСтроки", ДанныеСтроки);
-
-	НомерСообщения = ТекДанные.НомерСообщения;
-	Подсказка = НСтр("ru='Номер отправленного'");
-
-	ПоказатьВводЧисла(Оповещение, НомерСообщения, Подсказка);
+Procedure EditMessageNoSetList()
+	curData = Items.RecordSetsList.CurrentData;
+	If curData = Undefined Then
+		Return;
+	EndIf;
+	
+	Notification = New NotifyDescription("EditMessageNoSetListCompletion", ThisObject, New Structure);
+	
+	RowData = New Structure;
+	KeysNames = RecordSetKeyNameArray(RecordSetsListTableName);
+	For Each Name In KeysNames Do
+		RowData.Insert(Name, curData["RecordSetsList" + Name]);
+	EndDo;
+	
+	Notification.AdditionalParameters.Insert("RowData", RowData);
+	
+	MessageNumber = curData.MessageNo;
+	Tooltip = NStr("ru = 'Номер отправленного'; en = 'Number of the last sent message'"); 
+	
+	ShowInputNumber(Notification, MessageNumber, Tooltip);
 EndProcedure
 
 &AtClient
-Procedure РедактироватьНомерСообщенияСписокНаборовЗавершение(Знач НомерСообщения, Знач ДополнительныеПараметры) Экспорт
-	Если НомерСообщения = Неопределено Тогда
-		// Отказ от ввода
-		Возврат;
-	КонецЕсли;
+Procedure EditMessageNoSetListCompletion(Val MessageNumber, Val AdditionalParameters) Export
+	If MessageNumber = Undefined Then
+		// Canceling input.
+		Return;
+	EndIf;
+	
+	ReportRegistrationResults(MessageNumber, EditMessageNumberAtServer(
+		ExchangeNodeRef, MessageNumber, AdditionalParameters.RowData, RecordSetsListTableName));
 
-	СообщитьОРезультатахРегистрации(НомерСообщения, ИзменитьНомерСообщенияНаСервере(
-		ExchangeNodeRef, НомерСообщения, ДополнительныеПараметры.ДанныеСтроки, RecordSetsListTableName));
-
-	Элементы.RecordSetsList.Обновить();
-	ЗаполнитьКоличествоРегистрацийВДереве();
+	Items.RecordSetsList.Refresh();
+	FillRegistrationCountInTreeRows();
 EndProcedure
 
 &AtClient
-Procedure НастроитьРедактированиеИзменений()
-	НастроитьРедактированиеИзмененийСервер(MetadataCurrentRow);
+Procedure SetUpChangeEditing()
+	SetUpChangeEditingServer(MetadataCurrentRow);
 EndProcedure
 
 &AtClient
-Procedure РазвернутьДеревоМетаданных()
-	Для Каждого Строка Из MetadataTree.ПолучитьЭлементы() Цикл
-		Элементы.MetadataTree.Развернуть( Строка.ПолучитьИдентификатор());
-	КонецЦикла;
+Procedure ExpandMetadataTree()
+	For Each Row In MetadataTree.GetItems() Do
+		Items.MetadataTree.Expand( Row.GetID() );
+	EndDo;
 EndProcedure
 
 &AtServer
-Procedure УстановитьЗаголовокНомеровСообщений()
-
-	Текст = НСтр("ru='№ сообщений: отпр. %1, прин. %2'");
-
-	Данные = ПрочитатьНомераСообщений();
-	Текст = СтрЗаменить(Текст, "%1", Формат(Данные.НомерОтправленного, "ЧДЦ=0; ЧН="));
-	Текст = СтрЗаменить(Текст, "%2", Формат(Данные.НомерПринятого, "ЧДЦ=0; ЧН="));
-
-	Элементы.FormEditMessageNumbers.Заголовок = Текст;
+Procedure SetMessageNumberTitle()
+	
+	Text = NStr("ru = '№ отправленного %1, № принятого %2'; en = 'Sent message # %1, received message # %2'");
+	
+	Data = ReadMessageNumbers();
+	Text = StrReplace(Text, "%1", Format(Data.SentNo, "NFD=0; NZ="));
+	Text = StrReplace(Text, "%2", Format(Data.ReceivedNo, "NFD=0; NZ="));
+	
+	Items.FormEditMessagesNumbers.Title = Text;
 EndProcedure
 
 &AtServer
-Procedure ОбработкаВыбораУзлаОбмена()
+Procedure ExchangeNodeChoiceProcessing()
 	
-	// Изменяем номера узлов в гиперссылке по редактированию
-	УстановитьЗаголовокНомеровСообщений();
+	// Modifying node numbers in the FormEditMessageNumbers title.
+	SetMessageNumberTitle();
 	
-	// Обновляем дерево метаданных
-	ПрочитатьДеревоМетаданных();
-	ЗаполнитьКоличествоРегистрацийВДереве();
+	// Updating metadata tree.
+	ReadMetadataTree();
+	FillRegistrationCountInTreeRows();
 	
-	// Обновляем активную страницу
+	// Updating active page.
 	//@skip-warning
-	ПоследняяАктивнаяКолонкаМетаданных = Неопределено;
+	LastActiveMetadataColumn = Undefined;
 	//@skip-warning
-	ПоследняяАктивнаяСтрокаМетаданных  = Неопределено;
-	Элементы.ObjectsListOptions.ТекущаяСтраница = Элементы.BlankPage;
+	LastActiveMetadataRow  = Undefined;
+	Items.ObjectsListOptions.CurrentPage = Items.BlankPage;
 
 EndProcedure
 
 &AtClient
-Procedure СообщитьОРезультатахРегистрации(Команда, Результаты)
+Procedure ReportRegistrationResults(Command, Results)
 
-	Если ТипЗнч(Команда) = Тип("Булево") Тогда
-		Если Команда Тогда
-			ЗаголовокПредупреждения = НСтр("ru='Регистрация изменений:'");
-			ТекстПредупреждения = НСтр("ru='Зарегистрировано %1 изменений из %2
-									   |на узле ""%0""'");
-		Иначе
-			ЗаголовокПредупреждения = НСтр("ru='Отмена регистрации:'");
-			ТекстПредупреждения = НСтр("ru='Отменена регистрация %1 изменений 
-									   |на узле ""%0"".'");
-		КонецЕсли;
-	Иначе
-		ЗаголовокПредупреждения = НСтр("ru='Изменение номера сообщения:'");
-		ТекстПредупреждения = НСтр("ru='Номер сообщения изменен на %3
-								   |у %1 объекта(ов)'");
-	КонецЕсли;
-
-	ТекстПредупреждения = СтрЗаменить(ТекстПредупреждения, "%0", ExchangeNodeRef);
-	ТекстПредупреждения = СтрЗаменить(ТекстПредупреждения, "%1", Формат(Результаты.Успешно, "ЧН="));
-	ТекстПредупреждения = СтрЗаменить(ТекстПредупреждения, "%2", Формат(Результаты.Всего, "ЧН="));
-	ТекстПредупреждения = СтрЗаменить(ТекстПредупреждения, "%3", Команда);
-
-	Предупреждением = Результаты.Всего <> Результаты.Успешно;
-	Если Предупреждением Тогда
-		ОбновитьОтображениеДанных();
-		ПоказатьПредупреждение( , ТекстПредупреждения, , ЗаголовокПредупреждения);
-	Иначе
-		ПоказатьОповещениеПользователя(ЗаголовокПредупреждения, ПолучитьНавигационнуюСсылку(ExchangeNodeRef),
-			ТекстПредупреждения, Элементы.HiddenPictureInfo32.Картинка);
-	КонецЕсли;
+	If TypeOf(Command) = Type("Boolean") Then
+		If Command Then
+			WarningTitle = NStr("ru = 'Регистрация изменений:'; en = 'Register changes:'");
+			WarningText = NStr("ru = 'Зарегистрировано %1 изменений из %2
+			                           |на узле ""%0""'; 
+			                           |en = '%1 out of %2 changes are registered
+			                           |at node ""%0.""'");
+		Else
+			WarningTitle = NStr("ru = 'Отмена регистрации:'; en = 'Cancel registration:'");
+			WarningText = NStr("ru = 'Отменена регистрация %1 изменений 
+			                           |на узле ""%0"".'; 
+			                           |en = 'Registration of %1 changes
+			                           |at node ""%0"" is canceled.'");
+		EndIf;
+	Else
+		WarningTitle = NStr("ru = 'Изменение номера сообщения:'; en = 'Change message number:'");
+		WarningText = NStr("ru = 'Номер сообщения изменен на %3
+		                           |у %1 объекта(ов)'; 
+		                           |en = 'Message number is changed to %3
+		                           |for %1 objects.'");
+	EndIf;
+	
+	WarningText = StrReplace(WarningText, "%0", ExchangeNodeRef);
+	WarningText = StrReplace(WarningText, "%1", Format(Results.Success, "NZ="));
+	WarningText = StrReplace(WarningText, "%2", Format(Results.Total, "NZ="));
+	WarningText = StrReplace(WarningText, "%3", Command);
+	
+	WarningRequired = Results.Total <> Results.Success;
+	If WarningRequired Then
+		RefreshDataRepresentation();
+		ShowMessageBox(, WarningText, , WarningTitle);
+	Else
+		ShowUserNotification(WarningTitle, GetURL(ExchangeNodeRef),
+			WarningText,Items.HiddenPictureInformation32.Picture);
+	EndIf;
 EndProcedure
 
 &AtServer
-Функция ПолучитьФормуВыбораРезультатаЗапроса()
+Function GetQueryResultChoiceForm()
+	
+	CurrentObject = ThisObject();
+	CurrentObject.ReadSettings();
+	ThisObject(CurrentObject);
+	
+	CheckSSL = CurrentObject.CheckSettingsCorrectness();
+	ThisObject(CurrentObject);
+	If CheckSSL.QueryExternalDataProcessorAddressSetting <> Undefined Then
+		Return Undefined;
+	ElsIf IsBlankString(CurrentObject.QueryExternalDataProcessorAddressSetting) Then
+		Return Undefined;
+	ElsIf Lower(Right(TrimAll(CurrentObject.QueryExternalDataProcessorAddressSetting), 4)) = ".epf" Then
+		DataProcessor = ExternalDataProcessors.Create(CurrentObject.QueryExternalDataProcessorAddressSetting);
+		FormID = ".ObjectForm";
+	Else
+		DataProcessor = DataProcessors[CurrentObject.QueryExternalDataProcessorAddressSetting].Create();
+		FormID = ".Form";
+	Endif;
 
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	ТекущийОбъект.ПрочитатьНастройки();
-	ЭтотОбъектОбработки(ТекущийОбъект);
-
-	Проверка = ТекущийОбъект.ПроверитьКорректностьНастроек();
-	ЭтотОбъектОбработки(ТекущийОбъект);
-	Если Проверка.QueryExternalDataProcessorAddressSetting <> Неопределено Тогда
-		Возврат Неопределено;
-	ИначеЕсли ПустаяСтрока(ТекущийОбъект.QueryExternalDataProcessorAddressSetting) Тогда
-		Возврат Неопределено;
-	ИначеЕсли НРег(Прав(СокрЛП(ТекущийОбъект.QueryExternalDataProcessorAddressSetting), 4)) = ".epf" Тогда
-		Обработка = ВнешниеОбработки.Создать(ТекущийОбъект.QueryExternalDataProcessorAddressSetting);
-		ИдентификаторФормы = ".ФормаОбъекта";
-	Иначе
-		Обработка = Обработки[ТекущийОбъект.QueryExternalDataProcessorAddressSetting].Создать();
-		ИдентификаторФормы = ".Форма";
-	КонецЕсли;
-
-	Возврат Обработка.Метаданные().ПолноеИмя() + ИдентификаторФормы;
-КонецФункции
+	Return DataProcessor.Metadata().FullName() + FormID;
+EndFunction
 
 &AtClient
 Procedure ДобавитьРегистрациюКонстантыВСписке()
-	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.ВыборКонстанты";
-	ТекПараметры = Новый Структура("УзелОбмена, МассивИменМетаданных, МассивПредставлений, МассивАвторегистрации",
-		ExchangeNodeRef, MetadataNamesStructure.Константы, MetadataPresentationsStructure.Константы,
-		MetadataAutoRecordStructure.Константы);
-	ОткрытьФорму(ТекИмяФормы, ТекПараметры, Элементы.ConstantsList);
+	CurFormName = GetFormName() + "Form.SelectConstant";
+	CurParameters = New Structure("ExchangeNode, MetadataNamesArray, PresentationsArray, AutoRecordsArray",
+		ExchangeNodeRef, MetadataNamesStructure.Constants, MetadataPresentationsStructure.Constants,
+		MetadataAutoRecordStructure.Constants);
+	OpenForm(CurFormName, CurParameters, Items.ConstantsList);
 EndProcedure
 
 &AtClient
-Procedure УдалитьРегистрациюКонстантыВСписке()
-
-	Элемент = Элементы.ConstantsList;
-
-	СписокПредставлений = Новый Массив;
-	СписокИмен          = Новый Массив;
-	Для Каждого Строка Из Элемент.ВыделенныеСтроки Цикл
-		Данные = Элемент.ДанныеСтроки(Строка);
-		СписокПредставлений.Добавить(Данные.Наименование);
-		СписокИмен.Добавить(Данные.МетаПолноеИмя);
-	КонецЦикла;
-
-	Колво = СписокИмен.Количество();
-	Если Колво = 0 Тогда
-		Возврат;
-	ИначеЕсли Колво = 1 Тогда
-		Текст = НСтр("ru='Отменить регистрацию ""%2""
-					 |на узле ""%1""?'");
-	Иначе
-		Текст = НСтр("ru='Отменить регистрацию выбранных констант
-					 |на узле ""%1""?'");
-	КонецЕсли;
-	Текст = СтрЗаменить(Текст, "%1", ExchangeNodeRef);
-	Текст = СтрЗаменить(Текст, "%2", СписокПредставлений[0]);
-
-	ЗаголовокВопроса = НСтр("ru='Подтверждение'");
-
-	Оповещение = Новый ОписаниеОповещения("УдалитьРегистрациюКонстантыВСпискеЗавершение", ЭтотОбъект, Новый Структура);
-	Оповещение.ДополнительныеПараметры.Вставить("СписокИмен", СписокИмен);
-
-	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
+Procedure DeleteConstantRegistrationInList()
+	
+	Item = Items.ConstantsList;
+	
+	PresentationsList = New Array;
+	NamesList          = New Array;
+	For Each Row In Item.SelectedRows Do
+		Data = Item.RowData(Row);
+		PresentationsList.Add(Data.Description);
+		NamesList.Add(Data.MetaFullName);
+	EndDo;
+	
+	Count = NamesList.Count();
+	If Count = 0 Then
+		Return;
+	ElsIf Count = 1 Then
+		Text = NStr("ru = 'Отменить регистрацию ""%2""
+		                 |на узле ""%1""?'; 
+		                 |en = 'Do you want to cancel registration of ""%2""
+		                 |at node ""%1""?'"); 
+	Else
+		Text = NStr("ru = 'Отменить регистрацию выбранных констант
+		                 |на узле ""%1""?'; 
+		                 |en = 'Do you want to cancel registration of the selected constants
+		                 |at node ""%1""?'"); 
+	EndIf;
+	Text = StrReplace(Text, "%1", ExchangeNodeRef);
+	Text = StrReplace(Text, "%2", PresentationsList[0]);
+	
+	QuestionTitle = NStr("ru = 'Подтверждение'; en = 'Confirm operation'");
+	
+	Notification = New NotifyDescription("DeleteConstantRegistrationInListCompletion", ThisObject, New Structure);
+	Notification.AdditionalParameters.Insert("NamesList", NamesList);
+	
+	ShowQueryBox(Notification, Text, QuestionDialogMode.YesNo, , ,QuestionTitle);
 EndProcedure
 
 &AtClient
