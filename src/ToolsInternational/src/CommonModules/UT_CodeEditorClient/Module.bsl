@@ -60,7 +60,7 @@ Procedure InitializeFormEditorsAfterFieldsFormed(Form, FormEditors, EditorType, 
 			DocumentView.setOption("dragAndDrop", True);
 
 			EditorThemes = UT_CodeEditorClientServer.MonacoEditorThemeVariants();
-			If EditorSettings.EditorSettings.Subject = EditorThemes.Dark Then
+			If EditorSettings.EditorSettings.Theme = EditorThemes.Dark Then
 				DocumentView.setTheme("bsl-dark");
 			Else
 				DocumentView.setTheme("bsl-white");
