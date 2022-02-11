@@ -1,19 +1,19 @@
 #Region Public
 
-Procedure FormOnOpen(Form, ОписаниеОповещенияОЗавершении = Undefined) Export
-	ДопПараметры = New Structure;
-	ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДопПараметры.Insert("Form", Form);
+Procedure FormOnOpen(Form, CompletionNotifyDescription = Undefined) Export
+	AdditionalParameters = New Structure;
+	AdditionalParameters.Insert("CompletionNotifyDescription", CompletionNotifyDescription);
+	AdditionalParameters.Insert("Form", Form);
 
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
-			New NotifyDescription("ФормаПриОткрытииЗавершениеПодключенияРасширенияРаботыСФайлами", ThisObject,
-		ДопПараметры));
+			New NotifyDescription("FormOnOpenEndAttachFileSystemExtension", ThisObject,
+		AdditionalParameters));
 EndProcedure
 
-Function ВсеРедакторыФормыИнициализированы(РедакторыФормы)
+Function AllFormEditorsInitialized(FormEditors)
 	Result = True;
-	For Each КлючЗначение In РедакторыФормы Do
-		If Not КлючЗначение.Value.Инициализирован Then
+	For Each KeyValue In FormEditors Do
+		If Not KeyValue.Value.Initialized Then
 			Result = False;
 			Break;
 		EndIf;
@@ -22,372 +22,373 @@ Function ВсеРедакторыФормыИнициализированы(Ре
 	Return Result;
 EndFunction
 
-Procedure ИнициализироватьРедаторыФормыПослеФормированияПолей(Form, РедакторыФормы, ВидРедактора, ВидыРедактора)
-	For Each КлючЗначение In РедакторыФормы Do
-		ПараметрыРедактора = КлючЗначение.Value;
-		ЭлементФормыРедактора = Form.Items[ПараметрыРедактора.ПолеРедактора];
-		If Not ЭлементФормыРедактора.Visible Then
+Procedure InitializeFormEditorsAfterFieldsFormed(Form, FormEditors, EditorType, EditorTypes)
+	For Each KeyValue In FormEditors Do
+		EditorSettings = KeyValue.Value;
+		EditorFormItem = Form.Items[EditorSettings.EditorField];
+		If Not EditorFormItem.Visible Then
 			Continue;
 		EndIf;
 			
-		If ВидРедактора = ВидыРедактора.Text Then
-			If ValueIsFilled(ПараметрыРедактора.ПараметрыРедактора.РазмерШрифта) Then
-				ЭлементФормыРедактора.Font = New Font(, ПараметрыРедактора.ПараметрыРедактора.РазмерШрифта);
+		If EditorType = EditorTypes.Text Then
+			If ValueIsFilled(EditorSettings.EditorSettings.FontSize) Then
+				EditorFormItem.Font = New Font(, EditorSettings.EditorSettings.FontSize);
 			EndIf;
-		ElsIf ВидРедактора = ВидыРедактора.Ace Then 
-			ДокументView = ЭлементФормыРедактора.Document.defaultView;
-			If ValueIsFilled(ПараметрыРедактора.ПараметрыРедактора.РазмерШрифта) Then
-				ДокументView.editor.setFontSize(ПараметрыРедактора.ПараметрыРедактора.РазмерШрифта);		
+		ElsIf EditorType = EditorTypes.Ace Then 
+			DocumentView = EditorFormItem.Document.defaultView;
+			If ValueIsFilled(EditorSettings.EditorSettings.FontSize) Then
+				DocumentView.editor.setFontSize(EditorSettings.EditorSettings.FontSize);		
 			EndIf;
-		ElsIf ВидРедактора = ВидыРедактора.Monaco Then
-			ДокументView = ЭлементФормыРедактора.Document.defaultView;
-			ДокументView.setOption("autoResizeEditorLayout", True);
+		ElsIf EditorType = EditorTypes.Monaco Then
+			DocumentView = EditorFormItem.Document.defaultView;
+			DocumentView.setOption("autoResizeEditorLayout", True);
 
-			Инфо = New SystemInfo;
-			ДокументView.init(Инфо.AppVersion);
-			ДокументView.hideScrollX();
-			ДокументView.hideScrollY();
-			ДокументView.showStatusBar();
-			ДокументView.enableQuickSuggestions();
-			If ValueIsFilled(ПараметрыРедактора.ПараметрыРедактора.РазмерШрифта) Then
-				ДокументView.setFontSize(ПараметрыРедактора.ПараметрыРедактора.РазмерШрифта);
+			Info = New SystemInfo;
+			DocumentView.init(Info.AppVersion);
+			DocumentView.hideScrollX();
+			DocumentView.hideScrollY();
+			DocumentView.showStatusBar();
+			DocumentView.enableQuickSuggestions();
+			If ValueIsFilled(EditorSettings.EditorSettings.FontSize) Then
+				DocumentView.setFontSize(EditorSettings.EditorSettings.FontSize);
 			EndIf;
-			If ValueIsFilled(ПараметрыРедактора.ПараметрыРедактора.ВысотаСтрок) Then
-				ДокументView.setLineHeight(ПараметрыРедактора.ПараметрыРедактора.ВысотаСтрок);
+			If ValueIsFilled(EditorSettings.EditorSettings.LinesHeight) Then
+				DocumentView.setLineHeight(EditorSettings.EditorSettings.LinesHeight);
 			EndIf;
 
-			ДокументView.disableKeyBinding(9);
-			ДокументView.setOption("dragAndDrop", True);
+			DocumentView.disableKeyBinding(9);
+			DocumentView.setOption("dragAndDrop", True);
 
-			ТемыРедактора = UT_CodeEditorClientServer.ВариантыТемыРедактораMonaco();
-			If ПараметрыРедактора.ПараметрыРедактора.Subject = ТемыРедактора.Темная Then
-				ДокументView.setTheme("bsl-dark");
+			EditorThemes = UT_CodeEditorClientServer.MonacoEditorThemeVariants();
+			If EditorSettings.EditorSettings.Subject = EditorThemes.Dark Then
+				DocumentView.setTheme("bsl-dark");
 			Else
-				ДокументView.setTheme("bsl-white");
+				DocumentView.setTheme("bsl-white");
 			EndIf;
 
-			ЯзыкиРедактора = UT_CodeEditorClientServer.ВариантыЯзыкаСинтаксисаРедактораMonaco();
-			If ПараметрыРедактора.ПараметрыРедактора.ЯзыкСинтаксиса = ЯзыкиРедактора.English Then
-				ДокументView.switchLang();
-			ElsIf ПараметрыРедактора.ПараметрыРедактора.ЯзыкСинтаксиса = ЯзыкиРедактора.Auto Then
-				ЯзыкСинтаксиса = UT_ApplicationParameters["ЯзыкСинтаксисаКонфигурации"];
-				If ЯзыкСинтаксиса = "English" Then
-					ДокументView.switchLang();
+			EditorLanguages = UT_CodeEditorClientServer.MonacoEditorSyntaxLanguageVariants();
+			If EditorSettings.EditorSettings.ScriptVariant = EditorLanguages.English Then
+				DocumentView.switchLang();
+			ElsIf EditorSettings.EditorSettings.ScriptVariant = EditorLanguages.Auto Then
+				ScriptVariant = UT_ApplicationParameters["ConfigurationScriptVariant"];
+				If ScriptVariant = "English" Then
+					DocumentView.switchLang();
 				EndIf;
 			EndIf;
 
-			ДокументView.minimap(ПараметрыРедактора.ПараметрыРедактора.ИспользоватьКартуКода);
+			DocumentView.minimap(EditorSettings.EditorSettings.UseScriptMap);
 
-			If ПараметрыРедактора.ПараметрыРедактора.СкрытьНомераСтрок Then
-				ДокументView.hideLineNumbers();
+			If EditorSettings.EditorSettings.HideLineNumbers Then
+				DocumentView.hideLineNumbers();
 			EndIf;
 
-			ДокументView.clearMetadata();
+			DocumentView.clearMetadata();
 
-			ОписаниеКонфигурацииДляИнициализации = ОписаниеМетаданныйДляИнициализацииРедактораMonaco();
+			ConfigurationDescriptionForInitialization = MetadataDescriptionForMonacoEditorInitialization();
 
-	//		МетаданныеКонфигурации = ОписаниеМетаданныхКонфигурацииДляРедактораMonaco();
-			ДокументView.updateMetadata(UT_CommonClientServer.mWriteJSON(
-				ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(
-				ОписаниеКонфигурацииДляИнициализации.CommonModules)), "commonModules.items");
+	//		ConfigurationMetadata = MetadataDescriptionForMonacoEditorInitialization();
+			DocumentView.updateMetadata(UT_CommonClientServer.mWriteJSON(
+				GetMetadataObjectsListFromCollectionForMonacoEditor(
+				ConfigurationDescriptionForInitialization.CommonModules)), "commonModules.items");
 		EndIf;
 	EndDo;
 EndProcedure
 
 Procedure CodeEditorDeferredInitializingEditors(Form) Export
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
-	ВидыРедактора = UT_CodeEditorClientServer.ВариантыРедактораКода();
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
+	EditorTypes = UT_CodeEditorClientServer.CodeEditorVariants();
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 
-	ИнициализироватьРедаторыФормыПослеФормированияПолей(Form, РедакторыФормы, ВидРедактора, ВидыРедактора);
+	InitializeFormEditorsAfterFieldsFormed(Form, FormEditors, EditorType, EditorTypes);
 	Form.Attachable_CodeEditorInitializingCompletion();
-//	Форма.Attachable_CodeEditorInitializingCompletion(УИ_РедакторКодаКлиентСервер.ИдентификаторРедактораПоЭлементуФормы(Форма, Элемент));
+//	Form.Attachable_EditorFieldInitializingCompletion(UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item));
 EndProcedure
 
 Procedure HTMLEditorFieldDocumentGenerated(Form, Item) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
+	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
-	ПараметрыРедактора.Insert("Инициализирован", True);
+	EditorSettings = FormEditors[EditorID];
+	EditorSettings.Insert("Initialized", True);
 
-	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
+	If Not AllFormEditorsInitialized(FormEditors) Then
 		Return;
 	EndIf;
-	Form.AttachIdleHandler("Attached_CodeEditorDeferredInitializingEditors", 0.1, True);
+	Form.AttachIdleHandler("Attachable_CodeEditorDeferredInitializingEditors", 0.1, True);
 EndProcedure
 
-Procedure HTMLEditorFieldOnClick(Form, Item, ДанныеСобытия, СтандартнаяОбработка) Export
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
-	ВидыРедактора = UT_CodeEditorClientServer.ВариантыРедактораКода();
+Procedure HTMLEditorFieldOnClick(Form, Item, EventData, StandardProcessing) Export
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
+	EditorTypes = UT_CodeEditorClientServer.CodeEditorVariants();
 
-	If ВидРедактора = ВидыРедактора.Monaco Then
-		ПолеРедактораHTMLПриНажатииMonaco(Form, Item, ДанныеСобытия, СтандартнаяОбработка);
+	If EditorType = EditorTypes.Monaco Then
+		HTMLEditorFieldOnClickMonaco(Form, Item, EventData, StandardProcessing);
 	EndIf;
 EndProcedure
 
-Procedure УстановитьТекстРедактораЭлементаФормы(Form, Item, Text) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
-	If ИдентификаторРедактора = Undefined Then
-		Return;
-	EndIf;
-
-	SetEditorText(Form, ИдентификаторРедактора, Text);
-EndProcedure
-
-Procedure SetEditorText(Form, ИдентификаторРедактора, Text) Export
-	ВидыРедакторов = UT_CodeEditorClientServer.ВариантыРедактораКода();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
-
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
-	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
+Procedure SetFormItemEditorText(Form, Item, Text) Export
+	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
+	If EditorID = Undefined Then
 		Return;
 	EndIf;
 
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
-	If ВидРедактора = ВидыРедакторов.Text Then
-		Form[ПараметрыРедактора.ИмяРеквизита] = Text;
-	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
+	SetEditorText(Form, EditorID, Text);
+EndProcedure
+
+Procedure SetEditorText(Form, EditorID, Text) Export
+	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
+
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
+	If Not AllFormEditorsInitialized(FormEditors) Then
+		Return;
+	EndIf;
+
+	EditorSettings = FormEditors[EditorID];
+	If EditorType = EditorsTypes.Text Then
+		Form[EditorSettings.AttributeName] = Text;
+	ElsIf EditorType = EditorsTypes.Ace Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.editor.setValue(Text, -1);
-	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
+	ElsIf EditorType = EditorsTypes.Monaco Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.updateText(Text);
 	EndIf;
 EndProcedure
 
-Function EditorCodeText(Form, ИдентификаторРедактора) Export
-	ВидыРедакторов = UT_CodeEditorClientServer.ВариантыРедактораКода();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+Function EditorCodeText(Form, EditorID) Export
+	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
-	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
+	If Not AllFormEditorsInitialized(FormEditors) Then
 		Return "";
 	EndIf;
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
+	EditorSettings = FormEditors[EditorID];
 
-	ТекстКода="";
+	CodeText="";
 
-	If ВидРедактора = ВидыРедакторов.Text Then
-		ТекстКода = Form[ПараметрыРедактора.ИмяРеквизита];
-	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
-		ТекстКода = HTMLDocument.editor.getValue();
-	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
-		ТекстКода = HTMLDocument.getText();
+	If EditorType = EditorsTypes.Text Then
+		CodeText = Form[EditorSettings.AttributeName];
+	ElsIf EditorType = EditorsTypes.Ace Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
+		CodeText = HTMLDocument.editor.getValue();
+	ElsIf EditorType = EditorsTypes.Monaco Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
+		CodeText = HTMLDocument.getText();
 	EndIf;
 
-	Return TrimAll(ТекстКода);
+	Return TrimAll(CodeText);
 EndFunction
 
-Function ТекстКодаРедактораЭлементаФормы(Form, Item) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
-	If ИдентификаторРедактора = Undefined Then
+Function EditorCodeTextItemForm(Form, Item) Export
+	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
+	If EditorID = Undefined Then
 		Return "";
 	EndIf;
 
-	Return EditorCodeText(Form, ИдентификаторРедактора);
+	Return EditorCodeText(Form, EditorID);
 EndFunction
 
-Function EditorSelectionBounds(Form, ИдентификаторРедактора) Export
-	ВидыРедакторов = UT_CodeEditorClientServer.ВариантыРедактораКода();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+Function EditorSelectionBorders(Form, EditorID) Export
+	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
-	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
-		Return НовыйГраницыВыделения();
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
+	If Not AllFormEditorsInitialized(FormEditors) Then
+		Return NewSelectionBorders();
 	EndIf;
 
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
+	EditorSettings = FormEditors[EditorID];
 
-	ГраницыВыделения = НовыйГраницыВыделения();
+	SelectionBounds = NewSelectionBorders();
 
-	If ВидРедактора = ВидыРедакторов.Text Then
-		ЭлементРедактора = Form.Items[ПараметрыРедактора.ПолеРедактора];
+	If EditorType = EditorsTypes.Text Then
+		EditorItem = Form.Items[EditorSettings.EditorField];
 			
-		ЭлементРедактора.GetTextSelectionBounds(ГраницыВыделения.НачалоСтроки, ГраницыВыделения.НачалоКолонки,
-			ГраницыВыделения.КонецСтроки, ГраницыВыделения.КонецКолонки);		
-	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
-		ВыделеннаяОбласть = HTMLDocument.editor.getSelectionRange();
+		EditorItem.GetTextSelectionBounds(SelectionBounds.RowBeginning, SelectionBounds.ColumnBeginning,
+			SelectionBounds.RowEnd, SelectionBounds.ColumnEnd);		
+	ElsIf EditorType = EditorsTypes.Ace Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
+		SelectedArea = HTMLDocument.editor.getSelectionRange();
 		
-		ГраницыВыделения.НачалоСтроки = ВыделеннаяОбласть.start.row;
-		ГраницыВыделения.НачалоКолонки = ВыделеннаяОбласть.start.column;
-		ГраницыВыделения.КонецСтроки = ВыделеннаяОбласть.end.row;
-		ГраницыВыделения.КонецКолонки = ВыделеннаяОбласть.end.column;
-	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
+		SelectionBounds.RowBeginning= SelectedArea.start.row;
+		SelectionBounds.ColumnBeginning = SelectedArea.start.column;
+		SelectionBounds.RowEnd = SelectedArea.end.row;
+		SelectionBounds.ColumnEnd = SelectedArea.end.column;
+	ElsIf EditorType = EditorsTypes.Monaco Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		
 		Select = HTMLDocument.getSelection();
-		ГраницыВыделения.НачалоСтроки = Select.startLineNumber;
-		ГраницыВыделения.НачалоКолонки = Select.startColumn;
-		ГраницыВыделения.КонецСтроки = Select.endLineNumber;
-		ГраницыВыделения.КонецКолонки = Select.endColumn;
+		SelectionBounds.RowBeginning= Select.startLineNumber;
+		SelectionBounds.ColumnBeginning = Select.startColumn;
+		SelectionBounds.RowEnd = Select.endLineNumber;
+		SelectionBounds.ColumnEnd = Select.endColumn;
 	EndIf;
 
-	Return ГраницыВыделения;
+	Return SelectionBounds;
 	
 EndFunction
 
-Function ГраницыВыделенияРедактораЭлементаФормы(Form, Item) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
-	If ИдентификаторРедактора = Undefined Then
-		Return НовыйГраницыВыделения();
+Function EditorSelectionBordersFormItem(Form, Item) Export
+	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
+	If EditorID = Undefined Then
+		Return NewSelectionBorders();
 	EndIf;
 	
-	Return EditorSelectionBounds(Form, ИдентификаторРедактора);	
+	Return EditorSelectionBorders(Form, EditorID);	
 EndFunction
 
-Procedure SetTextSelectionBounds(Form, ИдентификаторРедактора, НачалоСтроки, НачалоКолонки, КонецСтроки,
-	КонецКолонки) Export
+Procedure SetTextSelectionBorders(Form, EditorID, RowBeginning, ColumnBeginning, RowEnd,
+	ColumnEnd) Export
 
-	ВидыРедакторов = UT_CodeEditorClientServer.ВариантыРедактораКода();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
-	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
+	If Not AllFormEditorsInitialized(FormEditors) Then
 		Return;
 	EndIf;
 	
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
+	EditorSettings = FormEditors[EditorID];
 
-	If ВидРедактора = ВидыРедакторов.Text Then
-		ЭлементРедактора = Form.Items[ПараметрыРедактора.ПолеРедактора];
+	If EditorType = EditorsTypes.Text Then
+		EditorItem = Form.Items[EditorSettings.EditorField];
 			
-		ЭлементРедактора.SetTextSelectionBounds(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);		
-	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
-		HTMLDocument.setSelection(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);
-	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
-		HTMLDocument.setSelection(НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);
+		EditorItem.SetTextSelectionBorders(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);		
+	ElsIf EditorType = EditorsTypes.Ace Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
+		HTMLDocument.setSelection(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
+	ElsIf EditorType = EditorsTypes.Monaco Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
+		HTMLDocument.setSelection(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 	EndIf;
 
 EndProcedure
 
-Procedure УстановитьГраницыВыделенияЭлементаФормы(Form, Item, НачалоСтроки, НачалоКолонки, КонецСтроки,
-	КонецКолонки) Export
+Procedure SetTextSelectionBordersFormItem(Form, Item, RowBeginning, ColumnBeginning, LineEnd,
+	ColumnEnd) Export
 
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
-	If ИдентификаторРедактора = Undefined Then
+	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
+	If EditorID = Undefined Then
 		Return;
 	EndIf;
 
-	SetTextSelectionBounds(Form, ИдентификаторРедактора, НачалоСтроки, НачалоКолонки, КонецСтроки, КонецКолонки);
+	SetTextSelectionBorders(Form, EditorID, RowBeginning, ColumnBeginning, LineEnd, ColumnEnd);
 
 EndProcedure
 
-Procedure InsertTextInCursorLocation(Form, ИдентификаторРедактора, Text) Export
-	ВидыРедакторов = UT_CodeEditorClientServer.ВариантыРедактораКода();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+Procedure InsertTextInCursorLocation(Form, EditorID, Text) Export
+	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
-	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
+	If Not AllFormEditorsInitialized(FormEditors) Then
 		Return;
 	EndIf;
 	
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
+	EditorSettings = FormEditors[EditorID];
 
-	If ВидРедактора = ВидыРедакторов.Text Then
-		ЭлементРедактора = Form.Items[ПараметрыРедактора.ПолеРедактора];
-		ЭлементРедактора.SelectedText = Text;	
-	ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
+	If EditorType = EditorsTypes.Text Then
+		EditorItem = Form.Items[EditorSettings.EditorField];
+		EditorItem.SelectedText = Text;	
+	ElsIf EditorType = EditorsTypes.Ace Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.editor.insert(Text);
-	ElsIf ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
+	ElsIf EditorType = EditorsTypes.Monaco Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 		HTMLDocument.selectedText(Text);
 	EndIf;
 EndProcedure
 
-Procedure ВставитьТекстПоПозицииКурсораЭлементаФормы(Form, Item, Text) Export
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(Form, Item);
-	If ИдентификаторРедактора = Undefined Then
+Procedure InsertTextInCursorLocationFormItem(Form, Item, Text) Export
+	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(Form, Item);
+	If EditorID = Undefined Then
 		Return;
 	EndIf;
 
-	InsertTextInCursorLocation(Form, ИдентификаторРедактора, Text);
+	InsertTextInCursorLocation(Form, EditorID, Text);
 	
 EndProcedure
 
-Procedure AddCodeEditorContext(Form, ИдентификаторРедактора, ДобавляемыйКонтекст) Export
-	ВидыРедакторов = UT_CodeEditorClientServer.ВариантыРедактораКода();
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+Procedure AddCodeEditorContext(Form, EditorID, AddedContext) Export
+	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
-	If Not ВсеРедакторыФормыИнициализированы(РедакторыФормы) Then
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
+	If Not AllFormEditorsInitialized(FormEditors) Then
 		Return;
 	EndIf;
 	
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
+	EditorSettings = FormEditors[EditorID];
 
-	If ВидРедактора = ВидыРедакторов.Monaco Then
-		HTMLDocument=Form.Items[ПараметрыРедактора.ПолеРедактора].Document.defaultView;
+	If EditorType = EditorsTypes.Monaco Then
+		HTMLDocument=Form.Items[EditorSettings.EditorField].Document.defaultView;
 
-		СоответствиеТипов = СоответствиеСсылочныхТиповКонфигурации();
+		TypesMap = ConfigurationReferenceTypesMap();
 
-		ОбъектыДобавления = New Structure;
+		AddingObjects = New Structure;
 
-		For Each КлючЗначение In ДобавляемыйКонтекст Do
-			ОбъектДобавляемый = New Structure("ref");
-			If TypeOf(КлючЗначение.Value) = Type("Structure") Then
-				TypeName = КлючЗначение.Value.Type;
+		For Each KeyValue In AddedContext Do
+			AddingObject = New Structure("ref");
+			If TypeOf(KeyValue.Value) = Type("Structure") Then
+				TypeName = KeyValue.Value.Type;
 			
-				ОбъектДобавляемый.Insert("properties", New Structure);
+				AddingObject.Insert("properties", New Structure);
 
-				For Each Property In КлючЗначение.Value.ПодчиненныеСвойства Do
-					ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОбъектДобавляемый.properties, Property, True,
-						СоответствиеТипов);
+				For Each Property In KeyValue.Value.ChildProperties Do
+					AddAttributeDescriptionForMonacoEditor(AddingObject.properties, Property, True,
+						TypesMap);
 				EndDo;
 				
 			Else
-				TypeName = КлючЗначение.Value;
+				TypeName = KeyValue.Value;
 			EndIf;
-			ОбъектДобавляемый.ref = ТипРедактораМонакоПоСтрокеТипа1С(TypeName, СоответствиеТипов);
-			ОбъектыДобавления.Insert(КлючЗначение.Key, ОбъектДобавляемый);
+			AddingObject.ref = MonacoEditorTypeBy1CTypeAsString(TypeName, TypesMap);
+			AddingObjects.Insert(KeyValue.Key, AddingObject);
 		EndDo;
 
 		HTMLDocument.updateMetadata(UT_CommonClientServer.mWriteJSON(New Structure("customObjects",
-			ОбъектыДобавления)));
+			AddingObjects)));
 	EndIf;
 EndProcedure
 
-Procedure ОткрытьКонструкторЗапроса(QueryText, ОписаниеОповещенияОЗавершении, РежимКомпоновки = False) Export
+Procedure OpenQueryWizard(QueryText, CompletionNotifyDescription, CompositionMode = False) Export
 #If Not MobileClient Then
-	Конструктор=New QueryWizard;
+	Wizard=New QueryWizard;
 	If UT_CommonClientServer.PlatformVersionNotLess_8_3_14() Then
-		Конструктор.DataCompositionMode=РежимКомпоновки;
+		Wizard.DataCompositionMode=CompositionMode;
 	EndIf;
 
 	If ValueIsFilled(TrimAll(QueryText)) Then
-		Конструктор.Text=QueryText;
+		Wizard.Text=QueryText;
 	EndIf;
 
-	Конструктор.Show(ОписаниеОповещенияОЗавершении);
+	Wizard.Show(CompletionNotifyDescription);
 #EndIf
 EndProcedure
 
-Procedure ОткрытьКонструкторФорматнойСтроки(ФорматнаяСтрока, ОписаниеОповещенияОЗавершении) Export
-	Конструктор = New FormatStringWizard;
+Procedure OpenFormatStringWizard(FormatString, CompletionNotifyDescription) Export
+	Wizard = New FormatStringWizard;
 	Try
-		Конструктор.Text = ФорматнаяСтрока;
+		Wizard.Text = FormatString;
 	Except
-		Инфо = ErrorInfo();
-		ShowMessageBox( , "Error в тексте форматной строки:" + Chars.LF + Инфо.Reason.LongDesc);
+		Info = ErrorInfo();
+		ShowMessageBox( ,NStr("ru = 'Ошибка в тексте форматной строки:';
+		|en = 'Error in the text of the format string:'") + Chars.LF + Info.Reason.Description);
 		Return;
 	EndTry;
-	Конструктор.Show(ОписаниеОповещенияОЗавершении);
+	Wizard.Show(CompletionNotifyDescription);
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлы(ОписаниеОповещенияОЗавершении, ТекущиеКаталоги) Export
-	ДопПараметрыОповещения = New Structure;
-	ДопПараметрыОповещения.Insert("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ДопПараметрыОповещения.Insert("ТекущиеКаталоги", ТекущиеКаталоги);
+Procedure SaveConfigurationModulesToFiles(CompletionNotifyDescription, CurrentDirectories) Export
+	NotificationAdditionalParameters = New Structure;
+	NotificationAdditionalParameters.Insert("CompletionNotifyDescription", CompletionNotifyDescription);
+	NotificationAdditionalParameters.Insert("CurrentDirectories", CurrentDirectories);
 
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
-		New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыЗавершениеПодключенияРасширенияРаботыСФайлами",
-		ThisObject, ДопПараметрыОповещения));
+		New NotifyDescription("SaveConfigurationModulesToFilesEndAttachFileSystemExtension",
+		ThisObject, NotificationAdditionalParameters));
 
 EndProcedure
 
@@ -395,372 +396,374 @@ EndProcedure
 
 #Region Internal
 
-Procedure ФормаПриОткрытииЗавершениеПодключенияРасширенияРаботыСФайлами(Result, AdditionalParameters) Export
-	АдресБиблиотеки =  AdditionalParameters.Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаАдресБиблиотеки()];
-	If АдресБиблиотеки = Undefined Or Not ValueIsFilled(АдресБиблиотеки) Then
-		ФормаПриОткрытииЗавершениеСохраненияБиблиотекиРедактора(True, AdditionalParameters);
+Procedure FormOnOpenEndAttachFileSystemExtension(Result, AdditionalParameters) Export
+	LibraryURL =  AdditionalParameters.Form[UT_CodeEditorClientServer.AttributeNameCodeEditorLibraryURL()];
+	If LibraryURL = Undefined Or Not ValueIsFilled(LibraryURL) Then
+		FormOnOpenEndEditorLibrarySaving(True, AdditionalParameters);
 	Else
-		ВидРедактора = AdditionalParameters.Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
+		EditorType = AdditionalParameters.Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
 
-		СохранитьБиблиотекуРедактораНаДиск(АдресБиблиотеки, ВидРедактора,
-			New NotifyDescription("ФормаПриОткрытииЗавершениеСохраненияБиблиотекиРедактора", ThisObject,
+		SaveEditorLibraryToDisk(LibraryURL, EditorType,
+			New NotifyDescription("FormOnOpenEndEditorLibrarySaving", ThisObject,
 			AdditionalParameters));
 	EndIf;
 EndProcedure
 
-Procedure ФормаПриОткрытииЗавершениеСохраненияБиблиотекиРедактора(Result, AdditionalParameters) Export
+Procedure FormOnOpenEndEditorLibrarySaving(Result, AdditionalParameters) Export
 	Form = AdditionalParameters.Form;
-	ВидРедактора = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаВидРедактора()];
-	ВидыРедакторов = UT_CodeEditorClientServer.ВариантыРедактораКода();
+	EditorType = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorTypeOfEditor()];
+	EditorsTypes = UT_CodeEditorClientServer.CodeEditorVariants();
 
-	If UT_CodeEditorClientServer.РедакторКодаИспользуетПолеHTML(ВидРедактора) Then
-		For Each КлючЗначение In Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()] Do
-			//ИмяРеквизитаРедактора = УИ_РедакторКодаКлиентСервер.ИмяРеквизитаРедактораКода(КлючЗначение.Value.ИмяРеквизита);	
+	If UT_CodeEditorClientServer.CodeEditorUsesHTMLField(EditorType) Then
+		For Each KeyValue In Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()] Do
+			//EditorAttributeName = UT_CodeEditorClientServer.AttributeNameCodeEditor(KeyValue.Value.AttributeName);	
 
-			If ВидРедактора = ВидыРедакторов.Monaco Then
-				Form[КлючЗначение.Value.ИмяРеквизита] = КаталогСохраненияРедактора(ВидРедактора)
+			If EditorType = EditorsTypes.Monaco Then
+				Form[KeyValue.Value.AttributeName] = EditorSaveDirectory(EditorType)
 					+ GetPathSeparator() + "index.html";
-			ElsIf ВидРедактора = ВидыРедакторов.Ace Then
-				Form[КлючЗначение.Value.ИмяРеквизита] = ИмяФайлаРедактораAceДляЯзыка(КлючЗначение.Value.Lang);
+			ElsIf EditorType = EditorsTypes.Ace Then
+				Form[KeyValue.Value.AttributeName] = AceEditorFileNameForLanguage(KeyValue.Value.Lang);
 			EndIf;
 		EndDo;
 	Else
 		CodeEditorDeferredInitializingEditors(Form);
 	EndIf;
 	
-	// Оповестим о завершении обработки инициализации редакторов при открытии формы
-	ОписаниеОповещенияОЗавершении= AdditionalParameters.ОписаниеОповещенияОЗавершении;
-	If ОписаниеОповещенияОЗавершении = Undefined Then
+	// We will notify about the completion of processing initialization of editors when opening the form
+	CompletionNotifyDescription= AdditionalParameters.CompletionNotifyDescription;
+	If CompletionNotifyDescription = Undefined Then
 		Return;
 	EndIf;
 
-	ExecuteNotifyProcessing(ОписаниеОповещенияОЗавершении, True);
+	ExecuteNotifyProcessing(CompletionNotifyDescription, True);
 EndProcedure
 
-Procedure СохранитьБиблиотекуРедактораНаДискЗавершениеСозданияКаталогаБиблиотеки(ИмяКаталога, AdditionalParameters) Export
+Procedure SaveEditorLibraryToDiskEndLibraryDirectoryCreation(DirectoryName, AdditionalParameters) Export
 
-	АдресБиблиотеки = AdditionalParameters.АдресБиблиотеки;
-	КаталогСохраненияБибилиотеки = AdditionalParameters.КаталогСохраненияБибилиотеки;
+	LibraryURL = AdditionalParameters.LibraryURL;
+	LibrarySavingDirectory = AdditionalParameters.LibrarySavingDirectory;
 
-	МассивСохраненныхФайлов = New Array;
-	СоответствиеФайловБиблиотеки=GetFromTempStorage(АдресБиблиотеки);
+	SavedFilesArray = New Array;
+	LibraryFilesMap=GetFromTempStorage(LibraryURL);
 
-	If AdditionalParameters.ВидРедактора = "Ace" Then
-		ДобавитьКСохранениюТекстовыйДокументДляЯзыкаРедактораКодаAce(СоответствиеФайловБиблиотеки,
-			КаталогСохраненияБибилиотеки, "bsl");
-		ДобавитьКСохранениюТекстовыйДокументДляЯзыкаРедактораКодаAce(СоответствиеФайловБиблиотеки,
-			КаталогСохраненияБибилиотеки, "css");
-		ДобавитьКСохранениюТекстовыйДокументДляЯзыкаРедактораКодаAce(СоответствиеФайловБиблиотеки,
-			КаталогСохраненияБибилиотеки, "javascript");
-		ДобавитьКСохранениюТекстовыйДокументДляЯзыкаРедактораКодаAce(СоответствиеФайловБиблиотеки,
-			КаталогСохраненияБибилиотеки, "html");
+	If AdditionalParameters.EditorType = "Ace" Then
+		AddToSavingFilesTextDocumentForAceCodeEditorLanguage(LibraryFilesMap,
+			LibrarySavingDirectory, "bsl");
+		AddToSavingFilesTextDocumentForAceCodeEditorLanguage(LibraryFilesMap,
+			LibrarySavingDirectory, "css");
+		AddToSavingFilesTextDocumentForAceCodeEditorLanguage(LibraryFilesMap,
+			LibrarySavingDirectory, "javascript");
+		AddToSavingFilesTextDocumentForAceCodeEditorLanguage(LibraryFilesMap,
+			LibrarySavingDirectory, "html");
 	EndIf;
 
-	AdditionalParameters.Insert("МассивСохраненныхФайлов", МассивСохраненныхФайлов);
-	AdditionalParameters.Insert("СоответствиеФайловБиблиотеки", СоответствиеФайловБиблиотеки);
+	AdditionalParameters.Insert("SavedFilesArray", SavedFilesArray);
+	AdditionalParameters.Insert("LibraryFilesMap", LibraryFilesMap);
 
-	СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайла(AdditionalParameters);
+	SaveEditorLibraryWriteBeginWritingNextFile(AdditionalParameters);
 EndProcedure
 
-Procedure СохранитьБиблиотекуРедактораРаспаковатьБиблиотекуРедактораВКаталог(AdditionalParameters,
-	ОписаниеОповещенияОЗаверешнии) Export
+Procedure SaveEditorLibraryUnpackEditorLibraryToDirectory(AdditionalParameters,
+	NotifyDescriptionOnCompletion) Export
 #If Not WebClient And Not MobileClient Then
-	Stream=AdditionalParameters.СоответствиеФайловБиблиотеки[AdditionalParameters.ТекКлючФайла].OpenStreamForRead();
+	Stream=AdditionalParameters.LibraryFilesMap[AdditionalParameters.CurrentFileKey].OpenStreamForRead();
 
-	ЧтениеZIP=New ZipFileReader(Stream);
-	ЧтениеZIP.ExtractAll(AdditionalParameters.КаталогСохраненияБибилиотеки,
+	ZipReader=New ZipFileReader(Stream);
+	ZipReader.ExtractAll(AdditionalParameters.LibrarySavingDirectory,
 		ZIPRestoreFilePathsMode.Restore);
 
 #EndIf
 
 EndProcedure
 
-Procedure СохранитьБиблиотекуРедактораРаспаковатьБиблиотекуРедактораВКаталогЗавершение(Result,
+Procedure SaveEditorLibraryUnpackEditorLibraryToDirectoryEnd(Result,
 	AdditionalParameters) Export
 
 EndProcedure
 
-Procedure СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайлаЗавершение(AdditionalParameters) Export
-	МассивСохраненныхФайлов = AdditionalParameters.МассивСохраненныхФайлов;
-	МассивСохраненныхФайлов.Add(AdditionalParameters.ТекКлючФайла);
+Procedure SaveEditorLibraryWriteBeginWritingNextFileEnd(AdditionalParameters) Export
+	SavedFilesArray = AdditionalParameters.SavedFilesArray;
+	SavedFilesArray.Add(AdditionalParameters.CurrentFileKey);
 
-	File = New File(AdditionalParameters.ТекКлючФайла);
+	File = New File(AdditionalParameters.CurrentFileKey);
 
 	If File.Extension = ".zip" Then
-		СохранитьБиблиотекуРедактораРаспаковатьБиблиотекуРедактораВКаталог(AdditionalParameters,
-			New NotifyDescription("СохранитьБиблиотекуРедактораРаспаковатьБиблиотекуРедактораВКаталогЗавершение",
+		SaveEditorLibraryUnpackEditorLibraryToDirectory(AdditionalParameters,
+			New NotifyDescription("SaveEditorLibraryUnpackEditorLibraryToDirectoryEnd",
 			ThisObject, AdditionalParameters));
 	EndIf;	
 		//Else
-	СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайла(AdditionalParameters);
+	SaveEditorLibraryWriteBeginWritingNextFile(AdditionalParameters);
 	//EndIf;
 EndProcedure
 
-Procedure СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайлаТекстовогоДокументаЗавершение(Result,
+Procedure SaveEditorLibraryWriteBeginWritingNextFileOfTextDocumentEnd(Result,
 	AdditionalParameters) Export
-	МассивСохраненныхФайлов = AdditionalParameters.МассивСохраненныхФайлов;
-	МассивСохраненныхФайлов.Add(AdditionalParameters.ТекКлючФайла);
+	SavedFilesArray = AdditionalParameters.SavedFilesArray;
+	SavedFilesArray.Add(AdditionalParameters.CurrentFileKey);
 
-	СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайла(AdditionalParameters);
+	SaveEditorLibraryWriteBeginWritingNextFile(AdditionalParameters);
 EndProcedure
 
-Procedure СохранитьБиблиотекуРедактораНаДискЗавершениеПроверкиСуществованияБиблиотекиНаДиске(Exists,
+Procedure SaveEditorLibraryToDiskEndCheckOfLibraryExistOnDisk(Exists,
 	AdditionalParameters) Export
 	If Exists Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении);
+		ExecuteNotifyProcessing(AdditionalParameters.CompletionNotifyDescription);
 		Return;
 	EndIf;
 
-	КаталогСохраненияБибилиотеки = AdditionalParameters.КаталогСохраненияБибилиотеки;
+	LibrarySavingDirectory = AdditionalParameters.LibrarySavingDirectory;
 
 	BeginCreatingDirectory(
-		New NotifyDescription("СохранитьБиблиотекуРедактораНаДискЗавершениеСозданияКаталогаБиблиотеки", ThisObject,
-		AdditionalParameters), КаталогСохраненияБибилиотеки);
+		New NotifyDescription("SaveEditorLibraryToDiskEndLibraryDirectoryCreation", ThisObject,
+		AdditionalParameters), LibrarySavingDirectory);
 
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыЗавершениеПодключенияРасширенияРаботыСФайлами(Result,
+Procedure SaveConfigurationModulesToFilesEndAttachFileSystemExtension(Result,
 	AdditionalParameters) Export
-	ПараметрыФормы = New Structure;
-	ПараметрыФормы.Insert("CurrentDirectories", AdditionalParameters.ТекущиеКаталоги);
+	FormParameters = New Structure;
+	FormParameters.Insert("CurrentDirectories", AdditionalParameters.CurrentDirectories);
 
-	ДополнительныеПараметрыОповещения = New Structure;
-	ДополнительныеПараметрыОповещения.Insert("ОписаниеОповещенияОЗавершении",
-		AdditionalParameters.ОписаниеОповещенияОЗавершении);
+	NotificationAdditionalParameters = New Structure;
+	NotificationAdditionalParameters.Insert("CompletionNotifyDescription",
+		AdditionalParameters.CompletionNotifyDescription);
 
-	OpenForm("ОбщаяФорма.UT_ConfigurationSourseFilesSaveSettings", ПараметрыФормы, , , , ,
-		New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыЗавершениеНастроек", ThisObject,
-		ДополнительныеПараметрыОповещения), FormWindowOpeningMode.Independent);
+	OpenForm("CommonForm.UT_ConfigurationSourseFilesSaveSettings", FormParameters, , , , ,
+		New NotifyDescription("SaveConfigurationModulesToFilesEndSettings", ThisObject,
+		NotificationAdditionalParameters), FormWindowOpeningMode.Independent);
 
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыЗавершениеНастроек(Result, AdditionalParameters) Export
+Procedure SaveConfigurationModulesToFilesEndSettings(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	ОписаниеМетаданныхКонфигурации = UT_CodeEditorServerCall.ОписаниеМетаданныхКонфигурации(False);
+	ConfigurationMetadataDescription = UT_CodeEditorServerCall.ConfigurationMetadataDescription(False);
 
-	ПараметрыСохраненияИсходныхФайлов = New Structure;
-	ПараметрыСохраненияИсходныхФайлов.Insert("ОписаниеМетаданныхКонфигурации", ОписаниеМетаданныхКонфигурации);
-	ПараметрыСохраненияИсходныхФайлов.Insert("Parameters", Result);
-	ПараметрыСохраненияИсходныхФайлов.Insert("AdditionalParameters", AdditionalParameters);
-	ПараметрыСохраненияИсходныхФайлов.Insert("ИндексКаталога", 0);
+	SourceFilesSavingParameters = New Structure;
+	SourceFilesSavingParameters.Insert("ConfigurationMetadataDescription", ConfigurationMetadataDescription);
+	SourceFilesSavingParameters.Insert("Parameters", Result);
+	SourceFilesSavingParameters.Insert("AdditionalParameters", AdditionalParameters);
+	SourceFilesSavingParameters.Insert("DirectoryIndex", 0);
 
-	СохранитьМодулиКонфигурацииВФайлыНачалоОбработкиКаталогаИсточника(ПараметрыСохраненияИсходныхФайлов);
+	SaveConfigurationModulesToFilesBeginProcessingSourceDirectory(SourceFilesSavingParameters);
 
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыНачалоОбработкиКаталогаИсточника(ПараметрыСохранения)
-	If ПараметрыСохранения.ИндексКаталога >= ПараметрыСохранения.Parameters.КаталогиИсточников.Count() Then
-		СохранитьМодулиКонфигурацииВФайлыЗавершение(ПараметрыСохранения);
+Procedure SaveConfigurationModulesToFilesBeginProcessingSourceDirectory(SaveOptions)
+	If SaveOptions.DirectoryIndex >= SaveOptions.Parameters.SourceDirectories.Count() Then
+		SaveConfigurationModulesToFilesEnd(SaveOptions);
 		Return;
 	EndIf;
 
-	ОписаниеКаталогаИсточника = ПараметрыСохранения.Parameters.КаталогиИсточников[ПараметрыСохранения.ИндексКаталога];
+	SourceDirectoryDescription = SaveOptions.Parameters.SourceDirectories[SaveOptions.DirectoryIndex];
 
-	ПараметрыСохранения.Insert("ОписаниеКаталогаИсточника", ОписаниеКаталогаИсточника);
+	SaveOptions.Insert("SourceDirectoryDescription", SourceDirectoryDescription);
 	
-	//Сначала нужно очистить каталог
-	BeginDeletingFiles(New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыЗавершениеУдалениеФайловКаталога",
-		ThisObject, ПараметрыСохранения), ОписаниеКаталогаИсточника.Directory, "*");
+	//First you need to clear the directory
+	BeginDeletingFiles(New NotifyDescription("SaveConfigurationModulesToFilesEndOfDirectoryFilesDeleting",
+		ThisObject, SaveOptions), SourceDirectoryDescription.Directory, "*");
 
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыЗавершениеУдалениеФайловКаталога(ПараметрыСохранения) Export
-	If ПараметрыСохранения.ОписаниеКаталогаИсточника.ТолькоМодули Then
-		СохранитьМодулиКонфигурацииВФайлыСохранитьСписокМетаданныхСМодулями(ПараметрыСохранения);
+Procedure SaveConfigurationModulesToFilesEndOfDirectoryFilesDeleting(SaveOptions) Export
+	If SaveOptions.SourceDirectoryDescription.ТолькоМодули Then
+		SaveConfigurationModulesToFilesSaveMetadataListWithModules(SaveOptions);
 	Else
-		СохранитьМодулиКонфигурацииВФайлыЗАпуститьКонфигуратовДляВыгрузкиМетаданных(ПараметрыСохранения);
+		SaveConfigurationModulesToFilesRunDesignerForMetadataDump(SaveOptions);
 	EndIf;
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыСохранитьСписокМетаданныхСМодулями(ПараметрыСохранения) Export
-	ТекстМетаданных = New TextDocument;
+Procedure SaveConfigurationModulesToFilesSaveMetadataListWithModules(SaveOptions) Export
+	MetadataText = New TextDocument;
 
-	If ПараметрыСохранения.ОписаниеКаталогаИсточника.Src <> "ОсновнаяКонфигурация" Then
-		ИмяРасширения = ПараметрыСохранения.ОписаниеКаталогаИсточника.Src;
+	If SaveOptions.SourceDirectoryDescription.Source <> "MainConfiguration" Then
+		ExtensionName = SaveOptions.SourceDirectoryDescription.Source;
 	Else
-		ИмяРасширения = Undefined;
+		ExtensionName = Undefined;
 	EndIf;
 	
-	For Each ТекКоллекция In ПараметрыСохранения.ОписаниеМетаданныхКонфигурации Do
-		If TypeOf(ТекКоллекция.Value)<> Type("Structure") Then
+	For Each CurrentCollection In SaveOptions.ConfigurationMetadataDescription Do
+		If TypeOf(CurrentCollection.Value)<> Type("Structure") Then
 			Continue;
 		EndIf;
 		
-		If ТекКоллекция.Key = "Catalogs" Then
-			ИмяКоллекцииДляФайла = "Catalog";
-		ElsIf ТекКоллекция.Key = "Documents" Then
-			ИмяКоллекцииДляФайла = "Document";
-		ElsIf ТекКоллекция.Key = "InformationRegisters" Then
-			ИмяКоллекцииДляФайла = "InformationRegister";
-		ElsIf ТекКоллекция.Key = "AccumulationRegisters" Then
-			ИмяКоллекцииДляФайла = "AccumulationRegister";
-		ElsIf ТекКоллекция.Key = "AccountingRegisters" Then
-			ИмяКоллекцииДляФайла = "AccountingRegister";
-		ElsIf ТекКоллекция.Key = "CalculationRegisters" Then
-			ИмяКоллекцииДляФайла = "CalculationRegister";
-		ElsIf ТекКоллекция.Key = "DataProcessors" Then
-			ИмяКоллекцииДляФайла = "DataProcessor";
-		ElsIf ТекКоллекция.Key = "Reports" Then
-			ИмяКоллекцииДляФайла = "Report";
-		ElsIf ТекКоллекция.Key = "Enums" Then
-			ИмяКоллекцииДляФайла = "Enum";
-		ElsIf ТекКоллекция.Key = "CommonModules" Then
-			ИмяКоллекцииДляФайла = "CommonModule";
-		ElsIf ТекКоллекция.Key = "ChartsOfAccounts" Then
-			ИмяКоллекцииДляФайла = "ChartOfAccounts";
-		ElsIf ТекКоллекция.Key = "BusinessProcesses" Then
-			ИмяКоллекцииДляФайла = "BusinessProcess";
-		ElsIf ТекКоллекция.Key = "Tasks" Then
-			ИмяКоллекцииДляФайла = "Task";
-		ElsIf ТекКоллекция.Key = "ExchangePlans" Then
-			ИмяКоллекцииДляФайла = "ExchangePlan";
-		ElsIf ТекКоллекция.Key = "ChartsOfCharacteristicTypes" Then
-			ИмяКоллекцииДляФайла = "ChartOfCharacteristicTypes";
-		ElsIf ТекКоллекция.Key = "ChartsOfCalculationTypes" Then
-			ИмяКоллекцииДляФайла = "ChartOfCalculationTypes";
-		ElsIf ТекКоллекция.Key = "Constants" Then
-			ИмяКоллекцииДляФайла = "Constant";
+		If CurrentCollection.Key = "Catalogs" Then
+			CollectionNameForFile = "Catalog";
+		ElsIf CurrentCollection.Key = "Documents" Then
+			CollectionNameForFile = "Document";
+		ElsIf CurrentCollection.Key = "InformationRegisters" Then
+			CollectionNameForFile = "InformationRegister";
+		ElsIf CurrentCollection.Key = "AccumulationRegisters" Then
+			CollectionNameForFile = "AccumulationRegister";
+		ElsIf CurrentCollection.Key = "AccountingRegisters" Then
+			CollectionNameForFile = "AccountingRegister";
+		ElsIf CurrentCollection.Key = "CalculationRegisters" Then
+			CollectionNameForFile = "CalculationRegister";
+		ElsIf CurrentCollection.Key = "DataProcessors" Then
+			CollectionNameForFile = "DataProcessor";
+		ElsIf CurrentCollection.Key = "Reports" Then
+			CollectionNameForFile = "Report";
+		ElsIf CurrentCollection.Key = "Enums" Then
+			CollectionNameForFile = "Enum";
+		ElsIf CurrentCollection.Key = "CommonModules" Then
+			CollectionNameForFile = "CommonModule";
+		ElsIf CurrentCollection.Key = "ChartsOfAccounts" Then
+			CollectionNameForFile = "ChartOfAccounts";
+		ElsIf CurrentCollection.Key = "BusinessProcesses" Then
+			CollectionNameForFile = "BusinessProcess";
+		ElsIf CurrentCollection.Key = "Tasks" Then
+			CollectionNameForFile = "Task";
+		ElsIf CurrentCollection.Key = "ExchangePlans" Then
+			CollectionNameForFile = "ExchangePlan";
+		ElsIf CurrentCollection.Key = "ChartsOfCharacteristicTypes" Then
+			CollectionNameForFile = "ChartOfCharacteristicTypes";
+		ElsIf CurrentCollection.Key = "ChartsOfCalculationTypes" Then
+			CollectionNameForFile = "ChartOfCalculationTypes";
+		ElsIf CurrentCollection.Key = "Constants" Then
+			CollectionNameForFile = "Constant";
 		Else
 			Continue;
 		EndIf;
 		
-		For Each КлючЗначениеМетаданных In ТекКоллекция.Value Do
-			If КлючЗначениеМетаданных.Value.Extension<>ИмяРасширения Then
+		For Each MetadataKeyValue In CurrentCollection.Value Do
+			If MetadataKeyValue.Value.Extension<>ExtensionName Then
 				Continue;
 			EndIf;
-			ТекстМетаданных.AddRow(ИмяКоллекцииДляФайла+"."+КлючЗначениеМетаданных.Key);
+			MetadataText.AddRow(CollectionNameForFile+"."+MetadataKeyValue.Key);
 		EndDo;
 	EndDo;
 	
 	SessionFileVariablesStructure = UT_CommonClient.SessionFileVariablesStructure();
-	ИмяФайлаСохранения = SessionFileVariablesStructure.TempFilesDirectory + GetPathSeparator() + "tools_ui_1c_list_metadata.txt";
-	ПараметрыСохранения.Insert("ИмяФайлаСпискаМетаданных", ИмяФайлаСохранения);
-	ТекстМетаданных.BeginWriting(
-		New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыСохранитьСписокМетаданныхСМодулямиЗавершение",
-		ThisObject, ПараметрыСохранения), ИмяФайлаСохранения);
+	SaveFileName = SessionFileVariablesStructure.TempFilesDirectory + GetPathSeparator() + "tools_ui_1c_list_metadata.txt";
+	SaveOptions.Insert("MetadataListFileName", SaveFileName);
+	MetadataText.BeginWriting(
+		New NotifyDescription("SaveConfigurationModulesToFilesSaveMetadataListWithModulesEnd",
+		ThisObject, SaveOptions), SaveFileName);
 
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыСохранитьСписокМетаданныхСМодулямиЗавершение(Result, ПараметрыСохранения) Export
+Procedure SaveConfigurationModulesToFilesSaveMetadataListWithModulesEnd(Result, SaveOptions) Export
 	If Result<>True Then
-		Message("Not удалось сохранить список метаданных с модулями в файл для источника "
-			+ ПараметрыСохранения.ОписаниеКаталогаИсточника.Src);
+		Message(Nstr("ru = 'Не удалось сохранить список метаданных с модулями в файл для источника';
+		|en = 'The list of metadata with modules could not be saved to a file for the source'")
+			+ SaveOptions.SourceDirectoryDescription.Source);
 
-		ПараметрыСохранения.ИндексКаталога = ПараметрыСохранения.ИндексКаталога + 1;
-		СохранитьМодулиКонфигурацииВФайлыНачалоОбработкиКаталогаИсточника(ПараметрыСохранения);
+		SaveOptions.DirectoryIndex = SaveOptions.DirectoryIndex + 1;
+		SaveConfigurationModulesToFilesBeginProcessingSourceDirectory(SaveOptions);
 		Return;
 	EndIf;	
 	
-	СохранитьМодулиКонфигурацииВФайлыЗАпуститьКонфигуратовДляВыгрузкиМетаданных(ПараметрыСохранения);
+	SaveConfigurationModulesToFilesRunDesignerForMetadataDump(SaveOptions);
 
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыЗАпуститьКонфигуратовДляВыгрузкиМетаданных(ПараметрыСохранения) Export
-	СтрокаЗапускаПриложения = UT_StringFunctionsClientServer.WrapInOuotationMarks(
-		ПараметрыСохранения.Parameters.ФайлЗапускаПлатформы) + " DESIGNER";
+Procedure SaveConfigurationModulesToFilesRunDesignerForMetadataDump(SaveOptions) Export
+	RunAppString = UT_StringFunctionsClientServer.WrapInOuotationMarks(
+		SaveOptions.Parameters.PlatformLaunchFile) + " DESIGNER";
 
-	If ПараметрыСохранения.Parameters.РасположениеБазы = 0 Then
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /F " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
-			ПараметрыСохранения.Parameters.КаталогИнформационнойБазы);
+	If SaveOptions.Parameters.InfobasePlacement = 0 Then
+		RunAppString = RunAppString + " /F " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
+			SaveOptions.Parameters.InfobaseDirectory);
 	Else
-		ПутьКБазе = ПараметрыСохранения.Parameters.СерверИБ + "\" + ПараметрыСохранения.Parameters.ИмяБазы;
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /S " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
-			ПутьКБазе);
+		DatabasePath = SaveOptions.Parameters.InfobaseServer + "\" + SaveOptions.Parameters.InfoBaseName;
+		RunAppString = RunAppString + " /S " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
+			DatabasePath);
 	EndIf;
-	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /N" + UT_StringFunctionsClientServer.WrapInOuotationMarks(
-		ПараметрыСохранения.Parameters.User);
+	RunAppString = RunAppString + " /N" + UT_StringFunctionsClientServer.WrapInOuotationMarks(
+		SaveOptions.Parameters.User);
 
-	If ValueIsFilled(ПараметрыСохранения.Parameters.Password) Then
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /P" + UT_StringFunctionsClientServer.WrapInOuotationMarks(
-			ПараметрыСохранения.Parameters.Password);
+	If ValueIsFilled(SaveOptions.Parameters.Password) Then
+		RunAppString = RunAppString + " /P" + UT_StringFunctionsClientServer.WrapInOuotationMarks(
+			SaveOptions.Parameters.Password);
 	EndIf;
-	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения +" /DisableStartupMessages /DisableStartupDialogs";
+	RunAppString = RunAppString +" /DisableStartupMessages /DisableStartupDialogs";
 
-	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /DumpConfigToFiles "
-		+ UT_StringFunctionsClientServer.WrapInOuotationMarks(ПараметрыСохранения.ОписаниеКаталогаИсточника.Directory)
+	RunAppString = RunAppString + " /DumpConfigToFiles "
+		+ UT_StringFunctionsClientServer.WrapInOuotationMarks(SaveOptions.SourceDirectoryDescription.Directory)
 		+ " -format Hierarchical";
 		
-	If ПараметрыСохранения.ОписаниеКаталогаИсточника.Src <> "ОсновнаяКонфигурация" Then
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " -Extension "
-			+ ПараметрыСохранения.ОписаниеКаталогаИсточника.Src;
+	If SaveOptions.SourceDirectoryDescription.Source <> "MainConfiguration" Then
+		RunAppString = RunAppString + " -Extension "
+			+ SaveOptions.SourceDirectoryDescription.Source;
 	EndIf;
-	If ПараметрыСохранения.ОписаниеКаталогаИсточника.ТолькоМодули Then
-		СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " -listFile "
-			+ UT_StringFunctionsClientServer.WrapInOuotationMarks(ПараметрыСохранения.ИмяФайлаСпискаМетаданных);
+	If SaveOptions.SourceDirectoryDescription.OnlyModules Then
+		RunAppString = RunAppString + " -listFile "
+			+ UT_StringFunctionsClientServer.WrapInOuotationMarks(SaveOptions.MetadataListFileName);
 
 	EndIf;
 	SessionFileVariablesStructure = UT_CommonClient.SessionFileVariablesStructure();
 	
-	ПараметрыСохранения.Insert("ИмяФайлаЛогаЗапускаКонфигуратора",
+	SaveOptions.Insert("RunDesignerLogFileName",
 		SessionFileVariablesStructure.TempFilesDirectory + GetPathSeparator()
 		+ "tools_ui_1c_list_metadata_out.txt");
 
-	СтрокаЗапускаПриложения = СтрокаЗапускаПриложения + " /Out " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
-		ПараметрыСохранения.ИмяФайлаЛогаЗапускаКонфигуратора);
+	RunAppString = RunAppString + " /Out " + UT_StringFunctionsClientServer.WrapInOuotationMarks(
+		SaveOptions.RunDesignerLogFileName);
 
 	BeginRunningApplication(
-		New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыЗавершениеВыгрузкиИсходниковМетаданныхВКаталог",
-		ThisObject, ПараметрыСохранения), СтрокаЗапускаПриложения, , True);
+		New NotifyDescription("SaveConfigurationModulesToFilesOnEndMetadataDumpToDirectory",
+		ThisObject, SaveOptions), RunAppString, , True);
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыЗавершениеВыгрузкиИсходниковМетаданныхВКаталог(КодЗавершения,
-	ПараметрыСохранения) Export
-	If КодЗавершения <> 0 Then
+Procedure SaveConfigurationModulesToFilesOnEndMetadataDumpToDirectory(CompletionCode,
+	SaveOptions) Export
+	If CompletionCode <> 0 Then
 		TextDocument = New TextDocument;
 
-		ДополнительныеПараметрыОповещения = New Structure;
-		ДополнительныеПараметрыОповещения.Insert("TextDocument", TextDocument);
-		ДополнительныеПараметрыОповещения.Insert("ПараметрыСохранения", ПараметрыСохранения);
+		NotificationAdditionalParameters = New Structure;
+		NotificationAdditionalParameters.Insert("TextDocument", TextDocument);
+		NotificationAdditionalParameters.Insert("SaveOptions", SaveOptions);
 
 		TextDocument.BeginReading(
-			New NotifyDescription("СохранитьМодулиКонфигурацииВФайлыЗавершениеВыгрузкиИсходниковМетаданныхВКаталогЗавершениеЧтенияЛога",
-			ThisObject, ДополнительныеПараметрыОповещения), ПараметрыСохранения.ИмяФайлаЛогаЗапускаКонфигуратора);
+			New NotifyDescription("SaveConfigurationModulesToFilesOnEndMetadataDumpToDirectoryEndLogReading",
+			ThisObject, NotificationAdditionalParameters), SaveOptions.RunDesignerLogFileName);
 		Return;
 	EndIf;
-	ПараметрыСохранения.ИндексКаталога = ПараметрыСохранения.ИндексКаталога + 1;
-	СохранитьМодулиКонфигурацииВФайлыНачалоОбработкиКаталогаИсточника(ПараметрыСохранения);
+	SaveOptions.DirectoryIndex = SaveOptions.DirectoryIndex + 1;
+	SaveConfigurationModulesToFilesBeginProcessingSourceDirectory(SaveOptions);
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыЗавершениеВыгрузкиИсходниковМетаданныхВКаталогЗавершениеЧтенияЛога(AdditionalParameters) Export
-	ПараметрыСохранения = AdditionalParameters.ПараметрыСохранения;
+Procedure SaveConfigurationModulesToFilesOnEndMetadataDumpToDirectoryEndLogReading(AdditionalParameters) Export
+	SaveOptions = AdditionalParameters.SaveOptions;
 	TextDocument = AdditionalParameters.TextDocument;
-	Message("Not удалось сохранить исходные файлы для источника "
-		+ ПараметрыСохранения.ОписаниеКаталогаИсточника.Src + ":" + Chars.LF + TextDocument.GetText());
+	Message(Nstr("ru = 'Не удалось сохранить исходные файлы для источника';
+	|en = 'Could not save the source files for the source'")
+		+ SaveOptions.SourceDirectoryDescription.Source + ":" + Chars.LF + TextDocument.GetText());
 		
-	ПараметрыСохранения.ИндексКаталога = ПараметрыСохранения.ИндексКаталога + 1;
-	СохранитьМодулиКонфигурацииВФайлыНачалоОбработкиКаталогаИсточника(ПараметрыСохранения);
+	SaveOptions.DirectoryIndex = SaveOptions.DirectoryIndex + 1;
+	SaveConfigurationModulesToFilesBeginProcessingSourceDirectory(SaveOptions);
 
 EndProcedure
 
-Procedure СохранитьМодулиКонфигурацииВФайлыЗавершение(ПараметрыСохранения)
-	ExecuteNotifyProcessing(ПараметрыСохранения.AdditionalParameters.ОписаниеОповещенияОЗавершении,
-		ПараметрыСохранения.Parameters.КаталогиИсточников);
+Procedure SaveConfigurationModulesToFilesEnd(SaveOptions)
+	ExecuteNotifyProcessing(SaveOptions.AdditionalParameters.CompletionNotifyDescription,
+		SaveOptions.Parameters.SourceDirectories);
 EndProcedure
 
 #Region Monaco
 
-Procedure ПриЗавершенииРедактированияФорматнойСтрокиMonaco(Text, AdditionalParameters) Export
+Procedure OnEndEditMonacoFormattedString(Text, AdditionalParameters) Export
 	If Text = Undefined Then
 		Return;
 	EndIf;
 
-	ФорматнаяСтрока = StrReplace(Text, "'", "");
-	ФорматнаяСтрока = """" + ФорматнаяСтрока + """";
+	FormatString = StrReplace(Text, "'", "");
+	FormatString = """" + FormatString + """";
 
-	ДокументView = AdditionalParameters.Form.Items[AdditionalParameters.Item.Name].Document.defaultView;
+	DocumentView = AdditionalParameters.Form.Items[AdditionalParameters.Item.Name].Document.defaultView;
 
-	If AdditionalParameters.Property("Позиция") Then
-		УстановитьТекстMonaco(ДокументView, ФорматнаяСтрока, UT_CommonClientServer.mWriteJSON(
-			AdditionalParameters.Позиция), True);
+	If AdditionalParameters.Property("Position") Then
+		SetTextMonaco(DocumentView, FormatString, UT_CommonClientServer.mWriteJSON(
+			AdditionalParameters.Position), True);
 	Else
-		УстановитьТекстMonaco(ДокументView, ФорматнаяСтрока, , True);
+		SetTextMonaco(DocumentView, FormatString, , True);
 	EndIf;
 EndProcedure
 
-Procedure ПриЗавершенииРедактированияЗапросаMonaco(Text, AdditionalParameters) Export
+Procedure OnEndEditMonacoQuery(Text, AdditionalParameters) Export
 	If Text = Undefined Then
 		Return;
 	EndIf;
@@ -769,30 +772,30 @@ Procedure ПриЗавершенииРедактированияЗапросаMo
 	QueryText = StrReplace(QueryText, """", """""");
 	QueryText = """" + QueryText + """";
 
-	ДокументView = AdditionalParameters.Form.Items[AdditionalParameters.Item.Name].Document.defaultView;
+	DocumentView = AdditionalParameters.Form.Items[AdditionalParameters.Item.Name].Document.defaultView;
 
-	If AdditionalParameters.Property("Позиция") Then
-		УстановитьТекстMonaco(ДокументView, QueryText, UT_CommonClientServer.mWriteJSON(
-			AdditionalParameters.Позиция), True);
+	If AdditionalParameters.Property("Position") Then
+		SetTextMonaco(DocumentView, QueryText, UT_CommonClientServer.mWriteJSON(
+			AdditionalParameters.Position), True);
 	Else
-		УстановитьТекстMonaco(ДокументView, QueryText, , True);
+		SetTextMonaco(DocumentView, QueryText, , True);
 	EndIf;
 EndProcedure
 
-Procedure ОткрытьКонструкторЗапросаMonacoЗавершениеВопроса(Result, AdditionalParameters) Export
+Procedure OpenMonacoQueryWizardQuestionCompletion(Result, AdditionalParameters) Export
 	If Result <> DialogReturnCode.Yes Then
 		Return;
 	EndIf;
-	ОткрытьКонструкторЗапроса("", New NotifyDescription("ПриЗавершенииРедактированияЗапросаMonaco", ThisObject,
+	OpenQueryWizard("", New NotifyDescription("OnEndEditMonacoQuery", ThisObject,
 		AdditionalParameters));
 
 EndProcedure
 
-Procedure ОткрытьКонструкторФорматнойСтрокиMonacoЗавершениеВопроса(Result, AdditionalParameters) Export
+Procedure OpenMonacoFormatStringWizardQuestionCompletion(Result, AdditionalParameters) Export
 	If Result <> DialogReturnCode.Yes Then
 		Return;
 	EndIf;
-	ОткрытьКонструкторФорматнойСтроки("", New NotifyDescription("ПриЗавершенииРедактированияФорматнойСтрокиMonaco",
+	OpenFormatStringWizard("", New NotifyDescription("OnEndEditMonacoFormattedString",
 		ThisObject, AdditionalParameters));
 
 EndProcedure
@@ -801,7 +804,7 @@ EndProcedure
 
 #Region Private
 
-Function ПодготовитьТекстЗапросаДляКонструктора(Text)
+Function PrepareTextForQueryWizard(Text)
 
 	QueryText = StrReplace(Text, "|", "");
 	QueryText = StrReplace(QueryText, """""", "$");
@@ -811,87 +814,91 @@ Function ПодготовитьТекстЗапросаДляКонструкт�
 	Return QueryText;
 EndFunction
 
-Function НовыйГраницыВыделения()
-	Границы = New Structure;
-	Границы.Insert("НачалоСтроки", 1);
-	Границы.Insert("НачалоКолонки", 1);
-	Границы.Insert("КонецСтроки", 1);
-	Границы.Insert("КонецКолонки", 1);
+Function NewSelectionBorders()
+	Borders = New Structure;
+	Borders.Insert("RowBeginning", 1);
+	Borders.Insert("ColumnBeginning", 1);
+	Borders.Insert("RowEnd", 1);
+	Borders.Insert("ColumnEnd", 1);
 	
-	Return Границы;
+	Return Borders;
 EndFunction
 
 #Region Monaco
 
-Function ОписаниеМетаданныйДляИнициализацииРедактораMonaco()
-	LongDesc = UT_ApplicationParameters["ОписаниеМетаданныйДляИнициализацииРедактораMonaco"];
-	If LongDesc <> Undefined Then
-		Return LongDesc;
+Function MetadataDescriptionForMonacoEditorInitialization()
+	Description = UT_ApplicationParameters["MetadataDescriptionForMonacoEditorInitialization"];
+	If Description <> Undefined Then
+		Return Description;
 	EndIf;
 
-	ОписаниеКонфигурацииДляИнициализации = UT_CodeEditorServerCall.ОписнаиеМетаданныйДляИнициализацииРедактораMonaco();
-	UT_ApplicationParameters.Insert("ОписаниеМетаданныйДляИнициализацииРедактораMonaco",
-		ОписаниеКонфигурацииДляИнициализации);
+	ConfigurationDescriptionForInitialization = UT_CodeEditorServerCall.MetaDataDescriptionForMonacoEditorInitialize();
+	UT_ApplicationParameters.Insert("MetadataDescriptionForMonacoEditorInitialization",
+		ConfigurationDescriptionForInitialization);
 
-	Return ОписаниеКонфигурацииДляИнициализации;
+	Return ConfigurationDescriptionForInitialization;
 
 EndFunction
 
-Procedure УстановитьТекстMonaco(ДокументView, Text, Позиция = Undefined, УчитыватьОтступПервойСтроки = True)
-	ДокументView.setText(Text, Позиция);
+Procedure SetTextMonaco(DocumentView, Text, Position = Undefined, УчитыватьОтступПервойСтроки = True)
+	DocumentView.setText(Text, Position);
 EndProcedure
 
-Procedure ОткрытьКонструкторФорматнойСтрокиMonaco(ПараметрыСобытия, AdditionalParameters)
-	If ПараметрыСобытия = Undefined Then
+Procedure OpenMonacoFormatStringWizard(EventParameters, AdditionalParameters)
+	If EventParameters = Undefined Then
 		UT_CommonClient.ShowQuestionToUser(
-			New NotifyDescription("ОткрытьКонструкторФорматнойСтрокиMonacoЗавершениеВопроса", ThisObject,
-			AdditionalParameters), "Форматная строка не найдена." + Chars.LF + "Create новую форматную строку?",
+			New NotifyDescription("OpenMonacoFormatStringWizardQuestionCompletion", ThisObject,
+			AdditionalParameters), Nstr("ru = 'Форматная строка не найдена.';
+			|en = 'Format string was not found.'") + Chars.LF + NSTR("ru = 'Создать новую форматную строку?';
+			|en = 'Create a new format string?'"),
 			QuestionDialogMode.YesNo);
 	Else
-		ФорматнаяСтрока = StrReplace(StrReplace(ПараметрыСобытия.text, "|", ""), """", "");
+		FormatString = StrReplace(StrReplace(EventParameters.text, "|", ""), """", "");
 
-		ПараметрыОповещения = AdditionalParameters;
+		NotificationParameters = AdditionalParameters;
 
-		Позиция = New Structure;
-		Позиция.Insert("startLineNumber", ПараметрыСобытия.range.startLineNumber);
-		Позиция.Insert("startColumn", ПараметрыСобытия.range.startColumn);
-		Позиция.Insert("endLineNumber", ПараметрыСобытия.range.endLineNumber);
-		Позиция.Insert("endColumn", ПараметрыСобытия.range.endColumn);
+		Position = New Structure;
+		Position.Insert("startLineNumber", EventParameters.range.startLineNumber);
+		Position.Insert("startColumn", EventParameters.range.startColumn);
+		Position.Insert("endLineNumber", EventParameters.range.endLineNumber);
+		Position.Insert("endColumn", EventParameters.range.endColumn);
 
-		ПараметрыОповещения.Insert("Позиция", Позиция);
+		NotificationParameters.Insert("Position", Position);
 
-		ОткрытьКонструкторФорматнойСтроки(ФорматнаяСтрока,
-			New NotifyDescription("ПриЗавершенииРедактированияФорматнойСтрокиMonaco", ThisObject,
-			ПараметрыОповещения));
+		OpenFormatStringWizard(FormatString,
+			New NotifyDescription("OnEndEditMonacoFormattedString", ThisObject,
+			NotificationParameters));
 	EndIf;
 EndProcedure
 
-Procedure ОткрытьКонструкторЗапросаMonaco(ПараметрыСобытия, AdditionalParameters)
-	If ПараметрыСобытия = Undefined Then
+Procedure OpenMonacoQueryWizard(EventParameters, AdditionalParameters)
+	If EventParameters = Undefined Then
 		UT_CommonClient.ShowQuestionToUser(
-			New NotifyDescription("ОткрытьКонструкторЗапросаMonacoЗавершениеВопроса", ThisObject,
-			AdditionalParameters), "Not найден текст запроса." + Chars.LF + "Create новый запрос?",
+			New NotifyDescription("OpenMonacoQueryWizardQuestionCompletion", ThisObject,
+			AdditionalParameters), NSTR("ru = 'Не найден текст запроса';
+			|en = 'Query text not found'") + Chars.LF + NSTR("ru = 'Создать новый запрос?';
+			|en = 'Create a new query?'"),
 			QuestionDialogMode.YesNo);
 	Else
-		QueryText = ПодготовитьТекстЗапросаДляКонструктора(ПараметрыСобытия.text);
+		QueryText = PrepareTextForQueryWizard(EventParameters.text);
 
-		ПараметрыОповещения = AdditionalParameters;
+		NotificationParameters = AdditionalParameters;
 
-		Позиция = New Structure;
-		Позиция.Insert("startLineNumber", ПараметрыСобытия.range.startLineNumber);
-		Позиция.Insert("startColumn", ПараметрыСобытия.range.startColumn);
-		Позиция.Insert("endLineNumber", ПараметрыСобытия.range.endLineNumber);
-		Позиция.Insert("endColumn", ПараметрыСобытия.range.endColumn);
+		Position = New Structure;
+		Position.Insert("startLineNumber", EventParameters.range.startLineNumber);
+		Position.Insert("startColumn", EventParameters.range.startColumn);
+		Position.Insert("endLineNumber", EventParameters.range.endLineNumber);
+		Position.Insert("endColumn", EventParameters.range.endColumn);
 
-		ПараметрыОповещения.Insert("Позиция", Позиция);
+		NotificationParameters.Insert("Position", Position);
 
-		ОткрытьКонструкторЗапроса(QueryText, New NotifyDescription("ПриЗавершенииРедактированияЗапросаMonaco",
-			ThisObject, ПараметрыОповещения));
+		OpenQueryWizard(QueryText, New NotifyDescription("OnEndEditMonacoQuery",
+			ThisObject, NotificationParameters));
 	EndIf;
 EndProcedure
 
-Procedure ПолеРедактораHTMLПриНажатииMonaco(Form, Item, ДанныеСобытия, СтандартнаяОбработка)
-	Event = ДанныеСобытия.Event.eventData1C;
+Procedure HTMLEditorFieldOnClickMonaco(Form, Item, EventData, StandardProcessing)
+	Event = EventData.Event.eventData1C;
 
 	If Event = Undefined Then
 		Return;
@@ -902,283 +909,283 @@ Procedure ПолеРедактораHTMLПриНажатииMonaco(Form, Item, �
 		AdditionalParameters.Insert("Form", Form);
 		AdditionalParameters.Insert("Item", Item);
 
-		ОткрытьКонструкторЗапросаMonaco(Event.params, AdditionalParameters);
+		OpenMonacoQueryWizard(Event.params, AdditionalParameters);
 	ElsIf Event.event = "EVENT_FORMAT_CONSTRUCT" Then
 		AdditionalParameters = New Structure;
 		AdditionalParameters.Insert("Form", Form);
 		AdditionalParameters.Insert("Item", Item);
 
-		ОткрытьКонструкторФорматнойСтрокиMonaco(Event.params, AdditionalParameters);
+		OpenMonacoFormatStringWizard(Event.params, AdditionalParameters);
 	ElsIf Event.event = "EVENT_GET_METADATA" Then
 		AdditionalParameters = New Structure;
 		AdditionalParameters.Insert("Form", Form);
 		AdditionalParameters.Insert("Item", Item);
 
-		МассивИменМетаданного = StrSplit(Event.params, ".");
+		MetadataNamesArray = StrSplit(Event.params, ".");
 
-		If МассивИменМетаданного[0] = "module" Then
+		If MetadataNamesArray[0] = "module" Then
 
-			УстановитьОписаниеМодуляДляРедактораMonaco(Event.params, AdditionalParameters);
+			SetModuleDescriptionForMonacoEditor(Event.params, AdditionalParameters);
 
 		Else
 
-			УстановитьОписаниеМетаданныхДляРедактораMonaco(Event.params, AdditionalParameters);
+			SetMetadataEditorForMonacoEditor(Event.params, AdditionalParameters);
 
 		EndIf;
 	EndIf;
 EndProcedure
 
-Function ИмяКаталогаВидаМетаданных(ВидОбъектаМетаданных)
-	If ВидОбъектаМетаданных = "справочники" Then
+Function MetadataTypeDirectoryName(MetadataObjectType)
+	If MetadataObjectType = "catalogs" Then
 		Return "Catalogs";
-	ElsIf ВидОбъектаМетаданных = "документы" Then
+	ElsIf MetadataObjectType = "documents" Then
 		Return "Documents";
-	ElsIf ВидОбъектаМетаданных = "константы" Then
+	ElsIf MetadataObjectType = "constants" Then
 		Return "Constants";
-	ElsIf ВидОбъектаМетаданных = "перечисления" Then
+	ElsIf MetadataObjectType = "enums" Then
 		Return "Enums";
-	ElsIf ВидОбъектаМетаданных = "отчеты" Then
+	ElsIf MetadataObjectType = "reports" Then
 		Return "Reports";
-	ElsIf ВидОбъектаМетаданных = "обработки" Then
+	ElsIf MetadataObjectType = "dataprocessors" Then
 		Return "DataProcessors";
-	ElsIf ВидОбъектаМетаданных = "планывидовхарактеристик" Then
+	ElsIf MetadataObjectType = "chartsofcharacteristictypes" Then
 		Return "ChartsOfCharacteristicTypes";
-	ElsIf ВидОбъектаМетаданных = "планысчетов" Then
+	ElsIf MetadataObjectType = "chartsofaccounts" Then
 		Return "ChartsOfAccounts";
-	ElsIf ВидОбъектаМетаданных = "планывидоврасчета" Then
+	ElsIf MetadataObjectType = "chartsofcalculationtypes" Then
 		Return "ChartsOfCalculationTypes";
-	ElsIf ВидОбъектаМетаданных = "регистрысведений" Then
+	ElsIf MetadataObjectType = "informationregisters" Then
 		Return "InformationRegisters";
-	ElsIf ВидОбъектаМетаданных = "регистрынакопления" Then
+	ElsIf MetadataObjectType = "accumulationregisters" Then
 		Return "AccumulationRegisters";
-	ElsIf ВидОбъектаМетаданных = "регистрыбухгалтерии" Then
+	ElsIf MetadataObjectType = "accountingregisters" Then
 		Return "AccountingRegisters";
-	ElsIf ВидОбъектаМетаданных = "регистрырасчета" Then
+	ElsIf MetadataObjectType = "calculationregisters" Then
 		Return "CalculationRegisters";
-	ElsIf ВидОбъектаМетаданных = "бизнеспроцессы" Then
+	ElsIf MetadataObjectType = "businessprocesses" Then
 		Return "BusinessProcesses";
-	ElsIf ВидОбъектаМетаданных = "задачи" Then
+	ElsIf MetadataObjectType = "tasks" Then
 		Return "Tasks";
-	ElsIf ВидОбъектаМетаданных = "планыобмена" Then
+	ElsIf MetadataObjectType = "exchangeplans" Then
 		Return "ExchangePlans";
 	EndIf;
 
 EndFunction
 
-Procedure НачатьПоискФайлаМодуляВКаталогеИсходныхФайлов(AdditionalParameters)
-	If AdditionalParameters.КаталогиИсходников.Count() <= AdditionalParameters.ИндексКаталогаИсходников Then
+Procedure StartSearchOfModuleFileInSourceFilesDirectory(AdditionalParameters)
+	If AdditionalParameters.SourcesDirectories.Count() <= AdditionalParameters.SourcesDirectoryIndex Then
 		Return;
 	EndIf;
-	КаталогИсходныхФайлов = AdditionalParameters.КаталогиИсходников[AdditionalParameters.ИндексКаталогаИсходников].Directory;
+	SourceFilesDirectory = AdditionalParameters.SourcesDirectories[AdditionalParameters.SourcesDirectoryIndex].Directory;
 
-	If Not ValueIsFilled(КаталогИсходныхФайлов) Then
-		AdditionalParameters.ИндексКаталогаИсходников = AdditionalParameters.ИндексКаталогаИсходников + 1;
-		НачатьПоискФайлаМодуляВКаталогеИсходныхФайлов(AdditionalParameters);
+	If Not ValueIsFilled(SourceFilesDirectory) Then
+		AdditionalParameters.SourcesDirectoryIndex = AdditionalParameters.SourcesDirectoryIndex + 1;
+		StartSearchOfModuleFileInSourceFilesDirectory(AdditionalParameters);
 		Return;
 	EndIf;
 
-	ИмяКаталогаПоискаФайла = КаталогИсходныхФайлов + GetPathSeparator() + AdditionalParameters.КаталогМодуля
-		+ GetPathSeparator() + AdditionalParameters.ОписаниеОбъектаМетаданных.Name;
-	AdditionalParameters.Insert("ИмяКаталогаПоискаФайла", ИмяКаталогаПоискаФайла);
+	FileSeacrhDirectoryName = SourceFilesDirectory + GetPathSeparator() + AdditionalParameters.ModuleDirectory
+		+ GetPathSeparator() + AdditionalParameters.MetadataObjectDescription.Name;
+	AdditionalParameters.Insert("FileSeacrhDirectoryName", FileSeacrhDirectoryName);
 
-	BeginFindingFiles(New NotifyDescription("УстановитьОписаниеМодуляДляРедактораMonacoЗавершениеПоискаФайловМодуля",
-		ThisObject, AdditionalParameters), ИмяКаталогаПоискаФайла, AdditionalParameters.ИмяФайлаМодуля, True);
+	BeginFindingFiles(New NotifyDescription("SetModuleDescriptionForMonacoEditorOnEndModuleFilesSeacrh",
+		ThisObject, AdditionalParameters), FileSeacrhDirectoryName, AdditionalParameters.ModuleFileName, True);
 
 EndProcedure
 
-Procedure УстановитьОписаниеМодуляДляРедактораMonaco(ОбновляемыйОбъектМетаданных, AdditionalParameters)
-	МассивИменМетаданного = StrSplit(ОбновляемыйОбъектМетаданных, ".");
+Procedure SetModuleDescriptionForMonacoEditor(UpdatedMetadataObject, AdditionalParameters)
+	MetadataNamesArray = StrSplit(UpdatedMetadataObject, ".");
 
-	If МассивИменМетаданного.Count() < 2 Then
+	If MetadataNamesArray.Count() < 2 Then
 		Return;
 	EndIf;
 
-	РедакторыФормы = AdditionalParameters.Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
-	ИдентификаторРедактора = UT_CodeEditorClientServer.ИдентификаторРедактораПоЭлементуФормы(
+	FormEditors = AdditionalParameters.Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
+	EditorID = UT_CodeEditorClientServer.EditorIDByFormItem(
 		AdditionalParameters.Form, AdditionalParameters.Item);
-	ПараметрыРедактора = РедакторыФормы[ИдентификаторРедактора];
-	AdditionalParameters.Insert("КаталогиИсходников", ПараметрыРедактора.ПараметрыРедактора.КаталогиИсходныхФайлов);
+	EditorSettings = FormEditors[EditorID];
+	AdditionalParameters.Insert("SourcesDirectories", EditorSettings.EditorSettings.SourceFilesDirectories);
 
-	If AdditionalParameters.КаталогиИсходников.Count() = 0 Then
+	If AdditionalParameters.SourcesDirectories.Count() = 0 Then
 		Return;
 	EndIf;
 
-	AdditionalParameters.Insert("ИндексКаталогаИсходников", 0);
+	AdditionalParameters.Insert("SourcesDirectoryIndex", 0);
 
-	ВидМодуля = МассивИменМетаданного[1];
+	ModuleType = MetadataNamesArray[1];
 
-	AdditionalParameters.Insert("ОбновляемыйОбъектМетаданных", ОбновляемыйОбъектМетаданных);
-	AdditionalParameters.Insert("МассивИменМетаданного", МассивИменМетаданного);
+	AdditionalParameters.Insert("UpdatedMetadataObject", UpdatedMetadataObject);
+	AdditionalParameters.Insert("MetadataNamesArray", MetadataNamesArray);
 
-	If ВидМодуля = "manager" Then
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
-			МассивИменМетаданного[2], МассивИменМетаданного[3]);
+	If ModuleType = "manager" Then
+		MetadataObjectDescription = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
+			MetadataNamesArray[2], MetadataNamesArray[3]);
 
-		КаталогМодуля = ИмяКаталогаВидаМетаданных(МассивИменМетаданного[2]);
+		ModuleDirectory = MetadataTypeDirectoryName(MetadataNamesArray[2]);
 		FileName = "ManagerModule.bsl";
 
-		AdditionalParameters.Insert("ЭтоОбщийМодуль", False);
+		AdditionalParameters.Insert("IsCommonModule", False);
 
-	ElsIf ВидМодуля = "object" Then
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
-			МассивИменМетаданного[2], МассивИменМетаданного[3]);
+	ElsIf ModuleType = "object" Then
+		MetadataObjectDescription = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
+			MetadataNamesArray[2], MetadataNamesArray[3]);
 
-		КаталогМодуля = ИмяКаталогаВидаМетаданных(МассивИменМетаданного[2]);
+		ModuleDirectory = MetadataTypeDirectoryName(MetadataNamesArray[2]);
 		FileName = "ObjectModule.bsl";
 
-		AdditionalParameters.Insert("ЭтоОбщийМодуль", False);
+		AdditionalParameters.Insert("IsCommonModule", False);
 	Else
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
-			"CommonModules", МассивИменМетаданного[1]);
+		MetadataObjectDescription = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
+			"CommonModules", MetadataNamesArray[1]);
 
-		КаталогМодуля = "CommonModules";
+		ModuleDirectory = "CommonModules";
 		FileName = "Module.bsl";
 
-		AdditionalParameters.Insert("ЭтоОбщийМодуль", True);
+		AdditionalParameters.Insert("IsCommonModule", True);
 	EndIf;
 
-	AdditionalParameters.Insert("ОписаниеОбъектаМетаданных", ОписаниеОбъектаМетаданных);
-	AdditionalParameters.Insert("КаталогМодуля", КаталогМодуля);
-	AdditionalParameters.Insert("ИмяФайлаМодуля", FileName);
+	AdditionalParameters.Insert("MetadataObjectDescription", MetadataObjectDescription);
+	AdditionalParameters.Insert("ModuleDirectory", ModuleDirectory);
+	AdditionalParameters.Insert("ModuleFileName", FileName);
 
-	НачатьПоискФайлаМодуляВКаталогеИсходныхФайлов(AdditionalParameters);
+	StartSearchOfModuleFileInSourceFilesDirectory(AdditionalParameters);
 EndProcedure
-Procedure УстановитьОписаниеМодуляДляРедактораMonacoЗавершениеПоискаФайловМодуля(НайденныеФайлы,
+Procedure SetModuleDescriptionForMonacoEditorOnEndModuleFilesSeacrh(FoundFiles,
 	AdditionalParameters) Export
-	If НайденныеФайлы = Undefined Then
-		AdditionalParameters.ИндексКаталогаИсходников = AdditionalParameters.ИндексКаталогаИсходников + 1;
-		НачатьПоискФайлаМодуляВКаталогеИсходныхФайлов(AdditionalParameters);
+	If FoundFiles = Undefined Then
+		AdditionalParameters.SourcesDirectoryIndex = AdditionalParameters.SourcesDirectoryIndex + 1;
+		StartSearchOfModuleFileInSourceFilesDirectory(AdditionalParameters);
 		Return;
 	EndIf;
 
-	If НайденныеФайлы.Count() = 0 Then
-		AdditionalParameters.ИндексКаталогаИсходников = AdditionalParameters.ИндексКаталогаИсходников + 1;
-		НачатьПоискФайлаМодуляВКаталогеИсходныхФайлов(AdditionalParameters);
+	If FoundFiles.Count() = 0 Then
+		AdditionalParameters.SourcesDirectoryIndex = AdditionalParameters.SourcesDirectoryIndex + 1;
+		StartSearchOfModuleFileInSourceFilesDirectory(AdditionalParameters);
 		Return;
 	EndIf;
 
-	FileName = НайденныеФайлы[0].FullName;
+	FileName = FoundFiles[0].FullName;
 	AdditionalParameters.Insert("FileName", FileName);
 
 	TextDocument = New TextDocument;
 
 	AdditionalParameters.Insert("TextDocument", TextDocument);
 	TextDocument.BeginReading(
-		New NotifyDescription("УстановитьОписаниеМодуляДляРедактораMonacoЗавершениеЧтенияФайла", ThisObject,
+		New NotifyDescription("SetModuleDescriptionForMonacoEditorEndFileReading", ThisObject,
 		AdditionalParameters), AdditionalParameters.FileName);
 
 EndProcedure
 
-Procedure УстановитьОписаниеМодуляДляРедактораMonacoЗавершениеЧтенияФайла(AdditionalParameters) Export
-	ТекстМодуля = AdditionalParameters.ТекстовыйДОкумент.GetText();
+Procedure SetModuleDescriptionForMonacoEditorEndFileReading(AdditionalParameters) Export
+	ModuleText = AdditionalParameters.TextDocument.GetText();
 
-	ДокументView = AdditionalParameters.Item.Document.defaultView;
+	DocumentView = AdditionalParameters.Item.Document.defaultView;
 
-	If AdditionalParameters.ЭтоОбщийМодуль Then
-		ДокументView.parseCommonModule(AdditionalParameters.ОписаниеОбъектаМетаданных.Name, ТекстМодуля, False);
+	If AdditionalParameters.IsCommonModule Then
+		DocumentView.parseCommonModule(AdditionalParameters.MetadataObjectDescription.Name, ModuleText, False);
 	Else
-		СоответствиеОбновляемыхОбъектовМетаданных = СоответствиеОбновляемыхОбъектовМетаданныхРедактораMonacoИПараметровСобытияОблновленияМетаданных();
-		ОбновляемаяКоллекцияРедактора = СоответствиеОбновляемыхОбъектовМетаданных[AdditionalParameters.ОписаниеОбъектаМетаданных.ВидОбъекта];
-		ОбновляемаяКоллекцияРедактора = ОбновляемаяКоллекцияРедактора + "."
-			+ AdditionalParameters.ОписаниеОбъектаМетаданных.Name + "."
-			+ AdditionalParameters.МассивИменМетаданного[1];
+		UpdatedMetadataObjectsMap = MapOfMonacoEditorUpdatedMetadataObjectsAndMetadataUpdateEventParameters();
+		UpdatedEditorCollection = UpdatedMetadataObjectsMap[AdditionalParameters.MetadataObjectDescription.ObjectType];
+		UpdatedEditorCollection = UpdatedEditorCollection + "."
+			+ AdditionalParameters.MetadataObjectDescription.Name + "."
+			+ AdditionalParameters.MetadataNamesArray[1];
 
-		ДокументView.parseMetadataModule(ТекстМодуля, ОбновляемаяКоллекцияРедактора);
+		DocumentView.parseMetadataModule(ModuleText, UpdatedEditorCollection);
 	EndIf;
-	ДокументView.triggerSuggestions();
+	DocumentView.triggerSuggestions();
 
 EndProcedure
 
-Procedure УстановитьОписаниеМетаданныхДляРедактораMonaco(ОбновляемыйОбъектМетаданных, AdditionalParameters)
+Procedure SetMetadataEditorForMonacoEditor(UpdatedMetadataObject, AdditionalParameters)
 
-	МассивИменМетаданного = StrSplit(ОбновляемыйОбъектМетаданных, ".");
+	MetadataNamesArray = StrSplit(UpdatedMetadataObject, ".");
 
-	ВидОбъекта = МассивИменМетаданного[0];
+	ObjectType = MetadataNamesArray[0];
 
-	СоответствиеОбновляемыхОбъектовМетаданных = СоответствиеОбновляемыхОбъектовМетаданныхРедактораMonacoИПараметровСобытияОблновленияМетаданных();
-	ОбновляемаяКоллекцияРедактора = СоответствиеОбновляемыхОбъектовМетаданных[ВидОбъекта];
+	UpdatedMetadataObjectsMap = MapOfMonacoEditorUpdatedMetadataObjectsAndMetadataUpdateEventParameters();
+	UpdatedEditorCollection = UpdatedMetadataObjectsMap[ObjectType];
 
-	If МассивИменМетаданного.Count() = 1 Then
-		ОбновляемыеДанные = New Structure;
+	If MetadataNamesArray.Count() = 1 Then
+		UpdatedData = New Structure;
 
-		МассивИмен = UT_CodeEditorServerCall.СписокМетаданныхПоВиду(ВидОбъекта);
-		For Each ТекИмя In МассивИмен Do
-			ОбновляемыеДанные.Insert(ТекИмя, New Structure);
+		NamesArray = UT_CodeEditorServerCall.MetadataListByType(ObjectType);
+		For Each CurrentName In NamesArray Do
+			UpdatedData.Insert(CurrentName, New Structure);
 		EndDo;
 	Else
-		ОписаниеОбъектаМетаданных = UT_CodeEditorServerCall.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(
-			ВидОбъекта, МассивИменМетаданного[1]);
-		LongDesc = ОписаниеОбъектаМетаданныхДляРедактораMonaco(ОписаниеОбъектаМетаданных);
+		MetadataObjectDescription = UT_CodeEditorServerCall.ConfigurationMetadataObjectDescriptionByName(
+			ObjectType, MetadataNamesArray[1]);
+		Description = MetadataObjectDescriptionForMonacoEditor(MetadataObjectDescription);
 
-		ОбновляемыеДанные = LongDesc;
+		UpdatedData = Description;
 
-		ОбновляемаяКоллекцияРедактора = ОбновляемаяКоллекцияРедактора + "." + ОписаниеОбъектаМетаданных.Name;
+		UpdatedEditorCollection = UpdatedEditorCollection + "." + MetadataObjectDescription.Name;
 	EndIf;
 
-	ДокументView = AdditionalParameters.Item.Document.defaultView;
-	ДокументView.updateMetadata(UT_CommonClientServer.mWriteJSON(
-			ОбновляемыеДанные), ОбновляемаяКоллекцияРедактора);
+	DocumentView = AdditionalParameters.Item.Document.defaultView;
+	DocumentView.updateMetadata(UT_CommonClientServer.mWriteJSON(
+			UpdatedData), UpdatedEditorCollection);
 
-	ДокументView.triggerSuggestions();
+	DocumentView.triggerSuggestions();
 EndProcedure
 
-Function ВидОбъектаРедактораMonacoПоВидуОбъекта1С(ВидОбъекта)
+Function MonacoEditorObjectTypeBy1CObjectType(ObjectType)
 
 EndFunction
 
-Function ТипРедактораМонакоПоСтрокеТипа1С(Тип1СИлиСтрока, СоответствиеСсылочныхТипов)
-	If СоответствиеСсылочныхТипов = Undefined Then
+Function MonacoEditorTypeBy1CTypeAsString(Type1COrString, ReferenceTypesMap)
+	If ReferenceTypesMap = Undefined Then
 		Return "";
 	EndIf;
 
-	Тип1С = Тип1СИлиСтрока;
-	If TypeOf(Тип1С) = Type("String") Then
-		If StrFind(Тип1СИлиСтрока, ".") > 0 Then
-			Return Тип1СИлиСтрока;
+	Type1C = Type1COrString;
+	If TypeOf(Type1C) = Type("String") Then
+		If StrFind(Type1COrString, ".") > 0 Then
+			Return Type1COrString;
 		EndIf;
 		
 		Try
-			Тип1С = Type(Тип1С);
+			Type1C = Type(Type1C);
 		Except
-			Return "types." + Тип1СИлиСтрока;
+			Return "types." + Type1COrString;
 		EndTry;
 	EndIf;
 
-	МетаданныеТипа=СоответствиеСсылочныхТипов[Тип1С];
+	TypeMetadata=ReferenceTypesMap[Type1C];
 
-	If МетаданныеТипа = Undefined Then
-		If TypeOf(Тип1СИлиСтрока) = Type("String") Then
+	If TypeMetadata = Undefined Then
+		If TypeOf(Type1COrString) = Type("String") Then
 			Try
-				Стр = New(Тип1СИлиСтрока);
-				Return "classes." + Тип1СИлиСтрока;
+				Row = New(Type1COrString);
+				Return "classes." + Type1COrString;
 			Except
-				Return "types." + Тип1СИлиСтрока;
+				Return "types." + Type1COrString;
 			EndTry;
 		Else
 			Return "";
 		EndIf;
 	EndIf;
 
-	If МетаданныеТипа.ВидОбъекта = "Catalog" Then
-		Return "catalogs." + МетаданныеТипа.Name;
-	ElsIf МетаданныеТипа.ВидОбъекта = "Document" Then
-		Return "documents." + МетаданныеТипа.Name;
-	ElsIf МетаданныеТипа.ВидОбъекта = "Task" Then
-		Return "tasks." + МетаданныеТипа.Name;
-	ElsIf МетаданныеТипа.ВидОбъекта = "ChartOfCalculationTypes" Then
-		Return "chartsOfCalculationTypes." + МетаданныеТипа.Name;
-	ElsIf МетаданныеТипа.ВидОбъекта = "ChartOfCharacteristicTypes" Then
-		Return "chartsOfCharacteristicTypes." + МетаданныеТипа.Name;
-	ElsIf МетаданныеТипа.ВидОбъекта = "ExchangePlan" Then
-		Return "exchangePlans." + МетаданныеТипа.Name;
-	ElsIf МетаданныеТипа.ВидОбъекта = "ChartOfAccounts" Then
-		Return "сhartsOfAccounts." + МетаданныеТипа.Name;
+	If TypeMetadata.ObjectType = "Catalog" Then
+		Return "catalogs." + TypeMetadata.Name;
+	ElsIf TypeMetadata.ObjectType = "Document" Then
+		Return "documents." + TypeMetadata.Name;
+	ElsIf TypeMetadata.ObjectType = "Task" Then
+		Return "tasks." + TypeMetadata.Name;
+	ElsIf TypeMetadata.ObjectType = "ChartOfCalculationTypes" Then
+		Return "chartsOfCalculationTypes." + TypeMetadata.Name;
+	ElsIf TypeMetadata.ObjectType = "ChartOfCharacteristicTypes" Then
+		Return "chartsOfCharacteristicTypes." + TypeMetadata.Name;
+	ElsIf TypeMetadata.ObjectType = "ExchangePlan" Then
+		Return "exchangePlans." + TypeMetadata.Name;
+	ElsIf TypeMetadata.ObjectType = "ChartOfAccounts" Then
+		Return "сhartsOfAccounts." + TypeMetadata.Name;
 	EndIf;
 
 	Return "";
 EndFunction
 
-Function ПолучитьСвязьСОбъектомМетаданныхДляРедактораMonaco(Attribute, СоответствиеТипов)
+Function GetLinkToMetadataObjectForMonacoEditor(Attribute, TypesMap)
 
 	Link = "";
 
@@ -1186,8 +1193,8 @@ Function ПолучитьСвязьСОбъектомМетаданныхДля�
 
 	IndexOf = 0;
 
-	For Each ТекТип In Types Do
-		Link = ТипРедактораМонакоПоСтрокеТипа1С(ТекТип, СоответствиеТипов);
+	For Each CurrentType In Types Do
+		Link = MonacoEditorTypeBy1CTypeAsString(CurrentType, TypesMap);
 
 		If ValueIsFilled(Link) Then
 			Break;
@@ -1197,151 +1204,151 @@ Function ПолучитьСвязьСОбъектомМетаданныхДля�
 
 EndFunction
 
-Procedure ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, Attribute, ПолучатьСвязиРеквизита,
-	СоответствиеТипов)
+Procedure AddAttributeDescriptionForMonacoEditor(AttributesDescription, Attribute, GetAttributeLinks,
+	TypesMap)
 
 	Link = "";
-	If ПолучатьСвязиРеквизита Then
-		Link= ПолучитьСвязьСОбъектомМетаданныхДляРедактораMonaco(Attribute, СоответствиеТипов);
+	If GetAttributeLinks Then
+		Link= GetLinkToMetadataObjectForMonacoEditor(Attribute, TypesMap);
 	EndIf;
 
-	ОписаниеРеквизита = New Structure("name", Attribute.Name);
+	AttributeDescription = New Structure("name", Attribute.Name);
 
 	If ValueIsFilled(Link) Then
-		ОписаниеРеквизита.Insert("ref", Link);
+		AttributeDescription.Insert("ref", Link);
 	EndIf;
 
-	ОписаниеРеквизитов.Insert(Attribute.Name, ОписаниеРеквизита);
+	AttributesDescription.Insert(Attribute.Name, AttributeDescription);
 
 EndProcedure
 
-Function ОписаниеОбъектаМетаданныхДляРедактораMonaco(ОписаниеОбъектаМетаданных)
-	СоответствиеТипов = СоответствиеСсылочныхТиповКонфигурации();
-	ОписаниеРеквизитов = New Structure;
-	ОписаниеРесурсов = New Structure;
-	ОписаниеПредопределенных = New Structure;
-	ОписаниеТабличныхЧастей = New Structure;
+Function MetadataObjectDescriptionForMonacoEditor(MetadataObjectDescription)
+	TypesMap = ConfigurationReferenceTypesMap();
+	AttributesDescription = New Structure;
+	ResourcesDescription = New Structure;
+	PredefinedDescription = New Structure;
+	TabularSectionsDescription = New Structure;
 	AdditionalProperties = New Structure;
 
-	If ОписаниеОбъектаМетаданных.ВидОбъекта = "Enum" Or ОписаниеОбъектаМетаданных.ВидОбъекта
-		= "перечисления" Then
+	If MetadataObjectDescription.ObjectType = "Enum" Or MetadataObjectDescription.ObjectType
+		= "enums" Then
 
-		For Each КлючЗначениеЗначенияПеречисления In ОписаниеОбъектаМетаданных.EnumValues Do
-			ОписаниеРеквизитов.Insert(КлючЗначениеЗначенияПеречисления.Key, New Structure("name",
-				КлючЗначениеЗначенияПеречисления.Value));
+		For Each EmunValueKeyValue In MetadataObjectDescription.EnumValues Do
+			AttributesDescription.Insert(EmunValueKeyValue.Key, New Structure("name",
+				EmunValueKeyValue.Value));
 		EndDo;
 
 	Else
 
-		If ОписаниеОбъектаМетаданных.Property("Attributes") Then
-			For Each КлючЗначениеРеквизит In ОписаниеОбъектаМетаданных.Attributes Do
-				ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, True,
-					СоответствиеТипов);
+		If MetadataObjectDescription.Property("Attributes") Then
+			For Each AttributeKeyValue In MetadataObjectDescription.Attributes Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, True,
+					TypesMap);
 			EndDo;
 		EndIf;
-		If ОписаниеОбъектаМетаданных.Property("StandardAttributes") Then
-			For Each КлючЗначениеРеквизит In ОписаниеОбъектаМетаданных.StandardAttributes Do
-				ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, False,
-					СоответствиеТипов);
+		If MetadataObjectDescription.Property("StandardAttributes") Then
+			For Each AttributeKeyValue In MetadataObjectDescription.StandardAttributes Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, False,
+					TypesMap);
 			EndDo;
 		EndIf;
-		If ОписаниеОбъектаМетаданных.Property("Predefined") Then
+		If MetadataObjectDescription.Property("Predefined") Then
 				
-				//If ИмяМетаданных(FullName) = "ChartOfAccounts" Then
+				//If MetadataName(FullName) = "ChartOfAccounts" Then
 				//	
 				//	Query = New Query(
-				//	"ВЫБРАТЬ
-				//	|	ChartOfAccounts.Code КАК Code,
-				//	|	ChartOfAccounts.PredefinedDataName КАК Name
-				//	|ИЗ
-				//	|	&Table КАК ChartOfAccounts
-				//	|ГДЕ
+				//	"SELECT
+				//	|	ChartOfAccounts.Code AS Code,
+				//	|	ChartOfAccounts.PredefinedDataName AS Name
+				//	|FROM
+				//	|	&Table AS ChartOfAccounts
+				//	|WHERE
 				//	|	ChartOfAccounts.Predefined");				
 				//						
 				//	Query.Text = StrReplace(Query.Text, "&Table", FullName);
 				//	
-				//	Выборка = Query.Execute().StartChoosing();
+				//	Selection = Query.Execute().StartChoosing();
 				//	
-				//	While Выборка.Next() Do 
-				//		ОписаниеПредопределенных.Insert(Выборка.Name, StrTemplate("%1 (%2)", Выборка.Name, Выборка.Code));
+				//	While Selection.Next() Do 
+				//		PredefinedDescription.Insert(Selection.Name, StrTemplate("%1 (%2)", Selection.Name, Selection.Code));
 				//	EndDo;
 				//	
 				//Else				
-			For Each КлючЗначениеИмя In ОписаниеОбъектаМетаданных.Predefined Do
-				ОписаниеПредопределенных.Insert(КлючЗначениеИмя.Key, "");
+			For Each NameKeyValue In MetadataObjectDescription.Predefined Do
+				PredefinedDescription.Insert(NameKeyValue.Key, "");
 			EndDo;
 				
 				//EndIf;
 
 		EndIf;
 
-		If ОписаниеОбъектаМетаданных.Property("Dimensions") Then
+		If MetadataObjectDescription.Property("Dimensions") Then
 
-			For Each КлючЗначениеРеквизит In ОписаниеОбъектаМетаданных.Dimensions Do
-				ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, True,
-					СоответствиеТипов);
+			For Each AttributeKeyValue In MetadataObjectDescription.Dimensions Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, True,
+					TypesMap);
 			EndDo;
-			For Each КлючЗначениеРеквизит In ОписаниеОбъектаМетаданных.Resources Do
-				ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, True,
-					СоответствиеТипов);
+			For Each AttributeKeyValue In MetadataObjectDescription.Resources Do
+				AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, True,
+					TypesMap);
 			EndDo;
 				
-				//ЗаполнитьТипРегистра(AdditionalProperties, ОбъектМетаданных, FullName);				
+				//FillRegisterType(AdditionalProperties, MetadataObject, FullName);				
 
 		EndIf;
 
-		If ОписаниеОбъектаМетаданных.Property("TabularSections") Then
+		If MetadataObjectDescription.Property("TabularSections") Then
 
-			For Each КлючЗначениеТабличнаяЧасть In ОписаниеОбъектаМетаданных.TabularSections Do
+			For Each TabularSectionKeyValue In MetadataObjectDescription.TabularSections Do
 
-				ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-				ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-					+ ТабличнаяЧасть.Synonym));
+				TabularSection = TabularSectionKeyValue.Value;
+				AttributesDescription.Insert(TabularSection.Name, New Structure("name", "TS: "
+					+ TabularSection.Synonym));
 
-				ОписаниеТабличнойЧасти = New Structure;
+				TabularSectionDescription = New Structure;
 
-				If ТабличнаяЧасть.Property("StandardAttributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-						ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+				If TabularSection.Property("StandardAttributes") Then
+					For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+						TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 					EndDo;
 				EndIf;
 
-				If ТабличнаяЧасть.Property("Attributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-						ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
-							True, СоответствиеТипов);
+				If TabularSection.Property("Attributes") Then
+					For Each TabularSectionAttribute In TabularSection.Attributes Do
+						AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
+							True, TypesMap);
 					EndDo;
 				EndIf;
 
-				ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+				TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 			EndDo;
 
 		EndIf;
-		If ОписаниеОбъектаМетаданных.Property("StandardTabularSections") Then
+		If MetadataObjectDescription.Property("StandardTabularSections") Then
 
-			For Each КлючЗначениеТабличнаяЧасть In ОписаниеОбъектаМетаданных.StandardTabularSections Do
+			For Each TabularSectionKeyValue In MetadataObjectDescription.StandardTabularSections Do
 
-				ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-				ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-					+ ТабличнаяЧасть.Synonym));
+				TabularSection = TabularSectionKeyValue.Value;
+				AttributesDescription.Insert(TabularSection.Name, New Structure("name", "ТЧ: "
+					+ TabularSection.Synonym));
 
-				ОписаниеТабличнойЧасти = New Structure;
+				TabularSectionDescription = New Structure;
 
-				If ТабличнаяЧасть.Property("StandardAttributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-						ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+				If TabularSection.Property("StandardAttributes") Then
+					For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+						TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 					EndDo;
 				EndIf;
 
-				If ТабличнаяЧасть.Property("Attributes") Then
-					For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-						ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
-							True, СоответствиеТипов);
+				If TabularSection.Property("Attributes") Then
+					For Each TabularSectionAttribute In TabularSection.Attributes Do
+						AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
+							True, TypesMap);
 					EndDo;
 				EndIf;
 
-				ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+				TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 			EndDo;
 
@@ -1349,161 +1356,161 @@ Function ОписаниеОбъектаМетаданныхДляРедакто�
 
 	EndIf;
 
-	СтруктураОбъекта = New Structure;
-	СтруктураОбъекта.Insert("properties", ОписаниеРеквизитов);
+	ObjectStructure = New Structure;
+	ObjectStructure.Insert("properties", AttributesDescription);
 
-	For Each Обход In AdditionalProperties Do
-		СтруктураОбъекта.Insert(Обход.Key, Обход.Value);
+	For Each Iterator In AdditionalProperties Do
+		ObjectStructure.Insert(Iterator.Key, Iterator.Value);
 	EndDo;
 
-	If ОписаниеРесурсов.Count() > 0 Then
-		СтруктураОбъекта.Insert("resources", ОписаниеРесурсов);
+	If ResourcesDescription.Count() > 0 Then
+		ObjectStructure.Insert("resources", ResourcesDescription);
 	EndIf;
 
-	If ОписаниеПредопределенных.Count() > 0 Then
-		СтруктураОбъекта.Insert("predefined", ОписаниеПредопределенных);
+	If PredefinedDescription.Count() > 0 Then
+		ObjectStructure.Insert("predefined", PredefinedDescription);
 	EndIf;
 
-	If ОписаниеТабличныхЧастей.Count() > 0 Then
-		СтруктураОбъекта.Insert("tabulars", ОписаниеТабличныхЧастей);
+	If TabularSectionsDescription.Count() > 0 Then
+		ObjectStructure.Insert("tabulars", TabularSectionsDescription);
 	EndIf;
 
-	Return СтруктураОбъекта;
+	Return ObjectStructure;
 EndFunction
 
-Function ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(Коллекция, СоответствиеТипов)
+Function DescribeMetadataObjectsCollectionForMonacoEditor(Collection, TypesMap)
 
-	ОписаниеКоллекции = New Structure;
+	CollectionDescription = New Structure;
 
-	For Each КлючЗначениеЭлементКоллекции In Коллекция Do
+	For Each CollectionItemKeyValue In Collection Do
 
-		ОписаниеРеквизитов = New Structure;
-		ОписаниеРесурсов = New Structure;
-		ОписаниеПредопределенных = New Structure;
-		ОписаниеТабличныхЧастей = New Structure;
+		AttributesDescription = New Structure;
+		ResourcesDescription = New Structure;
+		PredefinedDescription = New Structure;
+		TabularSectionsDescription = New Structure;
 		AdditionalProperties = New Structure;
 
-		ОбъектМетаданных = КлючЗначениеЭлементКоллекции.Value;
+		MetadataObject = CollectionItemKeyValue.Value;
 
-		If ОбъектМетаданных.ВидОбъекта = "Enum" Then
+		If MetadataObject.ObjectType = "Enum" Then
 
-			For Each КлючЗначениеЗначенияПеречисления In ОбъектМетаданных.EnumValues Do
-				ОписаниеРеквизитов.Insert(КлючЗначениеЗначенияПеречисления.Key, New Structure("name",
-					КлючЗначениеЗначенияПеречисления.Value));
+			For Each EmunValueKeyValue In MetadataObject.EnumValues Do
+				AttributesDescription.Insert(EmunValueKeyValue.Key, New Structure("name",
+					EmunValueKeyValue.Value));
 			EndDo;
 
 		Else
 
-			If ОбъектМетаданных.Property("Attributes") Then
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.Attributes Do
-					ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value,
-						True, СоответствиеТипов);
+			If MetadataObject.Property("Attributes") Then
+				For Each AttributeKeyValue In MetadataObject.Attributes Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value,
+						True, TypesMap);
 				EndDo;
 			EndIf;
-			If ОбъектМетаданных.Property("StandardAttributes") Then
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.StandardAttributes Do
-					ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value, False,
-						СоответствиеТипов);
+			If MetadataObject.Property("StandardAttributes") Then
+				For Each AttributeKeyValue In MetadataObject.StandardAttributes Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value, False,
+						TypesMap);
 				EndDo;
 			EndIf;
-			If ОбъектМетаданных.Property("Predefined") Then
+			If MetadataObject.Property("Predefined") Then
 				
-				//If ИмяМетаданных(FullName) = "ChartOfAccounts" Then
+				//If MetadataObject(FullName) = "ChartOfAccounts" Then
 				//	
 				//	Query = New Query(
-				//	"ВЫБРАТЬ
-				//	|	ChartOfAccounts.Code КАК Code,
-				//	|	ChartOfAccounts.PredefinedDataName КАК Name
-				//	|ИЗ
-				//	|	&Table КАК ChartOfAccounts
-				//	|ГДЕ
+				//	"SELECT
+				//	|	ChartOfAccounts.Code AS Code,
+				//	|	ChartOfAccounts.PredefinedDataName AS Name
+				//	|FROM
+				//	|	&Table AS ChartOfAccounts
+				//	|WHERE
 				//	|	ChartOfAccounts.Predefined");				
 				//						
 				//	Query.Text = StrReplace(Query.Text, "&Table", FullName);
 				//	
-				//	Выборка = Query.Execute().StartChoosing();
+				//	Selection = Query.Execute().StartChoosing();
 				//	
-				//	While Выборка.Next() Do 
-				//		ОписаниеПредопределенных.Insert(Выборка.Name, StrTemplate("%1 (%2)", Выборка.Name, Выборка.Code));
+				//	While Selection.Next() Do 
+				//		PredefinedDescription.Insert(Selection.Name, StrTemplate("%1 (%2)", Selection.Name, Selection.Code));
 				//	EndDo;
 				//	
 				//Else				
-				For Each КлючЗначениеИмя In ОбъектМетаданных.Predefined Do
-					ОписаниеПредопределенных.Insert(КлючЗначениеИмя.Key, New Structure("name, ref",
-						КлючЗначениеИмя.Key, ""));
+				For Each NameKeyValue In MetadataObject.Predefined Do
+					PredefinedDescription.Insert(NameKeyValue.Key, New Structure("name, ref",
+						NameKeyValue.Key, ""));
 				EndDo;
 				
 				//EndIf;
 
 			EndIf;
 
-			If ОбъектМетаданных.Property("Dimensions") Then
+			If MetadataObject.Property("Dimensions") Then
 
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.Dimensions Do
-					ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value,
-						True, СоответствиеТипов);
+				For Each AttributeKeyValue In MetadataObject.Dimensions Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value,
+						True, TypesMap);
 				EndDo;
-				For Each КлючЗначениеРеквизит In ОбъектМетаданных.Resources Do
-					ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеРеквизитов, КлючЗначениеРеквизит.Value,
-						True, СоответствиеТипов);
+				For Each AttributeKeyValue In MetadataObject.Resources Do
+					AddAttributeDescriptionForMonacoEditor(AttributesDescription, AttributeKeyValue.Value,
+						True, TypesMap);
 				EndDo;
 				
-				//ЗаполнитьТипРегистра(AdditionalProperties, ОбъектМетаданных, FullName);				
+				//FillRegisterType(AdditionalProperties, MetadataObject, FullName);				
 
 			EndIf;
 
-			If ОбъектМетаданных.Property("TabularSections") Then
+			If MetadataObject.Property("TabularSections") Then
 
-				For Each КлючЗначениеТабличнаяЧасть In ОбъектМетаданных.TabularSections Do
+				For Each TabularSectionKeyValue In MetadataObject.TabularSections Do
 
-					ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-					ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-						+ ТабличнаяЧасть.Synonym));
+					TabularSection = TabularSectionKeyValue.Value;
+					AttributesDescription.Insert(TabularSection.Name, New Structure("name", "TS: "
+						+ TabularSection.Synonym));
 
-					ОписаниеТабличнойЧасти = New Structure;
+					TabularSectionDescription = New Structure;
 
-					If ТабличнаяЧасть.Property("StandardAttributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-							ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+					If TabularSection.Property("StandardAttributes") Then
+						For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+							TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 						EndDo;
 					EndIf;
 
-					If ТабличнаяЧасть.Property("Attributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-							ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
-								True, СоответствиеТипов);
+					If TabularSection.Property("Attributes") Then
+						For Each TabularSectionAttribute In TabularSection.Attributes Do
+							AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
+								True, TypesMap);
 						EndDo;
 					EndIf;
 
-					ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+					TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 				EndDo;
 
 			EndIf;
-			If ОбъектМетаданных.Property("StandardTabularSections") Then
+			If MetadataObject.Property("StandardTabularSections") Then
 
-				For Each КлючЗначениеТабличнаяЧасть In ОбъектМетаданных.StandardTabularSections Do
+				For Each TabularSectionKeyValue In MetadataObject.StandardTabularSections Do
 
-					ТабличнаяЧасть = КлючЗначениеТабличнаяЧасть.Value;
-					ОписаниеРеквизитов.Insert(ТабличнаяЧасть.Name, New Structure("name", "ТЧ: "
-						+ ТабличнаяЧасть.Synonym));
+					TabularSection = TabularSectionKeyValue.Value;
+					AttributesDescription.Insert(TabularSection.Name, New Structure("name", "TS: "
+						+ TabularSection.Synonym));
 
-					ОписаниеТабличнойЧасти = New Structure;
+					TabularSectionDescription = New Structure;
 
-					If ТабличнаяЧасть.Property("StandardAttributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.StandardAttributes Do
-							ОписаниеТабличнойЧасти.Insert(РеквизитТЧ.Value.Name, РеквизитТЧ.Value.Synonym);
+					If TabularSection.Property("StandardAttributes") Then
+						For Each TabularSectionAttribute In TabularSection.StandardAttributes Do
+							TabularSectionDescription.Insert(TabularSectionAttribute.Value.Name, TabularSectionAttribute.Value.Synonym);
 						EndDo;
 					EndIf;
 
-					If ТабличнаяЧасть.Property("Attributes") Then
-						For Each РеквизитТЧ In ТабличнаяЧасть.Attributes Do
-							ДобавитьОписаниеРеквизитаДляРедактораMonaco(ОписаниеТабличнойЧасти, РеквизитТЧ.Value,
-								True, СоответствиеТипов);
+					If TabularSection.Property("Attributes") Then
+						For Each TabularSectionAttribute In TabularSection.Attributes Do
+							AddAttributeDescriptionForMonacoEditor(TabularSectionDescription, TabularSectionAttribute.Value,
+								True, TypesMap);
 						EndDo;
 					EndIf;
 
-					ОписаниеТабличныхЧастей.Insert(ТабличнаяЧасть.Name, ОписаниеТабличнойЧасти);
+					TabularSectionsDescription.Insert(TabularSection.Name, TabularSectionDescription);
 
 				EndDo;
 
@@ -1511,116 +1518,116 @@ Function ОписатьКоллекциюОбъектовМетаданыхДл�
 
 		EndIf;
 
-		СтруктураОбъекта = New Structure;
-		СтруктураОбъекта.Insert("properties", ОписаниеРеквизитов);
+		ObjectStructure = New Structure;
+		ObjectStructure.Insert("properties", AttributesDescription);
 
-		For Each Обход In AdditionalProperties Do
-			СтруктураОбъекта.Insert(Обход.Key, Обход.Value);
+		For Each Iterator In AdditionalProperties Do
+			ObjectStructure.Insert(Iterator.Key, Iterator.Value);
 		EndDo;
 
-		If 0 < ОписаниеРесурсов.Count() Then
-			СтруктураОбъекта.Insert("resources", ОписаниеРесурсов);
+		If 0 < ResourcesDescription.Count() Then
+			ObjectStructure.Insert("resources", ResourcesDescription);
 		EndIf;
 
-		If 0 < ОписаниеПредопределенных.Count() Then
-			СтруктураОбъекта.Insert("predefined", ОписаниеПредопределенных);
+		If 0 < PredefinedDescription.Count() Then
+			ObjectStructure.Insert("predefined", PredefinedDescription);
 		EndIf;
 
-		If 0 < ОписаниеТабличныхЧастей.Count() Then
-			СтруктураОбъекта.Insert("tabulars", ОписаниеТабличныхЧастей);
+		If 0 < TabularSectionsDescription.Count() Then
+			ObjectStructure.Insert("tabulars", TabularSectionsDescription);
 		EndIf;
 
-		ОписаниеКоллекции.Insert(ОбъектМетаданных.Name, СтруктураОбъекта);
+		CollectionDescription.Insert(MetadataObject.Name, ObjectStructure);
 
 	EndDo;
 
-	Return ОписаниеКоллекции;
+	Return CollectionDescription;
 
 EndFunction
 
-Function ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(Коллекция)
+Function GetMetadataObjectsListFromCollectionForMonacoEditor(Collection)
 
-	ОписаниеКоллекции = New Structure;
+	CollectionDescription = New Structure;
 
-	For Each КлючЗначение In Коллекция Do
-		ОписаниеКоллекции.Insert(КлючЗначение.Key, New Structure);
+	For Each KeyValue In Collection Do
+		CollectionDescription.Insert(KeyValue.Key, New Structure);
 	EndDo;
 
-	Return ОписаниеКоллекции;
+	Return CollectionDescription;
 
 EndFunction
 
-Function СоответствиеСсылочныхТиповКонфигурации()
-	Map = UT_ApplicationParameters["СоответствиеСсылочныхТиповКонфигурации"];
+Function ConfigurationReferenceTypesMap()
+	Map = UT_ApplicationParameters["ConfigurationReferenceTypesMap"];
 	If Map <> Undefined Then
 		Return Map;
 	EndIf;
 
-	СоответствиеТипов = UT_CodeEditorServerCall.СоответствиеСсылочныхТипов();
-	UT_ApplicationParameters.Insert("СоответствиеСсылочныхТиповКонфигурации", СоответствиеТипов);
+	TypesMap = UT_CodeEditorServerCall.ReferenceTypesMap();
+	UT_ApplicationParameters.Insert("ConfigurationReferenceTypesMap", TypesMap);
 
-	Return СоответствиеТипов;
+	Return TypesMap;
 EndFunction
 
-Function ОписаниеМетаданныхКонфигурацииДляРедактораMonaco()
-	ОписаниеМетаданных = UT_ApplicationParameters["ОписаниеМетаданныхДляРедактораMonaco"];
-	If ОписаниеМетаданных <> Undefined Then
-		Return ОписаниеМетаданных;
+Function ConfigurationMetadataDescriptionForMonacoEditor()
+	MetadataDescription = UT_ApplicationParameters["MetadataDescriptionForMonacoEditor"];
+	If MetadataDescription <> Undefined Then
+		Return MetadataDescription;
 	EndIf;
 
-	АдресОписанияМетаданных = UT_ApplicationParameters["АдресОписанияМетаданныхКонфигурации"];
-	If Not IsTempStorageURL(АдресОписанияМетаданных) Then
-		АдресОписанияМетаданных = UT_CommonServerCall.ConfigurationMetadataDescriptionAdress();
-		UT_ApplicationParameters.Insert("АдресОписанияМетаданныхКонфигурации", АдресОписанияМетаданных);
+	MetadataDescriptionURL = UT_ApplicationParameters["ConfigurationMetadataDescriptionAdress"];
+	If Not IsTempStorageURL(MetadataDescriptionURL) Then
+		MetadataDescriptionURL = UT_CommonServerCall.ConfigurationMetadataDescriptionAdress();
+		UT_ApplicationParameters.Insert("ConfigurationMetadataDescriptionAdress", MetadataDescriptionURL);
 	EndIf;
-	МетаданныеКонфигурации = GetFromTempStorage(АдресОписанияМетаданных);
+	ConfigurationMetadata = GetFromTempStorage(MetadataDescriptionURL);
 
-	СоответствиеТипов = МетаданныеКонфигурации.СоответствиеСсылочныхТипов;
+	TypesMap = ConfigurationMetadata.ReferenceTypesMap;
 
-	КоллекцияМетаданных = New Structure;
-	КоллекцияМетаданных.Insert("catalogs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Catalogs, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("documents", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Documents, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("infoRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.InformationRegisters, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("accumRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.AccumulationRegisters, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("accountRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.AccountingRegisters, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("calcRegs", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.CalculationRegisters, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("dataProc", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.DataProcessors, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("reports", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Reports, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("enums", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Enums, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("commonModules", ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(
-		МетаданныеКонфигурации.CommonModules));
-	КоллекцияМетаданных.Insert("сhartsOfAccounts", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ChartsOfAccounts, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("businessProcesses", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.BusinessProcesses, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("tasks", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.Tasks, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("exchangePlans", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ExchangePlans, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("chartsOfCharacteristicTypes", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ChartsOfCharacteristicTypes, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("chartsOfCalculationTypes", ОписатьКоллекциюОбъектовМетаданыхДляРедактораMonaco(
-		МетаданныеКонфигурации.ChartsOfCalculationTypes, СоответствиеТипов));
-	КоллекцияМетаданных.Insert("constants", ПолучитьСписокОбъектовМетаданныхИзКоллекцииДляРедактораMonaco(
-		МетаданныеКонфигурации.Constants));
+	MetadataCollection = New Structure;
+	MetadataCollection.Insert("catalogs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Catalogs, TypesMap));
+	MetadataCollection.Insert("documents", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Documents, TypesMap));
+	MetadataCollection.Insert("infoRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.InformationRegisters, TypesMap));
+	MetadataCollection.Insert("accumRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.AccumulationRegisters, TypesMap));
+	MetadataCollection.Insert("accountRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.AccountingRegisters, TypesMap));
+	MetadataCollection.Insert("calcRegs", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.CalculationRegisters, TypesMap));
+	MetadataCollection.Insert("dataProc", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.DataProcessors, TypesMap));
+	MetadataCollection.Insert("reports", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Reports, TypesMap));
+	MetadataCollection.Insert("enums", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Enums, TypesMap));
+	MetadataCollection.Insert("commonModules", GetMetadataObjectsListFromCollectionForMonacoEditor(
+		ConfigurationMetadata.CommonModules));
+	MetadataCollection.Insert("сhartsOfAccounts", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ChartsOfAccounts, TypesMap));
+	MetadataCollection.Insert("businessProcesses", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.BusinessProcesses, TypesMap));
+	MetadataCollection.Insert("tasks", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.Tasks, TypesMap));
+	MetadataCollection.Insert("exchangePlans", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ExchangePlans, TypesMap));
+	MetadataCollection.Insert("chartsOfCharacteristicTypes", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ChartsOfCharacteristicTypes, TypesMap));
+	MetadataCollection.Insert("chartsOfCalculationTypes", DescribeMetadataObjectsCollectionForMonacoEditor(
+		ConfigurationMetadata.ChartsOfCalculationTypes, TypesMap));
+	MetadataCollection.Insert("constants", GetMetadataObjectsListFromCollectionForMonacoEditor(
+		ConfigurationMetadata.Constants));
 
-	UT_ApplicationParameters.Insert("ОписаниеМетаданныхДляРедактораMonaco",
-		UT_CommonClientServer.CopyStructure(КоллекцияМетаданных));
-	UT_ApplicationParameters.Insert("СоответствиеСсылочныхТиповКонфигурации", СоответствиеТипов);
+	UT_ApplicationParameters.Insert("MetadataDescriptionForMonacoEditor",
+		UT_CommonClientServer.CopyStructure(MetadataCollection));
+	UT_ApplicationParameters.Insert("ConfigurationReferenceTypesMap", TypesMap);
 
-	Return КоллекцияМетаданных;
+	Return MetadataCollection;
 EndFunction
 
-Function СоответствиеОбновляемыхОбъектовМетаданныхРедактораMonacoИПараметровСобытияОблновленияМетаданных()
+Function MapOfMonacoEditorUpdatedMetadataObjectsAndMetadataUpdateEventParameters()
 	Map = New Structure;
 	Map.Insert("справочники", "catalogs.items");
 	Map.Insert("catalogs", "catalogs.items");
@@ -1653,82 +1660,82 @@ Function СоответствиеОбновляемыхОбъектовМета�
 	Map.Insert("планывидоврасчета", "chartsOfCalculationTypes.items");
 	Map.Insert("chartsofcalculationtypes", "chartsOfCalculationTypes.items");
 	Map.Insert("константы", "constants.items");
-	Map.Insert("constants", "chartsOfCalculationTypes.items");
+	Map.Insert("constants", "constants.items");
 	Map.Insert("module", "commonModules.items");
 
 	Return Map;
 EndFunction
 
 #EndRegion
-Procedure СохранитьБиблиотекуРедактораНаДиск(АдресБиблиотеки, ВидРедактора, ОписаниеОповещенияОЗавершении)
-	КаталогСохраненияБибилиотеки=КаталогСохраненияРедактора(ВидРедактора);
-	ФайлРедактора=New File(КаталогСохраненияБибилиотеки);
+Procedure SaveEditorLibraryToDisk(LibraryURL, EditorType, CompletionNotifyDescription)
+	LibrarySavingDirectory=EditorSaveDirectory(EditorType);
+	EditorFile=New File(LibrarySavingDirectory);
 
-	ДопПараметры= New Structure;
-	ДопПараметры.Insert("АдресБиблиотеки", АдресБиблиотеки);
-	ДопПараметры.Insert("КаталогСохраненияБибилиотеки", КаталогСохраненияБибилиотеки);
-	ДопПараметры.Insert("ВидРедактора", ВидРедактора);
-	ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", ОписаниеОповещенияОЗавершении);
-	ФайлРедактора.BeginCheckingExistence(
-		New NotifyDescription("СохранитьБиблиотекуРедактораНаДискЗавершениеПроверкиСуществованияБиблиотекиНаДиске",
-		ThisObject, ДопПараметры));
+	AdditionalParameters= New Structure;
+	AdditionalParameters.Insert("LibraryURL", LibraryURL);
+	AdditionalParameters.Insert("LibrarySavingDirectory", LibrarySavingDirectory);
+	AdditionalParameters.Insert("EditorType", EditorType);
+	AdditionalParameters.Insert("CompletionNotifyDescription", CompletionNotifyDescription);
+	EditorFile.BeginCheckingExistence(
+		New NotifyDescription("SaveEditorLibraryToDiskEndCheckOfLibraryExistOnDisk",
+		ThisObject, AdditionalParameters));
 EndProcedure
 
-Procedure СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайла(AdditionalParameters)
-	МассивСохраненныхФайлов = AdditionalParameters.МассивСохраненныхФайлов;
-	КаталогСохраненияБибилиотеки = AdditionalParameters.КаталогСохраненияБибилиотеки;
-	СоответствиеФайловБиблиотеки = AdditionalParameters.СоответствиеФайловБиблиотеки;
-	ЕстьНеСохраненное = False;
-	For Each КлючЗначение In СоответствиеФайловБиблиотеки Do
-		If МассивСохраненныхФайлов.Find(КлючЗначение.Key) <> Undefined Then
+Procedure SaveEditorLibraryWriteBeginWritingNextFile(AdditionalParameters)
+	SavedFilesArray = AdditionalParameters.SavedFilesArray;
+	LibrarySavingDirectory = AdditionalParameters.LibrarySavingDirectory;
+	LibraryFilesMap = AdditionalParameters.LibraryFilesMap;
+	IsNotSaved = False;
+	For Each KeyValue In LibraryFilesMap Do
+		If SavedFilesArray.Find(KeyValue.Key) <> Undefined Then
 			Continue;
 		EndIf;
-		ЕстьНеСохраненное = True;
+		IsNotSaved = True;
 
-		FileName=КаталогСохраненияБибилиотеки + GetPathSeparator() + КлючЗначение.Key;
-		AdditionalParameters.Insert("ТекКлючФайла", КлючЗначение.Key);
+		FileName=LibrarySavingDirectory + GetPathSeparator() + KeyValue.Key;
+		AdditionalParameters.Insert("CurrentFileKey", KeyValue.Key);
 
-		If TypeOf(КлючЗначение.Value) = Type("TextDocument") Then
-			ОповещениеОЗаверешении = New NotifyDescription("СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайлаТекстовогоДокументаЗавершение",
+		If TypeOf(KeyValue.Value) = Type("TextDocument") Then
+			CompletionNotify = New NotifyDescription("SaveEditorLibraryWriteBeginWritingNextFileOfTextDocumentEnd",
 				ThisObject, AdditionalParameters);
 		Else
-			ОповещениеОЗаверешении = New NotifyDescription("СохранитьБиблиотекуРедактораЗаписатьНачатьЗаписьОчередногоФайлаЗавершение",
+			CompletionNotify = New NotifyDescription("SaveEditorLibraryWriteBeginWritingNextFileEnd",
 				ThisObject, AdditionalParameters);
 		EndIf;
 
-		КлючЗначение.Value.BeginWriting(ОповещениеОЗаверешении, FileName);
+		KeyValue.Value.BeginWriting(CompletionNotify, FileName);
 		Break;
 	EndDo;
 
-	If Not ЕстьНеСохраненное Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, True);
+	If Not IsNotSaved Then
+		ExecuteNotifyProcessing(AdditionalParameters.CompletionNotifyDescription, True);
 	EndIf;
 EndProcedure
 
-Function КаталогСохраненияРедактора(ВидРедактора)
-	СтруктураФайловыхПеременных=UT_CommonClient.SessionFileVariablesStructure();
-	If Not СтруктураФайловыхПеременных.Property("TempFilesDirectory") Then
+Function EditorSaveDirectory(EditorType)
+	FileVariablesStructure=UT_CommonClient.SessionFileVariablesStructure();
+	If Not FileVariablesStructure.Property("TempFilesDirectory") Then
 		Return "";
 	EndIf;
 
-	Return СтруктураФайловыхПеременных.TempFilesDirectory + "tools_ui_1c" + GetPathSeparator() + Format(
-		UT_CommonClientServer.Version(), "ЧГ=0;") + GetPathSeparator() + ВидРедактора;
+	Return FileVariablesStructure.TempFilesDirectory + "tools_ui_1c" + GetPathSeparator() + Format(
+		UT_CommonClientServer.Version(), "NG=0;") + GetPathSeparator() + EditorType;
 EndFunction
 
-Function ИмяФайлаРедактораAceДляЯзыка(Lang = "bsl") Export
-	Return КаталогСохраненияРедактора(UT_CodeEditorClientServer.ВариантыРедактораКода().Ace)
+Function AceEditorFileNameForLanguage(Lang = "bsl") Export
+	Return EditorSaveDirectory(UT_CodeEditorClientServer.CodeEditorVariants().Ace)
 		+ GetPathSeparator() + Lang + ".html";
 EndFunction
 
-Function ТекстHTMLРедактораКодаAce(КаталогСохраненияБибилиотеки, Lang)
+Function AceCodeEditorHTMLText(LibrarySavingDirectory, Lang)
 
-	ТекстAce=КаталогСохраненияБибилиотеки + GetPathSeparator() + "ace" + GetPathSeparator() + "ace.js";
-	ТекстLT=КаталогСохраненияБибилиотеки + GetPathSeparator() + "ace" + GetPathSeparator()
+	TextAce=LibrarySavingDirectory + GetPathSeparator() + "ace" + GetPathSeparator() + "ace.js";
+	TextLT=LibrarySavingDirectory + GetPathSeparator() + "ace" + GetPathSeparator()
 		+ "ext-language_tools.js";
 
-	ТекЯзык=Lower(Lang);
-	If ТекЯзык = "bsl" Then
-		ТекЯзык="_1c";
+	CurrentLanguage=Lower(Lang);
+	If CurrentLanguage = "bsl" Then
+		CurrentLanguage="_1c";
 	EndIf;
 	HTMLText= "<!DOCTYPE html>
 			   |<html lang=""ru"">
@@ -1748,14 +1755,14 @@ Function ТекстHTMLРедактораКодаAce(КаталогСохран�
 			   |
 			   |<div id=""editor""></div>
 			   |    
-			   |<script src=""file://" + ТекстAce + """ type=""text/javascript"" charset=""utf-8""></script>
-													|<script src=""file://" + ТекстLT + """ type=""text/javascript"" charset=""utf-8""></script>
+			   |<script src=""file://" + TextAce + """ type=""text/javascript"" charset=""utf-8""></script>
+													|<script src=""file://" + TextLT + """ type=""text/javascript"" charset=""utf-8""></script>
 																						|<script>
 																						|    // trigger extension
 																						|    ace.require(""ace/ext/language_tools"");
 																						|    var editor = ace.edit(""editor"");
 																						|    editor.session.setMode(""ace/mode/"
-		+ ТекЯзык + """);
+		+ CurrentLanguage + """);
 					|    editor.setTheme(""ace/theme/ones"");
 					|    // enable autocompletion and snippets
 					|    editor.setOptions({
@@ -1786,12 +1793,12 @@ Function ТекстHTMLРедактораКодаAce(КаталогСохран�
 	Return HTMLText;
 EndFunction
 
-Procedure ДобавитьКСохранениюТекстовыйДокументДляЯзыкаРедактораКодаAce(СоответствиеФайловБиблиотеки,
-	КаталогСохраненияБибилиотеки, Lang)
+Procedure AddToSavingFilesTextDocumentForAceCodeEditorLanguage(LibraryFilesMap,
+	LibrarySavingDirectory, Lang)
 	Text= New TextDocument;
-	Text.SetText(ТекстHTMLРедактораКодаAce(КаталогСохраненияБибилиотеки, Lang));
+	Text.SetText(AceCodeEditorHTMLText(LibrarySavingDirectory, Lang));
 
-	СоответствиеФайловБиблиотеки.Insert(Lang + ".html", Text);
+	LibraryFilesMap.Insert(Lang + ".html", Text);
 
 EndProcedure
 #EndRegion

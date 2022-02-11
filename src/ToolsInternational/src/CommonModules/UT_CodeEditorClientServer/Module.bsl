@@ -1,32 +1,30 @@
-
-
 #Region Public
 
-Function ПрефиксЭлементовРедактораКода() Export
-	Return "РедакторКода1С";
+Function CodeEditorItemsPrefix() Export
+	Return "CodeEditor1C";
 EndFunction
 
-Function ИмяРеквизитаРедактораКода(ИдентификаторРедактора) Export
-	Return ПрефиксЭлементовРедактораКода()+"_"+ИдентификаторРедактора;
+Function AttributeNameCodeEditor(EditorID) Export
+	Return CodeEditorItemsPrefix()+"_"+EditorID;
 EndFunction
 
-Function ИмяРеквизитаРедактораКодаВидРедактора() Export
-	Return ПрефиксЭлементовРедактораКода()+"_ВидРедактора";
+Function AttributeNameCodeEditorTypeOfEditor() Export
+	Return CodeEditorItemsPrefix()+"_EditorType";
 EndFunction
 
-Function ИмяРеквизитаРедактораКодаАдресБиблиотеки() Export
-	Return ПрефиксЭлементовРедактораКода()+"_АдресБиблиотекиВоВременномХранилище";
+Function AttributeNameCodeEditorLibraryURL() Export
+	Return CodeEditorItemsPrefix()+"_LibraryUrlInTempStorage";
 EndFunction
 
-Function ИмяРеквизитаРедактораКодаСписокРедакторовФормы() Export
-	Return ПрефиксЭлементовРедактораКода()+"_СписокРедакторовФормы";
+Function AttributeNameCodeEditorFormCodeEditors() Export
+	Return CodeEditorItemsPrefix()+"_CodeEditorsList";
 EndFunction
 
-Function ИмяРеквизитаРедактораКодаРедакторыФормы(ИдентификаторРедактора) Export
-	Return ПрефиксЭлементовРедактораКода()+"_РедакторыФормы";
+Function AttributeNameCodeEditorFormEditors(EditorID) Export
+	Return CodeEditorItemsPrefix()+"_FormEditors";
 EndFunction
 
-Function ВариантыРедактораКода() Export
+Function CodeEditorVariants() Export
 	Variants = New Structure;
 	Variants.Insert("Text", "Text");
 	Variants.Insert("Ace", "Ace");
@@ -35,129 +33,129 @@ Function ВариантыРедактораКода() Export
 	Return Variants;
 EndFunction
 
-Function ВариантРедактораПоУмолчанию() Export
-	Return ВариантыРедактораКода().Monaco;
+Function EditorVariantByDefault() Export
+	Return CodeEditorVariants().Monaco;
 EndFunction
 
-Function РедакторКодаИспользуетПолеHTML(ВидРедактора) Export
-	Variants=ВариантыРедактораКода();
-	Return ВидРедактора = Variants.Ace
-		Or ВидРедактора = Variants.Monaco;
+Function CodeEditorUsesHTMLField(EditorType) Export
+	Variants=CodeEditorVariants();
+	Return EditorType = Variants.Ace
+		Or EditorType = Variants.Monaco;
 EndFunction
 
-Function ИдентификаторРедактораПоЭлементуФормы(Form, Item) Export
-	РедакторыФормы = Form[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
+Function EditorIDByFormItem(Form, Item) Export
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 
-	For Each КлючЗначение In РедакторыФормы Do
-		If КлючЗначение.Value.ПолеРедактора = Item.Name Then
-			Return КлючЗначение.Key;
+	For Each KeyValue In FormEditors Do
+		If KeyValue.Value.EditorField = Item.Name Then
+			Return KeyValue.Key;
 		EndIf;
 	EndDo;
 
 	Return Undefined;
 EndFunction
 
-Function ВыполнитьАлгоритм(__ТекстАлготима__, __Контекст__) Export
-	Успешно = True;
+Function ExecuteAlgorithm(__AlgorithmText__, __Context__) Export
+	Successfully = True;
 	ErrorDescription = "";
 	
-	ВыполняемыйТекстАлгоритма = ДополненныйКонтекстомКодАлгоритма(__ТекстАлготима__, __Контекст__);
+	AlgorithmExecutedText = AlgorithmCodeSupplementedWithContext(__AlgorithmText__, __Context__);
 
-	НачалоВыполнения = CurrentUniversalDateInMilliseconds();
+	ExecutionStart = CurrentUniversalDateInMilliseconds();
 	Try
-		Execute (ВыполняемыйТекстАлгоритма);
+		Execute (AlgorithmExecutedText);
 	Except
-		Успешно = False;
+		Successfully = False;
 		ErrorDescription = ErrorDescription();
 		Message(ErrorDescription);
 	EndTry;
-	ОкончаниеВыполнения = CurrentUniversalDateInMilliseconds();
+	ExecutionFinish = CurrentUniversalDateInMilliseconds();
 
-	РезультатВыполнения = New Structure;
-	РезультатВыполнения.Insert("Успешно", Успешно);
-	РезультатВыполнения.Insert("ВремяВыполнения", ОкончаниеВыполнения - НачалоВыполнения);
-	РезультатВыполнения.Insert("ErrorDescription", ErrorDescription);
+	ExecutionResult = New Structure;
+	ExecutionResult.Insert("Successfully", Successfully);
+	ExecutionResult.Insert("ExecutionTime", ExecutionFinish - ExecutionStart);
+	ExecutionResult.Insert("ErrorDescription", ErrorDescription);
 
-	Return РезультатВыполнения;
+	Return ExecutionResult;
 EndFunction
 
 #EndRegion
 
 #Region Internal
 
-Function ВариантыЯзыкаСинтаксисаРедактораMonaco() Export
-	ЯзыкиСинтаксиса = New Structure;
-	ЯзыкиСинтаксиса.Insert("Auto", "Auto");
-	ЯзыкиСинтаксиса.Insert("Russian", "Russian");
-	ЯзыкиСинтаксиса.Insert("English", "English");
+Function MonacoEditorSyntaxLanguageVariants() Export
+	SyntaxLanguages = New Structure;
+	SyntaxLanguages.Insert("Auto", "Auto");
+	SyntaxLanguages.Insert("Russian", "Russian");
+	SyntaxLanguages.Insert("English", "English");
 	
-	Return ЯзыкиСинтаксиса;
+	Return SyntaxLanguages;
 EndFunction
 
-Function ВариантыТемыРедактораMonaco() Export
+Function MonacoEditorThemeVariants() Export
 	Variants = New Structure;
 	
-	Variants.Insert("Светлая", "Светлая");
-	Variants.Insert("Темная", "Темная");
+	Variants.Insert("Light", "Light");
+	Variants.Insert("Dark", "Dark");
 	
 	Return Variants;
 EndFunction
 
-Function ТемаРедактораMonacoПоУмолчанию() Export
-	ТемыРедактора = ВариантыТемыРедактораMonaco();
+Function MonacoEditorThemeVariantByDefault() Export
+	EditorThemes = MonacoEditorThemeVariants();
 	
-	Return ТемыРедактора.Светлая;
+	Return EditorThemes.Light;
 EndFunction
-Function ЯзыкСинтаксисаРедактораMonacoПоУмолчанию() Export
-	Variants = ВариантыЯзыкаСинтаксисаРедактораMonaco();
+Function MonacoEditorSyntaxLanguageByDefault() Export
+	Variants = MonacoEditorSyntaxLanguageVariants();
 	
 	Return Variants.Auto;
 EndFunction
 
-Function ПараметрыРедактораMonacoПоУмолчанию() Export
-	ПараметрыРедактора = New Structure;
-	ПараметрыРедактора.Insert("ВысотаСтрок", 0);
-	ПараметрыРедактора.Insert("Subject", ТемаРедактораMonacoПоУмолчанию());
-	ПараметрыРедактора.Insert("ЯзыкСинтаксиса", ЯзыкСинтаксисаРедактораMonacoПоУмолчанию());
-	ПараметрыРедактора.Insert("ИспользоватьКартуКода", False);
-	ПараметрыРедактора.Insert("СкрытьНомераСтрок", False);
-	ПараметрыРедактора.Insert("КаталогиИсходныхФайлов", New Array);
+Function  MonacoEditorParametersByDefault() Export
+	EditorSettings = New Structure;
+	EditorSettings.Insert("LinesHeight", 0);
+	EditorSettings.Insert("Theme", MonacoEditorThemeVariantByDefault());
+	EditorSettings.Insert("ScriptVariant", MonacoEditorSyntaxLanguageByDefault());
+	EditorSettings.Insert("UseScriptMap", False);
+	EditorSettings.Insert("HideLineNumbers", False);
+	EditorSettings.Insert("SourceFilesDirectories", New Array);
 	
-	Return ПараметрыРедактора;
+	Return EditorSettings;
 EndFunction
 
-Function ПараметрыРедактораКодаПоУмолчанию() Export
-	ПараметрыРедактора = New Structure;
-	ПараметрыРедактора.Insert("Variant",  ВариантРедактораПоУмолчанию());
-	ПараметрыРедактора.Insert("РазмерШрифта", 0);
-	ПараметрыРедактора.Insert("Monaco", ПараметрыРедактораMonacoПоУмолчанию());
+Function CodeEditorCurrentSettingsByDefault() Export
+	EditorSettings = New Structure;
+	EditorSettings.Insert("Variant",  EditorVariantByDefault());
+	EditorSettings.Insert("FontSize", 0);
+	EditorSettings.Insert("Monaco", MonacoEditorParametersByDefault());
 	
-	Return ПараметрыРедактора;
+	Return EditorSettings;
 EndFunction
 
-Function НовыйОписаниеКаталогаИсходныхФайловКонфигурации() Export
-	LongDesc = New Structure;
-	LongDesc.Insert("Directory", "");
-	LongDesc.Insert("Src", "");
+Function NewDescriptionOfConfigurationSourceFilesDirectory() Export
+	Description = New Structure;
+	Description.Insert("Directory", "");
+	Description.Insert("Source", "");
 	
-	Return LongDesc;
+	Return Description;
 EndFunction
 
 #EndRegion
 
 #Region Private
 
-Function ДополненныйКонтекстомКодАлгоритма(ТекстАлготима, Контекст)
-	ПодготовленныйКод="";
+Function AlgorithmCodeSupplementedWithContext(AlgorithmText, Context)
+	PreparedCode="";
 
-	For Each КлючЗначение In Контекст Do
-		ПодготовленныйКод = ПодготовленныйКод +"
-		|"+КлючЗначение.Key+"=__Контекст__."+КлючЗначение.Key+";";
+	For Each KeyValue In Context Do
+		PreparedCode = PreparedCode +"
+		|"+KeyValue.Key+"=__Context__."+KeyValue.Key+";";
 	EndDo;
 
-	ПодготовленныйКод=ПодготовленныйКод + Chars.LF + ТекстАлготима;
+	PreparedCode=PreparedCode + Chars.LF + AlgorithmText;
 
-	Return ПодготовленныйКод;
+	Return PreparedCode;
 EndFunction
 
 #EndRegion

@@ -608,8 +608,8 @@
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_НастроитьПараметрыЗаписи(Команда)
-	UT_CommonClient.РедактироватьПараметрыЗаписи(ЭтотОбъект);
+Процедура Attachable_SetWriteSettings(Команда)
+	UT_CommonClient.EditWriteSettings(ЭтотОбъект);
 КонецПроцедуры
 
 &НаКлиенте
@@ -624,7 +624,7 @@
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
+Процедура Attachable_ExecuteToolsCommonCommand(Команда) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 КонецПроцедуры
 

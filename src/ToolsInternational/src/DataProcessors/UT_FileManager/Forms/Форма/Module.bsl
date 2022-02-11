@@ -467,7 +467,7 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_УстановитьПорядокСортировки(Command)
+Procedure Attachable_SetSortOrder(Command)
 	ПорядокСортировки=Right(Command.Name, 4);
 
 	ПрефиксЛевойПанели="ЛеваяПанельГруппаСортировка";
@@ -503,7 +503,7 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
@@ -759,7 +759,7 @@ Procedure ЗаполнитьПодменюСортировок()
 				ОписаниеКоманды=UT_Forms.ButtonCommandNewDescription();
 				ОписаниеКоманды.Name=ТекПодменю.Name + ПолеУпорядочивания.Key + Heading.Key;
 				ОписаниеКоманды.Title=ПолеУпорядочивания.Value + Heading.Value;
-				ОписаниеКоманды.Action="Подключаемый_УстановитьПорядокСортировки";
+				ОписаниеКоманды.Action="Attachable_SetSortOrder";
 				ОписаниеКоманды.ItemParent=ТекПодменю;
 				ОписаниеКоманды.Picture=New Picture;
 				ОписаниеКоманды.CommandName=ОписаниеКоманды.Name;

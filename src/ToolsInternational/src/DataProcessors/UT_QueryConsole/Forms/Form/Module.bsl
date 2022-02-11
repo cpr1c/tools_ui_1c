@@ -5259,7 +5259,7 @@ EndFunction
 &AtClient
 Procedure SetAlgorithmSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn)
 	If UT_IsPartOfUniversalTools Then
-		UT_CodeEditorClient.SetTextSelectionBounds(ThisObject, "Algorithm", BeginningOfRow, BeginningOfColumn,
+		UT_CodeEditorClient.SetTextSelectionBorders(ThisObject, "Algorithm", BeginningOfRow, BeginningOfColumn,
 			EndOfRow, EndOfColumn);
 	Else
 		Items.AlgorithmText.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
@@ -5276,7 +5276,7 @@ EndProcedure
 &AtClient 
 Function AlgorithmSelectionBoundaries()
 	If UT_IsPartOfUniversalTools Then
-		Return UT_CodeEditorClient.EditorSelectionBounds(ThisObject, "Algorithm");
+		Return UT_CodeEditorClient.EditorSelectionBorders(ThisObject, "Algorithm");
 	Else
 		Return ItemSelectionBounds(Items.AlgorithmText);	
 	EndIf;
@@ -5285,7 +5285,7 @@ EndFunction
 &AtClient 
 Function QuerySelectionBoundaries()
 //	If UT_IsPartOfUniversalTools Then
-//		Return UT_CodeEditorClient.EditorSelectionBounds(ThisObject, "Algorithm");
+//		Return UT_CodeEditorClient.EditorSelectionBorders(ThisObject, "Algorithm");
 //	Else
 		Return ItemSelectionBounds(Items.QueryText);	
 //	EndIf;

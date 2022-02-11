@@ -1758,8 +1758,8 @@
 
 //@skip-warning
 &НаКлиенте
-Процедура Подключаемый_НастроитьПараметрыЗаписи(Команда)
-	UT_CommonClient.РедактироватьПараметрыЗаписи(ЭтотОбъект);
+Процедура Attachable_SetWriteSettings(Команда)
+	UT_CommonClient.EditWriteSettings(ЭтотОбъект);
 КонецПроцедуры
 
 &НаКлиенте
@@ -1773,7 +1773,7 @@
 КонецПроцедуры
 
 &НаКлиенте
-Процедура Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) Экспорт
+Процедура Attachable_ExecuteToolsCommonCommand(Команда) Экспорт
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
 КонецПроцедуры
 

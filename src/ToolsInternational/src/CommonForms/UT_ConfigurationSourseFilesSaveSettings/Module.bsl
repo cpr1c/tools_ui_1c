@@ -6,7 +6,7 @@
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	CodeSources = UT_CodeEditorServer.ДоступныеИсточникиИсходногоКода();
+	CodeSources = UT_CodeEditorServer.AvailableSourceCodeSources();
 	
 	For Each CurrentSource ИЗ CodeSources Do
 		NewRow = SaveDirectories.Add();
@@ -180,7 +180,7 @@ Procedure UnloadSourceModules(Command)
 		EndIf;
 		
 		SourceDescription = New Structure;
-		SourceDescription.Insert("Source", Row.Src);
+		SourceDescription.Insert("Source", Row.Source);
 		SourceDescription.Insert("Directory", Row.Directory);
 		SourceDescription.Insert("OnlyModules", Row.OnlyModules);
 		

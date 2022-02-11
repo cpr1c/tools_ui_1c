@@ -1,19 +1,19 @@
-Function ОписнаиеМетаданныйДляИнициализацииРедактораMonaco() Export
-	Return UT_CodeEditorServer.ОписнаиеМетаданныйДляИнициализацииРедактораMonaco();
+Function MetaDataDescriptionForMonacoEditorInitialize() Export
+	Return UT_CodeEditorServer.MetaDataDescriptionForMonacoEditorInitialize();
 EndFunction
 
-Function ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(ВидОбъекта, ObjectName) Export
-	Return UT_CodeEditorServer.ОписаниеОбъектаМетаданныхКонфигурацииПоИмени(ВидОбъекта, ObjectName);	
+Function ConfigurationMetadataObjectDescriptionByName(ObjectType, ObjectName) Export
+	Return UT_CodeEditorServer.ConfigurationMetadataObjectDescriptionByName(ObjectType, ObjectName);	
 EndFunction
 
-Function ОписаниеМетаданныхКонфигурации(ВключатьОписаниеРеквизитов = True) Export
-	Return UT_CodeEditorServer.ОписаниеМетаданныхКонфигурации(ВключатьОписаниеРеквизитов);
+Function ConfigurationMetadataDescription(IncludeAttributesDescription = True) Export
+	Return UT_CodeEditorServer.ConfigurationMetadataDescription(IncludeAttributesDescription);
 EndFunction
 
-Function СписокМетаданныхПоВиду(ВидМетаданных) Export
-	Return UT_CodeEditorServer.СписокМетаданныхПоВиду(ВидМетаданных);
+Function MetadataListByType(MetadataType) Export
+	Return UT_CodeEditorServer.MetadataListByType(MetadataType);
 EndFunction
 
-Function СоответствиеСсылочныхТипов() Export
-	Return UT_CodeEditorServer.СоответствиеСсылочныхТипов();
+Function ReferenceTypesMap() Export
+	Return UT_CodeEditorServer.ReferenceTypesMap();
 EndFunction
