@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_МенеджерХранилищНастроек</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_МенеджерХранилищНастроек</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Менеджер хранилищ настроек [УИ]</value>
   </synonym>

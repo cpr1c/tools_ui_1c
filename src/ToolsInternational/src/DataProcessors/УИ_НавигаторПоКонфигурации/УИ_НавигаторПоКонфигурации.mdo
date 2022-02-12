@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_НавигаторПоКонфигурации</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_НавигаторПоКонфигурации</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Навигатор по конфигурации(Все функции) [УИ]</value>
   </synonym>

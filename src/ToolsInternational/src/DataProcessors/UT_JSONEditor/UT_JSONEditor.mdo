@@ -6,6 +6,10 @@
   </producedTypes>
   <name>UT_JSONEditor</name>
   <synonym>
+    <key>en</key>
+    <value>JSON Editor [UT]</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Редактор JSON [УИ]</value>
   </synonym>

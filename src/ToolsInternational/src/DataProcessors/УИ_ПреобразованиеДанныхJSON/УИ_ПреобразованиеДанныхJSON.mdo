@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_ПреобразованиеДанныхJSON</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_ПреобразованиеДанныхJSON</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Преобразование данных JSON [УИ]</value>
   </synonym>

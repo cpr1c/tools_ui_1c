@@ -6,6 +6,10 @@
   </producedTypes>
   <name>UT_MarkedObjectsDeletion</name>
   <synonym>
+    <key>en</key>
+    <value>Marked objects deletion [UT]</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Удаление помеченных объектов [УИ]</value>
   </synonym>

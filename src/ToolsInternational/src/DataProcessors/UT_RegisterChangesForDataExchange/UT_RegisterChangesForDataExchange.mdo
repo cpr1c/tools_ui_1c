@@ -7,7 +7,7 @@
   <name>UT_RegisterChangesForDataExchange</name>
   <synonym>
     <key>en</key>
-    <value>Register changes for data exchange [UT]</value>
+    <value>{} Register changes for data exchange [UT]</value>
   </synonym>
   <synonym>
     <key>ru</key>

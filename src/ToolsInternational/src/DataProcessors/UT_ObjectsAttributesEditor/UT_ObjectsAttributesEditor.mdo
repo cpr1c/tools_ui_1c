@@ -6,6 +6,10 @@
   </producedTypes>
   <name>UT_ObjectsAttributesEditor</name>
   <synonym>
+    <key>en</key>
+    <value>{} Objects attributes editor [UT]</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Редактор реквизитов объекта базы данных [УИ]</value>
   </synonym>

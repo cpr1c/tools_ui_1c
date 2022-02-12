@@ -6,6 +6,10 @@
   </producedTypes>
   <name>UT_FileManager</name>
   <synonym>
+    <key>en</key>
+    <value>{} File Manager</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Файловый менеджер [УИ]</value>
   </synonym>
