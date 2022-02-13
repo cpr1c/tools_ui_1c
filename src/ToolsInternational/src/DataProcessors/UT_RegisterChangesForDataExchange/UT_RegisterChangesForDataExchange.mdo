@@ -227,7 +227,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac46d0a4-2e32-11ea-cc81-e86a6452d1f2">
-    <name>ВыборОбъектовОтбором</name>
+    <name>SelectObjectsUsingFilter</name>
+    <synonym>
+      <key>en</key>
+      <value>Select objects using filter</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выбор объектов отбором</value>
@@ -249,7 +253,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac4758e4-2e32-11ea-cc81-e86a6452d1f2">
-    <name>Настройки</name>
+    <name>Settings</name>
+    <synonym>
+      <key>en</key>
+      <value>Settings</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Настройки</value>
