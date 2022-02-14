@@ -25,7 +25,7 @@
           <titleLocation>None</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ТекущийКаталогКлиентПриИзменении</name>
+            <name>CurrentDirectoryOnClientOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>CurrentDirectoryOnClientExtendedTooltip</name>
@@ -660,11 +660,11 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ФайлыЛеваяПанельВыбор</name>
+          <name>FilesOnLeftPanelSelection</name>
         </handlers>
         <handlers>
           <event>OnActivateCell</event>
-          <name>ФайлыЛеваяПанельПриАктивизацииЯчейки</name>
+          <name>FilesOnLeftPanelOnActivateCell</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -950,7 +950,7 @@
           <titleLocation>None</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ТекущийКаталогСерверПриИзменении</name>
+            <name>CurrentDirectoryOnServerOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>CurrentDirectoryOnServerExtendedTooltip</name>
@@ -1524,11 +1524,11 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ФайлыПраваяПанельВыбор</name>
+          <name>FilesOnRightPanelSelection</name>
         </handlers>
         <handlers>
           <event>OnActivateCell</event>
-          <name>ФайлыПраваяПанельПриАктивизацииЯчейки</name>
+          <name>FilesOnRightPanelOnActivateCell</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
