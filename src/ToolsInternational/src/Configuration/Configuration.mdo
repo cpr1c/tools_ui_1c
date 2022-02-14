@@ -162,9 +162,9 @@
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
+  <dataProcessors>DataProcessor.UT_SettingsStoragesManager</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
+  <dataProcessors>DataProcessor.UT_JSONDataConversion</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
 </mdclass:Configuration>

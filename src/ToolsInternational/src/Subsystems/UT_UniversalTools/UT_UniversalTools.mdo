@@ -76,7 +76,7 @@
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
   <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
-  <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
+  <content>DataProcessor.UT_SettingsStoragesManager</content>
   <content>DataProcessor.UT_JSONEditor</content>
   <content>DataProcessor.UT_HTMLEditor</content>
   <content>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</content>
@@ -94,7 +94,7 @@
   <content>CommonPicture.UT_DatabaseObjectEditor</content>
   <content>CommonPicture.UT_Information</content>
   <content>HTTPService.УИ_ПубликуемыеФункции</content>
-  <content>DataProcessor.УИ_ПреобразованиеДанныхJSON</content>
+  <content>DataProcessor.UT_JSONDataConversion</content>
   <content>CommonTemplate.UT_ClipboardComponent</content>
   <content>CommonModule.UT_ClipboardClient</content>
   <content>DataProcessor.UT_DCSEditor</content>
