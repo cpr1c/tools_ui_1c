@@ -4,7 +4,7 @@
     <objectType typeId="a67117d8-0152-4063-a960-c16d6055ae51" valueTypeId="275b95c2-d7ab-4775-b0d4-1d2d72596de4"/>
     <managerType typeId="047be8c3-59ad-4660-bbef-d680ed277910" valueTypeId="15c8ed45-6578-435e-97c1-84a02310849b"/>
   </producedTypes>
-  <name>УИ_ПреобразованиеДанныхJSON</name>
+  <name>UT_JSONDataConversion</name>
   <synonym>
     <key>en</key>
     <value>{} УИ_ПреобразованиеДанныхJSON</value>
