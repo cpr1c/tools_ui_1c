@@ -1,350 +1,352 @@
-#Region ОбработчикиСобытийФормы
+#Region FormEventHandlers
 
 &AtClient
 Procedure OnOpen(Cancel)
 	WindowsClient=UT_CommonClientServer.IsWindows();
 
-	ОбновитьКлиент();
-	ОбновитьСервер();
+	UpdateAtClient();
+	UpdateAtServer();
 
 	Items.CurrentDirectoryOnServer.ChoiceList.LoadValues(HistoryOfChooseServer.UnloadValues());
 	Items.CurrentDirectoryOnClient.ChoiceList.LoadValues(HistoryOfChooseClient.UnloadValues());
 	
-	УстановитьРамкуТекущейПанели();
+	SetCurrentPanelBorder();
 EndProcedure
 
 &AtServer
-Procedure OnCreateAtServer(Cancel, СтандартнаяОбработка)
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	WindowsServer=UT_CommonClientServer.IsWindows();
 	PathParentOnClient=GetClientPathSeparator();
 	PathParentOnServer=GetServerPathSeparator();
 	CurrentFilesTable="FilesOnLeftPanel";
 
-	ЗаполнитьПодменюСортировок();
+	FillSortSubMenu();
 
-	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, СтандартнаяОбработка,
-		Items.ГруппаНижняяПанель);
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing,
+		Items.BottomPanel);
 
 EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиСобытийЭлементовШапкиФормы
+#Region FormHeaderItemsEventHandlers
 
 &AtClient
-Procedure ТекущийКаталогСерверПриИзменении(Item)
+Procedure CurrentDirectoryOnServerOnChange(Item)
 	If Not IsBlankString(CurrentDirectoryOnServer) And Not Right(CurrentDirectoryOnServer, 1) = PathParentOnServer Then
 		CurrentDirectoryOnServer = CurrentDirectoryOnServer + PathParentOnServer;
 	EndIf;
-	ОбновитьСервер();
-	ОбновитьИсториюСервер();
+	UpdateAtServer();
+	UpdateHistoryAtServer();
 EndProcedure
 
 &AtClient
-Procedure ТекущийКаталогКлиентПриИзменении(Item)
+Procedure CurrentDirectoryOnClientOnChange(Item)
 	If Not IsBlankString(CurrentDirectoryOnClient) And Not Right(CurrentDirectoryOnClient, 1) = PathParentOnClient Then
 		CurrentDirectoryOnClient = CurrentDirectoryOnClient + PathParentOnClient;
 	EndIf;
-	ОбновитьКлиент();
-	ОбновитьИсториюКлиент();
+	UpdateAtClient();
+	UpdateHistoryAtClient();
 EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиСобытийЭлементовТаблицыЛевойПанели
+#Region LeftPanelItemsEventHandlers
 
 &AtClient
-Procedure ФайлыЛеваяПанельВыбор(Item, ВыбраннаяСтрока, Field, СтандартнаяОбработка)
-	ТаблицаФайловВыбор(True, Item, ВыбраннаяСтрока, Field, СтандартнаяОбработка);
+Procedure FilesOnLeftPanelSelection(Item, SelectedRow, Field, StandardProcessing)
+	TableFilesSelection(True, Item, SelectedRow, Field, StandardProcessing);
 EndProcedure
 
 &AtClient
-Procedure ФайлыЛеваяПанельПриАктивизацииЯчейки(Item)
+Procedure FilesOnLeftPanelOnActivateCell(Item)
 	CurrentFilesTable=Item.Name;
-	УстановитьРамкуТекущейПанели();
+	SetCurrentPanelBorder();
 EndProcedure
+
 
 #EndRegion
 
-#Region ОбработчикиСобытийЭлементовТаблицыПравойПанели
+#Region RightPanelItemsEventHandlers
 &AtClient
-Procedure ФайлыПраваяПанельВыбор(Item, ВыбраннаяСтрока, Field, СтандартнаяОбработка)
-	ТаблицаФайловВыбор(False, Item, ВыбраннаяСтрока, Field, СтандартнаяОбработка);
+Procedure FilesOnRightPanelSelection(Item, SelectedRow, Field, StandardProcessing)
+	TableFilesSelection(False, Item, SelectedRow, Field, StandardProcessing);
 EndProcedure
+
 &AtClient
-Procedure ФайлыПраваяПанельПриАктивизацииЯчейки(Item)
+Procedure FilesOnRightPanelOnActivateCell(Item)
 	CurrentFilesTable=Item.Name;
-	УстановитьРамкуТекущейПанели();
+	SetCurrentPanelBorder();
 EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиКомандФормы
+#Region CommandFormEventHandlers
 
 &AtClient
-Procedure ТаблицаФайловВыбор(ЭтоЛеваяТаблица, Item, ВыбраннаяСтрока, Field, СтандартнаяОбработка)
-	СтандартнаяОбработка = False;
+Procedure TableFilesSelection(IsLeftTable, Item, SelectedRow, Field, StandardProcessing)
+	StandardProcessing = False;
 
-	If ЭтоЛеваяТаблица Then
+	If IsLeftTable Then
 		GetCurrentDirectory=CurrentDirectoryOnClient;
-		ТаблицаФайлов=FilesOnLeftPanel;
-	Иначе
+		FileTable=FilesOnLeftPanel;
+	Else
 		GetCurrentDirectory=CurrentDirectoryOnServer;
-		ТаблицаФайлов=FilesOnRightPanel;
+		FileTable=FilesOnRightPanel;
 	EndIf;
 
-	CurrentData=ТаблицаФайлов.FindByID(ВыбраннаяСтрока);
+	CurrentData=FileTable.FindByID(SelectedRow);
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 	If CurrentData.IsDirectory Then
-		ПерейтиВКаталог(FilesOnLeftPanel, CurrentData.FullName, ЭтоЛеваяТаблица);
-	Иначе
+		GotoDirectory(FilesOnLeftPanel, CurrentData.FullName, IsLeftTable);
+	Else
 		BeginRunningApplication(UT_CommonClient.ApplicationRunEmptyNotifyDescription(),
 			CurrentData.FullName, GetCurrentDirectory);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ОбновитьСервер(Command = Undefined)
+Procedure UpdateAtServer(Command = Undefined)
 	If Not WindowsServer And Not ValueIsFilled(CurrentDirectoryOnServer) Then
 		CurrentDirectoryOnServer="/";
 	EndIf;
 
-	ОбновитьДеревоФайлов(False);
+	UpdateFilesTree(False);
 EndProcedure
 
 &AtClient
-Procedure ОбновитьКлиент(Command = Undefined)
+Procedure UpdateAtClient(Command = Undefined)
 	If Not WindowsClient And Not ValueIsFilled(CurrentDirectoryOnClient) Then
 		CurrentDirectoryOnClient="/";
 	EndIf;
 
-	ОбновитьДеревоФайлов(True);
+	UpdateFilesTree(True);
 EndProcedure
 
 &AtClient
-Procedure ПерейтиСервер(Command)
-	ИмяКаталога = StrGetLine(StrReplace(Command.Name, "_", Chars.LF), 2);
-	CurrentDirectoryOnServer = ИмяКаталонаНаСервере(ИмяКаталога);
-	ОбновитьСервер();
-	ОбновитьИсториюСервер();
+Procedure GotoAtServer(Command)
+	DirectoryName = StrGetLine(StrReplace(Command.Name, "_", Chars.LF), 2);
+	CurrentDirectoryOnServer = DirectoryNameOnServer(DirectoryName);
+	UpdateAtServer();
+	UpdateHistoryAtServer();
 EndProcedure
 
 &AtClient
-Procedure ПерейтиКлиент(Command)
-	ИмяКаталога = StrGetLine(StrReplace(Command.Name, "_", Chars.LF), 2);
-	CurrentDirectoryOnClient = Eval(ИмяКаталога + "()");
-	ОбновитьКлиент();
-	ОбновитьИсториюКлиент();
+Procedure GotoAtClient(Command)
+	DirectoryName = StrGetLine(StrReplace(Command.Name, "_", Chars.LF), 2);
+	CurrentDirectoryOnClient = Eval(DirectoryName + "()");
+	UpdateAtClient();
+	UpdateHistoryAtClient();
 EndProcedure
 
 &AtClient
-Procedure Goto_Desktop_Клиент(Command)
-	МассивКаталогов = StrSplit(DocumentsDir(), PathParentOnClient);
-	If IsBlankString(МассивКаталогов[МассивКаталогов.UBound()]) Then
-		МассивКаталогов.Delete(МассивКаталогов.UBound());
+Procedure GotoDesktopClient(Command)
+	ArrayOfFolders = StrSplit(DocumentsDir(), PathParentOnClient);
+	If IsBlankString(ArrayOfFolders[ArrayOfFolders.UBound()]) Then
+		ArrayOfFolders.Delete(ArrayOfFolders.UBound());
 	EndIf;
-	МассивКаталогов[МассивКаталогов.UBound()] = "Desktop";
+	ArrayOfFolders[ArrayOfFolders.UBound()] = "Desktop";
 	Path = "";
-	For Each ИмяКаталога In МассивКаталогов Do
-		Path = Path + ИмяКаталога + PathParentOnClient;
+	For Each DirectoryName In ArrayOfFolders Do
+		Path = Path + DirectoryName + PathParentOnClient;
 	EndDo;
 	CurrentDirectoryOnClient = Path;
-	ОбновитьКлиент();
-	ОбновитьИсториюКлиент();
+	UpdateAtClient();
+	UpdateHistoryAtClient();
 EndProcedure
 
 &AtClient
-Procedure СкопироватьНаСервер(Command)
+Procedure CopyToServer(Command)
 
-	КаталогИсточник = CurrentDirectoryOnClient;
-	КаталогПриемник = CurrentDirectoryOnServer;
-	If IsBlankString(КаталогПриемник) Then
+	SourceDirectory = CurrentDirectoryOnClient;
+	TargetDirectory = CurrentDirectoryOnServer;
+	If IsBlankString(TargetDirectory) Then
 		Return;
 	EndIf;
 
-	ЭлементТаблицы= Items.FilesOnLeftPanel;
-	ТаблицаПанели = FilesOnLeftPanel;
-	CurrentData = ЭлементТаблицы.CurrentData;
+	TableItem= Items.FilesOnLeftPanel;
+	PanelTable = FilesOnLeftPanel;
+	CurrentData = TableItem.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	МассивФайлов = New Array;
-	For Each ИдентификаторСтроки In ЭлементТаблицы.SelectedRows Do
-		СтрокаДерева = ТаблицаПанели.FindByID(ИдентификаторСтроки);
-		If StrLen(СтрокаДерева.FullName) <= StrLen(КаталогИсточник) Then
+	FilesArray = New Array;
+	For Each RowID In TableItem.SelectedRows Do
+		TreeRow = PanelTable.FindByID(RowID);
+		If StrLen(TreeRow.FullName) <= StrLen(SourceDirectory) Then
 			Return;
 		EndIf;
 
-		СтрокаСтруктура = New Structure("FullName,IsDirectory", СтрокаДерева.FullName, СтрокаДерева.IsDirectory);
-		СтрокаСтруктура.Insert("АдресВХранилище", PutToTempStorage(
-			New BinaryData(СтрокаСтруктура.FullName), UUID));
+		StructureLine = New Structure("FullName,IsDirectory", TreeRow.FullName, TreeRow.IsDirectory);
+		StructureLine.Insert("StorageAddress", PutToTempStorage(
+			New BinaryData(StructureLine.FullName), UUID));
 
-		МассивФайлов.Add(СтрокаСтруктура);
-		If Not СтрокаСтруктура.IsDirectory Then
+		FilesArray.Add(StructureLine);
+		If Not StructureLine.IsDirectory Then
 			Continue;
 		EndIf;
 
-		Result = НайтиВсеФайлыНаКлиенте(СтрокаДерева.FullName, PathParentOnClient, UUID);
-		For Each СтрокаСтруктура In Result Do
-			МассивФайлов.Add(СтрокаСтруктура);
+		Result = FindAllFilesOnClient(TreeRow.FullName, PathParentOnClient, UUID);
+		For Each StructureLine In Result Do
+			FilesArray.Add(StructureLine);
 		EndDo;
 	EndDo;
 
-	For сч = 0 To МассивФайлов.UBound() Do
-		СтрокаСтруктура = МассивФайлов[сч];
-		Status("Copy " + (сч + 1) + " из " + МассивФайлов.Count() + " : " + СтрокаСтруктура.FullName);
+	For Ind = 0 To FilesArray.UBound() Do
+		StructureLine = FilesArray[Ind];
+		Status("Copy " + (Ind + 1) + " from " + FilesArray.Count() + " : " + StructureLine.FullName);
 
-		КонечноеИмяФайла = КаталогПриемник + Mid(СтрокаСтруктура.FullName, StrLen(КаталогИсточник) + 1);
+		FinalFileName = TargetDirectory + Mid(StructureLine.FullName, StrLen(SourceDirectory) + 1);
 
-		If СтрокаСтруктура.IsDirectory Then
-			File = New File(КонечноеИмяФайла);
+		If StructureLine.IsDirectory Then
+			File = New File(FinalFileName);
 			If Not File.Exists() Then
-				СоздатьКаталогНаСервере(КонечноеИмяФайла);
+				СоздатьКаталогНаСервере(FinalFileName);
 			EndIf;
-		Иначе
-//			ДвоичныеДанные = Новый ДвоичныеДанные(СтрокаСтруктура.FullName);
-//			АдресВХранилище = ПоместитьВоВременноеХранилище(ДвоичныеДанные, ЭтаФорма.УникальныйИдентификатор);
-			РазвернутьФайлНаСервере(СтрокаСтруктура.АдресВХранилище, КонечноеИмяФайла);
+		Else
+//			BinaryData = New BinaryData(StructureLine.FullName);
+//			StorageAddress = PutToTempStorage(BinaryData, ThisForm.UUID);
+			UnpackFileAtServer(StructureLine.StorageAddress, FinalFileName);
 		EndIf;
 
 	EndDo;
 
-	ОбновитьСервер();
+	UpdateAtServer();
 
 EndProcedure
 
 &AtClient
-Procedure СкопироватьНаКлиент(Command)
+Procedure CopyToClient(Command)
 
-	КаталогИсточник = CurrentDirectoryOnServer;
-	КаталогПриемник = CurrentDirectoryOnClient;
-	If IsBlankString(КаталогПриемник) Then
+	SourceDirectory = CurrentDirectoryOnServer;
+	TargetDirectory = CurrentDirectoryOnClient;
+	If IsBlankString(TargetDirectory) Then
 		Return;
 	EndIf;
 
-	ЭлементТаблицы = Items.FilesOnRightPanel;
-	ТаблицаПанели = FilesOnRightPanel;
-	CurrentData = ЭлементТаблицы.CurrentData;
+	TableItem = Items.FilesOnRightPanel;
+	PanelTable = FilesOnRightPanel;
+	CurrentData = TableItem.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	МассивФайлов = New Array;
-	For Each ИдентификаторСтроки In ЭлементТаблицы.SelectedRows Do
-		СтрокаДерева = ТаблицаПанели.FindByID(ИдентификаторСтроки);
-		If StrLen(СтрокаДерева.FullName) <= StrLen(КаталогИсточник) Then
+	FilesArray = New Array;
+	For Each RowID In TableItem.SelectedRows Do
+		TreeRow = PanelTable.FindByID(RowID);
+		If StrLen(TreeRow.FullName) <= StrLen(SourceDirectory) Then
 			Return;
 		EndIf;
 
-		СтрокаСтруктура = New Structure("FullName,IsDirectory", СтрокаДерева.FullName, СтрокаДерева.IsDirectory);
-		СтрокаСтруктура.Insert("АдресВХранилище", ПоместитьВоВременноеХранилищеНаСервере(СтрокаСтруктура.FullName,
+		StructureLine = New Structure("FullName,IsDirectory", TreeRow.FullName, TreeRow.IsDirectory);
+		StructureLine.Insert("StorageAddress", PutToTempStorageAtServer(StructureLine.FullName,
 			UUID));
 
-		МассивФайлов.Add(СтрокаСтруктура);
-		If Not СтрокаСтруктура.IsDirectory Then
+		FilesArray.Add(StructureLine);
+		If Not StructureLine.IsDirectory Then
 			Continue;
 		EndIf;
 
-		Result = НайтиВсеФайлыНаСервере(СтрокаДерева.FullName, PathParentOnServer, UUID);
+		Result = FindAllFilesOnServer(TreeRow.FullName, PathParentOnServer, UUID);
 
-		For Each СтрокаСтруктура In Result Do
-			МассивФайлов.Add(СтрокаСтруктура);
+		For Each StructureLine In Result Do
+			FilesArray.Add(StructureLine);
 		EndDo;
 	EndDo;
 
-	For сч = 0 To МассивФайлов.UBound() Do
-		СтрокаСтруктура = МассивФайлов[сч];
-		Status("Copy " + (сч + 1) + " из " + МассивФайлов.Count() + " : " + СтрокаСтруктура.FullName);
+	For Ind = 0 To FilesArray.UBound() Do
+		StructureLine = FilesArray[Ind];
+		Status("Copy " + (Ind + 1) + " from " + FilesArray.Count() + " : " + StructureLine.FullName);
 
-		КонечноеИмяФайла = КаталогПриемник + Mid(СтрокаСтруктура.FullName, StrLen(КаталогИсточник) + 1);
+		FinalFileName = TargetDirectory + Mid(StructureLine.FullName, StrLen(SourceDirectory) + 1);
 
-		If СтрокаСтруктура.IsDirectory Then
-			File = New File(КонечноеИмяФайла);
+		If StructureLine.IsDirectory Then
+			File = New File(FinalFileName);
 			If Not File.Exists() Then
-				CreateDirectory(КонечноеИмяФайла);
+				CreateDirectory(FinalFileName);
 			EndIf;
-		Иначе
-//			АдресВХранилище = ПоместитьВоВременноеХранилищеНаСервере(СтрокаСтруктура.FullName,
-//				ЭтаФорма.УникальныйИдентификатор);
-			BinaryData = GetFromTempStorage(СтрокаСтруктура.АдресВХранилище);
-			BinaryData.Write(КонечноеИмяФайла);
+		Else
+//			StorageAddress = PutToTempStorageAtServer(StructureLine.FullName,
+//				ThisForm.UUID);
+			BinaryData = GetFromTempStorage(StructureLine.StorageAddress);
+			BinaryData.Write(FinalFileName);
 		EndIf;
 
 	EndDo;
 
-	ОбновитьКлиент();
+	UpdateAtClient();
 
 EndProcedure
 
 &AtClient
-Procedure УдалитьНаКлиенте(Command)
+Procedure DeleteAtClient(Command)
 	If IsBlankString(CurrentDirectoryOnClient) Then
 		Return;
 	EndIf;
 
-	ЭлементТаблица = Items.FilesOnLeftPanel;
-	ТаблицаПанели = FilesOnLeftPanel;
+	TableItem = Items.FilesOnLeftPanel;
+	PanelTable = FilesOnLeftPanel;
 
-	CurrentData = ЭлементТаблица.CurrentData;
+	CurrentData = TableItem.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	For Each String In ЭлементТаблица.SelectedRows Do
-		CurrentData = ТаблицаПанели.FindByID(String);
+	For Each Row In TableItem.SelectedRows Do
+		CurrentData = PanelTable.FindByID(Row);
 		DeleteFiles(CurrentData.FullName);
 	EndDo;
 
-	ОбновитьКлиент();
+	UpdateAtClient();
 EndProcedure
 
 &AtClient
-Procedure УдалитьНаСервере(Command)
+Procedure DeleteAtServer(Command)
 	If IsBlankString(CurrentDirectoryOnServer) Then
 		Return;
 	EndIf;
 
-	ЭлементТаблица = Items.FilesOnRightPanel;
-	ТаблицаПанели = FilesOnRightPanel;
+	TableItem = Items.FilesOnRightPanel;
+	PanelTable = FilesOnRightPanel;
 
-	CurrentData = ЭлементТаблица.CurrentData;
+	CurrentData = TableItem.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	For Each String In ЭлементТаблица.SelectedRows Do
-		CurrentData = ТаблицаПанели.FindByID(String);
-		УдалитьФайлыНаСервере(CurrentData.FullName);
+	For Each Row In TableItem.SelectedRows Do
+		CurrentData = PanelTable.FindByID(Row);
+		DeleteFilesOnServer(CurrentData.FullName);
 	EndDo;
 
-	ОбновитьСервер();
+	UpdateAtServer();
 
 EndProcedure
 
 &AtClient
-Procedure ПереместитьССервераНаКлиент(Command)
-	СкопироватьНаКлиент(Undefined);
-	УдалитьНаСервере(Undefined);
+Procedure MoveFromServerToClient(Command)
+	CopyToClient(Undefined);
+	DeleteAtServer(Undefined);
 EndProcedure
 
 &AtClient
-Procedure ПереместитьСКлиентаНаСервер(Command)
-	СкопироватьНаСервер(Undefined);
-	УдалитьНаКлиенте(Undefined);
+Procedure MoveFromClientToServer(Command)
+	CopyToServer(Undefined);
+	DeleteAtClient(Undefined);
 EndProcedure
 
 &AtClient
-Procedure ПереименоватьНаСервере(Command)
+Procedure RenameAtServer(Command)
 	If IsBlankString(CurrentDirectoryOnServer) Then
 		Return;
 	EndIf;
 
-	ЭлементДерево = Items.FilesOnServer;
+	TreeItem = Items.FilesOnServer;
 
-	CurrentData = ЭлементДерево.CurrentData;
+	CurrentData = TreeItem.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
@@ -352,26 +354,26 @@ Procedure ПереименоватьНаСервере(Command)
 		Return;
 	EndIf;
 
-	НовоеИмя = CurrentData.Name + CurrentData.FileExtension;
-	НовоеИмя = StrReplace(НовоеИмя, PathParentOnServer, "");
-	If Not InputString(НовоеИмя) Then
+	NewName = CurrentData.Name + CurrentData.FileExtension;
+	NewName = StrReplace(NewName, PathParentOnServer, "");
+	If Not InputString(NewName) Then
 		Return;
 	EndIf;
 
-	ПереименоватьФайлНаСервере(CurrentData.FullName, CurrentDirectoryOnServer + НовоеИмя, PathParentOnServer);
+	RenameFilesOnServer(CurrentData.FullName, CurrentDirectoryOnServer + NewName, PathParentOnServer);
 
-	ОбновитьСервер();
+	UpdateAtServer();
 EndProcedure
 
 &AtClient
-Procedure ПереименоватьНаКлиенте(Command)
+Procedure RenameAtClient(Command)
 	If IsBlankString(CurrentDirectoryOnClient) Then
 		Return;
 	EndIf;
 
-	ЭлементДерево = Items.FilesOnLeftPanel;
+	TreeItem = Items.FilesOnLeftPanel;
 
-	CurrentData = ЭлементДерево.CurrentData;
+	CurrentData = TreeItem.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
@@ -379,74 +381,74 @@ Procedure ПереименоватьНаКлиенте(Command)
 	//	Return;
 	//EndIf;
 
-	НовоеИмя = CurrentData.Name + CurrentData.FileExtension;
-	НовоеИмя = StrReplace(НовоеИмя, PathParentOnClient, "");
-	If Not InputString(НовоеИмя) Then
+	NewName = CurrentData.Name + CurrentData.FileExtension;
+	NewName = StrReplace(NewName, PathParentOnClient, "");
+	If Not InputString(NewName) Then
 		Return;
 	EndIf;
 
-	ПереименоватьФайлНаКлиенте(CurrentData.FullName, CurrentDirectoryOnServer + НовоеИмя, PathParentOnClient);
+	RenameFilesOnClient(CurrentData.FullName, CurrentDirectoryOnServer + NewName, PathParentOnClient);
 
-	ОбновитьКлиент();
+	UpdateAtClient();
 EndProcedure
 
 &AtClient
-Procedure ШагНазадКлиент(Command)
-	ШагНазад(True);
+Procedure StepBackAtClient(Command)
+	StepBack(True);
 EndProcedure
 
 &AtClient
-Procedure ШагВпередКлиент(Command)
-	ШагВперед(True);
+Procedure StepForwardAtClient(Command)
+	StepForward(True);
 EndProcedure
 
 &AtClient
-Procedure ШагВверхКлиент(Command)
-	ПерейтиНаУровеньВыше(FilesOnLeftPanel, True);
+Procedure StepUpAtClient(Command)
+	GoLevelUp(FilesOnLeftPanel, True);
 EndProcedure
 &AtClient
-Procedure ШагНазадСервер(Command)
-	ШагНазад(False);
-EndProcedure
-
-&AtClient
-Procedure ШагВпередСервер(Command)
-	ШагВперед(False);
+Procedure StepBackAtServer(Command)
+	StepBack(False);
 EndProcedure
 
 &AtClient
-Procedure ШагВверхСервер(Command)
-	ПерейтиНаУровеньВыше(FilesOnRightPanel, False);
+Procedure StepForwardAtServer(Command)
+	StepForward(False);
 EndProcedure
 
 &AtClient
-Procedure Копировать(Command)
-	ЭтоЛеваяПанель=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
+Procedure StepUpAtServer(Command)
+	GoLevelUp(FilesOnRightPanel, False);
+EndProcedure
 
-	If ЭтоЛеваяПанель Then
-		СкопироватьНаСервер(Commands.СкопироватьНаСервер);
-	Иначе
-		СкопироватьНаКлиент(Commands.СкопироватьНаКлиент);
+&AtClient
+Procedure Copy(Command)
+	IsLeftPanel=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
+
+	If IsLeftPanel Then
+		CopyToServer(Commands.CopyToServer);
+	Else
+		CopyToClient(Commands.CopyToClient);
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure Move(Command)
-	ЭтоЛеваяПанель=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
+	IsLeftPanel=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
 
-	If ЭтоЛеваяПанель Then
-		ПереместитьСКлиентаНаСервер(Commands.ПереместитьСКлиентаНаСервер);
-	Иначе
-		ПереместитьССервераНаКлиент(Commands.ПереместитьССервераНаКлиент);
+	If IsLeftPanel Then
+		MoveFromClientToServer(Commands.MoveFromClientToServer);
+	Else
+		MoveFromServerToClient(Commands.MoveFromServerToClient);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure СоздатьКаталогКоманда(Command)
-	ЭтоЛеваяПанель=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
+Procedure CreateDirectory_Command(Command)
+	IsLeftPanel=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
 
 	ShowInputString(New NotifyDescription("СоздатьКаталогЗавершениеВводаНаименования", ThisObject,
-		New Structure("ИмяТаблицыФайлов,ЭтоЛеваяПанель", CurrentFilesTable, ЭтоЛеваяПанель)), ,
+		New Structure("ИмяТаблицыФайлов,IsLeftPanel", CurrentFilesTable, IsLeftPanel)), ,
 		"Введите наименование нового каталога");
 EndProcedure
 
@@ -457,11 +459,11 @@ Procedure Delete(Command)
 		Return;
 	EndIf;
 
-	ЭтоЛеваяПанель=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
+	IsLeftPanel=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
 
 	UT_CommonClient.ShowQuestionToUser(
 		New NotifyDescription("УдалитьПослеПодтвержденияНеобходимости", ThisObject,
-		New Structure("ЭтоЛеваяПанель,FullName", ЭтоЛеваяПанель, ТекДанные.FullName)), "Delete выбранный файл?",
+		New Structure("IsLeftPanel,FullName", IsLeftPanel, ТекДанные.FullName)), "Delete выбранный файл?",
 		QuestionDialogMode.YesNo);
 EndProcedure
 
@@ -470,8 +472,8 @@ EndProcedure
 Procedure Attachable_SetSortOrder(Command)
 	ПорядокСортировки=Right(Command.Name, 4);
 
-	ПрефиксЛевойПанели="ЛеваяПанельГруппаСортировка";
-	ПрефиксПравойПанели="ПраваяПанельГруппаСортировка";
+	ПрефиксЛевойПанели="SortGroupOfLeftPanel";
+	ПрефиксПравойПанели="SortGroupOfRightPanel";
 
 	ТаблицаДляСортировки=Undefined;
 	ПрефиксИмени=Undefined;
@@ -510,16 +512,16 @@ EndProcedure
 
 #EndRegion
 
-#Region СлужебныеПроцедурыИФункции
+#Region Private
 
 &AtClient
-Procedure УстановитьРамкуТекущейПанели()
-	ЭтоЛеваяПанель=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
+Procedure SetCurrentPanelBorder()
+	IsLeftPanel=CurrentFilesTable = Items.FilesOnLeftPanel.Name;
 	
-	If ЭтоЛеваяПанель Then
+	If IsLeftPanel Then
 		АктивнаяПанель=Items.FilesOnLeftPanel;
 		НеАктивнаяПанель=Items.FilesOnRightPanel;
-	Иначе
+	Else
 		АктивнаяПанель=Items.FilesOnRightPanel;
 		НеАктивнаяПанель=Items.FilesOnLeftPanel;
 	EndIf;
@@ -534,26 +536,26 @@ Procedure УдалитьПослеПодтвержденияНеобходимо
 		Return;
 	EndIf;
 
-	If AdditionalParameters.ЭтоЛеваяПанель Then
+	If AdditionalParameters.IsLeftPanel Then
 
 		BeginDeletingFiles(New NotifyDescription("УдалитьФайлЗавершение", ThisObject, AdditionalParameters),
 			AdditionalParameters.FullName);
-	Иначе
-		УдалитьФайлыНаСервере(AdditionalParameters.FullName);
+	Else
+		DeleteFilesOnServer(AdditionalParameters.FullName);
 		УдалитьФайлЗавершение(AdditionalParameters);
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure УдалитьФайлЗавершение(AdditionalParameters) Export
-	If AdditionalParameters.ЭтоЛеваяПанель Then
-		ОбновитьКлиент();
-	Иначе
-		ОбновитьСервер();
+	If AdditionalParameters.IsLeftPanel Then
+		UpdateAtClient();
+	Else
+		UpdateAtServer();
 	EndIf;
 
 EndProcedure
-&НаСервереБезКонтекста
+&AtServerNoContext
 Function СоздатьКаталогНаСервере(FullName)
 	File=New File(FullName);
 	If File.Exists() Then
@@ -568,19 +570,19 @@ Function СоздатьКаталогНаСервере(FullName)
 EndFunction
 
 &AtClient
-Procedure СоздатьКаталогЗавершениеВводаНаименования(String, AdditionalParameters) Export
-	If String = Undefined Then
+Procedure СоздатьКаталогЗавершениеВводаНаименования(Row, AdditionalParameters) Export
+	If Row = Undefined Then
 		Return;
 	EndIf;
 
-	If Not ValueIsFilled(String) Then
+	If Not ValueIsFilled(Row) Then
 		Return;
 	EndIf;
 
-	ЭтоЛеваяПанель=AdditionalParameters.ЭтоЛеваяПанель;
-	If ЭтоЛеваяПанель Then
+	IsLeftPanel=AdditionalParameters.IsLeftPanel;
+	If IsLeftPanel Then
 		GetCurrentDirectory=CurrentDirectoryOnClient;
-	Иначе
+	Else
 		GetCurrentDirectory=CurrentDirectoryOnServer;
 	EndIf;
 
@@ -590,16 +592,16 @@ Procedure СоздатьКаталогЗавершениеВводаНаимен
 	ДопПараметрыОповещения=AdditionalParameters;
 	ДопПараметрыОповещения.Insert("GetCurrentDirectory", GetCurrentDirectory);
 
-	ФайлПолноеИмя=GetCurrentDirectory + String;
+	ФайлПолноеИмя=GetCurrentDirectory + Row;
 
-	If ЭтоЛеваяПанель Then
+	If IsLeftPanel Then
 		File=New File(ФайлПолноеИмя);
 		ДопПараметрыОповещения.Insert("File", File);
 
 		File.BeginCheckingExistence(
 		New NotifyDescription("СоздатьКаталогЗавершениеПроверкиСуществованияНовогоКаталога", ThisObject,
 			ДопПараметрыОповещения));
-	Иначе
+	Else
 		Result=СоздатьКаталогНаСервере(ФайлПолноеИмя);
 		If Result = Undefined Then
 			Return;
@@ -622,22 +624,22 @@ Procedure СоздатьКаталогЗавершениеПроверкиСущ
 EndProcedure
 
 &AtClient
-Procedure СоздатьКаталогЗавершениеСозданияКаталога(ИмяКаталога, AdditionalParameters) Export
+Procedure СоздатьКаталогЗавершениеСозданияКаталога(DirectoryName, AdditionalParameters) Export
 
-	If AdditionalParameters.ЭтоЛеваяПанель Then
-		CurrentDirectoryOnClient=ИмяКаталога;
-		ОбновитьКлиент();
-	Иначе
-		CurrentDirectoryOnServer=ИмяКаталога;
-		ОбновитьСервер();
+	If AdditionalParameters.IsLeftPanel Then
+		CurrentDirectoryOnClient=DirectoryName;
+		UpdateAtClient();
+	Else
+		CurrentDirectoryOnServer=DirectoryName;
+		UpdateAtServer();
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ШагНазад(ЭтоЛеваяТаблица)
-	If ЭтоЛеваяТаблица Then
+Procedure StepBack(IsLeftTable)
+	If IsLeftTable Then
 		ИмяПоляТекущегоКаталога="CurrentDirectoryOnClient";
-	Иначе
+	Else
 		ИмяПоляТекущегоКаталога="CurrentDirectoryOnServer";
 	EndIf;
 
@@ -651,19 +653,19 @@ Procedure ШагНазад(ЭтоЛеваяТаблица)
 	IndexOf = ЭлементСписок.IndexOf(НайденныйЭлемент);
 	If IndexOf + 1 < ЭлементСписок.Count() - 1 Then
 		ThisObject[ИмяПоляТекущегоКаталога] = ЭлементСписок[IndexOf + 1].Value;
-		If ЭтоЛеваяТаблица Then
-			ОбновитьКлиент();
-		Иначе
-			ОбновитьСервер();
+		If IsLeftTable Then
+			UpdateAtClient();
+		Else
+			UpdateAtServer();
 		EndIf;
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ШагВперед(ЭтоЛеваяТаблица)
-	If ЭтоЛеваяТаблица Then
+Procedure StepForward(IsLeftTable)
+	If IsLeftTable Then
 		ИмяПоляТекущегоКаталога="CurrentDirectoryOnClient";
-	Иначе
+	Else
 		ИмяПоляТекущегоКаталога="CurrentDirectoryOnServer";
 	EndIf;
 
@@ -677,25 +679,25 @@ Procedure ШагВперед(ЭтоЛеваяТаблица)
 	IndexOf = ЭлементСписок.IndexOf(НайденныйЭлемент);
 	If IndexOf > 0 Then
 		ThisObject[ИмяПоляТекущегоКаталога] = ЭлементСписок[IndexOf - 1].Value;
-		If ЭтоЛеваяТаблица Then
-			ОбновитьКлиент();
-		Иначе
-			ОбновитьСервер();
+		If IsLeftTable Then
+			UpdateAtClient();
+		Else
+			UpdateAtServer();
 		EndIf;
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ПерейтиНаУровеньВыше(ТаблицаФайлов, ЭтоЛеваяТаблица)
-	ПерейтиВКаталог(ТаблицаФайлов, "..", ЭтоЛеваяТаблица);
+Procedure GoLevelUp(FileTable, IsLeftTable)
+	GotoDirectory(FileTable, "..", IsLeftTable);
 EndProcedure
 
 &AtClient
-Procedure ПерейтиВКаталог(ТаблицаФайлов, ПолноеИмяНовогоКаталога, ЭтоЛеваяТаблица)
-	If ЭтоЛеваяТаблица Then
+Procedure GotoDirectory(FileTable, ПолноеИмяНовогоКаталога, IsLeftTable)
+	If IsLeftTable Then
 		ИмяПоляКаталога="CurrentDirectoryOnClient";
 		РазделительПути=PathParentOnClient;
-	Иначе
+	Else
 		ИмяПоляКаталога="CurrentDirectoryOnServer";
 		РазделительПути=PathParentOnServer;
 	EndIf;
@@ -711,7 +713,7 @@ Procedure ПерейтиВКаталог(ТаблицаФайлов, Полно�
 		
 		If МассивСтрокКаталога.Count() = 0 Then
 			НовыйКаталог="";
-		Иначе
+		Else
 			
 			МассивСтрокКаталога.Delete(МассивСтрокКаталога.Count() - 1);
 
@@ -720,24 +722,24 @@ Procedure ПерейтиВКаталог(ТаблицаФайлов, Полно�
 
 			НовыйКаталог=StrConcat(МассивСтрокКаталога, РазделительПути);
 		EndIf;
-	Иначе
+	Else
 		НовыйКаталог = ПолноеИмяНовогоКаталога;
 	EndIf;
 
 	ThisObject[ИмяПоляКаталога] = НовыйКаталог;
 
-	If ЭтоЛеваяТаблица Then
-		ОбновитьКлиент();
-		ОбновитьИсториюКлиент();
-	Иначе
-		ОбновитьСервер();
+	If IsLeftTable Then
+		UpdateAtClient();
+		UpdateHistoryAtClient();
+	Else
+		UpdateAtServer();
 
-		ОбновитьИсториюСервер();
+		UpdateHistoryAtServer();
 	EndIf;
 
 EndProcedure
 &AtServer
-Procedure ЗаполнитьПодменюСортировок()
+Procedure FillSortSubMenu()
 	ПоляУпорядочивания=New Structure;
 	ПоляУпорядочивания.Insert("Name", "Name");
 	ПоляУпорядочивания.Insert("FileExtension", "FileExtension");
@@ -749,8 +751,8 @@ Procedure ЗаполнитьПодменюСортировок()
 	НаправленияСортировки.Insert("УБЫВ", " -");
 
 	МассивПодменю=New Array;
-	МассивПодменю.Add(Items.ЛеваяПанельГруппаСортировка);
-	МассивПодменю.Add(Items.ПраваяПанельГруппаСортировка);
+	МассивПодменю.Add(Items.SortGroupOfLeftPanel);
+	МассивПодменю.Add(Items.SortGroupOfRightPanel);
 
 	For Each ТекПодменю In МассивПодменю Do
 		For Each ПолеУпорядочивания In ПоляУпорядочивания Do
@@ -773,24 +775,24 @@ Procedure ЗаполнитьПодменюСортировок()
 	EndDo;
 EndProcedure
 
-&НаСервереБезКонтекста
-Procedure РазвернутьФайлНаСервере(АдресВХранилище, КонечноеИмяФайла)
-	BinaryData = GetFromTempStorage(АдресВХранилище);
-	BinaryData.Write(КонечноеИмяФайла);
+&AtServerNoContext
+Procedure UnpackFileAtServer(StorageAddress, FinalFileName)
+	BinaryData = GetFromTempStorage(StorageAddress);
+	BinaryData.Write(FinalFileName);
 EndProcedure
 
 &AtClient
-Procedure ОбновитьДеревоФайлов(AtClient = True)
+Procedure UpdateFilesTree(AtClient = True)
 	If AtClient = False Then
-		ЭлементДерево = Items.FilesOnLeftPanel;
+		TreeItem = Items.FilesOnLeftPanel;
 		ТаблицаФайловКаталога = FilesOnRightPanel;
 		GetCurrentDirectory = CurrentDirectoryOnServer;
 		ФайлыТекущегоКаталога = ПолучитьСодержимоеКаталогаНаСервере(GetCurrentDirectory, PathParentOnServer,
 			WindowsServer);
 		ТекущийРазделительПути=PathParentOnServer;
 		ЭтоWindows=WindowsServer;
-	Иначе
-		ЭлементДерево = Items.FilesOnLeftPanel;
+	Else
+		TreeItem = Items.FilesOnLeftPanel;
 		ТаблицаФайловКаталога = FilesOnLeftPanel;
 		GetCurrentDirectory = CurrentDirectoryOnClient;
 		ФайлыТекущегоКаталога = ПолучитьСодержимоеКаталогаНаКлиенте(GetCurrentDirectory);
@@ -809,7 +811,7 @@ Procedure ОбновитьДеревоФайлов(AtClient = True)
 		If ЭтоWindows Then
 			If AtClient Then
 				Диски = ПолучитьСписокДисковWindowsAtClient(ТекущийРазделительПути);
-			Иначе
+			Else
 				Диски = ПолучитьСписокДисковWindowsAtServer(ТекущийРазделительПути);
 			EndIf;
 			For Each ИмяДиска In Диски Do
@@ -837,30 +839,30 @@ Procedure ОбновитьДеревоФайлов(AtClient = True)
 	EndIf;
 
 //	МассивТекущийПуть = СтрРазделить(ПутьДляРазбора, ТекущийРазделительПути);//РазложитьСтрокуВМассивПодстрок(ПутьДляРазбора, ТекущийРазделительПути);
-//	Для Каждого ИмяКаталога Из МассивТекущийПуть Цикл
-//		Если ПустаяСтрока(ИмяКаталога) Тогда
+//	Для Каждого DirectoryName Из МассивТекущийПуть Цикл
+//		Если ПустаяСтрока(DirectoryName) Тогда
 //			Прервать;
 //		КонецЕсли;
 //
-//		ИмяКаталога = СтрЗаменить(ИмяКаталога, ":::", ТекущийРазделительПути + ТекущийРазделительПути);
+//		DirectoryName = СтрЗаменить(DirectoryName, ":::", ТекущийРазделительПути + ТекущийРазделительПути);
 //
-//		FullName = FullName + ИмяКаталога + ТекущийРазделительПути;
+//		FullName = FullName + DirectoryName + ТекущийРазделительПути;
 //		ТекущийРодитель = ТекущийРодитель.ПолучитьЭлементы().Добавить();
 //		ТекущийРодитель.PictureIndex = PictureIndex;
-//		ТекущийРодитель.Name = ИмяКаталога + ТекущийРазделительПути;
+//		ТекущийРодитель.Name = DirectoryName + ТекущийРазделительПути;
 //		ТекущийРодитель.IsDirectory = Истина;
 //		ТекущийРодитель.FullName = ТекущийРазделительПути + FullName;
 //		PictureIndex = 1;
 //	КонецЦикла;
 
-	For Each СтрокаСтруктура In ФайлыТекущегоКаталога Do
-		FillPropertyValues(ТаблицаФайловКаталога.Add(), СтрокаСтруктура);
+	For Each StructureLine In ФайлыТекущегоКаталога Do
+		FillPropertyValues(ТаблицаФайловКаталога.Add(), StructureLine);
 	EndDo;
 
 	ТаблицаФайловКаталога.Sort("IsDirectory УБЫВ, Name");
 //	Если ТипЗнч(ТекущийРодитель) = Тип("ДанныеФормыЭлементДерева") Тогда
-//		ЭлементДерево.ТекущаяСтрока = ТекущийРодитель.ПолучитьИдентификатор();
-//		ЭлементДерево.Развернуть(ЭлементДерево.ТекущаяСтрока);
+//		TreeItem.ТекущаяСтрока = ТекущийРодитель.ПолучитьИдентификатор();
+//		TreeItem.Развернуть(TreeItem.ТекущаяСтрока);
 //	КонецЕсли;
 
 	If ValueIsFilled(GetCurrentDirectory) And GetCurrentDirectory <> ТекущийРазделительПути Then
@@ -873,12 +875,12 @@ Procedure ОбновитьДеревоФайлов(AtClient = True)
 EndProcedure
 
 &AtClient
-Procedure ОбновитьИсториюКлиент()
+Procedure UpdateHistoryAtClient()
 	UpdateHistory(True);
 EndProcedure
 
 &AtClient
-Procedure ОбновитьИсториюСервер()
+Procedure UpdateHistoryAtServer()
 	UpdateHistory(False);
 EndProcedure
 &AtClient
@@ -887,7 +889,7 @@ Procedure UpdateHistory(AtClient = True)
 		GetCurrentDirectory = CurrentDirectoryOnServer;
 		ЭлементТекущийКаталог = Items.CurrentDirectoryOnServer;
 		СписокИстория = HistoryOfChooseServer;
-	Иначе
+	Else
 		GetCurrentDirectory = CurrentDirectoryOnClient;
 		ЭлементТекущийКаталог = Items.CurrentDirectoryOnClient;
 		СписокИстория = HistoryOfChooseClient;
@@ -907,7 +909,7 @@ Procedure UpdateHistory(AtClient = True)
 	ЭлементТекущийКаталог.ChoiceList.LoadValues(СписокИстория.UnloadValues());
 EndProcedure
 
-&НаСервереБезКонтекста
+&AtServerNoContext
 Function ПолучитьСодержимоеКаталогаНаСервере(Directory, РазделительПути, ЭтоWindows)
 	Return ПолучитьСодержимоеКаталога(Directory, РазделительПути, ЭтоWindows);
 EndFunction
@@ -917,7 +919,7 @@ Function ПолучитьСодержимоеКаталогаНаКлиенте(
 	Return ПолучитьСодержимоеКаталога(Directory, PathParentOnClient, WindowsClient);
 EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
+&AtClientAtServerNoContext
 Function ПолучитьСодержимоеКаталога(Directory, РазделительПути, ЭтоWindows)
 	Result = New Array;
 
@@ -939,7 +941,7 @@ Function ПолучитьСодержимоеКаталога(Directory, Раз�
 
 		If Not File.Exists() Then
 			IsDirectory=False;
-		Иначе
+		Else
 			IsDirectory=File.IsDirectory();
 		EndIf;
 
@@ -948,56 +950,56 @@ Function ПолучитьСодержимоеКаталога(Directory, Раз�
 			FullFileName=Mid(File.FullName, 2);
 		EndIf;
 
-		If FullFileName = "/./" Или FullFileName = "/../" 
-			Или FullFileName="/." Или FullFileName= "/.." Then
+		If FullFileName = "/./" Or FullFileName = "/../" 
+			Or FullFileName="/." Or FullFileName= "/.." Then
 			Continue;
 		EndIf;
 
-		СтрокаСтруктура = New Structure;
+		StructureLine = New Structure;
 
-		СтрокаСтруктура.Insert("IsDirectory", IsDirectory);
-		СтрокаСтруктура.Insert("FullName", FullFileName);
+		StructureLine.Insert("IsDirectory", IsDirectory);
+		StructureLine.Insert("FullName", FullFileName);
 
-		If СтрокаСтруктура.IsDirectory Then
+		If StructureLine.IsDirectory Then
 			If ValueIsFilled(File.Name) Then
 				FileName=File.Name;
-			Иначе
+			Else
 				FileName=StrReplace(File.Path, РазделительПути, "");
 			EndIf;
 
 			FileName=FileName + РазделительПути;
-		Иначе
+		Else
 			FileName=File.BaseName;
 		EndIf;
 
 		If Not ValueIsFilled(FileName) Then
 			FileName=FullFileName;
 
-			If Not СтрокаСтруктура.IsDirectory And StrStartsWith(FileName, РазделительПути) Then
+			If Not StructureLine.IsDirectory And StrStartsWith(FileName, РазделительПути) Then
 				FileName=Mid(FileName, 2);
 			EndIf;
 		EndIf;
-		СтрокаСтруктура.Insert("Name", FileName);
-		СтрокаСтруктура.Insert("FileExtension", ?(СтрокаСтруктура.IsDirectory, "", File.Extension));
-		СтрокаСтруктура.Insert("PictureIndex", PictureIndex(СтрокаСтруктура.FileExtension,
-			СтрокаСтруктура.IsDirectory));
+		StructureLine.Insert("Name", FileName);
+		StructureLine.Insert("FileExtension", ?(StructureLine.IsDirectory, "", File.Extension));
+		StructureLine.Insert("PictureIndex", PictureIndex(StructureLine.FileExtension,
+			StructureLine.IsDirectory));
 
 		Try
-			СтрокаСтруктура.Insert("ModifiedDate", File.GetModificationTime());
+			StructureLine.Insert("ModifiedDate", File.GetModificationTime());
 		Except
-			СтрокаСтруктура.Insert("ModifiedDate", '00010101');
+			StructureLine.Insert("ModifiedDate", '00010101');
 		EndTry;
 
-		If Not СтрокаСтруктура.IsDirectory Then
+		If Not StructureLine.IsDirectory Then
 			Try
-				СтрокаСтруктура.Insert("Size", File.Size() / 1000);
+				StructureLine.Insert("Size", File.Size() / 1000);
 			Except
-				СтрокаСтруктура.Insert("Size", 0);
+				StructureLine.Insert("Size", 0);
 			EndTry;
 		EndIf;
-		СтрокаСтруктура.Insert("Presentation", Format(СтрокаСтруктура.ModifiedDate, "ДФ='yyyy-MM-dd HH:MM:ss'"));
+		StructureLine.Insert("Presentation", Format(StructureLine.ModifiedDate, "ДФ='yyyy-MM-dd HH:MM:ss'"));
 
-		Result.Add(СтрокаСтруктура);
+		Result.Add(StructureLine);
 	EndDo;
 
 //	Результат.СортироватьПоПредставлению(НаправлениеСортировки.Убыв);
@@ -1006,21 +1008,21 @@ Function ПолучитьСодержимоеКаталога(Directory, Раз�
 	Return Result;
 EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
+&AtClientAtServerNoContext
 Function PictureIndex(Знач FileExtension, IsDirectory)
 	If IsDirectory Then
 		Return 2;
-	Иначе
+	Else
 		Return UT_CommonClientServer.GetFileIconIndex(FileExtension);
 	EndIf;
 EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
+&AtClientAtServerNoContext
 Function ПолучитьСписокДисковWindows(РазделительПути)
 	Result = New Array;
 
-	For сч = 0 To 25 Do
-		БукваДиска = Char(CharCode("A") + сч) + ":" + РазделительПути;
+	For Ind = 0 To 25 Do
+		БукваДиска = Char(CharCode("A") + Ind) + ":" + РазделительПути;
 		If FindFiles(БукваДиска).Count() > 0 Then
 			Result.Add(БукваДиска);
 		EndIf;
@@ -1029,7 +1031,7 @@ Function ПолучитьСписокДисковWindows(Разделитель�
 	Return Result;
 EndFunction
 
-&НаСервереБезКонтекста
+&AtServerNoContext
 Function ПолучитьСписокДисковWindowsAtServer(РазделительПути)
 	Return ПолучитьСписокДисковWindows(РазделительПути);
 EndFunction
@@ -1040,72 +1042,72 @@ Function ПолучитьСписокДисковWindowsAtClient(Раздели�
 EndFunction
 
 
-&НаСервереБезКонтекста
-Function ИмяКаталонаНаСервере(ИмяКаталога)
-	Return Eval(ИмяКаталога + "()");
+&AtServerNoContext
+Function DirectoryNameOnServer(DirectoryName)
+	Return Eval(DirectoryName + "()");
 EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
+&AtClientAtServerNoContext
 Function FileSize(РазмерФайлаВБайтах, ЕдиницаИзмерения)
 	ЕдиницаИзмерения = "КБ";
 	Return РазмерФайлаВБайтах / 1000;
 EndFunction
 
-&НаСервереБезКонтекста
-Procedure УдалитьФайлыНаСервере(FileName)
+&AtServerNoContext
+Procedure DeleteFilesOnServer(FileName)
 	DeleteFiles(FileName);
 EndProcedure
 
-&НаСервереБезКонтекста
-Function ПоместитьВоВременноеХранилищеНаСервере(ИсходныйФайл, ИдентификаторФормы)
+&AtServerNoContext
+Function PutToTempStorageAtServer(ИсходныйФайл, ИдентификаторФормы)
 	BinaryData = New BinaryData(ИсходныйФайл);
-	АдресВХранилище = PutToTempStorage(BinaryData, ИдентификаторФормы);
-	Return АдресВХранилище;
+	StorageAddress = PutToTempStorage(BinaryData, ИдентификаторФормы);
+	Return StorageAddress;
 EndFunction
 
-&НаСервереБезКонтекста
-Function НайтиВсеФайлыНаСервере(GetCurrentDirectory, РазделительПути, УникальныйИдентификаторФормы)
+&AtServerNoContext
+Function FindAllFilesOnServer(GetCurrentDirectory, РазделительПути, УникальныйИдентификаторФормы)
 	Result = New Array;
 
 	НайденныеФайлы = FindFiles(GetCurrentDirectory, "*", True);
 	For Each File In НайденныеФайлы Do
-		СтрокаСтруктура = New Structure;
-		Result.Add(СтрокаСтруктура);
+		StructureLine = New Structure;
+		Result.Add(StructureLine);
 
-		СтрокаСтруктура.Insert("IsDirectory", File.IsDirectory());
-		СтрокаСтруктура.Insert("FullName", File.FullName + ?(СтрокаСтруктура.IsDirectory, РазделительПути, ""));
-		СтрокаСтруктура.Insert("АдресВХранилище", PutToTempStorage(
-			New BinaryData(СтрокаСтруктура.FullName), УникальныйИдентификаторФормы));
+		StructureLine.Insert("IsDirectory", File.IsDirectory());
+		StructureLine.Insert("FullName", File.FullName + ?(StructureLine.IsDirectory, РазделительПути, ""));
+		StructureLine.Insert("StorageAddress", PutToTempStorage(
+			New BinaryData(StructureLine.FullName), УникальныйИдентификаторФормы));
 	EndDo;
 
 	Return Result;
 EndFunction
 
 &AtClient
-Function НайтиВсеФайлыНаКлиенте(GetCurrentDirectory, РазделительПути, УникальныйИдентификаторФормы)
+Function FindAllFilesOnClient(GetCurrentDirectory, РазделительПути, УникальныйИдентификаторФормы)
 	Result = New Array;
 
 	НайденныеФайлы = FindFiles(GetCurrentDirectory, "*", True);
 	For Each File In НайденныеФайлы Do
-		СтрокаСтруктура = New Structure;
-		Result.Add(СтрокаСтруктура);
+		StructureLine = New Structure;
+		Result.Add(StructureLine);
 
-		СтрокаСтруктура.Insert("IsDirectory", File.IsDirectory());
-		СтрокаСтруктура.Insert("FullName", File.FullName + ?(СтрокаСтруктура.IsDirectory, РазделительПути, ""));
-		СтрокаСтруктура.Insert("АдресВХранилище", PutToTempStorage(
-			New BinaryData(СтрокаСтруктура.FullName), УникальныйИдентификаторФормы));
+		StructureLine.Insert("IsDirectory", File.IsDirectory());
+		StructureLine.Insert("FullName", File.FullName + ?(StructureLine.IsDirectory, РазделительПути, ""));
+		StructureLine.Insert("StorageAddress", PutToTempStorage(
+			New BinaryData(StructureLine.FullName), УникальныйИдентификаторФормы));
 
 	EndDo;
 
 	Return Result;
 EndFunction
 
-&НаСервереБезКонтекста
-Procedure ПереименоватьФайлНаСервере(ИмяФайлаИсточника, ИмяФайлаПриемника, РазделительПути)
+&AtServerNoContext
+Procedure RenameFilesOnServer(ИмяФайлаИсточника, ИмяФайлаПриемника, РазделительПути)
 	File = New File(ИмяФайлаИсточника);
 	If File.IsFile() Then
 		MoveFile(ИмяФайлаИсточника, ИмяФайлаПриемника);
-	Иначе
+	Else
 		МассивСлов = StrSplit(ИмяФайлаПриемника, РазделительПути);
 		If IsBlankString(МассивСлов[МассивСлов.UBound()]) Then
 			МассивСлов.Delete(МассивСлов.UBound());
@@ -1118,11 +1120,11 @@ Procedure ПереименоватьФайлНаСервере(ИмяФайла�
 EndProcedure
 
 &AtClient
-Procedure ПереименоватьФайлНаКлиенте(ИмяФайлаИсточника, ИмяФайлаПриемника, РазделительПути)
+Procedure RenameFilesOnClient(ИмяФайлаИсточника, ИмяФайлаПриемника, РазделительПути)
 	File = New File(ИмяФайлаИсточника);
 	//If File.IsFile() Then
 		MoveFile(ИмяФайлаИсточника, ИмяФайлаПриемника);
-	//Иначе
+	//Else
 	//	МассивСлов = StrSplit(ИмяФайлаПриемника, РазделительПути);
 	//	If IsBlankString(МассивСлов[МассивСлов.UBound()]) Then
 	//		МассивСлов.Delete(МассивСлов.UBound());
