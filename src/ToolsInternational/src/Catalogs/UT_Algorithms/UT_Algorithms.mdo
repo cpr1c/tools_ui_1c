@@ -117,45 +117,26 @@
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.UT_Algorithms.Form.ФормаЭлемента</defaultObjectForm>
-  <attributes uuid="e4ac9d02-6f4c-11e9-1495-002522f8f390">
-    <name>ТекстАлгоритма</name>
+  <attributes uuid="e4ace370-6f4c-11e9-1495-002522f8f390">
+    <name>AtClient</name>
     <synonym>
       <key>ru</key>
-      <value>Текст алгоритма</value>
+      <value>At client</value>
     </synonym>
     <type>
-      <types>String</types>
-      <stringQualifiers/>
-    </type>
-    <multiLine>true</multiLine>
-    <extendedEdit>true</extendedEdit>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fillValue xsi:type="core:StringValue">
-      <value></value>
-    </fillValue>
-    <fullTextSearch>Use</fullTextSearch>
-    <dataHistory>Use</dataHistory>
-  </attributes>
-  <attributes uuid="e4acab58-6f4c-11e9-1495-002522f8f390">
-    <name>Хранилище</name>
-    <synonym>
-      <key>ru</key>
-      <value>Хранилище параметров</value>
-    </synonym>
-    <type>
-      <types>ValueStorage</types>
+      <types>Boolean</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <fillValue xsi:type="core:UndefinedValue"/>
+    <indexing>Index</indexing>
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4acb986-6f4c-11e9-1495-002522f8f390">
-    <name>Комментарий</name>
+    <name>Comment</name>
     <synonym>
       <key>ru</key>
-      <value>Комментарий</value>
+      <value>Comment</value>
     </synonym>
     <type>
       <types>String</types>
@@ -172,33 +153,22 @@
     <use>ForFolderAndItem</use>
     <dataHistory>Use</dataHistory>
   </attributes>
-  <attributes uuid="e4acc76e-6f4c-11e9-1495-002522f8f390">
-    <name>Кэшировать</name>
+  <attributes uuid="e4acab58-6f4c-11e9-1495-002522f8f390">
+    <name>Storage</name>
+    <synonym>
+      <key>en</key>
+      <value>Parameters storage</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Кэшировать возвращаемые значения</value>
+      <value>Хранилище параметров</value>
     </synonym>
     <type>
-      <types>Boolean</types>
+      <types>ValueStorage</types>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <fillValue xsi:type="core:UndefinedValue"/>
-    <dataHistory>Use</dataHistory>
-  </attributes>
-  <attributes uuid="e4ace370-6f4c-11e9-1495-002522f8f390">
-    <name>НаКлиенте</name>
-    <synonym>
-      <key>ru</key>
-      <value>На клиенте</value>
-    </synonym>
-    <type>
-      <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-    <fillValue xsi:type="core:UndefinedValue"/>
-    <indexing>Index</indexing>
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4acf180-6f4c-11e9-1495-002522f8f390">
@@ -232,6 +202,19 @@
     <fillValue xsi:type="core:UndefinedValue"/>
     <fullTextSearch>Use</fullTextSearch>
     <dataHistory>Use</dataHistory>
+  </attributes>
+  <attributes uuid="e4ad5120-6f4c-11e9-1495-002522f8f390">
+    <name>ВыполнятьПоРасписанию</name>
+    <synonym>
+      <key>ru</key>
+      <value>Выполнять по расписанию</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="e4ad1020-6f4c-11e9-1495-002522f8f390">
     <name>ЗаписыватьОшибкиВЖР</name>
@@ -287,11 +270,11 @@
     </fillValue>
     <fullTextSearch>Use</fullTextSearch>
   </attributes>
-  <attributes uuid="e4ad5120-6f4c-11e9-1495-002522f8f390">
-    <name>ВыполнятьПоРасписанию</name>
+  <attributes uuid="e4acc76e-6f4c-11e9-1495-002522f8f390">
+    <name>Кэшировать</name>
     <synonym>
       <key>ru</key>
-      <value>Выполнять по расписанию</value>
+      <value>Кэшировать возвращаемые значения</value>
     </synonym>
     <type>
       <types>Boolean</types>
@@ -299,6 +282,27 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <fillValue xsi:type="core:UndefinedValue"/>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+  <attributes uuid="e4ac9d02-6f4c-11e9-1495-002522f8f390">
+    <name>ТекстАлгоритма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текст алгоритма</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <multiLine>true</multiLine>
+    <extendedEdit>true</extendedEdit>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:StringValue">
+      <value></value>
+    </fillValue>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
   </attributes>
   <tabularSections uuid="e4ad82b3-6f4c-11e9-1495-002522f8f390">
     <producedTypes>
