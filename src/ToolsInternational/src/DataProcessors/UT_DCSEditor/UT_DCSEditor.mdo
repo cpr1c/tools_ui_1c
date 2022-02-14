@@ -6,6 +6,10 @@
   </producedTypes>
   <name>UT_DCSEditor</name>
   <synonym>
+    <key>en</key>
+    <value>(untranslated) UT_DCSEditor</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Редактор СКД (УИ)</value>
   </synonym>

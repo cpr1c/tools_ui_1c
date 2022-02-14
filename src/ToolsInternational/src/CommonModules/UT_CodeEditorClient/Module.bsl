@@ -422,7 +422,7 @@ Procedure FormOnOpenEndEditorLibrarySaving(Result, AdditionalParameters) Export
 				Form[KeyValue.Value.AttributeName] = EditorSaveDirectory(EditorType)
 					+ GetPathSeparator() + "index.html";
 			ElsIf EditorType = EditorsTypes.Ace Then
-				Form[KeyValue.Value.AttributeName] = AceEditorFileNameForLanguage(KeyValue.Value.Lang);
+				Form[KeyValue.Value.AttributeName] = AceEditorFileNameForLanguage(KeyValue.Value.EditorLanguage);
 			EndIf;
 		EndDo;
 	Else
@@ -1722,18 +1722,18 @@ Function EditorSaveDirectory(EditorType)
 		UT_CommonClientServer.Version(), "NG=0;") + GetPathSeparator() + EditorType;
 EndFunction
 
-Function AceEditorFileNameForLanguage(Lang = "bsl") Export
+Function AceEditorFileNameForLanguage(Language = "bsl") Export
 	Return EditorSaveDirectory(UT_CodeEditorClientServer.CodeEditorVariants().Ace)
-		+ GetPathSeparator() + Lang + ".html";
+		+ GetPathSeparator() + Language + ".html";
 EndFunction
 
-Function AceCodeEditorHTMLText(LibrarySavingDirectory, Lang)
+Function AceCodeEditorHTMLText(LibrarySavingDirectory, Language)
 
 	TextAce=LibrarySavingDirectory + GetPathSeparator() + "ace" + GetPathSeparator() + "ace.js";
 	TextLT=LibrarySavingDirectory + GetPathSeparator() + "ace" + GetPathSeparator()
 		+ "ext-language_tools.js";
 
-	CurrentLanguage=Lower(Lang);
+	CurrentLanguage=Lower(Language);
 	If CurrentLanguage = "bsl" Then
 		CurrentLanguage="_1c";
 	EndIf;
@@ -1794,11 +1794,11 @@ Function AceCodeEditorHTMLText(LibrarySavingDirectory, Lang)
 EndFunction
 
 Procedure AddToSavingFilesTextDocumentForAceCodeEditorLanguage(LibraryFilesMap,
-	LibrarySavingDirectory, Lang)
+	LibrarySavingDirectory, Language)
 	Text= New TextDocument;
-	Text.SetText(AceCodeEditorHTMLText(LibrarySavingDirectory, Lang));
+	Text.SetText(AceCodeEditorHTMLText(LibrarySavingDirectory, Language));
 
-	LibraryFilesMap.Insert(Lang + ".html", Text);
+	LibraryFilesMap.Insert(Language + ".html", Text);
 
 EndProcedure
 #EndRegion
