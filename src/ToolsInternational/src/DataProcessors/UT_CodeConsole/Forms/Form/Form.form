@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ОсновнаяКоманднаяПанель</name>
+    <name>MainCommandBar</name>
     <id>5</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаКоманднаяПанельФормы</name>
+      <name>GroupFormCommandBar</name>
       <id>12</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаФайл</name>
+        <name>GroupFile</name>
         <id>10</id>
         <items xsi:type="form:Button">
-          <name>НовыйАлгоритм</name>
+          <name>NewAlgorithm</name>
           <id>104</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -18,7 +18,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>НовыйАлгоритмРасширеннаяПодсказка</name>
+            <name>NewAlgorithmExtendedTooltip</name>
             <id>105</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -40,7 +40,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОткрытьФайл</name>
+          <name>OpenFIle</name>
           <id>17</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -48,7 +48,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОткрытьФайлРасширеннаяПодсказка</name>
+            <name>OpenFIleExtendedTooltip</name>
             <id>18</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -70,7 +70,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СохранитьФайл</name>
+          <name>SaveFile</name>
           <id>19</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -78,7 +78,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СохранитьФайлРасширеннаяПодсказка</name>
+            <name>SaveFileExtendedTooltip</name>
             <id>20</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -100,7 +100,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СохранитьФайлКак</name>
+          <name>SaveFileAs</name>
           <id>102</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -108,7 +108,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СохранитьФайлКакРасширеннаяПодсказка</name>
+            <name>SaveFileAsExtendedTooltip</name>
             <id>103</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -138,8 +138,12 @@
           <key>ru</key>
           <value>Файл</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Group file</value>
+        </title>
         <extendedTooltip>
-          <name>Группа1РасширеннаяПодсказка2</name>
+          <name>GroupFileExtendedTooltip</name>
           <id>11</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -159,7 +163,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаВыполнить</name>
+        <name>FormExecute</name>
         <id>1</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -167,7 +171,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаВыполнитьРасширеннаяПодсказка</name>
+          <name>FormExecuteExtendedTooltip</name>
           <id>2</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -190,7 +194,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>Выйти</name>
+        <name>Close</name>
         <id>98</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -198,7 +202,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ВыйтиРасширеннаяПодсказка</name>
+          <name>CloseExtendedTooltip</name>
           <id>99</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -228,8 +232,12 @@
         <key>ru</key>
         <value>Группа командная панель формы</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group form command bar</value>
+      </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка3</name>
+        <name>GroupFormCommandBarExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -249,7 +257,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаНастройки</name>
+      <name>GroupSettings</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -260,8 +268,12 @@
         <key>ru</key>
         <value>Группа настройки</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group settings</value>
+      </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка</name>
+        <name>GroupSettingsExtendedTooltip</name>
         <id>4</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -294,8 +306,12 @@
       <key>ru</key>
       <value>Командная панель</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Main command bar</value>
+    </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка1</name>
+      <name>MainCommandBarExtendedTooltip</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -320,16 +336,16 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОсновная</name>
+    <name>GroupMain</name>
     <id>21</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаКлиент</name>
+      <name>GroupClient</name>
       <id>30</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаПеременныеКлиент</name>
+        <name>GroupClientVariables</name>
         <id>80</id>
         <items xsi:type="form:Table">
-          <name>ПеременныеКлиент</name>
+          <name>ClientVariables</name>
           <id>40</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -341,7 +357,7 @@
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
-            <name>ПеременныеКлиентИмя</name>
+            <name>ClientVariablesName</name>
             <id>53</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -354,7 +370,7 @@
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПолеРасширеннаяПодсказка</name>
+              <name>ClientVariablesNameExtendedTooltip</name>
               <id>55</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -369,7 +385,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПолеКонтекстноеМеню</name>
+              <name>ClientVariablesNameContextMenu</name>
               <id>54</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -393,7 +409,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПеременныеКлиентЗначение</name>
+            <name>ClientVariablesValue</name>
             <id>56</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -406,7 +422,7 @@
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПолеРасширеннаяПодсказка3</name>
+              <name>ClientVariablesValueExtendedTooltip</name>
               <id>58</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -421,7 +437,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПолеКонтекстноеМеню3</name>
+              <name>ClientVariablesValueContextMenu</name>
               <id>57</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -445,10 +461,10 @@
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>КоманднаяПанель</name>
+            <name>ClientVariablesCommandBar</name>
             <id>41</id>
             <items xsi:type="form:Button">
-              <name>ПеременныеКлиентРедактироватьЗначениеКлиентскойПеременной</name>
+              <name>ClientVariablesEditClientVariableValue</name>
               <id>90</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -456,7 +472,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ПеременныеКлиентРедактироватьЗначениеКлиентскойПеременнойРасширеннаяПодсказка</name>
+                <name>ClientVariablesEditClientVariableValueExtendedTooltip</name>
                 <id>91</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -487,7 +503,7 @@
           </autoCommandBar>
           <handlers>
             <event>OnEditEnd</event>
-            <name>ПеременныеКлиентПриОкончанииРедактирования</name>
+            <name>ClientVariablesOnEditEnd</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -495,10 +511,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>Addition</name>
+            <name>ClientVariablesSearchString</name>
             <id>44</id>
             <extendedTooltip>
-              <name>ExtendedTooltip</name>
+              <name>ClientVariablesSearchStringExtendedTooltip</name>
               <id>46</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -513,7 +529,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ContextMenu</name>
+              <name>ClientVariablesSearchStringContextMenu</name>
               <id>45</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -532,10 +548,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>Addition</name>
+            <name>ClientVariablesViewStatus</name>
             <id>50</id>
             <extendedTooltip>
-              <name>ExtendedTooltip</name>
+              <name>ClientVariablesViewStatusExtendedTooltip</name>
               <id>52</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -550,7 +566,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ContextMenu</name>
+              <name>ClientVariablesViewStatusContextMenu</name>
               <id>51</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -571,10 +587,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>Addition</name>
+            <name>ClientVariablesSearchControl</name>
             <id>47</id>
             <extendedTooltip>
-              <name>ExtendedTooltip</name>
+              <name>ClientVariablesSearchControlExtendedTooltip</name>
               <id>49</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -589,7 +605,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ContextMenu</name>
+              <name>ClientVariablesSearchControlContextMenu</name>
               <id>48</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -604,7 +620,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>РасширеннаяПодсказка</name>
+            <name>ClientVariablesExtendedTooltip</name>
             <id>43</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -619,10 +635,10 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>КонтекстноеМеню</name>
+            <name>ClientVariablesContextMenu</name>
             <id>42</id>
             <items xsi:type="form:Button">
-              <name>КонтекстноеМенюРедактироватьЗначениеКлиентскойПеременной</name>
+              <name>ContextmenuEditClientVariableValue</name>
               <id>92</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -630,7 +646,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>КонтекстноеМенюРедактироватьЗначениеКлиентскойПеременнойРасширеннаяПодсказка</name>
+                <name>ContextmenuEditClientVariableValueExtendedTooltip</name>
                 <id>93</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -684,11 +700,15 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Variables</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Переменные</value>
         </title>
         <extendedTooltip>
-          <name>Группа1РасширеннаяПодсказка8</name>
+          <name>GroupClientVariablesExtendedTooltip</name>
           <id>81</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -719,8 +739,12 @@
         </extInfo>
       </items>
       <items xsi:type="form:Decoration">
-        <name>ТекстАлгоритмаКлиентЗаголовок</name>
+        <name>TextAlgorithmClientTitle</name>
         <id>106</id>
+        <title>
+          <key>en</key>
+          <value>Procedure ExecuteAlgorithmAtClient()</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Процедура ВыполнитьАлгоритмНаКлиенте()</value>
@@ -731,7 +755,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТекстАлгоритмаКлиентЗаголовокРасширеннаяПодсказка</name>
+          <name>TextAlgorithmClientTitleExtendedTooltip</name>
           <id>108</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -746,7 +770,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТекстАлгоритмаКлиентЗаголовокКонтекстноеМеню</name>
+          <name>TextAlgorithmClientTitleContextMenu</name>
           <id>107</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -763,7 +787,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ПолеАлгоритмаКлиент</name>
+        <name>FieldAlgorithmClient</name>
         <id>32</id>
         <title>
           <key>ru</key>
@@ -781,7 +805,7 @@
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ПолеАлгоритмаКлиентРасширеннаяПодсказка</name>
+          <name>FieldAlgorithmClientExtendedTooltip</name>
           <id>34</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -796,7 +820,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПолеАлгоритмаКлиентКонтекстноеМеню</name>
+          <name>FieldAlgorithmClientContextMenu</name>
           <id>33</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -810,6 +834,10 @@
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
         <extInfo xsi:type="form:HtmlFieldExtInfo">
+          <handlers>
+            <event>OnClick</event>
+            <name>FieldAlgorithmClientOnClick1</name>
+          </handlers>
           <width>30</width>
           <autoMaxWidth>true</autoMaxWidth>
           <height>10</height>
@@ -827,11 +855,15 @@
         <key>ru</key>
         <value>&amp;&amp;НаКлиенте</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group client</value>
+      </title>
       <titleFont xsi:type="core:FontDef">
         <height>10.0</height>
       </titleFont>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка5</name>
+        <name>GroupClientExtendedTooltip</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -861,13 +893,13 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСервер</name>
+      <name>GroupServer</name>
       <id>35</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаПеременныеСервер</name>
+        <name>GroupServerVariables</name>
         <id>78</id>
         <items xsi:type="form:Table">
-          <name>ПеременныеСервер</name>
+          <name>ServerVariables</name>
           <id>59</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -879,7 +911,7 @@
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
-            <name>ПеременныеСерверИмя</name>
+            <name>ServerVariablesName</name>
             <id>72</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -892,7 +924,7 @@
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПолеРасширеннаяПодсказка4</name>
+              <name>ServerVariablesNameExtendedTooltip</name>
               <id>74</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -907,7 +939,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПолеКонтекстноеМеню4</name>
+              <name>ServerVariablesNameContextMenu</name>
               <id>73</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -931,7 +963,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПеременныеСерверЗначение</name>
+            <name>ServerVariablesValue</name>
             <id>75</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -944,7 +976,7 @@
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПолеРасширеннаяПодсказка5</name>
+              <name>ServerVariablesValueExtendedTooltip</name>
               <id>77</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -959,7 +991,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПолеКонтекстноеМеню5</name>
+              <name>ServerVariablesValueContextMenu</name>
               <id>76</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -983,10 +1015,10 @@
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>ТаблицаКоманднаяПанель1</name>
+            <name>ServerVariablesCommandBar</name>
             <id>60</id>
             <items xsi:type="form:Button">
-              <name>ПеременныеСерверРедактироватьЗначениеСервернойПеременной</name>
+              <name>ServerVariablesEditServerVariableValue</name>
               <id>94</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -994,7 +1026,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ПеременныеСерверРедактироватьЗначениеСервернойПеременнойРасширеннаяПодсказка</name>
+                <name>ServerVariablesEditServerVariableValueExtendedTooltip</name>
                 <id>95</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1025,7 +1057,7 @@
           </autoCommandBar>
           <handlers>
             <event>OnEditEnd</event>
-            <name>ПеременныеСерверПриОкончанииРедактирования</name>
+            <name>ServerVariablesOnEditEnd</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -1033,10 +1065,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ТаблицаСтрокаПоиска</name>
+            <name>ServerVariablesSearchString</name>
             <id>63</id>
             <extendedTooltip>
-              <name>ExtendedTooltip</name>
+              <name>ServerVariablesSearchStringExtendedTooltip</name>
               <id>65</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1051,7 +1083,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ContextMenu</name>
+              <name>ServerVariablesSearchStringContextMenu</name>
               <id>64</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1070,10 +1102,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ТаблицаСостояниеПросмотра</name>
+            <name>ServerVariablesViewStatus</name>
             <id>69</id>
             <extendedTooltip>
-              <name>ExtendedTooltip</name>
+              <name>ServerVariablesViewStatusExtendedTooltip</name>
               <id>71</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1088,7 +1120,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ContextMenu</name>
+              <name>ServerVariablesViewStatusContextMenu</name>
               <id>70</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1109,10 +1141,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ТаблицаУправлениеПоиском</name>
+            <name>ServerVariablesSearchControl</name>
             <id>66</id>
             <extendedTooltip>
-              <name>ExtendedTooltip</name>
+              <name>ServerVariablesSearchControlExtendedTooltip</name>
               <id>68</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1127,7 +1159,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ContextMenu</name>
+              <name>ServerVariablesSearchControlContextMenu</name>
               <id>67</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1142,7 +1174,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>ТаблицаРасширеннаяПодсказка</name>
+            <name>ServerVariablesExtendedTooltip</name>
             <id>62</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1157,10 +1189,10 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТаблицаКонтекстноеМеню</name>
+            <name>ServerVariablesContextMenu</name>
             <id>61</id>
             <items xsi:type="form:Button">
-              <name>ТаблицаКонтекстноеМенюРедактироватьЗначениеСервернойПеременной</name>
+              <name>TableContextMenuEditServerVariableValue</name>
               <id>96</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1168,7 +1200,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ТаблицаКонтекстноеМенюРедактироватьЗначениеСервернойПеременнойРасширеннаяПодсказка</name>
+                <name>TableContextMenuEditServerVariableValueExtendedTooltip</name>
                 <id>97</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1222,11 +1254,15 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Variables</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Переменные</value>
         </title>
         <extendedTooltip>
-          <name>Группа1РасширеннаяПодсказка7</name>
+          <name>GroupServerVariablesExtendedTooltip</name>
           <id>79</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1257,8 +1293,12 @@
         </extInfo>
       </items>
       <items xsi:type="form:Decoration">
-        <name>ТекстАлгоритмаСерверЗаголовок</name>
+        <name>TextAlgorithmServerTitle</name>
         <id>109</id>
+        <title>
+          <key>en</key>
+          <value>Procedure ExecuteAlgorithmAtServer(TransmittedStructure)</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Процедура ВыполнитьАлгоритмНаСервере(СтруктураПередачи)</value>
@@ -1269,7 +1309,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ТекстАлгоритмаСерверЗаголовокРасширеннаяПодсказка</name>
+          <name>TextAlgorithmServerTitleExtendedTooltip</name>
           <id>111</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1284,7 +1324,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТекстАлгоритмаСерверЗаголовокКонтекстноеМеню</name>
+          <name>TextAlgorithmServerTitleContextMenu</name>
           <id>110</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1301,7 +1341,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ПолеАлгоритмаСервер</name>
+        <name>FieldAlgorithmServer</name>
         <id>37</id>
         <title>
           <key>ru</key>
@@ -1319,7 +1359,7 @@
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ПолеАлгоритмаСерверРасширеннаяПодсказка</name>
+          <name>FieldAlgorithmServerExtendedTooltip</name>
           <id>39</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1334,7 +1374,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПолеАлгоритмаСерверКонтекстноеМеню</name>
+          <name>FieldAlgorithmServerContextMenu</name>
           <id>38</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1365,11 +1405,15 @@
         <key>ru</key>
         <value>&amp;&amp;НаСервере</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group server</value>
+      </title>
       <titleFont xsi:type="core:FontDef">
         <height>10.0</height>
       </titleFont>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка6</name>
+        <name>GroupServerExtendedTooltip</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1403,8 +1447,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Group main</value>
+    </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка4</name>
+      <name>GroupMainExtendedTooltip</name>
       <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1442,12 +1490,12 @@
     <name>OnOpen</name>
   </handlers>
   <handlers>
-    <event>BeforeClose</event>
-    <name>ПередЗакрытием</name>
+    <event>OnCreateAtServer</event>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
-    <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <event>BeforeClose</event>
+    <name>BeforeClose</name>
   </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <saveDataInSettings>UseList</saveDataInSettings>

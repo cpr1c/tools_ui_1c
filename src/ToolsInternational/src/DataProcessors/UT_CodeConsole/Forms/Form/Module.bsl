@@ -1,38 +1,29 @@
 &AtClient
-Var ЗакрытиеФормыПодтверждено;
+Var FormCloseConfirmed;
 
-#Region СобытияФормы
+#Region FormEvents
 
 &AtServer
-Procedure OnCreateAtServer(Cancel, СтандартнаяОбработка)
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	UT_CodeEditorServer.FormOnCreateAtServer(ThisObject);
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "Server", Items.ПолеАлгоритмаСервер);
-	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "Клиент", Items.ПолеАлгоритмаКлиент);
+	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "Server", Items.FieldAlgorithmServer);
+	UT_CodeEditorServer.CreateCodeEditorItems(ThisObject, "Client", Items.FieldAlgorithmClient);
 	
-	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, СтандартнаяОбработка, Items.ОсновнаяКоманднаяПанель);
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing, Items.MainCommandBar);
 	
 EndProcedure
 
 &AtClient
-Procedure BeforeClose(Cancel, ЗавершениеРаботы, ТекстПредупреждения, СтандартнаяОбработка)
-	If Not ЗакрытиеФормыПодтверждено Then
+Procedure BeforeClose(Cancel, Exit, WarningText, StandardProcessing)
+	If Not FormCloseConfirmed Then
 		Cancel = True;
 	EndIf;
 EndProcedure
 
+
 &AtClient
 Procedure OnOpen(Cancel)
-	UT_CodeEditorClient.FormOnOpen(ThisObject, New NotifyDescription("ПриОткрытииЗавершение",ThisObject));
-EndProcedure
-
-&AtClient
-Procedure ПеременныеСерверПриОкончанииРедактирования(Item, НоваяСтрока, ОтменаРедактирования)
-	ДобавитьДополнительныйКонтекстВРедакторКода("Server");
-EndProcedure
-
-&AtClient
-Procedure ПеременныеКлиентПриОкончанииРедактирования(Item, НоваяСтрока, ОтменаРедактирования)
-	ДобавитьДополнительныйКонтекстВРедакторКода("Клиент");
+	UT_CodeEditorClient.FormOnOpen(ThisObject, New NotifyDescription("OnOpenEnd",ThisObject));
 EndProcedure
 
 //@skip-warning
@@ -43,8 +34,8 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Attachable_EditorFieldOnClick(Item, ДанныеСобытия, СтандартнаяОбработка)
-	UT_CodeEditorClient.HTMLEditorFieldOnClick(ThisObject, Item, ДанныеСобытия, СтандартнаяОбработка);
+Procedure Attachable_EditorFieldOnClick(Item, EventData, StandardProcessing)
+	UT_CodeEditorClient.HTMLEditorFieldOnClick(ThisObject, Item, EventData, StandardProcessing);
 EndProcedure
 
 //@skip-warning
@@ -56,71 +47,71 @@ EndProcedure
 &AtClient 
 Procedure Attachable_CodeEditorInitializingCompletion() Export
 	If ValueIsFilled(AlgorithmFileName) Then
-		UT_CommonClient.ReadConsoleFromFile("КонсольКода", СтруктураОписанияСохраняемогоФайла(),
-			New NotifyDescription("ОткрытьФайлЗавершение", ThisObject), True);
+		UT_CommonClient.ReadConsoleFromFile("CodeConsole", SavedFilesDescriptionStructure(),
+			New NotifyDescription("OpenFileEnd", ThisObject), True);
 	Else
-		УстановитьТекстРедактора("Клиент", ТекстАлгоритмаКлиент);
-		УстановитьТекстРедактора("Server", ТекстАлгоритмаСервер);
+		SetEditorText("Client", TextAlgorithmClient);
+		SetEditorText("Server", TextAlgorithmServer);
 	EndIf;
 EndProcedure
 
 
 #EndRegion
 
-#Region СобытияКомандФормы
+#Region FormCommandsEvents
 &AtClient
 Procedure CloseConsole(Command)
-	ShowQueryBox(New NotifyDescription("ЗакрытьКонсольЗавершение", ThisForm), "Выйти из консоли кода?",
+	ShowQueryBox(New NotifyDescription("CloseConsoleEnd", ThisForm),NStr("ru = 'Выйти из консоли кода?';en = 'Exit code console ?'"),
 		QuestionDialogMode.YesNo);
 EndProcedure
 
 &AtClient
 Procedure ExecuteCode(Command)
-	//.1 Нужно обновить значения данных алгоритмов
-	ОбновитьЗначениеПеременныхАлгоритмовИзРедактора();
+	//.1 Need to update the values of these algorithms
+	UpdateAlgorithmVariablesValueFromEditor();
 
-	СтруктураПередачи = New Structure;
-	ВыполнитьАлгоритмНаКлиенте(СтруктураПередачи);
-	ВыполнитьАлгоритмНаСервере(СтруктураПередачи);
+	TransmittedStructure = New Structure;
+	ExecuteAlgorithmAtClient(TransmittedStructure);
+	ExecuteAlgorithmAtServer(TransmittedStructure);
 EndProcedure
 
 &AtClient
 Procedure EditClientVariableValue(Command)
-	РедактироватьЗначениеПеременной(Items.ПеременныеКлиент);
+	EditVariableValue(Items.ClientVariables);
 EndProcedure
 
 &AtClient
 Procedure EditServerVariableValue(Command)
-	РедактироватьЗначениеПеременной(Items.ПеременныеСервер);
+	EditVariableValue(Items.ServerVariables);
 EndProcedure
 
 &AtClient
 Procedure NewAlgorithm(Command)
 	AlgorithmFileName="";
 
-	ТекстАлгоритмаКлиент="";
-	ТекстАлгоритмаСервер="";
+	TextAlgorithmClient="";
+	TextAlgorithmServer="";
 
-	УстановитьТекстРедактора("Клиент",ТекстАлгоритмаКлиент);
-	УстановитьТекстРедактора("Server",ТекстАлгоритмаСервер);
+	SetEditorText("Client",TextAlgorithmClient);
+	SetEditorText("Server",TextAlgorithmServer);
 
 	SetCaption();
 EndProcedure
 
 &AtClient
 Procedure OpenFile(Command)
-	UT_CommonClient.ReadConsoleFromFile("КонсольКода", СтруктураОписанияСохраняемогоФайла(),
-		New NotifyDescription("ОткрытьФайлЗавершение", ThisObject));
+	UT_CommonClient.ReadConsoleFromFile("CodeConsole", SavedFilesDescriptionStructure(),
+		New NotifyDescription("OpenFileEnd", ThisObject));
 EndProcedure
 
 &AtClient
 Procedure SaveFile(Command)
-	СохранитьФайлНаДиск();
+	SaveFileToDisk();
 EndProcedure
 
 &AtClient
 Procedure SaveFileAs(Command)
-	СохранитьФайлНаДиск(True);
+	SaveFileToDisk(True);
 EndProcedure
 
 //@skip-warning
@@ -131,88 +122,88 @@ EndProcedure
 
 #EndRegion
 
-#Region ПрочиеФункции
+#Region OtherFunctions
 
 &AtClient
-Function ПеременныеКонтекста(ТЧПеременных)
-	МассивПеременных=New Array;
-	For Each ТекПеременная In ТЧПеременных Do
-		СтруктураПеременной=New Structure;
-		СтруктураПеременной.Insert("Name", ТекПеременная.Name);
-		СтруктураПеременной.Insert("Type", TypeOf(ТекПеременная.Value));
+Function ContextVariables(VariablesTabularSection)
+	VariablesArray=New Array;
+	For Each CurrentVariable In VariablesTabularSection Do
+		VariableStructure=New Structure;
+		VariableStructure.Insert("Name", CurrentVariable.Name);
+		VariableStructure.Insert("Type", TypeOf(CurrentVariable.Value));
 
-		МассивПеременных.Add(СтруктураПеременной);
+		VariablesArray.Add(VariableStructure);
 	EndDo;
 	
-	Return МассивПеременных;
+	Return VariablesArray;
 EndFunction
 
 &AtClient
-Procedure ДобавитьДополнительныйКонтекстВРедакторКода(ИдентификаторРедактора)
-	СтруктураДополнительногоКонтекста = New Structure;
-	СтруктураДополнительногоКонтекста.Insert("СтруктураПередачи", "Structure");
+Procedure AddAdditionalContextToCodeEditor(EditorID)
+	AdditionalContextStructure = New Structure;
+	AdditionalContextStructure.Insert("TransmittedStructure", "Structure");
 	
-	If ИдентификаторРедактора = "Клиент" Then
-		ТЧПеременных = ClientVariables;
+	If EditorID = "Client" Then
+		VariablesTabularSection = ClientVariables;
 	Else
-		ТЧПеременных = ServerVariables;
+		VariablesTabularSection = ServerVariables;
 	EndIf;
 	
-	ПеременныеКонтекста =ПеременныеКонтекста(ТЧПеременных); 
-	For Each Пер In ПеременныеКонтекста Do
-		If Not UT_CommonClientServer.IsCorrectVariableName(Пер.Name) Then
+	ContextVariables =ContextVariables(VariablesTabularSection); 
+	For Each Variable In ContextVariables Do
+		If Not UT_CommonClientServer.IsCorrectVariableName(Variable.Name) Then
 			Continue;
 		EndIf;
 		
-		СтруктураДополнительногоКонтекста.Insert(Пер.Name, Пер.Type);
+		AdditionalContextStructure.Insert(Variable.Name, Variable.Type);
 	EndDo;
 	
-	UT_CodeEditorClient.AddCodeEditorContext(ThisObject, ИдентификаторРедактора, СтруктураДополнительногоКонтекста);
+	UT_CodeEditorClient.AddCodeEditorContext(ThisObject, EditorID, AdditionalContextStructure);
 EndProcedure
 
 &AtClient
-Procedure ПриОткрытииЗавершение(Result, AdditionalParameters) Export
+Procedure OnOpenEnd(Result, AdditionalParameters) Export
 
 EndProcedure
 
 &AtClient
-Function СтруктураОписанияСохраняемогоФайла()
+Function SavedFilesDescriptionStructure()
 	Structure=UT_CommonClient.EmptyDescriptionStructureOfSelectedFile();
 	Structure.FileName=AlgorithmFileName;
 
-	UT_CommonClient.AddFormatToSavingFileDescription(Structure, "File алгоритма(*.xbsl)", "xbsl");
+	UT_CommonClient.AddFormatToSavingFileDescription(Structure,NStr("ru = 'Файл алгоритма(*.xbsl)';en = 'Algorithm file (*.xbsl)'"), "xbsl");
 	Return Structure;
 EndFunction
 
 &AtClient
-Procedure СохранитьФайлНаДиск(СохранитьКак = False)
-	ОбновитьЗначениеПеременныхАлгоритмовИзРедактора();
+Procedure SaveFileToDisk(SaveAs = False)
+	UpdateAlgorithmVariablesValueFromEditor();
 
-	UT_CommonClient.SaveConsoleDataToFile("КонсольКода", СохранитьКак,
-		СтруктураОписанияСохраняемогоФайла(), ПолучитьСтрокуСохранения(),
-		New NotifyDescription("СохранитьФайлЗавершение", ThisObject));
+	UT_CommonClient.SaveConsoleDataToFile("CodeConsole", SaveAs,
+		SavedFilesDescriptionStructure(), GetSaveString(),
+		New NotifyDescription("SaveFileEnd", ThisObject));
 EndProcedure
 
 &AtClient
-Procedure СохранитьФайлЗавершение(ИмяФайлаСохранения, AdditionalParameters) Export
-	If ИмяФайлаСохранения = Undefined Then
+Procedure SaveFileEnd(SaveFileName, AdditionalParameters) Export
+	If SaveFileName = Undefined Then
 		Return;
 	EndIf;
 
-	If Not ValueIsFilled(ИмяФайлаСохранения) Then
+	If Not ValueIsFilled(SaveFileName) Then
 		Return;
 	EndIf;
 
 	Modified=False;
-	AlgorithmFileName=ИмяФайлаСохранения;
+	AlgorithmFileName=SaveFileName;
 	SetCaption();
 	
-//	Сообщить("Алгоритм успешно сохранен");
+//	Message("The algorithm has been successfully saved");
 
 EndProcedure
 
 &AtClient
-Procedure ОткрытьФайлЗавершение(Result, AdditionalParameters) Export
+Procedure OpenFileEnd(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
@@ -220,170 +211,171 @@ Procedure ОткрытьФайлЗавершение(Result, AdditionalParameter
 	Modified=False;
 	AlgorithmFileName = Result.FileName;
 
-	ОткрытьАлгоритмНаСервере(Result.Address);
+	OpenAlgorithmAtServer(Result.Address);
 
-	УстановитьТекстРедактора("Клиент",ТекстАлгоритмаКлиент);
-	УстановитьТекстРедактора("Server",ТекстАлгоритмаСервер);
+	SetEditorText("Client",TextAlgorithmClient);
+	SetEditorText("Server",TextAlgorithmServer);
 
 	SetCaption();
 EndProcedure
 
 &AtClient
-Procedure ЗакрытьКонсольЗавершение(Result, AdditionalParameters) Export
+Procedure CloseConsoleEnd(Result, AdditionalParameters) Export
 
 	If Result = DialogReturnCode.Yes Then
-		ЗакрытиеФормыПодтверждено = True;
+		FormCloseConfirmed = True;
 		Close();
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure ОбработчикОжиданияУстановитьТекстКодаВРедактореТекстаКлиент()
+Procedure IdleHandlerSetCodeTextInTextEditorClient()
 	Try
-		УстановитьТекстРедактора("Клиент",ТекстАлгоритмаКлиент);
+		SetEditorText("Client",TextAlgorithmClient);
 	Except
-		AttachIdleHandler("ОбработчикОжиданияУстановитьТекстКодаВРедактореТекстаКлиент", 0.5, True);
+		AttachIdleHandler("IdleHandlerSetCodeTextInTextEditorClient", 0.5, True);
 	EndTry;
 EndProcedure
 
 &AtClient
-Procedure ОбработчикОжиданияУстановитьТекстКодаВРедактореТекстаСервер()
+Procedure IdleHandlerSetCodeTextInTextEditorServer()
 	Try
-		УстановитьТекстРедактора("Server",ТекстАлгоритмаСервер);
+		SetEditorText("Server",TextAlgorithmServer);
 	Except
-		AttachIdleHandler("ОбработчикОжиданияУстановитьТекстКодаВРедактореТекстаСервер", 0.5, True);
+		AttachIdleHandler("IdleHandlerSetCodeTextInTextEditorServer", 0.5, True);
 	EndTry;
 EndProcedure
 
 &AtClient
-Procedure ОбновитьЗначениеПеременныхАлгоритмовИзРедактора()
-	ТекстАлгоритмаКлиент=UT_CodeEditorClient.EditorCodeText(ThisObject, "Клиент");
-	ТекстАлгоритмаСервер=UT_CodeEditorClient.EditorCodeText(ThisObject, "Server");
+Procedure UpdateAlgorithmVariablesValueFromEditor()
+	TextAlgorithmClient=UT_CodeEditorClient.EditorCodeText(ThisObject, "Client");
+	TextAlgorithmServer=UT_CodeEditorClient.EditorCodeText(ThisObject, "Server");
 EndProcedure
 
 &AtClient
-Procedure УстановитьТекстРедактора(ИдентификаторРедактора, ТекстАлгоритма)
-	UT_CodeEditorClient.SetEditorText(ThisObject, ИдентификаторРедактора, ТекстАлгоритма);
-	ДобавитьДополнительныйКонтекстВРедакторКода(ИдентификаторРедактора);	
+Procedure SetEditorText(EditorID, AlgorithmText)
+	UT_CodeEditorClient.SetEditorText(ThisObject, EditorID, AlgorithmText);
+	AddAdditionalContextToCodeEditor(EditorID);	
 EndProcedure
 
 &AtClientAtServerNoContext
-Function КонтекстВыполненияАлгоритма(Переменные, СтруктураПередачи)
-	КонтекстВыполнения = New Structure;
-	КонтекстВыполнения.Insert("СтруктураПередачи", СтруктураПередачи);
+Function AlgorithmExecutionContext(Variables, TransmittedStructure)
+	ExecutionContext = New Structure;
+	ExecutionContext.Insert("TransmittedStructure", TransmittedStructure);
 
-	For Each СтрокаТЧ ИЗ Переменные Do
-		КонтекстВыполнения.Insert(СтрокаТЧ.Name, СтрокаТЧ.Value);
+	For Each TabularSectionRow ИЗ Variables Do
+		ExecutionContext.Insert(TabularSectionRow.Name, TabularSectionRow.Value);
 	EndDo;
 
-	Return КонтекстВыполнения;	
+	Return ExecutionContext;	
 EndFunction
 
 &AtClientAtServerNoContext
-Function ПодготовленныйКодАлгоритма(ТекстКода, Переменные)
-	ПодготовленныйКод="";
+Function PreparedAlgorithmCode(CodeText, Variables)
+	PreparedCode="";
 
-	For НомерПеременной = 0 To Переменные.Count() - 1 Do
-		ТекПеременная=Переменные[НомерПеременной];
-		ПодготовленныйКод=ПодготовленныйКод + Chars.LF + ТекПеременная.Name + "=Переменные[" + Format(НомерПеременной,
-			"ЧН=0; ЧГ=0;") + "].Value;";
+	For VariableNumber = 0 To Variables.Count() - 1 Do
+		CurrentVariable=Variables[VariableNumber];
+		PreparedCode=PreparedCode + Chars.LF + CurrentVariable.Name + "=Variables[" + Format(VariableNumber,
+			"NZ=0; NG=0;") + "].Value;";
 	EndDo;
 
-	ПодготовленныйКод=ПодготовленныйКод + Chars.LF + ТекстКода;
+	PreparedCode=PreparedCode + Chars.LF + CodeText;
 
-	Return ПодготовленныйКод;
+	Return PreparedCode;
 EndFunction
 
 &AtClientAtServerNoContext
-Function ВыполнитьАлгоритм(ТекстАлготима, Переменные, СтруктураПередачи)
-	Успешно = True;
+Function ExecuteAlgorithm(AlgorithmText, Variables, TransmittedStructure)
+	Successfully = True;
 	ErrorDescription = "";
 
-	НачалоВыполнения = CurrentUniversalDateInMilliseconds();
+	BeginExecution = CurrentUniversalDateInMilliseconds();
 	Try
-		Execute (ТекстАлготима);
+		Execute (AlgorithmText);
 	Except
-		Успешно = False;
+		Successfully = False;
 		ErrorDescription = ErrorDescription();
 		Message(ErrorDescription);
 	EndTry;
-	ОкончаниеВыполнения = CurrentUniversalDateInMilliseconds();
+	EndExecution = CurrentUniversalDateInMilliseconds();
 
-	РезультатВыполнения = New Structure;
-	РезультатВыполнения.Insert("Успешно", Успешно);
-	РезультатВыполнения.Insert("ВремяВыполнения", ОкончаниеВыполнения - НачалоВыполнения);
-	РезультатВыполнения.Insert("ErrorDescription", ErrorDescription);
+	ExecutionResult = New Structure;
+	ExecutionResult.Insert("Successfully", Successfully);
+	ExecutionResult.Insert("ExecutionTime", EndExecution - BeginExecution);
+	ExecutionResult.Insert("ErrorDescription", ErrorDescription);
 
-	Return РезультатВыполнения;
+	Return ExecutionResult;
 EndFunction
 
 &AtClient
-Procedure ВыполнитьАлгоритмНаКлиенте(СтруктураПередачи)
-	If Not ValueIsFilled(TrimAll(ТекстАлгоритмаКлиент)) Then
+Procedure ExecuteAlgorithmAtClient(TransmittedStructure)
+	If Not ValueIsFilled(TrimAll(TextAlgorithmClient)) Then
 		Return;
 	EndIf;
 
-	КонтекстВыполнения = КонтекстВыполненияАлгоритма(ClientVariables, СтруктураПередачи);
+	ExecutionContext = AlgorithmExecutionContext(ClientVariables, TransmittedStructure);
 
-	РезультатВыполнения = UT_CodeEditorClientServer.ExecuteAlgorithm(ТекстАлгоритмаКлиент, КонтекстВыполнения);
+	ExecutionResult = UT_CodeEditorClientServer.ExecuteAlgorithm(TextAlgorithmClient, ExecutionContext);
 
-	If РезультатВыполнения.Успешно Then
-		ЗаголовокЭлемента = "&&AtClient (Time выполнения кода: " + String((РезультатВыполнения.ВремяВыполнения)
-			/ 1000) + " сек.)";
+	If ExecutionResult.Successfully Then
+		ItemTitle =StrTemplate(Nstr("ru = '&&НаКлиенте (Время выполнения кода: %1 сек.)';en = '&&AtClient (Code execution time: %1 seconds)'"),String((ExecutionResult.ExecutionTime)
+			/ 1000)); 
 	Else
-		ЗаголовокЭлемента = "&&AtClient";
+		ItemTitle = NSTR("ru = '&&НаКлиенте';en = '&&AtClient'");
 	EndIf;
-	Items.ГруппаКлиент.Title = ЗаголовокЭлемента;
+	Items.GroupClient.Title = ItemTitle;
 
 EndProcedure
 
 &AtServer
-Procedure ВыполнитьАлгоритмНаСервере(СтруктураПередачи)
-	If Not ValueIsFilled(TrimAll(ТекстАлгоритмаСервер)) Then
+Procedure ExecuteAlgorithmAtServer(TransmittedStructure)
+	If Not ValueIsFilled(TrimAll(TextAlgorithmServer)) Then
 		Return;
 	EndIf;
 	
-	КонтекстВыполнения = КонтекстВыполненияАлгоритма(ServerVariables, СтруктураПередачи);
+	ExecutionContext = AlgorithmExecutionContext(ServerVariables, TransmittedStructure);
 
-	РезультатВыполнения = UT_CodeEditorClientServer.ExecuteAlgorithm(ТекстАлгоритмаСервер, КонтекстВыполнения);
+	ExecutionResult = UT_CodeEditorClientServer.ExecuteAlgorithm(TextAlgorithmServer, ExecutionContext);
 
-	If РезультатВыполнения.Успешно Then
-		ЗаголовокЭлемента = "&&AtServer (Time выполнения кода: " + String((РезультатВыполнения.ВремяВыполнения)
-			/ 1000) + " сек.)";
+	If ExecutionResult.Successfully Then
+		
+		ItemTitle =StrTemplate(Nstr("ru = '&&НаСервере (Время выполнения кода: %1 сек.)';en = '&&AtServer (Code execution time: %1 seconds)'"),String((ExecutionResult.ExecutionTime)
+			/ 1000));
 	Else
-		ЗаголовокЭлемента = "&&AtServer";
+		ItemTitle =NSTR("ru = '&&НаСервере';en = '&&AtServer'");
 	EndIf;
-	Items.ГруппаСервер.Title = ЗаголовокЭлемента;
+	Items.GroupServer.Title = ItemTitle;
 
 EndProcedure
 
 &AtServer
-Function ПолучитьСтрокуСохранения()
+Function GetSaveString()
 
 	StoredData = New Structure;
-	StoredData.Insert("ТекстАлгоритмаКлиент", ТекстАлгоритмаКлиент);
-	StoredData.Insert("ТекстАлгоритмаСервер", ТекстАлгоритмаСервер);
+	StoredData.Insert("TextAlgorithmClient", TextAlgorithmClient);
+	StoredData.Insert("TextAlgorithmServer", TextAlgorithmServer);
 
-	МассивПеременных=New Array;
-	For Each ТекПеременная In ClientVariables Do
-		СтруктураПеременной=New Structure;
-		СтруктураПеременной.Insert("Name", ТекПеременная.Name);
-		СтруктураПеременной.Insert("Value", ValueToStringInternal(ТекПеременная.Value));
+	VariablesArray=New Array;
+	For Each CurrentVariable In ClientVariables Do
+		VariableStructure=New Structure;
+		VariableStructure.Insert("Name", CurrentVariable.Name);
+		VariableStructure.Insert("Value", ValueToStringInternal(CurrentVariable.Value));
 
-		МассивПеременных.Add(СтруктураПеременной);
+		VariablesArray.Add(VariableStructure);
 	EndDo;
-	StoredData.Insert("ClientVariables", МассивПеременных);
+	StoredData.Insert("ClientVariables", VariablesArray);
 
-	МассивПеременных=New Array;
-	For Each ТекПеременная In ServerVariables Do
-		СтруктураПеременной=New Structure;
-		СтруктураПеременной.Insert("Name", ТекПеременная.Name);
-		СтруктураПеременной.Insert("Value", ValueToStringInternal(ТекПеременная.Value));
+	VariablesArray=New Array;
+	For Each CurrentVariable In ServerVariables Do
+		VariableStructure=New Structure;
+		VariableStructure.Insert("Name", CurrentVariable.Name);
+		VariableStructure.Insert("Value", ValueToStringInternal(CurrentVariable.Value));
 
-		МассивПеременных.Add(СтруктураПеременной);
+		VariablesArray.Add(VariableStructure);
 	EndDo;
-	StoredData.Insert("ServerVariables", МассивПеременных);
+	StoredData.Insert("ServerVariables", VariablesArray);
 
 	JSONWriter=New JSONWriter;
 	JSONWriter.SetString();
@@ -394,41 +386,41 @@ Function ПолучитьСтрокуСохранения()
 
 EndFunction
 &AtServer
-Procedure ОткрытьАлгоритмНаСервере(АдресФайлаВоВременномХранилище)
-	ДанныеФайла=GetFromTempStorage(АдресФайлаВоВременномХранилище);
+Procedure OpenAlgorithmAtServer(FileURLInTempStorage)
+	FileData=GetFromTempStorage(FileURLInTempStorage);
 
 	JSONReader=New JSONReader;
-	JSONReader.OpenStream(ДанныеФайла.OpenStreamForRead());
+	JSONReader.OpenStream(FileData.OpenStreamForRead());
 
-	СтруктураФайла=ReadJSON(JSONReader);
+	FileStructure=ReadJSON(JSONReader);
 	JSONReader.Close();
 
-	ТекстАлгоритмаКлиент=СтруктураФайла.ТекстАлгоритмаКлиент;
-	ТекстАлгоритмаСервер=СтруктураФайла.ТекстАлгоритмаСервер;
+	TextAlgorithmClient=FileStructure.TextAlgorithmClient;
+	TextAlgorithmServer=FileStructure.TextAlgorithmServer;
 
 	ClientVariables.Clear();
-	For Each Variable In СтруктураФайла.ClientVariables Do
-		НС=ClientVariables.Add();
-		НС.Name=Variable.Name;
-		НС.Value=ValueFromStringInternal(Variable.Value);
+	For Each Variable In FileStructure.ClientVariables Do
+		NewRow=ClientVariables.Add();
+		NewRow.Name=Variable.Name;
+		NewRow.Value=ValueFromStringInternal(Variable.Value);
 	EndDo;
 
 	ServerVariables.Clear();
-	For Each Variable In СтруктураФайла.ServerVariables Do
-		НС=ServerVariables.Add();
-		НС.Name=Variable.Name;
-		НС.Value=ValueFromStringInternal(Variable.Value);
+	For Each Variable In FileStructure.ServerVariables Do
+		NewRow=ServerVariables.Add();
+		NewRow.Name=Variable.Name;
+		NewRow.Value=ValueFromStringInternal(Variable.Value);
 	EndDo;
 
 EndProcedure
 &AtClient
-Procedure РедактироватьЗначениеПеременной(FormTable)
-	ТекДанные=FormTable.CurrentData;
-	If ТекДанные = Undefined Then
+Procedure EditVariableValue(FormTable)
+	CurrentData=FormTable.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	UT_CommonClient.EditObject(ТекДанные.Value);
+	UT_CommonClient.EditObject(CurrentData.Value);
 EndProcedure
 
 &AtClient
@@ -437,12 +429,21 @@ Procedure SetCaption()
 EndProcedure
 
 &AtClient
-Procedure ПолеАлгоритмаСерверПриНажатии(Item, ДанныеСобытия, СтандартнаяОбработка)
-	// Insert содержимое обработчика.
+Procedure FieldAlgorithmClientOnClick(Item, EventData, StandardProcessing)
+	
 EndProcedure
 
 
+&AtClient
+Procedure ServerVariablesOnEditEnd(Item, NewRow, CancelEdit)
+	AddAdditionalContextToCodeEditor("Server");
+EndProcedure
+
+&AtClient
+Procedure ClientVariablesOnEditEnd(Item, NewRow, CancelEdit)
+	AddAdditionalContextToCodeEditor("Client");
+EndProcedure
 
 #EndRegion
 
-ЗакрытиеФормыПодтверждено=False;
+FormCloseConfirmed=False;
