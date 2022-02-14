@@ -32,7 +32,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.НовыйАлгоритм</commandName>
+          <commandName>Form.Command.NewAlgorithm</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -62,7 +62,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОткрытьФайл</commandName>
+          <commandName>Form.Command.OpenFIle</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -92,7 +92,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.СохранитьФайл</commandName>
+          <commandName>Form.Command.SaveFile</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -122,7 +122,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.СохранитьФайлКак</commandName>
+          <commandName>Form.Command.SaveFileAs</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -181,7 +181,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Выполнить</commandName>
+        <commandName>Form.Command.Execute</commandName>
         <representation>Auto</representation>
         <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
@@ -212,7 +212,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Закрыть</commandName>
+        <commandName>Form.Command.Close</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -350,7 +350,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ClientVariables.Имя</segments>
+                <segments>ClientVariables.Name</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -470,7 +470,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.РедактироватьЗначениеКлиентскойПеременной</commandName>
+              <commandName>Form.Command.EditClientVariableValue</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -644,7 +644,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.РедактироватьЗначениеКлиентскойПеременной</commandName>
+              <commandName>Form.Command.EditClientVariableValue</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -776,7 +776,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ПолеАлгоритмаКлиент</segments>
+            <segments>FieldAlgorithmClient</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
@@ -888,7 +888,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ServerVariables.Имя</segments>
+                <segments>ServerVariables.Name</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -940,7 +940,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ServerVariables.Значение</segments>
+                <segments>ServerVariables.Value</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -1008,7 +1008,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.РедактироватьЗначениеСервернойПеременной</commandName>
+              <commandName>Form.Command.EditServerVariableValue</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1182,7 +1182,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.РедактироватьЗначениеСервернойПеременной</commandName>
+              <commandName>Form.Command.EditServerVariableValue</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1314,7 +1314,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ПолеАлгоритмаСервер</segments>
+            <segments>FieldAlgorithmServer</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
@@ -1439,7 +1439,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>BeforeClose</event>
@@ -1478,10 +1478,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ТекстАлгоритмаКлиент</name>
+    <name>TextAlgorithmClient</name>
     <title>
       <key>ru</key>
       <value>Текст алгоритма клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text algorithm client</value>
     </title>
     <id>5</id>
     <valueType>
@@ -1496,10 +1500,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстАлгоритмаСервер</name>
+    <name>TextAlgorithmServer</name>
     <title>
       <key>ru</key>
       <value>Текст алгоритма сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text algorithm server</value>
     </title>
     <id>6</id>
     <valueType>
@@ -1535,7 +1543,7 @@
     </edit>
     <savedData>true</savedData>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>en</key>
         <value>Name</value>
@@ -1598,7 +1606,11 @@
     </edit>
     <savedData>true</savedData>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -1616,7 +1628,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
+      <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Значение</value>
@@ -1632,10 +1648,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ПолеАлгоритмаКлиент</name>
+    <name>FieldAlgorithmClient</name>
     <title>
       <key>ru</key>
       <value>Поле алгоритма клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Field algorithm client</value>
     </title>
     <id>9</id>
     <valueType>
@@ -1650,10 +1670,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПолеАлгоритмаСервер</name>
+    <name>FieldAlgorithmServer</name>
     <title>
       <key>ru</key>
       <value>Поле алгоритма сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Field algorithm server</value>
     </title>
     <id>10</id>
     <valueType>
@@ -1715,10 +1739,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Выполнить</name>
+    <name>Execute</name>
     <title>
       <key>ru</key>
       <value>Выполнить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Execute</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -1733,14 +1761,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыполнитьКод</name>
+        <name>ExecuteCode</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьФайл</name>
+    <name>OpenFIle</name>
+    <title>
+      <key>en</key>
+      <value>Open file</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть файл</value>
@@ -1755,16 +1787,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьФайл</name>
+        <name>OpenFIle</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьФайл</name>
+    <name>SaveFile</name>
     <title>
       <key>ru</key>
       <value>Сохранить файл</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Save file</value>
     </title>
     <id>3</id>
     <use>
@@ -1776,13 +1812,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьФайл</name>
+        <name>SaveFile</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьЗначениеКлиентскойПеременной</name>
+    <name>EditClientVariableValue</name>
+    <title>
+      <key>en</key>
+      <value>Edit value</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать значение</value>
@@ -1796,17 +1836,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьЗначениеКлиентскойПеременной</name>
+        <name>EditClientVariableValue</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьЗначениеСервернойПеременной</name>
+    <name>EditServerVariableValue</name>
     <title>
       <key>ru</key>
       <value>Редактировать значение</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Edit server variable value</value>
     </title>
     <id>5</id>
     <use>
@@ -1817,17 +1861,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьЗначениеСервернойПеременной</name>
+        <name>EditServerVariableValue</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Закрыть</name>
+    <name>Close</name>
     <title>
       <key>ru</key>
       <value>Закрыть</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Close</value>
     </title>
     <id>6</id>
     <use>
@@ -1838,17 +1886,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗакрытьКонсоль</name>
+        <name>CloseConsole</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьФайлКак</name>
+    <name>SaveFileAs</name>
     <title>
       <key>ru</key>
       <value>Сохранить файл как...</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Save file as</value>
     </title>
     <id>7</id>
     <use>
@@ -1859,16 +1911,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьФайлКак</name>
+        <name>SaveFileAs</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>НовыйАлгоритм</name>
+    <name>NewAlgorithm</name>
     <title>
       <key>ru</key>
       <value>Новый алгоритм</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>New algorithm</value>
     </title>
     <id>8</id>
     <use>
@@ -1880,7 +1936,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>НовыйАлгоритм</name>
+        <name>NewAlgorithm</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
