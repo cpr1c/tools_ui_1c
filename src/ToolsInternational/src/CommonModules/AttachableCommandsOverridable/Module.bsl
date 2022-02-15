@@ -59,7 +59,7 @@ Procedure UT_OnDefineCommandsAttachedToObject(FormSettings, Sources, AttachedRep
 	Command.ParameterType=UT_CommonCached.AllRefsTypeDescription();
 	Command.ChangesSelectedObjects=False;
 	Command.MultipleChoice=False;
-	Command.Картинка=PictureLib.UT_DatabaseObjectEditor;
+	Command.Picture=PictureLib.UT_DatabaseObjectEditor;
 	Command.Handler = "UT_CommonClient.EditObjectCommandHandler";
 	Command.Order=2;
 	

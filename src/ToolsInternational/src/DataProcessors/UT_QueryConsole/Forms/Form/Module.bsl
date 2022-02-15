@@ -1907,9 +1907,9 @@ Procedure PutEditingQuery()
 			
 		Query_PutQueryData(EditingQuery, strQueryText, strAlgorithmText, CodeExecutionMethod,
 			QueryParametersToValueList(QueryParameters), TempTablesToValueList(TempTables),
-			QuerySelectionBoundaries.BeginningOfRow, QuerySelectionBoundaries.ColumnBegin,
+			QuerySelectionBoundaries.RowBeginning, QuerySelectionBoundaries.ColumnBeginning,
 			QuerySelectionBoundaries.RowEnd, QuerySelectionBoundaries.ColumnEnd,
-			AlgorithmSelectionBoundaries.BeginningOfRow, AlgorithmSelectionBoundaries.ColumnBegin,
+			AlgorithmSelectionBoundaries.RowBeginning, AlgorithmSelectionBoundaries.ColumnBeginning,
 			AlgorithmSelectionBoundaries.RowEnd, AlgorithmSelectionBoundaries.ColumnEnd);
 	EndIf;
 
@@ -2152,7 +2152,7 @@ EndProcedure
 &AtClient
 Procedure QueryBatch_LoadCompletion(AdditionalParameters) Export
 
-	strLoadedData = AdditionalParameters.Reader.GetText();
+	strLoadedData = AdditionalParameters.Reading.GetText();
 
 	stLoadedData = QueryBatch_LoadAtServer(strLoadedData);
 
@@ -3855,25 +3855,25 @@ Procedure NewQueryBatchAfterQuestion(Result, AdditionalParameters)
 EndProcedure
 
 &AtClient
-Procedure SetSelectionBoundsForRowProcessing(TextItem, BeginningOfRow, BeginningOfColumn, EndOfRow,
-	EndOfColumn)
+Procedure SetSelectionBoundsForRowProcessing(TextItem, RowBeginning, ColumnBeginning, RowEnd,
+	ColumnEnd)
 
-	TextItem.GetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+	TextItem.GetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 
-	If BeginningOfRow = EndOfRow And BeginningOfColumn = EndOfColumn Then
+	If RowBeginning = RowEnd And ColumnBeginning = ColumnEnd Then
 		TextItem.SetTextSelectionBounds(1, 1, 1000000000, 1);
 	Else
 
-		If BeginningOfColumn > 1 Then
-			BeginningOfColumn = 1;
+		If ColumnBeginning > 1 Then
+			ColumnBeginning = 1;
 		EndIf;
 
-		If EndOfColumn > 1 Then
-			EndOfRow = EndOfRow + 1;
-			EndOfColumn = 1;
+		If ColumnEnd > 1 Then
+			RowEnd = RowEnd + 1;
+			ColumnEnd = 1;
 		EndIf;
 
-		TextItem.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+		TextItem.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 
 	EndIf;
 
@@ -4083,10 +4083,10 @@ EndProcedure
 &AtClient
 Procedure ExecuteQuery(fUseSelection)
 
-	Var BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn;
+	Var RowBeginning, ColumnBeginning, RowEnd, ColumnEnd;
 
-	Items.QueryText.GetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
-	fEntireText = Not fUseSelection Or (BeginningOfRow = EndOfRow And BeginningOfColumn = EndOfColumn);
+	Items.QueryText.GetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
+	fEntireText = Not fUseSelection Or (RowBeginning = RowEnd And ColumnBeginning = ColumnEnd);
 	If fEntireText Then
 		strQueryText = QueryText;
 	Else
@@ -4210,10 +4210,10 @@ EndProcedure
 
 &AtClient
 Procedure AddLineFeedsToText(TextItem)
-	Var BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn;
+	Var RowBeginning, ColumnBeginning, RowEnd, ColumnEnd;
 
-	SetSelectionBoundsForRowProcessing(TextItem, BeginningOfRow, BeginningOfColumn, EndOfRow,
-		EndOfColumn);
+	SetSelectionBoundsForRowProcessing(TextItem, RowBeginning, ColumnBeginning, RowEnd,
+		ColumnEnd);
 
 	ProcessingText = New TextDocument;
 	ProcessingText.SetText(TextItem.SelectedText);
@@ -4223,7 +4223,7 @@ Procedure AddLineFeedsToText(TextItem)
 	EndDo;
 
 	TextItem.SelectedText = ProcessingText.GetText();
-	TextItem.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+	TextItem.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 
 EndProcedure
 
@@ -4238,10 +4238,10 @@ EndProcedure
 
 &AtClient
 Procedure RemoveLineFeedsFromText(TextItem)
-	Var BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn;
+	Var RowBeginning, ColumnBeginning, RowEnd, ColumnEnd;
 
-	SetSelectionBoundsForRowProcessing(TextItem, BeginningOfRow, BeginningOfColumn, EndOfRow,
-		EndOfColumn);
+	SetSelectionBoundsForRowProcessing(TextItem, RowBeginning, ColumnBeginning, RowEnd,
+		ColumnEnd);
 
 	ProcessingText = New TextDocument;
 	ProcessingText.SetText(TextItem.SelectedText);
@@ -4255,7 +4255,7 @@ Procedure RemoveLineFeedsFromText(TextItem)
 	EndDo;
 
 	TextItem.SelectedText = ProcessingText.GetText();
-	TextItem.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+	TextItem.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 
 EndProcedure
 
@@ -4270,10 +4270,10 @@ EndProcedure
 
 &AtClient
 Procedure AddCommentsToText(TextItem)
-	Var BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn;
+	Var RowBeginning, ColumnBeginning, RowEnd, ColumnEnd;
 
-	SetSelectionBoundsForRowProcessing(TextItem, BeginningOfRow, BeginningOfColumn, EndOfRow,
-		EndOfColumn);
+	SetSelectionBoundsForRowProcessing(TextItem, RowBeginning, ColumnBeginning, RowEnd,
+		ColumnEnd);
 
 	ProcessingText = New TextDocument;
 	ProcessingText.SetText(TextItem.SelectedText);
@@ -4283,7 +4283,7 @@ Procedure AddCommentsToText(TextItem)
 	EndDo;
 
 	TextItem.SelectedText = ProcessingText.GetText();
-	TextItem.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+	TextItem.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 
 EndProcedure
 
@@ -4298,10 +4298,10 @@ EndProcedure
 
 &AtClient
 Procedure RemoveCommentsFromText(TextItem)
-	Var BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn;
+	Var RowBeginning, ColumnBeginning, RowEnd, ColumnEnd;
 
-	SetSelectionBoundsForRowProcessing(TextItem, BeginningOfRow, BeginningOfColumn, EndOfRow,
-		EndOfColumn);
+	SetSelectionBoundsForRowProcessing(TextItem, RowBeginning, ColumnBeginning, RowEnd,
+		ColumnEnd);
 
 	ProcessingText = New TextDocument;
 	ProcessingText.SetText(TextItem.SelectedText);
@@ -4315,7 +4315,7 @@ Procedure RemoveCommentsFromText(TextItem)
 	EndDo;
 
 	TextItem.SelectedText = ProcessingText.GetText();
-	TextItem.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+	TextItem.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 
 EndProcedure
 
@@ -5245,31 +5245,31 @@ EndFunction
 &AtClient
 Function ItemSelectionBounds(Item)
 	Bounds = New Structure;
-	Bounds.Insert("BeginningOfRow", 0);
-	Bounds.Insert("BeginningOfColumn", 0);
-	Bounds.Insert("EndOfRow", 0);
-	Bounds.Insert("EndOfColumn", 0);
+	Bounds.Insert("RowBeginning", 0);
+	Bounds.Insert("ColumnBeginning", 0);
+	Bounds.Insert("RowEnd", 0);
+	Bounds.Insert("ColumnEnd", 0);
 
-	Item.GetTextSelectionBounds(Bounds.BeginningOfRow, Bounds.BeginningOfColumn, Bounds.EndOfRow,
-		Bounds.EndOfColumn);
+	Item.GetTextSelectionBounds(Bounds.RowBeginning, Bounds.ColumnBeginning, Bounds.RowEnd,
+		Bounds.ColumnEnd);
 
 	Return Bounds;
 EndFunction
 
 &AtClient
-Procedure SetAlgorithmSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn)
+Procedure SetAlgorithmSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd)
 	If UT_IsPartOfUniversalTools Then
-		UT_CodeEditorClient.SetTextSelectionBorders(ThisObject, "Algorithm", BeginningOfRow, BeginningOfColumn,
-			EndOfRow, EndOfColumn);
+		UT_CodeEditorClient.SetTextSelectionBorders(ThisObject, "Algorithm", RowBeginning, ColumnBeginning,
+			RowEnd, ColumnEnd);
 	Else
-		Items.AlgorithmText.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+		Items.AlgorithmText.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure SetQuerySelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn)
+Procedure SetQuerySelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd)
 	
-	Items.QueryText.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
+	Items.QueryText.SetTextSelectionBounds(RowBeginning, ColumnBeginning, RowEnd, ColumnEnd);
 	
 EndProcedure
 

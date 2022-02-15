@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Marked objects deletion</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Удаление помеченных объектов</value>
   </title>
@@ -62,6 +66,10 @@
         <name>DeleteMode</name>
         <id>15</id>
         <title>
+          <key>en</key>
+          <value>Choose deletion mode</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Выберите режим удаления</value>
         </title>
@@ -112,6 +120,10 @@
           <columnsCount>1</columnsCount>
           <choiceList>
             <presentation>
+              <key>en</key>
+              <value>Automatic deletion of all marked objects</value>
+            </presentation>
+            <presentation>
               <key>ru</key>
               <value>Автоматическое удаление всех отмеченных объектов</value>
             </presentation>
@@ -120,6 +132,10 @@
             </value>
           </choiceList>
           <choiceList>
+            <presentation>
+              <key>en</key>
+              <value>Selective deletion of objects</value>
+            </presentation>
             <presentation>
               <key>ru</key>
               <value>Выборочное удаление объектов</value>
@@ -212,7 +228,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>MarkedForDeletionItemsTree.Пометка</segments>
+              <segments>MarkedForDeletionItemsTree.Check</segments>
             </dataPath>
             <handlers>
               <event>OnChange</event>
@@ -257,7 +273,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>MarkedForDeletionItemsTree.Представление</segments>
+              <segments>MarkedForDeletionItemsTree.Presentation</segments>
             </dataPath>
             <extendedTooltip>
               <name>PresentationExtendedTooltip</name>
@@ -1037,7 +1053,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>NotDeletedItemsTree.Представление</segments>
+            <segments>NotDeletedItemsTree.Presentation</segments>
           </dataPath>
           <extendedTooltip>
             <name>NotDeletedItemsPresentationExtendedTooltip</name>
@@ -1493,7 +1509,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>NotDeletedItemsTree.НомерКартинки</segments>
+          <segments>NotDeletedItemsTree.PictureNumber</segments>
         </rowPictureDataPath>
         <borderColor xsi:type="core:ColorRef">
           <color>Style.BorderColor</color>
@@ -1765,6 +1781,10 @@
       <name>CommandBack</name>
       <id>52</id>
       <title>
+        <key>en</key>
+        <value>&lt;&lt; Back</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>&lt;&lt; Назад</value>
       </title>
@@ -1798,6 +1818,10 @@
     <items xsi:type="form:Button">
       <name>CommandNext</name>
       <id>3</id>
+      <title>
+        <key>en</key>
+        <value>Next >></value>
+      </title>
       <title>
         <key>ru</key>
         <value>Далее >></value>
@@ -1841,6 +1865,14 @@
     <items xsi:type="form:Button">
       <name>CommandDelete</name>
       <id>45</id>
+      <title>
+        <key>en</key>
+        <value>Delete</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Удалить</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -2118,7 +2150,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Пометка</name>
+      <name>Check</name>
+      <title>
+        <key>en</key>
+        <value>Check</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Пометка</value>
@@ -2135,7 +2171,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
+      <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Значение</value>
@@ -2150,7 +2190,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Представление</value>
@@ -2189,10 +2233,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>НомерКартинки</name>
+      <name>PictureNumber</name>
       <title>
         <key>ru</key>
         <value>Номер картинки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture number</value>
       </title>
       <id>1</id>
       <valueType>
@@ -2210,10 +2258,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value</value>
       </title>
       <id>2</id>
       <valueType/>
@@ -2225,10 +2277,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>3</id>
       <valueType>
@@ -2266,14 +2322,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>NomberNotDeletedObjects</name>
+    <name>NumberNotDeletedObjects</name>
     <title>
       <key>ru</key>
       <value>Количество оставшихся (не удаленных) объектов</value>
     </title>
     <title>
       <key>en</key>
-      <value>Nomber not deleted objects</value>
+      <value>Number not deleted objects</value>
     </title>
     <id>3</id>
     <valueType>
@@ -2332,14 +2388,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>NomberOfLevelsMarkedForDeletion</name>
+    <name>NumberOfLevelsMarkedForDeletion</name>
     <title>
       <key>ru</key>
       <value>Количество уровней помеченных на удаление</value>
     </title>
     <title>
       <key>en</key>
-      <value>Nomber of levels marked for deletion</value>
+      <value>Number of levels marked for deletion</value>
     </title>
     <id>10</id>
     <valueType>

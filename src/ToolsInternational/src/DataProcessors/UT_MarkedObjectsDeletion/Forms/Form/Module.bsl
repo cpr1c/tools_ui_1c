@@ -51,7 +51,7 @@ Procedure MarkOnChange(Item)
 		Return;
 	EndIf;
 
-	SetMarkInList(CurrentData, CurrentData.Mark, True);
+	SetMarkInList(CurrentData, CurrentData.Check, True);
 
 EndProcedure
 
@@ -131,7 +131,7 @@ Procedure ChangeObject(Command)
 		Return;
 	EndIf;
 
-	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItems Then
+	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItemsTree Then
 		Return;
 	EndIf;
 
@@ -146,7 +146,7 @@ Procedure EditObject(Command)
 		Return;
 	EndIf;
 
-	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItems Then
+	If CurrentItem <> Items.MarkedForDeletionItemsTree And CurrentItem <> Items.NotDeletedItemsTree Then
 		Return;
 	EndIf;
 
@@ -224,7 +224,7 @@ Procedure UpdateDeleteMarkedList(Command)
 
 	FullMarkedForDeletionTree();
 
-	If NomberOfLevelsMarkedForDeletion = 1 Then
+	If NumberOfLevelsMarkedForDeletion = 1 Then
 		For Each Item In MarkedForDeletionItemsTree.GetItems() Do
 			RowID = Item.GetID();
 			Items.MarkedForDeletionItemsTree.Expand(RowID, False);
@@ -236,7 +236,7 @@ EndProcedure
 //@skip-warning
 &AtClient
 Procedure Attachable_ConfigureRecordingParameters(Command)
-	UT_CommonClient.EditRecordingParameters(ThisObject);
+	UT_CommonClient.EditWriteSettings(ThisObject);
 EndProcedure
 
 &AtClient
@@ -282,7 +282,7 @@ EndProcedure
 &AtClient
 Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 
-	If Result.Статус Then
+	If Result.Status Then
 		For Each DeletionObjectType In DeletionObjectsTypes Do
 			NotifyChanged(DeletionObjectType);
 		EndDo;
@@ -293,15 +293,14 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 	EndIf;
 
 	UpdateMarkedTree = True;
-	If NomberNotDeletedObjects = 0 Then
+	If NumberNotDeletedObjects = 0 Then
 		If NumberDeletedObjects = 0 Then
 			Text = Nstr("en = 'Not a single object is marked for deletion. Objects were not deleted.' ; 
 							|ru = 'Не помечено на удаление ни одного объекта. Удаление объектов не выполнялось.'");
 			UpdateMarkedTree = False;
 		Else
 			Text = StrTemplate(
-			             Nstr("en = 'Deletion of marked objects has been completed successfully.' 
-			               |Deleted objects: %1.'; 
+			             Nstr("en = 'Deletion of marked objects has been completed successfully.Deleted objects: %1.'; 
 			               |ru = 'Удаление помеченных объектов успешно завершено.
 							  |Удалено объектов: %1.'"), NumberDeletedObjects);
 		EndIf;
@@ -311,7 +310,7 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 		PageName = "DeletionFailureReasonsPage";
 		For Each Item In NotDeletedItemsTree.GetItems() Do
 			RowId = Item.GetId();
-			Items.NotDeletedItems.Expand(RowId, False);
+			Items.NotDeletedItemsTree.Expand(RowId, False);
 		EndDo;
 		ShowMessageBox( , ResultLine);
 	EndIf;
@@ -363,7 +362,7 @@ EndProcedure
 // Returns the tree branch to the TreeRow branches by Value.
 // If the branch is not found, a new one is created.
 &AtServer
-Function FindOrAddTreeBranch(TreeRows, Value, Presentation, Mark)
+Function FindOrAddTreeBranch(TreeRows, Value, Presentation, Check)
 	
 	// Tring to find an exist branch in TreeRows whithout internal 
 	Branch = TreeRows.Find(Value, "Value", False);
@@ -373,7 +372,7 @@ Function FindOrAddTreeBranch(TreeRows, Value, Presentation, Mark)
 		Branch = TreeRows.Add();
 		Branch.Value      = ValueByType(Value);
 		Branch.Presentation = Presentation;
-		Branch.Mark       = Mark;
+		Branch.Check       = Check;
 	EndIf;
 
 	Возврат Branch;
@@ -390,7 +389,7 @@ Function FindOrAddTreeBranchWithPicture(TreeRows, Value, Presentation, PictureNu
 		Branch = TreeRows.Add();
 		Branch.Value      = ValueByType(Value);
 		Branch.Presentation = Presentation;
-		Branch.НомерКартинки = PictureNumber;
+		Branch.PictureNumber = PictureNumber;
 	EndIf;
 
 	Возврат Branch;
@@ -443,21 +442,21 @@ Procedure FullMarkedForDeletionTree()
 			+ MetadataObjectRow.Rows.Count() + ")";
 	EndDo;
 
-	NomberOfLevelsMarkedForDeletion = MarkedTree.Rows.Count();
+	NumberOfLevelsMarkedForDeletion = MarkedTree.Rows.Count();
 
 	ValueToFormAttribute(MarkedTree, "MarkedForDeletionItemsTree");
 
 EndProcedure
 
 &AtClient
-Procedure SetMarkInList(Data, Mark, CheckParent)
+Procedure SetMarkInList(Data, Check, CheckParent)
 	
 	// Install subordinate items
 	RowItems = Data.GetItems();
 
 	For Each Item In RowItems Do
-		Item.Mark = Mark;
-		SetMarkInList(Item, Mark, False);
+		Item.Check = Check;
+		SetMarkInList(Item, Check, False);
 	EndDo;
 	
 	// Cheking the parent
@@ -472,15 +471,15 @@ EndProcedure
 &AtClient
 Procedure CheckParent(Parent)
 
-	ParentMark = True;
+	ParentCheck = True;
 	RowItems = Parent.GetItems();
 	For Each Item In RowItems Do
-		If Не Item.Mark Then
-			ParentMark = False;
+		If Не Item.check Then
+			Parentcheck = False;
 			Break;
 		EndIf;
 	EndDo;
-	Parent.Mark = ParentMark;
+	Parent.check = Parentcheck;
 
 EndProcedure
 
@@ -498,7 +497,7 @@ Function GetArrayMarkedForDeletion(MarkedForDeletionItems, DeletionMode)
 		For Each MetadataObjectRow In MetadataRowCollection Do
 			ReferenceRowCollection = MetadataObjectRow.GetItems();
 			For Each ReferenceRow In ReferenceRowCollection Do
-				If ReferenceRow.Mark Then
+				If ReferenceRow.check Then
 					Deleted.Add(ReferenceRow.Value);
 				EndIf;
 			EndDo;
@@ -542,7 +541,7 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 	EndIf;
 
 	DeletionObjectsTypes = New ValueTable;
-	DeletionObjectsTypes.Colums.Add("Type", New TypeDescription("Type"));
+	DeletionObjectsTypes.Columns.Add("Type", New TypeDescription("Type"));
 	For Each DeletedObject In DeletedArray Do
 		NewType = DeletionObjectsTypes.Add();
 		NewType.Type = TypeOf(DeletedObject);
@@ -552,9 +551,9 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 	NotDeletedObjectsArray = New Array;
 
 	Found = New ValueTable;
-	Found.Colums.Add("DeletionRef");
-	Found.Colums.Add("DetectedRef");
-	Found.Colums.Add("DetectedMetadata");
+	Found.Columns.Add("DeletionRef");
+	Found.Columns.Add("DetectedRef");
+	Found.Columns.Add("DetectedMetadata");
 
 	DeletedObjectsArray = New Array;
 	For Each ObjectRef In DeletedArray Do
@@ -584,7 +583,7 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 			Return DeletionResult;
 		EndTry;
 
-		NomberDeletedObjects = DeletedObjectsArray.Count();
+		NumberDeletedObjects = DeletedObjectsArray.Count();
 		
 		// Column names are set for the conflict tables that occurred during deletion.
 		PreventingDeletion.Columns[0].Name = "DeletionRef";
@@ -733,7 +732,7 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 		EndDo;
 		
 		// Deletes without control, if the composition of the deleted objects has not been changed at this step of the cycle.
-		If NomberDeletedObjects = DeletedObjectsArray.Count() Then
+		If NumberDeletedObjects = DeletedObjectsArray.Count() Then
 			Try
 				//Delete objects without reference control
 				SetPrivilegedMode(True);
@@ -771,28 +770,28 @@ Function RunDocumentsDeletion(Знач DeletedArray, DeletedObjectsTypes)
 	Возврат DeletionResult;
 EndFunction
 &AtServer
-Procedure DeleteMarkedObjects(ПараметрыУдаления, StorageAddress) 
+Procedure DeleteMarkedObjects(DeletionParameters, StorageAddress) 
 	
 	// Extracting the parameters
-	MarkedForDeletionList	= ПараметрыУдаления.MarkedForDeletionItems;
-	DeletionMode				= ПараметрыУдаления.DeletionMode;
-	DeletionObjectsTypes		= ПараметрыУдаления.DeletionObjectsTypes;
+	MarkedForDeletionList	= DeletionParameters.MarkedForDeletionItemsTree;
+	DeletionMode				= DeletionParameters.DeletionMode;
+	DeletionObjectsTypes		= DeletionParameters.DeletionObjectsTypes;
 
 	DeletedItems = GetArrayMarkedForDeletion(MarkedForDeletionList, DeletionMode);
-	NomberDeleted = DeletedItems.Count();
+	NumberDeleted = DeletedItems.Count();
 	
 	// Do Deletion
 	Result = RunDocumentsDeletion(DeletedItems, DeletionObjectsTypes);
 	
 	// Add parameters 
 	If TypeOf(Result.Value) = Type("Structure") Then
-		NomberNotDeletedObjects = Result.Value.NotDeleted.Count();
+		NumberNotDeletedObjects = Result.Value.NotDeleted.Count();
 	Else
-		NomberNotDeletedObjects = 0;
+		NumberNotDeletedObjects = 0;
 	EndIf;
-	Result.Insetrt("NomberNotDeletedObjects", NomberNotDeletedObjects);
-	Result.Insetrt("NomberDeleted", NomberDeleted);
-	Result.Insetrt("DeletionObjectsTypes", DeletionObjectsTypes);
+	Result.Insert("NumberNotDeletedObjects", NumberNotDeletedObjects);
+	Result.Insert("NumberDeleted", NumberDeleted);
+	Result.Insert("DeletionObjectsTypes", DeletionObjectsTypes);
 
 	PutToTempStorage(Result, StorageAddress);
 
@@ -830,9 +829,9 @@ Function FillResults(StorageAddress, Result)
 	Tree = FillTreeOfRemainingObjects(DeletionResult);
 	ValueToFormAttribute(Tree, "NotDeletedItemsTree");
 
-	NomberDeleted 			= DeletionResult.NomberDeleted;
-	NomberNotDeletedObjects 	= DeletionResult.NomberNotDeletedObjects;
-	FillRusultsLine(NomberDeleted);
+	NumberDeleted 			= DeletionResult.NumberDeleted;
+	NumberNotDeletedObjects 	= DeletionResult.NumberNotDeletedObjects;
+	FillResultsLine(NumberDeleted);
 
 	If TypeOf(DeletionResult.Value) = Type("Structure") Then
 		DeletionResult.Delete("Value");
@@ -879,9 +878,9 @@ EndFunction
 Function FillTreeOfRemainingObjects(Result)
 
 	Found   = Result.Value.Found;
-	UnDeleted = Result.Value.UnDeleted;
+	NotDeleted = Result.Value.NotDeleted;
 
-	NomberNotDeletedObjects = UnDeleted.Количество();
+	NumberNotDeletedObjects = NotDeleted.Count();
 	
 	// Creates a table not deleted ojects
 	NotDeletedItemsTree.GetItems().Clear();
@@ -892,8 +891,8 @@ Function FillTreeOfRemainingObjects(Result)
 		NotDeleted = FoundItem[0];
 		Referencing = FoundItem[1];
 		ReferencingMetadataObject = FoundItem[2].Presentation();
-		ValueOfNotDeledetMetadataObject  = NotDeleted.Метаданные().FullName();
-		PresentationOfNotDeledetMetadataObject = NotDeleted.Метаданные().Presentation();
+		ValueOfNotDeledetMetadataObject  = NotDeleted.Metadata().FullName();
+		PresentationOfNotDeledetMetadataObject = NotDeleted.Metadata().Presentation();
 		//a metadata branch
 		MetadataObjectRow = FindOrAddTreeBranchWithPicture(Tree.Rows,
 			ValueOfNotDeledetMetadataObject, PresentationOfNotDeledetMetadataObject, 0);
@@ -912,10 +911,10 @@ Function FillTreeOfRemainingObjects(Result)
 EndFunction
 
 &AtServer
-Procedure FillRusultsLine(NomberDeleted)
+Procedure FillResultsLine(NumberDeleted)
 
 
-	NumberDeletedObjects = NomberDeleted - NomberNotDeletedObjects;
+	NumberDeletedObjects = NumberDeleted - NumberNotDeletedObjects;
 
 	If NumberDeletedObjects = 0 Then
 		ResultLine = Nstr(
@@ -923,12 +922,12 @@ Procedure FillRusultsLine(NomberDeleted)
 			|ru = 'Не удален ни один из объектов, так как в информационной базе существуют ссылки на удаляемые объекты'");
 	Else
 		ResultLine = StrTemplate(
-				Nstr("en = '';
+				Nstr("en = 'The removal of the marked objects is completed. Deleted objects: %1.';
 				|ru = 'Удаление помеченных объектов завершено. Удалено объектов: %1.'"),
 				 String(NumberDeletedObjects));
 	EndIf;
 
-	If NomberNotDeletedObjects > 0 Then
+	If NumberNotDeletedObjects > 0 Then
 		ResultLine = ResultLine + Chars.LF + StrTemplate(
 				Nstr("en = 'No objects deleted: %1.
 					|The objects have not been deleted to preserve the integrity of the information base, because there are still references to them.
@@ -937,7 +936,7 @@ Procedure FillRusultsLine(NomberDeleted)
 					|ru = 'Не удалено объектов: %1.
 					 |Объекты не удалены для сохранения целостности информационной базы, т.к. на них еще имеются ссылки.
 					 |Нажмите ОК для просмотра списка оставшихся (не удаленных) объектов.'"), String(
-			NomberNotDeletedObjects));
+			NumberNotDeletedObjects));
 	EndIf;
 
 EndProcedure
