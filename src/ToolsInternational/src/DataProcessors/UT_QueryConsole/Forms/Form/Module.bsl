@@ -1907,9 +1907,9 @@ Procedure PutEditingQuery()
 			
 		Query_PutQueryData(EditingQuery, strQueryText, strAlgorithmText, CodeExecutionMethod,
 			QueryParametersToValueList(QueryParameters), TempTablesToValueList(TempTables),
-			QuerySelectionBoundaries.BeginningOfRow, QuerySelectionBoundaries.ColumnBegin,
+			QuerySelectionBoundaries.BeginningOfRow, QuerySelectionBoundaries.ColumnBeginning,
 			QuerySelectionBoundaries.RowEnd, QuerySelectionBoundaries.ColumnEnd,
-			AlgorithmSelectionBoundaries.BeginningOfRow, AlgorithmSelectionBoundaries.ColumnBegin,
+			AlgorithmSelectionBoundaries.BeginningOfRow, AlgorithmSelectionBoundaries.ColumnBeginning,
 			AlgorithmSelectionBoundaries.RowEnd, AlgorithmSelectionBoundaries.ColumnEnd);
 	EndIf;
 
