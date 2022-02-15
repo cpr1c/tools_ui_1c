@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Marked objects deletion</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Удаление помеченных объектов</value>
   </title>

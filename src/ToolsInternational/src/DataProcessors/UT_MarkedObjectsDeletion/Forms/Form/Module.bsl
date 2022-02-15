@@ -923,7 +923,7 @@ Procedure FillResultsLine(NumberDeleted)
 			|ru = 'Не удален ни один из объектов, так как в информационной базе существуют ссылки на удаляемые объекты'");
 	Else
 		ResultLine = StrTemplate(
-				Nstr("en = '';
+				Nstr("en = 'The removal of the marked objects is completed. Deleted objects: %1.';
 				|ru = 'Удаление помеченных объектов завершено. Удалено объектов: %1.'"),
 				 String(NumberDeletedObjects));
 	EndIf;
