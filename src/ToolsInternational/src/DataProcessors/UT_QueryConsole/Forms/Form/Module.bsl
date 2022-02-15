@@ -1907,10 +1907,10 @@ Procedure PutEditingQuery()
 			
 		Query_PutQueryData(EditingQuery, strQueryText, strAlgorithmText, CodeExecutionMethod,
 			QueryParametersToValueList(QueryParameters), TempTablesToValueList(TempTables),
-			QuerySelectionBoundaries.BeginningOfRow, QuerySelectionBoundaries.ColumnBeginning,
-			QuerySelectionBoundaries.RowEnd, QuerySelectionBoundaries.ColumnEnd,
-			AlgorithmSelectionBoundaries.BeginningOfRow, AlgorithmSelectionBoundaries.ColumnBeginning,
-			AlgorithmSelectionBoundaries.RowEnd, AlgorithmSelectionBoundaries.ColumnEnd);
+			QuerySelectionBoundaries.BeginningOfRow, QuerySelectionBoundaries.BeginningOfColumn,
+			QuerySelectionBoundaries.EndOfRow, QuerySelectionBoundaries.EndOfColumn,
+			AlgorithmSelectionBoundaries.BeginningOfRow, AlgorithmSelectionBoundaries.BeginningOfColumn,
+			AlgorithmSelectionBoundaries.EndOfRow, AlgorithmSelectionBoundaries.EndOfColumn);
 	EndIf;
 
 EndProcedure

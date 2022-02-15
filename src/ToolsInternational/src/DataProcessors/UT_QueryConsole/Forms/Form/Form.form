@@ -1713,6 +1713,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
@@ -1744,12 +1745,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
-                  <picture xsi:type="form:FormPicture">
-                    <transparentPixel>
-                      <x>8</x>
-                      <y>13</y>
-                    </transparentPixel>
-                  </picture>
+                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                   <commandUniqueness>false</commandUniqueness>
@@ -1783,6 +1779,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                   <commandUniqueness>false</commandUniqueness>
@@ -1816,6 +1813,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
@@ -1848,6 +1846,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <commandUniqueness>false</commandUniqueness>
                 </items>
@@ -1880,6 +1879,7 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <picture xsi:type="form:FormPicture"/>
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
@@ -2337,6 +2337,7 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <placementArea>UserCmds</placementArea>
+                    <picture xsi:type="form:FormPicture"/>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <visible>true</visible>
@@ -2532,6 +2533,7 @@
                       <autoMaxHeight>true</autoMaxHeight>
                       <horizontalStretch>true</horizontalStretch>
                       <verticalStretch>true</verticalStretch>
+                      <valuesPicture xsi:type="form:FormPicture"/>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -3722,6 +3724,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3753,6 +3756,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3784,6 +3788,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3815,6 +3820,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
                 <commandUniqueness>false</commandUniqueness>
               </items>
@@ -3973,6 +3979,7 @@
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
+                <picture xsi:type="form:FormPicture"/>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:FormField">
@@ -4233,7 +4240,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ResultRecordStructure.Имя</segments>
+                    <segments>ResultRecordStructure.Name</segments>
                   </paths>
                 </dataPath>
                 <extendedTooltip>
@@ -4457,7 +4464,7 @@
               <enableDrag>true</enableDrag>
               <fileDragMode>AsFileRef</fileDragMode>
               <rowPictureDataPath xsi:type="form:DataPath">
-                <segments>ResultRecordStructure.Картинка</segments>
+                <segments>ResultRecordStructure.Picture</segments>
               </rowPictureDataPath>
             </items>
             <visible>true</visible>
@@ -5539,6 +5546,7 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <picture xsi:type="form:FormPicture"/>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -6884,7 +6892,9 @@
       </contextMenu>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:PictureDecorationExtInfo"/>
+      <extInfo xsi:type="form:PictureDecorationExtInfo">
+        <picture xsi:type="form:FormPicture"/>
+      </extInfo>
     </items>
     <enabled>true</enabled>
     <userVisible>
@@ -8691,10 +8701,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -8709,10 +8723,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Тип</name>
+      <name>Type</name>
       <title>
         <key>ru</key>
         <value>Тип</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Type</value>
       </title>
       <id>2</id>
       <valueType/>
@@ -8724,10 +8742,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПодчиненныеУзлыРаскрыты</name>
+      <name>ChildNodesExpanded</name>
       <title>
         <key>ru</key>
         <value>Подчиненные узлы раскрыты</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Child nodes expanded</value>
       </title>
       <id>3</id>
       <valueType>
@@ -8741,10 +8763,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
       <title>
         <key>ru</key>
         <value>Картинка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
       </title>
       <id>4</id>
       <valueType>

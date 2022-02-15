@@ -300,8 +300,7 @@ Procedure UpdateContent(Result, ErrorMessage, DeletionObjectsTypes)
 			UpdateMarkedTree = False;
 		Else
 			Text = StrTemplate(
-			             Nstr("en = 'Deletion of marked objects has been completed successfully.' 
-			               |Deleted objects: %1.'; 
+			             Nstr("en = 'Deletion of marked objects has been completed successfully.Deleted objects: %1.'; 
 			               |ru = 'Удаление помеченных объектов успешно завершено.
 							  |Удалено объектов: %1.'"), NumberDeletedObjects);
 		EndIf;
