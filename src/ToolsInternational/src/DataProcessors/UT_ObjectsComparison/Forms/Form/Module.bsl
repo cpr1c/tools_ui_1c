@@ -8,7 +8,7 @@ Procedure AddToTree(VT, ObjectRef)
 
 	//Attributes
 	Rows = VT.Rows;
-	Row = Rows.Find(" Attributes", "Attributes");
+	Row = Rows.Find(" Attributes", "Attribute");
 	If Row = Undefined Then
 		Row = Rows.Add();
 		Row.Attribute = " Attributes";

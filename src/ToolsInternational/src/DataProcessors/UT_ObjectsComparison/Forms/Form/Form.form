@@ -612,8 +612,12 @@
         <name>AddObjectsAddedToComparisonEarly</name>
         <id>75</id>
         <title>
-          <key>ru</key>
+          <key>en</key>
           <value>Add to list</value>
+        </title>
+        <title>
+          <key>ru</key>
+          <value>Добавить к списку</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -646,8 +650,12 @@
         <name>ClearObjectsAdedToComparisionEarly</name>
         <id>79</id>
         <title>
-          <key>ru</key>
+          <key>en</key>
           <value>Clear</value>
+        </title>
+        <title>
+          <key>ru</key>
+          <value>Очистить</value>
         </title>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -682,8 +690,12 @@
         <common>true</common>
       </userVisible>
       <title>
-        <key>ru</key>
+        <key>en</key>
         <value>Objects added to comparison</value>
+      </title>
+      <title>
+        <key>ru</key>
+        <value>Объекты добавленные к сравнению</value>
       </title>
       <toolTip>
         <key>ru</key>
