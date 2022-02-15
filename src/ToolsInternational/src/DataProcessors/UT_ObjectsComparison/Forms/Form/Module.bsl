@@ -30,7 +30,7 @@ Procedure AddToTree(VT, ObjectRef)
 		
 
 	//Tabulars section
-	For Each TS In MD.TabularsSection Do
+	For Each TS In MD.TabularsSections Do
 		IF ObjectRef[TS.Name].Count() = 0 Then Continue; Endif;
 		AttributeName = TS.Name; 
 		
