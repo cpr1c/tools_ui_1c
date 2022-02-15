@@ -2152,7 +2152,7 @@ EndProcedure
 &AtClient
 Procedure QueryBatch_LoadCompletion(AdditionalParameters) Export
 
-	strLoadedData = AdditionalParameters.Reader.GetText();
+	strLoadedData = AdditionalParameters.Reading.GetText();
 
 	stLoadedData = QueryBatch_LoadAtServer(strLoadedData);
 
