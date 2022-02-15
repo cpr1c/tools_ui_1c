@@ -8,7 +8,7 @@ Procedure AddToTree(VT, ObjectRef)
 
 	//Attributes
 	Rows = VT.Rows;
-	Row = Rows.Find(" Attributes", "Attributes");
+	Row = Rows.Find(" Attributes", "Attribute");
 	If Row = Undefined Then
 		Row = Rows.Add();
 		Row.Attribute = " Attributes";
@@ -29,8 +29,8 @@ Procedure AddToTree(VT, ObjectRef)
 	EndDo;
 		
 
-	//Tabulars section
-	For Each TS In MD.TabularsSection Do
+	//Tabular section
+	For Each TS In MD.TabularSections Do
 		IF ObjectRef[TS.Name].Count() = 0 Then Continue; Endif;
 		AttributeName = TS.Name; 
 		
@@ -44,7 +44,7 @@ Procedure AddToTree(VT, ObjectRef)
 		//Rows tabular section
 		RowsSet = Row.Rows;
 		For Each RowTS In ObjectRef[TS.Name] Do
-			NumberRow = "Row № " + Format(RowTS.NumberRow, "ND=4; NLZ=; NG=");
+			NumberRow = "Row # " + Format(RowTS.NumberRow, "ND=4; NLZ=; NG=");
 			RowSet = RowsSet.Find(NumberRow, "Attribute");
 			If RowSet = Undefined Then 
 				RowSet = RowsSet.Add();
@@ -53,7 +53,7 @@ Procedure AddToTree(VT, ObjectRef)
 			
 			//Values of the rows tabular section
 			RowsRS = RowSet.Rows;
-			For Each Attribute In MD.TabularSections[MD.Имя].Attribute Do
+			For Each Attribute In MD.TabularSections[MD.Name].Attribute Do
 				AttributeName = Attribute.Name; 
 
 				RowRS = RowsRS.Find(AttributeName, "Attribute");
@@ -94,7 +94,7 @@ Procedure ClearTree(VT, Rows = Undefined)
 		IF HaveSubordinates Then
 			ClearTree(VT, Row.Rows);
 		Else counter = 0;
-			For Col = 1 По CountCol Цикл
+			For Col = 1 to CountCol Do
 				counter = counter + ?(Row[Columns[0]] = Row[Columns[Col]], 1, 0);
 			EndDo;
 			If counter = CountCol Then DeletedRows.Add(Row); EndIf;
@@ -127,7 +127,7 @@ Procedure GeneratePrintFormObjectsComparison() Export
 	SpreadsheetDocument.StartRowAutoGrouping();
 	Level = 1;
 	For Each Row In VT.Rows Do
-		PrintRow(Row, VT.Columns, SpreadsheetDocument, Template, Level);//вывести строку
+		PrintRow(Row, VT.Columns, SpreadsheetDocument, Template, Level);// print row
 	EndDo;
 	SpreadsheetDocument.EndRowAutoGrouping();
 	
@@ -142,7 +142,7 @@ EndProcedure
 
 &AtServerNoContext
 Procedure PrintRow(Row, Columns, SpreadsheetDocument, Template, Level)
-	HaveNestedRows = Row.Rows.Count() > 0;//ЕстьВложенныеСтроки
+	HaveNestedRows = Row.Rows.Count() > 0;//HaveNestedRows
 	
 	AttributeArea = Template.GetArea("Attribute");
 	AttributeArea.Parameters.Attribute = TrimAll(Row.Attribute);
@@ -181,19 +181,20 @@ EndProcedure
 &НаКлиенте
 Procedure Generate(Command)
 	If Objects.Count() = 0 Then
-		Items.FormParameters.Mark = Истина;
-		Items.GroupParameters.Visible = Истина;
+		Items.FormParameters.Check = True;
+		Items.GroupParameters.Visible = True;
 		CurrentItem = Items.Objects;
 		Return;
 	EndIf;
 	GenerateAtServer();
+	
 EndProcedure
 
 &НаКлиенте
 Procedure Parameters(Command)
-	Mark = Не Items.FormParameters.Mark;
-	Items.FormParameters.Mark = Mark;
-	Items.GroupParameters.Visible = Mark;
+	Check = NOT Items.FormParameters.Check;
+	Items.FormParameters.Check = Check;
+	Items.GroupParameters.Visible = Check;
 EndProcedure
 
 &AtServer
@@ -204,7 +205,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	EndIF;
 	GenerateAtServer();
 	
-	//UT_Common.ФормаИнструментаПриСозданииAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка);
+	//UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
 	
 EndProcedure
 
@@ -224,7 +225,7 @@ EndProcedure
 
 
 &НаКлиенте
-Procedure AddObjectsAddedToComparisonEarly(Команда)
+Procedure AddObjectsAddedToComparisonEarly(Comand)
 	AddObjectsAddedToComparisonEarlyAtServer();
 EndProcedure
 
@@ -236,7 +237,7 @@ EndProcedure
 
 
 &НаКлиенте
-Procedure ClearObjectsAddedToTheComparison(Команда)
+Procedure ClearObjectsAddedToTheComparison(Comand)
 	ClearObjectsAddedToTheComparisonAtServer();
 EndProcedure
 
