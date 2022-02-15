@@ -390,7 +390,7 @@ Function FindOrAddTreeBranchWithPicture(TreeRows, Value, Presentation, PictureNu
 		Branch = TreeRows.Add();
 		Branch.Value      = ValueByType(Value);
 		Branch.Presentation = Presentation;
-		Branch.НомерКартинки = PictureNumber;
+		Branch.PictureNumber = PictureNumber;
 	EndIf;
 
 	Возврат Branch;
