@@ -2318,14 +2318,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>NomberNotDeletedObjects</name>
+    <name>NumberNotDeletedObjects</name>
     <title>
       <key>ru</key>
       <value>Количество оставшихся (не удаленных) объектов</value>
     </title>
     <title>
       <key>en</key>
-      <value>Nomber not deleted objects</value>
+      <value>Number not deleted objects</value>
     </title>
     <id>3</id>
     <valueType>
@@ -2384,14 +2384,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>NomberOfLevelsMarkedForDeletion</name>
+    <name>NumberOfLevelsMarkedForDeletion</name>
     <title>
       <key>ru</key>
       <value>Количество уровней помеченных на удаление</value>
     </title>
     <title>
       <key>en</key>
-      <value>Nomber of levels marked for deletion</value>
+      <value>Number of levels marked for deletion</value>
     </title>
     <id>10</id>
     <valueType>
