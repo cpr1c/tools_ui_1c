@@ -394,7 +394,7 @@ EndProcedure
 
 #Region SSLCommands
 
-Procedure AddObjectsToComparsion(ObjectsArray, Context) Экспорт
+Procedure AddObjectsToComparison(ObjectsArray, Context) Экспорт
 	UT_CommonClientServer.AddObjectsArrayToCompare(ObjectsArray);
 EndProcedure
 
@@ -536,7 +536,7 @@ Procedure EditValueStorage(Form, ValueTempStorageUrlOrValue,
 	FormParameters.Insert("ValueStorageData", ValueTempStorageUrlOrValue);
 
 	OpenForm("CommonForm.UT_ValueStorageForm", FormParameters, Form, Form.UUID, , ,
-		OnCloseNotifyDescription, FormWindowOpeningMode.FormWindowOpeningMode);
+		OnCloseNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 
 EndProcedure
 

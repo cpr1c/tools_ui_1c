@@ -329,7 +329,7 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Command) 
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
 	
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 	
@@ -476,7 +476,7 @@ Function PutHistoryDataToTempStorage()
 	Result = PutToTempStorage(HistoryTable, UUID);
 	Return Result;
 
-	JSONSerializer = DataProcessors.УИ_ПреобразованиеДанныхJSON.Create();
+	JSONSerializer = DataProcessors.UT_JSONDataConversion.Create();
 
 	HistoryStruct = JSONSerializer.ЗначениеВСтруктуру(HistoryTable);
 	HistoryRowJSON = JSONSerializer.ЗаписатьОписаниеОбъектаВJSON(HistoryStruct);

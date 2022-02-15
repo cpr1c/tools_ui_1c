@@ -1907,9 +1907,9 @@ Procedure PutEditingQuery()
 			
 		Query_PutQueryData(EditingQuery, strQueryText, strAlgorithmText, CodeExecutionMethod,
 			QueryParametersToValueList(QueryParameters), TempTablesToValueList(TempTables),
-			QuerySelectionBoundaries.RowBegin, QuerySelectionBoundaries.ColumnBegin,
+			QuerySelectionBoundaries.BeginningOfRow, QuerySelectionBoundaries.ColumnBegin,
 			QuerySelectionBoundaries.RowEnd, QuerySelectionBoundaries.ColumnEnd,
-			AlgorithmSelectionBoundaries.RowBegin, AlgorithmSelectionBoundaries.ColumnBegin,
+			AlgorithmSelectionBoundaries.BeginningOfRow, AlgorithmSelectionBoundaries.ColumnBegin,
 			AlgorithmSelectionBoundaries.RowEnd, AlgorithmSelectionBoundaries.ColumnEnd);
 	EndIf;
 
@@ -5162,22 +5162,22 @@ EndProcedure
 &AtClient
 Procedure ExecuteContinuation(AdditionalParameters)
 
-	If AdditionalParameters.Continue = "OnOpenFollowUp" Then
+	If AdditionalParameters.FollowUp = "OnOpenFollowUp" Then
 		OnOpenFollowUp(AdditionalParameters);
 		Return;
-	ElsIf AdditionalParameters.Continue = "LoadQueryBatch" Then
+	ElsIf AdditionalParameters.FollowUp = "LoadQueryBatch" Then
 		LoadQueryBatch(AdditionalParameters);
 		Return;
-	ElsIf AdditionalParameters.Continue = "ContinueQueryBatch_New" Then
+	ElsIf AdditionalParameters.FollowUp = "ContinueQueryBatch_New" Then
 		ContinueQueryBatch_New(AdditionalParameters);
 		Return;
-	ElsIf AdditionalParameters.Continue = "AfterChoosingFileForLoadingQueryBatchCompletion" Then
+	ElsIf AdditionalParameters.FollowUp = "AfterChoosingFileForLoadingQueryBatchCompletion" Then
 		AfterChoosingFileForLoadingQueryBatchCompletion(AdditionalParameters);
 		Return;
 	EndIf;
 	
 	//This operator works anywhere except web-client:
-	Execute (AdditionalParameters.Continue + "(AdditionalParameters);");
+	Execute (AdditionalParameters.FollowUp + "(AdditionalParameters);");
 	//This procedure lets the Execute operator work at web-client.
 	//If there is an error at web-client at this line, it means something else required in the condition above.
 
@@ -5259,7 +5259,7 @@ EndFunction
 &AtClient
 Procedure SetAlgorithmSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn)
 	If UT_IsPartOfUniversalTools Then
-		UT_CodeEditorClient.SetTextSelectionBounds(ThisObject, "Algorithm", BeginningOfRow, BeginningOfColumn,
+		UT_CodeEditorClient.SetTextSelectionBorders(ThisObject, "Algorithm", BeginningOfRow, BeginningOfColumn,
 			EndOfRow, EndOfColumn);
 	Else
 		Items.AlgorithmText.SetTextSelectionBounds(BeginningOfRow, BeginningOfColumn, EndOfRow, EndOfColumn);
@@ -5276,7 +5276,7 @@ EndProcedure
 &AtClient 
 Function AlgorithmSelectionBoundaries()
 	If UT_IsPartOfUniversalTools Then
-		Return UT_CodeEditorClient.EditorSelectionBounds(ThisObject, "Algorithm");
+		Return UT_CodeEditorClient.EditorSelectionBorders(ThisObject, "Algorithm");
 	Else
 		Return ItemSelectionBounds(Items.AlgorithmText);	
 	EndIf;
@@ -5285,7 +5285,7 @@ EndFunction
 &AtClient 
 Function QuerySelectionBoundaries()
 //	If UT_IsPartOfUniversalTools Then
-//		Return UT_CodeEditorClient.EditorSelectionBounds(ThisObject, "Algorithm");
+//		Return UT_CodeEditorClient.EditorSelectionBorders(ThisObject, "Algorithm");
 //	Else
 		Return ItemSelectionBounds(Items.QueryText);	
 //	EndIf;

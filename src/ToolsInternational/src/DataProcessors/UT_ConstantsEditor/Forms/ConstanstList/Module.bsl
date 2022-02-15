@@ -219,16 +219,16 @@ EndProcedure
 &AtClient
 Procedure ProcessConstantsSearch(SearchStringTransfered)
 	SearchString =TrimAll(Lower(SearchStringTransfered));
-	For each ConstantsTableCurrentRow In ConstantsTable Do
+	For each CurrentRow In ConstantsTable Do
 		ConstantIsVisible=True;
 		If ValueIsFilled(SearchString) Then
-			ConstantIsVisible=StrFind(Lower(ConstantsTableCurrentRow.ConstantName), SearchString) > 0 Или StrFind(
-				Lower(ConstantsTableCurrentRow.ConstantSynonym), SearchString) > 0;
+			ConstantIsVisible=StrFind(Lower(CurrentRow.ConstantName), SearchString) > 0 Или StrFind(
+				Lower(CurrentRow.ConstantSynonym), SearchString) > 0;
 		EndIf;
 
-		Items["Group" + ConstantsTableCurrentRow.ConstantName].Visible=ConstantIsVisible;
-		Items["Title_" + ConstantsTableCurrentRow.ConstantName].Title=ConstantItemTitle(
-			ConstantsTableCurrentRow.ConstantName, ConstantsTableCurrentRow.ConstantSynonym, ShowSynonym, SearchString);
+		Items["Group_" + CurrentRow.ConstantName].Visible=ConstantIsVisible;
+		Items["Title_" + CurrentRow.ConstantName].Title=ConstantItemTitle(
+			CurrentRow.ConstantName, CurrentRow.ConstantSynonym, ShowSynonym, SearchString);
 	EndDo;
 
 EndProcedure

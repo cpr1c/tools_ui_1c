@@ -6,6 +6,10 @@
   </producedTypes>
   <name>UT_HTTPRequestConsole</name>
   <synonym>
+    <key>en</key>
+    <value>HTTP Request console [UT]</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Консоль HTTP запросов [УИ]</value>
   </synonym>

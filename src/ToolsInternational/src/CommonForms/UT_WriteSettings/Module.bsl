@@ -86,25 +86,25 @@ EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ПолеРедактораДокументСформирован(Item)
+Procedure Attachable_EditorFieldDocumentGenerated(Item)
 	UT_CodeEditorClient.HTMLEditorFieldDocumentGenerated(ThisObject, Item);
 EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_ПолеРедактораПриНажатии(Item, EventData, StandardProcessing)
+Procedure Attachable_EditorFieldOnClick(Item, EventData, StandardProcessing)
 	UT_CodeEditorClient.HTMLEditorFieldOnClick(ThisObject, Item, EventData, StandardProcessing);
 EndProcedure
 
 //@skip-warning
 &AtClient
-Procedure Подключаемый_РедакторКодаОтложеннаяИнициализацияРедакторов()
+Procedure Attachable_CodeEditorDeferredInitializingEditors()
 	UT_CodeEditorClient.CodeEditorDeferredInitializingEditors(ThisObject);
 EndProcedure
 
 //@skip-warning
 &AtClient 
-Procedure Подключаемый_РедакторКодаЗавершениеИнициализации() Export
+Procedure Attachable_CodeEditorInitializingCompletion() Export
 	UT_CodeEditorClient.SetEditorText(ThisObject, "Editor", BeforeWriteProcedure);
 	
 	AddedContext = New Structure;

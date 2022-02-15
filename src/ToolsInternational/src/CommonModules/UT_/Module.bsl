@@ -98,14 +98,14 @@ EndFunction
 // * DifferencesTable 	- ValueTable 	- A table showing the discrepancies of the compared tables
 Function _ValueTablesCompare(BaseTable, ComparisonTable, ColumnsList = Undefined) Export
 	If ColumnsList = Undefined Then
-		ColumnsForComparsion="";
+		ColumnsForComparison="";
 	Else
-		ColumnsForComparsion=ColumnsList;
+		ColumnsForComparison=ColumnsList;
 	EndIf;
 
 	Try
-		Return UT_CommonServerCall.ExecuteTwoValueTablesComparsion(BaseTable, ComparisonTable,
-			ColumnsForComparsion);
+		Return UT_CommonServerCall.ExecuteTwoValueTablesComparison(BaseTable, ComparisonTable,
+			ColumnsForComparison);
 	Except
 		Return ErrorDescription();
 	EndTry;

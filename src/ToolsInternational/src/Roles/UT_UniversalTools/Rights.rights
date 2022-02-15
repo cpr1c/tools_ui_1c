@@ -37,14 +37,14 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_Support.Command.ПроверитьНеобходимостьОбновления</name>
+		<name>DataProcessor.UT_Support.Command.CheckUpdate</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_МенеджерХранилищНастроек</name>
+		<name>DataProcessor.UT_SettingsStoragesManager</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -55,7 +55,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ПреобразованиеДанныхJSON</name>
+		<name>DataProcessor.UT_JSONDataConversion</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -91,7 +91,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_Support.Command.ВопросРазработчику</name>
+		<name>DataProcessor.UT_Support.Command.QuestionToDeveloper</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -261,7 +261,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_Support.Command.СтраницаРазработки</name>
+		<name>DataProcessor.UT_Support.Command.AboutPage</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -351,7 +351,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.UT_Algorithms.Command.ВыполнитьАлгоритм</name>
+		<name>Catalog.UT_Algorithms.Command.ExecuteAlgorithm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -369,7 +369,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.UT_ObjectsComparsion</name>
+		<name>DataProcessor.UT_ObjectsComparison</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -438,7 +438,7 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.УИ_Алгоритмы</name>
+		<name>Catalog.UT_Algorithms</name>
 		<right>
 			<name>Read</name>
 			<value>true</value>
@@ -621,14 +621,14 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
+		<name>CommonForm.UT_ConfigurationSourseFilesSaveSettings</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>Catalog.УИ_Алгоритмы.Command.ВыполнитьАлгоритм</name>
+		<name>Catalog.UT_Algorithms.Command.ExecuteAlgorithm</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

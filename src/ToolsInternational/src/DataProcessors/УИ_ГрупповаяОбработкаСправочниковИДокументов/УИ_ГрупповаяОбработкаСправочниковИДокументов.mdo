@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_ГрупповаяОбработкаСправочниковИДокументов</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_ГрупповаяОбработкаСправочниковИДокументов</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Групповая обработка справочников и документов [УИ]</value>
   </synonym>

@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_ДанныеДляОтладки</name>
   <synonym>
+    <key>en</key>
+    <value>{} Debug data (UT)</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Данные для отладки [УИ]</value>
   </synonym>

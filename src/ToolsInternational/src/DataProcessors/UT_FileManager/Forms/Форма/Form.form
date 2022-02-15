@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКонтейнер</name>
+    <name>ContainerGroup</name>
     <id>1</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаЛево</name>
+      <name>LeftGroup</name>
       <id>3</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаЛеваяПанельШапка</name>
+        <name>HeaderPanelLeftGroup</name>
         <id>89</id>
         <items xsi:type="form:FormField">
-          <name>ТекущийКаталогКлиент</name>
+          <name>CurrentDirectoryOnClient</name>
           <id>69</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -19,16 +19,16 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекущийКаталогКлиент</segments>
+              <segments>CurrentDirectoryOnClient</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ТекущийКаталогКлиентПриИзменении</name>
+            <name>CurrentDirectoryOnClientOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ТекущийКаталогКлиентРасширеннаяПодсказка</name>
+            <name>CurrentDirectoryOnClientExtendedTooltip</name>
             <id>71</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -43,7 +43,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТекущийКаталогКлиентКонтекстноеМеню</name>
+            <name>CurrentDirectoryOnClientContextMenu</name>
             <id>70</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -80,12 +80,16 @@
           <key>ru</key>
           <value>Группа клиент шапка</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Header panel left group</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Группа клиент шапка</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаКлиентШапкаРасширеннаяПодсказка</name>
+          <name>HeaderPanelLeftGroupExtendedTooltip</name>
           <id>90</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -108,7 +112,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Table">
-        <name>ФайлыЛеваяПанель</name>
+        <name>FilesOnLeftPanel</name>
         <id>159</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -116,11 +120,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ФайлыЛеваяПанель</segments>
+          <segments>FilesOnLeftPanel</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ФайлыЛеваяПанельИмя</name>
+          <name>FilesOnLeftPanelName</name>
           <id>172</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -129,11 +133,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыЛеваяПанель.Имя</segments>
+              <segments>FilesOnLeftPanel.Name</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка</name>
+            <name>FilesOnLeftPanelNameExtendedTooltip</name>
             <id>174</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -148,7 +152,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню</name>
+            <name>FilesOnLeftPanelNameContextMenu</name>
             <id>173</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -172,7 +176,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ФайлыЛеваяПанельРасширение</name>
+          <name>FilesOnLeftPanelFileExtension</name>
           <id>175</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -181,11 +185,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыЛеваяПанель.Расширение</segments>
+              <segments>FilesOnLeftPanel.FileExtension</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка1</name>
+            <name>FilesOnLeftPanelFileExtensionExtendedTooltip</name>
             <id>177</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -200,7 +204,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню1</name>
+            <name>FilesOnLeftPanelFileExtensionContextMenu</name>
             <id>176</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -224,7 +228,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ФайлыЛеваяПанельДатаИзменения</name>
+          <name>FilesOnLeftPanelModifiedDate</name>
           <id>178</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -233,11 +237,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыЛеваяПанель.ДатаИзменения</segments>
+              <segments>FilesOnLeftPanel.ModifiedDate</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка2</name>
+            <name>FilesOnLeftPanelModifiedDateExtendedTooltip</name>
             <id>180</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -252,7 +256,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню2</name>
+            <name>FilesOnLeftPanelModifiedDateContextMenu</name>
             <id>179</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -276,7 +280,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ФайлыЛеваяПанельРазмер</name>
+          <name>FilesOnLeftPanelSize</name>
           <id>184</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -285,11 +289,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыЛеваяПанель.Размер</segments>
+              <segments>FilesOnLeftPanel.Size</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка4</name>
+            <name>FilesOnLeftPanelSizeExtendedTooltip</name>
             <id>186</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -304,7 +308,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню4</name>
+            <name>FilesOnLeftPanelSizeContextMenu</name>
             <id>185</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -328,10 +332,10 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>КоманднаяПанель</name>
+          <name>FilesOnLeftPanelCommandBar</name>
           <id>160</id>
           <items xsi:type="form:Button">
-            <name>ФайлыКлиентОбновитьКлиент</name>
+            <name>UpdateAtClient</name>
             <id>75</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -339,7 +343,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ФайлыКлиентОбновитьКлиентРасширеннаяПодсказка</name>
+              <name>UpdateAtClientExtendedTooltip</name>
               <id>76</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -353,7 +357,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОбновитьКлиент</commandName>
+            <commandName>Form.Command.UpdateAtClient</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -361,7 +365,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ШагНазадКлиент</name>
+            <name>StepBackAtClient</name>
             <id>129</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -369,7 +373,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ШагНазадКлиентРасширеннаяПодсказка</name>
+              <name>StepBackAtClientExtendedTooltip</name>
               <id>130</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -383,7 +387,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ШагНазадКлиент</commandName>
+            <commandName>Form.Command.StepBackAtClient</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -391,7 +395,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ШагВпередКлиент</name>
+            <name>StepForwardAtClient</name>
             <id>131</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -399,7 +403,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ШагВпередКлиентРасширеннаяПодсказка</name>
+              <name>StepForwardAtClientExtendedTooltip</name>
               <id>132</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -413,7 +417,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ШагВпередКлиент</commandName>
+            <commandName>Form.Command.StepForwardAtClient</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -421,7 +425,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ШагВверхКлиент</name>
+            <name>StepUpAtClient</name>
             <id>133</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -429,7 +433,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ШагВверхКлиентРасширеннаяПодсказка</name>
+              <name>StepUpAtClientExtendedTooltip</name>
               <id>134</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -443,7 +447,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ШагВверхКлиент</commandName>
+            <commandName>Form.Command.StepUpAtClient</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -451,10 +455,10 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ЛеваяПанельГруппаПодменюПерейти</name>
+            <name>LeftPanelSubMenu_Goto</name>
             <id>141</id>
             <items xsi:type="form:Button">
-              <name>Перейти_РабочийСтол_Клиент</name>
+              <name>GotoDesktopClient</name>
               <id>105</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -462,7 +466,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>Перейти_РабочийСтол_КлиентРасширеннаяПодсказка</name>
+                <name>GotoDesktopClientExtendedTooltip</name>
                 <id>106</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -476,17 +480,16 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_РабочийСтол_Клиент</commandName>
+              <commandName>Form.Command.GotoDesktopClient</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <picture xsi:type="form:FormPicture"/>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>Перейти_КаталогВременныхФайлов_Клиент</name>
+              <name>GotoTempDirectoryAtClient</name>
               <id>103</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -494,7 +497,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>Перейти_КаталогВременныхФайлов_КлиентРасширеннаяПодсказка</name>
+                <name>GotoTempDirectoryAtClientExtendedTooltip</name>
                 <id>104</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -508,17 +511,16 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_КаталогВременныхФайлов_Клиент</commandName>
+              <commandName>Form.Command.GotoTempDirectoryAtClient</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <picture xsi:type="form:FormPicture"/>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>Перейти_КаталогПрограммы_Клиент</name>
+              <name>GotoProgramDirectoryClient</name>
               <id>101</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -526,7 +528,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>Перейти_КаталогПрограммы_КлиентРасширеннаяПодсказка</name>
+                <name>GotoProgramDirectoryClientExtendedTooltip</name>
                 <id>102</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -540,17 +542,16 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_КаталогПрограммы_Клиент</commandName>
+              <commandName>Form.Command.GotoProgramDirectoryClient</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <picture xsi:type="form:FormPicture"/>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>Перейти_КаталогДокументов_Клиент</name>
+              <name>GotoDocumentDirectoryClient</name>
               <id>99</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -558,7 +559,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>Перейти_КаталогДокументов_КлиентРасширеннаяПодсказка</name>
+                <name>GotoDocumentDirectoryClientExtendedTooltip</name>
                 <id>100</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -572,13 +573,12 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_КаталогДокументов_Клиент</commandName>
+              <commandName>Form.Command.GotoDocumentDirectoryClient</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <picture xsi:type="form:FormPicture"/>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -590,8 +590,12 @@
               <key>ru</key>
               <value>Перейти</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Left panel sub menu goto</value>
+            </title>
             <extendedTooltip>
-              <name>ФайлыКлиентГруппа1РасширеннаяПодсказка</name>
+              <name>LeftPanelSubMenu_GotoExtendedTooltip</name>
               <id>142</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -611,7 +615,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ЛеваяПанельГруппаСортировка</name>
+            <name>SortGroupOfLeftPanel</name>
             <id>196</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -622,8 +626,12 @@
               <key>ru</key>
               <value>Сортировать по</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Sort group of left panel</value>
+            </title>
             <extendedTooltip>
-              <name>ФайлыКлиентГруппа1РасширеннаяПодсказка3</name>
+              <name>SortGroupOfLeftPanelExtendedTooltip</name>
               <id>197</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -652,11 +660,11 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ФайлыЛеваяПанельВыбор</name>
+          <name>FilesOnLeftPanelSelection</name>
         </handlers>
         <handlers>
           <event>OnActivateCell</event>
-          <name>ФайлыЛеваяПанельПриАктивизацииЯчейки</name>
+          <name>FilesOnLeftPanelOnActivateCell</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -664,10 +672,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>FilesOnLeftPanelSearchString</name>
           <id>163</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>FilesOnLeftPanelSearchStringExtendedTooltip</name>
             <id>165</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -682,7 +690,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>FilesOnLeftPanelSearchStringContextMenu</name>
             <id>164</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -701,10 +709,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>FilesOnLeftPanelViewStatus</name>
           <id>169</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>FilesOnLeftPanelViewStatusExtendedTooltip</name>
             <id>171</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -719,7 +727,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>FilesOnLeftPanelViewStatusContextMenu</name>
             <id>170</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -740,10 +748,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>FilesOnLeftPanelSearchControl</name>
           <id>166</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>FilesOnLeftPanelSearchControlExtendedTooltip</name>
             <id>168</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -758,7 +766,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>FilesOnLeftPanelSearchControlContextMenu</name>
             <id>167</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -773,7 +781,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>РасширеннаяПодсказка</name>
+          <name>FilesOnLeftPanelExtendedTooltip</name>
           <id>162</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -788,7 +796,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>КонтекстноеМеню</name>
+          <name>FilesOnLeftPanelContextMenu</name>
           <id>161</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -816,7 +824,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ФайлыЛеваяПанель.ИндексКартинки</segments>
+          <segments>FilesOnLeftPanel.PictureIndex</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
           <picture>CommonPicture.UT_FilesPictogramsCollection48</picture>
@@ -826,7 +834,7 @@
         <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
       <items xsi:type="form:FormField">
-        <name>ФайлыЛеваяПанельПолноеИмя</name>
+        <name>FilesOnLeftPanelFullName</name>
         <id>126</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -835,12 +843,12 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Items.ФайлыЛеваяПанель.CurrentData.ПолноеИмя</segments>
+            <segments>Items.FilesOnLeftPanel.CurrentData.FullName</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ФайлыКлиентПолноеИмяРасширеннаяПодсказка</name>
+          <name>FilesOnLeftPanelFullNameExtendedTooltip</name>
           <id>128</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -855,7 +863,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ФайлыКлиентПолноеИмяКонтекстноеМеню</name>
+          <name>FilesOnLeftPanelFullNameContextMenu</name>
           <id>127</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -887,12 +895,16 @@
         <key>ru</key>
         <value>Клиент</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Left group</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа лево</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаЛевоРасширеннаяПодсказка</name>
+        <name>LeftGroupExtendedTooltip</name>
         <id>4</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -912,19 +924,18 @@
         <representation>NormalSeparation</representation>
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
-        <showTitle>true</showTitle>
         <throughAlign>Auto</throughAlign>
         <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаПраво</name>
+      <name>RightGroup</name>
       <id>5</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаСерверШапка</name>
+        <name>HeaderServerGroup</name>
         <id>79</id>
         <items xsi:type="form:FormField">
-          <name>ТекущийКаталогСервер</name>
+          <name>CurrentDirectoryOnServer</name>
           <id>72</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -933,16 +944,16 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекущийКаталогСервер</segments>
+              <segments>CurrentDirectoryOnServer</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ТекущийКаталогСерверПриИзменении</name>
+            <name>CurrentDirectoryOnServerOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ТекущийКаталогСерверРасширеннаяПодсказка</name>
+            <name>CurrentDirectoryOnServerExtendedTooltip</name>
             <id>74</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -957,7 +968,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТекущийКаталогСерверКонтекстноеМеню</name>
+            <name>CurrentDirectoryOnServerContextMenu</name>
             <id>73</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -993,12 +1004,16 @@
           <key>ru</key>
           <value>Группа сервер шапка</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Header server group</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Группа сервер шапка</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаСерверШапкаРасширеннаяПодсказка</name>
+          <name>HeaderServerGroupExtendedTooltip</name>
           <id>80</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1021,7 +1036,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Table">
-        <name>ФайлыПраваяПанель</name>
+        <name>FilesOnRightPanel</name>
         <id>198</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1029,11 +1044,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ФайлыПраваяПанель</segments>
+          <segments>FilesOnRightPanel</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ФайлыПраваяПанельИмя</name>
+          <name>FilesOnRightPanelName</name>
           <id>211</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1042,11 +1057,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыПраваяПанель.Имя</segments>
+              <segments>FilesOnRightPanel.Name</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка3</name>
+            <name>FilesOnRightPanelNameExtendedTooltip</name>
             <id>213</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1061,7 +1076,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню3</name>
+            <name>FilesOnRightPanelNameContextMenu</name>
             <id>212</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1085,7 +1100,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ФайлыПраваяПанельРасширение</name>
+          <name>FilesOnRightPanelFileExtension</name>
           <id>214</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1094,11 +1109,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыПраваяПанель.Расширение</segments>
+              <segments>FilesOnRightPanel.FileExtension</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка5</name>
+            <name>FilesOnRightPanelFileExtensionExtendedTooltip</name>
             <id>216</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1113,7 +1128,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню5</name>
+            <name>FilesOnRightPanelFileExtensionContextMenu</name>
             <id>215</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1137,7 +1152,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ФайлыПраваяПанельДатаИзменения</name>
+          <name>FilesOnRightPanelModifiedDate</name>
           <id>217</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1146,11 +1161,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыПраваяПанель.ДатаИзменения</segments>
+              <segments>FilesOnRightPanel.ModifiedDate</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка6</name>
+            <name>FilesOnRightPanelModifiedDateExtendedTooltip</name>
             <id>219</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1165,7 +1180,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню6</name>
+            <name>FilesOnRightPanelModifiedDateContextMenu</name>
             <id>218</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1189,7 +1204,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ФайлыПраваяПанельРазмер</name>
+          <name>FilesOnRightPanelSize</name>
           <id>223</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1198,11 +1213,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ФайлыПраваяПанель.Размер</segments>
+              <segments>FilesOnRightPanel.Size</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка8</name>
+            <name>FilesOnRightPanelSizeExtendedTooltip</name>
             <id>225</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1217,7 +1232,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню8</name>
+            <name>FilesOnRightPanelSizeContextMenu</name>
             <id>224</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1241,10 +1256,10 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ТаблицаКоманднаяПанель1</name>
+          <name>FilesOnRightPanelCommandBar</name>
           <id>199</id>
           <items xsi:type="form:Button">
-            <name>ФайлыСерверОбновитьСервер</name>
+            <name>UpdateAtServer</name>
             <id>77</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1252,7 +1267,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ФайлыСерверОбновитьСерверРасширеннаяПодсказка</name>
+              <name>UpdateAtServerExtendedTooltip</name>
               <id>78</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1266,7 +1281,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОбновитьСервер</commandName>
+            <commandName>Form.Command.UpdateAtServer</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1274,7 +1289,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ШагНазадСервер</name>
+            <name>StepBackAtServer</name>
             <id>139</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1282,7 +1297,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ШагНазадСерверРасширеннаяПодсказка</name>
+              <name>StepBackAtServerExtendedTooltip</name>
               <id>140</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1296,7 +1311,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ШагНазадСервер</commandName>
+            <commandName>Form.Command.StepBackAtServer</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1304,7 +1319,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ШагВпередСервер</name>
+            <name>StepForwardAtServer</name>
             <id>137</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1312,7 +1327,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ШагВпередСерверРасширеннаяПодсказка</name>
+              <name>StepForwardAtServerExtendedTooltip</name>
               <id>138</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1326,7 +1341,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ШагВпередСервер</commandName>
+            <commandName>Form.Command.StepForwardAtServer</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1334,7 +1349,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ШагВверхСервер</name>
+            <name>StepUpAtServer</name>
             <id>135</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1342,7 +1357,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ШагВверхСерверРасширеннаяПодсказка</name>
+              <name>StepUpAtServerExtendedTooltip</name>
               <id>136</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1356,7 +1371,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ШагВверхСервер</commandName>
+            <commandName>Form.Command.StepUpAtServer</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1364,10 +1379,10 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ПерейтиСервер</name>
+            <name>GotoAtServer</name>
             <id>83</id>
             <items xsi:type="form:Button">
-              <name>Перейти_КаталогВременныхФайлов_Сервер</name>
+              <name>GotoTempDirectoryAtServer</name>
               <id>85</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1375,7 +1390,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>Перейти_КаталогВременныхФайлов_СерверРасширеннаяПодсказка</name>
+                <name>GotoTempDirectoryAtServerExtendedTooltip</name>
                 <id>86</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1389,16 +1404,15 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_КаталогВременныхФайлов_Сервер</commandName>
+              <commandName>Form.Command.GotoTempDirectoryAtServer</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <picture xsi:type="form:FormPicture"/>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>Перейти_КаталогПрограммы_Сервер</name>
+              <name>GotoProgramDirectoryServer</name>
               <id>87</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1406,7 +1420,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>Перейти_КаталогПрограммы_СерверРасширеннаяПодсказка</name>
+                <name>GotoProgramDirectoryServerExtendedTooltip</name>
                 <id>88</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1420,12 +1434,11 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_КаталогПрограммы_Сервер</commandName>
+              <commandName>Form.Command.GotoProgramDirectoryServer</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
-              <picture xsi:type="form:FormPicture"/>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <visible>true</visible>
@@ -1437,12 +1450,16 @@
               <key>ru</key>
               <value>Перейти</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Goto at server</value>
+            </title>
             <toolTip>
               <key>ru</key>
               <value>Перейти сервер</value>
             </toolTip>
             <extendedTooltip>
-              <name>ПерейтиСерверРасширеннаяПодсказка</name>
+              <name>GotoAtServerExtendedTooltip</name>
               <id>84</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1462,7 +1479,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ПраваяПанельГруппаСортировка</name>
+            <name>SortGroupOfRightPanel</name>
             <id>157</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1473,8 +1490,12 @@
               <key>ru</key>
               <value>Сортировать по</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Sort group of right panel</value>
+            </title>
             <extendedTooltip>
-              <name>ФайлыКлиентГруппа1РасширеннаяПодсказка2</name>
+              <name>SortGroupOfRightPanelExtendedTooltip</name>
               <id>158</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1503,11 +1524,11 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ФайлыПраваяПанельВыбор</name>
+          <name>FilesOnRightPanelSelection</name>
         </handlers>
         <handlers>
           <event>OnActivateCell</event>
-          <name>ФайлыПраваяПанельПриАктивизацииЯчейки</name>
+          <name>FilesOnRightPanelOnActivateCell</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -1515,10 +1536,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаСтрокаПоиска</name>
+          <name>FilesOnRightPanelSearchString</name>
           <id>202</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>FilesOnRightPanelSearchStringExtendedTooltip</name>
             <id>204</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1533,7 +1554,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>FilesOnRightPanelSearchStringContextMenu</name>
             <id>203</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1552,10 +1573,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаСостояниеПросмотра</name>
+          <name>FilesOnRightPanelViewStatus</name>
           <id>208</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>FilesOnRightPanelViewStatusExtendedTooltip</name>
             <id>210</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1570,7 +1591,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>FilesOnRightPanelViewStatusContextMenu</name>
             <id>209</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1591,10 +1612,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаУправлениеПоиском</name>
+          <name>FilesOnRightPanelSearchControl</name>
           <id>205</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>FilesOnRightPanelSearchControlExtendedTooltip</name>
             <id>207</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1609,7 +1630,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>FilesOnRightPanelSearchControlContextMenu</name>
             <id>206</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1624,7 +1645,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ТаблицаРасширеннаяПодсказка</name>
+          <name>FilesOnRightPanelExtendedTooltip</name>
           <id>201</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1639,7 +1660,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТаблицаКонтекстноеМеню</name>
+          <name>FilesOnRightPanelContextMenu</name>
           <id>200</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1665,7 +1686,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ФайлыПраваяПанель.ИндексКартинки</segments>
+          <segments>FilesOnRightPanel.PictureIndex</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
           <picture>CommonPicture.UT_FilesPictogramsCollection48</picture>
@@ -1673,7 +1694,7 @@
         <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
       <items xsi:type="form:FormField">
-        <name>ФайлыПраваяПанельПолноеИмяПоле</name>
+        <name>FilesOnRightPanelFullName</name>
         <id>123</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1682,12 +1703,12 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Items.ФайлыПраваяПанель.CurrentData.ПолноеИмя</segments>
+            <segments>Items.FilesOnRightPanel.CurrentData.FullName</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ФайлыСерверПолноеИмяРасширеннаяПодсказка</name>
+          <name>FilesOnRightPanelFullNameExtendedTooltip</name>
           <id>125</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1702,7 +1723,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ФайлыСерверПолноеИмяКонтекстноеМеню</name>
+          <name>FilesOnRightPanelFullNameContextMenu</name>
           <id>124</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1735,12 +1756,16 @@
         <key>ru</key>
         <value>Сервер</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Right group</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа право</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаПравоРасширеннаяПодсказка</name>
+        <name>RightGroupExtendedTooltip</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1760,7 +1785,6 @@
         <representation>NormalSeparation</representation>
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
-        <showTitle>true</showTitle>
         <throughAlign>Auto</throughAlign>
         <currentRowUse>Auto</currentRowUse>
       </extInfo>
@@ -1774,12 +1798,16 @@
       <key>ru</key>
       <value>Группа контейнер</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Container group</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа контейнер</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКонтейнерРасширеннаяПодсказка</name>
+      <name>ContainerGroupExtendedTooltip</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1803,13 +1831,13 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаНижняяПанель</name>
+    <name>BottomPanel</name>
     <id>143</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаНижняяКоманднаяПанель</name>
+      <name>CommandBottomPanel</name>
       <id>145</id>
       <items xsi:type="form:Button">
-        <name>Копировать</name>
+        <name>Copy</name>
         <id>147</id>
         <title>
           <key>ru</key>
@@ -1821,7 +1849,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>КопироватьРасширеннаяПодсказка</name>
+          <name>CopyExtendedTooltip</name>
           <id>148</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1835,7 +1863,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Копировать</commandName>
+        <commandName>Form.Command.Copy</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1844,7 +1872,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>Переместить</name>
+        <name>Move</name>
         <id>149</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1852,7 +1880,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ПереместитьРасширеннаяПодсказка</name>
+          <name>MoveExtendedTooltip</name>
           <id>150</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1866,7 +1894,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Переместить</commandName>
+        <commandName>Form.Command.Move</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1874,7 +1902,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>СоздатьКаталог</name>
+        <name>CreateDirectory</name>
         <id>151</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1882,7 +1910,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СоздатьКаталогРасширеннаяПодсказка</name>
+          <name>CreateDirectoryExtendedTooltip</name>
           <id>152</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1896,7 +1924,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.СоздатьКаталог</commandName>
+        <commandName>Form.Command.CreateDirectory</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1904,7 +1932,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>Удалить</name>
+        <name>Delete</name>
         <id>153</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1912,7 +1940,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>УдалитьРасширеннаяПодсказка</name>
+          <name>DeleteExtendedTooltip</name>
           <id>154</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1926,7 +1954,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Удалить</commandName>
+        <commandName>Form.Command.Delete</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1942,10 +1970,14 @@
         <key>ru</key>
         <value>Группа нижняя командная панель</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Command bottom panel</value>
+      </title>
       <groupHorizontalAlign>Center</groupHorizontalAlign>
       <groupVerticalAlign>Center</groupVerticalAlign>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка1</name>
+        <name>CommandBottomPanelExtendedTooltip</name>
         <id>146</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1969,8 +2001,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Bottom panel</value>
+    </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка</name>
+      <name>BottomPanelExtendedTooltip</name>
       <id>144</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2021,7 +2057,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_FileManager</types>
@@ -2035,10 +2075,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ФайлыКлиент</name>
+    <name>FilesOnClient</name>
     <title>
       <key>ru</key>
       <value>Клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Files on client</value>
     </title>
     <id>2</id>
     <valueType>
@@ -2051,10 +2095,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -2069,10 +2117,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Расширение</name>
+      <name>FileExtension</name>
       <title>
         <key>ru</key>
         <value>Расширение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>File extension</value>
       </title>
       <id>2</id>
       <valueType>
@@ -2087,7 +2139,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаИзменения</name>
+      <name>ModifiedDate</name>
+      <title>
+        <key>en</key>
+        <value>Modified</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Дата изменения</value>
@@ -2105,7 +2161,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаСоздания</name>
+      <name>CreatedDate</name>
+      <title>
+        <key>en</key>
+        <value>Created</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Дата создания</value>
@@ -2123,10 +2183,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Размер</name>
+      <name>Size</name>
       <title>
         <key>ru</key>
         <value>Размер, КБ</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Size</value>
       </title>
       <id>5</id>
       <valueType>
@@ -2143,7 +2207,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ЭтоКаталог</name>
+      <name>IsDirectory</name>
+      <title>
+        <key>en</key>
+        <value>Directory</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Это каталог</value>
@@ -2160,10 +2228,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
       </title>
       <id>8</id>
       <valueType>
@@ -2180,10 +2252,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>9</id>
       <valueType>
@@ -2199,10 +2275,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ФайлыСервер</name>
+    <name>FilesOnServer</name>
     <title>
       <key>ru</key>
       <value>Сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Files on server</value>
     </title>
     <id>3</id>
     <valueType>
@@ -2215,10 +2295,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -2233,10 +2317,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Расширение</name>
+      <name>FileExtension</name>
       <title>
         <key>ru</key>
         <value>Расширение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>File extension</value>
       </title>
       <id>2</id>
       <valueType>
@@ -2251,10 +2339,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаИзменения</name>
+      <name>ModifiedDate</name>
       <title>
         <key>ru</key>
         <value>Дата изменения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Modified date</value>
       </title>
       <id>3</id>
       <valueType>
@@ -2269,10 +2361,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаСоздания</name>
+      <name>CreatedDate</name>
       <title>
         <key>ru</key>
         <value>Дата создания</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Created date</value>
       </title>
       <id>4</id>
       <valueType>
@@ -2287,10 +2383,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Размер</name>
+      <name>Size</name>
       <title>
         <key>ru</key>
         <value>Размер, КБ</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Size</value>
       </title>
       <id>5</id>
       <valueType>
@@ -2307,10 +2407,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЭтоКаталог</name>
+      <name>IsDirectory</name>
       <title>
         <key>ru</key>
         <value>Это каталог</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Is directory</value>
       </title>
       <id>7</id>
       <valueType>
@@ -2324,10 +2428,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
       </title>
       <id>8</id>
       <valueType>
@@ -2344,10 +2452,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>9</id>
       <valueType>
@@ -2363,10 +2475,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ТекущийКаталогКлиент</name>
+    <name>CurrentDirectoryOnClient</name>
     <title>
       <key>ru</key>
       <value>Текущий каталог клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current directory on client</value>
     </title>
     <id>4</id>
     <valueType>
@@ -2380,14 +2496,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ТекущийКаталогКлиент</segments>
+      <segments>CurrentDirectoryOnClient</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ТекущийКаталогСервер</name>
+    <name>CurrentDirectoryOnServer</name>
     <title>
       <key>ru</key>
       <value>Текущий каталог сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current directory on server</value>
     </title>
     <id>5</id>
     <valueType>
@@ -2401,14 +2521,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ТекущийКаталогСервер</segments>
+      <segments>CurrentDirectoryOnServer</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ИсторияВыбораСервер</name>
+    <name>HistoryOfChooseServer</name>
     <title>
       <key>ru</key>
       <value>История выбора сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>History of choose server</value>
     </title>
     <id>6</id>
     <valueType>
@@ -2421,14 +2545,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ИсторияВыбораСервер</segments>
+      <segments>HistoryOfChooseServer</segments>
     </settingsSavedData>
     <extInfo xsi:type="form:ValueListExtInfo">
       <itemValueType/>
     </extInfo>
   </attributes>
   <attributes>
-    <name>ИсторияВыбораКлиент</name>
+    <name>HistoryOfChooseClient</name>
+    <title>
+      <key>en</key>
+      <value>History of choose (client)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>История выбора клиент</value>
@@ -2444,17 +2572,21 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ИсторияВыбораКлиент</segments>
+      <segments>HistoryOfChooseClient</segments>
     </settingsSavedData>
     <extInfo xsi:type="form:ValueListExtInfo">
       <itemValueType/>
     </extInfo>
   </attributes>
   <attributes>
-    <name>WindowsКлиент</name>
+    <name>WindowsClient</name>
     <title>
       <key>ru</key>
       <value>Windows клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Windows client</value>
     </title>
     <id>10</id>
     <valueType>
@@ -2468,10 +2600,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>WindowsСервер</name>
+    <name>WindowsServer</name>
     <title>
       <key>ru</key>
       <value>Windows сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Windows server</value>
     </title>
     <id>11</id>
     <valueType>
@@ -2485,7 +2621,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РазделительПутиСервер</name>
+    <name>PathParentOnServer</name>
+    <title>
+      <key>en</key>
+      <value>Path parent on server</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Разделитель пути сервер</value>
@@ -2503,10 +2643,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РазделительПутиКлиент</name>
+    <name>PathParentOnClient</name>
     <title>
       <key>ru</key>
       <value>Разделитель пути клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Path parent on client</value>
     </title>
     <id>13</id>
     <valueType>
@@ -2521,10 +2665,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ФайлыПраваяПанель</name>
+    <name>FilesOnRightPanel</name>
     <title>
       <key>ru</key>
       <value>Файлы правая панель</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Files on right panel</value>
     </title>
     <id>14</id>
     <valueType>
@@ -2537,10 +2685,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>15</id>
       <valueType>
@@ -2555,10 +2707,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Расширение</name>
+      <name>FileExtension</name>
       <title>
         <key>ru</key>
         <value>Расширение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>File extension</value>
       </title>
       <id>25</id>
       <valueType>
@@ -2573,10 +2729,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаИзменения</name>
+      <name>ModifiedDate</name>
       <title>
         <key>ru</key>
         <value>Дата изменения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Modified date</value>
       </title>
       <id>26</id>
       <valueType>
@@ -2591,10 +2751,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаСоздания</name>
+      <name>CreatedDate</name>
       <title>
         <key>ru</key>
         <value>Дата создания</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Created date</value>
       </title>
       <id>27</id>
       <valueType>
@@ -2609,10 +2773,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Размер</name>
+      <name>Size</name>
       <title>
         <key>ru</key>
         <value>Размер</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Size</value>
       </title>
       <id>28</id>
       <valueType>
@@ -2629,10 +2797,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЭтоКаталог</name>
+      <name>IsDirectory</name>
       <title>
         <key>ru</key>
         <value>Это каталог</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Is directory</value>
       </title>
       <id>29</id>
       <valueType>
@@ -2646,10 +2818,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
       </title>
       <id>30</id>
       <valueType>
@@ -2666,10 +2842,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>31</id>
       <valueType>
@@ -2685,10 +2865,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ФайлыЛеваяПанель</name>
+    <name>FilesOnLeftPanel</name>
     <title>
       <key>ru</key>
       <value>Файлы левая панель</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Files on left panel</value>
     </title>
     <id>16</id>
     <valueType>
@@ -2702,10 +2886,14 @@
     </edit>
     <savedData>true</savedData>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>17</id>
       <valueType>
@@ -2720,10 +2908,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Расширение</name>
+      <name>FileExtension</name>
       <title>
         <key>ru</key>
         <value>Расширение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>File extension</value>
       </title>
       <id>18</id>
       <valueType>
@@ -2738,10 +2930,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаИзменения</name>
+      <name>ModifiedDate</name>
       <title>
         <key>ru</key>
         <value>Дата изменения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Modified date</value>
       </title>
       <id>19</id>
       <valueType>
@@ -2756,10 +2952,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДатаСоздания</name>
+      <name>CreatedDate</name>
       <title>
         <key>ru</key>
         <value>Дата создания</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Created date</value>
       </title>
       <id>20</id>
       <valueType>
@@ -2774,10 +2974,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Размер</name>
+      <name>Size</name>
       <title>
         <key>ru</key>
         <value>Размер</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Size</value>
       </title>
       <id>21</id>
       <valueType>
@@ -2794,10 +2998,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЭтоКаталог</name>
+      <name>IsDirectory</name>
       <title>
         <key>ru</key>
         <value>Это каталог</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Is directory</value>
       </title>
       <id>22</id>
       <valueType>
@@ -2811,10 +3019,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
       </title>
       <id>23</id>
       <valueType>
@@ -2831,10 +3043,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>24</id>
       <valueType>
@@ -2850,10 +3066,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ТекущаяТаблицаФайлов</name>
+    <name>CurrentFilesTable</name>
     <title>
       <key>ru</key>
       <value>Текущая таблица файлов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current files table</value>
     </title>
     <id>32</id>
     <valueType>
@@ -2868,10 +3088,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ОбновитьКлиент</name>
+    <name>UpdateAtClient</name>
     <title>
       <key>ru</key>
       <value>Обновить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Update at client</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -2886,17 +3110,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбновитьКлиент</name>
+        <name>UpdateAtClient</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОбновитьСервер</name>
+    <name>UpdateAtServer</name>
     <title>
       <key>ru</key>
       <value>Обновить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Update at server</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -2918,10 +3146,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_КаталогВременныхФайлов_Сервер</name>
+    <name>GotoTempDirectoryAtServer</name>
     <title>
       <key>ru</key>
       <value>Каталог временных файлов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Goto temp directory at server</value>
     </title>
     <id>3</id>
     <toolTip>
@@ -2933,17 +3165,21 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПерейтиСервер</name>
+        <name>GotoAtServer</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_КаталогПрограммы_Сервер</name>
+    <name>GotoProgramDirectoryServer</name>
     <title>
       <key>ru</key>
       <value>Каталог программы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Goto program directory server</value>
     </title>
     <id>4</id>
     <toolTip>
@@ -2955,17 +3191,21 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПерейтиСервер</name>
+        <name>GotoAtServer</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_КаталогДокументов_Клиент</name>
+    <name>GotoDocumentDirectoryClient</name>
     <title>
       <key>ru</key>
       <value>Каталог документов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Goto document directory client</value>
     </title>
     <id>5</id>
     <toolTip>
@@ -2977,17 +3217,21 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПерейтиКлиент</name>
+        <name>GotoAtClient</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_КаталогВременныхФайлов_Клиент</name>
+    <name>GotoTempDirectoryAtClient</name>
     <title>
       <key>ru</key>
       <value>Каталог временных файлов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Goto temp directory at client</value>
     </title>
     <id>6</id>
     <toolTip>
@@ -2999,17 +3243,21 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПерейтиКлиент</name>
+        <name>GotoAtClient</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_КаталогПрограммы_Клиент</name>
+    <name>GotoProgramDirectoryClient</name>
     <title>
       <key>ru</key>
       <value>Каталог программы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Goto program directory client</value>
     </title>
     <id>7</id>
     <toolTip>
@@ -3021,17 +3269,21 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПерейтиКлиент</name>
+        <name>GotoAtClient</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_РабочийСтол_Клиент</name>
+    <name>GotoDesktopClient</name>
     <title>
       <key>ru</key>
       <value>Рабочий стол</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Goto desktop client</value>
     </title>
     <id>8</id>
     <toolTip>
@@ -3043,17 +3295,21 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Перейти_РабочийСтол_Клиент</name>
+        <name>GotoDesktopClient</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СкопироватьНаСервер</name>
+    <name>CopyToServer</name>
     <title>
       <key>ru</key>
       <value>Скопировать на сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Copy to server</value>
     </title>
     <id>9</id>
     <toolTip>
@@ -3065,16 +3321,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СкопироватьНаСервер</name>
+        <name>CopyToServer</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьНаКлиенте</name>
+    <name>DeleteAtClient</name>
     <title>
       <key>ru</key>
       <value>Удалить на клиенте</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Delete at client</value>
     </title>
     <id>10</id>
     <toolTip>
@@ -3089,17 +3349,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьНаКлиенте</name>
+        <name>DeleteAtClient</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьНаСервере</name>
+    <name>DeleteAtServer</name>
     <title>
       <key>ru</key>
       <value>Удалить на сервере</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Delete at server</value>
     </title>
     <id>11</id>
     <toolTip>
@@ -3114,17 +3378,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьНаСервере</name>
+        <name>DeleteAtServer</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СкопироватьНаКлиент</name>
+    <name>CopyToClient</name>
     <title>
       <key>ru</key>
       <value>Скопировать на клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Copy to client</value>
     </title>
     <id>12</id>
     <toolTip>
@@ -3136,16 +3404,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СкопироватьНаКлиент</name>
+        <name>CopyToClient</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПереместитьССервераНаКлиент</name>
+    <name>MoveFromServerToClient</name>
     <title>
       <key>ru</key>
       <value>Переместить с сервера на клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Move from server to client</value>
     </title>
     <id>13</id>
     <toolTip>
@@ -3157,16 +3429,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПереместитьССервераНаКлиент</name>
+        <name>MoveFromServerToClient</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПереместитьСКлиентаНаСервер</name>
+    <name>MoveFromClientToServer</name>
     <title>
       <key>ru</key>
       <value>Переместить с клиента на сервер</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Move from client to server</value>
     </title>
     <id>14</id>
     <toolTip>
@@ -3178,16 +3454,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПереместитьСКлиентаНаСервер</name>
+        <name>MoveFromClientToServer</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПереименоватьНаСервере</name>
+    <name>RenameAtServer</name>
     <title>
       <key>ru</key>
       <value>Переименовать на сервере</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Rename at server</value>
     </title>
     <id>15</id>
     <toolTip>
@@ -3202,16 +3482,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПереименоватьНаСервере</name>
+        <name>RenameAtServer</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПереименоватьНаКлиенте</name>
+    <name>RenameAtClient</name>
     <title>
       <key>ru</key>
       <value>Переименовать на клиенте</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Rename at client</value>
     </title>
     <id>16</id>
     <toolTip>
@@ -3226,16 +3510,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПереименоватьНаКлиенте</name>
+        <name>RenameAtClient</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагНазадКлиент</name>
+    <name>StepBackAtClient</name>
     <title>
       <key>ru</key>
       <value>Назад</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Step back at client</value>
     </title>
     <id>17</id>
     <toolTip>
@@ -3250,17 +3538,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ШагНазадКлиент</name>
+        <name>StepBackAtClient</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагВпередКлиент</name>
+    <name>StepForwardAtClient</name>
     <title>
       <key>ru</key>
       <value>Вперед</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Step forward at client</value>
     </title>
     <id>18</id>
     <toolTip>
@@ -3275,17 +3567,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ШагВпередКлиент</name>
+        <name>StepForwardAtClient</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагВверхКлиент</name>
+    <name>StepUpAtClient</name>
     <title>
       <key>ru</key>
       <value>Вверх</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Step up at client</value>
     </title>
     <id>19</id>
     <toolTip>
@@ -3300,17 +3596,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ШагВверхКлиент</name>
+        <name>StepUpAtClient</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагВверхСервер</name>
+    <name>StepUpAtServer</name>
     <title>
       <key>ru</key>
       <value>Вверх</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Step up at server</value>
     </title>
     <id>20</id>
     <toolTip>
@@ -3325,17 +3625,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ШагВверхСервер</name>
+        <name>StepUpAtServer</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагВпередСервер</name>
+    <name>StepForwardAtServer</name>
     <title>
       <key>ru</key>
       <value>Вперед</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Step forward at server</value>
     </title>
     <id>21</id>
     <toolTip>
@@ -3350,17 +3654,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ШагВпередСервер</name>
+        <name>StepForwardAtServer</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагНазадСервер</name>
+    <name>StepBackAtServer</name>
     <title>
       <key>ru</key>
       <value>Назад</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Step back at server</value>
     </title>
     <id>22</id>
     <toolTip>
@@ -3375,17 +3683,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ШагНазадСервер</name>
+        <name>StepBackAtServer</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Копировать</name>
+    <name>Copy</name>
     <title>
       <key>ru</key>
       <value>Копировать</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Copy</value>
     </title>
     <id>23</id>
     <use>
@@ -3394,16 +3706,20 @@
     <shortcut>F5</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Копировать</name>
+        <name>Copy</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Переместить</name>
+    <name>Move</name>
     <title>
       <key>ru</key>
       <value>Переместить (F6)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Move</value>
     </title>
     <id>24</id>
     <use>
@@ -3412,16 +3728,20 @@
     <shortcut>F6</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Переместить</name>
+        <name>Move</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СоздатьКаталог</name>
+    <name>CreateDirectory</name>
     <title>
       <key>ru</key>
       <value>Создать каталог(F7)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Create directory</value>
     </title>
     <id>25</id>
     <use>
@@ -3430,16 +3750,20 @@
     <shortcut>F7</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СоздатьКаталогКоманда</name>
+        <name>CreateDirectory_Command</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Удалить</name>
+    <name>Delete</name>
     <title>
       <key>ru</key>
       <value>Удалить(F8)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Delete</value>
     </title>
     <id>26</id>
     <use>
@@ -3448,7 +3772,7 @@
     <shortcut>F8</shortcut>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Удалить</name>
+        <name>Delete</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

@@ -7,14 +7,14 @@
   <name>UT_RegisterChangesForDataExchange</name>
   <synonym>
     <key>en</key>
-    <value>Register changes for data exchange [UT]</value>
+    <value>{} Register changes for data exchange [UT]</value>
   </synonym>
   <synonym>
     <key>ru</key>
     <value>Регистрация изменений для обмена данными [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_RegisterChangesForDataExchange.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_RegisterChangesForDataExchange.Form.Form</defaultForm>
   <auxiliaryForm>ac4674ba-2e32-11ea-cc81-e86a6452d1f2</auxiliaryForm>
   <extendedPresentation>
     <key>en</key>
@@ -188,7 +188,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac43e59c-2e32-11ea-cc81-e86a6452d1f2">
-    <name>Форма</name>
+    <name>Form</name>
+    <synonym>
+      <key>en</key>
+      <value>Register changes for data exchange</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Регистрация изменений для обмена данными</value>
@@ -197,7 +201,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac46557a-2e32-11ea-cc81-e86a6452d1f2">
-    <name>НомераСообщенийУзлаПланаОбмена</name>
+    <name>ExchangePlanNodeMessageNumbers</name>
+    <synonym>
+      <key>en</key>
+      <value>Exchange plan node message numbers</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Номера сообщений узла плана обмена</value>
@@ -206,7 +214,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac469044-2e32-11ea-cc81-e86a6452d1f2">
-    <name>ВыборКонстанты</name>
+    <name>SelectConstant</name>
+    <synonym>
+      <key>en</key>
+      <value>Select constant</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выбор константы</value>
@@ -215,7 +227,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac46d0a4-2e32-11ea-cc81-e86a6452d1f2">
-    <name>ВыборОбъектовОтбором</name>
+    <name>SelectObjectsUsingFilter</name>
+    <synonym>
+      <key>en</key>
+      <value>Select objects using filter</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выбор объектов отбором</value>
@@ -224,7 +240,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac47072c-2e32-11ea-cc81-e86a6452d1f2">
-    <name>УзлыРегистрацииОбъекта</name>
+    <name>ObjectRegistrationNodes</name>
+    <synonym>
+      <key>en</key>
+      <value>Object registration nodes</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Узлы регистрации объекта</value>
@@ -233,7 +253,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="ac4758e4-2e32-11ea-cc81-e86a6452d1f2">
-    <name>Настройки</name>
+    <name>Settings</name>
+    <synonym>
+      <key>en</key>
+      <value>Settings</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Настройки</value>

@@ -1744,6 +1744,12 @@
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
                   <placementArea>UserCmds</placementArea>
+                  <picture xsi:type="form:FormPicture">
+                    <transparentPixel>
+                      <x>8</x>
+                      <y>13</y>
+                    </transparentPixel>
+                  </picture>
                   <representationInContextMenu>Auto</representationInContextMenu>
                   <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
                   <commandUniqueness>false</commandUniqueness>

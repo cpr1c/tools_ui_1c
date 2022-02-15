@@ -6,8 +6,12 @@
   </producedTypes>
   <name>UT_ObjectsComparison</name>
   <synonym>
+    <key>en</key>
+    <value>Comparison of objects (UT)</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
-    <value>Comparison of objects (UTI)</value>
+    <value>Сравнение объектов (УИ)</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_ObjectsComparison.Form.Form</defaultForm>

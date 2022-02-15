@@ -1,163 +1,161 @@
+#Region Public
 
+Function CodeEditorItemsPrefix() Export
+	Return "CodeEditor1C";
+EndFunction
 
-#Область ПрограммныйИнтерфейс
+Function AttributeNameCodeEditor(EditorID) Export
+	Return CodeEditorItemsPrefix()+"_"+EditorID;
+EndFunction
 
-Функция ПрефиксЭлементовРедактораКода() Экспорт
-	Возврат "РедакторКода1С";
-КонецФункции
+Function AttributeNameCodeEditorTypeOfEditor() Export
+	Return CodeEditorItemsPrefix()+"_EditorType";
+EndFunction
 
-Функция ИмяРеквизитаРедактораКода(ИдентификаторРедактора) Экспорт
-	Возврат ПрефиксЭлементовРедактораКода()+"_"+ИдентификаторРедактора;
-КонецФункции
+Function AttributeNameCodeEditorLibraryURL() Export
+	Return CodeEditorItemsPrefix()+"_LibraryUrlInTempStorage";
+EndFunction
 
-Функция ИмяРеквизитаРедактораКодаВидРедактора() Экспорт
-	Возврат ПрефиксЭлементовРедактораКода()+"_ВидРедактора";
-КонецФункции
+Function AttributeNameCodeEditorFormCodeEditors() Export
+	Return CodeEditorItemsPrefix()+"_CodeEditorsList";
+EndFunction
 
-Функция ИмяРеквизитаРедактораКодаАдресБиблиотеки() Экспорт
-	Возврат ПрефиксЭлементовРедактораКода()+"_АдресБиблиотекиВоВременномХранилище";
-КонецФункции
+Function AttributeNameCodeEditorFormEditors(EditorID) Export
+	Return CodeEditorItemsPrefix()+"_FormEditors";
+EndFunction
 
-Функция ИмяРеквизитаРедактораКодаСписокРедакторовФормы() Экспорт
-	Возврат ПрефиксЭлементовРедактораКода()+"_СписокРедакторовФормы";
-КонецФункции
+Function CodeEditorVariants() Export
+	Variants = New Structure;
+	Variants.Insert("Text", "Text");
+	Variants.Insert("Ace", "Ace");
+	Variants.Insert("Monaco", "Monaco");
 
-Функция ИмяРеквизитаРедактораКодаРедакторыФормы(ИдентификаторРедактора) Экспорт
-	Возврат ПрефиксЭлементовРедактораКода()+"_РедакторыФормы";
-КонецФункции
+	Return Variants;
+EndFunction
 
-Функция ВариантыРедактораКода() Экспорт
-	Варианты = Новый Структура;
-	Варианты.Вставить("Текст", "Текст");
-	Варианты.Вставить("Ace", "Ace");
-	Варианты.Вставить("Monaco", "Monaco");
+Function EditorVariantByDefault() Export
+	Return CodeEditorVariants().Monaco;
+EndFunction
 
-	Возврат Варианты;
-КонецФункции
+Function CodeEditorUsesHTMLField(EditorType) Export
+	Variants=CodeEditorVariants();
+	Return EditorType = Variants.Ace
+		Or EditorType = Variants.Monaco;
+EndFunction
 
-Функция ВариантРедактораПоУмолчанию() Экспорт
-	Возврат ВариантыРедактораКода().Monaco;
-КонецФункции
+Function EditorIDByFormItem(Form, Item) Export
+	FormEditors = Form[UT_CodeEditorClientServer.AttributeNameCodeEditorFormCodeEditors()];
 
-Функция РедакторКодаИспользуетПолеHTML(ВидРедактора) Экспорт
-	Варианты=ВариантыРедактораКода();
-	Возврат ВидРедактора = Варианты.Ace
-		Или ВидРедактора = Варианты.Monaco;
-КонецФункции
+	For Each KeyValue In FormEditors Do
+		If KeyValue.Value.EditorField = Item.Name Then
+			Return KeyValue.Key;
+		EndIf;
+	EndDo;
 
-Функция ИдентификаторРедактораПоЭлементуФормы(Форма, Элемент) Экспорт
-	РедакторыФормы = Форма[UT_CodeEditorClientServer.ИмяРеквизитаРедактораКодаСписокРедакторовФормы()];
+	Return Undefined;
+EndFunction
 
-	Для Каждого КлючЗначение Из РедакторыФормы Цикл
-		Если КлючЗначение.Значение.ПолеРедактора = Элемент.Имя Тогда
-			Возврат КлючЗначение.Ключ;
-		КонецЕсли;
-	КонецЦикла;
-
-	Возврат Неопределено;
-КонецФункции
-
-Функция ВыполнитьАлгоритм(__ТекстАлготима__, __Контекст__) Экспорт
-	Успешно = Истина;
-	ОписаниеОшибки = "";
+Function ExecuteAlgorithm(__AlgorithmText__, __Context__) Export
+	Successfully = True;
+	ErrorDescription = "";
 	
-	ВыполняемыйТекстАлгоритма = ДополненныйКонтекстомКодАлгоритма(__ТекстАлготима__, __Контекст__);
+	AlgorithmExecutedText = AlgorithmCodeSupplementedWithContext(__AlgorithmText__, __Context__);
 
-	НачалоВыполнения = ТекущаяУниверсальнаяДатаВМиллисекундах();
-	Попытка
-		Выполнить (ВыполняемыйТекстАлгоритма);
-	Исключение
-		Успешно = Ложь;
-		ОписаниеОшибки = ОписаниеОшибки();
-		Сообщить(ОписаниеОшибки);
-	КонецПопытки;
-	ОкончаниеВыполнения = ТекущаяУниверсальнаяДатаВМиллисекундах();
+	ExecutionStart = CurrentUniversalDateInMilliseconds();
+	Try
+		Execute (AlgorithmExecutedText);
+	Except
+		Successfully = False;
+		ErrorDescription = ErrorDescription();
+		Message(ErrorDescription);
+	EndTry;
+	ExecutionFinish = CurrentUniversalDateInMilliseconds();
 
-	РезультатВыполнения = Новый Структура;
-	РезультатВыполнения.Вставить("Успешно", Успешно);
-	РезультатВыполнения.Вставить("ВремяВыполнения", ОкончаниеВыполнения - НачалоВыполнения);
-	РезультатВыполнения.Вставить("ОписаниеОшибки", ОписаниеОшибки);
+	ExecutionResult = New Structure;
+	ExecutionResult.Insert("Successfully", Successfully);
+	ExecutionResult.Insert("ExecutionTime", ExecutionFinish - ExecutionStart);
+	ExecutionResult.Insert("ErrorDescription", ErrorDescription);
 
-	Возврат РезультатВыполнения;
-КонецФункции
+	Return ExecutionResult;
+EndFunction
 
-#КонецОбласти
+#EndRegion
 
-#Область СлужебныйПрограммныйИнтерфейс
+#Region Internal
 
-Функция ВариантыЯзыкаСинтаксисаРедактораMonaco() Экспорт
-	ЯзыкиСинтаксиса = Новый Структура;
-	ЯзыкиСинтаксиса.Вставить("Авто", "Авто");
-	ЯзыкиСинтаксиса.Вставить("Русский", "Русский");
-	ЯзыкиСинтаксиса.Вставить("Английский", "Английский");
+Function MonacoEditorSyntaxLanguageVariants() Export
+	SyntaxLanguages = New Structure;
+	SyntaxLanguages.Insert("Auto", "Auto");
+	SyntaxLanguages.Insert("Russian", "Russian");
+	SyntaxLanguages.Insert("English", "English");
 	
-	Возврат ЯзыкиСинтаксиса;
-КонецФункции
+	Return SyntaxLanguages;
+EndFunction
 
-Функция ВариантыТемыРедактораMonaco() Экспорт
-	Варианты = Новый Структура;
+Function MonacoEditorThemeVariants() Export
+	Variants = New Structure;
 	
-	Варианты.Вставить("Светлая", "Светлая");
-	Варианты.Вставить("Темная", "Темная");
+	Variants.Insert("Light", "Light");
+	Variants.Insert("Dark", "Dark");
 	
-	Возврат Варианты;
-КонецФункции
+	Return Variants;
+EndFunction
 
-Функция ТемаРедактораMonacoПоУмолчанию() Экспорт
-	ТемыРедактора = ВариантыТемыРедактораMonaco();
+Function MonacoEditorThemeVariantByDefault() Export
+	EditorThemes = MonacoEditorThemeVariants();
 	
-	Возврат ТемыРедактора.Светлая;
-КонецФункции
-Функция ЯзыкСинтаксисаРедактораMonacoПоУмолчанию() Экспорт
-	Варианты = ВариантыЯзыкаСинтаксисаРедактораMonaco();
+	Return EditorThemes.Light;
+EndFunction
+Function MonacoEditorSyntaxLanguageByDefault() Export
+	Variants = MonacoEditorSyntaxLanguageVariants();
 	
-	Возврат Варианты.Авто;
-КонецФункции
+	Return Variants.Auto;
+EndFunction
 
-Функция ПараметрыРедактораMonacoПоУмолчанию() Экспорт
-	ПараметрыРедактора = Новый Структура;
-	ПараметрыРедактора.Вставить("ВысотаСтрок", 0);
-	ПараметрыРедактора.Вставить("Тема", ТемаРедактораMonacoПоУмолчанию());
-	ПараметрыРедактора.Вставить("ЯзыкСинтаксиса", ЯзыкСинтаксисаРедактораMonacoПоУмолчанию());
-	ПараметрыРедактора.Вставить("ИспользоватьКартуКода", Ложь);
-	ПараметрыРедактора.Вставить("СкрытьНомераСтрок", Ложь);
-	ПараметрыРедактора.Вставить("КаталогиИсходныхФайлов", Новый Массив);
+Function  MonacoEditorParametersByDefault() Export
+	EditorSettings = New Structure;
+	EditorSettings.Insert("LinesHeight", 0);
+	EditorSettings.Insert("Theme", MonacoEditorThemeVariantByDefault());
+	EditorSettings.Insert("ScriptVariant", MonacoEditorSyntaxLanguageByDefault());
+	EditorSettings.Insert("UseScriptMap", False);
+	EditorSettings.Insert("HideLineNumbers", False);
+	EditorSettings.Insert("SourceFilesDirectories", New Array);
 	
-	Возврат ПараметрыРедактора;
-КонецФункции
+	Return EditorSettings;
+EndFunction
 
-Функция ПараметрыРедактораКодаПоУмолчанию() Экспорт
-	ПараметрыРедактора = Новый Структура;
-	ПараметрыРедактора.Вставить("Вариант",  ВариантРедактораПоУмолчанию());
-	ПараметрыРедактора.Вставить("РазмерШрифта", 0);
-	ПараметрыРедактора.Вставить("Monaco", ПараметрыРедактораMonacoПоУмолчанию());
+Function CodeEditorCurrentSettingsByDefault() Export
+	EditorSettings = New Structure;
+	EditorSettings.Insert("Variant",  EditorVariantByDefault());
+	EditorSettings.Insert("FontSize", 0);
+	EditorSettings.Insert("Monaco", MonacoEditorParametersByDefault());
 	
-	Возврат ПараметрыРедактора;
-КонецФункции
+	Return EditorSettings;
+EndFunction
 
-Функция НовыйОписаниеКаталогаИсходныхФайловКонфигурации() Экспорт
-	Описание = Новый Структура;
-	Описание.Вставить("Каталог", "");
-	Описание.Вставить("Источник", "");
+Function NewDescriptionOfConfigurationSourceFilesDirectory() Export
+	Description = New Structure;
+	Description.Insert("Directory", "");
+	Description.Insert("Source", "");
 	
-	Возврат Описание;
-КонецФункции
+	Return Description;
+EndFunction
 
-#КонецОбласти
+#EndRegion
 
-#Область СлужебныеПроцедурыИФункции
+#Region Private
 
-Функция ДополненныйКонтекстомКодАлгоритма(ТекстАлготима, Контекст)
-	ПодготовленныйКод="";
+Function AlgorithmCodeSupplementedWithContext(AlgorithmText, Context)
+	PreparedCode="";
 
-	Для Каждого КлючЗначение Из Контекст Цикл
-		ПодготовленныйКод = ПодготовленныйКод +"
-		|"+КлючЗначение.Ключ+"=__Контекст__."+КлючЗначение.Ключ+";";
-	КонецЦикла;
+	For Each KeyValue In Context Do
+		PreparedCode = PreparedCode +"
+		|"+KeyValue.Key+"=__Context__."+KeyValue.Key+";";
+	EndDo;
 
-	ПодготовленныйКод=ПодготовленныйКод + Символы.ПС + ТекстАлготима;
+	PreparedCode=PreparedCode + Chars.LF + AlgorithmText;
 
-	Возврат ПодготовленныйКод;
-КонецФункции
+	Return PreparedCode;
+EndFunction
 
 #EndRegion
