@@ -95,7 +95,7 @@ Procedure NewAlgorithm(Command)
 	SetEditorText("Client",TextAlgorithmClient);
 	SetEditorText("Server",TextAlgorithmServer);
 
-	SetCaption();
+	SetTitle();
 EndProcedure
 
 &AtClient
@@ -196,7 +196,7 @@ Procedure SaveFileEnd(SaveFileName, AdditionalParameters) Export
 
 	Modified=False;
 	AlgorithmFileName=SaveFileName;
-	SetCaption();
+	SetTitle();
 	
 //	Message("The algorithm has been successfully saved");
 
@@ -216,7 +216,7 @@ Procedure OpenFileEnd(Result, AdditionalParameters) Export
 	SetEditorText("Client",TextAlgorithmClient);
 	SetEditorText("Server",TextAlgorithmServer);
 
-	SetCaption();
+	SetTitle();
 EndProcedure
 
 &AtClient
@@ -424,7 +424,7 @@ Procedure EditVariableValue(FormTable)
 EndProcedure
 
 &AtClient
-Procedure SetCaption()
+Procedure SetTitle()
 	Title=AlgorithmFileName;
 EndProcedure
 
