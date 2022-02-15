@@ -4,7 +4,7 @@ Procedure AddToTree(VT, ObjectRef)
 	UUID = ObjectRef.UUID();
 	GUUID = "id_" + StrReplace(UUID, "-", "_");
 	
-	VT.Rows.Add(GUUID, New TypeDescription());
+	VT.Columns.Add(GUUID, New TypeDescription());
 
 	//Attributes
 	Rows = VT.Rows;
@@ -53,7 +53,7 @@ Procedure AddToTree(VT, ObjectRef)
 			
 			//Values of the rows tabular section
 			RowsRS = RowSet.Rows;
-			For Each Attribute In MD.ТабличныеЧасти[MD.Имя].Attribute Do
+			For Each Attribute In MD.TabularSections[MD.Имя].Attribute Do
 				AttributeName = Attribute.Name; 
 
 				RowRS = RowsRS.Find(AttributeName, "Attribute");
@@ -73,142 +73,136 @@ Procedure AddToTree(VT, ObjectRef)
 EndProcedure
 
 &AtServerNoContext
-Procedure ClearTree(ДЗ, Строки = Неопределено) 
+Procedure ClearTree(VT, Rows = Undefined) 
 	
-	Колонки = New Array;
-	For Каждого Колонка Из ДЗ.Колонки Цикл
-		Если Колонка.Имя = "Реквизит" Тогда Продолжить; КонецЕсли;
-		Колонки.Добавить(Колонка.Имя);
-	КонецЦикла;
-	Колонок = Колонки.Количество() - 1;
-	Если Колонок = 0 Тогда Возврат КонецЕсли;
+	Columns = New Array;
+	For Each Column In VT.Columns Цикл
+		Если Column.Name = "Attribute" Then Continue; EndIF;
+		Columns.Add(Column.Name);
+	EndDo;
+	CountCol = Columns.Count() - 1;
+	If CountCol = 0 Then Return EndIf;
 
-	Если Строки = Неопределено Тогда
-		Строки = ДЗ.Строки;
-	КонецЕсли;
+	If Rows = Undefined Then
+		Rows = VT.Rows;
+	EndIF;
 
-	УдаляемыеСтроки = Новый Массив;
-	Для Каждого Строка Из Строки Цикл
-		ЕстьПодчиненные = Строка.Строки.Количество() > 0;
+	DeletedRows = New Array;
+	For Each Row In Rows Do
+		HaveSubordinates = Row.Rows.Count() > 0; 
 		
-		Если ЕстьПодчиненные Тогда
-			ClearTree(ДЗ, Строка.Строки);
-		Иначе Сч = 0;
-			Для Кол = 1 По Колонок Цикл
-				Сч = Сч + ?(Строка[Колонки[0]] = Строка[Колонки[Кол]], 1, 0);
-			КонецЦикла;
-			Если Сч = Колонок Тогда УдаляемыеСтроки.Добавить(Строка); КонецЕсли;
-		КонецЕсли;
-	КонецЦикла;
+		IF HaveSubordinates Then
+			ClearTree(VT, Row.Rows);
+		Else counter = 0;
+			For Col = 1 По CountCol Цикл
+				counter = counter + ?(Row[Columns[0]] = Row[Columns[Col]], 1, 0);
+			EndDo;
+			If counter = CountCol Then DeletedRows.Add(Row); EndIf;
+		EndIf;
+	EndDo;
 	
-	Для Каждого Строка Из УдаляемыеСтроки Цикл
-		Строки.Удалить(Строка);
-	КонецЦикла;
+	For Each Row In DeletedRows Do
+		Rows.Delete(Row);
+	EndDo;
 
 EndProcedure
 
 &AtServer
-Procedure СформироватьПечатнуюФормуСравненияОбъектов() Экспорт
+Procedure GeneratePrintFormObjectsComparison() Export 
 
-	ДЗ = Новый ДеревоЗначений;
-	ДЗ.Колонки.Добавить("Реквизит", Новый ОписаниеТипов());
+	VT = New ValueTree;
+	VT.Columns.Add("Attribute", New TypeDescription());
 
-	Для Каждого ОбъектЭлемент Из Objects Цикл
-		СсылкаНаОбъект = ОбъектЭлемент.Значение;
-		ДобавитьВДерево(ДЗ, СсылкаНаОбъект);
-	КонецЦикла;
+	For Each ObjectItem In Objects Do
+		RefOnObject = ObjectItem.value;
+		AddToTree(VT, RefOnObject);
+	EndDo;
 
-	ClearTree(ДЗ);
+	ClearTree(VT);
 
-	SpreadsheetDocument = Новый ТабличныйДокумент;
-	SpreadsheetDocument.ИмяПараметровПечати = "ПАРАМЕТРЫ_ПЕЧАТИ_Обработка_СравнениеОбъектов";
-	Макет = Обработки.UT_ObjectsComparison.ПолучитьМакет("PF_MXL_ComparisonObjects");
+	SpreadsheetDocument = New SpreadsheetDocument;
+	SpreadsheetDocument.PrintParametersName = "Print_Parameters_Processing_ObjectsComparison";
+	Template = DataProcessors.UT_ObjectsComparison.GetTemplate("PF_MXL_ComparisonObjects");
 	
-	SpreadsheetDocument.НачатьАвтогруппировкуСтрок();
-	Уровень = 1;
-	Для Каждого Строка Из ДЗ.Строки Цикл
-		ВывестиСтроку(Строка, ДЗ.Колонки, SpreadsheetDocument, Макет, Уровень);
-	КонецЦикла;
-	SpreadsheetDocument.ЗакончитьАвтогруппировкуСтрок();
+	SpreadsheetDocument.StartRowAutoGrouping();
+	Level = 1;
+	For Each Row In VT.Rows Do
+		PrintRow(Row, VT.Columns, SpreadsheetDocument, Template, Level);//вывести строку
+	EndDo;
+	SpreadsheetDocument.EndRowAutoGrouping();
 	
-	ОбластьШапка = SpreadsheetDocument.Область(1,,1);
-	SpreadsheetDocument.ПовторятьПриПечатиСтроки = ОбластьШапка;
-	SpreadsheetDocument.ТолькоПросмотр = Истина;
-	SpreadsheetDocument.АвтоМасштаб = Истина;
-	SpreadsheetDocument.ФиксацияСверху = 1;
-	SpreadsheetDocument.ФиксацияСлева = 1;
+	HeadArea = SpreadsheetDocument.Area(1,,1);
+	SpreadsheetDocument.RepeatOnRowPrint = HeadArea;
+	SpreadsheetDocument.ReadOnly = True;
+	SpreadsheetDocument.FitToPage = True;
+	SpreadsheetDocument.FixedTop = 1;
+	SpreadsheetDocument.FixedLeft = 1;
 	
 EndProcedure
 
 &AtServerNoContext
-Procedure ВывестиСтроку(Строка, Колонки, ТабличныйДокумент, Макет, Уровень)
-	ЕстьВложенныеСтроки = Строка.Строки.Количество() > 0;
+Procedure PrintRow(Row, Columns, SpreadsheetDocument, Template, Level)
+	HaveNestedRows = Row.Rows.Count() > 0;//ЕстьВложенныеСтроки
 	
-	ОбластьРеквизит = Макет.ПолучитьОбласть("Реквизит");
-	ОбластьРеквизит.Параметры.Реквизит = СокрЛП(Строка.Реквизит);
-	Если ЕстьВложенныеСтроки Тогда ОформитьОбласть(ОбластьРеквизит); КонецЕсли;
-	ТабличныйДокумент.Вывести(ОбластьРеквизит, Уровень);
+	AttributeArea = Template.GetArea("Attribute");
+	AttributeArea.Parameters.Attribute = TrimAll(Row.Attribute);
+	If HaveNestedRows Then CheckoutArea(AttributeArea); EndIf;
+	SpreadsheetDocument.Put(AttributeArea, Level);
 	
-	ОбластьКолонка = Макет.ПолучитьОбласть("Значение");
-	Для Каждого Колонка Из Колонки Цикл
-		Если Колонка.Имя = "Реквизит" Тогда Продолжить; КонецЕсли;
-		Значение = Строка[Колонка.Имя];
-		ОбластьКолонка.Параметры.Значение = Значение;
-		Если ЕстьВложенныеСтроки Тогда ОформитьОбласть(ОбластьКолонка); КонецЕсли;
-		ТабличныйДокумент.Присоединить(ОбластьКолонка, Уровень);
-	КонецЦикла;
+	ColumnArea = Template.GetArea("Value");
+	For Each Column In Columns Do
+		If Column.Name = "Attribute" Then Continue; EndIf;
+		Value = Row[Column.Name];
+		ColumnArea.Parameters.Value = Value;
+		If HaveNestedRows Then CheckoutArea(ColumnArea); EndIf;
+		SpreadsheetDocument.Join(ColumnArea, Level);
+	EndDo;
 	
 
-	Если ЕстьВложенныеСтроки Тогда
-		Для Каждого ПодСтрока Из Строка.Строки Цикл
-			ВывестиСтроку(ПодСтрока, Колонки, ТабличныйДокумент, Макет, Уровень + 1);
-		КонецЦикла;
-	КонецЕсли;
+	If HaveNestedRows Then
+		For Each SubString In Row.Rows Do
+			PrintRow(SubString, Columns, SpreadsheetDocument, Template, Level + 1);
+		EndDo;
+	EndIf;
 EndProcedure
 
 &AtServerNoContext
-Procedure ОформитьОбласть(Область)
-	Шрифт = Область.ТекущаяОбласть.Шрифт;
-	Область.ТекущаяОбласть.Шрифт = Новый Шрифт(Шрифт,,,Истина);
-	Область.ТекущаяОбласть.ЦветФона = ЦветаСтиля.ЦветФонаШапкиОтчета;
+Procedure CheckoutArea(Area)
+	Font = Area.CurrentArea.Font;
+	Area.CurrentArea.Font = New Font(Font,,,True);
+	Area.CurrentArea.BackColor = StyleColors.ReportHeaderBackColor;
 EndProcedure
 
+&AtServer
+Procedure GenerateAtServer()
+	GeneratePrintFormObjectsComparison();
+EndProcedure
+
+&НаКлиенте
+Procedure Generate(Command)
+	If Objects.Count() = 0 Then
+		Items.FormParameters.Mark = Истина;
+		Items.GroupParameters.Visible = Истина;
+		CurrentItem = Items.Objects;
+		Return;
+	EndIf;
+	GenerateAtServer();
+EndProcedure
+
+&НаКлиенте
+Procedure Parameters(Command)
+	Mark = Не Items.FormParameters.Mark;
+	Items.FormParameters.Mark = Mark;
+	Items.GroupParameters.Visible = Mark;
+EndProcedure
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	//TODO: Insert the handler content
-EndProcedure
-
-&AtServer
-Procedure СформироватьAtServer()
-	СформироватьПечатнуюФормуСравненияОбъектов();
-EndProcedure
-
-&НаКлиенте
-Procedure Generate(Команда)
-	Если Objects.Количество() = 0 Тогда
-		Элементы.FormParameters.Пометка = Истина;
-		Элементы.GroupParameters.Видимость = Истина;
-		ТекущийЭлемент = Элементы.Objects;
-		Возврат;
-	КонецЕсли;
-	СформироватьAtServer();
-EndProcedure
-
-&НаКлиенте
-Procedure Parameters(Команда)
-	Пометка = Не Элементы.FormParameters.Пометка;
-	Элементы.FormParameters.Пометка = Пометка;
-	Элементы.GroupParameters.Видимость = Пометка;
-EndProcedure
-
-&AtServer
-Procedure ПриСозданииAtServer(Отказ, СтандартнаяОбработка)
-	Objects.Очистить();
-	Если Параметры.Свойство("СравниваемыеОбъекты") Тогда
-		Objects.ЗагрузитьЗначения(Параметры.СравниваемыеОбъекты);
-	КонецЕсли;
-	СформироватьAtServer();
+	Objects.Clear();
+	If Parameters.Property("ObjectsComparison") Then
+		Objects.LoadValues(Parameters.ObjectsComparison);
+	EndIF;
+	GenerateAtServer();
 	
 	//UT_Common.ФормаИнструментаПриСозданииAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка);
 	
@@ -216,38 +210,38 @@ EndProcedure
 
 
 &AtServer
-Procedure ДобавитьРанееДобавленныеКСравнениюAtServer()
-	МассивОбъектовКСравнению=UT_Common.ObjectsAddedToTheComparison();
+Procedure AddObjectsAddedToComparisonEarlyAtServer()
+	ObjectsComparisonArray=UT_Common.ObjectsAddedToTheComparison();
 	
-	Для Каждого ТекОбъект ИЗ МассивОбъектовКСравнению Цикл
-		Если Objects.НайтиПоЗначению(ТекОбъект)<>Неопределено Тогда
-			Продолжить;
-		КонецЕсли;
+	For Each CurrObject In ObjectsComparisonArray Do
+		If Objects.FindByValue(CurrObject)<>Undefined Then
+			Continue;
+		EndIf;
 		
-		Objects.Добавить(ТекОбъект);
-	КонецЦикла;
+		Objects.Add(CurrObject);
+	EndDo;
 EndProcedure
 
 
 &НаКлиенте
 Procedure AddObjectsAddedToComparisonEarly(Команда)
-	ДобавитьРанееДобавленныеКСравнениюAtServer();
+	AddObjectsAddedToComparisonEarlyAtServer();
 EndProcedure
 
 
 &AtServer
-Procedure ОчиститьРанееДобавленныеКСравнениюAtServer()
+Procedure ClearObjectsAddedToTheComparisonAtServer()
 	UT_Common.ClearObjectsAddedToTheComparison();
 EndProcedure
 
 
 &НаКлиенте
-Procedure ОчиститьРанееДобавленныеКСравнению(Команда)
-	ОчиститьРанееДобавленныеКСравнениюAtServer();
+Procedure ClearObjectsAddedToTheComparison(Команда)
+	ClearObjectsAddedToTheComparisonAtServer();
 EndProcedure
 
 //@skip-warning
 &НаКлиенте
-Procedure Подключаемый_ВыполнитьОбщуюКомандуИнструментов(Команда) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
+Procedure Attachable_ExecuteToolsCommonCommand(Comand) 
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Comand);
 EndProcedure

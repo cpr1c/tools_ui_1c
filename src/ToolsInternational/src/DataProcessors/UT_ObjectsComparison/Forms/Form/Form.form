@@ -802,7 +802,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Сформировать</name>
+        <name>Generate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
@@ -823,7 +823,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Параметры</name>
+        <name>Parameters</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
@@ -869,7 +869,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОчиститьРанееДобавленныеКСравнению</name>
+        <name>ClearObjectsAddedToTheComparison</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
