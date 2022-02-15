@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_КонсольВебСервисов</name>
   <synonym>
+    <key>en</key>
+    <value>{}УИ_КонсольВебСервисов</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Консоль веб сервисов(WS) [УИ]</value>
   </synonym>

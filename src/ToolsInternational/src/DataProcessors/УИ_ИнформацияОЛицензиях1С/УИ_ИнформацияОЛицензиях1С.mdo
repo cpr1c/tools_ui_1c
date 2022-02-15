@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_ИнформацияОЛицензиях1С</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_ИнформацияОЛицензиях1С</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Информация о лицензиях 1С [УИ]</value>
   </synonym>

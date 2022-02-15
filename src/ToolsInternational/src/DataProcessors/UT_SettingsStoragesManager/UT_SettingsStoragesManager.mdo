@@ -4,12 +4,16 @@
     <objectType typeId="17054930-8157-11ea-f391-e86a6452d1f2" valueTypeId="17054931-8157-11ea-f391-e86a6452d1f2"/>
     <managerType typeId="17054932-8157-11ea-f391-e86a6452d1f2" valueTypeId="1705493a-8157-11ea-f391-e86a6452d1f2"/>
   </producedTypes>
-  <name>УИ_МенеджерХранилищНастроек</name>
+  <name>UT_SettingsStoragesManager</name>
+  <synonym>
+    <key>en</key>
+    <value>{} УИ_МенеджерХранилищНастроек</value>
+  </synonym>
   <synonym>
     <key>ru</key>
     <value>Менеджер хранилищ настроек [УИ]</value>
   </synonym>
-  <defaultForm>DataProcessor.УИ_МенеджерХранилищНастроек.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_SettingsStoragesManager.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Менеджер хранилищ настроек</value>

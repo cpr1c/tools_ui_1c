@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_ПоискИУдалениеДублей</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_ПоискИУдалениеДублей</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Поиск и удаление дублей [УИ]</value>
   </synonym>

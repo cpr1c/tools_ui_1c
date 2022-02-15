@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_УниверсальныйОбменДаннымиXML</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_УниверсальныйОбменДаннымиXML</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Универсальный обмен данными в формате XML(с фильтрами и выгрузкой на HTTP сервис) [УИ]</value>
   </synonym>

@@ -79,7 +79,7 @@ Procedure CreateCodeEditorItems(Form, EditorID, EditorField, EditorLanguage = "b
 	EditorData.Insert("EditorSettings", EditorSettings);
 
 	If EditorType = EditorVariants.Monaco Then
-		For Each KeyValue ИЗ EditorSettings.Monaco Do
+		For Each KeyValue In EditorSettings.Monaco Do
 			EditorData.EditorSettings.Insert(KeyValue.Key, KeyValue.Value);
 		EndDo;
 	EndIf;
