@@ -560,7 +560,7 @@ EndProcedure
 Function CreateDirectoryOnServer(FullName)
 	File=New File(FullName);
 	If File.Exists() Then
-		UT_CommonClientServer.MessageToUser("Такой каталог уже существует");
+		UT_CommonClientServer.MessageToUser(Nstr("ru='Такой каталог уже существует'; en='Such directory already exists'"));
 
 		Return Undefined;
 	EndIf;
@@ -616,7 +616,7 @@ EndProcedure
 &AtClient
 Procedure CreateDirectoryCheckExistenceNewDirectoryCompletion(Exists, AdditionalParameters) Export
 	If Exists Then
-		UT_CommonClientServer.MessageToUser(Nstr("ru='Такой каталог уже существует'; en='The such directory already exists'"));
+		UT_CommonClientServer.MessageToUser(Nstr("ru='Такой каталог уже существует'; en='Such directory already exists'"));
 		Return;
 	EndIf;
 
@@ -747,9 +747,9 @@ Procedure FillSortSubMenu()
 	OrderFields.Insert("ModifiedDate", "Modified date");
 	OrderFields.Insert("Size", "Size");
 
-	НаправленияСортировки=New Structure;
-	НаправленияСортировки.Insert("Asc", " +");
-	НаправленияСортировки.Insert("Desc", " -");
+	SortingDirection = New Structure;
+	SortingDirection.Insert("Asc", " +");
+	SortingDirection.Insert("Desc", " -");
 
 	SubMenuArray=New Array;
 	SubMenuArray.Add(Items.SortGroupOfLeftPanel);
@@ -757,7 +757,7 @@ Procedure FillSortSubMenu()
 
 	For Each CurrentSubMenu In SubMenuArray Do
 		For Each OrderField In OrderFields Do
-			For Each Heading In НаправленияСортировки Do
+			For Each Heading In SortingDirection Do
 				//First we add the command, and then the button
 				CommandDescription=UT_Forms.ButtonCommandNewDescription();
 				CommandDescription.Name=CurrentSubMenu.Name + OrderField.Key + Heading.Key;
@@ -826,45 +826,45 @@ Procedure UpdateFilesTree(AtClient = True)
 			Return;
 
 		EndIf;
-//	ИначеЕсли Не IsWindows Тогда
-//		ТекущийРодитель = ТекущийРодитель.ПолучитьЭлементы().Добавить();
-//		ТекущийРодитель.PictureIndex = PictureIndex;
-//		ТекущийРодитель.Name = CurrentPathSplitter;
-//		ТекущийРодитель.IsDirectory = Истина;
-//		ТекущийРодитель.FullName = CurrentPathSplitter;
+//	ElsIf Not IsWindows Then
+//		CurrentParent = CurrentParent.GetItems().Add();
+//		CurrentParent.PictureIndex = PictureIndex;
+//		CurrentParent.Name = CurrentPathSplitter;
+//		CurrentParent.IsDirectory = True;
+//		CurrentParent.FullName = CurrentPathSplitter;
 //		PictureIndex = 1;
 //
-//		Если СтрНачинаетсяС(PathForSplit, CurrentPathSplitter) Тогда
-//			PathForSplit=Сред(PathForSplit, 2);
-//		КонецЕсли;
+//		If StrStartsWith(PathForSplit, CurrentPathSplitter) Then
+//			PathForSplit=Mid(PathForSplit, 2);
+//		EndIf;
 	EndIf;
 
-//	МассивТекущийПуть = СтрРазделить(PathForSplit, CurrentPathSplitter);//РазложитьСтрокуВМассивПодстрок(PathForSplit, CurrentPathSplitter);
-//	Для Каждого DirectoryName Из МассивТекущийПуть Цикл
-//		Если ПустаяСтрока(DirectoryName) Тогда
-//			Прервать;
-//		КонецЕсли;
+//	CurrentPathArray = StrSplit(PathForSplit, CurrentPathSplitter);//SplitStringToArrayStrings(PathForSplit, CurrentPathSplitter);
+//	For Each DirectoryName In CurrentPathArray Do
+//		If IsBlankString(DirectoryName) Then
+//			Break;
+//		EndIf;
 //
-//		DirectoryName = СтрЗаменить(DirectoryName, ":::", CurrentPathSplitter + CurrentPathSplitter);
+//		DirectoryName = StrReplace(DirectoryName, ":::", CurrentPathSplitter + CurrentPathSplitter);
 //
 //		FullName = FullName + DirectoryName + CurrentPathSplitter;
-//		ТекущийРодитель = ТекущийРодитель.ПолучитьЭлементы().Добавить();
-//		ТекущийРодитель.PictureIndex = PictureIndex;
-//		ТекущийРодитель.Name = DirectoryName + CurrentPathSplitter;
-//		ТекущийРодитель.IsDirectory = Истина;
-//		ТекущийРодитель.FullName = CurrentPathSplitter + FullName;
+//		CurrentParent = CurrentParent.GetItems().Add();
+//		CurrentParent.PictureIndex = PictureIndex;
+//		CurrentParent.Name = DirectoryName + CurrentPathSplitter;
+//		CurrentParent.IsDirectory = True;
+//		CurrentParent.FullName = CurrentPathSplitter + FullName;
 //		PictureIndex = 1;
-//	КонецЦикла;
+//	EndDo;
 
 	For Each StructureLine In CurrentDirectoryFiles Do
 		FillPropertyValues(DirectoryFilesTable.Add(), StructureLine);
 	EndDo;
 
-	DirectoryFilesTable.Sort("IsDirectory УБЫВ, Name");
-//	Если ТипЗнч(ТекущийРодитель) = Тип("ДанныеФормыЭлементДерева") Тогда
-//		TreeItem.ТекущаяСтрока = ТекущийРодитель.ПолучитьИдентификатор();
-//		TreeItem.Развернуть(TreeItem.ТекущаяСтрока);
-//	КонецЕсли;
+	DirectoryFilesTable.Sort("IsDirectory DESC, Name");
+//	If TypeOf(CurrentParent) = Type("FormDataTreeItem") Then
+//		TreeItem.CurrentLine = CurrentParent.GetID();
+//		TreeItem.Expand(TreeItem.CurrentLine);
+//	EndIf;
 
 	If ValueIsFilled(GetCurrentDirectory) And GetCurrentDirectory <> CurrentPathSplitter Then
 		NewLine = DirectoryFilesTable.Insert(0);
@@ -888,40 +888,40 @@ EndProcedure
 Procedure UpdateHistory(AtClient = True)
 	If AtClient = False Then
 		GetCurrentDirectory = CurrentDirectoryOnServer;
-		ЭлементТекущийКаталог = Items.CurrentDirectoryOnServer;
-		СписокИстория = HistoryOfChooseServer;
+		CurrentDirectoryItem = Items.CurrentDirectoryOnServer;
+		HistoryList = HistoryOfChooseServer;
 	Else
 		GetCurrentDirectory = CurrentDirectoryOnClient;
-		ЭлементТекущийКаталог = Items.CurrentDirectoryOnClient;
-		СписокИстория = HistoryOfChooseClient;
+		CurrentDirectoryItem = Items.CurrentDirectoryOnClient;
+		HistoryList = HistoryOfChooseClient;
 	EndIf;
 
-	FoundItem = СписокИстория.FindByValue(GetCurrentDirectory);
+	FoundItem = HistoryList.FindByValue(GetCurrentDirectory);
 	If Not FoundItem = Undefined Then
-		СписокИстория.Delete(FoundItem);
+		HistoryList.Delete(FoundItem);
 	EndIf;
-	СписокИстория.Insert(0, GetCurrentDirectory);
+	HistoryList.Insert(0, GetCurrentDirectory);
 
-	РазмерСпискаИстории = 25;
-	While РазмерСпискаИстории < СписокИстория.Count() Do
-		СписокИстория.Delete(СписокИстория.Count() - 1);
+	ZizeOfHistoryList = 25;
+	While ZizeOfHistoryList < HistoryList.Count() Do
+		HistoryList.Delete(HistoryList.Count() - 1);
 	EndDo;
 
-	ЭлементТекущийКаталог.ChoiceList.LoadValues(СписокИстория.UnloadValues());
+	CurrentDirectoryItem.ChoiceList.LoadValues(HistoryList.UnloadValues());
 EndProcedure
 
 &AtServerNoContext
 Function GetDirectoryContentsOnServer(Directory, PathSplitter, IsWindows)
-	Return ПолучитьСодержимоеКаталога(Directory, PathSplitter, IsWindows);
+	Return GetDirectoryContent(Directory, PathSplitter, IsWindows);
 EndFunction
 
 &AtClient
 Function GetDirectoryContentsOnClient(Directory)
-	Return ПолучитьСодержимоеКаталога(Directory, PathParentOnClient, WindowsClient);
+	Return GetDirectoryContent(Directory, PathParentOnClient, WindowsClient);
 EndFunction
 
 &AtClientAtServerNoContext
-Function ПолучитьСодержимоеКаталога(Directory, PathSplitter, IsWindows)
+Function GetDirectoryContent(Directory, PathSplitter, IsWindows)
 	Result = New Array;
 
 	Files = FindFiles(Directory, "*", False);
@@ -930,15 +930,15 @@ Function ПолучитьСодержимоеКаталога(Directory, PathSpl
 			File = New File;
 		EndIf;
 
-//		Если Не IsWindows И Лев(Файл.FullName, 2) = "//" Тогда
-//			Файл=Новый Файл(Сред(Файл.FullName, 2));
-//		Иначе
-//			Файл
-//		КонецЕсли;
+//		If Not IsWindows And Left(File.FullName, 2) = "//" Then
+//			File=New File(Mid(File.FullName, 2));
+//		Else
+//			File
+//		EndIf;
 
-//		Если Не Файл.Существует() Тогда
-//			Продолжить
-//		КонецЕсли;
+//		If Not File.Exists() Then
+//			Continue
+//		EndIf;
 
 		If Not File.Exists() Then
 			IsDirectory=False;
@@ -998,19 +998,19 @@ Function ПолучитьСодержимоеКаталога(Directory, PathSpl
 				StructureLine.Insert("Size", 0);
 			EndTry;
 		EndIf;
-		StructureLine.Insert("Presentation", Format(StructureLine.ModifiedDate, "ДФ='yyyy-MM-dd HH:MM:ss'"));
+		StructureLine.Insert("Presentation", Format(StructureLine.ModifiedDate, "DF='yyyy-MM-dd HH:MM:ss'"));
 
 		Result.Add(StructureLine);
 	EndDo;
 
-//	Результат.СортироватьПоПредставлению(НаправлениеСортировки.Убыв);
-//	Возврат Результат.ВыгрузитьЗначения();
+//	Result.SortByPresentation(SortingDirection.Desc);
+//	Return Result.UnloadValues();
 
 	Return Result;
 EndFunction
 
 &AtClientAtServerNoContext
-Function PictureIndex(Знач FileExtension, IsDirectory)
+Function PictureIndex(Val FileExtension, IsDirectory)
 	If IsDirectory Then
 		Return 2;
 	Else
@@ -1023,9 +1023,9 @@ Function GetDisksListWindows(PathSplitter)
 	Result = New Array;
 
 	For Ind = 0 To 25 Do
-		БукваДиска = Char(CharCode("A") + Ind) + ":" + PathSplitter;
-		If FindFiles(БукваДиска).Count() > 0 Then
-			Result.Add(БукваДиска);
+		DiscLetter = Char(CharCode("A") + Ind) + ":" + PathSplitter;
+		If FindFiles(DiscLetter).Count() > 0 Then
+			Result.Add(DiscLetter);
 		EndIf;
 	EndDo;
 
@@ -1049,9 +1049,9 @@ Function DirectoryNameOnServer(DirectoryName)
 EndFunction
 
 &AtClientAtServerNoContext
-Function FileSize(РазмерФайлаВБайтах, ЕдиницаИзмерения)
-	ЕдиницаИзмерения = "КБ";
-	Return РазмерФайлаВБайтах / 1000;
+Function FileSize(FileSizeInBytes, Unit)
+	Unit = "KB";
+	Return FileSizeInBytes / 1000;
 EndFunction
 
 &AtServerNoContext
@@ -1060,43 +1060,43 @@ Procedure DeleteFilesOnServer(FileName)
 EndProcedure
 
 &AtServerNoContext
-Function PutToTempStorageAtServer(ИсходныйФайл, ИдентификаторФормы)
-	BinaryData = New BinaryData(ИсходныйФайл);
-	StorageAddress = PutToTempStorage(BinaryData, ИдентификаторФормы);
+Function PutToTempStorageAtServer(SourceFile, UUID)
+	BinaryData = New BinaryData(SourceFile);
+	StorageAddress = PutToTempStorage(BinaryData, UUID);
 	Return StorageAddress;
 EndFunction
 
 &AtServerNoContext
-Function FindAllFilesOnServer(GetCurrentDirectory, PathSplitter, УникальныйИдентификаторФормы)
+Function FindAllFilesOnServer(GetCurrentDirectory, PathSplitter, UUID)
 	Result = New Array;
 
-	НайденныеФайлы = FindFiles(GetCurrentDirectory, "*", True);
-	For Each File In НайденныеФайлы Do
+	FoundFiles = FindFiles(GetCurrentDirectory, "*", True);
+	For Each File In FoundFiles Do
 		StructureLine = New Structure;
 		Result.Add(StructureLine);
 
 		StructureLine.Insert("IsDirectory", File.IsDirectory());
 		StructureLine.Insert("FullName", File.FullName + ?(StructureLine.IsDirectory, PathSplitter, ""));
 		StructureLine.Insert("StorageAddress", PutToTempStorage(
-			New BinaryData(StructureLine.FullName), УникальныйИдентификаторФормы));
+			New BinaryData(StructureLine.FullName), UUID));
 	EndDo;
 
 	Return Result;
 EndFunction
 
 &AtClient
-Function FindAllFilesOnClient(GetCurrentDirectory, PathSplitter, УникальныйИдентификаторФормы)
+Function FindAllFilesOnClient(GetCurrentDirectory, PathSplitter, UUID)
 	Result = New Array;
 
-	НайденныеФайлы = FindFiles(GetCurrentDirectory, "*", True);
-	For Each File In НайденныеФайлы Do
+	FoundFiles = FindFiles(GetCurrentDirectory, "*", True);
+	For Each File In FoundFiles Do
 		StructureLine = New Structure;
 		Result.Add(StructureLine);
 
 		StructureLine.Insert("IsDirectory", File.IsDirectory());
 		StructureLine.Insert("FullName", File.FullName + ?(StructureLine.IsDirectory, PathSplitter, ""));
 		StructureLine.Insert("StorageAddress", PutToTempStorage(
-			New BinaryData(StructureLine.FullName), УникальныйИдентификаторФормы));
+			New BinaryData(StructureLine.FullName), UUID));
 
 	EndDo;
 
@@ -1104,35 +1104,35 @@ Function FindAllFilesOnClient(GetCurrentDirectory, PathSplitter, Уникаль�
 EndFunction
 
 &AtServerNoContext
-Procedure RenameFilesOnServer(ИмяФайлаИсточника, ИмяФайлаПриемника, PathSplitter)
-	File = New File(ИмяФайлаИсточника);
+Procedure RenameFilesOnServer(SourceFileName, TargetFileName, PathSplitter)
+	File = New File(SourceFileName);
 	If File.IsFile() Then
-		MoveFile(ИмяФайлаИсточника, ИмяФайлаПриемника);
+		MoveFile(SourceFileName, TargetFileName);
 	Else
-		МассивСлов = StrSplit(ИмяФайлаПриемника, PathSplitter);
-		If IsBlankString(МассивСлов[МассивСлов.UBound()]) Then
-			МассивСлов.Delete(МассивСлов.UBound());
+		WordArray = StrSplit(TargetFileName, PathSplitter);
+		If IsBlankString(WordArray[WordArray.UBound()]) Then
+			WordArray.Delete(WordArray.UBound());
 		EndIf;
-		//ФСО = New COMObject("Scripting.FileSystemObject");
+		//FSO = New COMObject("Scripting.FileSystemObject");
 
-		//ФСО.GetFolder(ИмяФайлаИсточника).Name = МассивСлов[МассивСлов.UBound()];
+		//FSO.GetFolder(SourceFileName).Name = WordArray[WordArray.UBound()];
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure RenameFilesOnClient(ИмяФайлаИсточника, ИмяФайлаПриемника, PathSplitter)
-	File = New File(ИмяФайлаИсточника);
+Procedure RenameFilesOnClient(SourceFileName, TargetFileName, PathSplitter)
+	File = New File(SourceFileName);
 	//If File.IsFile() Then
-		MoveFile(ИмяФайлаИсточника, ИмяФайлаПриемника);
+		MoveFile(SourceFileName, TargetFileName);
 	//Else
-	//	МассивСлов = StrSplit(ИмяФайлаПриемника, PathSplitter);
-	//	If IsBlankString(МассивСлов[МассивСлов.UBound()]) Then
-	//		МассивСлов.Delete(МассивСлов.UBound());
+	//	WordArray = StrSplit(TargetFileName, PathSplitter);
+	//	If IsBlankString(WordArray[WordArray.UBound()]) Then
+	//		WordArray.Delete(WordArray.UBound());
 	//	EndIf;
-	//	//ФСО = New COMObject("Scripting.FileSystemObject");
+	//	//FSO = New COMObject("Scripting.FileSystemObject");
 
-	//	//ФСО.GetFolder(ИмяФайлаИсточника).Name = МассивСлов[МассивСлов.UBound()];
+	//	//FSO.GetFolder(SourceFileName).Name = WordArray[WordArray.UBound()];
 	//EndIf;
 
 EndProcedure
