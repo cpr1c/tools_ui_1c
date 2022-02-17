@@ -464,7 +464,7 @@ Procedure Delete(Command)
 	UT_CommonClient.ShowQuestionToUser(
 		New NotifyDescription("DeleteAfterConfirmingCompletion", ThisObject,
 		New Structure("IsLeftPanel,FullName", IsLeftPanel, CurrentData.FullName)), 
-		NStr("ru='Удалить выбранный файл?'; en='Delete the selected file?'"),
+		NStr("ru='Delete выбранный файл?'; en='Delete the selected file?'"),
 		QuestionDialogMode.YesNo);
 EndProcedure
 
@@ -473,6 +473,10 @@ EndProcedure
 Procedure Attachable_SetSortOrder(Command)
 	SortOrder=Right(Command.Name, 4);
 
+	If SortOrder <> "Desc" Then
+		SortOrder = "Asc";
+	EndIf;
+	
 	LeftPanelPrefix="SortGroupOfLeftPanel";
 	RightPanelPrefix="SortGroupOfRightPanel";
 
