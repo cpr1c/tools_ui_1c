@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_КонструкторРегулярныхВыражений</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_КонструкторРегулярныхВыражений</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Конструктор регулярных выражений [УИ]</value>
   </synonym>

@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Выполнение регламентных заданий на клиенте [УИ]</value>
   </synonym>

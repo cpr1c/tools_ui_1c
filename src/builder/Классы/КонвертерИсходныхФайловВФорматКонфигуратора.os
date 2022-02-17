@@ -54,4 +54,4 @@
 	Возврат КодВозврата=0;
 КонецФункции
 
-Лог=Новый Лог("app.build.tools_ui_1c");
+Лог=Новый Лог("app.build.tools_ui_1c_international");

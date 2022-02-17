@@ -199,7 +199,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.НаКлиенте</segments>
+          <segments>Объект.AtClient</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
@@ -1877,7 +1877,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.Комментарий</segments>
+          <segments>Объект.Comment</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>

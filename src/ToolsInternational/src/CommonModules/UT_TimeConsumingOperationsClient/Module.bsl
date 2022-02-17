@@ -219,7 +219,7 @@ EndProcedure
 //  IdleHandlerParameters - Structure - the structure to be filled with default values. 
 //
 // 
-Procedure InitIdleHandlerParameters(IdleHandlerParameters) Export
+Procedure InitializeIdleHandlerParameters(IdleHandlerParameters) Export
 	
 	IdleHandlerParameters = New Structure;
 	IdleHandlerParameters.Insert("MinInterval", 1);

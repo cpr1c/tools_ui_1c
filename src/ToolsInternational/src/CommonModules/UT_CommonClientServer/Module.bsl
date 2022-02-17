@@ -1776,7 +1776,7 @@ Function PortableDistributionType() Export
 EndFunction
 
 Function Version() Export
-	Return "1.4.6";	
+	Return "2.4.11";	
 EndFunction
 
 Function IsPortableDistribution() Export
