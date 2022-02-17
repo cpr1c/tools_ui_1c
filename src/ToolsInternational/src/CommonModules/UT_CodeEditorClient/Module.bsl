@@ -637,7 +637,7 @@ Procedure SaveConfigurationModulesToFilesSaveMetadataListWithModules(SaveOptions
 	EndDo;
 	
 	SessionFileVariablesStructure = UT_CommonClient.SessionFileVariablesStructure();
-	SaveFileName = SessionFileVariablesStructure.TempFilesDirectory + GetPathSeparator() + "tools_ui_1c_list_metadata.txt";
+	SaveFileName = SessionFileVariablesStructure.TempFilesDirectory + GetPathSeparator() + "tools_ui_1c_international_list_metadata.txt";
 	SaveOptions.Insert("MetadataListFileName", SaveFileName);
 	MetadataText.BeginWriting(
 		New NotifyDescription("SaveConfigurationModulesToFilesSaveMetadataListWithModulesEnd",
@@ -1703,7 +1703,7 @@ Procedure SaveEditorLibraryWriteBeginWritingNextFile(AdditionalParameters)
 				ThisObject, AdditionalParameters);
 		EndIf;
 
-		KeyValue.Value.BeginWriting(CompletionNotify, FileName);
+		KeyValue.Value.BeginWrite(CompletionNotify, FileName);
 		Break;
 	EndDo;
 
@@ -1718,7 +1718,7 @@ Function EditorSaveDirectory(EditorType)
 		Return "";
 	EndIf;
 
-	Return FileVariablesStructure.TempFilesDirectory + "tools_ui_1c" + GetPathSeparator() + Format(
+	Return FileVariablesStructure.TempFilesDirectory + "tools_ui_1c_international" + GetPathSeparator() + Format(
 		UT_CommonClientServer.Version(), "NG=0;") + GetPathSeparator() + EditorType;
 EndFunction
 

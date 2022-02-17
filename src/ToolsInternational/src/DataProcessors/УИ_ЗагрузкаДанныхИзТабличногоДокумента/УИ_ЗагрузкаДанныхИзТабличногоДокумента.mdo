@@ -6,6 +6,10 @@
   </producedTypes>
   <name>УИ_ЗагрузкаДанныхИзТабличногоДокумента</name>
   <synonym>
+    <key>en</key>
+    <value>{} УИ_ЗагрузкаДанныхИзТабличногоДокумента</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Загрузка данных из табличного документа [УИ]</value>
   </synonym>

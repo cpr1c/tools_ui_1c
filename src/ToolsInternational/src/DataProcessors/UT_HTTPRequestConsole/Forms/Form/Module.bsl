@@ -476,7 +476,7 @@ Function PutHistoryDataToTempStorage()
 	Result = PutToTempStorage(HistoryTable, UUID);
 	Return Result;
 
-	JSONSerializer = DataProcessors.УИ_ПреобразованиеДанныхJSON.Create();
+	JSONSerializer = DataProcessors.UT_JSONDataConversion.Create();
 
 	HistoryStruct = JSONSerializer.ЗначениеВСтруктуру(HistoryTable);
 	HistoryRowJSON = JSONSerializer.ЗаписатьОписаниеОбъектаВJSON(HistoryStruct);

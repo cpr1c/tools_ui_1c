@@ -7,7 +7,7 @@
   <name>УИ_ДанныеДляОтладки</name>
   <synonym>
     <key>en</key>
-    <value>Debug data (UT)</value>
+    <value>{} Debug data (UT)</value>
   </synonym>
   <synonym>
     <key>ru</key>

@@ -5,7 +5,7 @@ Function SerializedDataForSave(Format, SavedData) Export
 		SerializedString = ValueToStringInternal(SavedData);
 
 	Else
-		JSONSerializer = DataProcessors.УИ_ПреобразованиеДанныхJSON.Create();
+		JSONSerializer = DataProcessors.UT_JSONDataConversion.Create();
 
 		HistoryStruct = JSONSerializer.ЗначениеВСтруктуру(SavedData);
 		SerializedString=JSONSerializer.ЗаписатьОписаниеОбъектаВJSON(HistoryStruct);
@@ -32,7 +32,7 @@ Function SavedDataFromSerializedString(TempStorageAddress, RequestsFileName) Exp
 		TextDocument = New TextDocument;
 		TextDocument.Read(FileData.OpenStreamForRead());
 
-		JSONSerialize = DataProcessors.УИ_ПреобразованиеДанныхJSON.Create();
+		JSONSerialize = DataProcessors.UT_JSONDataConversion.Create();
 		TableStruct = JSONSerialize.ПрочитатьОписаниеОбъектаИзJSON(TextDocument.GetText());
 		Return JSONSerialize.ЗначениеИзСтруктуры(TableStruct, True);
 	EndIf;
