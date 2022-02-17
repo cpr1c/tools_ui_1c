@@ -480,7 +480,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.GotoDesktopClient</commandName>
+              <commandName>Form.Command.Goto_Desktop_AtClient</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
@@ -511,7 +511,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.GotoTempDirectoryAtClient</commandName>
+              <commandName>Form.Command.Goto_TempFilesDir_AtClient</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
@@ -542,7 +542,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.GotoProgramDirectoryClient</commandName>
+              <commandName>Form.Command.Goto_BinDir_AtClient</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
@@ -573,7 +573,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.GotoDocumentDirectoryClient</commandName>
+              <commandName>Form.Command.Goto_DocumentsDir_Client</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
@@ -587,12 +587,12 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Перейти</value>
+              <key>en</key>
+              <value>Goto</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Left panel sub menu goto</value>
+              <key>ru</key>
+              <value>Перейти</value>
             </title>
             <extendedTooltip>
               <name>LeftPanelSubMenu_GotoExtendedTooltip</name>
@@ -623,12 +623,12 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Сортировать по</value>
+              <key>en</key>
+              <value>Sort</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Sort group of left panel</value>
+              <key>ru</key>
+              <value>Сортировать по</value>
             </title>
             <extendedTooltip>
               <name>SortGroupOfLeftPanelExtendedTooltip</name>
@@ -1404,7 +1404,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.GotoTempDirectoryAtServer</commandName>
+              <commandName>Form.Command.Goto_TempFilesDir_AtServer</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1434,7 +1434,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.GotoProgramDirectoryServer</commandName>
+              <commandName>Form.Command.Goto_BinDir_AtServer</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1447,12 +1447,12 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Перейти</value>
+              <key>en</key>
+              <value>Goto</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Goto at server</value>
+              <key>ru</key>
+              <value>Перейти</value>
             </title>
             <toolTip>
               <key>ru</key>
@@ -1487,12 +1487,12 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Сортировать по</value>
+              <key>en</key>
+              <value>Sort</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Sort group of right panel</value>
+              <key>ru</key>
+              <value>Сортировать по</value>
             </title>
             <extendedTooltip>
               <name>SortGroupOfRightPanelExtendedTooltip</name>
@@ -2041,11 +2041,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <autoTitle>true</autoTitle>
@@ -2119,12 +2119,12 @@
     <columns>
       <name>FileExtension</name>
       <title>
-        <key>ru</key>
-        <value>Расширение</value>
+        <key>en</key>
+        <value>Extension</value>
       </title>
       <title>
-        <key>en</key>
-        <value>File extension</value>
+        <key>ru</key>
+        <value>Расширение</value>
       </title>
       <id>2</id>
       <valueType>
@@ -2319,12 +2319,12 @@
     <columns>
       <name>FileExtension</name>
       <title>
-        <key>ru</key>
-        <value>Расширение</value>
+        <key>en</key>
+        <value>Extension</value>
       </title>
       <title>
-        <key>en</key>
-        <value>File extension</value>
+        <key>ru</key>
+        <value>Расширение</value>
       </title>
       <id>2</id>
       <valueType>
@@ -2341,12 +2341,12 @@
     <columns>
       <name>ModifiedDate</name>
       <title>
-        <key>ru</key>
-        <value>Дата изменения</value>
+        <key>en</key>
+        <value>Modified</value>
       </title>
       <title>
-        <key>en</key>
-        <value>Modified date</value>
+        <key>ru</key>
+        <value>Дата изменения</value>
       </title>
       <id>3</id>
       <valueType>
@@ -2709,12 +2709,12 @@
     <columns>
       <name>FileExtension</name>
       <title>
-        <key>ru</key>
-        <value>Расширение</value>
+        <key>en</key>
+        <value>Extension</value>
       </title>
       <title>
-        <key>en</key>
-        <value>File extension</value>
+        <key>ru</key>
+        <value>Расширение</value>
       </title>
       <id>25</id>
       <valueType>
@@ -2731,12 +2731,12 @@
     <columns>
       <name>ModifiedDate</name>
       <title>
-        <key>ru</key>
-        <value>Дата изменения</value>
+        <key>en</key>
+        <value>Modified</value>
       </title>
       <title>
-        <key>en</key>
-        <value>Modified date</value>
+        <key>ru</key>
+        <value>Дата изменения</value>
       </title>
       <id>26</id>
       <valueType>
@@ -2910,12 +2910,12 @@
     <columns>
       <name>FileExtension</name>
       <title>
-        <key>ru</key>
-        <value>Расширение</value>
+        <key>en</key>
+        <value>Extension</value>
       </title>
       <title>
-        <key>en</key>
-        <value>File extension</value>
+        <key>ru</key>
+        <value>Расширение</value>
       </title>
       <id>18</id>
       <valueType>
@@ -2932,12 +2932,12 @@
     <columns>
       <name>ModifiedDate</name>
       <title>
-        <key>ru</key>
-        <value>Дата изменения</value>
+        <key>en</key>
+        <value>Modified</value>
       </title>
       <title>
-        <key>en</key>
-        <value>Modified date</value>
+        <key>ru</key>
+        <value>Дата изменения</value>
       </title>
       <id>19</id>
       <valueType>
@@ -3090,14 +3090,18 @@
   <formCommands>
     <name>UpdateAtClient</name>
     <title>
+      <key>en</key>
+      <value>Update</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Обновить</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Update at client</value>
-    </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Update</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Обновить клиент</value>
@@ -3119,14 +3123,18 @@
   <formCommands>
     <name>UpdateAtServer</name>
     <title>
+      <key>en</key>
+      <value>Update</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Обновить</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Update at server</value>
-    </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Update</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Обновить клиент</value>
@@ -3146,14 +3154,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>GotoTempDirectoryAtServer</name>
+    <name>Goto_TempFilesDir_AtServer</name>
+    <title>
+      <key>en</key>
+      <value>Temp</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Каталог временных файлов</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Goto temp directory at server</value>
     </title>
     <id>3</id>
     <toolTip>
@@ -3172,14 +3180,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>GotoProgramDirectoryServer</name>
+    <name>Goto_BinDir_AtServer</name>
+    <title>
+      <key>en</key>
+      <value>Program Files</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Каталог программы</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Goto program directory server</value>
     </title>
     <id>4</id>
     <toolTip>
@@ -3198,14 +3206,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>GotoDocumentDirectoryClient</name>
+    <name>Goto_DocumentsDir_Client</name>
+    <title>
+      <key>en</key>
+      <value>Documents</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Каталог документов</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Goto document directory client</value>
     </title>
     <id>5</id>
     <toolTip>
@@ -3224,14 +3232,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>GotoTempDirectoryAtClient</name>
+    <name>Goto_TempFilesDir_AtClient</name>
+    <title>
+      <key>en</key>
+      <value>Temp</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Каталог временных файлов</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Goto temp directory at client</value>
     </title>
     <id>6</id>
     <toolTip>
@@ -3250,14 +3258,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>GotoProgramDirectoryClient</name>
+    <name>Goto_BinDir_AtClient</name>
+    <title>
+      <key>en</key>
+      <value>Program Files</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Каталог программы</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Goto program directory client</value>
     </title>
     <id>7</id>
     <toolTip>
@@ -3276,14 +3284,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>GotoDesktopClient</name>
+    <name>Goto_Desktop_AtClient</name>
+    <title>
+      <key>en</key>
+      <value>Desktop</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Рабочий стол</value>
-    </title>
-    <title>
-      <key>en</key>
-      <value>Goto desktop client</value>
     </title>
     <id>8</id>
     <toolTip>
@@ -3462,12 +3470,12 @@
   <formCommands>
     <name>RenameAtServer</name>
     <title>
-      <key>ru</key>
-      <value>Переименовать на сервере</value>
+      <key>en</key>
+      <value>Rename</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Rename at server</value>
+      <key>ru</key>
+      <value>Переименовать на сервере</value>
     </title>
     <id>15</id>
     <toolTip>
@@ -3490,12 +3498,12 @@
   <formCommands>
     <name>RenameAtClient</name>
     <title>
-      <key>ru</key>
-      <value>Переименовать на клиенте</value>
+      <key>en</key>
+      <value>Rename</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Rename at client</value>
+      <key>ru</key>
+      <value>Переименовать на клиенте</value>
     </title>
     <id>16</id>
     <toolTip>
@@ -3518,14 +3526,18 @@
   <formCommands>
     <name>StepBackAtClient</name>
     <title>
+      <key>en</key>
+      <value>Back</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Назад</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Step back at client</value>
-    </title>
     <id>17</id>
+    <toolTip>
+      <key>en</key>
+      <value>Back</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Назад</value>
@@ -3547,14 +3559,18 @@
   <formCommands>
     <name>StepForwardAtClient</name>
     <title>
+      <key>en</key>
+      <value>Forward</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Вперед</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Step forward at client</value>
-    </title>
     <id>18</id>
+    <toolTip>
+      <key>en</key>
+      <value>Forward</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вперед</value>
@@ -3576,14 +3592,18 @@
   <formCommands>
     <name>StepUpAtClient</name>
     <title>
+      <key>en</key>
+      <value>Up</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Вверх</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Step up at client</value>
-    </title>
     <id>19</id>
+    <toolTip>
+      <key>en</key>
+      <value>Up</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вверх</value>
@@ -3605,14 +3625,18 @@
   <formCommands>
     <name>StepUpAtServer</name>
     <title>
+      <key>en</key>
+      <value>Up</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Вверх</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Step up at server</value>
-    </title>
     <id>20</id>
+    <toolTip>
+      <key>en</key>
+      <value>Up</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вверх</value>
@@ -3634,14 +3658,18 @@
   <formCommands>
     <name>StepForwardAtServer</name>
     <title>
+      <key>en</key>
+      <value>Forward</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Вперед</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Step forward at server</value>
-    </title>
     <id>21</id>
+    <toolTip>
+      <key>en</key>
+      <value>Forward</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вперед</value>
@@ -3663,14 +3691,18 @@
   <formCommands>
     <name>StepBackAtServer</name>
     <title>
+      <key>en</key>
+      <value>Back</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Назад</value>
     </title>
-    <title>
-      <key>en</key>
-      <value>Step back at server</value>
-    </title>
     <id>22</id>
+    <toolTip>
+      <key>en</key>
+      <value>Back</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Назад</value>
@@ -3692,12 +3724,12 @@
   <formCommands>
     <name>Copy</name>
     <title>
-      <key>ru</key>
-      <value>Копировать</value>
+      <key>en</key>
+      <value>Copy (F5)</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Copy</value>
+      <key>ru</key>
+      <value>Копировать</value>
     </title>
     <id>23</id>
     <use>
@@ -3714,12 +3746,12 @@
   <formCommands>
     <name>Move</name>
     <title>
-      <key>ru</key>
-      <value>Переместить (F6)</value>
+      <key>en</key>
+      <value>Move (F6)</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Move</value>
+      <key>ru</key>
+      <value>Переместить (F6)</value>
     </title>
     <id>24</id>
     <use>
@@ -3736,12 +3768,12 @@
   <formCommands>
     <name>CreateDirectory</name>
     <title>
-      <key>ru</key>
-      <value>Создать каталог(F7)</value>
+      <key>en</key>
+      <value>Create directory (F7)</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Create directory</value>
+      <key>ru</key>
+      <value>Создать каталог(F7)</value>
     </title>
     <id>25</id>
     <use>
@@ -3758,12 +3790,12 @@
   <formCommands>
     <name>Delete</name>
     <title>
-      <key>ru</key>
-      <value>Удалить(F8)</value>
+      <key>en</key>
+      <value>Delete (F8)</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Delete</value>
+      <key>ru</key>
+      <value>Удалить(F8)</value>
     </title>
     <id>26</id>
     <use>
