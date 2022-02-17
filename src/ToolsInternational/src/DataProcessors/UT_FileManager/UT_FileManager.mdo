@@ -7,14 +7,14 @@
   <name>UT_FileManager</name>
   <synonym>
     <key>en</key>
-    <value>{} File Manager</value>
+    <value>File Manager (UT)</value>
   </synonym>
   <synonym>
     <key>ru</key>
     <value>Файловый менеджер [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_FileManager.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_FileManager.Form.Form</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Файловый менеджер</value>
@@ -24,10 +24,10 @@
     <value>Обработка для удобной работы с файлами между клиентом и сервером. Передача, просмотр, удаление. На текущий момент содержит синхронные вызовы</value>
   </explanation>
   <forms uuid="864fc2c9-0bcd-48bb-bd1e-a0413a0dc1f4">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
