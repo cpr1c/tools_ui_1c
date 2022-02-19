@@ -141,7 +141,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.ПередачаДанных.Method.SendFileAndUpload</name>
+		<name>HTTPService.UT_PublishedFunctions.URLTemplate.DataTransfer.Method.SendFileAndUpload</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -275,7 +275,7 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.ВыполнениеАлгоритмов.Method.GET</name>
+		<name>HTTPService.UT_PublishedFunctions.URLTemplate.AlgoritmsExecution.Method.GET</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -568,14 +568,14 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.ВыполнениеАлгоритмов.Method.POST</name>
+		<name>HTTPService.UT_PublishedFunctions.URLTemplate.AlgoritmsExecution.Method.POST</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.ПередачаДанных.Method.Ping</name>
+		<name>HTTPService.UT_PublishedFunctions.URLTemplate.DataTransfer.Method.Ping</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

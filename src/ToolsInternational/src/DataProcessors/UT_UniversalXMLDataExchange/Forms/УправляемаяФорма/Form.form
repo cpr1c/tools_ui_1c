@@ -5489,7 +5489,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.ИмяФайлаПротоколаОбмена</segments>
+              <segments>Объект.ExchangeProtocolFileName</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -5618,7 +5618,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.КодировкаФайлаПротоколаОбмена</segments>
+              <segments>Объект.ExchangeProtocolFileEncoding</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6761,7 +6761,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_УниверсальныйОбменДаннымиXML</types>
+      <types>DataProcessorObject.UT_UniversalXMLDataExchange</types>
     </valueType>
     <view>
       <common>true</common>
@@ -6845,13 +6845,13 @@
       <segments>Объект.ИмяФайлаВнешнейОбработкиОбработчиковСобытий</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Объект.ИмяФайлаОбмена</segments>
+      <segments>Объект.ExchangeFileName</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
       <segments>Объект.ИмяФайлаОбработчиковСобытий</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Объект.ИмяФайлаПротоколаОбмена</segments>
+      <segments>Объект.ExchangeProtocolFileName</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
       <segments>Объект.ИмяФайлаПротоколаОбменаЗагрузка</segments>
@@ -6935,7 +6935,7 @@
       <segments>Объект.ПользовательИнформационнойБазыДляПодключения</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>Объект.РежимОбмена</segments>
+      <segments>Объект.ExchangeMode</segments>
     </settingsSavedData>
     <settingsSavedData xsi:type="form:DataPath">
       <segments>Объект.РежимОтладкиАлгоритмов</segments>

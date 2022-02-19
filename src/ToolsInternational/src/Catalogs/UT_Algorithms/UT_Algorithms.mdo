@@ -172,10 +172,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4acf180-6f4c-11e9-1495-002522f8f390">
-    <name>ВыбрасыватьИсключение</name>
+    <name>ThrowException</name>
     <synonym>
       <key>ru</key>
-      <value>Выбрасывать исключение</value>
+      <value>Throw exception</value>
     </synonym>
     <type>
       <types>Boolean</types>
@@ -189,10 +189,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4acffa4-6f4c-11e9-1495-002522f8f390">
-    <name>ВыполнятьВТранзакции</name>
+    <name>ExecuteInTransaction</name>
     <synonym>
       <key>ru</key>
-      <value>Выполнять в транзакции</value>
+      <value>Execute in transaction</value>
     </synonym>
     <type>
       <types>Boolean</types>
@@ -217,7 +217,7 @@
     <fillValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="e4ad1020-6f4c-11e9-1495-002522f8f390">
-    <name>ЗаписыватьОшибкиВЖР</name>
+    <name>WriteErrorsToEventLog</name>
     <synonym>
       <key>ru</key>
       <value>Записывать ошибки  в журнал</value>
@@ -234,10 +234,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ad33de-6f4c-11e9-1495-002522f8f390">
-    <name>ИдентификаторHTTP</name>
+    <name>HttpID</name>
     <synonym>
       <key>ru</key>
-      <value>Идентификатор HTTP</value>
+      <value>Http ID</value>
     </synonym>
     <type>
       <types>String</types>
@@ -285,10 +285,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ac9d02-6f4c-11e9-1495-002522f8f390">
-    <name>ТекстАлгоритма</name>
+    <name>AlgorithmText</name>
     <synonym>
       <key>ru</key>
-      <value>Текст алгоритма</value>
+      <value>Algorithm text</value>
     </synonym>
     <type>
       <types>String</types>

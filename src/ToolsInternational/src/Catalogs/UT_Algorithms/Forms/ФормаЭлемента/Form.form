@@ -16,7 +16,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.Description</segments>
+            <segments>Object.Description</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -68,7 +68,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.Code</segments>
+            <segments>Object.Code</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -199,7 +199,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.AtClient</segments>
+          <segments>Object.AtClient</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
@@ -258,7 +258,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.ЗаписыватьОшибкиВЖР</segments>
+            <segments>Object.WriteErrorsToEventLog</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -303,7 +303,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.ВыбрасыватьИсключение</segments>
+            <segments>Object.ThrowException</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -393,7 +393,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.Кэшировать</segments>
+            <segments>Object.Кэшировать</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -438,7 +438,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.ВыполнятьВТранзакции</segments>
+            <segments>Object.ExecuteInTransaction</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -521,7 +521,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.ИдентификаторHTTP</segments>
+          <segments>Object.HttpID</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -697,7 +697,7 @@
       <name>ГруппаКод</name>
       <id>97</id>
       <items xsi:type="form:FormField">
-        <name>ТекстАлгоритма</name>
+        <name>Algorithm</name>
         <id>111</id>
         <title>
           <key>ru</key>
@@ -710,13 +710,13 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.ТекстАлгоритма</segments>
+            <segments>Object.AlgorithmText</segments>
           </paths>
         </dataPath>
         <defaultItem>true</defaultItem>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ТекстАлгоритмаРасширеннаяПодсказка</name>
+          <name>AlgorithmExtendedTooltip</name>
           <id>158</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -731,7 +731,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТекстАлгоритмаКонтекстноеМеню</name>
+          <name>AlgorithmContextMenu</name>
           <id>112</id>
           <items xsi:type="form:Button">
             <name>КонструкторЗапросаПоказать</name>
@@ -1332,7 +1332,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Объект.Параметры</segments>
+          <segments>Object.Параметры</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -1345,7 +1345,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.Параметры.LineNumber</segments>
+              <segments>Object.Параметры.LineNumber</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1393,7 +1393,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.Параметры.Вход</segments>
+              <segments>Object.Параметры.Вход</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1438,7 +1438,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.Параметры.Имя</segments>
+              <segments>Object.Параметры.Имя</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1490,7 +1490,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.Параметры.ТипПараметра</segments>
+              <segments>Object.Параметры.ТипПараметра</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1543,7 +1543,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.Параметры.ПоУмолчанию</segments>
+              <segments>Object.Параметры.ПоУмолчанию</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1877,7 +1877,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.Comment</segments>
+          <segments>Object.Comment</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
@@ -2224,7 +2224,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>CatalogObject.UT_Algorithms</types>
@@ -2239,7 +2243,7 @@
     <savedData>true</savedData>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
-        <segments>Объект.Параметры</segments>
+        <segments>Object.Параметры</segments>
       </tablePath>
       <columns>
         <name>ЗначениеПараметра</name>
