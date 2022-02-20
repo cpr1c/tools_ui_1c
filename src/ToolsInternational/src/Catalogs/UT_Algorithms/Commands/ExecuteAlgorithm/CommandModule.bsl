@@ -1,25 +1,25 @@
-&НаКлиенте
-Процедура CommandProcessing(ПараметрКоманды, ПараметрыВыполненияКоманды)
+&AtClient
+Procedure CommandProcessing(CommandParameter, CommandExecuteParameters)
 
-	Для Каждого Алгоритм Из ПараметрКоманды Цикл
-		Ошибка = Ложь;
-		СообщениеОбОшибке = "";
+	For Each Algorithm In  CommandParameter Do
+		Error = False;
+		ErrorMessage = "";
 
-		Если АлгоритмВыполняетсяНаКлиенте(Алгоритм) Тогда
-			UT_CommonClient.ExecuteAlgorithm(Алгоритм, , Ошибка, СообщениеОбОшибке);
-		Иначе
-			UT_CommonServerCall.ExecuteAlgorithm(Алгоритм, , Ошибка, СообщениеОбОшибке);
-		КонецЕсли;
-		Если Ошибка Тогда
-			UT_CommonClientServer.MessageToUser(СообщениеОбОшибке);
-		КонецЕсли;
-	КонецЦикла;
+		If AlgorithmExecutedAtClient(Algorithm) Then
+			UT_CommonClient.ExecuteAlgorithm(Algorithm, , Error, ErrorMessage);
+		Else
+			UT_CommonServerCall.ExecuteAlgorithm(Algorithm, , Error, ErrorMessage);
+		EndIf;
+		If Error Then
+			UT_CommonClientServer.MessageToUser(ErrorMessage);
+		EndIf;
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Функция АлгоритмВыполняетсяНаКлиенте(Алгоритм)
+&AtServer
+Function AlgorithmExecutedAtClient(Algorithm)
 
-	Возврат Алгоритм.AtClient;
+	Return Algorithm.AtClient;
 
-КонецФункции
+EndFunction

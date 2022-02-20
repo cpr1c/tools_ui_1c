@@ -288,9 +288,9 @@ Procedure ReadAttributes(Val XMLReader, Attributes)
 		AttributeName = XMLReader.AttributeName(AttributeIndex);
 		AttributeValue = XMLReader.AttributeValue(AttributeName);
 
-//		Лог.Отладка("Прочитано значение <%1> атрибута <%2>", ЗначениеАтрибута, ИмяАтрибута);
+//		Log.Debug("Readed value <%1> of attribute <%2>", AttributeValue, AttributeName);
 		Attributes.Insert(TrimAll(AttributeName), TrimAll(AttributeValue));
-//		LastAttributeName = ЧтениеXML.Имя;
+//		LastAttributeName = XMLReader.Name;
 	EndDo;
 
 EndProcedure
@@ -299,8 +299,8 @@ Procedure ReadNodes(Val XMLReader, RootNode, SimplifyElements, Val RootNodeName)
 
 	While XMLReader.Read() Do
 
-//		Лог.Отладка("Тип узла <%1>", ЧтениеXML.NodeType);
-//		Лог.Отладка("Имя узла <%1>", ЧтениеXML.LocalName);
+//		Log.Debug("Node type <%1>", XMLReader.NodeType);
+//		Log.Debug("Node name <%1>", XMLReader.LocalName);
 
 		If XMLReader.NodeType = XMLNodeType.EndElement And XMLReader.Name = RootNodeName Then
 			Break;
@@ -309,25 +309,25 @@ Procedure ReadNodes(Val XMLReader, RootNode, SimplifyElements, Val RootNodeName)
 		If XMLReader.NodeType = XMLNodeType.StartElement Then
 
 			NewNodeName = XMLReader.Name;
-//			Лог.Отладка("Новый узел <%1>", NewNodeName);
+//			Log.Debug("New node <%1>", NewNodeName);
 			NodeMap = ReadXMLSection(XMLReader, SimplifyElements, NewNodeName);
-			ВставитьЭлементУзла(RootNode, NewNodeName, NodeMap);
+			InsertNodeElement(RootNode, NewNodeName, NodeMap);
 
 		ElsIf XMLReader.NodeType = XMLNodeType.Text Then
 
-			ЗначениеСвойства = XMLReader.Value;
-//			Лог.Отладка("Прочитано значение " + ЗначениеСвойства);
-			RootNode.Insert("_Value", ЗначениеСвойства);
+			XMLValue = XMLReader.Value;
+//			Log.Debug("Value readed " + XMLValue);
+			RootNode.Insert("_Value", XMLValue);
 
 		ElsIf XMLReader.NodeType = XMLNodeType.Comment Then
-			ЗначениеСвойства = XMLReader.Value;
-//			Лог.Отладка("Прочитан комментарий " + ЗначениеСвойства);
-			RootNode.Insert("_Comment", ЗначениеСвойства);
+			XMLValue = XMLReader.Value;
+//			Log.Debug(" Comment readed" + XMLValue);
+			RootNode.Insert("_Comment", XMLValue);
 
 		ElsIf XMLReader.NodeType = XMLNodeType.CDATASection Then
-			ЗначениеСвойства = XMLReader.Value;
-//			Лог.Отладка("Прочитана СекцияCDATA " + ЗначениеСвойства);
-			RootNode.Insert("_CDATA", ЗначениеСвойства);
+			XMLValue = XMLReader.Value;
+//			Log.Debug("CDATA  Section readed" + XMLValue);
+			RootNode.Insert("_CDATA", XMLValue);
 
 		EndIf;
 
@@ -335,7 +335,7 @@ Procedure ReadNodes(Val XMLReader, RootNode, SimplifyElements, Val RootNodeName)
 
 EndProcedure
 
-Procedure ВставитьЭлементУзла(RootNode, Val NewNodeName, NodeMap)
+Procedure InsertNodeElement(RootNode, Val NewNodeName, NodeMap)
 
 	NodeElementsType = TypeOf(RootNode._Elements);
 	CurrentElementMap = New Map;
@@ -345,9 +345,9 @@ Procedure ВставитьЭлементУзла(RootNode, Val NewNodeName, Node
 		RootNode._Elements.Add(CurrentElementMap);
 	ElsIf NodeElementsType = Type("Map") Then
 
-		УжеЕстьЗначение = Not RootNode._Elements[NewNodeName] = Undefined;
+		ValueDefined = Not RootNode._Elements[NewNodeName] = Undefined;
 
-		If УжеЕстьЗначение Then
+		If ValueDefined Then
 			ElementsArray = New Array;
 
 			For Each KeyValue In RootNode._Elements Do
@@ -368,7 +368,7 @@ Procedure ВставитьЭлементУзла(RootNode, Val NewNodeName, Node
 		EndIf;
 	Else
 
-		Raise StrTemplate("Пришел не корректный тип значения <%1>", NodeElementsType);
+		Raise StrTemplate("Invalid value type received <%1>", NodeElementsType);
 
 	EndIf;
 

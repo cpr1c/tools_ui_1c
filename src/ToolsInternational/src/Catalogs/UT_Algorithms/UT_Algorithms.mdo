@@ -204,7 +204,11 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ad5120-6f4c-11e9-1495-002522f8f390">
-    <name>ВыполнятьПоРасписанию</name>
+    <name>ExecuteBySchedule</name>
+    <synonym>
+      <key>en</key>
+      <value>Execute by schedule</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выполнять по расписанию</value>
@@ -252,10 +256,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ad42ac-6f4c-11e9-1495-002522f8f390">
-    <name>ИдентификаторРегламентногоЗадания</name>
+    <name>ScheduledJobUUID</name>
     <synonym>
       <key>ru</key>
-      <value>Идентификатор регламентного задания</value>
+      <value>Scheduled job UUID</value>
     </synonym>
     <type>
       <types>String</types>
@@ -271,7 +275,11 @@
     <fullTextSearch>Use</fullTextSearch>
   </attributes>
   <attributes uuid="e4acc76e-6f4c-11e9-1495-002522f8f390">
-    <name>Кэшировать</name>
+    <name>Сache</name>
+    <synonym>
+      <key>en</key>
+      <value>Cache return values</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Кэшировать возвращаемые значения</value>
@@ -309,10 +317,14 @@
       <objectType typeId="e4ad82a8-6f4c-11e9-1495-002522f8f390" valueTypeId="e4ad82a9-6f4c-11e9-1495-002522f8f390"/>
       <rowType typeId="e4ad82aa-6f4c-11e9-1495-002522f8f390" valueTypeId="e4ad82b2-6f4c-11e9-1495-002522f8f390"/>
     </producedTypes>
-    <name>Параметры</name>
+    <name>Parameters</name>
+    <synonym>
+      <key>en</key>
+      <value>Parameters</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Параметры</value>
+      <value>Parameters</value>
     </synonym>
     <standardAttributes>
       <dataHistory>Use</dataHistory>
@@ -323,7 +335,11 @@
       <maxValue xsi:type="core:UndefinedValue"/>
     </standardAttributes>
     <attributes uuid="e4ad88f2-6f4c-11e9-1495-002522f8f390">
-      <name>Вход</name>
+      <name>Entry</name>
+      <synonym>
+        <key>en</key>
+        <value>Entry</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Вход</value>
@@ -338,10 +354,14 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="e4ad95fe-6f4c-11e9-1495-002522f8f390">
-      <name>Имя</name>
+      <name>Name</name>
+      <synonym>
+        <key>en</key>
+        <value>Name</value>
+      </synonym>
       <synonym>
         <key>ru</key>
-        <value>Имя</value>
+        <value>Name</value>
       </synonym>
       <type>
         <types>String</types>
@@ -356,10 +376,14 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="e4ada2b0-6f4c-11e9-1495-002522f8f390">
-      <name>ТипПараметра</name>
+      <name>ParameterType</name>
+      <synonym>
+        <key>en</key>
+        <value>Parameter type</value>
+      </synonym>
       <synonym>
         <key>ru</key>
-        <value>Тип параметра</value>
+        <value>Parameter type</value>
       </synonym>
       <type>
         <types>String</types>
@@ -373,10 +397,14 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="0cf572c4-7575-11e9-9197-002522f8f390">
-      <name>ПоУмолчанию</name>
+      <name>ByDefault</name>
+      <synonym>
+        <key>en</key>
+        <value>By default</value>
+      </synonym>
       <synonym>
         <key>ru</key>
-        <value>По умолчанию</value>
+        <value>By default</value>
       </synonym>
       <type>
         <types>String</types>
@@ -400,16 +428,24 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e4afbadc-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаПараметра</name>
+    <name>ParameterForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Parameter form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Форма параметра</value>
+      <value>Parameter form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e4b0e632-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаРедактора</name>
+    <name>EditorForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Editor form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма редактора</value>

@@ -393,7 +393,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Object.Кэшировать</segments>
+            <segments>Object.Сache</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
@@ -1332,7 +1332,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Object.Параметры</segments>
+          <segments>Object.Parameters</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -1345,7 +1345,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Object.Параметры.LineNumber</segments>
+              <segments>Object.Parameters.LineNumber</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1393,7 +1393,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Object.Параметры.Вход</segments>
+              <segments>Object.Parameters.Entry</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1438,7 +1438,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Object.Параметры.Имя</segments>
+              <segments>Object.Parameters.Name</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1490,7 +1490,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Object.Параметры.ТипПараметра</segments>
+              <segments>Object.Parameters.ParameterType</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1543,7 +1543,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Object.Параметры.ПоУмолчанию</segments>
+              <segments>Object.Parameters.ByDefault</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -2243,7 +2243,7 @@
     <savedData>true</savedData>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
-        <segments>Object.Параметры</segments>
+        <segments>Object.Parameters</segments>
       </tablePath>
       <columns>
         <name>ЗначениеПараметра</name>
