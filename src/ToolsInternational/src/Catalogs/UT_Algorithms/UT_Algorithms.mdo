@@ -116,7 +116,7 @@
   <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
-  <defaultObjectForm>Catalog.UT_Algorithms.Form.ФормаЭлемента</defaultObjectForm>
+  <defaultObjectForm>Catalog.UT_Algorithms.Form.ItemForm</defaultObjectForm>
   <attributes uuid="e4ace370-6f4c-11e9-1495-002522f8f390">
     <name>AtClient</name>
     <synonym>
@@ -240,8 +240,12 @@
   <attributes uuid="e4ad33de-6f4c-11e9-1495-002522f8f390">
     <name>HttpID</name>
     <synonym>
+      <key>en</key>
+      <value>HTTP ID</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
-      <value>Http ID</value>
+      <value>Идентификатор HTTP</value>
     </synonym>
     <type>
       <types>String</types>
@@ -419,7 +423,11 @@
     </attributes>
   </tabularSections>
   <forms uuid="e4adbd0e-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаЭлемента</name>
+    <name>ItemForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Item Form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма элемента</value>
