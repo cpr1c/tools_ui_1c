@@ -10,29 +10,29 @@ EndProcedure
 &AtClient
 Procedure SetParameterName(Command)
 	ParameterName=TrimAll(ParameterName);
-	If ЕстьОшибкиВНаименованииПараметра(ParameterName) Then
+	If ParameterNameHasErrors(ParameterName) Then
 		Message = New UserMessage;
-		Message.Text = "Введите наименование параметра";
+		Message.Text = NSTR("ru = 'Введите наименование параметра';en = 'Input parameter name'");
 		Message.Field = "ParameterName";
 		Message.Message();
 	Else
 		If Parameters.Rename Then
-			ПереименоватьПараметр(Parameters.ИмяПараметра, ParameterName);
+			RenameParameter(Parameters.ParameterName, ParameterName);
 			Notify("ParameterChanged");
 			Close();
 		Else
-			ThisForm.Title= "New параметр : " + ParameterName;
-			УправлениеВидимостьюЭлементовФормы("SelectedType", False);
+			ThisForm.Title= StrTemplate(NSTR("ru = 'Новый параметр';en = 'New parameter'"),ParameterName);
+			FormItemsVisibilityManaging("SelectedType", False);
 		EndIf;
 	EndIf;
 EndProcedure
 
 &AtClient
-Function ЕстьОшибкиВНаименованииПараметра(Name)
+Function ParameterNameHasErrors(Name)
 	If IsBlankString(Name) Then
 		Return True;
 	Else
-		 //TODO  проверка на допустимые символы
+		 //TODO  Check for avalible symbols
 		Return False;
 	EndIf;
 EndFunction
@@ -41,61 +41,61 @@ EndFunction
 Procedure ExternalFileStartChoice(Item, ChoiceData, StandardProcessing)
 	StandardProcessing=False;
 	Dialog = New FileDialog(FileDialogMode.Opening);
-	Dialog.Title = "Выберите файл";
+	Dialog.Title = NSTR("ru = 'Выберите файл';en = 'Choose file'");
 	Dialog.FullFileName = "";
-	Filter = "All файлы  (*.*)|*.*";
+	Filter =NSTR("ru = 'Все файлы  (*.*)|*.*';en = 'All files (*.*)|*.*'");
 	Dialog.Filter = Filter;
 	Dialog.Multiselect = False;
-	Dialog.Show(New NotifyDescription("ВнешнийФайлНачалоВыбораЗавершение", ThisForm));
+	Dialog.Show(New NotifyDescription("ExternalFileStartChoiceOnEnd", ThisForm));
 EndProcedure
 
 
 &AtClient
-Procedure ВнешнийФайлНачалоВыбораЗавершение(SelectedFiles, AdditionalParameters) Export
+Procedure ExternalFileStartChoiceOnEnd(SelectedFiles, AdditionalParameters) Export
 	If (TypeOf(SelectedFiles) = Type("Array") And SelectedFiles.Count() > 0) Then
 		ExternalFile = SelectedFiles[0];
-		NotifyDescription = New NotifyDescription("ЗакончитьПомещениеФайла", ThisObject);
+		NotifyDescription = New NotifyDescription("PutFileEnd", ThisObject);
 		BeginPutFile(NotifyDescription, , ExternalFile, False, ThisForm.UUID);
 	Else
-		_37583_АлгоритмыКлиент.PopUp(" нет файла ");
+		_37583_AlgorithmsClient.PopUp(" No file ");
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ЗакончитьПомещениеФайла(Result, Address, ВыбранноеИмяФайла, AdditionalParameters) Export
-	АдресХранилища = Address;
+Procedure PutFileEnd(Result, Address, ВыбранноеИмяФайла, AdditionalParameters) Export
+	StorageURL = Address;
 EndProcedure
 
 &AtServer
-Procedure УправлениеВидимостьюЭлементовФормы(П = "", ВидимостьКнопок = True)
+Procedure FormItemsVisibilityManaging(P = "", ButtonsVisibility = True)
 	For Each Item In Items Do
 		If TypeOf(Item) = Type("FormDecoration") Then
 			Continue;
 		EndIf;
-		If Not IsBlankString(П) Then
-			Item.Visible=?(Find(Item.Name, П) > 0, True, False);
+		If Not IsBlankString(P) Then
+			Item.Visible=?(Find(Item.Name, P) > 0, True, False);
 		EndIf;
 		If Find(Item.Name, "Close") > 0 Then
-			Item.Visible=ВидимостьКнопок;
+			Item.Visible=ButtonsVisibility;
 			Item.Parent.Visible=True;
 		EndIf;
 	EndDo;
 EndProcedure
 
 &AtServer
-Procedure УправлениеВидимостьюКоллекции(П = "Array")
-	If Not IsBlankString(Parameters.ИмяПараметра) Then
+Procedure УправлениеВидимостьюКоллекции(P = "Array")
+	If Not IsBlankString(Parameters.ParameterName) Then
 		Items.TypeCollection.Visible=False;
 	EndIf;
-	If П = "Array" Then
+	If P = "Array" Then
 		ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
-	ElsIf П = "Structure" Then
+	ElsIf P = "Structure" Then
 		Items.TypeDescription.Visible=False;
 		Items.AddColumn.Visible=False;
 		ОТ= New TypeDescription("String", , New StringQualifiers(20, AllowedLength.Variable));
 		ДобавитьКолонкуНС("Key", ОТ, "CollectionParameter");
 		ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
-	ElsIf П = "Map" Then
+	ElsIf P = "Map" Then
 		Items.TypeDescription.Visible=False;
 		Items.AddColumn.Visible=False;
 		ДобавитьКолонкуНС("Key", TypeDescription, "CollectionParameter");
@@ -109,23 +109,23 @@ EndProcedure
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	If IsBlankString(Parameters.ИмяПараметра) Then
+	If IsBlankString(Parameters.ParameterName) Then
 		ThisForm.Title="New параметр";
-		УправлениеВидимостьюЭлементовФормы("Title", False);
+		FormItemsVisibilityManaging("Title", False);
 	ElsIf Parameters.Rename Then
-		ThisForm.Title=Parameters.ИмяПараметра + ":New имя параметра";
-		ParameterName=Parameters.ИмяПараметра;
-		УправлениеВидимостьюЭлементовФормы("Title");
+		ThisForm.Title=Parameters.ParameterName + ":New имя параметра";
+		ParameterName=Parameters.ParameterName;
+		FormItemsVisibilityManaging("Title");
 	Else
-		ParameterName=Parameters.ИмяПараметра;
-		ThisForm.Title=Parameters.ИмяПараметра + ":Update параметра";
+		ParameterName=Parameters.ParameterName;
+		ThisForm.Title=Parameters.ParameterName + ":Update параметра";
 		ДействияПриИзменениеПараметра();
 	EndIf;
 EndProcedure
 
 &AtServer
 Procedure ДействияПриИзменениеПараметра()
-	Parameter=GetParameter(Parameters.ИмяПараметра);
+	Parameter=GetParameter(Parameters.ParameterName);
 	C = New Map;
 	C.Insert("Array", "Коллекция");
 	C.Insert("Structure", "Коллекция");
@@ -135,13 +135,13 @@ Procedure ДействияПриИзменениеПараметра()
 	C.Insert(Undefined, "AvailableTypes");
 	ParameterType=C.Get(Parameters.ParameterType);
 	If ParameterType = Undefined Then
-		УправлениеВидимостьюЭлементовФормы("AvailableTypes");
+		FormItemsVisibilityManaging("AvailableTypes");
 		AvailableTypes=Parameter;
 		Items.AvailableTypes.Title=Parameters.ParameterType;
 		Items.AvailableTypes.ChooseType=False;
 		Parameters.ParameterType="AvailableTypes";
 	ElsIf ParameterType = "Коллекция" Then
-		УправлениеВидимостьюЭлементовФормы("Коллекция");
+		FormItemsVisibilityManaging("Коллекция");
 		Items.TypeCollection.Visible=False;
 		For Each ЭлементКоллекции In Items.CollectionParameter.ChildItems Do
 			ЭлементКоллекции.Visible=True;
@@ -179,7 +179,7 @@ Procedure ДействияПриИзменениеПараметра()
 		EndIf;
 	Else
 		Parameters.ParameterType="ExternalFile";
-		УправлениеВидимостьюЭлементовФормы("ExternalFile");
+		FormItemsVisibilityManaging("ExternalFile");
 	EndIf;
 EndProcedure
 
@@ -203,9 +203,9 @@ Function КоллекцияВТЗ(Коллекция)
 EndFunction
 
 &AtServer
-Procedure ПереименоватьПараметр(Key, НовоеИмя)
-	ВыбОбъект=FormAttributeToValue("Object");
-	ВыбОбъект.ПереименоватьПараметр(Key, НовоеИмя);
+Procedure RenameParameter(Key, НовоеИмя)
+	SelectedObject=FormAttributeToValue("Object");
+	SelectedObject.RenameParameter(Key, НовоеИмя);
 EndProcedure
 
 /// Интерф
@@ -284,8 +284,8 @@ EndProcedure
 Procedure ChangeParameter()
 	НовоеЗначение=ПолучитьНовоеЗначение();
 	If Not НовоеЗначение = Undefined Then
-		ВыбОбъект=FormAttributeToValue("Object");
-		ВыбОбъект.ChangeParameter(New Structure("ParameterName,ЗначениеПараметра", ParameterName,
+		SelectedObject=FormAttributeToValue("Object");
+		SelectedObject.ChangeParameter(New Structure("ParameterName,ЗначениеПараметра", ParameterName,
 			НовоеЗначение));
 	EndIf;
 EndProcedure
@@ -296,7 +296,7 @@ Function ПолучитьНовоеЗначение()
 		Return AvailableTypes;
 	ElsIf Parameters.ParameterType = "ExternalFile" Then
 		Поз = StrFind(ExternalFile, ".", SearchDirection.FromEnd);
-		Return "{" + ?(Поз > 0, Mid(ExternalFile, Поз + 1) + "}", "}") + АдресХранилища;
+		Return "{" + ?(Поз > 0, Mid(ExternalFile, Поз + 1) + "}", "}") + StorageURL;
 	ElsIf Parameters.ParameterType = "DefinedType" Then
 		Try
 			Result=Undefined;
@@ -330,20 +330,20 @@ EndFunction
 
 &AtServer
 Function GetParameter(НаименованиеПараметра)
-	ВыбОбъект=FormAttributeToValue("Object");
-	Return ВыбОбъект.GetParameter(НаименованиеПараметра);
+	SelectedObject=FormAttributeToValue("Object");
+	Return SelectedObject.GetParameter(НаименованиеПараметра);
 EndFunction // GetParameter()
 
 &AtClient
 Procedure SelectedTypeOnChange(Item)
 	Parameters.ParameterType=SelectedType;
-	УправлениеВидимостьюЭлементовФормы(SelectedType);
+	FormItemsVisibilityManaging(SelectedType);
 EndProcedure
 
 &AtClient
 Procedure ParameterNameOnChange(Item)
 	If Not Parameters.Rename Then
-		Parameters.ИмяПараметра=TrimAll(ParameterName);
+		Parameters.ParameterName=TrimAll(ParameterName);
 	EndIf;
 EndProcedure
 
@@ -351,7 +351,6 @@ EndProcedure
 Procedure AvailableTypesOnChange(Item)
 	Item.Title=TypeOf(AvailableTypes);
 EndProcedure
-
 
 &AtClient
 Procedure DefinedTypeTextEditEnd(Item, Text, ChoiceData, DataGetParameters, StandardProcessing)
