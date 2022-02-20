@@ -83,7 +83,7 @@ Procedure FormItemsVisibilityManaging(P = "", ButtonsVisibility = True)
 EndProcedure
 
 &AtServer
-Procedure УправлениеВидимостьюКоллекции(P = "Array")
+Procedure CollectionVisibilityManaging(P = "Array")
 	If Not IsBlankString(Parameters.ParameterName) Then
 		Items.TypeCollection.Visible=False;
 	EndIf;
@@ -212,17 +212,17 @@ EndProcedure
 
 &AtClient
 Procedure AddColumn(Command)
-	КолонкаИмя="";
-	ShowInputValue(New NotifyDescription("ДобавитьКолонкуЗавершение", ThisForm, New Structure("КолонкаИмя",
-		КолонкаИмя)), КолонкаИмя, "Введите имя новой колонки", "String");
+	ColumnName="";
+	ShowInputValue(New NotifyDescription("ДобавитьКолонкуЗавершение", ThisForm, New Structure("ColumnName",
+		ColumnName)), ColumnName, "Введите имя новой колонки", "String");
 EndProcedure
 
 &AtClient
 Procedure ДобавитьКолонкуЗавершение(Value, AdditionalParameters) Export
 
-	КолонкаИмя = ?(Value = Undefined, AdditionalParameters.КолонкаИмя, Value);
-	If Not IsBlankString(КолонкаИмя) Then
-		ДобавитьКолонкуНС(TrimAll(КолонкаИмя), TypeDescription, "CollectionParameter");
+	ColumnName = ?(Value = Undefined, AdditionalParameters.ColumnName, Value);
+	If Not IsBlankString(ColumnName) Then
+		ДобавитьКолонкуНС(TrimAll(ColumnName), TypeDescription, "CollectionParameter");
 		TypeDescription="";
 	Else
 		Return;
@@ -255,48 +255,48 @@ Procedure УдалитьКолонкуЗавершение(РезультатВ�
 EndProcedure
 
 &AtServer
-Procedure ДобавитьКолонкуНС(Знач КолонкаИмя, ОписаниеТипаКолонки, FormTable)
-	МассивДобавляемыхРеквизитов = New Array;
-	МассивДобавляемыхРеквизитов.Add(
-	New FormAttribute(КолонкаИмя, ОписаниеТипаКолонки, FormTable, КолонкаИмя));
-	ChangeAttributes(МассивДобавляемыхРеквизитов);
-	НовыйЭлемент = Items.Add(КолонкаИмя, Type("FormField"), Items[FormTable]);
-	НовыйЭлемент.Title=КолонкаИмя;
-	НовыйЭлемент.Type = FormFieldType.TextBox;
-	НовыйЭлемент.DataPath = FormTable + "." + КолонкаИмя;
+Procedure ДобавитьКолонкуНС(Val ColumnName, ColumnTypeDescription, FormTable)
+	AddedAttributesArray = New Array;
+	AddedAttributesArray.Add(
+	New FormAttribute(ColumnName, ColumnTypeDescription, FormTable, ColumnName));
+	ChangeAttributes(AddedAttributesArray);
+	NewItem = Items.Add(ColumnName, Type("FormField"), Items[FormTable]);
+	NewItem.Title=ColumnName;
+	NewItem.Type = FormFieldType.TextBox;
+	NewItem.DataPath = FormTable + "." + ColumnName;
 EndProcedure
 
 &AtServer
-Procedure УдалитьКолонкуНС(КолонкаИмя, FormTable)
-	Items.Delete(Items.Find(КолонкаИмя));
-	МассивУдаляемыхРеквизитов = New Array;
-	МассивУдаляемыхРеквизитов.Add(FormTable + "." + КолонкаИмя);
-	ChangeAttributes( , МассивУдаляемыхРеквизитов);
+Procedure УдалитьКолонкуНС(ColumnName, FormTable)
+	Items.Delete(Items.Find(ColumnName));
+	DeletedAttributesArray = New Array;
+	DeletedAttributesArray.Add(FormTable + "." + ColumnName);
+	ChangeAttributes( , DeletedAttributesArray);
 EndProcedure
 
 &AtClient
 Procedure TypeCollectionOnChange(Item)
-		УправлениеВидимостьюКоллекции(TypeCollection);
+		CollectionVisibilityManaging(TypeCollection);
 	Item.Visible=False;
 EndProcedure
 
 &AtServer
 Procedure ChangeParameter()
-	НовоеЗначение=ПолучитьНовоеЗначение();
-	If Not НовоеЗначение = Undefined Then
+	NewValue=GetNewValue();
+	If Not NewValue = Undefined Then
 		SelectedObject=FormAttributeToValue("Object");
-		SelectedObject.ChangeParameter(New Structure("ParameterName,ЗначениеПараметра", ParameterName,
-			НовоеЗначение));
+		SelectedObject.ChangeParameter(New Structure("ParameterName,ParameterValue", ParameterName,
+			NewValue));
 	EndIf;
 EndProcedure
 
 &AtServer
-Function ПолучитьНовоеЗначение()
+Function GetNewValue()
 	If Parameters.ParameterType = "AvailableTypes" Then
 		Return AvailableTypes;
 	ElsIf Parameters.ParameterType = "ExternalFile" Then
-		Поз = StrFind(ExternalFile, ".", SearchDirection.FromEnd);
-		Return "{" + ?(Поз > 0, Mid(ExternalFile, Поз + 1) + "}", "}") + StorageURL;
+		Pos = StrFind(ExternalFile, ".", SearchDirection.FromEnd);
+		Return "{" + ?(Pos > 0, Mid(ExternalFile, Pos + 1) + "}", "}") + StorageURL;
 	ElsIf Parameters.ParameterType = "DefinedType" Then
 		Try
 			Result=Undefined;
@@ -307,23 +307,23 @@ Function ПолучитьНовоеЗначение()
 			Return Undefined;
 		EndTry;
 	Else
-		Т=FormAttributeToValue("CollectionParameter");
+		Table=FormAttributeToValue("CollectionParameter");
 		If TypeCollection = "Array" Then
-			Return Т.UnloadColumn(0);
+			Return Table.UnloadColumn(0);
 		ElsIf TypeCollection = "Structure" Then
 			С=New Structure;
-			For Each Стр In Т Do
+			For Each Стр In Table Do
 				С.Insert(Стр.Key, Стр.Value);EndDo
 			;
 			Return С;
 		ElsIf TypeCollection = "Map" Then
 			С=New Map;
-			For Each Стр In Т Do
+			For Each Стр In Table Do
 				С.Insert(Стр.Key, Стр.Value);EndDo
 			;
 			Return С;
 		Else
-			Return Т;
+			Return Table;
 		EndIf;
 	EndIf;
 EndFunction
