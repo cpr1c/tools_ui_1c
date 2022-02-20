@@ -88,18 +88,18 @@ Procedure CollectionVisibilityManaging(P = "Array")
 		Items.TypeCollection.Visible=False;
 	EndIf;
 	If P = "Array" Then
-		ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
+		AddColumnAtServer("Value", TypeDescription, "CollectionParameter");
 	ElsIf P = "Structure" Then
 		Items.TypeDescription.Visible=False;
 		Items.AddColumn.Visible=False;
-		ОТ= New TypeDescription("String", , New StringQualifiers(20, AllowedLength.Variable));
-		ДобавитьКолонкуНС("Key", ОТ, "CollectionParameter");
-		ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
+		TD= New TypeDescription("String", , New StringQualifiers(20, AllowedLength.Variable));
+		AddColumnAtServer("Key", TD, "CollectionParameter");
+		AddColumnAtServer("Value", TypeDescription, "CollectionParameter");
 	ElsIf P = "Map" Then
 		Items.TypeDescription.Visible=False;
 		Items.AddColumn.Visible=False;
-		ДобавитьКолонкуНС("Key", TypeDescription, "CollectionParameter");
-		ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
+		AddColumnAtServer("Key", TypeDescription, "CollectionParameter");
+		AddColumnAtServer("Value", TypeDescription, "CollectionParameter");
 	Else
 		Items.TypeDescription.Visible=True;
 		Items.AddColumn.Visible=True;
@@ -110,70 +110,71 @@ EndProcedure
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	If IsBlankString(Parameters.ParameterName) Then
-		ThisForm.Title="New параметр";
+		ThisForm.Title=NStr("ru = 'Новый параметр';en = 'New parameter'");
 		FormItemsVisibilityManaging("Title", False);
 	ElsIf Parameters.Rename Then
-		ThisForm.Title=Parameters.ParameterName + ":New имя параметра";
+		
+		ThisForm.Title=StrTemplate("%1 :%2",Parameters.ParameterName,NSTR("ru = 'Новое имя параметра';en = 'New parameter name'"));
 		ParameterName=Parameters.ParameterName;
 		FormItemsVisibilityManaging("Title");
 	Else
 		ParameterName=Parameters.ParameterName;
-		ThisForm.Title=Parameters.ParameterName + ":Update параметра";
-		ДействияПриИзменениеПараметра();
+		ThisForm.Title=StrTemplate("%1 :%2",Parameters.ParameterName,NSTR("ru = 'Изменение параметра';en = 'Changing  parameter'"));;
+		OnParameterChangeAction();
 	EndIf;
 EndProcedure
 
 &AtServer
-Procedure ДействияПриИзменениеПараметра()
+Procedure OnParameterChangeAction()
 	Parameter=GetParameter(Parameters.ParameterName);
-	C = New Map;
-	C.Insert("Array", "Коллекция");
-	C.Insert("Structure", "Коллекция");
-	C.Insert("Map", "Коллекция");
-	C.Insert("Table значений", "Коллекция");
-	C.Insert("Двоичные данные", "ExternalFile");
-	C.Insert(Undefined, "AvailableTypes");
-	ParameterType=C.Get(Parameters.ParameterType);
+	M = New Map;
+	M.Insert("Array", "Collection");
+	M.Insert("Structure", "Collection");
+	M.Insert("Map", "Collection");
+	M.Insert("Table значений", "Collection");
+	M.Insert("Binary data", "ExternalFile");
+	M.Insert(Undefined, "AvailableTypes");
+	ParameterType=M.Get(Parameters.ParameterType);
 	If ParameterType = Undefined Then
 		FormItemsVisibilityManaging("AvailableTypes");
 		AvailableTypes=Parameter;
 		Items.AvailableTypes.Title=Parameters.ParameterType;
 		Items.AvailableTypes.ChooseType=False;
 		Parameters.ParameterType="AvailableTypes";
-	ElsIf ParameterType = "Коллекция" Then
-		FormItemsVisibilityManaging("Коллекция");
+	ElsIf ParameterType = "Collection" Then
+		FormItemsVisibilityManaging("Collection");
 		Items.TypeCollection.Visible=False;
-		For Each ЭлементКоллекции In Items.CollectionParameter.ChildItems Do
-			ЭлементКоллекции.Visible=True;
+		For Each CollectionItem In Items.CollectionParameter.ChildItems Do
+			CollectionItem.Visible=True;
 		EndDo;
 		If Parameters.ParameterType = "Array" Then
-			ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
-			Т=КоллекцияВТЗ(Parameter);
+			AddColumnAtServer("Value", TypeDescription, "CollectionParameter");
+			Т=CollectionToValueTable(Parameter);
 			CollectionParameter.Load(Т);
 			TypeCollection="Array";
 		ElsIf Parameters.ParameterType = "Structure" Then
 			Items.TypeDescription.Visible=False;
 			Items.AddColumn.Visible=False;
-			ОТ= New TypeDescription("String", , New StringQualifiers(20, AllowedLength.Variable));
-			ДобавитьКолонкуНС("Key", ОТ, "CollectionParameter");
-			ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
-			Т=КоллекцияВТЗ(Parameter);
+			TD= New TypeDescription("String", , New StringQualifiers(20, AllowedLength.Variable));
+			AddColumnAtServer("Key", TD, "CollectionParameter");
+			AddColumnAtServer("Value", TypeDescription, "CollectionParameter");
+			Т=CollectionToValueTable(Parameter);
 			CollectionParameter.Load(Т);
 			TypeCollection="Structure";
 		ElsIf Parameters.ParameterType = "Map" Then
 			Items.TypeDescription.Visible=False;
 			Items.AddColumn.Visible=False;
-			ДобавитьКолонкуНС("Key", TypeDescription, "CollectionParameter");
-			ДобавитьКолонкуНС("Value", TypeDescription, "CollectionParameter");
-			Т=КоллекцияВТЗ(Parameter);
+			AddColumnAtServer("Key", TypeDescription, "CollectionParameter");
+			AddColumnAtServer("Value", TypeDescription, "CollectionParameter");
+			Т=CollectionToValueTable(Parameter);
 			CollectionParameter.Load(Т);
 			TypeCollection="Map";
 		Else
 			Items.TypeDescription.Visible=True;
 			Items.AddColumn.Visible=True;
 			Items.DeleteColumn.Visible=True;
-			For Each Column In Parameter.Cols Do
-				ДобавитьКолонкуНС(Column.Name, Column.ValueType, "CollectionParameter");
+			For Each Column In Parameter.Columns Do
+				AddColumnAtServer(Column.Name, Column.ValueType, "CollectionParameter");
 			EndDo;
 			CollectionParameter.Load(Parameter);
 		EndIf;
@@ -184,28 +185,28 @@ Procedure ДействияПриИзменениеПараметра()
 EndProcedure
 
 &AtServer
-Function КоллекцияВТЗ(Коллекция)
-	ТЗ = New ValueTable;
-	ТЗ.Cols.Add("Value");
-	If Not TypeOf(Коллекция) = Type("Array") Then
-		ТЗ.Cols.Add("Key");
-		For Each ТекЭлем In Коллекция Do
-			НС=ТЗ.Add();
+Function CollectionToValueTable(Collection)
+	VT = New ValueTable;
+	VT.Columns.Add("Value");
+	If Not TypeOf(Collection) = Type("Array") Then
+		VT.Columns.Add("Key");
+		For Each ТекЭлем In Collection Do
+			НС=VT.Add();
 			FillPropertyValues(НС, ТекЭлем);
 		EndDo;
 	Else
-		For I = 0 To Коллекция.UBound() Do
-			ТЗ.Add();
+		For I = 0 To Collection.UBound() Do
+			VT.Add();
 		EndDo;
-		ТЗ.LoadColumn(Коллекция, 0);
+		VT.LoadColumn(Collection, 0);
 	EndIf;
-	Return ТЗ;
+	Return VT;
 EndFunction
 
 &AtServer
-Procedure RenameParameter(Key, НовоеИмя)
+Procedure RenameParameter(Key, NewName)
 	SelectedObject=FormAttributeToValue("Object");
-	SelectedObject.RenameParameter(Key, НовоеИмя);
+	SelectedObject.RenameParameter(Key, NewName);
 EndProcedure
 
 /// Интерф
@@ -213,16 +214,16 @@ EndProcedure
 &AtClient
 Procedure AddColumn(Command)
 	ColumnName="";
-	ShowInputValue(New NotifyDescription("ДобавитьКолонкуЗавершение", ThisForm, New Structure("ColumnName",
-		ColumnName)), ColumnName, "Введите имя новой колонки", "String");
+	ShowInputValue(New NotifyDescription("AddColumnEnd", ThisForm, New Structure("ColumnName",
+		ColumnName)), ColumnName, Nstr("ru = 'Введите имя новой колонки';en = 'Input name of new column'"), "String");
 EndProcedure
 
 &AtClient
-Procedure ДобавитьКолонкуЗавершение(Value, AdditionalParameters) Export
+Procedure AddColumnEnd(Value, AdditionalParameters) Export
 
 	ColumnName = ?(Value = Undefined, AdditionalParameters.ColumnName, Value);
 	If Not IsBlankString(ColumnName) Then
-		ДобавитьКолонкуНС(TrimAll(ColumnName), TypeDescription, "CollectionParameter");
+		AddColumnAtServer(TrimAll(ColumnName), TypeDescription, "CollectionParameter");
 		TypeDescription="";
 	Else
 		Return;
@@ -234,28 +235,28 @@ EndProcedure
 Procedure DeleteColumn(Command)
 	ColumnName=Items.CollectionParameter.CurrentItem.Name;
 	If Items.CollectionParameter.CurrentItem <> Undefined Then
-		ShowQueryBox(New NotifyDescription("УдалитьКолонкуЗавершение", ThisForm, New Structure("ColumnName",
-			ColumnName)), "Вы уверены что хотите изменить удалить колонку  """ + ColumnName + """ ?",
+		ShowQueryBox(New NotifyDescription("DeleteColumnEnd", ThisForm, New Structure("ColumnName",
+			ColumnName)),StrTemplate("%1 %2 ?",NStr("ru = 'Вы уверены , что хотите изменить удалить колонку ';en = 'Are you sure you want to change delete column'"),ColumnName) ,
 			QuestionDialogMode.YesNo);
 	Else
-		ShowMessageBox(Undefined, "Нужно выбрать колонку таблицы !");
+		ShowMessageBox(Undefined, NSTR("ru = 'Нужно выбрать колонку таблицы !';en = 'You need to select a table column !'"));
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure УдалитьКолонкуЗавершение(РезультатВопроса, AdditionalParameters) Export
+Procedure DeleteColumnEnd(QuestionResult, AdditionalParameters) Export
 
 	ColumnName = AdditionalParameters.ColumnName;
 
-	If РезультатВопроса = DialogReturnCode.Yes Then
-		УдалитьКолонкуНС(ColumnName, "CollectionParameter");
+	If QuestionResult = DialogReturnCode.Yes Then
+		DeleteColumnAtServer(ColumnName, "CollectionParameter");
 	EndIf
 	;
 
 EndProcedure
 
 &AtServer
-Procedure ДобавитьКолонкуНС(Val ColumnName, ColumnTypeDescription, FormTable)
+Procedure AddColumnAtServer(Val ColumnName, ColumnTypeDescription, FormTable)
 	AddedAttributesArray = New Array;
 	AddedAttributesArray.Add(
 	New FormAttribute(ColumnName, ColumnTypeDescription, FormTable, ColumnName));
@@ -267,7 +268,7 @@ Procedure ДобавитьКолонкуНС(Val ColumnName, ColumnTypeDescripti
 EndProcedure
 
 &AtServer
-Procedure УдалитьКолонкуНС(ColumnName, FormTable)
+Procedure DeleteColumnAtServer(ColumnName, FormTable)
 	Items.Delete(Items.Find(ColumnName));
 	DeletedAttributesArray = New Array;
 	DeletedAttributesArray.Add(FormTable + "." + ColumnName);
@@ -311,17 +312,17 @@ Function GetNewValue()
 		If TypeCollection = "Array" Then
 			Return Table.UnloadColumn(0);
 		ElsIf TypeCollection = "Structure" Then
-			С=New Structure;
-			For Each Стр In Table Do
-				С.Insert(Стр.Key, Стр.Value);EndDo
+			S=New Structure;
+			For Each Row In Table Do
+				S.Insert(Row.Key, Row.Value);EndDo
 			;
-			Return С;
+			Return S;
 		ElsIf TypeCollection = "Map" Then
-			С=New Map;
-			For Each Стр In Table Do
-				С.Insert(Стр.Key, Стр.Value);EndDo
+			S=New Map;
+			For Each Row In Table Do
+				S.Insert(Row.Key, Row.Value);EndDo
 			;
-			Return С;
+			Return S;
 		Else
 			Return Table;
 		EndIf;
@@ -329,9 +330,9 @@ Function GetNewValue()
 EndFunction
 
 &AtServer
-Function GetParameter(НаименованиеПараметра)
+Function GetParameter(ParameterName)
 	SelectedObject=FormAttributeToValue("Object");
-	Return SelectedObject.GetParameter(НаименованиеПараметра);
+	Return SelectedObject.GetParameter(ParameterName);
 EndFunction // GetParameter()
 
 &AtClient

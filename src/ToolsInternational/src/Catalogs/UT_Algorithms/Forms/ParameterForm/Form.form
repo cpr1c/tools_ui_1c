@@ -1382,7 +1382,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьКолонку</name>
+        <name>DeleteColumn</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
