@@ -261,7 +261,7 @@
       <name>GroupCommon</name>
       <id>557</id>
       <items xsi:type="form:FormField">
-        <name>ЗаписыватьОшибкиВЖР</name>
+        <name>WriteErrorsToEventLog</name>
         <id>554</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -274,7 +274,7 @@
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ЗаписыватьОшибкиВЖРРасширеннаяПодсказка</name>
+          <name>WriteErrorsToEventLogExtendedTooltip</name>
           <id>556</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -289,7 +289,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ЗаписыватьОшибкиВЖРКонтекстноеМеню</name>
+          <name>WriteErrorsToEventLogContextMenu</name>
           <id>555</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -396,7 +396,7 @@
       <name>GroupServer</name>
       <id>546</id>
       <items xsi:type="form:FormField">
-        <name>Кэшировать</name>
+        <name>Сache</name>
         <id>518</id>
         <title>
           <key>ru</key>
@@ -413,7 +413,7 @@
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>КэшироватьРасширеннаяПодсказка</name>
+          <name>СacheExtendedTooltip</name>
           <id>520</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -428,7 +428,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>КэшироватьКонтекстноеМеню</name>
+          <name>СacheContextMenu</name>
           <id>519</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -774,7 +774,7 @@
           <name>AlgorithmContextMenu</name>
           <id>112</id>
           <items xsi:type="form:Button">
-            <name>КонструкторЗапросаПоказать</name>
+            <name>ShowQueryWizard</name>
             <id>536</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -782,7 +782,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>КонструкторЗапросаПоказатьРасширеннаяПодсказка</name>
+              <name>ShowQueryWizardExtendedTooltip</name>
               <id>537</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -873,7 +873,7 @@
       <name>GroupParameters</name>
       <id>98</id>
       <items xsi:type="form:Table">
-        <name>ТаблицаПараметров</name>
+        <name>ParametersTable</name>
         <id>99</id>
         <title>
           <key>ru</key>
@@ -885,7 +885,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ТаблицаПараметров</segments>
+          <segments>ParametersTable</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <excludedCommands>Add</excludedCommands>
@@ -899,7 +899,7 @@
         <excludedCommands>SortListAsc</excludedCommands>
         <excludedCommands>SortListDesc</excludedCommands>
         <items xsi:type="form:FormField">
-          <name>ТаблицаНастроекОбменаПараметр</name>
+          <name>ParametersTableParameter</name>
           <id>102</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -908,11 +908,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТаблицаПараметров.Параметр</segments>
+              <segments>ParametersTable.Parameter</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ТаблицаНастроекОбменаПараметрРасширеннаяПодсказка</name>
+            <name>ParametersTableParameterExtendedTooltip</name>
             <id>150</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -927,7 +927,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТаблицаНастроекОбменаПараметрКонтекстноеМеню</name>
+            <name>ParametersTableParameterContextMenu</name>
             <id>103</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -956,7 +956,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ТаблицаНастроекОбменаОписаниеТипа</name>
+          <name>ParametersTableTypeDescription</name>
           <id>104</id>
           <title>
             <key>ru</key>
@@ -969,11 +969,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТаблицаПараметров.ОписаниеТипа</segments>
+              <segments>ParametersTable.TypeDescription</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ТаблицаНастроекОбменаОписаниеТипаРасширеннаяПодсказка</name>
+            <name>ParametersTableTypeDescriptionExtendedTooltip</name>
             <id>151</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -988,7 +988,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТаблицаНастроекОбменаОписаниеТипаКонтекстноеМеню</name>
+            <name>ParametersTableTypeDescriptionContextMenu</name>
             <id>105</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1013,10 +1013,10 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ТаблицаПараметровКоманднаяПанель</name>
+          <name>ParametersTableCommandBar</name>
           <id>101</id>
           <items xsi:type="form:Button">
-            <name>ДобавитьПараметр</name>
+            <name>AddParameter</name>
             <id>106</id>
             <title>
               <key>ru</key>
@@ -1028,7 +1028,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ДобавитьПараметрРасширеннаяПодсказка</name>
+              <name>AddParameterExtendedTooltip</name>
               <id>137</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1053,7 +1053,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ИзменитьЗначение</name>
+            <name>EditValue</name>
             <id>116</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1061,7 +1061,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ИзменитьЗначениеРасширеннаяПодсказка</name>
+              <name>EditValueExtendedTooltip</name>
               <id>139</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1127,7 +1127,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ТаблицаПараметровУдалить</name>
+            <name>ParametersTableDelete</name>
             <id>185</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1135,7 +1135,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ТаблицаПараметровУдалитьРасширеннаяПодсказка</name>
+              <name>ParametersTableDeleteExtendedTooltip</name>
               <id>186</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1149,7 +1149,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Item.ТаблицаПараметров.StandardCommand.Delete</commandName>
+            <commandName>Form.Item.ParametersTable.StandardCommand.Delete</commandName>
             <representation>PictureAndText</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1173,10 +1173,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаПараметровСтрокаПоиска</name>
+          <name>ParametersTableSearchString</name>
           <id>141</id>
           <extendedTooltip>
-            <name>ТаблицаПараметровСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>ParametersTableSearchStringExtendedTooltip</name>
             <id>143</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1191,7 +1191,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТаблицаПараметровСтрокаПоискаКонтекстноеМеню</name>
+            <name>ParametersTableSearchStringContextMenu</name>
             <id>142</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1210,10 +1210,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаПараметровСостояниеПросмотра</name>
+          <name>ParametersTableViewStatus</name>
           <id>144</id>
           <extendedTooltip>
-            <name>ТаблицаПараметровСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>ParametersTableViewStatusExtendedTooltip</name>
             <id>146</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1228,7 +1228,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТаблицаПараметровСостояниеПросмотраКонтекстноеМеню</name>
+            <name>ParametersTableViewStatusContextMenu</name>
             <id>145</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1249,10 +1249,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ТаблицаПараметровУправлениеПоиском</name>
+          <name>ParametersTableSearchControl</name>
           <id>147</id>
           <extendedTooltip>
-            <name>ТаблицаПараметровУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>ParametersTableSearchControlExtendedTooltip</name>
             <id>149</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1267,7 +1267,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТаблицаПараметровУправлениеПоискомКонтекстноеМеню</name>
+            <name>ParametersTableSearchControlContextMenu</name>
             <id>148</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1282,7 +1282,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ТаблицаПараметровРасширеннаяПодсказка</name>
+          <name>ParametersTableExtendedTooltip</name>
           <id>140</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1297,7 +1297,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ТаблицаПараметровКонтекстноеМеню</name>
+          <name>ParametersTableContextMenu</name>
           <id>100</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1376,7 +1376,7 @@
       <name>GroupAPI</name>
       <id>573</id>
       <items xsi:type="form:Table">
-        <name>ПрограммныйИнтерфейс</name>
+        <name>API</name>
         <id>638</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1388,7 +1388,7 @@
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ПрограммныйИнтерфейсНомерСтроки</name>
+          <name>ApiLineNumber</name>
           <id>651</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1401,7 +1401,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсНомерСтрокиРасширеннаяПодсказка</name>
+            <name>ApiLineNumberExtendedTooltip</name>
             <id>653</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1416,7 +1416,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсНомерСтрокиКонтекстноеМеню</name>
+            <name>ApiLineNumberContextMenu</name>
             <id>652</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1436,7 +1436,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПрограммныйИнтерфейсВход</name>
+          <name>ApiEntry</name>
           <id>654</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1449,7 +1449,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсВходРасширеннаяПодсказка</name>
+            <name>ApiEntryExtendedTooltip</name>
             <id>656</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1464,7 +1464,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсВходКонтекстноеМеню</name>
+            <name>ApiEntryContextMenu</name>
             <id>655</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1481,7 +1481,7 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПрограммныйИнтерфейсИмя</name>
+          <name>ApiName</name>
           <id>657</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1494,7 +1494,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсИмяРасширеннаяПодсказка</name>
+            <name>ApiNameExtendedTooltip</name>
             <id>659</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1509,7 +1509,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсИмяКонтекстноеМеню</name>
+            <name>ApiNameContextMenu</name>
             <id>658</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1533,7 +1533,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПрограммныйИнтерфейсТипПараметра</name>
+          <name>ApiParameterType</name>
           <id>660</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1546,7 +1546,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсТипПараметраРасширеннаяПодсказка</name>
+            <name>ApiParameterTypeExtendedTooltip</name>
             <id>662</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1561,7 +1561,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсТипПараметраКонтекстноеМеню</name>
+            <name>ApiParameterTypeContextMenu</name>
             <id>661</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1586,7 +1586,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ПрограммныйИнтерфейсДействие</name>
+          <name>ApiAction</name>
           <id>733</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1599,7 +1599,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсДействиеРасширеннаяПодсказка</name>
+            <name>ApiActionExtendedTooltip</name>
             <id>735</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1614,7 +1614,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсДействиеКонтекстноеМеню</name>
+            <name>ApiActionContextMenu</name>
             <id>734</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1639,19 +1639,19 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ПрограммныйИнтерфейсКоманднаяПанель</name>
+          <name>APICommandBar</name>
           <id>640</id>
           <items xsi:type="form:Button">
-            <name>ПрограммныйИнтерфейсПроверкаПараметровПрограммныйИнтерфейс</name>
-            <id>698</id>
+            <name>APIApiCheckParameters</name>
+            <id>795</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПрограммныйИнтерфейсПроверкаПараметровПрограммныйИнтерфейсРасширеннаяПодсказка</name>
-              <id>699</id>
+              <name>APIApiCheckParametersExtendedTooltip</name>
+              <id>796</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
@@ -1664,11 +1664,12 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ПроверкаПараметровПрограммныйИнтерфейс</commandName>
+            <commandName>Form.Command.ApiCheckParameters</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
@@ -1685,10 +1686,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПрограммныйИнтерфейсСтрокаПоиска</name>
+          <name>APISearchString</name>
           <id>642</id>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>APISearchStringExtendedTooltip</name>
             <id>644</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1703,7 +1704,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсСтрокаПоискаКонтекстноеМеню</name>
+            <name>APISearchStringContextMenu</name>
             <id>643</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1722,10 +1723,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПрограммныйИнтерфейсСостояниеПросмотра</name>
+          <name>APIViewStatus</name>
           <id>645</id>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>APIViewStatusExtendedTooltip</name>
             <id>647</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1740,7 +1741,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсСостояниеПросмотраКонтекстноеМеню</name>
+            <name>APIViewStatusContextMenu</name>
             <id>646</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1761,10 +1762,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПрограммныйИнтерфейсУправлениеПоиском</name>
+          <name>APISearchControl</name>
           <id>648</id>
           <extendedTooltip>
-            <name>ПрограммныйИнтерфейсУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>APISearchControlExtendedTooltip</name>
             <id>650</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1779,7 +1780,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПрограммныйИнтерфейсУправлениеПоискомКонтекстноеМеню</name>
+            <name>APISearchControlContextMenu</name>
             <id>649</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1794,7 +1795,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ПрограммныйИнтерфейсРасширеннаяПодсказка</name>
+          <name>APIExtendedTooltip</name>
           <id>641</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1809,7 +1810,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПрограммныйИнтерфейсКонтекстноеМеню</name>
+          <name>APIContextMenu</name>
           <id>639</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1928,7 +1929,7 @@
     <name>GroupComment</name>
     <id>791</id>
     <items xsi:type="form:FormField">
-      <name>Комментарий</name>
+      <name>Comment</name>
       <id>109</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1942,7 +1943,7 @@
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>КомментарийРасширеннаяПодсказка</name>
+        <name>CommentExtendedTooltip</name>
         <id>160</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1957,7 +1958,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомментарийКонтекстноеМеню</name>
+        <name>CommentContextMenu</name>
         <id>110</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2035,7 +2036,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ЗаписатьИЗакрыть</name>
+      <name>WriteAndClose</name>
       <id>491</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2043,7 +2044,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗаписатьИЗакрытьРасширеннаяПодсказка</name>
+        <name>WriteAndCloseExtendedTooltip</name>
         <id>492</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2065,7 +2066,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Записать</name>
+      <name>Write</name>
       <id>493</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2073,7 +2074,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗаписатьРасширеннаяПодсказка</name>
+        <name>WriteExtendedTooltip</name>
         <id>494</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2098,7 +2099,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Перечитать</name>
+      <name>Reread</name>
       <id>495</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2106,7 +2107,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ПеречитатьРасширеннаяПодсказка</name>
+        <name>RereadExtendedTooltip</name>
         <id>496</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2131,7 +2132,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ИзменитьФорму</name>
+      <name>CustomizeForm</name>
       <id>497</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2139,7 +2140,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ИзменитьФормуРасширеннаяПодсказка</name>
+        <name>CustomizeFormExtendedTooltip</name>
         <id>498</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2164,7 +2165,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ОткрытьЖурналРегистрации</name>
+      <name>EventLog</name>
       <id>118</id>
       <title>
         <key>ru</key>
@@ -2176,7 +2177,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ОткрытьЖурналРегистрацииРасширеннаяПодсказка</name>
+        <name>EventLogExtendedTooltip</name>
         <id>128</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2198,7 +2199,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФорматироватьТекст</name>
+      <name>FormatText</name>
       <id>538</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2206,7 +2207,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФорматироватьТекстРасширеннаяПодсказка</name>
+        <name>FormatTextExtendedTooltip</name>
         <id>539</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2229,8 +2230,12 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ВыполнитьПроцедуру</name>
+      <name>ExecuteProcedure</name>
       <id>117</id>
+      <title>
+        <key>en</key>
+        <value>Execute</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Выполнить</value>
@@ -2241,7 +2246,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ВыполнитьПроцедуруРасширеннаяПодсказка</name>
+        <name>ExecuteProcedureExtendedTooltip</name>
         <id>157</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2310,10 +2315,14 @@
         <segments>Object.Parameters</segments>
       </tablePath>
       <columns>
-        <name>ЗначениеПараметра</name>
+        <name>ParameterValue</name>
         <title>
           <key>ru</key>
           <value>Значение параметра</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Parameter value</value>
         </title>
         <id>3</id>
         <valueType/>
@@ -2327,10 +2336,14 @@
     </additionalColumns>
   </attributes>
   <attributes>
-    <name>ТаблицаПараметров</name>
+    <name>ParametersTable</name>
     <title>
       <key>ru</key>
       <value>Таблица параметров</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Parameters table</value>
     </title>
     <id>2</id>
     <valueType>
@@ -2343,7 +2356,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Параметр</name>
+      <name>Parameter</name>
+      <title>
+        <key>en</key>
+        <value>Parameter</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Параметр</value>
@@ -2363,7 +2380,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ОписаниеТипа</name>
+      <name>TypeDescription</name>
+      <title>
+        <key>en</key>
+        <value>Type description</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Описание типа</value>
@@ -2636,10 +2657,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПроверкаПараметровПрограммныйИнтерфейс</name>
+    <name>ApiCheckParameters</name>
     <title>
       <key>ru</key>
       <value>Проверка параметров программный интерфейс</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Api check parameters</value>
     </title>
     <id>9</id>
     <toolTip>

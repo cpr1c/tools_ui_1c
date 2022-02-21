@@ -87,12 +87,12 @@ EndProcedure
 &AtClient
 Procedure ТаблицаПараметровПараметрОткрытие(Item, СтандартнаяОбработка)
 	СтандартнаяОбработка = False;
-	If Item.Parent.CurrentData.ОписаниеТипа = "Table значений"
-		Or Item.Parent.CurrentData.ОписаниеТипа = "Двоичные данные" Then
+	If Item.Parent.CurrentData.TypeDescription = "Table значений"
+		Or Item.Parent.CurrentData.TypeDescription = "Двоичные данные" Then
 		Return;
 	EndIf;
 	Try
-		Value = ПолучитьПараметрНаСервере(Items.ТаблицаПараметров.CurrentData.Parameter);
+		Value = ПолучитьПараметрНаСервере(Items.ParametersTable.CurrentData.Parameter);
 		ShowValue( , Value);
 	Except
 		Message(ErrorDescription());
@@ -111,22 +111,22 @@ EndProcedure
 
 &AtClient
 Procedure ИзменитьИмя(Command)
-	If Items.ТаблицаПараметров.CurrentData = Undefined Then
+	If Items.ParametersTable.CurrentData = Undefined Then
 		Return;
 	EndIf
 	;
 	П = New Structure("Key,ИмяПараметра,Rename", Parameters.Key,
-		Items.ТаблицаПараметров.CurrentData.Parameter, True);
+		Items.ParametersTable.CurrentData.Parameter, True);
 	OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", П, ThisObject);
 EndProcedure
 
 &AtClient
 Procedure ИзменитьЗначение(Command)
-	If Items.ТаблицаПараметров.CurrentData <> Undefined Then
+	If Items.ParametersTable.CurrentData <> Undefined Then
 		П = New Structure;
 		П.Insert("Key", Parameters.Key);
-		П.Insert("ИмяПараметра", Items.ТаблицаПараметров.CurrentData.Parameter);
-		П.Insert("ParameterType", Items.ТаблицаПараметров.CurrentData.ОписаниеТипа);
+		П.Insert("ИмяПараметра", Items.ParametersTable.CurrentData.Parameter);
+		П.Insert("ParameterType", Items.ParametersTable.CurrentData.ОписаниеТипа);
 		OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", П, ThisObject);
 	EndIf;
 EndProcedure
@@ -152,10 +152,10 @@ Procedure ВыполнитьПроцедуру(Command)
 	If Error Then
 		UT_CommonClientServer.MessageToUser(СообщениеОбОшибке);
 
-		Items.ОткрытьЖурналРегистрации.Title = "ПОСМОТРЕТЬ ОШИБКИ";
+		Items.EventLog.Title = "ПОСМОТРЕТЬ ОШИБКИ";
 		ВыделитьОшибку(СообщениеОбОшибке);
 	Else
-		Items.ОткрытьЖурналРегистрации.Title = " ";
+		Items.EventLog.Title = " ";
 	EndIf;
 	Items.ExecuteProcedure.Title = "Execute процедуру (" + String(CurrentUniversalDateInMilliseconds()
 		- ВремяСтарт) + " мс.)";
@@ -265,16 +265,16 @@ EndProcedure
 &AtServer
 Procedure ЗаполнитьТаблицуПараметров()
 	ВыбОбъект = FormAttributeToValue("Object");
-	тПараметров = FormAttributeToValue("ТаблицаПараметров");
+	тПараметров = FormAttributeToValue("ParametersTable");
 	тПараметров.Clear();
 	СтруктураПараметров = ВыбОбъект.Storage.Get();
 	If Not СтруктураПараметров = Undefined Then
 		For Each ЭлементСтруктуры In СтруктураПараметров Do
 			НС = тПараметров.Add();
 			НС.Parameter = ЭлементСтруктуры.Key;
-			НС.ОписаниеТипа = ПолучитьСтрокуОписаниеТипа(ЭлементСтруктуры.Value);
+			НС.TypeDescription = ПолучитьСтрокуОписаниеТипа(ЭлементСтруктуры.Value);
 		EndDo;
-		ValueToFormAttribute(тПараметров, "ТаблицаПараметров");
+		ValueToFormAttribute(тПараметров, "ParametersTable");
 	EndIf;
 EndProcedure
 
@@ -332,7 +332,7 @@ Procedure ИзменитьПараметр(НовыеДанные) Export
 //	КонецЕсли;
 //	Parameters.Вставить(НаименованиеПараметра, ЗначениеПараметра);
 //	Storage = Новый ХранилищеЗначения(Parameters);
-//	Записать();
+//	Write();
 EndProcedure
 
 #EndRegion
@@ -408,7 +408,7 @@ Procedure НайтиВесьТекстВКовычках(SelectedText, Весь�
 			If НашлиКавычкуПосле > ИщемЗдесь Then
 				SelectedText = Mid(ВесьТекст, НашлиКавычкуДо + 1, StrLen(Left(Весьтекст, НашлиКавычкуПосле))
 					- StrLen(Left(Весьтекст, НашлиКавычкуДо)) - 1);
-				Abort;
+				Break;
 			EndIf;
 			НашлиКавычкуДо = НашлиКавычкуПосле;
 		EndDo;
@@ -502,7 +502,7 @@ Procedure ЗаполнитьСпискиВыбораПолейФормы()
 
 		If Not IsBlankString(Выборка.ParameterType) Then
 
-			Items.ПрограммныйИнтерфейсТипПараметра.ChoiceList.Add(TrimAll(Выборка.ParameterType));
+			Items.ApiParameterType.ChoiceList.Add(TrimAll(Выборка.ParameterType));
 		EndIf;
 
 	EndDo;
@@ -512,7 +512,7 @@ EndProcedure
 Procedure УстановитьВидимостьИДоступность()
 	Items.GroupPagesPanel.Enabled = Not Parameters.Key.IsEmpty();
 
-	Items.ОткрытьЖурналРегистрации.Title = " ";
+	Items.EventLog.Title = " ";
 
 	Items.GroupServer.Visible=Not Object.AtClient;
 EndProcedure
@@ -564,7 +564,7 @@ EndProcedure
 Procedure ВыборКаталогаЗавершение(SelectedFiles, AdditionalParameters) Export
 	If (TypeOf(SelectedFiles) = Type("Array") And SelectedFiles.Count() > 0) Then
 		Directory = SelectedFiles[0];
-		Parameter = Items.ТаблицаПараметров.CurrentData.Parameter;
+		Parameter = Items.ParametersTable.CurrentData.Parameter;
 		FileExtention = "";
 		FileName = TrimAll(Parameter);
 		If TypeOf(AdditionalParameters) = Type("Structure") And AdditionalParameters.Property("ВыгрузитьXML") Then
