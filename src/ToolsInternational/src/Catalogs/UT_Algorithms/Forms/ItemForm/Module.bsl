@@ -1,46 +1,45 @@
 #Region EventHandlers
 
 &AtServer
-Procedure OnCreateAtServer(Cancel, СтандартнаяОбработка)
-
-	ЗаполнитьТаблицуПараметров();
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	FillParametersTable();
 
 	If Not Parameters.Key.IsEmpty() Then
 
-		НастройкиТекстАлгоритма = CommonSettingsStorage.GetList(String(Parameters.Key) + "-n1");
+		AlgorithmTextSettings = CommonSettingsStorage.GetList(String(Parameters.Key) + "-n1");
 
-		For Each ЭлементСписка In НастройкиТекстАлгоритма Do
+		For Each ListItem In AlgorithmTextSettings Do
 
-			НастройкаТекстАлгоритма = CommonSettingsStorage.Load(String(Parameters.Key) + "-n1",
-				ЭлементСписка.Value);
-			Items.AlgorithmText[ЭлементСписка.Value] = НастройкаТекстАлгоритма;
+			AlgorithmTextSetting = CommonSettingsStorage.Load(String(Parameters.Key) + "-n1",
+				ListItem.Value);
+			Items.AlgorithmText[ListItem.Value] = AlgorithmTextSetting;
 		EndDo;
 
 	EndIf;
 
-	ЗаполнитьСпискиВыбораПолейФормы();
+	FillFormFieldsChoiceLists();
 
-	УстановитьВидимостьИДоступность();
-
+	SetVisibleAndEnabled();
 EndProcedure
 
 &AtServer
-Procedure BeforeWriteAtServer(Cancel, ТекущийОбъект, ПараметрыЗаписи)
+Procedure BeforeWriteAtServer(Cancel, CurrentObject, WriteParameters)
+	//TODO: Insert the handler content
 EndProcedure
 
 &AtServer
-Procedure AfterWriteAtServer(ТекущийОбъект, ПараметрыЗаписи)
-	УстановитьВидимостьИДоступность();
+Procedure AfterWriteAtServer(CurrentObject, WriteParameters)
+	SetVisibleAndEnabled();
 EndProcedure
 
 &AtClient
-Procedure NotificationProcessing(ИмяСобытия, Parameter, Src)
-	If ИмяСобытия = "ParameterChanged" Then
+Procedure NotificationProcessing(EventName, Parameter, Source)
+		If EventName = "ParameterChanged" Then
 		Read();
-		ЗаполнитьТаблицуПараметров();
-	ElsIf ИмяСобытия = "Update" Then
+		FillParametersTable();
+	ElsIf EventName = "Update" Then
 		Read();
-	ElsIf ИмяСобытия = "ОбновитьКод" Then
+	ElsIf EventName = "UpdateCode" Then
 		Read();
 		Write();
 	EndIf;
@@ -48,51 +47,50 @@ EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиСобытийЭлементовШапкиФормы
+#Region FormHeadEventsHandlers
 
 &AtClient
-Procedure ГруппаПанельСтраницПриСменеСтраницы(Item, CurrentPage)
-	If Modified And CurrentPage.Name <> "GroupCode" Then
+Procedure GroupPagesPanelOnCurrentPageChange(Item, CurrentPage)
+		If Modified And CurrentPage.Name <> "GroupCode" Then
 		Write();
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure НаКлиентеПриИзменении(Item)
-	УстановитьВидимостьИДоступность();
+Procedure AtClientOnChange(Item)
+	SetVisibleAndEnabled();
 EndProcedure
-
 #EndRegion
 
-#Region ОбработчикиСобытийЭлементовТаблицыФормы_Параметры
+#Region FormTableItemsEventHandlers_Parameters
 
 &AtClient
-Procedure ТаблицаПараметровПередУдалением(Item, Cancel)
-	ShowQueryBox(New NotifyDescription("ТаблицаПараметровПередУдалениемЗавершение", ThisObject,
-		New Structure("String,Parameter", Item.CurrentLine, Item.CurrentData.Parameter)), "Item структуры настроек будет удален без возможности  восстановления !"
-		+ Chars.LF + "Continue выполнение ? ", QuestionDialogMode.YesNoCancel);
+Procedure ParametersTableBeforeDeleteRow(Item, Cancel)
+	ShowQueryBox(New NotifyDescription("ParametersTableBeforeDeleteEnd", ThisObject,
+		New Structure("String,Parameter", Item.CurrentLine, Item.CurrentData.Parameter)), Nstr("ru = 'Элемент структуры настроек будет удален без возможности  восстановления !';
+		|en = 'The element of the settings structure will be deleted without the possibility of recovery !'")
+		+ Chars.LF +Nstr("ru = 'Продолжить выполнение ?';en = 'Continue execution ?'"), QuestionDialogMode.YesNoCancel);
 	Cancel = True;
 EndProcedure
-
 &AtClient
-Procedure ТаблицаПараметровПередУдалениемЗавершение(Result, AdditionalParameters) Export
+Procedure ParametersTableBeforeDeleteEnd(Result, AdditionalParameters) Export
 	If Result = DialogReturnCode.Yes Then
-		If УдалитьПараметрНаСервере(AdditionalParameters.Parameter) Then
+		If DeleteParameterAtServer(AdditionalParameters.Parameter) Then
 			Read();
-			ЗаполнитьТаблицуПараметров();
+			FillParametersTable();
 		EndIf;
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ТаблицаПараметровПараметрОткрытие(Item, СтандартнаяОбработка)
-	СтандартнаяОбработка = False;
-	If Item.Parent.CurrentData.TypeDescription = "Table значений"
-		Or Item.Parent.CurrentData.TypeDescription = "Двоичные данные" Then
+Procedure ParametersTableParameterOpening(Item, StandardProcessing)
+		StandardProcessing = False;
+	If Item.Parent.CurrentData.TypeDescription = "Value Table"
+		Or Item.Parent.CurrentData.TypeDescription = "Binary data" Then
 		Return;
 	EndIf;
 	Try
-		Value = ПолучитьПараметрНаСервере(Items.ParametersTable.CurrentData.Parameter);
+		Value = GetParameterAtServer(Items.ParametersTable.CurrentData.Parameter);
 		ShowValue( , Value);
 	Except
 		Message(ErrorDescription());
@@ -101,82 +99,80 @@ EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиКомандФормы
+#Region FormCommandsHandlers
 ///
 &AtClient
 Procedure AddParameter(Command)
-	П = New Structure("Key", Object.Reference);
-	OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", П, ThisObject);
+	FormParameters = New Structure("Key", Object.Ref);
+	OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", FormParameters, ThisObject);
 EndProcedure
 
 &AtClient
-Procedure ИзменитьИмя(Command)
+Procedure EditName(Command)
 	If Items.ParametersTable.CurrentData = Undefined Then
 		Return;
-	EndIf
-	;
-	П = New Structure("Key,ИмяПараметра,Rename", Parameters.Key,
+	EndIf 	;
+	FormParameters = New Structure("Key,ParameterName,Rename", Parameters.Key,
 		Items.ParametersTable.CurrentData.Parameter, True);
-	OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", П, ThisObject);
+	OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", FormParameters, ThisObject);
 EndProcedure
 
 &AtClient
-Procedure ИзменитьЗначение(Command)
+Procedure EditValue(Command)
 	If Items.ParametersTable.CurrentData <> Undefined Then
-		П = New Structure;
-		П.Insert("Key", Parameters.Key);
-		П.Insert("ИмяПараметра", Items.ParametersTable.CurrentData.Parameter);
-		П.Insert("ParameterType", Items.ParametersTable.CurrentData.ОписаниеТипа);
-		OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", П, ThisObject);
+		FormParameters = New Structure;
+		FormParameters.Insert("Key", Parameters.Key);
+		FormParameters.Insert("ParameterName", Items.ParametersTable.CurrentData.Parameter);
+		FormParameters.Insert("ParameterType", Items.ParametersTable.CurrentData.ОписаниеТипа);
+		OpenForm("Catalog.UT_Algorithms.Form.ParameterForm", FormParameters, ThisObject);
 	EndIf;
 EndProcedure
 
 ///
 &AtClient
-Procedure ВыполнитьПроцедуру(Command)
+Procedure ExecuteProcedure(Command)
 
 	If Modified Then
 		Write();
 	EndIf;
 
-	ВремяСтарт = CurrentUniversalDateInMilliseconds();
+	StartTime = CurrentUniversalDateInMilliseconds();
 
 	Error = False;
-	СообщениеОбОшибке = "";
+	ErrorMessage = "";
 
 	If Object.AtClient Then
-		UT_CommonClient.ExecuteAlgorithm(Object.Reference, , Error, СообщениеОбОшибке);
+		UT_CommonClient.ExecuteAlgorithm(Object.Ref, , Error, ErrorMessage);
 	Else
-		UT_CommonServerCall.ExecuteAlgorithm(Object.Reference, , Error, СообщениеОбОшибке);
+		UT_CommonServerCall.ExecuteAlgorithm(Object.Ref, , Error, ErrorMessage);
 	EndIf;
 	If Error Then
-		UT_CommonClientServer.MessageToUser(СообщениеОбОшибке);
+		UT_CommonClientServer.MessageToUser(ErrorMessage);
 
-		Items.EventLog.Title = "ПОСМОТРЕТЬ ОШИБКИ";
-		ВыделитьОшибку(СообщениеОбОшибке);
+		Items.EventLog.Title = NSTR("ru = 'ПОСМОТРЕТЬ ОШИБКИ';en = 'VIEW ERRORS'");
+		MarkError(ErrorMessage);
 	Else
 		Items.EventLog.Title = " ";
 	EndIf;
-	Items.ExecuteProcedure.Title = "Execute процедуру (" + String(CurrentUniversalDateInMilliseconds()
-		- ВремяСтарт) + " мс.)";
+		Items.ExecuteProcedure.Title = StrTemplate("ru = 'Выполнить процедуру %1 мс.';en = 'Execute procedure %1 ms.'", String(CurrentUniversalDateInMilliseconds()- StartTime));
 EndProcedure
 
 ///
 &AtClient
-Procedure КонструкторЗапросаПоказать(Command)
-	Конструктор = New QueryWizard;
+Procedure ShowQueryWizard(Command)
+	Wizard = New QueryWizard;
 	SelectedText = Items.AlgorithmText.SelectedText;
-	ВесьТекст = Items.AlgorithmText.EditText;
-	НайтиВесьТекстВКовычках(SelectedText, ВесьТекст);
-	Конструктор.Text = StrReplace(SelectedText, "|", "");
-	AdditionalParameters = New Structure("ПервыйВызовКонструктора,ВесьТекст,SelectedText", StrFind(
-		SelectedText, "ВЫБРАТЬ") = 0, ВесьТекст, SelectedText);
-	Оповещение = New NotifyDescription("GetQueryText", ThisObject, AdditionalParameters);
-	Конструктор.Show(Оповещение);
+	WholeText = Items.AlgorithmText.EditText;
+	FoundWholeTextInQuotationMarks(SelectedText, WholeText);
+	Wizard.Text = StrReplace(SelectedText, "|", "");
+	AdditionalParameters = New Structure("WizardFirstCall,WholeText,SelectedText", StrFind(
+		SelectedText, "SELECT") = 0, WholeText, SelectedText);
+	Notification = New NotifyDescription("GetQueryText", ThisObject, AdditionalParameters);
+	Wizard.Show(Notification);
 EndProcedure
 
 &AtClient
-Procedure ФорматироватьТекст(Command)
+Procedure FormatText(Command)
 	Text = Object.AlgorithmText;
 	Text = StrReplace(Text, Chars.LF, " \\ ");
 	Text = StrReplace(Text, Chars.Tab, " ");
@@ -187,99 +183,99 @@ Procedure ФорматироватьТекст(Command)
 		Text = StrReplace(Text, "  ", " ");
 	EndDo;
 	Text = StrReplace(Text, " ;", ";");
-	МассивСлов = StrSplit(Text, Char(32));
-	ФормТекст = "";
-	СтрокаТаб = "";
-	ТипыСлов = New Array;
-	ТипыСлов.Add(StrSplit("ТОГДА,ЦИКЛ,\\", ",")); // перенос справа
-	ТипыСлов.Add(StrSplit("ЕСЛИ,ПОКА,ДЛЯ", ",")); // опер скобки открываются
-	ТипыСлов.Add(StrSplit("КОНЕЦЦИКЛА;,КОНЕЦЕСЛИ;", ",")); // опер скобки закрываются
-	ТипыСлов.Add(StrSplit("ИНАЧЕ,ИНАЧЕЕСЛИ", ",")); // опер скобки внутри
-	БылТип = New Map;
-	For Ё = 0 To МассивСлов.Count() - 1 Do
-		ФорматДо = "";
-		ФорматПосле = "";
+	WordsArray = StrSplit(Text, Char(32));
+	FormattedText = "";
+	TabulationString = "";
+	WordsTypes = New Array;
+	WordsTypes.Add(StrSplit("THEN,DO,\\", ",")); // right transfer
+	WordsTypes.Add(StrSplit("IF,WHILE,FOR", ",")); // operator brackets open
+	WordsTypes.Add(StrSplit("ENDDO;,ENDIF;", ",")); // operator brackets close
+	WordsTypes.Add(StrSplit("ELSE,ELSIF", ",")); //operator brackets inside
+	WasType = New Map;
+	For Iterator = 0 To WordsArray.Count() - 1 Do
+		FormatBefore = "";
+		FormatAfter = "";
 
-		ТипСлова = ТипСлова(МассивСлов[Ё], ТипыСлов);
+		WordType = WordType(WordsArray[Iterator], WordsTypes);
 
-		If ТипСлова["СкобкаОткрылась"] Then
-			СтрокаТаб = СтрокаТаб + Chars.Tab;
+		If WordType["OpenBracket"] Then
+			TabulationString = TabulationString + Chars.Tab;
 		EndIf;
 
-		If ТипСлова["СкобкаВнутри"] Then
-			ФормТекст = Left(ФормТекст, StrLen(ФормТекст) - 1);
+		If WordType["InsideBracket"] Then
+			FormattedText = Left(FormattedText, StrLen(FormattedText) - 1);
 		EndIf;
 
-		If ТипСлова["СкобкаЗакрылась"] Then
-			СтрокаТаб = Left(СтрокаТаб, StrLen(СтрокаТаб) - 1);
-			ФормТекст = Left(ФормТекст, StrLen(ФормТекст) - 1);
+		If WordType["CloseBracket"] Then
+			TabulationString = Left(TabulationString, StrLen(TabulationString) - 1);
+			FormattedText = Left(FormattedText, StrLen(FormattedText) - 1);
 		EndIf;
 
-		If ТипСлова["ПереносСправа"] And Not БылТип["ПереносСправа"] Then
-			ФорматПосле = Chars.LF + СтрокаТаб;
+		If WordType["RightTransfer"] And Not WasType["RightTransfer"] Then
+			FormatAfter = Chars.LF + TabulationString;
 		EndIf;
 
-		//If ТипСлова["ПереносСлева"] And Not БылТип["ПереносСправа"]  Then 
-		//	ФорматДо =  Chars.LF + СтрокаТаб ;
+		//If WordType["LeftTransfer"] And Not WasType["RightTransfer"]  Then 
+		//	FormatBefore =  Chars.LF + TabulationString ;
 		//EndIf;
-		ФормТекст = ФормТекст + ФорматДо + МассивСлов[Ё] + Char(32) + ФорматПосле;
+		FormattedText = FormattedText + FormatBefore + WordsArray[Iterator] + Char(32) + FormatAfter;
 
-		БылТип = ТипСлова;
+		WasType = WordType;
 	EndDo;
 
-	ФормТекст = StrReplace(ФормТекст, "\\ ", "");
-	ФормТекст = StrReplace(ФормТекст, "\\", "");
-	Object.AlgorithmText = ФормТекст;
+	FormattedText = StrReplace(FormattedText, "\\ ", "");
+	FormattedText = StrReplace(FormattedText, "\\", "");
+	Object.AlgorithmText = FormattedText;
 
 EndProcedure
 
 &AtClient
-Procedure ДобавитьРегламентноеЗадание(Command)
+Procedure AddScheduledJob(Command)
 	If Object.AtClient Then
-		Message(" это клиентская процедура");
+		Message(Nstr("ru = 'это клиентская процедура';en = 'This is a client procedure'"));
 		Return;
 	EndIf;
 	CreateScheduledJob();
 EndProcedure
 
 &AtClient
-Procedure УдалитьРегламентноеЗадание(Command)
-	УдалитьРегламентноеЗаданиеНаСервере();
+Procedure DeleteScheduledJob(Command)
+	DeleteScheduledJobAtServer();
 EndProcedure
 
 &AtClient
-Procedure ОткрытьЖурналРегистрации(Command)
-	ПодключитьВнешнююОбработкуНаСервере();
-	ПараметрыОткрытия = New Structure;
-	ПараметрыОткрытия.Insert("Data", Object.Reference);
-	ПараметрыОткрытия.Insert("ValidFrom", BegOfDay(CurrentDate()));
-	OpenForm("ExternalDataProcessor.StandardEventLog.Form", ПараметрыОткрытия);
+Procedure EventLog(Command)
+	ConnectExternalDataProcessorAtServer();
+	OpenParameters = New Structure;
+	OpenParameters.Insert("Data", Object.Ref);
+	OpenParameters.Insert("ValidFrom", BegOfDay(CurrentDate()));
+	OpenForm("ExternalDataProcessors.StandardEventLog.Form", OpenParameters);
 EndProcedure
 
 #EndRegion
 
 #Region Private
 
-#Region РаботаСПараметрами
+#Region WorkWithParameters
 
 &AtServer
-Procedure ЗаполнитьТаблицуПараметров()
-	ВыбОбъект = FormAttributeToValue("Object");
-	тПараметров = FormAttributeToValue("ParametersTable");
-	тПараметров.Clear();
-	СтруктураПараметров = ВыбОбъект.Storage.Get();
-	If Not СтруктураПараметров = Undefined Then
-		For Each ЭлементСтруктуры In СтруктураПараметров Do
-			НС = тПараметров.Add();
-			НС.Parameter = ЭлементСтруктуры.Key;
-			НС.TypeDescription = ПолучитьСтрокуОписаниеТипа(ЭлементСтруктуры.Value);
+Procedure FillParametersTable()
+	SelectedObject = FormAttributeToValue("Object");
+	TableOfParameters = FormAttributeToValue("ParametersTable");
+	TableOfParameters.Clear();
+	ParametersStructure = SelectedObject.Storage.Get();
+	If Not ParametersStructure = Undefined Then
+		For Each StructureItem In ParametersStructure Do
+			NewRow = TableOfParameters.Add();
+			NewRow.Parameter = StructureItem.Key;
+			NewRow.TypeDescription = GetTypeDescriptionString(StructureItem.Value);
 		EndDo;
-		ValueToFormAttribute(тПараметров, "ParametersTable");
+		ValueToFormAttribute(TableOfParameters, "ParametersTable");
 	EndIf;
 EndProcedure
 
 &AtServer
-Function ПолучитьСтрокуОписаниеТипа(Value)
+Function GetTypeDescriptionString(Value)
 	If XMLTypeOf(Value) <> Undefined Then
 		Return XMLType(TypeOf(Value)).TypeName;
 	Else
@@ -288,102 +284,102 @@ Function ПолучитьСтрокуОписаниеТипа(Value)
 EndFunction
 
 &AtServer
-Procedure ДобавитьНовыйПараметрНаСервере(СтруктураПараметра)
-	ИзменитьПараметр(СтруктураПараметра);
+Procedure AddNewParameterAtServer(ParameterStructure)
+	ChangeParameter(ParameterStructure);
 EndProcedure
 
 &AtServer
-Function УдалитьПараметрНаСервере(Key)
-	ВыбОбъект = FormAttributeToValue("Object");
-	Return ВыбОбъект.RemoveParameter(Key);
+Function DeleteParameterAtServer(Key)
+	SelectedObject = FormAttributeToValue("Object");
+	Return SelectedObject.RemoveParameter(Key);
 EndFunction
 
 &AtServer
-Function ПолучитьПараметрНаСервере(НаименованиеПараметра)
-	ВыбОбъект = FormAttributeToValue("Object");
-	Return ВыбОбъект.GetParameter(НаименованиеПараметра);
+Function GetParameterAtServer(ParameterName)
+	SelectedObject = FormAttributeToValue("Object");
+	Return SelectedObject.GetParameter(ParameterName);
 EndFunction
 
 &AtServer
-Procedure ИзменитьПараметр(НовыеДанные) Export
-	НаименованиеПараметра = НовыеДанные.НаименованиеПараметра;
-	If TypeOf(НовыеДанные.ЗначениеПараметра) = Type("String") Then
-		If Left(НовыеДанные.ЗначениеПараметра, 1) = "{" Then
-			Поз = StrFind(НовыеДанные.ЗначениеПараметра, "}");
-			If Поз > 0 Then
-				АдресХранилища = Mid(НовыеДанные.ЗначениеПараметра, Поз + 1);
-				ЗначениеПараметра = ПолучитьИЗВременногоХранилища(АдресХранилища);
-				FileExtention = StrReplace(Mid(НовыеДанные.ЗначениеПараметра, 2, Поз - 2), Char(32), "");
-				НаименованиеПараметра = "File" + Upper(FileExtention) + "_" + НаименованиеПараметра;
+Procedure ChangeParameter(NewData) Export
+	ParameterName = NewData.ParameterName;
+	If TypeOf(NewData.ParameterValue) = Type("String") Then
+		If Left(NewData.ParameterValue, 1) = "{" Then
+			Position = StrFind(NewData.ParameterValue, "}");
+			If Position > 0 Then
+				StorageURL = Mid(NewData.ParameterValue, Position + 1);
+				ParameterValue = GetFromTempStorage(StorageURL);
+				FileExtention = StrReplace(Mid(NewData.ParameterValue, 2, Position - 2), Char(32), "");
+				ParameterName = "File" + Upper(FileExtention) + "_" + ParameterName;
 			Else
 				If Object.ThrowException Then
-					Raise "Error при чтении Файла из хранилища ";
+					Raise NSTR("ru = 'Ошибка при чтении файла из хранилища';en = 'Error when reading a file from storage'");
 				EndIf;
 			EndIf;
 		Else
-			ЗначениеПараметра = НовыеДанные.ЗначениеПараметра;
+			ParameterValue = NewData.ParameterValue;
 		EndIf;
 	Else
-		ЗначениеПараметра = НовыеДанные.ЗначениеПараметра;
+		ParameterValue = NewData.ParameterValue;
 	EndIf;
-//	Parameters = Storage.Получить();
-//	Если Parameters = Неопределено ИЛИ ТипЗнч(Parameters) <> Тип("Структура") Тогда
-//		Parameters = Новый Структура;
-//	КонецЕсли;
-//	Parameters.Вставить(НаименованиеПараметра, ЗначениеПараметра);
-//	Storage = Новый ХранилищеЗначения(Parameters);
+//	Parameters = Storage.Get();
+//	If Parameters = Undefined ИЛИ Typeof(Parameters) <> Type("Structure") Then
+//		Parameters = New Structure;
+//	EndIf;
+//	Parameters.Insert(ParameterName, ParameterValue);
+//	Storage = New ValueStorage(Parameters);
 //	Write();
 EndProcedure
 
 #EndRegion
 
-#Region РАБОТАСКОДОМ
+#Region WorkWithScript
 
 &AtClient
-Procedure ВыделитьОшибку(ТекстОшибки)
-	ПозОшибки = StrFind(ТекстОшибки, "{(");
-	If ПозОшибки > 0 Then
-		ПозСкобкаЗакрылась = StrFind(ТекстОшибки, ")}", , ПозОшибки);
-		If ПозСкобкаЗакрылась > 0 Then
-			ПозЗапятая = StrFind(Left(ТекстОшибки, ПозСкобкаЗакрылась), ",", , ПозОшибки);
-			If ПозЗапятая > 0 Then
-				ТекстНомерСтроки = Mid(ТекстОшибки, ПозОшибки + 2, StrLen(Left(ТекстОшибки, ПозЗапятая)) - StrLen(
-					Left(ТекстОшибки, ПозОшибки)) - 2);
+Procedure MarkError(ErrorText)
+	ErrorPosition = StrFind(ErrorText, "{(");
+	If ErrorPosition > 0 Then
+		PositionBracketClosed = StrFind(ErrorText, ")}", , ErrorPosition);
+		If PositionBracketClosed > 0 Then
+			PositionComma = StrFind(Left(ErrorText, PositionBracketClosed), ",", , ErrorPosition);
+			If PositionComma > 0 Then
+				TextLineNumber = Mid(ErrorText, ErrorPosition + 2, StrLen(Left(ErrorText, PositionComma)) - StrLen(
+					Left(ErrorText, ErrorPosition)) - 2);
 			Else
-				ТекстНомерСтроки = Mid(ТекстОшибки, ПозОшибки + 2, StrLen(Left(ТекстОшибки, ПозСкобкаЗакрылась))
-					- StrLen(Left(ТекстОшибки, ПозОшибки)) - 2);
+				TextLineNumber = Mid(ErrorText, ErrorPosition + 2, StrLen(Left(ErrorText, PositionBracketClosed))
+					- StrLen(Left(ErrorText, ErrorPosition)) - 2);
 			EndIf;
-			// вложенная   ошибка   напр.  запрос
-			ПозОшибки2 = StrFind(ТекстОшибки, "{(", , , 2);
-			If ПозОшибки2 > 0 Then
-				ПозСкобкаЗакрылась2 = StrFind(ТекстОшибки, ")}", , ПозОшибки2);
-				If ПозСкобкаЗакрылась2 > 0 Then
-					ПозЗапятая2 = StrFind(Left(ТекстОшибки, ПозСкобкаЗакрылась2), ",", , ПозОшибки2);
-					If ПозЗапятая2 > 0 Then
-						ТекстНомерСтроки2 = Mid(ТекстОшибки, ПозОшибки2 + 2, StrLen(Left(ТекстОшибки, ПозЗапятая2))
-							- StrLen(Left(ТекстОшибки, ПозОшибки2)) - 2);
+			// nested error e.g. request
+			ErrorPosition2 = StrFind(ErrorText, "{(", , , 2);
+			If ErrorPosition2 > 0 Then
+				PositionBracketClosed2 = StrFind(ErrorText, ")}", , ErrorPosition2);
+				If PositionBracketClosed2 > 0 Then
+					PositionComma2 = StrFind(Left(ErrorText, PositionBracketClosed2), ",", , ErrorPosition2);
+					If PositionComma2 > 0 Then
+						TextLineNumber2 = Mid(ErrorText, ErrorPosition2 + 2, StrLen(Left(ErrorText, PositionComma2))
+							- StrLen(Left(ErrorText, ErrorPosition2)) - 2);
 					Else
-						ТекстНомерСтроки2 = Mid(ТекстОшибки, ПозОшибки2 + 2, StrLen(Left(ТекстОшибки,
-							ПозСкобкаЗакрылась2)) - StrLen(Left(ТекстОшибки, ПозОшибки2)) - 2);
+						TextLineNumber2 = Mid(ErrorText, ErrorPosition2 + 2, StrLen(Left(ErrorText,
+							PositionBracketClosed2)) - StrLen(Left(ErrorText, ErrorPosition2)) - 2);
 					EndIf;
 				EndIf;
 			EndIf;
 			Try
-				LineNumber = Number(ТекстНомерСтроки);
-				мСтрок = StrSplit(Object.Text, Chars.LF, True);
-				мСтрок[LineNumber - 1] = мСтрок[LineNumber - 1] + " <<<<<";
-				If ПозОшибки2 > 0 Then
-					НомерСтроки2 = Number(ТекстНомерСтроки2);
+				LineNumber = Number(TextLineNumber);
+				StringsArray = StrSplit(Object.Text, Chars.LF, True);
+				StringsArray[LineNumber - 1] = StringsArray[LineNumber - 1] + " <<<<<";
+				If ErrorPosition2 > 0 Then
+					LineNumber2 = Number(TextLineNumber2);
 					Ъ = LineNumber - 1;
 					While Ъ >= 0 Do
-						If StrFind(мСтрок[Ъ], "ВЫБРАТЬ") > 0 Or StrFind(мСтрок[Ъ], "StartChoosing") > 0 Or StrFind(
-							мСтрок[Ъ], "выбрать") > 0 Then
-							мСтрок[Ъ + НомерСтроки2 - 1] = мСтрок[Ъ + НомерСтроки2 - 1] + " <<<<<";
+						If StrFind(StringsArray[Ъ], "SELECT") > 0 Or StrFind(StringsArray[Ъ], "Select") > 0 Or StrFind(
+							StringsArray[Ъ], "select") > 0 Then
+							StringsArray[Ъ + LineNumber2 - 1] = StringsArray[Ъ + LineNumber2 - 1] + " <<<<<";
 						EndIf;
 						Ъ = Ъ - 1;
 					EndDo;
 				EndIf;
-				Object.Text = StrConcat(мСтрок, Chars.LF);
+				Object.Text = StrConcat(StringsArray, Chars.LF);
 			Except
 				Return;
 			EndTry;
@@ -392,25 +388,25 @@ Procedure ВыделитьОшибку(ТекстОшибки)
 EndProcedure
 
 &AtClient
-Procedure ВыделитьИзменившийсяКод()
-//Элементы.AlgorithmText.ЦветРамки=Новый Цвет(255,99,71);
+Procedure HighlightChangedCode()
+      //Items.AlgorithmText.BorderColor=New Color(255,99,71);
 	//Items.Write.BgColor=New Color(255,99,71);
 	Modified = True;
 EndProcedure
 
 &AtClient
-Procedure НайтиВесьТекстВКовычках(SelectedText, ВесьТекст)
-	If StrLen(SelectedText) > 10 Then // нужен уникальный текст , по хорошему нужно проверить количество включений
-		ИщемЗдесь = StrFind(ВесьТекст, SelectedText);
-		НашлиКавычкуДо = 0;
-		For А = 1 To StrOccurrenceCount(ВесьТекст, """") Do
-			НашлиКавычкуПосле = StrFind(ВесьТекст, """", , , А);
-			If НашлиКавычкуПосле > ИщемЗдесь Then
-				SelectedText = Mid(ВесьТекст, НашлиКавычкуДо + 1, StrLen(Left(Весьтекст, НашлиКавычкуПосле))
-					- StrLen(Left(Весьтекст, НашлиКавычкуДо)) - 1);
+Procedure FoundWholeTextInQuotationMarks(SelectedText, WholeText)
+	If StrLen(SelectedText) > 10 Then // we need a unique text , we need to check the number of inclusions in a good way
+		SeachingHere = StrFind(WholeText, SelectedText);
+		FoundQuotationMarkBefore = 0;
+		For А = 1 To StrOccurrenceCount(WholeText, """") Do
+			FoundQuotationMarkAfter = StrFind(WholeText, """", , , А);
+			If FoundQuotationMarkAfter > SeachingHere Then
+				SelectedText = Mid(WholeText, FoundQuotationMarkBefore + 1, StrLen(Left(WholeText, FoundQuotationMarkAfter))
+					- StrLen(Left(WholeText, FoundQuotationMarkBefore)) - 1);
 				Break;
 			EndIf;
-			НашлиКавычкуДо = НашлиКавычкуПосле;
+			FoundQuotationMarkBefore = FoundQuotationMarkAfter;
 		EndDo;
 	EndIf;
 EndProcedure
@@ -420,235 +416,235 @@ Procedure GetQueryText(Text, AdditionalParameters) Export
 	If Text = Undefined Then
 		Return;
 	EndIf;
-	МассивСтрок = StrSplit(Text, Chars.LF);
-	QueryText = МассивСтрок[0];
-	For Ё = 1 To МассивСтрок.Count() - 1 Do
-		QueryText = QueryText + Chars.LF + "|" + TrimAll(МассивСтрок[Ё]);
+	StringsArray = StrSplit(Text, Chars.LF);
+	QueryText = StringsArray[0];
+	For Iterator = 1 To StringsArray.Count() - 1 Do
+		QueryText = QueryText + Chars.LF + "|" + TrimAll(StringsArray[Iterator]);
 	EndDo;
-	ТекстВставки = "";
-	If AdditionalParameters.ПервыйВызовКонструктора Then
-		ТекстВставки = "
+	InsertionText = "";
+	If AdditionalParameters.WizardFirstCall Then
+		InsertionText = "
 					   |Query = New Query;
 					   |QueryText = """ + QueryText + """;
 															|Query.Text = QueryText;";
 		While Find(QueryText, "&") > 0 Do
-			ПарметрЗапроса = UT_AlgorithmsClientServer.ПолучитьПервоеВхождениеСловоБезПрефикса(QueryText, "&");
-			ТекстВставки = ТекстВставки + "
-										  |Query.SetParameter(""" + ПарметрЗапроса + """,@" + ПарметрЗапроса
+			QueryParameter = UT_AlgorithmsClientServer.GetWordFirstOccurrenceWithOutPrefix(QueryText, "&");
+			InsertionText = InsertionText + "
+										  |Query.SetParameter(""" + QueryParameter + """,@" + QueryParameter
 				+ " );";
-			QueryText = StrReplace(QueryText, "&" + ПарметрЗапроса, "~" + ПарметрЗапроса);
+			QueryText = StrReplace(QueryText, "&" + QueryParameter, "~" + QueryParameter);
 		EndDo;
 		Text = Text + "
 						|Result = Query.Execute();
 						|If Not Result.IsEmpty() Then
-						|	Выборка = Result.StartChoosing();
-						|	While Выборка.Next() Do
+						|	Selection = Result.Select();
+						|	While Selection.Next() Do
 						|	 	// Message("");
 						|	EndDo;
 						|EndIf;";
 	Else
-		ТекстВставки = QueryText;
+		InsertionText = QueryText;
 	EndIf;
 	If IsBlankString(AdditionalParameters.SelectedText) Then
-		Object.Text = Object.Text + ТекстВставки;
+		Object.Text = Object.Text + InsertionText;
 		Items.AlgorithmText.UpdateEditText();
 	Else
-		Object.Text = StrReplace(AdditionalParameters.ВесьТекст, AdditionalParameters.SelectedText,
-			ТекстВставки);
+		Object.Text = StrReplace(AdditionalParameters.WholeText, AdditionalParameters.SelectedText,
+			InsertionText);
 		Items.AlgorithmText.UpdateEditText();
 	EndIf;
-	ВыделитьИзменившийсяКод();
+	HighlightChangedCode();
 
 EndProcedure
 
 &AtClient
-Function ТипСлова(Слово, ТипыСлов)
-	ТипСлова = New Map;
+Function WordType(Word, WordsTypes)
+	WordType = New Map;
 
-	ТипСлова["ПереносСправа"] = ?(ТипыСлов[0].Find(Upper(TrimAll(Слово))) = Undefined, False, True);
-	ТипСлова["СкобкаОткрылась"] = ?(ТипыСлов[1].Find(Upper(TrimAll(Слово))) = Undefined, False, True);
-	ТипСлова["СкобкаЗакрылась"] = ?(ТипыСлов[2].Find(Upper(TrimAll(Слово))) = Undefined, False, True);
-	ТипСлова["СкобкаВнутри"] = ?(ТипыСлов[3].Find(Upper(TrimAll(Слово))) = Undefined, False, True);
-	Return ТипСлова;
+	WordType["RightTransfer"] = ?(WordsTypes[0].Find(Upper(TrimAll(Word))) = Undefined, False, True);
+	WordType["OpenBracket"] = ?(WordsTypes[1].Find(Upper(TrimAll(Word))) = Undefined, False, True);
+	WordType["CloseBracket"] = ?(WordsTypes[2].Find(Upper(TrimAll(Word))) = Undefined, False, True);
+	WordType["InsideBracket"] = ?(WordsTypes[3].Find(Upper(TrimAll(Word))) = Undefined, False, True);
+	Return WordType;
 
 EndFunction
 
 &AtServer
-Procedure ВыполнитьПроцедуруНаСервере(ОшибкаВыполнения = False, СообщениеОбОшибке = "")
-	ВыбОбъект = FormAttributeToValue("Object");
+Procedure ExecuteProcedureAtServer(ExecutionError = False, ErrorMessage = "")
+	SelectedObject = FormAttributeToValue("Object");
 	AdditionalParameters = New Structure;
-	ВыбОбъект.ВыполнитьПроцедуру(AdditionalParameters);
-	ОшибкаВыполнения = AdditionalParameters.Cancel;
-	СообщениеОбОшибке = AdditionalParameters.СообщениеОбОшибке;
+	SelectedObject.ExecuteProcedure(AdditionalParameters);
+	ExecutionError = AdditionalParameters.Cancel;
+	ErrorMessage = AdditionalParameters.ErrorMessage;
 EndProcedure
 
-#EndRegion //------------------------------------- РАБОТАСКОДОМ
+#EndRegion //------------------------------------- WorkwithScript
 
 &AtServer
-Procedure ЗаполнитьСпискиВыбораПолейФормы()
+Procedure FillFormFieldsChoiceLists()
 
-//СписокВыбора ОбъектМетаданных КомандныйИнтерфейс
+       //ChoiceList MetadataObject  CommandInterface
 
-	// СпискиВыбора  Parameters
+	// ChoiceLists  Parameters
 	Query = New Query;
-	Query.Text = "ВЫБРАТЬ РАЗЛИЧНЫЕ
-				   |   УИ_АлгоритмыПараметры.ParameterType КАК ParameterType
-				   |ИЗ
-				   |   Catalog.UT_Algorithms.Parameters КАК УИ_АлгоритмыПараметры";
+	Query.Text = "SELECT DISTINCT
+  					|UT_AlgorithmsParameters.ParameterType
+ 					|FROM
+ 					|	Catalog.UT_Algorithms.Parameters AS UT_AlgorithmsParameters";
 
-	Выборка = Query.Execute().StartChoosing();
+    Selection = Query.Execute().StartChoosing();
 
-	While Выборка.Next() Do
+	While Selection.Next() Do
 
-		If Not IsBlankString(Выборка.ParameterType) Then
+		If Not IsBlankString(Selection.ParameterType) Then
 
-			Items.ApiParameterType.ChoiceList.Add(TrimAll(Выборка.ParameterType));
+			Items.ApiParameterType.ChoiceList.Add(TrimAll(Selection.ParameterType));
 		EndIf;
 
 	EndDo;
 
 EndProcedure
 &AtServer
-Procedure УстановитьВидимостьИДоступность()
+Procedure SetVisibleAndEnabled()
 	Items.GroupPagesPanel.Enabled = Not Parameters.Key.IsEmpty();
 
 	Items.EventLog.Title = " ";
 
 	Items.GroupServer.Visible=Not Object.AtClient;
 EndProcedure
-#Region ИмпортЭкспорт
-//Импорт
+#Region ImportExport
+//Import
 &AtClient
-Procedure ВнешнийФайлНачалоВыбораЗавершение(SelectedFiles, AdditionalParameters) Export
+Procedure ExternalFileStartChoiceEnd(SelectedFiles, AdditionalParameters) Export
 	If (TypeOf(SelectedFiles) = Type("Array") And SelectedFiles.Count() > 0) Then
-		ВнешнийФайл = SelectedFiles[0];
-		Directory = Left(ВнешнийФайл, StrFind(ВнешнийФайл, GetPathSeparator(), SearchDirection.FromEnd));
-		NotifyDescription = New NotifyDescription("ЗакончитьПомещениеФайла", ThisObject, New Structure("Directory",
+		ExternalFile = SelectedFiles[0];
+		Directory = Left(ExternalFile, StrFind(ExternalFile, GetPathSeparator(), SearchDirection.FromEnd));
+		NotifyDescription = New NotifyDescription("PutFileEnd", ThisObject, New Structure("Directory",
 			Directory));
-		BeginPutFile(NotifyDescription, , ВнешнийФайл, False, ThisObject.UUID);
+		BeginPutFile(NotifyDescription, , ExternalFile, False, ThisObject.UUID);
 	Else
-		UT_CommonClientServer.MessageToUser("None файла");
+		UT_CommonClientServer.MessageToUser(NSTR("ru = 'Нет файла';en = 'No file'"));
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ЗакончитьПомещениеФайла(Result, АдресХранилища, ВыбранноеИмяФайла, AdditionalParameters) Export
+Procedure PutFileEnd(Result, StorageURL, SelectedFileName, AdditionalParameters) Export
 	If Result Then
-		ПрочитатьНаСервере(АдресХранилища, ВыбранноеИмяФайла, AdditionalParameters);
+		ReadAtServer(StorageURL, SelectedFileName, AdditionalParameters);
 	Else
-		UT_CommonClientServer.MessageToUser("Error помещения файла в хранилище");
+		UT_CommonClientServer.MessageToUser(Nstr("ru = 'Ошибка помещения файла в хранилище';en = 'Error putting a file to storage'"));
 	EndIf;
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьНаСервере(АдресХранилища, ВыбранноеИмяФайла, AdditionalParameters)
-	НаименованиеПараметра = StrReplace(StrReplace(StrReplace(StrReplace(Врег(ВыбранноеИмяФайла), Врег(
+Procedure ReadAtServer(StorageURL, SelectedFileName, AdditionalParameters)
+	ParameterName = StrReplace(StrReplace(StrReplace(StrReplace(Upper(SelectedFileName), Upper(
 		AdditionalParameters.Directory), ""), ".", ""), "XML", ""), Char(32), "");
 	Try
-		BinaryData = GetFromTempStorage(АдресХранилища);
+		BinaryData = GetFromTempStorage(StorageURL);
 		Stream = BinaryData.OpenStreamForRead();
 		XMLReader = New XMLReader;
 		XMLReader.OpenStream(Stream);
-		ЗначениеПараметра = XDTOSerializer.ReadXML(XMLReader);
-		ДобавитьНовыйПараметрНаСервере(New Structure("НаименованиеПараметра,ЗначениеПараметра",
-			НаименованиеПараметра, ЗначениеПараметра));
+		ParameterValue = XDTOSerializer.ReadXML(XMLReader);
+		AddNewParameterAtServer(New Structure("ParameterName,ParameterValue",
+			ParameterName, ParameterValue));
 	Except
-		Raise "Error записи файла XLM : " + ErrorDescription();
+		Raise NSTR("ru = 'Ошибка записи файла XML';en = 'Error writing XML file'") + ErrorDescription();
 	EndTry;
 EndProcedure
 
-// ПрочитатьНаСервере()
+// readatserver()
 
-//Экспорт
+//Export
 &AtClient
-Procedure ВыборКаталогаЗавершение(SelectedFiles, AdditionalParameters) Export
+Procedure ChooseDirectoryEnd(SelectedFiles, AdditionalParameters) Export
 	If (TypeOf(SelectedFiles) = Type("Array") And SelectedFiles.Count() > 0) Then
 		Directory = SelectedFiles[0];
 		Parameter = Items.ParametersTable.CurrentData.Parameter;
 		FileExtention = "";
 		FileName = TrimAll(Parameter);
-		If TypeOf(AdditionalParameters) = Type("Structure") And AdditionalParameters.Property("ВыгрузитьXML") Then
+		If TypeOf(AdditionalParameters) = Type("Structure") And AdditionalParameters.Property("UnloadXML") Then
 			FileExtention = ".xml";
-			АдресХранилища = ПолучитьФайлНаСервере(Parameter, True);
+			StorageURL = GetFileAtServer(Parameter, True);
 		Else
 			If StrFind(Parameter, "File") > 0 Then
-				Поз = StrFind(FileName, "_");
-				FileExtention = "." + Lower(Mid(FileName, 5, Поз - 5));
-				FileName = Mid(FileName, Поз + 1);
+				Position = StrFind(FileName, "_");
+				FileExtention = "." + Lower(Mid(FileName, 5, Position - 5));
+				FileName = Mid(FileName, Position + 1);
 			EndIf;
-			АдресХранилища = ПолучитьФайлНаСервере(Parameter, False);
+			StorageURL = GetFileAtServer(Parameter, False);
 		EndIf;
-		Оповещение = New NotifyDescription("ПослеПолученияФайла", ThisObject);
-		ОписаниеФайла = New TransferableFileDescription;
-		ОписаниеФайла.Location = АдресХранилища;
-		ОписаниеФайла.Name = Directory + GetPathSeparator() + FileName + FileExtention;
-		ПолучаемыеФайлы = New Array;
-		ПолучаемыеФайлы.Add(ОписаниеФайла);
-		BeginGettingFiles(Оповещение, ПолучаемыеФайлы, , False);
+		Notification = New NotifyDescription("AfterGetFile", ThisObject);
+		FileDescription = New TransferableFileDescription;
+		FileDescription.Location = StorageURL;
+		FileDescription.Name = Directory + GetPathSeparator() + FileName + FileExtention;
+		ObtainedFiles = New Array;
+		ObtainedFiles.Add(FileDescription);
+		BeginGettingFiles(Notification, ObtainedFiles, , False);
 	EndIf;
 EndProcedure
 
 &AtServer
-Function ПолучитьФайлНаСервере(Parameter, ВыгрузитьXML)
-	ВыбПараметр = ПолучитьПараметрНаСервере(Parameter);
-	If ВыгрузитьXML Then
+Function GetFileAtServer(Parameter, UnloadXML)
+	SelectedParameter = GetParameterAtServer(Parameter);
+	If UnloadXML Then
 		XMLWriter = New XMLWriter;
 		Stream = New MemoryStream;
 		XMLWriter.OpenStream(Stream);
-		XDTOSerializer.WriteXML(XMLWriter, ВыбПараметр);
+		XDTOSerializer.WriteXML(XMLWriter, SelectedParameter);
 		XMLWriter.Close();
 		BinaryData = Stream.CloseAndGetBinaryData();
-		АдресХранилища = PutToTempStorage(BinaryData, ThisObject.UUID);
+		StorageURL = PutToTempStorage(BinaryData, ThisObject.UUID);
 	Else
-		АдресХранилища = PutToTempStorage(ВыбПараметр, ThisObject.UUID);
+		StorageURL = PutToTempStorage(SelectedParameter, ThisObject.UUID);
 	EndIf;
-	Return АдресХранилища;
+	Return StorageURL;
 EndFunction
 
 &AtClient
-Procedure ПослеполученияФайла(ПолученныеФайлы, ДопПараметры) Export
-	If TypeOf(ПолученныеФайлы) = Type("Array") Then
-		UT_CommonClientServer.MessageToUser("File " + ПолученныеФайлы[0].Name + " записан");
+Procedure AfterGetFile(ObtainedFiles, AdditionalParameters) Export
+	If TypeOf(ObtainedFiles) = Type("Array") Then
+		UT_CommonClientServer.MessageToUser(StrTemplate(Nstr("ru = 'Файл %1 записан';en = 'File %1 writed'"),ObtainedFiles[0].Name));
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ПроверкаПараметровПрограммныйИнтерфейс(Command)
+Procedure ApiCheckParameters(Command)
 	Object.Parameters.Clear();
-	КодАлгоритма = Object.КодАлгоритма;
-	мИсключая = UT_AlgorithmsClientServer.МассивИсключаемыхСимволов();
+	AlgorithmCode = Object.AlgorithmCode;
+	mExcluding = UT_AlgorithmsClientServer.ExcludedSymbolsArray();
 	Prefix = "Parameters.";
 	FillType = New Structure;
-	While Find(КодАлгоритма, Prefix) > 0 Do
-		Слово = UT_AlgorithmsClientServer.ПолучитьПервоеВхождениеСловоБезПрефикса(КодАлгоритма, Prefix, мИсключая);
-		КодАлгоритма = StrReplace(КодАлгоритма, Prefix + Слово, Слово);
+	While Find(AlgorithmCode, Prefix) > 0 Do
+		Word = UT_AlgorithmsClientServer.GetWordFirstOccurrenceWithOutPrefix(AlgorithmCode, Prefix, mExcluding);
+		AlgorithmCode = StrReplace(AlgorithmCode, Prefix + Word, Word);
 		Try
-			FillType.Insert(Слово, True);
+			FillType.Insert(Word, True);
 		Except
 		EndTry;
 	EndDo;
 	Text = Object.Text;
 	Prefix = "$";
-	While Find(КодАлгоритма, Prefix) > 0 Do
-		Слово = UT_AlgorithmsClientServer.ПолучитьПервоеВхождениеСловоБезПрефикса(Text, Prefix, мИсключая);
-		Text = StrReplace(Text, Prefix + Слово, Слово);
+	While Find(AlgorithmCode, Prefix) > 0 Do
+		Word = UT_AlgorithmsClientServer.GetWordFirstOccurrenceWithOutPrefix(Text, Prefix, mExcluding);
+		Text = StrReplace(Text, Prefix + Word, Word);
 		Try
-			FillType.Insert(Слово, False);
+			FillType.Insert(Word, False);
 		Except
 		EndTry;
 	EndDo;
+     
+	StorageURL = UT_AlgorithmsClientServer.GetParameters(Object.Ref, True);
 
-	АдресХранилища = UT_AlgorithmsClientServer.ПолучитьПараметры(Object.Reference, True);
+	StoredParameters = GetFromTempStorage(StorageURL);
 
-	ХранимыеПараметры = GetFromTempStorage(АдресХранилища);
-
-	For Each ЭлементСоответствия In FillType Do
-		НоваяСтрока = Object.Parameters.Add();
-		НоваяСтрока.Entry = ЭлементСоответствия.Value;
-		НоваяСтрока.Name = ЭлементСоответствия.Key;
-		If НоваяСтрока.Entry And ХранимыеПараметры.Property(ЭлементСоответствия.Key) Then
-			НоваяСтрока.ParameterType = ПолучитьСтрокуОписаниеТипа(ХранимыеПараметры[ЭлементСоответствия.Key]);
-			НоваяСтрока.ByDefault = String(ХранимыеПараметры[ЭлементСоответствия.Key]);
+	For Each Item In FillType Do
+		NewRow = Object.Parameters.Add();
+		NewRow.Entry = Item.Value;
+		NewRow.Name = Item.Key;
+		If NewRow.Entry And StoredParameters.Property(Item.Key) Then
+			NewRow.ParameterType = GetTypeDescriptionString(StoredParameters[Item.Key]);
+			NewRow.ByDefault = String(StoredParameters[Item.Key]);
 		EndIf;
 	EndDo;
 EndProcedure
@@ -656,7 +652,7 @@ EndProcedure
 #EndRegion
 
 &AtServer
-Procedure ПодключитьВнешнююОбработкуНаСервере()
+Procedure ConnectExternalDataProcessorAtServer()
 	ExternalDataProcessors.Connect("v8res://mngbase/StandardEventLog.epf", "StandardEventLog", False);
 EndProcedure
 
@@ -665,40 +661,38 @@ Procedure CreateScheduledJob()
 	If Parameters.Key.IsEmpty() Then
 		Return;
 	EndIf;
-	МассивПараметров = New Array;
-	МассивПараметров.Add(Object.Reference);
+	ParametersArray = New Array;
+	ParametersArray.Add(Object.Ref);
 	Filter = New Structure;
-	Filter.Insert("Key", Object.Reference.UUID());
-	МассивЗаданий = ScheduledJobs.GetScheduledJobs(Filter);
-	If МассивЗаданий.Count() >= 1 Then
-		Message("Задание с  ключом " + Filter.Key + " уже существует");
+	Filter.Insert("Key", Object.Ref.UUID());
+	JobsArray = ScheduledJobs.GetScheduledJobs(Filter);
+	If JobsArray.Count() >= 1 Then
+		Message(NSTR("ru = 'Задание с ключом %1 уже существует';en = 'Scheduled job  with key %1  already exist'",Filter.Key));
 	Else
-		Задание = ScheduledJobs.CreateScheduledJob("alg_УниверсальноеРегламентноеЗадание");
-		Задание.Title = Object.Title;
-		Задание.Key = Filter.Key;
-		Задание.Use = False;
-		Задание.Parameters = МассивПараметров;
-		Задание.Write();
-		Message("Создано регламентное задание " + Object.Title + " с  ключом " + Filter.Key);
+		Job = ScheduledJobs.CreateScheduledJob("alg_UniversalScheduledJob");
+		Job.Title = Object.Title;
+		Job.Key = Filter.Key;
+		Job.Use = False;
+		Job.Parameters = ParametersArray;
+		Job.Write();
+		Message(StrTemplate(NSTR("ru = 'Создано регламентное задание %1 с  ключом %2';en = 'Created scheduled job %1 with key %2 '"), Object.Title,Filter.Key));
 	EndIf;
 EndProcedure
 
-// СоздатьРегламентноеЗадание()
 &AtServer
-Procedure УдалитьРегламентноеЗаданиеНаСервере()
+Procedure DeleteScheduledJobAtServer()
 	If Parameters.Key.IsEmpty() Then
 		Return;
 	EndIf;
-	МассивПараметров = New Array;
-	МассивПараметров.Add(Object.Reference);
+	ParametersArray = New Array;
+	ParametersArray.Add(Object.Ref);
 	Filter = New Structure;
-	Filter.Insert("Key", Object.Reference.UUID());
-	МассивЗаданий = ScheduledJobs.GetScheduledJobs(Filter);
-	If МассивЗаданий.Count() >= 1 Then
-		МассивЗаданий[0].Delete();
-		Message("Удалено регламентное задание  " + Object.Title);
+	Filter.Insert("Key", Object.Ref.UUID());
+	JobsArray = ScheduledJobs.GetScheduledJobs(Filter);
+	If JobsArray.Count() >= 1 Then
+		JobsArray[0].Delete();
+		Message(Nstr("ru = 'Удалено регламентное задание';en = 'Deleted scheluded job'")+ Object.Title);
 	EndIf;
-	// Insert содержимое обработчика.
 EndProcedure
 
 #EndRegion

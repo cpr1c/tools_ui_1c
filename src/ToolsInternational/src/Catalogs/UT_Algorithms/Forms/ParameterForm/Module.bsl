@@ -62,7 +62,7 @@ Procedure ExternalFileStartChoiceOnEnd(SelectedFiles, AdditionalParameters) Expo
 EndProcedure
 
 &AtClient
-Procedure PutFileEnd(Result, Address, ВыбранноеИмяФайла, AdditionalParameters) Export
+Procedure PutFileEnd(Result, Address, SelectedFileName, AdditionalParameters) Export
 	StorageURL = Address;
 EndProcedure
 
