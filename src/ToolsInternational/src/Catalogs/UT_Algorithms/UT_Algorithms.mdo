@@ -101,6 +101,9 @@
     <pages>
       <lang>ru</lang>
     </pages>
+    <pages>
+      <lang>en</lang>
+    </pages>
   </help>
   <dataLockControlMode>Managed</dataLockControlMode>
   <fullTextSearch>Use</fullTextSearch>
