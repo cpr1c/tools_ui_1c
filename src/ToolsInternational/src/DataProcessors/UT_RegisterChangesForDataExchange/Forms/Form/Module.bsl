@@ -1275,37 +1275,37 @@ Procedure ActionWithQueryResult(ActionCommand)
 EndProcedure
 
 &AtClient
-Procedure ОперацияСРезультатамиЗапросаЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
-	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
-		Возврат;
-	КонецЕсли;
-
-	ОткрытьФормуНастроекОбработки();
+Procedure ActionWithQueryResultsCompletion(Val QuestionResult, Val AdditionalParameters) Export
+	If QuestionResult <> DialogReturnCode.Yes Then
+		Return;
+	EndIf;
+	
+	OpenDataProcessorSettingsForm();
 EndProcedure
 
 &AtServer
-Функция ЗакавычитьСтроку(Строка)
-	Возврат СтрЗаменить(Строка, """", """""");
-КонецФункции
+Function ProcessQuotationMarksInRow(Row)
+	Return StrReplace(Row, """", """""");
+EndFunction
 
 &AtServer
-Функция ЭтотОбъектОбработки(ТекущийОбъект = Неопределено)
-	Если ТекущийОбъект = Неопределено Тогда
-		Возврат РеквизитФормыВЗначение("Объект");
-	КонецЕсли;
-	ЗначениеВРеквизитФормы(ТекущийОбъект, "Объект");
-	Возврат Неопределено;
-КонецФункции
+Function ThisObject(CurrentObject = Undefined) 
+	If CurrentObject = Undefined Then
+		Return FormAttributeToValue("Object");
+	EndIf;
+	ValueToFormAttribute(CurrentObject, "Object");
+	Return Undefined;
+EndFunction
 
 &AtServer
-Функция ПолучитьИмяФормы(ТекущийОбъект = Неопределено)
-	Возврат ЭтотОбъектОбработки().ПолучитьИмяФормы(ТекущийОбъект);
-КонецФункции
+Function GetFormName(CurrentObject = Undefined)
+	Return ThisObject().GetFormName(CurrentObject);
+EndFunction
 
 &AtServer
-Функция DynamicListMainTable(РеквизитФормы)
-	Возврат РеквизитФормы.ОсновнаяТаблица;
-КонецФункции
+Function DynamicListMainTable(FormAttribute)
+	Return FormAttribute.MainTable;
+EndFunction
 
 &AtServer
 Procedure ИзменениеПометки(Строка)
