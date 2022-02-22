@@ -93,7 +93,7 @@
   <content>CommonPicture.UT_FilesPictogramsCollection</content>
   <content>CommonPicture.UT_DatabaseObjectEditor</content>
   <content>CommonPicture.UT_Information</content>
-  <content>HTTPService.УИ_ПубликуемыеФункции</content>
+  <content>HTTPService.UT_PublishedFunctions</content>
   <content>DataProcessor.UT_JSONDataConversion</content>
   <content>CommonTemplate.UT_ClipboardComponent</content>
   <content>CommonModule.UT_ClipboardClient</content>

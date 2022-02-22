@@ -116,7 +116,7 @@
   <defaultPresentation>AsDescription</defaultPresentation>
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
-  <defaultObjectForm>Catalog.UT_Algorithms.Form.ФормаЭлемента</defaultObjectForm>
+  <defaultObjectForm>Catalog.UT_Algorithms.Form.ItemForm</defaultObjectForm>
   <attributes uuid="e4ace370-6f4c-11e9-1495-002522f8f390">
     <name>AtClient</name>
     <synonym>
@@ -172,10 +172,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4acf180-6f4c-11e9-1495-002522f8f390">
-    <name>ВыбрасыватьИсключение</name>
+    <name>ThrowException</name>
     <synonym>
       <key>ru</key>
-      <value>Выбрасывать исключение</value>
+      <value>Throw exception</value>
     </synonym>
     <type>
       <types>Boolean</types>
@@ -189,10 +189,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4acffa4-6f4c-11e9-1495-002522f8f390">
-    <name>ВыполнятьВТранзакции</name>
+    <name>ExecuteInTransaction</name>
     <synonym>
       <key>ru</key>
-      <value>Выполнять в транзакции</value>
+      <value>Execute in transaction</value>
     </synonym>
     <type>
       <types>Boolean</types>
@@ -204,7 +204,11 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ad5120-6f4c-11e9-1495-002522f8f390">
-    <name>ВыполнятьПоРасписанию</name>
+    <name>ExecuteBySchedule</name>
+    <synonym>
+      <key>en</key>
+      <value>Execute by schedule</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Выполнять по расписанию</value>
@@ -217,7 +221,7 @@
     <fillValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <attributes uuid="e4ad1020-6f4c-11e9-1495-002522f8f390">
-    <name>ЗаписыватьОшибкиВЖР</name>
+    <name>WriteErrorsToEventLog</name>
     <synonym>
       <key>ru</key>
       <value>Записывать ошибки  в журнал</value>
@@ -234,7 +238,11 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ad33de-6f4c-11e9-1495-002522f8f390">
-    <name>ИдентификаторHTTP</name>
+    <name>HttpID</name>
+    <synonym>
+      <key>en</key>
+      <value>HTTP ID</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Идентификатор HTTP</value>
@@ -252,10 +260,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ad42ac-6f4c-11e9-1495-002522f8f390">
-    <name>ИдентификаторРегламентногоЗадания</name>
+    <name>ScheduledJobUUID</name>
     <synonym>
       <key>ru</key>
-      <value>Идентификатор регламентного задания</value>
+      <value>Scheduled job UUID</value>
     </synonym>
     <type>
       <types>String</types>
@@ -271,7 +279,11 @@
     <fullTextSearch>Use</fullTextSearch>
   </attributes>
   <attributes uuid="e4acc76e-6f4c-11e9-1495-002522f8f390">
-    <name>Кэшировать</name>
+    <name>Сache</name>
+    <synonym>
+      <key>en</key>
+      <value>Cache return values</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Кэшировать возвращаемые значения</value>
@@ -285,10 +297,10 @@
     <dataHistory>Use</dataHistory>
   </attributes>
   <attributes uuid="e4ac9d02-6f4c-11e9-1495-002522f8f390">
-    <name>ТекстАлгоритма</name>
+    <name>AlgorithmText</name>
     <synonym>
       <key>ru</key>
-      <value>Текст алгоритма</value>
+      <value>Algorithm text</value>
     </synonym>
     <type>
       <types>String</types>
@@ -309,10 +321,14 @@
       <objectType typeId="e4ad82a8-6f4c-11e9-1495-002522f8f390" valueTypeId="e4ad82a9-6f4c-11e9-1495-002522f8f390"/>
       <rowType typeId="e4ad82aa-6f4c-11e9-1495-002522f8f390" valueTypeId="e4ad82b2-6f4c-11e9-1495-002522f8f390"/>
     </producedTypes>
-    <name>Параметры</name>
+    <name>Parameters</name>
+    <synonym>
+      <key>en</key>
+      <value>Parameters</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Параметры</value>
+      <value>Parameters</value>
     </synonym>
     <standardAttributes>
       <dataHistory>Use</dataHistory>
@@ -323,7 +339,11 @@
       <maxValue xsi:type="core:UndefinedValue"/>
     </standardAttributes>
     <attributes uuid="e4ad88f2-6f4c-11e9-1495-002522f8f390">
-      <name>Вход</name>
+      <name>Entry</name>
+      <synonym>
+        <key>en</key>
+        <value>Entry</value>
+      </synonym>
       <synonym>
         <key>ru</key>
         <value>Вход</value>
@@ -338,10 +358,14 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="e4ad95fe-6f4c-11e9-1495-002522f8f390">
-      <name>Имя</name>
+      <name>Name</name>
+      <synonym>
+        <key>en</key>
+        <value>Name</value>
+      </synonym>
       <synonym>
         <key>ru</key>
-        <value>Имя</value>
+        <value>Name</value>
       </synonym>
       <type>
         <types>String</types>
@@ -356,10 +380,14 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="e4ada2b0-6f4c-11e9-1495-002522f8f390">
-      <name>ТипПараметра</name>
+      <name>ParameterType</name>
+      <synonym>
+        <key>en</key>
+        <value>Parameter type</value>
+      </synonym>
       <synonym>
         <key>ru</key>
-        <value>Тип параметра</value>
+        <value>Parameter type</value>
       </synonym>
       <type>
         <types>String</types>
@@ -373,10 +401,14 @@
       <fullTextSearch>Use</fullTextSearch>
     </attributes>
     <attributes uuid="0cf572c4-7575-11e9-9197-002522f8f390">
-      <name>ПоУмолчанию</name>
+      <name>ByDefault</name>
+      <synonym>
+        <key>en</key>
+        <value>By default</value>
+      </synonym>
       <synonym>
         <key>ru</key>
-        <value>По умолчанию</value>
+        <value>By default</value>
       </synonym>
       <type>
         <types>String</types>
@@ -391,7 +423,11 @@
     </attributes>
   </tabularSections>
   <forms uuid="e4adbd0e-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаЭлемента</name>
+    <name>ItemForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Item Form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма элемента</value>
@@ -400,16 +436,24 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e4afbadc-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаПараметра</name>
+    <name>ParameterForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Parameter form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Форма параметра</value>
+      <value>Parameter form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e4b0e632-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаРедактора</name>
+    <name>EditorForm</name>
+    <synonym>
+      <key>en</key>
+      <value>Editor form</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма редактора</value>

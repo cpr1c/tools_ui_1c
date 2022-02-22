@@ -1,48 +1,48 @@
-#Область СлужебныйПрограммныйИнтерфейс
+#Region Internal
 
-Функция ПолучитьПараметры() Экспорт
-//	Параметры = Хранилище.Получить();
-//	Если Параметры = Неопределено ИЛИ ТипЗнч(Параметры) <> Тип("Структура")Тогда 
-//		Параметры =  Новый Структура;
-//	КонецЕсли;
-//	Возврат Параметры;
-КонецФункции
+Function GetParameters() Export
+//	Parameters = Storage.Get();
+//	If Parameters = Undefined OR TypeOf(Parameters) <> Type("Structure") Then 
+//		Parameters =  New Structure;
+//	EndIf;
+//	Return Parameters;
+EndFunction
 
-Функция ПолучитьПараметр(НаименованиеПараметра) Экспорт
-//	Параметры = Хранилище.Получить();
-//	Если Параметры <> Неопределено И Параметры.Свойство(НаименованиеПараметра) Тогда
-//		Возврат Параметры[НаименованиеПараметра];
-//	Иначе 
-//		Возврат Неопределено;
-//	КонецЕсли;
-КонецФункции
+Function GetParameter(ParameterName) Export
+//	Parameters = Storage.Get();
+//	If Parameters <> Undefined AND Parameters.Property(ParameterName) Then
+//		Return Parameters[ParameterName];
+//	Else 
+//		Return Undefined;
+//	EndIf;
+EndFunction
 
-Функция УдалитьПараметр(Ключ) Экспорт
-//	Попытка
-//		Параметры = ПолучитьПараметры();
-//		Параметры.Удалить(Ключ);
-//		Хранилище = Новый ХранилищеЗначения(Параметры);
-//		Записать();
-//		Возврат Истина;	
-//	Исключение
-//		ЗаписатьВЖурналРегистрации("Удаление параметра",ОписаниеОшибки());
-//		Возврат Ложь;
-//	КонецПопытки;
-КонецФункции
+Function RemoveParameter(Key) Export
+//	Try
+//		Parameters = GetParameters();
+//		Parameters.Delete(Key);
+//		Storage = New ValueStorage(Parameters);
+//		Write();
+//		Return True;	
+//	Except
+//		WriteToEventLog("Parameter deletion",ErrorDescription());
+//		Return False;
+//	EndTry;
+EndFunction
 
-Функция ПереименоватьПараметр(Ключ, НовИмя) Экспорт
-//	Попытка
-//		Параметры = ПолучитьПараметры();
-//		Значение = Параметры[Ключ];
-//		Параметры.Удалить(Ключ);
-//		Параметры.Вставить(НовИмя,Значение);
-//		Хранилище = Новый ХранилищеЗначения(Параметры);
-//		Записать();
-//		Возврат Истина;
-//	Исключение
-//		ЗаписатьВЖурналРегистрации("Переименовать параметр",ОписаниеОшибки());
-//		Возврат Ложь;
-//	КонецПопытки;
-КонецФункции
+Function RenameParameter(Key, NewName) Export
+//	Try
+//		Parameters = GetParameters();
+//		Значение = Parameters[Key];
+//		Parameters.Delete(Key);
+//		Parameters.Insert(NewName,Value);
+//		Storage = New ValueStorage(Parameters);
+//		Write();
+//		Return True;
+//	Except
+//		WriteToEventLog("Rename parameter error",ErrorDescription());
+//		Return False;
+//	EndTry;
+EndFunction
 
-#КонецОбласти
+#EndRegion

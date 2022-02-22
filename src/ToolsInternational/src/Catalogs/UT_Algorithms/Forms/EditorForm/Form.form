@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
-    <name>ТекстHTML</name>
+    <name>HTMLText</name>
     <id>7</id>
+    <title>
+      <key>en</key>
+      <value>HTML Text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ТекстHTML</value>
@@ -14,12 +18,12 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ТекстHTML</segments>
+        <segments>HTMLText</segments>
       </paths>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ТекстHTMLРасширеннаяПодсказка</name>
+      <name>HTMLTextExtendedTooltip</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -34,7 +38,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТекстHTMLКонтекстноеМеню</name>
+      <name>HTMLTextContextMenu</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -58,7 +62,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ТабличныйДокумент</name>
+    <name>SpreadsheetDocument</name>
     <id>10</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -67,11 +71,11 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ТабличныйДокумент</segments>
+        <segments>SpreadsheetDocument</segments>
       </paths>
     </dataPath>
     <extendedTooltip>
-      <name>ТабличныйДокументРасширеннаяПодсказка</name>
+      <name>SpreadsheetDocumentExtendedTooltip</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -86,7 +90,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТабличныйДокументКонтекстноеМеню</name>
+      <name>SpreadsheetDocumentContextMenu</name>
       <id>11</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -135,7 +139,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ТекстHTML</name>
+    <name>HTMLText</name>
+    <title>
+      <key>en</key>
+      <value>HTML Text</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Текст HTML</value>
@@ -153,10 +161,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТабличныйДокумент</name>
+    <name>SpreadsheetDocument</name>
     <title>
       <key>ru</key>
       <value>Табличный документ</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Spreadsheet document</value>
     </title>
     <id>1</id>
     <valueType>
@@ -171,10 +183,14 @@
     <extInfo xsi:type="form:SpreadsheetDocumentExtInfo"/>
   </attributes>
   <attributes>
-    <name>КомпановщикНастроек</name>
+    <name>SettingsComposer</name>
     <title>
       <key>ru</key>
       <value>Компановщик настроек</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Settings composer</value>
     </title>
     <id>4</id>
     <valueType>
@@ -188,7 +204,7 @@
     </edit>
   </attributes>
   <parameters>
-    <name>Текст</name>
+    <name>Text</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -196,7 +212,7 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>Алгоритм</name>
+    <name>Algorithm</name>
     <valueType>
       <types>CatalogRef.UT_Algorithms</types>
     </valueType>
