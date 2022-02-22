@@ -213,7 +213,7 @@
       <titleLocation>None</titleLocation>
       <handlers>
         <event>OnChange</event>
-        <name>НаКлиентеПриИзменении</name>
+        <name>AtClientOnChange</name>
       </handlers>
       <extendedTooltip>
         <name>AtClientExtendedTooltip</name>
@@ -945,7 +945,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>Opening</event>
-              <name>ТаблицаПараметровПараметрОткрытие</name>
+              <name>ParametersTableParameterOpening</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -1165,7 +1165,7 @@
         </autoCommandBar>
         <handlers>
           <event>BeforeDeleteRow</event>
-          <name>ТаблицаПараметровПередУдалением</name>
+          <name>ParametersTableBeforeDeleteRow</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -1919,7 +1919,7 @@
     <extInfo xsi:type="form:PagesGroupExtInfo">
       <handlers>
         <event>OnCurrentPageChange</event>
-        <name>ГруппаПанельСтраницПриСменеСтраницы</name>
+        <name>GroupPagesPanelOnCurrentPageChange</name>
       </handlers>
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
       <currentRowUse>Auto</currentRowUse>
@@ -2275,12 +2275,12 @@
     <horizontalAlign>Left</horizontalAlign>
   </autoCommandBar>
   <handlers>
-    <event>NotificationProcessing</event>
-    <name>ОбработкаОповещения</name>
+    <event>OnCreateAtServer</event>
+    <name>OnCreateAtServer</name>
   </handlers>
   <handlers>
-    <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <event>NotificationProcessing</event>
+    <name>NotificationProcessing</name>
   </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <autoTitle>true</autoTitle>
@@ -2424,7 +2424,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьПараметр</name>
+        <name>AddParameter</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
@@ -2452,7 +2452,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ИзменитьИмя</name>
+        <name>EditName</name>
       </handler>
     </action>
     <representation>Picture</representation>
@@ -2478,7 +2478,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ИзменитьЗначение</name>
+        <name>EditValue</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
@@ -2506,7 +2506,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыполнитьПроцедуру</name>
+        <name>ExecuteProcedure</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
@@ -2535,7 +2535,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьЖурналРегистрации</name>
+        <name>EventLog</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
@@ -2563,7 +2563,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьРегламентноеЗадание</name>
+        <name>AddScheduledJob</name>
       </handler>
     </action>
     <representation>Picture</representation>
@@ -2592,7 +2592,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьРегламентноеЗадание</name>
+        <name>DeleteScheduledJob</name>
       </handler>
     </action>
     <representation>Picture</representation>
@@ -2621,7 +2621,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КонструкторЗапросаПоказать</name>
+        <name>ShowQueryWizard</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
@@ -2650,7 +2650,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ФорматироватьТекст</name>
+        <name>FormatText</name>
       </handler>
     </action>
     <representation>Picture</representation>
@@ -2679,7 +2679,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПроверкаПараметровПрограммныйИнтерфейс</name>
+        <name>ApiCheckParameters</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
@@ -2712,11 +2712,11 @@
   <extInfo xsi:type="form:CatalogFormExtInfo">
     <handlers>
       <event>AfterWriteAtServer</event>
-      <name>ПослеЗаписиНаСервере</name>
+      <name>AfterWriteAtServer</name>
     </handlers>
     <handlers>
       <event>BeforeWriteAtServer</event>
-      <name>ПередЗаписьюНаСервере</name>
+      <name>BeforeWriteAtServer</name>
     </handlers>
   </extInfo>
 </form:Form>
