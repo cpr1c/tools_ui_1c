@@ -211,7 +211,7 @@ EndFunction
 //<AddInObject> – Object of  AddIn  to work with clipboard, Тип: Add-in object. Неопределено- если не удалось подключить компоненту
 //<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
 Procedure BeginGettingAddIn(NotifyDescription) Export
-	НачатьИнициализациюКомпоненты(NotifyDescription, True);
+	BeginInitializeAddin(NotifyDescription, True);
 EndProcedure
 
 // Начинает получение версии используемой компоненты работы с буфером обмена
@@ -319,14 +319,14 @@ EndProcedure
 //	<ПараметрыВызова> - Массив параметров вызова метода компоненты
 //	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
 // 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
-Procedure НачатьКопированиеСтрокиВБуфер(CopiedText, NotifyDescription, AddInObject = Undefined) Export
+Procedure BeginCopyTextToClipboard(CopiedText, NotifyDescription, AddInObject = Undefined) Export
 	If AddInObject = Undefined Then
 		AdditionalParameters=New Structure;
 		AdditionalParameters.Insert("CopiedText", CopiedText);
 		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
 		BeginGettingAddIn(
-			New NotifyDescription("НачатьКопированиеСтрокиВБуферEndGettingAddin", ThisObject,
+			New NotifyDescription("BeginCopyTextToClipboardEndGettingAddin", ThisObject,
 			AdditionalParameters));
 	Else
 		AddInObject.BeginCallingSetText(NotifyDescription, CopiedText);
@@ -347,7 +347,7 @@ Procedure BeginGettingTextFormClipboard(NotifyDescription, AddInObject = Undefin
 		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
 		BeginGettingAddIn(
-			New NotifyDescription("BeginGettingСтрокиИзБуфераEndGettingAddin", ThisObject,
+			New NotifyDescription("BeginGettingTextFormClipboardEndGettingAddin", ThisObject,
 			AdditionalParameters));
 	Else
 		AddInObject.BeginGettingText(NotifyDescription);
@@ -368,7 +368,7 @@ Procedure BeginGettingClipboardFormat(NotifyDescription, AddInObject = Undefined
 		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
 		BeginGettingAddIn(
-			New NotifyDescription("BeginGettingФорматаБуфераОбменаEndGettingAddin", ThisObject,
+			New NotifyDescription("BeginGettingClipboardFormatEndGettingAddin", ThisObject,
 			AdditionalParameters));
 	Else
 		AddInObject.BeginGettingFormat(NotifyDescription);
@@ -381,35 +381,35 @@ EndProcedure
 
 #Region Internal
 
-Procedure НачатьИнициализациюКомпоненты(NotifyDescription, TryToSetAddin = True) Export
+Procedure BeginInitializeAddin(NotifyDescription, TryToSetAddin = True) Export
 
-	ДополнительныеПараметрыОповещения=New Structure;
-	ДополнительныеПараметрыОповещения.Insert("ОповещениеОЗавершении", NotifyDescription);
-	ДополнительныеПараметрыОповещения.Insert("TryToSetAddin", TryToSetAddin);
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("OnCompletionNotify", NotifyDescription);
+	NotifyAdditionalParameters.Insert("TryToSetAddin", TryToSetAddin);
 
 	BeginAttachingAddIn(
-		New NotifyDescription("BeginGettingAddInЗавершениеПодключенияКомпоненты", ThisObject,
-		ДополнительныеПараметрыОповещения), AddinTemplateName(), AddInID(),
+		New NotifyDescription("BeginGettingAddInEndAttachingAddin", ThisObject,
+		NotifyAdditionalParameters), AddinTemplateName(), AddInID(),
 		AddInType.Native);
 
 EndProcedure
 
-Procedure BeginGettingAddInЗавершениеПодключенияКомпоненты(Подключено, AdditionalParameters) Export
-	If Подключено Then
-		ОповещениеОЗавершении=AdditionalParameters.ОповещениеОЗавершении;
-		ExecuteNotifyProcessing(ОповещениеОЗавершении, AddInObject());
+Procedure BeginGettingAddInEndAttachingAddin(Attached, AdditionalParameters) Export
+	If Attached Then
+		OnCompletionNotify=AdditionalParameters.OnCompletionNotify;
+		ExecuteNotifyProcessing(OnCompletionNotify, AddInObject());
 	ElsIf AdditionalParameters.TryToSetAddin Then
 		BeginInstallAddIn(
-			New NotifyDescription("BeginGettingAddInЗавершениеУстановкиКомпоненты", ThisObject,
+			New NotifyDescription("BeginGettingAddInEndInstallAddin", ThisObject,
 			AdditionalParameters), AddinTemplateName());
 	Else
-		ОповещениеОЗавершении=AdditionalParameters.ОповещениеОЗавершении;
-		ExecuteNotifyProcessing(ОповещениеОЗавершении, Undefined);
+		OnCompletionNotify=AdditionalParameters.OnCompletionNotify;
+		ExecuteNotifyProcessing(OnCompletionNotify, Undefined);
 	EndIf;
 EndProcedure
 
-Procedure BeginGettingAddInЗавершениеУстановкиКомпоненты(AdditionalParameters) Export
-	НачатьИнициализациюКомпоненты(AdditionalParameters.ОповещениеОЗавершении, False);
+Procedure BeginGettingAddInEndInstallAddin(AdditionalParameters) Export
+	BeginInitializeAddin(AdditionalParameters.OnCompletionNotify, False);
 EndProcedure
 
 Procedure BeginGettingAddinVersionEndGettingAddin(Result, AdditionalParameters) Export
@@ -451,16 +451,16 @@ Procedure PictureInCorrectFormatFromClipboardOnEnd(Result, AdditionalParameters)
 		Result, AdditionalParameters.ReturnDataType));
 EndProcedure
 
-Procedure НачатьКопированиеСтрокиВБуферEndGettingAddin(Result, AdditionalParameters) Export
+Procedure BeginCopyTextToClipboardEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьКопированиеСтрокиВБуфер(AdditionalParameters.CopiedText,
+		BeginCopyTextToClipboard(AdditionalParameters.CopiedText,
 			AdditionalParameters.NotifyDescriptionOnCompletion, Result);
 	EndIf;
 EndProcedure
 
-Procedure BeginGettingСтрокиИзБуфераEndGettingAddin(Result, AdditionalParameters) Export
+Procedure BeginGettingTextFormClipboardEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
@@ -468,7 +468,7 @@ Procedure BeginGettingСтрокиИзБуфераEndGettingAddin(Result, Additi
 	EndIf;
 EndProcedure
 
-Procedure BeginGettingФорматаБуфераОбменаEndGettingAddin(Result, AdditionalParameters) Export
+Procedure BeginGettingClipboardFormatEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
