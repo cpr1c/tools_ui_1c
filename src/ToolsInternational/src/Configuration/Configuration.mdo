@@ -86,7 +86,7 @@
   <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegEx</commonTemplates>
   <commonTemplates>CommonTemplate.UT_StringSearchComponent</commonTemplates>
   <commonTemplates>CommonTemplate.UT_Ace</commonTemplates>
-  <commonTemplates>CommonTemplate.UT_ClipboardComponent</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_ClipboardAddin</commonTemplates>
   <commonTemplates>CommonTemplate.UT_MonacoEditor</commonTemplates>
   <commonTemplates>CommonTemplate.UT_MonacoEditorWindows</commonTemplates>
   <commonModules>CommonModule.AdditionalReportsAndDataProcessors</commonModules>
@@ -164,5 +164,5 @@
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
 </mdclass:Configuration>
