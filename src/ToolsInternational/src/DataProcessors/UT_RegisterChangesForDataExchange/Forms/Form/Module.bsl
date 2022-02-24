@@ -319,7 +319,7 @@ Procedure AddRegistrationForSingleObject(Command)
 	
 	CurrPage = Items.ObjectsListOptions.CurrentPage;
 	If CurrPage = Items.ConstantsPage Then
-		AddConstantRegistrationInList();
+		AddConstantRegistrationToList();
 	ElsIf CurrPage = Items.ReferencesListPage Then
 		AddRegistrationToReferenceList();		
 	ElsIf CurrPage = Items.RecordSetPage Then
@@ -371,7 +371,7 @@ Procedure DeleteRegistrationFilter(Command)
 	
 	CurrPage = Items.ObjectsListOptions.CurrentPage;
 	If CurrPage = Items.ReferencesListPage Then
-		DeleteRegistrationInListFilter();
+		DeleteRegistrationFromListFilter();
 	ElsIf CurrPage = Items.RecordSetPage Then
 		DeleteRegistrationInRecordSetFilter();
 	EndIf;
@@ -454,7 +454,7 @@ EndProcedure
 &AtClient
 Procedure AddConstantRegistration(Command)
 	If ValueIsFilled(ExchangeNodeRef) Then
-		AddConstantRegistrationInList();
+		AddConstantRegistrationToList();
 	EndIf;
 EndProcedure
 
@@ -468,7 +468,7 @@ EndProcedure
 &AtClient
 Procedure AddRefRegistration(Command)
 	If ValueIsFilled(ExchangeNodeRef) Then
-		AddRegistrationInReferenceList();
+		AddRegistrationToReferenceList();
 	EndIf;
 EndProcedure
 
@@ -489,7 +489,7 @@ EndProcedure
 &AtClient
 Procedure AddRefRegistrationPickup(Command)
 	If ValueIsFilled(ExchangeNodeRef) Then
-		AddRegistrationInReferenceList(True);
+		AddRegistrationToReferenceList(True);
 	EndIf;
 EndProcedure
 
@@ -503,7 +503,7 @@ EndProcedure
 &AtClient
 Procedure DeleteRefRegistrationFilter(Command)
 	If ValueIsFilled(ExchangeNodeRef) Then
-		DeleteRegistrationInListFilter();
+		DeleteRegistrationFromListFilter();
 	EndIf;
 EndProcedure
 
@@ -828,7 +828,7 @@ Function GetQueryResultChoiceForm()
 EndFunction
 
 &AtClient
-Procedure ДобавитьРегистрациюКонстантыВСписке()
+Procedure AddConstantRegistrationToList()
 	CurFormName = GetFormName() + "Form.SelectConstant";
 	CurParameters = New Structure("ExchangeNode, MetadataNamesArray, PresentationsArray, AutoRecordsArray",
 		ExchangeNodeRef, MetadataNamesStructure.Constants, MetadataPresentationsStructure.Constants,
@@ -880,7 +880,7 @@ Procedure DeleteConstantRegistrationInListCompletion(Val QuestionResult, Val Add
 		Return;
 	EndIf;
 
-	ReportRegistrationResults(Flase, DeleteRegistrationAtServer(True, ExchangeNodeRef,
+	ReportRegistrationResults(False, DeleteRegistrationAtServer(True, ExchangeNodeRef,
 		AdditionalParameters.NamesList));
 
 	Items.ConstantsList.Refresh();
@@ -888,7 +888,7 @@ Procedure DeleteConstantRegistrationInListCompletion(Val QuestionResult, Val Add
 EndProcedure
 
 &AtClient
-Procedure AddRegistrationInReferenceList(IsPick = False)
+Procedure AddRegistrationToReferenceList(IsPick = False)
 	CurFormName = GetFormName(RefsList) + "ChoiceForm";
 	CurParameters = New Structure("ChoiceMode, MultipleChoice, CloseOnChoice, ChoiceFoldersAndItems", True,
 		True, IsPick, FoldersAndItemsUse.FoldersAndItems);
@@ -919,7 +919,7 @@ Procedure AddRegistrationInListFilter()
 EndProcedure
 
 &AtClient
-Procedure AddRegistrationInListFilter()
+Procedure DeleteRegistrationFromListFilter()
 	CurFormName = GetFormName() + "Form.SelectObjectsUsingFilter";
 	CurParameters = New Structure("ChoiceAction, TableName", False, DynamicListMainTable(RefsList));
 	OpenForm(CurFormName, CurParameters, Items.RefsList);
@@ -1054,7 +1054,7 @@ Procedure AddSelectedObjectRegistrationCompletion(Val QuestionResult, Val Additi
 		Return;
 	EndIf;
 
-	Result = AddRegistrationAtServer(AdditionalParameters.NoAutoRegistration, 
+	Result = AddRegistrationAtServer(AdditionalParameters.NoAutoRegistration, ExchangeNodeRef,
 		AdditionalParameters.MetaNames);
 		
 	FillRegistrationCountInTreeRows();
@@ -1200,7 +1200,7 @@ Procedure UpdatePageContent(Page = Undefined)
 		If Row <> Undefined Then
 			Data = MetadataTree.FindByID(Row);
 			If Data <> Undefined Then
-				SetUpEmptyPage(Data.Description, Data.MetaFullName);
+				SetUpBlankPage(Data.Description, Data.MetaFullName);
 			EndIf;
 		EndIf;
 	EndIf;
@@ -1308,784 +1308,776 @@ Function DynamicListMainTable(FormAttribute)
 EndFunction
 
 &AtServer
-Procedure ИзменениеПометки(Строка)
-	ЭлементДанных = MetadataTree.НайтиПоИдентификатору(Строка);
-	ЭтотОбъектОбработки().ИзменениеПометки(ЭлементДанных);
+Procedure ChangeMark(Row)
+	DataItem = MetadataTree.FindByID(Row);
+	ThisObject().ChangeMark(DataItem);
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьДеревоМетаданных()
-	Данные = ЭтотОбъектОбработки().СформироватьСтруктуруМетаданных(ExchangeNodeRef);
+Procedure ReadMetadataTree()
+	Data = ThisObject().GenerateMetadataStructure(ExchangeNodeRef);
 	
-	// Удаляем строки, которые нельзя редактировать
-	МетаДерево = Данные.Дерево;
-	Для Каждого ЭлементСписка Из NamesOfMetadataToHide Цикл
-		УдалитьСтрокиДереваЗначенийМетаданных(ЭлементСписка.Значение, МетаДерево.Строки);
-	КонецЦикла;
-
-	ЗначениеВРеквизитФормы(МетаДерево, "MetadataTree");
-	MetadataAutoRecordStructure = Данные.СтруктураАвторегистрации;
-	MetadataPresentationsStructure   = Данные.СтруктураПредставлений;
-	MetadataNamesStructure            = Данные.СтруктураИмен;
-EndProcedure
-
-&AtServer
-Procedure УдалитьСтрокиДереваЗначенийМетаданных(Знач МетаПолноеИмя, СтрокиДерева)
-	Если ПустаяСтрока(МетаПолноеИмя) Тогда
-		Возврат;
-	КонецЕсли;
+	// Deleting rows that cannot be edited.
+	MetaTree = Data.Tree;
+	For Each ListItem In NamesOfMetadataToHide Do
+		DeleteMetadataValueTreeRows(ListItem.Value, MetaTree.Rows);
+	EndDo;
 	
-	// В текущем наборе
-	Фильтр = Новый Структура("МетаПолноеИмя", МетаПолноеИмя);
-	Для Каждого СтрокаУдаления Из СтрокиДерева.НайтиСтроки(Фильтр, Ложь) Цикл
-		СтрокиДерева.Удалить(СтрокаУдаления);
-	КонецЦикла;
+	ValueToFormAttribute(MetaTree, "MetadataTree");
+	MetadataAutoRecordStructure = Data.AutoRecordStructure;
+	MetadataPresentationsStructure   = Data.PresentationsStructure;
+	MetadataNamesStructure            = Data.NamesStructure;
+EndProcedure
+
+&AtServer
+Procedure DeleteMetadataValueTreeRows(Val MetaFullName, TreeRows)
+	If IsBlankString(MetaFullName) Then
+		Return;
+	EndIf;
 	
-	// И из оставшихся иерархически
-	Для Каждого СтрокаДерева Из СтрокиДерева Цикл
-		УдалитьСтрокиДереваЗначенийМетаданных(МетаПолноеИмя, СтрокаДерева.Строки);
-	КонецЦикла;
-EndProcedure
-
-&AtServer
-Procedure ФорматироватьКоличествоИзменений(Строка)
-	Строка.ChangeCountString = Формат(Строка.КоличествоИзменений, "ЧН=") + " / " + Формат(
-		Строка.КоличествоНеВыгруженных, "ЧН=");
-EndProcedure
-
-&AtServer
-Procedure ЗаполнитьКоличествоРегистрацийВДереве()
-
-	Данные = ЭтотОбъектОбработки().ПолучитьКоличествоИзменений(MetadataNamesStructure, ExchangeNodeRef);
+	// In the current set
+	Filter = New Structure("MetaFullName", MetaFullName);
+	For Each DeletionRow In TreeRows.FindRows(Filter, False) Do
+		TreeRows.Delete(DeletionRow);
+	EndDo;
 	
-	// Проставляем в дерево
-	Фильтр = Новый Структура("МетаПолноеИмя, УзелОбмена", Неопределено, ExchangeNodeRef);
-	Нули   = Новый Структура("КоличествоИзменений, КоличествоВыгруженных, КоличествоНеВыгруженных", 0, 0, 0);
-
-	Для Каждого Корень Из MetadataTree.ПолучитьЭлементы() Цикл
-		СуммаКорень = Новый Структура("КоличествоИзменений, КоличествоВыгруженных, КоличествоНеВыгруженных", 0, 0, 0);
-
-		Для Каждого Группа Из Корень.ПолучитьЭлементы() Цикл
-			СуммаГруппа = Новый Структура("КоличествоИзменений, КоличествоВыгруженных, КоличествоНеВыгруженных", 0, 0,
-				0);
-
-			СписокУзлов = Группа.ПолучитьЭлементы();
-			Если СписокУзлов.Количество() = 0 И MetadataNamesStructure.Свойство(Группа.МетаПолноеИмя) Тогда
-				// Коллекция узлов без узлов, просуммируем руками, авторегистрацию возьмем из структуры
-				Для Каждого МетаИмя Из MetadataNamesStructure[Группа.МетаПолноеИмя] Цикл
-					Фильтр.МетаПолноеИмя = МетаИмя;
-					Найдено = Данные.НайтиСтроки(Фильтр);
-					Если Найдено.Количество() > 0 Тогда
-						Строка = Найдено[0];
-						СуммаГруппа.КоличествоИзменений     = СуммаГруппа.КоличествоИзменений
-							+ Строка.КоличествоИзменений;
-						СуммаГруппа.КоличествоВыгруженных   = СуммаГруппа.КоличествоВыгруженных
-							+ Строка.КоличествоВыгруженных;
-						СуммаГруппа.КоличествоНеВыгруженных = СуммаГруппа.КоличествоНеВыгруженных
-							+ Строка.КоличествоНеВыгруженных;
-					КонецЕсли;
-				КонецЦикла;
-
-			Иначе
-				// Считаем по каждому узлу
-				Для Каждого Узел Из СписокУзлов Цикл
-					Фильтр.МетаПолноеИмя = Узел.МетаПолноеИмя;
-					Найдено = Данные.НайтиСтроки(Фильтр);
-					Если Найдено.Количество() > 0 Тогда
-						Строка = Найдено[0];
-						ЗаполнитьЗначенияСвойств(Узел, Строка,
-							"КоличествоИзменений, КоличествоВыгруженных, КоличествоНеВыгруженных");
-						СуммаГруппа.КоличествоИзменений     = СуммаГруппа.КоличествоИзменений
-							+ Строка.КоличествоИзменений;
-						СуммаГруппа.КоличествоВыгруженных   = СуммаГруппа.КоличествоВыгруженных
-							+ Строка.КоличествоВыгруженных;
-						СуммаГруппа.КоличествоНеВыгруженных = СуммаГруппа.КоличествоНеВыгруженных
-							+ Строка.КоличествоНеВыгруженных;
-					Иначе
-						ЗаполнитьЗначенияСвойств(Узел, Нули);
-					КонецЕсли;
-
-					ФорматироватьКоличествоИзменений(Узел);
-				КонецЦикла;
-
-			КонецЕсли;
-			ЗаполнитьЗначенияСвойств(Группа, СуммаГруппа);
-
-			СуммаКорень.КоличествоИзменений     = СуммаКорень.КоличествоИзменений + Группа.КоличествоИзменений;
-			СуммаКорень.КоличествоВыгруженных   = СуммаКорень.КоличествоВыгруженных + Группа.КоличествоВыгруженных;
-			СуммаКорень.КоличествоНеВыгруженных = СуммаКорень.КоличествоНеВыгруженных + Группа.КоличествоНеВыгруженных;
-
-			ФорматироватьКоличествоИзменений(Группа);
-		КонецЦикла;
-
-		ЗаполнитьЗначенияСвойств(Корень, СуммаКорень);
-
-		ФорматироватьКоличествоИзменений(Корень);
-	КонецЦикла;
-
+	// Deleting subordinate row recursively.
+	For Each TreeRow In TreeRows Do
+		DeleteMetadataValueTreeRows(MetaFullName, TreeRow.Rows);
+	EndDo;
 EndProcedure
 
 &AtServer
-Функция ИзменитьРегистрациюРезультатаЗапросаСервер(Команда, Адрес)
-
-	Результат = ПолучитьИзВременногоХранилища(Адрес);
-	Результат= Результат[Результат.ВГраница()];
-	Данные = Результат.Выгрузить().ВыгрузитьКолонку("Ссылка");
-
-	Если Команда Тогда
-		Возврат ДобавитьРегистрациюНаСервере(Истина, ExchangeNodeRef, Данные);
-	КонецЕсли;
-
-	Возврат УдалитьРегистрациюНаСервере(Истина, ExchangeNodeRef, Данные);
-КонецФункции
-
-&AtServer
-Функция КонтрольСсылокДляВыбораЗапросом(Адрес)
-
-	Результат = ?(Адрес = Неопределено, Неопределено, ПолучитьИзВременногоХранилища(Адрес));
-	Если ТипЗнч(Результат) = Тип("Массив") Тогда
-		Результат = Результат[Результат.ВГраница()];
-		Если Результат.Колонки.Найти("Ссылка") = Неопределено Тогда
-			Возврат НСтр("ru='В последнем результате запроса отсутствует колонка ""Ссылка""'");
-		КонецЕсли;
-	Иначе
-		Возврат НСтр("ru='Ошибка получения данных результата запроса'");
-	КонецЕсли;
-
-	Возврат "";
-КонецФункции
-
-&AtServer
-Procedure НастроитьРедактированиеИзмененийСервер(ТекущаяСтрока)
-
-	Данные = MetadataTree.НайтиПоИдентификатору(ТекущаяСтрока);
-	Если Данные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	ИмяТаблицы   = Данные.МетаПолноеИмя;
-	Наименование = Данные.Description;
-	ТекущийОбъект   = ЭтотОбъектОбработки();
-
-	Если ПустаяСтрока(ИмяТаблицы) Тогда
-		Мета = Неопределено;
-	Иначе
-		Мета = ТекущийОбъект.МетаданныеПоПолномуИмени(ИмяТаблицы);
-	КонецЕсли;
-
-	Если Мета = Неопределено Тогда
-		НастроитьПустуюСтраницу(Наименование, ИмяТаблицы);
-		НовСтраница = Элементы.BlankPage;
-
-	ИначеЕсли Мета = Метаданные.Константы Тогда
-		// Все константы системы
-		НастроитьСписокКонстант();
-		НовСтраница = Элементы.ConstantsPage;
-
-	ИначеЕсли ТипЗнч(Мета) = Тип("КоллекцияОбъектовМетаданных") Тогда
-		// Все справочники, документы, и т.п.
-		НастроитьПустуюСтраницу(Наименование, ИмяТаблицы);
-		НовСтраница = Элементы.BlankPage;
-
-	ИначеЕсли Метаданные.Константы.Содержит(Мета) Тогда
-		// Одиночная константа
-		НастроитьСписокКонстант(ИмяТаблицы, Наименование);
-		НовСтраница = Элементы.ConstantsPage;
-
-	ИначеЕсли Метаданные.Справочники.Содержит(Мета) Или Метаданные.Документы.Содержит(Мета)
-		Или Метаданные.ПланыВидовХарактеристик.Содержит(Мета) Или Метаданные.ПланыСчетов.Содержит(Мета)
-		Или Метаданные.ПланыВидовРасчета.Содержит(Мета) Или Метаданные.БизнесПроцессы.Содержит(Мета)
-		Или Метаданные.Задачи.Содержит(Мета) Тогда
-		// Ссылочный тип
-		НастроитьСписокСсылок(ИмяТаблицы, Наименование);
-		НовСтраница = Элементы.ReferencesListPage;
-
-	Иначе
-		// Проверим на набор записей
-		Измерения = ТекущийОбъект.ИзмеренияНабораЗаписей(ИмяТаблицы);
-		Если Измерения <> Неопределено Тогда
-			НастроитьНаборЗаписей(ИмяТаблицы, Измерения, Наименование);
-			НовСтраница = Элементы.RecordSetPage;
-		Иначе
-			НастроитьПустуюСтраницу(Наименование, ИмяТаблицы);
-			НовСтраница = Элементы.BlankPage;
-		КонецЕсли;
-
-	КонецЕсли;
-
-	Элементы.ConstantsPage.Видимость    = Ложь;
-	Элементы.ReferencesListPage.Видимость = Ложь;
-	Элементы.RecordSetPage.Видимость = Ложь;
-	Элементы.BlankPage.Видимость       = Ложь;
-
-	Элементы.ObjectsListOptions.ТекущаяСтраница = НовСтраница;
-	НовСтраница.Видимость = Истина;
-
-	НастроитьВидимостьКомандОбщегоМеню();
+Procedure FormatChangeCount(Row)
+	Row.ChangeCountString = Format(Row.ChangeCount, "NZ=") + " / " + Format(Row.NotExportedCount, "NZ=");
 EndProcedure
 
-// Вывод изменений для ссылочного типа (cправочник, документ, план видов характеристик, 
-// план счетов, вид расчета, бизнес-процессы, задачи)
+&AtServer
+Procedure FillRegistrationCountInTreeRows()
+	
+	Data = ThisObject().GetChangeCount(MetadataNamesStructure, ExchangeNodeRef);
+	
+	// Calculating and filling the number of changes, the number of exported items, and the number of items that are not exported
+	Filter = New Structure("MetaFullName, ExchangeNode", Undefined, ExchangeNodeRef);
+	Zeros   = New Structure("ChangeCount, ExportedCount, NotExportedCount", 0,0,0);
+	
+	For Each Root In MetadataTree.GetItems() Do
+		RootSum = New Structure("ChangeCount, ExportedCount, NotExportedCount", 0,0,0);
+		
+		For Each Folder In Root.GetItems() Do
+			FolderSum = New Structure("ChangeCount, ExportedCount, NotExportedCount", 0,0,0);
+			
+			NodesList = Folder.GetItems();
+			If NodesList.Count() = 0 And MetadataNamesStructure.Property(Folder.MetaFullName) Then
+				// Node collection contains no nodes, sum manually and take auto record from structure.
+				For Each MetaName In MetadataNamesStructure[Folder.MetaFullName] Do
+					Filter.MetaFullName = MetaName;
+					Found = Data.FindRows(Filter);
+					If Found.Count() > 0 Then
+						Row = Found[0];
+						FolderSum.ChangeCount     = FolderSum.ChangeCount     + Row.ChangeCount;
+						FolderSum.ExportedCount   = FolderSum.ExportedCount   + Row.ExportedCount;
+						FolderSum.NotExportedCount = FolderSum.NotExportedCount + Row.NotExportedCount;
+					EndIf;
+				EndDo;
+
+			Else
+				// Calculating count values for each node
+				For Each Node In NodesList Do
+					Filter.MetaFullName = Node.MetaFullName;
+					Found = Data.FindRows(Filter);
+					If Found.Count() > 0 Then
+						Row = Found[0];
+						FillPropertyValues(Node, Row, "ChangeCount, ExportedCount, NotExportedCount");
+						FolderSum.ChangeCount     = FolderSum.ChangeCount     + Row.ChangeCount;
+						FolderSum.ExportedCount   = FolderSum.ExportedCount   + Row.ExportedCount;
+						FolderSum.NotExportedCount = FolderSum.NotExportedCount + Row.NotExportedCount;
+					Else
+						FillPropertyValues(Node, Zeros);
+					EndIf;
+					
+					FormatChangeCount(Node);
+				EndDo;
+				
+			EndIf;
+			FillPropertyValues(Folder, FolderSum);
+
+			RootSum.ChangeCount     = RootSum.ChangeCount     + Folder.ChangeCount;
+			RootSum.ExportedCount   = RootSum.ExportedCount   + Folder.ExportedCount;
+			RootSum.NotExportedCount = RootSum.NotExportedCount + Folder.NotExportedCount;
+			
+			FormatChangeCount(Folder);
+		EndDo;
+		
+		FillPropertyValues(Root, RootSum);
+		
+		FormatChangeCount(Root);
+	EndDo;
+	
+EndProcedure
+
+&AtServer
+Function ChangeQueryResultRegistrationServer(Command, Address)
+	
+	Result = GetFromTempStorage(Address);
+	Result= Result[Result.UBound()];
+	Data = Result.Unload().UnloadColumn("Ref");
+	
+	If Command Then
+		Return AddRegistrationAtServer(True, ExchangeNodeRef, Data);
+	EndIf;
+		
+	Return DeleteRegistrationAtServer(True, ExchangeNodeRef, Data);
+EndFunction
+
+&AtServer
+Function RefControlForQuerySelection(Address)
+	
+	Result = ?(Address = Undefined, Undefined, GetFromTempStorage(Address));
+	If TypeOf(Result) = Type("Array") Then 
+		Result = Result[Result.UBound()];	
+		If Result.Columns.Find("Ref") = Undefined Then
+			Return NStr("ru = 'В последнем результате запроса отсутствует колонка ""Ссылка""'; en = 'There is no column Ref in a last query result'");
+		EndIf;
+	Else		
+		Return NStr("ru = 'Ошибка получения данных результата запроса'; en = 'Error getting query result data'");
+	EndIf;
+	
+	Return "";
+EndFunction
+
+&AtServer
+Procedure SetUpChangeEditingServer(CurrentRow)
+	
+	Data = MetadataTree.FindByID(CurrentRow);
+	If Data = Undefined Then
+		Return;
+	EndIf;
+	
+	TableName   = Data.MetaFullName;
+	Description = Data.Description;
+	CurrentObject   = ThisObject();
+	
+	If IsBlankString(TableName) Then
+		Meta = Undefined;
+	Else		
+		Meta = CurrentObject.MetadataByFullName(TableName);
+	EndIf;
+	
+	If Meta = Undefined Then
+		SetUpBlankPage(Description, TableName);
+		NewPage = Items.BlankPage;
+
+	ElsIf Meta = Metadata.Constants Then
+		// All constants are included in the list
+		SetUpConstantList();
+		NewPage = Items.ConstantsPage;
+		
+	ElsIf TypeOf(Meta) = Type("MetadataObjectCollection") Then
+		// All catalogs, all documents, and so on
+		SetUpBlankPage(Description, TableName);
+		NewPage = Items.BlankPage;
+		
+	ElsIf Metadata.Constants.Contains(Meta) Then
+		// Single constant
+		SetUpConstantList(TableName, Description);
+		NewPage = Items.ConstantsPage;
+		
+	ElsIf Metadata.Catalogs.Contains(Meta) Or Metadata.Documents.Contains(Meta)
+		Or Metadata.ChartsOfCharacteristicTypes.Contains(Meta) Or Metadata.ChartsOfAccounts.Contains(Meta)
+		Or Metadata.ChartsOfCalculationTypes.Contains(Meta) Or Metadata.BusinessProcesses.Contains(Meta)
+		Or Metadata.Tasks.Contains(Meta) Then
+		// Reference type
+		SetUpRefList(TableName, Description);
+		NewPage = Items.ReferencesListPage;
+		
+	Else
+		// Checking whether a record set is passed
+		Dimensions = CurrentObject.RecordSetDimensions(TableName);
+		If Dimensions <> Undefined Then
+			SetUpRecordSet(TableName, Dimensions, Description);
+			NewPage = Items.RecordSetPage;
+		Else
+			SetUpBlankPage(Description, TableName);
+			NewPage = Items.BlankPage;
+		EndIf;
+
+	EndIf;
+
+	Items.ConstantsPage.Visible    = False;
+	Items.ReferencesListPage.Visible = False;
+	Items.RecordSetPage.Visible = False;
+	Items.BlankPage.Visible       = False;
+	
+	Items.ObjectsListOptions.CurrentPage = NewPage;
+	NewPage.Visible = True;
+	
+	SetUpGeneralMenuCommandVisibility();
+EndProcedure
+
+// // Displayed changes for a reference type (catalog, document, chart of characteristic types, chart 
+// of accounts, calculation type, business processes, tasks.)
 //
 &AtServer
-Procedure НастроитьСписокСсылок(ИмяТаблицы, Наименование)
+Procedure SetUpRefList(TableName, Description)
 
-	RefsList.ТекстЗапроса = 
-	"ВЫБРАТЬ
-	|	ТаблицаИзменений.НомерСообщения КАК НомерСообщения,
-	|	ТаблицаИзменений.Ссылка КАК Ссылка,
-	|	ВЫБОР
-	|		КОГДА ТаблицаИзменений.НомерСообщения ЕСТЬ NULL
-	|			ТОГДА ИСТИНА
-	|		ИНАЧЕ ЛОЖЬ
-	|	КОНЕЦ КАК НеВыгружалось
-	|ИЗ
-	|	" + ИмяТаблицы + ".Изменения КАК ТаблицаИзменений
-	|ГДЕ
-	|	ТаблицаИзменений.Узел = &ВыбранныйУзел";	
+	RefsList.QueryText = 
+	"SELECT
+	|	ChangesTable.MessageNo AS MessageNo,
+	|	ChangesTable.Ref AS Ref,
+	|	CASE
+	|		WHEN ChangesTable.MessageNo IS NULL
+	|			THEN TRUE
+	|		ELSE FALSE
+	|	END AS NotExported
+	|FROMЗ
+	|	" + TableName + ".Changes AS ChangesTable
+	|WHERE
+	|	ChangesTable.Node = &SelectedNode";	
 
-	RefsList.Параметры.УстановитьЗначениеПараметра("ВыбранныйУзел", ExchangeNodeRef);
-//	RefsList.ОсновнаяТаблица = ИмяТаблицы;
-	RefsList.ДинамическоеСчитываниеДанных = Истина;
+	RefsList.Parameters.SetParameterValue("SelectedNode", ExchangeNodeRef);
+//	RefsList.MainTable = TableName;
+	RefsList.DynamicDataRead = True;
 	
-	// Представление объекта
-	Мета = ЭтотОбъектОбработки().МетаданныеПоПолномуИмени(ИмяТаблицы);
-	ТекЗаголовок = Мета.ПредставлениеОбъекта;
-	Если ПустаяСтрока(ТекЗаголовок) Тогда
-		ТекЗаголовок = Наименование;
-	КонецЕсли;
-	Элементы.RefsListRefPresentation.Заголовок = ТекЗаголовок;
+	// Object presentation
+	Meta = ThisObject().MetadataByFullName(TableName);
+	CurTitle = Meta.ObjectPresentation;
+	If IsBlankString(CurTitle) Then
+		CurTitle = Description;
+	EndIf;
+	Items.RefsListRefPresentation.Title = CurTitle;
 EndProcedure
 
 // Вывод изменений для констант
 //
 &AtServer
-Procedure НастроитьСписокКонстант(ИмяТаблицы = Неопределено, Наименование = "")
-
-	Если ИмяТаблицы = Неопределено Тогда
-		// Все константы
-		Имена = MetadataNamesStructure.Константы;
-		Представления = MetadataPresentationsStructure.Константы;
-		Авторегистрация = MetadataAutoRecordStructure.Константы;
-	Иначе
-		Имена = Новый Массив;
-		Имена.Добавить(ИмяТаблицы);
-		Представления = Новый Массив;
-		Представления.Добавить(Наименование);
-		Индекс = MetadataNamesStructure.Константы.Найти(ИмяТаблицы);
-		Авторегистрация = Новый Массив;
-		Авторегистрация.Добавить(MetadataAutoRecordStructure.Константы[Индекс]);
-	КонецЕсли;
+Procedure SetUpConstantList(TableName = Undefined, Description = "")
 	
-	// И помнить про ограничение на количество таблиц
-	Текст = "";
-	Для Индекс = 0 По Имена.ВГраница() Цикл
-		Имя = Имена[Индекс];
-		Текст = Текст + ?(Текст = "", "ВЫБРАТЬ", "ОБЪЕДИНИТЬ ВСЕ ВЫБРАТЬ") + "
-																			 |	" + Формат(Авторегистрация[Индекс],
-			"ЧН=; ЧГ=") + " КАК ИндексКартинкиАвторегистрация,
-						  |	2                                                   КАК PictureIndex,
-						  |
-						  |	""" + ЗакавычитьСтроку(Представления[Индекс]) + """ КАК Description,
-																			   |	""" + Имя
-			+ """ КАК МетаПолноеИмя,
-			  |
-			  |	ТаблицаИзменений.НомерСообщения КАК НомерСообщения,
-			  |	ВЫБОР 
-			  |		КОГДА ТаблицаИзменений.НомерСообщения ЕСТЬ NULL ТОГДА ИСТИНА ИНАЧЕ ЛОЖЬ
-			  |	КОНЕЦ КАК НеВыгружалось
-			  |ИЗ
-			  |	" + Имя + ".Изменения КАК ТаблицаИзменений
-							 |ГДЕ
-							 |	ТаблицаИзменений.Узел=&ВыбранныйУзел
-							 |";
-	КонецЦикла;
+	If TableName = Undefined Then
+		// All constants
+		Names = MetadataNamesStructure.Constants;
+		Presentations = MetadataPresentationsStructure.Constants;
+		AutoRegistration = MetadataAutoRecordStructure.Constants;
+	Else
+		Names = New Array;
+		Names.Add(TableName);
+		Presentations = New Array;
+		Presentations.Add(Description);
+		Index = MetadataNamesStructure.Constants.Find(TableName);
+		AutoRegistration = New Array;
+		AutoRegistration.Add(MetadataAutoRecordStructure.Constants[Index]);
+	EndIf;
+	
+	Text = "";
+	For Index = 0 To Names.UBound() Do
+		Name = Names[Index];
+		Text = Text + ?(Text = "", "SELECT", "UNION ALL SELECT") + "
+		|	" + Format(AutoRegistration[Index], "NZ=; NG=") + " AS AutoRecordPictureIndex,
+		|	2                                                   AS PictureIndex,
+		|
+		|	""" + ProcessQuotationMarksInRow(Presentations[Index]) + """ AS Description,
+		|	""" + Name +                                     """ AS MetaFullName,
+		|
+		|	ChangesTable.MessageNo AS MessageNo,
+		|	CASE 
+		|		WHEN ChangesTable.MessageNo IS NULL THEN TRUE ELSE FALSE
+		|	END AS NotExported
+		|FROM
+		|	" + Name + ".Changes AS ChangesTable
+		|WHERE
+		|	ChangesTable.Node = &SelectedNode
+		|";
+	EndDo;
 
-	ConstantsList.ТекстЗапроса = "
-								  |ВЫБРАТЬ
-								  |	ИндексКартинкиАвторегистрация, PictureIndex, МетаПолноеИмя, НеВыгружалось,
-								  |	Description, НомерСообщения
-								  |
-								  |{ВЫБРАТЬ
-								  |	ИндексКартинкиАвторегистрация, PictureIndex, 
-								  |	Description, МетаПолноеИмя, 
-								  |	НомерСообщения, НеВыгружалось
-								  |}
-								  |
-								  |ИЗ (" + Текст + ") Данные
-												   |
-												   |{ГДЕ
-												   |	Description, НомерСообщения, НеВыгружалось
-												   |}
-												   |";
+	ConstantsList.QueryText = "
+							  |SELECT
+							  |	AutoRecordPictureIndex, PictureIndex, MetaFullName, NotExported,
+							  |	Description, MessageNo
+							  |
+							  |{SELECT
+							  |	AutoRecordPictureIndex, PictureIndex, 
+							  |	Description, MetaFullName, 
+							  |	MessageNo, NotExported
+							  |}
+							  |
+							  |FROM (" + Text + ") Data
+											   |
+											   |{WHERE
+											   |	Description, MessageNo, NotExported
+											   |}
+											   |";
 
-	ЭлементыСписка = ConstantsList.Порядок.Элементы;
-	Если ЭлементыСписка.Количество() = 0 Тогда
-		Элемент = ЭлементыСписка.Добавить(Тип("ЭлементПорядкаКомпоновкиДанных"));
-		Элемент.Поле = Новый ПолеКомпоновкиДанных("Description");
-		Элемент.Использование = Истина;
-	КонецЕсли;
+	ListItems = ConstantsList.Order.Items;
+	If ListItems.Count() = 0 Then
+		Item = ListItems.Add(Type("DataCompositionOrderItem"));
+		Item.Field = New DataCompositionField("Description");
+		Item.Use = True;
+	EndIf;
 
-	ConstantsList.Параметры.УстановитьЗначениеПараметра("ВыбранныйУзел", ExchangeNodeRef);
-	ConstantsList.ДинамическоеСчитываниеДанных = Истина;
+	ConstantsList.Parameters.SetParameterValue("SelectedNode", ExchangeNodeRef);
+	ConstantsList.DynamicDataRead = True;
 EndProcedure	
 
-// Вывод заглушки с пустой страницей.
+// Displayed cap with a blank page.
 &AtServer
-Procedure НастроитьПустуюСтраницу(Наименование, ИмяТаблицы = Неопределено)
+Procedure SetUpBlankPage(Description, TableName = Undefined)
 
-	Если ИмяТаблицы = Неопределено Тогда
-		ТекстКоличеств = "";
-	Иначе
-		Дерево = РеквизитФормыВЗначение("MetadataTree");
-		Строка = Дерево.Строки.Найти(ИмяТаблицы, "МетаПолноеИмя", Истина);
-		Если Строка <> Неопределено Тогда
-			ТекстКоличеств = НСтр("ru='Зарегистрировано объектов: %1
-								  |Выгружено объектов: %2
-								  |Не выгружено объектов: %3
-								  |'");
-
-			ТекстКоличеств = СтрЗаменить(ТекстКоличеств, "%1", Формат(Строка.КоличествоИзменений, "ЧДЦ=0; ЧН="));
-			ТекстКоличеств = СтрЗаменить(ТекстКоличеств, "%2", Формат(Строка.КоличествоВыгруженных, "ЧДЦ=0; ЧН="));
-			ТекстКоличеств = СтрЗаменить(ТекстКоличеств, "%3", Формат(Строка.КоличествоНевыгруженных, "ЧДЦ=0; ЧН="));
-		КонецЕсли;
-	КонецЕсли;
-
-	Текст = НСтр("ru='%1.
-				 |
-				 |%2
-				 |Для регистрации или отмены регистрации обмена данными на узле
-				 |""%3""
-				 |выберите тип объекта слева в дереве метаданных и воспользуйтесь
-				 |командами ""Зарегистрировать"" или ""Отменить регистрацию""'");
-
-	Текст = СтрЗаменить(Текст, "%1", Наименование);
-	Текст = СтрЗаменить(Текст, "%2", ТекстКоличеств);
-	Текст = СтрЗаменить(Текст, "%3", ExchangeNodeRef);
-	Элементы.BlankPageDecoration.Заголовок = Текст;
-EndProcedure
-
-// Вывод изменений для наборов записей
-//
-&AtServer
-Procedure НастроитьНаборЗаписей(ИмяТаблицы, Измерения, Наименование)
-
-	ТекстВыбора = "";
-	Префикс     = "RecordSetsList";
-	Для Каждого Строка Из Измерения Цикл
-		Имя = Строка.Имя;
-		ТекстВыбора = ТекстВыбора + ",ТаблицаИзменений." + Имя + " КАК " + Префикс + Имя + Символы.ПС;
-		// Чтобы не наступить на измерение "НомерСообщения" или "НеВыгружалось"
-		Строка.Имя = Префикс + Имя;
-	КонецЦикла;
-
-	RecordSetsList.ТекстЗапроса = "
-										|ВЫБРАТЬ
-										|	ТаблицаИзменений.НомерСообщения КАК НомерСообщения,
-										|	ВЫБОР 
-										|		КОГДА ТаблицаИзменений.НомерСообщения ЕСТЬ NULL ТОГДА ИСТИНА ИНАЧЕ ЛОЖЬ
-										|	КОНЕЦ КАК НеВыгружалось
-										|
-										|	" + ТекстВыбора + "
-															   |ИЗ
-															   |	" + ИмяТаблицы + ".Изменения КАК ТаблицаИзменений
-																					 |ГДЕ
-																					 |	ТаблицаИзменений.Узел = &ВыбранныйУзел
-																					 |";
-	RecordSetsList.Параметры.УстановитьЗначениеПараметра("ВыбранныйУзел", ExchangeNodeRef);
+	If TableName = Undefined Then
+		CountsText = "";
+	Else
+		Tree = FormAttributeToValue("MetadataTree");
+		Row = Tree.Rows.Find(TableName, "MetaFullName", True);
+		If Row <> Undefined Then
+			CountsText = NStr("ru = 'Зарегистрировано объектов: %1
+			                          |Выгружено объектов: %2
+			                          |Не выгружено объектов: %3'; 
+			                          |en = 'Objects registered: %1
+			                          |Objects exported: %2
+			                          |Objects not exported: %3'");
 	
-	// Добавляем в группу измерений
-	ЭтотОбъектОбработки().ДобавитьКолонкиВТаблицуФормы(
-		Элементы.RecordSetsList, "НомерСообщения, НеВыгружалось, 
-									   |Порядок, Отбор, Группировка, СтандартнаяКартинка, Параметры, УсловноеОформление",
-		Измерения, Элементы.RecordSetsListDimensionsGroup);
-	RecordSetsList.ДинамическоеСчитываниеДанных = Истина;
-	RecordSetsListTableName = ИмяТаблицы;
+			CountsText = StrReplace(CountsText, "%1", Format(Row.ChangeCount, "NFD=0; NZ="));
+			CountsText = StrReplace(CountsText, "%2", Format(Row.ExportedCount, "NFD=0; NZ="));
+			CountsText = StrReplace(CountsText, "%3", Format(Row.NotExportedCount, "NFD=0; NZ="));
+		EndIf;
+	EndIf;
+
+	Text = NStr("ru = '%1.
+	                 |
+	                 |%2
+	                 |Для регистрации или отмены регистрации обмена данными на узле
+	                 |""%3""
+	                 |выберите тип объекта слева в дереве метаданных и воспользуйтесь
+	                 |командами ""Зарегистрировать"" или ""Отменить регистрацию""'; 
+	                 |en = '%1.
+	                 |
+	                 |%2
+	                 |To register or unregister of data exchange on node
+	                 |""%3"",
+	                 |select an object type in the metadata tree on the left and click
+	                 |""Register"" or ""Unregister""'");
+		
+	Text = StrReplace(Text, "%1", Description);
+	Text = StrReplace(Text, "%2", CountsText);
+	Text = StrReplace(Text, "%3", ExchangeNodeRef);
+	Items.BlankPageDecoration.Title = Text;
 EndProcedure
 
-// Общий отбор по полю "НомерСообщения"
+// Displayed changes for record sets.
 //
 &AtServer
-Procedure SetFilterByMessageNumber(ДинамоСписок, Вариант)
+Procedure SetUpRecordSet(TableName, Dimensions, Description)
+	
+	ChoiceText = "";
+	Prefix     = "RecordSetsList";
+	For Each Row In Dimensions Do
+		Name = Row.Name;
+		ChoiceText = ChoiceText + ",ChangesTable." + Name + " AS " + Prefix + Name + Chars.LF;
+		// Adding the prefix to exclude the MessageNo and NotExported dimensions.
+		Row.Name = Prefix + Name;
+	EndDo;
 
-	Поле = Новый ПолеКомпоновкиДанных("НеВыгружалось");
-	// Ищем свое поле, попутно отключаем все по нему
-	ЭлементыСписка = ДинамоСписок.Отбор.Элементы;
-	Индекс = ЭлементыСписка.Количество();
-	Пока Индекс > 0 Цикл
-		Индекс = Индекс - 1;
-		Элемент = ЭлементыСписка[Индекс];
-		Если Элемент.ЛевоеЗначение = Поле Тогда
-			ЭлементыСписка.Удалить(Элемент);
-		КонецЕсли;
-	КонецЦикла;
+	RecordSetsList.QueryText = "
+							   |SELECT
+							   |	ChangesTable.MessageNo AS MessageNo,
+							   |	CASE 
+							   |		WHEN ChangesTable.MessageNo IS NULL THEN TRUE ELSE FALSE
+							   |	END AS NotExported
+							   |
+							   |	" + ChoiceText + "
+													 |FROM
+													 |	" + TableName + ".Changes AS ChangesTable
+																		|WHERE
+																		|	ChangesTable.Node = &SelectedNode
+																		|";
+	RecordSetsList.Parameters.SetParameterValue("SelectedNode", ExchangeNodeRef);
+	
+	// Adding columns to the appropriate group.
+	ThisObject().AddColumnsToFormTable(
+		Items.RecordSetsList, "MessageNo, NotExported, 
+			|Order, Filter, Group, StandardPicture, Parameters, ConditionalAppearance",
+		Dimensions, Items.RecordSetsListDimensionsGroup);
+	RecordSetsList.DynamicDataRead = True;
+	RecordSetsListTableName = TableName;
+EndProcedure
 
-	ЭлементОтбора = ЭлементыСписка.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Поле;
-	ЭлементОтбора.ВидСравнения  = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.Использование = Ложь;
-	ЭлементОтбора.РежимОтображения = РежимОтображенияЭлементаНастройкиКомпоновкиДанных.Недоступный;
-
-	Если Вариант = 1 Тогда 		// Выгруженные
-		ЭлементОтбора.ПравоеЗначение = Ложь;
-		ЭлементОтбора.Использование  = Истина;
-
-	ИначеЕсли Вариант = 2 Тогда	// Не выгруженные
-		ЭлементОтбора.ПравоеЗначение = Истина;
-		ЭлементОтбора.Использование  = Истина;
-
-	КонецЕсли;
-
+// Common filter by the MessageNumber field.
+//
+&AtServer
+Procedure SetFilterByMessageNumber(DynamicList, Option)
+	
+	Field = New DataCompositionField("NotExported");
+	// Iterating through the filter item list to delete a specific item.
+	ListItems = DynamicList.Filter.Items;
+	Index = ListItems.Count();
+	While Index > 0 Do
+		Index = Index - 1;
+		Item = ListItems[Index];
+		If Item.LeftValue = Field Then 
+			ListItems.Delete(Item);
+		EndIf;
+	EndDo;
+	
+	FilterItem = ListItems.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = Field;
+	FilterItem.ComparisonType  = DataCompositionComparisonType.Equal;
+	FilterItem.Use = False;
+	FilterItem.ViewMode = DataCompositionSettingsItemViewMode.Inaccessible;
+	
+	If Option = 1 Then 		// Exported
+		FilterItem.RightValue = False;
+		FilterItem.Use  = True;
+		
+	ElsIf Option = 2 Then	// Not exported
+		FilterItem.RightValue = True;
+		FilterItem.Use  = True;
+		
+	EndIf;
+	
 EndProcedure
 
 &AtServer
-Procedure НастроитьВидимостьКомандОбщегоМеню()
-
-	ТекСтр = Элементы.ObjectsListOptions.ТекущаяСтраница;
-
-	Если ТекСтр = Элементы.ConstantsPage Тогда
-		Элементы.FormAddRegistrationForSingleObject.Доступность = Истина;
-		Элементы.FormAddRegistrationFilter.Доступность         = Ложь;
-		Элементы.FormDeleteRegistrationForSingleObject.Доступность  = Истина;
-		Элементы.FormDeleteRegistrationFilter.Доступность          = Ложь;
-
-	ИначеЕсли ТекСтр = Элементы.ReferencesListPage Тогда
-		Элементы.FormAddRegistrationForSingleObject.Доступность = Истина;
-		Элементы.FormAddRegistrationFilter.Доступность         = Истина;
-		Элементы.FormDeleteRegistrationForSingleObject.Доступность  = Истина;
-		Элементы.FormDeleteRegistrationFilter.Доступность          = Истина;
-
-	ИначеЕсли ТекСтр = Элементы.RecordSetPage Тогда
-		Элементы.FormAddRegistrationForSingleObject.Доступность = Истина;
-		Элементы.FormAddRegistrationFilter.Доступность         = Ложь;
-		Элементы.FormDeleteRegistrationForSingleObject.Доступность  = Истина;
-		Элементы.FormDeleteRegistrationFilter.Доступность          = Ложь;
-
-	Иначе
-		Элементы.FormAddRegistrationForSingleObject.Доступность = Ложь;
-		Элементы.FormAddRegistrationFilter.Доступность         = Ложь;
-		Элементы.FormDeleteRegistrationForSingleObject.Доступность  = Ложь;
-		Элементы.FormDeleteRegistrationFilter.Доступность          = Ложь;
-
-	КонецЕсли;
+Procedure SetUpGeneralMenuCommandVisibility()
+	
+	CurrPage = Items.ObjectsListOptions.CurrentPage;
+	
+	If CurrPage = Items.ConstantsPage Then
+		Items.FormAddRegistrationForSingleObject.Enabled = True;
+		Items.FormAddRegistrationFilter.Enabled         = False;
+		Items.FormDeleteRegistrationForSingleObject.Enabled  = True;
+		Items.FormDeleteRegistrationFilter.Enabled          = False;
+		
+	ElsIf CurrPage = Items.ReferencesListPage Then
+		Items.FormAddRegistrationForSingleObject.Enabled = True;
+		Items.FormAddRegistrationFilter.Enabled         = True;
+		Items.FormDeleteRegistrationForSingleObject.Enabled  = True;
+		Items.FormDeleteRegistrationFilter.Enabled          = True;
+		
+	ElsIf CurrPage = Items.RecordSetPage Then
+		Items.FormAddRegistrationForSingleObject.Enabled = True;
+		Items.FormAddRegistrationFilter.Enabled         = False;
+		Items.FormDeleteRegistrationForSingleObject.Enabled  = True;
+		Items.FormDeleteRegistrationFilter.Enabled          = False;
+		
+	Else
+		Items.FormAddRegistrationForSingleObject.Enabled = False;
+		Items.FormAddRegistrationFilter.Enabled         = False;
+		Items.FormDeleteRegistrationForSingleObject.Enabled  = False;
+		Items.FormDeleteRegistrationFilter.Enabled          = False;
+		
+	EndIf;
 EndProcedure
 
 &AtServer
-Функция МассивИменКлючейНабораЗаписей(ИмяТаблицы, ПрефиксИмен = "")
-	Результат = Новый Массив;
-	Измерения = ЭтотОбъектОбработки().ИзмеренияНабораЗаписей(ИмяТаблицы);
-	Если Измерения <> Неопределено Тогда
-		Для Каждого Строка Из Измерения Цикл
-			Результат.Добавить(ПрефиксИмен + Строка.Имя);
-		КонецЦикла;
-	КонецЕсли;
-	Возврат Результат;
-КонецФункции
+Function RecordSetKeyNameArray(TableName, NamesPrefix = "")
+	Result = New Array;
+	Dimensions = ThisObject().RecordSetDimensions(TableName);
+	If Dimensions <> Undefined Then
+		For Each Row In Dimensions Do
+			Result.Add(NamesPrefix + Row.Name);
+		EndDo;
+	EndIf;
+	Return Result;
+EndFunction
 
 &AtServer
-Функция МенеджерПоМетаданным(ИмяТаблицы)
-	Описание = ЭтотОбъектОбработки().ХарактеристикиПоМетаданным(ИмяТаблицы);
-	Если Описание <> Неопределено Тогда
-		Возврат Описание.Менеджер;
-	КонецЕсли;
-	Возврат Неопределено;
-КонецФункции
+Function GetManagerByMetadata(TableName) 
+	Details = ThisObject().MetadataCharacteristics(TableName);
+	If Details <> Undefined Then
+		Return Details.Manager;
+	EndIf;
+	Return Undefined;
+EndFunction
 
 &AtServer
-Функция ТекстСериализации(Сериализация)
-
-	Текст = Новый ТекстовыйДокумент;
-
-	Запись = Новый ЗаписьXML;
-	Для Каждого Элемент Из Сериализация Цикл
-		Запись.УстановитьСтроку("UTF-16");
-		Значение = Неопределено;
-
-		Если Элемент.ФлагТипа = 1 Тогда
-			// Метаданные
-			Менеджер = МенеджерПоМетаданным(Элемент.Данные);
-			Значение = Менеджер.СоздатьМенеджерЗначения();
-
-		ИначеЕсли Элемент.ФлагТипа = 2 Тогда
-			// Набор данных с отбором
-			Менеджер = МенеджерПоМетаданным(RecordSetsListTableName);
-			Значение = Менеджер.СоздатьНаборЗаписей();
-			Отбор = Значение.Отбор;
-			Для Каждого ИмяЗначение Из Элемент.Данные Цикл
-				Отбор[ИмяЗначение.Ключ].Установить(ИмяЗначение.Значение);
-			КонецЦикла;
-			Значение.Прочитать();
-
-		ИначеЕсли Элемент.ФлагТипа = 3 Тогда
-			// Ссылка
-			Значение = Элемент.Данные.ПолучитьОбъект();
-			Если Значение = Неопределено Тогда
-				Значение = Новый УдалениеОбъекта(Элемент.Данные);
-			КонецЕсли;
-		КонецЕсли;
-
-		ЗаписатьXML(Запись, Значение);
-		Текст.ДобавитьСтроку(Запись.Закрыть());
-	КонецЦикла;
-
-	Возврат Текст;
-КонецФункции
-
-&AtServer
-Функция УдалитьРегистрациюНаСервере(БезУчетаАвторегистрации, Узел, Удаляемые, ИмяТаблицы = Неопределено)
-	Возврат ЭтотОбъектОбработки().ИзменитьРегистрациюНаСервере(Ложь, БезУчетаАвторегистрации, Узел, Удаляемые, ИмяТаблицы);
-КонецФункции
+Function SerializationText(Serialization)
+	
+	Text = New TextDocument;
+	
+	Record = New XMLWriter;
+	For Each Item In Serialization Do
+		Record.SetString("UTF-16");	
+		Value = Undefined;
+		
+		If Item.TypeFlag = 1 Then
+			// Metadata
+			Manager = GetManagerByMetadata(Item.Data);
+			Value = Manager.CreateValueManager();
+			
+		ElsIf Item.TypeFlag = 2 Then
+			// Creating record set with a filter
+			Manager = GetManagerByMetadata(RecordSetsListTableName);
+			Value = Manager.CreateRecordSet();
+			Filter = Value.Filter;
+			For Each NameValue In Item.Data Do
+				Filter[NameValue.Key].Set(NameValue.Value);
+			EndDo;
+			Value.Read();
+			
+		ElsIf Item.TypeFlag = 3 Then
+			// Ref
+			Value = Item.Data.GetObject();
+			If Value = Undefined Then
+				Value = New ObjectDeletion(Item.Data);
+			EndIf;
+		EndIf;
+		
+		WriteXML(Record, Value); 
+		Text.AddLine(Record.Close());
+	EndDo;
+	
+	Return Text;
+EndFunction
 
 &AtServer
-Функция ДобавитьРегистрациюНаСервере(БезУчетаАвторегистрации, Узел, Добавляемые, ИмяТаблицы = Неопределено)
-	Возврат ЭтотОбъектОбработки().ИзменитьРегистрациюНаСервере(Истина, БезУчетаАвторегистрации, Узел, Добавляемые, ИмяТаблицы);
-КонецФункции
+Function DeleteRegistrationAtServer(NoAutoRegistration, Node, Deleted, TableName = Undefined)
+	Return ThisObject().EditRegistrationAtServer(False, NoAutoRegistration, Node, Deleted, TableName);
+EndFunction
 
 &AtServer
-Функция ИзменитьНомерСообщенияНаСервере(Узел, НомерСообщения, Данные, ИмяТаблицы = Неопределено)
-	Возврат ЭтотОбъектОбработки().ИзменитьРегистрациюНаСервере(НомерСообщения, Истина, Узел, Данные, ИмяТаблицы);
-КонецФункции
+Function AddRegistrationAtServer(NoAutoRegistration, Node, Deleted, TableName = Undefined)
+	Return ThisObject().EditRegistrationAtServer(True, NoAutoRegistration, Node, Deleted, TableName);
+EndFunction
 
 &AtServer
-Функция ПолучитьОписаниеВыбранныхМетаданных(БезУчетаАвторегистрации, МетаИмяГруппа = Неопределено,
-	МетаИмяУзел = Неопределено)
-
-	Если МетаИмяГруппа = Неопределено И МетаИмяУзел = Неопределено Тогда
-		// Не указано ничего
-		Текст = НСтр("ru='все объекты %1 по выбранной иерархии вида'");
-
-	ИначеЕсли МетаИмяГруппа <> Неопределено И МетаИмяУзел = Неопределено Тогда
-		// Указана только группа, рассматриваем ее как Description группы
-		Текст = "%2 %1";
-
-	ИначеЕсли МетаИмяГруппа = Неопределено И МетаИмяУзел <> Неопределено Тогда
-		// Указан только узел, рассматриваем как много выделенных объектов
-		Текст = НСтр("ru='все объекты %1 по выбранной иерархии вида'");
-
-	Иначе
-		// Указаны и группа и узел, рассматриваем как имена метаданных
-		Текст = НСтр("ru='все объекты типа ""%3"" %1'");
-
-	КонецЕсли;
-
-	Если БезУчетаАвторегистрации Тогда
-		ТекстФлага = "";
-	Иначе
-		ТекстФлага = НСтр("ru='с признаком авторегистрации'");
-	КонецЕсли;
-
-	Представление = "";
-	Для Каждого КлючЗначение Из MetadataPresentationsStructure Цикл
-		Если КлючЗначение.Ключ = МетаИмяГруппа Тогда
-			Индекс = MetadataNamesStructure[МетаИмяГруппа].Найти(МетаИмяУзел);
-			Представление = ?(Индекс = Неопределено, "", КлючЗначение.Значение[Индекс]);
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
-
-	Текст = СтрЗаменить(Текст, "%1", ТекстФлага);
-	Текст = СтрЗаменить(Текст, "%2", НРег(МетаИмяГруппа));
-	Текст = СтрЗаменить(Текст, "%3", Представление);
-
-	Возврат СокрЛП(Текст);
-КонецФункции
+Function EditMessageNumberAtServer(Node, MessageNo, Data, TableName = Undefined)
+	Return ThisObject().EditRegistrationAtServer(MessageNo, True, Node, Data, TableName);
+EndFunction
 
 &AtServer
-Функция ПолучитьИменаМетаданныхТекущейСтроки(БезУчетаАвторегистрации)
+Function GetSelectedMetadataDetails(NoAutoRegistration, MetaGroupName = Undefined, MetaNodeName = Undefined)
+    
+	If MetaGroupName = Undefined And MetaNodeName = Undefined Then
+		// No item selected
+		Text = NStr("ru = 'все объекты %1 по выбранной иерархии вида'; en = 'all objects %1 according to the selected type hierarchy'");
+		
+	ElsIf MetaGroupName <> Undefined And MetaNodeName = Undefined Then
+		// Only a group is specified.
+		Text = "%2 %1";
+		
+	ElsIf MetaGroupName = Undefined And MetaNodeName <> Undefined Then
+		// Only a node is specified.
+		Text = NStr("ru = 'все объекты %1 по выбранной иерархии вида'; en = 'all objects %1 according to the selected type hierarchy'");
+		
+	Else
+		// A group and a node are specified, using these values to obtain a metadata presentation.
+		Text = NStr("ru = 'все объекты типа ""%3"" %1'; en = 'all objects of type %3 %1'");
+		
+	EndIf;
 
-	Строка = MetadataTree.НайтиПоИдентификатору(Элементы.MetadataTree.ТекущаяСтрока);
-	Если Строка = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
-
-	Результат = Новый Структура("МетаИмена, Описание", Новый Массив, ПолучитьОписаниеВыбранныхМетаданных(
-		БезУчетаАвторегистрации));
-	МетаИмя = Строка.МетаПолноеИмя;
-	Если ПустаяСтрока(МетаИмя) Тогда
-		Результат.МетаИмена.Добавить(Неопределено);
-	Иначе
-		Результат.МетаИмена.Добавить(МетаИмя);
-
-		Родитель = Строка.ПолучитьРодителя();
-		МетаРодительИмя = Родитель.МетаПолноеИмя;
-		Если ПустаяСтрока(МетаРодительИмя) Тогда
-			Результат.Описание = ПолучитьОписаниеВыбранныхМетаданных(БезУчетаАвторегистрации, Строка.Description);
-		Иначе
-			Результат.Описание = ПолучитьОписаниеВыбранныхМетаданных(БезУчетаАвторегистрации, МетаРодительИмя, МетаИмя);
-		КонецЕсли;
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
+	If NoAutoRegistration Then
+		FlagText = "";
+	Else
+		FlagText = NStr("ru = 'с признаком авторегистрации'; en = 'with autoregistration flag'");
+	EndIf;
+	
+	Presentation = "";
+	For Each KeyValue In MetadataPresentationsStructure Do
+		If KeyValue.Key = MetaGroupName Then
+			Index = MetadataNamesStructure[MetaGroupName].Find(MetaNodeName);
+			Presentation = ?(Index = Undefined, "", KeyValue.Value[Index]);
+			Break;
+		EndIf;
+	EndDo;
+	
+	Text = StrReplace(Text, "%1", FlagText);
+	Text = StrReplace(Text, "%2", Lower(MetaGroupName));
+	Text = StrReplace(Text, "%3", Presentation);
+	
+	Return TrimAll(Text);
+EndFunction
 
 &AtServer
-Функция ПолучитьВыбранныеИменаМетаданных(БезУчетаАвторегистрации)
+Function GetCurrentRowMetadataNames(NoAutoRegistration) 
+	
+	Row = MetadataTree.FindByID(Items.MetadataTree.CurrentRow);
+	If Row = Undefined Then
+		Return Undefined;
+	EndIf;
+	
+	Result = New Structure("MetaNames, Details", 
+		New Array, GetSelectedMetadataDetails(NoAutoRegistration));
+	MetaName = Row.MetaFullName;
+	If IsBlankString(MetaName) Then
+		Result.MetaNames.Add(Undefined);	
+	Else
+		Result.MetaNames.Add(MetaName);	
+		
+		Parent = Row.GetParent();
+		MetaParentName = Parent.MetaFullName;
+		If IsBlankString(MetaParentName) Then
+			Result.Details = GetSelectedMetadataDetails(NoAutoRegistration, Row.Description);
+		Else
+			Result.Details = GetSelectedMetadataDetails(NoAutoRegistration, MetaParentName, MetaName);
+		EndIf;
+	EndIf;
+	
+	Return Result;
+EndFunction
 
-	Результат = Новый Структура("МетаИмена, Описание", Новый Массив, ПолучитьОписаниеВыбранныхМетаданных(
-		БезУчетаАвторегистрации));
+&AtServer
+Function GetSelectedMetadataNames(NoAutoRegistration)
+	
+	Result = New Structure("MetaNames, Details", 
+		New Array, GetSelectedMetadataDetails(NoAutoRegistration));
+	
+	For Each Root In MetadataTree.GetItems() Do
+		
+		If Root.Check = 1 Then
+			Result.MetaNames.Add(Undefined);
+			Return Result;
+		EndIf;
+		
+		PartialSelectedCount = 0;
+		FolderCount     = 0;
+		NodeCount     = 0;
+		For Each Folder In Root.GetItems() Do
+			
+			If Folder.Check = 0 Then
+				Continue;
+			ElsIf Folder.Check = 1 Then
+				//	Getting data of the selected folder.
+				FolderCount = FolderCount + 1;
+				FolderDetails = GetSelectedMetadataDetails(NoAutoRegistration, Folder.Description);
 
-	Для Каждого Корень Из MetadataTree.ПолучитьЭлементы() Цикл
-
-		Если Корень.Check = 1 Тогда
-			Результат.МетаИмена.Добавить(Неопределено);
-			Возврат Результат;
-		КонецЕсли;
-
-		КолвоЧастичных = 0;
-		КолвоГрупп     = 0;
-		КолвоУзлов     = 0;
-		Для Каждого Группа Из Корень.ПолучитьЭлементы() Цикл
-
-			Если Группа.Check = 0 Тогда
-				Продолжить;
-			ИначеЕсли Группа.Check = 1 Тогда
-				//	Весь группа целиком, смотрим откуда выбирать значения
-				КолвоГрупп = КолвоГрупп + 1;
-				ОписаниеГруппы = ПолучитьОписаниеВыбранныхМетаданных(БезУчетаАвторегистрации, Группа.Наименование);
-
-				Если Группа.ПолучитьЭлементы().Количество() = 0 Тогда
-					// Пробуем из структуры имен метаданных, считаем все отмеченными
+				If Folder.GetItems().Count() = 0 Then
+					// Reading marked data from the metadata names structure.
 					//@skip-warning
-					МассивПредставлений = MetadataPresentationsStructure[Группа.МетаПолноеИмя];
-					МассивАвто          = MetadataAutoRecordStructure[Группа.МетаПолноеИмя];
-					МассивИмен          = MetadataNamesStructure[Группа.МетаПолноеИмя];
-					Для Индекс = 0 По МассивИмен.ВГраница() Цикл
-						Если БезУчетаАвторегистрации Или МассивАвто[Индекс] = 2 Тогда
-							Результат.МетаИмена.Добавить(МассивИмен[Индекс]);
-							ОписаниеУзла = ПолучитьОписаниеВыбранныхМетаданных(БезУчетаАвторегистрации,
-								Группа.МетаПолноеИмя, МассивИмен[Индекс]);
-						КонецЕсли;
-					КонецЦикла;
+					PresentationArray = MetadataPresentationsStructure[Folder.MetaFullName];
+					AutoArray = MetadataAutoRecordStructure[Folder.MetaFullName];
+					NamesArray = MetadataNamesStructure[Folder.MetaFullName];
+					For Index = 0 To NamesArray.UBound() Do
+						If NoAutoRegistration Or AutoArray[Index] = 2 Then
+							Result.MetaNames.Add(NamesArray[Index]);
+							NodeDetails = GetSelectedMetadataDetails(NoAutoRegistration, Folder.MetaFullName, NamesArray[Index]);
+						EndIf;
+					EndDo;
+					
+					Continue;
+				EndIf;
 
-					Продолжить;
-				КонецЕсли;
+			Else
+				PartialSelectedCount = PartialSelectedCount + 1;
+			EndIf;
 
-			Иначе
-				КолвоЧастичных = КолвоЧастичных + 1;
-			КонецЕсли;
-
-			Для Каждого Узел Из Группа.ПолучитьЭлементы() Цикл
-				Если Узел.Check = 1 Тогда
-					// Узел.AutoRegistration=2 -> разрешена
-					Если БезУчетаАвторегистрации Или Узел.AutoRegistration = 2 Тогда
-						Результат.МетаИмена.Добавить(Узел.МетаПолноеИмя);
-						ОписаниеУзла = ПолучитьОписаниеВыбранныхМетаданных(БезУчетаАвторегистрации,
-							Группа.МетаПолноеИмя, Узел.МетаПолноеИмя);
-						КолвоУзлов = КолвоУзлов + 1;
-					КонецЕсли;
-				КонецЕсли;
-			КонецЦикла
-			;
+			For Each Node In Folder.GetItems() Do
+				If Node.Check = 1 Then
+					// Node.AutoRegistration = 2 -> allowed
+					If NoAutoRegistration Or Node.AutoRegistration = 2 Then
+						Result.MetaNames.Add(Node.MetaFullName);
+						NodeDetails = GetSelectedMetadataDetails(NoAutoRegistration, Folder.MetaFullName, Node.MetaFullName);
+						NodeCount = NodeCount + 1;
+					EndIf;
+				EndIf
+			EndDo;
 
 		КонецЦикла;
 
-		Если КолвоГрупп = 1 И КолвоЧастичных = 0 Тогда
-			Результат.Описание = ОписаниеГруппы;
-		ИначеЕсли КолвоГрупп = 0 И КолвоУзлов = 1 Тогда
-			Результат.Описание = ОписаниеУзла;
-		КонецЕсли;
-
-	КонецЦикла;
-
-	Возврат Результат;
-КонецФункции
-
-&AtServer
-Функция ПрочитатьНомераСообщений()
-	РеквизитыЗапроса = "НомерОтправленного, НомерПринятого";
-	Данные = ЭтотОбъектОбработки().ПолучитьПараметрыУзлаОбмена(ExchangeNodeRef, РеквизитыЗапроса);
-	Если Данные = Неопределено Тогда
-		Возврат Новый Структура(РеквизитыЗапроса)
-	КонецЕсли
-	;
-	Возврат Данные;
-КонецФункции
+		If FolderCount = 1 And PartialSelectedCount = 0 Then
+			Result.Details = FolderDetails;
+		ElsIf FolderCount = 0 And NodeCount = 1 Then
+			Result.Details = NodeDetails;
+		EndIf;
+		
+	EndDo;
+	
+	Return Result;
+EndFunction
 
 &AtServer
-Procedure ОбработатьЗапретИзмененияУзла()
-	ОперацииРазрешены = Не SelectExchangeNodeProhibited;
+Function ReadMessageNumbers()
+	QueryAttributes = "SentNo, ReceivedNo";
+	Data = ThisObject().GetExchangeNodeParameters(ExchangeNodeRef, QueryAttributes);
+	If Data = Undefined Then
+		Return New Structure(QueryAttributes)
+	EndIf;
+	Return Data;
+EndFunction
 
-	Если ОперацииРазрешены Тогда
-		Элементы.ExchangeNodeRef.Видимость = Истина;
-		Заголовок = НСтр("ru='Регистрация изменений для обмена данными'");
-	Иначе
-		Элементы.ExchangeNodeRef.Видимость = Ложь;
-		Заголовок = СтрЗаменить(НСтр("ru='Регистрация изменений для обмена с  ""%1""'"), "%1", Строка(ExchangeNodeRef));
-	КонецЕсли;
-
-	Элементы.FormOpenNodeRegistrationForm.Видимость = ОперацииРазрешены;
-
-	Элементы.ConstantsListContextMenuOpenNodeRegistrationForm.Видимость       = ОперацииРазрешены;
-	Элементы.RefsListContextMenuOpenNodeRegistrationForm.Видимость         = ОперацииРазрешены;
-	Элементы.RecordSetsListContextMenuOpenNodeRegistrationForm.Видимость = ОперацииРазрешены;
+&AtServer
+Procedure ProcessNodeChangeProhibition()
+	OperationsAllowed = Not SelectExchangeNodeProhibited;
+	
+	If OperationsAllowed Then
+		Items.ExchangeNodeRef.Visible = True;
+		Title = NStr("ru = 'Регистрация изменений для обмена данными'; en = 'Register changes for data exchange'");
+	Else
+		Items.ExchangeNodeRef.Visible = False;
+		Title = StrReplace(NStr("ru = 'Регистрация изменений для обмена с  ""%1""'; en = 'Register changes for exchange with %1'"), "%1", String(ExchangeNodeRef));
+	EndIf;
+	
+	Items.FormOpenNodeRegistrationForm.Visible = OperationsAllowed;
+	
+	Items.ConstantsListContextMenuOpenNodeRegistrationForm.Visible       = OperationsAllowed;
+	Items.RefsListContextMenuOpenNodeRegistrationForm.Visible         = OperationsAllowed;
+	Items.RecordSetsListContextMenuOpenNodeRegistrationForm.Visible = OperationsAllowed;
 EndProcedure
 
 &AtServer
-Функция ПроконтролироватьНастройки()
-	Результат = Истина;
+Function ControlSettings()
+	Result = True;
 	
-	// Проверим на допустимость узла пришедшего из параметра или настроек
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	Если ExchangeNodeRef <> Неопределено И ПланыОбмена.ТипВсеСсылки().СодержитТип(ТипЗнч(ExchangeNodeRef)) Тогда
-		ДопустимыеУзлыОбмена = ТекущийОбъект.СформироватьДеревоУзлов();
+	// Checking a specified exchange node.
+	CurrentObject = ThisObject();
+	If ExchangeNodeRef <> Undefined AND ExchangePlans.AllRefsType().ContainsType(TypeOf(ExchangeNodeRef)) Then
+		AllowedExchangeNodes = CurrentObject.GenerateNodeTree();
 		//@skip-warning
-		ИмяПлана = ExchangeNodeRef.Метаданные().Имя;
-		Если ДопустимыеУзлыОбмена.Строки.Найти(ИмяПлана, "ПланОбменаИмя", Истина) = Неопределено Тогда
-			// Узел неверного плана обмена
-			ExchangeNodeRef = Неопределено;
-			Результат = Ложь;
-		ИначеЕсли ExchangeNodeRef = ПланыОбмена[ИмяПлана].ЭтотУзел() Тогда
-			// Этот узел
-			ExchangeNodeRef = Неопределено;
-			Результат = Ложь;
-		КонецЕсли;
-	КонецЕсли;
-
-	Если ЗначениеЗаполнено(ExchangeNodeRef) Тогда
-		ОбработкаВыбораУзлаОбмена();
-	КонецЕсли;
-	ОбработатьЗапретИзмененияУзла();
+		PlanName = ExchangeNodeRef.Metadata().Name;
+		If AllowedExchangeNodes.Rows.Find(PlanName, "ExchangePlanName", True) = Undefined Then
+			// A node with an invalid exchange plan.
+			ExchangeNodeRef = Undefined;
+			Result = False;
+		ElsIf ExchangeNodeRef = ExchangePlans[PlanName].ThisNode() Then
+			// This node
+			ExchangeNodeRef = Undefined;
+			Result = False;
+		EndIf;
+	EndIf;
 	
-	// Зависимость настроек
+	If ValueIsFilled(ExchangeNodeRef) Then
+		ExchangeNodeChoiceProcessing();
+	EndIf;
+	ProcessNodeChangeProhibition();
+	
+	// Settings relation
 	SetFilterByMessageNumber(ConstantsList, FilterByMessageNumberOption);
 	SetFilterByMessageNumber(RefsList, FilterByMessageNumberOption);
 	SetFilterByMessageNumber(RecordSetsList, FilterByMessageNumberOption);
 
-	Возврат Результат;
-КонецФункции
+	Return Result ;
+EndFunction
 
 &AtServer
-Функция СтруктураКлючаНабораЗаписей(Знач ТекущиеДанные)
-	Описание  = ЭтотОбъектОбработки().ХарактеристикиПоМетаданным(RecordSetsListTableName);
+Function RecordSetKeyStructure(Val CurrentData)
+	
+	Details = ThisObject().MetadataCharacteristics(RecordSetsListTableName);
+	
+	If Details = Undefined Then
+		// Unknown source
+		Return Undefined;
+	EndIf;
+	
+	Result = New Structure("Key, FormName");
 
-	Если Описание = Неопределено Тогда
-		// Неизвестный источник
-		Возврат Неопределено;
-	КонецЕсли;
+	Dimensions = New Structure;
+	KeysNames = RecordSetKeyNameArray(RecordSetsListTableName);
+	For Each Name In KeysNames Do
+		Dimensions.Insert(Name, CurrentData["RecordSetsList" + Name]);
+	EndDo;
 
-	Результат = Новый Структура("Ключ, ИмяФормы");
+	If Dimensions.Property("Recorder") Then
+		MetaRecorder = Metadata.FindByType(TypeOf(Dimensions.Recorder));
+		If MetaRecorder = Undefined Then
+			Result = Undefined;
+		Else
+			Result.FormName = MetaRecorder.FullName() + ".ObjectForm";
+			Result.Key     = Dimensions.Recorder;
+		EndIf;
+	ElsIf Dimensions.Count() = 0 Then
+		Result.FormName = RecordSetsListTableName + ".ListForm";
+	Else
+		Result.FormName = RecordSetsListTableName + ".RecordForm";
+		Result.Key     = Details.Manager.CreateRecordKey(Dimensions);
+	EndIf;
 
-	Измерения = Новый Структура;
-	ИменаКлючей = МассивИменКлючейНабораЗаписей(RecordSetsListTableName);
-	Для Каждого Имя Из ИменаКлючей Цикл
-		Измерения.Вставить(Имя, ТекущиеДанные["RecordSetsList" + Имя]);
-	КонецЦикла;
-
-	Если Измерения.Свойство("Регистратор") Тогда
-		МетаРегистратора = Метаданные.НайтиПоТипу(ТипЗнч(Измерения.Регистратор));
-		Если МетаРегистратора = Неопределено Тогда
-			Результат = Неопределено;
-		Иначе
-			Результат.ИмяФормы = МетаРегистратора.ПолноеИмя() + ".ФормаОбъекта";
-			Результат.Ключ     = Измерения.Регистратор;
-		КонецЕсли;
-	ИначеЕсли Измерения.Количество() = 0 Тогда
-		// Вырожденный набор записей
-		Результат.ИмяФормы = RecordSetsListTableName + ".ФормаСписка";
-	Иначе
-		Результат.ИмяФормы = RecordSetsListTableName + ".ФормаЗаписи";
-		Результат.Ключ     = Описание.Менеджер.СоздатьКлючЗаписи(Измерения);
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
+	Return Result;
+EndFunction
