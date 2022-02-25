@@ -487,7 +487,7 @@ EndProcedure
 #Region Private
 
 Function AddinTemplateName()
-	Return "CommonTemplates.UT_ClipboardAddin";
+	Return "CommonTemplate.UT_ClipboardAddin";
 EndFunction
 
 Function ImageForCopyToClipboard(Picture)
