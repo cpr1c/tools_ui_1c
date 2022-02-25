@@ -2,10 +2,10 @@
 
 [![Quality Gate Status](https://sonar.openbsl.ru/api/project_badges/measure?project=tools_ui_1c&metric=alert_status)](https://sonar.openbsl.ru/dashboard?id=tools_ui_1c) 
 [![Join telegram chat](https://img.shields.io/badge/chat-telegram-blue?style=flat&logo=telegram)](https://t.me/tools_ui_1c) 
-[![Last release](https://img.shields.io/github/v/release/cpr1c/tools_ui_1c?include_prereleases&label=last%20release&style=badge)](https://github.com/i-neti/tools_ui_1c_international/releases/latest)
-[![download](https://img.shields.io/github/downloads/cpr1c/tools_ui_1c/total)](https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cfe)
+[![Last release](https://img.shields.io/github/v/release/i-neti/tools_ui_1c_international?include_prereleases&label=last%20release&style=badge)](https://github.com/i-neti/tools_ui_1c_international/releases/latest)
+[![download](https://img.shields.io/github/downloads/i-neti/tools_ui_1c_international/total)](https://github.com/cpr1c/tools_ui_1c_international/releases/latest/download/UniversalTools.cfe)
 [![GitHub issues](https://img.shields.io/github/issues-raw/i-neti/tools_ui_1c_international?style=badge)](https://github.com/i-neti/tools_ui_1c_international/issues)
-[![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/i-neti/tools_ui_1c_international/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/i-neti/tools_ui_1c_international?style=badge)](https://github.com/i-neti/tools_ui_1c_international/blob/master/LICENSE)
 
 [RUSSIAN VERSION OF THIS DOCUMENT](https://github.com/i-neti/tools_ui_1c_international/blob/develop/README_RU.md)
 
