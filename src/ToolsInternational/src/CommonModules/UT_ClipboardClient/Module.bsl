@@ -19,360 +19,366 @@
 // Требования: платформа 1С версии 8.3.14 и выше
 // С более ранними платформами могут быть проблемы с подключением компоненты, а также с работой некоторых методов
 
+// Work with clipboard from 1C Enterprise 
+// Translated to english variant of script by Neti company (https://erpdev.i-neti.com/)
+//  Requirements: 1C platform version 8.3.14 and higher
+// With earlier platforms, there may be problems with connecting components, as well as with the operation of some methods
+
+
 #Region Public
 
-// Возвращает текущую версию подсистемы
-// 
-// Возвращаемое значение:
-// 	Строка - Версия подсистемы работы с буфером обмена
-Function ВерсияПодсистемы() Export
+// Returns the current subsystem version
+//
+// Return value:
+// 	String - Version of subsytem work with clipboard
+Function SubsystemVersion() Export
 	Return "1.0.2";
 EndFunction
 
-// Возвращает объект компоненты работы с буфером обмена. Компонента должна быть предвариательно подключена.
-// При неподключенной компоненте вызовется исключение
+//Returns the clipboard components object. AddIn must be pre-connected.
+// If the component is not connected, an exception will be thrown 
 // 
-// Возвращаемое значение:
-// 	ВнешняяКомпонентаОбъект - Объект внешней компоненты работы с буфером обмена. 
-Function ОбъектКомпоненты() Export
-	Return New ("AddIn." + ИдентификаторКомпоненты() + ".ClipboardControl");
+// The return value:
+// 	AddInObject -Object of  AddIn  to work with clipboard. 
+Function AddInObject() Export
+	Return New ("AddIn." + AddInID() + ".ClipboardControl");
 EndFunction
 
-#Region СинхронныеМетоды
+#Region SyncMetods
 
-// Используются синхронные вызовы
-// Возвращает объект компоненты работы с буфером обмена. При необходимости происходит подключение и установка компоненты
+// Synchronous calls are used
+// Returns Object of  AddIn  to work with clipboard. If necessary, the addin will be  attached and installed
 // 
-// Возвращаемое значение:
-// 	ВнешняяКомпонентаОбъект - Объект внешней компоненты работы с буфером обмена 
-//  Неопределено - если не удалось подключить компоненту
-Function КомпонентаРаботыСБуферомОбмена() Export
+// Return value:
+// 	Add-in object - Object of  AddIn  to work with clipboard 
+//  Undefined - if the component failed to attach
+Function ClipboardAddin() Export
 	Try
-		Компонента= ПроинициализироватьКомпоненту(True);
+		Addin= InitializeAddin(True);
 
-		Return Компонента;
+		Return Addin;
 	Except
-		ТекстОшибки = NStr(
-			"ru = 'Not удалось подключить внешнюю компоненту для работы с буфером обмена. Подробности в журнале регистрации.'");
-		Message(ТекстОшибки + ErrorDescription());
+		ErrorText = NStr(
+			"ru = 'Не удалось подключить внешнюю компоненту для работы с буфером обмена. Подробности в журнале регистрации.';en = 'Failed to connect an Addin to work with the clipboard. Details in the event log.'");
+		Message(ErrorText + ErrorDescription());
 		Return Undefined;
 	EndTry;
 EndFunction
 
-// Возвращает версию компоненты работы с буфером обмена
+// Returns version of clipboard addin 
 // 
-// Параметры:
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект внешней компоненты работы с буфером обмена (Необязательный)
-// Возвращаемое значение:
-// 	Строка - Версия используемой компоненты 
-Function ВерсияКомпоненты(ОбъектКомпоненты = Undefined) Export
-	ОчищатьКомпоненту=ОбъектКомпоненты = Undefined;
+// Parameters:
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+// Returned value:
+// 	String - Addin version 
+Function AddinVersion(AddInObject = Undefined) Export
+	EmptyAddin=AddInObject = Undefined;
 
-	ОбъектКомпоненты=ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты);
+	AddInObject=ClipboardAddinObject(AddInObject);
 
-	Version=ОбъектКомпоненты.Version;
+	Version=AddInObject.Version;
 
-	If ОчищатьКомпоненту Then
-		ОбъектКомпоненты=Undefined;
+	If EmptyAddin Then
+		AddInObject=Undefined;
 	EndIf;
 
 	Return Version;
 EndFunction
 
-// Очищает содержимое буфера обмена
+// Empty clipboard 
 // 
-// Параметры:
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект внешней компоненты работы с буфером обмена (Необязательный)
-Procedure ОчиститьБуферОбмена(ОбъектКомпоненты = Undefined) Export
-	ОчищатьКомпоненту=ОбъектКомпоненты = Undefined;
+// Parameters:
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure EmptyClipboard(AddInObject = Undefined) Export
+	EmptyAddin=AddInObject = Undefined;
 
-	ОбъектКомпоненты=ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты);
-	ОбъектКомпоненты.Clear();
+	AddInObject=ClipboardAddinObject(AddInObject);
+	AddInObject.Empty();
 
-	If ОчищатьКомпоненту Then
-		ОбъектКомпоненты=Undefined;
+	If EmptyAddin Then
+		AddInObject=Undefined;
 	EndIf;
 
 EndProcedure
 
-// Помещает переданную картинку в буфер обмена
+// Put the transferred image to the clipboard
 // 
-// Параметры:
-// 	Картинка- Картинка, ДвоичныеДанные , АдресВоВременномХранилище
-// 	Если передается как адресВоВременномХранилище тип во временном хоранилище должен быть или картинка или двоичные данные
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure КопироватьКартинкуВБуфер(Picture, ОбъектКомпоненты = Undefined) Export
-	ОчищатьКомпоненту=ОбъектКомпоненты = Undefined;
+// Parameters:
+// 	Picture- Picture, BinaryData , Address in Temp Storage
+// 	If transmitted type of Address in Temp Storage  in temp storage must be picture or binary data
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure CopyImageToClipboard(Picture, AddInObject = Undefined) Export
+	EmptyAddin=AddInObject = Undefined;
 
-	ТекКартинка=КартинкаДляКопированияВБуфер(Picture);
-	If ТекКартинка = Undefined Then
+	CurrentImage=ImageForCopyToClipboard(Picture);
+	If CurrentImage = Undefined Then
 		Return;
 	EndIf;
 
-	ОбъектКомпоненты=ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты);
-	ОбъектКомпоненты.ЗаписатьКартинку(ТекКартинка);
+	AddInObject=ClipboardAddinObject(AddInObject);
+	AddInObject.SetImage(CurrentImage);
 
-	If ОчищатьКомпоненту Then
-		ОбъектКомпоненты=Undefined;
+	If EmptyAddin Then
+		AddInObject=Undefined;
 	EndIf;
 
 EndProcedure
 
-// получает картинку из буфера обмена в формате PNG
+// Get image form clipboard in PNG format
 // 
-// Параметры:
-// 	ВариантПолучения - Строка
-// 	Один из варинатов:
-// 		ДвоичныеДанные- получение двоичных данных картинки
-// 		Картинка- Преобразованное к типу "Картинка" содержание буфера
-// 		Адрес- Адрес двоичных данных картинки во временном хранилище
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект -  Объект компоненты работы с буфером обмена (Необязательный)
-// Возвращаемое значение:
-// 	ДвоичныеДанные,Картинка,Строка - картинка в запрощенном формате
-//	Неопределено- если в буфере нет картинки
-Function КартинкаИзБуфера(ВариантПолучения = "Picture", ОбъектКомпоненты = Undefined) Export
-	ОчищатьКомпоненту=ОбъектКомпоненты = Undefined;
+// Parameters:
+// 	ReturnDataType - String
+// 	One of the options::
+// 		BinaryData- getting binary image data
+// 		Picture- Converted to type "Picture" clipboard data
+// 		Adress-The address of the binary data of the image in the temporary storage
+// 	AddInObject - Add-in object -  Object of  AddIn  to work with clipboard (optional)
+// Returned value:
+// 	BinaryData,Picture,String - picture in requested format
+//	Undefined- if there is no picture in the buffer
+Function ImageFromClipboard(ReturnDataType = "Picture", AddInObject = Undefined) Export
+	EmptyAddin=AddInObject = Undefined;
 
-	ОбъектКомпоненты=ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты);
-	ДанныеКартинкиВБуфере=ОбъектКомпоненты.Picture;
+	AddInObject=ClipboardAddinObject(AddInObject);
+	ImageDataInClipboard=AddInObject.Image;
 
-	If ОчищатьКомпоненту Then
-		ОбъектКомпоненты=Undefined;
+	If EmptyAddin Then
+		AddInObject=Undefined;
 	EndIf;
-
-	Return КартинкаВНужномФорматеИзБуфера(ДанныеКартинкиВБуфере, ВариантПолучения);
+    	Return ImageInCorrectFormatFromClipboard(ImageDataInClipboard, ReturnDataType);
 EndFunction
 
-// Помещает переданную строку в буфер обмена
+// Places the passed string in the clipboard
 // 
-// Параметры:
-// 	СтрокаКопирования- Строка- Строка, которую необходимо поместить в буфер обмена
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure КопироватьСтрокуВБуфер(СтрокаКопирования, ОбъектКомпоненты = Undefined) Export
-	ОчищатьКомпоненту=ОбъектКомпоненты = Undefined;
+// Parameters:
+// 	CopiedText- String- Text  to be placed in the clipboard
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure CopyTextToClipboard(CopiedText, AddInObject = Undefined) Export
+	EmptyAddin=AddInObject = Undefined;
 
-	ОбъектКомпоненты=ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты);
-	ОбъектКомпоненты.WriteText(СтрокаКопирования);
+	AddInObject=ClipboardAddinObject(AddInObject);
+	AddInObject.SetText(CopiedText);
 
-	If ОчищатьКомпоненту Then
-		ОбъектКомпоненты=Undefined;
+	If EmptyAddin Then
+		AddInObject=Undefined;
 	EndIf;
 
 EndProcedure
 
-// получает текущую строку из буфера обмена 
+//retrieves the current text from the clipboard
 // 
-// Параметры:
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-// Возвращаемое значение:
-// 	Строка - Текст, содержащийся в буфере обмена
-Function ТекстИзБуфера(ОбъектКомпоненты = Undefined) Export
-	ОчищатьКомпоненту=ОбъектКомпоненты = Undefined;
+// Parameters:
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+// Returned value:
+// 	String - Text contained in the clipboard
+Function TextFromClipboard(AddInObject = Undefined) Export
+	EmptyAddin=AddInObject = Undefined;
 
-	ОбъектКомпоненты=ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты);
+	AddInObject=ClipboardAddinObject(AddInObject);
 
-	ТекстБуфера=ОбъектКомпоненты.Text;
+	ClipboardText=AddInObject.Text;
 
-	If ОчищатьКомпоненту Then
-		ОбъектКомпоненты=Undefined;
+	If EmptyAddin Then
+		AddInObject=Undefined;
 	EndIf;
 
-	Return ТекстБуфера;
+	Return ClipboardText;
 
 EndFunction
 
-// получает формат текущего значения из буфера обмена 
-// 
-// Параметры:
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-// Возвращаемое значение:
-// 	Строка - Строка в формате JSON, содержащая описание формата содержимого буфера обмена
-Function ФорматБуфераОбмена(ОбъектКомпоненты = Undefined) Export
-	ОчищатьКомпоненту=ОбъектКомпоненты = Undefined;
+// gets the format of the current value from the clipboard
+//
+// Parameters:
+//  AddInObject - Add-in object - Object of Adding to work with clipboard (optional)
+// Returned value:
+// String - A string in JSON format containing a description of the format of the clipboard contents
+Function ClipboardFormat(AddInObject = Undefined) Export
+	EmptyAddin=AddInObject = Undefined;
 
-	ОбъектКомпоненты=ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты);
+	AddInObject=ClipboardAddinObject(AddInObject);
 
-	ФорматБуфера=ОбъектКомпоненты.Format;
+	Format=AddInObject.Format;
 
-	If ОчищатьКомпоненту Then
-		ОбъектКомпоненты=Undefined;
+	If EmptyAddin Then
+		AddInObject=Undefined;
 	EndIf;
 
-	Return ФорматБуфера;
+	Return Format;
 EndFunction
 
 #EndRegion
 
 #Region АсинхронныеМетоды
 
-// Начинает получение объекта внешней компоненты работы с буфером обмена. При необходимости будет произведено подключение и установка компоненты
-// 
-// Параметры:
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//<ОбъектКомпоненты> – Объект компоненты работы с буфером обмена, Тип: ВнешняяКомпонентаОбъект. Неопределено- если не удалось подключить компоненту
-//<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-Procedure НачатьПолучениеКомпоненты(NotifyDescription) Export
-	НачатьИнициализациюКомпоненты(NotifyDescription, True);
+// Starts receiving the object of the  clipboard addin.
+// If necessary, the components will be attached and installed
+//
+// Parameters:
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//<AddInObject> – Object of  AddIn  to work with clipboard, Тип: Add-in object. Undefined- if failed to attach addin
+//<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+Procedure BeginGettingAddIn(NotifyDescription) Export
+	BeginInitializeAddin(NotifyDescription, True);
 EndProcedure
 
-// Начинает получение версии используемой компоненты работы с буфером обмена
+// Starts getting the version of the clipboard addin used
 // 
-// Параметры:
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//	<ВерсияКомпоненты> – Версия используемой компоненты, Тип: Строка. Неопределено- если не удалось подключить компоненту
-//	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure НачатьПолучениеВерсииКомпоненты(NotifyDescription, ОбъектКомпоненты = Undefined) Export
-	If ОбъектКомпоненты = Undefined Then
-		ДопПараметры=New Structure;
-		ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", NotifyDescription);
+// Parameters:
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//	<AddinVersion> – Version of the addin used, Type: Строка. Undefined- if failed to attach addin
+//	<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure BeginGettingAddinVersion(NotifyDescription, AddInObject = Undefined) Export
+	If AddInObject = Undefined Then
+		AdditionalParameters=New Structure;
+		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
-		НачатьПолучениеКомпоненты(
-			New NotifyDescription("НачатьПолучениеВерсииКомпонентыЗавершениеПолученияКомпоненты", ThisObject,
-			ДопПараметры));
+		BeginGettingAddIn(
+			New NotifyDescription("BeginGettingAddinVersionEndGettingAddin", ThisObject,
+			AdditionalParameters));
 	Else
-		ОбъектКомпоненты.НачатьПолучениеВерсия(NotifyDescription);
+		AddInObject.BeginGettingVersion(NotifyDescription);
 	EndIf;
 EndProcedure
 
-// Начинает очистку содержимого буфера обмена
+// Starts clearing the clipboard contents
 // 
-// Параметры:
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//	<РезультатОчистки> – Результат очистки, Тип: Булево. Неопределено- если не удалось подключить компоненту
-//	<ПараметрыВызова> - Пустой массив
-//	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure НачатьОчисткуБуфераОбмена(NotifyDescription, ОбъектКомпоненты = Undefined) Export
-	If ОбъектКомпоненты = Undefined Then
-		ДопПараметры=New Structure;
-		ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", NotifyDescription);
+// Parameters:
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//	<CleaningType> – Cleaning result, Type: Тип: Булево. Undefined- if failed to attach addin
+//	<CallParameters> - Empty array
+//	<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure BeginClipBoardEmptying(NotifyDescription, AddInObject = Undefined) Export
+	If AddInObject = Undefined Then
+		AdditionalParameters=New Structure;
+		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
-		НачатьПолучениеКомпоненты(New NotifyDescription("НачатьОчисткуБуфераОбменаЗавершениеПолученияКомпоненты",
-			ThisObject, ДопПараметры));
+		BeginGettingAddIn(New NotifyDescription("BeginClipBoardEmptyingEndGettingAddin",
+			ThisObject, AdditionalParameters));
 	Else
-		ОбъектКомпоненты.НачатьВызовОчистить(NotifyDescription);
+		AddInObject.BeginCallingEmpty(NotifyDescription);
 	EndIf;
 EndProcedure
 
-// Начинает помещение картинку в буфер обмена
+// Starts placing the image to the clipboard
 // 
-// Параметры:
+// Parameters:
 // 	Картинка
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//	<Результат> – Результат установки картинки в буфере обмена, Тип: Булево. Неопределено- если не удалось подключить компоненту
-//	<ПараметрыВызова> - Массив параметров вызова метода компоненты
-//	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure НачатьКопированиеКартинкиВБуфер(Picture, NotifyDescription, ОбъектКомпоненты = Undefined) Export
-	If ОбъектКомпоненты = Undefined Then
-		ДопПараметры=New Structure;
-		ДопПараметры.Insert("Picture", Picture);
-		ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", NotifyDescription);
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//	<Result> – The result of installing the image in the clipboard, Type: Boolean.Undefined- if failed to attach addin
+//	<CallParameters> - Array of parameters for calling the component method
+//	<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure BeginCopyingImageToClipboard(Picture, NotifyDescription, AddInObject = Undefined) Export
+	If AddInObject = Undefined Then
+		AdditionalParameters=New Structure;
+		AdditionalParameters.Insert("Picture", Picture);
+		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
-		НачатьПолучениеКомпоненты(
-			New NotifyDescription("НачатьКопированиеКартинкиВБуферЗавершениеПолученияКомпоненты", ThisObject,
-			ДопПараметры));
+		BeginGettingAddIn(
+			New NotifyDescription("BeginCopyingImageToClipboardEndGettingAddin", ThisObject,
+			AdditionalParameters));
 	Else
-		ТекКартинка=КартинкаДляКопированияВБуфер(Picture);
-		If ТекКартинка = Undefined Then
+		CurrentImage=ImageForCopyToClipboard(Picture);
+		If CurrentImage = Undefined Then
 			Return;
 		EndIf;
-		ОбъектКомпоненты.НачатьВызовЗаписатьКартинку(NotifyDescription, ТекКартинка);
+		AddInObject.BeginCallingSetImage(NotifyDescription, CurrentImage);
 	EndIf;
 EndProcedure
 
-// Начинает получение картинки из буфера обмена
+// Starts receiving an image from the clipboard
 // 
-// Параметры:
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//	<ДанныеКартинки> – Данные картинки в запрошенном формате, Тип: Строка, ДвоичныеДанные, Картинка. Неопределено- если не удалось подключить компоненту или в буфере нет картинки
-//	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-// 	ВариантПолучения - Строка
-// 	Один из варинатов:
-// 		ДвоичныеДанные- получение двоичных данных картинки
-// 		Картинка- Преобразованное к типу "Картинка" содержание буфера
-// 		Адрес- Адрес двоичных данных картинки во временном хранилище
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure НачатьПолучениеКартинкиИзБуфера(NotifyDescription, ВариантПолучения = "Picture",
-	ОбъектКомпоненты = Undefined) Export
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("ВариантПолучения", ВариантПолучения);
-	ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", NotifyDescription);
+// Parameters:
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//	<ImageData> – Image data in the requested format, Type: String,BinaryData, Picture. Undefined- if failed to attach addin or there is no picture in the buffer
+//	<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+// 	ReturnDataType - String
+// 	One of the options:
+// 		BinaryData- getting binary image data
+// 		Picture- Clipboard  content converted to the "Picture" type
+// 		Adress- The address of the binary data of the image in the temporary storage
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure BeginGettingImageFromClipboard(NotifyDescription, ReturnDataType = "Picture",
+	AddInObject = Undefined) Export
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("ReturnDataType", ReturnDataType);
+	AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
-	If ОбъектКомпоненты = Undefined Then
+	If AddInObject = Undefined Then
 
-		НачатьПолучениеКомпоненты(
-			New NotifyDescription("НачатьПолучениеКартинкиИзБуфераЗавершениеПолученияКомпоненты", ThisObject,
-			ДопПараметры));
+		BeginGettingAddIn(
+			New NotifyDescription("BeginGettingImageFromClipboardEndGettingAddin", ThisObject,
+			AdditionalParameters));
 	Else
-		ОбъектКомпоненты.НачатьПолучениеКартинка(New NotifyDescription("НачатьПолучениеКартинкиИзБуфераЗавершение",
-			ThisObject, ДопПараметры));
+		AddInObject.BeginGettingImage(New NotifyDescription("PictureInCorrectFormatFromClipboardOnEnd",
+			ThisObject, AdditionalParameters));
 	EndIf;
 EndProcedure
 
-// Начинает помещение текста в буфер обмена
+// Starts putting text to the clipboard
 // 
-// Параметры:
-// 	СтрокаКопирования- Строка- Строка, которую необходимо поместить в буфер обмена
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//	<Результат> – Результат установки текста в буфере обмена, Тип: Булево. Неопределено- если не удалось подключить компоненту
-//	<ПараметрыВызова> - Массив параметров вызова метода компоненты
-//	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure НачатьКопированиеСтрокиВБуфер(СтрокаКопирования, NotifyDescription, ОбъектКомпоненты = Undefined) Export
-	If ОбъектКомпоненты = Undefined Then
-		ДопПараметры=New Structure;
-		ДопПараметры.Insert("СтрокаКопирования", СтрокаКопирования);
-		ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", NotifyDescription);
+// Parameters:
+// 	CopiedText- String- A string to be placed in the clipboard
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//	<Result> – The result of setting the text in the clipboard, Type: Boolean.. Undefined- if failed to attach addin
+//	<CallParameters> -Array of parameters for calling the component method
+//	<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure BeginCopyTextToClipboard(CopiedText, NotifyDescription, AddInObject = Undefined) Export
+	If AddInObject = Undefined Then
+		AdditionalParameters=New Structure;
+		AdditionalParameters.Insert("CopiedText", CopiedText);
+		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
-		НачатьПолучениеКомпоненты(
-			New NotifyDescription("НачатьКопированиеСтрокиВБуферЗавершениеПолученияКомпоненты", ThisObject,
-			ДопПараметры));
+		BeginGettingAddIn(
+			New NotifyDescription("BeginCopyTextToClipboardEndGettingAddin", ThisObject,
+			AdditionalParameters));
 	Else
-		ОбъектКомпоненты.НачатьВызовЗаписатьТекст(NotifyDescription, СтрокаКопирования);
-	EndIf;
-EndProcedure
-
-
-// Начинает получение текста из буфера обмена
-// 
-// Параметры:
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//	<Результат> – Текст из буфера обмена, Тип: Строка. Неопределено- если не удалось подключить компоненту
-//	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure НачатьПолучениеСтрокиИзБуфера(NotifyDescription, ОбъектКомпоненты = Undefined) Export
-	If ОбъектКомпоненты = Undefined Then
-		ДопПараметры=New Structure;
-		ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", NotifyDescription);
-
-		НачатьПолучениеКомпоненты(
-			New NotifyDescription("НачатьПолучениеСтрокиИзБуфераЗавершениеПолученияКомпоненты", ThisObject,
-			ДопПараметры));
-	Else
-		ОбъектКомпоненты.НачатьПолучениеТекст(NotifyDescription);
+		AddInObject.BeginCallingSetText(NotifyDescription, CopiedText);
 	EndIf;
 EndProcedure
 
 
-// Начинает получение формата текущего значения в буфере обмена
+// Starts receiving text from the clipboard
 // 
-// Параметры:
-// 	ОписаниеОповещения - ОписаниеОповещения - Содержит описание процедуры, которая будет вызвана после завершения со следующими параметрами:
-//	<Результат> – Строка в формате JSON, содержащая описание формата содержимого буфера обмена, Тип: Строка. Неопределено- если не удалось подключить компоненту
-//	<ДополнительныеПараметры> - значение, которое было указано при создании объекта ОписаниеОповещения.
-// 	ОбъектКомпоненты - ВнешняяКомпонентаОбъект - Объект компоненты работы с буфером обмена (Необязательный)
-Procedure НачатьПолучениеФорматаБуфераОбмена(NotifyDescription, ОбъектКомпоненты = Undefined) Export
-	If ОбъектКомпоненты = Undefined Then
-		ДопПараметры=New Structure;
-		ДопПараметры.Insert("ОписаниеОповещенияОЗавершении", NotifyDescription);
+// Parameters:
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//	<Result> – Clipboard text, Type: String. Undefined- if failed to attach addin
+//	<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure BeginGettingTextFormClipboard(NotifyDescription, AddInObject = Undefined) Export
+	If AddInObject = Undefined Then
+		AdditionalParameters=New Structure;
+		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
 
-		НачатьПолучениеКомпоненты(
-			New NotifyDescription("НачатьПолучениеФорматаБуфераОбменаЗавершениеПолученияКомпоненты", ThisObject,
-			ДопПараметры));
+		BeginGettingAddIn(
+			New NotifyDescription("BeginGettingTextFormClipboardEndGettingAddin", ThisObject,
+			AdditionalParameters));
 	Else
-		ОбъектКомпоненты.НачатьПолучениеФормат(NotifyDescription);
+		AddInObject.BeginGettingText(NotifyDescription);
+	EndIf;
+EndProcedure
+
+
+// Starts receiving the format of the current value in the clipboard
+// 
+// Parameters:
+// 	NotifyDescription - NotifyDescription -Contains a description of the procedure that will be called after completion with the following parameters:
+//	<Result> – A string in JSON format containing a description of the clipboard content format, Type: String. Undefined- if failed to attach addin
+//	<AdditionalParameters> -the value that was specified when creating the object NotifyDescription.
+// 	AddInObject - Add-in object - Object of  AddIn  to work with clipboard (optional)
+Procedure BeginGettingClipboardFormat(NotifyDescription, AddInObject = Undefined) Export
+	If AddInObject = Undefined Then
+		AdditionalParameters=New Structure;
+		AdditionalParameters.Insert("NotifyDescriptionOnCompletion", NotifyDescription);
+
+		BeginGettingAddIn(
+			New NotifyDescription("BeginGettingClipboardFormatEndGettingAddin", ThisObject,
+			AdditionalParameters));
+	Else
+		AddInObject.BeginGettingFormat(NotifyDescription);
 	EndIf;
 EndProcedure
 
@@ -382,98 +388,98 @@ EndProcedure
 
 #Region Internal
 
-Procedure НачатьИнициализациюКомпоненты(NotifyDescription, ПопытатьсяУстановитьКомпоненту = True) Export
+Procedure BeginInitializeAddin(NotifyDescription, TryToSetAddin = True) Export
 
-	ДополнительныеПараметрыОповещения=New Structure;
-	ДополнительныеПараметрыОповещения.Insert("ОповещениеОЗавершении", NotifyDescription);
-	ДополнительныеПараметрыОповещения.Insert("ПопытатьсяУстановитьКомпоненту", ПопытатьсяУстановитьКомпоненту);
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("OnCompletionNotify", NotifyDescription);
+	NotifyAdditionalParameters.Insert("TryToSetAddin", TryToSetAddin);
 
 	BeginAttachingAddIn(
-		New NotifyDescription("НачатьПолучениеКомпонентыЗавершениеПодключенияКомпоненты", ThisObject,
-		ДополнительныеПараметрыОповещения), ИмяМакетаКомпоненты(), ИдентификаторКомпоненты(),
+		New NotifyDescription("BeginGettingAddInEndAttachingAddin", ThisObject,
+		NotifyAdditionalParameters), AddinTemplateName(), AddInID(),
 		AddInType.Native);
 
 EndProcedure
 
-Procedure НачатьПолучениеКомпонентыЗавершениеПодключенияКомпоненты(Подключено, AdditionalParameters) Export
-	If Подключено Then
-		ОповещениеОЗавершении=AdditionalParameters.ОповещениеОЗавершении;
-		ExecuteNotifyProcessing(ОповещениеОЗавершении, ОбъектКомпоненты());
-	ElsIf AdditionalParameters.ПопытатьсяУстановитьКомпоненту Then
+Procedure BeginGettingAddInEndAttachingAddin(Attached, AdditionalParameters) Export
+	If Attached Then
+		OnCompletionNotify=AdditionalParameters.OnCompletionNotify;
+		ExecuteNotifyProcessing(OnCompletionNotify, AddInObject());
+	ElsIf AdditionalParameters.TryToSetAddin Then
 		BeginInstallAddIn(
-			New NotifyDescription("НачатьПолучениеКомпонентыЗавершениеУстановкиКомпоненты", ThisObject,
-			AdditionalParameters), ИмяМакетаКомпоненты());
+			New NotifyDescription("BeginGettingAddInEndInstallAddin", ThisObject,
+			AdditionalParameters), AddinTemplateName());
 	Else
-		ОповещениеОЗавершении=AdditionalParameters.ОповещениеОЗавершении;
-		ExecuteNotifyProcessing(ОповещениеОЗавершении, Undefined);
+		OnCompletionNotify=AdditionalParameters.OnCompletionNotify;
+		ExecuteNotifyProcessing(OnCompletionNotify, Undefined);
 	EndIf;
 EndProcedure
 
-Procedure НачатьПолучениеКомпонентыЗавершениеУстановкиКомпоненты(AdditionalParameters) Export
-	НачатьИнициализациюКомпоненты(AdditionalParameters.ОповещениеОЗавершении, False);
+Procedure BeginGettingAddInEndInstallAddin(AdditionalParameters) Export
+	BeginInitializeAddin(AdditionalParameters.OnCompletionNotify, False);
 EndProcedure
 
-Procedure НачатьПолучениеВерсииКомпонентыЗавершениеПолученияКомпоненты(Result, AdditionalParameters) Export
+Procedure BeginGettingAddinVersionEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, Undefined);
+		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьПолучениеВерсииКомпоненты(AdditionalParameters.ОписаниеОповещенияОЗавершении, Result);
+		BeginGettingAddinVersion(AdditionalParameters.NotifyDescriptionOnCompletion, Result);
 	EndIf;
 EndProcedure
 
-Procedure НачатьОчисткуБуфераОбменаЗавершениеПолученияКомпоненты(Result, AdditionalParameters) Export
+Procedure BeginClipBoardEmptyingEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, Undefined);
+		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьОчисткуБуфераОбмена(AdditionalParameters.ОписаниеОповещенияОЗавершении, Result);
+		BeginClipBoardEmptying(AdditionalParameters.NotifyDescriptionOnCompletion, Result);
 	EndIf;
 EndProcedure
 
-Procedure НачатьКопированиеКартинкиВБуферЗавершениеПолученияКомпоненты(Result, AdditionalParameters) Export
+Procedure BeginCopyingImageToClipboardEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, Undefined);
+		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьКопированиеКартинкиВБуфер(AdditionalParameters.Picture,
-			AdditionalParameters.ОписаниеОповещенияОЗавершении, Result);
+		BeginCopyingImageToClipboard(AdditionalParameters.Picture,
+			AdditionalParameters.NotifyDescriptionOnCompletion, Result);
 	EndIf;
 EndProcedure
 
-Procedure НачатьПолучениеКартинкиИзБуфераЗавершениеПолученияКомпоненты(Result, AdditionalParameters) Export
+Procedure BeginGettingImageFromClipboardEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, Undefined);
+		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьПолучениеКартинкиИзБуфера(AdditionalParameters.ОписаниеОповещенияОЗавершении,
-			AdditionalParameters.ВариантПолучения, Result);
+		BeginGettingImageFromClipboard(AdditionalParameters.NotifyDescriptionOnCompletion,
+			AdditionalParameters.ReturnDataType, Result);
 	EndIf;
 EndProcedure
 
-Procedure НачатьПолучениеКартинкиИзБуфераЗавершение(Result, AdditionalParameters) Export
-	ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, КартинкаВНужномФорматеИзБуфера(
-		Result, AdditionalParameters.ВариантПолучения));
+Procedure PictureInCorrectFormatFromClipboardOnEnd(Result, AdditionalParameters) Export
+	ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, ImageInCorrectFormatFromClipboard(
+		Result, AdditionalParameters.ReturnDataType));
 EndProcedure
 
-Procedure НачатьКопированиеСтрокиВБуферЗавершениеПолученияКомпоненты(Result, AdditionalParameters) Export
+Procedure BeginCopyTextToClipboardEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, Undefined);
+		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьКопированиеСтрокиВБуфер(AdditionalParameters.СтрокаКопирования,
-			AdditionalParameters.ОписаниеОповещенияОЗавершении, Result);
+		BeginCopyTextToClipboard(AdditionalParameters.CopiedText,
+			AdditionalParameters.NotifyDescriptionOnCompletion, Result);
 	EndIf;
 EndProcedure
 
-Procedure НачатьПолучениеСтрокиИзБуфераЗавершениеПолученияКомпоненты(Result, AdditionalParameters) Export
+Procedure BeginGettingTextFormClipboardEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, Undefined);
+		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьПолучениеСтрокиИзБуфера(AdditionalParameters.ОписаниеОповещенияОЗавершении, Result);
+		BeginGettingTextFormClipboard(AdditionalParameters.NotifyDescriptionOnCompletion, Result);
 	EndIf;
 EndProcedure
 
-Procedure НачатьПолучениеФорматаБуфераОбменаЗавершениеПолученияКомпоненты(Result, AdditionalParameters) Export
+Procedure BeginGettingClipboardFormatEndGettingAddin(Result, AdditionalParameters) Export
 	If Result = Undefined Then
-		ExecuteNotifyProcessing(AdditionalParameters.ОписаниеОповещенияОЗавершении, Undefined);
+		ExecuteNotifyProcessing(AdditionalParameters.NotifyDescriptionOnCompletion, Undefined);
 	Else
-		НачатьПолучениеФорматаБуфераОбмена(AdditionalParameters.ОписаниеОповещенияОЗавершении, Result);
+		BeginGettingClipboardFormat(AdditionalParameters.NotifyDescriptionOnCompletion, Result);
 	EndIf;
 EndProcedure
 
@@ -481,74 +487,74 @@ EndProcedure
 
 #Region Private
 
-Function ИмяМакетаКомпоненты()
-	Return "ОбщийМакет.УИ_КомпонентаДляРаботыСБуферомОбмена";
+Function AddinTemplateName()
+	Return "CommonTemplate.UT_ClipboardAddin";
 EndFunction
 
-Function КартинкаДляКопированияВБуфер(Picture)
+Function ImageForCopyToClipboard(Picture)
 	If TypeOf(Picture) = Type("String") And IsTempStorageURL(Picture) Then
 
-		ТекКартинка=GetFromTempStorage(Picture);
+		CurrentImage=GetFromTempStorage(Picture);
 	Else
-		ТекКартинка=Picture;
+		CurrentImage=Picture;
 	EndIf;
 
-	If TypeOf(ТекКартинка) = Type("Picture") Then
-		BinaryData = ТекКартинка.GetBinaryData();
-	ElsIf TypeOf(ТекКартинка) = Type("BinaryData") Then
-		BinaryData=ТекКартинка;
+	If TypeOf(CurrentImage) = Type("Picture") Then
+		BinaryData = CurrentImage.GetBinaryData();
+	ElsIf TypeOf(CurrentImage) = Type("BinaryData") Then
+		BinaryData=CurrentImage;
 	Else
-		Message("Неверный тип картинки");
+		Message(NSTR("ru = 'Неверный тип картинки';en = 'Incorrect image type'"));
 		BinaryData=Undefined;
 	EndIf;
 
 	Return BinaryData;
 EndFunction
 
-Function КартинкаВНужномФорматеИзБуфера(ДанныеБуфера, ВариантПолучения)
-	If TypeOf(ДанныеБуфера) <> Type("BinaryData") Then
+Function ImageInCorrectFormatFromClipboard(ClipboardData, ReturnDataType)
+	If TypeOf(ClipboardData) <> Type("BinaryData") Then
 		Return Undefined;
 	EndIf;
 
-	If Lower(ВариантПолучения) = "двоичныеданные" Then
-		Return ДанныеБуфера;
-	ElsIf Lower(ВариантПолучения) = "адрес" Then
-		Return PutToTempStorage(ДанныеБуфера);
+	If Lower(ReturnDataType) = "binanydata" Then
+		Return ClipboardData;
+	ElsIf Lower(ReturnDataType) = "address" Then
+		Return PutToTempStorage(ClipboardData);
 	Else
-		Return New Picture(ДанныеБуфера);
+		Return New Picture(ClipboardData);
 	EndIf;
 EndFunction
 
-Function ИдентификаторКомпоненты()
+Function AddInID()
 	Return "clipboard1c";
 EndFunction
 
-Function ОбъектКомпонентыРаботыСБуферомОбмена(ОбъектКомпоненты = Undefined)
-	If ОбъектКомпоненты = Undefined Then
-		Return КомпонентаРаботыСБуферомОбмена();
+Function ClipboardAddinObject(AddInObject = Undefined)
+	If AddInObject = Undefined Then
+		Return ClipboardAddin();
 	Else
-		Return ОбъектКомпоненты;
+		Return AddInObject;
 	EndIf;
 EndFunction
 
-Function ПроинициализироватьКомпоненту(ПопытатьсяУстановитьКомпоненту = True)
+Function InitializeAddin(TryToSetAddin = True)
 
-	ИмяМакетаКомпоненты=ИмяМакетаКомпоненты();
-	КодВозврата = AttachAddIn(ИмяМакетаКомпоненты, ИдентификаторКомпоненты(),
+	AddinTemplateName=AddinTemplateName();
+	ReturnCode = AttachAddIn(AddinTemplateName, AddInID(),
 		AddInType.Native);
 
-	If Not КодВозврата Then
+	If Not ReturnCode Then
 
-		If Not ПопытатьсяУстановитьКомпоненту Then
+		If Not TryToSetAddin Then
 			Return False;
 		EndIf;
 
-		InstallAddIn(ИмяМакетаКомпоненты);
+		InstallAddIn(AddinTemplateName);
 
-		Return ПроинициализироватьКомпоненту(False); // Рекурсивно.
+		Return InitializeAddin(False); // Recursively.
 
 	EndIf;
 
-	Return ОбъектКомпоненты();
+	Return AddInObject();
 EndFunction
 #EndRegion
