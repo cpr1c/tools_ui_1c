@@ -19,6 +19,7 @@
 // Требования: платформа 1С версии 8.3.14 и выше
 // С более ранними платформами могут быть проблемы с подключением компоненты, а также с работой некоторых методов
 
+// Work with clipboard from 1C Enterprise 
 // Translated to english variant of script by Neti company (https://erpdev.i-neti.com/)
 //  Requirements: 1C platform version 8.3.14 and higher
 // With earlier platforms, there may be problems with connecting components, as well as with the operation of some methods
