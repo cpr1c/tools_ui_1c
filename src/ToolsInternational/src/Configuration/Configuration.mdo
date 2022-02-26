@@ -82,8 +82,8 @@
   <commonPictures>CommonPicture.UT_ValueTable</commonPictures>
   <commonPictures>CommonPicture.UT_ArbitraryType</commonPictures>
   <roles>Role.UT_UniversalTools</roles>
-  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</commonTemplates>
-  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegEx</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsAddInRegExBrowsers</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsAddinRegEx</commonTemplates>
   <commonTemplates>CommonTemplate.UT_StringSearchComponent</commonTemplates>
   <commonTemplates>CommonTemplate.UT_Ace</commonTemplates>
   <commonTemplates>CommonTemplate.UT_ClipboardAddin</commonTemplates>
