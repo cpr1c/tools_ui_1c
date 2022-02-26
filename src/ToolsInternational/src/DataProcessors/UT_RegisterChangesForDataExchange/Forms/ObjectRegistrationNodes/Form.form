@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Object registration nodes</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Узлы регистрации объекта</value>
   </title>
   <items xsi:type="form:Table">
-    <name>ДеревоУзловОбмена</name>
+    <name>ExchangeNodesTree</name>
     <id>1</id>
+    <title>
+      <key>en</key>
+      <value>Exchange nodes</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Узлы обмена</value>
@@ -17,7 +25,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ДеревоУзловОбмена</segments>
+      <segments>ExchangeNodesTree</segments>
     </dataPath>
     <defaultItem>true</defaultItem>
     <titleLocation>None</titleLocation>
@@ -34,10 +42,10 @@
     <excludedCommands>SortListDesc</excludedCommands>
     <excludedCommands>Tree</excludedCommands>
     <items xsi:type="form:FormGroup">
-      <name>ДеревоУзловОбменаПометкаНаименование</name>
+      <name>ExchangeNodesTreeMarkDescription</name>
       <id>14</id>
       <items xsi:type="form:FormField">
-        <name>ДеревоУзловОбменаПометка</name>
+        <name>ExchangeNodesTreeCheckMark</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -46,7 +54,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.Пометка</segments>
+            <segments>ExchangeNodesTree.Check</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
@@ -55,7 +63,7 @@
           <name>ДеревоУзловОбменаПометкаПриИзменении</name>
         </handlers>
         <extendedTooltip>
-          <name>ДеревоУзловОбменаПометкаExtendedTooltip</name>
+          <name>ExchangeNodesTreeCheckMarkExtendedTooltip</name>
           <id>75</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -70,7 +78,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоУзловОбменаПометкаКонтекстноеМеню</name>
+          <name>ExchangeNodesTreeCheckMarkContextMenu</name>
           <id>13</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -89,8 +97,12 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ДеревоУзловОбменаНаименование</name>
+        <name>ExchangeNodesTreeDescription</name>
         <id>4</id>
+        <title>
+          <key>en</key>
+          <value>Node</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Узел</value>
@@ -102,11 +114,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.Наименование</segments>
+            <segments>ExchangeNodesTree.Description</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ДеревоУзловОбменаНаименованиеExtendedTooltip</name>
+          <name>ExchangeNodesTreeDescriptionExtendedTooltip</name>
           <id>76</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -121,7 +133,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоУзловОбменаНаименованиеКонтекстноеМеню</name>
+          <name>ExchangeNodesTreeDescriptionContextMenu</name>
           <id>5</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -145,15 +157,23 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Node description</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Описание узла</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Node description</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Описание узла</value>
       </toolTip>
       <extendedTooltip>
-        <name>ДеревоУзловОбменаПометкаНаименованиеExtendedTooltip</name>
+        <name>ExchangeNodesTreeMarkDescriptionExtendedTooltip</name>
         <id>74</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -174,7 +194,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ДеревоУзловОбменаКод</name>
+      <name>ExchangeNodesTreeCode</name>
       <id>31</id>
       <title>
         <key>ru</key>
@@ -187,11 +207,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ДеревоУзловОбмена.Код</segments>
+          <segments>ExchangeNodesTree.Code</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ДеревоУзловОбменаКодExtendedTooltip</name>
+        <name>ExchangeNodesTreeCodeExtendedTooltip</name>
         <id>77</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -206,7 +226,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоУзловОбменаКодКонтекстноеМеню</name>
+        <name>ExchangeNodesTreeCodeContextMenu</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -226,11 +246,15 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ДеревоУзловОбменаГруппа1</name>
+      <name>ExchangeNodesTreeGroup1</name>
       <id>53</id>
       <items xsi:type="form:FormField">
-        <name>ДеревоУзловОбменаАвторегистрация</name>
+        <name>ExchangeNodesTreeAutoRecord</name>
         <id>34</id>
+        <title>
+          <key>en</key>
+          <value>Register changes automatically</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Авторегистрация</value>
@@ -240,12 +264,12 @@
         <userVisible/>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.ИндексКартинкиАвторегистрация</segments>
+            <segments>ExchangeNodesTree.AutoRecordPictureIndex</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>ДеревоУзловОбменаАвторегистрацияExtendedTooltip</name>
+          <name>ExchangeNodesTreeAutoRecordExtendedTooltip</name>
           <id>79</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -260,7 +284,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоУзловОбменаАвторегистрацияКонтекстноеМеню</name>
+          <name>ExchangeNodesTreeAutoRecordContextMenu</name>
           <id>35</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -279,12 +303,15 @@
           <autoMaxHeight>true</autoMaxHeight>
           <horizontalStretch>true</horizontalStretch>
           <verticalStretch>true</verticalStretch>
-          <valuesPicture xsi:type="form:FormPicture"/>
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ДеревоУзловОбменаНомерСообщения</name>
+        <name>ExchangeNodesTreeMessageNumber</name>
         <id>54</id>
+        <title>
+          <key>en</key>
+          <value>Message number</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Номер сообщения</value>
@@ -296,11 +323,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.НомерСообщения</segments>
+            <segments>ExchangeNodesTree.MessageNo</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ДеревоУзловОбменаНомерСообщенияExtendedTooltip</name>
+          <name>ExchangeNodesTreeMessageNumberExtendedTooltip</name>
           <id>80</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -315,7 +342,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоУзловОбменаНомерСообщенияКонтекстноеМеню</name>
+          <name>ExchangeNodesTreeMessageNumberContextMenu</name>
           <id>55</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -344,11 +371,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Registration details</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Описание регистрации</value>
       </title>
       <extendedTooltip>
-        <name>ДеревоУзловОбменаГруппа1ExtendedTooltip</name>
+        <name>ExchangeNodesTreeGroup1ExtendedTooltip</name>
         <id>78</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -370,7 +401,7 @@
     </items>
     <commandBarLocation>None</commandBarLocation>
     <autoCommandBar>
-      <name>ДеревоУзловОбменаКоманднаяПанель</name>
+      <name>ExchangeNodesTreeCommandBar</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -381,7 +412,7 @@
     </autoCommandBar>
     <handlers>
       <event>Selection</event>
-      <name>ДеревоУзловОбменаВыбор</name>
+      <name>ExchangeNodesTreeSelection</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -389,10 +420,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоУзловОбменаСтрокаПоиска</name>
+      <name>ExchangeNodesTreeSearchString</name>
       <id>83</id>
       <extendedTooltip>
-        <name>ДеревоУзловОбменаСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>ExchangeNodesTreeSearchStringExtendedTooltip</name>
         <id>85</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -407,7 +438,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоУзловОбменаСтрокаПоискаКонтекстноеМеню</name>
+        <name>ExchangeNodesTreeSearchStringContextMenu</name>
         <id>84</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -426,10 +457,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоУзловОбменаСостояниеПросмотра</name>
+      <name>ExchangeNodesTreeViewStatus</name>
       <id>86</id>
       <extendedTooltip>
-        <name>ДеревоУзловОбменаСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>ExchangeNodesTreeViewStatusExtendedTooltip</name>
         <id>88</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -444,7 +475,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоУзловОбменаСостояниеПросмотраКонтекстноеМеню</name>
+        <name>ExchangeNodesTreeViewStatusContextMenu</name>
         <id>87</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -465,10 +496,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ДеревоУзловОбменаУправлениеПоиском</name>
+      <name>ExchangeNodesTreeSearchControl</name>
       <id>89</id>
       <extendedTooltip>
-        <name>ДеревоУзловОбменаУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>ExchangeNodesTreeSearchControlExtendedTooltip</name>
         <id>91</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -483,7 +514,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДеревоУзловОбменаУправлениеПоискомКонтекстноеМеню</name>
+        <name>ExchangeNodesTreeSearchControlContextMenu</name>
         <id>90</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -498,7 +529,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>ДеревоУзловОбменаExtendedTooltip</name>
+      <name>ExchangeNodesTreeExtendedTooltip</name>
       <id>73</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -513,13 +544,13 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ДеревоУзловОбменаКонтекстноеМеню</name>
+      <name>ExchangeNodesTreeContextMenu</name>
       <id>2</id>
       <items xsi:type="form:FormGroup">
-        <name>ДеревоУзловОбменаКонтекстноеМенюГруппа1</name>
+        <name>ExchangeNodesTreeContextMenuGroup1</name>
         <id>40</id>
         <items xsi:type="form:Button">
-          <name>ДеревоУзловОбменаКонтекстноеМенюПометитьВсеУзлы</name>
+          <name>ExchangeNodesTreeContextMenuMarkAllNodes</name>
           <id>41</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -527,7 +558,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоУзловОбменаКонтекстноеМенюПометитьВсеУзлыExtendedTooltip</name>
+            <name>ExchangeNodesTreeContextMenuMarkAllNodesExtendedTooltip</name>
             <id>66</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -541,7 +572,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ПометитьВсеУзлы</commandName>
+          <commandName>Form.Command.MarkAllNodes</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -552,7 +583,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ДеревоУзловОбменаКонтекстноеМенюСнятьПометкуВсемУзлам</name>
+          <name>ExchangeNodesTreeContextMenuUnmarkAllNodes</name>
           <id>42</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -560,7 +591,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоУзловОбменаКонтекстноеМенюСнятьПометкуВсемУзламExtendedTooltip</name>
+            <name>ExchangeNodesTreeContextMenuUnmarkAllNodesExtendedTooltip</name>
             <id>67</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -574,7 +605,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.СнятьПометкуВсемУзлам</commandName>
+          <commandName>Form.Command.UnmarkAllNodes</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -585,7 +616,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ДеревоУзловОбменаКонтекстноеМенюИнвертироватьПометкуВсемУзлам</name>
+          <name>ExchangeNodesTreeContextMenuInvertAllNodesChecks</name>
           <id>43</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -593,7 +624,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоУзловОбменаКонтекстноеМенюИнвертироватьПометкуВсемУзламExtendedTooltip</name>
+            <name>ExchangeNodesTreeContextMenuInvertAllNodesChecksExtendedTooltip</name>
             <id>68</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -607,12 +638,11 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ИнвертироватьПометкуВсемУзлам</commandName>
+          <commandName>Form.Command.InvertAllNodesChecks</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <placementArea>UserCmds</placementArea>
-          <picture xsi:type="form:FormPicture"/>
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <visible>true</visible>
@@ -620,8 +650,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>ru</key>
+          <value>Exchange nodes tree context menu group1</value>
+        </title>
         <extendedTooltip>
-          <name>ДеревоУзловОбменаКонтекстноеМенюГруппа1ExtendedTooltip</name>
+          <name>ExchangeNodesTreeContextMenuGroup1ExtendedTooltip</name>
           <id>65</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -638,8 +672,12 @@
         <extInfo xsi:type="form:ButtonGroupExtInfo"/>
       </items>
       <items xsi:type="form:Button">
-        <name>ДеревоУзловОбменаКонтекстноеМенюОткрытьФормуРедактированияОтУзла</name>
+        <name>ExchangeNodesTreeContextMenuOpenEditFormFromNode</name>
         <id>47</id>
+        <title>
+          <key>en</key>
+          <value>Register other node objects</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Регистрация других объектов узла</value>
@@ -650,7 +688,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ДеревоУзловОбменаКонтекстноеМенюОткрытьФормуРедактированияОтУзлаExtendedTooltip</name>
+          <name>ExchangeNodesTreeContextMenuOpenEditFormFromNodeExtendedTooltip</name>
           <id>69</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -664,7 +702,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьФормуРедактированияОтУзла</commandName>
+        <commandName>Form.Command.OpenEditFormFromNode</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -672,10 +710,10 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ДеревоУзловОбменаКонтекстноеМенюГруппа2</name>
+        <name>ExchangeNodesTreeContextMenuGroup2</name>
         <id>44</id>
         <items xsi:type="form:Button">
-          <name>ДеревоУзловОбменаКонтекстноеМенюВывестиСписок</name>
+          <name>ExchangeNodesTreeContextMenuOutputList</name>
           <id>45</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -683,7 +721,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоУзловОбменаКонтекстноеМенюВывестиСписокExtendedTooltip</name>
+            <name>ExchangeNodesTreeContextMenuOutputListExtendedTooltip</name>
             <id>71</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -697,7 +735,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.ДеревоУзловОбмена.StandardCommand.OutputList</commandName>
+          <commandName>Form.Item.ExchangeNodesTree.StandardCommand.OutputList</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -705,7 +743,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ДеревоУзловОбменаКонтекстноеМенюКопироватьВБуферОбмена</name>
+          <name>ExchangeNodesTreeContextMenuCopyToClipboard</name>
           <id>46</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -713,7 +751,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ДеревоУзловОбменаКонтекстноеМенюКопироватьВБуферОбменаExtendedTooltip</name>
+            <name>ExchangeNodesTreeContextMenuCopyToClipboardExtendedTooltip</name>
             <id>72</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -727,7 +765,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.ДеревоУзловОбмена.StandardCommand.CopyToClipboard</commandName>
+          <commandName>Form.Item.ExchangeNodesTree.StandardCommand.CopyToClipboard</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -739,8 +777,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>ru</key>
+          <value>Exchange nodes tree context menu group2</value>
+        </title>
         <extendedTooltip>
-          <name>ДеревоУзловОбменаКонтекстноеМенюГруппа2ExtendedTooltip</name>
+          <name>ExchangeNodesTreeContextMenuGroup2ExtendedTooltip</name>
           <id>70</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -778,7 +820,7 @@
     <horizontalStretch>true</horizontalStretch>
     <verticalStretch>true</verticalStretch>
     <rowPictureDataPath xsi:type="form:DataPath">
-      <segments>ДеревоУзловОбмена.ИндексКартинки</segments>
+      <segments>ExchangeNodesTree.PictureIndex</segments>
     </rowPictureDataPath>
     <rowsPicture xsi:type="form:FormPicture"/>
     <searchStringLocation>None</searchStringLocation>
@@ -786,11 +828,15 @@
     <searchControlLocation>None</searchControlLocation>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСкрытыхДанных</name>
+    <name>HiddenDataGroup</name>
     <id>50</id>
     <items xsi:type="form:Decoration">
-      <name>СкрытаяКартинкаИнформация32</name>
+      <name>HiddenPictureInformation32</name>
       <id>51</id>
+      <title>
+        <key>en</key>
+        <value>Hidden picture information32</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Скрытая картинка информация32</value>
@@ -801,7 +847,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>СкрытаяКартинкаИнформация32ExtendedTooltip</name>
+        <name>HiddenPictureInformation32ExtendedTooltip</name>
         <id>82</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -816,7 +862,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СкрытаяКартинкаИнформация32КонтекстноеМеню</name>
+        <name>HiddenPictureInformation32ContextMenu</name>
         <id>52</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -827,24 +873,30 @@
       </contextMenu>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:PictureDecorationExtInfo">
-        <picture xsi:type="form:FormPicture"/>
-      </extInfo>
+      <extInfo xsi:type="form:PictureDecorationExtInfo"/>
     </items>
     <userVisible>
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Hidden data group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа скрытых данных</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Hidden data group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа скрытых данных</value>
     </toolTip>
     <enableContentChange>true</enableContentChange>
     <extendedTooltip>
-      <name>ГруппаСкрытыхДанныхExtendedTooltip</name>
+      <name>HiddenDataGroupExtendedTooltip</name>
       <id>81</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -872,7 +924,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ДеревоУзловОбменаИзменитьРегистрацию</name>
+      <name>ExchangeNodesTreeEditRegistration</name>
       <id>33</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -880,7 +932,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДеревоУзловОбменаИзменитьРегистрациюExtendedTooltip</name>
+        <name>ExchangeNodesTreeEditRegistrationExtendedTooltip</name>
         <id>58</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -894,7 +946,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ИзменитьРегистрацию</commandName>
+      <commandName>Form.Command.EditRegistration</commandName>
       <representation>PictureAndText</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -906,10 +958,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>Группа1</name>
+      <name>Group1</name>
       <id>48</id>
       <items xsi:type="form:Button">
-        <name>ФормаУстановитьПометкуВсемУзлам</name>
+        <name>FormSetMarkForAllNodes</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -917,7 +969,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаУстановитьПометкуВсемУзламExtendedTooltip</name>
+          <name>FormSetMarkForAllNodesExtendedTooltip</name>
           <id>60</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -931,7 +983,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПометитьВсеУзлы</commandName>
+        <commandName>Form.Command.MarkAllNodes</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -939,7 +991,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаСнятьПометкуВсемУзлам</name>
+        <name>FormUnmarkAllNodes</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -947,7 +999,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаСнятьПометкуВсемУзламExtendedTooltip</name>
+          <name>FormUnmarkAllNodesExtendedTooltip</name>
           <id>61</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -961,7 +1013,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.СнятьПометкуВсемУзлам</commandName>
+        <commandName>Form.Command.UnmarkAllNodes</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -974,11 +1026,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Select and clear all</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Переключение пометок</value>
       </title>
       <extendedTooltip>
-        <name>Группа1ExtendedTooltip</name>
+        <name>Group1ExtendedTooltip</name>
         <id>59</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -995,11 +1051,15 @@
       <extInfo xsi:type="form:ButtonGroupExtInfo"/>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>Группа2</name>
+      <name>Group2</name>
       <id>56</id>
       <items xsi:type="form:Button">
-        <name>ФормаПеречитатьДеревоУзлов</name>
+        <name>FormRereadNodeTree</name>
         <id>49</id>
+        <title>
+          <key>en</key>
+          <value>Refresh</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Обновить</value>
@@ -1010,7 +1070,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаПеречитатьДеревоУзловExtendedTooltip</name>
+          <name>FormRereadNodeTreeExtendedTooltip</name>
           <id>63</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1024,7 +1084,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПеречитатьДеревоУзлов</commandName>
+        <commandName>Form.Command.RereadNodeTree</commandName>
         <representation>PictureAndText</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1035,7 +1095,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаОткрытьФормуНастроек</name>
+        <name>FormOpenSettingsForm</name>
         <id>57</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1043,7 +1103,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаОткрытьФормуНастроекExtendedTooltip</name>
+          <name>FormOpenSettingsFormExtendedTooltip</name>
           <id>64</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1057,7 +1117,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОткрытьФормуНастроек</commandName>
+        <commandName>Form.Command.OpenSettingsForm</commandName>
         <representation>PictureAndText</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1070,6 +1130,10 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Additional</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Дополнительно</value>
       </title>
@@ -1078,7 +1142,7 @@
         <value>Группа2</value>
       </toolTip>
       <extendedTooltip>
-        <name>Группа2ExtendedTooltip</name>
+        <name>Group2ExtendedTooltip</name>
         <id>62</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1104,11 +1168,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -1119,7 +1183,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
@@ -1133,7 +1197,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ДеревоУзловОбмена</name>
+    <name>ExchangeNodesTree</name>
+    <title>
+      <key>en</key>
+      <value>Exchange nodes tree</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Дерево узлов обмена</value>
@@ -1149,7 +1217,11 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Наименование</name>
+      <name>Description</name>
+      <title>
+        <key>en</key>
+        <value>Exchange node</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Узел обмена</value>
@@ -1167,7 +1239,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
@@ -1185,7 +1261,7 @@
       </edit>
     </columns>
     <columns>
-      <name>Пометка</name>
+      <name>Check</name>
       <id>3</id>
       <valueType>
         <types>Number</types>
@@ -1201,7 +1277,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Ссылка</name>
+      <name>Ref</name>
+      <title>
+        <key>en</key>
+        <value>Ref</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Ссылка</value>
@@ -1218,7 +1298,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Код</name>
+      <name>Code</name>
+      <title>
+        <key>en</key>
+        <value>Code</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Код</value>
@@ -1236,7 +1320,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинкиАвторегистрация</name>
+      <name>AutoRecordPictureIndex</name>
+      <title>
+        <key>en</key>
+        <value>Register changes automatically picture index</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Индекс картинки авторегистрация</value>
@@ -1256,7 +1344,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИсходнаяПометка</name>
+      <name>InitialMark</name>
+      <title>
+        <key>en</key>
+        <value>Initial mark</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Исходная пометка</value>
@@ -1276,7 +1368,11 @@
       </edit>
     </columns>
     <columns>
-      <name>НомерСообщения</name>
+      <name>MessageNo</name>
+      <title>
+        <key>en</key>
+        <value>Message number</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Номер сообщения</value>
@@ -1296,7 +1392,11 @@
       </edit>
     </columns>
     <columns>
-      <name>НеВыгружалось</name>
+      <name>NotExported</name>
+      <title>
+        <key>en</key>
+        <value>Not exported</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Не выгружалось</value>
@@ -1314,7 +1414,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ОбъектРегистрации</name>
+    <name>RegistrationObject</name>
+    <title>
+      <key>en</key>
+      <value>Registration object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Объект регистрации</value>
@@ -1329,7 +1433,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТаблицаРегистрации</name>
+    <name>RegistrationTable</name>
+    <title>
+      <key>en</key>
+      <value>Registration table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица регистрации</value>
@@ -1347,12 +1455,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ИзменитьРегистрацию</name>
+    <name>EditRegistration</name>
+    <title>
+      <key>en</key>
+      <value>Edit registration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Изменить регистрацию</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Edit registration</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Изменить регистрацию</value>
@@ -1365,18 +1481,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ИзменитьРегистрацию</name>
+        <name>EditRegistration</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПометитьВсеУзлы</name>
+    <name>MarkAllNodes</name>
+    <title>
+      <key>en</key>
+      <value>Select all nodes</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Пометить все узлы</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Select all nodes</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Пометить все узлы</value>
@@ -1389,18 +1513,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПометитьВсеУзлы</name>
+        <name>MarkAllNodes</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СнятьПометкуВсемУзлам</name>
+    <name>UnmarkAllNodes</name>
+    <title>
+      <key>en</key>
+      <value>Clear all nodes</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Снять пометку у всех узлов</value>
     </title>
     <id>4</id>
+    <toolTip>
+      <key>en</key>
+      <value>Clear all nodes</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Снять пометку всем узлам</value>
@@ -1419,13 +1551,21 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ИнвертироватьПометкуВсемУзлам</name>
+    <name>InvertAllNodesChecks</name>
+    <title>
+      <key>en</key>
+      <value>Invert selection</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Изменить пометку всех узлов</value>
     </title>
     <id>3</id>
     <toolTip>
+      <key>en</key>
+      <value>Invert selection</value>
+    </toolTip>
+    <toolTip>
       <key>ru</key>
       <value>Изменить пометку всех узлов</value>
     </toolTip>
@@ -1434,18 +1574,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ИнвертироватьПометкуВсемУзлам</name>
+        <name>InvertAllNodesChecks</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьФормуРедактированияОтУзла</name>
+    <name>OpenEditFormFromNode</name>
+    <title>
+      <key>en</key>
+      <value>Open editing form for selected node</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть форму редактирования от узла</value>
     </title>
     <id>5</id>
+    <toolTip>
+      <key>en</key>
+      <value>Open editing form for selected node</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Открыть форму редактирования от узла</value>
@@ -1455,18 +1603,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьФормуРедактированияОтУзла</name>
+        <name>OpenEditFormFromNode</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПеречитатьДеревоУзлов</name>
+    <name>RereadNodeTree</name>
+    <title>
+      <key>en</key>
+      <value>Refresh node tree</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Перечитать дерево узлов</value>
     </title>
     <id>6</id>
+    <toolTip>
+      <key>en</key>
+      <value>Refresh node tree</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Перечитать дерево узлов</value>
@@ -1479,18 +1635,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПеречитатьДеревоУзлов</name>
+        <name>RereadNodeTree</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьФормуНастроек</name>
+    <name>OpenSettingsForm</name>
+    <title>
+      <key>en</key>
+      <value>Settings</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Настройки</value>
     </title>
     <id>7</id>
+    <toolTip>
+      <key>en</key>
+      <value>Open settings form</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Открыть форму настроек</value>
@@ -1503,18 +1667,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьФормуНастроек</name>
+        <name>OpenSettingsForm</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
-    <name>ОбъектРегистрации</name>
+    <name>RegistrationObject</name>
     <valueType/>
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ТаблицаРегистрации</name>
+    <name>RegistrationTable</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -1522,7 +1686,7 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>ОповещатьОбИзменениях</name>
+    <name>NotifyAboutChanges</name>
     <valueType>
       <types>Boolean</types>
     </valueType>

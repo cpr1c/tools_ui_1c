@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Exchange plan node message numbers</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Номера сообщений узла плана обмена</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>Группа3</name>
+    <name>Group3</name>
     <id>6</id>
     <items xsi:type="form:FormField">
-      <name>НомерОтправленного</name>
+      <name>SentNo</name>
       <id>7</id>
+      <title>
+        <key>en</key>
+        <value>Sent</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Отправленного</value>
@@ -21,11 +29,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>НомерОтправленного</segments>
+          <segments>SentNo</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>НомерОтправленногоExtendedTooltip</name>
+        <name>SentNoExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -40,7 +48,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НомерОтправленногоКонтекстноеМеню</name>
+        <name>SentNoContextMenu</name>
         <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -64,11 +72,11 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>НомерПринятого</name>
+      <name>ReceivedNo</name>
       <id>9</id>
       <title>
         <key>ru</key>
-        <value>Принятого</value>
+        <value>Received</value>
       </title>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -77,11 +85,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>НомерПринятого</segments>
+          <segments>ReceivedNo</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>НомерПринятогоExtendedTooltip</name>
+        <name>ReceivedNoExtendedTooltip</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -96,7 +104,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НомерПринятогоКонтекстноеМеню</name>
+        <name>ReceivedNoContextMenu</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -125,13 +133,17 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Message numbers</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Номера сообщений</value>
     </title>
     <horizontalStretch>true</horizontalStretch>
     <verticalStretch>true</verticalStretch>
     <extendedTooltip>
-      <name>Группа3ExtendedTooltip</name>
+      <name>Group3ExtendedTooltip</name>
       <id>15</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -156,11 +168,15 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>Группа4</name>
+    <name>Group4</name>
     <id>11</id>
     <items xsi:type="form:Button">
-      <name>ЗаписатьИзмененияУзла</name>
+      <name>WriteNodeChanges</name>
       <id>14</id>
+      <title>
+        <key>en</key>
+        <value>Write</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Записать</value>
@@ -171,7 +187,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗаписатьИзмененияУзлаExtendedTooltip</name>
+        <name>WriteNodeChangesExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -185,7 +201,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ЗаписатьИзмененияУзла</commandName>
+      <commandName>Form.Command.WriteNodeChanges</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -194,8 +210,12 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Отмена</name>
+      <name>Cancel</name>
       <id>13</id>
+      <title>
+        <key>en</key>
+        <value>Close</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Закрыть</value>
@@ -206,7 +226,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ОтменаExtendedTooltip</name>
+        <name>CancelExtendedTooltip</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -232,8 +252,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>ru</key>
+      <value>Group4</value>
+    </title>
     <extendedTooltip>
-      <name>Группа4ExtendedTooltip</name>
+      <name>Group4ExtendedTooltip</name>
       <id>18</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -266,11 +290,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
@@ -282,7 +306,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
@@ -296,7 +320,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>УзелОбменаСсылка</name>
+    <name>ExchangeNodeRef</name>
+    <title>
+      <key>en</key>
+      <value>Exchange node</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Узел обмена</value>
@@ -312,12 +340,16 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>УзелОбменаСсылка</segments>
+      <segments>ExchangeNodeRef</segments>
     </settingsSavedData>
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>НомерОтправленного</name>
+    <name>SentNo</name>
+    <title>
+      <key>en</key>
+      <value>Sent no</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Номер отправленного</value>
@@ -339,7 +371,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>НомерПринятого</name>
+    <name>ReceivedNo</name>
+    <title>
+      <key>en</key>
+      <value>Received no</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Номер принятого</value>
@@ -361,7 +397,11 @@
     <savedData>true</savedData>
   </attributes>
   <attributes>
-    <name>ВерсияДанных</name>
+    <name>DataVersion</name>
+    <title>
+      <key>en</key>
+      <value>Data version</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Версия данных</value>
@@ -379,7 +419,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ЗаписатьИзмененияУзла</name>
+    <name>WriteNodeChanges</name>
+    <title>
+      <key>en</key>
+      <value>Write node changes</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Записать изменения узла</value>
@@ -394,13 +438,13 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗаписатьИзмененияУзла</name>
+        <name>WriteNodeChanges</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
-    <name>УзелОбменаСсылка</name>
+    <name>ExchangeNodeRef</name>
     <valueType>
       <types>ExchangePlanRef</types>
     </valueType>

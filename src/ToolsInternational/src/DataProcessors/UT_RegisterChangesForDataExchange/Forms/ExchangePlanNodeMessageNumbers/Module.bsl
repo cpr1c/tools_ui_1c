@@ -1,68 +1,68 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ФОРМЫ
+// EVENT HANDLERS
 //
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	ВыполнитьПроверкуПравДоступа("Администрирование", Метаданные);
+	VerifyAccessRights("Administration", Metadata);
 
-	Если Параметры.Свойство("АвтоТест") Тогда // Возврат при получении формы для анализа.
-		Возврат;
-	КонецЕсли;
+	If Parameters.Property("AutoTests") Then // Return when a form is received for analysis.
+		Return;
+	EndIf;
 
-	УзелОбменаСсылка = Параметры.УзелОбменаСсылка;
+	ExchangeNodeRef = Parameters.ExchangeNodeRef;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
-	ПрочитатьНомераСообщений();
-	Заголовок = УзелОбменаСсылка;
-КонецПроцедуры
+&AtClient
+Procedure OnOpen(Cancel)
+	ReadMessageNumbers();
+	Title = ExchangeNodeRef;
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ КОМАНД ФОРМЫ
+// FORM COMMAND HANDLERS
 //
 
-// Производит запись измененных данных и закрывает форму.
-&НаКлиенте
-Процедура ЗаписатьИзмененияУзла(Команда)
-	ЗаписатьНомераСообщений();
-	Оповестить("ИзменениеДанныхУзлаОбмена", УзелОбменаСсылка, ЭтотОбъект);
-	Закрыть();
-КонецПроцедуры
+// Writes modified data and closes the form.
+&AtClient
+Procedure WriteNodeChanges(Command)
+	WriteMessageNumbers();
+	Notify("ExchangeNodeDataEdit", ExchangeNodeRef, ThisObject);
+	Close();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
+// PRIVATE
 //
 
-&НаСервере
-Функция ЭтотОбъектОбработки(ТекущийОбъект = Неопределено)
-	Если ТекущийОбъект = Неопределено Тогда
-		Возврат РеквизитФормыВЗначение("Объект");
-	КонецЕсли;
-	ЗначениеВРеквизитФормы(ТекущийОбъект, "Объект");
-	Возврат Неопределено;
-КонецФункции
+&AtServer
+Function ThisObject(CurrentObject = Undefined)
+	If CurrentObject = Undefined Then
+		Return FormAttributeToValue("Object");
+	EndIf;
+	ValueToFormAttribute(CurrentObject, "Object");
+	Return Undefined;
+EndFunction
 
-&НаСервере
-Процедура ПрочитатьНомераСообщений()
-	Данные = ЭтотОбъектОбработки().ПолучитьПараметрыУзлаОбмена(УзелОбменаСсылка,
-		"НомерОтправленного, НомерПринятого, ВерсияДанных");
-	Если Данные = Неопределено Тогда
-		НомерОтправленного = Неопределено;
-		НомерПринятого     = Неопределено;
-		ВерсияДанных       = Неопределено;
+&AtServer
+Procedure ReadMessageNumbers()
+	Data = ThisObject().GetExchangeNodeParameters(ExchangeNodeRef,
+		"SentNo, ReceivedNo, DataVersion");
+	If Data = Undefined Then
+		SentNo = Undefined;
+		ReceivedNo     = Undefined;
+		DataVersion       = Undefined;
 	Иначе
-		НомерОтправленного = Данные.НомерОтправленного;
-		НомерПринятого     = Данные.НомерПринятого;
-		ВерсияДанных       = Данные.ВерсияДанных;
-	КонецЕсли;
-КонецПроцедуры
+		SentNo = Data.SentNo;
+		ReceivedNo     = Data.ReceivedNo;
+		DataVersion       = Data.DataVersion;
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура ЗаписатьНомераСообщений()
-	Данные = Новый Структура("НомерОтправленного, НомерПринятого", НомерОтправленного, НомерПринятого);
-	ЭтотОбъектОбработки().УстановитьПараметрыУзлаОбмена(УзелОбменаСсылка, Данные);
-КонецПроцедуры
+&AtServer
+Procedure WriteMessageNumbers()
+	Data = New Structure("SentNo, ReceivedNo", SentNo, ReceivedNo);
+	ThisObject().SetExchangeNodeParameters(ExchangeNodeRef, Data);
+EndProcedure
