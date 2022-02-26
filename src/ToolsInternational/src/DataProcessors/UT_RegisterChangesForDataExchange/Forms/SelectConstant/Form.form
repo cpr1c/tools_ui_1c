@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Select constant</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Выбор константы</value>
   </title>
   <items xsi:type="form:Table">
-    <name>СписокКонстант</name>
+    <name>ConstantsList</name>
     <id>4</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -13,7 +17,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>СписокКонстант</segments>
+      <segments>ConstantsList</segments>
     </dataPath>
     <excludedCommands>Add</excludedCommands>
     <excludedCommands>Change</excludedCommands>
@@ -25,8 +29,12 @@
     <excludedCommands>SortListAsc</excludedCommands>
     <excludedCommands>SortListDesc</excludedCommands>
     <items xsi:type="form:FormField">
-      <name>СписокКонстантНаименование</name>
+      <name>ConstantsListDescription</name>
       <id>12</id>
+      <title>
+        <key>en</key>
+        <value>Constant</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Константа</value>
@@ -38,11 +46,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>СписокКонстант.Наименование</segments>
+          <segments>ConstantsList.Description</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокКонстантНаименованиеExtendedTooltip</name>
+        <name>ConstantsListDescriptionExtendedTooltip</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -57,7 +65,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокКонстантНаименованиеКонтекстноеМеню</name>
+        <name>ConstantsListDescriptionContextMenu</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -81,8 +89,12 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокКонстантИндексКартинкиАвторегистрация</name>
+      <name>ConstantsListAutoRecordPictureIndex</name>
       <id>14</id>
+      <title>
+        <key>en</key>
+        <value>Auto record</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Авторегистрация</value>
@@ -92,12 +104,12 @@
       <userVisible/>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>СписокКонстант.ИндексКартинкиАвторегистрация</segments>
+          <segments>ConstantsList.AutoRecordPictureIndex</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>СписокКонстантИндексКартинкиАвторегистрацияExtendedTooltip</name>
+        <name>ConstantsListAutoRecordPictureIndexExtendedTooltip</name>
         <id>38</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -112,7 +124,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокКонстантИндексКартинкиАвторегистрацияКонтекстноеМеню</name>
+        <name>ConstantsListAutoRecordPictureIndexContextMenu</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -124,7 +136,6 @@
       <type>PictureField</type>
       <editMode>EnterOnInput</editMode>
       <showInHeader>true</showInHeader>
-      <headerPicture xsi:type="form:FormPicture"/>
       <headerHorizontalAlign>Left</headerHorizontalAlign>
       <showInFooter>true</showInFooter>
       <extInfo xsi:type="form:ImageFieldExtInfo">
@@ -132,12 +143,11 @@
         <autoMaxHeight>true</autoMaxHeight>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
-        <valuesPicture xsi:type="form:FormPicture"/>
       </extInfo>
     </items>
     <commandBarLocation>None</commandBarLocation>
     <autoCommandBar>
-      <name>СписокКонстантКоманднаяПанель</name>
+      <name>ConstantsListCommandBar</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -149,7 +159,7 @@
     </autoCommandBar>
     <handlers>
       <event>Selection</event>
-      <name>СписокКонстантВыбор</name>
+      <name>ConstantsListSelection</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -157,10 +167,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокКонстантСтрокаПоиска</name>
+      <name>ConstantsListSearchString</name>
       <id>42</id>
       <extendedTooltip>
-        <name>СписокКонстантСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>ConstantsListSearchStringExtendedTooltip</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -175,7 +185,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокКонстантСтрокаПоискаКонтекстноеМеню</name>
+        <name>ConstantsListSearchStringContextMenu</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -194,10 +204,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокКонстантСостояниеПросмотра</name>
+      <name>ConstantsListViewStatus</name>
       <id>45</id>
       <extendedTooltip>
-        <name>СписокКонстантСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>ConstantsListViewStatusExtendedTooltip</name>
         <id>47</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -212,7 +222,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокКонстантСостояниеПросмотраКонтекстноеМеню</name>
+        <name>ConstantsListViewStatusContextMenu</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -233,10 +243,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокКонстантУправлениеПоиском</name>
+      <name>ConstantsListSearchControl</name>
       <id>48</id>
       <extendedTooltip>
-        <name>СписокКонстантУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>ConstantsListSearchControlExtendedTooltip</name>
         <id>50</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -251,7 +261,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокКонстантУправлениеПоискомКонтекстноеМеню</name>
+        <name>ConstantsListSearchControlContextMenu</name>
         <id>49</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -266,7 +276,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>СписокКонстантExtendedTooltip</name>
+      <name>ConstantsListExtendedTooltip</name>
       <id>36</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -281,11 +291,15 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СписокКонстантКонтекстноеМеню</name>
+      <name>ConstantsListContextMenu</name>
       <id>5</id>
       <items xsi:type="form:Button">
-        <name>СписокКонстантКонтекстноеМенюВыбратьКонстанту</name>
+        <name>ConstantsListContextMenuSelectConstant</name>
         <id>16</id>
+        <title>
+          <key>en</key>
+          <value>Select</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Выбрать</value>
@@ -296,7 +310,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СписокКонстантКонтекстноеМенюВыбратьКонстантуExtendedTooltip</name>
+          <name>ConstantsListContextMenuSelectConstantExtendedTooltip</name>
           <id>29</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -310,7 +324,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ВыбратьКонстанту</commandName>
+        <commandName>Form.Command.SelectConstant</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -318,10 +332,10 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СписокКонстантКонтекстноеМенюГруппа1</name>
+        <name>ConstantsListContextMenuGroup1</name>
         <id>17</id>
         <items xsi:type="form:Button">
-          <name>СписокКонстантКонтекстноеМенюНайти</name>
+          <name>ConstantsListContextMenuFind</name>
           <id>18</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -329,7 +343,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокКонстантКонтекстноеМенюНайтиExtendedTooltip</name>
+            <name>ConstantsListContextMenuFindExtendedTooltip</name>
             <id>31</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -343,7 +357,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокКонстант.StandardCommand.Find</commandName>
+          <commandName>Form.Item.ConstantsList.StandardCommand.Find</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -351,7 +365,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокКонстантКонтекстноеМенюВыделитьВсе</name>
+          <name>ConstantsListContextMenuSelectAll</name>
           <id>19</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -359,7 +373,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокКонстантКонтекстноеМенюВыделитьВсеExtendedTooltip</name>
+            <name>ConstantsListContextMenuSelectAllExtendedTooltip</name>
             <id>32</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -373,7 +387,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокКонстант.StandardCommand.SelectAll</commandName>
+          <commandName>Form.Item.ConstantsList.StandardCommand.SelectAll</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -381,7 +395,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокКонстантКонтекстноеМенюОтменитьПоиск</name>
+          <name>ConstantsListContextMenuCancelSearch</name>
           <id>20</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -389,7 +403,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокКонстантКонтекстноеМенюОтменитьПоискExtendedTooltip</name>
+            <name>ConstantsListContextMenuCancelSearchExtendedTooltip</name>
             <id>33</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -403,7 +417,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокКонстант.StandardCommand.CancelSearch</commandName>
+          <commandName>Form.Item.ConstantsList.StandardCommand.CancelSearch</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -411,7 +425,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокКонстантКонтекстноеМенюВывестиСписок</name>
+          <name>ConstantsListContextMenuOutputList</name>
           <id>21</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -419,7 +433,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокКонстантКонтекстноеМенюВывестиСписокExtendedTooltip</name>
+            <name>ConstantsListContextMenuOutputListExtendedTooltip</name>
             <id>34</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -433,7 +447,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокКонстант.StandardCommand.OutputList</commandName>
+          <commandName>Form.Item.ConstantsList.StandardCommand.OutputList</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -441,7 +455,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СписокКонстантКонтекстноеМенюКопироватьВБуферОбмена</name>
+          <name>ConstantsListContextMenuCopyToClipboard</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -449,7 +463,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СписокКонстантКонтекстноеМенюКопироватьВБуферОбменаExtendedTooltip</name>
+            <name>ConstantsListContextMenuCopyToClipboardExtendedTooltip</name>
             <id>35</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -463,7 +477,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Item.СписокКонстант.StandardCommand.CopyToClipboard</commandName>
+          <commandName>Form.Item.ConstantsList.StandardCommand.CopyToClipboard</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -475,8 +489,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>ru</key>
+          <value>Constants list context menu group1</value>
+        </title>
         <extendedTooltip>
-          <name>СписокКонстантКонтекстноеМенюГруппа1ExtendedTooltip</name>
+          <name>ConstantsListContextMenuGroup1ExtendedTooltip</name>
           <id>30</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -517,7 +535,7 @@
     <enableStartDrag>true</enableStartDrag>
     <enableDrag>true</enableDrag>
     <rowPictureDataPath xsi:type="form:DataPath">
-      <segments>СписокКонстант.ИндексКартинки</segments>
+      <segments>ConstantsList.PictureIndex</segments>
     </rowPictureDataPath>
     <rowsPicture xsi:type="form:FormPicture"/>
     <searchStringLocation>None</searchStringLocation>
@@ -526,11 +544,15 @@
     <rowFilter xsi:type="core:UndefinedValue"/>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>Группа1</name>
+    <name>Group1</name>
     <id>23</id>
     <items xsi:type="form:Decoration">
-      <name>Декорация1</name>
+      <name>Decoration1</name>
       <id>24</id>
+      <title>
+        <key>en</key>
+        <value>Auto record picture</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Картинка авторегистрации</value>
@@ -541,7 +563,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>Декорация1ExtendedTooltip</name>
+        <name>Decoration1ExtendedTooltip</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -556,7 +578,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>Декорация1КонтекстноеМеню</name>
+        <name>Decoration1ContextMenu</name>
         <id>25</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -576,8 +598,12 @@
       </extInfo>
     </items>
     <items xsi:type="form:Decoration">
-      <name>ДекорацияАвторегистрация</name>
+      <name>AutoRecordDecoration</name>
       <id>26</id>
+      <title>
+        <key>en</key>
+        <value>Register changes automatically</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Авторегистрация для узла</value>
@@ -588,7 +614,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДекорацияАвторегистрацияExtendedTooltip</name>
+        <name>AutoRecordDecorationExtendedTooltip</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -603,7 +629,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДекорацияАвторегистрацияКонтекстноеМеню</name>
+        <name>AutoRecordDecorationContextMenu</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -626,13 +652,17 @@
     <enabled>true</enabled>
     <userVisible/>
     <title>
+      <key>en</key>
+      <value>Legend</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Легенда</value>
     </title>
     <horizontalStretch>true</horizontalStretch>
     <verticalStretch>false</verticalStretch>
     <extendedTooltip>
-      <name>Группа1ExtendedTooltip</name>
+      <name>Group1ExtendedTooltip</name>
       <id>39</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -658,7 +688,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаВыбратьКонстанту</name>
+      <name>FormSelectConstant</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -666,7 +696,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаВыбратьКонстантуExtendedTooltip</name>
+        <name>FormSelectConstantExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -680,7 +710,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ВыбратьКонстанту</commandName>
+      <commandName>Form.Command.SelectConstant</commandName>
       <representation>PictureAndText</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -698,15 +728,15 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnReopen</event>
-    <name>ПриПовторномОткрытии</name>
+    <name>OnReopen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
@@ -718,7 +748,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
@@ -732,7 +762,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>СписокКонстант</name>
+    <name>ConstantsList</name>
+    <title>
+      <key>en</key>
+      <value>Constants list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Список констант</value>
@@ -748,10 +782,14 @@
       <common>true</common>
     </edit>
     <notDefaultUseAlwaysAttributes xsi:type="form:DataPath">
-      <segments>СписокКонстант.Наименование</segments>
+      <segments>ConstantsList.Description</segments>
     </notDefaultUseAlwaysAttributes>
     <columns>
-      <name>МетаПолноеИмя</name>
+      <name>MetaFullName</name>
+      <title>
+        <key>en</key>
+        <value>Meta full name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Мета полное имя</value>
@@ -769,7 +807,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Наименование</name>
+      <name>Description</name>
+      <title>
+        <key>en</key>
+        <value>Description</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Наименование</value>
@@ -787,7 +829,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинки</name>
+      <name>PictureIndex</name>
+      <title>
+        <key>en</key>
+        <value>Picture index</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Индекс картинки</value>
@@ -807,7 +853,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ИндексКартинкиАвторегистрация</name>
+      <name>AutoRecordPictureIndex</name>
+      <title>
+        <key>en</key>
+        <value>Auto record picture index</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Индекс картинки авторегистрация</value>
@@ -828,12 +878,20 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>ВыбратьКонстанту</name>
+    <name>SelectConstant</name>
+    <title>
+      <key>en</key>
+      <value>Select</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выбрать</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Select constant</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Выбрать константу</value>
@@ -846,13 +904,13 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыбратьКонстанту</name>
+        <name>SelectConstant</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
-    <name>НачальноеЗначениеВыбора</name>
+    <name>ChoiceInitialValue</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -860,19 +918,19 @@
     <keyParameter>true</keyParameter>
   </parameters>
   <parameters>
-    <name>МассивИменМетаданных</name>
+    <name>MetadataNamesArray</name>
     <valueType/>
   </parameters>
   <parameters>
-    <name>МассивПредставлений</name>
+    <name>PresentationsArray</name>
     <valueType/>
   </parameters>
   <parameters>
-    <name>МассивАвторегистрации</name>
+    <name>AutoRecordsArray</name>
     <valueType/>
   </parameters>
   <parameters>
-    <name>УзелОбмена</name>
+    <name>ExchangeNode</name>
     <valueType>
       <types>ExchangePlanRef</types>
     </valueType>

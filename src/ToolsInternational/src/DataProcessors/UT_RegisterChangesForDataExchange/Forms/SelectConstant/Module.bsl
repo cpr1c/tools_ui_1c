@@ -1,94 +1,94 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ФОРМЫ
+// EVENT HANDLERS
 //
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	ВыполнитьПроверкуПравДоступа("Администрирование", Метаданные);
+	VerifyAccessRights("Administration", Metadata);
 
-	Если Параметры.Свойство("АвтоТест") Тогда // Возврат при получении формы для анализа.
-		Возврат;
-	КонецЕсли;
+	If Parameters.Property("AutoTests") Then // Return when a form is received for analysis.
+		Return;
+	EndIf;
 
-	СписокКонстант.Очистить();
-	Для ТекИнд = 0 По Параметры.МассивИменМетаданных.ВГраница() Цикл
-		Строка = СписокКонстант.Добавить();
-		Строка.ИндексКартинкиАвторегистрация = Параметры.МассивАвторегистрации[ТекИнд];
-		Строка.ИндексКартинки                = 2;
-		Строка.МетаПолноеИмя                 = Параметры.МассивИменМетаданных[ТекИнд];
-		Строка.Наименование                  = Параметры.МассивПредставлений[ТекИнд];
-	КонецЦикла;
+	ConstantsList.Clear();
+	For CurIndex = 0 To Parameters.MetadataNamesArray.UBound() Do
+		Row = ConstantsList.Add();
+		Row.AutoRecordPictureIndex = Parameters.AutoRecordsArray[CurIndex];
+		Row.PictureIndex                = 2;
+		Row.MetaFullName                 = Parameters.MetadataNamesArray[CurIndex];
+		Row.Description                  = Parameters.PresentationsArray[CurIndex];
+	EndDo;
+	
+	AutoRecordTitle = NStr("ru = 'Авторегистрация для узла ""%1""'; en = 'Register changes for node %1 automatically'");
+	
+	Items.AutoRecordDecoration.Title = StrReplace(AutoRecordTitle, "%1", Parameters.ExchangeNode);
+EndProcedure
 
-	ЗаголовокАвторегистрации = НСтр("ru='Авторегистрация для узла ""%1""'");
+&AtClient
+Procedure OnOpen(Cancel)
+	CurParameters = SetFormParameters();
+	Items.ConstantsList.CurrentRow = CurParameters.CurrentRow;
+EndProcedure
 
-	Элементы.ДекорацияАвторегистрация.Заголовок = СтрЗаменить(ЗаголовокАвторегистрации, "%1", Параметры.УзелОбмена);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
-	ТекПараметры = УстановитьПараметрыФормы();
-	Элементы.СписокКонстант.ТекущаяСтрока = ТекПараметры.ТекущаяСтрока;
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПриПовторномОткрытии()
-	ТекПараметры = УстановитьПараметрыФормы();
-	Элементы.СписокКонстант.ТекущаяСтрока = ТекПараметры.ТекущаяСтрока;
-КонецПроцедуры
+&AtClient
+Procedure OnReopen()
+	CurParameters = SetFormParameters();
+	Items.ConstantsList.CurrentRow = CurParameters.CurrentRow;
+EndProcedure
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ТАБЛИЦЫ ФОРМЫ СписокКонстант
+// ConstantsList FORM TABLE ITEM EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура СписокКонстантВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	ПроизвестиВыборКонстанты();
-КонецПроцедуры
+&AtClient
+Procedure ConstantsListSelection(Item, RowSelected, Field, StandardProcessing)
+	PerformConstantSelection();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ КОМАНД ФОРМЫ
+// FORM COMMAND HANDLERS
 //
 
-// Производит выбор константы
+// Selects a constant.
 //
-&НаКлиенте
-Процедура ВыбратьКонстанту(Команда)
-	ПроизвестиВыборКонстанты();
-КонецПроцедуры
+&AtClient
+Procedure SelectConstant(Command)
+	PerformConstantSelection();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
+// PRIVATE
 //
 
-// Производит выбор и оповещает о нем
+// Performs the selection and notifies of it.
 //
-&НаКлиенте
-Процедура ПроизвестиВыборКонстанты()
-	Данные = Новый Массив;
-	Для Каждого ТекЭл Из Элементы.СписокКонстант.ВыделенныеСтроки Цикл
-		ТекСтрока = СписокКонстант.НайтиПоИдентификатору(ТекЭл);
-		Данные.Добавить(ТекСтрока.МетаПолноеИмя);
-	КонецЦикла;
-	ОповеститьОВыборе(Данные);
-КонецПроцедуры
+&AtClient
+Procedure PerformConstantSelection()
+	Data = New Array;
+	For Each CurrentRowItem In Items.ConstantsList.SelectedRows Do
+		curRow = ConstantsList.FindByID(CurrentRowItem);
+		Data.Add(curRow.MetaFullName);
+	EndDo;
+	NotifyChoice(Data);
+EndProcedure
 
-&НаСервере
-Функция УстановитьПараметрыФормы()
-	Результат = Новый Структура("ТекущаяСтрока");
-	Если Параметры.НачальноеЗначениеВыбора <> Неопределено Тогда
-		Результат.ТекущаяСтрока = ИдентификаторСтрокиПоМетаИмени(Параметры.НачальноеЗначениеВыбора);
-	КонецЕсли;
-	Возврат Результат;
-КонецФункции
+&AtServer
+Function SetFormParameters()
+	Result = New Structure("CurrentRow");
+	If Parameters.ChoiceInitialValue <> Undefined Then
+		Result.CurrentRow = RowIDByMetaName(Parameters.ChoiceInitialValue);
+	EndIf;
+	Return Result;
+EndFunction
 
-&НаСервере
-Функция ИдентификаторСтрокиПоМетаИмени(ПолноеИмяМетаданных)
-	Данные = РеквизитФормыВЗначение("СписокКонстант");
-	ТекСтрока = Данные.Найти(ПолноеИмяМетаданных, "МетаПолноеИмя");
-	Если ТекСтрока <> Неопределено Тогда
-		Возврат ТекСтрока.ПолучитьИдентификатор();
-	КонецЕсли;
-	Возврат Неопределено;
-КонецФункции
+&AtServer
+Function RowIDByMetaName(FullMetadataName)
+	Data = FormAttributeToValue("ConstantsList");
+	curRow = Data.Find(FullMetadataName, "MetaFullName");
+	If curRow <> Undefined Then
+		Return curRow.GetID();
+	EndIf;
+	Return Undefined;
+EndFunction
