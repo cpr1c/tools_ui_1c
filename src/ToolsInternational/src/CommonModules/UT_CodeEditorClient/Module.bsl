@@ -1703,7 +1703,7 @@ Procedure SaveEditorLibraryWriteBeginWritingNextFile(AdditionalParameters)
 				ThisObject, AdditionalParameters);
 		EndIf;
 
-		KeyValue.Value.BeginWrite(CompletionNotify, FileName);
+		KeyValue.Value.BeginWriting(CompletionNotify, FileName);
 		Break;
 	EndDo;
 
