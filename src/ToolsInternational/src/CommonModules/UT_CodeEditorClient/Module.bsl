@@ -1702,8 +1702,13 @@ Procedure SaveEditorLibraryWriteBeginWritingNextFile(AdditionalParameters)
 			CompletionNotify = New NotifyDescription("SaveEditorLibraryWriteBeginWritingNextFileEnd",
 				ThisObject, AdditionalParameters);
 		EndIf;
-
-		KeyValue.Value.BeginWrite(CompletionNotify, FileName);
+		If TypeOf(KeyValue.Value) = Type("TextDocument") Then  
+			KeyValue.Value.BeginWriting(CompletionNotify, FileName);
+		ElsIf TypeOf(KeyValue.Value) = Type("BinaryData")  Then
+			KeyValue.Value.BeginWrite(CompletionNotify, FileName);
+       	 Else 
+			KeyValue.Value.BeginWriting(CompletionNotify, FileName);	
+		EndIf;
 		Break;
 	EndDo;
 
