@@ -1,200 +1,200 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ФОРМЫ
+// EVENT HANDLERS
 //
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	ВыполнитьПроверкуПравДоступа("Администрирование", Метаданные);
+	VerifyAccessRights("Administration", Metadata);
 
-	Если Параметры.Свойство("АвтоТест") Тогда // Возврат при получении формы для анализа.
-		Возврат;
-	КонецЕсли;
+	If Parameters.Property("AutoTests") Then // Return when a form is received for analysis.
+		Return;
+	EndIf;
 
-	ИмяТаблицыДанных = Параметры.ИмяТаблицы;
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	ЗаголовокТаблицы  = "";
+	DataTableName = Parameters.TableName;
+	CurrentObject = ThisObject();
+	TableHeader  = "";
 	
-	// Определяемся, что за таблица к нам пришла
-	Описание = ТекущийОбъект.ХарактеристикиПоМетаданным(ИмяТаблицыДанных);
-	МетаИнфо = Описание.Метаданные;
-	Заголовок = МетаИнфо.Представление();
+	// Determining what kind of table is passed to the procedure.
+	Details = CurrentObject.MetadataCharacteristics(DataTableName);
+	MetaInfo = Details.Metadata;
+	Title = MetaInfo.Presentation();
 	
-	// Список и колонки
-	СтруктураДанных = "";
-	Если Описание.ЭтоСсылка Тогда
-		ЗаголовокТаблицы = МетаИнфо.ПредставлениеОбъекта;
-		Если ПустаяСтрока(ЗаголовокТаблицы) Тогда
-			ЗаголовокТаблицы = Заголовок;
-		КонецЕсли;
+	// List and columns
+	DataStructure = "";
+	If Details.IsReference Then
+		TableHeader = MetaInfo.ObjectPresentation;
+		If IsBlankString(TableHeader) Then
+			TableHeader = Title;
+		EndIf;
+		
+		DataList.CustomQuery = False;
+		DataList.MainTable = DataTableName;
 
-		СписокДанных.ПроизвольныйЗапрос = Ложь;
-		СписокДанных.ОсновнаяТаблица = ИмяТаблицыДанных;
+		Field = DataList.Filter.FilterAvailableFields.Items.Find(New DataCompositionField("Ref"));
+		ColumnsTable = New ValueTable;
+		Columns = ColumnsTable.Columns;
+		Columns.Add("Ref", Field.ValueType, TableHeader);
+		DataStructure = "Ref";
+		
+		DataFormKey = "Ref";
 
-		Поле = СписокДанных.Отбор.ДоступныеПоляОтбора.Элементы.Найти(Новый ПолеКомпоновкиДанных("Ссылка"));
-		ТаблицаКолонок = Новый ТаблицаЗначений;
-		Колонки = ТаблицаКолонок.Колонки;
-		Колонки.Добавить("Ссылка", Поле.ТипЗначения, ЗаголовокТаблицы);
-		СтруктураДанных = "Ссылка";
+	ElsIf Details.IsSet Then
+		Columns = CurrentObject.RecordSetDimensions(MetaInfo);
+		For Each CurrentColumnItem In Columns Do
+			DataStructure = DataStructure + "," + CurrentColumnItem.Name;
+		EndDo;
+		DataStructure = Mid(DataStructure, 2);
+		
+		DataList.CustomQuery = True;
+		DataList.QueryText = "SELECT DISTINCT " + DataStructure + " FROM " + DataTableName;
 
-		КлючФормыДанных = "Ссылка";
+		If Details.IsSequence Then
+			DataFormKey = "Recorder";
+		Else
+			DataFormKey = New Structure(DataStructure);
+		EndIf;
 
-	ИначеЕсли Описание.ЭтоНабор Тогда
-		Колонки = ТекущийОбъект.ИзмеренияНабораЗаписей(МетаИнфо);
-		Для Каждого ТекЭл Из Колонки Цикл
-			СтруктураДанных = СтруктураДанных + "," + ТекЭл.Имя;
-		КонецЦикла;
-		СтруктураДанных = Сред(СтруктураДанных, 2);
+	Else
+		// No columns
+		Return;
+	EndIf;
+	DataList.DynamicDataRead = True;
 
-		СписокДанных.ПроизвольныйЗапрос = Истина;
-		СписокДанных.ТекстЗапроса = "ВЫБРАТЬ РАЗЛИЧНЫЕ " + СтруктураДанных + " ИЗ " + ИмяТаблицыДанных;
-
-		Если Описание.ЭтоПоследовательность Тогда
-			КлючФормыДанных = "Регистратор";
-		Иначе
-			КлючФормыДанных = Новый Структура(СтруктураДанных);
-		КонецЕсли;
-
-	Иначе
-		// Без колонок???
-		Возврат;
-	КонецЕсли;
-	СписокДанных.ДинамическоеСчитываниеДанных = Истина;
-
-	ТекущийОбъект.ДобавитьКолонкиВТаблицуФормы(
-		Элементы.СписокДанных, "Порядок, Отбор, Группировка, СтандартнаяКартинка, Параметры, УсловноеОформление",
-		Колонки);
-КонецПроцедуры
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ЭЛЕМЕНТОВ ШАПКИ ФОРМЫ
-//
-
-&НаКлиенте
-Процедура ОтборПриИзменении(Элемент)
-	Элементы.СписокДанных.Обновить();
-КонецПроцедуры
+	CurrentObject.AddColumnsToFormTable(
+		Items.DataList, 
+		"Order, Filter, Group, StandardPicture, Parameters, ConditionalAppearance",
+		Columns);
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ТАБЛИЦЫ ФОРМЫ СписокДанных
+// FORM HEADER ITEMS EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура СписокДанныхВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-	ОткрытьФормуТекущегоОбъекта();
-КонецПроцедуры
+&AtClient
+Procedure FilterOnChange(Item)
+	Items.DataList.Refresh();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ КОМАНД ФОРМЫ
+// DataList FORM TABLE ITEMS EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура ОткрытьТекущийОбъект(Команда)
-	ОткрытьФормуТекущегоОбъекта();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ВыбратьОтобранныеЗначения(Команда)
-	ПроизвестиВыбор(Истина);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ВыбратьТекущуюСтроку(Команда)
-	ПроизвестиВыбор(Ложь);
-КонецПроцедуры
+&AtClient
+Procedure DataListSelection(Item, RowSelected, Field, StandardProcessing)
+	StandardProcessing = False;
+	OpenCurrentObjectForm();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
+// FORM COMMAND HANDLERS
 //
 
-&НаКлиенте
-Процедура ОткрытьФормуТекущегоОбъекта()
-	ТекПараметры = ПараметрыФормыТекущегоОбъекта(Элементы.СписокДанных.ТекущиеДанные);
-	Если ТекПараметры <> Неопределено Тогда
-		ОткрытьФорму(ТекПараметры.ИмяФормы, ТекПараметры.Ключ);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure OpenCurrentObject(Command)
+	OpenCurrentObjectForm();
+EndProcedure
 
-&НаКлиенте
-Процедура ПроизвестиВыбор(ВесьРезультатОтбора = Истина)
+&AtClient
+Procedure SelectFilteredValues(Command)
+	MakeChoice(True);
+EndProcedure
 
-	Если ВесьРезультатОтбора Тогда
-		Данные = ВсеВыбранныеЭлементы();
-	Иначе
-		Данные = Новый Массив;
-		Для Каждого ТекСтрока Из Элементы.СписокДанных.ВыделенныеСтроки Цикл
-			Элемент = Новый Структура(СтруктураДанных);
-			ЗаполнитьЗначенияСвойств(Элемент, Элементы.СписокДанных.ДанныеСтроки(ТекСтрока));
-			Данные.Добавить(Элемент);
-		КонецЦикла;
-	КонецЕсли;
+&AtClient
+Procedure SelectCurrentRow(Command)
+	MakeChoice(False);
+EndProcedure
 
-	ОповеститьОВыборе(Новый Структура("ИмяТаблицы, ДанныеВыбора, ДействиеВыбора, СтруктураПолей", Параметры.ИмяТаблицы,
-		Данные, Параметры.ДействиеВыбора, СтруктураДанных));
-КонецПроцедуры
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PRIVATE
+//
 
-&НаСервере
-Функция ЭтотОбъектОбработки(ТекущийОбъект = Неопределено)
-	Если ТекущийОбъект = Неопределено Тогда
-		Возврат РеквизитФормыВЗначение("Объект");
-	КонецЕсли;
-	ЗначениеВРеквизитФормы(ТекущийОбъект, "Объект");
-	Возврат Неопределено;
-КонецФункции
+&AtClient
+Procedure OpenCurrentObjectForm()
+	CurParameters = CurrentObjectFormParameters(Items.DataList.CurrentData);
+	If CurParameters <> Undefined Then
+		OpenForm(CurParameters.FormName, CurParameters.Key);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Функция ПараметрыФормыТекущегоОбъекта(Знач Данные)
+&AtClient
+Procedure MakeChoice(WholeFilterResult = True)
+	
+	If WholeFilterResult Then
+		Data = AllSelectedItems();
+	Else
+		Data = New Array;
+		For Each curRow In Items.DataList.SelectedRows Do
+			Item = New Structure(DataStructure);
+			FillPropertyValues(Item, Items.DataList.RowData(curRow));
+			Data.Add(Item);
+		EndDo;
+	EndIf;
 
-	Если Данные = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
+	NotifyChoice(New Structure("TableName, ChoiceData, ChoiceAction, FieldStructure", Parameters.TableName,
+		Data, Parameters.ChoiceAction, DataStructure));
+EndProcedure
 
-	Если ТипЗнч(КлючФормыДанных) = Тип("Строка") Тогда
-		Значение = Данные[КлючФормыДанных];
-		ТекИмяФормы = ЭтотОбъектОбработки().ПолучитьИмяФормы(Значение) + ".ФормаОбъекта";
-	Иначе
-		// Там структура с именами измерений
-		ТекИмяФормы = "";
-		ЗаполнитьЗначенияСвойств(КлючФормыДанных, Данные);
-		ТекПараметры = Новый Массив;
-		ТекПараметры.Добавить(КлючФормыДанных);
-		Попытка
-			Значение = Новый (СтрЗаменить(Параметры.ИмяТаблицы, ".", "КлючЗаписи."), ТекПараметры);
-			ТекИмяФормы = Параметры.ИмяТаблицы + ".ФормаЗаписи";
-		Исключение
-			// Обработка не требуется
-			;
-		КонецПопытки;
+&AtServer
+Function ThisObject(CurrentObject = Undefined) 
+	If CurrentObject = Undefined Then
+		Return FormAttributeToValue("Object");
+	EndIf;
+	ValueToFormAttribute(CurrentObject, "Object");
+	Return Undefined;
+EndFunction
 
-		Если ПустаяСтрока(ТекИмяФормы) Тогда
-			// Набор без ключей записи, типа оборотного регистра
-			Если Данные.Свойство("Регистратор") Тогда
-				Значение = Данные.Регистратор;
-			Иначе
-				Для Каждого КлючЗначение Из КлючФормыДанных Цикл
-					Значение = Данные[КлючЗначение.Ключ];
-					Прервать;
-				КонецЦикла;
-			КонецЕсли;
-			ТекИмяФормы = ЭтотОбъектОбработки().ПолучитьИмяФормы(Значение) + ".ФормаОбъекта";
-		КонецЕсли;
-	КонецЕсли;
+&AtServer
+Function CurrentObjectFormParameters(Val Data)
+	
+	If Data = Undefined Then
+		Return Undefined;
+	EndIf;
+	
+	If TypeOf(DataFormKey) = Type("String") Then
+		Value = Data[DataFormKey];
+		CurFormName = ThisObject().GetFormName(Value) + ".ObjectForm";
+	Else
+		// The structure contains dimension names.
+		CurFormName = "";
+		FillPropertyValues(DataFormKey, Data);
+		CurParameters = New Array;
+		CurParameters.Add(DataFormKey);
+		Try
+			Value = New (StrReplace(Parameters.TableName, ".", "RecordKey."), CurParameters);
+			CurFormName = Parameters.TableName + ".RecordForm";
+		Except
+			// no processing
+		EndTry;
 
-	Возврат Новый Структура("ИмяФормы, Ключ", ТекИмяФормы, Новый Структура("Ключ", Значение));
-КонецФункции
+		If IsBlankString(CurFormName) Then
+			// Record set without keys, for example turnovers accumulation register
+			If Data.Property("Recorder") Then
+				Value = Data.Recorder;
+			Else
+				For Each KeyValue In DataFormKey Do
+					Value = Data[KeyValue.Key];
+					Break;
+				EndDo;
+			EndIf;
+			CurFormName = ThisObject().GetFormName(Value) + ".ObjectForm";
+		Endif;
+	EndIf;
 
-&НаСервере
-Функция ВсеВыбранныеЭлементы()
+	Return New Structure("FormName, Key", CurFormName, New Structure("Key", Value));
+EndFunction
 
-	Данные = ЭтотОбъектОбработки().ТекущиеДанныеДинамическогоСписка(СписокДанных);
-
-	Результат = Новый Массив;
-	Для Каждого ТекСтрока Из Данные Цикл
-		Элемент = Новый Структура(СтруктураДанных);
-		ЗаполнитьЗначенияСвойств(Элемент, ТекСтрока);
-		Результат.Добавить(Элемент);
-	КонецЦикла;
-
-	Возврат Результат;
-КонецФункции
+&AtServer
+Function AllSelectedItems()
+	
+	Data = ThisObject().DynamicListCurrentData(DataList);
+	
+	Result = New Array();
+	For Each curRow In Data Do
+		Item = New Structure(DataStructure);
+		FillPropertyValues(Item, curRow);
+		Result.Add(Item);
+	EndDo;
+	
+	Return Result;
+EndFunction
