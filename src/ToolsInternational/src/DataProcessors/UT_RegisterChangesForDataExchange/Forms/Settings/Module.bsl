@@ -1,173 +1,172 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ФОРМЫ
+// EVENT HANDLERS
 //
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	ВыполнитьПроверкуПравДоступа("Администрирование", Метаданные);
+	VerifyAccessRights("Administration", Metadata);
 
-	Если Параметры.Свойство("АвтоТест") Тогда // Возврат при получении формы для анализа.
-		Возврат;
-	КонецЕсли;
+	If Parameters.Property("AutoTests") Then // Return when a form is received for analysis.
+		Return;
+	EndIf;
 
-	ИдентификаторКонсолиЗапросов = "УИ_КонсольЗапросов";
+	QueryConsoleID = "UT_QueryConsole";
 
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	ТекущийОбъект.ПрочитатьНастройки();
-	ТекущийОбъект.ПрочитатьПризнакПоддержкиБСП();
-
-	Строка = СокрЛП(ТекущийОбъект.QueryExternalDataProcessorAddressSetting);
-	Если НРег(Прав(Строка, 4)) = ".epf" Тогда
-		ВариантИспользованияКонсолиЗапросов = 2;
-	ИначеЕсли Метаданные.Обработки.Найти(Строка) <> Неопределено Тогда
-		ВариантИспользованияКонсолиЗапросов = 1;
-		Строка = "";
-	Иначе
-		ВариантИспользованияКонсолиЗапросов = 0;
-		Строка = "";
-	КонецЕсли;
-	ТекущийОбъект.QueryExternalDataProcessorAddressSetting = Строка;
-
-	ЭтотОбъектОбработки(ТекущийОбъект);
-
-	СписокВыбора = Элементы.ОбработкаЗапросаВнешняя.СписокВыбора;
+	CurrentObject = ThisObject();
+	CurrentObject.ReadSettings();
+	CurrentObject.ReadSSLSupportFlags();
 	
-	// В составе метаданных разрешаем, только если есть предопределенное
-	Если Метаданные.Обработки.Найти(ИдентификаторКонсолиЗапросов) = Неопределено Тогда
-		ТекЭлемент = СписокВыбора.НайтиПоЗначению(1);
-		Если ТекЭлемент <> Неопределено Тогда
-			СписокВыбора.Удалить(ТекЭлемент);
-		КонецЕсли;
-	КонецЕсли;
+	Row = TrimAll(CurrentObject.QueryExternalDataProcessorAddressSetting);
+	If Lower(Right(Row, 4)) = ".epf" Then
+		QueryConsoleUsageOption = 2;
+	ElsIf Metadata.DataProcessors.Find(Row) <> Undefined Then
+		QueryConsoleUsageOption = 1;
+		Row = "";
+	Else
+		QueryConsoleUsageOption = 0;
+		Row = "";
+	EndIf;
+	CurrentObject.QueryExternalDataProcessorAddressSetting = Row;
 	
-	// Строка опции из файла
-	Если ТекущийОбъект.ЭтоФайловаяБаза() Тогда
-		ТекЭлемент = СписокВыбора.НайтиПоЗначению(2);
-		Если ТекЭлемент <> Неопределено Тогда
-			ТекЭлемент.Представление = НСтр("ru='В каталоге:'");
-		КонецЕсли;
-	КонецЕсли;
+	ThisObject(CurrentObject);
+	
+	ChoiceList = Items.ExternalQueryDataProcessor.ChoiceList;
+	
+	// The data processor is included in the metadata if it is a predefined part of the configuration.
+	If Metadata.DataProcessors.Find(QueryConsoleID) = Undefined Then
+		CurItem = ChoiceList.FindByValue(1);
+		If CurItem <> Undefined Then
+			ChoiceList.Delete(CurItem);
+		EndIf;
+	EndIf;
+	
+	// Option string from the file
+	If CurrentObject.IsFileInfobase() Then
+		CurItem = ChoiceList.FindByValue(2);
+		If CurItem <> Undefined Then
+			CurItem.Presentation = NStr("ru = 'В каталоге:'; en = 'In directory:'");
+		EndIf;
+	EndIf;
 
-	// БСП разрешаем только если она есть и нужной версии
-	Элементы.ГруппаБСП.Видимость = ТекущийОбъект.ConfigurationSupportsSSL;
-
-КонецПроцедуры
+	// SSLGroup form item is visible if this SSL version is supported.
+	Items.SLGroup.Visible = CurrentObject.ConfigurationSupportsSSL
+	
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ЭЛЕМЕНТОВ ШАПКИ ФОРМЫ
+// FORM ITEM EVENT HANDLERS
 //
 
-&НаКлиенте
-Процедура ОбработкаЗапросаПутьПриИзменении(Элемент)
-	ВариантИспользованияКонсолиЗапросов = 2;
-КонецПроцедуры
+&AtClient
+Procedure QueryDataProcessorPathOnChange(Item)
+	QueryConsoleUsageOption = 2;
+EndProcedure
 
-&НаКлиенте
-Процедура ОбработкаЗапросаПутьНачалоВыбора(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-	Диалог = Новый ДиалогВыбораФайла(РежимДиалогаВыбораФайла.Открытие);
-	Диалог.ПроверятьСуществованиеФайла = Истина;
-	Диалог.Фильтр = НСтр("ru='Внешние обработки (*.epf)|*.epf'");
-	Диалог.Показать(Новый ОписаниеОповещения("ОбработкаЗапросаПутьНачалоВыбораЗавершение", ЭтаФорма,
-		Новый Структура("Диалог", Диалог)));
-КонецПроцедуры
+&AtClient
+Procedure QueryDataProcessorPathStartChoice(Item, ChioceData, StandardProcessing)
+	StandardProcessing = False;
+	Dialog = New FileDialog(FileDialogMode.Open);
+	Dialog.CheckFileExistence = True;
+	Dialog.Filter = NStr("ru='Внешние обработки (*.epf)|*.epf'; en='External data processor (*.epf)|*.epf'");
+	Dialog.Show(New NotifyDescription("QueryDataProcessorPathStartChoiceCompletion", ThisForm,
+		New Structure("Dialog", Dialog)));
+EndProcedure
 
-&НаКлиенте
-Процедура ОбработкаЗапросаПутьНачалоВыбораЗавершение(ВыбранныеФайлы, ДополнительныеПараметры) Экспорт
+&AtClient
+Procedure QueryDataProcessorPathStartChoiceCompletion(SelectedFiles, AdditionalParameters) Export
 
-	Диалог = ДополнительныеПараметры.Диалог;
-	Если (ВыбранныеФайлы <> Неопределено) Тогда
-		ВариантИспользованияКонсолиЗапросов = 2;
-		УстановитьНастройкуАдресВнешнейОбработкиЗапросов(Диалог.ПолноеИмяФайла);
-	КонецЕсли;
+	Dialog = AdditionalParameters.Dialog;
+	If (SelectedFiles <> Undefined) Then
+		QueryConsoleUsageOption = 2;
+		SetQueryExternalDataProcessorAddressSetting(Dialog.FullFileName);
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ КОМАНД ФОРМЫ
+// FORM COMMAND HANDLERS
 //
 
-&НаКлиенте
-Процедура ПодтвердитьВыбор(Команда)
-
-	Проверка = ПроверитьНастройки();
-	Если Проверка.ЕстьОшибки Тогда
-		// Сообщаем об ошибках
-		Если Проверка.QueryExternalDataProcessorAddressSetting <> Неопределено Тогда
-			СообщитьОбОшибке(Проверка.НастройкаАдресВнешнейОбработкиЗапросов,
-				"Объект.QueryExternalDataProcessorAddressSetting");
-			Возврат;
-		КонецЕсли;
-	КонецЕсли;
+&AtClient
+Procedure ConfirmSelection(Command)
 	
-	// Все успешно
-	СохранитьНастройки();
-	Закрыть();
-КонецПроцедуры
+	CheckSSL = CheckSettings();
+	If CheckSSL.HasErrors Then
+		// Reporting errors
+		If CheckSSL.QueryExternalDataProcessorAddressSetting <> Undefined Then
+			ReportError(CheckSSL.QueryExternalDataProcessorAddressSetting, "Object.QueryExternalDataProcessorAddressSetting");
+			Return;
+		EndIf;
+	EndIf;
+	
+	// Success
+	SaveSettings();
+	Close();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
+// PRIVATE
 //
 
-&НаКлиенте
-Процедура СообщитьОбОшибке(Текст, ИмяРеквизита = Неопределено)
+&AtClient
+Procedure ReportError(Text, AttributeName = Undefined)
+	
+	If AttributeName = Undefined Then
+		ErrorTitle = NStr("ru = 'Ошибка'; en = 'Error'");
+		ShowMessageBox(, Text, , ErrorTitle);
+		Return;
+	EndIf;
+	
+	Message = New UserMessage();
+	Message.Text = Text;
+	Message.Field  = AttributeName;
+	Message.SetData(ThisObject);
+	Message.Message();
+EndProcedure
 
-	Если ИмяРеквизита = Неопределено Тогда
-		ЗаголовокОшибки = НСтр("ru='Ошибка'");
-		ПоказатьПредупреждение( , Текст, , ЗаголовокОшибки);
-		Возврат;
-	КонецЕсли;
+&AtServer
+Function ThisObject(CurrentObject = Undefined) 
+	If CurrentObject = Undefined Then
+		Return FormAttributeToValue("Object");
+	EndIf;
+	ValueToFormAttribute(CurrentObject, "Object");
+	Return Undefined;
+EndFunction
 
-	Сообщение = Новый СообщениеПользователю;
-	Сообщение.Текст = Текст;
-	Сообщение.Поле  = ИмяРеквизита;
-	Сообщение.УстановитьДанные(ЭтотОбъект);
-	Сообщение.Сообщить();
-КонецПроцедуры
+&AtServer
+Function CheckSettings()
+	CurrentObject = ThisObject();
+	
+	If QueryConsoleUsageOption = 2 Then
+		If Lower(Right(TrimAll(CurrentObject.QueryExternalDataProcessorAddressSetting), 4)) <> ".epf" Then
+			CurrentObject.QueryExternalDataProcessorAddressSetting = TrimAll(
+				CurrentObject.QueryExternalDataProcessorAddressSetting) + ".epf";
+		EndIf;
+	ElsIf QueryConsoleUsageOption = 0 Then
+		CurrentObject.QueryExternalDataProcessorAddressSetting = "";
+	EndIf;
+	Result = CurrentObject.CheckSettingsCorrectness();
+	ThisObject(CurrentObject);
+
+	Return Result;
+EndFunction
+
+&AtServer
+Procedure SaveSettings()
+	CurrentObject = ThisObject();
+	If QueryConsoleUsageOption = 0 Then
+		CurrentObject.QueryExternalDataProcessorAddressSetting = "";
+	ElsIf QueryConsoleUsageOption = 1 Then
+		CurrentObject.QueryExternalDataProcessorAddressSetting = QueryConsoleID;
+	EndIf;
+	CurrentObject.SaveSettings();
+	ThisObject(CurrentObject);
+EndProcedure
 
 &НаСервере
-Функция ЭтотОбъектОбработки(ТекущийОбъект = Неопределено)
-	Если ТекущийОбъект = Неопределено Тогда
-		Возврат РеквизитФормыВЗначение("Объект");
-	КонецЕсли;
-	ЗначениеВРеквизитФормы(ТекущийОбъект, "Объект");
-	Возврат Неопределено;
-КонецФункции
-
-&НаСервере
-Функция ПроверитьНастройки()
-	ТекущийОбъект = ЭтотОбъектОбработки();
-
-	Если ВариантИспользованияКонсолиЗапросов = 2 Тогда
-		Если НРег(Прав(СокрЛП(ТекущийОбъект.QueryExternalDataProcessorAddressSetting), 4)) <> ".epf" Тогда
-			ТекущийОбъект.QueryExternalDataProcessorAddressSetting = СокрЛП(
-				ТекущийОбъект.QueryExternalDataProcessorAddressSetting) + ".epf";
-		КонецЕсли;
-	ИначеЕсли ВариантИспользованияКонсолиЗапросов = 0 Тогда
-		ТекущийОбъект.QueryExternalDataProcessorAddressSetting = "";
-	КонецЕсли;
-	Результат = ТекущийОбъект.ПроверитьКорректностьНастроек();
-	ЭтотОбъектОбработки(ТекущийОбъект);
-
-	Возврат Результат;
-КонецФункции
-
-&НаСервере
-Процедура СохранитьНастройки()
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	Если ВариантИспользованияКонсолиЗапросов = 0 Тогда
-		ТекущийОбъект.QueryExternalDataProcessorAddressSetting = "";
-	ИначеЕсли ВариантИспользованияКонсолиЗапросов = 1 Тогда
-		ТекущийОбъект.QueryExternalDataProcessorAddressSetting = ИдентификаторКонсолиЗапросов;
-	КонецЕсли;
-	ТекущийОбъект.СохранитьНастройки();
-	ЭтотОбъектОбработки(ТекущийОбъект);
-КонецПроцедуры
-
-&НаСервере
-Процедура УстановитьНастройкуАдресВнешнейОбработкиЗапросов(ПутьКФайлу)
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	ТекущийОбъект.QueryExternalDataProcessorAddressSetting = ПутьКФайлу;
-	ЭтотОбъектОбработки(ТекущийОбъект);
-КонецПроцедуры
+Procedure SetQueryExternalDataProcessorAddressSetting(FilePath)
+	CurrentObject = ThisObject();
+	CurrentObject.QueryExternalDataProcessorAddressSetting = FilePath;
+	ThisObject(CurrentObject);
+EndProcedure
