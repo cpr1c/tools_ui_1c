@@ -35,279 +35,278 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	ReadExchangeNodes();
 EndProcedure
 
-&НаКлиенте
-Процедура OnOpen(Отказ)
-	РазвернутьВсеУзлы();
-КонецПроцедуры
+&AtClient
+Procedure OnOpen(Cancel)
+	ExpandAllNodes();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ СОБЫТИЙ ТАБЛИЦЫ ФОРМЫ ExchangeNodesTree
+// ExchangeNodesTree FORM TABLE ITEM EVENT HANDLERS
 //
 
+&AtClient
+Procedure ExchangeNodeTreeSelection(Item, RowSelected, Field, StandardProcessing)
+	StandardProcessing = False;
+	If Field = Items.ExchangeNodesTreeDescription Or Field = Items.ExchangeNodesTreeCode Then
+		OpenOtherObjectEditForm();
+		Return;
+	ElsIf Field <> Items.ExchangeNodesTreeMessageNumber Then
+		Return;
+	EndIf;
+	
+	CurrentData = Items.ExchangeNodesTree.CurrentData;
+	Notification = New NotifyDescription("ExchangeNodeTreeChoiceCompletion", ThisObject, New Structure);
+	Notification.AdditionalParameters.Insert("Node", CurrentData.Ref);
+	
+	Tooltip = NStr("ru = 'Номер отправленного'; en = 'Number of the last sent message'"); 
+	ShowInputNumber(Notification, CurrentData.MessageNo, Tooltip);
+EndProcedure
+
 &НаКлиенте
-Процедура ExchangeNodesTreeSelection(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-	Если Поле = Элементы.ExchangeNodesTreeDescription Или Поле = Элементы.ExchangeNodesTreeCode Тогда
-		ОткрытьФормуРедактированияДругихОбъектов();
-		Возврат;
-	ИначеЕсли Поле <> Элементы.ExchangeNodesTreeMessageNumber Тогда
-		Возврат;
-	КонецЕсли;
-
-	ТекущиеДаные = Элементы.ExchangeNodesTree.ТекущиеДанные;
-	Оповещение = Новый ОписаниеОповещения("ДеревоУзловОбменаВыборЗавершение", ЭтотОбъект, Новый Структура);
-	Оповещение.ДополнительныеПараметры.Вставить("Узел", ТекущиеДаные.Ссылка);
-
-	Подсказка = НСтр("ru='Номер отправленного'");
-	ПоказатьВводЧисла(Оповещение, ТекущиеДаные.НомерСообщения, Подсказка);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ExchangeNodesTreeCheckMarkOnChange(Элемент)
-	ИзменениеПометки(Элементы.ExchangeNodesTree.ТекущаяСтрока);
-КонецПроцедуры
+Procedure ExchangeNodesTreeCheckMarkOnChange(Item)
+	ChangeMark(Items.ExchangeNodesTree.CurrentRow);
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// ОБРАБОТЧИКИ КОМАНД ФОРМЫ
+// FORM COMMAND HANDLERS
 //
 
-&НаКлиенте
-Процедура RereadNodeTree(Команда)
-	ТекущийУзел = ТекущийВыбранныйУзел();
-	ПрочитатьУзлыОбмена();
-	РазвернутьВсеУзлы(ТекущийУзел);
-КонецПроцедуры
+&AtClient
+Procedure RereadNodeTree(Command)
+	CurrentNode = CurrentSelectedNode();
+	ReadExchangeNodes();
+	ExpandAllNodes(CurrentNode);
+EndProcedure
 
-&НаКлиенте
-Процедура OpenEditFormFromNode(Команда)
-	ОткрытьФормуРедактированияДругихОбъектов();
-КонецПроцедуры
+&AtClient
+Procedure OpenEditFormFromNode(Command)
+	OpenOtherObjectEditForm();
+EndProcedure
 
-&НаКлиенте
-Процедура MarkAllNodes(Команда)
-	Для Каждого СтрокаПлана Из ExchangeNodesTree.ПолучитьЭлементы() Цикл
-		СтрокаПлана.Check = Истина;
-		ИзменениеПометки(СтрокаПлана.ПолучитьИдентификатор());
-	КонецЦикла
-	;
-КонецПроцедуры
+&AtClient
+Procedure MarkAllNodes(Command)
+	For Each PlanRow In ExchangeNodesTree.GetItems() Do
+		PlanRow.Check = True;
+		ChangeMark(PlanRow.GetID())
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура UnmarkAllNodes(Команда)
-	Для Каждого СтрокаПлана Из ExchangeNodesTree.ПолучитьЭлементы() Цикл
-		СтрокаПлана.Check = Ложь;
-		ИзменениеПометки(СтрокаПлана.ПолучитьИдентификатор());
-	КонецЦикла
-	;
-КонецПроцедуры
+&AtClient
+Procedure UnmarkAllNodes(Command)
+	For Each PlanRow In ExchangeNodesTree.GetItems() Do
+		PlanRow.Check = False;
+		ChangeMark(PlanRow.GetID())
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура InvertAllNodesChecks(Команда)
-	Для Каждого СтрокаПлана Из ExchangeNodesTree.ПолучитьЭлементы() Цикл
-		Для Каждого СтрокаУзла Из СтрокаПлана.ПолучитьЭлементы() Цикл
-			СтрокаУзла.Check = Не СтрокаУзла.Check;
-			ИзменениеПометки(СтрокаУзла.ПолучитьИдентификатор());
-		КонецЦикла
-		;
-	КонецЦикла;
-КонецПроцедуры
+&AtClient
+Procedure InvertAllNodesChecks(Command)
+	For Each PlanRow In ExchangeNodesTree.GetItems() Do
+		For Each NodeRow In PlanRow.GetItems() Do
+			NodeRow.Check = Not NodeRow.Check;
+			ChangeMark(NodeRow.GetID())
+		EndDo;
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура EditRegistration(Команда)
+&AtClient
+Procedure EditRegistration(Command)
+	
+	QuestionTitle = NStr("ru = 'Подтверждение'; en = 'Confirm operation'");
+	Text = NStr("ru = 'Изменить регистрацию ""%1""
+	             |на узлах?'; 
+	             |en = 'Do you want to change %1 registration
+	             |at all nodes?'");
+	
+	Text = StrReplace(Text, "%1", RegistrationObject);
+	
+	Notification = New NotifyDescription("EditRegistrationCompletion", ThisObject);
+	
+	ShowQueryBox(Notification, Text, QuestionDialogMode.YesNo, , ,QuestionTitle);
+EndProcedure
 
-	ЗаголовокВопроса = НСтр("ru='Подтверждение'");
-	Текст = НСтр("ru='Изменить регистрацию ""%1""
-				 |на узлах?'");
+&AtClient
+Procedure EditRegistrationCompletion(Val QuestionResult, Val AdditionalParameters) Export
+	If QuestionResult <> DialogReturnCode.Yes Then
+		Return;
+	EndIf;
+	
+	Count = NodeRegistrationEdit(ExchangeNodesTree);
+	If Count > 0 Then
+		Text = NStr("ru = 'Регистрация %1 была изменена на %2 узлах'; en = 'Registration of %1 changed at %2 nodes.'");
+		NotificationTitle = NStr("ru = 'Изменение регистрации:'; en = 'Registration changed:'");
+		
+		Text = StrReplace(Text, "%1", RegistrationObject);
+		Text = StrReplace(Text, "%2", Count);
+		
+		ShowUserNotification(NotificationTitle,
+			GetURL(RegistrationObject),
+			Text,
+			Items.HiddenPictureInformation32.Picture);
+		
+		If Parameters.NotifyAboutChanges Then
+			Notify("ObjectDataExchangeRegistrationEdit",
+				New Structure("RegistrationObject, RegistrationTable", RegistrationObject, RegistrationTable),
+				ThisObject);
+		EndIf;
+	EndIf;
+	
+	CurrentNode = CurrentSelectedNode();
+	ReadExchangeNodes(True);
+	ExpandAllNodes(CurrentNode);
+EndProcedure
 
-	Текст = СтрЗаменить(Текст, "%1", ОбъектРегистрации);
-
-	Оповещение = Новый ОписаниеОповещения("ИзменитьРегистрациюЗавершение", ЭтотОбъект);
-
-	ПоказатьВопрос(Оповещение, Текст, РежимДиалогаВопрос.ДаНет, , , ЗаголовокВопроса);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ИзменитьРегистрациюЗавершение(Знач РезультатВопроса, Знач ДополнительныеПараметры) Экспорт
-	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
-		Возврат;
-	КонецЕсли;
-
-	Колво = ИзменениеРегистрацииПоУзлам(ExchangeNodesTree);
-	Если Колво > 0 Тогда
-		Текст = НСтр("ru = 'Регистрация %1 была изменена на %2 узлах'");
-		ЗаголовокОповещения = НСтр("ru = 'Изменение регистрации:'");
-
-		Текст = СтрЗаменить(Текст, "%1", ОбъектРегистрации);
-		Текст = СтрЗаменить(Текст, "%2", Колво);
-
-		ПоказатьОповещениеПользователя(ЗаголовокОповещения, ПолучитьНавигационнуюСсылку(ОбъектРегистрации), Текст,
-			Элементы.HiddenPictureInformation32.Картинка);
-
-		Если Параметры.ОповещатьОбИзменениях Тогда
-			Оповестить("ИзменениеРегистрацииОбменаДаннымиОбъекта",
-				Новый Структура("ОбъектРегистрации, ТаблицаРегистрации", ОбъектРегистрации, ТаблицаРегистрации),
-				ЭтотОбъект);
-		КонецЕсли;
-	КонецЕсли;
-
-	ТекущийУзел = ТекущийВыбранныйУзел();
-	ПрочитатьУзлыОбмена(Истина);
-	РазвернутьВсеУзлы(ТекущийУзел);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура OpenSettingsForm(Команда)
-	ОткрытьФормуНастроекОбработки();
-КонецПроцедуры
+&AtClient
+Procedure OpenSettingsForm(Command)
+	OpenDataProcessorSettingsForm();
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// СЛУЖЕБНЫЕ ПРОЦЕДУРЫ И ФУНКЦИИ
+// PRIVATE
 //
 
-&НаКлиенте
-Процедура ДеревоУзловОбменаВыборЗавершение(Знач Число, Знач ДополнительныеПараметры) Экспорт
-	Если Число = Неопределено Тогда 
-		// Отказ от ввода
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure ExchangeNodeTreeChoiceCompletion(Val Number, Val AdditionalParameters) Export
+	If Number = Undefined Then 
+		// Canceling input.
+		Return;
+	EndIf;
+	
+	EditMessageNumberAtServer(AdditionalParameters.Node, Number, RegistrationObject, RegistrationTable);
+	
+	CurrentNode = CurrentSelectedNode();
+	ReadExchangeNodes(True);
+	ExpandAllNodes(CurrentNode);
+	
+	If Parameters.NotifyAboutChanges Then
+		Notify("ObjectDataExchangeRegistrationEdit",
+			New Structure("RegistrationObject, RegistrationTable", RegistrationObject, RegistrationTable),
+			ThisObject);
+	EndIf;
+EndProcedure
 
-	ИзменитьНомерСообщенияНаСервере(ДополнительныеПараметры.Узел, Число, ОбъектРегистрации, ТаблицаРегистрации);
+&AtClient
+Function CurrentSelectedNode()
+	CurrentData = Items.ExchangeNodesTree.CurrentData;
+	If CurrentData = Undefined Then
+		Return Undefined;
+	EndIf;
+	Return New Structure("Description, Ref", CurrentData.Description, CurrentData.Ref);
+EndFunction
 
-	ТекущийУзел = ТекущийВыбранныйУзел();
-	ПрочитатьУзлыОбмена(Истина);
-	РазвернутьВсеУзлы(ТекущийУзел);
+&AtClient
+Procedure OpenDataProcessorSettingsForm()
+	CurFormName = GetFormName() + "Form.Settings";
+	OpenForm(CurFormName, , ThisObject);
+EndProcedure
 
-	Если Параметры.ОповещатьОбИзменениях Тогда
-		Оповестить("ИзменениеРегистрацииОбменаДаннымиОбъекта", Новый Структура("ОбъектРегистрации, ТаблицаРегистрации",
-			ОбъектРегистрации, ТаблицаРегистрации), ЭтотОбъект);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure OpenOtherObjectEditForm()
+	CurFormName = GetFormName() + "Form.Form";
+	Data = Items.ExchangeNodesTree.CurrentData;
+	If Data <> Undefined AND Data.Ref <> Undefined Then
+		CurParameters = New Structure("ExchangeNode, CommandID, RelatedObjects", Data.Ref);
+		OpenForm(CurFormName, CurParameters, ThisObject);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Функция ТекущийВыбранныйУзел()
-	ТекущиеДанные = Элементы.ExchangeNodesTree.ТекущиеДанные;
-	Если ТекущиеДанные = Неопределено Тогда
-		Возврат Неопределено;
-	КонецЕсли;
-	Возврат Новый Структура("Description, Ссылка", ТекущиеДанные.Description, ТекущиеДанные.Ссылка);
-КонецФункции
+&AtClient
+Procedure ExpandAllNodes(FocusNode = Undefined)
+	FoundNode = Undefined;
+	
+	For Each Row In ExchangeNodesTree.GetItems() Do
+		ID = Row.GetID();
+		Items.ExchangeNodesTree.Expand(ID, True);
+		
+		If FocusNode <> Undefined And FoundNode = Undefined Then
+			If Row.Description = FocusNode.Description And Row.Ref = FocusNode.Ref Then
+				FoundNode = ID;
+			Else
+				For Each ChildRow In Row.GetItems() Do
+					If ChildRow.Description = FocusNode.Description And ChildRow.Ref = FocusNode.Ref Then
+						FoundNode = ChildRow.GetID();
+					EndIf;
+				EndDo;
+			EndIf;
+		EndIf;
+		
+	EndDo;
+	
+	If FocusNode <> Undefined And FoundNode <> Undefined Then
+		Items.ExchangeNodesTree.CurrentRow = FoundNode;
+	EndIf;
+	
+EndProcedure
 
-&НаКлиенте
-Процедура ОткрытьФормуНастроекОбработки()
-	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.Настройки";
-	ОткрытьФорму(ТекИмяФормы, , ЭтотОбъект);
-КонецПроцедуры
+&AtServer
+Function NodeRegistrationEdit(Val Data)
+	CurrentObject = ThisObject();
+	NodeCount = 0;
+	For Each Row In Data.GetItems() Do
+		If Row.Ref <> Undefined Then
+			AlreadyRegistered = CurrentObject.ObjectRegisteredForNode(Row.Ref, RegistrationObject, RegistrationTable);
+			If Row.Check = 0 AND AlreadyRegistered Then
+				Result = CurrentObject.EditRegistrationAtServer(False, True, Row.Ref, RegistrationObject, RegistrationTable);
+				NodeCount = NodeCount + Result.Success;
+			ElsIf Row.Check = 1 AND (Not AlreadyRegistered) Then
+				Result = CurrentObject.EditRegistrationAtServer(True, True, Row.Ref, RegistrationObject, RegistrationTable);
+				NodeCount = NodeCount + Result.Success;
+			EndIf;
+		EndIf;
+		NodeCount = NodeCount + NodeRegistrationEdit(Row);
+	EndDo;
+	Return NodeCount;
+EndFunction
 
-&НаКлиенте
-Процедура ОткрытьФормуРедактированияДругихОбъектов()
-	ТекИмяФормы = ПолучитьИмяФормы() + "Форма.Форма";
-	Данные = Элементы.ExchangeNodesTree.ТекущиеДанные;
-	Если Данные <> Неопределено И Данные.Ссылка <> Неопределено Тогда
-		ТекПараметры = Новый Структура("УзелОбмена, ИдентификаторКоманды, ОбъектыНазначения", Данные.Ссылка);
-		ОткрытьФорму(ТекИмяФормы, ТекПараметры, ЭтотОбъект);
-	КонецЕсли;
-КонецПроцедуры
+&AtServer
+Function EditMessageNumberAtServer(Node, MessageNumber, Data, TableName = Undefined)
+	Return ThisObject().EditRegistrationAtServer(MessageNumber, True, Node, Data, TableName);
+EndFunction
 
-&НаКлиенте
-Процедура РазвернутьВсеУзлы(УзелФокуса = Неопределено)
-	НайденныйУзел = Неопределено;
+&AtServer
+Function ThisObject(CurrentObject = Undefined) 
+	If CurrentObject = Undefined Then
+		Return FormAttributeToValue("Object");
+	EndIf;
+	ValueToFormAttribute(CurrentObject, "Object");
+	Return Undefined;
+EndFunction
 
-	Для Каждого Строка Из ExchangeNodesTree.ПолучитьЭлементы() Цикл
-		Идентификатор = Строка.ПолучитьИдентификатор();
-		Элементы.ExchangeNodesTree.Развернуть(Идентификатор, Истина);
+&AtServer
+Function GetFormName(CurrentObject = Undefined)
+	Return ThisObject().GetFormName(CurrentObject);
+EndFunction
 
-		Если УзелФокуса <> Неопределено И НайденныйУзел = Неопределено Тогда
-			Если Строка.Description = УзелФокуса.Description И Строка.Ссылка = УзелФокуса.Ссылка Тогда
-				НайденныйУзел = Идентификатор;
-			Иначе
-				Для Каждого Подстрока Из Строка.ПолучитьЭлементы() Цикл
-					Если Подстрока.Description = УзелФокуса.Description И Подстрока.Ссылка = УзелФокуса.Ссылка Тогда
-						НайденныйУзел = Подстрока.ПолучитьИдентификатор();
-					КонецЕсли;
-				КонецЦикла;
-			КонецЕсли;
-		КонецЕсли;
+&AtServer
+Procedure ChangeMark(Row)
+	DataItem = ExchangeNodesTree.FindByID(Row);
+	ThisObject().ChangeMark(DataItem);
+EndProcedure
 
-	КонецЦикла;
-
-	Если УзелФокуса <> Неопределено И НайденныйУзел <> Неопределено Тогда
-		Элементы.ExchangeNodesTree.ТекущаяСтрока = НайденныйУзел;
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаСервере
-Функция ИзменениеРегистрацииПоУзлам(Знач Данные)
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	КолвоУзлов = 0;
-	Для Каждого Строка Из Данные.ПолучитьЭлементы() Цикл
-		Если Строка.Ссылка <> Неопределено Тогда
-			флУже = ТекущийОбъект.ОбъектЗарегистрированНаУзле(Строка.Ссылка, ОбъектРегистрации, ТаблицаРегистрации);
-			Если Строка.Check = 0 И флУже Тогда
-				Результат = ТекущийОбъект.ИзменитьРегистрациюНаСервере(Ложь, Истина, Строка.Ссылка, ОбъектРегистрации,
-					ТаблицаРегистрации);
-				КолвоУзлов = КолвоУзлов + Результат.Успешно;
-			ИначеЕсли Строка.Check = 1 И (Не флУже) Тогда
-				Результат = ТекущийОбъект.ИзменитьРегистрациюНаСервере(Истина, Истина, Строка.Ссылка,
-					ОбъектРегистрации, ТаблицаРегистрации);
-				КолвоУзлов = КолвоУзлов + Результат.Успешно;
-			КонецЕсли;
-		КонецЕсли;
-		КолвоУзлов = КолвоУзлов + ИзменениеРегистрацииПоУзлам(Строка);
-	КонецЦикла;
-	Возврат КолвоУзлов;
-КонецФункции
-
-&НаСервере
-Функция ИзменитьНомерСообщенияНаСервере(Узел, НомерСообщения, Данные, ИмяТаблицы = Неопределено)
-	Возврат ЭтотОбъектОбработки().ИзменитьРегистрациюНаСервере(НомерСообщения, Истина, Узел, Данные, ИмяТаблицы);
-КонецФункции
-
-&НаСервере
-Функция ЭтотОбъектОбработки(ТекущийОбъект = Неопределено)
-	Если ТекущийОбъект = Неопределено Тогда
-		Возврат РеквизитФормыВЗначение("Объект");
-	КонецЕсли;
-	ЗначениеВРеквизитФормы(ТекущийОбъект, "Объект");
-	Возврат Неопределено;
-КонецФункции
-
-&НаСервере
-Функция ПолучитьИмяФормы(ТекущийОбъект = Неопределено)
-	Возврат ЭтотОбъектОбработки().ПолучитьИмяФормы(ТекущийОбъект);
-КонецФункции
-
-&НаСервере
-Процедура ИзменениеПометки(Строка)
-	ЭлементДанных = ExchangeNodesTree.НайтиПоИдентификатору(Строка);
-	ЭтотОбъектОбработки().ИзменениеПометки(ЭлементДанных);
-КонецПроцедуры
-
-&НаСервере
-Процедура ПрочитатьУзлыОбмена(ТолькоОбновить = Ложь)
-	ТекущийОбъект = ЭтотОбъектОбработки();
-	Дерево = ТекущийОбъект.СформироватьДеревоУзлов(ОбъектРегистрации, ТаблицаРегистрации);
-
-	Если ТолькоОбновить Тогда
-		// Обновляем некоторые поля текущим данным
-		Для Каждого СтрокаПлана Из ExchangeNodesTree.ПолучитьЭлементы() Цикл
-			Для Каждого СтрокаУзла Из СтрокаПлана.ПолучитьЭлементы() Цикл
-				СтрокаДерева = Дерево.Строки.Найти(СтрокаУзла.Ссылка, "Ссылка", Истина);
-				Если СтрокаДерева <> Неопределено Тогда
-					ЗаполнитьЗначенияСвойств(СтрокаУзла, СтрокаДерева,
-						"Check, ИсходнаяПометка, MessageNo, НеВыгружалось");
-				КонецЕсли;
-			КонецЦикла;
-		КонецЦикла;
-	Иначе
-		// Переформируем полностью
-		ЗначениеВРеквизитФормы(Дерево, "ExchangeNodesTree");
-	КонецЕсли;
-
-	Для Каждого СтрокаПлана Из ExchangeNodesTree.ПолучитьЭлементы() Цикл
-		Для Каждого СтрокаУзла Из СтрокаПлана.ПолучитьЭлементы() Цикл
-			ТекущийОбъект.ИзменениеПометки(СтрокаУзла);
-		КонецЦикла;
-	КонецЦикла;
-
-КонецПроцедуры
+&AtServer
+Procedure ReadExchangeNodes(OnlyUpdate = False)
+	CurrentObject = ThisObject();
+	Tree = CurrentObject.GenerateNodeTree(RegistrationObject, RegistrationTable);
+	
+	If OnlyUpdate Then
+		// Updating  fields using the current tree values.
+		For Each PlanRow In ExchangeNodesTree.GetItems() Do
+			For Each NodeRow In PlanRow.GetItems() Do
+				TreeRow = Tree.Rows.Find(NodeRow.Ref, "Ref", True);
+				If TreeRow <> Undefined Then
+					FillPropertyValues(NodeRow, TreeRow, "Check, InitialMark, MessageNo, NotExported");
+				EndIf;
+			EndDo;
+		EndDo;
+	Else
+		// Assigning a new value to the ExchangeNodeTree form attribute
+		ValueToFormAttribute(Tree, "ExchangeNodesTree");
+	EndIf;
+	
+	For Each PlanRow In ExchangeNodesTree.GetItems() Do
+		For Each NodeRow In PlanRow.GetItems() Do
+			CurrentObject.ChangeMark(NodeRow);
+		EndDo;
+	EndDo;
+	
+EndProcedure

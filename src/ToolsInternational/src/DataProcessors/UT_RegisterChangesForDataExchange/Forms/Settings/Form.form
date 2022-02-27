@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Settings</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Настройки</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>Группа8</name>
+    <name>Group8</name>
     <id>32</id>
     <items xsi:type="form:FormGroup">
-      <name>Группа1</name>
+      <name>Group1</name>
       <id>5</id>
       <items xsi:type="form:Decoration">
-        <name>Декорация1</name>
+        <name>Decoration1</name>
         <id>13</id>
+        <title>
+          <key>ru</key>
+          <value>Decoration1</value>
+        </title>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>Декорация1ExtendedTooltip</name>
+          <name>Decoration1ExtendedTooltip</name>
           <id>37</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -34,7 +42,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>Декорация1КонтекстноеМеню</name>
+          <name>Decoration1ContextMenu</name>
           <id>14</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -52,11 +60,15 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>Группа4</name>
+        <name>Group4</name>
         <id>12</id>
         <items xsi:type="form:FormField">
-          <name>АвторегистрацияДвижений</name>
+          <name>RegisterRecordsAutoRecord</name>
           <id>1</id>
+          <title>
+            <key>en</key>
+            <value>Register records with documents</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Движений вместе с документами</value>
@@ -68,12 +80,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.RegisterRecordAutoRecordSetting</segments>
+              <segments>Object.RegisterRecordAutoRecordSetting</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
-            <name>АвторегистрацияДвиженийExtendedTooltip</name>
+            <name>RegisterRecordsAutoRecordExtendedTooltip</name>
             <id>39</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -88,7 +100,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>АвторегистрацияДвиженийКонтекстноеМеню</name>
+            <name>RegisterRecordsAutoRecordContextMenu</name>
             <id>2</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -105,8 +117,12 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>АвторегистрацияПоследовательностей</name>
+          <name>SequencesAutoRecord</name>
           <id>3</id>
+          <title>
+            <key>en</key>
+            <value>Sequences with documents</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Последовательностей вместе с документами</value>
@@ -118,12 +134,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.SequenceAutoRecordSetting</segments>
+              <segments>Object.SequenceAutoRecordSetting</segments>
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
-            <name>АвторегистрацияПоследовательностейExtendedTooltip</name>
+            <name>SequencesAutoRecordExtendedTooltip</name>
             <id>40</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -138,7 +154,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>АвторегистрацияПоследовательностейКонтекстноеМеню</name>
+            <name>SequencesAutoRecordContextMenu</name>
             <id>4</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -160,7 +176,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>Группа4ExtendedTooltip</name>
+          <name>Group4ExtendedTooltip</name>
           <id>38</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -189,12 +205,16 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Auto register</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Авторегистрация</value>
       </title>
       <horizontalStretch>true</horizontalStretch>
       <extendedTooltip>
-        <name>Группа1ExtendedTooltip</name>
+        <name>Group1ExtendedTooltip</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -219,10 +239,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>Группа7</name>
+      <name>Group7</name>
       <id>29</id>
       <items xsi:type="form:FormField">
-        <name>НомераСообщенийРегистрации</name>
+        <name>RegistrationMessagesNumbers</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -231,12 +251,12 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Объект.MessageNumberOptionSetting</segments>
+            <segments>Object.MessageNumberOptionSetting</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>НомераСообщенийРегистрацииExtendedTooltip</name>
+          <name>RegistrationMessagesNumbersExtendedTooltip</name>
           <id>42</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -251,7 +271,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>НомераСообщенийРегистрацииКонтекстноеМеню</name>
+          <name>RegistrationMessagesNumbersContextMenu</name>
           <id>31</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -269,6 +289,10 @@
           <columnsCount>1</columnsCount>
           <choiceList>
             <presentation>
+              <key>en</key>
+              <value>Register as unsent messages</value>
+            </presentation>
+            <presentation>
               <key>ru</key>
               <value>Регистрировать как не отправленные</value>
             </presentation>
@@ -277,6 +301,10 @@
             </value>
           </choiceList>
           <choiceList>
+            <presentation>
+              <key>en</key>
+              <value>Use message numbers of the exchange node</value>
+            </presentation>
             <presentation>
               <key>ru</key>
               <value>Использовать номер сообщения узла обмена</value>
@@ -297,7 +325,7 @@
         <value>Установка номера сообщения при регистрации</value>
       </title>
       <extendedTooltip>
-        <name>Группа7ExtendedTooltip</name>
+        <name>Group7ExtendedTooltip</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -328,7 +356,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>Группа8ExtendedTooltip</name>
+      <name>Group8ExtendedTooltip</name>
       <id>35</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -351,18 +379,22 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>Группа2</name>
+    <name>Group2</name>
     <id>8</id>
     <items xsi:type="form:Decoration">
-      <name>Декорация2</name>
+      <name>Decoration2</name>
       <id>16</id>
+      <title>
+        <key>ru</key>
+        <value>Decoration2</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>Декорация2ExtendedTooltip</name>
+        <name>Decoration2ExtendedTooltip</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -377,7 +409,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>Декорация2КонтекстноеМеню</name>
+        <name>Decoration2ContextMenu</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -395,14 +427,18 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>Группа3</name>
+      <name>Group3</name>
       <id>15</id>
       <items xsi:type="form:FormGroup">
-        <name>Группа5</name>
+        <name>Group5</name>
         <id>24</id>
         <items xsi:type="form:FormField">
-          <name>ОбработкаЗапросаВнешняя</name>
+          <name>ExternalQueryDataProcessor</name>
           <id>9</id>
+          <title>
+            <key>en</key>
+            <value>Auxiliary data processor to process query results</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Вспомогательная обработка для работы с результатами запроса</value>
@@ -414,12 +450,12 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ВариантИспользованияКонсолиЗапросов</segments>
+              <segments>QueryConsoleUsageOption</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ОбработкаЗапросаВнешняяExtendedTooltip</name>
+            <name>ExternalQueryDataProcessorExtendedTooltip</name>
             <id>47</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -434,7 +470,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОбработкаЗапросаВнешняяКонтекстноеМеню</name>
+            <name>ExternalQueryDataProcessorContextMenu</name>
             <id>10</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -452,6 +488,10 @@
             <columnsCount>1</columnsCount>
             <choiceList>
               <presentation>
+                <key>en</key>
+                <value>Use console from server directory:</value>
+              </presentation>
+              <presentation>
                 <key>ru</key>
                 <value>В каталоге сервера:</value>
               </presentation>
@@ -461,6 +501,10 @@
             </choiceList>
             <choiceList>
               <presentation>
+                <key>en</key>
+                <value>Use built-in console</value>
+              </presentation>
+              <presentation>
                 <key>ru</key>
                 <value>В составе конфигурации</value>
               </presentation>
@@ -469,6 +513,10 @@
               </value>
             </choiceList>
             <choiceList>
+              <presentation>
+                <key>en</key>
+                <value>Do not use</value>
+              </presentation>
               <presentation>
                 <key>ru</key>
                 <value>Не использовать</value>
@@ -485,7 +533,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>Группа5ExtendedTooltip</name>
+          <name>Group5ExtendedTooltip</name>
           <id>46</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -509,10 +557,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>Группа6</name>
+        <name>Group6</name>
         <id>25</id>
         <items xsi:type="form:FormField">
-          <name>ОбработкаЗапросаПуть</name>
+          <name>QueryDataProcessorPath</name>
           <id>22</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -521,16 +569,16 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Объект.QueryExternalDataProcessorAddressSetting</segments>
+              <segments>Object.QueryExternalDataProcessorAddressSetting</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
           <handlers>
             <event>OnChange</event>
-            <name>ОбработкаЗапросаПутьПриИзменении</name>
+            <name>QueryDataProcessorPathOnChange</name>
           </handlers>
           <extendedTooltip>
-            <name>ОбработкаЗапросаПутьExtendedTooltip</name>
+            <name>QueryDataProcessorPathExtendedTooltip</name>
             <id>49</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -545,7 +593,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ОбработкаЗапросаПутьКонтекстноеМеню</name>
+            <name>QueryDataProcessorPathContextMenu</name>
             <id>23</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -562,7 +610,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>StartChoice</event>
-              <name>ОбработкаЗапросаПутьНачалоВыбора</name>
+              <name>QueryDataProcessorPathStartChoice</name>
             </handlers>
             <width>50</width>
             <autoMaxWidth>true</autoMaxWidth>
@@ -580,7 +628,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>Группа6ExtendedTooltip</name>
+          <name>Group6ExtendedTooltip</name>
           <id>48</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -610,7 +658,7 @@
       </userVisible>
       <enableContentChange>true</enableContentChange>
       <extendedTooltip>
-        <name>Группа3ExtendedTooltip</name>
+        <name>Group3ExtendedTooltip</name>
         <id>45</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -637,12 +685,16 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Query console</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Консоль запросов</value>
     </title>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>Группа2ExtendedTooltip</name>
+      <name>Group2ExtendedTooltip</name>
       <id>43</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -667,11 +719,15 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаБСП</name>
+    <name>SLGroup</name>
     <id>26</id>
     <items xsi:type="form:FormField">
-      <name>НастройкаКонтрольВыгрузкиОбъектов</name>
+      <name>ObjectExportControlSetting</name>
       <id>27</id>
+      <title>
+        <key>en</key>
+        <value>Use data migration restrictions when registering object changes</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Использовать при регистрации изменений объектов ограничения
@@ -684,12 +740,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.ObjectExportControlSetting</segments>
+          <segments>Object.ObjectExportControlSetting</segments>
         </paths>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <extendedTooltip>
-        <name>НастройкаКонтрольВыгрузкиОбъектовExtendedTooltip</name>
+        <name>ObjectExportControlSettingExtendedTooltip</name>
         <id>51</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -704,7 +760,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НастройкаКонтрольВыгрузкиОбъектовКонтекстноеМеню</name>
+        <name>ObjectExportControlSettingContextMenu</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -726,16 +782,24 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Standard Subsystems Library</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Библиотека стандартных подсистем</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>SL group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа БСП</value>
     </toolTip>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>ГруппаБСПExtendedTooltip</name>
+      <name>SLGroupExtendedTooltip</name>
       <id>50</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -765,8 +829,12 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаОК</name>
+      <name>FormOK</name>
       <id>18</id>
+      <title>
+        <key>en</key>
+        <value>Write</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Записать</value>
@@ -778,7 +846,7 @@
       </userVisible>
       <defaultItem>true</defaultItem>
       <extendedTooltip>
-        <name>ФормаОКExtendedTooltip</name>
+        <name>FormOKExtendedTooltip</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -792,7 +860,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ПодтвердитьВыбор</commandName>
+      <commandName>Form.Command.ConfirmSelection</commandName>
       <representation>PictureAndText</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -804,7 +872,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаОтмена</name>
+      <name>FormCancel</name>
       <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -812,7 +880,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаОтменаExtendedTooltip</name>
+        <name>FormCancelExtendedTooltip</name>
         <id>34</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -844,7 +912,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
@@ -855,7 +923,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_RegisterChangesForDataExchange</types>
@@ -869,7 +937,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ВариантИспользованияКонсолиЗапросов</name>
+    <name>QueryConsoleUsageOption</name>
+    <title>
+      <key>en</key>
+      <value>Query console usage option</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вариант использования консоли запросов</value>
@@ -889,7 +961,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИдентификаторКонсолиЗапросов</name>
+    <name>QueryConsoleID</name>
+    <title>
+      <key>en</key>
+      <value>Query console ID</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Идентификатор консоли запросов</value>
@@ -907,12 +983,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ПодтвердитьВыбор</name>
+    <name>ConfirmSelection</name>
+    <title>
+      <key>en</key>
+      <value>OK</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Confirm selection</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Подтвердить выбор</value>
@@ -925,7 +1009,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПодтвердитьВыбор</name>
+        <name>ConfirmSelection</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
