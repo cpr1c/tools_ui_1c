@@ -13,12 +13,12 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	ExecutionCheckTimeInterval = 5; // 5 seconds.
 
 	ПараметрыОтбора = New Structure;
-	ПараметрыОтбора.Insert("Выполнять", True);
-	Включено = TableOfScheduledJobs.FindRows(ПараметрыОтбора).Count();
+	ПараметрыОтбора.Insert("ToPerform", True);
+	Included = TableOfScheduledJobs.FindRows(ПараметрыОтбора).Count();
 
-	If Включено <> 0 Then
-		Items.СтрокаСостояния.Title = ПодставитьПараметрыВСтроку(
-			NStr("ru = 'Отмеченные регламентные задания выполняются на этом клиентском компьютере (%1)...'"), Включено);
+	If Included <> 0 Then
+		Items.StatusBar.Title = SubstituteParametersIntoTheString(
+			NStr("ru = 'Отмеченные регламентные задания выполняются на этом клиентском компьютере (%1)...';en = 'Marked scheduled jobs are running on this client computer (%1)...'"), Included);
 	EndIf;
 
 	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
@@ -39,45 +39,45 @@ EndProcedure
 
 #EndRegion
 
-#Region ОбработчикиСобытийЭлементовФормы
+#Region FormElementEventHandlers
 
 &AtClient
-Procedure РегламентныеЗаданияВыполнятьПриИзменении(Item)
+Procedure TableOfScheduledJobsToPerformOnChange(Item)
 	CurrentData = Items.ScheduledJobs.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ИзменитьИспользованиеРегламентногоЗадания(CurrentData.ID, CurrentData.Выполнять);
+	EditUseScheduledJob(CurrentData.ID, CurrentData.ToPerform);
 
 	ПараметрыОтбора = New Structure;
-	ПараметрыОтбора.Insert("Выполнять", True);
-	Включено = TableOfScheduledJobs.FindRows(ПараметрыОтбора).Count();
+	ПараметрыОтбора.Insert("ToPerform", True);
+	Included = TableOfScheduledJobs.FindRows(ПараметрыОтбора).Count();
 
-	If Включено = 0 Then
-		Items.СтрокаСостояния.Title = NStr(
-			"ru = 'Отметьте регламентные задания для выполнения на клиентском компьютере...'");
+	If Included = 0 Then
+		Items.StatusBar.Title = NStr(
+			"ru = 'Отметьте регламентные задания для выполнения на клиентском компьютере...';en = 'Mark scheduled tasks to run on the client computer...'");
 	Else
-		Items.СтрокаСостояния.Title = ПодставитьПараметрыВСтроку(
-			NStr("ru = 'Отмеченные регламентные задания выполняются на этом клиентском компьютере (%1)...'"), Включено);
+		Items.StatusBar.Title = SubstituteParametersIntoTheString(
+			NStr("ru = 'Отмеченные регламентные задания выполняются на этом клиентском компьютере (%1)...';en = 'Marked scheduled jobs run on this client computer (%1)...'"), Included);
 	EndIf;
 
 EndProcedure
 
 &AtServer
-Procedure ИзменитьИспользованиеРегламентногоЗадания(ID, Выполнять)
+Procedure EditUseScheduledJob(ID, ToPerform)
 
 	Properties = CommonSettingsStorage.Load("СостояниеРегламентногоЗадания_" + String(ID), , , "");
 
 	Properties = ?(TypeOf(Properties) = Type("ValueStorage"), Properties.Get(), Undefined);
 	If Properties = Undefined Then
-		Properties = ПустаяТаблицаСвойствФоновыхЗаданий().Add();
+		Properties = EmptyPropertyTableBackgroundJobs().Add();
 		Properties.ScheduledJobUUID = ID;
-		Properties = СтрокаТаблицыЗначенийВСтруктуру(Properties);
+		Properties = RowTableValuesInStructure(Properties);
 	EndIf;
-	Properties.Выполнять = Выполнять;
-	СохраняемоеЗначение = New ValueStorage(Properties);
-	CommonSettingsStorage.Save("СостояниеРегламентногоЗадания_" + String(ID), , СохраняемоеЗначение, ,
+	Properties.ToPerform = ToPerform;
+	StoredValue = New ValueStorage(Properties);
+	CommonSettingsStorage.Save("СостояниеРегламентногоЗадания_" + String(ID), , StoredValue, ,
 		"");
 
 EndProcedure
@@ -123,10 +123,10 @@ Procedure SetConditionalAppearance()
 	Item = ConditionalAppearance.Items.Add();
 
 	ПолеЭлемента = Item.Fields.Items.Add();
-	ПолеЭлемента.Field = New DataCompositionField(Items.РегламентныеЗаданияВыполнено.Name);
+	ПолеЭлемента.Field = New DataCompositionField(Items.TableOfScheduledJobsDone.Name);
 
 	ОтборЭлемента = Item.Filter.Items.Add(Type("DataCompositionFilterItem"));
-	ОтборЭлемента.LeftValue  = New DataCompositionField("ТаблицаРегламентныхЗаданий.Изменено");
+	ОтборЭлемента.LeftValue  = New DataCompositionField("TableOfScheduledJobs.Changed");
 	ОтборЭлемента.ComparisonType   = DataCompositionComparisonType.Equal;
 	ОтборЭлемента.RightValue = True;
 
@@ -169,97 +169,97 @@ EndProcedure
 Procedure UpdateScheduledJobsTable()
 
 	SetPrivilegedMode(True);
-	ТекущиеЗадания = ScheduledJobs.GetScheduledJobs();
+	CurrentJobs = ScheduledJobs.GetScheduledJobs();
 
-	НоваяТаблицаЗаданий = FormAttributeToValue("TableOfScheduledJobs");
-	НоваяТаблицаЗаданий.Clear();
+	NewTableJobs = FormAttributeToValue("TableOfScheduledJobs");
+	NewTableJobs.Clear();
 
-	For Each Задание In ТекущиеЗадания Do
-		СтрокаЗадания = НоваяТаблицаЗаданий.Add();
+	For Each Job In CurrentJobs Do
+		СтрокаЗадания = NewTableJobs.Add();
 
-		СтрокаЗадания.ScheduledJob = ПредставлениеРегламентногоЗадания(Задание);
-		СтрокаЗадания.Выполнено     = Date(1, 1, 1);
-		СтрокаЗадания.ID = Задание.UUID;
+		СтрокаЗадания.ScheduledJob = RepresentationScheduledJob(Job);
+		СтрокаЗадания.Done     = Date(1, 1, 1);
+		СтрокаЗадания.ID = Job.UUID;
 
-		СвойстваПоследнегоФоновогоЗадания = СвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(Задание);
+		PropertiesLastBackgroundJob = PropertiesLastBackgroundJobRunningRegularJob(Job);
 
-		If СвойстваПоследнегоФоновогоЗадания <> Undefined Then
-			If ValueIsFilled(СвойстваПоследнегоФоновогоЗадания.End) Then
-				СтрокаЗадания.Выполнено = СвойстваПоследнегоФоновогоЗадания.End;
-				СтрокаЗадания.Статус = String(СвойстваПоследнегоФоновогоЗадания.Status);
+		If PropertiesLastBackgroundJob <> Undefined Then
+			If ValueIsFilled(PropertiesLastBackgroundJob.End) Then
+				СтрокаЗадания.Done = PropertiesLastBackgroundJob.End;
+				СтрокаЗадания.Status = String(PropertiesLastBackgroundJob.Status);
 			EndIf;
 
-			СтрокаЗадания.Выполнять = СвойстваПоследнегоФоновогоЗадания.Выполнять;
+			СтрокаЗадания.ToPerform = PropertiesLastBackgroundJob.ToPerform;
 		EndIf;
 
 		СвойстваЗадания = TableOfScheduledJobs.FindRows(
 			New Structure("ID", СтрокаЗадания.ID));
 
-		СтрокаЗадания.Изменено = (СвойстваЗадания = Undefined) Or (СвойстваЗадания.Count() = 0)
-			Or (СвойстваЗадания[0].Выполнено <> СтрокаЗадания.Выполнено);
+		СтрокаЗадания.Changed = (СвойстваЗадания = Undefined) Or (СвойстваЗадания.Count() = 0)
+			Or (СвойстваЗадания[0].Done <> СтрокаЗадания.Done);
 	EndDo;
 
-	НоваяТаблицаЗаданий.Sort("ScheduledJob");
+	NewTableJobs.Sort("ScheduledJob");
 
 	НомерЗадания = 1;
-	For Each СтрокаЗадания In НоваяТаблицаЗаданий Do
+	For Each СтрокаЗадания In NewTableJobs Do
 		СтрокаЗадания.Number = НомерЗадания;
 		НомерЗадания = НомерЗадания + 1;
 	EndDo;
 
-	ValueToFormAttribute(НоваяТаблицаЗаданий, "TableOfScheduledJobs");
+	ValueToFormAttribute(NewTableJobs, "TableOfScheduledJobs");
 
 EndProcedure
 
 &AtClient
 Procedure CompleteScheduledJobsAtServer(LaunchParameter)
 #If ThickClientOrdinaryApplication Then 
-	ЗапуститьВыполнениеРегламентныхЗаданий(ThisObject.TableOfScheduledJobs);
+	RunTheExectutionSheduledJobs(ThisObject.TableOfScheduledJobs);
 	UpdateScheduledJobsTable();
 #EndIf
 EndProcedure
 
 &AtClientAtServerNoContext
-Procedure ЗапуститьВыполнениеРегламентныхЗаданий(ТаблицаРегламентныхЗаданий)
+Procedure RunTheExectutionSheduledJobs(ТаблицаРегламентныхЗаданий)
 #If Server Or ThickClientOrdinaryApplication Then
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
+	CallExceptionIfNoAdministrativeRights();
 	SetPrivilegedMode(True);
 
-	Status = СостояниеВыполненияРегламентныхЗаданий();
+	Status = StateOfCompletionScheduledJobs();
 
 	ВремяВыполнения = ?(TypeOf(ВремяВыполнения) = Type("Number"), ВремяВыполнения, 0);
 
-	Задания                        = ScheduledJobs.GetScheduledJobs();
-	ВыполнениеЗавершено            = False; // Определяет, что ВремяВыполнения закончилось, или
+	Jobs                        = ScheduledJobs.GetScheduledJobs();
+	ExecutionCompleted            = False; // Определяет, что ВремяВыполнения закончилось, или
 	                                       // все возможные регламентные задания выполнены.
 	НачалоВыполнения               = CurrentSessionDate();
 	КоличествоВыполненныхЗаданий   = 0;
-	ФоновоеЗаданиеВыполнялось      = False;
+	BackgroundJobRunning      = False;
 	ИдентификаторПоследнегоЗадания = Status.ИдентификаторОчередногоЗадания;
 
 	// Count заданий проверяется каждый раз при начале выполнения,
 	// т.к. задания могут быть удалены в другом сеансе, а тогда будет зацикливание.
-	While Not ВыполнениеЗавершено And Задания.Count() > 0 Do
+	While Not ExecutionCompleted And Jobs.Count() > 0 Do
 		ПервоеЗаданиеНайдено           = (ИдентификаторПоследнегоЗадания = Undefined);
 //		ОчередноеЗаданиеНайдено        = False;
-		For Each Задание In Задания Do
+		For Each Job In Jobs Do
 			ПараметрыОтбора = New Structure;
-			ПараметрыОтбора.Insert("ID", Задание.UUID);
-			Result = ТаблицаРегламентныхЗаданий.FindRows(ПараметрыОтбора);
-			ЗаданиеВключено = Result[0].Выполнять;
+			ПараметрыОтбора.Insert("ID", Job.UUID);
+			Result = TableOfScheduledJobs.FindRows(ПараметрыОтбора);
+			ЗаданиеВключено = Result[0].ToPerform;
 			
 			// End выполнения, если:
 			// а) время задано и вышло;
 			// б) время не задано и хоть одно фоновое задание выполнено;
 			// в) время не задано и все регламентные задания выполнены по количеству.
-			If (ВремяВыполнения = 0 And (ФоновоеЗаданиеВыполнялось Or КоличествоВыполненныхЗаданий
-				>= Задания.Count())) Or (ВремяВыполнения <> 0 And НачалоВыполнения + ВремяВыполнения
+			If (ВремяВыполнения = 0 And (BackgroundJobRunning Or КоличествоВыполненныхЗаданий
+				>= Jobs.Count())) Or (ВремяВыполнения <> 0 And НачалоВыполнения + ВремяВыполнения
 				<= CurrentSessionDate()) Then
-				ВыполнениеЗавершено = True;
+				ExecutionCompleted = True;
 				Break;
 			EndIf;
 			If Not ПервоеЗаданиеНайдено Then
-				If String(Задание.UUID) = ИдентификаторПоследнегоЗадания Then
+				If String(Job.UUID) = ИдентификаторПоследнегоЗадания Then
 				   // Найдено последнее выполненное регламентное задание, значит следующее
 				   // регламентное задание нужно проверять на необходимость выполнения фонового задания.
 					ПервоеЗаданиеНайдено = True;
@@ -270,45 +270,45 @@ Procedure ЗапуститьВыполнениеРегламентныхЗада
 			EndIf;
 //			ОчередноеЗаданиеНайдено = True;
 			КоличествоВыполненныхЗаданий = КоличествоВыполненныхЗаданий + 1;
-			Status.ИдентификаторОчередногоЗадания       = String(Задание.UUID);
+			Status.ИдентификаторОчередногоЗадания       = String(Job.UUID);
 			Status.НачалоВыполненияОчередногоЗадания    = CurrentSessionDate();
 			Status.ОкончаниеВыполненияОчередногоЗадания = '00010101';
-			СохранитьСостояниеВыполненияРегламентныхЗаданий(Status, "ИдентификаторОчередногоЗадания,
+			SaveStateOfCompletionScheduledJobs(Status, "ИдентификаторОчередногоЗадания,
 																	   |НачалоВыполненияОчередногоЗадания,
 																	   |ОкончаниеВыполненияОчередногоЗадания");
 			If ЗаданиеВключено Then
-				ВыполнитьРегламентноеЗадание = False;
-				СвойстваПоследнегоФоновогоЗадания = СвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(
-					Задание);
+				ExecuteScheduledJob = False;
+				PropertiesLastBackgroundJob = PropertiesLastBackgroundJobRunningRegularJob(
+					Job);
 
-				If СвойстваПоследнегоФоновогоЗадания <> Undefined And СвойстваПоследнегоФоновогоЗадания.Status
+				If PropertiesLastBackgroundJob <> Undefined And PropertiesLastBackgroundJob.Status
 					= BackgroundJobState.Failed Then
 					// Проверка аварийного расписания.
-					If СвойстваПоследнегоФоновогоЗадания.ПопыткаЗапуска
-						<= Задание.RestartCountOnFailure Then
-						If СвойстваПоследнегоФоновогоЗадания.End + Задание.RestartIntervalOnFailure
+					If PropertiesLastBackgroundJob.ПопыткаЗапуска
+						<= Job.RestartCountOnFailure Then
+						If PropertiesLastBackgroundJob.End + Job.RestartIntervalOnFailure
 							<= CurrentSessionDate() Then
 						    // Повторный запуск фонового задания по регламентному заданию.
-							ВыполнитьРегламентноеЗадание = True;
+							ExecuteScheduledJob = True;
 						EndIf;
 					EndIf;
 				Else
 					// Проверяем стандартное расписание.
-					ВыполнитьРегламентноеЗадание = Задание.Schedule.ExecutionRequired(
-						CurrentSessionDate(), ?(СвойстваПоследнегоФоновогоЗадания = Undefined, '00010101',
-						СвойстваПоследнегоФоновогоЗадания.Begin), ?(СвойстваПоследнегоФоновогоЗадания = Undefined,
-						'00010101', СвойстваПоследнегоФоновогоЗадания.End));
+					ExecuteScheduledJob = Job.Schedule.ExecutionRequired(
+						CurrentSessionDate(), ?(PropertiesLastBackgroundJob = Undefined, '00010101',
+						PropertiesLastBackgroundJob.Begin), ?(PropertiesLastBackgroundJob = Undefined,
+						'00010101', PropertiesLastBackgroundJob.End));
 				EndIf;
-				If ВыполнитьРегламентноеЗадание Then
-					ФоновоеЗаданиеВыполнялось = ВыполнитьРегламентноеЗадание(Задание);
+				If ExecuteScheduledJob Then
+					BackgroundJobRunning = ExecuteScheduledJob(Job);
 				EndIf;
 			EndIf;
 			Status.ОкончаниеВыполненияОчередногоЗадания = CurrentSessionDate();
-			СохранитьСостояниеВыполненияРегламентныхЗаданий(Status, "ОкончаниеВыполненияОчередногоЗадания");
+			SaveStateOfCompletionScheduledJobs(Status, "ОкончаниеВыполненияОчередногоЗадания");
 		EndDo;
-		// If последнее выполненное задание найти не удалось, тогда
-		// его ID сбрасывается,
-		// чтобы начать проверку регламентных заданий, начиная с первого.
+		// If the last executed task could not be found, then
+		// its ID is reset,
+		// to start checking scheduled tasks starting from the first.
 		ИдентификаторПоследнегоЗадания = Undefined;
 	EndDo;
 
@@ -316,7 +316,7 @@ Procedure ЗапуститьВыполнениеРегламентныхЗада
 EndProcedure
 
 &AtServerNoContext
-Function ВыполнитьРегламентноеЗадание(Val Задание)
+Function ExecuteScheduledJob(Val Job)
 	ЗапускВручную = False;
 	МоментЗапуска = Undefined;
 	МоментОкончания = Undefined;
@@ -325,88 +325,88 @@ Function ВыполнитьРегламентноеЗадание(Val Задан
 	//@skip-warning
 	SessionStarted = Undefined;
 //	
-	СвойстваПоследнегоФоновогоЗадания = СвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(Задание);
+	PropertiesLastBackgroundJob = PropertiesLastBackgroundJobRunningRegularJob(Job);
 
-	If СвойстваПоследнегоФоновогоЗадания <> Undefined And СвойстваПоследнегоФоновогоЗадания.Status
+	If PropertiesLastBackgroundJob <> Undefined And PropertiesLastBackgroundJob.Status
 		= BackgroundJobState.Active Then
 
-		SessionNumber  = СвойстваПоследнегоФоновогоЗадания.SessionNumber;
-		SessionStarted = СвойстваПоследнегоФоновогоЗадания.SessionStarted;
+		SessionNumber  = PropertiesLastBackgroundJob.SessionNumber;
+		SessionStarted = PropertiesLastBackgroundJob.SessionStarted;
 		Return False;
 	EndIf;
 
-	MethodName = Задание.Metadata.MethodName;
-	НаименованиеФоновогоЗадания = ПодставитьПараметрыВСтроку(
+	MethodName = Job.Metadata.MethodName;
+	НаименованиеФоновогоЗадания = SubstituteParametersIntoTheString(
 		?(ЗапускВручную, NStr("ru = 'Run вручную: %1'"), NStr("ru = 'Автозапуск: %1'")),
-		ПредставлениеРегламентногоЗадания(Задание));
+		RepresentationScheduledJob(Job));
 
 	МоментЗапуска = ?(TypeOf(МоментЗапуска) <> Type("Date") Or Not ValueIsFilled(МоментЗапуска),
 		CurrentSessionDate(), МоментЗапуска);
 	
 	// Creating свойств нового фонового псевдо-задания.
-	СвойстваФоновогоЗадания = ПустаяТаблицаСвойствФоновыхЗаданий().Add();
-	СвойстваФоновогоЗадания.Выполнять = СвойстваПоследнегоФоновогоЗадания.Выполнять;
-	СвойстваФоновогоЗадания.ID  = String(New UUID);
-	СвойстваФоновогоЗадания.ПопыткаЗапуска = ?(
-		СвойстваПоследнегоФоновогоЗадания <> Undefined And СвойстваПоследнегоФоновогоЗадания.Status
-		= BackgroundJobState.Failed, СвойстваПоследнегоФоновогоЗадания.ПопыткаЗапуска + 1, 1);
-	СвойстваФоновогоЗадания.Title                      = НаименованиеФоновогоЗадания;
-	СвойстваФоновогоЗадания.ScheduledJobUUID = String(Задание.UUID);
-	СвойстваФоновогоЗадания.Placement                      = "\\" + ComputerName();
-	СвойстваФоновогоЗадания.MethodName                         = MethodName;
-	СвойстваФоновогоЗадания.Status                         = BackgroundJobState.Active;
-	СвойстваФоновогоЗадания.Begin                            = МоментЗапуска;
-	СвойстваФоновогоЗадания.SessionNumber                       = InfoBaseSessionNumber();
+	BackgroundJobProperties = EmptyPropertyTableBackgroundJobs().Add();
+	BackgroundJobProperties.ToPerform = PropertiesLastBackgroundJob.ToPerform;
+	BackgroundJobProperties.ID  = String(New UUID);
+	BackgroundJobProperties.ПопыткаЗапуска = ?(
+		PropertiesLastBackgroundJob <> Undefined And PropertiesLastBackgroundJob.Status
+		= BackgroundJobState.Failed, PropertiesLastBackgroundJob.ПопыткаЗапуска + 1, 1);
+	BackgroundJobProperties.Title                      = НаименованиеФоновогоЗадания;
+	BackgroundJobProperties.ScheduledJobUUID = String(Job.UUID);
+	BackgroundJobProperties.Placement                      = "\\" + ComputerName();
+	BackgroundJobProperties.MethodName                         = MethodName;
+	BackgroundJobProperties.Status                         = BackgroundJobState.Active;
+	BackgroundJobProperties.Begin                            = МоментЗапуска;
+	BackgroundJobProperties.SessionNumber                       = InfoBaseSessionNumber();
 
 	For Each Сеанс In GetInfoBaseSessions() Do
-		If Сеанс.SessionNumber = СвойстваФоновогоЗадания.SessionNumber Then
-			СвойстваФоновогоЗадания.SessionStarted = Сеанс.SessionStarted;
+		If Сеанс.SessionNumber = BackgroundJobProperties.SessionNumber Then
+			BackgroundJobProperties.SessionStarted = Сеанс.SessionStarted;
 			Break;
 		EndIf;
 	EndDo;
 	
 	// Save информации о запуске.
-	СохраняемоеЗначение = New ValueStorage(СтрокаТаблицыЗначенийВСтруктуру(СвойстваФоновогоЗадания));
-	CommonSettingsStorage.Save("СостояниеРегламентногоЗадания_" + String(Задание.UUID), ,
-		СохраняемоеЗначение, , "");
+	StoredValue = New ValueStorage(RowTableValuesInStructure(BackgroundJobProperties));
+	CommonSettingsStorage.Save("СостояниеРегламентногоЗадания_" + String(Job.UUID), ,
+		StoredValue, , "");
 
 	GetUserMessages(True);
 	Try
 		// Здесь нет возможности выполнения произвольного кода, т.к. метод берется из метаданных регламентного задания.
-		ВыполнитьМетодКонфигурации(MethodName, Задание.Parameters);
-		СвойстваФоновогоЗадания.Status = BackgroundJobState.Finished;
+		ExecuteMethodConfiguration(MethodName, Job.Parameters);
+		BackgroundJobProperties.Status = BackgroundJobState.Finished;
 	Except
-		СвойстваФоновогоЗадания.Status = BackgroundJobState.Failed;
-		СвойстваФоновогоЗадания.ОписаниеИнформацииОбОшибке = DetailErrorDescription(ErrorInfo());
+		BackgroundJobProperties.Status = BackgroundJobState.Failed;
+		BackgroundJobProperties.DescriptionErrorInformation = DetailErrorDescription(ErrorInfo());
 	EndTry;
 	
 	// Фиксация окончания выполнения метода.
 	МоментОкончания = CurrentSessionDate();
-	СвойстваФоновогоЗадания.End = МоментОкончания;
-	СвойстваФоновогоЗадания.СообщенияПользователю = New Array;
+	BackgroundJobProperties.End = МоментОкончания;
+	BackgroundJobProperties.MessagesToUser = New Array;
 	For Each Message In GetUserMessages() Do
-		СвойстваФоновогоЗадания.СообщенияПользователю.Add(Message);
+		BackgroundJobProperties.MessagesToUser.Add(Message);
 	EndDo;
 	GetUserMessages(True);
 
 	Properties = CommonSettingsStorage.Load("СостояниеРегламентногоЗадания_" + String(
-		Задание.UUID), , , "");
+		Job.UUID), , , "");
 	Properties = ?(TypeOf(Properties) = Type("ValueStorage"), Properties.Get(), Undefined);
 
 	If TypeOf(Properties) <> Type("Structure") Or Not Properties.Property("SessionNumber") Or Not Properties.Property(
-		"SessionStarted") Or (Properties.SessionNumber = СвойстваФоновогоЗадания.SessionNumber And Properties.SessionStarted
-		= СвойстваФоновогоЗадания.SessionStarted) Then
+		"SessionStarted") Or (Properties.SessionNumber = BackgroundJobProperties.SessionNumber And Properties.SessionStarted
+		= BackgroundJobProperties.SessionStarted) Then
 		// Маловероятной перезаписи из-за отсутствия блокировки не произошло, поэтому можно записать свойства.
-		СохраняемоеЗначение = New ValueStorage(СтрокаТаблицыЗначенийВСтруктуру(СвойстваФоновогоЗадания));
-		CommonSettingsStorage.Save("СостояниеРегламентногоЗадания_" + String(Задание.UUID), ,
-			СохраняемоеЗначение, , "");
+		StoredValue = New ValueStorage(RowTableValuesInStructure(BackgroundJobProperties));
+		CommonSettingsStorage.Save("СостояниеРегламентногоЗадания_" + String(Job.UUID), ,
+			StoredValue, , "");
 	EndIf;
 
 	Return True;
 EndFunction
 
 &AtServerNoContext
-Function СостояниеВыполненияРегламентныхЗаданий()
+Function StateOfCompletionScheduledJobs()
 	// Подготовка данных для проверки или начальной установки свойств прочитанного состояния.
 	НоваяСтруктура = New Structure;
 	// Location истории выполнения фоновых заданий.
@@ -419,7 +419,7 @@ Function СостояниеВыполненияРегламентныхЗада�
 	НоваяСтруктура.Insert("НачалоВыполненияОчередногоЗадания", '00010101');
 	НоваяСтруктура.Insert("ОкончаниеВыполненияОчередногоЗадания", '00010101');
 
-	Status = CommonSettingsStorage.Load("СостояниеВыполненияРегламентныхЗаданий", , , "");
+	Status = CommonSettingsStorage.Load("StateOfCompletionScheduledJobs", , , "");
 	Status = ?(TypeOf(Status) = Type("ValueStorage"), Status.Get(), Undefined);
 	
 	// Copy существующих свойств.
@@ -437,22 +437,22 @@ Function СостояниеВыполненияРегламентныхЗада�
 EndFunction
 
 &AtClientAtServerNoContext
-Procedure СохранитьСостояниеВыполненияРегламентныхЗаданий(Status, Val ИзмененныеСвойства = Undefined)
+Procedure SaveStateOfCompletionScheduledJobs(Status, Val ChangedProperties = Undefined)
 #If Server Or ThickClientOrdinaryApplication Then
-	If ИзмененныеСвойства <> Undefined Then
-		ТекущееСостояние = СостояниеВыполненияРегламентныхЗаданий();
-		FillPropertyValues(ТекущееСостояние, Status, ИзмененныеСвойства);
-		Status = ТекущееСостояние;
+	If ChangedProperties <> Undefined Then
+		CurrentState = StateOfCompletionScheduledJobs();
+		FillPropertyValues(CurrentState, Status, ChangedProperties);
+		Status = CurrentState;
 	EndIf;
 
-	CommonSettingsStorage.Save("СостояниеВыполненияРегламентныхЗаданий", , New ValueStorage(Status), ,
+	CommonSettingsStorage.Save("StateOfCompletionScheduledJobs", , New ValueStorage(Status), ,
 		"");
 #EndIf
 EndProcedure
 
 &AtServerNoContext
-Function СвойстваПоследнегоФоновогоЗаданияВыполненияРегламентногоЗадания(ScheduledJob)
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
+Function PropertiesLastBackgroundJobRunningRegularJob(ScheduledJob)
+	CallExceptionIfNoAdministrativeRights();
 	SetPrivilegedMode(True);
 
 	ИдентификаторРегламентногоЗадания = ?(TypeOf(ScheduledJob) = Type("ScheduledJob"), String(
@@ -464,27 +464,27 @@ Function СвойстваПоследнегоФоновогоЗаданияВы�
 	ТаблицаСвойствФоновыхЗаданий.Sort("End Asc");
 
 	If ТаблицаСвойствФоновыхЗаданий.Count() = 0 Then
-		СвойстваФоновогоЗадания = Undefined;
+		BackgroundJobProperties = Undefined;
 	ElsIf Not ValueIsFilled(ТаблицаСвойствФоновыхЗаданий[0].End) Then
-		СвойстваФоновогоЗадания = ТаблицаСвойствФоновыхЗаданий[0];
+		BackgroundJobProperties = ТаблицаСвойствФоновыхЗаданий[0];
 	Else
-		СвойстваФоновогоЗадания = ТаблицаСвойствФоновыхЗаданий[ТаблицаСвойствФоновыхЗаданий.Count() - 1];
+		BackgroundJobProperties = ТаблицаСвойствФоновыхЗаданий[ТаблицаСвойствФоновыхЗаданий.Count() - 1];
 	EndIf;
 
-	СохраняемоеЗначение = New ValueStorage(?(СвойстваФоновогоЗадания = Undefined, Undefined,
-		СтрокаТаблицыЗначенийВСтруктуру(СвойстваФоновогоЗадания)));
+	StoredValue = New ValueStorage(?(BackgroundJobProperties = Undefined, Undefined,
+		RowTableValuesInStructure(BackgroundJobProperties)));
 	CommonSettingsStorage.Save("СостояниеРегламентногоЗадания_" + ИдентификаторРегламентногоЗадания, ,
-		СохраняемоеЗначение, , "");
+		StoredValue, , "");
 
-	Return СвойстваФоновогоЗадания;
+	Return BackgroundJobProperties;
 EndFunction
 
 &AtServerNoContext
 Function СвойствФоновыхЗаданий(Filter = Undefined)
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
+	CallExceptionIfNoAdministrativeRights();
 	SetPrivilegedMode(True);
 
-	Table = ПустаяТаблицаСвойствФоновыхЗаданий();
+	Table = EmptyPropertyTableBackgroundJobs();
 
 	If Filter <> Undefined And Filter.Property("ПолучитьПоследнееФоновоеЗаданиеРегламентногоЗадания") Then
 		Filter.Delete("ПолучитьПоследнееФоновоеЗаданиеРегламентногоЗадания");
@@ -497,22 +497,22 @@ Function СвойствФоновыхЗаданий(Filter = Undefined)
 	ScheduledJob = Undefined;
 
 	If Filter <> Undefined And Filter.Property("ScheduledJobUUID") Then
-		РегламентныеЗаданияДляОбработки = New Array;
+		ScheduledJobsForProcessingArray = New Array;
 		If Filter.ScheduledJobUUID <> "" Then
 			If ScheduledJob = Undefined Then
 				ScheduledJob = ScheduledJobs.FindByUUID(
 					New UUID(Filter.ScheduledJobUUID));
 			EndIf;
 			If ScheduledJob <> Undefined Then
-				РегламентныеЗаданияДляОбработки.Add(ScheduledJob);
+				ScheduledJobsForProcessingArray.Add(ScheduledJob);
 			EndIf;
 		EndIf;
 	Else
-		РегламентныеЗаданияДляОбработки = ScheduledJobs.GetScheduledJobs();
+		ScheduledJobsForProcessingArray = ScheduledJobs.GetScheduledJobs();
 	EndIf;
 	
 	// Create и сохранение состояний регламентных заданий
-	For Each ScheduledJob In РегламентныеЗаданияДляОбработки Do
+	For Each ScheduledJob In ScheduledJobsForProcessingArray Do
 		ИдентификаторРегламентногоЗадания = String(ScheduledJob.UUID);
 		Properties = CommonSettingsStorage.Load("СостояниеРегламентногоЗадания_"
 			+ ИдентификаторРегламентногоЗадания, , , "");
@@ -537,7 +537,7 @@ Function СвойствФоновыхЗаданий(Filter = Undefined)
 					If Not НайденСеансВыполняющийЗадания Then
 						Properties.End = CurrentSessionDate();
 						Properties.Status = BackgroundJobState.Failed;
-						Properties.ОписаниеИнформацииОбОшибке = NStr(
+						Properties.DescriptionErrorInformation = NStr(
 							"ru = 'Not найден сеанс, выполняющий процедуру регламентного задания.'");
 					EndIf;
 				EndIf;
@@ -598,38 +598,38 @@ Function СвойствФоновыхЗаданий(Filter = Undefined)
 EndFunction
 
 &AtServerNoContext
-Function ПустаяТаблицаСвойствФоновыхЗаданий()
-	НоваяТаблица = New ValueTable;
-	НоваяТаблица.Cols.Add("AtServer", New TypeDescription("Boolean"));
-	НоваяТаблица.Cols.Add("ID", New TypeDescription("String"));
-	НоваяТаблица.Cols.Add("Title", New TypeDescription("String"));
-	НоваяТаблица.Cols.Add("Key", New TypeDescription("String"));
-	НоваяТаблица.Cols.Add("Begin", New TypeDescription("Date"));
-	НоваяТаблица.Cols.Add("End", New TypeDescription("Date"));
-	НоваяТаблица.Cols.Add("ScheduledJobUUID", New TypeDescription("String"));
-	НоваяТаблица.Cols.Add("Status", New TypeDescription("BackgroundJobState"));
-	НоваяТаблица.Cols.Add("MethodName", New TypeDescription("String"));
-	НоваяТаблица.Cols.Add("Placement", New TypeDescription("String"));
-	НоваяТаблица.Cols.Add("ОписаниеИнформацииОбОшибке", New TypeDescription("String"));
-	НоваяТаблица.Cols.Add("ПопыткаЗапуска", New TypeDescription("Number"));
-	НоваяТаблица.Cols.Add("СообщенияПользователю", New TypeDescription("Array"));
-	НоваяТаблица.Cols.Add("SessionNumber", New TypeDescription("Number"));
-	НоваяТаблица.Cols.Add("SessionStarted", New TypeDescription("Date"));
-	НоваяТаблица.Cols.Add("Выполнять", New TypeDescription("Boolean"));
-	НоваяТаблица.Indexes.Add("ID, Begin");
+Function EmptyPropertyTableBackgroundJobs()
+	NewTable = New ValueTable;
+	NewTable.Cols.Add("AtServer", New TypeDescription("Boolean"));
+	NewTable.Cols.Add("ID", New TypeDescription("String"));
+	NewTable.Cols.Add("Title", New TypeDescription("String"));
+	NewTable.Cols.Add("Key", New TypeDescription("String"));
+	NewTable.Cols.Add("Begin", New TypeDescription("Date"));
+	NewTable.Cols.Add("End", New TypeDescription("Date"));
+	NewTable.Cols.Add("ScheduledJobUUID", New TypeDescription("String"));
+	NewTable.Cols.Add("Status", New TypeDescription("BackgroundJobState"));
+	NewTable.Cols.Add("MethodName", New TypeDescription("String"));
+	NewTable.Cols.Add("Placement", New TypeDescription("String"));
+	NewTable.Cols.Add("DescriptionErrorInformation", New TypeDescription("String"));
+	NewTable.Cols.Add("ПопыткаЗапуска", New TypeDescription("Number"));
+	NewTable.Cols.Add("MessagesToUser", New TypeDescription("Array"));
+	NewTable.Cols.Add("SessionNumber", New TypeDescription("Number"));
+	NewTable.Cols.Add("SessionStarted", New TypeDescription("Date"));
+	NewTable.Cols.Add("ToPerform", New TypeDescription("Boolean"));
+	NewTable.Indexes.Add("ID, Begin");
 
-	Return НоваяТаблица;
+	Return NewTable;
 EndFunction
 
 &AtServerNoContext
-Function ПредставлениеРегламентногоЗадания(Val Задание) Export
-	ВызватьИсключениеЕслиНетПраваАдминистрирования();
+Function RepresentationScheduledJob(Val Job) Export
+	CallExceptionIfNoAdministrativeRights();
 
-	If TypeOf(Задание) = Type("ScheduledJob") Then
-		ScheduledJob = Задание;
+	If TypeOf(Job) = Type("ScheduledJob") Then
+		ScheduledJob = Job;
 	Else
 		ScheduledJob = ScheduledJobs.FindByUUID(
-			New UUID(Задание));
+			New UUID(Job));
 	EndIf;
 
 	If ScheduledJob <> Undefined Then
@@ -644,42 +644,42 @@ Function ПредставлениеРегламентногоЗадания(Val 
 		EndIf
 		;
 	Else
-		Presentation = NStr("ru = '<не определено>'");
+		Presentation = NStr("ru = '<не определено>';en = '<undefined>'");
 	EndIf;
 
 	Return Presentation;
 EndFunction
 
 &AtServerNoContext
-Procedure ВызватьИсключениеЕслиНетПраваАдминистрирования() Export
+Procedure CallExceptionIfNoAdministrativeRights() Export
 
 	If Not PrivilegedMode() Then
-		VerifyAccessRights("Администрирование", Metadata);
+		VerifyAccessRights("Administration", Metadata);
 	EndIf;
 
 EndProcedure
 
 &AtClientAtServerNoContext
-Function ПодставитьПараметрыВСтроку(Val СтрокаПодстановки, Val Параметр1, Val Параметр2 = Undefined,
-	Val Параметр3 = Undefined, Val Параметр4 = Undefined, Val Параметр5 = Undefined,
-	Val Параметр6 = Undefined, Val Параметр7 = Undefined, Val Параметр8 = Undefined,
-	Val Параметр9 = Undefined) Export
+Function SubstituteParametersIntoTheString(Val SubstitutionString, Val Parameter1, Val Parameter2 = Undefined,
+	Val Parameter3 = Undefined, Val Parameter4 = Undefined, Val Parameter5 = Undefined,
+	Val Parameter6 = Undefined, Val Parameter7 = Undefined, Val Parameter8 = Undefined,
+	Val Parameter9 = Undefined) Export
 
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%1", Параметр1);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%2", Параметр2);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%3", Параметр3);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%4", Параметр4);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%5", Параметр5);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%6", Параметр6);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%7", Параметр7);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%8", Параметр8);
-	СтрокаПодстановки = StrReplace(СтрокаПодстановки, "%9", Параметр9);
+	SubstitutionString = StrReplace(SubstitutionString, "%1", Parameter1);
+	SubstitutionString = StrReplace(SubstitutionString, "%2", Parameter2);
+	SubstitutionString = StrReplace(SubstitutionString, "%3", Parameter3);
+	SubstitutionString = StrReplace(SubstitutionString, "%4", Parameter4);
+	SubstitutionString = StrReplace(SubstitutionString, "%5", Parameter5);
+	SubstitutionString = StrReplace(SubstitutionString, "%6", Parameter6);
+	SubstitutionString = StrReplace(SubstitutionString, "%7", Parameter7);
+	SubstitutionString = StrReplace(SubstitutionString, "%8", Parameter8);
+	SubstitutionString = StrReplace(SubstitutionString, "%9", Parameter9);
 
-	Return СтрокаПодстановки;
+	Return SubstitutionString;
 EndFunction
 
 &AtClientAtServerNoContext
-Procedure ВыполнитьМетодКонфигурации(Val MethodName, Val Parameters = Undefined)
+Procedure ExecuteMethodConfiguration(Val MethodName, Val Parameters = Undefined)
 
 	ParametersString = "";
 	If Parameters <> Undefined And Parameters.Count() > 0 Then
@@ -694,7 +694,7 @@ Procedure ВыполнитьМетодКонфигурации(Val MethodName, V
 EndProcedure
 
 &AtClientAtServerNoContext
-Function СтрокаТаблицыЗначенийВСтруктуру(ValueTableRow)
+Function RowTableValuesInStructure(ValueTableRow)
 
 	Structure = New Structure;
 	For Each Column In ValueTableRow.Owner().Cols Do
