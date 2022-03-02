@@ -94,7 +94,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ТаблицаРегламентныхЗаданий</segments>
+      <segments>TableOfScheduledJobs</segments>
     </dataPath>
     <skipOnInput>true</skipOnInput>
     <titleLocation>None</titleLocation>
@@ -119,7 +119,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Номер</segments>
+          <segments>TableOfScheduledJobs.Номер</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -173,7 +173,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Выполнять</segments>
+          <segments>TableOfScheduledJobs.Выполнять</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
@@ -227,7 +227,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.РегламентноеЗадание</segments>
+          <segments>TableOfScheduledJobs.РегламентноеЗадание</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -280,7 +280,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Статус</segments>
+          <segments>TableOfScheduledJobs.Статус</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -337,7 +337,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Выполнено</segments>
+          <segments>TableOfScheduledJobs.Выполнено</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -547,7 +547,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОчиститьКоличествоЗапусков</commandName>
+        <commandName>Form.Command.ClearNumberOfRuns</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -600,7 +600,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ИнтервалВремениПроверкиВыполнения</segments>
+          <segments>ExecutionCheckTimeInterval</segments>
         </paths>
       </dataPath>
       <defaultItem>true</defaultItem>
@@ -737,7 +737,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаПрекратитьВыполнениеИЗавершитьСеанс</name>
+      <name>FormStopRunningAndEndSession</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -746,7 +746,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ФормаПрекратитьВыполнениеИЗавершитьСеансРасширеннаяПодсказка</name>
+        <name>FormStopRunningAndEndSessionExtendedTooltip</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -760,7 +760,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ПрекратитьВыполнение</commandName>
+      <commandName>Form.Command.StopExecution</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -769,10 +769,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>КомандыСписка</name>
+      <name>CommandsList</name>
       <id>30</id>
       <items xsi:type="form:Button">
-        <name>ФормаНайти</name>
+        <name>FormFind</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -780,7 +780,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаНайтиРасширеннаяПодсказка</name>
+          <name>FormFindExtendedTooltip</name>
           <id>35</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -803,7 +803,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаОтменитьПоиск</name>
+        <name>FormCancelSearch</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -811,7 +811,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаОтменитьПоискРасширеннаяПодсказка</name>
+          <name>FormCancelSearchExtendedTooltip</name>
           <id>36</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -834,7 +834,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаВывестиСписок</name>
+        <name>FormOutputList</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -842,7 +842,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаВывестиСписокРасширеннаяПодсказка</name>
+          <name>FormOutputListExtendedTooltip</name>
           <id>37</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -869,15 +869,19 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Commands list</value>
+      </title>
+      <title>
         <key>ru</key>
-        <value>Команды списка</value>
+        <value>Список команд</value>
       </title>
       <toolTip>
         <key>ru</key>
         <value>Команды списка</value>
       </toolTip>
       <extendedTooltip>
-        <name>КомандыСпискаРасширеннаяПодсказка</name>
+        <name>CommandsListExtendedTooltip</name>
         <id>34</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -894,7 +898,7 @@
       <extInfo xsi:type="form:ButtonGroupExtInfo"/>
     </items>
     <items xsi:type="form:Button">
-      <name>РегламентныеЗаданияОчиститьКоличествоЗапусков</name>
+      <name>ScheduledJobsClearNumberOfLaunches</name>
       <id>63</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -902,7 +906,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>РегламентныеЗаданияОчиститьКоличествоЗапусковРасширеннаяПодсказка</name>
+        <name>ScheduledJobsClearNumberOfLaunchesExtendedTooltip</name>
         <id>64</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -916,7 +920,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОчиститьКоличествоЗапусков</commandName>
+      <commandName>Form.Command.ClearNumberOfRuns</commandName>
       <representation>Auto</representation>
       <onlyInAllActions>true</onlyInAllActions>
       <autoMaxWidth>true</autoMaxWidth>
@@ -960,10 +964,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ИнтервалВремениПроверкиВыполнения</name>
+    <name>ExecutionCheckTimeInterval</name>
+    <title>
+      <key>en</key>
+      <value>Execution check time interval</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Интервал проверки и выполнения заданий</value>
+      <value>Интервал времени проверки выполнения</value>
     </title>
     <id>2</id>
     <valueType>
@@ -980,11 +988,15 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ИнтервалВремениПроверкиВыполнения</segments>
+      <segments>ExecutionCheckTimeInterval</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ТаблицаРегламентныхЗаданий</name>
+    <name>TableOfScheduledJobs</name>
+    <title>
+      <key>en</key>
+      <value>Table of scheduled jobs</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица регламентных заданий</value>
@@ -1127,7 +1139,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ОсталосьДоНачалаВыполнения</name>
+    <name>RemainingBeforeExecutionStarts</name>
+    <title>
+      <key>en</key>
+      <value>Time interval in seconds until the next check of scheduled tasks.</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Интервал времени в секундах до следующей проверки выполнения
@@ -1148,7 +1164,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Объект</value>
@@ -1166,7 +1186,11 @@
     <main>true</main>
   </attributes>
   <formCommands>
-    <name>ПрекратитьВыполнение</name>
+    <name>StopExecution</name>
+    <title>
+      <key>en</key>
+      <value>Stop running and close</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Прекратить выполнение и закрыть</value>
@@ -1181,14 +1205,18 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПрекратитьВыполнение</name>
+        <name>StopExecution</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОчиститьКоличествоЗапусков</name>
+    <name>ClearNumberOfRuns</name>
+    <title>
+      <key>en</key>
+      <value>Clear number of job runs</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Очистить количество запусков задания</value>
@@ -1199,7 +1227,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОчиститьКоличествоЗапусков</name>
+        <name>ClearNumberOfRuns</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
