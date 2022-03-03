@@ -7,7 +7,7 @@
       <name>ГруппаWSDLИмяПользователяПароль</name>
       <id>138</id>
       <items xsi:type="form:FormField">
-        <name>МестоположениеWSDL</name>
+        <name>LocationWSDL</name>
         <id>124</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -16,11 +16,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>МестоположениеWSDL</segments>
+            <segments>LocationWSDL</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>МестоположениеWSDLРасширеннаяПодсказка</name>
+          <name>LocationWSDLExtendedTooltip</name>
           <id>174</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -35,7 +35,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>МестоположениеWSDLКонтекстноеМеню</name>
+          <name>LocationWSDLContextMenu</name>
           <id>125</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -60,7 +60,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ИмяПользователя</name>
+        <name>Username</name>
         <id>126</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -69,11 +69,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ИмяПользователя</segments>
+            <segments>Username</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ИмяПользователяРасширеннаяПодсказка</name>
+          <name>UsernameExtendedTooltip</name>
           <id>175</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -88,7 +88,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ИмяПользователяКонтекстноеМеню</name>
+          <name>UsernameContextMenu</name>
           <id>127</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -203,7 +203,7 @@
       <name>ГруппаВебСервисИПространствоИмен</name>
       <id>139</id>
       <items xsi:type="form:FormField">
-        <name>ИмяВебСервиса</name>
+        <name>WebServiceName</name>
         <id>130</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -212,11 +212,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ИмяВебСервиса</segments>
+            <segments>WebServiceName</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ИмяВебСервисаРасширеннаяПодсказка</name>
+          <name>WebServiceNameExtendedTooltip</name>
           <id>178</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -231,7 +231,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ИмяВебСервисаКонтекстноеМеню</name>
+          <name>WebServiceNameContextMenu</name>
           <id>131</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -256,7 +256,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>URIПространстваИменВебСервиса</name>
+        <name>WebServiceNamespaceURI</name>
         <id>132</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -265,11 +265,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>URIПространстваИменВебСервиса</segments>
+            <segments>WebServiceNamespaceURI</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>URIПространстваИменВебСервисаРасширеннаяПодсказка</name>
+          <name>WebServiceNamespaceURIExtendedTooltip</name>
           <id>179</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -284,7 +284,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>URIПространстваИменВебСервисаКонтекстноеМеню</name>
+          <name>WebServiceNamespaceURIContextMenu</name>
           <id>133</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -348,7 +348,7 @@
       <name>ГруппаТочкаПодключенияИИмяОперации</name>
       <id>140</id>
       <items xsi:type="form:FormField">
-        <name>ИмяТочкиПодключения</name>
+        <name>NamePointConnections</name>
         <id>134</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -357,11 +357,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ИмяТочкиПодключения</segments>
+            <segments>NamePointConnections</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ИмяТочкиПодключенияРасширеннаяПодсказка</name>
+          <name>NamePointConnectionsExtendedTooltip</name>
           <id>181</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -376,7 +376,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ИмяТочкиПодключенияКонтекстноеМеню</name>
+          <name>NamePointConnectionsContextMenu</name>
           <id>135</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -401,7 +401,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>ИмяОперации</name>
+        <name>OperationName</name>
         <id>136</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -410,11 +410,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ИмяОперации</segments>
+            <segments>OperationName</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ИмяОперацииРасширеннаяПодсказка</name>
+          <name>OperationNameExtendedTooltip</name>
           <id>182</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -429,7 +429,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ИмяОперацииКонтекстноеМеню</name>
+          <name>OperationNameContextMenu</name>
           <id>137</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2900,7 +2900,7 @@
           <name>СтраницаДерево</name>
           <id>167</id>
           <items xsi:type="form:Table">
-            <name>ДеревоРезультат</name>
+            <name>TreeResult</name>
             <id>158</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2908,11 +2908,11 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ДеревоРезультат</segments>
+              <segments>TreeResult</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <items xsi:type="form:FormField">
-              <name>ДеревоРезультатСвойство</name>
+              <name>TreeResultProperty</name>
               <id>161</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2921,11 +2921,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ДеревоРезультат.Свойство</segments>
+                  <segments>TreeResult.Property</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ДеревоРезультатСвойствоРасширеннаяПодсказка</name>
+                <name>TreeResultPropertyExtendedTooltip</name>
                 <id>280</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2940,7 +2940,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДеревоРезультатСвойствоКонтекстноеМеню</name>
+                <name>TreeResultPropertyContextMenu</name>
                 <id>162</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2964,7 +2964,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ДеревоРезультатЗначение</name>
+              <name>TreeResultValue</name>
               <id>163</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2973,11 +2973,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ДеревоРезультат.Значение</segments>
+                  <segments>TreeResult.Value</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ДеревоРезультатЗначениеРасширеннаяПодсказка</name>
+                <name>TreeResultValueExtendedTooltip</name>
                 <id>281</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2992,7 +2992,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДеревоРезультатЗначениеКонтекстноеМеню</name>
+                <name>TreeResultValueContextMenu</name>
                 <id>164</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3024,7 +3024,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>ДеревоРезультатТип</name>
+              <name>TreeResultType</name>
               <id>168</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3033,11 +3033,11 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ДеревоРезультат.Тип</segments>
+                  <segments>TreeResult.Type</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>ДеревоРезультатТипРасширеннаяПодсказка</name>
+                <name>TreeResultTypeExtendedTooltip</name>
                 <id>282</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3052,7 +3052,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДеревоРезультатТипКонтекстноеМеню</name>
+                <name>TreeResultTypeContextMenu</name>
                 <id>169</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3077,7 +3077,7 @@
             </items>
             <commandBarLocation>None</commandBarLocation>
             <autoCommandBar>
-              <name>ДеревоРезультатКоманднаяПанель</name>
+              <name>TreeResultCommandBar</name>
               <id>160</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3093,10 +3093,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДеревоРезультатСтрокаПоиска</name>
+              <name>TreeResultSearchString</name>
               <id>271</id>
               <extendedTooltip>
-                <name>ДеревоРезультатСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>TreeResultSearchStringExtendedTooltip</name>
                 <id>273</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3111,7 +3111,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДеревоРезультатСтрокаПоискаКонтекстноеМеню</name>
+                <name>TreeResultSearchStringContextMenu</name>
                 <id>272</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3130,10 +3130,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДеревоРезультатСостояниеПросмотра</name>
+              <name>TreeResultViewStatus</name>
               <id>274</id>
               <extendedTooltip>
-                <name>ДеревоРезультатСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>TreeResultViewStatusExtendedTooltip</name>
                 <id>276</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3148,7 +3148,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДеревоРезультатСостояниеПросмотраКонтекстноеМеню</name>
+                <name>TreeResultViewStatusContextMenu</name>
                 <id>275</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3169,10 +3169,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДеревоРезультатУправлениеПоиском</name>
+              <name>TreeResultSearchControl</name>
               <id>277</id>
               <extendedTooltip>
-                <name>ДеревоРезультатУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>TreeResultSearchControlExtendedTooltip</name>
                 <id>279</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3187,7 +3187,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДеревоРезультатУправлениеПоискомКонтекстноеМеню</name>
+                <name>TreeResultSearchControlContextMenu</name>
                 <id>278</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3202,7 +3202,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ДеревоРезультатРасширеннаяПодсказка</name>
+              <name>TreeResultExtendedTooltip</name>
               <id>270</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3217,7 +3217,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоРезультатКонтекстноеМеню</name>
+              <name>TreeResultContextMenu</name>
               <id>159</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3506,7 +3506,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.УИ_КонсольВебСервисов</types>
@@ -3948,10 +3952,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>МестоположениеWSDL</name>
+    <name>LocationWSDL</name>
     <title>
       <key>ru</key>
       <value>Местоположение WSDL</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Location WSDL</value>
     </title>
     <id>7</id>
     <valueType>
@@ -3966,10 +3974,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяПользователя</name>
+    <name>Username</name>
     <title>
       <key>ru</key>
       <value>Имя пользователя</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Username</value>
     </title>
     <id>8</id>
     <valueType>
@@ -4002,10 +4014,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяВебСервиса</name>
+    <name>WebServiceName</name>
     <title>
       <key>ru</key>
       <value>Имя веб сервиса</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Web service name</value>
     </title>
     <id>10</id>
     <valueType>
@@ -4020,10 +4036,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>URIПространстваИменВебСервиса</name>
+    <name>WebServiceNamespaceURI</name>
     <title>
       <key>ru</key>
       <value>URIПространства имен веб сервиса</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Web service namespace URI</value>
     </title>
     <id>11</id>
     <valueType>
@@ -4038,10 +4058,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяТочкиПодключения</name>
+    <name>NamePointConnections</name>
     <title>
       <key>ru</key>
       <value>Имя точки подключения</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Name point connections</value>
     </title>
     <id>12</id>
     <valueType>
@@ -4056,10 +4080,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяОперации</name>
+    <name>OperationName</name>
     <title>
       <key>ru</key>
       <value>Имя операции</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Operation name</value>
     </title>
     <id>13</id>
     <valueType>
@@ -4092,10 +4120,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяОперацииТекущее</name>
+    <name>OperationNameCurrent</name>
     <title>
       <key>ru</key>
       <value>Имя операции текущее</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Operation name current</value>
     </title>
     <id>15</id>
     <valueType>
@@ -4110,10 +4142,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяТочкиПодключенияТекущее</name>
+    <name>ConnectionPointNameCurrent</name>
     <title>
       <key>ru</key>
       <value>Имя точки подключения текущее</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Connection point name current</value>
     </title>
     <id>16</id>
     <valueType>
@@ -4128,10 +4164,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДеревоРезультат</name>
+    <name>TreeResult</name>
     <title>
       <key>ru</key>
       <value>Дерево результат</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tree result</value>
     </title>
     <id>17</id>
     <valueType>
@@ -4144,10 +4184,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Свойство</name>
+      <name>Property</name>
       <title>
         <key>ru</key>
         <value>Свойство</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Property</value>
       </title>
       <id>1</id>
       <valueType>
@@ -4162,10 +4206,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value</value>
       </title>
       <id>2</id>
       <valueType>
@@ -4187,10 +4235,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Тип</name>
+      <name>Type</name>
       <title>
         <key>ru</key>
         <value>Тип</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Type</value>
       </title>
       <id>3</id>
       <valueType>
