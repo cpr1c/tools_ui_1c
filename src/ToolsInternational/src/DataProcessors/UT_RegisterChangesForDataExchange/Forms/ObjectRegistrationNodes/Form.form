@@ -616,7 +616,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ExchangeNodesTreeContextMenuInvertAllNodesChecks</name>
+          <name>ExchangeNodesTreeContextMenuInvertAllNodesMarks</name>
           <id>43</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -624,7 +624,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ExchangeNodesTreeContextMenuInvertAllNodesChecksExtendedTooltip</name>
+            <name>ExchangeNodesTreeContextMenuInvertAllNodesMarksExtendedTooltip</name>
             <id>68</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -638,7 +638,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.InvertAllNodesChecks</commandName>
+          <commandName>Form.Command.InvertAllNodesMarks</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -1551,7 +1551,7 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>InvertAllNodesChecks</name>
+    <name>InvertAllNodesMarks</name>
     <title>
       <key>en</key>
       <value>Invert selection</value>
@@ -1574,7 +1574,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>InvertAllNodesChecks</name>
+        <name>InvertAllNodesMarks</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
