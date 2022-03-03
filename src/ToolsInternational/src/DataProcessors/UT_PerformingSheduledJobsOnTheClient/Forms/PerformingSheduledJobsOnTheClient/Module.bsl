@@ -232,7 +232,7 @@ Procedure RunTheExectutionSheduledJobs(TableOfScheduledJobs)
 	Jobs                        = ScheduledJobs.GetScheduledJobs();
 	ExecutionCompleted            = False; // Specifies that the ExecutionTimestamp has ended,
 	                                       // or that all possible scheduled jobs have been completed.
-	StartOf Execution               = CurrentSessionDate();
+	StartOfExecution               = CurrentSessionDate();
 	NumberOfCompletedJobs   = 0;
 	BackgroundJobRunning      = False;
 	LastJobID = Status.IDNextJob;
@@ -253,7 +253,7 @@ Procedure RunTheExectutionSheduledJobs(TableOfScheduledJobs)
 			// б) time is not set and at least one sheduled job is executed;
 			// в) time is not set and all scheduled job are completed in quantity.
 			If (ExecutionTimestamp = 0 And (BackgroundJobRunning Or NumberOfCompletedJobs
-				>= Jobs.Count())) Or (ExecutionTimestamp <> 0 And StartOf Execution + ExecutionTimestamp
+				>= Jobs.Count())) Or (ExecutionTimestamp <> 0 And StartOfExecution + ExecutionTimestamp
 				<= CurrentSessionDate()) Then
 				ExecutionCompleted = True;
 				Break;
