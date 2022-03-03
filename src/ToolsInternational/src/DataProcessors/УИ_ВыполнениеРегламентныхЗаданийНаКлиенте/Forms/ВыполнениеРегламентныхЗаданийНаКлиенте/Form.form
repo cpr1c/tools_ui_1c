@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаПояснение</name>
+    <name>GroupExplanation</name>
     <id>18</id>
     <items xsi:type="form:Decoration">
-      <name>СтрокаСостояния</name>
+      <name>StatusBar</name>
       <id>22</id>
       <title>
         <key>ru</key>
@@ -18,7 +18,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>СтрокаСостоянияРасширеннаяПодсказка</name>
+        <name>StatusBarExtendedTooltip</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -33,7 +33,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СтрокаСостоянияКонтекстноеМеню</name>
+        <name>StatusBarContextMenu</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -61,9 +61,13 @@
       <key>ru</key>
       <value>Группа пояснение</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group explanation</value>
+    </title>
     <verticalStretch>false</verticalStretch>
     <extendedTooltip>
-      <name>ГруппаПояснениеРасширеннаяПодсказка</name>
+      <name>GroupExplanationExtendedTooltip</name>
       <id>39</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -86,7 +90,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:Table">
-    <name>РегламентныеЗадания</name>
+    <name>TableOfScheduledJobs</name>
     <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -94,7 +98,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ТаблицаРегламентныхЗаданий</segments>
+      <segments>TableOfScheduledJobs</segments>
     </dataPath>
     <skipOnInput>true</skipOnInput>
     <titleLocation>None</titleLocation>
@@ -110,7 +114,7 @@
     <excludedCommands>SortListAsc</excludedCommands>
     <excludedCommands>SortListDesc</excludedCommands>
     <items xsi:type="form:FormField">
-      <name>РегламентныеЗаданияНомер</name>
+      <name>TableOfScheduledJobsNumber</name>
       <id>25</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -119,11 +123,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Номер</segments>
+          <segments>TableOfScheduledJobs.Number</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>РегламентныеЗаданияНомерРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsNumberExtendedTooltip</name>
         <id>54</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -138,7 +142,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияНомерКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsNumberContextMenu</name>
         <id>26</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -164,7 +168,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>РегламентныеЗаданияВыполнять</name>
+      <name>TableOfScheduledJobsToPerform</name>
       <id>67</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -173,7 +177,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Выполнять</segments>
+          <segments>TableOfScheduledJobs.ToPerform</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
@@ -183,10 +187,10 @@
       </toolTip>
       <handlers>
         <event>OnChange</event>
-        <name>РегламентныеЗаданияВыполнятьПриИзменении</name>
+        <name>TableOfScheduledJobsToPerformOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>РегламентныеЗаданияВыполнятьРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsToPerformExtendedTooltip</name>
         <id>69</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -201,7 +205,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияВыполнятьКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsToPerformContextMenu</name>
         <id>68</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -218,7 +222,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>РегламентныеЗаданияРегламентноеЗадание</name>
+      <name>TableOfScheduledJobsScheduledJob</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -227,11 +231,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.РегламентноеЗадание</segments>
+          <segments>TableOfScheduledJobs.ScheduledJob</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>РегламентныеЗаданияРегламентноеЗаданиеРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsScheduledJobExtendedTooltip</name>
         <id>55</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -246,7 +250,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияРегламентноеЗаданиеКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsScheduledJobContextMenu</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -271,7 +275,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>РегламентныеЗаданияСтатус</name>
+      <name>TableOfScheduledJobsStatus</name>
       <id>60</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -280,11 +284,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Статус</segments>
+          <segments>TableOfScheduledJobs.Status</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>РегламентныеЗаданияСтатусРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsStatusExtendedTooltip</name>
         <id>62</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -299,7 +303,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияСтатусКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsStatusContextMenu</name>
         <id>61</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -324,7 +328,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>РегламентныеЗаданияВыполнено</name>
+      <name>TableOfScheduledJobsDone</name>
       <id>12</id>
       <title>
         <key>ru</key>
@@ -337,11 +341,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТаблицаРегламентныхЗаданий.Выполнено</segments>
+          <segments>TableOfScheduledJobs.Done</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>РегламентныеЗаданияВыполненоРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsDoneExtendedTooltip</name>
         <id>56</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -356,7 +360,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияВыполненоКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsDoneContextMenu</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -382,7 +386,7 @@
     </items>
     <commandBarLocation>None</commandBarLocation>
     <autoCommandBar>
-      <name>РегламентныеЗаданияКоманднаяПанель</name>
+      <name>TableOfScheduledJobsCommandBar</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -398,10 +402,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>РегламентныеЗаданияСтрокаПоиска</name>
+      <name>TableOfScheduledJobsSearchString</name>
       <id>45</id>
       <extendedTooltip>
-        <name>РегламентныеЗаданияСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsSearchStringExtendedTooltip</name>
         <id>47</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -416,7 +420,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияСтрокаПоискаКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsSearchStringContextMenu</name>
         <id>46</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -435,10 +439,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>РегламентныеЗаданияСостояниеПросмотра</name>
+      <name>TableOfScheduledJobsViewStatus</name>
       <id>48</id>
       <extendedTooltip>
-        <name>РегламентныеЗаданияСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsViewStatusExtendedTooltip</name>
         <id>50</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -453,7 +457,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияСостояниеПросмотраКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsViewStatusContextMenu</name>
         <id>49</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -474,10 +478,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>РегламентныеЗаданияУправлениеПоиском</name>
+      <name>TableOfScheduledJobsSearchControl</name>
       <id>51</id>
       <extendedTooltip>
-        <name>РегламентныеЗаданияУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>TableOfScheduledJobsSearchControlExtendedTooltip</name>
         <id>53</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -492,7 +496,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегламентныеЗаданияУправлениеПоискомКонтекстноеМеню</name>
+        <name>TableOfScheduledJobsSearchControlContextMenu</name>
         <id>52</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -507,7 +511,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>РегламентныеЗаданияРасширеннаяПодсказка</name>
+      <name>TableOfScheduledJobsExtendedTooltip</name>
       <id>44</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -522,7 +526,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>РегламентныеЗаданияКонтекстноеМеню</name>
+      <name>TableOfScheduledJobsContextMenu</name>
       <id>8</id>
       <items xsi:type="form:Button">
         <name>РегламентныеЗаданияОчиститьКоличествоЗапусков1</name>
@@ -547,7 +551,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ОчиститьКоличествоЗапусков</commandName>
+        <commandName>Form.Command.ClearNumberOfRuns</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -588,10 +592,10 @@
     <rowFilter xsi:type="core:UndefinedValue"/>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаИнтервалВремениВыполнения</name>
+    <name>GroupRuntimeInterval</name>
     <id>21</id>
     <items xsi:type="form:FormField">
-      <name>ПериодВыполнения</name>
+      <name>ExecutionCheckTimeInterval</name>
       <id>19</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -600,7 +604,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ИнтервалВремениПроверкиВыполнения</segments>
+          <segments>ExecutionCheckTimeInterval</segments>
         </paths>
       </dataPath>
       <defaultItem>true</defaultItem>
@@ -609,7 +613,7 @@
         <value>Задается в диапазоне от 5 до 600 секунд</value>
       </toolTip>
       <extendedTooltip>
-        <name>ПериодВыполненияРасширеннаяПодсказка</name>
+        <name>ExecutionCheckTimeIntervalExtendedTooltip</name>
         <id>58</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -624,7 +628,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПериодВыполненияКонтекстноеМеню</name>
+        <name>ExecutionCheckTimeIntervalContextMenu</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -655,11 +659,15 @@
       </extInfo>
     </items>
     <items xsi:type="form:Decoration">
-      <name>ДекорацияСекунд</name>
+      <name>DecorationSeconds</name>
       <id>31</id>
       <title>
         <key>ru</key>
         <value>секунд</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Decoration seconds</value>
       </title>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -667,7 +675,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ДекорацияСекундРасширеннаяПодсказка</name>
+        <name>DecorationSecondsExtendedTooltip</name>
         <id>59</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -682,7 +690,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДекорацияСекундКонтекстноеМеню</name>
+        <name>DecorationSecondsContextMenu</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -708,8 +716,12 @@
       <key>ru</key>
       <value>Группа интервал времени выполнения</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group runtime interval</value>
+    </title>
     <extendedTooltip>
-      <name>ГруппаИнтервалВремениВыполненияРасширеннаяПодсказка</name>
+      <name>GroupRuntimeIntervalExtendedTooltip</name>
       <id>57</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -737,7 +749,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаПрекратитьВыполнениеИЗавершитьСеанс</name>
+      <name>FormStopRunningAndEndSession</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -746,7 +758,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ФормаПрекратитьВыполнениеИЗавершитьСеансРасширеннаяПодсказка</name>
+        <name>FormStopRunningAndEndSessionExtendedTooltip</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -760,7 +772,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ПрекратитьВыполнение</commandName>
+      <commandName>Form.Command.StopExecution</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -769,10 +781,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>КомандыСписка</name>
+      <name>CommandsList</name>
       <id>30</id>
       <items xsi:type="form:Button">
-        <name>ФормаНайти</name>
+        <name>FormFind</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -780,7 +792,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаНайтиРасширеннаяПодсказка</name>
+          <name>FormFindExtendedTooltip</name>
           <id>35</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -794,7 +806,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.РегламентныеЗадания.StandardCommand.Find</commandName>
+        <commandName>Form.Item.TableOfScheduledJobs.StandardCommand.Find</commandName>
         <representation>Auto</representation>
         <onlyInAllActions>true</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
@@ -803,7 +815,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаОтменитьПоиск</name>
+        <name>FormCancelSearch</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -811,7 +823,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаОтменитьПоискРасширеннаяПодсказка</name>
+          <name>FormCancelSearchExtendedTooltip</name>
           <id>36</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -825,7 +837,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.РегламентныеЗадания.StandardCommand.CancelSearch</commandName>
+        <commandName>Form.Item.TableOfScheduledJobs.StandardCommand.CancelSearch</commandName>
         <representation>Auto</representation>
         <onlyInAllActions>true</onlyInAllActions>
         <autoMaxWidth>true</autoMaxWidth>
@@ -834,7 +846,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ФормаВывестиСписок</name>
+        <name>FormOutputList</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -842,7 +854,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаВывестиСписокРасширеннаяПодсказка</name>
+          <name>FormOutputListExtendedTooltip</name>
           <id>37</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -856,7 +868,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Item.РегламентныеЗадания.StandardCommand.OutputList</commandName>
+        <commandName>Form.Item.TableOfScheduledJobs.StandardCommand.OutputList</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -869,15 +881,19 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Commands list</value>
+      </title>
+      <title>
         <key>ru</key>
-        <value>Команды списка</value>
+        <value>Список команд</value>
       </title>
       <toolTip>
         <key>ru</key>
         <value>Команды списка</value>
       </toolTip>
       <extendedTooltip>
-        <name>КомандыСпискаРасширеннаяПодсказка</name>
+        <name>CommandsListExtendedTooltip</name>
         <id>34</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -894,7 +910,7 @@
       <extInfo xsi:type="form:ButtonGroupExtInfo"/>
     </items>
     <items xsi:type="form:Button">
-      <name>РегламентныеЗаданияОчиститьКоличествоЗапусков</name>
+      <name>ScheduledJobsClearNumberOfLaunches</name>
       <id>63</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -902,7 +918,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>РегламентныеЗаданияОчиститьКоличествоЗапусковРасширеннаяПодсказка</name>
+        <name>ScheduledJobsClearNumberOfLaunchesExtendedTooltip</name>
         <id>64</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -916,7 +932,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ОчиститьКоличествоЗапусков</commandName>
+      <commandName>Form.Command.ClearNumberOfRuns</commandName>
       <representation>Auto</representation>
       <onlyInAllActions>true</onlyInAllActions>
       <autoMaxWidth>true</autoMaxWidth>
@@ -960,10 +976,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ИнтервалВремениПроверкиВыполнения</name>
+    <name>ExecutionCheckTimeInterval</name>
+    <title>
+      <key>en</key>
+      <value>Execution check time interval</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Интервал проверки и выполнения заданий</value>
+      <value>Интервал времени проверки выполнения</value>
     </title>
     <id>2</id>
     <valueType>
@@ -980,11 +1000,15 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ИнтервалВремениПроверкиВыполнения</segments>
+      <segments>ExecutionCheckTimeInterval</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ТаблицаРегламентныхЗаданий</name>
+    <name>TableOfScheduledJobs</name>
+    <title>
+      <key>en</key>
+      <value>Table of scheduled jobs</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица регламентных заданий</value>
@@ -1000,10 +1024,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>РегламентноеЗадание</name>
+      <name>ScheduledJob</name>
       <title>
         <key>ru</key>
         <value>Регламентное задание</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Scheduled job</value>
       </title>
       <id>1</id>
       <valueType>
@@ -1018,10 +1046,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Выполнено</name>
+      <name>Done</name>
       <title>
         <key>ru</key>
         <value>Выполнено</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Done</value>
       </title>
       <id>2</id>
       <valueType>
@@ -1036,10 +1068,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Номер</name>
+      <name>Number</name>
       <title>
         <key>ru</key>
         <value>п/п</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Number</value>
       </title>
       <id>3</id>
       <valueType>
@@ -1057,10 +1093,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Изменено</name>
+      <name>Changed</name>
       <title>
         <key>ru</key>
         <value>Изменено</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Changed</value>
       </title>
       <id>4</id>
       <valueType>
@@ -1074,10 +1114,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Идентификатор</name>
+      <name>ID</name>
       <title>
         <key>ru</key>
         <value>Идентификатор</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>ID</value>
       </title>
       <id>5</id>
       <valueType>
@@ -1091,10 +1135,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Статус</name>
+      <name>Status</name>
       <title>
         <key>ru</key>
         <value>Статус</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Status</value>
       </title>
       <id>6</id>
       <valueType>
@@ -1109,10 +1157,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Выполнять</name>
+      <name>ToPerform</name>
       <title>
         <key>ru</key>
         <value>Выполнять</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>To perform</value>
       </title>
       <id>7</id>
       <valueType>
@@ -1127,7 +1179,11 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ОсталосьДоНачалаВыполнения</name>
+    <name>RemainingBeforeExecutionStarts</name>
+    <title>
+      <key>en</key>
+      <value>Time interval in seconds until the next check of scheduled tasks.</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Интервал времени в секундах до следующей проверки выполнения
@@ -1148,7 +1204,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Объект</value>
@@ -1166,7 +1226,11 @@
     <main>true</main>
   </attributes>
   <formCommands>
-    <name>ПрекратитьВыполнение</name>
+    <name>StopExecution</name>
+    <title>
+      <key>en</key>
+      <value>Stop running and close</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Прекратить выполнение и закрыть</value>
@@ -1181,14 +1245,18 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПрекратитьВыполнение</name>
+        <name>StopExecution</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОчиститьКоличествоЗапусков</name>
+    <name>ClearNumberOfRuns</name>
+    <title>
+      <key>en</key>
+      <value>Clear number of job runs</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Очистить количество запусков задания</value>
@@ -1199,7 +1267,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОчиститьКоличествоЗапусков</name>
+        <name>ClearNumberOfRuns</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
