@@ -14,13 +14,13 @@
 <td style="width: 202.141px; height: 24px;">Статус</td>
 </tr>
 <tr style="height: 36px;">
-<td style="width: 46.0156px; height: 36px;"><span style="background-color: #99cc00;">0</span></td>
-<td style="width: 210.078px; height: 36px;"><span style="background-color: #99cc00;">Общие модули&nbsp;</span></td>
-<td style="width: 524.219px; height: 36px;"><span style="background-color: #99cc00;">Общие модули для интеграции с БСП и Используемые в обработках&nbsp;</span></td>
-<td style="width: 10.5312px; height: 36px;"><span style="background-color: #99cc00;">5</span></td>
-<td style="width: 18px; height: 36px;"><span style="background-color: #99cc00;">4</span></td>
-<td style="width: 48.0156px; height: 36px;"><span style="background-color: #99cc00;">1</span></td>
-<td style="width: 202.141px; height: 36px;">&nbsp;</td>
+<td style="width: 46.0156px; height: 36px;"><span style="background-color: #ADFF2F;">0</span></td>
+<td style="width: 210.078px; height: 36px;"><span style="background-color: #ADFF2F;">Общие модули&nbsp;</span></td>
+<td style="width: 524.219px; height: 36px;"><span style="background-color: #ADFF2F;">Общие модули для интеграции с БСП и Используемые в обработках&nbsp;</span></td>
+<td style="width: 10.5312px; height: 36px;"><span style="background-color: #ADFF2F;">5</span></td>
+<td style="width: 18px; height: 36px;"><span style="background-color: #ADFF2F;">4</span></td>
+<td style="width: 48.0156px; height: 36px;"><span style="background-color: #ADFF2F;">1</span></td>
+<td style="width: 202.141px; height: 36px;">ГОТОВО</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;">1</td>
@@ -38,7 +38,7 @@
 <td style="width: 10.5312px; height: 36px;">2</td>
 <td style="width: 18px; height: 36px;">1</td>
 <td style="width: 48.0156px; height: 36px;">3</td>
-<td style="width: 202.141px; height: 36px;">Переведена на 90 %</td>
+<td style="width: 202.141px; height: 36px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;"><span style="background-color: #99cc00;">3</span></td>
@@ -47,7 +47,7 @@
 <td style="width: 10.5312px; height: 36px;"><span style="background-color: #99cc00;">5</span></td>
 <td style="width: 18px; height: 36px;"><span style="background-color: #99cc00;">1</span></td>
 <td style="width: 48.0156px; height: 36px;"><span style="background-color: #99cc00;">1</span></td>
-<td style="width: 202.141px; height: 36px;">Полностью переведено</td>
+<td style="width: 202.141px; height: 36px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;">4</td>
@@ -56,7 +56,7 @@
 <td style="width: 10.5312px; height: 36px;">4</td>
 <td style="width: 18px; height: 36px;">2</td>
 <td style="width: 48.0156px; height: 36px;">4</td>
-<td style="width: 202.141px; height: 36px;">Переведена</td>
+<td style="width: 202.141px; height: 36px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;"><span style="background-color: #99cc00;">5</span></td>
@@ -65,7 +65,7 @@
 <td style="width: 10.5312px; height: 36px;"><span style="background-color: #99cc00;">4</span></td>
 <td style="width: 18px; height: 36px;"><span style="background-color: #99cc00;">4</span></td>
 <td style="width: 48.0156px; height: 36px;"><span style="background-color: #99cc00;">1</span></td>
-<td style="width: 202.141px; height: 36px;">В процессе перевода</td>
+<td style="width: 202.141px; height: 36px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;"><span style="background-color: #99cc00;">6</span></td>
@@ -74,7 +74,7 @@
 <td style="width: 10.5312px; height: 36px;"><span style="background-color: #99cc00;">4</span></td>
 <td style="width: 18px; height: 36px;"><span style="background-color: #99cc00;">5</span></td>
 <td style="width: 48.0156px; height: 36px;"><span style="background-color: #99cc00;">1</span></td>
-<td style="width: 202.141px; height: 36px;">Полность переведено</td>
+<td style="width: 202.141px; height: 36px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;">7</td>
@@ -101,7 +101,7 @@
 <td style="width: 10.5312px; height: 54px;">4</td>
 <td style="width: 18px; height: 54px;">2</td>
 <td style="width: 48.0156px; height: 54px;">2</td>
-<td style="width: 202.141px; height: 54px;">&nbsp;</td>
+<td style="width: 202.141px; height: 54px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;">10</td>
@@ -110,7 +110,7 @@
 <td style="width: 10.5312px; height: 36px;">1</td>
 <td style="width: 18px; height: 36px;">2</td>
 <td style="width: 48.0156px; height: 36px;">4</td>
-<td style="width: 202.141px; height: 36px;">&nbsp;</td>
+<td style="width: 202.141px; height: 36px;">ГОТОВА</td>
 </tr>
 <tr style="height: 54px;">
 <td style="width: 46.0156px; height: 54px;"><span style="background-color: #99cc00;">11</span></td>
@@ -146,7 +146,7 @@
 <td style="width: 10.5312px; height: 18px;"><span style="background-color: #99cc00;">5</span></td>
 <td style="width: 18px; height: 18px;"><span style="background-color: #99cc00;">3</span></td>
 <td style="width: 48.0156px; height: 18px;"><span style="background-color: #99cc00;">1</span></td>
-<td style="width: 202.141px; height: 18px;">&nbsp;</td>
+<td style="width: 202.141px; height: 18px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;">15</td>
@@ -173,7 +173,7 @@
 <td style="width: 10.5312px; height: 72px;">2</td>
 <td style="width: 18px; height: 72px;">5</td>
 <td style="width: 48.0156px; height: 72px;">4</td>
-<td style="width: 202.141px; height: 72px;">&nbsp;</td>
+<td style="width: 202.141px; height: 72px;">ГОТОВА</td>
 </tr>
 <tr style="height: 90px;">
 <td style="width: 46.0156px; height: 90px;">18</td>
@@ -227,7 +227,7 @@
 <td style="width: 10.5312px; height: 72px;">2</td>
 <td style="width: 18px; height: 72px;">4</td>
 <td style="width: 48.0156px; height: 72px;">2</td>
-<td style="width: 202.141px; height: 72px;">Переведен</td>
+<td style="width: 202.141px; height: 72px;">ГОТОВА</td>
 </tr>
 <tr style="height: 90px;">
 <td style="width: 46.0156px; height: 90px;"><span style="background-color: #99cc00;">24</span></td>
@@ -236,7 +236,7 @@
 <td style="width: 10.5312px; height: 90px;"><span style="background-color: #99cc00;">5</span></td>
 <td style="width: 18px; height: 90px;"><span style="background-color: #99cc00;">3</span></td>
 <td style="width: 48.0156px; height: 90px;"><span style="background-color: #99cc00;">1</span></td>
-<td style="width: 202.141px; height: 90px;">Переведен</td>
+<td style="width: 202.141px; height: 90px;">ГОТОВА</td>
 </tr>
 <tr style="height: 72px;">
 <td style="width: 46.0156px; height: 72px;">25</td>
@@ -272,7 +272,7 @@
 <td style="width: 10.5312px; height: 72px;">3</td>
 <td style="width: 18px; height: 72px;">4</td>
 <td style="width: 48.0156px; height: 72px;">3</td>
-<td style="width: 202.141px; height: 72px;">&nbsp;</td>
+<td style="width: 202.141px; height: 72px;">ГОТОВА</td>
 </tr>
 <tr style="height: 108px;">
 <td style="width: 46.0156px; height: 108px;">29</td>
@@ -281,7 +281,7 @@
 <td style="width: 10.5312px; height: 108px;">5</td>
 <td style="width: 18px; height: 108px;">5</td>
 <td style="width: 48.0156px; height: 108px;">1</td>
-<td style="width: 202.141px; height: 108px;">&nbsp;</td>
+<td style="width: 202.141px; height: 108px;">ГОТОВА</td>
 </tr>
 <tr style="height: 36px;">
 <td style="width: 46.0156px; height: 36px;">30</td>
@@ -290,7 +290,7 @@
 <td style="width: 10.5312px; height: 36px;">5</td>
 <td style="width: 18px; height: 36px;">2</td>
 <td style="width: 48.0156px; height: 36px;">1</td>
-<td style="width: 202.141px; height: 36px;">&nbsp;</td>
+<td style="width: 202.141px; height: 36px;">ГОТОВА</td>
 </tr>
 </tbody>
 </table>
