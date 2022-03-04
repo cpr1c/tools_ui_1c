@@ -1,362 +1,359 @@
-#Область СобытияФормы
+#Region FormEvents
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	Если Параметры.Свойство("РежимВыбора") Тогда
-		РежимВыбора=Параметры.РежимВыбора;
-	КонецЕсли;
-	Если Параметры.Свойство("MetadataObjectName") Тогда
-		ИмяОбъектаМетаданных=Параметры.MetadataObjectName;
-	КонецЕсли;
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	If Parameters.Property("ChoiceMode") Then
+		ChoiceMode=Parameters.ChoiceMode;
+	EndIf;
+	If Parameters.Property("MetadataObjectName") Then
+		MetadataObjectName=Parameters.MetadataObjectName;
+	EndIf;
 
-// Соберём доступные виды объектов в дерево
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.Справочник, "Справочники", "Справочник", "Справочники");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.Документ, "Документы", "Документ", "Документы");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.ЖурналДокументов, "ЖурналыДокументов", "ЖурналДокументов", "Журналы документов");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.ПланВидовХарактеристик, "ПланыВидовХарактеристик",
-		"ПланВидовХарактеристик", "Планы видов характеристик");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.ПланСчетов, "ПланыСчетов", "ПланСчетов", "Планы счетов");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.ПланВидовРасчета, "ПланыВидовРасчета", "ПланВидовРасчета",
-		"Планы видов расчёта");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.ПланОбмена, "ПланыОбмена", "ПланОбмена", "Планы обмена");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.РегистрСведений, "РегистрыСведений", "РегистрСведений",
-		"Регистры сведений");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.РегистрНакопления, "РегистрыНакопления", "РегистрНакопления",
-		"Регистры накопления");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.РегистрРасчета, "РегистрыРасчета", "РегистрРасчета",
-		"Регистры расчета");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.РегистрБухгалтерии, "РегистрыБухгалтерии", "РегистрБухгалтерии",
-		"Регистры бухгалтерии");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.БизнесПроцесс, "БизнесПроцессы", "БизнесПроцесс", "Бизнес процессы");
-	ДобавитьВДеревоВидОбъекта(БиблиотекаКартинок.Задача, "Задачи", "Задача", "Задачи");
+// Collect avalible object types to tree
+	AddObjectTypeToTree(PictureLib.Catalog, "Catalogs", "Catalog", "Catalogs");
+	AddObjectTypeToTree(PictureLib.Document, "Documents", "Document", "Documents");
+	AddObjectTypeToTree(PictureLib.DocumentJournal, "DocumentJournals", "DocumentJournal", "Document journals");
+	AddObjectTypeToTree(PictureLib.ChartOfCharacteristicTypes, "ChartsOfCharacteristicTypes",
+		"ChartOfCharacteristicTypes", "Charts  of characteristic types");
+	AddObjectTypeToTree(PictureLib.ChartOfAccounts, "ChartsOfAccounts", "ChartOfAccounts", "Charts of Accounts");
+	AddObjectTypeToTree(PictureLib.ChartOfCalculationTypes, "ChartsOfCalculationTypes", "ChartOfCalculationTypes",
+		"Charts of calculation types");
+	AddObjectTypeToTree(PictureLib.ExchangePlan, "ExchangePlans", "ExchangePlan", "Планы обмена");
+	AddObjectTypeToTree(PictureLib.InformationRegister, "InformationRegisters", "InformationRegister",
+		"Information registers");
+	AddObjectTypeToTree(PictureLib.AccumulationRegister, "AccumulationRegisters", "AccumulationRegister",
+		"Accumulation registers");
+	AddObjectTypeToTree(PictureLib.CalculationRegister, "CalculationRegisters", "CalculationRegister",
+		"Calculation registers");
+	AddObjectTypeToTree(PictureLib.AccountingRegister, "AccountingRegisters", "AccountingRegister",
+		"Accounting registers");
+	AddObjectTypeToTree(PictureLib.BusinessProcess, "BusinessProcesses", "BusinessProcess", "Business processes");
+	AddObjectTypeToTree(PictureLib.Task, "Tasks", "Task", "Tasks");
 
-	Если ЗначениеЗаполнено(ИмяОбъектаМетаданных) Тогда
-		Элементы.ДеревоМетаданных.Видимость=Ложь;
-		УстановитьПараметрыДинамическогоСпискаНаСервере(ИдентификаторСтрокиОбъектаМетаданных);
-	КонецЕсли;
+	If ValueIsFilled(MetadataObjectName) Then
+		Items.MetadataTree.Visible=False;
+		SetDynamicListParametersAtServer(MetadataObjectRowID);
+	EndIf;
 
-	Элементы.Выбрать.Видимость=РежимВыбора;
+	Items.Choose.Visible=ChoiceMode;
 	
-	UT_Common.ToolFormOnCreateAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка);
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing);
 	
-КонецПроцедуры
-#КонецОбласти
+EndProcedure
+#EndRegion
 
-#Область ОбработчикиСобытийЭлементовФормы
+#Region FormItemsEventHandlers
 
-&НаКлиенте
-Процедура ДеревоМетаданныхВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-
-	УстановитьПараметрыДинамическогоСпискаНаСервере(ВыбраннаяСтрока);
-КонецПроцедуры
+&AtClient
+Procedure MetadataTreeSelection(Item, RowSelected, Field, StandardProcessing)
+	SetDynamicListParametersAtServer(RowSelected);
+EndProcedure
 
 //@skip-warning
-&НаКлиенте
-Процедура Attachable_DynamicListSelection(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
+&AtClient
+Procedure Attachable_DynamicListSelection(Item, RowSelected, Field, StandardProcessing)
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура РедактироватьОбъект(Команда)
-	Если Элементы.ГруппаСтраницыВыбораДинамическогоСписка.ТекущаяСтраница <> Элементы.ГруппаДинамическийСписок Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure EditObject(Command)
+	If Items.GroupDynamicListChoosePages.CurrentPage <> Items.GroupDynamicList Then
+		Return;
+	EndIf;
 
-	ИмяРеквизитаФормы = "ДинамическийСписок";
+	FormAttributeName = "DynamicList";
 
-	ТекСсылка=Элементы[ИмяРеквизитаФормы].ТекущаяСтрока;
-	Если ТекСсылка = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+	CurrentRef=Items[FormAttributeName].CurrentRow;
+	If CurrentRef = Undefined Then
+		Return;
+	EndIf;
 
-	UT_CommonClient.EditObject(ТекСсылка);
-КонецПроцедуры
-#КонецОбласти
+	UT_CommonClient.EditObject(CurrentRef);
+EndProcedure
+#EndRegion
 
-#Область ОбработчикиКомандФормы
+#Region FormCommandsHandlers
 
 //@skip-warning
-&НаКлиенте
-Процедура Attachable_ExecuteToolsCommonCommand(Команда) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
-КонецПроцедуры
+&AtClient
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
+EndProcedure
 
 
-#КонецОбласти
+#EndRegion
 
-#Область ПрочиеФункции
+#Region OtherFunctions
 
-&НаСервере
-Процедура УдалитьДинамическийСписок(ИмяРеквизита)
-	МассивУдаляемыхРеквизитов = Новый Массив;
-	МассивУдаляемыхРеквизитов.Добавить(ИмяРеквизита);
+&AtServer
+Procedure DeleteDynamicList(AttributeName)
+	DeletedAttributesArray = New Array;
+	DeletedAttributesArray.Add(AttributeName);
 
-	ТекущиеРеквизитыФормы = ПолучитьРеквизиты();
+	CurrentFormAttributes = GetAttributes();
 
-	ЕстьРеквизит = Ложь;
-	Для Каждого рекв Из ТекущиеРеквизитыФормы Цикл
-		Если рекв.Имя = ИмяРеквизита Тогда
-			ЕстьРеквизит = Истина;
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
+	HaveAttribute = False;
+	For Each Attribute In CurrentFormAttributes Do
+		If Attribute.Name = AttributeName Then
+			HaveAttribute = True;
+			Break;
+		EndIf;
+	EndDo;
 
-	Если ЕстьРеквизит Тогда
-		ИзменитьРеквизиты( , МассивУдаляемыхРеквизитов);
-	КонецЕсли;
+	If HaveAttribute Then
+		ChangeAttributes( , DeletedAttributesArray);
+	EndIf;
 
-	ДинамичныйСписок = ЭтаФорма.Элементы.Найти(ИмяРеквизита);
-	Если ДинамичныйСписок <> Неопределено Тогда
-		Элементы.Удалить(ДинамичныйСписок);
-	КонецЕсли;
-КонецПроцедуры
+	DynList = ThisForm.Items.Find(AttributeName);
+	If DynList <> Undefined Then
+		Items.Delete(DynList);
+	EndIf;
+EndProcedure
 
-&НаСервере
-Процедура УстановитьПараметрыДинамическогоСпискаНаСервере(ВыбраннаяСтрока)
-	ТекДанные = ДеревоМетаданных.НайтиПоИдентификатору(ВыбраннаяСтрока);
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-	Заголовок=ТекДанные.Представление;
+&AtServer
+Procedure SetDynamicListParametersAtServer(RowSelected)
+	CurrentData = MetadataTree.FindByID(RowSelected);
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
+	Title=CurrentData.Presentation;
 
-	ИмяРеквизитаФормы = "ДинамическийСписок";
-	УдалитьДинамическийСписок(ИмяРеквизитаФормы);
+	FormAttributeName = "DynamicList";
+	DeleteDynamicList(FormAttributeName);
 
-	Если Не ЗначениеЗаполнено(ТекДанные.ВидОбъекта) Тогда
-		Элементы.ГруппаСтраницыВыбораДинамическогоСписка.ТекущаяСтраница = Элементы.ГруппаБезДинамическогоСписка;
-		Возврат;
-	КонецЕсли;
+	If Not ValueIsFilled(CurrentData.ObjectType) Then
+		Items.GroupDynamicListChoosePages.CurrentPage = Items.GroupWithoutDynamicList;
+		Return;
+	EndIf;
 
-	ДобавляемыеРеквизиты = Новый Массив;
-	ДобавляемыеРеквизиты.Добавить(Новый РеквизитФормы(ИмяРеквизитаФормы, Новый ОписаниеТипов("ДинамическийСписок"), ,
-		ТекДанные.Представление, Ложь));
+	AddedAttributes = New Array;
+	AddedAttributes.Add(New FormAttribute(FormAttributeName, New TypeDescription("DynamicList"), ,
+		CurrentData.Presentation, False));
 
-	ИзменитьРеквизиты(ДобавляемыеРеквизиты);
+	ChangeAttributes(AddedAttributes);
 
-	ТекСписок = ЭтотОбъект[ИмяРеквизитаФормы];
+	CurrentList = ThisObject[FormAttributeName];
 
-	ТекСписок.ОсновнаяТаблица = ТекДанные.ТипОбъектов + "." + ТекДанные.ВидОбъекта;
-	ТекСписок.ПроизвольныйЗапрос = Ложь;
+	CurrentList.MainTable = CurrentData.ObjectsType + "." + CurrentData.ObjectType;
+	CurrentList.CustomQuery = False;
 	
 
-	//Получаем реквизиты нашего списка
-	МассивРеквизитовСписка = Новый Массив;
-	РеквизитыСписка = ПолучитьРеквизиты(ИмяРеквизитаФормы);
-	Для Каждого ТекРеквизит Из РеквизитыСписка Цикл
-		МассивРеквизитовСписка.Добавить(ТекРеквизит.Имя);
-	КонецЦикла;
+	//Get attributes of our list
+	ListAttributesArray = New Array;
+	ListAttributes = GetAttributes(FormAttributeName);
+	For Each CurrentAttribute In ListAttributes Do
+		ListAttributesArray.Add(CurrentAttribute.Name);
+	EndDo;
 
-	// Создаём таблицу (элемент формы) для отображения данных
-	ЭлементФормы = Элементы.Добавить(ИмяРеквизитаФормы, Тип("ТаблицаФормы"), Элементы.ГруппаДинамическийСписок);
-	ЭлементФормы.ПутьКДанным = ИмяРеквизитаФормы;
-	ЭлементФормы.Подсказка = ТекДанные.Комментарий;
-	ЭлементФормы.Заголовок = ТекДанные.Представление;
-	//	ЭлементФормы.УстановитьДействие("ВыборЗначения", "СписокВыбор");
-	//	ЭлементФормы.РежимВыбора = НЕ РежимПросмотраБД;
-	ЭлементФормы.ВыборГруппИЭлементов = ИспользованиеГруппИЭлементов.ГруппыИЭлементы;
-	//	ЭлементФормы.РежимВыделения = ?(РежимПросмотраБД, РежимВыделенияТаблицы.Множественный, РежимВыделенияТаблицы.Одиночный);
-	//ЭлементФормы.ТекущийЭлемент.ТекущиеДанные = ВыбСсылка; //Жалко не работает. Хорошо бы устанавливать текущую строку.
-	ЕстьОтображаемыеРеквизиты = Ложь;
-	// Создаём колонки в отображаемой таблице
-	Для Каждого ТекРеквизит Из ТекДанные.Реквизиты Цикл
-		Если МассивРеквизитовСписка.Найти(ТекРеквизит.Имя) = Неопределено Тогда
-			Продолжить;
-		КонецЕсли;
+	// Create table (form item) for show data
+	FormItem = Items.Add(FormAttributeName, Type("FormTable"), Items.GroupDynamicList);
+	FormItem.DataPath = FormAttributeName;
+	FormItem.ToolTip = CurrentData.Comment;
+	FormItem.Title = CurrentData.Presentation;
+	//	FormItem.SetAction("ValueChoice", "ChoiceList");
+	//	FormItem.ChoiceMode = Not DataBaseViewMode;
+	FormItem.ChoiceFoldersAndItems = FoldersAndItemsUse.FoldersAndItems;
+	//	FormItem.SelectionMode = ?(DataBaseViewMode, TableSelectionMode.MultiRow, TableSelectionMode.SingleRow);
+	//FormItem.CurrentItem.CurrentData = SelectedRef; //It's a pity it doesn't work. It would be good to set the current row.
+	HaveDisplayedAttributes = False;
+	// Create collums in displayed table
+	For Each CurrentAttribute In CurrentData.Attributes Do
+		If ListAttributesArray.Find(CurrentAttribute.Name) = Undefined Then
+			Continue;
+		EndIf;
 
-		Попытка
-			Колонка = Элементы.Добавить(ИмяРеквизитаФормы + ТекРеквизит.Имя, Тип("ПолеФормы"), ЭлементФормы);
-			Колонка.Вид = ?(ТекРеквизит.ТипЗначения.Типы().Количество() = 1 И ТекРеквизит.ТипЗначения.Типы()[0] = Тип(
-				"Булево"), ВидПоляФормы.ПолеФлажка, ВидПоляФормы.ПолеВвода);
-			Колонка.ПутьКДанным = ИмяРеквизитаФормы + "." + ТекРеквизит.Имя;
-			Колонка.Подсказка = ТекРеквизит.Представление;
-			ЕстьОтображаемыеРеквизиты = Истина;
-		Исключение
-			Сообщить("Не удалось создать колонку списка для реквизита " + ТекРеквизит.Имя);
-		КонецПопытки;
-	КонецЦикла;
-	ЭлементФормы.РежимВыбора=РежимВыбора;
+		Try
+			Column = Items.Add(FormAttributeName + CurrentAttribute.Name, Type("FormField"), FormItem);
+			Column.Type = ?(CurrentAttribute.ValueType.Types().Count() = 1 And CurrentAttribute.ValueType.Types()[0] = Type(
+				"Boolean"), FormFieldType.CheckBoxField, FormFieldType.InputField);
+			Column.DataPath = FormAttributeName + "." + CurrentAttribute.Name;
+			Column.ToolTip = CurrentAttribute.Presentation;
+			HaveDisplayedAttributes = True;
+		Except
+			Message(NSTR("ru = 'Не удалось создать колонку списка для реквизита';en = 'Failed to create a list column for attribute'") + CurrentAttribute.Name);
+		EndTry;
+	EndDo;
+	FormItem.ChoiceMode=ChoiceMode;
 	
-	//Нужно добавить кнопки на командную панель
-	ГруппаКоманднаяПанель=Элементы[ИмяРеквизитаФормы + "КоманднаяПанель"];
-	//Сначала кнопку открыть
-	ОписаниеКнопки=UT_Forms.ButtonCommandNewDescription();
-	ОписаниеКнопки.Имя=ИмяРеквизитаФормы + "РедактироватьОбъект";
-	ОписаниеКнопки.РодительЭлемента=ГруппаКоманднаяПанель;
-	ОписаниеКнопки.СоздаватьКнопку=Истина;
-	ОписаниеКнопки.ИмяКоманды="РедактироватьОбъект";
-	UT_Forms.CreateButtonByDescription(ЭтотОбъект, ОписаниеКнопки);
+	//Need to add buttons to the command panel
+	GroupCommandBar=Items[FormAttributeName + "CommandBar"];
+	//OpenButton
+	ButtonDescription=UT_Forms.ButtonCommandNewDescription();
+	ButtonDescription.Name=FormAttributeName + "EditObject";
+	ButtonDescription.ItemParent=GroupCommandBar;
+	ButtonDescription.CreateButton=True;
+	ButtonDescription.CommandName="EditObject";
+	UT_Forms.CreateButtonByDescription(ThisObject, ButtonDescription);
 
-	//Сначала кнопку открыть
-	ОписаниеКнопки=UT_Forms.ButtonCommandNewDescription();
-	ОписаниеКнопки.Имя=ИмяРеквизитаФормы + "УдалитьВыделенныеОбъекты";
-	ОписаниеКнопки.РодительЭлемента=ГруппаКоманднаяПанель;
-	ОписаниеКнопки.СоздаватьКнопку=Истина;
-	ОписаниеКнопки.ИмяКоманды="УдалитьВыделенныеОбъекты";
-	UT_Forms.CreateButtonByDescription(ЭтотОбъект, ОписаниеКнопки);
+	ButtonDescription=UT_Forms.ButtonCommandNewDescription();
+	ButtonDescription.Name=FormAttributeName + "DeleteSelectedObjects";
+	ButtonDescription.ItemParent=GroupCommandBar;
+	ButtonDescription.CreateButton=True;
+	ButtonDescription.CommandName="DeleteSelectedObjects";
+	UT_Forms.CreateButtonByDescription(ThisObject, ButtonDescription);
 
-	Если ЕстьОтображаемыеРеквизиты Тогда
-		Элементы.ГруппаСтраницыВыбораДинамическогоСписка.ТекущаяСтраница = Элементы.ГруппаДинамическийСписок;
-	Иначе
-		Элементы.ГруппаСтраницыВыбораДинамическогоСписка.ТекущаяСтраница = Элементы.ГруппаНедоступнаяТаблица;
-	КонецЕсли;
-КонецПроцедуры
-&НаСервере
-Функция МассивТаблицРеквизитовДляОбъектаМетаданных(ОбъектМетаданных)
-	МассивТаблицРеквизитов = Новый Массив;
-	МассивТаблицРеквизитов.Добавить(ОбъектМетаданных.СтандартныеРеквизиты);
+	If HaveDisplayedAttributes Then
+		Items.GroupDynamicListChoosePages.CurrentPage = Items.GroupDynamicList;
+	Else
+		Items.GroupDynamicListChoosePages.CurrentPage = Items.GroupNotAvalibleTable;
+	EndIf;
+EndProcedure
 
-	Если UT_Common.IsInformationRegister(ОбъектМетаданных) Или UT_Common.IsAccumulationRegister(
-		ОбъектМетаданных) Или UT_Common.IsCalculationRegister(ОбъектМетаданных)
-		Или UT_Common.IsAccountingRegister(ОбъектМетаданных) Тогда
-		МассивТаблицРеквизитов.Добавить(ОбъектМетаданных.Измерения);
-		МассивТаблицРеквизитов.Добавить(ОбъектМетаданных.Ресурсы);
-	КонецЕсли;
+&AtServer
+Function AttributesTablesArrayForMetaObject(MetadataObject)
+	AttributesTablesArray = New Array;
+	AttributesTablesArray.Add(MetadataObject.StandardAttributes);
+
+	If UT_Common.IsInformationRegister(MetadataObject) Or UT_Common.IsAccumulationRegister(
+		MetadataObject) Or UT_Common.IsCalculationRegister(MetadataObject)
+		Or UT_Common.IsAccountingRegister(MetadataObject) Then
+		AttributesTablesArray.Add(MetadataObject.Dimensions);
+		AttributesTablesArray.Add(MetadataObject.Resources);
+	EndIf;
 	
-	Если UT_Common.IsDocumentJournal(ОбъектМетаданных) Тогда
-		МассивТаблицРеквизитов.Добавить(ОбъектМетаданных.Графы);
-	Иначе	
-		МассивТаблицРеквизитов.Добавить(ОбъектМетаданных.Реквизиты);
-	КонецЕсли;
-	Если UT_Common.IsChartOfAccounts(ОбъектМетаданных) Тогда
-		МассивТаблицРеквизитов.Добавить(ОбъектМетаданных.ПризнакиУчета);
-	КонецЕсли;
+	If UT_Common.IsDocumentJournal(MetadataObject) Then
+		AttributesTablesArray.Add(MetadataObject.Columns);
+	Else	
+		AttributesTablesArray.Add(MetadataObject.Attributes);
+	EndIf;
+	If UT_Common.IsChartOfAccounts(MetadataObject) Then
+		AttributesTablesArray.Add(MetadataObject.AccountingFlags);
+	EndIf;
 
-	Возврат МассивТаблицРеквизитов;
-КонецФункции
+	Return AttributesTablesArray;
+EndFunction
 
-// Добавляет в дерево значений ветку описаний УстановитьПараметрыДинамическогоСпискаНаСервереобъектов.
-&НаСервере
-Процедура ДобавитьВДеревоВидОбъекта(Картинка, ИмяТипаМетаданных, ИмяТипаОбъектов, Представление)
+// Add to value tree row of description SetDynamicListParametersAtServer objects.
+&AtServer
+Procedure AddObjectTypeToTree(Picture, MetadataTypeName, ObjectTypeName, Presentation)
 
-	ЭлементыДерева = ДеревоМетаданных.ПолучитьЭлементы();
+	TreeItems = MetadataTree.GetItems();
 
-	строкаТипа = ЭлементыДерева.Добавить();
-	строкаТипа.Картинка = Картинка;
-	строкаТипа.Представление = Представление;
-	строкаТипа.ТипОбъектов = ИмяТипаОбъектов;
+	TypeRow = TreeItems.Add();
+	TypeRow.Picture = Picture;
+	TypeRow.Presentation = Presentation;
+	TypeRow.ObjectsType = ObjectTypeName;
 
-	ЭлементыСтрокиДерева = строкаТипа.ПолучитьЭлементы();
+	TreeRowItems = TypeRow.GetItems();
 
-	МассивНевыводимыхРеквизитов = Новый Массив;
-	МассивНевыводимыхРеквизитов.Добавить("ССЫЛКА");
-	МассивНевыводимыхРеквизитов.Добавить("ИМЯПРЕДОПРЕДЕЛЕННЫХДАННЫХ");
-	МассивНевыводимыхРеквизитов.Добавить("ЭТОГРУППА");
-	МассивНевыводимыхРеквизитов.Добавить("ПРОВЕДЕН");
-	МассивНевыводимыхРеквизитов.Добавить("ПОМЕТКАУДАЛЕНИЯ");
-	МассивНевыводимыхРеквизитов.Добавить("ЭТОТУЗЕЛ");
-	МассивНевыводимыхРеквизитов.Добавить("ПРЕДОПРЕДЕЛЕННЫЙ");
-	МассивНевыводимыхРеквизитов.Добавить("РОДИТЕЛЬ");
+	NonDospalyedAttribute = New Array;
+	NonDospalyedAttribute.Add("REF");
+	NonDospalyedAttribute.Add("PREDEFINEDDATANAME"); 
+	NonDospalyedAttribute.Add("ISFOLDER");
+	NonDospalyedAttribute.Add("POSTED");
+	NonDospalyedAttribute.Add("DELETIONMARK");
+	NonDospalyedAttribute.Add("THISNODE");
+	NonDospalyedAttribute.Add("PREDEFINED");
+	NonDospalyedAttribute.Add("PARENT");
 
-	Для Каждого мдОбъекта Из Метаданные[ИмяТипаМетаданных] Цикл
-		СинонимОбъектаМетаданных = ?(ПустаяСтрока(мдОбъекта.Синоним), "", " (" + мдОбъекта.Синоним + ")");
-		ЭтоЖурналДокументов=UT_Common.IsDocumentJournal(мдОбъекта);
+	For Each ObjectMD In Metadata[MetadataTypeName] Do
+		MetadaObjectSynonym = ?(IsBlankString(ObjectMD.Synonym), "", " (" + ObjectMD.Synonym + ")");
+		IsDocumentJournal=UT_Common.IsDocumentJournal(ObjectMD);
 
-		строкаВида = ЭлементыСтрокиДерева.Добавить();
-		строкаВида.Картинка = Картинка;
-		строкаВида.Представление = мдОбъекта.Имя + СинонимОбъектаМетаданных;
-		строкаВида.ТипОбъектов = ИмяТипаОбъектов;
-		строкаВида.ВидОбъекта = мдОбъекта.Имя;
-		строкаВида.Комментарий = мдОбъекта.Комментарий;
-		строкаВида.ПолноеИмя=мдОбъекта.ПолноеИмя();
+		RowOfType = TreeRowItems.Add();
+		RowOfType.Picture = Picture;
+		RowOfType.Presentation = ObjectMD.Name + MetadaObjectSynonym;
+		RowOfType.ObjectsType = ObjectTypeName;
+		RowOfType.ObjectType = ObjectMD.Name;
+		RowOfType.Comment = ObjectMD.Comment;
+		RowOfType.FullName=ObjectMD.FullName();
 
-		Если НРег(строкаВида.ПолноеИмя) = НРег(ИмяОбъектаМетаданных) И ЗначениеЗаполнено(ИмяОбъектаМетаданных) Тогда
-			ИдентификаторСтрокиОбъектаМетаданных=строкаВида.ПолучитьИдентификатор();
-		КонецЕсли;
+		If Lower(RowOfType.FullName) = Lower(MetadataObjectName) And ValueIsFilled(MetadataObjectName) Then
+			MetadataObjectRowID=RowOfType.GetID();
+		EndIf;
 
-		МассивТаблицРеквизитов = МассивТаблицРеквизитовДляОбъектаМетаданных(мдОбъекта);
+		AttributesTablesArray = AttributesTablesArrayForMetaObject(ObjectMD);
 
-		Для Каждого ТаблицаРеквизитов Из МассивТаблицРеквизитов Цикл
-			Для Каждого Реквизит Из ТаблицаРеквизитов Цикл
-				Если МассивНевыводимыхРеквизитов.Найти(ВРег(Реквизит.Имя)) <> Неопределено Тогда
-					Продолжить;
-				КонецЕсли;
+		For Each AttributesTable In AttributesTablesArray Do
+			For Each Attribute In AttributesTable Do
+				If NonDospalyedAttribute.Find(Upper(Attribute.Name)) <> Undefined Then
+					Continue;
+				EndIf;
 
-				НовыйРеквизит = строкаВида.Реквизиты.Добавить();
-				НовыйРеквизит.Имя = Реквизит.Имя;
-				НовыйРеквизит.Представление = Реквизит.Синоним;
-				Если не ЭтоЖурналДокументов Тогда
-					НовыйРеквизит.ТипЗначения = Реквизит.Тип;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЦикла;
-	КонецЦикла;
+				NewAttribute = RowOfType.Attributes.Add();
+				NewAttribute.Name = Attribute.Name;
+				NewAttribute.Presentation = Attribute.Synonym;
+				If NOT IsDocumentJournal Then
+					NewAttribute.ValueType = Attribute.Type;
+				EndIf;
+			EndDo;
+		EndDo;
+	EndDo;
 
-КонецПроцедуры
-&НаКлиенте
-Процедура Выбрать(Команда)
-	Если Элементы.Найти("ДинамическийСписок") = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+EndProcedure
+&AtClient
+Procedure Choose(Command)
+	If Items.Find("DynamicList") = Undefined Then
+		Return;
+	EndIf;
 
-	ТекДанные = Элементы.ДеревоМетаданных.ТекущиеДанные;
-	Если ЗначениеЗаполнено(ИмяОбъектаМетаданных) Тогда
-//		Возврат;
-	ИначеЕсли ТекДанные = Неопределено Тогда
-		Возврат;
-	ИначеЕсли Не ЗначениеЗаполнено(ТекДанные.ВидОбъекта) Тогда
-		Возврат;
-	КонецЕсли;
+	CurrentData = Items.MetadataTree.CurrentData;
+	If ValueIsFilled(MetadataObjectName) Then
+//		Return;
+	ElsIf CurrentData = Undefined Then
+		Return;
+	ElsIf Not ValueIsFilled(CurrentData.ObjectType) Then
+		Return;
+	EndIf;
 
-	ОповеститьОВыборе(Элементы.ДинамическийСписок.ТекущаяСтрока);
-	Закрыть(Элементы.ДинамическийСписок.ТекущаяСтрока);
-КонецПроцедуры
+	NotifyChoice(Items.DynamicList.CurrentRow);
+	Close(Items.DynamicList.CurrentRow);
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьВыделенныеОбъекты(Команда)
-	Если Элементы.ГруппаСтраницыВыбораДинамическогоСписка.ТекущаяСтраница <> Элементы.ГруппаДинамическийСписок Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure DeleteSelectedObjects(Command)
+	If Items.GroupDynamicListChoosePages.CurrentPage <> Items.GroupDynamicList Then
+		Return;
+	EndIf;
 
-	ИмяРеквизитаФормы = "ДинамическийСписок";
+	FormAttributeName = "DynamicList";
 
-	МассивСсылок = Новый Массив;
+	RefsArray = New Array;
 
-	Для Каждого Элем Из Элементы[ИмяРеквизитаФормы].ВыделенныеСтроки Цикл
-		МассивСсылок.Добавить(Элем);
-	КонецЦикла;
+	For Each Item In Items[FormAttributeName].SelectedRows Do
+		RefsArray.Add(Item);
+	EndDo;
 
-	ЧислоЭлементов = МассивСсылок.Количество();
+	ItemsCount = RefsArray.Count();
 
-	Если ЧислоЭлементов = 0 Тогда
-		Возврат;
-	КонецЕсли;
-	ТекстВопроса = "Объекты (" + ЧислоЭлементов + " шт) будут удалены из базы!
+	If ItemsCount = 0 Then
+		Return;
+	EndIf;
+	ТекстВопроса = "Objects (" + ItemsCount + " шт) будут удалены из базы!
 												  |Никакие проверки производиться не будут (возможно появление битых ссылок)!
 												  |
 												  |Продолжить?";
 
-	ДополнительныеПараметры=Новый Структура;
-	ДополнительныеПараметры.Вставить("МассивСсылок", МассивСсылок);
-	ДополнительныеПараметры.Вставить("ИмяРеквизитаФормы", ИмяРеквизитаФормы);
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RefsArray", RefsArray);
+	AdditionalParameters.Insert("FormAttributeName", FormAttributeName);
 
-	ПоказатьВопрос(Новый ОписаниеОповещения("УдалитьВыделенныеОбъектыЗавершение", ЭтаФорма, ДополнительныеПараметры), ТекстВопроса,
-		РежимДиалогаВопрос.ДаНет, 20, , "ВНИМАНИЕ");
-КонецПроцедуры
+	ShowQueryBox(New NotifyDescription("DeleteSelectedObjectsEnd", ThisForm, AdditionalParameters), ТекстВопроса,
+		QuestionDialogMode.YesNo, 20, , "ВНИМАНИЕ");
+EndProcedure
 
-&НаКлиенте
-Процедура УдалитьВыделенныеОбъектыЗавершение(РезультатВопроса, ДополнительныеПараметры) Экспорт
-	Если РезультатВопроса <> КодВозвратаДиалога.Да Тогда
-		Возврат;
-	КонецЕсли;
-	УдалитьВыделенныеОбъектыНаСервере(ДополнительныеПараметры.МассивСсылок);
-	Элементы[ДополнительныеПараметры.ИмяРеквизитаФормы].Обновить();
+&AtClient
+Procedure DeleteSelectedObjectsEnd(QuestionResult, AdditionalParameters) Export
+	If QuestionResult <> DialogReturnCode.Yes Then
+		Return;
+	EndIf;
+	DeleteSelectedObjectsAtServer(AdditionalParameters.RefsArray);
+	Items[AdditionalParameters.FormAttributeName].Update();
+EndProcedure
 
-КонецПроцедуры
+&AtServerNoContext
+Procedure DeleteSelectedObjectsAtServer(RefsArray)
+	For Each Reference In RefsArray Do
+		Try
+			pObject = Reference.GetObject();
+			If pObject = Undefined Then
+				Return;
+			EndIf;
+			pObject.Delete();
+		Except
+			Message("Ошибка при удалении объекта:" + Chars.LF + ErrorDescription());
+		EndTry;
+	EndDo;
+EndProcedure
 
-&НаСервереБезКонтекста
-Процедура УдалитьВыделенныеОбъектыНаСервере(МассивСсылок)
-	Для Каждого Ссылка Из МассивСсылок Цикл
-		Попытка
-			пОбъект = Ссылка.ПолучитьОбъект();
-			Если пОбъект = Неопределено Тогда
-				Возврат;
-			КонецЕсли;
-			пОбъект.Удалить();
-		Исключение
-			Сообщить("Ошибка при удалении объекта:" + Символы.ПС + ОписаниеОшибки());
-		КонецПопытки;
-	КонецЦикла;
-КонецПроцедуры
-
-#КонецОбласти
+#EndRegion

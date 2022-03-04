@@ -123,7 +123,7 @@ Procedure SetConditionalAppearance()
 	Item = ConditionalAppearance.Items.Add();
 
 	ItemField = Item.Fields.Items.Add();
-	ItemField.Field = New DataCompositionField(Items.TableOfScheduledJobsDone.Name);
+	ItemField.Field = New DataCompositionField(Items.ScheduledJobsDone.Name);
 
 	SelectionItem = Item.Filter.Items.Add(Type("DataCompositionFilterItem"));
 	SelectionItem.LeftValue  = New DataCompositionField("TableOfScheduledJobs.Changed");

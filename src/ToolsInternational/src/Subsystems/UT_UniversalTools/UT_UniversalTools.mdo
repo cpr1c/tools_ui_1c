@@ -18,7 +18,7 @@
   <content>DataProcessor.UT_ConstantsEditor</content>
   <content>DataProcessor.UT_DatabaseStorageStructure</content>
   <content>DataProcessor.UT_MarkedObjectsDeletion</content>
-  <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
+  <content>DataProcessor.UT_PerformingSheduledJobsOnTheClient</content>
   <content>DataProcessor.UT_QueryConsole</content>
   <content>DataProcessor.UT_JobsConsole</content>
   <content>DataProcessor.UT_RegisterChangesForDataExchange</content>
@@ -84,8 +84,8 @@
   <content>CommonModule.UT_CodeEditorServer</content>
   <content>CommonModule.UT_CodeEditorClient</content>
   <content>CommonForm.UT_WriteSettings</content>
-  <content>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</content>
-  <content>CommonTemplate.UT_RegularExpressionsComponentRegEx</content>
+  <content>CommonTemplate.UT_RegularExpressionsAddInRegExBrowsers</content>
+  <content>CommonTemplate.UT_RegularExpressionsAddinRegEx</content>
   <content>CommonTemplate.UT_Ace</content>
   <content>CommonPicture.UT_Question32</content>
   <content>CommonPicture.UT_FilesPictogramsCollection48</content>

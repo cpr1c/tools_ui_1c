@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОсновная</name>
+    <name>GroupMain</name>
     <id>26</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаМетаданные</name>
+      <name>GroupMetadata</name>
       <id>28</id>
       <items xsi:type="form:Table">
-        <name>ДеревоМетаданных</name>
+        <name>MetadataTree</name>
         <id>1</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -15,11 +15,11 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДеревоМетаданных</segments>
+          <segments>MetadataTree</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
-          <name>ДеревоМетаданныхПредставление</name>
+          <name>MetadataTreePresentation</name>
           <id>17</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -29,14 +29,14 @@
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <activeLanguage>1</activeLanguage>
             <paths xsi:type="form:DataPath">
-              <segments>ДеревоМетаданных.Представление</segments>
+              <segments>MetadataTree.Presentation</segments>
             </paths>
             <paths xsi:type="form:DataPath">
-              <segments>ДеревоМетаданных.Представление</segments>
+              <segments>MetadataTree.Presentation</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>ПолеРасширеннаяПодсказка1</name>
+            <name>MetadataTreePresentationExtendedTooltip</name>
             <id>19</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -51,7 +51,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПолеКонтекстноеМеню1</name>
+            <name>MetadataTreePresentationContextMenu</name>
             <id>18</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -76,7 +76,7 @@
         </items>
         <commandBarLocation>None</commandBarLocation>
         <autoCommandBar>
-          <name>КоманднаяПанель</name>
+          <name>MetadataTreeCommandBar</name>
           <id>2</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -88,7 +88,7 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ДеревоМетаданныхВыбор</name>
+          <name>MetadataTreeSelection</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -96,10 +96,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>MetadataTreeSearchString</name>
           <id>5</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>MetadataTreeSearchStringExtendedTooltip</name>
             <id>7</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -114,7 +114,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>MetadataTreeSearchStringContextMenu</name>
             <id>6</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -133,10 +133,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>MetadataTreeViewStatus</name>
           <id>11</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>MetadataTreeViewStatusExtendedTooltip</name>
             <id>13</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -151,7 +151,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>MetadataTreeViewStatusContextMenu</name>
             <id>12</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -172,10 +172,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>Addition</name>
+          <name>MetadataTreeSearchControl</name>
           <id>8</id>
           <extendedTooltip>
-            <name>ExtendedTooltip</name>
+            <name>MetadataTreeSearchControlExtendedTooltip</name>
             <id>10</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -190,7 +190,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ContextMenu</name>
+            <name>MetadataTreeSearchControlContextMenu</name>
             <id>9</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -205,7 +205,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>РасширеннаяПодсказка</name>
+          <name>MetadataTreeExtendedTooltip</name>
           <id>4</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -220,7 +220,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>КонтекстноеМеню</name>
+          <name>MetadataTreeContextMenu</name>
           <id>3</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -246,7 +246,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ДеревоМетаданных.Картинка</segments>
+          <segments>MetadataTree.Picture</segments>
         </rowPictureDataPath>
       </items>
       <visible>true</visible>
@@ -254,8 +254,12 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>en</key>
+        <value>Group metadata</value>
+      </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка1</name>
+        <name>GroupMetadataExtendedTooltip</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -279,13 +283,13 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСтраницыВыбораДинамическогоСписка</name>
+      <name>GroupDynamicListChoosePages</name>
       <id>125</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаДинамическийСписок</name>
+        <name>GroupDynamicList</name>
         <id>30</id>
         <items xsi:type="form:Button">
-          <name>Выбрать</name>
+          <name>Choose</name>
           <id>141</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -293,7 +297,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ВыбратьРасширеннаяПодсказка</name>
+            <name>ChooseExtendedTooltip</name>
             <id>142</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -308,7 +312,7 @@
             </extInfo>
           </extendedTooltip>
           <type>UsualButton</type>
-          <commandName>Form.Command.Выбрать</commandName>
+          <commandName>Form.Command.Choose</commandName>
           <representation>Auto</representation>
           <defaultButton>true</defaultButton>
           <autoMaxWidth>true</autoMaxWidth>
@@ -321,8 +325,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Group dynamic list</value>
+        </title>
         <extendedTooltip>
-          <name>Группа1РасширеннаяПодсказка2</name>
+          <name>GroupDynamicListExtendedTooltip</name>
           <id>31</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -343,11 +351,15 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаБезДинамическогоСписка</name>
+        <name>GroupWithoutDynamicList</name>
         <id>127</id>
         <items xsi:type="form:Decoration">
-          <name>Декорация1</name>
+          <name>Decoration1</name>
           <id>129</id>
+          <title>
+            <key>en</key>
+            <value>Choose type of displayed list</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Выберите тип отображаемого списка</value>
@@ -358,7 +370,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>Декорация1РасширеннаяПодсказка</name>
+            <name>Decoration1ExtendedTooltip</name>
             <id>131</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -373,7 +385,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>Декорация1КонтекстноеМеню</name>
+            <name>Decoration1ContextMenu</name>
             <id>130</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -402,10 +414,14 @@
           <key>ru</key>
           <value>Группа без динамического списка</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Group without dynamic list</value>
+        </title>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <extendedTooltip>
-          <name>Группа1РасширеннаяПодсказка4</name>
+          <name>GroupWithoutDynamicListExtendedTooltip</name>
           <id>128</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -426,11 +442,15 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаНедоступнаяТаблица</name>
+        <name>GroupNotAvalibleTable</name>
         <id>132</id>
         <items xsi:type="form:Decoration">
-          <name>Декорация2</name>
+          <name>Decoration2</name>
           <id>134</id>
+          <title>
+            <key>en</key>
+            <value>The table is not available for view</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Таблица недоступна для просмотра</value>
@@ -441,7 +461,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>Декорация1РасширеннаяПодсказка1</name>
+            <name>Decoration2ExtendedTooltip</name>
             <id>136</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -456,7 +476,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>Декорация1КонтекстноеМеню1</name>
+            <name>Decoration2ContextMenu</name>
             <id>135</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -485,10 +505,14 @@
           <key>ru</key>
           <value>Группа недоступная таблица</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Group not avalible table</value>
+        </title>
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <extendedTooltip>
-          <name>Группа1РасширеннаяПодсказка5</name>
+          <name>GroupNotAvalibleTableExtendedTooltip</name>
           <id>133</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -517,10 +541,14 @@
         <key>ru</key>
         <value>Группа страницы выбора динамического списка</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group dynamic list choose pages</value>
+      </title>
       <horizontalStretch>true</horizontalStretch>
       <verticalStretch>true</verticalStretch>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка3</name>
+        <name>GroupDynamicListChoosePagesExtendedTooltip</name>
         <id>126</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -544,8 +572,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Group main</value>
+    </title>
     <extendedTooltip>
-      <name>Группа1РасширеннаяПодсказка</name>
+      <name>GroupMainExtendedTooltip</name>
       <id>27</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -580,7 +612,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -591,7 +623,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_DynamicList</types>
@@ -605,7 +641,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ДеревоМетаданных</name>
+    <name>MetadataTree</name>
+    <title>
+      <key>en</key>
+      <value>Metadata tree</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Дерево метаданных</value>
@@ -621,10 +661,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
       <title>
         <key>ru</key>
         <value>Картинка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
       </title>
       <id>3</id>
       <valueType>
@@ -638,10 +682,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>4</id>
       <valueType>
@@ -656,7 +704,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипОбъектов</name>
+      <name>ObjectsType</name>
+      <title>
+        <key>en</key>
+        <value>Objects type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тип объектов</value>
@@ -674,7 +726,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ВидОбъекта</name>
+      <name>ObjectType</name>
+      <title>
+        <key>en</key>
+        <value>Object type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Вид объекта</value>
@@ -692,10 +748,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Комментарий</name>
+      <name>Comment</name>
       <title>
         <key>ru</key>
         <value>Комментарий</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Comment</value>
       </title>
       <id>9</id>
       <valueType>
@@ -710,10 +770,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Реквизиты</name>
+      <name>Attributes</name>
       <title>
         <key>ru</key>
         <value>Реквизиты</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Attributes</value>
       </title>
       <id>10</id>
       <valueType>
@@ -727,10 +791,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>17</id>
       <valueType>
@@ -746,13 +814,17 @@
     </columns>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
-        <segments>ДеревоМетаданных.Реквизиты</segments>
+        <segments>MetadataTree.Attributes</segments>
       </tablePath>
       <columns>
-        <name>Имя</name>
+        <name>Name</name>
         <title>
           <key>ru</key>
           <value>Имя</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Name</value>
         </title>
         <id>11</id>
         <valueType>
@@ -767,10 +839,14 @@
         </edit>
       </columns>
       <columns>
-        <name>Представление</name>
+        <name>Presentation</name>
         <title>
           <key>ru</key>
           <value>Представление</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Presentation</value>
         </title>
         <id>12</id>
         <valueType>
@@ -785,10 +861,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ТипЗначения</name>
+        <name>ValueType</name>
         <title>
           <key>ru</key>
           <value>Тип значения</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Value type</value>
         </title>
         <id>13</id>
         <valueType>
@@ -804,10 +884,14 @@
     </additionalColumns>
   </attributes>
   <attributes>
-    <name>РежимВыбора</name>
+    <name>ChoiceMode</name>
     <title>
       <key>ru</key>
       <value>Режим выбора</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Choice mode</value>
     </title>
     <id>15</id>
     <valueType>
@@ -821,10 +905,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяОбъектаМетаданных</name>
+    <name>MetadataObjectName</name>
     <title>
       <key>ru</key>
       <value>Имя объекта метаданных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Metadata object name</value>
     </title>
     <id>16</id>
     <valueType>
@@ -839,7 +927,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИдентификаторСтрокиОбъектаМетаданных</name>
+    <name>MetadataObjectRowID</name>
+    <title>
+      <key>en</key>
+      <value>ID of Metadata object row</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Идентификатор строки объекта метаданных</value>
@@ -859,10 +951,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Выбрать</name>
+    <name>Choose</name>
     <title>
       <key>ru</key>
       <value>Выбрать</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Choose</value>
     </title>
     <id>1</id>
     <use>
@@ -873,14 +969,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Выбрать</name>
+        <name>Choose</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьОбъект</name>
+    <name>EditObject</name>
+    <title>
+      <key>en</key>
+      <value>Edit object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать объект</value>
@@ -894,17 +994,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьОбъект</name>
+        <name>EditObject</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьВыделенныеОбъекты</name>
+    <name>DeleteSelectedObjects</name>
     <title>
       <key>ru</key>
       <value>Удалить выделенные объекты</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Delete selected objects</value>
     </title>
     <id>3</id>
     <use>
@@ -912,7 +1016,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьВыделенныеОбъекты</name>
+        <name>DeleteSelectedObjects</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
