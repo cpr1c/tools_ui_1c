@@ -308,7 +308,7 @@
             </extInfo>
           </extendedTooltip>
           <type>UsualButton</type>
-          <commandName>Form.Command.Выбрать</commandName>
+          <commandName>Form.Command.Choose</commandName>
           <representation>Auto</representation>
           <defaultButton>true</defaultButton>
           <autoMaxWidth>true</autoMaxWidth>
@@ -859,10 +859,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Выбрать</name>
+    <name>Choose</name>
     <title>
       <key>ru</key>
       <value>Выбрать</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Choose</value>
     </title>
     <id>1</id>
     <use>
