@@ -14,12 +14,12 @@
 <td style="width: 202.141px; height: 24px;">Статус</td>
 </tr>
 <tr style="height: 36px;">
-<td style="width: 46.0156px; height: 36px;"><span style="background-color: #99cc00;">0</span></td>
-<td style="width: 210.078px; height: 36px;"><span style="background-color: #99cc00;">Общие модули&nbsp;</span></td>
-<td style="width: 524.219px; height: 36px;"><span style="background-color: #99cc00;">Общие модули для интеграции с БСП и Используемые в обработках&nbsp;</span></td>
-<td style="width: 10.5312px; height: 36px;"><span style="background-color: #99cc00;">5</span></td>
-<td style="width: 18px; height: 36px;"><span style="background-color: #99cc00;">4</span></td>
-<td style="width: 48.0156px; height: 36px;"><span style="background-color: #99cc00;">1</span></td>
+<td style="width: 46.0156px; height: 36px;"><span style="background-color: #ADFF2F;">0</span></td>
+<td style="width: 210.078px; height: 36px;"><span style="background-color: #ADFF2F;">Общие модули&nbsp;</span></td>
+<td style="width: 524.219px; height: 36px;"><span style="background-color: #ADFF2F;">Общие модули для интеграции с БСП и Используемые в обработках&nbsp;</span></td>
+<td style="width: 10.5312px; height: 36px;"><span style="background-color: #ADFF2F;">5</span></td>
+<td style="width: 18px; height: 36px;"><span style="background-color: #ADFF2F;">4</span></td>
+<td style="width: 48.0156px; height: 36px;"><span style="background-color: #ADFF2F;">1</span></td>
 <td style="width: 202.141px; height: 36px;">&nbsp;</td>
 </tr>
 <tr style="height: 36px;">
