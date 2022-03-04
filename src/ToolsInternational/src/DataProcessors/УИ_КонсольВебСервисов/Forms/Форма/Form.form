@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСводнойИнформации</name>
+    <name>GroupSummaryInformation</name>
     <id>123</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаWSDLИмяПользователяПароль</name>
+      <name>GroupWSDLUsernamePassword</name>
       <id>138</id>
       <items xsi:type="form:FormField">
         <name>LocationWSDL</name>
@@ -112,7 +112,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
-        <name>Пароль</name>
+        <name>Password</name>
         <id>128</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -121,11 +121,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>Пароль</segments>
+            <segments>Password</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ПарольРасширеннаяПодсказка</name>
+          <name>PasswordExtendedTooltip</name>
           <id>176</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -140,7 +140,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПарольКонтекстноеМеню</name>
+          <name>PasswordContextMenu</name>
           <id>129</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -169,6 +169,10 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Group WSDL Username password</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа WSDLИмя пользователя пароль</value>
       </title>
@@ -177,7 +181,7 @@
         <value>Группа WSDLИмя пользователя пароль</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаWSDLИмяПользователяПарольРасширеннаяПодсказка</name>
+        <name>GroupWSDLUsernamePasswordExtendedTooltip</name>
         <id>173</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -200,7 +204,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаВебСервисИПространствоИмен</name>
+      <name>GroupWebServiceAndNamespace</name>
       <id>139</id>
       <items xsi:type="form:FormField">
         <name>WebServiceName</name>
@@ -317,12 +321,16 @@
         <key>ru</key>
         <value>Группа веб сервис и пространство имен</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group web service and namespace</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа веб сервис и пространство имен</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаВебСервисИПространствоИменРасширеннаяПодсказка</name>
+        <name>GroupWebServiceAndNamespaceExtendedTooltip</name>
         <id>177</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -345,7 +353,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаТочкаПодключенияИИмяОперации</name>
+      <name>ConnectionPointGroupAndOperationName</name>
       <id>140</id>
       <items xsi:type="form:FormField">
         <name>NamePointConnections</name>
@@ -462,12 +470,16 @@
         <key>ru</key>
         <value>Группа точка подключения и имя операции</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Connection point group and operation name</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа точка подключения и имя операции</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаТочкаПодключенияИИмяОперацииРасширеннаяПодсказка</name>
+        <name>ConnectionPointGroupAndOperationNameExtendedTooltip</name>
         <id>180</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -498,13 +510,17 @@
       <key>ru</key>
       <value>Сводная информация</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group summary information</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа сводной информации</value>
     </toolTip>
     <readOnly>true</readOnly>
     <extendedTooltip>
-      <name>ГруппаСводнойИнформацииРасширеннаяПодсказка</name>
+      <name>GroupSummaryInformationExtendedTooltip</name>
       <id>172</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -528,7 +544,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманд</name>
+    <name>CommandGroup</name>
     <id>122</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -539,12 +555,16 @@
       <key>ru</key>
       <value>Группа команд</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Command group</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа команд</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКомандРасширеннаяПодсказка</name>
+      <name>CommandGroupExtendedTooltip</name>
       <id>183</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -567,16 +587,16 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаЗакладки</name>
+    <name>GroupBookmarks</name>
     <id>143</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаВыборОперации</name>
+      <name>GroupSelectOperations</name>
       <id>144</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаОпределенияИВебсервисы</name>
+        <name>GroupDefinitionsAndWebServices</name>
         <id>85</id>
         <items xsi:type="form:Table">
-          <name>СписокWSОпределений</name>
+          <name>ListWSDefinitions</name>
           <id>32</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -584,11 +604,11 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>СписокWSОпределений</segments>
+            <segments>ListWSDefinitions</segments>
           </dataPath>
           <titleLocation>Top</titleLocation>
           <items xsi:type="form:FormField">
-            <name>WSОпределенияМестоположениеWSDL</name>
+            <name>ListWSDefinitionsLocationWSDL</name>
             <id>37</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -597,7 +617,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокWSОпределений.МестоположениеWSDL</segments>
+                <segments>ListWSDefinitions.LocationWSDL</segments>
               </paths>
             </dataPath>
             <handlers>
@@ -605,7 +625,7 @@
               <name>СписокWSОпределенийПриАктивизацииСтроки</name>
             </handlers>
             <extendedTooltip>
-              <name>WSОпределенияМестоположениеWSDLРасширеннаяПодсказка</name>
+              <name>ListWSDefinitionsLocationWSDLExtendedTooltip</name>
               <id>201</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -620,7 +640,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>WSОпределенияМестоположениеWSDLКонтекстноеМеню</name>
+              <name>ListWSDefinitionsLocationWSDLContextMenu</name>
               <id>38</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -644,7 +664,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>WSОпределенияИмяПользователя</name>
+            <name>ListWSDefinitionsUsername</name>
             <id>39</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -653,7 +673,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокWSОпределений.ИмяПользователя</segments>
+                <segments>ListWSDefinitions.Username</segments>
               </paths>
             </dataPath>
             <handlers>
@@ -661,7 +681,7 @@
               <name>СписокWSОпределенийПриАктивизацииСтроки</name>
             </handlers>
             <extendedTooltip>
-              <name>WSОпределенияИмяПользователяРасширеннаяПодсказка</name>
+              <name>ListWSDefinitionsUsernameExtendedTooltip</name>
               <id>202</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -676,7 +696,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>WSОпределенияИмяПользователяКонтекстноеМеню</name>
+              <name>ListWSDefinitionsUsernameContextMenu</name>
               <id>40</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -700,7 +720,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>WSОпределенияПароль</name>
+            <name>ListWSDefinitionsPassword</name>
             <id>41</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -709,7 +729,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокWSОпределений.Пароль</segments>
+                <segments>ListWSDefinitions.Password</segments>
               </paths>
             </dataPath>
             <handlers>
@@ -717,7 +737,7 @@
               <name>СписокWSОпределенийПриАктивизацииСтроки</name>
             </handlers>
             <extendedTooltip>
-              <name>WSОпределенияПарольРасширеннаяПодсказка</name>
+              <name>ListWSDefinitionsPasswordExtendedTooltip</name>
               <id>203</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -732,7 +752,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>WSОпределенияПарольКонтекстноеМеню</name>
+              <name>ListWSDefinitionsPasswordContextMenu</name>
               <id>42</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -756,10 +776,10 @@
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>СписокWSОпределенийКоманднаяПанель</name>
+            <name>ListWSDefinitionsCommandBar</name>
             <id>34</id>
             <items xsi:type="form:Button">
-              <name>Прочитать</name>
+              <name>Read</name>
               <id>156</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -767,7 +787,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ПрочитатьРасширеннаяПодсказка</name>
+                <name>ReadExtendedTooltip</name>
                 <id>187</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -781,7 +801,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Прочитать</commandName>
+              <commandName>Form.Command.Read</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -789,7 +809,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>Сохранить</name>
+              <name>Save</name>
               <id>155</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -797,7 +817,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>СохранитьРасширеннаяПодсказка</name>
+                <name>SaveExtendedTooltip</name>
                 <id>188</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -811,7 +831,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Сохранить</commandName>
+              <commandName>Form.Command.Save</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -819,7 +839,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ПолучитьWSDL</name>
+              <name>GetWSDL</name>
               <id>43</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -827,7 +847,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ПолучитьWSDLРасширеннаяПодсказка</name>
+                <name>GetWSDLExtendedTooltip</name>
                 <id>189</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -841,7 +861,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ПолучитьWSDL</commandName>
+              <commandName>Form.Command.GetWSDL</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -860,16 +880,20 @@
             <event>60edb81d-887b-478e-94ee-7fef2b13393d</event>
             <name>СписокWSОпределенийПриАктивизацииСтроки</name>
           </handlers>
+          <handlers>
+            <event>OnActivateRow</event>
+            <name>ListWSDefinitionsOnActivateRow</name>
+          </handlers>
           <searchStringAddition>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокWSОпределенийСтрокаПоиска</name>
+            <name>ListWSDefinitionsSearchString</name>
             <id>191</id>
             <extendedTooltip>
-              <name>СписокWSОпределенийСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>ListWSDefinitionsSearchStringExtendedTooltip</name>
               <id>193</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -884,7 +908,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокWSОпределенийСтрокаПоискаКонтекстноеМеню</name>
+              <name>ListWSDefinitionsSearchStringContextMenu</name>
               <id>192</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -903,10 +927,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокWSОпределенийСостояниеПросмотра</name>
+            <name>ListWSDefinitionsViewStatus</name>
             <id>194</id>
             <extendedTooltip>
-              <name>СписокWSОпределенийСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>ListWSDefinitionsViewStatusExtendedTooltip</name>
               <id>196</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -921,7 +945,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокWSОпределенийСостояниеПросмотраКонтекстноеМеню</name>
+              <name>ListWSDefinitionsViewStatusContextMenu</name>
               <id>195</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -942,10 +966,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокWSОпределенийУправлениеПоиском</name>
+            <name>ListWSDefinitionsSearchControl</name>
             <id>197</id>
             <extendedTooltip>
-              <name>СписокWSОпределенийУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>ListWSDefinitionsSearchControlExtendedTooltip</name>
               <id>199</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -960,7 +984,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокWSОпределенийУправлениеПоискомКонтекстноеМеню</name>
+              <name>ListWSDefinitionsSearchControlContextMenu</name>
               <id>198</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -975,7 +999,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>СписокWSОпределенийРасширеннаяПодсказка</name>
+            <name>ListWSDefinitionsExtendedTooltip</name>
             <id>190</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -990,7 +1014,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокWSОпределенийКонтекстноеМеню</name>
+            <name>ListWSDefinitionsContextMenu</name>
             <id>33</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1025,7 +1049,7 @@
           <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <items xsi:type="form:Table">
-          <name>СписокСервисов</name>
+          <name>ListServices</name>
           <id>87</id>
           <title>
             <key>ru</key>
@@ -1037,7 +1061,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>СписокСервисов</segments>
+            <segments>ListServices</segments>
           </dataPath>
           <titleLocation>Top</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -1048,7 +1072,7 @@
           <excludedCommands>MoveDown</excludedCommands>
           <excludedCommands>MoveUp</excludedCommands>
           <items xsi:type="form:FormField">
-            <name>СписокСервисовМестоположениеWSDL</name>
+            <name>ListServicesLocationWSDL</name>
             <id>90</id>
             <enabled>true</enabled>
             <userVisible>
@@ -1056,11 +1080,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокСервисов.МестоположениеWSDL</segments>
+                <segments>ListServices.LocationWSDL</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокСервисовМестоположениеWSDLРасширеннаяПодсказка</name>
+              <name>ListServicesLocationWSDLExtendedTooltip</name>
               <id>216</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1075,7 +1099,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокСервисовМестоположениеWSDLКонтекстноеМеню</name>
+              <name>ListServicesLocationWSDLContextMenu</name>
               <id>91</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1099,7 +1123,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>СписокСервисовWSСервис</name>
+            <name>ListServicesWSService</name>
             <id>92</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1108,11 +1132,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокСервисов.WSСервис</segments>
+                <segments>ListServices.WSService</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокСервисовWSСервисРасширеннаяПодсказка</name>
+              <name>ListServicesWSServiceExtendedTooltip</name>
               <id>217</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1127,7 +1151,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокСервисовWSСервисКонтекстноеМеню</name>
+              <name>ListServicesWSServiceContextMenu</name>
               <id>93</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1151,7 +1175,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>СписокСервисовURIПространстваИмен</name>
+            <name>ListServicesURINamespaces</name>
             <id>94</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1160,11 +1184,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокСервисов.URIПространстваИмен</segments>
+                <segments>ListServices.URINamespaces</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокСервисовURIПространстваИменРасширеннаяПодсказка</name>
+              <name>ListServicesURINamespacesExtendedTooltip</name>
               <id>218</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1179,7 +1203,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокСервисовURIПространстваИменКонтекстноеМеню</name>
+              <name>ListServicesURINamespacesContextMenu</name>
               <id>95</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1204,7 +1228,7 @@
           </items>
           <commandBarLocation>None</commandBarLocation>
           <autoCommandBar>
-            <name>СписокСервисовКоманднаяПанель</name>
+            <name>ListServicesCommandBar</name>
             <id>89</id>
             <items xsi:type="form:Button">
               <name>СписокСервисовНайти</name>
@@ -1229,7 +1253,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.СписокСервисов.StandardCommand.Find</commandName>
+              <commandName>Form.Item.ListServices.StandardCommand.Find</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1259,7 +1283,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.СписокСервисов.StandardCommand.CancelSearch</commandName>
+              <commandName>Form.Item.ListServices.StandardCommand.CancelSearch</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1276,7 +1300,7 @@
           </autoCommandBar>
           <handlers>
             <event>OnActivateField</event>
-            <name>СписокСервисовПриАктивизацииСтроки</name>
+            <name>ListServicesOnActivateRow</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -1284,10 +1308,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокСервисовСтрокаПоиска</name>
+            <name>ListServicesSearchString</name>
             <id>207</id>
             <extendedTooltip>
-              <name>СписокСервисовСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>ListServicesSearchStringExtendedTooltip</name>
               <id>209</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1302,7 +1326,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокСервисовСтрокаПоискаКонтекстноеМеню</name>
+              <name>ListServicesSearchStringContextMenu</name>
               <id>208</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1321,10 +1345,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокСервисовСостояниеПросмотра</name>
+            <name>ListServicesViewStatus</name>
             <id>210</id>
             <extendedTooltip>
-              <name>СписокСервисовСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>ListServicesViewStatusExtendedTooltip</name>
               <id>212</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1339,7 +1363,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокСервисовСостояниеПросмотраКонтекстноеМеню</name>
+              <name>ListServicesViewStatusContextMenu</name>
               <id>211</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1360,10 +1384,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокСервисовУправлениеПоиском</name>
+            <name>ListServicesSearchControl</name>
             <id>213</id>
             <extendedTooltip>
-              <name>СписокСервисовУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>ListServicesSearchControlExtendedTooltip</name>
               <id>215</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1378,7 +1402,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокСервисовУправлениеПоискомКонтекстноеМеню</name>
+              <name>ListServicesSearchControlContextMenu</name>
               <id>214</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1393,7 +1417,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>СписокСервисовРасширеннаяПодсказка</name>
+            <name>ListServicesExtendedTooltip</name>
             <id>206</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1408,7 +1432,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокСервисовКонтекстноеМеню</name>
+            <name>ListServicesContextMenu</name>
             <id>88</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1443,7 +1467,7 @@
           <rowFilter xsi:type="core:UndefinedValue"/>
         </items>
         <items xsi:type="form:Table">
-          <name>СписокТочекПодключения</name>
+          <name>ListPointsConnections</name>
           <id>96</id>
           <title>
             <key>ru</key>
@@ -1455,7 +1479,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>СписокТочекПодключения</segments>
+            <segments>ListPointsConnections</segments>
           </dataPath>
           <titleLocation>Top</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -1466,7 +1490,7 @@
           <excludedCommands>MoveDown</excludedCommands>
           <excludedCommands>MoveUp</excludedCommands>
           <items xsi:type="form:FormField">
-            <name>СписокТочекПодключенияWSСервис</name>
+            <name>ListPointsConnectionsWSService</name>
             <id>99</id>
             <enabled>true</enabled>
             <userVisible>
@@ -1474,11 +1498,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокТочекПодключения.WSСервис</segments>
+                <segments>ListPointsConnections.WSService</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокТочекПодключенияWSСервисРасширеннаяПодсказка</name>
+              <name>ListPointsConnectionsWSServiceExtendedTooltip</name>
               <id>231</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1493,7 +1517,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокТочекПодключенияWSСервисКонтекстноеМеню</name>
+              <name>ListPointsConnectionsWSServiceContextMenu</name>
               <id>100</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1517,7 +1541,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>СписокТочекПодключенияИмяТочкиПодключения</name>
+            <name>ListPointsConnectionsNamePointConnections</name>
             <id>101</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1526,11 +1550,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокТочекПодключения.ИмяТочкиПодключения</segments>
+                <segments>ListPointsConnections.NamePointConnections</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокТочекПодключенияИмяТочкиПодключенияРасширеннаяПодсказка</name>
+              <name>ListPointsConnectionsNamePointConnectionsExtendedTooltip</name>
               <id>232</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1545,7 +1569,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокТочекПодключенияИмяТочкиПодключенияКонтекстноеМеню</name>
+              <name>ListPointsConnectionsNamePointConnectionsContextMenu</name>
               <id>102</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1570,10 +1594,10 @@
           </items>
           <commandBarLocation>None</commandBarLocation>
           <autoCommandBar>
-            <name>СписокТочекПодключенияКоманднаяПанель</name>
+            <name>ListPointsConnectionsCommandBar</name>
             <id>98</id>
             <items xsi:type="form:Button">
-              <name>СписокТочекПодключенияНайти</name>
+              <name>ListPointsConnectionsFind</name>
               <id>151</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1581,7 +1605,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>СписокТочекПодключенияНайтиРасширеннаяПодсказка</name>
+                <name>ListPointsConnectionsFindExtendedTooltip</name>
                 <id>219</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1595,7 +1619,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.СписокТочекПодключения.StandardCommand.Find</commandName>
+              <commandName>Form.Item.ListPointsConnections.StandardCommand.Find</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1603,7 +1627,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>СписокТочекПодключенияОтменитьПоиск</name>
+              <name>ListPointsConnectionsCancelSearch</name>
               <id>152</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1611,7 +1635,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>СписокТочекПодключенияОтменитьПоискРасширеннаяПодсказка</name>
+                <name>ListPointsConnectionsCancelSearchExtendedTooltip</name>
                 <id>220</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1625,7 +1649,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.СписокТочекПодключения.StandardCommand.CancelSearch</commandName>
+              <commandName>Form.Item.ListPointsConnections.StandardCommand.CancelSearch</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1642,7 +1666,7 @@
           </autoCommandBar>
           <handlers>
             <event>OnActivateRow</event>
-            <name>СписокТочекПодключенияПриАктивизацииСтроки</name>
+            <name>ListPointsConnectionsOnActivateRow</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -1650,10 +1674,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокТочекПодключенияСтрокаПоиска</name>
+            <name>ListPointsConnectionsSearchString</name>
             <id>222</id>
             <extendedTooltip>
-              <name>СписокТочекПодключенияСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>ListPointsConnectionsSearchStringExtendedTooltip</name>
               <id>224</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1668,7 +1692,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокТочекПодключенияСтрокаПоискаКонтекстноеМеню</name>
+              <name>ListPointsConnectionsSearchStringContextMenu</name>
               <id>223</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1687,10 +1711,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокТочекПодключенияСостояниеПросмотра</name>
+            <name>ListPointsConnectionsViewStatus</name>
             <id>225</id>
             <extendedTooltip>
-              <name>СписокТочекПодключенияСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>ListPointsConnectionsViewStatusExtendedTooltip</name>
               <id>227</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1705,7 +1729,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокТочекПодключенияСостояниеПросмотраКонтекстноеМеню</name>
+              <name>ListPointsConnectionsViewStatusContextMenu</name>
               <id>226</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1726,10 +1750,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокТочекПодключенияУправлениеПоиском</name>
+            <name>ListPointsConnectionsSearchControl</name>
             <id>228</id>
             <extendedTooltip>
-              <name>СписокТочекПодключенияУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>ListPointsConnectionsSearchControlExtendedTooltip</name>
               <id>230</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1744,7 +1768,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокТочекПодключенияУправлениеПоискомКонтекстноеМеню</name>
+              <name>ListPointsConnectionsSearchControlContextMenu</name>
               <id>229</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1759,7 +1783,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>СписокТочекПодключенияРасширеннаяПодсказка</name>
+            <name>ListPointsConnectionsExtendedTooltip</name>
             <id>221</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1774,7 +1798,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокТочекПодключенияКонтекстноеМеню</name>
+            <name>ListPointsConnectionsContextMenu</name>
             <id>97</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1817,12 +1841,16 @@
           <key>ru</key>
           <value>Группа определения и вебсервисы</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Group definitions and web services</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Группа определения и вебсервисы</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаОпределенияИВебсервисыРасширеннаяПодсказка</name>
+          <name>GroupDefinitionsAndWebServicesExtendedTooltip</name>
           <id>186</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1846,10 +1874,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаТочкаИОперации</name>
+        <name>GroupPointAndOperations</name>
         <id>84</id>
         <items xsi:type="form:Table">
-          <name>СписокОпераций</name>
+          <name>ListOperations</name>
           <id>103</id>
           <title>
             <key>ru</key>
@@ -1861,7 +1889,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>СписокОпераций</segments>
+            <segments>ListOperations</segments>
           </dataPath>
           <titleLocation>Top</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -1872,7 +1900,7 @@
           <excludedCommands>MoveDown</excludedCommands>
           <excludedCommands>MoveUp</excludedCommands>
           <items xsi:type="form:FormField">
-            <name>СписокОперацийИмяТочкиПодключения</name>
+            <name>ListOperationsNamePointConnections</name>
             <id>106</id>
             <enabled>true</enabled>
             <userVisible>
@@ -1880,11 +1908,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокОпераций.ИмяТочкиПодключения</segments>
+                <segments>ListOperations.NamePointConnections</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокОперацийИмяТочкиПодключенияРасширеннаяПодсказка</name>
+              <name>ListOperationsNamePointConnectionsExtendedTooltip</name>
               <id>246</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1899,7 +1927,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокОперацийИмяТочкиПодключенияКонтекстноеМеню</name>
+              <name>ListOperationsNamePointConnectionsContextMenu</name>
               <id>107</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1923,7 +1951,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>СписокОперацийИмяОперации</name>
+            <name>ListOperationsOperationName</name>
             <id>108</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1932,11 +1960,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокОпераций.ИмяОперации</segments>
+                <segments>ListOperations.OperationName</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокОперацийИмяОперацииРасширеннаяПодсказка</name>
+              <name>ListOperationsOperationNameExtendedTooltip</name>
               <id>247</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1951,7 +1979,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокОперацийИмяОперацииКонтекстноеМеню</name>
+              <name>ListOperationsOperationNameContextMenu</name>
               <id>109</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1975,7 +2003,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>СписокОперацийТипВозвращаемогоЗначения</name>
+            <name>ListOperationsReturnableValueType</name>
             <id>110</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1984,11 +2012,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>СписокОпераций.ТипВозвращаемогоЗначения</segments>
+                <segments>ListOperations.ReturnableValueType</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>СписокОперацийТипВозвращаемогоЗначенияРасширеннаяПодсказка</name>
+              <name>ListOperationsReturnableValueTypeExtendedTooltip</name>
               <id>248</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2003,7 +2031,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокОперацийТипВозвращаемогоЗначенияКонтекстноеМеню</name>
+              <name>ListOperationsReturnableValueTypeContextMenu</name>
               <id>111</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2028,10 +2056,10 @@
           </items>
           <commandBarLocation>None</commandBarLocation>
           <autoCommandBar>
-            <name>СписокОперацийКоманднаяПанель</name>
+            <name>ListOperationsCommandBar</name>
             <id>105</id>
             <items xsi:type="form:Button">
-              <name>СписокОперацийНайти</name>
+              <name>ListOperationsFind</name>
               <id>149</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2039,7 +2067,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>СписокОперацийНайтиРасширеннаяПодсказка</name>
+                <name>ListOperationsFindExtendedTooltip</name>
                 <id>234</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2053,7 +2081,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.СписокОпераций.StandardCommand.Find</commandName>
+              <commandName>Form.Item.ListOperations.StandardCommand.Find</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -2061,7 +2089,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>СписокОперацийОтменитьПоиск</name>
+              <name>ListOperationsCancelSearch</name>
               <id>150</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2069,7 +2097,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>СписокОперацийОтменитьПоискРасширеннаяПодсказка</name>
+                <name>ListOperationsCancelSearchExtendedTooltip</name>
                 <id>235</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2083,7 +2111,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.СписокОпераций.StandardCommand.CancelSearch</commandName>
+              <commandName>Form.Item.ListOperations.StandardCommand.CancelSearch</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -2100,7 +2128,7 @@
           </autoCommandBar>
           <handlers>
             <event>OnActivateRow</event>
-            <name>СписокОперацийПриАктивизацииСтроки</name>
+            <name>ListOperationsOnActivateRow</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -2108,10 +2136,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокОперацийСтрокаПоиска</name>
+            <name>ListOperationsSearchString</name>
             <id>237</id>
             <extendedTooltip>
-              <name>СписокОперацийСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>ListOperationsSearchStringExtendedTooltip</name>
               <id>239</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2126,7 +2154,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокОперацийСтрокаПоискаКонтекстноеМеню</name>
+              <name>ListOperationsSearchStringContextMenu</name>
               <id>238</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2145,10 +2173,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокОперацийСостояниеПросмотра</name>
+            <name>ListOperationsViewStatus</name>
             <id>240</id>
             <extendedTooltip>
-              <name>СписокОперацийСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>ListOperationsViewStatusExtendedTooltip</name>
               <id>242</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2163,7 +2191,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокОперацийСостояниеПросмотраКонтекстноеМеню</name>
+              <name>ListOperationsViewStatusContextMenu</name>
               <id>241</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2184,10 +2212,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>СписокОперацийУправлениеПоиском</name>
+            <name>ListOperationsSearchControl</name>
             <id>243</id>
             <extendedTooltip>
-              <name>СписокОперацийУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>ListOperationsSearchControlExtendedTooltip</name>
               <id>245</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2202,7 +2230,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>СписокОперацийУправлениеПоискомКонтекстноеМеню</name>
+              <name>ListOperationsSearchControlContextMenu</name>
               <id>244</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2217,7 +2245,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>СписокОперацийРасширеннаяПодсказка</name>
+            <name>ListOperationsExtendedTooltip</name>
             <id>236</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2232,7 +2260,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокОперацийКонтекстноеМеню</name>
+            <name>ListOperationsContextMenu</name>
             <id>104</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2275,12 +2303,16 @@
           <key>ru</key>
           <value>Группа точка и операции</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Group point and operations</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Группа точка и операции</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаТочкаИОперацииРасширеннаяПодсказка</name>
+          <name>GroupPointAndOperationsExtendedTooltip</name>
           <id>233</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2312,12 +2344,16 @@
         <key>ru</key>
         <value>Выбор операции</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group select operations</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа выбор операции</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаВыборОперацииРасширеннаяПодсказка</name>
+        <name>GroupSelectOperationsExtendedTooltip</name>
         <id>185</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2337,13 +2373,13 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаПараметрыОперации</name>
+      <name>GroupParametersOperations</name>
       <id>145</id>
       <items xsi:type="form:FormGroup">
-        <name>ПараметрыОперации</name>
+        <name>OperationsParameters</name>
         <id>86</id>
         <items xsi:type="form:Table">
-          <name>ПараметрыОпераций</name>
+          <name>OperationParameters</name>
           <id>112</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2351,7 +2387,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ПараметрыОперации</segments>
+            <segments>OperationParameters</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -2364,7 +2400,7 @@
           <excludedCommands>SortListAsc</excludedCommands>
           <excludedCommands>SortListDesc</excludedCommands>
           <items xsi:type="form:FormField">
-            <name>ПараметрыОперацийИмяПараметра</name>
+            <name>OperationParametersParameterName</name>
             <id>115</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2373,11 +2409,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПараметрыОперации.ИмяПараметра</segments>
+                <segments>OperationParameters.ParameterName</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПараметрыОперацийИмяПараметраРасширеннаяПодсказка</name>
+              <name>OperationParametersParameterNameExtendedTooltip</name>
               <id>261</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2392,7 +2428,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыОперацийИмяПараметраКонтекстноеМеню</name>
+              <name>OperationParametersParameterNameContextMenu</name>
               <id>116</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2417,7 +2453,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПараметрыОперацийЗначение</name>
+            <name>OperationParametersValue</name>
             <id>119</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2426,11 +2462,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПараметрыОперации.Значение</segments>
+                <segments>OperationParameters.Value</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПараметрыОперацийЗначениеРасширеннаяПодсказка</name>
+              <name>OperationParametersValueExtendedTooltip</name>
               <id>262</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2445,7 +2481,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыОперацийЗначениеКонтекстноеМеню</name>
+              <name>OperationParametersValueContextMenu</name>
               <id>120</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2462,7 +2498,7 @@
             <extInfo xsi:type="form:InputFieldExtInfo">
               <handlers>
                 <event>StartChoice</event>
-                <name>ПараметрыОперацийЗначениеНачалоВыбора</name>
+                <name>OperationParametersValueStartChoice</name>
               </handlers>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -2473,7 +2509,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПараметрыОперацийТипПараметра</name>
+            <name>OperationParametersParameterType</name>
             <id>117</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2482,11 +2518,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПараметрыОперации.ТипПараметра</segments>
+                <segments>OperationParameters.ParameterType</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПараметрыОперацийТипПараметраРасширеннаяПодсказка</name>
+              <name>OperationParametersParameterTypeExtendedTooltip</name>
               <id>263</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2501,7 +2537,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыОперацийТипПараметраКонтекстноеМеню</name>
+              <name>OperationParametersParameterTypeContextMenu</name>
               <id>118</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2526,7 +2562,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ПараметрыОперацийНеопределено</name>
+            <name>OperationParametersUndefined</name>
             <id>170</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2535,11 +2571,11 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ПараметрыОперации.Неопределено</segments>
+                <segments>OperationParameters.Undefined</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ПараметрыОперацийНеопределеноРасширеннаяПодсказка</name>
+              <name>OperationParametersUndefinedExtendedTooltip</name>
               <id>264</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2554,7 +2590,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыОперацийНеопределеноКонтекстноеМеню</name>
+              <name>OperationParametersUndefinedContextMenu</name>
               <id>171</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2572,7 +2608,7 @@
           </items>
           <commandBarLocation>None</commandBarLocation>
           <autoCommandBar>
-            <name>ПараметрыОперацийКоманднаяПанель</name>
+            <name>OperationParametersCommandBar</name>
             <id>114</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2588,10 +2624,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПараметрыОперацийСтрокаПоиска</name>
+            <name>OperationParametersSearchString</name>
             <id>252</id>
             <extendedTooltip>
-              <name>ПараметрыОперацийСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>OperationParametersSearchStringExtendedTooltip</name>
               <id>254</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2606,7 +2642,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыОперацийСтрокаПоискаКонтекстноеМеню</name>
+              <name>OperationParametersSearchStringContextMenu</name>
               <id>253</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2625,10 +2661,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПараметрыОперацийСостояниеПросмотра</name>
+            <name>OperationParametersViewStatus</name>
             <id>255</id>
             <extendedTooltip>
-              <name>ПараметрыОперацийСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>OperationParametersViewStatusExtendedTooltip</name>
               <id>257</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2643,7 +2679,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыОперацийСостояниеПросмотраКонтекстноеМеню</name>
+              <name>OperationParametersViewStatusContextMenu</name>
               <id>256</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2664,10 +2700,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ПараметрыОперацийУправлениеПоиском</name>
+            <name>OperationParametersSearchControl</name>
             <id>258</id>
             <extendedTooltip>
-              <name>ПараметрыОперацийУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>OperationParametersSearchControlExtendedTooltip</name>
               <id>260</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2682,7 +2718,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыОперацийУправлениеПоискомКонтекстноеМеню</name>
+              <name>OperationParametersSearchControlContextMenu</name>
               <id>259</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2697,7 +2733,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>ПараметрыОперацийРасширеннаяПодсказка</name>
+            <name>OperationParametersExtendedTooltip</name>
             <id>251</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2712,7 +2748,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыОперацийКонтекстноеМеню</name>
+            <name>OperationParametersContextMenu</name>
             <id>113</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2754,12 +2790,16 @@
           <key>ru</key>
           <value>Параметры операции</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Operations parameters</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Параметры операции</value>
         </toolTip>
         <extendedTooltip>
-          <name>ПараметрыОперацииРасширеннаяПодсказка</name>
+          <name>OperationsParametersExtendedTooltip</name>
           <id>250</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2791,12 +2831,16 @@
         <key>ru</key>
         <value>Параметры операции</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group parameters operations</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа параметры операции</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаПараметрыОперацииРасширеннаяПодсказка</name>
+        <name>GroupParametersOperationsExtendedTooltip</name>
         <id>249</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2817,10 +2861,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаРезультат</name>
+      <name>GroupResult</name>
       <id>146</id>
       <items xsi:type="form:Button">
-        <name>ВыполнитьОперацию</name>
+        <name>ExecuteOperation</name>
         <id>121</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2828,7 +2872,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ВыполнитьОперациюРасширеннаяПодсказка</name>
+          <name>ExecuteOperationExtendedTooltip</name>
           <id>266</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2843,7 +2887,7 @@
           </extInfo>
         </extendedTooltip>
         <type>UsualButton</type>
-        <commandName>Form.Command.ВыполнитьОперацию</commandName>
+        <commandName>Form.Command.ExecuteOperation</commandName>
         <representation>Auto</representation>
         <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
@@ -2852,7 +2896,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаДерево</name>
+        <name>GroupTree</name>
         <id>157</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2863,12 +2907,16 @@
           <key>ru</key>
           <value>Группа дерево</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Group tree</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Группа дерево</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаДеревоРасширеннаяПодсказка</name>
+          <name>GroupTreeExtendedTooltip</name>
           <id>267</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2894,10 +2942,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницыРезультат</name>
+        <name>PageResult</name>
         <id>165</id>
         <items xsi:type="form:FormGroup">
-          <name>СтраницаДерево</name>
+          <name>PageTree</name>
           <id>167</id>
           <items xsi:type="form:Table">
             <name>TreeResult</name>
@@ -3262,12 +3310,16 @@
             <key>ru</key>
             <value>Дерево объектов</value>
           </title>
+          <title>
+            <key>en</key>
+            <value>Page tree</value>
+          </title>
           <toolTip>
             <key>ru</key>
             <value>Страница дерево</value>
           </toolTip>
           <extendedTooltip>
-            <name>СтраницаДеревоРасширеннаяПодсказка</name>
+            <name>PageTreeExtendedTooltip</name>
             <id>269</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3288,10 +3340,10 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>СтраницаXML</name>
+          <name>PageXML</name>
           <id>166</id>
           <items xsi:type="form:FormField">
-            <name>Результат</name>
+            <name>Result</name>
             <id>141</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3300,12 +3352,12 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>РезультатОперации</segments>
+                <segments>ResultOperations</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>РезультатРасширеннаяПодсказка</name>
+              <name>ResultExtendedTooltip</name>
               <id>284</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3320,7 +3372,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>РезультатКонтекстноеМеню</name>
+              <name>ResultContextMenu</name>
               <id>142</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3353,12 +3405,16 @@
             <key>ru</key>
             <value>XML</value>
           </title>
+          <title>
+            <key>en</key>
+            <value>Page XML</value>
+          </title>
           <toolTip>
             <key>ru</key>
             <value>Страница XML</value>
           </toolTip>
           <extendedTooltip>
-            <name>СтраницаXMLРасширеннаяПодсказка</name>
+            <name>PageXMLExtendedTooltip</name>
             <id>283</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3387,12 +3443,16 @@
           <key>ru</key>
           <value>Страницы результат</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Page result</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Страницы результат</value>
         </toolTip>
         <extendedTooltip>
-          <name>СтраницыРезультатРасширеннаяПодсказка</name>
+          <name>PageResultExtendedTooltip</name>
           <id>268</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3421,12 +3481,16 @@
         <key>ru</key>
         <value>Результат операции</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group result</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа результат</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаРезультатРасширеннаяПодсказка</name>
+        <name>GroupResultExtendedTooltip</name>
         <id>265</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -3455,12 +3519,16 @@
       <key>ru</key>
       <value>Группа закладки</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group bookmarks</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа закладки</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаЗакладкиРасширеннаяПодсказка</name>
+      <name>GroupBookmarksExtendedTooltip</name>
       <id>184</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -3524,10 +3592,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>СписокСервисов</name>
+    <name>ListServices</name>
     <title>
       <key>ru</key>
       <value>Список сервисов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>List services</value>
     </title>
     <id>2</id>
     <valueType>
@@ -3540,10 +3612,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>МестоположениеWSDL</name>
+      <name>LocationWSDL</name>
       <title>
         <key>ru</key>
         <value>Местоположение WSDL</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Location WSDL</value>
       </title>
       <id>1</id>
       <valueType>
@@ -3558,10 +3634,14 @@
       </edit>
     </columns>
     <columns>
-      <name>WSСервис</name>
+      <name>WSService</name>
       <title>
         <key>ru</key>
         <value>WSСервис</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>WSService</value>
       </title>
       <id>2</id>
       <valueType>
@@ -3576,10 +3656,14 @@
       </edit>
     </columns>
     <columns>
-      <name>URIПространстваИмен</name>
+      <name>URINamespaces</name>
       <title>
         <key>ru</key>
         <value>URIПространства имен</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>URINamespaces</value>
       </title>
       <id>3</id>
       <valueType>
@@ -3595,10 +3679,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>СписокТочекПодключения</name>
+    <name>ListPointsConnections</name>
     <title>
       <key>ru</key>
       <value>Список точек подключения</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>List points connections</value>
     </title>
     <id>3</id>
     <valueType>
@@ -3611,10 +3699,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>WSСервис</name>
+      <name>WSService</name>
       <title>
         <key>ru</key>
         <value>WSСервис</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>WSService</value>
       </title>
       <id>1</id>
       <valueType>
@@ -3629,10 +3721,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяТочкиПодключения</name>
+      <name>NamePointConnections</name>
       <title>
         <key>ru</key>
         <value>Имя точки подключения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name point connections</value>
       </title>
       <id>2</id>
       <valueType>
@@ -3665,10 +3761,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>СписокОпераций</name>
+    <name>ListOperations</name>
     <title>
       <key>ru</key>
       <value>Список операций</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>List operations</value>
     </title>
     <id>4</id>
     <valueType>
@@ -3681,10 +3781,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ИмяТочкиПодключения</name>
+      <name>NamePointConnections</name>
       <title>
         <key>ru</key>
         <value>Имя точки подключения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name point connections</value>
       </title>
       <id>1</id>
       <valueType>
@@ -3699,10 +3803,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяОперации</name>
+      <name>OperationName</name>
       <title>
         <key>ru</key>
         <value>Имя операции</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Operation name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -3717,10 +3825,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипВозвращаемогоЗначения</name>
+      <name>ReturnableValueType</name>
       <title>
         <key>ru</key>
         <value>Тип возвращаемого значения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Returnable value type</value>
       </title>
       <id>3</id>
       <valueType>
@@ -3735,10 +3847,14 @@
       </edit>
     </columns>
     <columns>
-      <name>УникальныйИдентификаторТочкиПодключения</name>
+      <name>UniqueConnectionPointIdentifier</name>
       <title>
         <key>ru</key>
         <value>Уникальный идентификатор точки подключения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Unique connection point identifier</value>
       </title>
       <id>4</id>
       <valueType>
@@ -3753,10 +3869,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>СписокПараметров</name>
+    <name>ListParameters</name>
     <title>
       <key>ru</key>
       <value>Список параметров</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>List parameters</value>
     </title>
     <id>5</id>
     <valueType>
@@ -3769,10 +3889,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ИмяТочкиПодключения</name>
+      <name>NamePointConnections</name>
       <title>
         <key>ru</key>
         <value>Имя точки подключения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name point connections</value>
       </title>
       <id>1</id>
       <valueType>
@@ -3787,10 +3911,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяОперации</name>
+      <name>OperationName</name>
       <title>
         <key>ru</key>
         <value>Имя операции</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Operation name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -3805,10 +3933,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяПараметра</name>
+      <name>ParameterName</name>
       <title>
         <key>ru</key>
         <value>Имя параметра</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter name</value>
       </title>
       <id>3</id>
       <valueType>
@@ -3823,10 +3955,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипПараметра</name>
+      <name>ParameterType</name>
       <title>
         <key>ru</key>
         <value>Тип параметра</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter type</value>
       </title>
       <id>4</id>
       <valueType>
@@ -3842,10 +3978,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ПараметрыОперации</name>
+    <name>OperationParameters</name>
     <title>
       <key>ru</key>
       <value>Параметры операции</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Operation parameters</value>
     </title>
     <id>6</id>
     <valueType>
@@ -3858,10 +3998,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ИмяПараметра</name>
+      <name>ParameterName</name>
       <title>
         <key>ru</key>
         <value>Имя параметра</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -3876,10 +4020,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипПараметра</name>
+      <name>ParameterType</name>
       <title>
         <key>ru</key>
         <value>Тип параметра</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter type</value>
       </title>
       <id>2</id>
       <valueType>
@@ -3894,10 +4042,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value</value>
       </title>
       <id>3</id>
       <valueType>
@@ -3919,10 +4071,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Неопределено</name>
+      <name>Undefined</name>
       <title>
         <key>ru</key>
         <value>Неопределено</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Undefined</value>
       </title>
       <id>4</id>
       <valueType>
@@ -3936,10 +4092,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Структура</name>
+      <name>Structure</name>
       <title>
         <key>ru</key>
         <value>Структура</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Structure</value>
       </title>
       <id>5</id>
       <valueType/>
@@ -3996,10 +4156,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Пароль</name>
+    <name>Password</name>
     <title>
       <key>ru</key>
       <value>Пароль</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Password</value>
     </title>
     <id>9</id>
     <valueType>
@@ -4102,10 +4266,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РезультатОперации</name>
+    <name>ResultOperations</name>
     <title>
       <key>ru</key>
       <value>Результат операции</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result operations</value>
     </title>
     <id>14</id>
     <valueType>
@@ -4258,10 +4426,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>СписокWSОпределений</name>
+    <name>ListWSDefinitions</name>
     <title>
       <key>ru</key>
       <value>Список WSОпределений</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>List WSDefinitions</value>
     </title>
     <id>19</id>
     <valueType>
@@ -4274,10 +4446,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>МестоположениеWSDL</name>
+      <name>LocationWSDL</name>
       <title>
         <key>ru</key>
         <value>Местоположение WSDL</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Location WSDL</value>
       </title>
       <id>20</id>
       <valueType>
@@ -4292,10 +4468,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяПользователя</name>
+      <name>Username</name>
       <title>
         <key>ru</key>
         <value>Имя пользователя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Username</value>
       </title>
       <id>21</id>
       <valueType>
@@ -4310,10 +4490,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Пароль</name>
+      <name>Password</name>
       <title>
         <key>ru</key>
         <value>Пароль</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Password</value>
       </title>
       <id>22</id>
       <valueType>
@@ -4329,10 +4513,14 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>ПолучитьWSDL</name>
+    <name>GetWSDL</name>
     <title>
       <key>ru</key>
       <value>Получить WSDL</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Get WSDL</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -4347,17 +4535,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПолучитьWSDL</name>
+        <name>GetWSDL</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВыполнитьОперацию</name>
+    <name>ExecuteOperation</name>
     <title>
       <key>ru</key>
       <value>Выполнить операцию</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Execute operation</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -4379,10 +4571,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Сохранить</name>
+    <name>Save</name>
     <title>
       <key>ru</key>
       <value>Сохранить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Save</value>
     </title>
     <id>3</id>
     <toolTip>
@@ -4397,16 +4593,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Сохранить</name>
+        <name>Save</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Прочитать</name>
+    <name>Read</name>
     <title>
       <key>ru</key>
       <value>Прочитать</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Read</value>
     </title>
     <id>4</id>
     <toolTip>
@@ -4421,7 +4621,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Прочитать</name>
+        <name>Read</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
