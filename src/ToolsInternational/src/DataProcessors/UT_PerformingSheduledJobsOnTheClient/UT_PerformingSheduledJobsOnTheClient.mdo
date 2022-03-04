@@ -10,4 +10,14 @@
     <value>Performing sheduled jobs on the client</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.UT_PerformingSheduledJobsOnTheClient.Form.Form</defaultForm>
+  <forms uuid="8281ba51-f1de-4e14-acc5-05e3c1377d48">
+    <name>Form</name>
+    <synonym>
+      <key>en</key>
+      <value>Form</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
 </mdclass:DataProcessor>
