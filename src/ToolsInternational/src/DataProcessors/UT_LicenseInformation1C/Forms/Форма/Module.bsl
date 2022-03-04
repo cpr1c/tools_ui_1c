@@ -1,18 +1,15 @@
-
-
 &AtServer
 Procedure OnCreateAtServer(Cancel, СтандартнаяОбработка)
 	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, СтандартнаяОбработка);
 EndProcedure
 
-
 &AtServer
-Function СтрокуВДату(СтрокаДата)
+Function StringToDate(DateString)
 	Try
-		СтрокаДата = Right(СтрокаДата, 10);
-		МассивДата = New Array;
-		МассивДата =  РазложитьСтрокуВМассивПодстрок(СтрокаДата, ".");
-		Return Date(String(МассивДата[2]) + String(МассивДата[1]) + String(МассивДата[0]));
+		DateString = Right(DateString, 10);
+		DatesArray = New Array;
+		DatesArray =  РазложитьСтрокуВМассивПодстрок(DateString, ".");
+		Return Date(String(DatesArray[2]) + String(DatesArray[1]) + String(DatesArray[0]));
 	Except
 		Return Date(1899, 12, 30);
 	EndTry;
@@ -97,10 +94,10 @@ Procedure ПолучитьСписокЛицензийНаСервере()
 	Else
 		ИмяВременногоФайлаCMD=GetTempFileName("sh");
 	EndIf;
-	ТекстCMD = New TextWriter;
-	ТекстCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	ТекстCMD.WriteLine("ring license list > " + ИмяВременногоФайла);
-	ТекстCMD.Close();
+	TextCMD = New TextWriter;
+	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("ring license list > " + ИмяВременногоФайла);
+	TextCMD.Close();
 	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
 	
 //	КомандаСистемы("ring license list > " + ИмяВременногоФайла, КаталогВременныхФайлов());
@@ -147,10 +144,10 @@ Function ЗапросИнформацииОЛицезнии(ИмяЛицензи
 	ИмяВременногоФайла = GetTempFileName("txt");
 	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
 
-	ТекстCMD = New TextWriter;
-	ТекстCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	ТекстCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license info --name " + ИмяЛицензии);
-	ТекстCMD.Close();
+	TextCMD = New TextWriter;
+	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license info --name " + ИмяЛицензии);
+	TextCMD.Close();
 	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
 	Text = New TextReader;
 	Text.Open(ИмяВременногоФайла);
@@ -195,7 +192,7 @@ Function ЗапросИнформацииОЛицезнии(ИмяЛицензи
 				СтруктураОтвета.LicenseCount = Number(мСтр[мСтр.Count() - 1]);
 			EndIf;
 		ElsIf StrFind(стр, "License generation date:") > 0 Then
-			СтруктураОтвета.ActivationDate = СтрокуВДату(Right(стр, StrLen(стр) - StrFind(стр,
+			СтруктураОтвета.ActivationDate = StringToDate(Right(стр, StrLen(стр) - StrFind(стр,
 				"License generation date:") - StrLen("License generation date:")));
 		ElsIf StrFind(стр, "Distribution kit registration number:") > 0 Then
 			СтруктураОтвета.RegistrationNumber = Right(стр, StrLen(стр) - StrFind(стр,
@@ -217,10 +214,10 @@ Function ЗапросВалидностиЛицезнии(ИмяЛицензии
 	ИмяВременногоФайла = GetTempFileName("txt");
 	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
 
-	ТекстCMD = New TextWriter;
-	ТекстCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	ТекстCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license validate --name " + ИмяЛицензии);
-	ТекстCMD.Close();
+	TextCMD = New TextWriter;
+	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license validate --name " + ИмяЛицензии);
+	TextCMD.Close();
 	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
 	Text = New TextReader;
 	Text.Open(ИмяВременногоФайла);
@@ -282,9 +279,9 @@ Procedure ПовторнаяАктивацияЛицензииНаСервере
 	ИмяВременногоФайла = GetTempFileName("txt");
 	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
 
-	ТекстCMD = New TextWriter;
-	ТекстCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	ТекстCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license activate" + ?(ValueIsFilled(
+	TextCMD = New TextWriter;
+	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license activate" + ?(ValueIsFilled(
 		ПереданныеПараметры.Name), " --first-name " + ПереданныеПараметры.Name, "") + ?(ValueIsFilled(
 		ПереданныеПараметры.MiddleName), " --middle-name " + ПереданныеПараметры.MiddleName, "") + ?(ValueIsFilled(
 		ПереданныеПараметры.LastName), " --last-name " + ПереданныеПараметры.LastName, "") + ?(ValueIsFilled(
@@ -303,7 +300,7 @@ Procedure ПовторнаяАктивацияЛицензииНаСервере
 		" --apartment " + Char(34) + ПереданныеПараметры.Apartment + Char(34), "") + " --serial "
 		+ ПереданныеПараметры.LicenseNumber + " --pin " + ПереданныеПараметры.НовыйПинКод + " --previous-pin "
 		+ ПереданныеПараметры.PinCode + " --validate");
-	ТекстCMD.Close();
+	TextCMD.Close();
 	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
 	Text = New TextReader;
 	Text.Open(ИмяВременногоФайла);
@@ -346,10 +343,10 @@ Procedure УдалитьЛицензиюНаСервере(ИмяЛицензи�
 	ИмяВременногоФайла = GetTempFileName("txt");
 	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
 
-	ТекстCMD = New TextWriter;
-	ТекстCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	ТекстCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license remove --name " + ИмяЛицензии);
-	ТекстCMD.Close();
+	TextCMD = New TextWriter;
+	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license remove --name " + ИмяЛицензии);
+	TextCMD.Close();
 	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
 	Text = New TextReader;
 	Text.Open(ИмяВременногоФайла);
