@@ -72,7 +72,7 @@
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
   <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
   <content>DataProcessor.UT_FileManager</content>
-  <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
+  <content>DataProcessor.UT_LicenseInformation1C</content>
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
   <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>

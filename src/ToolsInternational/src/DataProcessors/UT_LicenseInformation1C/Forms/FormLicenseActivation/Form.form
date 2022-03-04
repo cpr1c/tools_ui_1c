@@ -5,10 +5,10 @@
     <value>Активация лицензии</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаЛицензия</name>
+    <name>GroupLicense</name>
     <id>52</id>
     <items xsi:type="form:FormField">
-      <name>НомерЛицензии</name>
+      <name>LicenseNumber</name>
       <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -17,11 +17,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>НомерЛицензии</segments>
+          <segments>LicenseNumber</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>НомерЛицензииРасширеннаяПодсказка</name>
+        <name>LicenseNumberExtendedTooltip</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -36,7 +36,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>НомерЛицензииКонтекстноеМеню</name>
+        <name>LicenseNumberContextMenu</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -60,7 +60,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ПинКод</name>
+      <name>PinCode</name>
       <id>28</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -69,11 +69,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ПинКод</segments>
+          <segments>PinCode</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ПинКодРасширеннаяПодсказка</name>
+        <name>PinCodeExtendedTooltip</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -88,7 +88,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПинКодКонтекстноеМеню</name>
+        <name>PinCodeContextMenu</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -112,7 +112,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ПредыдущийПинКод</name>
+      <name>PreviousPinCode</name>
       <id>25</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -121,11 +121,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ПредыдущийПинКод</segments>
+          <segments>PreviousPinCode</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ПредыдущийПинКодРасширеннаяПодсказка</name>
+        <name>PreviousPinCodeExtendedTooltip</name>
         <id>27</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -140,7 +140,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПредыдущийПинКодКонтекстноеМеню</name>
+        <name>PreviousPinCodeContextMenu</name>
         <id>26</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -172,12 +172,16 @@
       <key>ru</key>
       <value>Группа лицензия</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group license</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа лицензия</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаЛицензияРасширеннаяПодсказка</name>
+      <name>GroupLicenseExtendedTooltip</name>
       <id>53</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -202,10 +206,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаВладелецЛицензии</name>
+    <name>GroupLicenseOwner</name>
     <id>54</id>
     <items xsi:type="form:FormField">
-      <name>Компания</name>
+      <name>Organization</name>
       <id>34</id>
       <title>
         <key>ru</key>
@@ -218,11 +222,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Компания</segments>
+          <segments>Organization</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>КомпанияРасширеннаяПодсказка</name>
+        <name>OrganizationExtendedTooltip</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -237,7 +241,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомпанияКонтекстноеМеню</name>
+        <name>OrganizationContextMenu</name>
         <id>35</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -261,7 +265,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Фамилия</name>
+      <name>LastName</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -270,11 +274,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Фамилия</segments>
+          <segments>LastName</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ФамилияРасширеннаяПодсказка</name>
+        <name>LastNameExtendedTooltip</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -289,7 +293,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ФамилияКонтекстноеМеню</name>
+        <name>LastNameContextMenu</name>
         <id>5</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -313,7 +317,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Имя</name>
+      <name>Name</name>
       <id>43</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -322,11 +326,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Имя</segments>
+          <segments>Name</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ИмяРасширеннаяПодсказка</name>
+        <name>NameExtendedTooltip</name>
         <id>45</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -341,7 +345,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ИмяКонтекстноеМеню</name>
+        <name>NameContextMenu</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -365,7 +369,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Отчество</name>
+      <name>MiddleName</name>
       <id>31</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -374,11 +378,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Отчество</segments>
+          <segments>MiddleName</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ОтчествоРасширеннаяПодсказка</name>
+        <name>MiddleNameExtendedTooltip</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -393,7 +397,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ОтчествоКонтекстноеМеню</name>
+        <name>MiddleNameContextMenu</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -469,7 +473,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Страна</name>
+      <name>Country</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -478,11 +482,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Страна</segments>
+          <segments>Country</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СтранаРасширеннаяПодсказка</name>
+        <name>CountryExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -497,7 +501,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СтранаКонтекстноеМеню</name>
+        <name>CountryContextMenu</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -521,7 +525,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Регион</name>
+      <name>State</name>
       <id>19</id>
       <title>
         <key>ru</key>
@@ -534,11 +538,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Регион</segments>
+          <segments>State</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>РегионРасширеннаяПодсказка</name>
+        <name>StateExtendedTooltip</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -553,7 +557,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РегионКонтекстноеМеню</name>
+        <name>StateContextMenu</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -577,7 +581,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Индекс</name>
+      <name>ZIP</name>
       <id>40</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -586,11 +590,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Индекс</segments>
+          <segments>ZIP</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ИндексРасширеннаяПодсказка</name>
+        <name>ZIPExtendedTooltip</name>
         <id>42</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -605,7 +609,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ИндексКонтекстноеМеню</name>
+        <name>ZIPContextMenu</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -629,7 +633,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Район</name>
+      <name>District</name>
       <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -638,11 +642,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Район</segments>
+          <segments>District</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>РайонРасширеннаяПодсказка</name>
+        <name>DistrictExtendedTooltip</name>
         <id>24</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -657,7 +661,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>РайонКонтекстноеМеню</name>
+        <name>DistrictContextMenu</name>
         <id>23</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -681,7 +685,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Город</name>
+      <name>Town</name>
       <id>49</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -690,11 +694,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Город</segments>
+          <segments>Town</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ГородРасширеннаяПодсказка</name>
+        <name>TownExtendedTooltip</name>
         <id>51</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -709,7 +713,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ГородКонтекстноеМеню</name>
+        <name>TownContextMenu</name>
         <id>50</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -733,7 +737,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Улица</name>
+      <name>Street</name>
       <id>7</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -742,11 +746,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Улица</segments>
+          <segments>Street</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>УлицаРасширеннаяПодсказка</name>
+        <name>StreetExtendedTooltip</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -761,7 +765,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>УлицаКонтекстноеМеню</name>
+        <name>StreetContextMenu</name>
         <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -785,7 +789,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Дом</name>
+      <name>House</name>
       <id>46</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -794,11 +798,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Дом</segments>
+          <segments>House</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ДомРасширеннаяПодсказка</name>
+        <name>HouseExtendedTooltip</name>
         <id>48</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -813,7 +817,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ДомКонтекстноеМеню</name>
+        <name>HouseContextMenu</name>
         <id>47</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -837,7 +841,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Строение</name>
+      <name>Building</name>
       <id>10</id>
       <title>
         <key>ru</key>
@@ -850,11 +854,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Строение</segments>
+          <segments>Building</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СтроениеРасширеннаяПодсказка</name>
+        <name>BuildingExtendedTooltip</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -869,7 +873,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СтроениеКонтекстноеМеню</name>
+        <name>BuildingContextMenu</name>
         <id>11</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -893,7 +897,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>Квартира</name>
+      <name>Appartment</name>
       <id>37</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -902,11 +906,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Квартира</segments>
+          <segments>Appartment</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>КвартираРасширеннаяПодсказка</name>
+        <name>AppartmentExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -921,7 +925,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КвартираКонтекстноеМеню</name>
+        <name>AppartmentContextMenu</name>
         <id>38</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -953,12 +957,16 @@
       <key>ru</key>
       <value>Владелец лицензии</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group license owner</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа владелец лицензии</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаВладелецЛицензииРасширеннаяПодсказка</name>
+      <name>GroupLicenseOwnerExtendedTooltip</name>
       <id>55</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -984,7 +992,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:Button">
-    <name>Активировать</name>
+    <name>Activate</name>
     <id>56</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -992,7 +1000,7 @@
       <common>true</common>
     </userVisible>
     <extendedTooltip>
-      <name>АктивироватьРасширеннаяПодсказка</name>
+      <name>ActivateExtendedTooltip</name>
       <id>57</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -1007,7 +1015,7 @@
       </extInfo>
     </extendedTooltip>
     <type>UsualButton</type>
-    <commandName>Form.Command.Активировать</commandName>
+    <commandName>Form.Command.CommandActivate</commandName>
     <representation>Auto</representation>
     <autoMaxWidth>true</autoMaxWidth>
     <autoMaxHeight>true</autoMaxHeight>
@@ -1029,7 +1037,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoTitle>true</autoTitle>
@@ -1041,10 +1049,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ИнформацияОЛицензиях1С</types>
+      <types>DataProcessorObject.UT_LicenseInformation1C</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1055,10 +1067,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Фамилия</name>
+    <name>LastName</name>
     <title>
       <key>ru</key>
       <value>Фамилия</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Last name</value>
     </title>
     <id>2</id>
     <valueType>
@@ -1073,10 +1089,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Имя</name>
+    <name>Name</name>
     <title>
       <key>ru</key>
       <value>Имя</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Name</value>
     </title>
     <id>3</id>
     <valueType>
@@ -1091,10 +1111,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Отчество</name>
+    <name>MiddleName</name>
     <title>
       <key>ru</key>
       <value>Отчество</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Middle name</value>
     </title>
     <id>4</id>
     <valueType>
@@ -1127,10 +1151,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Компания</name>
+    <name>Organization</name>
     <title>
       <key>ru</key>
       <value>Компания</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Organization</value>
     </title>
     <id>6</id>
     <valueType>
@@ -1145,10 +1173,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Страна</name>
+    <name>Country</name>
     <title>
       <key>ru</key>
       <value>Страна</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Country</value>
     </title>
     <id>7</id>
     <valueType>
@@ -1163,10 +1195,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Индекс</name>
+    <name>ZIP</name>
     <title>
       <key>ru</key>
       <value>Индекс</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>ZIP</value>
     </title>
     <id>8</id>
     <valueType>
@@ -1181,10 +1217,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Регион</name>
+    <name>State</name>
     <title>
       <key>ru</key>
       <value>Регион</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>State</value>
     </title>
     <id>9</id>
     <valueType>
@@ -1199,10 +1239,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Район</name>
+    <name>District</name>
     <title>
       <key>ru</key>
       <value>Район</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>District</value>
     </title>
     <id>10</id>
     <valueType>
@@ -1217,10 +1261,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Город</name>
+    <name>Town</name>
     <title>
       <key>ru</key>
       <value>Город</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Town</value>
     </title>
     <id>11</id>
     <valueType>
@@ -1235,10 +1283,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Улица</name>
+    <name>Street</name>
     <title>
       <key>ru</key>
       <value>Улица</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Street</value>
     </title>
     <id>12</id>
     <valueType>
@@ -1253,10 +1305,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Дом</name>
+    <name>House</name>
     <title>
       <key>ru</key>
       <value>Дом</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>House</value>
     </title>
     <id>13</id>
     <valueType>
@@ -1271,10 +1327,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Строение</name>
+    <name>Building</name>
     <title>
       <key>ru</key>
       <value>Строение</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Building</value>
     </title>
     <id>14</id>
     <valueType>
@@ -1289,10 +1349,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Квартира</name>
+    <name>Appartment</name>
     <title>
       <key>ru</key>
       <value>Квартира</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Appartment</value>
     </title>
     <id>15</id>
     <valueType>
@@ -1307,10 +1371,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>НомерЛицензии</name>
+    <name>LicenseNumber</name>
     <title>
       <key>ru</key>
       <value>Номер лицензии</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>License number</value>
     </title>
     <id>16</id>
     <valueType>
@@ -1325,10 +1393,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПинКод</name>
+    <name>PinCode</name>
     <title>
       <key>ru</key>
       <value>Пин код</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Pin code</value>
     </title>
     <id>17</id>
     <valueType>
@@ -1343,10 +1415,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПредыдущийПинКод</name>
+    <name>PreviousPinCode</name>
     <title>
       <key>ru</key>
       <value>Предыдущий пин код</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Previous pin code</value>
     </title>
     <id>18</id>
     <valueType>
@@ -1361,10 +1437,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>Активировать</name>
+    <name>CommandActivate</name>
     <title>
       <key>ru</key>
       <value>Активировать</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Command activate</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -1376,7 +1456,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Активировать</name>
+        <name>CommandActivate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

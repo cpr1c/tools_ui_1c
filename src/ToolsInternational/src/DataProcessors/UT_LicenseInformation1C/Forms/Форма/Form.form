@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Table">
-    <name>СписокЛицензий</name>
+    <name>LicensesList</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -9,7 +9,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>Объект.СписокЛицензий</segments>
+      <segments>Object.LicensesList</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <excludedCommands>Change</excludedCommands>
@@ -25,7 +25,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.LineNumber</segments>
+          <segments>Object.LicensesList.LineNumber</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -73,7 +73,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.НомерЛицензии</segments>
+          <segments>Object.LicensesList.LicenseNumber</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -125,7 +125,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.Описание</segments>
+          <segments>Object.LicensesList.Description</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -177,7 +177,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.КоличествоЛицензий</segments>
+          <segments>Object.LicensesList.LicenseCount</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -229,7 +229,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.ПинКод</segments>
+          <segments>Object.LicensesList.PinCode</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -281,7 +281,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.Активна</segments>
+          <segments>Object.LicensesList.Active</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -326,7 +326,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.ДатаАктивации</segments>
+          <segments>Object.LicensesList.ActivationDate</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -378,7 +378,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.РегистрационныйНомер</segments>
+          <segments>Object.LicensesList.RegistrationNumber</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -430,7 +430,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.КодПродукта</segments>
+          <segments>Object.LicensesList.ProductCode</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -482,7 +482,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>Объект.СписокЛицензий.ИмяФайлаЛицензии</segments>
+          <segments>Object.LicensesList.LicenseFileName</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -525,7 +525,7 @@
       </extInfo>
     </items>
     <autoCommandBar>
-      <name>СписокЛицензийКоманднаяПанель</name>
+      <name>LicensesListCommandBar</name>
       <id>3</id>
       <items xsi:type="form:Button">
         <name>СписокЛицензийПовторнаяАктивацияЛицензии</name>
@@ -609,10 +609,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокЛицензийСтрокаПоиска</name>
+      <name>LicensesListSearchString</name>
       <id>5</id>
       <extendedTooltip>
-        <name>СписокЛицензийСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>LicensesListSearchStringExtendedTooltip</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -627,7 +627,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийСтрокаПоискаКонтекстноеМеню</name>
+        <name>LicensesListSearchStringContextMenu</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -646,10 +646,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокЛицензийСостояниеПросмотра</name>
+      <name>LicensesListViewStatus</name>
       <id>8</id>
       <extendedTooltip>
-        <name>СписокЛицензийСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>LicensesListViewStatusExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -664,7 +664,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийСостояниеПросмотраКонтекстноеМеню</name>
+        <name>LicensesListViewStatusContextMenu</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -685,10 +685,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СписокЛицензийУправлениеПоиском</name>
+      <name>LicensesListSearchControl</name>
       <id>11</id>
       <extendedTooltip>
-        <name>СписокЛицензийУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>LicensesListSearchControlExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -703,7 +703,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийУправлениеПоискомКонтекстноеМеню</name>
+        <name>LicensesListSearchControlContextMenu</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -718,7 +718,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>СписокЛицензийРасширеннаяПодсказка</name>
+      <name>LicensesListExtendedTooltip</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -733,7 +733,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СписокЛицензийКонтекстноеМеню</name>
+      <name>LicensesListContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -771,7 +771,7 @@
       <name>ГруппаСтраницыИнформация</name>
       <id>115</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаИнфо</name>
+        <name>GroupInfo</name>
         <id>122</id>
         <items xsi:type="form:FormField">
           <name>СписокЛицензийОписание1</name>
@@ -783,7 +783,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Описание</segments>
+              <segments>Items.LicensesList.CurrentData.Description</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -835,7 +835,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.КоличествоЛицензий</segments>
+              <segments>Items.LicensesList.CurrentData.LicenseCount</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -887,7 +887,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.НомерЛицензии</segments>
+              <segments>Items.LicensesList.CurrentData.LicenseNumber</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -939,7 +939,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ПинКод</segments>
+              <segments>Items.LicensesList.CurrentData.PinCode</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -991,7 +991,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.КодПродукта</segments>
+              <segments>Items.LicensesList.CurrentData.ProductCode</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1043,7 +1043,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Активна</segments>
+              <segments>Items.LicensesList.CurrentData.Active</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1088,7 +1088,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.РегистрационныйНомер</segments>
+              <segments>Items.LicensesList.CurrentData.RegistrationNumber</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1140,7 +1140,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ИмяФайлаЛицензии</segments>
+              <segments>Items.LicensesList.CurrentData.LicenseFileName</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1188,6 +1188,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Information</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Информация</value>
         </title>
@@ -1197,7 +1201,7 @@
         </toolTip>
         <readOnly>true</readOnly>
         <extendedTooltip>
-          <name>ГруппаИнфоРасширеннаяПодсказка</name>
+          <name>GroupInfoExtendedTooltip</name>
           <id>123</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1218,10 +1222,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаДанныеАктивации</name>
+        <name>GroupActivationData</name>
         <id>117</id>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийФамилия</name>
+          <name>LicensesListLastName</name>
           <id>85</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1230,11 +1234,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Фамилия</segments>
+              <segments>Items.LicensesList.CurrentData.LastName</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийФамилияРасширеннаяПодсказка</name>
+            <name>LicensesListLastNameExtendedTooltip</name>
             <id>87</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1249,7 +1253,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийФамилияКонтекстноеМеню</name>
+            <name>LicensesListLastNameContextMenu</name>
             <id>86</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1282,7 +1286,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Имя</segments>
+              <segments>Items.LicensesList.CurrentData.Name</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1334,7 +1338,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Отчество</segments>
+              <segments>Items.LicensesList.CurrentData.MiddleName</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1386,7 +1390,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.EMail</segments>
+              <segments>Items.LicensesList.CurrentData.EMail</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1438,7 +1442,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Компания</segments>
+              <segments>Items.LicensesList.CurrentData.Organization</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1490,7 +1494,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Страна</segments>
+              <segments>Items.LicensesList.CurrentData.Country</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1542,7 +1546,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Регион</segments>
+              <segments>Items.LicensesList.CurrentData.Region</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1594,7 +1598,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Индекс</segments>
+              <segments>Items.LicensesList.CurrentData.ZIP</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1646,7 +1650,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Район</segments>
+              <segments>Items.LicensesList.CurrentData.District</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1698,7 +1702,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Город</segments>
+              <segments>Items.LicensesList.CurrentData.Town</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1750,7 +1754,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Улица</segments>
+              <segments>Items.LicensesList.CurrentData.Street</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1802,7 +1806,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Дом</segments>
+              <segments>Items.LicensesList.CurrentData.House</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1854,7 +1858,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Строение</segments>
+              <segments>Items.LicensesList.CurrentData.Building</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1906,7 +1910,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.Квартира</segments>
+              <segments>Items.LicensesList.CurrentData.Apartment</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -1958,7 +1962,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ДатаАктивации</segments>
+              <segments>Items.LicensesList.CurrentData.ActivationDate</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -2006,6 +2010,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Activation data</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Данные активации</value>
         </title>
@@ -2015,7 +2023,7 @@
         </toolTip>
         <readOnly>true</readOnly>
         <extendedTooltip>
-          <name>ГруппаДанныеАктивацииРасширеннаяПодсказка</name>
+          <name>GroupActivationDataExtendedTooltip</name>
           <id>118</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2036,10 +2044,10 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаДругое</name>
+        <name>GroupOther</name>
         <id>148</id>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийТекстоваяИнформация</name>
+          <name>LicensesListTextInformation</name>
           <id>150</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2048,11 +2056,11 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.СписокЛицензий.CurrentData.ТекстоваяИнформация</segments>
+              <segments>Items.LicensesList.CurrentData.TextInformation</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийТекстоваяИнформацияРасширеннаяПодсказка</name>
+            <name>LicensesListTextInformationExtendedTooltip</name>
             <id>152</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2067,7 +2075,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийТекстоваяИнформацияКонтекстноеМеню</name>
+            <name>LicensesListTextInformationContextMenu</name>
             <id>151</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2098,6 +2106,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Other</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Другое</value>
         </title>
@@ -2106,7 +2118,7 @@
           <value>Группа другое</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаДругоеРасширеннаяПодсказка</name>
+          <name>GroupOtherExtendedTooltip</name>
           <id>149</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2347,10 +2359,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ИнформацияОЛицензиях1С</types>
+      <types>DataProcessorObject.UT_LicenseInformation1C</types>
     </valueType>
     <view>
       <common>true</common>

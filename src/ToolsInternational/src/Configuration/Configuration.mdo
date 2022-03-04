@@ -159,7 +159,7 @@
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
+  <dataProcessors>DataProcessor.UT_LicenseInformation1C</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
