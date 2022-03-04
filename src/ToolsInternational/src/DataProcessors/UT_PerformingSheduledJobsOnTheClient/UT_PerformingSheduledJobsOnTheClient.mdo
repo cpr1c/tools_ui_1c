@@ -20,4 +20,12 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <templates uuid="140711cb-1c33-4c41-9816-79cb1d71d465">
+    <name>Template</name>
+    <synonym>
+      <key>en</key>
+      <value>Template</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
 </mdclass:DataProcessor>

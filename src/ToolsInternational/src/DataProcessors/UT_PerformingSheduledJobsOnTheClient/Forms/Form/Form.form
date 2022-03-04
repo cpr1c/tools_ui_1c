@@ -187,12 +187,16 @@ the client computer...</value>
       </dataPath>
       <titleLocation>None</titleLocation>
       <toolTip>
+        <key>en</key>
+        <value>Execute scheduled job</value>
+      </toolTip>
+      <toolTip>
         <key>ru</key>
         <value>Выполнять регламентное задание</value>
       </toolTip>
       <handlers>
         <event>OnChange</event>
-        <name>РегламентныеЗаданияВыполнятьПриИзменении</name>
+        <name>TableOfScheduledJobsToPerformOnChange</name>
       </handlers>
       <extendedTooltip>
         <name>ScheduledJobsToPerformExtendedTooltip</name>
