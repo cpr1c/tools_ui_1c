@@ -149,10 +149,12 @@
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsComparison</dataProcessors>
+  <dataProcessors>DataProcessor.UT_PerformingSheduledJobsOnTheClient</dataProcessors>
   <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_RegisterChangesForDataExchange</dataProcessors>
   <dataProcessors>DataProcessor.UT_SettingsStoragesManager</dataProcessors>
   <dataProcessors>DataProcessor.UT_Support</dataProcessors>
+  <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
@@ -163,6 +165,4 @@
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
-  <dataProcessors>DataProcessor.UT_PerformingSheduledJobsOnTheClient</dataProcessors>
 </mdclass:Configuration>
