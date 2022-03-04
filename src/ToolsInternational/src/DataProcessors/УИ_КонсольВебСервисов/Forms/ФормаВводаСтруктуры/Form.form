@@ -9,7 +9,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ТЗ_Структура</segments>
+      <segments>VT_Structure</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
@@ -22,7 +22,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТЗ_Структура.Ключ</segments>
+          <segments>VT_Structure.Key</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -74,7 +74,7 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ТЗ_Структура.Значение</segments>
+          <segments>VT_Structure.Value</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
@@ -314,7 +314,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ЗавершитьРедактирование</commandName>
+      <commandName>Form.Command.EndEdit</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -342,7 +342,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.УИ_КонсольВебСервисов</types>
@@ -356,10 +360,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ТЗ_Структура</name>
+    <name>VT_Structure</name>
     <title>
       <key>ru</key>
       <value>Структура</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>V t structure</value>
     </title>
     <id>2</id>
     <valueType>
@@ -372,10 +380,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Ключ</name>
+      <name>Key</name>
       <title>
         <key>ru</key>
         <value>Ключ</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Key</value>
       </title>
       <id>1</id>
       <valueType>
@@ -390,7 +402,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
+      <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Значение</value>
@@ -416,10 +432,14 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>ЗавершитьРедактирование</name>
+    <name>EndEdit</name>
     <title>
       <key>ru</key>
       <value>Завершить редактирование</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>End edit</value>
     </title>
     <id>1</id>
     <toolTip>
