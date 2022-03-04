@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a60dcfbc-c8c8-4178-ad9b-ea55efcb6056">
+  <producedTypes>
+    <objectType typeId="4a9c11b8-31a2-4119-adc9-0ec8ed726be9" valueTypeId="ee049428-8f27-4328-b94e-bca6ddf25858"/>
+    <managerType typeId="30a59b1b-cfa9-4569-bcb6-23a5771ff55e" valueTypeId="5e0f1d92-1a8d-4a22-adbd-8bb3c2e8f1df"/>
+  </producedTypes>
+  <name>UT_PerformingSheduledJobsOnTheClient</name>
+  <synonym>
+    <key>en</key>
+    <value>Performing sheduled jobs on the client</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+</mdclass:DataProcessor>

@@ -164,4 +164,5 @@
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
+  <dataProcessors>DataProcessor.UT_PerformingSheduledJobsOnTheClient</dataProcessors>
 </mdclass:Configuration>
