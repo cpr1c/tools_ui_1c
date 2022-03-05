@@ -7,14 +7,14 @@
   <name>UT_LicenseInformation1C</name>
   <synonym>
     <key>en</key>
-    <value>{} 1C License information [UT]</value>
+    <value>1C License information [UT]</value>
   </synonym>
   <synonym>
     <key>ru</key>
     <value>Информация о лицензиях 1С [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_LicenseInformation1C.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_LicenseInformation1C.Form.Form</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Информация о лицензиях 1С</value>
@@ -482,10 +482,10 @@
     </attributes>
   </tabularSections>
   <forms uuid="ca274cbb-3b3f-41a9-b548-85d8f270e767">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
