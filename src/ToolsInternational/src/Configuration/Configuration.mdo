@@ -145,6 +145,7 @@
   <dataProcessors>DataProcessor.UT_JobsConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_JSONDataConversion</dataProcessors>
   <dataProcessors>DataProcessor.UT_JSONEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_LicenseInformation1C</dataProcessors>
   <dataProcessors>DataProcessor.UT_MarkedObjectsDeletion</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
@@ -159,7 +160,6 @@
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
