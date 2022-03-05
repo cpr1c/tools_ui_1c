@@ -82,8 +82,8 @@
   <commonPictures>CommonPicture.UT_ValueTable</commonPictures>
   <commonPictures>CommonPicture.UT_ArbitraryType</commonPictures>
   <roles>Role.UT_UniversalTools</roles>
-  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegExBrowsers</commonTemplates>
-  <commonTemplates>CommonTemplate.UT_RegularExpressionsComponentRegEx</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsAddInRegExBrowsers</commonTemplates>
+  <commonTemplates>CommonTemplate.UT_RegularExpressionsAddinRegEx</commonTemplates>
   <commonTemplates>CommonTemplate.UT_StringSearchComponent</commonTemplates>
   <commonTemplates>CommonTemplate.UT_Ace</commonTemplates>
   <commonTemplates>CommonTemplate.UT_ClipboardAddin</commonTemplates>
@@ -149,12 +149,13 @@
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsComparison</dataProcessors>
+  <dataProcessors>DataProcessor.UT_PerformingSheduledJobsOnTheClient</dataProcessors>
   <dataProcessors>DataProcessor.UT_QueryConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_RegisterChangesForDataExchange</dataProcessors>
   <dataProcessors>DataProcessor.UT_SettingsStoragesManager</dataProcessors>
   <dataProcessors>DataProcessor.UT_Support</dataProcessors>
+  <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
-  <dataProcessors>DataProcessor.UT_PerformingSheduledJobsOnTheClient</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
@@ -164,5 +165,4 @@
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
 </mdclass:Configuration>
