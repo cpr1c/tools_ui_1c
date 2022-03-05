@@ -9,7 +9,7 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>Отчет.SettingsComposer.Settings</segments>
+      <segments>Report.SettingsComposer.Settings</segments>
     </dataPath>
     <skipOnInput>false</skipOnInput>
     <titleLocation>None</titleLocation>
@@ -4773,7 +4773,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Отчет</name>
+    <name>Report</name>
+    <title>
+      <key>en</key>
+      <value>Report</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>ReportObject.UT_ReportsConsole</types>
