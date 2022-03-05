@@ -1215,7 +1215,7 @@
     </title>
     <id>4</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</types>
+      <types>DataProcessorObject.UT_PerformingSheduledJobsOnTheClient</types>
     </valueType>
     <view>
       <common>true</common>

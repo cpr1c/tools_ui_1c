@@ -18,7 +18,7 @@
   <content>DataProcessor.UT_ConstantsEditor</content>
   <content>DataProcessor.UT_DatabaseStorageStructure</content>
   <content>DataProcessor.UT_MarkedObjectsDeletion</content>
-  <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
+  <content>DataProcessor.UT_PerformingSheduledJobsOnTheClient</content>
   <content>DataProcessor.UT_QueryConsole</content>
   <content>DataProcessor.UT_JobsConsole</content>
   <content>DataProcessor.UT_RegisterChangesForDataExchange</content>

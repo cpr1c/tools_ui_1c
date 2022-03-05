@@ -314,7 +314,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ЗавершитьРедактирование</commandName>
+      <commandName>Form.Command.FinishEditing</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -416,10 +416,14 @@
     </columns>
   </attributes>
   <formCommands>
-    <name>ЗавершитьРедактирование</name>
+    <name>FinishEditing</name>
     <title>
       <key>ru</key>
       <value>Завершить редактирование</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Finish editing</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -431,7 +435,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗавершитьРедактирование</name>
+        <name>FinishEditing</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
