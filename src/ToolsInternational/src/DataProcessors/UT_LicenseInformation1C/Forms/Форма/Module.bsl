@@ -8,48 +8,46 @@ Function StringToDate(DateString)
 	Try
 		DateString = Right(DateString, 10);
 		DatesArray = New Array;
-		DatesArray =  РазложитьСтрокуВМассивПодстрок(DateString, ".");
+		DatesArray =  SplitStringToSubStringsArray(DateString, ".");
 		Return Date(String(DatesArray[2]) + String(DatesArray[1]) + String(DatesArray[0]));
 	Except
 		Return Date(1899, 12, 30);
 	EndTry;
 EndFunction
 
-// Разбивает строку на несколько строк по разделителю. Разделитель может иметь любую длину.
+// Splits a string into several lines by separator. The separator can have any length.
 //
-// Параметры:
-//  Строка                 - Строка - текст с разделителями;
-//  Разделитель            - Строка - разделитель строк текста, минимум 1 символ;
-//  ПропускатьПустыеСтроки - Булево - признак необходимости включения в результат пустых строк.
-//    Если параметр не задан, то функция работает в режиме совместимости со своей предыдущей версией:
-//     - для разделителя-пробела пустые строки не включаются в результат, для остальных разделителей пустые строки
-//       включаются в результат.
-//     Е если параметр Строка не содержит значащих символов или не содержит ни одного символа (пустая строка), то в
-//       случае разделителя-пробела результатом функции будет массив, содержащий одно значение "" (пустая строка), а
-//       при других разделителях результатом функции будет пустой массив.
-//  СокращатьНепечатаемыеСимволы - Булево - сокращать непечатаемые символы по краям каждой из найденных подстрок.
+// Parameters:
+// String - String - Delimited text;
+//  Separator-String- Line separator lines of text, at least 1 character;
+//  SkipEmptyStrings - Boolean - whether or not included in the result of the empty string.
+//     If not specified, the function is running in compatibility mode with its previous version:
+//     -  for separator blank empty strings are not included in the result, for the rest of the dividers blank lines
+//   if the String parameter does not contain significant characters or does not contain a single character (an empty string), then in
+//    the case of a space separator, the result of the function will be an array containing a single value "" (an empty string), and
+// with other separators, the result of the function will be an empty array.
+//  ShortNonPrintableChars - Boolean - shorten non-printable characters at the edges of each of the found substrings.
 //
-// Возвращаемое значение:
-//  Массив - массив строк.
+// Returned Value:
+//  Array - strings array .
 //
-// Примеры:
-//  РазложитьСтрокуВМассивПодстрок(",один,,два,", ",") - возвратит массив из 5 элементов, три из которых  - пустые
-//  строки;
-//  РазложитьСтрокуВМассивПодстрок(",один,,два,", ",", Истина) - возвратит массив из двух элементов;
-//  РазложитьСтрокуВМассивПодстрок(" один   два  ", " ") - возвратит массив из двух элементов;
-//  РазложитьСтрокуВМассивПодстрок("") - возвратит пустой массив;
-//  РазложитьСтрокуВМассивПодстрок("",,Ложь) - возвратит массив с одним элементом "" (пустой строкой);
-//  РазложитьСтрокуВМассивПодстрок("", " ") - возвратит массив с одним элементом "" (пустой строкой);
+// Examples:
+//  SplitStringToSubStringsArray(",один,,два,", ",") - return array of 5 items, 3 of which  - empty
+//  SplitStringToSubStringsArray(",один,,два,", ",", Истина) - return array of 2 items;
+//  SplitStringToSubStringsArray(" один   два  ", " ") - return array of 2 items;
+//  SplitStringToSubStringsArray("") - return empty array;
+//  SplitStringToSubStringsArray("",,Ложь) - return array of 1 item "" (empty string );
+//  SplitStringToSubStringsArray("", " ") - return array of 1 item "" (empty string);
 //
 &AtServer
-Function РазложитьСтрокуВМассивПодстрок(Знач String, Знач Splitter = ",", Знач ПропускатьПустыеСтроки = Undefined,
-	СокращатьНепечатаемыеСимволы = False) Export
+Function SplitStringToSubStringsArray(Val String, Val Splitter = ",", Val SkipEmptyStrings = Undefined,
+	ShortNonPrintableChars = False) Export
 
 	Result = New Array;
 	
-	// For обеспечения обратной совместимости.
-	If ПропускатьПустыеСтроки = Undefined Then
-		ПропускатьПустыеСтроки = ?(Splitter = " ", True, False);
+	// For ensuring backward compatibility
+	If SkipEmptyStrings = Undefined Then
+		SkipEmptyStrings = ?(Splitter = " ", True, False);
 		If IsBlankString(String) Then
 			If Splitter = " " Then
 				Result.Add("");
@@ -59,22 +57,22 @@ Function РазложитьСтрокуВМассивПодстрок(Знач S
 	EndIf;
 	//
 
-	Позиция = Find(String, Splitter);
-	While Позиция > 0 Do
-		Подстрока = Left(String, Позиция - 1);
-		If Not ПропускатьПустыеСтроки Or Not IsBlankString(Подстрока) Then
-			If СокращатьНепечатаемыеСимволы Then
-				Result.Add(TrimAll(Подстрока));
+	Position = Find(String, Splitter);
+	While Position > 0 Do
+		Substring = Left(String, Position - 1);
+		If Not SkipEmptyStrings Or Not IsBlankString(Substring) Then
+			If ShortNonPrintableChars Then
+				Result.Add(TrimAll(Substring));
 			Else
-				Result.Add(Подстрока);
+				Result.Add(Substring);
 			EndIf;
 		EndIf;
-		String = Mid(String, Позиция + StrLen(Splitter));
-		Позиция = Find(String, Splitter);
+		String = Mid(String, Position + StrLen(Splitter));
+		Position = Find(String, Splitter);
 	EndDo;
 
-	If Not ПропускатьПустыеСтроки Or Not IsBlankString(String) Then
-		If СокращатьНепечатаемыеСимволы Then
+	If Not SkipEmptyStrings Or Not IsBlankString(String) Then
+		If ShortNonPrintableChars Then
 			Result.Add(TrimAll(String));
 		Else
 			Result.Add(String);
@@ -86,313 +84,317 @@ Function РазложитьСтрокуВМассивПодстрок(Знач S
 EndFunction
 
 &AtServer
-Procedure ПолучитьСписокЛицензийНаСервере()
+Procedure GetLicensesListAtServer()
 	Object.LicensesList.Clear();
-	ИмяВременногоФайла = GetTempFileName("txt");
+	TempFileName = GetTempFileName("txt");
 	If UT_CommonClientServer.IsWindows() Then
-		ИмяВременногоФайлаCMD = GetTempFileName("cmd");
+		TempFileNameCMD = GetTempFileName("cmd");
 	Else
-		ИмяВременногоФайлаCMD=GetTempFileName("sh");
+		TempFileNameCMD=GetTempFileName("sh");
 	EndIf;
 	TextCMD = New TextWriter;
-	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	TextCMD.WriteLine("ring license list > " + ИмяВременногоФайла);
+	TextCMD.Open(TempFileNameCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("ring license list > " + TempFileName);
 	TextCMD.Close();
-	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
+	RunApp(TempFileNameCMD, TempFilesDir(), True);
 	
-//	КомандаСистемы("ring license list > " + ИмяВременногоФайла, КаталогВременныхФайлов());
+//	System("ring license list > " + TempFileName, TempFilesDir());
 	Text = New TextReader;
-	Text.Open(ИмяВременногоФайла);
-	стр = "";
-	While стр <> Undefined Do
-		стр = Text.ReadLine();
-		ПозицияИмениФайла = StrFind(стр, "(file name:");
-		If ПозицияИмениФайла > 0 Then
-			ПинЛицензия = Left(стр, ПозицияИмениФайла - 1);
+	Text.Open(TempFileName);
+	line = "";
+	While line <> Undefined Do
+		line = Text.ReadLine();
+		FileNamePosition = StrFind(line, "(file name:");
+		If FileNamePosition > 0 Then
+			LicensePin = Left(line, FileNamePosition - 1);
 		Else
-			ПинЛицензия = стр;
+			LicensePin = line;
 		EndIf;
 
-		мПинЛицензия = РазложитьСтрокуВМассивПодстрок(ПинЛицензия, "-");
-		If мПинЛицензия.Count() < 2 Then
+		ArrayLicensePin = SplitStringToSubStringsArray(LicensePin, "-");
+		If ArrayLicensePin.Count() < 2 Then
 			Continue;
 		EndIf;
-		LicenseFileName = Mid(стр, ПозицияИмениФайла + 13, 99);
+		LicenseFileName = Mid(line, FileNamePosition + 13, 99);
 		LicenseFileName = StrReplace(LicenseFileName, """)", "");
-		нСтр = Object.LicensesList.Add();
-		нСтр.PinCode = мПинЛицензия[0];
-		нСтр.LicenseNumber = мПинЛицензия[1];
-		нСтр.LicenseFileName = LicenseFileName;
-		нСтр.ManualInput = False;
+		NewRow = Object.LicensesList.Add();
+		NewRow.PinCode = ArrayLicensePin[0];
+		NewRow.LicenseNumber =ArrayLicensePin[1];
+		NewRow.LicenseFileName = LicenseFileName;
+		NewRow.ManualInput = False;
 		
-				//Message(стр);
+				//Message(line);
 	EndDo;
 	Text.Close();
-	DeleteFiles(ИмяВременногоФайла);
-	DeleteFiles(ИмяВременногоФайлаCMD);
+	DeleteFiles(TempFileName);
+	DeleteFiles(TempFileNameCMD);
 
 EndProcedure
 
 &AtClient
-Procedure ПолучитьСписокЛицензий()
-	ПолучитьСписокЛицензийНаСервере();
+Procedure GetLicensesList()
+	GetLicensesListAtServer();
 EndProcedure
 
 &AtServer
-Function ЗапросИнформацииОЛицезнии(ИмяЛицензии)
-	СтруктураОтвета = New Structure("LongDesc, LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Town, Region, District, Street, House, Building, Apartment, ActivationDate, RegistrationNumber, ProductCode, TextInformation, LicenseCount");
-	ИмяВременногоФайла = GetTempFileName("txt");
-	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
+Function LicenseInformationRequest(LicenseName)
+	ResponceStructure = New Structure("Description, LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Town, Region, District, Street, House, Building, Apartment, ActivationDate, RegistrationNumber, ProductCode, TextInformation, LicenseCount");
+	TempFileName = GetTempFileName("txt");
+	TempFileNameCMD = GetTempFileName("cmd");
 
 	TextCMD = New TextWriter;
-	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license info --name " + ИмяЛицензии);
+	TextCMD.Open(TempFileNameCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + TempFileName + " license info --name " + LicenseName);
 	TextCMD.Close();
-	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
+	RunApp(TempFileNameCMD, TempFilesDir(), True);
 	Text = New TextReader;
-	Text.Open(ИмяВременногоФайла);
-	стр = "";
-	While стр <> Undefined Do
-		стр = Text.ReadLine();
-		If StrFind(стр, "First name:") > 0 Then
-			СтруктураОтвета.Name = Right(стр, StrLen(стр) - StrFind(стр, "First name:") - StrLen("First name:"));
-		ElsIf StrFind(стр, "Middle name:") > 0 Then
-			СтруктураОтвета.MiddleName = Right(стр, StrLen(стр) - StrFind(стр, "Middle name:") - StrLen(
+	Text.Open(TempFileName);
+	line = "";
+	While line <> Undefined Do
+		line = Text.ReadLine();
+		If StrFind(line, "First name:") > 0 Then
+			ResponceStructure.Name = Right(line, StrLen(line) - StrFind(line, "First name:") - StrLen("First name:"));
+		ElsIf StrFind(line, "Middle name:") > 0 Then
+			ResponceStructure.MiddleName = Right(line, StrLen(line) - StrFind(line, "Middle name:") - StrLen(
 				"Middle name:"));
-		ElsIf StrFind(стр, "Last name:") > 0 Then
-			СтруктураОтвета.LastName = Right(стр, StrLen(стр) - StrFind(стр, "Last name:") - StrLen("Last name:"));
-		ElsIf StrFind(стр, "Email:") > 0 Then
-			СтруктураОтвета.Email = Right(стр, StrLen(стр) - StrFind(стр, "Email:") - StrLen("Email:"));
-		ElsIf StrFind(стр, "Company:") > 0 Then
-			СтруктураОтвета.Organization = Right(стр, StrLen(стр) - StrFind(стр, "Company:") - StrLen("Company:"));
-		ElsIf StrFind(стр, "Country:") > 0 Then
-			СтруктураОтвета.Country = Right(стр, StrLen(стр) - StrFind(стр, "Country:") - StrLen("Country:"));
-		ElsIf StrFind(стр, "ZIP code:") > 0 Then
-			СтруктураОтвета.ZIP = Right(стр, StrLen(стр) - StrFind(стр, "ZIP code:") - StrLen("ZIP code:"));
-		ElsIf StrFind(стр, "Town:") > 0 Then
-			СтруктураОтвета.Town = Right(стр, StrLen(стр) - StrFind(стр, "Town:") - StrLen("Town:"));
-		ElsIf StrFind(стр, "Region:") > 0 Then
-			СтруктураОтвета.Region = Right(стр, StrLen(стр) - StrFind(стр, "Region:") - StrLen("Region:"));
-		ElsIf StrFind(стр, "District:") > 0 Then
-			СтруктураОтвета.District = Right(стр, StrLen(стр) - StrFind(стр, "District:") - StrLen("District:"));
-		ElsIf StrFind(стр, "Building:") > 0 Then
-			СтруктураОтвета.Building = Right(стр, StrLen(стр) - StrFind(стр, "Building:") - StrLen("Building:"));
-		ElsIf StrFind(стр, "Apartment:") > 0 Then
-			СтруктураОтвета.Apartment = Right(стр, StrLen(стр) - StrFind(стр, "Apartment:") - StrLen("Apartment:"));
-		ElsIf StrFind(стр, "Street:") > 0 Then
-			СтруктураОтвета.Street = Right(стр, StrLen(стр) - StrFind(стр, "Street:") - StrLen("Street:"));
-		ElsIf StrFind(стр, "House:") > 0 Then
-			СтруктураОтвета.House = Right(стр, StrLen(стр) - StrFind(стр, "House:") - StrLen("House:"));
-		ElsIf StrFind(стр, "Description:") > 0 Then
-			СтруктураОтвета.LongDesc = Right(стр, StrLen(стр) - StrFind(стр, "Description:") - StrLen(
+		ElsIf StrFind(line, "Last name:") > 0 Then
+			ResponceStructure.LastName = Right(line, StrLen(line) - StrFind(line, "Last name:") - StrLen("Last name:"));
+		ElsIf StrFind(line, "Email:") > 0 Then
+			ResponceStructure.Email = Right(line, StrLen(line) - StrFind(line, "Email:") - StrLen("Email:"));
+		ElsIf StrFind(line, "Company:") > 0 Then
+			ResponceStructure.Organization = Right(line, StrLen(line) - StrFind(line, "Company:") - StrLen("Company:"));
+		ElsIf StrFind(line, "Country:") > 0 Then
+			ResponceStructure.Country = Right(line, StrLen(line) - StrFind(line, "Country:") - StrLen("Country:"));
+		ElsIf StrFind(line, "ZIP code:") > 0 Then
+			ResponceStructure.ZIP = Right(line, StrLen(line) - StrFind(line, "ZIP code:") - StrLen("ZIP code:"));
+		ElsIf StrFind(line, "Town:") > 0 Then
+			ResponceStructure.Town = Right(line, StrLen(line) - StrFind(line, "Town:") - StrLen("Town:"));
+		ElsIf StrFind(line, "Region:") > 0 Then
+			ResponceStructure.Region = Right(line, StrLen(line) - StrFind(line, "Region:") - StrLen("Region:"));
+		ElsIf StrFind(line, "District:") > 0 Then
+			ResponceStructure.District = Right(line, StrLen(line) - StrFind(line, "District:") - StrLen("District:"));
+		ElsIf StrFind(line, "Building:") > 0 Then
+			ResponceStructure.Building = Right(line, StrLen(line) - StrFind(line, "Building:") - StrLen("Building:"));
+		ElsIf StrFind(line, "Apartment:") > 0 Then
+			ResponceStructure.Apartment = Right(line, StrLen(line) - StrFind(line, "Apartment:") - StrLen("Apartment:"));
+		ElsIf StrFind(line, "Street:") > 0 Then
+			ResponceStructure.Street = Right(line, StrLen(line) - StrFind(line, "Street:") - StrLen("Street:"));
+		ElsIf StrFind(line, "House:") > 0 Then
+			ResponceStructure.House = Right(line, StrLen(line) - StrFind(line, "House:") - StrLen("House:"));
+		ElsIf StrFind(line, "Description:") > 0 Then
+			ResponceStructure.Description = Right(line, StrLen(line) - StrFind(line, "Description:") - StrLen(
 				"Description:"));
-			If StrFind(стр, " рабочих мест") Then
-				тСтр = Left(стр, StrFind(стр, " рабочих мест"));
-				мСтр = РазложитьСтрокуВМассивПодстрок(тСтр, " ");
-				СтруктураОтвета.LicenseCount = Number(мСтр[мСтр.Count() - 1]);
+			If StrFind(line, " workplaces") Then
+				tline = Left(line, StrFind(Line, " workplaces"));
+				arrLine = SplitStringToSubStringsArray(tline, " ");
+				ResponceStructure.LicenseCount = Number(arrLine[arrLine.Count() - 1]);
 			EndIf;
-		ElsIf StrFind(стр, "License generation date:") > 0 Then
-			СтруктураОтвета.ActivationDate = StringToDate(Right(стр, StrLen(стр) - StrFind(стр,
+		ElsIf StrFind(Line, "License generation date:") > 0 Then
+			ResponceStructure.ActivationDate = StringToDate(Right(Line, StrLen(Line) - StrFind(Line,
 				"License generation date:") - StrLen("License generation date:")));
-		ElsIf StrFind(стр, "Distribution kit registration number:") > 0 Then
-			СтруктураОтвета.RegistrationNumber = Right(стр, StrLen(стр) - StrFind(стр,
+		ElsIf StrFind(Line, "Distribution kit registration number:") > 0 Then
+			ResponceStructure.RegistrationNumber = Right(Line, StrLen(Line) - StrFind(Line,
 				"Distribution kit registration number:") - StrLen("Distribution kit registration number:"));
-		ElsIf StrFind(стр, "Product code:") > 0 Then
-			СтруктураОтвета.ProductCode = Right(стр, StrLen(стр) - StrFind(стр, "Product code:") - StrLen(
+		ElsIf StrFind(Line, "Product code:") > 0 Then
+			ResponceStructure.ProductCode = Right(Line, StrLen(Line) - StrFind(Line, "Product code:") - StrLen(
 				"Product code:"));
 		EndIf;
 	EndDo;
 	Text.Close();
-	DeleteFiles(ИмяВременногоФайла);
-	DeleteFiles(ИмяВременногоФайлаCMD);
-	Return СтруктураОтвета;
+	DeleteFiles(TempFileName);
+	DeleteFiles(TempFileNameCMD);
+	Return ResponceStructure;
 
 EndFunction
 
 &AtServer
-Function ЗапросВалидностиЛицезнии(ИмяЛицензии)
-	ИмяВременногоФайла = GetTempFileName("txt");
-	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
+Function LicenseValidityRequest(LicenseName)
+	TempFileName = GetTempFileName("txt");
+	TempFileNameCMD = GetTempFileName("cmd");
 
 	TextCMD = New TextWriter;
-	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license validate --name " + ИмяЛицензии);
+	TextCMD.Open(TempFileNameCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + TempFileName + " license validate --name " + LicenseName);
 	TextCMD.Close();
-	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
+	RunApp(TempFileNameCMD, TempFilesDir(), True);
 	Text = New TextReader;
-	Text.Open(ИмяВременногоФайла);
-	стр = Text.Read();
-	СтруктураОтвета = New Structure("Active, TextInformation");
-	If StrFind(стр, "License check passed for the following license:") Then
-		СтруктураОтвета.Active = True;
+	Text.Open(TempFileName);
+	Line = Text.Read();
+	ResponceStructure = New Structure("Active, TextInformation");
+	If StrFind(Line, "License check passed for the following license:") Then
+		ResponceStructure.Active = True;
 	Else
-		СтруктураОтвета.Active = False;
+		ResponceStructure.Active = False;
 	EndIf;
-	СтруктураОтвета.TextInformation = стр;
+	ResponceStructure.TextInformation = Line;
 	Text.Close();
-	DeleteFiles(ИмяВременногоФайла);
-	DeleteFiles(ИмяВременногоФайлаCMD);
-	Return СтруктураОтвета;
-
+	DeleteFiles(TempFileName);
+	DeleteFiles(TempFileNameCMD);
+	Return ResponceStructure;
 EndFunction
+
 &AtClient
-Procedure ПолучитьПолнуюИнформациюОЛицензии()
-	КоличествоЛицензий = Object.LicensesList.Count();
-	значениеИндикатора = 0;
-	Счетчик = 1;
-	For Each стр In Object.LicensesList Do
-		MessageText = "Receive информации о лицензиях (" + String(КоличествоЛицензий) + " шт.)";
-		Explanation = "Query информации о лицензии " + стр.LicenseNumber + ". Всего: " + КоличествоЛицензий;
+Procedure GetLicenseFullInformation()
+	LicensesCount = Object.LicensesList.Count();
+	IndicatorValue = 0;
+	Counter = 1;
+	For Each Line In Object.LicensesList Do
+		
+		MessageText = StrTemplate("ru = 'Получение информации о лицензиях (%1) шт.)';en = 'Getting information about licenses ( %1) pcs'",String(LicensesCount));
+		Explanation = StrTemplate(NSTR("ru = 'Запрос информации о лицензии %1 .Всего: %2';en = 'Request for license information %1 .Total: %2'"),Line.LicenseNumber,LicensesCount);
 		Picture = PictureLib.Post;
-		значениеИндикатора = 100 / (КоличествоЛицензий / Счетчик);
-		Status(MessageText, значениеИндикатора, Explanation, Picture);
-		СтруктураЗн = ЗапросИнформацииОЛицезнии(стр.PinCode + "-" + стр.LicenseNumber);
-		FillPropertyValues(стр, СтруктураЗн);
-		Счетчик = Счетчик + 1;
+		IndicatorValue = 100 / (LicensesCount / Counter);
+		Status(MessageText, IndicatorValue, Explanation, Picture);
+		ValueStructure = LicenseInformationRequest(Line.PinCode + "-" + Line.LicenseNumber);
+		FillPropertyValues(Line, ValueStructure);
+		Counter = Counter + 1;
 
 	EndDo;
 
 EndProcedure
 
 &AtClient
-Procedure ПроверкаВалидностиЛицензий()
-	КоличествоЛицензий = Object.LicensesList.Count();
-	значениеИндикатора = 0;
-	Счетчик = 1;
-	For Each стр In Object.LicensesList Do
-		MessageText = "Receive информации о лицензиях (" + String(КоличествоЛицензий) + " шт.)";
-		Explanation = "Query информации о лицензии " + стр.LicenseNumber + ". Всего: " + КоличествоЛицензий;
+Procedure LicenseValidationCheck()
+	LicensesCount = Object.LicensesList.Count();
+	IndicatorValue = 0;
+	Counter = 1;
+	For Each Line In Object.LicensesList Do
+		MessageText = StrTemplate("ru = 'Получение информации о лицензиях (%1) шт.)';en = 'Getting information about licenses ( %1) pcs'",String(LicensesCount));
+		Explanation = StrTemplate(NSTR("ru = 'Запрос информации о лицензии %1 .Всего: %2';en = 'Request for license information %1 .Total: %2'"),Line.LicenseNumber,LicensesCount);
 		Picture = PictureLib.Post;
-		значениеИндикатора = 100 / (КоличествоЛицензий / Счетчик);
-		Status(MessageText, значениеИндикатора, Explanation, Picture);
-		СтруктураЗн = ЗапросВалидностиЛицезнии(стр.PinCode + "-" + стр.LicenseNumber);
-		FillPropertyValues(стр, СтруктураЗн);
-		Счетчик = Счетчик + 1;
+		IndicatorValue = 100 / (LicensesCount / Counter);
+		Status(MessageText, IndicatorValue, Explanation, Picture);
+		ValueStructure = LicenseValidityRequest(Line.PinCode + "-" + Line.LicenseNumber);
+		FillPropertyValues(Line, ValueStructure);
+		Counter = Counter + 1;
 	EndDo;
 
 EndProcedure
 
 &AtServer
-Procedure ПовторнаяАктивацияЛицензииНаСервере(ПереданныеПараметры)
-	СтруктураПараметров = New Structure(" НовыйПинКод,PinCode, LongDesc, LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Town, Street, House, ActivationDate, RegistrationNumber, ProductCode, TextInformation, LicenseCount");
+Procedure LicenseReactivationAtServer(IncomeParameters)
+	ParametersStructure = New Structure(" NewPinCode,PinCode, Description, LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Town, Street, House, ActivationDate, RegistrationNumber, ProductCode, TextInformation, LicenseCount");
 
-	ИмяВременногоФайла = GetTempFileName("txt");
-	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
+	TempFileName = GetTempFileName("txt");
+	TempFileNameCMD = GetTempFileName("cmd");
 
 	TextCMD = New TextWriter;
-	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license activate" + ?(ValueIsFilled(
-		ПереданныеПараметры.Name), " --first-name " + ПереданныеПараметры.Name, "") + ?(ValueIsFilled(
-		ПереданныеПараметры.MiddleName), " --middle-name " + ПереданныеПараметры.MiddleName, "") + ?(ValueIsFilled(
-		ПереданныеПараметры.LastName), " --last-name " + ПереданныеПараметры.LastName, "") + ?(ValueIsFilled(
-		ПереданныеПараметры.EMail), " --email " + ПереданныеПараметры.EMail, "") + ?(ValueIsFilled(
-		ПереданныеПараметры.Компания), " --company " + Char(34) + StrReplace(ПереданныеПараметры.Компания, Char(
-		34), "") + Char(34), "") + ?(ValueIsFilled(ПереданныеПараметры.Country), " --country " + Char(34)
-		+ ПереданныеПараметры.Country + Char(34), "") + ?(ValueIsFilled(ПереданныеПараметры.IndexOf),
-		" --zip-code " + ПереданныеПараметры.ZIP, "") + ?(ValueIsFilled(ПереданныеПараметры.City), " --town "
-		+ Char(34) + ПереданныеПараметры.Town + Char(34), "") + ?(ValueIsFilled(ПереданныеПараметры.State),
-		" --region " + Char(34) + ПереданныеПараметры.Region + Char(34), "") + ?(ValueIsFilled(
-		ПереданныеПараметры.District), " --district " + Char(34) + ПереданныеПараметры.District + Char(34), "") + ?(
-		ValueIsFilled(ПереданныеПараметры.Street), " --street " + Char(34) + ПереданныеПараметры.Street + Char(
-		34), "") + ?(ValueIsFilled(ПереданныеПараметры.House), " --house " + Char(34) + ПереданныеПараметры.House
-		+ Char(34), "") + ?(ValueIsFilled(ПереданныеПараметры.Строение), " --building " + Char(34)
-		+ ПереданныеПараметры.Building + Char(34), "") + ?(ValueIsFilled(ПереданныеПараметры.Appartment),
-		" --apartment " + Char(34) + ПереданныеПараметры.Apartment + Char(34), "") + " --serial "
-		+ ПереданныеПараметры.LicenseNumber + " --pin " + ПереданныеПараметры.НовыйПинКод + " --previous-pin "
-		+ ПереданныеПараметры.PinCode + " --validate");
+	TextCMD.Open(TempFileNameCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + TempFileName + " license activate" + ?(ValueIsFilled(
+		IncomeParameters.Name), " --first-name " + IncomeParameters.Name, "") + ?(ValueIsFilled(
+		IncomeParameters.MiddleName), " --middle-name " + IncomeParameters.MiddleName, "") + ?(ValueIsFilled(
+		IncomeParameters.LastName), " --last-name " + IncomeParameters.LastName, "") + ?(ValueIsFilled(
+		IncomeParameters.EMail), " --email " + IncomeParameters.EMail, "") + ?(ValueIsFilled(
+		IncomeParameters.Organization), " --company " + Char(34) + StrReplace(IncomeParameters.Organization, Char(
+		34), "") + Char(34), "") + ?(ValueIsFilled(IncomeParameters.Country), " --country " + Char(34)
+		+ IncomeParameters.Country + Char(34), "") + ?(ValueIsFilled(IncomeParameters.ZIP),
+		" --zip-code " + IncomeParameters.ZIP, "") + ?(ValueIsFilled(IncomeParameters.Town), " --town "
+		+ Char(34) + IncomeParameters.Town + Char(34), "") + ?(ValueIsFilled(IncomeParameters.region),
+		" --region " + Char(34) + IncomeParameters.Region + Char(34), "") + ?(ValueIsFilled(
+		IncomeParameters.District), " --district " + Char(34) + IncomeParameters.District + Char(34), "") + ?(
+		ValueIsFilled(IncomeParameters.Street), " --street " + Char(34) + IncomeParameters.Street + Char(
+		34), "") + ?(ValueIsFilled(IncomeParameters.House), " --house " + Char(34) + IncomeParameters.House
+		+ Char(34), "") + ?(ValueIsFilled(IncomeParameters.building), " --building " + Char(34)
+		+ IncomeParameters.Building + Char(34), "") + ?(ValueIsFilled(IncomeParameters.Appartment),
+		" --apartment " + Char(34) + IncomeParameters.Apartment + Char(34), "") + " --serial "
+		+ IncomeParameters.LicenseNumber + " --pin " + IncomeParameters.NewPinCode + " --previous-pin "
+		+ IncomeParameters.PinCode + " --validate");
 	TextCMD.Close();
-	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
+	RunApp(TempFileNameCMD, TempFilesDir(), True);
 	Text = New TextReader;
-	Text.Open(ИмяВременногоФайла);
-	стр = Text.Read();
-	Message(стр);
+	Text.Open(TempFileName);
+	Line = Text.Read();
+	Message(Line);
 	Text.Close();
-	DeleteFiles(ИмяВременногоФайла);
-	DeleteFiles(ИмяВременногоФайлаCMD);
+	DeleteFiles(TempFileName);
+	DeleteFiles(TempFileNameCMD);
 EndProcedure
 
 &AtServer
-Procedure ПослеВводаСтрокиПинкода(ПолученноеЗначение, ПереданныеПараметры) Export
-	ВведенныйКод = ПолученноеЗначение;
-	If IsBlankString(ВведенныйКод) Then
+Procedure AfterPinCodeStringInput(ReceivedValue, IncomeParameters) Export
+	EnteredCode = ReceivedValue;
+	If IsBlankString(EnteredCode) Then
 		Cancel = True;
 	Else
-		ПереданныеПараметры.НовыйПинКод = ВведенныйКод;
-		ПовторнаяАктивацияЛицензииНаСервере(ПереданныеПараметры);
+		IncomeParameters.NewPinCode = EnteredCode;
+		LicenseReactivationAtServer(IncomeParameters);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ПовторнаяАктивацияЛицензии(Command)
+Procedure LicenseReactivation(Command)
 	CurrentLine = Items.LicensesList.CurrentData;
-	СтруктураПараметров = New Structure(" LicenseNumber,НовыйПинКод,PinCode, LongDesc, LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Region, District,Town, Street, House, Building, Apartment, Building, ActivationDate, RegistrationNumber, ProductCode, TextInformation, LicenseCount");
-	FillPropertyValues(СтруктураПараметров, CurrentLine);
-	Оповещение = New NotifyDescription("ПослеВводаСтрокиПинкода", ThisObject, СтруктураПараметров);
+	ParametersStructure = New Structure(" LicenseNumber,NewPinCode,PinCode, Description, LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Region, District,Town, Street, House, Building, Apartment, Building, ActivationDate, RegistrationNumber, ProductCode, TextInformation, LicenseCount");
+	FillPropertyValues(ParametersStructure, CurrentLine);
+	Notify = New NotifyDescription("AfterPinCodeStringInput", ThisObject, ParametersStructure);
 
 	ShowInputString(
-        Оповещение, , // пропускаем начальное значение
+        Notify, , // skip the initial value
 
-		"Введите пин-код для лицензии " + CurrentLine["LicenseNumber"], 0, // (необ.) длина
+		NSTR("ru = 'Введите пин-код для лицензии ';en = 'Enter PIN code license'") + CurrentLine["LicenseNumber"], 0, //  length
 
-		False // (необ.) многострочность
+		False // Multiline
 	);
 EndProcedure
 
 &AtServer
-Procedure УдалитьЛицензиюНаСервере(ИмяЛицензии)
-	ИмяВременногоФайла = GetTempFileName("txt");
-	ИмяВременногоФайлаCMD = GetTempFileName("cmd");
+Procedure DeleteLicenseAtServer(LicenseName)
+	TempFileName = GetTempFileName("txt");
+	TempFileNameCMD = GetTempFileName("cmd");
 
 	TextCMD = New TextWriter;
-	TextCMD.Open(ИмяВременногоФайлаCMD, TextEncoding.ANSI);
-	TextCMD.WriteLine("call ring > " + ИмяВременногоФайла + " license remove --name " + ИмяЛицензии);
+	TextCMD.Open(TempFileNameCMD, TextEncoding.ANSI);
+	TextCMD.WriteLine("call ring > " + TempFileName + " license remove --name " + LicenseName);
 	TextCMD.Close();
-	RunApp(ИмяВременногоФайлаCMD, TempFilesDir(), True);
+	RunApp(TempFileNameCMD, TempFilesDir(), True);
 	Text = New TextReader;
-	Text.Open(ИмяВременногоФайла);
-	стр = Text.Read();
-	Message(стр);
+	Text.Open(TempFileName);
+	Line = Text.Read();
+	Message(Line);
 	Text.Close();
-	DeleteFiles(ИмяВременногоФайла);
-	DeleteFiles(ИмяВременногоФайлаCMD);
+	DeleteFiles(TempFileName);
+	DeleteFiles(TempFileNameCMD);
 
 EndProcedure
 
 &AtClient
-Procedure УдалитьЛицензию(Command)
+Procedure DeleteLicense(Command)
 	CurrentLine = Items.LicensesList.CurrentData;
-	УдалитьЛицензиюНаСервере(CurrentLine["PinCode"] + "-" + CurrentLine["LicenseNumber"]);
+	DeleteLicenseAtServer(CurrentLine["PinCode"] + "-" + CurrentLine["LicenseNumber"]);
 	Object.LicensesList.Delete(Items.LicensesList.CurrentLine);
 EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-	AttachIdleHandler("ЗагрузитьДанные", 1, True);
+	AttachIdleHandler("LoadData", 1, True);
 EndProcedure
 
 &AtClient
-Procedure ЗагрузитьДанные()
-	ПолучитьСписокЛицензий();
-	ПолучитьПолнуюИнформациюОЛицензии();
-	ПроверкаВалидностиЛицензий();
+Procedure LoadData()
+	GetLicensesList();
+	GetLicenseFullInformation();
+	LicenseValidationCheck();
 EndProcedure
 
+
 &AtClient
-Procedure СписокЛицензийПриАктивизацииСтроки(Item)
+Procedure LicensesListOnActivateRow(Item)
 	Try
 		Items.GroupActivationData.ReadOnly = Items.LicensesList.CurrentData["Active"];
-		Items.СписокЛицензийАктивироватьЛицензию.Enabled = Not Items.LicensesList.CurrentData["Active"];
+		Items.LicensesListActivateLicense.Enabled = Not Items.LicensesList.CurrentData["Active"];
 	Except
 	EndTry;
 EndProcedure
 
-&AtClient
-Procedure СписокЛицензийПередНачаломДобавления(Item, Cancel, Copy, Parent, Group, Parameter)
-	// Insert содержимое обработчика.
-EndProcedure
 
 &AtClient
-Procedure АктивироватьЛицензию(Command)
+Procedure LicensesListBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Parameter)
+	//TODO: Insert the handler content
+EndProcedure
+
+
+&AtClient
+Procedure ActivateLicense(Command)
 	OpenParameters = New Structure("LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Region, District,Town, Street, House, Building, Apartment, Building");
 	CurrentLine = Items.LicensesList.CurrentData;
 	FillPropertyValues(OpenParameters, CurrentLine);

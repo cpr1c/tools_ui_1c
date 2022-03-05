@@ -188,8 +188,12 @@
     <attributes uuid="94799b17-0021-4267-ae40-2d452b4e296e">
       <name>Country</name>
       <synonym>
-        <key>ru</key>
+        <key>en</key>
         <value>Country</value>
+      </synonym>
+      <synonym>
+        <key>ru</key>
+        <value>Страна</value>
       </synonym>
       <type>
         <types>String</types>

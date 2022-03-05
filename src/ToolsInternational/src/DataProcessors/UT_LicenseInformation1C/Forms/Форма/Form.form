@@ -16,7 +16,7 @@
     <excludedCommands>Copy</excludedCommands>
     <excludedCommands>Delete</excludedCommands>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийНомерСтроки</name>
+      <name>LicensesListLineNumber</name>
       <id>14</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -29,7 +29,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийНомерСтрокиРасширеннаяПодсказка</name>
+        <name>LicensesListLineNumberExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -44,7 +44,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийНомерСтрокиКонтекстноеМеню</name>
+        <name>LicensesListLineNumberContextMenu</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -64,7 +64,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийНомерЛицензии</name>
+      <name>LicensesListLicenseNumber</name>
       <id>17</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -77,7 +77,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийНомерЛицензииРасширеннаяПодсказка</name>
+        <name>LicensesListLicenseNumberExtendedTooltip</name>
         <id>19</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -92,7 +92,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийНомерЛицензииКонтекстноеМеню</name>
+        <name>LicensesListLicenseNumberContextMenu</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -116,7 +116,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийОписание</name>
+      <name>LicensesListDescription</name>
       <id>20</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -129,7 +129,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийОписаниеРасширеннаяПодсказка</name>
+        <name>LicensesListDescriptionExtendedTooltip</name>
         <id>22</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -144,7 +144,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийОписаниеКонтекстноеМеню</name>
+        <name>LicensesListDescriptionContextMenu</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -168,7 +168,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийКоличествоЛицензий</name>
+      <name>LicensesListLicenseCount</name>
       <id>80</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -181,7 +181,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийКоличествоЛицензийРасширеннаяПодсказка</name>
+        <name>LicensesListLicenseCountExtendedTooltip</name>
         <id>82</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -196,7 +196,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийКоличествоЛицензийКонтекстноеМеню</name>
+        <name>LicensesListLicenseCountContextMenu</name>
         <id>81</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -220,7 +220,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийПинКод</name>
+      <name>LicensesListPinCode</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -233,7 +233,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийПинКодРасширеннаяПодсказка</name>
+        <name>LicensesListPinCodeExtendedTooltip</name>
         <id>25</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -248,7 +248,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийПинКодКонтекстноеМеню</name>
+        <name>LicensesListPinCodeContextMenu</name>
         <id>24</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -272,7 +272,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийАктивна</name>
+      <name>LicensesListActive</name>
       <id>77</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -285,7 +285,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийАктивнаРасширеннаяПодсказка</name>
+        <name>LicensesListActiveExtendedTooltip</name>
         <id>79</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -300,7 +300,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийАктивнаКонтекстноеМеню</name>
+        <name>LicensesListActiveContextMenu</name>
         <id>78</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -317,7 +317,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийДатаАктивации</name>
+      <name>LicensesListActivationDate</name>
       <id>56</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -330,7 +330,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийДатаАктивацииРасширеннаяПодсказка</name>
+        <name>LicensesListActivationDateExtendedTooltip</name>
         <id>58</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -345,7 +345,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийДатаАктивацииКонтекстноеМеню</name>
+        <name>LicensesListActivationDateContextMenu</name>
         <id>57</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -369,7 +369,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийРегистрационныйНомер</name>
+      <name>LicensesListRegistrationNumber</name>
       <id>59</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -382,7 +382,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийРегистрационныйНомерРасширеннаяПодсказка</name>
+        <name>LicensesListRegistrationNumberExtendedTooltip</name>
         <id>61</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -397,7 +397,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийРегистрационныйНомерКонтекстноеМеню</name>
+        <name>LicensesListRegistrationNumberContextMenu</name>
         <id>60</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -421,7 +421,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийКодПродукта</name>
+      <name>LicensesListProductCode</name>
       <id>62</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -434,7 +434,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийКодПродуктаРасширеннаяПодсказка</name>
+        <name>LicensesListProductCodeExtendedTooltip</name>
         <id>64</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -449,7 +449,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийКодПродуктаКонтекстноеМеню</name>
+        <name>LicensesListProductCodeContextMenu</name>
         <id>63</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -473,7 +473,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>СписокЛицензийИмяФайлаЛицензии</name>
+      <name>LicensesListLicenseFileName</name>
       <id>65</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -486,7 +486,7 @@
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>СписокЛицензийИмяФайлаЛицензииРасширеннаяПодсказка</name>
+        <name>LicensesListLicenseFileNameExtendedTooltip</name>
         <id>67</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -501,7 +501,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СписокЛицензийИмяФайлаЛицензииКонтекстноеМеню</name>
+        <name>LicensesListLicenseFileNameContextMenu</name>
         <id>66</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -528,7 +528,7 @@
       <name>LicensesListCommandBar</name>
       <id>3</id>
       <items xsi:type="form:Button">
-        <name>СписокЛицензийПовторнаяАктивацияЛицензии</name>
+        <name>LicensesListLicenseReactivation</name>
         <id>153</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -536,7 +536,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СписокЛицензийПовторнаяАктивацияЛицензииРасширеннаяПодсказка</name>
+          <name>LicensesListLicenseReactivationExtendedTooltip</name>
           <id>154</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -550,7 +550,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПовторнаяАктивацияЛицензии</commandName>
+        <commandName>Form.Command.LicenseReactivation</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -558,7 +558,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>СписокЛицензийУдалитьЛицензию</name>
+        <name>LicensesListDeleteLicense</name>
         <id>155</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -566,7 +566,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СписокЛицензийУдалитьЛицензиюРасширеннаяПодсказка</name>
+          <name>LicensesListDeleteLicenseExtendedTooltip</name>
           <id>156</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -580,7 +580,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.УдалитьЛицензию</commandName>
+        <commandName>Form.Command.DeleteLicense</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -597,11 +597,11 @@
     </autoCommandBar>
     <handlers>
       <event>BeforeAddRow</event>
-      <name>СписокЛицензийПередНачаломДобавления</name>
+      <name>LicensesListBeforeAddRow</name>
     </handlers>
     <handlers>
       <event>OnActivateRow</event>
-      <name>СписокЛицензийПриАктивизацииСтроки</name>
+      <name>LicensesListOnActivateRow</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -765,16 +765,16 @@
     <rowFilter xsi:type="core:UndefinedValue"/>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаПодробно</name>
+    <name>GroupDetails</name>
     <id>83</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаСтраницыИнформация</name>
+      <name>GroupPagesInformation</name>
       <id>115</id>
       <items xsi:type="form:FormGroup">
         <name>GroupInfo</name>
         <id>122</id>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийОписание1</name>
+          <name>LicensesListDescription1</name>
           <id>142</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -787,7 +787,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийОписание1РасширеннаяПодсказка</name>
+            <name>LicensesListDescription1ExtendedTooltip</name>
             <id>144</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -802,7 +802,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийОписание1КонтекстноеМеню</name>
+            <name>LicensesListDescription1ContextMenu</name>
             <id>143</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -826,7 +826,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийКоличествоЛицензий1</name>
+          <name>LicensesListLicenseCount1</name>
           <id>124</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -839,7 +839,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийКоличествоЛицензий1РасширеннаяПодсказка</name>
+            <name>LicensesListLicenseCount1ExtendedTooltip</name>
             <id>126</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -854,7 +854,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийКоличествоЛицензий1КонтекстноеМеню</name>
+            <name>LicensesListLicenseCount1ContextMenu</name>
             <id>125</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -878,7 +878,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийНомерЛицензии1</name>
+          <name>LicensesListLicenseNumber1</name>
           <id>145</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -891,7 +891,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийНомерЛицензии1РасширеннаяПодсказка</name>
+            <name>LicensesListLicenseNumber1ExtendedTooltip</name>
             <id>147</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -906,7 +906,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийНомерЛицензии1КонтекстноеМеню</name>
+            <name>LicensesListLicenseNumber1ContextMenu</name>
             <id>146</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -930,7 +930,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийПинКод1</name>
+          <name>LicensesListPinCode1</name>
           <id>139</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -943,7 +943,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийПинКод1РасширеннаяПодсказка</name>
+            <name>LicensesListPinCode1ExtendedTooltip</name>
             <id>141</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -958,7 +958,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийПинКод1КонтекстноеМеню</name>
+            <name>LicensesListPinCode1ContextMenu</name>
             <id>140</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -982,7 +982,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийКодПродукта1</name>
+          <name>LicensesListProductCode1</name>
           <id>133</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -995,7 +995,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийКодПродукта1РасширеннаяПодсказка</name>
+            <name>LicensesListProductCode1ExtendedTooltip</name>
             <id>135</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1010,7 +1010,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийКодПродукта1КонтекстноеМеню</name>
+            <name>LicensesListProductCode1ContextMenu</name>
             <id>134</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1034,7 +1034,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийАктивна1</name>
+          <name>LicensesListActive1</name>
           <id>127</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1047,7 +1047,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийАктивна1РасширеннаяПодсказка</name>
+            <name>LicensesListActive1ExtendedTooltip</name>
             <id>129</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1062,7 +1062,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийАктивна1КонтекстноеМеню</name>
+            <name>LicensesListActive1ContextMenu</name>
             <id>128</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1079,7 +1079,7 @@
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийРегистрационныйНомер1</name>
+          <name>LicensesListRegistrationNumber1</name>
           <id>136</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1092,7 +1092,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийРегистрационныйНомер1РасширеннаяПодсказка</name>
+            <name>LicensesListRegistrationNumber1ExtendedTooltip</name>
             <id>138</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1107,7 +1107,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийРегистрационныйНомер1КонтекстноеМеню</name>
+            <name>LicensesListRegistrationNumber1ContextMenu</name>
             <id>137</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1131,7 +1131,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийИмяФайлаЛицензии1</name>
+          <name>LicensesListLicenseFileName1</name>
           <id>130</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1144,7 +1144,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийИмяФайлаЛицензии1РасширеннаяПодсказка</name>
+            <name>LicensesListLicenseFileName1ExtendedTooltip</name>
             <id>132</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1159,7 +1159,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийИмяФайлаЛицензии1КонтекстноеМеню</name>
+            <name>LicensesListLicenseFileName1ContextMenu</name>
             <id>131</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1277,7 +1277,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийИмя</name>
+          <name>LicensesListName</name>
           <id>88</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1290,7 +1290,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийИмяРасширеннаяПодсказка</name>
+            <name>LicensesListNameExtendedTooltip</name>
             <id>90</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1305,7 +1305,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийИмяКонтекстноеМеню</name>
+            <name>LicensesListNameContextMenu</name>
             <id>89</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1329,7 +1329,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийОтчество</name>
+          <name>LicensesListMiddleName</name>
           <id>91</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1342,7 +1342,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийОтчествоРасширеннаяПодсказка</name>
+            <name>LicensesListMiddleNameExtendedTooltip</name>
             <id>93</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1357,7 +1357,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийОтчествоКонтекстноеМеню</name>
+            <name>LicensesListMiddleNameContextMenu</name>
             <id>92</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1381,7 +1381,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийEMail</name>
+          <name>LicensesListEMail</name>
           <id>94</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1394,7 +1394,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийEMailРасширеннаяПодсказка</name>
+            <name>LicensesListEMailExtendedTooltip</name>
             <id>96</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1409,7 +1409,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийEMailКонтекстноеМеню</name>
+            <name>LicensesListEMailContextMenu</name>
             <id>95</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1433,7 +1433,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийКомпания</name>
+          <name>LicensesListOrganization</name>
           <id>97</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1446,7 +1446,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийКомпанияРасширеннаяПодсказка</name>
+            <name>LicensesListOrganizationExtendedTooltip</name>
             <id>99</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1461,7 +1461,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийКомпанияКонтекстноеМеню</name>
+            <name>LicensesListOrganizationContextMenu</name>
             <id>98</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1485,7 +1485,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийСтрана</name>
+          <name>LicensesListCountry</name>
           <id>100</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1498,7 +1498,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийСтранаРасширеннаяПодсказка</name>
+            <name>LicensesListCountryExtendedTooltip</name>
             <id>102</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1513,7 +1513,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийСтранаКонтекстноеМеню</name>
+            <name>LicensesListCountryContextMenu</name>
             <id>101</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1537,7 +1537,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийРегион</name>
+          <name>LicensesListRegion</name>
           <id>161</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1550,7 +1550,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийРегионРасширеннаяПодсказка</name>
+            <name>LicensesListRegionExtendedTooltip</name>
             <id>163</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1565,7 +1565,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийРегионКонтекстноеМеню</name>
+            <name>LicensesListRegionContextMenu</name>
             <id>162</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1589,7 +1589,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийИндекс</name>
+          <name>LicensesListZIP</name>
           <id>103</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1602,7 +1602,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийИндексРасширеннаяПодсказка</name>
+            <name>LicensesListZIPExtendedTooltip</name>
             <id>105</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1617,7 +1617,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийИндексКонтекстноеМеню</name>
+            <name>LicensesListZIPContextMenu</name>
             <id>104</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1641,7 +1641,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийРайон</name>
+          <name>LicensesListDistrict</name>
           <id>164</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1654,7 +1654,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийРайонРасширеннаяПодсказка</name>
+            <name>LicensesListDistrictExtendedTooltip</name>
             <id>166</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1669,7 +1669,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийРайонКонтекстноеМеню</name>
+            <name>LicensesListDistrictContextMenu</name>
             <id>165</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1693,7 +1693,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийГород</name>
+          <name>LicensesListTown</name>
           <id>106</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1706,7 +1706,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийГородРасширеннаяПодсказка</name>
+            <name>LicensesListTownExtendedTooltip</name>
             <id>108</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1721,7 +1721,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийГородКонтекстноеМеню</name>
+            <name>LicensesListTownContextMenu</name>
             <id>107</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1745,7 +1745,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийУлица</name>
+          <name>LicensesListStreet</name>
           <id>109</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1758,7 +1758,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийУлицаРасширеннаяПодсказка</name>
+            <name>LicensesListStreetExtendedTooltip</name>
             <id>111</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1773,7 +1773,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийУлицаКонтекстноеМеню</name>
+            <name>LicensesListStreetContextMenu</name>
             <id>110</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1797,7 +1797,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийДом</name>
+          <name>LicensesListHouse</name>
           <id>112</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1810,7 +1810,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийДомРасширеннаяПодсказка</name>
+            <name>LicensesListHouseExtendedTooltip</name>
             <id>114</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1825,7 +1825,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийДомКонтекстноеМеню</name>
+            <name>LicensesListHouseContextMenu</name>
             <id>113</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1849,7 +1849,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийСтроение</name>
+          <name>LicensesListBuilding</name>
           <id>170</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1862,7 +1862,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийСтроениеРасширеннаяПодсказка</name>
+            <name>LicensesListBuildingExtendedTooltip</name>
             <id>172</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1877,7 +1877,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийСтроениеКонтекстноеМеню</name>
+            <name>LicensesListBuildingContextMenu</name>
             <id>171</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1901,7 +1901,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийКвартира</name>
+          <name>LicensesListApartment</name>
           <id>167</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1914,7 +1914,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийКвартираРасширеннаяПодсказка</name>
+            <name>LicensesListApartmentExtendedTooltip</name>
             <id>169</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1929,7 +1929,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийКвартираКонтекстноеМеню</name>
+            <name>LicensesListApartmentContextMenu</name>
             <id>168</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1953,7 +1953,7 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>СписокЛицензийДатаАктивации1</name>
+          <name>LicensesListActivationDate1</name>
           <id>119</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1966,7 +1966,7 @@
             </paths>
           </dataPath>
           <extendedTooltip>
-            <name>СписокЛицензийДатаАктивации1РасширеннаяПодсказка</name>
+            <name>LicensesListActivationDate1ExtendedTooltip</name>
             <id>121</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1981,7 +1981,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>СписокЛицензийДатаАктивации1КонтекстноеМеню</name>
+            <name>LicensesListActivationDate1ContextMenu</name>
             <id>120</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2147,12 +2147,16 @@
         <key>ru</key>
         <value>Группа страницы информация</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group pages information</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа страницы информация</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаСтраницыИнформацияРасширеннаяПодсказка</name>
+        <name>GroupPagesInformationExtendedTooltip</name>
         <id>116</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2181,13 +2185,17 @@
       <key>ru</key>
       <value>Группа подробно</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group details</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа подробно</value>
     </toolTip>
     <horizontalStretch>true</horizontalStretch>
     <extendedTooltip>
-      <name>ГруппаПодробноРасширеннаяПодсказка</name>
+      <name>GroupDetailsExtendedTooltip</name>
       <id>84</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2215,7 +2223,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ПолучитьСписокЛицензий</name>
+      <name>GetLicensesList</name>
       <id>71</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2223,7 +2231,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ПолучитьСписокЛицензийРасширеннаяПодсказка</name>
+        <name>GetLicensesListExtendedTooltip</name>
         <id>72</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2237,7 +2245,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ПолучитьСписокЛицензий</commandName>
+      <commandName>Form.Command.GetLicensesList</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -2245,7 +2253,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ПолучитьПолнуюИнформациюОЛицензии</name>
+      <name>GetLicenseFullInformation</name>
       <id>73</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2253,7 +2261,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ПолучитьПолнуюИнформациюОЛицензииРасширеннаяПодсказка</name>
+        <name>GetLicenseFullInformationExtendedTooltip</name>
         <id>74</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2267,7 +2275,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ПолучитьПолнуюИнформациюОЛицензии</commandName>
+      <commandName>Form.Command.GetLicenseFullInformation</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -2275,7 +2283,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ПроверкаВалидностиЛицензий</name>
+      <name>LicenseValidationCheck</name>
       <id>75</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2283,7 +2291,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ПроверкаВалидностиЛицензийРасширеннаяПодсказка</name>
+        <name>LicenseValidationCheckExtendedTooltip</name>
         <id>76</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2297,7 +2305,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ПроверкаВалидностиЛицензий</commandName>
+      <commandName>Form.Command.LicenseValidationCheck</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -2305,7 +2313,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаАктивироватьЛицензию</name>
+      <name>FormActivateLicense</name>
       <id>159</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -2313,7 +2321,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаАктивироватьЛицензиюРасширеннаяПодсказка</name>
+        <name>FormActivateLicenseExtendedTooltip</name>
         <id>160</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2327,7 +2335,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.АктивироватьЛицензию</commandName>
+      <commandName>Form.Command.ActivateLicense</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -2344,11 +2352,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -2377,7 +2385,11 @@
     <main>true</main>
   </attributes>
   <formCommands>
-    <name>ПолучитьСписокЛицензий</name>
+    <name>GetLicensesList</name>
+    <title>
+      <key>en</key>
+      <value>Get licenses list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Получить список лицензий</value>
@@ -2392,16 +2404,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПолучитьСписокЛицензий</name>
+        <name>GetLicensesList</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПолучитьПолнуюИнформациюОЛицензии</name>
+    <name>GetLicenseFullInformation</name>
     <title>
       <key>ru</key>
       <value>Получить полную информацию о лицензиях</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Get license full information</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -2413,13 +2429,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПолучитьПолнуюИнформациюОЛицензии</name>
+        <name>GetLicenseFullInformation</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПроверкаВалидностиЛицензий</name>
+    <name>LicenseValidationCheck</name>
+    <title>
+      <key>en</key>
+      <value>License validation check</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Проверка валидности лицензий</value>
@@ -2434,16 +2454,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПроверкаВалидностиЛицензий</name>
+        <name>LicenseValidationCheck</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПовторнаяАктивацияЛицензии</name>
+    <name>LicenseReactivation</name>
     <title>
       <key>ru</key>
       <value>Повторная активация лицензии</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>License reactivation</value>
     </title>
     <id>4</id>
     <toolTip>
@@ -2455,13 +2479,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПовторнаяАктивацияЛицензии</name>
+        <name>LicenseReactivation</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>УдалитьЛицензию</name>
+    <name>DeleteLicense</name>
+    <title>
+      <key>en</key>
+      <value>Delete license</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить лицензию</value>
@@ -2476,13 +2504,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УдалитьЛицензию</name>
+        <name>DeleteLicense</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>АктивироватьЛицензию</name>
+    <name>ActivateLicense</name>
+    <title>
+      <key>en</key>
+      <value>Activate license</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Активировать лицензию</value>
@@ -2497,7 +2529,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>АктивироватьЛицензию</name>
+        <name>ActivateLicense</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
