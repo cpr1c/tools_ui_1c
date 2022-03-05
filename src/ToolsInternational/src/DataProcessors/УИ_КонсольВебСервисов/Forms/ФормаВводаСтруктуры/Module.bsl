@@ -1,25 +1,25 @@
-&НаКлиенте
-Процедура ЗавершитьРедактирование(Команда)
+&AtClient
+Procedure FinishEditing(Command)
 
-	Структура = Новый Структура;
+	Structure = New Structure;
 
-	Для Каждого Строка Из VT_Structure Цикл
-		Структура.Вставить(Строка.Ключ, Строка.Значение);
-	КонецЦикла;
+	For Each String In ТЗ_Структура Do
+		Structure.Insert(String.Key, String.Value);
+	EndDo;
 
-	Закрыть(Структура);
+	Close(Structure);
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	Если ТипЗнч(Параметры.ПрошлоеЗначение) = Тип("Структура") Тогда
-		Для Каждого Строка Из Параметры.ПрошлоеЗначение Цикл
-			НоваяСтрока = VT_Structure.Добавить();
-			НоваяСтрока.Key = Строка.Key;
-			НоваяСтрока.Value = Строка.Value;
-		КонецЦикла;
-	КонецЕсли;
+	If TypeOf(Parameters.ПрошлоеЗначение) = Type("Structure") Then
+		For Each String In Parameters.ПрошлоеЗначение Do
+			NewLine = ТЗ_Структура.Add();
+			NewLine.Key = String.Key;
+			NewLine.Value = String.Value;
+		EndDo;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
