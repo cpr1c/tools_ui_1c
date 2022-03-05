@@ -393,10 +393,10 @@ EndProcedure
 
 &AtClient
 Procedure АктивироватьЛицензию(Command)
-	ПараметрыОткрытия = New Structure("LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Region, District,Town, Street, House, Building, Apartment, Building");
+	OpenParameters = New Structure("LastName, Name, MiddleName, EMail, Organization, Country, ZIP, Region, District,Town, Street, House, Building, Apartment, Building");
 	CurrentLine = Items.LicensesList.CurrentData;
-	FillPropertyValues(ПараметрыОткрытия, CurrentLine);
-	OpenForm("Processing.UT_LicenseInformation1C.Form.ФормаАктивацииЛицензии", ПараметрыОткрытия);
+	FillPropertyValues(OpenParameters, CurrentLine);
+	OpenForm("DataProcessor.UT_LicenseInformation1C.Form.FormLicenseActivation", OpenParameters);
 EndProcedure
 
 //@skip-warning
