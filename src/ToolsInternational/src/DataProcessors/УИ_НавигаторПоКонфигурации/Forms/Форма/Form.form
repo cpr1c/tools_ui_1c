@@ -18,7 +18,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>_ОтображатьПраваНаОбъекты</segments>
+          <segments>_DisplayObjectsRights</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <handlers>
@@ -4417,7 +4417,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьСписокРолейПользователя</segments>
+            <segments>_ShowUserRolesList</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -5694,7 +5694,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ИмяАдминистратораКластера</segments>
+            <segments>_ClusterAdministratorName</segments>
           </dataPath>
           <extendedTooltip>
             <name>_ИмяАдминистратораКластераРасширеннаяПодсказка</name>
@@ -5744,7 +5744,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПарольАдминистратораКластера</segments>
+            <segments>_ClusterAdministratorPassword</segments>
           </dataPath>
           <extendedTooltip>
             <name>_ПарольАдминистратораКластераРасширеннаяПодсказка</name>
@@ -10772,7 +10772,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьСтандартныеНастройки</segments>
+            <segments>_ShowStandardSettings</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <handlers>
@@ -10820,7 +10820,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьТаблицыИИндексыБД</segments>
+            <segments>_ShowTablesAndIndexesDB</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <handlers>
@@ -10868,7 +10868,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьСтруктуруХраненияВТерминах1С</segments>
+            <segments>_ShowStorageStructureInTermsOf1C</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -10954,7 +10954,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьПодпискиОбъекта</segments>
+            <segments>_ShowObjectSubscribtion</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -10998,7 +10998,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьПодсистемыОбъекта</segments>
+            <segments>_ShowObjectSubsystems</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -11042,7 +11042,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьОбщиеКомандыОбъекта</segments>
+            <segments>_ShowCommonObjectCommands</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -11086,7 +11086,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_ПоказыватьЧужиеКомандыОбъекта</segments>
+            <segments>_ShowExternalObjectCommands</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
           <extendedTooltip>
@@ -11170,7 +11170,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>_ДатаИзмененияНастроек</segments>
+          <segments>_DateOfSettingsChange</segments>
         </dataPath>
         <extendedTooltip>
           <name>_ДатаИзменеияНастроекРасширеннаяПодсказка</name>
@@ -11765,10 +11765,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_КонтекстФормы</name>
+    <name>_FormContext</name>
     <title>
       <key>ru</key>
       <value>Контекст</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Form context</value>
     </title>
     <id>9</id>
     <valueType/>
@@ -11962,10 +11966,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_ОтображатьПраваНаОбъекты</name>
+    <name>_DisplayObjectsRights</name>
     <title>
       <key>ru</key>
       <value>Отображать права на объекты (необходимы административные права)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Display objects rights</value>
     </title>
     <id>12</id>
     <valueType>
@@ -12106,10 +12114,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_ИмяМенеджераНастроек</name>
+    <name>_NameOfSettingsManager</name>
     <title>
       <key>ru</key>
       <value>Имя менеджера настроек</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Name of settings manager</value>
     </title>
     <id>17</id>
     <valueType>
@@ -12124,10 +12136,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ОписаниеРазработки</name>
+    <name>_DevelopmentDescription</name>
     <title>
       <key>ru</key>
       <value>Описание разработки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Development description</value>
     </title>
     <id>18</id>
     <valueType/>
@@ -12139,10 +12155,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_АдресТаблицыПодписок</name>
+    <name>_SubscribeTableAddress</name>
     <title>
       <key>ru</key>
       <value>Адрес таблицы подписок</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Subscribe table address</value>
     </title>
     <id>19</id>
     <valueType>
@@ -12157,10 +12177,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_АдресаХранилищ</name>
+    <name>_StorageAddresses</name>
     <title>
       <key>ru</key>
       <value>Адреса хранилищ</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Storage addresses</value>
     </title>
     <id>20</id>
     <valueType/>
@@ -12172,10 +12196,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ПоказыватьПодпискиОбъекта</name>
+    <name>_ShowObjectSubscribtion</name>
     <title>
       <key>ru</key>
       <value>Показывать подписки объекта</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show object subscribtion</value>
     </title>
     <id>21</id>
     <valueType>
@@ -12188,14 +12216,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьПодпискиОбъекта</segments>
+      <segments>_ShowObjectSubscribtion</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_ПоказыватьПодсистемыОбъекта</name>
+    <name>_ShowObjectSubsystems</name>
     <title>
       <key>ru</key>
       <value>Показывать подсистемы объекта</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show object subsystems</value>
     </title>
     <id>22</id>
     <valueType>
@@ -12208,14 +12240,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьПодсистемыОбъекта</segments>
+      <segments>_ShowObjectSubsystems</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_ПоказыватьЧужиеКомандыОбъекта</name>
+    <name>_ShowExternalObjectCommands</name>
     <title>
       <key>ru</key>
       <value>Показывать чужие команды объекта (команды других объектов, в параметрах которых присутствует текущий объект)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show external object commands</value>
     </title>
     <id>23</id>
     <valueType>
@@ -12228,14 +12264,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьЧужиеКомандыОбъекта</segments>
+      <segments>_ShowExternalObjectCommands</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_ПоказыватьСтандартныеНастройки</name>
+    <name>_ShowStandardSettings</name>
     <title>
       <key>ru</key>
       <value>Показывать стандартные настройки (отдельная страница основного окна)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show standard settings</value>
     </title>
     <id>24</id>
     <valueType>
@@ -12248,14 +12288,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьСтандартныеНастройки</segments>
+      <segments>_ShowStandardSettings</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_ПоказыватьОбщиеКомандыОбъекта</name>
+    <name>_ShowCommonObjectCommands</name>
     <title>
       <key>ru</key>
       <value>Показывать общие команды объекта (общие команды, в параметрах которых присутствует текущий объект)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show common object commands</value>
     </title>
     <id>25</id>
     <valueType>
@@ -12268,7 +12312,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьОбщиеКомандыОбъекта</segments>
+      <segments>_ShowCommonObjectCommands</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
@@ -12287,10 +12331,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_ДатаИзмененияНастроек</name>
+    <name>_DateOfSettingsChange</name>
     <title>
       <key>ru</key>
       <value>Дата изменения настроек</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Date of settings change</value>
     </title>
     <id>27</id>
     <valueType>
@@ -12304,14 +12352,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ДатаИзмененияНастроек</segments>
+      <segments>_DateOfSettingsChange</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_ПоказыватьСтруктуруХраненияВТерминах1С</name>
+    <name>_ShowStorageStructureInTermsOf1C</name>
     <title>
       <key>ru</key>
       <value>Показывать структуру хранения в терминах модели 1С (по умолчанию отображаются в терминах СУБД)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show storage structure in terms of1 C</value>
     </title>
     <id>28</id>
     <valueType>
@@ -12324,7 +12376,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьСтруктуруХраненияВТерминах1С</segments>
+      <segments>_ShowStorageStructureInTermsOf1C</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
@@ -12488,10 +12540,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_ПоказыватьТаблицыИИндексыБД</name>
+    <name>_ShowTablesAndIndexesDB</name>
     <title>
       <key>ru</key>
       <value>Показывать таблицы и индексы БД (отдельная страница основного окна)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show tables and indexes DB</value>
     </title>
     <id>32</id>
     <valueType>
@@ -12504,7 +12560,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьТаблицыИИндексыБД</segments>
+      <segments>_ShowTablesAndIndexesDB</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
@@ -13064,10 +13120,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_ПоказыватьСписокРолейПользователя</name>
+    <name>_ShowUserRolesList</name>
     <title>
       <key>ru</key>
       <value>Показывать список ролей пользователя (после изменения надо обновить список)</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Show user roles list</value>
     </title>
     <id>35</id>
     <valueType>
@@ -13080,7 +13140,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПоказыватьСписокРолейПользователя</segments>
+      <segments>_ShowUserRolesList</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
@@ -13293,10 +13353,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_ИмяАдминистратораКластера</name>
+    <name>_ClusterAdministratorName</name>
     <title>
       <key>ru</key>
       <value>Имя</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Cluster administrator name</value>
     </title>
     <id>37</id>
     <valueType>
@@ -13310,14 +13374,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ИмяАдминистратораКластера</segments>
+      <segments>_ClusterAdministratorName</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_ПарольАдминистратораКластера</name>
+    <name>_ClusterAdministratorPassword</name>
     <title>
       <key>ru</key>
       <value>Пароль</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Cluster administrator password</value>
     </title>
     <id>38</id>
     <valueType>
@@ -13331,7 +13399,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>_ПарольАдминистратораКластера</segments>
+      <segments>_ClusterAdministratorPassword</segments>
     </settingsSavedData>
   </attributes>
   <attributes>
