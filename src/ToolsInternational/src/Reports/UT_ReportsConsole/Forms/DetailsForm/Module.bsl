@@ -1,107 +1,105 @@
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	Var ДанныеРасшифровкиОбъект;
+	Var DetailsDataObject;
 
-	РеквизитОбъект = FormAttributeToValue("Report");
-	ИмяФормыРасшифровки = РеквизитОбъект.Metadata().FullName() + ".Form.ФормаРасшифровки";
+	AttributeObject = FormAttributeToValue("Report");
+	DetailsFormName = AttributeObject.Metadata().FullName() + ".Form.DetailsForm";
 
 	StandardProcessing = False;
 	If Parameters.Details <> Undefined Then
-		DataCompositionSchema = GetFromTempStorage(Parameters.АдресСхемыКомпоновкиДанных);
-		АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, UUID);
-		AvailableSettingsSource = New DataCompositionAvailableSettingsSource(АдресСхемыИсполненногоОтчета);
+		DataCompositionSchema = GetFromTempStorage(Parameters.DataCompositionSchemaURL);
+		ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, UUID);
+		AvailableSettingsSource = New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL);
 		Report.SettingsComposer.Initialize(AvailableSettingsSource);
-		ДанныеРасшифровкиОбъект = GetFromTempStorage(Parameters.Details.Data);
-		DetailProcessing = New DataCompositionDetailsProcess(ДанныеРасшифровкиОбъект,
+		DetailsDataObject = GetFromTempStorage(Parameters.Details.Data);
+		DetailProcessing = New DataCompositionDetailsProcess(DetailsDataObject,
 			AvailableSettingsSource);
 		UsedSettings = DetailProcessing.ApplySettings(Parameters.Details.ID,
 			Parameters.Details.UsedSettings);
 		If TypeOf(UsedSettings) = Type("DataCompositionSettings") Then
 			Report.SettingsComposer.LoadSettings(UsedSettings);
 		ElsIf TypeOf(UsedSettings) = Type("DataCompositionUserSettings") Then
-			Report.SettingsComposer.LoadSettings(ДанныеРасшифровкиОбъект.Settings);
+			Report.SettingsComposer.LoadSettings(DetailsDataObject.Settings);
 			Report.SettingsComposer.LoadUserSettings(UsedSettings);
 		EndIf;
 
-		ВыполнитьНаСервере(DataCompositionSchema);
+		ExecuteAtServer(DataCompositionSchema);
 	EndIf;
 EndProcedure
 
 &AtServer
-Procedure ВыполнитьНаСервере(СхемаКомпоновкиДанных_)
-	Var ДанныеРасшифровкиОбъект;
+Procedure ExecuteAtServer(DataCompositionSchema_)
+	Var DetailsDataObject;
 
 	Result.Clear();
 
-	DataCompositionSchema = СхемаКомпоновкиДанных_;
+	DataCompositionSchema = DataCompositionSchema_;
 	If DataCompositionSchema = Undefined Then
-		DataCompositionSchema = GetFromTempStorage(АдресСхемыИсполненногоОтчета);
+		DataCompositionSchema = GetFromTempStorage(ExecutedReportSchemaURL);
 	EndIf;
 
 	DataCompositionTemplateComposer = New DataCompositionTemplateComposer;
 	DataCompositionTemplate = DataCompositionTemplateComposer.Execute(DataCompositionSchema,
-		Report.SettingsComposer.GetSettings(), ДанныеРасшифровкиОбъект);
+		Report.SettingsComposer.GetSettings(), DetailsDataObject);
 
 	DataCompositionProcessor = New DataCompositionProcessor;
-	DataCompositionProcessor.Initialize(DataCompositionTemplate, , ДанныеРасшифровкиОбъект);
+	DataCompositionProcessor.Initialize(DataCompositionTemplate, , DetailsDataObject);
 
-	ПроцессорВыводаРезультатаОтчета = New DataCompositionResultSpreadsheetDocumentOutputProcessor;
-	ПроцессорВыводаРезультатаОтчета.SetDocument(Result);
-	ПроцессорВыводаРезультатаОтчета.BeginOutput();
-	ПроцессорВыводаРезультатаОтчета.Put(DataCompositionProcessor);
-	ПроцессорВыводаРезультатаОтчета.EndOutput();
+	ReportResultOutputProcessor = New DataCompositionResultSpreadsheetDocumentOutputProcessor;
+	ReportResultOutputProcessor.SetDocument(Result);
+	ReportResultOutputProcessor.BeginOutput();
+	ReportResultOutputProcessor.Put(DataCompositionProcessor);
+	ReportResultOutputProcessor.EndOutput();
 
-	АдресДанныхРасшифровки = PutToTempStorage(ДанныеРасшифровкиОбъект, UUID);
+	DetailsDataURL = PutToTempStorage(DetailsDataObject, UUID);
 EndProcedure
-
 &AtClient
-Procedure РезультатОбработкаРасшифровки(Item, Details, StandardProcessing)
-	StandardProcessing = False;
+Procedure ResultDetailProcessing(Item, Details, StandardProcessing, AdditionalParameters)
+	       StandardProcessing = False;
 
-	DetailProcessing = New DataCompositionDetailsProcess(АдресДанныхРасшифровки,
-		New DataCompositionAvailableSettingsSource(АдресСхемыИсполненногоОтчета));
-	DetailProcessing.ShowActionChoice(New NotifyDescription("РезультатОбработкаРасшифровкиЗавершение1",
+	DetailProcessing = New DataCompositionDetailsProcess(DetailsDataURL,
+		New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
+	DetailProcessing.ShowActionChoice(New NotifyDescription("ResultDetailProcessingEnd1",
 		ThisForm, New Structure("Details", Details)), Details, , , , );
 EndProcedure
-
 &AtClient
-Procedure РезультатОбработкаРасшифровкиЗавершение1(ChosenAction, ПараметрВыполненногоДействия,
+Procedure ResultDetailProcessingEnd1(ChosenAction, ChosenActionParameter,
 	AdditionalParameters) Export
 
 	Details = AdditionalParameters.Details;
 	If ChosenAction = DataCompositionDetailsProcessingAction.None Then
 	ElsIf ChosenAction = DataCompositionDetailsProcessingAction.OpenValue Then
-		ShowValue( , ПараметрВыполненногоДействия);
+		ShowValue( , ChosenActionParameter);
 	Else
-		OpenForm(ИмяФормыРасшифровки, New Structure("Details,АдресСхемыКомпоновкиДанных",
-			New DataCompositionDetailsProcessDescription(АдресДанныхРасшифровки, Details,
-			ПараметрВыполненногоДействия), АдресСхемыИсполненногоОтчета), , True);
+		OpenForm(DetailsFormName, New Structure("Details,DataCompositionSchemaURL",
+			New DataCompositionDetailsProcessDescription(DetailsDataURL, Details,
+			ChosenActionParameter), ExecutedReportSchemaURL), , True);
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure ИзменитьВариант(Command)
-	ПараметрыФормы=New Structure("Variant, АдресСхемыИсполненногоОтчета", Report.SettingsComposer.Settings,
-		АдресСхемыИсполненногоОтчета);
+Procedure ChangeVariant(Command)
+	ПараметрыФормы=New Structure("Variant, ExecutedReportSchemaURL", Report.SettingsComposer.Settings,
+		ExecutedReportSchemaURL);
 
-	OnCloseNotifyDescription=New NotifyDescription("ИзменитьВариантЗавершение", ThisObject);
+	OnCloseNotifyDescription=New NotifyDescription("ChangeVariantEnd", ThisObject);
 	OpenForm("Report.UT_ReportsConsole.Form.VariantForm", ПараметрыФормы, ThisObject, , , ,
 		OnCloseNotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 EndProcedure
 
 &AtClient
-Procedure ИзменитьВариантЗавершение(Result, AdditionalParameters) Export
+Procedure ChangeVariantEnd(Result, AdditionalParameters) Export
 	If Result <> True Then
 		Return;
 	EndIf;
 	
-//		ПользовательскиеНастройки = Отчет.КомпоновщикНастроек.ПользовательскиеНастройки;
-//		Отчет.КомпоновщикНастроек.ЗагрузитьНастройки(Форма.Отчет.КомпоновщикНастроек.Настройки);
-//		Отчет.КомпоновщикНастроек.ЗагрузитьПользовательскиеНастройки(ПользовательскиеНастройки);
+//		UserSettings = Report.SettingsComposer.UserSettings;
+//		Report.SettingsComposer.LoadSettings(FORM.Report.SettingsComposer.Settings);
+//		Report.SettingsComposer.LoadUserSettings(UserSettings);
 EndProcedure
 
 &AtClient
-Procedure Сформировать(Command)
-	ВыполнитьНаСервере(Undefined);
+Procedure Generate(Command)
+	ExecuteAtServer(Undefined);
 EndProcedure

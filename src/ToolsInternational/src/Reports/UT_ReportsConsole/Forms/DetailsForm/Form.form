@@ -5,10 +5,10 @@
     <value>Расшифровка</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ОсновнаяКоманднаяПанель</name>
+    <name>MainCommandBar</name>
     <id>5</id>
     <items xsi:type="form:Button">
-      <name>Сформировать</name>
+      <name>Generate</name>
       <id>26</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -17,7 +17,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>СформироватьРасширеннаяПодсказка</name>
+        <name>GenerateExtendedTooltip</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -31,7 +31,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Сформировать</commandName>
+      <commandName>Form.Command.Generate</commandName>
       <representation>PictureAndText</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -43,7 +43,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Настройка</name>
+      <name>Settings</name>
       <id>7</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -52,7 +52,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>НастройкаРасширеннаяПодсказка</name>
+        <name>SettingsExtendedTooltip</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -74,7 +74,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>НовоеОкно</name>
+      <name>NewWindow</name>
       <id>11</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -83,7 +83,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>НовоеОкноРасширеннаяПодсказка</name>
+        <name>NewWindowExtendedTooltip</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -106,7 +106,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ИзменитьФорму</name>
+      <name>ChangeForm</name>
       <id>15</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -115,7 +115,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ИзменитьФормуРасширеннаяПодсказка</name>
+        <name>ChangeFormExtendedTooltip</name>
         <id>31</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -138,7 +138,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Справка</name>
+      <name>Help</name>
       <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -147,7 +147,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>СправкаРасширеннаяПодсказка</name>
+        <name>HelpExtendedTooltip</name>
         <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -170,7 +170,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ИзменитьВариант</name>
+      <name>ChangeVariant</name>
       <id>25</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -179,7 +179,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ИзменитьВариантРасширеннаяПодсказка</name>
+        <name>ChangeVariantExtendedTooltip</name>
         <id>33</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -193,7 +193,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ИзменитьВариант</commandName>
+      <commandName>Form.Command.ChangeVariant</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -205,8 +205,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Main command bar</value>
+    </title>
     <extendedTooltip>
-      <name>ОсновнаяКоманднаяПанельРасширеннаяПодсказка</name>
+      <name>MainCommandBarExtendedTooltip</name>
       <id>27</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -226,14 +230,14 @@
     </extInfo>
   </items>
   <items xsi:type="form:Table">
-    <name>КомпоновщикНастроекПользовательскиеНастройки</name>
+    <name>SettingsComposerUserSettings</name>
     <id>22</id>
     <enabled>true</enabled>
     <userVisible>
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>Отчет.SettingsComposer.UserSettings</segments>
+      <segments>Report.SettingsComposer.UserSettings</segments>
     </dataPath>
     <skipOnInput>false</skipOnInput>
     <titleLocation>None</titleLocation>
@@ -242,7 +246,7 @@
     <excludedCommands>Tree</excludedCommands>
     <commandBarLocation>None</commandBarLocation>
     <autoCommandBar>
-      <name>КомпоновщикНастроекПользовательскиеНастройкиКоманднаяПанель</name>
+      <name>SettingsComposerUserSettingsCommandBar</name>
       <id>24</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -258,10 +262,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>КомпоновщикНастроекПользовательскиеНастройкиСтрокаПоиска</name>
+      <name>SettingsComposerUserSettingsSearchString</name>
       <id>35</id>
       <extendedTooltip>
-        <name>КомпоновщикНастроекПользовательскиеНастройкиСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>SettingsComposerUserSettingsSearchStringExtendedTooltip</name>
         <id>37</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -276,7 +280,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомпоновщикНастроекПользовательскиеНастройкиСтрокаПоискаКонтекстноеМеню</name>
+        <name>SettingsComposerUserSettingsSearchStringContextMenu</name>
         <id>36</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -295,10 +299,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>КомпоновщикНастроекПользовательскиеНастройкиСостояниеПросмотра</name>
+      <name>SettingsComposerUserSettingsViewStatus</name>
       <id>38</id>
       <extendedTooltip>
-        <name>КомпоновщикНастроекПользовательскиеНастройкиСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>SettingsComposerUserSettingsViewStatusExtendedTooltip</name>
         <id>40</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -313,7 +317,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомпоновщикНастроекПользовательскиеНастройкиСостояниеПросмотраКонтекстноеМеню</name>
+        <name>SettingsComposerUserSettingsViewStatusContextMenu</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -334,10 +338,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>КомпоновщикНастроекПользовательскиеНастройкиУправлениеПоиском</name>
+      <name>SettingsComposerUserSettingsSearchControl</name>
       <id>41</id>
       <extendedTooltip>
-        <name>КомпоновщикНастроекПользовательскиеНастройкиУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>SettingsComposerUserSettingsSearchControlExtendedTooltip</name>
         <id>43</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -352,7 +356,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомпоновщикНастроекПользовательскиеНастройкиУправлениеПоискомКонтекстноеМеню</name>
+        <name>SettingsComposerUserSettingsSearchControlContextMenu</name>
         <id>42</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -367,7 +371,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>КомпоновщикНастроекПользовательскиеНастройкиРасширеннаяПодсказка</name>
+      <name>SettingsComposerUserSettingsExtendedTooltip</name>
       <id>34</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -382,7 +386,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>КомпоновщикНастроекПользовательскиеНастройкиКонтекстноеМеню</name>
+      <name>SettingsComposerUserSettingsContextMenu</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -416,7 +420,7 @@
     <viewMode>All</viewMode>
   </items>
   <items xsi:type="form:FormField">
-    <name>Результат</name>
+    <name>Result</name>
     <id>20</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -425,13 +429,13 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>Результат</segments>
+        <segments>Result</segments>
       </paths>
     </dataPath>
     <defaultItem>true</defaultItem>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>РезультатРасширеннаяПодсказка</name>
+      <name>ResultExtendedTooltip</name>
       <id>44</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -446,7 +450,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>РезультатКонтекстноеМеню</name>
+      <name>ResultContextMenu</name>
       <id>21</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -463,7 +467,7 @@
     <extInfo xsi:type="form:SpreadSheetDocFieldExtInfo">
       <handlers>
         <event>DetailProcessing</event>
-        <name>РезультатОбработкаРасшифровки</name>
+        <name>ResultDetailProcessing</name>
       </handlers>
       <width>100</width>
       <autoMaxWidth>true</autoMaxWidth>
@@ -493,7 +497,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -504,7 +508,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Отчет</name>
+    <name>Report</name>
+    <title>
+      <key>en</key>
+      <value>Report</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>ReportObject.UT_ReportsConsole</types>
@@ -518,10 +526,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>Результат</name>
+    <name>Result</name>
     <title>
       <key>ru</key>
       <value>Результат</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result</value>
     </title>
     <id>3</id>
     <valueType>
@@ -536,10 +548,14 @@
     <extInfo xsi:type="form:SpreadsheetDocumentExtInfo"/>
   </attributes>
   <attributes>
-    <name>АдресДанныхРасшифровки</name>
+    <name>DetailsDataURL</name>
     <title>
       <key>ru</key>
       <value>Адрес данных расшифровки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Details data URL</value>
     </title>
     <id>4</id>
     <valueType>
@@ -554,10 +570,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресСхемыИсполненногоОтчета</name>
+    <name>ExecutedReportSchemaURL</name>
     <title>
       <key>ru</key>
       <value>Адрес схемы исполненного отчета</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Executed report schema URL</value>
     </title>
     <id>5</id>
     <valueType>
@@ -572,10 +592,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФормыРасшифровки</name>
+    <name>DetailsFormName</name>
     <title>
       <key>ru</key>
       <value>Имя формы расшифровки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Details form name</value>
     </title>
     <id>2</id>
     <valueType>
@@ -590,7 +614,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ИзменитьВариант</name>
+    <name>ChangeVariant</name>
+    <title>
+      <key>en</key>
+      <value>Change variant...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Изменить вариант...</value>
@@ -605,16 +633,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ИзменитьВариант</name>
+        <name>ChangeVariant</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Сформировать</name>
+    <name>Generate</name>
     <title>
       <key>ru</key>
       <value>Сформировать</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Generate</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -626,13 +658,13 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Сформировать</name>
+        <name>Generate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
-    <name>АдресСхемыКомпоновкиДанных</name>
+    <name>DataCompositionSchemaURL</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -644,6 +676,6 @@
   </commandInterface>
   <extInfo xsi:type="form:ReportFormExtInfo">
     <showState>ShowOnComposition</showState>
-    <reportResult>Результат</reportResult>
+    <reportResult>Result</reportResult>
   </extInfo>
 </form:Form>

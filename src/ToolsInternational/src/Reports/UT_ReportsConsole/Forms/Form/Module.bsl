@@ -3947,7 +3947,7 @@ Procedure РезультатТабличныйДокументОбработка
 
 	ElsIf ВыполненноеДействие <> Undefined Then
 
-		OpenForm(ИмяФормыРасшифровки, New Structure("Details,АдресСхемыКомпоновкиДанных",
+		OpenForm(ИмяФормыРасшифровки, New Structure("Details,DataCompositionSchemaURL",
 			New DataCompositionDetailsProcessDescription(АдресДанныхРасшифровки, Details,
 			ПараметрВыполненногоДействия), АдресСхемыИсполненногоОтчета), , True);
 
