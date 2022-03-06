@@ -14,8 +14,8 @@ EndProcedure
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	If TypeOf(Parameters.ПрошлоеЗначение) = Type("Structure") Then
-		For Each String In Parameters.ПрошлоеЗначение Do
+	If TypeOf(Parameters.PastValue) = Type("Structure") Then
+		For Each String In Parameters.PastValue Do
 			NewLine = ValueTable_Structure.Add();
 			NewLine.Key = String.Key;
 			NewLine.Value = String.Value;

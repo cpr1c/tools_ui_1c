@@ -331,7 +331,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -349,7 +349,7 @@
     </title>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_КонсольВебСервисов</types>
+      <types>DataProcessorObject.UT_ConsoleWebServices</types>
     </valueType>
     <view>
       <common>true</common>
@@ -457,7 +457,7 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <parameters>
-    <name>ПрошлоеЗначение</name>
+    <name>PastValue</name>
     <valueType/>
   </parameters>
   <commandInterface>

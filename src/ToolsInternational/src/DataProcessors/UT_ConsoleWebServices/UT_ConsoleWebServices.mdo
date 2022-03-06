@@ -4,10 +4,10 @@
     <objectType typeId="c60ce11b-0b18-4b6f-8a2d-ac644149a9ad" valueTypeId="96639455-2d5e-4c38-83a5-4d9d1bb12a8b"/>
     <managerType typeId="691a8753-5fe0-428c-946c-932ec4c9392c" valueTypeId="c609ab52-0b81-4126-ab6f-10a39814cab3"/>
   </producedTypes>
-  <name>УИ_КонсольВебСервисов</name>
+  <name>UT_ConsoleWebServices</name>
   <synonym>
     <key>en</key>
-    <value>{}УИ_КонсольВебСервисов</value>
+    <value>Console Web Services</value>
   </synonym>
   <synonym>
     <key>ru</key>
@@ -15,7 +15,7 @@
   </synonym>
   <comment>Автор Баданов Владимир Версия: 2.0.2.2</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_КонсольВебСервисов.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_ConsoleWebServices.Form.Form</defaultForm>
   <extendedPresentation>
     <key>ru</key>
     <value>Консоль веб сервисов(WS)</value>
@@ -25,17 +25,21 @@
     <value>Обработка для чтения и выполнения веб-сервисов на платформе 1С: Предприятие 8.3. Аналог soapUI. Обработка позволяет выполнить операцию веб-сервиса и отобразить результат в виде xml или дерева</value>
   </explanation>
   <forms uuid="8efa5e06-0d36-4dcd-b6cb-15768b47ffc3">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <comment></comment>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="5548673b-ac39-4132-98d1-d204aac7f971">
-    <name>ФормаВводаСтруктуры</name>
+    <name>FormInputStructures</name>
+    <synonym>
+      <key>en</key>
+      <value>Form input structures</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма ввода структуры</value>
