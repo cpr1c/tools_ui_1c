@@ -26,7 +26,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ИнформацияОЛицензиях1С</name>
+		<name>DataProcessor.UT_LicenseInformation1C</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
