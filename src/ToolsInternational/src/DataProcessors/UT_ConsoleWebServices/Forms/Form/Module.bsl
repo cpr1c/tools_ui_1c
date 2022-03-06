@@ -30,16 +30,16 @@ Procedure ConnectToServer(LocationWSDL, UserName, Password)
 			NewPointConnection.NamePointConnections = Endpoint.Name;
 			NewPointConnection.UniqueConnectionPointIdentifier = UniqueConnectionPointIdentifier;
 			// Reading web service operations
-			For Each Операция In Endpoint.Interface.Operations Do
+			For Each Operation In Endpoint.Interface.Operations Do
 				NewOperation = ListOperations.Add();
 				NewOperation.NamePointConnections = Endpoint.Name;
-				NewOperation.OperationName = Операция.Name;
-				NewOperation.ReturnableValueType = Операция.ReturnValue.Type;
+				NewOperation.OperationName = Operation.Name;
+				NewOperation.ReturnableValueType = Operation.ReturnValue.Type;
 				NewOperation.UniqueConnectionPointIdentifier = UniqueConnectionPointIdentifier;
 				// Reading operation parameters
-				For Each Parameter In Операция.Parameters Do
+				For Each Parameter In Operation.Parameters Do
 					NewParameter = ListParameters.Add();
-					NewParameter.OperationName = Операция.Name;
+					NewParameter.OperationName = Operation.Name;
 					NewParameter.NamePointConnections = Endpoint.Name;
 					NewParameter.ParameterName = Parameter.Name;
 					NewParameter.ParameterType = Parameter.Type;
@@ -208,14 +208,14 @@ Function ExecuteOperationAtServer(LocationWSDL, UserName, Password, WebServiceNa
 		ValueTree = FormAttributeToValue("TreeResult");
 		ValueTree.Rows.Clear();
 		NewLine = ValueTree.Rows.Add();
-		NewLine.Property 	= "Result операции";
+		NewLine.Property 	= Nstr("ru = 'Результат операции';en = 'Operation result'");
 		NewLine.Value 	= Result;
 		NewLine.Type 		= TypeOf(Result);
 		ValueToFormAttribute(ValueTree, "TreeResult");
 
 		Return Result;
 	Else
-		Return "Неопределенный тип результата операции"
+		Return Nstr("ru = 'Неопределенный тип результата операции';en = 'Undefined operation result type'");
 	EndIf
 	;
 
@@ -359,7 +359,7 @@ Procedure OperationParametersValueStartChoice(Item, ChoiceData, StandardProcessi
 		NotifyDescription = New NotifyDescription("ConservationStructure", ThisObject);
 		PastValue = New Structure;
 		PastValue.Insert("PastValue", Items.OperationParameters.CurrentData.Structure);
-		OpenForm("Processing.УИ_КонсольВебСервисов.Form.ФормаВводаСтруктуры", PastValue, ThisObject, , , ,
+		OpenForm("Processing.UT_ConsoleWebServices.Form.FormInputStructures", PastValue, ThisObject, , , ,
 			NotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 	EndIf;
 

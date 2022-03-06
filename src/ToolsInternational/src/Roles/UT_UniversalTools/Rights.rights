@@ -210,7 +210,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_КонсольВебСервисов</name>
+		<name>DataProcessor.UT_ConsoleWebServices</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

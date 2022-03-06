@@ -74,7 +74,7 @@
   <content>DataProcessor.UT_FileManager</content>
   <content>DataProcessor.UT_LicenseInformation1C</content>
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
-  <content>DataProcessor.УИ_КонсольВебСервисов</content>
+  <content>DataProcessor.UT_ConsoleWebServices</content>
   <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
   <content>DataProcessor.UT_SettingsStoragesManager</content>
   <content>DataProcessor.UT_JSONEditor</content>
