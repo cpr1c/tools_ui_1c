@@ -3,7 +3,7 @@ Procedure FinishEditing(Command)
 
 	Structure = New Structure;
 
-	For Each String In ТЗ_Структура Do
+	For Each String In ValueTable_Structure Do
 		Structure.Insert(String.Key, String.Value);
 	EndDo;
 
@@ -16,7 +16,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
 	If TypeOf(Parameters.ПрошлоеЗначение) = Type("Structure") Then
 		For Each String In Parameters.ПрошлоеЗначение Do
-			NewLine = ТЗ_Структура.Add();
+			NewLine = ValueTable_Structure.Add();
 			NewLine.Key = String.Key;
 			NewLine.Value = String.Value;
 		EndDo;
