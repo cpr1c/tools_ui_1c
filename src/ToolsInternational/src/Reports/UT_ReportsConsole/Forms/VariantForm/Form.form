@@ -4162,7 +4162,7 @@
       <name>OutputParametersPage</name>
       <id>106</id>
       <items xsi:type="form:FormField">
-        <name>ЛокальныеПараметрыВывода</name>
+        <name>LocalOutputParameters</name>
         <id>107</id>
         <title>
           <key>ru</key>
@@ -4184,7 +4184,7 @@
           <name>ЛокальныеПараметрыВыводаПриИзменении</name>
         </handlers>
         <extendedTooltip>
-          <name>ЛокальныеПараметрыВыводаРасширеннаяПодсказка</name>
+          <name>LocalOutputParametersExtendedTooltip</name>
           <id>293</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4199,7 +4199,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ЛокальныеПараметрыВыводаКонтекстноеМеню</name>
+          <name>LocalOutputParametersContextMenu</name>
           <id>108</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4219,10 +4219,10 @@
         <name>СтраницыПараметровВывода</name>
         <id>109</id>
         <items xsi:type="form:FormGroup">
-          <name>НастройкиПараметровВывода</name>
+          <name>OutputParametersSettings</name>
           <id>110</id>
           <items xsi:type="form:Table">
-            <name>ПараметрыВывода</name>
+            <name>OutputParameters</name>
             <id>111</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4235,7 +4235,7 @@
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ПараметрыВыводаКоманднаяПанель</name>
+              <name>OutputParametersCommandBar</name>
               <id>113</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4251,10 +4251,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПараметрыВыводаСтрокаПоиска</name>
+              <name>OutputParametersSearchString</name>
               <id>297</id>
               <extendedTooltip>
-                <name>ПараметрыВыводаСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>OutputParametersSearchStringExtendedTooltip</name>
                 <id>299</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4269,7 +4269,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПараметрыВыводаСтрокаПоискаКонтекстноеМеню</name>
+                <name>OutputParametersSearchStringContextMenu</name>
                 <id>298</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4288,10 +4288,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПараметрыВыводаСостояниеПросмотра</name>
+              <name>OutputParametersViewStatus</name>
               <id>300</id>
               <extendedTooltip>
-                <name>ПараметрыВыводаСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>OutputParametersViewStatusExtendedTooltip</name>
                 <id>302</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4306,7 +4306,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПараметрыВыводаСостояниеПросмотраКонтекстноеМеню</name>
+                <name>OutputParametersViewStatusContextMenu</name>
                 <id>301</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4327,10 +4327,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПараметрыВыводаУправлениеПоиском</name>
+              <name>OutputParametersSearchControl</name>
               <id>303</id>
               <extendedTooltip>
-                <name>ПараметрыВыводаУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>OutputParametersSearchControlExtendedTooltip</name>
                 <id>305</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4345,7 +4345,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПараметрыВыводаУправлениеПоискомКонтекстноеМеню</name>
+                <name>OutputParametersSearchControlContextMenu</name>
                 <id>304</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4360,7 +4360,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ПараметрыВыводаРасширеннаяПодсказка</name>
+              <name>OutputParametersExtendedTooltip</name>
               <id>296</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4375,7 +4375,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПараметрыВыводаКонтекстноеМеню</name>
+              <name>OutputParametersContextMenu</name>
               <id>112</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4414,8 +4414,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Output parameters settings</value>
+          </title>
           <extendedTooltip>
-            <name>НастройкиПараметровВыводаРасширеннаяПодсказка</name>
+            <name>OutputParametersSettingsExtendedTooltip</name>
             <id>295</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4435,11 +4439,17 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ОтключенныеНастройкиПараметровВывода</name>
+          <name>DisabledOutputParametersSettings</name>
           <id>114</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьЛокальныхПараметровВывода</name>
+            <name>LocalOutputParametersLabel</name>
             <id>115</id>
+            <title>
+              <key>en</key>
+              <value>No additional settings are assigned to the item.
+In the structure tree, select the report and edit report additional settings.
+To assign the item with personal additional settings, select the check box above.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>В текущем элементе дополнительные настройки не установлены.
@@ -4452,7 +4462,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьЛокальныхПараметровВыводаРасширеннаяПодсказка</name>
+              <name>LocalOutputParametersLabelExtendedTooltip</name>
               <id>307</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4467,7 +4477,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьЛокальныхПараметровВыводаКонтекстноеМеню</name>
+              <name>LocalOutputParametersLabelContextMenu</name>
               <id>116</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4546,8 +4556,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Disabled output parameters settings</value>
+          </title>
           <extendedTooltip>
-            <name>ОтключенныеНастройкиПараметровВыводаРасширеннаяПодсказка</name>
+            <name>DisabledOutputParametersSettingsExtendedTooltip</name>
             <id>306</id>
             <visible>true</visible>
             <enabled>true</enabled>
