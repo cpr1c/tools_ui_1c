@@ -198,10 +198,10 @@
     <searchControlLocation>None</searchControlLocation>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>СтраницыНастроек</name>
+    <name>SettingsPages</name>
     <id>4</id>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаПараметровДанных</name>
+      <name>DataParametersPage</name>
       <id>5</id>
       <items xsi:type="form:Table">
         <name>ПараметрыДанных</name>
@@ -397,11 +397,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Data parameters</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Параметры</value>
       </title>
       <extendedTooltip>
-        <name>СтраницаПараметровДанныхРасширеннаяПодсказка</name>
+        <name>DataParametersPageExtendedTooltip</name>
         <id>135</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -425,7 +429,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаПользовательскихПолей</name>
+      <name>UserFieldsPage</name>
       <id>9</id>
       <items xsi:type="form:Table">
         <name>ПользовательскиеПоля</name>
@@ -620,11 +624,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>User-defined fields</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Пользовательские поля</value>
       </title>
       <extendedTooltip>
-        <name>СтраницаПользовательскихПолейРасширеннаяПодсказка</name>
+        <name>UserFieldsPageExtendedTooltip</name>
         <id>146</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -647,7 +655,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаПолейГруппировки</name>
+      <name>GroupFieldsPage</name>
       <id>13</id>
       <items xsi:type="form:FormGroup">
         <name>СтраницыПолейГруппировки</name>
@@ -1169,8 +1177,12 @@
         <key>ru</key>
         <value>Группируемые поля</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group fields page</value>
+      </title>
       <extendedTooltip>
-        <name>СтраницаПолейГруппировкиРасширеннаяПодсказка</name>
+        <name>GroupFieldsPageExtendedTooltip</name>
         <id>157</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1194,7 +1206,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаПолейВыбора</name>
+      <name>SelectionFieldsPage</name>
       <id>25</id>
       <items xsi:type="form:FormField">
         <name>ЛокальныеВыбранныеПоля</name>
@@ -1210,7 +1222,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ЛокальныеВыбранныеПоля</segments>
+            <segments>LocalSelectedFields</segments>
           </paths>
         </dataPath>
         <titleLocation>Right</titleLocation>
@@ -1948,11 +1960,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Fields</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Поля</value>
       </title>
       <extendedTooltip>
-        <name>СтраницаПолейВыбораРасширеннаяПодсказка</name>
+        <name>SelectionFieldsPageExtendedTooltip</name>
         <id>182</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -1976,7 +1992,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаОтбора</name>
+      <name>FilterPage</name>
       <id>46</id>
       <items xsi:type="form:FormField">
         <name>ЛокальныйОтбор</name>
@@ -1992,7 +2008,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ЛокальныйОтбор</segments>
+            <segments>LocalFilter</segments>
           </paths>
         </dataPath>
         <titleLocation>Right</titleLocation>
@@ -2735,8 +2751,12 @@
         <key>ru</key>
         <value>Отбор</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Filter page</value>
+      </title>
       <extendedTooltip>
-        <name>СтраницаОтбораРасширеннаяПодсказка</name>
+        <name>FilterPageExtendedTooltip</name>
         <id>212</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2760,7 +2780,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаПорядка</name>
+      <name>OrderPage</name>
       <id>67</id>
       <items xsi:type="form:FormField">
         <name>ЛокальныйПорядок</name>
@@ -2776,7 +2796,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ЛокальныйПорядок</segments>
+            <segments>LocalOrder</segments>
           </paths>
         </dataPath>
         <titleLocation>Right</titleLocation>
@@ -3512,11 +3532,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Sort</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Сортировка</value>
       </title>
       <extendedTooltip>
-        <name>СтраницаПорядкаРасширеннаяПодсказка</name>
+        <name>OrderPageExtendedTooltip</name>
         <id>242</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -3540,7 +3564,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаУсловногоОформления</name>
+      <name>ConditionalAppearancePage</name>
       <id>88</id>
       <items xsi:type="form:FormField">
         <name>ЛокальноеУсловноеОформление</name>
@@ -3556,7 +3580,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ЛокальноеУсловноеОформление</segments>
+            <segments>LocalConditionalAppearance</segments>
           </paths>
         </dataPath>
         <titleLocation>Right</titleLocation>
@@ -4103,11 +4127,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Conditional appearance</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Условное оформление</value>
       </title>
       <extendedTooltip>
-        <name>СтраницаУсловногоОформленияРасширеннаяПодсказка</name>
+        <name>ConditionalAppearancePageExtendedTooltip</name>
         <id>272</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -4131,7 +4159,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>СтраницаПараметровВывода</name>
+      <name>OutputParametersPage</name>
       <id>106</id>
       <items xsi:type="form:FormField">
         <name>ЛокальныеПараметрыВывода</name>
@@ -4147,7 +4175,7 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ЛокальныеПараметрыВывода</segments>
+            <segments>LocalOutputParameters</segments>
           </paths>
         </dataPath>
         <titleLocation>Right</titleLocation>
@@ -4460,8 +4488,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКПараметрамВыводаОтчета</name>
+            <name>GoToReportOutputParameters</name>
             <id>117</id>
+            <title>
+              <key>en</key>
+              <value>View additional report settings</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к дополнительным настройкам отчета.</value>
@@ -4472,7 +4504,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКПараметрамВыводаОтчетаРасширеннаяПодсказка</name>
+              <name>GoToReportOutputParametersExtendedTooltip</name>
               <id>308</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4487,7 +4519,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКПараметрамВыводаОтчетаКонтекстноеМеню</name>
+              <name>GoToReportOutputParametersContextMenu</name>
               <id>118</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4536,11 +4568,16 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>НедоступныеНастройкиПараметровВывода</name>
+          <name>UnavailableOutputParametersSettings</name>
           <id>119</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьНедоступныхПараметровВывода</name>
+            <name>UnavailableOutputParametersLabel</name>
             <id>120</id>
+            <title>
+              <key>en</key>
+              <value>Cannot assign additional settings to the item.
+In the structure tree, select the report and edit additional report settings.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>У текущего элемента не могут быть установлены дополнительные настройки.
@@ -4552,7 +4589,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьНедоступныхПараметровВыводаРасширеннаяПодсказка</name>
+              <name>UnavailableOutputParametersLabelExtendedTooltip</name>
               <id>310</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4567,7 +4604,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьНедоступныхПараметровВыводаКонтекстноеМеню</name>
+              <name>UnavailableOutputParametersLabelContextMenu</name>
               <id>121</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4588,8 +4625,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКПараметрамВыводаОтчета1</name>
+            <name>GoToReportOutputParameters1</name>
             <id>122</id>
+            <title>
+              <key>en</key>
+              <value>View additional report settings</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к дополнительным настройкам отчета.</value>
@@ -4600,7 +4641,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКПараметрамВыводаОтчета1РасширеннаяПодсказка</name>
+              <name>GoToReportOutputParameters1ExtendedTooltip</name>
               <id>311</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4615,7 +4656,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКПараметрамВыводаОтчета1КонтекстноеМеню</name>
+              <name>GoToReportOutputParameters1ContextMenu</name>
               <id>123</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4642,8 +4683,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Unavailable output parameters settings</value>
+          </title>
           <extendedTooltip>
-            <name>НедоступныеНастройкиПараметровВыводаРасширеннаяПодсказка</name>
+            <name>UnavailableOutputParametersSettingsExtendedTooltip</name>
             <id>309</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4694,11 +4739,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Additional settings</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Дополнительные настройки</value>
       </title>
       <extendedTooltip>
-        <name>СтраницаПараметровВыводаРасширеннаяПодсказка</name>
+        <name>OutputParametersPageExtendedTooltip</name>
         <id>292</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -4726,8 +4775,12 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Settings pages</value>
+    </title>
     <extendedTooltip>
-      <name>СтраницыНастроекРасширеннаяПодсказка</name>
+      <name>SettingsPagesExtendedTooltip</name>
       <id>134</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -4761,7 +4814,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -4791,10 +4844,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ЛокальныеВыбранныеПоля</name>
+    <name>LocalSelectedFields</name>
     <title>
       <key>ru</key>
       <value>Локальные выбранные поля</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local selected fields</value>
     </title>
     <id>2</id>
     <valueType>
@@ -4808,10 +4865,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйОтбор</name>
+    <name>LocalFilter</name>
     <title>
       <key>ru</key>
       <value>Локальный отбор</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local filter</value>
     </title>
     <id>3</id>
     <valueType>
@@ -4825,10 +4886,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйПорядок</name>
+    <name>LocalOrder</name>
     <title>
       <key>ru</key>
       <value>Локальный порядок</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local order</value>
     </title>
     <id>4</id>
     <valueType>
@@ -4842,10 +4907,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальноеУсловноеОформление</name>
+    <name>LocalConditionalAppearance</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local conditional appearance</value>
     </title>
     <id>5</id>
     <valueType>
@@ -4859,10 +4928,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныеПараметрыВывода</name>
+    <name>LocalOutputParameters</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local output parameters</value>
     </title>
     <id>6</id>
     <valueType>

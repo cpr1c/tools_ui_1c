@@ -10,25 +10,25 @@ Procedure ВыбранныеПоляДоступны(ЭлементСтрукт�
 
 	If Report.SettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
 
-		ЛокальныеВыбранныеПоля = True;
+		LocalSelectedFields = True;
 		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
 
 	Else
 
-		ЛокальныеВыбранныеПоля = False;
+		LocalSelectedFields = False;
 		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
 
 	EndIf;
 
-	Items.ЛокальныеВыбранныеПоля.ReadOnly = False;
+	Items.LocalSelectedFields.ReadOnly = False;
 
 EndProcedure
 
 &AtClient
 Procedure ВыбранныеПоляНедоступны()
 
-	ЛокальныеВыбранныеПоля = False;
-	Items.ЛокальныеВыбранныеПоля.ReadOnly = True;
+	LocalSelectedFields = False;
+	Items.LocalSelectedFields.ReadOnly = True;
 	Items.СтраницыПолейВыбора.CurrentPage = Items.НедоступныеНастройкиВыбранныхПолей;
 
 EndProcedure
@@ -38,25 +38,25 @@ Procedure ОтборДоступен(ЭлементСтруктуры)
 
 	If Report.SettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
 
-		ЛокальныйОтбор = True;
+		LocalFilter = True;
 		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
 
 	Else
 
-		ЛокальныйОтбор = False;
+		LocalFilter = False;
 		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
 
 	EndIf;
 
-	Items.ЛокальныйОтбор.ReadOnly = False;
+	Items.LocalFilter.ReadOnly = False;
 
 EndProcedure
 
 &AtClient
 Procedure ОтборНедоступен()
 
-	ЛокальныйОтбор = False;
-	Items.ЛокальныйОтбор.ReadOnly = True;
+	LocalFilter = False;
+	Items.LocalFilter.ReadOnly = True;
 	Items.СтраницыОтбора.CurrentPage = Items.НедоступныеНастройкиОтбора;
 
 EndProcedure
@@ -66,25 +66,25 @@ Procedure ПорядокДоступен(ЭлементСтруктуры)
 
 	If Report.SettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
 
-		ЛокальныйПорядок = True;
+		LocalOrder = True;
 		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
 
 	Else
 
-		ЛокальныйПорядок = False;
+		LocalOrder = False;
 		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
 
 	EndIf;
 
-	Items.ЛокальныйПорядок.ReadOnly = False;
+	Items.LocalOrder.ReadOnly = False;
 
 EndProcedure
 
 &AtClient
 Procedure ПорядокНедоступен()
 
-	ЛокальныйПорядок = False;
-	Items.ЛокальныйПорядок.ReadOnly = True;
+	LocalOrder = False;
+	Items.LocalOrder.ReadOnly = True;
 	Items.СтраницыПорядка.CurrentPage = Items.НедоступныеНастройкиПорядка;
 
 EndProcedure
@@ -94,25 +94,25 @@ Procedure УсловноеОформлениеДоступно(ЭлементС�
 
 	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
 
-		ЛокальноеУсловноеОформление = True;
+		LocalConditionalAppearance = True;
 		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
 
 	Else
 
-		ЛокальноеУсловноеОформление = False;
+		LocalConditionalAppearance = False;
 		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
 
 	EndIf;
 
-	Items.ЛокальноеУсловноеОформление.ReadOnly = False;
+	Items.LocalConditionalAppearance.ReadOnly = False;
 
 EndProcedure
 
 &AtClient
 Procedure УсловноеОформлениеНедоступно()
 
-	ЛокальноеУсловноеОформление = False;
-	Items.ЛокальноеУсловноеОформление.ReadOnly = True;
+	LocalConditionalAppearance = False;
+	Items.LocalConditionalAppearance.ReadOnly = True;
 	Items.СтраницыУсловногоОформления.CurrentPage = Items.НедоступныеНастройкиУсловногоОформления;
 
 EndProcedure
@@ -122,26 +122,26 @@ Procedure ПараметрыВыводаДоступны(ЭлементСтру�
 
 	If Report.SettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
 
-		ЛокальныеПараметрыВывода = True;
+		LocalOutputParameters = True;
 		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
 
 	Else
 
-		ЛокальныеПараметрыВывода = False;
+		LocalOutputParameters = False;
 		Items.СтраницыПараметровВывода.CurrentPage = Items.ОтключенныеНастройкиПараметровВывода;
 
 	EndIf;
 
-	Items.ЛокальныеПараметрыВывода.ReadOnly = False;
+	Items.LocalOutputParameters.ReadOnly = False;
 
 EndProcedure
 
 &AtClient
 Procedure ПараметрыВыводаНедоступны()
 
-	ЛокальныеПараметрыВывода = False;
-	Items.ЛокальныеПараметрыВывода.ReadOnly = True;
-	Items.СтраницыПараметровВывода.CurrentPage = Items.НедоступныеНастройкиПараметровВывода;
+	LocalOutputParameters = False;
+	Items.LocalOutputParameters.ReadOnly = True;
+	Items.СтраницыПараметровВывода.CurrentPage = Items.UnavailableOutputParametersSettings;
 
 EndProcedure
 
@@ -152,29 +152,29 @@ Procedure СтруктураПриАктивизацииПоля(Item)
 
 	If Items.Structure.CurrentItem.Name = "СтруктураНаличиеВыбора" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПолейВыбора;
+		ВыбраннаяСтраница = Items.SelectionFieldsPage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеОтбора" Then
 
-		ВыбраннаяСтраница = Items.СтраницаОтбора;
+		ВыбраннаяСтраница = Items.FilterPage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПорядка" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПорядка;
+		ВыбраннаяСтраница = Items.OrderPage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеУсловногоОформления" Then
 
-		ВыбраннаяСтраница = Items.СтраницаУсловногоОформления;
+		ВыбраннаяСтраница = Items.ConditionalAppearancePage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПараметровВывода" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПараметровВывода;
+		ВыбраннаяСтраница = Items.OutputParametersPage;
 
 	EndIf;
 
 	If ВыбраннаяСтраница <> Undefined Then
 
-		Items.СтраницыНастроек.CurrentPage = ВыбраннаяСтраница;
+		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
 
 	EndIf;
 
@@ -202,24 +202,24 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 
 		ПоляГруппировкиНедоступны();
 
-		ЛокальныеВыбранныеПоля = True;
-		Items.ЛокальныеВыбранныеПоля.ReadOnly = True;
+		LocalSelectedFields = True;
+		Items.LocalSelectedFields.ReadOnly = True;
 		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
 
-		ЛокальныйОтбор = True;
-		Items.ЛокальныйОтбор.ReadOnly = True;
+		LocalFilter = True;
+		Items.LocalFilter.ReadOnly = True;
 		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
 
-		ЛокальныйПорядок = True;
-		Items.ЛокальныйПорядок.ReadOnly = True;
+		LocalOrder = True;
+		Items.LocalOrder.ReadOnly = True;
 		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
 
-		ЛокальноеУсловноеОформление = True;
-		Items.ЛокальноеУсловноеОформление.ReadOnly = True;
+		LocalConditionalAppearance = True;
+		Items.LocalConditionalAppearance.ReadOnly = True;
 		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
 
-		ЛокальныеПараметрыВывода = True;
-		Items.ЛокальныеПараметрыВывода.ReadOnly = True;
+		LocalOutputParameters = True;
+		Items.LocalOutputParameters.ReadOnly = True;
 		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
 
 	ElsIf ItemType = Type("DataCompositionGroup") Or ItemType = Type(
@@ -260,7 +260,7 @@ EndProcedure
 &AtClient
 Procedure ЛокальныеВыбранныеПоляПриИзменении(Item)
 
-	If ЛокальныеВыбранныеПоля Then
+	If LocalSelectedFields Then
 
 		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
 
@@ -279,7 +279,7 @@ EndProcedure
 &AtClient
 Procedure ЛокальныйОтборПриИзменении(Item)
 
-	If ЛокальныйОтбор Then
+	If LocalFilter Then
 
 		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
 
@@ -298,7 +298,7 @@ EndProcedure
 &AtClient
 Procedure ЛокальныйПорядокПриИзменении(Item)
 
-	If ЛокальныйПорядок Then
+	If LocalOrder Then
 
 		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
 
@@ -317,7 +317,7 @@ EndProcedure
 &AtClient
 Procedure ЛокальноеУсловноеОформлениеПриИзменении(Item)
 
-	If ЛокальноеУсловноеОформление Then
+	If LocalConditionalAppearance Then
 
 		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
 
@@ -336,7 +336,7 @@ EndProcedure
 &AtClient
 Procedure ЛокальныеПараметрыВыводаПриИзменении(Item)
 
-	If ЛокальныеПараметрыВывода Then
+	If LocalOutputParameters Then
 
 		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
 
