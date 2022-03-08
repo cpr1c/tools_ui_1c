@@ -622,7 +622,7 @@
             </dataPath>
             <handlers>
               <event>OnChange</event>
-              <name>СписокWSОпределенийПриАктивизацииСтроки</name>
+              <name>ListWSDefinitionsOnActivateRow</name>
             </handlers>
             <extendedTooltip>
               <name>ListWSDefinitionsLocationWSDLExtendedTooltip</name>
@@ -678,7 +678,7 @@
             </dataPath>
             <handlers>
               <event>OnChange</event>
-              <name>СписокWSОпределенийПриАктивизацииСтроки</name>
+              <name>ListWSDefinitionsOnActivateRow</name>
             </handlers>
             <extendedTooltip>
               <name>ListWSDefinitionsUsernameExtendedTooltip</name>
@@ -734,7 +734,7 @@
             </dataPath>
             <handlers>
               <event>OnChange</event>
-              <name>СписокWSОпределенийПриАктивизацииСтроки</name>
+              <name>ListWSDefinitionsOnActivateRow</name>
             </handlers>
             <extendedTooltip>
               <name>ListWSDefinitionsPasswordExtendedTooltip</name>
