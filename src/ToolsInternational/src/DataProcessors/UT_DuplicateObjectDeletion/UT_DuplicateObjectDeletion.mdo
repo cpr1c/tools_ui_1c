@@ -4,26 +4,34 @@
     <objectType typeId="2f99f946-0606-4dcd-b0ca-61bf24591e60" valueTypeId="24047b73-ad94-4566-b3a4-305728525af1"/>
     <managerType typeId="c744cf53-073c-43b5-a498-317134786d12" valueTypeId="f7d04b21-b10a-4522-9fd8-636056000c2c"/>
   </producedTypes>
-  <name>УИ_ПоискИУдалениеДублей</name>
+  <name>UT_DuplicateObjectDeletion</name>
   <synonym>
     <key>en</key>
-    <value>{} УИ_ПоискИУдалениеДублей</value>
+    <value>Duplicate object deletion [UT]</value>
   </synonym>
   <synonym>
     <key>ru</key>
     <value>Поиск и удаление дублей [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_ПоискИУдалениеДублей.Form.ПоискДублей</defaultForm>
+  <defaultForm>DataProcessor.UT_DuplicateObjectDeletion.Form.ПоискДублей</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
     </pages>
   </help>
   <extendedPresentation>
+    <key>en</key>
+    <value>Duplicate object deletion</value>
+  </extendedPresentation>
+  <extendedPresentation>
     <key>ru</key>
     <value>Поиск и удаление дублей</value>
   </extendedPresentation>
+  <explanation>
+    <key>en</key>
+    <value>SSL data processor fork with additional parameters</value>
+  </explanation>
   <explanation>
     <key>ru</key>
     <value>Форк стандартной обработки из БСП, в которую добавлены несколько параметров выполнения замены</value>

@@ -1,67 +1,68 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2019, ООО 1С-Софт
-// Все права защищены. Эта программа и сопроводительные материалы предоставляются 
-// в соответствии с условиями лицензии Attribution 4.0 International (CC BY 4.0)
-// Текст лицензии доступен по ссылке:
+// Copyright (c) 2019, 1C-Soft LLC
+// All Rights reserved. This application and supporting materials are provided under the terms of 
+// Attribution 4.0 International license (CC BY 4.0)
+// The license text is available at:
 // https://creativecommons.org/licenses/by/4.0/legalcode
+// Translated by Neti Company
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-#Область СлужебныйПрограммныйИнтерфейс
+#Region Internal
 
-// Определение менеджера объекта для вызова прикладных правил.
+// Defines the object manager to call applied rules.
 //
-// Параметры:
-//   ИмяОбластиПоискаДанных - Строка - Имя области (полное имя метаданных).
+// Parameters:
+//   DataSearchAreaName - String - area name (full metadata name).
 //
-// Возвращаемое значение:
-//   СправочникиМенеджер, ПланыВидовХарактеристикМенеджер,
-//   ПланыСчетовМенеджер, ПланыВидовРасчетаМенеджер - Менеджер объекта.
+// Returns:
+//   CatalogsManager, ChartsOfCharacteristicTypesManager,
+//   ChartsOfAccountsManager, ChartsOfCalculationTypesManager - Object manager.
 //
-Функция МенеджерОбластиПоискаДублей(Знач ИмяОбластиПоискаДанных) Экспорт
-	Мета = Метаданные.НайтиПоПолномуИмени(ИмяОбластиПоискаДанных);
+Function SearchForDuplicatesAreaManager(Val DataSearchAreaName) Export
+	Meta = Metadata.FindByFullName(DataSearchAreaName);
+	
+	If Metadata.Catalogs.Contains(Meta) Then
+		Return Catalogs[Meta.Name];
+		
+	ElsIf Metadata.ChartsOfCharacteristicTypes.Contains(Meta) Then
+		Return ChartsOfCharacteristicTypes[Meta.Name];
+		
+	ElsIf Metadata.ChartsOfAccounts.Contains(Meta) Then
+		Return ChartsOfAccounts[Meta.Name];
+		
+	ElsIf Metadata.ChartsOfCalculationTypes.Contains(Meta) Then
+		Return ChartsOfCalculationTypes[Meta.Name];
+		
+	EndIf;
 
-	Если Метаданные.Справочники.Содержит(Мета) Тогда
-		Возврат Справочники[Мета.Имя];
+	Raise StrTemplate(NStr("ru = 'Неизвестный тип объекта метаданных ""%1""'; en = 'Invalid metadata object type: %1.'"), DataSearchAreaName);
+EndFunction
 
-	ИначеЕсли Метаданные.ПланыВидовХарактеристик.Содержит(Мета) Тогда
-		Возврат ПланыВидовХарактеристик[Мета.Имя];
+// Subsystem presentation. It is used for writing to the event log and in other places.
+Function SubsystemDescription(ForUser) Export
+	LanguageCode = ?(ForUser, UT_CommonClientServer.DefaultLanguageCode(), "");
+	Return NStr("ru = 'Поиск и удаление дублей'; en = 'Duplicate object deletion'", LanguageCode);
+EndFunction
 
-	ИначеЕсли Метаданные.ПланыСчетов.Содержит(Мета) Тогда
-		Возврат ПланыСчетов[Мета.Имя];
-
-	ИначеЕсли Метаданные.ПланыВидовРасчета.Содержит(Мета) Тогда
-		Возврат ПланыВидовРасчета[Мета.Имя];
-
-	КонецЕсли;
-
-	ВызватьИсключение СтрШаблон(НСтр("ru = 'Неизвестный тип объекта метаданных ""%1""'"), ИмяОбластиПоискаДанных);
-КонецФункции
-
-// Представление подсистемы. Используется при записи в журнал регистрации и в других местах.
-Функция НаименованиеПодсистемы(ДляПользователя) Экспорт
-	КодЯзыка = ?(ДляПользователя, UT_CommonClientServer.DefaultLanguageCode(), "");
-	Возврат НСтр("ru = 'Поиск и удаление дублей'", КодЯзыка);
-КонецФункции
-
-// Непосредственный поиск дублей.
+// Search for duplicates.
 //
-// Параметры:
-//     ПараметрыПоиска - Структура - Описывает параметры поиска.
-//     ЭталонныйОбъект - Произвольный - объект, для которого производится поиск дублей.
+// Parameters:
+//     SearchParameters - Structure - describes search parameters.
+//     SampleObject - Arbitrary - an object for which duplicates are searched.
 //
-// Возвращаемое значение:
-//   Структура - Результаты поиска дублей.
-//       * ТаблицаДублей - ТаблицаЗначений - Найденные дубли (в интерфейс выводятся в 2 уровня: Родители и Элементы).
-//           ** Ссылка       - Произвольный - Ссылка элемента.
-//           ** Код          - Произвольный - Код элемента.
-//           ** Наименование - Произвольный - Наименование элемента.
-//           ** Родитель     - Произвольный - Родитель группы дублей. Если Родитель пустой, то элемент является
-//                                            родителем группы дублей.
-//           ** <Другие поля> - Произвольный - Значение соответствующего полей отборов и критериев сравнения дублей.
-//       * ОписаниеОшибки - Неопределено - Ошибки не возникло.
-//                        - Строка - Описание ошибки, возникшей в процессе поиска дублей.
-//       * МестаИспользования - Неопределено, ТаблицаЗначений - Заполняется если 
-//           ПараметрыПоиска.РассчитыватьМестаИспользования = Истина.
-//           Описание колонок таблицы см. в ОбщегоНазначения.МестаИспользования().
+// Returns:
+//   Structure - Duplicates search results.
+//       * DuplicateTable - ValueTable - found duplicates (displayed in the interface in 2 levels: Parents and Items).
+//           ** Reference - Arbitrary - an item reference.
+//           ** Code - Arbitrary - an item code.
+//           ** Description - Arbitrary - item description.
+//           ** Parent - Arbitrary - a parent of the duplicates group. If the Parent is empty, the 
+//                                            item is parent for the duplicates group.
+//           ** <Other fields> - Arbitrary - a value of the relevant filter fields and criteria for comparing duplicates.
+//       * ErrorDescription - Undefined - no errors occurred.
+//                        - Row - the description of the error that occurred during the search for duplicates.
+//       * UsageInstances - Undefined, ValueTable - filled in if
+//           SearchParameters.CalculateUsageInstances = True.
+//           For the table column details, see Common.UsageInstances().
 //
 Функция ГруппыДублей(Знач ПараметрыПоиска, Знач ЭталонныйОбъект = Неопределено) Экспорт
 	ПолноеИмяОМ = ПараметрыПоиска.ОбластьПоискаДублей;
