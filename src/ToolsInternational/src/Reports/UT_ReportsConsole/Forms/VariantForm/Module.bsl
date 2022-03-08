@@ -123,12 +123,12 @@ Procedure ПараметрыВыводаДоступны(ЭлементСтру�
 	If Report.SettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
 
 		LocalOutputParameters = True;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.OutputParametersSettings;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	Else
 
 		LocalOutputParameters = False;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.DisabledOutputParametersSettings;
+		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
 	EndIf;
 
@@ -141,7 +141,7 @@ Procedure ПараметрыВыводаНедоступны()
 
 	LocalOutputParameters = False;
 	Items.LocalOutputParameters.ReadOnly = True;
-	Items.СтраницыПараметровВывода.CurrentPage = Items.UnavailableOutputParametersSettings;
+	Items.OutputParametersPages.CurrentPage = Items.UnavailableOutputParametersSettings;
 
 EndProcedure
 
@@ -220,7 +220,7 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 
 		LocalOutputParameters = True;
 		Items.LocalOutputParameters.ReadOnly = True;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.OutputParametersSettings;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	ElsIf ItemType = Type("DataCompositionGroup") Or ItemType = Type(
 		"DataCompositionTableGroup") Or ItemType = Type("DataCompositionChartGroup") Then
@@ -338,11 +338,11 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 
 	If LocalOutputParameters Then
 
-		Items.СтраницыПараметровВывода.CurrentPage = Items.OutputParametersSettings;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	Else
 
-		Items.СтраницыПараметровВывода.CurrentPage = Items.DisabledOutputParametersSettings;
+		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
 		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentLine);

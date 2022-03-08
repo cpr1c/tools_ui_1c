@@ -4216,7 +4216,7 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницыПараметровВывода</name>
+        <name>OutputParametersPages</name>
         <id>109</id>
         <items xsi:type="form:FormGroup">
           <name>OutputParametersSettings</name>
@@ -4728,7 +4728,7 @@ In the structure tree, select the report and edit additional report settings.</v
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>СтраницыПараметровВыводаРасширеннаяПодсказка</name>
+          <name>OutputParametersPagesExtendedTooltip</name>
           <id>294</id>
           <visible>true</visible>
           <enabled>true</enabled>
