@@ -22,7 +22,7 @@ EndProcedure
 
 // Переключить страницу группировок на страницу с текстом недоступности.
 &AtClient
-Procedure ПоляГруппировкиНедоступны()
+Procedure GroupFieldsNotAvailable()
 
 	Items.СтраницыПолейГруппировки.CurrentPage = Items.НедоступныеНастройкиПолейГруппировки;
 
@@ -30,7 +30,7 @@ EndProcedure
 
 // Переключить страницу группировок на страницу с текстом недоступности для исполняемых настроек.
 &AtClient
-Procedure ПоляГруппировкиНедоступны1()
+Procedure GroupFieldsNotAvailable1()
 
 	Items.СтраницыПолейГруппировки1.CurrentPage = Items.НедоступныеНастройкиПолейГруппировки1;
 
@@ -838,7 +838,7 @@ EndProcedure
 //  ЭлементДерева - элемент дерева, начиная от которого нужно найти элемент дерева с отчетом.
 //
 // Возвращаемое значение:
-//   ДанныеФормыЭлементДерева - найденный элемент дерева - отчет;
+//   ДанныеФормыЭлементДерева - найденный элемент дерева - Report;
 //   Неопреледено - отчет не найден.
 &AtServer
 Function НайтиЭлементДереваОтчет(Val ЭлементДерева)
@@ -1132,8 +1132,8 @@ Function СформироватьНаСервереВТабличныйДоку�
 			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
 			ОтобразитьПанельРезультатов();
 
@@ -1142,7 +1142,7 @@ Function СформироватьНаСервереВТабличныйДоку�
 			//			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(ДеревоОтчетов.FindByID(Items.ДеревоОтчетов.CurrentLine)).Data);
 			//			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema, Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
-			//			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			//			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			//			ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
 			//			ОтобразитьПанельРезультатов();
 			//			
@@ -1151,7 +1151,7 @@ Function СформироватьНаСервереВТабличныйДоку�
 			//			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(ДеревоОтчетов.FindByID(Items.ДеревоОтчетов.CurrentLine)).Data);
 			//			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings(), ДанныеРасшифровкиОбъект);
-			//			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			//			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			//			ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
 			//			ОтобразитьПанельРезультатов();
 		Else
@@ -1307,8 +1307,8 @@ Function СформироватьНаСервереВВидеXML()
 			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
 				DataCompositionSchema.DefaultSettings, ДанныеРасшифровкиОбъект);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
 			ОтобразитьПанельРезультатов();
 
@@ -1319,8 +1319,8 @@ Function СформироватьНаСервереВВидеXML()
 			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
 			ОтобразитьПанельРезультатов();
 
@@ -1331,8 +1331,8 @@ Function СформироватьНаСервереВВидеXML()
 			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
 				Report.SettingsComposer.GetSettings(), ДанныеРасшифровкиОбъект);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
 			ОтобразитьПанельРезультатов();
 
@@ -1445,8 +1445,8 @@ Function СформироватьНаСервереВМакетКомпонов�
 			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
 				DataCompositionSchema.DefaultSettings, ДанныеРасшифровкиОбъект);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
 			ОтобразитьПанельРезультатов();
 
@@ -1457,8 +1457,8 @@ Function СформироватьНаСервереВМакетКомпонов�
 			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
 			ОтобразитьПанельРезультатов();
 
@@ -1469,8 +1469,8 @@ Function СформироватьНаСервереВМакетКомпонов�
 			КомпоновщикМакета = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
 				Report.SettingsComposer.GetSettings(), ДанныеРасшифровкиОбъект);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
 			ОтобразитьПанельРезультатов();
 
@@ -1579,10 +1579,10 @@ Function СформироватьНаСервереВИсполняемыеНа�
 		If Item.ТипСтроки = 0 Then
 		// Report.
 			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ИсполняемыйКомпоновщикНастроек.Initialize(
-				New DataCompositionAvailableSettingsSource(АдресСхемыИсполненногоОтчета));
+				New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 			ИсполняемыйКомпоновщикНастроек.LoadSettings(DataCompositionSchema.DefaultSettings);
 			ОтобразитьПанельРезультатов();
 
@@ -1591,10 +1591,10 @@ Function СформироватьНаСервереВИсполняемыеНа�
 		// Variant отчета.
 			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
 				ДеревоОтчетов.FindByID(Items.ДеревоОтчетов.CurrentLine)).Data);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ИсполняемыйКомпоновщикНастроек.Initialize(
-				New DataCompositionAvailableSettingsSource(АдресСхемыИсполненногоОтчета));
+				New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 			ИсполняемыйКомпоновщикНастроек.LoadSettings(Report.SettingsComposer.Settings);
 			ОтобразитьПанельРезультатов();
 
@@ -1603,10 +1603,10 @@ Function СформироватьНаСервереВИсполняемыеНа�
 		// Settings отчета.
 			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
 				ДеревоОтчетов.FindByID(Items.ДеревоОтчетов.CurrentLine)).Data);
-			АдресСхемыИсполненногоОтчета = PutToTempStorage(DataCompositionSchema, ?(
-				АдресСхемыИсполненногоОтчета <> "", АдресСхемыИсполненногоОтчета, UUID));
+			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
+				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ИсполняемыйКомпоновщикНастроек.Initialize(
-				New DataCompositionAvailableSettingsSource(АдресСхемыИсполненногоОтчета));
+				New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 			ИсполняемыйКомпоновщикНастроек.LoadSettings(Report.SettingsComposer.GetSettings());
 			ОтобразитьПанельРезультатов();
 
@@ -3432,7 +3432,7 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
 
-		ПоляГруппировкиНедоступны();
+		GroupFieldsNotAvailable();
 		ВыбранныеПоляНедоступны();
 		ОтборНедоступен();
 		ПорядокНедоступен();
@@ -3442,7 +3442,7 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 	ElsIf ItemType = Type("DataCompositionSettings") Or ItemType = Type(
 		"DataCompositionNestedObjectSettings") Then
 
-		ПоляГруппировкиНедоступны();
+		GroupFieldsNotAvailable();
 
 		ЛокальныеВыбранныеПоля = True;
 		Items.ЛокальныеВыбранныеПоля.ReadOnly = True;
@@ -3477,7 +3477,7 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
-		ПоляГруппировкиНедоступны();
+		GroupFieldsNotAvailable();
 		ВыбранныеПоляДоступны(ЭлементСтруктуры);
 		ОтборНедоступен();
 		ПорядокНедоступен();
@@ -3500,7 +3500,7 @@ Procedure СтруктураПриАктивизацииСтроки1(Item)
 	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
 
-		ПоляГруппировкиНедоступны1();
+		GroupFieldsNotAvailable1();
 		ВыбранныеПоляНедоступны1();
 		ОтборНедоступен1();
 		ПорядокНедоступен1();
@@ -3510,7 +3510,7 @@ Procedure СтруктураПриАктивизацииСтроки1(Item)
 	ElsIf ItemType = Type("DataCompositionSettings") Or ItemType = Type(
 		"DataCompositionNestedObjectSettings") Then
 
-		ПоляГруппировкиНедоступны1();
+		GroupFieldsNotAvailable1();
 
 		ЛокальныеВыбранныеПоля1 = True;
 		Items.ЛокальныеВыбранныеПоля1.ReadOnly = True;
@@ -3545,7 +3545,7 @@ Procedure СтруктураПриАктивизацииСтроки1(Item)
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
-		ПоляГруппировкиНедоступны1();
+		GroupFieldsNotAvailable1();
 		ВыбранныеПоляДоступны1(ЭлементСтруктуры);
 		ОтборНедоступен1();
 		ПорядокНедоступен1();
@@ -3912,7 +3912,7 @@ Procedure РезультатТабличныйДокументОбработка
 
 	StandardProcessing = False;
 	DetailProcessing = New DataCompositionDetailsProcess(АдресДанныхРасшифровки,
-		New DataCompositionAvailableSettingsSource(АдресСхемыИсполненногоОтчета));
+		New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 	DetailProcessing.ShowActionChoice(
 		New NotifyDescription("РезультатТабличныйДокументОбработкаРасшифровкиЗавершение", ThisForm,
 		New Structure("Details", Details)), Details, , , , Items.РезультатТабличныйДокумент);
@@ -3925,7 +3925,7 @@ Procedure РезультатТабличныйДокументОбработка
 
 	StandardProcessing = False;
 	DetailProcessing = New DataCompositionDetailsProcess(АдресДанныхРасшифровки,
-		New DataCompositionAvailableSettingsSource(АдресСхемыИсполненногоОтчета));
+		New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 	DetailProcessing.ShowActionChoice(
 		New NotifyDescription("РезультатТабличныйДокументОбработкаРасшифровкиЗавершение", ThisForm,
 		New Structure("Details", Details)), Details, , , True, );
@@ -3949,7 +3949,7 @@ Procedure РезультатТабличныйДокументОбработка
 
 		OpenForm(ИмяФормыРасшифровки, New Structure("Details,DataCompositionSchemaURL",
 			New DataCompositionDetailsProcessDescription(АдресДанныхРасшифровки, Details,
-			ПараметрВыполненногоДействия), АдресСхемыИсполненногоОтчета), , True);
+			ПараметрВыполненногоДействия), ExecutedReportSchemaURL), , True);
 
 	EndIf;
 

@@ -1,22 +1,22 @@
 &AtClient
-Procedure ПоляГруппировкиНедоступны()
+Procedure GroupFieldsNotAvailable()
 
-	Items.СтраницыПолейГруппировки.CurrentPage = Items.НедоступныеНастройкиПолейГруппировки;
+	Items.GroupFieldsPages.CurrentPage = Items.UnavailableGroupFieldsSettings;
 
 EndProcedure
 
 &AtClient
-Procedure ВыбранныеПоляДоступны(ЭлементСтруктуры)
+Procedure ВыбранныеПоляДоступны(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemSelection(SettingsItem) Then
 
 		LocalSelectedFields = True;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
+		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
 
 	Else
 
 		LocalSelectedFields = False;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
+		Items.SelectionFieldsPages.CurrentPage = Items.DisabledSelectedFieldsSettings;
 
 	EndIf;
 
@@ -25,26 +25,91 @@ Procedure ВыбранныеПоляДоступны(ЭлементСтрукт�
 EndProcedure
 
 &AtClient
+Procedure SettingsOnActivateRow(Item)
+	SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
+		Items.Structure.CurrentLine);
+	ItemType = TypeOf(SettingsItem);
+
+	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
+		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
+
+		GroupFieldsNotAvailable();
+		ВыбранныеПоляНедоступны();
+		ОтборНедоступен();
+		ПорядокНедоступен();
+		УсловноеОформлениеНедоступно();
+		ПараметрыВыводаНедоступны();
+
+	ElsIf ItemType = Type("DataCompositionSettings") Or ItemType = Type(
+		"DataCompositionNestedObjectSettings") Then
+
+		GroupFieldsNotAvailable();
+
+		LocalSelectedFields = True;
+		Items.LocalSelectedFields.ReadOnly = True;
+		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
+
+		LocalFilter = True;
+		Items.LocalFilter.ReadOnly = True;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
+
+		LocalOrder = True;
+		Items.LocalOrder.ReadOnly = True;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
+
+		LocalConditionalAppearance = True;
+		Items.LocalConditionalAppearance.ReadOnly = True;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
+
+		LocalOutputParameters = True;
+		Items.LocalOutputParameters.ReadOnly = True;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
+
+	ElsIf ItemType = Type("DataCompositionGroup") Or ItemType = Type(
+		"DataCompositionTableGroup") Or ItemType = Type("DataCompositionChartGroup") Then
+
+		Items.GroupFieldsPages.CurrentPage = Items.GroupFieldsSettings;
+
+		ВыбранныеПоляДоступны(SettingsItem);
+		ОтборДоступен(SettingsItem);
+		ПорядокДоступен(SettingsItem);
+		УсловноеОформлениеДоступно(SettingsItem);
+		ПараметрыВыводаДоступны(SettingsItem);
+
+	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
+
+		GroupFieldsNotAvailable();
+		ВыбранныеПоляДоступны(SettingsItem);
+		ОтборНедоступен();
+		ПорядокНедоступен();
+		УсловноеОформлениеДоступно(SettingsItem);
+		ПараметрыВыводаДоступны(SettingsItem);
+
+	EndIf;
+EndProcedure
+
+
+&AtClient
 Procedure ВыбранныеПоляНедоступны()
 
 	LocalSelectedFields = False;
 	Items.LocalSelectedFields.ReadOnly = True;
-	Items.СтраницыПолейВыбора.CurrentPage = Items.НедоступныеНастройкиВыбранныхПолей;
+	Items.SelectionFieldsPages.CurrentPage = Items.UnavailableSelectedFieldsSettings;
 
 EndProcedure
 
 &AtClient
-Procedure ОтборДоступен(ЭлементСтруктуры)
+Procedure ОтборДоступен(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemFilter(SettingsItem) Then
 
 		LocalFilter = True;
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 	Else
 
 		LocalFilter = False;
-		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
 	EndIf;
 
@@ -57,22 +122,22 @@ Procedure ОтборНедоступен()
 
 	LocalFilter = False;
 	Items.LocalFilter.ReadOnly = True;
-	Items.СтраницыОтбора.CurrentPage = Items.НедоступныеНастройкиОтбора;
+	Items.FilterPages.CurrentPage = Items.UnavailableFilterSettings;
 
 EndProcedure
 
 &AtClient
-Procedure ПорядокДоступен(ЭлементСтруктуры)
+Procedure ПорядокДоступен(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemOrder(SettingsItem) Then
 
 		LocalOrder = True;
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 	Else
 
 		LocalOrder = False;
-		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
 	EndIf;
 
@@ -85,22 +150,22 @@ Procedure ПорядокНедоступен()
 
 	LocalOrder = False;
 	Items.LocalOrder.ReadOnly = True;
-	Items.СтраницыПорядка.CurrentPage = Items.НедоступныеНастройкиПорядка;
+	Items.OrderPages.CurrentPage = Items.UnavailableOrderSettings;
 
 EndProcedure
 
 &AtClient
-Procedure УсловноеОформлениеДоступно(ЭлементСтруктуры)
+Procedure УсловноеОформлениеДоступно(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(SettingsItem) Then
 
 		LocalConditionalAppearance = True;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 	Else
 
 		LocalConditionalAppearance = False;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
 	EndIf;
 
@@ -113,14 +178,14 @@ Procedure УсловноеОформлениеНедоступно()
 
 	LocalConditionalAppearance = False;
 	Items.LocalConditionalAppearance.ReadOnly = True;
-	Items.СтраницыУсловногоОформления.CurrentPage = Items.НедоступныеНастройкиУсловногоОформления;
+	Items.ConditionalAppearancePages.CurrentPage = Items.UnavailableConditionalAppearanceSettings;
 
 EndProcedure
 
 &AtClient
-Procedure ПараметрыВыводаДоступны(ЭлементСтруктуры)
+Procedure ПараметрыВыводаДоступны(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemOutputParameters(SettingsItem) Then
 
 		LocalOutputParameters = True;
 		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
@@ -146,8 +211,24 @@ Procedure ПараметрыВыводаНедоступны()
 EndProcedure
 
 &AtClient
-Procedure СтруктураПриАктивизацииПоля(Item)
+Procedure LocalSelectedFieldsOnChange(Item)
+	If LocalSelectedFields Then
 
+		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
+
+	Else
+
+		Items.SelectionFieldsPages.CurrentPage = Items.DisabledSelectedFieldsSettings;
+
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
+			Items.Structure.CurrentLine);
+		Report.SettingsComposer.Settings.ClearItemSelection(SettingsItem);
+
+	EndIf;
+EndProcedure
+
+&AtClient
+Procedure SettingsOnActivateField(Item)
 	Var ВыбраннаяСтраница;
 
 	If Items.Structure.CurrentItem.Name = "СтруктураНаличиеВыбора" Then
@@ -177,166 +258,74 @@ Procedure СтруктураПриАктивизацииПоля(Item)
 		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
 
 	EndIf;
-
-EndProcedure
-
-&AtClient
-Procedure СтруктураПриАктивизацииСтроки(Item)
-
-	ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
-		Items.Structure.CurrentLine);
-	ItemType = TypeOf(ЭлементСтруктуры);
-
-	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
-		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
-
-		ПоляГруппировкиНедоступны();
-		ВыбранныеПоляНедоступны();
-		ОтборНедоступен();
-		ПорядокНедоступен();
-		УсловноеОформлениеНедоступно();
-		ПараметрыВыводаНедоступны();
-
-	ElsIf ItemType = Type("DataCompositionSettings") Or ItemType = Type(
-		"DataCompositionNestedObjectSettings") Then
-
-		ПоляГруппировкиНедоступны();
-
-		LocalSelectedFields = True;
-		Items.LocalSelectedFields.ReadOnly = True;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
-
-		LocalFilter = True;
-		Items.LocalFilter.ReadOnly = True;
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
-
-		LocalOrder = True;
-		Items.LocalOrder.ReadOnly = True;
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
-
-		LocalConditionalAppearance = True;
-		Items.LocalConditionalAppearance.ReadOnly = True;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
-
-		LocalOutputParameters = True;
-		Items.LocalOutputParameters.ReadOnly = True;
-		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
-
-	ElsIf ItemType = Type("DataCompositionGroup") Or ItemType = Type(
-		"DataCompositionTableGroup") Or ItemType = Type("DataCompositionChartGroup") Then
-
-		Items.СтраницыПолейГруппировки.CurrentPage = Items.НастройкиПолейГруппировки;
-
-		ВыбранныеПоляДоступны(ЭлементСтруктуры);
-		ОтборДоступен(ЭлементСтруктуры);
-		ПорядокДоступен(ЭлементСтруктуры);
-		УсловноеОформлениеДоступно(ЭлементСтруктуры);
-		ПараметрыВыводаДоступны(ЭлементСтруктуры);
-
-	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
-
-		ПоляГруппировкиНедоступны();
-		ВыбранныеПоляДоступны(ЭлементСтруктуры);
-		ОтборНедоступен();
-		ПорядокНедоступен();
-		УсловноеОформлениеДоступно(ЭлементСтруктуры);
-		ПараметрыВыводаДоступны(ЭлементСтруктуры);
-
-	EndIf;
-
 EndProcedure
 
 &AtClient
 Procedure ПерейтиКОтчету(Item)
 
-	ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+	SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 		Items.Structure.CurrentLine);
-	ItemSettings =  Report.SettingsComposer.Settings.ItemSettings(ЭлементСтруктуры);
+	ItemSettings =  Report.SettingsComposer.Settings.ItemSettings(SettingsItem);
 	Items.Structure.CurrentLine = Report.SettingsComposer.Settings.GetIDByObject(
 		ItemSettings);
 
 EndProcedure
 
 &AtClient
-Procedure ЛокальныеВыбранныеПоляПриИзменении(Item)
-
-	If LocalSelectedFields Then
-
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
-
-	Else
-
-		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
-
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
-			Items.Structure.CurrentLine);
-		Report.SettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
-
-	EndIf;
-
-EndProcedure
-
-&AtClient
-Procedure ЛокальныйОтборПриИзменении(Item)
-
+Procedure LocalFilterOnChange(Item)
 	If LocalFilter Then
 
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 	Else
 
-		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentLine);
-		Report.SettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemFilter(SettingsItem);
 
 	EndIf;
 
 EndProcedure
 
 &AtClient
-Procedure ЛокальныйПорядокПриИзменении(Item)
-
+Procedure LocalOrderOnChange(Item)
 	If LocalOrder Then
 
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 	Else
 
-		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentLine);
-		Report.SettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemOrder(SettingsItem);
 
 	EndIf;
-
 EndProcedure
 
 &AtClient
-Procedure ЛокальноеУсловноеОформлениеПриИзменении(Item)
-
+Procedure LocalConditionalAppearanceOnChange(Item)
 	If LocalConditionalAppearance Then
 
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 	Else
 
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentLine);
-		Report.SettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemConditionalAppearance(SettingsItem);
 
 	EndIf;
-
 EndProcedure
 
 &AtClient
-Procedure ЛокальныеПараметрыВыводаПриИзменении(Item)
-
-	If LocalOutputParameters Then
+Procedure LocalOutputParametersOnChange(Item)
+		If LocalOutputParameters Then
 
 		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
@@ -344,19 +333,20 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 
 		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentLine);
-		Report.SettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemOutputParameters(SettingsItem);
 	EndIf;
-
+	
 EndProcedure
+
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	StandardProcessing = False;
-	If Parameters.АдресСхемыИсполненногоОтчета <> "" Then
+	If Parameters.ExecutedReportSchemaURL <> "" Then
 		Report.SettingsComposer.Initialize(
-			New DataCompositionAvailableSettingsSource(Parameters.АдресСхемыИсполненногоОтчета));
+			New DataCompositionAvailableSettingsSource(Parameters.ExecutedReportSchemaURL));
 		Report.SettingsComposer.LoadSettings(Parameters.Variant);
 	EndIf;
 EndProcedure

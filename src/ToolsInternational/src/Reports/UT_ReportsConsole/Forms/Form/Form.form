@@ -956,7 +956,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Отчет.SettingsComposer.Settings</segments>
+            <segments>Report.SettingsComposer.Settings</segments>
           </dataPath>
           <skipOnInput>false</skipOnInput>
           <titleLocation>None</titleLocation>
@@ -5858,7 +5858,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Отчет.SettingsComposer.UserSettings</segments>
+            <segments>Report.SettingsComposer.UserSettings</segments>
           </dataPath>
           <skipOnInput>false</skipOnInput>
           <titleLocation>None</titleLocation>
@@ -13226,7 +13226,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Отчет</name>
+    <name>Report</name>
+    <title>
+      <key>en</key>
+      <value>Report</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>ReportObject.UT_ReportsConsole</types>
@@ -13513,10 +13517,14 @@
     <extInfo xsi:type="form:SpreadsheetDocumentExtInfo"/>
   </attributes>
   <attributes>
-    <name>ИмяФайла</name>
+    <name>FileName</name>
     <title>
       <key>ru</key>
       <value>Имя файла</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>File name</value>
     </title>
     <id>8</id>
     <valueType>
@@ -13649,10 +13657,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресСхемыИсполненногоОтчета</name>
+    <name>ExecutedReportSchemaURL</name>
     <title>
       <key>ru</key>
       <value>Адрес схемы исполненного отчета</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Executed report schema URL</value>
     </title>
     <id>17</id>
     <valueType>

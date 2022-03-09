@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Table">
-    <name>Структура</name>
+    <name>Settings</name>
     <id>1</id>
+    <title>
+      <key>en</key>
+      <value>Settings table</value>
+    </title>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -14,7 +18,7 @@
     <skipOnInput>false</skipOnInput>
     <titleLocation>None</titleLocation>
     <autoCommandBar>
-      <name>СтруктураКоманднаяПанель</name>
+      <name>SettingsCommandBar</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -26,11 +30,11 @@
     </autoCommandBar>
     <handlers>
       <event>OnActivateRow</event>
-      <name>СтруктураПриАктивизацииСтроки</name>
+      <name>SettingsOnActivateRow</name>
     </handlers>
     <handlers>
       <event>OnActivateField</event>
-      <name>СтруктураПриАктивизацииПоля</name>
+      <name>SettingsOnActivateField</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -38,10 +42,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СтруктураСтрокаПоиска</name>
+      <name>SettingsSearchString</name>
       <id>125</id>
       <extendedTooltip>
-        <name>СтруктураСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>SettingsSearchStringExtendedTooltip</name>
         <id>127</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -56,7 +60,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СтруктураСтрокаПоискаКонтекстноеМеню</name>
+        <name>SettingsSearchStringContextMenu</name>
         <id>126</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -75,10 +79,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СтруктураСостояниеПросмотра</name>
+      <name>SettingsViewStatus</name>
       <id>128</id>
       <extendedTooltip>
-        <name>СтруктураСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>SettingsViewStatusExtendedTooltip</name>
         <id>130</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -93,7 +97,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СтруктураСостояниеПросмотраКонтекстноеМеню</name>
+        <name>SettingsViewStatusContextMenu</name>
         <id>129</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -114,10 +118,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>СтруктураУправлениеПоиском</name>
+      <name>SettingsSearchControl</name>
       <id>131</id>
       <extendedTooltip>
-        <name>СтруктураУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>SettingsSearchControlExtendedTooltip</name>
         <id>133</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -132,7 +136,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>СтруктураУправлениеПоискомКонтекстноеМеню</name>
+        <name>SettingsSearchControlContextMenu</name>
         <id>132</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -147,7 +151,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>СтруктураРасширеннаяПодсказка</name>
+      <name>SettingsExtendedTooltip</name>
       <id>124</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -162,7 +166,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>СтруктураКонтекстноеМеню</name>
+      <name>SettingsContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -204,20 +208,24 @@
       <name>DataParametersPage</name>
       <id>5</id>
       <items xsi:type="form:Table">
-        <name>ПараметрыДанных</name>
+        <name>DataParameters</name>
         <id>6</id>
+        <title>
+          <key>en</key>
+          <value>Parameter settings</value>
+        </title>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Items.Структура.CurrentData.ItemDataParameters</segments>
+          <segments>Items.Settings.CurrentData.ItemDataParameters</segments>
         </dataPath>
         <skipOnInput>false</skipOnInput>
         <titleLocation>None</titleLocation>
         <autoCommandBar>
-          <name>ПараметрыДанныхКоманднаяПанель</name>
+          <name>DataParametersCommandBar</name>
           <id>8</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -233,10 +241,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПараметрыДанныхСтрокаПоиска</name>
+          <name>DataParametersSearchString</name>
           <id>137</id>
           <extendedTooltip>
-            <name>ПараметрыДанныхСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>DataParametersSearchStringExtendedTooltip</name>
             <id>139</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -251,7 +259,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыДанныхСтрокаПоискаКонтекстноеМеню</name>
+            <name>DataParametersSearchStringContextMenu</name>
             <id>138</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -270,10 +278,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПараметрыДанныхСостояниеПросмотра</name>
+          <name>DataParametersViewStatus</name>
           <id>140</id>
           <extendedTooltip>
-            <name>ПараметрыДанныхСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>DataParametersViewStatusExtendedTooltip</name>
             <id>142</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -288,7 +296,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыДанныхСостояниеПросмотраКонтекстноеМеню</name>
+            <name>DataParametersViewStatusContextMenu</name>
             <id>141</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -309,10 +317,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПараметрыДанныхУправлениеПоиском</name>
+          <name>DataParametersSearchControl</name>
           <id>143</id>
           <extendedTooltip>
-            <name>ПараметрыДанныхУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>DataParametersSearchControlExtendedTooltip</name>
             <id>145</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -327,7 +335,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПараметрыДанныхУправлениеПоискомКонтекстноеМеню</name>
+            <name>DataParametersSearchControlContextMenu</name>
             <id>144</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -342,7 +350,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ПараметрыДанныхРасширеннаяПодсказка</name>
+          <name>DataParametersExtendedTooltip</name>
           <id>136</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -357,7 +365,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПараметрыДанныхКонтекстноеМеню</name>
+          <name>DataParametersContextMenu</name>
           <id>7</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -432,20 +440,24 @@
       <name>UserFieldsPage</name>
       <id>9</id>
       <items xsi:type="form:Table">
-        <name>ПользовательскиеПоля</name>
+        <name>UserFields</name>
         <id>10</id>
+        <title>
+          <key>en</key>
+          <value>User-defined field settings</value>
+        </title>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Items.Структура.CurrentData.ItemUserFields</segments>
+          <segments>Items.Settings.CurrentData.ItemUserFields</segments>
         </dataPath>
         <skipOnInput>false</skipOnInput>
         <titleLocation>None</titleLocation>
         <autoCommandBar>
-          <name>ПользовательскиеПоляКоманднаяПанель</name>
+          <name>UserFieldsCommandBar</name>
           <id>12</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -461,10 +473,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПользовательскиеПоляСтрокаПоиска</name>
+          <name>UserFieldsSearchString</name>
           <id>148</id>
           <extendedTooltip>
-            <name>ПользовательскиеПоляСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>UserFieldsSearchStringExtendedTooltip</name>
             <id>150</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -479,7 +491,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПользовательскиеПоляСтрокаПоискаКонтекстноеМеню</name>
+            <name>UserFieldsSearchStringContextMenu</name>
             <id>149</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -498,10 +510,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПользовательскиеПоляСостояниеПросмотра</name>
+          <name>UserFieldsViewStatus</name>
           <id>151</id>
           <extendedTooltip>
-            <name>ПользовательскиеПоляСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>UserFieldsViewStatusExtendedTooltip</name>
             <id>153</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -516,7 +528,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПользовательскиеПоляСостояниеПросмотраКонтекстноеМеню</name>
+            <name>UserFieldsViewStatusContextMenu</name>
             <id>152</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -537,10 +549,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ПользовательскиеПоляУправлениеПоиском</name>
+          <name>UserFieldsSearchControl</name>
           <id>154</id>
           <extendedTooltip>
-            <name>ПользовательскиеПоляУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>UserFieldsSearchControlExtendedTooltip</name>
             <id>156</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -555,7 +567,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ПользовательскиеПоляУправлениеПоискомКонтекстноеМеню</name>
+            <name>UserFieldsSearchControlContextMenu</name>
             <id>155</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -570,7 +582,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ПользовательскиеПоляРасширеннаяПодсказка</name>
+          <name>UserFieldsExtendedTooltip</name>
           <id>147</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -585,7 +597,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПользовательскиеПоляКонтекстноеМеню</name>
+          <name>UserFieldsContextMenu</name>
           <id>11</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -658,26 +670,30 @@
       <name>GroupFieldsPage</name>
       <id>13</id>
       <items xsi:type="form:FormGroup">
-        <name>СтраницыПолейГруппировки</name>
+        <name>GroupFieldsPages</name>
         <id>14</id>
         <items xsi:type="form:FormGroup">
-          <name>НастройкиПолейГруппировки</name>
+          <name>GroupFieldsSettings</name>
           <id>15</id>
           <items xsi:type="form:Table">
-            <name>ДоступныеПоляГруппировки</name>
+            <name>GroupFieldsAvailableFields</name>
             <id>16</id>
+            <title>
+              <key>en</key>
+              <value>Available fields of grouped fields</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemGroupFields.GroupFieldsAvailableFields</segments>
+              <segments>Items.Settings.CurrentData.ItemGroupFields.GroupFieldsAvailableFields</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ДоступныеПоляГруппировкиКоманднаяПанель</name>
+              <name>GroupFieldsAvailableFieldsCommandBar</name>
               <id>18</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -693,10 +709,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляГруппировкиСтрокаПоиска</name>
+              <name>GroupFieldsAvailableFieldsSearchString</name>
               <id>161</id>
               <extendedTooltip>
-                <name>ДоступныеПоляГруппировкиСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>GroupFieldsAvailableFieldsSearchStringExtendedTooltip</name>
                 <id>163</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -711,7 +727,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляГруппировкиСтрокаПоискаКонтекстноеМеню</name>
+                <name>GroupFieldsAvailableFieldsSearchStringContextMenu</name>
                 <id>162</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -730,10 +746,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляГруппировкиСостояниеПросмотра</name>
+              <name>GroupFieldsAvailableFieldsViewStatus</name>
               <id>164</id>
               <extendedTooltip>
-                <name>ДоступныеПоляГруппировкиСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>GroupFieldsAvailableFieldsViewStatusExtendedTooltip</name>
                 <id>166</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -748,7 +764,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляГруппировкиСостояниеПросмотраКонтекстноеМеню</name>
+                <name>GroupFieldsAvailableFieldsViewStatusContextMenu</name>
                 <id>165</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -769,10 +785,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляГруппировкиУправлениеПоиском</name>
+              <name>GroupFieldsAvailableFieldsSearchControl</name>
               <id>167</id>
               <extendedTooltip>
-                <name>ДоступныеПоляГруппировкиУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>GroupFieldsAvailableFieldsSearchControlExtendedTooltip</name>
                 <id>169</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -787,7 +803,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляГруппировкиУправлениеПоискомКонтекстноеМеню</name>
+                <name>GroupFieldsAvailableFieldsSearchControlContextMenu</name>
                 <id>168</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -802,7 +818,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ДоступныеПоляГруппировкиРасширеннаяПодсказка</name>
+              <name>GroupFieldsAvailableFieldsExtendedTooltip</name>
               <id>160</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -817,7 +833,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДоступныеПоляГруппировкиКонтекстноеМеню</name>
+              <name>GroupFieldsAvailableFieldsContextMenu</name>
               <id>17</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -853,20 +869,24 @@
             <searchControlLocation>None</searchControlLocation>
           </items>
           <items xsi:type="form:Table">
-            <name>ПоляГруппировки</name>
+            <name>GroupFields</name>
             <id>19</id>
+            <title>
+              <key>en</key>
+              <value>Grouped fields table</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemGroupFields</segments>
+              <segments>Items.Settings.CurrentData.ItemGroupFields</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ПоляГруппировкиКоманднаяПанель</name>
+              <name>GroupFieldsCommandBar</name>
               <id>21</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -882,10 +902,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПоляГруппировкиСтрокаПоиска</name>
+              <name>GroupFieldsSearchString</name>
               <id>171</id>
               <extendedTooltip>
-                <name>ПоляГруппировкиСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>GroupFieldsSearchStringExtendedTooltip</name>
                 <id>173</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -900,7 +920,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПоляГруппировкиСтрокаПоискаКонтекстноеМеню</name>
+                <name>GroupFieldsSearchStringContextMenu</name>
                 <id>172</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -919,10 +939,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПоляГруппировкиСостояниеПросмотра</name>
+              <name>GroupFieldsViewStatus</name>
               <id>174</id>
               <extendedTooltip>
-                <name>ПоляГруппировкиСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>GroupFieldsViewStatusExtendedTooltip</name>
                 <id>176</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -937,7 +957,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПоляГруппировкиСостояниеПросмотраКонтекстноеМеню</name>
+                <name>GroupFieldsViewStatusContextMenu</name>
                 <id>175</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -958,10 +978,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПоляГруппировкиУправлениеПоиском</name>
+              <name>GroupFieldsSearchControl</name>
               <id>177</id>
               <extendedTooltip>
-                <name>ПоляГруппировкиУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>GroupFieldsSearchControlExtendedTooltip</name>
                 <id>179</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -976,7 +996,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПоляГруппировкиУправлениеПоискомКонтекстноеМеню</name>
+                <name>GroupFieldsSearchControlContextMenu</name>
                 <id>178</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -991,7 +1011,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ПоляГруппировкиРасширеннаяПодсказка</name>
+              <name>GroupFieldsExtendedTooltip</name>
               <id>170</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1006,7 +1026,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПоляГруппировкиКонтекстноеМеню</name>
+              <name>GroupFieldsContextMenu</name>
               <id>20</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1044,8 +1064,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Group fields settings</value>
+          </title>
           <extendedTooltip>
-            <name>НастройкиПолейГруппировкиРасширеннаяПодсказка</name>
+            <name>GroupFieldsSettingsExtendedTooltip</name>
             <id>159</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1066,11 +1090,16 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>НедоступныеНастройкиПолейГруппировки</name>
+          <name>UnavailableGroupFieldsSettings</name>
           <id>22</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьНедоступныхПолейГруппировки</name>
+            <name>UnavailableGroupFieldsLabel</name>
             <id>23</id>
+            <title>
+              <key>en</key>
+              <value>The item cannot contain grouping fields.
+Browse the structure tree and select a grouping to view or edit grouping field structure.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Текущий элемент не может содержать поля группировки.
@@ -1082,7 +1111,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьНедоступныхПолейГруппировкиРасширеннаяПодсказка</name>
+              <name>UnavailableGroupFieldsLabelExtendedTooltip</name>
               <id>181</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1097,7 +1126,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьНедоступныхПолейГруппировкиКонтекстноеМеню</name>
+              <name>UnavailableGroupFieldsLabelContextMenu</name>
               <id>24</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1122,8 +1151,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Unavailable group fields settings</value>
+          </title>
           <extendedTooltip>
-            <name>НедоступныеНастройкиПолейГруппировкиРасширеннаяПодсказка</name>
+            <name>UnavailableGroupFieldsSettingsExtendedTooltip</name>
             <id>180</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1148,8 +1181,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Group fields pages</value>
+        </title>
         <extendedTooltip>
-          <name>СтраницыПолейГруппировкиРасширеннаяПодсказка</name>
+          <name>GroupFieldsPagesExtendedTooltip</name>
           <id>158</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1209,8 +1246,12 @@
       <name>SelectionFieldsPage</name>
       <id>25</id>
       <items xsi:type="form:FormField">
-        <name>ЛокальныеВыбранныеПоля</name>
+        <name>LocalSelectedFields</name>
         <id>26</id>
+        <title>
+          <key>en</key>
+          <value>Assign the item with personal field settings</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Текущий элемент имеет собственные настройки выбранных полей (для детальной настройки элемента)</value>
@@ -1228,10 +1269,10 @@
         <titleLocation>Right</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>ЛокальныеВыбранныеПоляПриИзменении</name>
+          <name>LocalSelectedFieldsOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ЛокальныеВыбранныеПоляРасширеннаяПодсказка</name>
+          <name>LocalSelectedFieldsExtendedTooltip</name>
           <id>183</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1246,7 +1287,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ЛокальныеВыбранныеПоляКонтекстноеМеню</name>
+          <name>LocalSelectedFieldsContextMenu</name>
           <id>27</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1263,26 +1304,30 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницыПолейВыбора</name>
+        <name>SelectionFieldsPages</name>
         <id>28</id>
         <items xsi:type="form:FormGroup">
-          <name>НастройкиВыбранныхПолей</name>
+          <name>SelectedFieldsSettings</name>
           <id>29</id>
           <items xsi:type="form:Table">
-            <name>ДоступныеПоляВыбора</name>
+            <name>SelectionAvailableFields</name>
             <id>30</id>
+            <title>
+              <key>en</key>
+              <value>Available fields of fields</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemSelection.SelectionAvailableFields</segments>
+              <segments>Items.Settings.CurrentData.ItemSelection.SelectionAvailableFields</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ДоступныеПоляВыбораКоманднаяПанель</name>
+              <name>SelectionAvailableFieldsCommandBar</name>
               <id>32</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1298,10 +1343,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляВыбораСтрокаПоиска</name>
+              <name>SelectionAvailableFieldsSearchString</name>
               <id>187</id>
               <extendedTooltip>
-                <name>ДоступныеПоляВыбораСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>SelectionAvailableFieldsSearchStringExtendedTooltip</name>
                 <id>189</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1316,7 +1361,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляВыбораСтрокаПоискаКонтекстноеМеню</name>
+                <name>SelectionAvailableFieldsSearchStringContextMenu</name>
                 <id>188</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1335,10 +1380,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляВыбораСостояниеПросмотра</name>
+              <name>SelectionAvailableFieldsViewStatus</name>
               <id>190</id>
               <extendedTooltip>
-                <name>ДоступныеПоляВыбораСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>SelectionAvailableFieldsViewStatusExtendedTooltip</name>
                 <id>192</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1353,7 +1398,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляВыбораСостояниеПросмотраКонтекстноеМеню</name>
+                <name>SelectionAvailableFieldsViewStatusContextMenu</name>
                 <id>191</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1374,10 +1419,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляВыбораУправлениеПоиском</name>
+              <name>SelectionAvailableFieldsSearchControl</name>
               <id>193</id>
               <extendedTooltip>
-                <name>ДоступныеПоляВыбораУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>SelectionAvailableFieldsSearchControlExtendedTooltip</name>
                 <id>195</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1392,7 +1437,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляВыбораУправлениеПоискомКонтекстноеМеню</name>
+                <name>SelectionAvailableFieldsSearchControlContextMenu</name>
                 <id>194</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1407,7 +1452,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ДоступныеПоляВыбораРасширеннаяПодсказка</name>
+              <name>SelectionAvailableFieldsExtendedTooltip</name>
               <id>186</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1422,7 +1467,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДоступныеПоляВыбораКонтекстноеМеню</name>
+              <name>SelectionAvailableFieldsContextMenu</name>
               <id>31</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1458,20 +1503,24 @@
             <searchControlLocation>None</searchControlLocation>
           </items>
           <items xsi:type="form:Table">
-            <name>ПоляВыбора</name>
+            <name>Selection</name>
             <id>33</id>
+            <title>
+              <key>en</key>
+              <value>Fields table</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemSelection</segments>
+              <segments>Items.Settings.CurrentData.ItemSelection</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ПоляВыбораКоманднаяПанель</name>
+              <name>SelectionCommandBar</name>
               <id>35</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1487,10 +1536,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПоляВыбораСтрокаПоиска</name>
+              <name>SelectionSearchString</name>
               <id>197</id>
               <extendedTooltip>
-                <name>ПоляВыбораСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>SelectionSearchStringExtendedTooltip</name>
                 <id>199</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1505,7 +1554,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПоляВыбораСтрокаПоискаКонтекстноеМеню</name>
+                <name>SelectionSearchStringContextMenu</name>
                 <id>198</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1524,10 +1573,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПоляВыбораСостояниеПросмотра</name>
+              <name>SelectionViewStatus</name>
               <id>200</id>
               <extendedTooltip>
-                <name>ПоляВыбораСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>SelectionViewStatusExtendedTooltip</name>
                 <id>202</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1542,7 +1591,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПоляВыбораСостояниеПросмотраКонтекстноеМеню</name>
+                <name>SelectionViewStatusContextMenu</name>
                 <id>201</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1563,10 +1612,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПоляВыбораУправлениеПоиском</name>
+              <name>SelectionSearchControl</name>
               <id>203</id>
               <extendedTooltip>
-                <name>ПоляВыбораУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>SelectionSearchControlExtendedTooltip</name>
                 <id>205</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1581,7 +1630,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПоляВыбораУправлениеПоискомКонтекстноеМеню</name>
+                <name>SelectionSearchControlContextMenu</name>
                 <id>204</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1596,7 +1645,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ПоляВыбораРасширеннаяПодсказка</name>
+              <name>SelectionExtendedTooltip</name>
               <id>196</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1611,7 +1660,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПоляВыбораКонтекстноеМеню</name>
+              <name>SelectionContextMenu</name>
               <id>34</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1651,8 +1700,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Selected fields settings</value>
+          </title>
           <extendedTooltip>
-            <name>НастройкиВыбранныхПолейРасширеннаяПодсказка</name>
+            <name>SelectedFieldsSettingsExtendedTooltip</name>
             <id>185</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1673,11 +1726,17 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ОтключенныеНастройкиВыбранныхПолей</name>
+          <name>DisabledSelectedFieldsSettings</name>
           <id>36</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьЛокальныхВыбранныхПолей</name>
+            <name>LocalSelectedFieldsLabel</name>
             <id>37</id>
+            <title>
+              <key>en</key>
+              <value>The item adopts selected fields from the report.
+In the report structure tree, select the item and then select required fields.
+To add custom fields, select the check box above.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Выбранные поля для текущего элемента будут автоматически формироваться на основании выбранных полей всего отчета.
@@ -1690,7 +1749,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьЛокальныхВыбранныхПолейРасширеннаяПодсказка</name>
+              <name>LocalSelectedFieldsLabelExtendedTooltip</name>
               <id>207</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1705,7 +1764,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьЛокальныхВыбранныхПолейКонтекстноеМеню</name>
+              <name>LocalSelectedFieldsLabelContextMenu</name>
               <id>38</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1726,8 +1785,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКВыбраннымПолямОтчета</name>
+            <name>GoToSelectedReportFields</name>
             <id>39</id>
+            <title>
+              <key>en</key>
+              <value>View selected report fields</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к выбранным полям отчета.</value>
@@ -1738,7 +1801,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКВыбраннымПолямОтчетаРасширеннаяПодсказка</name>
+              <name>GoToSelectedReportFieldsExtendedTooltip</name>
               <id>208</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1753,7 +1816,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКВыбраннымПолямОтчетаКонтекстноеМеню</name>
+              <name>GoToSelectedReportFieldsContextMenu</name>
               <id>40</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1780,8 +1843,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Disabled selected fields settings</value>
+          </title>
           <extendedTooltip>
-            <name>ОтключенныеНастройкиВыбранныхПолейРасширеннаяПодсказка</name>
+            <name>DisabledSelectedFieldsSettingsExtendedTooltip</name>
             <id>206</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1802,11 +1869,16 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>НедоступныеНастройкиВыбранныхПолей</name>
+          <name>UnavailableSelectedFieldsSettings</name>
           <id>41</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьНедоступныхВыбранныхПолей</name>
+            <name>UnavailableSelectedFieldsLabel</name>
             <id>42</id>
+            <title>
+              <key>en</key>
+              <value>Cannot add selected fields to the item.
+In the report structure tree, select the item and then select required fields.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>У текущего элемента не могут быть установлены выбранные поля.
@@ -1818,7 +1890,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьНедоступныхВыбранныхПолейРасширеннаяПодсказка</name>
+              <name>UnavailableSelectedFieldsLabelExtendedTooltip</name>
               <id>210</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1833,7 +1905,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьНедоступныхВыбранныхПолейКонтекстноеМеню</name>
+              <name>UnavailableSelectedFieldsLabelContextMenu</name>
               <id>43</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1854,8 +1926,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКВыбраннымПолямОтчета1</name>
+            <name>GoToSelectedReportFields1</name>
             <id>44</id>
+            <title>
+              <key>en</key>
+              <value>View selected report fields</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к выбранным полям отчета.</value>
@@ -1866,7 +1942,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКВыбраннымПолямОтчета1РасширеннаяПодсказка</name>
+              <name>GoToSelectedReportFields1ExtendedTooltip</name>
               <id>211</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1881,7 +1957,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКВыбраннымПолямОтчета1КонтекстноеМеню</name>
+              <name>GoToSelectedReportFields1ContextMenu</name>
               <id>45</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1908,8 +1984,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Unavailable selected fields settings</value>
+          </title>
           <extendedTooltip>
-            <name>НедоступныеНастройкиВыбранныхПолейРасширеннаяПодсказка</name>
+            <name>UnavailableSelectedFieldsSettingsExtendedTooltip</name>
             <id>209</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1934,8 +2014,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Fields pages</value>
+        </title>
         <extendedTooltip>
-          <name>СтраницыПолейВыбораРасширеннаяПодсказка</name>
+          <name>SelectionFieldsPagesExtendedTooltip</name>
           <id>184</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1995,8 +2079,12 @@
       <name>FilterPage</name>
       <id>46</id>
       <items xsi:type="form:FormField">
-        <name>ЛокальныйОтбор</name>
+        <name>LocalFilter</name>
         <id>47</id>
+        <title>
+          <key>en</key>
+          <value>Assign the item with personal filters to filter item records</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Текущий элемент имеет собственный отбор (для фильтрации записей, выводимых в элементе)</value>
@@ -2014,10 +2102,10 @@
         <titleLocation>Right</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>ЛокальныйОтборПриИзменении</name>
+          <name>LocalFilterOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ЛокальныйОтборРасширеннаяПодсказка</name>
+          <name>LocalFilterExtendedTooltip</name>
           <id>213</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2032,7 +2120,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ЛокальныйОтборКонтекстноеМеню</name>
+          <name>LocalFilterContextMenu</name>
           <id>48</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2049,26 +2137,30 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницыОтбора</name>
+        <name>FilterPages</name>
         <id>49</id>
         <items xsi:type="form:FormGroup">
-          <name>НастройкиОтбора</name>
+          <name>FilterSettings</name>
           <id>50</id>
           <items xsi:type="form:Table">
-            <name>ДоступныеПоляОтбора</name>
+            <name>AvailableFilterFields</name>
             <id>51</id>
+            <title>
+              <key>en</key>
+              <value>Available filter fields</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemFilter.FilterAvailableFields</segments>
+              <segments>Items.Settings.CurrentData.ItemFilter.FilterAvailableFields</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ДоступныеПоляОтбораКоманднаяПанель</name>
+              <name>AvailableFilterFieldsCommandBar</name>
               <id>53</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2084,10 +2176,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляОтбораСтрокаПоиска</name>
+              <name>AvailableFilterFieldsSearchString</name>
               <id>217</id>
               <extendedTooltip>
-                <name>ДоступныеПоляОтбораСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>AvailableFilterFieldsSearchStringExtendedTooltip</name>
                 <id>219</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2102,7 +2194,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляОтбораСтрокаПоискаКонтекстноеМеню</name>
+                <name>AvailableFilterFieldsSearchStringContextMenu</name>
                 <id>218</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2121,10 +2213,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляОтбораСостояниеПросмотра</name>
+              <name>AvailableFilterFieldsViewStatus</name>
               <id>220</id>
               <extendedTooltip>
-                <name>ДоступныеПоляОтбораСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>AvailableFilterFieldsViewStatusExtendedTooltip</name>
                 <id>222</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2139,7 +2231,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляОтбораСостояниеПросмотраКонтекстноеМеню</name>
+                <name>AvailableFilterFieldsViewStatusContextMenu</name>
                 <id>221</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2160,10 +2252,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляОтбораУправлениеПоиском</name>
+              <name>AvailableFilterFieldsSearchControl</name>
               <id>223</id>
               <extendedTooltip>
-                <name>ДоступныеПоляОтбораУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>AvailableFilterFieldsSearchControlExtendedTooltip</name>
                 <id>225</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2178,7 +2270,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляОтбораУправлениеПоискомКонтекстноеМеню</name>
+                <name>AvailableFilterFieldsSearchControlContextMenu</name>
                 <id>224</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2193,7 +2285,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ДоступныеПоляОтбораРасширеннаяПодсказка</name>
+              <name>AvailableFilterFieldsExtendedTooltip</name>
               <id>216</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2208,7 +2300,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДоступныеПоляОтбораКонтекстноеМеню</name>
+              <name>AvailableFilterFieldsContextMenu</name>
               <id>52</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2244,20 +2336,24 @@
             <searchControlLocation>None</searchControlLocation>
           </items>
           <items xsi:type="form:Table">
-            <name>Отбор</name>
+            <name>Filter</name>
             <id>54</id>
+            <title>
+              <key>en</key>
+              <value>Filter table</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemFilter</segments>
+              <segments>Items.Settings.CurrentData.ItemFilter</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ОтборКоманднаяПанель</name>
+              <name>FilterCommandBar</name>
               <id>56</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2273,10 +2369,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ОтборСтрокаПоиска</name>
+              <name>FilterSearchString</name>
               <id>227</id>
               <extendedTooltip>
-                <name>ОтборСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>FilterSearchStringExtendedTooltip</name>
                 <id>229</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2291,7 +2387,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ОтборСтрокаПоискаКонтекстноеМеню</name>
+                <name>FilterSearchStringContextMenu</name>
                 <id>228</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2310,10 +2406,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ОтборСостояниеПросмотра</name>
+              <name>FilterViewStatus</name>
               <id>230</id>
               <extendedTooltip>
-                <name>ОтборСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>FilterViewStatusExtendedTooltip</name>
                 <id>232</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2328,7 +2424,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ОтборСостояниеПросмотраКонтекстноеМеню</name>
+                <name>FilterViewStatusContextMenu</name>
                 <id>231</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2349,10 +2445,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ОтборУправлениеПоиском</name>
+              <name>FilterSearchControl</name>
               <id>233</id>
               <extendedTooltip>
-                <name>ОтборУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>FilterSearchControlExtendedTooltip</name>
                 <id>235</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2367,7 +2463,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ОтборУправлениеПоискомКонтекстноеМеню</name>
+                <name>FilterSearchControlContextMenu</name>
                 <id>234</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2382,7 +2478,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ОтборРасширеннаяПодсказка</name>
+              <name>FilterExtendedTooltip</name>
               <id>226</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2397,7 +2493,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ОтборКонтекстноеМеню</name>
+              <name>FilterContextMenu</name>
               <id>55</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2439,8 +2535,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Filter settings</value>
+          </title>
           <extendedTooltip>
-            <name>НастройкиОтбораРасширеннаяПодсказка</name>
+            <name>FilterSettingsExtendedTooltip</name>
             <id>215</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2461,11 +2561,17 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ОтключенныеНастройкиОтбора</name>
+          <name>DisabledFilterSettings</name>
           <id>57</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьЛокальногоОтбора</name>
+            <name>LocalFilterLabel</name>
             <id>58</id>
+            <title>
+              <key>en</key>
+              <value>No filter is assigned to the item.
+In the structure tree, select the report and edit report filters.
+To assign the item with a personal filter, select the check box above.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>В текущем элементе отбор не установлен.
@@ -2478,7 +2584,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьЛокальногоОтбораРасширеннаяПодсказка</name>
+              <name>LocalFilterLabelExtendedTooltip</name>
               <id>237</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2493,7 +2599,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьЛокальногоОтбораКонтекстноеМеню</name>
+              <name>LocalFilterLabelContextMenu</name>
               <id>59</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2514,8 +2620,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКОтборуОтчета</name>
+            <name>GoToReportFilter</name>
             <id>60</id>
+            <title>
+              <key>en</key>
+              <value>View report filters</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к отбору отчета.</value>
@@ -2526,7 +2636,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКОтборуОтчетаРасширеннаяПодсказка</name>
+              <name>GoToReportFilterExtendedTooltip</name>
               <id>238</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2541,7 +2651,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКОтборуОтчетаКонтекстноеМеню</name>
+              <name>GoToReportFilterContextMenu</name>
               <id>61</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2568,8 +2678,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Disabled filter settings</value>
+          </title>
           <extendedTooltip>
-            <name>ОтключенныеНастройкиОтбораРасширеннаяПодсказка</name>
+            <name>DisabledFilterSettingsExtendedTooltip</name>
             <id>236</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2590,11 +2704,16 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>НедоступныеНастройкиОтбора</name>
+          <name>UnavailableFilterSettings</name>
           <id>62</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьНедоступногоОтбора</name>
+            <name>UnavailableFilterLabel</name>
             <id>63</id>
+            <title>
+              <key>en</key>
+              <value>Cannot assign filters to the item.
+In the structure tree, select the report and edit report filters.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>У текущего элемента не может быть установлен отбор.
@@ -2606,7 +2725,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьНедоступногоОтбораРасширеннаяПодсказка</name>
+              <name>UnavailableFilterLabelExtendedTooltip</name>
               <id>240</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2621,7 +2740,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьНедоступногоОтбораКонтекстноеМеню</name>
+              <name>UnavailableFilterLabelContextMenu</name>
               <id>64</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2642,8 +2761,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКОтборуОтчета1</name>
+            <name>GoToReportFilter1</name>
             <id>65</id>
+            <title>
+              <key>en</key>
+              <value>View report filters</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к отбору отчета.</value>
@@ -2654,7 +2777,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКОтборуОтчета1РасширеннаяПодсказка</name>
+              <name>GoToReportFilter1ExtendedTooltip</name>
               <id>241</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2669,7 +2792,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКОтборуОтчета1КонтекстноеМеню</name>
+              <name>GoToReportFilter1ContextMenu</name>
               <id>66</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2696,8 +2819,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Unavailable filter settings</value>
+          </title>
           <extendedTooltip>
-            <name>НедоступныеНастройкиОтбораРасширеннаяПодсказка</name>
+            <name>UnavailableFilterSettingsExtendedTooltip</name>
             <id>239</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2722,8 +2849,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Filter pages</value>
+        </title>
         <extendedTooltip>
-          <name>СтраницыОтбораРасширеннаяПодсказка</name>
+          <name>FilterPagesExtendedTooltip</name>
           <id>214</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2783,8 +2914,12 @@
       <name>OrderPage</name>
       <id>67</id>
       <items xsi:type="form:FormField">
-        <name>ЛокальныйПорядок</name>
+        <name>LocalOrder</name>
         <id>68</id>
+        <title>
+          <key>en</key>
+          <value>Assign the item with personal sorts to sort item records</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Текущий элемент имеет собственную сортировку (для  упорядочивания записей, выводимых в элементе)</value>
@@ -2802,10 +2937,10 @@
         <titleLocation>Right</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>ЛокальныйПорядокПриИзменении</name>
+          <name>LocalOrderOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ЛокальныйПорядокРасширеннаяПодсказка</name>
+          <name>LocalOrderExtendedTooltip</name>
           <id>243</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2820,7 +2955,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ЛокальныйПорядокКонтекстноеМеню</name>
+          <name>LocalOrderContextMenu</name>
           <id>69</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2837,26 +2972,30 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницыПорядка</name>
+        <name>OrderPages</name>
         <id>70</id>
         <items xsi:type="form:FormGroup">
-          <name>НастройкиПорядка</name>
+          <name>OrderSettings</name>
           <id>71</id>
           <items xsi:type="form:Table">
-            <name>ДоступныеПоляПорядка</name>
+            <name>AvailableOrderFields</name>
             <id>72</id>
+            <title>
+              <key>en</key>
+              <value>Available sort fields</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemOrder.OrderAvailableFields</segments>
+              <segments>Items.Settings.CurrentData.ItemOrder.OrderAvailableFields</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ДоступныеПоляПорядкаКоманднаяПанель</name>
+              <name>AvailableOrderFieldsCommandBar</name>
               <id>74</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2872,10 +3011,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляПорядкаСтрокаПоиска</name>
+              <name>AvailableOrderFieldsSearchString</name>
               <id>247</id>
               <extendedTooltip>
-                <name>ДоступныеПоляПорядкаСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>AvailableOrderFieldsSearchStringExtendedTooltip</name>
                 <id>249</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2890,7 +3029,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляПорядкаСтрокаПоискаКонтекстноеМеню</name>
+                <name>AvailableOrderFieldsSearchStringContextMenu</name>
                 <id>248</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2909,10 +3048,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляПорядкаСостояниеПросмотра</name>
+              <name>AvailableOrderFieldsViewStatus</name>
               <id>250</id>
               <extendedTooltip>
-                <name>ДоступныеПоляПорядкаСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>AvailableOrderFieldsViewStatusExtendedTooltip</name>
                 <id>252</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2927,7 +3066,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляПорядкаСостояниеПросмотраКонтекстноеМеню</name>
+                <name>AvailableOrderFieldsViewStatusContextMenu</name>
                 <id>251</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2948,10 +3087,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеПоляПорядкаУправлениеПоиском</name>
+              <name>AvailableOrderFieldsSearchControl</name>
               <id>253</id>
               <extendedTooltip>
-                <name>ДоступныеПоляПорядкаУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>AvailableOrderFieldsSearchControlExtendedTooltip</name>
                 <id>255</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2966,7 +3105,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеПоляПорядкаУправлениеПоискомКонтекстноеМеню</name>
+                <name>AvailableOrderFieldsSearchControlContextMenu</name>
                 <id>254</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2981,7 +3120,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ДоступныеПоляПорядкаРасширеннаяПодсказка</name>
+              <name>AvailableOrderFieldsExtendedTooltip</name>
               <id>246</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2996,7 +3135,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДоступныеПоляПорядкаКонтекстноеМеню</name>
+              <name>AvailableOrderFieldsContextMenu</name>
               <id>73</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3032,20 +3171,24 @@
             <searchControlLocation>None</searchControlLocation>
           </items>
           <items xsi:type="form:Table">
-            <name>Порядок</name>
+            <name>Order</name>
             <id>75</id>
+            <title>
+              <key>en</key>
+              <value>Sort table</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemOrder</segments>
+              <segments>Items.Settings.CurrentData.ItemOrder</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>ПорядокКоманднаяПанель</name>
+              <name>OrderCommandBar</name>
               <id>77</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3061,10 +3204,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПорядокСтрокаПоиска</name>
+              <name>OrderSearchString</name>
               <id>257</id>
               <extendedTooltip>
-                <name>ПорядокСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>OrderSearchStringExtendedTooltip</name>
                 <id>259</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3079,7 +3222,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПорядокСтрокаПоискаКонтекстноеМеню</name>
+                <name>OrderSearchStringContextMenu</name>
                 <id>258</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3098,10 +3241,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПорядокСостояниеПросмотра</name>
+              <name>OrderViewStatus</name>
               <id>260</id>
               <extendedTooltip>
-                <name>ПорядокСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>OrderViewStatusExtendedTooltip</name>
                 <id>262</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3116,7 +3259,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПорядокСостояниеПросмотраКонтекстноеМеню</name>
+                <name>OrderViewStatusContextMenu</name>
                 <id>261</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3137,10 +3280,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ПорядокУправлениеПоиском</name>
+              <name>OrderSearchControl</name>
               <id>263</id>
               <extendedTooltip>
-                <name>ПорядокУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>OrderSearchControlExtendedTooltip</name>
                 <id>265</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3155,7 +3298,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ПорядокУправлениеПоискомКонтекстноеМеню</name>
+                <name>OrderSearchControlContextMenu</name>
                 <id>264</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3170,7 +3313,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ПорядокРасширеннаяПодсказка</name>
+              <name>OrderExtendedTooltip</name>
               <id>256</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3185,7 +3328,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПорядокКонтекстноеМеню</name>
+              <name>OrderContextMenu</name>
               <id>76</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3223,8 +3366,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Sorting page</value>
+          </title>
           <extendedTooltip>
-            <name>НастройкиПорядкаРасширеннаяПодсказка</name>
+            <name>OrderSettingsExtendedTooltip</name>
             <id>245</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3245,11 +3392,17 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ОтключенныеНастройкиПорядка</name>
+          <name>DisabledOrderSettings</name>
           <id>78</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьЛокальногоПорядка</name>
+            <name>LocalOrderLabel</name>
             <id>79</id>
+            <title>
+              <key>en</key>
+              <value>No sort is assigned to the item.
+In the structure tree, select the report and edit report sorts.
+To assign the item with a personal sort, select the check box above.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>В текущем элементе сортировка не установлена.
@@ -3262,7 +3415,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьЛокальногоПорядкаРасширеннаяПодсказка</name>
+              <name>LocalOrderLabelExtendedTooltip</name>
               <id>267</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3277,7 +3430,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьЛокальногоПорядкаКонтекстноеМеню</name>
+              <name>LocalOrderLabelContextMenu</name>
               <id>80</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3298,8 +3451,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКПорядкуОтчета</name>
+            <name>GoToReportOrder</name>
             <id>81</id>
+            <title>
+              <key>en</key>
+              <value>View report sorts</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к сортировке отчета.</value>
@@ -3310,7 +3467,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКПорядкуОтчетаРасширеннаяПодсказка</name>
+              <name>GoToReportOrderExtendedTooltip</name>
               <id>268</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3325,7 +3482,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКПорядкуОтчетаКонтекстноеМеню</name>
+              <name>GoToReportOrderContextMenu</name>
               <id>82</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3352,8 +3509,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Disabled sort page</value>
+          </title>
           <extendedTooltip>
-            <name>ОтключенныеНастройкиПорядкаРасширеннаяПодсказка</name>
+            <name>DisabledOrderSettingsExtendedTooltip</name>
             <id>266</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3374,11 +3535,16 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>НедоступныеНастройкиПорядка</name>
+          <name>UnavailableOrderSettings</name>
           <id>83</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьНедоступногоПорядка</name>
+            <name>UnavailableOrderLabel</name>
             <id>84</id>
+            <title>
+              <key>en</key>
+              <value>Cannot assign sorts to the item.
+In the structure tree, select the report and edit report sorts.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>У текущего элемента не может быть установлена сортировка.
@@ -3390,7 +3556,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьНедоступногоПорядкаРасширеннаяПодсказка</name>
+              <name>UnavailableOrderLabelExtendedTooltip</name>
               <id>270</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3405,7 +3571,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьНедоступногоПорядкаКонтекстноеМеню</name>
+              <name>UnavailableOrderLabelContextMenu</name>
               <id>85</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3426,8 +3592,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКПорядкуОтчета1</name>
+            <name>GoToReportOrder1</name>
             <id>86</id>
+            <title>
+              <key>en</key>
+              <value>View report sorts</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к сортировке отчета.</value>
@@ -3438,7 +3608,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКПорядкуОтчета1РасширеннаяПодсказка</name>
+              <name>GoToReportOrder1ExtendedTooltip</name>
               <id>271</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3453,7 +3623,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКПорядкуОтчета1КонтекстноеМеню</name>
+              <name>GoToReportOrder1ContextMenu</name>
               <id>87</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3480,8 +3650,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Unavailable order settings</value>
+          </title>
           <extendedTooltip>
-            <name>НедоступныеНастройкиПорядкаРасширеннаяПодсказка</name>
+            <name>UnavailableOrderSettingsExtendedTooltip</name>
             <id>269</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3506,8 +3680,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Order pages</value>
+        </title>
         <extendedTooltip>
-          <name>СтраницыПорядкаРасширеннаяПодсказка</name>
+          <name>OrderPagesExtendedTooltip</name>
           <id>244</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3567,8 +3745,12 @@
       <name>ConditionalAppearancePage</name>
       <id>88</id>
       <items xsi:type="form:FormField">
-        <name>ЛокальноеУсловноеОформление</name>
+        <name>LocalConditionalAppearance</name>
         <id>89</id>
+        <title>
+          <key>en</key>
+          <value>Assign the item with personal conditional appearance to format item records</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Текущий элемент имеет собственное условное оформление (для оформления записей, выводимых в элементе)</value>
@@ -3586,10 +3768,10 @@
         <titleLocation>Right</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>ЛокальноеУсловноеОформлениеПриИзменении</name>
+          <name>LocalConditionalAppearanceOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ЛокальноеУсловноеОформлениеРасширеннаяПодсказка</name>
+          <name>LocalConditionalAppearanceExtendedTooltip</name>
           <id>273</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3604,7 +3786,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ЛокальноеУсловноеОформлениеКонтекстноеМеню</name>
+          <name>LocalConditionalAppearanceContextMenu</name>
           <id>90</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3621,26 +3803,30 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>СтраницыУсловногоОформления</name>
+        <name>ConditionalAppearancePages</name>
         <id>91</id>
         <items xsi:type="form:FormGroup">
-          <name>НастройкиУсловногоОформления</name>
+          <name>ConditionalAppearanceSettings</name>
           <id>92</id>
           <items xsi:type="form:Table">
-            <name>УсловноеОформление</name>
+            <name>ConditionalAppearance</name>
             <id>93</id>
+            <title>
+              <key>en</key>
+              <value>Conditional appearance table</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemConditionalAppearance</segments>
+              <segments>Items.Settings.CurrentData.ItemConditionalAppearance</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
             <autoCommandBar>
-              <name>УсловноеОформлениеКоманднаяПанель</name>
+              <name>ConditionalAppearanceCommandBar</name>
               <id>95</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3656,10 +3842,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>УсловноеОформлениеСтрокаПоиска</name>
+              <name>ConditionalAppearanceSearchString</name>
               <id>277</id>
               <extendedTooltip>
-                <name>УсловноеОформлениеСтрокаПоискаРасширеннаяПодсказка</name>
+                <name>ConditionalAppearanceSearchStringExtendedTooltip</name>
                 <id>279</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3674,7 +3860,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>УсловноеОформлениеСтрокаПоискаКонтекстноеМеню</name>
+                <name>ConditionalAppearanceSearchStringContextMenu</name>
                 <id>278</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3693,10 +3879,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>УсловноеОформлениеСостояниеПросмотра</name>
+              <name>ConditionalAppearanceViewStatus</name>
               <id>280</id>
               <extendedTooltip>
-                <name>УсловноеОформлениеСостояниеПросмотраРасширеннаяПодсказка</name>
+                <name>ConditionalAppearanceViewStatusExtendedTooltip</name>
                 <id>282</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3711,7 +3897,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>УсловноеОформлениеСостояниеПросмотраКонтекстноеМеню</name>
+                <name>ConditionalAppearanceViewStatusContextMenu</name>
                 <id>281</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3732,10 +3918,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>УсловноеОформлениеУправлениеПоиском</name>
+              <name>ConditionalAppearanceSearchControl</name>
               <id>283</id>
               <extendedTooltip>
-                <name>УсловноеОформлениеУправлениеПоискомРасширеннаяПодсказка</name>
+                <name>ConditionalAppearanceSearchControlExtendedTooltip</name>
                 <id>285</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3750,7 +3936,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>УсловноеОформлениеУправлениеПоискомКонтекстноеМеню</name>
+                <name>ConditionalAppearanceSearchControlContextMenu</name>
                 <id>284</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3765,7 +3951,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>УсловноеОформлениеРасширеннаяПодсказка</name>
+              <name>ConditionalAppearanceExtendedTooltip</name>
               <id>276</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3780,7 +3966,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>УсловноеОформлениеКонтекстноеМеню</name>
+              <name>ConditionalAppearanceContextMenu</name>
               <id>94</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3819,8 +4005,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Conditional appearance page</value>
+          </title>
           <extendedTooltip>
-            <name>НастройкиУсловногоОформленияРасширеннаяПодсказка</name>
+            <name>ConditionalAppearanceSettingsExtendedTooltip</name>
             <id>275</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3840,11 +4030,17 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ОтключенныеНастройкиУсловногоОформления</name>
+          <name>DisabledConditionalAppearanceSettings</name>
           <id>96</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьЛокальногоУсловногоОформления</name>
+            <name>LocalConditionalAppearanceLabel</name>
             <id>97</id>
+            <title>
+              <key>en</key>
+              <value>No conditional appearance is assigned to the item.
+In the structure tree, select the report and edit report conditional appearance.
+To assign the item with a personal conditional appearance, select the check box above.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>В текущем элементе условное оформление не установлено.
@@ -3857,7 +4053,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьЛокальногоУсловногоОформленияРасширеннаяПодсказка</name>
+              <name>LocalConditionalAppearanceLabelExtendedTooltip</name>
               <id>287</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3872,7 +4068,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьЛокальногоУсловногоОформленияКонтекстноеМеню</name>
+              <name>LocalConditionalAppearanceLabelContextMenu</name>
               <id>98</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3893,8 +4089,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКУсловномуОформлениюОтчета</name>
+            <name>GoToReportConditionalAppearance</name>
             <id>99</id>
+            <title>
+              <key>en</key>
+              <value>View report conditional appearance</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к условному оформлению отчета.</value>
@@ -3905,7 +4105,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКУсловномуОформлениюОтчетаРасширеннаяПодсказка</name>
+              <name>GoToReportConditionalAppearanceExtendedTooltip</name>
               <id>288</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3920,7 +4120,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКУсловномуОформлениюОтчетаКонтекстноеМеню</name>
+              <name>GoToReportConditionalAppearanceContextMenu</name>
               <id>100</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3947,8 +4147,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Disabled conditional appearance page</value>
+          </title>
           <extendedTooltip>
-            <name>ОтключенныеНастройкиУсловногоОформленияРасширеннаяПодсказка</name>
+            <name>DisabledConditionalAppearanceSettingsExtendedTooltip</name>
             <id>286</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3969,11 +4173,16 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>НедоступныеНастройкиУсловногоОформления</name>
+          <name>UnavailableConditionalAppearanceSettings</name>
           <id>101</id>
           <items xsi:type="form:Decoration">
-            <name>НадписьНедоступногоУсловногоОформления</name>
+            <name>UnavailableConditionalAppearanceLabel</name>
             <id>102</id>
+            <title>
+              <key>en</key>
+              <value>Cannot assign conditional appearance to the item.
+In the structure tree, select the report and edit report conditional appearance.</value>
+            </title>
             <title>
               <key>ru</key>
               <value>У текущего элемента не может быть установлено условное оформление.
@@ -3985,7 +4194,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>НадписьНедоступногоУсловногоОформленияРасширеннаяПодсказка</name>
+              <name>UnavailableConditionalAppearanceLabelExtendedTooltip</name>
               <id>290</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4000,7 +4209,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>НадписьНедоступногоУсловногоОформленияКонтекстноеМеню</name>
+              <name>UnavailableConditionalAppearanceLabelContextMenu</name>
               <id>103</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4021,8 +4230,12 @@
             </extInfo>
           </items>
           <items xsi:type="form:Decoration">
-            <name>ПереходКУсловномуОформлениюОтчета1</name>
+            <name>GoToReportConditionalAppearance1</name>
             <id>104</id>
+            <title>
+              <key>en</key>
+              <value>View report conditional appearance</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Нажмите здесь для перехода к условному оформлению отчета.</value>
@@ -4033,7 +4246,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ПереходКУсловномуОформлениюОтчета1РасширеннаяПодсказка</name>
+              <name>GoToReportConditionalAppearance1ExtendedTooltip</name>
               <id>291</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4048,7 +4261,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ПереходКУсловномуОформлениюОтчета1КонтекстноеМеню</name>
+              <name>GoToReportConditionalAppearance1ContextMenu</name>
               <id>105</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -4075,8 +4288,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Unavailable conditional appearance settings</value>
+          </title>
           <extendedTooltip>
-            <name>НедоступныеНастройкиУсловногоОформленияРасширеннаяПодсказка</name>
+            <name>UnavailableConditionalAppearanceSettingsExtendedTooltip</name>
             <id>289</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -4101,8 +4318,12 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Conditional appearance pages</value>
+        </title>
         <extendedTooltip>
-          <name>СтраницыУсловногоОформленияРасширеннаяПодсказка</name>
+          <name>ConditionalAppearancePagesExtendedTooltip</name>
           <id>274</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4181,7 +4402,7 @@
         <titleLocation>Right</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>ЛокальныеПараметрыВыводаПриИзменении</name>
+          <name>LocalOutputParametersOnChange</name>
         </handlers>
         <extendedTooltip>
           <name>LocalOutputParametersExtendedTooltip</name>
@@ -4230,7 +4451,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>Items.Структура.CurrentData.ItemOutputParameters</segments>
+              <segments>Items.Settings.CurrentData.ItemOutputParameters</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
@@ -4963,7 +5184,7 @@ In the structure tree, select the report and edit additional report settings.</v
     </edit>
   </attributes>
   <parameters>
-    <name>АдресСхемыИсполненногоОтчета</name>
+    <name>ExecutedReportSchemaURL</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
