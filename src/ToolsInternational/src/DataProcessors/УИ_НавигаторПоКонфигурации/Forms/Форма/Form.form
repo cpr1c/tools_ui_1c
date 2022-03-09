@@ -69,7 +69,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ДеревоОбъектов</segments>
+            <segments>ObjectsTree</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -87,7 +87,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ДеревоОбъектов.Имя</segments>
+              <segments>ObjectsTree.Name</segments>
             </dataPath>
             <extendedTooltip>
               <name>ДеревоОбъектовИмяРасширеннаяПодсказка</name>
@@ -139,7 +139,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ДеревоОбъектов.Синоним</segments>
+              <segments>ObjectsTree.Synonym</segments>
             </dataPath>
             <extendedTooltip>
               <name>ДеревоОбъектовСинонимРасширеннаяПодсказка</name>
@@ -191,7 +191,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ДеревоОбъектов.ПредставлениеОбъекта</segments>
+              <segments>ObjectsTree.ObjectPresentation</segments>
             </dataPath>
             <extendedTooltip>
               <name>ДеревоОбъектовПредставлениеОбъектаРасширеннаяПодсказка</name>
@@ -243,7 +243,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ДеревоОбъектов.КоличествоОбъектов</segments>
+              <segments>ObjectsTree.NumberOfObjects</segments>
             </dataPath>
             <extendedTooltip>
               <name>ДеревоОбъектовКоличествоОбъектовРасширеннаяПодсказка</name>
@@ -295,7 +295,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ДеревоОбъектов.ПолноеИмя</segments>
+              <segments>ObjectsTree.FullName</segments>
             </dataPath>
             <extendedTooltip>
               <name>ДеревоОбъектовПолноеИмяРасширеннаяПодсказка</name>
@@ -2150,7 +2150,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>ТабРолиСДоступом</segments>
+                  <segments>RolesWithAccessTable</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <items xsi:type="form:FormField">
@@ -2162,7 +2162,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>ТабРолиСДоступом.Имя</segments>
+                    <segments>RolesWithAccessTable.Name</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ТабРолиСДоступомИмяРасширеннаяПодсказка</name>
@@ -2214,7 +2214,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>ТабРолиСДоступом.Синоним</segments>
+                    <segments>RolesWithAccessTable.Synonym</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ТабРолиСДоступомСинонимРасширеннаяПодсказка</name>
@@ -2623,7 +2623,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>ТабПользователиСДоступом</segments>
+                  <segments>UsersWithAccessTable</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <items xsi:type="form:FormField">
@@ -2635,7 +2635,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>ТабПользователиСДоступом.Имя</segments>
+                    <segments>UsersWithAccessTable.Name</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ТабПользователиСДоступомИмяРасширеннаяПодсказка</name>
@@ -2687,7 +2687,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>ТабПользователиСДоступом.ПолноеИмя</segments>
+                    <segments>UsersWithAccessTable.FullName</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ТабПользователиСДоступомСинонимРасширеннаяПодсказка</name>
@@ -3087,7 +3087,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>ТабПроверяемыеПрава</segments>
+                  <segments>VerifiableRightsTable</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <items xsi:type="form:FormField">
@@ -3099,7 +3099,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>ТабПроверяемыеПрава.ОбъектМД</segments>
+                    <segments>VerifiableRightsTable.MetadataObject</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ТабПроверяемыеПраваОбъектМДРасширеннаяПодсказка</name>
@@ -3150,7 +3150,7 @@
                     <common>true</common>
                   </userVisible>
                   <dataPath xsi:type="form:DataPath">
-                    <segments>ТабПроверяемыеПрава.Право</segments>
+                    <segments>VerifiableRightsTable.Right</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ТабПроверяемыеПраваПравоРасширеннаяПодсказка</name>
@@ -3560,7 +3560,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>_СписокРасширений</segments>
+          <segments>_ExtensionsList</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -3572,7 +3572,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.Активно</segments>
+            <segments>_ExtensionsList.Active</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийАктивноРасширеннаяПодсказка</name>
@@ -3615,7 +3615,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.БезопасныйРежим</segments>
+            <segments>_ExtensionsList.SafeMode</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийБезопасныйРежимРасширеннаяПодсказка</name>
@@ -3658,7 +3658,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.Версия</segments>
+            <segments>_ExtensionsList.Version</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийВерсияРасширеннаяПодсказка</name>
@@ -3709,7 +3709,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.ЗащитаОтОпасныхДействий</segments>
+            <segments>_ExtensionsList.UnsafeOperationProtection</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийЗащитаОтОпасныхДействийРасширеннаяПодсказка</name>
@@ -3752,7 +3752,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.Имя</segments>
+            <segments>_ExtensionsList.Name</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийИмяРасширеннаяПодсказка</name>
@@ -3803,7 +3803,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.Назначение</segments>
+            <segments>_ExtensionsList.Purpose</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийНазначениеРасширеннаяПодсказка</name>
@@ -3854,7 +3854,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.ОбластьДействия</segments>
+            <segments>_ExtensionsList.Scope</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийОбластьДействияРасширеннаяПодсказка</name>
@@ -3905,7 +3905,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.Синоним</segments>
+            <segments>_ExtensionsList.Synonym</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийСинонимРасширеннаяПодсказка</name>
@@ -3956,7 +3956,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.УникальныйИдентификатор</segments>
+            <segments>_ExtensionsList.UUID</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийУникальныйИдентификаторРасширеннаяПодсказка</name>
@@ -4007,7 +4007,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокРасширений.ХешСумма</segments>
+            <segments>_ExtensionsList.HashSum</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокРасширенийХешСуммаРасширеннаяПодсказка</name>
@@ -4461,7 +4461,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ВремяОжиданияЗапускаПодПользователемПередВосстановлениемПароля</segments>
+            <segments>WaitingTimeBeforePasswordRecovery</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВремяОжиданияЗапускаПодПользователемПередВосстановлениемПароляРасширеннаяПодсказка</name>
@@ -4544,7 +4544,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>_СписокПользователейИБ</segments>
+          <segments>_DBUserList</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -4556,7 +4556,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.Имя</segments>
+            <segments>_DBUserList.Name</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБИмяРасширеннаяПодсказка</name>
@@ -4607,7 +4607,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.ПолноеИмя</segments>
+            <segments>_DBUserList.FullName</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБПолноеИмяРасширеннаяПодсказка</name>
@@ -4658,7 +4658,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.ПользовательОС</segments>
+            <segments>_DBUserList.OSUser</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБПользовательОСРасширеннаяПодсказка</name>
@@ -4709,7 +4709,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.АутентификацияOpenID</segments>
+            <segments>_DBUserList.OpenIDAuthentication</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБАутентификацияOpenIDРасширеннаяПодсказка</name>
@@ -4753,7 +4753,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.АутентификацияОС</segments>
+            <segments>_DBUserList.AuthenticationOS</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБАутентификацияОСРасширеннаяПодсказка</name>
@@ -4797,7 +4797,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.АутентификацияСтандартная</segments>
+            <segments>_DBUserList.StandartAuthentication</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБАутентификацияСтандартнаяРасширеннаяПодсказка</name>
@@ -4841,7 +4841,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.ПарольУстановлен</segments>
+            <segments>_DBUserList.PasswordIsSet</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБПарольУстановленРасширеннаяПодсказка</name>
@@ -4885,7 +4885,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.ПоказыватьВСпискеВыбора</segments>
+            <segments>_DBUserList.ShowSelectionList</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБПоказыватьВСпискеВыбораРасширеннаяПодсказка</name>
@@ -4929,7 +4929,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.РежимЗапуска</segments>
+            <segments>_DBUserList.LaunchMode</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБРежимЗапускаРасширеннаяПодсказка</name>
@@ -4980,7 +4980,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.УникальныйИдентификатор</segments>
+            <segments>_DBUserList.UUID</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБУникальныйИдентификаторРасширеннаяПодсказка</name>
@@ -5030,7 +5030,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокПользователейИБ.ПереченьРолей</segments>
+            <segments>_DBUserList.ListOfRoles</segments>
           </dataPath>
           <extendedTooltip>
             <name>_СписокПользователейИБПереченьРолейРасширеннаяПодсказка</name>
@@ -5839,7 +5839,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокСеансов</segments>
+            <segments>_SessionList</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -5862,7 +5862,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.НачалоСеанса</segments>
+                <segments>_SessionList.SessionStart</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовНачалоСеансаРасширеннаяПодсказка</name>
@@ -5913,7 +5913,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.НомерСеанса</segments>
+                <segments>_SessionList.SessionNumber</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовНомерСеансаРасширеннаяПодсказка</name>
@@ -5964,7 +5964,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.НомерСоединения</segments>
+                <segments>_SessionList.ConnectionNumber</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовНомерСоединенияРасширеннаяПодсказка</name>
@@ -6015,7 +6015,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.Пользователь</segments>
+                <segments>_SessionList.User</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовПользовательРасширеннаяПодсказка</name>
@@ -6066,7 +6066,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.ИмяКомпьютера</segments>
+                <segments>_SessionList.ComputerName</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовИмяКомпьютераРасширеннаяПодсказка</name>
@@ -6117,7 +6117,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.ИмяПриложения</segments>
+                <segments>_SessionList.ApplicationName</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовИмяПриложенияРасширеннаяПодсказка</name>
@@ -6168,7 +6168,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.ПредставлениеПриложения</segments>
+                <segments>_SessionList.ApplicationPresentation</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовПредставлениеПриложенияРасширеннаяПодсказка</name>
@@ -6219,7 +6219,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.ИдентификаторПользователяИБ</segments>
+                <segments>_SessionList.DBUserID</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовИдентификаторПользователяИБРасширеннаяПодсказка</name>
@@ -6318,7 +6318,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.Начало</segments>
+                <segments>_SessionList.Start</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовНачалоРасширеннаяПодсказка</name>
@@ -6369,7 +6369,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.Конец</segments>
+                <segments>_SessionList.End</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовКонецРасширеннаяПодсказка</name>
@@ -6420,7 +6420,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.Наименование</segments>
+                <segments>_SessionList.Name</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовНаименованиеРасширеннаяПодсказка</name>
@@ -6471,7 +6471,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.Состояние</segments>
+                <segments>_SessionList.State</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовСостояниеРасширеннаяПодсказка</name>
@@ -6522,7 +6522,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.РегламентноеЗадание</segments>
+                <segments>_SessionList.ScheduledJob</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовРегламентноеЗаданиеРасширеннаяПодсказка</name>
@@ -6573,7 +6573,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.ИмяМетода</segments>
+                <segments>_SessionList.MethodName</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовИмяМетодаРасширеннаяПодсказка</name>
@@ -6624,7 +6624,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.Ключ</segments>
+                <segments>_SessionList.Key</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовКлючРасширеннаяПодсказка</name>
@@ -6675,7 +6675,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.Расположение</segments>
+                <segments>_SessionList.Placement</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовРасположениеРасширеннаяПодсказка</name>
@@ -6726,7 +6726,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СписокСеансов.ИдентификаторФоновогоЗадания</segments>
+                <segments>_SessionList.BackgroundJobID</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СписокСеансовИдентификаторФоновогоЗаданияРасширеннаяПодсказка</name>
@@ -7278,7 +7278,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>_СписокСоединений</segments>
+            <segments>_ConnectionsList</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <excludedCommands>Add</excludedCommands>
@@ -7298,7 +7298,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.Активность</segments>
+              <segments>_ConnectionsList.Active</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийАктивностьРасширеннаяПодсказка</name>
@@ -7342,7 +7342,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.НачалоСоединения</segments>
+              <segments>_ConnectionsList.SessionStart</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийНачалоСоединенияРасширеннаяПодсказка</name>
@@ -7393,7 +7393,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.НомерСеанса</segments>
+              <segments>_ConnectionsList.SessionNumber</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийНомерСеансаРасширеннаяПодсказка</name>
@@ -7444,7 +7444,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.НомерСоединения</segments>
+              <segments>_ConnectionsList.ConnectionNumber</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийНомерСоединенияРасширеннаяПодсказка</name>
@@ -7495,7 +7495,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.Пользователь</segments>
+              <segments>_ConnectionsList.User</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийПользовательРасширеннаяПодсказка</name>
@@ -7546,7 +7546,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.ИмяКомпьютера</segments>
+              <segments>_ConnectionsList.ComputerName</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийИмяКомпьютераРасширеннаяПодсказка</name>
@@ -7597,7 +7597,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.ИмяПриложения</segments>
+              <segments>_ConnectionsList.ApplicationName</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийИмяПриложенияРасширеннаяПодсказка</name>
@@ -7648,7 +7648,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.ПредставлениеПриложения</segments>
+              <segments>_ConnectionsList.ApplicationPresentation</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийПредставлениеПриложенияРасширеннаяПодсказка</name>
@@ -7699,7 +7699,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СписокСоединений.ИдентификаторПользователяИБ</segments>
+              <segments>_ConnectionsList.DBUserID</segments>
             </dataPath>
             <extendedTooltip>
               <name>_СписокСоединенийИдентификаторПользователяИБРасширеннаяПодсказка</name>
@@ -8153,7 +8153,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДеревоНастроек</segments>
+          <segments>SettingsTree</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <excludedCommands>HierarchicalList</excludedCommands>
@@ -8167,7 +8167,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ДеревоНастроек.Представление</segments>
+            <segments>SettingsTree.Presentation</segments>
           </dataPath>
           <extendedTooltip>
             <name>ДеревоНастроекПредставлениеРасширеннаяПодсказка</name>
@@ -8477,7 +8477,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ТабНастройки</segments>
+          <segments>SettingsTable</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <excludedCommands>Add</excludedCommands>
@@ -8493,7 +8493,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ТабНастройки.КлючНастроек</segments>
+            <segments>SettingsTable.SettingsKey</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТабНастройкиКлючНастроекРасширеннаяПодсказка</name>
@@ -8544,7 +8544,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ТабНастройки.КлючОбъекта</segments>
+            <segments>SettingsTable.ObjectKey</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТабНастройкиКлючОбъектаРасширеннаяПодсказка</name>
@@ -8595,7 +8595,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ТабНастройки.Пользователь</segments>
+            <segments>SettingsTable.User</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТабНастройкиПользовательРасширеннаяПодсказка</name>
@@ -8646,7 +8646,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ТабНастройки.Представление</segments>
+            <segments>SettingsTable.Presentation</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТабНастройкиПредставлениеРасширеннаяПодсказка</name>
@@ -9140,7 +9140,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СХТаблицы</segments>
+              <segments>_Tables</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <items xsi:type="form:FormField">
@@ -9152,7 +9152,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СХТаблицы.ИмяТаблицы</segments>
+                <segments>_Tables.TableName</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СХТаблицыИмяТаблицыРасширеннаяПодсказка</name>
@@ -9203,7 +9203,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СХТаблицы.ИмяТаблицыХранения</segments>
+                <segments>_Tables.StorageTableName</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СХТаблицыИмяТаблицыХраненияРасширеннаяПодсказка</name>
@@ -9254,7 +9254,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СХТаблицы.Назначение</segments>
+                <segments>_Tables.Assignment</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СХТаблицыНазначениеРасширеннаяПодсказка</name>
@@ -9305,7 +9305,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СХТаблицы.Метаданные</segments>
+                <segments>_Tables.Metadate</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СХТаблицыМетаданныеРасширеннаяПодсказка</name>
@@ -9722,7 +9722,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>_СХИндексы</segments>
+              <segments>_Indexes</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <items xsi:type="form:FormField">
@@ -9734,7 +9734,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СХИндексы.ИмяТаблицыХранения</segments>
+                <segments>_Indexes.TableName</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СХИндексыИмяТаблицыХраненияРасширеннаяПодсказка</name>
@@ -9785,7 +9785,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СХИндексы.ИмяИндексаХранения</segments>
+                <segments>_Indexes.IndexName</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СХИндексыИмяИндексаХраненияРасширеннаяПодсказка</name>
@@ -9836,7 +9836,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>_СХИндексы.Метаданные</segments>
+                <segments>_Indexes.Metadata</segments>
               </dataPath>
               <extendedTooltip>
                 <name>_СХИндексыМетаданныеРасширеннаяПодсказка</name>
@@ -10407,7 +10407,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДеревоСервис</segments>
+          <segments>ServiceTree</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -10419,7 +10419,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ДеревоСервис.Представление</segments>
+            <segments>ServiceTree.Presentation</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
@@ -10667,7 +10667,7 @@
         <horizontalStretch>true</horizontalStretch>
         <verticalStretch>true</verticalStretch>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ДеревоСервис.Картинка</segments>
+          <segments>ServiceTree.Picture</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="core:PictureRef">
           <picture>StdPicture.GoForward</picture>
@@ -10682,7 +10682,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Items.ДеревоСервис.CurrentData.Комментарий</segments>
+          <segments>Items.ДеревоСервис.CurrentData.Comment</segments>
         </dataPath>
         <extendedTooltip>
           <name>СервисКомментарийРасширеннаяПодсказка</name>
@@ -11416,7 +11416,11 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
+    <title>
+      <key>en</key>
+      <value>Object</value>
+    </title>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.УИ_НавигаторПоКонфигурации</types>
@@ -11430,10 +11434,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ДеревоОбъектов</name>
+    <name>ObjectsTree</name>
     <title>
       <key>ru</key>
       <value>Дерево объектов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Objects tree</value>
     </title>
     <id>2</id>
     <valueType>
@@ -11446,10 +11454,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -11466,10 +11478,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Синоним</name>
+      <name>Synonym</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Synonym</value>
       </title>
       <id>2</id>
       <valueType>
@@ -11486,10 +11502,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>3</id>
       <valueType>
@@ -11506,10 +11526,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ВидУзла</name>
+      <name>NodeType</name>
       <title>
         <key>ru</key>
         <value>Вид узла</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Node type</value>
       </title>
       <id>4</id>
       <valueType>
@@ -11526,10 +11550,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипУзла</name>
+      <name>NumberTypeNode</name>
       <title>
         <key>ru</key>
         <value>Тип узла</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Number type node</value>
       </title>
       <id>5</id>
       <valueType>
@@ -11546,10 +11574,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПредставлениеОбъекта</name>
+      <name>ObjectPresentation</name>
       <title>
         <key>ru</key>
         <value>Доп. представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Object presentation</value>
       </title>
       <id>6</id>
       <valueType>
@@ -11566,10 +11598,14 @@
       </edit>
     </columns>
     <columns>
-      <name>КоличествоОбъектов</name>
+      <name>NumberOfObjects</name>
       <title>
         <key>ru</key>
         <value>Количество объектов</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Number of objects</value>
       </title>
       <id>7</id>
       <valueType>
@@ -11587,10 +11623,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ПутьКФормам</name>
+    <name>PathToForms</name>
     <title>
       <key>ru</key>
       <value>Путь к формам</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Path to forms</value>
     </title>
     <id>4</id>
     <valueType>
@@ -11605,10 +11645,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДеревоНастроек</name>
+    <name>SettingsTree</name>
     <title>
       <key>ru</key>
       <value>Дерево настроек</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Settings tree</value>
     </title>
     <id>6</id>
     <valueType>
@@ -11621,10 +11665,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -11639,10 +11687,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ВидУзла</name>
+      <name>NodeType</name>
       <title>
         <key>ru</key>
         <value>Вид узла</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Node type</value>
       </title>
       <id>2</id>
       <valueType>
@@ -11657,10 +11709,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Хранилище</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>3</id>
       <valueType>
@@ -11676,10 +11732,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ТабНастройки</name>
+    <name>SettingsTable</name>
     <title>
       <key>ru</key>
       <value>Таб настройки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Settings table</value>
     </title>
     <id>7</id>
     <valueType>
@@ -11692,10 +11752,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>КлючНастроек</name>
+      <name>SettingsKey</name>
       <title>
         <key>ru</key>
         <value>Ключ настроек</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Settings key</value>
       </title>
       <id>1</id>
       <valueType>
@@ -11710,10 +11774,14 @@
       </edit>
     </columns>
     <columns>
-      <name>КлючОбъекта</name>
+      <name>ObjectKey</name>
       <title>
         <key>ru</key>
         <value>Ключ объекта</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Object key</value>
       </title>
       <id>2</id>
       <valueType>
@@ -11728,10 +11796,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Пользователь</name>
+      <name>User</name>
       <title>
         <key>ru</key>
         <value>Пользователь</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>User</value>
       </title>
       <id>4</id>
       <valueType>
@@ -11746,10 +11818,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>5</id>
       <valueType>
@@ -11784,10 +11860,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДеревоСервис</name>
+    <name>ServiceTree</name>
     <title>
       <key>ru</key>
       <value>Дерево сервис</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Service tree</value>
     </title>
     <id>10</id>
     <valueType>
@@ -11800,10 +11880,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -11818,10 +11902,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Представление</name>
+      <name>Presentation</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Presentation</value>
       </title>
       <id>2</id>
       <valueType>
@@ -11836,10 +11924,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Доступность</name>
+      <name>Enabled</name>
       <title>
         <key>ru</key>
         <value>Доступность</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Enabled</value>
       </title>
       <id>3</id>
       <valueType>
@@ -11853,10 +11945,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Комментарий</name>
+      <name>Comment</name>
       <title>
         <key>ru</key>
         <value>Комментарий</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Comment</value>
       </title>
       <id>4</id>
       <valueType>
@@ -11871,10 +11967,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
       <title>
         <key>ru</key>
         <value>Картинка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
       </title>
       <id>5</id>
       <valueType>
@@ -11891,10 +11991,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЭтоГруппа</name>
+      <name>IsGroup</name>
       <title>
         <key>ru</key>
         <value>Это группа</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Is group</value>
       </title>
       <id>6</id>
       <valueType>
@@ -11909,10 +12013,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ТабРолиСДоступом</name>
+    <name>RolesWithAccessTable</name>
     <title>
       <key>ru</key>
       <value>Таб роли с доступом</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Roles with access table</value>
     </title>
     <id>11</id>
     <valueType>
@@ -11925,10 +12033,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -11945,10 +12057,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Синоним</name>
+      <name>Synonym</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Synonym</value>
       </title>
       <id>2</id>
       <valueType>
@@ -11987,10 +12103,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТабПользователиСДоступом</name>
+    <name>UsersWithAccessTable</name>
     <title>
       <key>ru</key>
       <value>Таб пользователи с доступом</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Users with access table</value>
     </title>
     <id>13</id>
     <valueType>
@@ -12003,10 +12123,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -12023,10 +12147,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -12044,10 +12172,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ТабПроверяемыеПрава</name>
+    <name>VerifiableRightsTable</name>
     <title>
       <key>ru</key>
       <value>Таб проверяемые права</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Verifiable rights table</value>
     </title>
     <id>16</id>
     <valueType>
@@ -12060,10 +12192,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ОбъектМД</name>
+      <name>MetadataObject</name>
       <title>
         <key>ru</key>
         <value>Объект МД</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Metadata object</value>
       </title>
       <id>1</id>
       <valueType>
@@ -12078,10 +12214,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Право</name>
+      <name>Right</name>
       <title>
         <key>ru</key>
         <value>Право</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Right</value>
       </title>
       <id>2</id>
       <valueType>
@@ -12096,10 +12236,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Пометка</name>
+      <name>Mark</name>
       <title>
         <key>ru</key>
         <value>Пометка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Mark</value>
       </title>
       <id>3</id>
       <valueType>
@@ -12316,10 +12460,14 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_СодержимоеИзбранного</name>
+    <name>_FavoritesContent</name>
     <title>
       <key>ru</key>
       <value>Содержимое избранного</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Favorites content</value>
     </title>
     <id>26</id>
     <valueType/>
@@ -12380,10 +12528,14 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_СХТаблицы</name>
+    <name>_Tables</name>
     <title>
       <key>ru</key>
       <value>СХТаблицы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tables</value>
     </title>
     <id>30</id>
     <valueType>
@@ -12396,10 +12548,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ИмяТаблицы</name>
+      <name>TableName</name>
       <title>
         <key>ru</key>
         <value>Имя объекта</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Table name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -12414,10 +12570,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяТаблицыХранения</name>
+      <name>StorageTableName</name>
       <title>
         <key>ru</key>
         <value>Имя таблицы БД</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Storage table name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -12432,10 +12592,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Назначение</name>
+      <name>Assignment</name>
       <title>
         <key>ru</key>
         <value>Назначение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Assignment</value>
       </title>
       <id>3</id>
       <valueType>
@@ -12450,10 +12614,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Метаданные</name>
+      <name>Metadate</name>
       <title>
         <key>ru</key>
         <value>Метаданные</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Metadate</value>
       </title>
       <id>4</id>
       <valueType>
@@ -12469,10 +12637,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_СХИндексы</name>
+    <name>_Indexes</name>
     <title>
       <key>ru</key>
       <value>СХИндексы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Indexes</value>
     </title>
     <id>31</id>
     <valueType>
@@ -12485,10 +12657,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ИмяТаблицыХранения</name>
+      <name>TableName</name>
       <title>
         <key>ru</key>
         <value>Имя таблицы БД</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Table name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -12503,10 +12679,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяИндексаХранения</name>
+      <name>IndexName</name>
       <title>
         <key>ru</key>
         <value>Имя индекса БД</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Index name</value>
       </title>
       <id>3</id>
       <valueType>
@@ -12521,10 +12701,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Метаданные</name>
+      <name>Metadata</name>
       <title>
         <key>ru</key>
         <value>Метаданные</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Metadata</value>
       </title>
       <id>5</id>
       <valueType>
@@ -12564,10 +12748,14 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_СписокПользователейИБ</name>
+    <name>_DBUserList</name>
     <title>
       <key>ru</key>
       <value>Список пользователей ИБ</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>DBUser list</value>
     </title>
     <id>33</id>
     <valueType>
@@ -12580,10 +12768,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -12598,10 +12790,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПолноеИмя</name>
+      <name>FullName</name>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -12616,10 +12812,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПользовательОС</name>
+      <name>OSUser</name>
       <title>
         <key>ru</key>
         <value>Пользователь ОС</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>OSUser</value>
       </title>
       <id>3</id>
       <valueType>
@@ -12634,10 +12834,14 @@
       </edit>
     </columns>
     <columns>
-      <name>АутентификацияOpenID</name>
+      <name>OpenIDAuthentication</name>
       <title>
         <key>ru</key>
         <value>Аутентификация open ID</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Open IDAuthentication</value>
       </title>
       <id>4</id>
       <valueType>
@@ -12651,10 +12855,14 @@
       </edit>
     </columns>
     <columns>
-      <name>АутентификацияОС</name>
+      <name>AuthenticationOS</name>
       <title>
         <key>ru</key>
         <value>Аутентификация ОС</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Authentication OS</value>
       </title>
       <id>5</id>
       <valueType>
@@ -12668,10 +12876,14 @@
       </edit>
     </columns>
     <columns>
-      <name>АутентификацияСтандартная</name>
+      <name>StandartAuthentication</name>
       <title>
         <key>ru</key>
         <value>Аутентификация стандартная</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Standart authentication</value>
       </title>
       <id>6</id>
       <valueType>
@@ -12685,10 +12897,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПарольУстановлен</name>
+      <name>PasswordIsSet</name>
       <title>
         <key>ru</key>
         <value>Пароль установлен</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Password is set</value>
       </title>
       <id>7</id>
       <valueType>
@@ -12702,10 +12918,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПоказыватьВСпискеВыбора</name>
+      <name>ShowSelectionList</name>
       <title>
         <key>ru</key>
         <value>Показывать в списке выбора</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Show selection list</value>
       </title>
       <id>8</id>
       <valueType>
@@ -12719,10 +12939,14 @@
       </edit>
     </columns>
     <columns>
-      <name>РежимЗапуска</name>
+      <name>LaunchMode</name>
       <title>
         <key>ru</key>
         <value>Режим запуска</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Launch mode</value>
       </title>
       <id>9</id>
       <valueType>
@@ -12737,10 +12961,14 @@
       </edit>
     </columns>
     <columns>
-      <name>УникальныйИдентификатор</name>
+      <name>UUID</name>
       <title>
         <key>ru</key>
         <value>Уникальный идентификатор</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>UUID</value>
       </title>
       <id>10</id>
       <valueType>
@@ -12755,10 +12983,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПереченьРолей</name>
+      <name>ListOfRoles</name>
       <title>
         <key>ru</key>
         <value>Список ролей</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>List of roles</value>
       </title>
       <id>11</id>
       <valueType>
@@ -12774,10 +13006,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>_СписокСеансов</name>
+    <name>_SessionList</name>
     <title>
       <key>ru</key>
       <value>Список сеансов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Session list</value>
     </title>
     <id>34</id>
     <valueType>
@@ -12790,10 +13026,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ИмяКомпьютера</name>
+      <name>ComputerName</name>
       <title>
         <key>ru</key>
         <value>Имя компьютера</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Computer name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -12808,10 +13048,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяПриложения</name>
+      <name>ApplicationName</name>
       <title>
         <key>ru</key>
         <value>Имя приложения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Application name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -12826,10 +13070,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НачалоСеанса</name>
+      <name>SessionStart</name>
       <title>
         <key>ru</key>
         <value>Начало сеанса</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Session start</value>
       </title>
       <id>3</id>
       <valueType>
@@ -12844,10 +13092,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НомерСеанса</name>
+      <name>SessionNumber</name>
       <title>
         <key>ru</key>
         <value>Номер сеанса</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Session number</value>
       </title>
       <id>4</id>
       <valueType>
@@ -12864,10 +13116,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НомерСоединения</name>
+      <name>ConnectionNumber</name>
       <title>
         <key>ru</key>
         <value>Номер соединения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Connection number</value>
       </title>
       <id>5</id>
       <valueType>
@@ -12884,10 +13140,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Пользователь</name>
+      <name>User</name>
       <title>
         <key>ru</key>
         <value>Пользователь</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>User</value>
       </title>
       <id>6</id>
       <valueType>
@@ -12902,10 +13162,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИдентификаторПользователяИБ</name>
+      <name>DBUserID</name>
       <title>
         <key>ru</key>
         <value>Идентификатор пользователя ИБ</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>DBUser ID</value>
       </title>
       <id>7</id>
       <valueType>
@@ -12920,10 +13184,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяМетода</name>
+      <name>MethodName</name>
       <title>
         <key>ru</key>
         <value>Имя метода</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Method name</value>
       </title>
       <id>8</id>
       <valueType>
@@ -12938,10 +13206,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Ключ</name>
+      <name>Key</name>
       <title>
         <key>ru</key>
         <value>Ключ</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Key</value>
       </title>
       <id>9</id>
       <valueType>
@@ -12956,10 +13228,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Наименование</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Наименование</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>10</id>
       <valueType>
@@ -12974,10 +13250,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Начало</name>
+      <name>Start</name>
       <title>
         <key>ru</key>
         <value>Начало</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Start</value>
       </title>
       <id>11</id>
       <valueType>
@@ -12992,10 +13272,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Конец</name>
+      <name>End</name>
       <title>
         <key>ru</key>
         <value>Конец</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>End</value>
       </title>
       <id>12</id>
       <valueType>
@@ -13010,10 +13294,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Расположение</name>
+      <name>Placement</name>
       <title>
         <key>ru</key>
         <value>Расположение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Placement</value>
       </title>
       <id>13</id>
       <valueType>
@@ -13028,10 +13316,14 @@
       </edit>
     </columns>
     <columns>
-      <name>РегламентноеЗадание</name>
+      <name>ScheduledJob</name>
       <title>
         <key>ru</key>
         <value>Регламентное задание</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Scheduled job</value>
       </title>
       <id>14</id>
       <valueType>
@@ -13046,10 +13338,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Состояние</name>
+      <name>State</name>
       <title>
         <key>ru</key>
         <value>Состояние</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>State</value>
       </title>
       <id>15</id>
       <valueType>
@@ -13064,10 +13360,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИдентификаторФоновогоЗадания</name>
+      <name>BackgroundJobID</name>
       <title>
         <key>ru</key>
         <value>Идентификатор фонового задания</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Background job ID</value>
       </title>
       <id>16</id>
       <valueType>
@@ -13082,10 +13382,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТекущийСеанс</name>
+      <name>CurrentSession</name>
       <title>
         <key>ru</key>
         <value>Текущий сеанс</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Current session</value>
       </title>
       <id>17</id>
       <valueType>
@@ -13099,10 +13403,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПредставлениеПриложения</name>
+      <name>ApplicationPresentation</name>
       <title>
         <key>ru</key>
         <value>Приложение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Application presentation</value>
       </title>
       <id>18</id>
       <valueType>
@@ -13144,10 +13452,14 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_СписокСоединений</name>
+    <name>_ConnectionsList</name>
     <title>
       <key>ru</key>
       <value>Список соединений</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Connections list</value>
     </title>
     <id>36</id>
     <valueType>
@@ -13160,10 +13472,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Активность</name>
+      <name>Active</name>
       <title>
         <key>ru</key>
         <value>Активность</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Active</value>
       </title>
       <id>1</id>
       <valueType>
@@ -13177,10 +13493,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяКомпьютера</name>
+      <name>ComputerName</name>
       <title>
         <key>ru</key>
         <value>Имя компьютера</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Computer name</value>
       </title>
       <id>2</id>
       <valueType>
@@ -13197,10 +13517,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПредставлениеПриложения</name>
+      <name>ApplicationPresentation</name>
       <title>
         <key>ru</key>
         <value>Приложение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Application presentation</value>
       </title>
       <id>3</id>
       <valueType>
@@ -13217,10 +13541,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяПриложения</name>
+      <name>ApplicationName</name>
       <title>
         <key>ru</key>
         <value>Имя приложения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Application name</value>
       </title>
       <id>4</id>
       <valueType>
@@ -13237,10 +13565,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Пользователь</name>
+      <name>User</name>
       <title>
         <key>ru</key>
         <value>Пользователь</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>User</value>
       </title>
       <id>5</id>
       <valueType>
@@ -13257,10 +13589,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НачалоСоединения</name>
+      <name>SessionStart</name>
       <title>
         <key>ru</key>
         <value>Начало соединения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Session start</value>
       </title>
       <id>6</id>
       <valueType>
@@ -13275,10 +13611,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НомерСеанса</name>
+      <name>SessionNumber</name>
       <title>
         <key>ru</key>
         <value>Номер сеанса</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Session number</value>
       </title>
       <id>7</id>
       <valueType>
@@ -13295,10 +13635,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НомерСоединения</name>
+      <name>ConnectionNumber</name>
       <title>
         <key>ru</key>
         <value>Номер соединения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Connection number</value>
       </title>
       <id>8</id>
       <valueType>
@@ -13315,10 +13659,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИдентификаторПользователяИБ</name>
+      <name>DBUserID</name>
       <title>
         <key>ru</key>
         <value>Идентификатор пользователя ИБ</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>DBUser ID</value>
       </title>
       <id>9</id>
       <valueType>
@@ -13335,10 +13683,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТекущееСоединение</name>
+      <name>CurrentConnection</name>
       <title>
         <key>ru</key>
         <value>Текущее соединение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Current connection</value>
       </title>
       <id>10</id>
       <valueType>
@@ -13403,10 +13755,14 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_СписокРасширений</name>
+    <name>_ExtensionsList</name>
     <title>
       <key>ru</key>
       <value>Список расширений</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Extensions list</value>
     </title>
     <id>39</id>
     <valueType>
@@ -13419,10 +13775,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Активно</name>
+      <name>Active</name>
       <title>
         <key>ru</key>
         <value>Активно</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Active</value>
       </title>
       <id>1</id>
       <valueType>
@@ -13436,10 +13796,14 @@
       </edit>
     </columns>
     <columns>
-      <name>БезопасныйРежим</name>
+      <name>SafeMode</name>
       <title>
         <key>ru</key>
         <value>Безопасный режим</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Safe mode</value>
       </title>
       <id>2</id>
       <valueType>
@@ -13453,10 +13817,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Версия</name>
+      <name>Version</name>
       <title>
         <key>ru</key>
         <value>Версия</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Version</value>
       </title>
       <id>3</id>
       <valueType>
@@ -13471,10 +13839,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗащитаОтОпасныхДействий</name>
+      <name>UnsafeOperationProtection</name>
       <title>
         <key>ru</key>
         <value>Защита от опасных действий</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Unsafe operation protection</value>
       </title>
       <id>4</id>
       <valueType>
@@ -13488,10 +13860,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>5</id>
       <valueType>
@@ -13506,10 +13882,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Назначение</name>
+      <name>Purpose</name>
       <title>
         <key>ru</key>
         <value>Назначение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Purpose</value>
       </title>
       <id>6</id>
       <valueType>
@@ -13524,10 +13904,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ОбластьДействия</name>
+      <name>Scope</name>
       <title>
         <key>ru</key>
         <value>Область действия</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Scope</value>
       </title>
       <id>7</id>
       <valueType>
@@ -13542,10 +13926,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Синоним</name>
+      <name>Synonym</name>
       <title>
         <key>ru</key>
         <value>Синоним</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Synonym</value>
       </title>
       <id>8</id>
       <valueType>
@@ -13560,10 +13948,14 @@
       </edit>
     </columns>
     <columns>
-      <name>УникальныйИдентификатор</name>
+      <name>UUID</name>
       <title>
         <key>ru</key>
         <value>Уникальный идентификатор</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>UUID</value>
       </title>
       <id>9</id>
       <valueType>
@@ -13578,10 +13970,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ХешСумма</name>
+      <name>HashSum</name>
       <title>
         <key>ru</key>
         <value>Хеш сумма</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Hash sum</value>
       </title>
       <id>10</id>
       <valueType>
@@ -13597,10 +13993,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ВремяОжиданияЗапускаПодПользователемПередВосстановлениемПароля</name>
+    <name>WaitingTimeBeforePasswordRecovery</name>
     <title>
       <key>ru</key>
       <value>Время ожидания запуска под пользователем перед восстановлением пароля</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Waiting time before password recovery</value>
     </title>
     <id>40</id>
     <valueType>
