@@ -119,7 +119,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</name>
+		<name>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

@@ -14,7 +14,7 @@
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.UT_UniversalToolsSybsystem</picture>
   </picture>
-  <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
+  <content>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</content>
   <content>DataProcessor.UT_ConstantsEditor</content>
   <content>DataProcessor.UT_DatabaseStorageStructure</content>
   <content>DataProcessor.UT_MarkedObjectsDeletion</content>
