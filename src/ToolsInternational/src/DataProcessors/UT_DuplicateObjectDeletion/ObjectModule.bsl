@@ -64,687 +64,682 @@ EndFunction
 //           SearchParameters.CalculateUsageInstances = True.
 //           For the table column details, see Common.UsageInstances().
 //
-Функция ГруппыДублей(Знач ПараметрыПоиска, Знач ЭталонныйОбъект = Неопределено) Экспорт
-	ПолноеИмяОМ = ПараметрыПоиска.ОбластьПоискаДублей;
-	ОбъектМетаданных = Метаданные.НайтиПоПолномуИмени(ПолноеИмяОМ);
+Function DuplicatesGroups(Val SearchParameters, Val SampleObject = Undefined) Export
+	FullMetadataObjectName = SearchParameters.DuplicatesSearchArea;
+	MetadataObject = Metadata.FindByFullName(FullMetadataObjectName);
 	
-	// 1. Определяем параметры с учетом прикладного кода.
-	РазмерВозвращаемойПорции = UT_CommonClientServer.StructureProperty(ПараметрыПоиска,
-		"МаксимальноеЧислоДублей");
-	Если Не ЗначениеЗаполнено(РазмерВозвращаемойПорции) Тогда
-		РазмерВозвращаемойПорции = 0; // Без ограничения.
-	КонецЕсли;
+	// 1. Determining parameters according to the applied code.
+	ReturnedBatchSize = UT_CommonClientServer.StructureProperty(SearchParameters,
+		"MaxDuplicates");
+	If Not ValueIsFilled(ReturnedBatchSize) Then
+		ReturnedBatchSize = 0; // Without restriction.
+	EndIf;
 
-	РассчитыватьМестаИспользования = UT_CommonClientServer.StructureProperty(ПараметрыПоиска,
-		"РассчитыватьМестаИспользования");
-	Если ТипЗнч(РассчитыватьМестаИспользования) <> Тип("Булево") Тогда
-		РассчитыватьМестаИспользования = Ложь;
-	КонецЕсли;
+	CalculateUsageInstances = UT_CommonClientServer.StructureProperty(SearchParameters,
+		"CalculateUsageInstances");
+	If TypeOf(CalculateUsageInstances) <> Type("Boolean") Then
+		CalculateUsageInstances = False;
+	EndIf;
 	
-	// Для передачи в прикладной код.
-	ДополнительныеПараметры = UT_CommonClientServer.StructureProperty(ПараметрыПоиска,
-		"ДополнительныеПараметры");
+	// For passing to the applied code.
+	AdditionalParameters = UT_CommonClientServer.StructureProperty(SearchParameters,
+		"AdditionalParameters");
 	
-	// Вызываем прикладной код
-	ИспользоватьПрикладныеПравила = ПараметрыПоиска.УчитыватьПрикладныеПравила
-		И ЕстьПрикладныеПравилаОбластиПоискаДублей(ПолноеИмяОМ);
+	// Calling the applied rules
+	UseAppliedRules = SearchParameters.ConsiderAppliedRules
+		And DuplicatesSearchAreaAppliedRules(FullMetadataObjectName);
 
-	ПоляСравненияНаРавенство = ""; // Имена реквизитов, по которым сравниваем по равенству.
-	ПоляСравненияНаПодобие   = ""; // Имена реквизитов, по которым будем нечетко сравнивать.
-	ПоляДополнительныхДанных = ""; // Имена реквизитов, дополнительно заказанные прикладными правилами.
-	РазмерПрикладнойПорции   = 0;  // Сколько отдавать в прикладные правила для расчета.
+	EqualityCompareFields = ""; // Names of the attributes to be used for comparison by equality.
+	LikeCompareFields   = ""; // Names of the attributes to be used for fuzzy comparison.
+	AdditionalDataFields = ""; // Names of the additional attributes defined with the applied rules.
+	AppliedBatchSize   = 0;  // Size of the data batch to be passed to the applied rules for calculation.
 
-	Если ИспользоватьПрикладныеПравила Тогда
-		ПрикладныеПараметры = Новый Структура;
-		ПрикладныеПараметры.Вставить("ПравилаПоиска", ПараметрыПоиска.ПравилаПоиска);
-		ПрикладныеПараметры.Вставить("ОграниченияСравнения", Новый Массив);
-		ПрикладныеПараметры.Вставить("КомпоновщикОтбора", ПараметрыПоиска.КомпоновщикПредварительногоОтбора);
-		ПрикладныеПараметры.Вставить("КоличествоЭлементовДляСравнения", 1000);
+	If UseAppliedRules Then
+		AppliedParameters = New Structure;
+		AppliedParameters.Insert("SearchRules",        SearchParameters.SearchRules);
+		AppliedParameters.Insert("ComparisonRestrictions", New Array);
+		AppliedParameters.Insert("FilterComposer",    SearchParameters.PrefilterComposer);
+		AppliedParameters.Insert("ItemsCountToCompare", 1000);
 
-		МенеджерОбластиПоиска = UT_Common.ObjectManagerByFullName(ПолноеИмяОМ);
-		МенеджерОбластиПоиска.ПараметрыПоискаДублей(ПрикладныеПараметры, ДополнительныеПараметры);
+		SearchAreaManager = UT_Common.ObjectManagerByFullName(FullMetadataObjectName);
+		SearchAreaManager.DuplicatesSearchParameters(AppliedParameters, AdditionalParameters);
 
-		ВсеДополнительныеПоля = Новый Соответствие;
-		Для Каждого Ограничение Из ПрикладныеПараметры.ОграниченияСравнения Цикл
-			Для Каждого КлючЗначение Из Новый Структура(Ограничение.ДополнительныеПоля) Цикл
-				ИмяПоля = КлючЗначение.Ключ;
-				Если ВсеДополнительныеПоля[ИмяПоля] = Неопределено Тогда
-					ПоляДополнительныхДанных = ПоляДополнительныхДанных + ", " + ИмяПоля;
-					ВсеДополнительныеПоля[ИмяПоля] = Истина;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЦикла;
-		ПоляДополнительныхДанных = Сред(ПоляДополнительныхДанных, 2);
+		AllAdditionalFields = New Map;
+		For Each Restriction In AppliedParameters.ComparisonRestrictions Do
+			For Each KeyValue In New Structure(Restriction.AdditionalFields) Do
+				FieldName = KeyValue.Key;
+				If AllAdditionalFields[FieldName] = Undefined Then
+					AdditionalDataFields = AdditionalDataFields + ", " + FieldName;
+					AllAdditionalFields[FieldName] = True;
+				EndIf;
+			EndDo;
+		EndDo;
+		AdditionalDataFields = Mid(AdditionalDataFields, 2);
 		
-		// Сколько отдавать в прикладные правила для расчета.
-		РазмерПрикладнойПорции = ПрикладныеПараметры.КоличествоЭлементовДляСравнения;
-	КонецЕсли;
+		// Size of the data batch to be passed to the applied rules for calculation.
+		AppliedBatchSize = AppliedParameters.ItemsCountToCompare;
+	EndIf;
 	
-	// Списки полей, возможно измененные прикладным кодом.
-	Для Каждого Строка Из ПараметрыПоиска.ПравилаПоиска Цикл
-		Если Строка.Правило = "Равно" Тогда
-			ПоляСравненияНаРавенство = ПоляСравненияНаРавенство + ", " + Строка.Реквизит;
-		ИначеЕсли Строка.Правило = "Подобно" Тогда
-			ПоляСравненияНаПодобие = ПоляСравненияНаПодобие + ", " + Строка.Реквизит;
-		КонецЕсли;
-	КонецЦикла
-	;
-	ПоляСравненияНаРавенство = Сред(ПоляСравненияНаРавенство, 2);
-	ПоляСравненияНаПодобие   = Сред(ПоляСравненияНаПодобие, 2);
+	// List of fields modified by the applied code.
+	For Each Row In SearchParameters.SearchRules Do
+		If Row.Rule = "Equal" Then
+			EqualityCompareFields = EqualityCompareFields + ", " + Row.Attribute;
+		ElsIf Row.Rule = "Like" Then
+			LikeCompareFields = LikeCompareFields + ", " + Row.Attribute;
+		EndIf
+	EndDo;
+	EqualityCompareFields = Mid(EqualityCompareFields, 2);
+	LikeCompareFields   = Mid(LikeCompareFields, 2);
 
-	СтруктураПолейИдентичности   = Новый Структура(ПоляСравненияНаРавенство);
-	СтруктураПолейПодобия        = Новый Структура(ПоляСравненияНаПодобие);
-	СтруктураДополнительныхПолей = Новый Структура(ПоляДополнительныхДанных);
+	IdentityFieldsStructure   = New Structure(EqualityCompareFields);
+	SimilarityFieldsStructure        = New Structure(LikeCompareFields);
+	AdditionalFieldsStructure = New Structure(AdditionalDataFields);
 	
-	// 2. Конструируем по возможно измененному компоновщику условия отбора.
-	Характеристики = Новый Структура;
-	Характеристики.Вставить("ДлинаКода", 0);
-	Характеристики.Вставить("ДлинаНомера", 0);
-	Характеристики.Вставить("ДлинаНаименования", 0);
-	Характеристики.Вставить("Иерархический", Ложь);
-	Характеристики.Вставить("ВидИерархии", Неопределено);
+	// 2. Constructing settings composer by modified filter.
+	Characteristics = New Structure;
+	Characteristics.Insert("CodeLength", 0);
+	Characteristics.Insert("NumberLength", 0);
+	Characteristics.Insert("DescriptionLength", 0);
+	Characteristics.Insert("Hierarchical", False);
+	Characteristics.Insert("HierarchyType", Undefined);
 
-	ЗаполнитьЗначенияСвойств(Характеристики, ОбъектМетаданных);
+	FillPropertyValues(Characteristics, MetadataObject);
 
-	ЕстьНаименование = Характеристики.ДлинаНаименования > 0;
-	ЕстьКод          = Характеристики.ДлинаКода > 0;
-	ЕстьНомер        = Характеристики.ДлинаНомера > 0;
+	DescriptionExists = Characteristics.DescriptionLength > 0;
+	CodeExists          = Characteristics.CodeLength > 0;
+	NumberExists        = Characteristics.NumberLength > 0;
 	
-	// Дополнительные поля могут пересекаться с остальными, им надо дать псевдонимы.
-	ТаблицаКандидатов = Новый ТаблицаЗначений;
-	КолонкиКандидатов = ТаблицаКандидатов.Колонки;
-	КолонкиКандидатов.Добавить("Ссылка1");
-	КолонкиКандидатов.Добавить("Поля1");
-	КолонкиКандидатов.Добавить("Ссылка2");
-	КолонкиКандидатов.Добавить("Поля2");
-	КолонкиКандидатов.Добавить("ЭтоДубли", Новый ОписаниеТипов("Булево"));
-	ТаблицаКандидатов.Индексы.Добавить("ЭтоДубли");
+	// Assignment of aliases for additional fields to avoid field names duplication.
+	CandidatesTable = New ValueTable;
+	CandidatesColumns = CandidatesTable.Columns;
+	CandidatesColumns.Add("Ref1");
+	CandidatesColumns.Add("Fields1");
+	CandidatesColumns.Add("Ref2");
+	CandidatesColumns.Add("Fields2");
+	CandidatesColumns.Add("IsDuplicates", New TypeDescription("Boolean"));
+	CandidatesTable.Indexes.Add("IsDuplicates");
 
-	ИменаПолейВЗапросе = ДоступныеРеквизитыОтбора(ОбъектМетаданных);
-	Если Не ЕстьКод Тогда
-		Если ЕстьНомер Тогда
-			ИменаПолейВЗапросе = ИменаПолейВЗапросе + ", Номер КАК Код";
-		Иначе
-			ИменаПолейВЗапросе = ИменаПолейВЗапросе + ", НЕОПРЕДЕЛЕНО КАК Код";
-		КонецЕсли;
-	КонецЕсли;
-	Если Не ЕстьНаименование Тогда
-		ИменаПолейВЗапросе = ИменаПолейВЗапросе + ", Ссылка КАК Наименование";
-	КонецЕсли;
-	ИменаПолейВВыборе  = СтрРазделить(ПоляСравненияНаРавенство + "," + ПоляСравненияНаПодобие, ",", Ложь);
+	FieldsNamesInQuery = AvailableFilterAttributes(MetadataObject);
+	If Not CodeExists Then
+		If NumberExists Then
+			FieldsNamesInQuery = FieldsNamesInQuery + ", Number AS Code";
+		Else
+			FieldsNamesInQuery = FieldsNamesInQuery + ", UNDEFINED AS Code";
+		EndIf;
+	EndIf;
+	If Not DescriptionExists Then
+		FieldsNamesInQuery = FieldsNamesInQuery + ", Ref AS Description";
+	EndIf;
+	FieldsNamesInChoice  = StrSplit(EqualityCompareFields + "," + LikeCompareFields, ",", False);
 
-	РасшифровкаДополнительныхПолей = Новый Соответствие;
-	ПорядковыйНомер = 0;
-	Для Каждого КлючЗначение Из СтруктураДополнительныхПолей Цикл
-		ИмяПоля   = КлючЗначение.Ключ;
-		Псевдоним = "Доп" + Формат(ПорядковыйНомер, "ЧН=; ЧГ=") + "_" + ИмяПоля;
-		РасшифровкаДополнительныхПолей.Вставить(Псевдоним, ИмяПоля);
-
-		ИменаПолейВЗапросе = ИменаПолейВЗапросе + "," + ИмяПоля + " КАК " + Псевдоним;
-		ИменаПолейВВыборе.Добавить(Псевдоним);
-		ПорядковыйНомер = ПорядковыйНомер + 1;
-	КонецЦикла;
-	
-	// Наполнение схемы.
-	СхемаКД = Новый СхемаКомпоновкиДанных;
-
-	ИсточникДанныхСхемыКД = СхемаКД.ИсточникиДанных.Добавить();
-	ИсточникДанныхСхемыКД.Имя = "ИсточникДанных1";
-	ИсточникДанныхСхемыКД.ТипИсточникаДанных = "Local";
-
-	НаборДанных = СхемаКД.НаборыДанных.Добавить(Тип("НаборДанныхЗапросСхемыКомпоновкиДанных"));
-	НаборДанных.Имя = "НаборДанных1";
-	НаборДанных.ИсточникДанных = "ИсточникДанных1";
-	НаборДанных.Запрос = "ВЫБРАТЬ РАЗРЕШЕННЫЕ " + ИменаПолейВЗапросе + " ИЗ " + ПолноеИмяОМ;
-	НаборДанных.АвтоЗаполнениеДоступныхПолей = Истина;
-	
-	// Инициализация компоновщика.
-	КомпоновщикНастроекКД = Новый КомпоновщикНастроекКомпоновкиДанных;
-	КомпоновщикНастроекКД.Инициализировать(Новый ИсточникДоступныхНастроекКомпоновкиДанных(СхемаКД));
-	КомпоновщикНастроекКД.ЗагрузитьНастройки(ПараметрыПоиска.КомпоновщикПредварительногоОтбора.Настройки);
-	НастройкиКД = КомпоновщикНастроекКД.Настройки;
-	
-	// Поля.
-	НастройкиКД.Выбор.Элементы.Очистить();
-	Для Каждого ИмяПоля Из ИменаПолейВВыборе Цикл
-		ПолеКД = Новый ПолеКомпоновкиДанных(СокрЛП(ИмяПоля));
-		ДоступноеПолеКД = НастройкиКД.ДоступныеПоляВыбора.НайтиПоле(ПолеКД);
-		Если ДоступноеПолеКД = Неопределено Тогда
-			ЗаписьЖурналаРегистрации(НаименованиеПодсистемы(Ложь), УровеньЖурналаРегистрации.Предупреждение,
-				ОбъектМетаданных, ЭталонныйОбъект, СтрШаблон(НСтр("ru = 'Поле ""%1"" не существует.'"), Строка(ПолеКД)));
-			Продолжить;
-		КонецЕсли;
-		ВыбранноеПолеКД = НастройкиКД.Выбор.Элементы.Добавить(Тип("ВыбранноеПолеКомпоновкиДанных"));
-		ВыбранноеПолеКД.Поле = ПолеКД;
-	КонецЦикла;
-	ВыбранноеПолеКД = НастройкиКД.Выбор.Элементы.Добавить(Тип("ВыбранноеПолеКомпоновкиДанных"));
-	ВыбранноеПолеКД.Поле = Новый ПолеКомпоновкиДанных("Ссылка");
-	ВыбранноеПолеКД = НастройкиКД.Выбор.Элементы.Добавить(Тип("ВыбранноеПолеКомпоновкиДанных"));
-	ВыбранноеПолеКД.Поле = Новый ПолеКомпоновкиДанных("Код");
-	ВыбранноеПолеКД = НастройкиКД.Выбор.Элементы.Добавить(Тип("ВыбранноеПолеКомпоновкиДанных"));
-	ВыбранноеПолеКД.Поле = Новый ПолеКомпоновкиДанных("Наименование");
-	
-	// Сортировки.
-	НастройкиКД.Порядок.Элементы.Очистить();
-	ЭлементПорядкаКД = НастройкиКД.Порядок.Элементы.Добавить(Тип("ЭлементПорядкаКомпоновкиДанных"));
-	ЭлементПорядкаКД.Поле = Новый ПолеКомпоновкиДанных("Ссылка");
-	
-	// Отборы.
-	Если Характеристики.Иерархический И Характеристики.ВидИерархии
-		= Метаданные.СвойстваОбъектов.ВидИерархии.ИерархияГруппИЭлементов Тогда
-		ЭлементОтбораКД = НастройкиКД.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-		ЭлементОтбораКД.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("ЭтоГруппа");
-		ЭлементОтбораКД.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-		ЭлементОтбораКД.ПравоеЗначение = Ложь;
-	КонецЕсли;
-	
-//	Если ОбъектМетаданных = Метаданные.Справочники.Пользователи Тогда
-//		ЭлементОтбораКД = НастройкиКД.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-//		ЭлементОтбораКД.ЛевоеЗначение  = Новый ПолеКомпоновкиДанных("Служебный");
-//		ЭлементОтбораКД.ВидСравнения   = ВидСравненияКомпоновкиДанных.Равно;
-//		ЭлементОтбораКД.ПравоеЗначение = Ложь;
-//	КонецЕсли;
-	
-	// Структура.
-	НастройкиКД.Структура.Очистить();
-	ГруппировкаКД = НастройкиКД.Структура.Добавить(Тип("ГруппировкаКомпоновкиДанных"));
-	ГруппировкаКД.Выбор.Элементы.Добавить(Тип("АвтоВыбранноеПолеКомпоновкиДанных"));
-	ГруппировкаКД.Порядок.Элементы.Добавить(Тип("АвтоЭлементПорядкаКомпоновкиДанных"));
-	
-	// Чтение данных оригиналов.
-	Если ЭталонныйОбъект = Неопределено Тогда
-		ВыборкаЭталонныхОбъектов = ИнициализироватьВыборкуКД(СхемаКД, КомпоновщикНастроекКД.ПолучитьНастройки());
-	Иначе
-		ТаблицаЗначений = ОбъектВТаблицуЗначений(ЭталонныйОбъект, РасшифровкаДополнительныхПолей);
-		Если Не ЕстьКод И Не ЕстьНомер Тогда
-			ТаблицаЗначений.Колонки.Добавить("Код", Новый ОписаниеТипов("Неопределено"));
-		КонецЕсли;
-		ВыборкаЭталонныхОбъектов = ИнициализироватьВыборкуТЗ(ТаблицаЗначений);
-	КонецЕсли;
-	
-	// Подготовка СКД к чтению данных дублей.
-	ОтборыКандидатов = Новый Соответствие;
-	ИменаПолей = СтрРазделить(ПоляСравненияНаРавенство, ",", Ложь);
-	Для Каждого ИмяПоля Из ИменаПолей Цикл
-		ИмяПоля = СокрЛП(ИмяПоля);
-		ЭлементОтбораКД = НастройкиКД.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-		ЭлементОтбораКД.ЛевоеЗначение = Новый ПолеКомпоновкиДанных(ИмяПоля);
-		ЭлементОтбораКД.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-		ОтборыКандидатов.Вставить(ИмяПоля, ЭлементОтбораКД);
-	КонецЦикла;
-	ЭлементОтбораКД = НастройкиКД.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбораКД.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("Ссылка");
-	ЭлементОтбораКД.ВидСравнения = ?(ЭталонныйОбъект = Неопределено, ВидСравненияКомпоновкиДанных.Больше,
-		ВидСравненияКомпоновкиДанных.НеРавно);
-	ОтборыКандидатов.Вставить("Ссылка", ЭлементОтбораКД);
-	
-	// Результат и цикл поиска
-	ТаблицаДублей = Новый ТаблицаЗначений;
-	КолонкиРезультата = ТаблицаДублей.Колонки;
-	КолонкиРезультата.Добавить("Ссылка");
-	Для Каждого КлючЗначение Из СтруктураПолейИдентичности Цикл
-		Если КолонкиРезультата.Найти(КлючЗначение.Ключ) = Неопределено Тогда
-			КолонкиРезультата.Добавить(КлючЗначение.Ключ);
-		КонецЕсли;
-	КонецЦикла;
-	Для Каждого КлючЗначение Из СтруктураПолейПодобия Цикл
-		Если КолонкиРезультата.Найти(КлючЗначение.Ключ) = Неопределено Тогда
-			КолонкиРезультата.Добавить(КлючЗначение.Ключ);
-		КонецЕсли;
-	КонецЦикла;
-	Если КолонкиРезультата.Найти("Код") = Неопределено Тогда
-		КолонкиРезультата.Добавить("Код");
-	КонецЕсли;
-	Если КолонкиРезультата.Найти("Наименование") = Неопределено Тогда
-		КолонкиРезультата.Добавить("Наименование");
-	КонецЕсли;
-	Если КолонкиРезультата.Найти("Родитель") = Неопределено Тогда
-		КолонкиРезультата.Добавить("Родитель");
-	КонецЕсли;
-
-	ТаблицаДублей.Индексы.Добавить("Ссылка");
-	ТаблицаДублей.Индексы.Добавить("Родитель");
-	ТаблицаДублей.Индексы.Добавить("Ссылка, Родитель");
-
-	Результат = Новый Структура("ТаблицаДублей, ОписаниеОшибки, МестаИспользования", ТаблицаДублей);
-
-	СтруктураПолей = Новый Структура;
-	СтруктураПолей.Вставить("РасшифровкаДополнительныхПолей", РасшифровкаДополнительныхПолей);
-	СтруктураПолей.Вставить("СтруктураПолейИдентичности", СтруктураПолейИдентичности);
-	СтруктураПолей.Вставить("СтруктураПолейПодобия", СтруктураПолейПодобия);
-	СтруктураПолей.Вставить("СписокПолейИдентичности", ПоляСравненияНаРавенство);
-	СтруктураПолей.Вставить("СписокПолейПодобия", ПоляСравненияНаПодобие);
-
-	Пока СледующийЭлементВыборки(ВыборкаЭталонныхОбъектов) Цикл
-		ЭталонныйЭлемент = ВыборкаЭталонныхОбъектов.ТекущийЭлемент;
+	AdditionalFieldsDetails = New Map;
+	SequenceNumber = 0;
+	For Each KeyValue In AdditionalFieldsStructure Do
+		FieldName   = KeyValue.Key;
+		Alias = "Addl" + Format(SequenceNumber, "NZ=; NG=") + "_" + FieldName;
+		AdditionalFieldsDetails.Insert(Alias, FieldName);
 		
-		// Установка отборов для выбора кандидатов.
-		Для Каждого КлючИЗначение Из ОтборыКандидатов Цикл
-			ЭлементОтбораКД = КлючИЗначение.Значение;
-			ЭлементОтбораКД.ПравоеЗначение = ЭталонныйЭлемент[КлючИЗначение.Ключ];
-		КонецЦикла;
-		
-		// Выборка кандидатов данных из СУБД.
-		ВыборкаКандидатов = ИнициализироватьВыборкуКД(СхемаКД, НастройкиКД);
-		КандидатыДублей = ВыборкаКандидатов.ПроцессорВыводаКД.Вывести(ВыборкаКандидатов.ПроцессорКД);
+		FieldsNamesInQuery = FieldsNamesInQuery + "," + FieldName + " AS " + Alias;
+		FieldsNamesInChoice.Add(Alias);
+		SequenceNumber = SequenceNumber + 1;
+	EndDo;
+	
+	// Schema filling.
+	DCSchema = New DataCompositionSchema;
+	
+	DCSchemaDataSource = DCSchema.DataSources.Add();
+	DCSchemaDataSource.Name = "DataSource1";
+	DCSchemaDataSource.DataSourceType = "Local";
 
-		Если СтруктураПолейПодобия.Количество() > 0 Тогда
+	DataSet = DCSchema.DataSets.Add(Type("DataCompositionSchemaDataSetQuery"));
+	DataSet.Name = "DataSet1";
+	DataSet.DataSource = "DataSource1";
+	DataSet.Query = "SELECT ALLOWED " + FieldsNamesInQuery + " FROM " + FullMetadataObjectName;
+	DataSet.AutoFillAvailableFields = True;
+	
+	// Composer initialization.
+	DCSettingsComposer = New DataCompositionSettingsComposer;
+	DCSettingsComposer.Initialize(New DataCompositionAvailableSettingsSource(DCSchema));
+	DCSettingsComposer.LoadSettings(SearchParameters.PrefilterComposer.Settings);
+	DCSettings = DCSettingsComposer.Settings;
+	
+	// Fields.
+	DCSettings.Selection.Items.Clear();
+	For Each FieldName In FieldsNamesInChoice Do
+		DCField = New DataCompositionField(TrimAll(FieldName));
+		AvailableDCField = DCSettings.SelectionAvailableFields.FindField(DCField);
+		If AvailableDCField = Undefined Then
+			WriteLogEvent(SubsystemDescription(False), EventLogLevel.Warning,
+				MetadataObject, SampleObject, StrTemplate(НСтр("ru = 'Поле ""%1"" не существует.'; en = 'Field %1 does not exist.'"), String(DCField)));
+			Continue;
+		EndIf;
+		SelectedDCField = DCSettings.Selection.Items.Add(Type("DataCompositionSelectedField"));
+		SelectedDCField.Field = DCField;
+	EndDo;
+	SelectedDCField = DCSettings.Selection.Items.Add(Type("DataCompositionSelectedField"));
+	SelectedDCField.Field = New DataCompositionField("Ref");
+	SelectedDCField = DCSettings.Selection.Items.Add(Type("DataCompositionSelectedField"));
+	SelectedDCField.Field = New DataCompositionField("Code");
+	SelectedDCField = DCSettings.Selection.Items.Add(Type("DataCompositionSelectedField"));
+	SelectedDCField.Field = New DataCompositionField("Description");
+	
+	// Sorting.
+	DCSettings.Order.Items.Clear();
+	DCOrderItem = DCSettings.Order.Items.Add(Type("DataCompositionOrderItem"));
+	DCOrderItem.Field = New DataCompositionField("Ref");
+	
+	// Filters.
+	If Characteristics.Hierarchical And Characteristics.HierarchyType
+		= Metadata.ObjectProperties.HierarchyType.HierarchyFoldersAndItems Then
+		DCFilterItem = DCSettings.Filter.Items.Add(Type("DataCompositionFilterItem"));
+		DCFilterItem.LeftValue = New DataCompositionField("IsFolder");
+		DCFilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+		DCFilterItem.RightValue = False;
+	EndIf;
+	
+//	If MetadataObject = Metadata.Catalogs.Users Then
+//		DCFilterItem = DCSettings.Filter.Items.Add(Type("DataCompositionFilterItem"));
+//		DCFilterItem.LeftValue  = New DataCompositionField("Internal");
+//		DCFilterItem.ComparisonType   = DataCompositionComparisonType.Equal;
+//		DCFilterItem.RightValue = False;
+//	EndIf;
+	
+	// Structure.
+	DCSettings.Structure.Clear();
+	DCGroup = DCSettings.Structure.Add(Type("DataCompositionGroup"));
+	DCGroup.Selection.Items.Add(Type("DataCompositionAutoSelectedField"));
+	DCGroup.Order.Items.Add(Type("DataCompositionAutoOrderItem"));
+	
+	// Reading original data.
+	If SampleObject = Undefined Then
+		SampleObjectsSelection = InitializeDCSelection(DCSchema, DCSettingsComposer.GetSettings());
+	Else
+		ValueTable = ObjectIntoValueTable(SampleObject, AdditionalFieldsDetails);
+		If Not CodeExists And Not NumberExists Then
+			ValueTable.Columns.Add("Code", New TypeDescription("Undefined"));
+		EndIf;
+		SampleObjectsSelection = InitializeVTSelection(ValueTable);
+	EndIf;
+	
+	// Preparing DCS to read the duplicate data.
+	CandidatesFilters = New Map;
+	FieldsNames = StrSplit(EqualityCompareFields, ",", False);
+	For Each FieldName In FieldsNames Do
+		FieldName = TrimAll(FieldName);
+		DCFilterItem = DCSettings.Filter.Items.Add(Type("DataCompositionFilterItem"));
+		DCFilterItem.LeftValue = New DataCompositionField(FieldName);
+		DCFilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+		CandidatesFilters.Insert(FieldName, DCFilterItem);
+	EndDo;
+	DCFilterItem = DCSettings.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	DCFilterItem.LeftValue = New DataCompositionField("Ref");
+	DCFilterItem.ComparisonType = ?(SampleObject = Undefined, DataCompositionComparisonType.Greater,
+		DataCompositionComparisonType.NotEqual);
+	CandidatesFilters.Insert("Ref", DCFilterItem);
+	
+	// Result and search cycle
+	DuplicatesTable = New ValueTable;
+	ResultColumns = DuplicatesTable.Columns;
+	ResultColumns.Add("Ref");
+	For Each KeyValue In IdentityFieldsStructure Do
+		If ResultColumns.Find(KeyValue.Key) = Undefined Then
+			ResultColumns.Add(KeyValue.Key);
+		EndIf;
+	EndDo;
+	For Each KeyValue In SimilarityFieldsStructure Do
+		If ResultColumns.Find(KeyValue.Key) = Undefined Then
+			ResultColumns.Add(KeyValue.Key);
+		EndIf;
+	EndDo;
+	If ResultColumns.Find("Code") = Undefined Then
+		ResultColumns.Add("Code");
+	EndIf;
+	If ResultColumns.Find("Description") = Undefined Then
+		ResultColumns.Add("Description");
+	EndIf;
+	If ResultColumns.Find("Parent") = Undefined Then
+		ResultColumns.Add("Parent");
+	EndIf;
+
+	DuplicatesTable.Indexes.Add("Ref");
+	DuplicatesTable.Indexes.Add("Parent");
+	DuplicatesTable.Indexes.Add("Ref, Parent");
+
+	Result = New Structure("DuplicatesTable, ErrorDescription, UsageInstances", DuplicatesTable);
+
+	FieldsStructure = New Structure;
+	FieldsStructure.Insert("AdditionalFieldsDetails", AdditionalFieldsDetails);
+	FieldsStructure.Insert("IdentityFieldsStructure",     IdentityFieldsStructure);
+	FieldsStructure.Insert("SimilarityFieldsStructure",          SimilarityFieldsStructure);
+	FieldsStructure.Insert("IdentityFieldsList",        EqualityCompareFields);
+	FieldsStructure.Insert("SimilarityFieldsList",             LikeCompareFields);
+
+	While NextSelectionItem(SampleObjectsSelection) Do
+		SampleItem = SampleObjectsSelection.CurrentItem;
+		
+		// Setting filters for candidate selection.
+		For Each KeyAndValue In CandidatesFilters Do
+			DCFilterItem = KeyAndValue.Value;
+			DCFilterItem.RightValue = SampleItem[KeyAndValue.Key];
+		EndDo;
+		
+		// Selection of data candidates from IB.
+		CandidatesSelection = InitializeDCSelection(DCSchema, DCSettings);
+		DuplicatesCandidates = CandidatesSelection.DCOutputProcessor.Output(CandidatesSelection.DCProcessor);
+
+		If SimilarityFieldsStructure.Count() > 0 Then
 
 			FuzzySearch = UT_Common.AttachAddInFromTemplate("FuzzyStringMatchExtension",
-				"ОбщийМакет.УИ_КомпонентаПоискаСтрок");
-			Если FuzzySearch = Неопределено Тогда
-				Результат.ОписаниеОшибки = НСтр("ru = 'Не удалось подключить внешнюю компоненту FuzzyStringMatchExtension из макета ""ОбщийМакет.УИ_КомпонентаПоискаСтрок""
-												|Подробнее см. в журнале регистрации.'");
-				Возврат Результат;
-			КонецЕсли;
-			Для Каждого КлючЗначение Из СтруктураПолейПодобия Цикл
-				ИмяПоля = КлючЗначение.Ключ;
-				ИскомыеСтроки = СтрСоединить(КандидатыДублей.ВыгрузитьКолонку(ИмяПоля), "~");
-				СтрокаДляПоиска = ЭталонныйЭлемент[ИмяПоля];
-				ИндексыСтрок = FuzzySearch.StringSearch(НРег(СтрокаДляПоиска), НРег(ИскомыеСтроки), "~", 10, 80, 90);
-				Если ПустаяСтрока(ИндексыСтрок) Тогда
-					Продолжить;
-				КонецЕсли;
-				Для Каждого ИндексСтроки Из СтрРазделить(ИндексыСтрок, ",") Цикл
-					Если ПустаяСтрока(ИндексСтроки) Тогда
-						Продолжить;
-					КонецЕсли;
-					ЭлементДубль = КандидатыДублей.Получить(ИндексСтроки);
-					Если ИспользоватьПрикладныеПравила Тогда
-						ДобавитьСтрокуКандидатов(ТаблицаКандидатов, ЭталонныйЭлемент, ЭлементДубль, СтруктураПолей);
-						Если ТаблицаКандидатов.Количество() = РазмерПрикладнойПорции Тогда
-							ЗарегистрироватьДублиПоПрикладнымПравилам(ТаблицаДублей, МенеджерОбластиПоиска,
-								ЭталонныйЭлемент, ТаблицаКандидатов, СтруктураПолей, ДополнительныеПараметры);
-							ТаблицаКандидатов.Очистить();
-						КонецЕсли;
-					Иначе
-						ЗарегистрироватьДубль(ТаблицаДублей, ЭталонныйЭлемент, ЭлементДубль, СтруктураПолей);
-					КонецЕсли;
-				КонецЦикла;
-			КонецЦикла;
-		Иначе
-			Для Каждого ЭлементДубль Из КандидатыДублей Цикл
-				Если ИспользоватьПрикладныеПравила Тогда
-					ДобавитьСтрокуКандидатов(ТаблицаКандидатов, ЭталонныйЭлемент, ЭлементДубль, СтруктураПолей);
-					Если ТаблицаКандидатов.Количество() = РазмерПрикладнойПорции Тогда
-						ЗарегистрироватьДублиПоПрикладнымПравилам(ТаблицаДублей, МенеджерОбластиПоиска,
-							ЭталонныйЭлемент, ТаблицаКандидатов, СтруктураПолей, ДополнительныеПараметры);
-						ТаблицаКандидатов.Очистить();
-					КонецЕсли;
-				Иначе
-					ЗарегистрироватьДубль(ТаблицаДублей, ЭталонныйЭлемент, ЭлементДубль, СтруктураПолей);
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
+				"CommonTemplate.UT_StringSearchComponent");
+			If FuzzySearch = Undefined Then
+				Result.ErrorDescription = 
+					NStr("ru = 'Не удалось подключить внешнюю компоненту FuzzyStringMatchExtension из макета ""ОбщийМакет.УИ_КомпонентаПоискаСтрок""
+					           |Подробнее см. в журнале регистрации.'; 
+					           |en = 'Cannot attach add-in FuzzyStringMatchExtension from template CommonTemplate.UT_StringSearchComponent.
+					           |For more information, see the event log.'");
+				Return Result;
+			EndIf;
+			For Each KeyValue In SimilarityFieldsStructure Do
+				FieldName = KeyValue.Key;
+				RequiredRows = StrConcat(DuplicatesCandidates.UnloadColumn(FieldName), "~");
+				SearchRow = SampleItem[FieldName];
+				RowIndexes = FuzzySearch.StringSearch(Lower(SearchRow), Lower(RequiredRows), "~", 10, 80, 90);
+				If IsBlankString(RowIndexes) Then
+					Continue;
+				EndIf;
+				For Each RowIndex In StrSplit(RowIndexes, ",") Do
+					If IsBlankString(RowIndex) Then
+						Continue;
+					EndIf;
+					DuplicateItem = DuplicatesCandidates.Get(RowIndex);
+					If UseAppliedRules Then
+						AddCandidatesRow(CandidatesTable, SampleItem, DuplicateItem, FieldsStructure);
+						If CandidatesTable.Count() = AppliedBatchSize Then
+							RegisterDuplicatesByAppliedRules(DuplicatesTable, SearchAreaManager, SampleItem, CandidatesTable, 
+								FieldsStructure, AdditionalParameters);
+							CandidatesTable.Clear();
+						EndIf;
+					Else
+						RegisterDuplicate(DuplicatesTable, SampleItem, DuplicateItem, FieldsStructure);
+					EndIf;
+				EndDo;
+			EndDo;
+		Else
+			For Each DuplicateItem In DuplicatesCandidates Do
+				If UseAppliedRules Then
+					AddCandidatesRow(CandidatesTable, SampleItem, DuplicateItem, FieldsStructure);
+					If CandidatesTable.Count() = AppliedBatchSize Then
+						RegisterDuplicatesByAppliedRules(DuplicatesTable, SearchAreaManager, SampleItem, CandidatesTable, 
+							FieldsStructure, AdditionalParameters);
+						CandidatesTable.Clear();
+					EndIf;
+				Else
+					RegisterDuplicate(DuplicatesTable, SampleItem, DuplicateItem, FieldsStructure);
+				EndIf;
+			EndDo;
+		EndIf;
 		
-		// Обрабатываем остаток таблицы для прикладных правил.
-		Если ИспользоватьПрикладныеПравила Тогда
-			ЗарегистрироватьДублиПоПрикладнымПравилам(ТаблицаДублей, МенеджерОбластиПоиска, ЭталонныйЭлемент,
-				ТаблицаКандидатов, СтруктураПолей, ДополнительныеПараметры);
-			ТаблицаКандидатов.Очистить();
-		КонецЕсли;
+		// Processing the rest of the applied rules table.
+		If UseAppliedRules Then
+			RegisterDuplicatesByAppliedRules(DuplicatesTable, SearchAreaManager, SampleItem, CandidatesTable, 
+				FieldsStructure, AdditionalParameters);
+			CandidatesTable.Clear();
+		EndIf;
 		
-		// Учитываем ограничение.
-		Если РазмерВозвращаемойПорции > 0 И (ТаблицаДублей.Количество() > РазмерВозвращаемойПорции) Тогда
-			Найдено = ТаблицаДублей.Количество();
-			// Откатываем последнюю группу.
-			Для Каждого Строка Из ТаблицаДублей.НайтиСтроки( Новый Структура("Родитель", ЭталонныйЭлемент.Ссылка)) Цикл
-				ТаблицаДублей.Удалить(Строка);
-			КонецЦикла;
-			Для Каждого Строка Из ТаблицаДублей.НайтиСтроки( Новый Структура("Ссылка", ЭталонныйЭлемент.Ссылка)) Цикл
-				ТаблицаДублей.Удалить(Строка);
-			КонецЦикла;
-			Если Найдено > 0 И ТаблицаДублей.Количество() = 0 Тогда
-				Результат.ОписаниеОшибки = НСтр("ru = 'Найдено слишком много дублей одного элемента.'");
-			Иначе
-				Результат.ОписаниеОшибки = СтрШаблон(
-					НСтр("ru = 'Найдено слишком много дублей. Показаны только первые %1.'"), РазмерВозвращаемойПорции);
-			КонецЕсли;
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
+		// Consider restriction.
+		If ReturnedBatchSize > 0 AND (DuplicatesTable.Count() > ReturnedBatchSize) Then
+			Found = DuplicatesTable.Count();
+			// Rolling back the last group.
+			For Each Row In DuplicatesTable.FindRows( New Structure("Parent", SampleItem.Ref) ) Do
+				DuplicatesTable.Delete(Row);
+			EndDo;
+			For Each Row In DuplicatesTable.FindRows( New Structure("Ref", SampleItem.Ref) ) Do
+				DuplicatesTable.Delete(Row);
+			EndDo;
+			If Found > 0 AND DuplicatesTable.Count() = 0 Then
+				Result.ErrorDescription = NStr("ru = 'Найдено слишком много дублей одного элемента.'; en = 'Too many duplicates of the item were found.'");
+			Else
+				Result.ErrorDescription = StrTemplate(
+					NStr("ru = 'Найдено слишком много дублей. Показаны только первые %1.'; en = 'Too many duplicates were found. First %1 items are shown.'"), ReturnedBatchSize);
+			EndIf;
+			Break;
+		EndIf;
+	EndDo;
 	
-	// Расчет мест использования
-	Если РассчитыватьМестаИспользования Тогда
+	// Calculating usage instances
+	If CalculateUsageInstances Then
 
-		UT_TimeConsumingOperations.ReportProgress(0, "РассчитыватьМестаИспользования");
+		UT_TimeConsumingOperations.ReportProgress(0, "CalculateUsageInstances");
 
-		НаборСсылок = Новый Массив;
-		Для Каждого СтрокаДублей Из ТаблицаДублей Цикл
-			Если ЗначениеЗаполнено(СтрокаДублей.Ссылка) Тогда
-				НаборСсылок.Добавить(СтрокаДублей.Ссылка);
-			КонецЕсли;
-		КонецЦикла;
-
-		МестаИспользования = МестаИспользованияСсылок(НаборСсылок);
-		МестаИспользования = МестаИспользования.Скопировать(
-			МестаИспользования.НайтиСтроки(Новый Структура("ВспомогательныеДанные", Ложь)));
-		МестаИспользования.Индексы.Добавить("Ссылка");
-
-		Результат.Вставить("МестаИспользования", МестаИспользования);
-	КонецЕсли;
-
-	Возврат Результат;
-КонецФункции
-
-// Определение наличия прикладных правил у объекта.
-//
-// Параметры:
-//     МенеджерОбласти - СправочникМенеджер - Менеджер проверяемого объекта.
-//
-// Возвращаемое значение:
-//     Булево - Истина, если прикладные правила определены.
-//
-Функция ЕстьПрикладныеПравилаОбластиПоискаДублей(Знач ИмяОбъекта) Экспорт
-
-	СписокОбъектов = Новый Соответствие;
-//	ПоискИУдалениеДублейПереопределяемый.ПриОпределенииОбъектовСПоискомДублей(СписокОбъектов);
-
-	СведенияОбОбъекте = СписокОбъектов[ИмяОбъекта];
-	Возврат СведенияОбОбъекте <> Неопределено И (СведенияОбОбъекте = "" Или СтрНайти(СведенияОбОбъекте,
-		"ПараметрыПоискаДублей") > 0);
-
-КонецФункции
-
-// Обработчик фонового поиска дублей.
-//
-// Параметры:
-//     Параметры       - Структура - Данные для анализа.
-//     АдресРезультата - Строка    - Адрес во временном хранилище для сохранения результата.
-//
-Процедура ФоновыйПоискДублей(Знач Параметры, Знач АдресРезультата) Экспорт
+		RefSet = New Array;
+		For Each DuplicatesRow In DuplicatesTable Do
+			If ValueIsFilled(DuplicatesRow.Ref) Then
+				RefSet.Add(DuplicatesRow.Ref);
+			EndIf;
+		EndDo;
+		
+		UsageInstances = SearchForReferences(RefSet);
+		UsageInstances = UsageInstances.Copy(
+			UsageInstances.FindRows(New Structure("AuxiliaryData", False)));
+		UsageInstances.Indexes.Add("Ref");
+		
+		Result.Insert("UsageInstances", UsageInstances);
+	EndIf;
 	
-	// Собираем компоновщик повторно через схему и настройки.
-	КомпоновщикПредварительногоОтбора = Новый КомпоновщикНастроекКомпоновкиДанных;
+	Return Result;
+EndFunction
 
-	КомпоновщикПредварительногоОтбора.Инициализировать(
-		Новый ИсточникДоступныхНастроекКомпоновкиДанных(Параметры.СхемаКомпоновки));
-	КомпоновщикПредварительногоОтбора.ЗагрузитьНастройки(Параметры.НастройкиКомпоновщикаПредварительногоОтбора);
+// Determining whether the object has applied rules.
+//
+// Parameters:
+//     AreaManager - CatalogManager - a manager of the object to be checked.
+//
+// Returns:
+//     Boolean - True if applied rules are defined.
+//
+Function DuplicatesSearchAreaAppliedRules(Val ObjectName) Export
 
-	Параметры.Вставить("КомпоновщикПредварительногоОтбора", КомпоновщикПредварительногоОтбора);
+	ObjectsList = New Map;
+//	DuplicateObjectsDetectionOverridable.OnDefineObjectsWithSearchForDuplicates(ObjectsList);
+
+	ObjectInfo = ObjectsList[ObjectName];
+	Return ObjectInfo <> Undefined And (ObjectInfo = "" Or StrFind(ObjectInfo, "DuplicatesSearchParameters") > 0);
+
+EndFunction
+
+// Background duplicate search handler.
+//
+// Parameters:
+//     Parameters    - Structure - data to be analyzed.
+//     ResultAddress - String    - a temporary storage address to save the result.
+//
+Procedure BackgroundSearchForDuplicates(Val Parameters, Val ResultAddress) Export
 	
-	// Преобразуем правила поиска в таблицу значений с индексом.
-	ПравилаПоиска = Новый ТаблицаЗначений;
-	ПравилаПоиска.Колонки.Добавить("Реквизит", Новый ОписаниеТипов("Строка"));
-	ПравилаПоиска.Колонки.Добавить("Правило", Новый ОписаниеТипов("Строка"));
-	ПравилаПоиска.Индексы.Добавить("Реквизит");
-
-	Для Каждого Правило Из Параметры.ПравилаПоиска Цикл
-		ЗаполнитьЗначенияСвойств(ПравилаПоиска.Добавить(), Правило);
-	КонецЦикла;
-	Параметры.Вставить("ПравилаПоиска", ПравилаПоиска);
-
-	Параметры.Вставить("РассчитыватьМестаИспользования", Истина);
+	// Rebuilding the composer from the schema and the settings.
+	PrefilterComposer = New DataCompositionSettingsComposer;
 	
-	// Запускаем поиск
-	Результат = ГруппыДублей(Параметры);
-
-	ПоместитьВоВременноеХранилище(Результат, АдресРезультата);
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область СлужебныеПроцедурыИФункции
-
-// Обработчик фонового удаления дублей.
-//
-// Параметры:
-//     Параметры       - Структура - Данные для анализа.
-//     АдресРезультата - Строка    - Адрес во временном хранилище для сохранения результата.
-//
-Процедура ФоновоеУдалениеДублей(Знач Параметры, Знач АдресРезультата) Экспорт
-
-	ПараметрыЗамены = Новый Структура;
-	ПараметрыЗамены.Вставить("ПараметрыЗаписи", Параметры.ПараметрыЗаписи);
-	ПараметрыЗамены.Вставить("УчитыватьПрикладныеПравила", Параметры.УчитыватьПрикладныеПравила);
-	ПараметрыЗамены.Вставить("ЗаменаПарыВТранзакции", Параметры.ЗаменаПарыВТранзакции);
-	ПараметрыЗамены.Вставить("СпособУдаления", "Пометка");
-
-	ЗаменитьСсылки(Параметры.ПарыЗамен, ПараметрыЗамены, АдресРезультата);
-
-КонецПроцедуры
-
-// Преобразуем объект в таблицу для помещения в запрос.
-Функция ОбъектВТаблицуЗначений(Знач ОбъектДанных, Знач РасшифровкаДополнительныхПолей)
-	Результат = Новый ТаблицаЗначений;
-	СтрокаДанных = Результат.Добавить();
-
-	МетаОбъект = ОбъектДанных.Метаданные();
-
-	Для Каждого МетаРеквизит Из МетаОбъект.СтандартныеРеквизиты Цикл
-		Имя = МетаРеквизит.Имя;
-		Результат.Колонки.Добавить(Имя, МетаРеквизит.Тип);
-		СтрокаДанных[Имя] = ОбъектДанных[Имя];
-	КонецЦикла;
-
-	Для Каждого МетаРеквизит Из МетаОбъект.Реквизиты Цикл
-		Имя = МетаРеквизит.Имя;
-		Результат.Колонки.Добавить(Имя, МетаРеквизит.Тип);
-		СтрокаДанных[Имя] = ОбъектДанных[Имя];
-	КонецЦикла;
-
-	Для Каждого КлючИЗначение Из РасшифровкаДополнительныхПолей Цикл
-		Имя1 = КлючИЗначение.Ключ;
-		Имя2 = КлючИЗначение.Значение;
-		Результат.Колонки.Добавить(Имя1, Результат.Колонки[Имя2].ТипЗначения);
-		СтрокаДанных[Имя1] = СтрокаДанных[Имя2];
-	КонецЦикла;
-
-	Возврат Результат;
-КонецФункции
-
-// Дополнительный анализ кандидатов в дубли прикладном методом.
-//
-Процедура ЗарегистрироватьДублиПоПрикладнымПравилам(СтрокиДереваРезультата, Знач МенеджерОбластиПоиска,
-	Знач ОсновныеДанные, Знач ТаблицаКандидатов, Знач СтруктураПолей, Знач ДополнительныеПараметры)
-	Если ТаблицаКандидатов.Количество() = 0 Тогда
-		Возврат;
-	КонецЕсли;
-
-	МенеджерОбластиПоиска.ПриПоискеДублей(ТаблицаКандидатов, ДополнительныеПараметры);
-
-	Данные1 = Новый Структура;
-	Данные2 = Новый Структура;
-
-	Найденные = ТаблицаКандидатов.НайтиСтроки(Новый Структура("ЭтоДубли", Истина));
-	Для Каждого ПараКандидатов Из Найденные Цикл
-		Данные1.Вставить("Ссылка", ПараКандидатов.Ссылка1);
-		Данные1.Вставить("Код", ПараКандидатов.Поля1.Код);
-		Данные1.Вставить("Наименование", ПараКандидатов.Поля1.Наименование);
-
-		Данные2.Вставить("Ссылка", ПараКандидатов.Ссылка2);
-		Данные2.Вставить("Код", ПараКандидатов.Поля2.Код);
-		Данные2.Вставить("Наименование", ПараКандидатов.Поля2.Наименование);
-
-		Для Каждого КлючЗначение Из СтруктураПолей.СтруктураПолейИдентичности Цикл
-			ИмяПоля = КлючЗначение.Ключ;
-			Данные1.Вставить(ИмяПоля, ПараКандидатов.Поля1[ИмяПоля]);
-			Данные2.Вставить(ИмяПоля, ПараКандидатов.Поля2[ИмяПоля]);
-		КонецЦикла;
-		Для Каждого КлючЗначение Из СтруктураПолей.СтруктураПолейПодобия Цикл
-			ИмяПоля = КлючЗначение.Ключ;
-			Данные1.Вставить(ИмяПоля, ПараКандидатов.Поля1[ИмяПоля]);
-			Данные2.Вставить(ИмяПоля, ПараКандидатов.Поля2[ИмяПоля]);
-		КонецЦикла;
-
-		ЗарегистрироватьДубль(СтрокиДереваРезультата, Данные1, Данные2, СтруктураПолей);
-	КонецЦикла;
-КонецПроцедуры
-
-// Добавляем строку в таблицу кандидатов для прикладного метода.
-//
-Функция ДобавитьСтрокуКандидатов(ТаблицаКандидатов, Знач ДанныеОсновногоЭлемента, Знач ДанныеКандидата,
-	Знач СтруктураПолей)
-
-	Строка = ТаблицаКандидатов.Добавить();
-	Строка.ЭтоДубли = Ложь;
-	Строка.Ссылка1  = ДанныеОсновногоЭлемента.Ссылка;
-	Строка.Ссылка2  = ДанныеКандидата.Ссылка;
-
-	Строка.Поля1 = Новый Структура("Код, Наименование", ДанныеОсновногоЭлемента.Код,
-		ДанныеОсновногоЭлемента.Наименование);
-	Строка.Поля2 = Новый Структура("Код, Наименование", ДанныеКандидата.Код, ДанныеКандидата.Наименование);
-
-	Для Каждого КлючЗначение Из СтруктураПолей.СтруктураПолейИдентичности Цикл
-		ИмяПоля = КлючЗначение.Ключ;
-		Строка.Поля1.Вставить(ИмяПоля, ДанныеОсновногоЭлемента[ИмяПоля]);
-		Строка.Поля2.Вставить(ИмяПоля, ДанныеКандидата[ИмяПоля]);
-	КонецЦикла;
-
-	Для Каждого КлючЗначение Из СтруктураПолей.СтруктураПолейПодобия Цикл
-		ИмяПоля = КлючЗначение.Ключ;
-		Строка.Поля1.Вставить(ИмяПоля, ДанныеОсновногоЭлемента[ИмяПоля]);
-		Строка.Поля2.Вставить(ИмяПоля, ДанныеКандидата[ИмяПоля]);
-	КонецЦикла;
-
-	Для Каждого КлючЗначение Из СтруктураПолей.РасшифровкаДополнительныхПолей Цикл
-		ИмяКолонки = КлючЗначение.Значение;
-		ИмяПоля    = КлючЗначение.Ключ;
-
-		Строка.Поля1.Вставить(ИмяКолонки, ДанныеОсновногоЭлемента[ИмяПоля]);
-		Строка.Поля2.Вставить(ИмяКолонки, ДанныеКандидата[ИмяПоля]);
-	КонецЦикла;
-
-	Возврат Строка;
-КонецФункции
-
-// Добавляем в дерево результатов найденный вариант.
-//
-Процедура ЗарегистрироватьДубль(ТаблицаДублей, Знач Элемент1, Знач Элемент2, Знач СтруктураПолей)
-	// Определить какой элемент уже добавлен в дубли.
-	СтрокаДублей1 = ТаблицаДублей.Найти(Элемент1.Ссылка, "Ссылка");
-	СтрокаДублей2 = ТаблицаДублей.Найти(Элемент2.Ссылка, "Ссылка");
-	Дубль1Зарегистрирован = (СтрокаДублей1 <> Неопределено);
-	Дубль2Зарегистрирован = (СтрокаДублей2 <> Неопределено);
+	PrefilterComposer.Initialize( New DataCompositionAvailableSettingsSource(Parameters.CompositionSchema) );
+	PrefilterComposer.LoadSettings(Parameters.PrefilterComposerSettings);
 	
-	// Если оба элемента добавлены в дубли, то ничего делать не надо.
-	Если Дубль1Зарегистрирован И Дубль2Зарегистрирован Тогда
-		Возврат;
-	КонецЕсли;
+	Parameters.Insert("PrefilterComposer", PrefilterComposer);
 	
-	// Перед регистрацией дубля надо определить ссылку группы дублей.
-	Если Дубль1Зарегистрирован Тогда
-		СсылкаГруппыДублей = ?(ЗначениеЗаполнено(СтрокаДублей1.Родитель), СтрокаДублей1.Родитель, СтрокаДублей1.Ссылка);
-	ИначеЕсли Дубль2Зарегистрирован Тогда
-		СсылкаГруппыДублей = ?(ЗначениеЗаполнено(СтрокаДублей2.Родитель), СтрокаДублей2.Родитель, СтрокаДублей2.Ссылка);
-	Иначе // Регистрация группы дублей.
-		ГруппаДублей = ТаблицаДублей.Добавить();
-		ГруппаДублей.Ссылка = Элемент1.Ссылка;
-		СсылкаГруппыДублей = ГруппаДублей.Ссылка;
-	КонецЕсли;
+	// Converting search rules to an indexed value table.
+	SearchRules = New ValueTable;
+	SearchRules.Columns.Add("Attribute", New TypeDescription("String") );
+	SearchRules.Columns.Add("Rule",  New TypeDescription("String") );
+	SearchRules.Indexes.Add("Attribute");
+	
+	For Each Rule In Parameters.SearchRules Do
+		FillPropertyValues(SearchRules.Add(), Rule);
+	EndDo;
+	Parameters.Insert("SearchRules", SearchRules);
+	
+	Parameters.Insert("CalculateUsageInstances", True);
+	
+	// Starting the search
+	Result = DuplicatesGroups(Parameters);
+	
+	PutToTempStorage(Result, ResultAddress);
+	
+EndProcedure
 
-	СписокСвойств = "Ссылка, Код, Наименование," + СтруктураПолей.СписокПолейИдентичности + ","
-		+ СтруктураПолей.СписокПолейПодобия;
+#EndRegion
 
-	Если Не Дубль1Зарегистрирован Тогда
-		СведенияОДубле = ТаблицаДублей.Добавить();
-		ЗаполнитьЗначенияСвойств(СведенияОДубле, Элемент1, СписокСвойств);
-		СведенияОДубле.Родитель = СсылкаГруппыДублей;
-	КонецЕсли;
+#Region Private
 
-	Если Не Дубль2Зарегистрирован Тогда
-		СведенияОДубле = ТаблицаДублей.Добавить();
-		ЗаполнитьЗначенияСвойств(СведенияОДубле, Элемент2, СписокСвойств);
-		СведенияОДубле.Родитель = СсылкаГруппыДублей;
-	КонецЕсли;
+// Background duplicate deletion handler.
+//
+// Parameters:
+//     Parameters    - Structure - data to be analyzed.
+//     ResultAddress - String    - a temporary storage address to save the result.
+//
+Procedure BackgroundDuplicateDeletion(Val Parameters, Val ResultAddress) Export
+	
+	ReplacementParameters = New Structure;
+	ReplacementParameters.Insert("WriteParameters", Parameters.WriteParameters);
+	ReplacementParameters.Insert("ConsiderAppliedRules", Parameters.ConsiderAppliedRules);
+	ReplacementParameters.Insert("ReplacePairsInTransaction", Parameters.ReplacePairsInTransaction);
+	ReplacementParameters.Insert("DeletionMethod", "Check");
 
-	UT_TimeConsumingOperations.ReportProgress(ТаблицаДублей.Количество(), "ЗарегистрироватьДубль");
+	ReplaceReferences(Parameters.ReplacementPairs, ReplacementParameters, ResultAddress);
+
+EndProcedure
+
+// Converts an object to a table for adding to a query.
+Function ObjectIntoValueTable(Val DataObject, Val AdditionalFieldsDetails)
+	Result = New ValueTable;
+	DataString = Result.Add();
+	
+	MetaObject = DataObject.Metadata();
+	
+	For Each MetaAttribute In MetaObject.StandardAttributes  Do
+		Name = MetaAttribute.Name;
+		Result.Columns.Add(Name, MetaAttribute.Type);
+		DataString[Name] = DataObject[Name];
+	EndDo;
+	
+	For Each MetaAttribute In MetaObject.Attributes Do
+		Name = MetaAttribute.Name;
+		Result.Columns.Add(Name, MetaAttribute.Type);
+		DataString[Name] = DataObject[Name];
+	EndDo;
+	
+	For Each KeyAndValue In AdditionalFieldsDetails Do
+		Name1 = KeyAndValue.Key;
+		Name2 = KeyAndValue.Value;
+		Result.Columns.Add(Name1, Result.Columns[Name2].ValueType);
+		DataString[Name1] = DataString[Name2];
+	EndDo;
+	
+	Return Result;
+EndFunction
+
+// Additional analysis of candidates for duplicates using the applied method.
+//
+Procedure RegisterDuplicatesByAppliedRules(ResultTreeRows, Val SearchAreaManager, Val MainData, Val CandidatesTable, Val FieldsStructure, Val AdditionalParameters)
+	If CandidatesTable.Count() = 0 Then
+		Return;
+	EndIf;
+	
+	SearchAreaManager.OnSearchForDuplicates(CandidatesTable, AdditionalParameters);
+	
+	Data1 = New Structure;
+	Data2 = New Structure;
+	
+	FoundItems = CandidatesTable.FindRows(New Structure("IsDuplicates", True));
+	For Each CandidatesPair In FoundItems Do
+		Data1.Insert("Ref",       CandidatesPair.Ref1);
+		Data1.Insert("Code",          CandidatesPair.Fields1.Code);
+		Data1.Insert("Description", CandidatesPair.Fields1.Description);
+		
+		Data2.Insert("Ref",       CandidatesPair.Ref2);
+		Data2.Insert("Code",          CandidatesPair.Fields2.Code);
+		Data2.Insert("Description", CandidatesPair.Fields2.Description);
+		
+		For Each KeyValue In FieldsStructure.IdentityFieldsStructure Do
+			FieldName = KeyValue.Key;
+			Data1.Insert(FieldName, CandidatesPair.Fields1[FieldName]);
+			Data2.Insert(FieldName, CandidatesPair.Fields2[FieldName]);
+		EndDo;
+		For Each KeyValue In FieldsStructure.SimilarityFieldsStructure Do
+			FieldName = KeyValue.Key;
+			Data1.Insert(FieldName, CandidatesPair.Fields1[FieldName]);
+			Data2.Insert(FieldName, CandidatesPair.Fields2[FieldName]);
+		EndDo;
+		
+		RegisterDuplicate(ResultTreeRows, Data1, Data2, FieldsStructure);
+	EndDo;
+EndProcedure
+
+// Adding a row to the candidate table for the applied method.
+//
+Function AddCandidatesRow(CandidatesTable, Val MainItemData, Val CandidateData, Val FieldsStructure)
+	
+	Row = CandidatesTable.Add();
+	Row.IsDuplicates = False;
+	Row.Ref1  = MainItemData.Ref;
+	Row.Ref2  = CandidateData.Ref;
+	
+	Row.Fields1 = New Structure("Code, Description", MainItemData.Code, MainItemData.Description);
+	Row.Fields2 = New Structure("Code, Description", CandidateData.Code, CandidateData.Description);
+	
+	For Each KeyValue In FieldsStructure.IdentityFieldsStructure Do
+		FieldName = KeyValue.Key;
+		Row.Fields1.Insert(FieldName, MainItemData[FieldName]);
+		Row.Fields2.Insert(FieldName, CandidateData[FieldName]);
+	EndDo;
+	
+	For Each KeyValue In FieldsStructure.SimilarityFieldsStructure Do
+		FieldName = KeyValue.Key;
+		Row.Fields1.Insert(FieldName, MainItemData[FieldName]);
+		Row.Fields2.Insert(FieldName, CandidateData[FieldName]);
+	EndDo;
+	
+	For Each KeyValue In FieldsStructure.AdditionalFieldsDetails Do
+		ColumnName = KeyValue.Value;
+		FieldName    = KeyValue.Key;
+		
+		Row.Fields1.Insert(ColumnName, MainItemData[FieldName]);
+		Row.Fields2.Insert(ColumnName, CandidateData[FieldName]);
+	EndDo;
+	
+	Return Row;
+EndFunction
+
+// Adding the found option to the result tree.
+//
+Procedure RegisterDuplicate(DuplicatesTable, Val Item1, Val Item2, Val FieldsStructure)
+	// Defining which item is already added to duplicates.
+	DuplicatesRow1 = DuplicatesTable.Find(Item1.Ref, "Ref");
+	DuplicatesRow2 = DuplicatesTable.Find(Item2.Ref, "Ref");
+	Duplicate1Registered = (DuplicatesRow1 <> Undefined);
+	Duplicate2Registered = (DuplicatesRow2 <> Undefined);
+	
+	// If both items are added to duplicates, do nothing.
+	If Duplicate1Registered AND Duplicate2Registered Then
+		Return;
+	EndIf;
+	
+	// Determining a duplicates group reference.
+	If Duplicate1Registered Then
+		DuplicatesGroupsRef = ?(ValueIsFilled(DuplicatesRow1.Parent), DuplicatesRow1.Parent, DuplicatesRow1.Ref);
+	ElsIf Duplicate2Registered Then
+		DuplicatesGroupsRef = ?(ValueIsFilled(DuplicatesRow2.Parent), DuplicatesRow2.Parent, DuplicatesRow2.Ref);
+	Else // Registering a group of duplicates.
+		DuplicatesGroup = DuplicatesTable.Add();
+		DuplicatesGroup.Ref = Item1.Ref;
+		DuplicatesGroupsRef = DuplicatesGroup.Ref;
+	EndIf;
+	
+	PropertiesList = "Ref, Code, Description," + FieldsStructure.IdentityFieldsList + "," + FieldsStructure.SimilarityFieldsList;
+	
+	If Not Duplicate1Registered Then
+		DuplicateInfo = DuplicatesTable.Add();
+		FillPropertyValues(DuplicateInfo, Item1, PropertiesList);
+		DuplicateInfo.Parent = DuplicatesGroupsRef;
+	EndIf;
+	
+	If Not Duplicate2Registered Then
+		DuplicateInfo = DuplicatesTable.Add();
+		FillPropertyValues(DuplicateInfo, Item2, PropertiesList);
+		DuplicateInfo.Parent = DuplicatesGroupsRef;
+	EndIf;
+
+	UT_TimeConsumingOperations.ReportProgress(DuplicatesTable.Count(), "RegisterDuplicate");
 
 КонецПроцедуры
 
 ////////////////////////////////////////////////////////////////////////////////
-// Для автономной работы.
+// For offline work.
 
-// [ОбщегоНазначения.МестаИспользования]
-Функция МестаИспользованияСсылок(Знач НаборСсылок, Знач АдресРезультата = "")
+// [Common.UsageInstances]
+Function SearchForReferences(Val RefSet, Val ResultAddress = "")
 
-	Возврат UT_Common.UsageInstances(НаборСсылок, АдресРезультата);
+	Return UT_Common.UsageInstances(RefSet, ResultAddress);
 
-КонецФункции
+EndFunction
 
-// [ОбщегоНазначения.ЗаменитьСсылки]
-Процедура ReplaceReferences(Знач ПарыЗамен, Знач Параметры = Неопределено, Знач АдресРезультата = "")
+// [Common.ReplaceReferences]
+Procedure ReplaceReferences(Val ReplacementPairs, Val Parameters = Undefined, Val ResultAddress = "")
 
-	Результат = UT_Common.ReplaceReferences(ПарыЗамен, Параметры);
+	Result = UT_Common.ReplaceReferences(ReplacementPairs, Parameters);
 
-	Если АдресРезультата <> "" Тогда
-		ПоместитьВоВременноеХранилище(Результат, АдресРезультата);
-	КонецЕсли;
-
-КонецПроцедуры
+	If ResultAddress <> "" Then
+		PutToTempStorage(Result, ResultAddress);
+	EndIf;
+	
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
 // Прочие.
 
-Функция ДоступныеРеквизитыОтбора(ОбъектМетаданных)
-	МассивРеквизитов = Новый Массив;
-	Для Каждого РеквизитМетаданные Из ОбъектМетаданных.СтандартныеРеквизиты Цикл
-		Если РеквизитМетаданные.Тип.СодержитТип(Тип("ХранилищеЗначения")) Тогда
-			Продолжить;
-		КонецЕсли;
-		МассивРеквизитов.Добавить(РеквизитМетаданные.Имя);
-	КонецЦикла;
-	Для Каждого РеквизитМетаданные Из ОбъектМетаданных.Реквизиты Цикл
-		Если РеквизитМетаданные.Тип.СодержитТип(Тип("ХранилищеЗначения")) Тогда
-			Продолжить;
-		КонецЕсли;
-		МассивРеквизитов.Добавить(РеквизитМетаданные.Имя);
-	КонецЦикла;
-	Возврат СтрСоединить(МассивРеквизитов, ",");
-КонецФункции
+Function AvailableFilterAttributes(MetadataObject)
+	AttributesArray = New Array;
+	For Each AttributeMetadata In MetadataObject.StandardAttributes Do
+		If AttributeMetadata.Type.ContainsType(Type("ValueStorage")) Then
+			Continue;
+		EndIf;
+		AttributesArray.Add(AttributeMetadata.Name);
+	EndDo;
+	For Each AttributeMetadata In MetadataObject.Attributes Do
+		If AttributeMetadata.Type.ContainsType(Type("ValueStorage")) Then
+			Continue;
+		EndIf;
+		AttributesArray.Add(AttributeMetadata.Name);
+	EndDo;
+	Return StrConcat(AttributesArray, ",");
+EndFunction
 
-Функция ИнициализироватьВыборкуКД(СхемаКД, НастройкиКД)
-	Выборка = Новый Структура("Таблица, ТекущийЭлемент, Индекс, ВГраница, ПроцессорКД, ПроцессорВыводаКД");
-	КомпоновщикМакетаКД = Новый КомпоновщикМакетаКомпоновкиДанных;
-	МакетКД = КомпоновщикМакетаКД.Выполнить(СхемаКД, НастройкиКД, , , Тип(
-		"ГенераторМакетаКомпоновкиДанныхДляКоллекцииЗначений"));
+Function InitializeDCSelection(DCSchema, DCSettings)
+	Selection = New Structure("Table, CurrentItem, IndexOf, UBound, DCProcessor, DCOutputProcessor");
+	DCTemplateComposer = New DataCompositionTemplateComposer;
+	DCTemplate = DCTemplateComposer.Execute(DCSchema, DCSettings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
+	
+	Selection.DCProcessor = New DataCompositionProcessor;
+	Selection.DCProcessor.Initialize(DCTemplate);
+	
+	Selection.Table = New ValueTable;
+	Selection.IndexOf = -1;
+	Selection.UBound = -100;
+	
+	Selection.DCOutputProcessor = New DataCompositionResultValueCollectionOutputProcessor;
+	Selection.DCOutputProcessor.SetObject(Selection.Table);
+	
+	Return Selection;
+EndFunction
 
-	Выборка.ПроцессорКД = Новый ПроцессорКомпоновкиДанных;
-	Выборка.ПроцессорКД.Инициализировать(МакетКД);
+Function InitializeVTSelection(ValueTable)
+	Selection = New Structure("Table, CurrentItem, IndexOf, UBound, DCProcessor, DCOutputProcessor");
+	Selection.Table = ValueTable;
+	Selection.IndexOf = -1;
+	Selection.UBound = ValueTable.Count() - 1;
+	Return Selection;
+EndFunction
 
-	Выборка.Таблица = Новый ТаблицаЗначений;
-	Выборка.Индекс = -1;
-	Выборка.ВГраница = -100;
+Function NextSelectionItem(Selection)
+	If Selection.IndexOf >= Selection.UBound Then
+		If Selection.DCProcessor = Undefined Then
+			Return False;
+		EndIf;
+		If Selection.UBound = -100 Then
+			Selection.DCOutputProcessor.BeginOutput();
+		EndIf;
+		Selection.Table.Clear();
+		Selection.IndexOf = -1;
+		Selection.UBound = -1;
+		While Selection.UBound = -1 Do
+			DCResultItem = Selection.DCProcessor.Next();
+			If DCResultItem = Undefined Then
+				Selection.DCOutputProcessor.EndOutput();
+				Return False;
+			EndIf;
+			Selection.DCOutputProcessor.OutputItem(DCResultItem);
+			Selection.UBound = Selection.Table.Count() - 1;
+		EndDo;
+	EndIf;
+	Selection.IndexOf = Selection.IndexOf + 1;
+	Selection.CurrentItem = Selection.Table[Selection.IndexOf];
+	Return True;
+EndFunction
 
-	Выборка.ПроцессорВыводаКД = Новый ПроцессорВыводаРезультатаКомпоновкиДанныхВКоллекциюЗначений;
-	Выборка.ПроцессорВыводаКД.УстановитьОбъект(Выборка.Таблица);
-
-	Возврат Выборка;
-КонецФункции
-
-Функция ИнициализироватьВыборкуТЗ(ТаблицаЗначений)
-	Выборка = Новый Структура("Таблица, ТекущийЭлемент, Индекс, ВГраница, ПроцессорКД, ПроцессорВыводаКД");
-	Выборка.Таблица = ТаблицаЗначений;
-	Выборка.Индекс = -1;
-	Выборка.ВГраница = ТаблицаЗначений.Количество() - 1;
-	Возврат Выборка;
-КонецФункции
-
-Функция СледующийЭлементВыборки(Выборка)
-	Если Выборка.Индекс >= Выборка.ВГраница Тогда
-		Если Выборка.ПроцессорКД = Неопределено Тогда
-			Возврат Ложь;
-		КонецЕсли;
-		Если Выборка.ВГраница = -100 Тогда
-			Выборка.ПроцессорВыводаКД.НачатьВывод();
-		КонецЕсли;
-		Выборка.Таблица.Очистить();
-		Выборка.Индекс = -1;
-		Выборка.ВГраница = -1;
-		Пока Выборка.ВГраница = -1 Цикл
-			ЭлементРезультатаКД = Выборка.ПроцессорКД.Следующий();
-			Если ЭлементРезультатаКД = Неопределено Тогда
-				Выборка.ПроцессорВыводаКД.ЗакончитьВывод();
-				Возврат Ложь;
-			КонецЕсли;
-			Выборка.ПроцессорВыводаКД.ВывестиЭлемент(ЭлементРезультатаКД);
-			Выборка.ВГраница = Выборка.Таблица.Количество() - 1;
-		КонецЦикла;
-	КонецЕсли;
-	Выборка.Индекс = Выборка.Индекс + 1;
-	Выборка.ТекущийЭлемент = Выборка.Таблица[Выборка.Индекс];
-	Возврат Истина;
-КонецФункции
-
-#КонецОбласти
+#EndRegion
