@@ -1832,7 +1832,7 @@ To add custom fields, select the check box above.</value>
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>
@@ -2808,7 +2808,7 @@ In the structure tree, select the report and edit report filters.</value>
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>
@@ -3498,7 +3498,7 @@ To assign the item with a personal sort, select the check box above.</value>
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>
@@ -3639,7 +3639,7 @@ In the structure tree, select the report and edit report sorts.</value>
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>
@@ -4136,7 +4136,7 @@ To assign the item with a personal conditional appearance, select the check box 
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>
@@ -4277,7 +4277,7 @@ In the structure tree, select the report and edit report conditional appearance.
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>
@@ -4766,7 +4766,7 @@ To assign the item with personal additional settings, select the check box above
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>
@@ -4907,7 +4907,7 @@ In the structure tree, select the report and edit additional report settings.</v
             <extInfo xsi:type="form:LabelDecorationExtInfo">
               <handlers>
                 <event>Click</event>
-                <name>ПерейтиКОтчету</name>
+                <name>GoToReport</name>
               </handlers>
               <hyperlink>true</hyperlink>
               <horizontalAlign>Left</horizontalAlign>

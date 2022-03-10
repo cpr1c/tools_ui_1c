@@ -41,7 +41,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ВыбранныеПоляДоступны(ЭлементСтруктуры)
+Procedure SelectedFieldsAvailable(ЭлементСтруктуры)
 
 	If Report.SettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
 
@@ -64,7 +64,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ВыбранныеПоляДоступны1(ЭлементСтруктуры)
+Procedure SelectedFieldsAvailable1(ЭлементСтруктуры)
 
 	If ИсполняемыйКомпоновщикНастроек.Settings.HasItemSelection(ЭлементСтруктуры) Then
 
@@ -84,7 +84,7 @@ EndProcedure
 
 // Переключить страницу выбранных полей на страницу с текстом недоступности.
 &AtClient
-Procedure ВыбранныеПоляНедоступны()
+Procedure SelectedFieldsUnavailable()
 
 	ЛокальныеВыбранныеПоля = False;
 	Items.ЛокальныеВыбранныеПоля.ReadOnly = True;
@@ -94,7 +94,7 @@ EndProcedure
 
 // Переключить страницу выбранных полей на страницу с текстом недоступности для исполняемых настроек.
 &AtClient
-Procedure ВыбранныеПоляНедоступны1()
+Procedure SelectedFieldsUnavailable1()
 
 	ЛокальныеВыбранныеПоля1 = False;
 	Items.ЛокальныеВыбранныеПоля1.ReadOnly = True;
@@ -107,7 +107,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ОтборДоступен(ЭлементСтруктуры)
+Procedure FilterAvailable(ЭлементСтруктуры)
 
 	If Report.SettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
 
@@ -130,7 +130,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ОтборДоступен1(ЭлементСтруктуры)
+Procedure FilterAvailable1(ЭлементСтруктуры)
 
 	If ИсполняемыйКомпоновщикНастроек.Settings.HasItemFilter(ЭлементСтруктуры) Then
 
@@ -150,7 +150,7 @@ EndProcedure
 
 // Переключить страницу отбора на страницу с текстом недоступности.
 &AtClient
-Procedure ОтборНедоступен()
+Procedure FilterUnavailable()
 
 	ЛокальныйОтбор = False;
 	Items.ЛокальныйОтбор.ReadOnly = True;
@@ -160,7 +160,7 @@ EndProcedure
 
 // Переключить страницу отбора на страницу с текстом недоступности для исполняемых настроек.
 &AtClient
-Procedure ОтборНедоступен1()
+Procedure FilterUnavailable1()
 
 	ЛокальныйОтбор1 = False;
 	Items.ЛокальныйОтбор1.ReadOnly = True;
@@ -173,7 +173,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ПорядокДоступен(ЭлементСтруктуры)
+Procedure OrderAvailable(ЭлементСтруктуры)
 
 	If Report.SettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
 
@@ -196,7 +196,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ПорядокДоступен1(ЭлементСтруктуры)
+Procedure OrderAvailable1(ЭлементСтруктуры)
 
 	If ИсполняемыйКомпоновщикНастроек.Settings.HasItemOrder(ЭлементСтруктуры) Then
 
@@ -216,7 +216,7 @@ EndProcedure
 
 // Переключить страницу порядка на страницу с текстом недоступности.
 &AtClient
-Procedure ПорядокНедоступен()
+Procedure OrderUnavailable()
 
 	ЛокальныйПорядок = False;
 	Items.ЛокальныйПорядок.ReadOnly = True;
@@ -226,7 +226,7 @@ EndProcedure
 
 // Переключить страницу порядка на страницу с текстом недоступности для исполняемых настроек.
 &AtClient
-Procedure ПорядокНедоступен1()
+Procedure OrderUnavailable1()
 
 	ЛокальныйПорядок1 = False;
 	Items.ЛокальныйПорядок1.ReadOnly = True;
@@ -239,7 +239,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure УсловноеОформлениеДоступно(ЭлементСтруктуры)
+Procedure ConditionalAppearanceAvailable(ЭлементСтруктуры)
 
 	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
 
@@ -262,7 +262,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure УсловноеОформлениеДоступно1(ЭлементСтруктуры)
+Procedure ConditionalAppearanceAvailable1(ЭлементСтруктуры)
 
 	If ИсполняемыйКомпоновщикНастроек.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
 
@@ -282,7 +282,7 @@ EndProcedure
 
 // Переключить страницу условного оформления на страницу с текстом недоступности.
 &AtClient
-Procedure УсловноеОформлениеНедоступно()
+Procedure ConditionalAppearanceUnavailable()
 
 	ЛокальноеУсловноеОформление = False;
 	Items.ЛокальноеУсловноеОформление.ReadOnly = True;
@@ -292,7 +292,7 @@ EndProcedure
 
 // Переключить страницу условного оформления на страницу с текстом недоступности для исполняемых настроек.
 &AtClient
-Procedure УсловноеОформлениеНедоступно1()
+Procedure ConditionalAppearanceUnavailable1()
 
 	ЛокальноеУсловноеОформление1 = False;
 	Items.ЛокальноеУсловноеОформление1.ReadOnly = True;
@@ -305,7 +305,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ПараметрыВыводаДоступны(ЭлементСтруктуры)
+Procedure OutputParametersAvailable(ЭлементСтруктуры)
 
 	If Report.SettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
 
@@ -328,7 +328,7 @@ EndProcedure
 // Параметры: 
 //  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
 &AtClient
-Procedure ПараметрыВыводаДоступны1(ЭлементСтруктуры)
+Procedure OutputParametersAvailable1(ЭлементСтруктуры)
 
 	If ИсполняемыйКомпоновщикНастроек.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
 
@@ -348,7 +348,7 @@ EndProcedure
 
 // Переключить страницу параметров вывода на страницу с текстом недоступности.
 &AtClient
-Procedure ПараметрыВыводаНедоступны()
+Procedure OutputParametersUnavailable()
 
 	ЛокальныеПараметрыВывода = False;
 	Items.ЛокальныеПараметрыВывода.ReadOnly = True;
@@ -358,7 +358,7 @@ EndProcedure
 
 // Переключить страницу параметров вывода на страницу с текстом недоступности для исполняемых настроек.
 &AtClient
-Procedure ПараметрыВыводаНедоступны1()
+Procedure OutputParametersUnavailable1()
 
 	ЛокальныеПараметрыВывода1 = False;
 	Items.ЛокальныеПараметрыВывода1.ReadOnly = True;
@@ -3433,11 +3433,11 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
 
 		GroupFieldsNotAvailable();
-		ВыбранныеПоляНедоступны();
-		ОтборНедоступен();
-		ПорядокНедоступен();
-		УсловноеОформлениеНедоступно();
-		ПараметрыВыводаНедоступны();
+		SelectedFieldsUnavailable();
+		FilterUnavailable();
+		OrderUnavailable();
+		ConditionalAppearanceUnavailable();
+		OutputParametersUnavailable();
 
 	ElsIf ItemType = Type("DataCompositionSettings") Or ItemType = Type(
 		"DataCompositionNestedObjectSettings") Then
@@ -3469,20 +3469,20 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 
 		Items.СтраницыПолейГруппировки.CurrentPage = Items.НастройкиПолейГруппировки;
 
-		ВыбранныеПоляДоступны(ЭлементСтруктуры);
-		ОтборДоступен(ЭлементСтруктуры);
-		ПорядокДоступен(ЭлементСтруктуры);
-		УсловноеОформлениеДоступно(ЭлементСтруктуры);
-		ПараметрыВыводаДоступны(ЭлементСтруктуры);
+		SelectedFieldsAvailable(ЭлементСтруктуры);
+		FilterAvailable(ЭлементСтруктуры);
+		OrderAvailable(ЭлементСтруктуры);
+		ConditionalAppearanceAvailable(ЭлементСтруктуры);
+		OutputParametersAvailable(ЭлементСтруктуры);
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
 		GroupFieldsNotAvailable();
-		ВыбранныеПоляДоступны(ЭлементСтруктуры);
-		ОтборНедоступен();
-		ПорядокНедоступен();
-		УсловноеОформлениеДоступно(ЭлементСтруктуры);
-		ПараметрыВыводаДоступны(ЭлементСтруктуры);
+		SelectedFieldsAvailable(ЭлементСтруктуры);
+		FilterUnavailable();
+		OrderUnavailable();
+		ConditionalAppearanceAvailable(ЭлементСтруктуры);
+		OutputParametersAvailable(ЭлементСтруктуры);
 
 	EndIf;
 
@@ -3501,11 +3501,11 @@ Procedure СтруктураПриАктивизацииСтроки1(Item)
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
 
 		GroupFieldsNotAvailable1();
-		ВыбранныеПоляНедоступны1();
-		ОтборНедоступен1();
-		ПорядокНедоступен1();
-		УсловноеОформлениеНедоступно1();
-		ПараметрыВыводаНедоступны1();
+		SelectedFieldsUnavailable1();
+		FilterUnavailable1();
+		OrderUnavailable1();
+		ConditionalAppearanceUnavailable1();
+		OutputParametersUnavailable1();
 
 	ElsIf ItemType = Type("DataCompositionSettings") Or ItemType = Type(
 		"DataCompositionNestedObjectSettings") Then
@@ -3537,20 +3537,20 @@ Procedure СтруктураПриАктивизацииСтроки1(Item)
 
 		Items.СтраницыПолейГруппировки1.CurrentPage = Items.НастройкиПолейГруппировки1;
 
-		ВыбранныеПоляДоступны1(ЭлементСтруктуры);
-		ОтборДоступен1(ЭлементСтруктуры);
-		ПорядокДоступен1(ЭлементСтруктуры);
-		УсловноеОформлениеДоступно1(ЭлементСтруктуры);
-		ПараметрыВыводаДоступны1(ЭлементСтруктуры);
+		SelectedFieldsAvailable1(ЭлементСтруктуры);
+		FilterAvailable1(ЭлементСтруктуры);
+		OrderAvailable1(ЭлементСтруктуры);
+		ConditionalAppearanceAvailable1(ЭлементСтруктуры);
+		OutputParametersAvailable1(ЭлементСтруктуры);
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
 		GroupFieldsNotAvailable1();
-		ВыбранныеПоляДоступны1(ЭлементСтруктуры);
-		ОтборНедоступен1();
-		ПорядокНедоступен1();
-		УсловноеОформлениеДоступно1(ЭлементСтруктуры);
-		ПараметрыВыводаДоступны1(ЭлементСтруктуры);
+		SelectedFieldsAvailable1(ЭлементСтруктуры);
+		FilterUnavailable1();
+		OrderUnavailable1();
+		ConditionalAppearanceAvailable1(ЭлементСтруктуры);
+		OutputParametersAvailable1(ЭлементСтруктуры);
 
 	EndIf;
 
@@ -3558,7 +3558,7 @@ EndProcedure
 
 // Обработчик события Нажатие декораций.
 &AtClient
-Procedure ПерейтиКОтчету(Item)
+Procedure GoToReport(Item)
 
 	ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
 		Items.Structure.CurrentLine);
@@ -3570,7 +3570,7 @@ EndProcedure
 
 // Обработчик события Нажатие декораций для исполняемых настроек.
 &AtClient
-Procedure ПерейтиКОтчету1(Item)
+Procedure GoToReport1(Item)
 
 	ЭлементСтруктуры = ИсполняемыйКомпоновщикНастроек.Settings.GetObjectByID(
 		Items.Структура1.CurrentLine);

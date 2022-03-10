@@ -2769,7 +2769,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -2897,7 +2897,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -3569,7 +3569,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -3697,7 +3697,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -4365,7 +4365,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -4493,7 +4493,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -4968,7 +4968,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -5096,7 +5096,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -5567,7 +5567,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -5695,7 +5695,7 @@
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GoToReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -9120,7 +9120,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -9248,7 +9248,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -9904,7 +9904,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -10032,7 +10032,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -10684,7 +10684,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -10812,7 +10812,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -11275,7 +11275,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -11403,7 +11403,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -11866,7 +11866,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>
@@ -11994,7 +11994,7 @@
                     <extInfo xsi:type="form:LabelDecorationExtInfo">
                       <handlers>
                         <event>Click</event>
-                        <name>ПерейтиКОтчету1</name>
+                        <name>GoToReport1</name>
                       </handlers>
                       <hyperlink>true</hyperlink>
                       <horizontalAlign>Left</horizontalAlign>

@@ -6,7 +6,7 @@ Procedure GroupFieldsNotAvailable()
 EndProcedure
 
 &AtClient
-Procedure ВыбранныеПоляДоступны(SettingsItem)
+Procedure SelectedFieldsAvailable(SettingsItem)
 
 	If Report.SettingsComposer.Settings.HasItemSelection(SettingsItem) Then
 
@@ -34,11 +34,11 @@ Procedure SettingsOnActivateRow(Item)
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
 
 		GroupFieldsNotAvailable();
-		ВыбранныеПоляНедоступны();
-		ОтборНедоступен();
-		ПорядокНедоступен();
-		УсловноеОформлениеНедоступно();
-		ПараметрыВыводаНедоступны();
+		SelectedFieldsUnavailable();
+		FilterUnavailable();
+		OrderUnavailable();
+		ConditionalAppearanceUnavailable();
+		OutputParametersUnavailable();
 
 	ElsIf ItemType = Type("DataCompositionSettings") Or ItemType = Type(
 		"DataCompositionNestedObjectSettings") Then
@@ -70,27 +70,26 @@ Procedure SettingsOnActivateRow(Item)
 
 		Items.GroupFieldsPages.CurrentPage = Items.GroupFieldsSettings;
 
-		ВыбранныеПоляДоступны(SettingsItem);
-		ОтборДоступен(SettingsItem);
-		ПорядокДоступен(SettingsItem);
-		УсловноеОформлениеДоступно(SettingsItem);
-		ПараметрыВыводаДоступны(SettingsItem);
+		SelectedFieldsAvailable(SettingsItem);
+		FilterAvailable(SettingsItem);
+		OrderAvailable(SettingsItem);
+		ConditionalAppearanceAvailable(SettingsItem);
+		OutputParametersAvailable(SettingsItem);
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
 		GroupFieldsNotAvailable();
-		ВыбранныеПоляДоступны(SettingsItem);
-		ОтборНедоступен();
-		ПорядокНедоступен();
-		УсловноеОформлениеДоступно(SettingsItem);
-		ПараметрыВыводаДоступны(SettingsItem);
+		SelectedFieldsAvailable(SettingsItem);
+		FilterUnavailable();
+		OrderUnavailable();
+		ConditionalAppearanceAvailable(SettingsItem);
+		OutputParametersAvailable(SettingsItem);
 
 	EndIf;
 EndProcedure
 
-
 &AtClient
-Procedure ВыбранныеПоляНедоступны()
+Procedure SelectedFieldsUnavailable()
 
 	LocalSelectedFields = False;
 	Items.LocalSelectedFields.ReadOnly = True;
@@ -99,7 +98,7 @@ Procedure ВыбранныеПоляНедоступны()
 EndProcedure
 
 &AtClient
-Procedure ОтборДоступен(SettingsItem)
+Procedure FilterAvailable(SettingsItem)
 
 	If Report.SettingsComposer.Settings.HasItemFilter(SettingsItem) Then
 
@@ -118,7 +117,7 @@ Procedure ОтборДоступен(SettingsItem)
 EndProcedure
 
 &AtClient
-Procedure ОтборНедоступен()
+Procedure FilterUnavailable()
 
 	LocalFilter = False;
 	Items.LocalFilter.ReadOnly = True;
@@ -127,7 +126,7 @@ Procedure ОтборНедоступен()
 EndProcedure
 
 &AtClient
-Procedure ПорядокДоступен(SettingsItem)
+Procedure OrderAvailable(SettingsItem)
 
 	If Report.SettingsComposer.Settings.HasItemOrder(SettingsItem) Then
 
@@ -146,7 +145,7 @@ Procedure ПорядокДоступен(SettingsItem)
 EndProcedure
 
 &AtClient
-Procedure ПорядокНедоступен()
+Procedure OrderUnavailable()
 
 	LocalOrder = False;
 	Items.LocalOrder.ReadOnly = True;
@@ -155,7 +154,7 @@ Procedure ПорядокНедоступен()
 EndProcedure
 
 &AtClient
-Procedure УсловноеОформлениеДоступно(SettingsItem)
+Procedure ConditionalAppearanceAvailable(SettingsItem)
 
 	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(SettingsItem) Then
 
@@ -174,7 +173,7 @@ Procedure УсловноеОформлениеДоступно(SettingsItem)
 EndProcedure
 
 &AtClient
-Procedure УсловноеОформлениеНедоступно()
+Procedure ConditionalAppearanceUnavailable()
 
 	LocalConditionalAppearance = False;
 	Items.LocalConditionalAppearance.ReadOnly = True;
@@ -183,7 +182,7 @@ Procedure УсловноеОформлениеНедоступно()
 EndProcedure
 
 &AtClient
-Procedure ПараметрыВыводаДоступны(SettingsItem)
+Procedure OutputParametersAvailable(SettingsItem)
 
 	If Report.SettingsComposer.Settings.HasItemOutputParameters(SettingsItem) Then
 
@@ -202,7 +201,7 @@ Procedure ПараметрыВыводаДоступны(SettingsItem)
 EndProcedure
 
 &AtClient
-Procedure ПараметрыВыводаНедоступны()
+Procedure OutputParametersUnavailable()
 
 	LocalOutputParameters = False;
 	Items.LocalOutputParameters.ReadOnly = True;
@@ -261,7 +260,7 @@ Procedure SettingsOnActivateField(Item)
 EndProcedure
 
 &AtClient
-Procedure ПерейтиКОтчету(Item)
+Procedure GoToReport(Item)
 
 	SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 		Items.Structure.CurrentLine);
@@ -339,7 +338,6 @@ Procedure LocalOutputParametersOnChange(Item)
 	EndIf;
 	
 EndProcedure
-
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
