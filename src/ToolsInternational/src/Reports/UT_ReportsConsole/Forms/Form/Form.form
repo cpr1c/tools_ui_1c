@@ -5,7 +5,7 @@
     <value>Консоль системы компоновки данных</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>ГлавнаяКоманднаяПанель</name>
+    <name>MainCommandBar</name>
     <id>316</id>
     <items xsi:type="form:FormGroup">
       <name>КоманднаяПанельДействий</name>
@@ -341,12 +341,16 @@
       <key>ru</key>
       <value>Главная командная панель</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Main command bar</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Главная командная панель</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГлавнаяКоманднаяПанельРасширеннаяПодсказка</name>
+      <name>MainCommandBarExtendedTooltip</name>
       <id>359</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -383,7 +387,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДеревоОтчетов</segments>
+          <segments>ReportsTree</segments>
         </dataPath>
         <skipOnInput>false</skipOnInput>
         <titleLocation>None</titleLocation>
@@ -401,7 +405,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоОтчетов.ТипСтроки</segments>
+                <segments>ReportsTree.RowType</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -449,7 +453,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>ДеревоОтчетов.Имя</segments>
+                <segments>ReportsTree.Name</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -897,7 +901,7 @@
         <enableStartDrag>true</enableStartDrag>
         <enableDrag>true</enableDrag>
         <rowPictureDataPath xsi:type="form:DataPath">
-          <segments>ДеревоОтчетов.ТипСтроки</segments>
+          <segments>ReportsTree.RowType</segments>
         </rowPictureDataPath>
         <rowsPicture xsi:type="form:FormPicture"/>
         <searchStringLocation>None</searchStringLocation>
@@ -2202,7 +2206,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныеВыбранныеПоля</segments>
+                  <segments>LocalSelectedFields</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -3004,7 +3008,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныйОтбор</segments>
+                  <segments>LocalFilter</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -3804,7 +3808,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныйПорядок</segments>
+                  <segments>LocalOrder</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -4600,7 +4604,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальноеУсловноеОформление</segments>
+                  <segments>LocalConditionalAppearance</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -5203,7 +5207,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныеПараметрыВывода</segments>
+                  <segments>LocalOutputParameters</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -6209,7 +6213,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.ДеревоОтчетов.CurrentData.Данные</segments>
+              <segments>Items.ДеревоОтчетов.CurrentData.Data</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -6298,7 +6302,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Items.ДеревоОтчетов.CurrentData.ВнешниеНаборыДанных</segments>
+            <segments>Items.ДеревоОтчетов.CurrentData.ExternalDataSets</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
@@ -6311,7 +6315,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>Items.ДеревоОтчетов.CurrentData.ВнешниеНаборыДанных.Имя</segments>
+                <segments>Items.ДеревоОтчетов.CurrentData.ExternalDataSets.Name</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -6367,7 +6371,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>Items.ДеревоОтчетов.CurrentData.ВнешниеНаборыДанных.Представление</segments>
+                <segments>Items.ДеревоОтчетов.CurrentData.ExternalDataSets.Presentation</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -6685,10 +6689,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаРезультатов</name>
+    <name>GroupResults</name>
     <id>155</id>
     <items xsi:type="form:FormGroup">
-      <name>ПанельРезультатов</name>
+      <name>ResultsPanel</name>
       <id>171</id>
       <items xsi:type="form:FormGroup">
         <name>СтраницаРезультатТабличныйДокумент</name>
@@ -6801,7 +6805,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>РезультатТабличныйДокумент</segments>
+              <segments>ResultSpreadsheetDocument</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -6906,7 +6910,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекстМакетаКомпоновкиДанных</segments>
+              <segments>TextOfDataCompositionTemplate</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -7147,7 +7151,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекстРезультатаКомпоновкиДанных</segments>
+              <segments>TextOfDataCompositionResult</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -7367,7 +7371,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ИсполняемыйКомпоновщикНастроек.Settings</segments>
+              <segments>ExecutedSettingsComposer.Settings</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
@@ -8573,7 +8577,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ЛокальныеВыбранныеПоля1</segments>
+                    <segments>LocalSelectedFields1</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>Right</titleLocation>
@@ -9355,7 +9359,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ЛокальныйОтбор1</segments>
+                    <segments>LocalFilter1</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>Right</titleLocation>
@@ -10139,7 +10143,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ЛокальныйПорядок1</segments>
+                    <segments>LocalOrder1</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>Right</titleLocation>
@@ -10919,7 +10923,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ЛокальноеУсловноеОформление1</segments>
+                    <segments>LocalConditionalAppearance1</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>Right</titleLocation>
@@ -11510,7 +11514,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ЛокальныеПараметрыВывода1</segments>
+                    <segments>LocalOutputParameters1</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>Right</titleLocation>
@@ -12194,7 +12198,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ИсполняемыеНастройкиXML</segments>
+              <segments>ExecutedSettingsXML</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -12380,7 +12384,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>РезультатДерево</segments>
+            <segments>TreeResult</segments>
           </dataPath>
           <skipOnInput>false</skipOnInput>
           <titleLocation>None</titleLocation>
@@ -12656,7 +12660,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекстМакетаКомпоновкиДанныхДляКоллекции</segments>
+              <segments>TextOfDataCompositionTemplateForCollection</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -12905,7 +12909,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ТекстРезультатаКомпоновкиДанныхДляКоллекции</segments>
+              <segments>TextOfDataCompositionResultForCollection</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -13119,12 +13123,16 @@
         <key>ru</key>
         <value>Панель результатов</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Results panel</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Панель результатов</value>
       </toolTip>
       <extendedTooltip>
-        <name>ПанельРезультатовРасширеннаяПодсказка</name>
+        <name>ResultsPanelExtendedTooltip</name>
         <id>606</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -13157,12 +13165,16 @@
       <key>ru</key>
       <value>Группа результатов</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group results</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа результатов</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаРезультатовРасширеннаяПодсказка</name>
+      <name>GroupResultsExtendedTooltip</name>
       <id>605</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -13244,10 +13256,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ЛокальныеВыбранныеПоля</name>
+    <name>LocalSelectedFields</name>
     <title>
       <key>ru</key>
       <value>Локальные выбранные поля</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local selected fields</value>
     </title>
     <id>2</id>
     <valueType>
@@ -13261,10 +13277,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйОтбор</name>
+    <name>LocalFilter</name>
     <title>
       <key>ru</key>
       <value>Локальный отбор</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local filter</value>
     </title>
     <id>3</id>
     <valueType>
@@ -13278,10 +13298,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйПорядок</name>
+    <name>LocalOrder</name>
     <title>
       <key>ru</key>
       <value>Локальный порядок</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local order</value>
     </title>
     <id>4</id>
     <valueType>
@@ -13295,10 +13319,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальноеУсловноеОформление</name>
+    <name>LocalConditionalAppearance</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local conditional appearance</value>
     </title>
     <id>5</id>
     <valueType>
@@ -13312,10 +13340,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныеПараметрыВывода</name>
+    <name>LocalOutputParameters</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local output parameters</value>
     </title>
     <id>6</id>
     <valueType>
@@ -13329,10 +13361,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ДеревоОтчетов</name>
+    <name>ReportsTree</name>
     <title>
       <key>ru</key>
       <value>Дерево отчетов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Reports tree</value>
     </title>
     <id>7</id>
     <valueType>
@@ -13346,10 +13382,14 @@
     </edit>
     <savedData>true</savedData>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -13366,10 +13406,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипСтроки</name>
+      <name>RowType</name>
       <title>
         <key>ru</key>
         <value>Тип строки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Row type</value>
       </title>
       <id>3</id>
       <valueType>
@@ -13386,10 +13430,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Данные</name>
+      <name>Data</name>
       <title>
         <key>ru</key>
         <value>Данные</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Data</value>
       </title>
       <id>2</id>
       <valueType>
@@ -13404,10 +13452,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НастройкиСКД</name>
+      <name>DCSSettings</name>
       <title>
         <key>ru</key>
         <value>Настройки СКД</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>DCSSettings</value>
       </title>
       <id>41</id>
       <valueType>
@@ -13422,10 +13474,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ВнешниеНаборыДанных</name>
+      <name>ExternalDataSets</name>
       <title>
         <key>ru</key>
         <value>Внешние наборы данных</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>External data sets</value>
       </title>
       <id>4</id>
       <valueType>
@@ -13440,13 +13496,17 @@
     </columns>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
-        <segments>ДеревоОтчетов.ВнешниеНаборыДанных</segments>
+        <segments>ReportsTree.ExternalDataSets</segments>
       </tablePath>
       <columns>
-        <name>Имя</name>
+        <name>Name</name>
         <title>
           <key>ru</key>
           <value>Имя</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Name</value>
         </title>
         <id>1</id>
         <valueType>
@@ -13461,10 +13521,14 @@
         </edit>
       </columns>
       <columns>
-        <name>Значение</name>
+        <name>Value</name>
         <title>
           <key>ru</key>
           <value>Значение</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Value</value>
         </title>
         <id>2</id>
         <valueType>
@@ -13479,10 +13543,14 @@
         </edit>
       </columns>
       <columns>
-        <name>Представление</name>
+        <name>Presentation</name>
         <title>
           <key>ru</key>
           <value>Представление</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Presentation</value>
         </title>
         <id>3</id>
         <valueType>
@@ -13499,10 +13567,14 @@
     </additionalColumns>
   </attributes>
   <attributes>
-    <name>РезультатТабличныйДокумент</name>
+    <name>ResultSpreadsheetDocument</name>
     <title>
       <key>ru</key>
       <value>Результат табличный документ</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result spreadsheet document</value>
     </title>
     <id>9</id>
     <valueType>
@@ -13539,10 +13611,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>НачальныйЗаголовок</name>
+    <name>InitialTitle</name>
     <title>
       <key>ru</key>
       <value>Начальный заголовок</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Initial title</value>
     </title>
     <id>10</id>
     <valueType>
@@ -13557,10 +13633,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекущийУзел</name>
+    <name>CurrentNode</name>
     <title>
       <key>ru</key>
       <value>Текущий узел</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current node</value>
     </title>
     <id>11</id>
     <valueType/>
@@ -13572,10 +13652,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресДанныхРасшифровки</name>
+    <name>DetailsDataURL</name>
     <title>
       <key>ru</key>
       <value>Адрес данных расшифровки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Details data URL</value>
     </title>
     <id>12</id>
     <valueType>
@@ -13590,10 +13674,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекущаяСтрока</name>
+    <name>CurrentRow</name>
     <title>
       <key>ru</key>
       <value>Текущая строка</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current row</value>
     </title>
     <id>13</id>
     <valueType/>
@@ -13605,10 +13693,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>НастройкиТекущейСтрокиИзменены</name>
+    <name>CurrentRowSettingsIsChanged</name>
     <title>
       <key>ru</key>
       <value>Настройки текущей строки изменены</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current row settings is changed</value>
     </title>
     <id>14</id>
     <valueType>
@@ -13644,10 +13736,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИдетАктивацияСтроки</name>
+    <name>RowIsBeingActivated</name>
     <title>
       <key>ru</key>
       <value>Идет активация строки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Row is being activated</value>
     </title>
     <id>16</id>
     <valueType>
@@ -13683,10 +13779,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстМакетаКомпоновкиДанных</name>
+    <name>TextOfDataCompositionTemplate</name>
     <title>
       <key>ru</key>
       <value>Текст макета компоновки данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text of data composition template</value>
     </title>
     <id>18</id>
     <valueType>
@@ -13701,10 +13801,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстНастроекКомпоновкиДанных</name>
+    <name>TextOfDataCompositionSettings</name>
     <title>
       <key>ru</key>
       <value>Текст настроек компоновки данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text of data composition settings</value>
     </title>
     <id>19</id>
     <valueType>
@@ -13719,10 +13823,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИсполняемыйКомпоновщикНастроек</name>
+    <name>ExecutedSettingsComposer</name>
     <title>
       <key>ru</key>
       <value>Исполняемый компоновщик настроек</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Executed settings composer</value>
     </title>
     <id>20</id>
     <valueType>
@@ -13736,10 +13844,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальноеУсловноеОформление1</name>
+    <name>LocalConditionalAppearance1</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local conditional appearance1</value>
     </title>
     <id>21</id>
     <valueType>
@@ -13753,10 +13865,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныеВыбранныеПоля1</name>
+    <name>LocalSelectedFields1</name>
     <title>
       <key>ru</key>
       <value>Локальные выбранные поля</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local selected fields1</value>
     </title>
     <id>22</id>
     <valueType>
@@ -13770,10 +13886,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныеПараметрыВывода1</name>
+    <name>LocalOutputParameters1</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local output parameters1</value>
     </title>
     <id>23</id>
     <valueType>
@@ -13787,10 +13907,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйОтбор1</name>
+    <name>LocalFilter1</name>
     <title>
       <key>ru</key>
       <value>Локальный отбор</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local filter1</value>
     </title>
     <id>24</id>
     <valueType>
@@ -13804,10 +13928,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйПорядок1</name>
+    <name>LocalOrder1</name>
     <title>
       <key>ru</key>
       <value>Локальный порядок</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local order1</value>
     </title>
     <id>25</id>
     <valueType>
@@ -13821,10 +13949,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатТабличныйДокумент</name>
+    <name>ResultFilledSpreadsheetDocument</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат табличный документ</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled spreadsheet document</value>
     </title>
     <id>26</id>
     <valueType>
@@ -13838,10 +13970,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатМакет</name>
+    <name>ResultFilledTemplate</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат макет</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled template</value>
     </title>
     <id>27</id>
     <valueType>
@@ -13855,10 +13991,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатНастройки</name>
+    <name>ResultFilledSettings</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат настройки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled settings</value>
     </title>
     <id>28</id>
     <valueType>
@@ -13872,10 +14012,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОтчетНужноФормировать</name>
+    <name>ReportNeedsToGenerate</name>
     <title>
       <key>ru</key>
       <value>Отчет нужно формировать</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Report needs to generate</value>
     </title>
     <id>29</id>
     <valueType>
@@ -13889,10 +14033,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатНастройкиXML</name>
+    <name>ResultFilledSettingsXML</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат настройки XML</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled settings XML</value>
     </title>
     <id>30</id>
     <valueType>
@@ -13906,10 +14054,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИсполняемыеНастройкиXML</name>
+    <name>ExecutedSettingsXML</name>
     <title>
       <key>ru</key>
       <value>Исполняемые настройки XML</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Executed settings XML</value>
     </title>
     <id>31</id>
     <valueType>
@@ -13924,10 +14076,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстРезультатаКомпоновкиДанных</name>
+    <name>TextOfDataCompositionResult</name>
     <title>
       <key>ru</key>
       <value>Текст результата компоновки данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text of data composition result</value>
     </title>
     <id>32</id>
     <valueType>
@@ -13942,10 +14098,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатXML</name>
+    <name>ResultFilledXML</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат XML</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled XML</value>
     </title>
     <id>33</id>
     <valueType>
@@ -13959,10 +14119,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатКоллекция</name>
+    <name>ResultFilledCollection</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат коллекция</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled collection</value>
     </title>
     <id>34</id>
     <valueType>
@@ -13976,10 +14140,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>РезультатДерево</name>
+    <name>TreeResult</name>
     <title>
       <key>ru</key>
       <value>Результат дерево</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Tree result</value>
     </title>
     <id>35</id>
     <valueType>
@@ -13993,10 +14161,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстМакетаКомпоновкиДанныхДляКоллекции</name>
+    <name>TextOfDataCompositionTemplateForCollection</name>
     <title>
       <key>ru</key>
       <value>Текст макета компоновки данных для коллекции</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text of data composition template for collection</value>
     </title>
     <id>36</id>
     <valueType>
@@ -14011,10 +14183,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатМакетДляКоллекции</name>
+    <name>ResultFilledTemplateForCollection</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат макет для коллекции</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled template for collection</value>
     </title>
     <id>37</id>
     <valueType>
@@ -14028,10 +14204,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекстРезультатаКомпоновкиДанныхДляКоллекции</name>
+    <name>TextOfDataCompositionResultForCollection</name>
     <title>
       <key>ru</key>
       <value>Текст результата компоновки данных для коллекции</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Text of data composition result for collection</value>
     </title>
     <id>38</id>
     <valueType>
@@ -14046,10 +14226,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЗаполненРезультатКоллекцияXML</name>
+    <name>ResultFilledCollectionXML</name>
     <title>
       <key>ru</key>
       <value>Заполнен результат коллекция XML</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Result filled collection XML</value>
     </title>
     <id>39</id>
     <valueType>
@@ -14064,10 +14248,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИмяФормыРасшифровки</name>
+    <name>DetailsFormName</name>
     <title>
       <key>ru</key>
       <value>Имя формы расшифровки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Details form name</value>
     </title>
     <id>40</id>
     <valueType>
