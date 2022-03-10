@@ -135,11 +135,14 @@
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.UT_ReportsConsole</reports>
   <dataProcessors>DataProcessor.UT_CodeConsole</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ConsoleWebServices</dataProcessors>
   <dataProcessors>DataProcessor.UT_ConstantsEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
   <dataProcessors>DataProcessor.UT_DCSEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DuplicateObjectDeletion</dataProcessors>
   <dataProcessors>DataProcessor.UT_DynamicList</dataProcessors>
   <dataProcessors>DataProcessor.UT_FileManager</dataProcessors>
+  <dataProcessors>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTMLEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_JobsConsole</dataProcessors>
@@ -157,12 +160,9 @@
   <dataProcessors>DataProcessor.UT_Support</dataProcessors>
   <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
-  <dataProcessors>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
-  <dataProcessors>DataProcessor.UT_ConsoleWebServices</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
-  <dataProcessors>DataProcessor.UT_DuplicateObjectDeletion</dataProcessors>
 </mdclass:Configuration>
