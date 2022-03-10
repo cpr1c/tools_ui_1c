@@ -37,7 +37,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.НовыйФайлОтчетов</commandName>
+          <commandName>Form.Command.NewReportsFile</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -68,7 +68,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОткрытьФайлОтчетов</commandName>
+          <commandName>Form.Command.OpenReportsFile</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -99,7 +99,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.СохранитьОтчетыВФайл</commandName>
+          <commandName>Form.Command.SaveReportsToFile</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -130,7 +130,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.СохранитьОтчетыВФайлКак</commandName>
+          <commandName>Form.Command.SaveReportsToFileAS</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -194,7 +194,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Сформировать</commandName>
+        <commandName>Form.Command.Generate</commandName>
         <representation>PictureAndText</representation>
         <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
@@ -261,7 +261,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Настройки</commandName>
+        <commandName>Form.Command.Settings</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -292,7 +292,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ПанельРезультатов</commandName>
+        <commandName>Form.Command.ResultsPanel</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -544,7 +544,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ДобавитьСхемуКомпоновкиДанных</commandName>
+            <commandName>Form.Command.AddDataCompositionSchema</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -610,7 +610,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.КонструкторСхемыКомпоновкиДанных</commandName>
+            <commandName>Form.Command.DataCompositionSchemaWizard</commandName>
             <representation>Picture</representation>
             <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
@@ -797,7 +797,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ДобавитьСхемуКомпоновкиДанных</commandName>
+            <commandName>Form.Command.AddDataCompositionSchema</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -863,7 +863,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.КонструкторСхемыКомпоновкиДанных</commandName>
+            <commandName>Form.Command.DataCompositionSchemaWizard</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6114,7 +6114,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ЗагрузитьСхемуИзФайла</commandName>
+              <commandName>Form.Command.LoadSchemaFromFile</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6145,7 +6145,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.СохранитьСхемуВФайл</commandName>
+              <commandName>Form.Command.SaveSchemaToFile</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6720,7 +6720,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СохранитьЭталонТабличногоДокумента</commandName>
+            <commandName>Form.Command.SaveStandartSpreadsheetDocument</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6751,7 +6751,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СравнитьСЭталономТабличныйДокумент</commandName>
+            <commandName>Form.Command.CompareWithStandartSpreadsheetDocument</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6976,7 +6976,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВывестиВТабличныйДокументДляТекущегоМакета</commandName>
+            <commandName>Form.Command.OutputToSpreadsheetDocumentForCurrentTemplate</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -7007,7 +7007,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВывестиВРезультатДляТекущегоМакета</commandName>
+            <commandName>Form.Command.OutputToResultForCurrentTemplate</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -7038,7 +7038,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СохранитьЭталонМакетаКомпоновкиДанных</commandName>
+            <commandName>Form.Command.SaveStandartOfDataCompositionTemplate</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -7069,7 +7069,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СравнитьСЭталономМакетКомпоновкиДанных</commandName>
+            <commandName>Form.Command.CompareWithStandartDataCompositionTemplate</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -7217,7 +7217,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВывестиРезультатВТабличныйДокумент</commandName>
+            <commandName>Form.Command.OutputResultToSpreadsheetDocument</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -7248,7 +7248,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СохранитьЭталонРезультатаXML</commandName>
+            <commandName>Form.Command.SaveStandartXMLResult</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -7279,7 +7279,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СравнитьСЭталономРезультатXML</commandName>
+            <commandName>Form.Command.CompareWithStandartXMLResult</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -12264,7 +12264,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СохранитьЭталонИсполняемыхНастроек</commandName>
+            <commandName>Form.Command.SaveStandartExecutableSettings</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -12295,7 +12295,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СравнитьСЭталономИсполняемыхНастроек</commandName>
+            <commandName>Form.Command.CompareWithStandartExecutableSettings</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -12726,7 +12726,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВывестиВКоллекциюДляТекущегоМакета</commandName>
+            <commandName>Form.Command.OutputToCollectionForCurrentTemplate</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -12757,7 +12757,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВывестиВРезультатКоллекцииДляТекущегоМакета</commandName>
+            <commandName>Form.Command.OutputToCollectionResultForCurrentTemplate</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -12788,7 +12788,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СохранитьЭталонМакетаКомпоновкиДанныхДляКоллекции</commandName>
+            <commandName>Form.Command.SaveStandartDataCompositionTemplateForTemplate</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -12819,7 +12819,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СравнитьСЭталономМакетКомпоновкиДанныхДляКоллекции</commandName>
+            <commandName>Form.Command.CompareWithStandartDataCompositionTemplateForCollection</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -12975,7 +12975,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ВывестиРезультатВКоллекцию</commandName>
+            <commandName>Form.Command.OutputResultToCollection</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -13006,7 +13006,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СохранитьЭталонРезультатаXMLДляКоллекции</commandName>
+            <commandName>Form.Command.SaveStandartXMLResultForCollection</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -13037,7 +13037,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.СравнитьСЭталономРезультатXMLДляКоллекции</commandName>
+            <commandName>Form.Command.CompareWithStandartXMLResultForCollection</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -13622,10 +13622,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресВременногоХранилищаСхемы</name>
+    <name>SchemaTempStorageURL</name>
     <title>
       <key>ru</key>
       <value>Адрес временного хранилища схемы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Schema temp storage URL</value>
     </title>
     <id>15</id>
     <valueType>
@@ -14078,12 +14082,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>КонструкторСхемыКомпоновкиДанных</name>
+    <name>DataCompositionSchemaWizard</name>
     <title>
       <key>ru</key>
       <value>Конструктор схемы компоновки данных</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Data composition schema wizard</value>
+    </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Data composition schema wizard</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Конструктор схемы компоновки данных</value>
@@ -14096,18 +14108,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>КонструкторСхемыКомпоновкиДанных</name>
+        <name>DataCompositionSchemaWizard</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ДобавитьСхемуКомпоновкиДанных</name>
+    <name>AddDataCompositionSchema</name>
+    <title>
+      <key>en</key>
+      <value>Add report</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить отчет</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Add data composition schema</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Добавить схему компоновки данных</value>
@@ -14120,19 +14140,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьСхемуКомпоновкиДанных</name>
+        <name>AddDataCompositionSchema</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Сформировать</name>
+    <name>Generate</name>
     <title>
       <key>ru</key>
       <value>Сформировать</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Generate</value>
+    </title>
     <id>6</id>
+    <toolTip>
+      <key>en</key>
+      <value>Generate</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сформировать</value>
@@ -14145,18 +14173,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Сформировать</name>
+        <name>Generate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПанельРезультатов</name>
+    <name>ResultsPanel</name>
     <title>
       <key>ru</key>
       <value>Панель результатов</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Results panel</value>
+    </title>
     <id>7</id>
+    <toolTip>
+      <key>en</key>
+      <value>Results panel</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Панель результатов</value>
@@ -14166,18 +14202,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПанельРезультатов</name>
+        <name>ResultsPanel</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьФайлОтчетов</name>
+    <name>OpenReportsFile</name>
+    <title>
+      <key>en</key>
+      <value>Open...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть...</value>
     </title>
     <id>8</id>
+    <toolTip>
+      <key>en</key>
+      <value>Open reports file</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Открыть файл отчетов</value>
@@ -14190,18 +14234,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьФайлОтчетов</name>
+        <name>OpenReportsFile</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьОтчетыВФайл</name>
+    <name>SaveReportsToFile</name>
+    <title>
+      <key>en</key>
+      <value>Save</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранить</value>
     </title>
     <id>9</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save reports to file </value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить отчеты в файл</value>
@@ -14215,18 +14267,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьОтчетыВФайл</name>
+        <name>SaveReportsToFile</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьОтчетыВФайлКак</name>
+    <name>SaveReportsToFileAS</name>
+    <title>
+      <key>en</key>
+      <value>Save as...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранить как...</value>
     </title>
     <id>10</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save reports to file as </value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить отчеты в файл как</value>
@@ -14236,18 +14296,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьОтчетыВФайлКак</name>
+        <name>SaveReportsToFileAS</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>НовыйФайлОтчетов</name>
+    <name>NewReportsFile</name>
+    <title>
+      <key>en</key>
+      <value>New</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Новый</value>
     </title>
     <id>11</id>
+    <toolTip>
+      <key>en</key>
+      <value>New reports file</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Новый файл отчетов</value>
@@ -14257,18 +14325,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>НовыйФайлОтчетов</name>
+        <name>NewReportsFile</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВывестиВТабличныйДокументДляТекущегоМакета</name>
+    <name>OutputToSpreadsheetDocumentForCurrentTemplate</name>
+    <title>
+      <key>en</key>
+      <value>Execute to spreadsheet document with current template</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить в табличный документ с текущим макетом</value>
     </title>
     <id>12</id>
+    <toolTip>
+      <key>en</key>
+      <value>Output to spreadsheet document with current template</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вывести в табличный документ для текущего макета</value>
@@ -14278,18 +14354,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВывестиВТабличныйДокументДляТекущегоМакета</name>
+        <name>OutputToSpreadsheetDocumentForCurrentTemplate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьЭталонТабличногоДокумента</name>
+    <name>SaveStandartSpreadsheetDocument</name>
     <title>
       <key>ru</key>
       <value>Сохранить эталон</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Save standart spreadsheet document</value>
+    </title>
     <id>13</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save standart of Spreadsheet document</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить эталон табличного документа</value>
@@ -14299,18 +14383,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьЭталонТабличногоДокумента</name>
+        <name>SaveStandartSpreadsheetDocument</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СравнитьСЭталономТабличныйДокумент</name>
+    <name>CompareWithStandartSpreadsheetDocument</name>
+    <title>
+      <key>en</key>
+      <value>Compare with standart</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сравнить с эталоном</value>
     </title>
     <id>14</id>
+    <toolTip>
+      <key>en</key>
+      <value>Compare spreadsheet document with standart</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сравнить с эталоном табличный документ</value>
@@ -14320,18 +14412,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СравнитьСЭталономТабличныйДокумент</name>
+        <name>CompareWithStandartSpreadsheetDocument</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьЭталонМакетаКомпоновкиДанных</name>
+    <name>SaveStandartOfDataCompositionTemplate</name>
+    <title>
+      <key>en</key>
+      <value>Save standart of data composition template</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранить эталон</value>
     </title>
     <id>15</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save standart of data composition template</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить эталон макета компоновки данных</value>
@@ -14341,18 +14441,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьЭталонМакетаКомпоновкиДанных</name>
+        <name>SaveStandartOfDataCompositionTemplate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СравнитьСЭталономМакетКомпоновкиДанных</name>
+    <name>CompareWithStandartDataCompositionTemplate</name>
+    <title>
+      <key>en</key>
+      <value>Compare with standart</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сравнить с эталоном</value>
     </title>
     <id>16</id>
+    <toolTip>
+      <key>en</key>
+      <value>Compare data composition template with standart </value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сравнить с эталоном макет компоновки данных</value>
@@ -14362,18 +14470,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СравнитьСЭталономМакетКомпоновкиДанных</name>
+        <name>CompareWithStandartDataCompositionTemplate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьЭталонИсполняемыхНастроек</name>
+    <name>SaveStandartExecutableSettings</name>
+    <title>
+      <key>en</key>
+      <value>Save standart of executable settings</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранить эталон</value>
     </title>
     <id>17</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save standart of executable settings</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить эталон исполняемых настроек</value>
@@ -14383,18 +14499,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьЭталонИсполняемыхНастроек</name>
+        <name>SaveStandartExecutableSettings</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СравнитьСЭталономИсполняемыхНастроек</name>
+    <name>CompareWithStandartExecutableSettings</name>
+    <title>
+      <key>en</key>
+      <value>Compare with standart</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сравнить с эталоном</value>
     </title>
     <id>18</id>
+    <toolTip>
+      <key>en</key>
+      <value>Compare with standart of executable settings</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сравнить с эталоном исполняемых настроек</value>
@@ -14404,18 +14528,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СравнитьСЭталономИсполняемыхНастроек</name>
+        <name>CompareWithStandartExecutableSettings</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьЭталонРезультатаXML</name>
+    <name>SaveStandartXMLResult</name>
     <title>
       <key>ru</key>
       <value>Сохранить эталон</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Save standart XMLResult</value>
+    </title>
     <id>19</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save standart of XML result</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить эталон результата XML</value>
@@ -14425,18 +14557,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьЭталонРезультатаXML</name>
+        <name>SaveStandartXMLResult</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СравнитьСЭталономРезультатXML</name>
+    <name>CompareWithStandartXMLResult</name>
+    <title>
+      <key>en</key>
+      <value>Compare with standart </value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сравнить с эталоном</value>
     </title>
     <id>20</id>
+    <toolTip>
+      <key>en</key>
+      <value>Compare with standart XML result</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сравнить с эталоном результат XML</value>
@@ -14446,18 +14586,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СравнитьСЭталономРезультатXML</name>
+        <name>CompareWithStandartXMLResult</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьЭталонМакетаКомпоновкиДанныхДляКоллекции</name>
+    <name>SaveStandartDataCompositionTemplateForTemplate</name>
+    <title>
+      <key>en</key>
+      <value>Save standart of data composition template for template</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сохранить эталон</value>
     </title>
     <id>21</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save standart of  data composition template for template</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить эталон макета компоновки данных для коллекции</value>
@@ -14467,18 +14615,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьЭталонМакетаКомпоновкиДанныхДляКоллекции</name>
+        <name>SaveStandartDataCompositionTemplateForTemplate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СравнитьСЭталономМакетКомпоновкиДанныхДляКоллекции</name>
+    <name>CompareWithStandartDataCompositionTemplateForCollection</name>
+    <title>
+      <key>en</key>
+      <value>Compare with standart </value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сравнить с эталоном</value>
     </title>
     <id>22</id>
+    <toolTip>
+      <key>en</key>
+      <value>Compare data composition template for collection with standart </value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сравнить с эталоном макет компоновки данных для коллекции</value>
@@ -14488,18 +14644,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СравнитьСЭталономМакетКомпоновкиДанныхДляКоллекции</name>
+        <name>CompareWithStandartDataCompositionTemplateForCollection</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьЭталонРезультатаXMLДляКоллекции</name>
+    <name>SaveStandartXMLResultForCollection</name>
     <title>
       <key>ru</key>
       <value>Сохранить эталон</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Save standart XMLResult for collection</value>
+    </title>
     <id>23</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save standart of  XML result for collection </value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить эталон результата XMLДля коллекции</value>
@@ -14509,18 +14673,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьЭталонРезультатаXMLДляКоллекции</name>
+        <name>SaveStandartXMLResultForCollection</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СравнитьСЭталономРезультатXMLДляКоллекции</name>
+    <name>CompareWithStandartXMLResultForCollection</name>
+    <title>
+      <key>en</key>
+      <value>Compare with standart</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Сравнить с эталоном</value>
     </title>
     <id>24</id>
+    <toolTip>
+      <key>en</key>
+      <value>Compare with standart XML result for collection</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сравнить с эталоном результат XMLДля коллекции</value>
@@ -14530,18 +14702,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СравнитьСЭталономРезультатXMLДляКоллекции</name>
+        <name>CompareWithStandartXMLResultForCollection</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВывестиВРезультатДляТекущегоМакета</name>
+    <name>OutputToResultForCurrentTemplate</name>
+    <title>
+      <key>en</key>
+      <value>Execute with current template</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить с текущим макетом</value>
     </title>
     <id>25</id>
+    <toolTip>
+      <key>en</key>
+      <value>Output to result for current template</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вывести в результат для текущего макета</value>
@@ -14551,18 +14731,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВывестиВРезультатДляТекущегоМакета</name>
+        <name>OutputToResultForCurrentTemplate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВывестиРезультатВТабличныйДокумент</name>
+    <name>OutputResultToSpreadsheetDocument</name>
+    <title>
+      <key>en</key>
+      <value>Output to spreadsheet document</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вывести в табличный документ</value>
     </title>
     <id>26</id>
+    <toolTip>
+      <key>en</key>
+      <value>Output result  to spreadsheet document</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вывести результат в табличный документ</value>
@@ -14572,18 +14760,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВывестиРезультатВТабличныйДокумент</name>
+        <name>OutputResultToSpreadsheetDocument</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВывестиВКоллекциюДляТекущегоМакета</name>
+    <name>OutputToCollectionForCurrentTemplate</name>
+    <title>
+      <key>en</key>
+      <value>Execute to collection with current template</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить в коллекцию с текущим макетом</value>
     </title>
     <id>27</id>
+    <toolTip>
+      <key>en</key>
+      <value>Output to collection with current template</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вывести в коллекцию для текущего макета</value>
@@ -14593,18 +14789,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВывестиВКоллекциюДляТекущегоМакета</name>
+        <name>OutputToCollectionForCurrentTemplate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВывестиВРезультатКоллекцииДляТекущегоМакета</name>
+    <name>OutputToCollectionResultForCurrentTemplate</name>
+    <title>
+      <key>en</key>
+      <value>Execute with current template</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить с текущим макетом</value>
     </title>
     <id>28</id>
+    <toolTip>
+      <key>en</key>
+      <value>Output to collection result for current template</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вывести в результат коллекции для текущего макета</value>
@@ -14614,18 +14818,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВывестиВРезультатКоллекцииДляТекущегоМакета</name>
+        <name>OutputToCollectionResultForCurrentTemplate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ВывестиРезультатВКоллекцию</name>
+    <name>OutputResultToCollection</name>
+    <title>
+      <key>en</key>
+      <value>Output to collection</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вывести в коллекцию</value>
     </title>
     <id>29</id>
+    <toolTip>
+      <key>en</key>
+      <value>Output result to collection</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вывести результат в коллекцию</value>
@@ -14635,18 +14847,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВывестиРезультатВКоллекцию</name>
+        <name>OutputResultToCollection</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьСхемуВФайл</name>
+    <name>SaveSchemaToFile</name>
     <title>
       <key>ru</key>
       <value>Сохранить схему в файл</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Save schema to file</value>
+    </title>
     <id>30</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save schema to file as </value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить схему в файл</value>
@@ -14659,19 +14879,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьСхемуВФайл</name>
+        <name>SaveSchemaToFile</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗагрузитьСхемуИзФайла</name>
+    <name>LoadSchemaFromFile</name>
     <title>
       <key>ru</key>
       <value>Загрузить схему из файла</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Load schema from file</value>
+    </title>
     <id>31</id>
+    <toolTip>
+      <key>en</key>
+      <value>Load schema from file</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Загрузить схему из файла</value>
@@ -14684,17 +14912,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗагрузитьСхемуИзФайла</name>
+        <name>LoadSchemaFromFile</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Настройки</name>
+    <name>Settings</name>
     <title>
       <key>ru</key>
       <value>Настройки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Settings</value>
     </title>
     <id>32</id>
     <use>
@@ -14702,7 +14934,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Настройки</name>
+        <name>Settings</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
