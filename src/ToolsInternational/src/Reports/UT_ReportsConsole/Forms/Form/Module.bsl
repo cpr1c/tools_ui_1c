@@ -24,7 +24,7 @@ EndProcedure
 &AtClient
 Procedure GroupFieldsNotAvailable()
 
-	Items.СтраницыПолейГруппировки.CurrentPage = Items.НедоступныеНастройкиПолейГруппировки;
+	Items.PagesGroupFields.CurrentPage = Items.UnavailableGroupFieldsSettings;
 
 EndProcedure
 
@@ -46,12 +46,12 @@ Procedure SelectedFieldsAvailable(ЭлементСтруктуры)
 	If Report.SettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
 
 		LocalSelectedFields = True;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
+		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsSettings;
 
 	Else
 
 		LocalSelectedFields = False;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
+		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsDisabledSettings;
 
 	EndIf;
 
@@ -88,7 +88,7 @@ Procedure SelectedFieldsUnavailable()
 
 	LocalSelectedFields = False;
 	Items.LocalSelectedFields.ReadOnly = True;
-	Items.СтраницыПолейВыбора.CurrentPage = Items.НедоступныеНастройкиВыбранныхПолей;
+	Items.PagesSelectedFields.CurrentPage = Items.UnavailableSelectedFieldsSettings;
 
 EndProcedure
 
@@ -112,12 +112,12 @@ Procedure FilterAvailable(ЭлементСтруктуры)
 	If Report.SettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
 
 		LocalFilter = True;
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 	Else
 
 		LocalFilter = False;
-		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
 	EndIf;
 
@@ -154,7 +154,7 @@ Procedure FilterUnavailable()
 
 	LocalFilter = False;
 	Items.LocalFilter.ReadOnly = True;
-	Items.СтраницыОтбора.CurrentPage = Items.НедоступныеНастройкиОтбора;
+	Items.FilterPages.CurrentPage = Items.UnavailableFilterSettings;
 
 EndProcedure
 
@@ -3341,7 +3341,7 @@ EndProcedure
 ////////////////////////////////////////////////////////////////////////////////
 // ПРОЦЕДУРЫ - ОБРАБОТЧИКИ СОБЫТИЙ РЕКВИЗИТОВ ФОРМЫ
 
-// Обработчик события ПриАктивизацииПоля таблицы Структура.
+// Обработчик события ПриАктивизацииПоля таблицы Structure.
 // Активизирует страницу настроек в зависимости от того, какую колонку
 // активировал пользователь.
 &AtClient
@@ -3351,15 +3351,15 @@ Procedure СтруктураПриАктивизацииПоля(Item)
 
 	If Items.Structure.CurrentItem.Name = "СтруктураНаличиеВыбора" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПолейВыбора;
+		ВыбраннаяСтраница = Items.PageSelectedFields;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеОтбора" Then
 
-		ВыбраннаяСтраница = Items.СтраницаОтбора;
+		ВыбраннаяСтраница = Items.PageFilter;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПорядка" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПорядка;
+		ВыбраннаяСтраница = Items.OrderPage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеУсловногоОформления" Then
 
@@ -3373,13 +3373,13 @@ Procedure СтруктураПриАктивизацииПоля(Item)
 
 	If ВыбраннаяСтраница <> Undefined Then
 
-		Items.СтраницыНастроек.CurrentPage = ВыбраннаяСтраница;
+		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
 
 	EndIf;
 
 EndProcedure
 
-// Обработчик события ПриАктивизацииПоля таблицы Структура1.
+// Обработчик события ПриАктивизацииПоля таблицы Structure1.
 // Активизирует страницу настроек в зависимости от того, какую колонку
 // активировал пользователь.
 &AtClient
@@ -3387,23 +3387,23 @@ Procedure СтруктураПриАктивизацииПоля1(Item)
 
 	Var ВыбраннаяСтраница;
 
-	If Items.Структура1.CurrentItem.Name = "Структура1НаличиеВыбора" Then
+	If Items.Структура1.CurrentItem.Name = "Structure1НаличиеВыбора" Then
 
 		ВыбраннаяСтраница = Items.СтраницаПолейВыбора1;
 
-	ElsIf Items.Структура1.CurrentItem.Name = "Структура1НаличиеОтбора" Then
+	ElsIf Items.Структура1.CurrentItem.Name = "Structure1НаличиеОтбора" Then
 
 		ВыбраннаяСтраница = Items.СтраницаОтбора1;
 
-	ElsIf Items.Структура1.CurrentItem.Name = "Структура1НаличиеПорядка" Then
+	ElsIf Items.Структура1.CurrentItem.Name = "Structure1НаличиеПорядка" Then
 
 		ВыбраннаяСтраница = Items.СтраницаПорядка1;
 
-	ElsIf Items.Структура1.CurrentItem.Name = "Структура1НаличиеУсловногоОформления" Then
+	ElsIf Items.Структура1.CurrentItem.Name = "Structure1НаличиеУсловногоОформления" Then
 
 		ВыбраннаяСтраница = Items.СтраницаУсловногоОформления1;
 
-	ElsIf Items.Структура1.CurrentItem.Name = "Структура1НаличиеПараметровВывода" Then
+	ElsIf Items.Структура1.CurrentItem.Name = "Structure1НаличиеПараметровВывода" Then
 
 		ВыбраннаяСтраница = Items.СтраницаПараметровВывода1;
 
@@ -3417,7 +3417,7 @@ Procedure СтруктураПриАктивизацииПоля1(Item)
 
 EndProcedure
 
-// Обработчик СтруктураПриАктивизацииСтроки элемента Структура.
+// Обработчик СтруктураПриАктивизацииСтроки элемента Structure.
 // Приводит закладки с настройками в актуальное состояние
 &AtClient
 Procedure СтруктураПриАктивизацииСтроки(Item)
@@ -3446,11 +3446,11 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 
 		LocalSelectedFields = True;
 		Items.LocalSelectedFields.ReadOnly = True;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
+		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsSettings;
 
 		LocalFilter = True;
 		Items.LocalFilter.ReadOnly = True;
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 		LocalOrder = True;
 		Items.LocalOrder.ReadOnly = True;
@@ -3467,7 +3467,7 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 	ElsIf ItemType = Type("DataCompositionGroup") Or ItemType = Type(
 		"DataCompositionTableGroup") Or ItemType = Type("DataCompositionChartGroup") Then
 
-		Items.СтраницыПолейГруппировки.CurrentPage = Items.НастройкиПолейГруппировки;
+		Items.PagesGroupFields.CurrentPage = Items.GroupFieldsSettings;
 
 		SelectedFieldsAvailable(ЭлементСтруктуры);
 		FilterAvailable(ЭлементСтруктуры);
@@ -3488,7 +3488,7 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 
 EndProcedure
 
-// Обработчик СтруктураПриАктивизацииСтроки элемента Структура1.
+// Обработчик СтруктураПриАктивизацииСтроки элемента Structure1.
 // Приводит закладки с настройками в актуальное состояние
 &AtClient
 Procedure СтруктураПриАктивизацииСтроки1(Item)
@@ -3586,11 +3586,11 @@ Procedure ЛокальныеВыбранныеПоляПриИзменении(I
 
 	If LocalSelectedFields Then
 
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
+		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsSettings;
 
 	Else
 
-		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
+		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsDisabledSettings;
 
 		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
@@ -3626,11 +3626,11 @@ Procedure ЛокальныйОтборПриИзменении(Item)
 
 	If LocalFilter Then
 
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 	Else
 
-		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
 		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
@@ -3793,25 +3793,25 @@ Procedure ДеревоОтчетовПриАктивизацииСтроки(Ite
 
 			If ЭлементДерева.RowType = 0 Then
 			// Scheme компоновки данных.
-				If Items.GroupSettings.CurrentPage <> Items.ГруппаВарианта Then
+				If Items.GroupSettings.CurrentPage <> Items.GroupVariant Then
 
-					Items.GroupSettings.CurrentPage = Items.ГруппаВарианта;
+					Items.GroupSettings.CurrentPage = Items.GroupVariant;
 
 				EndIf;
 				//				
 				//			ElsIf ЭлементДерева.RowType = 1 Then
 				//				// Variant отчета.
-				//				If Items.GroupSettings.CurrentPage <> Items.ГруппаВарианта Then
+				//				If Items.GroupSettings.CurrentPage <> Items.GroupVariant Then
 				//					
-				//					Items.GroupSettings.CurrentPage = Items.ГруппаВарианта;
+				//					Items.GroupSettings.CurrentPage = Items.GroupVariant;
 				//					
 				//				EndIf;
 				//				
 				//			ElsIf ЭлементДерева.RowType = 2 Then
 				//				// Пользовательские Settings.
-				//				If Items.GroupSettings.CurrentPage <> Items.ГруппаПользовательскихНастроек Then
+				//				If Items.GroupSettings.CurrentPage <> Items.GroupUserSettings Then
 				//					
-				//					Items.GroupSettings.CurrentPage = Items.ГруппаПользовательскихНастроек;
+				//					Items.GroupSettings.CurrentPage = Items.GroupUserSettings;
 				//					
 				//				EndIf;
 				//				
