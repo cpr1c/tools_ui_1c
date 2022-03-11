@@ -8,13 +8,13 @@
     <name>MainCommandBar</name>
     <id>316</id>
     <items xsi:type="form:FormGroup">
-      <name>КоманднаяПанельДействий</name>
+      <name>ActionsCommandBar</name>
       <id>317</id>
       <items xsi:type="form:FormGroup">
-        <name>Файл</name>
+        <name>File</name>
         <id>166</id>
         <items xsi:type="form:Button">
-          <name>НовыйФайлОтчетов</name>
+          <name>NewReportsFile</name>
           <id>170</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -23,7 +23,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>НовыйФайлОтчетовРасширеннаяПодсказка</name>
+            <name>NewReportsFileExtendedTooltip</name>
             <id>362</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -45,7 +45,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОткрытьФайлОтчетов</name>
+          <name>OpenReportsFile</name>
           <id>167</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -54,7 +54,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>ОткрытьФайлОтчетовРасширеннаяПодсказка</name>
+            <name>OpenReportsFileExtendedTooltip</name>
             <id>363</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -76,7 +76,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СохранитьОтчетыВФайл</name>
+          <name>SaveReportsToFile</name>
           <id>168</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -85,7 +85,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СохранитьОтчетыВФайлРасширеннаяПодсказка</name>
+            <name>SaveReportsToFileExtendedTooltip</name>
             <id>364</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -107,7 +107,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СохранитьОтчетыВФайлКак</name>
+          <name>SaveReportsToFileAS</name>
           <id>169</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -116,7 +116,7 @@
           </userVisible>
           <skipOnInput>false</skipOnInput>
           <extendedTooltip>
-            <name>СохранитьОтчетыВФайлКакРасширеннаяПодсказка</name>
+            <name>SaveReportsToFileASExtendedTooltip</name>
             <id>365</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -146,12 +146,16 @@
           <key>ru</key>
           <value>Файл</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>File</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Файл</value>
         </toolTip>
         <extendedTooltip>
-          <name>ФайлРасширеннаяПодсказка</name>
+          <name>FileExtendedTooltip</name>
           <id>361</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -171,7 +175,7 @@
         </extInfo>
       </items>
       <items xsi:type="form:Button">
-        <name>Сформировать</name>
+        <name>Generate</name>
         <id>159</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -180,7 +184,7 @@
         </userVisible>
         <skipOnInput>false</skipOnInput>
         <extendedTooltip>
-          <name>СформироватьРасширеннаяПодсказка</name>
+          <name>GenerateExtendedTooltip</name>
           <id>366</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -211,12 +215,16 @@
         <key>ru</key>
         <value>Командная панель действий</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Actions command bar</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Командная панель действий</value>
       </toolTip>
       <extendedTooltip>
-        <name>КоманднаяПанельДействийРасширеннаяПодсказка</name>
+        <name>ActionsCommandBarExtendedTooltip</name>
         <id>360</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -236,10 +244,10 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>КоманднаяПанельДействийНадПанелями</name>
+      <name>ActionsOnPanelsCommandBar</name>
       <id>160</id>
       <items xsi:type="form:Button">
-        <name>Настройки</name>
+        <name>Settings</name>
         <id>847</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -247,7 +255,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>НастройкиРасширеннаяПодсказка</name>
+          <name>SettingsExtendedTooltip</name>
           <id>848</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -269,7 +277,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ПанельРезультатовКнопка</name>
+        <name>ButtonResultsPanel</name>
         <id>162</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -278,7 +286,7 @@
         </userVisible>
         <skipOnInput>false</skipOnInput>
         <extendedTooltip>
-          <name>ПанельРезультатовКнопкаРасширеннаяПодсказка</name>
+          <name>ButtonResultsPanelExtendedTooltip</name>
           <id>368</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -308,12 +316,16 @@
         <key>ru</key>
         <value>Командная панель действий над панелями</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Actions on panels command bar</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Командная панель действий над панелями</value>
       </toolTip>
       <extendedTooltip>
-        <name>КоманднаяПанельДействийНадПанелямиРасширеннаяПодсказка</name>
+        <name>ActionsOnPanelsCommandBarExtendedTooltip</name>
         <id>367</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -373,13 +385,13 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаОтчетовИНастроек</name>
+    <name>GroupSettingsAndReports</name>
     <id>133</id>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаОтчетов</name>
+      <name>GroupReports</name>
       <id>132</id>
       <items xsi:type="form:Table">
-        <name>ДеревоОтчетов</name>
+        <name>ReportsTree</name>
         <id>125</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -393,10 +405,10 @@
         <titleLocation>None</titleLocation>
         <excludedCommands>Add</excludedCommands>
         <items xsi:type="form:FormGroup">
-          <name>Группа</name>
+          <name>Group</name>
           <id>153</id>
           <items xsi:type="form:FormField">
-            <name>ДеревоОтчетовТипСтроки</name>
+            <name>ReportsTreeRowType</name>
             <id>147</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -409,7 +421,7 @@
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоОтчетовТипСтрокиРасширеннаяПодсказка</name>
+              <name>ReportsTreeRowTypeExtendedTooltip</name>
               <id>393</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -424,7 +436,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОтчетовТипСтрокиКонтекстноеМеню</name>
+              <name>ReportsTreeRowTypeContextMenu</name>
               <id>148</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -444,7 +456,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоОтчетовИмя</name>
+            <name>ReportsTreeName</name>
             <id>128</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -457,7 +469,7 @@
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоОтчетовИмяРасширеннаяПодсказка</name>
+              <name>ReportsTreeNameExtendedTooltip</name>
               <id>394</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -472,7 +484,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОтчетовИмяКонтекстноеМеню</name>
+              <name>ReportsTreeNameContextMenu</name>
               <id>129</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -500,8 +512,12 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Group</value>
+          </title>
           <extendedTooltip>
-            <name>ГруппаРасширеннаяПодсказка</name>
+            <name>GroupExtendedTooltip</name>
             <id>392</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -522,10 +538,10 @@
           </extInfo>
         </items>
         <autoCommandBar>
-          <name>ДеревоОтчетовКоманднаяПанель</name>
+          <name>ReportsTreeCommandBar</name>
           <id>127</id>
           <items xsi:type="form:Button">
-            <name>ДеревоОтчетовДобавитьСхемуКомпоновкиДанных</name>
+            <name>ReportsTreeAddDataCompositionSchema</name>
             <id>144</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -534,7 +550,7 @@
             </userVisible>
             <skipOnInput>false</skipOnInput>
             <extendedTooltip>
-              <name>ДеревоОтчетовДобавитьСхемуКомпоновкиДанныхРасширеннаяПодсказка</name>
+              <name>ReportsTreeAddDataCompositionSchemaExtendedTooltip</name>
               <id>377</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -556,7 +572,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>СтандартныеКомандыДереваОтчетов</name>
+            <name>ReportsTreeStandartCommands</name>
             <id>352</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -567,12 +583,20 @@
               <key>ru</key>
               <value>Стандартные команды дерева отчетов</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Reports tree standart commands</value>
+            </title>
+            <toolTip>
+              <key>en</key>
+              <value>Report Tree standart commands</value>
+            </toolTip>
             <toolTip>
               <key>ru</key>
               <value>Стандартные команды дерева отчетов</value>
             </toolTip>
             <extendedTooltip>
-              <name>СтандартныеКомандыДереваОтчетовРасширеннаяПодсказка</name>
+              <name>ReportsTreeStandartCommandsExtendedTooltip</name>
               <id>381</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -587,11 +611,11 @@
               </extInfo>
             </extendedTooltip>
             <extInfo xsi:type="form:ButtonGroupExtInfo">
-              <commandSource>Item.ДеревоОтчетов</commandSource>
+              <commandSource>Item.ReportsTree</commandSource>
             </extInfo>
           </items>
           <items xsi:type="form:Button">
-            <name>КонструкторСхемыКомпоновкиДанных</name>
+            <name>DataCompositionSchemaWizard</name>
             <id>142</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -600,7 +624,7 @@
             </userVisible>
             <skipOnInput>false</skipOnInput>
             <extendedTooltip>
-              <name>КонструкторСхемыКомпоновкиДанныхРасширеннаяПодсказка</name>
+              <name>DataCompositionSchemaWizardExtendedTooltip</name>
               <id>403</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -651,10 +675,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоОтчетовСтрокаПоиска</name>
+          <name>ReportsTreeSearchString</name>
           <id>383</id>
           <extendedTooltip>
-            <name>ДеревоОтчетовСтрокаПоискаРасширеннаяПодсказка</name>
+            <name>ReportsTreeSearchStringExtendedTooltip</name>
             <id>385</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -669,7 +693,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоОтчетовСтрокаПоискаКонтекстноеМеню</name>
+            <name>ReportsTreeSearchStringContextMenu</name>
             <id>384</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -688,10 +712,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоОтчетовСостояниеПросмотра</name>
+          <name>ReportsTreeViewStatus</name>
           <id>386</id>
           <extendedTooltip>
-            <name>ДеревоОтчетовСостояниеПросмотраРасширеннаяПодсказка</name>
+            <name>ReportsTreeViewStatusExtendedTooltip</name>
             <id>388</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -706,7 +730,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоОтчетовСостояниеПросмотраКонтекстноеМеню</name>
+            <name>ReportsTreeViewStatusContextMenu</name>
             <id>387</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -727,10 +751,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <name>ДеревоОтчетовУправлениеПоиском</name>
+          <name>ReportsTreeSearchControl</name>
           <id>389</id>
           <extendedTooltip>
-            <name>ДеревоОтчетовУправлениеПоискомРасширеннаяПодсказка</name>
+            <name>ReportsTreeSearchControlExtendedTooltip</name>
             <id>391</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -745,7 +769,7 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоОтчетовУправлениеПоискомКонтекстноеМеню</name>
+            <name>ReportsTreeSearchControlContextMenu</name>
             <id>390</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -760,7 +784,7 @@
           </extInfo>
         </searchControlAddition>
         <extendedTooltip>
-          <name>ДеревоОтчетовРасширеннаяПодсказка</name>
+          <name>ReportsTreeExtendedTooltip</name>
           <id>382</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -775,10 +799,10 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ДеревоОтчетовКонтекстноеМеню</name>
+          <name>ReportsTreeContextMenu</name>
           <id>126</id>
           <items xsi:type="form:Button">
-            <name>ДеревоОтчетовДобавитьСхемуКомпоновкиДанных1</name>
+            <name>ReportsTreeAddDataCompositionSchema1</name>
             <id>354</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -787,7 +811,7 @@
             </userVisible>
             <skipOnInput>false</skipOnInput>
             <extendedTooltip>
-              <name>ДеревоОтчетовДобавитьСхемуКомпоновкиДанных1РасширеннаяПодсказка</name>
+              <name>ReportsTreeAddDataCompositionSchema1ExtendedTooltip</name>
               <id>371</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -809,7 +833,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>СтандартныеКомандыДереваОтчетаКонтекстноеМеню</name>
+            <name>ReportsTreeStandartCommandsContextMenu</name>
             <id>358</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -820,12 +844,16 @@
               <key>ru</key>
               <value>Стандартные команды дерева отчета контекстное меню</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Reports tree standart commands context menu</value>
+            </title>
             <toolTip>
               <key>ru</key>
               <value>Стандартные команды дерева отчета контекстное меню</value>
             </toolTip>
             <extendedTooltip>
-              <name>СтандартныеКомандыДереваОтчетаКонтекстноеМенюРасширеннаяПодсказка</name>
+              <name>ReportsTreeStandartCommandsContextMenuExtendedTooltip</name>
               <id>375</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -840,11 +868,11 @@
               </extInfo>
             </extendedTooltip>
             <extInfo xsi:type="form:ButtonGroupExtInfo">
-              <commandSource>Item.ДеревоОтчетов</commandSource>
+              <commandSource>Item.ReportsTree</commandSource>
             </extInfo>
           </items>
           <items xsi:type="form:Button">
-            <name>КонструкторСхемыКомпоновкиДанных1</name>
+            <name>DataCompositionSchemaWizard1</name>
             <id>845</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -853,7 +881,7 @@
             </userVisible>
             <skipOnInput>false</skipOnInput>
             <extendedTooltip>
-              <name>КонструкторСхемыКомпоновкиДанныхРасширеннаяПодсказка1</name>
+              <name>DataCompositionSchemaWizard1ExtendedTooltip</name>
               <id>846</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -917,12 +945,16 @@
         <key>ru</key>
         <value>Группа отчетов</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group reports</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа отчетов</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаОтчетовРасширеннаяПодсказка</name>
+        <name>GroupReportsExtendedTooltip</name>
         <id>370</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -946,7 +978,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаНастроек</name>
+      <name>GroupSettings</name>
       <id>149</id>
       <items xsi:type="form:FormGroup">
         <name>ГруппаВарианта</name>
@@ -5822,6 +5854,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Settings</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Настройки</value>
         </title>
@@ -6057,6 +6093,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>User settings</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Пользовательские настройки</value>
         </title>
@@ -6213,7 +6253,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Items.ДеревоОтчетов.CurrentData.Data</segments>
+              <segments>Items.ReportsTree.CurrentData.Data</segments>
             </paths>
           </dataPath>
           <titleLocation>None</titleLocation>
@@ -6262,6 +6302,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>XML сomposition schema</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>XML схемы компоновки</value>
         </title>
@@ -6302,7 +6346,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>Items.ДеревоОтчетов.CurrentData.ExternalDataSets</segments>
+            <segments>Items.ReportsTree.CurrentData.ExternalDataSets</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
@@ -6315,7 +6359,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>Items.ДеревоОтчетов.CurrentData.ExternalDataSets.Name</segments>
+                <segments>Items.ReportsTree.CurrentData.ExternalDataSets.Name</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -6371,7 +6415,7 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>Items.ДеревоОтчетов.CurrentData.ExternalDataSets.Presentation</segments>
+                <segments>Items.ReportsTree.CurrentData.ExternalDataSets.Presentation</segments>
               </paths>
             </dataPath>
             <extendedTooltip>
@@ -6594,6 +6638,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>External data sets</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Внешние наборы данных</value>
         </title>
@@ -6627,12 +6675,16 @@
         <key>ru</key>
         <value>Группа настроек</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>Group settings</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Группа настроек</value>
       </toolTip>
       <extendedTooltip>
-        <name>ГруппаНастроекРасширеннаяПодсказка</name>
+        <name>GroupSettingsExtendedTooltip</name>
         <id>395</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -6661,12 +6713,16 @@
       <key>ru</key>
       <value>Группа отчетов и настроек</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group settings and reports</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа отчетов и настроек</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаОтчетовИНастроекРасширеннаяПодсказка</name>
+      <name>GroupSettingsAndReportsExtendedTooltip</name>
       <id>369</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -6868,6 +6924,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Spreadsheet document</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Табличный документ</value>
@@ -12619,6 +12679,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Collection</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Коллекция</value>
         </title>
@@ -13169,6 +13233,10 @@
       <key>en</key>
       <value>Group results</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Results group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа результатов</value>
