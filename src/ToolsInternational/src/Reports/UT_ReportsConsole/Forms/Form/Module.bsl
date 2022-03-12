@@ -178,12 +178,12 @@ Procedure OrderAvailable(ЭлементСтруктуры)
 	If Report.SettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
 
 		LocalOrder = True;
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 	Else
 
 		LocalOrder = False;
-		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
 	EndIf;
 
@@ -220,7 +220,7 @@ Procedure OrderUnavailable()
 
 	LocalOrder = False;
 	Items.LocalOrder.ReadOnly = True;
-	Items.СтраницыПорядка.CurrentPage = Items.НедоступныеНастройкиПорядка;
+	Items.OrderPages.CurrentPage = Items.UnavailableOrderSettings;
 
 EndProcedure
 
@@ -244,12 +244,12 @@ Procedure ConditionalAppearanceAvailable(ЭлементСтруктуры)
 	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
 
 		LocalConditionalAppearance = True;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 	Else
 
 		LocalConditionalAppearance = False;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
 	EndIf;
 
@@ -286,7 +286,7 @@ Procedure ConditionalAppearanceUnavailable()
 
 	LocalConditionalAppearance = False;
 	Items.LocalConditionalAppearance.ReadOnly = True;
-	Items.СтраницыУсловногоОформления.CurrentPage = Items.НедоступныеНастройкиУсловногоОформления;
+	Items.ConditionalAppearancePages.CurrentPage = Items.UnavailableConditionalAppearanceSettings;
 
 EndProcedure
 
@@ -310,12 +310,12 @@ Procedure OutputParametersAvailable(ЭлементСтруктуры)
 	If Report.SettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
 
 		LocalOutputParameters = True;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	Else
 
 		LocalOutputParameters = False;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.ОтключенныеНастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
 	EndIf;
 
@@ -352,7 +352,7 @@ Procedure OutputParametersUnavailable()
 
 	LocalOutputParameters = False;
 	Items.LocalOutputParameters.ReadOnly = True;
-	Items.СтраницыПараметровВывода.CurrentPage = Items.НедоступныеНастройкиПараметровВывода;
+	Items.OutputParametersPages.CurrentPage = Items.UnavailableOutputParametersSettings;
 
 EndProcedure
 
@@ -3363,11 +3363,11 @@ Procedure СтруктураПриАктивизацииПоля(Item)
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеУсловногоОформления" Then
 
-		ВыбраннаяСтраница = Items.СтраницаУсловногоОформления;
+		ВыбраннаяСтраница = Items.ConditionalAppearancePage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПараметровВывода" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПараметровВывода;
+		ВыбраннаяСтраница = Items.OutputParametersPage;
 
 	EndIf;
 
@@ -3454,15 +3454,15 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 
 		LocalOrder = True;
 		Items.LocalOrder.ReadOnly = True;
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 		LocalConditionalAppearance = True;
 		Items.LocalConditionalAppearance.ReadOnly = True;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 		LocalOutputParameters = True;
 		Items.LocalOutputParameters.ReadOnly = True;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	ElsIf ItemType = Type("DataCompositionGroup") Or ItemType = Type(
 		"DataCompositionTableGroup") Or ItemType = Type("DataCompositionChartGroup") Then
@@ -3666,11 +3666,11 @@ Procedure ЛокальныйПорядокПриИзменении(Item)
 
 	If LocalOrder Then
 
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 	Else
 
-		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
 		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
@@ -3706,11 +3706,11 @@ Procedure ЛокальноеУсловноеОформлениеПриИзмен
 
 	If LocalConditionalAppearance Then
 
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 	Else
 
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
 		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
@@ -3746,11 +3746,11 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 
 	If LocalOutputParameters Then
 
-		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	Else
 
-		Items.СтраницыПараметровВывода.CurrentPage = Items.ОтключенныеНастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
 		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);

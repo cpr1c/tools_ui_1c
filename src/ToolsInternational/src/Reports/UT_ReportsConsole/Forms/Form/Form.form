@@ -3992,13 +3992,13 @@ In the structure tree, select the report and edit report filters.</value>
               <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>СтраницыПорядка</name>
+              <name>OrderPages</name>
               <id>70</id>
               <items xsi:type="form:FormGroup">
-                <name>НастройкиПорядка</name>
+                <name>OrderSettings</name>
                 <id>71</id>
                 <items xsi:type="form:Table">
-                  <name>ДоступныеПоляПорядка</name>
+                  <name>OrderAvailableFields</name>
                   <id>72</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4011,7 +4011,7 @@ In the structure tree, select the report and edit report filters.</value>
                   <skipOnInput>false</skipOnInput>
                   <titleLocation>None</titleLocation>
                   <autoCommandBar>
-                    <name>ДоступныеПоляПорядкаКоманднаяПанель</name>
+                    <name>OrderAvailableFieldsCommandBar</name>
                     <id>74</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4031,10 +4031,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ДоступныеПоляПорядкаСтрокаПоиска</name>
+                    <name>OrderAvailableFieldsSearchString</name>
                     <id>529</id>
                     <extendedTooltip>
-                      <name>ДоступныеПоляПорядкаСтрокаПоискаРасширеннаяПодсказка</name>
+                      <name>OrderAvailableFieldsSearchStringExtendedTooltip</name>
                       <id>531</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4049,7 +4049,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ДоступныеПоляПорядкаСтрокаПоискаКонтекстноеМеню</name>
+                      <name>OrderAvailableFieldsSearchStringContextMenu</name>
                       <id>530</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4068,10 +4068,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ДоступныеПоляПорядкаСостояниеПросмотра</name>
+                    <name>OrderAvailableFieldsViewStatus</name>
                     <id>532</id>
                     <extendedTooltip>
-                      <name>ДоступныеПоляПорядкаСостояниеПросмотраРасширеннаяПодсказка</name>
+                      <name>OrderAvailableFieldsViewStatusExtendedTooltip</name>
                       <id>534</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4086,7 +4086,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ДоступныеПоляПорядкаСостояниеПросмотраКонтекстноеМеню</name>
+                      <name>OrderAvailableFieldsViewStatusContextMenu</name>
                       <id>533</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4107,10 +4107,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ДоступныеПоляПорядкаУправлениеПоиском</name>
+                    <name>OrderAvailableFieldsSearchControl</name>
                     <id>535</id>
                     <extendedTooltip>
-                      <name>ДоступныеПоляПорядкаУправлениеПоискомРасширеннаяПодсказка</name>
+                      <name>OrderAvailableFieldsSearchControlExtendedTooltip</name>
                       <id>537</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4125,7 +4125,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ДоступныеПоляПорядкаУправлениеПоискомКонтекстноеМеню</name>
+                      <name>OrderAvailableFieldsSearchControlContextMenu</name>
                       <id>536</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4140,7 +4140,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </searchControlAddition>
                   <extendedTooltip>
-                    <name>ДоступныеПоляПорядкаРасширеннаяПодсказка</name>
+                    <name>OrderAvailableFieldsExtendedTooltip</name>
                     <id>528</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4155,7 +4155,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ДоступныеПоляПорядкаКонтекстноеМеню</name>
+                    <name>OrderAvailableFieldsContextMenu</name>
                     <id>73</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4191,7 +4191,7 @@ In the structure tree, select the report and edit report filters.</value>
                   <searchControlLocation>None</searchControlLocation>
                 </items>
                 <items xsi:type="form:Table">
-                  <name>Порядок</name>
+                  <name>Order</name>
                   <id>75</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4204,7 +4204,7 @@ In the structure tree, select the report and edit report filters.</value>
                   <skipOnInput>false</skipOnInput>
                   <titleLocation>None</titleLocation>
                   <autoCommandBar>
-                    <name>ПорядокКоманднаяПанель</name>
+                    <name>OrderCommandBar</name>
                     <id>77</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4232,10 +4232,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПорядокСтрокаПоиска</name>
+                    <name>OrderSearchString</name>
                     <id>539</id>
                     <extendedTooltip>
-                      <name>ПорядокСтрокаПоискаРасширеннаяПодсказка</name>
+                      <name>OrderSearchStringExtendedTooltip</name>
                       <id>541</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4250,7 +4250,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПорядокСтрокаПоискаКонтекстноеМеню</name>
+                      <name>OrderSearchStringContextMenu</name>
                       <id>540</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4269,10 +4269,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПорядокСостояниеПросмотра</name>
+                    <name>OrderViewStatus</name>
                     <id>542</id>
                     <extendedTooltip>
-                      <name>ПорядокСостояниеПросмотраРасширеннаяПодсказка</name>
+                      <name>OrderViewStatusExtendedTooltip</name>
                       <id>544</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4287,7 +4287,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПорядокСостояниеПросмотраКонтекстноеМеню</name>
+                      <name>OrderViewStatusContextMenu</name>
                       <id>543</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4308,10 +4308,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПорядокУправлениеПоиском</name>
+                    <name>OrderSearchControl</name>
                     <id>545</id>
                     <extendedTooltip>
-                      <name>ПорядокУправлениеПоискомРасширеннаяПодсказка</name>
+                      <name>OrderSearchControlExtendedTooltip</name>
                       <id>547</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4326,7 +4326,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПорядокУправлениеПоискомКонтекстноеМеню</name>
+                      <name>OrderSearchControlContextMenu</name>
                       <id>546</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4341,7 +4341,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </searchControlAddition>
                   <extendedTooltip>
-                    <name>ПорядокРасширеннаяПодсказка</name>
+                    <name>OrderExtendedTooltip</name>
                     <id>538</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4356,7 +4356,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПорядокКонтекстноеМеню</name>
+                    <name>OrderContextMenu</name>
                     <id>76</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4394,8 +4394,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Order settings</value>
+                </title>
                 <extendedTooltip>
-                  <name>НастройкиПорядкаРасширеннаяПодсказка</name>
+                  <name>OrderSettingsExtendedTooltip</name>
                   <id>527</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4416,11 +4420,17 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ОтключенныеНастройкиПорядка</name>
+                <name>DisabledOrderSettings</name>
                 <id>78</id>
                 <items xsi:type="form:Decoration">
-                  <name>НадписьЛокальногоПорядка</name>
+                  <name>LocalOrderLabel</name>
                   <id>79</id>
+                  <title>
+                    <key>en</key>
+                    <value>No sort is assigned to the item.
+In the structure tree, select the report and edit report sorts.
+To assign the item with a personal sort, select the check box above.</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>В текущем элементе сортировка не установлена.
@@ -4433,7 +4443,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НадписьЛокальногоПорядкаРасширеннаяПодсказка</name>
+                    <name>LocalOrderLabelExtendedTooltip</name>
                     <id>549</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4448,7 +4458,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>НадписьЛокальногоПорядкаКонтекстноеМеню</name>
+                    <name>LocalOrderLabelContextMenu</name>
                     <id>80</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4469,8 +4479,12 @@ In the structure tree, select the report and edit report filters.</value>
                   </extInfo>
                 </items>
                 <items xsi:type="form:Decoration">
-                  <name>ПереходКПорядкуОтчета</name>
+                  <name>GoToReportOrder</name>
                   <id>81</id>
+                  <title>
+                    <key>en</key>
+                    <value>View report sorts</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Нажмите здесь для перехода к сортировке отчета.</value>
@@ -4481,7 +4495,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПереходКПорядкуОтчетаРасширеннаяПодсказка</name>
+                    <name>GoToReportOrderExtendedTooltip</name>
                     <id>550</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4496,7 +4510,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПереходКПорядкуОтчетаКонтекстноеМеню</name>
+                    <name>GoToReportOrderContextMenu</name>
                     <id>82</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4523,8 +4537,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Disabled order settings</value>
+                </title>
                 <extendedTooltip>
-                  <name>ОтключенныеНастройкиПорядкаРасширеннаяПодсказка</name>
+                  <name>DisabledOrderSettingsExtendedTooltip</name>
                   <id>548</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4545,11 +4563,16 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>НедоступныеНастройкиПорядка</name>
+                <name>UnavailableOrderSettings</name>
                 <id>83</id>
                 <items xsi:type="form:Decoration">
-                  <name>НадписьНедоступногоПорядка</name>
+                  <name>UnavailableOrderLabel</name>
                   <id>84</id>
+                  <title>
+                    <key>en</key>
+                    <value>Cannot assign sorts to the item.
+In the structure tree, select the report and edit report sorts.</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>У текущего элемента не может быть установлена сортировка.
@@ -4561,7 +4584,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НадписьНедоступногоПорядкаРасширеннаяПодсказка</name>
+                    <name>UnavailableOrderLabelExtendedTooltip</name>
                     <id>552</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4576,7 +4599,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>НадписьНедоступногоПорядкаКонтекстноеМеню</name>
+                    <name>UnavailableOrderLabelContextMenu</name>
                     <id>85</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4597,8 +4620,12 @@ In the structure tree, select the report and edit report filters.</value>
                   </extInfo>
                 </items>
                 <items xsi:type="form:Decoration">
-                  <name>ПереходКПорядкуОтчета1</name>
+                  <name>GoToReportOrder1</name>
                   <id>86</id>
+                  <title>
+                    <key>en</key>
+                    <value>View report sorts</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Нажмите здесь для перехода к сортировке отчета.</value>
@@ -4609,7 +4636,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПереходКПорядкуОтчета1РасширеннаяПодсказка</name>
+                    <name>GoToReportOrder1ExtendedTooltip</name>
                     <id>553</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4624,7 +4651,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПереходКПорядкуОтчета1КонтекстноеМеню</name>
+                    <name>GoToReportOrder1ContextMenu</name>
                     <id>87</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4651,8 +4678,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Unavailable order settings</value>
+                </title>
                 <extendedTooltip>
-                  <name>НедоступныеНастройкиПорядкаРасширеннаяПодсказка</name>
+                  <name>UnavailableOrderSettingsExtendedTooltip</name>
                   <id>551</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4677,8 +4708,12 @@ In the structure tree, select the report and edit report filters.</value>
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Order pages</value>
+              </title>
               <extendedTooltip>
-                <name>СтраницыПорядкаРасширеннаяПодсказка</name>
+                <name>OrderPagesExtendedTooltip</name>
                 <id>526</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4735,11 +4770,15 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>СтраницаУсловногоОформления</name>
+            <name>ConditionalAppearancePage</name>
             <id>88</id>
             <items xsi:type="form:FormField">
-              <name>ЛокальноеУсловноеОформление</name>
+              <name>LocalConditionalAppearance</name>
               <id>89</id>
+              <title>
+                <key>en</key>
+                <value>Assign the item with personal conditional appearance to format item records</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Текущий элемент имеет собственное условное оформление (для оформления записей, выводимых в элементе)</value>
@@ -4760,7 +4799,7 @@ In the structure tree, select the report and edit report filters.</value>
                 <name>ЛокальноеУсловноеОформлениеПриИзменении</name>
               </handlers>
               <extendedTooltip>
-                <name>ЛокальноеУсловноеОформлениеРасширеннаяПодсказка</name>
+                <name>LocalConditionalAppearanceExtendedTooltip</name>
                 <id>555</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4775,7 +4814,7 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ЛокальноеУсловноеОформлениеКонтекстноеМеню</name>
+                <name>LocalConditionalAppearanceContextMenu</name>
                 <id>90</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4792,14 +4831,18 @@ In the structure tree, select the report and edit report filters.</value>
               <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>СтраницыУсловногоОформления</name>
+              <name>ConditionalAppearancePages</name>
               <id>91</id>
               <items xsi:type="form:FormGroup">
-                <name>НастройкиУсловногоОформления</name>
+                <name>ConditionalAppearanceSettings</name>
                 <id>92</id>
                 <items xsi:type="form:Table">
-                  <name>УсловноеОформление</name>
+                  <name>ConditionalAppearance</name>
                   <id>93</id>
+                  <title>
+                    <key>en</key>
+                    <value>Conditional appearance table</value>
+                  </title>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -4811,7 +4854,7 @@ In the structure tree, select the report and edit report filters.</value>
                   <skipOnInput>false</skipOnInput>
                   <titleLocation>None</titleLocation>
                   <autoCommandBar>
-                    <name>УсловноеОформлениеКоманднаяПанель</name>
+                    <name>ConditionalAppearanceCommandBar</name>
                     <id>95</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4839,10 +4882,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>УсловноеОформлениеСтрокаПоиска</name>
+                    <name>ConditionalAppearanceSearchString</name>
                     <id>559</id>
                     <extendedTooltip>
-                      <name>УсловноеОформлениеСтрокаПоискаРасширеннаяПодсказка</name>
+                      <name>ConditionalAppearanceSearchStringExtendedTooltip</name>
                       <id>561</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4857,7 +4900,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>УсловноеОформлениеСтрокаПоискаКонтекстноеМеню</name>
+                      <name>ConditionalAppearanceSearchStringContextMenu</name>
                       <id>560</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4876,10 +4919,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>УсловноеОформлениеСостояниеПросмотра</name>
+                    <name>ConditionalAppearanceViewStatus</name>
                     <id>562</id>
                     <extendedTooltip>
-                      <name>УсловноеОформлениеСостояниеПросмотраРасширеннаяПодсказка</name>
+                      <name>ConditionalAppearanceViewStatusExtendedTooltip</name>
                       <id>564</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4894,7 +4937,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>УсловноеОформлениеСостояниеПросмотраКонтекстноеМеню</name>
+                      <name>ConditionalAppearanceViewStatusContextMenu</name>
                       <id>563</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4915,10 +4958,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>УсловноеОформлениеУправлениеПоиском</name>
+                    <name>ConditionalAppearanceSearchControl</name>
                     <id>565</id>
                     <extendedTooltip>
-                      <name>УсловноеОформлениеУправлениеПоискомРасширеннаяПодсказка</name>
+                      <name>ConditionalAppearanceSearchControlExtendedTooltip</name>
                       <id>567</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4933,7 +4976,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>УсловноеОформлениеУправлениеПоискомКонтекстноеМеню</name>
+                      <name>ConditionalAppearanceSearchControlContextMenu</name>
                       <id>566</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -4948,7 +4991,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </searchControlAddition>
                   <extendedTooltip>
-                    <name>УсловноеОформлениеРасширеннаяПодсказка</name>
+                    <name>ConditionalAppearanceExtendedTooltip</name>
                     <id>558</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4963,7 +5006,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>УсловноеОформлениеКонтекстноеМеню</name>
+                    <name>ConditionalAppearanceContextMenu</name>
                     <id>94</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5002,8 +5045,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Conditional appearance page</value>
+                </title>
                 <extendedTooltip>
-                  <name>НастройкиУсловногоОформленияРасширеннаяПодсказка</name>
+                  <name>ConditionalAppearanceSettingsExtendedTooltip</name>
                   <id>557</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -5023,11 +5070,17 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ОтключенныеНастройкиУсловногоОформления</name>
+                <name>DisabledConditionalAppearanceSettings</name>
                 <id>96</id>
                 <items xsi:type="form:Decoration">
-                  <name>НадписьЛокальногоУсловногоОформления</name>
+                  <name>LocalConditionalAppearanceLabel</name>
                   <id>97</id>
+                  <title>
+                    <key>en</key>
+                    <value>No conditional appearance is assigned to the item.
+In the structure tree, select the report and edit report conditional appearance.
+To assign the item with a personal conditional appearance, select the check box above.</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>В текущем элементе условное оформление не установлено.
@@ -5040,7 +5093,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НадписьЛокальногоУсловногоОформленияРасширеннаяПодсказка</name>
+                    <name>LocalConditionalAppearanceLabelExtendedTooltip</name>
                     <id>569</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5055,7 +5108,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>НадписьЛокальногоУсловногоОформленияКонтекстноеМеню</name>
+                    <name>LocalConditionalAppearanceLabelContextMenu</name>
                     <id>98</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5076,8 +5129,12 @@ In the structure tree, select the report and edit report filters.</value>
                   </extInfo>
                 </items>
                 <items xsi:type="form:Decoration">
-                  <name>ПереходКУсловномуОформлениюОтчета</name>
+                  <name>GoToReportConditionalAppearance</name>
                   <id>99</id>
+                  <title>
+                    <key>en</key>
+                    <value>View report conditional appearance</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Нажмите здесь для перехода к условному оформлению отчета.</value>
@@ -5088,7 +5145,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПереходКУсловномуОформлениюОтчетаРасширеннаяПодсказка</name>
+                    <name>GoToReportConditionalAppearanceExtendedTooltip</name>
                     <id>570</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5103,7 +5160,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПереходКУсловномуОформлениюОтчетаКонтекстноеМеню</name>
+                    <name>GoToReportConditionalAppearanceContextMenu</name>
                     <id>100</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5130,8 +5187,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Disabled conditional appearance settings</value>
+                </title>
                 <extendedTooltip>
-                  <name>ОтключенныеНастройкиУсловногоОформленияРасширеннаяПодсказка</name>
+                  <name>DisabledConditionalAppearanceSettingsExtendedTooltip</name>
                   <id>568</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -5152,11 +5213,16 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>НедоступныеНастройкиУсловногоОформления</name>
+                <name>UnavailableConditionalAppearanceSettings</name>
                 <id>101</id>
                 <items xsi:type="form:Decoration">
-                  <name>НадписьНедоступногоУсловногоОформления</name>
+                  <name>UnavailableConditionalAppearanceLabel</name>
                   <id>102</id>
+                  <title>
+                    <key>en</key>
+                    <value>Cannot assign conditional appearance to the item.
+In the structure tree, select the report and edit report conditional appearance.</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>У текущего элемента не может быть установлено условное оформление.
@@ -5168,7 +5234,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НадписьНедоступногоУсловногоОформленияРасширеннаяПодсказка</name>
+                    <name>UnavailableConditionalAppearanceLabelExtendedTooltip</name>
                     <id>572</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5183,7 +5249,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>НадписьНедоступногоУсловногоОформленияКонтекстноеМеню</name>
+                    <name>UnavailableConditionalAppearanceLabelContextMenu</name>
                     <id>103</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5204,8 +5270,12 @@ In the structure tree, select the report and edit report filters.</value>
                   </extInfo>
                 </items>
                 <items xsi:type="form:Decoration">
-                  <name>ПереходКУсловномуОформлениюОтчета1</name>
+                  <name>GoToReportConditionalAppearance1</name>
                   <id>104</id>
+                  <title>
+                    <key>en</key>
+                    <value>View report conditional appearance</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Нажмите здесь для перехода к условному оформлению отчета.</value>
@@ -5216,7 +5286,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПереходКУсловномуОформлениюОтчета1РасширеннаяПодсказка</name>
+                    <name>GoToReportConditionalAppearance1ExtendedTooltip</name>
                     <id>573</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5231,7 +5301,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПереходКУсловномуОформлениюОтчета1КонтекстноеМеню</name>
+                    <name>GoToReportConditionalAppearance1ContextMenu</name>
                     <id>105</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5258,8 +5328,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Unavailable conditional appearance settings</value>
+                </title>
                 <extendedTooltip>
-                  <name>НедоступныеНастройкиУсловногоОформленияРасширеннаяПодсказка</name>
+                  <name>UnavailableConditionalAppearanceSettingsExtendedTooltip</name>
                   <id>571</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -5284,8 +5358,12 @@ In the structure tree, select the report and edit report filters.</value>
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Conditional appearance pages</value>
+              </title>
               <extendedTooltip>
-                <name>СтраницыУсловногоОформленияРасширеннаяПодсказка</name>
+                <name>ConditionalAppearancePagesExtendedTooltip</name>
                 <id>556</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -5313,8 +5391,12 @@ In the structure tree, select the report and edit report filters.</value>
               <key>ru</key>
               <value>Условное оформление</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Conditional appearance page</value>
+            </title>
             <extendedTooltip>
-              <name>СтраницаУсловногоОформленияРасширеннаяПодсказка</name>
+              <name>ConditionalAppearancePageExtendedTooltip</name>
               <id>554</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -5338,11 +5420,15 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>СтраницаПараметровВывода</name>
+            <name>OutputParametersPage</name>
             <id>106</id>
             <items xsi:type="form:FormField">
-              <name>ЛокальныеПараметрыВывода</name>
+              <name>LocalOutputParameters</name>
               <id>107</id>
+              <title>
+                <key>en</key>
+                <value>Assign the item with personal additional settings</value>
+              </title>
               <title>
                 <key>ru</key>
                 <value>Текущий элемент имеет собственные дополнительные настройки</value>
@@ -5363,7 +5449,7 @@ In the structure tree, select the report and edit report filters.</value>
                 <name>ЛокальныеПараметрыВыводаПриИзменении</name>
               </handlers>
               <extendedTooltip>
-                <name>ЛокальныеПараметрыВыводаРасширеннаяПодсказка</name>
+                <name>LocalOutputParametersExtendedTooltip</name>
                 <id>575</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -5378,7 +5464,7 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ЛокальныеПараметрыВыводаКонтекстноеМеню</name>
+                <name>LocalOutputParametersContextMenu</name>
                 <id>108</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -5395,14 +5481,18 @@ In the structure tree, select the report and edit report filters.</value>
               <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>СтраницыПараметровВывода</name>
+              <name>OutputParametersPages</name>
               <id>109</id>
               <items xsi:type="form:FormGroup">
-                <name>НастройкиПараметровВывода</name>
+                <name>OutputParametersSettings</name>
                 <id>110</id>
                 <items xsi:type="form:Table">
-                  <name>ПараметрыВывода</name>
+                  <name>OutputParameters</name>
                   <id>111</id>
+                  <title>
+                    <key>en</key>
+                    <value>Additional settings table</value>
+                  </title>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -5414,7 +5504,7 @@ In the structure tree, select the report and edit report filters.</value>
                   <skipOnInput>false</skipOnInput>
                   <titleLocation>None</titleLocation>
                   <autoCommandBar>
-                    <name>ПараметрыВыводаКоманднаяПанель</name>
+                    <name>OutputParametersCommandBar</name>
                     <id>113</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5438,10 +5528,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПараметрыВыводаСтрокаПоиска</name>
+                    <name>OutputParametersSearchString</name>
                     <id>579</id>
                     <extendedTooltip>
-                      <name>ПараметрыВыводаСтрокаПоискаРасширеннаяПодсказка</name>
+                      <name>OutputParametersSearchStringExtendedTooltip</name>
                       <id>581</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -5456,7 +5546,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыВыводаСтрокаПоискаКонтекстноеМеню</name>
+                      <name>OutputParametersSearchStringContextMenu</name>
                       <id>580</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -5475,10 +5565,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПараметрыВыводаСостояниеПросмотра</name>
+                    <name>OutputParametersViewStatus</name>
                     <id>582</id>
                     <extendedTooltip>
-                      <name>ПараметрыВыводаСостояниеПросмотраРасширеннаяПодсказка</name>
+                      <name>OutputParametersViewStatusExtendedTooltip</name>
                       <id>584</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -5493,7 +5583,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыВыводаСостояниеПросмотраКонтекстноеМеню</name>
+                      <name>OutputParametersViewStatusContextMenu</name>
                       <id>583</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -5514,10 +5604,10 @@ In the structure tree, select the report and edit report filters.</value>
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <name>ПараметрыВыводаУправлениеПоиском</name>
+                    <name>OutputParametersSearchControl</name>
                     <id>585</id>
                     <extendedTooltip>
-                      <name>ПараметрыВыводаУправлениеПоискомРасширеннаяПодсказка</name>
+                      <name>OutputParametersSearchControlExtendedTooltip</name>
                       <id>587</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -5532,7 +5622,7 @@ In the structure tree, select the report and edit report filters.</value>
                       </extInfo>
                     </extendedTooltip>
                     <contextMenu>
-                      <name>ПараметрыВыводаУправлениеПоискомКонтекстноеМеню</name>
+                      <name>OutputParametersSearchControlContextMenu</name>
                       <id>586</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -5547,7 +5637,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </searchControlAddition>
                   <extendedTooltip>
-                    <name>ПараметрыВыводаРасширеннаяПодсказка</name>
+                    <name>OutputParametersExtendedTooltip</name>
                     <id>578</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5562,7 +5652,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПараметрыВыводаКонтекстноеМеню</name>
+                    <name>OutputParametersContextMenu</name>
                     <id>112</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5601,8 +5691,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Additional settings page</value>
+                </title>
                 <extendedTooltip>
-                  <name>НастройкиПараметровВыводаРасширеннаяПодсказка</name>
+                  <name>OutputParametersSettingsExtendedTooltip</name>
                   <id>577</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -5622,11 +5716,17 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ОтключенныеНастройкиПараметровВывода</name>
+                <name>DisabledOutputParametersSettings</name>
                 <id>114</id>
                 <items xsi:type="form:Decoration">
-                  <name>НадписьЛокальныхПараметровВывода</name>
+                  <name>LocalOutputParametersLabel</name>
                   <id>115</id>
+                  <title>
+                    <key>en</key>
+                    <value>No additional settings are assigned to the item.
+In the structure tree, select the report and edit report additional settings.
+To assign the item with personal additional settings, select the check box above.</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>В текущем элементе дополнительные настройки не установлены.
@@ -5639,7 +5739,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НадписьЛокальныхПараметровВыводаРасширеннаяПодсказка</name>
+                    <name>LocalOutputParametersLabelExtendedTooltip</name>
                     <id>589</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5654,7 +5754,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>НадписьЛокальныхПараметровВыводаКонтекстноеМеню</name>
+                    <name>LocalOutputParametersLabelContextMenu</name>
                     <id>116</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5675,8 +5775,12 @@ In the structure tree, select the report and edit report filters.</value>
                   </extInfo>
                 </items>
                 <items xsi:type="form:Decoration">
-                  <name>ПереходКПараметрамВыводаОтчета</name>
+                  <name>GoToReportOutputParameters</name>
                   <id>117</id>
+                  <title>
+                    <key>en</key>
+                    <value>View additional report settings</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Нажмите здесь для перехода к дополнительным настройкам отчета.</value>
@@ -5687,7 +5791,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПереходКПараметрамВыводаОтчетаРасширеннаяПодсказка</name>
+                    <name>GoToReportOutputParametersExtendedTooltip</name>
                     <id>590</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5702,7 +5806,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПереходКПараметрамВыводаОтчетаКонтекстноеМеню</name>
+                    <name>GoToReportOutputParametersContextMenu</name>
                     <id>118</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5729,8 +5833,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Disabled output parameters settings</value>
+                </title>
                 <extendedTooltip>
-                  <name>ОтключенныеНастройкиПараметровВыводаРасширеннаяПодсказка</name>
+                  <name>DisabledOutputParametersSettingsExtendedTooltip</name>
                   <id>588</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -5751,11 +5859,16 @@ In the structure tree, select the report and edit report filters.</value>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>НедоступныеНастройкиПараметровВывода</name>
+                <name>UnavailableOutputParametersSettings</name>
                 <id>119</id>
                 <items xsi:type="form:Decoration">
-                  <name>НадписьНедоступныхПараметровВывода</name>
+                  <name>UnavailableOutputParametersLabel</name>
                   <id>120</id>
+                  <title>
+                    <key>en</key>
+                    <value>Cannot assign additional settings to the item.
+In the structure tree, select the report and edit additional report settings.</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>У текущего элемента не могут быть установлены дополнительные настройки.
@@ -5767,7 +5880,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НадписьНедоступныхПараметровВыводаРасширеннаяПодсказка</name>
+                    <name>UnavailableOutputParametersLabelExtendedTooltip</name>
                     <id>592</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5782,7 +5895,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>НадписьНедоступныхПараметровВыводаКонтекстноеМеню</name>
+                    <name>UnavailableOutputParametersLabelContextMenu</name>
                     <id>121</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5803,8 +5916,12 @@ In the structure tree, select the report and edit report filters.</value>
                   </extInfo>
                 </items>
                 <items xsi:type="form:Decoration">
-                  <name>ПереходКПараметрамВыводаОтчета1</name>
+                  <name>GoToReportOutputParameters1</name>
                   <id>122</id>
+                  <title>
+                    <key>en</key>
+                    <value>View additional report settings</value>
+                  </title>
                   <title>
                     <key>ru</key>
                     <value>Нажмите здесь для перехода к дополнительным настройкам отчета.</value>
@@ -5815,7 +5932,7 @@ In the structure tree, select the report and edit report filters.</value>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПереходКПараметрамВыводаОтчета1РасширеннаяПодсказка</name>
+                    <name>GoToReportOutputParameters1ExtendedTooltip</name>
                     <id>593</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5830,7 +5947,7 @@ In the structure tree, select the report and edit report filters.</value>
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ПереходКПараметрамВыводаОтчета1КонтекстноеМеню</name>
+                    <name>GoToReportOutputParameters1ContextMenu</name>
                     <id>123</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -5857,8 +5974,12 @@ In the structure tree, select the report and edit report filters.</value>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
+                <title>
+                  <key>en</key>
+                  <value>Unavailable output parameters settings</value>
+                </title>
                 <extendedTooltip>
-                  <name>НедоступныеНастройкиПараметровВыводаРасширеннаяПодсказка</name>
+                  <name>UnavailableOutputParametersSettingsExtendedTooltip</name>
                   <id>591</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -5883,8 +6004,12 @@ In the structure tree, select the report and edit report filters.</value>
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Output parameters pages</value>
+              </title>
               <extendedTooltip>
-                <name>СтраницыПараметровВыводаРасширеннаяПодсказка</name>
+                <name>OutputParametersPagesExtendedTooltip</name>
                 <id>576</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -5912,8 +6037,12 @@ In the structure tree, select the report and edit report filters.</value>
               <key>ru</key>
               <value>Дополнительные настройки</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Output parameters page</value>
+            </title>
             <extendedTooltip>
-              <name>СтраницаПараметровВыводаРасширеннаяПодсказка</name>
+              <name>OutputParametersPageExtendedTooltip</name>
               <id>574</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6005,7 +6134,7 @@ In the structure tree, select the report and edit report filters.</value>
         <name>GroupUserSettings</name>
         <id>134</id>
         <items xsi:type="form:Table">
-          <name>КомпоновщикНастроекПользовательскиеНастройки</name>
+          <name>SettingsComposerUserSettings</name>
           <id>135</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -6021,7 +6150,7 @@ In the structure tree, select the report and edit report filters.</value>
           <excludedCommands>List</excludedCommands>
           <excludedCommands>Tree</excludedCommands>
           <autoCommandBar>
-            <name>КомпоновщикНастроекПользовательскиеНастройкиКоманднаяПанель</name>
+            <name>SettingsComposerUserSettingsCommandBar</name>
             <id>137</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6045,10 +6174,10 @@ In the structure tree, select the report and edit report filters.</value>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>КомпоновщикНастроекПользовательскиеНастройкиСтрокаПоиска</name>
+            <name>SettingsComposerUserSettingsSearchString</name>
             <id>596</id>
             <extendedTooltip>
-              <name>КомпоновщикНастроекПользовательскиеНастройкиСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>SettingsComposerUserSettingsSearchStringExtendedTooltip</name>
               <id>598</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6063,7 +6192,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>КомпоновщикНастроекПользовательскиеНастройкиСтрокаПоискаКонтекстноеМеню</name>
+              <name>SettingsComposerUserSettingsSearchStringContextMenu</name>
               <id>597</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6082,10 +6211,10 @@ In the structure tree, select the report and edit report filters.</value>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>КомпоновщикНастроекПользовательскиеНастройкиСостояниеПросмотра</name>
+            <name>SettingsComposerUserSettingsViewStatus</name>
             <id>599</id>
             <extendedTooltip>
-              <name>КомпоновщикНастроекПользовательскиеНастройкиСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>SettingsComposerUserSettingsViewStatusExtendedTooltip</name>
               <id>601</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6100,7 +6229,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>КомпоновщикНастроекПользовательскиеНастройкиСостояниеПросмотраКонтекстноеМеню</name>
+              <name>SettingsComposerUserSettingsViewStatusContextMenu</name>
               <id>600</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6121,10 +6250,10 @@ In the structure tree, select the report and edit report filters.</value>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>КомпоновщикНастроекПользовательскиеНастройкиУправлениеПоиском</name>
+            <name>SettingsComposerUserSettingsSearchControl</name>
             <id>602</id>
             <extendedTooltip>
-              <name>КомпоновщикНастроекПользовательскиеНастройкиУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>SettingsComposerUserSettingsSearchControlExtendedTooltip</name>
               <id>604</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6139,7 +6268,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>КомпоновщикНастроекПользовательскиеНастройкиУправлениеПоискомКонтекстноеМеню</name>
+              <name>SettingsComposerUserSettingsSearchControlContextMenu</name>
               <id>603</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6154,7 +6283,7 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>КомпоновщикНастроекПользовательскиеНастройкиРасширеннаяПодсказка</name>
+            <name>SettingsComposerUserSettingsExtendedTooltip</name>
             <id>595</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6169,7 +6298,7 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>КомпоновщикНастроекПользовательскиеНастройкиКонтекстноеМеню</name>
+            <name>SettingsComposerUserSettingsContextMenu</name>
             <id>136</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6244,13 +6373,13 @@ In the structure tree, select the report and edit report filters.</value>
         <name>GroupDataCompositionSchemas</name>
         <id>139</id>
         <items xsi:type="form:FormGroup">
-          <name>Группа8</name>
+          <name>Group8</name>
           <id>350</id>
           <items xsi:type="form:FormGroup">
-            <name>Группа7</name>
+            <name>Group7</name>
             <id>351</id>
             <items xsi:type="form:Button">
-              <name>ЗагрузитьСхемуИзФайла</name>
+              <name>LoadSchemaFromFile</name>
               <id>347</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6259,7 +6388,7 @@ In the structure tree, select the report and edit report filters.</value>
               </userVisible>
               <skipOnInput>false</skipOnInput>
               <extendedTooltip>
-                <name>ЗагрузитьСхемуИзФайлаРасширеннаяПодсказка</name>
+                <name>LoadSchemaFromFileExtendedTooltip</name>
                 <id>401</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -6281,7 +6410,7 @@ In the structure tree, select the report and edit report filters.</value>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>СохранитьСхемуВФайл</name>
+              <name>SaveSchemaToFile</name>
               <id>348</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6290,7 +6419,7 @@ In the structure tree, select the report and edit report filters.</value>
               </userVisible>
               <skipOnInput>false</skipOnInput>
               <extendedTooltip>
-                <name>СохранитьСхемуВФайлРасширеннаяПодсказка</name>
+                <name>SaveSchemaToFileExtendedTooltip</name>
                 <id>402</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -6317,7 +6446,7 @@ In the structure tree, select the report and edit report filters.</value>
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>Группа7РасширеннаяПодсказка</name>
+              <name>Group7ExtendedTooltip</name>
               <id>400</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6339,7 +6468,7 @@ In the structure tree, select the report and edit report filters.</value>
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>Группа8РасширеннаяПодсказка</name>
+            <name>Group8ExtendedTooltip</name>
             <id>399</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6359,7 +6488,7 @@ In the structure tree, select the report and edit report filters.</value>
           </extInfo>
         </items>
         <items xsi:type="form:FormField">
-          <name>ТекстСхемыКомпоновкиДанных</name>
+          <name>DataCompositionSchemaText</name>
           <id>164</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -6373,7 +6502,7 @@ In the structure tree, select the report and edit report filters.</value>
           </dataPath>
           <titleLocation>None</titleLocation>
           <extendedTooltip>
-            <name>ТекстСхемыКомпоновкиДанныхРасширеннаяПодсказка</name>
+            <name>DataCompositionSchemaTextExtendedTooltip</name>
             <id>404</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6388,7 +6517,7 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ТекстСхемыКомпоновкиДанныхКонтекстноеМеню</name>
+            <name>DataCompositionSchemaTextContextMenu</name>
             <id>165</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6453,7 +6582,7 @@ In the structure tree, select the report and edit report filters.</value>
         <name>GroupExternalDataSets</name>
         <id>851</id>
         <items xsi:type="form:Table">
-          <name>ВнешниеНаборыДанных</name>
+          <name>ExternalDataSets</name>
           <id>853</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -6465,7 +6594,7 @@ In the structure tree, select the report and edit report filters.</value>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
-            <name>ВнешниеНаборыДанныхИмя</name>
+            <name>ExternalDataSetsName</name>
             <id>866</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6478,7 +6607,7 @@ In the structure tree, select the report and edit report filters.</value>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ВнешниеНаборыДанныхИмяРасширеннаяПодсказка</name>
+              <name>ExternalDataSetsNameExtendedTooltip</name>
               <id>868</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6493,7 +6622,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВнешниеНаборыДанныхИмяКонтекстноеМеню</name>
+              <name>ExternalDataSetsNameContextMenu</name>
               <id>867</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6517,7 +6646,7 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ВнешниеНаборыДанныхПредставление</name>
+            <name>ExternalDataSetsPresentation</name>
             <id>872</id>
             <title>
               <key>ru</key>
@@ -6534,7 +6663,7 @@ In the structure tree, select the report and edit report filters.</value>
               </paths>
             </dataPath>
             <extendedTooltip>
-              <name>ВнешниеНаборыДанныхПредставлениеРасширеннаяПодсказка</name>
+              <name>ExternalDataSetsPresentationExtendedTooltip</name>
               <id>874</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6549,7 +6678,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВнешниеНаборыДанныхПредставлениеКонтекстноеМеню</name>
+              <name>ExternalDataSetsPresentationContextMenu</name>
               <id>873</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6576,7 +6705,7 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>ВнешниеНаборыДанныхКоманднаяПанель</name>
+            <name>ExternalDataSetsCommandBar</name>
             <id>854</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6596,10 +6725,10 @@ In the structure tree, select the report and edit report filters.</value>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ВнешниеНаборыДанныхСтрокаПоиска</name>
+            <name>ExternalDataSetsSearchString</name>
             <id>857</id>
             <extendedTooltip>
-              <name>ВнешниеНаборыДанныхСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>ExternalDataSetsSearchStringExtendedTooltip</name>
               <id>859</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6614,7 +6743,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВнешниеНаборыДанныхСтрокаПоискаКонтекстноеМеню</name>
+              <name>ExternalDataSetsSearchStringContextMenu</name>
               <id>858</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6633,10 +6762,10 @@ In the structure tree, select the report and edit report filters.</value>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ВнешниеНаборыДанныхСостояниеПросмотра</name>
+            <name>ExternalDataSetsViewStatus</name>
             <id>863</id>
             <extendedTooltip>
-              <name>ВнешниеНаборыДанныхСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>ExternalDataSetsViewStatusExtendedTooltip</name>
               <id>865</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6651,7 +6780,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВнешниеНаборыДанныхСостояниеПросмотраКонтекстноеМеню</name>
+              <name>ExternalDataSetsViewStatusContextMenu</name>
               <id>864</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6671,10 +6800,10 @@ In the structure tree, select the report and edit report filters.</value>
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ВнешниеНаборыДанныхУправлениеПоиском</name>
+            <name>ExternalDataSetsSearchControl</name>
             <id>860</id>
             <extendedTooltip>
-              <name>ВнешниеНаборыДанныхУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>ExternalDataSetsSearchControlExtendedTooltip</name>
               <id>862</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6689,7 +6818,7 @@ In the structure tree, select the report and edit report filters.</value>
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВнешниеНаборыДанныхУправлениеПоискомКонтекстноеМеню</name>
+              <name>ExternalDataSetsSearchControlContextMenu</name>
               <id>861</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -6704,7 +6833,7 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>ВнешниеНаборыДанныхРасширеннаяПодсказка</name>
+            <name>ExternalDataSetsExtendedTooltip</name>
             <id>856</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -6719,7 +6848,7 @@ In the structure tree, select the report and edit report filters.</value>
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ВнешниеНаборыДанныхКонтекстноеМеню</name>
+            <name>ExternalDataSetsContextMenu</name>
             <id>855</id>
             <visible>true</visible>
             <enabled>true</enabled>

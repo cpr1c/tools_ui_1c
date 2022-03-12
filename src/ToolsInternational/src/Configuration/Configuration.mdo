@@ -26,7 +26,7 @@
   <configurationExtensionCompatibilityMode>8.3.12</configurationExtensionCompatibilityMode>
   <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
   <vendor>Neti LLC </vendor>
-  <version>2.4.11</version>
+  <version>2.4.12</version>
   <defaultLanguage>Language.English</defaultLanguage>
   <languages uuid="66bef324-e854-4c33-879a-3c081f6686cd">
     <name>Russian</name>
