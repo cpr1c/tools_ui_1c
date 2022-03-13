@@ -3781,8 +3781,8 @@ EndProcedure
 // Обработчик события ПриАктивизацииСтроки элемента ReportsTree.
 // Отображает соответствующую закладку - схему, вариант, пользовательские Settings и т.п.
 &AtClient
-Procedure ДеревоОтчетовПриАктивизацииСтроки(Item)
-
+Procedure ReportsTreeOnActivateRow(Item)
+	//TODO: Insert the handler content
 	If Not RowIsBeingActivated And CurrentRow <> Item.CurrentRow Then
 
 		RowIsBeingActivated = True;
@@ -3840,7 +3840,6 @@ Procedure ДеревоОтчетовПриАктивизацииСтроки(Ite
 		EndTry;
 
 	EndIf;
-
 EndProcedure
 
 &AtClient
@@ -3873,9 +3872,9 @@ EndProcedure
 
 // Обработчик события ПередНачаломДобавления элемента ReportsTree.
 &AtClient
-Procedure ДеревоОтчетовПередНачаломДобавления(Item, Cancel, Copy, Parent, Group)
-
-	If Copy Then
+Procedure ReportsTreeBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Parameter)
+	
+		If Clone Then
 
 		Cancel = True;
 
@@ -3886,7 +3885,6 @@ Procedure ДеревоОтчетовПередНачаломДобавления
 		EndIf;
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПередУдалением элемента ReportsTree.
@@ -3897,14 +3895,19 @@ Procedure ДеревоОтчетовПередУдалением(Item, Cancel)
 
 EndProcedure
 
+
+&AtClient
+Procedure ReportsTreeBeforeDeleteRow(Item, Cancel)
+	CurrentRow = Undefined;
+EndProcedure
+
 // Обработчик события Выбор элемента ReportsTree.
 &AtClient
-Procedure ДеревоОтчетовВыбор(Item, SelectedRow, Field, StandardProcessing)
-
+Procedure ReportsTreeSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
 	СформироватьКлиент();
-
 EndProcedure
+
 
 // Обработчик события ОбработкаДополнительнойРасшифровки табличного документа ResultSpreadsheetDocument.
 &AtClient

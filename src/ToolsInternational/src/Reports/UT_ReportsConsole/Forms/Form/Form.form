@@ -659,19 +659,19 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ДеревоОтчетовВыбор</name>
+          <name>ReportsTreeSelection</name>
         </handlers>
         <handlers>
           <event>BeforeAddRow</event>
-          <name>ДеревоОтчетовПередНачаломДобавления</name>
+          <name>ReportsTreeBeforeAddRow</name>
         </handlers>
         <handlers>
           <event>BeforeDeleteRow</event>
-          <name>ДеревоОтчетовПередУдалением</name>
+          <name>ReportsTreeBeforeDeleteRow</name>
         </handlers>
         <handlers>
           <event>OnActivateRow</event>
-          <name>ДеревоОтчетовПриАктивизацииСтроки</name>
+          <name>ReportsTreeOnActivateRow</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
