@@ -23,7 +23,7 @@
   <content>DataProcessor.UT_JobsConsole</content>
   <content>DataProcessor.UT_RegisterChangesForDataExchange</content>
   <content>DataProcessor.UT_CodeConsole</content>
-  <content>DataProcessor.UT_DuplicateObjectDeletion</content>
+  <content>DataProcessor.UT_DuplicateObjectDetection</content>
   <content>Catalog.UT_Algorithms</content>
   <content>DataProcessor.UT_ObjectReferencesSearch</content>
   <content>DataProcessor.UT_ObjectsAttributesEditor</content>

@@ -40,7 +40,7 @@ EndFunction
 // Subsystem presentation. It is used for writing to the event log and in other places.
 Function SubsystemDescription(ForUser) Export
 	LanguageCode = ?(ForUser, UT_CommonClientServer.DefaultLanguageCode(), "");
-	Return NStr("ru = 'Поиск и удаление дублей'; en = 'Duplicate object deletion'", LanguageCode);
+	Return NStr("ru = 'Поиск и удаление дублей'; en = 'Duplicate object detection'", LanguageCode);
 EndFunction
 
 // Search for duplicates.
@@ -505,7 +505,7 @@ Procedure BackgroundDuplicateDeletion(Val Parameters, Val ResultAddress) Export
 
 EndProcedure
 
-// Converts an object to a table for adding to a query.
+// Converts an object to a table for add to a query.
 Function ObjectIntoValueTable(Val DataObject, Val AdditionalFieldsDetails)
 	Result = New ValueTable;
 	DataString = Result.Add();
@@ -571,7 +571,7 @@ Procedure RegisterDuplicatesByAppliedRules(ResultTreeRows, Val SearchAreaManager
 	EndDo;
 EndProcedure
 
-// Adding a row to the candidate table for the applied method.
+// Adds a row to the candidate table for the applied method.
 //
 Function AddCandidatesRow(CandidatesTable, Val MainItemData, Val CandidateData, Val FieldsStructure)
 	
@@ -606,7 +606,7 @@ Function AddCandidatesRow(CandidatesTable, Val MainItemData, Val CandidateData, 
 	Return Row;
 EndFunction
 
-// Adding the found option to the result tree.
+// Adds the found option to the result tree.
 //
 Procedure RegisterDuplicate(DuplicatesTable, Val Item1, Val Item2, Val FieldsStructure)
 	// Defining which item is already added to duplicates.
@@ -671,7 +671,7 @@ Procedure ReplaceReferences(Val ReplacementPairs, Val Parameters = Undefined, Va
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// Прочие.
+// Other.
 
 Function AvailableFilterAttributes(MetadataObject)
 	AttributesArray = New Array;
