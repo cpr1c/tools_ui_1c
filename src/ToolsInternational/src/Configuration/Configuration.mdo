@@ -164,5 +164,5 @@
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DuplicateObjectDetection</dataProcessors>
 </mdclass:Configuration>
