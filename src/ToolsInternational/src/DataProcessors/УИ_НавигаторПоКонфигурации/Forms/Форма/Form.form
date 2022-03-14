@@ -4,10 +4,10 @@
     <name>PagesGroup</name>
     <id>1</id>
     <items xsi:type="form:FormGroup">
-      <name>СтрДеревоОбъектов</name>
+      <name>LIneTreeObjects</name>
       <id>3</id>
       <items xsi:type="form:FormField">
-        <name>_ОтображатьПраваНаОбъекты</name>
+        <name>_DisplayObjectsRights</name>
         <id>207</id>
         <titleTextColor xsi:type="core:ColorRef">
           <color>Style.FieldSelectionBackColor</color>
@@ -26,7 +26,7 @@
           <name>_ОтображатьПраваНаОбъектыПриИзменении</name>
         </handlers>
         <extendedTooltip>
-          <name>_ОтображатьПраваНаОбъектыРасширеннаяПодсказка</name>
+          <name>_DisplayObjectsRightsExtendedTooltip</name>
           <id>209</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -41,7 +41,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>_ОтображатьПраваНаОбъектыКонтекстноеМеню</name>
+          <name>_DisplayObjectsRightsContextMenu</name>
           <id>208</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -58,10 +58,10 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаНавигатор</name>
+        <name>Navigate</name>
         <id>205</id>
         <items xsi:type="form:Table">
-          <name>ДеревоОбъектов</name>
+          <name>ObjectsTree</name>
           <id>5</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -79,7 +79,7 @@
           <excludedCommands>HierarchicalList</excludedCommands>
           <excludedCommands>List</excludedCommands>
           <items xsi:type="form:FormField">
-            <name>ДеревоОбъектовИмя</name>
+            <name>ObjectsTreeName</name>
             <id>18</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -90,7 +90,7 @@
               <segments>ObjectsTree.Name</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоОбъектовИмяРасширеннаяПодсказка</name>
+              <name>ObjectsTreeNameExtendedTooltip</name>
               <id>20</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -105,7 +105,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовИмяКонтекстноеМеню</name>
+              <name>ObjectsTreeNameContextMenu</name>
               <id>19</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -131,7 +131,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоОбъектовСиноним</name>
+            <name>ObjectsTreeSynonym</name>
             <id>21</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -142,7 +142,7 @@
               <segments>ObjectsTree.Synonym</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоОбъектовСинонимРасширеннаяПодсказка</name>
+              <name>ObjectsTreeSynonymExtendedTooltip</name>
               <id>23</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -157,7 +157,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовСинонимКонтекстноеМеню</name>
+              <name>ObjectsTreeSynonymContextMenu</name>
               <id>22</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -183,7 +183,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоОбъектовПредставлениеОбъекта</name>
+            <name>ObjectsTreeObjectPresentation</name>
             <id>24</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -194,7 +194,7 @@
               <segments>ObjectsTree.ObjectPresentation</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоОбъектовПредставлениеОбъектаРасширеннаяПодсказка</name>
+              <name>ObjectsTreeObjectPresentationExtendedTooltip</name>
               <id>26</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -209,7 +209,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовПредставлениеОбъектаКонтекстноеМеню</name>
+              <name>ObjectsTreeObjectPresentationContextMenu</name>
               <id>25</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -235,7 +235,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоОбъектовКоличествоОбъектов</name>
+            <name>ObjectsTreeNumberOfObjects</name>
             <id>279</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -246,7 +246,7 @@
               <segments>ObjectsTree.NumberOfObjects</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоОбъектовКоличествоОбъектовРасширеннаяПодсказка</name>
+              <name>ObjectsTreeNumberOfObjectsExtendedTooltip</name>
               <id>281</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -261,7 +261,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовКоличествоОбъектовКонтекстноеМеню</name>
+              <name>ObjectsTreeNumberOfObjectsContextMenu</name>
               <id>280</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -287,7 +287,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormField">
-            <name>ДеревоОбъектовПолноеИмя</name>
+            <name>ObjectsTreeFullName</name>
             <id>27</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -298,7 +298,7 @@
               <segments>ObjectsTree.FullName</segments>
             </dataPath>
             <extendedTooltip>
-              <name>ДеревоОбъектовПолноеИмяРасширеннаяПодсказка</name>
+              <name>ObjectsTreeFullNameExtendedTooltip</name>
               <id>29</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -313,7 +313,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовПолноеИмяКонтекстноеМеню</name>
+              <name>ObjectsTreeFullNameContextMenu</name>
               <id>28</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -339,13 +339,13 @@
             </extInfo>
           </items>
           <autoCommandBar>
-            <name>ДеревоОбъектовКоманднаяПанель</name>
+            <name>ObjectsTreeCommandBar</name>
             <id>7</id>
             <items xsi:type="form:FormGroup">
-              <name>ДеревоОбъектовГруппа3</name>
+              <name>ObjectsTreeGroup3</name>
               <id>358</id>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовВосстановитьЗначения</name>
+                <name>ObjectsTreeRestoreValues</name>
                 <id>342</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -353,7 +353,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовВосстановитьЗначенияРасширеннаяПодсказка</name>
+                  <name>ObjectsTreeRestoreValuesExtendedTooltip</name>
                   <id>343</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -376,7 +376,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовСохранитьЗначения</name>
+                <name>ObjectsTreeSaveValues</name>
                 <id>344</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -384,7 +384,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовСохранитьЗначенияРасширеннаяПодсказка</name>
+                  <name>ObjectsTreeSaveValuesExtendedTooltip</name>
                   <id>345</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -411,8 +411,12 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Objects tree group3</value>
+              </title>
               <extendedTooltip>
-                <name>ДеревоОбъектовГруппа3РасширеннаяПодсказка</name>
+                <name>ObjectsTreeGroup3ExtendedTooltip</name>
                 <id>359</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -429,7 +433,7 @@
               <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовПереместитьВверх</name>
+              <name>ObjectsTreeMoveUp</name>
               <id>346</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -437,7 +441,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовПереместитьВверхРасширеннаяПодсказка</name>
+                <name>ObjectsTreeMoveUpExtendedTooltip</name>
                 <id>347</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -451,7 +455,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.ДеревоОбъектов.StandardCommand.MoveUp</commandName>
+              <commandName>Form.Item.ObjectsTree.StandardCommand.MoveUp</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -460,7 +464,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовПереместитьВниз</name>
+              <name>ObjectsTreeMoveDown</name>
               <id>348</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -468,7 +472,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовПереместитьВнизРасширеннаяПодсказка</name>
+                <name>ObjectsTreeMoveDownExtendedTooltip</name>
                 <id>349</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -482,7 +486,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.ДеревоОбъектов.StandardCommand.MoveDown</commandName>
+              <commandName>Form.Item.ObjectsTree.StandardCommand.MoveDown</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -491,10 +495,10 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ДеревоОбъектовГруппа2</name>
+              <name>ObjectsTreeGroup2</name>
               <id>356</id>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовИзменитьФорму</name>
+                <name>ObjectTreeCustomizeForm</name>
                 <id>30</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -502,7 +506,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовИзменитьФормуРасширеннаяПодсказка</name>
+                  <name>ObjectTreeCustomizeFormExtendedTooltip</name>
                   <id>31</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -525,7 +529,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектов_СвернутьВсеУзлы</name>
+                <name>ObjectsTree_CollapseAllNodes</name>
                 <id>300</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -533,7 +537,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектов_СвернутьВсеУзлыРасширеннаяПодсказка</name>
+                  <name>ObjectsTree_CollapseAllNodesExtendedTooltip</name>
                   <id>301</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -547,7 +551,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._СвернутьВсеУзлы</commandName>
+                <commandName>Form.Command._CollapseAllNodes</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -556,7 +560,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектов_ДобавитьВИзбранное</name>
+                <name>ObjectsTree_AddToFavorites</name>
                 <id>325</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -564,7 +568,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектов_ДобавитьВИзбранноеРасширеннаяПодсказка</name>
+                  <name>ObjectsTree_AddToFavoritesExtendedTooltip</name>
                   <id>326</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -578,7 +582,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._ДобавитьВИзбранное</commandName>
+                <commandName>Form.Command._AddToFavorites</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -587,7 +591,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектов_УдалитьИзИзбранного</name>
+                <name>ObjectsTree_DeleteFromFavorites</name>
                 <id>327</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -595,7 +599,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектов_УдалитьИзИзбранногоРасширеннаяПодсказка</name>
+                  <name>ObjectsTree_DeleteFromFavoritesExtendedTooltip</name>
                   <id>328</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -609,7 +613,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._УдалитьИзИзбранного</commandName>
+                <commandName>Form.Command._DeleteFromFavorites</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -622,8 +626,12 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Objects tree group2</value>
+              </title>
               <extendedTooltip>
-                <name>ДеревоОбъектовГруппа2РасширеннаяПодсказка</name>
+                <name>ObjectsTreeGroup2ExtendedTooltip</name>
                 <id>357</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -640,7 +648,7 @@
               <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовкОткрытьФормуСписка</name>
+              <name>ObjectsTreekOpenListForm</name>
               <id>63</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -648,7 +656,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовкОткрытьФормуСпискаРасширеннаяПодсказка</name>
+                <name>ObjectsTreekOpenListFormExtendedTooltip</name>
                 <id>64</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -662,7 +670,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.кОткрытьФормуСписка</commandName>
+              <commandName>Form.Command.kOpenListForm</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -671,7 +679,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовкОткрытьФормуСпискаДоп</name>
+              <name>ObjectsTreekOpenDynamicList</name>
               <id>95</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -679,7 +687,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовкОткрытьФормуСпискаДопРасширеннаяПодсказка</name>
+                <name>ObjectsTreekOpenDynamicListExtendedTooltip</name>
                 <id>96</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -693,7 +701,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.кОткрытьФормуСпискаДоп</commandName>
+              <commandName>Form.Command.kOpenDynamicList</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -702,7 +710,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовкПоказатьСвойстваОбъекта</name>
+              <name>ObjectsTreekShowObjectProperties</name>
               <id>59</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -710,7 +718,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовкПоказатьСвойстваОбъектаРасширеннаяПодсказка</name>
+                <name>ObjectsTreekShowObjectPropertiesExtendedTooltip</name>
                 <id>60</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -724,7 +732,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.кПоказатьСвойстваОбъекта</commandName>
+              <commandName>Form.Command.kShowObjectProperties</commandName>
               <representation>Auto</representation>
               <defaultButton>true</defaultButton>
               <autoMaxWidth>true</autoMaxWidth>
@@ -734,13 +742,13 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ДеревоОбъектовГруппаДоп</name>
+              <name>ObjecsTreeAdditionalGroup</name>
               <id>81</id>
               <items xsi:type="form:FormGroup">
-                <name>ДеревоОбъектовПолезное</name>
+                <name>ObjectsTreeUsefull</name>
                 <id>494</id>
                 <items xsi:type="form:Button">
-                  <name>ДеревоОбъектовкОткрытьВНовомОкне</name>
+                  <name>ObjectsTreekOpenInNewWindow</name>
                   <id>57</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -748,7 +756,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДеревоОбъектовкОткрытьВНовомОкнеРасширеннаяПодсказка</name>
+                    <name>ObjectsTreekOpenInNewWindowExtendedTooltip</name>
                     <id>58</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -762,7 +770,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.кОткрытьВНовомОкне</commandName>
+                  <commandName>Form.Command.kOpenInNewWindow</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -771,7 +779,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ДеревоОбъектовкРассчитатьКоличествоОбъектов</name>
+                  <name>ObjectsTreekCalculateObjectsNumber</name>
                   <id>282</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -779,7 +787,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДеревоОбъектовкРассчитатьКоличествоОбъектовРасширеннаяПодсказка</name>
+                    <name>ObjectsTreekCalculateObjectsNumberExtendedTooltip</name>
                     <id>283</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -793,7 +801,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.кРассчитатьКоличествоОбъектов</commandName>
+                  <commandName>Form.Command.kCalculateObjectsNumber</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -802,7 +810,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ДеревоОбъектов_ОткрытьРедакторОбъектов</name>
+                  <name>ObjectsTree_OpenObjectsEditor</name>
                   <id>648</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -810,7 +818,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДеревоОбъектов_ОткрытьРедакторОбъектовРасширеннаяПодсказка</name>
+                    <name>ObjectsTree_OpenObjectsEditorExtendedTooltip</name>
                     <id>649</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -824,7 +832,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command._ОткрытьРедакторОбъектов</commandName>
+                  <commandName>Form.Command._OpenObjectsEditor</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -833,7 +841,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ДеревоОбъектовкИзменитьМасштабОтображенияФорм</name>
+                  <name>ObjectsTreekChangeScaleOfForm</name>
                   <id>83</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -841,7 +849,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДеревоОбъектовкИзменитьМасштабОтображенияФормРасширеннаяПодсказка</name>
+                    <name>ObjectsTreekChangeScaleOfFormExtendedTooltip</name>
                     <id>84</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -855,7 +863,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.кИзменитьМасштабОтображенияФорм</commandName>
+                  <commandName>Form.Command.kChangeScaleOfForm</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -872,8 +880,12 @@
                   <key>ru</key>
                   <value>Полезное</value>
                 </title>
+                <title>
+                  <key>en</key>
+                  <value>Objects tree usefull</value>
+                </title>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовПолезноеРасширеннаяПодсказка</name>
+                  <name>ObjectsTreeUsefullExtendedTooltip</name>
                   <id>495</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -896,13 +908,13 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ДеревоОбъектовАдминистраторам</name>
+                <name>ObjectsTreeForAdministrators</name>
                 <id>488</id>
                 <items xsi:type="form:FormGroup">
-                  <name>ДеревоОбъектовГруппа4</name>
+                  <name>ObjectsTreeGroup4</name>
                   <id>791</id>
                   <items xsi:type="form:Button">
-                    <name>ДеревоОбъектов_ОбновитьСписокПользователей</name>
+                    <name>ObjectsTree_UpdateDBUsersList</name>
                     <id>793</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -910,7 +922,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ДеревоОбъектов_ОбновитьСписокПользователейРасширеннаяПодсказка</name>
+                      <name>ObjectsTree_UpdateDBUsersListExtendedTooltip</name>
                       <id>795</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -924,7 +936,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command._ОбновитьСписокПользователейИБ</commandName>
+                    <commandName>Form.Command._UpdateDBUsersList</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -932,7 +944,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ДеревоОбъектов_СоздатьПользователяИБ</name>
+                    <name>ObjectsTree_CreateDBUser</name>
                     <id>794</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -940,7 +952,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ДеревоОбъектов_СоздатьПользователяИБРасширеннаяПодсказка</name>
+                      <name>ObjectsTree_CreateDBUserExtendedTooltip</name>
                       <id>796</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -954,7 +966,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command._СоздатьПользователяИБ</commandName>
+                    <commandName>Form.Command._CreateDBUser</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -966,8 +978,12 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
+                  <title>
+                    <key>en</key>
+                    <value>Objects tree group4</value>
+                  </title>
                   <extendedTooltip>
-                    <name>ДеревоОбъектовГруппа4РасширеннаяПодсказка</name>
+                    <name>ObjectsTreeGroup4ExtendedTooltip</name>
                     <id>792</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -983,93 +999,8 @@
                   </extendedTooltip>
                   <extInfo xsi:type="form:ButtonGroupExtInfo"/>
                 </items>
-                <items xsi:type="form:FormGroup">
-                  <name>ДеревоОбъектовГруппа4</name>
-                  <id>812</id>
-                  <items xsi:type="form:Button">
-                    <name>ДеревоОбъектов_ОбновитьСписокПользователей</name>
-                    <id>814</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <extendedTooltip>
-                      <name>ДеревоОбъектов_ОбновитьСписокПользователейРасширеннаяПодсказка</name>
-                      <id>816</id>
-                      <visible>true</visible>
-                      <enabled>true</enabled>
-                      <userVisible>
-                        <common>true</common>
-                      </userVisible>
-                      <type>Label</type>
-                      <autoMaxWidth>true</autoMaxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <extInfo xsi:type="form:LabelDecorationExtInfo">
-                        <horizontalAlign>Left</horizontalAlign>
-                      </extInfo>
-                    </extendedTooltip>
-                    <commandName>Form.Command._ОбновитьСписокПользователейИБ</commandName>
-                    <representation>Auto</representation>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <placementArea>UserCmds</placementArea>
-                    <representationInContextMenu>Auto</representationInContextMenu>
-                  </items>
-                  <items xsi:type="form:Button">
-                    <name>ДеревоОбъектов_СоздатьПользователяИБ</name>
-                    <id>815</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <extendedTooltip>
-                      <name>ДеревоОбъектов_СоздатьПользователяИБРасширеннаяПодсказка</name>
-                      <id>817</id>
-                      <visible>true</visible>
-                      <enabled>true</enabled>
-                      <userVisible>
-                        <common>true</common>
-                      </userVisible>
-                      <type>Label</type>
-                      <autoMaxWidth>true</autoMaxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <extInfo xsi:type="form:LabelDecorationExtInfo">
-                        <horizontalAlign>Left</horizontalAlign>
-                      </extInfo>
-                    </extendedTooltip>
-                    <commandName>Form.Command._СоздатьПользователяИБ</commandName>
-                    <representation>Auto</representation>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <placementArea>UserCmds</placementArea>
-                    <representationInContextMenu>Auto</representationInContextMenu>
-                  </items>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <extendedTooltip>
-                    <name>ДеревоОбъектовГруппа4РасширеннаяПодсказка</name>
-                    <id>813</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <type>Label</type>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <extInfo xsi:type="form:LabelDecorationExtInfo">
-                      <horizontalAlign>Left</horizontalAlign>
-                    </extInfo>
-                  </extendedTooltip>
-                  <extInfo xsi:type="form:ButtonGroupExtInfo"/>
-                </items>
                 <items xsi:type="form:Button">
-                  <name>ДеревоОбъектов_ОбновитьНумерациюОбъектов</name>
+                  <name>ObjectsTree_UpdateNumberingOfObjects</name>
                   <id>490</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1077,7 +1008,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДеревоОбъектов_ОбновитьНумерациюОбъектовРасширеннаяПодсказка</name>
+                    <name>ObjectsTree_UpdateNumberingOfObjectsExtendedTooltip</name>
                     <id>491</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1091,7 +1022,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command._ОбновитьНумерациюОбъектов</commandName>
+                  <commandName>Form.Command._UpdateNumberingOfObjects</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1100,7 +1031,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ДеревоОбъектов_ОбновитьНумерациюВсехОбъектов</name>
+                  <name>ObjectsTree_UpdateNumberingOfAllObjects</name>
                   <id>504</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1108,7 +1039,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ДеревоОбъектов_ОбновитьНумерациюВсехОбъектовРасширеннаяПодсказка</name>
+                    <name>ObjectsTree_UpdateNumberingOfAllObjectsExtendedTooltip</name>
                     <id>505</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1122,7 +1053,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command._ОбновитьНумерациюВсехОбъектов</commandName>
+                  <commandName>Form.Command._UpdateNumberingOfAllObjects</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1139,12 +1070,16 @@
                   <key>ru</key>
                   <value>Администраторам</value>
                 </title>
+                <title>
+                  <key>en</key>
+                  <value>Objects tree for administrators</value>
+                </title>
                 <toolTip>
                   <key>ru</key>
                   <value>Администраторам</value>
                 </toolTip>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовАдминистраторамРасширеннаяПодсказка</name>
+                  <name>ObjectsTreeForAdministratorsExtendedTooltip</name>
                   <id>489</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1167,10 +1102,10 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>ДеревоОбъектовЗапуск1С</name>
+                <name>ObjectsTreeRun1C</name>
                 <id>85</id>
                 <items xsi:type="form:Button">
-                  <name>кЗапускКонфигуратор</name>
+                  <name>kRunConfigurator</name>
                   <id>87</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1178,7 +1113,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>кЗапускКонфигураторРасширеннаяПодсказка</name>
+                    <name>kRunConfiguratorExtendedTooltip</name>
                     <id>88</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1192,7 +1127,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.кЗапускКонфигуратор</commandName>
+                  <commandName>Form.Command.kRunConfigurator</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1223,7 +1158,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.кЗапускТолстыйКлиент</commandName>
+                  <commandName>Form.Command.kRunOrdinaryClient</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1232,7 +1167,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>кЗапускТолстыйКлиентУпр</name>
+                  <name>kRunThickClient</name>
                   <id>91</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1240,7 +1175,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>кЗапускТолстыйКлиентУпрРасширеннаяПодсказка</name>
+                    <name>kRunThickClientExtendedTooltip</name>
                     <id>92</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1254,7 +1189,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.кЗапускТолстыйКлиентУпр</commandName>
+                  <commandName>Form.Command.kRunThickClient</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1263,7 +1198,7 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>кЗапускТонкийКлиент</name>
+                  <name>kRunThinClient</name>
                   <id>93</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1271,7 +1206,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>кЗапускТонкийКлиентРасширеннаяПодсказка</name>
+                    <name>kRunThinClientExtendedTooltip</name>
                     <id>94</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1285,7 +1220,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.кЗапускТонкийКлиент</commandName>
+                  <commandName>Form.Command.kRunThinClient</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1294,10 +1229,10 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:FormGroup">
-                  <name>ДеревоОбъектовГруппа1</name>
+                  <name>ObjectsTreeGroup1</name>
                   <id>180</id>
                   <items xsi:type="form:Button">
-                    <name>кЗапуск1СРасш</name>
+                    <name>kRun1CForAnyBase</name>
                     <id>178</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1305,7 +1240,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>кЗапуск1СРасшРасширеннаяПодсказка</name>
+                      <name>kRun1CForAnyBaseExtendedTooltip</name>
                       <id>179</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -1319,7 +1254,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.кЗапуск1СРасш</commandName>
+                    <commandName>Form.Command.kRun1CForAnyBase</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -1332,8 +1267,12 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
+                  <title>
+                    <key>en</key>
+                    <value>Objects tree group1</value>
+                  </title>
                   <extendedTooltip>
-                    <name>ДеревоОбъектовГруппа1РасширеннаяПодсказка</name>
+                    <name>ObjectsTreeGroup1ExtendedTooltip</name>
                     <id>181</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1358,12 +1297,16 @@
                   <key>ru</key>
                   <value>Запуск 1С</value>
                 </title>
+                <title>
+                  <key>en</key>
+                  <value>Objects tree run1 C</value>
+                </title>
                 <toolTip>
                   <key>ru</key>
                   <value>Запуск 1С</value>
                 </toolTip>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовЗапуск1СРасширеннаяПодсказка</name>
+                  <name>ObjectsTreeRun1CExtendedTooltip</name>
                   <id>86</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1394,12 +1337,16 @@
                 <key>ru</key>
                 <value>Дерево объектов группа доп</value>
               </title>
+              <title>
+                <key>en</key>
+                <value>Objecs tree additional group</value>
+              </title>
               <toolTip>
                 <key>ru</key>
                 <value>Дерево объектов группа доп</value>
               </toolTip>
               <extendedTooltip>
-                <name>ДеревоОбъектовГруппаДопРасширеннаяПодсказка</name>
+                <name>ObjecsTreeAdditionalGroupExtendedTooltip</name>
                 <id>82</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1416,7 +1363,7 @@
               <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовВывестиСписок</name>
+              <name>ObjectsTreeOutputList</name>
               <id>481</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1424,7 +1371,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовВывестиСписокРасширеннаяПодсказка</name>
+                <name>ObjectsTreeOutputListExtendedTooltip</name>
                 <id>482</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1438,7 +1385,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Item.ДеревоОбъектов.StandardCommand.OutputList</commandName>
+              <commandName>Form.Item.ObjectsTree.StandardCommand.OutputList</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1475,10 +1422,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ДеревоОбъектовСтрокаПоиска</name>
+            <name>ObjectsTreeSearchString</name>
             <id>9</id>
             <extendedTooltip>
-              <name>ДеревоОбъектовСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>ObjectsTreeSearchStringExtendedTooltip</name>
               <id>11</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1493,7 +1440,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовСтрокаПоискаКонтекстноеМеню</name>
+              <name>ObjectsTreeSearchStringContextMenu</name>
               <id>10</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1512,10 +1459,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ДеревоОбъектовСостояниеПросмотра</name>
+            <name>ObjectsTreeViewStatus</name>
             <id>12</id>
             <extendedTooltip>
-              <name>ДеревоОбъектовСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>ObjectsTreeViewStatusExtendedTooltip</name>
               <id>14</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1530,7 +1477,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовСостояниеПросмотраКонтекстноеМеню</name>
+              <name>ObjectsTreeViewStatusContextMenu</name>
               <id>13</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1551,10 +1498,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <name>ДеревоОбъектовУправлениеПоиском</name>
+            <name>ObjectsTreeSearchControl</name>
             <id>15</id>
             <extendedTooltip>
-              <name>ДеревоОбъектовУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>ObjectsTreeSearchControlExtendedTooltip</name>
               <id>17</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1569,7 +1516,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДеревоОбъектовУправлениеПоискомКонтекстноеМеню</name>
+              <name>ObjectsTreeSearchControlContextMenu</name>
               <id>16</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1584,7 +1531,7 @@
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>ДеревоОбъектовРасширеннаяПодсказка</name>
+            <name>ObjectsTreeExtendedTooltip</name>
             <id>8</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1599,13 +1546,13 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ДеревоОбъектовКонтекстноеМеню</name>
+            <name>ObjectsTreeContextMenu</name>
             <id>6</id>
             <items xsi:type="form:FormGroup">
-              <name>ДеревоОбъектовКонтекстноеМенюГруппа3</name>
+              <name>ObjectTreeContextMenuGroup3</name>
               <id>354</id>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМенюВосстановитьЗначения</name>
+                <name>ObjectTreeContextMenuRestoreValues</name>
                 <id>352</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1613,7 +1560,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМенюВосстановитьЗначенияРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenuRestoreValuesExtendedTooltip</name>
                   <id>353</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1636,7 +1583,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМенюСохранитьЗначения</name>
+                <name>ObjectTreeContextMenuSaveValues</name>
                 <id>350</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1644,7 +1591,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМенюСохранитьЗначенияРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenuSaveValuesExtendedTooltip</name>
                   <id>351</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1671,8 +1618,12 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Object tree context menu group3</value>
+              </title>
               <extendedTooltip>
-                <name>ДеревоОбъектовКонтекстноеМенюГруппа3РасширеннаяПодсказка</name>
+                <name>ObjectTreeContextMenuGroup3ExtendedTooltip</name>
                 <id>355</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1689,7 +1640,7 @@
               <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовКонтекстноеМенюкСвернутьРазделДерева</name>
+              <name>ObjectTreeContextMenukCollapseTreeSection</name>
               <id>77</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1697,7 +1648,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовКонтекстноеМенюкСвернутьРазделДереваРасширеннаяПодсказка</name>
+                <name>ObjectTreeContextMenukCollapseTreeSectionExtendedTooltip</name>
                 <id>78</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1711,7 +1662,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.кСвернутьРазделДерева</commandName>
+              <commandName>Form.Command.kCollapseTreeSection</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1720,10 +1671,10 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ДеревоОбъектовКонтекстноеМенюГруппа1</name>
+              <name>ObjectTreeContextMenuGroup1</name>
               <id>277</id>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМенюкПоказатьСвойстваОбъекта</name>
+                <name>ObjectTreeContextMenukShowObjectProperties</name>
                 <id>61</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1731,7 +1682,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМенюкПоказатьСвойстваОбъектаРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenukShowObjectPropertiesExtendedTooltip</name>
                   <id>62</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1745,7 +1696,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.кПоказатьСвойстваОбъекта</commandName>
+                <commandName>Form.Command.kShowObjectProperties</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1754,7 +1705,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМенюкОткрытьФормуСписка</name>
+                <name>ObjectTreeContextMenukOpenListForm</name>
                 <id>65</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1762,7 +1713,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМенюкОткрытьФормуСпискаРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenukOpenListFormExtendedTooltip</name>
                   <id>66</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1776,7 +1727,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.кОткрытьФормуСписка</commandName>
+                <commandName>Form.Command.kOpenListForm</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1785,7 +1736,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМенюкОткрытьФормуСпискаДоп</name>
+                <name>ObjectTreeContextMenukOpenDynamicList</name>
                 <id>296</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1793,7 +1744,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМенюкОткрытьФормуСпискаДопРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenukOpenDynamicListExtendedTooltip</name>
                   <id>297</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1807,7 +1758,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.кОткрытьФормуСпискаДоп</commandName>
+                <commandName>Form.Command.kOpenDynamicList</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1820,8 +1771,12 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Object tree context menu group1</value>
+              </title>
               <extendedTooltip>
-                <name>ДеревоОбъектовКонтекстноеМенюГруппа1РасширеннаяПодсказка</name>
+                <name>ObjectTreeContextMenuGroup1ExtendedTooltip</name>
                 <id>278</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1838,7 +1793,7 @@
               <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовКонтекстноеМеню_ОбновитьНумерациюОбъектов</name>
+              <name>ObjectTreeContextMenu_UpdateNumberingOfObjects</name>
               <id>375</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1846,7 +1801,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовКонтекстноеМеню_ОбновитьНумерациюОбъектовРасширеннаяПодсказка</name>
+                <name>ObjectTreeContextMenu_UpdateNumberingOfObjectsExtendedTooltip</name>
                 <id>376</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1860,7 +1815,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command._ОбновитьНумерациюОбъектов</commandName>
+              <commandName>Form.Command._UpdateNumberingOfObjects</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1872,7 +1827,7 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:Button">
-              <name>ДеревоОбъектовКонтекстноеМенюкРассчитатьКоличествоОбъектов</name>
+              <name>ObjectTreeContextMenukCalculateObjectsNumber</name>
               <id>275</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1880,7 +1835,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ДеревоОбъектовКонтекстноеМенюкРассчитатьКоличествоОбъектовРасширеннаяПодсказка</name>
+                <name>ObjectTreeContextMenukCalculateObjectsNumberExtendedTooltip</name>
                 <id>276</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1894,7 +1849,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.кРассчитатьКоличествоОбъектов</commandName>
+              <commandName>Form.Command.kCalculateObjectsNumber</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -1903,10 +1858,10 @@
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>ДеревоОбъектовКонтекстноеМенюГруппа2</name>
+              <name>ObjectTreeContextMenuGroup2</name>
               <id>332</id>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМеню_ДобавитьВИзбранное</name>
+                <name>ObjectTreeContextMenu_AddToFavorites</name>
                 <id>334</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1914,7 +1869,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМеню_ДобавитьВИзбранноеРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenu_AddToFavoritesExtendedTooltip</name>
                   <id>335</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1928,7 +1883,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._ДобавитьВИзбранное</commandName>
+                <commandName>Form.Command._AddToFavorites</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1937,7 +1892,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМеню_УдалитьИзИзбранного</name>
+                <name>ObjectTreeContextMenu_DeleteFromFavorites</name>
                 <id>336</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1945,7 +1900,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМеню_УдалитьИзИзбранногоРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenu_DeleteFromFavoritesExtendedTooltip</name>
                   <id>337</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1959,7 +1914,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._УдалитьИзИзбранного</commandName>
+                <commandName>Form.Command._DeleteFromFavorites</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1968,7 +1923,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМеню_ОчиститьИзбранное</name>
+                <name>ObjectTreeContextMenu_ClearFavorites</name>
                 <id>338</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1976,7 +1931,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМеню_ОчиститьИзбранноеРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenu_ClearFavoritesExtendedTooltip</name>
                   <id>339</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1990,7 +1945,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._ОчиститьИзбранное</commandName>
+                <commandName>Form.Command._ClearFavorites</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1999,7 +1954,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>ДеревоОбъектовКонтекстноеМеню_УпорядочитьИзбранное</name>
+                <name>ObjectTreeContextMenu_OderFavorites</name>
                 <id>340</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2007,7 +1962,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДеревоОбъектовКонтекстноеМеню_УпорядочитьИзбранноеРасширеннаяПодсказка</name>
+                  <name>ObjectTreeContextMenu_OderFavoritesExtendedTooltip</name>
                   <id>341</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2021,7 +1976,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._УпорядочитьИзбранное</commandName>
+                <commandName>Form.Command._OderFavorites</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -2034,8 +1989,12 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
+              <title>
+                <key>en</key>
+                <value>Object tree context menu group2</value>
+              </title>
               <extendedTooltip>
-                <name>ДеревоОбъектовКонтекстноеМенюГруппа2РасширеннаяПодсказка</name>
+                <name>ObjectTreeContextMenuGroup2ExtendedTooltip</name>
                 <id>333</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2079,20 +2038,24 @@
           <searchStringLocation>Bottom</searchStringLocation>
         </items>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаПраваНаОбъект</name>
+          <name>ObjectRightGroup</name>
           <id>231</id>
           <items xsi:type="form:FormGroup">
-            <name>СтраницыПраваНаОбъект</name>
+            <name>ObjectRightPages</name>
             <id>182</id>
             <items xsi:type="form:FormGroup">
-              <name>СтрРоли</name>
+              <name>RolesLine</name>
               <id>184</id>
               <items xsi:type="form:Decoration">
-                <name>ДекорацияРоли</name>
+                <name>RolesDecoration</name>
                 <id>248</id>
                 <title>
                   <key>ru</key>
                   <value>Роли, имеющие доступ</value>
+                </title>
+                <title>
+                  <key>en</key>
+                  <value>Roles decoration</value>
                 </title>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2100,7 +2063,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДекорацияРолиРасширеннаяПодсказка</name>
+                  <name>RolesDecorationExtendedTooltip</name>
                   <id>250</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2115,7 +2078,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ДекорацияРолиКонтекстноеМеню</name>
+                  <name>RolesDecorationContextMenu</name>
                   <id>249</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2142,7 +2105,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:Table">
-                <name>ТабРолиСДоступом</name>
+                <name>RolesWithAccessTable</name>
                 <id>186</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2154,7 +2117,7 @@
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <items xsi:type="form:FormField">
-                  <name>ТабРолиСДоступомИмя</name>
+                  <name>RolesWithAccessTableName</name>
                   <id>199</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2165,7 +2128,7 @@
                     <segments>RolesWithAccessTable.Name</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>ТабРолиСДоступомИмяРасширеннаяПодсказка</name>
+                    <name>RolesWithAccessTableNameExtendedTooltip</name>
                     <id>201</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2180,7 +2143,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабРолиСДоступомИмяКонтекстноеМеню</name>
+                    <name>RolesWithAccessTableNameContextMenu</name>
                     <id>200</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2206,7 +2169,7 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormField">
-                  <name>ТабРолиСДоступомСиноним</name>
+                  <name>RolesWithAccessTableSynonym</name>
                   <id>202</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2217,7 +2180,7 @@
                     <segments>RolesWithAccessTable.Synonym</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>ТабРолиСДоступомСинонимРасширеннаяПодсказка</name>
+                    <name>RolesWithAccessTableSynonymExtendedTooltip</name>
                     <id>204</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2232,7 +2195,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабРолиСДоступомСинонимКонтекстноеМеню</name>
+                    <name>RolesWithAccessTableSynonymContextMenu</name>
                     <id>203</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2258,7 +2221,7 @@
                   </extInfo>
                 </items>
                 <autoCommandBar>
-                  <name>ТабРолиСДоступомКоманднаяПанель</name>
+                  <name>RolesWithAccessTableCommandBar</name>
                   <id>188</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2277,10 +2240,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабРолиСДоступомСтрокаПоиска</name>
+                  <name>RolesWithAccessTableSearchString</name>
                   <id>190</id>
                   <extendedTooltip>
-                    <name>ТабРолиСДоступомСтрокаПоискаРасширеннаяПодсказка</name>
+                    <name>RolesWithAccessTableSearchStringExtendedTooltip</name>
                     <id>192</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2295,7 +2258,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабРолиСДоступомСтрокаПоискаКонтекстноеМеню</name>
+                    <name>RolesWithAccessTableSearchStringContextMenu</name>
                     <id>191</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2314,10 +2277,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабРолиСДоступомСостояниеПросмотра</name>
+                  <name>RolesWithAccessTableViewStatus</name>
                   <id>193</id>
                   <extendedTooltip>
-                    <name>ТабРолиСДоступомСостояниеПросмотраРасширеннаяПодсказка</name>
+                    <name>RolesWithAccessTableViewStatusExtendedTooltip</name>
                     <id>195</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2332,7 +2295,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабРолиСДоступомСостояниеПросмотраКонтекстноеМеню</name>
+                    <name>RolesWithAccessTableViewStatusContextMenu</name>
                     <id>194</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2353,10 +2316,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабРолиСДоступомУправлениеПоиском</name>
+                  <name>RolesWithAccessTableSearchControl</name>
                   <id>196</id>
                   <extendedTooltip>
-                    <name>ТабРолиСДоступомУправлениеПоискомРасширеннаяПодсказка</name>
+                    <name>RolesWithAccessTableSearchControlExtendedTooltip</name>
                     <id>198</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2371,7 +2334,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабРолиСДоступомУправлениеПоискомКонтекстноеМеню</name>
+                    <name>RolesWithAccessTableSearchControlContextMenu</name>
                     <id>197</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2386,7 +2349,7 @@
                   </extInfo>
                 </searchControlAddition>
                 <extendedTooltip>
-                  <name>ТабРолиСДоступомРасширеннаяПодсказка</name>
+                  <name>RolesWithAccessTableExtendedTooltip</name>
                   <id>189</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2401,10 +2364,10 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ТабРолиСДоступомКонтекстноеМеню</name>
+                  <name>RolesWithAccessTableContextMenu</name>
                   <id>187</id>
                   <items xsi:type="form:Button">
-                    <name>ТабРолиСДоступомКонтекстноеМенюНайти</name>
+                    <name>RolesWithAccessTableContextMenuFind</name>
                     <id>233</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2412,7 +2375,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТабРолиСДоступомКонтекстноеМенюНайтиРасширеннаяПодсказка</name>
+                      <name>RolesWithAccessTableContextMenuFindExtendedTooltip</name>
                       <id>234</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2426,7 +2389,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Item.ТабРолиСДоступом.StandardCommand.Find</commandName>
+                    <commandName>Form.Item.RolesWithAccessTable.StandardCommand.Find</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2435,7 +2398,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ТабРолиСДоступомКонтекстноеМенюОтменитьПоиск</name>
+                    <name>RolesWithAccessTableContextMenuCancelSearch</name>
                     <id>235</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2443,7 +2406,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТабРолиСДоступомКонтекстноеМенюОтменитьПоискРасширеннаяПодсказка</name>
+                      <name>RolesWithAccessTableContextMenuCancelSearchExtendedTooltip</name>
                       <id>236</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2457,7 +2420,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Item.ТабРолиСДоступом.StandardCommand.CancelSearch</commandName>
+                    <commandName>Form.Item.RolesWithAccessTable.StandardCommand.CancelSearch</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2466,7 +2429,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ТабРолиСДоступомКонтекстноеМенюВывестиСписок</name>
+                    <name>RolesWithAccessTableContextMenuOutputList</name>
                     <id>237</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2474,7 +2437,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТабРолиСДоступомКонтекстноеМенюВывестиСписокРасширеннаяПодсказка</name>
+                      <name>RolesWithAccessTableContextMenuOutputListExtendedTooltip</name>
                       <id>238</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2488,7 +2451,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Item.ТабРолиСДоступом.StandardCommand.OutputList</commandName>
+                    <commandName>Form.Item.RolesWithAccessTable.StandardCommand.OutputList</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2529,6 +2492,10 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Roles</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Роли</value>
               </title>
@@ -2537,7 +2504,7 @@
                 <value>Стр роли</value>
               </toolTip>
               <extendedTooltip>
-                <name>СтрРолиРасширеннаяПодсказка</name>
+                <name>RolesLineExtendedTooltip</name>
                 <id>185</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2558,14 +2525,18 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>СтрПользователи</name>
+              <name>UsersLine</name>
               <id>210</id>
               <items xsi:type="form:Decoration">
-                <name>ДекорацияПользователи</name>
+                <name>UsersDecoration</name>
                 <id>245</id>
                 <title>
                   <key>ru</key>
                   <value>Пользователи, имеющие доступ</value>
+                </title>
+                <title>
+                  <key>en</key>
+                  <value>Users decoration</value>
                 </title>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2573,7 +2544,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>ДекорацияПользователиРасширеннаяПодсказка</name>
+                  <name>UsersDecorationExtendedTooltip</name>
                   <id>247</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2588,7 +2559,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ДекорацияПользователиКонтекстноеМеню</name>
+                  <name>UsersDecorationContextMenu</name>
                   <id>246</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2615,7 +2586,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:Table">
-                <name>ТабПользователиСДоступом</name>
+                <name>UsersWithAccessTable</name>
                 <id>212</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2627,7 +2598,7 @@
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <items xsi:type="form:FormField">
-                  <name>ТабПользователиСДоступомИмя</name>
+                  <name>UsersWithAccessTableName</name>
                   <id>225</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2638,7 +2609,7 @@
                     <segments>UsersWithAccessTable.Name</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>ТабПользователиСДоступомИмяРасширеннаяПодсказка</name>
+                    <name>UsersWithAccessTableNameExtendedTooltip</name>
                     <id>227</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2653,7 +2624,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПользователиСДоступомИмяКонтекстноеМеню</name>
+                    <name>UsersWithAccessTableNameContextMenu</name>
                     <id>226</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2679,7 +2650,7 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormField">
-                  <name>ТабПользователиСДоступомСиноним</name>
+                  <name>UsersWithAccessTableFullName</name>
                   <id>228</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2690,7 +2661,7 @@
                     <segments>UsersWithAccessTable.FullName</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>ТабПользователиСДоступомСинонимРасширеннаяПодсказка</name>
+                    <name>UsersWithAccessTableFullNameExtendedTooltip</name>
                     <id>230</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2705,7 +2676,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПользователиСДоступомСинонимКонтекстноеМеню</name>
+                    <name>UsersWithAccessTableFullNameContextMenu</name>
                     <id>229</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2731,7 +2702,7 @@
                   </extInfo>
                 </items>
                 <autoCommandBar>
-                  <name>ТабПользователиСДоступомКоманднаяПанель</name>
+                  <name>UsersWithAccessTableCommandBar</name>
                   <id>214</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2750,10 +2721,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабПользователиСДоступомСтрокаПоиска</name>
+                  <name>UsersWithAccessTableSearchString</name>
                   <id>216</id>
                   <extendedTooltip>
-                    <name>ТабПользователиСДоступомСтрокаПоискаРасширеннаяПодсказка</name>
+                    <name>UsersWithAccessTableSearchStringExtendedTooltip</name>
                     <id>218</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2768,7 +2739,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПользователиСДоступомСтрокаПоискаКонтекстноеМеню</name>
+                    <name>UsersWithAccessTableSearchStringContextMenu</name>
                     <id>217</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2787,10 +2758,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабПользователиСДоступомСостояниеПросмотра</name>
+                  <name>UsersWithAccessTableViewStatus</name>
                   <id>219</id>
                   <extendedTooltip>
-                    <name>ТабПользователиСДоступомСостояниеПросмотраРасширеннаяПодсказка</name>
+                    <name>UsersWithAccessTableViewStatusExtendedTooltip</name>
                     <id>221</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2805,7 +2776,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПользователиСДоступомСостояниеПросмотраКонтекстноеМеню</name>
+                    <name>UsersWithAccessTableViewStatusContextMenu</name>
                     <id>220</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2826,10 +2797,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабПользователиСДоступомУправлениеПоиском</name>
+                  <name>UsersWithAccessTableSearchControl</name>
                   <id>222</id>
                   <extendedTooltip>
-                    <name>ТабПользователиСДоступомУправлениеПоискомРасширеннаяПодсказка</name>
+                    <name>UsersWithAccessTableSearchControlExtendedTooltip</name>
                     <id>224</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2844,7 +2815,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПользователиСДоступомУправлениеПоискомКонтекстноеМеню</name>
+                    <name>UsersWithAccessTableSearchControlContextMenu</name>
                     <id>223</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2859,7 +2830,7 @@
                   </extInfo>
                 </searchControlAddition>
                 <extendedTooltip>
-                  <name>ТабПользователиСДоступомРасширеннаяПодсказка</name>
+                  <name>UsersWithAccessTableExtendedTooltip</name>
                   <id>215</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2874,10 +2845,10 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ТабПользователиСДоступомКонтекстноеМеню</name>
+                  <name>UsersWithAccessTableContextMenu</name>
                   <id>213</id>
                   <items xsi:type="form:Button">
-                    <name>ТабПользователиСДоступомКонтекстноеМенюНайти</name>
+                    <name>UsersWithAccessTableContextMenuFind</name>
                     <id>239</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2885,7 +2856,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТабПользователиСДоступомКонтекстноеМенюНайтиРасширеннаяПодсказка</name>
+                      <name>UsersWithAccessTableContextMenuFindExtendedTooltip</name>
                       <id>240</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2899,7 +2870,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Item.ТабПользователиСДоступом.StandardCommand.Find</commandName>
+                    <commandName>Form.Item.UsersWithAccessTable.StandardCommand.Find</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2908,7 +2879,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ТабПользователиСДоступомКонтекстноеМенюОтменитьПоиск</name>
+                    <name>UsersWithAccessTableContextMenuCancelSearch</name>
                     <id>241</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2916,7 +2887,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТабПользователиСДоступомКонтекстноеМенюОтменитьПоискРасширеннаяПодсказка</name>
+                      <name>UsersWithAccessTableContextMenuCancelSearchExtendedTooltip</name>
                       <id>242</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2930,7 +2901,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Item.ТабПользователиСДоступом.StandardCommand.CancelSearch</commandName>
+                    <commandName>Form.Item.UsersWithAccessTable.StandardCommand.CancelSearch</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2939,7 +2910,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>ТабПользователиСДоступомКонтекстноеМенюВывестиСписок</name>
+                    <name>UsersWithAccessTableContextMenuOutputList</name>
                     <id>243</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -2947,7 +2918,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>ТабПользователиСДоступомКонтекстноеМенюВывестиСписокРасширеннаяПодсказка</name>
+                      <name>UsersWithAccessTableContextMenuOutputListExtendedTooltip</name>
                       <id>244</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -2961,7 +2932,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Item.ТабПользователиСДоступом.StandardCommand.OutputList</commandName>
+                    <commandName>Form.Item.UsersWithAccessTable.StandardCommand.OutputList</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -3002,6 +2973,10 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Users</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Пользователи</value>
               </title>
@@ -3010,7 +2985,7 @@
                 <value>Стр пользователи</value>
               </toolTip>
               <extendedTooltip>
-                <name>СтрПользователиРасширеннаяПодсказка</name>
+                <name>UsersLineExtendedTooltip</name>
                 <id>211</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3031,10 +3006,10 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormGroup">
-              <name>СтрПроверяемыеПрава</name>
+              <name>VerifiableRightsLine</name>
               <id>251</id>
               <items xsi:type="form:Decoration">
-                <name>Декорация1</name>
+                <name>Decoration1</name>
                 <id>272</id>
                 <title>
                   <key>ru</key>
@@ -3046,7 +3021,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>Декорация1РасширеннаяПодсказка</name>
+                  <name>Decoration1ExtendedTooltip</name>
                   <id>274</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3061,7 +3036,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>Декорация1КонтекстноеМеню</name>
+                  <name>Decoration1ContextMenu</name>
                   <id>273</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3079,7 +3054,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:Table">
-                <name>ТабПроверяемыеПрава</name>
+                <name>VerifiableRightsTable</name>
                 <id>253</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3091,7 +3066,7 @@
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <items xsi:type="form:FormField">
-                  <name>ТабПроверяемыеПраваОбъектМД</name>
+                  <name>VerifiableRightsTableMetadataObject</name>
                   <id>266</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3102,7 +3077,7 @@
                     <segments>VerifiableRightsTable.MetadataObject</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>ТабПроверяемыеПраваОбъектМДРасширеннаяПодсказка</name>
+                    <name>VerifiableRightsTableMetadataObjectExtendedTooltip</name>
                     <id>268</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3117,7 +3092,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПроверяемыеПраваОбъектМДКонтекстноеМеню</name>
+                    <name>VerifiableRightsTableMetadataObjectContextMenu</name>
                     <id>267</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3142,7 +3117,7 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormField">
-                  <name>ТабПроверяемыеПраваПраво</name>
+                  <name>VerifiableRightsTableRight</name>
                   <id>269</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3153,7 +3128,7 @@
                     <segments>VerifiableRightsTable.Right</segments>
                   </dataPath>
                   <extendedTooltip>
-                    <name>ТабПроверяемыеПраваПравоРасширеннаяПодсказка</name>
+                    <name>VerifiableRightsTableRightExtendedTooltip</name>
                     <id>271</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3168,7 +3143,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПроверяемыеПраваПравоКонтекстноеМеню</name>
+                    <name>VerifiableRightsTableRightContextMenu</name>
                     <id>270</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3192,7 +3167,7 @@
                   </extInfo>
                 </items>
                 <autoCommandBar>
-                  <name>ТабПроверяемыеПраваКоманднаяПанель</name>
+                  <name>VerifiableRightsTableCommandBar</name>
                   <id>255</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3211,10 +3186,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабПроверяемыеПраваСтрокаПоиска</name>
+                  <name>VerifiableRightsTableSearchString</name>
                   <id>257</id>
                   <extendedTooltip>
-                    <name>ТабПроверяемыеПраваСтрокаПоискаРасширеннаяПодсказка</name>
+                    <name>VerifiableRightsTableSearchStringExtendedTooltip</name>
                     <id>259</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3229,7 +3204,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПроверяемыеПраваСтрокаПоискаКонтекстноеМеню</name>
+                    <name>VerifiableRightsTableSearchStringContextMenu</name>
                     <id>258</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3248,10 +3223,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабПроверяемыеПраваСостояниеПросмотра</name>
+                  <name>VerifiableRightsTableViewStatus</name>
                   <id>260</id>
                   <extendedTooltip>
-                    <name>ТабПроверяемыеПраваСостояниеПросмотраРасширеннаяПодсказка</name>
+                    <name>VerifiableRightsTableViewStatusExtendedTooltip</name>
                     <id>262</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3266,7 +3241,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПроверяемыеПраваСостояниеПросмотраКонтекстноеМеню</name>
+                    <name>VerifiableRightsTableViewStatusContextMenu</name>
                     <id>261</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3287,10 +3262,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>ТабПроверяемыеПраваУправлениеПоиском</name>
+                  <name>VerifiableRightsTableSearchControl</name>
                   <id>263</id>
                   <extendedTooltip>
-                    <name>ТабПроверяемыеПраваУправлениеПоискомРасширеннаяПодсказка</name>
+                    <name>VerifiableRightsTableSearchControlExtendedTooltip</name>
                     <id>265</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3305,7 +3280,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>ТабПроверяемыеПраваУправлениеПоискомКонтекстноеМеню</name>
+                    <name>VerifiableRightsTableSearchControlContextMenu</name>
                     <id>264</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3320,7 +3295,7 @@
                   </extInfo>
                 </searchControlAddition>
                 <extendedTooltip>
-                  <name>ТабПроверяемыеПраваРасширеннаяПодсказка</name>
+                  <name>VerifiableRightsTableExtendedTooltip</name>
                   <id>256</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3335,7 +3310,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ТабПроверяемыеПраваКонтекстноеМеню</name>
+                  <name>VerifiableRightsTableContextMenu</name>
                   <id>254</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3370,6 +3345,10 @@
                 <common>true</common>
               </userVisible>
               <title>
+                <key>en</key>
+                <value>Verifiable rights</value>
+              </title>
+              <title>
                 <key>ru</key>
                 <value>Проверяемые права</value>
               </title>
@@ -3378,7 +3357,7 @@
                 <value>Стр проверяемые права</value>
               </toolTip>
               <extendedTooltip>
-                <name>СтрПроверяемыеПраваРасширеннаяПодсказка</name>
+                <name>VerifiableRightsLineExtendedTooltip</name>
                 <id>252</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3407,12 +3386,16 @@
               <key>ru</key>
               <value>Страницы права на объект</value>
             </title>
+            <title>
+              <key>en</key>
+              <value>Object right pages</value>
+            </title>
             <toolTip>
               <key>ru</key>
               <value>Страницы права на объект</value>
             </toolTip>
             <extendedTooltip>
-              <name>СтраницыПраваНаОбъектРасширеннаяПодсказка</name>
+              <name>ObjectRightPagesExtendedTooltip</name>
               <id>183</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3441,6 +3424,10 @@
             <key>ru</key>
             <value>Роли и пользователи, имеющие доступ к объекту</value>
           </title>
+          <title>
+            <key>en</key>
+            <value>Object right group</value>
+          </title>
           <titleFont xsi:type="core:FontRef">
             <font>Style.NormalTextFont</font>
             <bold>true</bold>
@@ -3453,7 +3440,7 @@
             <value>Группа права на объект</value>
           </toolTip>
           <extendedTooltip>
-            <name>ГруппаПраваНаОбъектРасширеннаяПодсказка</name>
+            <name>ObjectRightGroupExtendedTooltip</name>
             <id>232</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -3486,12 +3473,16 @@
           <key>ru</key>
           <value>Группа навигатор</value>
         </title>
+        <title>
+          <key>en</key>
+          <value>Navigate</value>
+        </title>
         <toolTip>
           <key>ru</key>
           <value>Группа навигатор</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаНавигаторРасширеннаяПодсказка</name>
+          <name>NavigateExtendedTooltip</name>
           <id>206</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -3523,12 +3514,16 @@
         <key>ru</key>
         <value>Объекты конфигурации</value>
       </title>
+      <title>
+        <key>en</key>
+        <value>L ine tree objects</value>
+      </title>
       <toolTip>
         <key>ru</key>
         <value>Стр дерево объектов</value>
       </toolTip>
       <extendedTooltip>
-        <name>СтрДеревоОбъектовРасширеннаяПодсказка</name>
+        <name>LIneTreeObjectsExtendedTooltip</name>
         <id>4</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -4075,7 +4070,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command._ДобавитьРасширение</commandName>
+            <commandName>Form.Command._AddExtension</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -4106,7 +4101,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command._ОбновитьРасширение</commandName>
+            <commandName>Form.Command._UpdateExtension</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -4137,7 +4132,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command._УдалитьРасширение</commandName>
+            <commandName>Form.Command._DeleteExtension</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -4171,7 +4166,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command._ЗаполнитьСписокРасширений</commandName>
+              <commandName>Form.Command._FillInExtensionList</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -5284,7 +5279,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command._ЗаполнитьСписокПользователейИБ</commandName>
+            <commandName>Form.Command._FillInDBUsersList</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5322,7 +5317,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ЗапускПодПользователемКонфигуратор</commandName>
+              <commandName>Form.Command.RunConfiguratorUnderUser</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -5357,7 +5352,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ЗапускПодПользователемТолстыйКлиентОбычноеПриложение</commandName>
+              <commandName>Form.Command.RunOrdinaryClientUnderUser</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -5392,7 +5387,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ЗапускПодПользователемТолстыйКлиент</commandName>
+              <commandName>Form.Command.RunThickClientUnderUser</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -5427,7 +5422,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.ЗапускПодПользователемТонкийКлиент</commandName>
+              <commandName>Form.Command.RunThinClientUnderUser</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6963,7 +6958,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command._ЗаполнитьСписокСеансов</commandName>
+              <commandName>Form.Command._FillInSessionsList</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6994,7 +6989,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command._ЗавершитьСеансы</commandName>
+              <commandName>Form.Command._FinishSessions</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -7028,7 +7023,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._УстановитьБлокировкуСеансов</commandName>
+                <commandName>Form.Command._SetSessionsLock</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -7891,7 +7886,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command._ЗаполнитьСписокСоединений</commandName>
+              <commandName>Form.Command._FillInConnectionsList</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -8378,7 +8373,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.кОбновтьТаблицуНастроек</commandName>
+            <commandName>Form.Command.kUpdateSettingsTable</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -8714,7 +8709,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.кОбновтьТаблицуНастроек</commandName>
+            <commandName>Form.Command.kUpdateSettingsTable</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -9053,7 +9048,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command._ЗаполнитьСХ</commandName>
+          <commandName>Form.Command._FillInSchema</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -9084,7 +9079,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.кПоказатьСвойстваОбъекта</commandName>
+          <commandName>Form.Command.kShowObjectProperties</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -10061,7 +10056,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command._ПерейтиКТаблицеОтИндекса</commandName>
+                  <commandName>Form.Command._MoveToTableFromIndex</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -10257,7 +10252,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command._ПерейтиКТаблицеОтИндекса</commandName>
+                <commandName>Form.Command._MoveToTableFromIndex</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -10631,7 +10626,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.кВыполнитьСервиснуюКоманду</commandName>
+            <commandName>Form.Command.kRunServiceCommand</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -14021,7 +14016,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>кОткрытьВНовомОкне</name>
+    <name>kOpenInNewWindow</name>
+    <title>
+      <key>en</key>
+      <value>Open in a new window</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть в новом окне...</value>
@@ -14039,14 +14038,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кОткрытьВНовомОкне</name>
+        <name>kOpenInNewWindow</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кПоказатьСвойстваОбъекта</name>
+    <name>kShowObjectProperties</name>
+    <title>
+      <key>en</key>
+      <value>Object properties...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Свойства объекта...</value>
@@ -14064,14 +14067,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кПоказатьСвойстваОбъекта</name>
+        <name>kShowObjectProperties</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кОткрытьФормуСписка</name>
+    <name>kOpenListForm</name>
+    <title>
+      <key>en</key>
+      <value>Ordinary form</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Стандартная форма...</value>
@@ -14089,14 +14096,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кОткрытьФормуСписка</name>
+        <name>kOpenListForm</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кЗапускТолстыйКлиент</name>
+    <name>kRunOrdinaryClient</name>
+    <title>
+      <key>en</key>
+      <value>Ordinary client</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Толстый клиент (обычное приложение)</value>
@@ -14111,13 +14122,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кЗапускТолстыйКлиент</name>
+        <name>kRunOrdinaryClient</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кЗапускТолстыйКлиентУпр</name>
+    <name>kRunThickClient</name>
+    <title>
+      <key>en</key>
+      <value>Thick client</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Толстый клиент (управляемое приложение)</value>
@@ -14132,13 +14147,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кЗапускТолстыйКлиентУпр</name>
+        <name>RunThickClientUnderUser</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кЗапускКонфигуратор</name>
+    <name>kRunConfigurator</name>
+    <title>
+      <key>en</key>
+      <value>Configurator 1C</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Конфигуратор 1С</value>
@@ -14153,13 +14172,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кЗапускКонфигуратор</name>
+        <name>kRunConfigurator</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кЗапускТонкийКлиент</name>
+    <name>kRunThinClient</name>
+    <title>
+      <key>en</key>
+      <value>Thin client</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Тонкий клиент (управляемое приложение)</value>
@@ -14174,13 +14197,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кЗапускТонкийКлиент</name>
+        <name>kRunThinClient</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кСвернутьРазделДерева</name>
+    <name>kCollapseTreeSection</name>
+    <title>
+      <key>en</key>
+      <value>Collapse tree section</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Свернуть раздел дерева</value>
@@ -14198,14 +14225,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кСвернутьРазделДерева</name>
+        <name>kCollapseTreeSection</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кИзменитьМасштабОтображенияФорм</name>
+    <name>kChangeScaleOfForm</name>
+    <title>
+      <key>en</key>
+      <value>Dispaly scale</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Масштаб отображения...</value>
@@ -14220,13 +14251,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кИзменитьМасштабОтображенияФорм</name>
+        <name>kChangeScaleOfForm</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кОткрытьФормуСпискаДоп</name>
+    <name>kOpenDynamicList</name>
+    <title>
+      <key>en</key>
+      <value>Dynamic list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Динамический список...</value>
@@ -14244,14 +14279,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кОткрытьФормуСпискаДоп</name>
+        <name>kOpenDynamicList</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кОбновтьТаблицуНастроек</name>
+    <name>kUpdateSettingsTable</name>
+    <title>
+      <key>en</key>
+      <value>Update</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
@@ -14269,14 +14308,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кОбновтьТаблицуНастроек</name>
+        <name>kUpdateSettingsTable</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кВыполнитьСервиснуюКоманду</name>
+    <name>kRunServiceCommand</name>
+    <title>
+      <key>en</key>
+      <value>Run</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выполнить</value>
@@ -14294,13 +14337,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кВыполнитьСервиснуюКоманду</name>
+        <name>kRunServiceCommand</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кЗапуск1СРасш</name>
+    <name>kRun1CForAnyBase</name>
+    <title>
+      <key>en</key>
+      <value>Run 1C for any base...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Запуск сеанса 1С для произвольной базы...</value>
@@ -14315,13 +14362,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кЗапуск1СРасш</name>
+        <name>kRun1CForAnyBase</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>кРассчитатьКоличествоОбъектов</name>
+    <name>kCalculateObjectsNumber</name>
+    <title>
+      <key>en</key>
+      <value>Calculate objects number</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Рассчитать количество объектов</value>
@@ -14339,17 +14390,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>кРассчитатьКоличествоОбъектов</name>
+        <name>kCalculateObjectsNumber</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_СвернутьВсеУзлы</name>
+    <name>_CollapseAllNodes</name>
     <title>
       <key>ru</key>
       <value>Свернуть все группы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Collapse all nodes</value>
     </title>
     <id>16</id>
     <toolTip>
@@ -14364,16 +14419,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_СвернутьВсеУзлы</name>
+        <name>_CollapseAllNodes</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ДобавитьВИзбранное</name>
+    <name>_AddToFavorites</name>
     <title>
       <key>ru</key>
       <value>Добавить в избранное</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Add to favorites</value>
     </title>
     <id>17</id>
     <toolTip>
@@ -14388,16 +14447,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ДобавитьВИзбранное</name>
+        <name>_AddToFavorites</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_УдалитьИзИзбранного</name>
+    <name>_DeleteFromFavorites</name>
     <title>
       <key>ru</key>
       <value>Удалить из избранного</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Delete from favorites</value>
     </title>
     <id>18</id>
     <toolTip>
@@ -14413,16 +14476,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_УдалитьИзИзбранного</name>
+        <name>_DeleteFromFavorites</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ОчиститьИзбранное</name>
+    <name>_ClearFavorites</name>
     <title>
       <key>ru</key>
       <value>Очистить избранное</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Clear favorites</value>
     </title>
     <id>19</id>
     <toolTip>
@@ -14437,16 +14504,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ОчиститьИзбранное</name>
+        <name>_ClearFavorites</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_УпорядочитьИзбранное</name>
+    <name>_OderFavorites</name>
     <title>
       <key>ru</key>
       <value>Упорядочить избранное</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Oder favorites</value>
     </title>
     <id>20</id>
     <toolTip>
@@ -14461,16 +14532,20 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_УпорядочитьИзбранное</name>
+        <name>_OderFavorites</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ОбновитьНумерациюОбъектов</name>
+    <name>_UpdateNumberingOfObjects</name>
     <title>
       <key>ru</key>
       <value>Обновить нумерацию объектов...</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Update numbering of objects</value>
     </title>
     <id>21</id>
     <toolTip>
@@ -14482,14 +14557,18 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ОбновитьНумерациюОбъектов</name>
+        <name>_UpdateNumberingOfObjects</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ЗаполнитьСХ</name>
+    <name>_FillInSchema</name>
+    <title>
+      <key>en</key>
+      <value>Fill in</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Заполнить</value>
@@ -14507,14 +14586,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ЗаполнитьСХ</name>
+        <name>_FillInSchema</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ПерейтиКТаблицеОтИндекса</name>
+    <name>_MoveToTableFromIndex</name>
+    <title>
+      <key>en</key>
+      <value>Move to DB table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Перейти к таблице БД</value>
@@ -14532,14 +14615,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ПерейтиКТаблицеОтИндекса</name>
+        <name>_MoveToTableFromIndex</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ОбновитьСписокПользователейИБ</name>
+    <name>_UpdateDBUsersList</name>
+    <title>
+      <key>en</key>
+      <value>Update DB users list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить список пользователей ИБ</value>
@@ -14554,13 +14641,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ОбновитьСписокПользователейИБ</name>
+        <name>_UpdateDBUsersList</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_УдалитьПользователяИБ</name>
+    <name>_DeleteDBUser</name>
+    <title>
+      <key>en</key>
+      <value>Delete DB user...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить пользователя ИБ...</value>
@@ -14575,13 +14666,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_УдалитьПользователяИБ</name>
+        <name>_DeleteDBUser</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_СоздатьПользователяИБ</name>
+    <name>_CreateDBUser</name>
+    <title>
+      <key>en</key>
+      <value>Create DB user ...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Создать пользователя ИБ...</value>
@@ -14596,13 +14691,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_СоздатьПользователяИБ</name>
+        <name>_CreateDBUser</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ОбновитьНумерациюВсехОбъектов</name>
+    <name>_UpdateNumberingOfAllObjects</name>
+    <title>
+      <key>en</key>
+      <value>Update the numbering of all objects</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить нумерацию всех объектов...</value>
@@ -14617,13 +14716,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ОбновитьНумерациюВсехОбъектов</name>
+        <name>_UpdateNumberingOfAllObjects</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_СкопироватьПользователяИБ</name>
+    <name>_CopyDBUser</name>
+    <title>
+      <key>en</key>
+      <value>Copy DB user</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Скопировать пользователя ИБ...</value>
@@ -14638,13 +14741,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_СкопироватьПользователяИБ</name>
+        <name>_CopyDBUser</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ЗаполнитьСписокПользователейИБ</name>
+    <name>_FillInDBUsersList</name>
+    <title>
+      <key>en</key>
+      <value>Update</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
@@ -14662,14 +14769,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ЗаполнитьСписокПользователейИБ</name>
+        <name>_FillInDBUsersList</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ЗаполнитьСписокСеансов</name>
+    <name>_FillInSessionsList</name>
+    <title>
+      <key>en</key>
+      <value>Update</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
@@ -14687,14 +14798,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ЗаполнитьСписокСеансов</name>
+        <name>_FillInSessionsList</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ОткрытьРедакторОбъектов</name>
+    <name>_OpenObjectsEditor</name>
+    <title>
+      <key>en</key>
+      <value>Open objects editor ...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть редактор объектов...</value>
@@ -14712,13 +14827,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ОткрытьРедакторОбъектов</name>
+        <name>_OpenObjectsEditor</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ЗаполнитьСписокСоединений</name>
+    <name>_FillInConnectionsList</name>
+    <title>
+      <key>en</key>
+      <value>Update</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
@@ -14743,7 +14862,11 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_УстановитьБлокировкуСеансов</name>
+    <name>_SetSessionsLock</name>
+    <title>
+      <key>en</key>
+      <value>Set sessions lock...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Установить блокировку сеансов...</value>
@@ -14761,17 +14884,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_УстановитьБлокуировкуСеансов</name>
+        <name>_SetSessionsLock</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ЗавершитьСеансы</name>
+    <name>_FinishSessions</name>
     <title>
       <key>ru</key>
       <value>Завершить сеансы...</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Finish sessions</value>
     </title>
     <id>34</id>
     <toolTip>
@@ -14783,13 +14910,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ЗавершитьСеансы</name>
+        <name>_FinishSessions</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ЗаполнитьСписокРасширений</name>
+    <name>_FillInExtensionList</name>
+    <title>
+      <key>en</key>
+      <value>Fill in list</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Заполнить список</value>
@@ -14807,14 +14938,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>_ЗаполнитьСписокРасширений</name>
+        <name>_FillInExtensionList</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ДобавитьРасширение</name>
+    <name>_AddExtension</name>
+    <title>
+      <key>en</key>
+      <value>Add from file</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить из файла...</value>
@@ -14834,7 +14969,11 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_ОбновитьРасширение</name>
+    <name>_UpdateExtension</name>
+    <title>
+      <key>en</key>
+      <value>Update from file</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить из файла...</value>
@@ -14854,7 +14993,11 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>_УдалитьРасширение</name>
+    <name>_DeleteExtension</name>
+    <title>
+      <key>en</key>
+      <value>Delete...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Удалить...</value>
@@ -14874,10 +15017,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗапускПодПользователемКонфигуратор</name>
+    <name>RunConfiguratorUnderUser</name>
     <title>
       <key>ru</key>
       <value>Запуск под пользователем конфигуратор</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Run configurator under user</value>
     </title>
     <id>39</id>
     <use>
@@ -14891,7 +15038,11 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗапускПодПользователемТолстыйКлиентОбычноеПриложение</name>
+    <name>RunOrdinaryClientUnderUser</name>
+    <title>
+      <key>en</key>
+      <value>Run the ordinary client under a user</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Запуск под пользователем толстый клиент обычное приложение</value>
@@ -14902,13 +15053,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗапускПодПользователемТолстыйКлиентОбычноеПриложение</name>
+        <name>RunOrdinaryClientUnderUser</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗапускПодПользователемТолстыйКлиент</name>
+    <name>RunThickClientUnderUser</name>
+    <title>
+      <key>en</key>
+      <value>Run the thick client under a user</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Запуск под пользователем толстый клиент</value>
@@ -14919,16 +15074,20 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗапускПодПользователемТолстыйКлиент</name>
+        <name>RunThickClientUnderUser</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ЗапускПодПользователемТонкийКлиент</name>
+    <name>RunThinClientUnderUser</name>
     <title>
       <key>ru</key>
       <value>Запуск под пользователем тонкий клиент</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Run thin client under user</value>
     </title>
     <id>42</id>
     <use>
