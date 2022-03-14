@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormGroup">
-    <name>ГруппаСтраницы</name>
+    <name>PagesGroup</name>
     <id>1</id>
     <items xsi:type="form:FormGroup">
       <name>СтрДеревоОбъектов</name>
@@ -11353,12 +11353,16 @@
       <key>ru</key>
       <value>Группа страницы</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Pages group</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа страницы</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаСтраницыРасширеннаяПодсказка</name>
+      <name>PagesGroupExtendedTooltip</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
