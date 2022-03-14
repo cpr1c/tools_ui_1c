@@ -122,7 +122,7 @@ Procedure ПриИзмененииОбъектаПоиска()
 	QueryText = GetQueryText();
 	ТекстПроизвольногоЗапроса = QueryText;
 	ОтборДанных = Undefined;
-	QueryOptions.Clear();
+	QueryParameters.Clear();
 EndProcedure
 
 &AtServer
@@ -268,11 +268,11 @@ Procedure НайтиСсылкиПоОтбору()
 
 	If Object.SearchMode = 1 Then
 		Query.Text = ТекстПроизвольногоЗапроса;
-		For Each СтрокаПараметров In QueryOptions Do
-			If СтрокаПараметров.ЭтоВыражение Then
-				Query.SetParameter(СтрокаПараметров.ИмяПараметра, Eval(СтрокаПараметров.ЗначениеПараметра));
+		For Each СтрокаПараметров In QueryParameters Do
+			If СтрокаПараметров.ThisExpression Then
+				Query.SetParameter(СтрокаПараметров.ParameterName, Eval(СтрокаПараметров.ParameterValue));
 			Else
-				Query.SetParameter(СтрокаПараметров.ИмяПараметра, СтрокаПараметров.ЗначениеПараметра);
+				Query.SetParameter(СтрокаПараметров.ParameterName, СтрокаПараметров.ParameterValue);
 			EndIf;
 		EndDo;
 	Else
@@ -287,17 +287,17 @@ Procedure НайтиСсылкиПоОтбору()
 				EndIf;
 
 				IndexOf = ОтборДанных.Filter.Items.IndexOf(FilterItem);
-				ИмяПараметра = StrReplace(String(FilterItem.LeftValue) + IndexOf, ".", "");
+				ParameterName = StrReplace(String(FilterItem.LeftValue) + IndexOf, ".", "");
 
 				СписокУсловий = СписокУсловий + ?(СписокУсловий = "", "", "
 																		  |	And ")
 					+ ОбработкаОбъект.ПолучитьВидСравнения(FilterItem.LeftValue, FilterItem.ComparisonType,
-					ИмяПараметра);
+					ParameterName);
 
 				If TypeOf(FilterItem.RightValue) = Type("StandardBeginningDate") Then
-					Query.SetParameter(ИмяПараметра, FilterItem.RightValue.Date);
+					Query.SetParameter(ParameterName, FilterItem.RightValue.Date);
 				Else
-					Query.SetParameter(ИмяПараметра, FilterItem.RightValue);
+					Query.SetParameter(ParameterName, FilterItem.RightValue);
 				EndIf;
 			EndDo;
 		EndIf;
@@ -439,7 +439,7 @@ Procedure CreateColumns(ТЗ, МассивРеквизитовПоУмолчан
 
 		Presentation = "";
 
-		For Each Item In СписокПредставлений Do
+		For Each Item In ViewList Do
 			If Item.Presentation = Column.Name Then
 				Presentation = Item.Value;
 				Break;
@@ -526,8 +526,8 @@ Procedure Filter(Command)
 	СтруктураПараметров.Insert("Settings", ОтборДанных);
 	СтруктураПараметров.Insert("ListOfSelected", ПолучитьСписокВидовОбъектов());
 	СтруктураПараметров.Insert("SearchMode", Object.РежимПоиска);
-	СтруктураПараметров.Insert("QueryOptions", QueryOptions);
-	СтруктураПараметров.Insert("СписокПредставлений", СписокПредставлений);
+	СтруктураПараметров.Insert("QueryParameters", QueryParameters);
+	СтруктураПараметров.Insert("ViewList", ViewList);
 
 	OpenForm(ПолучитьПолноеИмяФормы("ФормаОтбора"), СтруктураПараметров, ThisObject, , , ,
 		New NotifyDescription("ОтборЗавершение", ThisObject), FormWindowOpeningMode.LockOwnerWindow);
@@ -546,7 +546,7 @@ EndProcedure
 Procedure ОбработатьРезультатОтбора(РезультатОтбора)
 	ОтборДанных = РезультатОтбора.Settings;
 	SearchString = РезультатОтбора.SearchString;
-	QueryOptions.Load(РезультатОтбора.QueryOptions.Unload());
+	QueryParameters.Load(РезультатОтбора.QueryParameters.Unload());
 
 	QueryText = РезультатОтбора.QueryText;
 	ТекстПроизвольногоЗапроса = РезультатОтбора.ТекстПроизвольногоЗапроса;
@@ -960,7 +960,7 @@ Procedure ИнициализацияЗапроса()
 	ОписаниеТипаХранилище = New TypeDescription(МассивТипов);
 
 	МассивТипов = New Array;
-	СписокПредставлений.Clear(); //      = New ValueList;
+	ViewList.Clear(); //      = New ValueList;
 	СтруктураРеквизитовШапки = New Structure;
 	СтруктураРеквизитовТЧ = New Structure;
 	СтруктураТиповОбъектов = New Structure;
@@ -1229,24 +1229,24 @@ Procedure ИнициализацияЗапроса()
 	EndDo;
 
 	///============================= ОПРЕДЕЛЕНИЕ ПОРЯДКА And ПРЕДСТАВЛЕНИЯ РЕКВИЗИТОВ
-	СписокПредставлений.Add("Type " + ИмяТипаТаблицы + "а", "Ш_Вид");
-	СписокПредставлений.Add("Type " + ИмяТипаТаблицы + "а", "Ш_ВидПредставление");
-	СписокПредставлений.Add("Reference", "Object");
+	ViewList.Add("Type " + ИмяТипаТаблицы + "а", "Ш_Вид");
+	ViewList.Add("Type " + ИмяТипаТаблицы + "а", "Ш_ВидПредставление");
+	ViewList.Add("Reference", "Object");
 
 	If Object.ProcessTabularParts Then
 
-		СписокПредставлений.Add("Name ТЧ", "Т_ТЧ");
-		СписокПредставлений.Add("Name ТЧ", "Т_ТЧПредставление");
-		СписокПредставлений.Add("№ строки", "Т_НомерСтроки");
+		ViewList.Add("Name ТЧ", "Т_ТЧ");
+		ViewList.Add("Name ТЧ", "Т_ТЧПредставление");
+		ViewList.Add("№ строки", "Т_НомерСтроки");
 
 		For Each KeyAndValue In СтруктураРеквизитовТЧ Do
-			СписокПредставлений.Add(МетаданныеРеквизитовТЧ[KeyAndValue.Key].Presentation(),
+			ViewList.Add(МетаданныеРеквизитовТЧ[KeyAndValue.Key].Presentation(),
 				KeyAndValue.Value);
 		EndDo;
 
 	EndIf;
 
-	СписокПредставлений.Add(Prefix + "Check удаления", "Ш_ПометкаУдаления");
+	ViewList.Add(Prefix + "Check удаления", "Ш_ПометкаУдаления");
 
 	If Object.ObjectType = 0 And Not ИмяВидаОдногоТипа = Undefined Then
 
@@ -1279,19 +1279,19 @@ Procedure ИнициализацияЗапроса()
 	For Each KeyAndValue In СтруктураРеквизитовШапки Do
 		МетаданныеРеквизита = МетаданныеРеквизитов.Find(KeyAndValue.Key);
 		If Not МетаданныеРеквизита = Undefined Then
-			СписокПредставлений.Add(Prefix + МетаданныеРеквизита.Presentation(), KeyAndValue.Value);
+			ViewList.Add(Prefix + МетаданныеРеквизита.Presentation(), KeyAndValue.Value);
 		Else
-			СписокПредставлений.Add(Prefix + KeyAndValue.Key, KeyAndValue.Value);
+			ViewList.Add(Prefix + KeyAndValue.Key, KeyAndValue.Value);
 		EndIf;
 
 	EndDo;
 
 	For Each KeyAndValue In СтруктураКатегорий Do
-		СписокПредставлений.Add(KeyAndValue.Value, KeyAndValue.Key);
+		ViewList.Add(KeyAndValue.Value, KeyAndValue.Key);
 	EndDo;
 
 	For Each KeyAndValue In СтруктураСвойств Do
-		СписокПредставлений.Add(KeyAndValue.Value, KeyAndValue.Key);
+		ViewList.Add(KeyAndValue.Value, KeyAndValue.Key);
 	EndDo;
 
 	///============================= ДОБАВЛЕНИЕ ОБЩИХ РЕКВИЗИТОВ
@@ -1520,7 +1520,7 @@ Procedure ИнициализацияЗапроса()
 	QueryText = НовыйТекстЗапроса;
 	ТекстПроизвольногоЗапроса = QueryText;
 	ОтборДанных = Undefined;
-	QueryOptions.Clear();
+	QueryParameters.Clear();
 
 	//QueryBuilder.Text = QueryText;
 	//QueryBuilder.FillSettings();
@@ -1636,8 +1636,8 @@ Procedure ИнициализацияЗапроса()
 		ОтображаемыеКолонки.Insert("Т_ТЧПредставление");
 		ОтображаемыеКолонки.Insert("Т_НомерСтроки");
 	EndIf;
-	мСформированныйРежим = New Structure("СписокПредставлений,ДанныеОтобраны,ИмяВидаОдногоТипа,ПредопределенныеРеквизиты,ОтображаемыеКолонки,СтруктураСвойств,СтруктураКатегорий",
-		СписокПредставлений, False, ИмяВидаОдногоТипа, ПредопределенныеРеквизиты, ОтображаемыеКолонки, СтруктураСвойств,
+	мСформированныйРежим = New Structure("ViewList,ДанныеОтобраны,ИмяВидаОдногоТипа,ПредопределенныеРеквизиты,ОтображаемыеКолонки,СтруктураСвойств,СтруктураКатегорий",
+		ViewList, False, ИмяВидаОдногоТипа, ПредопределенныеРеквизиты, ОтображаемыеКолонки, СтруктураСвойств,
 		СтруктураКатегорий);
 
 EndProcedure

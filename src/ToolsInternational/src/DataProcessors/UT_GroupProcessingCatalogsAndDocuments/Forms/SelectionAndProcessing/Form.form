@@ -2668,10 +2668,14 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ПараметрыЗапроса</name>
+    <name>QueryParameters</name>
     <title>
       <key>ru</key>
       <value>Параметры запроса</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Query parameters</value>
     </title>
     <id>7</id>
     <valueType>
@@ -2684,14 +2688,18 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ПараметрыЗапроса</segments>
+      <segments>QueryParameters</segments>
     </settingsSavedData>
     <savedData>true</savedData>
     <columns>
-      <name>ИмяПараметра</name>
+      <name>ParameterName</name>
       <title>
         <key>ru</key>
         <value>Параметр</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter name</value>
       </title>
       <id>1</id>
       <valueType>
@@ -2708,10 +2716,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЭтоВыражение</name>
+      <name>ThisExpression</name>
       <title>
         <key>ru</key>
         <value>Это выражение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>This expression</value>
       </title>
       <id>2</id>
       <valueType>
@@ -2725,10 +2737,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗначениеПараметра</name>
+      <name>ParameterValue</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter value</value>
       </title>
       <id>6</id>
       <valueType>
@@ -3037,10 +3053,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>СписокПредставлений</name>
+    <name>ViewList</name>
     <title>
       <key>ru</key>
       <value>Список представлений</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>View list</value>
     </title>
     <id>21</id>
     <valueType>
