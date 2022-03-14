@@ -86,16 +86,16 @@ EndFunction
 Procedure DownloadDataProcessors(CurrentForm, AvailableDataProcessors2, SelectedDataProcessors2) Export
 
 	MapAccessibilitySettings=New Map;
-	MapAccessibilitySettings.Insert("ПроизвольныйАлгоритм", True);
-	MapAccessibilitySettings.Insert("ПеренумерацияОбъектов", True);
+	MapAccessibilitySettings.Insert("ArbitraryAlgorithm", True);
+	MapAccessibilitySettings.Insert("RenumberingObjects", True);
 	MapAccessibilitySettings.Insert("MarkToDelete", False);
-	MapAccessibilitySettings.Insert("ПровестиДокументы", False);
-	MapAccessibilitySettings.Insert("ОтменитьПроведениеДокументов", False);
-	MapAccessibilitySettings.Insert("СнятьПометкуУдаления", False);
-	MapAccessibilitySettings.Insert("ИзменитьВремяДокументов", True);
-	MapAccessibilitySettings.Insert("ИзменитьСуммуОперации", True);
+	MapAccessibilitySettings.Insert("PostTheDocuments", False);
+	MapAccessibilitySettings.Insert("CancelPostingDocuments", False);
+	MapAccessibilitySettings.Insert("UnmarkDeletion", False);
+	MapAccessibilitySettings.Insert("ChangeTimeDocuments", True);
+	MapAccessibilitySettings.Insert("ChangeAmountOperation", True);
 	MapAccessibilitySettings.Insert("Delete", False);
-	MapAccessibilitySettings.Insert("УстановкаРеквизитов", True);
+	MapAccessibilitySettings.Insert("SettingAttributes", True);
 
 	_AvailableDataProcessors = CurrentForm.FormAttributeToValue("AvailableDataProcessors");
 	_SelectedDataProcessors = CurrentForm.FormAttributeToValue("SelectedDataProcessors");
@@ -103,8 +103,8 @@ Procedure DownloadDataProcessors(CurrentForm, AvailableDataProcessors2, Selected
 	Forms = ThisObject.Metadata().Forms;
 
 	For Each Form In Forms Do
-		If Form.Name = "ПодборИОбработка" Or Form.Name = "ФормаНастроек" Or Form.Name = "ШаблонОбработки"
-			Or Form.Name = "FormSelectionTables" Or Form.Name = "ФормаОтбора" Then
+		If Form.Name = "SelectionAndProcessing" Or Form.Name = "ФормаНастроек" Or Form.Name = "TemplateProcessing"
+			Or Form.Name = "FormSelectionTables" Or Form.Name = "FormSelection" Then
 
 			Continue;
 		EndIf;
