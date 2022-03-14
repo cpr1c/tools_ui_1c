@@ -14,7 +14,7 @@
     <value>Групповая обработка справочников и документов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_GroupProcessingCatalogsAndDocuments.Form.ПодборИОбработка</defaultForm>
+  <defaultForm>DataProcessor.UT_GroupProcessingCatalogsAndDocuments.Form.SelectionAndProcessing</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
@@ -79,7 +79,11 @@
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
   <forms uuid="eccb1ea5-528c-4dd4-9cd6-1d858601cd9c">
-    <name>ПодборИОбработка</name>
+    <name>SelectionAndProcessing</name>
+    <synonym>
+      <key>en</key>
+      <value>Form of selection and processing of objects</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма подбора и обработки объектов</value>
@@ -88,7 +92,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="a813b473-a087-4bc0-94f8-f7c0b709424d">
-    <name>ФормаОтбора</name>
+    <name>FormSelection</name>
+    <synonym>
+      <key>en</key>
+      <value>Form selection</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма отбора</value>
@@ -97,7 +105,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="4efba377-21a9-4709-ac5d-dee587a8f7d3">
-    <name>ПроизвольныйАлгоритм</name>
+    <name>ArbitraryAlgorithm</name>
+    <synonym>
+      <key>en</key>
+      <value>Arbitrary algorithm</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Произвольный алгоритм</value>
@@ -111,10 +123,14 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="a4309ecc-1e58-4919-90b3-5b7378ff937c">
-    <name>УстановкаРеквизитов</name>
+    <name>SettingAttributes</name>
+    <synonym>
+      <key>en</key>
+      <value>Setting attributes</value>
+    </synonym>
     <synonym>
       <key>ru</key>
-      <value>Установка реквизитов</value>
+      <value>Setting attributes</value>
     </synonym>
     <help>
       <pages>
@@ -125,7 +141,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="fc2f2b2b-9ccf-4bbe-8210-7bd086a9a69c">
-    <name>ШаблонОбработки</name>
+    <name>TemplateProcessing</name>
+    <synonym>
+      <key>en</key>
+      <value>Template processing</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Шаблон обработки</value>
@@ -139,7 +159,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="80adf8b5-3216-4e29-a903-d2e8e9ff37dd">
-    <name>ПеренумерацияОбъектов</name>
+    <name>RenumberingObjects</name>
+    <synonym>
+      <key>en</key>
+      <value>Renumbering objects</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Перенумерация объектов</value>
@@ -153,7 +177,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="e868dfa3-e5dc-4a15-9ca4-60dfdbb2e5a9">
-    <name>ПометитьНаУдаление</name>
+    <name>MarkToDelete</name>
+    <synonym>
+      <key>en</key>
+      <value>Mark to delete</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Пометить на удаление</value>
@@ -167,7 +195,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="8c0b28d8-2ef6-4760-a319-0d2de87213c6">
-    <name>ПровестиДокументы</name>
+    <name>PostTheDocuments</name>
+    <synonym>
+      <key>en</key>
+      <value>Post the documents</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Провести документы</value>
@@ -181,7 +213,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="6d940a35-f6aa-48f0-9f39-35a180b55ef2">
-    <name>ОтменитьПроведениеДокументов</name>
+    <name>CancelPostingDocuments</name>
+    <synonym>
+      <key>en</key>
+      <value>Cancel posting documents</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Отменить проведение документов</value>
@@ -195,7 +231,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="f43804b4-8a01-4461-977f-170fb25497ad">
-    <name>ФормаВыбораТаблиц</name>
+    <name>FormSelectionTables</name>
+    <synonym>
+      <key>en</key>
+      <value>Form selection tables</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма выбора таблиц</value>
@@ -204,7 +244,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="bacb8e57-ba92-4563-99b4-72b2e9078f28">
-    <name>СнятьПометкуУдаления</name>
+    <name>UnmarkDeletion</name>
+    <synonym>
+      <key>en</key>
+      <value>Unmark deletion</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Снять пометку удаления</value>
@@ -218,7 +262,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="5dae809d-fc43-48ac-8a4f-8f015f72eae0">
-    <name>ИзменитьВремяДокументов</name>
+    <name>ChangeTimeDocuments</name>
+    <synonym>
+      <key>en</key>
+      <value>Change time documents</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Изменить время документов</value>
@@ -232,7 +280,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="0aa531eb-8728-4fb4-b07d-fea2f670b01d">
-    <name>ИзменитьСуммуОперации</name>
+    <name>ChangeAmountOperation</name>
+    <synonym>
+      <key>en</key>
+      <value>Change amount operation</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Изменить сумму операции</value>
@@ -246,7 +298,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="39084276-42fc-423d-a24c-9bfb9decbc1e">
-    <name>Удалить</name>
+    <name>Delete</name>
+    <synonym>
+      <key>en</key>
+      <value>Delete</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Удалить</value>

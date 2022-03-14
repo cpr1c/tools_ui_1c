@@ -1301,7 +1301,7 @@
           <name>ГруппаДоступныеОбработки</name>
           <id>44</id>
           <items xsi:type="form:Table">
-            <name>ДоступныеОбработки</name>
+            <name>AvailableDataProcessors</name>
             <id>30</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1309,7 +1309,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ДоступныеОбработки</segments>
+              <segments>AvailableDataProcessors</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
@@ -1326,7 +1326,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ДоступныеОбработки.Картинка</segments>
+                    <segments>AvailableDataProcessors.Картинка</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>None</titleLocation>
@@ -1384,7 +1384,7 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>ДоступныеОбработки.Обработка</segments>
+                    <segments>AvailableDataProcessors.Обработка</segments>
                   </paths>
                 </dataPath>
                 <extendedTooltip>
@@ -1453,7 +1453,7 @@
               </extInfo>
             </items>
             <autoCommandBar>
-              <name>ДоступныеОбработкиКоманднаяПанель</name>
+              <name>AvailableDataProcessorsCommandBar</name>
               <id>32</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1493,10 +1493,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеОбработкиSearchString</name>
+              <name>AvailableDataProcessorsSearchString</name>
               <id>131</id>
               <extendedTooltip>
-                <name>ДоступныеОбработкиSearchStringExtendedTooltip</name>
+                <name>AvailableDataProcessorsSearchStringExtendedTooltip</name>
                 <id>133</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1511,7 +1511,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеОбработкиSearchStringContextMenu</name>
+                <name>AvailableDataProcessorsSearchStringContextMenu</name>
                 <id>132</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1530,10 +1530,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеОбработкиViewStatus</name>
+              <name>AvailableDataProcessorsViewStatus</name>
               <id>134</id>
               <extendedTooltip>
-                <name>ДоступныеОбработкиViewStatusExtendedTooltip</name>
+                <name>AvailableDataProcessorsViewStatusExtendedTooltip</name>
                 <id>136</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1548,7 +1548,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеОбработкиViewStatusContextMenu</name>
+                <name>AvailableDataProcessorsViewStatusContextMenu</name>
                 <id>135</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1569,10 +1569,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ДоступныеОбработкиSearchControl</name>
+              <name>AvailableDataProcessorsSearchControl</name>
               <id>137</id>
               <extendedTooltip>
-                <name>ДоступныеОбработкиSearchControlExtendedTooltip</name>
+                <name>AvailableDataProcessorsSearchControlExtendedTooltip</name>
                 <id>139</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1587,7 +1587,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ДоступныеОбработкиSearchControlContextMenu</name>
+                <name>AvailableDataProcessorsSearchControlContextMenu</name>
                 <id>138</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1602,7 +1602,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ДоступныеОбработкиExtendedTooltip</name>
+              <name>AvailableDataProcessorsExtendedTooltip</name>
               <id>130</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1617,7 +1617,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ДоступныеОбработкиКонтекстноеМеню</name>
+              <name>AvailableDataProcessorsContextMenu</name>
               <id>31</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1695,7 +1695,7 @@
           <name>ГруппаВыбранныеОбработки</name>
           <id>45</id>
           <items xsi:type="form:Table">
-            <name>ВыбранныеОбработки</name>
+            <name>SelectedDataProcessors</name>
             <id>38</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -1703,7 +1703,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ВыбранныеОбработки</segments>
+              <segments>SelectedDataProcessors</segments>
             </dataPath>
             <skipOnInput>false</skipOnInput>
             <titleLocation>None</titleLocation>
@@ -1718,7 +1718,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ВыбранныеОбработки.Выбрать</segments>
+                  <segments>SelectedDataProcessors.Выбрать</segments>
                 </paths>
               </dataPath>
               <titleLocation>None</titleLocation>
@@ -1764,7 +1764,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ВыбранныеОбработки.ОбработкаНастройка</segments>
+                  <segments>SelectedDataProcessors.ОбработкаНастройка</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
@@ -1808,7 +1808,7 @@
               </extInfo>
             </items>
             <autoCommandBar>
-              <name>ВыбранныеОбработкиКоманднаяПанель</name>
+              <name>SelectedDataProcessorsCommandBar</name>
               <id>40</id>
               <items xsi:type="form:Button">
                 <name>ВыбранныеОбработкиВыбратьВсе</name>
@@ -1921,10 +1921,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ВыбранныеОбработкиSearchString</name>
+              <name>SelectedDataProcessorsSearchString</name>
               <id>148</id>
               <extendedTooltip>
-                <name>ВыбранныеОбработкиSearchStringExtendedTooltip</name>
+                <name>SelectedDataProcessorsSearchStringExtendedTooltip</name>
                 <id>150</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1939,7 +1939,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВыбранныеОбработкиSearchStringContextMenu</name>
+                <name>SelectedDataProcessorsSearchStringContextMenu</name>
                 <id>149</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1958,10 +1958,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ВыбранныеОбработкиViewStatus</name>
+              <name>SelectedDataProcessorsViewStatus</name>
               <id>151</id>
               <extendedTooltip>
-                <name>ВыбранныеОбработкиViewStatusExtendedTooltip</name>
+                <name>SelectedDataProcessorsViewStatusExtendedTooltip</name>
                 <id>153</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1976,7 +1976,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВыбранныеОбработкиViewStatusContextMenu</name>
+                <name>SelectedDataProcessorsViewStatusContextMenu</name>
                 <id>152</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1997,10 +1997,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>ВыбранныеОбработкиSearchControl</name>
+              <name>SelectedDataProcessorsSearchControl</name>
               <id>154</id>
               <extendedTooltip>
-                <name>ВыбранныеОбработкиSearchControlExtendedTooltip</name>
+                <name>SelectedDataProcessorsSearchControlExtendedTooltip</name>
                 <id>156</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2015,7 +2015,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>ВыбранныеОбработкиSearchControlContextMenu</name>
+                <name>SelectedDataProcessorsSearchControlContextMenu</name>
                 <id>155</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2030,7 +2030,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>ВыбранныеОбработкиExtendedTooltip</name>
+              <name>SelectedDataProcessorsExtendedTooltip</name>
               <id>147</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2045,7 +2045,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ВыбранныеОбработкиКонтекстноеМеню</name>
+              <name>SelectedDataProcessorsContextMenu</name>
               <id>39</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2331,7 +2331,11 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ДоступныеОбработки</name>
+    <name>AvailableDataProcessors</name>
+    <title>
+      <key>en</key>
+      <value>Available data processors</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Доступные обработки</value>
@@ -2347,7 +2351,7 @@
       <common>true</common>
     </edit>
     <settingsSavedData xsi:type="form:DataPath">
-      <segments>ДоступныеОбработки</segments>
+      <segments>AvailableDataProcessors</segments>
     </settingsSavedData>
     <columns>
       <name>Обработка</name>
@@ -2421,10 +2425,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ВыбранныеОбработки</name>
+    <name>SelectedDataProcessors</name>
     <title>
       <key>ru</key>
       <value>Выбранные обработки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Selected data processors</value>
     </title>
     <id>9</id>
     <valueType>
@@ -2455,10 +2463,14 @@
       </edit>
     </columns>
     <columns>
-      <name>СтрокаДоступнойОбработки</name>
+      <name>RowAvailableDataProcessor</name>
       <title>
         <key>ru</key>
         <value>Строка доступной обработки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Row available data processor</value>
       </title>
       <id>2</id>
       <valueType>

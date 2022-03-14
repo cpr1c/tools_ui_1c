@@ -98,7 +98,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		EndIf;
 	EndDo;
 
-	FormAttributeToValue("Object").ЗагрузитьОбработки(ThisForm, ДоступныеОбработки, ВыбранныеОбработки);
+	FormAttributeToValue("Object").DownloadDataProcessors(ThisForm, AvailableDataProcessors, SelectedDataProcessors);
 
 	ВКонфигурацииЕстьКатегории = Metadata.Catalogs.Find("КатегорииОбъектов") <> Undefined;
 	ВКонфигурацииЕстьСвойства = Metadata.ChartsOfCharacteristicTypes.Find("ObjectProperties") <> Undefined;
@@ -374,14 +374,14 @@ EndProcedure
 
 &AtClient
 Procedure ExecuteProcessing(Command)
-	For Each String In ВыбранныеОбработки Do
+	For Each String In SelectedDataProcessors Do
 		UserInterruptProcessing();
 
 		If Not String.StartChoosing Then
 			Continue;
 		EndIf;
 
-		Стр = ДоступныеОбработки.FindByID(String.СтрокаДоступнойОбработки);
+		Стр = AvailableDataProcessors.FindByID(String.RowAvailableDataProcessor);
 		Parent = Стр.GetParent();
 
 		СтруктураПараметров = СформироватьСтруктуруПараметров();
@@ -398,7 +398,7 @@ Procedure ExecuteProcessing(Command)
 
 			СтруктураПараметров.Settings = СформироватьНастройки(Parent);
 			СтруктураПараметров.Insert("Parent", Parent.GetID());
-			СтруктураПараметров.Insert("CurrentLine", String.СтрокаДоступнойОбработки);
+			СтруктураПараметров.Insert("CurrentLine", String.RowAvailableDataProcessor);
 		EndIf;
 
 		If Not ОбработкаДоступна(?(Object.ObjectType = 0, "Catalog", "Document"), ИмяФормыОбработки) Then
@@ -567,8 +567,8 @@ Procedure ДоступныеОбработкиВыбор(Item, SelectedRow, Fiel
 
 	StandardProcessing = False;
 
-	RowIndex = Items.ДоступныеОбработки.CurrentLine;
-	CurrentLine = ДоступныеОбработки.FindByID(RowIndex);
+	RowIndex = Items.AvailableDataProcessors.CurrentLine;
+	CurrentLine = AvailableDataProcessors.FindByID(RowIndex);
 
 	СтруктураПараметров = СформироватьСтруктуруПараметров();
 	СтруктураПараметров.Setting = CurrentLine.Setting[0].Value;
@@ -706,8 +706,8 @@ Function AddRow(ТекСтрока)
 
 	NewLine.Setting.Add(Setting);
 
-	Items.ДоступныеОбработки.CurrentLine = NewLine.GetID();
-	Items.ДоступныеОбработки.ChangeRow();
+	Items.AvailableDataProcessors.CurrentLine = NewLine.GetID();
+	Items.AvailableDataProcessors.ChangeRow();
 
 	Return NewLine;
 EndFunction
@@ -757,11 +757,11 @@ Procedure ДоступныеОбработкиПередУдалениемЗав
 	CurrentLine = AdditionalParameters.CurrentLine;
 	If РезультатВопроса = DialogReturnCode.OK Then
 		ПараметрыОтбора = New Structure;
-		ПараметрыОтбора.Insert("СтрокаДоступнойОбработки", CurrentLine);
+		ПараметрыОтбора.Insert("RowAvailableDataProcessor", CurrentLine);
 
-		МассивДляУдаления = ВыбранныеОбработки.FindRows(ПараметрыОтбора);
+		МассивДляУдаления = SelectedDataProcessors.FindRows(ПараметрыОтбора);
 		For IndexOf = 0 To МассивДляУдаления.Count() - 1 Do
-			ВыбранныеОбработки.Delete(МассивДляУдаления[IndexOf]);
+			SelectedDataProcessors.Delete(МассивДляУдаления[IndexOf]);
 		EndDo;
 	EndIf;
 
@@ -781,8 +781,8 @@ EndProcedure
 
 &AtClient
 Function ПроверитьДоступностьОбработки()
-	RowIndex = Items.ДоступныеОбработки.CurrentLine;
-	CurrentLine = ДоступныеОбработки.FindByID(RowIndex);
+	RowIndex = Items.AvailableDataProcessors.CurrentLine;
+	CurrentLine = AvailableDataProcessors.FindByID(RowIndex);
 
 	Parent = CurrentLine.GetParent();
 	If Parent = Undefined Then
@@ -799,11 +799,11 @@ Procedure ВыбранныеОбработкиПеретаскивание(Item,
 	EndIf;
 
 	For Each СтрВыбранных In DragParameters.Value Do
-		СтрДоступных = ДоступныеОбработки.FindByID(СтрВыбранных.GetID());
+		СтрДоступных = AvailableDataProcessors.FindByID(СтрВыбранных.GetID());
 
-		НовСтр = ВыбранныеОбработки.Add();
+		НовСтр = SelectedDataProcessors.Add();
 		НовСтр.ОбработкаНастройка = СтрДоступных.Processing;
-		НовСтр.СтрокаДоступнойОбработки = СтрДоступных.GetID();
+		НовСтр.RowAvailableDataProcessor = СтрДоступных.GetID();
 		НовСтр.StartChoosing = True;
 		НовСтр.Setting = СтрДоступных.Setting;
 	EndDo;
@@ -823,7 +823,7 @@ EndProcedure
 
 &AtServer
 Procedure ВыбратьОбработки(Selection)
-	For Each Стр In ВыбранныеОбработки Do
+	For Each Стр In SelectedDataProcessors Do
 		Стр.StartChoosing = Selection;
 	EndDo;
 EndProcedure
@@ -842,7 +842,7 @@ Function ОбработкаДоступна(ПроверяемыйТипОбъе
 		Return False;
 	EndTry;
 
-	If ИмяОбработки = "ПеренумерацияОбъектов" Then
+	If ИмяОбработки = "RenumberingObjects" Then
 		If ТабличноеПолеВидыОбъектов.Count() > 1 Then
 			Message("Выбрано более одного вида объектов. Перенумерация невозможна");
 			Return False;
@@ -877,7 +877,7 @@ EndProcedure
 
 &AtClient
 Procedure УстановитьКартинкиОбработок()
-	For Each Стр In ДоступныеОбработки.GetItems() Do
+	For Each Стр In AvailableDataProcessors.GetItems() Do
 		Стр.Picture = PictureLib.Processing;
 	EndDo;
 EndProcedure
@@ -1723,7 +1723,7 @@ Procedure OnLoadDataFromSettingsAtServer(Settings)
 	EndDo;
 
 	ИнициализацияЗапроса();
-	FormAttributeToValue("Object").ЗагрузитьОбработки(ThisForm, ДоступныеОбработки, ВыбранныеОбработки);
+	FormAttributeToValue("Object").DownloadDataProcessors(ThisForm, AvailableDataProcessors, SelectedDataProcessors);
 
 EndProcedure
 
