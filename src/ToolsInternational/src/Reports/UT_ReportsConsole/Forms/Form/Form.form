@@ -1013,19 +1013,19 @@
           </autoCommandBar>
           <handlers>
             <event>OnActivateRow</event>
-            <name>СтруктураПриАктивизацииСтроки</name>
-          </handlers>
-          <handlers>
-            <event>OnActivateField</event>
-            <name>СтруктураПриАктивизацииПоля</name>
-          </handlers>
-          <handlers>
-            <event>DragEnd</event>
-            <name>НастройкиОкончаниеПеретаскивания</name>
+            <name>StructureOnActivateRow</name>
           </handlers>
           <handlers>
             <event>OnChange</event>
-            <name>ПриИзмененииНастроек</name>
+            <name>SettingsOnChange</name>
+          </handlers>
+          <handlers>
+            <event>DragEnd</event>
+            <name>SettingsDragEnd</name>
+          </handlers>
+          <handlers>
+            <event>OnActivateField</event>
+            <name>StructureOnActivateField</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -1225,11 +1225,11 @@
               </autoCommandBar>
               <handlers>
                 <event>DragEnd</event>
-                <name>НастройкиОкончаниеПеретаскивания</name>
+                <name>SettingsDragEnd</name>
               </handlers>
               <handlers>
                 <event>OnChange</event>
-                <name>ПриИзмененииНастроек</name>
+                <name>SettingsOnChange</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -1461,11 +1461,11 @@
               </autoCommandBar>
               <handlers>
                 <event>DragEnd</event>
-                <name>НастройкиОкончаниеПеретаскивания</name>
+                <name>SettingsDragEnd</name>
               </handlers>
               <handlers>
                 <event>OnChange</event>
-                <name>ПриИзмененииНастроек</name>
+                <name>SettingsOnChange</name>
               </handlers>
               <searchStringAddition>
                 <visible>true</visible>
@@ -1701,11 +1701,11 @@
                   </autoCommandBar>
                   <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -1897,16 +1897,16 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
-                  </handlers>
-                  <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
+                  </handlers>
+                  <handlers>
+                    <event>Drag</event>
+                    <name>SettingsDrag</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -2273,7 +2273,7 @@ Browse the structure tree and select a grouping to view or edit grouping field s
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныеВыбранныеПоляПриИзменении</name>
+                <name>LocalSelectedFieldsOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalSelectedFieldsExtendedTooltip</name>
@@ -2339,11 +2339,11 @@ Browse the structure tree and select a grouping to view or edit grouping field s
                   </autoCommandBar>
                   <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -2536,15 +2536,15 @@ Browse the structure tree and select a grouping to view or edit grouping field s
                   </autoCommandBar>
                   <handlers>
                     <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <name>SettingsDrag</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -3110,7 +3110,7 @@ In the report structure tree, select the item and then select required fields.</
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныйОтборПриИзменении</name>
+                <name>LocalFilterOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalFilterExtendedTooltip</name>
@@ -3180,7 +3180,7 @@ In the report structure tree, select the item and then select required fields.</
                   </autoCommandBar>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -3373,15 +3373,15 @@ In the report structure tree, select the item and then select required fields.</
                   </autoCommandBar>
                   <handlers>
                     <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <name>SettingsDrag</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -3957,7 +3957,7 @@ In the structure tree, select the report and edit report filters.</value>
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныйПорядокПриИзменении</name>
+                <name>LocalOrderOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalOrderExtendedTooltip</name>
@@ -4023,7 +4023,7 @@ In the structure tree, select the report and edit report filters.</value>
                   </autoCommandBar>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -4216,15 +4216,15 @@ In the structure tree, select the report and edit report filters.</value>
                   </autoCommandBar>
                   <handlers>
                     <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <name>SettingsDrag</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -4796,7 +4796,7 @@ In the structure tree, select the report and edit report sorts.</value>
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальноеУсловноеОформлениеПриИзменении</name>
+                <name>LocalConditionalAppearanceOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalConditionalAppearanceExtendedTooltip</name>
@@ -4866,15 +4866,15 @@ In the structure tree, select the report and edit report sorts.</value>
                   </autoCommandBar>
                   <handlers>
                     <event>Drag</event>
-                    <name>НастройкиПеретаскивание</name>
+                    <name>SettingsDrag</name>
                   </handlers>
                   <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -5446,7 +5446,7 @@ In the structure tree, select the report and edit report conditional appearance.
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныеПараметрыВыводаПриИзменении</name>
+                <name>LocalOutputParametersOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalOutputParametersExtendedTooltip</name>
@@ -5516,11 +5516,11 @@ In the structure tree, select the report and edit report conditional appearance.
                   </autoCommandBar>
                   <handlers>
                     <event>DragEnd</event>
-                    <name>НастройкиОкончаниеПеретаскивания</name>
+                    <name>SettingsDragEnd</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
-                    <name>ПриИзмененииНастроек</name>
+                    <name>SettingsOnChange</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -6162,11 +6162,11 @@ In the structure tree, select the report and edit additional report settings.</v
           </autoCommandBar>
           <handlers>
             <event>DragEnd</event>
-            <name>НастройкиОкончаниеПеретаскивания</name>
+            <name>SettingsDragEnd</name>
           </handlers>
           <handlers>
             <event>OnChange</event>
-            <name>ПриИзмененииНастроек</name>
+            <name>SettingsOnChange</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -6695,7 +6695,7 @@ In the structure tree, select the report and edit additional report settings.</v
             <extInfo xsi:type="form:InputFieldExtInfo">
               <handlers>
                 <event>StartChoice</event>
-                <name>ВнешниеНаборыДанныхПредставлениеНачалоВыбора</name>
+                <name>ExternalDataSetsPresentationStartChoice</name>
               </handlers>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6717,7 +6717,7 @@ In the structure tree, select the report and edit additional report settings.</v
           </autoCommandBar>
           <handlers>
             <event>BeforeEditEnd</event>
-            <name>ВнешниеНаборыДанныхПередОкончаниемРедактирования</name>
+            <name>ExternalDataSetsBeforeEditEnd</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -7720,7 +7720,7 @@ In the structure tree, select the report and edit additional report settings.</v
             </handlers>
             <handlers>
               <event>OnChange</event>
-              <name>ПриИзмененииНастроек</name>
+              <name>SettingsOnChange</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -13762,7 +13762,7 @@ In the structure tree, select the report and edit additional report settings.</v
       <extInfo xsi:type="form:PagesGroupExtInfo">
         <handlers>
           <event>OnCurrentPageChange</event>
-          <name>ПанельРезультатовПриСменеСтраницы</name>
+          <name>ResultsPanelOnCurrentPageChange</name>
         </handlers>
         <pagesRepresentation>TabsOnBottom</pagesRepresentation>
         <currentRowUse>Auto</currentRowUse>

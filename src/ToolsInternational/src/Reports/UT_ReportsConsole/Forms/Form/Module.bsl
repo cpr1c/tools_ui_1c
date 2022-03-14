@@ -3345,8 +3345,8 @@ EndProcedure
 // Активизирует страницу настроек в зависимости от того, какую колонку
 // активировал пользователь.
 &AtClient
-Procedure СтруктураПриАктивизацииПоля(Item)
-
+Procedure StructureOnActivateField(Item)
+	
 	Var ВыбраннаяСтраница;
 
 	If Items.Structure.CurrentItem.Name = "СтруктураНаличиеВыбора" Then
@@ -3376,8 +3376,8 @@ Procedure СтруктураПриАктивизацииПоля(Item)
 		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
 
 	EndIf;
-
 EndProcedure
+
 
 // Обработчик события ПриАктивизацииПоля таблицы Structure1.
 // Активизирует страницу настроек в зависимости от того, какую колонку
@@ -3420,7 +3420,8 @@ EndProcedure
 // Обработчик СтруктураПриАктивизацииСтроки элемента Structure.
 // Приводит закладки с настройками в актуальное состояние
 &AtClient
-Procedure СтруктураПриАктивизацииСтроки(Item)
+Procedure StructureOnActivateRow(Item)
+	//TODO: Insert the handler content
 	ТекСтрокаДерева = Items.Structure.CurrentRow;
 	If ТекСтрокаДерева = Undefined Then
 		Return;
@@ -3485,8 +3486,8 @@ Procedure СтруктураПриАктивизацииСтроки(Item)
 		OutputParametersAvailable(ЭлементСтруктуры);
 
 	EndIf;
-
 EndProcedure
+
 
 // Обработчик СтруктураПриАктивизацииСтроки элемента Structure1.
 // Приводит закладки с настройками в актуальное состояние
@@ -3582,9 +3583,8 @@ EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalSelectedFields.
 &AtClient
-Procedure ЛокальныеВыбранныеПоляПриИзменении(Item)
-
-	If LocalSelectedFields Then
+Procedure LocalSelectedFieldsOnChange(Item)
+		If LocalSelectedFields Then
 
 		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsSettings;
 
@@ -3597,7 +3597,6 @@ Procedure ЛокальныеВыбранныеПоляПриИзменении(I
 		Report.SettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalSelectedFields1.
@@ -3622,9 +3621,8 @@ EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalFilter.
 &AtClient
-Procedure ЛокальныйОтборПриИзменении(Item)
-
-	If LocalFilter Then
+Procedure LocalFilterOnChange(Item)
+		If LocalFilter Then
 
 		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
@@ -3637,7 +3635,6 @@ Procedure ЛокальныйОтборПриИзменении(Item)
 		Report.SettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalFilter1.
@@ -3662,8 +3659,8 @@ EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOrder.
 &AtClient
-Procedure ЛокальныйПорядокПриИзменении(Item)
-
+Procedure LocalOrderOnChange(Item)
+	
 	If LocalOrder Then
 
 		Items.OrderPages.CurrentPage = Items.OrderSettings;
@@ -3677,7 +3674,6 @@ Procedure ЛокальныйПорядокПриИзменении(Item)
 		Report.SettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOrder1.
@@ -3702,9 +3698,8 @@ EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalConditionalAppearance.
 &AtClient
-Procedure ЛокальноеУсловноеОформлениеПриИзменении(Item)
-
-	If LocalConditionalAppearance Then
+Procedure LocalConditionalAppearanceOnChange(Item)
+		If LocalConditionalAppearance Then
 
 		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
@@ -3717,7 +3712,6 @@ Procedure ЛокальноеУсловноеОформлениеПриИзмен
 		Report.SettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalConditionalAppearance1.
@@ -3742,9 +3736,8 @@ EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOutputParameters.
 &AtClient
-Procedure ЛокальныеПараметрыВыводаПриИзменении(Item)
-
-	If LocalOutputParameters Then
+Procedure LocalOutputParametersOnChange(Item)
+		If LocalOutputParameters Then
 
 		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
@@ -3756,7 +3749,6 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 			Items.Structure.CurrentRow);
 		Report.SettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOutputParameters1.
@@ -3849,25 +3841,22 @@ EndProcedure
 
 // Обработчик события ПриИзменении элементов, связанных с настройками.
 &AtClient
-Procedure ПриИзмененииНастроек(Item)
-
-	CurrentRowSettingsIsChanged = True;
-	Modified = True;
-
-EndProcedure
-
-&AtClient
-Procedure НастройкиОкончаниеПеретаскивания(Item, DragParameters, StandardProcessing)
+Procedure SettingsOnChange(Item)
 	CurrentRowSettingsIsChanged = True;
 	Modified = True;
 EndProcedure
 
 &AtClient
-Procedure НастройкиПеретаскивание(Item, DragParameters, StandardProcessing, String, Field)
+Procedure SettingsDragEnd(Item, DragParameters, StandardProcessing)
 	CurrentRowSettingsIsChanged = True;
 	Modified = True;
 EndProcedure
 
+&AtClient
+Procedure SettingsDrag(Item, DragParameters, StandardProcessing, Row, Field)
+	CurrentRowSettingsIsChanged = True;
+	Modified = True;
+EndProcedure
 
 
 // Обработчик события ПередНачаломДобавления элемента ReportsTree.
@@ -3960,9 +3949,8 @@ EndProcedure
 
 // Обработчик события ПриСменеСтраницы панели ResultsPanel.
 &AtClient
-Procedure ПанельРезультатовПриСменеСтраницы(Item, CurrentPage)
-
-	If Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument Then
+Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
+    If Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument Then
 
 		If ReportNeedsToGenerate And Not ResultFilledSpreadsheetDocument Then
 
@@ -4033,7 +4021,6 @@ Procedure ПанельРезультатовПриСменеСтраницы(Ite
 		ShowMessageBox( , Result);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события Выбор таблицы TreeResult.
@@ -4053,8 +4040,8 @@ Procedure РезультатДеревоВыбор(Item, SelectedRow, Field, Sta
 EndProcedure
 
 &AtClient
-Procedure ВнешниеНаборыДанныхПредставлениеНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	StandardProcessing=False;
+Procedure ExternalDataSetsPresentationStartChoice(Item, ChoiceData, StandardProcessing)
+		StandardProcessing=False;
 	ТекДанные=Items.ExternalDataSets.CurrentData;
 	If ТекДанные=Undefined Then
 		Return;
@@ -4063,6 +4050,7 @@ Procedure ВнешниеНаборыДанныхПредставлениеНач
 	UT_CommonClient.EditValueTable(ТекДанные.Value, ThisObject,
 		New NotifyDescription("ВнешниеНаборыДанныхПредставлениеНачалоВыбораЗавершение", ThisObject,New Structure("ТекСтрока",Items.ExternalDataSets.CurrentRow)));
 EndProcedure
+
 &AtClient
 Procedure ВнешниеНаборыДанныхПредставлениеНачалоВыбораЗавершение(Result, AdditionalParameters) Export
 	If Result=Undefined Then
@@ -4078,8 +4066,8 @@ Procedure ВнешниеНаборыДанныхПредставлениеНач
 EndProcedure
 
 &AtClient
-Procedure ВнешниеНаборыДанныхПередОкончаниемРедактирования(Item, NewLine, ОтменаРедактирования, Cancel)
-	If ОтменаРедактирования Then
+Procedure ExternalDataSetsBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
+	If CancelEdit Then
 		Return;
 	EndIf;	
 		
