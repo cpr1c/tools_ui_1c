@@ -195,7 +195,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="f43804b4-8a01-4461-977f-170fb25497ad">
-    <name>ФормаВыбораТаблиц</name>
+    <name>FormSelectionTables</name>
+    <synonym>
+      <key>en</key>
+      <value>Form selection tables</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма выбора таблиц</value>
