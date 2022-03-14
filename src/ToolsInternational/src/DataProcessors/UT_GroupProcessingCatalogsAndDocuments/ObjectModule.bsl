@@ -16,10 +16,10 @@ Function GetComparisonType(FieldName, ComparisonType, ParameterName) Export
 
 	ElsIf ComparisonType = DataCompositionComparisonType.InHierarchy Or ComparisonType
 		= DataCompositionComparisonType.InListByHierarchy Then
-		Return "_Table." + FieldName + " В ИЕРАРХИИ (&" + ParameterName + ")";
+		Return "_Table." + FieldName + " IN HIERARCHY (&" + ParameterName + ")";
 
 	ElsIf ComparisonType = DataCompositionComparisonType.InList Then
-		Return "_Table." + FieldName + " В (&" + ParameterName + ")";
+		Return "_Table." + FieldName + " IN (&" + ParameterName + ")";
 
 	ElsIf ComparisonType = DataCompositionComparisonType.Less Then
 		Return "_Table." + FieldName + " < &" + ParameterName;
@@ -32,7 +32,7 @@ Function GetComparisonType(FieldName, ComparisonType, ParameterName) Export
 
 	ElsIf ComparisonType = DataCompositionComparisonType.NotInHierarchy Or ComparisonType
 		= DataCompositionComparisonType.NotInListByHierarchy Then
-		Return "НЕ _Table." + FieldName + " В ИЕРАРХИИ (&" + ParameterName + ")";
+		Return "НЕ _Table." + FieldName + " IN HIERARCHY (&" + ParameterName + ")";
 
 	ElsIf ComparisonType = DataCompositionComparisonType.NotEqual Then
 		Return "_Table." + FieldName + " <> &" + ParameterName;

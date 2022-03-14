@@ -1,75 +1,75 @@
 &AtClient
-Procedure ПолучитьОтбор(Command)
-	Close(ПолучитьРезультат());
+Procedure GetSelection(Command)
+	Close(GetResult());
 EndProcedure
 
 &AtServer
-Function ПолучитьРезультат()
-	СтруктураРезультата = New Structure;
-	СтруктураРезультата.Insert("QueryText", QueryText);
-	СтруктураРезультата.Insert("ТекстПроизвольногоЗапроса", ТекстПроизвольногоЗапроса);
-	СтруктураРезультата.Insert("SearchString", SearchString);
-	СтруктураРезультата.Insert("Settings", ОтборДанных.GetSettings());
-	СтруктураРезультата.Insert("SearchMode", РежимПоиска);
-	СтруктураРезультата.Insert("QueryOptions", QueryOptions);
+Function GetResult()
+	StructureResult = New Structure;
+	StructureResult.Insert("QueryText", QueryText);
+	StructureResult.Insert("ArbitraryQueryText", ArbitraryQueryText);
+	StructureResult.Insert("SearchString", SearchString);
+	StructureResult.Insert("Settings", DataSelection.GetSettings());
+	StructureResult.Insert("SearchMode", SearchMode);
+	StructureResult.Insert("QueryParameters", QueryParameters);
 
-	Return СтруктураРезультата;
+	Return StructureResult;
 EndFunction
 
 &AtServer
 Procedure FillSettings()
 
-	СхемаКомпоновки = ПолучитьСхемуКомпоновки();
-	АдресСхемы = PutToTempStorage(СхемаКомпоновки, UUID);
-	ИсточникНастроек = New DataCompositionAvailableSettingsSource(АдресСхемы);
+	CompositionScheme = GetCompositionScheme();
+	AddressScheme = PutToTempStorage(CompositionScheme, UUID);
+	SourceSettings = New DataCompositionAvailableSettingsSource(AddressScheme);
 
-	ОтборДанных.Initialize(ИсточникНастроек);
+	DataSelection.Initialize(SourceSettings);
 
 EndProcedure
 
 &AtServer
-Function ПолучитьСхемуКомпоновки()
-	СхемаКомпоновки = New DataCompositionSchema;
+Function GetCompositionScheme()
+	CompositionScheme = New DataCompositionSchema;
 
-	Src = СхемаКомпоновки.DataSources.Add();
+	Src = CompositionScheme.DataSources.Add();
 	Src.Name = "Источник1";
-	Src.ConnectionString="";
+	Src.ConnectionString = "";
 	Src.DataSourceType = "local";
 
-	НаборДанных = СхемаКомпоновки.DataSets.Add(Type("DataCompositionSchemaDataSetQuery"));
-	НаборДанных.Query = QueryText;
-	НаборДанных.Name = "Query";
-	НаборДанных.DataSource = "Источник1";
+	DataSet = CompositionScheme.DataSets.Add(Type("DataCompositionSchemaDataSetQuery"));
+	DataSet.Query = QueryText;
+	DataSet.Name = "Query";
+	DataSet.DataSource = "Источник1";
 
-	For Each Item In СписокПредставлений Do
-		Field=НаборДанных.Fields.Find(Item.Presentation);
+	For Each Item In ViewList Do
+		Field = DataSet.Fields.Find(Item.Presentation);
 		If Field = Undefined Then
-			Field=НаборДанных.Fields.Add(Type("DataCompositionSchemaDataSetField"));
+			Field = DataSet.Fields.Add(Type("DataCompositionSchemaDataSetField"));
 		EndIf;
-		Field.Field=Item.Presentation;
-		Field.DataPath=Item.Presentation;
-		Field.Title=Item.Value;
+		Field.Field = Item.Presentation;
+		Field.DataPath = Item.Presentation;
+		Field.Title = Item.Value;
 
 	EndDo;
 
-	Return СхемаКомпоновки;
+	Return CompositionScheme;
 EndFunction
 
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	QueryText = Parameters.QueryText;
-	ТекстПроизвольногоЗапроса = Parameters.ТекстПроизвольногоЗапроса;
+	ArbitraryQueryText = Parameters.ArbitraryQueryText;
 	SearchString = Parameters.SearchString;
 
-	Items.SearchMode.ChoiceList.Add(0, "Filter по реквизитам");
-	Items.SearchMode.ChoiceList.Add(1, "Произвольный запрос");
+	Items.SearchMode.ChoiceList.Add(0, Nstr("ru = 'Фильтр по реквизитам';en = 'Filter by attributes'"));
+	Items.SearchMode.ChoiceList.Add(1, Nstr("ru = 'Произвольный запрос';en = 'Arbitrary query'"));
 
-	РежимПоиска = Parameters.SearchMode;
-	QueryOptions.Load(Parameters.QueryOptions.Unload());
+	SearchMode = Parameters.SearchMode;
+	QueryParameters.Load(Parameters.QueryParameters.Unload());
 
-	СписокПредставлений.Clear();
-	For Each Item In Parameters.СписокПредставлений Do
-		СписокПредставлений.Add(Item.Value, Item.Presentation);
+	ViewList.Clear();
+	For Each Item In Parameters.ViewList Do
+		ViewList.Add(Item.Value, Item.Presentation);
 	EndDo;
 	
 	//Title = Title + " [" + Parameters.ОбъектПоиска.Presentation + "]";
@@ -77,10 +77,10 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
 	Settings = Parameters.Settings;
 	If Settings <> Undefined Then
-		ОтборДанных.LoadSettings(Settings);
+		DataSelection.LoadSettings(Settings);
 	EndIf;
 
-	УстановитьВидимостьДоступность();
+	SetVisibilityAccessibility();
 EndProcedure
 
 &AtClient
@@ -92,12 +92,12 @@ Procedure QueryWizard(Command)
 		QueryWizard.Text = QueryText;
 	EndIf;
 
-	QueryWizard.Show(New NotifyDescription("КонструкторЗапросаЗавершение", ThisObject));
+	QueryWizard.Show(New NotifyDescription("QueryWizardEnd", ThisObject));
 	#EndIf	
 EndProcedure
 
 &AtClient
-Procedure КонструкторЗапросаЗавершение(Text, AdditionalParameters) Export
+Procedure QueryWizardEnd(Text, AdditionalParameters) Export
 	If Text = Undefined Then
 		Return;
 	EndIf;
@@ -106,65 +106,65 @@ Procedure КонструкторЗапросаЗавершение(Text, Additio
 EndProcedure
 
 &AtClient
-Procedure ОбновитьПараметры(Command)
-	Result = ЗаполнитьПараметрыЗапроса();
+Procedure UpdateParameters(Command)
+	Result = FillQueryParameters();
 	If Result <> True Then
-		ShowMessageBox( , Result, 60, "Error!");
+		ShowMessageBox( , Result, 60, Nstr("ru = 'Ошибка!';en = 'Error!'"));
 	EndIf;
 EndProcedure
 
 &AtServer
-Function ЗаполнитьПараметрыЗапроса()
+Function FillQueryParameters()
 	If IsBlankString(QueryText) Then
-		Return "Отсутствует текст запроса.";
+		Return Nstr("ru = 'Отсутствует текст запроса.';en = 'Missing query text.'");
 	EndIf;
 
-	Query = New Query(ТекстПроизвольногоЗапроса);
+	Query = New Query(ArbitraryQueryText);
 	Try
-		ПараметрыВЗапросе = Query.FindParameters();
+		ParametersInQuery = Query.FindParameters();
 	Except
 		Return ErrorDescription();
 	EndTry;
 
-	For Each ПараметрЗапроса In ПараметрыВЗапросе Do
-		ИмяПараметра =  ПараметрЗапроса.Name;
-		СтрокаПараметров = QueryOptions.FindRows(New Structure("ИмяПараметра", ИмяПараметра));
-		If СтрокаПараметров.Count() = 0 Then
-			СтрокаПараметров = QueryOptions.Add();
-			СтрокаПараметров.ИмяПараметра = ИмяПараметра;
+	For Each QueryParameter In ParametersInQuery Do
+		ParameterName =  QueryParameter.Name;
+		RowParameters = QueryParameters.FindRows(New Structure("ParameterName", ParameterName));
+		If RowParameters.Count() = 0 Then
+			RowParameters = QueryParameters.Add();
+			RowParameters.ParameterName = ParameterName;
 		Else
-			СтрокаПараметров = СтрокаПараметров[0];
+			RowParameters = RowParameters[0];
 		EndIf;
 
-		СтрокаПараметров.ЗначениеПараметра = ПараметрЗапроса.ValueType.AdjustValue(
-			СтрокаПараметров.ЗначениеПараметра);
+		RowParameters.ParameterValue = QueryParameter.ValueType.AdjustValue(
+			RowParameters.ParameterValue);
 	EndDo;
 
 	Return True;
 EndFunction
 
 &AtClient
-Procedure ПараметрыЗапросаЗначениеПараметраОчистка(Item, StandardProcessing)
+Procedure QueryParametersParameterValueClear(Item, StandardProcessing)
 	Item.ChooseType = True;
 EndProcedure
 
 &AtClient
-Procedure РежимПоискаПриИзменении(Item)
-	УстановитьВидимостьДоступность();
+Procedure SearchModeOnChange(Item)
+	SetVisibilityAccessibility();
 EndProcedure
 
 &AtServer
-Procedure УстановитьВидимостьДоступность()
-	If РежимПоиска = 1 Then
-		Items.ГруппаСтраницы.CurrentPage = Items.CustomQuery;
+Procedure SetVisibilityAccessibility()
+	If SearchMode = 1 Then
+		Items.GroupPages.CurrentPage = Items.CustomQuery;
 	Else
-		Items.ГруппаСтраницы.CurrentPage = Items.ОтборПоЗначениямРеквизитов;
+		Items.GroupPages.CurrentPage = Items.SelectionByValuesAttributes;
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure OnOpen(Cancel)
-#If ТолстыйКлиентУправляемоеПриложение Then
-	Items.КонтекстноеМенюТекстЗапросаКонструкторЗапроса.Enabled = True;
+#If ThickClientManagedApplication Then
+	Items.ContextMenuQueryText.Enabled = True;
 #EndIf
 EndProcedure
