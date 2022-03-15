@@ -1134,7 +1134,7 @@ Function СформироватьНаСервереВТабличныйДоку�
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, DetailsDataObject);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 			//		ElsIf Item.s = 1 Then
 			//			// Variant отчета.
@@ -1143,7 +1143,7 @@ Function СформироватьНаСервереВТабличныйДоку�
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.Settings, DetailsDataObject);
 			//			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			//			OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, DetailsDataObject);
-			//			ОтобразитьПанельРезультатов();
+			//			DisplayResultsPanel();
 			//			
 			//		ElsIf Item.RowType = 2 Then
 			//			// Settings отчета.
@@ -1152,7 +1152,7 @@ Function СформироватьНаСервереВТабличныйДоку�
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings(), DetailsDataObject);
 			//			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			//			OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, DetailsDataObject);
-			//			ОтобразитьПанельРезультатов();
+			//			DisplayResultsPanel();
 		Else
 
 			Return NStr(
@@ -1255,7 +1255,7 @@ Function СформироватьНаСервереВКоллекцию()
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 			//		ElsIf Item.RowType = 1 Then
 			//			// Variant отчета.
@@ -1263,7 +1263,7 @@ Function СформироватьНаСервереВКоллекцию()
 			//			TemplateComposer = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.Settings , , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			//			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
-			//			ОтобразитьПанельРезультатов();
+			//			DisplayResultsPanel();
 			//			
 			//		ElsIf Item.RowType = 2 Then
 			//			// Settings отчета.
@@ -1271,7 +1271,7 @@ Function СформироватьНаСервереВКоллекцию()
 			//			TemplateComposer = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings() , , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			//			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
-			//			ОтобразитьПанельРезультатов();
+			//			DisplayResultsPanel();
 		Else
 
 			Return NStr(
@@ -1309,7 +1309,7 @@ Function СформироватьНаСервереВВидеXML()
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
@@ -1321,7 +1321,7 @@ Function СформироватьНаСервереВВидеXML()
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
@@ -1333,7 +1333,7 @@ Function СформироватьНаСервереВВидеXML()
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		Else
 
@@ -1369,7 +1369,7 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 				DataCompositionSchema.DefaultSettings, , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
@@ -1379,7 +1379,7 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
@@ -1390,7 +1390,7 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 				Report.SettingsComposer.GetSettings(), , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		Else
 
@@ -1447,7 +1447,7 @@ Function СформироватьНаСервереВМакетКомпонов�
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
@@ -1459,7 +1459,7 @@ Function СформироватьНаСервереВМакетКомпонов�
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
@@ -1471,7 +1471,7 @@ Function СформироватьНаСервереВМакетКомпонов�
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		Else
 
@@ -1524,7 +1524,7 @@ Function СформироватьНаСервереВМакетКомпонов�
 				DataCompositionSchema.DefaultSettings, , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
@@ -1534,7 +1534,7 @@ Function СформироватьНаСервереВМакетКомпонов�
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
@@ -1545,7 +1545,7 @@ Function СформироватьНаСервереВМакетКомпонов�
 				Report.SettingsComposer.GetSettings(), , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		Else
 
@@ -1583,7 +1583,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			ExecutedSettingsComposer.Initialize(
 				New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 			ExecutedSettingsComposer.LoadSettings(DataCompositionSchema.DefaultSettings);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
 
@@ -1595,7 +1595,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			ExecutedSettingsComposer.Initialize(
 				New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 			ExecutedSettingsComposer.LoadSettings(Report.SettingsComposer.Settings);
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
 
@@ -1607,7 +1607,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			ExecutedSettingsComposer.Initialize(
 				New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 			ExecutedSettingsComposer.LoadSettings(Report.SettingsComposer.GetSettings());
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		Else
 
@@ -1645,7 +1645,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			XDTOSerializer.WriteXML(XMLWriter, DataCompositionSchema.DefaultSettings, "Settings",
 				"http://v8.1c.ru/8.1/data-composition-system/settings");
 			ExecutedSettingsXML = XMLWriter.Close();
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
@@ -1654,7 +1654,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			XDTOSerializer.WriteXML(XMLWriter, Report.SettingsComposer.Settings, "Settings",
 				"http://v8.1c.ru/8.1/data-composition-system/settings");
 			ExecutedSettingsXML = XMLWriter.Close();
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
@@ -1663,7 +1663,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			XDTOSerializer.WriteXML(XMLWriter, Report.SettingsComposer.GetSettings(), "Settings",
 				"http://v8.1c.ru/8.1/data-composition-system/settings");
 			ExecutedSettingsXML = XMLWriter.Close();
-			ОтобразитьПанельРезультатов();
+			DisplayResultsPanel();
 
 		Else
 
@@ -1746,7 +1746,7 @@ EndProcedure
 
 // Отобразить панель результатов.
 &AtServer
-Procedure ОтобразитьПанельРезультатов()
+Procedure DisplayResultsPanel()
 
 	Items.ResultsPanel.Visible = True;
 	Items.ButtonResultsPanel.Check = Items.ResultsPanel.Visible;
@@ -2256,7 +2256,7 @@ Procedure ВыполнитьНаСервереИзМакетаКомпоновк
 	XMLReader.SetString(TextOfDataCompositionTemplate);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
 	OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, Undefined);
-	ОтобразитьПанельРезультатов();
+	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument;
 
 EndProcedure
@@ -2271,7 +2271,7 @@ Procedure ВыполнитьНаСервереИзМакетаКомпоновк
 	XMLReader.SetString(TextOfDataCompositionTemplateForCollection);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
 	ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
-	ОтобразитьПанельРезультатов();
+	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultCollection;
 
 EndProcedure
@@ -2286,7 +2286,7 @@ Procedure ВыполнитьВРезультатНаСервереИзМакет
 	XMLReader.SetString(TextOfDataCompositionTemplate);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
 	ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, Undefined);
-	ОтобразитьПанельРезультатов();
+	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageDataCompositionResultXML;
 
 EndProcedure
@@ -2301,7 +2301,7 @@ Procedure ВыполнитьВРезультатКоллекцияНаСерве
 	XMLReader.SetString(TextOfDataCompositionTemplateForCollection);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
 	ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
-	ОтобразитьПанельРезультатов();
+	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultCollectionXML;
 
 EndProcedure
@@ -2588,7 +2588,7 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 	EndDo;
 
 	ReportResultOutputProcessor.EndOutput();
-	ОтобразитьПанельРезультатов();
+	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument;
 
 EndProcedure
@@ -2622,7 +2622,7 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 	EndDo;
 
 	ВывестиДеревоРезультатВКоллекцию(ReportResultOutputProcessor.EndOutput());
-	ОтобразитьПанельРезультатов();
+	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultCollection;
 
 EndProcedure
