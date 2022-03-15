@@ -1,26 +1,26 @@
 ////////////////////////////////////////////////////////////////////////////////
-// ПРОЦЕДУРЫ И ФУНКЦИИ ОБЩЕГО НАЗНАЧЕНИЯ
+// Common procedures and funtions 
 
-// Инициализировать новое дерево отчетов.
+// Initialize a new report tree.
 &AtClientAtServerNoContext
-Procedure ИнициализироватьДеревоОтчетов(ReportsTree)
+Procedure InitializeReportTree(ReportsTree)
 
 	Items = ReportsTree.GetItems();
 	Items.Clear();
-	КорневойЭлемент = Items.Add();
-	КорневойЭлемент.RowType = 4;
-	КорневойЭлемент.Name = NStr("ru='Reports'");
+	RootItem = Items.Add();
+	RootItem.RowType = 4;
+	RootItem.Name = NStr("ru = 'Отчеты';en = 'Reports'");
 
-	ЭлементыВКоторыеДобавляем = КорневойЭлемент.GetItems();
+	ElementsToWhichAdd = RootItem.GetItems();
 
-	Name = "Report";
-	Item = ЭлементыВКоторыеДобавляем.Add();
+	Name = NStr("ru = 'Отчет';en = 'Report'");
+	Item = ElementsToWhichAdd.Add();
 	Item.Name = Name;
 	Item.RowType = 0;
 
 EndProcedure
 
-// Переключить страницу группировок на страницу с текстом недоступности.
+// Switch the page of groupings to the page with the text of unavailability.
 &AtClient
 Procedure GroupFieldsNotAvailable()
 
@@ -28,7 +28,7 @@ Procedure GroupFieldsNotAvailable()
 
 EndProcedure
 
-// Переключить страницу группировок на страницу с текстом недоступности для исполняемых настроек.
+//Switch the grouping page to a page with the text unavailable for executable settings.
 &AtClient
 Procedure GroupFieldsNotAvailable1()
 
@@ -36,14 +36,14 @@ Procedure GroupFieldsNotAvailable1()
 
 EndProcedure
 
-// Включить доступность выбранных полей.
+// Enable availability of selected fields.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure SelectedFieldsAvailable(ЭлементСтруктуры)
+Procedure SelectedFieldsAvailable(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemSelection(SettingsItem) Then
 
 		LocalSelectedFields = True;
 		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsSettings;
@@ -59,14 +59,14 @@ Procedure SelectedFieldsAvailable(ЭлементСтруктуры)
 
 EndProcedure
 
-// Включить доступность выбранных полей для исполняемых настроек.
+// Enable the availability of selected fields for executable settings.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure SelectedFieldsAvailable1(ЭлементСтруктуры)
+Procedure SelectedFieldsAvailable1(SettingsItem)
 
-	If ExecutedSettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
+	If ExecutedSettingsComposer.Settings.HasItemSelection(SettingsItem) Then
 
 		LocalSelectedFields1 = True;
 		Items.PagesSelectedFields1.CurrentPage = Items.SelectedFieldsSettings1;
@@ -82,7 +82,7 @@ Procedure SelectedFieldsAvailable1(ЭлементСтруктуры)
 
 EndProcedure
 
-// Переключить страницу выбранных полей на страницу с текстом недоступности.
+// Switch the page of selected fields to the page with the text of unavailability.
 &AtClient
 Procedure SelectedFieldsUnavailable()
 
@@ -92,7 +92,7 @@ Procedure SelectedFieldsUnavailable()
 
 EndProcedure
 
-// Переключить страницу выбранных полей на страницу с текстом недоступности для исполняемых настроек.
+// Switch the page of selected fields to the page with the text of unavailability for executable settings.
 &AtClient
 Procedure SelectedFieldsUnavailable1()
 
@@ -102,14 +102,14 @@ Procedure SelectedFieldsUnavailable1()
 
 EndProcedure
 
-// Включить доступность отбора.
+// Enable filter availability.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure FilterAvailable(ЭлементСтруктуры)
+Procedure FilterAvailable(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemFilter(SettingsItem) Then
 
 		LocalFilter = True;
 		Items.FilterPages.CurrentPage = Items.FilterSettings;
@@ -125,14 +125,14 @@ Procedure FilterAvailable(ЭлементСтруктуры)
 
 EndProcedure
 
-// Включить доступность отбора для исполняемых настроек.
+// Enable filter availability for executable settings.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure FilterAvailable1(ЭлементСтруктуры)
+Procedure FilterAvailable1(SettingsItem)
 
-	If ExecutedSettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
+	If ExecutedSettingsComposer.Settings.HasItemFilter(SettingsItem) Then
 
 		LocalFilter1 = True;
 		Items.FilterPages1.CurrentPage = Items.FilterSettings1;
@@ -148,7 +148,7 @@ Procedure FilterAvailable1(ЭлементСтруктуры)
 
 EndProcedure
 
-// Переключить страницу отбора на страницу с текстом недоступности.
+// Switch the filter page to the page with the text of unavailability.
 &AtClient
 Procedure FilterUnavailable()
 
@@ -158,7 +158,7 @@ Procedure FilterUnavailable()
 
 EndProcedure
 
-// Переключить страницу отбора на страницу с текстом недоступности для исполняемых настроек.
+// Switch the filter page to the page with the text of unavailability for executable settings.
 &AtClient
 Procedure FilterUnavailable1()
 
@@ -168,14 +168,14 @@ Procedure FilterUnavailable1()
 
 EndProcedure
 
-// Включить доступность порядка.
+// Enable order availability.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure OrderAvailable(ЭлементСтруктуры)
+Procedure OrderAvailable(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemOrder(SettingsItem) Then
 
 		LocalOrder = True;
 		Items.OrderPages.CurrentPage = Items.OrderSettings;
@@ -191,14 +191,14 @@ Procedure OrderAvailable(ЭлементСтруктуры)
 
 EndProcedure
 
-// Включить доступность порядка для исполняемых настроек.
+// Enable order availability for executable settings
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure OrderAvailable1(ЭлементСтруктуры)
+Procedure OrderAvailable1(SettingsItem)
 
-	If ExecutedSettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
+	If ExecutedSettingsComposer.Settings.HasItemOrder(SettingsItem) Then
 
 		LocalOrder1 = True;
 		Items.OrderPages1.CurrentPage = Items.OrderSettings1;
@@ -214,7 +214,7 @@ Procedure OrderAvailable1(ЭлементСтруктуры)
 
 EndProcedure
 
-// Переключить страницу порядка на страницу с текстом недоступности.
+// Switch the order page to the page with the unavailability text.
 &AtClient
 Procedure OrderUnavailable()
 
@@ -224,7 +224,7 @@ Procedure OrderUnavailable()
 
 EndProcedure
 
-// Переключить страницу порядка на страницу с текстом недоступности для исполняемых настроек.
+// Switch the order page to the page with the text of unavailability for executable settings.
 &AtClient
 Procedure OrderUnavailable1()
 
@@ -234,14 +234,14 @@ Procedure OrderUnavailable1()
 
 EndProcedure
 
-// Включить доступность условного оформления.
+// Enable  availability Conditional Appearance.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure ConditionalAppearanceAvailable(ЭлементСтруктуры)
+Procedure ConditionalAppearanceAvailable(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemConditionalAppearance(SettingsItem) Then
 
 		LocalConditionalAppearance = True;
 		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
@@ -257,14 +257,14 @@ Procedure ConditionalAppearanceAvailable(ЭлементСтруктуры)
 
 EndProcedure
 
-// Включить доступность условного оформления для исполняемых настроек.
+// Enable  availability conditional appearance. for executable settings.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure ConditionalAppearanceAvailable1(ЭлементСтруктуры)
+Procedure ConditionalAppearanceAvailable1(SettingsItem)
 
-	If ExecutedSettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
+	If ExecutedSettingsComposer.Settings.HasItemConditionalAppearance(SettingsItem) Then
 
 		LocalConditionalAppearance1 = True;
 		Items.ConditionalAppearancePages1.CurrentPage = Items.ConditionalAppearanceSettings1;
@@ -280,7 +280,7 @@ Procedure ConditionalAppearanceAvailable1(ЭлементСтруктуры)
 
 EndProcedure
 
-// Переключить страницу условного оформления на страницу с текстом недоступности.
+// Switch the conditional appearance page to the page with the text of unavailability..
 &AtClient
 Procedure ConditionalAppearanceUnavailable()
 
@@ -290,7 +290,7 @@ Procedure ConditionalAppearanceUnavailable()
 
 EndProcedure
 
-// Переключить страницу условного оформления на страницу с текстом недоступности для исполняемых настроек.
+// Switch the conditional appearance page to the page with the text of unavailability. for executable settings.
 &AtClient
 Procedure ConditionalAppearanceUnavailable1()
 
@@ -300,14 +300,14 @@ Procedure ConditionalAppearanceUnavailable1()
 
 EndProcedure
 
-// Включить доступность параметров вывода.
+// Enable  availability of output parameters
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure OutputParametersAvailable(ЭлементСтруктуры)
+Procedure OutputParametersAvailable(SettingsItem)
 
-	If Report.SettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
+	If Report.SettingsComposer.Settings.HasItemOutputParameters(SettingsItem) Then
 
 		LocalOutputParameters = True;
 		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
@@ -323,14 +323,14 @@ Procedure OutputParametersAvailable(ЭлементСтруктуры)
 
 EndProcedure
 
-// Включить доступность параметров вывода для исполняемых настроек.
+// Enable  availability of output parameters for executable settings.
 //
-// Параметры: 
-//  ЭлементСтруктуры - элемент структуры, для которого изменяется доступность.
+// Parameters: 
+//  SettingsItem - the structure element for which availability is being changed.
 &AtClient
-Procedure OutputParametersAvailable1(ЭлементСтруктуры)
+Procedure OutputParametersAvailable1(SettingsItem)
 
-	If ExecutedSettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
+	If ExecutedSettingsComposer.Settings.HasItemOutputParameters(SettingsItem) Then
 
 		LocalOutputParameters1 = True;
 		Items.OutputParametersPages1.CurrentPage = Items.OutputParametersSettings1;
@@ -346,7 +346,7 @@ Procedure OutputParametersAvailable1(ЭлементСтруктуры)
 
 EndProcedure
 
-// Переключить страницу параметров вывода на страницу с текстом недоступности.
+// Switch page to the of output parameters to the page with the text of unavailability.
 &AtClient
 Procedure OutputParametersUnavailable()
 
@@ -356,7 +356,7 @@ Procedure OutputParametersUnavailable()
 
 EndProcedure
 
-// Переключить страницу параметров вывода на страницу с текстом недоступности для исполняемых настроек.
+// Switch page to the of output parameters to the page with the text of unavailability for executable settings.
 &AtClient
 Procedure OutputParametersUnavailable1()
 
@@ -366,172 +366,171 @@ Procedure OutputParametersUnavailable1()
 
 EndProcedure
 
-// Сгенерировать имя от базовой части имени на сервере.
+// Generate a name from the base part of the name on the server.
 //
-// Параметры:
-//  RowType - тип строки, для которой генерируется имя.
-//  БазоваяЧастьИмени - начальная часть имени.
-//  КоллекцияЭлементов - коллекция элементов в рамках которой проверяется 
-//						 уникальность имени.
-//  Рекурсивно - необходимость рекурсивной проверки уникальности имен
-//				 в коллекции КоллекцияЭлементов.
+// Parameters:
+//  RowType - type of row, for which the name is generated.
+//  NameBasePart - first part of the name.
+//  ItemsCollection - a collection of elements within which
+//						the uniqueness of the name is checked .
+//  Recursively - the need for recursive verification of the uniqueness of names
+//				 in collection ItemsCollection.
 //
-// Возвращаемое значение:
-//   Строка - сгенерированное имя.
+// Return value:
+//   String - generated name.
 &AtServer
-Function СгенерироватьИмяСервер(ТипСтроки, БазоваяЧастьИмени, КоллекцияЭлементов, Рекурсивно)
+Function GenerateNameAtServer(RowType, NameBasePart, ItemsCollection, Recursively)
 
-	УникальныеИмена = New Map;
-	НайтиУникальныеИменаСервер(КоллекцияЭлементов, ТипСтроки, УникальныеИмена, Рекурсивно);
-	ИндексИмени = 1;
+	UniqueNames = New Map;
+	FindUniqueNamesAtServer(ItemsCollection, RowType, UniqueNames, Recursively);
+	NameIndex = 1;
 
 	While True Do
 
-		Name = БазоваяЧастьИмени + ?(ИндексИмени > 1, " " + String(ИндексИмени), "");
+		Name = NameBasePart + ?(NameIndex > 1, " " + String(NameIndex), "");
 
-		If УникальныеИмена.Get(Name) <> True Then
+		If UniqueNames.Get(Name) <> True Then
 
 			Return Name;
 
 		EndIf;
 
-		ИндексИмени = ИндексИмени + 1;
+		NameIndex = NameIndex + 1;
 
 	EndDo;
 
 EndFunction
 
-// Сгенерировать имя от базовой части имени на клиенте.
+// Generate a name from the base part of the name on the client.
 //
-// Параметры:
-//  RowType - тип строки, для которой генерируется имя.
-//  БазоваяЧастьИмени - начальная часть имени.
-//  КоллекцияЭлементов - коллекция элементов в рамках которой проверяется
-//						 уникальность имени.
-//  Рекурсивно - необходимость рекурсивной проверки уникальности имен
-//				 в коллекции КоллекцияЭлементов.
+// Parameters:
+//  RowType - type of row, for which the name is generated..
+//  NameBasePart - first part of the name.
+//  ItemsCollection - a collection of elements within which
+//						the uniqueness of the name is checked.
+//  Recursively - the need for recursive verification of the uniqueness of names
+//				 in collection ItemsCollection.
 //
-// Возвращаемое значение:
-//   Строка - сгенерированное имя.
+// Return value:
+//   String - generated name.
 &AtClient
-Function СгенерироватьИмя(ТипСтроки, БазоваяЧастьИмени, КоллекцияЭлементов, Рекурсивно)
+Function GenerateName(RowType, NameBasePart, ItemsCollection, Recursively)
 
-	УникальныеИмена = New Map;
-	НайтиУникальныеИмена(КоллекцияЭлементов, ТипСтроки, УникальныеИмена, Рекурсивно);
-	ИндексИмени = 1;
+	UniqueNames = New Map;
+	FindUniqueNames(ItemsCollection, RowType, UniqueNames, Recursively);
+	NameIndex = 1;
 
 	While True Do
 
-		Name = БазоваяЧастьИмени + ?(ИндексИмени > 1, " " + String(ИндексИмени), "");
-		If УникальныеИмена.Get(Name) <> True Then
+		Name = NameBasePart + ?(NameIndex > 1, " " + String(NameIndex), "");
+		If UniqueNames.Get(Name) <> True Then
 
 			Return Name;
 
 		EndIf;
-		ИндексИмени = ИндексИмени + 1;
+		NameIndex = NameIndex + 1;
 
 	EndDo;
 
 EndFunction
 
-// Найти строки с указанным типом строки в коллекции элементов. Рекурсивно.
+// Find rows with the specified string type in collection элементов. Recursively.
 //
-// Параметры:
-//  КоллекцияЭлементов - коллекция элементов, в которой нужно искать.
-//  RowType - тип строки, который нужно найти.
-//  НайденныеСтроки - массив найденных строк.
+// Parameters:
+//  ItemsCollection - items collections in which search
+//  RowType - type of row to find.
+//  FoundRows - array of found rows.
 &AtClientAtServerNoContext
-Procedure FindRows(КоллекцияЭлементов, ТипСтроки, НайденныеСтроки)
+Procedure FindRows(ItemsCollection, RowType, FoundRows)
 
-	For Each Item In КоллекцияЭлементов Do
+	For Each Item In ItemsCollection Do
 
-		If Item.RowType = ТипСтроки Then
+		If Item.RowType = RowType Then
 
-			НайденныеСтроки.Add(Item);
+			FoundRows.Add(Item);
 
 		EndIf;
 
-		FindRows(Item.GetItems(), ТипСтроки, НайденныеСтроки);
+		FindRows(Item.GetItems(), RowType, FoundRows);
 
 	EndDo;
 
 EndProcedure
 
-// Сгенерировать имя для схемы компоновки данных.
+//generated name for  Data Composition Schema
 //
-// Возвращаемое значение:
-//  Стока - сгенерированное имя схемы компоновки данных.
+// Return value:
+//  String - generated name of Data Composition Schema.
 &AtClient
-Function СгенерироватьИмяСхемыКомпоновкиДанных()
+Function GenerateDataCompositionSchemaName()
 
-	Return СгенерироватьИмя(0, NStr("ru='Report'"), ReportsTree.GetItems(), True);
+	Return GenerateName(0, NStr("ru = 'Отчет';en = 'Report'"), ReportsTree.GetItems(), True);
 
 EndFunction
 
-// Сгенерировать имя для варианта отчета.
+// Generate name for report variant.
 //
-// Параметры:
-//  КоллекцияЭлементов - коллекция элементов, в которую добавляется вариант отчета.
+// Parameters:
+//  ItemsCollection - the collection of elements to which is added Report variant.
 //
-// Возвращаемое значение:
-//  Стока - сгенерированное имя варианта.
+// Return value:
+//  String - generated name of report variant.
 &AtClient
-Function СгенерироватьИмяВариантаОтчета(КоллекцияЭлементов)
+Function GenerateReportVariantName(ItemsCollection)
 
-	Return СгенерироватьИмя(1, NStr("ru='Variant'"), КоллекцияЭлементов, False);
+	Return GenerateName(1, NStr("ru = 'Вариант';en = 'Variant'"), ItemsCollection, False);
 
 EndFunction
 
-// Сгенерировать имя для пользовательской Settings.
+// Generate name for user setting.
 //
-// Параметры:
-//  КоллекцияЭлементов - коллекция элементов, в которую добавляется пользовательская 
-//						 настройка.
+// Parameters:
+//  ItemsCollection - the collection of elements to which is added user setting 
 //
-// Возвращаемое значение:
-//  Стока - сгенерированное имя пользовательской Settings.
+// Return value:
+//  String - generated name of user setting.
 &AtClient
-Function СгенерироватьИмяПользовательскойНастройки(КоллекцияЭлементов)
+Function GenerateUserSettingName(ItemsCollection)
 
-	Return СгенерироватьИмя(2, NStr("ru='Setting'"), КоллекцияЭлементов, False);
+	Return GenerateName(2, NStr("ru = 'Настройка';en = 'Setting'"), ItemsCollection, False);
 
 EndFunction
 
-// Сгенерировать имя для папки.
+// Generate folder name.
 //
-// Параметры:
-//  КоллекцияЭлементов - коллекция элементов, в которую добавляется папка.
+// Parameters:
+//  ItemsCollection - the collection of elements to which is addedпапка.
 //
-// Возвращаемое значение:
-//  Стока - сгенерированное имя папки.
+// Return value:
+//  String - generated folder name.
 &AtClient
-Function СгенерироватьИмяПапки(КоллекцияЭлементов)
+Function GenerateFolderName(ItemsCollection)
 
-	Return СгенерироватьИмя(3, NStr("ru='Folder'"), КоллекцияЭлементов, False);
+	Return GenerateName(3, NStr("ru = 'Папка';en = 'Folder'"), ItemsCollection, False);
 
 EndFunction
 
-// Найти все уникальные имена в коллекции элементов на сервере.
+// Find all unique names of in collection items at server.
 //
-// Параметры:
-//  Элементы - коллекция элементов, имена которых нужно собрать.
-//  RowType - тип строк, имена которых нужно собрать.
-//  УникальныеИмена - соответствие, в которое нужно поместить уникальные имена.
-//  Рекурсивно - необходимость рекурсивного получения вложенных имен.
+// Parameters:
+//  Items - a collection of elements whose names need to be collected.
+//  RowType - the type of rows whose names need to be collected..
+//  UniqueNames - a match in which to put unique names.
+//  Recursively - the need for recursive retrieval of nested names.
 &AtServer
-Procedure НайтиУникальныеИменаСервер(Items, ТипСтроки, УникальныеИмена, Рекурсивно)
+Procedure FindUniqueNamesAtServer(Items, RowType, UniqueNames, Recursively)
 
 	For Each Item In Items Do
 
-		If Item.RowType = ТипСтроки Then
+		If Item.RowType = RowType Then
 
-			УникальныеИмена.Insert(Item.Name, True);
+			UniqueNames.Insert(Item.Name, True);
 
 		EndIf;
 
-		If Рекурсивно Then
+		If Recursively Then
 
-			НайтиУникальныеИменаСервер(Item.GetItems(), ТипСтроки, УникальныеИмена, Рекурсивно);
+			FindUniqueNamesAtServer(Item.GetItems(), RowType, UniqueNames, Recursively);
 
 		EndIf;
 
@@ -539,27 +538,27 @@ Procedure НайтиУникальныеИменаСервер(Items, ТипСт
 
 EndProcedure
 
-// Найти все уникальные имена в коллекции элементов на клиенте.
+// Find all unique names of in collection items at client.
 //
-// Параметры:
-//  Элементы - коллекция элементов, имена которых нужно собрать.
-//  RowType - тип строк, имена которых нужно собрать.
-//  УникальныеИмена - соответствие, в которое нужно поместить уникальные имена.
-//  Рекурсивно - необходимость рекурсивного получения вложенных имен.
+// Parameters:
+//  Items - a collection of elements whose names need to be collected.
+//  RowType - the type of rows whose names need to be collected..
+//  UniqueNames - a match in which to put unique names.
+//  Recursively - the need for recursive retrieval of nested names.
 &AtClient
-Procedure НайтиУникальныеИмена(Items, ТипСтроки, УникальныеИмена, Рекурсивно)
+Procedure FindUniqueNames(Items, RowType, UniqueNames, Recursively)
 
 	For Each Item In Items Do
 
-		If Item.RowType = ТипСтроки Then
+		If Item.RowType = RowType Then
 
-			УникальныеИмена.Insert(Item.Name, True);
+			UniqueNames.Insert(Item.Name, True);
 
 		EndIf;
 
-		If Рекурсивно Then
+		If Recursively Then
 
-			НайтиУникальныеИмена(Item.GetItems(), ТипСтроки, УникальныеИмена, Рекурсивно);
+			FindUniqueNames(Item.GetItems(), RowType, UniqueNames, Recursively);
 
 		EndIf;
 
@@ -567,28 +566,28 @@ Procedure НайтиУникальныеИмена(Items, ТипСтроки, У
 
 EndProcedure
 
-// Определить тип папки.
+// Define the folder type.
 //
-// Параметры:
-//  Элемент - элемент - папка, тип которой определяется.
+// Parameters:
+//  Item - item - folder, the type of which is determined.
 //
-// Возвращаемое значение:
-//  Число - тип папки;
-//  Неопределено в случае если тип папки определить не удалось.
+// Return value:
+// Number - folder type;
+// Undefined if the folder type could not be determined.
 &AtClient
-Function ТипПапки(Item)
+Function FolderType(Item)
 
-	ЭлементНеПапка = Item.GetParent();
+	ItemNotFolder = Item.GetParent();
 
-	While ЭлементНеПапка <> Undefined Do
+	While ItemNotFolder <> Undefined Do
 
-		If ЭлементНеПапка.RowType <> 3 Then
+		If ItemNotFolder.RowType <> 3 Then
 
-			Return ЭлементНеПапка.RowType;
+			Return ItemNotFolder.RowType;
 
 		Else
 
-			ЭлементНеПапка = ЭлементНеПапка.GetParent();
+			ItemNotFolder = ItemNotFolder.GetParent();
 
 		EndIf;
 
@@ -598,145 +597,145 @@ Function ТипПапки(Item)
 
 EndFunction
 
-// Загрузить File.
+// load  File.
 //
-// Параметры:
-//  ЗагружаемоеИмяФайла - имя файла, из которого нужно загрузить. Если имя файла
-//						  пустое, то нужно запросить у пользователя имя файла.
+// Parameters:
+//  DownloadableFileName -the name of the file to download from. If the file name
+//						  is empty, then you need to ask the user for the file name.
 &AtClient
-Procedure ЗагрузитьФайлКонсоли(ЗагружаемоеИмяФайла)
+Procedure DownloadConsoleFile(DownloadableFileName)
 
 	Var Address;
 
 	BeginAttachingFileSystemExtension(
-		New NotifyDescription("ЗагрузитьФайлКонсолиПослеПодключенияРасширения", ThisForm,
-		New Structure("ЗагружаемоеИмяФайла", ЗагружаемоеИмяФайла)));
+		New NotifyDescription("DownloadConsoleFileAfterAttachExtension", ThisForm,
+		New Structure("DownloadableFileName", DownloadableFileName)));
 
 EndProcedure
 
-// Обработчик подключения расширения при загрузке файла.
+// Handler for connecting an extension when downloading  a file.
 &AtClient
-Procedure ЗагрузитьФайлКонсолиПослеПодключенияРасширения(Подключено, AdditionalParameters) Export
+Procedure DownloadConsoleFileAfterAttachExtension(Attached, AdditionalParameters) Export
 
-	ЗагружаемоеИмяФайла = AdditionalParameters.ЗагружаемоеИмяФайла;
+	DownloadableFileName = AdditionalParameters.DownloadableFileName;
 
-	If Подключено Then
+	If Attached Then
 
-		If ЗагружаемоеИмяФайла = "" Then
+		If DownloadableFileName = "" Then
 
-			ВыборФайла = New FileDialog(FileDialogMode.Opening);
-			ВыборФайла.Multiselect = False;
-			ВыборФайла.FullFileName = FileName;
-			Filter = NStr("ru = 'File консоли системы компоновки данных (*.dcr)|*.dcr|All файлы (*.*)|*.*'");
-			ВыборФайла.Filter = Filter;
-			ВыборФайла.Extension = "dcr";
+			FileChoose = New FileDialog(FileDialogMode.Opening);
+			FileChoose.Multiselect = False;
+			FileChoose.FullFileName = FileName;
+			Filter = NStr("ru = 'Файл консоли системы компоновки данных (*.dcr)|*.dcr|Все файлы (*.*)|*.*';en = 'File of data composition system console (*.dcr)|*.dcr|All files (*.*)|*.*'");
+			FileChoose.Filter = Filter;
+			FileChoose.Extension = "dcr";
 
 			BeginPuttingFiles(
-				New NotifyDescription("ЗагрузитьФайлКонсолиПослеПодключенияРасширенияПослеПомещенияФайлов",
-				ThisForm), , ВыборФайла);
+				New NotifyDescription("DownloadConsoleFileAfterAttachExtensionAfterPutFiles",
+				ThisForm), , FileChoose);
 
 		Else
 
-			ПомещаемыеФайлы = New Array;
-			ПомещаемыеФайлы.Add(New TransferableFileDescription(ЗагружаемоеИмяФайла, ""));
+			PlacedFiles = New Array;
+			PlacedFiles.Add(New TransferableFileDescription(DownloadableFileName, ""));
 
 			BeginPuttingFiles(
-				New NotifyDescription("ЗагрузитьФайлКонсолиПослеПодключенияРасширенияПослеПомещенияФайлов",
-				ThisForm), ПомещаемыеФайлы, , False);
+				New NotifyDescription("DownloadConsoleFileAfterAttachExtensionAfterPutFiles",
+				ThisForm), PlacedFiles, , False);
 
 		EndIf;
 
 	Else
 
 		BeginPutFile(
-			New NotifyDescription("ЗагрузитьФайлКонсолиПослеПодключенияРасширенияПослеПомещенияФайла", ThisForm), ,
-			ЗагружаемоеИмяФайла, , ЗагружаемоеИмяФайла = "");
+			New NotifyDescription("DownloadConsoleFileAfterAttachExtensionAfterPutFile", ThisForm), ,
+			DownloadableFileName, , DownloadableFileName = "");
 
 	EndIf;
 
 EndProcedure
 
-// Продолжение загрузки файла после того, как выполнен выбор файла.
+// Continue downloading the file after the file selection is completed.
 &AtClient
-Procedure ЗагрузитьФайлКонсолиПослеПодключенияРасширенияПослеПомещенияФайлов(ПомещенныеФайлы, AdditionalParameters) Export
+Procedure DownloadConsoleFileAfterAttachExtensionAfterPutFiles(PlacedFiles, AdditionalParameters) Export
 
-	If ПомещенныеФайлы <> Undefined Then
+	If PlacedFiles <> Undefined Then
 
-		ОтработкаЗагрузкиФайла(ПомещенныеФайлы);
+		FileDownloadingHandler(PlacedFiles);
 
 	EndIf;
 
 EndProcedure
 
-// Продолжение загрузки файла после получения файла.
+// Continue downloading the file after receiving the file.
 &AtClient
-Procedure ЗагрузитьФайлКонсолиПослеПодключенияРасширенияПослеПомещенияФайла(Result, Address, ВыбранноеИмяФайла,
+Procedure DownloadConsoleFileAfterAttachExtensionAfterPutFile(Result, Address, SelectedFileName,
 	AdditionalParameters) Export
 
 	If Result Then
 
-		FileName = ВыбранноеИмяФайла;
-		ОтработкаЗагрузкиИзАдреса(Address);
+		FileName = SelectedFileName;
+		DownloadFromAddressHandler(Address);
 
 	EndIf;
 
 EndProcedure
 
-// Непосредственная загузка файлов.
+// Direct file download
 &AtClient
-Procedure ОтработкаЗагрузкиФайла(ПомещенныеФайлы)
+Procedure FileDownloadingHandler(PlacedFiles)
 
-	For Each ПомещенныйФайл In ПомещенныеФайлы Do
+	For Each PlacedFile In PlacedFiles Do
 
-		If ПомещенныйФайл.Location <> "" Then
+		If PlacedFile.Location <> "" Then
 
-			ВыбранноеИмяФайла = ПомещенныйФайл.Name;
-			Address = ПомещенныйФайл.Location;
-			FileName = ВыбранноеИмяФайла;
+			SelectedFileName = PlacedFile.Name;
+			Address = PlacedFile.Location;
+			FileName = SelectedFileName;
 			Break;
 
 		EndIf;
 
 	EndDo;
 
-	ОтработкаЗагрузкиИзАдреса(Address);
+	DownloadFromAddressHandler(Address);
 
 EndProcedure
 
-// Отработка загрузки файла с отчетами из адреса.
+// Working out downloading a file with reports from the Address.
 &AtClient
-Procedure ОтработкаЗагрузкиИзАдреса(Address)
+Procedure DownloadFromAddressHandler(Address)
 	Try
-		ЗагрузитьФайлКонсолиНаСервере(Address);
+		DownloadConsoleFileAtServer(Address);
 	Except
 		Return;
 	EndTry;
-	ТекущийЭлементДерева = Undefined;
+	CurrentTreeItem = Undefined;
 
 	If TypeOf(CurrentNode) = Type("ValueList") Then
 
-		ТекущиеЭлементы = ReportsTree.GetItems();
+		CurrentItems = ReportsTree.GetItems();
 
-		For Позиция = 0 To CurrentNode.Count() - 1 Do
+		For Position = 0 To CurrentNode.Count() - 1 Do
 
-			Name = CurrentNode[CurrentNode.Count() - Позиция - 1].Value;
-			Найдено = False;
+			Name = CurrentNode[CurrentNode.Count() - Position - 1].Value;
+			Found = False;
 
-			For Each Item In ТекущиеЭлементы Do
+			For Each Item In CurrentItems Do
 
 				If Item.Name = Name Then
 
-					ТекущийЭлементДерева = Item;
-					ТекущиеЭлементы = ТекущийЭлементДерева.GetItems();
+					CurrentTreeItem = Item;
+					CurrentItems = CurrentTreeItem.GetItems();
 
-					Найдено = True;
+					Found = True;
 					Break;
 
 				EndIf;
 
 			EndDo;
 
-			If Not Найдено Then
+			If Not Found Then
 
 				Break;
 
@@ -744,55 +743,55 @@ Procedure ОтработкаЗагрузкиИзАдреса(Address)
 
 		EndDo;
 
-		If ТекущийЭлементДерева <> Undefined Then
+		If CurrentTreeItem <> Undefined Then
 
-			Items.ReportsTree.CurrentRow = ТекущийЭлементДерева.GetID();
+			Items.ReportsTree.CurrentRow = CurrentTreeItem.GetID();
 
 		EndIf;
 
 	EndIf;
 
 	CurrentNode = Undefined;
-	ОбновитьЗаголовок();
-//	CurrentRow = Неопределено;
-	ЗагрузитьТекущуюСтрокуНаСервере();
+	UpdateTitle();
+//	CurrentRow = Undefined;
+	LoadCurrentRowAtServer();
 	CurrentRowSettingsIsChanged = False;
 EndProcedure
 
-// Загрузить File консоли на сервере.
+// Download console file at server .
 //
-// Параметры:
-//  Адрес - адрес хранилища, из которого нужно загрузить File.
+// Parameters:
+//  Address - the address of the storage from which to download the File.
 &AtServer
-Procedure ЗагрузитьФайлКонсолиНаСервере(Address)
+Procedure DownloadConsoleFileAtServer(Address)
 
-	ИмяВременногоФайла = GetTempFileName();
+	TempFileName = GetTempFileName();
 	Data = GetFromTempStorage(Address);
-	Data.Write(ИмяВременногоФайла);
-	ValueToFormAttribute(ValueFromFile(ИмяВременногоФайла), "ReportsTree");
+	Data.Write(TempFileName);
+	ValueToFormAttribute(ValueFromFile(TempFileName), "ReportsTree");
 
 EndProcedure
 
-// Загрузить схему компоновки данных в компоновщик настроек.
+// Load Data Composition Schema  to Settings composer
 //
-// Параметры:
-//  ЭлементДерева - элемент дерева отчетов, схему которого нужно загрузить в компоновщик настроек.
-//  ЗагружатьНастройкиПоУмолчанию - Булево. Признак того, нужно ли загружать из схемы Settings по умолчанию.
+// Parameters:
+//  TreeItem - an item  of the report tree whose schema needs to be loaded into the settings composer.
+//  LoadSettingsByDefault -Boolean. Indicates whether to load from the default Settings schema.
 &AtServer
-Procedure ЗагрузитьСхемуКомпоновкиДанныхВКомпоновщикНастроек(ЭлементДерева, ЗагружатьНастройкиПоУмолчанию)
-	If ЭлементДерева.RowType = 4 Then
+Procedure LoadDataCompositionSchemaToSettingsComposer(TreeItem, LoadSettingsByDefault)
+	If TreeItem.RowType = 4 Then
 		Return;
 	EndIf;
 
-	DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(ЭлементДерева.Data);
+	DataCompositionSchema = GetDataCompositionSchema(TreeItem.Data);
 	SchemaTempStorageURL = PutToTempStorage(DataCompositionSchema, ?(
 		SchemaTempStorageURL <> "", SchemaTempStorageURL, UUID));
 	Report.SettingsComposer.Initialize(
 		New DataCompositionAvailableSettingsSource(SchemaTempStorageURL));
 
-	If ЗагружатьНастройкиПоУмолчанию And ValueIsFilled(ЭлементДерева.НастройкиСКД) Then
+	If LoadSettingsByDefault And ValueIsFilled(TreeItem.DCSSettings) Then
 		XMLReader = New XMLReader;
-		XMLReader.SetString(ЭлементДерева.НастройкиСКД);
+		XMLReader.SetString(TreeItem.DCSSettings);
 		Settings = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionSettings"));
 
 		Report.SettingsComposer.LoadSettings(Settings);
@@ -801,25 +800,25 @@ Procedure ЗагрузитьСхемуКомпоновкиДанныхВКомп
 
 EndProcedure
 
-// Загрузить Settings варианта отчета в текущую строку дерева.
+// Load the Settings of the report variant to the current row of the tree.
 //
-// Параметры:
-//  ЭлементДерева - элемент дерева отчета, в который нужно загрузить Settings варианта отчета.
+// Parameters:
+//  TreeItem - the element of the report tree to which you want to load the Settings of the report variant.
 &AtServer
-Procedure ЗагрузитьНастройкиВаниантаВТекущуюСтроку(ЭлементДерева)
+Procedure LoadVariantSettingsToCurrentRow(TreeItem)
 
-	ЭлементОтчет = НайтиЭлементДереваОтчет(ЭлементДерева);
+	ItemReport = FoundItemReportTree(TreeItem);
 
-	If ЭлементОтчет <> Undefined Then
+	If ItemReport <> Undefined Then
 
-		ЗагрузитьСхемуКомпоновкиДанныхВКомпоновщикНастроек(ЭлементОтчет, False);
+		LoadDataCompositionSchematoSettingsComposer(ItemReport, False);
 
 	EndIf;
 
-	If ЭлементДерева.Data <> "" Then
+	If TreeItem.Data <> "" Then
 
 		XMLReader = New XMLReader;
-		XMLReader.SetString(ЭлементДерева.Data);
+		XMLReader.SetString(TreeItem.Data);
 		Settings = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionSettings"));
 
 	Else
@@ -832,26 +831,26 @@ Procedure ЗагрузитьНастройкиВаниантаВТекущуюС
 
 EndProcedure
 
-// Найти элемент дерева с отчетом.
+// Find a tree item with a report.
 //
-// Параметры:
-//  ЭлементДерева - элемент дерева, начиная от которого нужно найти элемент дерева с отчетом.
+// Parameters:
+//  TreeItem - a tree item starting from which to find a tree item with a report.
 //
-// Возвращаемое значение:
-//   ДанныеФормыЭлементДерева - найденный элемент дерева - Report;
-//   Неопреледено - отчет не найден.
+// Return value:
+//   FormDataTreeItem - founded tree item - Report;
+//   UNdefined - report not found.
 &AtServer
-Function НайтиЭлементДереваОтчет(Val ЭлементДерева)
+Function FoundItemReportTree(Val TreeItem)
 
-	While ЭлементДерева <> Undefined Do
+	While TreeItem <> Undefined Do
 
-		If ЭлементДерева.RowType = 0 Then
+		If TreeItem.RowType = 0 Then
 
-			Return ЭлементДерева;
+			Return TreeItem;
 
 		Else
 
-			ЭлементДерева = ЭлементДерева.GetParent();
+			TreeItem = TreeItem.GetParent();
 
 		EndIf;
 
@@ -861,45 +860,45 @@ Function НайтиЭлементДереваОтчет(Val ЭлементДер
 
 EndFunction
 
-// Сохранить данные текущей строки на сервере.
+// Save the data of the current row on the server.
 //
-// Возвращаемое значение:
-//  Истина - текущая строка была изменена;
-//  Ложь - текущая строка изменена не была.
+// Return value:
+//  True - current Row was changed;
+//  False -  current Row was not changed.
 &AtServer
-Function СохранитьДанныеТекущейСтрокиНаСервере()
+Function SaveCurrentRowDataAtServer()
 
 	If CurrentRow <> Undefined Then
 
-		ЭлементДерева = ReportsTree.FindByID(CurrentRow);
+		TreeItem = ReportsTree.FindByID(CurrentRow);
 
-		If ЭлементДерева.RowType = 0 Then
+		If TreeItem.RowType = 0 Then
 
-		// Variant отчета.
+		// Report Variant .
 			XMLWriter = New XMLWriter;
 			XMLWriter.SetString();
 			XDTOSerializer.WriteXML(XMLWriter, Report.SettingsComposer.Settings, "Settings",
 				"http://v8.1c.ru/8.1/data-composition-system/settings");
-			НовыеДанные = XMLWriter.Close();
+			NewData = XMLWriter.Close();
 
-			If ЭлементДерева.НастройкиСКД <> НовыеДанные Then
+			If TreeItem.DCSSettings <> NewData Then
 
-				ЭлементДерева.НастройкиСКД = НовыеДанные;
+				TreeItem.DCSSettings = NewData;
 				Return True;
 
 			EndIf;
 
-			//		ElsIf ЭлементДерева.RowType = 2 Then
+			//		ElsIf TreeItem.RowType = 2 Then
 			//			
 			//			// Settings.
 			//			XMLWriter = New XMLWriter;
 			//			XMLWriter.SetString();
 			//			XDTOSerializer.WriteXML(XMLWriter, Report.SettingsComposer.UserSettings, "UserSettings", "http://v8.1c.ru/8.1/data-composition-system/settings");
-			//			НовыеДанные = XMLWriter.Close();
+			//			NewData = XMLWriter.Close();
 			//			
-			//			If ЭлементДерева.Data <> НовыеДанные Then
+			//			If TreeItem.Data <> NewData Then
 			//				
-			//				ЭлементДерева.Data = НовыеДанные;
+			//				TreeItem.Data = NewData;
 			//				Return True;
 			//				
 			//			EndIf;
@@ -912,50 +911,50 @@ Function СохранитьДанныеТекущейСтрокиНаСерве�
 
 EndFunction
 
-// Загрузить текущую строку на сервере.
+// Load Current Row At Server.
 &AtServer
-Procedure ЗагрузитьТекущуюСтрокуНаСервере()
+Procedure LoadCurrentRowAtServer()
 
 	If Items.ReportsTree.CurrentRow = Undefined Then
 		Return;
 	EndIf;
 
-	ЭлементДерева = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
+	TreeItem = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
 
-	//		If ЭлементДерева.RowType=0 Then
-	//Scheme компоновки
-	ЗагрузитьСхемуКомпоновкиДанныхВКомпоновщикНастроек(ЭлементДерева, True);
+	//		If TreeItem.RowType=0 Then
+	//Composition Schema
+	LoadDataCompositionSchematoSettingsComposer(TreeItem, True);
 
-	//		ElsIf ЭлементДерева.RowType = 1 Then
-	//			// Variant отчета.
-	//			ЗагрузитьНастройкиВаниантаВТекущуюСтроку(ЭлементДерева);
+	//		ElsIf TreeItem.RowType = 1 Then
+	//			// Report Variant.
+	//			LoadVariantSettingsToCurrentRow(TreeItem);
 	//			
-	//		ElsIf ЭлементДерева.RowType = 2 Then
-	//			// Пользовательские Settings.
-	//			ЭлементВриантИлиОтчет = ЭлементДерева.GetParent();
+	//		ElsIf TreeItem.RowType = 2 Then
+	//			// User Settings.
+	//			ItemVariantOrReport = TreeItem.GetParent();
 	//			
-	//			While ЭлементВриантИлиОтчет <> Undefined Do
+	//			While ItemVariantOrReport <> Undefined Do
 	//				
-	//				If ЭлементВриантИлиОтчет.RowType = 0 Then
-	//					// Нашли отчет.
-	//					ЗагрузитьСхемуКомпоновкиДанныхВКомпоновщикНастроек(ЭлементВриантИлиОтчет, True);
+	//				If ItemVariantOrReport.RowType = 0 Then
+	//					// Found report.
+	//					LoadDataCompositionSchematoSettingsComposer(ItemVariantOrReport, True);
 	//					Break;
 	//					
-	//				ElsIf ЭлементВриантИлиОтчет.RowType = 1 Then
-	//					// Нашли вариант отчета.
-	//					ЗагрузитьНастройкиВаниантаВТекущуюСтроку(ЭлементВриантИлиОтчет);
+	//				ElsIf ItemVariantOrReport.RowType = 1 Then
+	//					// Found report variant.
+	//					LoadVariantSettingsToCurrentRow(ItemVariantOrReport);
 	//					Break;
 	//					
 	//				EndIf;
 	//				
-	//				ЭлементВриантИлиОтчет = ЭлементВриантИлиОтчет.GetParent();
+	//				ItemVariantOrReport = ItemVariantOrReport.GetParent();
 	//				
 	//			EndDo;
 	//			
-	//			If ЭлементДерева.Data <> "" Then
+	//			If TreeItem.Data <> "" Then
 	//				
 	//				XMLReader = New XMLReader;
-	//				XMLReader.SetString(ЭлементДерева.Data);
+	//				XMLReader.SetString(TreeItem.Data);
 	//				UserSettings = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionUserSettings"));
 	//				
 	//			Else
@@ -969,61 +968,61 @@ Procedure ЗагрузитьТекущуюСтрокуНаСервере()
 	//		EndIf;
 EndProcedure
 
-// Сохранить текущую строку и загрузить новую текущую строку на сервере.
+// Save the current row and load a new current row on the server.
 &AtServer
-Procedure СохранитьДанныеТекущейСтрокиИЗагрузитьТекущуюСтрокуНаСервере()
+Procedure SaveCurrentRowDataAndLoadCurrentRowAtServer()
 
-// Сохраним Settings текущей строки в дерево.
-	СохранитьДанныеТекущейСтрокиНаСервере();
+//save the Settings of the current row to the tree.
+	SaveCurrentRowDataAtServer();
 
-	// Загрузим Settings в компоновщик настроек.
-	ЗагрузитьТекущуюСтрокуНаСервере();
+	//  load Settings into the settings composer.
+	LoadCurrentRowAtServer();
 
 EndProcedure
 
-// Вывести макет компоновки данных в табличный документ.
+// Output Data Composition Template To Spreadsheet Document.
 //
-// Параметры:
-//  МакетКомпоновкиДанных - макет компоновки данных, который нужно вывести.
-//  ДанныеРасшифровкиОбъект - объект данных расшифровки, который нужно заполнить при выводе.
+// Parameters:
+//  DataCompositionTemplate - Data Composition Template, which should be output.
+//  DetailsDataObject - details data object , that need filled during output.
 &AtServer
-Procedure ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, ДанныеРасшифровкиОбъект)
+Procedure OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, DetailsDataObject)
 
 	ResultSpreadsheetDocument.Clear();
 	DataCompositionProcessor = New DataCompositionProcessor;
-	DataCompositionProcessor.Initialize(DataCompositionTemplate, СтруктураВнешнихНаборовДанных(), ДанныеРасшифровкиОбъект, True);
-	ПроцессорВыводаРезультатаОтчета = New DataCompositionResultSpreadsheetDocumentOutputProcessor;
-	ПроцессорВыводаРезультатаОтчета.SetDocument(ResultSpreadsheetDocument);
-	ПроцессорВыводаРезультатаОтчета.BeginOutput();
-	ПроцессорВыводаРезультатаОтчета.Put(DataCompositionProcessor);
-	ПроцессорВыводаРезультатаОтчета.EndOutput();
+	DataCompositionProcessor.Initialize(DataCompositionTemplate, ExternalDataSetsStructure(), DetailsDataObject, True);
+	ReportResultOutputProcessor = New DataCompositionResultSpreadsheetDocumentOutputProcessor;
+	ReportResultOutputProcessor.SetDocument(ResultSpreadsheetDocument);
+	ReportResultOutputProcessor.BeginOutput();
+	ReportResultOutputProcessor.Put(DataCompositionProcessor);
+	ReportResultOutputProcessor.EndOutput();
 
-	If ДанныеРасшифровкиОбъект <> Undefined Then
+	If DetailsDataObject <> Undefined Then
 
-		DetailsDataURL = PutToTempStorage(ДанныеРасшифровкиОбъект, UUID);
+		DetailsDataURL = PutToTempStorage(DetailsDataObject, UUID);
 
 	EndIf;
 
 EndProcedure
 
-// Выполнить компоновку и получить текст результата компоновки данных в виде XML.
+// Execute composition and get text of result data composition in XML view
 //
 // Парамерты:
-//  МакетКомпоновкиДанных - макет компоновки данных, который нужно выполнить.
-//  ДанныеРасшифровкиОбъект - объект данных расшифровки, который нужно заполнить.
+//  DataCompositionTemplate - Data Composition Template, which needs to be executed
+//  DetailsDataObject -details data object, which needs to be filled in.
 //
-// Возвращаемое значение:
-//   Строка - XML текст результата компоновки данных и данных расшифровки.
+// Return value:
+//   String - XML  text of result data composition and details data.
 &AtServer
-Function ПолучитьТекстРезультатаКомпоновкиДанных(DataCompositionTemplate, ДанныеРасшифровкиОбъект)
+Function GetTextOfDataCompositionResult(DataCompositionTemplate, DetailsDataObject)
 
 	DataCompositionProcessor = New DataCompositionProcessor;
-	DataCompositionProcessor.Initialize(DataCompositionTemplate, СтруктураВнешнихНаборовДанных(), ДанныеРасшифровкиОбъект, True);
+	DataCompositionProcessor.Initialize(DataCompositionTemplate, ExternalDataSetsStructure(), DetailsDataObject, True);
 
 	Result = "<resultAndDetailsInfo>";
 	Result = Result + Chars.LF + Chars.Tab + "<result>";
 	XMLWriter = New XMLWriter;
-	УровеньВложенности = 3;
+	NestedLevel = 3;
 
 	While True Do
 
@@ -1037,30 +1036,30 @@ Function ПолучитьТекстРезультатаКомпоновкиДа�
 
 		If DataCompositionResultItem.ItemType = DataCompositionResultItemType.End Then
 
-			УровеньВложенности = УровеньВложенности - 1;
+			NestedLevel = NestedLevel - 1;
 
 		EndIf;
 
 		XMLWriter.SetString();
 		XDTOSerializer.WriteXML(XMLWriter, DataCompositionResultItem, "item",
 			"http://v8.1c.ru/8.1/data-composition-system/result");
-		Стр = XMLWriter.Close();
+		Str = XMLWriter.Close();
 
-		СтрокаЗамены = "";
+		ReplacementString = "";
 
-		For ИИ = 1 To УровеньВложенности - 1 Do
+		For ii = 1 To NestedLevel - 1 Do
 
-			СтрокаЗамены = СтрокаЗамены + Chars.Tab;
+			ReplacementString = ReplacementString + Chars.Tab;
 
 		EndDo;
 
-		Стр = StrReplace(Стр, Chars.LF, Chars.LF + СтрокаЗамены);
-		Стр = СтрокаЗамены + Стр;
-		Result = Result + Chars.LF + Стр;
+		Str = StrReplace(Str, Chars.LF, Chars.LF + ReplacementString);
+		Str = ReplacementString + Str;
+		Result = Result + Chars.LF + Str;
 
 		If DataCompositionResultItem.ItemType = DataCompositionResultItemType.Begin Then
 
-			УровеньВложенности = УровеньВложенности + 1;
+			NestedLevel = NestedLevel + 1;
 
 		EndIf;
 
@@ -1068,15 +1067,15 @@ Function ПолучитьТекстРезультатаКомпоновкиДа�
 
 	Result = Result + Chars.LF + Chars.Tab + "</result>";
 
-	If ДанныеРасшифровкиОбъект <> Undefined Then
+	If DetailsDataObject <> Undefined Then
 
 		XMLWriter.SetString();
-		XDTOSerializer.WriteXML(XMLWriter, ДанныеРасшифровкиОбъект, "detailsInfo",
+		XDTOSerializer.WriteXML(XMLWriter, DetailsDataObject, "detailsInfo",
 			"http://v8.1c.ru/8.1/data-composition-system/details");
-		Стр = XMLWriter.Close();
-		Стр = StrReplace(Стр, Chars.LF, Chars.LF + Chars.Tab);
-		Стр = Chars.Tab + Стр;
-		Result = Result + Chars.LF + Стр;
+		Str = XMLWriter.Close();
+		Str = StrReplace(Str, Chars.LF, Chars.LF + Chars.Tab);
+		Str = Chars.Tab + Str;
+		Result = Result + Chars.LF + Str;
 
 	EndIf;
 
@@ -1086,39 +1085,39 @@ Function ПолучитьТекстРезультатаКомпоновкиДа�
 
 EndFunction
 
-// Вывести макет компоновки данных в результат XML.
+// Вывести Data Composition Template в результат XML.
 //
-// Параметры:
-//  МакетКомпоновкиДанных - макет компоновки, который нужно вывести.
-//  ДанныеРасшифровкиОбъект - данные расшифровки, которые нужно заполнить.
+// Parameters:
+//  DataCompositionTemplate - макет компоновки, который нужно вывести.
+//  DetailsDataObject - данные расшифровки, которые нужно заполнить.
 &AtServer
-Procedure ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, ДанныеРасшифровкиОбъект)
+Procedure ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject)
 
-	TextOfDataCompositionResult = ПолучитьТекстРезультатаКомпоновкиДанных(DataCompositionTemplate,
-		ДанныеРасшифровкиОбъект);
+	TextOfDataCompositionResult = GetTextOfDataCompositionResult(DataCompositionTemplate,
+		DetailsDataObject);
 
 EndProcedure
 
-// Вывести макет компоновки данных в результат в виде XML для коллекции значений.
+// Вывести Data Composition Template в результат в виде XML для коллекции значений.
 //
-// Параметры:
-//  МакетКомпоновкиДанных - макет, который нужно вывести.
+// Parameters:
+//  DataCompositionTemplate - макет, который нужно вывести.
 &AtServer
 Procedure ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate)
 
-	TextOfDataCompositionResultForCollection = ПолучитьТекстРезультатаКомпоновкиДанных(DataCompositionTemplate,
+	TextOfDataCompositionResultForCollection = GetTextOfDataCompositionResult(DataCompositionTemplate,
 		Undefined);
 
 EndProcedure
 
 // Generate на сервере текущую строку в табличный документ.
 //
-// Возвращаемое значение:
-//  Строка - текст ошибки, который нужно выдать пользователю.
+// Return value:
+//  String - текст ошибки, который нужно выдать пользователю.
 &AtServer
 Function СформироватьНаСервереВТабличныйДокумент()
 
-	Var ДанныеРасшифровкиОбъект;
+	Var DetailsDataObject;
 
 	ResultFilledSpreadsheetDocument = True;
 
@@ -1128,31 +1127,31 @@ Function СформироватьНаСервереВТабличныйДоку�
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
-				Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
+				Report.SettingsComposer.Settings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
+			OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, DetailsDataObject);
 			ОтобразитьПанельРезультатов();
 
 			//		ElsIf Item.s = 1 Then
 			//			// Variant отчета.
-			//			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			//			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			//			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema, Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
+			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
+			//			TemplateComposer = New DataCompositionTemplateComposer;
+			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.Settings, DetailsDataObject);
 			//			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			//			ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
+			//			OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, DetailsDataObject);
 			//			ОтобразитьПанельРезультатов();
 			//			
 			//		ElsIf Item.RowType = 2 Then
 			//			// Settings отчета.
-			//			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			//			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			//			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings(), ДанныеРасшифровкиОбъект);
+			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
+			//			TemplateComposer = New DataCompositionTemplateComposer;
+			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings(), DetailsDataObject);
 			//			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			//			ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
+			//			OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, DetailsDataObject);
 			//			ОтобразитьПанельРезультатов();
 		Else
 
@@ -1169,7 +1168,7 @@ EndFunction
 
 // Вывести дерево значений в реквизит формы.
 //
-// Параметры:
+// Parameters:
 //  ВременноеДерево - дерево, которое нужно вывести.
 &AtServer
 Procedure ВывестиДеревоРезультатВКоллекцию(ВременноеДерево)
@@ -1219,27 +1218,27 @@ Procedure ВывестиДеревоРезультатВКоллекцию(Вр�
 
 EndProcedure
 
-// Вывести макет компоновки данных в виде коллекции в реквизит формы.
+// Вывести Data Composition Template в виде коллекции в реквизит формы.
 //
-// Параметры:
-//  МакетКомпоновкиДанных - макет, который нужно вывести.
+// Parameters:
+//  DataCompositionTemplate - макет, который нужно вывести.
 &AtServer
 Procedure ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate)
 
 	DataCompositionProcessor = New DataCompositionProcessor;
-	DataCompositionProcessor.Initialize(DataCompositionTemplate, СтруктураВнешнихНаборовДанных(), , True);
-	ПроцессорВыводаРезультатаОтчета = New DataCompositionResultValueCollectionOutputProcessor;
-	ПроцессорВыводаРезультатаОтчета.SetObject(New ValueTree);
-	ПроцессорВыводаРезультатаОтчета.BeginOutput();
-	ПроцессорВыводаРезультатаОтчета.Put(DataCompositionProcessor);
-	ВывестиДеревоРезультатВКоллекцию(ПроцессорВыводаРезультатаОтчета.EndOutput());
+	DataCompositionProcessor.Initialize(DataCompositionTemplate, ExternalDataSetsStructure(), , True);
+	ReportResultOutputProcessor = New DataCompositionResultValueCollectionOutputProcessor;
+	ReportResultOutputProcessor.SetObject(New ValueTree);
+	ReportResultOutputProcessor.BeginOutput();
+	ReportResultOutputProcessor.Put(DataCompositionProcessor);
+	ВывестиДеревоРезультатВКоллекцию(ReportResultOutputProcessor.EndOutput());
 
 EndProcedure
 
 // Generate на сервере результат и вывести его в коллекцию значений.
 //
-// Возвращаемое значение:
-//  Строка - текст сообщения, которое нужно показать пользователю.
+// Return value:
+//  String - текст сообщения, которое нужно показать пользователю.
 &AtServer
 Function СформироватьНаСервереВКоллекцию()
 
@@ -1251,26 +1250,26 @@ Function СформироватьНаСервереВКоллекцию()
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
 			ОтобразитьПанельРезультатов();
 
 			//		ElsIf Item.RowType = 1 Then
 			//			// Variant отчета.
-			//			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			//			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			//			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema, Report.SettingsComposer.Settings , , , Type("DataCompositionValueCollectionTemplateGenerator"));
+			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
+			//			TemplateComposer = New DataCompositionTemplateComposer;
+			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.Settings , , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			//			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
 			//			ОтобразитьПанельРезультатов();
 			//			
 			//		ElsIf Item.RowType = 2 Then
 			//			// Settings отчета.
-			//			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			//			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			//			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings() , , , Type("DataCompositionValueCollectionTemplateGenerator"));
+			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
+			//			TemplateComposer = New DataCompositionTemplateComposer;
+			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings() , , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			//			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
 			//			ОтобразитьПанельРезультатов();
 		Else
@@ -1288,12 +1287,12 @@ EndFunction
 
 // Generate на сервере отчет и вывести его в виде XML.
 //
-// Возвращаемое значение:
-//  Строка - текст сообщения, которое нужно показать пользователю.
+// Return value:
+//  String - текст сообщения, которое нужно показать пользователю.
 &AtServer
 Function СформироватьНаСервереВВидеXML()
 
-	Var ДанныеРасшифровкиОбъект;
+	Var DetailsDataObject;
 
 	ResultFilledXML = True;
 
@@ -1303,37 +1302,37 @@ Function СформироватьНаСервереВВидеXML()
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
-				DataCompositionSchema.DefaultSettings, ДанныеРасшифровкиОбъект);
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
+				DataCompositionSchema.DefaultSettings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
+			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
 			ОтобразитьПанельРезультатов();
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
-				Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
+				Report.SettingsComposer.Settings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
+			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
 			ОтобразитьПанельРезультатов();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
-				Report.SettingsComposer.GetSettings(), ДанныеРасшифровкиОбъект);
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
+				Report.SettingsComposer.GetSettings(), DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, ДанныеРасшифровкиОбъект);
+			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
 			ОтобразитьПанельРезультатов();
 
 		Else
@@ -1351,8 +1350,8 @@ EndFunction
 
 // Generate результат отчета для коллекции и выдать его в виде текста XML.
 //
-// Возвращаемое значение:
-//  Строка - текст сообщения, который нужно показать пользователю.
+// Return value:
+//  String - текст сообщения, который нужно показать пользователю.
 &AtServer
 Function СформироватьНаСервереВВидеXMLКоллекция()
 
@@ -1364,9 +1363,9 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				DataCompositionSchema.DefaultSettings, , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
@@ -1374,20 +1373,20 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
 			ОтобразитьПанельРезультатов();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.GetSettings(), , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
@@ -1406,13 +1405,13 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 
 EndFunction
 
-// Вывести макет компоновки данных в виде текста.
+// Вывести Data Composition Template в виде текста.
 //
-// Параметры:
-//  МакетКомпоновкиДанных - выводимый макет.
+// Parameters:
+//  DataCompositionTemplate - выводимый макет.
 //
-// Возвращаемое значение:
-//  Строка - текст макета компоновки данных в виде XML.
+// Return value:
+//  String - текст макета компоновки данных в виде XML.
 &AtServer
 Procedure ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate)
 
@@ -1424,14 +1423,14 @@ Procedure ВывестиМакетКомпоновкиДанныхВТекст(D
 
 EndProcedure
 
-// Generate макет компоновки данных.
+// Generate Data Composition Template.
 // 
-// Возвращаемое значение:
-//  Строка - текст сообщения, который нужно выдать пользователю.
+// Return value:
+//  String - текст сообщения, который нужно выдать пользователю.
 &AtServer
 Function СформироватьНаСервереВМакетКомпоновкиДанных()
 
-	Var ДанныеРасшифровкиОбъект;
+	Var DetailsDataObject;
 
 	ResultFilledTemplate = True;
 
@@ -1441,10 +1440,10 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
-				DataCompositionSchema.DefaultSettings, ДанныеРасшифровкиОбъект);
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
+				DataCompositionSchema.DefaultSettings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
@@ -1452,11 +1451,11 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
-				Report.SettingsComposer.Settings, ДанныеРасшифровкиОбъект);
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
+				Report.SettingsComposer.Settings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
@@ -1464,11 +1463,11 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
-				Report.SettingsComposer.GetSettings(), ДанныеРасшифровкиОбъект);
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
+				Report.SettingsComposer.GetSettings(), DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
@@ -1487,10 +1486,10 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 EndFunction
 
-// Вывести макет компоновки данных для коллекции значений в виде текста.
+// Вывести Data Composition Template для коллекции значений в виде текста.
 //
-// Параметры:
-// МакетКомпоновкиДанных - макет компоновки данных, который нужно вывести.
+// Parameters:
+// DataCompositionTemplate - Data Composition Template, который нужно вывести.
 &AtServer
 Procedure ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate)
 
@@ -1502,14 +1501,14 @@ Procedure ВывестиМакетКомпоновкиДанныхВТекстД
 
 EndProcedure
 
-// Generate макет компоновки данных для коллекции.
+// Generate Data Composition Template для коллекции.
 //
-// Возвращаемое значение:
-//  Строка - выводимая пользователю строка.
+// Return value:
+//  String - выводимая пользователю String.
 &AtServer
 Function СформироватьНаСервереВМакетКомпоновкиДанныхДляКоллекции()
 
-	Var ДанныеРасшифровкиОбъект;
+	Var DetailsDataObject;
 
 	ResultFilledTemplateForCollection = True;
 
@@ -1519,9 +1518,9 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				DataCompositionSchema.DefaultSettings, , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
@@ -1529,20 +1528,20 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 		ElsIf Item.RowType = 1 Then
 		// Variant отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
 			ОтобразитьПанельРезультатов();
 
 		ElsIf Item.RowType = 2 Then
 		// Settings отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
-			КомпоновщикМакета = New DataCompositionTemplateComposer;
-			DataCompositionTemplate = КомпоновщикМакета.Execute(DataCompositionSchema,
+			TemplateComposer = New DataCompositionTemplateComposer;
+			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.GetSettings(), , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
 			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
@@ -1563,12 +1562,12 @@ EndFunction
 
 // Generate исполняемые Settings.
 //
-// Возвращаемое значение:
-//  Строка - сообщение, которое нужно выдать пользователю.
+// Return value:
+//  String - сообщение, которое нужно выдать пользователю.
 &AtServer
 Function СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанных()
 
-	Var ДанныеРасшифровкиОбъект;
+	Var DetailsDataObject;
 
 	ResultFilledSettings = True;
 
@@ -1578,7 +1577,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
 			ExecutedSettingsComposer.Initialize(
@@ -1589,7 +1588,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 		ElsIf Item.RowType = 1 Then
 
 		// Variant отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
@@ -1601,7 +1600,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 		ElsIf Item.RowType = 2 Then
 
 		// Settings отчета.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанных(НайтиЭлементДереваОтчет(
+			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
@@ -1625,12 +1624,12 @@ EndFunction
 
 // Generate исполняемые Settings и выдать их в виде XML.
 //
-// Возвращаемое значение:
-//  Строка - текст, выдаваемый пользователю.
+// Return value:
+//  String - текст, выдаваемый пользователю.
 &AtServer
 Function СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанныхXML()
 
-	Var ДанныеРасшифровкиОбъект;
+	Var DetailsDataObject;
 
 	ResultFilledSettingsXML = True;
 
@@ -1640,7 +1639,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 
 		If Item.RowType = 0 Then
 		// Report.
-			DataCompositionSchema = ПолучитьСхемуКомпоновкиДанныхСервер();
+			DataCompositionSchema = GetDataCompositionSchemaAtServer();
 			XMLWriter = New XMLWriter;
 			XMLWriter.SetString();
 			XDTOSerializer.WriteXML(XMLWriter, DataCompositionSchema.DefaultSettings, "Settings",
@@ -1681,8 +1680,8 @@ EndFunction
 
 // Generate отчет на сервере. Формирование идет в зависимости от текущей страницы панели результатов.
 //
-// Возвращаемое значение:
-//  Строка - текст, выдаваемый пользователю.
+// Return value:
+//  String - текст, выдаваемый пользователю.
 &AtServer
 Function СформироватьНаСервере()
 
@@ -1765,10 +1764,10 @@ EndProcedure
 
 // Получить схему компоновки данных на основании текста схемы.
 //
-// Возвращаемое значение:
+// Return value:
 //  СхемаКомпоновкиДанных - схема, считанная из текста схемы.
 &AtServerNoContext
-Function ПолучитьСхемуКомпоновкиДанных(ТекстСхемы)
+Function GetDataCompositionSchema(ТекстСхемы)
 
 	If ТекстСхемы <> "" Then
 
@@ -1785,41 +1784,41 @@ Function ПолучитьСхемуКомпоновкиДанных(ТекстС
 EndFunction
 
 &AtServer
-Function ПолучитьСхемуКомпоновкиДанныхВызовСервера()
-	Return ПолучитьСхемуКомпоновкиДанныхСервер();
+Function GetDataCompositionSchemaServerCall()
+	Return GetDataCompositionSchemaAtServer();
 EndFunction
 
 // Получить схему компоновки данных для текущей строки на сервере.
 //
-// Возвращаемое значение:
+// Return value:
 //  СхемаКомпоновкиДанных - Схема компоновки данных для текущей строки.
 &AtServer
-Function ПолучитьСхемуКомпоновкиДанныхСервер()
+Function GetDataCompositionSchemaAtServer()
 
-	Return ПолучитьСхемуКомпоновкиДанных(ReportsTree.FindByID(
+	Return GetDataCompositionSchema(ReportsTree.FindByID(
 		Items.ReportsTree.CurrentRow).Data);
 
 EndFunction
 
 // Получить схему компоновки данных для текущей строки на клиенте.
 //
-// Возвращаемое значение:
+// Return value:
 //  СхемаКомпоновкиДанных - схема компоновка данных для текущей строки.
 &AtClient
-Function ПолучитьСхемуКомпоновкиДанныхКлиент()
+Function GetDataCompositionSchemaКлиент()
 
 	#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	Return ПолучитьСхемуКомпоновкиДанных(ReportsTree.FindByID(
+	Return GetDataCompositionSchema(ReportsTree.FindByID(
 		Items.ReportsTree.CurrentRow).Data);
 	#Else
-		Return ПолучитьСхемуКомпоновкиДанныхВызовСервера();
+		Return GetDataCompositionSchemaServerCall();
 	#EndIf
 
 EndFunction
 
 // Установить схему компоновки данных для текущей строки.
 //
-// Параметры:
+// Parameters:
 //  Схема - СхемаКомпоновкиДанных - схема, которую нужно установить текущей строке.
 &AtClient
 Procedure УстановитьСхемуКомпоновкиДанныхКлиент(Scheme)
@@ -1842,16 +1841,16 @@ Procedure УстановитьСхемуКомпоновкиДанных(Scheme)
 
 	ТекСтрокаДерева.Data = XMLWriter.Close();
 
-	If Not ValueIsFilled(ТекСтрокаДерева.НастройкиСКД) Then
+	If Not ValueIsFilled(ТекСтрокаДерева.DCSSettings) Then
 		XMLWriter = New XMLWriter;
 		XMLWriter.SetString();
 		XDTOSerializer.WriteXML(XMLWriter, Scheme.DefaultSettings, "Settings",
 			"http://v8.1c.ru/8.1/data-composition-system/settings");
-		ТекСтрокаДерева.НастройкиСКД = XMLWriter.Close();
+		ТекСтрокаДерева.DCSSettings = XMLWriter.Close();
 	EndIf;
 
 	// Загрузим Settings в компоновщик настроек.
-	ЗагрузитьТекущуюСтрокуНаСервере();	
+	LoadCurrentRowAtServer();	
 EndProcedure
 
 // Открыть конструктор схемы компоновки данных.
@@ -1859,7 +1858,7 @@ EndProcedure
 Procedure ОткрытьКонструкторСхемыКомпоновкиДанных()
 
 #If ТолстыйКлиентОбычноеПриложение Or ТолстыйКлиентУправляемоеПриложение Then
-	Конструктор = New DataCompositionSchemaWizard(ПолучитьСхемуКомпоновкиДанныхКлиент());
+	Конструктор = New DataCompositionSchemaWizard(GetDataCompositionSchemaКлиент());
 	Конструктор.Edit(ThisForm);
 #Else
 		ТекДанные=Items.ReportsTree.CurrentData;
@@ -1904,22 +1903,22 @@ Procedure ОткрытьКонструкторСхемыКомпоновкиДа
 
 	ТекСтрокаДерева.Data = XMLWriter.Close();
 
-	If Not ValueIsFilled(ТекСтрокаДерева.НастройкиСКД) Then
+	If Not ValueIsFilled(ТекСтрокаДерева.DCSSettings) Then
 		XMLWriter = New XMLWriter;
 		XMLWriter.SetString();
 		XDTOSerializer.WriteXML(XMLWriter, Scheme.DefaultSettings, "Settings",
 			"http://v8.1c.ru/8.1/data-composition-system/settings");
-		ТекСтрокаДерева.НастройкиСКД = XMLWriter.Close();
+		ТекСтрокаДерева.DCSSettings = XMLWriter.Close();
 	EndIf;
 
 	// Загрузим Settings в компоновщик настроек.
-	ЗагрузитьТекущуюСтрокуНаСервере();
+	LoadCurrentRowAtServer();
 
 EndProcedure
 
 // Обновить заголовок формы.
 &AtClient
-Procedure ОбновитьЗаголовок()
+Procedure UpdateTitle()
 
 	Title = InitialTitle + ?(FileName <> "", ": " + FileName, "");
 
@@ -1927,15 +1926,15 @@ EndProcedure
 
 // Сохранить File с отчетами.
 //
-// Параметры:
+// Parameters:
 //  Как - булево. Необходимость запроса у пользователя имени файла.
 //
-// Возвращаемое значение:
+// Return value:
 //  Истина - сохранение прошло успешно;
 //  Ложь - пользователь отменил сохранение.
 &AtClient
 Procedure Save(Как, NotificationProcessing)
-	Var ВыборФайла;
+	Var FileChoose;
 
 	BeginAttachingFileSystemExtension(New NotifyDescription("СохранитьЗавершение", ThisForm,
 		New Structure("Как, NotificationProcessing", Как, NotificationProcessing)));
@@ -1944,35 +1943,35 @@ EndProcedure
 
 // Завершение процедуры сохранения.
 &AtClient
-Procedure СохранитьЗавершение(Подключено, AdditionalParameters) Export
+Procedure СохранитьЗавершение(Attached, AdditionalParameters) Export
 
 	Как = AdditionalParameters.Как;
 	NotificationProcessing = AdditionalParameters.NotificationProcessing;
 
-	If Подключено Then
+	If Attached Then
 
 		If Как Or FileName = "" Then
 			File = New File(FileName);
 			СохраняемоеИмяФайла = File.Name;
 
 			// Нужно запросить имя файла.
-			ВыборФайла = New FileDialog(FileDialogMode.Save);
-			ВыборФайла.Multiselect = False;
-			ВыборФайла.FullFileName = FileName;
-			ВыборФайла.Directory = File.Path;
+			FileChoose = New FileDialog(FileDialogMode.Save);
+			FileChoose.Multiselect = False;
+			FileChoose.FullFileName = FileName;
+			FileChoose.Directory = File.Path;
 			Filter = NStr("ru = 'File консоли системы компоновки данных (*.dcr)|*.dcr|All файлы (*.*)|*.*'");
-			ВыборФайла.Filter = Filter;
-			ВыборФайла.Extension = "dcr";
+			FileChoose.Filter = Filter;
+			FileChoose.Extension = "dcr";
 
 		Else
-			ВыборФайла = FileName;
+			FileChoose = FileName;
 		EndIf;
 
 		ПолучаемыеФайлы = New Array;
 		ПолучаемыеФайлы.Add(New TransferableFileDescription(СохраняемоеИмяФайла,
 			ПоместитьФайлВоВременноеХранилище()));
 		BeginGettingFiles(New NotifyDescription("СохранитьЗавершениеПослеПолученияФайлов", ThisForm,
-			New Structure("NotificationProcessing", NotificationProcessing)), ПолучаемыеФайлы, ВыборФайла, False);
+			New Structure("NotificationProcessing", NotificationProcessing)), ПолучаемыеФайлы, FileChoose, False);
 
 	Else
 
@@ -2003,7 +2002,7 @@ Procedure СохранитьЗавершениеПослеПолученияФа
 	Else
 
 		FileName = ПолученныеФайлы[0].Name;
-		ОбновитьЗаголовок();
+		UpdateTitle();
 		If NotificationProcessing <> Undefined Then
 
 			ExecuteNotifyProcessing(NotificationProcessing, True);
@@ -2018,22 +2017,22 @@ EndProcedure
 &AtServer
 Function ПоместитьФайлВоВременноеХранилище()
 
-	ИмяВременногоФайла = GetTempFileName();
-	ValueToFile(ИмяВременногоФайла, FormAttributeToValue("ReportsTree"));
-	Result = PutToTempStorage(New BinaryData(ИмяВременногоФайла));
+	TempFileName = GetTempFileName();
+	ValueToFile(TempFileName, FormAttributeToValue("ReportsTree"));
+	Result = PutToTempStorage(New BinaryData(TempFileName));
 	Return Result;
 
 EndFunction
 
 // Если File отчетов был изменен, то запросить пользователя, нужно ли его сохранять.
 //
-// Возвращаемое значение:
+// Return value:
 //  Истина - закрытие подтверждено;
 //  Ложь - пользователь отменил закрытие.
 &AtClient
 Procedure ПодтвердитьЗакрытие(NotificationProcessing)
 
-	If СохранитьДанныеТекущейСтрокиНаСервере() Then
+	If SaveCurrentRowDataAtServer() Then
 
 		Modified = True;
 
@@ -2092,24 +2091,24 @@ EndProcedure
 
 // Получить текущий узел.
 //
-// Возвращаемое значение:
+// Return value:
 //  Текущий узел дерева отчетов.
 &AtServer
 Function ПолучитьТекущийУзел()
 
-	Var Result, ТекущийЭлементДерева;
+	Var Result, CurrentTreeItem;
 	Result = New ValueList;
 
 	If Items.ReportsTree.CurrentRow <> Undefined Then
 
-		ТекущийЭлементДерева = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
+		CurrentTreeItem = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
 
 	EndIf;
 
-	While ТекущийЭлементДерева <> Undefined Do
+	While CurrentTreeItem <> Undefined Do
 
-		Result.Add(ТекущийЭлементДерева.Name);
-		ТекущийЭлементДерева = ТекущийЭлементДерева.GetParent();
+		Result.Add(CurrentTreeItem.Name);
+		CurrentTreeItem = CurrentTreeItem.GetParent();
 
 	EndDo;
 
@@ -2128,11 +2127,11 @@ EndProcedure
 
 // Выделить базовую часть имени.
 //
-// Параметры:
+// Parameters:
 //  ПолноеИмя - Строка. Имя, из которого нужно получить базовую часть.
 //
-// Возвращаемое значение:
-//  Строка - базовая часть имени. Получается путем отбрасывания числа, находящегося
+// Return value:
+//  String - базовая часть имени. Получается путем отбрасывания числа, находящегося
 //           в конце полного имени.
 &AtServer
 Function НайтиБазовуюЧастьИмени(FullName)
@@ -2143,12 +2142,12 @@ Function НайтиБазовуюЧастьИмени(FullName)
 
 	EndIf;
 
-	Позиция = StrLen(FullName);
+	Position = StrLen(FullName);
 	ЦифрыБыли = False;
 
-	While Позиция > 1 Do
+	While Position > 1 Do
 
-		ТекущийСимвол = Mid(FullName, Позиция, 1);
+		ТекущийСимвол = Mid(FullName, Position, 1);
 
 		If ТекущийСимвол >= "0" And ТекущийСимвол <= "9" Then
 
@@ -2165,13 +2164,13 @@ Function НайтиБазовуюЧастьИмени(FullName)
 
 		EndIf;
 
-		Позиция = Позиция - 1;
+		Position = Position - 1;
 
 	EndDo;
 
-	If ЦифрыБыли And Позиция > 1 Then
+	If ЦифрыБыли And Position > 1 Then
 
-		Return Mid(FullName, 1, Позиция - 1);
+		Return Mid(FullName, 1, Position - 1);
 
 	Else
 
@@ -2185,64 +2184,64 @@ EndFunction
 &AtServer
 Procedure СкопироватьНаСервере()
 
-	СохранитьДанныеТекущейСтрокиНаСервере();
+	SaveCurrentRowDataAtServer();
 	КопируемыйЭлемент = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
 	НовоеИмя = КопируемыйЭлемент.Name;
-	БазоваяЧастьИмени = "";
+	NameBasePart = "";
 
 	//	If КопируемыйЭлемент.RowType = 0 Then 
-	БазоваяЧастьИмени = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
+	NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
 
-	If БазоваяЧастьИмени = "" Then
+	If NameBasePart = "" Then
 
-		БазоваяЧастьИмени = NStr("ru='Report'");
+		NameBasePart = NStr("ru='Report'");
 
 	EndIf;
 
-	НовоеИмя = СгенерироватьИмяСервер(0, БазоваяЧастьИмени, ReportsTree.GetItems(), True);
+	НовоеИмя = GenerateNameAtServer(0, NameBasePart, ReportsTree.GetItems(), True);
 
 	//	ElsIf КопируемыйЭлемент.RowType = 1 Then 
 	//		
-	//		БазоваяЧастьИмени = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
+	//		NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
 	//		
-	//		If БазоваяЧастьИмени = "" Then
+	//		If NameBasePart = "" Then
 	//			
-	//			БазоваяЧастьИмени = NStr("ru='Variant'");
+	//			NameBasePart = NStr("ru='Variant'");
 	//			
 	//		EndIf;
 	//		
-	//		НовоеИмя = СгенерироватьИмяСервер(1, БазоваяЧастьИмени, КопируемыйЭлемент.GetParent().GetItems(), False)
+	//		НовоеИмя = GenerateNameAtServer(1, NameBasePart, КопируемыйЭлемент.GetParent().GetItems(), False)
 	//		
 	//	ElsIf КопируемыйЭлемент.RowType = 2 Then
 	//		
-	//		БазоваяЧастьИмени = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
+	//		NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
 	//		
-	//		If БазоваяЧастьИмени = "" Then
+	//		If NameBasePart = "" Then
 	//			
-	//			БазоваяЧастьИмени = NStr("ru='Setting'");
+	//			NameBasePart = NStr("ru='Setting'");
 	//			
 	//		EndIf;
 	//		
-	//		НовоеИмя = СгенерироватьИмяСервер(2, БазоваяЧастьИмени, КопируемыйЭлемент.GetParent().GetItems(), False);
+	//		НовоеИмя = GenerateNameAtServer(2, NameBasePart, КопируемыйЭлемент.GetParent().GetItems(), False);
 	//		
 	//	ElsIf КопируемыйЭлемент.RowType = 3 Then 
 	//		
-	//		БазоваяЧастьИмени = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
+	//		NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
 	//		
-	//		If БазоваяЧастьИмени = "" Then
+	//		If NameBasePart = "" Then
 	//			
-	//			БазоваяЧастьИмени = NStr("ru='Folder'");
+	//			NameBasePart = NStr("ru='Folder'");
 	//			
 	//		EndIf;
 	//		
-	//		НовоеИмя = СгенерироватьИмяСервер(3, БазоваяЧастьИмени, КопируемыйЭлемент.GetParent().GetItems(), False);
+	//		НовоеИмя = GenerateNameAtServer(3, NameBasePart, КопируемыйЭлемент.GetParent().GetItems(), False);
 	//		
 	//	EndIf;
 	НовыйЭлемент = КопируемыйЭлемент.GetParent().GetItems().Add();
 	FillPropertyValues(НовыйЭлемент, КопируемыйЭлемент);
 	НовыйЭлемент.Name = НовоеИмя;
 	Items.ReportsTree.CurrentRow = НовыйЭлемент.GetID();
-	ЗагрузитьТекущуюСтрокуНаСервере();
+	LoadCurrentRowAtServer();
 	CurrentRow = НовыйЭлемент.GetID();
 
 EndProcedure
@@ -2256,7 +2255,7 @@ Procedure ВыполнитьНаСервереИзМакетаКомпоновк
 	XMLReader = New XMLReader;
 	XMLReader.SetString(TextOfDataCompositionTemplate);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
-	ВывестиМакетКомпоновкиДанныхВТабличныйДокумент(DataCompositionTemplate, Undefined);
+	OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemplate, Undefined);
 	ОтобразитьПанельРезультатов();
 	Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument;
 
@@ -2309,8 +2308,8 @@ EndProcedure
 
 // Получить имя файла эталона табличного документа.
 //
-// Возвращаемое значение:
-//  Строка - имя файла эталона табличного документа.
+// Return value:
+//  String - имя файла эталона табличного документа.
 &AtClient
 Function ИмяФайлаЭталонаТабличногоДокумента()
 
@@ -2330,8 +2329,8 @@ EndFunction
 
 // Получить имя файла табличного документа.
 //
-// Возвращаемое значение:
-//  Строка - имя файла табличного документа.
+// Return value:
+//  String - имя файла табличного документа.
 &AtClient
 Function ИмяФайлаТабличногоДокумента()
 
@@ -2351,8 +2350,8 @@ EndFunction
 
 // Получить имя файла эталона макета.
 //
-// Возвращаемое значение:
-//  Строка - имя файла эталона макета
+// Return value:
+//  String - имя файла эталона макета
 &AtClient
 Function ИмяФайлаЭталонаМакета()
 
@@ -2372,8 +2371,8 @@ EndFunction
 
 // Получить имя файла макета.
 //
-// Возвращаемое значение
-//  Строка - имя файла макета.
+// Return value
+//  String - имя файла макета.
 &AtClient
 Function ИмяФайлаМакета()
 
@@ -2393,8 +2392,8 @@ EndFunction
 
 // Получить имя	файла эталона исполняемых настроек.
 //
-// Возвращаемое значение:
-//  Строка - имя файла эталона исполняемых настроек.
+// Return value:
+//  String - имя файла эталона исполняемых настроек.
 &AtClient
 Function ИмяФайлаЭталонаИсполняемыхНастроек()
 
@@ -2414,8 +2413,8 @@ EndFunction
 
 // Получить имя файла исполняемых настроек.
 //
-// Возвращаемое значение:
-//  Строка - имя файла исполняемых настроек.
+// Return value:
+//  String - имя файла исполняемых настроек.
 &AtClient
 Function ИмяФайлаИсполняемыхНастроек()
 
@@ -2435,8 +2434,8 @@ EndFunction
 
 // Получить имя файла эталона результата XML.
 // 
-// Возвращаемое значение:
-//  Строка - имя файла эталона результата XML.
+// Return value:
+//  String - имя файла эталона результата XML.
 &AtClient
 Function ИмяФайлаЭталонаРезультатаXML()
 
@@ -2456,8 +2455,8 @@ EndFunction
 
 // Получить имя файла результата XML.
 //
-// Возвращаемое значение:
-//  Строка - имя файла результата XML.
+// Return value:
+//  String - имя файла результата XML.
 &AtClient
 Function ИмяФайлаРезультатаXML()
 
@@ -2477,8 +2476,8 @@ EndFunction
 
 // Получить имя файла эталона макета для коллекции.
 //
-// Возвращаемое значение:
-//  Строка - имя файла эталона макета для коллекции.
+// Return value:
+//  String - имя файла эталона макета для коллекции.
 &AtClient
 Function ИмяФайлаЭталонаМакетаДляКоллекции()
 
@@ -2498,8 +2497,8 @@ EndFunction
 
 // Получить имя файла макета для коллекции.
 //
-// Возвращаемое значение:
-//  Строка - имя файла макета для коллекции.
+// Return value:
+//  String - имя файла макета для коллекции.
 &AtClient
 Function ИмяФайлаМакетаДляКоллекции()
 
@@ -2519,8 +2518,8 @@ EndFunction
 
 // Получить имя файла эталона результата XML для коллекции.
 //
-// Возвращаемое значение:
-//  Строка - имя файла эталона результата XML для коллекции.
+// Return value:
+//  String - имя файла эталона результата XML для коллекции.
 &AtClient
 Function ИмяФайлаЭталонаРезультатаXMLДляКоллекции()
 
@@ -2540,8 +2539,8 @@ EndFunction
 
 // Получить имя файла результата XML для коллекции.
 //
-// Возвращаемое значение:
-//  Строка - имя файла результата XML для коллекции.
+// Return value:
+//  String - имя файла результата XML для коллекции.
 &AtClient
 Function ИмяФайлаРезультатаXMLДляКоллекции()
 
@@ -2565,9 +2564,9 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 	ReportNeedsToGenerate = False;
 	ResultSpreadsheetDocument.Clear();
-	ПроцессорВыводаРезультатаОтчета = New DataCompositionResultSpreadsheetDocumentOutputProcessor;
-	ПроцессорВыводаРезультатаОтчета.SetDocument(ResultSpreadsheetDocument);
-	ПроцессорВыводаРезультатаОтчета.BeginOutput();
+	ReportResultOutputProcessor = New DataCompositionResultSpreadsheetDocumentOutputProcessor;
+	ReportResultOutputProcessor.SetDocument(ResultSpreadsheetDocument);
+	ReportResultOutputProcessor.BeginOutput();
 
 	XMLReader = New XMLReader;
 	XMLReader.SetString(TextOfDataCompositionResult);
@@ -2578,7 +2577,7 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 		If XMLReader.NodeType = XMLNodeType.StartElement Then // item
 			ЭлементРезультата = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionResultItem"));
-			ПроцессорВыводаРезультатаОтчета.OutputItem(ЭлементРезультата);
+			ReportResultOutputProcessor.OutputItem(ЭлементРезультата);
 
 		Else
 
@@ -2588,7 +2587,7 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 	EndDo;
 
-	ПроцессорВыводаРезультатаОтчета.EndOutput();
+	ReportResultOutputProcessor.EndOutput();
 	ОтобразитьПанельРезультатов();
 	Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument;
 
@@ -2599,9 +2598,9 @@ EndProcedure
 Procedure ВывестиРезультатИзТекстаРезультатаВКоллекцию()
 
 	ReportNeedsToGenerate = False;
-	ПроцессорВыводаРезультатаОтчета = New DataCompositionResultValueCollectionOutputProcessor;
-	ПроцессорВыводаРезультатаОтчета.SetObject(New ValueTree);
-	ПроцессорВыводаРезультатаОтчета.BeginOutput();
+	ReportResultOutputProcessor = New DataCompositionResultValueCollectionOutputProcessor;
+	ReportResultOutputProcessor.SetObject(New ValueTree);
+	ReportResultOutputProcessor.BeginOutput();
 
 	XMLReader = New XMLReader;
 	XMLReader.SetString(TextOfDataCompositionResultForCollection);
@@ -2612,7 +2611,7 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 		If XMLReader.NodeType = XMLNodeType.StartElement Then // item
 			ЭлементРезультата = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionResultItem"));
-			ПроцессорВыводаРезультатаОтчета.OutputItem(ЭлементРезультата);
+			ReportResultOutputProcessor.OutputItem(ЭлементРезультата);
 
 		Else
 
@@ -2622,7 +2621,7 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 	EndDo;
 
-	ВывестиДеревоРезультатВКоллекцию(ПроцессорВыводаРезультатаОтчета.EndOutput());
+	ВывестиДеревоРезультатВКоллекцию(ReportResultOutputProcessor.EndOutput());
 	ОтобразитьПанельРезультатов();
 	Items.ResultsPanel.CurrentPage = Items.PageResultCollection;
 
@@ -2632,10 +2631,10 @@ EndProcedure
 &AtServer
 Procedure ЗагрузитьФайлСхемыКомпоновкиДанныхНаСервере(Address)
 
-	ИмяВременногоФайла = GetTempFileName();
+	TempFileName = GetTempFileName();
 	Data = GetFromTempStorage(Address);
-	Data.Write(ИмяВременногоФайла);
-	TextReader = New TextReader(ИмяВременногоФайла);
+	Data.Write(TempFileName);
+	TextReader = New TextReader(TempFileName);
 	Modified = True;
 	ReportsTree.FindByID(Items.ReportsTree.CurrentRow).Data = TextReader.Read();
 
@@ -2645,11 +2644,11 @@ EndProcedure
 &AtServer
 Function ПоместитьСхемуКомпоновкиДанныхВоВременноеХранилище()
 
-	ИмяВременногоФайла = GetTempFileName();
-	TextWriter = New TextWriter(ИмяВременногоФайла);
+	TempFileName = GetTempFileName();
+	TextWriter = New TextWriter(TempFileName);
 	TextWriter.Write(ReportsTree.FindByID(Items.ReportsTree.CurrentRow).Data);
 	TextWriter.Close();
-	Result = PutToTempStorage(New BinaryData(ИмяВременногоФайла));
+	Result = PutToTempStorage(New BinaryData(TempFileName));
 	Return Result;
 
 EndFunction
@@ -2660,19 +2659,19 @@ Procedure ЗаполнитьСКДДляОтладки(АдресДанныхО�
 	ЭлементыДерева = ReportsTree.GetItems();
 	ЭлементыДерева.Clear();
 
-	КорневойЭлемент = ЭлементыДерева.Add();
-	КорневойЭлемент.RowType = 4;
-	КорневойЭлемент.Name = NStr("ru='Reports'");
+	RootItem = ЭлементыДерева.Add();
+	RootItem.RowType = 4;
+	RootItem.Name = NStr("ru='Reports'");
 
-	ЭлементыВКоторыеДобавляем = КорневойЭлемент.GetItems();
+	ElementsToWhichAdd = RootItem.GetItems();
 
 	Name = "Report для отладки";
-	Item = ЭлементыВКоторыеДобавляем.Add();
+	Item = ElementsToWhichAdd.Add();
 	Item.Name = Name;
 	Item.RowType = 0;
 
 	Item.Data = ДанныеДляОтладки.ТекстСКД;
-	Item.НастройкиСКД = ДанныеДляОтладки.DcsSettingsText;
+	Item.DCSSettings = ДанныеДляОтладки.DcsSettingsText;
 
 	If ДанныеДляОтладки.Property("ExternalDataSets") Then
 		For Each КлючЗначение ИЗ ДанныеДляОтладки.ExternalDataSets Do
@@ -2698,7 +2697,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	Var ВременныйУзел;
 
 	InitialTitle = Title;
-	ИнициализироватьДеревоОтчетов(ReportsTree);
+	InitializeReportTree(ReportsTree);
 	НастройкиКонсоли = CommonSettingsStorage.Load("НастройкиКонсолиСистемыОтчетности5");
 
 	If НастройкиКонсоли <> Undefined Then
@@ -2769,10 +2768,10 @@ Procedure OnOpen(Cancel)
 
 	If FileName <> "" Then
 
-		ЗагружаемоеИмяФайла = FileName;
+		DownloadableFileName = FileName;
 		FileName = "";
 		Try
-			ЗагрузитьФайлКонсоли(ЗагружаемоеИмяФайла);
+			DownloadConsoleFile(DownloadableFileName);
 		Except
 			UT_CommonClientServer.MessageToUser("Error загрузки отчетов из файла");
 		EndTry;
@@ -2787,57 +2786,57 @@ EndProcedure
 &AtClient
 Procedure AddDataCompositionSchema(Command)
 
-	Var ЭлементыВКоторыеДобавляем;
-	Var ТекущийЭлементДерева;
+	Var ElementsToWhichAdd;
+	Var CurrentTreeItem;
 
 	Modified = True;
 
 	If Items.ReportsTree.CurrentRow <> Undefined Then
 
-		ТекущийЭлементДерева = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
+		CurrentTreeItem = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
 
 	EndIf;
 
-	While ТекущийЭлементДерева <> Undefined Do
+	While CurrentTreeItem <> Undefined Do
 
-		If ТекущийЭлементДерева.RowType = 0 Or (ТекущийЭлементДерева.RowType = 3 And ТипПапки(
-			ТекущийЭлементДерева) = 4) Or ТекущийЭлементДерева.RowType = 4 Then
+		If CurrentTreeItem.RowType = 0 Or (CurrentTreeItem.RowType = 3 And FolderType(
+			CurrentTreeItem) = 4) Or CurrentTreeItem.RowType = 4 Then
 
 			Break;
 
 		Else
 
-			ТекущийЭлементДерева = ТекущийЭлементДерева.GetParent();
+			CurrentTreeItem = CurrentTreeItem.GetParent();
 
 		EndIf;
 
 	EndDo;
 
-	If ТекущийЭлементДерева <> Undefined Then
+	If CurrentTreeItem <> Undefined Then
 
-		If ТекущийЭлементДерева.RowType = 3 Or ТекущийЭлементДерева.RowType = 4 Then
+		If CurrentTreeItem.RowType = 3 Or CurrentTreeItem.RowType = 4 Then
 
 				// Folder или корень.
-			ЭлементыВКоторыеДобавляем = ТекущийЭлементДерева.GetItems();
+			ElementsToWhichAdd = CurrentTreeItem.GetItems();
 
-		ElsIf ТекущийЭлементДерева.GetParent() <> Undefined Then
+		ElsIf CurrentTreeItem.GetParent() <> Undefined Then
 
-			ЭлементыВКоторыеДобавляем = ТекущийЭлементДерева.GetParent().GetItems();
+			ElementsToWhichAdd = CurrentTreeItem.GetParent().GetItems();
 
 		Else
 
-			ЭлементыВКоторыеДобавляем = ReportsTree.GetItems();
+			ElementsToWhichAdd = ReportsTree.GetItems();
 
 		EndIf;
 
 	Else
 
-		ЭлементыВКоторыеДобавляем = ReportsTree.GetItems();
+		ElementsToWhichAdd = ReportsTree.GetItems();
 
 	EndIf;
 
-	Name = СгенерироватьИмяСхемыКомпоновкиДанных();
-	Item = ЭлементыВКоторыеДобавляем.Add();
+	Name = GenerateDataCompositionSchemaName();
+	Item = ElementsToWhichAdd.Add();
 	Item.Name = Name;
 	Item.RowType = 0;
 
@@ -2874,8 +2873,8 @@ EndProcedure
 &AtClient
 Procedure SaveReportsToFile(Command)
 
-//	СохранитьДанныеТекущейСтрокиИЗагрузитьТекущуюСтрокуНаСервере();
-	СохранитьДанныеТекущейСтрокиНаСервере();
+//	SaveCurrentRowDataAndLoadCurrentRowAtServer();
+	SaveCurrentRowDataAtServer();
 	Save(False, New NotifyDescription("СохранениеВФайлЗавершение", ThisForm));
 
 EndProcedure
@@ -2912,7 +2911,7 @@ Procedure ОткрытьФайлОтчетовЗавершение(Result, Addit
 
 	If Result Then
 		Modified = False;
-		ЗагрузитьФайлКонсоли("");
+		DownloadConsoleFile("");
 	EndIf;
 
 EndProcedure
@@ -2932,9 +2931,9 @@ Procedure НовыйФайлОтчетовЗавершение(Result, Additiona
 	If Result Then
 
 		Modified = False;
-		ИнициализироватьДеревоОтчетов(ReportsTree);
+		InitializeReportTree(ReportsTree);
 		FileName = "";
-		ОбновитьЗаголовок();
+		UpdateTitle();
 		CurrentRow = Undefined;
 		CurrentRowSettingsIsChanged = False;
 
@@ -3211,19 +3210,19 @@ EndProcedure
 
 // Обработчик сохранения схемы в File после подключения расширения работы с файлами.
 &AtClient
-Procedure СохранитьСхемуВФайлПослеПодключенияРасширения(Подключено, AdditionalParameters) Export
+Procedure СохранитьСхемуВФайлПослеПодключенияРасширения(Attached, AdditionalParameters) Export
 
-	If Подключено Then
+	If Attached Then
 
 	// Нужно запросить имя файла.
-		ВыборФайла = New FileDialog(FileDialogMode.Save);
-		ВыборФайла.Multiselect = False;
+		FileChoose = New FileDialog(FileDialogMode.Save);
+		FileChoose.Multiselect = False;
 		Filter = NStr("ru = 'File схемы компоновки данных (*.xml)|*.xml|All файлы (*.*)|*.*'");
-		ВыборФайла.Filter = Filter;
-		ВыборФайла.Extension = "xml";
+		FileChoose.Filter = Filter;
+		FileChoose.Extension = "xml";
 
-		ВыборФайла.Show(New NotifyDescription("СохранитьСхемуВФайлПослеВыбораФайла", ThisForm,
-			New Structure("ВыборФайла", ВыборФайла)));
+		FileChoose.Show(New NotifyDescription("СохранитьСхемуВФайлПослеВыбораФайла", ThisForm,
+			New Structure("FileChoose", FileChoose)));
 
 	Else
 
@@ -3237,7 +3236,7 @@ EndProcedure
 &AtClient
 Procedure СохранитьСхемуВФайлПослеВыбораФайла(SelectedFiles, AdditionalParameters) Export
 
-	ВыборФайла = AdditionalParameters.ВыборФайла;
+	FileChoose = AdditionalParameters.FileChoose;
 
 	If SelectedFiles = Undefined Then
 
@@ -3246,7 +3245,7 @@ Procedure СохранитьСхемуВФайлПослеВыбораФайла
 	EndIf;
 
 	ПолучаемыеФайлы = New Array;
-	ПолучаемыеФайлы.Add(New TransferableFileDescription(ВыборФайла.FullFileName,
+	ПолучаемыеФайлы.Add(New TransferableFileDescription(FileChoose.FullFileName,
 		ПоместитьСхемуКомпоновкиДанныхВоВременноеХранилище()));
 	BeginGettingFiles(New NotifyDescription("СохранитьСхемуВФайлЗавершение", ThisForm), ПолучаемыеФайлы, "",
 		False);
@@ -3256,7 +3255,7 @@ EndProcedure
 &AtClient
 Procedure СохранитьСхемуВФайлЗавершение(ПолученныеФайлы, AdditionalParameters) Export
 
-	ОбновитьЗаголовок();
+	UpdateTitle();
 
 EndProcedure
 
@@ -3273,20 +3272,20 @@ EndProcedure
 
 // Обработчик загрузки схемы из файла после подключения расширения.
 &AtClient
-Procedure ЗагрузитьСхемуИзФайлаПослеПодключенияРасширения(Подключено, AdditionalParameters) Export
+Procedure ЗагрузитьСхемуИзФайлаПослеПодключенияРасширения(Attached, AdditionalParameters) Export
 
 	Address = AdditionalParameters.Address;
 
-	If Подключено Then
+	If Attached Then
 
-		ВыборФайла = New FileDialog(FileDialogMode.Opening);
-		ВыборФайла.Multiselect = False;
+		FileChoose = New FileDialog(FileDialogMode.Opening);
+		FileChoose.Multiselect = False;
 		Filter = NStr("ru = 'File схемы компоновки данных (*.xml)|*.xml|All файлы (*.*)|*.*'");
-		ВыборФайла.Filter = Filter;
-		ВыборФайла.Extension = "xml";
+		FileChoose.Filter = Filter;
+		FileChoose.Extension = "xml";
 
 		BeginPuttingFiles(New NotifyDescription("ЗагрузитьСхемуИзФайлаПослеПомещенияФайлов", ThisForm), ,
-			ВыборФайла);
+			FileChoose);
 
 	Else
 
@@ -3299,19 +3298,19 @@ EndProcedure
 
 // Обработчик загрузки схемы из файла после помещения файлов.
 &AtClient
-Procedure ЗагрузитьСхемуИзФайлаПослеПомещенияФайлов(ПомещенныеФайлы, AdditionalParameters) Export
+Procedure ЗагрузитьСхемуИзФайлаПослеПомещенияФайлов(PlacedFiles, AdditionalParameters) Export
 
-	If ПомещенныеФайлы = Undefined Then
+	If PlacedFiles = Undefined Then
 
 		Return;
 
 	EndIf;
 
-	For Each ПомещенныйФайл In ПомещенныеФайлы Do
+	For Each PlacedFile In PlacedFiles Do
 
-		If ПомещенныйФайл.Location <> "" Then
+		If PlacedFile.Location <> "" Then
 
-			Address = ПомещенныйФайл.Location;
+			Address = PlacedFile.Location;
 			Break;
 
 		EndIf;
@@ -3324,7 +3323,7 @@ EndProcedure
 
 // Обработчик загрузки схемы из файла после помещения файла.
 &AtClient
-Procedure ЗагрузитьСхемуИзФайлаПослеПомещенияФайла(Result, Address, ВыбранноеИмяФайла, AdditionalParameters) Export
+Procedure ЗагрузитьСхемуИзФайлаПослеПомещенияФайла(Result, Address, SelectedFileName, AdditionalParameters) Export
 
 	Address = AdditionalParameters.Address;
 
@@ -3383,8 +3382,7 @@ EndProcedure
 // Активизирует страницу настроек в зависимости от того, какую колонку
 // активировал пользователь.
 &AtClient
-Procedure СтруктураПриАктивизацииПоля1(Item)
-
+Procedure Settings1OnActivateField(Item)
 	Var ВыбраннаяСтраница;
 
 	If Items.Settings1.CurrentItem.Name = "Structure1НаличиеВыбора" Then
@@ -3414,21 +3412,20 @@ Procedure СтруктураПриАктивизацииПоля1(Item)
 		Items.PagesSettings1.CurrentPage = ВыбраннаяСтраница;
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик СтруктураПриАктивизацииСтроки элемента Structure.
 // Приводит закладки с настройками в актуальное состояние
 &AtClient
 Procedure StructureOnActivateRow(Item)
-	//TODO: Insert the handler content
+	
 	ТекСтрокаДерева = Items.Structure.CurrentRow;
 	If ТекСтрокаДерева = Undefined Then
 		Return;
 	EndIf;
 
-	ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(ТекСтрокаДерева);
-	ItemType = TypeOf(ЭлементСтруктуры);
+	SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(ТекСтрокаДерева);
+	ItemType = TypeOf(SettingsItem);
 
 	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
@@ -3470,20 +3467,20 @@ Procedure StructureOnActivateRow(Item)
 
 		Items.PagesGroupFields.CurrentPage = Items.GroupFieldsSettings;
 
-		SelectedFieldsAvailable(ЭлементСтруктуры);
-		FilterAvailable(ЭлементСтруктуры);
-		OrderAvailable(ЭлементСтруктуры);
-		ConditionalAppearanceAvailable(ЭлементСтруктуры);
-		OutputParametersAvailable(ЭлементСтруктуры);
+		SelectedFieldsAvailable(SettingsItem);
+		FilterAvailable(SettingsItem);
+		OrderAvailable(SettingsItem);
+		ConditionalAppearanceAvailable(SettingsItem);
+		OutputParametersAvailable(SettingsItem);
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
 		GroupFieldsNotAvailable();
-		SelectedFieldsAvailable(ЭлементСтруктуры);
+		SelectedFieldsAvailable(SettingsItem);
 		FilterUnavailable();
 		OrderUnavailable();
-		ConditionalAppearanceAvailable(ЭлементСтруктуры);
-		OutputParametersAvailable(ЭлементСтруктуры);
+		ConditionalAppearanceAvailable(SettingsItem);
+		OutputParametersAvailable(SettingsItem);
 
 	EndIf;
 EndProcedure
@@ -3492,11 +3489,10 @@ EndProcedure
 // Обработчик СтруктураПриАктивизацииСтроки элемента Structure1.
 // Приводит закладки с настройками в актуальное состояние
 &AtClient
-Procedure СтруктураПриАктивизацииСтроки1(Item)
-
-	ЭлементСтруктуры = ExecutedSettingsComposer.Settings.GetObjectByID(
+Procedure Settings1OnActivateRow(Item)
+	SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
 		Items.Settings1.CurrentRow);
-	ItemType = TypeOf(ЭлементСтруктуры);
+	ItemType = TypeOf(SettingsItem);
 
 	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
@@ -3538,44 +3534,43 @@ Procedure СтруктураПриАктивизацииСтроки1(Item)
 
 		Items.GroupFieldsPages1.CurrentPage = Items.GroupFieldsSettings1;
 
-		SelectedFieldsAvailable1(ЭлементСтруктуры);
-		FilterAvailable1(ЭлементСтруктуры);
-		OrderAvailable1(ЭлементСтруктуры);
-		ConditionalAppearanceAvailable1(ЭлементСтруктуры);
-		OutputParametersAvailable1(ЭлементСтруктуры);
+		SelectedFieldsAvailable1(SettingsItem);
+		FilterAvailable1(SettingsItem);
+		OrderAvailable1(SettingsItem);
+		ConditionalAppearanceAvailable1(SettingsItem);
+		OutputParametersAvailable1(SettingsItem);
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
 		GroupFieldsNotAvailable1();
-		SelectedFieldsAvailable1(ЭлементСтруктуры);
+		SelectedFieldsAvailable1(SettingsItem);
 		FilterUnavailable1();
 		OrderUnavailable1();
-		ConditionalAppearanceAvailable1(ЭлементСтруктуры);
-		OutputParametersAvailable1(ЭлементСтруктуры);
+		ConditionalAppearanceAvailable1(SettingsItem);
+		OutputParametersAvailable1(SettingsItem);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события Нажатие декораций.
 &AtClient
 Procedure GoToReport(Item)
 
-	ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+	SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 		Items.Structure.CurrentRow);
-	ItemSettings = Report.SettingsComposer.Settings.ItemSettings(ЭлементСтруктуры);
+	ItemSettings = Report.SettingsComposer.Settings.ItemSettings(SettingsItem);
 	Items.Structure.CurrentRow = Report.SettingsComposer.Settings.GetIDByObject(
 		ItemSettings);
 
 EndProcedure
 
-// Обработчик события Нажатие декораций для исполняемых настроек.
+// Обработчик события Нажатие декораций for executable settings.
 &AtClient
 Procedure GoToReport1(Item)
 
-	ЭлементСтруктуры = ExecutedSettingsComposer.Settings.GetObjectByID(
+	SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
 		Items.Settings1.CurrentRow);
-	ItemSettings = ExecutedSettingsComposer.Settings.ItemSettings(ЭлементСтруктуры);
+	ItemSettings = ExecutedSettingsComposer.Settings.ItemSettings(SettingsItem);
 	Items.Settings1.CurrentRow = ExecutedSettingsComposer.Settings.GetIDByObject(
 		ItemSettings);
 
@@ -3592,17 +3587,16 @@ Procedure LocalSelectedFieldsOnChange(Item)
 
 		Items.PagesSelectedFields.CurrentPage = Items.SelectedFieldsDisabledSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
-		Report.SettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemSelection(SettingsItem);
 
 	EndIf;
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalSelectedFields1.
 &AtClient
-Procedure ЛокальныеВыбранныеПоляПриИзменении1(Item)
-
+Procedure LocalSelectedFields1OnChange(Item)
 	If LocalSelectedFields1 Then
 
 		Items.PagesSelectedFields1.CurrentPage = Items.SelectedFieldsSettings1;
@@ -3611,12 +3605,11 @@ Procedure ЛокальныеВыбранныеПоляПриИзменении1(
 
 		Items.PagesSelectedFields1.CurrentPage = Items.DisabledSelectedFieldsSettings1;
 
-		ЭлементСтруктуры = ExecutedSettingsComposer.Settings.GetObjectByID(
+		SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
 			Items.Settings1.CurrentRow);
-		ExecutedSettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
+		ExecutedSettingsComposer.Settings.ClearItemSelection(SettingsItem);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalFilter.
@@ -3630,18 +3623,17 @@ Procedure LocalFilterOnChange(Item)
 
 		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
-		Report.SettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemFilter(SettingsItem);
 
 	EndIf;
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalFilter1.
 &AtClient
-Procedure ЛокальныйОтборПриИзменении1(Item)
-
-	If LocalFilter1 Then
+Procedure LocalFilter1OnChange(Item)
+		If LocalFilter1 Then
 
 		Items.FilterPages1.CurrentPage = Items.FilterSettings1;
 
@@ -3649,12 +3641,11 @@ Procedure ЛокальныйОтборПриИзменении1(Item)
 
 		Items.FilterPages1.CurrentPage = Items.DisabledFilterSettings1;
 
-		ЭлементСтруктуры = ExecutedSettingsComposer.Settings.GetObjectByID(
+		SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
 			Items.Settings1.CurrentRow);
-		ExecutedSettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
+		ExecutedSettingsComposer.Settings.ClearItemFilter(SettingsItem);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOrder.
@@ -3669,17 +3660,16 @@ Procedure LocalOrderOnChange(Item)
 
 		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
-		Report.SettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemOrder(SettingsItem);
 
 	EndIf;
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOrder1.
 &AtClient
-Procedure ЛокальныйПорядокПриИзменении1(Item)
-
+Procedure LocalOrder1OnChange(Item)
 	If LocalOrder1 Then
 
 		Items.OrderPages1.CurrentPage = Items.OrderSettings1;
@@ -3688,12 +3678,11 @@ Procedure ЛокальныйПорядокПриИзменении1(Item)
 
 		Items.OrderPages1.CurrentPage = Items.DisabledOrderSettings1;
 
-		ЭлементСтруктуры = ExecutedSettingsComposer.Settings.GetObjectByID(
+		SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
 			Items.Settings1.CurrentRow);
-		ExecutedSettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
+		ExecutedSettingsComposer.Settings.ClearItemOrder(SettingsItem);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalConditionalAppearance.
@@ -3707,17 +3696,16 @@ Procedure LocalConditionalAppearanceOnChange(Item)
 
 		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
-		Report.SettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemConditionalAppearance(SettingsItem);
 
 	EndIf;
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalConditionalAppearance1.
 &AtClient
-Procedure ЛокальноеУсловноеОформлениеПриИзменении1(Item)
-
+Procedure LocalConditionalAppearance1OnChange(Item)
 	If LocalConditionalAppearance1 Then
 
 		Items.ConditionalAppearancePages1.CurrentPage = Items.ConditionalAppearanceSettings1;
@@ -3726,12 +3714,11 @@ Procedure ЛокальноеУсловноеОформлениеПриИзмен
 
 		Items.ConditionalAppearancePages1.CurrentPage = Items.DisabledConditionalAppearanceSettings1;
 
-		ЭлементСтруктуры = ExecutedSettingsComposer.Settings.GetObjectByID(
+		SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
 			Items.Settings1.CurrentRow);
-		ExecutedSettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
+		ExecutedSettingsComposer.Settings.ClearItemConditionalAppearance(SettingsItem);
 
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOutputParameters.
@@ -3745,16 +3732,15 @@ Procedure LocalOutputParametersOnChange(Item)
 
 		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
-		ЭлементСтруктуры = Report.SettingsComposer.Settings.GetObjectByID(
+		SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(
 			Items.Structure.CurrentRow);
-		Report.SettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
+		Report.SettingsComposer.Settings.ClearItemOutputParameters(SettingsItem);
 	EndIf;
 EndProcedure
 
 // Обработчик события ПриИзменении флажка LocalOutputParameters1.
 &AtClient
-Procedure ЛокальныеПараметрыВыводаПриИзменении1(Item)
-
+Procedure LocalOutputParameters1OnChange(Item)
 	If LocalOutputParameters1 Then
 
 		Items.OutputParametersPages1.CurrentPage = Items.OutputParametersSettings1;
@@ -3763,27 +3749,26 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 
 		Items.OutputParametersPages1.CurrentPage = Items.DisabledOutputParametersSettings1;
 
-		ЭлементСтруктуры = ExecutedSettingsComposer.Settings.GetObjectByID(
+		SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
 			Items.Settings1.CurrentRow);
-		ExecutedSettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
+		ExecutedSettingsComposer.Settings.ClearItemOutputParameters(SettingsItem);
 	EndIf;
-
 EndProcedure
 
 // Обработчик события ПриАктивизацииСтроки элемента ReportsTree.
 // Отображает соответствующую закладку - схему, вариант, пользовательские Settings и т.п.
 &AtClient
 Procedure ReportsTreeOnActivateRow(Item)
-	//TODO: Insert the handler content
+	
 	If Not RowIsBeingActivated And CurrentRow <> Item.CurrentRow Then
 
 		RowIsBeingActivated = True;
 
 		If Item.CurrentRow <> Undefined Then
 
-			ЭлементДерева = ReportsTree.FindByID(Item.CurrentRow);
+			TreeItem = ReportsTree.FindByID(Item.CurrentRow);
 
-			If ЭлементДерева.RowType = 0 Then
+			If TreeItem.RowType = 0 Then
 			// Scheme компоновки данных.
 				If Items.GroupSettings.CurrentPage <> Items.GroupVariant Then
 
@@ -3791,7 +3776,7 @@ Procedure ReportsTreeOnActivateRow(Item)
 
 				EndIf;
 				//				
-				//			ElsIf ЭлементДерева.RowType = 1 Then
+				//			ElsIf TreeItem.RowType = 1 Then
 				//				// Variant отчета.
 				//				If Items.GroupSettings.CurrentPage <> Items.GroupVariant Then
 				//					
@@ -3799,7 +3784,7 @@ Procedure ReportsTreeOnActivateRow(Item)
 				//					
 				//				EndIf;
 				//				
-				//			ElsIf ЭлементДерева.RowType = 2 Then
+				//			ElsIf TreeItem.RowType = 2 Then
 				//				// Пользовательские Settings.
 				//				If Items.GroupSettings.CurrentPage <> Items.GroupUserSettings Then
 				//					
@@ -3820,7 +3805,7 @@ Procedure ReportsTreeOnActivateRow(Item)
 
 		Try
 
-			СохранитьДанныеТекущейСтрокиИЗагрузитьТекущуюСтрокуНаСервере();
+			SaveCurrentRowDataAndLoadCurrentRowAtServer();
 			CurrentRow = Item.CurrentRow;
 			RowIsBeingActivated = False;
 
@@ -3900,28 +3885,24 @@ EndProcedure
 
 // Обработчик события ОбработкаДополнительнойРасшифровки табличного документа ResultSpreadsheetDocument.
 &AtClient
-Procedure РезультатТабличныйДокументОбработкаДополнительнойРасшифровки(Item, Details, StandardProcessing)
-
+Procedure ResultSpreadsheetDocumentAdditionalDetailProcessing(Item, Details, StandardProcessing, AdditionalParameters)
 	StandardProcessing = False;
 	DetailProcessing = New DataCompositionDetailsProcess(DetailsDataURL,
 		New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 	DetailProcessing.ShowActionChoice(
 		New NotifyDescription("РезультатТабличныйДокументОбработкаРасшифровкиЗавершение", ThisForm,
 		New Structure("Details", Details)), Details, , , , Items.ResultSpreadsheetDocument);
-
 EndProcedure
 
 // Обработчик события ОбработкаРасшифровки табличного документа ResultSpreadsheetDocument.
 &AtClient
-Procedure РезультатТабличныйДокументОбработкаРасшифровки(Item, Details, StandardProcessing)
-
-	StandardProcessing = False;
+Procedure ResultSpreadsheetDocumentDetailProcessing(Item, Details, StandardProcessing, AdditionalParameters)
+		StandardProcessing = False;
 	DetailProcessing = New DataCompositionDetailsProcess(DetailsDataURL,
 		New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 	DetailProcessing.ShowActionChoice(
 		New NotifyDescription("РезультатТабличныйДокументОбработкаРасшифровкиЗавершение", ThisForm,
 		New Structure("Details", Details)), Details, , , True, );
-
 EndProcedure
 
 // Отработка выбора действия расшифровки.
@@ -4025,9 +4006,8 @@ EndProcedure
 
 // Обработчик события Выбор таблицы TreeResult.
 &AtClient
-Procedure РезультатДеревоВыбор(Item, SelectedRow, Field, StandardProcessing)
-
-	Var Value;
+Procedure TreeResultSelection(Item, RowSelected, Field, StandardProcessing)
+		Var Value;
 
 	StandardProcessing = False;
 
@@ -4100,7 +4080,7 @@ Procedure ExternalDataSetsBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
 EndProcedure
 
 &AtServer
-Function СтруктураВнешнихНаборовДанных()
+Function ExternalDataSetsStructure()
 	ВнешниеНаборы=New Structure;
 	
 	ТекСтрокаДерева=ReportsTree.FindByID(CurrentRow);

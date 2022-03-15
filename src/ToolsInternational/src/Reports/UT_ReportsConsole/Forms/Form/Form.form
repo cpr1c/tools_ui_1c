@@ -7145,12 +7145,12 @@ In the structure tree, select the report and edit additional report settings.</v
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:SpreadSheetDocFieldExtInfo">
             <handlers>
-              <event>AdditionalDetailProcessing</event>
-              <name>РезультатТабличныйДокументОбработкаДополнительнойРасшифровки</name>
+              <event>DetailProcessing</event>
+              <name>ResultSpreadsheetDocumentDetailProcessing</name>
             </handlers>
             <handlers>
-              <event>DetailProcessing</event>
-              <name>РезультатТабличныйДокументОбработкаРасшифровки</name>
+              <event>AdditionalDetailProcessing</event>
+              <name>ResultSpreadsheetDocumentAdditionalDetailProcessing</name>
             </handlers>
             <width>50</width>
             <autoMaxWidth>true</autoMaxWidth>
@@ -7711,16 +7711,16 @@ In the structure tree, select the report and edit additional report settings.</v
               <autoFill>true</autoFill>
             </autoCommandBar>
             <handlers>
+              <event>OnChange</event>
+              <name>SettingsOnChange</name>
+            </handlers>
+            <handlers>
               <event>OnActivateRow</event>
-              <name>СтруктураПриАктивизацииСтроки1</name>
+              <name>Settings1OnActivateRow</name>
             </handlers>
             <handlers>
               <event>OnActivateField</event>
-              <name>СтруктураПриАктивизацииПоля1</name>
-            </handlers>
-            <handlers>
-              <event>OnChange</event>
-              <name>SettingsOnChange</name>
+              <name>Settings1OnActivateField</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -8940,7 +8940,7 @@ Browse the structure tree and select a grouping to view or edit grouping field s
                 <titleLocation>Right</titleLocation>
                 <handlers>
                   <event>OnChange</event>
-                  <name>ЛокальныеВыбранныеПоляПриИзменении1</name>
+                  <name>LocalSelectedFields1OnChange</name>
                 </handlers>
                 <extendedTooltip>
                   <name>LocalSelectedFields1ExtendedTooltip</name>
@@ -9765,7 +9765,7 @@ In the report structure tree, select the item and then select required fields.</
                 <titleLocation>Right</titleLocation>
                 <handlers>
                   <event>OnChange</event>
-                  <name>ЛокальныйОтборПриИзменении1</name>
+                  <name>LocalFilter1OnChange</name>
                 </handlers>
                 <extendedTooltip>
                   <name>LocalFilter1ExtendedTooltip</name>
@@ -10592,7 +10592,7 @@ In the structure tree, select the report and edit report filters.</value>
                 <titleLocation>Right</titleLocation>
                 <handlers>
                   <event>OnChange</event>
-                  <name>ЛокальныйПорядокПриИзменении1</name>
+                  <name>LocalOrder1OnChange</name>
                 </handlers>
                 <extendedTooltip>
                   <name>LocalOrder1ExtendedTooltip</name>
@@ -11415,7 +11415,7 @@ In the structure tree, select the report and edit report sorts.</value>
                 <titleLocation>Right</titleLocation>
                 <handlers>
                   <event>OnChange</event>
-                  <name>ЛокальноеУсловноеОформлениеПриИзменении1</name>
+                  <name>LocalConditionalAppearance1OnChange</name>
                 </handlers>
                 <extendedTooltip>
                   <name>LocalConditionalAppearance1ExtendedTooltip</name>
@@ -12049,7 +12049,7 @@ In the structure tree, select the report and edit report conditional appearance.
                 <titleLocation>Right</titleLocation>
                 <handlers>
                   <event>OnChange</event>
-                  <name>ЛокальныеПараметрыВыводаПриИзменении1</name>
+                  <name>LocalOutputParameters1OnChange</name>
                 </handlers>
                 <extendedTooltip>
                   <name>LocalOutputParameters1ExtendedTooltip</name>
@@ -12990,7 +12990,7 @@ In the structure tree, select the report and edit additional report settings.</v
           </autoCommandBar>
           <handlers>
             <event>Selection</event>
-            <name>РезультатДеревоВыбор</name>
+            <name>TreeResultSelection</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
