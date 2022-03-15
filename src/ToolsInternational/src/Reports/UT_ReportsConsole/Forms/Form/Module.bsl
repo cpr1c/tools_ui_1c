@@ -2462,20 +2462,20 @@ Function XMLResultStandartFileName()
 
 EndFunction
 
-// Get name файла результата XML.
+// Get name of XML result  file..
 //
 // Return value:
-//  String - имя файла результата XML.
+//  String - name of XML result  file.
 &AtClient
-Function ИмяФайлаРезультатаXML()
+Function XMLResultFileName()
 
 	Var FileName;
 
-	FileName = NStr("ru='Result.xml'");
+	FileName = NStr("ru = 'Результат.xml';en = 'Result.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Result.xml";
+		FileName = NStr("ru = 'Результат.xml';en = 'Result.xml'");
 
 	EndIf;
 
@@ -2483,20 +2483,20 @@ Function ИмяФайлаРезультатаXML()
 
 EndFunction
 
-// Get name файла эталона макета for collection.
+// Get file name of template standart for collection.
 //
 // Return value:
-//  String - имя файла эталона макета for collection.
+//  String - file name of template standart for collection.
 &AtClient
 Function TemplateStandartFileNameForCollection()
 
 	Var FileName;
 
-	FileName = NStr("ru='Эталон макета для коллекции.xml'");
+	FileName = NStr("ru = 'Эталон макета для коллекции.xml';en = 'Template standart for collection.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Эталон макета для коллекции.xml";
+		FileName = NStr("ru = 'Эталон макета для коллекции.xml';en = 'Template standart for collection.xml'");
 
 	EndIf;
 
@@ -2504,20 +2504,20 @@ Function TemplateStandartFileNameForCollection()
 
 EndFunction
 
-// Get name файла макета for collection.
+// Get template file name for  collection.
 //
 // Return value:
-//  String - имя файла макета for collection.
+//  String - template file name for  collection
 &AtClient
 Function TemplateFileNameForCollection()
 
 	Var FileName;
 
-	FileName = NStr("ru='Template для коллекции.xml'");
+	FileName = NStr("ru = 'Макет для коллекции.xml';en = 'Template  for collection.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Template для коллекции.xml";
+		FileName = NStr("ru = 'Макет для коллекции.xml';en = 'Template  for collection.xml'");
 
 	EndIf;
 
@@ -2525,20 +2525,20 @@ Function TemplateFileNameForCollection()
 
 EndFunction
 
-// Get name файла эталона результата XML for collection.
+// Get name file  of XML Result Standart for collection.
 //
 // Return value:
-//  String - имя файла эталона результата XML for collection.
+//  String - name file  of XML Result Standart for collection.
 &AtClient
 Function XMLResultStandartFileNameForCollection()
 
 	Var FileName;
 
-	FileName = NStr("ru='Эталон результата для коллекции.xml'");
+	FileName = NStr("ru = 'Эталон результата для коллекции.xml';en = 'Result standart for collection.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Эталон результата для коллекции.xml";
+		FileName = NStr("ru = 'Эталон результата для коллекции.xml';en = 'Result standart for collection.xml'");
 
 	EndIf;
 
@@ -2546,20 +2546,20 @@ Function XMLResultStandartFileNameForCollection()
 
 EndFunction
 
-// Get name файла результата XML for collection.
+// Get file name of  XML result  for collection.
 //
 // Return value:
-//  String - имя файла результата XML for collection.
+//  String - file name of  XML result  for collection.
 &AtClient
-Function ИмяФайлаРезультатаXMLДляКоллекции()
+Function XMLResultFileNameForCollection()
 
 	Var FileName;
 
-	FileName = NStr("ru='Result для коллекции.xml'");
+	FileName = NStr("ru = 'Результат для коллекции.xml';en = 'Result for collection.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Result для коллекции.xml";
+		FileName =  NStr("ru = 'Результат для коллекции.xml';en = 'Result for collection.xml'");
 
 	EndIf;
 
@@ -2567,9 +2567,9 @@ Function ИмяФайлаРезультатаXMLДляКоллекции()
 
 EndFunction
 
-// Вывести результат из текста результата в spreadsheet document.
+// Output result from text to spreadsheet document.
 &AtServer
-Procedure ВывестиРезультатИзТекстаРезультатаВТабличныйДокумент()
+Procedure OutputResultFromResultTextToSpreadsheetDocument()
 
 	ReportNeedsToGenerate = False;
 	ResultSpreadsheetDocument.Clear();
@@ -2585,8 +2585,8 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 	While XMLReader.NodeType = XMLNodeType.StartElement And XMLReader.Name = "item" Do
 
 		If XMLReader.NodeType = XMLNodeType.StartElement Then // item
-			ЭлементРезультата = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionResultItem"));
-			ReportResultOutputProcessor.OutputItem(ЭлементРезультата);
+			ResultItem = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionResultItem"));
+			ReportResultOutputProcessor.OutputItem(ResultItem);
 
 		Else
 
@@ -2602,9 +2602,9 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 EndProcedure
 
-// Вывести результат из текста результата в коллекцию.
+// Output Result From Result Text To collection .
 &AtServer
-Procedure ВывестиРезультатИзТекстаРезультатаВКоллекцию()
+Procedure OutputResultFromResultTextToCollection()
 
 	ReportNeedsToGenerate = False;
 	ReportResultOutputProcessor = New DataCompositionResultValueCollectionOutputProcessor;
@@ -2619,8 +2619,8 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 	While XMLReader.NodeType = XMLNodeType.StartElement And XMLReader.Name = "item" Do
 
 		If XMLReader.NodeType = XMLNodeType.StartElement Then // item
-			ЭлементРезультата = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionResultItem"));
-			ReportResultOutputProcessor.OutputItem(ЭлементРезультата);
+			ResultItem = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionResultItem"));
+			ReportResultOutputProcessor.OutputItem(ResultItem);
 
 		Else
 
@@ -2636,9 +2636,9 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 EndProcedure
 
-// Загрузить схему компоновки данных из временного хранилища в текущую строку
+// Load data composition schema from temp storage to current row
 &AtServer
-Procedure ЗагрузитьФайлСхемыКомпоновкиДанныхНаСервере(Address)
+Procedure LoadDataCompositionSchemaFileAtServer(Address)
 
 	TempFileName = GetTempFileName();
 	Data = GetFromTempStorage(Address);
@@ -2649,9 +2649,9 @@ Procedure ЗагрузитьФайлСхемыКомпоновкиДанныхН
 
 EndProcedure
 
-// Загрузить схему компоновки данных из временного хранилища в текущую строку
+// Load data composition schema from temp storage to current row
 &AtServer
-Function ПоместитьСхемуКомпоновкиДанныхВоВременноеХранилище()
+Function PutDataCompositionSchemaToTempStorage()
 
 	TempFileName = GetTempFileName();
 	TextWriter = New TextWriter(TempFileName);
@@ -2663,32 +2663,32 @@ Function ПоместитьСхемуКомпоновкиДанныхВоВре�
 EndFunction
 
 &AtServer
-Procedure ЗаполнитьСКДДляОтладки(АдресДанныхОтладки)
-	ДанныеДляОтладки = GetFromTempStorage(АдресДанныхОтладки);
-	ЭлементыДерева = ReportsTree.GetItems();
-	ЭлементыДерева.Clear();
+Procedure FillDCSForDebug(DebugDataURL)
+	DataForDebug = GetFromTempStorage(DebugDataURL);
+	TreeItems = ReportsTree.GetItems();
+	TreeItems.Clear();
 
-	RootItem = ЭлементыДерева.Add();
+	RootItem = TreeItems.Add();
 	RootItem.RowType = 4;
-	RootItem.Name = NStr("ru='Reports'");
+	RootItem.Name = NStr("ru = 'Отчеты';en = 'Reports'");
 
 	ElementsToWhichAdd = RootItem.GetItems();
 
-	Name = "Report для отладки";
+	Name =NSTR("ru = 'Отчет для отладки';en = 'Report for debug'");
 	Item = ElementsToWhichAdd.Add();
 	Item.Name = Name;
 	Item.RowType = 0;
 
-	Item.Data = ДанныеДляОтладки.ТекстСКД;
-	Item.DCSSettings = ДанныеДляОтладки.DcsSettingsText;
+	Item.Data = DataForDebug.DCSText;
+	Item.DCSSettings = DataForDebug.DcsSettingsText;
 
-	If ДанныеДляОтладки.Property("ExternalDataSets") Then
-		For Each КлючЗначение ИЗ ДанныеДляОтладки.ExternalDataSets Do
-			НС=Item.ExternalDataSets.Add();
-			НС.Name=КлючЗначение.Key;
-			НС.Value=КлючЗначение.Value;
-			ТЗ=ValueFromStringInternal(НС.Value);
-			НС.Presentation=StrTemplate("Строк: %1 Колонок: %2", ТЗ.Count(), ТЗ.Cols.Count());
+	If DataForDebug.Property("ExternalDataSets") Then
+		For Each KeyValue ИЗ DataForDebug.ExternalDataSets Do
+			NewRow=Item.ExternalDataSets.Add();
+			NewRow.Name=KeyValue.Key;
+			NewRow.Value=KeyValue.Value;
+			ValueTable=ValueFromStringInternal(NewRow.Value);
+			NewRow.Presentation=StrTemplate("Rows: %1 Columns: %2", ValueTable.Count(), ValueTable.Cols.Count());
 		EndDo;
 	EndIf;
 	
@@ -2697,26 +2697,26 @@ Procedure ЗаполнитьСКДДляОтладки(АдресДанныхО�
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// ПРОЦЕДУРЫ - ОБРАБОТЧИКИ СОБЫТИЙ ФОРМЫ
+// Procedures - Form Event Handlers
 
-// Обработчик события формы OnCreateAtServer.
+// Form event handler OnCreateAtServer.
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
-	Var ВременныйУзел;
+	Var TempNode;
 
 	InitialTitle = Title;
 	InitializeReportTree(ReportsTree);
-	НастройкиКонсоли = CommonSettingsStorage.Load("ReportSystemConsoleSettings5");
+	ConsoleSettings = CommonSettingsStorage.Load("ReportSystemConsoleSettings5");
 
-	If НастройкиКонсоли <> Undefined Then
+	If ConsoleSettings <> Undefined Then
 
-		НастройкиКонсоли.Property("FileName", FileName);
-		НастройкиКонсоли.Property("CurrentNode", ВременныйУзел);
+		ConsoleSettings.Property("FileName", FileName);
+		ConsoleSettings.Property("CurrentNode", TempNode);
 
-		If TypeOf(ВременныйУзел) = Type("ValueList") Then
+		If TypeOf(TempNode) = Type("ValueList") Then
 
-			CurrentNode = ВременныйУзел;
+			CurrentNode = TempNode;
 
 		EndIf;
 
@@ -2727,43 +2727,43 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	Items.Settings.Check = True;
 	Items.ButtonResultsPanel.Check = True;
 
-	If Parameters.Property("ДанныеОтладки") Then
-		ЗаполнитьСКДДляОтладки(Parameters.ДанныеОтладки);
+	If Parameters.Property("DebugData") Then
+		FillDCSForDebug(Parameters.DebugData);
 		Return;
 	EndIf;
 	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing, Items.MainCommandBar);
 
 EndProcedure
 
-// Обработка события Выбор. Вызывается из конструктора схемы компоновки данных.
+//Event handler Choice. Calls from  Data Composition Schema Wizard.
 &AtClient
-Procedure ChoiceProcessing(ВыбранноеЗначение, ИсточникВыбора)
+Procedure ChoiceProcessing(SelectedValue, ChoiceSource)
 
 	Modified = True;
-	SetDataCompositionSchemaAtClient(ВыбранноеЗначение);
+	SetDataCompositionSchemaAtClient(SelectedValue);
 EndProcedure
 
-// Обработка события ПередЗакрытием.
+//Event handler BeforeClose.
 &AtClient
 Procedure BeforeClose(Cancel, StandardProcessing)
 
 	If Modified Then
 		Cancel = True;
-		ConfirmClose(New NotifyDescription("ПередЗакрытиемЗавершение", ThisForm));
+		ConfirmClose(New NotifyDescription("BeforeCloseOnEnd", ThisForm));
 	EndIf;
 
 EndProcedure
 
-// Завершение обработки закрытия.
+// end of  beforeclose handler.
 &AtClient
-Procedure ПередЗакрытиемЗавершение(Result, AdditionalParameters) Export
+Procedure BeforeCloseOnEnd(Result, AdditionalParameters) Export
 	If Result Then
 		Modified = False;
 		Close();
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриЗакрытии.
+// Event handler OnClose.
 &AtClient
 Procedure OnClose()
 
@@ -2771,7 +2771,7 @@ Procedure OnClose()
 
 EndProcedure
 
-// Обработчик события OnOpen.
+// Event handler OnOpen.
 &AtClient
 Procedure OnOpen(Cancel)
 
@@ -2782,16 +2782,17 @@ Procedure OnOpen(Cancel)
 		Try
 			DownloadConsoleFile(DownloadableFileName);
 		Except
-			UT_CommonClientServer.MessageToUser("Error загрузки отчетов из файла");
+			
+			UT_CommonClientServer.MessageToUser(NSTR("ru = 'Ошибка загрузки отчетов из файла';en = 'Error loading reports from file'"));
 		EndTry;
 	EndIf;
 
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// ПРОЦЕДУРЫ - ОБРАБОТЧИКИ КОМАНД
+// Procedures - Command Handlers
 
-// Обработчик команды AddDataCompositionSchema.
+// command handler AddDataCompositionSchema.
 &AtClient
 Procedure AddDataCompositionSchema(Command)
 
@@ -2825,7 +2826,7 @@ Procedure AddDataCompositionSchema(Command)
 
 		If CurrentTreeItem.RowType = 3 Or CurrentTreeItem.RowType = 4 Then
 
-				// Folder или корень.
+				// Folder or root.
 			ElementsToWhichAdd = CurrentTreeItem.GetItems();
 
 		ElsIf CurrentTreeItem.GetParent() <> Undefined Then
@@ -2853,7 +2854,7 @@ Procedure AddDataCompositionSchema(Command)
 
 EndProcedure
 
-// Обработчик команды Generate.
+// command handler Generate.
 &AtClient
 Procedure Generate(Command)
 
@@ -2861,7 +2862,7 @@ Procedure Generate(Command)
 
 EndProcedure
 
-// Обработчик команды ResultsPanel.
+// command handler ResultsPanel.
 &AtClient
 Procedure ResultsPanel(Command)
 
@@ -2870,7 +2871,7 @@ Procedure ResultsPanel(Command)
 
 EndProcedure
 
-// Обработчик команды DataCompositionSchemaWizard.
+// command handler DataCompositionSchemaWizard.
 &AtClient
 Procedure DataCompositionSchemaWizard(Command)
 
@@ -2878,27 +2879,27 @@ Procedure DataCompositionSchemaWizard(Command)
 
 EndProcedure
 
-// Обработчик команды SaveReportsToFile.
+// command handler SaveReportsToFile.
 &AtClient
 Procedure SaveReportsToFile(Command)
 
 //	SaveCurrentRowDataAndLoadCurrentRowAtServer();
 	SaveCurrentRowDataAtServer();
-	Save(False, New NotifyDescription("СохранениеВФайлЗавершение", ThisForm));
+	Save(False, New NotifyDescription("SaveToFileOnEnd", ThisForm));
 
 EndProcedure
 
-// Обработчик команды SaveReportsToFileAS.
+// command handler SaveReportsToFileAS.
 &AtClient
 Procedure SaveReportsToFileAS(Command)
 
-	Save(True, New NotifyDescription("СохранениеВФайлЗавершение", ThisForm));
+	Save(True, New NotifyDescription("SaveToFileOnEnd", ThisForm));
 
 EndProcedure
 
-// Завершение обработчика открытия файла.
+// End Of handler of file opening.
 &AtClient
-Procedure СохранениеВФайлЗавершение(Result, AdditionalParameters) Export
+Procedure SaveToFileOnEnd(Result, AdditionalParameters) Export
 
 	If Result Then
 		Modified = False;
@@ -2906,17 +2907,17 @@ Procedure СохранениеВФайлЗавершение(Result, AdditionalP
 
 EndProcedure
 
-// Обработчик команды OpenReportsFile.
+// command handler OpenReportsFile.
 &AtClient
 Procedure OpenReportsFile(Command)
 
-	ConfirmClose(New NotifyDescription("ОткрытьФайлОтчетовЗавершение", ThisForm));
+	ConfirmClose(New NotifyDescription("OpenReportsFileOnEnd", ThisForm));
 
 EndProcedure
 
-// Завершение обработчика открытия файла.
+// End of handler Open File.
 &AtClient
-Procedure ОткрытьФайлОтчетовЗавершение(Result, AdditionalParameters) Export
+Procedure OpenReportsFileOnEnd(Result, AdditionalParameters) Export
 
 	If Result Then
 		Modified = False;
@@ -2925,17 +2926,17 @@ Procedure ОткрытьФайлОтчетовЗавершение(Result, Addit
 
 EndProcedure
 
-// Обработчик команды NewReportsFile.
+// command handler NewReportsFile.
 &AtClient
 Procedure NewReportsFile(Command)
 
-	ConfirmClose(New NotifyDescription("НовыйФайлОтчетовЗавершение", ThisForm));
+	ConfirmClose(New NotifyDescription("NewReportsFileOnEnd", ThisForm));
 
 EndProcedure
 
-// Завершение обработчика создания нового файла отчетов.
+//End of handler - create new reports file.
 &AtClient
-Procedure НовыйФайлОтчетовЗавершение(Result, AdditionalParameters) Export
+Procedure NewReportsFileOnEnd(Result, AdditionalParameters) Export
 
 	If Result Then
 
@@ -2950,7 +2951,7 @@ Procedure НовыйФайлОтчетовЗавершение(Result, Additiona
 
 EndProcedure
 
-// Обработчик команды OutputToSpreadsheetDocumentForCurrentTemplate.
+// command handler OutputToSpreadsheetDocumentForCurrentTemplate.
 &AtClient
 Procedure OutputToSpreadsheetDocumentForCurrentTemplate(Command)
 
@@ -2958,33 +2959,35 @@ Procedure OutputToSpreadsheetDocumentForCurrentTemplate(Command)
 
 EndProcedure
 
-// Обработчик команды SaveStandartSpreadsheetDocument.
+// command handler SaveStandartSpreadsheetDocument.
 &AtClient
 Procedure SaveStandartSpreadsheetDocument(Command)
 
 #If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
 	ResultSpreadsheetDocument.BeginWriting(Undefined, StandartFileNameOfSpreadsheetDocument());
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды CompareWithStandartSpreadsheetDocument.
+// command handler CompareWithStandartSpreadsheetDocument.
 &AtClient
 Procedure CompareWithStandartSpreadsheetDocument(Command)
 
 #If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
-	ResultSpreadsheetDocument.BeginWriting(New NotifyDescription("СравнитьСЭталономТабличныйДокументЗавершение",
+	ResultSpreadsheetDocument.BeginWriting(New NotifyDescription("CompareWithStandartSpreadsheetDocumentOnEnd",
 		ThisForm), SpreadsheetDocumentFileName());
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
 &AtClient
-Procedure СравнитьСЭталономТабличныйДокументЗавершение(Result, AdditionalParameters) Export
+Procedure CompareWithStandartSpreadsheetDocumentOnEnd(Result, AdditionalParameters) Export
 #If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
 
 	FileCompare = New FileCompare;
@@ -2993,12 +2996,13 @@ Procedure СравнитьСЭталономТабличныйДокументЗ
 	FileCompare.CompareMethod = FileCompareMethod.SpreadsheetDocument;
 	FileCompare.ShowDifferences();
 #Else
-	Message(NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+	Message(NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+	|en = 'File comparison is only possible in a thick client'"));
 
 #EndIf
 EndProcedure
 
-// Обработчик команды SaveStandartOfDataCompositionTemplate.
+// command handler SaveStandartOfDataCompositionTemplate.
 &AtClient
 Procedure SaveStandartOfDataCompositionTemplate(Command)
 
@@ -3007,12 +3011,13 @@ Procedure SaveStandartOfDataCompositionTemplate(Command)
 	TextWriter.WriteLine(TextOfDataCompositionTemplate);
 	TextWriter.Close();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды CompareWithStandartDataCompositionTemplate.
+// command handler CompareWithStandartDataCompositionTemplate.
 &AtClient
 Procedure CompareWithStandartDataCompositionTemplate(Command)
 
@@ -3027,12 +3032,13 @@ Procedure CompareWithStandartDataCompositionTemplate(Command)
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды SaveStandartExecutableSettings.
+// command handler SaveStandartExecutableSettings.
 &AtClient
 Procedure SaveStandartExecutableSettings(Command)
 
@@ -3041,12 +3047,13 @@ Procedure SaveStandartExecutableSettings(Command)
 	TextWriter.WriteLine(ExecutedSettingsXML);
 	TextWriter.Close();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды CompareWithStandartExecutableSettings.
+// command handler CompareWithStandartExecutableSettings.
 &AtClient
 Procedure CompareWithStandartExecutableSettings(Command)
 
@@ -3061,12 +3068,13 @@ Procedure CompareWithStandartExecutableSettings(Command)
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды SaveStandartXMLResult.
+// command handler SaveStandartXMLResult.
 &AtClient
 Procedure SaveStandartXMLResult(Command)
 
@@ -3075,32 +3083,34 @@ Procedure SaveStandartXMLResult(Command)
 	TextWriter.WriteLine(TextOfDataCompositionResult);
 	TextWriter.Close();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды CompareWithStandartXMLResult.
+// command handler CompareWithStandartXMLResult.
 &AtClient
 Procedure CompareWithStandartXMLResult(Command)
 
 #If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
-	TextWriter = New TextWriter(ИмяФайлаРезультатаXML(), , Chars.CR + Chars.LF, , "");
+	TextWriter = New TextWriter(XMLResultFileName(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionResult);
 	TextWriter.Close();
 
 	FileCompare = New FileCompare;
 	FileCompare.FirstFile = XMLResultStandartFileName();
-	FileCompare.SecondFile = ИмяФайлаРезультатаXML();
+	FileCompare.SecondFile = XMLResultFileName();
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды SaveStandartDataCompositionTemplateForTemplate.
+// command handler SaveStandartDataCompositionTemplateForTemplate.
 &AtClient
 Procedure SaveStandartDataCompositionTemplateForTemplate(Command)
 
@@ -3109,12 +3119,13 @@ Procedure SaveStandartDataCompositionTemplateForTemplate(Command)
 	TextWriter.WriteLine(TextOfDataCompositionTemplateForCollection);
 	TextWriter.Close();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды CompareWithStandartDataCompositionTemplateForCollection.
+// command handler CompareWithStandartDataCompositionTemplateForCollection.
 &AtClient
 Procedure CompareWithStandartDataCompositionTemplateForCollection(Command)
 
@@ -3129,12 +3140,13 @@ Procedure CompareWithStandartDataCompositionTemplateForCollection(Command)
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды SaveStandartXMLResultForCollection.
+// command handler SaveStandartXMLResultForCollection.
 &AtClient
 Procedure SaveStandartXMLResultForCollection(Command)
 
@@ -3143,32 +3155,34 @@ Procedure SaveStandartXMLResultForCollection(Command)
 	TextWriter.WriteLine(TextOfDataCompositionResultForCollection);
 	TextWriter.Close();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды CompareWithStandartXMLResultForCollection.
+// command handler CompareWithStandartXMLResultForCollection.
 &AtClient
 Procedure CompareWithStandartXMLResultForCollection(Command)
 
 #If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
-	TextWriter = New TextWriter(ИмяФайлаРезультатаXMLДляКоллекции(), , Chars.CR + Chars.LF, , "");
+	TextWriter = New TextWriter(XMLResultFileNameForCollection(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionResultForCollection);
 	TextWriter.Close();
 
 	FileCompare = New FileCompare;
 	FileCompare.FirstFile = XMLResultStandartFileNameForCollection();
-	FileCompare.SecondFile = ИмяФайлаРезультатаXMLДляКоллекции();
+	FileCompare.SecondFile = XMLResultFileNameForCollection();
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
-		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
+		ShowMessageBox( , NStr("ru = 'Сравнение файлов возможно только в толстом клиенте';
+		|en = 'File comparison is only possible in a thick client'"));
 #EndIf
 
 EndProcedure
 
-// Обработчик команды OutputToResultForCurrentTemplate.
+// command handler OutputToResultForCurrentTemplate.
 &AtClient
 Procedure OutputToResultForCurrentTemplate(Command)
 
@@ -3176,15 +3190,15 @@ Procedure OutputToResultForCurrentTemplate(Command)
 
 EndProcedure
 
-// Обработчик команды OutputResultToSpreadsheetDocument.
+// command handler OutputResultToSpreadsheetDocument.
 &AtClient
 Procedure OutputResultToSpreadsheetDocument(Command)
 
-	ВывестиРезультатИзТекстаРезультатаВТабличныйДокумент();
+	OutputResultFromResultTextToSpreadsheetDocument();
 
 EndProcedure
 
-// Обработчик команды OutputToCollectionForCurrentTemplate.
+// command handler OutputToCollectionForCurrentTemplate.
 &AtClient
 Procedure OutputToCollectionForCurrentTemplate(Command)
 
@@ -3192,7 +3206,7 @@ Procedure OutputToCollectionForCurrentTemplate(Command)
 
 EndProcedure
 
-// Обработчик команды OutputToCollectionResultForCurrentTemplate.
+// command handler OutputToCollectionResultForCurrentTemplate.
 &AtClient
 Procedure OutputToCollectionResultForCurrentTemplate(Command)
 
@@ -3200,50 +3214,51 @@ Procedure OutputToCollectionResultForCurrentTemplate(Command)
 
 EndProcedure
 
-// Обработчик команды OutputResultToCollection.
+// command handler OutputResultToCollection.
 &AtClient
 Procedure OutputResultToCollection(Command)
 
-	ВывестиРезультатИзТекстаРезультатаВКоллекцию();
+	OutputResultFromResultTextToCollection();
 
 EndProcedure
 
-// Обработчик команды SaveSchemaToFile
+// command handler SaveSchemaToFile
 &AtClient
 Procedure SaveSchemaToFile(Command)
 
-	BeginAttachingFileSystemExtension(New NotifyDescription("СохранитьСхемуВФайлПослеПодключенияРасширения",
+	BeginAttachingFileSystemExtension(New NotifyDescription("SaveSchemaToFileAfterAttachFileExtension",
 		ThisForm));
 
 EndProcedure
 
-// Обработчик сохранения схемы в File после подключения расширения работы с файлами.
+// Schema saving Event handler  to File after attach file extension .
 &AtClient
-Procedure СохранитьСхемуВФайлПослеПодключенияРасширения(Attached, AdditionalParameters) Export
+Procedure SaveSchemaToFileAfterAttachFileExtension(Attached, AdditionalParameters) Export
 
 	If Attached Then
 
-	// Нужно запросить имя файла.
+	// Need to ask filename.
 		FileChoose = New FileDialog(FileDialogMode.Save);
 		FileChoose.Multiselect = False;
-		Filter = NStr("ru = 'File схемы компоновки данных (*.xml)|*.xml|All файлы (*.*)|*.*'");
+		Filter = NStr("ru = 'Файл схемы компоновки данных (*.xml)|*.xml|Все файлы (*.*)|*.*';
+		|en = 'File of data composition schema (*.xml)|*.xml|All files (*.*)|*.*'");
 		FileChoose.Filter = Filter;
 		FileChoose.Extension = "xml";
 
-		FileChoose.Show(New NotifyDescription("СохранитьСхемуВФайлПослеВыбораФайла", ThisForm,
+		FileChoose.Show(New NotifyDescription("SaveSchemaToFileAfterFileSelection", ThisForm,
 			New Structure("FileChoose", FileChoose)));
 
 	Else
 
-		GetFile(ПоместитьСхемуКомпоновкиДанныхВоВременноеХранилище(), , True);
+		GetFile(PutDataCompositionSchemaToTempStorage(), , True);
 
 	EndIf;
 
 EndProcedure
 
-// Обработчик сохранния схемы в File после выбора файла сохранения.
+// Schema saving Event handler  to File after file saving dialog.
 &AtClient
-Procedure СохранитьСхемуВФайлПослеВыбораФайла(SelectedFiles, AdditionalParameters) Export
+Procedure SaveSchemaToFileAfterFileSelection(SelectedFiles, AdditionalParameters) Export
 
 	FileChoose = AdditionalParameters.FileChoose;
 
@@ -3255,33 +3270,33 @@ Procedure СохранитьСхемуВФайлПослеВыбораФайла
 
 	FilesToBeObtained = New Array;
 	FilesToBeObtained.Add(New TransferableFileDescription(FileChoose.FullFileName,
-		ПоместитьСхемуКомпоновкиДанныхВоВременноеХранилище()));
-	BeginGettingFiles(New NotifyDescription("СохранитьСхемуВФайлЗавершение", ThisForm), FilesToBeObtained, "",
+		PutDataCompositionSchemaToTempStorage()));
+	BeginGettingFiles(New NotifyDescription("SaveSchemaToFileOnEnd", ThisForm), FilesToBeObtained, "",
 		False);
 
 EndProcedure
 
 &AtClient
-Procedure СохранитьСхемуВФайлЗавершение(ReceivedFiles, AdditionalParameters) Export
+Procedure SaveSchemaToFileOnEnd(ReceivedFiles, AdditionalParameters) Export
 
 	UpdateTitle();
 
 EndProcedure
 
-// Обработчик команды LoadSchemaFromFile
+// command handler LoadSchemaFromFile
 &AtClient
 Procedure LoadSchemaFromFile(Command)
 
 	Var Address;
 
 	BeginAttachingFileSystemExtension(
-		New NotifyDescription("ЗагрузитьСхемуИзФайлаПослеПодключенияРасширения", ThisForm, New Structure("Address",
+		New NotifyDescription("LoadSchemaFromFileAfterAttachExtension", ThisForm, New Structure("Address",
 		Address)));
 EndProcedure
 
-// Обработчик загрузки схемы из файла после подключения расширения.
+//  Handler  of loading schema from file after attach extension.
 &AtClient
-Procedure ЗагрузитьСхемуИзФайлаПослеПодключенияРасширения(Attached, AdditionalParameters) Export
+Procedure LoadSchemaFromFileAfterAttachExtension(Attached, AdditionalParameters) Export
 
 	Address = AdditionalParameters.Address;
 
@@ -3289,25 +3304,26 @@ Procedure ЗагрузитьСхемуИзФайлаПослеПодключен
 
 		FileChoose = New FileDialog(FileDialogMode.Opening);
 		FileChoose.Multiselect = False;
-		Filter = NStr("ru = 'File схемы компоновки данных (*.xml)|*.xml|All файлы (*.*)|*.*'");
+		Filter = NStr("ru = 'Файл схемы компоновки данных (*.xml)|*.xml|Все файлы (*.*)|*.*';
+		|en = 'File of data composition schema  (*.xml)|*.xml|All files (*.*)|*.*'");
 		FileChoose.Filter = Filter;
 		FileChoose.Extension = "xml";
 
-		BeginPuttingFiles(New NotifyDescription("ЗагрузитьСхемуИзФайлаПослеПомещенияФайлов", ThisForm), ,
+		BeginPuttingFiles(New NotifyDescription("LoadSchemaFromFileAfterPutFiles", ThisForm), ,
 			FileChoose);
 
 	Else
 
-		BeginPutFile(New NotifyDescription("ЗагрузитьСхемуИзФайлаПослеПомещенияФайла", ThisForm,
+		BeginPutFile(New NotifyDescription("LoadSchemaFromFileAfterPutFile", ThisForm,
 			New Structure("Address", Address)), Address, , True);
 
 	EndIf;
 
 EndProcedure
 
-// Обработчик загрузки схемы из файла после помещения файлов.
+// Handler of schema loading from file after put files 
 &AtClient
-Procedure ЗагрузитьСхемуИзФайлаПослеПомещенияФайлов(PlacedFiles, AdditionalParameters) Export
+Procedure LoadSchemaFromFileAfterPutFiles(PlacedFiles, AdditionalParameters) Export
 
 	If PlacedFiles = Undefined Then
 
@@ -3326,13 +3342,13 @@ Procedure ЗагрузитьСхемуИзФайлаПослеПомещения
 
 	EndDo;
 
-	ЗагрузитьФайлСхемыКомпоновкиДанныхНаСервере(Address);
+	LoadDataCompositionSchemaFileAtServer(Address);
 
 EndProcedure
 
-// Обработчик загрузки схемы из файла после помещения файла.
+// Handler of schema loading from file after put file
 &AtClient
-Procedure ЗагрузитьСхемуИзФайлаПослеПомещенияФайла(Result, Address, SelectedFileName, AdditionalParameters) Export
+Procedure LoadSchemaFromFileAfterPutFile(Result, Address, SelectedFileName, AdditionalParameters) Export
 
 	Address = AdditionalParameters.Address;
 
@@ -3342,14 +3358,14 @@ Procedure ЗагрузитьСхемуИзФайлаПослеПомещения
 
 	EndIf;
 
-	ЗагрузитьФайлСхемыКомпоновкиДанныхНаСервере(Address);
+	LoadDataCompositionSchemaFileAtServer(Address);
 
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
 // ПРОЦЕДУРЫ - ОБРАБОТЧИКИ СОБЫТИЙ РЕКВИЗИТОВ ФОРМЫ
 
-// Обработчик события ПриАктивизацииПоля таблицы Structure.
+// Event handler ПриАктивизацииПоля таблицы Structure.
 // Активизирует страницу настроек в зависимости от того, какую колонку
 // активировал пользователь.
 &AtClient
@@ -3387,7 +3403,7 @@ Procedure StructureOnActivateField(Item)
 EndProcedure
 
 
-// Обработчик события ПриАктивизацииПоля таблицы Structure1.
+// Event handler ПриАктивизацииПоля таблицы Structure1.
 // Активизирует страницу настроек в зависимости от того, какую колонку
 // активировал пользователь.
 &AtClient
@@ -3561,7 +3577,7 @@ Procedure Settings1OnActivateRow(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события Нажатие декораций.
+// Event handler Нажатие декораций.
 &AtClient
 Procedure GoToReport(Item)
 
@@ -3573,7 +3589,7 @@ Procedure GoToReport(Item)
 
 EndProcedure
 
-// Обработчик события Нажатие декораций for executable settings.
+// Event handler Нажатие декораций for executable settings.
 &AtClient
 Procedure GoToReport1(Item)
 
@@ -3585,7 +3601,7 @@ Procedure GoToReport1(Item)
 
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalSelectedFields.
+// Event handler ПриИзменении флажка LocalSelectedFields.
 &AtClient
 Procedure LocalSelectedFieldsOnChange(Item)
 		If LocalSelectedFields Then
@@ -3603,7 +3619,7 @@ Procedure LocalSelectedFieldsOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalSelectedFields1.
+// Event handler ПриИзменении флажка LocalSelectedFields1.
 &AtClient
 Procedure LocalSelectedFields1OnChange(Item)
 	If LocalSelectedFields1 Then
@@ -3621,7 +3637,7 @@ Procedure LocalSelectedFields1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalFilter.
+// Event handler ПриИзменении флажка LocalFilter.
 &AtClient
 Procedure LocalFilterOnChange(Item)
 		If LocalFilter Then
@@ -3639,7 +3655,7 @@ Procedure LocalFilterOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalFilter1.
+// Event handler ПриИзменении флажка LocalFilter1.
 &AtClient
 Procedure LocalFilter1OnChange(Item)
 		If LocalFilter1 Then
@@ -3657,7 +3673,7 @@ Procedure LocalFilter1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalOrder.
+// Event handler ПриИзменении флажка LocalOrder.
 &AtClient
 Procedure LocalOrderOnChange(Item)
 	
@@ -3676,7 +3692,7 @@ Procedure LocalOrderOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalOrder1.
+// Event handler ПриИзменении флажка LocalOrder1.
 &AtClient
 Procedure LocalOrder1OnChange(Item)
 	If LocalOrder1 Then
@@ -3694,7 +3710,7 @@ Procedure LocalOrder1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalConditionalAppearance.
+// Event handler ПриИзменении флажка LocalConditionalAppearance.
 &AtClient
 Procedure LocalConditionalAppearanceOnChange(Item)
 		If LocalConditionalAppearance Then
@@ -3712,7 +3728,7 @@ Procedure LocalConditionalAppearanceOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalConditionalAppearance1.
+// Event handler ПриИзменении флажка LocalConditionalAppearance1.
 &AtClient
 Procedure LocalConditionalAppearance1OnChange(Item)
 	If LocalConditionalAppearance1 Then
@@ -3730,7 +3746,7 @@ Procedure LocalConditionalAppearance1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalOutputParameters.
+// Event handler ПриИзменении флажка LocalOutputParameters.
 &AtClient
 Procedure LocalOutputParametersOnChange(Item)
 		If LocalOutputParameters Then
@@ -3747,7 +3763,7 @@ Procedure LocalOutputParametersOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриИзменении флажка LocalOutputParameters1.
+// Event handler ПриИзменении флажка LocalOutputParameters1.
 &AtClient
 Procedure LocalOutputParameters1OnChange(Item)
 	If LocalOutputParameters1 Then
@@ -3764,7 +3780,7 @@ Procedure LocalOutputParameters1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Обработчик события ПриАктивизацииСтроки элемента ReportsTree.
+// Event handler ПриАктивизацииСтроки элемента ReportsTree.
 // Отображает соответствующую закладку - схему, вариант, пользовательские Settings и т.п.
 &AtClient
 Procedure ReportsTreeOnActivateRow(Item)
@@ -3833,7 +3849,7 @@ Procedure Settings(Command)
 	DisplaySettingsPanel();
 EndProcedure
 
-// Обработчик события ПриИзменении элементов, связанных с настройками.
+// Event handler ПриИзменении элементов, связанных с настройками.
 &AtClient
 Procedure SettingsOnChange(Item)
 	CurrentRowSettingsIsChanged = True;
@@ -3853,7 +3869,7 @@ Procedure SettingsDrag(Item, DragParameters, StandardProcessing, Row, Field)
 EndProcedure
 
 
-// Обработчик события ПередНачаломДобавления элемента ReportsTree.
+// Event handler ПередНачаломДобавления элемента ReportsTree.
 &AtClient
 Procedure ReportsTreeBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Parameter)
 	
@@ -3870,7 +3886,7 @@ Procedure ReportsTreeBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Paramet
 	EndIf;
 EndProcedure
 
-// Обработчик события ПередУдалением элемента ReportsTree.
+// Event handler ПередУдалением элемента ReportsTree.
 &AtClient
 Procedure ДеревоОтчетовПередУдалением(Item, Cancel)
 
@@ -3884,7 +3900,7 @@ Procedure ReportsTreeBeforeDeleteRow(Item, Cancel)
 	CurrentRow = Undefined;
 EndProcedure
 
-// Обработчик события Выбор элемента ReportsTree.
+// Event handler Выбор элемента ReportsTree.
 &AtClient
 Procedure ReportsTreeSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
@@ -3892,7 +3908,7 @@ Procedure ReportsTreeSelection(Item, RowSelected, Field, StandardProcessing)
 EndProcedure
 
 
-// Обработчик события ОбработкаДополнительнойРасшифровки табличного документа ResultSpreadsheetDocument.
+// Event handler ОбработкаДополнительнойРасшифровки табличного документа ResultSpreadsheetDocument.
 &AtClient
 Procedure ResultSpreadsheetDocumentAdditionalDetailProcessing(Item, Details, StandardProcessing, AdditionalParameters)
 	StandardProcessing = False;
@@ -3903,7 +3919,7 @@ Procedure ResultSpreadsheetDocumentAdditionalDetailProcessing(Item, Details, Sta
 		New Structure("Details", Details)), Details, , , , Items.ResultSpreadsheetDocument);
 EndProcedure
 
-// Обработчик события ОбработкаРасшифровки табличного документа ResultSpreadsheetDocument.
+// Event handler ОбработкаРасшифровки табличного документа ResultSpreadsheetDocument.
 &AtClient
 Procedure ResultSpreadsheetDocumentDetailProcessing(Item, Details, StandardProcessing, AdditionalParameters)
 		StandardProcessing = False;
@@ -3937,7 +3953,7 @@ Procedure РезультатТабличныйДокументОбработка
 
 EndProcedure
 
-// Обработчик события ПриСменеСтраницы панели ResultsPanel.
+// Event handler ПриСменеСтраницы панели ResultsPanel.
 &AtClient
 Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
     If Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument Then
@@ -4013,7 +4029,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 	EndIf;
 EndProcedure
 
-// Обработчик события Выбор таблицы TreeResult.
+// Event handler Выбор таблицы TreeResult.
 &AtClient
 Procedure TreeResultSelection(Item, RowSelected, Field, StandardProcessing)
 		Var Value;
@@ -4090,26 +4106,26 @@ EndProcedure
 
 &AtServer
 Function ExternalDataSetsStructure()
-	ВнешниеНаборы=New Structure;
+	ExternalSets=New Structure;
 	
 	TreeCurrentRow=ReportsTree.FindByID(CurrentRow);
 	If TreeCurrentRow=Undefined Then
-		Return ВнешниеНаборы;
+		Return ExternalSets;
 	EndIf;
 		
 	For Each Set ИЗ TreeCurrentRow.ExternalDataSets Do
 		If ValueIsFilled(Set.Value) Then
 			Try
-				ТЗ=ValueFromStringInternal(Set.Value);
+				ValueTable=ValueFromStringInternal(Set.Value);
 			Except
-				ТЗ=New ValueTable;
+				ValueTable=New ValueTable;
 			EndTry;
 		Else
-			ТЗ=New ValueTable;
+			ValueTable=New ValueTable;
 		EndIf;
-		ВнешниеНаборы.Insert(Set.Name, ТЗ);
+		ExternalSets.Insert(Set.Name, ValueTable);
 	EndDo;
-	Return ВнешниеНаборы;
+	Return ExternalSets;
 EndFunction
 
 //@skip-warning
