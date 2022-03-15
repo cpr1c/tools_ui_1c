@@ -1007,7 +1007,7 @@ EndProcedure
 
 // Execute composition and get text of result data composition in XML view
 //
-// Парамерты:
+// Parameters:
 //  DataCompositionTemplate - Data Composition Template, which needs to be executed
 //  DetailsDataObject -details data object, which needs to be filled in.
 //
@@ -1085,37 +1085,37 @@ Function GetTextOfDataCompositionResult(DataCompositionTemplate, DetailsDataObje
 
 EndFunction
 
-// Вывести Data Composition Template в результат XML.
+// Output Data Composition Template to XML result
 //
 // Parameters:
-//  DataCompositionTemplate - макет компоновки, который нужно вывести.
-//  DetailsDataObject - данные расшифровки, которые нужно заполнить.
+//  DataCompositionTemplate - composition template,which needs to output.
+//  DetailsDataObject - details data , which need to be filled.
 &AtServer
-Procedure ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject)
+Procedure OutputDataCompositionTemplateToXMLResult(DataCompositionTemplate, DetailsDataObject)
 
 	TextOfDataCompositionResult = GetTextOfDataCompositionResult(DataCompositionTemplate,
 		DetailsDataObject);
 
 EndProcedure
 
-// Вывести Data Composition Template в результат в виде XML для коллекции значений.
+// Output Data Composition Template to result in  XML  view for values collection 
 //
 // Parameters:
-//  DataCompositionTemplate - макет, который нужно вывести.
+//  DataCompositionTemplate - template,which needs to output.
 &AtServer
-Procedure ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate)
+Procedure OutputDataCompositionTemplateToXMLResultForCollection(DataCompositionTemplate)
 
 	TextOfDataCompositionResultForCollection = GetTextOfDataCompositionResult(DataCompositionTemplate,
 		Undefined);
 
 EndProcedure
 
-// Generate на сервере текущую строку в табличный документ.
+// Generate at server current row to spreadsheet document.
 //
 // Return value:
-//  String - текст ошибки, который нужно выдать пользователю.
+//  String - error text Which should be shown to the user
 &AtServer
-Function СформироватьНаСервереВТабличныйДокумент()
+Function GenerateAtServerToSpreadsheetDocument()
 
 	Var DetailsDataObject;
 
@@ -1137,7 +1137,7 @@ Function СформироватьНаСервереВТабличныйДоку�
 			DisplayResultsPanel();
 
 			//		ElsIf Item.s = 1 Then
-			//			// Variant отчета.
+			//			// Report Variant .
 			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			//			TemplateComposer = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.Settings, DetailsDataObject);
@@ -1146,7 +1146,7 @@ Function СформироватьНаСервереВТабличныйДоку�
 			//			DisplayResultsPanel();
 			//			
 			//		ElsIf Item.RowType = 2 Then
-			//			// Settings отчета.
+			//			// Report Settings .
 			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			//			TemplateComposer = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings(), DetailsDataObject);
@@ -1156,7 +1156,8 @@ Function СформироватьНаСервереВТабличныйДоку�
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'He понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1166,35 +1167,35 @@ Function СформироватьНаСервереВТабличныйДоку�
 
 EndFunction
 
-// Вывести дерево значений в реквизит формы.
+//Show value tree to form attribute
 //
 // Parameters:
-//  ВременноеДерево - дерево, которое нужно вывести.
+//  TempTree - tree, which need to show.
 &AtServer
-Procedure ВывестиДеревоРезультатВКоллекцию(ВременноеДерево)
+Procedure OutputTreeResultToCollection(TempTree)
 
-	НовыеРеквзиты = New Array;
+	NewAttributes = New Array;
 
-	For Each Column In ВременноеДерево.Cols Do
+	For Each Column In TempTree.Cols Do
 		If Column.ValueType.ContainsType(Type("ValueStorage")) Then
 			Continue;
 		EndIf;
 
 		NewColumn = New FormAttribute(Column.Name, Column.ValueType, "TreeResult", Column.Title);
-		НовыеРеквзиты.Add(NewColumn);
+		NewAttributes.Add(NewColumn);
 
 	EndDo;
 
-	УдаляемыеРеквизиты = New Array;
-	ТекущиеРеквизиты = GetAttributes("TreeResult");
+	DeletedAttributes = New Array;
+	CurrentAttributes = GetAttributes("TreeResult");
 
-	For Each Attribute In ТекущиеРеквизиты Do
+	For Each Attribute In CurrentAttributes Do
 
-		УдаляемыеРеквизиты.Add(Attribute.Path + "." + Attribute.Name);
+		DeletedAttributes.Add(Attribute.Path + "." + Attribute.Name);
 
 	EndDo;
 
-	ChangeAttributes(НовыеРеквзиты, УдаляемыеРеквизиты);
+	ChangeAttributes(NewAttributes, DeletedAttributes);
 
 	While Items.TreeResult.ChildItems.Count() > 0 Do
 
@@ -1202,7 +1203,7 @@ Procedure ВывестиДеревоРезультатВКоллекцию(Вр�
 
 	EndDo;
 
-	For Each Column In ВременноеДерево.Cols Do
+	For Each Column In TempTree.Cols Do
 		If Column.ValueType.ContainsType(Type("ValueStorage")) Then
 			Continue;
 		EndIf;
@@ -1212,18 +1213,18 @@ Procedure ВывестиДеревоРезультатВКоллекцию(Вр�
 
 	EndDo;
 
-	Items.DecorationCollection.Visible = НовыеРеквзиты.Count() = 0;
+	Items.DecorationCollection.Visible = NewAttributes.Count() = 0;
 
-	ValueToFormAttribute(ВременноеДерево, "TreeResult");
+	ValueToFormAttribute(TempTree, "TreeResult");
 
 EndProcedure
 
-// Вывести Data Composition Template в виде коллекции в реквизит формы.
+// Output Data Composition Template as collection to form attribute
 //
 // Parameters:
-//  DataCompositionTemplate - макет, который нужно вывести.
+//  DataCompositionTemplate - template, that need to output.
 &AtServer
-Procedure ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate)
+Procedure OutputDataCompositionTemplateToTemplate(DataCompositionTemplate)
 
 	DataCompositionProcessor = New DataCompositionProcessor;
 	DataCompositionProcessor.Initialize(DataCompositionTemplate, ExternalDataSetsStructure(), , True);
@@ -1231,16 +1232,16 @@ Procedure ВывестиМакетКомпоновкиДанныхВКоллек
 	ReportResultOutputProcessor.SetObject(New ValueTree);
 	ReportResultOutputProcessor.BeginOutput();
 	ReportResultOutputProcessor.Put(DataCompositionProcessor);
-	ВывестиДеревоРезультатВКоллекцию(ReportResultOutputProcessor.EndOutput());
+	OutputTreeResultToCollection(ReportResultOutputProcessor.EndOutput());
 
 EndProcedure
 
-// Generate на сервере результат и вывести его в коллекцию значений.
+// Generate at server result and output it's to values collection.
 //
 // Return value:
-//  String - текст сообщения, которое нужно показать пользователю.
+//  String - message text to show to user
 &AtServer
-Function СформироватьНаСервереВКоллекцию()
+Function GenerateAtServerToCollection()
 
 	ResultFilledCollection = True;
 
@@ -1254,28 +1255,29 @@ Function СформироватьНаСервереВКоллекцию()
 			TemplateComposer = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
-			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
+			OutputDataCompositionTemplateToTemplate(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 			//		ElsIf Item.RowType = 1 Then
-			//			// Variant отчета.
+			//			// Report Variant .
 			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			//			TemplateComposer = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.Settings , , , Type("DataCompositionValueCollectionTemplateGenerator"));
-			//			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
+			//			OutputDataCompositionTemplateToTemplate(DataCompositionTemplate);
 			//			DisplayResultsPanel();
 			//			
 			//		ElsIf Item.RowType = 2 Then
-			//			// Settings отчета.
+			//			// report Settings.
 			//			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			//			TemplateComposer = New DataCompositionTemplateComposer;
 			//			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema, Report.SettingsComposer.GetSettings() , , , Type("DataCompositionValueCollectionTemplateGenerator"));
-			//			ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
+			//			OutputDataCompositionTemplateToTemplate(DataCompositionTemplate);
 			//			DisplayResultsPanel();
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'Не понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1285,12 +1287,12 @@ Function СформироватьНаСервереВКоллекцию()
 
 EndFunction
 
-// Generate на сервере отчет и вывести его в виде XML.
+// Generate at server report and output it's as XML.
 //
 // Return value:
-//  String - текст сообщения, которое нужно показать пользователю.
+//  String - message text to show to user
 &AtServer
-Function СформироватьНаСервереВВидеXML()
+Function GenerateAtServerAsXML()
 
 	Var DetailsDataObject;
 
@@ -1308,11 +1310,11 @@ Function СформироватьНаСервереВВидеXML()
 				DataCompositionSchema.DefaultSettings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
+			OutputDataCompositionTemplateToXMLResult(DataCompositionTemplate, DetailsDataObject);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
-		// Variant отчета.
+		// Report Variant .
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
@@ -1320,11 +1322,11 @@ Function СформироватьНаСервереВВидеXML()
 				Report.SettingsComposer.Settings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
+			OutputDataCompositionTemplateToXMLResult(DataCompositionTemplate, DetailsDataObject);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
-		// Settings отчета.
+		// report settings
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
@@ -1332,13 +1334,14 @@ Function СформироватьНаСервереВВидеXML()
 				Report.SettingsComposer.GetSettings(), DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, DetailsDataObject);
+			OutputDataCompositionTemplateToXMLResult(DataCompositionTemplate, DetailsDataObject);
 			DisplayResultsPanel();
 
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'Не понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1348,12 +1351,12 @@ Function СформироватьНаСервереВВидеXML()
 
 EndFunction
 
-// Generate результат отчета для коллекции и выдать его в виде текста XML.
+// Generate report result for collection and output as XML text .
 //
 // Return value:
-//  String - текст сообщения, который нужно показать пользователю.
+//  String - message text to show to user
 &AtServer
-Function СформироватьНаСервереВВидеXMLКоллекция()
+Function GenerateAtServerAsXMLCollection()
 
 	ResultFilledCollectionXML = True;
 
@@ -1368,34 +1371,35 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				DataCompositionSchema.DefaultSettings, , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
-			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
+			OutputDataCompositionTemplateToXMLResultForCollection(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
-		// Variant отчета.
+		// Report Variant .
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
-			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
+			OutputDataCompositionTemplateToXMLResultForCollection(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
-		// Settings отчета.
+		// report settings
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.GetSettings(), , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
-			ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
+			OutputDataCompositionTemplateToXMLResultForCollection(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'Не понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1405,15 +1409,15 @@ Function СформироватьНаСервереВВидеXMLКоллекци
 
 EndFunction
 
-// Вывести Data Composition Template в виде текста.
+// Output Data Composition Template as text.
 //
 // Parameters:
-//  DataCompositionTemplate - выводимый макет.
+//  DataCompositionTemplate - outputed template.
 //
 // Return value:
-//  String - текст макета компоновки данных в виде XML.
+//  String - Data Composition Template  text as XML.
 &AtServer
-Procedure ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate)
+Procedure OutputDataCompositionTemplateToText(DataCompositionTemplate)
 
 	XMLWriter = New XMLWriter;
 	XMLWriter.SetString();
@@ -1426,9 +1430,9 @@ EndProcedure
 // Generate Data Composition Template.
 // 
 // Return value:
-//  String - текст сообщения, который нужно выдать пользователю.
+//  String - message text for show to user.
 &AtServer
-Function СформироватьНаСервереВМакетКомпоновкиДанных()
+Function GenerateAtServerToDataCompositionTemplate()
 
 	Var DetailsDataObject;
 
@@ -1446,11 +1450,11 @@ Function СформироватьНаСервереВМакетКомпонов�
 				DataCompositionSchema.DefaultSettings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
+			OutputDataCompositionTemplateToText(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
-		// Variant отчета.
+		// Report variant.
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
@@ -1458,11 +1462,11 @@ Function СформироватьНаСервереВМакетКомпонов�
 				Report.SettingsComposer.Settings, DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
+			OutputDataCompositionTemplateToText(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
-		// Settings отчета.
+		// report settings
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
@@ -1470,13 +1474,14 @@ Function СформироватьНаСервереВМакетКомпонов�
 				Report.SettingsComposer.GetSettings(), DetailsDataObject);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
 				ExecutedReportSchemaURL <> "", ExecutedReportSchemaURL, UUID));
-			ВывестиМакетКомпоновкиДанныхВТекст(DataCompositionTemplate);
+			OutputDataCompositionTemplateToText(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'Не понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1486,12 +1491,12 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 EndFunction
 
-// Вывести Data Composition Template для коллекции значений в виде текста.
+// output Data Composition Template for values collection as text.
 //
 // Parameters:
-// DataCompositionTemplate - Data Composition Template, который нужно вывести.
+// DataCompositionTemplate - Data Composition Template, which need output.
 &AtServer
-Procedure ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate)
+Procedure OutputDataCompositionTemplateToTextForCollection(DataCompositionTemplate)
 
 	XMLWriter = New XMLWriter;
 	XMLWriter.SetString();
@@ -1501,12 +1506,12 @@ Procedure ВывестиМакетКомпоновкиДанныхВТекстД
 
 EndProcedure
 
-// Generate Data Composition Template для коллекции.
+// Generate Data Composition Template for collection.
 //
 // Return value:
-//  String - выводимая пользователю String.
+//  String - showed to user String.
 &AtServer
-Function СформироватьНаСервереВМакетКомпоновкиДанныхДляКоллекции()
+Function GenerateAtServerToDataCompositionTemplateForCollection()
 
 	Var DetailsDataObject;
 
@@ -1523,34 +1528,35 @@ Function СформироватьНаСервереВМакетКомпонов�
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				DataCompositionSchema.DefaultSettings, , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
-			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
+			OutputDataCompositionTemplateToTextForCollection(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
-		// Variant отчета.
+		// Report variant.
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.Settings, , , Type("DataCompositionValueCollectionTemplateGenerator"));
-			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
+			OutputDataCompositionTemplateToTextForCollection(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
-		// Settings отчета.
+		// report settings
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			TemplateComposer = New DataCompositionTemplateComposer;
 			DataCompositionTemplate = TemplateComposer.Execute(DataCompositionSchema,
 				Report.SettingsComposer.GetSettings(), , , Type(
 				"DataCompositionValueCollectionTemplateGenerator"));
-			ВывестиМакетКомпоновкиДанныхВТекстДляКоллекции(DataCompositionTemplate);
+			OutputDataCompositionTemplateToTextForCollection(DataCompositionTemplate);
 			DisplayResultsPanel();
 
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'Не понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1560,12 +1566,12 @@ Function СформироватьНаСервереВМакетКомпонов�
 
 EndFunction
 
-// Generate исполняемые Settings.
+// Generate executed Settings.
 //
 // Return value:
-//  String - сообщение, которое нужно выдать пользователю.
+//  String - message for show to user.
 &AtServer
-Function СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанных()
+Function GenerateAtServerToExecutedDataCompositionSettings()
 
 	Var DetailsDataObject;
 
@@ -1587,7 +1593,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 
 		ElsIf Item.RowType = 1 Then
 
-		// Variant отчета.
+		// Report variant.
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
@@ -1599,7 +1605,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 
 		ElsIf Item.RowType = 2 Then
 
-		// Settings отчета.
+		// report settings
 			DataCompositionSchema = GetDataCompositionSchema(FoundItemReportTree(
 				ReportsTree.FindByID(Items.ReportsTree.CurrentRow)).Data);
 			ExecutedReportSchemaURL = PutToTempStorage(DataCompositionSchema, ?(
@@ -1612,7 +1618,8 @@ Function СформироватьНаСервереВИсполняемыеНа�
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'Не понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1622,12 +1629,12 @@ Function СформироватьНаСервереВИсполняемыеНа�
 
 EndFunction
 
-// Generate исполняемые Settings и выдать их в виде XML.
+// Generate executed Settings as XML.
 //
 // Return value:
-//  String - текст, выдаваемый пользователю.
+//  String - text for user.
 &AtServer
-Function СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанныхXML()
+Function GenerateAtServerToExecutedDataCompositionSettingsXML()
 
 	Var DetailsDataObject;
 
@@ -1648,7 +1655,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 1 Then
-		// Variant отчета.
+		// Report variant.
 			XMLWriter = New XMLWriter;
 			XMLWriter.SetString();
 			XDTOSerializer.WriteXML(XMLWriter, Report.SettingsComposer.Settings, "Settings",
@@ -1657,7 +1664,7 @@ Function СформироватьНаСервереВИсполняемыеНа�
 			DisplayResultsPanel();
 
 		ElsIf Item.RowType = 2 Then
-		// Settings отчета.
+		// report settings
 			XMLWriter = New XMLWriter;
 			XMLWriter.SetString();
 			XDTOSerializer.WriteXML(XMLWriter, Report.SettingsComposer.GetSettings(), "Settings",
@@ -1668,7 +1675,8 @@ Function СформироватьНаСервереВИсполняемыеНа�
 		Else
 
 			Return NStr(
-				"ru='Not понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.'");
+				"ru = 'Не понятно, какой отчет нужно формировать. Выберите отчет или вариант или настройку и повторите формирование отчета.';
+				|en = 'It is not clear which report needs to be generated. Select a report or an variant or a setting and re-generate the report.'");
 
 		EndIf;
 
@@ -1678,12 +1686,12 @@ Function СформироватьНаСервереВИсполняемыеНа�
 
 EndFunction
 
-// Generate отчет на сервере. Формирование идет в зависимости от текущей страницы панели результатов.
+// Generate отчет at server. The generation  is based on the current page of the results panel.
 //
 // Return value:
-//  String - текст, выдаваемый пользователю.
+//  String - text for user.
 &AtServer
-Function СформироватьНаСервере()
+Function GenerateAtServer()
 
 	ReportNeedsToGenerate = True;
 	ResultFilledTemplate = False;
@@ -1697,44 +1705,44 @@ Function СформироватьНаСервере()
 
 	If Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument Then
 
-		Return СформироватьНаСервереВТабличныйДокумент();
+		Return GenerateAtServerToSpreadsheetDocument();
 
-//	ИначеЕсли Элементы.ResultsPanel.ТекущаяСтраница = Элементы.PageDataCompositionTemplate Тогда
+//	ElsIf Items.ResultsPanel.CurrentPage = Items.PageDataCompositionTemplate Then
 //
-//		Возврат СформироватьНаСервереВМакетКомпоновкиДанных();
+//		Return GenerateAtServerToDataCompositionTemplate();
 //
-//	ИначеЕсли Элементы.ResultsPanel.ТекущаяСтраница = Элементы.PageExecutedSettings Тогда
+//	ElsIf Items.ResultsPanel.CurrentPage = Items.PageExecutedSettings Then
 //
-//		Возврат СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанных();
+//		Return GenerateAtServerToExecutedDataCompositionSettings();
 //
-//	ИначеЕсли Элементы.ResultsPanel.ТекущаяСтраница = Элементы.PageExecutedSettingsXML Тогда
+//	ElsIf Items.ResultsPanel.CurrentPage = Items.PageExecutedSettingsXML Then
 //
-//		Возврат СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанныхXML();
+//		Return GenerateAtServerToExecutedDataCompositionSettingsXML();
 //
-//	ИначеЕсли Элементы.ResultsPanel.ТекущаяСтраница = Элементы.PageDataCompositionResultXML Тогда
+//	ElsIf Items.ResultsPanel.CurrentPage = Items.PageDataCompositionResultXML Then
 //
-//		Возврат СформироватьНаСервереВВидеXML();
+//		Return GenerateAtServerAsXML();
 
 	ElsIf Items.ResultsPanel.CurrentPage = Items.PageResultCollection Then
 
-		Return СформироватьНаСервереВКоллекцию();
+		Return GenerateAtServerToCollection();
 
-//	ИначеЕсли Элементы.ResultsPanel.ТекущаяСтраница = Элементы.PageTemplateForCollection Тогда
+//	ElsIf Items.ResultsPanel.CurrentPage = Items.PageTemplateForCollection Then
 //
-//		Возврат СформироватьНаСервереВМакетКомпоновкиДанныхДляКоллекции();
+//		Return GenerateAtServerToDataCompositionTemplateForCollection();
 //
-//	ИначеЕсли Элементы.ResultsPanel.ТекущаяСтраница = Элементы.PageResultCollectionXML Тогда
+//	ElsIf Items.ResultsPanel.CurrentPage = Items.PageResultCollectionXML Then
 //
-//		Возврат СформироватьНаСервереВВидеXMLКоллекция();
+//		Return GenerateAtServerAsXMLCollection();
 
 	EndIf;
 EndFunction
 
-// Generate отчет на клиенте.
+// Generate report at client.
 &AtClient
-Procedure СформироватьКлиент()
+Procedure GenerateAtClient()
 
-	Result = СформироватьНаСервере();
+	Result = GenerateAtServer();
 
 	If Result <> Undefined Then
 
@@ -1744,7 +1752,7 @@ Procedure СформироватьКлиент()
 
 EndProcedure
 
-// Отобразить панель результатов.
+// Display results panel.
 &AtServer
 Procedure DisplayResultsPanel()
 
@@ -1753,26 +1761,26 @@ Procedure DisplayResultsPanel()
 
 EndProcedure
 
-// Отобразить панель результатов.
+// Display results panel.
 &AtServer
-Procedure ОтобразитьПанельНастроек()
-	ВидимостьНастроек = Not Items.GroupSettingsAndReports.Visible;
-	Items.GroupSettingsAndReports.Visible = ВидимостьНастроек;
-	Items.Settings.Check = ВидимостьНастроек;
+Procedure DisplaySettingsPanel()
+	SettingsVisibility = Not Items.GroupSettingsAndReports.Visible;
+	Items.GroupSettingsAndReports.Visible = SettingsVisibility;
+	Items.Settings.Check = SettingsVisibility;
 
 EndProcedure
 
-// Получить схему компоновки данных на основании текста схемы.
+// Get Data Composition Schema based on the schema text.
 //
 // Return value:
-//  СхемаКомпоновкиДанных - схема, считанная из текста схемы.
+//  DataCompositionSchema - schema, read from the schema text.
 &AtServerNoContext
-Function GetDataCompositionSchema(ТекстСхемы)
+Function GetDataCompositionSchema(SchemaText)
 
-	If ТекстСхемы <> "" Then
+	If SchemaText <> "" Then
 
 		XMLReader = New XMLReader;
-		XMLReader.SetString(ТекстСхемы);
+		XMLReader.SetString(SchemaText);
 		Return XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionSchema"));
 
 	Else
@@ -1788,10 +1796,10 @@ Function GetDataCompositionSchemaServerCall()
 	Return GetDataCompositionSchemaAtServer();
 EndFunction
 
-// Получить схему компоновки данных для текущей строки на сервере.
+// Get data composition schema for current row at server.
 //
 // Return value:
-//  СхемаКомпоновкиДанных - Схема компоновки данных для текущей строки.
+//  DataCompositionSchema - data composition schema for current row.
 &AtServer
 Function GetDataCompositionSchemaAtServer()
 
@@ -1800,14 +1808,14 @@ Function GetDataCompositionSchemaAtServer()
 
 EndFunction
 
-// Получить схему компоновки данных для текущей строки на клиенте.
+// Get data composition schema for current row at client.
 //
 // Return value:
-//  СхемаКомпоновкиДанных - схема компоновка данных для текущей строки.
+//  DataCompositionSchema - data composition schema for current row.
 &AtClient
-Function GetDataCompositionSchemaКлиент()
+Function GetDataCompositionSchemaAtClient()
 
-	#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
+	#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
 	Return GetDataCompositionSchema(ReportsTree.FindByID(
 		Items.ReportsTree.CurrentRow).Data);
 	#Else
@@ -1816,78 +1824,79 @@ Function GetDataCompositionSchemaКлиент()
 
 EndFunction
 
-// Установить схему компоновки данных для текущей строки.
+// Set data composition schema for current row.
 //
 // Parameters:
-//  Схема - СхемаКомпоновкиДанных - схема, которую нужно установить текущей строке.
+//  Scheme - DataCompositionSchema - scheme, to set for current row.
 &AtClient
-Procedure УстановитьСхемуКомпоновкиДанныхКлиент(Scheme)
-	УстановитьСхемуКомпоновкиДанных(Scheme);
+Procedure SetDataCompositionSchemaAtClient(Scheme)
+	SetDataCompositionSchema(Scheme);
 EndProcedure
 
 &AtServer
-Procedure УстановитьСхемуКомпоновкиДанных(Scheme)
+Procedure SetDataCompositionSchema(Scheme)
 	XMLWriter = New XMLWriter;
 	XMLWriter.SetString();
 	XDTOSerializer.WriteXML(XMLWriter, Scheme, "dataCompositionSchema",
 		"http://v8.1c.ru/8.1/data-composition-system/schema");
 
 	CurrentRow = Items.ReportsTree.CurrentRow;
-	ТекСтрокаДерева = ReportsTree.FindByID(CurrentRow);
+	TreeCurrentRow = ReportsTree.FindByID(CurrentRow);
 
-	If ТекСтрокаДерева = Undefined Then
+	If TreeCurrentRow = Undefined Then
 		Return;
 	EndIf;
 
-	ТекСтрокаДерева.Data = XMLWriter.Close();
+	TreeCurrentRow.Data = XMLWriter.Close();
 
-	If Not ValueIsFilled(ТекСтрокаДерева.DCSSettings) Then
+	If Not ValueIsFilled(TreeCurrentRow.DCSSettings) Then
 		XMLWriter = New XMLWriter;
 		XMLWriter.SetString();
 		XDTOSerializer.WriteXML(XMLWriter, Scheme.DefaultSettings, "Settings",
 			"http://v8.1c.ru/8.1/data-composition-system/settings");
-		ТекСтрокаДерева.DCSSettings = XMLWriter.Close();
+		TreeCurrentRow.DCSSettings = XMLWriter.Close();
 	EndIf;
 
-	// Загрузим Settings в компоновщик настроек.
+	// Load Settings to settings composer
 	LoadCurrentRowAtServer();	
 EndProcedure
 
-// Открыть конструктор схемы компоновки данных.
+//Open Data Composition Schema Wizard.
 &AtClient
-Procedure ОткрытьКонструкторСхемыКомпоновкиДанных()
+Procedure OpenDataCompositionSchemaWizard()
 
-#If ТолстыйКлиентОбычноеПриложение Or ТолстыйКлиентУправляемоеПриложение Then
-	Конструктор = New DataCompositionSchemaWizard(GetDataCompositionSchemaКлиент());
-	Конструктор.Edit(ThisForm);
+#If ThickClientOrdinaryApplication Or ThickClientManagedApplication Then
+	Wizard = New DataCompositionSchemaWizard(GetDataCompositionSchemaAtClient());
+	Wizard.Edit(ThisForm);
 #Else
-		ТекДанные=Items.ReportsTree.CurrentData;
-		If ТекДанные = Undefined Then
+		CurrentData=Items.ReportsTree.CurrentData;
+		If CurrentData = Undefined Then
 			Return;
 		EndIf;
 
 		EditorSettings=New Structure;
-		EditorSettings.Insert("СКД", ТекДанные.Data);
-		OpenForm("Processing.UT_DCSEditor.Form", EditorSettings, ThisForm, , , ,
-			New NotifyDescription("ОткрытьКонструкторСхемыКомпоновкиДанныхЗавершение", ThisObject,
-			New Structure("ИдентификаторСтроки", ТекДанные.GetID())), );
-//		ShowMessageBox( , НСтр(
-//			"ru='Конструктор схемы компоновки данных можно открыть только в толстом клиенте. В тонком клиенте и веб клиенте редактирование схемы компоновки данных возможно только в тексте схемы компоновки данных.'"));
+		EditorSettings.Insert("СКД", CurrentData.Data);
+		OpenForm("DataProcessor.UT_DCSEditor.Form", EditorSettings, ThisForm, , , ,
+			New NotifyDescription("OpenDataCompositionSchemaWizardOnEnd", ThisObject,
+			New Structure("RowID", CurrentData.GetID())), );
+	//	ShowMessageBox( , Nstr(
+	//		"ru = 'Конструктор схемы компоновки данных можно открыть только в толстом клиенте. В тонком клиенте и веб клиенте редактирование схемы компоновки данных возможно только в тексте схемы компоновки данных.';
+	//		|en = 'Data composition wizard can be opened only in thick client. In thin and webclient editing of data composition schema is possible only in the text of  data composition schema.'"));
 #EndIf
 
 EndProcedure
 
 &AtClient
-Procedure ОткрытьКонструкторСхемыКомпоновкиДанныхЗавершение(Result, AdditionalParameters) Export
+Procedure OpenDataCompositionSchemaWizardOnEnd(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	ОткрытьКонструкторСхемыКомпоновкиДанныхЗавершениеНаСервере(AdditionalParameters.ИдентификаторСтроки, Result);
+	OpenDataCompositionSchemaWizardOnEndAtServer(AdditionalParameters.RowID, Result);
 EndProcedure
 
 &AtServer
-Procedure ОткрытьКонструкторСхемыКомпоновкиДанныхЗавершениеНаСервере(ИдентификаторСтроки, АдресСКД)
+Procedure OpenDataCompositionSchemaWizardOnEndAtServer(RowID, АдресСКД)
 	Scheme=GetFromTempStorage(АдресСКД);
 
 	XMLWriter = New XMLWriter;
@@ -1895,28 +1904,28 @@ Procedure ОткрытьКонструкторСхемыКомпоновкиДа
 	XDTOSerializer.WriteXML(XMLWriter, Scheme, "dataCompositionSchema",
 		"http://v8.1c.ru/8.1/data-composition-system/schema");
 
-	ТекСтрокаДерева = ReportsTree.FindByID(ИдентификаторСтроки);
+	TreeCurrentRow = ReportsTree.FindByID(RowID);
 
-	If ТекСтрокаДерева = Undefined Then
+	If TreeCurrentRow = Undefined Then
 		Return;
 	EndIf;
 
-	ТекСтрокаДерева.Data = XMLWriter.Close();
+	TreeCurrentRow.Data = XMLWriter.Close();
 
-	If Not ValueIsFilled(ТекСтрокаДерева.DCSSettings) Then
+	If Not ValueIsFilled(TreeCurrentRow.DCSSettings) Then
 		XMLWriter = New XMLWriter;
 		XMLWriter.SetString();
 		XDTOSerializer.WriteXML(XMLWriter, Scheme.DefaultSettings, "Settings",
 			"http://v8.1c.ru/8.1/data-composition-system/settings");
-		ТекСтрокаДерева.DCSSettings = XMLWriter.Close();
+		TreeCurrentRow.DCSSettings = XMLWriter.Close();
 	EndIf;
 
-	// Загрузим Settings в компоновщик настроек.
+	// Load Settings to settings composer.
 	LoadCurrentRowAtServer();
 
 EndProcedure
 
-// Обновить заголовок формы.
+// Update form title.
 &AtClient
 Procedure UpdateTitle()
 
@@ -1924,42 +1933,42 @@ Procedure UpdateTitle()
 
 EndProcedure
 
-// Сохранить File с отчетами.
+// Save file with reports.
 //
 // Parameters:
-//  Как - булево. Необходимость запроса у пользователя имени файла.
+//  As - boolean. The need to request a file name from the user
 //
 // Return value:
-//  Истина - сохранение прошло успешно;
-//  Ложь - пользователь отменил сохранение.
+//  True  - saving was successful;
+//  False - the user canceled the save.
 &AtClient
-Procedure Save(Как, NotificationProcessing)
+Procedure Save(As, NotificationProcessing)
 	Var FileChoose;
 
-	BeginAttachingFileSystemExtension(New NotifyDescription("СохранитьЗавершение", ThisForm,
-		New Structure("Как, NotificationProcessing", Как, NotificationProcessing)));
+	BeginAttachingFileSystemExtension(New NotifyDescription("SaveOnEnd", ThisForm,
+		New Structure("As, NotificationProcessing", As, NotificationProcessing)));
 
 EndProcedure
 
-// Завершение процедуры сохранения.
+// End of saving procedure.
 &AtClient
-Procedure СохранитьЗавершение(Attached, AdditionalParameters) Export
+Procedure SaveOnEnd(Attached, AdditionalParameters) Export
 
-	Как = AdditionalParameters.Как;
+	As = AdditionalParameters.As;
 	NotificationProcessing = AdditionalParameters.NotificationProcessing;
 
 	If Attached Then
 
-		If Как Or FileName = "" Then
+		If As Or FileName = "" Then
 			File = New File(FileName);
-			СохраняемоеИмяФайла = File.Name;
+			SavedFileName = File.Name;
 
-			// Нужно запросить имя файла.
+			// Need to ask filename.
 			FileChoose = New FileDialog(FileDialogMode.Save);
 			FileChoose.Multiselect = False;
 			FileChoose.FullFileName = FileName;
 			FileChoose.Directory = File.Path;
-			Filter = NStr("ru = 'File консоли системы компоновки данных (*.dcr)|*.dcr|All файлы (*.*)|*.*'");
+			Filter = NStr("ru = 'Файл консоли системы компоновки данных (*.dcr)|*.dcr|Все файлы (*.*)|*.*';en = 'Console of Data composition system file (*.dcr)|*.dcr|All files(*.*)|*.*'");
 			FileChoose.Filter = Filter;
 			FileChoose.Extension = "dcr";
 
@@ -1967,15 +1976,15 @@ Procedure СохранитьЗавершение(Attached, AdditionalParameters)
 			FileChoose = FileName;
 		EndIf;
 
-		ПолучаемыеФайлы = New Array;
-		ПолучаемыеФайлы.Add(New TransferableFileDescription(СохраняемоеИмяФайла,
-			ПоместитьФайлВоВременноеХранилище()));
-		BeginGettingFiles(New NotifyDescription("СохранитьЗавершениеПослеПолученияФайлов", ThisForm,
-			New Structure("NotificationProcessing", NotificationProcessing)), ПолучаемыеФайлы, FileChoose, False);
+		FilesToBeObtained = New Array;
+		FilesToBeObtained.Add(New TransferableFileDescription(SavedFileName,
+			PutFileToTempStorage()));
+		BeginGettingFiles(New NotifyDescription("SaveOnEndAfterGettingFiles", ThisForm,
+			New Structure("NotificationProcessing", NotificationProcessing)), FilesToBeObtained, FileChoose, False);
 
 	Else
 
-		GetFile(ПоместитьФайлВоВременноеХранилище(), FileName, True);
+		GetFile(PutFileToTempStorage(), FileName, True);
 		If NotificationProcessing <> Undefined Then
 
 			ExecuteNotifyProcessing(NotificationProcessing, True);
@@ -1986,13 +1995,13 @@ Procedure СохранитьЗавершение(Attached, AdditionalParameters)
 
 EndProcedure
 
-// Завершение сохранения после получения файлов.
+// Completion of saving after receiving files.
 &AtClient
-Procedure СохранитьЗавершениеПослеПолученияФайлов(ПолученныеФайлы, AdditionalParameters) Export
+Procedure SaveOnEndAfterGettingFiles(ReceivedFiles, AdditionalParameters) Export
 
 	NotificationProcessing = AdditionalParameters.NotificationProcessing;
 
-	If ПолученныеФайлы = Undefined Then
+	If ReceivedFiles = Undefined Then
 
 		If NotificationProcessing <> Undefined Then
 
@@ -2001,7 +2010,7 @@ Procedure СохранитьЗавершениеПослеПолученияФа
 		EndIf;
 	Else
 
-		FileName = ПолученныеФайлы[0].Name;
+		FileName = ReceivedFiles[0].Name;
 		UpdateTitle();
 		If NotificationProcessing <> Undefined Then
 
@@ -2013,9 +2022,9 @@ Procedure СохранитьЗавершениеПослеПолученияФа
 
 EndProcedure
 
-// Поместить File во временное хранилище.
+// Put file to temp storage
 &AtServer
-Function ПоместитьФайлВоВременноеХранилище()
+Function PutFileToTempStorage()
 
 	TempFileName = GetTempFileName();
 	ValueToFile(TempFileName, FormAttributeToValue("ReportsTree"));
@@ -2024,13 +2033,13 @@ Function ПоместитьФайлВоВременноеХранилище()
 
 EndFunction
 
-// Если File отчетов был изменен, то запросить пользователя, нужно ли его сохранять.
+// If file of reports was changed, then ask the user if it needs to be saved.
 //
 // Return value:
-//  Истина - закрытие подтверждено;
-//  Ложь - пользователь отменил закрытие.
+//  True - closing confirmed;
+//  False - the user canceled the Close.
 &AtClient
-Procedure ПодтвердитьЗакрытие(NotificationProcessing)
+Procedure ConfirmClose(NotificationProcessing)
 
 	If SaveCurrentRowDataAtServer() Then
 
@@ -2040,9 +2049,9 @@ Procedure ПодтвердитьЗакрытие(NotificationProcessing)
 
 	If Modified Then
 
-		ShowQueryBox(New NotifyDescription("ПодтвердитьЗакрытиеЗавершение", ThisForm,
+		ShowQueryBox(New NotifyDescription("ConfirmCloseOnEnd", ThisForm,
 			New Structure("NotificationProcessing", NotificationProcessing)), NStr(
-			"ru='Reports модифицированы. Save изменения?'"), QuestionDialogMode.YesNoCancel, ,
+			"ru = 'Отчет модифицированы. Сохранить изменения?';en = 'The report is modified. Save changes?'"), QuestionDialogMode.YesNoCancel, ,
 			DialogReturnCode.Yes);
 
 	Else
@@ -2057,19 +2066,19 @@ Procedure ПодтвердитьЗакрытие(NotificationProcessing)
 
 EndProcedure
 
-// Завершение подтверждения закрытия.
+//Completion of closing confirmation.
 &AtClient
-Procedure ПодтвердитьЗакрытиеЗавершение(РезультатВопроса, AdditionalParameters) Export
+Procedure ConfirmCloseOnEnd(QuestionResult, AdditionalParameters) Export
 
 	NotificationProcessing = AdditionalParameters.NotificationProcessing;
 
-	Ответ = РезультатВопроса;
+	Answer = QuestionResult;
 
-	If Ответ = DialogReturnCode.Yes Then
+	If Answer = DialogReturnCode.Yes Then
 
 		Save(False, NotificationProcessing);
 
-	ElsIf Ответ = DialogReturnCode.None Then
+	ElsIf Answer = DialogReturnCode.None Then
 
 		If NotificationProcessing <> Undefined Then
 
@@ -2089,12 +2098,12 @@ Procedure ПодтвердитьЗакрытиеЗавершение(Резул�
 
 EndProcedure
 
-// Получить текущий узел.
+// Get current node
 //
 // Return value:
-//  Текущий узел дерева отчетов.
+//  Reports tree current node.
 &AtServer
-Function ПолучитьТекущийУзел()
+Function GetCurrentNode()
 
 	Var Result, CurrentTreeItem;
 	Result = New ValueList;
@@ -2116,26 +2125,26 @@ Function ПолучитьТекущийУзел()
 
 EndFunction
 
-// Сохранить Settings консоли в хранилище настроек.
+// Save Settings of console to  settings Storage.
 &AtServer
-Procedure СохранитьНастройкиКонсоли()
+Procedure SaveConsoleSettings()
 
-	CommonSettingsStorage.Save("НастройкиКонсолиСистемыОтчетности5", , New Structure("FileName,CurrentNode",
-		FileName, ПолучитьТекущийУзел()));
+	CommonSettingsStorage.Save("ReportSystemConsoleSettings5", , New Structure("FileName,CurrentNode",
+		FileName, GetCurrentNode()));
 
 EndProcedure
 
-// Выделить базовую часть имени.
+// Get name base part.
 //
 // Parameters:
-//  ПолноеИмя - Строка. Имя, из которого нужно получить базовую часть.
+//  FullName - String. The name from which to get the base part.
 //
 // Return value:
-//  String - базовая часть имени. Получается путем отбрасывания числа, находящегося
-//           в конце полного имени.
+//  String - the base part of the name. It is obtained by dropping the number located
+//           at the end of the full name.
 &AtServer
-Function НайтиБазовуюЧастьИмени(FullName)
-// Ищем числа до первого пробела с конца. Обрезаем до этого пробела.
+Function FindNameBasePart(FullName)
+// We are looking for digits up to the first space from the end. Cut to this gap.
 	If StrLen(FullName) < 3 Then
 
 		Return "";
@@ -2143,23 +2152,23 @@ Function НайтиБазовуюЧастьИмени(FullName)
 	EndIf;
 
 	Position = StrLen(FullName);
-	ЦифрыБыли = False;
+	WereNumbers = False;
 
 	While Position > 1 Do
 
-		ТекущийСимвол = Mid(FullName, Position, 1);
+		CurrentChar = Mid(FullName, Position, 1);
 
-		If ТекущийСимвол >= "0" And ТекущийСимвол <= "9" Then
+		If CurrentChar >= "0" And CurrentChar <= "9" Then
 
-			ЦифрыБыли = True;
+			WereNumbers = True;
 
-		ElsIf ТекущийСимвол = " " Then
+		ElsIf CurrentChar = " " Then
 
 			Break;
 
 		Else
 
-			ЦифрыБыли = False;
+			WereNumbers = False;
 			Break;
 
 		EndIf;
@@ -2168,7 +2177,7 @@ Function НайтиБазовуюЧастьИмени(FullName)
 
 	EndDo;
 
-	If ЦифрыБыли And Position > 1 Then
+	If WereNumbers And Position > 1 Then
 
 		Return Mid(FullName, 1, Position - 1);
 
@@ -2180,75 +2189,75 @@ Function НайтиБазовуюЧастьИмени(FullName)
 
 EndFunction
 
-// Скопировать текущую строку на сервере.
+// Copy current row at server.
 &AtServer
-Procedure СкопироватьНаСервере()
+Procedure CopyAtServer()
 
 	SaveCurrentRowDataAtServer();
-	КопируемыйЭлемент = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
-	НовоеИмя = КопируемыйЭлемент.Name;
+	CopiedItem = ReportsTree.FindByID(Items.ReportsTree.CurrentRow);
+	NewName = CopiedItem.Name;
 	NameBasePart = "";
 
-	//	If КопируемыйЭлемент.RowType = 0 Then 
-	NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
+	//	If CopiedItem.RowType = 0 Then 
+	NameBasePart = FindNameBasePart(CopiedItem.Name);
 
 	If NameBasePart = "" Then
 
-		NameBasePart = NStr("ru='Report'");
+		NameBasePart = NStr("ru = 'Отчет';en = 'Report'");
 
 	EndIf;
 
-	НовоеИмя = GenerateNameAtServer(0, NameBasePart, ReportsTree.GetItems(), True);
+	NewName = GenerateNameAtServer(0, NameBasePart, ReportsTree.GetItems(), True);
 
-	//	ElsIf КопируемыйЭлемент.RowType = 1 Then 
+	//	ElsIf CopiedItem.RowType = 1 Then 
 	//		
-	//		NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
-	//		
-	//		If NameBasePart = "" Then
-	//			
-	//			NameBasePart = NStr("ru='Variant'");
-	//			
-	//		EndIf;
-	//		
-	//		НовоеИмя = GenerateNameAtServer(1, NameBasePart, КопируемыйЭлемент.GetParent().GetItems(), False)
-	//		
-	//	ElsIf КопируемыйЭлемент.RowType = 2 Then
-	//		
-	//		NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
+	//		NameBasePart = FindNameBasePart(CopiedItem.Name);
 	//		
 	//		If NameBasePart = "" Then
 	//			
-	//			NameBasePart = NStr("ru='Setting'");
+	//			NameBasePart = NStr("ru = 'Вариант';en = 'Variant'");
 	//			
 	//		EndIf;
 	//		
-	//		НовоеИмя = GenerateNameAtServer(2, NameBasePart, КопируемыйЭлемент.GetParent().GetItems(), False);
+	//		NewName = GenerateNameAtServer(1, NameBasePart, CopiedItem.GetParent().GetItems(), False)
 	//		
-	//	ElsIf КопируемыйЭлемент.RowType = 3 Then 
+	//	ElsIf CopiedItem.RowType = 2 Then
 	//		
-	//		NameBasePart = НайтиБазовуюЧастьИмени(КопируемыйЭлемент.Name);
+	//		NameBasePart = FindNameBasePart(CopiedItem.Name);
 	//		
 	//		If NameBasePart = "" Then
 	//			
-	//			NameBasePart = NStr("ru='Folder'");
+	//			NameBasePart = NStr("ru = 'Настройки';en = 'Setting'");
 	//			
 	//		EndIf;
 	//		
-	//		НовоеИмя = GenerateNameAtServer(3, NameBasePart, КопируемыйЭлемент.GetParent().GetItems(), False);
+	//		NewName = GenerateNameAtServer(2, NameBasePart, CopiedItem.GetParent().GetItems(), False);
+	//		
+	//	ElsIf CopiedItem.RowType = 3 Then 
+	//		
+	//		NameBasePart = FindNameBasePart(CopiedItem.Name);
+	//		
+	//		If NameBasePart = "" Then
+	//			
+	//			NameBasePart = NStr("ru = 'Папка';en = 'Folder'");
+	//			
+	//		EndIf;
+	//		
+	//		NewName = GenerateNameAtServer(3, NameBasePart, CopiedItem.GetParent().GetItems(), False);
 	//		
 	//	EndIf;
-	НовыйЭлемент = КопируемыйЭлемент.GetParent().GetItems().Add();
-	FillPropertyValues(НовыйЭлемент, КопируемыйЭлемент);
-	НовыйЭлемент.Name = НовоеИмя;
-	Items.ReportsTree.CurrentRow = НовыйЭлемент.GetID();
+	NewItem = CopiedItem.GetParent().GetItems().Add();
+	FillPropertyValues(NewItem, CopiedItem);
+	NewItem.Name = NewName;
+	Items.ReportsTree.CurrentRow = NewItem.GetID();
 	LoadCurrentRowAtServer();
-	CurrentRow = НовыйЭлемент.GetID();
+	CurrentRow = NewItem.GetID();
 
 EndProcedure
 
-// Выполнить на сервере отчет на основании текста макета компоновки данных.
+// Execute at server report  base at  text of data composition template.
 &AtServer
-Procedure ВыполнитьНаСервереИзМакетаКомпоновкиДанных()
+Procedure ExecuteAtServerFromDataCompositionTemplate()
 
 	ReportNeedsToGenerate = False;
 
@@ -2261,65 +2270,65 @@ Procedure ВыполнитьНаСервереИзМакетаКомпоновк
 
 EndProcedure
 
-// Выполнить отчет в коллекцию значений на основании текста макета компоновки данных.
+//  Execute at server report  to value collection based at  text of data composition template.
 &AtServer
-Procedure ВыполнитьНаСервереИзМакетаКомпоновкиДанныхВКоллекцию()
+Procedure ExecuteAtServerFromDataCompositionTemplateToCollection()
 
 	ReportNeedsToGenerate = False;
 
 	XMLReader = New XMLReader;
 	XMLReader.SetString(TextOfDataCompositionTemplateForCollection);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
-	ВывестиМакетКомпоновкиДанныхВКоллекцию(DataCompositionTemplate);
+	OutputDataCompositionTemplateToTemplate(DataCompositionTemplate);
 	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultCollection;
 
 EndProcedure
 
-// Выполнить отчет в виде XML на основании текста макета компоновки данных.
+// Execute report as XML based at  text of data composition template.
 &AtServer
-Procedure ВыполнитьВРезультатНаСервереИзМакетаКомпоновкиДанных()
+Procedure ExecuteToResultAtServerFromDataCompositionTemplate()
 
 	ReportNeedsToGenerate = False;
 
 	XMLReader = New XMLReader;
 	XMLReader.SetString(TextOfDataCompositionTemplate);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
-	ВывестиМакетКомпоновкиДанныхВРезультатXML(DataCompositionTemplate, Undefined);
+	OutputDataCompositionTemplateToXMLResult(DataCompositionTemplate, Undefined);
 	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageDataCompositionResultXML;
 
 EndProcedure
 
-// Выполнить отчет в виде XML в коллекцию значений для макета компоновки данных.
+//  Execute report as XML to collection based at  text of data composition template..
 &AtServer
-Procedure ВыполнитьВРезультатКоллекцияНаСервереИзМакетаКомпоновкиДанных()
+Procedure ExecuteToResultCollectionAtServerFromDataCompositionTemplate()
 
 	ReportNeedsToGenerate = False;
 
 	XMLReader = New XMLReader;
 	XMLReader.SetString(TextOfDataCompositionTemplateForCollection);
 	DataCompositionTemplate = XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionTemplate"));
-	ВывестиМакетКомпоновкиДанныхВРезультатXMLДляКоллекции(DataCompositionTemplate);
+	OutputDataCompositionTemplateToXMLResultForCollection(DataCompositionTemplate);
 	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultCollectionXML;
 
 EndProcedure
 
-// Получить имя файла эталона табличного документа.
+// Get name of  Spreadsheet document standart.
 //
 // Return value:
-//  String - имя файла эталона табличного документа.
+//  String - spreadsheet  document standart file name.
 &AtClient
-Function ИмяФайлаЭталонаТабличногоДокумента()
+Function StandartFileNameOfSpreadsheetDocument()
 
 	Var FileName;
 
-	FileName = NStr("ru='Эталон табличного документа.mxl'");
+	FileName = NStr("ru = 'Эталон табличного документа.mxl';en = 'Spreadsheet Document Standart.mxl'");
 
 	If FileName = "" Then
 
-		FileName = "Эталон табличного документа.xml";
+		FileName = NSTR("ru = 'Эталон табличного документа.xml';en = 'Spreadsheet document standart.xml'");
 
 	EndIf;
 
@@ -2327,20 +2336,20 @@ Function ИмяФайлаЭталонаТабличногоДокумента()
 
 EndFunction
 
-// Получить имя файла табличного документа.
+// Get Spreadsheet Document file name
 //
 // Return value:
-//  String - имя файла табличного документа.
+//  String - Spreadsheet Document File name
 &AtClient
-Function ИмяФайлаТабличногоДокумента()
+Function SpreadsheetDocumentFileName()
 
 	Var FileName;
 
-	FileName = NStr("ru='Табличный документ.xml'");
+	FileName = NStr("ru = 'Табличный документ.xml';en = 'Spreadsheet document.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Табличный документ.xml";
+		FileName = NStr("ru = 'Табличный документ.xml';en = 'Spreadsheet document.xml'");;
 
 	EndIf;
 
@@ -2348,20 +2357,20 @@ Function ИмяФайлаТабличногоДокумента()
 
 EndFunction
 
-// Получить имя файла эталона макета.
+// Get template standart file name.
 //
 // Return value:
-//  String - имя файла эталона макета
+//  String - template standart file name
 &AtClient
-Function ИмяФайлаЭталонаМакета()
+Function TemplateStandartFileName()
 
 	Var FileName;
 
-	FileName = NStr("ru='Эталон макета.xml'");
+	FileName = NStr("ru = 'Эталон макета.xml';en = 'Template standart.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Эталон макета.xml";
+		FileName = NStr("ru = 'Эталон макета.xml';en = 'Template standart.xml'");
 
 	EndIf;
 
@@ -2369,20 +2378,20 @@ Function ИмяФайлаЭталонаМакета()
 
 EndFunction
 
-// Получить имя файла макета.
+// Get template  file name.
 //
 // Return value
-//  String - имя файла макета.
+//  String - template  file name.
 &AtClient
-Function ИмяФайлаМакета()
+Function TemplateFileName()
 
 	Var FileName;
 
-	FileName = NStr("ru='Template.xml'");
+	FileName = NStr("ru = 'Макет.xml';en = 'Template.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Template.xml";
+		FileName = NStr("ru = 'Макет.xml';en = 'Template.xml'");
 
 	EndIf;
 
@@ -2390,20 +2399,20 @@ Function ИмяФайлаМакета()
 
 EndFunction
 
-// Получить имя	файла эталона исполняемых настроек.
+// Get executable settings file name.
 //
 // Return value:
-//  String - имя файла эталона исполняемых настроек.
+//  String -  executable settings file name.
 &AtClient
-Function ИмяФайлаЭталонаИсполняемыхНастроек()
+Function ExecutableSettingsStandartFileName()
 
 	Var FileName;
 
-	FileName = NStr("ru='Эталон исполняемых настроек.xml'");
+	FileName = NStr("ru = 'Эталон исполняемых настроек.xml';en = 'Executable settings standart.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Эталон исполняемых настроек.xml";
+		FileName = NStr("ru = 'Эталон исполняемых настроек.xml';en = 'Executable settings standart.xml'");
 
 	EndIf;
 
@@ -2411,20 +2420,20 @@ Function ИмяФайлаЭталонаИсполняемыхНастроек()
 
 EndFunction
 
-// Получить имя файла исполняемых настроек.
+// Get executable settings file name.
 //
 // Return value:
-//  String - имя файла исполняемых настроек.
+//  String - executable settings file name.
 &AtClient
-Function ИмяФайлаИсполняемыхНастроек()
+Function ExecutableSettingsFileName()
 
 	Var FileName;
 
-	FileName = NStr("ru='Исполняемые Settings.xml'");
+	FileName = NStr("ru = 'Исполняемые настройки.xml';en = 'Executable settings.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Исполняемые Settings.xml";
+		FileName = NStr("ru = 'Исполняемые настройки.xml';en = 'Executable settings.xml'");
 
 	EndIf;
 
@@ -2432,20 +2441,20 @@ Function ИмяФайлаИсполняемыхНастроек()
 
 EndFunction
 
-// Получить имя файла эталона результата XML.
+// Get name of XML result standart file.
 // 
 // Return value:
-//  String - имя файла эталона результата XML.
+//  String - Get name of XML result standart file..
 &AtClient
-Function ИмяФайлаЭталонаРезультатаXML()
+Function XMLResultStandartFileName()
 
 	Var FileName;
 
-	FileName = NStr("ru='Эталон результата.xml'");
+	FileName = NStr("ru = 'Эталон результата.xml';en = 'Result standart.xml'");
 
 	If FileName = "" Then
 
-		FileName = "Эталон результата.xml";
+		FileName = NStr("ru = 'Эталон результата.xml';en = 'Result standart.xml'");;
 
 	EndIf;
 
@@ -2453,7 +2462,7 @@ Function ИмяФайлаЭталонаРезультатаXML()
 
 EndFunction
 
-// Получить имя файла результата XML.
+// Get name файла результата XML.
 //
 // Return value:
 //  String - имя файла результата XML.
@@ -2474,12 +2483,12 @@ Function ИмяФайлаРезультатаXML()
 
 EndFunction
 
-// Получить имя файла эталона макета для коллекции.
+// Get name файла эталона макета for collection.
 //
 // Return value:
-//  String - имя файла эталона макета для коллекции.
+//  String - имя файла эталона макета for collection.
 &AtClient
-Function ИмяФайлаЭталонаМакетаДляКоллекции()
+Function TemplateStandartFileNameForCollection()
 
 	Var FileName;
 
@@ -2495,12 +2504,12 @@ Function ИмяФайлаЭталонаМакетаДляКоллекции()
 
 EndFunction
 
-// Получить имя файла макета для коллекции.
+// Get name файла макета for collection.
 //
 // Return value:
-//  String - имя файла макета для коллекции.
+//  String - имя файла макета for collection.
 &AtClient
-Function ИмяФайлаМакетаДляКоллекции()
+Function TemplateFileNameForCollection()
 
 	Var FileName;
 
@@ -2516,12 +2525,12 @@ Function ИмяФайлаМакетаДляКоллекции()
 
 EndFunction
 
-// Получить имя файла эталона результата XML для коллекции.
+// Get name файла эталона результата XML for collection.
 //
 // Return value:
-//  String - имя файла эталона результата XML для коллекции.
+//  String - имя файла эталона результата XML for collection.
 &AtClient
-Function ИмяФайлаЭталонаРезультатаXMLДляКоллекции()
+Function XMLResultStandartFileNameForCollection()
 
 	Var FileName;
 
@@ -2537,10 +2546,10 @@ Function ИмяФайлаЭталонаРезультатаXMLДляКоллек
 
 EndFunction
 
-// Получить имя файла результата XML для коллекции.
+// Get name файла результата XML for collection.
 //
 // Return value:
-//  String - имя файла результата XML для коллекции.
+//  String - имя файла результата XML for collection.
 &AtClient
 Function ИмяФайлаРезультатаXMLДляКоллекции()
 
@@ -2558,7 +2567,7 @@ Function ИмяФайлаРезультатаXMLДляКоллекции()
 
 EndFunction
 
-// Вывести результат из текста результата в табличный документ.
+// Вывести результат из текста результата в spreadsheet document.
 &AtServer
 Procedure ВывестиРезультатИзТекстаРезультатаВТабличныйДокумент()
 
@@ -2621,7 +2630,7 @@ Procedure ВывестиРезультатИзТекстаРезультатаВ
 
 	EndDo;
 
-	ВывестиДеревоРезультатВКоллекцию(ReportResultOutputProcessor.EndOutput());
+	OutputTreeResultToCollection(ReportResultOutputProcessor.EndOutput());
 	DisplayResultsPanel();
 	Items.ResultsPanel.CurrentPage = Items.PageResultCollection;
 
@@ -2698,7 +2707,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 
 	InitialTitle = Title;
 	InitializeReportTree(ReportsTree);
-	НастройкиКонсоли = CommonSettingsStorage.Load("НастройкиКонсолиСистемыОтчетности5");
+	НастройкиКонсоли = CommonSettingsStorage.Load("ReportSystemConsoleSettings5");
 
 	If НастройкиКонсоли <> Undefined Then
 
@@ -2731,7 +2740,7 @@ EndProcedure
 Procedure ChoiceProcessing(ВыбранноеЗначение, ИсточникВыбора)
 
 	Modified = True;
-	УстановитьСхемуКомпоновкиДанныхКлиент(ВыбранноеЗначение);
+	SetDataCompositionSchemaAtClient(ВыбранноеЗначение);
 EndProcedure
 
 // Обработка события ПередЗакрытием.
@@ -2740,7 +2749,7 @@ Procedure BeforeClose(Cancel, StandardProcessing)
 
 	If Modified Then
 		Cancel = True;
-		ПодтвердитьЗакрытие(New NotifyDescription("ПередЗакрытиемЗавершение", ThisForm));
+		ConfirmClose(New NotifyDescription("ПередЗакрытиемЗавершение", ThisForm));
 	EndIf;
 
 EndProcedure
@@ -2758,7 +2767,7 @@ EndProcedure
 &AtClient
 Procedure OnClose()
 
-	СохранитьНастройкиКонсоли();
+	SaveConsoleSettings();
 
 EndProcedure
 
@@ -2848,7 +2857,7 @@ EndProcedure
 &AtClient
 Procedure Generate(Command)
 
-	СформироватьКлиент();
+	GenerateAtClient();
 
 EndProcedure
 
@@ -2865,7 +2874,7 @@ EndProcedure
 &AtClient
 Procedure DataCompositionSchemaWizard(Command)
 
-	ОткрытьКонструкторСхемыКомпоновкиДанных();
+	OpenDataCompositionSchemaWizard();
 
 EndProcedure
 
@@ -2901,7 +2910,7 @@ EndProcedure
 &AtClient
 Procedure OpenReportsFile(Command)
 
-	ПодтвердитьЗакрытие(New NotifyDescription("ОткрытьФайлОтчетовЗавершение", ThisForm));
+	ConfirmClose(New NotifyDescription("ОткрытьФайлОтчетовЗавершение", ThisForm));
 
 EndProcedure
 
@@ -2920,7 +2929,7 @@ EndProcedure
 &AtClient
 Procedure NewReportsFile(Command)
 
-	ПодтвердитьЗакрытие(New NotifyDescription("НовыйФайлОтчетовЗавершение", ThisForm));
+	ConfirmClose(New NotifyDescription("НовыйФайлОтчетовЗавершение", ThisForm));
 
 EndProcedure
 
@@ -2945,7 +2954,7 @@ EndProcedure
 &AtClient
 Procedure OutputToSpreadsheetDocumentForCurrentTemplate(Command)
 
-	ВыполнитьНаСервереИзМакетаКомпоновкиДанных();
+	ExecuteAtServerFromDataCompositionTemplate();
 
 EndProcedure
 
@@ -2953,8 +2962,8 @@ EndProcedure
 &AtClient
 Procedure SaveStandartSpreadsheetDocument(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	ResultSpreadsheetDocument.BeginWriting(Undefined, ИмяФайлаЭталонаТабличногоДокумента());
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	ResultSpreadsheetDocument.BeginWriting(Undefined, StandartFileNameOfSpreadsheetDocument());
 #Else
 		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
 #EndIf
@@ -2965,9 +2974,9 @@ EndProcedure
 &AtClient
 Procedure CompareWithStandartSpreadsheetDocument(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
 	ResultSpreadsheetDocument.BeginWriting(New NotifyDescription("СравнитьСЭталономТабличныйДокументЗавершение",
-		ThisForm), ИмяФайлаТабличногоДокумента());
+		ThisForm), SpreadsheetDocumentFileName());
 #Else
 		ShowMessageBox( , NStr("ru='Сравнение файлов возможно только в толстом клиенте'"));
 #EndIf
@@ -2976,11 +2985,11 @@ EndProcedure
 
 &AtClient
 Procedure СравнитьСЭталономТабличныйДокументЗавершение(Result, AdditionalParameters) Export
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
 
 	FileCompare = New FileCompare;
-	FileCompare.FirstFile = ИмяФайлаЭталонаТабличногоДокумента();
-	FileCompare.SecondFile = ИмяФайлаТабличногоДокумента();
+	FileCompare.FirstFile = StandartFileNameOfSpreadsheetDocument();
+	FileCompare.SecondFile = SpreadsheetDocumentFileName();
 	FileCompare.CompareMethod = FileCompareMethod.SpreadsheetDocument;
 	FileCompare.ShowDifferences();
 #Else
@@ -2993,8 +3002,8 @@ EndProcedure
 &AtClient
 Procedure SaveStandartOfDataCompositionTemplate(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаЭталонаМакета(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(TemplateStandartFileName(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionTemplate);
 	TextWriter.Close();
 #Else
@@ -3007,14 +3016,14 @@ EndProcedure
 &AtClient
 Procedure CompareWithStandartDataCompositionTemplate(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаМакета(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(TemplateFileName(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionTemplate);
 	TextWriter.Close();
 
 	FileCompare = New FileCompare;
-	FileCompare.FirstFile = ИмяФайлаЭталонаМакета();
-	FileCompare.SecondFile = ИмяФайлаМакета();
+	FileCompare.FirstFile = TemplateStandartFileName();
+	FileCompare.SecondFile = TemplateFileName();
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
@@ -3027,8 +3036,8 @@ EndProcedure
 &AtClient
 Procedure SaveStandartExecutableSettings(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаЭталонаИсполняемыхНастроек(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(ExecutableSettingsStandartFileName(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(ExecutedSettingsXML);
 	TextWriter.Close();
 #Else
@@ -3041,14 +3050,14 @@ EndProcedure
 &AtClient
 Procedure CompareWithStandartExecutableSettings(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаИсполняемыхНастроек(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(ExecutableSettingsFileName(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(ExecutedSettingsXML);
 	TextWriter.Close();
 
 	FileCompare = New FileCompare;
-	FileCompare.FirstFile = ИмяФайлаЭталонаИсполняемыхНастроек();
-	FileCompare.SecondFile = ИмяФайлаИсполняемыхНастроек();
+	FileCompare.FirstFile = ExecutableSettingsStandartFileName();
+	FileCompare.SecondFile = ExecutableSettingsFileName();
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
@@ -3061,8 +3070,8 @@ EndProcedure
 &AtClient
 Procedure SaveStandartXMLResult(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаЭталонаРезультатаXML(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(XMLResultStandartFileName(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionResult);
 	TextWriter.Close();
 #Else
@@ -3075,13 +3084,13 @@ EndProcedure
 &AtClient
 Procedure CompareWithStandartXMLResult(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
 	TextWriter = New TextWriter(ИмяФайлаРезультатаXML(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionResult);
 	TextWriter.Close();
 
 	FileCompare = New FileCompare;
-	FileCompare.FirstFile = ИмяФайлаЭталонаРезультатаXML();
+	FileCompare.FirstFile = XMLResultStandartFileName();
 	FileCompare.SecondFile = ИмяФайлаРезультатаXML();
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
@@ -3095,8 +3104,8 @@ EndProcedure
 &AtClient
 Procedure SaveStandartDataCompositionTemplateForTemplate(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаЭталонаМакетаДляКоллекции(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(TemplateStandartFileNameForCollection(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionTemplateForCollection);
 	TextWriter.Close();
 #Else
@@ -3109,14 +3118,14 @@ EndProcedure
 &AtClient
 Procedure CompareWithStandartDataCompositionTemplateForCollection(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаМакетаДляКоллекции(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(TemplateFileNameForCollection(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionTemplateForCollection);
 	TextWriter.Close();
 
 	FileCompare = New FileCompare;
-	FileCompare.FirstFile = ИмяФайлаЭталонаМакетаДляКоллекции();
-	FileCompare.SecondFile = ИмяФайлаМакетаДляКоллекции();
+	FileCompare.FirstFile = TemplateStandartFileNameForCollection();
+	FileCompare.SecondFile = TemplateFileNameForCollection();
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
 #Else
@@ -3129,8 +3138,8 @@ EndProcedure
 &AtClient
 Procedure SaveStandartXMLResultForCollection(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
-	TextWriter = New TextWriter(ИмяФайлаЭталонаРезультатаXMLДляКоллекции(), , Chars.CR + Chars.LF, , "");
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
+	TextWriter = New TextWriter(XMLResultStandartFileNameForCollection(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionResultForCollection);
 	TextWriter.Close();
 #Else
@@ -3143,13 +3152,13 @@ EndProcedure
 &AtClient
 Procedure CompareWithStandartXMLResultForCollection(Command)
 
-#If ТолстыйКлиентУправляемоеПриложение Or ТолстыйКлиентОбычноеПриложение Then
+#If ThickClientManagedApplication Or ThickClientOrdinaryApplication Then
 	TextWriter = New TextWriter(ИмяФайлаРезультатаXMLДляКоллекции(), , Chars.CR + Chars.LF, , "");
 	TextWriter.WriteLine(TextOfDataCompositionResultForCollection);
 	TextWriter.Close();
 
 	FileCompare = New FileCompare;
-	FileCompare.FirstFile = ИмяФайлаЭталонаРезультатаXMLДляКоллекции();
+	FileCompare.FirstFile = XMLResultStandartFileNameForCollection();
 	FileCompare.SecondFile = ИмяФайлаРезультатаXMLДляКоллекции();
 	FileCompare.CompareMethod = FileCompareMethod.TextDocument;
 	FileCompare.ShowDifferences();
@@ -3163,7 +3172,7 @@ EndProcedure
 &AtClient
 Procedure OutputToResultForCurrentTemplate(Command)
 
-	ВыполнитьВРезультатНаСервереИзМакетаКомпоновкиДанных();
+	ExecuteToResultAtServerFromDataCompositionTemplate();
 
 EndProcedure
 
@@ -3179,7 +3188,7 @@ EndProcedure
 &AtClient
 Procedure OutputToCollectionForCurrentTemplate(Command)
 
-	ВыполнитьНаСервереИзМакетаКомпоновкиДанныхВКоллекцию();
+	ExecuteAtServerFromDataCompositionTemplateToCollection();
 
 EndProcedure
 
@@ -3187,7 +3196,7 @@ EndProcedure
 &AtClient
 Procedure OutputToCollectionResultForCurrentTemplate(Command)
 
-	ВыполнитьВРезультатКоллекцияНаСервереИзМакетаКомпоновкиДанных();
+	ExecuteToResultCollectionAtServerFromDataCompositionTemplate();
 
 EndProcedure
 
@@ -3244,16 +3253,16 @@ Procedure СохранитьСхемуВФайлПослеВыбораФайла
 
 	EndIf;
 
-	ПолучаемыеФайлы = New Array;
-	ПолучаемыеФайлы.Add(New TransferableFileDescription(FileChoose.FullFileName,
+	FilesToBeObtained = New Array;
+	FilesToBeObtained.Add(New TransferableFileDescription(FileChoose.FullFileName,
 		ПоместитьСхемуКомпоновкиДанныхВоВременноеХранилище()));
-	BeginGettingFiles(New NotifyDescription("СохранитьСхемуВФайлЗавершение", ThisForm), ПолучаемыеФайлы, "",
+	BeginGettingFiles(New NotifyDescription("СохранитьСхемуВФайлЗавершение", ThisForm), FilesToBeObtained, "",
 		False);
 
 EndProcedure
 
 &AtClient
-Procedure СохранитьСхемуВФайлЗавершение(ПолученныеФайлы, AdditionalParameters) Export
+Procedure СохранитьСхемуВФайлЗавершение(ReceivedFiles, AdditionalParameters) Export
 
 	UpdateTitle();
 
@@ -3419,12 +3428,12 @@ EndProcedure
 &AtClient
 Procedure StructureOnActivateRow(Item)
 	
-	ТекСтрокаДерева = Items.Structure.CurrentRow;
-	If ТекСтрокаДерева = Undefined Then
+	TreeCurrentRow = Items.Structure.CurrentRow;
+	If TreeCurrentRow = Undefined Then
 		Return;
 	EndIf;
 
-	SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(ТекСтрокаДерева);
+	SettingsItem = Report.SettingsComposer.Settings.GetObjectByID(TreeCurrentRow);
 	ItemType = TypeOf(SettingsItem);
 
 	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
@@ -3777,7 +3786,7 @@ Procedure ReportsTreeOnActivateRow(Item)
 				EndIf;
 				//				
 				//			ElsIf TreeItem.RowType = 1 Then
-				//				// Variant отчета.
+				//				// Report variant.
 				//				If Items.GroupSettings.CurrentPage <> Items.GroupVariant Then
 				//					
 				//					Items.GroupSettings.CurrentPage = Items.GroupVariant;
@@ -3821,7 +3830,7 @@ EndProcedure
 
 &AtClient
 Procedure Settings(Command)
-	ОтобразитьПанельНастроек();
+	DisplaySettingsPanel();
 EndProcedure
 
 // Обработчик события ПриИзменении элементов, связанных с настройками.
@@ -3854,7 +3863,7 @@ Procedure ReportsTreeBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Paramet
 
 		If ReportsTree.FindByID(Item.CurrentRow).RowType <> 4 Then
 		// Not корень.
-			СкопироватьНаСервере();
+			CopyAtServer();
 
 		EndIf;
 
@@ -3879,7 +3888,7 @@ EndProcedure
 &AtClient
 Procedure ReportsTreeSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
-	СформироватьКлиент();
+	GenerateAtClient();
 EndProcedure
 
 
@@ -3935,7 +3944,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledSpreadsheetDocument Then
 
-			Result = СформироватьНаСервереВТабличныйДокумент();
+			Result = GenerateAtServerToSpreadsheetDocument();
 
 		EndIf;
 
@@ -3943,7 +3952,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledTemplate Then
 
-			Result = СформироватьНаСервереВМакетКомпоновкиДанных();
+			Result = GenerateAtServerToDataCompositionTemplate();
 
 		EndIf;
 
@@ -3951,7 +3960,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledSettings Then
 
-			Result = СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанных();
+			Result = GenerateAtServerToExecutedDataCompositionSettings();
 
 		EndIf;
 
@@ -3959,7 +3968,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledSettingsXML Then
 
-			Result = СформироватьНаСервереВИсполняемыеНастройкиКомпоновкиДанныхXML();
+			Result = GenerateAtServerToExecutedDataCompositionSettingsXML();
 
 		EndIf;
 
@@ -3967,7 +3976,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledXML Then
 
-			Result = СформироватьНаСервереВВидеXML();
+			Result = GenerateAtServerAsXML();
 
 		EndIf;
 
@@ -3975,7 +3984,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledCollection Then
 
-			Result = СформироватьНаСервереВКоллекцию();
+			Result = GenerateAtServerToCollection();
 
 		EndIf;
 
@@ -3983,7 +3992,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledTemplateForCollection Then
 
-			Result = СформироватьНаСервереВМакетКомпоновкиДанныхДляКоллекции();
+			Result = GenerateAtServerToDataCompositionTemplateForCollection();
 
 		EndIf;
 
@@ -3991,7 +4000,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 
 		If ReportNeedsToGenerate And Not ResultFilledCollectionXML Then
 
-			Result = СформироватьНаСервереВВидеXMLКоллекция();
+			Result = GenerateAtServerAsXMLCollection();
 
 		EndIf;
 
@@ -4022,12 +4031,12 @@ EndProcedure
 &AtClient
 Procedure ExternalDataSetsPresentationStartChoice(Item, ChoiceData, StandardProcessing)
 		StandardProcessing=False;
-	ТекДанные=Items.ExternalDataSets.CurrentData;
-	If ТекДанные=Undefined Then
+	CurrentData=Items.ExternalDataSets.CurrentData;
+	If CurrentData=Undefined Then
 		Return;
 	EndIf;
 	
-	UT_CommonClient.EditValueTable(ТекДанные.Value, ThisObject,
+	UT_CommonClient.EditValueTable(CurrentData.Value, ThisObject,
 		New NotifyDescription("ВнешниеНаборыДанныхПредставлениеНачалоВыбораЗавершение", ThisObject,New Structure("ТекСтрока",Items.ExternalDataSets.CurrentRow)));
 EndProcedure
 
@@ -4036,13 +4045,13 @@ Procedure ВнешниеНаборыДанныхПредставлениеНач
 	If Result=Undefined Then
 		Return;
 	EndIf;
-	ТекСтрокаДерева=ReportsTree.FindByID(CurrentRow);
-	If ТекСтрокаДерева=Undefined Then
+	TreeCurrentRow=ReportsTree.FindByID(CurrentRow);
+	If TreeCurrentRow=Undefined Then
 		Return;
 	EndIf;
-	ТекДанныеСтроки=ТекСтрокаДерева.ExternalDataSets.FindByID(AdditionalParameters.ТекСтрока);
-	ТекДанныеСтроки.Value=Result.Value;
-	ТекДанныеСтроки.Presentation=Result.Presentation;
+	RowCurrentData=TreeCurrentRow.ExternalDataSets.FindByID(AdditionalParameters.ТекСтрока);
+	RowCurrentData.Value=Result.Value;
+	RowCurrentData.Presentation=Result.Presentation;
 EndProcedure
 
 &AtClient
@@ -4051,13 +4060,13 @@ Procedure ExternalDataSetsBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
 		Return;
 	EndIf;	
 		
-	ТекДанные=Items.ExternalDataSets.CurrentData;
-	If ТекДанные=Undefined Then
+	CurrentData=Items.ExternalDataSets.CurrentData;
+	If CurrentData=Undefined Then
 		Return;
 	EndIf;
-	ТекДанные.Name=TrimAll(ТекДанные.Name);
+	CurrentData.Name=TrimAll(CurrentData.Name);
 	
-	If Not UT_CommonClientServer.IsCorrectVariableName(ТекДанные.Name) Then
+	If Not UT_CommonClientServer.IsCorrectVariableName(CurrentData.Name) Then
 		ShowMessageBox( ,
 			UT_CommonClientServer.WrongVariableNameWarningText(),
 			, Title);
@@ -4065,13 +4074,13 @@ Procedure ExternalDataSetsBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
 		Return;
 	EndIf;
 	
-	ТекСтрокаДерева=ReportsTree.FindByID(CurrentRow);
-	If ТекСтрокаДерева=Undefined Then
+	TreeCurrentRow=ReportsTree.FindByID(CurrentRow);
+	If TreeCurrentRow=Undefined Then
 		Return;
 	EndIf;
 
 	
-	маСтрокиИмени = ТекСтрокаДерева.ExternalDataSets.FindRows(New Structure("Name", ТекДанные.Name));
+	маСтрокиИмени = TreeCurrentRow.ExternalDataSets.FindRows(New Structure("Name", CurrentData.Name));
 	If маСтрокиИмени.Count() > 1 Then
 		ShowMessageBox( , "Column с таким именем уже есть! Введите другое имя.", , Title);
 		Cancel = True;
@@ -4083,12 +4092,12 @@ EndProcedure
 Function ExternalDataSetsStructure()
 	ВнешниеНаборы=New Structure;
 	
-	ТекСтрокаДерева=ReportsTree.FindByID(CurrentRow);
-	If ТекСтрокаДерева=Undefined Then
+	TreeCurrentRow=ReportsTree.FindByID(CurrentRow);
+	If TreeCurrentRow=Undefined Then
 		Return ВнешниеНаборы;
 	EndIf;
 		
-	For Each Set ИЗ ТекСтрокаДерева.ExternalDataSets Do
+	For Each Set ИЗ TreeCurrentRow.ExternalDataSets Do
 		If ValueIsFilled(Set.Value) Then
 			Try
 				ТЗ=ValueFromStringInternal(Set.Value);
