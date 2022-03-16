@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Duplicate object detection</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Поиск и удаление дублей</value>
   </title>
   <items xsi:type="form:FormGroup">
-    <name>Шапка</name>
+    <name>Header</name>
     <id>406</id>
     <displayImportance>VeryHigh</displayImportance>
     <items xsi:type="form:FormField">
@@ -191,7 +195,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаПараметрыЗамены</name>
+      <name>ReplacementParametersGroup</name>
       <id>464</id>
       <items xsi:type="form:FormField">
         <name>ConsiderAppliedRules</name>
@@ -304,11 +308,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Replacement parameters</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Параметры замены</value>
       </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка1</name>
+        <name>ReplacementParametersGroupExtendedTooltip</name>
         <id>465</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -334,7 +342,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ГруппаПараметрыЗаписи</name>
+      <name>WritingParametersGroup</name>
       <id>462</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -342,11 +350,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Writing parameters</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Параметры записи</value>
       </title>
       <extendedTooltip>
-        <name>Группа1РасширеннаяПодсказка</name>
+        <name>WritingParametersGroupExtendedTooltip</name>
         <id>463</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -383,11 +395,15 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Header</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Шапка</value>
     </title>
     <extendedTooltip>
-      <name>ШапкаРасширеннаяПодсказка</name>
+      <name>HeaderExtendedTooltip</name>
       <id>407</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -411,10 +427,10 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ШагиМастера</name>
+    <name>WizardSteps</name>
     <id>58</id>
     <items xsi:type="form:FormGroup">
-      <name>ШагПоискНеВыполнялся</name>
+      <name>NoSearchPerformedStep</name>
       <id>62</id>
       <items xsi:type="form:FormField">
         <name>NoSearchPerformed</name>
@@ -480,11 +496,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>No search performed step</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Шаг поиск не выполнялся</value>
       </title>
       <extendedTooltip>
-        <name>ШагПоискНеВыполнялсяРасширеннаяПодсказка</name>
+        <name>NoSearchPerformedStepExtendedTooltip</name>
         <id>63</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -505,7 +525,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ШагВыполнениеПоиска</name>
+      <name>PerformSearchStep</name>
       <id>186</id>
       <items xsi:type="form:FormField">
         <name>PerformSearch</name>
@@ -571,11 +591,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Perform search step</value>
+      </title>
+      <title>
         <key>ru</key>
-        <value>Шаг поиск не выполнялся</value>
+        <value>Шаг выполнение поиска</value>
       </title>
       <extendedTooltip>
-        <name>ШагВыполнениеПоискаРасширеннаяПодсказка</name>
+        <name>PerformSearchStepExtendedTooltip</name>
         <id>187</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -596,13 +620,13 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ШагВыборОсновногоЭлемента</name>
+      <name>MainItemSelectionStep</name>
       <id>98</id>
       <items xsi:type="form:FormGroup">
-        <name>КомандыРаботыСОсновнымЭлементов</name>
+        <name>MainItemOperationCommands</name>
         <id>96</id>
         <items xsi:type="form:Button">
-          <name>ВыбратьОсновнойЭлемент</name>
+          <name>SelectMainItem</name>
           <id>88</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -610,7 +634,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ВыбратьОсновнойЭлементРасширеннаяПодсказка</name>
+            <name>SelectMainItemExtendedTooltip</name>
             <id>89</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -624,7 +648,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ВыбратьОсновнойЭлемент</commandName>
+          <commandName>Form.Command.SelectMainItem</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -633,7 +657,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ОткрытьКандидатаВДубли</name>
+          <name>OpenCandidate</name>
           <id>90</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -641,7 +665,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ОткрытьКандидатаВДублиРасширеннаяПодсказка</name>
+            <name>OpenCandidateExtendedTooltip</name>
             <id>91</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -655,7 +679,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ОткрытьКандидатаВДубли</commandName>
+          <commandName>Form.Command.OpenCandidate</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -664,7 +688,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>НайденныеДублиРедактироватьНайденныйДубль</name>
+          <name>EditFoundDuplicate</name>
           <id>476</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -672,7 +696,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>НайденныеДублиРедактироватьНайденныйДубльРасширеннаяПодсказка</name>
+            <name>EditFoundDuplicateExtendedTooltip</name>
             <id>477</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -686,7 +710,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.РедактироватьНайденныйДубль</commandName>
+          <commandName>Form.Command.EditFoundDuplicate</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -695,7 +719,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>РазвернутьГруппуДублей</name>
+          <name>ExpandDuplicatesGroups</name>
           <id>92</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -703,7 +727,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>РазвернутьГруппуДублейРасширеннаяПодсказка</name>
+            <name>ExpandDuplicatesGroupsExtendedTooltip</name>
             <id>93</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -717,7 +741,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.РазвернутьГруппыДублей</commandName>
+          <commandName>Form.Command.ExpandDuplicatesGroups</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -726,7 +750,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>СвернутьГруппуДублей</name>
+          <name>CollapseDuplicatesGroups</name>
           <id>94</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -734,7 +758,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>СвернутьГруппуДублейРасширеннаяПодсказка</name>
+            <name>CollapseDuplicatesGroupsExtendedTooltip</name>
             <id>95</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -748,7 +772,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.СвернутьГруппыДублей</commandName>
+          <commandName>Form.Command.CollapseDuplicatesGroups</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -757,7 +781,7 @@
           <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <items xsi:type="form:Button">
-          <name>ПовторитьПоиск</name>
+          <name>RetrySearch</name>
           <id>326</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -765,7 +789,7 @@
             <common>true</common>
           </userVisible>
           <extendedTooltip>
-            <name>ПовторитьПоискРасширеннаяПодсказка</name>
+            <name>RetrySearchExtendedTooltip</name>
             <id>327</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -779,7 +803,7 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <commandName>Form.Command.ПовторитьПоиск</commandName>
+          <commandName>Form.Command.RetrySearch</commandName>
           <representation>Auto</representation>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
@@ -793,11 +817,15 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Main item operation commands</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Команды работы с основным элементов</value>
         </title>
         <extendedTooltip>
-          <name>КомандыРаботыСОсновнымЭлементовРасширеннаяПодсказка</name>
+          <name>MainItemOperationCommandsExtendedTooltip</name>
           <id>97</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -817,17 +845,17 @@
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаВертикальнаяОсновногоЭлемента</name>
+        <name>MainItemVerticalGroup</name>
         <id>153</id>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаГоризонтальнаяНайденныеДубли</name>
+          <name>FoundDuplicatesHorizontalGroup</name>
           <id>155</id>
           <items xsi:type="form:Table">
-            <name>DuplicatesFound</name>
+            <name>FoundDuplicates</name>
             <id>67</id>
             <title>
               <key>en</key>
-              <value>Duplicates found</value>
+              <value>Found duplicates</value>
             </title>
             <title>
               <key>ru</key>
@@ -839,7 +867,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>DuplicatesFound</segments>
+              <segments>FoundDuplicates</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <excludedCommands>Change</excludedCommands>
@@ -847,7 +875,7 @@
               <name>ИспользоватьНаименование</name>
               <id>109</id>
               <items xsi:type="form:FormField">
-                <name>DuplicatesFoundDescription</name>
+                <name>FoundDuplicatesDescription</name>
                 <id>100</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -856,11 +884,11 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>DuplicatesFound.Description</segments>
+                    <segments>FoundDuplicates.Description</segments>
                   </paths>
                 </dataPath>
                 <extendedTooltip>
-                  <name>DuplicatesFoundDescriptionExtendedTooltip</name>
+                  <name>FoundDuplicatesDescriptionExtendedTooltip</name>
                   <id>102</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -875,7 +903,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>DuplicatesFoundDescriptionContextMenu</name>
+                  <name>FoundDuplicatesDescriptionContextMenu</name>
                   <id>101</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -901,7 +929,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormField">
-                <name>DuplicatesFoundMain</name>
+                <name>FoundDuplicatesMain</name>
                 <id>114</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -910,12 +938,12 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>DuplicatesFound.Main</segments>
+                    <segments>FoundDuplicates.Main</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
-                  <name>DuplicatesFoundMainExtendedTooltip</name>
+                  <name>FoundDuplicatesMainExtendedTooltip</name>
                   <id>116</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -930,7 +958,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>DuplicatesFoundMainContextMenu</name>
+                  <name>FoundDuplicatesMainContextMenu</name>
                   <id>115</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -956,7 +984,7 @@
                 </extInfo>
               </items>
               <items xsi:type="form:FormField">
-                <name>DuplicatesFoundCheck</name>
+                <name>FoundDuplicatesCheck</name>
                 <id>103</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -965,16 +993,16 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>DuplicatesFound.Check</segments>
+                    <segments>FoundDuplicates.Check</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <handlers>
                   <event>OnChange</event>
-                  <name>DuplicatesFoundCheckOnChange</name>
+                  <name>FoundDuplicatesCheckOnChange</name>
                 </handlers>
                 <extendedTooltip>
-                  <name>DuplicatesFoundCheckExtendedTooltip</name>
+                  <name>FoundDuplicatesCheckExtendedTooltip</name>
                   <id>105</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -989,7 +1017,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>DuplicatesFoundCheckContextMenu</name>
+                  <name>FoundDuplicatesCheckContextMenu</name>
                   <id>104</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1038,18 +1066,18 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>DuplicatesFoundCode</name>
+              <name>FoundDuplicatesCode</name>
               <id>111</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible/>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>DuplicatesFound.Code</segments>
+                  <segments>FoundDuplicates.Code</segments>
                 </paths>
               </dataPath>
               <extendedTooltip>
-                <name>DuplicatesFoundCodeExtendedTooltip</name>
+                <name>FoundDuplicatesCodeExtendedTooltip</name>
                 <id>113</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1064,7 +1092,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>DuplicatesFoundCodeContextMenu</name>
+                <name>FoundDuplicatesCodeContextMenu</name>
                 <id>112</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1091,7 +1119,7 @@
               </extInfo>
             </items>
             <items xsi:type="form:FormField">
-              <name>DuplicatesFoundCount</name>
+              <name>FoundDuplicatesCount</name>
               <id>119</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1100,7 +1128,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>DuplicatesFound.Count</segments>
+                  <segments>FoundDuplicates.Count</segments>
                 </paths>
               </dataPath>
               <titleLocation>None</titleLocation>
@@ -1109,7 +1137,7 @@
                 <value>Мест использования</value>
               </toolTip>
               <extendedTooltip>
-                <name>DuplicatesFoundCountExtendedTooltip</name>
+                <name>FoundDuplicatesCountExtendedTooltip</name>
                 <id>121</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1124,7 +1152,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>DuplicatesFoundCountContextMenu</name>
+                <name>FoundDuplicatesCountContextMenu</name>
                 <id>120</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1152,7 +1180,7 @@
               </extInfo>
             </items>
             <autoCommandBar>
-              <name>DuplicatesFoundCommandBar</name>
+              <name>FoundDuplicatesCommandBar</name>
               <id>69</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1163,11 +1191,11 @@
             </autoCommandBar>
             <handlers>
               <event>Selection</event>
-              <name>DuplicatesFoundSelection</name>
+              <name>FoundDuplicatesSelection</name>
             </handlers>
             <handlers>
               <event>OnActivateRow</event>
-              <name>DuplicatesFoundOnActivateRow</name>
+              <name>FoundDuplicatesOnActivateRow</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -1175,10 +1203,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>DuplicatesFoundSearchString</name>
+              <name>FoundDuplicatesSearchString</name>
               <id>364</id>
               <extendedTooltip>
-                <name>DuplicatesFoundSearchStringExtendedTooltip</name>
+                <name>FoundDuplicatesSearchStringExtendedTooltip</name>
                 <id>366</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1193,7 +1221,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>DuplicatesFoundSearchStringContextMenu</name>
+                <name>FoundDuplicatesSearchStringContextMenu</name>
                 <id>365</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1212,10 +1240,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>DuplicatesFoundViewStatus</name>
+              <name>FoundDuplicatesViewStatus</name>
               <id>367</id>
               <extendedTooltip>
-                <name>DuplicatesFoundViewStatusExtendedTooltip</name>
+                <name>FoundDuplicatesViewStatusExtendedTooltip</name>
                 <id>369</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1230,7 +1258,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>DuplicatesFoundViewStatusContextMenu</name>
+                <name>FoundDuplicatesViewStatusContextMenu</name>
                 <id>368</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1251,10 +1279,10 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <name>DuplicatesFoundSearchControl</name>
+              <name>FoundDuplicatesSearchControl</name>
               <id>370</id>
               <extendedTooltip>
-                <name>DuplicatesFoundSearchControlExtendedTooltip</name>
+                <name>FoundDuplicatesSearchControlExtendedTooltip</name>
                 <id>372</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1269,7 +1297,7 @@
                 </extInfo>
               </extendedTooltip>
               <contextMenu>
-                <name>DuplicatesFoundSearchControlContextMenu</name>
+                <name>FoundDuplicatesSearchControlContextMenu</name>
                 <id>371</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1284,7 +1312,7 @@
               </extInfo>
             </searchControlAddition>
             <extendedTooltip>
-              <name>DuplicatesFoundExtendedTooltip</name>
+              <name>FoundDuplicatesExtendedTooltip</name>
               <id>70</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1299,10 +1327,10 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>DuplicatesFoundContextMenu</name>
+              <name>FoundDuplicatesContextMenu</name>
               <id>68</id>
               <items xsi:type="form:Button">
-                <name>НайденныеДублиКонтекстноеМенюВыбратьОсновнойЭлемент</name>
+                <name>FoundDuplicatesContextMenuSelectMainItem</name>
                 <id>117</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1310,7 +1338,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>НайденныеДублиКонтекстноеМенюВыбратьОсновнойЭлементРасширеннаяПодсказка</name>
+                  <name>FoundDuplicatesContextMenuSelectMainItemExtendedTooltip</name>
                   <id>118</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1324,7 +1352,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ВыбратьОсновнойЭлемент</commandName>
+                <commandName>Form.Command.SelectMainItem</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1333,10 +1361,10 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>НайденныеДублиКонтекстноеМенюГруппаИзменить</name>
+                <name>FoundDuplicatesContextMenuCustomizeGroup</name>
                 <id>422</id>
                 <items xsi:type="form:Button">
-                  <name>НайденныеДублиКонтекстноеМенюОткрытьКандидатаВДубли1</name>
+                  <name>FoundDuplicatesContextMenuOpenCandidate</name>
                   <id>430</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1344,7 +1372,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НайденныеДублиКонтекстноеМенюОткрытьКандидатаВДубли1РасширеннаяПодсказка</name>
+                    <name>FoundDuplicatesContextMenuOpenCandidateExtendedTooltip</name>
                     <id>431</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1358,7 +1386,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ОткрытьКандидатаВДубли</commandName>
+                  <commandName>Form.Command.OpenCandidate</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -1372,11 +1400,15 @@
                   <common>true</common>
                 </userVisible>
                 <title>
+                  <key>en</key>
+                  <value>Found duplicates context menu customize group</value>
+                </title>
+                <title>
                   <key>ru</key>
                   <value>Найденные дубли контекстное меню группа изменить</value>
                 </title>
                 <extendedTooltip>
-                  <name>НайденныеДублиКонтекстноеМенюГруппаИзменитьРасширеннаяПодсказка</name>
+                  <name>FoundDuplicatesContextMenuCustomizeGroupExtendedTooltip</name>
                   <id>423</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1393,7 +1425,7 @@
                 <extInfo xsi:type="form:ButtonGroupExtInfo"/>
               </items>
               <items xsi:type="form:Button">
-                <name>НайденныеДублиКонтекстноеМенюКопироватьВБуферОбмена</name>
+                <name>FoundDuplicatesContextMenuCopyToClipboard</name>
                 <id>418</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1401,7 +1433,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>НайденныеДублиКонтекстноеМенюКопироватьВБуферОбменаРасширеннаяПодсказка</name>
+                  <name>FoundDuplicatesContextMenuCopyToClipboardExtendedTooltip</name>
                   <id>419</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1415,7 +1447,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.DuplicatesFound.StandardCommand.CopyToClipboard</commandName>
+                <commandName>Form.Item.FoundDuplicates.StandardCommand.CopyToClipboard</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1424,7 +1456,7 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:Button">
-                <name>НайденныеДублиКонтекстноеМенюВывестиСписок</name>
+                <name>FoundDuplicatesContextMenuOutputList</name>
                 <id>416</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1432,7 +1464,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>НайденныеДублиКонтекстноеМенюВывестиСписокРасширеннаяПодсказка</name>
+                  <name>FoundDuplicatesContextMenuOutputListExtendedTooltip</name>
                   <id>417</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1446,7 +1478,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Item.DuplicatesFound.StandardCommand.OutputList</commandName>
+                <commandName>Form.Item.FoundDuplicates.StandardCommand.OutputList</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1455,10 +1487,10 @@
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
               <items xsi:type="form:FormGroup">
-                <name>НайденныеДублиКонтекстноеМенюГруппаИзменитьФорму</name>
+                <name>FoundDuplicatesContextMenuCustomizeFormGroup</name>
                 <id>426</id>
                 <items xsi:type="form:Button">
-                  <name>НайденныеДублиКонтекстноеМенюИзменитьФорму</name>
+                  <name>FoundDuplicatesContextMenuCustomizeForm</name>
                   <id>424</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1466,7 +1498,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НайденныеДублиКонтекстноеМенюИзменитьФормуРасширеннаяПодсказка</name>
+                    <name>FoundDuplicatesContextMenuCustomizeFormExtendedTooltip</name>
                     <id>425</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1494,11 +1526,15 @@
                   <common>true</common>
                 </userVisible>
                 <title>
+                  <key>en</key>
+                  <value>Found duplicates context menu customize form group</value>
+                </title>
+                <title>
                   <key>ru</key>
                   <value>Найденные дубли контекстное меню группа изменить форму</value>
                 </title>
                 <extendedTooltip>
-                  <name>НайденныеДублиКонтекстноеМенюГруппаИзменитьФормуРасширеннаяПодсказка</name>
+                  <name>FoundDuplicatesContextMenuCustomizeFormGroupExtendedTooltip</name>
                   <id>427</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1515,7 +1551,7 @@
                 <extInfo xsi:type="form:ButtonGroupExtInfo"/>
               </items>
               <items xsi:type="form:Button">
-                <name>НайденныеДублиКонтекстноеМенюРедактироватьНайденныйДубль</name>
+                <name>FoundDuplicatesContextMenuEditFoundDuplicate</name>
                 <id>474</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -1523,7 +1559,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>НайденныеДублиКонтекстноеМенюРедактироватьНайденныйДубльРасширеннаяПодсказка</name>
+                  <name>FoundDuplicatesContextMenuEditFoundDuplicateExtendedTooltip</name>
                   <id>475</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -1537,7 +1573,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.РедактироватьНайденныйДубль</commandName>
+                <commandName>Form.Command.EditFoundDuplicate</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -1660,7 +1696,7 @@
                   <name>CandidateUsageInstancesCommandBar</name>
                   <id>139</id>
                   <items xsi:type="form:Button">
-                    <name>МестаИспользованияКандидатаРедактироватьМестоИспользованияКандидата</name>
+                    <name>CandidateUsageInstancesEditCandidateUsageInstance</name>
                     <id>478</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1668,7 +1704,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>МестаИспользованияКандидатаРедактироватьМестоИспользованияКандидатаРасширеннаяПодсказка</name>
+                      <name>CandidateUsageInstancesEditCandidateUsageInstanceExtendedTooltip</name>
                       <id>479</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -1682,7 +1718,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.РедактироватьМестоИспользованияКандидата</commandName>
+                    <commandName>Form.Command.EditCandidateUsageInstance</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -1866,7 +1902,7 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
-                    <name>МестаИспользованияКандидатаКонтекстноеМенюРедактироватьМестоИспользованияКандидата</name>
+                    <name>CandidateUsageInstancesContextMenuEditCandidateUsageInstance</name>
                     <id>480</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -1874,7 +1910,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>МестаИспользованияКандидатаКонтекстноеМенюРедактироватьМестоИспользованияКандидатаРасширеннаяПодсказка</name>
+                      <name>CandidateUsageInstancesContextMenuEditCandidateUsageInstanceExtendedTooltip</name>
                       <id>481</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -1888,7 +1924,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.РедактироватьМестоИспользованияКандидата</commandName>
+                    <commandName>Form.Command.EditCandidateUsageInstance</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2070,11 +2106,15 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Duplicates found horizontal group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Горизонтальная найденные дубли</value>
           </title>
           <extendedTooltip>
-            <name>ГруппаГоризонтальнаяНайденныеДублиРасширеннаяПодсказка</name>
+            <name>FoundDuplicatesHorizontalGroupExtendedTooltip</name>
             <id>156</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2101,7 +2141,7 @@
           <name>ГруппаГоризонтальнаяСостояниеНайденного</name>
           <id>157</id>
           <items xsi:type="form:FormField">
-            <name>DuplicatesFoundStateDetails</name>
+            <name>FoundDuplicatesStateDetails</name>
             <id>202</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -2110,12 +2150,12 @@
             </userVisible>
             <dataPath xsi:type="form:MultiLanguageDataPath">
               <paths xsi:type="form:DataPath">
-                <segments>DuplicatesFoundStateDetails</segments>
+                <segments>FoundDuplicatesStateDetails</segments>
               </paths>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>DuplicatesFoundStateDetailsExtendedTooltip</name>
+              <name>FoundDuplicatesStateDetailsExtendedTooltip</name>
               <id>204</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2130,7 +2170,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>DuplicatesFoundStateDetailsContextMenu</name>
+              <name>FoundDuplicatesStateDetailsContextMenu</name>
               <id>203</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -2237,11 +2277,15 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Main item vertical group</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Вертикальная основного элемента</value>
         </title>
         <extendedTooltip>
-          <name>ГруппаВертикальнаяОсновногоЭлементаРасширеннаяПодсказка</name>
+          <name>MainItemVerticalGroupExtendedTooltip</name>
           <id>154</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2270,11 +2314,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Main item selection step</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Шаг выбор основного элемента</value>
       </title>
       <extendedTooltip>
-        <name>ШагВыборОсновногоЭлементаРасширеннаяПодсказка</name>
+        <name>MainItemSelectionStepExtendedTooltip</name>
         <id>99</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2427,7 +2475,7 @@
         <extInfo xsi:type="form:PictureDecorationExtInfo"/>
       </items>
       <items xsi:type="form:FormField">
-        <name>DuplicatesFoundStateDetails1</name>
+        <name>FoundDuplicatesStateDetails1</name>
         <id>344</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -2436,12 +2484,12 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>DuplicatesFoundStateDetails</segments>
+            <segments>FoundDuplicatesStateDetails</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
-          <name>DuplicatesFoundStateDetails1ExtendedTooltip</name>
+          <name>FoundDuplicatesStateDetails1ExtendedTooltip</name>
           <id>346</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2456,7 +2504,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>DuplicatesFoundStateDetails1ContextMenu</name>
+          <name>FoundDuplicatesStateDetails1ContextMenu</name>
           <id>345</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -2853,7 +2901,7 @@
               <name>UnprocessedDuplicatesCommandBar</name>
               <id>244</id>
               <items xsi:type="form:Button">
-                <name>НеобработанныеДублиРедактироватьНеобработанныйДубль</name>
+                <name>UnprocessedDuplicatesEditUnprocessedDuplicate</name>
                 <id>482</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -2861,7 +2909,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>НеобработанныеДублиРедактироватьНеобработанныйДубльРасширеннаяПодсказка</name>
+                  <name>UnprocessedDuplicatesEditUnprocessedDuplicateExtendedTooltip</name>
                   <id>483</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2875,7 +2923,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.РедактироватьНеобработанныйДубль</commandName>
+                <commandName>Form.Command.EditUnprocessedDuplicate</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3034,7 +3082,7 @@
                 <name>НеобработанныеДублиКонтекстноеМенюГруппаОткрыть</name>
                 <id>442</id>
                 <items xsi:type="form:Button">
-                  <name>НеобработанныеДублиКонтекстноеМенюОткрытьНеобработанныйДубль</name>
+                  <name>UnprocessedDuplicatesContextMenuOpenUnprocessedDuplicate</name>
                   <id>432</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3042,7 +3090,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>НеобработанныеДублиКонтекстноеМенюОткрытьНеобработанныйДубльРасширеннаяПодсказка</name>
+                    <name>UnprocessedDuplicatesContextMenuOpenUnprocessedDuplicateExtendedTooltip</name>
                     <id>433</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3056,7 +3104,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ОткрытьНеобработанныйДубль</commandName>
+                  <commandName>Form.Command.OpenUnprocessedDuplicate</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -3091,7 +3139,7 @@
                 <extInfo xsi:type="form:ButtonGroupExtInfo"/>
               </items>
               <items xsi:type="form:Button">
-                <name>НеобработанныеДублиКонтекстноеМенюРедактироватьНеобработанныйДубль</name>
+                <name>UnprocessedDuplicatesContextMenuEditUnprocessedDuplicate</name>
                 <id>484</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3099,7 +3147,7 @@
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>НеобработанныеДублиКонтекстноеМенюРедактироватьНеобработанныйДубльРасширеннаяПодсказка</name>
+                  <name>UnprocessedDuplicatesContextMenuEditUnprocessedDuplicateExtendedTooltip</name>
                   <id>485</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3113,7 +3161,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.РедактироватьНеобработанныйДубль</commandName>
+                <commandName>Form.Command.EditUnprocessedDuplicate</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -3280,11 +3328,11 @@
               <name>ОписаниеМестИспользованияНеобработанных</name>
               <id>267</id>
               <items xsi:type="form:Table">
-                <name>UnprocessedItemsUsageInstances</name>
+                <name>UnprocessedDuplicatesUsageInstances</name>
                 <id>269</id>
                 <title>
                   <key>en</key>
-                  <value>Unprocessed items usage instances</value>
+                  <value>Unprocessed duplicates usage instances</value>
                 </title>
                 <title>
                   <key>ru</key>
@@ -3296,11 +3344,11 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>UnprocessedItemsUsageInstances</segments>
+                  <segments>UnprocessedDuplicatesUsageInstances</segments>
                 </dataPath>
                 <titleLocation>Top</titleLocation>
                 <items xsi:type="form:FormField">
-                  <name>UnprocessedItemsUsageInstancesIcon</name>
+                  <name>UnprocessedDuplicatesUsageInstancesIcon</name>
                   <id>320</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3309,11 +3357,11 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>UnprocessedItemsUsageInstances.Icon</segments>
+                      <segments>UnprocessedDuplicatesUsageInstances.Icon</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
-                    <name>UnprocessedItemsUsageInstancesIconExtendedTooltip</name>
+                    <name>UnprocessedDuplicatesUsageInstancesIconExtendedTooltip</name>
                     <id>322</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3328,7 +3376,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>UnprocessedItemsUsageInstancesIconContextMenu</name>
+                    <name>UnprocessedDuplicatesUsageInstancesIconContextMenu</name>
                     <id>321</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3350,7 +3398,7 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormField">
-                  <name>UnprocessedItemsUsageInstancesDataPresentation</name>
+                  <name>UnprocessedDuplicatesUsageInstancesDataPresentation</name>
                   <id>311</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3359,11 +3407,11 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>UnprocessedItemsUsageInstances.ErrorObjectPresentation</segments>
+                      <segments>UnprocessedDuplicatesUsageInstances.ErrorObjectPresentation</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
-                    <name>UnprocessedItemsUsageInstancesDataPresentationExtendedTooltip</name>
+                    <name>UnprocessedDuplicatesUsageInstancesDataPresentationExtendedTooltip</name>
                     <id>313</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3378,7 +3426,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>UnprocessedItemsUsageInstancesDataPresentationContextMenu</name>
+                    <name>UnprocessedDuplicatesUsageInstancesDataPresentationContextMenu</name>
                     <id>312</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3402,10 +3450,10 @@
                   </extInfo>
                 </items>
                 <autoCommandBar>
-                  <name>UnprocessedItemsUsageInstancesCommandBar</name>
+                  <name>UnprocessedDuplicatesUsageInstancesCommandBar</name>
                   <id>271</id>
                   <items xsi:type="form:Button">
-                    <name>МестаИспользованияНеобработанныхРедактироватьМестоИспользованияНеобработанных</name>
+                    <name>UnprocessedDuplicatesUsageInstancesEditUnprocessedDuplicatesUsageInstance</name>
                     <id>486</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3413,7 +3461,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>МестаИспользованияНеобработанныхРедактироватьМестоИспользованияНеобработанныхРасширеннаяПодсказка</name>
+                      <name>UnprocessedDuplicatesUsageInstancesEditUnprocessedDuplicatesUsageInstanceExtendedTooltip</name>
                       <id>487</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -3427,7 +3475,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.РедактироватьМестоИспользованияНеобработанных</commandName>
+                    <commandName>Form.Command.EditUnprocessedDuplicatesUsageInstance</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -3445,11 +3493,11 @@
                 </autoCommandBar>
                 <handlers>
                   <event>Selection</event>
-                  <name>UnprocessedItemsUsageInstancesSelection</name>
+                  <name>UnprocessedDuplicatesUsageInstancesSelection</name>
                 </handlers>
                 <handlers>
                   <event>OnActivateRow</event>
-                  <name>UnprocessedItemsUsageInstancesOnActivateRow</name>
+                  <name>UnprocessedDuplicatesUsageInstancesOnActivateRow</name>
                 </handlers>
                 <searchStringAddition>
                   <visible>true</visible>
@@ -3457,10 +3505,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>UnprocessedItemsUsageInstancesSearchString</name>
+                  <name>UnprocessedDuplicatesUsageInstancesSearchString</name>
                   <id>391</id>
                   <extendedTooltip>
-                    <name>UnprocessedItemsUsageInstancesSearchStringExtendedTooltip</name>
+                    <name>UnprocessedDuplicatesUsageInstancesSearchStringExtendedTooltip</name>
                     <id>393</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3475,7 +3523,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>UnprocessedItemsUsageInstancesSearchStringContextMenu</name>
+                    <name>UnprocessedDuplicatesUsageInstancesSearchStringContextMenu</name>
                     <id>392</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3494,10 +3542,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>UnprocessedItemsUsageInstancesViewStatus</name>
+                  <name>UnprocessedDuplicatesUsageInstancesViewStatus</name>
                   <id>394</id>
                   <extendedTooltip>
-                    <name>UnprocessedItemsUsageInstancesViewStatusExtendedTooltip</name>
+                    <name>UnprocessedDuplicatesUsageInstancesViewStatusExtendedTooltip</name>
                     <id>396</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3512,7 +3560,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>UnprocessedItemsUsageInstancesViewStatusContextMenu</name>
+                    <name>UnprocessedDuplicatesUsageInstancesViewStatusContextMenu</name>
                     <id>395</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3533,10 +3581,10 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <name>UnprocessedItemsUsageInstancesSearchControl</name>
+                  <name>UnprocessedDuplicatesUsageInstancesSearchControl</name>
                   <id>397</id>
                   <extendedTooltip>
-                    <name>UnprocessedItemsUsageInstancesSearchControlExtendedTooltip</name>
+                    <name>UnprocessedDuplicatesUsageInstancesSearchControlExtendedTooltip</name>
                     <id>399</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3551,7 +3599,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <contextMenu>
-                    <name>UnprocessedItemsUsageInstancesSearchControlContextMenu</name>
+                    <name>UnprocessedDuplicatesUsageInstancesSearchControlContextMenu</name>
                     <id>398</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3566,7 +3614,7 @@
                   </extInfo>
                 </searchControlAddition>
                 <extendedTooltip>
-                  <name>UnprocessedItemsUsageInstancesExtendedTooltip</name>
+                  <name>UnprocessedDuplicatesUsageInstancesExtendedTooltip</name>
                   <id>272</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3581,10 +3629,10 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>UnprocessedItemsUsageInstancesContextMenu</name>
+                  <name>UnprocessedDuplicatesUsageInstancesContextMenu</name>
                   <id>270</id>
                   <items xsi:type="form:Button">
-                    <name>МестаИспользованияНеобработанныхКонтекстноеМенюРедактироватьМестоИспользованияНеобработанных</name>
+                    <name>UnprocessedDuplicatesUsageInstancesContextMenuEditUnprocessedItemsUsageInstance</name>
                     <id>488</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -3592,7 +3640,7 @@
                       <common>true</common>
                     </userVisible>
                     <extendedTooltip>
-                      <name>МестаИспользованияНеобработанныхКонтекстноеМенюРедактироватьМестоИспользованияНеобработанныхРасширеннаяПодсказка</name>
+                      <name>UnprocessedDuplicatesUsageInstancesContextMenuEditUnprocessedItemsUsageInstanceExtendedTooltip</name>
                       <id>489</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
@@ -3606,7 +3654,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Command.РедактироватьМестоИспользованияНеобработанных</commandName>
+                    <commandName>Form.Command.EditUnprocessedDuplicatesUsageInstance</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -3637,7 +3685,7 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <commandName>Form.Item.UnprocessedItemsUsageInstances.StandardCommand.OutputList</commandName>
+                    <commandName>Form.Item.UnprocessedDuplicatesUsageInstances.StandardCommand.OutputList</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -3673,7 +3721,7 @@
                 <rowFilter xsi:type="core:UndefinedValue"/>
               </items>
               <items xsi:type="form:FormField">
-                <name>UnprocessedItemsErrorDescription</name>
+                <name>UnprocessedDuplicatesErrorDescription</name>
                 <id>285</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -3682,12 +3730,12 @@
                 </userVisible>
                 <dataPath xsi:type="form:MultiLanguageDataPath">
                   <paths xsi:type="form:DataPath">
-                    <segments>UnprocessedItemsErrorDescription</segments>
+                    <segments>UnprocessedDuplicatesErrorDescription</segments>
                   </paths>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
-                  <name>UnprocessedItemsErrorDescriptionExtendedTooltip</name>
+                  <name>UnprocessedDuplicatesErrorDescriptionExtendedTooltip</name>
                   <id>287</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -3702,7 +3750,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>UnprocessedItemsErrorDescriptionContextMenu</name>
+                  <name>UnprocessedDuplicatesErrorDescriptionContextMenu</name>
                   <id>286</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -4382,12 +4430,16 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Wizard steps</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Шаги мастера</value>
     </title>
     <enableContentChange>true</enableContentChange>
     <extendedTooltip>
-      <name>ШагиМастераРасширеннаяПодсказка</name>
+      <name>WizardStepsExtendedTooltip</name>
       <id>59</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -4413,7 +4465,7 @@
       <name>ГруппаНазад</name>
       <id>169</id>
       <items xsi:type="form:Button">
-        <name>ШагМастераНазад</name>
+        <name>WizardStepBack</name>
         <id>171</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -4421,7 +4473,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ШагМастераНазадРасширеннаяПодсказка</name>
+          <name>WizardStepBackExtendedTooltip</name>
           <id>172</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4435,7 +4487,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ШагМастераНазад</commandName>
+        <commandName>Form.Command.WizardStepBack</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -4476,8 +4528,12 @@
       <name>ГруппаВперед</name>
       <id>173</id>
       <items xsi:type="form:Button">
-        <name>ШагМастераДалее</name>
+        <name>WizardStepNext</name>
         <id>175</id>
+        <title>
+          <key>en</key>
+          <value>Delete duplicates</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Удалить дубли</value>
@@ -4488,7 +4544,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ШагМастераДалееРасширеннаяПодсказка</name>
+          <name>WizardStepNextExtendedTooltip</name>
           <id>176</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4502,7 +4558,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ШагМастераДалее</commandName>
+        <commandName>Form.Command.WizardStepNext</commandName>
         <representation>Auto</representation>
         <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
@@ -4512,7 +4568,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>ШагМастераОтмена</name>
+        <name>WizardStepCancel</name>
         <id>177</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -4520,7 +4576,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ШагМастераОтменаРасширеннаяПодсказка</name>
+          <name>WizardStepCancelExtendedTooltip</name>
           <id>178</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -4534,7 +4590,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.ШагМастераОтмена</commandName>
+        <commandName>Form.Command.WizardStepCancel</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -4910,15 +4966,15 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>BeforeClose</event>
-    <name>ПередЗакрытием</name>
+    <name>BeforeClose</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -5130,10 +5186,10 @@
     <extInfo xsi:type="form:SpreadsheetDocumentExtInfo"/>
   </attributes>
   <attributes>
-    <name>DuplicatesFound</name>
+    <name>FoundDuplicates</name>
     <title>
       <key>en</key>
-      <value>Duplicates found</value>
+      <value>Found duplicates</value>
     </title>
     <title>
       <key>ru</key>
@@ -5340,10 +5396,10 @@
     </columns>
   </attributes>
   <attributes>
-    <name>DuplicatesFoundStateDetails</name>
+    <name>FoundDuplicatesStateDetails</name>
     <title>
       <key>en</key>
-      <value>Duplicates found state details</value>
+      <value>Found duplicates state details</value>
     </title>
     <title>
       <key>ru</key>
@@ -5575,7 +5631,7 @@
     </columns>
   </attributes>
   <attributes>
-    <name>UnprocessedItemsUsageInstances</name>
+    <name>UnprocessedDuplicatesUsageInstances</name>
     <title>
       <key>en</key>
       <value>Usage instances</value>
@@ -5664,10 +5720,10 @@
     </columns>
   </attributes>
   <attributes>
-    <name>UnprocessedItemsErrorDescription</name>
+    <name>UnprocessedDuplicatesErrorDescription</name>
     <title>
       <key>en</key>
-      <value>Unprocessed items error description</value>
+      <value>Unprocessed duplicates error description</value>
     </title>
     <title>
       <key>ru</key>
@@ -5842,12 +5898,20 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ВыбратьОсновнойЭлемент</name>
+    <name>SelectMainItem</name>
+    <title>
+      <key>en</key>
+      <value>Mark as original</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Отметить как оригинал</value>
     </title>
     <id>5</id>
+    <toolTip>
+      <key>en</key>
+      <value>Mark the current item as the original. Original will replace other duplicates.</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Указать текущий элемент как оригинал, на который будут замены все остальные элемент группы дублей</value>
@@ -5860,19 +5924,27 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыбратьОсновнойЭлемент</name>
+        <name>SelectMainItem</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьКандидатаВДубли</name>
+    <name>OpenCandidate</name>
+    <title>
+      <key>en</key>
+      <value>Open</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть</value>
     </title>
     <id>6</id>
+    <toolTip>
+      <key>en</key>
+      <value>Open candidate</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Открыть кандидата в дубли</value>
@@ -5882,18 +5954,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьКандидатаВДубли</name>
+        <name>OpenCandidate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РазвернутьГруппыДублей</name>
+    <name>ExpandDuplicatesGroups</name>
+    <title>
+      <key>en</key>
+      <value>Expand</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Развернуть</value>
     </title>
     <id>7</id>
+    <toolTip>
+      <key>en</key>
+      <value>Expand duplicates groups</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Развернуть группы дублей</value>
@@ -5906,18 +5986,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РазвернутьГруппыДублей</name>
+        <name>ExpandDuplicatesGroups</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СвернутьГруппыДублей</name>
+    <name>CollapseDuplicatesGroups</name>
+    <title>
+      <key>en</key>
+      <value>Collapse</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Свернуть</value>
     </title>
     <id>8</id>
+    <toolTip>
+      <key>en</key>
+      <value>Collapse duplicates groups</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Свернуть группы дублей</value>
@@ -5930,18 +6018,26 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СвернутьГруппыДублей</name>
+        <name>CollapseDuplicatesGroups</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагМастераДалее</name>
+    <name>WizardStepNext</name>
+    <title>
+      <key>en</key>
+      <value>Next ></value>
+    </title>
     <title>
       <key>ru</key>
       <value>Далее ></value>
     </title>
     <id>10</id>
+    <toolTip>
+      <key>en</key>
+      <value>Proceed to the next step.</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Продолжить выполнение</value>
@@ -5951,18 +6047,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбработчикКнопкиМастера</name>
+        <name>WizardButtonHandler</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагМастераНазад</name>
+    <name>WizardStepBack</name>
+    <title>
+      <key>en</key>
+      <value>&lt; Back</value>
+    </title>
     <title>
       <key>ru</key>
       <value>&lt; Назад</value>
     </title>
     <id>11</id>
+    <toolTip>
+      <key>en</key>
+      <value>Return to the previous step.</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Вернутся на предыдущий шаг</value>
@@ -5972,18 +6076,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбработчикКнопкиМастера</name>
+        <name>WizardButtonHandler</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ШагМастераОтмена</name>
+    <name>WizardStepCancel</name>
+    <title>
+      <key>en</key>
+      <value>Cancel</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Отмена</value>
     </title>
     <id>12</id>
+    <toolTip>
+      <key>en</key>
+      <value>Exit the wizard.</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Прекратить работу мастера</value>
@@ -5993,18 +6105,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОбработчикКнопкиМастера</name>
+        <name>WizardButtonHandler</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ПовторитьПоиск</name>
+    <name>RetrySearch</name>
+    <title>
+      <key>en</key>
+      <value>Retry search</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Повторить поиск</value>
     </title>
     <id>13</id>
+    <toolTip>
+      <key>en</key>
+      <value>Retry search</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Повторить поиск</value>
@@ -6014,18 +6134,26 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ПовторитьПоиск</name>
+        <name>RetrySearch</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьНеобработанныйДубль</name>
+    <name>OpenUnprocessedDuplicate</name>
+    <title>
+      <key>en</key>
+      <value>Open</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Open Item</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Открыть элемент</value>
@@ -6035,13 +6163,17 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьНеобработанныйДубль</name>
+        <name>OpenUnprocessedDuplicate</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьНайденныйДубль</name>
+    <name>EditFoundDuplicate</name>
+    <title>
+      <key>en</key>
+      <value>Edit object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать Объект</value>
@@ -6055,14 +6187,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьНайденныйДубль</name>
+        <name>EditFoundDuplicate</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьМестоИспользованияКандидата</name>
+    <name>EditCandidateUsageInstance</name>
+    <title>
+      <key>en</key>
+      <value>Edit object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать объект</value>
@@ -6076,13 +6212,17 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьМестоИспользованияКандидата</name>
+        <name>EditCandidateUsageInstance</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьНеобработанныйДубль</name>
+    <name>EditUnprocessedDuplicate</name>
+    <title>
+      <key>en</key>
+      <value>Edit object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать объект</value>
@@ -6096,14 +6236,18 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьНеобработанныйДубль</name>
+        <name>EditUnprocessedDuplicate</name>
       </handler>
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>РедактироватьМестоИспользованияНеобработанных</name>
+    <name>EditUnprocessedDuplicatesUsageInstance</name>
+    <title>
+      <key>en</key>
+      <value>Edit object</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактировать объект</value>
@@ -6117,7 +6261,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>РедактироватьМестоИспользованияНеобработанных</name>
+        <name>EditUnprocessedDuplicatesUsageInstance</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
