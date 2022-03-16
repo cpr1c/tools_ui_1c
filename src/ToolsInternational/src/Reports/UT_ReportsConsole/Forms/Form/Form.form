@@ -13163,10 +13163,6 @@ In the structure tree, select the report and edit additional report settings.</v
             <key>ru</key>
             <value> </value>
           </title>
-          <title>
-            <key>en</key>
-            <value>Decoration collection</value>
-          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
