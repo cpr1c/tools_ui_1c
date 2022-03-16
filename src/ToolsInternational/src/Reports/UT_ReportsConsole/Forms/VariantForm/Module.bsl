@@ -230,23 +230,23 @@ EndProcedure
 Procedure SettingsOnActivateField(Item)
 	Var ВыбраннаяСтраница;
 
-	If Items.Structure.CurrentItem.Name = "СтруктураНаличиеВыбора" Then
+	If Items.Structure.CurrentItem.Name = "StructureHasSelection" Then
 
 		ВыбраннаяСтраница = Items.SelectionFieldsPage;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеОтбора" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasFilter" Then
 
 		ВыбраннаяСтраница = Items.FilterPage;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПорядка" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasOrder" Then
 
 		ВыбраннаяСтраница = Items.OrderPage;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеУсловногоОформления" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasConditionalAppearance" Then
 
 		ВыбраннаяСтраница = Items.ConditionalAppearancePage;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПараметровВывода" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasOutputParameters" Then
 
 		ВыбраннаяСтраница = Items.OutputParametersPage;
 

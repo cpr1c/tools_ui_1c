@@ -994,7 +994,7 @@ Procedure OutputDataCompositionTemplateToSpreadsheetDocument(DataCompositionTemp
 	ReportResultOutputProcessor = New DataCompositionResultSpreadsheetDocumentOutputProcessor;
 	ReportResultOutputProcessor.SetDocument(ResultSpreadsheetDocument);
 	ReportResultOutputProcessor.BeginOutput();
-	ReportResultOutputProcessor.Put(DataCompositionProcessor);
+	ReportResultOutputProcessor.OutPut(DataCompositionProcessor);
 	ReportResultOutputProcessor.EndOutput();
 
 	If DetailsDataObject <> Undefined Then
@@ -3363,84 +3363,82 @@ Procedure LoadSchemaFromFileAfterPutFile(Result, Address, SelectedFileName, Addi
 EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
-// ПРОЦЕДУРЫ - ОБРАБОТЧИКИ СОБЫТИЙ РЕКВИЗИТОВ ФОРМЫ
-
-// Event handler ПриАктивизацииПоля таблицы Structure.
-// Активизирует страницу настроек в зависимости от того, какую колонку
-// активировал пользователь.
+// Procedures  - Form Attributes event Handlers 
+// 
+// Event handler OnActivateField of Structure table.
+// Activate settings page linked with column that user activated
 &AtClient
 Procedure StructureOnActivateField(Item)
 	
-	Var ВыбраннаяСтраница;
+	Var SelectedPage;
 
-	If Items.Structure.CurrentItem.Name = "СтруктураНаличиеВыбора" Then
+	If Items.Structure.CurrentItem.Name = "StructureHasSelection" Then
 
-		ВыбраннаяСтраница = Items.PageSelectedFields;
+		SelectedPage = Items.PageSelectedFields;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеОтбора" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasFilter" Then
 
-		ВыбраннаяСтраница = Items.PageFilter;
+		SelectedPage = Items.PageFilter;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПорядка" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasOrder" Then
 
-		ВыбраннаяСтраница = Items.OrderPage;
+		SelectedPage = Items.OrderPage;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеУсловногоОформления" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasConditionalAppearance" Then
 
-		ВыбраннаяСтраница = Items.ConditionalAppearancePage;
+		SelectedPage = Items.ConditionalAppearancePage;
 
-	ElsIf Items.Structure.CurrentItem.Name = "СтруктураНаличиеПараметровВывода" Then
+	ElsIf Items.Structure.CurrentItem.Name = "StructureHasOutputParameters" Then
 
-		ВыбраннаяСтраница = Items.OutputParametersPage;
+		SelectedPage = Items.OutputParametersPage;
 
 	EndIf;
 
-	If ВыбраннаяСтраница <> Undefined Then
+	If SelectedPage <> Undefined Then
 
-		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
+		Items.SettingsPages.CurrentPage = SelectedPage;
 
 	EndIf;
 EndProcedure
 
 
-// Event handler ПриАктивизацииПоля таблицы Structure1.
-// Активизирует страницу настроек в зависимости от того, какую колонку
-// активировал пользователь.
+// Event handler OnActivateField of Structure1 table.
+// Activate settings page linked with column that user activated
 &AtClient
 Procedure Settings1OnActivateField(Item)
-	Var ВыбраннаяСтраница;
+	Var SelectedPage;
 
-	If Items.Settings1.CurrentItem.Name = "Structure1НаличиеВыбора" Then
+	If Items.Settings1.CurrentItem.Name = "Structure1HasSelection" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПолейВыбора1;
+		SelectedPage = Items.PageSelectedFields1;
 
-	ElsIf Items.Settings1.CurrentItem.Name = "Structure1НаличиеОтбора" Then
+	ElsIf Items.Settings1.CurrentItem.Name = "Structure1HasFilter" Then
 
-		ВыбраннаяСтраница = Items.FilterPage1;
+		SelectedPage = Items.FilterPage1;
 
-	ElsIf Items.Settings1.CurrentItem.Name = "Structure1НаличиеПорядка" Then
+	ElsIf Items.Settings1.CurrentItem.Name = "Structure1HasOrder" Then
 
-		ВыбраннаяСтраница = Items.OrderPage1;
+		SelectedPage = Items.OrderPage1;
 
-	ElsIf Items.Settings1.CurrentItem.Name = "Structure1НаличиеУсловногоОформления" Then
+	ElsIf Items.Settings1.CurrentItem.Name = "Structure1HasConditionalAppearance" Then
 
-		ВыбраннаяСтраница = Items.ConditionalAppearancePage1;
+		SelectedPage = Items.ConditionalAppearancePage1;
 
-	ElsIf Items.Settings1.CurrentItem.Name = "Structure1НаличиеПараметровВывода" Then
+	ElsIf Items.Settings1.CurrentItem.Name = "Structure1HasOutputParameters" Then
 
-		ВыбраннаяСтраница = Items.OutputParametersPage1;
+		SelectedPage = Items.OutputParametersPage1;
 
 	EndIf;
 
-	If ВыбраннаяСтраница <> Undefined Then
+	If SelectedPage <> Undefined Then
 
-		Items.PagesSettings1.CurrentPage = ВыбраннаяСтраница;
+		Items.PagesSettings1.CurrentPage = SelectedPage;
 
 	EndIf;
 EndProcedure
 
-// Обработчик СтруктураПриАктивизацииСтроки элемента Structure.
-// Приводит закладки с настройками в актуальное состояние
+// Handler StructureOnActivateRow of  Structure form item
+// Sets pages  with settings up to date
 &AtClient
 Procedure StructureOnActivateRow(Item)
 	
@@ -3511,8 +3509,8 @@ Procedure StructureOnActivateRow(Item)
 EndProcedure
 
 
-// Обработчик СтруктураПриАктивизацииСтроки элемента Structure1.
-// Приводит закладки с настройками в актуальное состояние
+// Handler StructureOnActivateRow of  Structure1 form item
+// Sets pages  with settings up to date
 &AtClient
 Procedure Settings1OnActivateRow(Item)
 	SettingsItem = ExecutedSettingsComposer.Settings.GetObjectByID(
@@ -3577,7 +3575,7 @@ Procedure Settings1OnActivateRow(Item)
 	EndIf;
 EndProcedure
 
-// Event handler Нажатие декораций.
+// Event handler OnClick for Decorations.
 &AtClient
 Procedure GoToReport(Item)
 
@@ -3589,7 +3587,7 @@ Procedure GoToReport(Item)
 
 EndProcedure
 
-// Event handler Нажатие декораций for executable settings.
+// Event handler OnClick for Decorations. for executable settings.
 &AtClient
 Procedure GoToReport1(Item)
 
@@ -3601,7 +3599,7 @@ Procedure GoToReport1(Item)
 
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalSelectedFields.
+// Event handler OnChange of checkbox LocalSelectedFields.
 &AtClient
 Procedure LocalSelectedFieldsOnChange(Item)
 		If LocalSelectedFields Then
@@ -3619,7 +3617,7 @@ Procedure LocalSelectedFieldsOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalSelectedFields1.
+// Event handler OnChange of checkbox LocalSelectedFields1.
 &AtClient
 Procedure LocalSelectedFields1OnChange(Item)
 	If LocalSelectedFields1 Then
@@ -3637,7 +3635,7 @@ Procedure LocalSelectedFields1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalFilter.
+// Event handler OnChange of checkbox LocalFilter.
 &AtClient
 Procedure LocalFilterOnChange(Item)
 		If LocalFilter Then
@@ -3655,7 +3653,7 @@ Procedure LocalFilterOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalFilter1.
+// Event handler OnChange of checkbox LocalFilter1.
 &AtClient
 Procedure LocalFilter1OnChange(Item)
 		If LocalFilter1 Then
@@ -3673,7 +3671,7 @@ Procedure LocalFilter1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalOrder.
+// Event handler OnChange of checkbox LocalOrder.
 &AtClient
 Procedure LocalOrderOnChange(Item)
 	
@@ -3692,7 +3690,7 @@ Procedure LocalOrderOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalOrder1.
+// Event handler OnChange of checkbox LocalOrder1.
 &AtClient
 Procedure LocalOrder1OnChange(Item)
 	If LocalOrder1 Then
@@ -3710,7 +3708,7 @@ Procedure LocalOrder1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalConditionalAppearance.
+// Event handler OnChange of checkbox LocalConditionalAppearance.
 &AtClient
 Procedure LocalConditionalAppearanceOnChange(Item)
 		If LocalConditionalAppearance Then
@@ -3728,7 +3726,7 @@ Procedure LocalConditionalAppearanceOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalConditionalAppearance1.
+// Event handler OnChange of checkbox LocalConditionalAppearance1.
 &AtClient
 Procedure LocalConditionalAppearance1OnChange(Item)
 	If LocalConditionalAppearance1 Then
@@ -3746,7 +3744,7 @@ Procedure LocalConditionalAppearance1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalOutputParameters.
+// Event handler OnChange of checkbox LocalOutputParameters.
 &AtClient
 Procedure LocalOutputParametersOnChange(Item)
 		If LocalOutputParameters Then
@@ -3763,7 +3761,7 @@ Procedure LocalOutputParametersOnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриИзменении флажка LocalOutputParameters1.
+// Event handler OnChange of checkbox LocalOutputParameters1.
 &AtClient
 Procedure LocalOutputParameters1OnChange(Item)
 	If LocalOutputParameters1 Then
@@ -3780,8 +3778,8 @@ Procedure LocalOutputParameters1OnChange(Item)
 	EndIf;
 EndProcedure
 
-// Event handler ПриАктивизацииСтроки элемента ReportsTree.
-// Отображает соответствующую закладку - схему, вариант, пользовательские Settings и т.п.
+// Event handler OnActivateRow of item  ReportsTree.
+//Displays the corresponding tab - scheme, option, Custom Settings, etc.
 &AtClient
 Procedure ReportsTreeOnActivateRow(Item)
 	
@@ -3794,7 +3792,7 @@ Procedure ReportsTreeOnActivateRow(Item)
 			TreeItem = ReportsTree.FindByID(Item.CurrentRow);
 
 			If TreeItem.RowType = 0 Then
-			// Scheme компоновки данных.
+			// Data composition scheme
 				If Items.GroupSettings.CurrentPage <> Items.GroupVariant Then
 
 					Items.GroupSettings.CurrentPage = Items.GroupVariant;
@@ -3810,7 +3808,7 @@ Procedure ReportsTreeOnActivateRow(Item)
 				//				EndIf;
 				//				
 				//			ElsIf TreeItem.RowType = 2 Then
-				//				// Пользовательские Settings.
+				//				// User Settings.
 				//				If Items.GroupSettings.CurrentPage <> Items.GroupUserSettings Then
 				//					
 				//					Items.GroupSettings.CurrentPage = Items.GroupUserSettings;
@@ -3818,10 +3816,10 @@ Procedure ReportsTreeOnActivateRow(Item)
 				//				EndIf;
 				//				
 				//			Else
-				// Неизвестный тип.
-				//				If Items.GroupSettings.CurrentPage <> Items.ГруппаПустая Then
+				// Unknown type.
+				//				If Items.GroupSettings.CurrentPage <> Items.EmptyGroup Then
 				//					
-				//					Items.GroupSettings.CurrentPage = Items.ГруппаПустая;
+				//					Items.GroupSettings.CurrentPage = Items.EmptyGroup;
 				//					
 				//				EndIf;
 			EndIf;
@@ -3836,7 +3834,7 @@ Procedure ReportsTreeOnActivateRow(Item)
 
 		Except
 
-			CurrentRow = Undefined; // For того, чтобы не испортить Settings в дереве.
+			CurrentRow = Undefined; // It's for not damage settings in tree.
 			RowIsBeingActivated = False;
 
 		EndTry;
@@ -3849,7 +3847,7 @@ Procedure Settings(Command)
 	DisplaySettingsPanel();
 EndProcedure
 
-// Event handler ПриИзменении элементов, связанных с настройками.
+// Event handler OnChange items linked with settings.
 &AtClient
 Procedure SettingsOnChange(Item)
 	CurrentRowSettingsIsChanged = True;
@@ -3869,7 +3867,7 @@ Procedure SettingsDrag(Item, DragParameters, StandardProcessing, Row, Field)
 EndProcedure
 
 
-// Event handler ПередНачаломДобавления элемента ReportsTree.
+// Event handler BeforeAddRow of Item ReportsTree.
 &AtClient
 Procedure ReportsTreeBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Parameter)
 	
@@ -3878,7 +3876,7 @@ Procedure ReportsTreeBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Paramet
 		Cancel = True;
 
 		If ReportsTree.FindByID(Item.CurrentRow).RowType <> 4 Then
-		// Not корень.
+		// Not root.
 			CopyAtServer();
 
 		EndIf;
@@ -3886,21 +3884,13 @@ Procedure ReportsTreeBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Paramet
 	EndIf;
 EndProcedure
 
-// Event handler ПередУдалением элемента ReportsTree.
-&AtClient
-Procedure ДеревоОтчетовПередУдалением(Item, Cancel)
-
-	CurrentRow = Undefined;
-
-EndProcedure
-
-
+// Event handler BeforeDeleteRow of item ReportsTree.
 &AtClient
 Procedure ReportsTreeBeforeDeleteRow(Item, Cancel)
 	CurrentRow = Undefined;
 EndProcedure
 
-// Event handler Выбор элемента ReportsTree.
+// Event handler Selection of item ReportsTree.
 &AtClient
 Procedure ReportsTreeSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing = False;
@@ -3908,52 +3898,52 @@ Procedure ReportsTreeSelection(Item, RowSelected, Field, StandardProcessing)
 EndProcedure
 
 
-// Event handler ОбработкаДополнительнойРасшифровки табличного документа ResultSpreadsheetDocument.
+// Event handler AdditionalDetailProcessing of  Spreadsheet Document ResultSpreadsheetDocument.
 &AtClient
 Procedure ResultSpreadsheetDocumentAdditionalDetailProcessing(Item, Details, StandardProcessing, AdditionalParameters)
 	StandardProcessing = False;
 	DetailProcessing = New DataCompositionDetailsProcess(DetailsDataURL,
 		New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 	DetailProcessing.ShowActionChoice(
-		New NotifyDescription("РезультатТабличныйДокументОбработкаРасшифровкиЗавершение", ThisForm,
+		New NotifyDescription("ResultSpreadsheetDocumentDetailProcessingOnEnd", ThisForm,
 		New Structure("Details", Details)), Details, , , , Items.ResultSpreadsheetDocument);
 EndProcedure
 
-// Event handler ОбработкаРасшифровки табличного документа ResultSpreadsheetDocument.
+// Event handler DetailProcessing Spreadsheet Document ResultSpreadsheetDocument.
 &AtClient
 Procedure ResultSpreadsheetDocumentDetailProcessing(Item, Details, StandardProcessing, AdditionalParameters)
 		StandardProcessing = False;
 	DetailProcessing = New DataCompositionDetailsProcess(DetailsDataURL,
 		New DataCompositionAvailableSettingsSource(ExecutedReportSchemaURL));
 	DetailProcessing.ShowActionChoice(
-		New NotifyDescription("РезультатТабличныйДокументОбработкаРасшифровкиЗавершение", ThisForm,
+		New NotifyDescription("ResultSpreadsheetDocumentDetailProcessingOnEnd", ThisForm,
 		New Structure("Details", Details)), Details, , , True, );
 EndProcedure
 
-// Отработка выбора действия расшифровки.
+// Details action choose event handler.
 &AtClient
-Procedure РезультатТабличныйДокументОбработкаРасшифровкиЗавершение(ВыполненноеДействие, ПараметрВыполненногоДействия,
+Procedure  ResultSpreadsheetDocumentDetailProcessingOnEnd(ChosenAction, ChosenActionParameter,
 	AdditionalParameters) Export
 
 	Details = AdditionalParameters.Details;
 
-	If ВыполненноеДействие = DataCompositionDetailsProcessingAction.None Then
+	If ChosenAction = DataCompositionDetailsProcessingAction.None Then
 
-	ElsIf ВыполненноеДействие = DataCompositionDetailsProcessingAction.OpenValue Then
+	ElsIf ChosenAction = DataCompositionDetailsProcessingAction.OpenValue Then
 
-		ShowValue( , ПараметрВыполненногоДействия);
+		ShowValue( , ChosenActionParameter);
 
-	ElsIf ВыполненноеДействие <> Undefined Then
+	ElsIf ChosenAction <> Undefined Then
 
 		OpenForm(DetailsFormName, New Structure("Details,DataCompositionSchemaURL",
 			New DataCompositionDetailsProcessDescription(DetailsDataURL, Details,
-			ПараметрВыполненногоДействия), ExecutedReportSchemaURL), , True);
+			ChosenActionParameter), ExecutedReportSchemaURL), , True);
 
 	EndIf;
 
 EndProcedure
 
-// Event handler ПриСменеСтраницы панели ResultsPanel.
+// Event handler OnPageChange of panel ResultsPanel.
 &AtClient
 Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
     If Items.ResultsPanel.CurrentPage = Items.PageResultSpreadsheetDocument Then
@@ -4029,7 +4019,7 @@ Procedure ResultsPanelOnCurrentPageChange(Item, CurrentPage)
 	EndIf;
 EndProcedure
 
-// Event handler Выбор таблицы TreeResult.
+// Event handler selection of  TreeResult table.
 &AtClient
 Procedure TreeResultSelection(Item, RowSelected, Field, StandardProcessing)
 		Var Value;
@@ -4053,11 +4043,11 @@ Procedure ExternalDataSetsPresentationStartChoice(Item, ChoiceData, StandardProc
 	EndIf;
 	
 	UT_CommonClient.EditValueTable(CurrentData.Value, ThisObject,
-		New NotifyDescription("ВнешниеНаборыДанныхПредставлениеНачалоВыбораЗавершение", ThisObject,New Structure("ТекСтрока",Items.ExternalDataSets.CurrentRow)));
+		New NotifyDescription("ExternalDataSetsPresentationStartChoiceOnEnd", ThisObject,New Structure("CurrentRow",Items.ExternalDataSets.CurrentRow)));
 EndProcedure
 
 &AtClient
-Procedure ВнешниеНаборыДанныхПредставлениеНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure ExternalDataSetsPresentationStartChoiceOnEnd(Result, AdditionalParameters) Export
 	If Result=Undefined Then
 		Return;
 	EndIf;
@@ -4065,7 +4055,7 @@ Procedure ВнешниеНаборыДанныхПредставлениеНач
 	If TreeCurrentRow=Undefined Then
 		Return;
 	EndIf;
-	RowCurrentData=TreeCurrentRow.ExternalDataSets.FindByID(AdditionalParameters.ТекСтрока);
+	RowCurrentData=TreeCurrentRow.ExternalDataSets.FindByID(AdditionalParameters.CurrentRow);
 	RowCurrentData.Value=Result.Value;
 	RowCurrentData.Presentation=Result.Presentation;
 EndProcedure
@@ -4094,11 +4084,11 @@ Procedure ExternalDataSetsBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
 	If TreeCurrentRow=Undefined Then
 		Return;
 	EndIf;
-
 	
-	маСтрокиИмени = TreeCurrentRow.ExternalDataSets.FindRows(New Structure("Name", CurrentData.Name));
-	If маСтрокиИмени.Count() > 1 Then
-		ShowMessageBox( , "Column с таким именем уже есть! Введите другое имя.", , Title);
+	ArrayOfNameString = TreeCurrentRow.ExternalDataSets.FindRows(New Structure("Name", CurrentData.Name));
+	If ArrayOfNameString.Count() > 1 Then
+		ShowMessageBox( , NSTR("ru = 'Колонка с таким именем уже есть! Введите другое имя';
+		|en = 'There is already a column with that name! Enter a different name'"), , Title);
 		Cancel = True;
 		Return;
 	EndIf;
@@ -4113,7 +4103,7 @@ Function ExternalDataSetsStructure()
 		Return ExternalSets;
 	EndIf;
 		
-	For Each Set ИЗ TreeCurrentRow.ExternalDataSets Do
+	For Each Set in TreeCurrentRow.ExternalDataSets Do
 		If ValueIsFilled(Set.Value) Then
 			Try
 				ValueTable=ValueFromStringInternal(Set.Value);
