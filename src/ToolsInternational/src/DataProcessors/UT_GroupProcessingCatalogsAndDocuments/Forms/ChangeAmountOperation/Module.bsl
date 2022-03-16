@@ -326,10 +326,10 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		EndDo;
 	EndIf;
 
-	If Parameters.Property("ТаблицаРеквизитов") Then
-		ТАбРеквизитов=Parameters.ТаблицаРеквизитов;
+	If Parameters.Property("TableAttributes") Then
+		ТАбРеквизитов=Parameters.TableAttributes;
 		ТАбРеквизитов.Sort("ЭтоТЧ");
-		For Each Attribute In Parameters.ТаблицаРеквизитов Do
+		For Each Attribute In Parameters.TableAttributes Do
 			NewLine = Attributes.Add();
 			NewLine.Attribute      = Attribute.Name;//?(IsBlankString(Attribute.Synonym), Attribute.Name, Attribute.Synonym);
 			NewLine.ID = Attribute.Presentation;

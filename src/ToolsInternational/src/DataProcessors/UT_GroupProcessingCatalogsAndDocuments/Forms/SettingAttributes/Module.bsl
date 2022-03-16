@@ -23,19 +23,19 @@ Var ТЗНО;
 //  SequenceNumberObject - serial number of the processed object.
 //
 &AtServer
-Procedure ОбработатьОбъект(Reference, SequenceNumberObject, ParametersWriteObjects)
-	//СтрокаТЧ=
+Procedure ProcessObject(Reference, SequenceNumberObject, ParametersWriteObjects)
+	//RowTP=
 	//
 	Object = Reference.GetObject();
 	If ProcessTabularParts Then
-		СтрокаТЧ=Object[FoundObjects[SequenceNumberObject].T_TP][FoundObjects[SequenceNumberObject].T_LineNumber
+		RowTP=Object[FoundObjects[SequenceNumberObject].T_TP][FoundObjects[SequenceNumberObject].T_LineNumber
 			- 1];
 	EndIf;
 
 	For Each Attribute In Attributes Do
 		If Attribute.Choose Then
 			If Attribute.AttributeTP Then
-				СтрокаТЧ[Attribute.Attribute] = Attribute.Value;
+				RowTP[Attribute.Attribute] = Attribute.Value;
 			Else
 				Object[Attribute.Attribute] = Attribute.Value;
 			EndIf;
@@ -44,13 +44,13 @@ Procedure ОбработатьОбъект(Reference, SequenceNumberObject, Para
 
 //		Object.Write();
 	If UT_Common.WriteObjectToDB(Object, ParametersWriteObjects) Then
-		UT_CommonClientServer.MessageToUser(StrTemplate("Object %1 УСПЕХ!!!", Object));
+		UT_CommonClientServer.MessageToUser(StrTemplate(Nstr("ru = 'Объект %1 УСПЕХ!!!';en = 'Object %1 SUCCESS!!!'"), Object));
 	EndIf;
 
-EndProcedure // ОбработатьОбъект()
+EndProcedure // ProcessObject()
 
 
-// Выполняет обработку объектов.
+// Performs object processing.
 //
 // Parameters:
 //  None.
@@ -58,15 +58,15 @@ EndProcedure // ОбработатьОбъект()
 &AtClient
 Function ExecuteProcessing(ParametersWriteObjects) Export
 
-	Indicator = ПолучитьИндикаторПроцесса(FoundObjects.Count());
+	Indicator = GetProcessIndicator(FoundObjects.Count());
 	For IndexOf = 0 To FoundObjects.Count() - 1 Do
-		ОбработатьИндикатор(Indicator, IndexOf + 1);
+		ProcessIndicator(Indicator, IndexOf + 1);
 
 		СтрокаНайденныхОбъектов=FoundObjects.Get(IndexOf);
 
 		If СтрокаНайденныхОбъектов.Choose Then//
 
-			ОбработатьОбъект(СтрокаНайденныхОбъектов.Object, IndexOf, ParametersWriteObjects);
+			ProcessObject(СтрокаНайденныхОбъектов.Object, IndexOf, ParametersWriteObjects);
 		EndIf;
 	EndDo;
 
@@ -75,7 +75,7 @@ Function ExecuteProcessing(ParametersWriteObjects) Export
 	EndIf;
 
 	Return IndexOf;
-EndFunction // вВыполнитьОбработку()
+EndFunction // ExecuteProcessing()
 
 // Сохраняет значения реквизитов формы.
 //
@@ -87,18 +87,18 @@ Procedure SaveSetting() Export
 
 	If IsBlankString(CurrentSettingRepresentation) Then
 		ShowMessageBox( ,
-			"Задайте имя новой настройки для сохранения или выберите существующую настройку для перезаписи.");
+			Nstr("ru = 'Задайте имя новой настройки для сохранения или выберите существующую настройку для перезаписи.';en = 'Specify a name for the new setting to save, or select an existing setting to overwrite.'"));
 	EndIf;
 
-	НоваяНастройка = New Structure;
-	НоваяНастройка.Insert("Processing", CurrentSettingRepresentation);
-	НоваяНастройка.Insert("Прочее", New Structure);
+	NewSetting = New Structure;
+	NewSetting.Insert("Processing", CurrentSettingRepresentation);
+	NewSetting.Insert("Other", New Structure);
 	
 	//@skip-warning
-	AttributesForSaving = ПолучитьМассивРеквизитов();
+	AttributesForSaving = GetArrayOfAttributes();
 
-	For Each РеквизитНастройки In mSetting Do
-		Execute ("НоваяНастройка.Прочее.Insert(String(РеквизитНастройки.Key), " + String(РеквизитНастройки.Key)
+	For Each AttributeSetting In mSetting Do
+		Execute ("NewSetting.Other.Insert(String(AttributeSetting.Key), " + String(AttributeSetting.Key)
 			+ ");");
 	EndDo;
 
@@ -114,7 +114,7 @@ Procedure SaveSetting() Export
 		If ТекущаяДоступнаяНастройка <> Undefined Then
 			NewLine = ТекущаяДоступнаяНастройка.GetItems().Add();
 			NewLine.Processing = CurrentSettingRepresentation;
-			NewLine.Setting.Add(НоваяНастройка);
+			NewLine.Setting.Add(NewSetting);
 
 			ThisForm.FormOwner.Items.ДоступныеОбработки.CurrentLine = NewLine.GetID();
 		EndIf;
@@ -128,48 +128,48 @@ Procedure SaveSetting() Export
 		EndDo;
 
 		If ТекНастройка.Setting.Count() = 0 Then
-			ТекНастройка.Setting.Add(НоваяНастройка);
+			ТекНастройка.Setting.Add(NewSetting);
 		Else
-			ТекНастройка.Setting[0].Value = НоваяНастройка;
+			ТекНастройка.Setting[0].Value = NewSetting;
 		EndIf;
 	EndIf;
 
-	CurrentSetting = НоваяНастройка;
+	CurrentSetting = NewSetting;
 	ThisForm.Modified = False;
 EndProcedure // SaveSetting()
 
 &AtServer
-Function ПолучитьМассивРеквизитов()
-	МассивРеквизитов = New Array;
-	For Each Стр In Attributes Do
-		If Not Стр.Choose Then
+Function GetArrayOfAttributes()
+	ArrayAttributes = New Array;
+	For Each Row In Attributes Do
+		If Not Row.Choose Then
 			Continue;
 		EndIf;
 
-		СтруктураРеквизита = New Structure;
-		СтруктураРеквизита.Insert("Choose", Стр.Choose);
-		СтруктураРеквизита.Insert("Attribute", Стр.Attribute);
-		СтруктураРеквизита.Insert("ID", Стр.ID);
-		СтруктураРеквизита.Insert("Type", Стр.Type);
-		СтруктураРеквизита.Insert("Value", Стр.Value);
+		StructureAttribute = New Structure;
+		StructureAttribute.Insert("Choose", Row.Choose);
+		StructureAttribute.Insert("Attribute", Row.Attribute);
+		StructureAttribute.Insert("ID", Row.ID);
+		StructureAttribute.Insert("Type", Row.Type);
+		StructureAttribute.Insert("Value", Row.Value);
 
-		МассивРеквизитов.Add(СтруктураРеквизита);
+		ArrayAttributes.Add(StructureAttribute);
 	EndDo;
 
-	Return МассивРеквизитов;
+	Return ArrayAttributes;
 EndFunction
 
 &AtServer
-Procedure ЗагрузитьРеквизитыИзМассива(МассивРеквизитов)
-	ТЗ = FormAttributeToValue("Attributes");
+Procedure LoadAttributesFromArray(ArrayAttributes)
+	TableAttributes = FormAttributeToValue("Attributes");
 	
 	//Перед установкой очистим существующие установки
-	For Each СтрокаТаблицы In ТЗ Do
-		СтрокаТаблицы.Choose=False;
-		СтрокаТаблицы.Value=СтрокаТаблицы.Type.AdjustValue();
+	For Each СтрокаТаблицы In TableAttributes Do
+		СтрокаТаблицы.Choose = False;
+		СтрокаТаблицы.Value = СтрокаТаблицы.Type.AdjustValue();
 	EndDo;
 
-	For Each Стр In МассивРеквизитов Do
+	For Each Стр In ArrayAttributes Do
 		If Not Стр.Choose Then
 			Continue;
 		EndIf;
@@ -177,7 +177,7 @@ Procedure ЗагрузитьРеквизитыИзМассива(МассивР�
 		СтруктураПоиска = New Structure;
 		СтруктураПоиска.Insert("Attribute", Стр.Attribute);
 
-		МассивСтрок = ТЗ.FindRows(СтруктураПоиска);
+		МассивСтрок = TableAttributes.FindRows(СтруктураПоиска);
 		If МассивСтрок.Count() = 0 Then
 			Continue;
 		EndIf;
@@ -186,7 +186,7 @@ Procedure ЗагрузитьРеквизитыИзМассива(МассивР�
 		FillPropertyValues(ТекСтр, Стр);
 	EndDo;
 
-	ValueToFormAttribute(ТЗ, "Attributes");
+	ValueToFormAttribute(TableAttributes, "Attributes");
 EndProcedure
 
 // Восстанавливает сохраненные значения реквизитов формы.
@@ -200,21 +200,21 @@ Procedure DownloadSettings() Export
 	If Items.CurrentSettingRepresentation.ChoiceList.Count() = 0 Then
 		SetNameSettings("Новая настройка");
 	Else
-		If Not CurrentSetting.Прочее = Undefined Then
-			mSetting = CurrentSetting.Прочее;
+		If Not CurrentSetting.Other = Undefined Then
+			mSetting = CurrentSetting.Other;
 		EndIf;
 	EndIf;
 
 	AttributesForSaving = Undefined;
 
-	For Each РеквизитНастройки In mSetting Do
+	For Each AttributeSetting In mSetting Do
 		//@skip-warning
-		Value = mSetting[РеквизитНастройки.Key];
-		Execute (String(РеквизитНастройки.Key) + " = Value;");
+		Value = mSetting[AttributeSetting.Key];
+		Execute (String(AttributeSetting.Key) + " = Value;");
 	EndDo;
 
 	If AttributesForSaving <> Undefined And AttributesForSaving.Count() Then
-		ЗагрузитьРеквизитыИзМассива(AttributesForSaving);
+		LoadAttributesFromArray(AttributesForSaving);
 	EndIf;
 
 EndProcedure //вDownloadSettings()
@@ -242,101 +242,101 @@ EndProcedure // SetNameSettings()
 // Получает структуру для индикации прогресса цикла.
 //
 // Parameters:
-//  КоличествоПроходов - Number - максимальное значение счетчика;
-//  ПредставлениеПроцесса - String, "Выполнено" - отображаемое название процесса;
-//  ВнутреннийСчетчик - Boolean, *True - использовать внутренний счетчик с начальным значением 1,
+//  NumberOfPasses - Number - максимальное значение счетчика;
+//  ProcessRepresentation - String, "Выполнено" - отображаемое название процесса;
+//  InternalCounter - Boolean, *True - использовать внутренний счетчик с начальным значением 1,
 //                    иначе нужно будет передавать значение счетчика при каждом вызове обновления индикатора;
-//  КоличествоОбновлений - Number, *100 - всего количество обновлений индикатора;
+//  NumberOfUpdates - Number, *100 - всего количество обновлений индикатора;
 //  ЛиВыводитьВремя - Boolean, *True - выводить приблизительное время до окончания процесса;
-//  РазрешитьПрерывание - Boolean, *True - разрешает пользователю прерывать процесс.
+//  AllowBreaking - Boolean, *True - разрешает пользователю прерывать процесс.
 //
 // Возвращаемое значение:
-//  Structure - которую потом нужно будет передавать в метод ЛксОбработатьИндикатор.
+//  Structure - которую потом нужно будет передавать в метод ЛксProcessIndicator.
 //
 &AtClient
-Function ПолучитьИндикаторПроцесса(КоличествоПроходов, ПредставлениеПроцесса = "Выполнено", ВнутреннийСчетчик = True,
-	КоличествоОбновлений = 100, ЛиВыводитьВремя = True, РазрешитьПрерывание = True) Export
+Function GetProcessIndicator(NumberOfPasses, ProcessRepresentation = "Выполнено", InternalCounter = True,
+	NumberOfUpdates = 100, ЛиВыводитьВремя = True, AllowBreaking = True) Export
 
 	Indicator = New Structure;
-	Indicator.Insert("КоличествоПроходов", КоличествоПроходов);
-	Indicator.Insert("ДатаНачалаПроцесса", CurrentDate());
-	Indicator.Insert("ПредставлениеПроцесса", ПредставлениеПроцесса);
+	Indicator.Insert("NumberOfPasses", NumberOfPasses);
+	Indicator.Insert("ProcessStartDate", CurrentDate());
+	Indicator.Insert("ProcessRepresentation", ProcessRepresentation);
 	Indicator.Insert("ЛиВыводитьВремя", ЛиВыводитьВремя);
-	Indicator.Insert("РазрешитьПрерывание", РазрешитьПрерывание);
-	Indicator.Insert("ВнутреннийСчетчик", ВнутреннийСчетчик);
-	Indicator.Insert("Step", КоличествоПроходов / КоличествоОбновлений);
-	Indicator.Insert("СледующийСчетчик", 0);
-	Indicator.Insert("Счетчик", 0);
+	Indicator.Insert("AllowBreaking", AllowBreaking);
+	Indicator.Insert("InternalCounter", InternalCounter);
+	Indicator.Insert("Step", NumberOfPasses / NumberOfUpdates);
+	Indicator.Insert("NextCounter", 0);
+	Indicator.Insert("Counter", 0);
 	Return Indicator;
 
-EndFunction // ЛксПолучитьИндикаторПроцесса()
+EndFunction // ЛксGetProcessIndicator()
 
-// Проверяет и обновляет индикатор. Нужно вызывать на каждом проходе индицируемого цикла.
+// Checks and updates the indicator. Must be called on each pass of the indicated loop.
 //
 // Parameters:
-//  Indicator   - Structure - индикатора, полученная методом ЛксПолучитьИндикаторПроцесса;
-//  Счетчик     - Number - внешний счетчик цикла, используется при ВнутреннийСчетчик = False.
+//  Indicator   -Structure - indicator obtained by the method ЛксGetProcessIndicator;
+//  Counter     - Number - external loop counter, used when InternalCounter = False.
 //
 &AtClient
-Procedure ОбработатьИндикатор(Indicator, Счетчик = 0) Export
+Procedure ProcessIndicator(Indicator, Counter = 0) Export
 
-	If Indicator.ВнутреннийСчетчик Then
-		Indicator.Счетчик = Indicator.Счетчик + 1;
-		Счетчик = Indicator.Счетчик;
+	If Indicator.InternalCounter Then
+		Indicator.Counter = Indicator.Counter + 1;
+		Counter = Indicator.Counter;
 	EndIf;
-	If Indicator.РазрешитьПрерывание Then
+	If Indicator.AllowBreaking Then
 		UserInterruptProcessing();
 	EndIf;
 
-	If Счетчик > Indicator.СледующийСчетчик Then
-		Indicator.СледующийСчетчик = Int(Счетчик + Indicator.Step);
+	If Counter > Indicator.NextCounter Then
+		Indicator.NextCounter = Int(Counter + Indicator.Step);
 		If Indicator.ЛиВыводитьВремя Then
-			ПрошлоВремени = CurrentDate() - Indicator.ДатаНачалаПроцесса;
-			Осталось = ПрошлоВремени * (Indicator.КоличествоПроходов / Счетчик - 1);
-			Часов = Int(Осталось / 3600);
-			Осталось = Осталось - (Часов * 3600);
-			Минут = Int(Осталось / 60);
-			Секунд = Int(Int(Осталось - (Минут * 60)));
-			ОсталосьВремени = Format(Часов, "ЧЦ=2; ЧН=00; ЧВН=") + ":" + Format(Минут, "ЧЦ=2; ЧН=00; ЧВН=") + ":"
-				+ Format(Секунд, "ЧЦ=2; ЧН=00; ЧВН=");
-			ТекстОсталось = "Осталось: ~" + ОсталосьВремени;
+			TimePassed = CurrentDate() - Indicator.ProcessStartDate;
+			Remaining = TimePassed * (Indicator.NumberOfPasses / Counter - 1);
+			Часов = Int(Remaining / 3600);
+			Remaining = Remaining - (Часов * 3600);
+			Minutes = Int(Remaining / 60);
+			Seconds = Int(Int(Remaining - (Minutes * 60)));
+			TimeRemaining = Format(Часов, "ЧЦ=2; ЧН=00; ЧВН=") + ":" + Format(Minutes, "ЧЦ=2; ЧН=00; ЧВН=") + ":"
+				+ Format(Seconds, "ЧЦ=2; ЧН=00; ЧВН=");
+			TextRemaining = "Осталось: ~" + TimeRemaining;
 		Else
-			ТекстОсталось = "";
+			TextRemaining = "";
 		EndIf;
 
-		If Indicator.КоличествоПроходов > 0 Then
-			ТекстСостояния = ТекстОсталось;
+		If Indicator.NumberOfPasses > 0 Then
+			TextStates = TextRemaining;
 		Else
-			ТекстСостояния = "";
+			TextStates = "";
 		EndIf;
 
-		Status(Indicator.ПредставлениеПроцесса, Счетчик / Indicator.КоличествоПроходов * 100, ТекстСостояния);
+		Status(Indicator.ProcessRepresentation, Counter / Indicator.NumberOfPasses * 100, TextStates);
 	EndIf;
 
-	If Счетчик = Indicator.КоличествоПроходов Then
-		Status(Indicator.ПредставлениеПроцесса, 100, ТекстСостояния);
+	If Counter = Indicator.NumberOfPasses Then
+		Status(Indicator.ProcessRepresentation, 100, TextStates);
 	EndIf;
 
-EndProcedure // ЛксОбработатьИндикатор()
+EndProcedure // ЛксProcessIndicator()
 
-// Позволяет создать описание типов на основании строкового представления типа.
+// Allows you to create a description of types based on the string representation of the type.
 //
 // Parameters: 
-//  ТипСтрокой     - Строковое представление типа.
+//  TypeString     - String representation of type.
 //
-// Возвращаемое значение:
-//  LongDesc типов.
+// Return value:
+//  LongDesc types.
 //
 &AtServer
-Function ОписаниеТипа(ТипСтрокой) Export
+Function DescriptionType(TypeString) Export
 
-	МассивТипов = New Array;
-	МассивТипов.Add(Type(ТипСтрокой));
-	TypeDescription = New TypeDescription(МассивТипов);
+	ArrayTypes = New Array;
+	ArrayTypes.Add(Type(TypeString));
+	TypeDescription = New TypeDescription(ArrayTypes);
 
 	Return TypeDescription;
 
-EndFunction // вОписаниеТипа()
+EndFunction // вDescriptionType()
 
 ////////////////////////////////////////////////////////////////////////////////
 // FORM EVENT HANDLERS
@@ -380,18 +380,18 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		EndDo;
 	EndIf;
 	If Parameters.Property("ProcessTabularParts") Then
-		ProcessTabularParts=Parameters.ProcessTabularParts;
+		ProcessTabularParts = Parameters.ProcessTabularParts;
 	EndIf;
-	If Parameters.Property("ТаблицаРеквизитов") Then
-		ТАбРеквизитов = Parameters.ТаблицаРеквизитов;
-		ТАбРеквизитов.Sort("ЭтоТЧ");
-		For Each Attribute In Parameters.ТаблицаРеквизитов Do
+	If Parameters.Property("TableAttributes") Then
+		TableAttributes = Parameters.TableAttributes;
+		TableAttributes.Sort("ThisTP");
+		For Each Attribute In Parameters.TableAttributes Do
 			NewLine = Attributes.Add();
-			NewLine.Attribute      = Attribute.Name;//?(IsBlankString(Attribute.Synonym), Attribute.Name, Attribute.Synonym);
+			NewLine.Attribute = Attribute.Name;//?(IsBlankString(Attribute.Synonym), Attribute.Name, Attribute.Synonym);
 			NewLine.ID = Attribute.Presentation;
-			NewLine.Type           = Attribute.Type;
-			NewLine.Value      = NewLine.Type.AdjustValue();
-			NewLine.AttributeTP	  = Attribute.ЭтоТЧ;
+			NewLine.Type = Attribute.Type;
+			NewLine.Value = NewLine.Type.AdjustValue();
+			NewLine.AttributeTP = Attribute.ThisTP;
 		EndDo;
 
 	EndIf;
@@ -423,7 +423,7 @@ Procedure CurrentSettingChoiceProcessing(Item, SelectedValue, StandardProcessing
 
 		If ThisForm.Modified Then
 			ShowQueryBox(New NotifyDescription("CurrentSettingChoiceProcessingEnd", ThisForm,
-				New Structure("SelectedValue", SelectedValue)), "Save текущую настройку?",
+				New Structure("SelectedValue", SelectedValue)), Nstr("ru = 'Сохранить текущую настройку?';en = 'Save current setting?'"),
 				QuestionDialogMode.YesNo, , DialogReturnCode.Yes);
 			Return;
 		EndIf;
