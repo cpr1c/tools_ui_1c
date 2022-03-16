@@ -4,7 +4,7 @@
     <objectType typeId="2f99f946-0606-4dcd-b0ca-61bf24591e60" valueTypeId="24047b73-ad94-4566-b3a4-305728525af1"/>
     <managerType typeId="c744cf53-073c-43b5-a498-317134786d12" valueTypeId="f7d04b21-b10a-4522-9fd8-636056000c2c"/>
   </producedTypes>
-  <name>UT_DuplicateObjectDeletion</name>
+  <name>UT_DuplicateObjectDetection</name>
   <synonym>
     <key>en</key>
     <value>Duplicate object deletion [UT]</value>
@@ -14,7 +14,7 @@
     <value>Поиск и удаление дублей [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_DuplicateObjectDeletion.Form.ПоискДублей</defaultForm>
+  <defaultForm>DataProcessor.UT_DuplicateObjectDetection.Form.ПоискДублей</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>

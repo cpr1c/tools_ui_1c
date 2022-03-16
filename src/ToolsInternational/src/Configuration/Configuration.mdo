@@ -139,7 +139,7 @@
   <dataProcessors>DataProcessor.UT_ConstantsEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
   <dataProcessors>DataProcessor.UT_DCSEditor</dataProcessors>
-  <dataProcessors>DataProcessor.UT_DuplicateObjectDeletion</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DuplicateObjectDetection</dataProcessors>
   <dataProcessors>DataProcessor.UT_DynamicList</dataProcessors>
   <dataProcessors>DataProcessor.UT_FileManager</dataProcessors>
   <dataProcessors>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</dataProcessors>
