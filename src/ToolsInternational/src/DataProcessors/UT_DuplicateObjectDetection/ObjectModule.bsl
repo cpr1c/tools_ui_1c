@@ -37,7 +37,7 @@ Function SearchForDuplicatesAreaManager(Val DataSearchAreaName) Export
 	Raise StrTemplate(NStr("ru = 'Неизвестный тип объекта метаданных ""%1""'; en = 'Invalid metadata object type: %1.'"), DataSearchAreaName);
 EndFunction
 
-// Subsystem presentation. It is used for writing to the event log and in other places.
+// Subsystem presentation. It is used for writing to the event log and in other places.
 Function SubsystemDescription(ForUser) Export
 	LanguageCode = ?(ForUser, UT_CommonClientServer.DefaultLanguageCode(), "");
 	Return NStr("ru = 'Поиск и удаление дублей'; en = 'Duplicate object detection'", LanguageCode);
@@ -261,7 +261,7 @@ Function DuplicatesGroups(Val SearchParameters, Val SampleObject = Undefined) Ex
 		SampleObjectsSelection = InitializeVTSelection(ValueTable);
 	EndIf;
 	
-	// Preparing DCS to read the duplicate data.
+	// Preparing DCS to read the duplicate data.
 	CandidatesFilters = New Map;
 	FieldsNames = StrSplit(EqualityCompareFields, ",", False);
 	For Each FieldName In FieldsNames Do
