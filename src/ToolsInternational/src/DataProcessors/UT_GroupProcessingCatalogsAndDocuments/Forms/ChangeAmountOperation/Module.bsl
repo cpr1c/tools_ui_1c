@@ -117,9 +117,9 @@ Procedure СохранитьНастройку() Export
 			+ ");");
 	EndDo;
 
-	ДоступныеОбработки = ThisForm.FormOwner.ДоступныеОбработки;
+	AvailableDataProcessors = ThisForm.FormOwner.AvailableDataProcessors;
 	ТекущаяДоступнаяНастройка = Undefined;
-	For Each ТекущаяДоступнаяНастройка In ДоступныеОбработки.GetItems() Do
+	For Each ТекущаяДоступнаяНастройка In AvailableDataProcessors.GetItems() Do
 		If ТекущаяДоступнаяНастройка.GetID() = Parent Then
 			Break;
 		EndIf;
@@ -131,7 +131,7 @@ Procedure СохранитьНастройку() Export
 			NewLine.Processing = ТекущаяНастройкаПредставление;
 			NewLine.Setting.Add(НоваяНастройка);
 
-			ThisForm.FormOwner.Items.ДоступныеОбработки.CurrentLine = NewLine.GetID();
+			ThisForm.FormOwner.Items.AvailableDataProcessors.CurrentLine = NewLine.GetID();
 		EndIf;
 	EndIf;
 

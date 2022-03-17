@@ -685,11 +685,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -870,14 +870,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>CurrentString</name>
+    <name>CurrentLine</name>
     <title>
       <key>ru</key>
       <value>Текущая строка</value>
     </title>
     <title>
       <key>en</key>
-      <value>Current string</value>
+      <value>Current line</value>
     </title>
     <id>4</id>
     <valueType>
