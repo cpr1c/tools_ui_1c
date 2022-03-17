@@ -618,7 +618,7 @@ Function СформироватьСтруктуруПараметров()
 	СтруктураПараметров.Insert("Setting", Undefined);
 	СтруктураПараметров.Insert("Settings", New Array);
 	СтруктураПараметров.Insert("ObjectType", Object.ТипОбъекта);
-	СтруктураПараметров.Insert("ТаблицаРеквизитов", ТаблицаРеквизитов);
+	СтруктураПараметров.Insert("TableAttributes", TableAttributes);
 	СтруктураПараметров.Insert("ProcessTabularParts", Object.ОбрабатыватьТабличныеЧасти);
 	СтруктураПараметров.Insert("ListOfSelected", ПолучитьСписокВидовОбъектов());
 	СтруктураПараметров.Insert("ТабличноеПолеВидыОбъектов", ТабличноеПолеВидыОбъектов);
@@ -967,7 +967,7 @@ Procedure ИнициализацияЗапроса()
 	СтруктураКатегорий = New Structure;
 	СтруктураСвойств = New Structure;
 	//	МассивНастроекОтбора     = New Array;
-	ТаблицаРеквизитов.Clear();
+	TableAttributes.Clear();
 
 	ИмяВидаОдногоТипа = Undefined;
 	ПрошлоеЗначение = Undefined;
@@ -1004,7 +1004,7 @@ Procedure ИнициализацияЗапроса()
 			Filter = New Structure;
 			Filter.Insert("Name", "Number");
 			Filter.Insert("ЭтоТЧ", False);
-			МассивСтрок = ТаблицаРеквизитов.FindRows(Filter);
+			МассивСтрок = TableAttributes.FindRows(Filter);
 			If МетаданныеСтрокиОбъектов.NumberType = Metadata.ObjectProperties.DocumentNumberType.String Then
 				ТекТип = ОписаниеТипа("String");
 			Else
@@ -1014,7 +1014,7 @@ Procedure ИнициализацияЗапроса()
 			If МассивСтрок.Count() > 0 Then
 				СтрокаРеквизитов = МассивСтрок[0];
 			Else
-				СтрокаРеквизитов = ТаблицаРеквизитов.Add();
+				СтрокаРеквизитов = TableAttributes.Add();
 				СтрокаРеквизитов.Name = "Number";
 				СтрокаРеквизитов.Presentation = "Number";
 				СтрокаРеквизитов.Type = ТекТип;
@@ -1029,13 +1029,13 @@ Procedure ИнициализацияЗапроса()
 			Filter = New Structure;
 			Filter.Insert("Name", "Date");
 			Filter.Insert("ЭтоТЧ", False);
-			МассивСтрок = ТаблицаРеквизитов.FindRows(Filter);
+			МассивСтрок = TableAttributes.FindRows(Filter);
 			ТекТип = ОписаниеТипа("Date");
 
 			If МассивСтрок.Count() > 0 Then
 				СтрокаРеквизитов = МассивСтрок[0];
 			Else
-				СтрокаРеквизитов = ТаблицаРеквизитов.Add();
+				СтрокаРеквизитов = TableAttributes.Add();
 				СтрокаРеквизитов.Name = "Date";
 				СтрокаРеквизитов.Presentation = "Date";
 				СтрокаРеквизитов.Type = ТекТип;
@@ -1049,13 +1049,13 @@ Procedure ИнициализацияЗапроса()
 			Filter = New Structure;
 			Filter.Insert("Name", "Posted");
 			Filter.Insert("ЭтоТЧ", False);
-			МассивСтрок = ТаблицаРеквизитов.FindRows(Filter);
+			МассивСтрок = TableAttributes.FindRows(Filter);
 			ТекТип = ОписаниеТипа("Boolean");
 
 			If МассивСтрок.Count() > 0 Then
 				СтрокаРеквизитов = МассивСтрок[0];
 			Else
-				СтрокаРеквизитов = ТаблицаРеквизитов.Add();
+				СтрокаРеквизитов = TableAttributes.Add();
 				СтрокаРеквизитов.Name = "Posted";
 				СтрокаРеквизитов.Presentation = "Posted";
 				СтрокаРеквизитов.Type = ТекТип;
@@ -1070,7 +1070,7 @@ Procedure ИнициализацияЗапроса()
 				Filter = New Structure;
 				Filter.Insert("Name", "Code");
 				Filter.Insert("ЭтоТЧ", False);
-				МассивСтрок = ТаблицаРеквизитов.FindRows(Filter);
+				МассивСтрок = TableAttributes.FindRows(Filter);
 				If МетаданныеСтрокиОбъектов.CodeType = Metadata.ObjectProperties.CatalogCodeType.String Then
 					ТекТип = ОписаниеТипа("String");
 				Else
@@ -1080,7 +1080,7 @@ Procedure ИнициализацияЗапроса()
 				If МассивСтрок.Count() > 0 Then
 					СтрокаРеквизитов = МассивСтрок[0];
 				Else
-					СтрокаРеквизитов = ТаблицаРеквизитов.Add();
+					СтрокаРеквизитов = TableAttributes.Add();
 					СтрокаРеквизитов.Name = "Code";
 					СтрокаРеквизитов.Presentation = "Code";
 					СтрокаРеквизитов.Type = ТекТип;
@@ -1096,13 +1096,13 @@ Procedure ИнициализацияЗапроса()
 				Filter = New Structure;
 				Filter.Insert("Name", "Title");
 				Filter.Insert("ЭтоТЧ", False);
-				МассивСтрок = ТаблицаРеквизитов.FindRows(Filter);
+				МассивСтрок = TableAttributes.FindRows(Filter);
 				ТекТип = ОписаниеТипа("String");
 
 				If МассивСтрок.Count() > 0 Then
 					СтрокаРеквизитов = МассивСтрок[0];
 				Else
-					СтрокаРеквизитов = ТаблицаРеквизитов.Add();
+					СтрокаРеквизитов = TableAttributes.Add();
 					СтрокаРеквизитов.Name = "Title";
 					СтрокаРеквизитов.Presentation = "Title";
 					СтрокаРеквизитов.Type = ТекТип;
@@ -1132,12 +1132,12 @@ Procedure ИнициализацияЗапроса()
 			Filter = New Structure;
 			Filter.Insert("Name", РеквизитМетаданного.Name);
 			Filter.Insert("ЭтоТЧ", False);
-			МассивСтрок = ТаблицаРеквизитов.FindRows(Filter);
+			МассивСтрок = TableAttributes.FindRows(Filter);
 
 			If МассивСтрок.Count() > 0 Then
 				СтрокаРеквизитов = МассивСтрок[0];
 			Else
-				СтрокаРеквизитов = ТаблицаРеквизитов.Add();
+				СтрокаРеквизитов = TableAttributes.Add();
 				СтрокаРеквизитов.Name = РеквизитМетаданного.Name;
 				СтрокаРеквизитов.Presentation = РеквизитМетаданного.Synonym;
 				СтрокаРеквизитов.Type = РеквизитМетаданного.Type;
@@ -1163,12 +1163,12 @@ Procedure ИнициализацияЗапроса()
 				Filter = New Structure;
 				Filter.Insert("Name", РеквизитМетаданного.Name);
 				Filter.Insert("ЭтоТЧ", True);
-				МассивСтрок = ТаблицаРеквизитов.FindRows(Filter);
+				МассивСтрок = TableAttributes.FindRows(Filter);
 
 				If МассивСтрок.Count() > 0 Then
 					СтрокаРеквизитов = МассивСтрок[0];
 				Else
-					СтрокаРеквизитов = ТаблицаРеквизитов.Add();
+					СтрокаРеквизитов = TableAttributes.Add();
 					СтрокаРеквизитов.Name = РеквизитМетаданного.Name;
 					СтрокаРеквизитов.Presentation = РеквизитМетаданного.Synonym;
 					СтрокаРеквизитов.Type = РеквизитМетаданного.Type;

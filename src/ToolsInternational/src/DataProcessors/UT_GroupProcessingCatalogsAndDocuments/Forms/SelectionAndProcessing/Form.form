@@ -2951,10 +2951,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТаблицаРеквизитов</name>
+    <name>TableAttributes</name>
     <title>
       <key>ru</key>
       <value>Таблица реквизитов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Table attributes</value>
     </title>
     <id>22</id>
     <valueType>
