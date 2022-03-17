@@ -117,9 +117,9 @@ Procedure СохранитьНастройку() Export
 			+ ");");
 	EndDo;
 
-	ДоступныеОбработки = ThisForm.FormOwner.ДоступныеОбработки;
+	AvailableDataProcessors = ThisForm.FormOwner.AvailableDataProcessors;
 	ТекущаяДоступнаяНастройка = Undefined;
-	For Each ТекущаяДоступнаяНастройка In ДоступныеОбработки.GetItems() Do
+	For Each ТекущаяДоступнаяНастройка In AvailableDataProcessors.GetItems() Do
 		If ТекущаяДоступнаяНастройка.GetID() = Parent Then
 			Break;
 		EndIf;
@@ -131,7 +131,7 @@ Procedure СохранитьНастройку() Export
 			NewLine.Processing = ТекущаяНастройкаПредставление;
 			NewLine.Setting.Add(НоваяНастройка);
 
-			ThisForm.FormOwner.Items.ДоступныеОбработки.CurrentLine = NewLine.GetID();
+			ThisForm.FormOwner.Items.AvailableDataProcessors.CurrentLine = NewLine.GetID();
 		EndIf;
 	EndIf;
 
@@ -326,10 +326,10 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		EndDo;
 	EndIf;
 
-	If Parameters.Property("ТаблицаРеквизитов") Then
-		ТАбРеквизитов=Parameters.ТаблицаРеквизитов;
+	If Parameters.Property("TableAttributes") Then
+		ТАбРеквизитов=Parameters.TableAttributes;
 		ТАбРеквизитов.Sort("ЭтоТЧ");
-		For Each Attribute In Parameters.ТаблицаРеквизитов Do
+		For Each Attribute In Parameters.TableAttributes Do
 			NewLine = Attributes.Add();
 			NewLine.Attribute      = Attribute.Name;//?(IsBlankString(Attribute.Synonym), Attribute.Name, Attribute.Synonym);
 			NewLine.ID = Attribute.Presentation;
