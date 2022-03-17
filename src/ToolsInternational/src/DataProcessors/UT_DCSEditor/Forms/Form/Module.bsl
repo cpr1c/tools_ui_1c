@@ -458,7 +458,7 @@ Procedure РесурсыГруппировкиНачалоВыбора(Item, Д�
 	EndIf;
 
 	СписокДоступныхГруппировок=New ValueList;
-	For Each Стр In ДоступныеПоляРесурсов Do
+	For Each Стр In ResourceAvailableField Do
 		Check= ТекДанные.Groups.FindByValue(Стр.DataPath) <> Undefined;
 		СписокДоступныхГруппировок.Add(Стр.DataPath, , Check);
 	EndDo;
@@ -472,7 +472,7 @@ Procedure РесурсыГруппировкиНачалоВыбора(Item, Д�
 
 	UT_CommonClient.OpenValueListChoiceItemsForm(СписокДоступныхГруппировок,
 		New NotifyDescription("РесурсыГруппировкиНачалоВыбораЗавершение", ThisObject, ДопПараметры),
-		"Fields группировки", , True, False, False, , FormWindowOpeningMode.LockOwnerWindow);
+		"Fields Groups", , True, False, False, , FormWindowOpeningMode.LockOwnerWindow);
 EndProcedure
 
 #EndRegion
@@ -559,7 +559,7 @@ EndProcedure
 
 &AtClient
 Procedure ПараметрыСКДПриНачалеРедактирования(Item, NewLine, Copy)
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -577,7 +577,7 @@ EndProcedure
 
 &AtClient
 Procedure ПараметрыСКДТипЗначенияПриИзменении(Item)
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -602,7 +602,7 @@ EndProcedure
 Procedure ПараметрыСКДДоступныеЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
 	StandardProcessing=False;
 
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -622,7 +622,7 @@ EndProcedure
 
 &AtClient
 Procedure ПараметрыСКДЗначениеНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -653,7 +653,7 @@ Procedure ПараметрыСКДЗначениеНачалоВыбора(Item,
 EndProcedure
 &AtClient
 Procedure ПараметрыСКДДоступенСписокЗначенийПриИзменении(Item)
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -676,13 +676,13 @@ EndProcedure
 &AtClient
 Procedure ПараметрыСКДВыражениеОткрытие(Item, StandardProcessing)
 	StandardProcessing=False;
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
 
 	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", Items.ПараметрыСКД.CurrentLine);
+	ДопПараметры.Insert("RowID", Items.DCSParameters.CurrentLine);
 
 	UT_CommonClient.OpenTextEditingForm(ТекДанные.Expression,
 		New NotifyDescription("ПараметрыСКДВыражениеОткрытиеЗавершение", ThisObject, ДопПараметры),
@@ -691,7 +691,7 @@ EndProcedure
 
 &AtClient
 Procedure ПараметрыСКДИмяПриИзменении(Item)
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -701,7 +701,7 @@ EndProcedure
 
 &AtClient
 Procedure ПараметрыСКДПередУдалением(Item, Cancel)
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -711,12 +711,12 @@ EndProcedure
 
 &AtClient
 Procedure ПараметрыСКДТипЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	ТекДанные=Items.ПараметрыСКД.CurrentData;
+	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные=Undefined Then
 		Return;
 	EndIf;
 	
-	UT_CommonClient.EditType(ТекДанные.ValueType, 3,StandardProcessing,ThisObject, New NotifyDescription("ПараметрыСКДТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.ПараметрыСКД.CurrentLine)));
+	UT_CommonClient.EditType(ТекДанные.ValueType, 3,StandardProcessing,ThisObject, New NotifyDescription("ПараметрыСКДТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.DCSParameters.CurrentLine)));
 EndProcedure
 #EndRegion
 
@@ -762,7 +762,7 @@ EndProcedure
 &AtClient
 Procedure КомпоновщикНастроекНастройкиПриАктивизацииСтроки(Item)
 
-	ЭлементСтруктуры = КомпоновщикТекущихНастроек.Settings.GetObjectByID(
+	ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 		Items.КомпоновщикНастроекНастройки.CurrentLine);
 	ItemType = TypeOf(ЭлементСтруктуры);
 
@@ -828,10 +828,10 @@ EndProcedure
 &AtClient
 Procedure GoToReport(Item)
 
-	ЭлементСтруктуры = КомпоновщикТекущихНастроек.Settings.GetObjectByID(
+	ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 		Items.КомпоновщикНастроекНастройки.CurrentLine);
-	ItemSettings =  КомпоновщикТекущихНастроек.Settings.ItemSettings(ЭлементСтруктуры);
-	Items.КомпоновщикНастроекНастройки.CurrentLine = КомпоновщикТекущихНастроек.Settings.GetIDByObject(
+	ItemSettings =  CurrentSettingsComposer.Settings.ItemSettings(ЭлементСтруктуры);
+	Items.КомпоновщикНастроекНастройки.CurrentLine = CurrentSettingsComposer.Settings.GetIDByObject(
 		ItemSettings);
 
 EndProcedure
@@ -847,9 +847,9 @@ Procedure ЛокальныеВыбранныеПоляПриИзменении(I
 
 		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
 
-		ЭлементСтруктуры = КомпоновщикТекущихНастроек.Settings.GetObjectByID(
+		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 			Items.КомпоновщикНастроекНастройки.CurrentLine);
-		КомпоновщикТекущихНастроек.Settings.ClearItemSelection(ЭлементСтруктуры);
+		CurrentSettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
 
 	EndIf;
 
@@ -866,9 +866,9 @@ Procedure ЛокальныйОтборПриИзменении(Item)
 
 		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
 
-		ЭлементСтруктуры = КомпоновщикТекущихНастроек.Settings.GetObjectByID(
+		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 			Items.КомпоновщикНастроекНастройки.CurrentLine);
-		КомпоновщикТекущихНастроек.Settings.ClearItemFilter(ЭлементСтруктуры);
+		CurrentSettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
 
 	EndIf;
 
@@ -885,9 +885,9 @@ Procedure ЛокальныйПорядокПриИзменении(Item)
 
 		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
 
-		ЭлементСтруктуры = КомпоновщикТекущихНастроек.Settings.GetObjectByID(
+		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 			Items.КомпоновщикНастроекНастройки.CurrentLine);
-		КомпоновщикТекущихНастроек.Settings.ClearItemOrder(ЭлементСтруктуры);
+		CurrentSettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
 
 	EndIf;
 
@@ -904,9 +904,9 @@ Procedure ЛокальноеУсловноеОформлениеПриИзмен
 
 		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
 
-		ЭлементСтруктуры = КомпоновщикТекущихНастроек.Settings.GetObjectByID(
+		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 			Items.КомпоновщикНастроекНастройки.CurrentLine);
-		КомпоновщикТекущихНастроек.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
+		CurrentSettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
 
 	EndIf;
 
@@ -923,9 +923,9 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 
 		Items.СтраницыПараметровВывода.CurrentPage = Items.ОтключенныеНастройкиПараметровВывода;
 
-		ЭлементСтруктуры = КомпоновщикТекущихНастроек.Settings.GetObjectByID(
+		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 			Items.КомпоновщикНастроекНастройки.CurrentLine);
-		КомпоновщикТекущихНастроек.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
+		CurrentSettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
 	EndIf;
 
 EndProcedure
@@ -967,7 +967,7 @@ EndProcedure
 #Region CommandFormEventHandlers
 
 &AtClient
-Procedure ДобавитьНаборДанныхЗапрос(Command)
+Procedure AddDataSetQuery(Command)
 	ДобавитьНаборДанных(ВидыНаборовДанных.Query);
 EndProcedure
 
@@ -1013,7 +1013,7 @@ Procedure УдалитьНаборДанных(Command)
 EndProcedure
 
 &AtClient
-Procedure ОткрытьКонструкторЗапроса(Command)
+Procedure OpenQueryWizard(Command)
 	ТекНабор=Items.DataSets.CurrentData;
 	If ТекНабор = Undefined Then
 		Return;
@@ -1037,7 +1037,7 @@ EndProcedure
 
 &AtClient
 Procedure ДобавитьРесурсИзДоступных(Command)
-	ТекДанные=Items.ДоступныеПоляРесурсов.CurrentLine;
+	ТекДанные=Items.ResourceAvailableField.CurrentLine;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -1047,7 +1047,7 @@ EndProcedure
 
 &AtClient
 Procedure ДобавитьЧисловыеРесурсыИзДоступных(Command)
-	For Each Стр In ДоступныеПоляРесурсов Do
+	For Each Стр In ResourceAvailableField Do
 		If Not Стр.ВычисляемоеПоле And Not Стр.Числовое Then
 			Continue;
 		EndIf;
@@ -1237,9 +1237,9 @@ Procedure ЗаполнитьПараметрыСКДПриИзмененииЗа
 		СтруктураПоиска=New Structure;
 		СтруктураПоиска.Insert("Name", ОписаниеПараметра.Name);
 
-		НайденныеСтрокиПараметров=ПараметрыСКД.FindRows(СтруктураПоиска);
+		НайденныеСтрокиПараметров=DCSParameters.FindRows(СтруктураПоиска);
 		If НайденныеСтрокиПараметров.Count() = 0 Then
-			СтрокаПараметра=ПараметрыСКД.Add();
+			СтрокаПараметра=DCSParameters.Add();
 			СтрокаПараметра.Name=ОписаниеПараметра.Name;
 			СтрокаПараметра.Title=ОписаниеПараметра.Name;
 			СтрокаПараметра.ValueType=ОписаниеПараметра.ValueType;
@@ -1802,7 +1802,7 @@ EndProcedure
 &AtClient
 Procedure ДобавитьРесурс(СтрокаДоступногоПоля)
 	If TypeOf(СтрокаДоступногоПоля) = Type("Number") Then
-		ДоступноеПоле=ДоступныеПоляРесурсов.FindByID(СтрокаДоступногоПоля);
+		ДоступноеПоле=ResourceAvailableField.FindByID(СтрокаДоступногоПоля);
 	Else
 		ДоступноеПоле=СтрокаДоступногоПоля;
 	EndIf;
@@ -1819,7 +1819,7 @@ EndProcedure
 
 &AtClient
 Procedure ЗаполнитьДоступныеПоляРесурсов()
-	ДоступныеПоляРесурсов.Clear();
+	ResourceAvailableField.Clear();
 
 	НаборыДанныхВерхнегоУровня=НаборыДанныхВерхнегоУровня();
 
@@ -1838,7 +1838,7 @@ Procedure ЗаполнитьДоступныеПоляРесурсов()
 				Continue;
 			EndIf;
 
-			НС=ДоступныеПоляРесурсов.Add();
+			НС=ResourceAvailableField.Add();
 			НС.DataPath=Field.DataPath;
 			НС.Picture=КартинкаРеквизит;
 
@@ -1852,7 +1852,7 @@ Procedure ЗаполнитьДоступныеПоляРесурсов()
 		If МассивПутей.Find(Field.DataPath) <> Undefined Then
 			Continue;
 		EndIf;
-		НС=ДоступныеПоляРесурсов.Add();
+		НС=ResourceAvailableField.Add();
 		НС.DataPath=Field.DataPath;
 		НС.ВычисляемоеПоле=True;
 		НС.Picture=КартинкаПроизвольноеВыражение;
@@ -1861,7 +1861,7 @@ Procedure ЗаполнитьДоступныеПоляРесурсов()
 
 	EndDo;
 
-	ДоступныеПоляРесурсов.Sort("DataPath Asc");
+	ResourceAvailableField.Sort("DataPath Asc");
 EndProcedure
 
 &AtClient
@@ -1871,7 +1871,7 @@ Procedure УдалитьРесурсыНеПодходящиеПоДоступн
 		СтруктураПоиска=New Structure;
 		СтруктураПоиска.Insert("DataPath", Стр.DataPath);
 
-		НайденныеСтроки=ДоступныеПоляРесурсов.FindRows(СтруктураПоиска);
+		НайденныеСтроки=ResourceAvailableField.FindRows(СтруктураПоиска);
 		If НайденныеСтроки.Count() = 0 Then
 			МассивУдаляемыхСтрок.Add(стр);
 		EndIf;
@@ -1897,7 +1897,7 @@ Procedure ЗаполнитьСписокВыбораВыраженияРесур
 	СтруктураПоиска=New Structure;
 	СтруктураПоиска.Insert("DataPath", СтрокаРесурса.DataPath);
 
-	СтрокиДоступныхПолей=ДоступныеПоляРесурсов.FindRows(СтруктураПоиска);
+	СтрокиДоступныхПолей=ResourceAvailableField.FindRows(СтруктураПоиска);
 	If СтрокиДоступныхПолей.Count() = 0 Then
 		Return;
 	EndIf;
@@ -1924,7 +1924,7 @@ Procedure ПараметрыСКДЗначениеНачалоВыбораЗав
 		Return;
 	EndIf;
 
-	СтрокаРесурса=ПараметрыСКД.FindByID(AdditionalParameters.RowID);
+	СтрокаРесурса=DCSParameters.FindByID(AdditionalParameters.RowID);
 	СтрокаРесурса.Value=Result;
 EndProcedure
 
@@ -1934,7 +1934,7 @@ Procedure ПараметрыСКДДоступныеЗначенияНачало
 		Return;
 	EndIf;
 
-	СтрокаРесурса=ПараметрыСКД.FindByID(AdditionalParameters.RowID);
+	СтрокаРесурса=DCSParameters.FindByID(AdditionalParameters.RowID);
 	СтрокаРесурса.AvailableValues=Result;
 
 	УстановитьСписокВыбораПоляЗначенияПараметра(СтрокаРесурса);
@@ -1970,7 +1970,7 @@ Procedure ПараметрыСКДВыражениеОткрытиеЗаверш
 		Return;
 	EndIf;
 
-	СтрокаРесурса=ПараметрыСКД.FindByID(AdditionalParameters.RowID);
+	СтрокаРесурса=DCSParameters.FindByID(AdditionalParameters.RowID);
 	СтрокаРесурса.Expression=Result;
 EndProcedure
 
@@ -1980,7 +1980,7 @@ Procedure ПараметрыСКДТипЗначенияНачалоВыбора
 		Return;
 	EndIf;
 	
-	ТекДанныеСтроки=ПараметрыСКД.FindByID(AdditionalParameters.ТекСтрока);
+	ТекДанныеСтроки=DCSParameters.FindByID(AdditionalParameters.ТекСтрока);
 	ТекДанныеСтроки.ValueType=Result;
 	
 	If ТекДанныеСтроки.ValueListAllowed Then
@@ -2013,7 +2013,7 @@ EndProcedure
 &AtClient
 Procedure SelectedFieldsAvailable(ЭлементСтруктуры)
 
-	If КомпоновщикТекущихНастроек.Settings.HasItemSelection(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
 
 		LocalSelectedFields = True;
 		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
@@ -2041,7 +2041,7 @@ EndProcedure
 &AtClient
 Procedure FilterAvailable(ЭлементСтруктуры)
 
-	If КомпоновщикТекущихНастроек.Settings.HasItemFilter(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
 
 		LocalFilter = True;
 		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
@@ -2069,7 +2069,7 @@ EndProcedure
 &AtClient
 Procedure OrderAvailable(ЭлементСтруктуры)
 
-	If КомпоновщикТекущихНастроек.Settings.HasItemOrder(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
 
 		LocalOrder = True;
 		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
@@ -2097,7 +2097,7 @@ EndProcedure
 &AtClient
 Procedure ConditionalAppearanceAvailable(ЭлементСтруктуры)
 
-	If КомпоновщикТекущихНастроек.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
 
 		LocalConditionalAppearance = True;
 		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
@@ -2125,7 +2125,7 @@ EndProcedure
 &AtClient
 Procedure OutputParametersAvailable(ЭлементСтруктуры)
 
-	If КомпоновщикТекущихНастроек.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
 
 		LocalOutputParameters = True;
 		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
@@ -2156,16 +2156,16 @@ EndProcedure
 &AtServer
 Procedure ИнициализироватьКомпоновщикНастроекПоСобраннойСКД()
 
-	КомпоновщикТекущихНастроек.Initialize(
+	CurrentSettingsComposer.Initialize(
 			New DataCompositionAvailableSettingsSource(АдресСхемыКомпоновкиДанных));
-	КомпоновщикТекущихНастроек.Recall();
+	CurrentSettingsComposer.Recall();
 EndProcedure
 
 &AtServer
 Procedure СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек()
 	СтрокаПредыдущегоВарианта=SettingVariants.FindByID(ИдентификаторСтрокиТекущегоВариантаНастроек);
 	СтрокаПредыдущегоВарианта.Settings=UT_Common.ValueToXMLString(
-		КомпоновщикТекущихНастроек.GetSettings());
+		CurrentSettingsComposer.GetSettings());
 EndProcedure
 
 &AtServer
@@ -2189,8 +2189,8 @@ Procedure ВариантыНастроекПриАктивизацииСтрок
 		Settings=New DataCompositionSettings;
 	EndIf;
 
-	КомпоновщикТекущихНастроек.LoadSettings(Settings);
-	КомпоновщикТекущихНастроек.Recall();
+	CurrentSettingsComposer.LoadSettings(Settings);
+	CurrentSettingsComposer.Recall();
 EndProcedure
 
 #EndRegion
@@ -2307,7 +2307,7 @@ Procedure УстановитьУсловноеОформлениеФормы()
 	НовоеУО=ConditionalAppearance.Items.Add();
 	НовоеУО.Use=True;
 	UT_CommonClientServer.SetFilterItem(НовоеУО.Filter,
-		"Items.ПараметрыСКД.CurrentData.ДобавленАвтоматически", True);
+		"Items.DCSParameters.CurrentData.ДобавленАвтоматически", True);
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("ПараметрыСКДИмя");
@@ -2488,13 +2488,13 @@ Procedure ПрочитатьПоляИтоговСКДВДанныеФормы(�
 EndProcedure
 &AtServer
 Procedure ПрочитатьПараметрыСКДВДанныеФормы(СКД)
-	ПараметрыСКД.Clear();
+	DCSParameters.Clear();
 
 	For Each ТекДанные In СКД.Parameters Do
-		НовыеДанные=ПараметрыСКД.Add();
+		НовыеДанные=DCSParameters.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "EditParameters");
 
-		НовыеДанные.ИспользованиеВсегда=ТекДанные.Use = DataCompositionParameterUse.Always;
+		НовыеДанные.UseAlways=ТекДанные.Use = DataCompositionParameterUse.Always;
 
 		НовыеДанные.AvailableValues=ТекДанные.GetAvailableValues();
 	EndDo;
@@ -2513,7 +2513,7 @@ Procedure ПрочитатьВариантыНастроекСКДВДанные
 
 	ИдентификаторСтрокиТекущегоВариантаНастроек=SettingVariants[0].GetID();
 
-	КомпоновщикТекущихНастроек.LoadSettings(СтрокаВарианта.Settings);
+	CurrentSettingsComposer.LoadSettings(СтрокаВарианта.Settings);
 EndProcedure
 
 &AtServer
@@ -2714,11 +2714,11 @@ EndProcedure
 Procedure ЗаполнитьПараметрыСКДПоДаннымФормы(СКД)
 	СКД.Parameters.Clear();
 
-	For Each ТекДанные In ПараметрыСКД Do
+	For Each ТекДанные In DCSParameters Do
 		НовыеДанные=СКД.Parameters.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "EditParameters");
 
-		If ТекДанные.ИспользованиеВсегда Then
+		If ТекДанные.UseAlways Then
 			НовыеДанные.Use=DataCompositionParameterUse.Always;
 		Else
 			НовыеДанные.Use=DataCompositionParameterUse.Auto;

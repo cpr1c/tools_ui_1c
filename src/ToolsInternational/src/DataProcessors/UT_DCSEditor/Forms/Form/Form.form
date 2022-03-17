@@ -189,7 +189,7 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <commandName>Form.Command.ДобавитьНаборДанныхЗапрос</commandName>
+                  <commandName>Form.Command.AddDataSetQuery</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -512,7 +512,7 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.ДобавитьНаборДанныхЗапрос</commandName>
+                <commandName>Form.Command.AddDataSetQuery</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -844,7 +844,7 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>Items.НаборыДанных.CurrentData.Fields.Поле</segments>
+                      <segments>Items.НаборыДанных.CurrentData.Fields.Field</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -899,7 +899,7 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Fields.ПутьКДанным</segments>
+                        <segments>Items.НаборыДанных.CurrentData.Fields.DataPath</segments>
                       </paths>
                     </dataPath>
                     <handlers>
@@ -1278,7 +1278,7 @@
                       </userVisible>
                       <dataPath xsi:type="form:MultiLanguageDataPath">
                         <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Fields.ОграничениеИспользованияРеквизитовПоле</segments>
+                          <segments>Items.НаборыДанных.CurrentData.Fields.AttributeUseRestrictionField</segments>
                         </paths>
                       </dataPath>
                       <extendedTooltip>
@@ -1327,7 +1327,7 @@
                       </userVisible>
                       <dataPath xsi:type="form:MultiLanguageDataPath">
                         <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Fields.ОграничениеИспользованияРеквизитовУсловие</segments>
+                          <segments>Items.НаборыДанных.CurrentData.Fields.AttributeUseRestrictionCondition</segments>
                         </paths>
                       </dataPath>
                       <extendedTooltip>
@@ -1376,7 +1376,7 @@
                       </userVisible>
                       <dataPath xsi:type="form:MultiLanguageDataPath">
                         <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Fields.ОграничениеИспользованияРеквизитовГруппировка</segments>
+                          <segments>Items.НаборыДанных.CurrentData.Fields.AttributeUseRestrictionGroup</segments>
                         </paths>
                       </dataPath>
                       <extendedTooltip>
@@ -1425,7 +1425,7 @@
                       </userVisible>
                       <dataPath xsi:type="form:MultiLanguageDataPath">
                         <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Fields.ОграничениеИспользованияРеквизитовПорядок</segments>
+                          <segments>Items.НаборыДанных.CurrentData.Fields.AttributeUseRestrictionOrder</segments>
                         </paths>
                       </dataPath>
                       <extendedTooltip>
@@ -1537,7 +1537,7 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>Items.НаборыДанных.CurrentData.Fields.РольПредставление</segments>
+                      <segments>Items.НаборыДанных.CurrentData.Fields.RolePresentation</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -1742,7 +1742,7 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Fields.ПараметрНабораДанныхПроверкиИерархии</segments>
+                        <segments>Items.НаборыДанных.CurrentData.Fields.HierarchyCheckDataSetParameter</segments>
                       </paths>
                     </dataPath>
                     <extendedTooltip>
@@ -1884,7 +1884,7 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Fields.ДоступныеЗначения</segments>
+                        <segments>Items.НаборыДанных.CurrentData.Fields.AvailableValues</segments>
                       </paths>
                     </dataPath>
                     <extendedTooltip>
@@ -1973,7 +1973,7 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Fields.Оформление</segments>
+                        <segments>Items.НаборыДанных.CurrentData.Fields.Appearance</segments>
                       </paths>
                     </dataPath>
                     <extendedTooltip>
@@ -2025,7 +2025,7 @@
                     </userVisible>
                     <dataPath xsi:type="form:MultiLanguageDataPath">
                       <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Fields.ПараметрыРедактирования</segments>
+                        <segments>Items.НаборыДанных.CurrentData.Fields.EditParameters</segments>
                       </paths>
                     </dataPath>
                     <extendedTooltip>
@@ -2675,7 +2675,7 @@
                         </extInfo>
                       </extendedTooltip>
                       <type>UsualButton</type>
-                      <commandName>Form.Command.ОткрытьКонструкторЗапроса</commandName>
+                      <commandName>Form.Command.OpenQueryWizard</commandName>
                       <representation>Auto</representation>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2771,7 +2771,7 @@
                             <horizontalAlign>Left</horizontalAlign>
                           </extInfo>
                         </extendedTooltip>
-                        <commandName>Form.Command.ОткрытьКонструкторЗапроса</commandName>
+                        <commandName>Form.Command.OpenQueryWizard</commandName>
                         <representation>Auto</representation>
                         <autoMaxWidth>true</autoMaxWidth>
                         <autoMaxHeight>true</autoMaxHeight>
@@ -3177,7 +3177,7 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>DataSources.Имя</segments>
+                      <segments>DataSources.Name</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -3229,7 +3229,7 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>DataSources.СтрокаСоединения</segments>
+                      <segments>DataSources.ConnectionString</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -3281,7 +3281,7 @@
                   </userVisible>
                   <dataPath xsi:type="form:MultiLanguageDataPath">
                     <paths xsi:type="form:DataPath">
-                      <segments>DataSources.ТипИсточникаДанных</segments>
+                      <segments>DataSources.DataSourceType</segments>
                     </paths>
                   </dataPath>
                   <extendedTooltip>
@@ -3672,7 +3672,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.НаборДанныхИсточник</segments>
+              <segments>DataSetLinks.SourceDataSet</segments>
             </paths>
           </dataPath>
           <handlers>
@@ -3733,7 +3733,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.НаборДанныхПриемник</segments>
+              <segments>DataSetLinks.DestinationDataSet</segments>
             </paths>
           </dataPath>
           <handlers>
@@ -3790,7 +3790,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.ВыражениеИсточник</segments>
+              <segments>DataSetLinks.SourceExpression</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -3843,7 +3843,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.ВыражениеПриемник</segments>
+              <segments>DataSetLinks.DestinationExpression</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -3896,7 +3896,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.Параметр</segments>
+              <segments>DataSetLinks.Parameter</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -3952,7 +3952,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.РазрешенСписокПараметров</segments>
+              <segments>DataSetLinks.ParameterListAllowed</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -3997,7 +3997,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.УсловиеСвязи</segments>
+              <segments>DataSetLinks.LinkConditionExpression</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -4049,7 +4049,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.НачальноеВыражение</segments>
+              <segments>DataSetLinks.StartExpression</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -4101,7 +4101,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>DataSetLinks.Обязательная</segments>
+              <segments>DataSetLinks.Required</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -5452,7 +5452,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ДоступныеПоляРесурсов</segments>
+          <segments>ResourceAvailableField</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -5465,7 +5465,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ДоступныеПоляРесурсов.Картинка</segments>
+              <segments>ResourceAvailableField.Picture</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -5513,7 +5513,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ДоступныеПоляРесурсов.ПутьКДанным</segments>
+              <segments>ResourceAvailableField.DataPath</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -5897,7 +5897,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>Ресурсы</segments>
+          <segments>Resources</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -5914,7 +5914,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Ресурсы.ПутьКДанным</segments>
+              <segments>Resources.DataPath</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -5967,7 +5967,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Ресурсы.Выражение</segments>
+              <segments>Resources.Expression</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6029,7 +6029,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>Ресурсы.Группировки</segments>
+              <segments>Resources.Groups</segments>
             </paths>
           </dataPath>
           <shortcut>Ctrl+S</shortcut>
@@ -6290,7 +6290,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ПараметрыСКД</segments>
+          <segments>DCSParameters</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -6303,7 +6303,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Имя</segments>
+              <segments>DCSParameters.Name</segments>
             </paths>
           </dataPath>
           <handlers>
@@ -6359,7 +6359,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Заголовок</segments>
+              <segments>DCSParameters.Title</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6415,7 +6415,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ТипЗначения</segments>
+              <segments>DCSParameters.ValueType</segments>
             </paths>
           </dataPath>
           <handlers>
@@ -6479,7 +6479,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ДоступныеЗначения</segments>
+              <segments>DCSParameters.AvailableValues</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6535,7 +6535,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ДоступенСписокЗначений</segments>
+              <segments>DCSParameters.ValueListAllowed</segments>
             </paths>
           </dataPath>
           <handlers>
@@ -6584,7 +6584,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Значение</segments>
+              <segments>DCSParameters.Value</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6642,7 +6642,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Выражение</segments>
+              <segments>DCSParameters.Expression</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6699,7 +6699,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ПараметрФункциональныхОпций</segments>
+              <segments>DCSParameters.FunctionalOptionsParameter</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6751,7 +6751,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ВключатьВДоступныеПоля</segments>
+              <segments>DCSParameters.IncludeInAvailableFields</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6796,7 +6796,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ОграничениеИспользования</segments>
+              <segments>DCSParameters.UseRestriction</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6841,7 +6841,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ЗапрещатьНезаполненныеЗначения</segments>
+              <segments>DCSParameters.DenyIncompleteValues</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6890,7 +6890,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ИспользованиеВсегда</segments>
+              <segments>DCSParameters.UseAlways</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -6950,7 +6950,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ПараметрыРедактирования</segments>
+              <segments>DCSParameters.EditParameters</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -7735,7 +7735,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>КомпоновщикТекущихНастроек.Settings</segments>
+            <segments>CurrentSettingsComposer.Settings</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <autoCommandBar>
@@ -12998,10 +12998,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ПутьКДанным</name>
+        <name>DataPath</name>
         <title>
           <key>ru</key>
           <value>Путь к данным</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Data path</value>
         </title>
         <id>16</id>
         <valueType>
@@ -13038,10 +13042,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ВыраженияУпорядочиванияКомпоновкиДанных</name>
+        <name>DataCompositionOrderExpressions</name>
         <title>
           <key>ru</key>
           <value>Выражения упорядочивания компоновки данных</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Data composition order expressions</value>
         </title>
         <id>18</id>
         <valueType>
@@ -13077,10 +13085,14 @@
         </edit>
       </columns>
       <columns>
-        <name>Поле</name>
+        <name>Field</name>
         <title>
           <key>ru</key>
           <value>Поле</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Field</value>
         </title>
         <id>23</id>
         <valueType>
@@ -13116,10 +13128,14 @@
         </edit>
       </columns>
       <columns>
-        <name>Оформление</name>
+        <name>Appearance</name>
         <title>
           <key>ru</key>
           <value>Оформление</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Appearance</value>
         </title>
         <id>25</id>
         <valueType>
@@ -13133,10 +13149,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ПараметрНабораДанныхПроверкиИерархии</name>
+        <name>HierarchyCheckDataSetParameter</name>
         <title>
           <key>ru</key>
           <value>Параметр набора данных проверки иерархии</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Hierarchy check data set parameter</value>
         </title>
         <id>26</id>
         <valueType>
@@ -13151,10 +13171,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ПараметрыРедактирования</name>
+        <name>EditParameters</name>
         <title>
           <key>ru</key>
           <value>Параметры редактирования</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Edit parameters</value>
         </title>
         <id>27</id>
         <valueType>
@@ -13271,10 +13295,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ОграничениеИспользованияРеквизитовГруппировка</name>
+        <name>AttributeUseRestrictionGroup</name>
         <title>
           <key>ru</key>
           <value>Ограничение использования реквизитов группировка</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Attribute use restriction group</value>
         </title>
         <id>33</id>
         <valueType>
@@ -13288,10 +13316,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ОграничениеИспользованияРеквизитовПоле</name>
+        <name>AttributeUseRestrictionField</name>
         <title>
           <key>ru</key>
           <value>Ограничение использования реквизитов поле</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Attribute use restriction field</value>
         </title>
         <id>34</id>
         <valueType>
@@ -13305,10 +13337,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ОграничениеИспользованияРеквизитовПорядок</name>
+        <name>AttributeUseRestrictionOrder</name>
         <title>
           <key>ru</key>
           <value>Ограничение использования реквизитов порядок</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Attribute use restriction order</value>
         </title>
         <id>35</id>
         <valueType>
@@ -13322,10 +13358,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ОграничениеИспользованияРеквизитовУсловие</name>
+        <name>AttributeUseRestrictionCondition</name>
         <title>
           <key>ru</key>
           <value>Ограничение использования реквизитов условие</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Attribute use restriction condition</value>
         </title>
         <id>36</id>
         <valueType>
@@ -13339,10 +13379,14 @@
         </edit>
       </columns>
       <columns>
-        <name>РольПредставление</name>
+        <name>RolePresentation</name>
         <title>
           <key>ru</key>
           <value>Роль представление</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Role presentation</value>
         </title>
         <id>44</id>
         <valueType>
@@ -13357,10 +13401,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ДоступныеЗначения</name>
+        <name>AvailableValues</name>
         <title>
           <key>ru</key>
           <value>Доступные значения</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Available values</value>
         </title>
         <id>45</id>
         <valueType>
@@ -13395,10 +13443,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ТипЗначенияЗапроса</name>
+        <name>QueryValueType</name>
         <title>
           <key>ru</key>
           <value>Тип значения запроса</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Query value type</value>
         </title>
         <id>98</id>
         <valueType>
@@ -13414,13 +13466,17 @@
     </additionalColumns>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
-        <segments>DataSets.Fields.ВыраженияУпорядочиванияКомпоновкиДанных</segments>
+        <segments>DataSets.Fields.DataCompositionOrderExpressions</segments>
       </tablePath>
       <columns>
-        <name>Автоупорядочивание</name>
+        <name>AutoOrder</name>
         <title>
           <key>ru</key>
           <value>Автоупорядочивание</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Auto order</value>
         </title>
         <id>19</id>
         <valueType>
@@ -13434,10 +13490,14 @@
         </edit>
       </columns>
       <columns>
-        <name>Выражение</name>
+        <name>Expression</name>
         <title>
           <key>ru</key>
           <value>Выражение</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Expression</value>
         </title>
         <id>20</id>
         <valueType>
@@ -13452,10 +13512,14 @@
         </edit>
       </columns>
       <columns>
-        <name>ТипУпорядочиванияПоУбыванию</name>
+        <name>OrderTypeByDesc</name>
         <title>
           <key>ru</key>
           <value>Тип упорядочивания по убыванию</value>
+        </title>
+        <title>
+          <key>en</key>
+          <value>Order type by desc</value>
         </title>
         <id>21</id>
         <valueType>
@@ -13471,10 +13535,14 @@
     </additionalColumns>
   </attributes>
   <attributes>
-    <name>ИдентификаторНулевогоНабораДанных</name>
+    <name>NullDataSetURL</name>
     <title>
       <key>ru</key>
       <value>Идентификатор нулевого набора данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Null data set URL</value>
     </title>
     <id>11</id>
     <valueType>
@@ -13512,10 +13580,14 @@
     </edit>
     <savedData>true</savedData>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>39</id>
       <valueType>
@@ -13530,10 +13602,14 @@
       </edit>
     </columns>
     <columns>
-      <name>СтрокаСоединения</name>
+      <name>ConnectionString</name>
       <title>
         <key>ru</key>
         <value>Строка соединения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Connection string</value>
       </title>
       <id>40</id>
       <valueType>
@@ -13548,10 +13624,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипИсточникаДанных</name>
+      <name>DataSourceType</name>
       <title>
         <key>ru</key>
         <value>Тип источника данных</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Data source type</value>
       </title>
       <id>41</id>
       <valueType>
@@ -13567,10 +13647,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>АдресСхемыКомпоновкиДанных</name>
+    <name>DataCompositionSchemaURL</name>
     <title>
       <key>ru</key>
       <value>Адрес схемы компоновки данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Data composition schema URL</value>
     </title>
     <id>42</id>
     <valueType>
@@ -13605,10 +13689,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ВыражениеИсточник</name>
+      <name>SourceExpression</name>
       <title>
         <key>ru</key>
         <value>Выражение источник</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Source expression</value>
       </title>
       <id>49</id>
       <valueType>
@@ -13623,10 +13711,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ВыражениеПриемник</name>
+      <name>DestinationExpression</name>
       <title>
         <key>ru</key>
         <value>Выражение приемник</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Destination expression</value>
       </title>
       <id>50</id>
       <valueType>
@@ -13641,10 +13733,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НаборДанныхИсточник</name>
+      <name>SourceDataSet</name>
       <title>
         <key>ru</key>
         <value>Набор данных источник</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Source data set</value>
       </title>
       <id>51</id>
       <valueType>
@@ -13659,10 +13755,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НаборДанныхПриемник</name>
+      <name>DestinationDataSet</name>
       <title>
         <key>ru</key>
         <value>Набор данных приемник</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Destination data set</value>
       </title>
       <id>52</id>
       <valueType>
@@ -13677,10 +13777,14 @@
       </edit>
     </columns>
     <columns>
-      <name>НачальноеВыражение</name>
+      <name>StartExpression</name>
       <title>
         <key>ru</key>
         <value>Начальное выражение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Start expression</value>
       </title>
       <id>53</id>
       <valueType>
@@ -13695,10 +13799,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Обязательная</name>
+      <name>Required</name>
       <title>
         <key>ru</key>
         <value>Обязательная</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Required</value>
       </title>
       <id>54</id>
       <valueType>
@@ -13712,10 +13820,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Параметр</name>
+      <name>Parameter</name>
       <title>
         <key>ru</key>
         <value>Параметр</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter</value>
       </title>
       <id>55</id>
       <valueType>
@@ -13730,10 +13842,14 @@
       </edit>
     </columns>
     <columns>
-      <name>РазрешенСписокПараметров</name>
+      <name>ParameterListAllowed</name>
       <title>
         <key>ru</key>
         <value>Разрешен список параметров</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Parameter list allowed</value>
       </title>
       <id>56</id>
       <valueType>
@@ -13747,10 +13863,14 @@
       </edit>
     </columns>
     <columns>
-      <name>УсловиеСвязи</name>
+      <name>LinkConditionExpression</name>
       <title>
         <key>ru</key>
         <value>Условие связи</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Link condition expression</value>
       </title>
       <id>57</id>
       <valueType>
@@ -14155,10 +14275,14 @@
     </additionalColumns>
   </attributes>
   <attributes>
-    <name>Ресурсы</name>
+    <name>Resources</name>
     <title>
       <key>ru</key>
       <value>Ресурсы</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Resources</value>
     </title>
     <id>77</id>
     <valueType>
@@ -14171,10 +14295,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Выражение</name>
+      <name>Expression</name>
       <title>
         <key>ru</key>
         <value>Выражение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Expression</value>
       </title>
       <id>80</id>
       <valueType>
@@ -14189,10 +14317,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПутьКДанным</name>
+      <name>DataPath</name>
       <title>
         <key>ru</key>
         <value>Путь к данным</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Data path</value>
       </title>
       <id>81</id>
       <valueType>
@@ -14207,10 +14339,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Группировки</name>
+      <name>Groups</name>
       <title>
         <key>ru</key>
         <value>Группировки</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Groups</value>
       </title>
       <id>82</id>
       <valueType>
@@ -14225,10 +14361,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ДоступныеПоляРесурсов</name>
+    <name>ResourceAvailableField</name>
     <title>
       <key>ru</key>
       <value>Доступные поля ресурсов</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Resource available field</value>
     </title>
     <id>78</id>
     <valueType>
@@ -14241,10 +14381,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ПутьКДанным</name>
+      <name>DataPath</name>
       <title>
         <key>ru</key>
         <value>Путь к данным</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Data path</value>
       </title>
       <id>79</id>
       <valueType>
@@ -14259,10 +14403,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ВычисляемоеПоле</name>
+      <name>CalculatedField</name>
       <title>
         <key>ru</key>
         <value>Вычисляемое поле</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Calculated field</value>
       </title>
       <id>96</id>
       <valueType>
@@ -14276,10 +14424,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Числовое</name>
+      <name>Numeric</name>
       <title>
         <key>ru</key>
         <value>Числовое</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Numeric</value>
       </title>
       <id>97</id>
       <valueType>
@@ -14293,10 +14445,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Картинка</name>
+      <name>Picture</name>
       <title>
         <key>ru</key>
         <value>Картинка</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Picture</value>
       </title>
       <id>99</id>
       <valueType>
@@ -14311,10 +14467,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ПараметрыСКД</name>
+    <name>DCSParameters</name>
     <title>
       <key>ru</key>
       <value>Параметры СКД</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>DCSParameters</value>
     </title>
     <id>83</id>
     <valueType>
@@ -14327,10 +14487,14 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>ВключатьВДоступныеПоля</name>
+      <name>IncludeInAvailableFields</name>
       <title>
         <key>ru</key>
         <value>Включать в доступные поля</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Include in available fields</value>
       </title>
       <id>84</id>
       <valueType>
@@ -14344,10 +14508,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Выражение</name>
+      <name>Expression</name>
       <title>
         <key>ru</key>
         <value>Выражение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Expression</value>
       </title>
       <id>85</id>
       <valueType>
@@ -14362,10 +14530,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДоступенСписокЗначений</name>
+      <name>ValueListAllowed</name>
       <title>
         <key>ru</key>
         <value>Доступен список значений</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value list allowed</value>
       </title>
       <id>86</id>
       <valueType>
@@ -14379,10 +14551,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Заголовок</name>
+      <name>Title</name>
       <title>
         <key>ru</key>
         <value>Заголовок</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Title</value>
       </title>
       <id>87</id>
       <valueType>
@@ -14397,10 +14573,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ЗапрещатьНезаполненныеЗначения</name>
+      <name>DenyIncompleteValues</name>
       <title>
         <key>ru</key>
         <value>Запрещать незаполненные значения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Deny incomplete values</value>
       </title>
       <id>88</id>
       <valueType>
@@ -14414,10 +14594,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Значение</name>
+      <name>Value</name>
       <title>
         <key>ru</key>
         <value>Значение</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value</value>
       </title>
       <id>89</id>
       <valueType/>
@@ -14429,10 +14613,14 @@
       </edit>
     </columns>
     <columns>
-      <name>Имя</name>
+      <name>Name</name>
       <title>
         <key>ru</key>
         <value>Имя</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Name</value>
       </title>
       <id>90</id>
       <valueType>
@@ -14447,10 +14635,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ИспользованиеВсегда</name>
+      <name>UseAlways</name>
       <title>
         <key>ru</key>
         <value>Использование всегда</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Use always</value>
       </title>
       <id>91</id>
       <valueType>
@@ -14464,10 +14656,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ОграничениеИспользования</name>
+      <name>UseRestriction</name>
       <title>
         <key>ru</key>
         <value>Ограничение использования</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Use restriction</value>
       </title>
       <id>92</id>
       <valueType>
@@ -14481,10 +14677,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПараметрФункциональныхОпций</name>
+      <name>FunctionalOptionsParameter</name>
       <title>
         <key>ru</key>
         <value>Параметр функциональных опций</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Functional options parameter</value>
       </title>
       <id>93</id>
       <valueType>
@@ -14499,10 +14699,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ПараметрыРедактирования</name>
+      <name>EditParameters</name>
       <title>
         <key>ru</key>
         <value>Параметры редактирования</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Edit parameters</value>
       </title>
       <id>94</id>
       <valueType>
@@ -14516,10 +14720,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипЗначения</name>
+      <name>ValueType</name>
       <title>
         <key>ru</key>
         <value>Тип значения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Value type</value>
       </title>
       <id>95</id>
       <valueType>
@@ -14533,10 +14741,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДоступныеЗначения</name>
+      <name>AvailableValues</name>
       <title>
         <key>ru</key>
         <value>Доступные значения</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Available values</value>
       </title>
       <id>112</id>
       <valueType>
@@ -14550,10 +14762,14 @@
       </edit>
     </columns>
     <columns>
-      <name>ДобавленАвтоматически</name>
+      <name>AddedAutomatically</name>
       <title>
         <key>ru</key>
         <value>Добавлен автоматически</value>
+      </title>
+      <title>
+        <key>en</key>
+        <value>Added automatically</value>
       </title>
       <id>114</id>
       <valueType>
@@ -14655,10 +14871,14 @@
     </columns>
   </attributes>
   <attributes>
-    <name>КомпоновщикТекущихНастроек</name>
+    <name>CurrentSettingsComposer</name>
     <title>
       <key>ru</key>
       <value>Компоновщик текущих настроек</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current settings composer</value>
     </title>
     <id>104</id>
     <valueType>
@@ -14777,10 +14997,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ИдентификаторСтрокиТекущегоВариантаНастроек</name>
+    <name>CurrentSettingsVariantID</name>
     <title>
       <key>ru</key>
       <value>Идентификатор строки текущего варианта настроек</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current settings variant ID</value>
     </title>
     <id>110</id>
     <valueType>
@@ -14797,10 +15021,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>АдресПервоначальнойСхемыКомпоновкиДанных</name>
+    <name>InitialDataCompositionSchemaURL</name>
     <title>
       <key>ru</key>
       <value>Адрес первоначальной схемы компоновки данных</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Initial data composition schema URL</value>
     </title>
     <id>111</id>
     <valueType>
@@ -14836,7 +15064,11 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ДобавитьНаборДанныхЗапрос</name>
+    <name>AddDataSetQuery</name>
+    <title>
+      <key>en</key>
+      <value>Add data set - query</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Добавить набор данных - запрос</value>
@@ -14850,7 +15082,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ДобавитьНаборДанныхЗапрос</name>
+        <name>AddDataSetQuery</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
@@ -14916,10 +15148,14 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьКонструкторЗапроса</name>
+    <name>OpenQueryWizard</name>
     <title>
       <key>ru</key>
       <value>Открыть конструктор запроса</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Open query wizard</value>
     </title>
     <id>5</id>
     <use>
@@ -14930,7 +15166,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьКонструкторЗапроса</name>
+        <name>OpenQueryWizard</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
