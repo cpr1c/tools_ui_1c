@@ -254,7 +254,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		CurrentSetting = Parameters.Setting;
 	EndIf;
 	If Parameters.Property("FoundObjects") Then
-		FoundObjects.LoadValues(Parameters.НайденныеОбъекты);
+		FoundObjects.LoadValues(Parameters.FoundObjects);
 	EndIf;
 	CurrentLine = -1;
 	If Parameters.Property("CurrentLine") Then
