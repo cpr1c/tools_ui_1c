@@ -1,484 +1,492 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2019, ООО 1С-Софт
-// Все права защищены. Эта программа и сопроводительные материалы предоставляются 
-// в соответствии с условиями лицензии Attribution 4.0 International (CC BY 4.0)
-// Текст лицензии доступен по ссылке:
+// Copyright (c) 2019, 1C-Soft LLC
+// All Rights reserved. This application and supporting materials are provided under the terms of 
+// Attribution 4.0 International license (CC BY 4.0)
+// The license text is available at:
 // https://creativecommons.org/licenses/by/4.0/legalcode
+// Translated by Neti Company
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-#Область ОбработчикиСобытийФормы
+#Region EventHandlers
 
-&НаСервере
-Процедура OnCreateAtServer(Отказ, СтандартнаяОбработка)
-	УстановитьЦветаИУсловноеОформление();
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	SetColorsAndConditionalAppearance();
 
-	Попытка
+	Try
 		FuzzySearch = UT_Common.AttachAddInFromTemplate("FuzzyStringMatchExtension",
-			"ОбщийМакет.УИ_КомпонентаПоискаСтрок");
-	Исключение
-		FuzzySearch=Неопределено;
-	КонецПопытки;
-	Если FuzzySearch <> Неопределено Тогда
-		НечеткийПоиск = Истина;
-	КонецЕсли;
+			"CommonTemplate.UT_StringSearchComponent");
+	Except
+		FuzzySearch=Undefined;
+	EndTry;
+	If FuzzySearch <> Undefined Then 
+		FuzzySearch1 = True;
+	EndIf;
 
-	НастройкиФормы = UT_Common.CommonSettingsStorageLoad(ИмяФормы, "");
-	Если НастройкиФормы = Неопределено Тогда
-		НастройкиФормы = Новый Структура;
-		НастройкиФормы.Вставить("ConsiderAppliedRules", Истина);
-		НастройкиФормы.Вставить("DuplicatesSearchArea", "");
-		НастройкиФормы.Вставить("НастройкиКД", Неопределено);
-		НастройкиФормы.Вставить("ПравилаПоиска", Неопределено);
-	КонецЕсли;
-	ЗаполнитьЗначенияСвойств(НастройкиФормы, Параметры);
+	FormSettings = Common.CommonSettingsStorageLoad(FormName, "");
+	If FormSettings = Undefined Then
+		FormSettings = New Structure;
+		FormSettings.Insert("ConsiderAppliedRules", True);
+		FormSettings.Insert("DuplicatesSearchArea",        "");
+		FormSettings.Insert("DCSettings",                Undefined);
+		FormSettings.Insert("SearchRules",              Undefined);
+	EndIf;
+	FillPropertyValues(FormSettings, Parameters);
 
-	ПриСозданииНаСервереИнициализацияДанных(НастройкиФормы);
-	ИнициализироватьКомпоновщикОтбораИПравила(НастройкиФормы);
+	OnCreateAtServerDataInitialization(FormSettings);
+	InitializeFilterComposerAndRules(FormSettings); 
 	
-	// Схема должна быть переформирована всегда, настройки компоновщика -  в разрезе DuplicatesSearchArea. 
+	// Permanent Interface
+	StatePresentation = Items.NoSearchPerformed.StatePresentation;
+	StatePresentation.Visible = True;
+	StatePresentation.Text = NStr("ru = 'Поиск дублей не выполнялся. 
+	                                        |Задайте условия отбора и сравнения и нажмите ""Найти дубли"".'; 
+	                                        |en = 'You did not run duplicate search yet.
+	                                        |Set filter criteria and select Find duplicates.'");
+	StatePresentation.Picture = Items.Warning32.Picture;
 	
-	// Постоянный интерфейс
-	ОтображениеСостояния = Элементы.NoSearchPerformed.ОтображениеСостояния;
-	ОтображениеСостояния.Видимость = Истина;
-	ОтображениеСостояния.Текст = НСтр("ru = 'Поиск дублей не выполнялся. 
-									  |Задайте условия отбора и сравнения и нажмите ""Найти дубли"".'");
-	ОтображениеСостояния.Картинка = Элементы.Предупреждение32.Картинка;
-
-	ОтображениеСостояния = Элементы.PerformSearch.ОтображениеСостояния;
-	ОтображениеСостояния.Видимость = Истина;
-	ОтображениеСостояния.Картинка = Элементы.ДлительнаяОперация48.Картинка;
-
-	ОтображениеСостояния = Элементы.Deletion.ОтображениеСостояния;
-	ОтображениеСостояния.Видимость = Истина;
-	ОтображениеСостояния.Картинка = Элементы.ДлительнаяОперация48.Картинка;
-
-	ОтображениеСостояния = Элементы.DuplicatesNotFound.ОтображениеСостояния;
-	ОтображениеСостояния.Видимость = Истина;
-	ОтображениеСостояния.Текст = НСтр("ru = 'Не обнаружено дублей по указанным параметрам.
-									  |Измените условия отбора и сравнения, нажмите ""Найти дубли""'");
-	ОтображениеСостояния.Картинка = Элементы.Предупреждение32.Картинка;
+	StatePresentation = Items.PerformSearch.StatePresentation;
+	StatePresentation.Visible = True;
+	StatePresentation.Picture = Items.TimeConsumingOperation48.Picture;
 	
-	// Автосохранение настроек
-	СохраняемыеВНастройкахДанныеМодифицированы = Истина;
+	StatePresentation = Items.Deletion.StatePresentation;
+	StatePresentation.Visible = True;
+	StatePresentation.Picture = Items.TimeConsumingOperation48.Picture;
 	
-	// Инициализация шагов пошагового мастера.
-	ИнициализироватьНастройкиПошаговогоМастера();
+	StatePresentation = Items.DuplicatesNotFound.StatePresentation;
+	StatePresentation.Visible = True;
+	StatePresentation.Text = NStr("ru = 'Не обнаружено дублей по указанным параметрам.
+	                                        |Измените условия отбора и сравнения, нажмите ""Найти дубли""'; 
+	                                        |en = 'No duplicates found by the specified criteria.
+	                                        |Edit the filter criteria and select Find duplicates.'");
+	StatePresentation.Picture = Items.Warning32.Picture;
 	
-	// 1. Поиск не выполнялся.
-	ШагПоиск = ДобавитьШагМастера(Элементы.NoSearchPerformedStep);
-	ШагПоиск.КнопкаНазад.Видимость = Ложь;
-	ШагПоиск.КнопкаДалее.Заголовок = НСтр("ru = 'Найти дубли >'");
-	ШагПоиск.КнопкаДалее.Подсказка = НСтр("ru = 'Найти дубли по указанным критериям'");
-	ШагПоиск.КнопкаОтмена.Заголовок = НСтр("ru = 'Закрыть'");
-	ШагПоиск.КнопкаОтмена.Подсказка = НСтр("ru = 'Отказаться от поиска и замены дублей'");
+	// Autosaving settings
+	SavedInSettingsDataModified = True;
 	
-	// 2. Длительный поиск.
-	Шаг = ДобавитьШагМастера(Элементы.PerformSearchStep);
-	Шаг.КнопкаНазад.Видимость = Ложь;
-	Шаг.КнопкаДалее.Видимость = Ложь;
-	Шаг.КнопкаОтмена.Заголовок = НСтр("ru = 'Прервать'");
-	Шаг.КнопкаОтмена.Подсказка = НСтр("ru = 'Прервать поиск дублей'");
+	// Initialization of step-by-step wizard steps.
+	InitializeStepByStepWizardSettings();
 	
-	// 3. Обработка результатов поиска, выбор основных элементов.
-	Шаг = ДобавитьШагМастера(Элементы.MainItemSelectionStep);
-	Шаг.КнопкаНазад.Видимость = Ложь;
-	Шаг.КнопкаДалее.Заголовок = НСтр("ru = 'Удалить дубли >'");
-	Шаг.КнопкаДалее.Подсказка = НСтр("ru = 'Удалить дубли'");
-	Шаг.КнопкаОтмена.Заголовок = НСтр("ru = 'Закрыть'");
-	Шаг.КнопкаОтмена.Подсказка = НСтр("ru = 'Отказаться от поиска и замены дублей'");
+	// 1. No search executed.
+	SearchStep = AddWizardStep(Items.NoSearchPerformedStep);
+	SearchStep.BackButton.Visible = False;
+	SearchStep.NextButton.Title = NStr("ru = 'Найти дубли >'; en = 'Find duplicates >'");
+	SearchStep.NextButton.ToolTip = NStr("ru = 'Найти дубли по указанным критериям'; en = 'Find duplicates by the specified criteria.'");
+	SearchStep.CancelButton.Title = NStr("ru = 'Закрыть'; en = 'Close'");
+	SearchStep.CancelButton.ToolTip = NStr("ru = 'Отказаться от поиска и замены дублей'; en = 'Close the form without duplicate search.'");
 	
-	// 4. Длительное удаление дублей.
-	Шаг = ДобавитьШагМастера(Элементы.ШагВыполнениеУдаления);
-	Шаг.КнопкаНазад.Видимость = Ложь;
-	Шаг.КнопкаДалее.Видимость = Ложь;
-	Шаг.КнопкаОтмена.Заголовок = НСтр("ru = 'Прервать'");
-	Шаг.КнопкаОтмена.Подсказка = НСтр("ru = 'Прервать удаление дублей'");
+	// 2. Time-consuming search.
+	Step = AddWizardStep(Items.PerformSearchStep);
+	Step.BackButton.Visible = False;
+	Step.NextButton.Visible = False;
+	Step.CancelButton.Title = NStr("ru = 'Прервать'; en = 'Cancel'");
+	Step.CancelButton.ToolTip = NStr("ru = 'Прервать поиск дублей'; en = 'Cancel duplicate search.'");
 	
-	// 5. Успешное удаление.
-	Шаг = ДобавитьШагМастера(Элементы.ШагУспешноеУдаление);
-	Шаг.КнопкаНазад.Заголовок = НСтр("ru = '< Новый поиск'");
-	Шаг.КнопкаНазад.Подсказка = НСтр("ru = 'Начать новый поиск с другими параметрами'");
-	Шаг.КнопкаДалее.Видимость = Ложь;
-	Шаг.КнопкаОтмена.КнопкаПоУмолчанию = Истина;
-	Шаг.КнопкаОтмена.Заголовок = НСтр("ru = 'Закрыть'");
+	// 3. Processing search results and selecting main items.
+	Step = AddWizardStep(Items.MainItemSelectionStep);
+	Step.BackButton.Visible = False;
+	Step.NextButton.Title = NStr("ru = 'Удалить дубли >'; en = 'Delete duplicates >'");
+	Step.NextButton.ToolTip = NStr("ru = 'Удалить дубли'; en = 'Delete found duplicates.'");
+	Step.CancelButton.Title = NStr("ru = 'Закрыть'; en = 'Close'");
+	Step.CancelButton.ToolTip = NStr("ru = 'Отказаться от поиска и замены дублей'; en = 'Close the form without duplicate search.'");
 	
-	// 6. Неполное удаление.
-	Шаг = ДобавитьШагМастера(Элементы.ШагНеудачныеЗамены);
-	Шаг.КнопкаНазад.Видимость = Ложь;
-	Шаг.КнопкаДалее.Заголовок = НСтр("ru = 'Повторить удаление >'");
-	Шаг.КнопкаДалее.Подсказка = НСтр("ru = 'Удалить дубли'");
-	Шаг.КнопкаОтмена.Заголовок = НСтр("ru = 'Закрыть'");
+	// 4. Time-consuming deletion of duplicates.
+	Step = AddWizardStep(Items.DeletionStep);
+	Step.BackButton.Visible = False;
+	Step.NextButton.Visible = False;
+	Step.CancelButton.Title = NStr("ru = 'Прервать'; en = 'Cancel'");
+	Step.CancelButton.ToolTip = NStr("ru = 'Прервать удаление дублей'; en = 'Cancel duplicate deletion.'");
 	
-	// 7. Дублей не найдено.
-	Шаг = ДобавитьШагМастера(Элементы.ШагДублейНеНайдено);
-	Шаг.КнопкаНазад.Видимость = Ложь;
-	Шаг.КнопкаДалее.Заголовок = НСтр("ru = 'Найти дубли >'");
-	Шаг.КнопкаДалее.Подсказка = НСтр("ru = 'Найти дубли по указанным критериям'");
-	Шаг.КнопкаОтмена.Заголовок = НСтр("ru = 'Закрыть'");
+	// 5. Successful deletion.
+	Step = AddWizardStep(Items.SuccessfulDeletionStep);
+	Step.BackButton.Title = NStr("ru = '< Новый поиск'; en = '< New search'");
+	Step.BackButton.ToolTip = NStr("ru = 'Начать новый поиск с другими параметрами'; en = 'Start a new duplicate search.'");
+	Step.NextButton.Visible = False;
+	Step.CancelButton.DefaultButton = True;
+	Step.CancelButton.Title = NStr("ru = 'Закрыть'; en = 'Close'");
 	
-	// 8. Ошибки выполнения.
-	Шаг = ДобавитьШагМастера(Элементы.ШагВозниклаОшибка);
-	Шаг.КнопкаНазад.Видимость = Ложь;
-	Шаг.КнопкаДалее.Видимость = Ложь;
-	Шаг.КнопкаОтмена.Заголовок = НСтр("ru = 'Закрыть'");
+	// 6. Incomplete deletion.
+	Step = AddWizardStep(Items.UnsuccessfulReplacementsStep);
+	Step.BackButton.Visible = False;
+	Step.NextButton.Title = NStr("ru = 'Повторить удаление >'; en = 'Delete again >'");
+	Step.NextButton.ToolTip = NStr("ru = 'Удалить дубли'; en = 'Delete found duplicates.'");
+	Step.CancelButton.Title = NStr("ru = 'Закрыть'; en = 'Close'");
 	
-	// Обновление элементов формы.
-	НастройкиМастера.ТекущийШаг = ШагПоиск;
-	УстановитьВидимостьДоступность(ЭтотОбъект);
-
-	UT_Forms.CreateWriteParametersAttributesFormOnCreateAtServer(ЭтотОбъект,
-		Элементы.ГруппаПараметрыЗаписи);
+	// 7. No duplicates found.
+	Step = AddWizardStep(Items.DuplicatesNotFoundStep);
+	Step.BackButton.Visible = False;
+	Step.NextButton.Title = NStr("ru = 'Найти дубли >'; en = 'Find duplicates >'");
+	Step.NextButton.ToolTip = NStr("ru = 'Найти дубли по указанным критериям'; en = 'Find duplicates by the specified criteria.'");
+	Step.CancelButton.Title = NStr("ru = 'Закрыть'; en = 'Close'");
 	
-	UT_Common.ToolFormOnCreateAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка, Элементы.ПанельДействийМастера);
+	// 8. Runtime errors.
+	Step = AddWizardStep(Items.ErrorOccurredStep);
+	Step.BackButton.Visible = False;
+	Step.NextButton.Visible = False;
+	Step.CancelButton.Title = NStr("ru = 'Закрыть'; en = 'Close'");
 	
-КонецПроцедуры
+	// Updating form items.
+	WizardSettings.CurrentStep = SearchStep;
+	SetVisibilityAvailability(ThisObject);
 
-&НаКлиенте
-Процедура OnOpen(Отказ)
+	UT_Forms.CreateWriteParametersAttributesFormOnCreateAtServer(ThisObject,
+		Items.WritingParametersGroup);
 	
-	// Запуск мастера.
-	ПриАктивацииШагаМастера();
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура BeforeClose(Отказ, ЗавершениеРаботы, ТекстПредупреждения, СтандартнаяОбработка)
-	Если Не НастройкиМастера.ПоказатьДиалогПередЗакрытием Тогда
-		Возврат;
-	КонецЕсли;
-	Если ЗавершениеРаботы Тогда
-		Возврат;
-	КонецЕсли;
-
-	Отказ = Истина;
-	ТекущаяСтраница = Элементы.WizardSteps.ТекущаяСтраница;
-	Если ТекущаяСтраница = Элементы.PerformSearchStep Тогда
-		ТекстВопроса = НСтр("ru = 'Прервать поиск дублей и закрыть форму?'");
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагВыполнениеУдаления Тогда
-		ТекстВопроса = НСтр("ru = 'Прервать удаление дублей и закрыть форму?'");
-	КонецЕсли;
-
-	Кнопки = Новый СписокЗначений;
-	Кнопки.Добавить(КодВозвратаДиалога.Прервать, НСтр("ru = 'Прервать'"));
-	Кнопки.Добавить(КодВозвратаДиалога.Нет, НСтр("ru = 'Не прерывать'"));
-
-	Обработчик = Новый ОписаниеОповещения("ПослеПодтвержденияОтменыЗадания", ЭтотОбъект);
-
-	ПоказатьВопрос(Обработчик, ТекстВопроса, Кнопки, , КодВозвратаДиалога.Нет);
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область ОбработчикиСобытийЭлементовШапкиФормы
-
-&НаКлиенте
-Процедура DuplicatesSearchAreaStartChoice(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-
-	Имя = ПолноеИмяФормы("DuplicatesSearchArea");
-
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("АдресНастроек", АдресНастроек);
-	ПараметрыФормы.Вставить("DuplicatesSearchArea", ОбластьПоискаДублей);
-
-	Обработчик = Новый ОписаниеОповещения("ОбластьПоискаДублейЗавершениеВыбора", ЭтотОбъект);
-
-	ОткрытьФорму(Имя, ПараметрыФормы, ЭтотОбъект, , , , Обработчик);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ОбластьПоискаДублейЗавершениеВыбора(Результат, ПараметрыВыполнения) Экспорт
-	Если ТипЗнч(Результат) <> Тип("Строка") Тогда
-		Возврат;
-	КонецЕсли;
-
-	ОбластьПоискаДублей = Результат;
-	ИнициализироватьКомпоновщикОтбораИПравила(Неопределено);
-	ПерейтиНаШагМастера(Элементы.NoSearchPerformedStep);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура DuplicatesSearchAreaOnChange(Элемент)
-	ИнициализироватьКомпоновщикОтбораИПравила(Неопределено);
-	ПерейтиНаШагМастера(Элементы.NoSearchPerformedStep);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура DuplicatesSearchAreaClearing(Элемент, СтандартнаяОбработка)
-
-	СтандартнаяОбработка = Ложь;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ВсеМестаИспользованияНеобработанныхНажатие(Элемент)
-
-	ПоказатьМестаИспользования(UnprocessedDuplicates);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ВсеМестаИспользованияНажатие(Элемент)
-
-	ПоказатьМестаИспользования(FoundDuplicates);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура FilterRulesPresentationStartChoice(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-
-	ПодключитьОбработчикОжидания("ПриНачалеВыбораПравилОтбора", 0.1, Истина);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПриНачалеВыбораПравилОтбора()
-
-	Имя = ПолноеИмяФормы("ПравилаОтбора");
-
-	ЭлементСписка = Элементы.DuplicatesSearchArea.СписокВыбора.НайтиПоЗначению(ОбластьПоискаДублей);
-	Если ЭлементСписка = Неопределено Тогда
-		ПредставлениеОбластиПоискаДублей = Неопределено;
-	Иначе
-		ПредставлениеОбластиПоискаДублей = ЭлементСписка.Представление;
-	КонецЕсли;
-
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("АдресСхемыКомпоновки", АдресСхемыКомпоновки);
-	ПараметрыФормы.Вставить("АдресНастроекКомпоновщикаОтбора", АдресНастроекКомпоновщикаОтбора());
-	ПараметрыФормы.Вставить("ИдентификаторОсновнойФормы", УникальныйИдентификатор);
-	ПараметрыФормы.Вставить("ПредставлениеОбластиОтбора", ПредставлениеОбластиПоискаДублей);
-
-	Обработчик = Новый ОписаниеОповещения("ПравилаОтбораЗавершениеВыбора", ЭтотОбъект);
-
-	ОткрытьФорму(Имя, ПараметрыФормы, ЭтотОбъект, , , , Обработчик);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПравилаОтбораЗавершениеВыбора(АдресРезультата, ПараметрыВыполнения) Экспорт
-	Если ТипЗнч(АдресРезультата) <> Тип("Строка") Или Не ЭтоАдресВременногоХранилища(АдресРезультата) Тогда
-		Возврат;
-	КонецЕсли;
-	ОбновитьКомпоновщикОтбора(АдресРезультата);
-	ПерейтиНаШагМастера(Элементы.NoSearchPerformedStep);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура FilterRulesPresentationClearing(Элемент, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-	КомпоновщикПредварительногоОтбора.Настройки.Отбор.Элементы.Очистить();
-	ПерейтиНаШагМастера(Элементы.NoSearchPerformedStep);
-	СохранитьПользовательскиеНастройки();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура SearchRulesPresentationClick(Элемент, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-
-	Имя = ПолноеИмяФормы("ПравилаПоиска");
-
-	ЭлементСписка = Элементы.DuplicatesSearchArea.СписокВыбора.НайтиПоЗначению(ОбластьПоискаДублей);
-	Если ЭлементСписка = Неопределено Тогда
-		ПредставлениеОбластиПоискаДублей = Неопределено;
-	Иначе
-		ПредставлениеОбластиПоискаДублей = ЭлементСписка.Представление;
-	КонецЕсли;
-
-	ПараметрыФормы = Новый Структура;
-	ПараметрыФормы.Вставить("DuplicatesSearchArea", ОбластьПоискаДублей);
-	ПараметрыФормы.Вставить("ОписаниеПрикладныхПравил", ОписаниеПрикладныхПравил);
-	ПараметрыФормы.Вставить("АдресНастроек", АдресНастроекПравилПоиска());
-	ПараметрыФормы.Вставить("ПредставлениеОбластиОтбора", ПредставлениеОбластиПоискаДублей);
-
-	Обработчик = Новый ОписаниеОповещения("ПравилаПоискаЗавершениеВыбора", ЭтотОбъект);
-
-	ОткрытьФорму(Имя, ПараметрыФормы, ЭтотОбъект, , , , Обработчик);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ПравилаПоискаЗавершениеВыбора(АдресРезультата, ПараметрыВыполнения) Экспорт
-	Если ТипЗнч(АдресРезультата) <> Тип("Строка") Или Не ЭтоАдресВременногоХранилища(АдресРезультата) Тогда
-		Возврат;
-	КонецЕсли;
-	ОбновитьПравилаПоиска(АдресРезультата);
-	ПерейтиНаШагМастера(Элементы.NoSearchPerformedStep);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура СсылкаПодробнееНажатие(Элемент)
-	UT_CommonClient.ShowDetailedInfo(Неопределено, Элемент.Подсказка);
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область ОбработчикиСобытийЭлементовТаблицыФормыНайденныеДубли
-
-&НаКлиенте
-Процедура FoundDuplicatesOnActivateRow(Элемент)
-
-	ПодключитьОбработчикОжидания("ОтложенныйОбработчикАктивизацииСтрокиДублей", 0.1, Истина);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ОтложенныйОбработчикАктивизацииСтрокиДублей()
-	ИдентификаторСтроки = Элементы.FoundDuplicates.ТекущаяСтрока;
-	Если ИдентификаторСтроки = Неопределено Или ИдентификаторСтроки = ИдентификаторТекущейСтроки Тогда
-		Возврат;
-	КонецЕсли;
-	ИдентификаторТекущейСтроки = ИдентификаторСтроки;
-
-	ОбновитьМестаИспользованияКандидата(ИдентификаторСтроки);
-КонецПроцедуры
-
-&НаСервере
-Процедура ОбновитьМестаИспользованияКандидата(Знач ИдентификаторСтроки)
-	ДанныеСтроки = FoundDuplicates.НайтиПоИдентификатору(ИдентификаторСтроки);
-
-	Если ДанныеСтроки.ПолучитьРодителя() = Неопределено Тогда
-		// Описание группы
-		CandidateUsageInstances.Очистить();
-
-		НаименованиеОригинала = Неопределено;
-		Для Каждого Кандидат Из ДанныеСтроки.ПолучитьЭлементы() Цикл
-			Если Кандидат.Main Тогда
-				НаименованиеОригинала = Кандидат.Description;
-				Прервать;
-			КонецЕсли;
-		КонецЦикла;
-
-		Элементы.ОписаниеТекущейГруппыДублей.Заголовок = СтрШаблон(
-			НСтр("ru = 'Для элемента ""%1"" найдено дублей: %2'"), НаименованиеОригинала, ДанныеСтроки.Количество);
-
-		Элементы.СтраницыМестаИспользования.ТекущаяСтраница = Элементы.ОписаниеГруппы;
-		Возврат;
-	КонецЕсли;
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing, Items.WizardActionsPanel);
 	
-	// Перечень мест использования.
-	ТаблицаИспользования = ПолучитьИзВременногоХранилища(АдресМестИспользования);
-	Фильтр = Новый Структура("Ссылка", ДанныеСтроки.Ссылка);
+EndProcedure
 
-	CandidateUsageInstances.Загрузить(ТаблицаИспользования.Скопировать(ТаблицаИспользования.НайтиСтроки(Фильтр)));
-
-	Если ДанныеСтроки.Count = 0 Тогда
-		Элементы.ОписаниеТекущейГруппыДублей.Заголовок = СтрШаблон(
-			НСтр("ru = 'Элемент ""%1"" не используется'"), ДанныеСтроки.Description);
-
-		Элементы.СтраницыМестаИспользования.ТекущаяСтраница = Элементы.ОписаниеГруппы;
-	Иначе
-		Элементы.CandidateUsageInstances.Заголовок = СтрШаблон(
-			НСтр("ru = 'Места использования ""%1"" (%2)'"), ДанныеСтроки.Description, ДанныеСтроки.Количество);
-
-		Элементы.СтраницыМестаИспользования.ТекущаяСтраница = Элементы.МестаИспользования;
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура FoundDuplicatesSelection(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-
-	ОткрытьФормуДубля(Элемент.ТекущиеДанные);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура FoundDuplicatesCheckOnChange(Элемент)
-
-	ДанныеСтроки = Элементы.FoundDuplicates.ТекущиеДанные;
-	ДанныеСтроки.Check = ДанныеСтроки.Check % 2;
-	ИзменитьПометкиКандидатовИерархически(ДанныеСтроки);
-
-	ОписаниеОшибкиПоискаДублей = "";
-	ВсегоНайденоДублей = 0;
-	Для Каждого Дубль Из FoundDuplicates.ПолучитьЭлементы() Цикл
-		Для Каждого Потомок Из Дубль.ПолучитьЭлементы() Цикл
-			Если Не Потомок.Main И Потомок.Check Тогда
-				ВсегоНайденоДублей = ВсегоНайденоДублей + 1;
-			КонецЕсли;
-		КонецЦикла;
-	КонецЦикла;
-
-	ОбновитьОписаниеСостоянияНайденныхДублей(ЭтотОбъект);
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область ОбработчикиСобытийЭлементовТаблицыФормыНеобработанныеДубли
-
-&НаКлиенте
-Процедура UnprocessedDuplicatesOnActivateRow(Элемент)
-
-	ПодключитьОбработчикОжидания("ОтложенныйОбработчикАктивизацииСтрокиНеобработанныхДублей", 0.1, Истина);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ОтложенныйОбработчикАктивизацииСтрокиНеобработанныхДублей()
-
-	ДанныеСтроки = Элементы.UnprocessedDuplicates.ТекущиеДанные;
-	Если ДанныеСтроки = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	ОбновитьМестаИспользованияНеобработанныхДубли( ДанныеСтроки.ПолучитьИдентификатор());
-КонецПроцедуры
-
-&НаСервере
-Процедура ОбновитьМестаИспользованияНеобработанныхДубли(Знач СтрокаДанных)
-	ДанныеСтроки = UnprocessedDuplicates.НайтиПоИдентификатору(СтрокаДанных);
-
-	Если ДанныеСтроки.ПолучитьРодителя() = Неопределено Тогда
-		// Описание группы
-		UnprocessedDuplicatesUsageInstances.Очистить();
-
-		Элементы.ОписаниеТекущейГруппыДублей1.Заголовок = НСтр(
-			"ru = 'Для просмотра причин выберите проблемный элемент-дубль.'");
-		Элементы.СтраницыМестаИспользованияНеобработанных.ТекущаяСтраница = Элементы.ОписаниеГруппыНеобработанных;
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure OnOpen(Cancel)
 	
-	// Перечень мест ошибок
-	ТаблицаОшибок = ПолучитьИзВременногоХранилища(АдресРезультатаЗамены);
-	Фильтр = Новый Структура("Ссылка", ДанныеСтроки.Ссылка);
+	// Running wizard.
+	OnActivateWizardStep();
+	
+EndProcedure
 
-	Данные = ТаблицаОшибок.Скопировать( ТаблицаОшибок.НайтиСтроки(Фильтр));
-	Данные.Колонки.Добавить("Icon");
-	Данные.ЗаполнитьЗначения(Истина, "Icon");
-	UnprocessedDuplicatesUsageInstances.Загрузить(Данные);
+&AtClient
+Procedure BeforeClose(Cancel, Exit, WarningText, StandardProcessing)
+	If Not WizardSettings.ShowDialogBeforeClose Then
+		Return;
+	EndIf;
+	If Exit Then
+		Return;
+	EndIf;
+	
+	Cancel = True;
+	CurrentPage = Items.WizardSteps.CurrentPage;
+	If CurrentPage = Items.PerformSearchStep Then
+		QuestionText = NStr("ru = 'Прервать поиск дублей и закрыть форму?'; en = 'Do you want to stop search and close the form?'");
+	ElsIf CurrentPage = Items.DeletionStep Then
+		QuestionText = NStr("ru = 'Прервать удаление дублей и закрыть форму?'; en = 'Do you want to stop deletion and close the form?'");
+	EndIf;
+	
+	Buttons = New ValueList;
+	Buttons.Add(DialogReturnCode.Abort, NStr("ru = 'Прервать'; en = 'Cancel operation'"));
+	Buttons.Add(DialogReturnCode.No,      NStr("ru = 'Не прерывать'; en = 'Continue operation'"));
+	
+	Handler = New NotifyDescription("AfterConfirmCancelJob", ThisObject);
+	
+	ShowQueryBox(Handler, QuestionText, Buttons, , DialogReturnCode.No);
+EndProcedure
 
-	Если ДанныеСтроки.Count = 0 Тогда
-		Элементы.ОписаниеТекущейГруппыДублей1.Заголовок = СтрШаблон(
-			НСтр("ru = 'Замена дубля ""%1"" возможна, но была отменена из-за невозможности замены в других местах.'"),
-			ДанныеСтроки.Наименование);
+#EndRegion
 
-		Элементы.СтраницыМестаИспользованияНеобработанных.ТекущаяСтраница = Элементы.ОписаниеГруппыНеобработанных;
-	Иначе
-		Элементы.CandidateUsageInstances.Заголовок = СтрШаблон(
-			НСтр("ru = 'Не удалось заменить дубли в некоторых местах (%1)'"), ДанныеСтроки.Count);
+#Region FormHeaderItemsEventHandlers
 
-		Элементы.СтраницыМестаИспользованияНеобработанных.ТекущаяСтраница = Элементы.ОписаниеМестИспользованияНеобработанных;
-	КонецЕсли;
+&AtClient
+Procedure DuplicatesSearchAreaStartChoice(Item, ChoiceData, StandardProcessing)
+	StandardProcessing = False;
+	
+	Name = FullFormName("DuplicatesSearchArea");
+	
+	FormParameters = New Structure;
+	FormParameters.Insert("SettingsAddress", SettingsAddress);
+	FormParameters.Insert("DuplicatesSearchArea", DuplicatesSearchArea);
+	
+	Handler = New NotifyDescription("DuplicatesSearchAreaSelectionCompletion", ThisObject);
+	
+	OpenForm(Name, FormParameters, ThisObject, , , , Handler);
+EndProcedure
 
-КонецПроцедуры
+&AtClient
+Procedure DuplicatesSearchAreaSelectionCompletion(Result, ExecutionParameters) Export
+	If TypeOf(Result) <> Type("String") Then
+		Return;
+	EndIf;
+	
+	DuplicatesSearchArea = Result;
+	InitializeFilterComposerAndRules(Undefined);
+	GoToWizardStep(Items.NoSearchPerformedStep);
+EndProcedure
 
-&НаКлиенте
-Процедура UnprocessedDuplicatesSelection(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
+&AtClient
+Procedure DuplicatesSearchAreaOnChange(Item)
+	InitializeFilterComposerAndRules(Undefined);
+	GoToWizardStep(Items.NoSearchPerformedStep);
+EndProcedure
 
-	ОткрытьФормуДубля(Элементы.UnprocessedDuplicates.ТекущиеДанные);
+&AtClient
+Procedure DuplicatesSearchAreaClearing(Item, StandardProcessing)
 
-КонецПроцедуры
+	StandardProcessing = False;
+	
+EndProcedure
 
-&НаКлиенте
-Процедура EditUnprocessedDuplicate(Команда)
-	ТекущиеДанные = Элементы.UnprocessedDuplicates.ТекущиеДанные;
-	Если ТекущиеДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure AllUnprocessedItemsUsageInstancesClick(Item)
 
-	UT_CommonClient.EditObject(ТекущиеДанные.Ссылка);
-КонецПроцедуры
-#КонецОбласти
+	ShowUsageInstances(UnprocessedDuplicates);
+	
+EndProcedure
+
+&AtClient
+Procedure AllUsageInstancesClick(Item)
+
+	ShowUsageInstances(FoundDuplicates);
+
+EndProcedure
+
+&AtClient
+Procedure FilterRulesPresentationStartChoice(Item, ChoiceData, StandardProcessing)
+	StandardProcessing = False;
+	
+	AttachIdleHandler("OnStartSelectFilterRules", 0.1, True);
+EndProcedure
+
+&AtClient
+Procedure OnStartSelectFilterRules()
+	
+	Name = FullFormName("FilterRules");
+	
+	ListItem = Items.DuplicatesSearchArea.ChoiceList.FindByValue(DuplicatesSearchArea);
+	If ListItem = Undefined Then
+		SearchForDuplicatesAreaPresentation = Undefined;
+	Else
+		SearchForDuplicatesAreaPresentation = ListItem.Presentation;
+	EndIf;
+	
+	FormParameters = New Structure;
+	FormParameters.Insert("CompositionSchemaAddress",            CompositionSchemaAddress);
+	FormParameters.Insert("FilterComposerSettingsAddress", FilterComposerSettingsAddress());
+	FormParameters.Insert("MasterFormID",      UUID);
+	FormParameters.Insert("FilterAreaPresentation",      SearchForDuplicatesAreaPresentation);
+	
+	Handler = New NotifyDescription("FilterRulesSelectionCompletion", ThisObject);
+	
+	OpenForm(Name, FormParameters, ThisObject, , , , Handler);
+	
+EndProcedure
+
+&AtClient
+Procedure FilterRulesSelectionCompletion(ResultAddress, ExecutionParameters) Export
+	If TypeOf(ResultAddress) <> Type("String") Or Not IsTempStorageURL(ResultAddress) Then
+		Return;
+	EndIf;
+	UpdateFilterComposer(ResultAddress);
+	GoToWizardStep(Items.NoSearchPerformedStep);
+EndProcedure
+
+&AtClient
+Procedure FilterRulesPresentationClearing(Item, StandardProcessing)
+	StandardProcessing = False;
+	PrefilterComposer.Settings.Filter.Items.Clear();
+	GoToWizardStep(Items.NoSearchPerformedStep);
+	SaveUserSettingsSSL();
+EndProcedure
+
+&AtClient
+Procedure SearchRulesPresentationClick(Item, StandardProcessing)
+	StandardProcessing = False;
+	
+	Name = FullFormName("SearchRules");
+	
+	ListItem = Items.DuplicatesSearchArea.ChoiceList.FindByValue(DuplicatesSearchArea);
+	If ListItem = Undefined Then
+		SearchForDuplicatesAreaPresentation = Undefined;
+	Else
+		SearchForDuplicatesAreaPresentation = ListItem.Presentation;
+	EndIf;
+	
+	FormParameters = New Structure;
+	FormParameters.Insert("DuplicatesSearchArea",        DuplicatesSearchArea);
+	FormParameters.Insert("AppliedRuleDetails",   AppliedRuleDetails);
+	FormParameters.Insert("SettingsAddress",              SearchRulesSettingsAddress());
+	FormParameters.Insert("FilterAreaPresentation", SearchForDuplicatesAreaPresentation);
+	
+	Handler = New NotifyDescription("SearchRulesSelectionCompletion", ThisObject);
+	
+	OpenForm(Name, FormParameters, ThisObject, , , , Handler);
+EndProcedure
+
+&AtClient
+Procedure SearchRulesSelectionCompletion(ResultAddress, ExecutionParameters) Export
+	If TypeOf(ResultAddress) <> Type("String") Or Not IsTempStorageURL(ResultAddress) Then
+		Return;
+	EndIf;
+	UpdateSearchRules(ResultAddress);
+	GoToWizardStep(Items.NoSearchPerformedStep);
+EndProcedure
+
+&AtClient
+Procedure DetailsRefClick(Item)
+	UT_CommonClient.ShowDetailedInfo(Undefined, Item.ToolTip);
+EndProcedure
+
+#EndRegion
+
+#Region FoundDuplicatesFormTableItemsEventHandlers
+
+&AtClient
+Procedure FoundDuplicatesOnActivateRow(Item)
+	
+	AttachIdleHandler("DuplicatesRowActivationDeferredHandler", 0.1, True);
+	
+EndProcedure
+
+&AtClient
+Procedure DuplicatesRowActivationDeferredHandler()
+	RowID = Items.FoundDuplicates.CurrentRow;
+	If RowID = Undefined Or RowID = CurrentRowID Then
+		Return;
+	EndIf;
+	CurrentRowID = RowID;
+	
+	UpdateCandidateUsageInstances(RowID);
+EndProcedure
+
+&AtServer
+Procedure UpdateCandidateUsageInstances(Val RowID)
+	RowData = FoundDuplicates.FindByID(RowID);
+	
+	If RowData.GetParent() = Undefined Then
+		// Group details
+		CandidateUsageInstances.Clear();
+
+		OriginalDescription = Undefined;
+		For Each Candidate In RowData.GetItems() Do
+			If Candidate.Main Then
+				OriginalDescription = Candidate.Description;
+				Break;
+			EndIf;
+		EndDo;
+
+		Items.CurrentDuplicatesGroupDetails.Title = StrTemplate(
+			NStr("ru = 'Для элемента ""%1"" найдено дублей: %2'; en = 'Found %2 duplicates for %1.'"),
+			OriginalDescription,
+			RowData.Count);
+
+		Items.UsageInstancesPages.CurrentPage = Items.GroupDetails;
+		Return;
+	EndIf;
+	
+	// List of usage instances.
+	UsageTable = GetFromTempStorage(UsageInstancesAddress);
+	Filter = New Structure("Ref", RowData.Ref);
+
+	CandidateUsageInstances.Load(UsageTable.Copy(UsageTable.FindRows(Filter)));
+
+	If RowData.Count = 0 Then
+		Items.CurrentDuplicatesGroupDetails.Title = StrTemplate(
+			NStr("ru = 'Элемент ""%1"" не используется'; en = 'No usage locations for %1.'"), 
+			RowData.Description);
+
+		Items.UsageInstancesPages.CurrentPage = Items.GroupDetails;
+	Else
+		Items.CandidateUsageInstances.Title = StrTemplate(
+			NStr("ru = 'Места использования ""%1"" (%2)'; en = 'Found %2 usage locations for %1.'"), 
+			RowData.Description,
+			RowData.Count);
+
+		Items.UsageInstancesPages.CurrentPage = Items.UsageInstances;
+	EndIf;
+	
+EndProcedure
+
+&AtClient
+Procedure FoundDuplicatesSelection(Item, RowSelected, Field, StandardProcessing)
+	
+	OpenDuplicateForm(Item.CurrentData);
+	
+EndProcedure
+
+&AtClient
+Procedure FoundDuplicatesCheckOnChange(Item)
+
+	RowData = Items.FoundDuplicates.CurrentData;
+	RowData.Check = RowData.Check % 2;
+	ChangeCandidatesMarksHierarchically(RowData);
+	
+	DuplicatesSearchErrorDescription = "";
+	TotalFoundDuplicates = 0;
+	For Each Duplicate In FoundDuplicates.GetItems() Do
+		For Each Child In Duplicate.GetItems() Do
+			If Not Child.Main And Child.Check Then
+				TotalFoundDuplicates = TotalFoundDuplicates + 1;
+			EndIf;
+		EndDo;
+	EndDo;
+	
+	UpdateFoundDuplicatesStateDetails(ThisObject);
+	
+EndProcedure
+
+#EndRegion
+
+#Region UnprocessedDuplicatesFormTableItemsEventHandlers
+
+&AtClient
+Procedure UnprocessedDuplicatesOnActivateRow(Item)
+	
+	AttachIdleHandler("UnprocessedDuplicatesRowActivationDeferredHandler", 0.1, True);
+	
+EndProcedure
+
+&AtClient
+Procedure UnprocessedDuplicatesRowActivationDeferredHandler()
+	
+	RowData = Items.UnprocessedDuplicates.CurrentData;
+	If RowData = Undefined Then
+		Return;
+	EndIf;
+	
+	UpdateUnprocessedItemsUsageInstancesDuplicates( RowData.GetID() );
+EndProcedure
+
+&AtServer
+Procedure UpdateUnprocessedItemsUsageInstancesDuplicates(Val DataString)
+	RowData = UnprocessedDuplicates.FindByID(DataString);
+	
+	If RowData.GetParent() = Undefined Then
+		// Group details
+		UnprocessedItemsUsageInstances.Clear();
+		
+		Items.CurrentDuplicatesGroupDetails1.Title = NStr("ru = 'Для просмотра причин выберите проблемный элемент-дубль.'; en = 'To view details, select the duplicate that caused the issue.'");
+		Items.UnprocessedItemsUsageInstancesPages.CurrentPage = Items.UnprocessedItemsGroupDetails;
+		Return;
+	EndIf;
+	
+	// List of error instances
+	ErrorsTable = GetFromTempStorage(ReplacementResultAddress);
+	Filter = New Structure("Ref", RowData.Ref);
+	
+	Data = ErrorsTable.Copy( ErrorsTable.FindRows(Filter) );
+	Data.Columns.Add("Icon");
+	Data.FillValues(True, "Icon");
+	UnprocessedItemsUsageInstances.Load(Data);
+	
+	If RowData.Count = 0 Then
+		Items.CurrentDuplicatesGroupDetails1.Title = StrTemplate(
+			NStr("ru = 'Замена дубля ""%1"" возможна, но была отменена из-за невозможности замены в других местах.'; en = 'Replacement of %1 is possible, but was canceled. Cannot replace item in some of the usage locations.'"), 
+			RowData.Description);
+		
+		Items.UnprocessedItemsUsageInstancesPages.CurrentPage = Items.UnprocessedItemsGroupDetails;
+	Else
+		Items.ProbableDuplicateUsageInstances.Title = StrTemplate(
+			NStr("ru = 'Не удалось заменить дубли в некоторых местах (%1)'; en = 'Cannot replace duplicates in %1 usage locations.'"), 
+			RowData.Count);
+		
+		Items.UnprocessedItemsUsageInstancesPages.CurrentPage = Items.UnprocessedItemsUsageInstanceDetails;
+	EndIf;
+	
+EndProcedure
+
+&AtClient
+Procedure UnprocessedDuplicatesSelection(Item, RowSelected, Field, StandardProcessing)
+	
+	OpenDuplicateForm(Items.UnprocessedDuplicates.CurrentData);
+	
+EndProcedure
+
+&AtClient
+Procedure EditUnprocessedDuplicate(Command)
+	CurrentData = Items.UnprocessedDuplicates.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
+
+	UT_CommonClient.EditObject(CurrentData.Ref);
+EndProcedure
+#EndRegion
 
 #Область ОбработчикиСобытийЭлементовТаблицыФормыМестаИспользованияНеобработанных
 
@@ -841,21 +849,21 @@
 		Элементы.RetrySearch.Видимость = Истина;
 		РазвернутьГруппуДублейИерархически();
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагВыполнениеУдаления Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.DeletionStep Тогда
 
 		Элементы.Header.Доступность = Ложь;
 		НастройкиМастера.ПоказатьДиалогПередЗакрытием = Истина;
 		НайтиИУдалитьДублиКлиент();
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагУспешноеУдаление Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.SuccessfulDeletionStep Тогда
 
 		Элементы.Header.Доступность = Ложь;
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагНеудачныеЗамены Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.UnsuccessfulReplacementsStep Тогда
 
 		Элементы.Header.Доступность = Ложь;
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагДублейНеНайдено Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.DuplicatesNotFoundStep Тогда
 
 		Элементы.Header.Доступность = Истина;
 		Если ПустаяСтрока(ОписаниеОшибкиПоискаДублей) Тогда
@@ -866,10 +874,10 @@
 		Элементы.DuplicatesNotFound.ОтображениеСостояния.Текст = Сообщение + Символы.ПС + НСтр(
 			"ru = 'Измените условия и нажмите ""Найти дубли""'");
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагВозниклаОшибка Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.ErrorOccurredStep Тогда
 
 		Элементы.Header.Доступность = Истина;
-		Элементы.СсылкаПодробнее.Видимость = ЗначениеЗаполнено(Элементы.СсылкаПодробнее.Подсказка);
+		Элементы.DetailsRef.Видимость = ЗначениеЗаполнено(Элементы.DetailsRef.Подсказка);
 
 	КонецЕсли;
 
@@ -895,11 +903,11 @@
 		Элементы.RetrySearch.Видимость = Ложь;
 		ПерейтиНаШагМастера(НастройкиМастера.ТекущийШаг.Индекс + 1);
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагНеудачныеЗамены Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.UnsuccessfulReplacementsStep Тогда
 
-		ПерейтиНаШагМастера(Элементы.ШагВыполнениеУдаления);
+		ПерейтиНаШагМастера(Элементы.DeletionStep);
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагДублейНеНайдено Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.DuplicatesNotFoundStep Тогда
 
 		ПерейтиНаШагМастера(Элементы.PerformSearchStep);
 
@@ -916,7 +924,7 @@
 
 	ТекущаяСтраница = Элементы.WizardSteps.ТекущаяСтраница;
 
-	Если ТекущаяСтраница = Элементы.ШагУспешноеУдаление Тогда
+	Если ТекущаяСтраница = Элементы.SuccessfulDeletionStep Тогда
 
 		ПерейтиНаШагМастера(Элементы.NoSearchPerformedStep);
 
@@ -933,7 +941,7 @@
 
 	ТекущаяСтраница = Элементы.WizardSteps.ТекущаяСтраница;
 
-	Если ТекущаяСтраница = Элементы.PerformSearchStep Или ТекущаяСтраница = Элементы.ШагВыполнениеУдаления Тогда
+	Если ТекущаяСтраница = Элементы.PerformSearchStep Или ТекущаяСтраница = Элементы.DeletionStep Тогда
 
 		НастройкиМастера.ПоказатьДиалогПередЗакрытием = Ложь;
 
@@ -1513,7 +1521,7 @@
 		ПараметрыПроцедуры.Вставить("НастройкиКомпоновщикаПредварительногоОтбора",
 			КомпоновщикПредварительногоОтбора.Настройки);
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагВыполнениеУдаления Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.DeletionStep Тогда
 
 		Элементы.Deletion.ОтображениеСостояния.Текст = НСтр("ru = 'Удаление дублей...'");
 
@@ -1553,7 +1561,7 @@
 		КонецЕсли;
 		Элементы.PerformSearch.ОтображениеСостояния.Текст = Сообщение;
 
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагВыполнениеУдаления Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.DeletionStep Тогда
 
 		Сообщение = НСтр("ru = 'Удаление дублей...'");
 		Если Прогресс.Прогресс.Процент > 0 Тогда
@@ -1581,14 +1589,14 @@
 		// Фоновое задание завершено с ошибкой.
 		Если ТекущаяСтраница = Элементы.PerformSearchStep Тогда
 			Кратко = НСтр("ru = 'При поиске дублей возникла ошибка:'");
-		ИначеЕсли ТекущаяСтраница = Элементы.ШагВыполнениеУдаления Тогда
+		ИначеЕсли ТекущаяСтраница = Элементы.DeletionStep Тогда
 			Кратко = НСтр("ru = 'При удалении дублей возникла ошибка:'");
 		КонецЕсли;
 		Кратко = Кратко + Символы.ПС + Задание.КраткоеПредставлениеОшибки;
 		Подробно = Кратко + Символы.ПС + Символы.ПС + Задание.ПодробноеПредставлениеОшибки;
-		Элементы.НадписьТекстОшибки.Заголовок = Кратко;
-		Элементы.СсылкаПодробнее.Подсказка    = Подробно;
-		ПерейтиНаШагМастера(Элементы.ШагВозниклаОшибка);
+		Элементы.ErrorTextLabel.Заголовок = Кратко;
+		Элементы.DetailsRef.Подсказка    = Подробно;
+		ПерейтиНаШагМастера(Элементы.ErrorOccurredStep);
 		Возврат;
 	КонецЕсли;
 
@@ -1601,14 +1609,14 @@
 		Иначе
 			ПерейтиНаШагМастера(Элементы.ШагДублейНеНайдено);
 		КонецЕсли;
-	ИначеЕсли ТекущаяСтраница = Элементы.ШагВыполнениеУдаления Тогда
+	ИначеЕсли ТекущаяСтраница = Элементы.DeletionStep Тогда
 		Успех = ЗаполнитьРезультатыУдаленияДублей(Задание.АдресРезультата);
 		Если Успех = Истина Тогда
 			// Заменены все группы дублей.
 			ПерейтиНаШагМастера(НастройкиМастера.ТекущийШаг.Индекс + 1);
 		Иначе
 			// Не все места использования удалось заменить.
-			ПерейтиНаШагМастера(Элементы.ШагНеудачныеЗамены);
+			ПерейтиНаШагМастера(Элементы.UnsuccessfulReplacementsStep);
 		КонецЕсли;
 	КонецЕсли;
 
@@ -1624,7 +1632,7 @@
 	ЭлементыДерева = FoundDuplicates.ПолучитьЭлементы();
 	ЭлементыДерева.Очистить();
 
-	МестаИспользования = Данные.МестаИспользования;
+	МестаИспользования = Данные.UsageInstances;
 	ТаблицаДублей      = Данные.ТаблицаДублей;
 
 	ФильтрСтрок = Новый Структура("Родитель");
@@ -1669,7 +1677,7 @@
 	
 	// Места использования сохраняем для дальнейшего фильтра.
 	CandidateUsageInstances.Очистить();
-	Элементы.ОписаниеТекущейГруппыДублей.Заголовок = НСтр("ru = 'Дублей не найдено'");
+	Элементы.CurrentDuplicatesGroupDetails.Заголовок = НСтр("ru = 'Дублей не найдено'");
 
 	Если ЭтоАдресВременногоХранилища(АдресМестИспользования) Тогда
 		УдалитьИзВременногоХранилища(АдресМестИспользования);
@@ -1789,7 +1797,7 @@
 КонецФункции
 
 &НаКлиенте
-Процедура ПослеПодтвержденияОтменыЗадания(Ответ, ПараметрыВыполнения) Экспорт
+Процедура AfterConfirmCancelJob(Ответ, ПараметрыВыполнения) Экспорт
 	Если Ответ = КодВозвратаДиалога.Прервать Тогда
 		НастройкиМастера.ПоказатьДиалогПередЗакрытием = Ложь;
 		Закрыть();
