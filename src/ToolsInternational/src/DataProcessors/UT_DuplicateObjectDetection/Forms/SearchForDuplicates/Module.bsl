@@ -488,303 +488,303 @@ Procedure EditUnprocessedDuplicate(Command)
 EndProcedure
 #EndRegion
 
-#Область ОбработчикиСобытийЭлементовТаблицыФормыМестаИспользованияНеобработанных
+#Region UnprocessedItemsUsageInstancesFormTableItemsEventHandlers
 
-&НаКлиенте
-Процедура UnprocessedDuplicatesUsageInstancesOnActivateRow(Элемент)
+&AtClient
+Procedure UnprocessedDuplicatesUsageInstancesOnActivateRow(Item)
 
-	ТекущиеДанные = Элемент.ТекущиеДанные;
-	Если ТекущиеДанные = Неопределено Тогда
+	CurrentData = Item.CurrentData;
+	If CurrentData = Undefined Then
 		UnprocessedDuplicatesErrorDescription = "";
-	Иначе
-		UnprocessedDuplicatesErrorDescription = ТекущиеДанные.ТекстОшибки;
-	КонецЕсли;
+	Else
+		UnprocessedDuplicatesErrorDescription = CurrentData.ErrorText;
+	EndIf;
+	
+EndProcedure
 
-КонецПроцедуры
+&AtClient
+Procedure UnprocessedDuplicatesUsageInstancesSelection(Item, RowSelected, Field, StandardProcessing)
 
-&НаКлиенте
-Процедура UnprocessedDuplicatesUsageInstancesSelection(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
+	CurrentData = UnprocessedDuplicatesUsageInstances.FindByID(RowSelected);
+	ShowValue(, CurrentData.ErrorObject);
+	
+EndProcedure
+&AtClient
+Procedure EditUnprocessedDuplicatesUsageInstance(Command)
+	CurrentData = Items.UnprocessedDuplicatesUsageInstances.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	ТекущиеДанные = UnprocessedDuplicatesUsageInstances.НайтиПоИдентификатору(ВыбраннаяСтрока);
-	ПоказатьЗначение( , ТекущиеДанные.ОбъектОшибки);
+	UT_CommonClient.EditObject(CurrentData.ErrorObject);
+EndProcedure
 
-КонецПроцедуры
-&НаКлиенте
-Процедура EditUnprocessedDuplicatesUsageInstance(Команда)
-	ТекущиеДанные = Элементы.UnprocessedDuplicatesUsageInstances.ТекущиеДанные;
-	Если ТекущиеДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+#EndRegion
 
-	UT_CommonClient.EditObject(ТекущиеДанные.ОбъектОшибки);
-КонецПроцедуры
+#Region CandidateUsageInstancesFormTableItemsEventHandlers
 
-#КонецОбласти
+&AtClient
+Procedure CandidateUsageInstancesSelection(Item, RowSelected, Field, StandardProcessing)
 
-#Область ОбработчикиСобытийЭлементовТаблицыФормыМестаИспользованияКандидата
+	CurrentData = CandidateUsageInstances.FindByID(RowSelected);
+	ShowValue(, CurrentData.Data);
+	
+EndProcedure
 
-&НаКлиенте
-Процедура CandidateUsageInstancesSelection(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
+&AtClient
+Procedure EditCandidateUsageInstance(Command)
+	CurrentData = Items.CandidateUsageInstances.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	ТекущиеДанные = CandidateUsageInstances.НайтиПоИдентификатору(ВыбраннаяСтрока);
-	ПоказатьЗначение( , ТекущиеДанные.Данные);
+	UT_CommonClient.EditObject(CurrentData.Data);
+EndProcedure
+#EndRegion
 
-КонецПроцедуры
+#Region FormCommandHandlers
 
-&НаКлиенте
-Процедура EditCandidateUsageInstance(Команда)
-	ТекущиеДанные = Элементы.CandidateUsageInstances.ТекущиеДанные;
-	Если ТекущиеДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure WizardButtonHandler(Command)
+	
+	If Command.Name = WizardSettings.NextButton Then
+		
+		WizardStepNext();
+		
+	ElsIf Command.Name = WizardSettings.BackButton Then
+		
+		WizardStepBack();
+		
+	ElsIf Command.Name = WizardSettings.CancelButton Then
+		
+		WizardStepCancel();
+		
+	EndIf;
+	
+EndProcedure
 
-	UT_CommonClient.EditObject(ТекущиеДанные.Данные);
-КонецПроцедуры
-#КонецОбласти
+&AtClient
+Procedure SelectMainItem(Command)
+	
+	RowData = Items.FoundDuplicates.CurrentData;
+	If RowData = Undefined Or RowData.Main Then
+		Return; // No data or the current item is the main one already.
+	EndIf;
+		
+	Parent = RowData.GetParent();
+	If Parent = Undefined Then
+		Return;
+	EndIf;
+	
+	ChangeMainItemHierarchically(RowData, Parent);
+EndProcedure
 
-#Область ОбработчикиКомандФормы
+&AtClient
+Procedure OpenCandidate(Command)
+	
+	OpenDuplicateForm(Items.FoundDuplicates.CurrentData);
+	
+EndProcedure
 
-&НаКлиенте
-Процедура WizardButtonHandler(Команда)
+&AtClient
+Procedure OpenUnprocessedDuplicate(Command)
+	
+	OpenDuplicateForm(Items.UnprocessedDuplicates.CurrentData);
+	
+EndProcedure
 
-	Если Команда.Имя = НастройкиМастера.КнопкаДалее Тогда
+&AtClient
+Procedure ExpandDuplicatesGroups(Command)
+	
+	ExpandDuplicatesGroupHierarchically();
+	
+EndProcedure
 
-		ШагМастераДалее();
+&AtClient
+Procedure CollapseDuplicatesGroups(Command)
+	
+	CollapseDuplicatesGroupHierarchically();
+	
+EndProcedure
 
-	ИначеЕсли Команда.Имя = НастройкиМастера.КнопкаНазад Тогда
-
-		ШагМастераНазад();
-
-	ИначеЕсли Команда.Имя = НастройкиМастера.КнопкаОтмена Тогда
-
-		ШагМастераОтмена();
-
-	КонецЕсли;
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура SelectMainItem(Команда)
-
-	ДанныеСтроки = Элементы.FoundDuplicates.ТекущиеДанные;
-	Если ДанныеСтроки = Неопределено Или ДанныеСтроки.Main Тогда
-		Возврат; // Нет данных или Текущий уже Main.
-	КонецЕсли;
-
-	Родитель = ДанныеСтроки.ПолучитьРодителя();
-	Если Родитель = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	ИзменитьОсновнойЭлементИерархически(ДанныеСтроки, Родитель);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура OpenCandidate(Команда)
-
-	ОткрытьФормуДубля(Элементы.FoundDuplicates.ТекущиеДанные);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура OpenUnprocessedDuplicate(Команда)
-
-	ОткрытьФормуДубля(Элементы.UnprocessedDuplicates.ТекущиеДанные);
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура ExpandDuplicatesGroups(Команда)
-
-	РазвернутьГруппуДублейИерархически();
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура CollapseDuplicatesGroups(Команда)
-
-	СвернутьГруппуДублейИерархически();
-
-КонецПроцедуры
-
-&НаКлиенте
-Процедура RetrySearch(Команда)
-
-	ПерейтиНаШагМастера(Элементы.PerformSearchStep);
-
-КонецПроцедуры
-
-//@skip-warning
-&НаКлиенте
-Процедура Attachable_SetWriteSettings(Команда)
-	UT_CommonClient.EditWriteSettings(ЭтотОбъект);
-КонецПроцедуры
-
-&НаКлиенте
-Процедура EditFoundDuplicate(Команда)
-	ТекДанные=Элементы.FoundDuplicates.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	UT_CommonClient.EditObject(ТекДанные.Ссылка);
-КонецПроцедуры
+&AtClient
+Procedure RetrySearch(Command)
+	
+	GoToWizardStep(Items.PerformSearchStep);
+	
+EndProcedure
 
 //@skip-warning
-&НаКлиенте
-Процедура Attachable_ExecuteToolsCommonCommand(Команда) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
-КонецПроцедуры
+&AtClient
+Procedure Attachable_SetWriteSettings(Command)
+	UT_CommonClient.EditWriteSettings(ThisObject);
+EndProcedure
 
-#КонецОбласти
+&AtClient
+Procedure EditFoundDuplicate(Command)
+	CurData=Items.FoundDuplicates.CurrentData;
+	If CurData = Undefined Then
+		Return;
+	EndIf;
 
-#Область СлужебныеПроцедурыИФункции
+	UT_CommonClient.EditObject(CurData.Ref);
+EndProcedure
+
+//@skip-warning
+&AtClient
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
+EndProcedure
+
+#EndRegion
+
+#Region Private
 
 ////////////////////////////////////////////////////////////////////////////////
-// Программный интерфейс мастера
+// Wizard programming interface
 
-// Инициализирует структуры мастера.
-// В реквизит формы НастройкиПошаговогоМастера записывается следующее значение:
-//   Структура - Описание настроек мастера.
-//     Общедоступные настройки мастера:
-//       * Шаги - Массив - Описание шагов мастера. Только для чтения.
-//           Для добавления шагов следует использовать функцию ДобавитьШагМастера.
-//       * ТекущийШаг - Структура - Текущий шаг мастера. Только для чтения.
-//       * ПоказатьДиалогПередЗакрытием - Булево - Если Истина, то перед закрытием формы будет показано предупреждение.
-//           Для изменения.
-//     Служебные настройки мастера:
-//       * ГруппаСтраниц - Строка - Имя элемента формы, переданного в параметре ГруппаСтраниц.
-//       * КнопкаДалее - Строка - Имя элемента формы, переданного в параметре КнопкаДалее.
-//       * КнопкаНазад - Строка - Имя элемента формы, переданного в параметре КнопкаНазад.
-//       * КнопкаОтмена - Строка - Имя элемента формы, переданного в параметре КнопкаОтмена.
+// Initializes wizard structures.
+// Value is written to the StepByStepWizardSettings form attribute:
+//   Structure - description of wizard settings.
+//     Public wizard settings:
+//       * Steps - Array - description of wizard steps. Read only.
+//           To add steps, use the AddWizardStep function.
+//       * CurrentStep - Structure - current wizard step. Read only.
+//       * ShowDialogBeforeClose - Boolean - If True, a warning will be displayed before closing the form.
+//           For changing.
+//     Internal wizard settings:
+//       * PageGroup - String - a form item name that is passed to the PageGroup parameter.
+//       * NextButton - String - a form item name that is passed to the NextButton parameter.
+//       * BackButton - String - a form item name that is passed to the BackButton parameter.
+//       * CancelButton - String - a form item name that is passed to the CancelButton parameter.
 //
-&НаСервере
-Процедура ИнициализироватьНастройкиПошаговогоМастера()
-	НастройкиМастера = Новый Структура;
-	НастройкиМастера.Вставить("Шаги", Новый Массив);
-	НастройкиМастера.Вставить("ТекущийШаг", Неопределено);
+&AtServer
+Procedure InitializeStepByStepWizardSettings()
+	WizardSettings = New Structure;
+	WizardSettings.Insert("Steps", New Array);
+	WizardSettings.Insert("CurrentStep", Undefined);
 	
-	// Идентификаторы частей интерфейса.
-	НастройкиМастера.Вставить("ГруппаСтраниц", Элементы.WizardSteps.Имя);
-	НастройкиМастера.Вставить("КнопкаДалее", Элементы.WizardStepNext.Имя);
-	НастройкиМастера.Вставить("КнопкаНазад", Элементы.WizardStepBack.Имя);
-	НастройкиМастера.Вставить("КнопкаОтмена", Элементы.WizardStepCancel.Имя);
+	// Interface part IDs.
+	WizardSettings.Insert("PagesGroup", Items.WizardSteps.Name);
+	WizardSettings.Insert("NextButton",   Items.WizardStepNext.Name);
+	WizardSettings.Insert("BackButton",   Items.WizardStepBack.Name);
+	WizardSettings.Insert("CancelButton",  Items.WizardStepCancel.Name);
 	
-	// Для обработки длительных операций.
-	НастройкиМастера.Вставить("ПоказатьДиалогПередЗакрытием", Ложь);
+	// For processing time-consuming operations.
+	WizardSettings.Insert("ShowDialogBeforeClose", False);
 	
-	// По умолчанию все отключено.
-	Элементы.WizardStepNext.Видимость  = Ложь;
-	Элементы.WizardStepBack.Видимость  = Ложь;
-	Элементы.WizardStepCancel.Видимость = Ложь;
-КонецПроцедуры
+	// Everything is disabled by default.
+	Items.WizardStepNext.Visible  = False;
+	Items.WizardStepBack.Visible  = False;
+	Items.WizardStepCancel.Visible = False;
+EndProcedure
 
-// Добавляет шаг мастера. Переходы между страницами будут происходить согласно порядку добавления.
+// Adds a wizard step. Navigation between pages is performed according to the order the pages are added.
 //
-// Параметры:
-//   Страница - ГруппаФормы - Страница, содержащая элементы шага.
+// Parameters:
+//   Page - FormGroup - a page that contains step items.
 //
-// Возвращаемое значение:
-//   Структура - Описание настроек страницы.
-//       * ИмяСтраницы - Строка - Имя страницы.
-//       * КнопкаДалее - Структура - Описание кнопки "Далее".
-//           ** Заголовок - Строка - Заголовок кнопки. По умолчанию: "Далее >".
-//           ** Подсказка - Строка - Подсказка для кнопки. По умолчанию соответствует заголовку кнопки.
-//           ** Видимость - Булево - Когда Истина то кнопка видна. По умолчанию: Истина.
-//           ** Доступность - Булево - Когда Истина то кнопку можно нажимать. По умолчанию: Истина.
-//           ** КнопкаПоУмолчанию - Булево - Когда Истина то кнопка будет Main кнопкой формы. По умолчанию: Истина.
-//       * КнопкаНазад - Структура - Описание кнопки "Назад".
-//           ** Заголовок - Строка - Заголовок кнопки. По умолчанию: "< Назад".
-//           ** Подсказка - Строка - Подсказка для кнопки. По умолчанию соответствует заголовку кнопки.
-//           ** Видимость - Булево - Когда Истина то кнопка видна. По умолчанию: Истина.
-//           ** Доступность - Булево - Когда Истина то кнопку можно нажимать. По умолчанию: Истина.
-//           ** КнопкаПоУмолчанию - Булево - Когда Истина то кнопка будет Main кнопкой формы. По умолчанию: Ложь.
-//       * КнопкаОтмена - Структура - Описание кнопки "Отмена".
-//           ** Заголовок - Строка - Заголовок кнопки. По умолчанию: "Отмена".
-//           ** Подсказка - Строка - Подсказка для кнопки. По умолчанию соответствует заголовку кнопки.
-//           ** Видимость - Булево - Когда Истина то кнопка видна. По умолчанию: Истина.
-//           ** Доступность - Булево - Когда Истина то кнопку можно нажимать. По умолчанию: Истина.
-//           ** КнопкаПоУмолчанию - Булево - Когда Истина то кнопка будет Main кнопкой формы. По умолчанию: Ложь.
+// Returns:
+//   Structure - description of page settings.
+//       * PageName - String - a page name.
+//       * NextButton - Structure - description of "Next" button.
+//           ** Title - String - a button title. The default value is "Next >".
+//           ** Tooltip - String - button tooltip. Corresponds to the button title by default.
+//           ** Visible - Boolean - If True, the button is visible. The default value is True.
+//           ** Availability - Boolean - If True, the button is clickable. The default value is True.
+//           ** DefaultButton - Boolean - if True, the button is the main button of the form. The default value is True.
+//       * BackButton - Structure - description of the "Back" button.
+//           ** Title - String - a button title. Default value: "< Back".
+//           ** Tooltip - String - button tooltip. Corresponds to the button title by default.
+//           ** Visible - Boolean - If True, the button is visible. The default value is True.
+//           ** Availability - Boolean - If True, the button is clickable. The default value is True.
+//           ** DefaultButton - Boolean - if True, the button is the main button of the form. Default value: False.
+//       * CancelButton - Structure - description of the "Cancel" button.
+//           ** Title - String - a button title. The default value is "Cancel".
+//           ** Tooltip - String - button tooltip. Corresponds to the button title by default.
+//           ** Visible - Boolean - If True, the button is visible. The default value is True.
+//           ** Availability - Boolean - If True, the button is clickable. The default value is True.
+//           ** DefaultButton - Boolean - if True, the button is the main button of the form. Default value: False.
 //
-&НаСервере
-Функция ДобавитьШагМастера(Знач Страница)
-	ОписаниеШага = Новый Структура("Индекс, ИмяСтраницы, КнопкаНазад, КнопкаДалее, КнопкаОтмена");
-	ОписаниеШага.ИмяСтраницы = Страница.Имя;
-	ОписаниеШага.КнопкаНазад = КнопкаМастера();
-	ОписаниеШага.КнопкаНазад.Заголовок = НСтр("ru='< Назад'");
-	ОписаниеШага.КнопкаДалее = КнопкаМастера();
-	ОписаниеШага.КнопкаДалее.КнопкаПоУмолчанию = Истина;
-	ОписаниеШага.КнопкаДалее.Заголовок = НСтр("ru = 'Далее >'");
-	ОписаниеШага.КнопкаОтмена = КнопкаМастера();
-	ОписаниеШага.КнопкаОтмена.Заголовок = НСтр("ru = 'Отмена'");
-
-	НастройкиМастера.Шаги.Добавить(ОписаниеШага);
-
-	ОписаниеШага.Индекс = НастройкиМастера.Шаги.ВГраница();
-	Возврат ОписаниеШага;
-КонецФункции
-
-// Обновляет видимость и доступность элементов формы в соответствии с текущим шагом мастера.
-&НаКлиентеНаСервереБезКонтекста
-Процедура УстановитьВидимостьДоступность(Форма)
-
-	Элементы = Форма.Элементы;
-	НастройкиМастера = Форма.НастройкиМастера;
-	ТекущийШаг = НастройкиМастера.ТекущийШаг;
+&AtServer
+Function AddWizardStep(Val Page)
+	StepDescription = New Structure("IndexOf, PageName, BackButton, NextButton, CancelButton");
+	StepDescription.PageName = Page.Name;
+	StepDescription.BackButton = WizardButton();
+	StepDescription.BackButton.Title = NStr("ru='< Назад'; en = '< Back'");
+	StepDescription.NextButton = WizardButton();
+	StepDescription.NextButton.DefaultButton = True;
+	StepDescription.NextButton.Title = NStr("ru = 'Далее >'; en = 'Next >'");
+	StepDescription.CancelButton = WizardButton();
+	StepDescription.CancelButton.Title = NStr("ru = 'Отмена'; en = 'Cancel'");
 	
-	// Переключение страницы.
-	Элементы[НастройкиМастера.ГруппаСтраниц].ТекущаяСтраница = Элементы[ТекущийШаг.ИмяСтраницы];
+	WizardSettings.Steps.Add(StepDescription);
 	
-	// Обновление кнопок.
-	ОбновитьСвойстваКнопкиМастера(Элементы[НастройкиМастера.КнопкаДалее], ТекущийШаг.КнопкаДалее);
-	ОбновитьСвойстваКнопкиМастера(Элементы[НастройкиМастера.КнопкаНазад], ТекущийШаг.КнопкаНазад);
-	ОбновитьСвойстваКнопкиМастера(Элементы[НастройкиМастера.КнопкаОтмена], ТекущийШаг.КнопкаОтмена);
+	StepDescription.IndexOf = WizardSettings.Steps.UBound();
+	Return StepDescription;
+EndFunction
 
-КонецПроцедуры
+// Updates visibility and availability of form items according to the current wizard step.
+&AtClientAtServerNoContext
+Procedure SetVisibilityAvailability(Form)
+	
+	Items = Form.Items;
+	WizardSettings = Form.WizardSettings;
+	CurrentStep = WizardSettings.CurrentStep;
+	
+	// Navigating to the page.
+	Items[WizardSettings.PagesGroup].CurrentPage = Items[CurrentStep.PageName];
+	
+	// Updating buttons.
+	UpdateWizardButtonProperties(Items[WizardSettings.NextButton],  CurrentStep.NextButton);
+	UpdateWizardButtonProperties(Items[WizardSettings.BackButton],  CurrentStep.BackButton);
+	UpdateWizardButtonProperties(Items[WizardSettings.CancelButton], CurrentStep.CancelButton);
+	
+EndProcedure
 
-// Выполняет переход мастера на указанную страницу.
+// Navigates to the specified page.
 //
-// Параметры:
-//   ШагИлиИндексИлиГруппаФормы - Структура, Число, ГруппаФормы - Страницу, на которую необходимо перейти.
+// Parameters:
+//   StepOrIndexOrFormGroup - Structure, Number, FormGroup - a page to navigate to.
 //
-&НаКлиенте
-Процедура ПерейтиНаШагМастера(Знач ШагИлиИндексИлиГруппаФормы)
+&AtClient
+Procedure GoToWizardStep(Val StepOrIndexOrFormGroup)
 	
-	// Поиск шага.
-	Тип = ТипЗнч(ШагИлиИндексИлиГруппаФормы);
-	Если Тип = Тип("Структура") Тогда
-		ОписаниеШага = ШагИлиИндексИлиГруппаФормы;
-	ИначеЕсли Тип = Тип("Число") Тогда
-		ИндексШага = ШагИлиИндексИлиГруппаФормы;
-		Если ИндексШага < 0 Тогда
-			ВызватьИсключение НСтр("ru='Попытка выхода назад из первого шага мастера'");
-		ИначеЕсли ИндексШага > НастройкиМастера.Шаги.ВГраница() Тогда
-			ВызватьИсключение НСтр("ru='Попытка выхода за последний шаг мастера'");
-		КонецЕсли;
-		ОписаниеШага = НастройкиМастера.Шаги[ИндексШага];
-	Иначе
-		ШагНайден = Ложь;
-		ИмяИскомойСтраницы = ШагИлиИндексИлиГруппаФормы.Имя;
-		Для Каждого ОписаниеШага Из НастройкиМастера.Шаги Цикл
-			Если ОписаниеШага.ИмяСтраницы = ИмяИскомойСтраницы Тогда
-				ШагНайден = Истина;
-				Прервать;
-			КонецЕсли;
-		КонецЦикла;
-		Если Не ШагНайден Тогда
-			ВызватьИсключение СтрШаблон(
-				НСтр("ru = 'Не найден шаг ""%1"".'"), ИмяИскомойСтраницы);
-		КонецЕсли;
-	КонецЕсли;
+	// Searching for step.
+	Type = TypeOf(StepOrIndexOrFormGroup);
+	If Type = Type("Structure") Then
+		StepDescription = StepOrIndexOrFormGroup;
+	ElsIf Type = Type("Number") Then
+		StepIndex = StepOrIndexOrFormGroup;
+		If StepIndex < 0 Then
+			Raise NStr("ru='Попытка выхода назад из первого шага мастера'; en = 'Attempt to go back from the first step.'");
+		ElsIf StepIndex > WizardSettings.Steps.UBound() Then
+			Raise NStr("ru='Попытка выхода за последний шаг мастера'; en = 'Attempt to go next from the last step.'");
+		EndIf;
+		StepDescription = WizardSettings.Steps[StepIndex];
+	Else
+		StepFound = False;
+		RequiredPageName = StepOrIndexOrFormGroup.Name;
+		For Each StepDescription In WizardSettings.Steps Do
+			If StepDescription.PageName = RequiredPageName Then
+				StepFound = True;
+				Break;
+			EndIf;
+		EndDo;
+		If Not StepFound Then
+			Raise StrTemplate(
+				NStr("ru = 'Не найден шаг ""%1"".'; en = 'Step %1 is not found.'"), RequiredPageName);
+		EndIf;
+	EndIf;
 	
-	// Переключение шага.
-	НастройкиМастера.ТекущийШаг = ОписаниеШага;
+	// Step switch.
+	WizardSettings.CurrentStep = StepDescription;
 	
-	// Обновление видимости.
-	УстановитьВидимостьДоступность(ЭтотОбъект);
-	ПриАктивацииШагаМастера();
-
-КонецПроцедуры
+	// Updating visibility.
+	SetVisibilityAvailability(ThisObject);
+	OnActivateWizardStep();
+	
+EndProcedure
 
 ////////////////////////////////////////////////////////////////////////////////
 // События мастера
