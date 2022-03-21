@@ -50,7 +50,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="8a50aeac-cc71-4bbf-a862-26a5cfb55a55">
-    <name>ПравилаОтбора</name>
+    <name>FilterRules</name>
+    <synonym>
+      <key>en</key>
+      <value>Filter rules</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Правила отбора</value>
@@ -64,7 +68,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="a299aa85-a9c9-4909-b18a-7e0091b6a0e2">
-    <name>ОбластьПоискаДублей</name>
+    <name>DuplicatesSearchArea</name>
+    <synonym>
+      <key>en</key>
+      <value>Duplicates search area</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Область поиска дублей</value>
@@ -73,7 +81,11 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="95da7f1f-08f6-4269-af3a-d356e8de1384">
-    <name>ПравилаПоиска</name>
+    <name>SearchRules</name>
+    <synonym>
+      <key>en</key>
+      <value>Search rules</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Правила поиска</value>

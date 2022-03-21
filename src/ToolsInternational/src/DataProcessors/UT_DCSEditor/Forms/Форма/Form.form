@@ -8943,7 +8943,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныеВыбранныеПоля</segments>
+                  <segments>LocalSelectedFields</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -9734,7 +9734,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныйОтбор</segments>
+                  <segments>LocalFilter</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -10527,7 +10527,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныйПорядок</segments>
+                  <segments>LocalOrder</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -11316,7 +11316,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальноеУсловноеОформление</segments>
+                  <segments>LocalConditionalAppearance</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -11917,7 +11917,7 @@
               </userVisible>
               <dataPath xsi:type="form:MultiLanguageDataPath">
                 <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныеПараметрыВывода</segments>
+                  <segments>LocalOutputParameters</segments>
                 </paths>
               </dataPath>
               <titleLocation>Right</titleLocation>
@@ -14488,10 +14488,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальноеУсловноеОформление</name>
+    <name>LocalConditionalAppearance</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local conditional appearance</value>
     </title>
     <id>105</id>
     <valueType>
@@ -14505,10 +14509,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныеВыбранныеПоля</name>
+    <name>LocalSelectedFields</name>
     <title>
       <key>ru</key>
       <value>Локальные выбранные поля</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local selected fields</value>
     </title>
     <id>106</id>
     <valueType>
@@ -14522,10 +14530,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныеПараметрыВывода</name>
+    <name>LocalOutputParameters</name>
     <title>
       <key>ru</key>
       <value>Локальное условное оформление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local output parameters</value>
     </title>
     <id>107</id>
     <valueType>
@@ -14539,10 +14551,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйОтбор</name>
+    <name>LocalFilter</name>
     <title>
       <key>ru</key>
       <value>Локальный отбор</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local filter</value>
     </title>
     <id>108</id>
     <valueType>
@@ -14556,10 +14572,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЛокальныйПорядок</name>
+    <name>LocalOrder</name>
     <title>
       <key>ru</key>
       <value>Локальный порядок</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Local order</value>
     </title>
     <id>109</id>
     <valueType>

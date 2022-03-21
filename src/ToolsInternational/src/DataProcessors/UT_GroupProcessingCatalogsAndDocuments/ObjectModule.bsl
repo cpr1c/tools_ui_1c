@@ -1,212 +1,211 @@
-Var мМенеджеры Export;
+Var mManagers Export;
 
-Function ПолучитьВидСравнения(FieldName, ВидСравненияОтбора, ИмяПараметра) Export
+Function GetComparisonType(FieldName, ComparisonType, ParameterName) Export
 	If Left(FieldName, 7) = "Object." Then
 		FieldName = "Reference." + Mid(FieldName, 8);
 	EndIf;
 
-	If ВидСравненияОтбора = DataCompositionComparisonType.Equal Then
-		Return "_Таблица." + FieldName + " = &" + ИмяПараметра;
+	If ComparisonType = DataCompositionComparisonType.Equal Then
+		Return "_Table." + FieldName + " = &" + ParameterName;
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.Greater Then
-		Return "_Таблица." + FieldName + " > &" + ИмяПараметра;
+	ElsIf ComparisonType = DataCompositionComparisonType.Greater Then
+		Return "_Table." + FieldName + " > &" + ParameterName;
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.GreaterOrEqual Then
-		Return "_Таблица." + FieldName + " >= &" + ИмяПараметра;
+	ElsIf ComparisonType = DataCompositionComparisonType.GreaterOrEqual Then
+		Return "_Table." + FieldName + " >= &" + ParameterName;
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.InHierarchy Or ВидСравненияОтбора
+	ElsIf ComparisonType = DataCompositionComparisonType.InHierarchy Or ComparisonType
 		= DataCompositionComparisonType.InListByHierarchy Then
-		Return "_Таблица." + FieldName + " В ИЕРАРХИИ (&" + ИмяПараметра + ")";
+		Return "_Table." + FieldName + " IN HIERARCHY (&" + ParameterName + ")";
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.InList Then
-		Return "_Таблица." + FieldName + " В (&" + ИмяПараметра + ")";
+	ElsIf ComparisonType = DataCompositionComparisonType.InList Then
+		Return "_Table." + FieldName + " IN (&" + ParameterName + ")";
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.Less Then
-		Return "_Таблица." + FieldName + " < &" + ИмяПараметра;
+	ElsIf ComparisonType = DataCompositionComparisonType.Less Then
+		Return "_Table." + FieldName + " < &" + ParameterName;
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.LessOrEqual Then
-		Return "_Таблица." + FieldName + " <= &" + ИмяПараметра;
+	ElsIf ComparisonType = DataCompositionComparisonType.LessOrEqual Then
+		Return "_Table." + FieldName + " <= &" + ParameterName;
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.NotInList Then
-		Return "НЕ _Таблица." + FieldName + " В (&" + ИмяПараметра + ")";
+	ElsIf ComparisonType = DataCompositionComparisonType.NotInList Then
+		Return "НЕ _Table." + FieldName + " В (&" + ParameterName + ")";
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.NotInHierarchy Or ВидСравненияОтбора
+	ElsIf ComparisonType = DataCompositionComparisonType.NotInHierarchy Or ComparisonType
 		= DataCompositionComparisonType.NotInListByHierarchy Then
-		Return "НЕ _Таблица." + FieldName + " В ИЕРАРХИИ (&" + ИмяПараметра + ")";
+		Return "НЕ _Table." + FieldName + " IN HIERARCHY (&" + ParameterName + ")";
 
-	ElsIf ВидСравненияОтбора = DataCompositionComparisonType.NotEqual Then
-		Return "_Таблица." + FieldName + " <> &" + ИмяПараметра;
+	ElsIf ComparisonType = DataCompositionComparisonType.NotEqual Then
+		Return "_Table." + FieldName + " <> &" + ParameterName;
 
 	EndIf;
 
 EndFunction // ()
 
-Function РазложитьСтрокуВМассивПодстрок(Val Стр, Splitter = ",") Export
+Function ExpandStringIntoArraySubstrings(Val Стр, Splitter = ",") Export
 
-	МассивСтрок = New Array;
+	ArrayString = New Array;
 	If Splitter = " " Then
-		Стр = TrimAll(Стр);
+		Str = TrimAll(Str);
 		While True Do
-			Поз = Find(Стр, Splitter);
-			If Поз = 0 Then
-				МассивСтрок.Add(Стр);
-				Return МассивСтрок;
+			Position = Find(Str, Splitter);
+			If Position = 0 Then
+				ArrayString.Add(Str);
+				Return ArrayString;
 			EndIf;
-			МассивСтрок.Add(Left(Стр, Поз - 1));
-			Стр = TrimL(Mid(Стр, Поз));
+			ArrayString.Add(Left(Str, Position - 1));
+			Str = TrimL(Mid(Str, Position));
 		EndDo;
 	Else
-		ДлинаРазделителя = StrLen(Splitter);
+		SplitterLength = StrLen(Splitter);
 		While True Do
-			Поз = Find(Стр, Splitter);
-			If Поз = 0 Then
-				If (TrimAll(Стр) <> "") Then
-					МассивСтрок.Add(Стр);
+			Position = Find(Str, Splitter);
+			If Position = 0 Then
+				If (TrimAll(Str) <> "") Then
+					ArrayString.Add(Str);
 				EndIf;
-				Return МассивСтрок;
+				Return ArrayString;
 			EndIf;
-			МассивСтрок.Add(Left(Стр, Поз - 1));
-			Стр = Mid(Стр, Поз + ДлинаРазделителя);
+			ArrayString.Add(Left(Str, Position - 1));
+			Str = Mid(Str, Position + SplitterLength);
 		EndDo;
 	EndIf;
 
 EndFunction
 
-Function ПолучитьСтрокуИзМассиваПодстрок(Array, Splitter = ",") Export
+Function GetStringFromArrayOfSubstrings(Array, Splitter = ",") Export
 	Result = "";
 	For Each Item In Array Do
-		Подстрока = ?(TypeOf(Item) = Type("String"), Item, String(Item));
-		РазделительПодстрок = ?(IsBlankString(Result), "", Splitter);
-		Result = Result + РазделительПодстрок + Подстрока;
+		Substring = ?(TypeOf(Item) = Type("String"), Item, String(Item));
+		SubstringSplitter = ?(IsBlankString(Result), "", Splitter);
+		Result = Result + SubstringSplitter + Substring;
 	EndDo;
 
 	Return Result;
 EndFunction
 
-Procedure ЗагрузитьОбработки(ТекФорма, ДоступныеОбработки2, ВыбранныеОбработки2) Export
+Procedure DownloadDataProcessors(CurrentForm, AvailableDataProcessors2, SelectedDataProcessors2) Export
 
-	СоответствиеДоступностиНастроек=New Map;
-	СоответствиеДоступностиНастроек.Insert("ПроизвольныйАлгоритм", True);
-	СоответствиеДоступностиНастроек.Insert("ПеренумерацияОбъектов", True);
-	СоответствиеДоступностиНастроек.Insert("MarkToDelete", False);
-	СоответствиеДоступностиНастроек.Insert("ПровестиДокументы", False);
-	СоответствиеДоступностиНастроек.Insert("ОтменитьПроведениеДокументов", False);
-	СоответствиеДоступностиНастроек.Insert("СнятьПометкуУдаления", False);
-	СоответствиеДоступностиНастроек.Insert("ИзменитьВремяДокументов", True);
-	СоответствиеДоступностиНастроек.Insert("ИзменитьСуммуОперации", True);
-	СоответствиеДоступностиНастроек.Insert("Delete", False);
-	СоответствиеДоступностиНастроек.Insert("УстановкаРеквизитов", True);
+	MapAccessibilitySettings=New Map;
+	MapAccessibilitySettings.Insert("ArbitraryAlgorithm", True);
+	MapAccessibilitySettings.Insert("RenumberingObjects", True);
+	MapAccessibilitySettings.Insert("MarkToDelete", False);
+	MapAccessibilitySettings.Insert("PostTheDocuments", False);
+	MapAccessibilitySettings.Insert("CancelPostingDocuments", False);
+	MapAccessibilitySettings.Insert("UnmarkDeletion", False);
+	MapAccessibilitySettings.Insert("ChangeTimeDocuments", True);
+	MapAccessibilitySettings.Insert("ChangeAmountOperation", True);
+	MapAccessibilitySettings.Insert("Delete", False);
+	MapAccessibilitySettings.Insert("SettingAttributes", True);
 
-	_ДоступныеОбработки = ТекФорма.FormAttributeToValue("ДоступныеОбработки");
-	_ВыбранныеОбработки = ТекФорма.FormAttributeToValue("ВыбранныеОбработки");
+	_AvailableDataProcessors = CurrentForm.FormAttributeToValue("AvailableDataProcessors");
+	_SelectedDataProcessors = CurrentForm.FormAttributeToValue("SelectedDataProcessors");
 
 	Forms = ThisObject.Metadata().Forms;
 
 	For Each Form In Forms Do
-		If Form.Name = "ПодборИОбработка" Or Form.Name = "ФормаНастроек" Or Form.Name = "ШаблонОбработки"
-			Or Form.Name = "ФормаВыбораТаблиц" Or Form.Name = "ФормаОтбора" Then
+		If Form.Name = "SelectionAndProcessing" Or Form.Name = "ФормаНастроек" Or Form.Name = "TemplateProcessing"
+			Or Form.Name = "FormSelectionTables" Or Form.Name = "FormSelection" Then
 
 			Continue;
 		EndIf;
-		НайденнаяСтрока = _ДоступныеОбработки.Rows.Find(Form.Name, "FormName");
-		If Not НайденнаяСтрока = Undefined Then
-			If Not НайденнаяСтрока.Processing = Form.Synonym Then
-				НайденнаяСтрока.Processing = Form.Synonym;
-			EndIf;
-			//If НЕ ThisObject.GetForm(Form.Name).мИспользоватьНастройки Then
-			If Not СоответствиеДоступностиНастроек[Form.Name] Then
-				НайденнаяСтрока.Rows.Clear();
+		FoundRow = _AvailableDataProcessors.Rows.Find(Form.Name, "FormName");
+		If Not FoundRow = Undefined Then
+			If Not FoundRow.Processing = Form.Synonym Then
+				FoundRow.Processing = Form.Synonym;
+			EndIf;			
+			If Not MapAccessibilitySettings[Form.Name] Then
+				FoundRow.Rows.Clear();
 			EndIf;
 			Continue;
 		EndIf;
 
-		НоваяОбработка = _ДоступныеОбработки.Rows.Add();
-		НоваяОбработка.Processing = Form.Synonym;
-		НоваяОбработка.FormName  = Form.Name;
+		NewDataProcessor = _AvailableDataProcessors.Rows.Add();
+		NewDataProcessor.Processing = Form.Synonym;
+		NewDataProcessor.FormName  = Form.Name;
 
 		Setting = New Structure;
 		Setting.Insert("Processing", Form.Synonym);
 		Setting.Insert("Прочее", Undefined);
-		НоваяОбработка.Setting.Add(Setting);
+		NewDataProcessor.Setting.Add(Setting);
 	EndDo;
 
-	МассивДляУдаления = New Array;
+	ArrayToDelete = New Array;
 
-	For Each ДоступнаяОбработка In _ДоступныеОбработки.Rows Do
-		If Forms.Find(ДоступнаяОбработка.FormName) = Undefined Then
-			МассивДляУдаления.Add(ДоступнаяОбработка);
+	For Each AvailableDataProcessor In _AvailableDataProcessors.Rows Do
+		If Forms.Find(AvailableDataProcessor.FormName) = Undefined Then
+			ArrayToDelete.Add(AvailableDataProcessor);
 		EndIf;
 	EndDo;
 
-	For IndexOf = 0 To МассивДляУдаления.Count() - 1 Do
-		_ДоступныеОбработки.Rows.Delete(МассивДляУдаления[IndexOf]);
+	For IndexOf = 0 To ArrayToDelete.Count() - 1 Do
+		_AvailableDataProcessors.Rows.Delete(ArrayToDelete[IndexOf]);
 	EndDo;
 
-	МассивДляУдаления.Clear();
+	ArrayToDelete.Clear();
 
-	For Each ВыбраннаяОбработка In _ВыбранныеОбработки Do
-		If ВыбраннаяОбработка.СтрокаДоступнойОбработки = Undefined Then
-			МассивДляУдаления.Add(ВыбраннаяОбработка);
+	For Each SelectedDataProcessor In _SelectedDataProcessors Do
+		If SelectedDataProcessor.RowAvailableDataProcessor = Undefined Then
+			ArrayToDelete.Add(SelectedDataProcessor);
 		Else
-			If ВыбраннаяОбработка.СтрокаДоступнойОбработки.Parent = Undefined Then
-				If _ДоступныеОбработки.Rows.Find(ВыбраннаяОбработка.СтрокаДоступнойОбработки.FormName, "FormName")
+			If SelectedDataProcessor.RowAvailableDataProcessor.Parent = Undefined Then
+				If _AvailableDataProcessors.Rows.Find(SelectedDataProcessor.RowAvailableDataProcessor.FormName, "FormName")
 					= Undefined Then
-					МассивДляУдаления.Add(ВыбраннаяОбработка);
+					ArrayToDelete.Add(SelectedDataProcessor);
 				EndIf;
 			Else
-				If _ДоступныеОбработки.Rows.Find(ВыбраннаяОбработка.СтрокаДоступнойОбработки.Parent.FormName,
+				If _AvailableDataProcessors.Rows.Find(SelectedDataProcessor.RowAvailableDataProcessor.Parent.FormName,
 					"FormName") = Undefined Then
-					МассивДляУдаления.Add(ВыбраннаяОбработка);
+					ArrayToDelete.Add(SelectedDataProcessor);
 				EndIf;
 			EndIf;
 		EndIf;
 	EndDo;
 
-	For IndexOf = 0 To МассивДляУдаления.Count() - 1 Do
-		_ВыбранныеОбработки.Delete(МассивДляУдаления[IndexOf]);
+	For IndexOf = 0 To ArrayToDelete.Count() - 1 Do
+		_SelectedDataProcessors.Delete(ArrayToDelete[IndexOf]);
 	EndDo;
 
-	ТекФорма.ValueToFormAttribute(_ДоступныеОбработки, "ДоступныеОбработки");
-	ТекФорма.ValueToFormAttribute(_ВыбранныеОбработки, "ВыбранныеОбработки");
+	CurrentForm.ValueToFormAttribute(_AvailableDataProcessors, "AvailableDataProcessors");
+	CurrentForm.ValueToFormAttribute(_SelectedDataProcessors, "SelectedDataProcessors");
 
 EndProcedure
 
-// Инициализирует переменную мМенеджеры, содержащую соответствия типов объектов их свойствам.
+// Initializes the mManagers variable containing the mappings of object types to their properties.
 //
 // Parameters:
 //  None.
 //
-// Возвращаемое значение:
-//  Map, содержащее соответствия типов объектов их свойствам.
+// Return value:
+//  Map containing mappings of object types to their properties.
 // 
-Function ИнициализацияМенеджеров() Export
+Function InitializationManagers() Export
 
-	Менеджеры = New Map;
+	Managers = New Map;
 
 	TypeName = "Catalog";
-	For Each ОбъектМД In Metadata.Catalogs Do
-		Name              = ОбъектМД.Name;
-		Менеджер         = Catalogs[Name];
-		ТипСсылкиСтрокой = "СправочникСсылка." + Name;
-		ТипСсылки        = Type(ТипСсылкиСтрокой);
-		Structure = New Structure("Name,TypeName,ТипСсылкиСтрокой,Менеджер,ТипСсылки, ОбъектМД", Name, TypeName,
-			ТипСсылкиСтрокой, Менеджер, ТипСсылки, ОбъектМД);
-		Менеджеры.Insert(ОбъектМД, Structure);
+	For Each MetadataObject In Metadata.Catalogs Do
+		Name 			= MetadataObject.Name;
+		Manager 		= Catalogs[Name];
+		TypeRefString 	= "CatalogRef." + Name;
+		TypeRef        	= Type(TypeRefString);
+		Structure = New Structure("Name, TypeName, TypeRefString, Manager, TypeRef, MetadataObject", Name, TypeName,
+			TypeRefString, Manager, TypeRef, MetadataObject);
+		Managers.Insert(MetadataObject, Structure);
 	EndDo;
 
 	TypeName = "Document";
-	For Each ОбъектМД In Metadata.Documents Do
-		Name              = ОбъектМД.Name;
-		Менеджер         = Documents[Name];
-		ТипСсылкиСтрокой = "ДокументСсылка." + Name;
-		ТипСсылки        = Type(ТипСсылкиСтрокой);
-		Structure = New Structure("Name,TypeName,ТипСсылкиСтрокой,Менеджер,ТипСсылки, ОбъектМД", Name, TypeName,
-			ТипСсылкиСтрокой, Менеджер, ТипСсылки, ОбъектМД);
-		Менеджеры.Insert(ОбъектМД, Structure);
+	For Each MetadataObject In Metadata.Documents Do
+		Name 			= MetadataObject.Name;
+		Manager 		= Documents[Name];
+		TypeRefString 	= "DocumentRef." + Name;
+		TypeRef        	= Type(TypeRefString);
+		Structure = New Structure("Name, TypeName, TypeRefString, Manager, TypeRef, MetadataObject", Name, TypeName,
+			TypeRefString, Manager, TypeRef, MetadataObject);
+		Managers.Insert(MetadataObject, Structure);
 	EndDo;
 
-	Return Менеджеры;
+	Return Managers;
 
-EndFunction // вИнициализацияМенеджеров()
+EndFunction // вInitializationManagers()
 
-мМенеджеры = ИнициализацияМенеджеров();
+mManagers = InitializationManagers();
