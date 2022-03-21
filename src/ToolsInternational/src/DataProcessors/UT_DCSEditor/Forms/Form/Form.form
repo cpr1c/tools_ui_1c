@@ -338,32 +338,32 @@
               <horizontalAlign>Left</horizontalAlign>
             </autoCommandBar>
             <handlers>
-              <event>DragCheck</event>
-              <name>НаборыДанныхПроверкаПеретаскивания</name>
-            </handlers>
-            <handlers>
-              <event>BeforeAddRow</event>
-              <name>НаборыДанныхПередНачаломДобавления</name>
-            </handlers>
-            <handlers>
-              <event>BeforeDeleteRow</event>
-              <name>НаборыДанныхПередУдалением</name>
+              <event>Selection</event>
+              <name>DataSetsSelection</name>
             </handlers>
             <handlers>
               <event>OnActivateRow</event>
-              <name>НаборыДанныхПриАктивизацииСтроки</name>
+              <name>DataSetsOnActivateRow</name>
             </handlers>
             <handlers>
-              <event>Drag</event>
-              <name>НаборыДанныхПеретаскивание</name>
+              <event>BeforeAddRow</event>
+              <name>DataSetsBeforeAddRow</name>
             </handlers>
             <handlers>
               <event>BeforeRowChange</event>
-              <name>НаборыДанныхПередНачаломИзменения</name>
+              <name>DataSetsBeforeRowChange</name>
             </handlers>
             <handlers>
-              <event>Selection</event>
-              <name>DataSetsSelection</name>
+              <event>BeforeDeleteRow</event>
+              <name>DataSetsBeforeDeleteRow</name>
+            </handlers>
+            <handlers>
+              <event>DragCheck</event>
+              <name>DataSetsDragCheck</name>
+            </handlers>
+            <handlers>
+              <event>Drag</event>
+              <name>DataSetsDrag</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -920,7 +920,7 @@
                     </dataPath>
                     <handlers>
                       <event>OnChange</event>
-                      <name>ПоляПутьКДаннымПриИзменении</name>
+                      <name>FieldsDataPathOnChange</name>
                     </handlers>
                     <extendedTooltip>
                       <name>FieldsDataPathExtendedTooltip</name>
@@ -1641,7 +1641,7 @@
                   <extInfo xsi:type="form:InputFieldExtInfo">
                     <handlers>
                       <event>StartChoice</event>
-                      <name>НаборыДанныхПоляРольПредставлениеНачалоВыбора</name>
+                      <name>DataSetsFieldsRolePresentationStartChoice</name>
                     </handlers>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -1948,7 +1948,7 @@
                     <extInfo xsi:type="form:InputFieldExtInfo">
                       <handlers>
                         <event>StartChoice</event>
-                        <name>ПоляТипЗначенияНачалоВыбора</name>
+                        <name>FieldsValueTypeStartChoice</name>
                       </handlers>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2004,7 +2004,7 @@
                     <extInfo xsi:type="form:InputFieldExtInfo">
                       <handlers>
                         <event>StartChoice</event>
-                        <name>ПоляДоступныеЗначенияНачалоВыбора</name>
+                        <name>FieldsAvailableValuesStartChoice</name>
                       </handlers>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
@@ -2357,24 +2357,24 @@
                   <horizontalAlign>Right</horizontalAlign>
                 </autoCommandBar>
                 <handlers>
-                  <event>OnEditEnd</event>
-                  <name>НаборыДанныхПоляПриОкончанииРедактирования</name>
+                  <event>OnActivateRow</event>
+                  <name>DataSetsFieldsOnActivateRow</name>
                 </handlers>
                 <handlers>
                   <event>BeforeAddRow</event>
-                  <name>НаборыДанныхПоляПередНачаломДобавления</name>
+                  <name>DataSetsFieldsBeforeAddRow</name>
                 </handlers>
                 <handlers>
                   <event>BeforeDeleteRow</event>
-                  <name>НаборыДанныхПоляПередУдалением</name>
-                </handlers>
-                <handlers>
-                  <event>OnActivateRow</event>
-                  <name>НаборыДанныхПоляПриАктивизацииСтроки</name>
+                  <name>DataSetsFieldsBeforeDeleteRow</name>
                 </handlers>
                 <handlers>
                   <event>OnStartEdit</event>
-                  <name>НаборыДанныхПоляПриНачалеРедактирования</name>
+                  <name>DataSetsFieldsOnStartEdit</name>
+                </handlers>
+                <handlers>
+                  <event>OnEditEnd</event>
+                  <name>DataSetsFieldsOnEditEnd</name>
                 </handlers>
                 <searchStringAddition>
                   <visible>true</visible>
@@ -2828,7 +2828,7 @@
                     <titleLocation>None</titleLocation>
                     <handlers>
                       <event>OnChange</event>
-                      <name>НаборыДанныхЗапросПриИзменении</name>
+                      <name>DataSetsQueryOnChange</name>
                     </handlers>
                     <extendedTooltip>
                       <name>DataSetsQueryExtendedTooltip</name>
@@ -2918,7 +2918,7 @@
                       </dataPath>
                       <handlers>
                         <event>OnChange</event>
-                        <name>НаборыДанныхАвтоЗаполнениеДоступныхПолейПриИзменении</name>
+                        <name>DataSetsAutoFillAvailableFieldsOnChange</name>
                       </handlers>
                       <extendedTooltip>
                         <name>DataSetsAutoFillAvailableFieldsExtendedTooltip</name>
@@ -3683,7 +3683,7 @@
             <extInfo xsi:type="form:PagesGroupExtInfo">
               <handlers>
                 <event>OnCurrentPageChange</event>
-                <name>ГруппаНаборыДанныхПраваяПанельПриСменеСтраницы</name>
+                <name>GroupDataSetsRightPanelOnCurrentPageChange</name>
               </handlers>
               <currentRowUse>Auto</currentRowUse>
             </extInfo>
@@ -3822,7 +3822,7 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>СвязиНаборовДанныхНаборДанныхИсточникПриИзменении</name>
+            <name>DataSetLinksSourceDataSetOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>DataSetLinksSourceDataSetExtendedTooltip</name>
@@ -3883,7 +3883,7 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>СвязиНаборовДанныхНаборДанныхПриемникПриИзменении</name>
+            <name>DataSetLinksDestinationDataSetOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>DataSetLinksDestinationDataSetExtendedTooltip</name>
@@ -4358,7 +4358,7 @@
         </autoCommandBar>
         <handlers>
           <event>BeforeRowChange</event>
-          <name>СвязиНаборовДанныхПередНачаломИзменения</name>
+          <name>DataSetLinksBeforeRowChange</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -4582,7 +4582,7 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ВычисляемыеПоляПутьКДаннымПриИзменении</name>
+            <name>CalculatedFieldsDataPathOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>CalculatedFieldsDataPathExtendedTooltip</name>
@@ -4669,7 +4669,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>Opening</event>
-              <name>ВычисляемыеПоляВыражениеОткрытие</name>
+              <name>CalculatedFieldsExpressionOpening</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5131,7 +5131,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>StartChoice</event>
-              <name>ВычисляемыеПоляТипЗначенияНачалоВыбора</name>
+              <name>CalculatedFieldsValueTypeStartChoice</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5187,7 +5187,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>StartChoice</event>
-              <name>ВычисляемыеПоляДоступныеЗначенияНачалоВыбора</name>
+              <name>CalculatedFieldsAvailableValuesStartChoice</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5414,16 +5414,16 @@
           <autoFill>true</autoFill>
         </autoCommandBar>
         <handlers>
-          <event>OnEditEnd</event>
-          <name>ВычисляемыеПоляПриОкончанииРедактирования</name>
+          <event>OnStartEdit</event>
+          <name>CalculatedFieldsOnStartEdit</name>
         </handlers>
         <handlers>
-          <event>OnStartEdit</event>
-          <name>ВычисляемыеПоляПриНачалеРедактирования</name>
+          <event>OnEditEnd</event>
+          <name>CalculatedFieldsOnEditEnd</name>
         </handlers>
         <handlers>
           <event>AfterDeleteRow</event>
-          <name>ВычисляемыеПоляПослеУдаления</name>
+          <name>CalculatedFieldsAfterDeleteRow</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>

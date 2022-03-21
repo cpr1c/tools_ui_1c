@@ -75,25 +75,26 @@ Procedure DataSetsSelection(Item, RowSelected, Field, StandardProcessing)
 	EndIf;
 	
 EndProcedure
+
 &AtClient
-Procedure НаборыДанныхПередУдалением(Item, Cancel)
+Procedure DataSetsBeforeDeleteRow(Item, Cancel)
+	If Items.DataSets.CurrentLine = NullDataSetURL Then
+		Cancel=True;
+	EndIf;
+EndProcedure
+
+
+&AtClient
+Procedure DataSetsBeforeRowChange(Item, Cancel)
 	If Items.DataSets.CurrentLine = NullDataSetURL Then
 		Cancel=True;
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure НаборыДанныхПередНачаломИзменения(Item, Cancel)
-	If Items.DataSets.CurrentLine = NullDataSetURL Then
-		Cancel=True;
-	EndIf;
-EndProcedure
-
-&AtClient
-Procedure НаборыДанныхПередНачаломДобавления(Item, Cancel, Copy, Parent, IsFolder, Parameter)
+Procedure DataSetsBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Parameter)
 	Cancel=True;
 EndProcedure
-
 &AtClient
 Procedure ПереместитьСтрокуДереваНаборов(ПеремещаемаяСтрока, НовыйРодитель, Level = 0)
 
@@ -143,14 +144,14 @@ Procedure ПереместитьСтрокуДереваНаборов(Пере�
 EndProcedure
 
 &AtClient
-Procedure НаборыДанныхПеретаскивание(Item, DragParameters, StandardProcessing, String, Field)
+Procedure DataSetsDrag(Item, DragParameters, StandardProcessing, Row, Field)
 	StandardProcessing=False;
 
 	If DragParameters.Action <> DragAction.Move Then
 		Return;
 	EndIf;
 
-	СтрокаНабораКуда=DataSets.FindByID(String);
+	СтрокаНабораКуда=DataSets.FindByID(Row);
 	СтрокаПеремещения=DataSets.FindByID(DragParameters.Value);
 	РодительскийНабор=СтрокаПеремещения.GetParent();
 	ПереместитьСтрокуДереваНаборов(СтрокаПеремещения, СтрокаНабораКуда);
@@ -164,10 +165,12 @@ Procedure НаборыДанныхПеретаскивание(Item, DragParamet
 	
 	
 	//Теперь нужно перезаполнить Fields в наборах данных объединение
+	
 EndProcedure
 
+
 &AtClient
-Procedure НаборыДанныхПроверкаПеретаскивания(Item, DragParameters, StandardProcessing, String, Field)
+Procedure DataSetsDragCheck(Item, DragParameters, StandardProcessing, Row, Field)
 	StandardProcessing=False;
 
 	If DragParameters.Value = NullDataSetURL Then
@@ -177,17 +180,19 @@ Procedure НаборыДанныхПроверкаПеретаскивания(I
 
 	СтрокаПеремещения=DataSets.FindByID(DragParameters.Value);
 	СтрокаОткуда=СтрокаПеремещения.GetParent();
-	If СтрокаОткуда.GetID() = String Then
+	If СтрокаОткуда.GetID() = Row Then
 		DragParameters.Action=DragAction.Cancel;
 	EndIf;
 
-	СтрокаКуда=DataSets.FindByID(String);
+	СтрокаКуда=DataSets.FindByID(Row);
 	If СтрокаКуда.Type <> DataSetsTypes.Root And СтрокаКуда.Type <> DataSetsTypes.Union Then
 		DragParameters.Action=DragAction.Cancel;
 	EndIf;
 EndProcedure
+
+
 &AtClient
-Procedure НаборыДанныхПриАктивизацииСтроки(Item)
+Procedure DataSetsOnActivateRow(Item)
 	ТекДанныеНабора=Items.DataSets.CurrentData;
 	If ТекДанныеНабора = Undefined Then
 		Return;
@@ -221,18 +226,18 @@ Procedure НаборыДанныхПриАктивизацииСтроки(Item)
 	ЗаполнитьСписокВыбораИсточникаДанныхНабора();
 	УстановитьДоступностьКнопокДобавленияПолейНабора();
 EndProcedure
-
 &AtClient
-Procedure НаборыДанныхПоляПриАктивизацииСтроки(Item)
+Procedure DataSetsFieldsOnActivateRow(Item)
 	УстановитьДоступностьКнопокДобавленияПолейНабора();
 EndProcedure
 
 &AtClient
-Procedure НаборыДанныхЗапросПриИзменении(Item)
-	ЗаполнитьПоляНабораДанныхПриИзмененииЗапроса(Items.DataSets.CurrentLine);
+Procedure DataSetsQueryOnChange(Item)
+		ЗаполнитьПоляНабораДанныхПриИзмененииЗапроса(Items.DataSets.CurrentLine);
 EndProcedure
+
 &AtClient
-Procedure НаборыДанныхПоляРольПредставлениеНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
+Procedure DataSetsFieldsRolePresentationStartChoice(Item, ChoiceData, StandardProcessing)
 	StandardProcessing=False;
 
 	ТекДанные=Items.DataSetsFields.CurrentData;
@@ -262,10 +267,11 @@ Procedure НаборыДанныхПоляРольПредставлениеНа
 	OpenForm("DataProcessor.UT_DCSEditor.Form.FormEditDataSetFieldRole", ПараметрыФормы, ThisObject, ,
 		, , New NotifyDescription("НаборыДанныхПоляРольПредставлениеНачалоВыбораЗавершение", ThisObject,
 		ПараметрыОповещения), FormWindowOpeningMode.LockOwnerWindow);
+	
 EndProcedure
 
 &AtClient
-Procedure ПоляДоступныеЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
+Procedure FieldsAvailableValuesStartChoice(Item, ChoiceData, StandardProcessing)
 	ТекДанные=Items.DataSetsFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -281,11 +287,13 @@ Procedure ПоляДоступныеЗначенияНачалоВыбора(Ite
 		New NotifyDescription("ПоляДоступныеЗначенияНачалоВыбораЗавершение", ThisObject, ДопПараметры),
 		"Edit списка значений", ТекДанные.ValueType, False, True, True, False,
 		FormWindowOpeningMode.LockOwnerWindow);
+	
 EndProcedure
 
+
 &AtClient
-Procedure НаборыДанныхПоляПриНачалеРедактирования(Item, NewLine, Copy)
-	If Not Copy Then
+Procedure DataSetsFieldsOnStartEdit(Item, NewRow, Clone)
+	If Not Clone Then
 		Return;
 	EndIf;
 
@@ -332,13 +340,14 @@ Procedure НаборыДанныхПоляПриНачалеРедактиров
 EndProcedure
 
 &AtClient
-Procedure НаборыДанныхАвтоЗаполнениеДоступныхПолейПриИзменении(Item)
+Procedure DataSetsAutoFillAvailableFieldsOnChange(Item)
 	УстановитьДоступностьКнопокДобавленияПолейНабора();
 	ЗаполнитьПоляНабораДанныхПриИзмененииЗапросаНаСервере(Items.DataSets.CurrentLine);
 EndProcedure
+
 &AtClient
-Procedure НаборыДанныхПоляПередНачаломДобавления(Item, Cancel, Copy, Parent, IsFolder, Parameter)
-	If Not Copy Then
+Procedure DataSetsFieldsBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Parameter)
+		If Not Clone Then
 		Cancel=True;
 	Else
 		Cancel=Not ДоступноКопированиеУдаленияПоляНабора(Items.DataSets.CurrentData,
@@ -347,13 +356,13 @@ Procedure НаборыДанныхПоляПередНачаломДобавле
 EndProcedure
 
 &AtClient
-Procedure НаборыДанныхПоляПередУдалением(Item, Cancel)
+Procedure DataSetsFieldsBeforeDeleteRow(Item, Cancel)
 	Cancel=Not ДоступноКопированиеУдаленияПоляНабора(Items.DataSets.CurrentData,
 		Items.DataSetsFields.CurrentData);
 EndProcedure
 
 &AtClient
-Procedure ПоляПутьКДаннымПриИзменении(Item)
+Procedure FieldsDataPathOnChange(Item)
 	ТекДанные=Items.DataSetsFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -362,8 +371,8 @@ Procedure ПоляПутьКДаннымПриИзменении(Item)
 EndProcedure
 
 &AtClient
-Procedure НаборыДанныхПоляПриОкончанииРедактирования(Item, NewLine, ОтменаРедактирования)
-	If ОтменаРедактирования Then
+Procedure DataSetsFieldsOnEditEnd(Item, NewRow, CancelEdit)
+	If CancelEdit Then
 		Return;
 	EndIf;
 	
@@ -373,17 +382,21 @@ Procedure НаборыДанныхПоляПриОкончанииРедакти
 	If РодительСтрокиНабора.Type=DataSetsTypes.Union Then
 		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительСтрокиНабора.GetID());
 	EndIf;
+	
 EndProcedure
 
 &AtClient
-Procedure ПоляТипЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
+Procedure FieldsValueTypeStartChoice(Item, ChoiceData, StandardProcessing)
+	
 	ТекДанные=Items.DataSetsFields.CurrentData;
 	If ТекДанные=Undefined Then
 		Return;
 	EndIf;
 	
 	UT_CommonClient.EditType(ТекДанные.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("ПоляТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.DataSetsFields.CurrentLine)));
+
 EndProcedure
+
 
 
 #EndRegion
@@ -391,27 +404,30 @@ EndProcedure
 #Region DataSetLinks
 
 &AtClient
-Procedure СвязиНаборовДанныхНаборДанныхИсточникПриИзменении(Item)
+Procedure DataSetLinksSourceDataSetOnChange(Item)
 	ТекДанные=Items.DataSetLinks.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
 
 	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.SourceDataSet, Items.СвязиНаборовДанныхВыражениеИсточник);
+
 EndProcedure
 
 &AtClient
-Procedure СвязиНаборовДанныхНаборДанныхПриемникПриИзменении(Item)
+Procedure DataSetLinksDestinationDataSetOnChange(Item)
 	ТекДанные=Items.DataSetLinks.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
 
 	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.DataSetLinksDestinationExpression);
+
 EndProcedure
 
+
 &AtClient
-Procedure СвязиНаборовДанныхПередНачаломИзменения(Item, Cancel)
+Procedure DataSetLinksBeforeRowChange(Item, Cancel)
 	ТекДанные=Items.DataSetLinks.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -421,6 +437,7 @@ Procedure СвязиНаборовДанныхПередНачаломИзмен
 	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.DataSetLinksDestinationExpression);
 
 EndProcedure
+
 #EndRegion
 
 #Region Resources
@@ -481,30 +498,33 @@ EndProcedure
 #EndRegion
 
 #Region CalculatedFields
+
 &AtClient
-Procedure ВычисляемыеПоляПриОкончанииРедактирования(Item, NewLine, ОтменаРедактирования)
+Procedure CalculatedFieldsOnEditEnd(Item, NewRow, CancelEdit)
 	ЗаполнитьВспомогательныеДанныеРесурсов();
 EndProcedure
 
 &AtClient
-Procedure ВычисляемыеПоляПослеУдаления(Item)
+Procedure CalculatedFieldsAfterDeleteRow(Item)
 	ЗаполнитьВспомогательныеДанныеРесурсов();
 EndProcedure
+
 &AtClient
-Procedure ВычисляемыеПоляПриНачалеРедактирования(Item, NewLine, Copy)
+Procedure CalculatedFieldsOnStartEdit(Item, NewRow, Clone)
 	ТекДанные=Items.CalculatedFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
 
-	If NewLine Then
+	If NewRow Then
 		ТекДанные.DataPath="Field" + ТекДанные.GetID();
 		ТекДанные.Title=ТекДанные.DataPath;
 	EndIf;
 EndProcedure
+
 &AtClient
-Procedure ВычисляемыеПоляВыражениеОткрытие(Item, StandardProcessing)
-	StandardProcessing=False;
+Procedure CalculatedFieldsExpressionOpening(Item, StandardProcessing)
+		StandardProcessing=False;
 	ТекДанные=Items.CalculatedFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -517,8 +537,9 @@ Procedure ВычисляемыеПоляВыражениеОткрытие(Item,
 		New NotifyDescription("ВычисляемыеПоляВыражениеЗавершение", ThisObject, ДопПараметры),
 		"Edit выражения ресурса для " + ТекДанные.DataPath);
 EndProcedure
+
 &AtClient
-Procedure ВычисляемыеПоляДоступныеЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
+Procedure CalculatedFieldsAvailableValuesStartChoice(Item, ChoiceData, StandardProcessing)
 	ТекДанные=Items.CalculatedFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -535,26 +556,28 @@ Procedure ВычисляемыеПоляДоступныеЗначенияНач
 		FormWindowOpeningMode.LockOwnerWindow);
 EndProcedure
 
+
 &AtClient
-Procedure ВычисляемыеПоляПутьКДаннымПриИзменении(Item)
+Procedure CalculatedFieldsDataPathOnChange(Item)
 	ТекДанные=Items.CalculatedFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
 
 	ТекДанные.Title=UT_StringFunctionsClientServer.IdentifierPresentation(ТекДанные.DataPath);
+	
 EndProcedure
 
 &AtClient
-Procedure ВычисляемыеПоляТипЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
+Procedure CalculatedFieldsValueTypeStartChoice(Item, ChoiceData, StandardProcessing)
 	ТекДанные=Items.CalculatedFields.CurrentData;
 	If ТекДанные=Undefined Then
 		Return;
 	EndIf;
 	
 	UT_CommonClient.EditType(ТекДанные.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("ВычисляемыеПоляТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.CalculatedFields.CurrentLine)));
-EndProcedure
 
+EndProcedure
 
 #EndRegion
 
@@ -1527,9 +1550,10 @@ Procedure ЗаполнитьСписокВыбораИсточникаДанны
 EndProcedure
 
 &AtClient
-Procedure ГруппаНаборыДанныхПраваяПанельПриСменеСтраницы(Item, CurrentPage)
+Procedure GroupDataSetsRightPanelOnCurrentPageChange(Item, CurrentPage)
 	ЗаполнитьСписокВыбораИсточникаДанныхНабора();
 EndProcedure
+
 
 &AtClientAtServerNoContext
 Function ПредставлениеРолиПоляНабораДанных(Role)
