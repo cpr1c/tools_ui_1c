@@ -5746,7 +5746,7 @@
         </autoCommandBar>
         <handlers>
           <event>Selection</event>
-          <name>ДоступныеПоляРесурсовВыбор</name>
+          <name>ResourceAvailableFieldSelection</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -6184,7 +6184,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>Opening</event>
-              <name>РесурсыВыражениеОткрытие</name>
+              <name>ResourcesExpressionOpening</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6247,7 +6247,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>StartChoice</event>
-              <name>РесурсыГруппировкиНачалоВыбора</name>
+              <name>ResourcesGroupsStartChoice</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6271,7 +6271,7 @@
         </autoCommandBar>
         <handlers>
           <event>BeforeRowChange</event>
-          <name>РесурсыПередНачаломИзменения</name>
+          <name>ResourcesBeforeRowChange</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -6493,7 +6493,7 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ПараметрыСКДИмяПриИзменении</name>
+            <name>DCSParametersNameOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>DCSParametersNameExtendedTooltip</name>
@@ -6605,7 +6605,7 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ПараметрыСКДТипЗначенияПриИзменении</name>
+            <name>DCSParametersValueTypeOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>DCSParametersValueTypeExtendedTooltip</name>
@@ -6640,7 +6640,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>StartChoice</event>
-              <name>ПараметрыСКДТипЗначенияНачалоВыбора</name>
+              <name>DCSParametersValueTypeStartChoice</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6700,7 +6700,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>StartChoice</event>
-              <name>ПараметрыСКДДоступныеЗначенияНачалоВыбора</name>
+              <name>DCSParametersAvailableValuesStartChoice</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6725,7 +6725,7 @@
           </dataPath>
           <handlers>
             <event>OnChange</event>
-            <name>ПараметрыСКДДоступенСписокЗначенийПриИзменении</name>
+            <name>DCSParametersValueListAllowedOnChange</name>
           </handlers>
           <extendedTooltip>
             <name>DCSParametersValueListAllowedExtendedTooltip</name>
@@ -6805,7 +6805,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>StartChoice</event>
-              <name>ПараметрыСКДЗначениеНачалоВыбора</name>
+              <name>DCSParametersValueStartChoice</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -6863,7 +6863,7 @@
           <extInfo xsi:type="form:InputFieldExtInfo">
             <handlers>
               <event>Opening</event>
-              <name>ПараметрыСКДВыражениеОткрытие</name>
+              <name>DCSParametersExpressionOpening</name>
             </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -7346,11 +7346,11 @@
         </autoCommandBar>
         <handlers>
           <event>BeforeDeleteRow</event>
-          <name>ПараметрыСКДПередУдалением</name>
+          <name>DCSParametersBeforeDeleteRow</name>
         </handlers>
         <handlers>
           <event>OnStartEdit</event>
-          <name>ПараметрыСКДПриНачалеРедактирования</name>
+          <name>DCSParametersOnStartEdit</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -7739,16 +7739,16 @@
           <autoFill>true</autoFill>
         </autoCommandBar>
         <handlers>
-          <event>BeforeDeleteRow</event>
-          <name>ВариантыНастроекПередУдалением</name>
+          <event>OnActivateRow</event>
+          <name>SettingVariantsOnActivateRow</name>
         </handlers>
         <handlers>
-          <event>OnActivateRow</event>
-          <name>ВариантыНастроекПриАктивизацииСтроки</name>
+          <event>BeforeDeleteRow</event>
+          <name>SettingVariantsBeforeDeleteRow</name>
         </handlers>
         <handlers>
           <event>OnStartEdit</event>
-          <name>ВариантыНастроекПриНачалеРедактирования</name>
+          <name>SettingVariantsOnStartEdit</name>
         </handlers>
         <searchStringAddition>
           <visible>true</visible>
@@ -7940,11 +7940,11 @@
           </autoCommandBar>
           <handlers>
             <event>OnActivateRow</event>
-            <name>КомпоновщикНастроекНастройкиПриАктивизацииСтроки</name>
+            <name>SettingsOnActivateRow</name>
           </handlers>
           <handlers>
             <event>OnActivateField</event>
-            <name>КомпоновщикНастроекНастройкиПриАктивизацииПоля</name>
+            <name>SettingsOnActivateField</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
@@ -9171,7 +9171,7 @@ Browse the structure tree and select a grouping to view or edit grouping field s
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныеВыбранныеПоляПриИзменении</name>
+                <name>LocalSelectedFieldsOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalSelectedFieldsExtendedTooltip</name>
@@ -9727,7 +9727,7 @@ To add custom fields, select the check box above.</value>
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -9868,7 +9868,7 @@ In the report structure tree, select the item and then select required fields.</
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -10005,7 +10005,7 @@ In the report structure tree, select the item and then select required fields.</
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныйОтборПриИзменении</name>
+                <name>LocalFilterOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalFilterExtendedTooltip</name>
@@ -10563,7 +10563,7 @@ To assign the item with a personal filter, select the check box above.</value>
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -10704,7 +10704,7 @@ In the structure tree, select the report and edit report filters.</value>
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -10841,7 +10841,7 @@ In the structure tree, select the report and edit report filters.</value>
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныйПорядокПриИзменении</name>
+                <name>LocalOrderOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalOrderExtendedTooltip</name>
@@ -11395,7 +11395,7 @@ To assign the item with a personal sort, select the check box above.</value>
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GotoReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -11536,7 +11536,7 @@ In the structure tree, select the report and edit report sorts.</value>
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>Gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -11673,7 +11673,7 @@ In the structure tree, select the report and edit report sorts.</value>
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальноеУсловноеОформлениеПриИзменении</name>
+                <name>LocalConditionalAppearanceOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalConditionalAppearanceExtendedTooltip</name>
@@ -12038,7 +12038,7 @@ To assign the item with a personal conditional appearance, select the check box 
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>Gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -12180,7 +12180,7 @@ In the structure tree, select the report and edit report conditional appearance.
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>Gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -12317,7 +12317,7 @@ In the structure tree, select the report and edit report conditional appearance.
               <titleLocation>Right</titleLocation>
               <handlers>
                 <event>OnChange</event>
-                <name>ЛокальныеПараметрыВыводаПриИзменении</name>
+                <name>LocalOutputParametersOnChange</name>
               </handlers>
               <extendedTooltip>
                 <name>LocalOutputParametersExtendedTooltip</name>
@@ -12683,7 +12683,7 @@ To assign the item with personal additional settings, select the check box above
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>GotoReport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>
@@ -12825,7 +12825,7 @@ In the structure tree, select the report and edit additional report settings.</v
                   <extInfo xsi:type="form:LabelDecorationExtInfo">
                     <handlers>
                       <event>Click</event>
-                      <name>ПерейтиКОтчету</name>
+                      <name>Gotoreport</name>
                     </handlers>
                     <hyperlink>true</hyperlink>
                     <horizontalAlign>Left</horizontalAlign>

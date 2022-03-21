@@ -441,21 +441,21 @@ EndProcedure
 #EndRegion
 
 #Region Resources
+
 &AtClient
-Procedure ДоступныеПоляРесурсовВыбор(Item, SelectedRow, Field, StandardProcessing)
+Procedure ResourceAvailableFieldSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing=False;
 
 	ДобавитьРесурс(SelectedRow);
 EndProcedure
 
 &AtClient
-Procedure РесурсыПередНачаломИзменения(Item, Cancel)
+Procedure ResourcesBeforeRowChange(Item, Cancel)
 	ЗаполнитьСписокВыбораВыраженияРесурса(Item.CurrentLine);
 EndProcedure
-
 &AtClient
-Procedure РесурсыВыражениеОткрытие(Item, StandardProcessing)
-	StandardProcessing=False;
+Procedure ResourcesExpressionOpening(Item, StandardProcessing)
+		StandardProcessing=False;
 	ТекДанные=Items.Resources.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -470,8 +470,8 @@ Procedure РесурсыВыражениеОткрытие(Item, StandardProcess
 EndProcedure
 
 &AtClient
-Procedure РесурсыГруппировкиНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	StandardProcessing=False;
+Procedure ResourcesGroupsStartChoice(Item, ChoiceData, StandardProcessing)
+		StandardProcessing=False;
 	ТекДанные=Items.Resources.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -493,7 +493,9 @@ Procedure РесурсыГруппировкиНачалоВыбора(Item, Д�
 	UT_CommonClient.OpenValueListChoiceItemsForm(СписокДоступныхГруппировок,
 		New NotifyDescription("РесурсыГруппировкиНачалоВыбораЗавершение", ThisObject, ДопПараметры),
 		"Fields Groups", , True, False, False, , FormWindowOpeningMode.LockOwnerWindow);
+	
 EndProcedure
+
 
 #EndRegion
 
@@ -584,13 +586,13 @@ EndProcedure
 #Region Parameters
 
 &AtClient
-Procedure ПараметрыСКДПриНачалеРедактирования(Item, NewLine, Copy)
-	ТекДанные=Items.DCSParameters.CurrentData;
+Procedure DCSParametersOnStartEdit(Item, NewRow, Clone)
+		ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
 
-	If NewLine Then
+	If NewRow Then
 		ТекДанные.Name="Parameter" + ТекДанные.GetID();
 		ТекДанные.Title=ТекДанные.Name;
 		ТекДанные.IncludeInAvailableFields=True;
@@ -599,11 +601,12 @@ Procedure ПараметрыСКДПриНачалеРедактирования
 
 	УстановитьСписокВыбораПоляЗначенияПараметра(ТекДанные);
 	УстановитьОграничениеТипаПоляЗначенияПараметра(ТекДанные);
+	
 EndProcedure
 
 &AtClient
-Procedure ПараметрыСКДТипЗначенияПриИзменении(Item)
-	ТекДанные=Items.DCSParameters.CurrentData;
+Procedure DCSParametersValueTypeOnChange(Item)
+		ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -625,8 +628,9 @@ Procedure ПараметрыСКДТипЗначенияПриИзменении
 EndProcedure
 
 &AtClient
-Procedure ПараметрыСКДДоступныеЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	StandardProcessing=False;
+Procedure DCSParametersAvailableValuesStartChoice(Item, ChoiceData, StandardProcessing)
+	
+		StandardProcessing=False;
 
 	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
@@ -647,8 +651,9 @@ Procedure ПараметрыСКДДоступныеЗначенияНачало
 EndProcedure
 
 &AtClient
-Procedure ПараметрыСКДЗначениеНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	ТекДанные=Items.DCSParameters.CurrentData;
+Procedure DCSParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
+	
+		ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -675,11 +680,13 @@ Procedure ПараметрыСКДЗначениеНачалоВыбора(Item,
 		New NotifyDescription("ПараметрыСКДЗначениеНачалоВыбораЗавершение", ThisObject, ДопПараметры),
 		"Edit списка значений", ТекДанные.ValueType, False, False, True, False,
 		FormWindowOpeningMode.LockOwnerWindow, AvailableValues);
-
+	
 EndProcedure
+
+
 &AtClient
-Procedure ПараметрыСКДДоступенСписокЗначенийПриИзменении(Item)
-	ТекДанные=Items.DCSParameters.CurrentData;
+Procedure DCSParametersValueListAllowedOnChange(Item)
+		ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -698,10 +705,12 @@ Procedure ПараметрыСКДДоступенСписокЗначенийП
 	ТекДанные.Value=НовоеЗначение;
 
 	УстановитьОграничениеТипаПоляЗначенияПараметра(ТекДанные);
+	
 EndProcedure
+
 &AtClient
-Procedure ПараметрыСКДВыражениеОткрытие(Item, StandardProcessing)
-	StandardProcessing=False;
+Procedure DCSParametersExpressionOpening(Item, StandardProcessing)
+		StandardProcessing=False;
 	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
@@ -715,19 +724,21 @@ Procedure ПараметрыСКДВыражениеОткрытие(Item, Stand
 		"Edit выражения для " + ТекДанные.Name);
 EndProcedure
 
+
 &AtClient
-Procedure ПараметрыСКДИмяПриИзменении(Item)
-	ТекДанные=Items.DCSParameters.CurrentData;
+Procedure DCSParametersNameOnChange(Item)
+		ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
 
 	ТекДанные.Title=UT_StringFunctionsClientServer.IdentifierPresentation(ТекДанные.Name);
+	
 EndProcedure
 
 &AtClient
-Procedure ПараметрыСКДПередУдалением(Item, Cancel)
-	ТекДанные=Items.DCSParameters.CurrentData;
+Procedure DCSParametersBeforeDeleteRow(Item, Cancel)
+		ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -736,22 +747,24 @@ Procedure ПараметрыСКДПередУдалением(Item, Cancel)
 EndProcedure
 
 &AtClient
-Procedure ПараметрыСКДТипЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
+Procedure DCSParametersValueTypeStartChoice(Item, ChoiceData, StandardProcessing)
 	ТекДанные=Items.DCSParameters.CurrentData;
 	If ТекДанные=Undefined Then
 		Return;
 	EndIf;
 	
 	UT_CommonClient.EditType(ТекДанные.ValueType, 3,StandardProcessing,ThisObject, New NotifyDescription("ПараметрыСКДТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.DCSParameters.CurrentLine)));
+
 EndProcedure
+
 #EndRegion
 
 #Region ТекущиеНастройкиВарианта
 
 &AtClient
-Procedure КомпоновщикНастроекНастройкиПриАктивизацииПоля(Item)
-
-	Var ВыбраннаяСтраница;
+Procedure SettingsOnActivateField(Item)
+	
+		Var ВыбраннаяСтраница;
 
 	If Items.Settings.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеВыбора" Then
 
@@ -782,12 +795,12 @@ Procedure КомпоновщикНастроекНастройкиПриАкти
 		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
 
 	EndIf;
-
+	
 EndProcedure
 
-&AtClient
-Procedure КомпоновщикНастроекНастройкиПриАктивизацииСтроки(Item)
 
+&AtClient
+Procedure SettingsOnActivateRow(Item)
 	ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
 		Items.Settings.CurrentLine);
 	ItemType = TypeOf(ЭлементСтруктуры);
@@ -851,6 +864,7 @@ Procedure КомпоновщикНастроекНастройкиПриАкти
 
 EndProcedure
 
+
 &AtClient
 Procedure GoToReport(Item)
 
@@ -863,9 +877,8 @@ Procedure GoToReport(Item)
 EndProcedure
 
 &AtClient
-Procedure ЛокальныеВыбранныеПоляПриИзменении(Item)
-
-	If LocalSelectedFields Then
+Procedure LocalSelectedFieldsOnChange(Item)
+		If LocalSelectedFields Then
 
 		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
 
@@ -878,13 +891,12 @@ Procedure ЛокальныеВыбранныеПоляПриИзменении(I
 		CurrentSettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
 
 	EndIf;
-
+	
 EndProcedure
 
 &AtClient
-Procedure ЛокальныйОтборПриИзменении(Item)
-
-	If LocalFilter Then
+Procedure LocalFilterOnChange(Item)
+		If LocalFilter Then
 
 		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
@@ -897,13 +909,12 @@ Procedure ЛокальныйОтборПриИзменении(Item)
 		CurrentSettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
 
 	EndIf;
-
+	
 EndProcedure
 
 &AtClient
-Procedure ЛокальныйПорядокПриИзменении(Item)
-
-	If LocalOrder Then
+Procedure LocalOrderOnChange(Item)
+		If LocalOrder Then
 
 		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
@@ -916,13 +927,12 @@ Procedure ЛокальныйПорядокПриИзменении(Item)
 		CurrentSettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
 
 	EndIf;
-
+	
 EndProcedure
 
 &AtClient
-Procedure ЛокальноеУсловноеОформлениеПриИзменении(Item)
-
-	If LocalConditionalAppearance Then
+Procedure LocalConditionalAppearanceOnChange(Item)
+		If LocalConditionalAppearance Then
 
 		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
@@ -935,13 +945,12 @@ Procedure ЛокальноеУсловноеОформлениеПриИзмен
 		CurrentSettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
 
 	EndIf;
-
+	
 EndProcedure
 
 &AtClient
-Procedure ЛокальныеПараметрыВыводаПриИзменении(Item)
-
-	If LocalOutputParameters Then
+Procedure LocalOutputParametersOnChange(Item)
+		If LocalOutputParameters Then
 
 		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
@@ -953,28 +962,26 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 			Items.Settings.CurrentLine);
 		CurrentSettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
 	EndIf;
-
 EndProcedure
+
 #EndRegion
 
 #Region SettingVariants
-
 &AtClient
-Procedure ВариантыНастроекПриАктивизацииСтроки(Item)
+Procedure SettingVariantsOnActivateRow(Item)
 	ВариантыНастроекПриАктивизацииСтрокиНаСервере(Items.SettingVariants.CurrentLine);
 EndProcedure
 
 &AtClient
-Procedure ВариантыНастроекПередУдалением(Item, Cancel)
+Procedure SettingVariantsBeforeDeleteRow(Item, Cancel)
 	If SettingVariants.Count() = 1 Then
 		Cancel=True;
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ВариантыНастроекПриНачалеРедактирования(Item, NewLine, Copy)
-
-	If Not NewLine Then
+Procedure SettingVariantsOnStartEdit(Item, NewRow, Clone)
+		If Not NewRow Then
 		Return;
 	EndIf;
 	ТекДанные=Items.SettingVariants.CurrentData;
@@ -985,6 +992,7 @@ Procedure ВариантыНастроекПриНачалеРедактиров
 	ТекДанные.Name="Variant" + ТекДанные.GetID();
 	ТекДанные.Presentation=ТекДанные.Name;
 EndProcedure
+
 
 #EndRegion
 
