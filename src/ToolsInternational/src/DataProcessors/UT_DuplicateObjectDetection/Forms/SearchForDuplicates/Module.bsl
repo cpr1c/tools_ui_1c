@@ -982,7 +982,11 @@ Procedure ShowUsageInstances(SourceTree)
 	ReportParameters = New Structure;
 	ReportParameters.Insert("Filter", New Structure("RefSet", RefsArray));
 	WindowMode = FormWindowOpeningMode.LockOwnerWindow;
-	ОткрытьФорму("Отчет.МестаИспользованияСсылок.Форма", ПараметрыОтчета, ЭтотОбъект, , , , , РежимОкна);
+	Try
+		OpenForm("Report.SearchForReferences.Form", ReportParameters, ThisObject, , , , , WindowMode);
+	Except
+		Message(NStr("ru = 'Не удалось открыть форму отчета ""Места использования ссылок"". Отчет доступен в конфигурации с БСП.'; en = 'Unable to open Reference usage locations report form. SSL is required.'"));
+	EndTry
 EndProcedure
 
 &AtClient
