@@ -1,8 +1,8 @@
 &AtClient
-Var ВидыНаборовДанных;
+Var DataSetsTypes;
 
 &AtClient
-Var ВидыПолейНаборовДанных;
+Var DataSetFieldsTypes;
 
 #Region СобытияФормы
 &AtServer
@@ -37,7 +37,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 EndProcedure
 &AtClient
 Procedure OnOpen(Cancel)
-	If IsTempStorageURL(АдресПервоначальнойСхемыКомпоновкиДанных) Then
+	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
 		ЗаполнитьВспомогательныеДанныеРесурсов();
 	EndIf;
 EndProcedure
@@ -46,7 +46,7 @@ EndProcedure
 #Region СобытияЭлементовФормы
 
 &AtClient
-Procedure ГруппаЗакладкиРедактораПриСменеСтраницы(Item, CurrentPage)
+Procedure GroupEditorTabsOnCurrentPageChange(Item, CurrentPage)
 	If CurrentPage = Items.GroupPageDataSetLinks Then
 		ЗаполнитьВспомогательныеДанныеСвязейНаборовДанных();
 	ElsIf CurrentPage = Items.GroupPageResources Then
@@ -54,34 +54,37 @@ Procedure ГруппаЗакладкиРедактораПриСменеСтра
 	ElsIf CurrentPage = Items.GroupPageSettings Then
 		СобратьСКДПоДаннымФормы();
 	EndIf;
+	
 EndProcedure
 
+
 #Region DataSets
+
 &AtClient
-Procedure НаборыДанныхВыбор(Item, SelectedRow, Field, StandardProcessing)
-	If SelectedRow <> ИдентификаторНулевогоНабораДанных Then
+Procedure DataSetsSelection(Item, RowSelected, Field, StandardProcessing)
+	If RowSelected <> NullDataSetURL Then
 		Return;
 	EndIf;
 
 	StandardProcessing=False;
 
-	If Items.DataSets.Expanded(SelectedRow) Then
-		Items.DataSets.Collapse(SelectedRow);
+	If Items.DataSets.Expanded(RowSelected) Then
+		Items.DataSets.Collapse(RowSelected);
 	Else
-		Items.DataSets.Expand(SelectedRow, True);
+		Items.DataSets.Expand(RowSelected, True);
 	EndIf;
+	
 EndProcedure
-
 &AtClient
 Procedure НаборыДанныхПередУдалением(Item, Cancel)
-	If Items.DataSets.CurrentLine = ИдентификаторНулевогоНабораДанных Then
+	If Items.DataSets.CurrentLine = NullDataSetURL Then
 		Cancel=True;
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure НаборыДанныхПередНачаломИзменения(Item, Cancel)
-	If Items.DataSets.CurrentLine = ИдентификаторНулевогоНабораДанных Then
+	If Items.DataSets.CurrentLine = NullDataSetURL Then
 		Cancel=True;
 	EndIf;
 EndProcedure
@@ -152,10 +155,10 @@ Procedure НаборыДанныхПеретаскивание(Item, DragParamet
 	РодительскийНабор=СтрокаПеремещения.GetParent();
 	ПереместитьСтрокуДереваНаборов(СтрокаПеремещения, СтрокаНабораКуда);
 	
-	If РодительскийНабор.Type = ВидыНаборовДанных.Union Then
+	If РодительскийНабор.Type = DataSetsTypes.Union Then
 		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
 	EndIf;
-	If СтрокаНабораКуда.Type = ВидыНаборовДанных.Union Then
+	If СтрокаНабораКуда.Type = DataSetsTypes.Union Then
 		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(СтрокаНабораКуда.GetID());
 	EndIf;
 	
@@ -167,7 +170,7 @@ EndProcedure
 Procedure НаборыДанныхПроверкаПеретаскивания(Item, DragParameters, StandardProcessing, String, Field)
 	StandardProcessing=False;
 
-	If DragParameters.Value = ИдентификаторНулевогоНабораДанных Then
+	If DragParameters.Value = NullDataSetURL Then
 		DragParameters.Action=DragAction.Cancel;
 		Return;
 	EndIf;
@@ -179,7 +182,7 @@ Procedure НаборыДанныхПроверкаПеретаскивания(I
 	EndIf;
 
 	СтрокаКуда=DataSets.FindByID(String);
-	If СтрокаКуда.Type <> ВидыНаборовДанных.Root And СтрокаКуда.Type <> ВидыНаборовДанных.Union Then
+	If СтрокаКуда.Type <> DataSetsTypes.Root And СтрокаКуда.Type <> DataSetsTypes.Union Then
 		DragParameters.Action=DragAction.Cancel;
 	EndIf;
 EndProcedure
@@ -189,7 +192,7 @@ Procedure НаборыДанныхПриАктивизацииСтроки(Item)
 	If ТекДанныеНабора = Undefined Then
 		Return;
 	EndIf;
-	If ТекДанныеНабора.Type = ВидыНаборовДанных.Root Then
+	If ТекДанныеНабора.Type = DataSetsTypes.Root Then
 		Items.GroupDataSetsRightPanel.CurrentPage=Items.GroupDataSetsRightPanelDataSources;
 		Return;
 	EndIf;
@@ -197,10 +200,10 @@ Procedure НаборыДанныхПриАктивизацииСтроки(Item)
 	Items.GroupDataSetsRightPanel.CurrentPage=Items.GroupDataSetsRightPanelDataSetData;
 
 	ТекДанныеНабора=Items.DataSets.CurrentData;
-	Items.GroupDataSetSettingsEditingPanel.Visible=ТекДанныеНабора.Type <> ВидыНаборовДанных.Union;
-	If ТекДанныеНабора.Type = ВидыНаборовДанных.Query Then
+	Items.GroupDataSetSettingsEditingPanel.Visible=ТекДанныеНабора.Type <> DataSetsTypes.Union;
+	If ТекДанныеНабора.Type = DataSetsTypes.Query Then
 		Items.GroupDataSetSettingsEditingPanel.CurrentPage=Items.GroupPageDataSetQueryEditingPage;
-	ElsIf ТекДанныеНабора.Type = ВидыНаборовДанных.Object Then
+	ElsIf ТекДанныеНабора.Type = DataSetsTypes.Object Then
 		Items.GroupDataSetSettingsEditingPanel.CurrentPage=Items.GroupPageDataSetObjectEditingPage;
 	EndIf;
 
@@ -321,7 +324,7 @@ Procedure НаборыДанныхПоляПриНачалеРедактиров
 	EndIf;
 
 	ТекСтрока.Title=UT_StringFunctionsClientServer.IdentifierPresentation(ТекСтрока.DataPath);
-	If ТекСтрока.Type <> ВидыПолейНаборовДанных.Folder Then
+	If ТекСтрока.Type <> DataSetFieldsTypes.Folder Then
 		ТекСтрока.Field=ТекСтрока.DataPath;
 	EndIf;
 
@@ -367,7 +370,7 @@ Procedure НаборыДанныхПоляПриОкончанииРедакти
 	СтрокаНабора=Items.DataSets.CurrentLine;
 	ДанныеСтрокиНабора=DataSets.FindByID(СтрокаНабора);
 	РодительСтрокиНабора=ДанныеСтрокиНабора.GetParent();
-	If РодительСтрокиНабора.Type=ВидыНаборовДанных.Union Then
+	If РодительСтрокиНабора.Type=DataSetsTypes.Union Then
 		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительСтрокиНабора.GetID());
 	EndIf;
 EndProcedure
@@ -968,23 +971,23 @@ EndProcedure
 
 &AtClient
 Procedure AddDataSetQuery(Command)
-	ДобавитьНаборДанных(ВидыНаборовДанных.Query);
+	ДобавитьНаборДанных(DataSetsTypes.Query);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetObject(Command)
-	ДобавитьНаборДанных(ВидыНаборовДанных.Object);
+	ДобавитьНаборДанных(DataSetsTypes.Object);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetUnion(Command)
-	ДобавитьНаборДанных(ВидыНаборовДанных.Union);
+	ДобавитьНаборДанных(DataSetsTypes.Union);
 EndProcedure
 
 &AtClient
 Procedure DeleteDataSet(Command)
 	ИдентификаторТекущейСтроки=Items.DataSets.CurrentLine;
-	If ИдентификаторТекущейСтроки = ИдентификаторНулевогоНабораДанных Then
+	If ИдентификаторТекущейСтроки = NullDataSetURL Then
 		Return;
 	EndIf;
 
@@ -1086,22 +1089,22 @@ EndProcedure
 Procedure FinishEdit(Command)
 	СобратьСКДПоДаннымФормы(True);
 
-	Close(АдресСхемыКомпоновкиДанных);
+	Close(DataCompositionSchemaURL);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetFieldFolder(Command)
-	ВручнуюДобавитьПолеНабораДанных(ВидыПолейНаборовДанных.Folder);
+	ВручнуюДобавитьПолеНабораДанных(DataSetFieldsTypes.Folder);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetFieldField(Command)
-	ВручнуюДобавитьПолеНабораДанных(ВидыПолейНаборовДанных.Field);
+	ВручнуюДобавитьПолеНабораДанных(DataSetFieldsTypes.Field);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetFieldSet(Command)
-	ВручнуюДобавитьПолеНабораДанных(ВидыПолейНаборовДанных.Set);
+	ВручнуюДобавитьПолеНабораДанных(DataSetFieldsTypes.Set);
 EndProcedure
 
 //@skip-warning
@@ -1148,7 +1151,7 @@ Function ПодготовитьСКДДляСохраненияВФайл()
 	СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек();
 	СобратьСКДПоДаннымФормы(True);
 
-	DCSText=UT_Common.ValueToXMLString(GetFromTempStorage(АдресСхемыКомпоновкиДанных));
+	DCSText=UT_Common.ValueToXMLString(GetFromTempStorage(DataCompositionSchemaURL));
 
 	Return PutToTempStorage(DCSText, UUID);
 EndFunction
@@ -1198,7 +1201,7 @@ EndProcedure
 &AtClient
 Function НаборДанныхПоИмени(ИмяНабора, СтрокаНаборов = Undefined)
 	If СтрокаНаборов = Undefined Then
-		СтрокаПоискаНаборов=DataSets.FindByID(ИдентификаторНулевогоНабораДанных);
+		СтрокаПоискаНаборов=DataSets.FindByID(NullDataSetURL);
 	Else
 		СтрокаПоискаНаборов=СтрокаНаборов;
 	EndIf;
@@ -1251,24 +1254,24 @@ Procedure ЗаполнитьПараметрыСКДПриИзмененииЗа
 	EndDo;
 EndProcedure
 &AtServer
-Procedure ДобавитьПолеНабора(СтрокаНабора, Column, ВидыПолейНаборовДанных, МассивПолей, КолонкаРодитель = Undefined)
+Procedure ДобавитьПолеНабора(СтрокаНабора, Column, DataSetFieldsTypes, МассивПолей, КолонкаРодитель = Undefined)
 	ОграничениеПоле=False;
 	ОграничениеУсловие=False;
 	ОграничениеГруппа=False;
 	ОграничениеПорядок=False;
 	ЗаполнятьОграничение=False;
 	If TypeOf(Column) = Type("QuerySchemaNestedTableColumn") Then
-		Type=ВидыПолейНаборовДанных.Set;
+		Type=DataSetFieldsTypes.Set;
 		ColumnName=Column.Alias;
 	ElsIf TypeOf(Column) = Type("QuerySchemaColumn") Then
-		Type=ВидыПолейНаборовДанных.Field;
+		Type=DataSetFieldsTypes.Field;
 		ColumnName=Column.Alias;
 	ElsIf TypeOf(Column) = Type("CustomField") Then
 		If Column.ValueType = New TypeDescription("ValueTable") Then
-			Type=ВидыПолейНаборовДанных.Set;
+			Type=DataSetFieldsTypes.Set;
 			ColumnName=Column.Name;
 		Else
-			Type=ВидыПолейНаборовДанных.Field;
+			Type=DataSetFieldsTypes.Field;
 			ColumnName=Column.Name;
 		EndIf;
 		ЗаполнятьОграничение=True;
@@ -1297,13 +1300,13 @@ Procedure ДобавитьПолеНабора(СтрокаНабора, Column,
 		НовоеПоле=МассивСтрок[0];
 	EndIf;
 	НовоеПоле.Type=Type;
-	НовоеПоле.Picture=КартинкаВидаПоляНабораДанных(НовоеПоле.Type, ВидыПолейНаборовДанных);
+	НовоеПоле.Picture=КартинкаВидаПоляНабораДанных(НовоеПоле.Type, DataSetFieldsTypes);
 
 	If TypeOf(Column) = Type("QuerySchemaNestedTableColumn") Then
 		For Each ТекКолонка In Column.Cols Do
-			ДобавитьПолеНабора(СтрокаНабора, ТекКолонка, ВидыПолейНаборовДанных, МассивПолей, Column);
+			ДобавитьПолеНабора(СтрокаНабора, ТекКолонка, DataSetFieldsTypes, МассивПолей, Column);
 		EndDo;
-	ElsIf Type = ВидыПолейНаборовДанных.Field Then
+	ElsIf Type = DataSetFieldsTypes.Field Then
 		НовоеПоле.ТипЗначенияЗапроса=Column.ValueType;
 	EndIf;
 
@@ -1326,14 +1329,14 @@ Procedure ЗаполнитьПоляНабораДанныхПриИзменен
 	СтрокаНабора=DataSets.FindByID(ИдентификаторСтрокиНабора);
 
 	МассивПолей=New Array;
-	ВидыПолейНаборовДанных=ВидыПолейНаборовДанных();
-	ВидыНаборовДанных=ВидыНаборовДанных();
+	DataSetFieldsTypes=DataSetFieldsTypes();
+	DataSetsTypes=DataSetsTypes();
 
 	If Not СтрокаНабора.AutoFillAvailableFields Then
 		QueryBuilder=New QueryBuilder(СтрокаНабора.Query);
 
 		For Each ДоступноеПоле In QueryBuilder.AvailableFields Do
-			ДобавитьПолеНабора(СтрокаНабора, ДоступноеПоле, ВидыПолейНаборовДанных, МассивПолей);
+			ДобавитьПолеНабора(СтрокаНабора, ДоступноеПоле, DataSetFieldsTypes, МассивПолей);
 		EndDo;
 
 	Else
@@ -1359,7 +1362,7 @@ Procedure ЗаполнитьПоляНабораДанныхПриИзменен
 		EndIf;
 		If СтрокаНабора.AutoFillAvailableFields Then
 			For Each Column In НужныйПакет.Cols Do
-				ДобавитьПолеНабора(СтрокаНабора, Column, ВидыПолейНаборовДанных, МассивПолей);
+				ДобавитьПолеНабора(СтрокаНабора, Column, DataSetFieldsTypes, МассивПолей);
 			EndDo;
 		EndIf;
 	EndIf;
@@ -1367,19 +1370,19 @@ Procedure ЗаполнитьПоляНабораДанныхПриИзменен
 	УдалитьЛишниеПоляНабораПослеЗаполнения(СтрокаНабора, МассивПолей);
 
 	РодительскийНабор=СтрокаНабора.GetParent();
-	If РодительскийНабор.Type = ВидыНаборовДанных.Union Then
+	If РодительскийНабор.Type = DataSetsTypes.Union Then
 		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
 	EndIf;
 EndProcedure
 
 &AtServer
 Procedure УдалитьЛишниеПоляНабораПослеЗаполнения(СтрокаНабора, МассивДобавленныхПолей)
-	ВидыПолейНаборовДанных=ВидыПолейНаборовДанных();
+	DataSetFieldsTypes=DataSetFieldsTypes();
 
 	МассивПолейКУдалению=New Array;
 	For Each СтрокаПоля In СтрокаНабора.Fields Do
 		If МассивДобавленныхПолей.Find(СтрокаПоля.Field) = Undefined And СтрокаПоля.Type
-			<> ВидыПолейНаборовДанных.Folder Then
+			<> DataSetFieldsTypes.Folder Then
 			МассивПолейКУдалению.Add(СтрокаПоля);
 		EndIf;
 	EndDo;
@@ -1393,7 +1396,7 @@ EndProcedure
 Procedure ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(ИдентификаторСтрокиНабора)
 	СтрокаНабора=DataSets.FindByID(ИдентификаторСтрокиНабора);
 
-	ВидыПолейНаборов=ВидыПолейНаборовДанных();
+	ВидыПолейНаборов=DataSetFieldsTypes();
 
 	ПоляНаборы=New Array;
 	МассивПолей=New Array;
@@ -1431,9 +1434,9 @@ Procedure ЗаполнитьПоляНабораДанныхОбъединени
 
 	УдалитьЛишниеПоляНабораПослеЗаполнения(СтрокаНабора, НовыйМассивПолей);
 
-	ВидыНаборовДанных=ВидыНаборовДанных();
+	DataSetsTypes=DataSetsTypes();
 	РодительскийНабор=СтрокаНабора.GetParent();
-	If РодительскийНабор.Type = ВидыНаборовДанных.Union Then
+	If РодительскийНабор.Type = DataSetsTypes.Union Then
 		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
 	EndIf;
 EndProcedure
@@ -1454,23 +1457,23 @@ EndProcedure
 &AtClient
 Procedure ДобавитьНаборДанных(Type)
 	ТекДанные=Items.DataSets.CurrentData;
-	If ТекДанные.Type = ВидыНаборовДанных.Union Then
+	If ТекДанные.Type = DataSetsTypes.Union Then
 		СтрокаДереваДляДобавления=DataSets.FindByID(Items.DataSets.CurrentLine);
 	Else
-		СтрокаДереваДляДобавления=DataSets.FindByID(ИдентификаторНулевогоНабораДанных);
+		СтрокаДереваДляДобавления=DataSets.FindByID(NullDataSetURL);
 	EndIf;
 
 	НаборДанных=СтрокаДереваДляДобавления.GetItems().Add();
 	НаборДанных.Name="НаборДанных" + НаборДанных.GetID();
 	НаборДанных.Type=Type;
 
-	If Type = ВидыНаборовДанных.Query Then
+	If Type = DataSetsTypes.Query Then
 		НаборДанных.Picture=PictureLib.УИ_DataSetСКДЗапрос;
 		НаборДанных.AutoFillAvailableFields=True;
 		НаборДанных.UseQueryGroupIfPossible=True;
-	ElsIf Type = ВидыНаборовДанных.Object Then
+	ElsIf Type = DataSetsTypes.Object Then
 		НаборДанных.Picture=PictureLib.UT_DataSetDCSObject;
-	ElsIf Type = ВидыНаборовДанных.Union Then
+	ElsIf Type = DataSetsTypes.Union Then
 		НаборДанных.Picture=PictureLib.UT_DataSetDCSUnion;
 	EndIf;
 
@@ -1481,7 +1484,7 @@ Procedure ДобавитьНаборДанных(Type)
 	EndIf;
 EndProcedure
 &AtClientAtServerNoContext
-Function ВидыНаборовДанных()
+Function DataSetsTypes()
 	Structure=New Structure;
 	Structure.Insert("Root", "Root");
 	Structure.Insert("Query", "DataCompositionSchemaDataSetQuery");
@@ -1492,7 +1495,7 @@ Function ВидыНаборовДанных()
 EndFunction
 
 &AtClientAtServerNoContext
-Function ВидыПолейНаборовДанных()
+Function DataSetFieldsTypes()
 	Structure=New Structure;
 	Structure.Insert("Field", "DataCompositionSchemaDataSetField");
 	Structure.Insert("Folder", "DataCompositionSchemaDataSetFieldFolder");
@@ -1506,7 +1509,7 @@ EndFunction
 Function НаборыДанныхВерхнегоУровня()
 	МассивНаборов=New Array;
 
-	НулевойНаборДанных=DataSets.FindByID(ИдентификаторНулевогоНабораДанных);
+	НулевойНаборДанных=DataSets.FindByID(NullDataSetURL);
 	For Each Set In НулевойНаборДанных.GetItems() Do
 		МассивНаборов.Add(Set);
 	EndDo;
@@ -1622,17 +1625,17 @@ Procedure ВручнуюДобавитьПолеНабораДанных(Вид�
 
 	НовоеПоле=СтрокаНабора.Fields.Add();
 	НовоеПоле.Type=ВидПоля;
-	НовоеПоле.Picture=КартинкаВидаПоляНабораДанных(ВидПоля, ВидыПолейНаборовДанных);
+	НовоеПоле.Picture=КартинкаВидаПоляНабораДанных(ВидПоля, DataSetFieldsTypes);
 	НовоеПоле.DataPath="Field" + НовоеПоле.GetID();
 	НовоеПоле.Title=UT_StringFunctionsClientServer.IdentifierPresentation(НовоеПоле.DataPath);
-	If ВидПоля <> ВидыПолейНаборовДанных.Folder Then
+	If ВидПоля <> DataSetFieldsTypes.Folder Then
 		НовоеПоле.Field=НовоеПоле.DataPath;
 	EndIf;
 
 	Items.DataSetsFields.CurrentLine=НовоеПоле.GetID();
 	
 	РодительскийНабор=СтрокаНабора.GetParent();
-	If РодительскийНабор.Type=ВидыНаборовДанных.Union Then
+	If РодительскийНабор.Type=DataSetsTypes.Union Then
 		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
 	EndIf;
 EndProcedure
@@ -1652,12 +1655,12 @@ EndFunction
 
 &AtClient
 Function ДоступноДобавлениеПоляНабораПоле(ТекСтрокаНабора)
-	Return ТекСтрокаНабора.Type = ВидыНаборовДанных.Object;
+	Return ТекСтрокаНабора.Type = DataSetsTypes.Object;
 EndFunction
 
 &AtClient
 Function ДоступноДобавлениеПоляНабораНабор(ТекСтрокаНабора)
-	Return ТекСтрокаНабора.Type = ВидыНаборовДанных.Object;
+	Return ТекСтрокаНабора.Type = DataSetsTypes.Object;
 EndFunction
 
 &AtClient
@@ -1666,9 +1669,9 @@ Function ДоступноКопированиеУдаленияПоляНабо�
 		Return False;
 	EndIf;
 
-	Return ТекСтрокаПоля.Type = ВидыПолейНаборовДанных.Folder Or (ДоступноДобавлениеПоляНабораПоле(ТекСтрокаНабора)
-		And ТекСтрокаПоля.Type = ВидыПолейНаборовДанных.Field) Or (ДоступноДобавлениеПоляНабораНабор(ТекСтрокаНабора)
-		And ТекСтрокаПоля.Type = ВидыПолейНаборовДанных.Set);
+	Return ТекСтрокаПоля.Type = DataSetFieldsTypes.Folder Or (ДоступноДобавлениеПоляНабораПоле(ТекСтрокаНабора)
+		And ТекСтрокаПоля.Type = DataSetFieldsTypes.Field) Or (ДоступноДобавлениеПоляНабораНабор(ТекСтрокаНабора)
+		And ТекСтрокаПоля.Type = DataSetFieldsTypes.Set);
 EndFunction
 
 &AtClient
@@ -1677,7 +1680,7 @@ Procedure УстановитьДоступностьКнопокДобавлен
 	If ТекНабор = Undefined Then
 		Return;
 	EndIf;
-	If ТекНабор.GetID() = ИдентификаторНулевогоНабораДанных Then
+	If ТекНабор.GetID() = NullDataSetURL Then
 		Return;
 	EndIf;
 
@@ -1834,7 +1837,7 @@ Procedure ЗаполнитьДоступныеПоляРесурсов()
 				Continue;
 			EndIf;
 
-			If Field.Type <> ВидыПолейНаборовДанных.Field Then
+			If Field.Type <> DataSetFieldsTypes.Field Then
 				Continue;
 			EndIf;
 
@@ -2157,20 +2160,20 @@ EndProcedure
 Procedure ИнициализироватьКомпоновщикНастроекПоСобраннойСКД()
 
 	CurrentSettingsComposer.Initialize(
-			New DataCompositionAvailableSettingsSource(АдресСхемыКомпоновкиДанных));
+			New DataCompositionAvailableSettingsSource(DataCompositionSchemaURL));
 	CurrentSettingsComposer.Recall();
 EndProcedure
 
 &AtServer
 Procedure СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек()
-	СтрокаПредыдущегоВарианта=SettingVariants.FindByID(ИдентификаторСтрокиТекущегоВариантаНастроек);
+	СтрокаПредыдущегоВарианта=SettingVariants.FindByID(CurrentSettingsVariantID);
 	СтрокаПредыдущегоВарианта.Settings=UT_Common.ValueToXMLString(
 		CurrentSettingsComposer.GetSettings());
 EndProcedure
 
 &AtServer
 Procedure ВариантыНастроекПриАктивизацииСтрокиНаСервере(RowID)
-	If RowID = ИдентификаторСтрокиТекущегоВариантаНастроек Then
+	If RowID = CurrentSettingsVariantID Then
 		Return;
 	EndIf;
 
@@ -2181,7 +2184,7 @@ Procedure ВариантыНастроекПриАктивизацииСтрок
 
 	СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек();
 
-	ИдентификаторСтрокиТекущегоВариантаНастроек=RowID;
+	CurrentSettingsVariantID=RowID;
 
 	If ValueIsFilled(ТекДанные.Settings) Then
 		Settings=UT_Common.ValueFromXMLString(ТекДанные.Settings);
@@ -2197,7 +2200,7 @@ EndProcedure
 
 &AtServer
 Procedure ИнициализироватьФорму()
-	ВидыНаборов=ВидыНаборовДанных();
+	ВидыНаборов=DataSetsTypes();
 
 	ЛокальныйИсточникДанных=DataSources.Add();
 	ЛокальныйИсточникДанных.Name="ИсточникДанных1";
@@ -2211,16 +2214,16 @@ Procedure ИнициализироватьФорму()
 	ВариантНастроекПоУмолчанию.Name="Main";
 	ВариантНастроекПоУмолчанию.Presentation="Main";
 
-	ИдентификаторНулевогоНабораДанных=НулевойНаборДанных.GetID();
-	ИдентификаторСтрокиТекущегоВариантаНастроек=ВариантНастроекПоУмолчанию.GetID();
+	NullDataSetURL=НулевойНаборДанных.GetID();
+	CurrentSettingsVariantID=ВариантНастроекПоУмолчанию.GetID();
 
 	УстановитьУсловноеОформлениеФормы();
 EndProcedure
 
 &AtServer
 Procedure УстановитьУсловноеОформлениеФормы()
-	ВидыПолейНаборов=ВидыПолейНаборовДанных();
-	ВидыНаборов=ВидыНаборовДанных();
+	ВидыПолейНаборов=DataSetFieldsTypes();
+	ВидыНаборов=DataSetsTypes();
 	
 	//1. For Fields набора папка запретить редактировать колонку "Field"
 	НовоеУО=ConditionalAppearance.Items.Add();
@@ -2348,7 +2351,7 @@ EndProcedure
 Procedure ПрочитатьПоляНабораСКДВДанныеФормы(НовыйНабор, СтрокаНабора)
 	НовыйНабор.Fields.Clear();
 
-	ВидыПолейНабораДанныхСКД=ВидыПолейНаборовДанных();
+	ВидыПолейНабораДанныхСКД=DataSetFieldsTypes();
 
 	For Each СтрокаПоля In СтрокаНабора.Fields Do
 		НовоеПоле=НовыйНабор.Fields.Add();
@@ -2396,14 +2399,14 @@ EndProcedure
 Procedure ПрочитатьНаборыДанныхСКДВДанныеФормы(СКДНаборыДанных, СтрокаРодительскогоНабора = Undefined)
 	If СтрокаРодительскогоНабора = Undefined Then
 
-		СтрокаНабораДляЗаполнения=DataSets.FindByID(ИдентификаторНулевогоНабораДанных);
+		СтрокаНабораДляЗаполнения=DataSets.FindByID(NullDataSetURL);
 	Else
 		СтрокаНабораДляЗаполнения=СтрокаРодительскогоНабора;
 	EndIf;
 
 	СтрокаНабораДляЗаполнения.GetItems().Clear();
 
-	ВидыНаборов=ВидыНаборовДанных();
+	ВидыНаборов=DataSetsTypes();
 
 	For Each СтрокаНабора In СКДНаборыДанных Do
 		НовыйНабор=СтрокаНабораДляЗаполнения.GetItems().Add();
@@ -2511,18 +2514,18 @@ Procedure ПрочитатьВариантыНастроекСКДВДанные
 		НовыеДанные.Settings=UT_Common.ValueToXMLString(СтрокаВарианта.Settings);
 	EndDo;
 
-	ИдентификаторСтрокиТекущегоВариантаНастроек=SettingVariants[0].GetID();
+	CurrentSettingsVariantID=SettingVariants[0].GetID();
 
 	CurrentSettingsComposer.LoadSettings(СтрокаВарианта.Settings);
 EndProcedure
 
 &AtServer
 Procedure ПрочитатьСКДВДанныеФормы(СКД)
-	If IsTempStorageURL(АдресПервоначальнойСхемыКомпоновкиДанных) Then
-		АдресПервоначальнойСхемыКомпоновкиДанных=PutToTempStorage(СКД,
-			АдресПервоначальнойСхемыКомпоновкиДанных);
+	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
+		InitialDataCompositionSchemaURL=PutToTempStorage(СКД,
+			InitialDataCompositionSchemaURL);
 	Else
-		АдресПервоначальнойСхемыКомпоновкиДанных=PutToTempStorage(СКД, UUID);
+		InitialDataCompositionSchemaURL=PutToTempStorage(СКД, UUID);
 	EndIf;
 
 	ПрочитатьПараметрыСКДВДанныеФормы(СКД);
@@ -2615,7 +2618,7 @@ EndProcedure
 &AtServer
 Procedure ЗаполнитьПоляНабораСКДПоДаннымФормы(НовыйНабор, СтрокаНабора)
 	НовыйНабор.Fields.Clear();
-	ВидыПолей=ВидыПолейНаборовДанных();
+	ВидыПолей=DataSetFieldsTypes();
 
 	For Each СтрокаПоля In СтрокаНабора.Fields Do
 		НовоеПоле=НовыйНабор.Fields.Add(Type(СтрокаПоля.Type));
@@ -2649,7 +2652,7 @@ Procedure ЗаполнитьНаборыДанныхСКДПоДаннымФор
 //	СКД=Новый СхемаКомпоновкиДанных;
 	If СтрокаРодительскогоНабора = Undefined Then
 
-		СтрокаНабораДляКопирования=DataSets.FindByID(ИдентификаторНулевогоНабораДанных);
+		СтрокаНабораДляКопирования=DataSets.FindByID(NullDataSetURL);
 	Else
 		СтрокаНабораДляКопирования=СтрокаРодительскогоНабора;
 	EndIf;
@@ -2754,8 +2757,8 @@ Procedure ЗаполнитьВариантыНастроекСКДПоДанны
 EndProcedure
 &AtServer
 Procedure СобратьСКДПоДаннымФормы(ВключитьВариантыНастроек = False)
-	If IsTempStorageURL(АдресПервоначальнойСхемыКомпоновкиДанных) Then
-		СКД=GetFromTempStorage(АдресПервоначальнойСхемыКомпоновкиДанных);
+	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
+		СКД=GetFromTempStorage(InitialDataCompositionSchemaURL);
 		If TypeOf(СКД) <> Type("DataCompositionSchema") Then
 			СКД=New DataCompositionSchema;
 		EndIf;
@@ -2774,19 +2777,17 @@ Procedure СобратьСКДПоДаннымФормы(ВключитьВар�
 		ЗаполнитьВариантыНастроекСКДПоДаннымФормы(СКД);
 	EndIf;
 
-	If IsTempStorageURL(АдресСхемыКомпоновкиДанных) Then
-		АдресСхемыКомпоновкиДанных=PutToTempStorage(СКД, АдресСхемыКомпоновкиДанных);
+	If IsTempStorageURL(DataCompositionSchemaURL) Then
+		DataCompositionSchemaURL=PutToTempStorage(СКД, DataCompositionSchemaURL);
 	Else
-		АдресСхемыКомпоновкиДанных=PutToTempStorage(СКД, UUID);
+		DataCompositionSchemaURL=PutToTempStorage(СКД, UUID);
 	EndIf;
 
 	ИнициализироватьКомпоновщикНастроекПоСобраннойСКД();
 EndProcedure
 
-
-
 #EndRegion
 
 #EndRegion
-ВидыНаборовДанных=ВидыНаборовДанных();
-ВидыПолейНаборовДанных=ВидыПолейНаборовДанных();
+DataSetsTypes=DataSetsTypes();
+DataSetFieldsTypes=DataSetFieldsTypes();

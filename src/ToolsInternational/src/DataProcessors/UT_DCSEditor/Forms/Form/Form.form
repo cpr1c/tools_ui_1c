@@ -342,10 +342,6 @@
               <name>НаборыДанныхПроверкаПеретаскивания</name>
             </handlers>
             <handlers>
-              <event>Selection</event>
-              <name>НаборыДанныхВыбор</name>
-            </handlers>
-            <handlers>
               <event>BeforeAddRow</event>
               <name>НаборыДанныхПередНачаломДобавления</name>
             </handlers>
@@ -364,6 +360,10 @@
             <handlers>
               <event>BeforeRowChange</event>
               <name>НаборыДанныхПередНачаломИзменения</name>
+            </handlers>
+            <handlers>
+              <event>Selection</event>
+              <name>DataSetsSelection</name>
             </handlers>
             <searchStringAddition>
               <visible>true</visible>
@@ -13064,7 +13064,7 @@ In the structure tree, select the report and edit additional report settings.</v
     <extInfo xsi:type="form:PagesGroupExtInfo">
       <handlers>
         <event>OnCurrentPageChange</event>
-        <name>ГруппаЗакладкиРедактораПриСменеСтраницы</name>
+        <name>GroupEditorTabsOnCurrentPageChange</name>
       </handlers>
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
       <currentRowUse>Auto</currentRowUse>
