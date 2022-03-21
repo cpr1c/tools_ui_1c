@@ -649,7 +649,7 @@
             <enableDrag>true</enableDrag>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>GroupCommandsReadSaveSchema</name>
+            <name>GroupCommandsReadSaveDCS</name>
             <id>775</id>
             <items xsi:type="form:Button">
               <name>ReadSchemaFromFile</name>
@@ -722,10 +722,10 @@
             </userVisible>
             <title>
               <key>en</key>
-              <value>Group commands read save schema</value>
+              <value>Group commands read save DCS</value>
             </title>
             <extendedTooltip>
-              <name>GroupCommandsReadSaveSchemaExtendedTooltip</name>
+              <name>GroupCommandsReadSaveDCSExtendedTooltip</name>
               <id>776</id>
               <visible>true</visible>
               <enabled>true</enabled>

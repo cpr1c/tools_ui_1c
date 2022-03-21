@@ -4,27 +4,27 @@ Var DataSetsTypes;
 &AtClient
 Var DataSetFieldsTypes;
 
-#Region СобытияФормы
+#Region FormEvents
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	ИнициализироватьФорму();
 
-	If Parameters.Property("СКД") Then
+	If Parameters.Property("DCS") Then
 		ChoiceMode=True;
-		If IsTempStorageURL(Parameters.СКД) Then
-			СКД=GetFromTempStorage(Parameters.СКД);
+		If IsTempStorageURL(Parameters.DCS) Then
+			DCS=GetFromTempStorage(Parameters.DCS);
 		Else
 			Try
 				XMLReader = New XMLReader;
-				XMLReader.SetString(Parameters.СКД);
-				СКД= XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionSchema"));
+				XMLReader.SetString(Parameters.DCS);
+				DCS= XDTOSerializer.ReadXML(XMLReader, Type("DataCompositionSchema"));
 			Except
-				СКД=Undefined;
+				DCS=Undefined;
 			EndTry;
 		EndIf;
 
-		If СКД <> Undefined Then
-			ПрочитатьСКДВДанныеФормы(СКД);
+		If DCS <> Undefined Then
+			ПрочитатьСКДВДанныеФормы(DCS);
 		EndIf;
 	EndIf;
 
@@ -32,7 +32,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		ThisForm.CommandBarLocation=FormCommandBarLabelLocation.None;
 	EndIf;
 	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing,
-		Items.ГруппаКомандыЧтенияСохраненияСКД);
+		Items.GroupCommandsReadSaveDCS);
 
 EndProcedure
 &AtClient
@@ -446,7 +446,7 @@ EndProcedure
 Procedure ResourceAvailableFieldSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing=False;
 
-	ДобавитьРесурс(SelectedRow);
+	ДобавитьРесурс(RowSelected);
 EndProcedure
 
 &AtClient
@@ -1217,13 +1217,13 @@ Procedure ПрочитатьСхемуИзФайлаНаСервере(Адре�
 	Text.Read(ДД.OpenStreamForRead());
 
 	Try
-		СКД=UT_Common.ValueFromXMLString(Text.GetText());
+		DCS=UT_Common.ValueFromXMLString(Text.GetText());
 	Except
 		Message(StrTemplate("Not удалось прочитать СКД из файла: %1", ErrorDescription()));
 		Return;
 	EndTry;
 
-	ПрочитатьСКДВДанныеФормы(СКД);
+	ПрочитатьСКДВДанныеФормы(DCS);
 EndProcedure
 
 #EndRegion
@@ -2356,10 +2356,10 @@ EndProcedure
 #Region СКД
 
 &AtServer
-Procedure ПрочитатьИсточникиДанныхСКДВДанныеФормы(СКД)
+Procedure ПрочитатьИсточникиДанныхСКДВДанныеФормы(DCS)
 	DataSources.Clear();
 
-	For Each ТекИсточник In СКД.DataSources Do
+	For Each ТекИсточник In DCS.DataSources Do
 		НовыйИсточник=DataSources.Add();
 		FillPropertyValues(НовыйИсточник, ТекИсточник);
 	EndDo;
@@ -2470,10 +2470,10 @@ Procedure ПрочитатьНаборыДанныхСКДВДанныеФорм
 	EndDo;
 EndProcedure
 &AtServer
-Procedure ПрочитатьСвязиНаборовДанныхСКДВДанныеФормы(СКД)
+Procedure ПрочитатьСвязиНаборовДанныхСКДВДанныеФормы(DCS)
 	DataSetLinks.Clear();
 
-	For Each ТекДанные In СКД.DataSetLinks Do
+	For Each ТекДанные In DCS.DataSetLinks Do
 		НовыеДанные=DataSetLinks.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные);
 	EndDo;
@@ -2490,10 +2490,10 @@ Procedure ПрочитатьОграничениеИспользованияПо
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьВычисляемыеПоляСКДВДанныеФормы(СКД)
+Procedure ПрочитатьВычисляемыеПоляСКДВДанныеФормы(DCS)
 	CalculatedFields.Clear();
 
-	For Each ТекДанные In СКД.CalculatedFields Do
+	For Each ТекДанные In DCS.CalculatedFields Do
 		НовыеДанные=CalculatedFields.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "OrderExpressions,Appearance,EditParameters");
 
@@ -2509,10 +2509,10 @@ Procedure ПрочитатьВычисляемыеПоляСКДВДанныеФ
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьПоляИтоговСКДВДанныеФормы(СКД)
+Procedure ПрочитатьПоляИтоговСКДВДанныеФормы(DCS)
 	Resources.Clear();
 
-	For Each ТекДанные In СКД.TotalFields Do
+	For Each ТекДанные In DCS.TotalFields Do
 		НовыеДанные=Resources.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "Groups");
 
@@ -2522,10 +2522,10 @@ Procedure ПрочитатьПоляИтоговСКДВДанныеФормы(�
 	EndDo;
 EndProcedure
 &AtServer
-Procedure ПрочитатьПараметрыСКДВДанныеФормы(СКД)
+Procedure ПрочитатьПараметрыСКДВДанныеФормы(DCS)
 	DCSParameters.Clear();
 
-	For Each ТекДанные In СКД.Parameters Do
+	For Each ТекДанные In DCS.Parameters Do
 		НовыеДанные=DCSParameters.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "EditParameters");
 
@@ -2536,10 +2536,10 @@ Procedure ПрочитатьПараметрыСКДВДанныеФормы(С�
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьВариантыНастроекСКДВДанныеФормы(СКД)
+Procedure ПрочитатьВариантыНастроекСКДВДанныеФормы(DCS)
 	SettingVariants.Clear();
 
-	For Each СтрокаВарианта In СКД.SettingVariants Do
+	For Each СтрокаВарианта In DCS.SettingVariants Do
 		НовыеДанные=SettingVariants.Add();
 		НовыеДанные.Name=СтрокаВарианта.Name;
 		НовыеДанные.Presentation=СтрокаВарианта.Presentation;
@@ -2552,32 +2552,32 @@ Procedure ПрочитатьВариантыНастроекСКДВДанные
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьСКДВДанныеФормы(СКД)
+Procedure ПрочитатьСКДВДанныеФормы(DCS)
 	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
-		InitialDataCompositionSchemaURL=PutToTempStorage(СКД,
+		InitialDataCompositionSchemaURL=PutToTempStorage(DCS,
 			InitialDataCompositionSchemaURL);
 	Else
-		InitialDataCompositionSchemaURL=PutToTempStorage(СКД, UUID);
+		InitialDataCompositionSchemaURL=PutToTempStorage(DCS, UUID);
 	EndIf;
 
-	ПрочитатьПараметрыСКДВДанныеФормы(СКД);
-	ПрочитатьИсточникиДанныхСКДВДанныеФормы(СКД);
-	ПрочитатьНаборыДанныхСКДВДанныеФормы(СКД.DataSets);
-	ПрочитатьСвязиНаборовДанныхСКДВДанныеФормы(СКД);
+	ПрочитатьПараметрыСКДВДанныеФормы(DCS);
+	ПрочитатьИсточникиДанныхСКДВДанныеФормы(DCS);
+	ПрочитатьНаборыДанныхСКДВДанныеФормы(DCS.DataSets);
+	ПрочитатьСвязиНаборовДанныхСКДВДанныеФормы(DCS);
 
-	ПрочитатьВычисляемыеПоляСКДВДанныеФормы(СКД);
-	ПрочитатьПоляИтоговСКДВДанныеФормы(СКД);
+	ПрочитатьВычисляемыеПоляСКДВДанныеФормы(DCS);
+	ПрочитатьПоляИтоговСКДВДанныеФормы(DCS);
 
-	ПрочитатьВариантыНастроекСКДВДанныеФормы(СКД);
+	ПрочитатьВариантыНастроекСКДВДанныеФормы(DCS);
 
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьИсточникиДанныхСКДПоДаннымФормы(СКД)
-	СКД.DataSources.Clear();
+Procedure ЗаполнитьИсточникиДанныхСКДПоДаннымФормы(DCS)
+	DCS.DataSources.Clear();
 
 	For Each ТекИсточник In DataSources Do
-		НовыйИсточник=СКД.DataSources.Add();
+		НовыйИсточник=DCS.DataSources.Add();
 		FillPropertyValues(НовыйИсточник, ТекИсточник);
 	EndDo;
 EndProcedure
@@ -2681,7 +2681,7 @@ Procedure ЗаполнитьПоляНабораСКДПоДаннымФормы
 EndProcedure
 &AtServer
 Procedure ЗаполнитьНаборыДанныхСКДПоДаннымФормы(СКДНаборыДанных, СтрокаРодительскогоНабора = Undefined)
-//	СКД=Новый СхемаКомпоновкиДанных;
+//	DCS=Новый СхемаКомпоновкиДанных;
 	If СтрокаРодительскогоНабора = Undefined Then
 
 		СтрокаНабораДляКопирования=DataSets.FindByID(NullDataSetURL);
@@ -2705,21 +2705,21 @@ Procedure ЗаполнитьНаборыДанныхСКДПоДаннымФор
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьСвязиНаборовДанныхСКДПоДаннымФормы(СКД)
-	СКД.DataSetLinks.Clear();
+Procedure ЗаполнитьСвязиНаборовДанныхСКДПоДаннымФормы(DCS)
+	DCS.DataSetLinks.Clear();
 
 	For Each ТекДанные In DataSetLinks Do
-		НовыеДанные=СКД.DataSetLinks.Add();
+		НовыеДанные=DCS.DataSetLinks.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные);
 	EndDo;
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьВычисляемыеПоляСКДПоДаннымФормы(СКД)
-	СКД.CalculatedFields.Clear();
+Procedure ЗаполнитьВычисляемыеПоляСКДПоДаннымФормы(DCS)
+	DCS.CalculatedFields.Clear();
 
 	For Each ТекДанные In CalculatedFields Do
-		НовыеДанные=СКД.CalculatedFields.Add();
+		НовыеДанные=DCS.CalculatedFields.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "OrderExpressions,Appearance,EditParameters");
 
 		ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(НовыеДанные.UseRestriction,
@@ -2733,11 +2733,11 @@ Procedure ЗаполнитьВычисляемыеПоляСКДПоДанным
 	EndDo;
 EndProcedure
 &AtServer
-Procedure ЗаполнитьПоляИтоговСКДПоДаннымФормы(СКД)
-	СКД.TotalFields.Clear();
+Procedure ЗаполнитьПоляИтоговСКДПоДаннымФормы(DCS)
+	DCS.TotalFields.Clear();
 
 	For Each ТекДанные In Resources Do
-		НовыеДанные=СКД.TotalFields.Add();
+		НовыеДанные=DCS.TotalFields.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "Groups");
 
 		For Each Item In ТекДанные.Groups Do
@@ -2746,11 +2746,11 @@ Procedure ЗаполнитьПоляИтоговСКДПоДаннымФормы
 	EndDo;
 EndProcedure
 &AtServer
-Procedure ЗаполнитьПараметрыСКДПоДаннымФормы(СКД)
-	СКД.Parameters.Clear();
+Procedure ЗаполнитьПараметрыСКДПоДаннымФормы(DCS)
+	DCS.Parameters.Clear();
 
 	For Each ТекДанные In DCSParameters Do
-		НовыеДанные=СКД.Parameters.Add();
+		НовыеДанные=DCS.Parameters.Add();
 		FillPropertyValues(НовыеДанные, ТекДанные, , "EditParameters");
 
 		If ТекДанные.UseAlways Then
@@ -2774,11 +2774,11 @@ Procedure УстановитьДоступныеЗначенияУЭлемент
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьВариантыНастроекСКДПоДаннымФормы(СКД)
-	СКД.SettingVariants.Clear();
+Procedure ЗаполнитьВариантыНастроекСКДПоДаннымФормы(DCS)
+	DCS.SettingVariants.Clear();
 
 	For Each СтрокаВарианта In SettingVariants Do
-		НовыеДанные=СКД.SettingVariants.Add();
+		НовыеДанные=DCS.SettingVariants.Add();
 		НовыеДанные.Name=СтрокаВарианта.Name;
 		НовыеДанные.Presentation=СтрокаВарианта.Presentation;
 		If ValueIsFilled(СтрокаВарианта.Settings) Then
@@ -2790,29 +2790,29 @@ EndProcedure
 &AtServer
 Procedure СобратьСКДПоДаннымФормы(ВключитьВариантыНастроек = False)
 	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
-		СКД=GetFromTempStorage(InitialDataCompositionSchemaURL);
-		If TypeOf(СКД) <> Type("DataCompositionSchema") Then
-			СКД=New DataCompositionSchema;
+		DCS=GetFromTempStorage(InitialDataCompositionSchemaURL);
+		If TypeOf(DCS) <> Type("DataCompositionSchema") Then
+			DCS=New DataCompositionSchema;
 		EndIf;
 	Else
-		СКД=New DataCompositionSchema;
+		DCS=New DataCompositionSchema;
 	EndIf;
-	ЗаполнитьИсточникиДанныхСКДПоДаннымФормы(СКД);
-	ЗаполнитьНаборыДанныхСКДПоДаннымФормы(СКД.DataSets);
-	ЗаполнитьСвязиНаборовДанныхСКДПоДаннымФормы(СКД);
-	ЗаполнитьВычисляемыеПоляСКДПоДаннымФормы(СКД);
-	ЗаполнитьПоляИтоговСКДПоДаннымФормы(СКД);
-	ЗаполнитьПараметрыСКДПоДаннымФормы(СКД);
+	ЗаполнитьИсточникиДанныхСКДПоДаннымФормы(DCS);
+	ЗаполнитьНаборыДанныхСКДПоДаннымФормы(DCS.DataSets);
+	ЗаполнитьСвязиНаборовДанныхСКДПоДаннымФормы(DCS);
+	ЗаполнитьВычисляемыеПоляСКДПоДаннымФормы(DCS);
+	ЗаполнитьПоляИтоговСКДПоДаннымФормы(DCS);
+	ЗаполнитьПараметрыСКДПоДаннымФормы(DCS);
 
 	If ВключитьВариантыНастроек Then
 		СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек();
-		ЗаполнитьВариантыНастроекСКДПоДаннымФормы(СКД);
+		ЗаполнитьВариантыНастроекСКДПоДаннымФормы(DCS);
 	EndIf;
 
 	If IsTempStorageURL(DataCompositionSchemaURL) Then
-		DataCompositionSchemaURL=PutToTempStorage(СКД, DataCompositionSchemaURL);
+		DataCompositionSchemaURL=PutToTempStorage(DCS, DataCompositionSchemaURL);
 	Else
-		DataCompositionSchemaURL=PutToTempStorage(СКД, UUID);
+		DataCompositionSchemaURL=PutToTempStorage(DCS, UUID);
 	EndIf;
 
 	ИнициализироватьКомпоновщикНастроекПоСобраннойСКД();
