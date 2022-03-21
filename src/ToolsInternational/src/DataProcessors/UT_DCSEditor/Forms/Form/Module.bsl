@@ -47,11 +47,11 @@ EndProcedure
 
 &AtClient
 Procedure ГруппаЗакладкиРедактораПриСменеСтраницы(Item, CurrentPage)
-	If CurrentPage = Items.ГруппаСтраницаСвязиНаборовДанных Then
+	If CurrentPage = Items.GroupPageDataSetLinks Then
 		ЗаполнитьВспомогательныеДанныеСвязейНаборовДанных();
-	ElsIf CurrentPage = Items.ГруппаСтраницаРесурсы Then
+	ElsIf CurrentPage = Items.GroupPageResources Then
 		ЗаполнитьВспомогательныеДанныеРесурсов();
-	ElsIf CurrentPage = Items.ГруппаСтраницаНастройки Then
+	ElsIf CurrentPage = Items.GroupPageSettings Then
 		СобратьСКДПоДаннымФормы();
 	EndIf;
 EndProcedure
@@ -190,29 +190,29 @@ Procedure НаборыДанныхПриАктивизацииСтроки(Item)
 		Return;
 	EndIf;
 	If ТекДанныеНабора.Type = ВидыНаборовДанных.Root Then
-		Items.ГруппаНаборыДанныхПраваяПанель.CurrentPage=Items.ГруппаНаборыДанныхПраваяПанельИсточникиДанных;
+		Items.GroupDataSetsRightPanel.CurrentPage=Items.GroupDataSetsRightPanelDataSources;
 		Return;
 	EndIf;
 
-	Items.ГруппаНаборыДанныхПраваяПанель.CurrentPage=Items.ГруппаНаборыДанныхПраваяПанельДанныеНабора;
+	Items.GroupDataSetsRightPanel.CurrentPage=Items.GroupDataSetsRightPanelDataSetData;
 
 	ТекДанныеНабора=Items.DataSets.CurrentData;
-	Items.ГруппаПанельРедактированияНастроекНабора.Visible=ТекДанныеНабора.Type <> ВидыНаборовДанных.Union;
+	Items.GroupDataSetSettingsEditingPanel.Visible=ТекДанныеНабора.Type <> ВидыНаборовДанных.Union;
 	If ТекДанныеНабора.Type = ВидыНаборовДанных.Query Then
-		Items.ГруппаПанельРедактированияНастроекНабора.CurrentPage=Items.ГруппаСтраницаРедактированияНастроекНабораЗапрос;
+		Items.GroupDataSetSettingsEditingPanel.CurrentPage=Items.GroupPageDataSetQueryEditingPage;
 	ElsIf ТекДанныеНабора.Type = ВидыНаборовДанных.Object Then
-		Items.ГруппаПанельРедактированияНастроекНабора.CurrentPage=Items.ГруппаСтраницаРедактированияНастроекНабораОбъект;
+		Items.GroupDataSetSettingsEditingPanel.CurrentPage=Items.GroupPageDataSetObjectEditingPage;
 	EndIf;
 
-	Items.ПоляНаборДанныхПроверкиИерархии.ChoiceList.Clear();
-	Items.ПоляНаборДанныхПроверкиИерархии.ChoiceList.Add("");
+	Items.FieldsHierarchyCheckDataSet.ChoiceList.Clear();
+	Items.FieldsHierarchyCheckDataSet.ChoiceList.Add("");
 
 	For Each Set In НаборыДанныхВерхнегоУровня() Do
 		If Set.Name = ТекДанныеНабора.Name Then
 			Continue;
 		EndIf;
 
-		Items.ПоляНаборДанныхПроверкиИерархии.ChoiceList.Add(Set.Name);
+		Items.FieldsHierarchyCheckDataSet.ChoiceList.Add(Set.Name);
 	EndDo;
 
 	ЗаполнитьСписокВыбораИсточникаДанныхНабора();
@@ -232,7 +232,7 @@ EndProcedure
 Procedure НаборыДанныхПоляРольПредставлениеНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
 	StandardProcessing=False;
 
-	ТекДанные=Items.НаборыДанныхПоля.CurrentData;
+	ТекДанные=Items.DataSetsFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -253,7 +253,7 @@ Procedure НаборыДанныхПоляРольПредставлениеНа
 	ПараметрыФормы.Insert("DataPath", ТекДанные.DataPath);
 
 	ПараметрыОповещения=New Structure;
-	ПараметрыОповещения.Insert("RowID", Items.НаборыДанныхПоля.CurrentLine);
+	ПараметрыОповещения.Insert("RowID", Items.DataSetsFields.CurrentLine);
 	ПараметрыОповещения.Insert("ИдентификаторСтрокиНабора", Items.DataSets.CurrentLine);
 
 	OpenForm("DataProcessor.UT_DCSEditor.Form.FormEditDataSetFieldRole", ПараметрыФормы, ThisObject, ,
@@ -263,7 +263,7 @@ EndProcedure
 
 &AtClient
 Procedure ПоляДоступныеЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	ТекДанные=Items.НаборыДанныхПоля.CurrentData;
+	ТекДанные=Items.DataSetsFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -286,7 +286,7 @@ Procedure НаборыДанныхПоляПриНачалеРедактиров
 		Return;
 	EndIf;
 
-	ТекСтрока=Items.НаборыДанныхПоля.CurrentData;
+	ТекСтрока=Items.DataSetsFields.CurrentData;
 	If ТекСтрока = Undefined Then
 		Return;
 	EndIf;
@@ -339,19 +339,19 @@ Procedure НаборыДанныхПоляПередНачаломДобавле
 		Cancel=True;
 	Else
 		Cancel=Not ДоступноКопированиеУдаленияПоляНабора(Items.DataSets.CurrentData,
-			Items.НаборыДанныхПоля.CurrentData);
+			Items.DataSetsFields.CurrentData);
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure НаборыДанныхПоляПередУдалением(Item, Cancel)
 	Cancel=Not ДоступноКопированиеУдаленияПоляНабора(Items.DataSets.CurrentData,
-		Items.НаборыДанныхПоля.CurrentData);
+		Items.DataSetsFields.CurrentData);
 EndProcedure
 
 &AtClient
 Procedure ПоляПутьКДаннымПриИзменении(Item)
-	ТекДанные=Items.НаборыДанныхПоля.CurrentData;
+	ТекДанные=Items.DataSetsFields.CurrentData;
 	If ТекДанные = Undefined Then
 		Return;
 	EndIf;
@@ -374,12 +374,12 @@ EndProcedure
 
 &AtClient
 Procedure ПоляТипЗначенияНачалоВыбора(Item, ДанныеВыбора, StandardProcessing)
-	ТекДанные=Items.НаборыДанныхПоля.CurrentData;
+	ТекДанные=Items.DataSetsFields.CurrentData;
 	If ТекДанные=Undefined Then
 		Return;
 	EndIf;
 	
-	UT_CommonClient.EditType(ТекДанные.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("ПоляТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.НаборыДанныхПоля.CurrentLine)));
+	UT_CommonClient.EditType(ТекДанные.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("ПоляТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.DataSetsFields.CurrentLine)));
 EndProcedure
 
 
@@ -404,7 +404,7 @@ Procedure СвязиНаборовДанныхНаборДанныхПриемн
 		Return;
 	EndIf;
 
-	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.СвязиНаборовДанныхВыражениеПриемник);
+	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.DataSetLinksDestinationExpression);
 EndProcedure
 
 &AtClient
@@ -415,7 +415,7 @@ Procedure СвязиНаборовДанныхПередНачаломИзмен
 	EndIf;
 
 	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.SourceDataSet, Items.СвязиНаборовДанныхВыражениеИсточник);
-	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.СвязиНаборовДанныхВыражениеПриемник);
+	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.DataSetLinksDestinationExpression);
 
 EndProcedure
 #EndRegion
@@ -727,33 +727,33 @@ Procedure КомпоновщикНастроекНастройкиПриАкти
 
 	Var ВыбраннаяСтраница;
 
-	If Items.КомпоновщикНастроекНастройки.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеВыбора" Then
+	If Items.Settings.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеВыбора" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПолейВыбора;
+		ВыбраннаяСтраница = Items.SelectionFieldsPage;
 
-	ElsIf Items.КомпоновщикНастроекНастройки.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеОтбора" Then
+	ElsIf Items.Settings.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеОтбора" Then
 
-		ВыбраннаяСтраница = Items.СтраницаОтбора;
+		ВыбраннаяСтраница = Items.FilterPage;
 
-	ElsIf Items.КомпоновщикНастроекНастройки.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеПорядка" Then
+	ElsIf Items.Settings.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеПорядка" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПорядка;
+		ВыбраннаяСтраница = Items.OrderPage;
 
-	ElsIf Items.КомпоновщикНастроекНастройки.CurrentItem.Name
+	ElsIf Items.Settings.CurrentItem.Name
 		= "КомпоновщикНастроекНастройкиНаличиеУсловногоОформления" Then
 
-		ВыбраннаяСтраница = Items.СтраницаУсловногоОформления;
+		ВыбраннаяСтраница = Items.ConditionalAppearancePage;
 
-	ElsIf Items.КомпоновщикНастроекНастройки.CurrentItem.Name
+	ElsIf Items.Settings.CurrentItem.Name
 		= "КомпоновщикНастроекНастройкиНаличиеПараметровВывода" Then
 
-		ВыбраннаяСтраница = Items.СтраницаПараметровВывода;
+		ВыбраннаяСтраница = Items.OutputParametersPage;
 
 	EndIf;
 
 	If ВыбраннаяСтраница <> Undefined Then
 
-		Items.СтраницыНастроек.CurrentPage = ВыбраннаяСтраница;
+		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
 
 	EndIf;
 
@@ -763,7 +763,7 @@ EndProcedure
 Procedure КомпоновщикНастроекНастройкиПриАктивизацииСтроки(Item)
 
 	ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-		Items.КомпоновщикНастроекНастройки.CurrentLine);
+		Items.Settings.CurrentLine);
 	ItemType = TypeOf(ЭлементСтруктуры);
 
 	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
@@ -783,28 +783,28 @@ Procedure КомпоновщикНастроекНастройкиПриАкти
 
 		LocalSelectedFields = True;
 		Items.LocalSelectedFields.ReadOnly = True;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
+		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
 
 		LocalFilter = True;
 		Items.LocalFilter.ReadOnly = True;
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 		LocalOrder = True;
 		Items.LocalOrder.ReadOnly = True;
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 		LocalConditionalAppearance = True;
 		Items.LocalConditionalAppearance.ReadOnly = True;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 		LocalOutputParameters = True;
 		Items.LocalOutputParameters.ReadOnly = True;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	ElsIf ItemType = Type("DataCompositionGroup") Or ItemType = Type(
 		"DataCompositionTableGroup") Or ItemType = Type("DataCompositionChartGroup") Then
 
-		Items.СтраницыПолейГруппировки.CurrentPage = Items.НастройкиПолейГруппировки;
+		Items.GroupFieldsPages.CurrentPage = Items.GroupFieldsSettings;
 
 		SelectedFieldsAvailable(ЭлементСтруктуры);
 		FilterAvailable(ЭлементСтруктуры);
@@ -829,9 +829,9 @@ EndProcedure
 Procedure GoToReport(Item)
 
 	ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-		Items.КомпоновщикНастроекНастройки.CurrentLine);
+		Items.Settings.CurrentLine);
 	ItemSettings =  CurrentSettingsComposer.Settings.ItemSettings(ЭлементСтруктуры);
-	Items.КомпоновщикНастроекНастройки.CurrentLine = CurrentSettingsComposer.Settings.GetIDByObject(
+	Items.Settings.CurrentLine = CurrentSettingsComposer.Settings.GetIDByObject(
 		ItemSettings);
 
 EndProcedure
@@ -841,14 +841,14 @@ Procedure ЛокальныеВыбранныеПоляПриИзменении(I
 
 	If LocalSelectedFields Then
 
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
+		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
 
 	Else
 
-		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
+		Items.SelectionFieldsPages.CurrentPage = Items.DisabledSelectedFieldsSettings;
 
 		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.КомпоновщикНастроекНастройки.CurrentLine);
+			Items.Settings.CurrentLine);
 		CurrentSettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
 
 	EndIf;
@@ -860,14 +860,14 @@ Procedure ЛокальныйОтборПриИзменении(Item)
 
 	If LocalFilter Then
 
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 	Else
 
-		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
 		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.КомпоновщикНастроекНастройки.CurrentLine);
+			Items.Settings.CurrentLine);
 		CurrentSettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
 
 	EndIf;
@@ -879,14 +879,14 @@ Procedure ЛокальныйПорядокПриИзменении(Item)
 
 	If LocalOrder Then
 
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 	Else
 
-		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
 		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.КомпоновщикНастроекНастройки.CurrentLine);
+			Items.Settings.CurrentLine);
 		CurrentSettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
 
 	EndIf;
@@ -898,14 +898,14 @@ Procedure ЛокальноеУсловноеОформлениеПриИзмен
 
 	If LocalConditionalAppearance Then
 
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 	Else
 
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
 		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.КомпоновщикНастроекНастройки.CurrentLine);
+			Items.Settings.CurrentLine);
 		CurrentSettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
 
 	EndIf;
@@ -917,14 +917,14 @@ Procedure ЛокальныеПараметрыВыводаПриИзменени
 
 	If LocalOutputParameters Then
 
-		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	Else
 
-		Items.СтраницыПараметровВывода.CurrentPage = Items.ОтключенныеНастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
 		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.КомпоновщикНастроекНастройки.CurrentLine);
+			Items.Settings.CurrentLine);
 		CurrentSettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
 	EndIf;
 
@@ -972,17 +972,17 @@ Procedure AddDataSetQuery(Command)
 EndProcedure
 
 &AtClient
-Procedure ДобавитьНаборДанныхОбъект(Command)
+Procedure AddDataSetObject(Command)
 	ДобавитьНаборДанных(ВидыНаборовДанных.Object);
 EndProcedure
 
 &AtClient
-Procedure ДобавитьНаборДанныхОбъединение(Command)
+Procedure AddDataSetUnion(Command)
 	ДобавитьНаборДанных(ВидыНаборовДанных.Union);
 EndProcedure
 
 &AtClient
-Procedure УдалитьНаборДанных(Command)
+Procedure DeleteDataSet(Command)
 	ИдентификаторТекущейСтроки=Items.DataSets.CurrentLine;
 	If ИдентификаторТекущейСтроки = ИдентификаторНулевогоНабораДанных Then
 		Return;
@@ -1036,7 +1036,7 @@ Procedure OpenQueryWizard(Command)
 EndProcedure
 
 &AtClient
-Procedure ДобавитьРесурсИзДоступных(Command)
+Procedure AddResourceFromAvailable(Command)
 	ТекДанные=Items.ResourceAvailableField.CurrentLine;
 	If ТекДанные = Undefined Then
 		Return;
@@ -1046,7 +1046,7 @@ Procedure ДобавитьРесурсИзДоступных(Command)
 EndProcedure
 
 &AtClient
-Procedure ДобавитьЧисловыеРесурсыИзДоступных(Command)
+Procedure AddNumericResourcesFromAvailable(Command)
 	For Each Стр In ResourceAvailableField Do
 		If Not Стр.ВычисляемоеПоле And Not Стр.Числовое Then
 			Continue;
@@ -1057,7 +1057,7 @@ Procedure ДобавитьЧисловыеРесурсыИзДоступных(C
 EndProcedure
 
 &AtClient
-Procedure УдалитьРесурс(Command)
+Procedure DeleteResource(Command)
 	ТекСтрокаРесурсов=Items.Resources.CurrentLine;
 	If ТекСтрокаРесурсов = Undefined Then
 		Return;
@@ -1067,40 +1067,40 @@ Procedure УдалитьРесурс(Command)
 EndProcedure
 
 &AtClient
-Procedure УдалитьВсеРесурсы(Command)
+Procedure DeleteAllResources(Command)
 	Resources.Clear();
 EndProcedure
 
 &AtClient
-Procedure СохранитьСхемуВФайл(Command)
+Procedure SaveSchemaToFile(Command)
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
 		New NotifyDescription("СохранитьСхемуВФайлЗавершение", ThisObject));
 EndProcedure
 &AtClient
-Procedure ПрочитатьСхемуИзФайла(Command)
+Procedure ReadSchemaFromFile(Command)
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
 		New NotifyDescription("ПрочитатьСхемуИзФайлаЗавершение", ThisObject));
 EndProcedure
 
 &AtClient
-Procedure ЗавершитьРедактирование(Command)
+Procedure FinishEdit(Command)
 	СобратьСКДПоДаннымФормы(True);
 
 	Close(АдресСхемыКомпоновкиДанных);
 EndProcedure
 
 &AtClient
-Procedure ДобавитьПолеНабораПапка(Command)
+Procedure AddDataSetFieldFolder(Command)
 	ВручнуюДобавитьПолеНабораДанных(ВидыПолейНаборовДанных.Folder);
 EndProcedure
 
 &AtClient
-Procedure ДобавитьПолеНабораПоле(Command)
+Procedure AddDataSetFieldField(Command)
 	ВручнуюДобавитьПолеНабораДанных(ВидыПолейНаборовДанных.Field);
 EndProcedure
 
 &AtClient
-Procedure ДобавитьПолеНабораНабор(Command)
+Procedure AddDataSetFieldSet(Command)
 	ВручнуюДобавитьПолеНабораДанных(ВидыПолейНаборовДанных.Set);
 EndProcedure
 
@@ -1516,10 +1516,10 @@ EndFunction
 
 &AtClient
 Procedure ЗаполнитьСписокВыбораИсточникаДанныхНабора()
-	Items.НаборыДанныхИсточникДанных.ChoiceList.Clear();
+	Items.DataSetsDataSource.ChoiceList.Clear();
 
 	For Each Стр In DataSources Do
-		Items.НаборыДанныхИсточникДанных.ChoiceList.Add(Стр.Name);
+		Items.DataSetsDataSource.ChoiceList.Add(Стр.Name);
 	EndDo;
 EndProcedure
 
@@ -1629,7 +1629,7 @@ Procedure ВручнуюДобавитьПолеНабораДанных(Вид�
 		НовоеПоле.Field=НовоеПоле.DataPath;
 	EndIf;
 
-	Items.НаборыДанныхПоля.CurrentLine=НовоеПоле.GetID();
+	Items.DataSetsFields.CurrentLine=НовоеПоле.GetID();
 	
 	РодительскийНабор=СтрокаНабора.GetParent();
 	If РодительскийНабор.Type=ВидыНаборовДанных.Union Then
@@ -1683,20 +1683,20 @@ Procedure УстановитьДоступностьКнопокДобавлен
 
 	ДоступноДобавлениеПоля=ДоступноДобавлениеПоляНабораПоле(ТекНабор);
 	ДоступноДобавлениеНабора=ДоступноДобавлениеПоляНабораНабор(ТекНабор);
-	ДоступноКопирование=ДоступноКопированиеУдаленияПоляНабора(ТекНабор, Items.НаборыДанныхПоля.CurrentData);
+	ДоступноКопирование=ДоступноКопированиеУдаленияПоляНабора(ТекНабор, Items.DataSetsFields.CurrentData);
 	ДоступноУдаление=ДоступноКопирование;
 
-	Items.НаборыДанныхПоляДобавитьПолеНабораПоле.Enabled=ДоступноДобавлениеПоля;
-	Items.НаборыДанныхПоляДобавитьПолеНабораПоле1.Visible=ДоступноДобавлениеПоля;
+	Items.DataSetsFieldsAddDataSetFieldField.Enabled=ДоступноДобавлениеПоля;
+	Items.DataSetsFieldsAddDataSetFieldField1.Visible=ДоступноДобавлениеПоля;
 
-	Items.НаборыДанныхПоляДобавитьПолеНабораНабор.Enabled=ДоступноДобавлениеНабора;
-	Items.НаборыДанныхПоляДобавитьПолеНабораНабор1.Visible=ДоступноДобавлениеНабора;
+	Items.DataSetsFieldsAddDataSetFieldSet.Enabled=ДоступноДобавлениеНабора;
+	Items.DataSetsFieldsAddDataSetFieldSet1.Visible=ДоступноДобавлениеНабора;
 
-	Items.НаборыДанныхПоляСкопировать.Enabled=ДоступноКопирование;
-	Items.НаборыДанныхПоляСкопировать1.Visible=ДоступноКопирование;
+	Items.DataSetsFieldsCopy.Enabled=ДоступноКопирование;
+	Items.DataSetsFieldsCopy1.Visible=ДоступноКопирование;
 
-	Items.НаборыДанныхПоляУдалить.Enabled=ДоступноКопирование;
-	Items.НаборыДанныхПоляУдалить1.Visible=ДоступноУдаление;
+	Items.DataSetsFieldsDelete.Enabled=ДоступноКопирование;
+	Items.DataSetsFieldsDelete1.Visible=ДоступноУдаление;
 
 EndProcedure
 
@@ -1735,12 +1735,12 @@ EndProcedure
 Procedure ЗаполнитьВспомогательныеДанныеСвязейНаборовДанных()
 	Наборы=НаборыДанныхВерхнегоУровня();
 
-	Items.СвязиНаборовДанныхНаборДанныхИсточник.ChoiceList.Clear();
-	Items.СвязиНаборовДанныхНаборДанныхПриемник.ChoiceList.Clear();
+	Items.DataSetLinksSourceDataSet.ChoiceList.Clear();
+	Items.DataSetLinksDestinationDataSet.ChoiceList.Clear();
 
 	For Each Set In Наборы Do
-		Items.СвязиНаборовДанныхНаборДанныхИсточник.ChoiceList.Add(Set.Name);
-		Items.СвязиНаборовДанныхНаборДанныхПриемник.ChoiceList.Add(Set.Name);
+		Items.DataSetLinksSourceDataSet.ChoiceList.Add(Set.Name);
+		Items.DataSetLinksDestinationDataSet.ChoiceList.Add(Set.Name);
 	EndDo;
 EndProcedure
 #EndRegion
@@ -1890,7 +1890,7 @@ EndProcedure
 
 &AtClient
 Procedure ЗаполнитьСписокВыбораВыраженияРесурса(ИдентификаторСтрокиРесурса)
-	Items.РесурсыВыражение.ChoiceList.Clear();
+	Items.ResourcesExpression.ChoiceList.Clear();
 
 	СтрокаРесурса=Resources.FindByID(ИдентификаторСтрокиРесурса);
 
@@ -1905,13 +1905,13 @@ Procedure ЗаполнитьСписокВыбораВыраженияРесур
 	СтрокаДоступногоПоля=СтрокиДоступныхПолей[0];
 
 	If СтрокаДоступногоПоля.ВычисляемоеПоле Or СтрокаДоступногоПоля.Числовое Then
-		Items.РесурсыВыражение.ChoiceList.Add(StrTemplate("Сумма(%1)", СтрокаРесурса.DataPath));
-		Items.РесурсыВыражение.ChoiceList.Add(StrTemplate("Mean(%1)", СтрокаРесурса.DataPath));
+		Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Сумма(%1)", СтрокаРесурса.DataPath));
+		Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Mean(%1)", СтрокаРесурса.DataPath));
 	EndIf;
-	Items.РесурсыВыражение.ChoiceList.Add(StrTemplate("Maximum(%1)", СтрокаРесурса.DataPath));
-	Items.РесурсыВыражение.ChoiceList.Add(StrTemplate("Minimum(%1)", СтрокаРесурса.DataPath));
-	Items.РесурсыВыражение.ChoiceList.Add(StrTemplate("Count(%1)", СтрокаРесурса.DataPath));
-	Items.РесурсыВыражение.ChoiceList.Add(StrTemplate("Count(Различные %1)", СтрокаРесурса.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Maximum(%1)", СтрокаРесурса.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Minimum(%1)", СтрокаРесурса.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Count(%1)", СтрокаРесурса.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Count(Различные %1)", СтрокаРесурса.DataPath));
 
 EndProcedure
 #EndRegion
@@ -1942,13 +1942,13 @@ EndProcedure
 
 &AtClient
 Procedure УстановитьСписокВыбораПоляЗначенияПараметра(СтрокаПараметров)
-	Items.ПараметрыСКДЗначение.ListChoiceMode=СтрокаПараметров.AvailableValues.Count() > 0
+	Items.DCSParametersValue.ListChoiceMode=СтрокаПараметров.AvailableValues.Count() > 0
 		And Not СтрокаПараметров.ValueListAllowed;
 
-	Items.ПараметрыСКДЗначение.ChoiceList.Clear();
+	Items.DCSParametersValue.ChoiceList.Clear();
 
 	For Each ЭлементСписка In СтрокаПараметров.AvailableValues Do
-		Items.ПараметрыСКДЗначение.ChoiceList.Add(ЭлементСписка.Value, ЭлементСписка.Presentation);
+		Items.DCSParametersValue.ChoiceList.Add(ЭлементСписка.Value, ЭлементСписка.Presentation);
 	EndDo;
 EndProcedure
 
@@ -1959,9 +1959,9 @@ Procedure УстановитьОграничениеТипаПоляЗначен
 	EndIf;
 
 	If СтрокаПараметров.ValueListAllowed Then
-		Items.ПараметрыСКДЗначение.TypeRestriction=New TypeDescription("ValueList");
+		Items.DCSParametersValue.TypeRestriction=New TypeDescription("ValueList");
 	Else
-		Items.ПараметрыСКДЗначение.TypeRestriction=СтрокаПараметров.ValueType;
+		Items.DCSParametersValue.TypeRestriction=СтрокаПараметров.ValueType;
 	EndIf;
 EndProcedure
 &AtClient
@@ -2006,7 +2006,7 @@ EndProcedure
 &AtClient
 Procedure GroupFieldsNotAvailable()
 
-	Items.СтраницыПолейГруппировки.CurrentPage = Items.НедоступныеНастройкиПолейГруппировки;
+	Items.GroupFieldsPages.CurrentPage = Items.UnavailableGroupFieldsSettings;
 
 EndProcedure
 
@@ -2016,12 +2016,12 @@ Procedure SelectedFieldsAvailable(ЭлементСтруктуры)
 	If CurrentSettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
 
 		LocalSelectedFields = True;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.НастройкиВыбранныхПолей;
+		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
 
 	Else
 
 		LocalSelectedFields = False;
-		Items.СтраницыПолейВыбора.CurrentPage = Items.ОтключенныеНастройкиВыбранныхПолей;
+		Items.SelectionFieldsPages.CurrentPage = Items.DisabledSelectedFieldsSettings;
 
 	EndIf;
 
@@ -2034,7 +2034,7 @@ Procedure SelectedFieldsUnavailable()
 
 	LocalSelectedFields = False;
 	Items.LocalSelectedFields.ReadOnly = True;
-	Items.СтраницыПолейВыбора.CurrentPage = Items.НедоступныеНастройкиВыбранныхПолей;
+	Items.SelectionFieldsPages.CurrentPage = Items.UnavailableSelectedFieldsSettings;
 
 EndProcedure
 
@@ -2044,12 +2044,12 @@ Procedure FilterAvailable(ЭлементСтруктуры)
 	If CurrentSettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
 
 		LocalFilter = True;
-		Items.СтраницыОтбора.CurrentPage = Items.НастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.FilterSettings;
 
 	Else
 
 		LocalFilter = False;
-		Items.СтраницыОтбора.CurrentPage = Items.ОтключенныеНастройкиОтбора;
+		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
 	EndIf;
 
@@ -2062,7 +2062,7 @@ Procedure FilterUnavailable()
 
 	LocalFilter = False;
 	Items.LocalFilter.ReadOnly = True;
-	Items.СтраницыОтбора.CurrentPage = Items.НедоступныеНастройкиОтбора;
+	Items.FilterPages.CurrentPage = Items.UnavailableFilterSettings;
 
 EndProcedure
 
@@ -2072,12 +2072,12 @@ Procedure OrderAvailable(ЭлементСтруктуры)
 	If CurrentSettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
 
 		LocalOrder = True;
-		Items.СтраницыПорядка.CurrentPage = Items.НастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.OrderSettings;
 
 	Else
 
 		LocalOrder = False;
-		Items.СтраницыПорядка.CurrentPage = Items.ОтключенныеНастройкиПорядка;
+		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
 	EndIf;
 
@@ -2090,7 +2090,7 @@ Procedure OrderUnavailable()
 
 	LocalOrder = False;
 	Items.LocalOrder.ReadOnly = True;
-	Items.СтраницыПорядка.CurrentPage = Items.НедоступныеНастройкиПорядка;
+	Items.OrderPages.CurrentPage = Items.UnavailableOrderSettings;
 
 EndProcedure
 
@@ -2100,12 +2100,12 @@ Procedure ConditionalAppearanceAvailable(ЭлементСтруктуры)
 	If CurrentSettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
 
 		LocalConditionalAppearance = True;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.НастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
 
 	Else
 
 		LocalConditionalAppearance = False;
-		Items.СтраницыУсловногоОформления.CurrentPage = Items.ОтключенныеНастройкиУсловногоОформления;
+		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
 	EndIf;
 
@@ -2118,7 +2118,7 @@ Procedure ConditionalAppearanceUnavailable()
 
 	LocalConditionalAppearance = False;
 	Items.LocalConditionalAppearance.ReadOnly = True;
-	Items.СтраницыУсловногоОформления.CurrentPage = Items.НедоступныеНастройкиУсловногоОформления;
+	Items.ConditionalAppearancePages.CurrentPage = Items.UnavailableConditionalAppearanceSettings;
 
 EndProcedure
 
@@ -2128,12 +2128,12 @@ Procedure OutputParametersAvailable(ЭлементСтруктуры)
 	If CurrentSettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
 
 		LocalOutputParameters = True;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.НастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
 
 	Else
 
 		LocalOutputParameters = False;
-		Items.СтраницыПараметровВывода.CurrentPage = Items.ОтключенныеНастройкиПараметровВывода;
+		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
 	EndIf;
 
@@ -2146,7 +2146,7 @@ Procedure OutputParametersUnavailable()
 
 	LocalOutputParameters = False;
 	Items.LocalOutputParameters.ReadOnly = True;
-	Items.СтраницыПараметровВывода.CurrentPage = Items.НедоступныеНастройкиПараметровВывода;
+	Items.OutputParametersPages.CurrentPage = Items.UnavailableOutputParametersSettings;
 
 EndProcedure
 #EndRegion
@@ -2229,7 +2229,7 @@ Procedure УстановитьУсловноеОформлениеФормы()
 		"Items.DataSets.CurrentData.Fields.Type", ВидыПолейНаборов.Folder);
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("НаборыДанныхПоляПоле");
+	Field.Field=New DataCompositionField("DataSetsFieldsField");
 
 	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
@@ -2242,16 +2242,16 @@ Procedure УстановитьУсловноеОформлениеФормы()
 		"Items.DataSets.CurrentData.Fields.Type", ВидыПолейНаборов.Set);
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияПоле");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionField");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияУсловие");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionCondition");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияГруппировка");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionGroup");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияПорядок");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionOrder");
 
 	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
@@ -2264,40 +2264,40 @@ Procedure УстановитьУсловноеОформлениеФормы()
 		"Items.DataSets.CurrentData.Fields.Type", ВидыПолейНаборов.Field, DataCompositionComparisonType.NotEqual);
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияРеквизитовПоле");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesField");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияРеквизитовУсловие");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesCondition");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияРеквизитовГруппировка");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesGroup");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОграничениеИспользованияРеквизитовПорядок");
+	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesOrder");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("НаборыДанныхПоляРольПредставление");
+	Field.Field=New DataCompositionField("DataSetsFieldsRolePresentation");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляВыражениеПредставления");
+	Field.Field=New DataCompositionField("FieldsPresentationExpression");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляНаборДанныхПроверкиИерархии");
+	Field.Field=New DataCompositionField("FieldsHierarchyCheckDataSet");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляПараметрНабораДанныхПроверкиИерархии");
+	Field.Field=New DataCompositionField("FieldsHierarchyCheckDataSetParameter");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляТипЗначения");
+	Field.Field=New DataCompositionField("FieldsValueType");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляДоступныеЗначения");
+	Field.Field=New DataCompositionField("FieldsAvailableValues");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляОформление");
+	Field.Field=New DataCompositionField("FieldsAppearance");
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПоляПараметрыРедактирования");
+	Field.Field=New DataCompositionField("FieldsEditParameters");
 
 	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
@@ -2310,7 +2310,7 @@ Procedure УстановитьУсловноеОформлениеФормы()
 		"Items.DCSParameters.CurrentData.ДобавленАвтоматически", True);
 	Field=НовоеУО.Fields.Items.Add();
 	Field.Use=True;
-	Field.Field=New DataCompositionField("ПараметрыСКДИмя");
+	Field.Field=New DataCompositionField("DCSParametersName");
 
 	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
