@@ -7,7 +7,7 @@ Var DataSetFieldsTypes;
 #Region FormEvents
 &AtServer
 Procedure OnCreateAtServer(Cancel, StandardProcessing)
-	ИнициализироватьФорму();
+	InitializeForm();
 
 	If Parameters.Property("DCS") Then
 		ChoiceMode=True;
@@ -24,7 +24,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 		EndIf;
 
 		If DCS <> Undefined Then
-			ПрочитатьСКДВДанныеФормы(DCS);
+			ReadDCSToFormData(DCS);
 		EndIf;
 	EndIf;
 
@@ -38,31 +38,29 @@ EndProcedure
 &AtClient
 Procedure OnOpen(Cancel)
 	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
-		ЗаполнитьВспомогательныеДанныеРесурсов();
+		FillResourcesAuxuliaryData();
 	EndIf;
 EndProcedure
 #EndRegion
 
-#Region СобытияЭлементовФормы
+#Region FormItemsEvents
 
 &AtClient
 Procedure GroupEditorTabsOnCurrentPageChange(Item, CurrentPage)
 	If CurrentPage = Items.GroupPageDataSetLinks Then
-		ЗаполнитьВспомогательныеДанныеСвязейНаборовДанных();
+		FillDataSetLinksAuxuliaryData();
 	ElsIf CurrentPage = Items.GroupPageResources Then
-		ЗаполнитьВспомогательныеДанныеРесурсов();
+		FillResourcesAuxuliaryData();
 	ElsIf CurrentPage = Items.GroupPageSettings Then
-		СобратьСКДПоДаннымФормы();
+		AssembleDCSFromFormData();
 	EndIf;
-	
 EndProcedure
-
 
 #Region DataSets
 
 &AtClient
 Procedure DataSetsSelection(Item, RowSelected, Field, StandardProcessing)
-	If RowSelected <> NullDataSetURL Then
+	If RowSelected <> ZerothDataSetURL Then
 		Return;
 	EndIf;
 
@@ -78,15 +76,14 @@ EndProcedure
 
 &AtClient
 Procedure DataSetsBeforeDeleteRow(Item, Cancel)
-	If Items.DataSets.CurrentLine = NullDataSetURL Then
+	If Items.DataSets.CurrentRow = ZerothDataSetURL Then
 		Cancel=True;
 	EndIf;
 EndProcedure
 
-
 &AtClient
 Procedure DataSetsBeforeRowChange(Item, Cancel)
-	If Items.DataSets.CurrentLine = NullDataSetURL Then
+	If Items.DataSets.CurrentRow = ZerothDataSetURL Then
 		Cancel=True;
 	EndIf;
 EndProcedure
@@ -95,48 +92,49 @@ EndProcedure
 Procedure DataSetsBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Parameter)
 	Cancel=True;
 EndProcedure
+
 &AtClient
-Procedure ПереместитьСтрокуДереваНаборов(ПеремещаемаяСтрока, НовыйРодитель, Level = 0)
+Procedure MoveDataSetsTreeRow(MovableRow, NewParent, Level = 0)
 
 	If Level = 0 Then
 
-		NewLine = НовыйРодитель.GetItems().Add();
-		FillPropertyValues(NewLine, ПеремещаемаяСтрока, , "Fields");
-		For Each СтрокаПоля In ПеремещаемаяСтрока.Fields Do
-			НС=NewLine.Fields.Add();
-			FillPropertyValues(НС, СтрокаПоля, , "DataCompositionOrderExpressions");
+		NewRow = NewParent.GetItems().Add();
+		FillPropertyValues(NewRow, MovableRow, , "Fields");
+		For Each FieldRow In MovableRow.Fields Do
+			NewRow=NewRow.Fields.Add();
+			FillPropertyValues(NewRow, FieldRow, , "DataCompositionOrderExpressions");
 
-			For Each СтрокаПорядка In СтрокаПоля.DataCompositionOrderExpressions Do
-				НП=НС.DataCompositionOrderExpressions.Add();
-				FillPropertyValues(НП, СтрокаПорядка);
+			For Each OrderRow In FieldRow.DataCompositionOrderExpressions Do
+				NewOrder=NewRow.DataCompositionOrderExpressions.Add();
+				FillPropertyValues(NewOrder, OrderRow);
 			EndDo;
 		EndDo;
 
-		ПереместитьСтрокуДереваНаборов(ПеремещаемаяСтрока, NewLine, Level + 1);
+		MoveDataSetsTreeRow(MovableRow, NewRow, Level + 1);
 
-		If ПеремещаемаяСтрока.GetParent() = Undefined Then
-			DataSets.GetItems().Delete(ПеремещаемаяСтрока);
+		If MovableRow.GetParent() = Undefined Then
+			DataSets.GetItems().Delete(MovableRow);
 		Else
-			ПеремещаемаяСтрока.GetParent().GetItems().Delete(ПеремещаемаяСтрока);
+			MovableRow.GetParent().GetItems().Delete(MovableRow);
 		EndIf;
 
-		Items.DataSets.CurrentLine=NewLine.GetID();
+		Items.DataSets.CurrentRow=NewRow.GetID();
 	Else
 
-		For Each Стр In ПеремещаемаяСтрока.GetItems() Do
-			NewLine = НовыйРодитель.GetItems().Add();
-			FillPropertyValues(NewLine, ПеремещаемаяСтрока, , "Fields");
-			For Each СтрокаПоля In ПеремещаемаяСтрока.Fields Do
-				НС=NewLine.Fields.Add();
-				FillPropertyValues(НС, СтрокаПоля, , "DataCompositionOrderExpressions");
+		For Each Row In MovableRow.GetItems() Do
+			NewRow = NewParent.GetItems().Add();
+			FillPropertyValues(NewRow, MovableRow, , "Fields");
+			For Each FieldRow In MovableRow.Fields Do
+				NewRow=NewRow.Fields.Add();
+				FillPropertyValues(NewRow, FieldRow, , "DataCompositionOrderExpressions");
 
-				For Each СтрокаПорядка In СтрокаПоля.DataCompositionOrderExpressions Do
-					НП=НС.DataCompositionOrderExpressions.Add();
-					FillPropertyValues(НП, СтрокаПорядка);
+				For Each OrderRow In FieldRow.DataCompositionOrderExpressions Do
+					NewOrder=NewRow.DataCompositionOrderExpressions.Add();
+					FillPropertyValues(NewOrder, OrderRow);
 				EndDo;
 			EndDo;
 
-			ПереместитьСтрокуДереваНаборов(Стр, NewLine, Level + 1);
+			MoveDataSetsTreeRow(Row, NewRow, Level + 1);
 		EndDo;
 
 	EndIf;
@@ -151,145 +149,140 @@ Procedure DataSetsDrag(Item, DragParameters, StandardProcessing, Row, Field)
 		Return;
 	EndIf;
 
-	СтрокаНабораКуда=DataSets.FindByID(Row);
-	СтрокаПеремещения=DataSets.FindByID(DragParameters.Value);
-	РодительскийНабор=СтрокаПеремещения.GetParent();
-	ПереместитьСтрокуДереваНаборов(СтрокаПеремещения, СтрокаНабораКуда);
+	DestinationDataSetRow=DataSets.FindByID(Row);
+	MovableRow=DataSets.FindByID(DragParameters.Value);
+	ParentDataSet=MovableRow.GetParent();
+	MoveDataSetsTreeRow(MovableRow, DestinationDataSetRow);
 	
-	If РодительскийНабор.Type = DataSetsTypes.Union Then
-		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
+	If ParentDataSet.Type = DataSetsTypes.Union Then
+		FillDataSetUnionFieldsByChildQuerys(ParentDataSet.GetID());
 	EndIf;
-	If СтрокаНабораКуда.Type = DataSetsTypes.Union Then
-		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(СтрокаНабораКуда.GetID());
+	If DestinationDataSetRow.Type = DataSetsTypes.Union Then
+		FillDataSetUnionFieldsByChildQuerys(DestinationDataSetRow.GetID());
 	EndIf;
 	
-	
-	//Теперь нужно перезаполнить Fields в наборах данных объединение
-	
+	//Now we need to refill fields in data sets - union	
 EndProcedure
-
 
 &AtClient
 Procedure DataSetsDragCheck(Item, DragParameters, StandardProcessing, Row, Field)
 	StandardProcessing=False;
 
-	If DragParameters.Value = NullDataSetURL Then
+	If DragParameters.Value = ZerothDataSetURL Then
 		DragParameters.Action=DragAction.Cancel;
 		Return;
 	EndIf;
 
-	СтрокаПеремещения=DataSets.FindByID(DragParameters.Value);
-	СтрокаОткуда=СтрокаПеремещения.GetParent();
-	If СтрокаОткуда.GetID() = Row Then
+	MovableRow=DataSets.FindByID(DragParameters.Value);
+	RowFrom=MovableRow.GetParent();
+	If RowFrom.GetID() = Row Then
 		DragParameters.Action=DragAction.Cancel;
 	EndIf;
 
-	СтрокаКуда=DataSets.FindByID(Row);
-	If СтрокаКуда.Type <> DataSetsTypes.Root And СтрокаКуда.Type <> DataSetsTypes.Union Then
+	RowWhere=DataSets.FindByID(Row);
+	If RowWhere.Type <> DataSetsTypes.Root And RowWhere.Type <> DataSetsTypes.Union Then
 		DragParameters.Action=DragAction.Cancel;
 	EndIf;
 EndProcedure
 
-
 &AtClient
 Procedure DataSetsOnActivateRow(Item)
-	ТекДанныеНабора=Items.DataSets.CurrentData;
-	If ТекДанныеНабора = Undefined Then
+	DataSetCurrentData=Items.DataSets.CurrentData;
+	If DataSetCurrentData = Undefined Then
 		Return;
 	EndIf;
-	If ТекДанныеНабора.Type = DataSetsTypes.Root Then
+	If DataSetCurrentData.Type = DataSetsTypes.Root Then
 		Items.GroupDataSetsRightPanel.CurrentPage=Items.GroupDataSetsRightPanelDataSources;
 		Return;
 	EndIf;
 
 	Items.GroupDataSetsRightPanel.CurrentPage=Items.GroupDataSetsRightPanelDataSetData;
 
-	ТекДанныеНабора=Items.DataSets.CurrentData;
-	Items.GroupDataSetSettingsEditingPanel.Visible=ТекДанныеНабора.Type <> DataSetsTypes.Union;
-	If ТекДанныеНабора.Type = DataSetsTypes.Query Then
+	DataSetCurrentData=Items.DataSets.CurrentData;
+	Items.GroupDataSetSettingsEditingPanel.Visible=DataSetCurrentData.Type <> DataSetsTypes.Union;
+	If DataSetCurrentData.Type = DataSetsTypes.Query Then
 		Items.GroupDataSetSettingsEditingPanel.CurrentPage=Items.GroupPageDataSetQueryEditingPage;
-	ElsIf ТекДанныеНабора.Type = DataSetsTypes.Object Then
+	ElsIf DataSetCurrentData.Type = DataSetsTypes.Object Then
 		Items.GroupDataSetSettingsEditingPanel.CurrentPage=Items.GroupPageDataSetObjectEditingPage;
 	EndIf;
 
 	Items.FieldsHierarchyCheckDataSet.ChoiceList.Clear();
 	Items.FieldsHierarchyCheckDataSet.ChoiceList.Add("");
 
-	For Each Set In НаборыДанныхВерхнегоУровня() Do
-		If Set.Name = ТекДанныеНабора.Name Then
+	For Each Set In TopLevelDataSets() Do
+		If Set.Name = DataSetCurrentData.Name Then
 			Continue;
 		EndIf;
 
 		Items.FieldsHierarchyCheckDataSet.ChoiceList.Add(Set.Name);
 	EndDo;
 
-	ЗаполнитьСписокВыбораИсточникаДанныхНабора();
-	УстановитьДоступностьКнопокДобавленияПолейНабора();
+	FillDatDataSetDataSourceChoiceList();
+	SetAvailableOfAddDataSetFieldButtons();
 EndProcedure
 &AtClient
 Procedure DataSetsFieldsOnActivateRow(Item)
-	УстановитьДоступностьКнопокДобавленияПолейНабора();
+	SetAvailableOfAddDataSetFieldButtons();
 EndProcedure
 
 &AtClient
 Procedure DataSetsQueryOnChange(Item)
-		ЗаполнитьПоляНабораДанныхПриИзмененииЗапроса(Items.DataSets.CurrentLine);
+		FillDataSetFieldsOnQueryChange(Items.DataSets.CurrentRow);
 EndProcedure
 
 &AtClient
 Procedure DataSetsFieldsRolePresentationStartChoice(Item, ChoiceData, StandardProcessing)
 	StandardProcessing=False;
 
-	ТекДанные=Items.DataSetsFields.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DataSetsFields.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	МассивПолейНабора=New Array;
-	СтрокаНабора=DataSets.FindByID(Items.DataSets.CurrentLine);
-	For Each СтрокаПоля In СтрокаНабора.Fields Do
-		If СтрокаПоля.DataPath = ТекДанные.DataPath Then
+	DataSetFieldsArray=New Array;
+	DataSetRow=DataSets.FindByID(Items.DataSets.CurrentRow);
+	For Each FieldRow In DataSetRow.Fields Do
+		If FieldRow.DataPath = CurrentData.DataPath Then
 			Continue;
 		EndIf;
 
-		МассивПолейНабора.Add(СтрокаПоля.DataPath);
+		DataSetFieldsArray.Add(FieldRow.DataPath);
 	EndDo;
 
-	ПараметрыФормы=New Structure;
-	ПараметрыФормы.Insert("Role", ТекДанные.Role);
-	ПараметрыФормы.Insert("МассивПолейНабора", МассивПолейНабора);
-	ПараметрыФормы.Insert("DataPath", ТекДанные.DataPath);
+	FormParameters=New Structure;
+	FormParameters.Insert("Role", CurrentData.Role);
+	FormParameters.Insert("DataSetFieldsArray", DataSetFieldsArray);
+	FormParameters.Insert("DataPath", CurrentData.DataPath);
 
-	ПараметрыОповещения=New Structure;
-	ПараметрыОповещения.Insert("RowID", Items.DataSetsFields.CurrentLine);
-	ПараметрыОповещения.Insert("ИдентификаторСтрокиНабора", Items.DataSets.CurrentLine);
+	NotifyParameters=New Structure;
+	NotifyParameters.Insert("RowID", Items.DataSetsFields.CurrentRow);
+	NotifyParameters.Insert("DataSetRowID", Items.DataSets.CurrentRow);
 
-	OpenForm("DataProcessor.UT_DCSEditor.Form.FormEditDataSetFieldRole", ПараметрыФормы, ThisObject, ,
-		, , New NotifyDescription("НаборыДанныхПоляРольПредставлениеНачалоВыбораЗавершение", ThisObject,
-		ПараметрыОповещения), FormWindowOpeningMode.LockOwnerWindow);
+	OpenForm("DataProcessor.UT_DCSEditor.Form.FormEditDataSetFieldRole", FormParameters, ThisObject, ,
+		, , New NotifyDescription("DataSetsFieldsRolePresentationStartChoiceEND", ThisObject,
+		NotifyParameters), FormWindowOpeningMode.LockOwnerWindow);
 	
 EndProcedure
 
 &AtClient
 Procedure FieldsAvailableValuesStartChoice(Item, ChoiceData, StandardProcessing)
-	ТекДанные=Items.DataSetsFields.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DataSetsFields.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
 	StandardProcessing=False;
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", ТекДанные.GetID());
-	ДопПараметры.Insert("ИдентификаторСтрокиНабора", Items.DataSets.CurrentLine);
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", CurrentData.GetID());
+	AdditionalParameters.Insert("DataSetRowID", Items.DataSets.CurrentRow);
 
-	UT_CommonClient.OpenValueListChoiceItemsForm(ТекДанные.AvailableValues,
-		New NotifyDescription("ПоляДоступныеЗначенияНачалоВыбораЗавершение", ThisObject, ДопПараметры),
-		"Edit списка значений", ТекДанные.ValueType, False, True, True, False,
+	UT_CommonClient.OpenValueListChoiceItemsForm(CurrentData.AvailableValues,
+		New NotifyDescription("FieldsAvailableValuesStartChoiceEND", ThisObject, AdditionalParameters),
+		NSTR("ru = 'Редактирование списка значений';en = 'Edit values list'"), CurrentData.ValueType, False, True, True, False,
 		FormWindowOpeningMode.LockOwnerWindow);
 	
 EndProcedure
-
 
 &AtClient
 Procedure DataSetsFieldsOnStartEdit(Item, NewRow, Clone)
@@ -297,52 +290,52 @@ Procedure DataSetsFieldsOnStartEdit(Item, NewRow, Clone)
 		Return;
 	EndIf;
 
-	ТекСтрока=Items.DataSetsFields.CurrentData;
-	If ТекСтрока = Undefined Then
+	CurrentRow=Items.DataSetsFields.CurrentData;
+	If CurrentRow = Undefined Then
 		Return;
 	EndIf;
 
-	ТекСтрокаНабора=Items.DataSets.CurrentData;
+	DataSetCurrentRow=Items.DataSets.CurrentData;
 
-	ЧислоВКонце=UT_StringFunctionsClientServer.NumberAtStringEnd(ТекСтрока.DataPath);
+	NumberAtEnd=UT_StringFunctionsClientServer.NumberAtStringEnd(CurrentRow.DataPath);
 
-	If ЧислоВКонце = Undefined Then
-		ТекСтрока.DataPath=ТекСтрока.DataPath + ТекСтрока.GetID();
+	If NumberAtEnd = Undefined Then
+		CurrentRow.DataPath=CurrentRow.DataPath + CurrentRow.GetID();
 	Else
-		Suffix=Format(ЧислоВКонце, "ЧГ=0;");
-		НовыйПутьКДанным=ТекСтрока.DataPath;
-		UT_StringFunctionsClientServer.DeleteLastCharInString(НовыйПутьКДанным, StrLen(Suffix));
+		Suffix=Format(NumberAtEnd, "NG=0;");
+		NewDataPath=CurrentRow.DataPath;
+		UT_StringFunctionsClientServer.DeleteLastCharInString(NewDataPath, StrLen(Suffix));
 
-		DataPath=НовыйПутьКДанным + Format(ЧислоВКонце + 1, "ЧГ=0;");
-		СтруктураПоиска=New Structure;
-		СтруктураПоиска.Insert("DataPath", DataPath);
+		DataPath=NewDataPath + Format(NumberAtEnd + 1, "NG=0;");
+		SearchStructure=New Structure;
+		SearchStructure.Insert("DataPath", DataPath);
 
-		НайденныеСтроки=ТекСтрокаНабора.Fields.FindRows(СтруктураПоиска);
-		While НайденныеСтроки.Count() > 0 Do
-			ЧислоВКонце=ЧислоВКонце + 1;
-			DataPath=НовыйПутьКДанным + Format(ЧислоВКонце + 1, "ЧГ=0;");
+		FoundRows=DataSetCurrentRow.Fields.FindRows(SearchStructure);
+		While FoundRows.Count() > 0 Do
+			NumberAtEnd=NumberAtEnd + 1;
+			DataPath=NewDataPath + Format(NumberAtEnd + 1, "NG=0;");
 
-			СтруктураПоиска=New Structure;
-			СтруктураПоиска.Insert("DataPath", DataPath);
-			НайденныеСтроки=ТекСтрокаНабора.Fields.FindRows(СтруктураПоиска);
+			SearchStructure=New Structure;
+			SearchStructure.Insert("DataPath", DataPath);
+			FoundRows=DataSetCurrentRow.Fields.FindRows(SearchStructure);
 
 		EndDo;
 
-		ТекСтрока.DataPath=DataPath;
+		CurrentRow.DataPath=DataPath;
 	EndIf;
 
-	ТекСтрока.Title=UT_StringFunctionsClientServer.IdentifierPresentation(ТекСтрока.DataPath);
-	If ТекСтрока.Type <> DataSetFieldsTypes.Folder Then
-		ТекСтрока.Field=ТекСтрока.DataPath;
+	CurrentRow.Title=UT_StringFunctionsClientServer.IdentifierPresentation(CurrentRow.DataPath);
+	If CurrentRow.Type <> DataSetFieldsTypes.Folder Then
+		CurrentRow.Field=CurrentRow.DataPath;
 	EndIf;
 
-	УстановитьДоступностьКнопокДобавленияПолейНабора();
+	SetAvailableOfAddDataSetFieldButtons();
 EndProcedure
 
 &AtClient
 Procedure DataSetsAutoFillAvailableFieldsOnChange(Item)
-	УстановитьДоступностьКнопокДобавленияПолейНабора();
-	ЗаполнитьПоляНабораДанныхПриИзмененииЗапросаНаСервере(Items.DataSets.CurrentLine);
+	SetAvailableOfAddDataSetFieldButtons();
+	FillDataSetFieldsOnQueryChangeAtServer(Items.DataSets.CurrentRow);
 EndProcedure
 
 &AtClient
@@ -350,24 +343,24 @@ Procedure DataSetsFieldsBeforeAddRow(Item, Cancel, Clone, Parent, IsFolder, Para
 		If Not Clone Then
 		Cancel=True;
 	Else
-		Cancel=Not ДоступноКопированиеУдаленияПоляНабора(Items.DataSets.CurrentData,
+		Cancel=Not DataSetFieldCloneDeleteIsAvalible(Items.DataSets.CurrentData,
 			Items.DataSetsFields.CurrentData);
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure DataSetsFieldsBeforeDeleteRow(Item, Cancel)
-	Cancel=Not ДоступноКопированиеУдаленияПоляНабора(Items.DataSets.CurrentData,
+	Cancel=Not DataSetFieldCloneDeleteIsAvalible(Items.DataSets.CurrentData,
 		Items.DataSetsFields.CurrentData);
 EndProcedure
 
 &AtClient
 Procedure FieldsDataPathOnChange(Item)
-	ТекДанные=Items.DataSetsFields.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DataSetsFields.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
-	ТекДанные.Title=UT_StringFunctionsClientServer.IdentifierPresentation(ТекДанные.DataPath);
+	CurrentData.Title=UT_StringFunctionsClientServer.IdentifierPresentation(CurrentData.DataPath);
 EndProcedure
 
 &AtClient
@@ -376,11 +369,11 @@ Procedure DataSetsFieldsOnEditEnd(Item, NewRow, CancelEdit)
 		Return;
 	EndIf;
 	
-	СтрокаНабора=Items.DataSets.CurrentLine;
-	ДанныеСтрокиНабора=DataSets.FindByID(СтрокаНабора);
-	РодительСтрокиНабора=ДанныеСтрокиНабора.GetParent();
-	If РодительСтрокиНабора.Type=DataSetsTypes.Union Then
-		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительСтрокиНабора.GetID());
+	DataSetRow=Items.DataSets.CurrentRow;
+	DataSetRowData=DataSets.FindByID(DataSetRow);
+	DataSetRowParent=DataSetRowData.GetParent();
+	If DataSetRowParent.Type=DataSetsTypes.Union Then
+		FillDataSetUnionFieldsByChildQuerys(DataSetRowParent.GetID());
 	EndIf;
 	
 EndProcedure
@@ -388,16 +381,14 @@ EndProcedure
 &AtClient
 Procedure FieldsValueTypeStartChoice(Item, ChoiceData, StandardProcessing)
 	
-	ТекДанные=Items.DataSetsFields.CurrentData;
-	If ТекДанные=Undefined Then
+	CurrentData=Items.DataSetsFields.CurrentData;
+	If CurrentData=Undefined Then
 		Return;
 	EndIf;
 	
-	UT_CommonClient.EditType(ТекДанные.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("ПоляТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.DataSetsFields.CurrentLine)));
+	UT_CommonClient.EditType(CurrentData.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("FieldsValueTypeStartChoiceEND",ThisObject, New Structure("CurrentRow",Items.DataSetsFields.CurrentRow)));
 
 EndProcedure
-
-
 
 #EndRegion
 
@@ -405,36 +396,36 @@ EndProcedure
 
 &AtClient
 Procedure DataSetLinksSourceDataSetOnChange(Item)
-	ТекДанные=Items.DataSetLinks.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DataSetLinks.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.SourceDataSet, Items.СвязиНаборовДанныхВыражениеИсточник);
+	FillDataSetLinkFieldChoiceList(CurrentData.SourceDataSet, Items.DataSetLinksSourceExpression);
 
 EndProcedure
 
 &AtClient
 Procedure DataSetLinksDestinationDataSetOnChange(Item)
-	ТекДанные=Items.DataSetLinks.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DataSetLinks.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.DataSetLinksDestinationExpression);
+	FillDataSetLinkFieldChoiceList(CurrentData.DestinationDataSet, Items.DataSetLinksDestinationExpression);
 
 EndProcedure
 
 
 &AtClient
 Procedure DataSetLinksBeforeRowChange(Item, Cancel)
-	ТекДанные=Items.DataSetLinks.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DataSetLinks.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.SourceDataSet, Items.СвязиНаборовДанныхВыражениеИсточник);
-	ЗаполнитьСписокВыбораПоляСвязиНаборов(ТекДанные.DestinationDataSet, Items.DataSetLinksDestinationExpression);
+	FillDataSetLinkFieldChoiceList(CurrentData.SourceDataSet, Items.DataSetLinksSourceExpression);
+	FillDataSetLinkFieldChoiceList(CurrentData.DestinationDataSet, Items.DataSetLinksDestinationExpression);
 
 EndProcedure
 
@@ -446,56 +437,55 @@ EndProcedure
 Procedure ResourceAvailableFieldSelection(Item, RowSelected, Field, StandardProcessing)
 	StandardProcessing=False;
 
-	ДобавитьРесурс(RowSelected);
+	AddResource(RowSelected);
 EndProcedure
 
 &AtClient
 Procedure ResourcesBeforeRowChange(Item, Cancel)
-	ЗаполнитьСписокВыбораВыраженияРесурса(Item.CurrentLine);
+	FillResourceExpressionChoiceList(Item.CurrentRow);
 EndProcedure
 &AtClient
 Procedure ResourcesExpressionOpening(Item, StandardProcessing)
 		StandardProcessing=False;
-	ТекДанные=Items.Resources.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.Resources.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", Items.Resources.CurrentLine);
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", Items.Resources.CurrentRow);
 
-	UT_CommonClient.OpenTextEditingForm(ТекДанные.Expression,
-		New NotifyDescription("РесурсыВыражениеОткрытиеЗавершение", ThisObject, ДопПараметры),
-		"Edit выражения ресурса для " + ТекДанные.DataPath);
+	UT_CommonClient.OpenTextEditingForm(CurrentData.Expression,
+		New NotifyDescription("ResourcesExpressionOpeningEND", ThisObject, AdditionalParameters),
+		NSTR("ru = 'Редактирование выражения ресурса для';en = 'Edit resource expression for '") + CurrentData.DataPath);
 EndProcedure
 
 &AtClient
 Procedure ResourcesGroupsStartChoice(Item, ChoiceData, StandardProcessing)
 		StandardProcessing=False;
-	ТекДанные=Items.Resources.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.Resources.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	СписокДоступныхГруппировок=New ValueList;
-	For Each Стр In ResourceAvailableField Do
-		Check= ТекДанные.Groups.FindByValue(Стр.DataPath) <> Undefined;
-		СписокДоступныхГруппировок.Add(Стр.DataPath, , Check);
+	AvailableGroupsList=New ValueList;
+	For Each Row In ResourceAvailableFields Do
+		Check= CurrentData.Groups.FindByValue(Row.DataPath) <> Undefined;
+		AvailableGroupsList.Add(Row.DataPath, , Check);
 	EndDo;
 
-	Check= ТекДанные.Groups.FindByValue("Overall") <> Undefined;
+	Check= CurrentData.Groups.FindByValue("Overall") <> Undefined;
 
-	СписокДоступныхГруппировок.Add("Overall", "Общий итог", Check);
+	AvailableGroupsList.Add("Overall", NSTR("ru = 'Общий итог';en = 'Overall'"), Check);
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", Items.Resources.CurrentLine);
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", Items.Resources.CurrentRow);
 
-	UT_CommonClient.OpenValueListChoiceItemsForm(СписокДоступныхГруппировок,
-		New NotifyDescription("РесурсыГруппировкиНачалоВыбораЗавершение", ThisObject, ДопПараметры),
+	UT_CommonClient.OpenValueListChoiceItemsForm(AvailableGroupsList,
+		New NotifyDescription("ResourcesGroupsStartChoiceEND", ThisObject, AdditionalParameters),
 		"Fields Groups", , True, False, False, , FormWindowOpeningMode.LockOwnerWindow);
 	
 EndProcedure
-
 
 #EndRegion
 
@@ -503,81 +493,81 @@ EndProcedure
 
 &AtClient
 Procedure CalculatedFieldsOnEditEnd(Item, NewRow, CancelEdit)
-	ЗаполнитьВспомогательныеДанныеРесурсов();
+	FillResourcesAuxuliaryData();
 EndProcedure
 
 &AtClient
 Procedure CalculatedFieldsAfterDeleteRow(Item)
-	ЗаполнитьВспомогательныеДанныеРесурсов();
+	FillResourcesAuxuliaryData();
 EndProcedure
 
 &AtClient
 Procedure CalculatedFieldsOnStartEdit(Item, NewRow, Clone)
-	ТекДанные=Items.CalculatedFields.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.CalculatedFields.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
 	If NewRow Then
-		ТекДанные.DataPath="Field" + ТекДанные.GetID();
-		ТекДанные.Title=ТекДанные.DataPath;
+		CurrentData.DataPath="Field" + CurrentData.GetID();
+		CurrentData.Title=CurrentData.DataPath;
 	EndIf;
 EndProcedure
 
 &AtClient
 Procedure CalculatedFieldsExpressionOpening(Item, StandardProcessing)
 		StandardProcessing=False;
-	ТекДанные=Items.CalculatedFields.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.CalculatedFields.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", Items.CalculatedFields.CurrentLine);
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", Items.CalculatedFields.CurrentRow);
 
-	UT_CommonClient.OpenTextEditingForm(ТекДанные.Expression,
-		New NotifyDescription("ВычисляемыеПоляВыражениеЗавершение", ThisObject, ДопПараметры),
-		"Edit выражения ресурса для " + ТекДанные.DataPath);
+	UT_CommonClient.OpenTextEditingForm(CurrentData.Expression,
+		New NotifyDescription("CalculatedFieldsExpressionOpeningEND", ThisObject, AdditionalParameters),
+		NSTR("ru = 'Редактирование выражения ресурса для ';en = 'Edit resource expression for '") + CurrentData.DataPath);
 EndProcedure
 
 &AtClient
 Procedure CalculatedFieldsAvailableValuesStartChoice(Item, ChoiceData, StandardProcessing)
-	ТекДанные=Items.CalculatedFields.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.CalculatedFields.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
 	StandardProcessing=False;
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", ТекДанные.GetID());
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", CurrentData.GetID());
 
-	UT_CommonClient.OpenValueListChoiceItemsForm(ТекДанные.AvailableValues,
-		New NotifyDescription("ВычисляемыеПоляДоступныеЗначенияНачалоВыбораЗавершение", ThisObject, ДопПараметры),
-		"Edit списка значений", ТекДанные.ValueType, False, True, True, False,
+	UT_CommonClient.OpenValueListChoiceItemsForm(CurrentData.AvailableValues,
+		New NotifyDescription("CalculatedFieldsAvailableValuesStartChoiceEND", ThisObject, AdditionalParameters),
+		NSTR("ru = 'Редактирование списка значений';en = 'Edit values list'"), CurrentData.ValueType, False, True, True, False,
 		FormWindowOpeningMode.LockOwnerWindow);
 EndProcedure
 
 
 &AtClient
 Procedure CalculatedFieldsDataPathOnChange(Item)
-	ТекДанные=Items.CalculatedFields.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.CalculatedFields.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ТекДанные.Title=UT_StringFunctionsClientServer.IdentifierPresentation(ТекДанные.DataPath);
+	CurrentData.Title=UT_StringFunctionsClientServer.IdentifierPresentation(CurrentData.DataPath);
 	
 EndProcedure
 
 &AtClient
 Procedure CalculatedFieldsValueTypeStartChoice(Item, ChoiceData, StandardProcessing)
-	ТекДанные=Items.CalculatedFields.CurrentData;
-	If ТекДанные=Undefined Then
+	CurrentData=Items.CalculatedFields.CurrentData;
+	If CurrentData=Undefined Then
 		Return;
 	EndIf;
 	
-	UT_CommonClient.EditType(ТекДанные.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("ВычисляемыеПоляТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.CalculatedFields.CurrentLine)));
+	UT_CommonClient.EditType(CurrentData.ValueType, 2,StandardProcessing,ThisObject, New NotifyDescription("CalculatedFieldsValueTypeStartChoiceEND",ThisObject, New Structure("CurrentRow",Items.CalculatedFields.CurrentRow)));
 
 EndProcedure
 
@@ -587,44 +577,44 @@ EndProcedure
 
 &AtClient
 Procedure DCSParametersOnStartEdit(Item, NewRow, Clone)
-		ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+		CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
 	If NewRow Then
-		ТекДанные.Name="Parameter" + ТекДанные.GetID();
-		ТекДанные.Title=ТекДанные.Name;
-		ТекДанные.IncludeInAvailableFields=True;
-		ТекДанные.ДобавленАвтоматически=False;
+		CurrentData.Name="Parameter" + CurrentData.GetID();
+		CurrentData.Title=CurrentData.Name;
+		CurrentData.IncludeInAvailableFields=True;
+		CurrentData.AddedAutomatically=False;
 	EndIf;
 
-	УстановитьСписокВыбораПоляЗначенияПараметра(ТекДанные);
-	УстановитьОграничениеТипаПоляЗначенияПараметра(ТекДанные);
+	SetParameterValueFieldChoiceList(CurrentData);
+	SetParameterValueFieldTypeRestriction(CurrentData);
 	
 EndProcedure
 
 &AtClient
 Procedure DCSParametersValueTypeOnChange(Item)
-		ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+		CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	If ТекДанные.ValueListAllowed Then
-		НовоеЗначение=New ValueList;
+	If CurrentData.ValueListAllowed Then
+		NewValue=New ValueList;
 
-		For Each ЭлементСписка In ТекДанные.Value Do
-			If ТекДанные.ValueType.ContainsType(TypeOf(ЭлементСписка.Value)) Then
-				НовоеЗначение.Add(ЭлементСписка.Value);
+		For Each ListItem In CurrentData.Value Do
+			If CurrentData.ValueType.ContainsType(TypeOf(ListItem.Value)) Then
+				NewValue.Add(ListItem.Value);
 			EndIf;
 		EndDo;
-		ТекДанные.Value=НовоеЗначение;
+		CurrentData.Value=NewValue;
 	Else
-		ТекДанные.Value=ТекДанные.ValueType.AdjustValue(ТекДанные.Value);
+		CurrentData.Value=CurrentData.ValueType.AdjustValue(CurrentData.Value);
 	EndIf;
 
-	УстановитьОграничениеТипаПоляЗначенияПараметра(ТекДанные);
+	SetParameterValueFieldTypeRestriction(CurrentData);
 EndProcedure
 
 &AtClient
@@ -632,53 +622,53 @@ Procedure DCSParametersAvailableValuesStartChoice(Item, ChoiceData, StandardProc
 	
 		StandardProcessing=False;
 
-	ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	If ТекДанные.ValueType = New TypeDescription Then
+	If CurrentData.ValueType = New TypeDescription Then
 		Return;
 	EndIf;
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", ТекДанные.GetID());
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", CurrentData.GetID());
 
-	UT_CommonClient.OpenValueListChoiceItemsForm(ТекДанные.AvailableValues,
-		New NotifyDescription("ПараметрыСКДДоступныеЗначенияНачалоВыбораЗавершение", ThisObject, ДопПараметры),
-		"Edit списка значений", ТекДанные.ValueType, False, True, True, False,
+	UT_CommonClient.OpenValueListChoiceItemsForm(CurrentData.AvailableValues,
+		New NotifyDescription("DCSParametersAvailableValuesStartChoiceEND", ThisObject, AdditionalParameters),
+		NSTR("ru = 'Редактирование списка значений';en = 'Edit values list'"), CurrentData.ValueType, False, True, True, False,
 		FormWindowOpeningMode.LockOwnerWindow);
 EndProcedure
 
 &AtClient
 Procedure DCSParametersValueStartChoice(Item, ChoiceData, StandardProcessing)
 	
-		ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+		CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	If ТекДанные.ValueType = New TypeDescription Then
+	If CurrentData.ValueType = New TypeDescription Then
 		Return;
 	EndIf;
 
-	If Not ТекДанные.ValueListAllowed Then
+	If Not CurrentData.ValueListAllowed Then
 		Return;
 	EndIf;
 
 	StandardProcessing=False;
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", ТекДанные.GetID());
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", CurrentData.GetID());
 
 	AvailableValues=Undefined;
-	If ТекДанные.AvailableValues.Count() > 0 Then
-		AvailableValues=ТекДанные.AvailableValues;
+	If CurrentData.AvailableValues.Count() > 0 Then
+		AvailableValues=CurrentData.AvailableValues;
 	EndIf;
 
-	UT_CommonClient.OpenValueListChoiceItemsForm(ТекДанные.Value,
-		New NotifyDescription("ПараметрыСКДЗначениеНачалоВыбораЗавершение", ThisObject, ДопПараметры),
-		"Edit списка значений", ТекДанные.ValueType, False, False, True, False,
+	UT_CommonClient.OpenValueListChoiceItemsForm(CurrentData.Value,
+		New NotifyDescription("DCSParametersValueStartChoiceEND", ThisObject, AdditionalParameters),
+		NSTR("ru = 'Редактирование списка значений';en = 'Edit values list'"), CurrentData.ValueType, False, False, True, False,
 		FormWindowOpeningMode.LockOwnerWindow, AvailableValues);
 	
 EndProcedure
@@ -686,124 +676,123 @@ EndProcedure
 
 &AtClient
 Procedure DCSParametersValueListAllowedOnChange(Item)
-		ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+		CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	If ТекДанные.ValueListAllowed Then
-		НовоеЗначение=New ValueList;
-		НовоеЗначение.Add(ТекДанные.Value);
+	If CurrentData.ValueListAllowed Then
+		NewValue=New ValueList;
+		NewValue.Add(CurrentData.Value);
 	Else
-		If ТекДанные.Value.Count() = 0 Then
-			НовоеЗначение=Undefined;
+		If CurrentData.Value.Count() = 0 Then
+			NewValue=Undefined;
 		Else
-			НовоеЗначение=ТекДанные.Value[0].Value;
+			NewValue=CurrentData.Value[0].Value;
 		EndIf;
 	EndIf;
 
-	ТекДанные.Value=НовоеЗначение;
+	CurrentData.Value=NewValue;
 
-	УстановитьОграничениеТипаПоляЗначенияПараметра(ТекДанные);
+	SetParameterValueFieldTypeRestriction(CurrentData);
 	
 EndProcedure
 
 &AtClient
 Procedure DCSParametersExpressionOpening(Item, StandardProcessing)
 		StandardProcessing=False;
-	ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ДопПараметры=New Structure;
-	ДопПараметры.Insert("RowID", Items.DCSParameters.CurrentLine);
+	AdditionalParameters=New Structure;
+	AdditionalParameters.Insert("RowID", Items.DCSParameters.CurrentRow);
 
-	UT_CommonClient.OpenTextEditingForm(ТекДанные.Expression,
-		New NotifyDescription("ПараметрыСКДВыражениеОткрытиеЗавершение", ThisObject, ДопПараметры),
-		"Edit выражения для " + ТекДанные.Name);
+	UT_CommonClient.OpenTextEditingForm(CurrentData.Expression,
+		New NotifyDescription("DCSParametersExpressionOpeningEND", ThisObject, AdditionalParameters),
+		NSTR("ru = 'Редактирование выражения для';en = 'Edit expression for'") + CurrentData.Name);
 EndProcedure
 
 
 &AtClient
 Procedure DCSParametersNameOnChange(Item)
-		ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+		CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ТекДанные.Title=UT_StringFunctionsClientServer.IdentifierPresentation(ТекДанные.Name);
+	CurrentData.Title=UT_StringFunctionsClientServer.IdentifierPresentation(CurrentData.Name);
 	
 EndProcedure
 
 &AtClient
 Procedure DCSParametersBeforeDeleteRow(Item, Cancel)
-		ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные = Undefined Then
+		CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	Cancel=ТекДанные.ДобавленАвтоматически;
+	Cancel=CurrentData.AddedAutomatically;
 EndProcedure
 
 &AtClient
 Procedure DCSParametersValueTypeStartChoice(Item, ChoiceData, StandardProcessing)
-	ТекДанные=Items.DCSParameters.CurrentData;
-	If ТекДанные=Undefined Then
+	CurrentData=Items.DCSParameters.CurrentData;
+	If CurrentData=Undefined Then
 		Return;
 	EndIf;
 	
-	UT_CommonClient.EditType(ТекДанные.ValueType, 3,StandardProcessing,ThisObject, New NotifyDescription("ПараметрыСКДТипЗначенияНачалоВыбораЗавершение",ThisObject, New Structure("ТекСтрока",Items.DCSParameters.CurrentLine)));
+	UT_CommonClient.EditType(CurrentData.ValueType, 3,StandardProcessing,ThisObject, New NotifyDescription("DCSParametersValueTypeStartChoiceEND",ThisObject, New Structure("CurrentRow",Items.DCSParameters.CurrentRow)));
 
 EndProcedure
 
 #EndRegion
 
-#Region ТекущиеНастройкиВарианта
+#Region CurrentVariantSettings
 
 &AtClient
 Procedure SettingsOnActivateField(Item)
 	
-		Var ВыбраннаяСтраница;
+		Var SelectedPage;
 
-	If Items.Settings.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеВыбора" Then
+	If Items.Settings.CurrentItem.Name = "SettingsHasSelection" Then
 
-		ВыбраннаяСтраница = Items.SelectionFieldsPage;
+		SelectedPage = Items.SelectionFieldsPage;
 
-	ElsIf Items.Settings.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеОтбора" Then
+	ElsIf Items.Settings.CurrentItem.Name = "SettingsHasFilter" Then
 
-		ВыбраннаяСтраница = Items.FilterPage;
+		SelectedPage = Items.FilterPage;
 
-	ElsIf Items.Settings.CurrentItem.Name = "КомпоновщикНастроекНастройкиНаличиеПорядка" Then
+	ElsIf Items.Settings.CurrentItem.Name = "SettingsHasOrder" Then
 
-		ВыбраннаяСтраница = Items.OrderPage;
-
-	ElsIf Items.Settings.CurrentItem.Name
-		= "КомпоновщикНастроекНастройкиНаличиеУсловногоОформления" Then
-
-		ВыбраннаяСтраница = Items.ConditionalAppearancePage;
+		SelectedPage = Items.OrderPage;
 
 	ElsIf Items.Settings.CurrentItem.Name
-		= "КомпоновщикНастроекНастройкиНаличиеПараметровВывода" Then
+		= "SettingsConditionalAppearance" Then
 
-		ВыбраннаяСтраница = Items.OutputParametersPage;
+		SelectedPage = Items.ConditionalAppearancePage;
+
+	ElsIf Items.Settings.CurrentItem.Name
+		= "SettingsHasOutputParameters" Then
+
+		SelectedPage = Items.OutputParametersPage;
 
 	EndIf;
 
-	If ВыбраннаяСтраница <> Undefined Then
+	If SelectedPage <> Undefined Then
 
-		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
+		Items.SettingsPages.CurrentPage = SelectedPage;
 
 	EndIf;
 	
 EndProcedure
 
-
 &AtClient
 Procedure SettingsOnActivateRow(Item)
-	ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-		Items.Settings.CurrentLine);
-	ItemType = TypeOf(ЭлементСтруктуры);
+	SettingsItem = CurrentSettingsComposer.Settings.GetObjectByID(
+		Items.Settings.CurrentRow);
+	ItemType = TypeOf(SettingsItem);
 
 	If ItemType = Undefined Or ItemType = Type("DataCompositionChartStructureItemCollection")
 		Or ItemType = Type("DataCompositionTableStructureItemCollection") Then
@@ -845,20 +834,20 @@ Procedure SettingsOnActivateRow(Item)
 
 		Items.GroupFieldsPages.CurrentPage = Items.GroupFieldsSettings;
 
-		SelectedFieldsAvailable(ЭлементСтруктуры);
-		FilterAvailable(ЭлементСтруктуры);
-		OrderAvailable(ЭлементСтруктуры);
-		ConditionalAppearanceAvailable(ЭлементСтруктуры);
-		OutputParametersAvailable(ЭлементСтруктуры);
+		SelectedFieldsAvailable(SettingsItem);
+		FilterAvailable(SettingsItem);
+		OrderAvailable(SettingsItem);
+		ConditionalAppearanceAvailable(SettingsItem);
+		OutputParametersAvailable(SettingsItem);
 
 	ElsIf ItemType = Type("DataCompositionTable") Or ItemType = Type("DataCompositionChart") Then
 
 		GroupFieldsNotAvailable();
-		SelectedFieldsAvailable(ЭлементСтруктуры);
+		SelectedFieldsAvailable(SettingsItem);
 		FilterUnavailable();
 		OrderUnavailable();
-		ConditionalAppearanceAvailable(ЭлементСтруктуры);
-		OutputParametersAvailable(ЭлементСтруктуры);
+		ConditionalAppearanceAvailable(SettingsItem);
+		OutputParametersAvailable(SettingsItem);
 
 	EndIf;
 
@@ -868,10 +857,10 @@ EndProcedure
 &AtClient
 Procedure GoToReport(Item)
 
-	ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-		Items.Settings.CurrentLine);
-	ItemSettings =  CurrentSettingsComposer.Settings.ItemSettings(ЭлементСтруктуры);
-	Items.Settings.CurrentLine = CurrentSettingsComposer.Settings.GetIDByObject(
+	SettingsItem = CurrentSettingsComposer.Settings.GetObjectByID(
+		Items.Settings.CurrentRow);
+	ItemSettings =  CurrentSettingsComposer.Settings.ItemSettings(SettingsItem);
+	Items.Settings.CurrentRow = CurrentSettingsComposer.Settings.GetIDByObject(
 		ItemSettings);
 
 EndProcedure
@@ -886,9 +875,9 @@ Procedure LocalSelectedFieldsOnChange(Item)
 
 		Items.SelectionFieldsPages.CurrentPage = Items.DisabledSelectedFieldsSettings;
 
-		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.Settings.CurrentLine);
-		CurrentSettingsComposer.Settings.ClearItemSelection(ЭлементСтруктуры);
+		SettingsItem = CurrentSettingsComposer.Settings.GetObjectByID(
+			Items.Settings.CurrentRow);
+		CurrentSettingsComposer.Settings.ClearItemSelection(SettingsItem);
 
 	EndIf;
 	
@@ -904,9 +893,9 @@ Procedure LocalFilterOnChange(Item)
 
 		Items.FilterPages.CurrentPage = Items.DisabledFilterSettings;
 
-		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.Settings.CurrentLine);
-		CurrentSettingsComposer.Settings.ClearItemFilter(ЭлементСтруктуры);
+		SettingsItem = CurrentSettingsComposer.Settings.GetObjectByID(
+			Items.Settings.CurrentRow);
+		CurrentSettingsComposer.Settings.ClearItemFilter(SettingsItem);
 
 	EndIf;
 	
@@ -922,9 +911,9 @@ Procedure LocalOrderOnChange(Item)
 
 		Items.OrderPages.CurrentPage = Items.DisabledOrderSettings;
 
-		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.Settings.CurrentLine);
-		CurrentSettingsComposer.Settings.ClearItemOrder(ЭлементСтруктуры);
+		SettingsItem = CurrentSettingsComposer.Settings.GetObjectByID(
+			Items.Settings.CurrentRow);
+		CurrentSettingsComposer.Settings.ClearItemOrder(SettingsItem);
 
 	EndIf;
 	
@@ -940,9 +929,9 @@ Procedure LocalConditionalAppearanceOnChange(Item)
 
 		Items.ConditionalAppearancePages.CurrentPage = Items.DisabledConditionalAppearanceSettings;
 
-		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.Settings.CurrentLine);
-		CurrentSettingsComposer.Settings.ClearItemConditionalAppearance(ЭлементСтруктуры);
+		SettingsItem = CurrentSettingsComposer.Settings.GetObjectByID(
+			Items.Settings.CurrentRow);
+		CurrentSettingsComposer.Settings.ClearItemConditionalAppearance(SettingsItem);
 
 	EndIf;
 	
@@ -958,9 +947,9 @@ Procedure LocalOutputParametersOnChange(Item)
 
 		Items.OutputParametersPages.CurrentPage = Items.DisabledOutputParametersSettings;
 
-		ЭлементСтруктуры = CurrentSettingsComposer.Settings.GetObjectByID(
-			Items.Settings.CurrentLine);
-		CurrentSettingsComposer.Settings.ClearItemOutputParameters(ЭлементСтруктуры);
+		SettingsItem = CurrentSettingsComposer.Settings.GetObjectByID(
+			Items.Settings.CurrentRow);
+		CurrentSettingsComposer.Settings.ClearItemOutputParameters(SettingsItem);
 	EndIf;
 EndProcedure
 
@@ -969,7 +958,7 @@ EndProcedure
 #Region SettingVariants
 &AtClient
 Procedure SettingVariantsOnActivateRow(Item)
-	ВариантыНастроекПриАктивизацииСтрокиНаСервере(Items.SettingVariants.CurrentLine);
+	SettingVariantsOnActivateRowAtServer(Items.SettingVariants.CurrentRow);
 EndProcedure
 
 &AtClient
@@ -984,13 +973,13 @@ Procedure SettingVariantsOnStartEdit(Item, NewRow, Clone)
 		If Not NewRow Then
 		Return;
 	EndIf;
-	ТекДанные=Items.SettingVariants.CurrentData;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.SettingVariants.CurrentData;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ТекДанные.Name="Variant" + ТекДанные.GetID();
-	ТекДанные.Presentation=ТекДанные.Name;
+	CurrentData.Name="Variant" + CurrentData.GetID();
+	CurrentData.Presentation=CurrentData.Name;
 EndProcedure
 
 
@@ -1002,102 +991,102 @@ EndProcedure
 
 &AtClient
 Procedure AddDataSetQuery(Command)
-	ДобавитьНаборДанных(DataSetsTypes.Query);
+	AddDataSet(DataSetsTypes.Query);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetObject(Command)
-	ДобавитьНаборДанных(DataSetsTypes.Object);
+	AddDataSet(DataSetsTypes.Object);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetUnion(Command)
-	ДобавитьНаборДанных(DataSetsTypes.Union);
+	AddDataSet(DataSetsTypes.Union);
 EndProcedure
 
 &AtClient
 Procedure DeleteDataSet(Command)
-	ИдентификаторТекущейСтроки=Items.DataSets.CurrentLine;
-	If ИдентификаторТекущейСтроки = NullDataSetURL Then
+	CurrentRowID=Items.DataSets.CurrentRow;
+	If CurrentRowID = ZerothDataSetURL Then
 		Return;
 	EndIf;
 
-	СтрокаНабораДанных=DataSets.FindByID(ИдентификаторТекущейСтроки);
+	DataSetRow=DataSets.FindByID(CurrentRowID);
 
-	ИмяНабораДанных=СтрокаНабораДанных.Name;
+	DataSetName=DataSetRow.Name;
 
-	СтрокаРодитель=СтрокаНабораДанных.GetParent();
-	СтрокаРодитель.GetItems().Delete(СтрокаНабораДанных);
+	ParentRow=DataSetRow.GetParent();
+	ParentRow.GetItems().Delete(DataSetRow);
 	
-	//Удалим связи этого набора
-	МассивКУдалению=New Array;
-	For Each Стр In DataSetLinks Do
-		If Lower(Стр.SourceDataSet) = Lower(ИмяНабораДанных) Or Lower(Стр.DestinationDataSet) = Lower(
-			ИмяНабораДанных) Then
+	//Delete links with this dataset
+	ArrayToDelete=New Array;
+	For Each Row In DataSetLinks Do
+		If Lower(Row.SourceDataSet) = Lower(DataSetName) Or Lower(Row.DestinationDataSet) = Lower(
+			DataSetName) Then
 
-			МассивКУдалению.Add(Стр);
+			ArrayToDelete.Add(Row);
 		EndIf;
 
 	EndDo;
 
-	For Each Стр In МассивКУдалению Do
-		DataSetLinks.Delete(Стр);
+	For Each Row In ArrayToDelete Do
+		DataSetLinks.Delete(Row);
 	EndDo;
 
 EndProcedure
 
 &AtClient
 Procedure OpenQueryWizard(Command)
-	ТекНабор=Items.DataSets.CurrentData;
-	If ТекНабор = Undefined Then
+	CurrentDataSet=Items.DataSets.CurrentData;
+	If CurrentDataSet = Undefined Then
 		Return;
 	EndIf;
 
-	Конструктор=New QueryWizard;
+	Wizard=New QueryWizard;
 	If UT_CommonClientServer.PlatformVersionNotLess_8_3_14() Then
-		Конструктор.DataCompositionMode=True;
+		Wizard.DataCompositionMode=True;
 	EndIf;
 
-	If ValueIsFilled(TrimAll(ТекНабор.Query)) Then
-		Конструктор.Text=ТекНабор.Query;
+	If ValueIsFilled(TrimAll(CurrentDataSet.Query)) Then
+		Wizard.Text=CurrentDataSet.Query;
 	EndIf;
 
-	ДопПараметрыОповещения=New Structure;
-	ДопПараметрыОповещения.Insert("ТекСтрока", Items.DataSets.CurrentLine);
+	NotifyAdditionalParameters=New Structure;
+	NotifyAdditionalParameters.Insert("CurrentRow", Items.DataSets.CurrentRow);
 
-	Конструктор.Show(New NotifyDescription("ОткрытьКонструкторЗапросаЗавершение", ThisObject,
-		ДопПараметрыОповещения));
+	Wizard.Show(New NotifyDescription("OpenQueryWizardEND", ThisObject,
+		NotifyAdditionalParameters));
 EndProcedure
 
 &AtClient
 Procedure AddResourceFromAvailable(Command)
-	ТекДанные=Items.ResourceAvailableField.CurrentLine;
-	If ТекДанные = Undefined Then
+	CurrentData=Items.ResourceAvailableField.CurrentRow;
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	ДобавитьРесурс(ТекДанные);
+	AddResource(CurrentData);
 EndProcedure
 
 &AtClient
 Procedure AddNumericResourcesFromAvailable(Command)
-	For Each Стр In ResourceAvailableField Do
-		If Not Стр.ВычисляемоеПоле And Not Стр.Числовое Then
+	For Each Row In ResourceAvailableFields Do
+		If Not Row.CalculatedField And Not Row.Numeric Then
 			Continue;
 		EndIf;
 
-		ДобавитьРесурс(Стр);
+		AddResource(Row);
 	EndDo;
 EndProcedure
 
 &AtClient
 Procedure DeleteResource(Command)
-	ТекСтрокаРесурсов=Items.Resources.CurrentLine;
-	If ТекСтрокаРесурсов = Undefined Then
+	CurrentResourcesRow=Items.Resources.CurrentRow;
+	If CurrentResourcesRow = Undefined Then
 		Return;
 	EndIf;
 
-	Resources.Delete(Resources.FindByID(ТекСтрокаРесурсов));
+	Resources.Delete(Resources.FindByID(CurrentResourcesRow));
 EndProcedure
 
 &AtClient
@@ -1108,34 +1097,34 @@ EndProcedure
 &AtClient
 Procedure SaveSchemaToFile(Command)
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
-		New NotifyDescription("СохранитьСхемуВФайлЗавершение", ThisObject));
+		New NotifyDescription("SaveSchemaToFileEND", ThisObject));
 EndProcedure
 &AtClient
 Procedure ReadSchemaFromFile(Command)
 	UT_CommonClient.AttachFileSystemExtensionWithPossibleInstallation(
-		New NotifyDescription("ПрочитатьСхемуИзФайлаЗавершение", ThisObject));
+		New NotifyDescription("ReadSchemaFromFileEND", ThisObject));
 EndProcedure
 
 &AtClient
 Procedure FinishEdit(Command)
-	СобратьСКДПоДаннымФормы(True);
+	AssembleDCSFromFormData(True);
 
 	Close(DataCompositionSchemaURL);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetFieldFolder(Command)
-	ВручнуюДобавитьПолеНабораДанных(DataSetFieldsTypes.Folder);
+	AddDataSetFieldManually(DataSetFieldsTypes.Folder);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetFieldField(Command)
-	ВручнуюДобавитьПолеНабораДанных(DataSetFieldsTypes.Field);
+	AddDataSetFieldManually(DataSetFieldsTypes.Field);
 EndProcedure
 
 &AtClient
 Procedure AddDataSetFieldSet(Command)
-	ВручнуюДобавитьПолеНабораДанных(DataSetFieldsTypes.Set);
+	AddDataSetFieldManually(DataSetFieldsTypes.Set);
 EndProcedure
 
 //@skip-warning
@@ -1144,24 +1133,22 @@ Procedure Attachable_ExecuteToolsCommonCommand(Command)
 	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
 EndProcedure
 
-
-
 #EndRegion
 
 #Region Private
 
-#Region ЧтениеСохранениеВФайл
+#Region ReadSaveToFile
 &AtClient
-Procedure СохранитьСхемуВФайлЗавершение(Result, AdditionalParameters) Export
-	ДВФ=New FileDialog(FileDialogMode.Save);
-	ДВФ.Extension="xml";
-	ДВФ.Filter="File XML(*.xml)|*.xml";
-	ДВФ.Multiselect=False;
-	ДВФ.Show(New NotifyDescription("СохранитьСхемуВФайлЗавершениеВыбораИмениФайла", ThisObject));
+Procedure SaveSchemaToFileEND(Result, AdditionalParameters) Export
+	FD=New FileDialog(FileDialogMode.Save);
+	FD.Extension="xml";
+	FD.Filter="File XML(*.xml)|*.xml";
+	FD.Multiselect=False;
+	FD.Show(New NotifyDescription("SaveSchemaToFileFileNameChoiceEND", ThisObject));
 EndProcedure
 
 &AtClient
-Procedure СохранитьСхемуВФайлЗавершениеВыбораИмениФайла(SelectedFiles, AdditionalParameters) Export
+Procedure SaveSchemaToFileFileNameChoiceEND(SelectedFiles, AdditionalParameters) Export
 	If SelectedFiles = Undefined Then
 		Return;
 	EndIf;
@@ -1170,17 +1157,17 @@ Procedure СохранитьСхемуВФайлЗавершениеВыбора
 		Return;
 	EndIf;
 
-	АдресТекста=ПодготовитьСКДДляСохраненияВФайл();
+	TextURL=PrepareDSCForSaveFile();
 
 	Text=New TextDocument;
-	Text.SetText(GetFromTempStorage(АдресТекста));
+	Text.SetText(GetFromTempStorage(TextURL));
 	Text.BeginWriting( , SelectedFiles[0], "utf-8");
 EndProcedure
 
 &AtServer
-Function ПодготовитьСКДДляСохраненияВФайл()
-	СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек();
-	СобратьСКДПоДаннымФормы(True);
+Function PrepareDSCForSaveFile()
+	SaveToFormTableCurrentSettingsVariantSetting();
+	AssembleDCSFromFormData(True);
 
 	DCSText=UT_Common.ValueToXMLString(GetFromTempStorage(DataCompositionSchemaURL));
 
@@ -1188,109 +1175,109 @@ Function ПодготовитьСКДДляСохраненияВФайл()
 EndFunction
 
 &AtClient
-Procedure ПрочитатьСхемуИзФайлаЗавершение(Result, AdditionalParameters) Export
-	ДВФ=New FileDialog(FileDialogMode.Opening);
-	ДВФ.Extension="xml";
-	ДВФ.Filter="File XML(*.xml)|*.xml";
-	ДВФ.Multiselect=False;
+Procedure ReadSchemaFromFileEND(Result, AdditionalParameters) Export
+	FD=New FileDialog(FileDialogMode.Opening);
+	FD.Extension="xml";
+	FD.Filter="File XML(*.xml)|*.xml";
+	FD.Multiselect=False;
 
-	BeginPutFile(New NotifyDescription("ПрочитатьСхемуИзФайлаЗавершениеПомещенияФайла", ThisObject), , ДВФ,
+	BeginPutFile(New NotifyDescription("ReadSchemaFromFileEndPutFile", ThisObject), , FD,
 		True, UUID);
 EndProcedure
 
 &AtClient
-Procedure ПрочитатьСхемуИзФайлаЗавершениеПомещенияФайла(Result, Address, ВыбранноеИмяФайла, AdditionalParameters) Export
+Procedure ReadSchemaFromFileEndPutFile(Result, Address, SelectedFileName, AdditionalParameters) Export
 	If Not Result Then
 		Return;
 	EndIf;
 
-	ПрочитатьСхемуИзФайлаНаСервере(Address);
-	ЗаполнитьВспомогательныеДанныеРесурсов();
+	ReadSchemaFromFileAtServer(Address);
+	FillResourcesAuxuliaryData();
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьСхемуИзФайлаНаСервере(АдресФайла)
+Procedure ReadSchemaFromFileAtServer(FileAddress)
 
-	ДД=GetFromTempStorage(АдресФайла);
+	BinaryData=GetFromTempStorage(FileAddress);
 
 	Text=New TextDocument;
-	Text.Read(ДД.OpenStreamForRead());
+	Text.Read(BinaryData.OpenStreamForRead());
 
 	Try
 		DCS=UT_Common.ValueFromXMLString(Text.GetText());
 	Except
-		Message(StrTemplate("Not удалось прочитать СКД из файла: %1", ErrorDescription()));
+		Message(StrTemplate(NSTR("ru = 'Не удалось прочитать СКД из файла: %1';en = 'Could not read the DCS from the file: %1'"), ErrorDescription()));
 		Return;
 	EndTry;
 
-	ПрочитатьСКДВДанныеФормы(DCS);
+	ReadDCSToFormData(DCS);
 EndProcedure
 
 #EndRegion
 
 #Region DataSets
 &AtClient
-Function НаборДанныхПоИмени(ИмяНабора, СтрокаНаборов = Undefined)
-	If СтрокаНаборов = Undefined Then
-		СтрокаПоискаНаборов=DataSets.FindByID(NullDataSetURL);
+Function DataSetByName(DataSetName, DataSetsRow = Undefined)
+	If DataSetsRow = Undefined Then
+		DataSetSearchRow=DataSets.FindByID(ZerothDataSetURL);
 	Else
-		СтрокаПоискаНаборов=СтрокаНаборов;
+		DataSetSearchRow=DataSetsRow;
 	EndIf;
 
-	НайденныйНабор=Undefined;
-	For Each Стр In СтрокаПоискаНаборов.GetItems() Do
-		If Lower(Стр.Name) = Lower(ИмяНабора) Then
-			НайденныйНабор=Стр;
+	FoundDataSet=Undefined;
+	For Each Row In DataSetSearchRow.GetItems() Do
+		If Lower(Row.Name) = Lower(DataSetName) Then
+			FoundDataSet=Row;
 			Break;
 		EndIf;
 	EndDo;
 
-	Return НайденныйНабор;
+	Return FoundDataSet;
 EndFunction
 
 &AtClient
-Procedure ЗаполнитьПоляНабораДанныхПриИзмененииЗапроса(ИдентификаторСтрокиНабора)
-	ЗаполнитьПоляНабораДанныхПриИзмененииЗапросаНаСервере(ИдентификаторСтрокиНабора);
-	ЗаполнитьПараметрыСКДПриИзмененииЗапросаНабора(ИдентификаторСтрокиНабора);
-	ЗаполнитьВспомогательныеДанныеРесурсов();
+Procedure FillDataSetFieldsOnQueryChange(DataSetRowID)
+	FillDataSetFieldsOnQueryChangeAtServer(DataSetRowID);
+	FillDCSParametersOnDataSetQueryChange(DataSetRowID);
+	FillResourcesAuxuliaryData();
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьПараметрыСКДПриИзмененииЗапросаНабора(ИдентификаторСтрокиНабора)
-	СтрокаНабора=DataSets.FindByID(ИдентификаторСтрокиНабора);
+Procedure FillDCSParametersOnDataSetQueryChange(DataSetRowID)
+	DataSetRow=DataSets.FindByID(DataSetRowID);
 
-	If Not ValueIsFilled(СтрокаНабора.Query) Then
+	If Not ValueIsFilled(DataSetRow.Query) Then
 		Return;
 	EndIf;
 
 	Query=New Query;
-	Query.Text=СтрокаНабора.Query;
+	Query.Text=DataSetRow.Query;
 	QueryOptions=Query.FindParameters();
 
-	For Each ОписаниеПараметра In QueryOptions Do
-		СтруктураПоиска=New Structure;
-		СтруктураПоиска.Insert("Name", ОписаниеПараметра.Name);
+	For Each ParameterDescription In QueryOptions Do
+		SearchStructure=New Structure;
+		SearchStructure.Insert("Name", ParameterDescription.Name);
 
-		НайденныеСтрокиПараметров=DCSParameters.FindRows(СтруктураПоиска);
-		If НайденныеСтрокиПараметров.Count() = 0 Then
-			СтрокаПараметра=DCSParameters.Add();
-			СтрокаПараметра.Name=ОписаниеПараметра.Name;
-			СтрокаПараметра.Title=ОписаниеПараметра.Name;
-			СтрокаПараметра.ValueType=ОписаниеПараметра.ValueType;
-			СтрокаПараметра.IncludeInAvailableFields=True;
+		ParametersFoundRows=DCSParameters.FindRows(SearchStructure);
+		If ParametersFoundRows.Count() = 0 Then
+			ParameterRow=DCSParameters.Add();
+			ParameterRow.Name=ParameterDescription.Name;
+			ParameterRow.Title=ParameterDescription.Name;
+			ParameterRow.ValueType=ParameterDescription.ValueType;
+			ParameterRow.IncludeInAvailableFields=True;
 		Else
-			СтрокаПараметра=НайденныеСтрокиПараметров[0];
+			ParameterRow=ParametersFoundRows[0];
 		EndIf;
-		СтрокаПараметра.ДобавленАвтоматически=True;
+		ParameterRow.AddedAutomatically=True;
 	EndDo;
 EndProcedure
 &AtServer
-Procedure ДобавитьПолеНабора(СтрокаНабора, Column, DataSetFieldsTypes, МассивПолей, КолонкаРодитель = Undefined)
-	ОграничениеПоле=False;
-	ОграничениеУсловие=False;
-	ОграничениеГруппа=False;
-	ОграничениеПорядок=False;
-	ЗаполнятьОграничение=False;
+Procedure AddDataSetField(DataSetRow, Column, DataSetFieldsTypes, FieldsArray, ParentColumn = Undefined)
+	RestrictionField=False;
+	RestrictionCondition=False;
+	RestrictionGroup=False;
+	RestrictionOrder=False;
+	FillRestriction=False;
 	If TypeOf(Column) = Type("QuerySchemaNestedTableColumn") Then
 		Type=DataSetFieldsTypes.Set;
 		ColumnName=Column.Alias;
@@ -1305,69 +1292,69 @@ Procedure ДобавитьПолеНабора(СтрокаНабора, Column,
 			Type=DataSetFieldsTypes.Field;
 			ColumnName=Column.Name;
 		EndIf;
-		ЗаполнятьОграничение=True;
+		FillRestriction=True;
 
-		ОграничениеПоле=Not Column.Field;
-		ОграничениеУсловие=Not Column.Filter;
-		ОграничениеГруппа=Not Column.Dimension;
-		ОграничениеПорядок=Not Column.Order;
+		RestrictionField=Not Column.Field;
+		RestrictionCondition=Not Column.Filter;
+		RestrictionGroup=Not Column.Dimension;
+		RestrictionOrder=Not Column.Order;
 	EndIf;
 
-	If КолонкаРодитель = Undefined Then
+	If ParentColumn = Undefined Then
 		Field=ColumnName;
 	Else
-		Field=КолонкаРодитель.Alias + "." + ColumnName;
+		Field=ParentColumn.Alias + "." + ColumnName;
 	EndIf;
 
-	СтруктураПоиска=New Structure;
-	СтруктураПоиска.Insert("Field", Field);
+	SearchStructure=New Structure;
+	SearchStructure.Insert("Field", Field);
 
-	МассивСтрок=СтрокаНабора.Fields.FindRows(СтруктураПоиска);
-	If МассивСтрок.Count() = 0 Then
-		НовоеПоле=СтрокаНабора.Fields.Add();
-		НовоеПоле.Field=Field;
-		НовоеПоле.DataPath=Field;
+	RowsArray=DataSetRow.Fields.FindRows(SearchStructure);
+	If RowsArray.Count() = 0 Then
+		NewField=DataSetRow.Fields.Add();
+		NewField.Field=Field;
+		NewField.DataPath=Field;
 	Else
-		НовоеПоле=МассивСтрок[0];
+		NewField=RowsArray[0];
 	EndIf;
-	НовоеПоле.Type=Type;
-	НовоеПоле.Picture=КартинкаВидаПоляНабораДанных(НовоеПоле.Type, DataSetFieldsTypes);
+	NewField.Type=Type;
+	NewField.Picture=DataSetFieldTypePicture(NewField.Type, DataSetFieldsTypes);
 
 	If TypeOf(Column) = Type("QuerySchemaNestedTableColumn") Then
-		For Each ТекКолонка In Column.Cols Do
-			ДобавитьПолеНабора(СтрокаНабора, ТекКолонка, DataSetFieldsTypes, МассивПолей, Column);
+		For Each CurrentColumn In Column.Cols Do
+			AddDataSetField(DataSetRow, CurrentColumn, DataSetFieldsTypes, FieldsArray, Column);
 		EndDo;
 	ElsIf Type = DataSetFieldsTypes.Field Then
-		НовоеПоле.ТипЗначенияЗапроса=Column.ValueType;
+		NewField.QueryValueType=Column.ValueType;
 	EndIf;
 
-	If ЗаполнятьОграничение Then
-		НовоеПоле.ОграничениеИспользованияГруппировка=ОграничениеГруппа;
-		НовоеПоле.ОграничениеИспользованияПоле=ОграничениеПоле;
-		НовоеПоле.ОграничениеИспользованияПорядок=ОграничениеПорядок;
-		НовоеПоле.ОграничениеИспользованияУсловие=ОграничениеУсловие;
+	If FillRestriction Then
+		NewField.UseRestrictionGroup=RestrictionGroup;
+		NewField.UseRestrictionField=RestrictionField;
+		NewField.UseRestrictionOrder=RestrictionOrder;
+		NewField.UseRestrictionCondition=RestrictionCondition;
 
-		НовоеПоле.ОграничениеИспользованияРеквизитовГруппировка=ОграничениеГруппа;
-		НовоеПоле.ОграничениеИспользованияРеквизитовПоле=ОграничениеПоле;
-		НовоеПоле.ОграничениеИспользованияРеквизитовПорядок=ОграничениеПорядок;
-		НовоеПоле.ОграничениеИспользованияРеквизитовУсловие=ОграничениеУсловие;
+		NewField.AttributeUseRestrictionGroup=RestrictionGroup;
+		NewField.AttributeUseRestrictionField=RestrictionField;
+		NewField.AttributeUseRestrictionOrder=RestrictionOrder;
+		NewField.AttributeUseRestrictionCondition=RestrictionCondition;
 	EndIf;
 
-	МассивПолей.Add(Field);
+	FieldsArray.Add(Field);
 EndProcedure
 &AtServer
-Procedure ЗаполнитьПоляНабораДанныхПриИзмененииЗапросаНаСервере(ИдентификаторСтрокиНабора)
-	СтрокаНабора=DataSets.FindByID(ИдентификаторСтрокиНабора);
+Procedure FillDataSetFieldsOnQueryChangeAtServer(DataSetRowID)
+	DataSetRow=DataSets.FindByID(DataSetRowID);
 
-	МассивПолей=New Array;
+	FieldsArray=New Array;
 	DataSetFieldsTypes=DataSetFieldsTypes();
 	DataSetsTypes=DataSetsTypes();
 
-	If Not СтрокаНабора.AutoFillAvailableFields Then
-		QueryBuilder=New QueryBuilder(СтрокаНабора.Query);
+	If Not DataSetRow.AutoFillAvailableFields Then
+		QueryBuilder=New QueryBuilder(DataSetRow.Query);
 
-		For Each ДоступноеПоле In QueryBuilder.AvailableFields Do
-			ДобавитьПолеНабора(СтрокаНабора, ДоступноеПоле, DataSetFieldsTypes, МассивПолей);
+		For Each AvailableField In QueryBuilder.AvailableFields Do
+			AddDataSetField(DataSetRow, AvailableField, DataSetFieldsTypes, FieldsArray);
 		EndDo;
 
 	Else
@@ -1376,142 +1363,142 @@ Procedure ЗаполнитьПоляНабораДанныхПриИзменен
 		If UT_CommonClientServer.PlatformVersionNotLess_8_3_14() Then
 			QuerySchema.DataCompositionMode=True;
 		EndIf;
-		QuerySchema.SetQueryText(СтрокаНабора.Query);
+		QuerySchema.SetQueryText(DataSetRow.Query);
 
-		ИндексПакета=QuerySchema.QueryBatch.Count() - 1;
-		НужныйПакет=QuerySchema.QueryBatch[ИндексПакета];
-		While TypeOf(НужныйПакет) <> Type("QuerySchemaSelectQuery") Do
-			If ИндексПакета < 0 Then
+		BatchIndex=QuerySchema.QueryBatch.Count() - 1;
+		NeedBatch=QuerySchema.QueryBatch[BatchIndex];
+		While TypeOf(NeedBatch) <> Type("QuerySchemaSelectQuery") Do
+			If BatchIndex < 0 Then
 				Break;
 			EndIf;
-			ИндексПакета=ИндексПакета - 1;
-			НужныйПакет=QuerySchema.QueryBatch[ИндексПакета];
+			BatchIndex=BatchIndex - 1;
+			NeedBatch=QuerySchema.QueryBatch[BatchIndex];
 		EndDo;
 
-		If TypeOf(НужныйПакет) <> Type("QuerySchemaSelectQuery") Then
+		If TypeOf(NeedBatch) <> Type("QuerySchemaSelectQuery") Then
 			Return;
 		EndIf;
-		If СтрокаНабора.AutoFillAvailableFields Then
-			For Each Column In НужныйПакет.Cols Do
-				ДобавитьПолеНабора(СтрокаНабора, Column, DataSetFieldsTypes, МассивПолей);
+		If DataSetRow.AutoFillAvailableFields Then
+			For Each Column In NeedBatch.Cols Do
+				AddDataSetField(DataSetRow, Column, DataSetFieldsTypes, FieldsArray);
 			EndDo;
 		EndIf;
 	EndIf;
 
-	УдалитьЛишниеПоляНабораПослеЗаполнения(СтрокаНабора, МассивПолей);
+	DeleteDataSetExtraFieldsAfterFilling(DataSetRow, FieldsArray);
 
-	РодительскийНабор=СтрокаНабора.GetParent();
-	If РодительскийНабор.Type = DataSetsTypes.Union Then
-		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
+	ParentDataSet=DataSetRow.GetParent();
+	If ParentDataSet.Type = DataSetsTypes.Union Then
+		FillDataSetUnionFieldsByChildQuerys(ParentDataSet.GetID());
 	EndIf;
 EndProcedure
 
 &AtServer
-Procedure УдалитьЛишниеПоляНабораПослеЗаполнения(СтрокаНабора, МассивДобавленныхПолей)
+Procedure DeleteDataSetExtraFieldsAfterFilling(DataSetRow, AddedFieldsArray)
 	DataSetFieldsTypes=DataSetFieldsTypes();
 
-	МассивПолейКУдалению=New Array;
-	For Each СтрокаПоля In СтрокаНабора.Fields Do
-		If МассивДобавленныхПолей.Find(СтрокаПоля.Field) = Undefined And СтрокаПоля.Type
+	FieldsArrayToDelete=New Array;
+	For Each FieldRow In DataSetRow.Fields Do
+		If AddedFieldsArray.Find(FieldRow.Field) = Undefined And FieldRow.Type
 			<> DataSetFieldsTypes.Folder Then
-			МассивПолейКУдалению.Add(СтрокаПоля);
+			FieldsArrayToDelete.Add(FieldRow);
 		EndIf;
 	EndDo;
 
-	For Each Стр In МассивПолейКУдалению Do
-		СтрокаНабора.Fields.Delete(Стр);
+	For Each Row In FieldsArrayToDelete Do
+		DataSetRow.Fields.Delete(Row);
 	EndDo;
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(ИдентификаторСтрокиНабора)
-	СтрокаНабора=DataSets.FindByID(ИдентификаторСтрокиНабора);
+Procedure FillDataSetUnionFieldsByChildQuerys(DataSetRowID)
+	DataSetRow=DataSets.FindByID(DataSetRowID);
 
-	ВидыПолейНаборов=DataSetFieldsTypes();
+	DataSetsFiledsTypes=DataSetFieldsTypes();
 
-	ПоляНаборы=New Array;
-	МассивПолей=New Array;
-	For Each ТекНабор In СтрокаНабора.GetItems() Do
-		For Each ТекПоле In ТекНабор.Fields Do
-			If ТекПоле.Type = ВидыПолейНаборов.Set Then
-				ПоляНаборы.Add(ТекПоле.DataPath);
+	FieldsOfSetType=New Array;
+	FieldsArray=New Array;
+	For Each CurrentDataSet In DataSetRow.GetItems() Do
+		For Each CurrentField In CurrentDataSet.Fields Do
+			If CurrentField.Type = DataSetsFiledsTypes.Set Then
+				FieldsOfSetType.Add(CurrentField.DataPath);
 			EndIf;
 
-			СтруктураПоиска=New Structure;
-			СтруктураПоиска.Insert("DataPath", ТекПоле.DataPath);
+			SearchStructure=New Structure;
+			SearchStructure.Insert("DataPath", CurrentField.DataPath);
 
-			НайденныеСтроки=СтрокаНабора.Fields.FindRows(СтруктураПоиска);
-			If НайденныеСтроки.Count() = 0 Then
-				НовоеПоле=СтрокаНабора.Fields.Add();
-				НовоеПоле.Type=ТекПоле.Type;
-				НовоеПоле.DataPath=ТекПоле.DataPath;
-				НовоеПоле.Title=UT_StringFunctionsClientServer.IdentifierPresentation(НовоеПоле.DataPath);
-				НовоеПоле.Field=НовоеПоле.DataPath;
+			FoundRows=DataSetRow.Fields.FindRows(SearchStructure);
+			If FoundRows.Count() = 0 Then
+				NewField=DataSetRow.Fields.Add();
+				NewField.Type=CurrentField.Type;
+				NewField.DataPath=CurrentField.DataPath;
+				NewField.Title=UT_StringFunctionsClientServer.IdentifierPresentation(NewField.DataPath);
+				NewField.Field=NewField.DataPath;
 			Else
-				НовоеПоле=НайденныеСтроки[0];
+				NewField=FoundRows[0];
 			EndIf;
 
-			МассивПолей.Add(НовоеПоле.DataPath);
+			FieldsArray.Add(NewField.DataPath);
 
 		EndDo;
 	EndDo;
 
-	НовыйМассивПолей=New Array;
-	For Each Field In МассивПолей Do
-		If ПоляНаборы.Find(Field) = Undefined Then
-			НовыйМассивПолей.Add(Field);
+	NewFieldsArray=New Array;
+	For Each Field In FieldsArray Do
+		If FieldsOfSetType.Find(Field) = Undefined Then
+			NewFieldsArray.Add(Field);
 		EndIf;
 	EndDo;
 
-	УдалитьЛишниеПоляНабораПослеЗаполнения(СтрокаНабора, НовыйМассивПолей);
+	DeleteDataSetExtraFieldsAfterFilling(DataSetRow, NewFieldsArray);
 
 	DataSetsTypes=DataSetsTypes();
-	РодительскийНабор=СтрокаНабора.GetParent();
-	If РодительскийНабор.Type = DataSetsTypes.Union Then
-		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
+	ParentDataSet=DataSetRow.GetParent();
+	If ParentDataSet.Type = DataSetsTypes.Union Then
+		FillDataSetUnionFieldsByChildQuerys(ParentDataSet.GetID());
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ОткрытьКонструкторЗапросаЗавершение(Text, AdditionalParameters) Export
+Procedure OpenQueryWizardEND(Text, AdditionalParameters) Export
 	If Text = Undefined Then
 		Return;
 	EndIf;
 
-	RowID=AdditionalParameters.ТекСтрока;
-	СтрокаНабора=DataSets.FindByID(RowID);
+	RowID=AdditionalParameters.CurrentRow;
+	DataSetRow=DataSets.FindByID(RowID);
 
-	СтрокаНабора.Query=Text;
+	DataSetRow.Query=Text;
 
-	ЗаполнитьПоляНабораДанныхПриИзмененииЗапроса(RowID);
+	FillDataSetFieldsOnQueryChange(RowID);
 EndProcedure
 &AtClient
-Procedure ДобавитьНаборДанных(Type)
-	ТекДанные=Items.DataSets.CurrentData;
-	If ТекДанные.Type = DataSetsTypes.Union Then
-		СтрокаДереваДляДобавления=DataSets.FindByID(Items.DataSets.CurrentLine);
+Procedure AddDataSet(Type)
+	CurrentData=Items.DataSets.CurrentData;
+	If CurrentData.Type = DataSetsTypes.Union Then
+		TreeRowToAdd=DataSets.FindByID(Items.DataSets.CurrentRow);
 	Else
-		СтрокаДереваДляДобавления=DataSets.FindByID(NullDataSetURL);
+		TreeRowToAdd=DataSets.FindByID(ZerothDataSetURL);
 	EndIf;
 
-	НаборДанных=СтрокаДереваДляДобавления.GetItems().Add();
-	НаборДанных.Name="НаборДанных" + НаборДанных.GetID();
-	НаборДанных.Type=Type;
+	DataSet=TreeRowToAdd.GetItems().Add();
+	DataSet.Name="DataSet" + DataSet.GetID();
+	DataSet.Type=Type;
 
 	If Type = DataSetsTypes.Query Then
-		НаборДанных.Picture=PictureLib.УИ_DataSetСКДЗапрос;
-		НаборДанных.AutoFillAvailableFields=True;
-		НаборДанных.UseQueryGroupIfPossible=True;
+		DataSet.Picture=PictureLib.UT_DataSetDCSQuery;
+		DataSet.AutoFillAvailableFields=True;
+		DataSet.UseQueryGroupIfPossible=True;
 	ElsIf Type = DataSetsTypes.Object Then
-		НаборДанных.Picture=PictureLib.UT_DataSetDCSObject;
+		DataSet.Picture=PictureLib.UT_DataSetDCSObject;
 	ElsIf Type = DataSetsTypes.Union Then
-		НаборДанных.Picture=PictureLib.UT_DataSetDCSUnion;
+		DataSet.Picture=PictureLib.UT_DataSetDCSUnion;
 	EndIf;
 
-	Items.DataSets.CurrentLine=НаборДанных.GetID();
+	Items.DataSets.CurrentRow=DataSet.GetID();
 
 	If DataSources.Count() > 0 Then
-		НаборДанных.DataSource=DataSources[0].Name;
+		DataSet.DataSource=DataSources[0].Name;
 	EndIf;
 EndProcedure
 &AtClientAtServerNoContext
@@ -1537,146 +1524,146 @@ Function DataSetFieldsTypes()
 EndFunction
 
 &AtClient
-Function НаборыДанныхВерхнегоУровня()
-	МассивНаборов=New Array;
+Function TopLevelDataSets()
+	DataSetsArray=New Array;
 
-	НулевойНаборДанных=DataSets.FindByID(NullDataSetURL);
-	For Each Set In НулевойНаборДанных.GetItems() Do
-		МассивНаборов.Add(Set);
+	ZerothDataSet=DataSets.FindByID(ZerothDataSetURL);
+	For Each Set In ZerothDataSet.GetItems() Do
+		DataSetsArray.Add(Set);
 	EndDo;
 
-	Return МассивНаборов;
+	Return DataSetsArray;
 EndFunction
 
 &AtClient
-Procedure ЗаполнитьСписокВыбораИсточникаДанныхНабора()
+Procedure FillDatDataSetDataSourceChoiceList()
 	Items.DataSetsDataSource.ChoiceList.Clear();
 
-	For Each Стр In DataSources Do
-		Items.DataSetsDataSource.ChoiceList.Add(Стр.Name);
+	For Each Row In DataSources Do
+		Items.DataSetsDataSource.ChoiceList.Add(Row.Name);
 	EndDo;
 EndProcedure
 
 &AtClient
 Procedure GroupDataSetsRightPanelOnCurrentPageChange(Item, CurrentPage)
-	ЗаполнитьСписокВыбораИсточникаДанныхНабора();
+	FillDatDataSetDataSourceChoiceList();
 EndProcedure
 
 
 &AtClientAtServerNoContext
-Function ПредставлениеРолиПоляНабораДанных(Role)
+Function DataSetFieldRolePresentation(Role)
 	If Role = Undefined Then
 		Return "";
 	EndIf;
 
-	МассивПредставления=New Array;
+	PresentationArray=New Array;
 
 	If Role.Period Then
-		МассивПредставления.Add("Period");
-		МассивПредставления.Add(Role.PeriodNumber);
-		If Role.ПериодДополнительный Then
-			МассивПредставления.Add("Доп");
+		PresentationArray.Add("Period");
+		PresentationArray.Add(Role.PeriodNumber);
+		If Role.PeriodAdditional Then
+			PresentationArray.Add("Add");
 		EndIf;
 	EndIf;
 
 	If Role.Dimension Then
-		МассивПредставления.Add("Dimension");
+		PresentationArray.Add("Dimension");
 		If ValueIsFilled(Role.ParentDimension) Then
-			МассивПредставления.Add(Role.ParentDimension);
+			PresentationArray.Add(Role.ParentDimension);
 		EndIf;
 	EndIf;
 
 	If Role.Account Then
-		МассивПредставления.Add("Account");
-		МассивПредставления.Add(Role.AccountTypeExpression);
+		PresentationArray.Add("Account");
+		PresentationArray.Add(Role.AccountTypeExpression);
 	EndIf;
 
 	If Role.Balance Then
-		If Lower(Role.BalanceType) = "начальныйостаток" Then
-			МассивПредставления.Add("НачОст");
-		ElsIf Lower(Role.BalanceType) = "конечныйостаток" Then
-			МассивПредставления.Add("КонОст");
+		If Lower(Role.BalanceType) = "openingbalance" Then
+			PresentationArray.Add("OpeningBal");
+		ElsIf Lower(Role.BalanceType) = "сlosingbalance" Then
+			PresentationArray.Add("ClosingBal");
 		EndIf;
-		If Lower(Role.AccountingBalanceType) = "дебет" Then
-			МассивПредставления.Add("Дт");
-		ElsIf Lower(Role.AccountingBalanceType) = "кредит" Then
-			МассивПредставления.Add("Кт");
+		If Lower(Role.AccountingBalanceType) = "debit" Then
+			PresentationArray.Add("Dr");
+		ElsIf Lower(Role.AccountingBalanceType) = "credit" Then
+			PresentationArray.Add("Cr");
 		EndIf;
 
 		If ValueIsFilled(Role.BalanceGroup) Then
-			МассивПредставления.Add(Role.BalanceGroup);
+			PresentationArray.Add(Role.BalanceGroup);
 		EndIf;
 		If ValueIsFilled(Role.AccountField) Then
-			МассивПредставления.Add(Role.AccountField);
+			PresentationArray.Add(Role.AccountField);
 		EndIf;
 	EndIf;
 
 	If Role.IgnoreNULLValues Then
-		МассивПредставления.Add("NULL");
+		PresentationArray.Add("NULL");
 	EndIf;
 
 	If Role.Required Then
-		МассивПредставления.Add("Required");
+		PresentationArray.Add("Required");
 	EndIf;
 
-	Return StrConcat(МассивПредставления, ", ");
+	Return StrConcat(PresentationArray, ", ");
 EndFunction
 
 &AtClient
-Procedure НаборыДанныхПоляРольПредставлениеНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure DataSetsFieldsRolePresentationStartChoiceEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаНабора=DataSets.FindByID(AdditionalParameters.ИдентификаторСтрокиНабора);
+	DataSetRow=DataSets.FindByID(AdditionalParameters.DataSetRowID);
 
-	СтрокаПоля=СтрокаНабора.Fields.FindByID(AdditionalParameters.RowID);
-	СтрокаПоля.Role=Result;
+	FieldRow=DataSetRow.Fields.FindByID(AdditionalParameters.RowID);
+	FieldRow.Role=Result;
 
-	СтрокаПоля.РольПредставление=ПредставлениеРолиПоляНабораДанных(СтрокаПоля.Role);
+	FieldRow.RolePresentation=DataSetFieldRolePresentation(FieldRow.Role);
 EndProcedure
 
 &AtClient
-Procedure ПоляДоступныеЗначенияНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure FieldsAvailableValuesStartChoiceEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаНабора=DataSets.FindByID(AdditionalParameters.ИдентификаторСтрокиНабора);
+	DataSetRow=DataSets.FindByID(AdditionalParameters.DataSetRowID);
 
-	СтрокаПоля=СтрокаНабора.Fields.FindByID(AdditionalParameters.RowID);
-	СтрокаПоля.AvailableValues=Result;
+	FieldRow=DataSetRow.Fields.FindByID(AdditionalParameters.RowID);
+	FieldRow.AvailableValues=Result;
 EndProcedure
 
 &AtClient
-Procedure ВручнуюДобавитьПолеНабораДанных(ВидПоля)
-	СтрокаНабора=Items.DataSets.CurrentData;
-	If СтрокаНабора = Undefined Then
+Procedure AddDataSetFieldManually(FieldType)
+	DataSetRow=Items.DataSets.CurrentData;
+	If DataSetRow = Undefined Then
 		Return;
 	EndIf;
 
-	НовоеПоле=СтрокаНабора.Fields.Add();
-	НовоеПоле.Type=ВидПоля;
-	НовоеПоле.Picture=КартинкаВидаПоляНабораДанных(ВидПоля, DataSetFieldsTypes);
-	НовоеПоле.DataPath="Field" + НовоеПоле.GetID();
-	НовоеПоле.Title=UT_StringFunctionsClientServer.IdentifierPresentation(НовоеПоле.DataPath);
-	If ВидПоля <> DataSetFieldsTypes.Folder Then
-		НовоеПоле.Field=НовоеПоле.DataPath;
+	NewField=DataSetRow.Fields.Add();
+	NewField.Type=FieldType;
+	NewField.Picture=DataSetFieldTypePicture(FieldType, DataSetFieldsTypes);
+	NewField.DataPath="Field" + NewField.GetID();
+	NewField.Title=UT_StringFunctionsClientServer.IdentifierPresentation(NewField.DataPath);
+	If FieldType <> DataSetFieldsTypes.Folder Then
+		NewField.Field=NewField.DataPath;
 	EndIf;
 
-	Items.DataSetsFields.CurrentLine=НовоеПоле.GetID();
+	Items.DataSetsFields.CurrentRow=NewField.GetID();
 	
-	РодительскийНабор=СтрокаНабора.GetParent();
-	If РодительскийНабор.Type=DataSetsTypes.Union Then
-		ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
+	ParentDataSet=DataSetRow.GetParent();
+	If ParentDataSet.Type=DataSetsTypes.Union Then
+		FillDataSetUnionFieldsByChildQuerys(ParentDataSet.GetID());
 	EndIf;
 EndProcedure
 
 &AtClientAtServerNoContext
-Function КартинкаВидаПоляНабораДанных(Type, ВидыПолейНабора)
-	If Type = ВидыПолейНабора.Field Then
+Function DataSetFieldTypePicture(Type, DatasetFieldsTypes)
+	If Type = DatasetFieldsTypes.Field Then
 		Picture=PictureLib.Attribute;
-	ElsIf Type = ВидыПолейНабора.Set Then
+	ElsIf Type = DatasetFieldsTypes.Set Then
 		Picture=PictureLib.NestedTable;
 	Else
 		Picture=PictureLib.Folder;
@@ -1686,94 +1673,94 @@ Function КартинкаВидаПоляНабораДанных(Type, Виды
 EndFunction
 
 &AtClient
-Function ДоступноДобавлениеПоляНабораПоле(ТекСтрокаНабора)
-	Return ТекСтрокаНабора.Type = DataSetsTypes.Object;
+Function AvailableToAddDataSetFieldField(DataSetCurrentRow)
+	Return DataSetCurrentRow.Type = DataSetsTypes.Object;
 EndFunction
 
 &AtClient
-Function ДоступноДобавлениеПоляНабораНабор(ТекСтрокаНабора)
-	Return ТекСтрокаНабора.Type = DataSetsTypes.Object;
+Function AvailableToAddDataSetFieldSet(DataSetCurrentRow)
+	Return DataSetCurrentRow.Type = DataSetsTypes.Object;
 EndFunction
 
 &AtClient
-Function ДоступноКопированиеУдаленияПоляНабора(ТекСтрокаНабора, ТекСтрокаПоля)
-	If ТекСтрокаПоля = Undefined Then
+Function DataSetFieldCloneDeleteIsAvalible(DataSetCurrentRow, CurrentFieldRow)
+	If CurrentFieldRow = Undefined Then
 		Return False;
 	EndIf;
 
-	Return ТекСтрокаПоля.Type = DataSetFieldsTypes.Folder Or (ДоступноДобавлениеПоляНабораПоле(ТекСтрокаНабора)
-		And ТекСтрокаПоля.Type = DataSetFieldsTypes.Field) Or (ДоступноДобавлениеПоляНабораНабор(ТекСтрокаНабора)
-		And ТекСтрокаПоля.Type = DataSetFieldsTypes.Set);
+	Return CurrentFieldRow.Type = DataSetFieldsTypes.Folder Or (AvailableToAddDataSetFieldField(DataSetCurrentRow)
+		And CurrentFieldRow.Type = DataSetFieldsTypes.Field) Or (AvailableToAddDataSetFieldSet(DataSetCurrentRow)
+		And CurrentFieldRow.Type = DataSetFieldsTypes.Set);
 EndFunction
 
 &AtClient
-Procedure УстановитьДоступностьКнопокДобавленияПолейНабора()
-	ТекНабор=Items.DataSets.CurrentData;
-	If ТекНабор = Undefined Then
+Procedure SetAvailableOfAddDataSetFieldButtons()
+	CurrentDataSet=Items.DataSets.CurrentData;
+	If CurrentDataSet = Undefined Then
 		Return;
 	EndIf;
-	If ТекНабор.GetID() = NullDataSetURL Then
+	If CurrentDataSet.GetID() = ZerothDataSetURL Then
 		Return;
 	EndIf;
 
-	ДоступноДобавлениеПоля=ДоступноДобавлениеПоляНабораПоле(ТекНабор);
-	ДоступноДобавлениеНабора=ДоступноДобавлениеПоляНабораНабор(ТекНабор);
-	ДоступноКопирование=ДоступноКопированиеУдаленияПоляНабора(ТекНабор, Items.DataSetsFields.CurrentData);
-	ДоступноУдаление=ДоступноКопирование;
+	AddFieldAvailable=AvailableToAddDataSetFieldField(CurrentDataSet);
+	AddSetAvailable=AvailableToAddDataSetFieldSet(CurrentDataSet);
+	CloneAvailable=DataSetFieldCloneDeleteIsAvalible(CurrentDataSet, Items.DataSetsFields.CurrentData);
+	DeleteAvailable=CloneAvailable;
 
-	Items.DataSetsFieldsAddDataSetFieldField.Enabled=ДоступноДобавлениеПоля;
-	Items.DataSetsFieldsAddDataSetFieldField1.Visible=ДоступноДобавлениеПоля;
+	Items.DataSetsFieldsAddDataSetFieldField.Enabled=AddFieldAvailable;
+	Items.DataSetsFieldsAddDataSetFieldField1.Visible=AddFieldAvailable;
 
-	Items.DataSetsFieldsAddDataSetFieldSet.Enabled=ДоступноДобавлениеНабора;
-	Items.DataSetsFieldsAddDataSetFieldSet1.Visible=ДоступноДобавлениеНабора;
+	Items.DataSetsFieldsAddDataSetFieldSet.Enabled=AddSetAvailable;
+	Items.DataSetsFieldsAddDataSetFieldSet1.Visible=AddSetAvailable;
 
-	Items.DataSetsFieldsCopy.Enabled=ДоступноКопирование;
-	Items.DataSetsFieldsCopy1.Visible=ДоступноКопирование;
+	Items.DataSetsFieldsCopy.Enabled=CloneAvailable;
+	Items.DataSetsFieldsCopy1.Visible=CloneAvailable;
 
-	Items.DataSetsFieldsDelete.Enabled=ДоступноКопирование;
-	Items.DataSetsFieldsDelete1.Visible=ДоступноУдаление;
+	Items.DataSetsFieldsDelete.Enabled=CloneAvailable;
+	Items.DataSetsFieldsDelete1.Visible=DeleteAvailable;
 
 EndProcedure
 
 &AtClient
-Procedure ПоляТипЗначенияНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure FieldsValueTypeStartChoiceEND(Result, AdditionalParameters) Export
 	If Result=Undefined Then
 		Return;
 	EndIf;
-	СтрокаНабора=Items.DataSets.CurrentData;
-	If СтрокаНабора = Undefined Then
+	DataSetRow=Items.DataSets.CurrentData;
+	If DataSetRow = Undefined Then
 		Return;
 	EndIf;
 	
-	ТекДанныеСтроки=СтрокаНабора.Fields.FindByID(AdditionalParameters.ТекСтрока);
-	ТекДанныеСтроки.ValueType=Result;
+	CurrentRowData=DataSetRow.Fields.FindByID(AdditionalParameters.CurrentRow);
+	CurrentRowData.ValueType=Result;
 EndProcedure
 #EndRegion
 
 #Region DataSetLinks
 &AtClient
-Procedure ЗаполнитьСписокВыбораПоляСвязиНаборов(ИмяНабораДанных, ЭлементПоля)
-	ЭлементПоля.ChoiceList.Clear();
+Procedure FillDataSetLinkFieldChoiceList(DataSetName, FieldItem)
+	FieldItem.ChoiceList.Clear();
 
-	НаборДанных=НаборДанныхПоИмени(ИмяНабораДанных);
-	If НаборДанных = Undefined Then
+	DataSet=DataSetByName(DataSetName);
+	If DataSet = Undefined Then
 		Return;
 	EndIf;
 
-	For Each Field In НаборДанных.Fields Do
-		ЭлементПоля.ChoiceList.Add(Field.DataPath);
+	For Each Field In DataSet.Fields Do
+		FieldItem.ChoiceList.Add(Field.DataPath);
 	EndDo;
 
 EndProcedure
 
 &AtClient
-Procedure ЗаполнитьВспомогательныеДанныеСвязейНаборовДанных()
-	Наборы=НаборыДанныхВерхнегоУровня();
+Procedure FillDataSetLinksAuxuliaryData()
+	Sets=TopLevelDataSets();
 
 	Items.DataSetLinksSourceDataSet.ChoiceList.Clear();
 	Items.DataSetLinksDestinationDataSet.ChoiceList.Clear();
 
-	For Each Set In Наборы Do
+	For Each Set In Sets Do
 		Items.DataSetLinksSourceDataSet.ChoiceList.Add(Set.Name);
 		Items.DataSetLinksDestinationDataSet.ChoiceList.Add(Set.Name);
 	EndDo;
@@ -1782,90 +1769,90 @@ EndProcedure
 
 #Region CalculatedFields
 &AtClient
-Procedure ВычисляемыеПоляВыражениеЗавершение(Result, AdditionalParameters) Export
+Procedure CalculatedFieldsExpressionOpeningEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаРесурса=CalculatedFields.FindByID(AdditionalParameters.RowID);
-	СтрокаРесурса.Expression=Result;
+	ResourceRow=CalculatedFields.FindByID(AdditionalParameters.RowID);
+	ResourceRow.Expression=Result;
 EndProcedure
 
 &AtClient
-Procedure ВычисляемыеПоляДоступныеЗначенияНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure CalculatedFieldsAvailableValuesStartChoiceEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаПоля=CalculatedFields.FindByID(AdditionalParameters.RowID);
-	СтрокаПоля.AvailableValues=Result;
+	FieldRow=CalculatedFields.FindByID(AdditionalParameters.RowID);
+	FieldRow.AvailableValues=Result;
 EndProcedure
 
 &AtClient
-Procedure ВычисляемыеПоляТипЗначенияНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure CalculatedFieldsValueTypeStartChoiceEND(Result, AdditionalParameters) Export
 	If Result=Undefined Then
 		Return;
 	EndIf;
 	
-	ТекДанныеСтроки=CalculatedFields.FindByID(AdditionalParameters.ТекСтрока);
-	ТекДанныеСтроки.ValueType=Result;
+	CurrentRowData=CalculatedFields.FindByID(AdditionalParameters.CurrentRow);
+	CurrentRowData.ValueType=Result;
 EndProcedure
 
 #EndRegion
 
 #Region Resources
 &AtClient
-Procedure РесурсыГруппировкиНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure ResourcesGroupsStartChoiceEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаРесурса=Resources.FindByID(AdditionalParameters.RowID);
-	СтрокаРесурса.Groups=Result;
+	ResourceRow=Resources.FindByID(AdditionalParameters.RowID);
+	ResourceRow.Groups=Result;
 EndProcedure
 
 &AtClient
-Procedure РесурсыВыражениеОткрытиеЗавершение(Result, AdditionalParameters) Export
+Procedure ResourcesExpressionOpeningEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаРесурса=Resources.FindByID(AdditionalParameters.RowID);
-	СтрокаРесурса.Expression=Result;
+	ResourceRow=Resources.FindByID(AdditionalParameters.RowID);
+	ResourceRow.Expression=Result;
 EndProcedure
 
 &AtClient
-Procedure ДобавитьРесурс(СтрокаДоступногоПоля)
-	If TypeOf(СтрокаДоступногоПоля) = Type("Number") Then
-		ДоступноеПоле=ResourceAvailableField.FindByID(СтрокаДоступногоПоля);
+Procedure AddResource(AvailableFieldRow)
+	If TypeOf(AvailableFieldRow) = Type("Number") Then
+		AvailableField=ResourceAvailableFields.FindByID(AvailableFieldRow);
 	Else
-		ДоступноеПоле=СтрокаДоступногоПоля;
+		AvailableField=AvailableFieldRow;
 	EndIf;
 
-	НС=Resources.Add();
-	НС.DataPath=ДоступноеПоле.DataPath;
+	NewRow=Resources.Add();
+	NewRow.DataPath=AvailableField.DataPath;
 
-	If ДоступноеПоле.ВычисляемоеПоле Or ДоступноеПоле.Числовое Then
-		НС.Expression=StrTemplate("Сумма(%1)", НС.DataPath);
+	If AvailableField.CalculatedField Or AvailableField.Numeric Then
+		NewRow.Expression=StrTemplate("Sum(%1)", NewRow.DataPath);
 	Else
-		НС.Expression=StrTemplate("Count(%1)", НС.DataPath);
+		NewRow.Expression=StrTemplate("Count(%1)", NewRow.DataPath);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure ЗаполнитьДоступныеПоляРесурсов()
-	ResourceAvailableField.Clear();
+Procedure FillResourcesAvailableFields()
+	ResourceAvailableFields.Clear();
 
-	НаборыДанныхВерхнегоУровня=НаборыДанныхВерхнегоУровня();
+	TopLevelDataSets=TopLevelDataSets();
 
-	КартинкаРеквизит=PictureLib.Attribute;
-	КартинкаПроизвольноеВыражение=PictureLib.CustomExpression;
+	PictureAttribute=PictureLib.Attribute;
+	PictureCustomExpression=PictureLib.CustomExpression;
 
-	МассивПутей=New Array;
+	DataPathsArray=New Array;
 
-	For Each Set In НаборыДанныхВерхнегоУровня Do
+	For Each Set In TopLevelDataSets Do
 		For Each Field In Set.Fields Do
-			If МассивПутей.Find(Field.DataPath) <> Undefined Then
+			If DataPathsArray.Find(Field.DataPath) <> Undefined Then
 				Continue;
 			EndIf;
 
@@ -1873,80 +1860,80 @@ Procedure ЗаполнитьДоступныеПоляРесурсов()
 				Continue;
 			EndIf;
 
-			НС=ResourceAvailableField.Add();
-			НС.DataPath=Field.DataPath;
-			НС.Picture=КартинкаРеквизит;
+			NewRow=ResourceAvailableFields.Add();
+			NewRow.DataPath=Field.DataPath;
+			NewRow.Picture=PictureAttribute;
 
-			НС.Числовое= Field.ТипЗначенияЗапроса.ContainsType(тип("Number"));
+			NewRow.Numeric= Field.QueryValueType.ContainsType(Type("Number"));
 
-			МассивПутей.Add(Field.DataPath);
+			DataPathsArray.Add(Field.DataPath);
 		EndDo;
 	EndDo;
 
 	For Each Field In CalculatedFields Do
-		If МассивПутей.Find(Field.DataPath) <> Undefined Then
+		If DataPathsArray.Find(Field.DataPath) <> Undefined Then
 			Continue;
 		EndIf;
-		НС=ResourceAvailableField.Add();
-		НС.DataPath=Field.DataPath;
-		НС.ВычисляемоеПоле=True;
-		НС.Picture=КартинкаПроизвольноеВыражение;
+		NewRow=ResourceAvailableFields.Add();
+		NewRow.DataPath=Field.DataPath;
+		NewRow.CalculatedField=True;
+		NewRow.Picture=PictureCustomExpression;
 
-		МассивПутей.Add(Field.DataPath);
+		DataPathsArray.Add(Field.DataPath);
 
 	EndDo;
 
-	ResourceAvailableField.Sort("DataPath Asc");
+	ResourceAvailableFields.Sort("DataPath ASC");
 EndProcedure
 
 &AtClient
-Procedure УдалитьРесурсыНеПодходящиеПоДоступнымПолям()
-	МассивУдаляемыхСтрок=New Array;
-	For Each Стр In Resources Do
-		СтруктураПоиска=New Structure;
-		СтруктураПоиска.Insert("DataPath", Стр.DataPath);
+Procedure DeleteNotMatchResourcesByAvailableFields()
+	DeletedRowsArray=New Array;
+	For Each Row In Resources Do
+		SearchStructure=New Structure;
+		SearchStructure.Insert("DataPath", Row.DataPath);
 
-		НайденныеСтроки=ResourceAvailableField.FindRows(СтруктураПоиска);
-		If НайденныеСтроки.Count() = 0 Then
-			МассивУдаляемыхСтрок.Add(стр);
+		FoundRows=ResourceAvailableFields.FindRows(SearchStructure);
+		If FoundRows.Count() = 0 Then
+			DeletedRowsArray.Add(Row);
 		EndIf;
 	EndDo;
 
-	For Each Стр In МассивУдаляемыхСтрок Do
-		Resources.Delete(Стр);
+	For Each Row In DeletedRowsArray Do
+		Resources.Delete(Row);
 	EndDo;
 EndProcedure
 
 &AtClient
-Procedure ЗаполнитьВспомогательныеДанныеРесурсов()
-	ЗаполнитьДоступныеПоляРесурсов();
-	УдалитьРесурсыНеПодходящиеПоДоступнымПолям();
+Procedure FillResourcesAuxuliaryData()
+	FillResourcesAvailableFields();
+	DeleteNotMatchResourcesByAvailableFields();
 EndProcedure
 
 &AtClient
-Procedure ЗаполнитьСписокВыбораВыраженияРесурса(ИдентификаторСтрокиРесурса)
+Procedure FillResourceExpressionChoiceList(ResourceRowID)
 	Items.ResourcesExpression.ChoiceList.Clear();
 
-	СтрокаРесурса=Resources.FindByID(ИдентификаторСтрокиРесурса);
+	ResourceRow=Resources.FindByID(ResourceRowID);
 
-	СтруктураПоиска=New Structure;
-	СтруктураПоиска.Insert("DataPath", СтрокаРесурса.DataPath);
+	SearchStructure=New Structure;
+	SearchStructure.Insert("DataPath", ResourceRow.DataPath);
 
-	СтрокиДоступныхПолей=ResourceAvailableField.FindRows(СтруктураПоиска);
-	If СтрокиДоступныхПолей.Count() = 0 Then
+	AvailableFieldsList=ResourceAvailableFields.FindRows(SearchStructure);
+	If AvailableFieldsList.Count() = 0 Then
 		Return;
 	EndIf;
 
-	СтрокаДоступногоПоля=СтрокиДоступныхПолей[0];
+	AvailableFieldRow=AvailableFieldsList[0];
 
-	If СтрокаДоступногоПоля.ВычисляемоеПоле Or СтрокаДоступногоПоля.Числовое Then
-		Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Сумма(%1)", СтрокаРесурса.DataPath));
-		Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Mean(%1)", СтрокаРесурса.DataPath));
+	If AvailableFieldRow.CalculatedField Or AvailableFieldRow.Numeric Then
+		Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Sum(%1)", ResourceRow.DataPath));
+		Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Avg(%1)", ResourceRow.DataPath));
 	EndIf;
-	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Maximum(%1)", СтрокаРесурса.DataPath));
-	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Minimum(%1)", СтрокаРесурса.DataPath));
-	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Count(%1)", СтрокаРесурса.DataPath));
-	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Count(Различные %1)", СтрокаРесурса.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Max(%1)", ResourceRow.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Min(%1)", ResourceRow.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Count(%1)", ResourceRow.DataPath));
+	Items.ResourcesExpression.ChoiceList.Add(StrTemplate("Count(Distinct %1)", ResourceRow.DataPath));
 
 EndProcedure
 #EndRegion
@@ -1954,90 +1941,90 @@ EndProcedure
 #Region Parameters
 
 &AtClient
-Procedure ПараметрыСКДЗначениеНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure DCSParametersValueStartChoiceEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаРесурса=DCSParameters.FindByID(AdditionalParameters.RowID);
-	СтрокаРесурса.Value=Result;
+	ResourceRow=DCSParameters.FindByID(AdditionalParameters.RowID);
+	ResourceRow.Value=Result;
 EndProcedure
 
 &AtClient
-Procedure ПараметрыСКДДоступныеЗначенияНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure DCSParametersAvailableValuesStartChoiceEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаРесурса=DCSParameters.FindByID(AdditionalParameters.RowID);
-	СтрокаРесурса.AvailableValues=Result;
+	ResourceRow=DCSParameters.FindByID(AdditionalParameters.RowID);
+	ResourceRow.AvailableValues=Result;
 
-	УстановитьСписокВыбораПоляЗначенияПараметра(СтрокаРесурса);
+	SetParameterValueFieldChoiceList(ResourceRow);
 EndProcedure
 
 &AtClient
-Procedure УстановитьСписокВыбораПоляЗначенияПараметра(СтрокаПараметров)
-	Items.DCSParametersValue.ListChoiceMode=СтрокаПараметров.AvailableValues.Count() > 0
-		And Not СтрокаПараметров.ValueListAllowed;
+Procedure SetParameterValueFieldChoiceList(ParametersString )
+	Items.DCSParametersValue.ListChoiceMode=ParametersString .AvailableValues.Count() > 0
+		And Not ParametersString .ValueListAllowed;
 
 	Items.DCSParametersValue.ChoiceList.Clear();
 
-	For Each ЭлементСписка In СтрокаПараметров.AvailableValues Do
-		Items.DCSParametersValue.ChoiceList.Add(ЭлементСписка.Value, ЭлементСписка.Presentation);
+	For Each ListItem In ParametersString .AvailableValues Do
+		Items.DCSParametersValue.ChoiceList.Add(ListItem.Value, ListItem.Presentation);
 	EndDo;
 EndProcedure
 
 &AtClient
-Procedure УстановитьОграничениеТипаПоляЗначенияПараметра(СтрокаПараметров)
-	If СтрокаПараметров.ValueType = New TypeDescription Then
+Procedure SetParameterValueFieldTypeRestriction(ParametersString )
+	If ParametersString .ValueType = New TypeDescription Then
 		Return;
 	EndIf;
 
-	If СтрокаПараметров.ValueListAllowed Then
+	If ParametersString .ValueListAllowed Then
 		Items.DCSParametersValue.TypeRestriction=New TypeDescription("ValueList");
 	Else
-		Items.DCSParametersValue.TypeRestriction=СтрокаПараметров.ValueType;
+		Items.DCSParametersValue.TypeRestriction=ParametersString .ValueType;
 	EndIf;
 EndProcedure
 &AtClient
-Procedure ПараметрыСКДВыражениеОткрытиеЗавершение(Result, AdditionalParameters) Export
+Procedure DCSParametersExpressionOpeningEND(Result, AdditionalParameters) Export
 	If Result = Undefined Then
 		Return;
 	EndIf;
 
-	СтрокаРесурса=DCSParameters.FindByID(AdditionalParameters.RowID);
-	СтрокаРесурса.Expression=Result;
+	ResourceRow=DCSParameters.FindByID(AdditionalParameters.RowID);
+	ResourceRow.Expression=Result;
 EndProcedure
 
 &AtClient
-Procedure ПараметрыСКДТипЗначенияНачалоВыбораЗавершение(Result, AdditionalParameters) Export
+Procedure DCSParametersValueTypeStartChoiceEND(Result, AdditionalParameters) Export
 	If Result=Undefined Then
 		Return;
 	EndIf;
 	
-	ТекДанныеСтроки=DCSParameters.FindByID(AdditionalParameters.ТекСтрока);
-	ТекДанныеСтроки.ValueType=Result;
+	CurrentRowData=DCSParameters.FindByID(AdditionalParameters.CurrentRow);
+	CurrentRowData.ValueType=Result;
 	
-	If ТекДанныеСтроки.ValueListAllowed Then
-		НовоеЗначение=New ValueList;
+	If CurrentRowData.ValueListAllowed Then
+		NewValue=New ValueList;
 
-		For Each ЭлементСписка In ТекДанныеСтроки.Value Do
-			If ТекДанныеСтроки.ValueType.ContainsType(TypeOf(ЭлементСписка.Value)) Then
-				НовоеЗначение.Add(ЭлементСписка.Value);
+		For Each ListItem In CurrentRowData.Value Do
+			If CurrentRowData.ValueType.ContainsType(TypeOf(ListItem.Value)) Then
+				NewValue.Add(ListItem.Value);
 			EndIf;
 		EndDo;
-		ТекДанныеСтроки.Value=НовоеЗначение;
+		CurrentRowData.Value=NewValue;
 	Else
-		ТекДанныеСтроки.Value=ТекДанныеСтроки.ValueType.AdjustValue(ТекДанныеСтроки.Value);
+		CurrentRowData.Value=CurrentRowData.ValueType.AdjustValue(CurrentRowData.Value);
 	EndIf;
 
-	УстановитьОграничениеТипаПоляЗначенияПараметра(ТекДанныеСтроки);
+	SetParameterValueFieldTypeRestriction(CurrentRowData);
 
 EndProcedure
 
 #EndRegion
 
-#Region НастройкиКомпоновки
+#Region CompositionSettings
 &AtClient
 Procedure GroupFieldsNotAvailable()
 
@@ -2046,9 +2033,9 @@ Procedure GroupFieldsNotAvailable()
 EndProcedure
 
 &AtClient
-Procedure SelectedFieldsAvailable(ЭлементСтруктуры)
+Procedure SelectedFieldsAvailable(SettingsItem)
 
-	If CurrentSettingsComposer.Settings.HasItemSelection(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemSelection(SettingsItem) Then
 
 		LocalSelectedFields = True;
 		Items.SelectionFieldsPages.CurrentPage = Items.SelectedFieldsSettings;
@@ -2074,9 +2061,9 @@ Procedure SelectedFieldsUnavailable()
 EndProcedure
 
 &AtClient
-Procedure FilterAvailable(ЭлементСтруктуры)
+Procedure FilterAvailable(SettingsItem)
 
-	If CurrentSettingsComposer.Settings.HasItemFilter(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemFilter(SettingsItem) Then
 
 		LocalFilter = True;
 		Items.FilterPages.CurrentPage = Items.FilterSettings;
@@ -2102,9 +2089,9 @@ Procedure FilterUnavailable()
 EndProcedure
 
 &AtClient
-Procedure OrderAvailable(ЭлементСтруктуры)
+Procedure OrderAvailable(SettingsItem)
 
-	If CurrentSettingsComposer.Settings.HasItemOrder(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemOrder(SettingsItem) Then
 
 		LocalOrder = True;
 		Items.OrderPages.CurrentPage = Items.OrderSettings;
@@ -2130,9 +2117,9 @@ Procedure OrderUnavailable()
 EndProcedure
 
 &AtClient
-Procedure ConditionalAppearanceAvailable(ЭлементСтруктуры)
+Procedure ConditionalAppearanceAvailable(SettingsItem)
 
-	If CurrentSettingsComposer.Settings.HasItemConditionalAppearance(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemConditionalAppearance(SettingsItem) Then
 
 		LocalConditionalAppearance = True;
 		Items.ConditionalAppearancePages.CurrentPage = Items.ConditionalAppearanceSettings;
@@ -2158,9 +2145,9 @@ Procedure ConditionalAppearanceUnavailable()
 EndProcedure
 
 &AtClient
-Procedure OutputParametersAvailable(ЭлементСтруктуры)
+Procedure OutputParametersAvailable(SettingsItem)
 
-	If CurrentSettingsComposer.Settings.HasItemOutputParameters(ЭлементСтруктуры) Then
+	If CurrentSettingsComposer.Settings.HasItemOutputParameters(SettingsItem) Then
 
 		LocalOutputParameters = True;
 		Items.OutputParametersPages.CurrentPage = Items.OutputParametersSettings;
@@ -2189,282 +2176,282 @@ EndProcedure
 #Region SettingVariants
 
 &AtServer
-Procedure ИнициализироватьКомпоновщикНастроекПоСобраннойСКД()
+Procedure InitializeSettingsComposerByAssembledDCS()
 
 	CurrentSettingsComposer.Initialize(
 			New DataCompositionAvailableSettingsSource(DataCompositionSchemaURL));
-	CurrentSettingsComposer.Recall();
+	CurrentSettingsComposer.Refresh();
 EndProcedure
 
 &AtServer
-Procedure СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек()
-	СтрокаПредыдущегоВарианта=SettingVariants.FindByID(CurrentSettingsVariantID);
-	СтрокаПредыдущегоВарианта.Settings=UT_Common.ValueToXMLString(
+Procedure SaveToFormTableCurrentSettingsVariantSetting()
+	PreviousVariantID=SettingVariants.FindByID(CurrentSettingsVariantID);
+	PreviousVariantID.Settings=UT_Common.ValueToXMLString(
 		CurrentSettingsComposer.GetSettings());
 EndProcedure
 
 &AtServer
-Procedure ВариантыНастроекПриАктивизацииСтрокиНаСервере(RowID)
+Procedure SettingVariantsOnActivateRowAtServer(RowID)
 	If RowID = CurrentSettingsVariantID Then
 		Return;
 	EndIf;
 
-	ТекДанные=SettingVariants.FindByID(RowID);
-	If ТекДанные = Undefined Then
+	CurrentData=SettingVariants.FindByID(RowID);
+	If CurrentData = Undefined Then
 		Return;
 	EndIf;
 
-	СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек();
+	SaveToFormTableCurrentSettingsVariantSetting();
 
 	CurrentSettingsVariantID=RowID;
 
-	If ValueIsFilled(ТекДанные.Settings) Then
-		Settings=UT_Common.ValueFromXMLString(ТекДанные.Settings);
+	If ValueIsFilled(CurrentData.Settings) Then
+		Settings=UT_Common.ValueFromXMLString(CurrentData.Settings);
 	Else
 		Settings=New DataCompositionSettings;
 	EndIf;
 
 	CurrentSettingsComposer.LoadSettings(Settings);
-	CurrentSettingsComposer.Recall();
+	CurrentSettingsComposer.Refresh();
 EndProcedure
 
 #EndRegion
 
 &AtServer
-Procedure ИнициализироватьФорму()
-	ВидыНаборов=DataSetsTypes();
+Procedure InitializeForm()
+	SetsTypes=DataSetsTypes();
 
-	ЛокальныйИсточникДанных=DataSources.Add();
-	ЛокальныйИсточникДанных.Name="ИсточникДанных1";
-	ЛокальныйИсточникДанных.DataSourceType="Local";
+	LocalDataSource=DataSources.Add();
+	LocalDataSource.Name="DataSource1";
+	LocalDataSource.DataSourceType="Local";
 
-	НулевойНаборДанных=DataSets.GetItems().Add();
-	НулевойНаборДанных.Name="Наборы данных";
-	НулевойНаборДанных.Type=ВидыНаборов.Root;
+	ZerothDataSet=DataSets.GetItems().Add();
+	ZerothDataSet.Name="Data sets";
+	ZerothDataSet.Type=SetsTypes.Root;
 
-	ВариантНастроекПоУмолчанию=SettingVariants.Add();
-	ВариантНастроекПоУмолчанию.Name="Main";
-	ВариантНастроекПоУмолчанию.Presentation="Main";
+	SettingsVariantByDefault=SettingVariants.Add();
+	SettingsVariantByDefault.Name="Main";
+	SettingsVariantByDefault.Presentation="Main";
 
-	NullDataSetURL=НулевойНаборДанных.GetID();
-	CurrentSettingsVariantID=ВариантНастроекПоУмолчанию.GetID();
+	ZerothDataSetURL=ZerothDataSet.GetID();
+	CurrentSettingsVariantID=SettingsVariantByDefault.GetID();
 
-	УстановитьУсловноеОформлениеФормы();
+	SetFormConditionalAppearance();
 EndProcedure
 
 &AtServer
-Procedure УстановитьУсловноеОформлениеФормы()
-	ВидыПолейНаборов=DataSetFieldsTypes();
-	ВидыНаборов=DataSetsTypes();
+Procedure SetFormConditionalAppearance()
+	DataSetsFiledsTypes=DataSetFieldsTypes();
+	SetsTypes=DataSetsTypes();
 	
-	//1. For Fields набора папка запретить редактировать колонку "Field"
-	НовоеУО=ConditionalAppearance.Items.Add();
-	НовоеУО.Use=True;
-	UT_CommonClientServer.SetFilterItem(НовоеУО.Filter,
-		"Items.DataSets.CurrentData.Fields.Type", ВидыПолейНаборов.Folder);
-	Field=НовоеУО.Fields.Items.Add();
+	//1. For the set field, the folder forbid editing the "Field" column
+	NewCA=ConditionalAppearance.Items.Add();
+	NewCA.Use=True;
+	UT_CommonClientServer.SetFilterItem(NewCA.Filter,
+		"Items.DataSets.CurrentData.Fields.Type", DataSetsFiledsTypes.Folder);
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("DataSetsFieldsField");
 
-	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
+	Appearance=NewCA.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
 	Appearance.Value=True;
 	
-	//1.1 For Fields набора Set запретить редактировать колонку "органичение использования"
-	НовоеУО=ConditionalAppearance.Items.Add();
-	НовоеУО.Use=True;
-	UT_CommonClientServer.SetFilterItem(НовоеУО.Filter,
-		"Items.DataSets.CurrentData.Fields.Type", ВидыПолейНаборов.Set);
-	Field=НовоеУО.Fields.Items.Add();
+	//1.1 For Fields data set  forbid to edit column "Use Restriction
+	NewCA=ConditionalAppearance.Items.Add();
+	NewCA.Use=True;
+	UT_CommonClientServer.SetFilterItem(NewCA.Filter,
+		"Items.DataSets.CurrentData.Fields.Type", DataSetsFiledsTypes.Set);
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionField");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionCondition");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionGroup");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionOrder");
 
-	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
+	Appearance=NewCA.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
 	Appearance.Value=True;
 	
-	//2. For полей набора не Fields блочим колонки для редактирования
-	НовоеУО=ConditionalAppearance.Items.Add();
-	НовоеУО.Use=True;
-	UT_CommonClientServer.SetFilterItem(НовоеУО.Filter,
-		"Items.DataSets.CurrentData.Fields.Type", ВидыПолейНаборов.Field, DataCompositionComparisonType.NotEqual);
-	Field=НовоеУО.Fields.Items.Add();
+	//2. For fields of set not  Fields block columns for editing
+	NewCA=ConditionalAppearance.Items.Add();
+	NewCA.Use=True;
+	UT_CommonClientServer.SetFilterItem(NewCA.Filter,
+		"Items.DataSets.CurrentData.Fields.Type", DataSetsFiledsTypes.Field, DataCompositionComparisonType.NotEqual);
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesField");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesCondition");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesGroup");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsUseRestrictionsAttributesOrder");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("DataSetsFieldsRolePresentation");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsPresentationExpression");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsHierarchyCheckDataSet");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsHierarchyCheckDataSetParameter");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsValueType");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsAvailableValues");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsAppearance");
-	Field=НовоеУО.Fields.Items.Add();
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("FieldsEditParameters");
 
-	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
+	Appearance=NewCA.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
 	Appearance.Value=True;
 	
-	//3. имя параметра добавленного авторматически нельзя править
-	НовоеУО=ConditionalAppearance.Items.Add();
-	НовоеУО.Use=True;
-	UT_CommonClientServer.SetFilterItem(НовоеУО.Filter,
-		"Items.DCSParameters.CurrentData.ДобавленАвтоматически", True);
-	Field=НовоеУО.Fields.Items.Add();
+	//3. Name of parameter added automattically forbiden editing
+	NewCA=ConditionalAppearance.Items.Add();
+	NewCA.Use=True;
+	UT_CommonClientServer.SetFilterItem(NewCA.Filter,
+		"Items.DCSParameters.CurrentData.AddedAutomatically", True);
+	Field=NewCA.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("DCSParametersName");
 
-	Appearance=НовоеУО.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
+	Appearance=NewCA.Appearance.FindParameterValue(New DataCompositionParameter("ReadOnly"));
 	Appearance.Use=True;
 	Appearance.Value=True;
 
 EndProcedure
 
-#Region СКД
+#Region DCS
 
 &AtServer
-Procedure ПрочитатьИсточникиДанныхСКДВДанныеФормы(DCS)
+Procedure ReadDCSDataSourcesToFormData(DCS)
 	DataSources.Clear();
 
-	For Each ТекИсточник In DCS.DataSources Do
-		НовыйИсточник=DataSources.Add();
-		FillPropertyValues(НовыйИсточник, ТекИсточник);
+	For Each CurrentSource In DCS.DataSources Do
+		NewSource=DataSources.Add();
+		FillPropertyValues(NewSource, CurrentSource);
 	EndDo;
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьРольПоляНабораДанныхВДанныеФормы(РольРедактора, РольНабора)
-	РольРедактора=НоваяСтруктураРедактированияРолиПоляНабораДанных();
+Procedure ReadRoleOfDataSetFieldsToFormData(EditorRole, DataSetRole)
+	EditorRole=NewStructureOfDataSetFieldRoleEditing();
 
-	FillPropertyValues(РольРедактора, РольНабора, , "AccountingBalanceType,BalanceType");
+	FillPropertyValues(EditorRole, DataSetRole, , "AccountingBalanceType,BalanceType");
 
-	РольРедактора.AccountingBalanceType=String(РольНабора.AccountingBalanceType);
-	РольРедактора.AccountingBalanceType=String(РольНабора.BalanceType);
+	EditorRole.AccountingBalanceType=String(DataSetRole.AccountingBalanceType);
+	EditorRole.AccountingBalanceType=String(DataSetRole.BalanceType);
 
-	РольРедактора.ПериодДополнительный=РольНабора.PeriodType = DataCompositionPeriodType.Additional;
+	EditorRole.PeriodAdditional=DataSetRole.PeriodType = DataCompositionPeriodType.Additional;
 
-	РольРедактора.Period=РольНабора.PeriodNumber <> 0;
+	EditorRole.Period=DataSetRole.PeriodNumber <> 0;
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьПоляНабораСКДВДанныеФормы(НовыйНабор, СтрокаНабора)
+Procedure ПрочитатьПоляНабораСКДВДанныеФормы(НовыйНабор, DataSetRow)
 	НовыйНабор.Fields.Clear();
 
 	ВидыПолейНабораДанныхСКД=DataSetFieldsTypes();
 
-	For Each СтрокаПоля In СтрокаНабора.Fields Do
-		НовоеПоле=НовыйНабор.Fields.Add();
-		If TypeOf(СтрокаПоля) = Type(ВидыПолейНабораДанныхСКД.Field) Then
-			НовоеПоле.Type=ВидыПолейНабораДанныхСКД.Field;
+	For Each FieldRow In DataSetRow.Fields Do
+		NewField=НовыйНабор.Fields.Add();
+		If TypeOf(FieldRow) = Type(ВидыПолейНабораДанныхСКД.Field) Then
+			NewField.Type=ВидыПолейНабораДанныхСКД.Field;
 
-			FillPropertyValues(НовоеПоле, СтрокаПоля, , "Appearance,EditParameters,Role");
+			FillPropertyValues(NewField, FieldRow, , "Appearance,EditParameters,Role");
 
 			ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(
-			СтрокаПоля.AttributeUseRestriction, НовоеПоле.ОграничениеИспользованияРеквизитовПоле,
-				НовоеПоле.ОграничениеИспользованияРеквизитовУсловие,
-				НовоеПоле.ОграничениеИспользованияРеквизитовГруппировка,
-				НовоеПоле.ОграничениеИспользованияРеквизитовПорядок);
+			FieldRow.AttributeUseRestriction, NewField.AttributeUseRestrictionField,
+				NewField.AttributeUseRestrictionCondition,
+				NewField.AttributeUseRestrictionGroup,
+				NewField.AttributeUseRestrictionOrder);
 
-			ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(СтрокаПоля.UseRestriction,
-				НовоеПоле.ОграничениеИспользованияПоле, НовоеПоле.ОграничениеИспользованияУсловие,
-				НовоеПоле.ОграничениеИспользованияГруппировка, НовоеПоле.ОграничениеИспользованияПорядок);
+			ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(FieldRow.UseRestriction,
+				NewField.UseRestrictionField, NewField.UseRestrictionCondition,
+				NewField.UseRestrictionGroup, NewField.UseRestrictionOrder);
 				
 			
 		//Appearance
-			СкопироватьОфорление(НовоеПоле.Appearance, СтрокаПоля.Appearance);
+			СкопироватьОфорление(NewField.Appearance, FieldRow.Appearance);
 
-			ПрочитатьРольПоляНабораДанныхВДанныеФормы(НовоеПоле.Role, СтрокаПоля.Role);
-			НовоеПоле.РольПредставление=ПредставлениеРолиПоляНабораДанных(НовоеПоле.Role);
+			ReadRoleOfDataSetFieldsToFormData(NewField.Role, FieldRow.Role);
+			NewField.RolePresentation=DataSetFieldRolePresentation(NewField.Role);
 
-			НовоеПоле.AvailableValues=СтрокаПоля.GetAvailableValues();
-		ElsIf TypeOf(СтрокаПоля) = Type(ВидыПолейНабораДанныхСКД.Folder) Then
-			НовоеПоле.Type=ВидыПолейНабораДанныхСКД.Folder;
+			NewField.AvailableValues=FieldRow.GetAvailableValues();
+		ElsIf TypeOf(FieldRow) = Type(ВидыПолейНабораДанныхСКД.Folder) Then
+			NewField.Type=ВидыПолейНабораДанныхСКД.Folder;
 
-			FillPropertyValues(НовоеПоле, СтрокаПоля);
+			FillPropertyValues(NewField, FieldRow);
 
-			ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(СтрокаПоля.UseRestriction,
-				НовоеПоле.ОграничениеИспользованияПоле, НовоеПоле.ОграничениеИспользованияУсловие,
-				НовоеПоле.ОграничениеИспользованияГруппировка, НовоеПоле.ОграничениеИспользованияПорядок);
+			ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(FieldRow.UseRestriction,
+				NewField.UseRestrictionField, NewField.UseRestrictionCondition,
+				NewField.UseRestrictionGroup, NewField.UseRestrictionOrder);
 
 		Else
-			НовоеПоле.Type=ВидыПолейНабораДанныхСКД.Set;
+			NewField.Type=ВидыПолейНабораДанныхСКД.Set;
 
-			FillPropertyValues(НовоеПоле, СтрокаПоля);
+			FillPropertyValues(NewField, FieldRow);
 		EndIf;
-		НовоеПоле.Picture=КартинкаВидаПоляНабораДанных(НовоеПоле.Type, ВидыПолейНабораДанныхСКД);
+		NewField.Picture=DataSetFieldTypePicture(NewField.Type, ВидыПолейНабораДанныхСКД);
 	EndDo;
 EndProcedure
 &AtServer
 Procedure ПрочитатьНаборыДанныхСКДВДанныеФормы(СКДНаборыДанных, СтрокаРодительскогоНабора = Undefined)
 	If СтрокаРодительскогоНабора = Undefined Then
 
-		СтрокаНабораДляЗаполнения=DataSets.FindByID(NullDataSetURL);
+		СтрокаНабораДляЗаполнения=DataSets.FindByID(ZerothDataSetURL);
 	Else
 		СтрокаНабораДляЗаполнения=СтрокаРодительскогоНабора;
 	EndIf;
 
 	СтрокаНабораДляЗаполнения.GetItems().Clear();
 
-	ВидыНаборов=DataSetsTypes();
+	SetsTypes=DataSetsTypes();
 
-	For Each СтрокаНабора In СКДНаборыДанных Do
+	For Each DataSetRow In СКДНаборыДанных Do
 		НовыйНабор=СтрокаНабораДляЗаполнения.GetItems().Add();
-		If TypeOf(СтрокаНабора) = Type("DataCompositionSchemaDataSetQuery") Then
-			НовыйНабор.Type=ВидыНаборов.Query;
+		If TypeOf(DataSetRow) = Type("DataCompositionSchemaDataSetQuery") Then
+			НовыйНабор.Type=SetsTypes.Query;
 			НовыйНабор.Picture=PictureLib.УИ_DataSetСКДЗапрос;
-		ElsIf TypeOf(СтрокаНабора) = Type("DataCompositionSchemaDataSetObject") Then
-			НовыйНабор.Type=ВидыНаборов.Object;
+		ElsIf TypeOf(DataSetRow) = Type("DataCompositionSchemaDataSetObject") Then
+			НовыйНабор.Type=SetsTypes.Object;
 			НовыйНабор.Picture=PictureLib.UT_DataSetDCSObject;
 		Else
-			НовыйНабор.Type=ВидыНаборов.Union;
+			НовыйНабор.Type=SetsTypes.Union;
 			НовыйНабор.Picture=PictureLib.UT_DataSetDCSUnion;
 		EndIf;
-		FillPropertyValues(НовыйНабор, СтрокаНабора, , "Fields");
+		FillPropertyValues(НовыйНабор, DataSetRow, , "Fields");
 
-		ПрочитатьПоляНабораСКДВДанныеФормы(НовыйНабор, СтрокаНабора);
+		ПрочитатьПоляНабораСКДВДанныеФормы(НовыйНабор, DataSetRow);
 
-		If НовыйНабор.Type = ВидыНаборов.Union Then
-			ПрочитатьНаборыДанныхСКДВДанныеФормы(СтрокаНабора.Items, НовыйНабор);
-		ElsIf НовыйНабор.Type = ВидыНаборов.Query Then
-			ЗаполнитьПоляНабораДанныхПриИзмененииЗапросаНаСервере(НовыйНабор.GetID());
-			ЗаполнитьПараметрыСКДПриИзмененииЗапросаНабора(НовыйНабор.GetID());
-		ElsIf НовыйНабор.Type = ВидыНаборов.Object Then
-			РодительскийНабор=НовыйНабор.GetParent();
-			If РодительскийНабор.Type = ВидыНаборов.Union Then
-				ЗаполнитьПоляНабораДанныхОбъединениеПоПодчиненнымЗапросам(РодительскийНабор.GetID());
+		If НовыйНабор.Type = SetsTypes.Union Then
+			ПрочитатьНаборыДанныхСКДВДанныеФормы(DataSetRow.Items, НовыйНабор);
+		ElsIf НовыйНабор.Type = SetsTypes.Query Then
+			FillDataSetFieldsOnQueryChangeAtServer(НовыйНабор.GetID());
+			FillDCSParametersOnDataSetQueryChange(НовыйНабор.GetID());
+		ElsIf НовыйНабор.Type = SetsTypes.Object Then
+			ParentDataSet=НовыйНабор.GetParent();
+			If ParentDataSet.Type = SetsTypes.Union Then
+				FillDataSetUnionFieldsByChildQuerys(ParentDataSet.GetID());
 			EndIf;
 		EndIf;
 	EndDo;
@@ -2473,9 +2460,9 @@ EndProcedure
 Procedure ПрочитатьСвязиНаборовДанныхСКДВДанныеФормы(DCS)
 	DataSetLinks.Clear();
 
-	For Each ТекДанные In DCS.DataSetLinks Do
+	For Each CurrentData In DCS.DataSetLinks Do
 		НовыеДанные=DataSetLinks.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные);
+		FillPropertyValues(НовыеДанные, CurrentData);
 	EndDo;
 EndProcedure
 
@@ -2493,18 +2480,18 @@ EndProcedure
 Procedure ПрочитатьВычисляемыеПоляСКДВДанныеФормы(DCS)
 	CalculatedFields.Clear();
 
-	For Each ТекДанные In DCS.CalculatedFields Do
+	For Each CurrentData In DCS.CalculatedFields Do
 		НовыеДанные=CalculatedFields.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные, , "OrderExpressions,Appearance,EditParameters");
+		FillPropertyValues(НовыеДанные, CurrentData, , "OrderExpressions,Appearance,EditParameters");
 
-		ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(ТекДанные.UseRestriction,
-			НовыеДанные.ОграничениеИспользованияПоле, НовыеДанные.ОграничениеИспользованияУсловие,
-			НовыеДанные.ОграничениеИспользованияГруппировка, НовыеДанные.ОграничениеИспользованияПорядок);
+		ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(CurrentData.UseRestriction,
+			НовыеДанные.UseRestrictionField, НовыеДанные.UseRestrictionCondition,
+			НовыеДанные.UseRestrictionGroup, НовыеДанные.UseRestrictionOrder);
 			
 		//Appearance
-		СкопироватьОфорление(НовыеДанные.Appearance, ТекДанные.Appearance);
+		СкопироватьОфорление(НовыеДанные.Appearance, CurrentData.Appearance);
 
-		НовыеДанные.AvailableValues=ТекДанные.GetAvailableValues();
+		НовыеДанные.AvailableValues=CurrentData.GetAvailableValues();
 	EndDo;
 EndProcedure
 
@@ -2512,11 +2499,11 @@ EndProcedure
 Procedure ПрочитатьПоляИтоговСКДВДанныеФормы(DCS)
 	Resources.Clear();
 
-	For Each ТекДанные In DCS.TotalFields Do
+	For Each CurrentData In DCS.TotalFields Do
 		НовыеДанные=Resources.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные, , "Groups");
+		FillPropertyValues(НовыеДанные, CurrentData, , "Groups");
 
-		For Each Item In ТекДанные.Groups Do
+		For Each Item In CurrentData.Groups Do
 			НовыеДанные.Groups.Add(Item);
 		EndDo;
 	EndDo;
@@ -2525,13 +2512,13 @@ EndProcedure
 Procedure ПрочитатьПараметрыСКДВДанныеФормы(DCS)
 	DCSParameters.Clear();
 
-	For Each ТекДанные In DCS.Parameters Do
+	For Each CurrentData In DCS.Parameters Do
 		НовыеДанные=DCSParameters.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные, , "EditParameters");
+		FillPropertyValues(НовыеДанные, CurrentData, , "EditParameters");
 
-		НовыеДанные.UseAlways=ТекДанные.Use = DataCompositionParameterUse.Always;
+		НовыеДанные.UseAlways=CurrentData.Use = DataCompositionParameterUse.Always;
 
-		НовыеДанные.AvailableValues=ТекДанные.GetAvailableValues();
+		НовыеДанные.AvailableValues=CurrentData.GetAvailableValues();
 	EndDo;
 EndProcedure
 
@@ -2552,7 +2539,7 @@ Procedure ПрочитатьВариантыНастроекСКДВДанные
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьСКДВДанныеФормы(DCS)
+Procedure ReadDCSToFormData(DCS)
 	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
 		InitialDataCompositionSchemaURL=PutToTempStorage(DCS,
 			InitialDataCompositionSchemaURL);
@@ -2561,7 +2548,7 @@ Procedure ПрочитатьСКДВДанныеФормы(DCS)
 	EndIf;
 
 	ПрочитатьПараметрыСКДВДанныеФормы(DCS);
-	ПрочитатьИсточникиДанныхСКДВДанныеФормы(DCS);
+	ReadDCSDataSourcesToFormData(DCS);
 	ПрочитатьНаборыДанныхСКДВДанныеФормы(DCS.DataSets);
 	ПрочитатьСвязиНаборовДанныхСКДВДанныеФормы(DCS);
 
@@ -2576,9 +2563,9 @@ EndProcedure
 Procedure ЗаполнитьИсточникиДанныхСКДПоДаннымФормы(DCS)
 	DCS.DataSources.Clear();
 
-	For Each ТекИсточник In DataSources Do
-		НовыйИсточник=DCS.DataSources.Add();
-		FillPropertyValues(НовыйИсточник, ТекИсточник);
+	For Each CurrentSource In DataSources Do
+		NewSource=DCS.DataSources.Add();
+		FillPropertyValues(NewSource, CurrentSource);
 	EndDo;
 EndProcedure
 
@@ -2606,7 +2593,7 @@ Procedure СкопироватьОфорление(ОформлениеПрие�
 EndProcedure
 
 &AtServer
-Function НоваяСтруктураРедактированияРолиПоляНабораДанных()
+Function NewStructureOfDataSetFieldRoleEditing()
 	Role=New Structure;
 	Role.Insert("AccountTypeExpression", "");
 	Role.Insert("BalanceGroup", "");
@@ -2621,61 +2608,61 @@ Function НоваяСтруктураРедактированияРолиПол�
 	Role.Insert("Account", False);
 	Role.Insert("AccountingBalanceType", "None");
 	Role.Insert("BalanceType", "None");
-	Role.Insert("ПериодДополнительный", False);
+	Role.Insert("PeriodAdditional", False);
 
 	Return Role;
 EndFunction
 
 &AtServer
-Procedure ЗаполнитьРольПоляНабораДанныхПоДаннымФормы(РольНабора, РольРедактора)
-	If РольРедактора = Undefined Then
-		РольРедактора=НоваяСтруктураРедактированияРолиПоляНабораДанных();
+Procedure ЗаполнитьРольПоляНабораДанныхПоДаннымФормы(DataSetRole, EditorRole)
+	If EditorRole = Undefined Then
+		EditorRole=NewStructureOfDataSetFieldRoleEditing();
 	EndIf;
 
-	FillPropertyValues(РольНабора, РольРедактора, , "AccountingBalanceType,BalanceType");
-	РольНабора.AccountingBalanceType=DataCompositionAccountingBalanceType[РольРедактора.AccountingBalanceType];
-	РольНабора.BalanceType=DataCompositionBalanceType[РольРедактора.BalanceType];
+	FillPropertyValues(DataSetRole, EditorRole, , "AccountingBalanceType,BalanceType");
+	DataSetRole.AccountingBalanceType=DataCompositionAccountingBalanceType[EditorRole.AccountingBalanceType];
+	DataSetRole.BalanceType=DataCompositionBalanceType[EditorRole.BalanceType];
 
-	If РольРедактора.ПериодДополнительный Then
-		РольНабора.PeriodType=DataCompositionPeriodType.Additional;
+	If EditorRole.PeriodAdditional Then
+		DataSetRole.PeriodType=DataCompositionPeriodType.Additional;
 	Else
-		РольНабора.PeriodType=DataCompositionPeriodType.Main;
+		DataSetRole.PeriodType=DataCompositionPeriodType.Main;
 	EndIf;
 
-	If Not РольРедактора.Period Then
-		РольНабора.PeriodNumber=0;
+	If Not EditorRole.Period Then
+		DataSetRole.PeriodNumber=0;
 	EndIf;
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьПоляНабораСКДПоДаннымФормы(НовыйНабор, СтрокаНабора)
+Procedure ЗаполнитьПоляНабораСКДПоДаннымФормы(НовыйНабор, DataSetRow)
 	НовыйНабор.Fields.Clear();
 	ВидыПолей=DataSetFieldsTypes();
 
-	For Each СтрокаПоля In СтрокаНабора.Fields Do
-		НовоеПоле=НовыйНабор.Fields.Add(Type(СтрокаПоля.Type));
-		If СтрокаПоля.Type = ВидыПолей.Field Then
-			FillPropertyValues(НовоеПоле, СтрокаПоля, , "Appearance,EditParameters,Role");
+	For Each FieldRow In DataSetRow.Fields Do
+		NewField=НовыйНабор.Fields.Add(Type(FieldRow.Type));
+		If FieldRow.Type = ВидыПолей.Field Then
+			FillPropertyValues(NewField, FieldRow, , "Appearance,EditParameters,Role");
 			
 			//Appearance
-			СкопироватьОфорление(НовоеПоле.Appearance, СтрокаПоля.Appearance);
+			СкопироватьОфорление(NewField.Appearance, FieldRow.Appearance);
 
-			ЗаполнитьРольПоляНабораДанныхПоДаннымФормы(НовоеПоле.Role, СтрокаПоля.Role);
-			УстановитьДоступныеЗначенияУЭлементаСКД(НовоеПоле, СтрокаПоля.AvailableValues);
+			ЗаполнитьРольПоляНабораДанныхПоДаннымФормы(NewField.Role, FieldRow.Role);
+			УстановитьДоступныеЗначенияУЭлементаСКД(NewField, FieldRow.AvailableValues);
 
-			ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(НовоеПоле.AttributeUseRestriction,
-				СтрокаПоля.ОграничениеИспользованияРеквизитовПоле, СтрокаПоля.ОграничениеИспользованияРеквизитовУсловие,
-				СтрокаПоля.ОграничениеИспользованияРеквизитовГруппировка,
-				СтрокаПоля.ОграничениеИспользованияРеквизитовПорядок);
+			ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(NewField.AttributeUseRestriction,
+				FieldRow.AttributeUseRestrictionField, FieldRow.AttributeUseRestrictionCondition,
+				FieldRow.AttributeUseRestrictionGroup,
+				FieldRow.AttributeUseRestrictionOrder);
 
 		Else
-			FillPropertyValues(НовоеПоле, СтрокаПоля);
+			FillPropertyValues(NewField, FieldRow);
 		EndIf;
 
-		If СтрокаПоля.Type <> ВидыПолей.Set Then
-			ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(НовоеПоле.UseRestriction,
-				СтрокаПоля.ОграничениеИспользованияПоле, СтрокаПоля.ОграничениеИспользованияУсловие,
-				СтрокаПоля.ОграничениеИспользованияГруппировка, СтрокаПоля.ОграничениеИспользованияПорядок);
+		If FieldRow.Type <> ВидыПолей.Set Then
+			ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(NewField.UseRestriction,
+				FieldRow.UseRestrictionField, FieldRow.UseRestrictionCondition,
+				FieldRow.UseRestrictionGroup, FieldRow.UseRestrictionOrder);
 		EndIf;
 	EndDo;
 EndProcedure
@@ -2684,21 +2671,21 @@ Procedure ЗаполнитьНаборыДанныхСКДПоДаннымФор
 //	DCS=Новый СхемаКомпоновкиДанных;
 	If СтрокаРодительскогоНабора = Undefined Then
 
-		СтрокаНабораДляКопирования=DataSets.FindByID(NullDataSetURL);
+		СтрокаНабораДляКопирования=DataSets.FindByID(ZerothDataSetURL);
 	Else
 		СтрокаНабораДляКопирования=СтрокаРодительскогоНабора;
 	EndIf;
 
 	СКДНаборыДанных.Clear();
 
-	For Each СтрокаНабора In СтрокаНабораДляКопирования.GetItems() Do
-		НовыйНабор=СКДНаборыДанных.Add(Type(СтрокаНабора.Type));
-		FillPropertyValues(НовыйНабор, СтрокаНабора, , "Fields");
+	For Each DataSetRow In СтрокаНабораДляКопирования.GetItems() Do
+		НовыйНабор=СКДНаборыДанных.Add(Type(DataSetRow.Type));
+		FillPropertyValues(НовыйНабор, DataSetRow, , "Fields");
 
-		ЗаполнитьПоляНабораСКДПоДаннымФормы(НовыйНабор, СтрокаНабора);
+		ЗаполнитьПоляНабораСКДПоДаннымФормы(НовыйНабор, DataSetRow);
 
 		If TypeOf(НовыйНабор) = Type("DataCompositionSchemaDataSetUnion") Then
-			ЗаполнитьНаборыДанныхСКДПоДаннымФормы(НовыйНабор.Items, СтрокаНабора);
+			ЗаполнитьНаборыДанныхСКДПоДаннымФормы(НовыйНабор.Items, DataSetRow);
 		EndIf;
 
 	EndDo;
@@ -2708,9 +2695,9 @@ EndProcedure
 Procedure ЗаполнитьСвязиНаборовДанныхСКДПоДаннымФормы(DCS)
 	DCS.DataSetLinks.Clear();
 
-	For Each ТекДанные In DataSetLinks Do
+	For Each CurrentData In DataSetLinks Do
 		НовыеДанные=DCS.DataSetLinks.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные);
+		FillPropertyValues(НовыеДанные, CurrentData);
 	EndDo;
 EndProcedure
 
@@ -2718,29 +2705,29 @@ EndProcedure
 Procedure ЗаполнитьВычисляемыеПоляСКДПоДаннымФормы(DCS)
 	DCS.CalculatedFields.Clear();
 
-	For Each ТекДанные In CalculatedFields Do
+	For Each CurrentData In CalculatedFields Do
 		НовыеДанные=DCS.CalculatedFields.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные, , "OrderExpressions,Appearance,EditParameters");
+		FillPropertyValues(НовыеДанные, CurrentData, , "OrderExpressions,Appearance,EditParameters");
 
 		ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(НовыеДанные.UseRestriction,
-			ТекДанные.UseRestrictionField, ТекДанные.UseRestrictionCondition,
-			ТекДанные.UseRestrictionGroup, ТекДанные.ОграничениеИспользованияПорядок);
+			CurrentData.UseRestrictionField, CurrentData.UseRestrictionCondition,
+			CurrentData.UseRestrictionGroup, CurrentData.UseRestrictionOrder);
 			
 		//Appearance
-		СкопироватьОфорление(НовыеДанные.Appearance, ТекДанные.Appearance);
+		СкопироватьОфорление(НовыеДанные.Appearance, CurrentData.Appearance);
 
-		УстановитьДоступныеЗначенияУЭлементаСКД(НовыеДанные, ТекДанные.AvailableValues);
+		УстановитьДоступныеЗначенияУЭлементаСКД(НовыеДанные, CurrentData.AvailableValues);
 	EndDo;
 EndProcedure
 &AtServer
 Procedure ЗаполнитьПоляИтоговСКДПоДаннымФормы(DCS)
 	DCS.TotalFields.Clear();
 
-	For Each ТекДанные In Resources Do
+	For Each CurrentData In Resources Do
 		НовыеДанные=DCS.TotalFields.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные, , "Groups");
+		FillPropertyValues(НовыеДанные, CurrentData, , "Groups");
 
-		For Each Item In ТекДанные.Groups Do
+		For Each Item In CurrentData.Groups Do
 			НовыеДанные.Groups.Add(Item.Value);
 		EndDo;
 	EndDo;
@@ -2749,17 +2736,17 @@ EndProcedure
 Procedure ЗаполнитьПараметрыСКДПоДаннымФормы(DCS)
 	DCS.Parameters.Clear();
 
-	For Each ТекДанные In DCSParameters Do
+	For Each CurrentData In DCSParameters Do
 		НовыеДанные=DCS.Parameters.Add();
-		FillPropertyValues(НовыеДанные, ТекДанные, , "EditParameters");
+		FillPropertyValues(НовыеДанные, CurrentData, , "EditParameters");
 
-		If ТекДанные.UseAlways Then
+		If CurrentData.UseAlways Then
 			НовыеДанные.Use=DataCompositionParameterUse.Always;
 		Else
 			НовыеДанные.Use=DataCompositionParameterUse.Auto;
 		EndIf;
 
-		УстановитьДоступныеЗначенияУЭлементаСКД(НовыеДанные, ТекДанные.AvailableValues);
+		УстановитьДоступныеЗначенияУЭлементаСКД(НовыеДанные, CurrentData.AvailableValues);
 	EndDo;
 EndProcedure
 
@@ -2788,7 +2775,7 @@ Procedure ЗаполнитьВариантыНастроекСКДПоДанны
 	EndDo;
 EndProcedure
 &AtServer
-Procedure СобратьСКДПоДаннымФормы(ВключитьВариантыНастроек = False)
+Procedure AssembleDCSFromFormData(ВключитьВариантыНастроек = False)
 	If IsTempStorageURL(InitialDataCompositionSchemaURL) Then
 		DCS=GetFromTempStorage(InitialDataCompositionSchemaURL);
 		If TypeOf(DCS) <> Type("DataCompositionSchema") Then
@@ -2805,7 +2792,7 @@ Procedure СобратьСКДПоДаннымФормы(ВключитьВар�
 	ЗаполнитьПараметрыСКДПоДаннымФормы(DCS);
 
 	If ВключитьВариантыНастроек Then
-		СохранитьВТаблицуФормыНастройкуТекущегоВариантаНастроек();
+		SaveToFormTableCurrentSettingsVariantSetting();
 		ЗаполнитьВариантыНастроекСКДПоДаннымФормы(DCS);
 	EndIf;
 
@@ -2815,7 +2802,7 @@ Procedure СобратьСКДПоДаннымФормы(ВключитьВар�
 		DataCompositionSchemaURL=PutToTempStorage(DCS, UUID);
 	EndIf;
 
-	ИнициализироватьКомпоновщикНастроекПоСобраннойСКД();
+	InitializeSettingsComposerByAssembledDCS();
 EndProcedure
 
 #EndRegion

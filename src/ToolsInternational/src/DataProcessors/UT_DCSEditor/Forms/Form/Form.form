@@ -5629,7 +5629,7 @@
           <common>true</common>
         </userVisible>
         <dataPath xsi:type="form:DataPath">
-          <segments>ResourceAvailableField</segments>
+          <segments>ResourceAvailableFields</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <items xsi:type="form:FormField">
@@ -5642,7 +5642,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ResourceAvailableField.Picture</segments>
+              <segments>ResourceAvailableFields.Picture</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -5690,7 +5690,7 @@
           </userVisible>
           <dataPath xsi:type="form:MultiLanguageDataPath">
             <paths xsi:type="form:DataPath">
-              <segments>ResourceAvailableField.DataPath</segments>
+              <segments>ResourceAvailableFields.DataPath</segments>
             </paths>
           </dataPath>
           <extendedTooltip>
@@ -13980,14 +13980,14 @@ In the structure tree, select the report and edit additional report settings.</v
     </additionalColumns>
   </attributes>
   <attributes>
-    <name>NullDataSetURL</name>
+    <name>ZerothDataSetURL</name>
     <title>
       <key>ru</key>
       <value>Идентификатор нулевого набора данных</value>
     </title>
     <title>
       <key>en</key>
-      <value>Null data set URL</value>
+      <value>Zeroth data set URL</value>
     </title>
     <id>11</id>
     <valueType>
@@ -14806,14 +14806,14 @@ In the structure tree, select the report and edit additional report settings.</v
     </columns>
   </attributes>
   <attributes>
-    <name>ResourceAvailableField</name>
+    <name>ResourceAvailableFields</name>
     <title>
       <key>ru</key>
       <value>Доступные поля ресурсов</value>
     </title>
     <title>
       <key>en</key>
-      <value>Resource available field</value>
+      <value>Resource available fields</value>
     </title>
     <id>78</id>
     <valueType>
