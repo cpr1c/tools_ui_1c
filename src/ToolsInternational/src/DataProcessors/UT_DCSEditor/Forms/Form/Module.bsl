@@ -2367,13 +2367,13 @@ Procedure ReadRoleOfDataSetFieldsToFormData(EditorRole, DataSetRole)
 EndProcedure
 
 &AtServer
-Procedure ПрочитатьПоляНабораСКДВДанныеФормы(НовыйНабор, DataSetRow)
-	НовыйНабор.Fields.Clear();
+Procedure ПрочитатьПоляНабораСКДВДанныеФормы(NewSet, DataSetRow)
+	NewSet.Fields.Clear();
 
 	ВидыПолейНабораДанныхСКД=DataSetFieldsTypes();
 
 	For Each FieldRow In DataSetRow.Fields Do
-		NewField=НовыйНабор.Fields.Add();
+		NewField=NewSet.Fields.Add();
 		If TypeOf(FieldRow) = Type(ВидыПолейНабораДанныхСКД.Field) Then
 			NewField.Type=ВидыПолейНабораДанныхСКД.Field;
 
@@ -2428,28 +2428,28 @@ Procedure ПрочитатьНаборыДанныхСКДВДанныеФорм
 	SetsTypes=DataSetsTypes();
 
 	For Each DataSetRow In СКДНаборыДанных Do
-		НовыйНабор=СтрокаНабораДляЗаполнения.GetItems().Add();
+		NewSet=СтрокаНабораДляЗаполнения.GetItems().Add();
 		If TypeOf(DataSetRow) = Type("DataCompositionSchemaDataSetQuery") Then
-			НовыйНабор.Type=SetsTypes.Query;
-			НовыйНабор.Picture=PictureLib.УИ_DataSetСКДЗапрос;
+			NewSet.Type=SetsTypes.Query;
+			NewSet.Picture=PictureLib.УИ_DataSetСКДЗапрос;
 		ElsIf TypeOf(DataSetRow) = Type("DataCompositionSchemaDataSetObject") Then
-			НовыйНабор.Type=SetsTypes.Object;
-			НовыйНабор.Picture=PictureLib.UT_DataSetDCSObject;
+			NewSet.Type=SetsTypes.Object;
+			NewSet.Picture=PictureLib.UT_DataSetDCSObject;
 		Else
-			НовыйНабор.Type=SetsTypes.Union;
-			НовыйНабор.Picture=PictureLib.UT_DataSetDCSUnion;
+			NewSet.Type=SetsTypes.Union;
+			NewSet.Picture=PictureLib.UT_DataSetDCSUnion;
 		EndIf;
-		FillPropertyValues(НовыйНабор, DataSetRow, , "Fields");
+		FillPropertyValues(NewSet, DataSetRow, , "Fields");
 
-		ПрочитатьПоляНабораСКДВДанныеФормы(НовыйНабор, DataSetRow);
+		ПрочитатьПоляНабораСКДВДанныеФормы(NewSet, DataSetRow);
 
-		If НовыйНабор.Type = SetsTypes.Union Then
-			ПрочитатьНаборыДанныхСКДВДанныеФормы(DataSetRow.Items, НовыйНабор);
-		ElsIf НовыйНабор.Type = SetsTypes.Query Then
-			FillDataSetFieldsOnQueryChangeAtServer(НовыйНабор.GetID());
-			FillDCSParametersOnDataSetQueryChange(НовыйНабор.GetID());
-		ElsIf НовыйНабор.Type = SetsTypes.Object Then
-			ParentDataSet=НовыйНабор.GetParent();
+		If NewSet.Type = SetsTypes.Union Then
+			ПрочитатьНаборыДанныхСКДВДанныеФормы(DataSetRow.Items, NewSet);
+		ElsIf NewSet.Type = SetsTypes.Query Then
+			FillDataSetFieldsOnQueryChangeAtServer(NewSet.GetID());
+			FillDCSParametersOnDataSetQueryChange(NewSet.GetID());
+		ElsIf NewSet.Type = SetsTypes.Object Then
+			ParentDataSet=NewSet.GetParent();
 			If ParentDataSet.Type = SetsTypes.Union Then
 				FillDataSetUnionFieldsByChildQuerys(ParentDataSet.GetID());
 			EndIf;
@@ -2635,12 +2635,12 @@ Procedure ЗаполнитьРольПоляНабораДанныхПоДанн
 EndProcedure
 
 &AtServer
-Procedure ЗаполнитьПоляНабораСКДПоДаннымФормы(НовыйНабор, DataSetRow)
-	НовыйНабор.Fields.Clear();
+Procedure ЗаполнитьПоляНабораСКДПоДаннымФормы(NewSet, DataSetRow)
+	NewSet.Fields.Clear();
 	ВидыПолей=DataSetFieldsTypes();
 
 	For Each FieldRow In DataSetRow.Fields Do
-		NewField=НовыйНабор.Fields.Add(Type(FieldRow.Type));
+		NewField=NewSet.Fields.Add(Type(FieldRow.Type));
 		If FieldRow.Type = ВидыПолей.Field Then
 			FillPropertyValues(NewField, FieldRow, , "Appearance,EditParameters,Role");
 			
@@ -2679,13 +2679,13 @@ Procedure ЗаполнитьНаборыДанныхСКДПоДаннымФор
 	СКДНаборыДанных.Clear();
 
 	For Each DataSetRow In СтрокаНабораДляКопирования.GetItems() Do
-		НовыйНабор=СКДНаборыДанных.Add(Type(DataSetRow.Type));
-		FillPropertyValues(НовыйНабор, DataSetRow, , "Fields");
+		NewSet=СКДНаборыДанных.Add(Type(DataSetRow.Type));
+		FillPropertyValues(NewSet, DataSetRow, , "Fields");
 
-		ЗаполнитьПоляНабораСКДПоДаннымФормы(НовыйНабор, DataSetRow);
+		ЗаполнитьПоляНабораСКДПоДаннымФормы(NewSet, DataSetRow);
 
-		If TypeOf(НовыйНабор) = Type("DataCompositionSchemaDataSetUnion") Then
-			ЗаполнитьНаборыДанныхСКДПоДаннымФормы(НовыйНабор.Items, DataSetRow);
+		If TypeOf(NewSet) = Type("DataCompositionSchemaDataSetUnion") Then
+			ЗаполнитьНаборыДанныхСКДПоДаннымФормы(NewSet.Items, DataSetRow);
 		EndIf;
 
 	EndDo;
