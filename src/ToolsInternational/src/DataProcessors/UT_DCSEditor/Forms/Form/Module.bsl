@@ -2370,12 +2370,12 @@ EndProcedure
 Procedure ПрочитатьПоляНабораСКДВДанныеФормы(NewSet, DataSetRow)
 	NewSet.Fields.Clear();
 
-	ВидыПолейНабораДанныхСКД=DataSetFieldsTypes();
+	DCSDataSetFieldsTypes=DataSetFieldsTypes();
 
 	For Each FieldRow In DataSetRow.Fields Do
 		NewField=NewSet.Fields.Add();
-		If TypeOf(FieldRow) = Type(ВидыПолейНабораДанныхСКД.Field) Then
-			NewField.Type=ВидыПолейНабораДанныхСКД.Field;
+		If TypeOf(FieldRow) = Type(DCSDataSetFieldsTypes.Field) Then
+			NewField.Type=DCSDataSetFieldsTypes.Field;
 
 			FillPropertyValues(NewField, FieldRow, , "Appearance,EditParameters,Role");
 
@@ -2397,8 +2397,8 @@ Procedure ПрочитатьПоляНабораСКДВДанныеФормы(N
 			NewField.RolePresentation=DataSetFieldRolePresentation(NewField.Role);
 
 			NewField.AvailableValues=FieldRow.GetAvailableValues();
-		ElsIf TypeOf(FieldRow) = Type(ВидыПолейНабораДанныхСКД.Folder) Then
-			NewField.Type=ВидыПолейНабораДанныхСКД.Folder;
+		ElsIf TypeOf(FieldRow) = Type(DCSDataSetFieldsTypes.Folder) Then
+			NewField.Type=DCSDataSetFieldsTypes.Folder;
 
 			FillPropertyValues(NewField, FieldRow);
 
@@ -2407,11 +2407,11 @@ Procedure ПрочитатьПоляНабораСКДВДанныеФормы(N
 				NewField.UseRestrictionGroup, NewField.UseRestrictionOrder);
 
 		Else
-			NewField.Type=ВидыПолейНабораДанныхСКД.Set;
+			NewField.Type=DCSDataSetFieldsTypes.Set;
 
 			FillPropertyValues(NewField, FieldRow);
 		EndIf;
-		NewField.Picture=DataSetFieldTypePicture(NewField.Type, ВидыПолейНабораДанныхСКД);
+		NewField.Picture=DataSetFieldTypePicture(NewField.Type, DCSDataSetFieldsTypes);
 	EndDo;
 EndProcedure
 &AtServer
@@ -2461,8 +2461,8 @@ Procedure ПрочитатьСвязиНаборовДанныхСКДВДанн
 	DataSetLinks.Clear();
 
 	For Each CurrentData In DCS.DataSetLinks Do
-		НовыеДанные=DataSetLinks.Add();
-		FillPropertyValues(НовыеДанные, CurrentData);
+		NewData=DataSetLinks.Add();
+		FillPropertyValues(NewData, CurrentData);
 	EndDo;
 EndProcedure
 
@@ -2481,17 +2481,17 @@ Procedure ПрочитатьВычисляемыеПоляСКДВДанныеФ
 	CalculatedFields.Clear();
 
 	For Each CurrentData In DCS.CalculatedFields Do
-		НовыеДанные=CalculatedFields.Add();
-		FillPropertyValues(НовыеДанные, CurrentData, , "OrderExpressions,Appearance,EditParameters");
+		NewData=CalculatedFields.Add();
+		FillPropertyValues(NewData, CurrentData, , "OrderExpressions,Appearance,EditParameters");
 
 		ПрочитатьОграничениеИспользованияПоляСхемыКомпоновкиДанныхВДанныеФормы(CurrentData.UseRestriction,
-			НовыеДанные.UseRestrictionField, НовыеДанные.UseRestrictionCondition,
-			НовыеДанные.UseRestrictionGroup, НовыеДанные.UseRestrictionOrder);
+			NewData.UseRestrictionField, NewData.UseRestrictionCondition,
+			NewData.UseRestrictionGroup, NewData.UseRestrictionOrder);
 			
 		//Appearance
-		СкопироватьОфорление(НовыеДанные.Appearance, CurrentData.Appearance);
+		СкопироватьОфорление(NewData.Appearance, CurrentData.Appearance);
 
-		НовыеДанные.AvailableValues=CurrentData.GetAvailableValues();
+		NewData.AvailableValues=CurrentData.GetAvailableValues();
 	EndDo;
 EndProcedure
 
@@ -2500,11 +2500,11 @@ Procedure ПрочитатьПоляИтоговСКДВДанныеФормы(D
 	Resources.Clear();
 
 	For Each CurrentData In DCS.TotalFields Do
-		НовыеДанные=Resources.Add();
-		FillPropertyValues(НовыеДанные, CurrentData, , "Groups");
+		NewData=Resources.Add();
+		FillPropertyValues(NewData, CurrentData, , "Groups");
 
 		For Each Item In CurrentData.Groups Do
-			НовыеДанные.Groups.Add(Item);
+			NewData.Groups.Add(Item);
 		EndDo;
 	EndDo;
 EndProcedure
@@ -2513,12 +2513,12 @@ Procedure ПрочитатьПараметрыСКДВДанныеФормы(DCS
 	DCSParameters.Clear();
 
 	For Each CurrentData In DCS.Parameters Do
-		НовыеДанные=DCSParameters.Add();
-		FillPropertyValues(НовыеДанные, CurrentData, , "EditParameters");
+		NewData=DCSParameters.Add();
+		FillPropertyValues(NewData, CurrentData, , "EditParameters");
 
-		НовыеДанные.UseAlways=CurrentData.Use = DataCompositionParameterUse.Always;
+		NewData.UseAlways=CurrentData.Use = DataCompositionParameterUse.Always;
 
-		НовыеДанные.AvailableValues=CurrentData.GetAvailableValues();
+		NewData.AvailableValues=CurrentData.GetAvailableValues();
 	EndDo;
 EndProcedure
 
@@ -2527,10 +2527,10 @@ Procedure ПрочитатьВариантыНастроекСКДВДанные
 	SettingVariants.Clear();
 
 	For Each СтрокаВарианта In DCS.SettingVariants Do
-		НовыеДанные=SettingVariants.Add();
-		НовыеДанные.Name=СтрокаВарианта.Name;
-		НовыеДанные.Presentation=СтрокаВарианта.Presentation;
-		НовыеДанные.Settings=UT_Common.ValueToXMLString(СтрокаВарианта.Settings);
+		NewData=SettingVariants.Add();
+		NewData.Name=СтрокаВарианта.Name;
+		NewData.Presentation=СтрокаВарианта.Presentation;
+		NewData.Settings=UT_Common.ValueToXMLString(СтрокаВарианта.Settings);
 	EndDo;
 
 	CurrentSettingsVariantID=SettingVariants[0].GetID();
@@ -2582,12 +2582,12 @@ EndProcedure
 &AtServer
 Procedure СкопироватьОфорление(ОформлениеПриемник, ОформлениеИсточник)
 	For Each ТекПараметрОформления In ОформлениеИсточник.Items Do
-		ЗначениеПараметра=ОформлениеПриемник.FindParameterValue(ТекПараметрОформления.Parameter);
-		If ЗначениеПараметра = Undefined Then
+		ParameterValue=ОформлениеПриемник.FindParameterValue(ТекПараметрОформления.Parameter);
+		If ParameterValue = Undefined Then
 			Continue;
 		EndIf;
 
-		FillPropertyValues(ЗначениеПараметра, ТекПараметрОформления);
+		FillPropertyValues(ParameterValue, ТекПараметрОформления);
 	EndDo;
 
 EndProcedure
@@ -2668,7 +2668,7 @@ Procedure ЗаполнитьПоляНабораСКДПоДаннымФормы
 EndProcedure
 &AtServer
 Procedure ЗаполнитьНаборыДанныхСКДПоДаннымФормы(СКДНаборыДанных, СтрокаРодительскогоНабора = Undefined)
-//	DCS=Новый СхемаКомпоновкиДанных;
+//	DCS=New DataCompositionSchema;
 	If СтрокаРодительскогоНабора = Undefined Then
 
 		СтрокаНабораДляКопирования=DataSets.FindByID(ZerothDataSetURL);
@@ -2696,8 +2696,8 @@ Procedure ЗаполнитьСвязиНаборовДанныхСКДПоДан
 	DCS.DataSetLinks.Clear();
 
 	For Each CurrentData In DataSetLinks Do
-		НовыеДанные=DCS.DataSetLinks.Add();
-		FillPropertyValues(НовыеДанные, CurrentData);
+		NewData=DCS.DataSetLinks.Add();
+		FillPropertyValues(NewData, CurrentData);
 	EndDo;
 EndProcedure
 
@@ -2706,17 +2706,17 @@ Procedure ЗаполнитьВычисляемыеПоляСКДПоДанным
 	DCS.CalculatedFields.Clear();
 
 	For Each CurrentData In CalculatedFields Do
-		НовыеДанные=DCS.CalculatedFields.Add();
-		FillPropertyValues(НовыеДанные, CurrentData, , "OrderExpressions,Appearance,EditParameters");
+		NewData=DCS.CalculatedFields.Add();
+		FillPropertyValues(NewData, CurrentData, , "OrderExpressions,Appearance,EditParameters");
 
-		ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(НовыеДанные.UseRestriction,
+		ЗаполнитьОграничениеИспользованияПоляСхемыКомпоновкиДанных(NewData.UseRestriction,
 			CurrentData.UseRestrictionField, CurrentData.UseRestrictionCondition,
 			CurrentData.UseRestrictionGroup, CurrentData.UseRestrictionOrder);
 			
 		//Appearance
-		СкопироватьОфорление(НовыеДанные.Appearance, CurrentData.Appearance);
+		СкопироватьОфорление(NewData.Appearance, CurrentData.Appearance);
 
-		УстановитьДоступныеЗначенияУЭлементаСКД(НовыеДанные, CurrentData.AvailableValues);
+		УстановитьДоступныеЗначенияУЭлементаСКД(NewData, CurrentData.AvailableValues);
 	EndDo;
 EndProcedure
 &AtServer
@@ -2724,11 +2724,11 @@ Procedure ЗаполнитьПоляИтоговСКДПоДаннымФормы
 	DCS.TotalFields.Clear();
 
 	For Each CurrentData In Resources Do
-		НовыеДанные=DCS.TotalFields.Add();
-		FillPropertyValues(НовыеДанные, CurrentData, , "Groups");
+		NewData=DCS.TotalFields.Add();
+		FillPropertyValues(NewData, CurrentData, , "Groups");
 
 		For Each Item In CurrentData.Groups Do
-			НовыеДанные.Groups.Add(Item.Value);
+			NewData.Groups.Add(Item.Value);
 		EndDo;
 	EndDo;
 EndProcedure
@@ -2737,16 +2737,16 @@ Procedure ЗаполнитьПараметрыСКДПоДаннымФормы(D
 	DCS.Parameters.Clear();
 
 	For Each CurrentData In DCSParameters Do
-		НовыеДанные=DCS.Parameters.Add();
-		FillPropertyValues(НовыеДанные, CurrentData, , "EditParameters");
+		NewData=DCS.Parameters.Add();
+		FillPropertyValues(NewData, CurrentData, , "EditParameters");
 
 		If CurrentData.UseAlways Then
-			НовыеДанные.Use=DataCompositionParameterUse.Always;
+			NewData.Use=DataCompositionParameterUse.Always;
 		Else
-			НовыеДанные.Use=DataCompositionParameterUse.Auto;
+			NewData.Use=DataCompositionParameterUse.Auto;
 		EndIf;
 
-		УстановитьДоступныеЗначенияУЭлементаСКД(НовыеДанные, CurrentData.AvailableValues);
+		УстановитьДоступныеЗначенияУЭлементаСКД(NewData, CurrentData.AvailableValues);
 	EndDo;
 EndProcedure
 
@@ -2765,11 +2765,11 @@ Procedure ЗаполнитьВариантыНастроекСКДПоДанны
 	DCS.SettingVariants.Clear();
 
 	For Each СтрокаВарианта In SettingVariants Do
-		НовыеДанные=DCS.SettingVariants.Add();
-		НовыеДанные.Name=СтрокаВарианта.Name;
-		НовыеДанные.Presentation=СтрокаВарианта.Presentation;
+		NewData=DCS.SettingVariants.Add();
+		NewData.Name=СтрокаВарианта.Name;
+		NewData.Presentation=СтрокаВарианта.Presentation;
 		If ValueIsFilled(СтрокаВарианта.Settings) Then
-			UT_CommonClientServer.CopyDataCompositionSettings(НовыеДанные.Settings,
+			UT_CommonClientServer.CopyDataCompositionSettings(NewData.Settings,
 				UT_Common.ValueFromXMLString(СтрокаВарианта.Settings));
 		EndIf;
 	EndDo;
