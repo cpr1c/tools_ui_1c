@@ -7064,6 +7064,10 @@
           <name>DCSParametersUseAlways</name>
           <id>384</id>
           <title>
+            <key>en</key>
+            <value>Use</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Использование</value>
           </title>
@@ -7112,9 +7116,17 @@
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
             <format>
+              <key>en</key>
+              <value>BF=Auto; BT=Always</value>
+            </format>
+            <format>
               <key>ru</key>
               <value>БЛ=Авто; БИ=Всегда</value>
             </format>
+            <editFormat>
+              <key>en</key>
+              <value>BF=Auto; BT=Always</value>
+            </editFormat>
             <editFormat>
               <key>ru</key>
               <value>БЛ=Авто; БИ=Всегда</value>
@@ -8533,12 +8545,12 @@
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Пользовательские поля</value>
+              <key>en</key>
+              <value>User fields</value>
             </title>
             <title>
-              <key>en</key>
-              <value>User fields page</value>
+              <key>ru</key>
+              <value>Пользовательские поля</value>
             </title>
             <extendedTooltip>
               <name>UserFieldsPageExtendedTooltip</name>
@@ -9112,12 +9124,12 @@ Browse the structure tree and select a grouping to view or edit grouping field s
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Группируемые поля</value>
+              <key>en</key>
+              <value>Group fields</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Group fields page</value>
+              <key>ru</key>
+              <value>Группируемые поля</value>
             </title>
             <extendedTooltip>
               <name>GroupFieldsPageExtendedTooltip</name>
@@ -9946,12 +9958,12 @@ In the report structure tree, select the item and then select required fields.</
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Поля</value>
+              <key>en</key>
+              <value>Selection fields </value>
             </title>
             <title>
-              <key>en</key>
-              <value>Selection fields page</value>
+              <key>ru</key>
+              <value>Поля</value>
             </title>
             <extendedTooltip>
               <name>SelectionFieldsPageExtendedTooltip</name>
@@ -10782,12 +10794,12 @@ In the structure tree, select the report and edit report filters.</value>
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Отбор</value>
+              <key>en</key>
+              <value>Filter</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Filter page</value>
+              <key>ru</key>
+              <value>Отбор</value>
             </title>
             <extendedTooltip>
               <name>FilterPageExtendedTooltip</name>
@@ -12258,12 +12270,12 @@ In the structure tree, select the report and edit report conditional appearance.
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Условное оформление</value>
+              <key>en</key>
+              <value>Conditional appearance</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Conditional appearance page</value>
+              <key>ru</key>
+              <value>Условное оформление</value>
             </title>
             <extendedTooltip>
               <name>ConditionalAppearancePageExtendedTooltip</name>
@@ -12903,12 +12915,12 @@ In the structure tree, select the report and edit additional report settings.</v
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Дополнительные настройки</value>
+              <key>en</key>
+              <value>Output parameters</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Output parameters page</value>
+              <key>ru</key>
+              <value>Дополнительные настройки</value>
             </title>
             <extendedTooltip>
               <name>OutputParametersPageExtendedTooltip</name>
