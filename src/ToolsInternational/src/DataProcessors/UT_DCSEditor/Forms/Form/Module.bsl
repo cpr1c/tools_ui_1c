@@ -1321,7 +1321,7 @@ Procedure AddDataSetField(DataSetRow, Column, DataSetFieldsTypes, FieldsArray, P
 	NewField.Picture=DataSetFieldTypePicture(NewField.Type, DataSetFieldsTypes);
 
 	If TypeOf(Column) = Type("QuerySchemaNestedTableColumn") Then
-		For Each CurrentColumn In Column.Cols Do
+		For Each CurrentColumn In Column.Columns Do
 			AddDataSetField(DataSetRow, CurrentColumn, DataSetFieldsTypes, FieldsArray, Column);
 		EndDo;
 	ElsIf Type = DataSetFieldsTypes.Field Then
@@ -1379,7 +1379,7 @@ Procedure FillDataSetFieldsOnQueryChangeAtServer(DataSetRowID)
 			Return;
 		EndIf;
 		If DataSetRow.AutoFillAvailableFields Then
-			For Each Column In NeedBatch.Cols Do
+			For Each Column In NeedBatch.Columns Do
 				AddDataSetField(DataSetRow, Column, DataSetFieldsTypes, FieldsArray);
 			EndDo;
 		EndIf;
