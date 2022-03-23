@@ -488,7 +488,7 @@ Function SelectedTypesArray()
 	For Each ItemOfType In SelectedTypes Do
 		TypeAsString=ItemOfType.Value;
 		
-		If Lower(TypeAsString)="AnyRef" Then
+		If Lower(TypeAsString)="anyref" Then
 			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Catalogs,"CatalogRef.");
 			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Documents,"DocumentRef.");
 			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfCharacteristicTypes,"ChartOfCharacteristicTypesRef.");
