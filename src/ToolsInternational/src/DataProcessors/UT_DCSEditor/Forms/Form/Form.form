@@ -4082,6 +4082,10 @@
           <name>DataSetLinksParameterListAllowed</name>
           <id>250</id>
           <title>
+            <key>en</key>
+            <value>Parameters list</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Список параметров</value>
           </title>

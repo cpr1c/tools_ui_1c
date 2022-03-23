@@ -167,6 +167,10 @@
         <name>PeriodAdditional</name>
         <id>19</id>
         <title>
+          <key>en</key>
+          <value>Additional</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Дополнительный</value>
         </title>
@@ -336,6 +340,10 @@
       <name>ParentDimension</name>
       <id>24</id>
       <title>
+        <key>en</key>
+        <value>Parent</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Родитель</value>
       </title>
@@ -428,6 +436,10 @@
     <items xsi:type="form:FormField">
       <name>Account</name>
       <id>32</id>
+      <title>
+        <key>en</key>
+        <value>Account</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -478,6 +490,10 @@
     <items xsi:type="form:FormField">
       <name>AccountTypeExpression</name>
       <id>35</id>
+      <title>
+        <key>en</key>
+        <value>Type</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Вид</value>
@@ -624,6 +640,10 @@
         <name>BalanceGroup</name>
         <id>62</id>
         <title>
+          <key>en</key>
+          <value>Name</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Имя</value>
         </title>
@@ -680,6 +700,10 @@
         <name>BalanceType</name>
         <id>59</id>
         <title>
+          <key>en</key>
+          <value>Type</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Тип</value>
         </title>
@@ -732,25 +756,33 @@
           <typeDomainEnabled>true</typeDomainEnabled>
           <choiceList>
             <value xsi:type="core:StringValue">
-              <value>Нет</value>
+              <value>None</value>
             </value>
           </choiceList>
           <choiceList>
+            <presentation>
+              <key>en</key>
+              <value>Opening balance</value>
+            </presentation>
             <presentation>
               <key>ru</key>
               <value>Начальный остаток</value>
             </presentation>
             <value xsi:type="core:StringValue">
-              <value>НачальныйОстаток</value>
+              <value>openingbalance</value>
             </value>
           </choiceList>
           <choiceList>
+            <presentation>
+              <key>en</key>
+              <value>Closing balance</value>
+            </presentation>
             <presentation>
               <key>ru</key>
               <value>Конечный остаток</value>
             </presentation>
             <value xsi:type="core:StringValue">
-              <value>КонечныйОстаток</value>
+              <value>сlosingbalance</value>
             </value>
           </choiceList>
         </extInfo>
@@ -758,6 +790,10 @@
       <items xsi:type="form:FormField">
         <name>AccountingBalanceType</name>
         <id>56</id>
+        <title>
+          <key>en</key>
+          <value>Account type</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Бух. тип</value>
@@ -812,17 +848,17 @@
           <typeDomainEnabled>true</typeDomainEnabled>
           <choiceList>
             <value xsi:type="core:StringValue">
-              <value>Нет</value>
+              <value>None</value>
             </value>
           </choiceList>
           <choiceList>
             <value xsi:type="core:StringValue">
-              <value>Дебет</value>
+              <value>Debit</value>
             </value>
           </choiceList>
           <choiceList>
             <value xsi:type="core:StringValue">
-              <value>Кредит</value>
+              <value>Credit</value>
             </value>
           </choiceList>
         </extInfo>
@@ -1319,12 +1355,12 @@
   <attributes>
     <name>IgnoreNULLValues</name>
     <title>
-      <key>ru</key>
-      <value>Игнорировать значения NULL</value>
+      <key>en</key>
+      <value>Ignore NULL Values</value>
     </title>
     <title>
-      <key>en</key>
-      <value>Ignore NULLValues</value>
+      <key>ru</key>
+      <value>Игнорировать значения NULL</value>
     </title>
     <id>11</id>
     <valueType>
