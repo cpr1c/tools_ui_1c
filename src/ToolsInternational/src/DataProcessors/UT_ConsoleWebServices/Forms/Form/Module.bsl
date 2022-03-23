@@ -359,7 +359,7 @@ Procedure OperationParametersValueStartChoice(Item, ChoiceData, StandardProcessi
 		NotifyDescription = New NotifyDescription("ConservationStructure", ThisObject);
 		PastValue = New Structure;
 		PastValue.Insert("PastValue", Items.OperationParameters.CurrentData.Structure);
-		OpenForm("Processing.UT_ConsoleWebServices.Form.FormInputStructures", PastValue, ThisObject, , , ,
+		OpenForm("DataProcessor.UT_ConsoleWebServices.Form.FormInputStructures", PastValue, ThisObject, , , ,
 			NotifyDescription, FormWindowOpeningMode.LockOwnerWindow);
 	EndIf;
 

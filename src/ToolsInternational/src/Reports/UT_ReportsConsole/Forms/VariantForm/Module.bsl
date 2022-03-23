@@ -228,33 +228,33 @@ EndProcedure
 
 &AtClient
 Procedure SettingsOnActivateField(Item)
-	Var ВыбраннаяСтраница;
+	Var SelectedPage;
 
 	If Items.Structure.CurrentItem.Name = "StructureHasSelection" Then
 
-		ВыбраннаяСтраница = Items.SelectionFieldsPage;
+		SelectedPage = Items.SelectionFieldsPage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "StructureHasFilter" Then
 
-		ВыбраннаяСтраница = Items.FilterPage;
+		SelectedPage = Items.FilterPage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "StructureHasOrder" Then
 
-		ВыбраннаяСтраница = Items.OrderPage;
+		SelectedPage = Items.OrderPage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "StructureHasConditionalAppearance" Then
 
-		ВыбраннаяСтраница = Items.ConditionalAppearancePage;
+		SelectedPage = Items.ConditionalAppearancePage;
 
 	ElsIf Items.Structure.CurrentItem.Name = "StructureHasOutputParameters" Then
 
-		ВыбраннаяСтраница = Items.OutputParametersPage;
+		SelectedPage = Items.OutputParametersPage;
 
 	EndIf;
 
-	If ВыбраннаяСтраница <> Undefined Then
+	If SelectedPage <> Undefined Then
 
-		Items.SettingsPages.CurrentPage = ВыбраннаяСтраница;
+		Items.SettingsPages.CurrentPage = SelectedPage;
 
 	EndIf;
 EndProcedure

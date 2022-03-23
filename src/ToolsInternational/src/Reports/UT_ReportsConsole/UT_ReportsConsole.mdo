@@ -10,6 +10,10 @@
     <value>U t reports console</value>
   </synonym>
   <synonym>
+    <key>en</key>
+    <value>Reports console [UT]</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Консоль отчетов [УИ]</value>
   </synonym>
