@@ -1,230 +1,237 @@
-#Область СобытияФормы
+#Region FormEvents
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	Если ЗначениеЗаполнено(Параметры.ValueTableAsString) Тогда
-		Попытка
-			ТЗ=ЗначениеИзСтрокиВнутр(Параметры.ValueTableAsString);
-		Исключение
-			ТЗ=Новый ТаблицаЗначений;
-		КонецПопытки;
-	Иначе
-		ТЗ=Новый ТаблицаЗначений;
-	КонецЕсли;
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	If ValueIsFilled(Parameters.ValueTableAsString) Then
+		Try
+			VT=ValueFromStringInternal(Parameters.ValueTableAsString);
+		Except
+			VT=New ValueTable;
+		EndTry;
+	Else
+		VT=New ValueTable;
+	EndIf;
 
-	ЗаполнитьКолонкиТаблицыЗначений(ТЗ);
-	СоздатьКолонкиТаблицыЗначенийФормы();
-	ЗаполнитьТаблицуЗначенийФормыПоТаблице(ТЗ);
-КонецПроцедуры
+	FillValueTableColumns(VT);
+	CreateFormValueTableColumns();
+	FillFormValueTableByTable(VT);
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область СобытияЭлементовФормы
+#Region FormItemsEvents
 
-&НаКлиенте
-Процедура КолонкиТаблицыПередОкончаниемРедактирования(Элемент, НоваяСтрока, ОтменаРедактирования, Отказ)
-	ОбработатьИзменениеИмениКолонки(НоваяСтрока, ОтменаРедактирования, Отказ);
-КонецПроцедуры
-&НаКлиенте
-Процедура КолонкиТаблицыТипЗначенияНачалоВыбора(Элемент, ДанныеВыбора, СтандартнаяОбработка)
-	ТекДанные=Элементы.КолонкиТаблицы.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
-
-	ТекСтрока=Элементы.КолонкиТаблицы.ТекущаяСтрока;
-
-	UT_CommonClient.EditType(ТекДанные.ТипЗначения, 1, СтандартнаяОбработка, ЭтотОбъект,
-		Новый ОписаниеОповещения("КолонкиТаблицыТипЗначенияНачалоВыбораЗавершение", ЭтотОбъект,
-		Новый Структура("ТекСтрока", ТекСтрока)));
-КонецПроцедуры
-
-&НаКлиенте
-Процедура КолонкиТаблицыПослеУдаления(Элемент)
-	СоздатьКолонкиТаблицыЗначенийФормы();
-КонецПроцедуры
-
-&НаКлиенте
-Процедура КолонкиТаблицыПриОкончанииРедактирования(Элемент, НоваяСтрока, ОтменаРедактирования)
-	СоздатьКолонкиТаблицыЗначенийФормы();
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область ОбработчикиКомандФормы
-&НаКлиенте
-Процедура Применить(Команда)
-	СтруктураРезультата=РезультатТаблицаЗначенийВСтроку();
+&AtClient
+Procedure TableColumnsBeforeEditEnd(Item, NewRow, CancelEdit, Cancel)
+	ProcessColumnNameChange(NewRow, CancelEdit, Cancel);
 	
-	Закрыть(СтруктураРезультата);	
-КонецПроцедуры
-#КонецОбласти
+EndProcedure
 
-#Область СлужебныеПроцедурыИФункции
+&AtClient
+Procedure TableColumnsValueTypeStartChoice(Item, ChoiceData, StandardProcessing)
+	
+		CurrentData=Items.TableColumns.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-&НаСервере
-Процедура ЗаполнитьКолонкиТаблицыЗначений(ТЗ)
-	КолонкиТаблицы.Очистить();
+	CurrentRow=Items.TableColumns.CurrentLine;
 
-	Для Каждого Колонка Из ТЗ.Колонки Цикл
-		НС=КолонкиТаблицы.Добавить();
-		НС.Имя=Колонка.Имя;
-		НС.ТипЗначения=Колонка.ТипЗначения;
-	КонецЦикла;
-КонецПроцедуры
+	UT_CommonClient.EditType(CurrentData.ValueType, 1, StandardProcessing, ThisObject,
+		New NotifyDescription("TableColumnsValueTypeStartChoiceEND", ThisObject,
+		New Structure("CurrentRow", CurrentRow)));
+	
+EndProcedure
 
-&НаСервере
-Функция ПолучитьНеотображаемыеНаКлиентеТипы()
-	маТипы = Новый Массив;
-	маТипы.Добавить(Тип("Тип"));
-	маТипы.Добавить(Тип("МоментВремени"));
-	маТипы.Добавить(Тип("Граница"));
-	маТипы.Добавить(Тип("ХранилищеЗначения"));
-	маТипы.Добавить(Тип("РезультатЗапроса"));
-	Возврат маТипы;
-КонецФункции
 
-&НаСервере
-Процедура СоздатьКолонкиТаблицыЗначенийФормы()
+&AtClient
+Procedure TableColumnsAfterDeleteRow(Item)
+	CreateFormValueTableColumns();
+EndProcedure
 
-	маНеотображаемыеТипы = ПолучитьНеотображаемыеНаКлиентеТипы();
 
-	МассивТекущихКолонокТаблицы=ПолучитьРеквизиты("ТаблицаЗначений");
-	УжеСозданныеКолонки=Новый Соответствие;
+&AtClient
+Procedure TableColumnsOnEditEnd(Item, NewRow, CancelEdit)
+	CreateFormValueTableColumns();
+EndProcedure
 
-	Для Каждого ТекРеквизит Из МассивТекущихКолонокТаблицы Цикл
-		УжеСозданныеКолонки.Вставить(НРег(ТекРеквизит.Имя), ТекРеквизит);
-	КонецЦикла;
 
-	МассивУдаляемыхРеквизитов=Новый Массив;
-	МассивДобавляемыхРеквизитов=Новый Массив;
-	КолонкиДляПриведенияТипов=Новый Массив;
-	Для Каждого ТекКолонка Из КолонкиТаблицы Цикл
-		УжеСозданныйРеквизит=УжеСозданныеКолонки[НРег(ТекКолонка.Имя)];
-		Если УжеСозданныйРеквизит = Неопределено Тогда
-			МассивДобавляемыхРеквизитов.Добавить(Новый РеквизитФормы(ТекКолонка.Имя, ТекКолонка.ТипЗначения,
-				"ТаблицаЗначений", , Истина));
-		Иначе
-			Если ТекКолонка.ТипЗначения <> УжеСозданныйРеквизит.ТипЗначения Тогда
-				КолонкиДляПриведенияТипов.Добавить(ТекКолонка);
-			КонецЕсли;
-			УжеСозданныеКолонки.Удалить(НРег(ТекКолонка.Имя));
-		КонецЕсли;
-	КонецЦикла;
+#EndRegion
 
-	Для Каждого КлючЗначение Из УжеСозданныеКолонки Цикл
-		МассивУдаляемыхРеквизитов.Добавить(КлючЗначение.Ключ);
-	КонецЦикла;
+#Region CommandFormEventHandlers
+&AtClient
+Procedure Apply(Command)
+	ResultStructure=ResultValueTableToString();
+	
+	Close(ResultStructure);	
+EndProcedure
+#EndRegion
 
-	ИзменитьРеквизиты(МассивДобавляемыхРеквизитов, МассивУдаляемыхРеквизитов);
+#Region Private
 
-	Для Каждого КолонкаДляПриведения Из КолонкиДляПриведенияТипов Цикл
-		ПривестиТипКолонкиТаблицыЗначений(ЭтотОбъект, КолонкаДляПриведения);
-	КонецЦикла;
+&AtServer
+Procedure FillValueTableColumns(VT)
+	TableColumns.Clear();
 
-	Для Каждого ТекКолонка Из КолонкиТаблицы Цикл
-		ОписаниеЭлемента=UT_Forms.ItemAttributeNewDescription();
-		ОписаниеЭлемента.Вставить("Имя", ТекКолонка.Имя);
-		ОписаниеЭлемента.Вставить("ПутьКДанным", "ТаблицаЗначений." + ТекКолонка.Имя);
-		ОписаниеЭлемента.Вставить("РодительЭлемента", Элементы.ТаблицаЗначений);
-		UT_Forms.CreateItemByDescription(ЭтотОбъект, ОписаниеЭлемента);
-	КонецЦикла;
+	For Each Column In VT.Cols Do
+		NewRow=TableColumns.Add();
+		NewRow.Name=Column.Name;
+		NewRow.ValueType=Column.ValueType;
+	EndDo;
+EndProcedure
 
-КонецПроцедуры
+&AtServer
+Function GetNotDisplayedTypesAtClient()
+	TypesArray = New Array;
+	TypesArray.Add(Type("Type"));
+	TypesArray.Add(Type("PointInTime"));
+	TypesArray.Add(Type("Border"));
+	TypesArray.Add(Type("ValueStorage"));
+	TypesArray.Add(Type("QueryResult"));
+	Return TypesArray;
+EndFunction
 
-&НаСервере
-Процедура ЗаполнитьТаблицуЗначенийФормыПоТаблице(ТЗ)
-	ТаблицаЗначений.Очистить();
+&AtServer
+Procedure CreateFormValueTableColumns()
 
-	Для Каждого Стр Из ТЗ Цикл
-		НС=ТаблицаЗначений.Добавить();
-		ЗаполнитьЗначенияСвойств(НС, Стр);
-	КонецЦикла;
-КонецПроцедуры
+	ArrayNotDisplayedTypes = GetNotDisplayedTypesAtClient();
 
-&НаКлиенте
-Процедура ОбработатьИзменениеИмениКолонки(НоваяСтрока, ОтменаРедактирования, Отказ)
+	CurrentTableColumnsArray=GetAttributes("ValueTable");
+	AlreadyCreatedColumns=New Map;
 
-	стрИмяКолонки = Элементы.КолонкиТаблицы.ТекущиеДанные.Имя;
+	For Each CurrentAttribute In CurrentTableColumnsArray Do
+		AlreadyCreatedColumns.Insert(Lower(CurrentAttribute.Name), CurrentAttribute);
+	EndDo;
 
-	Если Не UT_CommonClientServer.IsCorrectVariableName(стрИмяКолонки) Тогда
+	DeletedAttributesArray=New Array;
+	AddedAttributesArray=New Array;
+	ColumnsForTypesAdjust=New Array;
+	For Each CurrentColumn In TableColumns Do
+		AlreadyCreatedAttribute=AlreadyCreatedColumns[Lower(CurrentColumn.Name)];
+		If AlreadyCreatedAttribute = Undefined Then
+			AddedAttributesArray.Add(New FormAttribute(CurrentColumn.Name, CurrentColumn.ValueType,
+				"ValueTable", , True));
+		Else
+			If CurrentColumn.ValueType <> AlreadyCreatedAttribute.ValueType Then
+				ColumnsForTypesAdjust.Add(CurrentColumn);
+			EndIf;
+			AlreadyCreatedColumns.Delete(Lower(CurrentColumn.Name));
+		EndIf;
+	EndDo;
+
+	For Each KeyValue In AlreadyCreatedColumns Do
+		DeletedAttributesArray.Add(KeyValue.Key);
+	EndDo;
+
+	ChangeAttributes(AddedAttributesArray, DeletedAttributesArray);
+
+	For Each ColumnForAdjust In ColumnsForTypesAdjust Do
+		AdjustValueTableColumnType(ThisObject, ColumnForAdjust);
+	EndDo;
+
+	For Each CurrentColumn In TableColumns Do
+		ItemDescription=UT_Forms.ItemAttributeNewDescription();
+		ItemDescription.Insert("Name", CurrentColumn.Name);
+		ItemDescription.Insert("DataPath", "ValueTable." + CurrentColumn.Name);
+		ItemDescription.Insert("ItemParent", Items.ValueTable);
+		UT_Forms.CreateItemByDescription(ThisObject, ItemDescription);
+	EndDo;
+
+EndProcedure
+
+&AtServer
+Procedure FillFormValueTableByTable(VT)
+	ValueTable.Clear();
+
+	For Each Row In VT Do
+		NewRow=ValueTable.Add();
+		FillPropertyValues(NewRow, Row);
+	EndDo;
+EndProcedure
+
+&AtClient
+Procedure ProcessColumnNameChange(NewRow, CancelEdit, Cancel)
+
+	strColumnName = Items.TableColumns.CurrentData.Name;
+
+	If Not UT_CommonClientServer.IsCorrectVariableName(strColumnName) Then
 		ShowMessageBox( ,
 			UT_CommonClientServer.WrongVariableNameWarningText(),
-			, Заголовок);
-		Отказ = Истина;
-		Возврат;
-	КонецЕсли;
+			, Title);
+		Cancel = True;
+		Return;
+	EndIf;
 
-	маСтрокиИмени = КолонкиТаблицы.НайтиСтроки(Новый Структура("Имя", стрИмяКолонки));
-	Если маСтрокиИмени.Количество() > 1 Тогда
-		ShowMessageBox( , "Колонка с таким именем уже есть! Введите другое имя.", , Заголовок);
-		Отказ = Истина;
-		Возврат;
-	КонецЕсли;
+	NameStringsArray = TableColumns.FindRows(New Structure("Name", strColumnName));
+	If NameStringsArray.Count() > 1 Then
+		ShowMessageBox( , NSTR("ru = 'Колонка с таким именем уже есть! Введите другое имя.';en = 'There is already a column with that name! Enter a different name.'"), , Title);
+		Cancel = True;
+		Return;
+	EndIf;
 
-КонецПроцедуры
-&НаКлиентеНаСервереБезКонтекста
-Функция ПолучитьМодификаторыТипа(ТипЗначения)
+EndProcedure
+&AtClientAtServerNoContext
+Function GetTypeModifiers(ValueType)
 
-	маКвалификаторы = Новый Массив;
+	QualifiersArray = New Array;
 
-	Если ТипЗначения.СодержитТип(Тип("Строка")) Тогда
-		стрКвалификаторыСтроки = "Длина " + ТипЗначения.КвалификаторыСтроки.Длина;
-		маКвалификаторы.Добавить(Новый Структура("Тип, Квалификаторы", "Строка", стрКвалификаторыСтроки));
-	КонецЕсли;
+	If ValueType.ContainsType(Type("String")) Then
+		strStringQualifiers = "Length " + ValueType.StringQualifiers.Length;
+		QualifiersArray.Add(New Structure("Type, Qualifiers", "String", strStringQualifiers));
+	EndIf;
 
-	Если ТипЗначения.СодержитТип(Тип("Дата")) Тогда
-		стрКвалификаторыДаты = ТипЗначения.КвалификаторыДаты.ЧастиДаты;
-		маКвалификаторы.Добавить(Новый Структура("Тип, Квалификаторы", "Дата", стрКвалификаторыДаты));
-	КонецЕсли;
+	If ValueType.ContainsType(Type("Date")) Then
+		strDateQualifiers = ValueType.DateQualifiers.DateFractions;
+		QualifiersArray.Add(New Structure("Type, Qualifiers", "Date", strDateQualifiers));
+	EndIf;
 
-	Если ТипЗначения.СодержитТип(Тип("Число")) Тогда
-		стрКвалификаторыДаты = "Знак " + ТипЗначения.КвалификаторыЧисла.ДопустимыйЗнак + " "
-			+ ТипЗначения.КвалификаторыЧисла.Разрядность + "." + ТипЗначения.КвалификаторыЧисла.РазрядностьДробнойЧасти;
-		маКвалификаторы.Добавить(Новый Структура("Тип, Квалификаторы", "Число", стрКвалификаторыДаты));
-	КонецЕсли;
+	If ValueType.ContainsType(Type("Number")) Then
+		strDateQualifiers = "Sign " + ValueType.NumberQualifiers.AllowedSign + " "
+			+ ValueType.NumberQualifiers.Digits + "." + ValueType.NumberQualifiers.FractionDigits;
+		QualifiersArray.Add(New Structure("Type, Qualifiers", "Number", strDateQualifiers));
+	EndIf;
 
-	фНуженЗаголовок = маКвалификаторы.Количество() > 1;
+	fNeedTitle = QualifiersArray.Count() > 1;
 
-	стрКвалификаторы = "";
-	Для Каждого стКвалификаторы Из маКвалификаторы Цикл
-		стрКвалификаторы = ?(фНуженЗаголовок, стКвалификаторы.Тип + ": ", "") + стКвалификаторы.Квалификаторы + "; ";
-	КонецЦикла;
+	strQualifiers = "";
+	For Each stQualifiers In QualifiersArray Do
+		strQualifiers = ?(fNeedTitle, stQualifiers.Type + ": ", "") + stQualifiers.Qualifiers + "; ";
+	EndDo;
 
-	Возврат стрКвалификаторы;
+	Return strQualifiers;
 
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Процедура КолонкиТаблицыТипЗначенияНачалоВыбораЗавершение(Результат, ДополнительныеПараметры) Экспорт
-	Если Результат = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure TableColumnsValueTypeStartChoiceEND(Result, AdditionalParameters) Export
+	If Result = Undefined Then
+		Return;
+	EndIf;
 
-	ТекДанные=КолонкиТаблицы.НайтиПоИдентификатору(ДополнительныеПараметры.ТекСтрока);
-	ТекДанные.ТипЗначения=Результат;
-	ТекДанные.Квалификаторы=ПолучитьМодификаторыТипа(ТекДанные.ТипЗначения);
+	CurrentData=TableColumns.FindByID(AdditionalParameters.CurrentRow);
+	CurrentData.ValueType=Result;
+	CurrentData.Qualifiers=GetTypeModifiers(CurrentData.ValueType);
 
-	ПривестиТипКолонкиТаблицыЗначений(ЭтотОбъект, ТекДанные);
-КонецПроцедуры
+	AdjustValueTableColumnType(ThisObject, CurrentData);
+EndProcedure
 
-&НаКлиентеНаСервереБезКонтекста
-Процедура ПривестиТипКолонкиТаблицыЗначений(Форма, КолонкаДляПриведения)
-	Для каждого Стр Из Форма.ТаблицаЗначений Цикл
-		Стр[КолонкаДляПриведения.Имя]=КолонкаДляПриведения.ТипЗначения.ПривестиЗначение(Стр[КолонкаДляПриведения.Имя]);
-	КонецЦикла;
-КонецПроцедуры
+&AtClientAtServerNoContext
+Procedure AdjustValueTableColumnType(Form, ColumnForAdjust)
+	For каждого Row In Form.ValueTable Do
+		Row[ColumnForAdjust.Name]=ColumnForAdjust.ValueType.AdjustValue(Row[ColumnForAdjust.Name]);
+	EndDo;
+EndProcedure
 
-&НаСервере
-Функция РезультатТаблицаЗначенийВСтроку()
-	ТЗ=РеквизитФормыВЗначение("ТаблицаЗначений");
+&AtServer
+Function ResultValueTableToString()
+	VT=FormAttributeToValue("ValueTable");
 	
-	СтруктураРезультата=Новый Структура;
-	СтруктураРезультата.Вставить("Значение", ЗначениеВСтрокуВнутр(ТЗ));
-	СтруктураРезультата.Вставить("Представление", СтрШаблон("Строк: %1 Колонок: %2", ТЗ.Количество(), ТЗ.Колонки.Количество()));
-	СтруктураРезультата.Вставить("КоличествоСтрок", ТЗ.Количество());
-	СтруктураРезультата.Вставить("КоличествоКолонок", ТЗ.Колонки.Количество());
-	Возврат СтруктураРезультата;
-КонецФункции
+	ResultStructure=New Structure;
+	ResultStructure.Insert("Value", ValueToStringInternal(VT));
+	ResultStructure.Insert("Presentation", StrTemplate(NSTR("ru = 'Строк: %1 Колонок: %2';en = 'Rows: %1 Columns: %2'"), VT.Count(), VT.Cols.Count()));
+	ResultStructure.Insert("LineCount", VT.Count());
+	ResultStructure.Insert("ColumnsCount", VT.Cols.Count());
+	Return ResultStructure;
+EndFunction
 
-#КонецОбласти
+#EndRegion

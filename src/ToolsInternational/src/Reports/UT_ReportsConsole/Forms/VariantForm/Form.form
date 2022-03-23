@@ -406,7 +406,7 @@
       </userVisible>
       <title>
         <key>en</key>
-        <value>Data parameters</value>
+        <value>Parameters</value>
       </title>
       <title>
         <key>ru</key>
@@ -1211,12 +1211,12 @@ Browse the structure tree and select a grouping to view or edit grouping field s
         <common>true</common>
       </userVisible>
       <title>
-        <key>ru</key>
-        <value>Группируемые поля</value>
+        <key>en</key>
+        <value>Group fields</value>
       </title>
       <title>
-        <key>en</key>
-        <value>Group fields page</value>
+        <key>ru</key>
+        <value>Группируемые поля</value>
       </title>
       <extendedTooltip>
         <name>GroupFieldsPageExtendedTooltip</name>
@@ -2879,12 +2879,12 @@ In the structure tree, select the report and edit report filters.</value>
         <common>true</common>
       </userVisible>
       <title>
-        <key>ru</key>
-        <value>Отбор</value>
+        <key>en</key>
+        <value>Filter</value>
       </title>
       <title>
-        <key>en</key>
-        <value>Filter page</value>
+        <key>ru</key>
+        <value>Отбор</value>
       </title>
       <extendedTooltip>
         <name>FilterPageExtendedTooltip</name>

@@ -7,28 +7,28 @@
   <name>UT_DCSEditor</name>
   <synonym>
     <key>en</key>
-    <value>{} UT_DCSEditor</value>
+    <value>Data сomposition schema Editor (UT)</value>
   </synonym>
   <synonym>
     <key>ru</key>
     <value>Редактор СКД (УИ)</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.UT_DCSEditor.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_DCSEditor.Form.Form</defaultForm>
   <forms uuid="62e4e2d1-01f7-4045-a438-4fa5d755d354">
-    <name>Форма</name>
+    <name>Form</name>
     <synonym>
       <key>ru</key>
-      <value>Форма</value>
+      <value>Form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="791aaeb0-07b0-4b2e-98ca-2e8b8b13fb81">
-    <name>ФормаРедактированияРолиПоляНабораДанных</name>
+    <name>FormEditDataSetFieldRole</name>
     <synonym>
       <key>ru</key>
-      <value>Форма редактирования роли поля набора данных</value>
+      <value>Form edit data set field role</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

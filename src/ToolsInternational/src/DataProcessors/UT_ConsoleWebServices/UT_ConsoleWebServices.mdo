@@ -13,7 +13,7 @@
     <key>ru</key>
     <value>Консоль веб сервисов(WS) [УИ]</value>
   </synonym>
-  <comment>Автор Баданов Владимир Версия: 2.0.2.2</comment>
+  <comment>Author Vladimir Badanov Version: 2.0.2.2 / Translated to English script by Neti </comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.UT_ConsoleWebServices.Form.Form</defaultForm>
   <extendedPresentation>
