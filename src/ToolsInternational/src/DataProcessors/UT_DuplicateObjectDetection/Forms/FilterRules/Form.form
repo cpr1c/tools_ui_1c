@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Filter rules</value>
+  </title>
+  <title>
     <key>ru</key>
     <value>Правила отбора</value>
   </title>
   <items xsi:type="form:Table">
-    <name>КомпоновщикПредварительногоОтбораНастройкиОтбор</name>
+    <name>PrefilterComposerSettingsFilter</name>
     <id>1</id>
+    <title>
+      <key>en</key>
+      <value>Pre-filter composer settings filter</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Компоновщик предварительного отбора настройки отбор</value>
@@ -17,11 +25,11 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>КомпоновщикПредварительногоОтбора.Settings.Filter</segments>
+      <segments>PrefilterComposer.Settings.Filter</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <autoCommandBar>
-      <name>КомпоновщикПредварительногоОтбораНастройкиОтборКоманднаяПанель</name>
+      <name>PrefilterComposerSettingsFilterCommandBar</name>
       <id>3</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -37,10 +45,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>КомпоновщикПредварительногоОтбораНастройкиОтборSearchString</name>
+      <name>PrefilterComposerSettingsFilterSearchString</name>
       <id>13</id>
       <extendedTooltip>
-        <name>КомпоновщикПредварительногоОтбораНастройкиОтборSearchStringExtendedTooltip</name>
+        <name>PrefilterComposerSettingsFilterSearchStringExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -55,7 +63,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомпоновщикПредварительногоОтбораНастройкиОтборSearchStringContextMenu</name>
+        <name>PrefilterComposerSettingsFilterSearchStringContextMenu</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -74,10 +82,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>КомпоновщикПредварительногоОтбораНастройкиОтборViewStatus</name>
+      <name>PrefilterComposerSettingsFilterViewStatus</name>
       <id>16</id>
       <extendedTooltip>
-        <name>КомпоновщикПредварительногоОтбораНастройкиОтборViewStatusExtendedTooltip</name>
+        <name>PrefilterComposerSettingsFilterViewStatusExtendedTooltip</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -92,7 +100,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомпоновщикПредварительногоОтбораНастройкиОтборViewStatusContextMenu</name>
+        <name>PrefilterComposerSettingsFilterViewStatusContextMenu</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -113,10 +121,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>КомпоновщикПредварительногоОтбораНастройкиОтборSearchControl</name>
+      <name>PrefilterComposerSettingsFilterSearchControl</name>
       <id>19</id>
       <extendedTooltip>
-        <name>КомпоновщикПредварительногоОтбораНастройкиОтборSearchControlExtendedTooltip</name>
+        <name>PrefilterComposerSettingsFilterSearchControlExtendedTooltip</name>
         <id>21</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -131,7 +139,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>КомпоновщикПредварительногоОтбораНастройкиОтборSearchControlContextMenu</name>
+        <name>PrefilterComposerSettingsFilterSearchControlContextMenu</name>
         <id>20</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -146,7 +154,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>КомпоновщикПредварительногоОтбораНастройкиОтборРасширеннаяПодсказка</name>
+      <name>PrefilterComposerSettingsFilterExtendedTooltip</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -161,7 +169,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>КомпоновщикПредварительногоОтбораНастройкиОтборКонтекстноеМеню</name>
+      <name>PrefilterComposerSettingsFilterContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -200,7 +208,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ФормаВыбрать</name>
+      <name>FormSelect</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -208,7 +216,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаВыбратьРасширеннаяПодсказка</name>
+        <name>FormSelectExtendedTooltip</name>
         <id>6</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -222,7 +230,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Выбрать</commandName>
+      <commandName>Form.Command.Select</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -231,7 +239,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаОтмена</name>
+      <name>FormCancel</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -239,7 +247,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаОтменаРасширеннаяПодсказка</name>
+        <name>FormCancelExtendedTooltip</name>
         <id>10</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -261,10 +269,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ФормаГруппаСправки</name>
+      <name>FormHelpGroup</name>
       <id>11</id>
       <items xsi:type="form:Button">
-        <name>ФормаСправка</name>
+        <name>FormHelp</name>
         <id>7</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -272,7 +280,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаСправкаРасширеннаяПодсказка</name>
+          <name>FormHelpExtendedTooltip</name>
           <id>8</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -299,11 +307,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Form help group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Форма группа справки</value>
       </title>
       <extendedTooltip>
-        <name>ФормаГруппаСправкиРасширеннаяПодсказка</name>
+        <name>FormHelpGroupExtendedTooltip</name>
         <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -328,7 +340,7 @@
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
@@ -339,7 +351,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_DuplicateObjectDetection</types>
@@ -353,7 +365,7 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ИдентификаторОсновнойФормы</name>
+    <name>MasterFormID</name>
     <id>2</id>
     <valueType>
       <types>UUID</types>
@@ -366,7 +378,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>КомпоновщикПредварительногоОтбора</name>
+    <name>PrefilterComposer</name>
     <id>3</id>
     <valueType>
       <types>DataCompositionSettingsComposer</types>
@@ -380,12 +392,16 @@
     <savedData>true</savedData>
   </attributes>
   <formCommands>
-    <name>Выбрать</name>
+    <name>Select</name>
     <title>
       <key>ru</key>
       <value>ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Select</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Выбрать</value>
@@ -395,7 +411,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>Выбрать</name>
+        <name>Select</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
