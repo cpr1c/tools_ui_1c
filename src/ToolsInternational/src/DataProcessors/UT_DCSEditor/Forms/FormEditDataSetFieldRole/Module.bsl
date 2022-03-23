@@ -11,7 +11,7 @@ Procedure OnCreateAtServer(Cancel, StandardProcessing)
 	EndIf;
 	
 	Items.ParentDimension.ChoiceList.Clear();
-	For Each Field ИЗ Parameters.МассивПолейНабора Do
+	For Each Field ИЗ Parameters.DataSetFieldsArray Do
 		Items.ParentDimension.ChoiceList.Add(Field);
 	EndDo;
 	
