@@ -5,7 +5,7 @@
     <value>Удалить</value>
   </title>
   <items xsi:type="form:FormField">
-    <name>ТекущаяНастройка</name>
+    <name>CurrentSetting</name>
     <id>1</id>
     <title>
       <key>ru</key>
@@ -18,15 +18,15 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ТекущаяНастройкаПредставление</segments>
+        <segments>CurrentSettingRepresentation</segments>
       </paths>
     </dataPath>
     <handlers>
       <event>OnChange</event>
-      <name>ТекущаяНастройкаПриИзменении</name>
+      <name>CurrentSettingOnChange</name>
     </handlers>
     <extendedTooltip>
-      <name>ТекущаяНастройкаExtendedTooltip</name>
+      <name>CurrentSettingExtendedTooltip</name>
       <id>11</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -41,7 +41,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ТекущаяНастройкаКонтекстноеМеню</name>
+      <name>CurrentSettingContextMenu</name>
       <id>2</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -58,7 +58,7 @@
     <extInfo xsi:type="form:InputFieldExtInfo">
       <handlers>
         <event>ChoiceProcessing</event>
-        <name>ТекущаяНастройкаОбработкаВыбора</name>
+        <name>CurrentSettingChoiceProcessing</name>
       </handlers>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -72,7 +72,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ПометкаУдаления</name>
+    <name>DeletionMark</name>
     <id>9</id>
     <enabled>true</enabled>
     <userVisible>
@@ -80,11 +80,11 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>ПометкаУдаления</segments>
+        <segments>DeletionMark</segments>
       </paths>
     </dataPath>
     <extendedTooltip>
-      <name>ПометкаУдаленияExtendedTooltip</name>
+      <name>DeletionMarkExtendedTooltip</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -99,7 +99,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПометкаУдаленияКонтекстноеМеню</name>
+      <name>DeletionMarkContextMenu</name>
       <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -116,10 +116,10 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКнопки</name>
+    <name>GroupCommand</name>
     <id>5</id>
     <items xsi:type="form:Button">
-      <name>ВыполнитьОбработку</name>
+      <name>ExecuteCommand</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -129,7 +129,7 @@
       <defaultItem>true</defaultItem>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ВыполнитьОбработкуExtendedTooltip</name>
+        <name>ExecuteCommandExtendedTooltip</name>
         <id>14</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -143,7 +143,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ВыполнитьКоманду</commandName>
+      <commandName>Form.Command.ExecuteCommand</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -152,7 +152,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>СохранитьНастройки</name>
+      <name>SaveSettings</name>
       <id>7</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -161,7 +161,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>СохранитьНастройкиExtendedTooltip</name>
+        <name>SaveSettingsExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -175,7 +175,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.СохранитьНастройки</commandName>
+      <commandName>Form.Command.SaveSettings</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -183,7 +183,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Закрыть</name>
+      <name>Close</name>
       <id>8</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -192,7 +192,7 @@
       </userVisible>
       <skipOnInput>false</skipOnInput>
       <extendedTooltip>
-        <name>ЗакрытьExtendedTooltip</name>
+        <name>CloseExtendedTooltip</name>
         <id>16</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -222,12 +222,16 @@
       <key>ru</key>
       <value>Группа кнопки</value>
     </title>
+    <title>
+      <key>en</key>
+      <value>Group command</value>
+    </title>
     <toolTip>
       <key>ru</key>
       <value>Группа кнопки</value>
     </toolTip>
     <extendedTooltip>
-      <name>ГруппаКнопкиExtendedTooltip</name>
+      <name>GroupCommandExtendedTooltip</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -259,11 +263,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -274,10 +278,14 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ОбъектОбработки</name>
+    <name>Object</name>
     <title>
       <key>ru</key>
       <value>Объект обработки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Object</value>
     </title>
     <id>1</id>
     <valueType>
@@ -292,10 +300,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>ТекущаяНастройка</name>
+    <name>CurrentSetting</name>
     <title>
       <key>ru</key>
       <value>Текущая настройка</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current setting</value>
     </title>
     <id>3</id>
     <valueType/>
@@ -307,10 +319,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>НайденныеОбъекты</name>
+    <name>FoundObjects</name>
     <title>
       <key>ru</key>
       <value>Найденные объекты</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Found objects</value>
     </title>
     <id>5</id>
     <valueType>
@@ -327,10 +343,14 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>ТекущаяНастройкаПредставление</name>
+    <name>CurrentSettingRepresentation</name>
     <title>
       <key>ru</key>
       <value>Текущая настройка представление</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current setting representation</value>
     </title>
     <id>6</id>
     <valueType>
@@ -345,10 +365,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ТекущаяСтрока</name>
+    <name>CurrentLine</name>
     <title>
       <key>ru</key>
       <value>Текущая строка</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Current line</value>
     </title>
     <id>4</id>
     <valueType>
@@ -365,10 +389,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>Родитель</name>
+    <name>Parent</name>
     <title>
       <key>ru</key>
       <value>Родитель</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Parent</value>
     </title>
     <id>2</id>
     <valueType>
@@ -386,10 +414,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОбъектПоиска</name>
+    <name>SearchObject</name>
     <title>
       <key>ru</key>
       <value>Объект поиска</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Search object</value>
     </title>
     <id>7</id>
     <valueType/>
@@ -401,10 +433,14 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПометкаУдаления</name>
+    <name>DeletionMark</name>
     <title>
       <key>ru</key>
       <value>Пометка удаления</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Deletion mark</value>
     </title>
     <id>8</id>
     <valueType>
@@ -418,10 +454,14 @@
     </edit>
   </attributes>
   <formCommands>
-    <name>ВыполнитьКоманду</name>
+    <name>ExecuteCommand</name>
     <title>
       <key>ru</key>
       <value>Выполнить</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Execute command</value>
     </title>
     <id>1</id>
     <toolTip>
@@ -437,17 +477,21 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ВыполнитьОбработкуКоманда</name>
+        <name>ExecuteCommand</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>СохранитьНастройки</name>
+    <name>SaveSettings</name>
     <title>
       <key>ru</key>
       <value>Сохранить настройки</value>
+    </title>
+    <title>
+      <key>en</key>
+      <value>Save settings</value>
     </title>
     <id>2</id>
     <toolTip>
@@ -462,7 +506,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>СохранитьНастройкиКоманда</name>
+        <name>SaveSettings</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
