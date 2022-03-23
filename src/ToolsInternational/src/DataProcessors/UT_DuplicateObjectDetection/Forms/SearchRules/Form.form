@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:Table">
-    <name>ПравилаПоиска</name>
+    <name>SearchRules</name>
     <id>20</id>
+    <title>
+      <key>en</key>
+      <value>Search rules</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Правила поиска</value>
@@ -13,14 +17,14 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ПравилаПоиска</segments>
+      <segments>SearchRules</segments>
     </dataPath>
     <titleLocation>Top</titleLocation>
     <items xsi:type="form:FormGroup">
-      <name>ПравилаПоискаГруппа1</name>
+      <name>SearchRulesGroup1</name>
       <id>46</id>
       <items xsi:type="form:FormField">
-        <name>ПравилаПоискаИспользовать</name>
+        <name>SearchRulesUse</name>
         <id>30</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -29,16 +33,16 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ПравилаПоиска.Использовать</segments>
+            <segments>SearchRules.Use</segments>
           </paths>
         </dataPath>
         <titleLocation>None</titleLocation>
         <handlers>
           <event>OnChange</event>
-          <name>ПравилаПоискаИспользоватьПриИзменении</name>
+          <name>SearchRulesUseOnChange</name>
         </handlers>
         <extendedTooltip>
-          <name>ПравилаПоискаИспользоватьРасширеннаяПодсказка</name>
+          <name>SearchRulesUseExtendedTooltip</name>
           <id>32</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -53,7 +57,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПравилаПоискаИспользоватьКонтекстноеМеню</name>
+          <name>SearchRulesUseContextMenu</name>
           <id>31</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -70,7 +74,7 @@
         <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
       </items>
       <items xsi:type="form:FormField">
-        <name>ПравилаПоискаПредставлениеРеквизита</name>
+        <name>SearchRulesAttributePresentation</name>
         <id>24</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -79,11 +83,11 @@
         </userVisible>
         <dataPath xsi:type="form:MultiLanguageDataPath">
           <paths xsi:type="form:DataPath">
-            <segments>ПравилаПоиска.ПредставлениеРеквизита</segments>
+            <segments>SearchRules.AttributePresentation</segments>
           </paths>
         </dataPath>
         <extendedTooltip>
-          <name>ПравилаПоискаПредставлениеРеквизитаРасширеннаяПодсказка</name>
+          <name>SearchRulesAttributePresentationExtendedTooltip</name>
           <id>26</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -98,7 +102,7 @@
           </extInfo>
         </extendedTooltip>
         <contextMenu>
-          <name>ПравилаПоискаПредставлениеРеквизитаКонтекстноеМеню</name>
+          <name>SearchRulesAttributePresentationContextMenu</name>
           <id>25</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -127,11 +131,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Search rules group 1</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Правила поиска группа 1</value>
       </title>
       <extendedTooltip>
-        <name>ПравилаПоискаГруппа1РасширеннаяПодсказка</name>
+        <name>SearchRulesGroup1ExtendedTooltip</name>
         <id>47</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -152,7 +160,7 @@
       </extInfo>
     </items>
     <items xsi:type="form:FormField">
-      <name>ПравилаПоискаВидСравнения</name>
+      <name>SearchRulesComparisonType</name>
       <id>27</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -161,11 +169,11 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ПравилаПоиска.Правило</segments>
+          <segments>SearchRules.Rule</segments>
         </paths>
       </dataPath>
       <extendedTooltip>
-        <name>ПравилаПоискаВидСравненияРасширеннаяПодсказка</name>
+        <name>SearchRulesComparisonTypeExtendedTooltip</name>
         <id>29</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -180,7 +188,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПравилаПоискаВидСравненияКонтекстноеМеню</name>
+        <name>SearchRulesComparisonTypeContextMenu</name>
         <id>28</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -198,7 +206,7 @@
       <extInfo xsi:type="form:InputFieldExtInfo">
         <handlers>
           <event>StartChoice</event>
-          <name>ПравилаПоискаВидСравненияНачалоВыбора</name>
+          <name>SearchRulesComparisonTypeStartChoice</name>
         </handlers>
         <width>21</width>
         <autoMaxWidth>true</autoMaxWidth>
@@ -221,7 +229,7 @@
     </items>
     <commandBarLocation>None</commandBarLocation>
     <autoCommandBar>
-      <name>ПравилаПоискаКоманднаяПанель</name>
+      <name>SearchRulesCommandBar</name>
       <id>22</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -233,7 +241,7 @@
     </autoCommandBar>
     <handlers>
       <event>Selection</event>
-      <name>ПравилаПоискаВыбор</name>
+      <name>SearchRulesSelection</name>
     </handlers>
     <searchStringAddition>
       <visible>true</visible>
@@ -241,10 +249,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ПравилаПоискаСтрокаПоиска</name>
+      <name>SearchRulesSearchString</name>
       <id>37</id>
       <extendedTooltip>
-        <name>ПравилаПоискаСтрокаПоискаРасширеннаяПодсказка</name>
+        <name>SearchRulesSearchStringExtendedTooltip</name>
         <id>39</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -259,7 +267,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПравилаПоискаСтрокаПоискаКонтекстноеМеню</name>
+        <name>SearchRulesSearchStringContextMenu</name>
         <id>38</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -278,10 +286,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ПравилаПоискаСостояниеПросмотра</name>
+      <name>SearchRulesViewStatus</name>
       <id>40</id>
       <extendedTooltip>
-        <name>ПравилаПоискаСостояниеПросмотраРасширеннаяПодсказка</name>
+        <name>SearchRulesViewStatusExtendedTooltip</name>
         <id>42</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -296,7 +304,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПравилаПоискаСостояниеПросмотраКонтекстноеМеню</name>
+        <name>SearchRulesViewStatusContextMenu</name>
         <id>41</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -317,10 +325,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <name>ПравилаПоискаУправлениеПоиском</name>
+      <name>SearchRulesSearchControl</name>
       <id>43</id>
       <extendedTooltip>
-        <name>ПравилаПоискаУправлениеПоискомРасширеннаяПодсказка</name>
+        <name>SearchRulesSearchControlExtendedTooltip</name>
         <id>45</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -335,7 +343,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ПравилаПоискаУправлениеПоискомКонтекстноеМеню</name>
+        <name>SearchRulesSearchControlContextMenu</name>
         <id>44</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -350,7 +358,7 @@
       </extInfo>
     </searchControlAddition>
     <extendedTooltip>
-      <name>ПравилаПоискаРасширеннаяПодсказка</name>
+      <name>SearchRulesExtendedTooltip</name>
       <id>23</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -365,7 +373,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПравилаПоискаКонтекстноеМеню</name>
+      <name>SearchRulesContextMenu</name>
       <id>21</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -396,10 +404,10 @@
     <rowFilter xsi:type="core:UndefinedValue"/>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаПрикладныхОграничений</name>
+    <name>AppliedRestrictionsGroup</name>
     <id>35</id>
     <items xsi:type="form:FormField">
-      <name>УчитыватьПрикладныеПравила</name>
+      <name>ConsiderAppliedRules</name>
       <id>1</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -408,16 +416,16 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>УчитыватьПрикладныеПравила</segments>
+          <segments>ConsiderAppliedRules</segments>
         </paths>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <handlers>
         <event>OnChange</event>
-        <name>УчитыватьПрикладныеПравилаПриИзменении</name>
+        <name>ConsiderAppliedRulesOnChange</name>
       </handlers>
       <extendedTooltip>
-        <name>УчитыватьПрикладныеПравилаРасширеннаяПодсказка</name>
+        <name>ConsiderAppliedRulesExtendedTooltip</name>
         <id>3</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -432,7 +440,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>УчитыватьПрикладныеПравилаКонтекстноеМеню</name>
+        <name>ConsiderAppliedRulesContextMenu</name>
         <id>2</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -449,7 +457,7 @@
       <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
     </items>
     <items xsi:type="form:FormField">
-      <name>ОписаниеПрикладныхПравил</name>
+      <name>AppliedRulesDetails</name>
       <id>7</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -458,12 +466,12 @@
       </userVisible>
       <dataPath xsi:type="form:MultiLanguageDataPath">
         <paths xsi:type="form:DataPath">
-          <segments>ОписаниеПрикладныхПравил</segments>
+          <segments>AppliedRulesDetails</segments>
         </paths>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
-        <name>ОписаниеПрикладныхПравилРасширеннаяПодсказка</name>
+        <name>AppliedRulesDetailsExtendedTooltip</name>
         <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -478,7 +486,7 @@
         </extInfo>
       </extendedTooltip>
       <contextMenu>
-        <name>ОписаниеПрикладныхПравилКонтекстноеМеню</name>
+        <name>AppliedRulesDetailsContextMenu</name>
         <id>8</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -513,11 +521,15 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Default restrictions</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Прикладных ограничений</value>
     </title>
     <extendedTooltip>
-      <name>ГруппаПрикладныхОграниченийРасширеннаяПодсказка</name>
+      <name>AppliedRestrictionsGroupExtendedTooltip</name>
       <id>36</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -545,7 +557,7 @@
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
     <items xsi:type="form:Button">
-      <name>ЗавершитьРедактирование</name>
+      <name>CompleteEditing</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -553,7 +565,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗавершитьРедактированиеРасширеннаяПодсказка</name>
+        <name>CompleteEditingExtendedTooltip</name>
         <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -567,7 +579,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.ЗавершитьРедактирование</commandName>
+      <commandName>Form.Command.CompleteEditing</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -576,7 +588,7 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаОтмена</name>
+      <name>FormCancel</name>
       <id>16</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -584,7 +596,7 @@
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаОтменаРасширеннаяПодсказка</name>
+        <name>FormCancelExtendedTooltip</name>
         <id>17</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -606,10 +618,10 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:FormGroup">
-      <name>ФормаГруппаСправка</name>
+      <name>FormHelpGroup</name>
       <id>14</id>
       <items xsi:type="form:Button">
-        <name>ФормаСправка</name>
+        <name>FormHelp</name>
         <id>18</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -617,7 +629,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ФормаСправкаРасширеннаяПодсказка</name>
+          <name>FormHelpExtendedTooltip</name>
           <id>19</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -644,11 +656,15 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Form help group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Форма группа справка</value>
       </title>
       <extendedTooltip>
-        <name>ФормаГруппаСправкаРасширеннаяПодсказка</name>
+        <name>FormHelpGroupExtendedTooltip</name>
         <id>15</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -673,11 +689,11 @@
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
-    <name>ПриОткрытии</name>
+    <name>OnOpen</name>
   </handlers>
   <handlers>
     <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <name>OnCreateAtServer</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
@@ -688,7 +704,7 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>Объект</name>
+    <name>Object</name>
     <id>1</id>
     <valueType>
       <types>DataProcessorObject.UT_DuplicateObjectDetection</types>
@@ -702,7 +718,11 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>УчитыватьПрикладныеПравила</name>
+    <name>ConsiderAppliedRules</name>
+    <title>
+      <key>en</key>
+      <value>Consider restrictions:</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Учитывать ограничения:</value>
@@ -719,7 +739,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОписаниеПрикладныхПравил</name>
+    <name>AppliedRulesDetails</name>
+    <title>
+      <key>en</key>
+      <value> Default restrictions</value>
+    </title>
     <title>
       <key>ru</key>
       <value>С учетом ограничений</value>
@@ -734,7 +758,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПравилаПоиска</name>
+    <name>SearchRules</name>
+    <title>
+      <key>en</key>
+      <value>Default duplicate criteria</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Считать элементы дублями, если</value>
@@ -750,7 +778,7 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>Реквизит</name>
+      <name>Attribute</name>
       <id>1</id>
       <valueType>
         <types>String</types>
@@ -764,7 +792,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Правило</name>
+      <name>Rule</name>
+      <title>
+        <key>en</key>
+        <value>Rule</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Правило</value>
@@ -782,7 +814,7 @@
       </edit>
     </columns>
     <columns>
-      <name>ВариантыСравнения</name>
+      <name>ComparisonOptions</name>
       <id>3</id>
       <valueType>
         <types>ValueList</types>
@@ -795,7 +827,11 @@
       </edit>
     </columns>
     <columns>
-      <name>ПредставлениеРеквизита</name>
+      <name>AttributePresentation</name>
+      <title>
+        <key>en</key>
+        <value>Field</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Поле</value>
@@ -813,7 +849,11 @@
       </edit>
     </columns>
     <columns>
-      <name>Использовать</name>
+      <name>Use</name>
+      <title>
+        <key>en</key>
+        <value>Use</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Использовать</value>
@@ -831,7 +871,7 @@
     </columns>
   </attributes>
   <attributes>
-    <name>ОбластьПоискаДублей</name>
+    <name>DuplicatesSearchArea</name>
     <id>5</id>
     <valueType>
       <types>String</types>
@@ -845,7 +885,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ЦветНедоступныеДанные</name>
+    <name>InaccessibleDataColor</name>
     <id>6</id>
     <valueType>
       <types>Color</types>
@@ -858,7 +898,7 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ВсеВидыСравненияПравилПоиска</name>
+    <name>AllSearchRulesComparisonTypes</name>
     <id>7</id>
     <valueType>
       <types>ValueList</types>
@@ -874,12 +914,20 @@
     </extInfo>
   </attributes>
   <formCommands>
-    <name>ЗавершитьРедактирование</name>
+    <name>CompleteEditing</name>
+    <title>
+      <key>en</key>
+      <value>OK</value>
+    </title>
     <title>
       <key>ru</key>
       <value>ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Complete editing</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Завершить редактирование</value>
@@ -889,7 +937,7 @@
     </use>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ЗавершитьРедактирование</name>
+        <name>CompleteEditing</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>

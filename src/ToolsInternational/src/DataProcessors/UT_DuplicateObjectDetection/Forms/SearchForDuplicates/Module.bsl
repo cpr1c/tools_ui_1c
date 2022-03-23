@@ -1,4 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2019, 1C-Soft LLC
 // All Rights reserved. This application and supporting materials are provided under the terms of 
 // Attribution 4.0 International license (CC BY 4.0)
@@ -397,11 +396,11 @@ Procedure FoundDuplicatesCheckOnChange(Item)
 	ChangeCandidatesMarksHierarchically(RowData);
 	
 	DuplicatesSearchErrorDescription = "";
-	TotalFoundDuplicates = 0;
+	TotalDuplicatesFound = 0;
 	For Each Duplicate In FoundDuplicates.GetItems() Do
 		For Each Child In Duplicate.GetItems() Do
 			If Not Child.Main And Child.Check Then
-				TotalFoundDuplicates = TotalFoundDuplicates + 1;
+				TotalDuplicatesFound = TotalDuplicatesFound + 1;
 			EndIf;
 		EndDo;
 	EndDo;
@@ -433,8 +432,8 @@ Procedure UnprocessedDuplicatesRowActivationDeferredHandler()
 EndProcedure
 
 &AtServer
-Procedure UpdateUnprocessedItemsUsageInstancesDuplicates(Val DataString)
-	RowData = UnprocessedDuplicates.FindByID(DataString);
+Procedure UpdateUnprocessedItemsUsageInstancesDuplicates(Val DataRow)
+	RowData = UnprocessedDuplicates.FindByID(DataRow);
 	
 	If RowData.GetParent() = Undefined Then
 		// Group details
@@ -461,7 +460,7 @@ Procedure UpdateUnprocessedItemsUsageInstancesDuplicates(Val DataString)
 		
 		Items.UnprocessedItemsUsageInstancesPages.CurrentPage = Items.UnprocessedItemsGroupDetails;
 	Else
-		Items.ProbableDuplicateUsageInstances.Title = StrTemplate(
+		Items.CandidateUsageInstances.Title = StrTemplate(
 			NStr("ru = 'Не удалось заменить дубли в некоторых местах (%1)'; en = 'Cannot replace duplicates in %1 usage locations.'"), 
 			RowData.Count);
 		
@@ -990,9 +989,9 @@ Procedure ShowUsageInstances(SourceTree)
 EndProcedure
 
 &AtClient
-Procedure ExpandDuplicatesGroupHierarchically(Val DataString = Undefined)
-	If DataString <> Undefined Then
-		Items.FoundDuplicates.Expand(DataString, True);
+Procedure ExpandDuplicatesGroupHierarchically(Val DataRow = Undefined)
+	If DataRow <> Undefined Then
+		Items.FoundDuplicates.Expand(DataRow, True);
 	EndIf;
 	
 	// All items of the first level
@@ -1003,9 +1002,9 @@ Procedure ExpandDuplicatesGroupHierarchically(Val DataString = Undefined)
 EndProcedure
 
 &AtClient
-Procedure CollapseDuplicatesGroupHierarchically(Val DataString = Undefined)
-	If DataString <> Undefined Then
-		Items.FoundDuplicates.Collapse(DataString);
+Procedure CollapseDuplicatesGroupHierarchically(Val DataRow = Undefined)
+	If DataRow <> Undefined Then
+		Items.FoundDuplicates.Collapse(DataRow);
 		Return;
 	EndIf;
 	
@@ -1084,14 +1083,14 @@ Procedure UpdateFoundDuplicatesStateDetails(Form)
 	If IsBlankString(Form.DuplicatesSearchErrorDescription) Then
 		Details = StrTemplate(
 			NStr("ru = 'Выбрано дублей: %1 из %2.'; en = 'Selected duplicates: %1 out of %2.'"),
-			Form.TotalFoundDuplicates, Form.TotalItems);
+			Form.TotalDuplicatesFound, Form.TotalItems);
 	Else	
 		Details = Form.DuplicatesSearchErrorDescription;
 	EndIf;
 	
 	Form.FoundDuplicatesStateDetails = New FormattedString(Details + Chars.LF
 		+ NStr("ru = 'Выбранные элементы будут помечены на удаление и заменены на оригиналы (отмечены стрелкой).'; en = 'The selected items will be marked for deletion and replaced by originals.'"),
-		, Form.InformationTextColor);
+		, Form.NoteTextColor);
 	
 EndProcedure
 
@@ -1125,7 +1124,7 @@ EndProcedure
 Procedure UpdateSearchRules(ResultAddress)
 	Result = GetFromTempStorage(ResultAddress);
 	DeleteFromTempStorage(ResultAddress);
-	TakeAppliedRulesIntoAccount = Result.TakeAppliedRulesIntoAccount;
+	ConsiderAppliedRules = Result.ConsiderAppliedRules;
 	ValueToFormAttribute(Result.SearchRules, "SearchRules");
 	SaveUserSettings();
 EndProcedure
@@ -1206,7 +1205,7 @@ Procedure InitializeFilterComposerAndRules(FormSettings)
 	EndIf;
 	
 	// 6. Extension functionality in applied rules.
-	AppliedRuleDetails = Undefined;
+	AppliedRulesDetails = Undefined;
 	If SettingsTableRow.EventDuplicateSearchParameters Then
 		DefaultParameters = New Structure;
 		DefaultParameters.Insert("SearchRules",        RulesTable);
@@ -1218,11 +1217,11 @@ Procedure InitializeFilterComposerAndRules(FormSettings)
 		MetadataObjectManager.DuplicatesSearchParameters(DefaultParameters);
 		
 		// Presentation of applied rules.
-		AppliedRuleDetails = "";
+		AppliedRulesDetails = "";
 		For Each Details In DefaultParameters.ComparisonRestrictions Do
-			AppliedRuleDetails = AppliedRuleDetails + Chars.LF + Details.Presentation;
+			AppliedRulesDetails = AppliedRulesDetails + Chars.LF + Details.Presentation;
 		EndDo;
-		AppliedRuleDetails = TrimAll(AppliedRuleDetails);
+		AppliedRulesDetails = TrimAll(AppliedRulesDetails);
 	EndIf;
 	
 	PrefilterComposer.Refresh(DataCompositionSettingsRefreshMethod.Full);
@@ -1240,7 +1239,7 @@ EndProcedure
 
 &AtServer
 Procedure OnCreateAtServerDataInitialization(FormSettings)
-	TakeAppliedRulesIntoAccount = UT_CommonClientServer.StructureProperty(FormSettings, "TakeAppliedRulesIntoAccount");
+	ConsiderAppliedRules = UT_CommonClientServer.StructureProperty(FormSettings, "ConsiderAppliedRules");
 	DuplicatesSearchArea        = UT_CommonClientServer.StructureProperty(FormSettings, "DuplicatesSearchArea");
 
 	SettingsTable = DataProcessors.UT_DuplicateObjectDetection.MetadataObjectSettings();
@@ -1267,8 +1266,8 @@ EndProcedure
 
 &AtServer
 Procedure SetColorsAndConditionalAppearance()
-	InformationTextColor       = StyleColorOrAuto("NoteText",       69,  81,  133);
-	ErrorInformationTextColor = StyleColorOrAuto("ErrorNoteText", 255, 0,   0);
+	NoteTextColor       = StyleColorOrAuto("NoteText",       69,  81,  133);
+	ErrorNoteTextColor = StyleColorOrAuto("ErrorNoteText", 255, 0,   0);
 	InaccessibleDataColor     = StyleColorOrAuto("InaccessibleDataColor", 192, 192, 192);
 	
 	ConditionalAppearanceItems = ConditionalAppearance.Items;
@@ -1593,9 +1592,9 @@ Procedure FindAndRemoveDuplicatesCompletion(Job, AdditionalParameters) Export
 	EndIf;
 
 	If CurrentPage = Items.PerformSearchStep Then
-		TotalFoundDuplicates = FillDuplicatesSearchResults(Job.ResultAddress);
-		TotalItems = TotalFoundDuplicates;
-		If TotalFoundDuplicates > 0 Then
+		TotalDuplicatesFound = FillDuplicatesSearchResults(Job.ResultAddress);
+		TotalItems = TotalDuplicatesFound;
+		If TotalDuplicatesFound > 0 Then
 			UpdateFoundDuplicatesStateDetails(ThisObject);
 			GoToWizardStep(WizardSettings.CurrentStep.IndexOf + 1);
 		Else
@@ -1630,7 +1629,7 @@ Function FillDuplicatesSearchResults(Val ResultAddress)
 	RowsFilter = New Structure("Parent");
 	InstancesFilter  = New Structure("Ref");
 	
-	TotalFoundDuplicates = 0;
+	TotalDuplicatesFound = 0;
 
 	AllGroups = DuplicatesTable.FindRows(RowsFilter);
 	For Each Folder In AllGroups Do
@@ -1660,7 +1659,7 @@ Function FillDuplicatesSearchResults(Val ResultAddress)
 				MaxRow.Main = True;
 			EndIf;
 			
-			TotalFoundDuplicates = TotalFoundDuplicates + 1;
+			TotalDuplicatesFound = TotalDuplicatesFound + 1;
 		EndDo;
 		
 		// Setting a candidate by the maximum reference.
@@ -1675,7 +1674,7 @@ Function FillDuplicatesSearchResults(Val ResultAddress)
 		DeleteFromTempStorage(UsageInstancesAddress);
 	EndIf;
 	UsageInstancesAddress = PutToTempStorage(UsageInstances, UUID);
-	Return TotalFoundDuplicates;
+	Return TotalDuplicatesFound;
 	
 EndFunction
 
