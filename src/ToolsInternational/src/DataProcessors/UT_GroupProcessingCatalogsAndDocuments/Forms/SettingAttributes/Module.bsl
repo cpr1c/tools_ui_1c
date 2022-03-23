@@ -121,16 +121,16 @@ Procedure SaveSetting() Export
 	EndIf;
 
 	If CurrentAvailableSetting <> Undefined And CurrentLine > -1 Then
-		For Each ТекНастройка In CurrentAvailableSetting.GetItems() Do
-			If ТекНастройка.GetID() = CurrentLine Then
+		For Each CurrentSettingItem In CurrentAvailableSetting.GetItems() Do
+			If CurrentSettingItem.GetID() = CurrentLine Then
 				Break;
 			EndIf;
 		EndDo;
 
-		If ТекНастройка.Setting.Count() = 0 Then
-			ТекНастройка.Setting.Add(NewSetting);
+		If CurrentSettingItem.Setting.Count() = 0 Then
+			CurrentSettingItem.Setting.Add(NewSetting);
 		Else
-			ТекНастройка.Setting[0].Value = NewSetting;
+			CurrentSettingItem.Setting[0].Value = NewSetting;
 		EndIf;
 	EndIf;
 
