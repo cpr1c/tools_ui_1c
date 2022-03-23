@@ -516,7 +516,7 @@ EndProcedure
 
 &AtClient
 Procedure CalculatedFieldsExpressionOpening(Item, StandardProcessing)
-	StandardProcessing=False;
+		StandardProcessing=False;
 	CurrentData=Items.CalculatedFields.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
