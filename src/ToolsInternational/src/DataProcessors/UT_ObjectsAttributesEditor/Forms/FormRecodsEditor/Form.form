@@ -2296,6 +2296,10 @@
   <attributes>
     <name>мОбъектСсылка</name>
     <title>
+      <key>en</key>
+      <value>Document</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Документ</value>
     </title>
@@ -2312,6 +2316,10 @@
   </attributes>
   <attributes>
     <name>ПутьКФормам</name>
+    <title>
+      <key>en</key>
+      <value>Path to forms</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Путь к формам</value>
@@ -2331,6 +2339,10 @@
   <attributes>
     <name>_ТабРегистры</name>
     <title>
+      <key>en</key>
+      <value>Registers table</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Таб регистры</value>
     </title>
@@ -2346,6 +2358,10 @@
     </edit>
     <columns>
       <name>Записать</name>
+      <title>
+        <key>en</key>
+        <value>Write</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Записать</value>
@@ -2363,6 +2379,10 @@
     </columns>
     <columns>
       <name>Имя</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -2382,6 +2402,10 @@
     <columns>
       <name>Представление</name>
       <title>
+        <key>en</key>
+        <value>Presentation</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Представление</value>
       </title>
@@ -2400,6 +2424,10 @@
     <columns>
       <name>ЕстьЗаписи</name>
       <title>
+        <key>en</key>
+        <value>Has records</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Есть записи</value>
       </title>
@@ -2416,6 +2444,10 @@
     </columns>
     <columns>
       <name>ЧислоЗаписей</name>
+      <title>
+        <key>en</key>
+        <value>Records count</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Число записей</value>
@@ -2438,6 +2470,10 @@
     <columns>
       <name>ВидРегистра</name>
       <title>
+        <key>en</key>
+        <value>Register type</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Вид регистра</value>
       </title>
@@ -2455,6 +2491,10 @@
     </columns>
     <columns>
       <name>ПолноеИмя</name>
+      <title>
+        <key>en</key>
+        <value>Full name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Полное имя</value>
@@ -2474,6 +2514,10 @@
     <columns>
       <name>ЕстьРеквизитФормы</name>
       <title>
+        <key>en</key>
+        <value>Has form attribute</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Есть реквизит формы</value>
       </title>
@@ -2490,6 +2534,10 @@
     </columns>
     <columns>
       <name>Изменен</name>
+      <title>
+        <key>en</key>
+        <value>Changed</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Изменен</value>
@@ -2509,6 +2557,10 @@
   <attributes>
     <name>_ПримерДвижений</name>
     <title>
+      <key>en</key>
+      <value>Records example</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Пример движений</value>
     </title>
@@ -2524,6 +2576,10 @@
     </edit>
     <columns>
       <name>Регистратор</name>
+      <title>
+        <key>en</key>
+        <value>Recorder</value>
+      </title>
       <title>
         <key>ru</key>
         <value> </value>
@@ -2544,6 +2600,10 @@
   <attributes>
     <name>_ПриЗаполненииОбрабатыватьТолькоВыделенныеСтроки</name>
     <title>
+      <key>en</key>
+      <value>Process only selected rows</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Обрабатывать только выделенные строки</value>
     </title>
@@ -2563,6 +2623,10 @@
   </attributes>
   <attributes>
     <name>_ЗначениеДляЗаполнения</name>
+    <title>
+      <key>en</key>
+      <value>Value for filling</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Значение для заполнения</value>
@@ -2591,6 +2655,10 @@
   <attributes>
     <name>мОбъектСсылкаПредыдущий</name>
     <title>
+      <key>en</key>
+      <value>Document</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Документ</value>
     </title>
@@ -2608,6 +2676,10 @@
   <attributes>
     <name>_ЗаписьВРежимеЗагрузки</name>
     <title>
+      <key>en</key>
+      <value>Write in loading mode (checks disabled)</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Запись в режиме загрузки ( проверки отключены )</value>
     </title>
@@ -2624,6 +2696,10 @@
   </attributes>
   <attributes>
     <name>_БыстрыйВызовСервера</name>
+    <title>
+      <key>en</key>
+      <value>Fast server call</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Быстрый вызов сервера</value>
@@ -2645,6 +2721,10 @@
   <attributes>
     <name>_ЗадаватьВопросПриЗакрытии</name>
     <title>
+      <key>en</key>
+      <value>Ask question on close</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Задавать вопрос при закрытии</value>
     </title>
@@ -2665,6 +2745,10 @@
   <attributes>
     <name>_ПолноеИмяДокумента</name>
     <title>
+      <key>en</key>
+      <value>Document full name </value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Полное имя документа</value>
     </title>
@@ -2683,6 +2767,10 @@
   <attributes>
     <name>_ТипЗначенияТекущегоПоля</name>
     <title>
+      <key>en</key>
+      <value>Data type</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Тип данных</value>
     </title>
@@ -2700,6 +2788,10 @@
   </attributes>
   <formCommands>
     <name>_Обновить</name>
+    <title>
+      <key>en</key>
+      <value>Refresh</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
@@ -2726,6 +2818,10 @@
   <formCommands>
     <name>_Записать</name>
     <title>
+      <key>en</key>
+      <value>Write ...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Записать...</value>
     </title>
@@ -2750,6 +2846,10 @@
   </formCommands>
   <formCommands>
     <name>_ОбновитьНабор</name>
+    <title>
+      <key>en</key>
+      <value>Refresh</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить</value>
@@ -2776,6 +2876,10 @@
   <formCommands>
     <name>_ЗаписатьНабор</name>
     <title>
+      <key>en</key>
+      <value>Write...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Записать...</value>
     </title>
@@ -2800,6 +2904,10 @@
   </formCommands>
   <formCommands>
     <name>_ЗаполнитьДанныеТекущейКолонки</name>
+    <title>
+      <key>en</key>
+      <value>Fill current column data</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Заполнить данные текущей колонки</value>
@@ -2826,6 +2934,10 @@
   <formCommands>
     <name>_ПереключитьАктивностьЗаписей</name>
     <title>
+      <key>en</key>
+      <value>Switch records active</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Переключить активность записей</value>
     </title>
@@ -2849,6 +2961,10 @@
   </formCommands>
   <formCommands>
     <name>_СортироватьРегистрыСтандартно</name>
+    <title>
+      <key>en</key>
+      <value>By weight</value>
+    </title>
     <title>
       <key>ru</key>
       <value>По весу</value>
@@ -2875,6 +2991,10 @@
   <formCommands>
     <name>_СнятьФлажки</name>
     <title>
+      <key>en</key>
+      <value>Uncheck all</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Снять флажки</value>
     </title>
@@ -2899,6 +3019,10 @@
   <formCommands>
     <name>_УстановитьФлажки</name>
     <title>
+      <key>en</key>
+      <value>Check all</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Установить флажки</value>
     </title>
@@ -2922,6 +3046,10 @@
   </formCommands>
   <formCommands>
     <name>_УстановитьФлажкиДляИзмененных</name>
+    <title>
+      <key>en</key>
+      <value>Changed</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Измененные</value>
@@ -2948,6 +3076,10 @@
   <formCommands>
     <name>_ОткрытьВНовомОкне</name>
     <title>
+      <key>en</key>
+      <value>Open in new window ...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Открыть в новом окне...</value>
     </title>
@@ -2972,6 +3104,10 @@
   </formCommands>
   <formCommands>
     <name>_ОткрытьОбъект</name>
+    <title>
+      <key>en</key>
+      <value>Open object ...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть объект...</value>
@@ -2998,6 +3134,10 @@
   <formCommands>
     <name>_ЗагрузитьДвиженияДругогоДокумента</name>
     <title>
+      <key>en</key>
+      <value>Load records...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Загрузить движения...</value>
     </title>
@@ -3022,6 +3162,10 @@
   </formCommands>
   <formCommands>
     <name>_ОчиститьДвижения</name>
+    <title>
+      <key>en</key>
+      <value>Clear records ....</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Очистить движения...</value>
@@ -3048,6 +3192,10 @@
   <formCommands>
     <name>_ПоказатьТипЗначения</name>
     <title>
+      <key>en</key>
+      <value>Show</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Показать</value>
     </title>
@@ -3073,6 +3221,10 @@
   </formCommands>
   <formCommands>
     <name>_ВставитьУникальныйИдентификатор</name>
+    <title>
+      <key>en</key>
+      <value>Insert UUID...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вставить уникальный идентификатор...</value>
