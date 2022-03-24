@@ -7,6 +7,10 @@
       <name>РежимЗагрузки</name>
       <id>3</id>
       <title>
+        <key>en</key>
+        <value>Import to</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Загрузка в</value>
       </title>
@@ -57,6 +61,10 @@
       <extInfo xsi:type="form:RadioButtonsFieldExtInfo">
         <choiceList>
           <presentation>
+            <key>en</key>
+            <value>Catalog</value>
+          </presentation>
+          <presentation>
             <key>ru</key>
             <value>Справочник</value>
           </presentation>
@@ -66,6 +74,10 @@
         </choiceList>
         <choiceList>
           <presentation>
+            <key>en</key>
+            <value>Tabular section</value>
+          </presentation>
+          <presentation>
             <key>ru</key>
             <value>Табличную часть</value>
           </presentation>
@@ -74,6 +86,10 @@
           </value>
         </choiceList>
         <choiceList>
+          <presentation>
+            <key>en</key>
+            <value>Information register</value>
+          </presentation>
           <presentation>
             <key>ru</key>
             <value>Регистр сведений</value>
@@ -131,9 +147,17 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Mode and import group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа режима и загрузки</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Mode and import group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа режима и загрузки</value>
@@ -171,6 +195,10 @@
       <items xsi:type="form:FormField">
         <name>ТипОбъекта</name>
         <id>8</id>
+        <title>
+          <key>en</key>
+          <value>Catalog type</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Вид справочника</value>
@@ -240,9 +268,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Import to catalog group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа загрузка в справочник</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Import to catalog group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа загрузка в справочник</value>
@@ -274,6 +310,10 @@
       <items xsi:type="form:FormField">
         <name>СсылкаИсточника</name>
         <id>11</id>
+        <title>
+          <key>en</key>
+          <value>Reference</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Ссылка</value>
@@ -336,6 +376,10 @@
       <items xsi:type="form:FormField">
         <name>ТабличнаяЧастьИсточника</name>
         <id>13</id>
+        <title>
+          <key>en</key>
+          <value>Tabular section</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Табличная часть</value>
@@ -400,9 +444,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Import to tabular section group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа загрузка в табличную часть</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Import to tabular section group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа загрузка в табличную часть</value>
@@ -433,6 +485,10 @@
       <items xsi:type="form:FormField">
         <name>ИмяВидаРегистра</name>
         <id>16</id>
+        <title>
+          <key>en</key>
+          <value>Register type</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Вид регистра</value>
@@ -502,9 +558,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Import to information register group</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа загрузка в регистр сведений</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Import to information register group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа загрузка в регистр сведений</value>
@@ -536,9 +600,17 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Mode bar group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа панель режима</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Mode bar group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа панель режима</value>
@@ -758,9 +830,17 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Spreadsheet document command group</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Группа команд табличного документа</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Spreadsheet document command group</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Группа команд табличного документа</value>
@@ -853,9 +933,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Spreadsheet document</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Табличный документ</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Import group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа загрузка</value>
@@ -1035,9 +1123,17 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Common import parameters group</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Группа параметры загрузки общие</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Common import parameters group</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Группа параметры загрузки общие</value>
@@ -1193,9 +1289,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Restore save group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа восстановить сохранить</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Restore save group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа восстановить сохранить</value>
@@ -1256,9 +1360,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Reread group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа перечитать</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Reread group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа перечитать</value>
@@ -1351,9 +1463,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Change group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа изменить</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Change group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа изменить</value>
@@ -1446,9 +1566,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Move rows group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа переместить строки</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Move rows group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа переместить строки</value>
@@ -1541,9 +1669,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Sort rows group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа сортировка строк</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Sort rows group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа сортировка строк</value>
@@ -1634,9 +1770,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Marks group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа управление пометками</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Marks group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа управление пометками</value>
@@ -1727,9 +1871,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Columns numeration</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Нумерация колонок</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Columns numeration group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа нумерация колонок</value>
@@ -1760,6 +1912,10 @@
           <items xsi:type="form:Button">
             <name>События</name>
             <id>61</id>
+            <title>
+              <key>en</key>
+              <value>Events...</value>
+            </title>
             <title>
               <key>ru</key>
               <value>События...</value>
@@ -1797,9 +1953,17 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Events group</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа события</value>
           </title>
+          <toolTip>
+            <key>en</key>
+            <value>Events group</value>
+          </toolTip>
           <toolTip>
             <key>ru</key>
             <value>Группа события</value>
@@ -1827,9 +1991,17 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Import settings command group</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Группа команд настройки загрузки</value>
         </title>
+        <toolTip>
+          <key>en</key>
+          <value>Import settings command group</value>
+        </toolTip>
         <toolTip>
           <key>ru</key>
           <value>Группа команд настройки загрузки</value>
@@ -2701,6 +2873,10 @@
           <name>ТаблицаЗагружаемыхРеквизитовПредставлениеДопУсловий</name>
           <id>123</id>
           <title>
+            <key>en</key>
+            <value>Link condition / Expression for value</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Условие связи / Выражение для значения</value>
           </title>
@@ -2944,9 +3120,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Settings</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Настройка</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Settings group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа настройка</value>
@@ -2978,9 +3162,17 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Import settings group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа загрузка настройка</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Import settings group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа загрузка настройка</value>
@@ -3012,6 +3204,10 @@
     <items xsi:type="form:Button">
       <name>Загрузить</name>
       <id>5</id>
+      <title>
+        <key>en</key>
+        <value>Import data</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Загрузить данные</value>
@@ -3080,7 +3276,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ЗагрузкаДанныхИзТабличногоДокумента</types>
+      <types>DataProcessorObject.UT_ImportDataFromSpreadsheetDocument</types>
     </valueType>
     <view>
       <common>true</common>
@@ -3092,6 +3288,10 @@
   </attributes>
   <attributes>
     <name>ТаблицаЗагружаемыхРеквизитов</name>
+    <title>
+      <key>en</key>
+      <value>Imported attrubutes table</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Таблица загружаемых реквизитов</value>
@@ -3108,6 +3308,10 @@
     </edit>
     <columns>
       <name>ПредставлениеРеквизита</name>
+      <title>
+        <key>en</key>
+        <value>Attribute presentation</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Представление реквизита</value>
@@ -3127,6 +3331,10 @@
     <columns>
       <name>ИмяРеквизита</name>
       <title>
+        <key>en</key>
+        <value>Attribute name</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Имя реквизита</value>
       </title>
@@ -3145,6 +3353,10 @@
     <columns>
       <name>МожетБытьПолемПоиска</name>
       <title>
+        <key>en</key>
+        <value>Possible search field</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Может быть полем поиска</value>
       </title>
@@ -3161,6 +3373,10 @@
     </columns>
     <columns>
       <name>ПолеПоиска</name>
+      <title>
+        <key>en</key>
+        <value>Search field</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Поле поиска</value>
@@ -3179,6 +3395,10 @@
     <columns>
       <name>ОписаниеТипов</name>
       <title>
+        <key>en</key>
+        <value>Type description</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Описание типов</value>
       </title>
@@ -3195,6 +3415,10 @@
     </columns>
     <columns>
       <name>РежимЗагрузки</name>
+      <title>
+        <key>en</key>
+        <value>Import mode</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Режим загрузки</value>
@@ -3216,6 +3440,10 @@
     <columns>
       <name>НомерКолонки</name>
       <title>
+        <key>en</key>
+        <value>Column number</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Номер колонки</value>
       </title>
@@ -3236,6 +3464,10 @@
     </columns>
     <columns>
       <name>ЗначениеПоУмолчанию</name>
+      <title>
+        <key>en</key>
+        <value>Default value</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Значение по умолчанию</value>
@@ -3265,6 +3497,10 @@
     <columns>
       <name>ИскатьПо</name>
       <title>
+        <key>en</key>
+        <value>Search by</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Искать по</value>
       </title>
@@ -3282,6 +3518,10 @@
     </columns>
     <columns>
       <name>СвязьПоВладельцу</name>
+      <title>
+        <key>en</key>
+        <value>Link by owner</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Связь по владельцу</value>
@@ -3302,6 +3542,10 @@
     <columns>
       <name>СвязьПоТипу</name>
       <title>
+        <key>en</key>
+        <value>Link by type</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Связь по типу</value>
       </title>
@@ -3319,6 +3563,10 @@
     </columns>
     <columns>
       <name>ЭлементСвязиПоТипу</name>
+      <title>
+        <key>en</key>
+        <value>Link by type item</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Элемент связи по типу</value>
@@ -3341,6 +3589,10 @@
     <columns>
       <name>ШиринаКолонки</name>
       <title>
+        <key>en</key>
+        <value>Column width</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Ширина колонки</value>
       </title>
@@ -3361,6 +3613,10 @@
     <columns>
       <name>Пометка</name>
       <title>
+        <key>en</key>
+        <value>Check</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Пометка</value>
       </title>
@@ -3377,6 +3633,10 @@
     </columns>
     <columns>
       <name>Выражение</name>
+      <title>
+        <key>en</key>
+        <value>Expression</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Выражение</value>
@@ -3396,6 +3656,10 @@
     <columns>
       <name>ПредставлениеДопУсловий</name>
       <title>
+        <key>en</key>
+        <value>Additional conditions presentation</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Представление доп условий</value>
       </title>
@@ -3414,6 +3678,10 @@
     <columns>
       <name>ДоступныеТипы</name>
       <title>
+        <key>en</key>
+        <value>Available attribute types</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Доступные типы реквизита</value>
       </title>
@@ -3431,6 +3699,10 @@
   </attributes>
   <attributes>
     <name>ТабличныйДокумент</name>
+    <title>
+      <key>en</key>
+      <value>Spreadsheet document</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Табличный документ</value>
@@ -3591,10 +3863,18 @@
   <formCommands>
     <name>Загрузить</name>
     <title>
+      <key>en</key>
+      <value>Import</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Загрузить</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>Import</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Загрузить</value>
@@ -3616,10 +3896,18 @@
   <formCommands>
     <name>ВосстановитьЗначения</name>
     <title>
+      <key>en</key>
+      <value>Restore values</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Восстановить значения</value>
     </title>
     <id>2</id>
+    <toolTip>
+      <key>en</key>
+      <value>Restore values</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Восстановить значения</value>
@@ -3640,10 +3928,18 @@
   <formCommands>
     <name>ВосстановитьЗначенияИзФайла</name>
     <title>
+      <key>en</key>
+      <value>Restore values from file</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Восстановить значения из файла</value>
     </title>
     <id>3</id>
+    <toolTip>
+      <key>en</key>
+      <value>Restore values from file</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Восстановить значения из файла</value>
@@ -3664,10 +3960,18 @@
   <formCommands>
     <name>КонтрольЗаполнения</name>
     <title>
+      <key>en</key>
+      <value>Fill control</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Контроль заполнения</value>
     </title>
     <id>4</id>
+    <toolTip>
+      <key>en</key>
+      <value>Fill control</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Контроль заполнения</value>
@@ -3685,10 +3989,18 @@
   <formCommands>
     <name>Обновить</name>
     <title>
+      <key>en</key>
+      <value>Refresh</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Обновить</value>
     </title>
     <id>5</id>
+    <toolTip>
+      <key>en</key>
+      <value>Refresh</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Обновить</value>
@@ -3709,10 +4021,18 @@
   <formCommands>
     <name>Открыть</name>
     <title>
+      <key>en</key>
+      <value>Open</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Открыть</value>
     </title>
     <id>6</id>
+    <toolTip>
+      <key>en</key>
+      <value>Open</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Открыть</value>
@@ -3733,10 +4053,18 @@
   <formCommands>
     <name>ПеренумероватьКолонки</name>
     <title>
+      <key>en</key>
+      <value>Renumber columns</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Перенумеровать колонки</value>
     </title>
     <id>7</id>
+    <toolTip>
+      <key>en</key>
+      <value>Renumber columns</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Перенумеровать колонки</value>
@@ -3754,10 +4082,18 @@
   <formCommands>
     <name>Перечитать</name>
     <title>
+      <key>en</key>
+      <value>Reread</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Перечитать</value>
     </title>
     <id>8</id>
+    <toolTip>
+      <key>en</key>
+      <value>Reread</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Перечитать</value>
@@ -3778,10 +4114,18 @@
   <formCommands>
     <name>ПредыдущееПримечание</name>
     <title>
+      <key>en</key>
+      <value>Previous note</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Предыдущее примечание</value>
     </title>
     <id>9</id>
+    <toolTip>
+      <key>en</key>
+      <value>Previous note</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Предыдущее примечание</value>
@@ -3801,6 +4145,10 @@
   </formCommands>
   <formCommands>
     <name>РучнаяНумерацияКолонокТабличногоДокумента</name>
+    <title>
+      <key>en</key>
+      <value>Manual spreadsheet document columns numeration</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Ручная нумерация колонок табличного документа</value>
@@ -3823,10 +4171,18 @@
   <formCommands>
     <name>СледующееПримечание</name>
     <title>
+      <key>en</key>
+      <value>Next note</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Следующее примечание</value>
     </title>
     <id>11</id>
+    <toolTip>
+      <key>en</key>
+      <value>Next note</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Следующее примечание</value>
@@ -3847,10 +4203,18 @@
   <formCommands>
     <name>СнятьФлажки</name>
     <title>
+      <key>en</key>
+      <value>Uncheck all</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Снять флажки</value>
     </title>
     <id>12</id>
+    <toolTip>
+      <key>en</key>
+      <value>Uncheck all</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Снять флажки</value>
@@ -3871,10 +4235,18 @@
   <formCommands>
     <name>События</name>
     <title>
+      <key>en</key>
+      <value>Events</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>События</value>
     </title>
     <id>13</id>
+    <toolTip>
+      <key>en</key>
+      <value>Events</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>События</value>
@@ -3892,10 +4264,18 @@
   <formCommands>
     <name>Сохранить</name>
     <title>
+      <key>en</key>
+      <value>Save</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Сохранить</value>
     </title>
     <id>14</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить</value>
@@ -3916,10 +4296,18 @@
   <formCommands>
     <name>СохранитьЗначения</name>
     <title>
+      <key>en</key>
+      <value>Save values</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Сохранить значения</value>
     </title>
     <id>15</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save values</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить значения</value>
@@ -3940,10 +4328,18 @@
   <formCommands>
     <name>СохранитьЗначенияВФайл</name>
     <title>
+      <key>en</key>
+      <value>Save values to file</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Сохранить значения в файл</value>
     </title>
     <id>16</id>
+    <toolTip>
+      <key>en</key>
+      <value>Save values to file</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Сохранить значения в файл</value>
@@ -3964,10 +4360,18 @@
   <formCommands>
     <name>УстановитьФлажки</name>
     <title>
+      <key>en</key>
+      <value>Check all</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Установить флажки</value>
     </title>
     <id>17</id>
+    <toolTip>
+      <key>en</key>
+      <value>Check all</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Установить флажки</value>
