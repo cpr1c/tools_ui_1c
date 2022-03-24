@@ -2220,7 +2220,7 @@ Browse the structure tree and select a grouping to view or edit grouping field s
             </userVisible>
             <title>
               <key>en</key>
-              <value>Grouped fields</value>
+              <value>Group fields</value>
             </title>
             <title>
               <key>ru</key>
@@ -3899,12 +3899,12 @@ In the structure tree, select the report and edit report filters.</value>
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Отбор</value>
+              <key>en</key>
+              <value>Filter</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Page filter</value>
+              <key>ru</key>
+              <value>Отбор</value>
             </title>
             <extendedTooltip>
               <name>PageFilterExtendedTooltip</name>
@@ -4738,12 +4738,12 @@ In the structure tree, select the report and edit report sorts.</value>
               <common>true</common>
             </userVisible>
             <title>
-              <key>ru</key>
-              <value>Сортировка</value>
+              <key>en</key>
+              <value>Order</value>
             </title>
             <title>
-              <key>en</key>
-              <value>Order page</value>
+              <key>ru</key>
+              <value>Сортировка</value>
             </title>
             <extendedTooltip>
               <name>OrderPageExtendedTooltip</name>
@@ -13162,10 +13162,6 @@ In the structure tree, select the report and edit additional report settings.</v
           <title>
             <key>ru</key>
             <value> </value>
-          </title>
-          <title>
-            <key>en</key>
-            <value>Decoration collection</value>
           </title>
           <visible>true</visible>
           <enabled>true</enabled>

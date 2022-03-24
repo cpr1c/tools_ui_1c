@@ -5634,7 +5634,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>InformationTextColor</name>
+    <name>NoteTextColor</name>
+    <title>
+      <key>ru</key>
+      <value>Note text color</value>
+    </title>
     <id>19</id>
     <valueType>
       <types>Color</types>
@@ -5647,7 +5651,11 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ErrorInformationTextColor</name>
+    <name>ErrorNoteTextColor</name>
+    <title>
+      <key>ru</key>
+      <value>Error note text color</value>
+    </title>
     <id>21</id>
     <valueType>
       <types>Color</types>

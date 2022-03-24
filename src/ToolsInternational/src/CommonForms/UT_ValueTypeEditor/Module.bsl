@@ -30,9 +30,9 @@ Procedure TypesTreeOnActivateRow(Item)
 		Return;
 	EndIf;
 	
-	Items.GroupNumberQualifier.Visible=CurrentData.Имя="Number";
-	Items.GroupStringQualifier.Visible=CurrentData.Имя="String";
-	Items.GroupDateQualifier.Visible=CurrentData.Имя="Date";
+	Items.GroupNumberQualifier.Visible=CurrentData.Name="Number";
+	Items.GroupStringQualifier.Visible=CurrentData.Name="String";
+	Items.GroupDateQualifier.Visible=CurrentData.Name="Date";
 EndProcedure
 
 
@@ -190,7 +190,7 @@ Function TypesForQuery()
 EndFunction
 
 &AtServer
-Function AddTypeToTypesTree(FillSelectedTypes,TypeName, Picture, Presentation = "", TreeRow = Undefined, IsFolder = False, Group=False, UnavailableForCompositeType=False)
+Function AddTypeToTypesTree(FillSelectedTypes,TypeName, Picture, Presentation = "", TreeRow = Undefined, IsGroup = False, Group=False, UnavailableForCompositeType=False)
 	
 	If ValueIsFilled(Presentation) Then
 		TypePresentation=Presentation;
@@ -214,7 +214,7 @@ Function AddTypeToTypesTree(FillSelectedTypes,TypeName, Picture, Presentation = 
 	NewRow.Name=TypeName;
 	NewRow.Presentation=TypePresentation;
 	NewRow.Picture=Picture;
-	NewRow.IsFolder=IsFolder;
+	NewRow.IsGroup=IsGroup;
 	NewRow.UnavailableForCompositeType=UnavailableForCompositeType;
 	
 	If FillSelectedTypes Then
@@ -356,7 +356,7 @@ Procedure SetConditionalAppearance()
 	NewCa=ConditionalAppearance.Items.Add();
 	NewCa.Use=True;
 	UT_CommonClientServer.SetFilterItem(NewCa.Filter,
-		"Items.TypesTree.CurrentData.IsFolder", True);
+		"Items.TypesTree.CurrentData.IsGroup", True);
 	Field=NewCa.Fields.Items.Add();
 	Field.Use=True;
 	Field.Field=New DataCompositionField("TypesTreeSelected");
@@ -488,7 +488,7 @@ Function SelectedTypesArray()
 	For Each ItemOfType In SelectedTypes Do
 		TypeAsString=ItemOfType.Value;
 		
-		If Lower(TypeAsString)="AnyRef" Then
+		If Lower(TypeAsString)="anyref" Then
 			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Catalogs,"CatalogRef.");
 			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.Documents,"DocumentRef.");
 			AddTypesToArrayByMetadataCollection(TypesArray, Metadata.ChartsOfCharacteristicTypes,"ChartOfCharacteristicTypesRef.");
