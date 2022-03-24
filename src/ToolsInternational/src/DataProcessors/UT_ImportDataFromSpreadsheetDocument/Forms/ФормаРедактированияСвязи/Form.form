@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Edit search link</value>
+  </title>
+  <title>
     <key>ru</key>
-    <value>Форма редактирования выражения</value>
+    <value>Редактирование связи поиска</value>
   </title>
   <items xsi:type="form:FormField">
-    <name>НадписьТекстВыражения</name>
+    <name>ИскатьПо</name>
     <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -14,68 +18,11 @@
     </userVisible>
     <dataPath xsi:type="form:MultiLanguageDataPath">
       <paths xsi:type="form:DataPath">
-        <segments>НадписьТекстВыражения</segments>
+        <segments>ИскатьПо</segments>
       </paths>
     </dataPath>
-    <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>НадписьТекстВыраженияРасширеннаяПодсказка</name>
-      <id>8</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <horizontalAlign>Left</horizontalAlign>
-      </extInfo>
-    </extendedTooltip>
-    <contextMenu>
-      <name>НадписьТекстВыраженияКонтекстноеМеню</name>
-      <id>2</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <autoFill>true</autoFill>
-    </contextMenu>
-    <type>InputField</type>
-    <readOnly>true</readOnly>
-    <editMode>Enter</editMode>
-    <showInHeader>true</showInHeader>
-    <headerHorizontalAlign>Left</headerHorizontalAlign>
-    <showInFooter>true</showInFooter>
-    <extInfo xsi:type="form:InputFieldExtInfo">
-      <autoMaxWidth>true</autoMaxWidth>
-      <height>5</height>
-      <autoMaxHeight>true</autoMaxHeight>
-      <wrap>true</wrap>
-      <multiLine>true</multiLine>
-      <chooseType>true</chooseType>
-      <typeDomainEnabled>true</typeDomainEnabled>
-      <textEdit>true</textEdit>
-    </extInfo>
-  </items>
-  <items xsi:type="form:FormField">
-    <name>ПолеТекстовогоДокумента</name>
-    <id>3</id>
-    <visible>true</visible>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ПолеТекстовогоДокумента</segments>
-      </paths>
-    </dataPath>
-    <titleLocation>None</titleLocation>
-    <extendedTooltip>
-      <name>ПолеТекстовогоДокументаРасширеннаяПодсказка</name>
+      <name>ИскатьПоРасширеннаяПодсказка</name>
       <id>9</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -90,7 +37,59 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПолеТекстовогоДокументаКонтекстноеМеню</name>
+      <name>ИскатьПоКонтекстноеМеню</name>
+      <id>2</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <autoFill>true</autoFill>
+    </contextMenu>
+    <type>InputField</type>
+    <editMode>Enter</editMode>
+    <showInHeader>true</showInHeader>
+    <headerHorizontalAlign>Left</headerHorizontalAlign>
+    <showInFooter>true</showInFooter>
+    <extInfo xsi:type="form:InputFieldExtInfo">
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <wrap>true</wrap>
+      <choiceListButton>true</choiceListButton>
+      <chooseType>true</chooseType>
+      <typeDomainEnabled>true</typeDomainEnabled>
+    </extInfo>
+  </items>
+  <items xsi:type="form:FormField">
+    <name>СвязьПоВладельцу</name>
+    <id>3</id>
+    <visible>true</visible>
+    <enabled>true</enabled>
+    <userVisible>
+      <common>true</common>
+    </userVisible>
+    <dataPath xsi:type="form:MultiLanguageDataPath">
+      <paths xsi:type="form:DataPath">
+        <segments>СвязьПоВладельцу</segments>
+      </paths>
+    </dataPath>
+    <extendedTooltip>
+      <name>СвязьПоВладельцуРасширеннаяПодсказка</name>
+      <id>10</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <type>Label</type>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <extInfo xsi:type="form:LabelDecorationExtInfo">
+        <horizontalAlign>Left</horizontalAlign>
+      </extInfo>
+    </extendedTooltip>
+    <contextMenu>
+      <name>СвязьПоВладельцуКонтекстноеМеню</name>
       <id>4</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -99,26 +98,31 @@
       </userVisible>
       <autoFill>true</autoFill>
     </contextMenu>
-    <type>TextDocumentField</type>
+    <type>InputField</type>
     <editMode>Enter</editMode>
     <showInHeader>true</showInHeader>
     <headerHorizontalAlign>Left</headerHorizontalAlign>
     <showInFooter>true</showInFooter>
-    <extInfo xsi:type="form:TextDocFieldExtInfo">
-      <width>50</width>
+    <extInfo xsi:type="form:InputFieldExtInfo">
       <autoMaxWidth>true</autoMaxWidth>
-      <height>10</height>
       <autoMaxHeight>true</autoMaxHeight>
-      <horizontalStretch>true</horizontalStretch>
-      <verticalStretch>true</verticalStretch>
+      <wrap>true</wrap>
+      <choiceListButton>true</choiceListButton>
+      <choiceButton>false</choiceButton>
+      <clearButton>false</clearButton>
+      <spinButton>false</spinButton>
+      <openButton>false</openButton>
+      <chooseType>true</chooseType>
+      <typeDomainEnabled>true</typeDomainEnabled>
+      <textEdit>true</textEdit>
     </extInfo>
   </items>
   <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманды</name>
-    <id>6</id>
+    <name>ГруппаКоманд</name>
+    <id>8</id>
     <items xsi:type="form:Button">
       <name>ОК</name>
-      <id>5</id>
+      <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -126,7 +130,7 @@
       </userVisible>
       <extendedTooltip>
         <name>ОКРасширеннаяПодсказка</name>
-        <id>11</id>
+        <id>12</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -148,20 +152,16 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>Закрыть</name>
+      <name>Отмена</name>
       <id>7</id>
-      <title>
-        <key>ru</key>
-        <value>Отмена</value>
-      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ЗакрытьРасширеннаяПодсказка</name>
-        <id>12</id>
+        <name>ОтменаРасширеннаяПодсказка</name>
+        <id>13</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -174,7 +174,8 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.StandardCommand.Close</commandName>
+      <commandName>Form.StandardCommand.Cancel</commandName>
+      <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
@@ -186,17 +187,24 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Command group</value>
+    </title>
+    <title>
       <key>ru</key>
-      <value>Группа команды</value>
+      <value>Группа команд</value>
     </title>
     <toolTip>
-      <key>ru</key>
-      <value>Группа команды</value>
+      <key>en</key>
+      <value>Command group</value>
     </toolTip>
-    <horizontalStretch>true</horizontalStretch>
+    <toolTip>
+      <key>ru</key>
+      <value>Группа команд</value>
+    </toolTip>
     <extendedTooltip>
-      <name>ГруппаКомандыРасширеннаяПодсказка</name>
-      <id>10</id>
+      <name>ГруппаКомандРасширеннаяПодсказка</name>
+      <id>11</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -225,8 +233,8 @@
     <horizontalAlign>Left</horizontalAlign>
   </autoCommandBar>
   <handlers>
-    <event>OnCreateAtServer</event>
-    <name>ПриСозданииНаСервере</name>
+    <event>OnOpen</event>
+    <name>ПриОткрытии</name>
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoTitle>true</autoTitle>
@@ -242,7 +250,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ЗагрузкаДанныхИзТабличногоДокумента</types>
+      <types>DataProcessorObject.UT_ImportDataFromSpreadsheetDocument</types>
     </valueType>
     <view>
       <common>true</common>
@@ -253,10 +261,14 @@
     <main>true</main>
   </attributes>
   <attributes>
-    <name>НадписьТекстВыражения</name>
+    <name>ИскатьПо</name>
+    <title>
+      <key>en</key>
+      <value>Search by</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Надпись текст выражения</value>
+      <value>Искать по</value>
     </title>
     <id>2</id>
     <valueType>
@@ -271,14 +283,54 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ПолеТекстовогоДокумента</name>
+    <name>СвязьПоВладельцу</name>
+    <title>
+      <key>en</key>
+      <value>Link by owner</value>
+    </title>
     <title>
       <key>ru</key>
-      <value>Поле текстового документа</value>
+      <value>Связь по владельцу</value>
     </title>
     <id>3</id>
     <valueType>
-      <types>TextDocument</types>
+      <types>String</types>
+      <types>CatalogRef</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИспользуемыеТипы</name>
+    <title>
+      <key>ru</key>
+      <value>Используемые типы</value>
+    </title>
+    <id>4</id>
+    <valueType>
+      <types>TypeDescription</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИспользоватьВладельца</name>
+    <title>
+      <key>ru</key>
+      <value>Использовать владельца</value>
+    </title>
+    <id>5</id>
+    <valueType>
+      <types>Boolean</types>
     </valueType>
     <view>
       <common>true</common>
@@ -290,10 +342,18 @@
   <formCommands>
     <name>ОК</name>
     <title>
+      <key>en</key>
+      <value>OK</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>OK</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>ОК</value>

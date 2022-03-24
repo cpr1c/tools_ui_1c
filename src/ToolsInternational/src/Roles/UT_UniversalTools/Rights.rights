@@ -402,7 +402,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</name>
+		<name>DataProcessor.UT_ImportDataFromSpreadsheetDocument</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

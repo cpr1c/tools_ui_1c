@@ -2,16 +2,14 @@
 <document xmlns="http://v8.1c.ru/8.2/data/spreadsheet" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<languageSettings>
 		<currentLanguage>ru</currentLanguage>
-		<defaultLanguage>ru</defaultLanguage>
+		<defaultLanguage>en</defaultLanguage>
 		<languageInfo>
 			<id>ru</id>
-			<code>Русский</code>
-			<description>Русский</description>
+			<code>Russian</code>
 		</languageInfo>
 		<languageInfo>
 			<id>en</id>
-			<code>Английский</code>
-			<description>Английский</description>
+			<code>English</code>
 		</languageInfo>
 	</languageSettings>
 	<columns>
@@ -88,6 +86,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Версия обработки:</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Data processor version:</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -129,6 +131,10 @@
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Режим загрузки:</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Import mode:</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -192,6 +198,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Вид объекта (полное имя метаданных объекта):</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Object type (full object metadata name):</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -253,6 +263,10 @@
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Не создавать новых элементов (для режима загрузки в справочник):</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Do not create new items (for catalog import mode):</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -316,6 +330,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Замещать существующие записи  (для режима загрузки в регистр сведений):</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Replace existing records (for information register import mode):</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -378,6 +396,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Ручная нумерация колонок табличного документа:</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Manual spreadsheet document columns numeration</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -439,6 +461,10 @@
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Первая строка данных табличного документа:</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Spreadsheet document first data row:</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -514,6 +540,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Пометка</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Check</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -524,6 +554,10 @@
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Имя реквизита</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Attribute name</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -536,6 +570,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Поле поиска</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Search field</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -546,6 +584,10 @@
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Описание типов</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Type description</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -558,6 +600,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Режим загрузки</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Import mode</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -568,6 +614,10 @@
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Значение по умолчанию</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Default value</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -580,17 +630,69 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Выражение</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Expression</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>10</i>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Выражение</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Expression</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Выражение</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Expression</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Выражение</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Expression</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
 				<c>
 					<f>27</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Номер колонки</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Column number</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -601,13 +703,106 @@
 		<index>9</index>
 		<row>
 			<c>
-				<i>6</i>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Пометка</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Check</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Имя реквизита</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Attribute name</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Поле поиска</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Search field</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Описание типов</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Type description</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Режим загрузки</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Import mode</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Значение по умолчанию</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Default value</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
 				<c>
 					<f>28</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Искать по</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Search by</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -620,6 +815,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Связь по владельцу</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Link by owner</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -630,6 +829,10 @@
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Связь по типу</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Link by type</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -642,12 +845,26 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Элемент связи по типу</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Link by type item</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
 				<c>
 					<f>4</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номер колонки</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Column number</v8:content>
+						</v8:item>
+					</tl>
 				</c>
 			</c>
 		</row>
@@ -820,6 +1037,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Обработчики событий:</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Event handlers:</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -881,11 +1102,29 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Перед записью</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Before write</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>2</i>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Перед записью</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Before write</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
 				<c>
 					<f>49</f>
 					<parameter>ПередЗаписьюОбъекта</parameter>
@@ -904,11 +1143,29 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>При записи</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>On write</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>2</i>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>При записи</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>On write</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
 				<c>
 					<f>49</f>
 					<parameter>ПриЗаписиОбъекта</parameter>
@@ -982,11 +1239,29 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>После добавления строки</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>After add row</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>2</i>
+				<c>
+					<f>0</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>После добавления строки</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>After add row</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
 				<c>
 					<f>49</f>
 					<parameter>ПослеДобавленияСтроки</parameter>

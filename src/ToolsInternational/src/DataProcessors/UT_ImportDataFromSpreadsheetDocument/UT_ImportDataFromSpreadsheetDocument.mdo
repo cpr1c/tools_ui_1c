@@ -4,33 +4,44 @@
     <objectType typeId="d4ceff8e-59f6-11ea-1a84-e86a6452d1f2" valueTypeId="d4ceff8f-59f6-11ea-1a84-e86a6452d1f2"/>
     <managerType typeId="d4ceff90-59f6-11ea-1a84-e86a6452d1f2" valueTypeId="d4ceff91-59f6-11ea-1a84-e86a6452d1f2"/>
   </producedTypes>
-  <name>УИ_ЗагрузкаДанныхИзТабличногоДокумента</name>
+  <name>UT_ImportDataFromSpreadsheetDocument</name>
   <synonym>
     <key>en</key>
-    <value>{} УИ_ЗагрузкаДанныхИзТабличногоДокумента</value>
+    <value>Import data from spreadsheet document [UT]</value>
   </synonym>
   <synonym>
     <key>ru</key>
     <value>Загрузка данных из табличного документа [УИ]</value>
   </synonym>
-  <comment>Переписываем обработку почти заново, но с большим заимствованием кода из стандартной обработки для толстого клиента</comment>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента.Form.Форма</defaultForm>
+  <defaultForm>DataProcessor.UT_ImportDataFromSpreadsheetDocument.Form.Форма</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
     </pages>
   </help>
   <extendedPresentation>
+    <key>en</key>
+    <value>Import data from spreadsheet document</value>
+  </extendedPresentation>
+  <extendedPresentation>
     <key>ru</key>
     <value>Загрузка данных из табличного документа</value>
   </extendedPresentation>
+  <explanation>
+    <key>en</key>
+    <value>Data processor is designed to load data into catalogs and tabular sections of various objects from a spreadsheet document</value>
+  </explanation>
   <explanation>
     <key>ru</key>
     <value>Обработка предназначена для загрузки данных в справочники и табличные части различных объектов из табличного документа</value>
   </explanation>
   <attributes uuid="105ab816-a28d-41ad-9af0-1bac32f234fe">
     <name>НеСоздаватьНовыхЭлементов</name>
+    <synonym>
+      <key>en</key>
+      <value>Do not create new items</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Не создавать новых элементов</value>
@@ -44,6 +55,10 @@
   <attributes uuid="8d2a7445-c18f-4597-9a97-6303554fb24b">
     <name>РучнаяНумерацияКолонокТабличногоДокумента</name>
     <synonym>
+      <key>en</key>
+      <value>Manual spreadsheet document columns numeration</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Ручная нумерация колонок табличного документа</value>
     </synonym>
@@ -55,6 +70,10 @@
   </attributes>
   <attributes uuid="d0f9cfc8-d499-4839-968d-da7f6e6f4d75">
     <name>ПерваяСтрокаДанныхТабличногоДокумента</name>
+    <synonym>
+      <key>en</key>
+      <value>Spreadsheet document first data row</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Первая строка данных табличного документа</value>
@@ -70,6 +89,10 @@
   </attributes>
   <attributes uuid="55997912-972e-4622-8429-b82aedb2201b">
     <name>РежимЗагрузки</name>
+    <synonym>
+      <key>en</key>
+      <value>Import mode</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Режим загрузки</value>
@@ -87,6 +110,10 @@
   <attributes uuid="3eadc8d5-bc33-473c-8d3f-0373d587768c">
     <name>СсылкаИсточника</name>
     <synonym>
+      <key>en</key>
+      <value>Source reference</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Ссылка источника</value>
     </synonym>
@@ -100,6 +127,10 @@
   <attributes uuid="568e3e05-d728-4934-9417-50a2db989999">
     <name>ТабличнаяЧастьИсточника</name>
     <synonym>
+      <key>en</key>
+      <value>Source tabular section</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Табличная часть источника</value>
     </synonym>
@@ -109,6 +140,10 @@
   </attributes>
   <attributes uuid="d5e5c319-a93f-4b45-863f-0fc99b205e79">
     <name>ПередЗаписьюОбъекта</name>
+    <synonym>
+      <key>en</key>
+      <value>Before write object</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Перед записью объекта</value>
@@ -123,6 +158,10 @@
   <attributes uuid="5cecc2d2-7fd4-4542-ae6d-1911b93acd71">
     <name>ПриЗаписиОбъекта</name>
     <synonym>
+      <key>en</key>
+      <value>On write object</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>При записи объекта</value>
     </synonym>
@@ -135,6 +174,10 @@
   </attributes>
   <attributes uuid="7a6446c5-f4c3-4298-b78b-8682e376aaea">
     <name>ПослеДобавленияСтроки</name>
+    <synonym>
+      <key>en</key>
+      <value>After add row</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>После добавления строки</value>
@@ -149,6 +192,10 @@
   <attributes uuid="e1a43ebd-580d-49a4-93d5-017bc193da7c">
     <name>ИмяВидаРегистра</name>
     <synonym>
+      <key>en</key>
+      <value>Register type name</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Имя вида регистра</value>
     </synonym>
@@ -162,6 +209,10 @@
   <attributes uuid="96d1c50a-d7f3-474b-9fff-9c1c0668efb0">
     <name>ЗамещатьСуществующиеЗаписи</name>
     <synonym>
+      <key>en</key>
+      <value>Replace existing records</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Замещать существующие записи</value>
     </synonym>
@@ -173,6 +224,10 @@
   </attributes>
   <attributes uuid="fa687385-9c35-4b7d-9842-8600decca6dd">
     <name>ТипОбъектаСправочника</name>
+    <synonym>
+      <key>en</key>
+      <value>Catalog object type</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Тип объекта справочника</value>
@@ -187,6 +242,10 @@
   <attributes uuid="0bc54e50-916c-4431-a135-90ce1afac910">
     <name>ДополнительныеСвойства</name>
     <synonym>
+      <key>en</key>
+      <value>Additional properties</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Дополнительные свойства</value>
     </synonym>
@@ -197,6 +256,10 @@
   <forms uuid="7300ef50-b49f-4a7f-b6dc-9717503e3e4c">
     <name>Форма</name>
     <synonym>
+      <key>en</key>
+      <value>Form</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Форма</value>
     </synonym>
@@ -205,6 +268,10 @@
   </forms>
   <forms uuid="07cf2c58-1c60-4ae8-ae23-21cd14763003">
     <name>ФормаРедактированияСобытий</name>
+    <synonym>
+      <key>en</key>
+      <value>Edit event</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма редактирования событий</value>
@@ -215,6 +282,10 @@
   <forms uuid="3376bf75-4d23-48a0-8561-1485bed7076a">
     <name>ФормаРедактированияВыражения</name>
     <synonym>
+      <key>en</key>
+      <value>Edit expression</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Форма редактирования выражения</value>
     </synonym>
@@ -223,6 +294,10 @@
   </forms>
   <forms uuid="b4bfd7cf-a2b9-4108-b01b-009bea7b6f6e">
     <name>ФормаРедактированияСвязи</name>
+    <synonym>
+      <key>en</key>
+      <value>Edit link</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма редактирования связи</value>
@@ -233,6 +308,10 @@
   <forms uuid="b1345a33-7fd7-40ce-aaa7-e86397830298">
     <name>ФормаСохраненияНастройки</name>
     <synonym>
+      <key>en</key>
+      <value>Save setting</value>
+    </synonym>
+    <synonym>
       <key>ru</key>
       <value>Форма сохранения настройки</value>
     </synonym>
@@ -241,6 +320,10 @@
   </forms>
   <forms uuid="d783052e-b6ab-4654-85b2-f5e7fb9353d8">
     <name>ФормаВыбораНастройки</name>
+    <synonym>
+      <key>en</key>
+      <value>Select setting</value>
+    </synonym>
     <synonym>
       <key>ru</key>
       <value>Форма выбора настройки</value>
