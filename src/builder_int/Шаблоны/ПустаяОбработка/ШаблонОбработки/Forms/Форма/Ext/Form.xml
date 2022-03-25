@@ -3,10 +3,15 @@
 	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
 	<Attributes>
 		<Attribute name="Объект" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Объект</v8:content>
+				</v8:item>
+			</Title>
 			<Type>
 				<v8:Type>cfg:ExternalDataProcessorObject.ШаблонОбработки</v8:Type>
 			</Type>
-			<MainAttribute>true</MainAttribute>
 		</Attribute>
 	</Attributes>
 </Form>
