@@ -3325,6 +3325,7 @@
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
                     <verticalStretch>true</verticalStretch>
+                    <valuesPicture xsi:type="form:FormPicture"/>
                   </extInfo>
                 </items>
                 <items xsi:type="form:FormField">

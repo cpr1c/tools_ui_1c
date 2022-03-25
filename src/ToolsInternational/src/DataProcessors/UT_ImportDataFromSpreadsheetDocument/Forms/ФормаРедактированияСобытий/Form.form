@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
+    <key>en</key>
+    <value>Edit event</value>
+  </title>
+  <title>
     <key>ru</key>
-    <value>Форма редактирования выражения</value>
+    <value>Форма редактирования события</value>
   </title>
   <items xsi:type="form:FormField">
     <name>НадписьТекстВыражения</name>
@@ -125,9 +129,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Before write object</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Перед записью объекта</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>Before write object group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа перед записью объекта</value>
@@ -215,9 +227,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>On write object</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>При записи объекта</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>On write object group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа при записи объекта</value>
@@ -305,9 +325,17 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>After add row</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>После добавления строки</value>
       </title>
+      <toolTip>
+        <key>en</key>
+        <value>After add row group</value>
+      </toolTip>
       <toolTip>
         <key>ru</key>
         <value>Группа после добавления строки</value>
@@ -339,9 +367,17 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Bar group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа панель</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Bar group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа панель</value>
@@ -408,6 +444,10 @@
       <name>Закрыть</name>
       <id>15</id>
       <title>
+        <key>en</key>
+        <value>Cancel</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Отмена</value>
       </title>
@@ -443,9 +483,17 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Command bar group</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Группа панель команд</value>
     </title>
+    <toolTip>
+      <key>en</key>
+      <value>Command bar group</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>Группа панель команд</value>
@@ -498,7 +546,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_ЗагрузкаДанныхИзТабличногоДокумента</types>
+      <types>DataProcessorObject.UT_ImportDataFromSpreadsheetDocument</types>
     </valueType>
     <view>
       <common>true</common>
@@ -510,6 +558,10 @@
   </attributes>
   <attributes>
     <name>НадписьТекстВыражения</name>
+    <title>
+      <key>en</key>
+      <value>Expression text label</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Надпись текст выражения</value>
@@ -529,6 +581,10 @@
   <attributes>
     <name>ПередЗаписьюОбъекта</name>
     <title>
+      <key>en</key>
+      <value>Before write object</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Перед записью объекта</value>
     </title>
@@ -546,6 +602,10 @@
   <attributes>
     <name>ПриЗаписиОбъекта</name>
     <title>
+      <key>en</key>
+      <value>On write object</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>При записи объекта</value>
     </title>
@@ -562,6 +622,10 @@
   </attributes>
   <attributes>
     <name>ПослеДобавленияСтроки</name>
+    <title>
+      <key>en</key>
+      <value>After add row</value>
+    </title>
     <title>
       <key>ru</key>
       <value>После добавления строки</value>
@@ -600,10 +664,18 @@
   <formCommands>
     <name>ОК</name>
     <title>
+      <key>en</key>
+      <value>OK</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>ОК</value>
     </title>
     <id>1</id>
+    <toolTip>
+      <key>en</key>
+      <value>OK</value>
+    </toolTip>
     <toolTip>
       <key>ru</key>
       <value>ОК</value>

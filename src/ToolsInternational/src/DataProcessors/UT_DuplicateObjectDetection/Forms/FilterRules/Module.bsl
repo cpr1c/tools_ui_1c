@@ -1,65 +1,66 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2019, ООО 1С-Софт
-// Все права защищены. Эта программа и сопроводительные материалы предоставляются 
-// в соответствии с условиями лицензии Attribution 4.0 International (CC BY 4.0)
-// Текст лицензии доступен по ссылке:
+// Copyright (c) 2019, 1C-Soft LLC
+// All Rights reserved. This application and supporting materials are provided under the terms of 
+// Attribution 4.0 International license (CC BY 4.0)
+// The license text is available at:
 // https://creativecommons.org/licenses/by/4.0/legalcode
+// Translated by Neti Company
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Ожидаются параметры:
+
+// Parameters:
 //
-//     ИдентификаторОсновнойФормы      - УникальныйИдентификатор - Идентификатор формы, через хранилище которой
-//                                                                 происходит обмен.
-//     АдресСхемыКомпоновки            - Строка - Адрес временного хранилища схемы компоновки, для которой
-//                                                редактируются настройки.
-//     АдресНастроекКомпоновщикаОтбора - Строка - Адрес временного хранилища редактируемых настроек компоновщика.
-//     ПредставлениеОбластиОтбора      - Строка - Представление для формирования заголовка.
+//     MasterFormID      - UUID - form UUID. Exchange is performed through temporary storage of this form.
+//     CompositionSchemaAddress            - String - an address of the temporary storage of the 
+//                                                composition schema with the settings being edited.
+//     FilterComposerSettingsAddress - String - an address of the temporary storage with editable composer settings.
+//     FilterAreaPresentation      - String - a presentation for title generation.
 //
-// Возвращается результатом выбора:
+// Return value:
 //
-//     Неопределено - Отказ от редактирования.
-//     Строка       - Адрес временного хранилища новых настроек компоновщика.
+//     Undefined - edit was cancelled.
+//     String       - an address of the temporary storage of new composer settings.
 //
-#Область ОбработчикиСобытийФормы
+#Region EventHandlers
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	
+	MasterFormID = Parameters.MasterFormID;
+	
+	PrefilterComposer = New DataCompositionSettingsComposer;
+	PrefilterComposer.Initialize( 
+		New DataCompositionAvailableSettingsSource(Parameters.CompositionSchemaAddress) );
+		
+	FilterComposerSettingsAddress = Parameters.FilterComposerSettingsAddress;
+	PrefilterComposer.LoadSettings(GetFromTempStorage(FilterComposerSettingsAddress));
+	DeleteFromTempStorage(FilterComposerSettingsAddress);
+	
+	Title = StrTemplate(NStr("ru = 'Правила отбора ""%1""'; en = 'Filter rule: %1'"), Parameters.FilterAreaPresentation);
+EndProcedure
 
-	ИдентификаторОсновнойФормы = Параметры.ИдентификаторОсновнойФормы;
+#EndRegion
 
-	КомпоновщикПредварительногоОтбора = Новый КомпоновщикНастроекКомпоновкиДанных;
-	КомпоновщикПредварительногоОтбора.Инициализировать( 
-		Новый ИсточникДоступныхНастроекКомпоновкиДанных(Параметры.АдресСхемыКомпоновки));
+#Region FormCommandHandlers
 
-	АдресНастроекКомпоновщикаОтбора = Параметры.АдресНастроекКомпоновщикаОтбора;
-	КомпоновщикПредварительногоОтбора.ЗагрузитьНастройки(ПолучитьИзВременногоХранилища(АдресНастроекКомпоновщикаОтбора));
-	УдалитьИзВременногоХранилища(АдресНастроекКомпоновщикаОтбора);
+&AtClient
+Procedure Select(Command)
+	
+	If Modified Then
+		NotifyChoice(FilterComposerSettingsAddress());
+	Else
+		Close();
+	EndIf;
+	
+EndProcedure
 
-	Заголовок = СтрШаблон(НСтр("ru = 'Правила отбора ""%1""'"), Параметры.ПредставлениеОбластиОтбора);
-КонецПроцедуры
+#EndRegion
 
-#КонецОбласти
+#Region Private
 
-#Область ОбработчикиКомандФормы
+&AtServer
+Function FilterComposerSettingsAddress()
+	Return PutToTempStorage(PrefilterComposer.Settings, MasterFormID)
+EndFunction
 
-&НаКлиенте
-Процедура Выбрать(Команда)
-
-	Если Модифицированность Тогда
-		ОповеститьОВыборе(АдресНастроекКомпоновщикаОтбора());
-	Иначе
-		Закрыть();
-	КонецЕсли;
-
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область СлужебныеПроцедурыИФункции
-
-&НаСервере
-Функция АдресНастроекКомпоновщикаОтбора()
-	Возврат ПоместитьВоВременноеХранилище(КомпоновщикПредварительногоОтбора.Настройки, ИдентификаторОсновнойФормы)
-КонецФункции
-
-#КонецОбласти
+#EndRegion

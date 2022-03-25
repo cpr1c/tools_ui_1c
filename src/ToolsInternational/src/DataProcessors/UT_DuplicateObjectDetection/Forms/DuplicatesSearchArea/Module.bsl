@@ -1,90 +1,91 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2019, ООО 1С-Софт
-// Все права защищены. Эта программа и сопроводительные материалы предоставляются 
-// в соответствии с условиями лицензии Attribution 4.0 International (CC BY 4.0)
-// Текст лицензии доступен по ссылке:
+// Copyright (c) 2019, 1C-Soft LLC
+// All Rights reserved. This application and supporting materials are provided under the terms of 
+// Attribution 4.0 International license (CC BY 4.0)
+// The license text is available at:
 // https://creativecommons.org/licenses/by/4.0/legalcode
+// Translated by Neti Company
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Ожидаются параметры:
+// Parameters:
 //
-//     DuplicatesSearchArea - Строка - Полное имя метаданных таблицы ранее выбранной области поиска.
+//     DuplicatesSearchArea - String - a full name of the table metadata of the area selected for search.
 //
-// Возвращается результатом выбора:
+// Return value:
 //
-//     Неопределено - Отказ от редактирования.
-//     Строка       - Адрес временного хранилища новых настроек компоновщика.
+//     Undefined - edit was cancelled.
+//     String       - an address of the temporary storage of new composer settings.
 //
-#Область ОбработчикиСобытийФормы
+#Region EventHandlers
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	
+	Parameters.Property("DuplicatesSearchArea", DefaultArea);
+	Parameters.Property("SettingsAddress", SettingsAddress);
+	
+	InitializeSearchForDuplicatesAreasList();
+EndProcedure
 
-	Параметры.Свойство("ОбластьПоискаДублей", ОбластьПоУмолчанию);
-	Параметры.Свойство("АдресНастроек", АдресНастроек);
+#EndRegion
 
-	ИнициализироватьСписокОбластейПоискаДублей();
-КонецПроцедуры
+#Region FormHeaderItemsEventHandlers
 
-#КонецОбласти
+&AtClient
+Procedure DuplicatesSearchAreasSelection(Item, RowSelected, Field, StandardProcessing)
 
-#Область ОбработчикиСобытийЭлементовШапкиФормы
+	MakeChoice(RowSelected);
+	
+EndProcedure
 
-&НаКлиенте
-Процедура ОбластиПоискаДублейВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
+#EndRegion
 
-	ПроизвестиВыбор(ВыбраннаяСтрока);
+#Region FormCommandHandlers
 
-КонецПроцедуры
+&AtClient
+Procedure Select(Command)
+	
+	MakeChoice(Items.DuplicatesSearchAreas.CurrentRow);
+	
+EndProcedure
 
-#КонецОбласти
+#EndRegion
 
-#Область ОбработчикиКомандФормы
+#Region Private
 
-&НаКлиенте
-Процедура Выбрать(Команда)
+&AtClient
+Procedure MakeChoice(Val RowID)
+	
+	Item = DuplicatesSearchAreas.FindByID(RowID);
+	If Item = Undefined Then
+		Return;
+		
+	ElsIf Item.Value = DefaultArea Then
+		// No changes were made
+		Close();
+		Return;
+		
+	EndIf;
+	
+	NotifyChoice(Item.Value);
+EndProcedure
 
-	ПроизвестиВыбор(Элементы.ОбластиПоискаДублей.ТекущаяСтрока);
+&AtServer
+Procedure InitializeSearchForDuplicatesAreasList()
+	If ValueIsFilled(SettingsAddress)
+		AND IsTempStorageURL(SettingsAddress) Then
+		SettingsTable = GetFromTempStorage(SettingsAddress);
+	Else
+		SettingsTable = DataProcessors.UT_DuplicateObjectDetection.MetadataObjectsSettings();
+		SettingsAddress = PutToTempStorage(SettingsTable, UUID);
+	EndIf;
+	
+	For Each TableRow In SettingsTable Do
+		Item = DuplicatesSearchAreas.Add(TableRow.FullName, TableRow.ListPresentation, , PictureLib[TableRow.Kind]);
+		If TableRow.FullName = DefaultArea Then
+			Items.DuplicatesSearchAreas.CurrentRow = Item.GetID();
+		EndIf;
+	EndDo;
+EndProcedure
 
-КонецПроцедуры
-
-#КонецОбласти
-
-#Область СлужебныеПроцедурыИФункции
-
-&НаКлиенте
-Процедура ПроизвестиВыбор(Знач ИдентификаторСтроки)
-
-	Элемент = ОбластиПоискаДублей.НайтиПоИдентификатору(ИдентификаторСтроки);
-	Если Элемент = Неопределено Тогда
-		Возврат;
-
-	ИначеЕсли Элемент.Значение = ОбластьПоУмолчанию Тогда
-		// Не было изменений
-		Закрыть();
-		Возврат;
-
-	КонецЕсли;
-
-	ОповеститьОВыборе(Элемент.Значение);
-КонецПроцедуры
-
-&НаСервере
-Процедура ИнициализироватьСписокОбластейПоискаДублей()
-	Если ЗначениеЗаполнено(АдресНастроек) И ЭтоАдресВременногоХранилища(АдресНастроек) Тогда
-		ТаблицаНастроек = ПолучитьИзВременногоХранилища(АдресНастроек);
-	Иначе
-		ТаблицаНастроек = Обработки.UT_DuplicateObjectDetection.НастройкиОбъектовМетаданных();
-		АдресНастроек = ПоместитьВоВременноеХранилище(ТаблицаНастроек, УникальныйИдентификатор);
-	КонецЕсли;
-
-	Для Каждого СтрокаТаблицы Из ТаблицаНастроек Цикл
-		Элемент = ОбластиПоискаДублей.Добавить(СтрокаТаблицы.ПолноеИмя, СтрокаТаблицы.ПредставлениеСписка, ,
-			БиблиотекаКартинок[СтрокаТаблицы.Вид]);
-		Если СтрокаТаблицы.ПолноеИмя = ОбластьПоУмолчанию Тогда
-			Элементы.ОбластиПоискаДублей.ТекущаяСтрока = Элемент.ПолучитьИдентификатор();
-		КонецЕсли;
-	КонецЦикла;
-КонецПроцедуры
-
-#КонецОбласти
+#EndRegion
