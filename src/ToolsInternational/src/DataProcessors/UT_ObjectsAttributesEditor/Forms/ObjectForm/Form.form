@@ -284,6 +284,10 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Write parameters</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Параметры записи</value>
     </title>
@@ -572,6 +576,10 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Find object by UUID</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Найти объект по UUID</value>
           </title>
@@ -603,6 +611,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>command bar search</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Командная панель поиск</value>
@@ -673,6 +685,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Group search by HREF</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Группа поиск по HREF</value>
         </title>
@@ -705,6 +721,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>en</key>
+        <value>Group commands</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Группа команды</value>
@@ -742,6 +762,10 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Object search by UUID and URL</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Поиск объекта по UUID и URL</value>
@@ -904,6 +928,10 @@
       <common>true</common>
     </userVisible>
     <title>
+      <key>en</key>
+      <value>Data type for value in current field</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Тип данных для значения в текущем поле</value>
     </title>
@@ -948,6 +976,10 @@
       <items xsi:type="form:Decoration">
         <name>Декорация1</name>
         <id>286</id>
+        <title>
+          <key>en</key>
+          <value>To set a unique identifier, use the right mouse button</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Для задания уникального идентификатора используйте правую кнопку мыши</value>
@@ -996,6 +1028,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>en</key>
+        <value>Group value filling1</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Группа заполнение значений1</value>
@@ -1233,6 +1269,10 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Group value filling2</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Группа заполнение значений2</value>
       </title>
@@ -1270,6 +1310,10 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <title>
+      <key>en</key>
+      <value>Filling in columns of data tables (tabular sections and records)</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Заполнение колонок таблиц данных (табличных частей и движений)</value>
@@ -1322,6 +1366,10 @@
         <items xsi:type="form:Decoration">
           <name>ДекорацияРеквизитыОбъекта</name>
           <id>127</id>
+          <title>
+            <key>en</key>
+            <value>Object attributes editing</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Редактирование реквизитов объекта</value>
@@ -2028,6 +2076,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Attributes</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Реквизиты</value>
         </title>
@@ -2062,6 +2114,10 @@
         <items xsi:type="form:Decoration">
           <name>ДекорацияДополнительныеСвойства</name>
           <id>207</id>
+          <title>
+            <key>en</key>
+            <value>List of properties that will be set in the Object.AdditionalProperties before write or posting object</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Перечень свойств, которые будут установлены в Объект.ДополнительныеСвойства перед записью или проведением объекта</value>
@@ -2113,6 +2169,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Actions &quot;BeforeWrite&quot;</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Действия &quot;ПередЗаписью&quot;</value>
@@ -2249,6 +2309,10 @@
             <userVisible>
               <common>true</common>
             </userVisible>
+            <title>
+              <key>en</key>
+              <value>Group posting</value>
+            </title>
             <title>
               <key>ru</key>
               <value>Группа проведение</value>
@@ -2396,6 +2460,10 @@
             <common>true</common>
           </userVisible>
           <title>
+            <key>en</key>
+            <value>Group commands for document</value>
+          </title>
+          <title>
             <key>ru</key>
             <value>Группа команды для документа</value>
           </title>
@@ -2542,6 +2610,10 @@
           <userVisible>
             <common>true</common>
           </userVisible>
+          <title>
+            <key>en</key>
+            <value>Document records editing</value>
+          </title>
           <title>
             <key>ru</key>
             <value>Редактирование движений документа</value>
@@ -3012,6 +3084,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>Records</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Движения</value>
         </title>
@@ -3045,6 +3121,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>en</key>
+        <value>Group pages</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Группа страницы</value>
@@ -3206,6 +3286,10 @@
         <common>true</common>
       </userVisible>
       <title>
+        <key>en</key>
+        <value>Form group main</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Форма группа основное</value>
       </title>
@@ -3331,6 +3415,10 @@
         <userVisible>
           <common>true</common>
         </userVisible>
+        <title>
+          <key>en</key>
+          <value>Write as new</value>
+        </title>
         <title>
           <key>ru</key>
           <value>Записать как новый</value>
@@ -3545,6 +3633,10 @@
           <common>true</common>
         </userVisible>
         <title>
+          <key>en</key>
+          <value>XML unloading</value>
+        </title>
+        <title>
           <key>ru</key>
           <value>Выгрузка XML</value>
         </title>
@@ -3580,6 +3672,10 @@
       <userVisible>
         <common>true</common>
       </userVisible>
+      <title>
+        <key>en</key>
+        <value>Form group write</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Форма группа записать</value>
@@ -3655,12 +3751,12 @@
   <attributes>
     <name>mObjectRef</name>
     <title>
-      <key>ru</key>
-      <value>Объект ИБ</value>
+      <key>en</key>
+      <value>DB object</value>
     </title>
     <title>
-      <key>en</key>
-      <value>M object ref</value>
+      <key>ru</key>
+      <value>Объект ИБ</value>
     </title>
     <id>2</id>
     <valueType>
@@ -3675,6 +3771,10 @@
   </attributes>
   <attributes>
     <name>ПутьКФормам</name>
+    <title>
+      <key>en</key>
+      <value>Path to forms</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Путь к формам</value>
@@ -3694,6 +3794,10 @@
   <attributes>
     <name>РеквизитыОбъекта</name>
     <title>
+      <key>en</key>
+      <value>Object attributes</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Реквизиты объекта</value>
     </title>
@@ -3709,6 +3813,10 @@
     </edit>
     <columns>
       <name>Имя</name>
+      <title>
+        <key>en</key>
+        <value>Name</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Имя</value>
@@ -3728,6 +3836,10 @@
     <columns>
       <name>Представление</name>
       <title>
+        <key>en</key>
+        <value>Presentation</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Представление</value>
       </title>
@@ -3746,6 +3858,10 @@
     <columns>
       <name>Значение</name>
       <title>
+        <key>en</key>
+        <value>Value</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Значение</value>
       </title>
@@ -3760,6 +3876,10 @@
     </columns>
     <columns>
       <name>ТипЗначения</name>
+      <title>
+        <key>en</key>
+        <value>Type ( presentation )</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Тип ( представление )</value>
@@ -3777,6 +3897,10 @@
     </columns>
     <columns>
       <name>Категория</name>
+      <title>
+        <key>en</key>
+        <value>Category</value>
+      </title>
       <title>
         <key>ru</key>
         <value>Категория</value>
@@ -3798,6 +3922,10 @@
     <columns>
       <name>ДляГруппыИлиЭлемента</name>
       <title>
+        <key>en</key>
+        <value>For group or item</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Для группы или элемента</value>
       </title>
@@ -3818,6 +3946,10 @@
     <columns>
       <name>ТипСтрокой</name>
       <title>
+        <key>en</key>
+        <value>Type</value>
+      </title>
+      <title>
         <key>ru</key>
         <value>Тип</value>
       </title>
@@ -3837,6 +3969,10 @@
   <attributes>
     <name>_ПрефиксДляНовыхЭлементов</name>
     <title>
+      <key>en</key>
+      <value>Prefix for new items</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Префикс для новых элементов</value>
     </title>
@@ -3855,6 +3991,10 @@
   <attributes>
     <name>мОбъектСсылкаПредыдущий</name>
     <title>
+      <key>en</key>
+      <value>Previous object</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Предыдущий объект</value>
     </title>
@@ -3869,6 +4009,10 @@
   </attributes>
   <attributes>
     <name>_ТипОбъекта</name>
+    <title>
+      <key>en</key>
+      <value>Object type</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Тип объекта</value>
@@ -3887,6 +4031,10 @@
   </attributes>
   <attributes>
     <name>_UUID</name>
+    <title>
+      <key>en</key>
+      <value>UUID</value>
+    </title>
     <title>
       <key>ru</key>
       <value>UUID</value>
@@ -3908,6 +4056,10 @@
   <attributes>
     <name>_ИмяНабораЗаписей</name>
     <title>
+      <key>en</key>
+      <value>Record set</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Набор записей</value>
     </title>
@@ -3926,6 +4078,10 @@
   <attributes>
     <name>_НаборЗаписей</name>
     <title>
+      <key>en</key>
+      <value>Record set</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Набор записей</value>
     </title>
@@ -3942,6 +4098,10 @@
   </attributes>
   <attributes>
     <name>_ИмяНабораЗаписейПредыдущий</name>
+    <title>
+      <key>en</key>
+      <value>Record set</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Набор записей</value>
@@ -3961,6 +4121,10 @@
   <attributes>
     <name>_URL</name>
     <title>
+      <key>en</key>
+      <value>URL</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>URL</value>
     </title>
@@ -3978,6 +4142,10 @@
   </attributes>
   <attributes>
     <name>_ЗначениеДляЗаполнения</name>
+    <title>
+      <key>en</key>
+      <value>Value for fill</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Значение для заполнения</value>
@@ -4006,6 +4174,10 @@
   <attributes>
     <name>_ПриЗаполненииОбрабатыватьТолькоВыделенныеСтроки</name>
     <title>
+      <key>en</key>
+      <value>Process only selected rows</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Обрабатывать только выделенные строки</value>
     </title>
@@ -4022,6 +4194,10 @@
   </attributes>
   <attributes>
     <name>_ПроведениеРазрешено</name>
+    <title>
+      <key>en</key>
+      <value>Posting allowed</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Проведение разрешено</value>
@@ -4040,6 +4216,10 @@
   <attributes>
     <name>_ИспользоватьНеСтандартнуюФормуДляВыбора</name>
     <title>
+      <key>en</key>
+      <value>Use non-standard form for choice object</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Использовать нестандартную форму для выбора объекта</value>
     </title>
@@ -4056,6 +4236,10 @@
   </attributes>
   <attributes>
     <name>_КонфигурацияДопускаетДопДвижения</name>
+    <title>
+      <key>en</key>
+      <value>Configuration allows additional records</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Конфигурация допускает доп движения</value>
@@ -4074,6 +4258,10 @@
   <attributes>
     <name>_ТипЗначенияТекущегоПоля</name>
     <title>
+      <key>en</key>
+      <value>Data type</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Тип данных</value>
     </title>
@@ -4091,6 +4279,10 @@
   </attributes>
   <formCommands>
     <name>ОбновитьДанныеОбъекта</name>
+    <title>
+      <key>en</key>
+      <value>Update data</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Обновить данные</value>
@@ -4117,6 +4309,10 @@
   <formCommands>
     <name>ЗаписатьОбъект</name>
     <title>
+      <key>en</key>
+      <value>Write...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Записать...</value>
     </title>
@@ -4142,6 +4338,10 @@
   <formCommands>
     <name>НайтиОбъектПоUUID</name>
     <title>
+      <key>en</key>
+      <value>Find object by UUID (it could be a long time!)</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Найти объект по UUID ( это может быть долго! )</value>
     </title>
@@ -4163,6 +4363,10 @@
   <formCommands>
     <name>НайтиОбъектПоТипу_UUID</name>
     <title>
+      <key>en</key>
+      <value>Find object by Type and UUID</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Найти объект по Типу и UUID</value>
     </title>
@@ -4183,6 +4387,10 @@
   </formCommands>
   <formCommands>
     <name>ОткрытьОбъект</name>
+    <title>
+      <key>en</key>
+      <value>Open object...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Открыть объект...</value>
@@ -4209,6 +4417,10 @@
   <formCommands>
     <name>_ОбновитьНаборЗаписей</name>
     <title>
+      <key>en</key>
+      <value>Refresh</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Обновить</value>
     </title>
@@ -4233,6 +4445,10 @@
   </formCommands>
   <formCommands>
     <name>_ЗаписатьНаборЗаписей</name>
+    <title>
+      <key>en</key>
+      <value>Write...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Записать...</value>
@@ -4259,6 +4475,10 @@
   <formCommands>
     <name>_ПереключитьАктивностьЗаписей</name>
     <title>
+      <key>en</key>
+      <value>Switch records active</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Переключить активность записей</value>
     </title>
@@ -4282,6 +4502,10 @@
   </formCommands>
   <formCommands>
     <name>_ПоказатьВсеДвижения</name>
+    <title>
+      <key>en</key>
+      <value>Show all records...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Показать все движения...</value>
@@ -4308,6 +4532,10 @@
   <formCommands>
     <name>НайтиОбъектПоURL</name>
     <title>
+      <key>en</key>
+      <value>Find object by URL</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Найти объект по URL</value>
     </title>
@@ -4332,6 +4560,10 @@
   </formCommands>
   <formCommands>
     <name>_ЗаполнитьДанныеТекущейКолонки</name>
+    <title>
+      <key>en</key>
+      <value>Fill current column data</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Заполнить данные текущей колонки</value>
@@ -4358,6 +4590,10 @@
   <formCommands>
     <name>_ОткрытьРедакторДвижений</name>
     <title>
+      <key>en</key>
+      <value>Records editor...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Редактор движений...</value>
     </title>
@@ -4382,6 +4618,10 @@
   </formCommands>
   <formCommands>
     <name>_ОткрытьФормуСписка</name>
+    <title>
+      <key>en</key>
+      <value>Special list form...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Спец. форма списка...</value>
@@ -4408,6 +4648,10 @@
   <formCommands>
     <name>_РаспровестиДокумент</name>
     <title>
+      <key>en</key>
+      <value>Undo posting...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Отменить проведение...</value>
     </title>
@@ -4432,6 +4676,10 @@
   </formCommands>
   <formCommands>
     <name>_ПровестиДокумент</name>
+    <title>
+      <key>en</key>
+      <value>Post document...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Провести документ...</value>
@@ -4458,6 +4706,10 @@
   <formCommands>
     <name>_ВыгрузитьОбъект</name>
     <title>
+      <key>en</key>
+      <value>Unload object...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Выгрузить объект...</value>
     </title>
@@ -4478,6 +4730,10 @@
   </formCommands>
   <formCommands>
     <name>_ВыгрузитьОбъектСДвижениями</name>
+    <title>
+      <key>en</key>
+      <value>Unload object with records...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Выгрузить объект с движениями...</value>
@@ -4500,6 +4756,10 @@
   <formCommands>
     <name>_ВыгрузитьДвиженияОбъекта</name>
     <title>
+      <key>en</key>
+      <value>Unload object records...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Выгрузить движения объекта...</value>
     </title>
@@ -4520,6 +4780,10 @@
   </formCommands>
   <formCommands>
     <name>_ЗагрузитьДанныеXML</name>
+    <title>
+      <key>en</key>
+      <value>Unload XML data...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Загрузить данные XML...</value>
@@ -4546,6 +4810,10 @@
   <formCommands>
     <name>_ВыгрузитьНаборЗаписей</name>
     <title>
+      <key>en</key>
+      <value>Unload XML...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Выгрузить XML...</value>
     </title>
@@ -4570,6 +4838,10 @@
   </formCommands>
   <formCommands>
     <name>_ОткрытьРедакторДвиженийДоп</name>
+    <title>
+      <key>en</key>
+      <value>Records editor (additional)...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Редактор движений (доп)...</value>
@@ -4596,6 +4868,10 @@
   <formCommands>
     <name>_УдалитьОбъект</name>
     <title>
+      <key>en</key>
+      <value>Delete...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Удалить...</value>
     </title>
@@ -4620,6 +4896,10 @@
   </formCommands>
   <formCommands>
     <name>_ПоказатьТипЗначения</name>
+    <title>
+      <key>en</key>
+      <value>Show</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Показать</value>
@@ -4647,6 +4927,10 @@
   <formCommands>
     <name>_ВыбратьУдаленныйОбъект</name>
     <title>
+      <key>en</key>
+      <value>Choice broken Ref (&lt;Object not found>... )</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Выбрать битую ссылку ( &lt;Объект не найден> ... )</value>
     </title>
@@ -4672,6 +4956,10 @@
   <formCommands>
     <name>_ЗаписатьОбъектКакНовый</name>
     <title>
+      <key>en</key>
+      <value>Write as new...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Записать как новый...</value>
     </title>
@@ -4694,6 +4982,10 @@
   <formCommands>
     <name>_ЗаписатьОбъектКакНовыйСУказаннымUUID</name>
     <title>
+      <key>en</key>
+      <value>Write as new with specified UUID...</value>
+    </title>
+    <title>
       <key>ru</key>
       <value>Записать как новый с заданным UUID...</value>
     </title>
@@ -4715,6 +5007,10 @@
   </formCommands>
   <formCommands>
     <name>_ЗаполнитьПоОбразцу</name>
+    <title>
+      <key>en</key>
+      <value>Fill by sample...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Заполнить по образцу...</value>
@@ -4740,6 +5036,10 @@
   </formCommands>
   <formCommands>
     <name>_ВставитьУникальныйИдентификатор</name>
+    <title>
+      <key>en</key>
+      <value>Insert UUID...</value>
+    </title>
     <title>
       <key>ru</key>
       <value>Вставить уникальный идентификатор...</value>
