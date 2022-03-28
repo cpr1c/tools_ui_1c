@@ -760,7 +760,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.StopExecution</commandName>
+      <commandName>Form.Command.ПрекратитьВыполнение</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -1166,7 +1166,7 @@
     <main>true</main>
   </attributes>
   <formCommands>
-    <name>StopExecution</name>
+    <name>ПрекратитьВыполнение</name>
     <title>
       <key>ru</key>
       <value>Прекратить выполнение и закрыть</value>
