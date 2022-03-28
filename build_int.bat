@@ -1,3 +1,3 @@
 chcp 65001
-@oscript.exe  .\src\builder\build.os %*
+@oscript.exe  .\src\builder_int\build.os %*
 @exit /b %ERRORLEVEL%
