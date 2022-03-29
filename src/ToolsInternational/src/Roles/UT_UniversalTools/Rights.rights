@@ -26,7 +26,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ИнформацияОЛицензиях1С</name>
+		<name>DataProcessor.UT_LicenseInformation1C</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -119,7 +119,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</name>
+		<name>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -210,7 +210,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_КонсольВебСервисов</name>
+		<name>DataProcessor.UT_ConsoleWebServices</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -333,7 +333,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ПоискИУдалениеДублей</name>
+		<name>DataProcessor.UT_DuplicateObjectDetection</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -402,7 +402,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</name>
+		<name>DataProcessor.UT_ImportDataFromSpreadsheetDocument</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

@@ -10,12 +10,16 @@
     <value>U t reports console</value>
   </synonym>
   <synonym>
+    <key>en</key>
+    <value>Reports console [UT]</value>
+  </synonym>
+  <synonym>
     <key>ru</key>
     <value>Консоль отчетов [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>Report.UT_ReportsConsole.Form.Form</defaultForm>
-  <mainDataCompositionSchema>Report.UT_ReportsConsole.Template.ОсновнаяСхемаКомпоновкиДанных</mainDataCompositionSchema>
+  <mainDataCompositionSchema>Report.UT_ReportsConsole.Template.MainDataCompositionSchema</mainDataCompositionSchema>
   <forms uuid="46a8420d-50a4-4e52-8afb-7e54119d6923">
     <name>Form</name>
     <synonym>
@@ -26,28 +30,28 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="256d2e1a-d47b-4320-9de7-9bb11996b15b">
-    <name>ФормаРасшифровки</name>
+    <name>DetailsForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма расшифровки</value>
+      <value>Details form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="d7a93541-efbd-485c-9e52-22ad51331a21">
-    <name>ФормаВарианта</name>
+    <name>VariantForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма варианта</value>
+      <value>Variant form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <templates uuid="39c2996a-ee57-4c42-bf4f-e9969990c0e1">
-    <name>ОсновнаяСхемаКомпоновкиДанных</name>
+    <name>MainDataCompositionSchema</name>
     <synonym>
       <key>ru</key>
-      <value>Основная схема компоновки данных</value>
+      <value>Main data composition schema</value>
     </synonym>
     <templateType>DataCompositionSchema</templateType>
   </templates>

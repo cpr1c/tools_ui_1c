@@ -14,7 +14,7 @@
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.UT_UniversalToolsSybsystem</picture>
   </picture>
-  <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
+  <content>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</content>
   <content>DataProcessor.UT_ConstantsEditor</content>
   <content>DataProcessor.UT_DatabaseStorageStructure</content>
   <content>DataProcessor.UT_MarkedObjectsDeletion</content>
@@ -23,7 +23,7 @@
   <content>DataProcessor.UT_JobsConsole</content>
   <content>DataProcessor.UT_RegisterChangesForDataExchange</content>
   <content>DataProcessor.UT_CodeConsole</content>
-  <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
+  <content>DataProcessor.UT_DuplicateObjectDetection</content>
   <content>Catalog.UT_Algorithms</content>
   <content>DataProcessor.UT_ObjectReferencesSearch</content>
   <content>DataProcessor.UT_ObjectsAttributesEditor</content>
@@ -72,10 +72,10 @@
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
   <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
   <content>DataProcessor.UT_FileManager</content>
-  <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
+  <content>DataProcessor.UT_LicenseInformation1C</content>
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
-  <content>DataProcessor.УИ_КонсольВебСервисов</content>
-  <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
+  <content>DataProcessor.UT_ConsoleWebServices</content>
+  <content>DataProcessor.UT_ImportDataFromSpreadsheetDocument</content>
   <content>DataProcessor.UT_SettingsStoragesManager</content>
   <content>DataProcessor.UT_JSONEditor</content>
   <content>DataProcessor.UT_HTMLEditor</content>

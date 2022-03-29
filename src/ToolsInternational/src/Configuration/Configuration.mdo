@@ -26,7 +26,7 @@
   <configurationExtensionCompatibilityMode>8.3.12</configurationExtensionCompatibilityMode>
   <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
   <vendor>Neti LLC </vendor>
-  <version>2.4.11</version>
+  <version>2.4.12</version>
   <defaultLanguage>Language.English</defaultLanguage>
   <languages uuid="66bef324-e854-4c33-879a-3c081f6686cd">
     <name>Russian</name>
@@ -135,16 +135,20 @@
   <catalogs>Catalog.AdditionalReportsAndDataProcessors</catalogs>
   <reports>Report.UT_ReportsConsole</reports>
   <dataProcessors>DataProcessor.UT_CodeConsole</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ConsoleWebServices</dataProcessors>
   <dataProcessors>DataProcessor.UT_ConstantsEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_DatabaseStorageStructure</dataProcessors>
   <dataProcessors>DataProcessor.UT_DCSEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_DuplicateObjectDetection</dataProcessors>
   <dataProcessors>DataProcessor.UT_DynamicList</dataProcessors>
   <dataProcessors>DataProcessor.UT_FileManager</dataProcessors>
+  <dataProcessors>DataProcessor.UT_GroupProcessingCatalogsAndDocuments</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTMLEditor</dataProcessors>
   <dataProcessors>DataProcessor.UT_HTTPRequestConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_JobsConsole</dataProcessors>
   <dataProcessors>DataProcessor.UT_JSONDataConversion</dataProcessors>
   <dataProcessors>DataProcessor.UT_JSONEditor</dataProcessors>
+  <dataProcessors>DataProcessor.UT_LicenseInformation1C</dataProcessors>
   <dataProcessors>DataProcessor.UT_MarkedObjectsDeletion</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectReferencesSearch</dataProcessors>
   <dataProcessors>DataProcessor.UT_ObjectsAttributesEditor</dataProcessors>
@@ -156,13 +160,9 @@
   <dataProcessors>DataProcessor.UT_Support</dataProcessors>
   <dataProcessors>DataProcessor.UT_UniversalXMLDataExchange</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
+  <dataProcessors>DataProcessor.UT_ImportDataFromSpreadsheetDocument</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
 </mdclass:Configuration>

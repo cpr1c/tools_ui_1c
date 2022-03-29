@@ -1473,12 +1473,12 @@ Procedure PrepareRequestBody(PreparedRequest, Data, Files, Json, JSONWriterSetti
 			Else
 				Body = EncodeRequestParameters(Data);
 			EndIf;
-			HTTPRequest.SetBodyFromString(Body, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
+			HTTPRequest.SetBodyFromString(Body, TextEncoding.UTF8, ByteOrderMarkUsage.DontUse);
 		EndIf;
 	ElsIf Json <> Undefined Then
 		ContentType = "application/json";
 		JsonString = ObjectToJson(Json, PreparedRequest.JSONConversionParameters, JSONWriterSettings);
-		HTTPRequest.SetBodyFromString(JsonString, TextEncoding.UTF8, ByteOrderMarkUse.DontUse);
+		HTTPRequest.SetBodyFromString(JsonString, TextEncoding.UTF8, ByteOrderMarkUsage.DontUse);
 	Else
 		ContentType = Undefined;
 	EndIf;

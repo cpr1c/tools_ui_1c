@@ -3292,7 +3292,7 @@ Procedure WriteObjectOnRefsReplace (Val Object, Val WriteParameters)
 	// For sequences, the Update right can be absent even in the FullAdministrator role.
 	If IsSequence(ObjectMetadata)
 		AND Not AccessRight("Update", ObjectMetadata)
-		AND Users.IsFullUser(,, False) Then
+		AND UT_Users.IsFullUser(,, False) Then
 		
 		SetPrivilegedMode(True);
 	EndIf;

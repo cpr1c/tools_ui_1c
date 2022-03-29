@@ -43,7 +43,7 @@ EndProcedure
 
 &AtClient
 Procedure TableOfScheduledJobsToPerformOnChange(Item)
-	CurrentData = Items.ScheduledJobs.CurrentData;
+	CurrentData = Items.TableOfScheduledJobs.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
@@ -96,7 +96,7 @@ EndProcedure
 &AtClient
 Procedure ClearNumberOfRuns(Command)
 
-	CurrentData = Items.ScheduledJobs.CurrentData;
+	CurrentData = Items.TableOfScheduledJobs.CurrentData;
 	If CurrentData = Undefined Then
 		Return;
 	EndIf;
@@ -123,7 +123,7 @@ Procedure SetConditionalAppearance()
 	Item = ConditionalAppearance.Items.Add();
 
 	ItemField = Item.Fields.Items.Add();
-	ItemField.Field = New DataCompositionField(Items.ScheduledJobsDone.Name);
+	ItemField.Field = New DataCompositionField(Items.TableOfScheduledJobsDone.Name);
 
 	SelectionItem = Item.Filter.Items.Add(Type("DataCompositionFilterItem"));
 	SelectionItem.LeftValue  = New DataCompositionField("TableOfScheduledJobs.Changed");
@@ -600,22 +600,22 @@ EndFunction
 &AtServerNoContext
 Function EmptyPropertyTableBackgroundJobs()
 	NewTable = New ValueTable;
-	NewTable.Cols.Add("AtServer", New TypeDescription("Boolean"));
-	NewTable.Cols.Add("ID", New TypeDescription("String"));
-	NewTable.Cols.Add("Title", New TypeDescription("String"));
-	NewTable.Cols.Add("Key", New TypeDescription("String"));
-	NewTable.Cols.Add("Begin", New TypeDescription("Date"));
-	NewTable.Cols.Add("End", New TypeDescription("Date"));
-	NewTable.Cols.Add("ScheduledJobUUID", New TypeDescription("String"));
-	NewTable.Cols.Add("Status", New TypeDescription("BackgroundJobState"));
-	NewTable.Cols.Add("MethodName", New TypeDescription("String"));
-	NewTable.Cols.Add("Placement", New TypeDescription("String"));
-	NewTable.Cols.Add("DescriptionErrorInformation", New TypeDescription("String"));
-	NewTable.Cols.Add("AttemptToRestart", New TypeDescription("Number"));
-	NewTable.Cols.Add("MessagesToUser", New TypeDescription("Array"));
-	NewTable.Cols.Add("SessionNumber", New TypeDescription("Number"));
-	NewTable.Cols.Add("SessionStarted", New TypeDescription("Date"));
-	NewTable.Cols.Add("ToPerform", New TypeDescription("Boolean"));
+	NewTable.Columns.Add("AtServer", New TypeDescription("Boolean"));
+	NewTable.Columns.Add("ID", New TypeDescription("String"));
+	NewTable.Columns.Add("Title", New TypeDescription("String"));
+	NewTable.Columns.Add("Key", New TypeDescription("String"));
+	NewTable.Columns.Add("Begin", New TypeDescription("Date"));
+	NewTable.Columns.Add("End", New TypeDescription("Date"));
+	NewTable.Columns.Add("ScheduledJobUUID", New TypeDescription("String"));
+	NewTable.Columns.Add("Status", New TypeDescription("BackgroundJobState"));
+	NewTable.Columns.Add("MethodName", New TypeDescription("String"));
+	NewTable.Columns.Add("Placement", New TypeDescription("String"));
+	NewTable.Columns.Add("DescriptionErrorInformation", New TypeDescription("String"));
+	NewTable.Columns.Add("AttemptToRestart", New TypeDescription("Number"));
+	NewTable.Columns.Add("MessagesToUser", New TypeDescription("Array"));
+	NewTable.Columns.Add("SessionNumber", New TypeDescription("Number"));
+	NewTable.Columns.Add("SessionStarted", New TypeDescription("Date"));
+	NewTable.Columns.Add("ToPerform", New TypeDescription("Boolean"));
 	NewTable.Indexes.Add("ID, Begin");
 
 	Return NewTable;
@@ -628,14 +628,13 @@ Function RepresentationScheduledJob(Val Job) Export
 	If TypeOf(Job) = Type("ScheduledJob") Then
 		ScheduledJob = Job;
 	Else
-		ScheduledJob = ScheduledJobs.FindByUUID(
-			New UUID(Job));
+		ScheduledJob = ScheduledJobs.FindByUUID(New UUID(Job));
 	EndIf;
 
 	If ScheduledJob <> Undefined Then
-		Presentation = ScheduledJob.Title;
+		Presentation = ScheduledJob.Description;
 
-		If IsBlankString(ScheduledJob.Title) Then
+		If IsBlankString(ScheduledJob.Description) Then
 			Presentation = ScheduledJob.Metadata.Synonym;
 
 			If IsBlankString(Presentation) Then
@@ -697,7 +696,7 @@ EndProcedure
 Function RowTableValuesInStructure(ValueTableRow)
 
 	Structure = New Structure;
-	For Each Column In ValueTableRow.Owner().Cols Do
+	For Each Column In ValueTableRow.Owner().Columns Do
 		Structure.Insert(Column.Name, ValueTableRow[Column.Name]);
 	EndDo;
 

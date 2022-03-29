@@ -34,19 +34,19 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="c2ffffbe-3bb9-4265-84c1-9e0f2582f9c4">
-    <name>ФормаРедакторДвижений</name>
+    <name>FormRecodsEditor</name>
     <synonym>
       <key>ru</key>
-      <value>Форма редактор движений</value>
+      <value>Form recods editor</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="eb722fa3-3e31-43f4-b5f9-234695bb00ba">
-    <name>ФормаРедакторДвиженийДоп</name>
+    <name>FormRecordsEditorAdditional</name>
     <synonym>
       <key>ru</key>
-      <value>Форма редактор движений доп</value>
+      <value>Form records editor additional</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
