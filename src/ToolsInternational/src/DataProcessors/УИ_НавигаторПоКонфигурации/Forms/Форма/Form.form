@@ -1402,19 +1402,19 @@
           </autoCommandBar>
           <handlers>
             <event>Selection</event>
-            <name>ДеревоОбъектовВыбор</name>
-          </handlers>
-          <handlers>
-            <event>OnActivateRow</event>
-            <name>ДеревоОбъектовПриАктивизацииСтроки</name>
+            <name>ObjectTreeSelection</name>
           </handlers>
           <handlers>
             <event>BeforeExpand</event>
             <name>ДеревоОбъектовПередРазворачиванием</name>
           </handlers>
           <handlers>
+            <event>OnActivateRow</event>
+            <name>ObjectsTreeOnActivateRow</name>
+          </handlers>
+          <handlers>
             <event>OnChange</event>
-            <name>ДеревоОбъектовПриИзменении</name>
+            <name>ObjectsTreeOnChange</name>
           </handlers>
           <searchStringAddition>
             <visible>true</visible>
