@@ -332,8 +332,8 @@ EndProcedure
 
 &AtClient
 Procedure _CreateDBUser(Command)
-	СтрукПараметры = New Structure("РежимРаботы", 1);
-	OpenForm(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , , , , ,
+	StructureOfParameters = New Structure("WorkMode", 1);
+	OpenForm(PathToForms + "UserForm", StructureOfParameters, , , , , ,
 		FormWindowOpeningMode.LockOwnerWindow);
 EndProcedure
 
@@ -341,8 +341,8 @@ EndProcedure
 Procedure _CopyDBUser(Command)
 	CurrentData = Items.ObjectsTree.CurrentData;
 	If CurrentData <> Undefined And StrFind(CurrentData.FullName, "User.") = 1 Then
-		СтрукПараметры = New Structure("РежимРаботы, DBUserID", 2, CurrentData.ObjectPresentation);
-		OpenForm(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , , , , ,
+		StructureOfParameters = New Structure("WorkMode, DBUserID", 2, CurrentData.ObjectPresentation);
+		OpenForm(PathToForms + "UserForm", StructureOfParameters, , , , , ,
 			FormWindowOpeningMode.LockOwnerWindow);
 	EndIf;
 EndProcedure
@@ -351,19 +351,22 @@ EndProcedure
 Procedure _DeleteDBUser(Command)
 	CurrentData = Items.ObjectsTree.CurrentData;
 	If CurrentData <> Undefined And StrFind(CurrentData.FullName, "User.") = 1 Then
-		пТекст = StrTemplate("User ""%1"" будет удален из информационной базы!
-						   |Continue?", CurrentData.Name);
-		ShowQueryBox(New NotifyDescription("вУдалитьПользователяОтвет", ThisForm, CurrentData), пТекст,
+		nText = StrTemplate(
+		NStr("ru = 'Пользователь ""%1"" будет удален из информационной базы!
+								  |Продолжить?';en = 'The user ""%1"" will be deleted from the base!
+								  |Continue?'"), CurrentData.Name);
+								  
+		ShowQueryBox(New NotifyDescription("vDeleteUserAnswer", ThisForm, CurrentData), nText,
 			QuestionDialogMode.YesNoCancel, 20);
 	EndIf;
 EndProcedure
 
 &AtClient
-Procedure вУдалитьПользователяОтвет(Ответ, CurrentData) Export
-	If Ответ = DialogReturnCode.Yes Then
-		pResult = вУдалитьПользователяИБ(CurrentData.ObjectPresentation);
+Procedure vDeleteUserAnswer(Answer, CurrentData) Export
+	If Answer = DialogReturnCode.Yes Then
+		pResult = vDeleteUser(CurrentData.ObjectPresentation);
 		If pResult.Cancel Then
-			vShowMessageBox(pResult.ПричинаОтказа);
+			vShowMessageBox(pResult.ReasonForRefusal);
 		Else
 			CurrentData.GetParent().GetItems().Delete(CurrentData);
 		EndIf;
@@ -371,8 +374,8 @@ Procedure вУдалитьПользователяОтвет(Ответ, Current
 EndProcedure
 
 &AtServerNoContext
-Function вУдалитьПользователяИБ(ID)
-	pResult = New Structure("Cancel, ПричинаОтказа", False, "");
+Function vDeleteUser(ID)
+	pResult = New Structure("Cancel, ReasonForRefusal", False, "");
 
 	Try
 		пUUID = New UUID(ID);
@@ -380,22 +383,22 @@ Function вУдалитьПользователяИБ(ID)
 		vUser = InfoBaseUsers.FindByUUID(пUUID);
 		If vUser = Undefined Then
 			pResult.Cancel = True;
-			pResult.ПричинаОтказа = "Указанный User не найден!";
+			pResult.ReasonForRefusal = Nstr("ru = 'Указанный пользователь не найден!';en = 'The specified user was not found!'");
 			Return pResult;
 		EndIf;
 
-		пТекПользователь = InfoBaseUsers.CurrentUser();
+		pCurrentUser = InfoBaseUsers.CurrentUser();
 
-		If пТекПользователь.UUID = пUUID Then
+		If pCurrentUser.UUID = пUUID Then
 			pResult.Cancel = True;
-			pResult.ПричинаОтказа = "Нельзя удалить текущего пользоватля!";
+			pResult.ReasonForRefusal = Nstr("ru = 'Нельзя удалить текущего пользоватля!';en = 'You cannot delete the current user!'");
 			Return pResult;
 		EndIf;
 
 		vUser.Delete();
 	Except
 		pResult.Cancel = True;
-		pResult.ПричинаОтказа = ErrorDescription();
+		pResult.ReasonForRefusal = ErrorDescription();
 	EndTry;
 
 	Return pResult;
@@ -411,20 +414,20 @@ Procedure kShowObjectProperties(Command)
 		EndIf;
 
 		If CurrentData <> Undefined Then
-			пПолноеИмя = CurrentData.Metadata;
-			If пПолноеИмя = "<не задано>" Then
+			pFullName = CurrentData.Metadata;
+			If pFullName = Nstr("ru = '<не задано>';en = '<not set>'") Then
 				Return;
 			EndIf;
 
-			Поз = StrFind(пПолноеИмя, ".", , , 2);
-			If Поз <> 0 Then
-				пПолноеИмя = Left(пПолноеИмя, Поз - 1);
+			Position = StrFind(pFullName, ".", , , 2);
+			If Position <> 0 Then
+				pFullName = Left(pFullName, Position - 1);
 			EndIf;
 
-			СтрукПараметры = New Structure("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа",
-				пПолноеИмя, PathToForms, _StorageAddresses, mDescriptionAccessRights);
-			СтрукПараметры.Insert("НастройкиОбработки", vFormStructureOfObjectPropertiesFormSettings());
-			OpenForm(PathToForms + "ФормаСвойств", СтрукПараметры, , пПолноеИмя, , , ,
+			StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights",
+				pFullName, PathToForms, _StorageAddresses, mDescriptionAccessRights);
+			StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+			OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , pFullName, , , ,
 				FormWindowOpeningMode.Independent);
 		EndIf;
 
@@ -435,21 +438,21 @@ Procedure kShowObjectProperties(Command)
 	If CurrentData <> Undefined Then
 		If CurrentData.NodeType = "MetadataObject" Then
 			If StrFind(CurrentData.FullName, "User.") = 1 Then
-				СтрукПараметры = New Structure("DBUserID", CurrentData.ObjectPresentation);
-				OpenForm(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , CurrentData.FullName, , , ,
+				StructureOfParameters = New Structure("DBUserID", CurrentData.ObjectPresentation);
+				OpenForm(PathToForms + "UserForm", StructureOfParameters, , CurrentData.FullName, , , ,
 					FormWindowOpeningMode.LockOwnerWindow);
 			Else
-				СтрукПараметры = New Structure("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа",
+				StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights",
 					CurrentData.FullName, PathToForms, _StorageAddresses, mDescriptionAccessRights);
-				СтрукПараметры.Insert("НастройкиОбработки", vFormStructureOfObjectPropertiesFormSettings());
-				OpenForm(PathToForms + "ФормаСвойств", СтрукПараметры, , CurrentData.FullName, , , ,
+				StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+				OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , CurrentData.FullName, , , ,
 					FormWindowOpeningMode.Independent);
 			EndIf;
 		ElsIf CurrentData.NodeType = "Configuration" Then
-			СтрукПараметры = New Structure("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа",
+			StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights",
 				"Configuration", PathToForms, _StorageAddresses, mDescriptionAccessRights);
-			СтрукПараметры.Insert("НастройкиОбработки", vFormStructureOfObjectPropertiesFormSettings());
-			OpenForm(PathToForms + "ФормаСвойств", СтрукПараметры, , CurrentData.FullName, , , ,
+			StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+			OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , CurrentData.FullName, , , ,
 				FormWindowOpeningMode.Independent);
 		EndIf;
 	EndIf;
@@ -461,37 +464,37 @@ Procedure kOpenListForm(Command)
 	If CurrentData <> Undefined Then
 		If CurrentData.NodeType = "MetadataObject" And Not вЭтоПрочаяКоманда(CurrentData.FullName) Then
 			Try
-				ВидОбъектМД = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
+				ObjectTypeMD = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
 
-				If ВидОбъектМД = "User" Then
+				If ObjectTypeMD = "User" Then
 					StandardProcessing = False;
-					СтрукПараметры = New Structure("DBUserID", CurrentData.ObjectPresentation);
-					OpenForm(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , CurrentData.FullName, , , ,
+					StructureOfParameters = New Structure("DBUserID", CurrentData.ObjectPresentation);
+					OpenForm(PathToForms + "UserForm", StructureOfParameters, , CurrentData.FullName, , , ,
 						FormWindowOpeningMode.LockOwnerWindow);
 					Return;
 				EndIf;
 
-				If Not mOrdinaryApplicationObjects.Property(ВидОбъектМД) Then
+				If Not mOrdinaryApplicationObjects.Property(ObjectTypeMD) Then
 					Return;
 				EndIf;
 
-				If ВидОбъектМД = "Processing" Then
-					ИмяФормыМД = ".Form";
-				ElsIf ВидОбъектМД = "Report" Then
-					ИмяФормыМД = ".Form";
-				ElsIf ВидОбъектМД = "Constant" Then
-					ИмяФормыМД = ".ФормаКонстант";
-				ElsIf ВидОбъектМД = "ОбщаяФорма" Then
-					ИмяФормыМД = "";
-				ElsIf ВидОбъектМД = "Enum" Then
+				If ObjectTypeMD = "Processing" Then
+					FormNameMD = ".Form";
+				ElsIf ObjectTypeMD = "Report" Then
+					FormNameMD = ".Form";
+				ElsIf ObjectTypeMD = "Constant" Then
+					FormNameMD = ".ConstantsForm";
+				ElsIf ObjectTypeMD = "CommonForm" Then
+					FormNameMD = "";
+				ElsIf ObjectTypeMD = "Enum" Then
 					StandardProcessing = True;
 					Return;
 				Else
-					ИмяФормыМД = ".ФормаСписка";
+					FormNameMD = ".ListForm";
 				EndIf;
 
 				StandardProcessing = False;
-				OpenForm(CurrentData.FullName + ИмяФормыМД);
+				OpenForm(CurrentData.FullName + FormNameMD);
 			Except
 				Message(BriefErrorDescription(ErrorInfo()));
 			EndTry;
@@ -555,9 +558,9 @@ Procedure ДеревоОбъектовПередРазворачиванием(I
 		TreeLines.Clear();
 
 		ИмяУзлаДЗ = TreeNode.Name;
-		Поз = StrFind(ИмяУзлаДЗ, " (");
-		If Поз <> 0 Then
-			ИмяУзлаДЗ = Left(ИмяУзлаДЗ, Поз - 1);
+		Position = StrFind(ИмяУзлаДЗ, " (");
+		If Position <> 0 Then
+			ИмяУзлаДЗ = Left(ИмяУзлаДЗ, Position - 1);
 		EndIf;
 
 		If TreeNode.NodeType = "SectionMD" Then
@@ -623,19 +626,19 @@ Procedure ДеревоОбъектовПередРазворачиванием(I
 			EndDo;
 
 		ElsIf TreeNode.NodeType = "MetadataObject" Then
-			ВидОбъектМД = Left(TreeNode.FullName, StrFind(TreeNode.FullName, ".") - 1);
+			ObjectTypeMD = Left(TreeNode.FullName, StrFind(TreeNode.FullName, ".") - 1);
 
 			TreeNode = ObjectsTree.FindByID(String);
 			TreeLines = TreeNode.GetItems();
 			TreeLines.Clear();
 
-			If ВидОбъектМД = "Enum" Then
+			If ObjectTypeMD = "Enum" Then
 				МассивОбъектов = вПолучитьСоставПеречисления(TreeNode.FullName);
 				For Each Item In МассивОбъектов Do
 					TreeLine = TreeLines.Add();
 					FillPropertyValues(TreeLine, Item);
 				EndDo;
-			ElsIf ВидОбъектМД = "Подсистема" Then
+			ElsIf ObjectTypeMD = "Подсистема" Then
 				МассивОбъектов = вПолучитьСоставПодсистемы(TreeNode.FullName);
 				For Each Item In МассивОбъектов Do
 					TreeLine = TreeLines.Add();
@@ -644,13 +647,13 @@ Procedure ДеревоОбъектовПередРазворачиванием(I
 						TreeLine.GetItems().Add();
 					EndIf;
 				EndDo;
-			ElsIf ВидОбъектМД = "WebСервис" Then
+			ElsIf ObjectTypeMD = "WebСервис" Then
 				МассивОбъектов = вПолучитьОперацииWebСервиса(TreeNode.FullName);
 				For Each Item In МассивОбъектов Do
 					TreeLine = TreeLines.Add();
 					FillPropertyValues(TreeLine, Item);
 				EndDo;
-			ElsIf ВидОбъектМД = "HTTPСервис" Then
+			ElsIf ObjectTypeMD = "HTTPСервис" Then
 				МассивОбъектов = вПолучитьМетодыHTTPСервиса(TreeNode.FullName);
 				For Each Item In МассивОбъектов Do
 					TreeLine = TreeLines.Add();
@@ -721,9 +724,9 @@ EndFunction
 
 &AtServerNoContext
 Function vGetCompositionSectionMD(Val ИмяРаздела)
-	Поз = StrFind(ИмяРаздела, " ");
-	If Поз <> 0 Then
-		ИмяРаздела = Left(ИмяРаздела, Поз - 1);
+	Position = StrFind(ИмяРаздела, " ");
+	If Position <> 0 Then
+		ИмяРаздела = Left(ИмяРаздела, Position - 1);
 	EndIf;
 
 	СтрукРезультат = New Structure("NumberOfObjects, МассивОбъектов", 0, New Array);
@@ -966,8 +969,8 @@ Procedure ДеревоОбъектовВыбор(Item, SelectedRow, Field, Stand
 			СпецПеречень = "Processing, Report";
 			_Structure = New Structure(СпецПеречень);
 
-			ВидОбъектМД = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
-			If _Structure.Property(ВидОбъектМД) Then
+			ObjectTypeMD = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
+			If _Structure.Property(ObjectTypeMD) Then
 				kOpenListForm(Undefined);
 			Else
 				kShowObjectProperties(Undefined);
@@ -1077,10 +1080,10 @@ EndProcedure
 Procedure ТабНастройкиПередУдалением(Item, Cancel)
 	Cancel = True;
 	If Not IsBlankString(_NameOfSettingsManager) Then
-		СтрукПараметры = New Structure;
-		СтрукПараметры.Insert("МассивСтрок", New FixedArray(Item.SelectedRows));
+		StructureOfParameters = New Structure;
+		StructureOfParameters.Insert("МассивСтрок", New FixedArray(Item.SelectedRows));
 		vShowQueryBox("Отмеченные настройки будут удалены. Continue?", "ТабНастройкиПередУдалениемДалее",
-			СтрукПараметры);
+			StructureOfParameters);
 	EndIf;
 EndProcedure
 
@@ -1516,8 +1519,8 @@ Procedure vFillAccessRights()
 	For Each Item In mDescriptionAccessRights Do
 		НС = VerifiableRightsTable.Add();
 		НС.MetadataObject = Item.Key;
-		Поз = StrFind(Item.Value, ",");
-		НС.Right = ?(Поз = 0, Item.Value, Left(Item.Value, Поз - 1));
+		Position = StrFind(Item.Value, ",");
+		НС.Right = ?(Position = 0, Item.Value, Left(Item.Value, Position - 1));
 	EndDo;
 
 	VerifiableRightsTable.Sort("MetadataObject");
@@ -1541,11 +1544,11 @@ Procedure ТабРолиСДоступомВыбор(Item, SelectedRow, Field, S
 
 	CurrentData = Items.RolesWithAccessTable.CurrentData;
 	If CurrentData <> Undefined Then
-		пПолноеИмя = "Role." + CurrentData.Name;
-		СтрукПараметры = New Structure("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа", пПолноеИмя,
+		pFullName = "Role." + CurrentData.Name;
+		StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights", pFullName,
 			PathToForms, _StorageAddresses, mDescriptionAccessRights);
-		СтрукПараметры.Insert("НастройкиОбработки", vFormStructureOfObjectPropertiesFormSettings());
-		OpenForm(PathToForms + "ФормаСвойств", СтрукПараметры, , пПолноеИмя, , , ,
+		StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+		OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , pFullName, , , ,
 			FormWindowOpeningMode.Independent);
 	EndIf;
 EndProcedure
@@ -1559,8 +1562,8 @@ Procedure ТабПользователиСДоступомВыбор(Item, Selec
 		пИдентификаторПользователя = vGetUserId(CurrentData.Name);
 
 		If Not IsBlankString(пИдентификаторПользователя) Then
-			pStructure = New Structure("РежимРаботы, DBUserID", 0, пИдентификаторПользователя);
-			OpenForm(PathToForms + "ФормаПользовательИБ", pStructure, , , , , ,
+			pStructure = New Structure("WorkMode, DBUserID", 0, пИдентификаторПользователя);
+			OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
 				FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
 	EndIf;
@@ -1641,11 +1644,11 @@ Procedure kCalculateObjectsNumber(Command)
 					   |, ChartsOfCalculationTypes, ChartsOfAccounts, InformationRegisters, AccumulationRegisters, AccountingRegisters, CalculationRegisters, BusinessProcesses, Tasks";
 
 			_Structure = New Structure(Перечень);
-			Поз = StrFind(CurrentData.Name, " ");
-			If Поз = 0 Then
+			Position = StrFind(CurrentData.Name, " ");
+			If Position = 0 Then
 				ИмяРаздела = CurrentData.Name;
 			Else
-				ИмяРаздела = Left(CurrentData.Name, Поз - 1);
+				ИмяРаздела = Left(CurrentData.Name, Position - 1);
 			EndIf;
 
 			If Not _Structure.Property(ИмяРаздела) Then
@@ -1967,8 +1970,8 @@ Procedure _СписокПользователейИБВыбор(Item, SelectedRo
 
 	CurrentData = _DBUserList.FindByID(SelectedRow);
 	If CurrentData <> Undefined Then
-		pStructure = New Structure("РежимРаботы, DBUserID", 0, CurrentData.UUID);
-		OpenForm(PathToForms + "ФормаПользовательИБ", pStructure, , , , , ,
+		pStructure = New Structure("WorkMode, DBUserID", 0, CurrentData.UUID);
+		OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
 			FormWindowOpeningMode.LockOwnerWindow);
 	EndIf;
 EndProcedure
@@ -1980,13 +1983,13 @@ Procedure _СписокПользователейИБПередНачаломД�
 	If Copy Then
 		CurrentData = Item.CurrentData;
 		If CurrentData <> Undefined Then
-			pStructure = New Structure("РежимРаботы, DBUserID", 2, CurrentData.UUID);
-			OpenForm(PathToForms + "ФормаПользовательИБ", pStructure, , , , , ,
+			pStructure = New Structure("WorkMode, DBUserID", 2, CurrentData.UUID);
+			OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
 				FormWindowOpeningMode.LockOwnerWindow);
 		EndIf;
 	Else
-		pStructure = New Structure("РежимРаботы", 1);
-		OpenForm(PathToForms + "ФормаПользовательИБ", pStructure, , , , , ,
+		pStructure = New Structure("WorkMode", 1);
+		OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
 			FormWindowOpeningMode.LockOwnerWindow);
 	EndIf;
 EndProcedure
@@ -1995,27 +1998,27 @@ EndProcedure
 Procedure _СписокПользователейИБПередУдалением(Item, Cancel)
 	Cancel = True;
 
-	пВыделенныеСтроки = Item.SelectedRows;
-	пЧисло = пВыделенныеСтроки.Count();
+	pSelectedLines = Item.SelectedRows;
+	пЧисло = pSelectedLines.Count();
 
 	If пЧисло = 0 Then
 		Return;
 	ElsIf пЧисло = 1 Then
 		пТекст = StrTemplate("User ""%1"" будет удален из информационной базы!
-						   |Continue?", _DBUserList.FindByID(пВыделенныеСтроки[0]).Name);
+						   |Continue?", _DBUserList.FindByID(pSelectedLines[0]).Name);
 	Else
 		пТекст = StrTemplate("Отмеченные пользователи (%1 шт) будут удалены из информационной базы!
 						   |Continue?", пЧисло);
 	EndIf;
 
-	vShowQueryBox(пТекст, "вУдалитьПользователейИБОтвет", пВыделенныеСтроки);
+	vShowQueryBox(пТекст, "вУдалитьПользователейИБОтвет", pSelectedLines);
 EndProcedure
 
 &AtClient
-Procedure вУдалитьПользователейИБОтвет(Ответ, пВыделенныеСтроки) Export
+Procedure вУдалитьПользователейИБОтвет(Ответ, pSelectedLines) Export
 	If Ответ = DialogReturnCode.Yes Then
 		pArray = New Array;
-		For Each Стр In пВыделенныеСтроки Do
+		For Each Стр In pSelectedLines Do
 			CurrentData = _DBUserList.FindByID(Стр);
 			If CurrentData <> Undefined Then
 				pArray.Add(CurrentData.UUID);
@@ -2038,15 +2041,15 @@ EndProcedure
 Function вУдалитьПользователейИБ(Val пМассивИдентификаторов)
 	pResult = New Array;
 
-	пТекПользователь = InfoBaseUsers.CurrentUser();
+	pCurrentUser = InfoBaseUsers.CurrentUser();
 
 	For Each Item In пМассивИдентификаторов Do
 		Try
 			пUUID = New UUID(Item);
 
 			vUser = InfoBaseUsers.FindByUUID(пUUID);
-			If vUser = Undefined Or (пТекПользователь <> Undefined
-				And пТекПользователь.UUID = пUUID) Then
+			If vUser = Undefined Or (pCurrentUser <> Undefined
+				And pCurrentUser.UUID = пUUID) Then
 				Continue;
 			EndIf;
 
@@ -2170,13 +2173,13 @@ Function вПолучитьСоединения(Val пПереченьПолей
 EndFunction
 &AtClient
 Procedure _FinishSessions(Command)
-	пВыделенныеСтроки = Items._SessionList.SelectedRows;
-	If пВыделенныеСтроки.Count() = 0 Then
+	pSelectedLines = Items._SessionList.SelectedRows;
+	If pSelectedLines.Count() = 0 Then
 		Return;
 	EndIf;
 
 	пМассивСеансов = New Array;
-	For Each Item In пВыделенныеСтроки Do
+	For Each Item In pSelectedLines Do
 		Стр = _SessionList.FindByID(Item);
 		If Not Стр.CurrentSession Then
 			пМассивСеансов.Add(Стр.SessionNumber);
@@ -2319,10 +2322,10 @@ Function вПолучитьПараметрыКластера1С()
 	пМассивСтр = StrSplit(пСтрокаСоединения, ";", False);
 
 	пЗначение = StrReplace(вЗначениеКлючаСтроки(пМассивСтр, "Srvr"), """", "");
-	Поз = Find(пЗначение, ":");
-	If Поз <> 0 Then
-		pResult.Insert("АдресАгентаСервера", TrimAll(Mid(пЗначение, 1, Поз - 1)));
-		pResult.Insert("ПортКластера", Number(Mid(пЗначение, Поз + 1)));
+	Position = Find(пЗначение, ":");
+	If Position <> 0 Then
+		pResult.Insert("АдресАгентаСервера", TrimAll(Mid(пЗначение, 1, Position - 1)));
+		pResult.Insert("ПортКластера", Number(Mid(пЗначение, Position + 1)));
 	Else
 		pResult.Insert("АдресАгентаСервера", пЗначение);
 		pResult.Insert("ПортКластера", 1541);

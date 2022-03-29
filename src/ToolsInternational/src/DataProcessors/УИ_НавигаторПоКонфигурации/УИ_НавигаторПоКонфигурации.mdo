@@ -38,10 +38,10 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="a62cbea1-afb1-4977-a4c2-81fdcab09202">
-    <name>ФормаСвойств</name>
+    <name>PropertiesForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма свойств</value>
+      <value>Properties form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
@@ -74,7 +74,7 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="f1e04277-3f38-4549-ba5f-c9e162b0837e">
-    <name>ФормаПользовательИБ</name>
+    <name>UserForm</name>
     <synonym>
       <key>ru</key>
       <value>Пользователь информационной базы</value>
