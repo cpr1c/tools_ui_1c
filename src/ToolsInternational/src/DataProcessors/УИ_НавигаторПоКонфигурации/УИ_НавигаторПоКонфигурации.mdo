@@ -38,19 +38,19 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="a62cbea1-afb1-4977-a4c2-81fdcab09202">
-    <name>ФормаСвойств</name>
+    <name>PropertiesForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма свойств</value>
+      <value>Properties form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="480631a7-fc64-4efe-8e9f-28a4ee3e397c">
-    <name>ФормаВыбораМасштабаОтображения</name>
+    <name>DisplayScaleSelectionForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма выбора масштаба отображения</value>
+      <value>Display scale selection form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
@@ -65,16 +65,16 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="8fd69860-d0fb-4be7-8e6e-6b498f2b2f28">
-    <name>ФормаЗапуска1С</name>
+    <name>Launch1CForm</name>
     <synonym>
       <key>ru</key>
-      <value>Форма запуска1 С</value>
+      <value>Launch1 c form</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="f1e04277-3f38-4549-ba5f-c9e162b0837e">
-    <name>ФормаПользовательИБ</name>
+    <name>UserForm</name>
     <synonym>
       <key>ru</key>
       <value>Пользователь информационной базы</value>

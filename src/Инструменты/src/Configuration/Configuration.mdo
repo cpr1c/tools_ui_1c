@@ -122,6 +122,7 @@
   <commonForms>CommonForm.УИ_РедакторТаблицыЗначений</commonForms>
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <commonForms>CommonForm.УИ_НастройкиИнструментов</commonForms>
+  <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>

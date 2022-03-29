@@ -6,12 +6,6 @@
 		<languageInfo>
 			<id>ru</id>
 			<code>Русский</code>
-			<description>Русский</description>
-		</languageInfo>
-		<languageInfo>
-			<id>en</id>
-			<code>Английский</code>
-			<description>Английский</description>
 		</languageInfo>
 	</languageSettings>
 	<columns>
@@ -110,7 +104,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Общего назначения</v8:content>
+							<v8:content>General purpose</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -132,7 +126,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>СервисныеФункции</v8:content>
+							<v8:content>ServiceFunctions</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -154,7 +148,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Версии подсистем конфигурации</v8:content>
+							<v8:content>Versions of configuration subsystems</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -170,7 +164,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>ВерсииПодсистем</v8:content>
+							<v8:content>SubsystemVersions</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -181,7 +175,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>_КонтекстФормы.ВерсииПодсистем</v8:content>
+							<v8:content>_FormContext.SubsystemVersions</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -208,7 +202,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Изменить масштаб отображения</v8:content>
+							<v8:content>Change the display scale</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -224,7 +218,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>МасштабОтображения</v8:content>
+							<v8:content>DisplayScale</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -246,7 +240,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Обновить повторно используемые значения</v8:content>
+							<v8:content>Refresh reusable values</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -262,7 +256,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>ОбновитьПовторноИспользуемыеЗначения</v8:content>
+							<v8:content>RefreshReusableValues</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -290,7 +284,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Очистить избранное...</v8:content>
+							<v8:content>Clear favorites...</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -306,7 +300,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>ОчиститьИзбранное</v8:content>
+							<v8:content>ClearFavorites</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -334,7 +328,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Установить блокировку сеансов...</v8:content>
+							<v8:content>Set session lock...</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -350,7 +344,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>УстановитьБлокировкуСеансов</v8:content>
+							<v8:content>SetSessionsLock</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -378,7 +372,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Установить монопольный режим</v8:content>
+							<v8:content>Set exclusive mode</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -394,7 +388,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>ПереключитьМонопольныйРежим</v8:content>
+							<v8:content>ExclusiveMode</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -427,7 +421,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Запуск сеанса 1С</v8:content>
+							<v8:content>Starting a 1C session</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -466,7 +460,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Конфигуратор 1С</v8:content>
+							<v8:content>1C Configurator</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -478,7 +472,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Конфигуратор1С</v8:content>
+							<v8:content>1CConfigurator</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -500,7 +494,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Толстый клиент (обычное приложение)</v8:content>
+							<v8:content>Thick Client (Ordinary application)</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -512,7 +506,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>ТолстыйКлиентОбычное</v8:content>
+							<v8:content>OrdinaryСlient</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -534,7 +528,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Толстый клиент (управляемое приложение)</v8:content>
+							<v8:content>Thick Client</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -546,7 +540,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>ТолстыйКлиентУпр</v8:content>
+							<v8:content>ThickСlient</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -568,7 +562,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Тонкий клиент (управляемое приложение)</v8:content>
+							<v8:content>Thin client</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -580,7 +574,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>ТонкийКлиентУпр</v8:content>
+							<v8:content>ThinСlient</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -602,7 +596,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Запуск 1С (произвольная база)</v8:content>
+							<v8:content>Launch of 1C (any database)</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -614,7 +608,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Запуск1С</v8:content>
+							<v8:content>Run1C</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -669,7 +663,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Все программы</v8:content>
+							<v8:content>All Programms</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -709,7 +703,7 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>Данные приложений</v8:content>
+							<v8:content>Application Data</v8:content>
 						</v8:item>
 					</tl>
 				</c>
