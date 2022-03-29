@@ -69,6 +69,7 @@
         <wrap>true</wrap>
         <choiceButton>true</choiceButton>
         <clearButton>false</clearButton>
+        <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>

@@ -2487,6 +2487,7 @@
                       <autoMaxHeight>true</autoMaxHeight>
                       <wrap>true</wrap>
                       <clearButton>true</clearButton>
+                      <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
                       <chooseType>true</chooseType>
                       <typeDomainEnabled>true</typeDomainEnabled>
                       <textEdit>true</textEdit>
@@ -4014,7 +4015,6 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <autoFill>true</autoFill>
               </contextMenu>
               <type>TextDocumentField</type>
               <editMode>Enter</editMode>
@@ -6640,7 +6640,8 @@
     </title>
     <id>2</id>
     <valueType>
-      <types>TextDocument</types>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
@@ -7723,7 +7724,8 @@
     </title>
     <id>38</id>
     <valueType>
-      <types>TextDocument</types>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
@@ -8205,6 +8207,23 @@
       <value>У и отладка</value>
     </title>
     <id>51</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>УИ_ВходитВСоставУниверсальныхИнструментов</name>
+    <title>
+      <key>ru</key>
+      <value>У и входит в состав универсальных инструментов</value>
+    </title>
+    <id>54</id>
     <valueType>
       <types>Boolean</types>
     </valueType>

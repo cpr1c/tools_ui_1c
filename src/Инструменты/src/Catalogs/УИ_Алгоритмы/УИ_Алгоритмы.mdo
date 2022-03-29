@@ -113,7 +113,6 @@
   <editType>InDialog</editType>
   <choiceMode>BothWays</choiceMode>
   <defaultObjectForm>Catalog.УИ_Алгоритмы.Form.ФормаЭлемента</defaultObjectForm>
-  <defaultListForm>Catalog.УИ_Алгоритмы.Form.ФормаСписка</defaultListForm>
   <attributes uuid="e4ac9d02-6f4c-11e9-1495-002522f8f390">
     <name>ТекстАлгоритма</name>
     <synonym>
@@ -401,15 +400,6 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="e4b06edc-6f4c-11e9-1495-002522f8f390">
-    <name>ФормаСписка</name>
-    <synonym>
-      <key>ru</key>
-      <value>Форма списка</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
   <forms uuid="e4b0e632-6f4c-11e9-1495-002522f8f390">
     <name>ФормаРедактора</name>
     <synonym>
@@ -419,4 +409,20 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="bfe3f57a-904a-48da-b4dc-8c5271289365">
+    <name>ВыполнитьАлгоритм</name>
+    <synonym>
+      <key>ru</key>
+      <value>Выполнить алгоритм</value>
+    </synonym>
+    <group>FormCommandBarImportant</group>
+    <commandParameterType>
+      <types>CatalogRef.УИ_Алгоритмы</types>
+    </commandParameterType>
+    <parameterUseMode>Multiple</parameterUseMode>
+    <representation>PictureAndText</representation>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.GenerateReport</picture>
+    </picture>
+  </commands>
 </mdclass:Catalog>

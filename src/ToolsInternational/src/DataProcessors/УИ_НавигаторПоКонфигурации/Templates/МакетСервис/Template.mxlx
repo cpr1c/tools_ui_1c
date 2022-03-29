@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document xmlns="http://v8.1c.ru/8.2/data/spreadsheet" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<languageSettings>
-		<currentLanguage>ru</currentLanguage>
-		<defaultLanguage>ru</defaultLanguage>
+		<currentLanguage>en</currentLanguage>
+		<defaultLanguage>en</defaultLanguage>
 		<languageInfo>
 			<id>ru</id>
-			<code>Русский</code>
-			<description>Русский</description>
+			<code>Russian</code>
 		</languageInfo>
 		<languageInfo>
 			<id>en</id>
-			<code>Английский</code>
-			<description>Английский</description>
+			<code>English</code>
 		</languageInfo>
 	</languageSettings>
 	<columns>
@@ -52,6 +50,10 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Представление</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Представление</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
@@ -61,6 +63,10 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
+							<v8:content>ВидУзла</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
 							<v8:content>ВидУзла</v8:content>
 						</v8:item>
 					</tl>
@@ -74,16 +80,9 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Имя</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>5</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Выражение для доступности</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Имя</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -94,6 +93,25 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
+							<v8:content>Выражение для доступности</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Выражение для доступности</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>9</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Комментарий</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
 							<v8:content>Комментарий</v8:content>
 						</v8:item>
 					</tl>
@@ -112,16 +130,9 @@
 							<v8:lang>ru</v8:lang>
 							<v8:content>Общего назначения</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>9</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Г</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Service Functions</v8:content>
 						</v8:item>
 					</tl>
 				</c>
@@ -132,15 +143,38 @@
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
-							<v8:content>СервисныеФункции</v8:content>
+							<v8:content>Г</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Г</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>11</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>СервисныеФункции</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>ServiceFunctions</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -150,48 +184,64 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Версии подсистем конфигурации</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Subsystem versions</v8:content>
+						</v8:item>
 					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>9</f>
 				</c>
 			</c>
 			<c>
 				<c>
 					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>11</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>ВерсииПодсистем</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>0</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>_КонтекстФормы.ВерсииПодсистем</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>SubsystemVersions</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
 				<c>
-					<f>4</f>
+					<f>3</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
+							<v8:content>_КонтекстФормы.ВерсииПодсистем</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>_FormContext.SubsystemVersions</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Показать версии подсистем конфигурации (БСП)</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
 							<v8:content>Показать версии подсистем конфигурации (БСП)</v8:content>
 						</v8:item>
 					</tl>
@@ -204,35 +254,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Изменить масштаб отображения</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>9</f>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>10</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>МасштабОтображения</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Change display scale</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>11</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>МасштабОтображения</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>DisplayScale</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -242,35 +304,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Обновить повторно используемые значения</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>9</f>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>10</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>ОбновитьПовторноИспользуемыеЗначения</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Refresh reusable values</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>11</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ОбновитьПовторноИспользуемыеЗначения</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>RefreshReusableValues</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
@@ -286,35 +360,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Очистить избранное...</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>9</f>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>10</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>ОчиститьИзбранное</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Clear favorites</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>11</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ОчиститьИзбранное</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>ClearFavorites</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
@@ -330,35 +416,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Установить блокировку сеансов...</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>9</f>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>10</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>УстановитьБлокировкуСеансов</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Set sessions lock</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>11</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>УстановитьБлокировкуСеансов</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>SetSessionsLock</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
@@ -374,35 +472,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Установить монопольный режим</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>9</f>
-				</c>
-			</c>
-			<c>
-				<c>
-					<f>10</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>ПереключитьМонопольныйРежим</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Set exclusive mode</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>11</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ПереключитьМонопольныйРежим</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>ExclusiveMode</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -411,9 +521,28 @@
 		<index>8</index>
 		<row>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>1</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -423,30 +552,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Запуск сеанса 1С</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Start session 1C</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
 				<c>
-					<f>0</f>
+					<f>10</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
+							<v8:content>Г</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
 							<v8:content>Г</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>2</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
@@ -462,31 +608,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Конфигуратор 1С</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<i>2</i>
-				<c>
-					<f>0</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Конфигуратор1С</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>1C Configurator</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Конфигуратор1С</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>1CConfigurator</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -496,31 +658,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Толстый клиент (обычное приложение)</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<i>2</i>
-				<c>
-					<f>0</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>ТолстыйКлиентОбычное</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Ordinary Сlient</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ТолстыйКлиентОбычное</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>OrdinaryСlient</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -530,31 +708,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Толстый клиент (управляемое приложение)</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<i>2</i>
-				<c>
-					<f>0</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>ТолстыйКлиентУпр</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Thick Сlient</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ТолстыйКлиентУпр</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>ThickСlient</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -564,31 +758,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Тонкий клиент (управляемое приложение)</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<i>2</i>
-				<c>
-					<f>0</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>ТонкийКлиентУпр</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Thin Сlient</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ТонкийКлиентУпр</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>ThinСlient</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -598,31 +808,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Запуск 1С (произвольная база)</v8:content>
 						</v8:item>
-					</tl>
-				</c>
-			</c>
-			<c>
-				<i>2</i>
-				<c>
-					<f>0</f>
-					<tl>
 						<v8:item>
-							<v8:lang>ru</v8:lang>
-							<v8:content>Запуск1С</v8:content>
+							<v8:lang>en</v8:lang>
+							<v8:content>Lanch 1C</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>4</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+					<tl>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Запуск1С</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Run1C</v8:content>
+						</v8:item>
+					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
@@ -634,14 +860,48 @@
 		</row>
 	</rowsItem>
 	<rowsItem>
+		<index>15</index>
+		<row>
+			<c>
+				<c>
+					<f>1</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
+				</c>
+			</c>
+		</row>
+	</rowsItem>
+	<rowsItem>
 		<index>16</index>
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
+							<v8:content>Windows</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
 							<v8:content>Windows</v8:content>
 						</v8:item>
 					</tl>
@@ -649,13 +909,32 @@
 			</c>
 			<c>
 				<c>
-					<f>0</f>
+					<f>10</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Г</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>Г</v8:content>
+						</v8:item>
 					</tl>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 				</c>
 			</c>
 		</row>
@@ -665,31 +944,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Все программы</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>All programs</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>2</i>
 				<c>
-					<f>0</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
+							<v8:content>WinStartMenu</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
 							<v8:content>WinStartMenu</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>0</f>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
@@ -705,31 +1000,47 @@
 		<row>
 			<c>
 				<c>
-					<f>0</f>
+					<f>1</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
 							<v8:content>Данные приложений</v8:content>
 						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
+							<v8:content>App data</v8:content>
+						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>2</i>
 				<c>
-					<f>0</f>
+					<f>10</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>2</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
+							<v8:content>WinAppData</v8:content>
+						</v8:item>
+						<v8:item>
+							<v8:lang>en</v8:lang>
 							<v8:content>WinAppData</v8:content>
 						</v8:item>
 					</tl>
 				</c>
 			</c>
 			<c>
-				<i>4</i>
 				<c>
-					<f>0</f>
+					<f>3</f>
+				</c>
+			</c>
+			<c>
+				<c>
+					<f>12</f>
 					<tl>
 						<v8:item>
 							<v8:lang>ru</v8:lang>
@@ -741,7 +1052,7 @@
 		</row>
 	</rowsItem>
 	<templateMode>true</templateMode>
-	<defaultFormatIndex>9</defaultFormatIndex>
+	<defaultFormatIndex>10</defaultFormatIndex>
 	<height>19</height>
 	<vgRows>19</vgRows>
 	<line width="1" gap="false">
@@ -758,11 +1069,12 @@
 		<width>224</width>
 	</format>
 	<format>
-		<width>298</width>
+		<width>337</width>
 	</format>
 	<format>
 		<font>0</font>
 		<border>0</border>
+		<width>270</width>
 		<backColor>style:ButtonBackColor</backColor>
 	</format>
 	<format>
@@ -780,6 +1092,12 @@
 	<format>
 		<font>0</font>
 		<border>0</border>
+		<width>224</width>
+		<backColor>style:ButtonBackColor</backColor>
+	</format>
+	<format>
+		<font>0</font>
+		<border>0</border>
 		<width>298</width>
 		<backColor>style:ButtonBackColor</backColor>
 	</format>
@@ -788,5 +1106,8 @@
 	</format>
 	<format>
 		<width>207</width>
+	</format>
+	<format>
+		<width>298</width>
 	</format>
 </document>

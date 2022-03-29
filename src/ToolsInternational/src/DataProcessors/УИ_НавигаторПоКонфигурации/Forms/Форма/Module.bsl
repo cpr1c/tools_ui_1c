@@ -1,2496 +1,2502 @@
-&НаКлиенте
-Перем мОбычныеПрикладныеОбъекты;
+&AtClient
+Var mOrdinaryApplicationObjects;
 
-&НаКлиенте
-Перем мТекущийОбъектДерева;
+&AtClient
+Var mCurrentTreeObject;
 
-&НаКлиенте
-Перем мОписаниеПравДоступа;
+&AtClient
+Var mDescriptionAccessRights;
 
-&НаКлиенте
-Перем мИдентификаторИзбранного;
+&AtClient
+Var mFavoriteID;
 
-&НаКлиенте
-Перем мПараметрыКластера1С;
-&НаСервере
-Функция вПолучитьОбработку()
-	Возврат РеквизитФормыВЗначение("Object");
-КонецФункции
-&НаКлиенте
-Процедура вПоказатьПредупреждение(Текст)
-	ПоказатьПредупреждение( , Текст, 20);
-КонецПроцедуры
+&AtClient
+Var mClusterParameters;
+&AtServer
+Function vGetProcessor()
+	Return FormAttributeToValue("Object");
+EndFunction
+&AtClient
+Procedure vShowMessageBox(Text)
+	ShowMessageBox( , Text, 20);
+EndProcedure
 
-&НаКлиенте
-Процедура вПоказатьВопрос(ТекстВопроса, ИмяПроцедуры, ДопПараметры = Неопределено)
-	ПоказатьВопрос(Новый ОписаниеОповещения(ИмяПроцедуры, ЭтаФорма, ДопПараметры), ТекстВопроса,
-		РежимДиалогаВопрос.ДаНетОтмена, 20);
-КонецПроцедуры
+&AtClient
+Procedure vShowQueryBox(QueryText, ProcedureName, AdditionalParameters = Undefined)
+	ShowQueryBox(New NotifyDescription(ProcedureName, ThisForm, AdditionalParameters), QueryText,
+		QuestionDialogMode.YesNoCancel, 20);
+EndProcedure
 
-&НаКлиенте
-Процедура вОперацияНеПоддерживаетсяДляВебКлиента()
-	вПоказатьПредупреждение("Для Web-клиента данная операция не поддерживается!");
-КонецПроцедуры
+&AtClient
+Procedure vOperationNotSupportedForWebClient()
+	vShowMessageBox("ru = 'Для Web-клиента данная операция не поддерживается!';en = 'The operation is not supported for a web-client!'");
+EndProcedure
 
-&НаСервереБезКонтекста
-Процедура вЗаполнитьКонтекстФормы(_FormContext)
-	_FormContext.Вставить("ВерсииПодсистем", (Метаданные.РегистрыСведений.Найти("ВерсииПодсистем") <> Неопределено));
-	_FormContext.Вставить("МонопольныйРежим", МонопольныйРежим());
-КонецПроцедуры
+&AtServerNoContext
+Procedure vFillInFormContext(_FormContext)
+	_FormContext.Insert("SubsystemVersions", (Metadata.InformationRegisters.Find("SubsystemVersions") <> Undefined));
+	_FormContext.Insert("ExclusiveMode", ExclusiveMode());
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вЕстьПраваАдминистратора()
-	Возврат ПравоДоступа("Администрирование", Метаданные);
-КонецФункции
+&AtServerNoContext
+Function vIsAdministratorRights()
+	Return AccessRight("Administration", Metadata);
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПолучитьИдентификаторПользователя(Знач Имя)
-	пПользователь = ПользователиИнформационнойБазы.НайтиПоИмени(Имя);
+&AtServerNoContext
+Function vGetUserId(Val Name)
+	vUser = InfoBaseUsers.FindByName(Name);
 
-	Возврат ?(пПользователь = Неопределено, "", Строка(пПользователь.УникальныйИдентификатор));
-КонецФункции
+	Return ?(vUser = Undefined, "", String(vUser.UUID));
+EndFunction
 
-&НаКлиентеНаСервереБезКонтекста
-Функция вЗначениеВМассив(Знач Значение)
-	Массив = Новый Массив;
-	Массив.Добавить(Значение);
+&AtClientAtServerNoContext
+Function vValueToArray(Val Value)
+	Array = New Array;
+	Array.Add(Value);
 
-	Возврат Массив;
-КонецФункции
+	Return Array;
+EndFunction
 
-&НаСервере
-Процедура УстановитьУсловноеОформление()
-	ЭтаФорма.УсловноеОформление.Элементы.Очистить();
+&AtServer
+Procedure SetConditionalAppearance()
+	ThisForm.ConditionalAppearance.Items.Clear();
 
-	ЭлементУО = ЭтаФорма.УсловноеОформление.Элементы.Добавить();
-	ЭлементОтбора = ЭлементУО.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("ObjectsTree.FullName");
-	ЭлементОтбора.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.ПравоеЗначение = "Конфигурация";
-	ЭлементУО.Оформление.УстановитьЗначениеПараметра("Шрифт", Новый Шрифт(Элементы.ServiceTree.Шрифт, , , Истина));
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("ObjectsTreeName");
+	AppearanceItem = ThisForm.ConditionalAppearance.Items.Add();
+	FilterItem = AppearanceItem.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = New DataCompositionField("ObjectsTree.FullName");
+	FilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+	FilterItem.RightValue = "Configuration";
+	AppearanceItem.Appearance.SetParameterValue("Font", New Font(Items.ServiceTree.Font, , , True));
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("ObjectsTreeName");
 
-	ЭлементУО = ЭтаФорма.УсловноеОформление.Элементы.Добавить();
-	ЭлементОтбора = ЭлементУО.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("ObjectsTree.NodeType");
-	ЭлементОтбора.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.ПравоеЗначение = 1;
-	ЭлементУО.Оформление.УстановитьЗначениеПараметра("ЦветТекста", WebЦвета.ТемноСиний);
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("ObjectsTreeName");
+	AppearanceItem = ThisForm.ConditionalAppearance.Items.Add();
+	FilterItem = AppearanceItem.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = New DataCompositionField("ObjectsTree.NodeType");
+	FilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+	FilterItem.RightValue = 1;
+	AppearanceItem.Appearance.SetParameterValue("Text", WebColors.DarkBlue);
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("ObjectsTreeName");
 
-	ЭлементУО = ЭтаФорма.УсловноеОформление.Элементы.Добавить();
-	ЭлементОтбора = ЭлементУО.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("ServiceTree.IsGroup");
-	ЭлементОтбора.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.ПравоеЗначение = Истина;
-	ЭлементУО.Оформление.УстановитьЗначениеПараметра("Шрифт", Новый Шрифт(Элементы.ServiceTree.Шрифт, , , Истина));
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("ServiceTreePresentation");
+	AppearanceItem = ThisForm.ConditionalAppearance.Items.Add();
+	FilterItem = AppearanceItem.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = New DataCompositionField("ServiceTree.IsGroup");
+	FilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+	FilterItem.RightValue = True;
+	AppearanceItem.Appearance.SetParameterValue("Font", New Font(Items.ServiceTree.Font, , , True));
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("ServiceTreePresentation");
 
-	ЭлементУО = ЭтаФорма.УсловноеОформление.Элементы.Добавить();
-	ЭлементОтбора = ЭлементУО.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("ServiceTree.Enabled");
-	ЭлементОтбора.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.ПравоеЗначение = Ложь;
-	ЭлементУО.Оформление.УстановитьЗначениеПараметра("ЦветТекста", Новый Цвет(83, 106, 194));
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("ServiceTreePresentation");
+	AppearanceItem = ThisForm.ConditionalAppearance.Items.Add();
+	FilterItem = AppearanceItem.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = New DataCompositionField("ServiceTree.Enabled");
+	FilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+	FilterItem.RightValue = False;
+	AppearanceItem.Appearance.SetParameterValue("Text", New Color(83, 106, 194));
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("ServiceTreePresentation");
 
-	ЭлементУО = ЭтаФорма.УсловноеОформление.Элементы.Добавить();
-	ЭлементОтбора = ЭлементУО.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("VerifiableRightsTable.Mark");
-	ЭлементОтбора.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.ПравоеЗначение = Истина;
-	ЭлементУО.Оформление.УстановитьЗначениеПараметра("Шрифт", Новый Шрифт(Элементы.VerifiableRightsTable.Шрифт, , ,
-		Истина));
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("VerifiableRightsTableMetadataObject");
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("VerifiableRightsTableRight");
+	AppearanceItem = ThisForm.ConditionalAppearance.Items.Add();
+	FilterItem = AppearanceItem.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = New DataCompositionField("VerifiableRightsTable.Mark");
+	FilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+	FilterItem.RightValue = True;
+	AppearanceItem.Appearance.SetParameterValue("Font", New Font(Items.VerifiableRightsTable.Font, , ,
+		True));
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("VerifiableRightsTableMetadataObject");
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("VerifiableRightsTableRight");
 
-	ЭлементУО = ЭтаФорма.УсловноеОформление.Элементы.Добавить();
-	ЭлементОтбора = ЭлементУО.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("_SessionList.CurrentSession");
-	ЭлементОтбора.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.ПравоеЗначение = Истина;
-	ЭлементУО.Оформление.УстановитьЗначениеПараметра("ЦветТекста", WebЦвета.Синий);
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("_SessionList");
+	AppearanceItem = ThisForm.ConditionalAppearance.Items.Add();
+	FilterItem = AppearanceItem.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = New DataCompositionField("_SessionList.CurrentSession");
+	FilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+	FilterItem.RightValue = True;
+	AppearanceItem.Appearance.SetParameterValue("Text", WebColors.Blue);
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("_SessionList");
 
-	ЭлементУО = ЭтаФорма.УсловноеОформление.Элементы.Добавить();
-	ЭлементОтбора = ЭлементУО.Отбор.Элементы.Добавить(Тип("ЭлементОтбораКомпоновкиДанных"));
-	ЭлементОтбора.ЛевоеЗначение = Новый ПолеКомпоновкиДанных("_ConnectionsList.ТекущееСоединение");
-	ЭлементОтбора.ВидСравнения = ВидСравненияКомпоновкиДанных.Равно;
-	ЭлементОтбора.ПравоеЗначение = Истина;
-	ЭлементУО.Оформление.УстановитьЗначениеПараметра("ЦветТекста", WebЦвета.Синий);
-	ЭлементУО.Поля.Элементы.Добавить().Поле = Новый ПолеКомпоновкиДанных("_ConnectionsList");
+	AppearanceItem = ThisForm.ConditionalAppearance.Items.Add();
+	FilterItem = AppearanceItem.Filter.Items.Add(Type("DataCompositionFilterItem"));
+	FilterItem.LeftValue = New DataCompositionField("_ConnectionsList.ТекущееСоединение");
+	FilterItem.ComparisonType = DataCompositionComparisonType.Equal;
+	FilterItem.RightValue = True;
+	AppearanceItem.Appearance.SetParameterValue("Text", WebColors.Blue);
+	AppearanceItem.Fields.Items.Add().Field = New DataCompositionField("_ConnectionsList");
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Функция вСформироватьСтруктуруНастроекФормыСвойствОбъекта()
-	Струк = Новый Структура("_ShowObjectSubscribtion, _ShowObjectSubsystems, _ShowCommonObjectCommands, _ShowExternalObjectCommands, _ShowStorageStructureInTermsOf1C");
-	ЗаполнитьЗначенияСвойств(Струк, ЭтаФорма);
+&AtClient
+Function vFormStructureOfObjectPropertiesFormSettings()
+	_Structure = New Structure("_ShowObjectSubscribtion, _ShowObjectSubsystems, _ShowCommonObjectCommands, _ShowExternalObjectCommands, _ShowStorageStructureInTermsOf1C");
+	FillPropertyValues(_Structure, ThisForm);
 
-	Возврат Струк;
-КонецФункции
+	Return _Structure;
+EndFunction
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	PathToForms = вПолучитьОбработку().Метаданные().ПолноеИмя() + ".Форма.";
+&AtServer
+Procedure OnCreateAtServer(Cancel, StandardProcessing)
+	PathToForms = vGetProcessor().Metadata().FullName() + ".Form.";
 
-	пЕстьПраваАдминистратора = вЕстьПраваАдминистратора();
+	pIsAdministratorRights = vIsAdministratorRights();
 	WaitingTimeBeforePasswordRecovery=20;
 	
-	//Элементы.SettingsPage.Видимость = ложь;
-	Элементы.StorageStructurePage.Видимость = Ложь;
-	Элементы.ObjectRightPages.Видимость = Ложь;
-	Элементы._DisplayObjectsRights.Enabled = пЕстьПраваАдминистратора;
-	Элементы.ObjectsTreeForAdministrators.Enabled = пЕстьПраваАдминистратора;
-	Элементы.DBUsers.Видимость = пЕстьПраваАдминистратора;
-	Элементы._SessionList_FinishSessions.Enabled = пЕстьПраваАдминистратора;
-	Элементы.SessionsPage.Видимость = ПравоДоступа("АктивныеПользователи", Метаданные);
-	Элементы._SessionList_FinishSessions.Enabled = пЕстьПраваАдминистратора;
+	//Items.SettingsPage.Visible = ложь;
+	Items.StorageStructurePage.Visible = False;
+	Items.ObjectRightPages.Visible = False;
+	Items._DisplayObjectsRights.Enabled = pIsAdministratorRights;
+	Items.ObjectsTreeForAdministrators.Enabled = pIsAdministratorRights;
+	Items.DBUsers.Visible = pIsAdministratorRights;
+	Items._SessionList_FinishSessions.Enabled = pIsAdministratorRights;
+	Items.SessionsPage.Visible = AccessRight("ActiveUsers", Metadata);
+	Items._SessionList_FinishSessions.Enabled = pIsAdministratorRights;
 
-	Элементы.ConfigurationExtensions.Видимость = Ложь;
-	//Элементы.ConfigurationExtensions.Видимость = вПроверитьНаличиеТипа("РасширениеКонфигурации");
+	Items.ConfigurationExtensions.Visible = False;
+	//Items.ConfigurationExtensions.Visible = vCheckType("ConfigurationExtension");
 
-	_FormContext = Новый Структура;
-	вЗаполнитьКонтекстФормы(_FormContext);
-	вЗаполнитьДеревоСервис();
+	_FormContext = New Structure;
+	vFillInFormContext(_FormContext);
+	vFillServiceTree();
 
-	_FavoritesContent = Новый Структура("Version, Данные", 1, Новый Массив);
+	_FavoritesContent = New Structure("Version, Data", 1, New Array);
 
-	УстановитьУсловноеОформление();
+	SetConditionalAppearance();
 
-	UT_Common.ToolFormOnCreateAtServer(ЭтотОбъект, Отказ, СтандартнаяОбработка,
-		Элементы.ObjectsTree.КоманднаяПанель);
+	UT_Common.ToolFormOnCreateAtServer(ThisObject, Cancel, StandardProcessing,
+		Items.ObjectsTree.CommandBar);
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура ПриЗагрузкеДанныхИзНастроекНаСервере(Настройки)
-	Если _ShowStandardSettings Тогда
-		Элементы.DefaultSettingsPage.Видимость = Истина;
-	КонецЕсли;
+&AtServer
+Procedure OnLoadDataFromSettingsAtServer(Settings)
+	If _ShowStandardSettings Then
+		Items.DefaultSettingsPage.Visible = True;
+	EndIf;
 
-	Если _ShowTablesAndIndexesDB Тогда
-		Элементы.StorageStructurePage.Видимость = Истина;
-	КонецЕсли;
+	If _ShowTablesAndIndexesDB Then
+		Items.StorageStructurePage.Visible = True;
+	EndIf;
 
-	Значение = Настройки["_FavoritesContent"];
-	Если Значение <> Неопределено Тогда
-		Если Не Значение.Свойство("Version") Тогда
-			Значение.Вставить("Version", 1);
-		КонецЕсли;
-		_FavoritesContent = Значение;
+	Value = Settings["_FavoritesContent"];
+	If Value <> Undefined Then
+		If Not Value.Property("Version") Then
+			Value.Insert("Version", 1);
+		EndIf;
+		_FavoritesContent = Value;
 
-		СтрокиДЗ = ObjectsTree.ПолучитьЭлементы();
-		Если СтрокиДЗ.Количество() <> 0 Тогда
-			// перезаполним избранное
-			Для Каждого РазделДЗ Из СтрокиДЗ Цикл
-				Если РазделДЗ.FullName = "Избранное" Тогда
-					РазделДЗ.ПолучитьЭлементы().Очистить();
-					Для Каждого Элем Из _FavoritesContent.Данные Цикл
-						ЗаполнитьЗначенияСвойств(РазделДЗ.ПолучитьЭлементы().Добавить(), Элем);
-					КонецЦикла;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЕсли;
+		TreeLines = ObjectsTree.GetItems();
+		If TreeLines.Count() <> 0 Then
+			// re-fill favorites
+			For Each TreeSection In TreeLines Do
+				If TreeSection.FullName = "Favorites" Then
+					TreeSection.GetItems().Clear();
+					For Each Item In _FavoritesContent.Data Do
+						FillPropertyValues(TreeSection.GetItems().Add(), Item);
+					EndDo;
+				EndIf;
+			EndDo;
+		EndIf;
+	EndIf;
 
-	Элементы._DBUserListListOfRoles.Видимость = _ShowUserRolesList;
-КонецПроцедуры
+	Items._DBUserListListOfRoles.Visible = _ShowUserRolesList;
+EndProcedure
 
-&НаСервере
-Процедура ПриСохраненииДанныхВНастройкахНаСервере(Настройки)
-	// сформируем избранное
-	Для Каждого РазделДЗ Из ObjectsTree.ПолучитьЭлементы() Цикл
-		Если РазделДЗ.FullName = "Избранное" Тогда
-			ПереченьПолейУзлаДЗ = вПереченьПолейУзлаДЗ();
-			_FavoritesContent.Данные.Очистить();
-			Для Каждого СтрДЗ Из РазделДЗ.ПолучитьЭлементы() Цикл
-				Струк = Новый Структура(ПереченьПолейУзлаДЗ);
-				ЗаполнитьЗначенияСвойств(Струк, СтрДЗ);
-				_FavoritesContent.Данные.Добавить(Струк);
-			КонецЦикла;
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
+&AtServer
+Procedure OnSaveDataInSettingsAtServer(Settings)
+	// let's form favorites
+	For Each TreeSection In ObjectsTree.GetItems() Do
+		If TreeSection.FullName = "Favorites" Then
+			ListOfTreeFields = vListOfTreeFields();
+			_FavoritesContent.Data.Clear();
+			For Each TreeLine In TreeSection.GetItems() Do
+				_Structure = New Structure(ListOfTreeFields);
+				FillPropertyValues(_Structure, TreeLine);
+				_FavoritesContent.Data.Add(_Structure);
+			EndDo;
+			Break;
+		EndIf;
+	EndDo;
 
-	Настройки.Вставить("_FavoritesContent", _FavoritesContent);
-КонецПроцедуры
+	Settings.Insert("_FavoritesContent", _FavoritesContent);
+EndProcedure
 
-&НаКлиенте
-Процедура ПриОткрытии(Отказ)
-	мТекущийОбъектДерева = "";
+&AtClient
+Procedure OnOpen(Cancel)
+	mCurrentTreeObject = "";
 
-	вСформироватьОписаниеПравДоступа();
-	вЗаполнитьПроверяемыеПраваДоступа();
+	vFormDescriptionOfAccessRights();
+	vFillAccessRights();
 
-	мОбычныеПрикладныеОбъекты = Новый Структура("Константа, Справочник, Документ, ЖурналДокументов, ПланВидовХарактеристик, ПланВидовРасчета, ПланСчетов
-												|, Обработка, Отчет, РегистрСведений, РегистрНакопления, РегистрБухгалтерии, РегистрРасчета, БизнесПроцесс, Задача
-												|, ПланОбмена");
+	mOrdinaryApplicationObjects = New Structure("Constant, Catalog, Document, DocumentJournal, ChartOfCharacteristicTypes, ChartOfCalculationTypes, ChartOfAccounts
+												|, Processing, Report, InformationRegister, AccumulationRegister, AccountingRegister, CalculationRegister, BusinessProcess, Task
+												|, ExchangePlan");
 
-	СтрокиДЗ = ObjectsTree.ПолучитьЭлементы();
-	СтрокиДЗ.Очистить();
+	TreeLines = ObjectsTree.GetItems();
+	TreeLines.Clear();
 
-	СтрДЗ = СтрокиДЗ.Добавить();
-	ЗаполнитьЗначенияСвойств(СтрДЗ, вСформироватьУзелКонфигурация());
-	СтрДЗ.NodeType = 1;
+	TreeLine = TreeLines.Add();
+	FillPropertyValues(TreeLine, vFormConfigurationNode());
+	TreeLine.NodeType = 1;
 	
 	
 	// избранное
-	СтрДЗ = СтрокиДЗ.Добавить();
-	СтрДЗ.Name = "Избранное...";
-	СтрДЗ.ВидУзла = "Избранное";
-	СтрДЗ.NodeType = 1;
-	СтрДЗ.FullName = "Избранное";
-	мИдентификаторИзбранного = СтрДЗ.ПолучитьИдентификатор();
+	TreeLine = TreeLines.Add();
+	TreeLine.Name = "Favorites...";
+	TreeLine.NodeType = "Favorites";
+	TreeLine.NodeType = 1;
+	TreeLine.FullName = "Favorites";
+	mFavoriteID = TreeLine.GetID();
 
-	Для Каждого Элем Из _FavoritesContent.Данные Цикл
-		НС = СтрДЗ.ПолучитьЭлементы().Добавить();
-		ЗаполнитьЗначенияСвойств(НС, Элем);
-	КонецЦикла;
-	СтрДЗ = СтрокиДЗ.Добавить();
-	СтрДЗ.Name = "Общие";
-	СтрДЗ.ВидУзла = "ГруппаРазделовМД";
-	СтрДЗ.NodeType = 1;
-	СтрДЗ.ПолучитьЭлементы().Добавить();
+	For Each Item In _FavoritesContent.Data Do
+		НС = TreeLine.GetItems().Add();
+		FillPropertyValues(НС, Item);
+	EndDo;
+	TreeLine = TreeLines.Add();
+	TreeLine.Name = "Common";
+	TreeLine.NodeType = "SectionGroupMD";
+	TreeLine.NodeType = 1;
+	TreeLine.GetItems().Add();
 
-	СтрукРазделы = Новый Структура("Константы, Справочники, Документы, ЖурналыДокументов, Перечисления, ПланыВидовХарактеристик, ПланыВидовРасчета, ПланыСчетов
-								   |, Обработки, Отчеты, РегистрыСведений, РегистрыНакопления, РегистрыБухгалтерии, РегистрыРасчета, БизнесПроцессы, Задачи");
+	SectionStructure = New Structure("Constants, Catalogs, Documents, DocumentJournals, Enums, ChartsOfCharacteristicTypes, ChartsOfCalculationTypes, ChartsOfAccounts
+								   |, DataProcessors, Reports, InformationRegisters, AccumulationRegisters, AccountingRegisters, CalculationRegisters, BusinessProcesses, Tasks");
 
-	вРассчитатьКоличествоОбъектовМД(СтрукРазделы);
+	vCalculateNumberOfObjectsMD(SectionStructure);
 
-	Для Каждого Элем Из СтрукРазделы Цикл
-		СтрДЗ = СтрокиДЗ.Добавить();
-		СтрДЗ.Name = Элем.Key;
-		СтрДЗ.Name = Элем.Key + " (" + Элем.Значение + ")";
-		СтрДЗ.ВидУзла = "РазделМД";
-		СтрДЗ.NodeType = 1;
-		СтрДЗ.ПолучитьЭлементы().Добавить();
-	КонецЦикла;
+	For Each Item In SectionStructure Do
+		TreeLine = TreeLines.Add();
+		TreeLine.Name = Item.Key;
+		TreeLine.Name = Item.Key + " (" + Item.Value + ")";
+		TreeLine.NodeType = "SectionMD";
+		TreeLine.NodeType = 1;
+		TreeLine.GetItems().Add();
+	EndDo;
 
-	_StorageAddresses = Новый Структура("Движения, Подписки, Команды, ОбщиеКоманды, Подсистемы, РолиИПользователи");
-	_StorageAddresses.Движения = ПоместитьВоВременноеХранилище(-1, УникальныйИдентификатор);
-	_StorageAddresses.Подписки = ПоместитьВоВременноеХранилище(-1, УникальныйИдентификатор);
-	_StorageAddresses.Команды  = ПоместитьВоВременноеХранилище(-1, УникальныйИдентификатор);
-	_StorageAddresses.ОбщиеКоманды = ПоместитьВоВременноеХранилище(-1, УникальныйИдентификатор);
-	_StorageAddresses.Подсистемы = ПоместитьВоВременноеХранилище(-1, УникальныйИдентификатор);
-	_StorageAddresses.РолиИПользователи = "";
+	_StorageAddresses = New Structure("RegisterRecords, Subscriptions, Commands, CommonCommands, Subsystems, RolesAndUsers");
+	_StorageAddresses.RegisterRecords = PutToTempStorage(-1, UUID);
+	_StorageAddresses.Subscriptions = PutToTempStorage(-1, UUID);
+	_StorageAddresses.Commands  = PutToTempStorage(-1, UUID);
+	_StorageAddresses.CommonCommands = PutToTempStorage(-1, UUID);
+	_StorageAddresses.Subsystems = PutToTempStorage(-1, UUID);
+	_StorageAddresses.RolesAndUsers = "";
 	
-	// хранилища настроек
-	СтрокиДЗ = SettingsTree.ПолучитьЭлементы();
-	СтрокиДЗ.Очистить();
+	// Settings Storages
+	TreeLines = SettingsTree.GetItems();
+	TreeLines.Clear();
 
-	ГруппаДЗ = СтрокиДЗ.Добавить();
-	ГруппаДЗ.Presentation = "Стандартные хранилища настроек";
+	ГруппаДЗ = TreeLines.Add();
+	ГруппаДЗ.Presentation = "ru = 'Стандартные хранилища настроек';en = 'Standart settings storages'";
 
-	СтрукРазделы = Новый Структура("ХранилищеВариантовОтчетов, ХранилищеНастроекДанныхФорм, ХранилищеОбщихНастроек
-								   |, ХранилищеПользовательскихНастроекДинамическихСписков, ХранилищеПользовательскихНастроекОтчетов, ХранилищеСистемныхНастроек");
+	SectionStructure = New Structure("ReportsVariantsStorage, FormDataSettingsStorage, CommonSettingsStorage
+								   |, DynamicListsUserSettingsStorage, ReportsUserSettingsStorage, SystemSettingsStorage");
 
-	Для Каждого Элем Из СтрукРазделы Цикл
-		СтрДЗ = ГруппаДЗ.ПолучитьЭлементы().Добавить();
-		СтрДЗ.Name = Элем.Key;
-		СтрДЗ.Presentation = Элем.Key;
-		СтрДЗ.ВидУзла = "Х";
-	КонецЦикла;
-КонецПроцедуры
+	For Each Item In SectionStructure Do
+		TreeLine = ГруппаДЗ.GetItems().Add();
+		TreeLine.Name = Item.Key;
+		TreeLine.Presentation = Item.Key;
+		TreeLine.NodeType = "Х";
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура kOpenInNewWindow(Команда)
-	ОткрытьФорму(PathToForms, , , ТекущаяДата(), , , , РежимОткрытияОкнаФормы.Независимый);
-КонецПроцедуры
+&AtClient
+Procedure kOpenInNewWindow(Command)
+	OpenForm(PathToForms, , , CurrentDate(), , , , FormWindowOpeningMode.Independent);
+EndProcedure
 
-&НаКлиенте
-Процедура _CollapseAllNodes(Команда)
-	Для Каждого УзелДЗ Из ObjectsTree.ПолучитьЭлементы() Цикл
-		Элементы.ObjectsTree.Свернуть(УзелДЗ.ПолучитьИдентификатор());
-	КонецЦикла;
-КонецПроцедуры
+&AtClient
+Procedure _CollapseAllNodes(Command)
+	For Each TreeNode In ObjectsTree.GetItems() Do
+		Items.ObjectsTree.Collapse(TreeNode.GetID());
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура _UpdateDBUsersList(Команда)
-	Для Каждого Стр Из ObjectsTree.ПолучитьЭлементы() Цикл
-		Если Стр.Name = "Общие" Тогда
-			Для Каждого УзелДЗ Из Стр.ПолучитьЭлементы() Цикл
-				Если УзелДЗ.ВидУзла = "РазделМД" И СтрНайти(УзелДЗ.Имя, "Пользователи") = 1 Тогда
-					СтрокиДЗ = УзелДЗ.ПолучитьЭлементы();
-					СтрокиДЗ.Очистить();
+&AtClient
+Procedure _UpdateDBUsersList(Command)
+	For Each Стр In ObjectsTree.GetItems() Do
+		If Стр.Name = "Common" Then
+			For Each TreeNode In Стр.GetItems() Do
+				If TreeNode.NodeType = "SectionMD" And StrFind(TreeNode.Name, "Users") = 1 Then
+					TreeLines = TreeNode.GetItems();
+					TreeLines.Clear();
 
-					Струк = вПолучитьСоставРазделаМД("Пользователи");
-					Для Каждого Элем Из Струк.МассивОбъектов Цикл
-						СтрДЗ = СтрокиДЗ.Добавить();
-						ЗаполнитьЗначенияСвойств(СтрДЗ, Элем);
-					КонецЦикла;
-					УзелДЗ.Name = "Пользователи (" + Струк.ЧислоОбъектов + ")";
+					_Structure = вПолучитьСоставРазделаМД("Users");
+					For Each Item In _Structure.МассивОбъектов Do
+						TreeLine = TreeLines.Add();
+						FillPropertyValues(TreeLine, Item);
+					EndDo;
+					TreeNode.Name = "Users (" + _Structure.NumberOfObjects + ")";
 
-					Прервать;
-				КонецЕсли;
-			КонецЦикла;
+					Break;
+				EndIf;
+			EndDo;
 
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
-КонецПроцедуры
+			Break;
+		EndIf;
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура _CreateDBUser(Команда)
-	СтрукПараметры = Новый Структура("РежимРаботы", 1);
-	ОткрытьФорму(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , , , , ,
-		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+&AtClient
+Procedure _CreateDBUser(Command)
+	StructureOfParameters = New Structure("WorkMode", 1);
+	OpenForm(PathToForms + "UserForm", StructureOfParameters, , , , , ,
+		FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура _CopyDBUser(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено И СтрНайти(ТекДанные.ПолноеИмя, "User.") = 1 Тогда
-		СтрукПараметры = Новый Структура("РежимРаботы, DBUserID", 2, ТекДанные.ObjectPresentation);
-		ОткрытьФорму(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , , , , ,
-			РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure _CopyDBUser(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined And StrFind(CurrentData.FullName, "User.") = 1 Then
+		StructureOfParameters = New Structure("WorkMode, DBUserID", 2, CurrentData.ObjectPresentation);
+		OpenForm(PathToForms + "UserForm", StructureOfParameters, , , , , ,
+			FormWindowOpeningMode.LockOwnerWindow);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура _DeleteDBUser(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено И СтрНайти(ТекДанные.ПолноеИмя, "User.") = 1 Тогда
-		пТекст = СтрШаблон("User ""%1"" будет удален из информационной базы!
-						   |Продолжить?", ТекДанные.Имя);
-		ПоказатьВопрос(Новый ОписаниеОповещения("вУдалитьПользователяОтвет", ЭтаФорма, ТекДанные), пТекст,
-			РежимДиалогаВопрос.ДаНетОтмена, 20);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure _DeleteDBUser(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined And StrFind(CurrentData.FullName, "User.") = 1 Then
+		nText = StrTemplate(
+		NStr("ru = 'Пользователь ""%1"" будет удален из информационной базы!
+								  |Продолжить?';en = 'The user ""%1"" will be deleted from the base!
+								  |Continue?'"), CurrentData.Name);
+								  
+		ShowQueryBox(New NotifyDescription("vDeleteUserAnswer", ThisForm, CurrentData), nText,
+			QuestionDialogMode.YesNoCancel, 20);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура вУдалитьПользователяОтвет(Ответ, ТекДанные) Экспорт
-	Если Ответ = КодВозвратаДиалога.Да Тогда
-		пРезультат = вУдалитьПользователяИБ(ТекДанные.ПредставлениеОбъекта);
-		Если пРезультат.Отказ Тогда
-			вПоказатьПредупреждение(пРезультат.ПричинаОтказа);
-		Иначе
-			ТекДанные.ПолучитьРодителя().ПолучитьЭлементы().Удалить(ТекДанные);
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure vDeleteUserAnswer(Answer, CurrentData) Export
+	If Answer = DialogReturnCode.Yes Then
+		pResult = vDeleteUser(CurrentData.ObjectPresentation);
+		If pResult.Cancel Then
+			vShowMessageBox(pResult.ReasonForRefusal);
+		Else
+			CurrentData.GetParent().GetItems().Delete(CurrentData);
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вУдалитьПользователяИБ(Идентификатор)
-	пРезультат = Новый Структура("Отказ, ПричинаОтказа", Ложь, "");
+&AtServerNoContext
+Function vDeleteUser(ID)
+	pResult = New Structure("Cancel, ReasonForRefusal", False, "");
 
-	Попытка
-		пUUID = Новый УникальныйИдентификатор(Идентификатор);
+	Try
+		пUUID = New UUID(ID);
 
-		пПользователь = ПользователиИнформационнойБазы.НайтиПоУникальномуИдентификатору(пUUID);
-		Если пПользователь = Неопределено Тогда
-			пРезультат.Отказ = Истина;
-			пРезультат.ПричинаОтказа = "Указанный User не найден!";
-			Возврат пРезультат;
-		КонецЕсли;
+		vUser = InfoBaseUsers.FindByUUID(пUUID);
+		If vUser = Undefined Then
+			pResult.Cancel = True;
+			pResult.ReasonForRefusal = Nstr("ru = 'Указанный пользователь не найден!';en = 'The specified user was not found!'");
+			Return pResult;
+		EndIf;
 
-		пТекПользователь = ПользователиИнформационнойБазы.ТекущийПользователь();
+		pCurrentUser = InfoBaseUsers.CurrentUser();
 
-		Если пТекПользователь.UUID = пUUID Тогда
-			пРезультат.Отказ = Истина;
-			пРезультат.ПричинаОтказа = "Нельзя удалить текущего пользоватля!";
-			Возврат пРезультат;
-		КонецЕсли;
+		If pCurrentUser.UUID = пUUID Then
+			pResult.Cancel = True;
+			pResult.ReasonForRefusal = Nstr("ru = 'Нельзя удалить текущего пользоватля!';en = 'You cannot delete the current user!'");
+			Return pResult;
+		EndIf;
 
-		пПользователь.Удалить();
-	Исключение
-		пРезультат.Отказ = Истина;
-		пРезультат.ПричинаОтказа = ОписаниеОшибки();
-	КонецПопытки;
+		vUser.Delete();
+	Except
+		pResult.Cancel = True;
+		pResult.ReasonForRefusal = ErrorDescription();
+	EndTry;
 
-	Возврат пРезультат;
-КонецФункции
-&НаКлиенте
-Процедура kShowObjectProperties(Команда)
-	Если Элементы.PagesGroup.ТекущаяСтраница.Name = "StorageStructurePage" Тогда
-		ТекДанные = Неопределено;
-		Если Элементы.TableAndIndexesGrpip.ТекущаяСтраница.Name = "_IndexesPage" Тогда
-			ТекДанные = Элементы._Indexes.ТекущиеДанные;
-		ИначеЕсли Элементы.TableAndIndexesGrpip.ТекущаяСтраница.Name = "TablePage" Тогда
-			ТекДанные = Элементы._Tables.ТекущиеДанные;
-		КонецЕсли;
+	Return pResult;
+EndFunction
+&AtClient
+Procedure kShowObjectProperties(Command)
+	If Items.PagesGroup.CurrentPage.Name = "StorageStructurePage" Then
+		CurrentData = Undefined;
+		If Items.TableAndIndexesGrpip.CurrentPage.Name = "_IndexesPage" Then
+			CurrentData = Items._Indexes.CurrentData;
+		ElsIf Items.TableAndIndexesGrpip.CurrentPage.Name = "TablePage" Then
+			CurrentData = Items._Tables.CurrentData;
+		EndIf;
 
-		Если ТекДанные <> Неопределено Тогда
-			пПолноеИмя = ТекДанные.Metadata;
-			Если пПолноеИмя = "<не задано>" Тогда
-				Возврат;
-			КонецЕсли;
+		If CurrentData <> Undefined Then
+			pFullName = CurrentData.Metadata;
+			If pFullName = Nstr("ru = '<не задано>';en = '<not set>'") Then
+				Return;
+			EndIf;
 
-			Поз = СтрНайти(пПолноеИмя, ".", , , 2);
-			Если Поз <> 0 Тогда
-				пПолноеИмя = Лев(пПолноеИмя, Поз - 1);
-			КонецЕсли;
+			Position = StrFind(pFullName, ".", , , 2);
+			If Position <> 0 Then
+				pFullName = Left(pFullName, Position - 1);
+			EndIf;
 
-			СтрукПараметры = Новый Структура("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа",
-				пПолноеИмя, PathToForms, _StorageAddresses, мОписаниеПравДоступа);
-			СтрукПараметры.Вставить("НастройкиОбработки", вСформироватьСтруктуруНастроекФормыСвойствОбъекта());
-			ОткрытьФорму(PathToForms + "ФормаСвойств", СтрукПараметры, , пПолноеИмя, , , ,
-				РежимОткрытияОкнаФормы.Независимый);
-		КонецЕсли;
+			StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights",
+				pFullName, PathToForms, _StorageAddresses, mDescriptionAccessRights);
+			StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+			OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , pFullName, , , ,
+				FormWindowOpeningMode.Independent);
+		EndIf;
 
-		Возврат;
-	КонецЕсли;
+		Return;
+	EndIf;
 
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		Если ТекДанные.ВидУзла = "MetadataObject" Тогда
-			Если СтрНайти(ТекДанные.ПолноеИмя, "User.") = 1 Тогда
-				СтрукПараметры = Новый Структура("DBUserID", ТекДанные.ObjectPresentation);
-				ОткрытьФорму(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , ТекДанные.ПолноеИмя, , , ,
-					РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-			Иначе
-				СтрукПараметры = Новый Структура("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа",
-					ТекДанные.FullName, PathToForms, _StorageAddresses, мОписаниеПравДоступа);
-				СтрукПараметры.Вставить("НастройкиОбработки", вСформироватьСтруктуруНастроекФормыСвойствОбъекта());
-				ОткрытьФорму(PathToForms + "ФормаСвойств", СтрукПараметры, , ТекДанные.ПолноеИмя, , , ,
-					РежимОткрытияОкнаФормы.Независимый);
-			КонецЕсли;
-		ИначеЕсли ТекДанные.ВидУзла = "Конфигурация" Тогда
-			СтрукПараметры = Новый Структура("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа",
-				"Конфигурация", PathToForms, _StorageAddresses, мОписаниеПравДоступа);
-			СтрукПараметры.Вставить("НастройкиОбработки", вСформироватьСтруктуруНастроекФормыСвойствОбъекта());
-			ОткрытьФорму(PathToForms + "ФормаСвойств", СтрукПараметры, , ТекДанные.ПолноеИмя, , , ,
-				РежимОткрытияОкнаФормы.Независимый);
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined Then
+		If CurrentData.NodeType = "MetadataObject" Then
+			If StrFind(CurrentData.FullName, "User.") = 1 Then
+				StructureOfParameters = New Structure("DBUserID", CurrentData.ObjectPresentation);
+				OpenForm(PathToForms + "UserForm", StructureOfParameters, , CurrentData.FullName, , , ,
+					FormWindowOpeningMode.LockOwnerWindow);
+			Else
+				StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights",
+					CurrentData.FullName, PathToForms, _StorageAddresses, mDescriptionAccessRights);
+				StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+				OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , CurrentData.FullName, , , ,
+					FormWindowOpeningMode.Independent);
+			EndIf;
+		ElsIf CurrentData.NodeType = "Configuration" Then
+			StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights",
+				"Configuration", PathToForms, _StorageAddresses, mDescriptionAccessRights);
+			StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+			OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , CurrentData.FullName, , , ,
+				FormWindowOpeningMode.Independent);
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура kOpenListForm(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		Если ТекДанные.ВидУзла = "MetadataObject" И Не вЭтоПрочаяКоманда(ТекДанные.ПолноеИмя) Тогда
-			Попытка
-				ВидОбъектМД = Лев(ТекДанные.ПолноеИмя, СтрНайти(ТекДанные.ПолноеИмя, ".") - 1);
+&AtClient
+Procedure kOpenListForm(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined Then
+		If CurrentData.NodeType = "MetadataObject" And Not вЭтоПрочаяКоманда(CurrentData.FullName) Then
+			Try
+				ObjectTypeMD = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
 
-				Если ВидОбъектМД = "User" Тогда
-					СтандартнаяОбработка = Ложь;
-					СтрукПараметры = Новый Структура("DBUserID", ТекДанные.ObjectPresentation);
-					ОткрытьФорму(PathToForms + "ФормаПользовательИБ", СтрукПараметры, , ТекДанные.ПолноеИмя, , , ,
-						РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-					Возврат;
-				КонецЕсли;
+				If ObjectTypeMD = "User" Then
+					StandardProcessing = False;
+					StructureOfParameters = New Structure("DBUserID", CurrentData.ObjectPresentation);
+					OpenForm(PathToForms + "UserForm", StructureOfParameters, , CurrentData.FullName, , , ,
+						FormWindowOpeningMode.LockOwnerWindow);
+					Return;
+				EndIf;
 
-				Если Не мОбычныеПрикладныеОбъекты.Свойство(ВидОбъектМД) Тогда
-					Возврат;
-				КонецЕсли;
+				If Not mOrdinaryApplicationObjects.Property(ObjectTypeMD) Then
+					Return;
+				EndIf;
 
-				Если ВидОбъектМД = "Обработка" Тогда
-					ИмяФормыМД = ".Форма";
-				ИначеЕсли ВидОбъектМД = "Отчет" Тогда
-					ИмяФормыМД = ".Форма";
-				ИначеЕсли ВидОбъектМД = "Константа" Тогда
-					ИмяФормыМД = ".ФормаКонстант";
-				ИначеЕсли ВидОбъектМД = "ОбщаяФорма" Тогда
-					ИмяФормыМД = "";
-				ИначеЕсли ВидОбъектМД = "Перечисление" Тогда
-					СтандартнаяОбработка = Истина;
-					Возврат;
-				Иначе
-					ИмяФормыМД = ".ФормаСписка";
-				КонецЕсли;
+				If ObjectTypeMD = "Processing" Then
+					FormNameMD = ".Form";
+				ElsIf ObjectTypeMD = "Report" Then
+					FormNameMD = ".Form";
+				ElsIf ObjectTypeMD = "Constant" Then
+					FormNameMD = ".ConstantsForm";
+				ElsIf ObjectTypeMD = "CommonForm" Then
+					FormNameMD = "";
+				ElsIf ObjectTypeMD = "Enum" Then
+					StandardProcessing = True;
+					Return;
+				Else
+					FormNameMD = ".ListForm";
+				EndIf;
 
-				СтандартнаяОбработка = Ложь;
-				ОткрытьФорму(ТекДанные.FullName + ИмяФормыМД);
-			Исключение
-				Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-			КонецПопытки;
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+				StandardProcessing = False;
+				OpenForm(CurrentData.FullName + FormNameMD);
+			Except
+				Message(BriefErrorDescription(ErrorInfo()));
+			EndTry;
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура kCollapseTreeSection(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		УзелДЗ = ТекДанные.ПолучитьРодителя();
-		Если УзелДЗ <> Неопределено Тогда
-			Строка = УзелДЗ.ПолучитьИдентификатор();
-			Элементы.ObjectsTree.ТекущаяСтрока = Строка;
-			Элементы.ObjectsTree.Свернуть(Строка);
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure kCollapseTreeSection(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined Then
+		TreeNode = CurrentData.GetParent();
+		If TreeNode <> Undefined Then
+			String = TreeNode.GetID();
+			Items.ObjectsTree.CurrentLine = String;
+			Items.ObjectsTree.Collapse(String);
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура kRunConfigurator(Команда)
+&AtClient
+Procedure kRunConfigurator(Command)
 	вЗапуститьСеанс1С(1);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура kRunOrdinaryClient(Команда)
+&AtClient
+Procedure kRunOrdinaryClient(Command)
 	вЗапуститьСеанс1С(2);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура kRunThickClient(Команда)
+&AtClient
+Procedure kRunThickClient(Command)
 	вЗапуститьСеанс1С(3);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура kRunThinClient(Команда)
+&AtClient
+Procedure kRunThinClient(Command)
 	вЗапуститьСеанс1С(4);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура kRun1CForAnyBase(Команда)
-#Если ВебКлиент Тогда
-	вОперацияНеПоддерживаетсяДляВебКлиента();
-#Иначе
-		ОткрытьФорму(PathToForms + "ФормаЗапуска1С", , ЭтаФорма, , , , ,
-			РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-#КонецЕсли
-КонецПроцедуры
+&AtClient
+Procedure kRun1CForAnyBase(Command)
+#If WebClient Then
+	vOperationNotSupportedForWebClient();
+#Else
+		OpenForm(PathToForms + "ФормаЗапуска1С", , ThisForm, , , , ,
+			FormWindowOpeningMode.LockOwnerWindow);
+#EndIf
+EndProcedure
 
-&НаКлиенте
-Процедура ДеревоОбъектовПередРазворачиванием(Элемент, Строка, Отказ)
-	Если Не _DisplayObjectsRights Тогда
-		Элементы.ObjectsTree.ТекущаяСтрока = Строка; // полезно при раскрытии узлов, которые находятся выше
-	КонецЕсли;
+&AtClient
+Procedure ДеревоОбъектовПередРазворачиванием(Item, String, Cancel)
+	If Not _DisplayObjectsRights Then
+		Items.ObjectsTree.CurrentLine = String; // полезно при раскрытии узлов, которые находятся выше
+	EndIf;
 
-	УзелДЗ = ObjectsTree.НайтиПоИдентификатору(Строка);
-	СтрокиДЗ = УзелДЗ.ПолучитьЭлементы();
-	Если СтрокиДЗ.Количество() = 1 И ПустаяСтрока(СтрокиДЗ[0].ВидУзла) Тогда
-		Отказ = Истина;
-		СтрокиДЗ.Очистить();
+	TreeNode = ObjectsTree.FindByID(String);
+	TreeLines = TreeNode.GetItems();
+	If TreeLines.Count() = 1 And IsBlankString(TreeLines[0].NodeType) Then
+		Cancel = True;
+		TreeLines.Clear();
 
-		ИмяУзлаДЗ = УзелДЗ.Name;
-		Поз = СтрНайти(ИмяУзлаДЗ, " (");
-		Если Поз <> 0 Тогда
-			ИмяУзлаДЗ = Лев(ИмяУзлаДЗ, Поз - 1);
-		КонецЕсли;
+		ИмяУзлаДЗ = TreeNode.Name;
+		Position = StrFind(ИмяУзлаДЗ, " (");
+		If Position <> 0 Then
+			ИмяУзлаДЗ = Left(ИмяУзлаДЗ, Position - 1);
+		EndIf;
 
-		Если УзелДЗ.ВидУзла = "РазделМД" Тогда
-			УзелДЗ = ObjectsTree.НайтиПоИдентификатору(Строка);
-			СтрокиДЗ = УзелДЗ.ПолучитьЭлементы();
-			СтрокиДЗ.Очистить();
+		If TreeNode.NodeType = "SectionMD" Then
+			TreeNode = ObjectsTree.FindByID(String);
+			TreeLines = TreeNode.GetItems();
+			TreeLines.Clear();
 
-			Если ИмяУзлаДЗ = "Документы" Тогда
-				Струк = Новый Структура("НумераторыДокументов, Последовательности");
-				вРассчитатьКоличествоОбъектовМД(Струк);
-				Для Каждого Элем Из Струк Цикл
-					СтрДЗ = СтрокиДЗ.Добавить();
-					СтрДЗ.ВидУзла = "РазделМД";
-					СтрДЗ.Name = Элем.Key + " (" + Элем.Значение + ")";
-					СтрДЗ.ПолучитьЭлементы().Добавить();
-				КонецЦикла;
+			If ИмяУзлаДЗ = "Documents" Then
+				_Structure = New Structure("DocumentNumerators, Sequences");
+				vCalculateNumberOfObjectsMD(_Structure);
+				For Each Item In _Structure Do
+					TreeLine = TreeLines.Add();
+					TreeLine.NodeType = "SectionMD";
+					TreeLine.Name = Item.Key + " (" + Item.Value + ")";
+					TreeLine.GetItems().Add();
+				EndDo;
 				
-				//СтрДЗ = СтрокиДЗ.Добавить();
-				//СтрДЗ.ВидУзла = "РазделМД";
-				//СтрДЗ.Name = "НумераторыДокументов";
-				//СтрДЗ.ПолучитьЭлементы().Добавить();
+				//TreeLine = TreeLines.Add();
+				//TreeLine.NodeType = "SectionMD";
+				//TreeLine.Name = "DocumentNumerators";
+				//TreeLine.GetItems().Add();
 				//
-				//СтрДЗ = СтрокиДЗ.Добавить();
-				//СтрДЗ.ВидУзла = "РазделМД";
-				//СтрДЗ.Name = "Последовательности";
-				//СтрДЗ.ПолучитьЭлементы().Добавить();
-			КонецЕсли;
+				//TreeLine = TreeLines.Add();
+				//TreeLine.NodeType = "SectionMD";
+				//TreeLine.Name = "Sequences";
+				//TreeLine.GetItems().Add();
+			EndIf;
 
-			Струк = вПолучитьСоставРазделаМД(ИмяУзлаДЗ);
-			Для Каждого Элем Из Струк.МассивОбъектов Цикл
-				СтрДЗ = СтрокиДЗ.Добавить();
-				ЗаполнитьЗначенияСвойств(СтрДЗ, Элем);
-				Если СтрНайти(СтрДЗ.ПолноеИмя, "Перечисление.") = 1 Тогда
-					СтрДЗ.ПолучитьЭлементы().Добавить();
-				ИначеЕсли СтрНайти(СтрДЗ.ПолноеИмя, "Подсистема.") = 1 Тогда
-					Если Элем.ЕстьДети Тогда
-						СтрДЗ.ПолучитьЭлементы().Добавить();
-					КонецЕсли;
-				ИначеЕсли СтрНайти(СтрДЗ.ПолноеИмя, "WebСервис.") = 1 Тогда
-					СтрДЗ.ПолучитьЭлементы().Добавить();
-				ИначеЕсли СтрНайти(СтрДЗ.ПолноеИмя, "HTTPСервис.") = 1 Тогда
-					СтрДЗ.ПолучитьЭлементы().Добавить();
-				КонецЕсли;
-			КонецЦикла;
-			УзелДЗ.Name = ИмяУзлаДЗ + " (" + Струк.ЧислоОбъектов + ")";
+			_Structure = вПолучитьСоставРазделаМД(ИмяУзлаДЗ);
+			For Each Item In _Structure.МассивОбъектов Do
+				TreeLine = TreeLines.Add();
+				FillPropertyValues(TreeLine, Item);
+				If StrFind(TreeLine.FullName, "Enum.") = 1 Then
+					TreeLine.GetItems().Add();
+				ElsIf StrFind(TreeLine.FullName, "Подсистема.") = 1 Then
+					If Item.ЕстьДети Then
+						TreeLine.GetItems().Add();
+					EndIf;
+				ElsIf StrFind(TreeLine.FullName, "WebСервис.") = 1 Then
+					TreeLine.GetItems().Add();
+				ElsIf StrFind(TreeLine.FullName, "HTTPСервис.") = 1 Then
+					TreeLine.GetItems().Add();
+				EndIf;
+			EndDo;
+			TreeNode.Name = ИмяУзлаДЗ + " (" + _Structure.NumberOfObjects + ")";
 
-		ИначеЕсли УзелДЗ.ВидУзла = "ГруппаРазделовМД" Тогда
-			СтрукРазделы = Новый Структура("Подсистемы, ОбщиеМодули, ПараметрыСеанса, Пользователи, Роли, ОбщиеРеквизиты, ПланыОбмена, ПодпискиНаСобытия, РегламентныеЗадания
-										   |, ФункциональныеОпции, ПараметрыФункциональныхОпций, ОпределяемыеТипы, ХранилищаНастроек, ОбщиеФормы, ОбщиеКоманды, ГруппыКоманд, ПрочиеКоманды, ОбщиеМакеты, ПакетыXDTO, WebСервисы, HTTPСервисы");
+		ElsIf TreeNode.NodeType = "SectionGroupMD" Then
+			SectionStructure = New Structure("Subsystems, CommonModules, SessionParameters, Users, Roles, CommonAttributes, ExchangePlans, EventSubscriptions, ScheduledJobs
+										   |, FunctionalOptions, FunctionalOptionsParameters, DefinedTypes, SettingsStorages, CommonForms, CommonCommands, CommandGroups, ПрочиеКоманды, CommonTemplates, XDTOPackages, WebServices, HTTPServices");
 
-			вРассчитатьКоличествоОбъектовМД(СтрукРазделы);
+			vCalculateNumberOfObjectsMD(SectionStructure);
 
-			Для Каждого Элем Из СтрукРазделы Цикл
-				Если Элем.Key = "Пользователи" И Не вЕстьПраваАдминистратора() Тогда
-					Продолжить;
-				КонецЕсли;
-				СтрДЗ = СтрокиДЗ.Добавить();
-				СтрДЗ.Name = Элем.Key;
-				СтрДЗ.Name = Элем.Key + " (" + Элем.Значение + ")";
-				СтрДЗ.ВидУзла = "РазделМД";
-				СтрДЗ.NodeType = 1;
-				СтрДЗ.ПолучитьЭлементы().Добавить();
-			КонецЦикла;
+			For Each Item In SectionStructure Do
+				If Item.Key = "Users" And Not vIsAdministratorRights() Then
+					Continue;
+				EndIf;
+				TreeLine = TreeLines.Add();
+				TreeLine.Name = Item.Key;
+				TreeLine.Name = Item.Key + " (" + Item.Value + ")";
+				TreeLine.NodeType = "SectionMD";
+				TreeLine.NodeType = 1;
+				TreeLine.GetItems().Add();
+			EndDo;
 
-		ИначеЕсли УзелДЗ.ВидУзла = "MetadataObject" Тогда
-			ВидОбъектМД = Лев(УзелДЗ.ПолноеИмя, СтрНайти(УзелДЗ.ПолноеИмя, ".") - 1);
+		ElsIf TreeNode.NodeType = "MetadataObject" Then
+			ObjectTypeMD = Left(TreeNode.FullName, StrFind(TreeNode.FullName, ".") - 1);
 
-			УзелДЗ = ObjectsTree.НайтиПоИдентификатору(Строка);
-			СтрокиДЗ = УзелДЗ.ПолучитьЭлементы();
-			СтрокиДЗ.Очистить();
+			TreeNode = ObjectsTree.FindByID(String);
+			TreeLines = TreeNode.GetItems();
+			TreeLines.Clear();
 
-			Если ВидОбъектМД = "Перечисление" Тогда
-				МассивОбъектов = вПолучитьСоставПеречисления(УзелДЗ.ПолноеИмя);
-				Для Каждого Элем Из МассивОбъектов Цикл
-					СтрДЗ = СтрокиДЗ.Добавить();
-					ЗаполнитьЗначенияСвойств(СтрДЗ, Элем);
-				КонецЦикла;
-			ИначеЕсли ВидОбъектМД = "Подсистема" Тогда
-				МассивОбъектов = вПолучитьСоставПодсистемы(УзелДЗ.ПолноеИмя);
-				Для Каждого Элем Из МассивОбъектов Цикл
-					СтрДЗ = СтрокиДЗ.Добавить();
-					ЗаполнитьЗначенияСвойств(СтрДЗ, Элем);
-					Если Элем.ЕстьДети Тогда
-						СтрДЗ.ПолучитьЭлементы().Добавить();
-					КонецЕсли;
-				КонецЦикла;
-			ИначеЕсли ВидОбъектМД = "WebСервис" Тогда
-				МассивОбъектов = вПолучитьОперацииWebСервиса(УзелДЗ.ПолноеИмя);
-				Для Каждого Элем Из МассивОбъектов Цикл
-					СтрДЗ = СтрокиДЗ.Добавить();
-					ЗаполнитьЗначенияСвойств(СтрДЗ, Элем);
-				КонецЦикла;
-			ИначеЕсли ВидОбъектМД = "HTTPСервис" Тогда
-				МассивОбъектов = вПолучитьМетодыHTTPСервиса(УзелДЗ.ПолноеИмя);
-				Для Каждого Элем Из МассивОбъектов Цикл
-					СтрДЗ = СтрокиДЗ.Добавить();
-					ЗаполнитьЗначенияСвойств(СтрДЗ, Элем);
-					Для Каждого ЭлемХ Из Элем.Методы Цикл
-						ЗаполнитьЗначенияСвойств(СтрДЗ.ПолучитьЭлементы().Добавить(), ЭлемХ);
-					КонецЦикла;
-				КонецЦикла;
-			КонецЕсли;
-		КонецЕсли;
-		Элементы.ObjectsTree.Развернуть(Строка);
-	КонецЕсли;
-КонецПроцедуры
+			If ObjectTypeMD = "Enum" Then
+				МассивОбъектов = вПолучитьСоставПеречисления(TreeNode.FullName);
+				For Each Item In МассивОбъектов Do
+					TreeLine = TreeLines.Add();
+					FillPropertyValues(TreeLine, Item);
+				EndDo;
+			ElsIf ObjectTypeMD = "Подсистема" Then
+				МассивОбъектов = вПолучитьСоставПодсистемы(TreeNode.FullName);
+				For Each Item In МассивОбъектов Do
+					TreeLine = TreeLines.Add();
+					FillPropertyValues(TreeLine, Item);
+					If Item.ЕстьДети Then
+						TreeLine.GetItems().Add();
+					EndIf;
+				EndDo;
+			ElsIf ObjectTypeMD = "WebСервис" Then
+				МассивОбъектов = вПолучитьОперацииWebСервиса(TreeNode.FullName);
+				For Each Item In МассивОбъектов Do
+					TreeLine = TreeLines.Add();
+					FillPropertyValues(TreeLine, Item);
+				EndDo;
+			ElsIf ObjectTypeMD = "HTTPСервис" Then
+				МассивОбъектов = вПолучитьМетодыHTTPСервиса(TreeNode.FullName);
+				For Each Item In МассивОбъектов Do
+					TreeLine = TreeLines.Add();
+					FillPropertyValues(TreeLine, Item);
+					For Each ЭлемХ In Item.Methods Do
+						FillPropertyValues(TreeLine.GetItems().Add(), ЭлемХ);
+					EndDo;
+				EndDo;
+			EndIf;
+		EndIf;
+		Items.ObjectsTree.Expand(String);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура вЗапуститьСеанс1С(ТипЗапуска)
-	UT_CommonClient.Run1CSession(ТипЗапуска, ИмяПользователя());
-КонецПроцедуры
+&AtClient
+Procedure вЗапуститьСеанс1С(ТипЗапуска)
+	UT_CommonClient.Run1CSession(ТипЗапуска, UserName());
+EndProcedure
 
-&НаКлиенте
-Процедура вВыполнитьКомандуОС(пКоманда)
-	Попытка
-		НачатьЗапускПриложения(Новый ОписаниеОповещения("вПослеЗапускаПриложения", ЭтаФорма), пКоманда);
-	Исключение
-		Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-	КонецПопытки;
-КонецПроцедуры
+&AtClient
+Procedure вВыполнитьКомандуОС(пКоманда)
+	Try
+		BeginRunningApplication(New NotifyDescription("вПослеЗапускаПриложения", ThisForm), пКоманда);
+	Except
+		Message(BriefErrorDescription(ErrorInfo()));
+	EndTry;
+EndProcedure
 
-&НаКлиенте
-Процедура вПослеЗапускаПриложения(КодВозврата, ДопПарам = Неопределено) Экспорт
+&AtClient
+Procedure вПослеЗапускаПриложения(КодВозврата, ДопПарам = Undefined) Export
 	// фиктивная процедура для совместимости разных версий платыормы
-КонецПроцедуры
-&НаКлиентеНаСервереБезКонтекста
-Функция вПереченьПолейУзлаДЗ()
-	Возврат "Name, Synonym, ОсновнаяТаблицаSQL, FullName, ВидУзла, NodeType, ObjectPresentation, NumberOfObjects";
-КонецФункции
+EndProcedure
+&AtClientAtServerNoContext
+Function vListOfTreeFields()
+	Return "Name, Synonym, ОсновнаяТаблицаSQL, FullName, NodeType, NodeType, ObjectPresentation, NumberOfObjects";
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вСформироватьСтруктуруУзлаДЗ(ВидУзла = "", Имя = "", ПолноеИмя = "", Синоним = "", ЕстьДети = Ложь,
-	ПредставлениеОбъекта = "")
-	Струк = Новый Структура("ВидУзла, Name, FullName, Synonym, ObjectPresentation, ЕстьДети, ОсновнаяТаблицаSQL",
-		ВидУзла, Имя, ПолноеИмя, Синоним, ПредставлениеОбъекта, ЕстьДети, "");
-	Возврат Струк;
-КонецФункции
+&AtServerNoContext
+Function вСформироватьСтруктуруУзлаДЗ(NodeType = "", Name = "", FullName = "", Synonym = "", ЕстьДети = False,
+	ObjectPresentation = "")
+	_Structure = New Structure("NodeType, Name, FullName, Synonym, ObjectPresentation, ЕстьДети, ОсновнаяТаблицаSQL",
+		NodeType, Name, FullName, Synonym, ObjectPresentation, ЕстьДети, "");
+	Return _Structure;
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вСформироватьУзелКонфигурация()
-	Струк = Новый Структура("Name, Synonym, Version", "", "", "");
-	ЗаполнитьЗначенияСвойств(Струк, Метаданные);
+&AtServerNoContext
+Function vFormConfigurationNode()
+	_Structure = New Structure("Name, Synonym, Version", "", "", "");
+	FillPropertyValues(_Structure, Metadata);
 
-	Если ПустаяСтрока(Струк.Синоним) Тогда
-		Струк.Synonym = Струк.Name;
-	КонецЕсли;
-	Если Не ПустаяСтрока(Струк.Версия) Тогда
-		Струк.Synonym = Струк.Synonym + " (" + Струк.Version + ")";
-	КонецЕсли;
+	If IsBlankString(_Structure.Synonym) Then
+		_Structure.Synonym = _Structure.Name;
+	EndIf;
+	If Not IsBlankString(_Structure.Version) Then
+		_Structure.Synonym = _Structure.Synonym + " (" + _Structure.Version + ")";
+	EndIf;
 
-	Возврат вСформироватьСтруктуруУзлаДЗ("Конфигурация", Струк.Имя, "Конфигурация", Струк.Синоним);
-КонецФункции
+	Return вСформироватьСтруктуруУзлаДЗ("Configuration", _Structure.Name, "Configuration", _Structure.Synonym);
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПроверитьНаличиеСвойства(Object, ИмяСвойства)
-	Струк = Новый Структура(ИмяСвойства);
-	ЗаполнитьЗначенияСвойств(Струк, Object);
+&AtServerNoContext
+Function вПроверитьНаличиеСвойства(Object, PropertyName)
+	_Structure = New Structure(PropertyName);
+	FillPropertyValues(_Structure, Object);
 
-	Возврат (Струк[ИмяСвойства] <> Неопределено);
-КонецФункции
+	Return (_Structure[PropertyName] <> Undefined);
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПолучитьСоставРазделаМД(Знач ИмяРаздела)
-	Поз = СтрНайти(ИмяРаздела, " ");
-	Если Поз <> 0 Тогда
-		ИмяРаздела = Лев(ИмяРаздела, Поз - 1);
-	КонецЕсли;
+&AtServerNoContext
+Function vGetCompositionSectionMD(Val ИмяРаздела)
+	Position = StrFind(ИмяРаздела, " ");
+	If Position <> 0 Then
+		ИмяРаздела = Left(ИмяРаздела, Position - 1);
+	EndIf;
 
-	СтрукРезультат = Новый Структура("ЧислоОбъектов, МассивОбъектов", 0, Новый Массив);
+	СтрукРезультат = New Structure("NumberOfObjects, МассивОбъектов", 0, New Array);
 	
 	// для упорядочивания по именам объектов
-	пОбъектыСДопПредставлением = Новый Структура("ПланыОбмена, Справочники, Документы, ПланыВидовХарактеристик, ПланыВидовРасчета, ПланыСчетов, БизнесПроцессы, Задачи");
-	ЕстьДопПредставление = пОбъектыСДопПредставлением.Свойство(ИмяРаздела);
+	пОбъектыСДопПредставлением = New Structure("ExchangePlans, Catalogs, Documents, ChartsOfCharacteristicTypes, ChartsOfCalculationTypes, ChartsOfAccounts, BusinessProcesses, Tasks");
+	ЕстьДопПредставление = пОбъектыСДопПредставлением.Property(ИмяРаздела);
 
-	ТипСтрока = Новый ОписаниеТипов("Строка");
+	ТипСтрока = New TypeDescription("String");
 
-	Таблица = Новый ТаблицаЗначений;
-	Таблица.Колонки.Добавить("MetadataObject");
-	Таблица.Колонки.Добавить("Name", ТипСтрока);
-	Таблица.Колонки.Добавить("Synonym", ТипСтрока);
-	Таблица.Колонки.Добавить("ObjectPresentation", ТипСтрока);
-	Таблица.Колонки.Добавить("ОсновнаяТаблицаSQL", ТипСтрока);
-	Таблица.Колонки.Добавить("FullName", ТипСтрока);
-	Таблица.Колонки.Добавить("ВидУзла", ТипСтрока);
-	Таблица.Колонки.Добавить("ЕстьДети", Новый ОписаниеТипов("Булево"));
+	Table = New ValueTable;
+	Table.Cols.Add("MetadataObject");
+	Table.Cols.Add("Name", ТипСтрока);
+	Table.Cols.Add("Synonym", ТипСтрока);
+	Table.Cols.Add("ObjectPresentation", ТипСтрока);
+	Table.Cols.Add("ОсновнаяТаблицаSQL", ТипСтрока);
+	Table.Cols.Add("FullName", ТипСтрока);
+	Table.Cols.Add("NodeType", ТипСтрока);
+	Table.Cols.Add("ЕстьДети", New TypeDescription("Boolean"));
 
-	Если ИмяРаздела = "Пользователи" Тогда
-		Если вЕстьПраваАдминистратора() Тогда
-			Для Каждого Элем Из ПользователиИнформационнойБазы.ПолучитьПользователей() Цикл
-				Стр = Таблица.Добавить();
-				Стр.Name = Элем.Name;
-				Стр.Synonym = Элем.FullName;
-				Стр.ObjectPresentation = Элем.UUID;
-				Стр.FullName = "User." + Элем.Name;
-				Стр.ВидУзла = "MetadataObject";
-			КонецЦикла;
-		КонецЕсли;
-	ИначеЕсли ИмяРаздела = "ПрочиеКоманды" Тогда
-		ПереченьРазделов = "Справочники, ЖурналыДокументов, Документы, Перечисления, Обработки, Отчеты,
-						   |ПланыСчетов, ПланыВидовХарактеристик, ПланыВидовРасчета, ПланыОбмена,
-						   |РегистрыСведений, РегистрыНакопления, РегистрыРасчета, РегистрыБухгалтерии,
-						   |БизнесПроцессы, Задачи, КритерииОтбора";
+	If ИмяРаздела = "Users" Then
+		If vIsAdministratorRights() Then
+			For Each Item In InfoBaseUsers.GetUsers() Do
+				Стр = Table.Add();
+				Стр.Name = Item.Name;
+				Стр.Synonym = Item.FullName;
+				Стр.ObjectPresentation = Item.UUID;
+				Стр.FullName = "User." + Item.Name;
+				Стр.NodeType = "MetadataObject";
+			EndDo;
+		EndIf;
+	ElsIf ИмяРаздела = "ПрочиеКоманды" Then
+		ПереченьРазделов = "Catalogs, DocumentJournals, Documents, Enums, DataProcessors, Reports,
+						   |ChartsOfAccounts, ChartsOfCharacteristicTypes, ChartsOfCalculationTypes, ExchangePlans,
+						   |InformationRegisters, AccumulationRegisters, CalculationRegisters, AccountingRegisters,
+						   |BusinessProcesses, Tasks, FilterCriteria";
 
-		СтрукРазделы = Новый Структура(ПереченьРазделов);
+		SectionStructure = New Structure(ПереченьРазделов);
 
-		Для Каждого Элем Из СтрукРазделы Цикл
-			Для Каждого ОбъектХХХ Из Метаданные[Элем.Key] Цикл
-				ИмяТипаХХХ = ОбъектХХХ.ПолноеИмя();
+		For Each Item In SectionStructure Do
+			For Each ОбъектХХХ In Metadata[Item.Key] Do
+				ИмяТипаХХХ = ОбъектХХХ.FullName();
 
-				Если вПроверитьНаличиеСвойства(ОбъектХХХ, "Команды") Тогда
-					Для Каждого Элем Из ОбъектХХХ.Команды Цикл
-						Стр = Таблица.Добавить();
-						Стр.MetadataObject = Элем;
-						Стр.Name = Элем.Name;
-						Стр.Synonym = Элем.Представление();
-						Стр.FullName = Элем.ПолноеИмя();
-						Стр.ВидУзла = "MetadataObject";
-					КонецЦикла;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЦикла;
+				If вПроверитьНаличиеСвойства(ОбъектХХХ, "Commands") Then
+					For Each Item In ОбъектХХХ.Commands Do
+						Стр = Table.Add();
+						Стр.MetadataObject = Item;
+						Стр.Name = Item.Name;
+						Стр.Synonym = Item.Presentation();
+						Стр.FullName = Item.FullName();
+						Стр.NodeType = "MetadataObject";
+					EndDo;
+				EndIf;
+			EndDo;
+		EndDo;
 
-	Иначе
-		Для Каждого Элем Из Метаданные[ИмяРаздела] Цикл
-			Стр = Таблица.Добавить();
-			Стр.MetadataObject = Элем;
-			Стр.Name = Элем.Name;
-			Стр.Synonym = Элем.Представление();
-			Стр.ObjectPresentation = ?(ЕстьДопПредставление, Элем.ПредставлениеОбъекта, "");
-			Стр.FullName = Элем.ПолноеИмя();
-			Стр.ВидУзла = "MetadataObject";
+	Else
+		For Each Item In Metadata[ИмяРаздела] Do
+			Стр = Table.Add();
+			Стр.MetadataObject = Item;
+			Стр.Name = Item.Name;
+			Стр.Synonym = Item.Presentation();
+			Стр.ObjectPresentation = ?(ЕстьДопПредставление, Item.ObjectPresentation, "");
+			Стр.FullName = Item.FullName();
+			Стр.NodeType = "MetadataObject";
 
-			Если ИмяРаздела = "Подсистемы" Тогда
-				Стр.ЕстьДети = (Элем.Подсистемы.Количество() <> 0);
-			КонецЕсли;
-		КонецЦикла;
-	КонецЕсли;
+			If ИмяРаздела = "Subsystems" Then
+				Стр.ЕстьДети = (Item.Subsystems.Count() <> 0);
+			EndIf;
+		EndDo;
+	EndIf;
 
-	Если ИмяРаздела = "ПрочиеКоманды" Тогда
-		Таблица.Сортировать("FullName");
-	Иначе
-		Таблица.Сортировать("Name");
-	КонецЕсли;
+	If ИмяРаздела = "ПрочиеКоманды" Then
+		Table.Sort("FullName");
+	Else
+		Table.Sort("Name");
+	EndIf;
 
-	Для Каждого Стр Из Таблица Цикл
-		Струк = вСформироватьСтруктуруУзлаДЗ();
-		ЗаполнитьЗначенияСвойств(Струк, Стр);
-		СтрукРезультат.МассивОбъектов.Добавить(Струк);
-	КонецЦикла;
+	For Each Стр In Table Do
+		_Structure = вСформироватьСтруктуруУзлаДЗ();
+		FillPropertyValues(_Structure, Стр);
+		СтрукРезультат.МассивОбъектов.Add(_Structure);
+	EndDo;
 
-	Если ИмяРаздела = "Подсистемы" Тогда
-		СтрукРезультат.ЧислоОбъектов = вПолучитьКоличествоПодсистем();
-	Иначе
-		СтрукРезультат.ЧислоОбъектов = СтрукРезультат.МассивОбъектов.Количество();
-	КонецЕсли;
+	If ИмяРаздела = "Subsystems" Then
+		СтрукРезультат.NumberOfObjects = vGetNumberOfSubSytems();
+	Else
+		СтрукРезультат.NumberOfObjects = СтрукРезультат.МассивОбъектов.Count();
+	EndIf;
 
-	Возврат СтрукРезультат;
-КонецФункции
+	Return СтрукРезультат;
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПолучитьСоставПеречисления(Знач ПолноеИмя)
-	МассивОбъектов = Новый Массив;
+&AtServerNoContext
+Function вПолучитьСоставПеречисления(Val FullName)
+	МассивОбъектов = New Array;
 
-	ОбъектМД = Метаданные.НайтиПоПолномуИмени(ПолноеИмя);
-	Если ОбъектМД <> Неопределено Тогда
-		Для Каждого ЭлемХ Из ОбъектМД.ЗначенияПеречисления Цикл
-			Струк = вСформироватьСтруктуруУзлаДЗ("ЗначениеПеречисления", ЭлемХ.Имя, "", ЭлемХ.Представление());
-			МассивОбъектов.Добавить(Струк);
-		КонецЦикла;
-	КонецЕсли;
+	ОбъектМД = Metadata.FindByFullName(FullName);
+	If ОбъектМД <> Undefined Then
+		For Each ЭлемХ In ОбъектМД.EnumValues Do
+			_Structure = вСформироватьСтруктуруУзлаДЗ("ЗначениеПеречисления", ЭлемХ.Name, "", ЭлемХ.Presentation());
+			МассивОбъектов.Add(_Structure);
+		EndDo;
+	EndIf;
 
-	Возврат МассивОбъектов;
-КонецФункции
+	Return МассивОбъектов;
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПолучитьОперацииWebСервиса(Знач ПолноеИмя)
-	МассивОбъектов = Новый Массив;
+&AtServerNoContext
+Function вПолучитьОперацииWebСервиса(Val FullName)
+	МассивОбъектов = New Array;
 
-	ОбъектМД = Метаданные.НайтиПоПолномуИмени(ПолноеИмя);
-	Если ОбъектМД <> Неопределено Тогда
-		Для Каждого ЭлемХ Из ОбъектМД.Операции Цикл
-			Струк = вСформироватьСтруктуруУзлаДЗ("MetadataObject", ЭлемХ.Имя, ЭлемХ.ПолноеИмя(), ЭлемХ.Представление());
-			МассивОбъектов.Добавить(Струк);
-		КонецЦикла;
-	КонецЕсли;
+	ОбъектМД = Metadata.FindByFullName(FullName);
+	If ОбъектМД <> Undefined Then
+		For Each ЭлемХ In ОбъектМД.Operations Do
+			_Structure = вСформироватьСтруктуруУзлаДЗ("MetadataObject", ЭлемХ.Name, ЭлемХ.FullName(), ЭлемХ.Presentation());
+			МассивОбъектов.Add(_Structure);
+		EndDo;
+	EndIf;
 
-	Возврат МассивОбъектов;
-КонецФункции
+	Return МассивОбъектов;
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПолучитьМетодыHTTPСервиса(Знач ПолноеИмя)
-	МассивОбъектов = Новый Массив;
+&AtServerNoContext
+Function вПолучитьМетодыHTTPСервиса(Val FullName)
+	МассивОбъектов = New Array;
 
-	ОбъектМД = Метаданные.НайтиПоПолномуИмени(ПолноеИмя);
-	Если ОбъектМД <> Неопределено Тогда
-		Для Каждого ЭлемХ Из ОбъектМД.ШаблоныURL Цикл
-			Струк = вСформироватьСтруктуруУзлаДЗ("MetadataObject", ЭлемХ.Имя, ЭлемХ.ПолноеИмя(), ЭлемХ.Представление());
-			МассивОбъектов.Добавить(Струк);
-			Струк.Вставить("Методы", Новый Массив);
-			Для Каждого ЭлемХХХ Из ЭлемХ.Методы Цикл
-				СтрукХХХ = вСформироватьСтруктуруУзлаДЗ("MetadataObject", ЭлемХХХ.Имя, ЭлемХХХ.ПолноеИмя(),
-					ЭлемХХХ.Представление());
-				Струк.Методы.Добавить(СтрукХХХ);
-			КонецЦикла;
-		КонецЦикла;
-	КонецЕсли;
+	ОбъектМД = Metadata.FindByFullName(FullName);
+	If ОбъектМД <> Undefined Then
+		For Each ЭлемХ In ОбъектМД.URLTemplates Do
+			_Structure = вСформироватьСтруктуруУзлаДЗ("MetadataObject", ЭлемХ.Name, ЭлемХ.FullName(), ЭлемХ.Presentation());
+			МассивОбъектов.Add(_Structure);
+			_Structure.Insert("Methods", New Array);
+			For Each ЭлемХХХ In ЭлемХ.Methods Do
+				СтрукХХХ = вСформироватьСтруктуруУзлаДЗ("MetadataObject", ЭлемХХХ.Name, ЭлемХХХ.FullName(),
+					ЭлемХХХ.Presentation());
+				_Structure.Methods.Add(СтрукХХХ);
+			EndDo;
+		EndDo;
+	EndIf;
 
-	Возврат МассивОбъектов;
-КонецФункции
+	Return МассивОбъектов;
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПолучитьСоставПодсистемы(Знач ПолноеИмя)
-	ТипСтрока = Новый ОписаниеТипов("Строка");
+&AtServerNoContext
+Function вПолучитьСоставПодсистемы(Val FullName)
+	ТипСтрока = New TypeDescription("String");
 
-	Таблица = Новый ТаблицаЗначений;
-	Таблица.Колонки.Добавить("MetadataObject");
-	Таблица.Колонки.Добавить("Name", ТипСтрока);
-	Таблица.Колонки.Добавить("Synonym", ТипСтрока);
-	Таблица.Колонки.Добавить("ObjectPresentation", ТипСтрока);
-	Таблица.Колонки.Добавить("FullName", ТипСтрока);
-	Таблица.Колонки.Добавить("ВидУзла", ТипСтрока);
-	Таблица.Колонки.Добавить("ЕстьДети", Новый ОписаниеТипов("Булево"));
+	Table = New ValueTable;
+	Table.Cols.Add("MetadataObject");
+	Table.Cols.Add("Name", ТипСтрока);
+	Table.Cols.Add("Synonym", ТипСтрока);
+	Table.Cols.Add("ObjectPresentation", ТипСтрока);
+	Table.Cols.Add("FullName", ТипСтрока);
+	Table.Cols.Add("NodeType", ТипСтрока);
+	Table.Cols.Add("ЕстьДети", New TypeDescription("Boolean"));
 
-	ОбъектМД = Метаданные.НайтиПоПолномуИмени(ПолноеИмя);
-	Если ОбъектМД <> Неопределено Тогда
-		Для Каждого Элем Из ОбъектМД.Подсистемы Цикл
-			Стр = Таблица.Добавить();
-			Стр.MetadataObject = Элем;
-			Стр.Name = Элем.Name;
-			Стр.Synonym = Элем.Представление();
-			Стр.FullName = Элем.ПолноеИмя();
-			Стр.ВидУзла = "MetadataObject";
-			Стр.ЕстьДети = (Элем.Подсистемы.Количество() <> 0);
-		КонецЦикла;
-	КонецЕсли;
-	Таблица.Сортировать("Name");
+	ОбъектМД = Metadata.FindByFullName(FullName);
+	If ОбъектМД <> Undefined Then
+		For Each Item In ОбъектМД.Subsystems Do
+			Стр = Table.Add();
+			Стр.MetadataObject = Item;
+			Стр.Name = Item.Name;
+			Стр.Synonym = Item.Presentation();
+			Стр.FullName = Item.FullName();
+			Стр.NodeType = "MetadataObject";
+			Стр.ЕстьДети = (Item.Subsystems.Count() <> 0);
+		EndDo;
+	EndIf;
+	Table.Sort("Name");
 
-	МассивОбъектов = Новый Массив;
+	МассивОбъектов = New Array;
 
-	Для Каждого Стр Из Таблица Цикл
-		Струк = вСформироватьСтруктуруУзлаДЗ();
-		ЗаполнитьЗначенияСвойств(Струк, Стр);
-		МассивОбъектов.Добавить(Струк);
-	КонецЦикла;
+	For Each Стр In Table Do
+		_Structure = вСформироватьСтруктуруУзлаДЗ();
+		FillPropertyValues(_Structure, Стр);
+		МассивОбъектов.Add(_Structure);
+	EndDo;
 
-	Возврат МассивОбъектов;
-КонецФункции
+	Return МассивОбъектов;
+EndFunction
 
-&НаСервереБезКонтекста
-Процедура вРассчитатьКоличествоОбъектовМД(СтрукРазделы)
-	УстановитьПривилегированныйРежим(Истина);
+&AtServerNoContext
+Procedure vCalculateNumberOfObjectsMD(SectionStructure)
+	SetPrivilegedMode(True);
 
-	Для Каждого Элем Из СтрукРазделы Цикл
-		ЧислоОбъектов = 0;
-		Если Элем.Key = "Пользователи" Тогда
-			Если вЕстьПраваАдминистратора() Тогда
-				ЧислоОбъектов = ПользователиИнформационнойБазы.ПолучитьПользователей().Количество();
-			КонецЕсли;
-		ИначеЕсли Элем.Key = "Подсистемы" Тогда
-			ЧислоОбъектов = вПолучитьКоличествоПодсистем();
-		ИначеЕсли Элем.Key = "ПрочиеКоманды" Тогда
-			ЧислоОбъектов = "???"; //вПолучитьКоличествоПодсистем();
-		Иначе
-			ЧислоОбъектов = Метаданные[Элем.Key].Количество();
-		КонецЕсли;
-		СтрукРазделы.Вставить(Элем.Ключ, ЧислоОбъектов);
-	КонецЦикла;
-КонецПроцедуры
+	For Each Item In SectionStructure Do
+		NumberOfObjects = 0;
+		If Item.Key = "Users" Then
+			If vIsAdministratorRights() Then
+				NumberOfObjects = InfoBaseUsers.GetUsers().Count();
+			EndIf;
+		ElsIf Item.Key = "Subsystems" Then
+			NumberOfObjects = vGetNumberOfSubSytems();
+		ElsIf Item.Key = "ПрочиеКоманды" Then
+			NumberOfObjects = "???"; //vGetNumberOfSubSytems();
+		Else
+			NumberOfObjects = Metadata[Item.Key].Count();
+		EndIf;
+		SectionStructure.Insert(Item.Key, NumberOfObjects);
+	EndDo;
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вПолучитьКоличествоПодсистем(Знач ЭтоПервыйВызов = Истина, ПодсистемаМД = Неопределено, Соотв = Неопределено)
-	Если ЭтоПервыйВызов Тогда
-		Соотв = Новый Соответствие;
+&AtServerNoContext
+Function vGetNumberOfSubSytems(Val ЭтоПервыйВызов = True, ПодсистемаМД = Undefined, Соотв = Undefined)
+	If ЭтоПервыйВызов Then
+		Соотв = New Map;
 
-		Для Каждого Элем Из Метаданные.Подсистемы Цикл
-			вПолучитьКоличествоПодсистем(Ложь, Элем, Соотв);
-		КонецЦикла;
+		For Each Item In Metadata.Subsystems Do
+			vGetNumberOfSubSytems(False, Item, Соотв);
+		EndDo;
 
-		Возврат Соотв.Количество();
-	Иначе
-		Соотв.Вставить(ПодсистемаМД, 1);
-		Для Каждого Элем Из ПодсистемаМД.Подсистемы Цикл
-			Соотв.Вставить(Элем, 1);
-			вПолучитьКоличествоПодсистем(Ложь, Элем, Соотв);
-		КонецЦикла;
+		Return Соотв.Count();
+	Else
+		Соотв.Insert(ПодсистемаМД, 1);
+		For Each Item In ПодсистемаМД.Subsystems Do
+			Соотв.Insert(Item, 1);
+			vGetNumberOfSubSytems(False, Item, Соотв);
+		EndDo;
 
-		Возврат 0;
-	КонецЕсли;
-КонецФункции
-&НаКлиенте
-Функция вЭтоПрочаяКоманда(ПолноеИмя)
-	Возврат (СтрНайти(ПолноеИмя, "Подсистема.") <> 1 И СтрНайти(ПолноеИмя, ".Команда.") <> 0);
-КонецФункции
+		Return 0;
+	EndIf;
+EndFunction
+&AtClient
+Function вЭтоПрочаяКоманда(FullName)
+	Return (StrFind(FullName, "Подсистема.") <> 1 And StrFind(FullName, ".Command.") <> 0);
+EndFunction
 
-&НаКлиенте
-Процедура ДеревоОбъектовВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
+&AtClient
+Procedure ДеревоОбъектовВыбор(Item, SelectedRow, Field, StandardProcessing)
+	CurrentData = Items.ObjectsTree.CurrentData;
 
-	Если ТекДанные <> Неопределено Тогда
-		Если ТекДанные.ВидУзла = "MetadataObject" Тогда
-			Если вЭтоПрочаяКоманда(ТекДанные.ПолноеИмя) Тогда
-				kShowObjectProperties(Неопределено);
-				Возврат;
-			КонецЕсли;
+	If CurrentData <> Undefined Then
+		If CurrentData.NodeType = "MetadataObject" Then
+			If вЭтоПрочаяКоманда(CurrentData.FullName) Then
+				kShowObjectProperties(Undefined);
+				Return;
+			EndIf;
 
-			СпецПеречень = "Обработка, Отчет";
-			Струк = Новый Структура(СпецПеречень);
+			СпецПеречень = "Processing, Report";
+			_Structure = New Structure(СпецПеречень);
 
-			ВидОбъектМД = Лев(ТекДанные.ПолноеИмя, СтрНайти(ТекДанные.ПолноеИмя, ".") - 1);
-			Если Струк.Свойство(ВидОбъектМД) Тогда
-				kOpenListForm(Неопределено);
-			Иначе
-				kShowObjectProperties(Неопределено);
-			КонецЕсли;
-		ИначеЕсли ТекДанные.ВидУзла = "Конфигурация" Тогда
-			kShowObjectProperties(Неопределено);
-		КонецЕсли;
-	КонецЕсли;
+			ObjectTypeMD = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
+			If _Structure.Property(ObjectTypeMD) Then
+				kOpenListForm(Undefined);
+			Else
+				kShowObjectProperties(Undefined);
+			EndIf;
+		ElsIf CurrentData.NodeType = "Configuration" Then
+			kShowObjectProperties(Undefined);
+		EndIf;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура ДеревоОбъектовПриИзменении(Элемент)
+&AtClient
+Procedure ДеревоОбъектовПриИзменении(Item)
 	вВключитьФлагИзмененияНастроек();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура kChangeScaleOfForm(Команда)
-	ОткрытьФорму(PathToForms + "ФормаВыбораМасштабаОтображения", , ЭтаФорма, , , , ,
-		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+&AtClient
+Procedure kChangeScaleOfForm(Command)
+	OpenForm(PathToForms + "ФормаВыбораМасштабаОтображения", , ThisForm, , , , ,
+		FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура kOpenDynamicList(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		Если ТекДанные.ВидУзла = "MetadataObject" И Не вЭтоПрочаяКоманда(ТекДанные.ПолноеИмя) Тогда
-			СтрукКатегории = Новый Структура("Справочник, Документ, ЖурналДокументов,ПланВидовХарактеристик, ПланВидовРасчета, ПланСчетов
-											 |, РегистрСведений, РегистрНакопления, РегистрБухгалтерии, РегистрРасчета, БизнесПроцесс, Задача");
+&AtClient
+Procedure kOpenDynamicList(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined Then
+		If CurrentData.NodeType = "MetadataObject" And Not вЭтоПрочаяКоманда(CurrentData.FullName) Then
+			СтрукКатегории = New Structure("Catalog, Document, DocumentJournal,ChartOfCharacteristicTypes, ChartOfCalculationTypes, ChartOfAccounts
+											 |, InformationRegister, AccumulationRegister, AccountingRegister, CalculationRegister, BusinessProcess, Task");
 
-			НадоОбработать = Ложь;
-			Для Каждого Элем Из СтрукКатегории Цикл
-				Если СтрНайти(ТекДанные.ПолноеИмя, Элем.Ключ) = 1 Тогда
-					НадоОбработать = Истина;
-					Прервать;
-				КонецЕсли;
-			КонецЦикла;
+			НадоОбработать = False;
+			For Each Item In СтрукКатегории Do
+				If StrFind(CurrentData.FullName, Item.Key) = 1 Then
+					НадоОбработать = True;
+					Break;
+				EndIf;
+			EndDo;
 
-			Если НадоОбработать Тогда
-				UT_CommonClient.ОpenDynamicList(ТекДанные.ПолноеИмя);
-			КонецЕсли;
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
-&НаСервере
-Функция вОбновитьТабНастройки(Знач ВидУзла, Знач Имя)
-	УстановитьПривилегированныйРежим(Истина);
+			If НадоОбработать Then
+				UT_CommonClient.ОpenDynamicList(CurrentData.FullName);
+			EndIf;
+		EndIf;
+	EndIf;
+EndProcedure
+&AtServer
+Function вОбновитьТабНастройки(Val NodeType, Val Name)
+	SetPrivilegedMode(True);
 
-	Если ВидУзла = "Х" Тогда
-		МенеджерХН = Вычислить(Имя);
-	Иначе
-		Возврат Ложь;
-	КонецЕсли;
+	If NodeType = "Х" Then
+		МенеджерХН = Eval(Name);
+	Else
+		Return False;
+	EndIf;
 
-	Если ТипЗнч(МенеджерХН) <> Тип("СтандартноеХранилищеНастроекМенеджер") Тогда
-		Возврат Ложь;
-	КонецЕсли;
+	If TypeOf(МенеджерХН) <> Type("StandardSettingsStorageManager") Then
+		Return False;
+	EndIf;
 
-	Если Не вЕстьПраваАдминистратора() Тогда
-		ТекПользователь = ПользователиИнформационнойБазы.ТекущийПользователь();
-		Отбор = Новый Структура("User", ТекПользователь.Name);
-	Иначе
-		Отбор = Неопределено;
-	КонецЕсли;
+	If Not vIsAdministratorRights() Then
+		ТекПользователь = InfoBaseUsers.CurrentUser();
+		Filter = New Structure("User", ТекПользователь.Name);
+	Else
+		Filter = Undefined;
+	EndIf;
 
-	Попытка
-		Выборка = МенеджерХН.Выбрать(Отбор);
-		Пока Выборка.Следующий() Цикл
-			НС = SettingsTable.Добавить();
+	Try
+		Выборка = МенеджерХН.StartChoosing(Filter);
+		While Выборка.Next() Do
+			НС = SettingsTable.Add();
 			НС.SettingsKey = Выборка.SettingsKey;
 			НС.ObjectKey = Выборка.ObjectKey;
 			НС.User = Выборка.User;
 			НС.Presentation = Выборка.Presentation;
-		КонецЦикла;
-	Исключение
-		Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-	КонецПопытки;
+		EndDo;
+	Except
+		Message(BriefErrorDescription(ErrorInfo()));
+	EndTry;
 
-	Возврат Истина;
-КонецФункции
+	Return True;
+EndFunction
 
-&НаСервере
-Процедура вУдалитьМассивНастроек(Знач Имя, Знач МассивСтрок)
-	УстановитьПривилегированныйРежим(Истина);
+&AtServer
+Procedure вУдалитьМассивНастроек(Val Name, Val МассивСтрок)
+	SetPrivilegedMode(True);
 
-	Попытка
-		МенеджерХН = Вычислить(Имя);
+	Try
+		МенеджерХН = Eval(Name);
 
-		Для Каждого Элем Из МассивСтрок Цикл
-			Стр = SettingsTable.НайтиПоИдентификатору(Элем);
-			Если Стр <> Неопределено Тогда
-				МенеджерХН.Удалить(Стр.ObjectKey, Стр.SettingsKey, Стр.User);
-				SettingsTable.Удалить(Стр);
-			КонецЕсли;
-		КонецЦикла;
-	Исключение
-		Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-	КонецПопытки;
-КонецПроцедуры
+		For Each Item In МассивСтрок Do
+			Стр = SettingsTable.FindByID(Item);
+			If Стр <> Undefined Then
+				МенеджерХН.Delete(Стр.ObjectKey, Стр.SettingsKey, Стр.User);
+				SettingsTable.Delete(Стр);
+			EndIf;
+		EndDo;
+	Except
+		Message(BriefErrorDescription(ErrorInfo()));
+	EndTry;
+EndProcedure
 
-&НаКлиенте
-Процедура ТабНастройкиПередНачаломДобавления(Элемент, Отказ, Копирование, Родитель, Группа, Параметр)
-	Отказ = Истина;
-КонецПроцедуры
+&AtClient
+Procedure ТабНастройкиПередНачаломДобавления(Item, Cancel, Copy, Parent, Group, Parameter)
+	Cancel = True;
+EndProcedure
 
-&НаКлиенте
-Процедура ТабНастройкиПередУдалением(Элемент, Отказ)
-	Отказ = Истина;
-	Если Не ПустаяСтрока(_NameOfSettingsManager) Тогда
-		СтрукПараметры = Новый Структура;
-		СтрукПараметры.Вставить("МассивСтрок", Новый ФиксированныйМассив(Элемент.ВыделенныеСтроки));
-		вПоказатьВопрос("Отмеченные настройки будут удалены. Продолжить?", "ТабНастройкиПередУдалениемДалее",
-			СтрукПараметры);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure ТабНастройкиПередУдалением(Item, Cancel)
+	Cancel = True;
+	If Not IsBlankString(_NameOfSettingsManager) Then
+		StructureOfParameters = New Structure;
+		StructureOfParameters.Insert("МассивСтрок", New FixedArray(Item.SelectedRows));
+		vShowQueryBox("Отмеченные настройки будут удалены. Continue?", "ТабНастройкиПередУдалениемДалее",
+			StructureOfParameters);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ТабНастройкиПередУдалениемДалее(Результат, Параметры) Экспорт
-	Если Результат = КодВозвратаДиалога.Да Тогда
-		вУдалитьМассивНастроек(_NameOfSettingsManager, Параметры.МассивСтрок);
+&AtClient
+Procedure ТабНастройкиПередУдалениемДалее(Result, Parameters) Export
+	If Result = DialogReturnCode.Yes Then
+		вУдалитьМассивНастроек(_NameOfSettingsManager, Parameters.МассивСтрок);
 		вОбновитьЗаголовкиНастройки();
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура kUpdateSettingsTable(Команда)
-	ТекДанные = Элементы.SettingsTree.ТекущиеДанные;
+&AtClient
+Procedure kUpdateSettingsTable(Command)
+	CurrentData = Items.SettingsTree.CurrentData;
 
-	Если ТекДанные <> Неопределено И ТекДанные.ВидУзла = "Х" Тогда
-		SettingsTable.Очистить();
+	If CurrentData <> Undefined And CurrentData.NodeType = "Х" Then
+		SettingsTable.Clear();
 
-		Если Не вОбновитьТабНастройки(ТекДанные.ВидУзла, ТекДанные.Имя) Тогда
-			ТекДанные.ВидУзла = "-";
-			ТекДанные.Presentation = ТекДанные.Name + " (не поддерживается)";
-		КонецЕсли;
+		If Not вОбновитьТабНастройки(CurrentData.NodeType, CurrentData.Name) Then
+			CurrentData.NodeType = "-";
+			CurrentData.Presentation = CurrentData.Name + " (не поддерживается)";
+		EndIf;
 
-		_NameOfSettingsManager = ТекДанные.Name;
+		_NameOfSettingsManager = CurrentData.Name;
 
 		вОбновитьЗаголовкиНастройки();
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура вОбновитьЗаголовкиНастройки()
-	Элементы.DecorationSettings.Заголовок = _NameOfSettingsManager + " (" + SettingsTable.Количество() + " шт.)";
-КонецПроцедуры
+&AtClient
+Procedure вОбновитьЗаголовкиНастройки()
+	Items.DecorationSettings.Title = _NameOfSettingsManager + " (" + SettingsTable.Count() + " шт.)";
+EndProcedure
 
 
 
-// страница Сервис
+// страница Service
 
-&НаСервере
-Процедура вЗаполнитьДеревоСервис()
-	Макет = вПолучитьОбработку().ПолучитьМакет("МакетСервис");
-	Если Макет = Неопределено Тогда
-		Макет = Новый ТабличныйДокумент;
-	КонецЕсли;
+&AtServer
+Procedure vFillServiceTree()
+	Template = vGetProcessor().GetTemplate("МакетСервис");
+	If Template = Undefined Then
+		Template = New SpreadsheetDocument;
+	EndIf;
 
-	СтрукСвойства = Новый Структура("Enabled, Presentation, ВидУзла, Name, Comment, ДоступностьВыражение",
-		Истина);
+	СтрукСвойства = New Structure("Enabled, Presentation, NodeType, Name, Comment, AvailabilityExpression",
+		True);
 
 	КореньДЗ = ServiceTree;
-	УзелДЗ = ServiceTree;
+	TreeNode = ServiceTree;
 
-	Для НомерСтроки = 2 По Макет.ВысотаТаблицы Цикл
-		СтрукСвойства.Presentation = СокрЛП(Макет.Область(НомерСтроки, 1).Текст);
+	For LineNumber = 2 To Template.TableHeight Do
+		СтрукСвойства.Presentation = TrimAll(Template.Region(LineNumber, 1).Text);
 
-		Если Не ПустаяСтрока(СтрукСвойства.Presentation) Тогда
-			СтрукСвойства.ВидУзла = СокрЛП(Макет.Область(НомерСтроки, 2).Текст);
-			СтрукСвойства.Name = СокрЛП(Макет.Область(НомерСтроки, 3).Текст);
-			СтрукСвойства.ДоступностьВыражение = СокрЛП(Макет.Область(НомерСтроки, 4).Текст);
-			СтрукСвойства.Comment = СокрЛП(Макет.Область(НомерСтроки, 5).Текст);
+		If Not IsBlankString(СтрукСвойства.Presentation) Then
+			СтрукСвойства.NodeType = TrimAll(Template.Region(LineNumber, 2).Text);
+			СтрукСвойства.Name = TrimAll(Template.Region(LineNumber, 3).Text);
+			СтрукСвойства.AvailabilityExpression = TrimAll(Template.Region(LineNumber, 4).Text);
+			СтрукСвойства.Comment = TrimAll(Template.Region(LineNumber, 5).Text);
 
-			Если СтрукСвойства.ВидУзла = "Г" Тогда
-				УзелДЗ = КореньДЗ.ПолучитьЭлементы().Добавить();
-				ЗаполнитьЗначенияСвойств(УзелДЗ, СтрукСвойства);
-				УзелДЗ.IsGroup = Истина;
-				УзелДЗ.Picture = -1;
-			Иначе
-				СтрДЗ = УзелДЗ.ПолучитьЭлементы().Добавить();
-				ЗаполнитьЗначенияСвойств(СтрДЗ, СтрукСвойства);
-				Если Не ПустаяСтрока(СтрукСвойства.ДоступностьВыражение) Тогда
-					СтрДЗ.Enabled = Вычислить(СтрукСвойства.ДоступностьВыражение);
-				КонецЕсли;
-				Если Не СтрДЗ.Enabled Тогда
-					СтрДЗ.Presentation = СтрДЗ.Presentation + " (не доступно)";
-				КонецЕсли;
+			If СтрукСвойства.NodeType = "Г" Then
+				TreeNode = КореньДЗ.GetItems().Add();
+				FillPropertyValues(TreeNode, СтрукСвойства);
+				TreeNode.IsGroup = True;
+				TreeNode.Picture = -1;
+			Else
+				TreeLine = TreeNode.GetItems().Add();
+				FillPropertyValues(TreeLine, СтрукСвойства);
+				If Not IsBlankString(СтрукСвойства.AvailabilityExpression) Then
+					TreeLine.Enabled = Eval(СтрукСвойства.AvailabilityExpression);
+				EndIf;
+				If Not TreeLine.Enabled Then
+					TreeLine.Presentation = TreeLine.Presentation + " (не доступно)";
+				EndIf;
 
-				Если СтрДЗ.Name = "ПереключитьМонопольныйРежим" Тогда
-					СтрДЗ.Presentation = ?(_FormContext.МонопольныйРежим, "Отключить монопольный режим",
-						"Установить монопольный режим");
-				КонецЕсли;
-			КонецЕсли;
-		КонецЕсли;
-	КонецЦикла;
-КонецПроцедуры
+				If TreeLine.Name = "ПереключитьМонопольныйРежим" Then
+					TreeLine.Presentation = ?(_FormContext.ExclusiveMode, "Отключить монопольный режим",
+						"Set монопольный режим");
+				EndIf;
+			EndIf;
+		EndIf;
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура ДеревоСервисВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтрДЗ = ServiceTree.НайтиПоИдентификатору(ВыбраннаяСтрока);
-	Если СтрДЗ <> Неопределено Тогда
-		Если Не СтрДЗ.IsGroup Тогда
-			СтандартнаяОбработка = Ложь;
-			Если СтрДЗ.Enabled Тогда
-				Попытка
-					вОбработатьКомандуСервис(СтрДЗ);
-				Исключение
-				КонецПопытки;
-			КонецЕсли;
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure ДеревоСервисВыбор(Item, SelectedRow, Field, StandardProcessing)
+	TreeLine = ServiceTree.FindByID(SelectedRow);
+	If TreeLine <> Undefined Then
+		If Not TreeLine.IsGroup Then
+			StandardProcessing = False;
+			If TreeLine.Enabled Then
+				Try
+					вОбработатьКомандуСервис(TreeLine);
+				Except
+				EndTry;
+			EndIf;
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура вОбработатьКомандуСервис(СтрДЗ)
-	Если СтрДЗ.Name = "ВерсииПодсистем" Тогда
-		ОткрытьФорму("РегистрСведений.ВерсииПодсистем.ФормаСписка");
-	ИначеЕсли СтрДЗ.Name = "ОбновитьПовторноИспользуемыеЗначения" Тогда
-		ОбновитьПовторноИспользуемыеЗначения();
-	ИначеЕсли СтрДЗ.Name = "ОчиститьИзбранное" Тогда
-		вПоказатьВопрос("Избранное будет очищено. Продолжить?", "вОчиститьИзбранное");
-	ИначеЕсли СтрДЗ.Name = "МасштабОтображения" Тогда
-		kChangeScaleOfForm(Неопределено);
-	ИначеЕсли СтрДЗ.Name = "УстановитьБлокировкуСеансов" Тогда
-		ОткрытьФорму(PathToForms + "ФормаБлокировкиСеансов", , ЭтаФорма, , , , ,
-			РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-	ИначеЕсли СтрДЗ.Name = "ПереключитьМонопольныйРежим" Тогда
+&AtClient
+Procedure вОбработатьКомандуСервис(TreeLine)
+	If TreeLine.Name = "SubsystemVersions" Then
+		OpenForm("InformationRegister.ВерсииПодсистем.ФормаСписка");
+	ElsIf TreeLine.Name = "RefreshReusableValues" Then
+		RefreshReusableValues();
+	ElsIf TreeLine.Name = "ClearFavorites" Then
+		vShowQueryBox("Favorites будет очищено. Continue?", "вОчиститьИзбранное");
+	ElsIf TreeLine.Name = "DisplayScale" Then
+		kChangeScaleOfForm(Undefined);
+	ElsIf TreeLine.Name = "SetSessionsLock" Then
+		OpenForm(PathToForms + "ФормаБлокировкиСеансов", , ThisForm, , , , ,
+			FormWindowOpeningMode.LockOwnerWindow);
+	ElsIf TreeLine.Name = "ExclusiveMode" Then
 		вПерключитьМонопольныйРежим(_FormContext);
-		СтрДЗ.Presentation = ?(_FormContext.МонопольныйРежим, "Отключить монопольный режим",
-			"Установить монопольный режим");
-	ИначеЕсли СтрДЗ.Name = "Запуск1С" Тогда
-#Если ВебКлиент Тогда
-		вОперацияНеПоддерживаетсяДляВебКлиента();
-#Иначе
-			ОткрытьФорму(PathToForms + "ФормаЗапуска1С", , ЭтаФорма, , , , ,
-				РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-#КонецЕсли
-	ИначеЕсли
-	СтрДЗ.Name = "Конфигуратор1С" Тогда
+		TreeLine.Presentation = ?(_FormContext.ExclusiveMode, "Отключить монопольный режим",
+			"Set монопольный режим");
+	ElsIf TreeLine.Name = "Run1C" Then
+#If WebClient Then
+		vOperationNotSupportedForWebClient();
+#Else
+			OpenForm(PathToForms + "ФормаЗапуска1С", , ThisForm, , , , ,
+				FormWindowOpeningMode.LockOwnerWindow);
+#EndIf
+	ElsIf
+	TreeLine.Name = "1CConfigurator" Then
 		вЗапуститьСеанс1С(1);
-	ИначеЕсли СтрДЗ.Name = "ТолстыйКлиентОбычное" Тогда
+	ElsIf TreeLine.Name = "OrdinaryСlient" Then
 		вЗапуститьСеанс1С(2);
-	ИначеЕсли СтрДЗ.Name = "ТолстыйКлиентУпр" Тогда
+	ElsIf TreeLine.Name = "ThickСlient" Then
 		вЗапуститьСеанс1С(3);
-	ИначеЕсли СтрДЗ.Name = "ТонкийКлиентУпр" Тогда
+	ElsIf TreeLine.Name = "ThinСlient" Then
 		вЗапуститьСеанс1С(4);
-	ИначеЕсли СтрДЗ.Name = "WinStartMenu" Тогда
+	ElsIf TreeLine.Name = "WinStartMenu" Then
 		вВыполнитьКомандуОС("%ProgramData%\Microsoft\Windows\Start Menu\Programs");
-	ИначеЕсли СтрДЗ.Name = "WinAppData" Тогда
+	ElsIf TreeLine.Name = "WinAppData" Then
 		вВыполнитьКомандуОС("%AppData%");
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура вОчиститьИзбранное(Результат, ДопПараметры = Неопределено) Экспорт
-	Если Результат = КодВозвратаДиалога.Да Тогда
+&AtClient
+Procedure вОчиститьИзбранное(Result, AdditionalParameters = Undefined) Export
+	If Result = DialogReturnCode.Yes Then
 		вОчиститьИзбранноеСервер();
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаСервереБезКонтекста
-Процедура вОчиститьИзбранноеСервер()
-	Избранное = ХранилищеСистемныхНастроек.Загрузить("Общее/ИзбранноеРаботыПользователя");
-	Избранное.Очистить();
-	ХранилищеСистемныхНастроек.Сохранить("Общее/ИзбранноеРаботыПользователя", "", Избранное);
-КонецПроцедуры
+&AtServerNoContext
+Procedure вОчиститьИзбранноеСервер()
+	Favorites = SystemSettingsStorage.Load("Общее/UserWorkFavorites");
+	Favorites.Clear();
+	SystemSettingsStorage.Save("Общее/UserWorkFavorites", "", Favorites);
+EndProcedure
 
-&НаСервереБезКонтекста
-Процедура вПерключитьМонопольныйРежим(_FormContext)
-	Попытка
-		УстановитьМонопольныйРежим(Не МонопольныйРежим());
-		_FormContext.МонопольныйРежим = МонопольныйРежим();
-	Исключение
-		Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-	КонецПопытки;
-КонецПроцедуры
+&AtServerNoContext
+Procedure вПерключитьМонопольныйРежим(_FormContext)
+	Try
+		SetExclusiveMode(Not ExclusiveMode());
+		_FormContext.ExclusiveMode = ExclusiveMode();
+	Except
+		Message(BriefErrorDescription(ErrorInfo()));
+	EndTry;
+EndProcedure
 
-&НаКлиенте
-Процедура kRunServiceCommand(Команда)
-	ТекДанные = Элементы.ServiceTree.ТекущиеДанные;
-	ДеревоСервисВыбор(Элементы.ДеревоСервис, Элементы.ServiceTree.ТекущаяСтрока, Неопределено, Ложь);
-КонецПроцедуры
+&AtClient
+Procedure kRunServiceCommand(Command)
+	CurrentData = Items.ServiceTree.CurrentData;
+	ДеревоСервисВыбор(Items.ДеревоСервис, Items.ServiceTree.CurrentLine, Undefined, False);
+EndProcedure
 
-&НаКлиенте
-Процедура _ОтображатьПраваНаОбъектыПриИзменении(Элемент)
-	Элементы.ObjectRightPages.Видимость = _DisplayObjectsRights;
+&AtClient
+Procedure _ОтображатьПраваНаОбъектыПриИзменении(Item)
+	Items.ObjectRightPages.Visible = _DisplayObjectsRights;
 
-	Если Не _DisplayObjectsRights И Не ПустаяСтрока(_StorageAddresses.РолиИПользователи) Тогда
-		УдалитьИзВременногоХранилища(_StorageAddresses.РолиИПользователи);
-		_StorageAddresses.РолиИПользователи = "";
-	КонецЕсли;
-КонецПроцедуры
+	If Not _DisplayObjectsRights And Not IsBlankString(_StorageAddresses.RolesAndUsers) Then
+		DeleteFromTempStorage(_StorageAddresses.RolesAndUsers);
+		_StorageAddresses.RolesAndUsers = "";
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ДеревоОбъектовПриАктивизацииСтроки(Элемент)
-	Если _DisplayObjectsRights Тогда
-		ПодключитьОбработчикОжидания("ОбработкаАктивизацииСтрокиНавигатора", 0.1, Истина);
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure ДеревоОбъектовПриАктивизацииСтроки(Item)
+	If _DisplayObjectsRights Then
+		AttachIdleHandler("ОбработкаАктивизацииСтрокиНавигатора", 0.1, True);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ОбработкаАктивизацииСтрокиНавигатора()
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
+&AtClient
+Procedure ОбработкаАктивизацииСтрокиНавигатора()
+	CurrentData = Items.ObjectsTree.CurrentData;
 	ТипМД = "";
-	Если ТекДанные <> Неопределено И ТекДанные.ВидУзла = "MetadataObject" Тогда
-		Если ТекДанные.FullName = мТекущийОбъектДерева Тогда
-			Возврат;
-		КонецЕсли;
+	If CurrentData <> Undefined And CurrentData.NodeType = "MetadataObject" Then
+		If CurrentData.FullName = mCurrentTreeObject Then
+			Return;
+		EndIf;
 
-		мТекущийОбъектДерева = ТекДанные.FullName;
+		mCurrentTreeObject = CurrentData.FullName;
 
-		Для Каждого Стр Из VerifiableRightsTable.НайтиСтроки(Новый Структура("Mark", Истина)) Цикл
-			Стр.Mark = Ложь;
-		КонецЦикла;
+		For Each Стр In VerifiableRightsTable.FindRows(New Structure("Mark", True)) Do
+			Стр.Mark = False;
+		EndDo;
 
-		Если СтрНайти(ТекДанные.ПолноеИмя, ".Команда.") <> 0 Тогда
+		If StrFind(CurrentData.FullName, ".Command.") <> 0 Then
 			ТипМД = "ОбщаяКоманда";
-		Иначе
-			ТипМД = Лев(ТекДанные.ПолноеИмя, СтрНайти(ТекДанные.ПолноеИмя, ".") - 1);
-		КонецЕсли;
+		Else
+			ТипМД = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
+		EndIf;
 
-		Если ТипМД = "WebСервис" И СтрНайти(ТекДанные.ПолноеИмя, ".Операция.") <> 0 Тогда
-			ТипМД = "WebСервис.Свойство";
-		ИначеЕсли ТипМД = "HTTPСервис" И СтрНайти(ТекДанные.ПолноеИмя, ".ШаблонURL.") <> 0 И СтрНайти(
-			ТекДанные.ПолноеИмя, ".Метод.") <> 0 Тогда
-			ТипМД = "HTTPСервис.Свойство";
-		КонецЕсли;
+		If ТипМД = "WebСервис" And StrFind(CurrentData.FullName, ".Операция.") <> 0 Then
+			ТипМД = "WebСервис.Property";
+		ElsIf ТипМД = "HTTPСервис" And StrFind(CurrentData.FullName, ".ШаблонURL.") <> 0 And StrFind(
+			CurrentData.FullName, ".Method.") <> 0 Then
+			ТипМД = "HTTPСервис.Property";
+		EndIf;
 
-		Для Каждого Стр Из VerifiableRightsTable.НайтиСтроки(Новый Структура("MetadataObject", ТипМД)) Цикл
-			Стр.Mark = Истина;
-		КонецЦикла;
-	Иначе
-		мТекущийОбъектДерева = "";
+		For Each Стр In VerifiableRightsTable.FindRows(New Structure("MetadataObject", ТипМД)) Do
+			Стр.Mark = True;
+		EndDo;
+	Else
+		mCurrentTreeObject = "";
 
-		Для Каждого Стр Из VerifiableRightsTable.НайтиСтроки(Новый Структура("Mark", Истина)) Цикл
-			Стр.Mark = Ложь;
-		КонецЦикла;
-	КонецЕсли;
+		For Each Стр In VerifiableRightsTable.FindRows(New Structure("Mark", True)) Do
+			Стр.Mark = False;
+		EndDo;
+	EndIf;
 
-	RolesWithAccessTable.Очистить();
-	UsersWithAccessTable.Очистить();
+	RolesWithAccessTable.Clear();
+	UsersWithAccessTable.Clear();
 
-	Если ТекДанные <> Неопределено И ТекДанные.ВидУзла = "MetadataObject" Тогда
+	If CurrentData <> Undefined And CurrentData.NodeType = "MetadataObject" Then
 
-		Если СтрНайти(ТекДанные.ПолноеИмя, "Роль.") = 1 Тогда
-			Если Элементы.ObjectRightPages.ТекущаяСтраница <> Элементы.UsersLine Тогда
-				Элементы.ObjectRightPages.ТекущаяСтраница = Элементы.UsersLine;
-			КонецЕсли;
+		If StrFind(CurrentData.FullName, "Role.") = 1 Then
+			If Items.ObjectRightPages.CurrentPage <> Items.UsersLine Then
+				Items.ObjectRightPages.CurrentPage = Items.UsersLine;
+			EndIf;
 			ИмяПрава = "Х";
-		ИначеЕсли СтрНайти(ТекДанные.ПолноеИмя, "User.") = 1 Тогда
-			Если Элементы.ObjectRightPages.ТекущаяСтраница <> Элементы.RolesLine Тогда
-				Элементы.ObjectRightPages.ТекущаяСтраница = Элементы.RolesLine;
-			КонецЕсли;
+		ElsIf StrFind(CurrentData.FullName, "User.") = 1 Then
+			If Items.ObjectRightPages.CurrentPage <> Items.RolesLine Then
+				Items.ObjectRightPages.CurrentPage = Items.RolesLine;
+			EndIf;
 			ИмяПрава = "Х";
-		Иначе
-			Если ТипМД = "" Тогда
-				ТипМД = Лев(ТекДанные.ПолноеИмя, СтрНайти(ТекДанные.ПолноеИмя, ".") - 1);
-			КонецЕсли;
-			НайденныеСтроки = VerifiableRightsTable.НайтиСтроки(Новый Структура("MetadataObject", ТипМД));
-			Если НайденныеСтроки.Количество() = 0 Тогда
+		Else
+			If ТипМД = "" Then
+				ТипМД = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
+			EndIf;
+			НайденныеСтроки = VerifiableRightsTable.FindRows(New Structure("MetadataObject", ТипМД));
+			If НайденныеСтроки.Count() = 0 Then
 				вУстановитьЗаголовкиТаблицПрав();
-				Возврат;
-			КонецЕсли;
+				Return;
+			EndIf;
 			ИмяПрава = НайденныеСтроки[0].Right;
-			Если ИмяПрава = "" Тогда
+			If ИмяПрава = "" Then
 				вУстановитьЗаголовкиТаблицПрав();
-				Возврат;
-			КонецЕсли;
-		КонецЕсли;
+				Return;
+			EndIf;
+		EndIf;
 
-		Струк = вПолучитьПраваДоступаКОбъекту(ИмяПрава, ТекДанные.ПолноеИмя, _StorageAddresses.РолиИПользователи,
-			УникальныйИдентификатор);
-		Если Струк.ЕстьДанные Тогда
-			Для Каждого Элем Из Струк.Роли Цикл
-				ЗаполнитьЗначенияСвойств(RolesWithAccessTable.Добавить(), Элем);
-			КонецЦикла;
+		_Structure = вПолучитьПраваДоступаКОбъекту(ИмяПрава, CurrentData.FullName, _StorageAddresses.RolesAndUsers,
+			UUID);
+		If _Structure.ЕстьДанные Then
+			For Each Item In _Structure.Roles Do
+				FillPropertyValues(RolesWithAccessTable.Add(), Item);
+			EndDo;
 
-			Для Каждого Элем Из Струк.Пользователи Цикл
-				ЗаполнитьЗначенияСвойств(UsersWithAccessTable.Добавить(), Элем);
-			КонецЦикла;
-		КонецЕсли;
-	КонецЕсли;
+			For Each Item In _Structure.Users Do
+				FillPropertyValues(UsersWithAccessTable.Add(), Item);
+			EndDo;
+		EndIf;
+	EndIf;
 
 	вУстановитьЗаголовкиТаблицПрав();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура вУстановитьЗаголовкиТаблицПрав()
-	НайденныеСтроки = VerifiableRightsTable.НайтиСтроки(Новый Структура("Mark", Истина));
-	Если НайденныеСтроки.Количество() = 0 Тогда
+&AtClient
+Procedure вУстановитьЗаголовкиТаблицПрав()
+	НайденныеСтроки = VerifiableRightsTable.FindRows(New Structure("Mark", True));
+	If НайденныеСтроки.Count() = 0 Then
 		ИмяПрава = "";
-	Иначе
+	Else
 		ИмяПрава = НайденныеСтроки[0].Right + ": ";
-	КонецЕсли;
+	EndIf;
 
-	ЗаголовокРоли = ИмяПрава + "Роли, имеющие доступ (";
-	ЗаголовокПользователи = ИмяПрава + "Пользователи, имеющие доступ (";
+	ЗаголовокРоли = ИмяПрава + "Roles, имеющие доступ (";
+	ЗаголовокПользователи = ИмяПрава + "Users, имеющие доступ (";
 
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено И ТекДанные.ВидУзла = "MetadataObject" Тогда
-		Если СтрНайти(ТекДанные.ПолноеИмя, "Роль.") = 1 Тогда
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined And CurrentData.NodeType = "MetadataObject" Then
+		If StrFind(CurrentData.FullName, "Role.") = 1 Then
 			ЗаголовокРоли = "";
-			ЗаголовокПользователи = "Пользователи, имеющие данную роль (";
-		ИначеЕсли СтрНайти(ТекДанные.ПолноеИмя, "User.") = 1 Тогда
-			ЗаголовокРоли = "Роли данного пользователя (";
+			ЗаголовокПользователи = "Users, имеющие данную роль (";
+		ElsIf StrFind(CurrentData.FullName, "User.") = 1 Then
+			ЗаголовокРоли = "Roles данного пользователя (";
 			ЗаголовокПользователи = "";
-		КонецЕсли;
-	КонецЕсли;
+		EndIf;
+	EndIf;
 
-	Если ПустаяСтрока(ЗаголовокРоли) Тогда
-		Элементы.RolesDecoration.Заголовок = "Для заданного объекта не используются";
-	Иначе
-		Элементы.RolesDecoration.Заголовок = ЗаголовокРоли + RolesWithAccessTable.Количество() + " шт.)";
-	КонецЕсли;
+	If IsBlankString(ЗаголовокРоли) Then
+		Items.RolesDecoration.Title = "For заданного объекта не используются";
+	Else
+		Items.RolesDecoration.Title = ЗаголовокРоли + RolesWithAccessTable.Count() + " шт.)";
+	EndIf;
 
-	Если ПустаяСтрока(ЗаголовокПользователи) Тогда
-		Элементы.UsersDecoration.Заголовок = "Для заданного объекта не используются";
-	Иначе
-		Элементы.UsersDecoration.Заголовок = ЗаголовокПользователи + UsersWithAccessTable.Количество()
+	If IsBlankString(ЗаголовокПользователи) Then
+		Items.UsersDecoration.Title = "For заданного объекта не используются";
+	Else
+		Items.UsersDecoration.Title = ЗаголовокПользователи + UsersWithAccessTable.Count()
 			+ " шт.)";
-	КонецЕсли;
+	EndIf;
 
-КонецПроцедуры
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вПолучитьПраваДоступаКОбъекту(Знач ИмяПрава, Знач ПолноеИмя, АдресТаблицыРолиИПользователи,
-	Знач УникальныйИдентификатор)
-	СтрукРезультат = Новый Структура("ЕстьДанные, Роли, Пользователи", Ложь);
+&AtServerNoContext
+Function вПолучитьПраваДоступаКОбъекту(Val ИмяПрава, Val FullName, АдресТаблицыРолиИПользователи,
+	Val UUID)
+	СтрукРезультат = New Structure("ЕстьДанные, Roles, Users", False);
 
-	ТабРоли = Новый ТаблицаЗначений;
-	ТабРоли.Колонки.Добавить("Name", Новый ОписаниеТипов("Строка"));
-	ТабРоли.Колонки.Добавить("Synonym", Новый ОписаниеТипов("Строка"));
+	ТабРоли = New ValueTable;
+	ТабРоли.Cols.Add("Name", New TypeDescription("String"));
+	ТабРоли.Cols.Add("Synonym", New TypeDescription("String"));
 
-	ТабПользователи = Новый ТаблицаЗначений;
-	ТабПользователи.Колонки.Добавить("Name", Новый ОписаниеТипов("Строка"));
-	ТабПользователи.Колонки.Добавить("FullName", Новый ОписаниеТипов("Строка"));
-	Если СтрНайти(ПолноеИмя, ".Команда.") <> 0 Тогда
+	ТабПользователи = New ValueTable;
+	ТабПользователи.Cols.Add("Name", New TypeDescription("String"));
+	ТабПользователи.Cols.Add("FullName", New TypeDescription("String"));
+	If StrFind(FullName, ".Command.") <> 0 Then
 		ТипМД = "ОбщаяКоманда";
-	Иначе
-		ТипМД = Лев(ПолноеИмя, СтрНайти(ПолноеИмя, ".") - 1);
-	КонецЕсли;
+	Else
+		ТипМД = Left(FullName, StrFind(FullName, ".") - 1);
+	EndIf;
 
-	Если ТипМД <> "User" Тогда
-		ОбъектМД = Метаданные.НайтиПоПолномуИмени(ПолноеИмя);
+	If ТипМД <> "User" Then
+		ОбъектМД = Metadata.FindByFullName(FullName);
 
-		Если ОбъектМД = Неопределено Тогда
-			Возврат СтрукРезультат;
-		КонецЕсли;
-	КонецЕсли;
+		If ОбъектМД = Undefined Then
+			Return СтрукРезультат;
+		EndIf;
+	EndIf;
 
 	ЭтоОбычныйРежим = (ИмяПрава <> "Х");
 
-	Если ЭтоОбычныйРежим И ПустаяСтрока(ИмяПрава) Тогда
-		Возврат СтрукРезультат;
-	КонецЕсли;
-	Если ЭтоОбычныйРежим Тогда
-		Для Каждого Элем Из Метаданные.Роли Цикл
-			Если ПравоДоступа(ИмяПрава, ОбъектМД, Элем) Тогда
-				ЗаполнитьЗначенияСвойств(ТабРоли.Добавить(), Элем);
-			КонецЕсли;
-		КонецЦикла;
+	If ЭтоОбычныйРежим And IsBlankString(ИмяПрава) Then
+		Return СтрукРезультат;
+	EndIf;
+	If ЭтоОбычныйРежим Then
+		For Each Item In Metadata.Roles Do
+			If AccessRight(ИмяПрава, ОбъектМД, Item) Then
+				FillPropertyValues(ТабРоли.Add(), Item);
+			EndIf;
+		EndDo;
 
-		ТабРоли.Сортировать("Name");
-	КонецЕсли;
-	Если ПустаяСтрока(АдресТаблицыРолиИПользователи) Тогда
-		__ТабРолиИПользователи = Новый ТаблицаЗначений;
-		__ТабРолиИПользователи.Колонки.Добавить("ИмяР", Новый ОписаниеТипов("Строка"));
-		__ТабРолиИПользователи.Колонки.Добавить("ИмяП", Новый ОписаниеТипов("Строка"));
-		__ТабРолиИПользователи.Колонки.Добавить("ПолноеИмяП", Новый ОписаниеТипов("Строка"));
+		ТабРоли.Sort("Name");
+	EndIf;
+	If IsBlankString(АдресТаблицыРолиИПользователи) Then
+		__ТабРолиИПользователи = New ValueTable;
+		__ТабРолиИПользователи.Cols.Add("ИмяР", New TypeDescription("String"));
+		__ТабРолиИПользователи.Cols.Add("ИмяП", New TypeDescription("String"));
+		__ТабРолиИПользователи.Cols.Add("ПолноеИмяП", New TypeDescription("String"));
 
-		Для Каждого П Из ПользователиИнформационнойБазы.ПолучитьПользователей() Цикл
-			Для Каждого Р Из П.Роли Цикл
-				НС = __ТабРолиИПользователи.Добавить();
+		For Each П In InfoBaseUsers.GetUsers() Do
+			For Each Р In П.Roles Do
+				НС = __ТабРолиИПользователи.Add();
 				НС.ИмяР = Р.Name;
 				НС.ИмяП = П.Name;
 				НС.ПолноеИмяП = П.FullName;
-			КонецЦикла;
-		КонецЦикла;
+			EndDo;
+		EndDo;
 
-		__ТабРолиИПользователи.Индексы.Добавить("ИмяР");
-		__ТабРолиИПользователи.Индексы.Добавить("ИмяП");
-		АдресТаблицыРолиИПользователи = ПоместитьВоВременноеХранилище(__ТабРолиИПользователи, УникальныйИдентификатор);
-	Иначе
-		__ТабРолиИПользователи = ПолучитьИзВременногоХранилища(АдресТаблицыРолиИПользователи);
-	КонецЕсли;
-	Если ЭтоОбычныйРежим Тогда
-		СтрукР = Новый Структура("ИмяР");
-		СтрукП = Новый Структура("Name");
+		__ТабРолиИПользователи.Indexes.Add("ИмяР");
+		__ТабРолиИПользователи.Indexes.Add("ИмяП");
+		АдресТаблицыРолиИПользователи = PutToTempStorage(__ТабРолиИПользователи, UUID);
+	Else
+		__ТабРолиИПользователи = GetFromTempStorage(АдресТаблицыРолиИПользователи);
+	EndIf;
+	If ЭтоОбычныйРежим Then
+		СтрукР = New Structure("ИмяР");
+		СтрукП = New Structure("Name");
 
-		Для Каждого Стр Из ТабРоли Цикл
+		For Each Стр In ТабРоли Do
 			СтрукР.ИмяР = Стр.Name;
-			Для Каждого СтрХ Из __ТабРолиИПользователи.НайтиСтроки(СтрукР) Цикл
+			For Each СтрХ In __ТабРолиИПользователи.FindRows(СтрукР) Do
 				СтрукП.Name = СтрХ.ИмяП;
-				Если ТабПользователи.НайтиСтроки(СтрукП).Количество() = 0 Тогда
-					НС = ТабПользователи.Добавить();
+				If ТабПользователи.FindRows(СтрукП).Count() = 0 Then
+					НС = ТабПользователи.Add();
 					НС.Name = СтрХ.ИмяП;
 					НС.FullName = СтрХ.ПолноеИмяП;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЦикла;
+				EndIf;
+			EndDo;
+		EndDo;
 
-		ТабПользователи.Сортировать("Name");
-	КонецЕсли;
+		ТабПользователи.Sort("Name");
+	EndIf;
 
-	Если Не ЭтоОбычныйРежим Тогда
-		Если ТипМД = "Роль" Тогда
-			ИмяР = Сред(ПолноеИмя, СтрНайти(ПолноеИмя, ".") + 1);
-			Для Каждого Стр Из __ТабРолиИПользователи.НайтиСтроки(Новый Структура("ИмяР", ИмяР)) Цикл
-				НС = ТабПользователи.Добавить();
+	If Not ЭтоОбычныйРежим Then
+		If ТипМД = "Role" Then
+			ИмяР = Mid(FullName, StrFind(FullName, ".") + 1);
+			For Each Стр In __ТабРолиИПользователи.FindRows(New Structure("ИмяР", ИмяР)) Do
+				НС = ТабПользователи.Add();
 				НС.Name = Стр.ИмяП;
 				НС.FullName = Стр.ПолноеИмяП;
-			КонецЦикла;
-			ТабПользователи.Сортировать("Name");
+			EndDo;
+			ТабПользователи.Sort("Name");
 
-		ИначеЕсли ТипМД = "User" Тогда
-			ИмяП = Сред(ПолноеИмя, СтрНайти(ПолноеИмя, ".") + 1);
-			Для Каждого Стр Из __ТабРолиИПользователи.НайтиСтроки(Новый Структура("ИмяП", ИмяП)) Цикл
-				НС = ТабРоли.Добавить();
+		ElsIf ТипМД = "User" Then
+			ИмяП = Mid(FullName, StrFind(FullName, ".") + 1);
+			For Each Стр In __ТабРолиИПользователи.FindRows(New Structure("ИмяП", ИмяП)) Do
+				НС = ТабРоли.Add();
 				НС.Name = Стр.ИмяР;
-			КонецЦикла;
-			ТабРоли.Сортировать("Name");
-		КонецЕсли;
-	КонецЕсли;
+			EndDo;
+			ТабРоли.Sort("Name");
+		EndIf;
+	EndIf;
 
-	СтрукРезультат.ЕстьДанные = Истина;
-	СтрукРезультат.Роли = Новый Массив;
-	СтрукРезультат.Пользователи = Новый Массив;
+	СтрукРезультат.ЕстьДанные = True;
+	СтрукРезультат.Roles = New Array;
+	СтрукРезультат.Users = New Array;
 
-	Для Каждого Стр Из ТабРоли Цикл
-		Струк = Новый Структура("Name, Synonym");
-		ЗаполнитьЗначенияСвойств(Струк, Стр);
-		СтрукРезультат.Роли.Добавить(Струк);
-	КонецЦикла;
+	For Each Стр In ТабРоли Do
+		_Structure = New Structure("Name, Synonym");
+		FillPropertyValues(_Structure, Стр);
+		СтрукРезультат.Roles.Add(_Structure);
+	EndDo;
 
-	Для Каждого Стр Из ТабПользователи Цикл
-		Струк = Новый Структура("Name, FullName");
-		ЗаполнитьЗначенияСвойств(Струк, Стр);
-		СтрукРезультат.Пользователи.Добавить(Струк);
-	КонецЦикла;
+	For Each Стр In ТабПользователи Do
+		_Structure = New Structure("Name, FullName");
+		FillPropertyValues(_Structure, Стр);
+		СтрукРезультат.Users.Add(_Structure);
+	EndDo;
 
-	Возврат СтрукРезультат;
-КонецФункции
+	Return СтрукРезультат;
+EndFunction
 
-&НаКлиенте
-Процедура вЗаполнитьПроверяемыеПраваДоступа()
-	Для Каждого Элем Из мОписаниеПравДоступа Цикл
-		НС = VerifiableRightsTable.Добавить();
-		НС.MetadataObject = Элем.Key;
-		Поз = СтрНайти(Элем.Значение, ",");
-		НС.Right = ?(Поз = 0, Элем.Значение, Лев(Элем.Значение, Поз - 1));
-	КонецЦикла;
+&AtClient
+Procedure vFillAccessRights()
+	For Each Item In mDescriptionAccessRights Do
+		НС = VerifiableRightsTable.Add();
+		НС.MetadataObject = Item.Key;
+		Position = StrFind(Item.Value, ",");
+		НС.Right = ?(Position = 0, Item.Value, Left(Item.Value, Position - 1));
+	EndDo;
 
-	VerifiableRightsTable.Сортировать("MetadataObject");
-КонецПроцедуры
+	VerifiableRightsTable.Sort("MetadataObject");
+EndProcedure
 
-&НаКлиенте
-Процедура ТабПроверяемыеПраваПриНачалеРедактирования(Элемент, НоваяСтрока, Копирование)
-	ТекДанные = Элемент.ТекущиеДанные;
-	Струк = Новый Структура(мОписаниеПравДоступа[ТекДанные.MetadataObject]);
+&AtClient
+Procedure ТабПроверяемыеПраваПриНачалеРедактирования(Item, NewLine, Copy)
+	CurrentData = Item.CurrentData;
+	_Structure = New Structure(mDescriptionAccessRights[CurrentData.MetadataObject]);
 
-	ЭФ = Элементы.VerifiableRightsTableRight;
-	ЭФ.СписокВыбора.Очистить();
-	Для Каждого Элем Из Струк Цикл
-		ЭФ.СписокВыбора.Добавить(Элем.Ключ);
-	КонецЦикла;
-КонецПроцедуры
+	ЭФ = Items.VerifiableRightsTableRight;
+	ЭФ.ChoiceList.Clear();
+	For Each Item In _Structure Do
+		ЭФ.ChoiceList.Add(Item.Key);
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Процедура ТабРолиСДоступомВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
+&AtClient
+Procedure ТабРолиСДоступомВыбор(Item, SelectedRow, Field, StandardProcessing)
+	StandardProcessing = False;
 
-	ТекДанные = Элементы.RolesWithAccessTable.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		пПолноеИмя = "Роль." + ТекДанные.Name;
-		СтрукПараметры = Новый Структура("FullName, PathToForms, _StorageAddresses, ОписаниеПравДоступа", пПолноеИмя,
-			PathToForms, _StorageAddresses, мОписаниеПравДоступа);
-		СтрукПараметры.Вставить("НастройкиОбработки", вСформироватьСтруктуруНастроекФормыСвойствОбъекта());
-		ОткрытьФорму(PathToForms + "ФормаСвойств", СтрукПараметры, , пПолноеИмя, , , ,
-			РежимОткрытияОкнаФормы.Независимый);
-	КонецЕсли;
-КонецПроцедуры
+	CurrentData = Items.RolesWithAccessTable.CurrentData;
+	If CurrentData <> Undefined Then
+		pFullName = "Role." + CurrentData.Name;
+		StructureOfParameters = New Structure("FullName, PathToForms, _StorageAddresses, DescriptionOfAccessRights", pFullName,
+			PathToForms, _StorageAddresses, mDescriptionAccessRights);
+		StructureOfParameters.Insert("ProcessingSettings", vFormStructureOfObjectPropertiesFormSettings());
+		OpenForm(PathToForms + "PropertiesForm", StructureOfParameters, , pFullName, , , ,
+			FormWindowOpeningMode.Independent);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура ТабПользователиСДоступомВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
+&AtClient
+Procedure ТабПользователиСДоступомВыбор(Item, SelectedRow, Field, StandardProcessing)
+	StandardProcessing = False;
 
-	ТекДанные = Элементы.UsersWithAccessTable.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		пИдентификаторПользователя = вПолучитьИдентификаторПользователя(ТекДанные.Имя);
+	CurrentData = Items.UsersWithAccessTable.CurrentData;
+	If CurrentData <> Undefined Then
+		пИдентификаторПользователя = vGetUserId(CurrentData.Name);
 
-		Если Не ПустаяСтрока(пИдентификаторПользователя) Тогда
-			пСтрук = Новый Структура("РежимРаботы, DBUserID", 0, пИдентификаторПользователя);
-			ОткрытьФорму(PathToForms + "ФормаПользовательИБ", пСтрук, , , , , ,
-				РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+		If Not IsBlankString(пИдентификаторПользователя) Then
+			pStructure = New Structure("WorkMode, DBUserID", 0, пИдентификаторПользователя);
+			OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
+				FormWindowOpeningMode.LockOwnerWindow);
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура вСформироватьОписаниеПравДоступа()
-	ПереченьА = "Чтение, Добавление, Изменение, Удаление, Просмотр, Редактирование";
-	ПереченьБ = "Чтение, Изменение, Просмотр, Редактирование, УправлениеИтогами";
+&AtClient
+Procedure vFormDescriptionOfAccessRights()
+	ПереченьА = "Read, Create, Update, Delete, Browse, Edit";
+	ПереченьБ = "Read, Update, Browse, Edit, УправлениеИтогами";
 
-	мОписаниеПравДоступа = Новый Соответствие;
-	мОписаниеПравДоступа.Вставить("Подсистема", "Просмотр");
-	мОписаниеПравДоступа.Вставить("ПараметрСеанса", "Получение, Установка");
-	мОписаниеПравДоступа.Вставить("ОбщийРеквизит", "Просмотр, Редактирование");
-	мОписаниеПравДоступа.Вставить("ПланОбмена", ПереченьА);
-	мОписаниеПравДоступа.Вставить("КритерийОтбора", "Просмотр");
-	мОписаниеПравДоступа.Вставить("ОбщаяФорма", "Просмотр");
-	мОписаниеПравДоступа.Вставить("ОбщаяКоманда", "Просмотр");
-	мОписаниеПравДоступа.Вставить("ЧужаяКоманда", "Просмотр");
-	мОписаниеПравДоступа.Вставить("WebСервис.Свойство", "Использование");
-	мОписаниеПравДоступа.Вставить("HTTPСервис.Свойство", "Использование");
-	мОписаниеПравДоступа.Вставить("Константа", "Чтение, Изменение, Просмотр, Редактирование");
-	мОписаниеПравДоступа.Вставить("Справочник", ПереченьА);
-	мОписаниеПравДоступа.Вставить("Документ", ПереченьА + ", Проведение, ОтменаПроведения");
-	мОписаниеПравДоступа.Вставить("Последовательность", "Чтение, Изменение");
-	мОписаниеПравДоступа.Вставить("ЖурналДокументов", "Чтение, Просмотр");
-	мОписаниеПравДоступа.Вставить("Отчет", "Использование, Просмотр");
-	мОписаниеПравДоступа.Вставить("Обработка", "Использование, Просмотр");
-	мОписаниеПравДоступа.Вставить("ПланВидовХарактеристик", ПереченьА);
-	мОписаниеПравДоступа.Вставить("ПланВидовРасчета", ПереченьА);
-	мОписаниеПравДоступа.Вставить("ПланСчетов", ПереченьА);
-	мОписаниеПравДоступа.Вставить("РегистрСведений", ПереченьБ);
-	мОписаниеПравДоступа.Вставить("РегистрНакопления", ПереченьБ);
-	мОписаниеПравДоступа.Вставить("РегистрБухгалтерии", ПереченьБ);
-	мОписаниеПравДоступа.Вставить("РегистрРасчета", "Чтение, Изменение, Просмотр, Редактирование");
-	мОписаниеПравДоступа.Вставить("БизнесПроцесс", ПереченьА + ", Старт");
-	мОписаниеПравДоступа.Вставить("Задача", ПереченьА + ", Выполнение");
+	mDescriptionAccessRights = New Map;
+	mDescriptionAccessRights.Insert("Подсистема", "Browse");
+	mDescriptionAccessRights.Insert("ПараметрСеанса", "Receive, Установка");
+	mDescriptionAccessRights.Insert("ОбщийРеквизит", "Browse, Edit");
+	mDescriptionAccessRights.Insert("ExchangePlan", ПереченьА);
+	mDescriptionAccessRights.Insert("FilterCriterion", "Browse");
+	mDescriptionAccessRights.Insert("ОбщаяФорма", "Browse");
+	mDescriptionAccessRights.Insert("ОбщаяКоманда", "Browse");
+	mDescriptionAccessRights.Insert("ЧужаяКоманда", "Browse");
+	mDescriptionAccessRights.Insert("WebСервис.Property", "Use");
+	mDescriptionAccessRights.Insert("HTTPСервис.Property", "Use");
+	mDescriptionAccessRights.Insert("Constant", "Read, Update, Browse, Edit");
+	mDescriptionAccessRights.Insert("Catalog", ПереченьА);
+	mDescriptionAccessRights.Insert("Document", ПереченьА + ", Posting, UndoPosting");
+	mDescriptionAccessRights.Insert("Sequence", "Read, Update");
+	mDescriptionAccessRights.Insert("DocumentJournal", "Read, Browse");
+	mDescriptionAccessRights.Insert("Report", "Use, Browse");
+	mDescriptionAccessRights.Insert("Processing", "Use, Browse");
+	mDescriptionAccessRights.Insert("ChartOfCharacteristicTypes", ПереченьА);
+	mDescriptionAccessRights.Insert("ChartOfCalculationTypes", ПереченьА);
+	mDescriptionAccessRights.Insert("ChartOfAccounts", ПереченьА);
+	mDescriptionAccessRights.Insert("InformationRegister", ПереченьБ);
+	mDescriptionAccessRights.Insert("AccumulationRegister", ПереченьБ);
+	mDescriptionAccessRights.Insert("AccountingRegister", ПереченьБ);
+	mDescriptionAccessRights.Insert("CalculationRegister", "Read, Update, Browse, Edit");
+	mDescriptionAccessRights.Insert("BusinessProcess", ПереченьА + ", Start");
+	mDescriptionAccessRights.Insert("Task", ПереченьА + ", Выполнение");
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура kCalculateObjectsNumber(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
+&AtClient
+Procedure kCalculateObjectsNumber(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
 
-	Если ТекДанные <> Неопределено Тогда
-		Если ТекДанные.ВидУзла = "MetadataObject" Тогда
-			Перечень = "Последовательность, ПланОбмена, Справочник, Документ, ЖурналДокументов, ПланВидовХарактеристик
-					   |, ПланВидовРасчета, ПланСчетов, РегистрСведений, РегистрНакопления, РегистрБухгалтерии, РегистрРасчета, БизнесПроцесс, Задача";
+	If CurrentData <> Undefined Then
+		If CurrentData.NodeType = "MetadataObject" Then
+			Перечень = "Sequence, ExchangePlan, Catalog, Document, DocumentJournal, ChartOfCharacteristicTypes
+					   |, ChartOfCalculationTypes, ChartOfAccounts, InformationRegister, AccumulationRegister, AccountingRegister, CalculationRegister, BusinessProcess, Task";
 
-			Струк = Новый Структура(Перечень);
-			ТипМД = Лев(ТекДанные.ПолноеИмя, СтрНайти(ТекДанные.ПолноеИмя, ".") - 1);
+			_Structure = New Structure(Перечень);
+			ТипМД = Left(CurrentData.FullName, StrFind(CurrentData.FullName, ".") - 1);
 
-			Если Не Струк.Свойство(ТипМД) Тогда
-				Возврат;
-			КонецЕсли;
+			If Not _Structure.Property(ТипМД) Then
+				Return;
+			EndIf;
 
-			МассивОбъектов = Новый Массив;
+			МассивОбъектов = New Array;
 
-			Струк = Новый Структура("FullName, NumberOfObjects", ТекДанные.FullName);
-			МассивОбъектов.Добавить(Струк);
+			_Structure = New Structure("FullName, NumberOfObjects", CurrentData.FullName);
+			МассивОбъектов.Add(_Structure);
 
-			РодительДЗ = ТекДанные.ПолучитьРодителя();
+			РодительДЗ = CurrentData.GetParent();
 
-			РодительДЗ.NumberOfObjects = РодительДЗ.NumberOfObjects - ТекДанные.NumberOfObjects;
-
-			вРассчитатьКоличествоОбъектов(МассивОбъектов);
-			ТекДанные.NumberOfObjects = МассивОбъектов[0].NumberOfObjects;
-
-			РодительДЗ.NumberOfObjects = РодительДЗ.NumberOfObjects + ТекДанные.NumberOfObjects;
-
-		ИначеЕсли ТекДанные.ВидУзла = "РазделМД" Тогда
-			СтрокиДЗ = ТекДанные.ПолучитьЭлементы();
-			Если СтрокиДЗ.Количество() = 1 И ПустаяСтрока(СтрокиДЗ[0].ВидУзла) Тогда
-				Возврат;
-			КонецЕсли;
-
-			Перечень = "Последовательности, ПланыОбмена, Справочники, Документы, ЖурналыДокументов, ПланыВидовХарактеристик
-					   |, ПланыВидовРасчета, ПланыСчетов, РегистрыСведений, РегистрыНакопления, РегистрыБухгалтерии, РегистрыРасчета, БизнесПроцессы, Задачи";
-
-			Струк = Новый Структура(Перечень);
-			Поз = СтрНайти(ТекДанные.Имя, " ");
-			Если Поз = 0 Тогда
-				ИмяРаздела = ТекДанные.Name;
-			Иначе
-				ИмяРаздела = Лев(ТекДанные.Имя, Поз - 1);
-			КонецЕсли;
-
-			Если Не Струк.Свойство(ИмяРаздела) Тогда
-				Возврат;
-			КонецЕсли;
-
-			МассивОбъектов = Новый Массив;
-
-			Для Каждого Стр Из СтрокиДЗ Цикл
-				Если Стр.ВидУзла = "MetadataObject" Тогда
-					Струк = Новый Структура("Идентификатор, FullName, NumberOfObjects",
-						Стр.ПолучитьИдентификатор(), Стр.FullName);
-					МассивОбъектов.Добавить(Струк);
-				КонецЕсли;
-			КонецЦикла;
+			РодительДЗ.NumberOfObjects = РодительДЗ.NumberOfObjects - CurrentData.NumberOfObjects;
 
 			вРассчитатьКоличествоОбъектов(МассивОбъектов);
+			CurrentData.NumberOfObjects = МассивОбъектов[0].NumberOfObjects;
 
-			КоличествоОбъектов = 0;
-			Для Каждого Стр Из МассивОбъектов Цикл
-				СтрДЗ = ObjectsTree.НайтиПоИдентификатору(Стр.Идентификатор);
-				Если СтрДЗ <> Неопределено Тогда
-					КоличествоОбъектов= КоличествоОбъектов + Стр.NumberOfObjects;
-					СтрДЗ.NumberOfObjects = Стр.NumberOfObjects;
-				КонецЕсли;
-			КонецЦикла;
-			ТекДанные.NumberOfObjects = КоличествоОбъектов;
+			РодительДЗ.NumberOfObjects = РодительДЗ.NumberOfObjects + CurrentData.NumberOfObjects;
 
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+		ElsIf CurrentData.NodeType = "SectionMD" Then
+			TreeLines = CurrentData.GetItems();
+			If TreeLines.Count() = 1 And IsBlankString(TreeLines[0].NodeType) Then
+				Return;
+			EndIf;
 
-&НаСервереБезКонтекста
-Функция вРассчитатьКоличествоОбъектов(МассивОбъектов)
-	УстановитьПривилегированныйРежим(Истина);
+			Перечень = "Sequences, ExchangePlans, Catalogs, Documents, DocumentJournals, ChartsOfCharacteristicTypes
+					   |, ChartsOfCalculationTypes, ChartsOfAccounts, InformationRegisters, AccumulationRegisters, AccountingRegisters, CalculationRegisters, BusinessProcesses, Tasks";
 
-	пИспользоватьПопытку = Не ПривилегированныйРежим() И Не вЕстьПраваАдминистратора();
+			_Structure = New Structure(Перечень);
+			Position = StrFind(CurrentData.Name, " ");
+			If Position = 0 Then
+				ИмяРаздела = CurrentData.Name;
+			Else
+				ИмяРаздела = Left(CurrentData.Name, Position - 1);
+			EndIf;
 
-	Для Каждого Элем Из МассивОбъектов Цикл
-		Запрос = Новый Запрос;
-		Запрос.Текст = "ВЫБРАТЬ
+			If Not _Structure.Property(ИмяРаздела) Then
+				Return;
+			EndIf;
+
+			МассивОбъектов = New Array;
+
+			For Each Стр In TreeLines Do
+				If Стр.NodeType = "MetadataObject" Then
+					_Structure = New Structure("ID, FullName, NumberOfObjects",
+						Стр.GetID(), Стр.FullName);
+					МассивОбъектов.Add(_Structure);
+				EndIf;
+			EndDo;
+
+			вРассчитатьКоличествоОбъектов(МассивОбъектов);
+
+			ObjectCount = 0;
+			For Each Стр In МассивОбъектов Do
+				TreeLine = ObjectsTree.FindByID(Стр.ID);
+				If TreeLine <> Undefined Then
+					ObjectCount= ObjectCount + Стр.NumberOfObjects;
+					TreeLine.NumberOfObjects = Стр.NumberOfObjects;
+				EndIf;
+			EndDo;
+			CurrentData.NumberOfObjects = ObjectCount;
+
+		EndIf;
+	EndIf;
+EndProcedure
+
+&AtServerNoContext
+Function вРассчитатьКоличествоОбъектов(МассивОбъектов)
+	SetPrivilegedMode(True);
+
+	пИспользоватьПопытку = Not PrivilegedMode() And Not vIsAdministratorRights();
+
+	For Each Item In МассивОбъектов Do
+		Query = New Query;
+		Query.Text = "ВЫБРАТЬ
 					   |	КОЛИЧЕСТВО(*) КАК NumberOfObjects
 					   |ИЗ
-					   |	" + Элем.FullName + " КАК ТаблицаБД";
+					   |	" + Item.FullName + " КАК ТаблицаБД";
 
-		Если пИспользоватьПопытку Тогда
-			Попытка
-				Выборка = Запрос.Выполнить().Выбрать();
-				Элем.NumberOfObjects = ?(Выборка.Следующий(), Выборка.КоличествоОбъектов, 0);
-			Исключение
-				Элем.NumberOfObjects = 0;
-			КонецПопытки;
-		Иначе
-			Выборка = Запрос.Выполнить().Выбрать();
-			Элем.NumberOfObjects = ?(Выборка.Следующий(), Выборка.КоличествоОбъектов, 0);
-		КонецЕсли;
+		If пИспользоватьПопытку Then
+			Try
+				Выборка = Query.Execute().StartChoosing();
+				Item.NumberOfObjects = ?(Выборка.Next(), Выборка.ObjectCount, 0);
+			Except
+				Item.NumberOfObjects = 0;
+			EndTry;
+		Else
+			Выборка = Query.Execute().StartChoosing();
+			Item.NumberOfObjects = ?(Выборка.Next(), Выборка.ObjectCount, 0);
+		EndIf;
 
-	КонецЦикла;
+	EndDo;
 
-	Возврат Истина;
-КонецФункции
-&НаКлиенте
-Процедура _ПоказыватьСтандартныеНастройкиПриИзменении(Элемент)
-	Элементы.DefaultSettingsPage.Видимость = _ShowStandardSettings;
-КонецПроцедуры
+	Return True;
+EndFunction
+&AtClient
+Procedure _ПоказыватьСтандартныеНастройкиПриИзменении(Item)
+	Items.DefaultSettingsPage.Visible = _ShowStandardSettings;
+EndProcedure
 
-&НаКлиенте
-Процедура _ПоказыватьТаблицыИИндексыБДПриИзменении(Элемент)
-	Элементы.StorageStructurePage.Видимость = _ShowTablesAndIndexesDB;
-КонецПроцедуры
+&AtClient
+Procedure _ПоказыватьТаблицыИИндексыБДПриИзменении(Item)
+	Items.StorageStructurePage.Visible = _ShowTablesAndIndexesDB;
+EndProcedure
 
 
-// работа с разделом "Избранное..."
-&НаКлиенте
-Процедура _AddToFavorites(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		Если ТекДанные.ВидУзла = "MetadataObject" Тогда
-			СтрДЗ = ObjectsTree.НайтиПоИдентификатору(мИдентификаторИзбранного).ПолучитьЭлементы().Добавить();
-			ЗаполнитьЗначенияСвойств(СтрДЗ, ТекДанные);
+// работа с разделом "Favorites..."
+&AtClient
+Procedure _AddToFavorites(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined Then
+		If CurrentData.NodeType = "MetadataObject" Then
+			TreeLine = ObjectsTree.FindByID(mFavoriteID).GetItems().Add();
+			FillPropertyValues(TreeLine, CurrentData);
 			вВключитьФлагИзмененияНастроек();
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура _DeleteFromFavorites(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		Если Не ПустаяСтрока(ТекДанные.ПолноеИмя) Тогда
-			СтрокиДЗ = ObjectsTree.НайтиПоИдентификатору(мИдентификаторИзбранного).ПолучитьЭлементы();
-			Для Каждого СтрДЗ Из СтрокиДЗ Цикл
-				Если СтрДЗ.FullName = ТекДанные.FullName Тогда
-					СтрокиДЗ.Удалить(СтрДЗ);
+&AtClient
+Procedure _DeleteFromFavorites(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined Then
+		If Not IsBlankString(CurrentData.FullName) Then
+			TreeLines = ObjectsTree.FindByID(mFavoriteID).GetItems();
+			For Each TreeLine In TreeLines Do
+				If TreeLine.FullName = CurrentData.FullName Then
+					TreeLines.Delete(TreeLine);
 					вВключитьФлагИзмененияНастроек();
-					Прервать;
-				КонецЕсли;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+					Break;
+				EndIf;
+			EndDo;
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура вВключитьФлагИзмененияНастроек()
-	_DateOfSettingsChange = ТекущаяДата();
-КонецПроцедуры
+&AtClient
+Procedure вВключитьФлагИзмененияНастроек()
+	_DateOfSettingsChange = CurrentDate();
+EndProcedure
 
-&НаКлиенте
-Процедура _ClearFavorites(Команда)
-	ObjectsTree.НайтиПоИдентификатору(мИдентификаторИзбранного).ПолучитьЭлементы().Очистить();
+&AtClient
+Procedure _ClearFavorites(Command)
+	ObjectsTree.FindByID(mFavoriteID).GetItems().Clear();
 	вВключитьФлагИзмененияНастроек();
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура _OderFavorites(Команда)
+&AtClient
+Procedure _OderFavorites(Command)
 	вУпорядочитьИзбранное(); // плохой способ
 
-	Для Каждого СтрДЗ Из ObjectsTree.ПолучитьЭлементы() Цикл
-		Если СтрДЗ.FullName = "Избранное" Тогда
-			мИдентификаторИзбранного = СтрДЗ.ПолучитьИдентификатор();
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
+	For Each TreeLine In ObjectsTree.GetItems() Do
+		If TreeLine.FullName = "Favorites" Then
+			mFavoriteID = TreeLine.GetID();
+			Break;
+		EndIf;
+	EndDo;
 
 	вВключитьФлагИзмененияНастроек();
-КонецПроцедуры
+EndProcedure
 
-&НаСервере
-Процедура вУпорядочитьИзбранное()
-	пДерево = РеквизитФормыВЗначение("ObjectsTree");
-	пДерево.Строки.Найти("Избранное", "FullName", Ложь).Строки.Сортировать("FullName");
-	ЗначениеВРеквизитФормы(пДерево, "ObjectsTree");
-КонецПроцедуры
-&НаКлиенте
-Процедура _OpenObjectsEditor(Команда)
-	СтрукПарам = Новый Структура;
-	СтрукПарам.Вставить("мОбъектСсылка", Неопределено);
-	ОткрытьФорму("Обработка.UT_ObjectsAttributesEditor.Форма", СтрукПарам, , ТекущаяДата());
-КонецПроцедуры
+&AtServer
+Procedure вУпорядочитьИзбранное()
+	пДерево = FormAttributeToValue("ObjectsTree");
+	пДерево.Rows.Find("Favorites", "FullName", False).Rows.Sort("FullName");
+	ValueToFormAttribute(пДерево, "ObjectsTree");
+EndProcedure
+&AtClient
+Procedure _OpenObjectsEditor(Command)
+	СтрукПарам = New Structure;
+	СтрукПарам.Insert("мОбъектСсылка", Undefined);
+	OpenForm("Processing.UT_ObjectsAttributesEditor.Form", СтрукПарам, , CurrentDate());
+EndProcedure
 
-&НаКлиенте
-Процедура _UpdateNumberingOfObjects(Команда)
-	ТекДанные = Элементы.ObjectsTree.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		Если ТекДанные.ВидУзла = "MetadataObject" Или ТекДанные.ВидУзла = "Конфигурация" Тогда
-			Если Не вЕстьПраваАдминистратора() Тогда
-				вПоказатьПредупреждение("Нет прав на выполнение операции!");
-				Возврат;
-			КонецЕсли;
+&AtClient
+Procedure _UpdateNumberingOfObjects(Command)
+	CurrentData = Items.ObjectsTree.CurrentData;
+	If CurrentData <> Undefined Then
+		If CurrentData.NodeType = "MetadataObject" Or CurrentData.NodeType = "Configuration" Then
+			If Not vIsAdministratorRights() Then
+				vShowMessageBox("None прав на выполнение операции!");
+				Return;
+			EndIf;
 
-			пТекст = ?(ТекДанные.ВидУзла = "Конфигурация", "Нумерация всех объектов будет обновлена. Продолжить?",
-				"Нумерация обекта будет обновлена. Продолжить?");
-			ПоказатьВопрос(Новый ОписаниеОповещения("вОбновитьНумерациюОбъектовОтвет", ЭтаФорма, ТекДанные.FullName),
-				пТекст, РежимДиалогаВопрос.ДаНетОтмена, 20);
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+			пТекст = ?(CurrentData.NodeType = "Configuration", "Нумерация всех объектов будет обновлена. Continue?",
+				"Нумерация обекта будет обновлена. Continue?");
+			ShowQueryBox(New NotifyDescription("вОбновитьНумерациюОбъектовОтвет", ThisForm, CurrentData.FullName),
+				пТекст, QuestionDialogMode.YesNoCancel, 20);
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура _UpdateNumberingOfAllObjects(Команда)
-	пТекст = "Нумерация всех объектов будет обновлена. Продолжить?";
-	ПоказатьВопрос(Новый ОписаниеОповещения("вОбновитьНумерациюОбъектовОтвет", ЭтаФорма, "Конфигурация"), пТекст,
-		РежимДиалогаВопрос.ДаНетОтмена, 20);
-КонецПроцедуры
+&AtClient
+Procedure _UpdateNumberingOfAllObjects(Command)
+	пТекст = "Нумерация всех объектов будет обновлена. Continue?";
+	ShowQueryBox(New NotifyDescription("вОбновитьНумерациюОбъектовОтвет", ThisForm, "Configuration"), пТекст,
+		QuestionDialogMode.YesNoCancel, 20);
+EndProcedure
 
-&НаКлиенте
-Процедура вОбновитьНумерациюОбъектовОтвет(РезультатВопроса, ДопПарам = Неопределено) Экспорт
-	Если РезультатВопроса = КодВозвратаДиалога.Да Тогда
+&AtClient
+Procedure вОбновитьНумерациюОбъектовОтвет(РезультатВопроса, ДопПарам = Undefined) Export
+	If РезультатВопроса = DialogReturnCode.Yes Then
 		вОбновитьНумерациюОбъектов(ДопПарам);
-	КонецЕсли;
-КонецПроцедуры
+	EndIf;
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вОбновитьНумерациюОбъектов(Знач ПолноеИмя)
-	Если ПолноеИмя = "Конфигурация" Тогда
-		Попытка
-			ОбновитьНумерациюОбъектов();
-		Исключение
-			Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-		КонецПопытки;
+&AtServerNoContext
+Function вОбновитьНумерациюОбъектов(Val FullName)
+	If FullName = "Configuration" Then
+		Try
+			RefreshObjectsNumbering();
+		Except
+			Message(BriefErrorDescription(ErrorInfo()));
+		EndTry;
 
-	ИначеЕсли СтрНайти(ПолноеИмя, ".") <> 0 Тогда
-		ОбъектМД = Метаданные.НайтиПоПолномуИмени(ПолноеИмя);
+	ElsIf StrFind(FullName, ".") <> 0 Then
+		ОбъектМД = Metadata.FindByFullName(FullName);
 
-		Если ОбъектМД <> Неопределено Тогда
-			Попытка
-				ОбновитьНумерациюОбъектов(ОбъектМД);
-			Исключение
-				Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-			КонецПопытки;
-		КонецЕсли;
-	КонецЕсли;
+		If ОбъектМД <> Undefined Then
+			Try
+				RefreshObjectsNumbering(ОбъектМД);
+			Except
+				Message(BriefErrorDescription(ErrorInfo()));
+			EndTry;
+		EndIf;
+	EndIf;
 
-	Возврат Истина;
-КонецФункции
+	Return True;
+EndFunction
 
 // работа со структурой хранения базы данных (таблицы и индексы)
-&НаКлиенте
-Процедура _FillInSchema(Команда)
-	_Indexes.Очистить();
-	_Tables.Очистить();
+&AtClient
+Procedure _FillInSchema(Command)
+	_Indexes.Clear();
+	_Tables.Clear();
 
 	вЗаполнитьСХ();
 
-	Элементы._IndexesPage.Заголовок = "Все индексы БД (" + _Indexes.Количество() + ")";
-	Элементы.TablePage.Заголовок = "Все таблицы БД (" + _Tables.Количество() + ")";
-КонецПроцедуры
+	Items._IndexesPage.Title = "All индексы БД (" + _Indexes.Count() + ")";
+	Items.TablePage.Title = "All таблицы БД (" + _Tables.Count() + ")";
+EndProcedure
 
-&НаСервере
-Процедура вЗаполнитьСХ()
-	ТабРезультат = ПолучитьСтруктуруХраненияБазыДанных( , Не _ShowStorageStructureInTermsOf1C);
+&AtServer
+Procedure вЗаполнитьСХ()
+	ТабРезультат = GetDBStorageStructureInfo( , Not _ShowStorageStructureInTermsOf1C);
 
-	Для Каждого Стр Из ТабРезультат Цикл
-		НС = _Tables.Добавить();
-		ЗаполнитьЗначенияСвойств(НС, Стр);
+	For Each Стр In ТабРезультат Do
+		НС = _Tables.Add();
+		FillPropertyValues(НС, Стр);
 
-		Если НС.TableName = "" Тогда
+		If НС.TableName = "" Then
 			НС.TableName = "<не задано>";
-		КонецЕсли;
-		Если НС.Metadata = "" Тогда
+		EndIf;
+		If НС.Metadata = "" Then
 			НС.Metadata = "<не задано>";
-		КонецЕсли;
+		EndIf;
 
-		Для Каждого СтрХ Из Стр.Индексы Цикл
-			НС = _Indexes.Добавить();
+		For Each СтрХ In Стр.Indexes Do
+			НС = _Indexes.Add();
 			НС.IndexName = СтрХ.IndexName;
-			ЗаполнитьЗначенияСвойств(НС, Стр, "TableName, Metadata");
-			Если НС.Metadata = "" Тогда
+			FillPropertyValues(НС, Стр, "TableName, Metadata");
+			If НС.Metadata = "" Then
 				НС.Metadata = "<не задано>";
-			КонецЕсли;
-		КонецЦикла;
-	КонецЦикла;
+			EndIf;
+		EndDo;
+	EndDo;
 
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура _СХТаблицыВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-	kShowObjectProperties(Неопределено);
-КонецПроцедуры
+&AtClient
+Procedure _СХТаблицыВыбор(Item, SelectedRow, Field, StandardProcessing)
+	StandardProcessing = False;
+	kShowObjectProperties(Undefined);
+EndProcedure
 
-&НаКлиенте
-Процедура _СХИндексыВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
-	kShowObjectProperties(Неопределено);
-КонецПроцедуры
+&AtClient
+Procedure _СХИндексыВыбор(Item, SelectedRow, Field, StandardProcessing)
+	StandardProcessing = False;
+	kShowObjectProperties(Undefined);
+EndProcedure
 
-&НаКлиенте
-Процедура _MoveToTableFromIndex(Команда)
-	ТекДанные = Элементы._Indexes.ТекущиеДанные;
-	Если ТекДанные <> Неопределено Тогда
-		Массив = _Tables.НайтиСтроки(Новый Структура("TableName", ТекДанные.TableName));
-		Если Массив.Количество() <> 0 Тогда
-			Строка = Массив[0].ПолучитьИдентификатор();
-			ТекСтрока = _Tables.НайтиПоИдентификатору(Строка);
-			Если ТекСтрока <> Неопределено Тогда
-				Элементы._Tables.ТекущаяСтрока = Строка;
-				Элементы.TableAndIndexesGrpip.ТекущаяСтраница = Элементы.TablePage;
-			КонецЕсли;
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+&AtClient
+Procedure _MoveToTableFromIndex(Command)
+	CurrentData = Items._Indexes.CurrentData;
+	If CurrentData <> Undefined Then
+		Array = _Tables.FindRows(New Structure("TableName", CurrentData.TableName));
+		If Array.Count() <> 0 Then
+			String = Array[0].GetID();
+			ТекСтрока = _Tables.FindByID(String);
+			If ТекСтрока <> Undefined Then
+				Items._Tables.CurrentLine = String;
+				Items.TableAndIndexesGrpip.CurrentPage = Items.TablePage;
+			EndIf;
+		EndIf;
+	EndIf;
+EndProcedure
 
 
 // работа с пользователями ИБ
-&НаКлиенте
-Процедура _FillInDBUsersList(Команда)
-	_DBUserList.Очистить();
+&AtClient
+Procedure _FillInDBUsersList(Command)
+	_DBUserList.Clear();
 
 	пПереченьПолей = "OpenIDAuthentication, AuthenticationOS, StandartAuthentication, Name, PasswordIsSet,
 					 |StandartAuthentication, FullName, OSUser, LaunchMode, UUID,
 					 |ListOfRoles";
 
-	пМассив = вПолучитьПользователейИБ(пПереченьПолей, _ShowUserRolesList);
-	Для Каждого Элем Из пМассив Цикл
-		ЗаполнитьЗначенияСвойств(_DBUserList.Добавить(), Элем);
-	КонецЦикла;
+	pArray = вПолучитьПользователейИБ(пПереченьПолей, _ShowUserRolesList);
+	For Each Item In pArray Do
+		FillPropertyValues(_DBUserList.Add(), Item);
+	EndDo;
 
-	_DBUserList.Сортировать("Name");
+	_DBUserList.Sort("Name");
 
-	Если Элементы._DBUserListListOfRoles.Видимость <> _ShowUserRolesList Тогда
-		Элементы._DBUserListListOfRoles.Видимость = _ShowUserRolesList;
-	КонецЕсли;
+	If Items._DBUserListListOfRoles.Visible <> _ShowUserRolesList Then
+		Items._DBUserListListOfRoles.Visible = _ShowUserRolesList;
+	EndIf;
 
-	Элементы.DBUsers.Заголовок = "Пользователи (" + пМассив.Количество() + ")";
-КонецПроцедуры
+	Items.DBUsers.Title = "Users (" + pArray.Count() + ")";
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вПолучитьПользователейИБ(Знач пПереченьПолей, Знач пЗаполнятьПереченьРолнй = Ложь)
-	пРезультат = Новый Массив;
+&AtServerNoContext
+Function вПолучитьПользователейИБ(Val пПереченьПолей, Val пЗаполнятьПереченьРолнй = False)
+	pResult = New Array;
 
-	Для Каждого Элем Из ПользователиИнформационнойБазы.ПолучитьПользователей() Цикл
-		пСтрук = Новый Структура(пПереченьПолей);
-		ЗаполнитьЗначенияСвойств(пСтрук, Элем);
+	For Each Item In InfoBaseUsers.GetUsers() Do
+		pStructure = New Structure(пПереченьПолей);
+		FillPropertyValues(pStructure, Item);
 
-		Если пЗаполнятьПереченьРолнй Тогда
-			пСписокРолей = Новый СписокЗначений;
-			Для Каждого пРоль Из Элем.Роли Цикл
-				пСписокРолей.Добавить(пРоль.Имя);
-			КонецЦикла;
-			пСписокРолей.СортироватьПоЗначению();
+		If пЗаполнятьПереченьРолнй Then
+			пСписокРолей = New ValueList;
+			For Each пРоль In Item.Roles Do
+				пСписокРолей.Add(пРоль.Name);
+			EndDo;
+			пСписокРолей.SortByValue();
 
 			пПереченьРолей = "";
-			Для Каждого пРоль Из пСписокРолей Цикл
-				пПереченьРолей = пПереченьРолей + ", " + пРоль.Значение;
-			КонецЦикла;
-			пСтрук.ListOfRoles = Сред(пПереченьРолей, 2);
-		КонецЕсли;
+			For Each пРоль In пСписокРолей Do
+				пПереченьРолей = пПереченьРолей + ", " + пРоль.Value;
+			EndDo;
+			pStructure.ListOfRoles = Mid(пПереченьРолей, 2);
+		EndIf;
 
-		пРезультат.Добавить(пСтрук);
-	КонецЦикла;
+		pResult.Add(pStructure);
+	EndDo;
 
-	Возврат пРезультат;
-КонецФункции
+	Return pResult;
+EndFunction
 
-&НаКлиенте
-Процедура _СписокПользователейИБВыбор(Элемент, ВыбраннаяСтрока, Поле, СтандартнаяОбработка)
-	СтандартнаяОбработка = Ложь;
+&AtClient
+Procedure _СписокПользователейИБВыбор(Item, SelectedRow, Field, StandardProcessing)
+	StandardProcessing = False;
 
-	ТекДанные = _DBUserList.НайтиПоИдентификатору(ВыбраннаяСтрока);
-	Если ТекДанные <> Неопределено Тогда
-		пСтрук = Новый Структура("РежимРаботы, DBUserID", 0, ТекДанные.UUID);
-		ОткрытьФорму(PathToForms + "ФормаПользовательИБ", пСтрук, , , , , ,
-			РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-	КонецЕсли;
-КонецПроцедуры
+	CurrentData = _DBUserList.FindByID(SelectedRow);
+	If CurrentData <> Undefined Then
+		pStructure = New Structure("WorkMode, DBUserID", 0, CurrentData.UUID);
+		OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
+			FormWindowOpeningMode.LockOwnerWindow);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура _СписокПользователейИБПередНачаломДобавления(Элемент, Отказ, Копирование, Родитель, Группа, Параметр)
-	Отказ = Истина;
+&AtClient
+Procedure _СписокПользователейИБПередНачаломДобавления(Item, Cancel, Copy, Parent, Group, Parameter)
+	Cancel = True;
 
-	Если Копирование Тогда
-		ТекДанные = Элемент.ТекущиеДанные;
-		Если ТекДанные <> Неопределено Тогда
-			пСтрук = Новый Структура("РежимРаботы, DBUserID", 2, ТекДанные.UUID);
-			ОткрытьФорму(PathToForms + "ФормаПользовательИБ", пСтрук, , , , , ,
-				РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-		КонецЕсли;
-	Иначе
-		пСтрук = Новый Структура("РежимРаботы", 1);
-		ОткрытьФорму(PathToForms + "ФормаПользовательИБ", пСтрук, , , , , ,
-			РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-	КонецЕсли;
-КонецПроцедуры
+	If Copy Then
+		CurrentData = Item.CurrentData;
+		If CurrentData <> Undefined Then
+			pStructure = New Structure("WorkMode, DBUserID", 2, CurrentData.UUID);
+			OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
+				FormWindowOpeningMode.LockOwnerWindow);
+		EndIf;
+	Else
+		pStructure = New Structure("WorkMode", 1);
+		OpenForm(PathToForms + "UserForm", pStructure, , , , , ,
+			FormWindowOpeningMode.LockOwnerWindow);
+	EndIf;
+EndProcedure
 
-&НаКлиенте
-Процедура _СписокПользователейИБПередУдалением(Элемент, Отказ)
-	Отказ = Истина;
+&AtClient
+Procedure _СписокПользователейИБПередУдалением(Item, Cancel)
+	Cancel = True;
 
-	пВыделенныеСтроки = Элемент.ВыделенныеСтроки;
-	пЧисло = пВыделенныеСтроки.Количество();
+	pSelectedLines = Item.SelectedRows;
+	пЧисло = pSelectedLines.Count();
 
-	Если пЧисло = 0 Тогда
-		Возврат;
-	ИначеЕсли пЧисло = 1 Тогда
-		пТекст = СтрШаблон("User ""%1"" будет удален из информационной базы!
-						   |Продолжить?", _DBUserList.НайтиПоИдентификатору(пВыделенныеСтроки[0]).Имя);
-	Иначе
-		пТекст = СтрШаблон("Отмеченные пользователи (%1 шт) будут удалены из информационной базы!
-						   |Продолжить?", пЧисло);
-	КонецЕсли;
+	If пЧисло = 0 Then
+		Return;
+	ElsIf пЧисло = 1 Then
+		пТекст = StrTemplate("User ""%1"" будет удален из информационной базы!
+						   |Continue?", _DBUserList.FindByID(pSelectedLines[0]).Name);
+	Else
+		пТекст = StrTemplate("Отмеченные пользователи (%1 шт) будут удалены из информационной базы!
+						   |Continue?", пЧисло);
+	EndIf;
 
-	вПоказатьВопрос(пТекст, "вУдалитьПользователейИБОтвет", пВыделенныеСтроки);
-КонецПроцедуры
+	vShowQueryBox(пТекст, "вУдалитьПользователейИБОтвет", pSelectedLines);
+EndProcedure
 
-&НаКлиенте
-Процедура вУдалитьПользователейИБОтвет(Ответ, пВыделенныеСтроки) Экспорт
-	Если Ответ = КодВозвратаДиалога.Да Тогда
-		пМассив = Новый Массив;
-		Для Каждого Стр Из пВыделенныеСтроки Цикл
-			ТекДанные = _DBUserList.НайтиПоИдентификатору(Стр);
-			Если ТекДанные <> Неопределено Тогда
-				пМассив.Добавить(ТекДанные.UUID);
-			КонецЕсли;
-		КонецЦикла;
+&AtClient
+Procedure вУдалитьПользователейИБОтвет(Ответ, pSelectedLines) Export
+	If Ответ = DialogReturnCode.Yes Then
+		pArray = New Array;
+		For Each Стр In pSelectedLines Do
+			CurrentData = _DBUserList.FindByID(Стр);
+			If CurrentData <> Undefined Then
+				pArray.Add(CurrentData.UUID);
+			EndIf;
+		EndDo;
 
-		Если пМассив.Количество() <> 0 Тогда
-			пМассивУдаленных = вУдалитьПользователейИБ(пМассив);
-			Для Каждого Элем Из пМассивУдаленных Цикл
-				Для Каждого СтрХ Из _DBUserList.НайтиСтроки(Новый Структура("UUID",
-					Элем)) Цикл
-					_DBUserList.Удалить(СтрХ);
-				КонецЦикла;
-			КонецЦикла;
-		КонецЕсли;
-	КонецЕсли;
-КонецПроцедуры
+		If pArray.Count() <> 0 Then
+			пМассивУдаленных = вУдалитьПользователейИБ(pArray);
+			For Each Item In пМассивУдаленных Do
+				For Each СтрХ In _DBUserList.FindRows(New Structure("UUID",
+					Item)) Do
+					_DBUserList.Delete(СтрХ);
+				EndDo;
+			EndDo;
+		EndIf;
+	EndIf;
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вУдалитьПользователейИБ(Знач пМассивИдентификаторов)
-	пРезультат = Новый Массив;
+&AtServerNoContext
+Function вУдалитьПользователейИБ(Val пМассивИдентификаторов)
+	pResult = New Array;
 
-	пТекПользователь = ПользователиИнформационнойБазы.ТекущийПользователь();
+	pCurrentUser = InfoBaseUsers.CurrentUser();
 
-	Для Каждого Элем Из пМассивИдентификаторов Цикл
-		Попытка
-			пUUID = Новый УникальныйИдентификатор(Элем);
+	For Each Item In пМассивИдентификаторов Do
+		Try
+			пUUID = New UUID(Item);
 
-			пПользователь = ПользователиИнформационнойБазы.НайтиПоУникальномуИдентификатору(пUUID);
-			Если пПользователь = Неопределено Или (пТекПользователь <> Неопределено
-				И пТекПользователь.UUID = пUUID) Тогда
-				Продолжить;
-			КонецЕсли;
+			vUser = InfoBaseUsers.FindByUUID(пUUID);
+			If vUser = Undefined Or (pCurrentUser <> Undefined
+				And pCurrentUser.UUID = пUUID) Then
+				Continue;
+			EndIf;
 
-			пПользователь.Удалить();
-			пРезультат.Добавить(Элем);
-		Исключение
-			Сообщить(КраткоеПредставлениеОшибки(ИнформацияОбОшибке()));
-		КонецПопытки;
-	КонецЦикла;
+			vUser.Delete();
+			pResult.Add(Item);
+		Except
+			Message(BriefErrorDescription(ErrorInfo()));
+		EndTry;
+	EndDo;
 
-	Возврат пРезультат;
-КонецФункции
+	Return pResult;
+EndFunction
 
 
 // работа с сеансами
-&НаКлиенте
-Процедура _SetSessionsLock(Команда)
-	ОткрытьФорму(PathToForms + "ФормаБлокировкиСеансов", , ЭтаФорма, , , , ,
-		РежимОткрытияОкнаФормы.БлокироватьОкноВладельца);
-КонецПроцедуры
+&AtClient
+Procedure _SetSessionsLock(Command)
+	OpenForm(PathToForms + "ФормаБлокировкиСеансов", , ThisForm, , , , ,
+		FormWindowOpeningMode.LockOwnerWindow);
+EndProcedure
 
-&НаКлиенте
-Процедура _FillInSessionsList(Команда)
-	_SessionList.Очистить();
+&AtClient
+Procedure _FillInSessionsList(Command)
+	_SessionList.Clear();
 
 	пПереченьПолей = "CurrentSession, ComputerName, ApplicationName, ApplicationPresentation, SessionStart, SessionNumber, ConnectionNumber, User, DBUserID,
 					 |MethodName, Key, Start, End, Name, Placement, ScheduledJob, State, BackgroundJobID";
 
-	пМассив = вПолучитьСенансы(пПереченьПолей);
+	pArray = вПолучитьСенансы(пПереченьПолей);
 
-	Для Каждого Элем Из пМассив Цикл
-		ЗаполнитьЗначенияСвойств(_SessionList.Добавить(), Элем);
-	КонецЦикла;
+	For Each Item In pArray Do
+		FillPropertyValues(_SessionList.Add(), Item);
+	EndDo;
 
-	_SessionList.Сортировать("SessionStart");
+	_SessionList.Sort("SessionStart");
 
-	Элементы.SessionsGroup.Заголовок = "Сеансы информационной базы (" + пМассив.Количество() + ")";
-КонецПроцедуры
+	Items.SessionsGroup.Title = "Сеансы информационной базы (" + pArray.Count() + ")";
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вПолучитьСенансы(Знач пПереченьПолей)
-	УстановитьПривилегированныйРежим(Истина);
+&AtServerNoContext
+Function вПолучитьСенансы(Val пПереченьПолей)
+	SetPrivilegedMode(True);
 
-	пТекНомерСеанса = НомерСеансаИнформационнойБазы();
+	пТекНомерСеанса = InfoBaseSessionNumber();
 
-	пРезультат = Новый Массив;
+	pResult = New Array;
 
-	Для Каждого Элем Из ПолучитьСеансыИнформационнойБазы() Цикл
-		пСтрук = Новый Структура(пПереченьПолей);
-		ЗаполнитьЗначенияСвойств(пСтрук, Элем);
+	For Each Item In GetInfoBaseSessions() Do
+		pStructure = New Structure(пПереченьПолей);
+		FillPropertyValues(pStructure, Item);
 
-		пСтрук.CurrentSession = (Элем.SessionNumber = пТекНомерСеанса);
+		pStructure.CurrentSession = (Item.SessionNumber = пТекНомерСеанса);
 
-		пСтрук.ApplicationPresentation = ПредставлениеПриложения(пСтрук.ИмяПриложения);
+		pStructure.ApplicationPresentation = ApplicationPresentation(pStructure.ApplicationName);
 
-		пСтрук.User = Строка(пСтрук.User);
+		pStructure.User = String(pStructure.User);
 
-		Если Элем.User <> Неопределено Тогда
-			пСтрук.DBUserID = Строка(Элем.User.УникальныйИдентификатор);
-		КонецЕсли;
+		If Item.User <> Undefined Then
+			pStructure.DBUserID = String(Item.User.UUID);
+		EndIf;
 
-		пФоновоеЗадание = Элем.ПолучитьФоновоеЗадание();
-		Если пФоновоеЗадание <> Неопределено Тогда
-			ЗаполнитьЗначенияСвойств(пСтрук, пФоновоеЗадание);
-			пСтрук.State = Строка(пФоновоеЗадание.Состояние);
-			пСтрук.ScheduledJob = Строка(пФоновоеЗадание.РегламентноеЗадание);
-			пСтрук.BackgroundJobID = Строка(пФоновоеЗадание.УникальныйИдентификатор);
-		КонецЕсли;
+		пФоновоеЗадание = Item.GetBackgroundJob();
+		If пФоновоеЗадание <> Undefined Then
+			FillPropertyValues(pStructure, пФоновоеЗадание);
+			pStructure.State = String(пФоновоеЗадание.Status);
+			pStructure.ScheduledJob = String(пФоновоеЗадание.ScheduledJob);
+			pStructure.BackgroundJobID = String(пФоновоеЗадание.UUID);
+		EndIf;
 
-		пРезультат.Добавить(пСтрук);
-	КонецЦикла;
+		pResult.Add(pStructure);
+	EndDo;
 
-	Возврат пРезультат;
-КонецФункции
+	Return pResult;
+EndFunction
 
-&НаКлиенте
-Процедура _FillInConnectionsList(Команда)
-	_ConnectionsList.Очистить();
+&AtClient
+Procedure _FillInConnectionsList(Command)
+	_ConnectionsList.Clear();
 
 	пПереченьПолей = "ТекущееСоединение, Active, ComputerName, ApplicationName, ApplicationPresentation, SessionStart, SessionNumber, ConnectionNumber, User, DBUserID";
 
-	пМассив = вПолучитьСоединения(пПереченьПолей);
+	pArray = вПолучитьСоединения(пПереченьПолей);
 
-	Для Каждого Элем Из пМассив Цикл
-		ЗаполнитьЗначенияСвойств(_ConnectionsList.Добавить(), Элем);
-	КонецЦикла;
+	For Each Item In pArray Do
+		FillPropertyValues(_ConnectionsList.Add(), Item);
+	EndDo;
 
-	_ConnectionsList.Сортировать("SessionStart");
+	_ConnectionsList.Sort("SessionStart");
 
-	Элементы.ConnectionsGroup.Заголовок = "Соединения информационной базы (" + пМассив.Количество() + ")";
-КонецПроцедуры
+	Items.ConnectionsGroup.Title = "Joins информационной базы (" + pArray.Count() + ")";
+EndProcedure
 
-&НаСервереБезКонтекста
-Функция вПолучитьСоединения(Знач пПереченьПолей)
-	УстановитьПривилегированныйРежим(Истина);
+&AtServerNoContext
+Function вПолучитьСоединения(Val пПереченьПолей)
+	SetPrivilegedMode(True);
 
-	пТекНомерСоединения = НомерСоединенияИнформационнойБазы();
+	пТекНомерСоединения = InfoBaseConnectionNumber();
 
-	пРезультат = Новый Массив;
+	pResult = New Array;
 
-	Для Каждого Элем Из ПолучитьСоединенияИнформационнойБазы() Цикл
-		пСтрук = Новый Структура(пПереченьПолей);
-		ЗаполнитьЗначенияСвойств(пСтрук, Элем);
+	For Each Item In GetInfoBaseConnections() Do
+		pStructure = New Structure(пПереченьПолей);
+		FillPropertyValues(pStructure, Item);
 
-		пСтрук.ТекущееСоединение = (Элем.ConnectionNumber = пТекНомерСоединения);
+		pStructure.ТекущееСоединение = (Item.ConnectionNumber = пТекНомерСоединения);
 
-		пСтрук.Active = ЗначениеЗаполнено(Элем.НомерСеанса);
+		pStructure.Active = ValueIsFilled(Item.SessionNumber);
 
-		пСтрук.ApplicationPresentation = ПредставлениеПриложения(пСтрук.ИмяПриложения);
+		pStructure.ApplicationPresentation = ApplicationPresentation(pStructure.ApplicationName);
 
-		пСтрук.User = Строка(пСтрук.User);
+		pStructure.User = String(pStructure.User);
 
-		Если Элем.User <> Неопределено Тогда
-			пСтрук.DBUserID = Строка(Элем.User.УникальныйИдентификатор);
-		КонецЕсли;
+		If Item.User <> Undefined Then
+			pStructure.DBUserID = String(Item.User.UUID);
+		EndIf;
 
-		пРезультат.Добавить(пСтрук);
-	КонецЦикла;
+		pResult.Add(pStructure);
+	EndDo;
 
-	Возврат пРезультат;
-КонецФункции
-&НаКлиенте
-Процедура _FinishSessions(Команда)
-	пВыделенныеСтроки = Элементы._SessionList.ВыделенныеСтроки;
-	Если пВыделенныеСтроки.Количество() = 0 Тогда
-		Возврат;
-	КонецЕсли;
+	Return pResult;
+EndFunction
+&AtClient
+Procedure _FinishSessions(Command)
+	pSelectedLines = Items._SessionList.SelectedRows;
+	If pSelectedLines.Count() = 0 Then
+		Return;
+	EndIf;
 
-	пМассивСеансов = Новый Массив;
-	Для Каждого Элем Из пВыделенныеСтроки Цикл
-		Стр = _SessionList.НайтиПоИдентификатору(Элем);
-		Если Не Стр.CurrentSession Тогда
-			пМассивСеансов.Добавить(Стр.SessionNumber);
-		КонецЕсли;
-	КонецЦикла;
+	пМассивСеансов = New Array;
+	For Each Item In pSelectedLines Do
+		Стр = _SessionList.FindByID(Item);
+		If Not Стр.CurrentSession Then
+			пМассивСеансов.Add(Стр.SessionNumber);
+		EndIf;
+	EndDo;
 
-	Если пМассивСеансов.Количество() = 0 Тогда
-		вПоказатьПредупреждение("Невозможно завершить текущий сеанс!
-								|Для выхода из программы можно закрыть главное окно программы.");
-		Возврат;
-	КонецЕсли;
+	If пМассивСеансов.Count() = 0 Then
+		vShowMessageBox("Невозможно завершить текущий сеанс!
+								|For выхода из программы можно закрыть главное окно программы.");
+		Return;
+	EndIf;
 
-	пТекст = СтрШаблон("Отмеченные сеансы (%1 шт) будут завершены.
-					   |Продолжить?", пМассивСеансов.Количество());
+	пТекст = StrTemplate("Отмеченные сеансы (%1 шт) будут завершены.
+					   |Continue?", пМассивСеансов.Count());
 
-	вПоказатьВопрос(пТекст, "вЗавершитьСеансыОтвет", пМассивСеансов);
-КонецПроцедуры
+	vShowQueryBox(пТекст, "вЗавершитьСеансыОтвет", пМассивСеансов);
+EndProcedure
 
-&НаКлиенте
-Процедура вЗавершитьСеансыОтвет(Ответ, пМассивСеансов) Экспорт
-	Если Ответ = КодВозвратаДиалога.Да Тогда
-		Если мПараметрыКластера1С = Неопределено Тогда
-			мПараметрыКластера1С = вПолучитьПараметрыКластера1С();
-		КонецЕсли;
+&AtClient
+Procedure вЗавершитьСеансыОтвет(Ответ, пМассивСеансов) Export
+	If Ответ = DialogReturnCode.Yes Then
+		If mClusterParameters = Undefined Then
+			mClusterParameters = вПолучитьПараметрыКластера1С();
+		EndIf;
 
-		Если мПараметрыКластера1С.ФайловыйВариантИБ Тогда
-			Элементы._SessionList_FinishSessions.Enabled = Ложь;
-			Элементы.ClusterAdministratorGroup.ТолькоПросмотр = Истина;
-			вПоказатьПредупреждение("Завершение сеансов реализовано только для клиент-серверного варианта!");
-			Возврат;
-		КонецЕсли;
+		If mClusterParameters.ФайловыйВариантИБ Then
+			Items._SessionList_FinishSessions.Enabled = False;
+			Items.ClusterAdministratorGroup.ReadOnly = True;
+			vShowMessageBox("End сеансов реализовано только для клиент-серверного варианта!");
+			Return;
+		EndIf;
 
-		Попытка
+		Try
 			вЗавершитьСеансы(пМассивСеансов);
-		Исключение
-			Сообщить(вСформироватьОписаниеОшибки(ИнформацияОбОшибке()));
-		КонецПопытки;
+		Except
+			Message(вСформироватьОписаниеОшибки(ErrorInfo()));
+		EndTry;
 
-		_FillInSessionsList(Неопределено);
-	КонецЕсли;
-КонецПроцедуры
+		_FillInSessionsList(Undefined);
+	EndIf;
+EndProcedure
 
-&НаКлиентеНаСервереБезКонтекста
-Функция вСформироватьОписаниеОшибки(Знач пИнфоОбОшибке)
-	пТекст = пИнфоОбОшибке.Описание;
+&AtClientAtServerNoContext
+Function вСформироватьОписаниеОшибки(Val пИнфоОбОшибке)
+	пТекст = пИнфоОбОшибке.LongDesc;
 
-	Пока Истина Цикл
-		Если пИнфоОбОшибке.Причина <> Неопределено Тогда
+	While True Do
+		If пИнфоОбОшибке.Reason <> Undefined Then
 			пТекст = пТекст + "
-							  |" + пИнфоОбОшибке.Причина.Описание;
-			пИнфоОбОшибке = пИнфоОбОшибке.Причина;
-		Иначе
-			Прервать;
-		КонецЕсли;
-	КонецЦикла;
+							  |" + пИнфоОбОшибке.Reason.LongDesc;
+			пИнфоОбОшибке = пИнфоОбОшибке.Reason;
+		Else
+			Break;
+		EndIf;
+	EndDo;
 
-	Возврат пТекст;
-КонецФункции
-&НаКлиенте
-Процедура вЗавершитьСеансы(пМассивСеансов)
-	COMСоединитель = Новый COMОбъект(мПараметрыКластера1С.ИмяCOMСоединителя, мПараметрыКластера1С.СерверCOMСоединителя);
+	Return пТекст;
+EndFunction
+&AtClient
+Procedure вЗавершитьСеансы(пМассивСеансов)
+	COMСоединитель = New COMObject(mClusterParameters.ИмяCOMСоединителя, mClusterParameters.СерверCOMСоединителя);
 
 	пСоединениеСАгентомСервера = вСоединениеСАгентомСервера(
-		COMСоединитель, мПараметрыКластера1С.АдресАгентаСервера, мПараметрыКластера1С.ПортАгентаСервера);
+		COMСоединитель, mClusterParameters.АдресАгентаСервера, mClusterParameters.ПортАгентаСервера);
 
 	пКластер = вПолучитьКластер(
-		пСоединениеСАгентомСервера, мПараметрыКластера1С.ПортКластера, _ClusterAdministratorName, ?(ПустаяСтрока(
+		пСоединениеСАгентомСервера, mClusterParameters.ПортКластера, _ClusterAdministratorName, ?(IsBlankString(
 		_ClusterAdministratorName), "", _ClusterAdministratorPassword));
 
-	пСеансыКУдалению = Новый Массив;
+	пСеансыКУдалению = New Array;
 
-	Для Каждого Сеанс Из пСоединениеСАгентомСервера.GetSessions(пКластер).Выгрузить() Цикл
-		Если пМассивСеансов.Найти(Сеанс.SessionID) <> Неопределено Тогда
-			пСеансыКУдалению.Добавить(Сеанс);
-		КонецЕсли;
-	КонецЦикла;
+	For Each Сеанс In пСоединениеСАгентомСервера.GetSessions(пКластер).Unload() Do
+		If пМассивСеансов.Find(Сеанс.SessionID) <> Undefined Then
+			пСеансыКУдалению.Add(Сеанс);
+		EndIf;
+	EndDo;
 
-	Для Каждого Сеанс Из пСеансыКУдалению Цикл
-		ОбработкаПрерыванияПользователя();
+	For Each Сеанс In пСеансыКУдалению Do
+		UserInterruptProcessing();
 
-		Попытка
+		Try
 			пСоединениеСАгентомСервера.TerminateSession(пКластер, Сеанс);
-		Исключение
-		КонецПопытки;
-	КонецЦикла;
-КонецПроцедуры
+		Except
+		EndTry;
+	EndDo;
+EndProcedure
 
-&НаКлиенте
-Функция вСоединениеСАгентомСервера(COMСоединитель, Знач АдресАгентаСервера, Знач ПортАгентаСервера)
+&AtClient
+Function вСоединениеСАгентомСервера(COMСоединитель, Val АдресАгентаСервера, Val ПортАгентаСервера)
 
-	пСтрокаСоединенияСАгентомСервера = "tcp://" + АдресАгентаСервера + ":" + Формат(ПортАгентаСервера, "ЧГ=0");
+	пСтрокаСоединенияСАгентомСервера = "tcp://" + АдресАгентаСервера + ":" + Format(ПортАгентаСервера, "ЧГ=0");
 	пСоединениеСАгентомСервера = COMСоединитель.ConnectAgent(пСтрокаСоединенияСАгентомСервера);
 
-	Возврат пСоединениеСАгентомСервера;
+	Return пСоединениеСАгентомСервера;
 
-КонецФункции
+EndFunction
 
-&НаКлиенте
-Функция вПолучитьКластер(СоединениеСАгентомСервера, Знач ПортКластера, Знач ИмяАдминистратораКластера,
-	Знач ПарольАдминистратораКластера)
+&AtClient
+Function вПолучитьКластер(СоединениеСАгентомСервера, Val ПортКластера, Val ИмяАдминистратораКластера,
+	Val ПарольАдминистратораКластера)
 
-	Для Каждого Кластер Из СоединениеСАгентомСервера.GetClusters() Цикл
+	For Each Кластер In СоединениеСАгентомСервера.GetClusters() Do
 
-		Если Кластер.MainPort = ПортКластера Тогда
+		If Кластер.MainPort = ПортКластера Then
 
 			СоединениеСАгентомСервера.Authenticate(Кластер, ИмяАдминистратораКластера, ПарольАдминистратораКластера);
 
-			Возврат Кластер;
+			Return Кластер;
 
-		КонецЕсли;
+		EndIf;
 
-	КонецЦикла;
+	EndDo;
 
-	ВызватьИсключение СтрШаблон("На рабочем сервере %1 не найден кластер %2", СоединениеСАгентомСервера.ConnectionString,
+	Raise StrTemplate("На рабочем сервере %1 не найден кластер %2", СоединениеСАгентомСервера.ConnectionString,
 		ПортКластера);
 
-КонецФункции
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПолучитьПараметрыКластера1С()
-	пРезультат = Новый Структура;
+&AtServerNoContext
+Function вПолучитьПараметрыКластера1С()
+	pResult = New Structure;
 
-	пСистемнаяИнфо = Новый СистемнаяИнформация;
-	пСтрокаСоединения = СтрокаСоединенияИнформационнойБазы();
+	пСистемнаяИнфо = New SystemInfo;
+	пСтрокаСоединения = InfoBaseConnectionString();
 
-	пРезультат.Вставить("ФайловыйВариантИБ", (Найти(Врег(пСтрокаСоединения), "FILE=") = 1));
-	пРезультат.Вставить("СерверCOMСоединителя", "");
-	пРезультат.Вставить("ПортАгентаСервера", 1540);
-	пРезультат.Вставить("ПортКластера", 1541);
-	пРезультат.Вставить("АдресАгентаСервера", "LocalHost");
-	пРезультат.Вставить("ИмяАдминистратораКластера", "");
-	пРезультат.Вставить("ПарольАдминистратораКластера", "");
-	пРезультат.Вставить("ИмяВКластере", "");
-	пРезультат.Вставить("ТипПодключения", "COM");
-	пРезультат.Вставить("ИмяCOMСоединителя", "V83.COMConnector");
-	пРезультат.Вставить("ИмяАдминистратораИнформационнойБазы", ПользователиИнформационнойБазы.ТекущийПользователь().Имя);
-	пРезультат.Вставить("ПарольАдминистратораИнформационнойБазы", "");
-	пРезультат.Вставить("Платформа1С", "83");
+	pResult.Insert("ФайловыйВариантИБ", (Find(Врег(пСтрокаСоединения), "FILE=") = 1));
+	pResult.Insert("СерверCOMСоединителя", "");
+	pResult.Insert("ПортАгентаСервера", 1540);
+	pResult.Insert("ПортКластера", 1541);
+	pResult.Insert("АдресАгентаСервера", "LocalHost");
+	pResult.Insert("ИмяАдминистратораКластера", "");
+	pResult.Insert("ПарольАдминистратораКластера", "");
+	pResult.Insert("ИмяВКластере", "");
+	pResult.Insert("ТипПодключения", "COM");
+	pResult.Insert("ИмяCOMСоединителя", "V83.COMConnector");
+	pResult.Insert("ИмяАдминистратораИнформационнойБазы", InfoBaseUsers.CurrentUser().Name);
+	pResult.Insert("ПарольАдминистратораИнформационнойБазы", "");
+	pResult.Insert("Платформа1С", "83");
 
-	пМассивСтр = СтрРазделить(пСтрокаСоединения, ";", Ложь);
+	пМассивСтр = StrSplit(пСтрокаСоединения, ";", False);
 
-	пЗначение = СтрЗаменить(вЗначениеКлючаСтроки(пМассивСтр, "Srvr"), """", "");
-	Поз = Найти(пЗначение, ":");
-	Если Поз <> 0 Тогда
-		пРезультат.Вставить("АдресАгентаСервера", СокрЛП(Сред(пЗначение, 1, Поз - 1)));
-		пРезультат.Вставить("ПортКластера", Число(Сред(пЗначение, Поз + 1)));
-	Иначе
-		пРезультат.Вставить("АдресАгентаСервера", пЗначение);
-		пРезультат.Вставить("ПортКластера", 1541);
-	КонецЕсли;
-	пРезультат.ПортАгентаСервера = пРезультат.ПортКластера - 1;
+	пЗначение = StrReplace(вЗначениеКлючаСтроки(пМассивСтр, "Srvr"), """", "");
+	Position = Find(пЗначение, ":");
+	If Position <> 0 Then
+		pResult.Insert("АдресАгентаСервера", TrimAll(Mid(пЗначение, 1, Position - 1)));
+		pResult.Insert("ПортКластера", Number(Mid(пЗначение, Position + 1)));
+	Else
+		pResult.Insert("АдресАгентаСервера", пЗначение);
+		pResult.Insert("ПортКластера", 1541);
+	EndIf;
+	pResult.ПортАгентаСервера = pResult.ПортКластера - 1;
 
-	пРезультат.Вставить("ИмяВКластере", СтрЗаменить(вЗначениеКлючаСтроки(пМассивСтр, "Ref"), """", ""));
+	pResult.Insert("ИмяВКластере", StrReplace(вЗначениеКлючаСтроки(пМассивСтр, "Ref"), """", ""));
 
-	пРезультат.Вставить("ВерсияПриложения", пСистемнаяИнфо.ВерсияПриложения);
-	пРезультат.Вставить("КаталогПрограммы", КаталогПрограммы());
+	pResult.Insert("AppVersion", пСистемнаяИнфо.AppVersion);
+	pResult.Insert("BinDir", BinDir());
 
-	Если Найти(пРезультат.ВерсияПриложения, "8.4.") = 1 Тогда
-		пРезультат.Вставить("ИмяCOMСоединителя", "V84.COMConnector");
-		пРезультат.Вставить("Платформа1С", "84");
-	КонецЕсли;
+	If Find(pResult.AppVersion, "8.4.") = 1 Then
+		pResult.Insert("ИмяCOMСоединителя", "V84.COMConnector");
+		pResult.Insert("Платформа1С", "84");
+	EndIf;
 
-	Возврат пРезультат;
-КонецФункции
+	Return pResult;
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вЗначениеКлючаСтроки(МассивСтрок, Ключ, ЗначениеПоУмолчанию = "") Экспорт
-	КлючВР = ВРег(Ключ) + "=";
-	Для Каждого Стр Из МассивСтрок Цикл
-		пЗначение = СокрЛП(Стр);
-		Если Найти(ВРег(пЗначение), КлючВР) = 1 Тогда
-			Возврат Сред(пЗначение, СтрДлина(КлючВР) + 1);
-		КонецЕсли;
-	КонецЦикла;
+&AtServerNoContext
+Function вЗначениеКлючаСтроки(МассивСтрок, Key, DefaultValue = "") Export
+	КлючВР = Upper(Key) + "=";
+	For Each Стр In МассивСтрок Do
+		пЗначение = TrimAll(Стр);
+		If Find(Upper(пЗначение), КлючВР) = 1 Then
+			Return Mid(пЗначение, StrLen(КлючВР) + 1);
+		EndIf;
+	EndDo;
 
-	Возврат ЗначениеПоУмолчанию;
-КонецФункции
+	Return DefaultValue;
+EndFunction
 
 
 // РАСШИРЕНИЯ КОНФИГУРАЦИИ
-&НаКлиенте
-Процедура _FillInExtensionList(Команда)
-	_ExtensionsList.Очистить();
+&AtClient
+Procedure _FillInExtensionList(Command)
+	_ExtensionsList.Clear();
 
-	пМассив = вПолучитьСписокРасширений();
+	pArray = вПолучитьСписокРасширений();
 
-	Для Каждого Элем Из пМассив Цикл
-		ЗаполнитьЗначенияСвойств(_ExtensionsList.Добавить(), Элем);
-	КонецЦикла;
+	For Each Item In pArray Do
+		FillPropertyValues(_ExtensionsList.Add(), Item);
+	EndDo;
 	
 	//вЗаполнитьСписокРасширений();
 
-	_ExtensionsList.Сортировать("Name");
+	_ExtensionsList.Sort("Name");
 
-	Элементы.ConfigurationExtensions.Заголовок = "Расширения конфигурации (" + _ExtensionsList.Количество() + ")";
-КонецПроцедуры
+	Items.ConfigurationExtensions.Title = "Расширения конфигурации (" + _ExtensionsList.Count() + ")";
+EndProcedure
 
-&НаСервере
-Процедура вЗаполнитьСписокРасширений()
-	_ExtensionsList.Очистить();
+&AtServer
+Procedure вЗаполнитьСписокРасширений()
+	_ExtensionsList.Clear();
 
-	пМассив = РасширенияКонфигурации.Получить();
+	pArray = ConfigurationExtensions.Get();
 
-	Для Каждого Элем Из пМассив Цикл
-		НС = _ExtensionsList.Добавить();
-		ЗаполнитьЗначенияСвойств(НС, Элем);
-	КонецЦикла;
-КонецПроцедуры
+	For Each Item In pArray Do
+		НС = _ExtensionsList.Add();
+		FillPropertyValues(НС, Item);
+	EndDo;
+EndProcedure
 
-&НаКлиентеНаСервереБезКонтекста
-Функция вСформироватьСтруктуруСвойствРасширения(пРежим = 0)
-	пСтрук = Новый Структура("Active, SafeMode, Version, UnsafeOperationProtection, Name, Purpose, Scope, Synonym, UUID, HashSum");
+&AtClientAtServerNoContext
+Function вСформироватьСтруктуруСвойствРасширения(пРежим = 0)
+	pStructure = New Structure("Active, SafeMode, Version, UnsafeOperationProtection, Name, Purpose, Scope, Synonym, UUID, HashSum");
 
-	Если пРежим = 1 Тогда
-		Для Каждого Элем Из пСтрук Цикл
-			пСтрук[Элем.Key] = -1;
-		КонецЦикла;
-	КонецЕсли;
+	If пРежим = 1 Then
+		For Each Item In pStructure Do
+			pStructure[Item.Key] = -1;
+		EndDo;
+	EndIf;
 
-	Возврат пСтрук;
-КонецФункции
+	Return pStructure;
+EndFunction
 
-&НаСервереБезКонтекста
-Функция вПроверитьНаличиеТипа(Знач пИмяТипа)
-	Попытка
-		пТип = Тип(пИмяТипа);
-	Исключение
-		Возврат Ложь;
-	КонецПопытки;
+&AtServerNoContext
+Function vCheckType(Val pTypeName)
+	Try
+		pType = Type(pTypeName);
+	Except
+		Return False;
+	EndTry;
 
-	Возврат Истина;
-КонецФункции
-&НаСервереБезКонтекста
-Функция вПолучитьСписокРасширений()
-	пРезультат = Новый Массив;
+	Return True;
+EndFunction
+&AtServerNoContext
+Function вПолучитьСписокРасширений()
+	pResult = New Array;
 
-	пМассив = РасширенияКонфигурации.Получить();
+	pArray = ConfigurationExtensions.Get();
 
-	Для Каждого Элем Из пМассив Цикл
-		пСтрук = вСформироватьСтруктуруСвойствРасширения(1);
-		ЗаполнитьЗначенияСвойств(пСтрук, Элем);
+	For Each Item In pArray Do
+		pStructure = вСформироватьСтруктуруСвойствРасширения(1);
+		FillPropertyValues(pStructure, Item);
 
-		Если пСтрук.UnsafeOperationProtection = -1 Тогда
-			пСтрук.UnsafeOperationProtection = Неопределено;
-		Иначе
-			пСтрук.UnsafeOperationProtection = пСтрук.UnsafeOperationProtection.ПредупреждатьОбОпасныхДействиях;
-		КонецЕсли;
+		If pStructure.UnsafeOperationProtection = -1 Then
+			pStructure.UnsafeOperationProtection = Undefined;
+		Else
+			pStructure.UnsafeOperationProtection = pStructure.UnsafeOperationProtection.UnsafeOperationWarnings;
+		EndIf;
 
-		Если пСтрук.Scope = -1 Тогда
-			пСтрук.Scope = Неопределено;
-		Иначе
-			пСтрук.Scope = Строка(пСтрук.ОбластьДействия);
-		КонецЕсли;
+		If pStructure.Scope = -1 Then
+			pStructure.Scope = Undefined;
+		Else
+			pStructure.Scope = String(pStructure.Scope);
+		EndIf;
 
-		Если пСтрук.Purpose = -1 Тогда
-			пСтрук.Purpose = Неопределено;
-		Иначе
-			пСтрук.Purpose = Строка(пСтрук.Назначение);
-		КонецЕсли;
+		If pStructure.Purpose = -1 Then
+			pStructure.Purpose = Undefined;
+		Else
+			pStructure.Purpose = String(pStructure.Purpose);
+		EndIf;
 
-		пРезультат.Добавить(пСтрук);
-	КонецЦикла;
+		pResult.Add(pStructure);
+	EndDo;
 
-	Возврат пРезультат;
-КонецФункции
+	Return pResult;
+EndFunction
 
-&НаКлиенте
-Процедура RunConfiguratorUnderUser(Команда)
-	ТекДанные=Элементы._DBUserList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure RunConfiguratorUnderUser(Command)
+	CurrentData=Items._DBUserList.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	UT_CommonClient.Run1CSession(1, ТекДанные.Имя, Истина,
+	UT_CommonClient.Run1CSession(1, CurrentData.Name, True,
 		WaitingTimeBeforePasswordRecovery);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура RunOrdinaryClientUnderUser(Команда)
-	ТекДанные=Элементы._DBUserList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure RunOrdinaryClientUnderUser(Command)
+	CurrentData=Items._DBUserList.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	UT_CommonClient.Run1CSession(2, ТекДанные.Имя, Истина,
+	UT_CommonClient.Run1CSession(2, CurrentData.Name, True,
 		WaitingTimeBeforePasswordRecovery);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура RunThickClientUnderUser(Команда)
-	ТекДанные=Элементы._DBUserList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure RunThickClientUnderUser(Command)
+	CurrentData=Items._DBUserList.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	UT_CommonClient.Run1CSession(3, ТекДанные.Имя, Истина,
+	UT_CommonClient.Run1CSession(3, CurrentData.Name, True,
 		WaitingTimeBeforePasswordRecovery);
-КонецПроцедуры
+EndProcedure
 
-&НаКлиенте
-Процедура RunThinClientUnderUser(Команда)
-	ТекДанные=Элементы._DBUserList.ТекущиеДанные;
-	Если ТекДанные = Неопределено Тогда
-		Возврат;
-	КонецЕсли;
+&AtClient
+Procedure RunThinClientUnderUser(Command)
+	CurrentData=Items._DBUserList.CurrentData;
+	If CurrentData = Undefined Then
+		Return;
+	EndIf;
 
-	UT_CommonClient.Run1CSession(4, ТекДанные.Имя, Истина,
+	UT_CommonClient.Run1CSession(4, CurrentData.Name, True,
 		WaitingTimeBeforePasswordRecovery);
-КонецПроцедуры
+EndProcedure
 
 //@skip-warning
-&НаКлиенте
-Процедура Attachable_ExecuteToolsCommonCommand(Команда) 
-	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ЭтотОбъект, Команда);
-КонецПроцедуры
+&AtClient
+Procedure Attachable_ExecuteToolsCommonCommand(Command) 
+	UT_CommonClient.Attachable_ExecuteToolsCommonCommand(ThisObject, Command);
+EndProcedure
+
+
+
 
 
