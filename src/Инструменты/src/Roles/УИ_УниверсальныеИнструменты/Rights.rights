@@ -620,11 +620,4 @@
 			<value>true</value>
 		</right>
 	</object>
-	<object>
-		<name>Catalog.УИ_Алгоритмы.Command.ВыполнитьАлгоритм</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
 </Rights>

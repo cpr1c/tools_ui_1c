@@ -2229,7 +2229,6 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <autoFill>true</autoFill>
                 </contextMenu>
                 <type>TextDocumentField</type>
                 <editMode>Enter</editMode>
@@ -5163,6 +5162,68 @@
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
+          <items xsi:type="form:Button">
+            <name>РезультатЗапросаДеревоСортироватьВозр</name>
+            <id>525</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РезультатЗапросаДеревоСортироватьВозрРасширеннаяПодсказка</name>
+              <id>526</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Command.РезультатЗапросаДеревоСортироватьВозр</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РезультатЗапросаДеревоСортироватьУбыв</name>
+            <id>527</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РезультатЗапросаДеревоСортироватьУбывРасширеннаяПодсказка</name>
+              <id>528</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Command.РезультатЗапросаДеревоСортироватьУбыв</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
@@ -5267,6 +5328,68 @@
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
             <picture xsi:type="form:FormPicture"/>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РезультатЗапросаТаблицаСортироватьВозр</name>
+            <id>519</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РезультатЗапросаТаблицаСортироватьВозрРасширеннаяПодсказка</name>
+              <id>520</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Command.РезультатЗапросаТаблицаСортироватьВозр</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РезультатЗапросаТаблицаСортироватьУбыв</name>
+            <id>517</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РезультатЗапросаТаблицаСортироватьУбывРасширеннаяПодсказка</name>
+              <id>518</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Command.РезультатЗапросаТаблицаСортироватьУбыв</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <toolTipRepresentation>Auto</toolTipRepresentation>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -7053,6 +7176,42 @@
         <numberQualifiers>
           <precision>10</precision>
         </numberQualifiers>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТекстКодОригинальный</name>
+      <title>
+        <key>ru</key>
+        <value>Текст код оригинальный</value>
+      </title>
+      <id>55</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТекстЗапросаОригинальный</name>
+      <title>
+        <key>ru</key>
+        <value>Текст запроса</value>
+      </title>
+      <id>56</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
       </valueType>
       <view>
         <common>true</common>
@@ -9121,6 +9280,107 @@
     </action>
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>РезультатЗапросаТаблицаСортироватьУбыв</name>
+    <title>
+      <key>ru</key>
+      <value>Соритровать по убыванию</value>
+    </title>
+    <id>38</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Соритровать по убыванию</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.SortListDesc</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>Команда_РезультатЗапросаТаблицаСортироватьУбыв</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+    <associatedTableElementId>4</associatedTableElementId>
+  </formCommands>
+  <formCommands>
+    <name>РезультатЗапросаТаблицаСортироватьВозр</name>
+    <title>
+      <key>ru</key>
+      <value>Сортировать по возрвстанию</value>
+    </title>
+    <id>39</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Сортировать по возрвстанию</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.SortListAsc</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>Команда_РезультатЗапросаТаблицаСортироватьВозр</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>РезультатЗапросаДеревоСортироватьВозр</name>
+    <title>
+      <key>ru</key>
+      <value>Сортировать по возрвстанию</value>
+    </title>
+    <id>41</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Сортировать по возрвстанию</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.SortListAsc</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>Команда_РезультатЗапросаДеревоСортироватьВозр</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>РезультатЗапросаДеревоСортироватьУбыв</name>
+    <title>
+      <key>ru</key>
+      <value>Соритровать по убыванию</value>
+    </title>
+    <id>42</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Соритровать по убыванию</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.SortListDesc</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>Команда_РезультатЗапросаДеревоСортироватьУбыв</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+    <associatedTableElementId>4</associatedTableElementId>
   </formCommands>
   <commandInterface>
     <navigationPanel/>

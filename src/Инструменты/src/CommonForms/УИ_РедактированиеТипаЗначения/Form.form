@@ -99,6 +99,7 @@
     <extInfo xsi:type="form:InputFieldExtInfo">
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
+      <clearButton>true</clearButton>
       <chooseType>true</chooseType>
       <typeDomainEnabled>true</typeDomainEnabled>
       <textEdit>true</textEdit>

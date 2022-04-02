@@ -28,7 +28,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/src/builder/build.os",
             "args": [
-                "--versionEDT=edt@2021.1",
+                "--versionEDT=edt@2021.1.7",
                 "--exportEDT=true",
                 "--cfe=false",
                 "--cf=false",

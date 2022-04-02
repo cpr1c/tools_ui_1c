@@ -227,6 +227,10 @@
         <items xsi:type="form:FormField">
           <name>ИспользоватьКартуКода</name>
           <id>16</id>
+          <title>
+            <key>ru</key>
+            <value>Карта кода</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -296,6 +300,49 @@
           <contextMenu>
             <name>СкрытьНомераСтрокКонтекстноеМеню</name>
             <id>20</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>CheckBoxField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ОтображатьПробелыИТабуляции</name>
+          <id>53</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ОтображатьПробелыИТабуляции</segments>
+          </dataPath>
+          <extendedTooltip>
+            <name>ОтображатьПробелыИТабуляцииРасширеннаяПодсказка</name>
+            <id>55</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ОтображатьПробелыИТабуляцииКонтекстноеМеню</name>
+            <id>54</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -901,6 +948,7 @@
       <common>true</common>
     </edit>
     <fillChecking>ShowError</fillChecking>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>ТемаРедактораMonaco</name>
@@ -919,6 +967,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>ЯзыкСинтаксисаРедактораMonaco</name>
@@ -937,6 +986,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>ИспользоватьКартуКода</name>
@@ -954,6 +1004,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>СкрытьНомераСтрок</name>
@@ -971,6 +1022,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>КаталогиИсходныхФайловКонфигурации</name>
@@ -1046,6 +1098,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>ВысотаСтрок</name>
@@ -1067,6 +1120,25 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
+  </attributes>
+  <attributes>
+    <name>ОтображатьПробелыИТабуляции</name>
+    <title>
+      <key>ru</key>
+      <value>Отображать пробелы и табуляции</value>
+    </title>
+    <id>12</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <savedData>true</savedData>
   </attributes>
   <formCommands>
     <name>Применить</name>

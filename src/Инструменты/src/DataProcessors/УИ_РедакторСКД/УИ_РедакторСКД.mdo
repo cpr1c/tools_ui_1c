@@ -29,4 +29,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="85f83790-2f19-443f-930c-e34feaef62da">
+    <name>ФормаРедактированияВыражения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактирования выражения</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
 </mdclass:DataProcessor>

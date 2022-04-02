@@ -13,7 +13,7 @@
     <key>ru</key>
     <value>Консоль сравнения данных [УИ]</value>
   </synonym>
-  <comment>15.4.55</comment>
+  <comment>15.9.61</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольСравненияДанных.Form.ФормаУправляемая</defaultForm>
   <help>
@@ -1786,7 +1786,7 @@
     <name>ПутьКФайлуВыгрузки</name>
     <synonym>
       <key>ru</key>
-      <value>Путь к файлу выгрузки (на сервере)</value>
+      <value>Путь к файлу выгрузки таблицы расхождений (на сервере)</value>
     </synonym>
     <type>
       <types>String</types>
@@ -1799,7 +1799,7 @@
     <name>ФорматФайлаВыгрузки</name>
     <synonym>
       <key>ru</key>
-      <value>Формат файла выгрузки</value>
+      <value>Формат файла выгрузки таблицы расхождений </value>
     </synonym>
     <type>
       <types>String</types>
@@ -1836,6 +1836,243 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
+  <attributes uuid="df3102d9-f1dd-44f8-99e3-b40104f1abfd">
+    <name>СортироватьТаблицуРасхождений</name>
+    <synonym>
+      <key>ru</key>
+      <value>Сортировать таблицу расхождений</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="e57e4024-fa2b-40c7-8618-068e967cfdc2">
+    <name>ПорядокСортировкиТаблицыРасхождений</name>
+    <synonym>
+      <key>ru</key>
+      <value>Порядок сортировки</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>256</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="457a5d65-736b-4738-a6fd-99efeee1c492">
+    <name>ВидимостьКлюч1</name>
+    <synonym>
+      <key>ru</key>
+      <value>Видимость ключ1</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="7ee70974-b7a3-4ece-86c8-26a13852ea4e">
+    <name>ВидимостьКлюч2</name>
+    <synonym>
+      <key>ru</key>
+      <value>Видимость ключ2</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="46122861-0acb-4e2e-80dd-7f8898f9fe0b">
+    <name>ВидимостьКлюч3</name>
+    <synonym>
+      <key>ru</key>
+      <value>Видимость ключ3</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="fc52f502-c4f1-49b3-bb16-5da66b638256">
+    <name>ВидимостьЧислоЗаписейА</name>
+    <synonym>
+      <key>ru</key>
+      <value>Видимость число записей А</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="1b10b2f7-5735-4137-ae7c-80cfcbb6dc2e">
+    <name>ВидимостьЧислоЗаписейБ</name>
+    <synonym>
+      <key>ru</key>
+      <value>Видимость число записей Б</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="c309ea8f-1b0c-4e33-8f66-24cc8a80ca61">
+    <name>ЗначениеИтогаРеквизитА1</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="59f9eec2-3905-4015-8afe-cf58416c5cfc">
+    <name>ЗначениеИтогаРеквизитА2</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="6d7c12dd-cbac-4060-a61b-f34fda8871b5">
+    <name>ЗначениеИтогаРеквизитА3</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="aa0fb333-c89d-443f-8917-b4629b6d34b2">
+    <name>ЗначениеИтогаРеквизитА4</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="9138aad3-8667-44d3-93bb-7e0c22bd12dc">
+    <name>ЗначениеИтогаРеквизитА5</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="5c93ca9d-51f3-4de4-9fa8-dfb54ba5f979">
+    <name>ЗначениеИтогаРеквизитБ1</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="ec543c04-7a59-430d-a864-fb1e47926f63">
+    <name>ЗначениеИтогаРеквизитБ2</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="797ad1c5-6536-44fe-80f9-7cee7ed20f8a">
+    <name>ЗначениеИтогаРеквизитБ3</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="869dd391-4b4e-42f0-b516-154b0e426f52">
+    <name>ЗначениеИтогаРеквизитБ4</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+  <attributes uuid="44d0f8b9-c17b-457e-992b-830b0c7c8282">
+    <name>ЗначениеИтогаРеквизитБ5</name>
+    <synonym>
+      <key>ru</key>
+      <value>Итог</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
   <tabularSections uuid="7a13023d-5a75-44c8-a3ef-f763f240c071">
     <producedTypes>
       <objectType typeId="7c1accad-99ce-4b62-9df5-4b0fb4d45a06" valueTypeId="93164a1b-5bb3-4589-a561-794d5bd567e1"/>
@@ -1854,11 +2091,11 @@
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
     </standardAttributes>
-    <attributes uuid="ad6c1519-c7cc-4ec8-bf3c-63e387e3e066">
-      <name>Ключ</name>
+    <attributes uuid="0db68ee1-0261-4d23-aac8-8b360a15743a">
+      <name>Ключ1</name>
       <synonym>
         <key>ru</key>
-        <value>Ключ</value>
+        <value>Столбец 1</value>
       </synonym>
       <type>
         <types>Boolean</types>
@@ -2618,7 +2855,38 @@
       <name>ЗаголовокРеквизитаДляПользователя</name>
       <synonym>
         <key>ru</key>
-        <value>Заголовок реквизита таблицы расхождений для пользователя</value>
+        <value>Заголовок для пользователя</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers>
+          <length>50</length>
+        </stringQualifiers>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:StringValue">
+        <value></value>
+      </fillValue>
+    </attributes>
+    <attributes uuid="1e67c345-ff3d-4edc-ba14-8bc4fa0bc5ff">
+      <name>РассчитыватьИтог</name>
+      <synonym>
+        <key>ru</key>
+        <value>Итог</value>
+      </synonym>
+      <type>
+        <types>Boolean</types>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:UndefinedValue"/>
+    </attributes>
+    <attributes uuid="62758b3d-6680-480f-b0ce-cea11d1c2cb6">
+      <name>АгрегатнаяФункцияРасчетаИтога</name>
+      <synonym>
+        <key>ru</key>
+        <value>Агрегатная функция</value>
       </synonym>
       <type>
         <types>String</types>
@@ -2706,7 +2974,38 @@
       <name>ЗаголовокРеквизитаДляПользователя</name>
       <synonym>
         <key>ru</key>
-        <value>Заголовок реквизита таблицы расхождений для пользователя</value>
+        <value>Заголовок для пользователя</value>
+      </synonym>
+      <type>
+        <types>String</types>
+        <stringQualifiers>
+          <length>50</length>
+        </stringQualifiers>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:StringValue">
+        <value></value>
+      </fillValue>
+    </attributes>
+    <attributes uuid="c9f9f50c-d84c-459a-bf30-bfa637c48e17">
+      <name>РассчитыватьИтог</name>
+      <synonym>
+        <key>ru</key>
+        <value>Итог</value>
+      </synonym>
+      <type>
+        <types>Boolean</types>
+      </type>
+      <minValue xsi:type="core:UndefinedValue"/>
+      <maxValue xsi:type="core:UndefinedValue"/>
+      <fillValue xsi:type="core:UndefinedValue"/>
+    </attributes>
+    <attributes uuid="b988c1c7-7faa-481f-8417-966ff5250177">
+      <name>АгрегатнаяФункцияРасчетаИтога</name>
+      <synonym>
+        <key>ru</key>
+        <value>Агрегатная функция</value>
       </synonym>
       <type>
         <types>String</types>
@@ -2890,6 +3189,15 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="6145d548-76df-4647-a1ea-849c068225d8">
+    <name>ФормаНастройкиСортировки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма настройки сортировки</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <templates uuid="64cb0057-bee2-49a0-8308-6e6f877fb3b6">
     <name>КартинкаАктивнаяОперация1</name>
     <synonym>
@@ -2943,6 +3251,46 @@
     <synonym>
       <key>ru</key>
       <value>Картинка активная операция7</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="0bb5d0f6-52e3-4a9f-991c-f2004e90e856">
+    <name>КартинкаАктивнаяОперацияА1</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка активная операция 1</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="f931e89b-5df3-40aa-beb4-9338e96b9262">
+    <name>КартинкаАктивнаяОперацияА2</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка активная операция 1</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="8c039dad-f741-4c30-a161-0f78e276ce2f">
+    <name>КартинкаАктивнаяОперацияА3</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка активная операция 1</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="fdecf933-e138-4eda-b342-de3dcedd9d59">
+    <name>КартинкаАктивнаяОперацияА4</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка активная операция 1</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="892e2f03-cd33-4d49-b9a1-2bf0eb8c0740">
+    <name>КартинкаАктивнаяОперацияА5</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка активная операция 1</value>
     </synonym>
     <templateType>BinaryData</templateType>
   </templates>

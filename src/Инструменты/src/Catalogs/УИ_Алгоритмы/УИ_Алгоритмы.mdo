@@ -409,20 +409,4 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <commands uuid="bfe3f57a-904a-48da-b4dc-8c5271289365">
-    <name>ВыполнитьАлгоритм</name>
-    <synonym>
-      <key>ru</key>
-      <value>Выполнить алгоритм</value>
-    </synonym>
-    <group>FormCommandBarImportant</group>
-    <commandParameterType>
-      <types>CatalogRef.УИ_Алгоритмы</types>
-    </commandParameterType>
-    <parameterUseMode>Multiple</parameterUseMode>
-    <representation>PictureAndText</representation>
-    <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.GenerateReport</picture>
-    </picture>
-  </commands>
 </mdclass:Catalog>
