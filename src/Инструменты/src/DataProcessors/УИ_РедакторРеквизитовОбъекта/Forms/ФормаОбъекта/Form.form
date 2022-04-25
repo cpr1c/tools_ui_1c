@@ -493,22 +493,97 @@
       <name>ГруппаКоманды</name>
       <id>139</id>
       <items xsi:type="form:FormGroup">
-        <name>КоманднаяПанельПоиск</name>
-        <id>85</id>
+        <name>УИ_Группа</name>
+        <id>293</id>
         <items xsi:type="form:FormGroup">
-          <name>ПодменюПоUUID</name>
-          <id>87</id>
-          <items xsi:type="form:Button">
-            <name>ФормаНайтиОбъектПоТипуИGUID</name>
-            <id>56</id>
+          <name>КоманднаяПанельПоиск</name>
+          <id>85</id>
+          <items xsi:type="form:FormGroup">
+            <name>ПодменюПоUUID</name>
+            <id>87</id>
+            <items xsi:type="form:Button">
+              <name>ФормаНайтиОбъектПоТипуИGUID</name>
+              <id>56</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>ФормаНайтиОбъектПоТипуИGUIDРасширеннаяПодсказка</name>
+                <id>57</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.НайтиОбъектПоТипу_UUID</commandName>
+              <representation>PictureAndText</representation>
+              <onlyInAllActions>false</onlyInAllActions>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <picture xsi:type="core:PictureRef">
+                <picture>StdPicture.SyncContents</picture>
+              </picture>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
+            <items xsi:type="form:Button">
+              <name>ФормаНайтиОбъектПоGUID</name>
+              <id>54</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>ФормаНайтиОбъектПоGUIDРасширеннаяПодсказка</name>
+                <id>55</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.НайтиОбъектПоUUID</commandName>
+              <representation>PictureAndText</representation>
+              <onlyInAllActions>false</onlyInAllActions>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <picture xsi:type="core:PictureRef">
+                <picture>StdPicture.ScheduledJob</picture>
+              </picture>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
               <common>true</common>
             </userVisible>
+            <title>
+              <key>ru</key>
+              <value>Найти объект по UUID</value>
+            </title>
+            <titleTextColor xsi:type="core:ColorRef">
+              <color>Style.FieldSelectionBackColor</color>
+            </titleTextColor>
             <extendedTooltip>
-              <name>ФормаНайтиОбъектПоТипуИGUIDРасширеннаяПодсказка</name>
-              <id>57</id>
+              <name>ПодменюПоUUIDРасширеннаяПодсказка</name>
+              <id>88</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
@@ -521,50 +596,10 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.НайтиОбъектПоТипу_UUID</commandName>
-            <representation>PictureAndText</representation>
-            <onlyInAllActions>false</onlyInAllActions>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <picture xsi:type="core:PictureRef">
-              <picture>StdPicture.SyncContents</picture>
-            </picture>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
-          <items xsi:type="form:Button">
-            <name>ФормаНайтиОбъектПоGUID</name>
-            <id>54</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>ФормаНайтиОбъектПоGUIDРасширеннаяПодсказка</name>
-              <id>55</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.НайтиОбъектПоUUID</commandName>
-            <representation>PictureAndText</representation>
-            <onlyInAllActions>false</onlyInAllActions>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <picture xsi:type="core:PictureRef">
-              <picture>StdPicture.ScheduledJob</picture>
-            </picture>
-            <representationInContextMenu>Auto</representationInContextMenu>
+            <type>Popup</type>
+            <extInfo xsi:type="form:PopupGroupExtInfo">
+              <representation>Auto</representation>
+            </extInfo>
           </items>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -573,14 +608,16 @@
           </userVisible>
           <title>
             <key>ru</key>
-            <value>Найти объект по UUID</value>
+            <value>Командная панель поиск</value>
           </title>
-          <titleTextColor xsi:type="core:ColorRef">
-            <color>Style.FieldSelectionBackColor</color>
-          </titleTextColor>
+          <toolTip>
+            <key>ru</key>
+            <value>Командная панель поиск</value>
+          </toolTip>
+          <horizontalStretch>false</horizontalStretch>
           <extendedTooltip>
-            <name>ПодменюПоUUIDРасширеннаяПодсказка</name>
-            <id>88</id>
+            <name>КоманднаяПанельПоискРасширеннаяПодсказка</name>
+            <id>86</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -593,9 +630,60 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <type>Popup</type>
-          <extInfo xsi:type="form:PopupGroupExtInfo">
-            <representation>Auto</representation>
+          <type>CommandBar</type>
+          <extInfo xsi:type="form:CommandBarExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>УИ_ДатаСоздания</name>
+          <id>297</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>УИ_ДатаСоздания</segments>
+          </dataPath>
+          <extendedTooltip>
+            <name>УИ_ДатаСозданияРасширеннаяПодсказка</name>
+            <id>299</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>УИ_ДатаСозданияКонтекстноеМеню</name>
+            <id>298</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <readOnly>true</readOnly>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <wrap>true</wrap>
+            <chooseType>true</chooseType>
+            <typeDomainEnabled>true</typeDomainEnabled>
+            <textEdit>true</textEdit>
           </extInfo>
         </items>
         <visible>true</visible>
@@ -605,15 +693,11 @@
         </userVisible>
         <title>
           <key>ru</key>
-          <value>Командная панель поиск</value>
+          <value>У и группа</value>
         </title>
-        <toolTip>
-          <key>ru</key>
-          <value>Командная панель поиск</value>
-        </toolTip>
         <extendedTooltip>
-          <name>КоманднаяПанельПоискРасширеннаяПодсказка</name>
-          <id>86</id>
+          <name>УИ_ГруппаРасширеннаяПодсказка</name>
+          <id>294</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -626,9 +710,13 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <type>CommandBar</type>
-        <extInfo xsi:type="form:CommandBarExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
+        <type>UsualGroup</type>
+        <extInfo xsi:type="form:UsualGroupExtInfo">
+          <group>AlwaysHorizontal</group>
+          <showLeftMargin>true</showLeftMargin>
+          <united>true</united>
+          <throughAlign>Auto</throughAlign>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
@@ -4077,6 +4165,24 @@
     <valueType>
       <types>String</types>
       <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>УИ_ДатаСоздания</name>
+    <title>
+      <key>ru</key>
+      <value>Дата создания</value>
+    </title>
+    <id>25</id>
+    <valueType>
+      <types>Date</types>
+      <dateQualifiers/>
     </valueType>
     <view>
       <common>true</common>
