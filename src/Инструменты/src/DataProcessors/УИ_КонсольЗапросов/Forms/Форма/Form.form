@@ -304,6 +304,36 @@
       <name>КоманднаяПанельФормыПраво</name>
       <id>258</id>
       <items xsi:type="form:Button">
+        <name>ПолучитьКодСПараметрами</name>
+        <id>394</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <extendedTooltip>
+          <name>ПолучитьКодСПараметрамиРасширеннаяПодсказка</name>
+          <id>395</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <commandName>Form.Command.ПолучитьКодСПараметрами</commandName>
+        <representation>Auto</representation>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <placementArea>UserCmds</placementArea>
+        <representationInContextMenu>Auto</representationInContextMenu>
+      </items>
+      <items xsi:type="form:Button">
         <name>ТехнологическийЖурнал</name>
         <id>501</id>
         <visible>true</visible>
@@ -1809,16 +1839,16 @@
                   <representationInContextMenu>Auto</representationInContextMenu>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>ПолучитьКодСПараметрами</name>
-                  <id>394</id>
+                  <name>ВставитьМакроКолонку</name>
+                  <id>608</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>ПолучитьКодСПараметрамиРасширеннаяПодсказка</name>
-                    <id>395</id>
+                    <name>ВставитьМакроКолонкуРасширеннаяПодсказка</name>
+                    <id>609</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
                     <userVisible>
@@ -1832,7 +1862,7 @@
                     </extInfo>
                   </extendedTooltip>
                   <type>UsualButton</type>
-                  <commandName>Form.Command.ПолучитьКодСПараметрами</commandName>
+                  <commandName>Form.Command.ВставитьМакроКолонку</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
                   <autoMaxHeight>true</autoMaxHeight>
@@ -9988,6 +10018,27 @@
         <name>УИ_РедактироватьЗначениеСтрокиСвойтсв</name>
       </handler>
     </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ВставитьМакроКолонку</name>
+    <title>
+      <key>ru</key>
+      <value>Вставить макро колонку</value>
+    </title>
+    <id>47</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_МакроКолонка</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ВставитьМакроКолонку</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
