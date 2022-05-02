@@ -1291,6 +1291,7 @@
             </paths>
           </dataPath>
           <titleLocation>Right</titleLocation>
+          <toolTipRepresentation>Button</toolTipRepresentation>
           <handlers>
             <event>OnChange</event>
             <name>ОпцияОбрабатывать__ПриИзменении</name>
@@ -1298,6 +1299,19 @@
           <extendedTooltip>
             <name>ОпцияОбрабатывать__РасширеннаяПодсказка</name>
             <id>355</id>
+            <title>
+              <key>ru</key>
+              <value>Доступные макро-колонки:	
+    &amp;__УИД_ - Получает уникальный идентификатор для ссылки
+    &amp;__ДатаСоздания_ -  Дата создания ссылки, на основе уникального идентификатора
+
+Пример:
+    ВЫБРАТЬ
+        Номенклатура.Ссылка КАК Товар,
+        &amp;__УИД_Товар
+    ИЗ
+        Справочник.Номенклатура КАК Номенклатура</value>
+            </title>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
