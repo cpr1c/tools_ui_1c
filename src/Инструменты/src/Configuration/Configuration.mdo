@@ -25,9 +25,7 @@
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
-  <modalityUseMode>DontUse</modalityUseMode>
   <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
-  <compatibilityMode>8.3.12</compatibilityMode>
   <languages uuid="66bef324-e854-4c33-879a-3c081f6686cd">
     <name>Русский</name>
     <objectBelonging>Adopted</objectBelonging>
@@ -73,6 +71,7 @@
   <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
   <commonPictures>CommonPicture.УИ_Граница</commonPictures>
   <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
+  <commonPictures>CommonPicture.УИ_МакроКолонка</commonPictures>
   <roles>Role.УИ_УниверсальныеИнструменты</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
