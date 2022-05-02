@@ -5564,7 +5564,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.УИ_РезультатСвойствоСтроки</commandName>
+            <commandName>Form.Command.УИ_РезультатСвойстваСтроки</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -5661,7 +5661,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.УИ_РезультатСвойствоСтроки</commandName>
+            <commandName>Form.Command.УИ_РезультатСвойстваСтроки</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -9886,10 +9886,10 @@
     <associatedTableElementId>4</associatedTableElementId>
   </formCommands>
   <formCommands>
-    <name>УИ_РезультатСвойствоСтроки</name>
+    <name>УИ_РезультатСвойстваСтроки</name>
     <title>
       <key>ru</key>
-      <value>Свойство</value>
+      <value>Свойства</value>
     </title>
     <id>44</id>
     <toolTip>
@@ -9899,11 +9899,15 @@
     <use>
       <common>true</common>
     </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.Properties</picture>
+    </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УИ_РезультатСвойствоСтроки</name>
+        <name>УИ_РезультатСвойстваСтроки</name>
       </handler>
     </action>
+    <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>

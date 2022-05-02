@@ -111,7 +111,6 @@
 			КонецЕсли;
 		ИначеЕсли ВидРедактора = ВидыРедактора.Monaco Тогда
 			ДокументView = ЭлементФормыРедактора.Документ.defaultView;
-			ДокументView.setOption("autoResizeEditorLayout", Истина);
 
 			Инфо = Новый СистемнаяИнформация;
 			ДокументView.init(Инфо.ВерсияПриложения);
@@ -137,6 +136,7 @@
 //			ДокументView.disableKeyBinding(2081); //ctrl+c
 			ДокументView.setOption("generateDefinitionEvent", Истина);
 //			ДокументView.setOption("generateSnippetEvent", Истина);
+			ДокументView.setOption("autoResizeEditorLayout", Истина);
 			
 			
 			ДокументView.setOption("dragAndDrop", Истина);
