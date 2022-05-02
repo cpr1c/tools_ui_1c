@@ -8896,6 +8896,23 @@
       </edit>
     </columns>
   </attributes>
+  <attributes>
+    <name>ВидимостьСвойствСтроки</name>
+    <title>
+      <key>ru</key>
+      <value>Видимость свойств строки</value>
+    </title>
+    <id>65</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ВыполнитьЗапрос</name>
     <title>
