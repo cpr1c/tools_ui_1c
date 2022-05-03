@@ -4,79 +4,6 @@
     <key>ru</key>
     <value>Объекты конфигурации</value>
   </title>
-  <items xsi:type="form:FormField">
-    <name>ВидФормыСписка</name>
-    <id>25</id>
-    <visible>true</visible>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <dataPath xsi:type="form:DataPath">
-      <segments>ВидФормыСписка</segments>
-    </dataPath>
-    <titleLocation>Left</titleLocation>
-    <toolTip>
-      <key>ru</key>
-      <value>Определяет форму выбора.
-
- - Стандатная форма объекта – будет использована стандартная форма выбора, определенная в конфигураторе.
-
-- Универсальный динамический список – будет использована обработка Динамический список из набора &quot;Универсальные инструменты&quot;
-</value>
-    </toolTip>
-    <toolTipRepresentation>Button</toolTipRepresentation>
-    <extendedTooltip>
-      <name>ВидФормыСпискаРасширеннаяПодсказка</name>
-      <id>27</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo"/>
-    </extendedTooltip>
-    <contextMenu>
-      <name>ВидФормыСпискаКонтекстноеМеню</name>
-      <id>26</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <autoFill>true</autoFill>
-    </contextMenu>
-    <type>RadioButtonField</type>
-    <editMode>Enter</editMode>
-    <showInHeader>true</showInHeader>
-    <headerHorizontalAlign>Left</headerHorizontalAlign>
-    <showInFooter>true</showInFooter>
-    <extInfo xsi:type="form:RadioButtonsFieldExtInfo">
-      <radioButtonsType>RadioButtons</radioButtonsType>
-      <columnsCount>1</columnsCount>
-      <choiceList>
-        <presentation>
-          <key>ru</key>
-          <value>Стандартная форма объекта</value>
-        </presentation>
-        <value xsi:type="core:NumberValue">
-          <value>0</value>
-        </value>
-      </choiceList>
-      <choiceList>
-        <presentation>
-          <key>ru</key>
-          <value>Универсальный динамический список</value>
-        </presentation>
-        <value xsi:type="core:NumberValue">
-          <value>1</value>
-        </value>
-      </choiceList>
-    </extInfo>
-  </items>
   <items xsi:type="form:Table">
     <name>ДеревоОбъектов</name>
     <id>1</id>
@@ -423,7 +350,6 @@
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
   </handlers>
-  <width>100</width>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
@@ -581,26 +507,6 @@
     <id>6</id>
     <valueType>
       <types>Boolean</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>ВидФормыСписка</name>
-    <title>
-      <key>ru</key>
-      <value>Вид формы списка</value>
-    </title>
-    <id>9</id>
-    <valueType>
-      <types>Number</types>
-      <numberQualifiers>
-        <precision>10</precision>
-      </numberQualifiers>
     </valueType>
     <view>
       <common>true</common>
