@@ -223,7 +223,6 @@
     <items xsi:type="form:Button">
       <name>КнопкаПоказатьСкрытьОригинал</name>
       <id>274</id>
-      <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
