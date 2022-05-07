@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonForm xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="3ed14ad9-de32-4018-bd9f-0647ed77f581">
+  <name>УИ_РедактированиеТабличногоДокумента</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактирование табличного документа</value>
+  </synonym>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <usePurposes>PersonalComputer</usePurposes>
+  <usePurposes>MobileDevice</usePurposes>
+</mdclass:CommonForm>

@@ -620,4 +620,18 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>CommonForm.УИ_СравнениеТабличныхДокументов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_РедактированиеТабличногоДокумента</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
