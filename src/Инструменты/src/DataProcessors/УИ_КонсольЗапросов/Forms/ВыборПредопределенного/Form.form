@@ -572,9 +572,7 @@
       <value>Элемент</value>
     </title>
     <id>4</id>
-    <valueType>
-      <types>AnyRef</types>
-    </valueType>
+    <valueType/>
     <view>
       <common>true</common>
     </view>
