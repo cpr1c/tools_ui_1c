@@ -14065,6 +14065,24 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>АдресЭталонаТабличногоДокументаВоВременномХранилище</name>
+    <title>
+      <key>ru</key>
+      <value>Адрес эталона табличного документа во временном хранилище</value>
+    </title>
+    <id>42</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>КонструкторСхемыКомпоновкиДанных</name>
     <title>
