@@ -339,38 +339,6 @@
       <items xsi:type="form:FormGroup">
         <name>ГруппаДинамическийСписок</name>
         <id>30</id>
-        <items xsi:type="form:Button">
-          <name>Выбрать</name>
-          <id>141</id>
-          <visible>true</visible>
-          <enabled>true</enabled>
-          <userVisible>
-            <common>true</common>
-          </userVisible>
-          <extendedTooltip>
-            <name>ВыбратьРасширеннаяПодсказка</name>
-            <id>142</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <type>Label</type>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <extInfo xsi:type="form:LabelDecorationExtInfo">
-              <horizontalAlign>Left</horizontalAlign>
-            </extInfo>
-          </extendedTooltip>
-          <type>UsualButton</type>
-          <commandName>Form.Command.Выбрать</commandName>
-          <representation>Auto</representation>
-          <defaultButton>true</defaultButton>
-          <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
-          <placementArea>UserCmds</placementArea>
-          <representationInContextMenu>Auto</representationInContextMenu>
-        </items>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -931,27 +899,6 @@
       <common>true</common>
     </edit>
   </attributes>
-  <formCommands>
-    <name>Выбрать</name>
-    <title>
-      <key>ru</key>
-      <value>Выбрать</value>
-    </title>
-    <id>1</id>
-    <use>
-      <common>true</common>
-    </use>
-    <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.ChooseValue</picture>
-    </picture>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>Выбрать</name>
-      </handler>
-    </action>
-    <representation>TextPicture</representation>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
   <formCommands>
     <name>РедактироватьОбъект</name>
     <title>

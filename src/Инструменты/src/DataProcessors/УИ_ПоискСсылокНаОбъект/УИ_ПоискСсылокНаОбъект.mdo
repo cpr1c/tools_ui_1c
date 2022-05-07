@@ -25,9 +25,7 @@
       <key>ru</key>
       <value>Исходный объект</value>
     </synonym>
-    <type>
-      <types>AnyRef</types>
-    </type>
+    <type/>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
     <fillChecking>ShowError</fillChecking>
