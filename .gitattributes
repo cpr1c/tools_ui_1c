@@ -1,0 +1,10 @@
+# в текстовых файлах нормализовать окончания строк в LF
+*       text=auto
+
+# в бинарых файлах ничего не далать
+*.bin   binary
+*.addin binary
+*.png   binary
+*.zip   binary
+*.gif   binary
+*.bmp   binary
