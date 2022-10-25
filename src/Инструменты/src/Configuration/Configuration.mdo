@@ -109,6 +109,8 @@
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
   <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
   <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыСервер</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыВызовСервера</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>

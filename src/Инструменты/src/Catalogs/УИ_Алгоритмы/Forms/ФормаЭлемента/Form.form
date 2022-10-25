@@ -3021,9 +3021,5 @@
       <event>BeforeWrite</event>
       <name>ПередЗаписью</name>
     </handlers>
-    <handlers>
-      <event>BeforeWriteAtServer</event>
-      <name>ПередЗаписьюНаСервере</name>
-    </handlers>
   </extInfo>
 </form:Form>
