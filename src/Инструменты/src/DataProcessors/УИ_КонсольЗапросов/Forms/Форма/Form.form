@@ -4313,6 +4313,7 @@
               <autoInsertNewRow>true</autoInsertNewRow>
               <searchOnInput>Auto</searchOnInput>
               <initialListView>Auto</initialListView>
+              <initialTreeView>ExpandTopLevel</initialTreeView>
               <horizontalStretch>true</horizontalStretch>
               <verticalStretch>true</verticalStretch>
               <enableStartDrag>true</enableStartDrag>
