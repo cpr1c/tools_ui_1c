@@ -82,35 +82,35 @@
   <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_MonacoEditor</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_MonacoEditorWindows</commonTemplates>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
-  <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
+  <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
+  <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
+  <commonModules>CommonModule.УИ_</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыСервер</commonModules>
+  <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
+  <commonModules>CommonModule.УИ_ДлительныеОперации</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииКлиент</commonModules>
-  <commonModules>CommonModule.УИ_ДлительныеОперации</commonModules>
+  <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияПовтИсп</commonModules>
+  <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
+  <commonModules>CommonModule.УИ_Пользователи</commonModules>
+  <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСервер</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСлужебный</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияПовтИсп</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
-  <commonModules>CommonModule.УИ_Пользователи</commonModules>
-  <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
-  <commonModules>CommonModule.УИ_</commonModules>
   <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
-  <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
-  <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
-  <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
-  <commonModules>CommonModule.УИ_АлгоритмыСервер</commonModules>
-  <commonModules>CommonModule.УИ_АлгоритмыВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
+  <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
