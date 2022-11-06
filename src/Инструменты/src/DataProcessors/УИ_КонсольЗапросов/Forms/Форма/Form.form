@@ -3535,6 +3535,89 @@
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
+          <name>СтраницаАлгоритмПередВыполнением</name>
+          <id>610</id>
+          <items xsi:type="form:FormField">
+            <name>ТекстАлгоритмПередВыполнением</name>
+            <id>612</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ТекстАлгоритмПередВыполнением</segments>
+            </dataPath>
+            <titleLocation>None</titleLocation>
+            <extendedTooltip>
+              <name>ТекстАлгоритмПередВыполнениемРасширеннаяПодсказка</name>
+              <id>614</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <contextMenu>
+              <name>ТекстАлгоритмПередВыполнениемКонтекстноеМеню</name>
+              <id>613</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+            </contextMenu>
+            <type>TextDocumentField</type>
+            <editMode>Enter</editMode>
+            <showInHeader>true</showInHeader>
+            <headerHorizontalAlign>Left</headerHorizontalAlign>
+            <showInFooter>true</showInFooter>
+            <extInfo xsi:type="form:TextDocFieldExtInfo">
+              <width>50</width>
+              <autoMaxWidth>true</autoMaxWidth>
+              <height>10</height>
+              <autoMaxHeight>true</autoMaxHeight>
+              <horizontalStretch>true</horizontalStretch>
+              <verticalStretch>true</verticalStretch>
+            </extInfo>
+          </items>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <title>
+            <key>ru</key>
+            <value>Алгоритм перед выполнением</value>
+          </title>
+          <extendedTooltip>
+            <name>СтраницаАлгоритмПередВыполнениемРасширеннаяПодсказка</name>
+            <id>611</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <type>Page</type>
+          <extInfo xsi:type="form:PageGroupExtInfo">
+            <group>Vertical</group>
+            <showTitle>true</showTitle>
+          </extInfo>
+        </items>
+        <items xsi:type="form:FormGroup">
           <name>СтраницаАлгоритм</name>
           <id>356</id>
           <items xsi:type="form:FormGroup">
@@ -4327,7 +4410,7 @@
           </userVisible>
           <title>
             <key>ru</key>
-            <value>Алгоритм</value>
+            <value>Обработка результата</value>
           </title>
           <toolTip>
             <key>ru</key>
@@ -7676,6 +7759,42 @@
         <common>true</common>
       </edit>
     </columns>
+    <columns>
+      <name>АлгоритмПередВыполнением</name>
+      <title>
+        <key>ru</key>
+        <value>Алгоритм перед выполнением</value>
+      </title>
+      <id>66</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>АлгоритмПередВыполнениемОригинальный</name>
+      <title>
+        <key>ru</key>
+        <value>Алгоритм перед выполнением</value>
+      </title>
+      <id>67</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
   </attributes>
   <attributes>
     <name>ПараметрыЗапроса</name>
@@ -8925,6 +9044,24 @@
     <id>65</id>
     <valueType>
       <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ТекстАлгоритмПередВыполнением</name>
+    <title>
+      <key>ru</key>
+      <value>Текст алгоритм перед выполнением</value>
+    </title>
+    <id>68</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
