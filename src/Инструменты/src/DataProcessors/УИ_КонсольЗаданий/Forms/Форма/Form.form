@@ -2,7 +2,7 @@
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
     <key>ru</key>
-    <value>Регламентные и фоновые задания</value>
+    <value>Консоль заданий (УИ)</value>
   </title>
   <items xsi:type="form:FormGroup">
     <name>РегламентныеЗадания</name>
@@ -36,10 +36,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Метаданные</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Метаданные</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийМетаданныеРасширеннаяПодсказка</name>
@@ -88,10 +86,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Наименование</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Наименование</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийНаименованиеРасширеннаяПодсказка</name>
@@ -140,10 +136,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Ключ</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Ключ</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийКлючРасширеннаяПодсказка</name>
@@ -192,10 +186,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Метод</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Метод</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийМетодРасширеннаяПодсказка</name>
@@ -244,10 +236,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Расписание</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Расписание</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийРасписаниеРасширеннаяПодсказка</name>
@@ -296,10 +286,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Пользователь</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Пользователь</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийПользовательРасширеннаяПодсказка</name>
@@ -348,10 +336,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Предопределенное</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Предопределенное</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийПредопределенноеРасширеннаяПодсказка</name>
@@ -400,10 +386,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Использование</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Использование</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийИспользованиеРасширеннаяПодсказка</name>
@@ -452,10 +436,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Выполнялось</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Выполнялось</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийВыполнялосьРасширеннаяПодсказка</name>
@@ -504,10 +486,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Состояние</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Состояние</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийСостояниеРасширеннаяПодсказка</name>
@@ -555,10 +535,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокРегламентныхЗаданий.Идентификатор</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокРегламентныхЗаданий.Идентификатор</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокРегламентныхЗаданийИдентификаторРасширеннаяПодсказка</name>
@@ -1187,6 +1165,7 @@
           </userVisible>
           <autoFill>true</autoFill>
         </contextMenu>
+        <source>СписокРегламентныхЗаданийСтрокаПоиска</source>
         <extInfo xsi:type="form:SearchStringAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
         </extInfo>
@@ -1225,6 +1204,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>ViewStatusAddition</type>
+        <source>СписокРегламентныхЗаданийСостояниеПросмотра</source>
         <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
           <horizontalLocation>Left</horizontalLocation>
@@ -1264,6 +1244,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>SearchControlAddition</type>
+        <source>СписокРегламентныхЗаданийУправлениеПоиском</source>
         <extInfo xsi:type="form:SearchControlAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
         </extInfo>
@@ -1828,10 +1809,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Регламентное</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Регламентное</segments>
         </dataPath>
         <toolTip>
           <key>ru</key>
@@ -1884,10 +1863,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Наименование</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Наименование</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийНаименованиеРасширеннаяПодсказка</name>
@@ -1936,10 +1913,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Ключ</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Ключ</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийКлючРасширеннаяПодсказка</name>
@@ -1988,10 +1963,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Метод</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Метод</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийМетодРасширеннаяПодсказка</name>
@@ -2040,10 +2013,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Состояние</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Состояние</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийСостояниеРасширеннаяПодсказка</name>
@@ -2092,10 +2063,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Начало</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Начало</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийНачалоРасширеннаяПодсказка</name>
@@ -2144,10 +2113,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Конец</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Конец</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийКонецРасширеннаяПодсказка</name>
@@ -2196,10 +2163,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Сервер</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Сервер</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийСерверРасширеннаяПодсказка</name>
@@ -2248,10 +2213,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Ошибки</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Ошибки</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийОшибкиРасширеннаяПодсказка</name>
@@ -2300,10 +2263,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Сообщения</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Сообщения</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийСообщенияРасширеннаяПодсказка</name>
@@ -2350,10 +2311,8 @@
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible/>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>СписокФоновыхЗаданий.Идентификатор</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>СписокФоновыхЗаданий.Идентификатор</segments>
         </dataPath>
         <extendedTooltip>
           <name>СписокФоновыхЗаданийИдентификаторРасширеннаяПодсказка</name>
@@ -2823,6 +2782,7 @@
           </userVisible>
           <autoFill>true</autoFill>
         </contextMenu>
+        <source>СписокФоновыхЗаданийСтрокаПоиска</source>
         <extInfo xsi:type="form:SearchStringAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
         </extInfo>
@@ -2861,6 +2821,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>ViewStatusAddition</type>
+        <source>СписокФоновыхЗаданийСостояниеПросмотра</source>
         <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
           <horizontalLocation>Left</horizontalLocation>
@@ -2900,6 +2861,7 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>SearchControlAddition</type>
+        <source>СписокФоновыхЗаданийУправлениеПоиском</source>
         <extInfo xsi:type="form:SearchControlAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
         </extInfo>
@@ -3514,6 +3476,24 @@
         <value>Метод</value>
       </title>
       <id>11</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>МетаданныеИмя</name>
+      <title>
+        <key>ru</key>
+        <value>Метаданные имя</value>
+      </title>
+      <id>12</id>
       <valueType>
         <types>String</types>
         <stringQualifiers/>

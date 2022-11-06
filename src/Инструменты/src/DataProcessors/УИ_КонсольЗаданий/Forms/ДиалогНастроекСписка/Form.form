@@ -12,10 +12,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>Автообновление</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>Автообновление</segments>
     </dataPath>
     <extendedTooltip>
       <name>АвтообновлениеРасширеннаяПодсказка</name>
@@ -57,10 +55,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ПериодАвтообновления</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ПериодАвтообновления</segments>
     </dataPath>
     <extendedTooltip>
       <name>ПериодАвтообновленияРасширеннаяПодсказка</name>
@@ -283,4 +279,5 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

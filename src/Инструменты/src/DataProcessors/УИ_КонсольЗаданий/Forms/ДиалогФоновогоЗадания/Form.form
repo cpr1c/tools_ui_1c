@@ -15,10 +15,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ИмяМетода</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ИмяМетода</segments>
       </dataPath>
       <extendedTooltip>
         <name>ИмяМетодаРасширеннаяПодсказка</name>
@@ -68,10 +66,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Наименование</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Наименование</segments>
       </dataPath>
       <extendedTooltip>
         <name>НаименованиеРасширеннаяПодсказка</name>
@@ -120,10 +116,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Ключ</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Ключ</segments>
       </dataPath>
       <extendedTooltip>
         <name>КлючРасширеннаяПодсказка</name>
@@ -386,4 +380,5 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>
