@@ -15,10 +15,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.РежимЗагрузки</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.РежимЗагрузки</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
@@ -180,10 +178,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объект.ТипОбъектаСправочника</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объект.ТипОбъектаСправочника</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -283,10 +279,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объект.СсылкаИсточника</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объект.СсылкаИсточника</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -345,10 +339,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объект.ТабличнаяЧастьИсточника</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объект.ТабличнаяЧастьИсточника</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -442,10 +434,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объект.ИмяВидаРегистра</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объект.ИмяВидаРегистра</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -793,10 +783,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ТабличныйДокумент</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ТабличныйДокумент</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -895,10 +883,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Объект.ПерваяСтрокаДанныхТабличногоДокумента</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Объект.ПерваяСтрокаДанныхТабличногоДокумента</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПерваяСтрокаДанныхТабличногоДокументаРасширеннаяПодсказка</name>
@@ -947,10 +933,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Объект.НеСоздаватьНовыхЭлементов</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Объект.НеСоздаватьНовыхЭлементов</segments>
           </dataPath>
           <extendedTooltip>
             <name>НеСоздаватьНовыхЭлементовРасширеннаяПодсказка</name>
@@ -992,10 +976,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Объект.ЗамещатьСуществующиеЗаписи</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Объект.ЗамещатьСуществующиеЗаписи</segments>
           </dataPath>
           <extendedTooltip>
             <name>ЗамещатьСуществующиеЗаписиРасширеннаяПодсказка</name>
@@ -1874,10 +1856,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.Пометка</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.Пометка</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовПометкаРасширеннаяПодсказка</name>
@@ -1919,10 +1899,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ПредставлениеРеквизита</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ПредставлениеРеквизита</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовПредставлениеРеквизитаРасширеннаяПодсказка</name>
@@ -1970,10 +1948,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ИмяРеквизита</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ИмяРеквизита</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовИмяРеквизитаРасширеннаяПодсказка</name>
@@ -2021,10 +1997,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.МожетБытьПолемПоиска</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.МожетБытьПолемПоиска</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовМожетБытьПолемПоискаРасширеннаяПодсказка</name>
@@ -2066,10 +2040,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ПолеПоиска</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ПолеПоиска</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовПолеПоискаРасширеннаяПодсказка</name>
@@ -2111,10 +2083,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ОписаниеТипов</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ОписаниеТипов</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовОписаниеТиповРасширеннаяПодсказка</name>
@@ -2166,10 +2136,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ДоступныеТипы</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ДоступныеТипы</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовДоступныеТипыРасширеннаяПодсказка</name>
@@ -2218,10 +2186,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.РежимЗагрузки</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.РежимЗагрузки</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -2290,10 +2256,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.НомерКолонки</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.НомерКолонки</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовНомерКолонкиРасширеннаяПодсказка</name>
@@ -2342,10 +2306,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ЗначениеПоУмолчанию</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ЗначениеПоУмолчанию</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовЗначениеПоУмолчаниюРасширеннаяПодсказка</name>
@@ -2398,10 +2360,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ИскатьПо</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ИскатьПо</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовИскатьПоРасширеннаяПодсказка</name>
@@ -2449,10 +2409,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.СвязьПоВладельцу</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.СвязьПоВладельцу</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовСвязьПоВладельцуРасширеннаяПодсказка</name>
@@ -2500,10 +2458,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.СвязьПоТипу</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.СвязьПоТипу</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовСвязьПоТипуРасширеннаяПодсказка</name>
@@ -2551,10 +2507,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ЭлементСвязиПоТипу</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ЭлементСвязиПоТипу</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовЭлементСвязиПоТипуРасширеннаяПодсказка</name>
@@ -2602,10 +2556,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ШиринаКолонки</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ШиринаКолонки</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовШиринаКолонкиРасширеннаяПодсказка</name>
@@ -2653,10 +2605,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.Выражение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.Выражение</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовВыражениеРасширеннаяПодсказка</name>
@@ -2709,10 +2659,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ТаблицаЗагружаемыхРеквизитов.ПредставлениеДопУсловий</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТаблицаЗагружаемыхРеквизитов.ПредставлениеДопУсловий</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаЗагружаемыхРеквизитовПредставлениеДопУсловийРасширеннаяПодсказка</name>

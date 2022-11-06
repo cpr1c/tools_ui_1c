@@ -260,14 +260,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
-            <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.HTTPФункция</segments>
-            </paths>
-            <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.HTTPФункция</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ИсторияЗапросов.HTTPФункция</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка1</name>
@@ -366,14 +360,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
-            <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.АдресСервера</segments>
-            </paths>
-            <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.АдресСервера</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ИсторияЗапросов.АдресСервера</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка2</name>
@@ -522,14 +510,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <activeLanguage>1</activeLanguage>
-            <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.Дата</segments>
-            </paths>
-            <paths xsi:type="form:DataPath">
-              <segments>ИсторияЗапросов.Дата</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ИсторияЗапросов.Дата</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПолеРасширеннаяПодсказка</name>
@@ -1723,14 +1705,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <activeLanguage>1</activeLanguage>
-                    <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
-                    </paths>
-                    <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>ТаблицаЗаголовковЗапроса.Ключ</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ПолеРасширеннаяПодсказка22</name>
@@ -1783,14 +1759,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <activeLanguage>1</activeLanguage>
-                    <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
-                    </paths>
-                    <paths xsi:type="form:DataPath">
-                      <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>ТаблицаЗаголовковЗапроса.Значение</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ПолеРасширеннаяПодсказка23</name>

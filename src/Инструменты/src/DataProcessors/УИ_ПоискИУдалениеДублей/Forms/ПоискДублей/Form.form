@@ -16,10 +16,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ОбластьПоискаДублей</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ОбластьПоискаДублей</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
@@ -85,10 +83,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ПредставлениеПравилОтбора</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ПредставлениеПравилОтбора</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПредставлениеПравилОтбораРасширеннаяПодсказка</name>
@@ -146,10 +142,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ПредставлениеПравилПоиска</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ПредставлениеПравилПоиска</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПредставлениеПравилПоискаРасширеннаяПодсказка</name>
@@ -418,10 +412,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПоискНеВыполнялся</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПоискНеВыполнялся</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -509,10 +501,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПоискНеВыполнялся</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПоискНеВыполнялся</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -838,10 +828,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>НайденныеДубли.Наименование</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>НайденныеДубли.Наименование</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>НайденныеДублиНаименованиеРасширеннаяПодсказка</name>
@@ -892,10 +880,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>НайденныеДубли.Основной</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>НайденныеДубли.Основной</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
@@ -947,10 +933,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>НайденныеДубли.Пометка</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>НайденныеДубли.Пометка</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <handlers>
@@ -1027,10 +1011,8 @@
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible/>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>НайденныеДубли.Код</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>НайденныеДубли.Код</segments>
               </dataPath>
               <extendedTooltip>
                 <name>НайденныеДублиКодРасширеннаяПодсказка</name>
@@ -1082,10 +1064,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>НайденныеДубли.Количество</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>НайденныеДубли.Количество</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <toolTip>
@@ -1583,10 +1563,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>МестаИспользованияКандидата.ПредставлениеДанных</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>МестаИспользованияКандидата.ПредставлениеДанных</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>МестаИспользованияКандидатаПредставлениеДанныхРасширеннаяПодсказка</name>
@@ -2079,10 +2057,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ОписаниеСостоянияНайденныхДублей</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ОписаниеСостоянияНайденныхДублей</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
@@ -2276,10 +2252,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПоискНеВыполнялся</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПоискНеВыполнялся</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -2405,10 +2379,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ОписаниеСостоянияНайденныхДублей</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ОписаниеСостоянияНайденныхДублей</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -2568,10 +2540,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>НеобработанныеДубли.Основной</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>НеобработанныеДубли.Основной</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
@@ -2623,10 +2593,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>НеобработанныеДубли.Наименование</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>НеобработанныеДубли.Наименование</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>НеобработанныеДублиНаименованиеРасширеннаяПодсказка</name>
@@ -2709,10 +2677,8 @@
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible/>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>НеобработанныеДубли.Код</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>НеобработанныеДубли.Код</segments>
               </dataPath>
               <extendedTooltip>
                 <name>НеобработанныеДублиКодРасширеннаяПодсказка</name>
@@ -2764,10 +2730,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>НеобработанныеДубли.Количество</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>НеобработанныеДубли.Количество</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <toolTip>
@@ -3264,10 +3228,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>МестаИспользованияНеобработанных.Пиктограмма</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>МестаИспользованияНеобработанных.Пиктограмма</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>МестаИспользованияНеобработанныхПиктограммаРасширеннаяПодсказка</name>
@@ -3315,10 +3277,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>МестаИспользованияНеобработанных.ПредставлениеОбъектаОшибки</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>МестаИспользованияНеобработанных.ПредставлениеОбъектаОшибки</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>МестаИспользованияНеобработанныхПредставлениеДанныхРасширеннаяПодсказка</name>
@@ -3635,10 +3595,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>ОписаниеОшибкиНеобработанных</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>ОписаниеОшибкиНеобработанных</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
                 <extendedTooltip>
@@ -4079,10 +4037,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПоискНеВыполнялся</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПоискНеВыполнялся</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>

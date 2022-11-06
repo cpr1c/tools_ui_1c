@@ -14,10 +14,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>_ГраницаЗначение</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>_ГраницаЗначение</segments>
         </dataPath>
         <extendedTooltip>
           <name>_ГраницаЗначениеРасширеннаяПодсказка</name>
@@ -68,10 +66,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>_ГраницаВидГраницы</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>_ГраницаВидГраницы</segments>
         </dataPath>
         <extendedTooltip>
           <name>_ГраницаВидГраницыРасширеннаяПодсказка</name>
@@ -163,10 +159,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>_МоментВремениДата</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>_МоментВремениДата</segments>
         </dataPath>
         <extendedTooltip>
           <name>_МоментВремениДатаРасширеннаяПодсказка</name>
@@ -215,10 +209,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>_МоментВремениСсылка</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>_МоментВремениСсылка</segments>
         </dataPath>
         <extendedTooltip>
           <name>_МоментВремениСсылкаРасширеннаяПодсказка</name>

@@ -14,10 +14,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Имя</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Имя</segments>
         </dataPath>
         <extendedTooltip>
           <name>ИмяРасширеннаяПодсказка</name>
@@ -66,10 +64,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПолноеИмя</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПолноеИмя</segments>
         </dataPath>
         <extendedTooltip>
           <name>ПолноеИмяРасширеннаяПодсказка</name>
@@ -118,10 +114,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Идентификатор</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Идентификатор</segments>
         </dataPath>
         <extendedTooltip>
           <name>ИдентификаторРасширеннаяПодсказка</name>
@@ -171,10 +165,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>АутентификацияСтандартная</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>АутентификацияСтандартная</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <extendedTooltip>
@@ -217,10 +209,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Пароль</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Пароль</segments>
         </dataPath>
         <extendedTooltip>
           <name>ПарольРасширеннаяПодсказка</name>
@@ -270,10 +260,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПодтверждениеПароля</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПодтверждениеПароля</segments>
         </dataPath>
         <extendedTooltip>
           <name>ПодтверждениеПароляРасширеннаяПодсказка</name>
@@ -354,10 +342,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПоказыватьВСпискеВыбора</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПоказыватьВСпискеВыбора</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <extendedTooltip>
@@ -400,10 +386,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>АутентификацияОС</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>АутентификацияОС</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <extendedTooltip>
@@ -446,10 +430,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПользовательОС</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПользовательОС</segments>
         </dataPath>
         <extendedTooltip>
           <name>ПользовательОСРасширеннаяПодсказка</name>
@@ -498,10 +480,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ЗащитаОтОпасныхДействий</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ЗащитаОтОпасныхДействий</segments>
         </dataPath>
         <titleLocation>Right</titleLocation>
         <extendedTooltip>
@@ -593,10 +573,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>РолиПользователя.Пометка</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РолиПользователя.Пометка</segments>
           </dataPath>
           <toolTip>
             <key>ru</key>
@@ -642,10 +620,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>РолиПользователя.Имя</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РолиПользователя.Имя</segments>
           </dataPath>
           <extendedTooltip>
             <name>РолиПользователяИмяРасширеннаяПодсказка</name>
@@ -695,10 +671,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>РолиПользователя.Представление</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>РолиПользователя.Представление</segments>
           </dataPath>
           <extendedTooltip>
             <name>РолиПользователяПредставлениеРасширеннаяПодсказка</name>

@@ -11,10 +11,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ПорядокСортировкиТаблицыРасхождений</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ПорядокСортировкиТаблицыРасхождений</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
@@ -138,10 +136,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТЗПорядокСортировкиТаблицыРасхождений.ИмяСтолбца</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТЗПорядокСортировкиТаблицыРасхождений.ИмяСтолбца</segments>
       </dataPath>
       <extendedTooltip>
         <name>ТЗПорядокСортировкиТаблицыРасхожденийИмяКолонкиРасширеннаяПодсказка</name>
@@ -189,10 +185,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТЗПорядокСортировкиТаблицыРасхождений.ПорядокСортировки</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТЗПорядокСортировкиТаблицыРасхождений.ПорядокСортировки</segments>
       </dataPath>
       <extendedTooltip>
         <name>ТЗПорядокСортировкиТаблицыРасхожденийПорядокСортировкиРасширеннаяПодсказка</name>

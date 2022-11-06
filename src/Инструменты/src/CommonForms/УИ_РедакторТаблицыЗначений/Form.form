@@ -23,10 +23,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>КолонкиТаблицы.Имя</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>КолонкиТаблицы.Имя</segments>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыИмяРасширеннаяПодсказка</name>
@@ -75,10 +73,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>КолонкиТаблицы.ТипЗначения</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>КолонкиТаблицы.ТипЗначения</segments>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыТипЗначенияРасширеннаяПодсказка</name>
@@ -130,10 +126,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>КолонкиТаблицы.Квалификаторы</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>КолонкиТаблицы.Квалификаторы</segments>
         </dataPath>
         <extendedTooltip>
           <name>КолонкиТаблицыКвалификаторыРасширеннаяПодсказка</name>

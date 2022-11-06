@@ -36,10 +36,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>СписокКонстант.Наименование</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СписокКонстант.Наименование</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокКонстантНаименованиеExtendedTooltip</name>
@@ -90,10 +88,8 @@
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible/>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>СписокКонстант.ИндексКартинкиАвторегистрация</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СписокКонстант.ИндексКартинкиАвторегистрация</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>

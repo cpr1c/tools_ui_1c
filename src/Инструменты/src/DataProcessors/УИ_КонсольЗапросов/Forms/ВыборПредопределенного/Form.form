@@ -131,10 +131,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТипОбъекта</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТипОбъекта</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -188,10 +186,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ИмяОбъекта</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ИмяОбъекта</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -245,10 +241,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>Элемент</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>Элемент</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>

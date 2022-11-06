@@ -1842,10 +1842,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>СписокТэгов.Presentation</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>СписокТэгов.Presentation</segments>
               </dataPath>
               <shortcut>Ctrl+Alt+Space</shortcut>
               <extendedTooltip>
@@ -2226,10 +2224,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ОтборТэгов</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ОтборТэгов</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <shortcut>Ctrl+Space</shortcut>
@@ -2414,10 +2410,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>Выражение</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>Выражение</segments>
               </dataPath>
               <defaultItem>true</defaultItem>
               <titleLocation>None</titleLocation>
@@ -2900,10 +2894,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>Варианты.Presentation</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>Варианты.Presentation</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ВариантыПредставлениеРасширеннаяПодсказка</name>
@@ -3286,10 +3278,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ТекущийКомментарий</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ТекущийКомментарий</segments>
               </dataPath>
               <titleLocation>None</titleLocation>
               <toolTip>
@@ -3379,10 +3369,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ТекущееВыражение</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ТекущееВыражение</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>

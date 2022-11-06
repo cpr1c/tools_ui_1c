@@ -14,10 +14,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объект.ИсходныйОбъект</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объект.ИсходныйОбъект</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -146,10 +144,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>УникальныйИдентификаторИсточника</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>УникальныйИдентификаторИсточника</segments>
         </dataPath>
         <extendedTooltip>
           <name>УИДРасширеннаяПодсказка</name>
@@ -301,13 +297,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка1</name>
@@ -339,10 +330,8 @@
       <showInHeader>true</showInHeader>
       <headerHorizontalAlign>Left</headerHorizontalAlign>
       <showInFooter>true</showInFooter>
-      <footerDataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.КоличествоНайденных</segments>
-        </paths>
+      <footerDataPath xsi:type="form:DataPath">
+        <segments>Объект.КоличествоНайденных</segments>
       </footerDataPath>
       <footerText>
         <key>ru</key>
@@ -366,13 +355,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.УникальныйИдентификатор</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.УникальныйИдентификатор</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>РезультатПоиска.УникальныйИдентификатор</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка4</name>

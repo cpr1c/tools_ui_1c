@@ -44,10 +44,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.Пометка</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоУзловОбмена.Пометка</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <handlers>
@@ -100,10 +98,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.Наименование</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоУзловОбмена.Наименование</segments>
         </dataPath>
         <extendedTooltip>
           <name>ДеревоУзловОбменаНаименованиеExtendedTooltip</name>
@@ -185,10 +181,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ДеревоУзловОбмена.Код</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ДеревоУзловОбмена.Код</segments>
       </dataPath>
       <extendedTooltip>
         <name>ДеревоУзловОбменаКодExtendedTooltip</name>
@@ -238,10 +232,8 @@
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible/>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.ИндексКартинкиАвторегистрация</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоУзловОбмена.ИндексКартинкиАвторегистрация</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>
@@ -294,10 +286,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоУзловОбмена.НомерСообщения</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоУзловОбмена.НомерСообщения</segments>
         </dataPath>
         <extendedTooltip>
           <name>ДеревоУзловОбменаНомерСообщенияExtendedTooltip</name>
