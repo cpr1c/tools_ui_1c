@@ -3587,6 +3587,58 @@
               <verticalStretch>true</verticalStretch>
             </extInfo>
           </items>
+          <items xsi:type="form:FormField">
+            <name>ПодсказкаАлгоритмаПередВыполнением</name>
+            <id>615</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ПодсказкаАлгоритмаПередВыполнением</segments>
+            </dataPath>
+            <titleLocation>None</titleLocation>
+            <extendedTooltip>
+              <name>ПодсказкаАлгоритмаПередВыполнениемРасширеннаяПодсказка</name>
+              <id>617</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <contextMenu>
+              <name>ПодсказкаАлгоритмаПередВыполнениемКонтекстноеМеню</name>
+              <id>616</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <autoFill>true</autoFill>
+            </contextMenu>
+            <type>InputField</type>
+            <readOnly>true</readOnly>
+            <editMode>Enter</editMode>
+            <showInHeader>true</showInHeader>
+            <headerHorizontalAlign>Left</headerHorizontalAlign>
+            <showInFooter>true</showInFooter>
+            <extInfo xsi:type="form:InputFieldExtInfo">
+              <autoMaxHeight>true</autoMaxHeight>
+              <verticalStretch>false</verticalStretch>
+              <wrap>true</wrap>
+              <chooseType>true</chooseType>
+              <typeDomainEnabled>true</typeDomainEnabled>
+              <textEdit>true</textEdit>
+            </extInfo>
+          </items>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -9059,6 +9111,24 @@
       <value>Текст алгоритм перед выполнением</value>
     </title>
     <id>68</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПодсказкаАлгоритмаПередВыполнением</name>
+    <title>
+      <key>ru</key>
+      <value>Подсказка алгоритма перед выполнением</value>
+    </title>
+    <id>69</id>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
