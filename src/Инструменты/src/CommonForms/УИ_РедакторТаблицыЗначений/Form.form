@@ -666,6 +666,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>КолонкиТаблицы</name>
@@ -683,6 +684,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
     <columns>
       <name>Имя</name>
       <title>
