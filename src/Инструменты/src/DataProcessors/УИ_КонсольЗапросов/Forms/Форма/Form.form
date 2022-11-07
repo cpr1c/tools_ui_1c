@@ -3103,7 +3103,6 @@
               <segments>ВременныеТаблицы</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
-            <excludedCommands>Add</excludedCommands>
             <items xsi:type="form:FormField">
               <name>ВременныеТаблицыИмя</name>
               <id>159</id>
@@ -3209,6 +3208,36 @@
             <autoCommandBar>
               <name>ВременныеТаблицыКоманднаяПанель</name>
               <id>148</id>
+              <items xsi:type="form:Button">
+                <name>ВременныеТаблицыДобавить</name>
+                <id>618</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>ВременныеТаблицыДобавитьРасширеннаяПодсказка</name>
+                  <id>619</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Item.ВременныеТаблицы.StandardCommand.Add</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
               <items xsi:type="form:Button">
                 <name>ВременныеТаблицыКнопкаСкопировать</name>
                 <id>338</id>
