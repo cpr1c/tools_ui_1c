@@ -17412,9 +17412,6 @@
           <showInHeader>true</showInHeader>
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
-          <footerDataPath xsi:type="form:DataPath">
-            <segments>Объект.Результат.RowsCount</segments>
-          </footerDataPath>
           <footerFont xsi:type="core:FontRef">
             <font>Style.NormalTextFont</font>
             <bold>true</bold>
