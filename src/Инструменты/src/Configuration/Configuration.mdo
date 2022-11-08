@@ -22,7 +22,7 @@
   <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
   <scriptVariant>Russian</scriptVariant>
   <vendor>ООО &quot;Центр прикладных разработок&quot;</vendor>
-  <version>1.4.13</version>
+  <version>1.4.14</version>
   <defaultDynamicListSettingsForm>CommonForm.УИ_НастройкиДинамическогоСписка</defaultDynamicListSettingsForm>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
