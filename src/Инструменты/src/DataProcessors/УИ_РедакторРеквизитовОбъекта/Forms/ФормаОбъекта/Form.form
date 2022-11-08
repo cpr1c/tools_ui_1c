@@ -4837,9 +4837,7 @@
   </formCommands>
   <parameters>
     <name>мОбъектСсылка</name>
-    <valueType>
-      <types>AnyRef</types>
-    </valueType>
+    <valueType/>
     <keyParameter>true</keyParameter>
   </parameters>
   <commandInterface>
