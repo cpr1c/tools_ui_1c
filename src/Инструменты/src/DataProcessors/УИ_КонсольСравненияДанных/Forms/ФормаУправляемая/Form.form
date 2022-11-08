@@ -1746,7 +1746,7 @@
               <id>1197</id>
               <title>
                 <key>ru</key>
-                <value>Таблица расхождений может быть отсортирована по любым столбцам, но это увеличит общее время выполнения операции</value>
+                <value>Таблица расхождений может быть отсортирована по любым столбцам, но это увеличит общее время выполнения</value>
               </title>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -3928,6 +3928,7 @@
                 </userVisible>
                 <autoFill>true</autoFill>
               </contextMenu>
+              <source>УсловияВыводаСтрокСтрокаПоиска</source>
               <extInfo xsi:type="form:SearchStringAdditionExtInfo">
                 <autoMaxWidth>true</autoMaxWidth>
               </extInfo>
@@ -3966,6 +3967,7 @@
                 <autoFill>true</autoFill>
               </contextMenu>
               <type>ViewStatusAddition</type>
+              <source>УсловияВыводаСтрокСостояниеПросмотра</source>
               <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
                 <autoMaxWidth>true</autoMaxWidth>
               </extInfo>
@@ -4004,6 +4006,7 @@
                 <autoFill>true</autoFill>
               </contextMenu>
               <type>SearchControlAddition</type>
+              <source>УсловияВыводаСтрокУправлениеПоиском</source>
               <extInfo xsi:type="form:SearchControlAdditionExtInfo">
                 <autoMaxWidth>true</autoMaxWidth>
               </extInfo>
@@ -5070,6 +5073,7 @@
                 </userVisible>
                 <autoFill>true</autoFill>
               </contextMenu>
+              <source>УсловияЗапретаВыводаСтрокСтрокаПоиска</source>
               <extInfo xsi:type="form:SearchStringAdditionExtInfo">
                 <autoMaxWidth>true</autoMaxWidth>
               </extInfo>
@@ -5108,6 +5112,7 @@
                 <autoFill>true</autoFill>
               </contextMenu>
               <type>ViewStatusAddition</type>
+              <source>УсловияЗапретаВыводаСтрокСостояниеПросмотра</source>
               <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
                 <autoMaxWidth>true</autoMaxWidth>
               </extInfo>
@@ -5146,6 +5151,7 @@
                 <autoFill>true</autoFill>
               </contextMenu>
               <type>SearchControlAddition</type>
+              <source>УсловияЗапретаВыводаСтрокУправлениеПоиском</source>
               <extInfo xsi:type="form:SearchControlAdditionExtInfo">
                 <autoMaxWidth>true</autoMaxWidth>
               </extInfo>
@@ -5304,115 +5310,25 @@
       <name>ГруппаБазаАСтраница</name>
       <id>61</id>
       <items xsi:type="form:FormGroup">
-        <name>ГруппаПредварительныйПросмотрА</name>
-        <id>1137</id>
+        <name>ГруппаИсточникАКоманды</name>
+        <id>1288</id>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаПредварительныйПросмотрА1</name>
-          <id>1139</id>
-          <items xsi:type="form:Button">
-            <name>КомандаПредварительныйПросмотр100СтрокИсточникаА</name>
-            <id>1123</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>КомандаПредварительныйПросмотр100СтрокИсточникаАРасширеннаяПодсказка</name>
-              <id>1124</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаА100Строк</commandName>
-            <representation>Auto</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
-          <items xsi:type="form:Button">
-            <name>КомандаПредварительныйПросмотрИсточникаА1000Строк</name>
-            <id>1145</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>КомандаПредварительныйПросмотрИсточникаА1000СтрокРасширеннаяПодсказка</name>
-              <id>1146</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаА1000Строк</commandName>
-            <representation>Auto</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
-          <items xsi:type="form:Button">
-            <name>КомандаПредварительныйПросмотрИсточникаА</name>
-            <id>1121</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>КомандаПредварительныйПросмотрИсточникаАРасширеннаяПодсказка</name>
-              <id>1122</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаАВсеСтроки</commandName>
-            <representation>Auto</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
+          <name>ГруппаПредварительныйПросмотрА</name>
+          <id>1137</id>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаПредварительныйПросмотрАДубликаты</name>
-            <id>1147</id>
+            <name>ГруппаПредварительныйПросмотрА1</name>
+            <id>1139</id>
             <items xsi:type="form:Button">
-              <name>КомандаПредварительныйПросмотрИсточникаАДубликаты</name>
-              <id>1133</id>
+              <name>КомандаПредварительныйПросмотр100СтрокИсточникаА</name>
+              <id>1123</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>КомандаПредварительныйПросмотрИсточникаАДубликатыРасширеннаяПодсказка</name>
-                <id>1134</id>
+                <name>КомандаПредварительныйПросмотр100СтрокИсточникаАРасширеннаяПодсказка</name>
+                <id>1124</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
@@ -5425,12 +5341,135 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаАДубликаты</commandName>
+              <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаА100Строк</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <placementArea>UserCmds</placementArea>
               <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
+            <items xsi:type="form:Button">
+              <name>КомандаПредварительныйПросмотрИсточникаА1000Строк</name>
+              <id>1145</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>КомандаПредварительныйПросмотрИсточникаА1000СтрокРасширеннаяПодсказка</name>
+                <id>1146</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаА1000Строк</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
+            <items xsi:type="form:Button">
+              <name>КомандаПредварительныйПросмотрИсточникаА</name>
+              <id>1121</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>КомандаПредварительныйПросмотрИсточникаАРасширеннаяПодсказка</name>
+                <id>1122</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаАВсеСтроки</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
+            <items xsi:type="form:FormGroup">
+              <name>ГруппаПредварительныйПросмотрАДубликаты</name>
+              <id>1147</id>
+              <items xsi:type="form:Button">
+                <name>КомандаПредварительныйПросмотрИсточникаАДубликаты</name>
+                <id>1133</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>КомандаПредварительныйПросмотрИсточникаАДубликатыРасширеннаяПодсказка</name>
+                  <id>1134</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаАДубликаты</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <title>
+                <key>ru</key>
+                <value>Группа предварительный просмотр а дубликаты</value>
+              </title>
+              <toolTip>
+                <key>ru</key>
+                <value>Группа предварительный просмотр а дубликаты</value>
+              </toolTip>
+              <extendedTooltip>
+                <name>ГруппаПредварительныйПросмотрАДубликатыРасширеннаяПодсказка</name>
+                <id>1148</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <extInfo xsi:type="form:ButtonGroupExtInfo"/>
             </items>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -5439,15 +5478,15 @@
             </userVisible>
             <title>
               <key>ru</key>
-              <value>Группа предварительный просмотр а дубликаты</value>
+              <value>Предварительный просмотр данных из источника А</value>
             </title>
             <toolTip>
               <key>ru</key>
-              <value>Группа предварительный просмотр а дубликаты</value>
+              <value>Группа предварительный просмотр а1</value>
             </toolTip>
             <extendedTooltip>
-              <name>ГруппаПредварительныйПросмотрАДубликатыРасширеннаяПодсказка</name>
-              <id>1148</id>
+              <name>ГруппаПредварительныйПросмотрА1РасширеннаяПодсказка</name>
+              <id>1140</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
@@ -5460,7 +5499,13 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <extInfo xsi:type="form:ButtonGroupExtInfo"/>
+            <type>Popup</type>
+            <extInfo xsi:type="form:PopupGroupExtInfo">
+              <picture xsi:type="core:PictureRef">
+                <picture>StdPicture.ShowData</picture>
+              </picture>
+              <representation>Auto</representation>
+            </extInfo>
           </items>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -5469,15 +5514,16 @@
           </userVisible>
           <title>
             <key>ru</key>
-            <value>Предварительный просмотр данных из источника А</value>
+            <value>Группа предварительный просмотр А</value>
           </title>
           <toolTip>
             <key>ru</key>
-            <value>Группа предварительный просмотр а1</value>
+            <value>Группа предварительный просмотр А</value>
           </toolTip>
+          <horizontalStretch>false</horizontalStretch>
           <extendedTooltip>
-            <name>ГруппаПредварительныйПросмотрА1РасширеннаяПодсказка</name>
-            <id>1140</id>
+            <name>ГруппаПредварительныйПросмотрАРасширеннаяПодсказка</name>
+            <id>1138</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -5490,13 +5536,41 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <type>Popup</type>
-          <extInfo xsi:type="form:PopupGroupExtInfo">
-            <picture xsi:type="core:PictureRef">
-              <picture>StdPicture.ShowData</picture>
-            </picture>
-            <representation>Auto</representation>
+          <type>CommandBar</type>
+          <extInfo xsi:type="form:CommandBarExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
           </extInfo>
+        </items>
+        <items xsi:type="form:Button">
+          <name>КомандаПроверитьВозможностьПодключенияКИсточникуА</name>
+          <id>1282</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <extendedTooltip>
+            <name>КомандаПроверитьВозможностьПодключенияКИсточникуАРасширеннаяПодсказка</name>
+            <id>1283</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <type>UsualButton</type>
+          <commandName>Form.Command.КомандаПроверитьВозможностьПодключенияКИсточникуА</commandName>
+          <representation>Auto</representation>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <placementArea>UserCmds</placementArea>
+          <representationInContextMenu>Auto</representationInContextMenu>
         </items>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -5505,15 +5579,15 @@
         </userVisible>
         <title>
           <key>ru</key>
-          <value>Группа предварительный просмотр А</value>
+          <value>Группа источник а команды</value>
         </title>
         <toolTip>
           <key>ru</key>
-          <value>Группа предварительный просмотр А</value>
+          <value>Группа источник а команды</value>
         </toolTip>
         <extendedTooltip>
-          <name>ГруппаПредварительныйПросмотрАРасширеннаяПодсказка</name>
-          <id>1138</id>
+          <name>ГруппаИсточникАКомандыРасширеннаяПодсказка</name>
+          <id>1289</id>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -5526,9 +5600,13 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <type>CommandBar</type>
-        <extInfo xsi:type="form:CommandBarExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
+        <type>UsualGroup</type>
+        <extInfo xsi:type="form:UsualGroupExtInfo">
+          <group>AlwaysHorizontal</group>
+          <showLeftMargin>true</showLeftMargin>
+          <united>true</united>
+          <throughAlign>Auto</throughAlign>
+          <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
@@ -10008,6 +10086,7 @@
                     </userVisible>
                     <autoFill>true</autoFill>
                   </contextMenu>
+                  <source>НастройкиФайлаАСтрокаПоиска</source>
                   <extInfo xsi:type="form:SearchStringAdditionExtInfo">
                     <autoMaxWidth>true</autoMaxWidth>
                   </extInfo>
@@ -10046,6 +10125,7 @@
                     <autoFill>true</autoFill>
                   </contextMenu>
                   <type>ViewStatusAddition</type>
+                  <source>НастройкиФайлаАСостояниеПросмотра</source>
                   <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
                     <autoMaxWidth>true</autoMaxWidth>
                   </extInfo>
@@ -10084,6 +10164,7 @@
                     <autoFill>true</autoFill>
                   </contextMenu>
                   <type>SearchControlAddition</type>
+                  <source>НастройкиФайлаАУправлениеПоиском</source>
                   <extInfo xsi:type="form:SearchControlAdditionExtInfo">
                     <autoMaxWidth>true</autoMaxWidth>
                   </extInfo>
@@ -10795,6 +10876,7 @@
                   </userVisible>
                   <autoFill>true</autoFill>
                 </contextMenu>
+                <source>СписокПараметровАСтрокаПоиска</source>
                 <extInfo xsi:type="form:SearchStringAdditionExtInfo">
                   <autoMaxWidth>true</autoMaxWidth>
                 </extInfo>
@@ -10833,6 +10915,7 @@
                   <autoFill>true</autoFill>
                 </contextMenu>
                 <type>ViewStatusAddition</type>
+                <source>СписокПараметровАСостояниеПросмотра</source>
                 <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
                   <autoMaxWidth>true</autoMaxWidth>
                 </extInfo>
@@ -10871,6 +10954,7 @@
                   <autoFill>true</autoFill>
                 </contextMenu>
                 <type>SearchControlAddition</type>
+                <source>СписокПараметровАУправлениеПоиском</source>
                 <extInfo xsi:type="form:SearchControlAdditionExtInfo">
                   <autoMaxWidth>true</autoMaxWidth>
                 </extInfo>
@@ -11255,115 +11339,25 @@
         <name>ГруппаБазаБ</name>
         <id>67</id>
         <items xsi:type="form:FormGroup">
-          <name>ГруппаПредварительныйПросмотрБ</name>
-          <id>1141</id>
+          <name>ГруппаИсточникБКоманды</name>
+          <id>1286</id>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаПредварительныйПросмотрБ1</name>
-            <id>1143</id>
-            <items xsi:type="form:Button">
-              <name>КомандаПредварительныйПросмотр100СтрокИсточникаБ</name>
-              <id>1131</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>КомандаПредварительныйПросмотр100СтрокИсточникаБРасширеннаяПодсказка</name>
-                <id>1132</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБ100Строк</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
-            <items xsi:type="form:Button">
-              <name>КомандаПредварительныйПросмотрИсточникаБ1000Строк</name>
-              <id>1149</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>КомандаПредварительныйПросмотрИсточникаБ1000СтрокРасширеннаяПодсказка</name>
-                <id>1150</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБ1000Строк</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
-            <items xsi:type="form:Button">
-              <name>КомандаПредварительныйПросмотрИсточникаБ</name>
-              <id>1129</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>КомандаПредварительныйПросмотрИсточникаБРасширеннаяПодсказка</name>
-                <id>1130</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБВсеСтроки</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
+            <name>ГруппаПредварительныйПросмотрБ</name>
+            <id>1141</id>
             <items xsi:type="form:FormGroup">
-              <name>ГруппаПредварительныйПросмотрБДубликаты</name>
-              <id>1151</id>
+              <name>ГруппаПредварительныйПросмотрБ1</name>
+              <id>1143</id>
               <items xsi:type="form:Button">
-                <name>КомандаПредварительныйПросмотрИсточникаБДубликаты</name>
-                <id>1135</id>
+                <name>КомандаПредварительныйПросмотр100СтрокИсточникаБ</name>
+                <id>1131</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
                   <common>true</common>
                 </userVisible>
                 <extendedTooltip>
-                  <name>КомандаПредварительныйПросмотрИсточникаБДубликатыРасширеннаяПодсказка</name>
-                  <id>1136</id>
+                  <name>КомандаПредварительныйПросмотр100СтрокИсточникаБРасширеннаяПодсказка</name>
+                  <id>1132</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -11376,12 +11370,135 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБДубликаты</commandName>
+                <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБ100Строк</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
+              <items xsi:type="form:Button">
+                <name>КомандаПредварительныйПросмотрИсточникаБ1000Строк</name>
+                <id>1149</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>КомандаПредварительныйПросмотрИсточникаБ1000СтрокРасширеннаяПодсказка</name>
+                  <id>1150</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБ1000Строк</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
+              <items xsi:type="form:Button">
+                <name>КомандаПредварительныйПросмотрИсточникаБ</name>
+                <id>1129</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>КомандаПредварительныйПросмотрИсточникаБРасширеннаяПодсказка</name>
+                  <id>1130</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБВсеСтроки</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
+              <items xsi:type="form:FormGroup">
+                <name>ГруппаПредварительныйПросмотрБДубликаты</name>
+                <id>1151</id>
+                <items xsi:type="form:Button">
+                  <name>КомандаПредварительныйПросмотрИсточникаБДубликаты</name>
+                  <id>1135</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <extendedTooltip>
+                    <name>КомандаПредварительныйПросмотрИсточникаБДубликатыРасширеннаяПодсказка</name>
+                    <id>1136</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <type>Label</type>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <extInfo xsi:type="form:LabelDecorationExtInfo">
+                      <horizontalAlign>Left</horizontalAlign>
+                    </extInfo>
+                  </extendedTooltip>
+                  <commandName>Form.Command.КомандаПредварительныйПросмотрИсточникаБДубликаты</commandName>
+                  <representation>Auto</representation>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <placementArea>UserCmds</placementArea>
+                  <representationInContextMenu>Auto</representationInContextMenu>
+                </items>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <title>
+                  <key>ru</key>
+                  <value>Группа предварительный просмотр б дубликаты</value>
+                </title>
+                <toolTip>
+                  <key>ru</key>
+                  <value>Группа предварительный просмотр б дубликаты</value>
+                </toolTip>
+                <extendedTooltip>
+                  <name>ГруппаПредварительныйПросмотрБДубликатыРасширеннаяПодсказка</name>
+                  <id>1152</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <extInfo xsi:type="form:ButtonGroupExtInfo"/>
               </items>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -11390,15 +11507,16 @@
               </userVisible>
               <title>
                 <key>ru</key>
-                <value>Группа предварительный просмотр б дубликаты</value>
+                <value>Предварительный просмотр данных из источника Б</value>
               </title>
               <toolTip>
                 <key>ru</key>
-                <value>Группа предварительный просмотр б дубликаты</value>
+                <value>Группа предварительный просмотр б1</value>
               </toolTip>
+              <toolTipRepresentation>None</toolTipRepresentation>
               <extendedTooltip>
-                <name>ГруппаПредварительныйПросмотрБДубликатыРасширеннаяПодсказка</name>
-                <id>1152</id>
+                <name>ГруппаПредварительныйПросмотрБ1РасширеннаяПодсказка</name>
+                <id>1144</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
@@ -11411,7 +11529,13 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <extInfo xsi:type="form:ButtonGroupExtInfo"/>
+              <type>Popup</type>
+              <extInfo xsi:type="form:PopupGroupExtInfo">
+                <picture xsi:type="core:PictureRef">
+                  <picture>StdPicture.ShowData</picture>
+                </picture>
+                <representation>Auto</representation>
+              </extInfo>
             </items>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -11420,16 +11544,16 @@
             </userVisible>
             <title>
               <key>ru</key>
-              <value>Предварительный просмотр данных из источника Б</value>
+              <value>Группа предварительный просмотр Б</value>
             </title>
             <toolTip>
               <key>ru</key>
-              <value>Группа предварительный просмотр б1</value>
+              <value>Группа предварительный просмотр Б</value>
             </toolTip>
-            <toolTipRepresentation>None</toolTipRepresentation>
+            <horizontalStretch>false</horizontalStretch>
             <extendedTooltip>
-              <name>ГруппаПредварительныйПросмотрБ1РасширеннаяПодсказка</name>
-              <id>1144</id>
+              <name>ГруппаПредварительныйПросмотрБРасширеннаяПодсказка</name>
+              <id>1142</id>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
@@ -11442,13 +11566,41 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <type>Popup</type>
-            <extInfo xsi:type="form:PopupGroupExtInfo">
-              <picture xsi:type="core:PictureRef">
-                <picture>StdPicture.ShowData</picture>
-              </picture>
-              <representation>Auto</representation>
+            <type>CommandBar</type>
+            <extInfo xsi:type="form:CommandBarExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
             </extInfo>
+          </items>
+          <items xsi:type="form:Button">
+            <name>КомандаПроверитьВозможностьПодключенияКИсточникуБ</name>
+            <id>1284</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>КомандаПроверитьВозможностьПодключенияКИсточникуБРасширеннаяПодсказка</name>
+              <id>1285</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>UsualButton</type>
+            <commandName>Form.Command.КомандаПроверитьВозможностьПодключенияКИсточникуБ</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -11457,15 +11609,15 @@
           </userVisible>
           <title>
             <key>ru</key>
-            <value>Группа предварительный просмотр Б</value>
+            <value>Группа источник б команды</value>
           </title>
           <toolTip>
             <key>ru</key>
-            <value>Группа предварительный просмотр Б</value>
+            <value>Группа источник б команды</value>
           </toolTip>
           <extendedTooltip>
-            <name>ГруппаПредварительныйПросмотрБРасширеннаяПодсказка</name>
-            <id>1142</id>
+            <name>ГруппаИсточникБКомандыРасширеннаяПодсказка</name>
+            <id>1287</id>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -11478,9 +11630,13 @@
               <horizontalAlign>Left</horizontalAlign>
             </extInfo>
           </extendedTooltip>
-          <type>CommandBar</type>
-          <extInfo xsi:type="form:CommandBarExtInfo">
-            <horizontalAlign>Left</horizontalAlign>
+          <type>UsualGroup</type>
+          <extInfo xsi:type="form:UsualGroupExtInfo">
+            <group>HorizontalIfPossible</group>
+            <showLeftMargin>true</showLeftMargin>
+            <united>true</united>
+            <throughAlign>Auto</throughAlign>
+            <currentRowUse>Auto</currentRowUse>
           </extInfo>
         </items>
         <items xsi:type="form:FormGroup">
@@ -15944,6 +16100,7 @@
                     </userVisible>
                     <autoFill>true</autoFill>
                   </contextMenu>
+                  <source>НастройкиФайлаБСтрокаПоиска</source>
                   <extInfo xsi:type="form:SearchStringAdditionExtInfo">
                     <autoMaxWidth>true</autoMaxWidth>
                   </extInfo>
@@ -15982,6 +16139,7 @@
                     <autoFill>true</autoFill>
                   </contextMenu>
                   <type>ViewStatusAddition</type>
+                  <source>НастройкиФайлаБСостояниеПросмотра</source>
                   <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
                     <autoMaxWidth>true</autoMaxWidth>
                   </extInfo>
@@ -16020,6 +16178,7 @@
                     <autoFill>true</autoFill>
                   </contextMenu>
                   <type>SearchControlAddition</type>
+                  <source>НастройкиФайлаБУправлениеПоиском</source>
                   <extInfo xsi:type="form:SearchControlAdditionExtInfo">
                     <autoMaxWidth>true</autoMaxWidth>
                   </extInfo>
@@ -16732,6 +16891,7 @@
                   </userVisible>
                   <autoFill>true</autoFill>
                 </contextMenu>
+                <source>СписокПараметровБСтрокаПоиска</source>
                 <extInfo xsi:type="form:SearchStringAdditionExtInfo">
                   <autoMaxWidth>true</autoMaxWidth>
                 </extInfo>
@@ -16770,6 +16930,7 @@
                   <autoFill>true</autoFill>
                 </contextMenu>
                 <type>ViewStatusAddition</type>
+                <source>СписокПараметровБСостояниеПросмотра</source>
                 <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
                   <autoMaxWidth>true</autoMaxWidth>
                 </extInfo>
@@ -16808,6 +16969,7 @@
                   <autoFill>true</autoFill>
                 </contextMenu>
                 <type>SearchControlAddition</type>
+                <source>СписокПараметровБУправлениеПоиском</source>
                 <extInfo xsi:type="form:SearchControlAdditionExtInfo">
                   <autoMaxWidth>true</autoMaxWidth>
                 </extInfo>
@@ -19137,6 +19299,7 @@
             </userVisible>
             <autoFill>true</autoFill>
           </contextMenu>
+          <source>РезультатСтрокаПоиска</source>
           <extInfo xsi:type="form:SearchStringAdditionExtInfo">
             <autoMaxWidth>true</autoMaxWidth>
           </extInfo>
@@ -19175,6 +19338,7 @@
             <autoFill>true</autoFill>
           </contextMenu>
           <type>ViewStatusAddition</type>
+          <source>РезультатСостояниеПросмотра</source>
           <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
             <autoMaxWidth>true</autoMaxWidth>
           </extInfo>
@@ -19213,6 +19377,7 @@
             <autoFill>true</autoFill>
           </contextMenu>
           <type>SearchControlAddition</type>
+          <source>РезультатУправлениеПоиском</source>
           <extInfo xsi:type="form:SearchControlAdditionExtInfo">
             <autoMaxWidth>true</autoMaxWidth>
           </extInfo>
@@ -21088,6 +21253,56 @@
       </handler>
     </action>
     <representation>Text</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>КомандаПроверитьВозможностьПодключенияКИсточникуА</name>
+    <title>
+      <key>ru</key>
+      <value>Тест подключения</value>
+    </title>
+    <id>44</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Тест подключения</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.ExternalDataSource</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>КомандаПроверитьВозможностьПодключенияКИсточникуА</name>
+      </handler>
+    </action>
+    <representation>TextPicture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>КомандаПроверитьВозможностьПодключенияКИсточникуБ</name>
+    <title>
+      <key>ru</key>
+      <value>Тест подключения</value>
+    </title>
+    <id>45</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Тест подключения</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.ExternalDataSource</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>КомандаПроверитьВозможностьПодключенияКИсточникуБ</name>
+      </handler>
+    </action>
+    <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>

@@ -13,7 +13,7 @@
     <key>ru</key>
     <value>Консоль сравнения данных [УИ]</value>
   </synonym>
-  <comment>15.9.61</comment>
+  <comment>15.9.63</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольСравненияДанных.Form.ФормаУправляемая</defaultForm>
   <help>
@@ -23,12 +23,27 @@
   </help>
   <extendedPresentation>
     <key>ru</key>
-    <value>Консоль сравнения данных</value>
+    <value>Консоль сравнения данных [УИ]</value>
   </extendedPresentation>
   <explanation>
     <key>ru</key>
     <value>Предназначена для сравнения данных, полученных из разных источников данных: информационных баз 1С 8, 1С 7.7, баз данных SQL, файлов формата CSV/TXT/DBF/XLS/DOC/XML, строки JSON, вручную заполненного табличного документа</value>
   </explanation>
+  <attributes uuid="4a4dbf5a-5d9e-4682-843d-00428eaa43af">
+    <name>СвязаннаяОперацияСравненияДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Связанная операция сравнения данных</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers>
+        <length>10</length>
+      </stringQualifiers>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
   <attributes uuid="0807802a-b3bd-4f42-abd4-3f58c614cc10">
     <name>ТипБазыА</name>
     <synonym>
@@ -1709,21 +1724,6 @@
     </synonym>
     <type>
       <types>Boolean</types>
-    </type>
-    <minValue xsi:type="core:UndefinedValue"/>
-    <maxValue xsi:type="core:UndefinedValue"/>
-  </attributes>
-  <attributes uuid="4a4dbf5a-5d9e-4682-843d-00428eaa43af">
-    <name>СвязаннаяОперацияСравненияДанных</name>
-    <synonym>
-      <key>ru</key>
-      <value>Связанная операция сравнения данных</value>
-    </synonym>
-    <type>
-      <types>String</types>
-      <stringQualifiers>
-        <length>10</length>
-      </stringQualifiers>
     </type>
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
