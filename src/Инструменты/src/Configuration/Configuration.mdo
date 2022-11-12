@@ -109,6 +109,7 @@
   <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_УправлениеКонфигураторомКлиент</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
