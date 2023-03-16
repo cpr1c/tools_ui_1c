@@ -46,7 +46,7 @@
   <content>CommonForm.УИ_ФормаРедактированияТекста</content>
   <content>CommonForm.УИ_ФормаХранилищаЗначения</content>
   <content>CommonForm.УИ_ФормаВыбораТипаОбъекта</content>
-  <content>Role.УИ_УниверсальныеИнструменты</content>
+  <content>Role.УИ_ПолныеПрава</content>
   <content>CommonModule.УИ_РаботаСФормами</content>
   <content>CommonModule.УИ_ДлительныеОперацииВызовСервера</content>
   <content>CommonModule.УИ_ДлительныеОперацииГлобальный</content>

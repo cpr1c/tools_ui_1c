@@ -72,7 +72,7 @@
   <commonPictures>CommonPicture.УИ_Граница</commonPictures>
   <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
   <commonPictures>CommonPicture.УИ_МакроКолонка</commonPictures>
-  <roles>Role.УИ_УниверсальныеИнструменты</roles>
+  <roles>Role.УИ_ПолныеПрава</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
