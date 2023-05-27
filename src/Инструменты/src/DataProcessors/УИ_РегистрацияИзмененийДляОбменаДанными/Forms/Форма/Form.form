@@ -69,6 +69,7 @@
         <autoMaxHeight>true</autoMaxHeight>
         <horizontalStretch>false</horizontalStretch>
         <wrap>true</wrap>
+        <choiceButton>true</choiceButton>
         <clearButton>false</clearButton>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
@@ -4842,18 +4843,13 @@
       <value>Узел обмена</value>
     </title>
     <id>2</id>
-    <valueType>
-      <types>ExchangePlanRef</types>
-    </valueType>
+    <valueType/>
     <view>
       <common>true</common>
     </view>
     <edit>
       <common>true</common>
     </edit>
-    <settingsSavedData xsi:type="form:DataPath">
-      <segments>УзелОбменаСсылка</segments>
-    </settingsSavedData>
   </attributes>
   <attributes>
     <name>ДеревоМетаданных</name>

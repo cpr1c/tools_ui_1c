@@ -778,9 +778,7 @@
         <value>Ссылка</value>
       </title>
       <id>4</id>
-      <valueType>
-        <types>ExchangePlanRef</types>
-      </valueType>
+      <valueType/>
       <view>
         <common>true</common>
       </view>
