@@ -634,4 +634,11 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>CommonForm.УИ_ФормаКода</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
