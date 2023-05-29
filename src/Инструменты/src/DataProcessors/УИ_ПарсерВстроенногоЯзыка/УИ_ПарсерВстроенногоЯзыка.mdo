@@ -21,4 +21,12 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
+  <templates uuid="80cb16d8-2bcf-405e-9857-0f44e0d29590">
+    <name>Плагин_ПереименованиеПеременных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Плагин переименование переменных</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
 </mdclass:DataProcessor>

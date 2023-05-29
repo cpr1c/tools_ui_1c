@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ExternalDataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c07a9586-7d46-4a4c-a466-b33ca07775dc">
+  <producedTypes>
+    <objectType typeId="ad80bf77-0772-4b78-a346-a35b12c37b6d" valueTypeId="98c994ba-4dc2-40d3-a4bf-ce13078972a5"/>
+  </producedTypes>
+  <name>ШаблонПлагина</name>
+  <synonym>
+    <key>ru</key>
+    <value>Шаблон плагина</value>
+  </synonym>
+  <containedObjects classId="c3831ec8-d8d5-4f93-8a22-f9bfae07327f" objectId="b44510d1-eb4a-4424-af07-6f0f25968ffb"/>
+</mdclass:ExternalDataProcessor>
