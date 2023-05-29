@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="1a0b0cbc-69db-4bbd-bccc-bea4a6fb0bbc">
+  <producedTypes>
+    <objectType typeId="edc1244f-00c3-40aa-988f-2941c7e3ac1d" valueTypeId="1ff1c313-892f-4376-86f8-42694ef99279"/>
+    <managerType typeId="95bc6597-e150-4284-9ca0-c32c71c110ab" valueTypeId="44c0d71c-7427-416e-9721-2f5561e2e870"/>
+  </producedTypes>
+  <name>УИ_ПарсерВстроенногоЯзыка</name>
+  <synonym>
+    <key>ru</key>
+    <value>Парсер встроенного языка</value>
+  </synonym>
+  <attributes uuid="42828e8c-3c61-41a4-8acf-c1a4a001e3ae">
+    <name>СтрогийРежим</name>
+    <synonym>
+      <key>ru</key>
+      <value>Строгий режим</value>
+    </synonym>
+    <type>
+      <types>Boolean</types>
+    </type>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+  </attributes>
+</mdclass:DataProcessor>

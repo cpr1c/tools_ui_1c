@@ -163,4 +163,5 @@
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПарсерВстроенногоЯзыка</dataProcessors>
 </mdclass:Configuration>

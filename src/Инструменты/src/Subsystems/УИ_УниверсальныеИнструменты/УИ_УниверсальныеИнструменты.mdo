@@ -106,6 +106,7 @@
   <content>CommonForm.УИ_НастройкиИнструментов</content>
   <content>CommonCommand.УИ_НастройкиИнструментов</content>
   <content>CommonForm.УИ_ФормаКода</content>
+  <content>DataProcessor.УИ_ПарсерВстроенногоЯзыка</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>
