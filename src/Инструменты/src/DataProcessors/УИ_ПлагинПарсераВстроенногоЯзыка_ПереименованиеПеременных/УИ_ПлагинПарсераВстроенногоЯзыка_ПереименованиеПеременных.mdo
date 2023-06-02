@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="030aa89f-d49d-4399-ba54-2082d7558bce">
+  <producedTypes>
+    <objectType typeId="22bf0a07-b9c8-4db2-a066-30e7bdea7bbf" valueTypeId="661f9564-1f69-41a4-ac4f-86601f91e3b8"/>
+    <managerType typeId="f2dce833-87ca-4d39-a3cc-35486c4ec952" valueTypeId="811b4f8f-3797-4f60-bc8e-ea57ca044c7d"/>
+  </producedTypes>
+  <name>УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</name>
+  <synonym>
+    <key>ru</key>
+    <value>Переименование переменных</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+</mdclass:DataProcessor>

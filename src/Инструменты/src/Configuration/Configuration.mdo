@@ -110,7 +110,7 @@
   <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_УправлениеКонфигураторомКлиент</commonModules>
-  <commonModules>CommonModule.УИ_ПрограммноеИзменениеКода</commonModules>
+  <commonModules>CommonModule.УИ_РаботаСКодом</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
@@ -165,4 +165,7 @@
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПарсерВстроенногоЯзыка</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</dataProcessors>
 </mdclass:Configuration>

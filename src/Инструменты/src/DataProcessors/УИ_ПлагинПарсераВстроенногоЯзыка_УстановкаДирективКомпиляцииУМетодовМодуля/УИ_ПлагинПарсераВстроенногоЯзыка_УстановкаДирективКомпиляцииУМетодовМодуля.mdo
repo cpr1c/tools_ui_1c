@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="ae2c5acf-15ef-4a51-b376-efabe655fbe2">
+  <producedTypes>
+    <objectType typeId="df8b3c1f-7269-4e6e-87b5-556519614891" valueTypeId="44c99534-41bd-44ce-ba3e-1bcd79ad157a"/>
+    <managerType typeId="79f5ce51-7189-4cd5-bba0-0bde4940403a" valueTypeId="e5e703e1-9078-4e82-8999-988571dffc2a"/>
+  </producedTypes>
+  <name>УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</name>
+  <synonym>
+    <key>ru</key>
+    <value>Установка директив компиляции у методов модуля</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+</mdclass:DataProcessor>

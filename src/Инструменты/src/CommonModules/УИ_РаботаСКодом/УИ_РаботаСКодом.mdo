@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c657ebd2-7d1d-4211-a261-645ce47008e0">
-  <name>УИ_ПрограммноеИзменениеКода</name>
+  <name>УИ_РаботаСКодом</name>
   <synonym>
     <key>ru</key>
-    <value>Программное изменение кода</value>
+    <value>Работа с кодом</value>
   </synonym>
   <server>true</server>
   <externalConnection>true</externalConnection>

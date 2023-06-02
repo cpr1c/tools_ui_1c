@@ -652,4 +652,44 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиДинамическогоСписка</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
