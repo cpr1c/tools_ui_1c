@@ -3566,6 +3566,38 @@
         <items xsi:type="form:FormGroup">
           <name>СтраницаАлгоритмПередВыполнением</name>
           <id>610</id>
+          <items xsi:type="form:FormGroup">
+            <name>ГруппаАлгоритмПередВыполнениемКоманднаяПанель</name>
+            <id>620</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <title>
+              <key>ru</key>
+              <value>Группа1</value>
+            </title>
+            <extendedTooltip>
+              <name>ГруппаАлгоритмПередВыполнениемКоманднаяПанельРасширеннаяПодсказка</name>
+              <id>621</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>CommandBar</type>
+            <extInfo xsi:type="form:CommandBarExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </items>
           <items xsi:type="form:FormField">
             <name>ТекстАлгоритмПередВыполнением</name>
             <id>612</id>
@@ -3853,6 +3885,38 @@
               <extendedTooltip>
                 <name>ГруппаКоманднаяПанельКодаРасширеннаяПодсказка</name>
                 <id>362</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <type>CommandBar</type>
+              <extInfo xsi:type="form:CommandBarExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </items>
+            <items xsi:type="form:FormGroup">
+              <name>ГруппаАлгоритмКоманднаяПанельРедактораКода</name>
+              <id>622</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <title>
+                <key>ru</key>
+                <value>Группа1</value>
+              </title>
+              <extendedTooltip>
+                <name>ГруппаАлгоритмКоманднаяПанельРедактораКодаРасширеннаяПодсказка</name>
+                <id>623</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
