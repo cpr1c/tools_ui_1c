@@ -75,7 +75,16 @@
       <key>ru</key>
       <value>Информация для техподдержки</value>
     </synonym>
-    <group>ActionsPanelTools</group>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
+  <commands uuid="9a59f674-15dc-4df1-adaf-ad084403c06c">
+    <name>ОчиститьКэшИнструментовНаКлиенте</name>
+    <synonym>
+      <key>ru</key>
+      <value>Очистить кэш инструментов на клиенте</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
     <representation>Auto</representation>
   </commands>
 </mdclass:DataProcessor>
