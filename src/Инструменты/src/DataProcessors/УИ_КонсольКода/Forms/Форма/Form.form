@@ -425,6 +425,7 @@
             <autoFill>true</autoFill>
           </contextMenu>
           <type>InputField</type>
+          <readOnly>true</readOnly>
           <editMode>Enter</editMode>
           <showInHeader>true</showInHeader>
           <headerPicture xsi:type="core:PictureRef">
@@ -609,6 +610,7 @@
         <changeRowSet>true</changeRowSet>
         <changeRowOrder>true</changeRowOrder>
         <autoMaxWidth>true</autoMaxWidth>
+        <height>3</height>
         <autoMaxHeight>true</autoMaxHeight>
         <autoMaxRowsCount>true</autoMaxRowsCount>
         <selectionMode>MultiRow</selectionMode>
@@ -782,12 +784,26 @@
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:InputFieldExtInfo">
+            <handlers>
+              <event>StartChoice</event>
+              <name>АлгоритмыПеременныеЗначениеНачалоВыбора</name>
+            </handlers>
+            <handlers>
+              <event>Clearing</event>
+              <name>АлгоритмыПеременныеЗначениеОчистка</name>
+            </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
-            <chooseType>true</chooseType>
+            <choiceButton>true</choiceButton>
+            <clearButton>true</clearButton>
             <typeDomainEnabled>true</typeDomainEnabled>
             <textEdit>true</textEdit>
+            <typeLink>
+              <datapath xsi:type="form:DataPath">
+                <segments>Items.АлгоритмыПеременные.CurrentData.ТипЗначения</segments>
+              </datapath>
+            </typeLink>
           </extInfo>
         </items>
         <autoCommandBar>
@@ -953,6 +969,7 @@
         <changeRowSet>true</changeRowSet>
         <changeRowOrder>true</changeRowOrder>
         <autoMaxWidth>true</autoMaxWidth>
+        <height>3</height>
         <autoMaxHeight>true</autoMaxHeight>
         <autoMaxRowsCount>true</autoMaxRowsCount>
         <selectionMode>MultiRow</selectionMode>
@@ -980,6 +997,7 @@
       </title>
       <width>30</width>
       <horizontalStretch>false</horizontalStretch>
+      <verticalStretch>true</verticalStretch>
       <extendedTooltip>
         <name>ГруппаАлгоритмыРасширеннаяПодсказка</name>
         <id>117</id>
@@ -1050,9 +1068,7 @@
         <showInFooter>true</showInFooter>
         <extInfo xsi:type="form:TextDocFieldExtInfo">
           <width>50</width>
-          <autoMaxWidth>true</autoMaxWidth>
           <height>10</height>
-          <autoMaxHeight>true</autoMaxHeight>
           <horizontalStretch>true</horizontalStretch>
           <verticalStretch>true</verticalStretch>
         </extInfo>
@@ -1098,6 +1114,7 @@
         <key>ru</key>
         <value>Группа1</value>
       </title>
+      <horizontalStretch>true</horizontalStretch>
       <extendedTooltip>
         <name>ГруппаКодРасширеннаяПодсказка</name>
         <id>160</id>
@@ -1127,6 +1144,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
+    <horizontalStretch>true</horizontalStretch>
+    <verticalStretch>true</verticalStretch>
     <extendedTooltip>
       <name>Группа1РасширеннаяПодсказка4</name>
       <id>22</id>
@@ -1413,6 +1432,23 @@
           <common>true</common>
         </edit>
       </columns>
+      <columns>
+        <name>ТипЗначения</name>
+        <title>
+          <key>ru</key>
+          <value>Тип значения</value>
+        </title>
+        <id>25</id>
+        <valueType>
+          <types>TypeDescription</types>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
     </additionalColumns>
   </attributes>
   <attributes>
@@ -1545,7 +1581,7 @@
     <name>НовыйАлгоритм</name>
     <title>
       <key>ru</key>
-      <value>Новый алгоритм</value>
+      <value>Новый файл алгоритмов</value>
     </title>
     <id>8</id>
     <use>
