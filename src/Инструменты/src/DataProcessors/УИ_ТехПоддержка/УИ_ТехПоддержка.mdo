@@ -69,4 +69,13 @@
     <group>NavigationPanelOrdinary</group>
     <representation>Auto</representation>
   </commands>
+  <commands uuid="d99b7737-61b8-4705-b44d-4260e4f5fc39">
+    <name>ИнформацияДляТехподдержки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Информация для техподдержки</value>
+    </synonym>
+    <group>ActionsPanelTools</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>
