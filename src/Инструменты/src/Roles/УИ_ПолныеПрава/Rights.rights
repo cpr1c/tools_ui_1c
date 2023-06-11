@@ -568,13 +568,6 @@
 		</right>
 	</object>
 	<object>
-		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.ПередачаДанных.Method.Ping</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
 		<name>DataProcessor.УИ_КонсольКода</name>
 		<right>
 			<name>Use</name>
