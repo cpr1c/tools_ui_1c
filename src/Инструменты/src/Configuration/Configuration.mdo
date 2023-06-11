@@ -72,6 +72,8 @@
   <commonPictures>CommonPicture.УИ_Граница</commonPictures>
   <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
   <commonPictures>CommonPicture.УИ_МакроКолонка</commonPictures>
+  <commonPictures>CommonPicture.УИ_Поделиться</commonPictures>
+  <commonPictures>CommonPicture.УИ_СкопироватьВБуферОбмена</commonPictures>
   <roles>Role.УИ_ПолныеПрава</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
@@ -132,6 +134,7 @@
   <commonForms>CommonForm.УИ_СравнениеТабличныхДокументов</commonForms>
   <commonForms>CommonForm.УИ_НастройкиДинамическогоСписка</commonForms>
   <commonForms>CommonForm.УИ_ФормаКода</commonForms>
+  <commonForms>CommonForm.УИ_ФормаСсылкиНаКод</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
