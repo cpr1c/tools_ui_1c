@@ -84,6 +84,7 @@
   <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
   <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
   <commonModules>CommonModule.УИ_</commonModules>
+  <commonModules>CommonModule.УИ_Paste1CAPI</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыСервер</commonModules>
@@ -101,6 +102,7 @@
   <commonModules>CommonModule.УИ_ОбщегоНазначенияПовтИсп</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
   <commonModules>CommonModule.УИ_Пользователи</commonModules>
+  <commonModules>CommonModule.УИ_РаботаСКодом</commonModules>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСервер</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСлужебный</commonModules>
@@ -111,7 +113,6 @@
   <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_УправлениеКонфигураторомКлиент</commonModules>
-  <commonModules>CommonModule.УИ_РаботаСКодом</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>

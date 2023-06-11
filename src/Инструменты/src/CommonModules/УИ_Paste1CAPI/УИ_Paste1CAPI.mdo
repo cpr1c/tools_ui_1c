@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="910bb035-b0e1-493c-ba04-730b6453cdc0">
+  <name>УИ_Paste1CAPI</name>
+  <synonym>
+    <key>ru</key>
+    <value>Paste1 CAPI</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>
