@@ -724,4 +724,15 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>DataProcessor.УИ_Алгоритмы2</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>

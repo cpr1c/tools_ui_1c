@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="0bcedf4d-ff9a-46dd-b4fb-c3dcf931f628">
+  <producedTypes>
+    <objectType typeId="ae36e24f-2c1b-4733-b522-dac48fcec379" valueTypeId="410f1bcd-bf96-4e9a-b694-45b198153a97"/>
+    <managerType typeId="ea935341-6373-4fcc-a7eb-af20d86019a8" valueTypeId="ae08dc00-6f49-4b97-86cf-061923e0e440"/>
+  </producedTypes>
+  <name>УИ_Алгоритмы2</name>
+  <synonym>
+    <key>ru</key>
+    <value>Алгоритмы2</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_Алгоритмы2.Form.ФормаСписка</defaultForm>
+  <forms uuid="66c05b72-88b7-4627-9967-e2532a1123d3">
+    <name>ФормаСписка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма списка</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="4406f459-4440-41cc-afdd-4b65b6a6144a">
+    <name>ФормаЭлемента</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма элемента</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

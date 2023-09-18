@@ -88,6 +88,7 @@
   <commonModules>CommonModule.УИ_</commonModules>
   <commonModules>CommonModule.УИ_Paste1CAPI</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыКлиент</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_АлгоритмыСервер</commonModules>
   <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
@@ -138,40 +139,41 @@
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
-  <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_Алгоритмы2</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПарсерВстроенногоЯзыка</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ДоработкаТекстаАлгоритмаДляОбработки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ДоработкаТекстаАлгоритмаДляОбработки</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
 </mdclass:Configuration>
