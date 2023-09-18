@@ -2289,6 +2289,53 @@
                   <excludedCommands>ShowMultipleSelection</excludedCommands>
                   <excludedCommands>ShowRowRearrangement</excludedCommands>
                   <items xsi:type="form:FormField">
+                    <name>ПараметрыЗапросаИспользовать</name>
+                    <id>624</id>
+                    <title>
+                      <key>ru</key>
+                      <value>Исп.</value>
+                    </title>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>ПараметрыЗапроса.Использовать</segments>
+                    </dataPath>
+                    <extendedTooltip>
+                      <name>ПараметрыЗапросаИспользоватьРасширеннаяПодсказка</name>
+                      <id>626</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ПараметрыЗапросаИспользоватьКонтекстноеМеню</name>
+                      <id>625</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>CheckBoxField</type>
+                    <editMode>Enter</editMode>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+                  </items>
+                  <items xsi:type="form:FormField">
                     <name>ПараметрыЗапросаИмя</name>
                     <id>66</id>
                     <visible>true</visible>
@@ -2536,6 +2583,7 @@
                       </extendedTooltip>
                       <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Add</commandName>
                       <representation>Picture</representation>
+                      <onlyInAllActions>false</onlyInAllActions>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
@@ -2566,6 +2614,7 @@
                       </extendedTooltip>
                       <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Copy</commandName>
                       <representation>Picture</representation>
+                      <onlyInAllActions>false</onlyInAllActions>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
@@ -2597,6 +2646,7 @@
                       </extendedTooltip>
                       <commandName>Form.Item.ПараметрыЗапроса.StandardCommand.Delete</commandName>
                       <representation>Picture</representation>
+                      <onlyInAllActions>false</onlyInAllActions>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <placementArea>UserCmds</placementArea>
@@ -2744,6 +2794,10 @@
                   <handlers>
                     <event>OnChange</event>
                     <name>ПараметрыЗапросаПриИзменении</name>
+                  </handlers>
+                  <handlers>
+                    <event>OnStartEdit</event>
+                    <name>ПараметрыЗапросаПриНачалеРедактирования</name>
                   </handlers>
                   <searchStringAddition>
                     <visible>true</visible>
@@ -8035,6 +8089,23 @@
       <valueType>
         <types>Number</types>
         <numberQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Использовать</name>
+      <title>
+        <key>ru</key>
+        <value>Исп.</value>
+      </title>
+      <id>70</id>
+      <valueType>
+        <types>Boolean</types>
       </valueType>
       <view>
         <common>true</common>
