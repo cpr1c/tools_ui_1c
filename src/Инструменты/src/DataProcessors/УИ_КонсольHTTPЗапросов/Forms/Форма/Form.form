@@ -691,6 +691,10 @@
               <key>ru</key>
               <value>Таймаут осуществляемого соединения и операций, в секундах. 0 - не устанавливать таймаут.</value>
             </toolTip>
+            <handlers>
+              <event>OnChange</event>
+              <name>ТаймаутПриИзменении</name>
+            </handlers>
             <extendedTooltip>
               <name>ТаймаутРасширеннаяПодсказка</name>
               <id>285</id>
@@ -1364,6 +1368,10 @@
                   <segments>ЗаголовкиСтрока</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
+                <handlers>
+                  <event>OnChange</event>
+                  <name>ЗаголовкиСтрокаПриИзменении</name>
+                </handlers>
                 <extendedTooltip>
                   <name>ПолеРасширеннаяПодсказка6</name>
                   <id>46</id>
@@ -1565,6 +1573,10 @@
                   <horizontalAlign>Left</horizontalAlign>
                   <autoFill>true</autoFill>
                 </autoCommandBar>
+                <handlers>
+                  <event>OnChange</event>
+                  <name>ТаблицаЗаголовковЗапросаПриИзменении</name>
+                </handlers>
                 <searchStringAddition>
                   <visible>true</visible>
                   <enabled>true</enabled>
@@ -2757,6 +2769,10 @@
                   <segments>ТелоЗапроса</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
+                <handlers>
+                  <event>OnChange</event>
+                  <name>ТелоЗапросаПриИзменении</name>
+                </handlers>
                 <extendedTooltip>
                   <name>ПолеРасширеннаяПодсказка7</name>
                   <id>51</id>
