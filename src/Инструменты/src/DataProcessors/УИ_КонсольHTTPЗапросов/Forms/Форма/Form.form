@@ -255,7 +255,6 @@
         <items xsi:type="form:FormField">
           <name>ДеревоЗапросовСтруктураJSON</name>
           <id>413</id>
-          <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
