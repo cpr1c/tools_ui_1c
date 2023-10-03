@@ -2565,6 +2565,10 @@
                 <dataPath xsi:type="form:DataPath">
                   <segments>ИспользоватьBOM</segments>
                 </dataPath>
+                <handlers>
+                  <event>OnChange</event>
+                  <name>ИспользоватьBOMПриИзменении</name>
+                </handlers>
                 <extendedTooltip>
                   <name>ПолеРасширеннаяПодсказка9</name>
                   <id>62</id>
@@ -2644,6 +2648,10 @@
                   <segments>КодировкаТелаЗапроса</segments>
                 </dataPath>
                 <titleLocation>None</titleLocation>
+                <handlers>
+                  <event>OnChange</event>
+                  <name>КодировкаТелаЗапросаПриИзменении</name>
+                </handlers>
                 <extendedTooltip>
                   <name>ПолеРасширеннаяПодсказка8</name>
                   <id>59</id>
