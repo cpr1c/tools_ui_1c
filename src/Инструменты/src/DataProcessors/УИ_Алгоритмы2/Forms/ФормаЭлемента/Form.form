@@ -2145,12 +2145,6 @@
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>
-        <textColor xsi:type="core:ColorRef">
-          <color>Web.SaddleBrown</color>
-        </textColor>
-        <font xsi:type="core:FontRef">
-          <font>System.OEMFixedFont</font>
-        </font>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -2741,6 +2735,60 @@
         <common>true</common>
       </edit>
     </columns>
+  </attributes>
+  <attributes>
+    <name>ИдентификаторРегламентногоЗадания</name>
+    <title>
+      <key>ru</key>
+      <value>Идентификатор регламентного задания</value>
+    </title>
+    <id>22</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers>
+        <length>50</length>
+      </stringQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ВХранилищеНастроек</name>
+    <title>
+      <key>ru</key>
+      <value>В хранилище настроек</value>
+    </title>
+    <id>23</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ВыполнятьПоРасписанию</name>
+    <title>
+      <key>ru</key>
+      <value>Выполнять по расписанию</value>
+    </title>
+    <id>24</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
   </attributes>
   <formCommands>
     <name>ДобавитьПараметр</name>
