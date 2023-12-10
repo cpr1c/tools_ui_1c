@@ -71,6 +71,36 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
+        <name>ДобавитьПакетЗапросов</name>
+        <id>627</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <extendedTooltip>
+          <name>ДобавитьПакетЗапросовРасширеннаяПодсказка</name>
+          <id>628</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <commandName>Form.Command.ДобавитьПакетЗапросов</commandName>
+        <representation>Auto</representation>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <placementArea>UserCmds</placementArea>
+        <representationInContextMenu>Auto</representationInContextMenu>
+      </items>
+      <items xsi:type="form:Button">
         <name>ФормаСохранитьПакетЗапросов</name>
         <id>119</id>
         <visible>true</visible>
@@ -10354,6 +10384,31 @@
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ВставитьМакроКолонку</name>
+      </handler>
+    </action>
+    <representation>Picture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ДобавитьПакетЗапросов</name>
+    <title>
+      <key>ru</key>
+      <value>Добавить пакет запросов</value>
+    </title>
+    <id>48</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Добавляет запросы из файла к существующему списку запросов</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.CreateFolder</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>Команда_ДобавитьПакетЗапросов</name>
       </handler>
     </action>
     <representation>Picture</representation>
