@@ -136,6 +136,7 @@
   <commonForms>CommonForm.УИ_НастройкиДинамическогоСписка</commonForms>
   <commonForms>CommonForm.УИ_ФормаКода</commonForms>
   <commonForms>CommonForm.УИ_ФормаСсылкиНаКод</commonForms>
+  <commonForms>CommonForm.УИ_ФормаПеречисления</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
