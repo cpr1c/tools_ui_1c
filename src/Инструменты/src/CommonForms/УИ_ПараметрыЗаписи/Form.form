@@ -44,7 +44,7 @@
     <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
   </items>
   <items xsi:type="form:FormField">
-    <name>ПривелигированныйРежим</name>
+    <name>ПривилегированныйРежим</name>
     <id>4</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -52,10 +52,10 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ПривелигированныйРежим</segments>
+      <segments>ПривилегированныйРежим</segments>
     </dataPath>
     <extendedTooltip>
-      <name>ПолеРасширеннаяПодсказка</name>
+      <name>ПривилегированныйРежимРасширеннаяПодсказка</name>
       <id>6</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -70,7 +70,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПолеКонтекстноеМеню</name>
+      <name>ПривилегированныйРежимКонтекстноеМеню</name>
       <id>5</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -816,10 +816,10 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
-    <name>ПривелигированныйРежим</name>
+    <name>ПривилегированныйРежим</name>
     <title>
       <key>ru</key>
-      <value>Привелигированный режим</value>
+      <value>Привилегированный режим</value>
     </title>
     <id>1</id>
     <valueType>
