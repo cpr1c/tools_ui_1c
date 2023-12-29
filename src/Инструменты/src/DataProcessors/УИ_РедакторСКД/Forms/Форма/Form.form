@@ -14939,6 +14939,78 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ПараметрыЗапросов</name>
+    <title>
+      <key>ru</key>
+      <value>Параметры запросов</value>
+    </title>
+    <id>119</id>
+    <valueType>
+      <types>ValueTable</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <columns>
+      <name>ИдентификаторЗапроса</name>
+      <title>
+        <key>ru</key>
+        <value>Идентификатор запроса</value>
+      </title>
+      <id>120</id>
+      <valueType>
+        <types>Number</types>
+        <numberQualifiers>
+          <precision>10</precision>
+        </numberQualifiers>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Имя</name>
+      <title>
+        <key>ru</key>
+        <value>Имя</value>
+      </title>
+      <id>121</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипЗначения</name>
+      <title>
+        <key>ru</key>
+        <value>Тип значения</value>
+      </title>
+      <id>122</id>
+      <valueType>
+        <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+  </attributes>
   <formCommands>
     <name>ДобавитьНаборДанныхЗапрос</name>
     <title>
