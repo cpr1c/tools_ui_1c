@@ -688,8 +688,10 @@
           <id>255</id>
           <title>
             <key>ru</key>
-            <value>Информация получается с использованием консольной утилиты &lt;b>psql&lt;/> из поставки PostgreSQL
-&lt;link https://www.postgresql.org/docs/current/app-psql.html>https://www.postgresql.org/docs/current/app-psql.html&lt;/></value>
+            <value>Информация получается с использованием консольной утилиты &lt;b>psql&lt;/> из поставки PostgreSQL. 
+Информация по утилите &lt;link https://www.postgresql.org/docs/current/app-psql.html>https://www.postgresql.org/docs/current/app-psql.html&lt;/>
+Скачать можно отсюда &lt;link https://www.postgresql.org/download>https://www.postgresql.org/download/&lt;/>
+В версии PostgreSQL от 1С утилита идет в комплекте. Обычно находится в папке &lt;b>bin&lt;/> каталога установки &lt;fontsize 12>&lt;b>PostgreSQL&lt;/>&lt;/></value>
           </title>
           <visible>true</visible>
           <enabled>true</enabled>
