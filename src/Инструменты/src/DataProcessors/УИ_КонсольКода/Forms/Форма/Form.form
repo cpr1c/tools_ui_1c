@@ -792,10 +792,6 @@
               <event>Clearing</event>
               <name>АлгоритмыПеременныеЗначениеОчистка</name>
             </handlers>
-            <handlers>
-              <event>ChoiceProcessing</event>
-              <name>АлгоритмыПеременныеЗначениеОбработкаВыбора</name>
-            </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
@@ -805,7 +801,7 @@
             <textEdit>true</textEdit>
             <typeLink>
               <datapath xsi:type="form:DataPath">
-                <segments>Items.АлгоритмыПеременные.CurrentData.ТипЗначения</segments>
+                <segments>Items.АлгоритмыПеременные.CurrentData.ЗначениеТипЗначения</segments>
               </datapath>
             </typeLink>
           </extInfo>
@@ -1437,12 +1433,45 @@
         </edit>
       </columns>
       <columns>
-        <name>ТипЗначения</name>
+        <name>ЗначениеКонтейнер</name>
         <title>
           <key>ru</key>
-          <value>Тип значения</value>
+          <value>Значение контейнер</value>
         </title>
-        <id>25</id>
+        <id>26</id>
+        <valueType/>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>ЗначениеТипЗначенияПредставление</name>
+        <title>
+          <key>ru</key>
+          <value>Значение тип значения представление</value>
+        </title>
+        <id>27</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>ЗначениеТипЗначения</name>
+        <title>
+          <key>ru</key>
+          <value>Значение тип значения</value>
+        </title>
+        <id>28</id>
         <valueType>
           <types>TypeDescription</types>
         </valueType>
