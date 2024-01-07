@@ -336,7 +336,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_ФормаПеречисления</name>
+		<name>CommonForm.УИ_ФормаВыбораЗначенияПеречисления</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -755,6 +755,13 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_РедакторМоментаВремени</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

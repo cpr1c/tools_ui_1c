@@ -856,7 +856,7 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ТаблицаПараметров.ТипЗначенияПредставление</segments>
+            <segments>ТаблицаПараметров.ЗначениеТипЗначенияПредставление</segments>
           </dataPath>
           <extendedTooltip>
             <name>ТаблицаПараметровТипЗначенияПредставлениеРасширеннаяПодсказка</name>
@@ -948,15 +948,11 @@
               <event>StartChoice</event>
               <name>ТаблицаПараметровЗначениеНачалоВыбора</name>
             </handlers>
-            <handlers>
-              <event>ChoiceProcessing</event>
-              <name>ТаблицаПараметровЗначениеОбработкаВыбора</name>
-            </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
+            <choiceButton>true</choiceButton>
             <clearButton>true</clearButton>
-            <chooseType>true</chooseType>
             <typeDomainEnabled>true</typeDomainEnabled>
             <textEdit>true</textEdit>
           </extInfo>
@@ -2481,10 +2477,10 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипЗначения</name>
+      <name>ЗначениеТипЗначения</name>
       <title>
         <key>ru</key>
-        <value>Тип значения</value>
+        <value>Значение тип значения</value>
       </title>
       <id>22</id>
       <valueType>
@@ -2513,10 +2509,10 @@
       </edit>
     </columns>
     <columns>
-      <name>КонтейнерЗначения</name>
+      <name>ЗначениеКонтейнер</name>
       <title>
         <key>ru</key>
-        <value>Контейнер значения</value>
+        <value>Значение контейнер</value>
       </title>
       <id>24</id>
       <valueType/>
@@ -2528,10 +2524,10 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипЗначенияПредставление</name>
+      <name>ЗначениеТипЗначенияПредставление</name>
       <title>
         <key>ru</key>
-        <value>Тип значения представление</value>
+        <value>Значение тип значения представление</value>
       </title>
       <id>25</id>
       <valueType>
