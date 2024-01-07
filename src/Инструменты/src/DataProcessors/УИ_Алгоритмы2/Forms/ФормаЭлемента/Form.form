@@ -948,6 +948,10 @@
               <event>StartChoice</event>
               <name>ТаблицаПараметровЗначениеНачалоВыбора</name>
             </handlers>
+            <handlers>
+              <event>ChoiceProcessing</event>
+              <name>ТаблицаПараметровЗначениеОбработкаВыбора</name>
+            </handlers>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
