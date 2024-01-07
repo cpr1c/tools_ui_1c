@@ -4,6 +4,17 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
+		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_СтруктураХраненияБазыДанных</name>
 		<right>
 			<name>Use</name>
@@ -26,11 +37,43 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_Алгоритмы2</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиИнструментов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.Ping.Method.GET</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ИнформацияОЛицензиях1С</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -66,6 +109,17 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_ПарсерВстроенногоЯзыка</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_КонсольЗаданий</name>
 		<right>
 			<name>Use</name>
@@ -91,6 +145,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_ФормаКода</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</name>
 		<right>
 			<name>View</name>
@@ -99,6 +160,13 @@
 	</object>
 	<object>
 		<name>CommonForm.УИ_ПараметрыЗаписи</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_РедактированиеТабличногоДокумента</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -199,6 +267,24 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_РедакторУникальногоИдентификатора</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_НавигаторПоКонфигурации</name>
 		<right>
 			<name>Use</name>
@@ -221,11 +307,36 @@
 		</right>
 	</object>
 	<object>
+		<name>Catalog.ДополнительныеОтчетыИОбработки</name>
+		<right>
+			<name>Read</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиДинамическогоСписка</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_РедакторКонстант</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_ФормаПеречисления</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -239,11 +350,32 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_ФормаСсылкиНаКод</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Catalog.ДополнительныеОтчетыИОбработки.Command.УИ_НастройкиОтладки</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ТехПоддержка.Command.ОчиститьКэшИнструментовНаКлиенте</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -322,11 +454,29 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>Report.УИ_КонсольОтчетов</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -351,7 +501,25 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_СравнениеТабличныхДокументов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_УдалениеПомеченныхОбъектов</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ДоработкаТекстаАлгоритмаДляОбработки</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -400,6 +568,13 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ТехПоддержка.Command.ИнформацияДляТехподдержки</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -554,6 +729,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonCommand.УИ_НастройкиИнструментов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>CommonForm.УИ_ФормаТаблицыЗначений</name>
 		<right>
 			<name>View</name>
@@ -573,181 +755,6 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Catalog.ДополнительныеОтчетыИОбработки.Command.УИ_НастройкиОтладки</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_НастройкиИнструментов</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonCommand.УИ_НастройкиИнструментов</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_СравнениеТабличныхДокументов</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_РедактированиеТабличногоДокумента</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_ФормаКода</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_ПарсерВстроенногоЯзыка</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_НастройкиДинамическогоСписка</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ДоработкаТекстаАлгоритмаДляОбработки</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_ТехПоддержка.Command.ИнформацияДляТехподдержки</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_ТехПоддержка.Command.ОчиститьКэшИнструментовНаКлиенте</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>HTTPService.УИ_ПубликуемыеФункции.URLTemplate.Ping.Method.GET</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_ФормаСсылкиНаКод</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_Алгоритмы2</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>Catalog.ДополнительныеОтчетыИОбработки</name>
-		<right>
-			<name>Read</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>CommonForm.УИ_ФормаПеречисления</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
