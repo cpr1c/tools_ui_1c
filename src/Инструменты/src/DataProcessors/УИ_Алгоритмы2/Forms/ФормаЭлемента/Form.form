@@ -955,6 +955,11 @@
             <clearButton>true</clearButton>
             <typeDomainEnabled>true</typeDomainEnabled>
             <textEdit>true</textEdit>
+            <typeLink>
+              <datapath xsi:type="form:DataPath">
+                <segments>Items.ТаблицаПараметров.CurrentData.ЗначениеТипЗначения</segments>
+              </datapath>
+            </typeLink>
           </extInfo>
         </items>
         <autoCommandBar>

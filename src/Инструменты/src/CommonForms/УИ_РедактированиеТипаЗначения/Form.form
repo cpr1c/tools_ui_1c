@@ -1578,6 +1578,23 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ОграничениеТипов</name>
+    <title>
+      <key>ru</key>
+      <value>Ограничение типов</value>
+    </title>
+    <id>19</id>
+    <valueType>
+      <types>TypeDescription</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>Применить</name>
     <title>
