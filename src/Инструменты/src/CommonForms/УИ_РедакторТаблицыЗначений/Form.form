@@ -756,6 +756,23 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ВозвратХранилищаДляКонтейнераЗначения</name>
+    <title>
+      <key>ru</key>
+      <value>Возврат хранилища для контейнера значения</value>
+    </title>
+    <id>9</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>Применить</name>
     <title>
