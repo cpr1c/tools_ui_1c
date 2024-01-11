@@ -1488,23 +1488,6 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>НачальныйТипДанных</name>
-    <title>
-      <key>ru</key>
-      <value>Начальный тип данных</value>
-    </title>
-    <id>13</id>
-    <valueType>
-      <types>TypeDescription</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
     <name>ДоступенСоставнойТип</name>
     <title>
       <key>ru</key>
@@ -1585,6 +1568,58 @@
       <value>Ограничение типов</value>
     </title>
     <id>19</id>
+    <valueType>
+      <types>TypeDescription</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ВозвратХранилищаДляКонтейнераЗначения</name>
+    <title>
+      <key>ru</key>
+      <value>Возврат хранилища для контейнера значения</value>
+    </title>
+    <id>20</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ТипКонтейнераЗначения</name>
+    <title>
+      <key>ru</key>
+      <value>Тип контейнера значения</value>
+    </title>
+    <id>22</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>НачальныйТипДанных</name>
+    <title>
+      <key>ru</key>
+      <value>Начальный тип данных</value>
+    </title>
+    <id>24</id>
     <valueType>
       <types>TypeDescription</types>
     </valueType>
