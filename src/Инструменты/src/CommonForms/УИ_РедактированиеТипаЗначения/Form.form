@@ -1562,14 +1562,15 @@
     </edit>
   </attributes>
   <attributes>
-    <name>ОграничениеТипов</name>
+    <name>ОграничениеТипа</name>
     <title>
       <key>ru</key>
-      <value>Ограничение типов</value>
+      <value>Ограничение типа</value>
     </title>
     <id>19</id>
     <valueType>
-      <types>TypeDescription</types>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>
