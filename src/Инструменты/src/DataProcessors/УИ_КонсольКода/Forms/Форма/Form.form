@@ -986,6 +986,60 @@
         <verticalStretch>true</verticalStretch>
         <rowFilter xsi:type="core:UndefinedValue"/>
       </items>
+      <items xsi:type="form:FormField">
+        <name>АлгоритмыПеременныеЗначениеТипЗначенияПредставление</name>
+        <id>191</id>
+        <title>
+          <key>ru</key>
+          <value>Тип переменной</value>
+        </title>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Items.АлгоритмыПеременные.CurrentData.ЗначениеТипЗначенияПредставление</segments>
+        </dataPath>
+        <extendedTooltip>
+          <name>АлгоритмыПеременныеЗначениеТипЗначенияПредставлениеРасширеннаяПодсказка</name>
+          <id>193</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <contextMenu>
+          <name>АлгоритмыПеременныеЗначениеТипЗначенияПредставлениеКонтекстноеМеню</name>
+          <id>192</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <autoFill>true</autoFill>
+        </contextMenu>
+        <type>InputField</type>
+        <readOnly>true</readOnly>
+        <editMode>Enter</editMode>
+        <showInHeader>true</showInHeader>
+        <headerHorizontalAlign>Left</headerHorizontalAlign>
+        <showInFooter>true</showInFooter>
+        <extInfo xsi:type="form:InputFieldExtInfo">
+          <autoMaxHeight>true</autoMaxHeight>
+          <wrap>true</wrap>
+          <chooseType>true</chooseType>
+          <typeDomainEnabled>true</typeDomainEnabled>
+          <textEdit>true</textEdit>
+        </extInfo>
+      </items>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -995,7 +1049,7 @@
         <key>ru</key>
         <value>Группа1</value>
       </title>
-      <width>30</width>
+      <width>40</width>
       <horizontalStretch>false</horizontalStretch>
       <verticalStretch>true</verticalStretch>
       <extendedTooltip>

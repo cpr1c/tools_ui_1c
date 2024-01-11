@@ -96,6 +96,10 @@
         <event>StartChoice</event>
         <name>СсылкаНачалоВыбора</name>
       </handlers>
+      <handlers>
+        <event>Clearing</event>
+        <name>СсылкаОчистка</name>
+      </handlers>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
