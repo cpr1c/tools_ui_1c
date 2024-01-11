@@ -74,6 +74,7 @@
   <commonPictures>CommonPicture.УИ_МакроКолонка</commonPictures>
   <commonPictures>CommonPicture.УИ_Поделиться</commonPictures>
   <commonPictures>CommonPicture.УИ_СкопироватьВБуферОбмена</commonPictures>
+  <commonPictures>CommonPicture.УИ_ОписаниеТипов</commonPictures>
   <roles>Role.УИ_ПолныеПрава</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
