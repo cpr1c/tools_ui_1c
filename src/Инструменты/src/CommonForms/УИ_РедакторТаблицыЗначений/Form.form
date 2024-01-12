@@ -644,7 +644,6 @@
   </handlers>
   <width>60</width>
   <height>40</height>
-  <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
