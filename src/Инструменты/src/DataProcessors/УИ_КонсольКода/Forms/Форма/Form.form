@@ -753,6 +753,10 @@
           <dataPath xsi:type="form:DataPath">
             <segments>Items.Алгоритмы.CurrentData.Переменные.Значение</segments>
           </dataPath>
+          <handlers>
+            <event>OnChange</event>
+            <name>АлгоритмыПеременныеЗначениеПриИзменении</name>
+          </handlers>
           <extendedTooltip>
             <name>АлгоритмыПеременныеЗначениеРасширеннаяПодсказка</name>
             <id>184</id>
