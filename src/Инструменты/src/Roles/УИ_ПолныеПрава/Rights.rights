@@ -166,7 +166,7 @@
 		</right>
 	</object>
 	<object>
-		<name>CommonForm.УИ_РедактированиеТабличногоДокумента</name>
+		<name>CommonForm.УИ_РедакторТабличногоДокумента</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

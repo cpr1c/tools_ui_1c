@@ -35,6 +35,9 @@
     <languageCode>ru</languageCode>
   </languages>
   <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
+  <commonPictures>CommonPicture.УИ_УвеличитьШрифт</commonPictures>
+  <commonPictures>CommonPicture.УИ_УменьшитьШрифт</commonPictures>
+  <commonPictures>CommonPicture.УИ_ТипДерево</commonPictures>
   <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
   <commonPictures>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</commonPictures>
   <commonPictures>CommonPicture.УИ_СостоянияПланаОбмена</commonPictures>
@@ -133,7 +136,7 @@
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <commonForms>CommonForm.УИ_НастройкиИнструментов</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
-  <commonForms>CommonForm.УИ_РедактированиеТабличногоДокумента</commonForms>
+  <commonForms>CommonForm.УИ_РедакторТабличногоДокумента</commonForms>
   <commonForms>CommonForm.УИ_СравнениеТабличныхДокументов</commonForms>
   <commonForms>CommonForm.УИ_НастройкиДинамическогоСписка</commonForms>
   <commonForms>CommonForm.УИ_ФормаКода</commonForms>

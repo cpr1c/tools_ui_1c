@@ -1614,6 +1614,21 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ДоступныеНаборыТипов</name>
+    <title>
+      <key>ru</key>
+      <value>Доступные наборы типов</value>
+    </title>
+    <id>23</id>
+    <valueType/>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>Применить</name>
     <title>

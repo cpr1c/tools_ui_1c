@@ -7,6 +7,37 @@
   <items xsi:type="form:FormGroup">
     <name>КоманднаяПанель</name>
     <id>3</id>
+    <items xsi:type="form:Button">
+      <name>Применить</name>
+      <id>276</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <extendedTooltip>
+        <name>ПрименитьРасширеннаяПодсказка</name>
+        <id>277</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <commandName>Form.Command.Применить</commandName>
+      <representation>Auto</representation>
+      <defaultButton>true</defaultButton>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <placementArea>UserCmds</placementArea>
+      <representationInContextMenu>Auto</representationInContextMenu>
+    </items>
     <items xsi:type="form:FormGroup">
       <name>ДействияСДокументом</name>
       <id>31</id>
@@ -35,7 +66,6 @@
         </extendedTooltip>
         <commandName>Form.Command.ЗаписатьИЗакрыть</commandName>
         <representation>Auto</representation>
-        <defaultButton>true</defaultButton>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
@@ -1992,6 +2022,23 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ВозвратХранилищаДляКонтейнераЗначения</name>
+    <title>
+      <key>ru</key>
+      <value>Возврат хранилища для контейнера значения</value>
+    </title>
+    <id>10</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ЗаписатьИЗакрыть</name>
     <title>
@@ -2052,6 +2099,9 @@
     <use>
       <common>true</common>
     </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_УвеличитьШрифт</picture>
+    </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>УвеличитьРазмерШрифта</name>
@@ -2074,6 +2124,9 @@
     <use>
       <common>true</common>
     </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>CommonPicture.УИ_УменьшитьШрифт</picture>
+    </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>УменьшитьРазмерШрифта</name>
@@ -2187,6 +2240,23 @@
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ПоказатьСкрытьОригинал</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>Применить</name>
+    <title>
+      <key>ru</key>
+      <value>Применить</value>
+    </title>
+    <id>33</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>Применить</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
