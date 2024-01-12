@@ -1614,23 +1614,6 @@
       <common>true</common>
     </edit>
   </attributes>
-  <attributes>
-    <name>НачальныйТипДанных</name>
-    <title>
-      <key>ru</key>
-      <value>Начальный тип данных</value>
-    </title>
-    <id>24</id>
-    <valueType>
-      <types>TypeDescription</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
   <formCommands>
     <name>Применить</name>
     <title>
