@@ -148,6 +148,7 @@
   <commonForms>CommonForm.УИ_РедакторСтруктуры</commonForms>
   <commonForms>CommonForm.УИ_РедакторСоответствия</commonForms>
   <commonForms>CommonForm.УИ_РедакторХранилищаЗначения</commonForms>
+  <commonForms>CommonForm.УИ_ФормаСпискаЗначений</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
