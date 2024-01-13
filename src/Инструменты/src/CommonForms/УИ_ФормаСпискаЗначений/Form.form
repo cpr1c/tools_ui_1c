@@ -292,6 +292,65 @@
         <textEdit>true</textEdit>
       </extInfo>
     </items>
+    <items xsi:type="form:FormField">
+      <name>ТаблицаСпискаКартинка</name>
+      <id>33</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаСписка.Картинка</segments>
+      </dataPath>
+      <extendedTooltip>
+        <name>ТаблицаСпискаКартинкаРасширеннаяПодсказка</name>
+        <id>35</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ТаблицаСпискаКартинкаКонтекстноеМеню</name>
+        <id>34</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>PictureField</type>
+      <editMode>Enter</editMode>
+      <cellHyperlink>true</cellHyperlink>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:ImageFieldExtInfo">
+        <handlers>
+          <event>Click</event>
+          <name>ТаблицаСпискаКартинкаНажатие</name>
+        </handlers>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <horizontalStretch>true</horizontalStretch>
+        <verticalStretch>true</verticalStretch>
+        <pictureSize>AutoSize</pictureSize>
+        <hyperlink>true</hyperlink>
+        <nonselectedPictureText>
+          <key>ru</key>
+          <value>&lt;Пустая></value>
+        </nonselectedPictureText>
+      </extInfo>
+    </items>
     <autoCommandBar>
       <name>ТаблицаСпискаКоманднаяПанель</name>
       <id>2</id>
@@ -303,6 +362,10 @@
       <horizontalAlign>Left</horizontalAlign>
       <autoFill>true</autoFill>
     </autoCommandBar>
+    <handlers>
+      <event>Selection</event>
+      <name>ТаблицаСпискаВыбор</name>
+    </handlers>
     <searchStringAddition>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -654,6 +717,23 @@
       <valueType>
         <types>String</types>
         <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Картинка</name>
+      <title>
+        <key>ru</key>
+        <value>Картинка</value>
+      </title>
+      <id>11</id>
+      <valueType>
+        <types>Picture</types>
       </valueType>
       <view>
         <common>true</common>
