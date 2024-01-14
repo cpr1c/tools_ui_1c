@@ -1609,6 +1609,10 @@
                 <event>StartChoice</event>
                 <name>РеквизитыОбъектаЗначениеНачалоВыбора</name>
               </handlers>
+              <handlers>
+                <event>Clearing</event>
+                <name>РеквизитыОбъектаЗначениеОчистка</name>
+              </handlers>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
               <wrap>true</wrap>
