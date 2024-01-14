@@ -1741,18 +1741,6 @@
             </userVisible>
             <horizontalAlign>Left</horizontalAlign>
           </autoCommandBar>
-          <handlers>
-            <event>Selection</event>
-            <name>РеквизитыОбъектаВыбор</name>
-          </handlers>
-          <handlers>
-            <event>OnActivateRow</event>
-            <name>РеквизитыОбъектаПриАктивизацииСтроки</name>
-          </handlers>
-          <handlers>
-            <event>BeforeRowChange</event>
-            <name>РеквизитыОбъектаПередНачаломИзменения</name>
-          </handlers>
           <searchStringAddition>
             <visible>true</visible>
             <enabled>true</enabled>
