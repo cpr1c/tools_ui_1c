@@ -7,9 +7,8 @@
   <name>УИ_Алгоритмы2</name>
   <synonym>
     <key>ru</key>
-    <value>Алгоритмы2</value>
+    <value>Алгоритмыбез расширения таблиц базы данных (УИ)</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_Алгоритмы2.Form.ФормаСписка</defaultForm>
   <forms uuid="66c05b72-88b7-4627-9967-e2532a1123d3">
     <name>ФормаСписка</name>
