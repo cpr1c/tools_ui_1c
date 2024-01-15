@@ -108,6 +108,7 @@
   <content>CommonForm.УИ_ФормаКода</content>
   <content>DataProcessor.УИ_ПарсерВстроенногоЯзыка</content>
   <content>DataProcessor.УИ_Алгоритмы2</content>
+  <content>DataProcessor.УИ_РедакторПараметровСеанса</content>
   <subsystems>УИ_Поддержка</subsystems>
   <subsystems>УИ_Отладка</subsystems>
 </mdclass:Subsystem>

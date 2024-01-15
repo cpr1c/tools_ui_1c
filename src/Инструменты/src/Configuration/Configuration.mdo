@@ -78,6 +78,7 @@
   <commonPictures>CommonPicture.УИ_Поделиться</commonPictures>
   <commonPictures>CommonPicture.УИ_СкопироватьВБуферОбмена</commonPictures>
   <commonPictures>CommonPicture.УИ_ОписаниеТипов</commonPictures>
+  <commonPictures>CommonPicture.УИ_ФиксированныйМассив</commonPictures>
   <roles>Role.УИ_ПолныеПрава</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
@@ -191,4 +192,5 @@
   <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторПараметровСеанса</dataProcessors>
 </mdclass:Configuration>
