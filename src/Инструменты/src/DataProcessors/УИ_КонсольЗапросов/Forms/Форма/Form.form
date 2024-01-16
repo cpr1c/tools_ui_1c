@@ -1543,7 +1543,6 @@
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:InputFieldExtInfo">
-            <width>3</width>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
@@ -1601,7 +1600,8 @@
         <key>ru</key>
         <value>Группа список запросов</value>
       </toolTip>
-      <width>36</width>
+      <width>30</width>
+      <horizontalStretch>false</horizontalStretch>
       <extendedTooltip>
         <name>ГруппаСписокЗапросовРасширеннаяПодсказка</name>
         <id>187</id>
