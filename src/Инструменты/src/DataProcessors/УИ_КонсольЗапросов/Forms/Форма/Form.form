@@ -391,6 +391,40 @@
         <locationInCommandBar>InCommandBar</locationInCommandBar>
       </items>
       <items xsi:type="form:Button">
+        <name>ПараметрыЗапросаРядомСТекстом</name>
+        <id>477</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <extendedTooltip>
+          <name>ПараметрыЗапросаРядомСТекстомРасширеннаяПодсказка</name>
+          <id>478</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <commandName>Form.Command.ПараметрыЗапросаРядомСТекстом</commandName>
+        <representation>Auto</representation>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <groupHorizontalAlign>Right</groupHorizontalAlign>
+        <placementArea>UserCmds</placementArea>
+        <check>true</check>
+        <representationInContextMenu>Auto</representationInContextMenu>
+        <pictureLocation>Right</pictureLocation>
+        <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
+      </items>
+      <items xsi:type="form:Button">
         <name>ФормаИзменитьФорму</name>
         <id>254</id>
         <visible>true</visible>
@@ -1177,7 +1211,7 @@
           <changeRowSet>true</changeRowSet>
           <changeRowOrder>true</changeRowOrder>
           <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
+          <height>3</height>
           <autoMaxRowsCount>true</autoMaxRowsCount>
           <selectionMode>MultiRow</selectionMode>
           <header>true</header>
@@ -1235,6 +1269,10 @@
         <items xsi:type="form:FormField">
           <name>ОпцияСохранятьКомментарии</name>
           <id>195</id>
+          <title>
+            <key>ru</key>
+            <value>Сохранять комментарии в конструкторе</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -1244,7 +1282,6 @@
             <segments>ОпцияСохранятьКомментарии</segments>
           </dataPath>
           <titleLocation>Right</titleLocation>
-          <titleHeight>3</titleHeight>
           <handlers>
             <event>OnChange</event>
             <name>ОпцияСохранятьКомментарииПриИзменении</name>
@@ -1284,6 +1321,10 @@
         <items xsi:type="form:FormField">
           <name>ОпцияАвтосохранениеПередВыполнениемЗапроса</name>
           <id>272</id>
+          <title>
+            <key>ru</key>
+            <value>Сохранять перед выполнением</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -1328,6 +1369,10 @@
         <items xsi:type="form:FormField">
           <name>ОпцияОбрабатывать__</name>
           <id>353</id>
+          <title>
+            <key>ru</key>
+            <value>Макро-колонки</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -1390,6 +1435,10 @@
         <items xsi:type="form:FormField">
           <name>ОпцияИнтервалАвтосохранения</name>
           <id>198</id>
+          <title>
+            <key>ru</key>
+            <value>Сохранять каждые, с.</value>
+          </title>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -1398,6 +1447,7 @@
           <dataPath xsi:type="form:DataPath">
             <segments>ОпцияИнтервалАвтосохранения</segments>
           </dataPath>
+          <titleLocation>Left</titleLocation>
           <handlers>
             <event>OnChange</event>
             <name>ОпцияИнтервалАвтосохраненияПриИзменении</name>
@@ -1433,8 +1483,9 @@
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:InputFieldExtInfo">
-            <autoMaxWidth>true</autoMaxWidth>
+            <width>2</width>
             <autoMaxHeight>true</autoMaxHeight>
+            <horizontalStretch>true</horizontalStretch>
             <wrap>true</wrap>
             <spinButton>true</spinButton>
             <chooseType>true</chooseType>
@@ -1447,7 +1498,7 @@
           <id>387</id>
           <title>
             <key>ru</key>
-            <value>Интервал обновления отображения состояния выполнения алгоритма, миллисекунды</value>
+            <value>Интервал обновления состояния выполнения алгоритма, мс</value>
           </title>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -1492,6 +1543,7 @@
           <headerHorizontalAlign>Left</headerHorizontalAlign>
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:InputFieldExtInfo">
+            <width>3</width>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <wrap>true</wrap>
@@ -1588,7 +1640,7 @@
               <id>481</id>
               <items xsi:type="form:FormGroup">
                 <name>ГруппаКоманднаяПанельЗапроса</name>
-                <id>479</id>
+                <id>634</id>
                 <items xsi:type="form:Button">
                   <name>КонструкторЗапросов</name>
                   <id>102</id>
@@ -1612,7 +1664,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.КонструкторЗапросов</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1643,7 +1694,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.СинтаксическийКонтрольЗапроса</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1675,7 +1725,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.ФорматироватьТекстЗапроса</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1707,7 +1756,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.ДобавитьПереносСтрокВТекст</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1741,7 +1789,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.УбратьПереносСтрокИзТекста</commandName>
                   <representation>Picture</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1775,7 +1822,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.ДобавитьКомментированиеСтрокВТекст</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1808,7 +1854,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.УбратьКомментированиеСтрокИзТекста</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1841,7 +1886,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.ВставитьПредопределенноеЗначение</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1873,7 +1917,6 @@
                       <horizontalAlign>Left</horizontalAlign>
                     </extInfo>
                   </extendedTooltip>
-                  <type>UsualButton</type>
                   <commandName>Form.Command.ВставитьМакроКолонку</commandName>
                   <representation>Auto</representation>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -1888,15 +1931,11 @@
                 </userVisible>
                 <title>
                   <key>ru</key>
-                  <value>Группа командная панель запроса</value>
+                  <value>Группа1</value>
                 </title>
-                <toolTip>
-                  <key>ru</key>
-                  <value>Группа командная панель запроса</value>
-                </toolTip>
                 <extendedTooltip>
                   <name>ГруппаКоманднаяПанельЗапросаРасширеннаяПодсказка</name>
-                  <id>480</id>
+                  <id>635</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -1909,52 +1948,14 @@
                     <horizontalAlign>Left</horizontalAlign>
                   </extInfo>
                 </extendedTooltip>
-                <type>UsualGroup</type>
-                <extInfo xsi:type="form:UsualGroupExtInfo">
-                  <group>AlwaysHorizontal</group>
-                  <showLeftMargin>true</showLeftMargin>
-                  <united>true</united>
-                  <throughAlign>Auto</throughAlign>
-                  <currentRowUse>Auto</currentRowUse>
+                <type>CommandBar</type>
+                <extInfo xsi:type="form:CommandBarExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </items>
               <items xsi:type="form:FormGroup">
                 <name>ГруппаКоманднаяПанельЗапросаПравая</name>
                 <id>111</id>
-                <items xsi:type="form:Button">
-                  <name>ПараметрыЗапросаРядомСТекстом</name>
-                  <id>477</id>
-                  <visible>true</visible>
-                  <enabled>true</enabled>
-                  <userVisible>
-                    <common>true</common>
-                  </userVisible>
-                  <extendedTooltip>
-                    <name>ПараметрыЗапросаРядомСТекстомРасширеннаяПодсказка</name>
-                    <id>478</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <type>Label</type>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
-                    <extInfo xsi:type="form:LabelDecorationExtInfo">
-                      <horizontalAlign>Left</horizontalAlign>
-                    </extInfo>
-                  </extendedTooltip>
-                  <commandName>Form.Command.ПараметрыЗапросаРядомСТекстом</commandName>
-                  <representation>Auto</representation>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <groupHorizontalAlign>Right</groupHorizontalAlign>
-                  <placementArea>UserCmds</placementArea>
-                  <check>true</check>
-                  <representationInContextMenu>Auto</representationInContextMenu>
-                  <pictureLocation>Right</pictureLocation>
-                  <locationInCommandBar>InCommandBarAndInAdditionalSubmenu</locationInCommandBar>
-                </items>
                 <items xsi:type="form:FormGroup">
                   <name>ГруппаКоманднаяПанельЗапросаПраваяПерехват</name>
                   <id>507</id>
@@ -2080,7 +2081,6 @@
                   </extendedTooltip>
                   <extInfo xsi:type="form:ButtonGroupExtInfo"/>
                 </items>
-                <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
                   <common>true</common>
@@ -2290,9 +2290,9 @@
                 <headerHorizontalAlign>Left</headerHorizontalAlign>
                 <showInFooter>true</showInFooter>
                 <extInfo xsi:type="form:TextDocFieldExtInfo">
-                  <width>50</width>
+                  <width>25</width>
                   <autoMaxWidth>true</autoMaxWidth>
-                  <height>10</height>
+                  <height>5</height>
                   <autoMaxHeight>true</autoMaxHeight>
                   <horizontalStretch>true</horizontalStretch>
                   <verticalStretch>true</verticalStretch>
@@ -2970,7 +2970,7 @@
                   <changeRowSet>true</changeRowSet>
                   <changeRowOrder>true</changeRowOrder>
                   <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
+                  <height>3</height>
                   <autoMaxRowsCount>true</autoMaxRowsCount>
                   <selectionMode>MultiRow</selectionMode>
                   <header>true</header>
@@ -3594,7 +3594,7 @@
             <changeRowSet>true</changeRowSet>
             <changeRowOrder>true</changeRowOrder>
             <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
+            <height>3</height>
             <autoMaxRowsCount>true</autoMaxRowsCount>
             <selectionMode>MultiRow</selectionMode>
             <header>true</header>
@@ -3724,9 +3724,9 @@
             <headerHorizontalAlign>Left</headerHorizontalAlign>
             <showInFooter>true</showInFooter>
             <extInfo xsi:type="form:TextDocFieldExtInfo">
-              <width>50</width>
+              <width>25</width>
               <autoMaxWidth>true</autoMaxWidth>
-              <height>10</height>
+              <height>3</height>
               <autoMaxHeight>true</autoMaxHeight>
               <horizontalStretch>true</horizontalStretch>
               <verticalStretch>true</verticalStretch>
@@ -4339,9 +4339,9 @@
               <headerHorizontalAlign>Left</headerHorizontalAlign>
               <showInFooter>true</showInFooter>
               <extInfo xsi:type="form:TextDocFieldExtInfo">
-                <width>50</width>
+                <width>25</width>
                 <autoMaxWidth>true</autoMaxWidth>
-                <height>10</height>
+                <height>3</height>
                 <autoMaxHeight>true</autoMaxHeight>
                 <horizontalStretch>true</horizontalStretch>
                 <verticalStretch>true</verticalStretch>
@@ -4573,7 +4573,7 @@
               <readOnly>true</readOnly>
               <width>14</width>
               <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
+              <height>3</height>
               <autoMaxRowsCount>true</autoMaxRowsCount>
               <selectionMode>MultiRow</selectionMode>
               <headerHeight>1</headerHeight>
@@ -4750,7 +4750,7 @@
       <key>ru</key>
       <value>Группа верхняя панель</value>
     </toolTip>
-    <width>100</width>
+    <height>6</height>
     <extendedTooltip>
       <name>ГруппаВерхняяПанельРасширеннаяПодсказка</name>
       <id>24</id>
@@ -5143,7 +5143,7 @@
             <id>245</id>
             <title>
               <key>ru</key>
-              <value>Ограничение строк</value>
+              <value>Строк</value>
             </title>
             <visible>true</visible>
             <userVisible>
@@ -5891,7 +5891,6 @@
             <value>Командная панель результата</value>
           </toolTip>
           <toolTipRepresentation>None</toolTipRepresentation>
-          <horizontalStretch>false</horizontalStretch>
           <extendedTooltip>
             <name>КоманднаяПанельРезультатаРасширеннаяПодсказка</name>
             <id>241</id>
@@ -5988,7 +5987,6 @@
             <value>Командная панель результата</value>
           </toolTip>
           <toolTipRepresentation>None</toolTipRepresentation>
-          <horizontalStretch>false</horizontalStretch>
           <extendedTooltip>
             <name>КоманднаяПанельРезультатаДеревоРасширеннаяПодсказка</name>
             <id>316</id>
@@ -6363,7 +6361,7 @@
         <readOnly>true</readOnly>
         <width>19</width>
         <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
+        <height>5</height>
         <autoMaxRowsCount>true</autoMaxRowsCount>
         <rowSelectionMode>Row</rowSelectionMode>
         <header>true</header>
@@ -6640,7 +6638,7 @@
             <autoFill>true</autoFill>
           </contextMenu>
           <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
+          <height>5</height>
           <autoMaxRowsCount>true</autoMaxRowsCount>
           <selectionMode>MultiRow</selectionMode>
           <header>true</header>
@@ -6875,7 +6873,7 @@
           </contextMenu>
           <representation>Tree</representation>
           <autoMaxWidth>true</autoMaxWidth>
-          <autoMaxHeight>true</autoMaxHeight>
+          <height>5</height>
           <autoMaxRowsCount>true</autoMaxRowsCount>
           <selectionMode>MultiRow</selectionMode>
           <header>true</header>
@@ -7308,7 +7306,7 @@
         <changeRowSet>true</changeRowSet>
         <changeRowOrder>true</changeRowOrder>
         <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
+        <height>5</height>
         <autoMaxRowsCount>true</autoMaxRowsCount>
         <selectionMode>MultiRow</selectionMode>
         <header>true</header>
@@ -7373,6 +7371,7 @@
       <key>ru</key>
       <value>Группа нижняя панель</value>
     </toolTip>
+    <height>5</height>
     <extendedTooltip>
       <name>ГруппаНижняяПанельРасширеннаяПодсказка</name>
       <id>26</id>
