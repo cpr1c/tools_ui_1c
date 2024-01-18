@@ -7,7 +7,7 @@
   <name>УИ_РедакторПараметровСеанса</name>
   <synonym>
     <key>ru</key>
-    <value>Редактор параметров сеанса</value>
+    <value>Редактор параметров сеанса(УИ)</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторПараметровСеанса.Form.Форма</defaultForm>
