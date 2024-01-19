@@ -28,4 +28,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="4cc47e41-d0de-4add-9111-0d784fe62845">
+    <name>ФормаПодробнойИнформацииОЗапросе</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма подробной информации о запросе</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
 </mdclass:DataProcessor>

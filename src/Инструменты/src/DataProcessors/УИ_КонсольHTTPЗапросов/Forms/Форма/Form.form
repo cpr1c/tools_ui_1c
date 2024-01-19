@@ -3637,7 +3637,7 @@
                   </extInfo>
                 </items>
                 <items xsi:type="form:Button">
-                  <name>СохранитьДвоичныеДанныеТелаЗапроса</name>
+                  <name>СохранитьДвоичныеДанныеТелаОтвета</name>
                   <id>408</id>
                   <title>
                     <key>ru</key>
@@ -3649,7 +3649,7 @@
                     <common>true</common>
                   </userVisible>
                   <extendedTooltip>
-                    <name>СохранитьДвоичныеДанныеТелаЗапросаРасширеннаяПодсказка</name>
+                    <name>СохранитьДвоичныеДанныеТелаОтветаРасширеннаяПодсказка</name>
                     <id>409</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
@@ -4038,7 +4038,7 @@
                 <common>true</common>
               </userVisible>
               <dataPath xsi:type="form:DataPath">
-                <segments>Items.ДеревоЗапросов.CurrentData.ИсторияЗапросов.URL</segments>
+                <segments>Items.ДеревоЗапросов.CurrentData.ИсторияЗапросов.URLЗапроса</segments>
               </dataPath>
               <extendedTooltip>
                 <name>ДеревоЗапросовИсторияЗапросовURLРасширеннаяПодсказка</name>
@@ -4167,6 +4167,40 @@
           <autoCommandBar>
             <name>ДеревоЗапросовИсторияЗапросовКоманднаяПанель</name>
             <id>503</id>
+            <items xsi:type="form:Button">
+              <name>ДеревоЗапросовИсторияЗапросовПодробнаяИнформацияПоЗаписиИсторииЗапроса</name>
+              <id>534</id>
+              <title>
+                <key>ru</key>
+                <value>Подробно</value>
+              </title>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>ДеревоЗапросовИсторияЗапросовПодробнаяИнформацияПоЗаписиИсторииЗапросаРасширеннаяПодсказка</name>
+                <id>535</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.ПодробнаяИнформацияПоЗаписиИсторииЗапроса</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -4308,6 +4342,40 @@
           <contextMenu>
             <name>ДеревоЗапросовИсторияЗапросовКонтекстноеМеню</name>
             <id>504</id>
+            <items xsi:type="form:Button">
+              <name>ДеревоЗапросовИсторияЗапросовКонтекстноеМенюПодробнаяИнформацияПоЗаписиИсторииЗапроса</name>
+              <id>532</id>
+              <title>
+                <key>ru</key>
+                <value>Подробно</value>
+              </title>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>ДеревоЗапросовИсторияЗапросовКонтекстноеМенюПодробнаяИнформацияПоЗаписиИсторииЗапросаРасширеннаяПодсказка</name>
+                <id>533</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.ПодробнаяИнформацияПоЗаписиИсторииЗапроса</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -5353,7 +5421,7 @@
         </edit>
       </columns>
       <columns>
-        <name>URL</name>
+        <name>URLЗапроса</name>
         <title>
           <key>ru</key>
           <value>URL</value>
@@ -6222,6 +6290,23 @@
     </action>
     <representation>Picture</representation>
     <currentRowUse>DontUse</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ПодробнаяИнформацияПоЗаписиИсторииЗапроса</name>
+    <title>
+      <key>ru</key>
+      <value>Подробная информация по записи истории запроса</value>
+    </title>
+    <id>16</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ПодробнаяИнформацияПоЗаписиИсторииЗапроса</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
     <navigationPanel/>
