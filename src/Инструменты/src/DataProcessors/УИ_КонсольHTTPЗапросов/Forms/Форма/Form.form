@@ -4201,6 +4201,40 @@
               <placementArea>UserCmds</placementArea>
               <representationInContextMenu>Auto</representationInContextMenu>
             </items>
+            <items xsi:type="form:Button">
+              <name>ДеревоЗапросовИсторияЗапросовСкопироватьДанныеСтрокиИсторииВЗапрос</name>
+              <id>536</id>
+              <title>
+                <key>ru</key>
+                <value>В запрос</value>
+              </title>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>ДеревоЗапросовИсторияЗапросовСкопироватьДанныеСтрокиИсторииВЗапросРасширеннаяПодсказка</name>
+                <id>537</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.СкопироватьДанныеСтрокиИсторииВЗапрос</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
             <visible>true</visible>
             <enabled>true</enabled>
             <userVisible>
@@ -4370,6 +4404,40 @@
                 </extInfo>
               </extendedTooltip>
               <commandName>Form.Command.ПодробнаяИнформацияПоЗаписиИсторииЗапроса</commandName>
+              <representation>Auto</representation>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <placementArea>UserCmds</placementArea>
+              <representationInContextMenu>Auto</representationInContextMenu>
+            </items>
+            <items xsi:type="form:Button">
+              <name>ДеревоЗапросовИсторияЗапросовКонтекстноеМенюСкопироватьДанныеСтрокиИсторииВЗапрос</name>
+              <id>538</id>
+              <title>
+                <key>ru</key>
+                <value>Скопировать в запрос</value>
+              </title>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <extendedTooltip>
+                <name>ДеревоЗапросовИсторияЗапросовКонтекстноеМенюСкопироватьДанныеСтрокиИсторииВЗапросРасширеннаяПодсказка</name>
+                <id>539</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <commandName>Form.Command.СкопироватьДанныеСтрокиИсторииВЗапрос</commandName>
               <representation>Auto</representation>
               <autoMaxWidth>true</autoMaxWidth>
               <autoMaxHeight>true</autoMaxHeight>
@@ -6304,6 +6372,23 @@
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>ПодробнаяИнформацияПоЗаписиИсторииЗапроса</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>СкопироватьДанныеСтрокиИсторииВЗапрос</name>
+    <title>
+      <key>ru</key>
+      <value>Скопировать данные строки истории в запрос</value>
+    </title>
+    <id>17</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>СкопироватьДанныеСтрокиИсторииВЗапрос</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
