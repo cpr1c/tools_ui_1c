@@ -970,6 +970,61 @@
                   <name>ГруппаСвойстваСтроковогоТелаЗапроса</name>
                   <id>179</id>
                   <items xsi:type="form:FormField">
+                    <name>ДеревоЗапросовТипСтроковогоСодержимого</name>
+                    <id>540</id>
+                    <title>
+                      <key>ru</key>
+                      <value>Тип</value>
+                    </title>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.ДеревоЗапросов.CurrentData.ТипСтроковогоСодержимого</segments>
+                    </dataPath>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТипСтроковогоСодержимогоРасширеннаяПодсказка</name>
+                      <id>542</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТипСтроковогоСодержимогоКонтекстноеМеню</name>
+                      <id>541</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>InputField</type>
+                    <editMode>Enter</editMode>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:InputFieldExtInfo">
+                      <width>5</width>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <wrap>true</wrap>
+                      <listChoiceMode>true</listChoiceMode>
+                      <chooseType>true</chooseType>
+                      <typeDomainEnabled>true</typeDomainEnabled>
+                    </extInfo>
+                  </items>
+                  <items xsi:type="form:FormField">
                     <name>ИспользоватьBOM</name>
                     <id>60</id>
                     <title>
@@ -4995,24 +5050,6 @@
       </edit>
     </columns>
     <columns>
-      <name>СтруктураJSON</name>
-      <title>
-        <key>ru</key>
-        <value>Структура JSON</value>
-      </title>
-      <id>74</id>
-      <valueType>
-        <types>String</types>
-        <stringQualifiers/>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
       <name>ЗапросHTTP</name>
       <title>
         <key>ru</key>
@@ -5322,6 +5359,24 @@
       <id>108</id>
       <valueType>
         <types>ValueTable</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипСтроковогоСодержимого</name>
+      <title>
+        <key>ru</key>
+        <value>Тип строкового содержимого</value>
+      </title>
+      <id>140</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
       </valueType>
       <view>
         <common>true</common>
