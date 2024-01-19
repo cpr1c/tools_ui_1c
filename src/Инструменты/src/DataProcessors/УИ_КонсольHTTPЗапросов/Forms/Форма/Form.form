@@ -984,6 +984,10 @@
                     <dataPath xsi:type="form:DataPath">
                       <segments>Items.ДеревоЗапросов.CurrentData.ТипСтроковогоСодержимого</segments>
                     </dataPath>
+                    <handlers>
+                      <event>OnChange</event>
+                      <name>ДеревоЗапросовТипСтроковогоСодержимогоПриИзменении</name>
+                    </handlers>
                     <extendedTooltip>
                       <name>ДеревоЗапросовТипСтроковогоСодержимогоРасширеннаяПодсказка</name>
                       <id>542</id>
@@ -1123,6 +1127,10 @@
                       <segments>Items.ДеревоЗапросов.CurrentData.КодировкаТела</segments>
                     </dataPath>
                     <titleLocation>Top</titleLocation>
+                    <handlers>
+                      <event>OnChange</event>
+                      <name>КодировкаТелаЗапросаПриИзменении</name>
+                    </handlers>
                     <extendedTooltip>
                       <name>ПолеРасширеннаяПодсказка8</name>
                       <id>59</id>
