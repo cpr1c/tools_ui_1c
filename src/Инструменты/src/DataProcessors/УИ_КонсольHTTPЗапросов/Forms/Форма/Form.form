@@ -558,7 +558,7 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <width>25</width>
+      <width>20</width>
       <horizontalStretch>false</horizontalStretch>
       <extendedTooltip>
         <name>ГруппаДеревоЗапросовРасширеннаяПодсказка</name>
