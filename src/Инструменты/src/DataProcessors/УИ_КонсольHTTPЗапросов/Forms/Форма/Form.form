@@ -1823,7 +1823,7 @@
                     <headerHorizontalAlign>Left</headerHorizontalAlign>
                     <showInFooter>true</showInFooter>
                     <extInfo xsi:type="form:InputFieldExtInfo">
-                      <width>1</width>
+                      <width>5</width>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <wrap>true</wrap>
@@ -5976,6 +5976,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
   </attributes>
   <attributes>
     <name>ТаблицаЗаголовковЗапроса</name>
@@ -5993,6 +5994,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <savedData>true</savedData>
     <columns>
       <name>Ключ</name>
       <title>
@@ -7513,6 +7515,24 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>РазделительТелаМультипарт</name>
+    <title>
+      <key>ru</key>
+      <value>Разделитель тела мультипарт</value>
+    </title>
+    <id>148</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ВыполнитьЗапрос</name>
     <title>
@@ -7549,6 +7569,7 @@
         <name>ЗаполнитьДвоичныеДанныеТелаИзФайла</name>
       </handler>
     </action>
+    <modifiesStoredData>true</modifiesStoredData>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
