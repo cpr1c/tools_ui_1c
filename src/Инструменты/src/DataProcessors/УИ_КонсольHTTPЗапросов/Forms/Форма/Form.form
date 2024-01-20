@@ -1536,6 +1536,85 @@
                   <showTitle>true</showTitle>
                 </extInfo>
               </items>
+              <items xsi:type="form:FormGroup">
+                <name>ГруппаСтраницаТелаЗапросаБезТела</name>
+                <id>543</id>
+                <items xsi:type="form:Decoration">
+                  <name>ДекорацияНадписьБезТелаЗапроса</name>
+                  <id>544</id>
+                  <title>
+                    <key>ru</key>
+                    <value>Установка тела запроса не будет произведена</value>
+                  </title>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <extendedTooltip>
+                    <name>ДекорацияНадписьБезТелаЗапросаРасширеннаяПодсказка</name>
+                    <id>551</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <type>Label</type>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <extInfo xsi:type="form:LabelDecorationExtInfo">
+                      <horizontalAlign>Left</horizontalAlign>
+                    </extInfo>
+                  </extendedTooltip>
+                  <contextMenu>
+                    <name>ДекорацияНадписьБезТелаЗапросаКонтекстноеМеню</name>
+                    <id>550</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <autoFill>true</autoFill>
+                  </contextMenu>
+                  <formatted>true</formatted>
+                  <type>Label</type>
+                  <horizontalStretch>true</horizontalStretch>
+                  <verticalStretch>true</verticalStretch>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Center</horizontalAlign>
+                    <verticalAlign>Center</verticalAlign>
+                  </extInfo>
+                </items>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <title>
+                  <key>ru</key>
+                  <value>Группа страница тела запроса без тела</value>
+                </title>
+                <extendedTooltip>
+                  <name>ГруппаСтраницаТелаЗапросаБезТелаРасширеннаяПодсказка</name>
+                  <id>546</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <type>Page</type>
+                <extInfo xsi:type="form:PageGroupExtInfo">
+                  <group>Vertical</group>
+                  <showTitle>true</showTitle>
+                </extInfo>
+              </items>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
@@ -1831,7 +1910,7 @@
                   <titleLocation>None</titleLocation>
                   <items xsi:type="form:FormField">
                     <name>ТаблицаЗаголовковЗапросаИспользование</name>
-                    <id>497</id>
+                    <id>552</id>
                     <title>
                       <key>ru</key>
                       <value>Исп.</value>
@@ -2310,7 +2389,7 @@
               </items>
               <items xsi:type="form:FormField">
                 <name>ПараметрыURLИмя</name>
-                <id>494</id>
+                <id>545</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
                 <userVisible>
@@ -2321,7 +2400,7 @@
                 </dataPath>
                 <extendedTooltip>
                   <name>ПараметрыURLИмяРасширеннаяПодсказка</name>
-                  <id>496</id>
+                  <id>548</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -2336,7 +2415,7 @@
                 </extendedTooltip>
                 <contextMenu>
                   <name>ПараметрыURLИмяКонтекстноеМеню</name>
-                  <id>495</id>
+                  <id>547</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -2371,7 +2450,7 @@
                 </dataPath>
                 <extendedTooltip>
                   <name>ПараметрыURLЗначениеРасширеннаяПодсказка</name>
-                  <id>493</id>
+                  <id>549</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>

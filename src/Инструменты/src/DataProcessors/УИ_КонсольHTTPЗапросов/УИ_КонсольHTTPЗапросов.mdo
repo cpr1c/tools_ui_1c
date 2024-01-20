@@ -19,20 +19,20 @@
     <key>ru</key>
     <value>позволяет из 1С делать HTTP запросы</value>
   </explanation>
-  <forms uuid="e711f244-31f1-498c-93b7-69bc01bc7664">
-    <name>Форма</name>
-    <synonym>
-      <key>ru</key>
-      <value>Форма</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
   <forms uuid="4cc47e41-d0de-4add-9111-0d784fe62845">
     <name>ФормаПодробнойИнформацииОЗапросе</name>
     <synonym>
       <key>ru</key>
       <value>Форма подробной информации о запросе</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="fb362d57-bbfe-4c36-836d-18ce94163f37">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
