@@ -1538,10 +1538,10 @@
               </items>
               <items xsi:type="form:FormGroup">
                 <name>ГруппаСтраницаТелаЗапросаБезТела</name>
-                <id>543</id>
+                <id>629</id>
                 <items xsi:type="form:Decoration">
                   <name>ДекорацияНадписьБезТелаЗапроса</name>
-                  <id>544</id>
+                  <id>631</id>
                   <title>
                     <key>ru</key>
                     <value>Установка тела запроса не будет произведена</value>
@@ -1553,7 +1553,7 @@
                   </userVisible>
                   <extendedTooltip>
                     <name>ДекорацияНадписьБезТелаЗапросаРасширеннаяПодсказка</name>
-                    <id>551</id>
+                    <id>633</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
                     <userVisible>
@@ -1568,7 +1568,7 @@
                   </extendedTooltip>
                   <contextMenu>
                     <name>ДекорацияНадписьБезТелаЗапросаКонтекстноеМеню</name>
-                    <id>550</id>
+                    <id>632</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
                     <userVisible>
@@ -1576,7 +1576,6 @@
                     </userVisible>
                     <autoFill>true</autoFill>
                   </contextMenu>
-                  <formatted>true</formatted>
                   <type>Label</type>
                   <horizontalStretch>true</horizontalStretch>
                   <verticalStretch>true</verticalStretch>
@@ -1592,11 +1591,433 @@
                 </userVisible>
                 <title>
                   <key>ru</key>
-                  <value>Группа страница тела запроса без тела</value>
+                  <value>Группа1</value>
                 </title>
                 <extendedTooltip>
                   <name>ГруппаСтраницаТелаЗапросаБезТелаРасширеннаяПодсказка</name>
-                  <id>546</id>
+                  <id>630</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <type>Page</type>
+                <extInfo xsi:type="form:PageGroupExtInfo">
+                  <group>Vertical</group>
+                  <showTitle>true</showTitle>
+                </extInfo>
+              </items>
+              <items xsi:type="form:FormGroup">
+                <name>ГруппаСтраницаТелаМультипарт</name>
+                <id>543</id>
+                <items xsi:type="form:Table">
+                  <name>ДеревоЗапросовТелоМультипарт</name>
+                  <id>602</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>Items.ДеревоЗапросов.CurrentData.ТелоМультипарт</segments>
+                  </dataPath>
+                  <titleLocation>None</titleLocation>
+                  <items xsi:type="form:FormField">
+                    <name>ДеревоЗапросовТелоМультипартИспользование</name>
+                    <id>615</id>
+                    <title>
+                      <key>ru</key>
+                      <value>Исп.</value>
+                    </title>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.ДеревоЗапросов.CurrentData.ТелоМультипарт.Использование</segments>
+                    </dataPath>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТелоМультипартИспользованиеРасширеннаяПодсказка</name>
+                      <id>617</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТелоМультипартИспользованиеКонтекстноеМеню</name>
+                      <id>616</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>CheckBoxField</type>
+                    <editMode>Enter</editMode>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+                  </items>
+                  <items xsi:type="form:FormField">
+                    <name>ДеревоЗапросовТелоМультипартИмя</name>
+                    <id>618</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.ДеревоЗапросов.CurrentData.ТелоМультипарт.Имя</segments>
+                    </dataPath>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТелоМультипартИмяРасширеннаяПодсказка</name>
+                      <id>620</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТелоМультипартИмяКонтекстноеМеню</name>
+                      <id>619</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>InputField</type>
+                    <editMode>Enter</editMode>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:InputFieldExtInfo">
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <wrap>true</wrap>
+                      <chooseType>true</chooseType>
+                      <typeDomainEnabled>true</typeDomainEnabled>
+                      <textEdit>true</textEdit>
+                    </extInfo>
+                  </items>
+                  <items xsi:type="form:FormField">
+                    <name>ДеревоЗапросовТелоМультипартЗначение</name>
+                    <id>624</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.ДеревоЗапросов.CurrentData.ТелоМультипарт.Значение</segments>
+                    </dataPath>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТелоМультипартЗначениеРасширеннаяПодсказка</name>
+                      <id>626</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТелоМультипартЗначениеКонтекстноеМеню</name>
+                      <id>625</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>InputField</type>
+                    <editMode>Enter</editMode>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:InputFieldExtInfo">
+                      <handlers>
+                        <event>StartChoice</event>
+                        <name>ДеревоЗапросовТелоМультипартЗначениеНачалоВыбора</name>
+                      </handlers>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <wrap>true</wrap>
+                      <choiceButton>true</choiceButton>
+                      <chooseType>true</chooseType>
+                      <typeDomainEnabled>true</typeDomainEnabled>
+                      <textEdit>true</textEdit>
+                    </extInfo>
+                  </items>
+                  <items xsi:type="form:FormField">
+                    <name>ДеревоЗапросовТелоМультипартВид</name>
+                    <id>621</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.ДеревоЗапросов.CurrentData.ТелоМультипарт.Вид</segments>
+                    </dataPath>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТелоМультипартВидРасширеннаяПодсказка</name>
+                      <id>623</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТелоМультипартВидКонтекстноеМеню</name>
+                      <id>622</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>InputField</type>
+                    <editMode>Enter</editMode>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:InputFieldExtInfo">
+                      <width>1</width>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <wrap>true</wrap>
+                      <listChoiceMode>true</listChoiceMode>
+                      <typeDomainEnabled>true</typeDomainEnabled>
+                    </extInfo>
+                  </items>
+                  <autoCommandBar>
+                    <name>ДеревоЗапросовТелоМультипартКоманднаяПанель</name>
+                    <id>603</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <horizontalAlign>Left</horizontalAlign>
+                    <autoFill>true</autoFill>
+                  </autoCommandBar>
+                  <handlers>
+                    <event>OnStartEdit</event>
+                    <name>ДеревоЗапросовТелоМультипартПриНачалеРедактирования</name>
+                  </handlers>
+                  <searchStringAddition>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <name>ДеревоЗапросовТелоМультипартСтрокаПоиска</name>
+                    <id>606</id>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТелоМультипартСтрокаПоискаРасширеннаяПодсказка</name>
+                      <id>608</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТелоМультипартСтрокаПоискаКонтекстноеМеню</name>
+                      <id>607</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <source>ДеревоЗапросовТелоМультипартСтрокаПоиска</source>
+                    <extInfo xsi:type="form:SearchStringAdditionExtInfo">
+                      <autoMaxWidth>true</autoMaxWidth>
+                    </extInfo>
+                  </searchStringAddition>
+                  <viewStatusAddition>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <name>ДеревоЗапросовТелоМультипартСостояниеПросмотра</name>
+                    <id>612</id>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТелоМультипартСостояниеПросмотраРасширеннаяПодсказка</name>
+                      <id>614</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТелоМультипартСостояниеПросмотраКонтекстноеМеню</name>
+                      <id>613</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>ViewStatusAddition</type>
+                    <source>ДеревоЗапросовТелоМультипартСостояниеПросмотра</source>
+                    <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
+                      <autoMaxWidth>true</autoMaxWidth>
+                    </extInfo>
+                  </viewStatusAddition>
+                  <searchControlAddition>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <name>ДеревоЗапросовТелоМультипартУправлениеПоиском</name>
+                    <id>609</id>
+                    <extendedTooltip>
+                      <name>ДеревоЗапросовТелоМультипартУправлениеПоискомРасширеннаяПодсказка</name>
+                      <id>611</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ДеревоЗапросовТелоМультипартУправлениеПоискомКонтекстноеМеню</name>
+                      <id>610</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>SearchControlAddition</type>
+                    <source>ДеревоЗапросовТелоМультипартУправлениеПоиском</source>
+                    <extInfo xsi:type="form:SearchControlAdditionExtInfo">
+                      <autoMaxWidth>true</autoMaxWidth>
+                    </extInfo>
+                  </searchControlAddition>
+                  <extendedTooltip>
+                    <name>ДеревоЗапросовТелоМультипартРасширеннаяПодсказка</name>
+                    <id>605</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <type>Label</type>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <extInfo xsi:type="form:LabelDecorationExtInfo">
+                      <horizontalAlign>Left</horizontalAlign>
+                    </extInfo>
+                  </extendedTooltip>
+                  <contextMenu>
+                    <name>ДеревоЗапросовТелоМультипартКонтекстноеМеню</name>
+                    <id>604</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <autoFill>true</autoFill>
+                  </contextMenu>
+                  <changeRowSet>true</changeRowSet>
+                  <changeRowOrder>true</changeRowOrder>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <autoMaxRowsCount>true</autoMaxRowsCount>
+                  <selectionMode>MultiRow</selectionMode>
+                  <header>true</header>
+                  <headerHeight>1</headerHeight>
+                  <footerHeight>1</footerHeight>
+                  <horizontalScrollBar>AutoUse</horizontalScrollBar>
+                  <verticalScrollBar>AutoUse</verticalScrollBar>
+                  <horizontalLines>true</horizontalLines>
+                  <verticalLines>true</verticalLines>
+                  <searchOnInput>Auto</searchOnInput>
+                  <initialListView>Auto</initialListView>
+                  <horizontalStretch>true</horizontalStretch>
+                  <verticalStretch>true</verticalStretch>
+                  <rowFilter xsi:type="core:UndefinedValue"/>
+                </items>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <title>
+                  <key>ru</key>
+                  <value>Группа1</value>
+                </title>
+                <extendedTooltip>
+                  <name>ГруппаСтраницаТелаМультипартРасширеннаяПодсказка</name>
+                  <id>544</id>
                   <visible>true</visible>
                   <enabled>true</enabled>
                   <userVisible>
@@ -1979,9 +2400,9 @@
                     <headerHorizontalAlign>Left</headerHorizontalAlign>
                     <showInFooter>true</showInFooter>
                     <extInfo xsi:type="form:InputFieldExtInfo">
-                      <autoMaxWidth>true</autoMaxWidth>
                       <height>3</height>
                       <autoMaxHeight>true</autoMaxHeight>
+                      <horizontalStretch>true</horizontalStretch>
                       <verticalStretch>false</verticalStretch>
                       <wrap>true</wrap>
                       <multiLine>true</multiLine>
@@ -5469,6 +5890,36 @@
         <representation>Auto</representation>
       </extInfo>
     </items>
+    <items xsi:type="form:Button">
+      <name>ФормаИзменитьФорму</name>
+      <id>627</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <extendedTooltip>
+        <name>ФормаИзменитьФормуРасширеннаяПодсказка</name>
+        <id>628</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <commandName>Form.StandardCommand.CustomizeForm</commandName>
+      <representation>Auto</representation>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <placementArea>UserCmds</placementArea>
+      <representationInContextMenu>Auto</representationInContextMenu>
+    </items>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -6212,6 +6663,23 @@
         <common>true</common>
       </edit>
     </columns>
+    <columns>
+      <name>ТелоМультипарт</name>
+      <title>
+        <key>ru</key>
+        <value>Тело мультипарт</value>
+      </title>
+      <id>148</id>
+      <valueType>
+        <types>ValueTable</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
         <segments>ДеревоЗапросов.Заголовки</segments>
@@ -6830,6 +7298,82 @@
           <value>Тело ответа двоичные данные строкой</value>
         </title>
         <id>137</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+    </additionalColumns>
+    <additionalColumns>
+      <tablePath xsi:type="form:DataPath">
+        <segments>ДеревоЗапросов.ТелоМультипарт</segments>
+      </tablePath>
+      <columns>
+        <name>Использование</name>
+        <title>
+          <key>ru</key>
+          <value>Использование</value>
+        </title>
+        <id>148</id>
+        <valueType>
+          <types>Boolean</types>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>Имя</name>
+        <title>
+          <key>ru</key>
+          <value>Имя</value>
+        </title>
+        <id>149</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>Вид</name>
+        <title>
+          <key>ru</key>
+          <value>Вид</value>
+        </title>
+        <id>150</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>Значение</name>
+        <title>
+          <key>ru</key>
+          <value>Значение</value>
+        </title>
+        <id>151</id>
         <valueType>
           <types>String</types>
           <stringQualifiers/>
