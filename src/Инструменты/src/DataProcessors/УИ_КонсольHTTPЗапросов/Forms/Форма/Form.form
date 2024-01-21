@@ -1183,7 +1183,7 @@
                   </items>
                   <items xsi:type="form:Button">
                     <name>РедактироватьТелоЗапросаВРедактореJSON</name>
-                    <id>275</id>
+                    <id>587</id>
                     <visible>true</visible>
                     <enabled>true</enabled>
                     <userVisible>
@@ -1191,7 +1191,7 @@
                     </userVisible>
                     <extendedTooltip>
                       <name>РедактироватьТелоЗапросаВРедактореJSONРасширеннаяПодсказка</name>
-                      <id>276</id>
+                      <id>588</id>
                       <visible>true</visible>
                       <enabled>true</enabled>
                       <userVisible>
@@ -1204,11 +1204,12 @@
                         <horizontalAlign>Left</horizontalAlign>
                       </extInfo>
                     </extendedTooltip>
-                    <type>UsualButton</type>
+                    <type>Hyperlink</type>
                     <commandName>Form.Command.РедактироватьТелоЗапросаВРедактореJSON</commandName>
-                    <representation>Auto</representation>
-                    <autoMaxWidth>true</autoMaxWidth>
-                    <autoMaxHeight>true</autoMaxHeight>
+                    <representation>Picture</representation>
+                    <onlyInAllActions>false</onlyInAllActions>
+                    <width>4</width>
+                    <height>1</height>
                     <placementArea>UserCmds</placementArea>
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
