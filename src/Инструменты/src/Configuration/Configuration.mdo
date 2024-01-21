@@ -79,6 +79,7 @@
   <commonPictures>CommonPicture.УИ_СкопироватьВБуферОбмена</commonPictures>
   <commonPictures>CommonPicture.УИ_ОписаниеТипов</commonPictures>
   <commonPictures>CommonPicture.УИ_ФиксированныйМассив</commonPictures>
+  <commonPictures>CommonPicture.УИ_СгенерированныйКод</commonPictures>
   <roles>Role.УИ_ПолныеПрава</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
@@ -122,6 +123,7 @@
   <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_УправлениеКонфигураторомКлиент</commonModules>
+  <commonModules>CommonModule.УИ_ГенераторКода</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
