@@ -615,7 +615,7 @@
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
-            <name>ДеревоОтчетовОткрытьВКонсолеЗапросов</name>
+            <name>ДеревоОтчетовОткрытьВКонсолиЗапросов</name>
             <id>885</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -623,7 +623,7 @@
               <common>true</common>
             </userVisible>
             <extendedTooltip>
-              <name>ДеревоОтчетовОткрытьВКонсолеЗапросовРасширеннаяПодсказка</name>
+              <name>ДеревоОтчетовОткрытьВКонсолиЗапросовРасширеннаяПодсказка</name>
               <id>886</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -637,8 +637,9 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОткрытьВКонсолеЗапросов</commandName>
+            <commandName>Form.Command.ОткрытьВКонсолиЗапросов</commandName>
             <representation>Auto</representation>
+            <onlyInAllActions>false</onlyInAllActions>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
@@ -919,7 +920,7 @@
                 <horizontalAlign>Left</horizontalAlign>
               </extInfo>
             </extendedTooltip>
-            <commandName>Form.Command.ОткрытьВКонсолеЗапросов</commandName>
+            <commandName>Form.Command.ОткрытьВКонсолиЗапросов</commandName>
             <representation>Auto</representation>
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
@@ -14866,10 +14867,10 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>ОткрытьВКонсолеЗапросов</name>
+    <name>ОткрытьВКонсолиЗапросов</name>
     <title>
       <key>ru</key>
-      <value>Открыть в консоле запросов</value>
+      <value>Открыть в консоли запросов</value>
     </title>
     <id>33</id>
     <use>
@@ -14880,7 +14881,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>ОткрытьВКонсолеЗапросов</name>
+        <name>ОткрытьВКонсолиЗапросов</name>
       </handler>
     </action>
     <representation>TextPicture</representation>
