@@ -1110,6 +1110,24 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>АдресДвоичныхДанныхКомпонентыРаботыСБуферомОбмена</name>
+    <title>
+      <key>ru</key>
+      <value>Адрес двоичных данных компоненты работы с буфером обмена</value>
+    </title>
+    <id>7</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ВопросРазработчику</name>
     <title>
