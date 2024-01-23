@@ -185,7 +185,7 @@
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
-    <name>ОписаниеИзменений</name>
+    <name>ПолеИзменений</name>
     <id>11</id>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -193,10 +193,11 @@
       <common>true</common>
     </userVisible>
     <dataPath xsi:type="form:DataPath">
-      <segments>ОписаниеИзменений</segments>
+      <segments>ПолеИзменений</segments>
     </dataPath>
+    <titleLocation>None</titleLocation>
     <extendedTooltip>
-      <name>ПолеРасширеннаяПодсказка1</name>
+      <name>ПолеИзмененийРасширеннаяПодсказка</name>
       <id>13</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -211,7 +212,7 @@
       </extInfo>
     </extendedTooltip>
     <contextMenu>
-      <name>ПолеКонтекстноеМеню1</name>
+      <name>ПолеИзмененийКонтекстноеМеню</name>
       <id>12</id>
       <visible>true</visible>
       <enabled>true</enabled>
@@ -220,13 +221,21 @@
       </userVisible>
       <autoFill>true</autoFill>
     </contextMenu>
-    <type>TextDocumentField</type>
+    <type>HTMLDocumentField</type>
     <readOnly>true</readOnly>
     <editMode>Enter</editMode>
     <showInHeader>true</showInHeader>
     <headerHorizontalAlign>Left</headerHorizontalAlign>
     <showInFooter>true</showInFooter>
-    <extInfo xsi:type="form:TextDocFieldExtInfo">
+    <extInfo xsi:type="form:HtmlFieldExtInfo">
+      <handlers>
+        <event>DocumentComplete</event>
+        <name>ПолеИзмененийДокументСформирован</name>
+      </handlers>
+      <handlers>
+        <event>OnClick</event>
+        <name>ПолеИзмененийПриНажатии</name>
+      </handlers>
       <width>50</width>
       <autoMaxWidth>true</autoMaxWidth>
       <height>10</height>
@@ -405,6 +414,24 @@
     <id>8</id>
     <valueType>
       <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПолеИзменений</name>
+    <title>
+      <key>ru</key>
+      <value>Поле изменений</value>
+    </title>
+    <id>9</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
     <view>
       <common>true</common>

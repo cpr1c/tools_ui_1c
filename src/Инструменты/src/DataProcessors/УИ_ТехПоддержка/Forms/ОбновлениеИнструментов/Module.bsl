@@ -1,3 +1,53 @@
+
+#Область ОписаниеПеременных
+
+#КонецОбласти
+
+#Область ОбработчикиСобытийФормы
+
+&НаСервере
+Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
+	УстановитьТекстПоляИзменений();
+	ЗаполнитьТекущуюВерсию();
+	ЗаполнитьАктуальнуюВерсиюИОписаниеИзменений();
+	УстановитьНеобходимостьОбновления();
+КонецПроцедуры
+
+
+#КонецОбласти
+
+#Область ОбработчикиСобытийЭлементовШапкиФормы
+
+&НаКлиенте
+Процедура ПолеИзмененийДокументСформирован(Элемент)
+	Если Не НеобходимостьОбновления Тогда
+		Возврат;
+	КонецЕсли;
+	
+	View = Элемент.Документ.defaultView;
+	View.addText("preview", ОписаниеИзменений);
+	View.markdownConvert();
+КонецПроцедуры
+
+
+&НаКлиенте
+Процедура ПолеИзмененийПриНажатии(Элемент, ДанныеСобытия, СтандартнаяОбработка)
+	СтандартнаяОбработка = Ложь;
+	
+	Если ЗначениеЗаполнено(ДанныеСобытия.href) Тогда
+		УИ_ОбщегоНазначенияКлиент.ОткрытьНавигационнуюСсылку(ДанныеСобытия.href);
+	КонецЕсли;
+КонецПроцедуры
+#КонецОбласти
+
+#Область ОбработчикиСобытийЭлементовТаблицыФормы //<ИмяТаблицыФормы>
+
+// Код процедур и функций
+
+#КонецОбласти
+
+#Область ОбработчикиКомандФормы
+
 &НаКлиенте
 Процедура Обновить(Команда)
 	Если ОбновлениеЧерезСкачиваниеФайлаПоставки Тогда
@@ -6,6 +56,182 @@
 		ОбновитьЧерезОбновлениеРасширения();
 	КонецЕсли;
 КонецПроцедуры
+
+
+#КонецОбласти
+
+#Область СлужебныеПроцедурыИФункции
+
+&НаСервере
+Процедура УстановитьТекстПоляИзменений()
+	БиблиотекаShowdown= ПолучитьОбщийМакет("УИ_showdown");
+	АдресБиблиотеки = ПоместитьВоВременноеХранилище(БиблиотекаShowdown, УникальныйИдентификатор);
+	
+	СтильCSS= 
+	"
+	|h2, .wiki h1 {font-size: 20px;}
+	|h3, .wiki h2 {font-size: 16px;}
+	|h4, .wiki h3 {font-size: 13px;}
+	|
+	|
+	|/***** Wiki *****/
+	|div.wiki table {
+	|  border-collapse: collapse;
+	|  margin-bottom: 1em;
+	|}
+	|
+	|div.wiki table, div.wiki td, div.wiki th {
+	|  border: 1px solid #bbb;
+	|  padding: 4px;
+	|}
+	|
+	|div.wiki th{
+	|	background-color: #EEEEEE;
+	|}
+	|
+	|div.wiki .wiki-class-noborder, div.wiki .wiki-class-noborder td, div.wiki .wiki-class-noborder th {border:0;}
+	|
+	|div.wiki .external {
+	|  background-position: 0% 60%;
+	|  background-repeat: no-repeat;
+	|  padding-left: 12px;
+	|}
+	|
+	|div.wiki a {word-wrap: break-word;}
+	|div.wiki a.new {color: #b73535;}
+	|
+	|div.wiki ul, div.wiki ol {margin-bottom:1em;}
+	|div.wiki li>ul, div.wiki li>ol {margin-bottom: 0;}
+	|
+	|div.wiki pre {
+	|  margin: 1em 1em 1em 1.6em;
+	|  padding: 8px;
+//	|  background-color: #fafafa;
+	|  border: 1px solid #e2e2e2;
+	|  border-radius: 3px;
+	|  width:auto;
+	|  overflow-x: auto;
+	|  overflow-y: hidden;
+	|}
+	|
+	|div.wiki ul.toc {
+	|  background-color: #ffffdd;
+	|  border: 1px solid #e4e4e4;
+	|  padding: 4px;
+	|  line-height: 1.2em;
+	|  margin-bottom: 12px;
+	|  margin-right: 12px;
+	|  margin-left: 0;
+	|  display: table
+	|}
+	|* html div.wiki ul.toc { width: 50%; } /* IE6 doesn't autosize div */
+	|
+	|div.wiki ul.toc.right { float: right; margin-left: 12px; margin-right: 0; width: auto; }
+	|div.wiki ul.toc.left  { float: left; margin-right: 12px; margin-left: 0; width: auto; }
+	|div.wiki ul.toc ul { margin: 0; padding: 0; }
+	|div.wiki ul.toc li {list-style-type:none; margin: 0; font-size:12px;}
+	|div.wiki ul.toc>li:first-child {margin-bottom: .5em; color: #777;}
+	|div.wiki ul.toc li li {margin-left: 1.5em; font-size:10px;}
+	|div.wiki ul.toc a {
+	|  font-size: 0.9em;
+	|  font-weight: normal;
+	|  text-decoration: none;
+	|  color: #606060;
+	|}
+	|div.wiki ul.toc a:hover { color: #c61a1a; text-decoration: underline;}
+	|
+	|a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+	|a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+	|h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+	|
+	|div.wiki img {vertical-align:middle; max-width:100%;}
+	|blockquote { font-style: italic; border-left: 3px solid #e0e0e0; padding-left: 0.6em; margin-left: 0;}
+	|blockquote blockquote { margin-left: 0;}
+	|
+	|";
+
+	ПолеИзменений= 
+	"<html>
+	|<head>
+	|	<meta charset=""UTF-8"">
+	|    <style>
+	|    	html { 
+	|			word-break: break-all;
+	|    	}
+	|		" + СтильCSS + "
+	|    </style>	
+	|	 
+	|</head>
+	|    
+	|<body>
+	|    <div id=""wiki-container""></div>
+	|    <button id=""interactionButton"" style=""display: none"">Кнопка взаимодействия</button>
+	|	 	<script src="""+АдресБиблиотеки+""" type=""text/javascript"" charset=""utf-8""></script>
+	|    <script>
+	|		 
+	|        var markdownTexts={};
+	|		 var converter = new showdown.Converter();
+	|	     converter.setFlavor('github');
+	|
+	|	     function clearTexts(){
+	|            markdownTexts={};
+	|        }
+	|
+	|        function addText(key, text){
+	|            markdownTexts[key]=text;
+	|        }
+	|        function deleteText(key){
+	|            delete markdownTexts[key];
+	|        }
+	|	     function convertOneText(key,text){
+	|           
+	|			 var newdiv = document.createElement('div');
+	|            newdiv.className = 'wiki';
+	|            newdiv.id = key;
+	|
+	|           newdiv.innerHTML = converter.makeHtml(text);
+	|
+	|           return newdiv;
+	|      	 }
+	|        
+	|		 function mdToHtml(text){
+	|           return converter.makeHtml(text);
+	|      	 }
+	|		 function htmlToMd(text){
+	|           return converter.makeMarkdown(text);
+	|      	 }
+	|        function markdownConvert(){
+	|            var container=document.getElementById('wiki-container');
+	|            container.innerHTML='';
+	|
+	|            for (var key in markdownTexts) {
+	|                if (markdownTexts.hasOwnProperty(key)) {
+	|                    var markText = markdownTexts[key];
+	|                    
+	|                	 var newdiv=convertOneText(key,markText);
+	|						
+	|                    container.appendChild(newdiv);
+	|                }
+	|            }
+	|  			var elems= document.getElementsByTagName('code');
+	|			
+	|			 for(var i = 0; i < elems.length; i++) {
+	|				hljs.highlightBlock(elems[i]);
+	|			}			
+	|
+	|        }
+	|
+	|    </script>
+
+	|</body>
+	|
+	|    
+	|</html>
+	|";
+	
+КонецПроцедуры
+
+
 
 &НаКлиенте 
 Процедура ОбновитьЧерезСкачиваниеФайла()
@@ -146,13 +372,18 @@
 	МассивРелизов = УИ_КоннекторHTTP.GetJson(АдресЗапроса);
 
 	МаксимальныйРелиз = "0.0.0";
-	СоответствиеОписанияРелизов = Новый Соответствие;
+//	СоответствиеОписанияРелизов = Новый Соответствие;
+
+	ОписаниеИзменений = "";
 
 	Для Каждого ТекРелиз Из МассивРелизов Цикл
 		ВерсияТекРелиза = СтрЗаменить(ТекРелиз["tag_name"], "v", "");
 
 		Если УИ_ОбщегоНазначенияКлиентСервер.СравнитьВерсииБезНомераСборки(ВерсияТекРелиза, ТекущаяВерсия) > 0 Тогда
-			СоответствиеОписанияРелизов.Вставить(ВерсияТекРелиза, ТекРелиз);
+//			СоответствиеОписанияРелизов.Вставить(ВерсияТекРелиза, ТекРелиз);
+					
+			ОписаниеИзменений = ОписаниеИзменений + "# ["+ВерсияТекРелиза+"]("+ТекРелиз["html_url"]+")" + Символы.ПС;
+			ОписаниеИзменений = ОписаниеИзменений + ТекРелиз["body"] + Символы.ПС;
 		КонецЕсли;
 
 		Если УИ_ОбщегоНазначенияКлиентСервер.СравнитьВерсииБезНомераСборки(ВерсияТекРелиза, МаксимальныйРелиз) <= 0 Тогда
@@ -175,15 +406,11 @@
 				Прервать;
 			КонецЦикла;
 		КонецЕсли;
+
+
 	КонецЦикла;
 
 	АктуальнаяВерсия = МаксимальныйРелиз;
-
-	ОписаниеИзменений = "";
-	Для Каждого РелизОписания Из СоответствиеОписанияРелизов Цикл
-		ОписаниеИзменений = ОписаниеИзменений + РелизОписания.Ключ + Символы.ПС;
-		ОписаниеИзменений = ОписаниеИзменений + РелизОписания.Значение["body"] + Символы.ПС;
-	КонецЦикла;
 КонецПроцедуры
 
 &НаСервере
@@ -193,16 +420,13 @@
 	КонецЕсли;
 
 	Элементы.ФормаОбновить.Видимость = НеобходимостьОбновления;
-	Элементы.ОписаниеИзменений.Видимость = НеобходимостьОбновления;
+	Элементы.ПолеИзменений.Видимость = НеобходимостьОбновления;
 	
 	Если ОбновлениеЧерезСкачиваниеФайлаПоставки Тогда
 		Элементы.ФормаОбновить.Заголовок="Скачать";
 	КонецЕсли;
 КонецПроцедуры
 
-&НаСервере
-Процедура ПриСозданииНаСервере(Отказ, СтандартнаяОбработка)
-	ЗаполнитьТекущуюВерсию();
-	ЗаполнитьАктуальнуюВерсиюИОписаниеИзменений();
-	УстановитьНеобходимостьОбновления();
-КонецПроцедуры
+
+#КонецОбласти
+
