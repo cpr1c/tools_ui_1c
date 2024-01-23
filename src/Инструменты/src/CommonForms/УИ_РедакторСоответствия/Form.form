@@ -423,7 +423,6 @@
     <verticalStretch>true</verticalStretch>
     <rowFilter xsi:type="core:UndefinedValue"/>
   </items>
-  <commandBarLocation>Bottom</commandBarLocation>
   <autoCommandBar>
     <name>ФормаКоманднаяПанель</name>
     <id>-1</id>
@@ -493,7 +492,6 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <horizontalAlign>Right</horizontalAlign>
   </autoCommandBar>
   <handlers>
     <event>OnCreateAtServer</event>

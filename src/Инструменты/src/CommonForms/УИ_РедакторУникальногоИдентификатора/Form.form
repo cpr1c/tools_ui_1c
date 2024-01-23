@@ -270,20 +270,24 @@
       <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
-  <items xsi:type="form:FormGroup">
-    <name>ГруппаКоманднаяПанельВнизу</name>
-    <id>4</id>
+  <autoCommandBar>
+    <name>ФормаКоманднаяПанель</name>
+    <id>-1</id>
     <items xsi:type="form:Button">
-      <name>Сгенерировать</name>
-      <id>31</id>
+      <name>КомандаОК</name>
+      <id>8</id>
+      <title>
+        <key>ru</key>
+        <value>Применить</value>
+      </title>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>СгенерироватьРасширеннаяПодсказка</name>
-        <id>32</id>
+        <name>КомандаОКРасширеннаяПодсказка</name>
+        <id>9</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -296,8 +300,9 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Сгенерировать</commandName>
+      <commandName>Form.Command.КомандаОК</commandName>
       <representation>Auto</representation>
+      <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
@@ -334,20 +339,16 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>КомандаОК</name>
-      <id>8</id>
-      <title>
-        <key>ru</key>
-        <value>ОК</value>
-      </title>
+      <name>Сгенерировать</name>
+      <id>31</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>КомандаОКРасширеннаяПодсказка</name>
-        <id>9</id>
+        <name>СгенерироватьРасширеннаяПодсказка</name>
+        <id>32</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -360,50 +361,13 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.КомандаОК</commandName>
+      <commandName>Form.Command.Сгенерировать</commandName>
       <representation>Auto</representation>
-      <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
       <placementArea>UserCmds</placementArea>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
-    <visible>true</visible>
-    <enabled>true</enabled>
-    <userVisible>
-      <common>true</common>
-    </userVisible>
-    <title>
-      <key>ru</key>
-      <value>Группа командная панель внизу</value>
-    </title>
-    <toolTip>
-      <key>ru</key>
-      <value>Группа командная панель внизу</value>
-    </toolTip>
-    <extendedTooltip>
-      <name>ГруппаКоманднаяПанельВнизуРасширеннаяПодсказка</name>
-      <id>5</id>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <type>Label</type>
-      <autoMaxWidth>true</autoMaxWidth>
-      <autoMaxHeight>true</autoMaxHeight>
-      <extInfo xsi:type="form:LabelDecorationExtInfo">
-        <horizontalAlign>Left</horizontalAlign>
-      </extInfo>
-    </extendedTooltip>
-    <type>CommandBar</type>
-    <extInfo xsi:type="form:CommandBarExtInfo">
-      <horizontalAlign>Right</horizontalAlign>
-    </extInfo>
-  </items>
-  <autoCommandBar>
-    <name>ФормаКоманднаяПанель</name>
-    <id>-1</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
