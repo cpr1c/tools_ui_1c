@@ -81,6 +81,7 @@
   <commonPictures>CommonPicture.УИ_ФиксированныйМассив</commonPictures>
   <commonPictures>CommonPicture.УИ_СгенерированныйКод</commonPictures>
   <commonPictures>CommonPicture.УИ_Папка</commonPictures>
+  <commonPictures>CommonPicture.УИ_ОчиститьФормат</commonPictures>
   <roles>Role.УИ_ПолныеПрава</roles>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
