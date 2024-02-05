@@ -6,6 +6,7 @@
 [![download](https://img.shields.io/github/downloads/cpr1c/tools_ui_1c/total)](https://github.com/cpr1c/tools_ui_1c/releases/latest/download/UI.cfe)
 [![GitHub issues](https://img.shields.io/github/issues-raw/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/issues)
 [![License](https://img.shields.io/github/license/cpr1c/tools_ui_1c?style=badge)](https://github.com/cpr1c/tools_ui_1c/blob/master/LICENSE)
+[![OpenYellow](https://img.shields.io/endpoint?url=https://openyellow.neocities.org/badges/2/230230231.json)](https://openyellow.notion.site/openyellow/24727888daa641af95514b46bee4d6f2?p=2d45482a3ef54db09612b2bcf823a098&amp;pm=s)
 
 [Подержать проект](#донаты-и-поддержка-проекта)
 ### Поддерживаемые операционные системы
