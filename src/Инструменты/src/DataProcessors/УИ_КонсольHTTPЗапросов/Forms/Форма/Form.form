@@ -3887,6 +3887,59 @@
             <name>ГруппаСтраницаЗапросаПрочее</name>
             <id>480</id>
             <items xsi:type="form:FormField">
+              <name>ДеревоЗапросовНаКлиенте</name>
+              <id>595</id>
+              <title>
+                <key>ru</key>
+                <value>Контекст</value>
+              </title>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <dataPath xsi:type="form:DataPath">
+                <segments>Items.ДеревоЗапросов.CurrentData.НаКлиенте</segments>
+              </dataPath>
+              <extendedTooltip>
+                <name>ДеревоЗапросовНаКлиентеРасширеннаяПодсказка</name>
+                <id>597</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <contextMenu>
+                <name>ДеревоЗапросовНаКлиентеКонтекстноеМеню</name>
+                <id>596</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <autoFill>true</autoFill>
+              </contextMenu>
+              <type>CheckBoxField</type>
+              <editMode>Enter</editMode>
+              <showInHeader>true</showInHeader>
+              <headerHorizontalAlign>Left</headerHorizontalAlign>
+              <showInFooter>true</showInFooter>
+              <extInfo xsi:type="form:CheckBoxFieldExtInfo">
+                <checkBoxType>Tumbler</checkBoxType>
+                <editFormat>
+                  <key>ru</key>
+                  <value>БЛ='На сервере'; БИ='На клиенте'</value>
+                </editFormat>
+              </extInfo>
+            </items>
+            <items xsi:type="form:FormField">
               <name>Таймаут</name>
               <id>283</id>
               <visible>true</visible>
@@ -6792,6 +6845,23 @@
       <id>148</id>
       <valueType>
         <types>ValueTable</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>НаКлиенте</name>
+      <title>
+        <key>ru</key>
+        <value>На клиенте</value>
+      </title>
+      <id>150</id>
+      <valueType>
+        <types>Boolean</types>
       </valueType>
       <view>
         <common>true</common>
