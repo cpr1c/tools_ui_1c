@@ -127,6 +127,7 @@
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_УправлениеКонфигураторомКлиент</commonModules>
   <commonModules>CommonModule.УИ_ГенераторКода</commonModules>
+  <commonModules>CommonModule.УИ_МетодыСовместимостиПлатформы_8_3_21КлиентСервер</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
