@@ -93,6 +93,7 @@
   <commonTemplates>CommonTemplate.УИ_ШаблонОбработки</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_ctool1cd</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_showdown</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_AceColaborator</commonTemplates>
   <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
   <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
   <commonModules>CommonModule.УИ_</commonModules>
