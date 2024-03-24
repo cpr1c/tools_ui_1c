@@ -160,6 +160,7 @@
   <commonForms>CommonForm.УИ_ФормаСпискаЗначений</commonForms>
   <commonForms>CommonForm.УИ_РедакторКартинки</commonForms>
   <commonForms>CommonForm.УИ_РедакторДвоичныхДанных</commonForms>
+  <commonForms>CommonForm.УИ_ПараметрыСессииВзаимодействияРедактораКода</commonForms>
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>

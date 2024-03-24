@@ -827,4 +827,11 @@
 			<value>true</value>
 		</right>
 	</object>
+	<object>
+		<name>CommonForm.УИ_ПараметрыСессииВзаимодействияРедактораКода</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
 </Rights>
