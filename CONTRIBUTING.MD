@@ -8,8 +8,8 @@
 
 Вносить изменения и добавлять новую функциональность
 
-- [Инструкцию для легкого старта с EDT](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing)
-- [Инструкцию для доработки через конфигуратор](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing/CONFIGURATOR.MD)
+- [Инструкция для легкого старта с EDT](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing)
+- [Инструкция для доработки через конфигуратор](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing/CONFIGURATOR.MD)
 
 ### 2. Документация
 
