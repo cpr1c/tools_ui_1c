@@ -282,7 +282,7 @@
 
 # Развитие инструментов
 
-[Перейти к документу про внесение изменений в продукт](https://github.com/cpr1c/tools_ui_1c?tab=contributing-ov-file#)
+[Перейти к документу про внесение изменений в продукт](https://github.com/cpr1c/tools_ui_1c/blob/develop/CONTRIBUTING.MD)
 
 # Донаты и поддержка проекта
 
