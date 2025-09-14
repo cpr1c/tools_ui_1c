@@ -282,11 +282,7 @@
 
 # Развитие инструментов
 
-Разработка ведется в 1С:EDT
-
-Замечания и предложения оставляйте в разделе **issues**.
-
-Если кто хочет поучаствовать - добро пожаловать. Больше идей- лучше конечное решение. Перед началом прочитайте [инструкцию для легкого старта с EDT](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing) или [инструкцию для доработки через конфигуратор](https://github.com/cpr1c/tools_ui_1c/tree/develop/docs/contributing/CONFIGURATOR.MD)
+[Перейти к документу про внесение изменений в продукт](https://github.com/cpr1c/tools_ui_1c/blob/develop/CONTRIBUTING.MD)
 
 # Донаты и поддержка проекта
 
