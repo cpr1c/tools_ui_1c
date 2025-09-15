@@ -298,7 +298,7 @@
 3. Установите в вашу конфигурацию 1С.
 
 ### Вариант 2 — через установщик по ссылке на релиз
-1. Откройте обработку-установщик `[1c-extension-installer](https://github.com/msrv-tech/1c-extension-installer)`.
+1. Откройте обработку-установщик [1c-extension-installer](https://github.com/msrv-tech/1c-extension-installer).
 2. Вставьте URL нужного репозитория GitHub https://github.com/cpr1c/tools_ui_1c и запустите установку.
 3. Обработка скачает расширение и установит его в базу 1С.
    
