@@ -5,6 +5,7 @@
       <group>NavigationPanelOrdinary</group>
       <commands>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</commands>
       <commands>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</commands>
+      <commands>DataProcessor.УИ_ТехПоддержка.Command.ИнформацияДляТехподдержки</commands>
     </placementFragments>
   </commandsPlacement>
   <commandsOrder>
@@ -12,6 +13,8 @@
       <group>NavigationPanelOrdinary</group>
       <commands>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</commands>
       <commands>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</commands>
+      <commands>DataProcessor.УИ_ТехПоддержка.Command.ПроверитьНеобходимостьОбновления</commands>
+      <commands>DataProcessor.УИ_ТехПоддержка.Command.ИнформацияДляТехподдержки</commands>
     </orderFragments>
   </commandsOrder>
 </cmi:CommandInterface>

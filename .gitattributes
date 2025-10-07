@@ -1,0 +1,36 @@
+# модули
+*	text=auto
+*.bsl		text		eol=crlf
+*.cai		text		eol=crlf
+*.cmi		text		eol=crlf
+*.dcs		text		eol=crlf
+*.dcss		text		eol=crlf
+*.dcssca	text		eol=crlf
+*.form		text		eol=crlf
+*.hpwa		text		eol=crlf
+*.mdo		text		eol=crlf
+*.mxlx		text		eol=crlf
+*.pnrs		text		eol=crlf
+*.rights	text		eol=crlf
+*.schedule	text		eol=crlf
+
+# картинки
+
+*.bmp   binary diff=exif
+*.gif   binary diff=exif
+*.ico   binary
+*.jpeg  binary diff=exif
+*.jpg   binary diff=exif
+*.png   binary diff=exif
+*.svg   text
+
+# картинки
+
+*.bin   binary
+*.1CD   binary
+
+# Binary file extensions that should not be modified.
+*.bin    binary
+*.axdt   binary
+*.addin  binary
+

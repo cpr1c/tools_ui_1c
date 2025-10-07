@@ -1,0 +1,17 @@
+name: Извлечение версии
+description: Извлечение версии из исходников
+inputs:
+  path:
+    description: 'Путь к исходникам'
+    required: true
+outputs:
+  version:
+    description: 'Версия'
+    value: ${{ steps.extract_version.outputs.version }}
+runs:
+  using: "composite"
+  steps:
+    - name: Извлечение версии
+      shell: bash
+      run: echo "version=$(cat ${{ inputs.path }}/Configuration/Configuration.mdo | grep -oP '(?<=<version>)[\d.]+')" >> $GITHUB_OUTPUT
+      id: extract_version

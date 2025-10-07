@@ -1,5 +1,0 @@
-*.ospx
-tests.xml
-coverage/*
-
-tests-reports/*

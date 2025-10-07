@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="98f68e72-8daa-43fd-a010-394e1bb97a28">
+  <producedTypes>
+    <objectType typeId="a9430738-6517-4cc5-96b4-3072d1a29a9a" valueTypeId="4adfb2b4-072c-468f-aae6-3be0c4c079ea"/>
+    <managerType typeId="481e0e22-8a0e-47c3-99dc-1be9e4b22fde" valueTypeId="bfe48810-cf53-4648-b6ec-92e864098f8e"/>
+  </producedTypes>
+  <name>УИ_МенеджерОтрытыхФорм</name>
+  <synonym>
+    <key>ru</key>
+    <value>Менеджер открытых форм [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_МенеджерОтрытыхФорм.Form.Форма</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
+  <forms uuid="7b81c211-0973-4317-983c-406ed47396e8">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="c32ad255-31f4-4e2d-811e-014c14b65dee">
+    <name>РедактированиеНастройкиИзХранилища</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактирование настройки из хранилища</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="164a4a0f-ee77-4a98-a71a-58106ce6e4cd">
+    <name>НастройкиОбработки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Настройки обработки</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="60a3a4f5-f810-4191-a92b-b815c354275c">
+    <name>РедакторПроизвольныхЗначений</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактор произвольных значений</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="e9d1f001-2068-4c7d-ab4b-9630ddf531ae">
+    <name>ОткрытиеФормы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Открытие формы</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="be82e7e9-0a3e-438c-8be4-961bf14f8151">
+    <name>ФормаНастроекДинамическогоСписка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма настроек динамического списка</value>
+    </synonym>
+    <includeHelpInContents>true</includeHelpInContents>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="ffa874a7-6c82-495d-b67e-6d629fa0f047">
+    <name>ФормаНастроекКомпоновки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма настроек компоновки</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="9fc1fefa-2211-47d4-8ef4-16ebaf8a20d6">
+    <name>РедакторСтруктурыСоответствия</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактор структуры соответствия</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="5fdd9462-9fe1-402d-861a-9b246a54ee73">
+    <name>ФормаРедакторXML</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма редактор XML</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="33284f25-ff06-427d-9d0b-def5dbc3fa7f">
+    <name>ОбщегоНазначения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Общего назначения</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

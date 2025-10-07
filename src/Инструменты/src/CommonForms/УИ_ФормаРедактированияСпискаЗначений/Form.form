@@ -63,14 +63,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <activeLanguage>1</activeLanguage>
-        <paths xsi:type="form:DataPath">
-          <segments>СписокЗначений.Value</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>СписокЗначений.Значение</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СписокЗначений.Value</segments>
       </dataPath>
       <extendedTooltip>
         <name>СписокЗначенийЗначениеРасширеннаяПодсказка</name>

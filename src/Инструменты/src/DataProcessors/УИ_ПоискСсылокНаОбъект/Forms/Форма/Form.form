@@ -14,10 +14,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объект.ИсходныйОбъект</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объект.ИсходныйОбъект</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -54,9 +52,19 @@
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
         <extInfo xsi:type="form:InputFieldExtInfo">
+          <handlers>
+            <event>StartChoice</event>
+            <name>ИсходныйОбъектНачалоВыбора</name>
+          </handlers>
+          <handlers>
+            <event>Clearing</event>
+            <name>ИсходныйОбъектОчистка</name>
+          </handlers>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <wrap>true</wrap>
+          <choiceButton>true</choiceButton>
+          <clearButton>true</clearButton>
           <chooseType>true</chooseType>
           <typeDomainEnabled>true</typeDomainEnabled>
           <textEdit>true</textEdit>
@@ -136,10 +144,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>УникальныйИдентификаторИсточника</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>УникальныйИдентификаторИсточника</segments>
         </dataPath>
         <extendedTooltip>
           <name>УИДРасширеннаяПодсказка</name>
@@ -291,13 +297,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>РезультатПоиска.ПредставлениеОбъекта</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка1</name>
@@ -329,10 +330,8 @@
       <showInHeader>true</showInHeader>
       <headerHorizontalAlign>Left</headerHorizontalAlign>
       <showInFooter>true</showInFooter>
-      <footerDataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.КоличествоНайденных</segments>
-        </paths>
+      <footerDataPath xsi:type="form:DataPath">
+        <segments>Объект.КоличествоНайденных</segments>
       </footerDataPath>
       <footerText>
         <key>ru</key>
@@ -356,13 +355,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.УникальныйИдентификатор</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>РезультатПоиска.УникальныйИдентификатор</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>РезультатПоиска.УникальныйИдентификатор</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка4</name>

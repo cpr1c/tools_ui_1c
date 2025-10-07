@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<opm-metadata xmlns="http://oscript.io/schemas/opm-metadata/1.0">
+    <name>osparser</name>
+    <version>0.0.3</version>
+    <engine-version>1.0.21</engine-version>
+</opm-metadata>

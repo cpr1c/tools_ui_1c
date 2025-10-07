@@ -16,10 +16,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТекущаяНастройкаПредставление</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТекущаяНастройкаПредставление</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -83,10 +81,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТекущийРеквизит</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТекущийРеквизит</segments>
     </dataPath>
     <extendedTooltip>
       <name>ТекущийРеквизитExtendedTooltip</name>
@@ -139,10 +135,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ВидДействияНадСуммой</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ВидДействияНадСуммой</segments>
       </dataPath>
       <extendedTooltip>
         <name>ВидДействияНадСуммойExtendedTooltip</name>
@@ -240,10 +234,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ПараметрДействия</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ПараметрДействия</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПараметрДействияExtendedTooltip</name>

@@ -14,14 +14,14 @@
       <key>ru</key>
       <value>Выполнение алгоритмов</value>
     </synonym>
-    <template>alg/{AlgWebID}</template>
+    <template>/execute/{AlgWebID}</template>
     <methods uuid="a2b6345e-8170-11e9-f783-002522f8f390">
       <name>GET</name>
       <synonym>
         <key>ru</key>
         <value>GET</value>
       </synonym>
-      <handler>_37583_ALG_GET</handler>
+      <handler>ВыполнениеАлгоритмовРезультатВыполнения</handler>
     </methods>
     <methods uuid="ffad7fa0-8297-11e9-e28c-002522f8f390">
       <name>POST</name>
@@ -30,7 +30,7 @@
         <value>POST</value>
       </synonym>
       <httpMethod>POST</httpMethod>
-      <handler>_37583_ALG_POST</handler>
+      <handler>ВыполнениеАлгоритмовРезультатВыполнения</handler>
     </methods>
   </urlTemplates>
   <urlTemplates uuid="2163bb09-decc-4b68-8103-29af05c61bc4">
@@ -40,14 +40,6 @@
       <value>Передача данных</value>
     </synonym>
     <template>/exchange</template>
-    <methods uuid="ffd420fd-2e82-4326-a78b-418842f55629">
-      <name>Ping</name>
-      <synonym>
-        <key>ru</key>
-        <value>Ping</value>
-      </synonym>
-      <handler>ПередачаДанныхPing</handler>
-    </methods>
     <methods uuid="5336b6b4-e985-4288-b1a4-c25e6d16e190">
       <name>SendFileAndUpload</name>
       <synonym>
@@ -56,6 +48,22 @@
       </synonym>
       <httpMethod>POST</httpMethod>
       <handler>ПередачаДанныхSendFileAndUpload</handler>
+    </methods>
+  </urlTemplates>
+  <urlTemplates uuid="ba57cc3e-9ee4-4473-a67e-f3819dd3de69">
+    <name>Ping</name>
+    <synonym>
+      <key>ru</key>
+      <value>Ping</value>
+    </synonym>
+    <template>/ping</template>
+    <methods uuid="0fa5d522-489c-40b8-bf61-79076ba1e64a">
+      <name>GET</name>
+      <synonym>
+        <key>ru</key>
+        <value>GET</value>
+      </synonym>
+      <handler>PingGET</handler>
     </methods>
   </urlTemplates>
 </mdclass:HTTPService>

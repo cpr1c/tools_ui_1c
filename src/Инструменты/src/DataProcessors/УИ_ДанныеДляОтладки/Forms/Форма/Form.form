@@ -13,6 +13,55 @@
     </dataPath>
     <titleLocation>None</titleLocation>
     <items xsi:type="form:FormField">
+      <name>ТаблицаСохраненныхНастроекКартинка</name>
+      <id>37</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаСохраненныхНастроек.Картинка</segments>
+      </dataPath>
+      <titleLocation>None</titleLocation>
+      <extendedTooltip>
+        <name>ТаблицаСохраненныхНастроекКартинкаРасширеннаяПодсказка</name>
+        <id>39</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ТаблицаСохраненныхНастроекКартинкаКонтекстноеМеню</name>
+        <id>38</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>PictureField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:ImageFieldExtInfo">
+        <width>2</width>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <verticalStretch>true</verticalStretch>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormField">
       <name>ТаблицаСохраненныхНастроекТипОбъектаОтладки</name>
       <id>23</id>
       <visible>true</visible>
@@ -20,14 +69,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <activeLanguage>1</activeLanguage>
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаСохраненныхНастроек.ТипОбъектаОтладки</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаСохраненныхНастроек.ТипОбъектаОтладки</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаСохраненныхНастроек.ТипОбъектаОтладки</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка3</name>
@@ -76,14 +119,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <activeLanguage>1</activeLanguage>
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаСохраненныхНастроек.ДатаСоздания</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаСохраненныхНастроек.ДатаСоздания</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаСохраненныхНастроек.ДатаСоздания</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка1</name>
@@ -132,14 +169,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <activeLanguage>1</activeLanguage>
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаСохраненныхНастроек.Автор</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>ТаблицаСохраненныхНастроек.Автор</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаСохраненныхНастроек.Автор</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПолеРасширеннаяПодсказка2</name>
@@ -159,6 +190,60 @@
       <contextMenu>
         <name>ПолеКонтекстноеМеню2</name>
         <id>21</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>InputField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:InputFieldExtInfo">
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <wrap>true</wrap>
+        <chooseType>true</chooseType>
+        <typeDomainEnabled>true</typeDomainEnabled>
+        <textEdit>true</textEdit>
+      </extInfo>
+    </items>
+    <items xsi:type="form:FormField">
+      <name>ТаблицаСохраненныхНастроекИмяОбъектаОтладки</name>
+      <id>34</id>
+      <title>
+        <key>ru</key>
+        <value>Наименование</value>
+      </title>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТаблицаСохраненныхНастроек.ИмяОбъектаОтладки</segments>
+      </dataPath>
+      <extendedTooltip>
+        <name>ТаблицаСохраненныхНастроекИмяОбъектаОтладкиРасширеннаяПодсказка</name>
+        <id>36</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ТаблицаСохраненныхНастроекИмяОбъектаОтладкиКонтекстноеМеню</name>
+        <id>35</id>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -519,10 +604,10 @@
       <common>true</common>
     </edit>
     <columns>
-      <name>КлючНастроек</name>
+      <name>АдресВХранилищеДанныхОтладки</name>
       <title>
         <key>ru</key>
-        <value>Ключ настроек</value>
+        <value>Адрес в хранилище данных отладки</value>
       </title>
       <id>3</id>
       <valueType>
@@ -608,6 +693,58 @@
         <common>true</common>
       </edit>
     </columns>
+    <columns>
+      <name>ИмяОбъектаОтладки</name>
+      <title>
+        <key>ru</key>
+        <value>Имя объекта отладки</value>
+      </title>
+      <id>9</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ЭтоФайл</name>
+      <title>
+        <key>ru</key>
+        <value>Это файл</value>
+      </title>
+      <id>12</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Картинка</name>
+      <title>
+        <key>ru</key>
+        <value>Картинка</value>
+      </title>
+      <id>13</id>
+      <valueType>
+        <types>Picture</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
   </attributes>
   <attributes>
     <name>КлючОбъектаНастроек</name>
@@ -616,6 +753,24 @@
       <value>Ключ объекта настроек</value>
     </title>
     <id>7</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>КаталогДаныхОтладкиНаСервере</name>
+    <title>
+      <key>ru</key>
+      <value>Каталог даных отладки на сервере</value>
+    </title>
+    <id>10</id>
     <valueType>
       <types>String</types>
       <stringQualifiers/>

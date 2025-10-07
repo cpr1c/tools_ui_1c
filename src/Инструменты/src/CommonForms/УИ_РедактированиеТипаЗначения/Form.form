@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
+  <title>
+    <key>ru</key>
+    <value>Редактирование типа</value>
+  </title>
   <items xsi:type="form:FormField">
     <name>СоставнойТип</name>
     <id>1</id>
@@ -8,10 +12,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>СоставнойТип</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>СоставнойТип</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -57,10 +59,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>СтрокаПоиска</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>СтрокаПоиска</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -99,6 +99,7 @@
     <extInfo xsi:type="form:InputFieldExtInfo">
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
+      <clearButton>true</clearButton>
       <chooseType>true</chooseType>
       <typeDomainEnabled>true</typeDomainEnabled>
       <textEdit>true</textEdit>
@@ -127,10 +128,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоТипов.Выбран</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоТипов.Выбран</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -173,10 +172,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоТипов.Картинка</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоТипов.Картинка</segments>
         </dataPath>
         <extendedTooltip>
           <name>ДеревоТиповКартинкаРасширеннаяПодсказка</name>
@@ -222,10 +219,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоТипов.Представление</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоТипов.Представление</segments>
         </dataPath>
         <extendedTooltip>
           <name>ДеревоТиповПредставлениеРасширеннаяПодсказка</name>
@@ -311,6 +306,10 @@
     <handlers>
       <event>OnActivateRow</event>
       <name>ДеревоТиповПриАктивизацииСтроки</name>
+    </handlers>
+    <handlers>
+      <event>Selection</event>
+      <name>ДеревоТиповВыбор</name>
     </handlers>
     <searchStringAddition>
       <title>
@@ -485,10 +484,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ДлинаСтроки</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ДлинаСтроки</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
@@ -545,10 +542,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ДопустамаяДлинаСтрокиФиксированная</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ДопустамаяДлинаСтрокиФиксированная</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <extendedTooltip>
@@ -606,10 +601,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>НеограниченнаяДлинаСтроки</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>НеограниченнаяДлинаСтроки</segments>
       </dataPath>
       <handlers>
         <event>OnChange</event>
@@ -698,10 +691,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ДлинаЧисла</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ДлинаЧисла</segments>
       </dataPath>
       <extendedTooltip>
         <name>ДлинаЧислаРасширеннаяПодсказка</name>
@@ -754,10 +745,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ТочностьЧисла</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ТочностьЧисла</segments>
       </dataPath>
       <extendedTooltip>
         <name>ТочностьЧислаРасширеннаяПодсказка</name>
@@ -807,10 +796,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>НеотрицательноеЧисло</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>НеотрицательноеЧисло</segments>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <extendedTooltip>
@@ -896,10 +883,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>СоставДаты</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СоставДаты</segments>
       </dataPath>
       <extendedTooltip>
         <name>СоставДатыРасширеннаяПодсказка</name>
@@ -1004,6 +989,95 @@
       <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
+  <items xsi:type="form:FormGroup">
+    <name>ГруппаВыбораФормыВыбораСсылочногоЗначения</name>
+    <id>62</id>
+    <items xsi:type="form:FormField">
+      <name>ИспользоватьДинамическийСписокДляВыбораСсылочногоЗначения</name>
+      <id>64</id>
+      <title>
+        <key>ru</key>
+        <value>Форма выбора ссылочного значения</value>
+      </title>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ИспользоватьДинамическийСписокДляВыбораСсылочногоЗначения</segments>
+      </dataPath>
+      <extendedTooltip>
+        <name>ИспользоватьДинамическийСписокДляВыбораСсылочногоЗначенияРасширеннаяПодсказка</name>
+        <id>66</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <contextMenu>
+        <name>ИспользоватьДинамическийСписокДляВыбораСсылочногоЗначенияКонтекстноеМеню</name>
+        <id>65</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <autoFill>true</autoFill>
+      </contextMenu>
+      <type>CheckBoxField</type>
+      <editMode>Enter</editMode>
+      <showInHeader>true</showInHeader>
+      <headerHorizontalAlign>Left</headerHorizontalAlign>
+      <showInFooter>true</showInFooter>
+      <extInfo xsi:type="form:CheckBoxFieldExtInfo">
+        <checkBoxType>Tumbler</checkBoxType>
+        <editFormat>
+          <key>ru</key>
+          <value>БЛ='Стандартная форма'; БИ='Динамический список'</value>
+        </editFormat>
+      </extInfo>
+    </items>
+    <visible>true</visible>
+    <enabled>true</enabled>
+    <userVisible>
+      <common>true</common>
+    </userVisible>
+    <title>
+      <key>ru</key>
+      <value>Группа </value>
+    </title>
+    <extendedTooltip>
+      <name>ГруппаВыбораФормыВыбораСсылочногоЗначенияРасширеннаяПодсказка</name>
+      <id>63</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <type>Label</type>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <extInfo xsi:type="form:LabelDecorationExtInfo">
+        <horizontalAlign>Left</horizontalAlign>
+      </extInfo>
+    </extendedTooltip>
+    <type>UsualGroup</type>
+    <extInfo xsi:type="form:UsualGroupExtInfo">
+      <group>HorizontalIfPossible</group>
+      <showLeftMargin>true</showLeftMargin>
+      <united>true</united>
+      <throughAlign>Auto</throughAlign>
+      <currentRowUse>Auto</currentRowUse>
+    </extInfo>
+  </items>
   <commandBarLocation>Bottom</commandBarLocation>
   <autoCommandBar>
     <name>ФормаКоманднаяПанель</name>
@@ -1080,7 +1154,6 @@
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
   </handlers>
-  <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
   <autoFillCheck>true</autoFillCheck>
@@ -1088,26 +1161,6 @@
   <enabled>true</enabled>
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
-  <attributes>
-    <name>РежимРаботы</name>
-    <title>
-      <key>ru</key>
-      <value>Режим работы</value>
-    </title>
-    <id>1</id>
-    <valueType>
-      <types>Number</types>
-      <numberQualifiers>
-        <precision>10</precision>
-      </numberQualifiers>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
   <attributes>
     <name>СоставнойТип</name>
     <title>
@@ -1253,6 +1306,23 @@
         <value>Недоступен для составного типа</value>
       </title>
       <id>1</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Групповой</name>
+      <title>
+        <key>ru</key>
+        <value>Групповой</value>
+      </title>
+      <id>18</id>
       <valueType>
         <types>Boolean</types>
       </valueType>
@@ -1418,14 +1488,14 @@
     </extInfo>
   </attributes>
   <attributes>
-    <name>НачальныйТипДанных</name>
+    <name>ДоступенСоставнойТип</name>
     <title>
       <key>ru</key>
-      <value>Начальный тип данных</value>
+      <value>Доступен составной тип</value>
     </title>
-    <id>13</id>
+    <id>14</id>
     <valueType>
-      <types>TypeDescription</types>
+      <types>Boolean</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1433,6 +1503,236 @@
     <edit>
       <common>true</common>
     </edit>
+  </attributes>
+  <attributes>
+    <name>РежимВыбора</name>
+    <title>
+      <key>ru</key>
+      <value>Режим выбора</value>
+    </title>
+    <id>15</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>НаборТипов</name>
+    <title>
+      <key>ru</key>
+      <value>Набор типов</value>
+    </title>
+    <id>16</id>
+    <valueType>
+      <types>ValueList</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <extInfo xsi:type="form:ValueListExtInfo">
+      <itemValueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </itemValueType>
+    </extInfo>
+  </attributes>
+  <attributes>
+    <name>ИспользоватьДинамическийСписокДляВыбораСсылочногоЗначения</name>
+    <title>
+      <key>ru</key>
+      <value>Использовать динамический список для выбора ссылочного значения</value>
+    </title>
+    <id>17</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ОграничениеТипа</name>
+    <title>
+      <key>ru</key>
+      <value>Ограничение типа</value>
+    </title>
+    <id>19</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ВозвратХранилищаДляКонтейнераЗначения</name>
+    <title>
+      <key>ru</key>
+      <value>Возврат хранилища для контейнера значения</value>
+    </title>
+    <id>20</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ТипКонтейнераЗначения</name>
+    <title>
+      <key>ru</key>
+      <value>Тип контейнера значения</value>
+    </title>
+    <id>22</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ДоступныеНаборыТипов</name>
+    <title>
+      <key>ru</key>
+      <value>Доступные наборы типов</value>
+    </title>
+    <id>23</id>
+    <valueType/>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>СоставНачальногоОписанияТипов</name>
+    <title>
+      <key>ru</key>
+      <value>Состав начального описания типов</value>
+    </title>
+    <id>24</id>
+    <valueType>
+      <types>ValueTable</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <columns>
+      <name>Идентификатор</name>
+      <title>
+        <key>ru</key>
+        <value>Идентификатор</value>
+      </title>
+      <id>25</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ИдентификаторОчищенный</name>
+      <title>
+        <key>ru</key>
+        <value>Идентификатор очищенный</value>
+      </title>
+      <id>26</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ЭтоНабор</name>
+      <title>
+        <key>ru</key>
+        <value>Это набор</value>
+      </title>
+      <id>27</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ЭтоТипКонфигурации</name>
+      <title>
+        <key>ru</key>
+        <value>Это тип конфигурации</value>
+      </title>
+      <id>28</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ИдентификаторТипаКонфигурацииДляПоиска</name>
+      <title>
+        <key>ru</key>
+        <value>Идентификатор типа конфигурации для поиска</value>
+      </title>
+      <id>29</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
   </attributes>
   <formCommands>
     <name>Применить</name>

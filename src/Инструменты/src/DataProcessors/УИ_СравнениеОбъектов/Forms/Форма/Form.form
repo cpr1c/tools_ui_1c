@@ -23,10 +23,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объекты.Value</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объекты.Value</segments>
         </dataPath>
         <extendedTooltip>
           <name>ОбъектыЗначениеРасширеннаяПодсказка</name>
@@ -59,9 +57,18 @@
         <headerHorizontalAlign>Left</headerHorizontalAlign>
         <showInFooter>true</showInFooter>
         <extInfo xsi:type="form:InputFieldExtInfo">
+          <handlers>
+            <event>StartChoice</event>
+            <name>ОбъектыЗначениеНачалоВыбора</name>
+          </handlers>
+          <handlers>
+            <event>Clearing</event>
+            <name>ОбъектыЗначениеОчистка</name>
+          </handlers>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <wrap>true</wrap>
+          <clearButton>true</clearButton>
           <chooseType>true</chooseType>
           <typeDomainEnabled>true</typeDomainEnabled>
           <textEdit>true</textEdit>
@@ -489,10 +496,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТабличныйДокумент</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТабличныйДокумент</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>

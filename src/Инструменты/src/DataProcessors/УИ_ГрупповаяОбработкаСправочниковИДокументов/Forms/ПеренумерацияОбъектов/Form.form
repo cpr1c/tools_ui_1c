@@ -16,10 +16,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТекущаяНастройкаПредставление</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТекущаяНастройкаПредставление</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>
@@ -82,10 +80,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>НачальныйНомер</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>НачальныйНомер</segments>
       </dataPath>
       <extendedTooltip>
         <name>НачальныйНомерExtendedTooltip</name>
@@ -134,10 +130,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>НеИзменятьЧисловуюНумерацию</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>НеИзменятьЧисловуюНумерацию</segments>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <handlers>
@@ -215,10 +209,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>СтрокаПрефикса</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СтрокаПрефикса</segments>
       </dataPath>
       <extendedTooltip>
         <name>СтрокаПрефиксаExtendedTooltip</name>
@@ -267,10 +259,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>СпособОбработкиПрефиксов</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>СпособОбработкиПрефиксов</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <handlers>
@@ -368,10 +358,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ЗаменяемаяПодстрока</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ЗаменяемаяПодстрока</segments>
       </dataPath>
       <titleLocation>Right</titleLocation>
       <extendedTooltip>

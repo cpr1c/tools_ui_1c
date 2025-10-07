@@ -8,6 +8,7 @@
     <key>ru</key>
     <value>Портативные универсальные инструменты</value>
   </synonym>
+  <comment>1.1</comment>
   <containedObjects classId="c3831ec8-d8d5-4f93-8a22-f9bfae07327f" objectId="72a612b7-6b1c-43ed-8f1a-7ff5ae4c19b8"/>
   <defaultForm>ExternalDataProcessor.УИ_ПортативныеУниверсальныеИнструменты.Form.Форма</defaultForm>
   <forms uuid="4cb820fd-ce92-423e-9874-8e6359dd425a">

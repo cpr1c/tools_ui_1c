@@ -22,10 +22,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Установлена</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Установлена</segments>
       </dataPath>
       <extendedTooltip>
         <name>УстановленаРасширеннаяПодсказка</name>
@@ -67,10 +65,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>КодРазрешения</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>КодРазрешения</segments>
       </dataPath>
       <toolTip>
         <key>ru</key>
@@ -123,10 +119,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Начало</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Начало</segments>
       </dataPath>
       <extendedTooltip>
         <name>НачалоРасширеннаяПодсказка</name>
@@ -180,10 +174,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Конец</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Конец</segments>
       </dataPath>
       <extendedTooltip>
         <name>КонецРасширеннаяПодсказка</name>
@@ -237,10 +229,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Сообщение</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Сообщение</segments>
       </dataPath>
       <extendedTooltip>
         <name>СообщениеРасширеннаяПодсказка</name>

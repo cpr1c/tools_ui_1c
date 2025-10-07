@@ -16,10 +16,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>ТекущаяНастройкаПредставление</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>ТекущаяНастройкаПредставление</segments>
     </dataPath>
     <handlers>
       <event>OnChange</event>

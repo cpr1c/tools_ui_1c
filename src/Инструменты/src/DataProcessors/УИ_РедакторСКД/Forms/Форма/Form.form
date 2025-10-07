@@ -36,10 +36,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>НаборыДанных.Картинка</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>НаборыДанных.Картинка</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>НаборыДанныхКартинкаРасширеннаяПодсказка</name>
@@ -86,10 +84,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>НаборыДанных.Имя</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>НаборыДанных.Имя</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>НаборыДанныхИмяРасширеннаяПодсказка</name>
@@ -312,6 +308,66 @@
                   </extInfo>
                 </extendedTooltip>
                 <commandName>Form.Command.УдалитьНаборДанных</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
+              <items xsi:type="form:Button">
+                <name>НаборыДанныхПереместитьВверх</name>
+                <id>829</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>НаборыДанныхПереместитьВверхРасширеннаяПодсказка</name>
+                  <id>830</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Item.НаборыДанных.StandardCommand.MoveUp</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
+              <items xsi:type="form:Button">
+                <name>НаборыДанныхПереместитьВниз</name>
+                <id>831</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>НаборыДанныхПереместитьВнизРасширеннаяПодсказка</name>
+                  <id>832</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Item.НаборыДанных.StandardCommand.MoveDown</commandName>
                 <representation>Auto</representation>
                 <autoMaxWidth>true</autoMaxWidth>
                 <autoMaxHeight>true</autoMaxHeight>
@@ -605,6 +661,66 @@
                 <placementArea>UserCmds</placementArea>
                 <representationInContextMenu>Auto</representationInContextMenu>
               </items>
+              <items xsi:type="form:Button">
+                <name>НаборыДанныхКонтекстноеМенюПереместитьВверх</name>
+                <id>833</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>НаборыДанныхКонтекстноеМенюПереместитьВверхРасширеннаяПодсказка</name>
+                  <id>834</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Item.НаборыДанных.StandardCommand.MoveUp</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
+              <items xsi:type="form:Button">
+                <name>НаборыДанныхКонтекстноеМенюПереместитьВниз</name>
+                <id>835</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <extendedTooltip>
+                  <name>НаборыДанныхКонтекстноеМенюПереместитьВнизРасширеннаяПодсказка</name>
+                  <id>836</id>
+                  <visible>true</visible>
+                  <enabled>true</enabled>
+                  <userVisible>
+                    <common>true</common>
+                  </userVisible>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <commandName>Form.Item.НаборыДанных.StandardCommand.MoveDown</commandName>
+                <representation>Auto</representation>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <placementArea>UserCmds</placementArea>
+                <representationInContextMenu>Auto</representationInContextMenu>
+              </items>
               <visible>true</visible>
               <enabled>true</enabled>
               <userVisible>
@@ -784,10 +900,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>Items.НаборыДанных.CurrentData.Поля.Картинка</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>Items.НаборыДанных.CurrentData.Поля.Картинка</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>НаборыДанныхПоляКартинкаРасширеннаяПодсказка</name>
@@ -832,10 +946,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>Items.НаборыДанных.CurrentData.Поля.Поле</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>Items.НаборыДанных.CurrentData.Поля.Поле</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>НаборыДанныхПоляПолеРасширеннаяПодсказка</name>
@@ -887,10 +999,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.ПутьКДанным</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.ПутьКДанным</segments>
                     </dataPath>
                     <handlers>
                       <event>OnChange</event>
@@ -943,10 +1053,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.Заголовок</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.Заголовок</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляЗаголовокРасширеннаяПодсказка</name>
@@ -1035,10 +1143,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияПоле</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияПоле</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияПолеРасширеннаяПодсказка</name>
@@ -1084,10 +1190,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияУсловие</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияУсловие</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияУсловиеРасширеннаяПодсказка</name>
@@ -1133,10 +1237,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияГруппировка</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияГруппировка</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияГруппировкаРасширеннаяПодсказка</name>
@@ -1182,10 +1284,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияПорядок</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияПорядок</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияПорядокРасширеннаяПодсказка</name>
@@ -1266,10 +1366,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовПоле</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовПоле</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияРеквизитовПолеРасширеннаяПодсказка</name>
@@ -1315,10 +1413,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовУсловие</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовУсловие</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияРеквизитовУсловиеРасширеннаяПодсказка</name>
@@ -1364,10 +1460,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовГруппировка</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовГруппировка</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияРеквизитовГруппировкаРасширеннаяПодсказка</name>
@@ -1413,10 +1507,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовПорядок</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.Поля.ОграничениеИспользованияРеквизитовПорядок</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>ПоляОграничениеИспользованияРеквизитовПорядокРасширеннаяПодсказка</name>
@@ -1525,10 +1617,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>Items.НаборыДанных.CurrentData.Поля.РольПредставление</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>Items.НаборыДанных.CurrentData.Поля.РольПредставление</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>НаборыДанныхПоляРольПредставлениеРасширеннаяПодсказка</name>
@@ -1584,10 +1674,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.ВыражениеПредставления</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.ВыражениеПредставления</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляВыражениеПредставленияРасширеннаяПодсказка</name>
@@ -1620,9 +1708,14 @@
                     <headerHorizontalAlign>Left</headerHorizontalAlign>
                     <showInFooter>true</showInFooter>
                     <extInfo xsi:type="form:InputFieldExtInfo">
+                      <handlers>
+                        <event>Opening</event>
+                        <name>ПоляВыражениеПредставленияОткрытие</name>
+                      </handlers>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <wrap>true</wrap>
+                      <openButton>true</openButton>
                       <chooseType>true</chooseType>
                       <typeDomainEnabled>true</typeDomainEnabled>
                       <textEdit>true</textEdit>
@@ -1673,10 +1766,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.НаборДанныхПроверкиИерархии</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.НаборДанныхПроверкиИерархии</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляНаборДанныхПроверкиИерархииРасширеннаяПодсказка</name>
@@ -1730,10 +1821,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.ПараметрНабораДанныхПроверкиИерархии</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.ПараметрНабораДанныхПроверкиИерархии</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляПараметрНабораДанныхПроверкиИерархииРасширеннаяПодсказка</name>
@@ -1816,10 +1905,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.ТипЗначения</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.ТипЗначения</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляТипЗначенияРасширеннаяПодсказка</name>
@@ -1872,10 +1959,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.ДоступныеЗначения</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.ДоступныеЗначения</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляДоступныеЗначенияРасширеннаяПодсказка</name>
@@ -1961,10 +2046,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.Оформление</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.Оформление</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляОформлениеРасширеннаяПодсказка</name>
@@ -2013,10 +2096,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Поля.ПараметрыРедактирования</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.Поля.ПараметрыРедактирования</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>ПоляПараметрыРедактированияРасширеннаяПодсказка</name>
@@ -2205,6 +2286,66 @@
                       </extInfo>
                     </extendedTooltip>
                     <commandName>Form.Command.ДобавитьПолеНабораНабор</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляПереместитьВверх</name>
+                    <id>837</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляПереместитьВверхРасширеннаяПодсказка</name>
+                      <id>838</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.MoveUp</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляПереместитьВниз</name>
+                    <id>839</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляПереместитьВнизРасширеннаяПодсказка</name>
+                      <id>840</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.MoveDown</commandName>
                     <representation>Auto</representation>
                     <autoMaxWidth>true</autoMaxWidth>
                     <autoMaxHeight>true</autoMaxHeight>
@@ -2523,6 +2664,66 @@
                     <representationInContextMenu>Auto</representationInContextMenu>
                   </items>
                   <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляКонтекстноеМенюПереместитьВверх</name>
+                    <id>811</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляКонтекстноеМенюПереместитьВверхРасширеннаяПодсказка</name>
+                      <id>812</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.MoveUp</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
+                    <name>НаборыДанныхПоляКонтекстноеМенюПереместитьВниз</name>
+                    <id>813</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <extendedTooltip>
+                      <name>НаборыДанныхПоляКонтекстноеМенюПереместитьВнизРасширеннаяПодсказка</name>
+                      <id>814</id>
+                      <visible>true</visible>
+                      <enabled>true</enabled>
+                      <userVisible>
+                        <common>true</common>
+                      </userVisible>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <commandName>Form.Item.НаборыДанныхПоля.StandardCommand.MoveDown</commandName>
+                    <representation>Auto</representation>
+                    <autoMaxWidth>true</autoMaxWidth>
+                    <autoMaxHeight>true</autoMaxHeight>
+                    <placementArea>UserCmds</placementArea>
+                    <representationInContextMenu>Auto</representationInContextMenu>
+                  </items>
+                  <items xsi:type="form:Button">
                     <name>НаборыДанныхПоляУдалить1</name>
                     <id>803</id>
                     <visible>true</visible>
@@ -2699,16 +2900,10 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.Запрос</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>ПолеТекстЗапроса</segments>
                     </dataPath>
                     <titleLocation>None</titleLocation>
-                    <handlers>
-                      <event>OnChange</event>
-                      <name>НаборыДанныхЗапросПриИзменении</name>
-                    </handlers>
                     <extendedTooltip>
                       <name>НаборыДанныхЗапросРасширеннаяПодсказка</name>
                       <id>112</id>
@@ -2730,7 +2925,6 @@
                       <items xsi:type="form:Button">
                         <name>НаборыДанныхЗапросКонтекстноеМенюОткрытьКонструкторЗапроса</name>
                         <id>120</id>
-                        <visible>true</visible>
                         <enabled>true</enabled>
                         <userVisible>
                           <common>true</common>
@@ -2762,7 +2956,6 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <autoFill>true</autoFill>
                     </contextMenu>
                     <type>TextDocumentField</type>
                     <editMode>Enter</editMode>
@@ -2789,10 +2982,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.АвтоЗаполнениеДоступныхПолей</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.АвтоЗаполнениеДоступныхПолей</segments>
                       </dataPath>
                       <handlers>
                         <event>OnChange</event>
@@ -2838,10 +3029,8 @@
                       <userVisible>
                         <common>true</common>
                       </userVisible>
-                      <dataPath xsi:type="form:MultiLanguageDataPath">
-                        <paths xsi:type="form:DataPath">
-                          <segments>Items.НаборыДанных.CurrentData.ИспользоватьГруппировкиЗапросаЕслиВозможно</segments>
-                        </paths>
+                      <dataPath xsi:type="form:DataPath">
+                        <segments>Items.НаборыДанных.CurrentData.ИспользоватьГруппировкиЗапросаЕслиВозможно</segments>
                       </dataPath>
                       <extendedTooltip>
                         <name>НаборыДанныхИспользоватьГруппировкиЗапросаЕслиВозможноРасширеннаяПодсказка</name>
@@ -2945,10 +3134,8 @@
                     <userVisible>
                       <common>true</common>
                     </userVisible>
-                    <dataPath xsi:type="form:MultiLanguageDataPath">
-                      <paths xsi:type="form:DataPath">
-                        <segments>Items.НаборыДанных.CurrentData.ИмяОбъекта</segments>
-                      </paths>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>Items.НаборыДанных.CurrentData.ИмяОбъекта</segments>
                     </dataPath>
                     <extendedTooltip>
                       <name>НаборыДанныхИмяОбъектаРасширеннаяПодсказка</name>
@@ -3055,10 +3242,8 @@
                 <userVisible>
                   <common>true</common>
                 </userVisible>
-                <dataPath xsi:type="form:MultiLanguageDataPath">
-                  <paths xsi:type="form:DataPath">
-                    <segments>Items.НаборыДанных.CurrentData.ИсточникДанных</segments>
-                  </paths>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>Items.НаборыДанных.CurrentData.ИсточникДанных</segments>
                 </dataPath>
                 <extendedTooltip>
                   <name>НаборыДанныхИсточникДанныхРасширеннаяПодсказка</name>
@@ -3153,10 +3338,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>ИсточникиДанных.Имя</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>ИсточникиДанных.Имя</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ИсточникиДанныхИмяРасширеннаяПодсказка</name>
@@ -3205,10 +3388,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>ИсточникиДанных.СтрокаСоединения</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>ИсточникиДанных.СтрокаСоединения</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ИсточникиДанныхСтрокаСоединенияРасширеннаяПодсказка</name>
@@ -3257,10 +3438,8 @@
                   <userVisible>
                     <common>true</common>
                   </userVisible>
-                  <dataPath xsi:type="form:MultiLanguageDataPath">
-                    <paths xsi:type="form:DataPath">
-                      <segments>ИсточникиДанных.ТипИсточникаДанных</segments>
-                    </paths>
+                  <dataPath xsi:type="form:DataPath">
+                    <segments>ИсточникиДанных.ТипИсточникаДанных</segments>
                   </dataPath>
                   <extendedTooltip>
                     <name>ИсточникиДанныхТипИсточникаДанныхРасширеннаяПодсказка</name>
@@ -3648,10 +3827,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.НаборДанныхИсточник</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.НаборДанныхИсточник</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -3709,10 +3886,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.НаборДанныхПриемник</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.НаборДанныхПриемник</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -3766,10 +3941,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.ВыражениеИсточник</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.ВыражениеИсточник</segments>
           </dataPath>
           <extendedTooltip>
             <name>СвязиНаборовДанныхВыражениеИсточникРасширеннаяПодсказка</name>
@@ -3819,10 +3992,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.ВыражениеПриемник</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.ВыражениеПриемник</segments>
           </dataPath>
           <extendedTooltip>
             <name>СвязиНаборовДанныхВыражениеПриемникРасширеннаяПодсказка</name>
@@ -3872,10 +4043,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.Параметр</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.Параметр</segments>
           </dataPath>
           <extendedTooltip>
             <name>СвязиНаборовДанныхПараметрРасширеннаяПодсказка</name>
@@ -3928,10 +4097,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.РазрешенСписокПараметров</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.РазрешенСписокПараметров</segments>
           </dataPath>
           <extendedTooltip>
             <name>СвязиНаборовДанныхРазрешенСписокПараметровРасширеннаяПодсказка</name>
@@ -3973,10 +4140,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.УсловиеСвязи</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.УсловиеСвязи</segments>
           </dataPath>
           <extendedTooltip>
             <name>СвязиНаборовДанныхУсловиеСвязиРасширеннаяПодсказка</name>
@@ -4025,10 +4190,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.НачальноеВыражение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.НачальноеВыражение</segments>
           </dataPath>
           <extendedTooltip>
             <name>СвязиНаборовДанныхНачальноеВыражениеРасширеннаяПодсказка</name>
@@ -4077,10 +4240,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СвязиНаборовДанных.Обязательная</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СвязиНаборовДанных.Обязательная</segments>
           </dataPath>
           <extendedTooltip>
             <name>СвязиНаборовДанныхОбязательнаяРасширеннаяПодсказка</name>
@@ -4402,10 +4563,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВычисляемыеПоля.ПутьКДанным</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВычисляемыеПоля.ПутьКДанным</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -4458,10 +4617,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВычисляемыеПоля.Выражение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВычисляемыеПоля.Выражение</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВычисляемыеПоляВыражениеРасширеннаяПодсказка</name>
@@ -4515,10 +4672,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВычисляемыеПоля.Заголовок</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВычисляемыеПоля.Заголовок</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВычисляемыеПоляЗаголовокРасширеннаяПодсказка</name>
@@ -4574,10 +4729,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ВычисляемыеПоля.ОграничениеИспользованияПоле</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ВычисляемыеПоля.ОграничениеИспользованияПоле</segments>
             </dataPath>
             <extendedTooltip>
               <name>ВычисляемыеПоляОграничениеИспользованияПолеРасширеннаяПодсказка</name>
@@ -4623,10 +4776,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ВычисляемыеПоля.ОграничениеИспользованияУсловие</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ВычисляемыеПоля.ОграничениеИспользованияУсловие</segments>
             </dataPath>
             <extendedTooltip>
               <name>ВычисляемыеПоляОграничениеИспользованияУсловиеРасширеннаяПодсказка</name>
@@ -4672,10 +4823,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ВычисляемыеПоля.ОграничениеИспользованияГруппировка</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ВычисляемыеПоля.ОграничениеИспользованияГруппировка</segments>
             </dataPath>
             <extendedTooltip>
               <name>ВычисляемыеПоляОграничениеИспользованияГруппировкаРасширеннаяПодсказка</name>
@@ -4721,10 +4870,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ВычисляемыеПоля.ОграничениеИспользованияПорядок</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ВычисляемыеПоля.ОграничениеИспользованияПорядок</segments>
             </dataPath>
             <extendedTooltip>
               <name>ВычисляемыеПоляОграничениеИспользованияПорядокРасширеннаяПодсказка</name>
@@ -4796,10 +4943,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВычисляемыеПоля.ВыражениеПредставления</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВычисляемыеПоля.ВыражениеПредставления</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВычисляемыеПоляВыражениеПредставленияРасширеннаяПодсказка</name>
@@ -4848,10 +4993,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВычисляемыеПоля.ВыраженияУпорядочиванияПредставление</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВычисляемыеПоля.ВыраженияУпорядочиванияПредставление</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВычисляемыеПоляВыраженияУпорядочиванияПредставлениеРасширеннаяПодсказка</name>
@@ -4900,10 +5043,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВычисляемыеПоля.ТипЗначения</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВычисляемыеПоля.ТипЗначения</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВычисляемыеПоляТипЗначенияРасширеннаяПодсказка</name>
@@ -4956,10 +5097,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВычисляемыеПоля.ДоступныеЗначения</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВычисляемыеПоля.ДоступныеЗначения</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВычисляемыеПоляДоступныеЗначенияРасширеннаяПодсказка</name>
@@ -5015,10 +5154,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ВычисляемыеПоля.Оформление</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ВычисляемыеПоля.Оформление</segments>
             </dataPath>
             <extendedTooltip>
               <name>ВычисляемыеПоляОформлениеРасширеннаяПодсказка</name>
@@ -5067,10 +5204,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>ВычисляемыеПоля.ПараметрыРедактирования</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>ВычисляемыеПоля.ПараметрыРедактирования</segments>
             </dataPath>
             <extendedTooltip>
               <name>ВычисляемыеПоляПараметрыРедактированияРасширеннаяПодсказка</name>
@@ -5437,10 +5572,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ДоступныеПоляРесурсов.Картинка</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ДоступныеПоляРесурсов.Картинка</segments>
           </dataPath>
           <extendedTooltip>
             <name>ДоступныеПоляРесурсовКартинкаРасширеннаяПодсказка</name>
@@ -5485,10 +5618,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ДоступныеПоляРесурсов.ПутьКДанным</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ДоступныеПоляРесурсов.ПутьКДанным</segments>
           </dataPath>
           <extendedTooltip>
             <name>ДоступныеПоляРесурсовПутьКДаннымРасширеннаяПодсказка</name>
@@ -5882,10 +6013,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Ресурсы.ПутьКДанным</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Ресурсы.ПутьКДанным</segments>
           </dataPath>
           <extendedTooltip>
             <name>РесурсыПутьКДаннымРасширеннаяПодсказка</name>
@@ -5935,10 +6064,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Ресурсы.Выражение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Ресурсы.Выражение</segments>
           </dataPath>
           <extendedTooltip>
             <name>РесурсыВыражениеРасширеннаяПодсказка</name>
@@ -5997,10 +6124,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>Ресурсы.Группировки</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>Ресурсы.Группировки</segments>
           </dataPath>
           <shortcut>Ctrl+S</shortcut>
           <extendedTooltip>
@@ -6194,13 +6319,223 @@
         <contextMenu>
           <name>РесурсыКонтекстноеМеню</name>
           <id>330</id>
+          <items xsi:type="form:Button">
+            <name>РесурсыКонтекстноеМенюИзменить</name>
+            <id>815</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РесурсыКонтекстноеМенюИзменитьРасширеннаяПодсказка</name>
+              <id>816</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.Ресурсы.StandardCommand.Change</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РесурсыКонтекстноеМенюКопироватьВБуферОбмена</name>
+            <id>821</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РесурсыКонтекстноеМенюКопироватьВБуферОбменаРасширеннаяПодсказка</name>
+              <id>822</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.Ресурсы.StandardCommand.CopyToClipboard</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РесурсыКонтекстноеМенюВыделитьВсе</name>
+            <id>823</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РесурсыКонтекстноеМенюВыделитьВсеРасширеннаяПодсказка</name>
+              <id>824</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.Ресурсы.StandardCommand.SelectAll</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РесурсыКонтекстноеМенюПереместитьВверх</name>
+            <id>825</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РесурсыКонтекстноеМенюПереместитьВверхРасширеннаяПодсказка</name>
+              <id>826</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.Ресурсы.StandardCommand.MoveUp</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РесурсыКонтекстноеМенюПереместитьВниз</name>
+            <id>827</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РесурсыКонтекстноеМенюПереместитьВнизРасширеннаяПодсказка</name>
+              <id>828</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.Ресурсы.StandardCommand.MoveDown</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РесурсыКонтекстноеМенюНайти</name>
+            <id>817</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РесурсыКонтекстноеМенюНайтиРасширеннаяПодсказка</name>
+              <id>818</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.Ресурсы.StandardCommand.Find</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
+          <items xsi:type="form:Button">
+            <name>РесурсыКонтекстноеМенюОтменитьПоиск</name>
+            <id>819</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <extendedTooltip>
+              <name>РесурсыКонтекстноеМенюОтменитьПоискРасширеннаяПодсказка</name>
+              <id>820</id>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <commandName>Form.Item.Ресурсы.StandardCommand.CancelSearch</commandName>
+            <representation>Auto</representation>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <placementArea>UserCmds</placementArea>
+            <representationInContextMenu>Auto</representationInContextMenu>
+          </items>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
             <common>true</common>
           </userVisible>
-          <autoFill>true</autoFill>
         </contextMenu>
+        <changeRowOrder>true</changeRowOrder>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <autoMaxRowsCount>true</autoMaxRowsCount>
@@ -6271,10 +6606,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Имя</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.Имя</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -6327,10 +6660,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Заголовок</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.Заголовок</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДЗаголовокРасширеннаяПодсказка</name>
@@ -6383,10 +6714,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ТипЗначения</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ТипЗначения</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -6447,10 +6776,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ДоступныеЗначения</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ДоступныеЗначения</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДДоступныеЗначенияРасширеннаяПодсказка</name>
@@ -6503,10 +6830,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ДоступенСписокЗначений</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ДоступенСписокЗначений</segments>
           </dataPath>
           <handlers>
             <event>OnChange</event>
@@ -6552,10 +6877,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Значение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.Значение</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДЗначениеРасширеннаяПодсказка</name>
@@ -6610,10 +6933,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.Выражение</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.Выражение</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДВыражениеРасширеннаяПодсказка</name>
@@ -6667,10 +6988,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ПараметрФункциональныхОпций</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ПараметрФункциональныхОпций</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДПараметрФункциональныхОпцийРасширеннаяПодсказка</name>
@@ -6719,10 +7038,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ВключатьВДоступныеПоля</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ВключатьВДоступныеПоля</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДВключатьВДоступныеПоляРасширеннаяПодсказка</name>
@@ -6764,10 +7081,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ОграничениеИспользования</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ОграничениеИспользования</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДОграничениеИспользованияРасширеннаяПодсказка</name>
@@ -6809,10 +7124,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ЗапрещатьНезаполненныеЗначения</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ЗапрещатьНезаполненныеЗначения</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДЗапрещатьНезаполненныеЗначенияРасширеннаяПодсказка</name>
@@ -6858,10 +7171,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ИспользованиеВсегда</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ИспользованиеВсегда</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДИспользованиеВсегдаРасширеннаяПодсказка</name>
@@ -6918,10 +7229,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ПараметрыСКД.ПараметрыРедактирования</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ПараметрыСКД.ПараметрыРедактирования</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПараметрыСКДПараметрыРедактированияРасширеннаяПодсказка</name>
@@ -7343,10 +7652,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВариантыНастроек.Имя</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВариантыНастроек.Имя</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВариантыНастроекИмяРасширеннаяПодсказка</name>
@@ -7395,10 +7702,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ВариантыНастроек.Представление</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ВариантыНастроек.Представление</segments>
           </dataPath>
           <extendedTooltip>
             <name>ВариантыНастроекПредставлениеРасширеннаяПодсказка</name>
@@ -8904,10 +9209,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныеВыбранныеПоля</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ЛокальныеВыбранныеПоля</segments>
               </dataPath>
               <titleLocation>Right</titleLocation>
               <handlers>
@@ -9695,10 +9998,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныйОтбор</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ЛокальныйОтбор</segments>
               </dataPath>
               <titleLocation>Right</titleLocation>
               <handlers>
@@ -10488,10 +10789,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныйПорядок</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ЛокальныйПорядок</segments>
               </dataPath>
               <titleLocation>Right</titleLocation>
               <handlers>
@@ -11277,10 +11576,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ЛокальноеУсловноеОформление</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ЛокальноеУсловноеОформление</segments>
               </dataPath>
               <titleLocation>Right</titleLocation>
               <handlers>
@@ -11878,10 +12175,8 @@
               <userVisible>
                 <common>true</common>
               </userVisible>
-              <dataPath xsi:type="form:MultiLanguageDataPath">
-                <paths xsi:type="form:DataPath">
-                  <segments>ЛокальныеПараметрыВывода</segments>
-                </paths>
+              <dataPath xsi:type="form:DataPath">
+                <segments>ЛокальныеПараметрыВывода</segments>
               </dataPath>
               <titleLocation>Right</titleLocation>
               <handlers>
@@ -12856,6 +13151,24 @@
       <id>13</id>
       <valueType>
         <types>ValueTable</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ЗапросОриганальный</name>
+      <title>
+        <key>ru</key>
+        <value>Запрос ориганальный</value>
+      </title>
+      <id>116</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
       </valueType>
       <view>
         <common>true</common>
@@ -14587,6 +14900,116 @@
     <edit>
       <common>true</common>
     </edit>
+  </attributes>
+  <attributes>
+    <name>ПолеТекстЗапроса</name>
+    <title>
+      <key>ru</key>
+      <value>Поле текст запроса</value>
+    </title>
+    <id>115</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ИдентификаторСтрокиТекущегоНабораДанных</name>
+    <title>
+      <key>ru</key>
+      <value>Идентификатор строки текущего набора данных</value>
+    </title>
+    <id>117</id>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ПараметрыЗапросов</name>
+    <title>
+      <key>ru</key>
+      <value>Параметры запросов</value>
+    </title>
+    <id>119</id>
+    <valueType>
+      <types>ValueTable</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <columns>
+      <name>ИдентификаторЗапроса</name>
+      <title>
+        <key>ru</key>
+        <value>Идентификатор запроса</value>
+      </title>
+      <id>120</id>
+      <valueType>
+        <types>Number</types>
+        <numberQualifiers>
+          <precision>10</precision>
+        </numberQualifiers>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Имя</name>
+      <title>
+        <key>ru</key>
+        <value>Имя</value>
+      </title>
+      <id>121</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипЗначения</name>
+      <title>
+        <key>ru</key>
+        <value>Тип значения</value>
+      </title>
+      <id>122</id>
+      <valueType>
+        <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
   </attributes>
   <formCommands>
     <name>ДобавитьНаборДанныхЗапрос</name>

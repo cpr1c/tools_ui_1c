@@ -15,10 +15,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>МетаданныеВыбор</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>МетаданныеВыбор</segments>
       </dataPath>
       <extendedTooltip>
         <name>МетаданныеВыборРасширеннаяПодсказка</name>
@@ -70,10 +68,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Наименование</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Наименование</segments>
       </dataPath>
       <extendedTooltip>
         <name>НаименованиеРасширеннаяПодсказка</name>
@@ -123,10 +119,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Ключ</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Ключ</segments>
       </dataPath>
       <extendedTooltip>
         <name>КлючРасширеннаяПодсказка</name>
@@ -176,10 +170,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Предопределенное</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Предопределенное</segments>
       </dataPath>
       <extendedTooltip>
         <name>ПредопределенноеРасширеннаяПодсказка</name>
@@ -221,10 +213,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Использование</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Использование</segments>
       </dataPath>
       <extendedTooltip>
         <name>ИспользованиеРасширеннаяПодсказка</name>
@@ -514,4 +504,5 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

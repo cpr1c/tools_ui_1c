@@ -273,6 +273,11 @@
       <key>ru</key>
       <value>Подбор в список</value>
     </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
@@ -362,6 +367,15 @@
     <synonym>
       <key>ru</key>
       <value>Форма плана запроса</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="3ca9fec9-1509-46c3-a9a2-2c0ce4ea15c3">
+    <name>ВыборМакроКолонки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Выбор макро колонки</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

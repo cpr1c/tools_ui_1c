@@ -1,0 +1,2577 @@
+
+C:\temp\RUERP24\AccumulationRegisters\НачисленияУдержанияПоСотрудникам\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 40; кол: 2]
+
+C:\temp\RUERP24\AccumulationRegisters\НачисленияУдержанияПоСотрудникамАвансом\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 39; кол: 2]
+
+C:\temp\RUERP24\AccumulationRegisters\ОтработанноеВремяПоСотрудникамАвансом\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 39; кол: 2]
+
+C:\temp\RUERP24\AccumulationRegisters\ПартииПрочихРасходов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 39; кол: 10]
+
+C:\temp\RUERP24\AccumulationRegisters\ПрочиеРасходы\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 266; кол: 10]
+
+C:\temp\RUERP24\Catalogs\ГИСМПрисоединенныеФайлы\Forms\ФормаЗапросОтвет\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 153; кол: 42]
+
+C:\temp\RUERP24\Catalogs\ГрафикиРаботыСотрудников\Forms\НастройкаНовогоГрафикаРаботы\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 115; кол: 120]
+
+C:\temp\RUERP24\Catalogs\ГрафикиРаботыСотрудников\Forms\ФормаГрафика\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 466; кол: 31]
+
+C:\temp\RUERP24\Catalogs\ГруппыСотрудников\Forms\ФормаВыбора\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 100; кол: 66]
+
+C:\temp\RUERP24\Catalogs\ГруппыСотрудников\Forms\ФормаВыбора\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 102; кол: 59]
+
+C:\temp\RUERP24\Catalogs\ГруппыСотрудников\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 335; кол: 74]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 193; кол: 29]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1196; кол: 19]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3485; кол: 10]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3499; кол: 10]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 745; кол: 83]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 747; кол: 71]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 975; кол: 44]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1423; кол: 54]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 3586; кол: 130]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 3761; кол: 10]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 3757; кол: 123]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 3983; кол: 80]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 4132; кол: 80]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 4300; кол: 80]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 5348; кол: 57]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 5760; кол: 35]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 5918; кол: 160]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 6079; кол: 33]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 6109; кол: 33]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 6139; кол: 33]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 6189; кол: 26]
+
+C:\temp\RUERP24\Catalogs\КомплектыОтчетностиПерсучета\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 6191; кол: 26]
+
+C:\temp\RUERP24\Catalogs\КонтактныеЛицаПартнеров\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 26; кол: 3]
+
+C:\temp\RUERP24\Catalogs\Контрагенты\Forms\ФормаВыбораИспользуютсяТолькоПартнеры\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 326; кол: 73]
+
+C:\temp\RUERP24\Catalogs\Контрагенты\Forms\ФормаВыбораИспользуютсяТолькоПартнеры\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 461; кол: 152]
+
+C:\temp\RUERP24\Catalogs\Контрагенты\Forms\ФормаВыбораИспользуютсяТолькоПартнерыБезПолнотекстовогоПоиска\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 324; кол: 73]
+
+C:\temp\RUERP24\Catalogs\Контрагенты\Forms\ФормаВыбораИспользуютсяТолькоПартнерыБезПолнотекстовогоПоиска\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 460; кол: 152]
+
+C:\temp\RUERP24\Catalogs\Контрагенты\Forms\ФормаСпискаПараметрическая\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 76; кол: 50]
+
+C:\temp\RUERP24\Catalogs\НаборыДополнительныхРеквизитовИСведений\Forms\ФормаГруппы\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 18; кол: 110]
+
+C:\temp\RUERP24\Catalogs\НаборыДополнительныхРеквизитовИСведений\Forms\ФормаГруппы\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 21; кол: 99]
+
+C:\temp\RUERP24\Catalogs\НаборыДополнительныхРеквизитовИСведений\Forms\ФормаГруппы\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 24; кол: 97]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 2884; кол: 23]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3142; кол: 5]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4929; кол: 2]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 148; кол: 3]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Forms\ПрименениеСпецификацииВЗаказах\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 703; кол: 91]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 314; кол: 76]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1323; кол: 3]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1855; кол: 61]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3116; кол: 3]
+
+C:\temp\RUERP24\Catalogs\РесурсныеСпецификации\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3153; кол: 11]
+
+C:\temp\RUERP24\Catalogs\РолиИсполнителей\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 23; кол: 10]
+
+C:\temp\RUERP24\Catalogs\СделкиСКлиентами\Commands\ОкружениеСделки\Ext\CommandModule.bsl
+Пропущена точка с запятой [стр: 29; кол: 114]
+
+C:\temp\RUERP24\Catalogs\СделкиСКлиентами\Forms\ОкружениеСделки\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 151; кол: 72]
+
+C:\temp\RUERP24\Catalogs\СделкиСКлиентами\Forms\ОкружениеСделки\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 408; кол: 26]
+
+C:\temp\RUERP24\Catalogs\СделкиСКлиентами\Forms\РасчетПотенциала\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 165; кол: 46]
+
+C:\temp\RUERP24\Catalogs\СделкиСКлиентами\Forms\РасчетПотенциала\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 183; кол: 46]
+
+C:\temp\RUERP24\Catalogs\ШаблоныАнкет\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 832; кол: 3]
+
+C:\temp\RUERP24\Catalogs\ШаблоныАнкет\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 996; кол: 55]
+
+C:\temp\RUERP24\Catalogs\ШаблоныАнкет\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1000; кол: 59]
+
+C:\temp\RUERP24\Catalogs\ШаблоныАнкет\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1004; кол: 59]
+
+C:\temp\RUERP24\Catalogs\ШаблоныВводаНефинансовыхПоказателей\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 12; кол: 73]
+
+C:\temp\RUERP24\Catalogs\ШаблоныПроводокДляМеждународногоУчета\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 71; кол: 27]
+
+C:\temp\RUERP24\Catalogs\ШаблоныПроводокДляМеждународногоУчета\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 469; кол: 66]
+
+C:\temp\RUERP24\Catalogs\ШаблоныПроводокДляМеждународногоУчета\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 473; кол: 66]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ЗаполнитьПроизвольныеПараметры\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 24; кол: 78]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\СформироватьСообщение\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 319; кол: 90]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 31; кол: 5]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 217; кол: 28]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 289; кол: 2]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 514; кол: 2]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 790; кол: 19]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 793; кол: 19]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1334; кол: 2]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1373; кол: 2]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1632; кол: 2]
+
+C:\temp\RUERP24\Catalogs\ШаблоныСообщений\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1614; кол: 5]
+
+C:\temp\RUERP24\Catalogs\ШаблоныЭтикетокИЦенников\Forms\ФормаРедактированияШаблонаЭтикетокИЦенников\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1231; кол: 5]
+
+C:\temp\RUERP24\Catalogs\ШаблоныЭтикетокИЦенников\Forms\ФормаРедактированияШаблонаЭтикетокИЦенников\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1644; кол: 88]
+
+C:\temp\RUERP24\Catalogs\ШтатноеРасписание\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 916; кол: 26]
+
+C:\temp\RUERP24\Catalogs\ШтатноеРасписание\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1565; кол: 10]
+
+C:\temp\RUERP24\Catalogs\ЭлектронныеПредставленияРегламентированныхОтчетов\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 419; кол: 141]
+
+C:\temp\RUERP24\Catalogs\ЭлектронныеПредставленияРегламентированныхОтчетов\Forms\ФормаЭлемента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1021; кол: 10]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 133; кол: 84]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 306; кол: 57]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 364; кол: 44]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 390; кол: 44]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1074; кол: 35]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1112; кол: 40]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1133; кол: 83]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Forms\ВыборИзмеренийИтога\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 13; кол: 83]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Forms\НастройкаЯчеек\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 62; кол: 76]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Forms\НастройкаЯчеек\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 366; кол: 69]
+
+C:\temp\RUERP24\Catalogs\ЭлементыФинансовыхОтчетов\Forms\НастройкаЯчеекВидаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 255; кол: 69]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 477; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 475; кол: 4]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 473; кол: 5]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1200; кол: 80]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2607; кол: 49]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3759; кол: 73]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 10694; кол: 82]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 10696; кол: 82]
+
+C:\temp\RUERP24\CommonModules\ЗапасыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 10699; кол: 82]
+
+C:\temp\RUERP24\CommonModules\ЗаполнениеБухгалтерскойОтчетностиВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 36324; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗаполнениеОбъектов\Ext\Module.bsl
+Пропущена точка с запятой [стр: 127; кол: 11]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 121; кол: 36]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 129; кол: 71]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 231; кол: 95]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 510; кол: 2]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 504; кол: 31]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 509; кол: 75]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 568; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 567; кол: 61]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 593; кол: 33]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 617; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 706; кол: 69]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1850; кол: 35]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2044; кол: 28]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2109; кол: 2]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2102; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2116; кол: 59]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2119; кол: 76]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2126; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2135; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2134; кол: 58]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2147; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2145; кол: 23]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2612; кол: 67]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2651; кол: 58]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2775; кол: 5]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2820; кол: 13]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3029; кол: 134]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4620; кол: 69]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4702; кол: 54]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 5318; кол: 16]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5348; кол: 98]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5437; кол: 116]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5481; кол: 135]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6058; кол: 119]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6062; кол: 127]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6089; кол: 119]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6093; кол: 119]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6179; кол: 114]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6182; кол: 17]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6212; кол: 69]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6237; кол: 16]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6273; кол: 132]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6276; кол: 17]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1450; кол: 4]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1497; кол: 4]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2532; кол: 8]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2564; кол: 8]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3377; кол: 7]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4108; кол: 7]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4563; кол: 7]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4834; кол: 15]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4878; кол: 46]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6092; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6078; кол: 5]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6067; кол: 95]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6070; кол: 96]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6235; кол: 25]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6240; кол: 43]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6242; кол: 43]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6253; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6318; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6345; кол: 118]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6347; кол: 86]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыВнутренний\Ext\Module.bsl
+Пропущена точка с запятой [стр: 122; кол: 72]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 294; кол: 110]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 19; кол: 153]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 17; кол: 4]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 22; кол: 4]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 26; кол: 167]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 29; кол: 141]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 33; кол: 167]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 36; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 54; кол: 70]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 229; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 263; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 288; кол: 11]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 386; кол: 34]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 383; кол: 11]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 406; кол: 34]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 403; кол: 11]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 426; кол: 35]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 423; кол: 11]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1180; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОбщиеНаборыДанных\Ext\Module.bsl
+Пропущена точка с запятой [стр: 30; кол: 81]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтображениеОшибок\Ext\Module.bsl
+Пропущена точка с запятой [стр: 672; кол: 90]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтображениеОшибок\Ext\Module.bsl
+Пропущена точка с запятой [стр: 838; кол: 94]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтображениеОшибок\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1409; кол: 90]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтображениеОшибок\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1862; кол: 63]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтображениеОшибок\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2067; кол: 94]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтображениеОшибок\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2087; кол: 62]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтчеты\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3759; кол: 115]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыОтчетыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 656; кол: 127]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыПериодическиеРегистры\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2917; кол: 36]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыПовтИсп\Ext\Module.bsl
+Пропущена точка с запятой [стр: 26; кол: 40]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1998; кол: 150]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2000; кол: 180]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3769; кол: 85]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6374; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6431; кол: 2]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6513; кол: 172]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6518; кол: 193]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6523; кол: 187]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6653; кол: 305]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6797; кол: 134]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 8909; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 9479; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11387; кол: 87]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11414; кол: 90]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 15521; кол: 23]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 15531; кол: 4]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 15537; кол: 16]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 92; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 138; кол: 110]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 33; кол: 164]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 38; кол: 164]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 45; кол: 163]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 51; кол: 164]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 54; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 613; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1513; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 399; кол: 41]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 811; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 810; кол: 84]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 835; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 834; кол: 84]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 860; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 859; кол: 84]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 956; кол: 137]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыРасширенныйПовтИсп\Ext\Module.bsl
+Пропущена точка с запятой [стр: 369; кол: 73]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыСобытия\Ext\Module.bsl
+Пропущена точка с запятой [стр: 479; кол: 54]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыСобытия\Ext\Module.bsl
+Пропущена точка с запятой [стр: 773; кол: 20]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыСобытия\Ext\Module.bsl
+Пропущена точка с запятой [стр: 709; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗарплатаКадрыСобытия\Ext\Module.bsl
+Пропущена точка с запятой [стр: 762; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗатратыСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 838; кол: 93]
+
+C:\temp\RUERP24\CommonModules\ЗащитаПерсональныхДанныхПереопределяемый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 22; кол: 103]
+
+C:\temp\RUERP24\CommonModules\ЗначениеНастроекПовтИсп\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 157; кол: 16]
+
+C:\temp\RUERP24\CommonModules\ЗначениеНастроекПовтИсп\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 244; кол: 16]
+
+C:\temp\RUERP24\CommonModules\ЗначениеНастроекПовтИсп\Ext\Module.bsl
+Пропущена точка с запятой [стр: 330; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ЗначениеНастроекПовтИсп\Ext\Module.bsl
+Пропущена точка с запятой [стр: 781; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗначениеНастроекПовтИсп\Ext\Module.bsl
+Пропущена точка с запятой [стр: 801; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ЗначениеНастроекПовтИсп\Ext\Module.bsl
+Пропущена точка с запятой [стр: 911; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ИндексацияЗаработка\Ext\Module.bsl
+Пропущена точка с запятой [стр: 120; кол: 69]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияГИСМ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2097; кол: 2]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияГИСМ_УТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3803; кол: 52]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияГИСМВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3413; кол: 10]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 225; кол: 3]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 368; кол: 85]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 443; кол: 85]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 516; кол: 85]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 612; кол: 85]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 709; кол: 85]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 802; кол: 85]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияЕГАИСУТ\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1108; кол: 84]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборот\Ext\Module.bsl
+ОШИБКА:{Модуль C:\git\osparser\src\Классы\ПарсерВстроенногоЯзыка.os / Ошибка в строке: 3280 / Ожидалось: КонецЕсли}    
+		ВызватьИсключение Ошибка.Текст;
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотВызовСервера\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 255; кол: 16]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 61; кол: 75]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1249; кол: 73]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2785; кол: 21]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2811; кол: 26]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5728; кол: 74]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5819; кол: 97]
+
+C:\temp\RUERP24\CommonModules\ИнтеграцияС1СДокументооборотПереопределяемый\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 605; кол: 18]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиБПКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 124; кол: 63]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 577; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4197; кол: 110]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебный\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 5069; кол: 16]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебныйВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 138; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебныйВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2225; кол: 11]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебныйВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4100; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебныйВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4472; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебныйКлиент\Ext\Module.bsl
+ОШИБКА:{Модуль C:\git\osparser\src\Классы\ПарсерВстроенногоЯзыка.os / Ошибка в строке: 3280 / Ожидалось: КонецПроцедуры}    
+		ВызватьИсключение Ошибка.Текст;
+
+C:\temp\RUERP24\CommonModules\РаботаСФайламиСлужебныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 780; кол: 6]
+
+C:\temp\RUERP24\CommonModules\РаботаСФормуламиКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 200; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаПрограммныйИнтерфейс\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1038; кол: 47]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаПрограммныйИнтерфейс\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5045; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1814; кол: 28]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4368; кол: 45]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5690; кол: 28]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 7457; кол: 61]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 7549; кол: 107]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11853; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 14153; кол: 123]
+
+C:\temp\RUERP24\CommonModules\РабочееМестоРаботникаСкладаСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 14725; кол: 38]
+
+C:\temp\RUERP24\CommonModules\РазрядыКатегорииДолжностей\Ext\Module.bsl
+Пропущена точка с запятой [стр: 846; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РазрядыКатегорииДолжностей\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1126; кол: 40]
+
+C:\temp\RUERP24\CommonModules\РазрядыКатегорииДолжностей\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1131; кол: 33]
+
+C:\temp\RUERP24\CommonModules\РаспределениеВзаиморасчетовВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 212; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РаспределениеВзаиморасчетовВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 295; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РаспределениеВзаиморасчетовВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 323; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РаспределениеВзаиморасчетовВызовСервера\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 553; кол: 17]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1130; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1272; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2001; кол: 2]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2682; кол: 12]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3479; кол: 5]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3614; кол: 5]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3691; кол: 5]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4287; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4330; кол: 11]
+
+C:\temp\RUERP24\CommonModules\РассылкиИОповещенияКлиентам\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4428; кол: 5]
+
+C:\temp\RUERP24\CommonModules\РасхожденияСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 25; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасхожденияСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1877; кол: 2]
+
+C:\temp\RUERP24\CommonModules\РасхожденияСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1873; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасхожденияСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2708; кол: 5]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплаты\Ext\Module.bsl
+Пропущена точка с запятой [стр: 543; кол: 89]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплаты\Ext\Module.bsl
+Пропущена точка с запятой [стр: 581; кол: 92]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплаты\Ext\Module.bsl
+Пропущена точка с запятой [стр: 778; кол: 39]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 207; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2150; кол: 47]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыБазовый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2232; кол: 47]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыБазовыйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 15; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыБазовыйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 10; кол: 23]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыБазовыйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 12; кол: 41]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыВнутренний\Ext\Module.bsl
+Пропущена точка с запятой [стр: 64; кол: 90]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыВнутреннийКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 18; кол: 76]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыВнутреннийКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 24; кол: 79]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 73; кол: 75]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 82; кол: 78]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 25; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 24; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 32; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 60; кол: 162]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3459; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 9761; кол: 114]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11460; кол: 2]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11479; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11516; кол: 13]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11539; кол: 11]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11541; кол: 11]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 11595; кол: 108]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 14025; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 14127; кол: 96]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 14138; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 20226; кол: 47]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 20315; кол: 47]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 539; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенныйКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 534; кол: 23]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенныйФормы\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2534; кол: 111]
+
+C:\temp\RUERP24\CommonModules\РасчетЗарплатыРасширенныйФормы\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4042; кол: 221]
+
+C:\temp\RUERP24\CommonModules\РасчетИмущественныхНалоговПереопределяемый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1908; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасчетИмущественныхНалоговПереопределяемый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1929; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Пропущена точка с запятой [стр: 18; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Пропущена точка с запятой [стр: 32; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Пропущена точка с запятой [стр: 52; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 1251; кол: 16]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 2515; кол: 16]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 2708; кол: 16]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 2964; кол: 18]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 3030; кол: 18]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Замыкающий комментарий неактуален [стр: 3170; кол: 18]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3135; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РасчетНалогаНаПрибыль\Ext\Module.bsl
+Пропущена точка с запятой [стр: 3163; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 440; кол: 10]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1972; кол: 57]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1974; кол: 48]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2325; кол: 73]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6632; кол: 108]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 7398; кол: 39]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 7403; кол: 41]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 7420; кол: 41]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетность\Ext\Module.bsl
+Пропущена точка с запятой [стр: 9093; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьАЛКО\Ext\Module.bsl
+Пропущена точка с запятой [стр: 13506; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьАЛКО\Ext\Module.bsl
+Пропущена точка с запятой [стр: 14565; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьАЛКОКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4265; кол: 230]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьВызовСервера\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1020; кол: 3]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьЗагрузка\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1535; кол: 41]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьЗагрузка\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1539; кол: 41]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1316; кол: 137]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1339; кол: 137]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1449; кол: 139]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1482; кол: 138]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1768; кол: 116]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1790; кол: 115]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2819; кол: 48]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4721; кол: 76]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиент\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4807; кол: 76]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиентПереопределяемый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 99; кол: 129]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиентПереопределяемый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 225; кол: 120]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 324; кол: 11]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 1926; кол: 31]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьПереопределяемый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 4687; кол: 15]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьПереопределяемый\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6857; кол: 96]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьПриложения\Ext\Module.bsl
+Пропущена точка с запятой [стр: 12; кол: 76]
+
+C:\temp\RUERP24\CommonModules\РегламентированнаяОтчетностьПроверкаНДС\Ext\Module.bsl
+Пропущена точка с запятой [стр: 5045; кол: 34]
+
+C:\temp\RUERP24\CommonModules\РегламентированныеДанныеКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 217; кол: 87]
+
+C:\temp\RUERP24\CommonModules\РегламентированныеДанныеКлиентСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 298; кол: 11]
+
+C:\temp\RUERP24\CommonModules\РегламентныеЗаданияСлужебный\Ext\Module.bsl
+Пропущена точка с запятой [стр: 748; кол: 4]
+
+C:\temp\RUERP24\CommonModules\РеглУчетВыборкиСерверПовтИсп\Ext\Module.bsl
+Пропущена точка с запятой [стр: 6731; кол: 2]
+
+C:\temp\RUERP24\CommonModules\РеглУчетПроведениеСервер\Ext\Module.bsl
+Пропущена точка с запятой [стр: 2220; кол: 88]
+
+C:\temp\RUERP24\CommonModules\РедактированиеПериодическихСведений\Ext\Module.bsl
+Пропущена точка с запятой [стр: 480; кол: 125]
+
+C:\temp\RUERP24\DataProcessors\ПанельСправочниковНСИ\Forms\ПанельСведенияОПредприятии\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 152; кол: 70]
+
+C:\temp\RUERP24\DataProcessors\ПанельСправочниковПроизводство\Forms\ПанельСправочниковПроизводство\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 217; кол: 48]
+
+C:\temp\RUERP24\DataProcessors\ПанельСправочниковПроизводство\Forms\ПанельСправочниковПроизводство\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 227; кол: 48]
+
+C:\temp\RUERP24\DataProcessors\ПанельСправочниковПроизводство\Forms\ПанельСправочниковПроизводство\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 236; кол: 79]
+
+C:\temp\RUERP24\DataProcessors\ПанельСправочниковПроизводство\Forms\ПанельСправочниковПроизводство\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 242; кол: 70]
+
+C:\temp\RUERP24\DataProcessors\ПанельСправочниковПроизводство\Forms\ПанельСправочниковПроизводство\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 248; кол: 65]
+
+C:\temp\RUERP24\DataProcessors\ПанельСправочниковПроизводство\Forms\ПанельСправочниковПроизводство\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 254; кол: 72]
+
+C:\temp\RUERP24\DataProcessors\ПереходНаУправлениеПроизводствомВерсии22\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 568; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПереходНаУправлениеПроизводствомВерсии22\Forms\Форма\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 194; кол: 52]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 190; кол: 25]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 222; кол: 25]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 263; кол: 25]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 440; кол: 11]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 465; кол: 27]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 507; кол: 28]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 632; кол: 55]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 724; кол: 102]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1389; кол: 25]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1590; кол: 40]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 2245; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1854; кол: 11]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1902; кол: 27]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 2457; кол: 46]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 2749; кол: 48]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3016; кол: 47]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3086; кол: 47]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4653; кол: 117]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4905; кол: 117]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 5086; кол: 117]
+
+C:\temp\RUERP24\DataProcessors\ПечатьКадровыхПриказовРасширенная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 5106; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПечатьМ11\Ext\ManagerModule.bsl
+Замыкающий комментарий неактуален [стр: 67; кол: 16]
+
+C:\temp\RUERP24\DataProcessors\ПечатьОбщихФорм\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1534; кол: 86]
+
+C:\temp\RUERP24\DataProcessors\ПечатьОбщихФорм\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1546; кол: 88]
+
+C:\temp\RUERP24\DataProcessors\ПечатьОбщихФорм\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1557; кол: 79]
+
+C:\temp\RUERP24\DataProcessors\ПечатьОбщихФорм\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1924; кол: 64]
+
+C:\temp\RUERP24\DataProcessors\ПечатьОбщихФорм\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4308; кол: 67]
+
+C:\temp\RUERP24\DataProcessors\ПечатьОбщихФорм\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4325; кол: 66]
+
+C:\temp\RUERP24\DataProcessors\ПечатьПодарочныхСертификатов\Ext\ManagerModule.bsl
+Замыкающий комментарий неактуален [стр: 100; кол: 18]
+
+C:\temp\RUERP24\DataProcessors\ПечатьПрямыеВыплатыПособийСоциальногоСтрахованияФСС\Ext\ManagerModule.bsl
+Замыкающий комментарий неактуален [стр: 232; кол: 16]
+
+C:\temp\RUERP24\DataProcessors\ПечатьПрямыеВыплатыПособийСоциальногоСтрахованияФСС\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 230; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПечатьПрямыеВыплатыПособийСоциальногоСтрахованияФСС\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 236; кол: 130]
+
+C:\temp\RUERP24\DataProcessors\ПечатьРасчетаСреднегоЗаработка\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 661; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПечатьРасчетаСреднегоЗаработка\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 735; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПечатьРасчетаСреднегоЗаработкаФСС\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 157; кол: 101]
+
+C:\temp\RUERP24\DataProcessors\ПечатьРасчетаСреднегоЗаработкаФСС\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 166; кол: 101]
+
+C:\temp\RUERP24\DataProcessors\ПечатьРасчетаСреднегоЗаработкаФСС\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 386; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПечатьСчетовНаОплату\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1224; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТранспортнойНакладной\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 42; кол: 3]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТранспортнойНакладной\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 40; кол: 14]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТранспортнойНакладной\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 261; кол: 91]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТТН\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 40; кол: 3]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТТН\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 38; кол: 14]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТТН\Ext\ManagerModule.bsl
+Замыкающий комментарий неактуален [стр: 116; кол: 16]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТТН\Ext\ManagerModule.bsl
+Замыкающий комментарий неактуален [стр: 131; кол: 16]
+
+C:\temp\RUERP24\DataProcessors\ПечатьТТН\Ext\ManagerModule.bsl
+Замыкающий комментарий неактуален [стр: 233; кол: 18]
+
+C:\temp\RUERP24\DataProcessors\ПечатьЭтикетокИЦенников\Forms\ФормаТовары\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 1961; кол: 18]
+
+C:\temp\RUERP24\DataProcessors\ПечатьЭтикетокИЦенников\Forms\ФормаТовары\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2121; кол: 44]
+
+C:\temp\RUERP24\DataProcessors\ПланированиеГрафикаПроизводства2_2\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1764; кол: 10]
+
+C:\temp\RUERP24\DataProcessors\ПланированиеГрафикаПроизводства2_2\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3052; кол: 4]
+
+C:\temp\RUERP24\DataProcessors\ПлатежныйКалендарь\Forms\Форма\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1624; кол: 85]
+
+C:\temp\RUERP24\DataProcessors\ПодборМногооборотнойТары\Forms\Форма\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 803; кол: 78]
+
+C:\temp\RUERP24\DataProcessors\ПодборСерийВДокументы\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 41; кол: 94]
+
+C:\temp\RUERP24\DataProcessors\ПодборСерийВДокументы\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 108; кол: 4]
+
+C:\temp\RUERP24\DataProcessors\ПодборТоваровВДокументЗакупки\Forms\Форма\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 192; кол: 39]
+
+C:\temp\RUERP24\DataProcessors\ПодборТоваровВДокументЗакупки\Forms\Форма\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1575; кол: 116]
+
+C:\temp\RUERP24\DataProcessors\ПодборТоваровВДокументПродажи\Forms\ЗапросКоличестваИСерий\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 283; кол: 28]
+
+C:\temp\RUERP24\DataProcessors\ПодборТоваровВДокументПродажи\Forms\ЗапросКоличестваИСерий\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3101; кол: 88]
+
+C:\temp\RUERP24\DocumentJournals\Взаимодействия\Forms\ПечатьЭлектронногоПисьма\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 390; кол: 127]
+
+C:\temp\RUERP24\DocumentJournals\Взаимодействия\Forms\ФормаСпискаПараметрическая\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 630; кол: 50]
+
+C:\temp\RUERP24\DocumentJournals\Платежи\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 545; кол: 120]
+
+C:\temp\RUERP24\DocumentJournals\Платежи\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 624; кол: 114]
+
+C:\temp\RUERP24\DocumentJournals\СкладскиеОрдераНаИзлишкиНедостачиПорчи\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 148; кол: 54]
+
+C:\temp\RUERP24\Documents\АвансовыйОтчет\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1889; кол: 81]
+
+C:\temp\RUERP24\Documents\АвансовыйПлатежИностранцаПоНДФЛ\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 51; кол: 122]
+
+C:\temp\RUERP24\Documents\АвансовыйПлатежИностранцаПоНДФЛ\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 135; кол: 32]
+
+C:\temp\RUERP24\Documents\АктВыполненныхВнутреннихРабот\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 276; кол: 75]
+
+C:\temp\RUERP24\Documents\АктВыполненныхРабот\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 631; кол: 10]
+
+C:\temp\RUERP24\Documents\АктВыполненныхРабот\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1113; кол: 75]
+
+C:\temp\RUERP24\Documents\АктВыполненныхРабот\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 5822; кол: 10]
+
+C:\temp\RUERP24\Documents\АктВыполненныхРабот\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4322; кол: 79]
+
+C:\temp\RUERP24\Documents\ДоходВНатуральнойФорме\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 63; кол: 142]
+
+C:\temp\RUERP24\Documents\ДоходВНатуральнойФорме\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1413; кол: 60]
+
+C:\temp\RUERP24\Documents\ДоходВНатуральнойФорме\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1515; кол: 191]
+
+C:\temp\RUERP24\Documents\ЕдиновременноеПособиеЗаСчетФСС\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 131; кол: 61]
+
+C:\temp\RUERP24\Documents\ЕдиновременноеПособиеЗаСчетФСС\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 133; кол: 61]
+
+C:\temp\RUERP24\Documents\ЕдиновременноеПособиеЗаСчетФСС\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 135; кол: 61]
+
+C:\temp\RUERP24\Documents\ЕдиновременноеПособиеЗаСчетФСС\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 137; кол: 74]
+
+C:\temp\RUERP24\Documents\ЕдиновременноеПособиеЗаСчетФСС\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 143; кол: 30]
+
+C:\temp\RUERP24\Documents\ЕдиновременноеПособиеЗаСчетФСС\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 141; кол: 35]
+
+C:\temp\RUERP24\Documents\ЕдиновременноеПособиеЗаСчетФСС\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 384; кол: 16]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 758; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1313; кол: 11]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Forms\РеквизитыТТН\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 78; кол: 22]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Forms\РеквизитыТТН\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 118; кол: 35]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 236; кол: 29]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 506; кол: 81]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1246; кол: 59]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1411; кол: 78]
+
+C:\temp\RUERP24\Documents\ЗаданиеНаПеревозку\Forms\ФормаПодбораРаспоряжений\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 127; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаказДавальца\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 955; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказДавальца\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3558; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказДавальца\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4208; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказДавальца\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5092; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказДавальца\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5104; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказДавальца\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5866; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказКлиента\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1061; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказКлиента\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 991; кол: 11]
+
+C:\temp\RUERP24\Documents\ЗаказКлиента\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1084; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказКлиента\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4288; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказКлиента\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4511; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказКлиента\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2756; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказКлиента\Forms\ФормаДокументаСамообслуживание\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 290; кол: 81]
+
+C:\temp\RUERP24\Documents\ЗаказМатериаловВПроизводство\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 527; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказМатериаловВПроизводство\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1425; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаВнутреннееПотребление\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1639; кол: 97]
+
+C:\temp\RUERP24\Documents\ЗаказНаВнутреннееПотребление\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1647; кол: 81]
+
+C:\temp\RUERP24\Documents\ЗаказНаВнутреннееПотребление\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1797; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаПеремещение\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1459; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 688; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3870; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Forms\ЗаменаНедействующихСпецификаций\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 138; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Forms\ЗаменаНедействующихСпецификаций\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 755; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Forms\ЗаменаНедействующихСпецификаций\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 800; кол: 4]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2856; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2869; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4361; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство2_2\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 457; кол: 3]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство2_2\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1228; кол: 99]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство2_2\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 930; кол: 2]
+
+C:\temp\RUERP24\Documents\ЗаказНаПроизводство2_2\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 25; кол: 84]
+
+C:\temp\RUERP24\Documents\ЗаказНаРемонт\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 163; кол: 42]
+
+C:\temp\RUERP24\Documents\ЗаказНаРемонт\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1142; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаРемонт\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1808; кол: 34]
+
+C:\temp\RUERP24\Documents\ЗаказНаСборку\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3013; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаСборку\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3097; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаСборку\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3380; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаСборку\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3438; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказНаСборку\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1264; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказПереработчику\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1436; кол: 10]
+
+C:\temp\RUERP24\Documents\ЗаказПереработчику\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4889; кол: 10]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовАДВ_1\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 35; кол: 67]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовАДВ_2\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 543; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовАДВ_2\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 35; кол: 67]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовАДВ_3\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 588; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовАДВ_3\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 35; кол: 67]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовДСВ_1\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 84; кол: 27]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовДСВ_1\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 160; кол: 37]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовДСВ_1\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 308; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовДСВ_1\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 35; кол: 67]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_6_1\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 572; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_6_3\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1053; кол: 106]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_6_3\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 386; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_6_4\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 134; кол: 70]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_6_4\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 603; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_К\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 562; кол: 59]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_К\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 629; кол: 45]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_К\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 510; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСЗВ_К\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 35; кол: 67]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСПВ_1\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 599; кол: 78]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСПВ_1\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 692; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСПВ_1\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 35; кол: 67]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСПВ_2\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 616; кол: 10]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСПВ_2\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 789; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаДокументовСПВ_2\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 35; кол: 67]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 317; кол: 55]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 321; кол: 21]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1290; кол: 21]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1296; кол: 48]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1316; кол: 47]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1363; кол: 39]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1369; кол: 57]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1376; кол: 2]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1375; кол: 62]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1381; кол: 53]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1387; кол: 77]
+
+C:\temp\RUERP24\Documents\ПачкаРазделов6РасчетаРСВ_1\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 991; кол: 139]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 636; кол: 73]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 638; кол: 73]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 655; кол: 89]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 657; кол: 89]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 546; кол: 78]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 630; кол: 151]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 647; кол: 10]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 657; кол: 12]
+
+C:\temp\RUERP24\Documents\ПереводКДругомуРаботодателю\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1250; кол: 2]
+
+C:\temp\RUERP24\Documents\ПередачаДавальцу\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 182; кол: 47]
+
+C:\temp\RUERP24\Documents\ПередачаДавальцу\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1038; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаДавальцу\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 972; кол: 11]
+
+C:\temp\RUERP24\Documents\ПередачаДавальцу\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 2469; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаДавальцу\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2872; кол: 55]
+
+C:\temp\RUERP24\Documents\ПередачаДавальцу\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2874; кол: 82]
+
+C:\temp\RUERP24\Documents\ПередачаМатериаловВПроизводство\Ext\ManagerModule.bsl
+Замыкающий комментарий неактуален [стр: 1247; кол: 15]
+
+C:\temp\RUERP24\Documents\ПередачаМатериаловВПроизводство\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1323; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаМатериаловВПроизводство\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1888; кол: 75]
+
+C:\temp\RUERP24\Documents\ПередачаМатериаловВПроизводство\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4812; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаМатериаловВПроизводство\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 389; кол: 3]
+
+C:\temp\RUERP24\Documents\ПередачаСырьяПереработчику\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 346; кол: 47]
+
+C:\temp\RUERP24\Documents\ПередачаСырьяПереработчику\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1948; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаСырьяПереработчику\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1882; кол: 11]
+
+C:\temp\RUERP24\Documents\ПередачаСырьяПереработчику\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 4523; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаТоваровМеждуОрганизациями\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 8796; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаТоваровМеждуОрганизациями\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 8814; кол: 10]
+
+C:\temp\RUERP24\Documents\ПередачаТоваровМеждуОрганизациями\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1677; кол: 105]
+
+C:\temp\RUERP24\Documents\ПередачаТоваровМеждуОрганизациями\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 887; кол: 3]
+
+C:\temp\RUERP24\Documents\ПередачаТоваровМеждуОрганизациями\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2262; кол: 2]
+
+C:\temp\RUERP24\Documents\ПеремаркировкаТоваровГИСМ\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 330; кол: 2]
+
+C:\temp\RUERP24\Documents\ПеремаркировкаТоваровГИСМ\Forms\ФормаДокументаУТ\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 579; кол: 2]
+
+C:\temp\RUERP24\Documents\ПеремаркировкаТоваровГИСМ\Forms\ФормаДокументаУТ\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 619; кол: 4]
+
+C:\temp\RUERP24\Documents\ПеремаркировкаТоваровГИСМ\Forms\ФормаСписка\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 383; кол: 10]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1647; кол: 10]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1985; кол: 2]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 1983; кол: 3]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 2057; кол: 2]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 2055; кол: 3]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 3770; кол: 10]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 25; кол: 53]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 84; кол: 22]
+
+C:\temp\RUERP24\Documents\ТранспортнаяНакладная\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 234; кол: 35]
+
+C:\temp\RUERP24\Documents\ТранспортноеСообщение\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1382; кол: 22]
+
+C:\temp\RUERP24\Documents\УведомлениеОбИмпортеМаркированныхТоваровГИСМ\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 366; кол: 5]
+
+C:\temp\RUERP24\Documents\УведомлениеОКонтролируемыхСделках\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 8169; кол: 10]
+
+C:\temp\RUERP24\Documents\УведомлениеОКонтролируемыхСделках\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 448; кол: 66]
+
+C:\temp\RUERP24\Documents\УведомлениеОПоступленииМаркированныхТоваровГИСМ\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 100; кол: 64]
+
+C:\temp\RUERP24\Documents\УведомлениеОПоступленииМаркированныхТоваровГИСМ\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 29; кол: 29]
+
+C:\temp\RUERP24\Documents\УведомлениеОПоступленииМаркированныхТоваровГИСМ\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 62; кол: 3]
+
+C:\temp\RUERP24\Documents\УведомлениеОПравеНаИмущественныйВычетДляНДФЛ\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 53; кол: 3]
+
+C:\temp\RUERP24\Documents\УведомлениеОСпецрежимахНалогообложения\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 335; кол: 35]
+
+C:\temp\RUERP24\Documents\УведомлениеОСписанииКиЗГИСМ\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 264; кол: 2]
+
+C:\temp\RUERP24\Documents\Увольнение\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4159; кол: 3]
+
+C:\temp\RUERP24\Documents\Увольнение\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4601; кол: 10]
+
+C:\temp\RUERP24\Documents\Увольнение\Forms\ФормаДокумента\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5013; кол: 10]
+
+C:\temp\RUERP24\Documents\УвольнениеСписком\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 350; кол: 10]
+
+C:\temp\RUERP24\Documents\УвольнениеСписком\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 366; кол: 10]
+
+C:\temp\RUERP24\Documents\УвольнениеСписком\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 363; кол: 53]
+
+C:\temp\RUERP24\Documents\УвольнениеСписком\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 377; кол: 10]
+
+C:\temp\RUERP24\Documents\УвольнениеСписком\Forms\ФормаСтроки\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4046; кол: 3]
+
+C:\temp\RUERP24\Documents\УвольнениеСписком\Forms\ФормаСтроки\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4488; кол: 10]
+
+C:\temp\RUERP24\Documents\УвольнениеСписком\Forms\ФормаСтроки\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4900; кол: 10]
+
+C:\temp\RUERP24\InformationRegisters\РеестрКадровыхПриказов\Ext\RecordSetModule.bsl
+Пропущена точка с запятой [стр: 17; кол: 3]
+
+C:\temp\RUERP24\InformationRegisters\РеестрКадровыхПриказовИспр\Ext\RecordSetModule.bsl
+Пропущена точка с запятой [стр: 17; кол: 3]
+
+C:\temp\RUERP24\InformationRegisters\РеестрОтпусков\Ext\RecordSetModule.bsl
+Пропущена точка с запятой [стр: 17; кол: 3]
+
+C:\temp\RUERP24\InformationRegisters\СведенияОбИнвалидностиФизическихЛиц\Ext\RecordSetModule.bsl
+Пропущена точка с запятой [стр: 14; кол: 25]
+
+C:\temp\RUERP24\Reports\КалендарьСобытий\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 469; кол: 4]
+
+C:\temp\RUERP24\Reports\КалендарьСобытий\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 566; кол: 4]
+
+C:\temp\RUERP24\Reports\КалендарьСобытий\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 605; кол: 81]
+
+C:\temp\RUERP24\Reports\КалендарьСобытий\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 4274; кол: 92]
+
+C:\temp\RUERP24\Reports\КалендарьСобытий\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 138; кол: 25]
+
+C:\temp\RUERP24\Reports\КалендарьСобытий\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 474; кол: 10]
+
+C:\temp\RUERP24\Reports\КарточкаОбъектаЭксплуатации\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 99; кол: 75]
+
+C:\temp\RUERP24\Reports\КарточкаРасчетовСКлиентами\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 215; кол: 10]
+
+C:\temp\RUERP24\Reports\КарточкаРасчетовСПоставщиками\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 188; кол: 10]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1188; кол: 12]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1190; кол: 12]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1192; кол: 12]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1194; кол: 12]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1196; кол: 12]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1198; кол: 12]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1237; кол: 90]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1665; кол: 53]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 1795; кол: 62]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 2045; кол: 10]
+
+C:\temp\RUERP24\Reports\КарточкаУчетаПоСтраховымВзносам\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 2040; кол: 13]
+
+C:\temp\RUERP24\Reports\КнигаУчетаДоходовИРасходов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 622; кол: 63]
+
+C:\temp\RUERP24\Reports\КнигаУчетаДоходовИРасходов\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 624; кол: 36]
+
+C:\temp\RUERP24\Reports\КнигаУчетаДоходовИРасходов\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 626; кол: 36]
+
+C:\temp\RUERP24\Reports\КнигаУчетаДоходовИРасходов\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 917; кол: 2]
+
+C:\temp\RUERP24\Reports\КонтактнаяИнформация\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 844; кол: 17]
+
+C:\temp\RUERP24\Reports\КонтрольКорректностиЗаполненияОбъектовЭксплуатации\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 69; кол: 45]
+
+C:\temp\RUERP24\Reports\ЛицевыеСчетаСотрудников\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 298; кол: 141]
+
+C:\temp\RUERP24\Reports\ЛицевыеСчетаСотрудников\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 625; кол: 136]
+
+C:\temp\RUERP24\Reports\МониторБюджетныхПроцессов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 692; кол: 95]
+
+C:\temp\RUERP24\Reports\МониторБюджетныхПроцессов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 849; кол: 4]
+
+C:\temp\RUERP24\Reports\МониторБюджетныхПроцессов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 856; кол: 4]
+
+C:\temp\RUERP24\Reports\МониторБюджетныхПроцессов\Ext\ManagerModule.bsl
+Пропущена точка с запятой [стр: 875; кол: 4]
+
+C:\temp\RUERP24\Reports\МониторБюджетныхПроцессов\Forms\ФормаОтчета\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 551; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение1\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 636; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение1\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1734; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение1\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4098; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение1\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6969; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение1\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 823; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение1\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4987; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение10\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 710; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение10\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4335; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение11\Ext\ObjectModule.bsl
+Пропущена точка с запятой [стр: 940; кол: 77]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение11\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1118; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение11\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5785; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение11\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 9069; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение13\Forms\ФормаОтчета2016Кв2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 990; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение13\Forms\ФормаОтчета2016Кв2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4675; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение14\Forms\ФормаОтчета2016Кв2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1028; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение14\Forms\ФормаОтчета2016Кв2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4755; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение15\Forms\ФормаОтчета2016Кв2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1035; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение15\Forms\ФормаОтчета2016Кв2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4759; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение2\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 618; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение2\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1660; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение2\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4079; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение2\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6924; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение2\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 825; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение2\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5141; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 608; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1688; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4154; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 7081; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 787; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5188; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5941; кол: 52]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 802; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5341; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение3\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6080; кол: 52]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение4\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 606; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение4\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1615; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение4\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4061; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение4\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6903; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение4\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 817; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение4\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5072; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 605; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1631; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4078; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6927; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 811; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5209; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 836; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5367; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6271; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение5\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6278; кол: 27]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 682; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1310; кол: 120]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1324; кол: 112]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1779; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4610; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 7680; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 8389; кол: 85]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 930; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5149; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6079; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение6\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6086; кол: 27]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 682; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1318; кол: 120]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1785; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4655; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 7739; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2009Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 8445; кол: 85]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 931; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5126; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6056; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение7\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6063; кол: 27]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение8\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 781; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение8\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4728; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение8\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5892; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение9\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 784; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение9\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4565; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение9\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5447; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение9\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5454; кол: 27]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетАлкоПриложение9\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6163; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 321; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 2860; кол: 16]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3937; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1259; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4189; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4685; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2730; кол: 101]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2902; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 14295; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 15502; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетность\Forms\ФормаОтчета2011Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 18590; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2354; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2012Кв4_2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2560; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2012Кв4_2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2749; кол: 60]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2012Кв4_2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6083; кол: 101]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2012Кв4_2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6570; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2012Кв4_2\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 9407; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2015Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2780; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2015Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2983; кол: 60]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2015Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6308; кол: 101]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2015Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6322; кол: 6]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2015Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6826; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьМП\Forms\ФормаОтчета2015Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 9684; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьСОНКО\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1898; кол: 3]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьСОНКО\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2095; кол: 60]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьСОНКО\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3368; кол: 101]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетБухОтчетностьСОНКО\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5727; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Технология\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2744; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Технология\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2708; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ТОРГ\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 1596; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ТОРГ\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 1610; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ТРавто\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 278; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ТРавто\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 278; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ТРавто\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 278; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ТРавто\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 274; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ТРавто\Forms\ФормаОтчета2017Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 277; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Туст\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 281; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Туст\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 281; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Туст\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 275; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Туст\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 290; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Учет\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 368; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Учет\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 2294; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Учет\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 367; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Учет\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 2310; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Учет\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 359; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1Учет\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 2311; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ФП\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2595; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма1ЦеныПроизв\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 327; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма22ЖКХсв\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 340; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма22ЖКХсв\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 1123; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма22ЖКХсв\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 298; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма22ЖКХсв\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 1083; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма22ЖКХсв\Forms\ФормаОтчета2017Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 314; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма22ЖКХсв\Forms\ФормаОтчета2017Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 1133; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма24Энергетика\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 1431; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма24Энергетика\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2506; кол: 4]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма2ДМДавальческоеСырье\Forms\ФормаОтчета2012Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 453; кол: 75]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма2ДМДавальческоеСырье\Forms\ФормаОтчета2012Кв1\Ext\Form\Module.bsl
+Замыкающий комментарий неактуален [стр: 941; кол: 18]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма2МПинн\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2062; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтатистикаФорма2МПинн\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2094; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтраховыеВзносыНСИПЗ\Forms\ФормаОтчета2013Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1434; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтраховыеВзносыНСИПЗ\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1434; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтраховыеВзносыНСИПЗ\Forms\ФормаОтчета2015Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1436; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетСтраховыеВзносыНСИПЗ\Forms\ФормаОтчета2017Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1357; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2007Кв1\Ext\Form\Module.bsl
+ОШИБКА:{Модуль C:\git\osparser\src\Классы\ПарсерВстроенногоЯзыка.os / Ошибка в строке: 3280 / Ожидалось: КонецПроцедуры}    
+		ВызватьИсключение Ошибка.Текст;
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1326; кол: 178]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2827; кол: 66]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5411; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5793; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1372; кол: 178]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2965; кол: 66]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5666; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2012Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6066; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2013Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1386; кол: 178]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2013Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2961; кол: 66]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2013Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5673; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2013Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6067; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1421; кол: 178]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3079; кол: 66]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6189; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6196; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6638; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1459; кол: 178]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3087; кол: 66]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6355; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6362; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетТранспортныйНалог\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6803; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУСН\Forms\ФормаОтчета2009Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4401; кол: 34]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУСН\Forms\ФормаОтчета2009Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 6836; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУСН\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 843; кол: 81]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУСН\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 7882; кол: 242]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУСН\Forms\ФормаОтчета2015Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 790; кол: 81]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСбор\Forms\ФормаОтчета2014Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2056; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСбор\Forms\ФормаОтчета2014Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2056; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСбор\Forms\ФормаОтчета2014Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3374; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСбор\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2015; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСбор\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3292; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСбор\Forms\ФормаОтчета2016Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1999; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСбор\Forms\ФормаОтчета2016Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3235; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСборСамоходныеМашины\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2012; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСборСамоходныеМашины\Forms\ФормаОтчета2016Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3245; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСборСамоходныеМашины\Forms\ФормаОтчета2016Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1999; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетУтилизационныйСборСамоходныеМашины\Forms\ФормаОтчета2016Кв4\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 3221; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетФинансовыйРезультатИнвестиционногоТоварищества\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 1430; кол: 80]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетФинансовыйРезультатИнвестиционногоТоварищества\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 4948; кол: 10]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетФинансовыйРезультатИнвестиционногоТоварищества\Forms\ФормаОтчета2012Кв3\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 5983; кол: 2]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетФорма2ТПОтходы\Forms\ФормаОтчета2012Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2664; кол: 29]
+
+C:\temp\RUERP24\Reports\РегламентированныйОтчетФорма2ТПОтходы\Forms\ФормаОтчета2017Кв1\Ext\Form\Module.bsl
+Пропущена точка с запятой [стр: 2662; кол: 29]

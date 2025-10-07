@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="c02483c1-8b66-489d-816a-948a5d5cdbca">
+  <name>УИ_ФиксированныйМассив</name>
+  <synonym>
+    <key>ru</key>
+    <value>Фиксированный массив</value>
+  </synonym>
+</mdclass:CommonPicture>

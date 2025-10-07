@@ -21,13 +21,11 @@
   <configurationExtensionPurpose>AddOn</configurationExtensionPurpose>
   <scriptVariant>Russian</scriptVariant>
   <vendor>ООО &quot;Центр прикладных разработок&quot;</vendor>
-  <version>1.4.11</version>
+  <version>25.2.1</version>
   <defaultLanguage>Language.Русский</defaultLanguage>
   <dataLockControlMode>Managed</dataLockControlMode>
   <objectAutonumerationMode>NotAutoFree</objectAutonumerationMode>
-  <modalityUseMode>DontUse</modalityUseMode>
   <synchronousPlatformExtensionAndAddInCallUseMode>DontUse</synchronousPlatformExtensionAndAddInCallUseMode>
-  <compatibilityMode>8.3.12</compatibilityMode>
   <languages uuid="66bef324-e854-4c33-879a-3c081f6686cd">
     <name>Русский</name>
     <objectBelonging>Adopted</objectBelonging>
@@ -37,124 +35,183 @@
     <languageCode>ru</languageCode>
   </languages>
   <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
-  <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
-  <commonPictures>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</commonPictures>
-  <commonPictures>CommonPicture.УИ_СостоянияПланаОбмена</commonPictures>
-  <commonPictures>CommonPicture.УИ_ВидыОбъектовМетаданных</commonPictures>
-  <commonPictures>CommonPicture.УИ_Информация32</commonPictures>
-  <commonPictures>CommonPicture.УИ_РезультатЗапроса</commonPictures>
-  <commonPictures>CommonPicture.УИ_РезультатВыгрузки</commonPictures>
-  <commonPictures>CommonPicture.УИ_СостоянияАвторегистрации</commonPictures>
-  <commonPictures>CommonPicture.УИ_Семафор</commonPictures>
-  <commonPictures>CommonPicture.УИ_ВопросРазработчику</commonPictures>
-  <commonPictures>CommonPicture.УИ_Репозиторий</commonPictures>
-  <commonPictures>CommonPicture.УИ_Отладка</commonPictures>
-  <commonPictures>CommonPicture.УИ_Вопрос32</commonPictures>
-  <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов48</commonPictures>
-  <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов</commonPictures>
-  <commonPictures>CommonPicture.УИ_РедакторОбъектовБазыДанных</commonPictures>
   <commonPictures>CommonPicture.УИ_JSON</commonPictures>
-  <commonPictures>CommonPicture.УИ_Информация</commonPictures>
-  <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
-  <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
-  <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
-  <commonPictures>CommonPicture.УИ_Число</commonPictures>
-  <commonPictures>CommonPicture.УИ_Строка</commonPictures>
-  <commonPictures>CommonPicture.УИ_Дата</commonPictures>
-  <commonPictures>CommonPicture.УИ_Булево</commonPictures>
-  <commonPictures>CommonPicture.УИ_УникальныйИдентификатор</commonPictures>
   <commonPictures>CommonPicture.УИ_Null</commonPictures>
-  <commonPictures>CommonPicture.УИ_ПроизвольныйТип</commonPictures>
+  <commonPictures>CommonPicture.УИ_Булево</commonPictures>
   <commonPictures>CommonPicture.УИ_ВидДвиженияНакопления</commonPictures>
-  <commonPictures>CommonPicture.УИ_ТаблицаЗначений</commonPictures>
-  <commonPictures>CommonPicture.УИ_СписокЗначений</commonPictures>
-  <commonPictures>CommonPicture.УИ_Массив</commonPictures>
-  <commonPictures>CommonPicture.УИ_Тип</commonPictures>
-  <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВидыОбъектовМетаданных</commonPictures>
+  <commonPictures>CommonPicture.УИ_Вопрос32</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВопросРазработчику</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВосклицательныйЗнакКрасный</commonPictures>
+  <commonPictures>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</commonPictures>
   <commonPictures>CommonPicture.УИ_Граница</commonPictures>
+  <commonPictures>CommonPicture.УИ_Дата</commonPictures>
+  <commonPictures>CommonPicture.УИ_Импорт</commonPictures>
+  <commonPictures>CommonPicture.УИ_Информация</commonPictures>
+  <commonPictures>CommonPicture.УИ_Информация32</commonPictures>
+  <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов</commonPictures>
+  <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов48</commonPictures>
+  <commonPictures>CommonPicture.УИ_МакроКолонка</commonPictures>
+  <commonPictures>CommonPicture.УИ_Массив</commonPictures>
+  <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
+  <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
+  <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
+  <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
   <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
-  <roles>Role.УИ_УниверсальныеИнструменты</roles>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
+  <commonPictures>CommonPicture.УИ_ОписаниеТипов</commonPictures>
+  <commonPictures>CommonPicture.УИ_Отладка</commonPictures>
+  <commonPictures>CommonPicture.УИ_ОчиститьФормат</commonPictures>
+  <commonPictures>CommonPicture.УИ_Папка</commonPictures>
+  <commonPictures>CommonPicture.УИ_Параметры</commonPictures>
+  <commonPictures>CommonPicture.УИ_Поделиться</commonPictures>
+  <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
+  <commonPictures>CommonPicture.УИ_Предупреждение</commonPictures>
+  <commonPictures>CommonPicture.УИ_ПроизвольныйТип</commonPictures>
+  <commonPictures>CommonPicture.УИ_РедакторОбъектовБазыДанных</commonPictures>
+  <commonPictures>CommonPicture.УИ_РезультатВыгрузки</commonPictures>
+  <commonPictures>CommonPicture.УИ_РезультатЗапроса</commonPictures>
+  <commonPictures>CommonPicture.УИ_Репозиторий</commonPictures>
+  <commonPictures>CommonPicture.УИ_СгенерированныйКод</commonPictures>
+  <commonPictures>CommonPicture.УИ_Семафор</commonPictures>
+  <commonPictures>CommonPicture.УИ_СкопироватьВБуферОбмена</commonPictures>
+  <commonPictures>CommonPicture.УИ_СостоянияАвторегистрации</commonPictures>
+  <commonPictures>CommonPicture.УИ_СостоянияПланаОбмена</commonPictures>
+  <commonPictures>CommonPicture.УИ_СписокЗначений</commonPictures>
+  <commonPictures>CommonPicture.УИ_Строка</commonPictures>
+  <commonPictures>CommonPicture.УИ_ТаблицаЗначений</commonPictures>
+  <commonPictures>CommonPicture.УИ_Тип</commonPictures>
+  <commonPictures>CommonPicture.УИ_ТипДерево</commonPictures>
+  <commonPictures>CommonPicture.УИ_УвеличитьШрифт</commonPictures>
+  <commonPictures>CommonPicture.УИ_УменьшитьШрифт</commonPictures>
+  <commonPictures>CommonPicture.УИ_УникальныйИдентификатор</commonPictures>
+  <commonPictures>CommonPicture.УИ_ФиксированныйМассив</commonPictures>
+  <commonPictures>CommonPicture.УИ_Число</commonPictures>
+  <roles>Role.УИ_ПолныеПрава</roles>
   <commonTemplates>CommonTemplate.УИ_Ace</commonTemplates>
-  <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_AceColaborator</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_ctool1cd</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_MonacoEditor</commonTemplates>
   <commonTemplates>CommonTemplate.УИ_MonacoEditorWindows</commonTemplates>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
-  <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
+  <commonTemplates>CommonTemplate.УИ_showdown</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_КомпонентаДляРаботыСБуферомОбмена</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_КомпонентаПоискаСтрок</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegEx</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_КомпонентаРаботыСРегулярнымиВыражениямиRegExБраузеры</commonTemplates>
+  <commonTemplates>CommonTemplate.УИ_ШаблонОбработки</commonTemplates>
+  <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
+  <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
+  <commonModules>CommonModule.УИ_</commonModules>
+  <commonModules>CommonModule.УИ_Paste1CAPI</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыКлиент</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_АлгоритмыСервер</commonModules>
+  <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
+  <commonModules>CommonModule.УИ_БуферОбменаКомпонентаКлиент</commonModules>
+  <commonModules>CommonModule.УИ_БуферОбменаПлатформаКлиент</commonModules>
+  <commonModules>CommonModule.УИ_ГенераторКода</commonModules>
+  <commonModules>CommonModule.УИ_ДлительныеОперации</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииГлобальный</commonModules>
   <commonModules>CommonModule.УИ_ДлительныеОперацииКлиент</commonModules>
-  <commonModules>CommonModule.УИ_ДлительныеОперации</commonModules>
+  <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
+  <commonModules>CommonModule.УИ_МетодыСовмеcтимостиПлатформы_8_3_18Клиент</commonModules>
+  <commonModules>CommonModule.УИ_МетодыСовместимостиПлатформы_8_3_21КлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_ОбщегоНазначенияПовтИсп</commonModules>
+  <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
+  <commonModules>CommonModule.УИ_Пользователи</commonModules>
+  <commonModules>CommonModule.УИ_РаботаСКодом</commonModules>
+  <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСервер</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСлужебный</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияПовтИсп</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
-  <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиентПовтИсп</commonModules>
-  <commonModules>CommonModule.УИ_Пользователи</commonModules>
-  <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_АлгоритмыКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
-  <commonModules>CommonModule.УИ_</commonModules>
   <commonModules>CommonModule.УИ_РегулярныеВыраженияКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
-  <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаВызовСервера</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаКлиент</commonModules>
   <commonModules>CommonModule.УИ_РедакторКодаКлиентСервер</commonModules>
-  <commonModules>CommonModule.УИ_БуферОбменаКлиент</commonModules>
-  <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
-  <commonModules>CommonModule.ПодключаемыеКомандыПереопределяемый</commonModules>
-  <commonModules>CommonModule.ДополнительныеОтчетыИОбработки</commonModules>
+  <commonModules>CommonModule.УИ_РедакторКодаСервер</commonModules>
+  <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_ТипыПлатформыКлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_УправлениеКонфигураторомКлиент</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonForms>CommonForm.УИ_ДлительнаяОперация</commonForms>
-  <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
-  <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
-  <commonForms>CommonForm.УИ_ФормаРедактированияТекста</commonForms>
-  <commonForms>CommonForm.УИ_ФормаХранилищаЗначения</commonForms>
-  <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
-  <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
-  <commonForms>CommonForm.УИ_ФормаРедактированияСпискаЗначений</commonForms>
-  <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
-  <commonForms>CommonForm.УИ_РедакторТаблицыЗначений</commonForms>
-  <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
+  <commonForms>CommonForm.УИ_НастройкаИмпорта</commonForms>
+  <commonForms>CommonForm.УИ_НастройкиДинамическогоСписка</commonForms>
   <commonForms>CommonForm.УИ_НастройкиИнструментов</commonForms>
+  <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
-  <catalogs>Catalog.УИ_Алгоритмы</catalogs>
+  <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
+  <commonForms>CommonForm.УИ_ПараметрыСессииВзаимодействияРедактораКода</commonForms>
+  <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
+  <commonForms>CommonForm.УИ_РедакторГраницы</commonForms>
+  <commonForms>CommonForm.УИ_РедакторДвоичныхДанных</commonForms>
+  <commonForms>CommonForm.УИ_РедакторКартинки</commonForms>
+  <commonForms>CommonForm.УИ_РедакторМоментаВремени</commonForms>
+  <commonForms>CommonForm.УИ_РедакторСоответствия</commonForms>
+  <commonForms>CommonForm.УИ_РедакторСтруктуры</commonForms>
+  <commonForms>CommonForm.УИ_РедакторТаблицыЗначений</commonForms>
+  <commonForms>CommonForm.УИ_РедакторТабличногоДокумента</commonForms>
+  <commonForms>CommonForm.УИ_РедакторУникальногоИдентификатора</commonForms>
+  <commonForms>CommonForm.УИ_РедакторХранилищаЗначения</commonForms>
+  <commonForms>CommonForm.УИ_СравнениеТабличныхДокументов</commonForms>
+  <commonForms>CommonForm.УИ_ФормаВыбораЗначенияПеречисления</commonForms>
+  <commonForms>CommonForm.УИ_ФормаВыбораТипаОбъекта</commonForms>
+  <commonForms>CommonForm.УИ_ФормаКода</commonForms>
+  <commonForms>CommonForm.УИ_ФормаРедактированияСпискаЗначений</commonForms>
+  <commonForms>CommonForm.УИ_ФормаРедактированияТекста</commonForms>
+  <commonForms>CommonForm.УИ_ФормаСпецЗначения</commonForms>
+  <commonForms>CommonForm.УИ_ФормаСпискаЗначений</commonForms>
+  <commonForms>CommonForm.УИ_ФормаСсылкиНаКод</commonForms>
+  <commonForms>CommonForm.УИ_ФормаТаблицыЗначений</commonForms>
+  <commonForms>CommonForm.УИ_ФормаХранилищаЗначения</commonForms>
   <catalogs>Catalog.ДополнительныеОтчетыИОбработки</catalogs>
+  <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <reports>Report.УИ_КонсольОтчетов</reports>
-  <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_Алгоритмы2</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольЗапросов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольКода</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_МенеджерОтрытыхФорм</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПарсерВстроенногоЯзыка</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ДоработкаТекстаАлгоритмаДляОбработки</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольСравненияДанных</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПросмотрЗначения</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторПараметровСеанса</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторПрототиповФорм</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_УдалениеПомеченныхОбъектов</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ФайловыйМенеджер</dataProcessors>
 </mdclass:Configuration>

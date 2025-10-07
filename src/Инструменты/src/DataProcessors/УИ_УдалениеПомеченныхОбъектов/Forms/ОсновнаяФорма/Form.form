@@ -66,10 +66,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>РежимУдаления</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>РежимУдаления</segments>
         </dataPath>
         <titleLocation>Top</titleLocation>
         <handlers>
@@ -205,10 +203,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>СписокПомеченныхНаУдаление.Пометка</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>СписокПомеченныхНаУдаление.Пометка</segments>
             </dataPath>
             <handlers>
               <event>OnChange</event>
@@ -252,10 +248,8 @@
             <userVisible>
               <common>true</common>
             </userVisible>
-            <dataPath xsi:type="form:MultiLanguageDataPath">
-              <paths xsi:type="form:DataPath">
-                <segments>СписокПомеченныхНаУдаление.Представление</segments>
-              </paths>
+            <dataPath xsi:type="form:DataPath">
+              <segments>СписокПомеченныхНаУдаление.Представление</segments>
             </dataPath>
             <extendedTooltip>
               <name>ПредставлениеExtendedTooltip</name>
@@ -1018,10 +1012,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>ДеревоОставшихсяОбъектов.Представление</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ДеревоОставшихсяОбъектов.Представление</segments>
           </dataPath>
           <extendedTooltip>
             <name>ПредставлениеОставшегосяExtendedTooltip</name>

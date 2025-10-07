@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="44ec26cf-cba4-4064-b673-ae6e8ce35727">
+  <name>УИ_БуферОбменаПлатформаКлиент</name>
+  <synonym>
+    <key>ru</key>
+    <value>Буфер обмена платформа клиент</value>
+  </synonym>
+  <clientManagedApplication>true</clientManagedApplication>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

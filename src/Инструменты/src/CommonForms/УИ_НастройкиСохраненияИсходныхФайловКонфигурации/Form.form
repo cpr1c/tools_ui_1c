@@ -649,14 +649,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <activeLanguage>1</activeLanguage>
-        <paths xsi:type="form:DataPath">
-          <segments>КаталогиСохранения.Источник</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>КаталогиСохранения.Источник</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>КаталогиСохранения.Источник</segments>
       </dataPath>
       <extendedTooltip>
         <name>КаталогиСохраненияИсточникРасширеннаяПодсказка</name>
@@ -706,14 +700,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <activeLanguage>1</activeLanguage>
-        <paths xsi:type="form:DataPath">
-          <segments>КаталогиСохранения.Каталог</segments>
-        </paths>
-        <paths xsi:type="form:DataPath">
-          <segments>КаталогиСохранения.Каталог</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>КаталогиСохранения.Каталог</segments>
       </dataPath>
       <extendedTooltip>
         <name>КаталогиСохраненияКаталогРасширеннаяПодсказка</name>

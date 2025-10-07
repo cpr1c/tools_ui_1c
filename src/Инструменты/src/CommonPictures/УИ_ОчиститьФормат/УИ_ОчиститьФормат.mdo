@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="66e7deb7-998a-4aa9-807e-ffbf6bcd7709">
+  <name>УИ_ОчиститьФормат</name>
+  <synonym>
+    <key>ru</key>
+    <value>Очистить формат</value>
+  </synonym>
+</mdclass:CommonPicture>

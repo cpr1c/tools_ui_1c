@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="2f844e1d-b457-4ecb-89a3-2273549409bf">
+  <producedTypes>
+    <objectType typeId="bd1908eb-489f-4e93-b9bd-2e8657eaecc9" valueTypeId="ee87e500-fe77-4e7d-bd03-d397b9d3b8f7"/>
+    <managerType typeId="e3b14849-da21-4a61-9ac6-d22c7e0d8c8d" valueTypeId="a01ed23e-94ff-41f8-b797-f23ae1d179ce"/>
+  </producedTypes>
+  <name>УИ_КонструкторПредставленийЗарплатаКадры</name>
+  <synonym>
+    <key>ru</key>
+    <value>Конструктор представлений подсистемы &quot;Зарплата и кадры&quot; [УИ]</value>
+  </synonym>
+  <comment>1.0.3</comment>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры.Form.КонструкторПредставлений</defaultForm>
+  <forms uuid="f78c863d-9733-4e46-b3b0-db809486c5f8">
+    <name>КонструкторПредставлений</name>
+    <synonym>
+      <key>ru</key>
+      <value>Конструктор представлений</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="b383f9a4-d1b3-4113-b18d-8196abca0916">
+    <name>ТекстЗапроса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текст запроса</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+</mdclass:DataProcessor>

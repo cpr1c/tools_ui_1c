@@ -23,10 +23,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоТаблиц.Пометка</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоТаблиц.Пометка</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -73,10 +71,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ДеревоТаблиц.ПредставлениеТаблицы</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ДеревоТаблиц.ПредставлениеТаблицы</segments>
         </dataPath>
         <extendedTooltip>
           <name>ДеревоТаблицПредставлениеТаблицыExtendedTooltip</name>
@@ -159,10 +155,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ДеревоТаблиц.ИмяТаблицы</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ДеревоТаблиц.ИмяТаблицы</segments>
       </dataPath>
       <extendedTooltip>
         <name>ДеревоТаблицИмяТаблицыExtendedTooltip</name>

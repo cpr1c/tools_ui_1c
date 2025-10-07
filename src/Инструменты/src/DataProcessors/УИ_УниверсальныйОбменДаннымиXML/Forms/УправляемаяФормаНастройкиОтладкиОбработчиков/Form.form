@@ -14,10 +14,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Объект.РежимОтладкиАлгоритмов</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Объект.РежимОтладкиАлгоритмов</segments>
         </dataPath>
         <handlers>
           <event>OnChange</event>
@@ -849,10 +847,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>Объект.ИмяФайлаВнешнейОбработкиОбработчиковСобытий</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>Объект.ИмяФайлаВнешнейОбработкиОбработчиковСобытий</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <handlers>

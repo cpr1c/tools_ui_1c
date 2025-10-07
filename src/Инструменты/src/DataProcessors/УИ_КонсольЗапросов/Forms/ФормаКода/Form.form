@@ -11,10 +11,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ИмяЗапроса</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ИмяЗапроса</segments>
       </dataPath>
       <extendedTooltip>
         <name>ИмяЗапросаРасширеннаяПодсказка</name>
@@ -64,10 +62,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>УстановитьЗначенияПараметров</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>УстановитьЗначенияПараметров</segments>
       </dataPath>
       <extendedTooltip>
         <name>УстановитьЗначенияПараметровРасширеннаяПодсказка</name>
@@ -180,10 +176,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>Текст</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>Текст</segments>
     </dataPath>
     <titleLocation>None</titleLocation>
     <extendedTooltip>
@@ -413,6 +407,44 @@
     <valueType>
       <types>String</types>
       <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>УИ_ТекстАлгоритма</name>
+    <title>
+      <key>ru</key>
+      <value>У и текст алгоритма</value>
+    </title>
+    <id>7</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>УИ_МетодИсполненияКода</name>
+    <title>
+      <key>ru</key>
+      <value>У и метод исполнения кода</value>
+    </title>
+    <id>8</id>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
     </valueType>
     <view>
       <common>true</common>

@@ -12,10 +12,8 @@
     <userVisible>
       <common>true</common>
     </userVisible>
-    <dataPath xsi:type="form:MultiLanguageDataPath">
-      <paths xsi:type="form:DataPath">
-        <segments>_ЧислоЗаписей</segments>
-      </paths>
+    <dataPath xsi:type="form:DataPath">
+      <segments>_ЧислоЗаписей</segments>
     </dataPath>
     <extendedTooltip>
       <name>_ЧислоЗаписейРасширеннаяПодсказка</name>

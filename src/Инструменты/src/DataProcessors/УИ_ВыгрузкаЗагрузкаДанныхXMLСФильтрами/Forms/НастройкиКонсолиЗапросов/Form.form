@@ -19,10 +19,8 @@
       <userVisible>
         <common>true</common>
       </userVisible>
-      <dataPath xsi:type="form:MultiLanguageDataPath">
-        <paths xsi:type="form:DataPath">
-          <segments>ВариантИспользованияКонсолиЗапросов</segments>
-        </paths>
+      <dataPath xsi:type="form:DataPath">
+        <segments>ВариантИспользованияКонсолиЗапросов</segments>
       </dataPath>
       <titleLocation>None</titleLocation>
       <handlers>
@@ -142,10 +140,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>ПутьКВнешнейКонсолиЗапросов</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>ПутьКВнешнейКонсолиЗапросов</segments>
         </dataPath>
         <titleLocation>None</titleLocation>
         <extendedTooltip>

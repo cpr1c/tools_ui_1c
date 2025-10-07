@@ -21,10 +21,8 @@
           <userVisible>
             <common>true</common>
           </userVisible>
-          <dataPath xsi:type="form:MultiLanguageDataPath">
-            <paths xsi:type="form:DataPath">
-              <segments>СтрокаУникальныйИдентификатор</segments>
-            </paths>
+          <dataPath xsi:type="form:DataPath">
+            <segments>СтрокаУникальныйИдентификатор</segments>
           </dataPath>
           <titleLocation>Left</titleLocation>
           <handlers>
@@ -149,10 +147,8 @@
         <userVisible>
           <common>true</common>
         </userVisible>
-        <dataPath xsi:type="form:MultiLanguageDataPath">
-          <paths xsi:type="form:DataPath">
-            <segments>Ссылка</segments>
-          </paths>
+        <dataPath xsi:type="form:DataPath">
+          <segments>Ссылка</segments>
         </dataPath>
         <titleLocation>Left</titleLocation>
         <handlers>

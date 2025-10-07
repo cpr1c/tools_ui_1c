@@ -1,0 +1,51 @@
+html {
+	scroll-behavior: smooth;
+	margin-bottom: 25%;
+	max-width: 950px;
+	/* margin: auto; */
+	margin-left: 50px;
+}
+
+body {
+	font-family: Menlo, monospace;
+	font-size: 14px;
+}
+
+.permalink {
+    display: none;
+}
+
+:hover > .permalink {
+	display: inline;
+	color: black;
+}
+
+h2 {
+	color:#963200;
+}
+
+pre {
+	background: #dce5e9;
+	width: 100%;
+	padding: 15px;
+	overflow: auto;
+	min-width: 80ch
+}
+
+:target {
+	background-color: #F0F0F0 ;
+	margin: -4px ;
+	padding: 4px ;
+	border-radius: 4px ;
+	outline: none ;
+}
+
+a:link, a:visited {
+	text-decoration: none;
+	color: blue;
+}
+
+a:hover, a:active {
+	text-decoration: underline;
+	color: blue;
+}

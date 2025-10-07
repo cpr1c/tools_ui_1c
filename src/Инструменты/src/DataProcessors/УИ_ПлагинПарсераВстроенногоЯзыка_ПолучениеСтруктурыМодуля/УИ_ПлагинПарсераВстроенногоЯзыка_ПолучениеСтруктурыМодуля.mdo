@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="69ac0f1b-8408-44b9-a085-6ff6df16426b">
+  <producedTypes>
+    <objectType typeId="1b86bab7-f9fa-4696-8ced-1bc0b773c901" valueTypeId="e6fea788-016e-451a-8976-f094e7c28af8"/>
+    <managerType typeId="177f0d8a-2ec2-419c-89cf-11808d992b52" valueTypeId="aeb754fd-5e83-4154-a7f5-e397fbbb3592"/>
+  </producedTypes>
+  <name>УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</name>
+  <synonym>
+    <key>ru</key>
+    <value>Получение структуры модуля</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+</mdclass:DataProcessor>

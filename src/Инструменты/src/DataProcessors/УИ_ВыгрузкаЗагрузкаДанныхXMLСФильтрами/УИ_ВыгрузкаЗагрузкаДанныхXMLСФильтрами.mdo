@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="91e46a78-411a-11ea-998f-e86a6452d1f2">
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:core="http://g5.1c.ru/v8/dt/mcore"
+  xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="91e46a78-411a-11ea-998f-e86a6452d1f2">
   <producedTypes>
     <objectType typeId="91e469b0-411a-11ea-998f-e86a6452d1f2" valueTypeId="91e469b1-411a-11ea-998f-e86a6452d1f2"/>
     <managerType typeId="91e469b2-411a-11ea-998f-e86a6452d1f2" valueTypeId="91e469b3-411a-11ea-998f-e86a6452d1f2"/>
@@ -9,7 +11,7 @@
     <key>ru</key>
     <value>Выгрузка и загрузка данных XML с фильтрами [УИ]</value>
   </synonym>
-  <comment> </comment>
+  <comment></comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами.Form.Форма</defaultForm>
   <help>
@@ -25,7 +27,7 @@
     <key>ru</key>
     <value>Перенос информации между однородными базами данных</value>
   </explanation>
-  <attributes uuid="e45e127a-8b16-403f-a89a-bf19c4af7dd1">
+  <attributes uuid="9fa3b36e-730b-4767-af37-fee784af70f7">
     <name>ИмяФайлаВыгрузки</name>
     <synonym>
       <key>ru</key>
@@ -42,7 +44,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="a9b91163-93eb-46ce-ac79-533e2337eb3d">
+  <attributes uuid="91203a0d-eb7a-4bc2-839f-e1616b2ae4c0">
     <name>ОкноИсполненияОбщееКоличество</name>
     <synonym>
       <key>ru</key>
@@ -58,7 +60,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="04d93e9a-752e-43e9-badf-af4b3dcd174c">
+  <attributes uuid="973e200b-48bb-4654-85b7-78f01920a927">
     <name>ОкноИсполненияОбработано</name>
     <synonym>
       <key>ru</key>
@@ -74,7 +76,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="702a6a0d-d298-4397-b851-f3947f12411d">
+  <attributes uuid="c1046786-e994-44a2-bdbc-e1b1be4509ba">
     <name>ДеревоМетаданных</name>
     <synonym>
       <key>ru</key>
@@ -86,7 +88,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="56de0971-e6f0-4b5d-bc4b-4d656fa79bd0">
+  <attributes uuid="d4ad0152-c7da-44e7-982b-9441b4432cf0">
     <name>ВключитьВозможностьРедактированияИспользованияИтогов</name>
     <synonym>
       <key>ru</key>
@@ -98,7 +100,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="0e061515-ee08-42db-8bcf-d1b01933a061">
+  <attributes uuid="b17f8a1c-7675-4115-a6a6-ce354d168924">
     <name>ПодзаголовокОкнаИсполнения</name>
     <synonym>
       <key>ru</key>
@@ -111,7 +113,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="cdebba50-4884-456b-82c9-480070c60662">
+  <attributes uuid="2879e447-25cb-4ce6-b18c-4daee625b93f">
     <name>ПриЗагрузкеИспользоватьРежимОбменаДанными</name>
     <synonym>
       <key>ru</key>
@@ -123,7 +125,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="a0f4d47b-8af9-4218-ace7-d81deda49705">
+  <attributes uuid="055a5ca4-6b1b-48cf-b437-6dfb1c061e49">
     <name>ПродолжитьЗагрузкуВСлучаеВозникновенияОшибки</name>
     <synonym>
       <key>ru</key>
@@ -135,7 +137,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="fe7f9c4b-d287-4058-a543-99a5322723da">
+  <attributes uuid="32b996a4-d937-447f-b2a6-fffbd02d2e16">
     <name>ДатаНачала</name>
     <synonym>
       <key>ru</key>
@@ -148,7 +150,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="29f7f4b4-a2eb-42a0-a9d4-7800c2792d21">
+  <attributes uuid="951c8a34-5eeb-4262-9d48-e364156a429a">
     <name>ДатаОкончания</name>
     <synonym>
       <key>ru</key>
@@ -161,7 +163,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="f76201de-4704-43a8-81a5-4311717e5eb3">
+  <attributes uuid="73b0930e-86f8-406e-8426-b19dc1392f6a">
     <name>ИспользоватьОтборПоДатеДляВсехОбъектов</name>
     <synonym>
       <key>ru</key>
@@ -173,7 +175,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="03556c98-5b3e-49ee-b2cf-f9e2c9b679f7">
+  <attributes uuid="1692131c-edf2-47aa-9c30-fca4fa55b0bd">
     <name>ВыгружатьСДокументомЕгоДвижения</name>
     <synonym>
       <key>ru</key>
@@ -185,7 +187,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="8f4ff4f0-c470-4610-82d5-739c18284024">
+  <attributes uuid="54f01fb3-8bfc-4bb0-85b4-eb45fe785ce3">
     <name>ТипВыгрузкиПериодическихРегистров</name>
     <synonym>
       <key>ru</key>
@@ -201,7 +203,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="4e4cb9e3-11fa-4546-a205-d373e336fad1">
+  <attributes uuid="be3d1f9b-f4f8-4235-8bd6-041a069cd04f">
     <name>ИспользоватьФорматFastInfoSet</name>
     <synonym>
       <key>ru</key>
@@ -213,7 +215,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="5f274f0e-0b1c-40bb-899d-b9b0af99b263">
+  <attributes uuid="2c7b7cbc-0fc8-48a7-bfa5-c97aacd45d68">
     <name>СохраненныеНастройки</name>
     <synonym>
       <key>ru</key>
@@ -223,7 +225,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="e2127bf1-65dd-474a-a558-18f92676e95d">
+  <attributes uuid="87b34c28-b475-4878-b161-886ddfb3c5a5">
     <name>Компоновщик</name>
     <synonym>
       <key>ru</key>
@@ -235,7 +237,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <attributes uuid="b62d152d-fcdc-4741-b623-74071ec03f95">
+  <attributes uuid="910a1fc5-e410-444b-ac54-1f8e2ec85fff">
     <name>РежимЗагрузкиПредопределенных</name>
     <synonym>
       <key>ru</key>
@@ -251,7 +253,7 @@
     <minValue xsi:type="core:UndefinedValue"/>
     <maxValue xsi:type="core:UndefinedValue"/>
   </attributes>
-  <tabularSections uuid="ca1344bd-837c-43a7-83f1-347947ed4faa">
+  <tabularSections uuid="881b302b-5197-4dda-880a-c655b384fb81">
     <producedTypes>
       <objectType typeId="914329e1-22d5-477f-a59b-56fe507e7481" valueTypeId="cd681a35-afd0-4121-94cc-2391e9ab7486"/>
       <rowType typeId="e6727d73-824d-4c9c-bd6b-e3131c2a0d73" valueTypeId="30b1554c-bfb1-480a-819e-f40dfb8447fe"/>
@@ -269,7 +271,7 @@
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
     </standardAttributes>
-    <attributes uuid="1d0b6c37-2662-471e-8546-0b30a8a35ef0">
+    <attributes uuid="18f30e1e-c444-4034-a341-f1d8bd1b875f">
       <name>Объект</name>
       <synonym>
         <key>ru</key>
@@ -290,7 +292,7 @@
       <maxValue xsi:type="core:UndefinedValue"/>
       <fillValue xsi:type="core:UndefinedValue"/>
     </attributes>
-    <attributes uuid="cbfc1ca5-9523-4801-b83b-e865b8d39eb0">
+    <attributes uuid="4574814e-f8a7-4e1b-a156-3772d46d3d8f">
       <name>ИмяОбъектаДляЗапроса</name>
       <synonym>
         <key>ru</key>
