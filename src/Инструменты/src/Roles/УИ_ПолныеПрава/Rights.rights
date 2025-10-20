@@ -829,6 +829,17 @@
 		</right>
 	</object>
 	<object>
+		<name>Report.УИ_КоличествоОбъектовВБазе</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>CommonForm.УИ_ФормаСпискаЗначений</name>
 		<right>
 			<name>View</name>
