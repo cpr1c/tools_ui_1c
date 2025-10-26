@@ -10758,7 +10758,7 @@
     </picture>
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
-        <name>УИ_ВставитьПредставлениеЗапроса</name>
+        <name>УИ_ОткрытьКонструкторПредставлений</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
