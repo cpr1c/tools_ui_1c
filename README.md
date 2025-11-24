@@ -278,8 +278,8 @@
 
 Вместо параметров можно задать переменные окружения, 
 
-TOOLS_UI_1C_BUILDER_PLATFORM_PATH
-TOOLS_UI_1C_BUILDER_EDT_PATH 
+- TOOLS_UI_1C_BUILDER_PLATFORM_PATH
+- TOOLS_UI_1C_BUILDER_EDT_PATH 
 
 Пример как это сделать можно посмотреть в файле build_actions.bat
 
@@ -293,7 +293,7 @@ TOOLS_UI_1C_BUILDER_EDT_PATH
 В начале надо запустить команду xml потом формирование одного из вариантов сборки
 
 Пример
-`./build.sh --platformSource=/opt/1cv8/x86_64/8.3.12.1924 --versionEDT=edt@2020.6.0`
+`./build.sh --platformSource=/opt/1cv8/x86_64/8.3.12.1924 --edtSource=/home/user/.local/share/1C/1cedtstart/installations/1C_EDT (Lite) 2024.1/1cedt/`
 
 # Развитие инструментов
 
