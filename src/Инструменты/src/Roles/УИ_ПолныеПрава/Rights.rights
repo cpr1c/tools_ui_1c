@@ -364,7 +364,7 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_НавигаторПоКонфигурации</name>
+		<name>DataProcessor.Удалить_УИ_НавигаторПоКонфигурации</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
@@ -512,6 +512,17 @@
 	</object>
 	<object>
 		<name>CommonForm.УИ_РедакторДвоичныхДанных</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_НавигаторПоКонфигурации</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
 		<right>
 			<name>View</name>
 			<value>true</value>
