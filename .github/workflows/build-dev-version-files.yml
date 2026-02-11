@@ -31,7 +31,7 @@ jobs:
         uses: 1CDevFlow/onec-setup-action@main
         with:
           type: edt
-          edt_version: 2024.1.3
+          edt_version: 2025.1.5
           cache: true
         env:
           ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
