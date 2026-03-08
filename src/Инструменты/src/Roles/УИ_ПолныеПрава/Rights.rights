@@ -576,6 +576,17 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.Удалить_УИ_РедакторРеквизитовОбъекта</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</name>
 		<right>
 			<name>Use</name>

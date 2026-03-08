@@ -115,6 +115,7 @@
   <content>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры</content>
   <content>Report.УИ_КоличествоОбъектовВБазе</content>
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
+  <content>DataProcessor.Удалить_УИ_РедакторРеквизитовОбъекта</content>
   <subsystems>УИ_Отладка</subsystems>
   <subsystems>УИ_Поддержка</subsystems>
 </mdclass:Subsystem>
