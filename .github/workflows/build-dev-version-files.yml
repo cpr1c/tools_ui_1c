@@ -11,5 +11,5 @@ jobs:
   build-dev-version:
     uses: ./.github/workflows/build-version-files.yml
     with:
-      tag_name: ."v0.0.0"
+      tag_name: "v0.0.0"
       prerelease: true
