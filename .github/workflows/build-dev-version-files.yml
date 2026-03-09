@@ -4,7 +4,7 @@ on:
     branches:
       - "develop"
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.number }}-export
+  group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.repository }}-export
   cancel-in-progress: true
 
 jobs:
