@@ -12,6 +12,7 @@
 			<Type>
 				<v8:Type>cfg:ExternalDataProcessorObject.ШаблонОбработки</v8:Type>
 			</Type>
+			<MainAttribute>true</MainAttribute>
 		</Attribute>
 	</Attributes>
 </Form>
