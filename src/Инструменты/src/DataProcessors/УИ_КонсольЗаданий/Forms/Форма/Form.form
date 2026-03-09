@@ -3929,6 +3929,7 @@
     <edit>
       <common>true</common>
     </edit>
+    <main>true</main>
   </attributes>
   <attributes>
     <name>ВремяЗаполненияРегламентных</name>
