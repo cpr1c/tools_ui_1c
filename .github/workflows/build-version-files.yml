@@ -141,11 +141,11 @@ jobs:
           name: designer-src
           path: build/source
 
-      - name: Установка 1С:Предприятие 8.3.22.2501
+      - name: Установка 1С:Предприятие 8.3.27.1989
         uses: 1CDevFlow/onec-setup-action@main
         with:
           type: onec
-          onec_version: 8.3.22.2501
+          onec_version: 8.3.27.1989
           cache: true
         env:
           ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
