@@ -128,7 +128,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: export-xml
     env:
-      TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "C:\\Program Files\\1cv8\\8.3.12.1924\\bin\\"
+      TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.23.2040/"
 
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
@@ -145,7 +145,7 @@ jobs:
         uses: 1CDevFlow/onec-setup-action@main
         with:
           type: onec
-          onec_version: 8.3.17.2760
+          onec_version: 8.3.23.2040
           cache: true
         env:
           ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
