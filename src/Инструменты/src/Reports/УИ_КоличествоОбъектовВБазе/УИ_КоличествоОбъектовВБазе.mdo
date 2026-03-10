@@ -12,21 +12,11 @@
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>Report.УИ_КоличествоОбъектовВБазе.Form.ФормаОтчета</defaultForm>
   <mainDataCompositionSchema>Report.УИ_КоличествоОбъектовВБазе.Template.ОсновнаяСхемаКомпоновкиДанных</mainDataCompositionSchema>
-  <defaultSettingsForm>Report.УИ_КоличествоОбъектовВБазе.Form.ФормаНастроек</defaultSettingsForm>
   <forms uuid="db0edccf-904f-49c1-a03b-1863d9afff7e">
     <name>ФормаОтчета</name>
     <synonym>
       <key>ru</key>
       <value>Форма отчета</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="c22613e7-846b-4e59-9036-167fd1870120">
-    <name>ФормаНастроек</name>
-    <synonym>
-      <key>ru</key>
-      <value>Форма настроек</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
