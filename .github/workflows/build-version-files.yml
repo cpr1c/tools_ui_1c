@@ -9,7 +9,13 @@ on:
       prerelease:
         required: true
         type: boolean
-        
+    secrets:
+      ONEC_USERNAME:
+        description: 'Имя пользователя портала 1С для скачивания дистрибутивов'
+        required: true
+      ONEC_PASSWORD:
+        description: 'Пароль пользователя портала 1С для скачивания дистрибутивов'
+        required: true  
 jobs:
   export-xml:
     name: Экспорт исходников в формате конфигуратора

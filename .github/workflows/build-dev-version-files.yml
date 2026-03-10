@@ -13,3 +13,6 @@ jobs:
     with:
       tag_name: "v0.0.0"
       prerelease: true
+    secrets: 
+      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
