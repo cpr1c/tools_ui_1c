@@ -28,11 +28,11 @@ jobs:
         path: ./src/Инструменты/src
       id: extract_version
 
-    - name: JAVA
-      uses: actions/setup-java@v5
-      with:
-        distribution: "zulu" # See 'Supported distributions' for available options
-        java-version: "21"
+    # - name: JAVA
+    #   uses: actions/setup-java@v5
+    #   with:
+    #     distribution: "zulu" # See 'Supported distributions' for available options
+    #     java-version: "21"
 
 
     # Анализ проекта в SonarQube (ветка)
@@ -49,7 +49,6 @@ jobs:
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
           -Dsonar.qualitygate.wait=true
           -Dsonar.qualitygate.timeout=300
-          # -Dsonar.sources=./src/Инструменты/src
 
     # Анализ проекта в SonarQube (PR) 
     # https://docs.sonarqube.org/latest/analysis/pull-request/
@@ -62,7 +61,6 @@ jobs:
       with:
         args: >
           -Dsonar.host.url=https://sonar.openbsl.ru
-          # -Dsonar.sources=./src/Инструменты/src
           -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
           -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
           -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
