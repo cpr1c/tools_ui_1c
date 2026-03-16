@@ -35,10 +35,14 @@ jobs:
     - name: Анализ в SonarQube (${{ github.ref_name }})
       if: github.event_name == 'push'
       run: sonar-scanner
-          -Dsonar.token=${{ secrets.SONARQUBE_TOKEN }}
-          -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
-          -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
-          -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
+          -Dsonar.host.url=https://sonar.openbsl.ru
+          -Dsonar.sources=./src
+          -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+          -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
+          -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+          -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
+          -Dsonar.qualitygate.wait=true
+          -Dsonar.qualitygate.timeout=300
 
     # Анализ проекта в SonarQube (PR) 
     # https://docs.sonarqube.org/latest/analysis/pull-request/
@@ -51,7 +55,7 @@ jobs:
       with:
         args: >
           -Dsonar.host.url=https://sonar.openbsl.ru
-          -Dsonar.sources=src
+          -Dsonar.sources=./src
           -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
           -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
           -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
