@@ -41,18 +41,6 @@ jobs:
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
           -Dsonar.qualitygate.wait=true
           -Dsonar.qualitygate.timeout=300
-      # uses: sonarsource/sonarqube-scan-action@v6
-      # env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #     LC_ALL: "ru_RU.UTF-8"
-      # with:
-      #   args: >
-      #     -Dsonar.host.url=https://sonar.openbsl.ru
-      #     -Dsonar.sources=src
-      #     -Dsonar.branch.name=${{ github.ref_name }}
-      #     -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
-      #     -Dsonar.qualitygate.wait=true
-      #     -Dsonar.qualitygate.timeout=300
 
     # Анализ проекта в SonarQube (PR) 
     # https://docs.sonarqube.org/latest/analysis/pull-request/
