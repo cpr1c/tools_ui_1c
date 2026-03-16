@@ -28,11 +28,11 @@ jobs:
         path: ./src/Инструменты/src
       id: extract_version
 
-    - name: JAVA
-      uses: actions/setup-java@v4
-      with:
-        distribution: "zulu" # See 'Supported distributions' for available options
-        java-version: "21"
+    # - name: JAVA
+    #   uses: actions/setup-java@v4
+    #   with:
+    #     distribution: "zulu" # See 'Supported distributions' for available options
+    #     java-version: "21"
 
 
     # Анализ проекта в SonarQube (ветка)
