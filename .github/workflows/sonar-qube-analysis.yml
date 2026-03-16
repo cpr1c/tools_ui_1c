@@ -34,8 +34,7 @@ jobs:
       uses: sonarsource/sonarqube-scan-action@v6
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          LC_ALL: "ru_RU.UTF-8"
-          LANG: "ru_RU.UTF-8"
+          # LC_ALL: "ru_RU.UTF-8"
       with:
         args: >
           -Dfile.encoding=UTF8
