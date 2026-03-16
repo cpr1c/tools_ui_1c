@@ -31,7 +31,7 @@ jobs:
     # Анализ проекта в SonarQube (ветка)
     - name: Анализ в SonarQube (${{ github.ref_name }})
       if: github.event_name == 'push'
-      uses: sonarsource/sonarqube-scan-action@v2.3.0
+      uses: sonarsource/sonarqube-scan-action@v6
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           LC_ALL: "ru_RU.UTF-8"
