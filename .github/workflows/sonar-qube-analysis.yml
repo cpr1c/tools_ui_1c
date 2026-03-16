@@ -35,12 +35,10 @@ jobs:
     - name: Анализ в SonarQube (${{ github.ref_name }})
       if: github.event_name == 'push'
       run: sonar-scanner
-          -Dsonar.host.url=https://sonar.openbsl.ru
-          -Dsonar.sources=./src
-          -Dsonar.branch.name=${{ github.ref_name }}
+          -Dsonar.token=${{ secrets.SONARQUBE_TOKEN }}
+          -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }}
+          -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
-          -Dsonar.qualitygate.wait=true
-          -Dsonar.qualitygate.timeout=300
 
     # Анализ проекта в SonarQube (PR) 
     # https://docs.sonarqube.org/latest/analysis/pull-request/
