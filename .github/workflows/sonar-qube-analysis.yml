@@ -35,6 +35,7 @@ jobs:
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           LC_ALL: "ru_RU.UTF-8"
+          JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
       with:
         args: >
           -Dsonar.host.url=https://sonar.openbsl.ru
