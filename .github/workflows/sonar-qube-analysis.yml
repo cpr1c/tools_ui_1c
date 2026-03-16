@@ -36,9 +36,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           LC_ALL: "ru_RU.UTF-8"
           LANG: "ru_RU.UTF-8"
-          JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
       with:
         args: >
+          -Dfile.encoding=UTF8
           -Dsonar.host.url=https://sonar.openbsl.ru
           -Dsonar.branch.name=${{ github.ref_name }}
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
