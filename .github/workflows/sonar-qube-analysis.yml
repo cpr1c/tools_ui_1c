@@ -36,7 +36,7 @@ jobs:
       if: github.event_name == 'push'
       run: sonar-scanner
           -Dsonar.host.url=https://sonar.openbsl.ru
-          -Dsonar.sources=src
+          -Dsonar.sources=./src
           -Dsonar.branch.name=${{ github.ref_name }}
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
           -Dsonar.qualitygate.wait=true
