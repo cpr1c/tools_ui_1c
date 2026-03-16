@@ -38,7 +38,7 @@ jobs:
     # Анализ проекта в SonarQube (ветка)
     - name: Анализ в SonarQube (${{ github.ref_name }})
       if: github.event_name == 'push'
-      uses: sonarsource/sonarqube-scan-action@v7.0.0
+      uses: sonarsource/sonarqube-scan-action@v6
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           LC_ALL: "ru_RU.UTF-8"
@@ -55,7 +55,7 @@ jobs:
     # https://docs.sonarqube.org/latest/analysis/pull-request/
     - name: Анализ в SonarQube (pull-request ${{ github.event.number }})
       if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
-      uses: sonarsource/sonarqube-scan-action@v7.0.0
+      uses: sonarsource/sonarqube-scan-action@v6
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           LC_ALL: "ru_RU.UTF-8"
