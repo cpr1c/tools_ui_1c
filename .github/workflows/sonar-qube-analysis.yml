@@ -35,7 +35,7 @@ jobs:
     - name: Анализ в SonarQube (${{ github.ref_name }})
       if: github.event_name == 'push'
       run: sonar-scanner
-          -Dsonar.host.url=https://sonar.openbsl.ru
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }}
           -Dsonar.branch.name=${{ github.ref_name }}
           -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
           -Dsonar.qualitygate.wait=true
@@ -43,16 +43,16 @@ jobs:
 
     # Анализ проекта в SonarQube (PR) 
     # https://docs.sonarqube.org/latest/analysis/pull-request/
-    - name: Анализ в SonarQube (pull-request ${{ github.event.number }})
-      if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
-      run: sonar-scanner
-          -Dsonar.host.url=https://sonar.openbsl.ru
-          -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
-          -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
-          -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
-          -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
-          -Dsonar.qualitygate.wait=true
-          -Dsonar.qualitygate.timeout=300
+    # - name: Анализ в SonarQube (pull-request ${{ github.event.number }})
+    #   if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
+    #   run: sonar-scanner
+    #       -Dsonar.host.url=https://sonar.openbsl.ru
+    #       -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+    #       -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
+    #       -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+    #       -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
+    #       -Dsonar.qualitygate.wait=true
+    #       -Dsonar.qualitygate.timeout=300
 
   PublishResult:
     name: Публикация результата ревью
