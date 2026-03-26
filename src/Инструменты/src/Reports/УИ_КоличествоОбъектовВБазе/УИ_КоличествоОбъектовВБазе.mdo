@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Report xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="f2c610b6-8f0c-49c8-bf90-c3e34e55ed7a">
+  <producedTypes>
+    <objectType typeId="04468a44-828d-4bf4-9304-edd28d32db95" valueTypeId="a84fb1c7-1ed3-46dc-ae4b-cc305157f47d"/>
+    <managerType typeId="a61da6f5-a866-48ba-ba8c-6f310c2c78d2" valueTypeId="fd0a0a84-1390-42eb-8fc6-257e0191c727"/>
+  </producedTypes>
+  <name>УИ_КоличествоОбъектовВБазе</name>
+  <synonym>
+    <key>ru</key>
+    <value>Количество объектов в базе [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>Report.УИ_КоличествоОбъектовВБазе.Form.ФормаОтчета</defaultForm>
+  <mainDataCompositionSchema>Report.УИ_КоличествоОбъектовВБазе.Template.ОсновнаяСхемаКомпоновкиДанных</mainDataCompositionSchema>
+  <forms uuid="db0edccf-904f-49c1-a03b-1863d9afff7e">
+    <name>ФормаОтчета</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма отчета</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="4bc66659-36ad-4be7-8870-4eebbc505aea">
+    <name>ОсновнаяСхемаКомпоновкиДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Основная схема компоновки данных</value>
+    </synonym>
+    <templateType>DataCompositionSchema</templateType>
+  </templates>
+</mdclass:Report>

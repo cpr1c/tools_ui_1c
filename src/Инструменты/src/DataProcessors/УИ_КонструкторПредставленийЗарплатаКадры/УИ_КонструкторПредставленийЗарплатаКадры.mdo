@@ -9,7 +9,7 @@
     <key>ru</key>
     <value>Конструктор представлений подсистемы &quot;Зарплата и кадры&quot; [УИ]</value>
   </synonym>
-  <comment>1.0.3</comment>
+  <comment>1.1.1</comment>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры.Form.КонструкторПредставлений</defaultForm>
   <forms uuid="f78c863d-9733-4e46-b3b0-db809486c5f8">
