@@ -5,7 +5,7 @@
     <id>397</id>
     <title>
       <key>ru</key>
-      <value>Для задания уникального идентификатора или ссылки на объект используйте правую кнопку мыши</value>
+      <value>Для указания уникального идентификатора или ссылки на объект используйте правую кнопку мыши</value>
     </title>
     <visible>true</visible>
     <enabled>true</enabled>
@@ -347,50 +347,6 @@
   <items xsi:type="form:FormGroup">
     <name>ГруппаПараметрыЗаписи</name>
     <id>173</id>
-    <items xsi:type="form:FormField">
-      <name>_ЗаписьВРежимеЗагрузки</name>
-      <id>4</id>
-      <titleTextColor xsi:type="core:ColorRef">
-        <color>Style.FieldSelectionBackColor</color>
-      </titleTextColor>
-      <titleFont xsi:type="core:FontRef">
-        <font>Style.TextFont</font>
-        <bold>true</bold>
-        <italic>false</italic>
-        <underline>true</underline>
-        <strikeout>false</strikeout>
-      </titleFont>
-      <visible>true</visible>
-      <enabled>true</enabled>
-      <userVisible>
-        <common>true</common>
-      </userVisible>
-      <dataPath xsi:type="form:DataPath">
-        <segments>_ЗаписьВРежимеЗагрузки</segments>
-      </dataPath>
-      <titleLocation>Right</titleLocation>
-      <extendedTooltip>
-        <name>_ЗаписьВРежимеЗагрузкиРасширеннаяПодсказка</name>
-        <id>6</id>
-        <type>Label</type>
-        <autoMaxWidth>true</autoMaxWidth>
-        <autoMaxHeight>true</autoMaxHeight>
-        <extInfo xsi:type="form:LabelDecorationExtInfo">
-          <horizontalAlign>Left</horizontalAlign>
-        </extInfo>
-      </extendedTooltip>
-      <contextMenu>
-        <name>_ЗаписьВРежимеЗагрузкиКонтекстноеМеню</name>
-        <id>5</id>
-        <autoFill>true</autoFill>
-      </contextMenu>
-      <type>CheckBoxField</type>
-      <editMode>Enter</editMode>
-      <showInHeader>true</showInHeader>
-      <headerHorizontalAlign>Left</headerHorizontalAlign>
-      <showInFooter>true</showInFooter>
-      <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
-    </items>
     <items xsi:type="form:FormField">
       <name>_ИспользоватьНестандартнуюФормуДляВыбора</name>
       <id>224</id>
@@ -1068,31 +1024,6 @@
             <name>_ЗначениеДляЗаполненияКонтекстноеМенюГруппа1</name>
             <id>284</id>
             <items xsi:type="form:Button">
-              <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ОткрытьСпецФормуВыбора</name>
-              <id>382</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ОткрытьСпецФормуВыбораРасширеннаяПодсказка</name>
-                <id>383</id>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command._ОткрытьСпецФормуВыбора</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
-            <items xsi:type="form:Button">
               <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ВставитьСсылкуНаОбъект</name>
               <id>386</id>
               <visible>true</visible>
@@ -1522,7 +1453,6 @@
               <clearButton>true</clearButton>
               <openButton>true</openButton>
               <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
-              <chooseType>true</chooseType>
               <typeDomainEnabled>true</typeDomainEnabled>
               <textEdit>true</textEdit>
               <typeLink>
@@ -1790,31 +1720,6 @@
             <items xsi:type="form:FormGroup">
               <name>РеквизитыОбъектаКонтекстноеМенюГруппа1</name>
               <id>66</id>
-              <items xsi:type="form:Button">
-                <name>РеквизитыОбъектаКонтекстноеМеню_ОткрытьСпецФормуВыбора</name>
-                <id>380</id>
-                <visible>true</visible>
-                <enabled>true</enabled>
-                <userVisible>
-                  <common>true</common>
-                </userVisible>
-                <extendedTooltip>
-                  <name>РеквизитыОбъектаКонтекстноеМеню_ОткрытьСпецФормуВыбораРасширеннаяПодсказка</name>
-                  <id>381</id>
-                  <type>Label</type>
-                  <autoMaxWidth>true</autoMaxWidth>
-                  <autoMaxHeight>true</autoMaxHeight>
-                  <extInfo xsi:type="form:LabelDecorationExtInfo">
-                    <horizontalAlign>Left</horizontalAlign>
-                  </extInfo>
-                </extendedTooltip>
-                <commandName>Form.Command._ОткрытьСпецФормуВыбора</commandName>
-                <representation>Auto</representation>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <placementArea>UserCmds</placementArea>
-                <representationInContextMenu>Auto</representationInContextMenu>
-              </items>
               <items xsi:type="form:Button">
                 <name>РеквизитыОбъектаКонтекстноеМеню_ВставитьСсылкуНаОбъект</name>
                 <id>390</id>
@@ -4324,31 +4229,6 @@
             <name>_НаборЗаписейКонтекстноеМеню</name>
             <id>102</id>
             <items xsi:type="form:Button">
-              <name>_НаборЗаписейКонтекстноеМеню_ОткрытьСпецФормуВыбора</name>
-              <id>384</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>_НаборЗаписейКонтекстноеМеню_ОткрытьСпецФормуВыбораРасширеннаяПодсказка</name>
-                <id>385</id>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command._ОткрытьСпецФормуВыбора</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
-            <items xsi:type="form:Button">
               <name>_НаборЗаписейКонтекстноеМеню_ВставитьСсылкуНаОбъект</name>
               <id>400</id>
               <visible>true</visible>
@@ -5046,23 +4926,6 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>_ЗаписьВРежимеЗагрузки</name>
-    <title>
-      <key>ru</key>
-      <value>Запись в режиме загрузки ( проверки отключены )</value>
-    </title>
-    <id>3</id>
-    <valueType>
-      <types>Boolean</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
     <name>ПутьКФормам</name>
     <title>
       <key>ru</key>
@@ -5252,6 +5115,21 @@
       <valueType>
         <types>Boolean</types>
       </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ВыборГруппИЭлементов</name>
+      <title>
+        <key>ru</key>
+        <value>Выбор групп и элементов</value>
+      </title>
+      <id>61</id>
+      <valueType/>
       <view>
         <common>true</common>
       </view>
@@ -5753,26 +5631,6 @@
     </edit>
   </attributes>
   <attributes>
-    <name>_СписокТабличныхЧастей</name>
-    <title>
-      <key>ru</key>
-      <value>Список табличных частей</value>
-    </title>
-    <id>34</id>
-    <valueType>
-      <types>ValueList</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <extInfo xsi:type="form:ValueListExtInfo">
-      <itemValueType/>
-    </extInfo>
-  </attributes>
-  <attributes>
     <name>ПоказыватьНомерСтрокиТЧ</name>
     <title>
       <key>ru</key>
@@ -6124,7 +5982,7 @@
         <key>ru</key>
         <value>Имя на форме</value>
       </title>
-      <id>49</id>
+      <id>46</id>
       <valueType>
         <types>String</types>
         <stringQualifiers/>
@@ -6136,13 +5994,13 @@
         <common>true</common>
       </edit>
     </columns>
-	<columns>
+    <columns>
       <name>Представление</name>
       <title>
         <key>ru</key>
         <value>Представление</value>
       </title>
-      <id>46</id>
+      <id>47</id>
       <valueType>
         <types>String</types>
         <stringQualifiers/>
@@ -6160,7 +6018,7 @@
         <key>ru</key>
         <value>Использование</value>
       </title>
-      <id>47</id>
+      <id>48</id>
       <valueType>
         <types>Boolean</types>
       </valueType>
@@ -6177,13 +6035,188 @@
         <key>ru</key>
         <value>Категория</value>
       </title>
-      <id>48</id>
+      <id>49</id>
       <valueType>
         <types>Number</types>
         <numberQualifiers>
           <precision>1</precision>
         </numberQualifiers>
       </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+  </attributes>
+  <attributes>
+    <name>РеквизитыТабличныхЧастейОбъекта</name>
+    <title>
+      <key>ru</key>
+      <value>Реквизиты табличных частей объекта</value>
+    </title>
+    <id>50</id>
+    <valueType>
+      <types>ValueTable</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <columns>
+      <name>ИмяТабличнойЧасти</name>
+      <title>
+        <key>ru</key>
+        <value>Имя табличной части</value>
+      </title>
+      <id>51</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Имя</name>
+      <title>
+        <key>ru</key>
+        <value>Имя</value>
+      </title>
+      <id>52</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ИмяНаФорме</name>
+      <title>
+        <key>ru</key>
+        <value>Имя на форме</value>
+      </title>
+      <id>53</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Представление</name>
+      <title>
+        <key>ru</key>
+        <value>Представление</value>
+      </title>
+      <id>54</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Категория</name>
+      <title>
+        <key>ru</key>
+        <value>Категория</value>
+      </title>
+      <id>55</id>
+      <valueType>
+        <types>Number</types>
+        <numberQualifiers>
+          <precision>1</precision>
+        </numberQualifiers>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ИспользоватьИтоги</name>
+      <title>
+        <key>ru</key>
+        <value>Использовать итоги</value>
+      </title>
+      <id>57</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТолькоПросмотр</name>
+      <title>
+        <key>ru</key>
+        <value>Только просмотр</value>
+      </title>
+      <id>58</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Тип</name>
+      <title>
+        <key>ru</key>
+        <value>Тип</value>
+      </title>
+      <id>60</id>
+      <valueType>
+        <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ВыборГруппИЭлементов</name>
+      <title>
+        <key>ru</key>
+        <value>Выбор групп и элементов</value>
+      </title>
+      <id>62</id>
+      <valueType/>
       <view>
         <common>true</common>
       </view>
@@ -7005,31 +7038,6 @@
     <action xsi:type="form:FormCommandHandlerContainer">
       <handler>
         <name>_ПересчитатьИтогиПоКолонкам</name>
-      </handler>
-    </action>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
-  <formCommands>
-    <name>_ОткрытьСпецФормуВыбора</name>
-    <title>
-      <key>ru</key>
-      <value>Открыть спец. форму выбора...</value>
-    </title>
-    <id>36</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Открыть спец. форму выбора...</value>
-    </toolTip>
-    <use>
-      <common>true</common>
-    </use>
-    <shortcut>Ctrl+I</shortcut>
-    <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.ChooseValue</picture>
-    </picture>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>_ОткрытьСпецФормуВыбора</name>
       </handler>
     </action>
     <currentRowUse>Auto</currentRowUse>
