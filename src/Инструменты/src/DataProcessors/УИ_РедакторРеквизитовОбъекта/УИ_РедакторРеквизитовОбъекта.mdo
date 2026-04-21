@@ -11,23 +11,19 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторРеквизитовОбъекта.Form.ФормаОбъекта</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
   <extendedPresentation>
     <key>ru</key>
     <value>Редактор реквизитов объекта базы данных</value>
   </extendedPresentation>
   <explanation>
     <key>ru</key>
-    <value>позволяет низкоуровневое редактирование ссылочных объектов. Поддерживает редактирование движений документа.</value>
+    <value>Позволяет низкоуровневое редактирование ссылочных объектов. Поддерживает редактирование движений документа.</value>
   </explanation>
-  <forms uuid="02dae5ca-2ad0-48b4-a193-1bf02c393819">
-    <name>ФормаОбъекта</name>
-    <synonym>
-      <key>ru</key>
-      <value>Форма объекта</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
   <forms uuid="87ecb0de-09b8-43aa-9296-9c80a11b8fd2">
     <name>Удалить_ФормаОбъекта</name>
     <synonym>
@@ -38,19 +34,73 @@
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="c2ffffbe-3bb9-4265-84c1-9e0f2582f9c4">
-    <name>ФормаРедакторДвижений</name>
+    <name>Удалить_ФормаРедакторДвижений</name>
     <synonym>
       <key>ru</key>
-      <value>Форма редактор движений</value>
+      <value>Удалить форма редактор движений</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
   <forms uuid="eb722fa3-3e31-43f4-b5f9-234695bb00ba">
+    <name>Удалить_ФормаРедакторДвиженийДоп</name>
+    <synonym>
+      <key>ru</key>
+      <value>Удалить форма редактор движений доп</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="768c6ecb-b626-4ef9-901b-64bd48fc097e">
+    <name>ФормаВыгрузкаОбъектаXML</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма выгрузка объекта XML</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="b53a5f66-43a7-45dd-baae-c4a0d10ececf">
+    <name>ФормаЗагрузкаXML</name>
+    <synonym>
+      <key>ru</key>
+      <value>Загрузка данных XML</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="02dae5ca-2ad0-48b4-a193-1bf02c393819">
+    <name>ФормаОбъекта</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма объекта</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="294539d4-0c34-4875-b417-052c48a41c1a">
+    <name>ФормаРедакторДвижений</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактор движений</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="b4af93e8-87a3-49ae-b209-a193b50c4902">
     <name>ФормаРедакторДвиженийДоп</name>
     <synonym>
       <key>ru</key>
-      <value>Форма редактор движений доп</value>
+      <value>Редактор дополнительных движений</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <forms uuid="7f7eb741-39ec-44b6-adf7-bb9cc770199a">
+    <name>ФормаСпискаЗависимых</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма списка зависимых</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>

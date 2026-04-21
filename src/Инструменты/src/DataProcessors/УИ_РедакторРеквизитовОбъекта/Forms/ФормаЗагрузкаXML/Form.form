@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
-  <title>
-    <key>ru</key>
-    <value>Загрузка данных XML</value>
-  </title>
   <items xsi:type="form:FormGroup">
     <name>Страницы</name>
     <id>76</id>
@@ -912,6 +908,7 @@
   </handlers>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
+  <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
   <autoFillCheck>true</autoFillCheck>
@@ -1024,24 +1021,6 @@
         <common>true</common>
       </edit>
     </columns>
-  </attributes>
-  <attributes>
-    <name>_ПутьКФормам</name>
-    <title>
-      <key>ru</key>
-      <value>Путь к формам</value>
-    </title>
-    <id>9</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers/>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
   </attributes>
   <attributes>
     <name>_ИспользоватьДополнительныеСвойстваПриЗаписи</name>

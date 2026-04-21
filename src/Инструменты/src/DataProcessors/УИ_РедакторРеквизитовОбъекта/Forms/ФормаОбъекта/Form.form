@@ -6279,12 +6279,12 @@
     <name>НайтиОбъектПоUUID</name>
     <title>
       <key>ru</key>
-      <value>Найти объект по UUID ( это может быть долго! )</value>
+      <value>Найти объект по UUID (это может быть долго!)</value>
     </title>
     <id>4</id>
     <toolTip>
       <key>ru</key>
-      <value>Найти объект по UUID ( это может быть долго - поиск по всей базе! )</value>
+      <value>Найти объект по UUID (это может быть долго - поиск по всей базе!)</value>
     </toolTip>
     <use>
       <common>true</common>
@@ -7120,6 +7120,13 @@
     <name>мОбъектСсылка</name>
     <valueType/>
     <keyParameter>true</keyParameter>
+  </parameters>
+  <parameters>
+    <name>АдресОбщихРеквизитов</name>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
   </parameters>
   <commandInterface>
     <navigationPanel/>

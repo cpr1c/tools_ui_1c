@@ -2,7 +2,7 @@
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <title>
     <key>ru</key>
-    <value>СДР: Редактор движений</value>
+    <value>Редактор дополнительных движений</value>
   </title>
   <items xsi:type="form:FormGroup">
     <name>ГруппаОсновное</name>
@@ -38,31 +38,6 @@
         <contextMenu>
           <name>мОбъектСсылкаКонтекстноеМеню</name>
           <id>2</id>
-          <items xsi:type="form:Button">
-            <name>мОбъектСсылкаКонтекстноеМеню_ВставитьСсылкуНаОбъект</name>
-            <id>150</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>мОбъектСсылкаКонтекстноеМеню_ВставитьСсылкуНаОбъектРасширеннаяПодсказка</name>
-              <id>151</id>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command._ВставитьСсылкуНаОбъект</commandName>
-            <representation>Auto</representation>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
@@ -969,32 +944,6 @@
             <placementArea>UserCmds</placementArea>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
-          <items xsi:type="form:Button">
-            <name>_ТабРегистры_ЗагрузитьДвиженияДругогоДокумента</name>
-            <id>131</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>_ТабРегистры_ЗагрузитьДвиженияДругогоДокументаРасширеннаяПодсказка</name>
-              <id>132</id>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <commandName>Form.Command._ЗагрузитьДвиженияДругогоДокумента</commandName>
-            <representation>Auto</representation>
-            <onlyInAllActions>false</onlyInAllActions>
-            <autoMaxWidth>true</autoMaxWidth>
-            <autoMaxHeight>true</autoMaxHeight>
-            <placementArea>UserCmds</placementArea>
-            <representationInContextMenu>Auto</representationInContextMenu>
-          </items>
           <visible>true</visible>
           <enabled>true</enabled>
           <userVisible>
@@ -1037,7 +986,6 @@
           <id>9</id>
           <autoFill>true</autoFill>
         </contextMenu>
-        <source>_ТабРегистры</source>
         <extInfo xsi:type="form:SearchStringAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
         </extInfo>
@@ -1061,9 +1009,9 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>ViewStatusAddition</type>
-        <source>_ТабРегистры</source>
         <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
+          <horizontalLocation>Left</horizontalLocation>
         </extInfo>
       </viewStatusAddition>
       <searchControlAddition>
@@ -1085,7 +1033,6 @@
           <autoFill>true</autoFill>
         </contextMenu>
         <type>SearchControlAddition</type>
-        <source>_ТабРегистры</source>
         <extInfo xsi:type="form:SearchControlAdditionExtInfo">
           <autoMaxWidth>true</autoMaxWidth>
         </extInfo>
@@ -1370,101 +1317,6 @@
         <contextMenu>
           <name>_ЗначениеДляЗаполненияКонтекстноеМеню</name>
           <id>93</id>
-          <items xsi:type="form:FormGroup">
-            <name>_ЗначениеДляЗаполненияКонтекстноеМенюГруппа1</name>
-            <id>144</id>
-            <items xsi:type="form:Button">
-              <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ОткрытьСпецФормуВыбора</name>
-              <id>148</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ОткрытьСпецФормуВыбораРасширеннаяПодсказка</name>
-                <id>149</id>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command._ОткрытьСпецФормуВыбора</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
-            <items xsi:type="form:Button">
-              <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ВставитьСсылкуНаОбъект</name>
-              <id>152</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ВставитьСсылкуНаОбъектРасширеннаяПодсказка</name>
-                <id>153</id>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command._ВставитьСсылкуНаОбъект</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
-            <items xsi:type="form:Button">
-              <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ВставитьУникальныйИдентификатор</name>
-              <id>146</id>
-              <visible>true</visible>
-              <enabled>true</enabled>
-              <userVisible>
-                <common>true</common>
-              </userVisible>
-              <extendedTooltip>
-                <name>_ЗначениеДляЗаполненияКонтекстноеМеню_ВставитьУникальныйИдентификаторРасширеннаяПодсказка</name>
-                <id>147</id>
-                <type>Label</type>
-                <autoMaxWidth>true</autoMaxWidth>
-                <autoMaxHeight>true</autoMaxHeight>
-                <extInfo xsi:type="form:LabelDecorationExtInfo">
-                  <horizontalAlign>Left</horizontalAlign>
-                </extInfo>
-              </extendedTooltip>
-              <commandName>Form.Command._ВставитьУникальныйИдентификатор</commandName>
-              <representation>Auto</representation>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <placementArea>UserCmds</placementArea>
-              <representationInContextMenu>Auto</representationInContextMenu>
-            </items>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <extendedTooltip>
-              <name>_ЗначениеДляЗаполненияКонтекстноеМенюГруппа1РасширеннаяПодсказка</name>
-              <id>145</id>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <extInfo xsi:type="form:ButtonGroupExtInfo"/>
-          </items>
           <autoFill>true</autoFill>
         </contextMenu>
         <type>InputField</type>
@@ -1487,7 +1339,6 @@
           <choiceButton>true</choiceButton>
           <clearButton>true</clearButton>
           <openButton>true</openButton>
-          <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
           <chooseType>true</chooseType>
           <typeDomainEnabled>true</typeDomainEnabled>
           <textEdit>true</textEdit>
@@ -1675,7 +1526,6 @@
               <id>44</id>
               <autoFill>true</autoFill>
             </contextMenu>
-            <source>_ПримерДвижений</source>
             <extInfo xsi:type="form:SearchStringAdditionExtInfo">
               <autoMaxWidth>true</autoMaxWidth>
             </extInfo>
@@ -1699,9 +1549,9 @@
               <autoFill>true</autoFill>
             </contextMenu>
             <type>ViewStatusAddition</type>
-            <source>_ПримерДвижений</source>
             <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
               <autoMaxWidth>true</autoMaxWidth>
+              <horizontalLocation>Left</horizontalLocation>
             </extInfo>
           </viewStatusAddition>
           <searchControlAddition>
@@ -1723,7 +1573,6 @@
               <autoFill>true</autoFill>
             </contextMenu>
             <type>SearchControlAddition</type>
-            <source>_ПримерДвижений</source>
             <extInfo xsi:type="form:SearchControlAdditionExtInfo">
               <autoMaxWidth>true</autoMaxWidth>
             </extInfo>
@@ -1876,6 +1725,7 @@
     <name>ПриСозданииНаСервере</name>
   </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
+  <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
   <autoFillCheck>true</autoFillCheck>
@@ -1888,7 +1738,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_НавигаторПоКонфигурации</types>
+      <types>DataProcessorObject.УИ_РедакторРеквизитовОбъекта</types>
     </valueType>
     <view>
       <common>true</common>
@@ -1905,7 +1755,9 @@
       <value>Документ</value>
     </title>
     <id>2</id>
-    <valueType/>
+    <valueType>
+      <types>DocumentRef</types>
+    </valueType>
     <view>
       <common>true</common>
     </view>
@@ -2171,7 +2023,19 @@
       <value>Значение для заполнения</value>
     </title>
     <id>7</id>
-    <valueType/>
+    <valueType>
+      <types>Boolean</types>
+      <types>String</types>
+      <types>Date</types>
+      <types>Number</types>
+      <types>UUID</types>
+      <types>AnyRef</types>
+      <numberQualifiers>
+        <precision>10</precision>
+      </numberQualifiers>
+      <stringQualifiers/>
+      <dateQualifiers/>
+    </valueType>
     <view>
       <common>true</common>
     </view>
@@ -2186,7 +2050,9 @@
       <value>Документ</value>
     </title>
     <id>8</id>
-    <valueType/>
+    <valueType>
+      <types>DocumentRef</types>
+    </valueType>
     <view>
       <common>true</common>
     </view>
@@ -2302,72 +2168,6 @@
       <common>true</common>
     </edit>
   </attributes>
-  <attributes>
-    <name>_АдресаХранилищ</name>
-    <title>
-      <key>ru</key>
-      <value>Адреса хранилищ</value>
-    </title>
-    <id>15</id>
-    <valueType/>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>_ПоказыватьИтогиПоЧисловымКолонкамРД</name>
-    <title>
-      <key>ru</key>
-      <value>Показывать итоги по числовым колонкам (редактор движений)</value>
-    </title>
-    <id>16</id>
-    <valueType>
-      <types>Boolean</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>_ИспользоватьЖирныйШрифтДляИтогов</name>
-    <title>
-      <key>ru</key>
-      <value>Использовать жирный шрифт для итогов</value>
-    </title>
-    <id>17</id>
-    <valueType>
-      <types>Boolean</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>_ОсобыйРежимРаботыСНаборомЗаписейРБ</name>
-    <title>
-      <key>ru</key>
-      <value>Особый режим работы с набором записей РБ</value>
-    </title>
-    <id>18</id>
-    <valueType>
-      <types>Boolean</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
   <formCommands>
     <name>_Обновить</name>
     <title>
@@ -2391,7 +2191,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_Записать</name>
@@ -2416,7 +2216,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОбновитьНабор</name>
@@ -2441,7 +2241,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ЗаписатьНабор</name>
@@ -2466,7 +2266,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ЗаполнитьДанныеТекущейКолонки</name>
@@ -2491,7 +2291,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ПереключитьАктивностьЗаписей</name>
@@ -2515,7 +2315,7 @@
         <name>_ПереключитьАктивностьЗаписей</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_СортироватьРегистрыСтандартно</name>
@@ -2540,7 +2340,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_СнятьФлажки</name>
@@ -2564,7 +2364,7 @@
         <name>_СнятьФлажки</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_УстановитьФлажки</name>
@@ -2588,7 +2388,7 @@
         <name>_УстановитьФлажки</name>
       </handler>
     </action>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_УстановитьФлажкиДляИзмененных</name>
@@ -2613,7 +2413,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОткрытьВНовомОкне</name>
@@ -2638,7 +2438,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОткрытьОбъект</name>
@@ -2663,32 +2463,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
-  </formCommands>
-  <formCommands>
-    <name>_ЗагрузитьДвиженияДругогоДокумента</name>
-    <title>
-      <key>ru</key>
-      <value>Загрузить движения...</value>
-    </title>
-    <id>13</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Загрузить движения другого документа</value>
-    </toolTip>
-    <use>
-      <common>true</common>
-    </use>
-    <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.DataCompositionStandardSettings</picture>
-    </picture>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>_ЗагрузитьДвиженияДругогоДокумента</name>
-      </handler>
-    </action>
-    <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ОчиститьДвижения</name>
@@ -2713,7 +2488,7 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>DontUse</currentRowUse>
+    <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
     <name>_ПоказатьТипЗначения</name>
@@ -2721,7 +2496,7 @@
       <key>ru</key>
       <value>Показать</value>
     </title>
-    <id>15</id>
+    <id>13</id>
     <toolTip>
       <key>ru</key>
       <value>Показать тип значения в текущем поле</value>
@@ -2739,104 +2514,6 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
-  <formCommands>
-    <name>_ВставитьУникальныйИдентификатор</name>
-    <title>
-      <key>ru</key>
-      <value>Вставить уникальный идентификатор...</value>
-    </title>
-    <id>16</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Вставить уникальный идентификатор...</value>
-    </toolTip>
-    <use>
-      <common>true</common>
-    </use>
-    <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.Char</picture>
-    </picture>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>_ВставитьУникальныйИдентификатор</name>
-      </handler>
-    </action>
-    <representation>TextPicture</representation>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
-  <formCommands>
-    <name>_ПересчитатьИтогиПоКолонкам</name>
-    <title>
-      <key>ru</key>
-      <value>Пересчитать итоги по колонкам</value>
-    </title>
-    <id>17</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Пересчитать итоги по колонкам</value>
-    </toolTip>
-    <use>
-      <common>true</common>
-    </use>
-    <picture xsi:type="core:PictureRef">
-      <picture>0:835db646-1531-494b-b7c1-3239b0080bcb</picture>
-    </picture>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>_ПересчитатьИтогиПоКолонкам</name>
-      </handler>
-    </action>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
-  <formCommands>
-    <name>_ОткрытьСпецФормуВыбора</name>
-    <title>
-      <key>ru</key>
-      <value>Открыть спец. форму выбора...</value>
-    </title>
-    <id>18</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Открыть спец. форму выбора...</value>
-    </toolTip>
-    <use>
-      <common>true</common>
-    </use>
-    <shortcut>Ctrl+I</shortcut>
-    <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.ChooseValue</picture>
-    </picture>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>_ОткрытьСпецФормуВыбора</name>
-      </handler>
-    </action>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
-  <formCommands>
-    <name>_ВставитьСсылкуНаОбъект</name>
-    <title>
-      <key>ru</key>
-      <value>Вставить ссылку на объект...</value>
-    </title>
-    <id>19</id>
-    <toolTip>
-      <key>ru</key>
-      <value>Вставить ссылку на объект в текущее поле...</value>
-    </toolTip>
-    <use>
-      <common>true</common>
-    </use>
-    <picture xsi:type="core:PictureRef">
-      <picture>StdPicture.GotoURL</picture>
-    </picture>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>_ВставитьСсылкуНаОбъект</name>
-      </handler>
-    </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
