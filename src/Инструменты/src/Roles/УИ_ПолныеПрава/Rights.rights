@@ -375,17 +375,6 @@
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.Удалить_УИ_НавигаторПоКонфигурации</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
 		<name>DataProcessor.УИ_КонсольВебСервисов</name>
 		<right>
 			<name>Use</name>
@@ -570,17 +559,6 @@
 	</object>
 	<object>
 		<name>CommonForm.УИ_РедактированиеТипаЗначения</name>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.Удалить_УИ_РедакторРеквизитовОбъекта</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
 		<right>
 			<name>View</name>
 			<value>true</value>

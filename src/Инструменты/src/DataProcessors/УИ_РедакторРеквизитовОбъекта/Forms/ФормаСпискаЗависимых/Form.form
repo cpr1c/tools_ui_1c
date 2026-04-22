@@ -803,6 +803,9 @@
             <autoMaxWidth>true</autoMaxWidth>
             <autoMaxHeight>true</autoMaxHeight>
             <placementArea>UserCmds</placementArea>
+            <picture xsi:type="core:PictureRef">
+              <picture>CommonPicture.УИ_РедакторОбъектовБазыДанных</picture>
+            </picture>
             <representationInContextMenu>Auto</representationInContextMenu>
           </items>
           <items xsi:type="form:Button">
@@ -1315,6 +1318,42 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>АдресОбщихРеквизитов</name>
+    <title>
+      <key>ru</key>
+      <value>Адрес общих реквизитов</value>
+    </title>
+    <id>12</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>Объект</name>
+    <title>
+      <key>ru</key>
+      <value>Объект</value>
+    </title>
+    <id>13</id>
+    <valueType>
+      <types>DataProcessorObject.УИ_РедакторРеквизитовОбъекта</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <main>true</main>
+  </attributes>
   <formCommands>
     <name>_ОткрытьЗаписьРегистра</name>
     <title>
@@ -1428,8 +1467,45 @@
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
+  <parameters>
+    <name>мОбъектСсылка</name>
+    <valueType/>
+    <keyParameter>true</keyParameter>
+  </parameters>
+  <parameters>
+    <name>ПолноеИмя</name>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>ГдеНайдено</name>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>ОграничениеНаСписокЗависимых</name>
+    <valueType>
+      <types>Number</types>
+      <numberQualifiers>
+        <precision>10</precision>
+        <nonNegative>true</nonNegative>
+      </numberQualifiers>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>АдресОбщихРеквизитов</name>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+  </parameters>
   <commandInterface>
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

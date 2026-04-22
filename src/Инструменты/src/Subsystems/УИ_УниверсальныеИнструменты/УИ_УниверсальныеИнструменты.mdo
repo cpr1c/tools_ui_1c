@@ -65,7 +65,6 @@
   <content>CommonModule.УИ_АлгоритмыКлиентСервер</content>
   <content>CommonModule.УИ_КоннекторHTTP</content>
   <content>CommonModule.УИ_</content>
-  <content>DataProcessor.Удалить_УИ_НавигаторПоКонфигурации</content>
   <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
   <content>DataProcessor.УИ_ФайловыйМенеджер</content>
   <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
@@ -115,7 +114,6 @@
   <content>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры</content>
   <content>Report.УИ_КоличествоОбъектовВБазе</content>
   <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
-  <content>DataProcessor.Удалить_УИ_РедакторРеквизитовОбъекта</content>
   <subsystems>УИ_Отладка</subsystems>
   <subsystems>УИ_Поддержка</subsystems>
 </mdclass:Subsystem>

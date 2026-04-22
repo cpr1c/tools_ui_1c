@@ -174,8 +174,6 @@
   <catalogs>Catalog.УИ_Алгоритмы</catalogs>
   <reports>Report.УИ_КоличествоОбъектовВБазе</reports>
   <reports>Report.УИ_КонсольОтчетов</reports>
-  <dataProcessors>DataProcessor.Удалить_УИ_НавигаторПоКонфигурации</dataProcessors>
-  <dataProcessors>DataProcessor.Удалить_УИ_РедакторРеквизитовОбъекта</dataProcessors>
   <dataProcessors>DataProcessor.УИ_Алгоритмы2</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
