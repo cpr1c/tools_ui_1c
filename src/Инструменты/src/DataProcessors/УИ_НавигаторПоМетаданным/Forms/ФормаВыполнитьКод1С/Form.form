@@ -1445,7 +1445,7 @@
     <name>Объект</name>
     <id>1</id>
     <valueType>
-      <types>DataProcessorObject.УИ_НавигаторПоКонфигурации</types>
+      <types>DataProcessorObject.УИ_НавигаторПоМетаданным</types>
     </valueType>
     <view>
       <common>true</common>

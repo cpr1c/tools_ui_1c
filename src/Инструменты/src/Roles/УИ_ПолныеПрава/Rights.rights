@@ -4,7 +4,7 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
-		<name>DataProcessor.УИ_НавигаторПоКонфигурации</name>
+		<name>DataProcessor.УИ_НавигаторПоМетаданным</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>

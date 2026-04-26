@@ -113,7 +113,7 @@
   <content>DataProcessor.УИ_РедакторПрототиповФорм</content>
   <content>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры</content>
   <content>Report.УИ_КоличествоОбъектовВБазе</content>
-  <content>DataProcessor.УИ_НавигаторПоКонфигурации</content>
+  <content>DataProcessor.УИ_НавигаторПоМетаданным</content>
   <subsystems>УИ_Отладка</subsystems>
   <subsystems>УИ_Поддержка</subsystems>
 </mdclass:Subsystem>

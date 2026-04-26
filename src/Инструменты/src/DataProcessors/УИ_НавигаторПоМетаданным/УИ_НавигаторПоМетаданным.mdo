@@ -4,13 +4,13 @@
     <objectType typeId="7f700877-e0b8-406a-acea-894d1dc4b0e0" valueTypeId="9f10ce7c-d48d-4adc-8e28-5a0c55299a4a"/>
     <managerType typeId="d3d700e0-545e-4dca-a788-9d42da276108" valueTypeId="e79c9577-e114-49c7-8cf1-91ced9403efd"/>
   </producedTypes>
-  <name>УИ_НавигаторПоКонфигурации</name>
+  <name>УИ_НавигаторПоМетаданным</name>
   <synonym>
     <key>ru</key>
-    <value>Навигатор по метаданным (Все функции) [УИ]</value>
+    <value>Навигатор по метаданным [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
-  <defaultForm>DataProcessor.УИ_НавигаторПоКонфигурации.Form.ФормаСтарта</defaultForm>
+  <defaultForm>DataProcessor.УИ_НавигаторПоМетаданным.Form.ФормаСтарта</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
@@ -18,11 +18,11 @@
   </help>
   <extendedPresentation>
     <key>ru</key>
-    <value>Навигатор по метаданным (Все функции)</value>
+    <value>Навигатор по метаданным</value>
   </extendedPresentation>
   <explanation>
     <key>ru</key>
-    <value>Обработка замена стандартному меню &quot;Все функции&quot;. Здесь же дополнительные административные фукнции.</value>
+    <value>Просмотр свойств метаданных конфигурации</value>
   </explanation>
   <forms uuid="ceb4300a-a0eb-47ca-93be-bccb3cff667b">
     <name>Форма</name>

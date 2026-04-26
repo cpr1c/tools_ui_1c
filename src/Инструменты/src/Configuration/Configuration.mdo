@@ -192,7 +192,7 @@
   <dataProcessors>DataProcessor.УИ_КонструкторРегулярныхВыражений</dataProcessors>
   <dataProcessors>DataProcessor.УИ_МенеджерОтрытыхФорм</dataProcessors>
   <dataProcessors>DataProcessor.УИ_МенеджерХранилищНастроек</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_НавигаторПоКонфигурации</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_НавигаторПоМетаданным</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПарсерВстроенногоЯзыка</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ДоработкаТекстаАлгоритмаДляОбработки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</dataProcessors>
