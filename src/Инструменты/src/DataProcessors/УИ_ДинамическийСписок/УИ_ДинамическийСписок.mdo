@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Динамический список [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ДинамическийСписок.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
@@ -28,4 +27,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="da8becfd-53f3-4b21-8102-81a22319cdec">
+    <name>ДинамическийСписок</name>
+    <synonym>
+      <key>ru</key>
+      <value>Динамический список [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

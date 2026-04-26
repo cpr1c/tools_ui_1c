@@ -5,6 +5,6 @@
     <key>ru</key>
     <value>Настройки инструментов</value>
   </synonym>
-  <group>NavigationPanelOrdinary</group>
+  <group>NavigationPanelImportant</group>
   <representation>Auto</representation>
 </mdclass:CommonCommand>

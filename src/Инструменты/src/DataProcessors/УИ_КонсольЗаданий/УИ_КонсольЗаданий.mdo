@@ -10,7 +10,6 @@
     <value>Консоль заданий [УИ]</value>
   </synonym>
   <comment>https://github.com/kuzyara/JobsConsole2019.epf (c)Душелов'2009</comment>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольЗаданий.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
@@ -74,4 +73,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="292c724c-5929-4e9f-8ddf-118e8e2c3bbe">
+    <name>КонсольЗаданий</name>
+    <synonym>
+      <key>ru</key>
+      <value>Консоль заданий [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

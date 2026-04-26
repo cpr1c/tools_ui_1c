@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Поиск и удаление дублей [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ПоискИУдалениеДублей.Form.ПоискДублей</defaultForm>
   <help>
     <pages>
@@ -65,4 +64,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="587a5e26-4165-46c5-80ac-ae30d4a9647e">
+    <name>ПоискИУдалениеДублей</name>
+    <synonym>
+      <key>ru</key>
+      <value>Поиск и удаление дублей [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

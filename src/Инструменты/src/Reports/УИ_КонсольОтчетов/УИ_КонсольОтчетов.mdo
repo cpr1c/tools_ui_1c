@@ -13,7 +13,6 @@
     <key>ru</key>
     <value>Консоль отчетов [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>Report.УИ_КонсольОтчетов.Form.Форма</defaultForm>
   <mainDataCompositionSchema>Report.УИ_КонсольОтчетов.Template.ОсновнаяСхемаКомпоновкиДанных</mainDataCompositionSchema>
   <forms uuid="46a8420d-50a4-4e52-8afb-7e54119d6923">
@@ -51,4 +50,13 @@
     </synonym>
     <templateType>DataCompositionSchema</templateType>
   </templates>
+  <commands uuid="1c867430-3c0a-4c4f-95b3-02889760f3db">
+    <name>КонсольОтчетов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Консоль отчетов [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:Report>
