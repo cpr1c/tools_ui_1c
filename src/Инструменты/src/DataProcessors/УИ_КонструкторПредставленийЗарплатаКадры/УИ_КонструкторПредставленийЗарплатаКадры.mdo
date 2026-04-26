@@ -10,7 +10,6 @@
     <value>Конструктор представлений подсистемы &quot;Зарплата и кадры&quot; [УИ]</value>
   </synonym>
   <comment>1.1.1</comment>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры.Form.КонструкторПредставлений</defaultForm>
   <forms uuid="f78c863d-9733-4e46-b3b0-db809486c5f8">
     <name>КонструкторПредставлений</name>
@@ -30,4 +29,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="cc7f3a4d-fb5f-48bd-84f4-9dab3b73da4a">
+    <name>КонструкторПредставлениеЗарплатаИКадры</name>
+    <synonym>
+      <key>ru</key>
+      <value>Конструктор представлений подсистемы &quot;Зарплата и кадры&quot; [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

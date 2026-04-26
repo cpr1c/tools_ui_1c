@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="ba8c3df8-bcd9-42d3-9a04-6dc3989bb82b">
+  <name>УИ_Разработка</name>
+  <synonym>
+    <key>ru</key>
+    <value>Разработка</value>
+  </synonym>
+  <extension xsi:type="mdclassExtension:SubsystemExtension">
+    <commandInterface>Extended</commandInterface>
+  </extension>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <content>DataProcessor.УИ_КонсольКода</content>
+  <content>DataProcessor.УИ_КонсольЗапросов</content>
+  <content>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры</content>
+  <content>DataProcessor.УИ_КонструкторРегулярныхВыражений</content>
+  <content>DataProcessor.УИ_РедакторHTML</content>
+  <content>DataProcessor.УИ_РедакторJSON</content>
+  <content>DataProcessor.УИ_ПросмотрЗначения</content>
+  <content>Report.УИ_КонсольОтчетов</content>
+  <content>DataProcessor.УИ_РедакторСКД</content>
+  <content>DataProcessor.УИ_РедакторПрототиповФорм</content>
+  <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
+</mdclass:Subsystem>

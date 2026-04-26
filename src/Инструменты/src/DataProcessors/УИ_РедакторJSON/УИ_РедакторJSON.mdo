@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Редактор JSON [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторJSON.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
@@ -36,4 +35,13 @@
     </synonym>
     <templateType>BinaryData</templateType>
   </templates>
+  <commands uuid="2612c904-3fe5-476f-80bb-351b6ef29102">
+    <name>РедакторJSON</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактор JSON [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

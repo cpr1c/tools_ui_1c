@@ -10,7 +10,6 @@
     <value>Редактор прототипов форм [УИ]</value>
   </synonym>
   <comment>Горизонтальный прототип</comment>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторПрототиповФорм.Form.Основная</defaultForm>
   <forms uuid="59a196d7-c977-4d36-8b3e-f455dcfd4406">
     <name>Основная</name>
@@ -154,4 +153,13 @@
       <value>Свойства форм и элементов управления элементы</value>
     </synonym>
   </templates>
+  <commands uuid="ac4045c3-f332-4e6d-bc97-ee0c65187384">
+    <name>РедакторПрототиповФорм</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактор прототипов форм [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

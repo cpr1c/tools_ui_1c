@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Консоль кода [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольКода.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
@@ -28,4 +27,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="9f465141-4b72-4ee3-a993-e6f322893e5b">
+    <name>КонсольКода</name>
+    <synonym>
+      <key>ru</key>
+      <value>Консоль кода [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

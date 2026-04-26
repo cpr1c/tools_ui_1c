@@ -163,6 +163,20 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_КонструкторРегулярныхВыражений.Command.КонструкторРегулярныхВыражений</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Report.УИ_КонсольОтчетов.Command.КонсольОтчетов</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_КонсольЗаданий</name>
 		<right>
 			<name>Use</name>
@@ -189,6 +203,13 @@
 	</object>
 	<object>
 		<name>CommonForm.УИ_ФормаКода</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_РедакторJSON.Command.РедакторJSON</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -253,6 +274,13 @@
 	</object>
 	<object>
 		<name>Subsystem.УИ_УниверсальныеИнструменты</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Администрирование</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -375,6 +403,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_РедакторHTML.Command.РедакторHTML</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_КонсольВебСервисов</name>
 		<right>
 			<name>Use</name>
@@ -490,6 +525,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_КонсольКода.Command.КонсольКода</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>CommonForm.УИ_ФормаРедактированияСпискаЗначений</name>
 		<right>
 			<name>View</name>
@@ -547,6 +589,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_РедакторПрототиповФорм.Command.РедакторПрототиповФорм</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</name>
 		<right>
 			<name>Use</name>
@@ -587,7 +636,21 @@
 		</right>
 	</object>
 	<object>
+		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Разработка</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_РедакторСКД.Command.РедакторСКД</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -624,6 +687,13 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры.Command.КонструкторПредставлениеЗарплатаИКадры</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -823,6 +893,13 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_КонсольЗапросов.Command.КонсольЗапросов</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

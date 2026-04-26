@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Subsystem xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="48e2e335-6caa-4171-9099-db02f467f07f">
+  <name>УИ_Администрирование</name>
+  <synonym>
+    <key>ru</key>
+    <value>Администрирование</value>
+  </synonym>
+  <includeHelpInContents>true</includeHelpInContents>
+  <includeInCommandInterface>true</includeInCommandInterface>
+  <content>Report.УИ_КоличествоОбъектовВБазе</content>
+  <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
+  <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
+  <content>DataProcessor.УИ_КонсольЗаданий</content>
+  <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
+  <content>DataProcessor.УИ_НавигаторПоМетаданным</content>
+  <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
+  <content>DataProcessor.УИ_ПоискСсылокНаОбъект</content>
+  <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
+  <content>DataProcessor.УИ_РедакторКонстант</content>
+  <content>DataProcessor.УИ_РедакторПараметровСеанса</content>
+  <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
+  <content>DataProcessor.УИ_ФайловыйМенеджер</content>
+  <content>DataProcessor.УИ_СтруктураХраненияБазыДанных</content>
+  <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
+</mdclass:Subsystem>

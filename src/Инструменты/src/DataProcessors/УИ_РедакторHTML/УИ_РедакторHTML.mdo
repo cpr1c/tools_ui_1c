@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Редактор HTML [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РедакторHTML.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
@@ -28,4 +27,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="6bf585e8-dff4-4dfe-a000-38e6fa1bf6d1">
+    <name>РедакторHTML</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактор HTML [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

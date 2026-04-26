@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Конструктор регулярных выражений [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонструкторРегулярныхВыражений.Form.Форма</defaultForm>
   <help>
     <pages>
@@ -469,4 +468,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="1aa065d8-43f4-48a9-82c8-677408fcbf33">
+    <name>КонструкторРегулярныхВыражений</name>
+    <synonym>
+      <key>ru</key>
+      <value>Конструктор регулярных выражений [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

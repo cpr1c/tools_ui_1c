@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Консоль запросов [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_КонсольЗапросов.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
@@ -403,4 +402,13 @@
     </synonym>
     <templateType>TextDocument</templateType>
   </templates>
+  <commands uuid="f217a688-f69e-487a-86f2-98e517405db8">
+    <name>КонсольЗапросов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Консоль запросов [УИ]</value>
+    </synonym>
+    <group>NavigationPanelImportant</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>
