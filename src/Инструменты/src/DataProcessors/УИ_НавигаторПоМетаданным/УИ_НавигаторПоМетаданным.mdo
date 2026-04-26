@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Навигатор по метаданным [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_НавигаторПоМетаданным.Form.ФормаСтарта</defaultForm>
   <help>
     <pages>
@@ -175,4 +174,13 @@
       <value>Макет сервис</value>
     </synonym>
   </templates>
+  <commands uuid="4c2f1c4b-df80-4cd3-9914-bc503a1a0aa0">
+    <name>НавигаторПоМетаданным</name>
+    <synonym>
+      <key>ru</key>
+      <value>Навигатор по метаданным [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

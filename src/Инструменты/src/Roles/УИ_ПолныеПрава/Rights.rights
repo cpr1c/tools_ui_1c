@@ -33,6 +33,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_ИнформацияОЛицензиях1С.Command.ИнформацияОЛицензиях1С</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_УдалениеПомеченныхОбъектов.Command.УдалениеПомеченныхОбъектов</name>
 		<right>
 			<name>View</name>
@@ -244,6 +251,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_КонсольЗаданий.Command.КонсольЗаданий</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры</name>
 		<right>
 			<name>Use</name>
@@ -267,6 +281,13 @@
 	</object>
 	<object>
 		<name>DataProcessor.УИ_ТехПоддержка.Command.ВопросРазработчику</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_КонсольHTTPЗапросов.Command.КонсольHTTPЗапросов</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -315,7 +336,21 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_РедакторПараметровСеанса.Command.РедакторПараметровСеанса</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Администрирование</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_НавигаторПоМетаданным.Command.НавигаторПоМетаданным</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -466,6 +501,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_СтруктураХраненияБазыДанных.Command.СтруктураХраненияБазыДанных</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_РедакторHTML.Command.РедакторHTML</name>
 		<right>
 			<name>View</name>
@@ -527,6 +569,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_МенеджерОтрытыхФорм.Command.МенеджерОтрытыхФорм</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>CommonForm.УИ_ФормаСсылкиНаКод</name>
 		<right>
 			<name>View</name>
@@ -539,6 +588,13 @@
 			<name>Use</name>
 			<value>true</value>
 		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>CommonCommand.УИ_ОчиститьКэшИнструментовНаКлиенте</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -563,14 +619,14 @@
 		</right>
 	</object>
 	<object>
-		<name>Catalog.ДополнительныеОтчетыИОбработки.Command.УИ_НастройкиОтладки</name>
+		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Обмен</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
 		</right>
 	</object>
 	<object>
-		<name>DataProcessor.УИ_ТехПоддержка.Command.ОчиститьКэшИнструментовНаКлиенте</name>
+		<name>Catalog.ДополнительныеОтчетыИОбработки.Command.УИ_НастройкиОтладки</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -637,6 +693,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_ПросмотрЗначения.Command.ПросмотрЗначения</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_КонсольHTTPЗапросов</name>
 		<right>
 			<name>Use</name>
@@ -660,6 +723,13 @@
 	</object>
 	<object>
 		<name>CommonForm.УИ_РедакторГраницы</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Прочее</name>
 		<right>
 			<name>View</name>
 			<value>true</value>
@@ -1048,6 +1118,13 @@
 	</object>
 	<object>
 		<name>CommonForm.УИ_НастройкаИмпорта</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ФайловыйМенеджер.Command.ФайловыйМенеджер</name>
 		<right>
 			<name>View</name>
 			<value>true</value>

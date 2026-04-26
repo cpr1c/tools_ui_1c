@@ -8,18 +8,13 @@
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
   <content>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</content>
-  <content>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</content>
   <content>DataProcessor.УИ_ДинамическийСписок</content>
-  <content>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</content>
   <content>DataProcessor.УИ_КонсольСравненияДанных</content>
-  <content>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</content>
   <content>DataProcessor.УИ_РедакторРеквизитовОбъекта</content>
   <content>DataProcessor.УИ_СравнениеОбъектов</content>
-  <content>DataProcessor.УИ_УниверсальныйОбменДаннымиXML</content>
   <content>Report.УИ_КоличествоОбъектовВБазе</content>
   <content>DataProcessor.УИ_ПоискИУдалениеДублей</content>
   <content>DataProcessor.УИ_ПоискСсылокНаОбъект</content>
   <content>DataProcessor.УИ_РедакторКонстант</content>
-  <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
   <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
 </mdclass:Subsystem>

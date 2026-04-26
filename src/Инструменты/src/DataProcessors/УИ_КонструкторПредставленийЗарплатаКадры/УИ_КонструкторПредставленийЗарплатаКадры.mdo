@@ -33,7 +33,7 @@
     <name>КонструкторПредставлениеЗарплатаИКадры</name>
     <synonym>
       <key>ru</key>
-      <value>Конструктор представлений подсистемы &quot;Зарплата и кадры&quot; [УИ]</value>
+      <value>Конструктор представлений ЗУП [УИ]</value>
     </synonym>
     <group>NavigationPanelOrdinary</group>
     <representation>Auto</representation>

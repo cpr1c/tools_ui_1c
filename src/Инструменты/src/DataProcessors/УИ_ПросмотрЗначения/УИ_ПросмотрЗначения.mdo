@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Просмотр значения [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ПросмотрЗначения.Form.Форма</defaultForm>
   <forms uuid="2af56097-9391-44e3-a601-77625ccfaff1">
     <name>Форма</name>
@@ -29,4 +28,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="a74f243a-3aba-4652-9802-a8d476b2cc2b">
+    <name>ПросмотрЗначения</name>
+    <synonym>
+      <key>ru</key>
+      <value>Просмотр значения [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

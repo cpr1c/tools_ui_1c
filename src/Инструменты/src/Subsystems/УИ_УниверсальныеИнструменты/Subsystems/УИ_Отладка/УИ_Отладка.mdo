@@ -11,5 +11,8 @@
     <picture>CommonPicture.УИ_Отладка</picture>
   </picture>
   <content>DataProcessor.УИ_ДанныеДляОтладки</content>
+  <content>Catalog.ДополнительныеОтчетыИОбработки</content>
+  <content>DataProcessor.УИ_МенеджерОтрытыхФорм</content>
+  <content>DataProcessor.УИ_ПросмотрЗначения</content>
   <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
 </mdclass:Subsystem>

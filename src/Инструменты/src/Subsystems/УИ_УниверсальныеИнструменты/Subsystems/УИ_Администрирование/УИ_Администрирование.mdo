@@ -11,9 +11,9 @@
   <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
   <content>DataProcessor.УИ_КонсольЗаданий</content>
   <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>
-  <content>DataProcessor.УИ_НавигаторПоМетаданным</content>
   <content>DataProcessor.УИ_РедакторПараметровСеанса</content>
   <content>DataProcessor.УИ_ФайловыйМенеджер</content>
   <content>DataProcessor.УИ_СтруктураХраненияБазыДанных</content>
+  <content>DataProcessor.УИ_УдалениеПомеченныхОбъектов</content>
   <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
 </mdclass:Subsystem>

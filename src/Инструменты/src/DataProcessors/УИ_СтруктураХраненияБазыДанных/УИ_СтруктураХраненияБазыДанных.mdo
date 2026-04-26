@@ -13,7 +13,6 @@
     <key>ru</key>
     <value>Структура хранения базы данных [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</defaultForm>
   <auxiliaryForm>DataProcessor.УИ_СтруктураХраненияБазыДанных.Form.ФормаУправляемая</auxiliaryForm>
   <extendedPresentation>
@@ -33,4 +32,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="6bea644c-7891-45e2-9b8b-46b977d92529">
+    <name>СтруктураХраненияБазыДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Структура хранения базы данных [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

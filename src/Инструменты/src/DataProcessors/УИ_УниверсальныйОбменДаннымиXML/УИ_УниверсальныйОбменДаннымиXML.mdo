@@ -7,7 +7,7 @@
   <name>УИ_УниверсальныйОбменДаннымиXML</name>
   <synonym>
     <key>ru</key>
-    <value>Универсальный обмен данными в формате XML(с фильтрами и выгрузкой на HTTP сервис) [УИ]</value>
+    <value>Универсальный обмен данными в формате XML [УИ]</value>
   </synonym>
   <defaultForm>DataProcessor.УИ_УниверсальныйОбменДаннымиXML.Form.УправляемаяФорма</defaultForm>
   <help>
@@ -1301,7 +1301,7 @@
     <name>УниверсальныеОбменДаннымиXML</name>
     <synonym>
       <key>ru</key>
-      <value>Универсальный обмен данными в формате XML(с фильтрами и выгрузкой на HTTP сервис) [УИ]</value>
+      <value>Универсальный обмен данными в формате XML [УИ]</value>
     </synonym>
     <group>NavigationPanelOrdinary</group>
     <representation>Auto</representation>

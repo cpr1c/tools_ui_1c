@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Менеджер открытых форм [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_МенеджерОтрытыхФорм.Form.Форма</defaultForm>
   <help>
     <pages>
@@ -112,4 +111,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="8519c50a-9720-494e-b37c-89b3afad1983">
+    <name>МенеджерОтрытыхФорм</name>
+    <synonym>
+      <key>ru</key>
+      <value>Менеджер отрытых форм [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>
