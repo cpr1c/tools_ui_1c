@@ -4,6 +4,17 @@
 	<setForAttributesByDefault>true</setForAttributesByDefault>
 	<independentRightsOfChildObjects>false</independentRightsOfChildObjects>
 	<object>
+		<name>DataProcessor.УИ_НавигаторПоКонфигурации</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПереименованиеПеременных</name>
 		<right>
 			<name>Use</name>
@@ -354,17 +365,6 @@
 	</object>
 	<object>
 		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ПолучениеСтруктурыМодуля</name>
-		<right>
-			<name>Use</name>
-			<value>true</value>
-		</right>
-		<right>
-			<name>View</name>
-			<value>true</value>
-		</right>
-	</object>
-	<object>
-		<name>DataProcessor.УИ_НавигаторПоКонфигурации</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
