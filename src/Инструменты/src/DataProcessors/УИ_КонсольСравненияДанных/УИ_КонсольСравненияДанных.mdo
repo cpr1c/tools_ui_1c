@@ -13,8 +13,7 @@
     <key>ru</key>
     <value>Консоль сравнения данных [УИ]</value>
   </synonym>
-  <comment>15.9.63</comment>
-  <useStandardCommands>true</useStandardCommands>
+  <comment>15.9.67</comment>
   <defaultForm>DataProcessor.УИ_КонсольСравненияДанных.Form.ФормаУправляемая</defaultForm>
   <help>
     <pages>
@@ -1786,7 +1785,7 @@
     <name>ПутьКФайлуВыгрузки</name>
     <synonym>
       <key>ru</key>
-      <value>Путь к файлу выгрузки таблицы расхождений (на сервере)</value>
+      <value>полный путь с расширением</value>
     </synonym>
     <type>
       <types>String</types>
@@ -1799,7 +1798,7 @@
     <name>ФорматФайлаВыгрузки</name>
     <synonym>
       <key>ru</key>
-      <value>Формат файла выгрузки таблицы расхождений </value>
+      <value>формат</value>
     </synonym>
     <type>
       <types>String</types>
@@ -2114,9 +2113,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="40b0664e-a9cf-4f09-8199-e8cf389fc8d8">
       <name>Ключ2</name>
@@ -2141,9 +2138,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="1604f870-5e3e-432b-a51b-bb648656bf25">
       <name>Ключ3</name>
@@ -2168,9 +2163,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="11ebfc78-7072-4d6e-93f9-0944a37fda96">
       <name>РеквизитА1</name>
@@ -2197,9 +2190,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="44a82dc2-1c2b-4148-8c47-5ca90e0ac9a4">
       <name>РеквизитА2</name>
@@ -2226,9 +2217,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="a0636d9d-7b1b-43fc-8ade-e06fccd048ae">
       <name>РеквизитА3</name>
@@ -2255,9 +2244,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="570907a3-e61d-4fd5-9d52-b59eccd41691">
       <name>РеквизитА4</name>
@@ -2284,9 +2271,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="2b7c7be1-f7cb-42f5-b6af-7d81f890c435">
       <name>РеквизитА5</name>
@@ -2313,9 +2298,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="7d961705-2604-4c79-b685-7298367052b0">
       <name>РеквизитБ1</name>
@@ -2342,9 +2325,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="fa054ad3-2ef0-4776-945a-6cc4ac1c02af">
       <name>РеквизитБ2</name>
@@ -2371,9 +2352,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="d69a0ba8-0f28-455c-81e5-32234044e583">
       <name>РеквизитБ3</name>
@@ -2400,9 +2379,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="cc9d44f9-03e0-40b0-9e75-e21e8e03a55e">
       <name>РеквизитБ4</name>
@@ -2429,9 +2406,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="1afa6e86-8f75-4fe6-b8a2-0648a450b7b8">
       <name>РеквизитБ5</name>
@@ -2458,9 +2433,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="6b8954c1-89a1-4010-9d8e-efab30756b88">
       <name>ЧислоЗаписейА</name>
@@ -2508,9 +2481,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="a8553b17-58d9-40a7-95b4-a92ee2eae661">
       <name>ТипСтолбца2Ключа</name>
@@ -2526,9 +2497,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="090c3f26-0d04-4a4f-a6c0-d6357f0ec911">
       <name>ТипСтолбца3Ключа</name>
@@ -2544,9 +2513,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
   </tabularSections>
   <tabularSections uuid="a5532dc6-c1dd-4ea1-a4d3-8e8f5a5efefd">
@@ -2581,9 +2548,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="cab6b325-61fb-415a-9abe-725ecf072b2c">
       <name>Условие</name>
@@ -2599,9 +2564,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="13cff5a6-d35a-4672-a87b-b26314bac6b2">
       <name>СравниваемоеЗначение</name>
@@ -2625,9 +2588,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="99d7754a-3fec-4421-84bc-95ed7adf2b4a">
       <name>ИмяСравниваемогоРеквизита2</name>
@@ -2643,9 +2604,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="f7ae6fa6-9d5b-4c19-82c8-1bb607d58511">
       <name>ТипСравнения</name>
@@ -2661,9 +2620,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
   </tabularSections>
   <tabularSections uuid="5f8a9ae4-a5c6-4547-a118-f9a046de38a6">
@@ -2698,9 +2655,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="f477baa5-e001-46f9-9da0-8620ce103fca">
       <name>Условие</name>
@@ -2716,9 +2671,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="bb426b7d-d596-41bc-8b1e-3da01a4cf0b0">
       <name>СравниваемоеЗначение</name>
@@ -2743,9 +2696,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="93f55491-65a0-425f-8b2b-538aea82f388">
       <name>ИмяСравниваемогоРеквизита2</name>
@@ -2761,9 +2712,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="b972f399-7dbb-4d0e-a210-3ba2eca6509b">
       <name>ТипСравнения</name>
@@ -2831,9 +2780,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="d5ffff8f-b821-49cf-b2e0-e1ba3bf49a02">
       <name>ПроизвольныйКод</name>
@@ -2847,9 +2794,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="f20dff1a-b120-4897-bfcc-35f84d040cc9">
       <name>ЗаголовокРеквизитаДляПользователя</name>
@@ -2865,9 +2810,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="1e67c345-ff3d-4edc-ba14-8bc4fa0bc5ff">
       <name>РассчитыватьИтог</name>
@@ -2896,9 +2839,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
   </tabularSections>
   <tabularSections uuid="4215cc90-6ef9-4eb7-b129-0ee65bf1c43f">
@@ -2950,9 +2891,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="328ebfd3-d953-401b-93da-1151960976b9">
       <name>ПроизвольныйКод</name>
@@ -2966,9 +2905,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="0d479cce-ba51-411a-a2a0-7d9ecf36d4c3">
       <name>ЗаголовокРеквизитаДляПользователя</name>
@@ -2984,9 +2921,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="c9f9f50c-d84c-459a-bf30-bfa637c48e17">
       <name>РассчитыватьИтог</name>
@@ -3015,9 +2950,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
   </tabularSections>
   <tabularSections uuid="2d7a9193-137b-4f69-9e58-90df5c94b40a">
@@ -3052,9 +2985,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="661ef1ba-e446-4004-94d4-500c666a257f">
       <name>ТипПараметра</name>
@@ -3068,9 +2999,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="0aa07114-1b56-483d-a59e-0fa8c4cbb4ac">
       <name>ЗначениеПараметра</name>
@@ -3095,9 +3024,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
   </tabularSections>
   <tabularSections uuid="ad1842a0-7bcb-4183-9d47-7a4861e38aef">
@@ -3132,9 +3059,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="b0f3dd9e-38c3-44c2-aff6-8bc0b609c9fa">
       <name>ТипПараметра</name>
@@ -3148,9 +3073,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
     <attributes uuid="e613c136-c0b0-4754-95b2-794681b7395b">
       <name>ЗначениеПараметра</name>
@@ -3175,9 +3098,7 @@
       </type>
       <minValue xsi:type="core:UndefinedValue"/>
       <maxValue xsi:type="core:UndefinedValue"/>
-      <fillValue xsi:type="core:StringValue">
-        <value></value>
-      </fillValue>
+      <fillValue xsi:type="core:StringValue"/>
     </attributes>
   </tabularSections>
   <forms uuid="2d6bea3d-9750-4f5e-ab85-1647e8b77052">
@@ -3350,6 +3271,30 @@
     </synonym>
     <templateType>BinaryData</templateType>
   </templates>
+  <templates uuid="e93b87bb-d22b-47bf-95af-74c9e5cb5c71">
+    <name>КартинкаДискета</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка дискета</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="cc4a66a6-2d18-4fd5-a689-d00894299f03">
+    <name>КартинкаПапка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка папка</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="4454d513-c09d-4f31-8986-1cce34f7e3ab">
+    <name>КартинкаДополнительныеКоманды</name>
+    <synonym>
+      <key>ru</key>
+      <value>Картинка дополнительные команды</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
   <templates uuid="d380c569-d30c-4f0a-8dc2-db61da9ad6d9">
     <name>ФормаПредварительногоПросмотра</name>
     <synonym>
@@ -3357,4 +3302,13 @@
       <value>Предварительный просмотр</value>
     </synonym>
   </templates>
+  <commands uuid="04b4e617-87b5-4113-ac21-03bd16e112c6">
+    <name>КонсольСравненияДанных</name>
+    <synonym>
+      <key>ru</key>
+      <value>Консоль сравнения данных [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

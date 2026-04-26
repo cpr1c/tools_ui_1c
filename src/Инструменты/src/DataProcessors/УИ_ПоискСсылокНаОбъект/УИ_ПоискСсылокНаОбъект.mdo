@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Поиск ссылок на объект [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ПоискСсылокНаОбъект.Form.Форма</defaultForm>
   <extendedPresentation>
     <key>ru</key>
@@ -54,4 +53,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="5849f5a0-73c7-4080-81d8-d90d72bc55e9">
+    <name>ПоискСсылокНаОбъект</name>
+    <synonym>
+      <key>ru</key>
+      <value>Поиск ссылок на объект [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

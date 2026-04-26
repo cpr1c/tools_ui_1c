@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Регистрация изменений для обмена данными [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными.Form.Форма</defaultForm>
   <auxiliaryForm>ac4674ba-2e32-11ea-cc81-e86a6452d1f2</auxiliaryForm>
   <extendedPresentation>
@@ -186,4 +185,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="62aae8d1-c3b0-4e53-8823-50baacb865a0">
+    <name>РегистрацияИзмененийДляОбменаДанными</name>
+    <synonym>
+      <key>ru</key>
+      <value>Регистрация изменений для обмена данными [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

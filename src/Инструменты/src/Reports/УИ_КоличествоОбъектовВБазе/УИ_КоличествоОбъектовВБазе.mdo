@@ -9,7 +9,6 @@
     <key>ru</key>
     <value>Количество объектов в базе [УИ]</value>
   </synonym>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>Report.УИ_КоличествоОбъектовВБазе.Form.ФормаОтчета</defaultForm>
   <mainDataCompositionSchema>Report.УИ_КоличествоОбъектовВБазе.Template.ОсновнаяСхемаКомпоновкиДанных</mainDataCompositionSchema>
   <forms uuid="db0edccf-904f-49c1-a03b-1863d9afff7e">
@@ -29,4 +28,13 @@
     </synonym>
     <templateType>DataCompositionSchema</templateType>
   </templates>
+  <commands uuid="95419df7-478b-4667-abbe-aa65ca5ac53b">
+    <name>КоличествоОбъектовВБазе</name>
+    <synonym>
+      <key>ru</key>
+      <value>Количество объектов в базе [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:Report>

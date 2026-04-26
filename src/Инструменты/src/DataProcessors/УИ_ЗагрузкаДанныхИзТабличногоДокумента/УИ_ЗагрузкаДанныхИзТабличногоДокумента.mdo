@@ -10,7 +10,6 @@
     <value>Загрузка данных из табличного документа [УИ]</value>
   </synonym>
   <comment>Переписываем обработку почти заново, но с большим заимствованием кода из стандартной обработки для толстого клиента</comment>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента.Form.Форма</defaultForm>
   <help>
     <pages>
@@ -251,4 +250,13 @@
       <value>Макет сохранения настроек</value>
     </synonym>
   </templates>
+  <commands uuid="37db76ee-0877-42c6-883c-0601276ca8f5">
+    <name>ЗагрузкаДанныхИзТабличногоДокумента</name>
+    <synonym>
+      <key>ru</key>
+      <value>Загрузка данных из табличного документа [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>

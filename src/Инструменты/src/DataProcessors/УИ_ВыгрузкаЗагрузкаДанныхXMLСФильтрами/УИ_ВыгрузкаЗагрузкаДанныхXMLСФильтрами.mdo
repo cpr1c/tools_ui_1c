@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:core="http://g5.1c.ru/v8/dt/mcore"
-  xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="91e46a78-411a-11ea-998f-e86a6452d1f2">
+<mdclass:DataProcessor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="91e46a78-411a-11ea-998f-e86a6452d1f2">
   <producedTypes>
     <objectType typeId="91e469b0-411a-11ea-998f-e86a6452d1f2" valueTypeId="91e469b1-411a-11ea-998f-e86a6452d1f2"/>
     <managerType typeId="91e469b2-411a-11ea-998f-e86a6452d1f2" valueTypeId="91e469b3-411a-11ea-998f-e86a6452d1f2"/>
@@ -12,7 +10,6 @@
     <value>Выгрузка и загрузка данных XML с фильтрами [УИ]</value>
   </synonym>
   <comment></comment>
-  <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами.Form.Форма</defaultForm>
   <help>
     <pages>
@@ -336,4 +333,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="1d7026e9-349d-4098-840f-49b3f9f5c904">
+    <name>ВыгрузкаЗагрузкаДанныхXMLСФильтрами</name>
+    <synonym>
+      <key>ru</key>
+      <value>Выгрузка загрузка данных XML с фильтрами [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>
