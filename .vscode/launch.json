@@ -136,6 +136,23 @@
         "runtimeExecutable": "/usr/bin/oscript"
       }
     },
+        {
+      "name": "Сборка во внешнюю обработку WINDOWS",
+      "type": "oscript",
+      "request": "launch",
+      "program": "${workspaceRoot}/src/builder/build.os",
+      "args": [
+        "epf"
+      ],
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "TOOLS_UI_1C_BUILDER_EDT_PATH": "C:\\Program Files\\1C\\1CE\\components\\1c-edt-2025.2.5+2-x86_64\\",
+        "TOOLS_UI_1C_BUILDER_PLATFORM_PATH": "C:\\Program Files\\1cv8\\8.3.27.2130\\bin\\"
+      },
+      "runtimeArgs": [],
+      "debugPort": 2801,
+      "protocol": "tcp",
+    },
     {
       "name": "Тест парсера асинхронного",
       "type": "oscript",
