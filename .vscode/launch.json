@@ -24,11 +24,28 @@
       }
     },
     {
+      "name": "Конвертация исходников WINDOWS",
+      "type": "oscript",
+      "request": "launch",
+      "program": "${workspaceRoot}/src/builder/build.os",
+      "args": [
+        "xml"
+      ],
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "TOOLS_UI_1C_BUILDER_EDT_PATH": "C:\\Program Files\\1C\\1CE\\components\\1c-edt-2025.2.5+2-x86_64\\"
+      },
+      "debugPort": 2801,
+
+    },
+    {
       "name": "Конвертация исходников",
       "type": "oscript",
       "request": "launch",
       "program": "${workspaceRoot}/src/builder/build.os",
-      "args": ["xml"],
+      "args": [
+        "xml"
+      ],
       "cwd": "${workspaceRoot}",
       "env": {
         "TOOLS_UI_1C_BUILDER_EDT_PATH": "/home/levkin/.local/share/1C/1cedtstart/installations/1C_EDT (Lite) 2024.1/1cedt/"
@@ -46,7 +63,9 @@
       "type": "oscript",
       "request": "launch",
       "program": "${workspaceRoot}/src/builder/build.os",
-      "args": ["cfe"],
+      "args": [
+        "cfe"
+      ],
       "cwd": "${workspaceRoot}",
       "env": {
         "TOOLS_UI_1C_BUILDER_EDT_PATH": "/home/levkin/.local/share/1C/1cedtstart/installations/1C_EDT (Lite) 2024.1/1cedt/",
@@ -61,11 +80,28 @@
       }
     },
     {
+      "name": "Сборка в расширения Автономный сервер WINDOWS",
+      "type": "oscript",
+      "request": "launch",
+      "program": "${workspaceRoot}/src/builder/build.os",
+      "args": [
+        "cfe"
+      ],
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "TOOLS_UI_1C_BUILDER_EDT_PATH": "C:\\Program Files\\1C\\1CE\\components\\1c-edt-2025.2.5+2-x86_64\\",
+        "TOOLS_UI_1C_BUILDER_PLATFORM_PATH": "C:\\Program Files\\1cv8\\8.3.17.2306\\bin\\"
+      },
+      "debugPort": 2801
+    },
+    {
       "name": "Сборка в конфигурацию LINUX Автономный сервер",
       "type": "oscript",
       "request": "launch",
       "program": "${workspaceRoot}/src/builder/build.os",
-      "args": ["cf"],
+      "args": [
+        "cf"
+      ],
       "cwd": "${workspaceRoot}",
       "env": {
         "TOOLS_UI_1C_BUILDER_EDT_PATH": "/home/levkin/.local/share/1C/1cedtstart/installations/1C_EDT (Lite) 2024.1/1cedt/",
@@ -84,7 +120,9 @@
       "type": "oscript",
       "request": "launch",
       "program": "${workspaceRoot}/src/builder/build.os",
-      "args": ["epf"],
+      "args": [
+        "epf"
+      ],
       "cwd": "${workspaceRoot}",
       "env": {
         "TOOLS_UI_1C_BUILDER_EDT_PATH": "/home/levkin/.local/share/1C/1cedtstart/installations/1C_EDT (Lite) 2024.1/1cedt/",
