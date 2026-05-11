@@ -762,23 +762,6 @@
     <representation>TextPicture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
-  <formCommands>
-    <name>ВыбратьФормуДляПомещения</name>
-    <title>
-      <key>ru</key>
-      <value>Выбрать форму для помещения</value>
-    </title>
-    <id>5</id>
-    <use>
-      <common>true</common>
-    </use>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>ВыбратьФормуДляПомещения</name>
-      </handler>
-    </action>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
   <parameters>
     <name>АдресХранилища</name>
     <valueType>
