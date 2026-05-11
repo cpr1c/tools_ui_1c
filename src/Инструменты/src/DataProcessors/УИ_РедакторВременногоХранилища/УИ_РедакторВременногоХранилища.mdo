@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="9e061e51-7e38-4494-b098-b3e358b35590">
+  <producedTypes>
+    <objectType typeId="1e92a7f7-c214-4811-bf1f-fd8fb713bcb5" valueTypeId="3ca025f9-aee4-4520-965e-018aefb86fbb"/>
+    <managerType typeId="e5882c36-1e36-4f28-a308-5f91af411831" valueTypeId="274f0a3c-9be1-47f0-8b6f-4355eaace1a8"/>
+  </producedTypes>
+  <name>УИ_РедакторВременногоХранилища</name>
+  <synonym>
+    <key>ru</key>
+    <value>Редактор временного хранилища [УИ]</value>
+  </synonym>
+  <defaultForm>DataProcessor.УИ_РедакторВременногоХранилища.Form.Форма</defaultForm>
+  <forms uuid="15891747-076c-4259-82bb-6f747f8905a1">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <commands uuid="4a11ed12-8af4-4081-9421-ecaca46bb4cf">
+    <name>РедакторВременногоХранилища</name>
+    <synonym>
+      <key>ru</key>
+      <value>Редактор временного хранилища</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
+</mdclass:DataProcessor>

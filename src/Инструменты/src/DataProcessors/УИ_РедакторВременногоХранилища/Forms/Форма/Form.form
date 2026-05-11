@@ -2,7 +2,7 @@
 <form:Form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:form="http://g5.1c.ru/v8/dt/form">
   <items xsi:type="form:FormField">
     <name>АдресХранилища</name>
-    <id>11</id>
+    <id>1</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -11,9 +11,13 @@
     <dataPath xsi:type="form:DataPath">
       <segments>АдресХранилища</segments>
     </dataPath>
+    <handlers>
+      <event>OnChange</event>
+      <name>АдресХранилищаПриИзменении</name>
+    </handlers>
     <extendedTooltip>
       <name>АдресХранилищаРасширеннаяПодсказка</name>
-      <id>13</id>
+      <id>3</id>
       <type>Label</type>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -23,11 +27,10 @@
     </extendedTooltip>
     <contextMenu>
       <name>АдресХранилищаКонтекстноеМеню</name>
-      <id>12</id>
+      <id>2</id>
       <autoFill>true</autoFill>
     </contextMenu>
     <type>InputField</type>
-    <readOnly>true</readOnly>
     <editMode>Enter</editMode>
     <showInHeader>true</showInHeader>
     <headerHorizontalAlign>Left</headerHorizontalAlign>
@@ -36,13 +39,12 @@
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
       <chooseType>true</chooseType>
-      <typeDomainEnabled>true</typeDomainEnabled>
       <textEdit>true</textEdit>
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
     <name>ЗначениеТипЗначенияПредставление</name>
-    <id>5</id>
+    <id>4</id>
     <title>
       <key>ru</key>
       <value>Тип</value>
@@ -57,7 +59,7 @@
     </dataPath>
     <extendedTooltip>
       <name>ЗначениеТипЗначенияПредставлениеРасширеннаяПодсказка</name>
-      <id>7</id>
+      <id>6</id>
       <type>Label</type>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -67,7 +69,7 @@
     </extendedTooltip>
     <contextMenu>
       <name>ЗначениеТипЗначенияПредставлениеКонтекстноеМеню</name>
-      <id>6</id>
+      <id>5</id>
       <autoFill>true</autoFill>
     </contextMenu>
     <type>InputField</type>
@@ -81,13 +83,12 @@
       <autoMaxHeight>true</autoMaxHeight>
       <wrap>true</wrap>
       <chooseType>true</chooseType>
-      <typeDomainEnabled>true</typeDomainEnabled>
       <textEdit>true</textEdit>
     </extInfo>
   </items>
   <items xsi:type="form:FormField">
     <name>Значение</name>
-    <id>8</id>
+    <id>7</id>
     <visible>true</visible>
     <enabled>true</enabled>
     <userVisible>
@@ -102,7 +103,7 @@
     </handlers>
     <extendedTooltip>
       <name>ЗначениеРасширеннаяПодсказка</name>
-      <id>10</id>
+      <id>9</id>
       <type>Label</type>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -112,7 +113,7 @@
     </extendedTooltip>
     <contextMenu>
       <name>ЗначениеКонтекстноеМеню</name>
-      <id>9</id>
+      <id>8</id>
       <autoFill>true</autoFill>
     </contextMenu>
     <type>InputField</type>
@@ -134,7 +135,6 @@
       <wrap>true</wrap>
       <choiceButton>true</choiceButton>
       <clearButton>true</clearButton>
-      <typeDomainEnabled>true</typeDomainEnabled>
       <textEdit>true</textEdit>
       <typeLink>
         <datapath xsi:type="form:DataPath">
@@ -148,7 +148,7 @@
     <id>-1</id>
     <items xsi:type="form:Button">
       <name>Применить</name>
-      <id>1</id>
+      <id>10</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
@@ -156,7 +156,7 @@
       </userVisible>
       <extendedTooltip>
         <name>ПрименитьРасширеннаяПодсказка</name>
-        <id>2</id>
+        <id>11</id>
         <type>Label</type>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -164,7 +164,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.Command.Применить</commandName>
+      <commandName>Form.Command.ПоместитьИЗакрыть</commandName>
       <representation>Auto</representation>
       <defaultButton>true</defaultButton>
       <autoMaxWidth>true</autoMaxWidth>
@@ -173,16 +173,16 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <items xsi:type="form:Button">
-      <name>ФормаЗакрыть</name>
-      <id>3</id>
+      <name>ФормаПоместить</name>
+      <id>18</id>
       <visible>true</visible>
       <enabled>true</enabled>
       <userVisible>
         <common>true</common>
       </userVisible>
       <extendedTooltip>
-        <name>ФормаЗакрытьРасширеннаяПодсказка</name>
-        <id>4</id>
+        <name>ФормаПоместитьРасширеннаяПодсказка</name>
+        <id>19</id>
         <type>Label</type>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -190,7 +190,7 @@
           <horizontalAlign>Left</horizontalAlign>
         </extInfo>
       </extendedTooltip>
-      <commandName>Form.StandardCommand.Close</commandName>
+      <commandName>Form.Command.Поместить</commandName>
       <representation>Auto</representation>
       <autoMaxWidth>true</autoMaxWidth>
       <autoMaxHeight>true</autoMaxHeight>
@@ -222,6 +222,56 @@
       <placementArea>UserCmds</placementArea>
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
+    <items xsi:type="form:Button">
+      <name>ФормаУдалитьИзВременногоХранилища</name>
+      <id>16</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <extendedTooltip>
+        <name>ФормаУдалитьИзВременногоХранилищаРасширеннаяПодсказка</name>
+        <id>17</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <commandName>Form.Command.УдалитьЗначениеИзВременногоХранилища</commandName>
+      <representation>Auto</representation>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <placementArea>UserCmds</placementArea>
+      <representationInContextMenu>Auto</representationInContextMenu>
+    </items>
+    <items xsi:type="form:Button">
+      <name>ФормаЗакрыть</name>
+      <id>12</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <extendedTooltip>
+        <name>ФормаЗакрытьРасширеннаяПодсказка</name>
+        <id>13</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <commandName>Form.StandardCommand.Close</commandName>
+      <representation>Auto</representation>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <placementArea>UserCmds</placementArea>
+      <representationInContextMenu>Auto</representationInContextMenu>
+    </items>
     <horizontalAlign>Left</horizontalAlign>
   </autoCommandBar>
   <handlers>
@@ -237,12 +287,44 @@
   <showTitle>true</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
+    <name>Объект</name>
+    <id>1</id>
+    <valueType>
+      <types>DataProcessorObject.УИ_РедакторВременногоХранилища</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <main>true</main>
+  </attributes>
+  <attributes>
+    <name>АдресХранилища</name>
+    <title>
+      <key>ru</key>
+      <value>Адрес хранилища</value>
+    </title>
+    <id>2</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
     <name>Значение</name>
     <title>
       <key>ru</key>
       <value>Значение</value>
     </title>
-    <id>1</id>
+    <id>3</id>
     <valueType/>
     <view>
       <common>true</common>
@@ -258,7 +340,7 @@
       <key>ru</key>
       <value>Значение контейнер</value>
     </title>
-    <id>2</id>
+    <id>4</id>
     <valueType/>
     <view>
       <common>true</common>
@@ -274,7 +356,7 @@
       <key>ru</key>
       <value>Значение тип значения</value>
     </title>
-    <id>3</id>
+    <id>5</id>
     <valueType>
       <types>TypeDescription</types>
     </valueType>
@@ -292,7 +374,7 @@
       <key>ru</key>
       <value>Значение тип значения представление</value>
     </title>
-    <id>4</id>
+    <id>6</id>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -305,48 +387,13 @@
     </edit>
     <savedData>true</savedData>
   </attributes>
-  <attributes>
-    <name>АдресХранилища</name>
-    <title>
-      <key>ru</key>
-      <value>Адрес хранилища</value>
-    </title>
-    <id>6</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers/>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <formCommands>
-    <name>Применить</name>
-    <title>
-      <key>ru</key>
-      <value>Применить</value>
-    </title>
-    <id>1</id>
-    <use>
-      <common>true</common>
-    </use>
-    <action xsi:type="form:FormCommandHandlerContainer">
-      <handler>
-        <name>Применить</name>
-      </handler>
-    </action>
-    <currentRowUse>Auto</currentRowUse>
-  </formCommands>
   <formCommands>
     <name>ПеречитатьИзВременногоХранилища</name>
     <title>
       <key>ru</key>
       <value>Перечитать из временного хранилища</value>
     </title>
-    <id>2</id>
+    <id>1</id>
     <use>
       <common>true</common>
     </use>
@@ -360,8 +407,74 @@
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
+  <formCommands>
+    <name>ПоместитьИЗакрыть</name>
+    <title>
+      <key>ru</key>
+      <value>Поместить и закрыть</value>
+    </title>
+    <id>2</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ПоместитьИЗакрыть</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>УдалитьЗначениеИзВременногоХранилища</name>
+    <title>
+      <key>ru</key>
+      <value>Удалить</value>
+    </title>
+    <id>3</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.Delete</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>УдалитьЗначениеИзВременногоХранилища</name>
+      </handler>
+    </action>
+    <representation>TextPicture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>Поместить</name>
+    <title>
+      <key>ru</key>
+      <value>Поместить</value>
+    </title>
+    <id>4</id>
+    <use>
+      <common>true</common>
+    </use>
+    <picture xsi:type="core:PictureRef">
+      <picture>StdPicture.SaveFile</picture>
+    </picture>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>Поместить</name>
+      </handler>
+    </action>
+    <representation>TextPicture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
   <parameters>
     <name>АдресХранилища</name>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>Заголовок</name>
     <valueType>
       <types>String</types>
       <stringQualifiers/>
@@ -371,4 +484,5 @@
     <navigationPanel/>
     <commandBar/>
   </commandInterface>
+  <extInfo xsi:type="form:ObjectFormExtInfo"/>
 </form:Form>

@@ -150,7 +150,6 @@
   <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
   <commonForms>CommonForm.УИ_ПараметрыСессииВзаимодействияРедактораКода</commonForms>
   <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
-  <commonForms>CommonForm.УИ_РедакторВременногоХранилища</commonForms>
   <commonForms>CommonForm.УИ_РедакторГраницы</commonForms>
   <commonForms>CommonForm.УИ_РедакторДвоичныхДанных</commonForms>
   <commonForms>CommonForm.УИ_РедакторКартинки</commonForms>
@@ -207,6 +206,7 @@
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторВременногоХранилища</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторПараметровСеанса</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторПрототиповФорм</dataProcessors>

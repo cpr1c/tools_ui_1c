@@ -14,5 +14,6 @@
   <content>Catalog.ДополнительныеОтчетыИОбработки</content>
   <content>DataProcessor.УИ_МенеджерОтрытыхФорм</content>
   <content>DataProcessor.УИ_ПросмотрЗначения</content>
+  <content>DataProcessor.УИ_РедакторВременногоХранилища</content>
   <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
 </mdclass:Subsystem>
