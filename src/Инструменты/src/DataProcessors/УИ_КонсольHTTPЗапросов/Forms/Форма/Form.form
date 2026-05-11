@@ -6076,29 +6076,6 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>СписокИспользованныхЗаголовков</name>
-    <title>
-      <key>ru</key>
-      <value>Список использованных заголовков</value>
-    </title>
-    <id>28</id>
-    <valueType>
-      <types>ValueList</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <extInfo xsi:type="form:ValueListExtInfo">
-      <itemValueType>
-        <types>String</types>
-        <stringQualifiers/>
-      </itemValueType>
-    </extInfo>
-  </attributes>
-  <attributes>
     <name>ТелоЗапросаДвоичныеДанныеСтрокой</name>
     <title>
       <key>ru</key>
