@@ -7921,6 +7921,21 @@
         <common>true</common>
       </edit>
     </columns>
+    <columns>
+      <name>ДанныеПредставления</name>
+      <title>
+        <key>ru</key>
+        <value>Данные представления</value>
+      </title>
+      <id>171</id>
+      <valueType/>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
   </attributes>
   <formCommands>
     <name>ВыполнитьЗапрос</name>
