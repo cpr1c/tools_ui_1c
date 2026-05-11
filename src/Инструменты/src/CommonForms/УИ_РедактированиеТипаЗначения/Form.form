@@ -1525,6 +1525,54 @@
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
+  <parameters>
+    <name>РежимЗапуска</name>
+    <valueType/>
+  </parameters>
+  <parameters>
+    <name>ИспользоватьДинамическийСписокДляВыбораСсылочногоЗначения</name>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>НаборТипов</name>
+    <valueType/>
+  </parameters>
+  <parameters>
+    <name>ТипДанных</name>
+    <valueType/>
+  </parameters>
+  <parameters>
+    <name>ХранилищеКонтейнераЗначенияТипа</name>
+    <valueType/>
+  </parameters>
+  <parameters>
+    <name>ХранилищеКонтейнераЗначенияОписанияТипа</name>
+    <valueType/>
+  </parameters>
+  <parameters>
+    <name>ОграничениеТипа</name>
+    <valueType/>
+  </parameters>
+  <parameters>
+    <name>ДоступенСоставнойТип</name>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>РежимВыбора</name>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>ИспользоватьВыборФормыВыбораСсылочногоЗначения</name>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+  </parameters>
   <commandInterface>
     <navigationPanel/>
     <commandBar/>

@@ -5137,6 +5137,23 @@
         <common>true</common>
       </edit>
     </columns>
+    <columns>
+      <name>ОграничениеВыбораЗначенияОписанияТипов</name>
+      <title>
+        <key>ru</key>
+        <value>Ограничение выбора значения описания типов</value>
+      </title>
+      <id>63</id>
+      <valueType>
+        <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
   </attributes>
   <attributes>
     <name>ПрефиксДляНовыхЭлементов</name>

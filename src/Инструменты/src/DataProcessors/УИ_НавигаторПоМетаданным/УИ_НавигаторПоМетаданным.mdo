@@ -9,7 +9,7 @@
     <key>ru</key>
     <value>Навигатор по метаданным [УИ]</value>
   </synonym>
-  <defaultForm>DataProcessor.УИ_НавигаторПоМетаданным.Form.ФормаСтарта</defaultForm>
+  <defaultForm>DataProcessor.УИ_НавигаторПоМетаданным.Form.Форма</defaultForm>
   <help>
     <pages>
       <lang>ru</lang>
@@ -154,15 +154,6 @@
     <synonym>
       <key>ru</key>
       <value>Форма списка объектов</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="45f6639f-009a-4995-9299-589b7490d9ee">
-    <name>ФормаСтарта</name>
-    <synonym>
-      <key>ru</key>
-      <value>Форма старта</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
