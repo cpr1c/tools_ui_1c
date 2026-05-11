@@ -23,7 +23,7 @@
     <name>РедакторВременногоХранилища</name>
     <synonym>
       <key>ru</key>
-      <value>Редактор временного хранилища</value>
+      <value>Редактор временного хранилища [УИ]</value>
     </synonym>
     <group>NavigationPanelOrdinary</group>
     <representation>Auto</representation>
