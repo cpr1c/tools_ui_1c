@@ -150,6 +150,7 @@
   <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
   <commonForms>CommonForm.УИ_ПараметрыСессииВзаимодействияРедактораКода</commonForms>
   <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
+  <commonForms>CommonForm.УИ_РедакторВременногоХранилища</commonForms>
   <commonForms>CommonForm.УИ_РедакторГраницы</commonForms>
   <commonForms>CommonForm.УИ_РедакторДвоичныхДанных</commonForms>
   <commonForms>CommonForm.УИ_РедакторКартинки</commonForms>
