@@ -206,6 +206,7 @@
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторHTML</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторJSON</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_РедакторВременногоХранилища</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторКонстант</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторПараметровСеанса</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторПрототиповФорм</dataProcessors>

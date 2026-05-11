@@ -350,6 +350,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_РедакторВременногоХранилища.Command.РедакторВременногоХранилища</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_НавигаторПоМетаданным.Command.НавигаторПоМетаданным</name>
 		<right>
 			<name>View</name>
@@ -652,6 +659,17 @@
 	</object>
 	<object>
 		<name>DataProcessor.УИ_ТехПоддержка.Command.СтраницаРазработки</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_РедакторВременногоХранилища</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
 		<right>
 			<name>View</name>
 			<value>true</value>
