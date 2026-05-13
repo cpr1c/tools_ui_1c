@@ -7866,46 +7866,16 @@
       </edit>
     </columns>
     <columns>
-      <name>ИмяПоиска</name>
+      <name>ИмяДляПоиска</name>
       <title>
         <key>ru</key>
-        <value>Имя поиска</value>
+        <value>Имя для поиска</value>
       </title>
       <id>169</id>
       <valueType>
         <types>String</types>
         <stringQualifiers/>
       </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>ДанныеПоиска</name>
-      <title>
-        <key>ru</key>
-        <value>Данные поиска</value>
-      </title>
-      <id>170</id>
-      <valueType/>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>ДанныеПредставления</name>
-      <title>
-        <key>ru</key>
-        <value>Данные представления</value>
-      </title>
-      <id>171</id>
-      <valueType/>
       <view>
         <common>true</common>
       </view>
