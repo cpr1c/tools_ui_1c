@@ -36,6 +36,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <templates uuid="d4fe1b57-5a97-4b22-83bd-1e97681da4f7">
+    <name>ЗаголовкиЗапроса</name>
+    <synonym>
+      <key>ru</key>
+      <value>Заголовки запроса</value>
+    </synonym>
+  </templates>
   <commands uuid="35e50952-3e32-415b-be93-5be8570e6405">
     <name>КонсольHTTPЗапросов</name>
     <synonym>
