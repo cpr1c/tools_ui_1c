@@ -2351,6 +2351,10 @@
                 <dataPath xsi:type="form:DataPath">
                   <segments>Items.ДеревоЗапросов.CurrentData.АутентификацияИспользовать</segments>
                 </dataPath>
+                <handlers>
+                  <event>OnChange</event>
+                  <name>ДеревоЗапросовАутентификацияИспользоватьПриИзменении</name>
+                </handlers>
                 <extendedTooltip>
                   <name>ДеревоЗапросовАутентификацияИспользоватьРасширеннаяПодсказка</name>
                   <id>558</id>
@@ -3045,12 +3049,20 @@
                     <autoFill>true</autoFill>
                   </autoCommandBar>
                   <handlers>
-                    <event>OnChange</event>
-                    <name>ТаблицаЗаголовковЗапросаПриИзменении</name>
+                    <event>OnEditEnd</event>
+                    <name>ТаблицаЗаголовковЗапросаПриОкончанииРедактирования</name>
                   </handlers>
                   <handlers>
                     <event>OnStartEdit</event>
                     <name>ТаблицаЗаголовковЗапросаПриНачалеРедактирования</name>
+                  </handlers>
+                  <handlers>
+                    <event>AfterDeleteRow</event>
+                    <name>ТаблицаЗаголовковЗапросаПослеУдаления</name>
+                  </handlers>
+                  <handlers>
+                    <event>OnChange</event>
+                    <name>ТаблицаЗаголовковЗапросаПриИзменении</name>
                   </handlers>
                   <searchStringAddition>
                     <name>ТаблицаСтрокаПоиска</name>
@@ -3494,12 +3506,20 @@
                 <horizontalAlign>Left</horizontalAlign>
               </autoCommandBar>
               <handlers>
-                <event>OnChange</event>
-                <name>ПараметрыЗапросаПриИзменении</name>
+                <event>OnEditEnd</event>
+                <name>ПараметрыURLПриОкончанииРедактирования</name>
               </handlers>
               <handlers>
                 <event>OnStartEdit</event>
                 <name>ПараметрыURLПриНачалеРедактирования</name>
+              </handlers>
+              <handlers>
+                <event>AfterDeleteRow</event>
+                <name>ПараметрыURLПослеУдаления</name>
+              </handlers>
+              <handlers>
+                <event>OnChange</event>
+                <name>ПараметрыЗапросаПриИзменении</name>
               </handlers>
               <searchStringAddition>
                 <name>ПараметрыURLСтрокаПоиска</name>
@@ -3655,7 +3675,7 @@
             </userVisible>
             <title>
               <key>ru</key>
-              <value>URL параметры</value>
+              <value>Параметры URL</value>
             </title>
             <extendedTooltip>
               <name>ГруппаСтраницаЗапросаПараметрыURLРасширеннаяПодсказка</name>
@@ -4932,7 +4952,7 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>СтраницаЗаголовки</name>
+            <name>СтраницаЗаголовкиОтвета</name>
             <id>402</id>
             <items xsi:type="form:FormField">
               <name>ЗаголовкиОтвета</name>
@@ -4986,7 +5006,7 @@
               <value>Заголовки</value>
             </title>
             <extendedTooltip>
-              <name>СтраницаЗаголовкиРасширеннаяПодсказка</name>
+              <name>СтраницаЗаголовкиОтветаРасширеннаяПодсказка</name>
               <id>403</id>
               <type>Label</type>
               <autoMaxWidth>true</autoMaxWidth>
@@ -5943,7 +5963,6 @@
   </handlers>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <saveDataInSettings>UseList</saveDataInSettings>
-  <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
   <group>Vertical</group>
   <autoFillCheck>true</autoFillCheck>
@@ -7883,6 +7902,23 @@
         <common>true</common>
       </edit>
     </columns>
+  </attributes>
+  <attributes>
+    <name>ОтключитьАктивациюСтроки</name>
+    <title>
+      <key>ru</key>
+      <value>Отключить активацию строки</value>
+    </title>
+    <id>172</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
   </attributes>
   <formCommands>
     <name>ВыполнитьЗапрос</name>
