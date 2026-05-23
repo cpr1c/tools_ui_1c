@@ -66,6 +66,10 @@
         <dataPath xsi:type="form:DataPath">
           <segments>КолонкиТаблицы.ТипЗначения</segments>
         </dataPath>
+        <handlers>
+          <event>OnChange</event>
+          <name>КолонкиТаблицыТипЗначенияПриИзменении</name>
+        </handlers>
         <extendedTooltip>
           <name>КолонкиТаблицыТипЗначенияРасширеннаяПодсказка</name>
           <id>47</id>
@@ -90,12 +94,15 @@
             <event>StartChoice</event>
             <name>КолонкиТаблицыТипЗначенияНачалоВыбора</name>
           </handlers>
+          <handlers>
+            <event>Clearing</event>
+            <name>КолонкиТаблицыТипЗначенияОчистка</name>
+          </handlers>
           <autoMaxWidth>true</autoMaxWidth>
           <autoMaxHeight>true</autoMaxHeight>
           <wrap>true</wrap>
           <choiceButton>true</choiceButton>
           <chooseType>true</chooseType>
-          <typeDomainEnabled>true</typeDomainEnabled>
         </extInfo>
       </items>
       <items xsi:type="form:FormField">
@@ -403,9 +410,7 @@
         <value>Тип значения</value>
       </title>
       <id>6</id>
-      <valueType>
-        <types>TypeDescription</types>
-      </valueType>
+      <valueType/>
       <view>
         <common>true</common>
       </view>
@@ -438,6 +443,56 @@
         <value>Имя для поиска</value>
       </title>
       <id>12</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипЗначенияКонтейнер</name>
+      <title>
+        <key>ru</key>
+        <value>Тип значения</value>
+      </title>
+      <id>19</id>
+      <valueType/>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипЗначенияТипЗначения</name>
+      <title>
+        <key>ru</key>
+        <value>Тип значения тип значения</value>
+      </title>
+      <id>20</id>
+      <valueType>
+        <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипЗначенияТипЗначенияПредставление</name>
+      <title>
+        <key>ru</key>
+        <value>Тип значения тип значения представление</value>
+      </title>
+      <id>21</id>
       <valueType>
         <types>String</types>
         <stringQualifiers/>
