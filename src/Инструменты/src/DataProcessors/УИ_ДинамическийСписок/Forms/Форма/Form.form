@@ -811,6 +811,27 @@
     </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
+  <formCommands>
+    <name>УдалитьВыделенныеОбъектыСКонтролемСсылок</name>
+    <title>
+      <key>ru</key>
+      <value>Удалить выделенные объекты с контролем ссылок</value>
+    </title>
+    <id>1</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Удалить выделенные объекты с контролем ссылок</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>УдалитьВыделенныеОбъектыСКонтролемСсылок</name>
+      </handler>
+    </action>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
   <parameters>
     <name>ИмяОбъектаМетаданных</name>
     <valueType>
