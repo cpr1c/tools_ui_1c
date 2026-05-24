@@ -4,7 +4,14 @@
         "parameters": {
             "LineLength": {
                 "maxLineLength": 150
-            }
+            },
+			"UsingServiceTag": {
+				"serviceTags": "todo|fixme|!!|mrg|отладка|debug|для\\s*отладки|(\\{\\{|\\}\\})КОНСТРУКТОР_|(\\{\\{|\\}\\})MRG|Вставить\\s*содержимое\\s*обработчика|Paste\\s*handler\\s*content|Insert\\s*handler\\s*code|Insert\\s*handler\\s*content|Insert\\s*handler\\s*contents"
+			},
+			"NestedFunctionInParameters": {
+				"allowOneliner": true,
+				"allowedMethodNames": "НСтр,NStr,ПредопределенноеЗначение,PredefinedValue,ВРег,НРег,СокрЛП,РеквизитФормы"
+			}
         }
     }
 }
