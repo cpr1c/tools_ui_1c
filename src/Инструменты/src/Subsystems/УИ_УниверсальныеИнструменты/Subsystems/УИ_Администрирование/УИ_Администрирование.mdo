@@ -7,7 +7,6 @@
   </synonym>
   <includeHelpInContents>true</includeHelpInContents>
   <includeInCommandInterface>true</includeInCommandInterface>
-  <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
   <content>DataProcessor.УИ_ИнформацияОЛицензиях1С</content>
   <content>DataProcessor.УИ_КонсольЗаданий</content>
   <content>DataProcessor.УИ_МенеджерХранилищНастроек</content>

@@ -177,7 +177,6 @@
   <reports>Report.УИ_КонсольОтчетов</reports>
   <dataProcessors>DataProcessor.УИ_Алгоритмы2</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ВыгрузкаЗагрузкаДанныхXMLСФильтрами</dataProcessors>
-  <dataProcessors>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДанныеДляОтладки</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>

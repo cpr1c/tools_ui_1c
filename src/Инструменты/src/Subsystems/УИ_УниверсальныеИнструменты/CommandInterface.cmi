@@ -2,10 +2,6 @@
 <cmi:CommandInterface xmlns:cmi="http://g5.1c.ru/v8/dt/cmi">
   <commandsVisibility>
     <visibilityFragments>
-      <command>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте.StandardCommand.Open</command>
-      <visible/>
-    </visibilityFragments>
-    <visibilityFragments>
       <command>DataProcessor.УИ_КонсольВебСервисов.StandardCommand.Open</command>
       <visible/>
     </visibilityFragments>

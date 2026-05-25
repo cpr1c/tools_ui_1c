@@ -10,7 +10,6 @@
   <picture xsi:type="core:PictureRef">
     <picture>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</picture>
   </picture>
-  <content>DataProcessor.УИ_ВыполнениеРегламентныхЗаданийНаКлиенте</content>
   <content>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</content>
   <content>CommonPicture.УИ_ВыполнитьРегламентноеЗаданиеВручную</content>
   <content>CommonPicture.УИ_СостоянияПланаОбмена</content>
