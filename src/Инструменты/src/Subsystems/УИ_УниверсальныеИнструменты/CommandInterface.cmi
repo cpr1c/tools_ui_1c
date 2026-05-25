@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cmi:CommandInterface xmlns:cmi="http://g5.1c.ru/v8/dt/cmi">
-  <commandsVisibility>
-    <visibilityFragments>
-      <command>DataProcessor.УИ_КонсольВебСервисов.StandardCommand.Open</command>
-      <visible/>
-    </visibilityFragments>
-  </commandsVisibility>
   <subsystemsOrder>
     <subsystems>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Отладка</subsystems>
     <subsystems>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Разработка</subsystems>

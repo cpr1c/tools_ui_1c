@@ -40,4 +40,13 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <commands uuid="0e0ed3a8-50fd-4c4f-a0be-2e7e5a692b73">
+    <name>УИ_КонсольВебСервисов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Консоль веб сервисов [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>
