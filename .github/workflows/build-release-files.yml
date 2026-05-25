@@ -9,7 +9,7 @@ jobs:
     uses: ./.github/workflows/build-version-files.yml
     with:
       tag_name: ${{ github.event.release.tag_name }}
-      prerelease: true
+      prerelease: false
     secrets: 
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
