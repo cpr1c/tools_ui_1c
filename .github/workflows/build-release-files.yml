@@ -1,0 +1,15 @@
+name: Сборка файлов поставки для релиза
+on:
+  release:
+    types: [created]
+
+
+jobs:
+  build-dev-version:
+    uses: ./.github/workflows/build-version-files.yml
+    with:
+      tag_name: ${{ github.event.release.tag_name }}
+      prerelease: true
+    secrets: 
+      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
