@@ -28,7 +28,7 @@ jobs:
         shell: bash
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
-        if: github.event_name == 'push'
+        # if: github.event_name == 'push'
         uses: actions/checkout@v4
       - name: JAVA
         uses: actions/setup-java@v5
