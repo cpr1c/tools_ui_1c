@@ -1,7 +1,6 @@
 name: Сообщение об ошибке
 description: Программа работает не так как ожидали
 labels: ["Ошибка"]
-type: bug
 body:
   - type: textarea
     id: description
