@@ -1,25 +1,18 @@
 name: Сообщение об ошибке
 description: Программа работает не так как ожидали
 labels: ["Ошибка"]
+title: "[ОШИБКА] <title>"
+type: bug
 body:
   - type: textarea
     id: description
     attributes:
-      label: "Описание ошибки"
-      description: "Понятное описание того, что происходит"
+      label: "Описание ошибки и шаги для воспроизведения"
+      description: "Понятное описание того, что происходит. Последовательность действий для воспроизведения ошибки"
       placeholder: |
         Пример:
         Произошло то-то то-то, вот тут, после того как я сделал вот это
-    validations:
-      required: true
 
-  - type: textarea
-    id: reproduction_steps
-    attributes:
-      label: "Шаги для воспроизведения"
-      description: "Последовательность действий для воспроизведения ошибки"
-      placeholder: |
-        Пример:
         1. Перейдите в '...'
         2. Нажмите на '....'
         3. Прокрутите вниз до '....'
@@ -37,15 +30,10 @@ body:
       required: true
 
   - type: textarea
-    id: screenshots
-    attributes:
-      label: "Скриншоты"
-      description: "Если применимо, добавьте скриншоты, чтобы помочь объяснить вашу проблему."
-
-  - type: textarea
     id: environment
     attributes:
       label: "Окружение"
+      description: "Скопируйте строку, выдваемую командой инструментов **Инструменты->Информация для техподдержки** "
       placeholder: |
         - Версия платформы: 8.3.....
         - Режим базы данных(файловая/серверная/веб):
