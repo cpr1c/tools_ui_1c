@@ -80,6 +80,8 @@
   <content>CommonForm.УИ_ФормаКода</content>
   <content>DataProcessor.УИ_ПарсерВстроенногоЯзыка</content>
   <content>DataProcessor.УИ_Алгоритмы2</content>
+  <content>CommonModule.УИ_РаботаСКоманднойСтрокойКлиентСервер</content>
+  <content>CommonModule.УИ_РаботаСCURLКлиентСервер</content>
   <subsystems>УИ_Администрирование</subsystems>
   <subsystems>УИ_Обмен</subsystems>
   <subsystems>УИ_Отладка</subsystems>
