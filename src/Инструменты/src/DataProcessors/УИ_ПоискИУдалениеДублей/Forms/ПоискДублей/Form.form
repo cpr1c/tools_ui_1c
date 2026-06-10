@@ -266,6 +266,92 @@
           <showInFooter>true</showInFooter>
           <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
         </items>
+        <items xsi:type="form:FormField">
+          <name>ЗаменаЧерезSQL</name>
+          <id>507</id>
+          <visible>true</visible>
+          <enabled>true</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ЗаменаЧерезSQL</segments>
+          </dataPath>
+          <toolTip>
+            <key>ru</key>
+            <value>Только генерация SQL-скрипта замены, без реального применения через 1С.
+При взведении блокируются другие параметры замены и разблокируется выбор СУБД.
+Сгенерированный SQL появится в журнале удаления — его можно скопировать и выполнить вручную в клиенте СУБД.</value>
+          </toolTip>
+          <toolTipRepresentation>Button</toolTipRepresentation>
+          <handlers>
+            <event>OnChange</event>
+            <name>ЗаменаЧерезSQLПриИзменении</name>
+          </handlers>
+          <extendedTooltip>
+            <name>ЗаменаЧерезSQLРасширеннаяПодсказка</name>
+            <id>508</id>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ЗаменаЧерезSQLКонтекстноеМеню</name>
+            <id>509</id>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>CheckBoxField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+        </items>
+        <items xsi:type="form:FormField">
+          <name>ТипСУБД</name>
+          <id>510</id>
+          <visible>true</visible>
+          <enabled>false</enabled>
+          <userVisible>
+            <common>true</common>
+          </userVisible>
+          <dataPath xsi:type="form:DataPath">
+            <segments>ТипСУБД</segments>
+          </dataPath>
+          <toolTip>
+            <key>ru</key>
+            <value>Диалект СУБД для генерации SQL: PostgreSQL (по умолчанию) или MSSQL.
+Активируется при включённой галочке «Замена через SQL».</value>
+          </toolTip>
+          <toolTipRepresentation>Button</toolTipRepresentation>
+          <extendedTooltip>
+            <name>ТипСУБДРасширеннаяПодсказка</name>
+            <id>511</id>
+            <type>Label</type>
+            <autoMaxWidth>true</autoMaxWidth>
+            <autoMaxHeight>true</autoMaxHeight>
+            <extInfo xsi:type="form:LabelDecorationExtInfo">
+              <horizontalAlign>Left</horizontalAlign>
+            </extInfo>
+          </extendedTooltip>
+          <contextMenu>
+            <name>ТипСУБДКонтекстноеМеню</name>
+            <id>512</id>
+            <autoFill>true</autoFill>
+          </contextMenu>
+          <type>InputField</type>
+          <editMode>Enter</editMode>
+          <showInHeader>true</showInHeader>
+          <headerHorizontalAlign>Left</headerHorizontalAlign>
+          <showInFooter>true</showInFooter>
+          <extInfo xsi:type="form:InputFieldExtInfo">
+            <maxWidth>15</maxWidth>
+            <listChoiceMode>true</listChoiceMode>
+          </extInfo>
+        </items>
         <visible>true</visible>
         <enabled>true</enabled>
         <userVisible>
@@ -4918,6 +5004,43 @@
     <id>36</id>
     <valueType>
       <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ЗаменаЧерезSQL</name>
+    <title>
+      <key>ru</key>
+      <value>Замена через SQL</value>
+    </title>
+    <id>41</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
+  <attributes>
+    <name>ТипСУБД</name>
+    <title>
+      <key>ru</key>
+      <value>Тип СУБД</value>
+    </title>
+    <id>42</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers>
+        <length>20</length>
+      </stringQualifiers>
     </valueType>
     <view>
       <common>true</common>
