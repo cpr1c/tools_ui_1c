@@ -240,6 +240,14 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <wrap>true</wrap>
+        <format>
+          <key>ru</key>
+          <value>ЧН=0</value>
+        </format>
+        <editFormat>
+          <key>ru</key>
+          <value>ЧН=0</value>
+        </editFormat>
         <chooseType>true</chooseType>
         <typeDomainEnabled>true</typeDomainEnabled>
         <textEdit>true</textEdit>

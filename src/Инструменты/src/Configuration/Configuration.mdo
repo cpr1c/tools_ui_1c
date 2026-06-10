@@ -126,7 +126,9 @@
   <commonModules>CommonModule.УИ_ОбщегоНазначенияСлужебныйКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
   <commonModules>CommonModule.УИ_Пользователи</commonModules>
+  <commonModules>CommonModule.УИ_РаботаСCURLКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РаботаСКодом</commonModules>
+  <commonModules>CommonModule.УИ_РаботаСКоманднойСтрокойКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РаботаСФормами</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСервер</commonModules>
   <commonModules>CommonModule.УИ_РегламентныеЗаданияСлужебный</commonModules>
