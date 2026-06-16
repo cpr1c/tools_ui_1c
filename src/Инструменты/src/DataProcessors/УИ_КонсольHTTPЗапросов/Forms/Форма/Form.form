@@ -3694,6 +3694,34 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
+            <name>ГруппаСтраницаКуки</name>
+            <id>736</id>
+            <visible>true</visible>
+            <enabled>true</enabled>
+            <userVisible>
+              <common>true</common>
+            </userVisible>
+            <title>
+              <key>ru</key>
+              <value>Куки</value>
+            </title>
+            <extendedTooltip>
+              <name>ГруппаСтраницаКукиРасширеннаяПодсказка</name>
+              <id>737</id>
+              <type>Label</type>
+              <autoMaxWidth>true</autoMaxWidth>
+              <autoMaxHeight>true</autoMaxHeight>
+              <extInfo xsi:type="form:LabelDecorationExtInfo">
+                <horizontalAlign>Left</horizontalAlign>
+              </extInfo>
+            </extendedTooltip>
+            <type>Page</type>
+            <extInfo xsi:type="form:PageGroupExtInfo">
+              <group>Vertical</group>
+              <showTitle>true</showTitle>
+            </extInfo>
+          </items>
+          <items xsi:type="form:FormGroup">
             <name>ГруппаСтраницаЗапросаПрочее</name>
             <id>480</id>
             <items xsi:type="form:FormField">
