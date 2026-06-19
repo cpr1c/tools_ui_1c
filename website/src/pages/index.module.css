@@ -1,0 +1,212 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroLogo {
+  height: 96px;
+  width: auto;
+  margin-bottom: 1.5rem;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.badges {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  padding: 0.35rem 1rem;
+  font-size: 0.875rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.personaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.personaCard {
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.personaHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.personaIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.personaHeader h3 {
+  color: var(--ifm-color-primary);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.personaList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.personaItem {
+  position: relative;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--ifm-font-color-secondary);
+  line-height: 1.45;
+}
+
+.personaItem::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+  opacity: 0.6;
+}
+
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 996px) {
+  .toolsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .toolsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.toolCard {
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.toolCardIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.toolCardHeader h3 {
+  color: var(--ifm-color-primary);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.toolCardList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.toolCardItem {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.8rem;
+  color: var(--ifm-font-color-secondary);
+  line-height: 1.4;
+}
+
+.toolCardItem::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+  opacity: 0.5;
+}
+
+.toolCardMore {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-500);
+  margin-bottom: 0.5rem;
+}
+
+.toolCardLink {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  margin-top: auto;
+}
+
+.toolCardLink:hover {
+  text-decoration: underline;
+}
+
+.capabilitiesBadges {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.capabilityBadge {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 2rem;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-700);
+  font-weight: 500;
+}
+
+
+
+

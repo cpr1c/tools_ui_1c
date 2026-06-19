@@ -1,0 +1,80 @@
+---
+sidebar_position: 7
+---
+
+# Сборка из исходников
+
+## Требования
+
+- Платформа 1С:Предприятие 8.3.12+
+- [EDT](https://edt.1c.ru/)
+- [OneScript](https://oscript.io/)
+
+## Клонирование репозитория
+
+```bash
+git clone https://github.com/cpr1c/tools_ui_1c.git
+cd tools_ui_1c
+```
+
+## Установка зависимостей
+
+```bash
+opm install
+```
+
+## Команды сборки
+
+| Команда | Описание |
+| ------- | -------- |
+| `xml`   | Экспорт исходников в формат XML |
+| `cfe`   | Сборка расширения (.cfe) |
+| `cf`    | Сборка конфигурации (.cf) |
+| `epf`   | Сборка портативной обработки (.epf) |
+
+Сначала выполняется `xml`, затем одна из команд формирования сборки.
+
+## Параметры
+
+| Параметр | Описание |
+| -------- | -------- |
+| `--platformSource` | Каталог установки платформы 1С |
+| `--edtSource` | Каталог исполняемых файлов EDT |
+
+Вместо параметров можно задать переменные окружения:
+
+- `TOOLS_UI_1C_BUILDER_PLATFORM_PATH`
+- `TOOLS_UI_1C_BUILDER_EDT_PATH`
+
+## Примеры сборки
+
+```bash
+# Linux
+./build.sh --platformSource=/opt/1cv8/x86_64/8.3.12.1924 \
+           --edtSource=/home/user/.local/share/1C/1cedt/installations/1C_EDT\ \(Lite\)\ 2024.1/1cedt/ xml
+
+./build.sh --platformSource=/opt/1cv8/x86_64/8.3.12.1924 \
+           --edtSource=/home/user/.local/share/1C/1cedt/installations/1C_EDT\ \(Lite\)\ 2024.1/1cedt/ cfe
+```
+
+```batch
+REM Windows
+build.bat --platformSource="C:\Program Files (x86)\1cv8\8.3.12.1924\bin" --edtSource="C:\1C\EDT\eclipse" xml
+build.bat --platformSource="C:\Program Files (x86)\1cv8\8.3.12.1924\bin" --edtSource="C:\1C\EDT\eclipse" cfe
+```
+
+## Сборка CF из расширения
+
+Для сборки конфигурации из готового расширения используйте утилиту [cfe2cf](https://github.com/best-tech/cfe2cf):
+
+```bash
+# Linux
+cfe2cf file --platformDirectory=/opt/1cv8/x86_64/8.3.12.1924 UI.cfe "Extension" UI.cf
+
+# Windows
+cfe2cf file --platformDirectory="C:\Program Files (x86)\1cv8\8.3.12.1924\bin" UI.cfe "Extension" UI.cf
+```
+
+:::tip
+Если не указать каталог платформы, сборка выполняется последней установленной в системе версией.
+:::

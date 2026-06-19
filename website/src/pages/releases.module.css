@@ -1,0 +1,185 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.pageSubtitle {
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.loading,
+.error,
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.error {
+  color: var(--ifm-color-danger);
+}
+
+.release {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--ifm-card-background-color);
+}
+
+.releaseHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: -1.5rem -1.5rem 1rem -1.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 12px 12px 0 0;
+}
+
+.releaseHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.releaseTagLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: var(--ifm-font-family-monospace);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.releaseTagLink:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.releaseDate {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  white-space: nowrap;
+}
+
+.releaseName {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--ifm-color-primary);
+}
+
+.releaseBodyWrapper {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.releaseBody {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow: hidden;
+  max-height: 400px;
+  transition: max-height 0.3s ease;
+}
+
+.releaseBodyExpanded {
+  max-height: none;
+}
+
+.releaseBodyFade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(transparent, var(--ifm-card-background-color));
+  pointer-events: none;
+}
+
+.releaseBody h1,
+.releaseBody h2,
+.releaseBody h3,
+.releaseBody h4 {
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.releaseBody ul,
+.releaseBody ol {
+  padding-left: 1.25rem;
+}
+
+.releaseBody li {
+  margin-bottom: 0.25rem;
+}
+
+.releaseBody code {
+  background: var(--ifm-code-background);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.85em;
+}
+
+.releaseBody pre {
+  background: var(--ifm-pre-background);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+
+.expandToggle {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.expandToggle:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.sentinel {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--ifm-color-emphasis-500);
+  font-size: 0.9rem;
+}
+
+.prerelease {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--ifm-color-warning);
+  color: #000;
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+}
