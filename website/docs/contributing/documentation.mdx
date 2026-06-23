@@ -4,23 +4,67 @@ sidebar_position: 6
 
 # Написание документации
 
-Документация проекта живёт в отдельном репозитории [cpr1c/toolc-ru](https://github.com/cpr1c/toolc-ru) и построена на [Docusaurus](https://docusaurus.io/).
+Сайт документации построен на [Docusaurus](https://docusaurus.io/) и находится в каталоге `website/` репозитория [cpr1c/tools_ui_1c](https://github.com/cpr1c/tools_ui_1c).
+
+## Требования
+
+Перед началом работы убедитесь, что установлено:
+
+| Компонент | Версия | Ссылка |
+| --------- | ------ | ------ |
+| Node.js | >= 20.0 | [nodejs.org](https://nodejs.org/) |
+| npm | поставляется с Node.js | — |
+| Git | любая | [git-scm.com](https://git-scm.com/downloads) |
+
+Проверить установку:
+
+```bash
+node --version   # >=20.0
+npm --version
+git --version
+```
 
 ## Быстрый старт
 
 ```bash
-git clone https://github.com/cpr1c/toolc-ru.git
-cd toolc-ru
+git clone https://github.com/cpr1c/tools_ui_1c.git
+cd tools_ui_1c/website
 npm install
 npm start
 ```
 
-Сайт откроется на `http://localhost:3000`. Любые изменения в `docs/` и `src/pages/` подхватываются автоматически (hot reload).
+Сайт откроется на `http://localhost:3000`. Любые изменения в `website/docs/` и `website/src/pages/` подхватываются автоматически (hot reload).
 
-## Структура документации
+## Структура репозитория
+
+Исходный код инструментов находится в [cpr1c/tools_ui_1c](https://github.com/cpr1c/tools_ui_1c). Основные модули:
 
 ```
-docs/
+src/
+├── Инструменты/                     # Основная проект Инструментов (EDT-проект)
+├── Портативный/                     # Портативная версия (внешняя обработка)
+└── builder/                         # Сборочные скрипты (OneScript)
+    ├── build.os                     # Точка входа сборки
+    ├── lib/                         # Сторонние библиотеки
+    ├── Классы/                      # Классы OneScript
+    ├── Модули/                      # Модули сборки
+    └── Шаблоны/                     # Шаблоны для генерации
+```
+
+При описании нового инструмента в документации указывайте, какой обработчик (`DataProcessor`) или общий модуль (`CommonModule`) его реализует — это упростит навигацию по исходному коду.
+
+Рядом с сайтом в репозитории находятся и другие каталоги:
+
+- `docs/` — встроенная документация в формате 1С (для чтения в EDT)
+- `build/` — артефакты сборки (готовая портативная обработка и исходники расширения)
+- `plans/` — планы развития
+- `website/` — сам сайт документации (Docusaurus)
+- `src/` — исходный код (см. выше)
+
+## Структура документации (сайт)
+
+```
+website/docs/
 ├── intro.mdx                  # Введение
 ├── api/                       # Программный интерфейс
 ├── guides/                    # Руководства (установка, отладка, сборка…)
@@ -104,7 +148,7 @@ sidebar_position: 1
 
 1. Внесите изменения в соответствующую ветку
 2. Проверьте сборку: `npm run build`
-3. Откройте PR в `main` репозитория [cpr1c/toolc-ru](https://github.com/cpr1c/toolc-ru)
+3. Откройте PR в `develop` репозитория [cpr1c/tools_ui_1c](https://github.com/cpr1c/tools_ui_1c)
 4. После мержа сайт обновится автоматически
 
 ## Советы
