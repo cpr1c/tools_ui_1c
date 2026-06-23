@@ -52,6 +52,7 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
+    "external-modules",
   ],
   contributingSidebar: [
     {
