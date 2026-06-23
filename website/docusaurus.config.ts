@@ -161,6 +161,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          href: 'https://vk.me/join/gkq/IcSlhiqNT1J2kpLrSTaLfnAYYo1OZdU=',
+          label: 'VK',
+          position: 'right',
+        },
+        {
           href: 'https://t.me/tools_ui_1c',
           label: 'Telegram',
           position: 'right',
@@ -202,6 +207,10 @@ const config: Config = {
             {
               label: 'Telegram',
               href: 'https://t.me/tools_ui_1c',
+            },
+            {
+              label: 'VK',
+              href: 'https://vk.me/join/gkq/IcSlhiqNT1J2kpLrSTaLfnAYYo1OZdU=',
             },
             {
               label: 'Issues',
