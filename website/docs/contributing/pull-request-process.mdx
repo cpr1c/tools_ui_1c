@@ -6,6 +6,10 @@ sidebar_position: 5
 
 Пошаговое руководство по созданию pull request в проект.
 
+:::tip
+Новичок в open source? Рекомендуем [Open Source Contributor Guide](https://alei1180.github.io/open-source-contributor-guide/) — подробное руководство для контрибьюторов с нуля.
+:::
+
 ## Пошаговый workflow
 
 ### 1. Задача
@@ -49,11 +53,12 @@ git checkout -b feature/краткое-описание-изменения
 
 - проект собирается без ошибок
 - инструменты корректно работают в 1С
-- не появилось регрессий в существующих инструментах
+- не появилось ли новых проблем в существующих инструментах
+- исправлены все замечания анализатора Sonar
 
 ### 6. Pull Request
 
-1. Запушьте ветку в свой fork
+1. Отправьте ветку в свой fork
 
 ```bash
 git push origin feature/краткое-описание-изменения
@@ -64,13 +69,15 @@ git push origin feature/краткое-описание-изменения
 3. **ВАЖНО**: выбирайте целевую ветку `develop`, **не `master`**
 
 4. В описании PR укажите:
-   - ссылку на issue (если есть)
+   - ссылку на issue (если есть), используя `Close #N` для автоматического закрытия задачи при слиянии
    - что делает изменение
    - как протестировать
 
+Подробный гайд по оформлению PR и работе с git: [Open Source Contributor Guide](https://alei1180.github.io/open-source-contributor-guide/)
+
 ### 7. Ревью
 
-- Дождитесь ревью от мейнтейнеров
+- Дождитесь ревью своих изменений
 - Будьте готовы внести правки по замечаниям
 - После одобрения PR будет влит в `develop`
 
@@ -80,3 +87,11 @@ git push origin feature/краткое-описание-изменения
 - **Синхронизируйте fork** перед началом работы
 - **Не делайте rebase** после создания PR без необходимости
 - **Один PR — одна задача** (или логически связанная группа изменений)
+
+## Полезные ссылки
+
+- [Open Source Contributor Guide](https://alei1180.github.io/open-source-contributor-guide/) — подробное руководство для контрибьюторов: от настройки git до создания PR
+- [Pro Git Book](https://git-scm.com/book/ru/v2) — книга по Git на русском
+- [Learn Git Branching](https://learngitbranching.js.org/) — интерактивное изучение ветвления в Git
+- [Oh Shit, Git!?!](https://ohshitgit.com/ru) — типичные проблемы с Git и их решение
+- [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/) — рекомендации по ведению CHANGELOG
