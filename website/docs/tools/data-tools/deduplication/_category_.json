@@ -1,3 +1,7 @@
 {
-  "label": "Поиск и удаление дублей"
+  "label": "Поиск и удаление дублей",
+  "link": {
+    "type": "doc",
+    "id": "tools/data-tools/deduplication/intro"
+  }
 }

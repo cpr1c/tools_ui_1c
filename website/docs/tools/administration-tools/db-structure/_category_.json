@@ -1,3 +1,7 @@
 {
-  "label": "Структура хранения базы данных"
+  "label": "Структура хранения базы данных",
+  "link": {
+    "type": "doc",
+    "id": "tools/administration-tools/db-structure/intro"
+  }
 }

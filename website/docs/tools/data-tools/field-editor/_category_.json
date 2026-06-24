@@ -1,3 +1,7 @@
 {
-  "label": "Редактор реквизитов объекта"
+  "label": "Редактор реквизитов объекта",
+  "link": {
+    "type": "doc",
+    "id": "tools/data-tools/field-editor/intro"
+  }
 }

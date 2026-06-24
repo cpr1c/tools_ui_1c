@@ -1,3 +1,7 @@
 {
-  "label": "Динамический список"
+  "label": "Динамический список",
+  "link": {
+    "type": "doc",
+    "id": "tools/data-tools/dynamic-list/intro"
+  }
 }

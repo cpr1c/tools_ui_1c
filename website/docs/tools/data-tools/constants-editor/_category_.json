@@ -1,3 +1,7 @@
 {
-  "label": "Редактор констант"
+  "label": "Редактор констант",
+  "link": {
+    "type": "doc",
+    "id": "tools/data-tools/constants-editor/intro"
+  }
 }

@@ -1,3 +1,7 @@
 {
-  "label": "Сравнение объектов"
+  "label": "Сравнение объектов",
+  "link": {
+    "type": "doc",
+    "id": "tools/data-tools/object-comparison/intro"
+  }
 }

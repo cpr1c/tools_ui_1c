@@ -1,3 +1,7 @@
 {
-  "label": "Удаление помеченных объектов"
+  "label": "Удаление помеченных объектов",
+  "link": {
+    "type": "doc",
+    "id": "tools/administration-tools/delete-marked/intro"
+  }
 }

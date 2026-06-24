@@ -1,3 +1,7 @@
 {
-  "label": "Консоль запросов"
+  "label": "Консоль запросов",
+  "link": {
+    "type": "doc",
+    "id": "tools/development-tools/query-console/intro"
+  }
 }

@@ -1,3 +1,7 @@
 {
-  "label": "Данные для отладки"
+  "label": "Данные для отладки",
+  "link": {
+    "type": "doc",
+    "id": "tools/debugging-tools/debug-data/intro"
+  }
 }

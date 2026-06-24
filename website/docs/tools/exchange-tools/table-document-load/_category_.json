@@ -1,3 +1,7 @@
 {
-  "label": "Загрузка данных из табличного документа"
+  "label": "Загрузка данных из табличного документа",
+  "link": {
+    "type": "doc",
+    "id": "tools/exchange-tools/table-document-load/intro"
+  }
 }

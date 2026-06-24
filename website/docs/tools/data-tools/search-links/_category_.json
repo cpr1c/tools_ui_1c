@@ -1,3 +1,7 @@
 {
-  "label": "Поиск ссылок на объект"
+  "label": "Поиск ссылок на объект",
+  "link": {
+    "type": "doc",
+    "id": "tools/data-tools/search-links/intro"
+  }
 }

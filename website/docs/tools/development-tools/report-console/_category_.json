@@ -1,3 +1,7 @@
 {
-  "label": "Консоль отчётов"
+  "label": "Консоль отчётов",
+  "link": {
+    "type": "doc",
+    "id": "tools/development-tools/report-console/intro"
+  }
 }

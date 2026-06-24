@@ -1,3 +1,7 @@
 {
-  "label": "Менеджер открытых форм"
+  "label": "Менеджер открытых форм",
+  "link": {
+    "type": "doc",
+    "id": "tools/debugging-tools/form-manager/intro"
+  }
 }

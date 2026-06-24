@@ -1,4 +1,7 @@
 {
   "label": "Файловый менеджер",
-  "position": 5
+  "link": {
+    "type": "doc",
+    "id": "tools/administration-tools/file-manager/intro"
+  }
 }

@@ -1,3 +1,7 @@
 {
-  "label": "Консоль сравнения данных"
+  "label": "Консоль сравнения данных",
+  "link": {
+    "type": "doc",
+    "id": "tools/data-tools/data-comparison-console/intro"
+  }
 }

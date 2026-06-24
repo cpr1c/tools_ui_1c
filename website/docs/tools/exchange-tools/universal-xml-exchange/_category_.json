@@ -1,3 +1,7 @@
 {
-  "label": "Универсальный обмен данными XML"
+  "label": "Универсальный обмен данными XML",
+  "link": {
+    "type": "doc",
+    "id": "tools/exchange-tools/universal-xml-exchange/intro"
+  }
 }
