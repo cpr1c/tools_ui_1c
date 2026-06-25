@@ -1,0 +1,35 @@
+name: Предложение по улучшению
+description: Предложить идею для проекта
+title: "[ИДЕЯ] "
+type: feature
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Опишите вашу Цель, которую вы сможете достичь с помощью новой функциональности"
+      description: "Какую задачу вы смогли бы решить, если бы была предлагаемая Вами функциональность?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_solution
+    attributes:
+      label: "Опишите решение"
+      description: "Чёткое и краткое описание того, что вы ожидали увидеть."
+      placeholder: "Пример: Поведение остаётся таким же, как и раньше"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: "Дополнительная информация"
+      description: "Любая дополнительная информация"
+  
+  - type: checkboxes
+    id: ready_implement_myself
+    attributes:
+      label: "Готовы ли вы реализовать её сами?"
+      description: "Это необязатиельное условие"
+      options:
+        - label: Да
