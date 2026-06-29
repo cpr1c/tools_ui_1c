@@ -9,12 +9,15 @@ import ReleasesSection from "../components/ReleasesSection";
 import SeoHead from "../components/SeoHead";
 
 import styles from "./index.module.css";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   const { colorMode } = useColorMode();
-  const logoSrc =
-    colorMode === "dark" ? "/img/logo2-dark.png" : "/img/logo2.png";
+  const logoSrc = useBaseUrl(
+    colorMode === "dark" ? "/img/logo2-dark.png" : "/img/logo2.png",
+  );
+
   return (
     <header className={clsx("hero hero--primary", styles.heroBanner)}>
       <div className="container">
@@ -136,9 +139,7 @@ function ToolsOverviewSection() {
                   </li>
                 ))}
               </ul>
-              <div className={styles.toolCardMore}>
-                и другие
-              </div>
+              <div className={styles.toolCardMore}>и другие</div>
               <Link to={cat.link} className={styles.toolCardLink}>
                 Подробнее →
               </Link>
