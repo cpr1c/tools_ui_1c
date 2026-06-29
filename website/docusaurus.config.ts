@@ -243,9 +243,9 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} Центр прикладных разработок. Лицензия GNU GPL v3.0.`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-      additionalLanguages: ["bash"],
+      theme: prismThemes.vsLight,
+      darkTheme: prismThemes.vsDark,
+      additionalLanguages: ["bash", "bsl", "json"],
     },
   } satisfies Preset.ThemeConfig,
 };
