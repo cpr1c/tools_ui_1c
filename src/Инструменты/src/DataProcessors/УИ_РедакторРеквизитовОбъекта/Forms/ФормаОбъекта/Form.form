@@ -6249,23 +6249,6 @@
       </edit>
     </columns>
   </attributes>
-  <attributes>
-    <name>ЭтоЗакрытиеОбработки</name>
-    <title>
-      <key>ru</key>
-      <value>Это закрытие обработки</value>
-    </title>
-    <id>64</id>
-    <valueType>
-      <types>Boolean</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
   <formCommands>
     <name>ОбновитьДанныеОбъекта</name>
     <title>
