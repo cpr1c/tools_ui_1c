@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - "develop"
+    paths:
+      - "src/**"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.repository }}-export
   cancel-in-progress: true
@@ -13,6 +15,6 @@ jobs:
     with:
       tag_name: "v0.0.0"
       prerelease: true
-    secrets: 
+    secrets:
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
