@@ -4,41 +4,20 @@ on:
   push:
     paths:
       - "sonar-project.properties"
+      - ".bsl-language-server.json"
       - ".github/workflows/sonar-qube-analysis.yml"
       - "src/**"
   pull_request_target:
     paths:
       - "sonar-project.properties"
+      - ".bsl-language-server.json"
       - ".github/workflows/sonar-qube-analysis.yml"
       - "src/**"
 
 jobs:
-  CheckChanges:
-    name: Проверка изменений
-    runs-on: ubuntu-latest
-    outputs:
-      sonar_required: ${{ steps.filter.outputs.sonar_required }}
-    steps:
-      - name: Извлечение исходников
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Проверка изменений в значимых файлах
-        uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            sonar_required:
-              - 'sonar-project.properties'
-              - '.github/workflows/sonar-qube-analysis.yml'
-              - 'src/**'
-
   SonarQualityGate:
     name: "Проверка Sonar"
     runs-on: ubuntu-latest
-    needs: CheckChanges
-    if: needs.CheckChanges.outputs.sonar_required == 'true'
     steps:
       - name: Извлечение исходников PR
         if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
@@ -96,7 +75,7 @@ jobs:
     name: Публикация результата ревью
     runs-on: ubuntu-latest
     if: github.event_name != 'push' && (success()||failure())
-    needs: [CheckChanges, SonarQualityGate]
+    needs: [SonarQualityGate]
 
     steps:
       - name: Извлечение исходников
