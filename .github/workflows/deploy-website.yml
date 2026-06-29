@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - "develop"
-      - website
     paths:
       - "website/**"
       - ".github/workflows/deploy-website.yml"

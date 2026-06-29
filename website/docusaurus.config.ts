@@ -13,7 +13,7 @@ const config: Config = {
   },
 
   url: "https://toolc.ru",
-  baseUrl: "tools_ui_1c",
+  baseUrl: "/",
 
   organizationName: "cpr1c",
   projectName: "tools_ui_1c",
