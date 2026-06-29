@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "УИ_ПубликуемыеФункции",
+    "description": "HTTP-сервис конфигурации \"УниверсальныеИнструменты\" для интеграции с внешними системами.\nПредоставляет доступ к выполнению алгоритмов, загрузке данных и проверке доступности.\n",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://{host}/{pub}/hs/tools-ui-1c",
+      "variables": {
+        "host": {
+          "default": "localhost",
+          "description": "Хост сервера 1С"
+        },
+        "pub": {
+          "default": "base",
+          "description": "Имя публикации базы на веб-сервере"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "summary": "Проверка доступности сервиса",
+        "description": "Проверка работоспособности HTTP-сервиса. Возвращает статус 200 и тело 'OK'.",
+        "operationId": "pingGET",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Сервис доступен",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "OK"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован"
+          },
+          "403": {
+            "description": "Доступ запрещён"
+          }
+        }
+      }
+    },
+    "/execute/{AlgWebID}": {
+      "get": {
+        "summary": "Выполнение алгоритма (GET)",
+        "description": "Выполняет сохранённый алгоритм из справочника УИ_Алгоритмы по его строковому идентификатору (AlgWebID). Параметры передаются в query-строке.\n",
+        "operationId": "executeAlgorithmGET",
+        "parameters": [
+          {
+            "name": "AlgWebID",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор HTTP алгоритма (реквизит ИдентификаторHTTP справочника УИ_Алгоритмы)",
+            "schema": {
+              "type": "string",
+              "example": "my-algorithm-id"
+            }
+          },
+          {
+            "name": "Дополнительные параметры",
+            "in": "query",
+            "description": "Произвольные query-параметры, передаваемые в алгоритм",
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Алгоритм успешно выполнен",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Результат выполнения алгоритма в формате JSON"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Алгоритм не найден или пустой",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "examples": {
+                    "notFound": {
+                      "summary": "Алгоритм не найден",
+                      "value": "Ошибка: не найден алгоритм"
+                    },
+                    "empty": {
+                      "summary": "Алгоритм пуст",
+                      "value": "Ошибка: Путой алгоритм"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Выполнение алгоритма (POST)",
+        "description": "Выполняет сохранённый алгоритм по идентификатору AlgWebID. Параметры передаются как JSON в теле запроса.\n",
+        "operationId": "executeAlgorithmPOST",
+        "parameters": [
+          {
+            "name": "AlgWebID",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор HTTP алгоритма",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Параметры, передаваемые в алгоритм"
+              }
+            }
+          },
+          "required": false
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Алгоритм успешно выполнен",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Алгоритм не найден или пустой"
+          }
+        }
+      }
+    },
+    "/exchange": {
+      "post": {
+        "summary": "Загрузка данных XML-обмена",
+        "description": "Принимает ZIP-архив с данными XML-обмена и выполняет загрузку через обработку УИ_УниверсальныйОбменДаннымиXML. Возвращает результат загрузки в формате JSON.\n",
+        "operationId": "sendFileAndUpload",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary",
+                "description": "ZIP-архив с файлом обмена XML"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Загрузка выполнена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ОшибкаСервиса": {
+                      "type": "string",
+                      "description": "Текст ошибки сервиса (пусто, если ошибок нет)",
+                      "nullable": true
+                    },
+                    "ОшибкаЗагрузки": {
+                      "type": "boolean",
+                      "description": "Флаг ошибки загрузки данных",
+                      "example": false
+                    },
+                    "ЛогЗагрузки": {
+                      "type": "string",
+                      "description": "Протокол загрузки (текст лога)",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован"
+          },
+          "403": {
+            "description": "Доступ запрещён"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "Базовая аутентификация HTTP. Пользователь и пароль учётной записи 1С."
+      }
+    }
+  }
+}

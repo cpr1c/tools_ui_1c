@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?docusaurus-theme=dark
+Disallow: /*?docusaurus-data=
+Crawl-delay: 10
+Sitemap: https://toolc.ru/sitemap.xml
