@@ -1,11 +1,11 @@
-import {useEffect, useRef, useState} from 'react';
-import Layout from '@theme/Layout';
-import Heading from '@theme/Heading';
-import Link from '@docusaurus/Link';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import SeoHead from '../components/SeoHead';
-import styles from './releases.module.css';
+import { useEffect, useRef, useState } from "react";
+import Layout from "@theme/Layout";
+import Heading from "@theme/Heading";
+import Link from "@docusaurus/Link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import SeoHead from "../components/SeoHead";
+import styles from "./releases.module.css";
 
 interface GitHubRelease {
   tag_name: string;
@@ -14,18 +14,18 @@ interface GitHubRelease {
   html_url: string;
   body: string | null;
   prerelease: boolean;
-  assets: {name: string; browser_download_url: string}[];
+  assets: { name: string; browser_download_url: string }[];
 }
 
 function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+  return new Date(iso).toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 }
 
-function ReleaseCard({release}: {release: GitHubRelease}) {
+function ReleaseCard({ release }: { release: GitHubRelease }) {
   const [expanded, setExpanded] = useState(false);
   const [overflows, setOverflows] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -44,9 +44,13 @@ function ReleaseCard({release}: {release: GitHubRelease}) {
           <Link className={styles.releaseTagLink} to={release.html_url}>
             {release.tag_name}
           </Link>
-          {release.prerelease && <span className={styles.prerelease}>pre-release</span>}
+          {release.prerelease && (
+            <span className={styles.prerelease}>pre-release</span>
+          )}
         </div>
-        <span className={styles.releaseDate}>{formatDate(release.published_at)}</span>
+        <span className={styles.releaseDate}>
+          {formatDate(release.published_at)}
+        </span>
       </div>
       {release.name && release.name !== release.tag_name && (
         <div className={styles.releaseName}>{release.name}</div>
@@ -55,15 +59,21 @@ function ReleaseCard({release}: {release: GitHubRelease}) {
         <div className={styles.releaseBodyWrapper}>
           <div
             ref={bodyRef}
-            className={`${styles.releaseBody} ${expanded ? styles.releaseBodyExpanded : styles.releaseBodyCollapsed} ${overflows && !expanded ? styles.releaseBodyFade : ''}`}
+            className={`${styles.releaseBody} ${expanded ? styles.releaseBodyExpanded : styles.releaseBodyCollapsed} ${overflows && !expanded ? styles.releaseBodyFade : ""}`}
           >
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {release.body.replace(/(^|\s)#(\d+)/g, '$1[#$2](https://github.com/cpr1c/tools_ui_1c/issues/$2)')}
+              {release.body.replace(
+                /(^|\s)#(\d+)/g,
+                "$1[#$2](https://github.com/cpr1c/tools_ui_1c/issues/$2)",
+              )}
             </ReactMarkdown>
           </div>
           {overflows && (
-            <button className={styles.expandToggle} onClick={() => setExpanded(!expanded)}>
-              {expanded ? 'Свернуть' : 'Показать полностью'}
+            <button
+              className={styles.expandToggle}
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? "Свернуть" : "Показать полностью"}
             </button>
           )}
         </div>
@@ -81,7 +91,7 @@ export default function Releases(): JSX.Element {
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch('https://api.github.com/repos/cpr1c/tools_ui_1c/releases?per_page=50')
+    fetch("https://api.github.com/repos/cpr1c/tools_ui_1c/releases?per_page=50")
       .then((res) => {
         if (!res.ok) throw new Error(`GitHub API: ${res.status}`);
         return res.json();
@@ -90,7 +100,7 @@ export default function Releases(): JSX.Element {
         if (Array.isArray(data)) {
           setAllReleases(data.filter((r: GitHubRelease) => !r.prerelease));
         } else {
-          throw new Error('Некорректный ответ от GitHub API');
+          throw new Error("Некорректный ответ от GitHub API");
         }
       })
       .catch((err) => {
@@ -106,10 +116,12 @@ export default function Releases(): JSX.Element {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && visibleCount < allReleases.length) {
-          setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, allReleases.length));
+          setVisibleCount((prev) =>
+            Math.min(prev + PAGE_SIZE, allReleases.length),
+          );
         }
       },
-      {rootMargin: '200px'},
+      { rootMargin: "200px" },
     );
 
     observer.observe(sentinel);
@@ -121,8 +133,9 @@ export default function Releases(): JSX.Element {
 
   return (
     <Layout
-      title="История релизов"
-      description="История релизов Универсальных инструментов 1С — все выпуски open-source подсистемы для разработки и администрирования 1С">
+      title="История релизов Универсальных инструментов 1С"
+      description="История релизов Универсальных инструментов 1С — все выпуски open-source подсистемы для разработки и администрирования 1С. Список версий, даты выхода, список изменений и ссылки для скачивания."
+    >
       <SeoHead />
       <div className={styles.page}>
         <Heading as="h1" className={styles.pageTitle}>
@@ -138,7 +151,8 @@ export default function Releases(): JSX.Element {
             <p className={styles.pageSubtitle}>{error}</p>
             <Link
               className="button button--secondary"
-              to="https://github.com/cpr1c/tools_ui_1c/releases">
+              to="https://github.com/cpr1c/tools_ui_1c/releases"
+            >
               Открыть на GitHub
             </Link>
           </div>
@@ -156,7 +170,11 @@ export default function Releases(): JSX.Element {
           <ReleaseCard key={r.tag_name} release={r} />
         ))}
 
-        {hasMore && <div ref={sentinelRef} className={styles.sentinel}>Загрузка...</div>}
+        {hasMore && (
+          <div ref={sentinelRef} className={styles.sentinel}>
+            Загрузка...
+          </div>
+        )}
       </div>
     </Layout>
   );

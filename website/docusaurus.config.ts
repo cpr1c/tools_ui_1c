@@ -14,6 +14,7 @@ const config: Config = {
 
   url: "https://toolc.ru",
   baseUrl: "/",
+  trailingSlash: true,
 
   organizationName: "cpr1c",
   projectName: "tools_ui_1c",
@@ -32,6 +33,7 @@ const config: Config = {
         docs: {
           sidebarPath: "./sidebars.ts",
           editUrl: "https://github.com/cpr1c/toolc-ru/tree/main/",
+          showLastUpdateTime: true,
         },
         blog: false,
         theme: {
@@ -65,7 +67,7 @@ const config: Config = {
       {
         name: "description",
         content:
-          "Универсальные инструменты 1С — open-source подсистема с 44+ инструментами для разработки, администрирования и отладки на платформе 1С:Предприятие 8",
+          "Универсальные инструменты 1С — open-source подсистема с 44+ инструментами для разработки, администрирования и отладки на платформе 1С:Предприятие 8. Консоль запросов, консоль кода, редактор JSON, HTTP-клиент и другие инструменты.",
       },
       {
         name: "author",
@@ -74,7 +76,7 @@ const config: Config = {
       {
         name: "keywords",
         content:
-          "1С, универсальные инструменты, разработка 1С, администрирование 1С, open-source 1С, обработки 1С, консоль запросов 1С, отладка 1С, инструменты 1С, подсистема 1С, CPR1C",
+          "1С, универсальные инструменты, разработка 1С, администрирование 1С, open-source 1С, обработки 1С, консоль запросов 1С, отладка 1С, инструменты 1С, подсистема 1С, CPR1C, консоль кода 1С, редактор JSON 1С, HTTP клиент 1С, БСП, управляемые формы",
       },
       {
         property: "og:type",
@@ -90,16 +92,16 @@ const config: Config = {
       },
       {
         property: "og:title",
-        content: "Универсальные инструменты 1С",
+        content: "Универсальные инструменты 1С — open-source подсистема для 1С",
       },
       {
         property: "og:description",
         content:
-          "Open-source подсистема с 44+ инструментами для разработки, администрирования и отладки на платформе 1С:Предприятие 8",
+          "Open-source подсистема с 35+ инструментами для разработки, администрирования и отладки на платформе 1С:Предприятие 8. Консоль запросов, консоль кода, редактор JSON, HTTP-клиент и многое другое.",
       },
       {
         property: "og:image",
-        content: "https://toolc.ru/img/social-card.jpg",
+        content: "https://toolc.ru/img/logo2.png",
       },
       {
         property: "og:locale",
@@ -115,16 +117,16 @@ const config: Config = {
       },
       {
         name: "twitter:title",
-        content: "Универсальные инструменты 1С",
+        content: "Универсальные инструменты 1С — open-source подсистема для 1С",
       },
       {
         name: "twitter:description",
         content:
-          "Open-source подсистема с 44+ инструментами для разработки, администрирования и отладки на платформе 1С:Предприятие 8",
+          "Open-source подсистема с 35+ инструментами для разработки, администрирования и отладки на платформе 1С:Предприятие 8. Консоль запросов, консоль кода, редактор JSON, HTTP-клиент и многое другое.",
       },
       {
         name: "twitter:image",
-        content: "https://toolc.ru/img/social-card.jpg",
+        content: "https://toolc.ru/img/logo2.png",
       },
       {
         rel: "canonical",
@@ -137,7 +139,7 @@ const config: Config = {
     navbar: {
       title: "Универсальные инструменты 1С",
       logo: {
-        alt: "Универсальные инструменты 1С",
+        alt: "Универсальные инструменты 1С — логотип",
         src: "img/logo.png",
         srcDark: "img/logo-dark.png",
       },
