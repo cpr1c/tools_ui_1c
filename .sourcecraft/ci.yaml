@@ -1,0 +1,41 @@
+on:
+  push:
+    - workflows: [build-site]
+      filter:
+        branches: ["develop"]
+        paths: ["website/**"]
+
+tokens:
+  site-deploy-token:
+    service_connection: site-deploy
+    scope: repo
+
+workflows:
+  build-site:
+    tasks:
+      - name: build-and-deploy
+        cubes:
+          - name: build-and-push
+            image: docker.io/library/node:24
+            env:
+              GIT_TOKEN: ${{ secrets.site-deploy-token }}
+            script:
+              # Build the site
+              - cd website
+              - npm ci
+              - npm run build
+              - cd ..
+
+              # Save build output
+              - cp -r website/build /tmp/site-build-output
+
+              # Clone repo and push build to site-build branch
+              - git clone https://x-access-token:${GIT_TOKEN}@sourcecraft.dev/toolc/tools-ui-1c.git /tmp/repo
+              - cd /tmp/repo
+              - git checkout site-build 2>/dev/null || git checkout -b site-build
+              - rm -rf website/build
+              - mkdir -p website
+              - cp -r /tmp/site-build-output ./website/build
+              - git add website/build
+              - git -c user.name="SourceCraft CI" -c user.email="ci@sourcecraft.dev" commit -m "Update site build" || true
+              - git push origin site-build
