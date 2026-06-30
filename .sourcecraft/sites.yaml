@@ -1,3 +1,0 @@
-site:
-  ref: site-build
-  root: "website/build"
