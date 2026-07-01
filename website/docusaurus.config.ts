@@ -32,7 +32,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: "./sidebars.ts",
-          editUrl: "https://github.com/cpr1c/toolc-ru/tree/main/",
+          editUrl: "https://github.com/cpr1c/tools_ui_1c/edit/develop/website/",
           showLastUpdateTime: true,
         },
         blog: false,
@@ -203,7 +203,7 @@ const config: Config = {
             },
             {
               label: "Разработчикам",
-              to: "/docs/contributing/overview",
+              to: "/docs/contributing",
             },
           ],
         },
