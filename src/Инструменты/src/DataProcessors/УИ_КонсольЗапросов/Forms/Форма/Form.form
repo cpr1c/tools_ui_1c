@@ -2218,6 +2218,11 @@
                       <wrap>true</wrap>
                       <choiceButton>true</choiceButton>
                       <typeDomainEnabled>true</typeDomainEnabled>
+                      <typeLink>
+                        <datapath xsi:type="form:DataPath">
+                          <segments>Items.ПараметрыЗапроса.CurrentData.ТипЗначенияТипЗначения</segments>
+                        </datapath>
+                      </typeLink>
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
@@ -2274,6 +2279,11 @@
                       <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
                       <typeDomainEnabled>true</typeDomainEnabled>
                       <textEdit>true</textEdit>
+                      <typeLink>
+                        <datapath xsi:type="form:DataPath">
+                          <segments>Items.ПараметрыЗапроса.CurrentData.ЗначениеТипЗначения</segments>
+                        </datapath>
+                      </typeLink>
                     </extInfo>
                   </items>
                   <autoCommandBar>
