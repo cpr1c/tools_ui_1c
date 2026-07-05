@@ -982,6 +982,32 @@
           <currentRowUse>Auto</currentRowUse>
         </extInfo>
       </items>
+      <items xsi:type="form:Button">
+        <name>УправлениеКуки</name>
+        <id>736</id>
+        <visible>true</visible>
+        <enabled>true</enabled>
+        <userVisible>
+          <common>true</common>
+        </userVisible>
+        <extendedTooltip>
+          <name>УправлениеКукиРасширеннаяПодсказка</name>
+          <id>737</id>
+          <type>Label</type>
+          <autoMaxWidth>true</autoMaxWidth>
+          <autoMaxHeight>true</autoMaxHeight>
+          <extInfo xsi:type="form:LabelDecorationExtInfo">
+            <horizontalAlign>Left</horizontalAlign>
+          </extInfo>
+        </extendedTooltip>
+        <type>Hyperlink</type>
+        <commandName>Form.Command.УправлениеКуки</commandName>
+        <representation>Auto</representation>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <placementArea>UserCmds</placementArea>
+        <representationInContextMenu>Auto</representationInContextMenu>
+      </items>
       <items xsi:type="form:FormGroup">
         <name>ГруппаНастройки</name>
         <id>636</id>
@@ -3694,34 +3720,6 @@
             </extInfo>
           </items>
           <items xsi:type="form:FormGroup">
-            <name>ГруппаСтраницаКуки</name>
-            <id>736</id>
-            <visible>true</visible>
-            <enabled>true</enabled>
-            <userVisible>
-              <common>true</common>
-            </userVisible>
-            <title>
-              <key>ru</key>
-              <value>Куки</value>
-            </title>
-            <extendedTooltip>
-              <name>ГруппаСтраницаКукиРасширеннаяПодсказка</name>
-              <id>737</id>
-              <type>Label</type>
-              <autoMaxWidth>true</autoMaxWidth>
-              <autoMaxHeight>true</autoMaxHeight>
-              <extInfo xsi:type="form:LabelDecorationExtInfo">
-                <horizontalAlign>Left</horizontalAlign>
-              </extInfo>
-            </extendedTooltip>
-            <type>Page</type>
-            <extInfo xsi:type="form:PageGroupExtInfo">
-              <group>Vertical</group>
-              <showTitle>true</showTitle>
-            </extInfo>
-          </items>
-          <items xsi:type="form:FormGroup">
             <name>ГруппаСтраницаЗапросаПрочее</name>
             <id>480</id>
             <items xsi:type="form:FormField">
@@ -5376,6 +5374,10 @@
             </items>
             <horizontalAlign>Left</horizontalAlign>
           </autoCommandBar>
+          <handlers>
+            <event>Selection</event>
+            <name>ДеревоЗапросовИсторияЗапросовВыбор</name>
+          </handlers>
           <searchStringAddition>
             <name>ДеревоЗапросовИсторияЗапросовСтрокаПоиска</name>
             <id>506</id>
@@ -7394,6 +7396,23 @@
           <common>true</common>
         </edit>
       </columns>
+      <columns>
+        <name>Куки</name>
+        <title>
+          <key>ru</key>
+          <value>Куки</value>
+        </title>
+        <id>183</id>
+        <valueType>
+          <types>ValueTable</types>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
     </additionalColumns>
     <additionalColumns>
       <tablePath xsi:type="form:DataPath">
@@ -7462,6 +7481,152 @@
         <valueType>
           <types>String</types>
           <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+    </additionalColumns>
+    <additionalColumns>
+      <tablePath xsi:type="form:DataPath">
+        <segments>ДеревоЗапросов.ИсторияЗапросов.Куки</segments>
+      </tablePath>
+      <columns>
+        <name>Ключ</name>
+        <title>
+          <key>ru</key>
+          <value>Ключ</value>
+        </title>
+        <id>184</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>Значение</name>
+        <title>
+          <key>ru</key>
+          <value>Значение</value>
+        </title>
+        <id>185</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>Домен</name>
+        <title>
+          <key>ru</key>
+          <value>Домен</value>
+        </title>
+        <id>186</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>Путь</name>
+        <title>
+          <key>ru</key>
+          <value>Путь</value>
+        </title>
+        <id>187</id>
+        <valueType>
+          <types>String</types>
+          <stringQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>ДействуетДо</name>
+        <title>
+          <key>ru</key>
+          <value>Действует до</value>
+        </title>
+        <id>188</id>
+        <valueType>
+          <types>Date</types>
+          <dateQualifiers/>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>ТолькоЗащищенноеСоединение</name>
+        <title>
+          <key>ru</key>
+          <value>Только защищенное соединение</value>
+        </title>
+        <id>189</id>
+        <valueType>
+          <types>Boolean</types>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>ТолькоHTTPЗапросы</name>
+        <title>
+          <key>ru</key>
+          <value>Только HTTP запросы</value>
+        </title>
+        <id>190</id>
+        <valueType>
+          <types>Boolean</types>
+        </valueType>
+        <view>
+          <common>true</common>
+        </view>
+        <edit>
+          <common>true</common>
+        </edit>
+      </columns>
+      <columns>
+        <name>ТолькоДляДомена</name>
+        <title>
+          <key>ru</key>
+          <value>Только для домена</value>
+        </title>
+        <id>191</id>
+        <valueType>
+          <types>Boolean</types>
         </valueType>
         <view>
           <common>true</common>
@@ -7948,6 +8113,164 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>Куки</name>
+    <title>
+      <key>ru</key>
+      <value>Куки</value>
+    </title>
+    <id>173</id>
+    <valueType>
+      <types>ValueTable</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+    <columns>
+      <name>Ключ</name>
+      <title>
+        <key>ru</key>
+        <value>Ключ</value>
+      </title>
+      <id>174</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Значение</name>
+      <title>
+        <key>ru</key>
+        <value>Значение</value>
+      </title>
+      <id>175</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Домен</name>
+      <title>
+        <key>ru</key>
+        <value>Домен</value>
+      </title>
+      <id>176</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Путь</name>
+      <title>
+        <key>ru</key>
+        <value>Путь</value>
+      </title>
+      <id>177</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ДействуетДо</name>
+      <title>
+        <key>ru</key>
+        <value>Действует до</value>
+      </title>
+      <id>178</id>
+      <valueType>
+        <types>Date</types>
+        <dateQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТолькоЗащищенноеСоединение</name>
+      <title>
+        <key>ru</key>
+        <value>Только защищенное соединение</value>
+      </title>
+      <id>179</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТолькоHTTPЗапросы</name>
+      <title>
+        <key>ru</key>
+        <value>Только HTTP запросы</value>
+      </title>
+      <id>180</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТолькоДляДомена</name>
+      <title>
+        <key>ru</key>
+        <value>Только для домена</value>
+      </title>
+      <id>181</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+  </attributes>
   <formCommands>
     <name>ВыполнитьЗапрос</name>
     <title>
@@ -8350,6 +8673,23 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>УправлениеКуки</name>
+    <title>
+      <key>ru</key>
+      <value>Управление куки</value>
+    </title>
+    <id>24</id>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>УправлениеКуки</name>
+      </handler>
+    </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
