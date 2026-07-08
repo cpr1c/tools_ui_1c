@@ -4124,6 +4124,124 @@
                 <currentRowUse>Auto</currentRowUse>
               </extInfo>
             </items>
+            <items xsi:type="form:FormGroup">
+              <name>ГруппаНастройкиКуки</name>
+              <id>738</id>
+              <items xsi:type="form:FormField">
+                <name>ДеревоЗапросовИспользоватьКуки</name>
+                <id>740</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>Items.ДеревоЗапросов.CurrentData.ИспользоватьКуки</segments>
+                </dataPath>
+                <toolTip>
+                  <key>ru</key>
+                  <value>Если указать эту настройку, то для запроса будут указываться куки из вкладки &quot;Управление куки&quot; и при получении ответа туда будут записываться данные.</value>
+                </toolTip>
+                <toolTipRepresentation>Button</toolTipRepresentation>
+                <handlers>
+                  <event>OnChange</event>
+                  <name>ДеревоЗапросовИспользоватьКукиПриИзменении</name>
+                </handlers>
+                <extendedTooltip>
+                  <name>ДеревоЗапросовИспользоватьКукиРасширеннаяПодсказка</name>
+                  <id>742</id>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <contextMenu>
+                  <name>ДеревоЗапросовИспользоватьКукиКонтекстноеМеню</name>
+                  <id>741</id>
+                  <autoFill>true</autoFill>
+                </contextMenu>
+                <type>CheckBoxField</type>
+                <editMode>Enter</editMode>
+                <showInHeader>true</showInHeader>
+                <headerHorizontalAlign>Left</headerHorizontalAlign>
+                <showInFooter>true</showInFooter>
+                <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+              </items>
+              <items xsi:type="form:FormField">
+                <name>ДеревоЗапросовИспользоватьКукиБезДействияИспользования</name>
+                <id>743</id>
+                <visible>true</visible>
+                <enabled>true</enabled>
+                <userVisible>
+                  <common>true</common>
+                </userVisible>
+                <dataPath xsi:type="form:DataPath">
+                  <segments>Items.ДеревоЗапросов.CurrentData.ИспользоватьКукиБезДействияИспользования</segments>
+                </dataPath>
+                <toolTip>
+                  <key>ru</key>
+                  <value>Использование сессионных куки. Если у куки не указана дата &quot;Действует до&quot;, то для использования таких куки нужно указать эту настройку.</value>
+                </toolTip>
+                <toolTipRepresentation>Button</toolTipRepresentation>
+                <extendedTooltip>
+                  <name>ДеревоЗапросовИспользоватьКукиБезДействияИспользованияРасширеннаяПодсказка</name>
+                  <id>745</id>
+                  <type>Label</type>
+                  <autoMaxWidth>true</autoMaxWidth>
+                  <autoMaxHeight>true</autoMaxHeight>
+                  <extInfo xsi:type="form:LabelDecorationExtInfo">
+                    <horizontalAlign>Left</horizontalAlign>
+                  </extInfo>
+                </extendedTooltip>
+                <contextMenu>
+                  <name>ДеревоЗапросовИспользоватьКукиБезДействияИспользованияКонтекстноеМеню</name>
+                  <id>744</id>
+                  <autoFill>true</autoFill>
+                </contextMenu>
+                <type>CheckBoxField</type>
+                <editMode>Enter</editMode>
+                <showInHeader>true</showInHeader>
+                <headerHorizontalAlign>Left</headerHorizontalAlign>
+                <showInFooter>true</showInFooter>
+                <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
+              </items>
+              <visible>true</visible>
+              <enabled>true</enabled>
+              <userVisible>
+                <common>true</common>
+              </userVisible>
+              <title>
+                <key>ru</key>
+                <value>Настройки куки</value>
+              </title>
+              <toolTip>
+                <key>ru</key>
+                <value>Для сравнения даты действия куки используется дата на сервере в UTC</value>
+              </toolTip>
+              <toolTipRepresentation>Button</toolTipRepresentation>
+              <extendedTooltip>
+                <name>ГруппаНастройкиКукиРасширеннаяПодсказка</name>
+                <id>739</id>
+                <type>Label</type>
+                <autoMaxWidth>true</autoMaxWidth>
+                <autoMaxHeight>true</autoMaxHeight>
+                <extInfo xsi:type="form:LabelDecorationExtInfo">
+                  <horizontalAlign>Left</horizontalAlign>
+                </extInfo>
+              </extendedTooltip>
+              <type>UsualGroup</type>
+              <extInfo xsi:type="form:UsualGroupExtInfo">
+                <group>Vertical</group>
+                <representation>WeakSeparation</representation>
+                <showLeftMargin>true</showLeftMargin>
+                <united>true</united>
+                <showTitle>true</showTitle>
+                <throughAlign>Auto</throughAlign>
+                <currentRowUse>Auto</currentRowUse>
+              </extInfo>
+            </items>
             <items xsi:type="form:FormField">
               <name>ДеревоЗапросовКомментарий</name>
               <id>495</id>
@@ -6490,6 +6608,10 @@
     </columns>
     <columns>
       <name>ПроксиАутентификацияОС</name>
+      <title>
+        <key>ru</key>
+        <value>Аутентификация ОС</value>
+      </title>
       <id>93</id>
       <valueType>
         <types>Boolean</types>
@@ -6759,6 +6881,40 @@
       <valueType>
         <types>String</types>
         <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ИспользоватьКуки</name>
+      <title>
+        <key>ru</key>
+        <value>Использовать куки</value>
+      </title>
+      <id>192</id>
+      <valueType>
+        <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ИспользоватьКукиБезДействияИспользования</name>
+      <title>
+        <key>ru</key>
+        <value>Использовать куки без действия использования</value>
+      </title>
+      <id>193</id>
+      <valueType>
+        <types>Boolean</types>
       </valueType>
       <view>
         <common>true</common>
