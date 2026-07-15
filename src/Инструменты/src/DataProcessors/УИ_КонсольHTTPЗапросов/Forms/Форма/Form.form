@@ -4170,7 +4170,7 @@
                 <extInfo xsi:type="form:CheckBoxFieldExtInfo"/>
               </items>
               <items xsi:type="form:FormField">
-                <name>ДеревоЗапросовИспользоватьКукиБезДействияИспользования</name>
+                <name>ДеревоЗапросовИспользоватьКукиБезОграниченияСрокаДействия</name>
                 <id>743</id>
                 <visible>true</visible>
                 <enabled>true</enabled>
@@ -4178,7 +4178,7 @@
                   <common>true</common>
                 </userVisible>
                 <dataPath xsi:type="form:DataPath">
-                  <segments>Items.ДеревоЗапросов.CurrentData.ИспользоватьКукиБезДействияИспользования</segments>
+                  <segments>Items.ДеревоЗапросов.CurrentData.ИспользоватьКукиБезОграниченияСрокаДействия</segments>
                 </dataPath>
                 <toolTip>
                   <key>ru</key>
@@ -4186,7 +4186,7 @@
                 </toolTip>
                 <toolTipRepresentation>Button</toolTipRepresentation>
                 <extendedTooltip>
-                  <name>ДеревоЗапросовИспользоватьКукиБезДействияИспользованияРасширеннаяПодсказка</name>
+                  <name>ДеревоЗапросовИспользоватьКукиБезОграниченияСрокаДействияРасширеннаяПодсказка</name>
                   <id>745</id>
                   <type>Label</type>
                   <autoMaxWidth>true</autoMaxWidth>
@@ -4196,7 +4196,7 @@
                   </extInfo>
                 </extendedTooltip>
                 <contextMenu>
-                  <name>ДеревоЗапросовИспользоватьКукиБезДействияИспользованияКонтекстноеМеню</name>
+                  <name>ДеревоЗапросовИспользоватьКукиБезОграниченияСрокаДействияКонтекстноеМеню</name>
                   <id>744</id>
                   <autoFill>true</autoFill>
                 </contextMenu>
@@ -6907,10 +6907,10 @@
       </edit>
     </columns>
     <columns>
-      <name>ИспользоватьКукиБезДействияИспользования</name>
+      <name>ИспользоватьКукиБезОграниченияСрокаДействия</name>
       <title>
         <key>ru</key>
-        <value>Использовать куки без действия использования</value>
+        <value>Использовать куки без ограничения срока действия</value>
       </title>
       <id>193</id>
       <valueType>
