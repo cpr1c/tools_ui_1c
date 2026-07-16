@@ -140,8 +140,6 @@
   <commonModules>CommonModule.УИ_СтроковыеФункцииКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_ТипыПлатформыКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_УправлениеКонфигураторомКлиент</commonModules>
-  <commonModules>CommonModule.УИ_НавигаторПоМетаданнымКлиент</commonModules>
-  <commonModules>CommonModule.УИ_НавигаторПоМетаданнымКлиентСервер</commonModules>
   <httpServices>HTTPService.УИ_ПубликуемыеФункции</httpServices>
   <commonCommands>CommonCommand.УИ_НастройкиИнструментов</commonCommands>
   <commonCommands>CommonCommand.УИ_ОчиститьКэшИнструментовНаКлиенте</commonCommands>
