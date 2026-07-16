@@ -108,7 +108,7 @@ jobs:
         run: oscript -encoding=utf-8 ./src/builder/build.os cf
         timeout-minutes: 30
       - name: Публикация файлов
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         if: ${{ success() }}
         with:
           prerelease: ${{ inputs.prerelease }}
@@ -162,7 +162,7 @@ jobs:
         timeout-minutes: 30
 
       - name: Публикация файлов
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         if: ${{ success() }}
         with:
           prerelease: ${{ inputs.prerelease }}
