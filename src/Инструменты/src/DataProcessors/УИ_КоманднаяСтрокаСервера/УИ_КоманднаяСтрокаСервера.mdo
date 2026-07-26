@@ -19,6 +19,22 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <templates uuid="99dbc3fa-7406-4cf3-a661-a26d8be61b8a">
+    <name>AppJS</name>
+    <synonym>
+      <key>ru</key>
+      <value>App JS</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="1e20c771-8f97-46fe-87cb-4b8f2e6d5656">
+    <name>AppCss</name>
+    <synonym>
+      <key>ru</key>
+      <value>App css</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
   <commands uuid="cddfb083-8f41-4fc6-bf59-83661e8ff358">
     <name>УИ_КоманднаяСтрокаСервера</name>
     <synonym>
