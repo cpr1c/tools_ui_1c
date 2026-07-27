@@ -586,6 +586,23 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ПолеHTMLПостроеноНаWebkit</name>
+    <title>
+      <key>ru</key>
+      <value>Поле HTMLПостроено на webkit</value>
+    </title>
+    <id>11</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ВыполнитьКоманду</name>
     <title>
