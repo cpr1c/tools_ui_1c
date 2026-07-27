@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="eb8a003b-c1b4-4006-91c4-b77a4723dcda">
+  <producedTypes>
+    <objectType typeId="c33a5d93-de8f-4228-8037-c4f529246e51" valueTypeId="170b9a10-1e16-48da-b081-ca3147e9b7f8"/>
+    <managerType typeId="3ab6fad9-e9df-4919-b3cf-294790198203" valueTypeId="439180b0-5947-4fda-865e-277851577072"/>
+  </producedTypes>
+  <name>УИ_КоманднаяСтрокаСервера</name>
+  <synonym>
+    <key>ru</key>
+    <value>Командная строка сервера [УИ]</value>
+  </synonym>
+  <defaultForm>DataProcessor.УИ_КоманднаяСтрокаСервера.Form.Форма</defaultForm>
+  <forms uuid="86d27033-5763-4e56-9e67-85fde6461833">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
+  <templates uuid="99dbc3fa-7406-4cf3-a661-a26d8be61b8a">
+    <name>AppJS</name>
+    <synonym>
+      <key>ru</key>
+      <value>App JS</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <templates uuid="1e20c771-8f97-46fe-87cb-4b8f2e6d5656">
+    <name>AppCss</name>
+    <synonym>
+      <key>ru</key>
+      <value>App css</value>
+    </synonym>
+    <templateType>BinaryData</templateType>
+  </templates>
+  <commands uuid="cddfb083-8f41-4fc6-bf59-83661e8ff358">
+    <name>УИ_КоманднаяСтрокаСервера</name>
+    <synonym>
+      <key>ru</key>
+      <value>Командная строка сервера [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
+</mdclass:DataProcessor>

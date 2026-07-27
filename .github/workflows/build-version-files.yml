@@ -11,11 +11,11 @@ on:
         type: boolean
     secrets:
       ONEC_USERNAME:
-        description: 'Имя пользователя портала 1С для скачивания дистрибутивов'
+        description: "Имя пользователя портала 1С для скачивания дистрибутивов"
         required: true
       ONEC_PASSWORD:
-        description: 'Пароль пользователя портала 1С для скачивания дистрибутивов'
-        required: true  
+        description: "Пароль пользователя портала 1С для скачивания дистрибутивов"
+        required: true
 jobs:
   export-xml:
     name: Экспорт исходников в формате конфигуратора
@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
         # if: github.event_name == 'push'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: JAVA
         uses: actions/setup-java@v5
         with:
@@ -76,7 +76,7 @@ jobs:
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
         if: github.event_name == 'push'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Загрузка исходников в формате конфигуратора
         uses: actions/download-artifact@v4
@@ -133,7 +133,7 @@ jobs:
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
         if: github.event_name == 'push'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Загрузка исходников в формате конфигуратора
         uses: actions/download-artifact@v4
