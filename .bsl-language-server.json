@@ -11,6 +11,9 @@
 			"NestedFunctionInParameters": {
 				"allowOneliner": true,
 				"allowedMethodNames": "НСтр,NStr,ПредопределенноеЗначение,PredefinedValue,ВРег,НРег,СокрЛП,Сред,СтрДлина,РеквизитФормы"
+			},
+			"LatinAndCyrillicSymbolInWord": {
+				"allowTrailingPartsInAnotherLanguage": true
 			}
         }
     }
