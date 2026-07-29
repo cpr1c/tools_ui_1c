@@ -57,6 +57,7 @@
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
+  <commonPictures>CommonPicture.УИ_НавигаторПоМетаданым</commonPictures>
   <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
   <commonPictures>CommonPicture.УИ_ОписаниеТипов</commonPictures>
   <commonPictures>CommonPicture.УИ_Отладка</commonPictures>
@@ -184,6 +185,7 @@
   <dataProcessors>DataProcessor.УИ_ДинамическийСписок</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ЗагрузкаДанныхИзТабличногоДокумента</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ИнформацияОЛицензиях1С</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_КоманднаяСтрокаСервера</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольHTTPЗапросов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольВебСервисов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_КонсольЗаданий</dataProcessors>

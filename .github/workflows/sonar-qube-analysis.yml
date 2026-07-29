@@ -21,14 +21,14 @@ jobs:
     steps:
       - name: Извлечение исходников PR
         if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: refs/pull/${{ github.event.number }}/merge # Для поддержки pull_request и pull_request_target
           fetch-depth: 0 # Получение полной истории (все тэги и ветки)
 
       - name: Извлечение исходников ветки ${{ github.ref_name }}
         if: github.event_name == 'push'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Получение полной истории (все тэги и ветки)
 
@@ -79,7 +79,7 @@ jobs:
 
     steps:
       - name: Извлечение исходников
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Получение полной истории (все тэги и ветки)
 

@@ -36,6 +36,15 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="4425dcd9-3a66-483b-91f7-006c9b0b1ef1">
+    <name>ФормаУправленияКуки</name>
+    <synonym>
+      <key>ru</key>
+      <value>Форма управления куки</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <templates uuid="d4fe1b57-5a97-4b22-83bd-1e97681da4f7">
     <name>ЗаголовкиЗапроса</name>
     <synonym>

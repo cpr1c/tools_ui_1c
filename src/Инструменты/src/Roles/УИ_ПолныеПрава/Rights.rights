@@ -879,6 +879,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_КоманднаяСтрокаСервера.Command.УИ_КоманднаяСтрокаСервера</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_ДоработкаТекстаАлгоритмаДляОбработки</name>
 		<right>
 			<name>Use</name>
@@ -1053,6 +1060,17 @@
 	</object>
 	<object>
 		<name>DataProcessor.УИ_КонсольЗапросов</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_КоманднаяСтрокаСервера</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
