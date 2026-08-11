@@ -1,17 +1,19 @@
-name: Проверка Sonar
+name: Проверка Sonar (PR)
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
 
 on:
-  push:
-    paths:
-      - "sonar-project.properties"
-      - ".bsl-language-server.json"
-      - ".github/workflows/sonar-qube-analysis.yml"
-      - "src/**"
   pull_request_target:
+    branches:
+      - develop
+      - master
     paths:
       - "sonar-project.properties"
       - ".bsl-language-server.json"
-      - ".github/workflows/sonar-qube-analysis.yml"
+      - ".github/workflows/sonar-qube-pr-analysis.yml"
       - "src/**"
 
 jobs:
@@ -20,17 +22,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Извлечение исходников PR
-        if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
-          ref: refs/pull/${{ github.event.number }}/merge # Для поддержки pull_request и pull_request_target
+          ref: refs/pull/${{ github.event.number }}/merge # Результат слияния PR
           fetch-depth: 0 # Получение полной истории (все тэги и ветки)
-
-      - name: Извлечение исходников ветки ${{ github.ref_name }}
-        if: github.event_name == 'push'
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0 # Получение полной истории (все тэги и ветки)
+          allow-unsafe-pr-checkout: true
 
       - name: Извлечение версии проекта
         uses: ./.github/actions/extract-version
@@ -38,25 +34,9 @@ jobs:
           path: ./src/Инструменты/src
         id: extract_version
 
-      # Анализ проекта в SonarQube (ветка)
-      - name: Анализ в SonarQube (${{ github.ref_name }})
-        if: github.event_name == 'push'
-        uses: sonarsource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          # LC_ALL: "ru_RU.UTF-8"
-        with:
-          args: >
-            -Dfile.encoding=UTF8
-            -Dsonar.branch.name=${{ github.ref_name }}
-            -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
-            -Dsonar.qualitygate.wait=true
-            -Dsonar.qualitygate.timeout=300
-
       # Анализ проекта в SonarQube (PR)
       # https://docs.sonarqube.org/latest/analysis/pull-request/
       - name: Анализ в SonarQube (pull-request ${{ github.event.number }})
-        if: github.event_name == 'pull_request_target' || github.event_name == 'pull_request'
         uses: sonarsource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -74,7 +54,7 @@ jobs:
   PublishResult:
     name: Публикация результата ревью
     runs-on: ubuntu-latest
-    if: github.event_name != 'push' && (success()||failure())
+    if: success()||failure()
     needs: [SonarQualityGate]
 
     steps:

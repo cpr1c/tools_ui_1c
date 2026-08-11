@@ -1,0 +1,41 @@
+name: Проверка Sonar (ветки)
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+    paths:
+      - "sonar-project.properties"
+      - ".bsl-language-server.json"
+      - ".github/workflows/sonar-qube-branch-analysis.yml"
+      - "src/**"
+
+jobs:
+  SonarQualityGate:
+    name: "Проверка Sonar"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Извлечение исходников ветки ${{ github.ref_name }}
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # Получение полной истории (все тэги и ветки)
+
+      - name: Извлечение версии проекта
+        uses: ./.github/actions/extract-version
+        with:
+          path: ./src/Инструменты/src
+        id: extract_version
+
+      - name: Анализ в SonarQube (${{ github.ref_name }})
+        uses: sonarsource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          # LC_ALL: "ru_RU.UTF-8"
+        with:
+          args: >
+            -Dfile.encoding=UTF8
+            -Dsonar.branch.name=${{ github.ref_name }}
+            -Dsonar.projectVersion=${{ steps.extract_version.outputs.version }}
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.qualitygate.timeout=300
