@@ -413,7 +413,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_КаталогВременныхФайлов_Клиент</commandName>
+              <commandName>Form.Command.Перейти_КаталогВременныхФайловАсинх_Клиент</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
@@ -467,7 +467,7 @@
                   <horizontalAlign>Left</horizontalAlign>
                 </extInfo>
               </extendedTooltip>
-              <commandName>Form.Command.Перейти_КаталогДокументов_Клиент</commandName>
+              <commandName>Form.Command.Перейти_КаталогДокументовАсинх_Клиент</commandName>
               <representation>Auto</representation>
               <onlyInAllActions>false</onlyInAllActions>
               <autoMaxWidth>true</autoMaxWidth>
@@ -2692,7 +2692,7 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_КаталогДокументов_Клиент</name>
+    <name>Перейти_КаталогДокументовАсинх_Клиент</name>
     <title>
       <key>ru</key>
       <value>Каталог документов</value>
@@ -2714,7 +2714,7 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Перейти_КаталогВременныхФайлов_Клиент</name>
+    <name>Перейти_КаталогВременныхФайловАсинх_Клиент</name>
     <title>
       <key>ru</key>
       <value>Каталог временных файлов</value>
