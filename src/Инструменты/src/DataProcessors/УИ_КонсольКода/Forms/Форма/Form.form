@@ -722,7 +722,7 @@
         <name>ГруппаЗначенияПеременных</name>
         <id>227</id>
         <items xsi:type="form:Table">
-          <name>ЗначенияПерменныхПослеВыполнения</name>
+          <name>ЗначенияПеременныхПослеВыполнения</name>
           <id>199</id>
           <visible>true</visible>
           <enabled>true</enabled>
@@ -730,11 +730,11 @@
             <common>true</common>
           </userVisible>
           <dataPath xsi:type="form:DataPath">
-            <segments>ЗначенияПерменныхПослеВыполнения</segments>
+            <segments>ЗначенияПеременныхПослеВыполнения</segments>
           </dataPath>
           <titleLocation>None</titleLocation>
           <items xsi:type="form:FormField">
-            <name>ЗначенияПерменныхПослеВыполненияЗначениеЕстьОшибка</name>
+            <name>ЗначенияПеременныхПослеВыполненияЗначениеЕстьОшибка</name>
             <id>231</id>
             <visible>true</visible>
             <enabled>true</enabled>
@@ -742,11 +742,11 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ЗначенияПерменныхПослеВыполнения.ЗначениеЕстьОшибка</segments>
+              <segments>ЗначенияПеременныхПослеВыполнения.ЗначениеЕстьОшибка</segments>
             </dataPath>
             <titleLocation>None</titleLocation>
             <extendedTooltip>
-              <name>ЗначенияПерменныхПослеВыполненияЗначениеЕстьОшибкаРасширеннаяПодсказка</name>
+              <name>ЗначенияПеременныхПослеВыполненияЗначениеЕстьОшибкаРасширеннаяПодсказка</name>
               <id>233</id>
               <type>Label</type>
               <autoMaxWidth>true</autoMaxWidth>
@@ -756,7 +756,7 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ЗначенияПерменныхПослеВыполненияЗначениеЕстьОшибкаКонтекстноеМеню</name>
+              <name>ЗначенияПеременныхПослеВыполненияЗначениеЕстьОшибкаКонтекстноеМеню</name>
               <id>232</id>
               <autoFill>true</autoFill>
             </contextMenu>
@@ -785,7 +785,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ЗначенияПерменныхПослеВыполнения.Имя</segments>
+              <segments>ЗначенияПеременныхПослеВыполнения.Имя</segments>
             </dataPath>
             <extendedTooltip>
               <name>ЗначенияПерменныхПослеВыполненияИмяРасширеннаяПодсказка</name>
@@ -829,7 +829,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ЗначенияПерменныхПослеВыполнения.ЗначениеПредставление</segments>
+              <segments>ЗначенияПеременныхПослеВыполнения.ЗначениеПредставление</segments>
             </dataPath>
             <extendedTooltip>
               <name>ЗначенияПерменныхПослеВыполненияЗначениеПредставлениеРасширеннаяПодсказка</name>
@@ -873,7 +873,7 @@
               <common>true</common>
             </userVisible>
             <dataPath xsi:type="form:DataPath">
-              <segments>ЗначенияПерменныхПослеВыполнения.ЗначениеТипЗначенияПредставление</segments>
+              <segments>ЗначенияПеременныхПослеВыполнения.ЗначениеТипЗначенияПредставление</segments>
             </dataPath>
             <extendedTooltip>
               <name>ЗначенияПерменныхПослеВыполненияЗначениеТипЗначенияПредставлениеРасширеннаяПодсказка</name>
@@ -906,20 +906,20 @@
           </items>
           <commandBarLocation>None</commandBarLocation>
           <autoCommandBar>
-            <name>ЗначенияПерменныхПослеВыполненияКоманднаяПанель</name>
+            <name>ЗначенияПеременныхПослеВыполненияКоманднаяПанель</name>
             <id>200</id>
             <horizontalAlign>Left</horizontalAlign>
             <autoFill>true</autoFill>
           </autoCommandBar>
           <handlers>
             <event>Selection</event>
-            <name>ЗначенияПерменныхПослеВыполненияВыбор</name>
+            <name>ЗначенияПеременныхПослеВыполненияВыбор</name>
           </handlers>
           <searchStringAddition>
-            <name>ЗначенияПерменныхПослеВыполненияСтрокаПоиска</name>
+            <name>ЗначенияПеременныхПослеВыполненияСтрокаПоиска</name>
             <id>203</id>
             <extendedTooltip>
-              <name>ЗначенияПерменныхПослеВыполненияСтрокаПоискаРасширеннаяПодсказка</name>
+              <name>ЗначенияПеременныхПослеВыполненияСтрокаПоискаРасширеннаяПодсказка</name>
               <id>205</id>
               <type>Label</type>
               <autoMaxWidth>true</autoMaxWidth>
@@ -929,20 +929,20 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ЗначенияПерменныхПослеВыполненияСтрокаПоискаКонтекстноеМеню</name>
+              <name>ЗначенияПеременныхПослеВыполненияСтрокаПоискаКонтекстноеМеню</name>
               <id>204</id>
               <autoFill>true</autoFill>
             </contextMenu>
-            <source>ЗначенияПерменныхПослеВыполнения</source>
+            <source>ЗначенияПеременныхПослеВыполнения</source>
             <extInfo xsi:type="form:SearchStringAdditionExtInfo">
               <autoMaxWidth>true</autoMaxWidth>
             </extInfo>
           </searchStringAddition>
           <viewStatusAddition>
-            <name>ЗначенияПерменныхПослеВыполненияСостояниеПросмотра</name>
+            <name>ЗначенияПеременныхПослеВыполненияСостояниеПросмотра</name>
             <id>209</id>
             <extendedTooltip>
-              <name>ЗначенияПерменныхПослеВыполненияСостояниеПросмотраРасширеннаяПодсказка</name>
+              <name>ЗначенияПеременныхПослеВыполненияСостояниеПросмотраРасширеннаяПодсказка</name>
               <id>211</id>
               <type>Label</type>
               <autoMaxWidth>true</autoMaxWidth>
@@ -952,21 +952,21 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ЗначенияПерменныхПослеВыполненияСостояниеПросмотраКонтекстноеМеню</name>
+              <name>ЗначенияПеременныхПослеВыполненияСостояниеПросмотраКонтекстноеМеню</name>
               <id>210</id>
               <autoFill>true</autoFill>
             </contextMenu>
             <type>ViewStatusAddition</type>
-            <source>ЗначенияПерменныхПослеВыполнения</source>
+            <source>ЗначенияПеременныхПослеВыполнения</source>
             <extInfo xsi:type="form:ViewStatusAdditionExtInfo">
               <autoMaxWidth>true</autoMaxWidth>
             </extInfo>
           </viewStatusAddition>
           <searchControlAddition>
-            <name>ЗначенияПерменныхПослеВыполненияУправлениеПоиском</name>
+            <name>ЗначенияПеременныхПослеВыполненияУправлениеПоиском</name>
             <id>206</id>
             <extendedTooltip>
-              <name>ЗначенияПерменныхПослеВыполненияУправлениеПоискомРасширеннаяПодсказка</name>
+              <name>ЗначенияПеременныхПослеВыполненияУправлениеПоискомРасширеннаяПодсказка</name>
               <id>208</id>
               <type>Label</type>
               <autoMaxWidth>true</autoMaxWidth>
@@ -976,18 +976,18 @@
               </extInfo>
             </extendedTooltip>
             <contextMenu>
-              <name>ЗначенияПерменныхПослеВыполненияУправлениеПоискомКонтекстноеМеню</name>
+              <name>ЗначенияПеременныхПослеВыполненияУправлениеПоискомКонтекстноеМеню</name>
               <id>207</id>
               <autoFill>true</autoFill>
             </contextMenu>
             <type>SearchControlAddition</type>
-            <source>ЗначенияПерменныхПослеВыполнения</source>
+            <source>ЗначенияПеременныхПослеВыполнения</source>
             <extInfo xsi:type="form:SearchControlAdditionExtInfo">
               <autoMaxWidth>true</autoMaxWidth>
             </extInfo>
           </searchControlAddition>
           <extendedTooltip>
-            <name>ЗначенияПерменныхПослеВыполненияРасширеннаяПодсказка</name>
+            <name>ЗначенияПеременныхПослеВыполненияРасширеннаяПодсказка</name>
             <id>202</id>
             <type>Label</type>
             <autoMaxWidth>true</autoMaxWidth>
@@ -997,10 +997,10 @@
             </extInfo>
           </extendedTooltip>
           <contextMenu>
-            <name>ЗначенияПерменныхПослеВыполненияКонтекстноеМеню</name>
+            <name>ЗначенияПеременныхПослеВыполненияКонтекстноеМеню</name>
             <id>201</id>
             <items xsi:type="form:Button">
-              <name>ЗначенияПерменныхПослеВыполненияКонтекстноеМенюПросмотретьЗначениеПеременной</name>
+              <name>ЗначенияПеременныхПослеВыполненияКонтекстноеМенюПросмотретьЗначениеПеременной</name>
               <id>229</id>
               <visible>true</visible>
               <enabled>true</enabled>
@@ -1008,7 +1008,7 @@
                 <common>true</common>
               </userVisible>
               <extendedTooltip>
-                <name>ЗначенияПерменныхПослеВыполненияКонтекстноеМенюПросмотретьЗначениеПеременнойРасширеннаяПодсказка</name>
+                <name>ЗначенияПеременныхПослеВыполненияКонтекстноеМенюПросмотретьЗначениеПеременнойРасширеннаяПодсказка</name>
                 <id>230</id>
                 <type>Label</type>
                 <autoMaxWidth>true</autoMaxWidth>
@@ -1659,10 +1659,10 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>ЗначенияПерменныхПослеВыполнения</name>
+    <name>ЗначенияПеременныхПослеВыполнения</name>
     <title>
       <key>ru</key>
-      <value>Значения перменных после выполнения</value>
+      <value>Значения переменных после выполнения</value>
     </title>
     <id>30</id>
     <valueType>
