@@ -407,7 +407,7 @@
 		ТекстЗапроса =
 		"SELECT
 		|tablename AS table_name,
-		|pg_class.reltuples as records_count,
+		|pg_class.reltuples::bigint as records_count,
 		|pg_total_relation_size(schemaname||'.'||tablename) / 1024 AS total_usage_kb,
 		|pg_table_size(schemaname||'.'||tablename) / 1024 AS table_usage_kb,
 		|pg_indexes_size(schemaname||'.'||tablename) / 1024 as index_usage_kb,
