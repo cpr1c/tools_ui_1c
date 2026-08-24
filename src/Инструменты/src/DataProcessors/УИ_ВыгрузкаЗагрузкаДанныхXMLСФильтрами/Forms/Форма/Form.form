@@ -2099,10 +2099,6 @@
     </extendedTooltip>
     <type>Pages</type>
     <extInfo xsi:type="form:PagesGroupExtInfo">
-      <handlers>
-        <event>OnCurrentPageChange</event>
-        <name>ГруппаРежимПриСменеСтраницы</name>
-      </handlers>
       <pagesRepresentation>TabsOnTop</pagesRepresentation>
       <currentRowUse>Auto</currentRowUse>
     </extInfo>
@@ -2354,26 +2350,6 @@
     </settingsSavedData>
   </attributes>
   <attributes>
-    <name>РежимВыгрузки</name>
-    <title>
-      <key>ru</key>
-      <value>Режим выгрузки</value>
-    </title>
-    <id>4</id>
-    <valueType>
-      <types>Boolean</types>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <settingsSavedData xsi:type="form:DataPath">
-      <segments>РежимВыгрузки</segments>
-    </settingsSavedData>
-  </attributes>
-  <attributes>
     <name>ТипОбъектовДляВыгрузки</name>
     <title>
       <key>ru</key>
@@ -2389,27 +2365,6 @@
     <edit>
       <common>true</common>
     </edit>
-  </attributes>
-  <attributes>
-    <name>ИмяФайлаЗагрузки</name>
-    <title>
-      <key>ru</key>
-      <value>Имя файла загрузки</value>
-    </title>
-    <id>7</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers/>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-    <settingsSavedData xsi:type="form:DataPath">
-      <segments>ИмяФайлаЗагрузки</segments>
-    </settingsSavedData>
   </attributes>
   <attributes>
     <name>ВариантИспользованияКонсолиЗапросов</name>
