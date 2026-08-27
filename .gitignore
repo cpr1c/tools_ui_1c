@@ -3,4 +3,5 @@ docs/_site
 docs/.jekyll-cache
 docs/coverage
 build/
+.code-index/
 plans/
