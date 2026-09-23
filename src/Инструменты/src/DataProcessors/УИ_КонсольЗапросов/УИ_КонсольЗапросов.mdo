@@ -379,6 +379,15 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <forms uuid="f3e3314b-6840-4d02-a1e0-e0bcc15498a1">
+    <name>ФормаНастройкиКонсолиЗапросов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Настройки консоли запросов</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+    <usePurposes>MobileDevice</usePurposes>
+  </forms>
   <templates uuid="1c5906e2-19e5-4ff5-a840-dcc4c14b3f54">
     <name>Картинки</name>
     <synonym>
