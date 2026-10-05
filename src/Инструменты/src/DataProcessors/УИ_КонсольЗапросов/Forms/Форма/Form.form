@@ -1861,6 +1861,128 @@
                     </extInfo>
                   </items>
                   <items xsi:type="form:FormField">
+                    <name>ПараметрыЗапросаТип</name>
+                    <id>658</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>ПараметрыЗапроса.Тип</segments>
+                    </dataPath>
+                    <handlers>
+                      <event>OnChange</event>
+                      <name>ПараметрыЗапросаТипПриИзменении</name>
+                    </handlers>
+                    <extendedTooltip>
+                      <name>ПараметрыЗапросаТипРасширеннаяПодсказка</name>
+                      <id>660</id>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ПараметрыЗапросаТипКонтекстноеМеню</name>
+                      <id>659</id>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>InputField</type>
+                    <editMode>EnterOnInput</editMode>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:InputFieldExtInfo">
+                      <handlers>
+                        <event>StartChoice</event>
+                        <name>ПараметрыЗапросаТипНачалоВыбора</name>
+                      </handlers>
+                      <handlers>
+                        <event>Clearing</event>
+                        <name>ПараметрыЗапросаТипОчистка</name>
+                      </handlers>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <wrap>true</wrap>
+                      <choiceButton>true</choiceButton>
+                      <typeDomainEnabled>true</typeDomainEnabled>
+                      <typeLink>
+                        <datapath xsi:type="form:DataPath">
+                          <segments>Items.ПараметрыЗапроса.CurrentData.ТипТипЗначения</segments>
+                        </datapath>
+                      </typeLink>
+                    </extInfo>
+                  </items>
+                  <items xsi:type="form:FormField">
+                    <name>ПараметрыЗапросаЗначение</name>
+                    <id>69</id>
+                    <visible>true</visible>
+                    <enabled>true</enabled>
+                    <userVisible>
+                      <common>true</common>
+                    </userVisible>
+                    <dataPath xsi:type="form:DataPath">
+                      <segments>ПараметрыЗапроса.Значение</segments>
+                    </dataPath>
+                    <handlers>
+                      <event>OnChange</event>
+                      <name>ПараметрыЗапросаЗначениеПриИзменении</name>
+                    </handlers>
+                    <extendedTooltip>
+                      <name>ПараметрыЗапросаЗначениеРасширеннаяПодсказка</name>
+                      <id>71</id>
+                      <type>Label</type>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <extInfo xsi:type="form:LabelDecorationExtInfo">
+                        <horizontalAlign>Left</horizontalAlign>
+                      </extInfo>
+                    </extendedTooltip>
+                    <contextMenu>
+                      <name>ПараметрыЗапросаЗначениеКонтекстноеМеню</name>
+                      <id>70</id>
+                      <autoFill>true</autoFill>
+                    </contextMenu>
+                    <type>InputField</type>
+                    <showInHeader>true</showInHeader>
+                    <headerHorizontalAlign>Left</headerHorizontalAlign>
+                    <showInFooter>true</showInFooter>
+                    <extInfo xsi:type="form:InputFieldExtInfo">
+                      <handlers>
+                        <event>StartChoice</event>
+                        <name>ПараметрыЗапросаЗначениеНачалоВыбора</name>
+                      </handlers>
+                      <handlers>
+                        <event>Clearing</event>
+                        <name>ПараметрыЗапросаЗначениеОчистка</name>
+                      </handlers>
+                      <handlers>
+                        <event>TextEditEnd</event>
+                        <name>ПараметрыЗапросаЗначениеОкончаниеВводаТекста</name>
+                      </handlers>
+                      <handlers>
+                        <event>ChoiceProcessing</event>
+                        <name>ПараметрыЗапросаЗначениеОбработкаВыбора</name>
+                      </handlers>
+                      <autoMaxWidth>true</autoMaxWidth>
+                      <autoMaxHeight>true</autoMaxHeight>
+                      <wrap>true</wrap>
+                      <choiceButton>true</choiceButton>
+                      <clearButton>true</clearButton>
+                      <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
+                      <typeDomainEnabled>true</typeDomainEnabled>
+                      <textEdit>true</textEdit>
+                      <typeLink>
+                        <datapath xsi:type="form:DataPath">
+                          <segments>Items.ПараметрыЗапроса.CurrentData.ЗначениеТипЗначения</segments>
+                        </datapath>
+                      </typeLink>
+                    </extInfo>
+                  </items>
+                  <items xsi:type="form:FormField">
                     <name>ПараметрыЗапросаТипПараметра</name>
                     <id>104</id>
                     <visible>true</visible>
@@ -1938,67 +2060,6 @@
                       <horizontalStretch>true</horizontalStretch>
                       <verticalStretch>true</verticalStretch>
                       <valuesPicture xsi:type="form:FormPicture"/>
-                    </extInfo>
-                  </items>
-                  <items xsi:type="form:FormField">
-                    <name>ПараметрыЗапросаЗначение</name>
-                    <id>69</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <dataPath xsi:type="form:DataPath">
-                      <segments>ПараметрыЗапроса.Значение</segments>
-                    </dataPath>
-                    <handlers>
-                      <event>OnChange</event>
-                      <name>ПараметрыЗапросаЗначениеПриИзменении</name>
-                    </handlers>
-                    <extendedTooltip>
-                      <name>ПараметрыЗапросаЗначениеРасширеннаяПодсказка</name>
-                      <id>71</id>
-                      <type>Label</type>
-                      <autoMaxWidth>true</autoMaxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <extInfo xsi:type="form:LabelDecorationExtInfo">
-                        <horizontalAlign>Left</horizontalAlign>
-                      </extInfo>
-                    </extendedTooltip>
-                    <contextMenu>
-                      <name>ПараметрыЗапросаЗначениеКонтекстноеМеню</name>
-                      <id>70</id>
-                      <autoFill>true</autoFill>
-                    </contextMenu>
-                    <type>InputField</type>
-                    <showInHeader>true</showInHeader>
-                    <headerHorizontalAlign>Left</headerHorizontalAlign>
-                    <showInFooter>true</showInFooter>
-                    <extInfo xsi:type="form:InputFieldExtInfo">
-                      <handlers>
-                        <event>StartChoice</event>
-                        <name>ПараметрыЗапросаЗначениеНачалоВыбора</name>
-                      </handlers>
-                      <handlers>
-                        <event>Clearing</event>
-                        <name>ПараметрыЗапросаЗначениеОчистка</name>
-                      </handlers>
-                      <handlers>
-                        <event>TextEditEnd</event>
-                        <name>ПараметрыЗапросаЗначениеОкончаниеВводаТекста</name>
-                      </handlers>
-                      <handlers>
-                        <event>ChoiceProcessing</event>
-                        <name>ПараметрыЗапросаЗначениеОбработкаВыбора</name>
-                      </handlers>
-                      <autoMaxWidth>true</autoMaxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <wrap>true</wrap>
-                      <clearButton>true</clearButton>
-                      <choiceFoldersAndItems>FoldersAndItems</choiceFoldersAndItems>
-                      <chooseType>true</chooseType>
-                      <typeDomainEnabled>true</typeDomainEnabled>
-                      <textEdit>true</textEdit>
                     </extInfo>
                   </items>
                   <autoCommandBar>
@@ -6619,6 +6680,121 @@
       <id>70</id>
       <valueType>
         <types>Boolean</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ЗначениеКонтейнер</name>
+      <title>
+        <key>ru</key>
+        <value>Значение контейнер</value>
+      </title>
+      <id>73</id>
+      <valueType/>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ЗначениеТипЗначенияПредставление</name>
+      <title>
+        <key>ru</key>
+        <value>Значение тип значения представление</value>
+      </title>
+      <id>74</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ЗначениеТипЗначения</name>
+      <title>
+        <key>ru</key>
+        <value>Значение тип значения</value>
+      </title>
+      <id>75</id>
+      <valueType>
+        <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>Тип</name>
+      <title>
+        <key>ru</key>
+        <value>Тип</value>
+      </title>
+      <id>77</id>
+      <valueType/>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипКонтейнер</name>
+      <title>
+        <key>ru</key>
+        <value>Тип</value>
+      </title>
+      <id>78</id>
+      <valueType/>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипТипЗначения</name>
+      <title>
+        <key>ru</key>
+        <value>Тип тип значения</value>
+      </title>
+      <id>79</id>
+      <valueType>
+        <types>TypeDescription</types>
+      </valueType>
+      <view>
+        <common>true</common>
+      </view>
+      <edit>
+        <common>true</common>
+      </edit>
+    </columns>
+    <columns>
+      <name>ТипТипЗначенияПредставление</name>
+      <title>
+        <key>ru</key>
+        <value>Тип тип значения представление</value>
+      </title>
+      <id>80</id>
+      <valueType>
+        <types>String</types>
+        <stringQualifiers/>
       </valueType>
       <view>
         <common>true</common>
