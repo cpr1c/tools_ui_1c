@@ -1963,10 +1963,6 @@
                         <event>TextEditEnd</event>
                         <name>ПараметрыЗапросаЗначениеОкончаниеВводаТекста</name>
                       </handlers>
-                      <handlers>
-                        <event>ChoiceProcessing</event>
-                        <name>ПараметрыЗапросаЗначениеОбработкаВыбора</name>
-                      </handlers>
                       <autoMaxWidth>true</autoMaxWidth>
                       <autoMaxHeight>true</autoMaxHeight>
                       <wrap>true</wrap>
@@ -1980,86 +1976,6 @@
                           <segments>Items.ПараметрыЗапроса.CurrentData.ЗначениеТипЗначения</segments>
                         </datapath>
                       </typeLink>
-                    </extInfo>
-                  </items>
-                  <items xsi:type="form:FormField">
-                    <name>ПараметрыЗапросаТипПараметра</name>
-                    <id>104</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <dataPath xsi:type="form:DataPath">
-                      <segments>ПараметрыЗапроса.ТипЗначения</segments>
-                    </dataPath>
-                    <extendedTooltip>
-                      <name>ПараметрыЗапросаТипПараметраРасширеннаяПодсказка</name>
-                      <id>106</id>
-                      <type>Label</type>
-                      <autoMaxWidth>true</autoMaxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <extInfo xsi:type="form:LabelDecorationExtInfo">
-                        <horizontalAlign>Left</horizontalAlign>
-                      </extInfo>
-                    </extendedTooltip>
-                    <contextMenu>
-                      <name>ПараметрыЗапросаТипПараметраКонтекстноеМеню</name>
-                      <id>105</id>
-                      <autoFill>true</autoFill>
-                    </contextMenu>
-                    <type>InputField</type>
-                    <showInHeader>true</showInHeader>
-                    <headerHorizontalAlign>Left</headerHorizontalAlign>
-                    <showInFooter>true</showInFooter>
-                    <extInfo xsi:type="form:InputFieldExtInfo">
-                      <handlers>
-                        <event>StartChoice</event>
-                        <name>ПараметрыЗапросаТипПараметраНачалоВыбора</name>
-                      </handlers>
-                      <autoMaxWidth>true</autoMaxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <wrap>true</wrap>
-                      <choiceButton>true</choiceButton>
-                      <textEdit>true</textEdit>
-                    </extInfo>
-                  </items>
-                  <items xsi:type="form:FormField">
-                    <name>ПараметрыЗапросаФорма</name>
-                    <id>125</id>
-                    <visible>true</visible>
-                    <enabled>true</enabled>
-                    <userVisible>
-                      <common>true</common>
-                    </userVisible>
-                    <dataPath xsi:type="form:DataPath">
-                      <segments>ПараметрыЗапроса.ТипКонтейнера</segments>
-                    </dataPath>
-                    <extendedTooltip>
-                      <name>ПараметрыЗапросаФормаРасширеннаяПодсказка</name>
-                      <id>127</id>
-                      <type>Label</type>
-                      <autoMaxWidth>true</autoMaxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <extInfo xsi:type="form:LabelDecorationExtInfo">
-                        <horizontalAlign>Left</horizontalAlign>
-                      </extInfo>
-                    </extendedTooltip>
-                    <contextMenu>
-                      <name>ПараметрыЗапросаФормаКонтекстноеМеню</name>
-                      <id>126</id>
-                      <autoFill>true</autoFill>
-                    </contextMenu>
-                    <type>PictureField</type>
-                    <headerHorizontalAlign>Left</headerHorizontalAlign>
-                    <showInFooter>true</showInFooter>
-                    <extInfo xsi:type="form:ImageFieldExtInfo">
-                      <width>1</width>
-                      <maxWidth>1</maxWidth>
-                      <autoMaxHeight>true</autoMaxHeight>
-                      <horizontalStretch>true</horizontalStretch>
-                      <verticalStretch>true</verticalStretch>
-                      <valuesPicture xsi:type="form:FormPicture"/>
                     </extInfo>
                   </items>
                   <autoCommandBar>
@@ -2253,10 +2169,6 @@
                   <handlers>
                     <event>BeforeEditEnd</event>
                     <name>ПараметрыЗапросаПередОкончаниемРедактирования</name>
-                  </handlers>
-                  <handlers>
-                    <event>OnActivateRow</event>
-                    <name>ПараметрыЗапросаПриАктивизацииСтроки</name>
                   </handlers>
                   <handlers>
                     <event>OnChange</event>
