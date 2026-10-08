@@ -1034,6 +1034,7 @@
       <representation>Tree</representation>
       <changeRowSet>true</changeRowSet>
       <changeRowOrder>true</changeRowOrder>
+      <width>25</width>
       <autoMaxWidth>true</autoMaxWidth>
       <height>3</height>
       <autoMaxRowsCount>true</autoMaxRowsCount>

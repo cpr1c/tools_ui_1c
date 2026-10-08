@@ -617,6 +617,23 @@
       <common>true</common>
     </edit>
   </attributes>
+  <attributes>
+    <name>ТолькоКолонки</name>
+    <title>
+      <key>ru</key>
+      <value>Только колонки</value>
+    </title>
+    <id>22</id>
+    <valueType>
+      <types>Boolean</types>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>Применить</name>
     <title>
