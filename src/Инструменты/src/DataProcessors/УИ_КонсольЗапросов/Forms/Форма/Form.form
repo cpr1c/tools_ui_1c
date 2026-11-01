@@ -6533,58 +6533,6 @@
       </edit>
     </columns>
     <columns>
-      <name>ТипЗначения</name>
-      <title>
-        <key>ru</key>
-        <value>Тип</value>
-      </title>
-      <id>3</id>
-      <valueType>
-        <types>String</types>
-        <types>TypeDescription</types>
-        <stringQualifiers/>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>Контейнер</name>
-      <title>
-        <key>ru</key>
-        <value>Контейнер</value>
-      </title>
-      <id>4</id>
-      <valueType/>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
-      <name>ТипКонтейнера</name>
-      <title>
-        <key>ru</key>
-        <value>Тип контейнера</value>
-      </title>
-      <id>5</id>
-      <valueType>
-        <types>Number</types>
-        <numberQualifiers/>
-      </valueType>
-      <view>
-        <common>true</common>
-      </view>
-      <edit>
-        <common>true</common>
-      </edit>
-    </columns>
-    <columns>
       <name>Использовать</name>
       <title>
         <key>ru</key>
