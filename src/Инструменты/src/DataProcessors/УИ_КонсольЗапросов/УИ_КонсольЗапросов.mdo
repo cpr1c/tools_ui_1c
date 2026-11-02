@@ -280,33 +280,6 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="4adca824-4233-4718-9b1f-960d26ea5426">
-    <name>РедактированиеТипа</name>
-    <synonym>
-      <key>ru</key>
-      <value>Редактирование типа</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="e624ba28-4b3b-4306-ad29-ff42e5fc2594">
-    <name>РедактированиеГраницыМомента</name>
-    <synonym>
-      <key>ru</key>
-      <value>Редактирование границы момента</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="5181d4cb-7faf-4a01-b280-c85d15888cfe">
-    <name>РедактированиеТаблицы</name>
-    <synonym>
-      <key>ru</key>
-      <value>Редактирование таблицы</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
   <forms uuid="9b9cd922-fd95-463c-ba6e-9ffea4282576">
     <name>Информация</name>
     <synonym>
