@@ -793,6 +793,32 @@
       </extInfo>
     </items>
     <items xsi:type="form:Button">
+      <name>ЗаполнитьСтруктуру</name>
+      <id>370</id>
+      <visible>true</visible>
+      <enabled>true</enabled>
+      <userVisible>
+        <common>true</common>
+      </userVisible>
+      <extendedTooltip>
+        <name>ЗаполнитьСтруктуруРасширеннаяПодсказка</name>
+        <id>371</id>
+        <type>Label</type>
+        <autoMaxWidth>true</autoMaxWidth>
+        <autoMaxHeight>true</autoMaxHeight>
+        <extInfo xsi:type="form:LabelDecorationExtInfo">
+          <horizontalAlign>Left</horizontalAlign>
+        </extInfo>
+      </extendedTooltip>
+      <type>UsualButton</type>
+      <commandName>Form.Command.ЗаполнитьСтруктуру</commandName>
+      <representation>Auto</representation>
+      <autoMaxWidth>true</autoMaxWidth>
+      <autoMaxHeight>true</autoMaxHeight>
+      <placementArea>UserCmds</placementArea>
+      <representationInContextMenu>Auto</representationInContextMenu>
+    </items>
+    <items xsi:type="form:Button">
       <name>Найти</name>
       <id>4</id>
       <visible>true</visible>
@@ -915,10 +941,6 @@
         <dataPath xsi:type="form:DataPath">
           <segments>ЕдиницаИзмеренияРазмераТаблиц</segments>
         </dataPath>
-        <handlers>
-          <event>OnChange</event>
-          <name>ЕдиницаИзмеренияРазмераТаблицПриИзменении</name>
-        </handlers>
         <extendedTooltip>
           <name>ЕдиницаИзмеренияРазмераТаблицРасширеннаяПодсказка</name>
           <id>207</id>
@@ -4427,6 +4449,27 @@
       </handler>
     </action>
     <representation>TextPicture</representation>
+    <currentRowUse>Auto</currentRowUse>
+  </formCommands>
+  <formCommands>
+    <name>ЗаполнитьСтруктуру</name>
+    <title>
+      <key>ru</key>
+      <value>Заполнить структуру</value>
+    </title>
+    <id>3</id>
+    <toolTip>
+      <key>ru</key>
+      <value>Заполнить структуру хранения базы данных</value>
+    </toolTip>
+    <use>
+      <common>true</common>
+    </use>
+    <action xsi:type="form:FormCommandHandlerContainer">
+      <handler>
+        <name>ЗаполнитьСтруктуру</name>
+      </handler>
+    </action>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <commandInterface>
