@@ -37,6 +37,7 @@
   <subsystems>Subsystem.УИ_УниверсальныеИнструменты</subsystems>
   <commonPictures>CommonPicture.УИ_JSON</commonPictures>
   <commonPictures>CommonPicture.УИ_Null</commonPictures>
+  <commonPictures>CommonPicture.УИ_XML</commonPictures>
   <commonPictures>CommonPicture.УИ_Булево</commonPictures>
   <commonPictures>CommonPicture.УИ_ВидДвиженияНакопления</commonPictures>
   <commonPictures>CommonPicture.УИ_ВидыОбъектовМетаданных</commonPictures>
@@ -118,6 +119,7 @@
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
   <commonModules>CommonModule.УИ_МетодыСовмеcтимостиПлатформы_8_3_18Клиент</commonModules>
   <commonModules>CommonModule.УИ_МетодыСовместимостиПлатформы_8_3_21КлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_МетодыСовместимостиПлатформы_8_3_23Сервер</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>

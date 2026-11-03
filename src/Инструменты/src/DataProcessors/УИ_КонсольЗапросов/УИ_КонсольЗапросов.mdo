@@ -266,61 +266,11 @@
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
-  <forms uuid="97329590-6e8b-4bb4-acf0-10ce647242c9">
-    <name>ПодборВСписок</name>
-    <synonym>
-      <key>ru</key>
-      <value>Подбор в список</value>
-    </synonym>
-    <help>
-      <pages>
-        <lang>ru</lang>
-      </pages>
-    </help>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="4adca824-4233-4718-9b1f-960d26ea5426">
-    <name>РедактированиеТипа</name>
-    <synonym>
-      <key>ru</key>
-      <value>Редактирование типа</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="e624ba28-4b3b-4306-ad29-ff42e5fc2594">
-    <name>РедактированиеГраницыМомента</name>
-    <synonym>
-      <key>ru</key>
-      <value>Редактирование границы момента</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="5181d4cb-7faf-4a01-b280-c85d15888cfe">
-    <name>РедактированиеТаблицы</name>
-    <synonym>
-      <key>ru</key>
-      <value>Редактирование таблицы</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
   <forms uuid="9b9cd922-fd95-463c-ba6e-9ffea4282576">
     <name>Информация</name>
     <synonym>
       <key>ru</key>
       <value>Информация</value>
-    </synonym>
-    <usePurposes>PersonalComputer</usePurposes>
-    <usePurposes>MobileDevice</usePurposes>
-  </forms>
-  <forms uuid="2be29826-2171-481f-b8a7-e20380331e62">
-    <name>РедактированиеУникальногоИдентификатора</name>
-    <synonym>
-      <key>ru</key>
-      <value>Редактирование уникального идентификатора</value>
     </synonym>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
