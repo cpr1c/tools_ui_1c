@@ -10,7 +10,7 @@
 			},
 			"NestedFunctionInParameters": {
 				"allowOneliner": true,
-				"allowedMethodNames": "НСтр,NStr,ПредопределенноеЗначение,PredefinedValue,ВРег,НРег,СокрЛП,Сред,СтрДлина,РеквизитФормы"
+				"allowedMethodNames": "НСтр,NStr,ПредопределенноеЗначение,PredefinedValue,ВРег,НРег,СокрЛП,Сред,СтрДлина,РеквизитФормы,СтрШаблон"
 			},
 			"LatinAndCyrillicSymbolInWord": {
 				"allowTrailingPartsInAnotherLanguage": true
