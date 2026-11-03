@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonModule xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="df686c1f-0f4f-46a1-9d0f-1196604a9272">
+  <name>УИ_МетодыСовместимостиПлатформы_8_3_23Сервер</name>
+  <synonym>
+    <key>ru</key>
+    <value>Методы совместимости платформы 8 3 23 сервер</value>
+  </synonym>
+  <server>true</server>
+  <externalConnection>true</externalConnection>
+  <clientOrdinaryApplication>true</clientOrdinaryApplication>
+</mdclass:CommonModule>

@@ -119,6 +119,7 @@
   <commonModules>CommonModule.УИ_КоннекторHTTP</commonModules>
   <commonModules>CommonModule.УИ_МетодыСовмеcтимостиПлатформы_8_3_18Клиент</commonModules>
   <commonModules>CommonModule.УИ_МетодыСовместимостиПлатформы_8_3_21КлиентСервер</commonModules>
+  <commonModules>CommonModule.УИ_МетодыСовместимостиПлатформы_8_3_23Сервер</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначения</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначенияВызовСервера</commonModules>
   <commonModules>CommonModule.УИ_ОбщегоНазначенияКлиент</commonModules>
