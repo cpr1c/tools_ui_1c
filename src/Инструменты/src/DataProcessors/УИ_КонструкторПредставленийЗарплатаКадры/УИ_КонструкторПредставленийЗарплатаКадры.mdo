@@ -9,14 +9,24 @@
     <key>ru</key>
     <value>Конструктор представлений подсистемы &quot;Зарплата и кадры&quot; [УИ]</value>
   </synonym>
-  <comment>1.1.1</comment>
+  <comment>1.2.2</comment>
   <defaultForm>DataProcessor.УИ_КонструкторПредставленийЗарплатаКадры.Form.КонструкторПредставлений</defaultForm>
+  <help>
+    <pages>
+      <lang>ru</lang>
+    </pages>
+  </help>
   <forms uuid="f78c863d-9733-4e46-b3b0-db809486c5f8">
     <name>КонструкторПредставлений</name>
     <synonym>
       <key>ru</key>
       <value>Конструктор представлений</value>
     </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
@@ -26,9 +36,238 @@
       <key>ru</key>
       <value>Текст запроса</value>
     </synonym>
+    <help>
+      <pages>
+        <lang>ru</lang>
+      </pages>
+    </help>
     <usePurposes>PersonalComputer</usePurposes>
     <usePurposes>MobileDevice</usePurposes>
   </forms>
+  <templates uuid="1e0a6f56-d1ce-4f66-ae48-36f804a2af1c">
+    <name>ТекстовоеОписаниеБухучетЗарплатыСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание БухучетЗарплатыСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="63ff1b96-bdfd-4611-b6ac-fb08e26e24c0">
+    <name>ТекстовоеОписаниеДанныеУчетаВремениИСостоянийСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ДанныеУчетаВремениИСостоянийСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="3d8ea671-e80b-4205-b2f9-c87adcdde055">
+    <name>ТекстовоеОписаниеКадровыеДанныеСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание КадровыеДанныеСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="55371aca-54c1-43fe-aac5-4b8e496b4334">
+    <name>ТекстовоеОписаниеКадровыеДанныеФизическихЛиц</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание КадровыеДанныеФизическихЛиц</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="ec46652c-465f-4f4b-8631-6181b1282f50">
+    <name>ТекстовоеОписаниеЛичныеДанныеКандидатов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ЛичныеДанныеКандидатов</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="26c5d00c-8705-47eb-9282-36c70f3d60f4">
+    <name>ТекстовоеОписаниеНачисленныеДоходыНДФЛ</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание НачисленныеДоходыНДФЛ</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="4da64ffa-73c4-412c-819d-7fd54c732abd">
+    <name>ТекстовоеОписаниеОтработанноеВремя</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ОтработанноеВремя</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="7cd57bf5-eda4-4f5c-a65e-f09ef8a6875d">
+    <name>ТекстовоеОписаниеПериоды</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание Периоды</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="1498dea1-6f21-403a-8757-e072e9d9f02b">
+    <name>ТекстовоеОписаниеПлановоеВремя</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ПлановоеВремя</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="d0c40dcc-045c-4588-b2ef-8510bdf460e2">
+    <name>ТекстовоеОписаниеПлановыеНачисленияСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ПлановыеНачисленияСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="e06a58da-2034-4ea0-9c3d-490488ad0763">
+    <name>ТекстовоеОписаниеПлановыеУдержанияСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ПлановыеУдержанияСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="1ad0b892-6f81-4a49-a1d6-7778975529bc">
+    <name>ТекстовоеОписаниеРабочиеМестаОхраныТруда</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание РабочиеМестаОхраныТруда</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="02c6d153-2407-46b2-8e87-d9bcfa602794">
+    <name>ТекстовоеОписаниеРабочиеМестаСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание РабочиеМестаСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="f43a9c98-861f-42ec-9a1e-284b75bba582">
+    <name>ТекстовоеОписаниеРезультатыАттестацииСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание РезультатыАттестацииСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="ef5e46e9-88b4-497f-a3f1-e4ca22762b06">
+    <name>ТекстовоеОписаниеСведенияОбАккредитацияхСпециалистов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СведенияОбАккредитацияхСпециалистов</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="95441583-9826-4f44-8a15-488a20705c79">
+    <name>ТекстовоеОписаниеСведенияОКандидатах</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СведенияОКандидатах</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="836ad9f9-b49e-47b6-ba15-349af6ec7321">
+    <name>ТекстовоеОписаниеСвойстваСтатейФинансирования</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СвойстваСтатейФинансирования</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="44039ea5-802a-43df-8fcb-0b74b8a70df9">
+    <name>ТекстовоеОписаниеСертификатыПоСпециальностиФизическихЛиц</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СертификатыПоСпециальностиФизическихЛиц</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="9d7fa3b7-871b-4fe1-b8c1-a0ce9e6a5062">
+    <name>ТекстовоеОписаниеСотрудникиОрганизации</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СотрудникиОрганизации</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="44cb0df3-abbc-4c19-83a8-ecdc23895093">
+    <name>ТекстовоеОписаниеСотрудникиПодлежащиеАттестации</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СотрудникиПодлежащиеАттестации</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="c2466a86-de14-4183-8fe5-ad423a8a57bd">
+    <name>ТекстовоеОписаниеСрезПервых</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СрезПервых</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="1b096aab-f18a-4062-8f9f-03d6b90eef75">
+    <name>ТекстовоеОписаниеСрезПоследних</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СрезПоследних</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="06fbd2be-3c6e-45e3-90b7-539a485c54d9">
+    <name>ТекстовоеОписаниеСтажиСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СтажиСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="b21c3dd1-80af-476a-b878-ec6fb36141c4">
+    <name>ТекстовоеОписаниеСтажПринятыхКандидатов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание СтажПринятыхКандидатов</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="bd6b3d98-272d-4862-8ac3-43f15e084f9e">
+    <name>ТекстовоеОписаниеТаблицаРегистра</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ТаблицаРегистра</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="927b9227-b0e0-4976-b711-741d5a59f4e9">
+    <name>ТекстовоеОписаниеТекущаяКадроваяРасстановка</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ТекущаяКадроваяРасстановка</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="be07b4e3-bf0f-4c70-a0a0-645ebe28f1c0">
+    <name>ТекстовоеОписаниеФактическиеОтпускаСотрудников</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ФактическиеОтпускаСотрудников</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
+  <templates uuid="d24feb12-5bd7-48e2-933b-c8e596a24ccd">
+    <name>ТекстовоеОписаниеШтатноеРасписание</name>
+    <synonym>
+      <key>ru</key>
+      <value>Текстовое описание ШтатноеРасписание</value>
+    </synonym>
+    <templateType>TextDocument</templateType>
+  </templates>
   <commands uuid="cc7f3a4d-fb5f-48bd-84f4-9dab3b73da4a">
     <name>КонструкторПредставлениеЗарплатаИКадры</name>
     <synonym>
