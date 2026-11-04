@@ -1007,8 +1007,6 @@
           </picture>
           <group>Vertical</group>
           <showTitle>true</showTitle>
-          <showTitle>auto</showTitle>
-          <scrollOnCompress>false</scrollOnCompress>
         </extInfo>
       </items>
       <items xsi:type="form:FormGroup">
@@ -1876,8 +1874,6 @@
           </picture>
           <group>Vertical</group>
           <showTitle>true</showTitle>
-          <showTitle>auto</showTitle>
-          <scrollOnCompress>false</scrollOnCompress>
         </extInfo>
       </items>
       <visible>true</visible>
@@ -1901,7 +1897,7 @@
       </extendedTooltip>
       <type>Pages</type>
       <extInfo xsi:type="form:PagesGroupExtInfo">
-        <pagesRepresentation>Auto</pagesRepresentation>
+        <pagesRepresentation>TabsOnTop</pagesRepresentation>
         <currentRowUse>Auto</currentRowUse>
       </extInfo>
     </items>
@@ -1973,7 +1969,6 @@
         <showLeftMargin>true</showLeftMargin>
         <united>true</united>
         <showTitle>true</showTitle>
-        <showTitle>auto</showTitle>
         <titleDataPath xsi:type="form:DataPath">
           <segments>Items.Представления.CurrentData.Имя</segments>
         </titleDataPath>
@@ -2214,7 +2209,6 @@
     <event>OnCreateAtServer</event>
     <name>ПриСозданииНаСервере</name>
   </handlers>
-  <windowOpeningMode>DontBlock</windowOpeningMode>
   <autoSaveDataInSettings>Use</autoSaveDataInSettings>
   <saveWindowSettings>true</saveWindowSettings>
   <autoUrl>true</autoUrl>
@@ -2223,7 +2217,6 @@
   <allowFormCustomize>true</allowFormCustomize>
   <enabled>true</enabled>
   <showTitle>true</showTitle>
-  <showTitle>auto</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
     <name>Объект</name>

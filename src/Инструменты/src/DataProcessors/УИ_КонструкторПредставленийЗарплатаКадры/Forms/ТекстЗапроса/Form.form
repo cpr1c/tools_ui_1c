@@ -158,8 +158,6 @@
       <extInfo xsi:type="form:PageGroupExtInfo">
         <group>Vertical</group>
         <showTitle>true</showTitle>
-        <showTitle>auto</showTitle>
-        <scrollOnCompress>false</scrollOnCompress>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
@@ -313,8 +311,6 @@
       <extInfo xsi:type="form:PageGroupExtInfo">
         <group>Vertical</group>
         <showTitle>true</showTitle>
-        <showTitle>auto</showTitle>
-        <scrollOnCompress>false</scrollOnCompress>
       </extInfo>
     </items>
     <items xsi:type="form:FormGroup">
@@ -443,8 +439,6 @@
       <extInfo xsi:type="form:PageGroupExtInfo">
         <group>Vertical</group>
         <showTitle>true</showTitle>
-        <showTitle>auto</showTitle>
-        <scrollOnCompress>false</scrollOnCompress>
       </extInfo>
     </items>
     <visible>true</visible>
@@ -472,7 +466,7 @@
         <event>OnCurrentPageChange</event>
         <name>СтраницыПриСменеСтраницы</name>
       </handlers>
-      <pagesRepresentation>Auto</pagesRepresentation>
+      <pagesRepresentation>TabsOnTop</pagesRepresentation>
       <currentRowUse>Auto</currentRowUse>
     </extInfo>
   </items>
@@ -491,7 +485,6 @@
   <width>80</width>
   <height>50</height>
   <windowOpeningMode>LockOwnerWindow</windowOpeningMode>
-  <windowOpeningMode>LockOwner</windowOpeningMode>
   <saveWindowSettings>true</saveWindowSettings>
   <autoTitle>true</autoTitle>
   <autoUrl>true</autoUrl>
@@ -500,7 +493,6 @@
   <allowFormCustomize>true</allowFormCustomize>
   <enabled>true</enabled>
   <showTitle>true</showTitle>
-  <showTitle>auto</showTitle>
   <showCloseButton>true</showCloseButton>
   <attributes>
     <name>ТекстЗапросаПредставления</name>
