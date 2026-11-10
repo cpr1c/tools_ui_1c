@@ -158,6 +158,11 @@
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
         <placementArea>UserCmds</placementArea>
+        <backColor xsi:type="core:ColorDef">
+          <red>204</red>
+          <green>255</green>
+          <blue>204</blue>
+        </backColor>
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <visible>true</visible>
