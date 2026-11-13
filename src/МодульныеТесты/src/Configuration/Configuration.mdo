@@ -19,6 +19,7 @@
   <configurationExtensionPurpose>Customization</configurationExtensionPurpose>
   <scriptVariant>Russian</scriptVariant>
   <version>0.0.1</version>
+  <commonPictures>CommonPicture.УИТ_КартинкаТест</commonPictures>
   <commonTemplates>CommonTemplate.УИТ_ТестДвоичныеДанные</commonTemplates>
   <commonTemplates>CommonTemplate.УИТ_ТестоваяКартинка</commonTemplates>
   <commonModules>CommonModule.УИТ_ТестГенераторКода</commonModules>
