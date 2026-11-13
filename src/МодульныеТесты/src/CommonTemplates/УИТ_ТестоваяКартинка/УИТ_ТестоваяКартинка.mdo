@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonTemplate xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="eeaba000-d9dc-4499-931f-d6da3e5a35ed">
+  <name>УИТ_ТестоваяКартинка</name>
+  <synonym>
+    <key>ru</key>
+    <value>Тестовая картинка</value>
+  </synonym>
+  <templateType>BinaryData</templateType>
+</mdclass:CommonTemplate>

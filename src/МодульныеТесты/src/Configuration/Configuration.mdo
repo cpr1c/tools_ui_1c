@@ -20,6 +20,7 @@
   <scriptVariant>Russian</scriptVariant>
   <version>0.0.1</version>
   <commonTemplates>CommonTemplate.УИТ_ТестДвоичныеДанные</commonTemplates>
+  <commonTemplates>CommonTemplate.УИТ_ТестоваяКартинка</commonTemplates>
   <commonModules>CommonModule.УИТ_ТестГенераторКода</commonModules>
   <exchangePlans>ExchangePlan.УИТ_ТестПланОбмена</exchangePlans>
   <catalogs>Catalog.УИТ_ТестСправочник</catalogs>
