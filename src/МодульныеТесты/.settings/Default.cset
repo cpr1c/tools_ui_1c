@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "settings": {
+    "common-module-server-call": {
+      "enabled": true
+    }
+  }
+}

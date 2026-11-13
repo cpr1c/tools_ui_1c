@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="e2cf758b-6b51-440b-acad-09d5902d4fa1">
+  <name>МодульныеТесты</name>
+  <synonym>
+    <key>ru</key>
+    <value>Модульные тесты</value>
+  </synonym>
+  <objectBelonging>Adopted</objectBelonging>
+  <extension xsi:type="mdclassExtension:ConfigurationExtension"/>
+  <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="adf8e963-7e5d-4023-aa20-5ea6dc0de99c"/>
+  <containedObjects classId="9fcd25a0-4822-11d4-9414-008048da11f9" objectId="f411099e-7d52-4b4e-ae4c-b1f5b10976ba"/>
+  <containedObjects classId="e3687481-0a87-462c-a166-9f34594f9bba" objectId="d2c7433d-746f-4477-9028-28cc7d9f3188"/>
+  <containedObjects classId="9de14907-ec23-4a07-96f0-85521cb6b53b" objectId="b50139f3-6770-4f92-8f20-f71377d9fb20"/>
+  <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="f3e96a0c-bc70-4dfa-90a7-b793acf96053"/>
+  <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="59c8ebfb-8240-456b-8b1a-a0e62188fb25"/>
+  <keepMappingToExtendedConfigurationObjectsByIDs>true</keepMappingToExtendedConfigurationObjectsByIDs>
+  <namePrefix>УИТ_</namePrefix>
+  <configurationExtensionCompatibilityMode>8.3.12</configurationExtensionCompatibilityMode>
+  <configurationExtensionPurpose>Customization</configurationExtensionPurpose>
+  <scriptVariant>Russian</scriptVariant>
+  <version>0.0.1</version>
+</mdclass:Configuration>
