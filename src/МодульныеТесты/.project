@@ -3,6 +3,8 @@
 	<name>МодульныеТесты</name>
 	<comment></comment>
 	<projects>
+		<project>Инструменты</project>
+		<project>yaxunit</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

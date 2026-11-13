@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ChartOfAccounts xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="611a743e-9f88-4ea3-bae3-0d9ab406d37e">
+  <producedTypes>
+    <objectType typeId="f338c43c-0677-42d1-84a8-989886d686c5" valueTypeId="e525df76-67f7-47bd-947c-e9fff1642449"/>
+    <refType typeId="4c1ce19c-c6ec-4f1f-ba47-ae9ac3c74c16" valueTypeId="f7bfa7e8-b8c4-4b5a-90b9-89123df59b58"/>
+    <selectionType typeId="c366480b-f151-40bd-82af-6f329483bed3" valueTypeId="f5e6948c-b0ae-4435-8f06-899883ec462e"/>
+    <listType typeId="70a91e45-395d-44df-ad89-b97985323c26" valueTypeId="1c688e18-3016-402b-bdba-d4f53627aebf"/>
+    <managerType typeId="3bb6f8ce-4b0c-4e10-bcc2-4741634b20d7" valueTypeId="c31cbfa6-9b3f-425e-8d47-a4b91e529dab"/>
+    <extDimensionTypes typeId="9e08fc1a-ad4a-446f-8081-3c0d9ecf6a4d" valueTypeId="29bfabf6-9f11-4d1b-a5e5-5f628913feb9"/>
+    <extDimensionTypesRow typeId="47a70e82-be79-4a2f-b74c-bf421824f831" valueTypeId="6d053d22-2157-49b8-89bd-06ed846e4781"/>
+  </producedTypes>
+  <name>УИТ_ТестПланСчетов</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестПланСчетов</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>DontUse</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Тестовый счет</value>
+  </objectPresentation>
+  <codeLength>9</codeLength>
+  <descriptionLength>25</descriptionLength>
+  <checkUnique>true</checkUnique>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+</mdclass:ChartOfAccounts>

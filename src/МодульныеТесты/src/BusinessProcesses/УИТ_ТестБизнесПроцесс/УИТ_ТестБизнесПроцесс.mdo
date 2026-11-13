@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:BusinessProcess xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="759b48ef-b955-4f0d-893b-1e6196a9454e">
+  <producedTypes>
+    <objectType typeId="ae715e8b-7839-4fca-90f8-8873b20f37fb" valueTypeId="1ab7c63e-de28-4624-b53e-d3d5a7f4a9f4"/>
+    <refType typeId="59adbb8d-50ce-4202-9af9-363b4c9abfc7" valueTypeId="014443be-3fdb-45af-86e0-9271b58f891f"/>
+    <selectionType typeId="957b2d09-8c23-439e-9956-0fdcbd04814b" valueTypeId="f6fd13a8-b8d4-4d19-b533-f4aed03d066f"/>
+    <listType typeId="7dfc9a54-3dfc-402b-8c55-2edc5d226e24" valueTypeId="7e9fdd1d-9a90-4cef-bb7c-32581757483b"/>
+    <managerType typeId="587ba7c6-e0d7-44a6-8ef5-a36384eec6ab" valueTypeId="e0fab002-59c6-479b-95ef-d35a10838481"/>
+    <routePointRef typeId="b61815a0-9768-46b7-bc33-60b0e5161c9e" valueTypeId="9d03887d-b848-48d2-9181-b88b3931cefa"/>
+  </producedTypes>
+  <name>УИТ_ТестБизнесПроцесс</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестБизнесПроцесс</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>DontUse</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Тестовый бизнес-процесс</value>
+  </objectPresentation>
+  <editType>InDialog</editType>
+  <numberType>String</numberType>
+  <numberLength>9</numberLength>
+  <numberAllowedLength>Variable</numberAllowedLength>
+  <checkUnique>true</checkUnique>
+  <autonumbering>true</autonumbering>
+  <task>Task.УИТ_ТестЗадача</task>
+</mdclass:BusinessProcess>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ExchangePlan xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="3ff0951c-afac-4643-9ca4-8caaa6ab6b31" thisNode="9e8fe615-9e47-4d7b-8bf4-e1d1ea563d24">
+  <producedTypes>
+    <objectType typeId="0b53f97e-7d20-462f-b011-7dc2049f4cf7" valueTypeId="a22b9d89-aab6-46a0-810c-c57888d92e5f"/>
+    <refType typeId="1754fac7-af7e-4aef-a4f4-aec69c8fd996" valueTypeId="5dd1fd6c-65ac-46b1-8f2d-e2bb28dc6eff"/>
+    <selectionType typeId="8abc616f-f4ac-4eba-a69e-62ab18ecb0af" valueTypeId="631b3422-de8b-4d1a-a925-fa4e8b0367b1"/>
+    <listType typeId="22bcd37d-4de9-433c-b3e0-fb2d060fe6a2" valueTypeId="d9061a00-9b12-495a-b95c-ebbdad137a41"/>
+    <managerType typeId="8418932a-332c-441d-81f7-4fc5e6a649be" valueTypeId="a4849bba-54dc-4313-accb-7f097e57e3c0"/>
+  </producedTypes>
+  <name>УИТ_ТестПланОбмена</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестПланОбмена</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>DontUse</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Тестовый узел плана обмена</value>
+  </objectPresentation>
+  <codeLength>9</codeLength>
+  <codeAllowedLength>Variable</codeAllowedLength>
+  <descriptionLength>25</descriptionLength>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+</mdclass:ExchangePlan>

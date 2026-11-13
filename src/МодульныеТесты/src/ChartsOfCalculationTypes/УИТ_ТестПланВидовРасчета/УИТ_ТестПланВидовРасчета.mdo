@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:ChartOfCalculationTypes xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="a3510d9e-a0b0-4bb8-8384-1e43eacdb17b">
+  <producedTypes>
+    <objectType typeId="3aaa5ce7-f75f-4702-b9a2-0dc3c45b6cf0" valueTypeId="04e9103d-b29e-4312-9a41-29085e280bd8"/>
+    <refType typeId="280f861f-4240-470e-a4b5-099456df9651" valueTypeId="af52ad10-7873-473c-ba4f-57189c97df94"/>
+    <selectionType typeId="23998dce-2f4d-486f-9e07-9f074a616734" valueTypeId="06cc7644-be22-4d77-b485-991efcae90a2"/>
+    <listType typeId="a661e55b-d5f5-4bd0-a7c5-334108e6f7fc" valueTypeId="2bc9a19d-3683-4e67-9fa1-089cc4590b53"/>
+    <managerType typeId="53843ed5-a32a-4530-800e-c5507fb02ab5" valueTypeId="02e9df54-fe07-4742-955b-0d10cad444cf"/>
+    <displacingCalculationTypesType typeId="d7586a7e-88d1-4599-b45d-c558195809c6" valueTypeId="26f40c29-f55b-49da-ab81-c129780afb88"/>
+    <displacingCalculationTypesRowType typeId="cb187e7d-8be0-4ffc-8067-e07393e75be9" valueTypeId="fe021659-fb57-477a-a20f-eb5f41c2b5d2"/>
+    <baseCalculationTypesType typeId="c3b5dc01-6de3-433a-b99e-8e6bd7383695" valueTypeId="d95d8d1e-4e51-420c-9547-7d3f0b0c5e0a"/>
+    <baseCalculationTypesRowType typeId="5d3420e7-f9b2-4d38-83e9-1b136ee36c46" valueTypeId="2b6a7e7c-2bbb-4e6f-a0f8-8a383ca5e3cc"/>
+    <leadingCalculationTypesType typeId="da0623a0-5900-403d-8918-e26f39a922d5" valueTypeId="4a0abc8b-3d32-482d-a382-6f5b200df01e"/>
+    <leadingCalculationTypesRowType typeId="036cf5cb-be24-429f-8916-37a8dfb4a24d" valueTypeId="4313e1e6-33d3-4852-b6ed-7e0ce0eff915"/>
+  </producedTypes>
+  <name>УИТ_ТестПланВидовРасчета</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестПланВидовРасчета</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>DontUse</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Тестовый вид расчета</value>
+  </objectPresentation>
+  <codeLength>9</codeLength>
+  <descriptionLength>40</descriptionLength>
+  <codeType>String</codeType>
+  <codeAllowedLength>Variable</codeAllowedLength>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+</mdclass:ChartOfCalculationTypes>
