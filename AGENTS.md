@@ -29,7 +29,7 @@ oscript -encoding=utf-8 ./src/builder/build.os <команда>
 
 - GitHub Actions: сборка по push в `develop`, релизы — по созданию тега
 - SonarQube на sonar.openbsl.ru (`sonar-project.properties`); анализ по push и PR
-- bsl-language-server проверяет стиль; служебные теги: `todo|fixme|отладка|debug|КОНСТРУКТОР_`
+- bsl-language-server проверяет стиль (`.bsl-language-server.json`, `.editorconfig`), стандарт — [Соглашение о кодировании](https://cpr1c.github.io/code_style/); служебные теги: `todo|fixme|отладка|debug|КОНСТРУКТОР_`
 - Сайт деплоится на GitHub Pages из ветки `develop` при изменении `website/`
 
 ## Разработка
