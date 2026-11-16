@@ -25,7 +25,6 @@ jobs:
           - 8.3.27.2170
         locale:
           - ru_RU
-          - en_US
         os:
           - windows-latest
           - ubuntu-24.04
