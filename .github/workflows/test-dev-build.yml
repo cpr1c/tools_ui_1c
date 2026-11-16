@@ -1,7 +1,7 @@
 name: Запуск тестов
 on:
   push: 
-    branches: ["feature/yaxunit"]
+    branches: ["feature/*"]
 
 jobs:
   build-files:
