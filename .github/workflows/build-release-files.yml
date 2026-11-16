@@ -1,7 +1,9 @@
 name: Сборка файлов поставки для релиза
+
 on:
   release:
     types: [created]
+
 
 jobs:
   build-release-files:
@@ -13,10 +15,50 @@ jobs:
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
 
-  publish-release:
+  unit-tests:
+    name: Модульные тесты
     needs: build-release-files
+    uses: ./.github/workflows/step-run-tests.yml
+    with:
+      v8_version: 8.3.27.2170
+      artifact_name: build-artifacts
+      os: ubuntu-22.04
+    secrets: inherit
+
+  publish-release:
+    # Файлы релиза публикуются только при успешном прохождении модульных тестов
+    needs: [build-release-files, unit-tests]
     uses: ./.github/workflows/publish-release.yml
     with:
       tag_name: ${{ github.event.release.tag_name }}
       prerelease: false
     secrets: inherit
+
+  comment-tests-failed:
+    name: Комментарий о непройденных модульных тестах
+    runs-on: ubuntu-22.04
+    needs: unit-tests
+    if: ${{ failure() && needs.unit-tests.result == 'failure' }}
+
+    steps:
+      - name: Добавление комментария в релиз
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const {owner, repo} = context.repo;
+            const tag = '${{ github.event.release.tag_name }}';
+            const note = [
+              '> [!WARNING]',
+              '> Модульные тесты не пройдены, файлы поставки не опубликованы.',
+              `> Отчет о тестировании: ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`
+            ].join('\n');
+            try {
+              const {data: release} = await github.rest.repos.getReleaseByTag({owner, repo, tag});
+              const body = (release.body && release.body.includes('> [!WARNING]'))
+                ? release.body
+                : `${release.body ? release.body + '\n\n' : ''}${note}\n`;
+              await github.rest.repos.updateRelease({owner, repo, release_id: release.id, body});
+              console.log('Комментарий о непройденных тестах добавлен в релиз ' + tag);
+            } catch (error) {
+              console.log('Не удалось добавить комментарий в релиз ' + tag + ': ' + error.message);
+            }

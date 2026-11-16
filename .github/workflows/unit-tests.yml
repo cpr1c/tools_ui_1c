@@ -1,0 +1,48 @@
+name: Модульные тесты (YAxUnit)
+
+on:
+  # Тесты запускаются только для пул реквестов из этого репозитория:
+  # для форков недоступны секреты, необходимые для установки платформы 1С
+  pull_request:
+    branches:
+      - develop
+      - master
+    paths:
+      - "src/Инструменты/**"
+      - "src/МодульныеТесты/**"
+      - "src/builder/**"
+      - ".github/workflows/unit-tests.yml"
+      - ".github/workflows/step-run-tests.yml"
+      - ".github/actions/load-extension/**"
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-files:
+    name: Сборка расширений для тестов
+    # Для пул реквестов из форков недоступны секреты для установки платформы 1С
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    uses: ./.github/workflows/build-version-files.yml
+    with:
+      build_cf: false
+      build_portable: false
+    secrets:
+      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+
+  run-unit-tests:
+    name: Запуск модульных тестов
+    needs: build-files
+    uses: ./.github/workflows/step-run-tests.yml
+    with:
+      v8_version: 8.3.27.2170
+      artifact_name: build-artifacts
+      os: ubuntu-22.04
+    secrets: inherit

@@ -100,26 +100,30 @@ jobs:
     - name: Создание информационной базы
       shell: bash
       run: |
-        ibcmd infobase create --db-path=file-db --load=binary/configuration.cf --apply --force
+        # База для тестов - пустая конфигурация, в нее устанавливаются расширения
+        ibcmd infobase create --db-path=file-db --create-database --apply --force
       timeout-minutes: 5
+
+    - name: Загрузка проверяемого расширения
+      uses: ./.github/actions/load-extension
+      with:
+        name: УниверсальныеИнструменты_БезБСП
+        path: binary/UI_nossl.cfe
+        dbpath: file-db
 
     - name: Загрузка расширения c тестами
       uses: ./.github/actions/load-extension
       with:
-        name: tests
-        path: binary/tests.cfe
-
-    - name: Загрузка расширения c дымовыми тестами
-      uses: ./.github/actions/load-extension
-      with:
-        name: Smoke
-        path: binary/smoke.cfe
+        name: МодульныеТесты
+        path: binary/МодульныеТесты.cfe
+        dbpath: file-db
 
     - name: Загрузка расширения YAxUnit
       uses: ./.github/actions/load-extension
       with:
         name: YAXUNIT
         path: binary/yaxunit.cfe
+        dbpath: file-db
 
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
@@ -134,6 +138,11 @@ jobs:
             "logging": {
               "console": true,
               "file": "log.txt"
+            },
+            "filter": {
+              "extensions": [
+                "МодульныеТесты"
+              ]
             }
           }
 
@@ -179,6 +188,22 @@ jobs:
         Write-Host "Код завершения тестов: $($result.ExitCode)"
         if ($result.ExitCode -ne 0) { exit $result.ExitCode }
       timeout-minutes: 10
+
+    - name: Проверка результата выполнения тестов
+      if: always()
+      shell: bash
+      run: |
+        if [ ! -f exit-code.txt ]; then
+          echo "Файл с кодом завершения тестов не создан - тесты не выполнялись"
+          exit 1
+        fi
+        # В файле может быть BOM, поэтому оставляем только цифры
+        Код=$(tr -cd '0-9' < exit-code.txt)
+        echo "Код завершения тестов: $Код"
+        if [ "$Код" != "0" ]; then
+          echo "Модульные тесты не пройдены"
+          exit 1
+        fi
 
     - name: Сохранение файла отчета
       uses: actions/upload-artifact@v4
