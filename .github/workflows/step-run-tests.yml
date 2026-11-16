@@ -230,6 +230,13 @@ jobs:
       with:
         name: Отчет о тестировании. ${{runner.os}} ${{ inputs.v8_version }} ${{ inputs.locale }}
         path: report.xml
+    
+    - name: Сохранение базы тестов
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: base
+        path: file-db/*
         
     - name: Публикация отчета о тестировании
       uses: 1CDevFlow/action-onec-junit-report@main
