@@ -3,13 +3,20 @@ on:
   release:
     types: [created]
 
-
 jobs:
-  build-dev-version:
+  build-release-files:
     uses: ./.github/workflows/build-version-files.yml
     with:
       tag_name: ${{ github.event.release.tag_name }}
       prerelease: false
-    secrets: 
+    secrets:
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+
+  publish-release:
+    needs: build-release-files
+    uses: ./.github/workflows/publish-release.yml
+    with:
+      tag_name: ${{ github.event.release.tag_name }}
+      prerelease: false
+    secrets: inherit

@@ -107,21 +107,16 @@ jobs:
       - name: Сборка конфигураций
         run: oscript -encoding=utf-8 ./src/builder/build.os cf
         timeout-minutes: 30
-      - name: Публикация файлов
-        uses: softprops/action-gh-release@v3
-        if: ${{ success() }}
+
+      - name: Публикация артефактов
+        uses: actions/upload-artifact@v4
         with:
-          prerelease: ${{ inputs.prerelease }}
-          files: |
+          name: release-files
+          path: |
             build/*.cfe
             build/*.cf
-          fail_on_unmatched_files: true
-          generate_release_notes: false
-          tag_name: ${{ inputs.tag_name }}
-          # append_body: false
-          # name: Ночная сборка по коммиту ${{ github.event.head_commit.message  }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # body: Сборка актуальной версии в разработке по последнему коммиту из ветки develop
+          if-no-files-found: error
+          retention-days: 7
 
   build-portable:
     name: Сборка файлов портативной поставки
@@ -161,16 +156,11 @@ jobs:
         run: oscript -encoding=utf-8 src/builder/build.os epf
         timeout-minutes: 30
 
-      - name: Публикация файлов
-        uses: softprops/action-gh-release@v3
-        if: ${{ success() }}
+      - name: Публикация артефактов
+        uses: actions/upload-artifact@v4
         with:
-          prerelease: ${{ inputs.prerelease }}
-          files: build/*.epf
-          fail_on_unmatched_files: true
-          # generate_release_notes: false
-          tag_name: ${{ inputs.tag_name }}
-          # append_body: false
-          # name: Ночная сборка по коммиту "${{ github.event.head_commit.message }}"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # body: Сборка актуальной версии в разработке по последнему коммиту из ветки develop
+          name: release-files
+          path: build/*.epf
+          if-no-files-found: error
+          retention-days: 7
+          overwrite: true

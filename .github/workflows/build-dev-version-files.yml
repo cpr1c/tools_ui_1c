@@ -8,7 +8,6 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.repository }}-export
   cancel-in-progress: true
-
 jobs:
   build-dev-version:
     uses: ./.github/workflows/build-version-files.yml
@@ -18,3 +17,10 @@ jobs:
     secrets:
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+
+  publish-dev-release:
+    needs: build-dev-version
+    uses: ./.github/workflows/publish-release.yml
+    with:
+      tag_name: "v0.0.0"
+      prerelease: true

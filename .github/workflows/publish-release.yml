@@ -1,0 +1,36 @@
+name: Публикация файлов в релизах
+
+on:
+  workflow_call:
+    inputs:
+      tag_name:
+        required: true
+        type: string
+      prerelease:
+        required: true
+        type: boolean
+
+jobs:
+  publish-release:
+    name: Публикация в GitHub Releases
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Загрузка артефактов сборки
+        uses: actions/download-artifact@v4
+        with:
+          name: release-files
+          path: build/
+
+      - name: Публикация файлов
+        uses: softprops/action-gh-release@v3
+        if: ${{ success() }}
+        with:
+          prerelease: ${{ inputs.prerelease }}
+          files: |
+            build/*.cfe
+            build/*.cf
+            build/*.epf
+          fail_on_unmatched_files: true
+          generate_release_notes: false
+          tag_name: ${{ inputs.tag_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
