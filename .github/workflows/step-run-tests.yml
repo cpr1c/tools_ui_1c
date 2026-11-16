@@ -195,7 +195,7 @@ jobs:
       if: always()
       with:
         name: base
-        path: file-db
+        path: file-db/*
         retention-days: 1
     # - name: Запуск тестирования (Windows)
     #   if: runner.os == 'Windows'
