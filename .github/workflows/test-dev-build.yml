@@ -1,0 +1,36 @@
+name: Запуск тестов
+on:
+  push: 
+    branches: ["feature/yaxunit"]
+
+jobs:
+  build-files:
+    uses: ./.github/workflows/build-version-files.yml
+    with:
+      build_tests: true
+      build_cf: false
+      build_portable: false
+    secrets:
+      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+
+  run-unit-tests:
+    needs: build-files
+    uses: ./.github/workflows/step-run-tests.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - 8.3.21.1895
+        locale:
+          - ru_RU
+          - en_US
+        os:
+          - windows-latest
+          - ubuntu-22.04
+    with:
+      v8_version: ${{ matrix.version }}
+      locale: ${{ matrix.locale }}
+      os: ${{ matrix.os }}
+    secrets: inherit
+
