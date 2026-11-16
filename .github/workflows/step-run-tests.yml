@@ -47,7 +47,9 @@ jobs:
     name: Тестирование
     runs-on: ${{inputs.os}}
     steps:
-
+    - name: Извлечение исходников ветки ${{ github.ref_name }}
+      uses: actions/checkout@v6
+    
     - name: Загрузка артифактов
       uses: actions/download-artifact@v4
       with:
