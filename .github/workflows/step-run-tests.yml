@@ -115,7 +115,7 @@ jobs:
       shell: bash
       run: |
         # База для тестов - пустая конфигурация, в нее устанавливаются расширения
-        ibcmd infobase create --db-path=build/file-db --create-database --apply --force
+        ibcmd infobase create --db-path=./build/file-db --create-database --apply --force
       timeout-minutes: 5
 
     - name: Загрузка проверяемого расширения
@@ -123,26 +123,26 @@ jobs:
       with:
         name: УниверсальныеИнструменты_БезБСП
         path: build/UI_nossl.cfe
-        dbpath: build/file-db
+        dbpath: ./build/file-db
 
     - name: Загрузка расширения c тестами
       uses: ./.github/actions/load-extension
       with:
         name: МодульныеТесты
         path: build/source/МодульныеТесты
-        dbpath: build/file-db
+        dbpath: ./build/file-db
         fromfiles: true
 
     - name: Скачивание расширения YAxUnit
       run: |
-        curl -L -o build/yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
+        curl -L -o ./build/yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
 
     - name: Загрузка расширения YAxUnit
       uses: ./.github/actions/load-extension
       with:
         name: YAXUNIT
         path: build/yaxunit.cfe
-        dbpath: build/file-db
+        dbpath: ./build/file-db
 
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
@@ -195,7 +195,7 @@ jobs:
       if: always()
       with:
         name: base
-        path: build/file-db
+        path: ./build/file-db
         retention-days: 1
     # - name: Запуск тестирования (Windows)
     #   if: runner.os == 'Windows'
