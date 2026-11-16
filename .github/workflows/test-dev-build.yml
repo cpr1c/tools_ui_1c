@@ -1,7 +1,9 @@
 name: Запуск тестов
 on:
-  push: 
-    branches: ["feature/*"]
+  push:
+    branches-ignore:
+      - "develop"
+      - "master"
 
 jobs:
   build-files:
