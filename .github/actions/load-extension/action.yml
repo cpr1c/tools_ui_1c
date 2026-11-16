@@ -18,7 +18,7 @@ runs:
   using: "composite"
   steps:
     - name: Загрузка расширения ${{inputs.name}}
-      if: ${{! inputs.fromfiles }}
+      if: ${{ inputs.fromfiles == false}}
       shell: bash
       run: |
         ibcmd infobase config load --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force ${{inputs.path}}
@@ -26,7 +26,7 @@ runs:
         ibcmd infobase config extension update --db-path=${{inputs.dbpath}} --name=${{inputs.name}} --safe-mode=no --unsafe-action-protection=no
 
     - name: Загрузка расширения ${{inputs.name}} из исходных файлов
-      if: ${{ inputs.fromfiles }}
+      if: ${{ inputs.fromfiles == true }}
       shell: bash
       run: |
         ibcmd infobase config import --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} ${{inputs.path}}
