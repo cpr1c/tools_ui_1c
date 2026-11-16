@@ -104,19 +104,19 @@ jobs:
       timeout-minutes: 5
 
     - name: Загрузка расширения c тестами
-      uses: 1CDevFlow/workflows/actions/load-extension@main
+      uses: ./.github/actions/load-extension
       with:
         name: tests
         path: binary/tests.cfe
 
     - name: Загрузка расширения c дымовыми тестами
-      uses: 1CDevFlow/workflows/actions/load-extension@main
+      uses: ./.github/actions/load-extension
       with:
         name: Smoke
         path: binary/smoke.cfe
 
     - name: Загрузка расширения YAxUnit
-      uses: 1CDevFlow/workflows/actions/load-extension@main
+      uses: ./.github/actions/load-extension
       with:
         name: YAXUNIT
         path: binary/yaxunit.cfe
