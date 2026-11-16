@@ -52,7 +52,13 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: ${{ inputs.artifact_name }}
-        path: binary
+        path: build
+    
+    - name: Загрузка исходников в формате конфигуратора
+      uses: actions/download-artifact@v4
+      with:
+        name: designer-src
+        path: build/source
 
     - name: Подготовка окружения (Linux)
       if: runner.os == 'Linux'
@@ -114,25 +120,26 @@ jobs:
       uses: ./.github/actions/load-extension
       with:
         name: УниверсальныеИнструменты_БезБСП
-        path: binary/UI_nossl.cfe
+        path: build/UI_nossl.cfe
         dbpath: file-db
 
     - name: Загрузка расширения c тестами
       uses: ./.github/actions/load-extension
       with:
         name: МодульныеТесты
-        path: binary/МодульныеТесты.cfe
+        path: build/source/МодульныеТесты
         dbpath: file-db
+        fromfiles: true
 
     - name: Скачивание расширения YAxUnit
       run: |
-        curl -L -o yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
+        curl -L -o build/yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
 
     - name: Загрузка расширения YAxUnit
       uses: ./.github/actions/load-extension
       with:
         name: YAXUNIT
-        path: yaxunit.cfe
+        path: build/yaxunit.cfe
         dbpath: file-db
 
     - name: Создание файла конфигурации тестирования

@@ -1,6 +1,10 @@
 name: Загрузка расширения
 description: Загрузка расширения в информационную базу с использованием ibcmd
 inputs:
+  fromfiles:
+    descriptiomn: Пути к каталогу исходных файлов
+    required: false
+    default: false
   name:
     description: 'Имя загружаемого расширения'
     required: true
@@ -14,8 +18,17 @@ runs:
   using: "composite"
   steps:
     - name: Загрузка расширения ${{inputs.name}}
+      if: ${{! inputs.fromfiles }}
       shell: bash
       run: |
         ibcmd infobase config load --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force ${{inputs.path}}
+        ibcmd infobase config apply --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force
+        ibcmd infobase config extension update --db-path=${{inputs.dbpath}} --name=${{inputs.name}} --safe-mode=no --unsafe-action-protection=no
+
+    - name: Загрузка расширения ${{inputs.name}} из исходных файлов
+      if: ${{ inputs.fromfiles }}
+      shell: bash
+      run: |
+        ibcmd infobase config import --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} ${{inputs.path}}
         ibcmd infobase config apply --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force
         ibcmd infobase config extension update --db-path=${{inputs.dbpath}} --name=${{inputs.name}} --safe-mode=no --unsafe-action-protection=no

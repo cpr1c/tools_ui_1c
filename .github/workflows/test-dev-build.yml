@@ -33,6 +33,6 @@ jobs:
       v8_version: ${{ matrix.version }}
       locale: ${{ matrix.locale }}
       os: ${{ matrix.os }}
-      artifact_name: build-artifacts
+      artifact_name: release-files
     secrets: inherit
 
