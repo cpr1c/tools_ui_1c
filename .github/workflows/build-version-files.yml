@@ -119,11 +119,6 @@ jobs:
         run: oscript -encoding=utf-8 ./src/builder/build.os cf
         timeout-minutes: 30
 
-      - name: Сборка расширения юнит тестов
-        if: ${{inputs.build_tests}}
-        run: oscript -encoding=utf-8 ./src/builder/build.os tests
-        timeout-minutes: 30
-
       - name: Публикация артефактов
         uses: actions/upload-artifact@v4
         with:
@@ -178,6 +173,54 @@ jobs:
         with:
           name: release-files
           path: build/*.epf
+          if-no-files-found: error
+          retention-days: 7
+          overwrite: true
+
+  build-test:
+    name: Сборка файлов инструментов cfe/cf
+    runs-on: ubuntu-22.04
+    if: ${{inputs.build_tests}}
+    needs: export-xml
+    env:
+      TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
+
+    steps:
+      - name: Извлечение исходников ветки ${{ github.ref_name }}
+        if: github.event_name == 'push'
+        uses: actions/checkout@v6
+
+      - name: Загрузка исходников в формате конфигуратора
+        uses: actions/download-artifact@v4
+        with:
+          name: designer-src
+          path: build/source
+
+      - name: Установка 1С:Предприятие 8.3.27.2170
+        uses: 1CDevFlow/onec-setup-action@main
+        with:
+          type: onec
+          onec_version: 8.3.27.2170
+          cache: true
+        env:
+          ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+          ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+        timeout-minutes: 10
+
+      - name: Setup Onescript Action
+        uses: otymko/setup-onescript@v1.4
+        with:
+          version: 1.9.2
+
+      - name: Сборка расширений юнит тестов
+        run: oscript -encoding=utf-8 ./src/builder/build.os tests
+        timeout-minutes: 30
+
+      - name: Публикация артефактов
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-files
+          path: build/*.cfe
           if-no-files-found: error
           retention-days: 7
           overwrite: true
