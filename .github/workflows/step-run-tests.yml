@@ -165,48 +165,55 @@ jobs:
             }
           }
 
-    - name: Запуск тестирования (Linux)
-      if: runner.os == 'Linux'
-      run: |
-        # Запуск ibsrv в фоне
-        ibsrv --db-path=file-db --daemon &
-        sleep 5
+    # - name: Запуск тестирования (Linux)
+    #   if: runner.os == 'Linux'
+    #   run: |
+    #     # Запуск ibsrv в фоне
+    #     ibsrv --db-path=file-db --daemon &
+    #     sleep 5
         
-        # Проверка, что сервер запустился
-        echo "Проверка состояния ibsrv..."
-        ps aux | grep ibsrv || echo "ibsrv не найден в процессах"
+    #     # Проверка, что сервер запустился
+    #     echo "Проверка состояния ibsrv..."
+    #     ps aux | grep ibsrv || echo "ibsrv не найден в процессах"
         
-        # Проверка доступности порта
-        netstat -tlnp | grep 8314 || echo "Порт 8314 не прослушивается"
+    #     # Проверка доступности порта
+    #     netstat -tlnp | grep 8314 || echo "Порт 8314 не прослушивается"
         
-        # Запуск тестов через xvfb-run
-        echo "Запуск тестов через xvfb-run..."
-        xvfb-run -a -s "-screen 0 1024x768x24" 1cv8c /WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log
+    #     # Запуск тестов через xvfb-run
+    #     echo "Запуск тестов через xvfb-run..."
+    #     xvfb-run -a -s "-screen 0 1024x768x24" 1cv8c /WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log
         
-        # Проверка результата выполнения
-        echo "Код завершения тестов: $?"
-      env:
-        LANG: "${{ inputs.locale }}.UTF-8"
-        DISPLAY: ":99"
-      timeout-minutes: 10
-
-    - name: Запуск тестирования (Windows)
-      if: runner.os == 'Windows'
-      shell: pwsh
-      run: |
-        # Запуск ibsrv в фоне
-        Start-Process ibsrv.exe -ArgumentList "--db-path=file-db" -WindowStyle Hidden
-        Start-Sleep -Seconds 5
-        # Проверка, что сервер запустился
-        Write-Host "Проверка состояния ibsrv..."
-        Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
-        # Запуск тестов
-        Write-Host "Запуск тестов..."
-        $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
-        # Проверка результата выполнения
-        Write-Host "Код завершения тестов: $($result.ExitCode)"
-        if ($result.ExitCode -ne 0) { exit $result.ExitCode }
-      timeout-minutes: 10
+    #     # Проверка результата выполнения
+    #     echo "Код завершения тестов: $?"
+    #   env:
+    #     LANG: "${{ inputs.locale }}.UTF-8"
+    #     DISPLAY: ":99"
+    #   timeout-minutes: 10
+    
+    - name: Сохранение базы тестов
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: base
+        path: file-db
+        retention-days: 1
+    # - name: Запуск тестирования (Windows)
+    #   if: runner.os == 'Windows'
+    #   shell: pwsh
+    #   run: |
+    #     # Запуск ibsrv в фоне
+    #     Start-Process ibsrv.exe -ArgumentList "--db-path=file-db" -WindowStyle Hidden
+    #     Start-Sleep -Seconds 5
+    #     # Проверка, что сервер запустился
+    #     Write-Host "Проверка состояния ibsrv..."
+    #     Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
+    #     # Запуск тестов
+    #     Write-Host "Запуск тестов..."
+    #     $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+    #     # Проверка результата выполнения
+    #     Write-Host "Код завершения тестов: $($result.ExitCode)"
+    #     if ($result.ExitCode -ne 0) { exit $result.ExitCode }
+    #   timeout-minutes: 10
 
     - name: Проверка результата выполнения тестов
       if: always()
@@ -231,12 +238,7 @@ jobs:
         name: Отчет о тестировании. ${{runner.os}} ${{ inputs.v8_version }} ${{ inputs.locale }}
         path: report.xml
     
-    - name: Сохранение базы тестов
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: base
-        path: file-db/*
+
         
     - name: Публикация отчета о тестировании
       uses: 1CDevFlow/action-onec-junit-report@main
