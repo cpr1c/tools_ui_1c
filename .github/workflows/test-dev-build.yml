@@ -9,7 +9,6 @@ jobs:
   build-files:
     uses: ./.github/workflows/build-version-files.yml
     with:
-      build_tests: true
       build_cf: false
       build_portable: false
     secrets:
