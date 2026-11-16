@@ -27,6 +27,12 @@ on:
         type: string
         required: true
 
+      yaxunit_version:
+        description: 'Версия YAxUnit для скачивания из релизов'
+        type: string
+        required: false
+        default: 25.12
+
 permissions:
     contents: read
     checks: write
@@ -118,11 +124,15 @@ jobs:
         path: binary/МодульныеТесты.cfe
         dbpath: file-db
 
+    - name: Скачивание расширения YAxUnit
+      run: |
+        curl -L -o yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
+
     - name: Загрузка расширения YAxUnit
       uses: ./.github/actions/load-extension
       with:
         name: YAXUNIT
-        path: binary/yaxunit.cfe
+        path: yaxunit.cfe
         dbpath: file-db
 
     - name: Создание файла конфигурации тестирования
