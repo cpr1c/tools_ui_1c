@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - name: Извлечение исходников 
+        # if: github.event_name == 'push'
+        uses: actions/checkout@v6
       - name: Установка оскрпит
         uses: ./.github/actions/install-oscript
         with:
@@ -23,6 +26,8 @@ jobs:
     runs-on: windows-lastest
 
     steps:
+      - name: Извлечение исходников ветки
+        uses: actions/checkout@v6
       - name: Установка оскрпит
         uses: ./.github/actions/install-oscript
         with:
