@@ -115,9 +115,7 @@ jobs:
       shell: bash
       run: |
         # База для тестов - пустая конфигурация, в нее устанавливаются расширения
-        ibcmd infobase create --db-path=file-db --create-database --apply --force
-        ibcmd infobase config load --db-path=file-db --force src/builder/Шаблоны/МинимальнаяКонфигурацияДляРазработки.cf
-        ibcmd infobase config apply --db-path=file-db --force
+        ibcmd infobase create --db-path=file-db --create-database --apply --force --load=tests/yaxunit/fixtures/config.cf
       timeout-minutes: 5
 
     - name: Загрузка проверяемого расширения
