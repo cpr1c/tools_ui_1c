@@ -121,7 +121,7 @@ jobs:
     - name: Загрузка проверяемого расширения
       uses: ./.github/actions/load-extension
       with:
-        name: УниверсальныеИнструменты
+        name: UI
         path: build/UI.cfe
         dbpath: file-db
 
