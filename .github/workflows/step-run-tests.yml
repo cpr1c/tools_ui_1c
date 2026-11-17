@@ -115,14 +115,14 @@ jobs:
       shell: bash
       run: |
         # База для тестов - пустая конфигурация, в нее устанавливаются расширения
-        ibcmd infobase create --db-path=file-db --create-database --apply --force
+        ibcmd infobase create --db-path=file-db --create-database --apply --force --load=src/builder/Шаблоны/МинимальнаяКонфигурацияДляРазработки.cf
       timeout-minutes: 5
 
     - name: Загрузка проверяемого расширения
       uses: ./.github/actions/load-extension
       with:
-        name: УниверсальныеИнструменты_БезБСП
-        path: build/UI_nossl.cfe
+        name: УниверсальныеИнструменты
+        path: build/UI.cfe
         dbpath: file-db
 
     - name: Загрузка расширения c тестами
