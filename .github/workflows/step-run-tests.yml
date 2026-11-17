@@ -50,6 +50,7 @@ jobs:
       LANG: C.UTF-8  # Явно указываем локаль
 
     steps:
+
     - name: Извлечение исходников ветки ${{ github.ref_name }}
       uses: actions/checkout@v6
     

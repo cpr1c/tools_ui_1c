@@ -1,0 +1,23 @@
+name: Установка независимого дистрибутива Оскрипт
+description: Установка независимого дистрибутива Оскрипт без использования  otymko/setup-onescript
+inputs:
+  version:
+    description: 'Версия'
+    required: true
+    default: "2.2.0"
+runs:
+  using: "composite"
+  steps:
+    - name: Установка зависимостей Linux
+      if: runner.os == 'Linux'
+      shell: bash
+      run: sudo apt install tzdata libicu74
+
+    - name: Установка oscript
+      shell: bash
+      run: |
+        mkdir "$HOME/bin" 
+        curl -L https://github.com/EvilBeaver/OneScript/releases/download/v2.2.0/OneScript-${{inputs.version}}-${{case(runner.os == 'Linux', 'linux', 'win')}}-x64.zip --output ./tmp/oscript.zip
+        unzip -o ./tmp/oscript.zip -d "$HOME/bin/oscript" 
+        echo "$HOME/bin/oscript" >> "$GITHUB_PATH"
+

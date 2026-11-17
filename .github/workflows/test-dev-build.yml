@@ -6,6 +6,30 @@ on:
       - "master"
 
 jobs:
+  test-oscript:
+    name: Тест оскрипта на Ubuntu
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Установка оскрпит
+        uses: ./.github/actions/install-oscript
+        with:
+          version: 2.2.0
+        
+      - name: Тест 
+        run: oscript --version
+  test-oscript-win:
+    name: Тест оскрипта на Ubuntu
+    runs-on: windows-lastest
+
+    steps:
+      - name: Установка оскрпит
+        uses: ./.github/actions/install-oscript
+        with:
+          version: 2.2.0
+        
+      - name: Тест 
+        run: oscript --version
   build-files:
     uses: ./.github/workflows/build-version-files.yml
     with:
