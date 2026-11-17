@@ -34,7 +34,7 @@ jobs:
           version: 2.2.0
         
       - name: Тест 
-        shell : bash
+        # shell : bash
         run: oscript --version
   build-files:
     needs: [test-oscript-win,test-oscript]
