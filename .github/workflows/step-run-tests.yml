@@ -126,12 +126,11 @@ jobs:
         dbpath: file-db
 
     - name: Загрузка расширения c тестами
-      uses: ./.github/actions/load-extension
-      with:
-        name: МодульныеТесты
-        path: build/source/МодульныеТесты
-        dbpath: file-db
-        fromfiles: true
+      shell: bash
+      run: |
+        ibcmd infobase config import --db-path=file-db --extension=МодульныеТесты build/source/МодульныеТесты
+        ibcmd infobase config apply --db-path=file-db --extension=МодульныеТесты --force
+        ibcmd infobase config extension update --db-path=file-db --name=МодульныеТесты --safe-mode=no --unsafe-action-protection=no
 
     - name: Скачивание расширения YAxUnit
       run: |
@@ -190,30 +189,24 @@ jobs:
     #     DISPLAY: ":99"
     #   timeout-minutes: 10
     
-    - name: Сохранение базы тестов
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: base
-        path: /file-db
-        retention-days: 1
-    # - name: Запуск тестирования (Windows)
-    #   if: runner.os == 'Windows'
-    #   shell: pwsh
-    #   run: |
-    #     # Запуск ibsrv в фоне
-    #     Start-Process ibsrv.exe -ArgumentList "--db-path=file-db" -WindowStyle Hidden
-    #     Start-Sleep -Seconds 5
-    #     # Проверка, что сервер запустился
-    #     Write-Host "Проверка состояния ibsrv..."
-    #     Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
-    #     # Запуск тестов
-    #     Write-Host "Запуск тестов..."
-    #     $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
-    #     # Проверка результата выполнения
-    #     Write-Host "Код завершения тестов: $($result.ExitCode)"
-    #     if ($result.ExitCode -ne 0) { exit $result.ExitCode }
-    #   timeout-minutes: 10
+
+    - name: Запуск тестирования (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        # Запуск ibsrv в фоне
+        Start-Process ibsrv.exe -ArgumentList "--db-path=file-db" -WindowStyle Hidden
+        Start-Sleep -Seconds 5
+        # Проверка, что сервер запустился
+        Write-Host "Проверка состояния ibsrv..."
+        Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
+        # Запуск тестов
+        Write-Host "Запуск тестов..."
+        $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+        # Проверка результата выполнения
+        Write-Host "Код завершения тестов: $($result.ExitCode)"
+        if ($result.ExitCode -ne 0) { exit $result.ExitCode }
+      timeout-minutes: 10
 
     - name: Проверка результата выполнения тестов
       if: always()
