@@ -23,7 +23,7 @@ jobs:
         run: oscript --version
   test-oscript-win:
     name: Тест оскрипта на Ubuntu
-    runs-on: windows-lastest
+    runs-on: windows-latest
 
     steps:
       - name: Извлечение исходников ветки
