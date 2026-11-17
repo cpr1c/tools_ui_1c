@@ -56,8 +56,8 @@ jobs:
         with:
           version: 2.2.0
 
-      # - name: Установка зависимостей Oscript
-      #   run: opm install cli fs logos tempfiles v8runner v8find 1commands
+      - name: Установка зависимостей Oscript
+        run: opm install cli fs logos tempfiles v8runner v8find 1commands
 
       - name: Конвертация исходников
         shell: bash
