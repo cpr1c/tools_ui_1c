@@ -47,7 +47,7 @@ jobs:
     name: Тестирование
     runs-on: ${{inputs.os}}
     env:
-      LANG: ru_RU.UTF-8  # Явно указываем локаль
+      LANG: C.UTF-8  # Явно указываем локаль
 
     steps:
     - name: Извлечение исходников ветки ${{ github.ref_name }}
