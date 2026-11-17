@@ -22,7 +22,7 @@ jobs:
       - name: Тест 
         run: oscript --version
   test-oscript-win:
-    name: Тест оскрипта на Ubuntu
+    name: Тест оскрипта на WIN
     runs-on: windows-latest
 
     steps:
@@ -34,7 +34,7 @@ jobs:
           version: 2.2.0
         
       - name: Тест 
-        run: oscript --version
+        run: oscript.exe --version
   build-files:
     needs: [test-oscript-win,test-oscript]
     uses: ./.github/workflows/build-version-files.yml
