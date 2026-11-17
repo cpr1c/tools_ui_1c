@@ -20,6 +20,7 @@ runs:
     - name: Загрузка расширения ${{inputs.name}}
       shell: bash
       run: |
+        export LANG=ru_RU.UTF-8
         ibcmd infobase config load --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force ${{inputs.path}}
         ibcmd infobase config apply --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force
         ibcmd infobase config extension update --db-path=${{inputs.dbpath}} --name=${{inputs.name}} --safe-mode=no --unsafe-action-protection=no
