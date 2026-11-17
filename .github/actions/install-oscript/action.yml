@@ -11,11 +11,11 @@ runs:
     - name: Установка oscript
       shell: bash
       run: |
+        echo "$HOME/bin/oscript/bin" >> "$GITHUB_PATH"
         mkdir "$HOME/bin" 
         mkdir tmp 
         curl -L https://github.com/EvilBeaver/OneScript/releases/download/v2.2.0/OneScript-${{inputs.version}}-${{case(runner.os == 'Linux', 'linux', 'win')}}-x64.zip --output tmp/oscript.zip
         unzip -o tmp/oscript.zip -d "$HOME/bin/oscript" 
-        echo "$HOME/bin/oscript/bin" >> "$GITHUB_PATH"
 
     - name: Установка прав выполнения
       if: runner.os == 'Linux'
