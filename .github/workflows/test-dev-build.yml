@@ -36,6 +36,7 @@ jobs:
       - name: Тест 
         run: oscript --version
   build-files:
+    needs: [test-oscript-win,test-oscript]
     uses: ./.github/workflows/build-version-files.yml
     with:
       build_cf: false
