@@ -18,8 +18,9 @@ runs:
   using: "composite"
   steps:
     - name: Загрузка расширения ${{inputs.name}}
-      shell: pwsh
+      shell: cmd
       run: |
+        chcp 65001
         ibcmd infobase config load --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force ${{inputs.path}}
         ibcmd infobase config apply --db-path=${{inputs.dbpath}} --extension=${{inputs.name}} --force
         ibcmd infobase config extension update --db-path=${{inputs.dbpath}} --name=${{inputs.name}} --safe-mode=no --unsafe-action-protection=no
