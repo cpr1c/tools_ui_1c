@@ -114,6 +114,7 @@ jobs:
     - name: Создание информационной базы
       shell: bash
       run: |
+        export LANG=${{inputs.locale}}.UTF-8
         # База для тестов - пустая конфигурация, в нее устанавливаются расширения
         ibcmd infobase create --db-path=file-db --create-database --apply --force --load=tests/yaxunit/fixtures/config.cf
       timeout-minutes: 5
@@ -128,6 +129,7 @@ jobs:
     - name: Загрузка расширения c тестами
       shell: bash
       run: |
+        export LANG=${{inputs.locale}}.UTF-8
         ibcmd infobase config import --db-path=file-db --extension=МодульныеТесты build/source/МодульныеТесты
         ibcmd infobase config apply --db-path=file-db --extension=МодульныеТесты --force
         ibcmd infobase config extension update --db-path=file-db --name=МодульныеТесты --safe-mode=no --unsafe-action-protection=no
