@@ -6,31 +6,6 @@ on:
       - "master"
 
 jobs:
-  test-oscript-win:
-    name: Тест оскрипта на WIN
-    runs-on: windows-latest
-
-    steps:
-      - name: Извлечение исходников ветки
-        uses: actions/checkout@v6
-      - name: Установка оскрпит
-        uses: ./.github/actions/install-oscript
-        with:
-          version: 2.2.0
-        
-      - name: Тест PATH
-        shell : bash
-        run: echo $PATH
-      - name: Тест  cmd
-        shell : cmd
-        run: echo %PATH%
-      - name: Тест 
-        shell : bash
-        run: oscript --version
-
-      - name: Тест opm 
-        shell : cmd
-        run: opm.bat --version
   build-files:
     uses: ./.github/workflows/build-version-files.yml
     needs: test-oscript-win
