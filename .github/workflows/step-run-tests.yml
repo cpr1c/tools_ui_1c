@@ -119,7 +119,7 @@ jobs:
     - name: Скачивание расширения YAxUnit
       shell: bash
       run: |
-        curl -L --tries 5 -o build/unittests/yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
+        curl -L --retry 5 -o build/unittests/yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
      
 
     - name: Подготовка информационной базы LINUX
