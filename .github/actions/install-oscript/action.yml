@@ -21,10 +21,6 @@ runs:
       run: |
         echo "%USERPROFILE%\oscript\bin" >> "$GITHUB_PATH"
 
-        # echo $Env:HOME
-        # setx PATH "$Env:PATH;$Env:HOME\oscript\bin"
-        # echo $Env:PATH
-
     - name: Установка прав выполнения
       if: runner.os == 'Linux'
       shell: bash
