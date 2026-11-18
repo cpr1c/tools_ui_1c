@@ -17,9 +17,9 @@ runs:
         # export PATH=$PATH:"$HOME/oscript/bin"
     - name: Установка перенной PATH на Windows
       if: runner.os == 'Windows'
-      shell: pwsh
+      shell: cmd
       run: |
-        echo "$Env:HOME\oscript\bin" >> "$GITHUB_PATH"
+        echo "%USERPROFILE%\oscript\bin" >> "$GITHUB_PATH"
 
         # echo $Env:HOME
         # setx PATH "$Env:PATH;$Env:HOME\oscript\bin"
