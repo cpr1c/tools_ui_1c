@@ -33,7 +33,7 @@ runs:
         chmod +x $HOME/oscript/bin/opm
     - name: КЭТ
       shell: bash
-      run: cat "$GITHUB_PATH"
+      run: echo "$GITHUB_PATH"
     
     # - name: Установка зависимостей Oscript 
     #   shell: pwsh
