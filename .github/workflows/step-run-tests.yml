@@ -69,8 +69,6 @@ jobs:
     - name: Подготовка окружения (Linux)
       if: runner.os == 'Linux'
       run: |
-        sudo apt list --installed | grep libwebkit2gtk
-        echo "inst"
         sudo DEBIAN_FRONTEND=noninteractive apt-get install -y locales 
         sudo ln -s /usr/lib/x86_64-linux-gnu/libenchant-2.so.2 /usr/lib/libenchant.so.1
         sudo localedef -i ${{ inputs.locale }} -c -f UTF-8 -A /usr/share/locale/locale.alias ${{ inputs.locale }}.UTF-8
@@ -82,6 +80,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
+        sudo apt-get list --installed | grep libwebkit2gtk
         sudo apt-get install -y xvfb x11-utils net-tools libgstreamer-plugins-base1.0-0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libwebkit2gtk-4.1
         sudo ldconfig
 
