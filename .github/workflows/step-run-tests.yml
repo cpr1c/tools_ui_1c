@@ -47,7 +47,7 @@ jobs:
     name: Тестирование
     runs-on: ${{inputs.os}}
     env:
-      TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
+      # TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
       TOOLS_UI_1C_IB_PATH: "$GITHUB_WORKSPACE/build/unittests/base"
 
     steps:
