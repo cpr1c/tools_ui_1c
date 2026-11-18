@@ -47,7 +47,6 @@ jobs:
     name: Тестирование
     runs-on: ${{inputs.os}}
     env:
-      # TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
       TOOLS_UI_1C_IB_PATH: "$GITHUB_WORKSPACE/build/unittests/base"
 
     steps:
@@ -120,8 +119,18 @@ jobs:
       with:
         version: 2.2.0
 
-    - name: Подготовка информационной базы
+    - name: Подготовка информационной базы LINUX
+      if: runner.os == 'Linux'
       shell: bash
+      env:
+        TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
+      run: oscript -encoding=utf-8 src/builder/build.os ubase        
+      timeout-minutes: 5
+    - name: Подготовка информационной базы WINDOWS
+      if: runner.os == 'Windows'
+      shell: bash
+      env:
+        TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "C:\\Program Files\\1cv8\\8.3.27.2170\\bin"
       run: oscript -encoding=utf-8 src/builder/build.os ubase        
       timeout-minutes: 5
 
@@ -146,30 +155,30 @@ jobs:
             }
           }
 
-    # - name: Запуск тестирования (Linux)
-    #   if: runner.os == 'Linux'
-    #   run: |
-    #     # Запуск ibsrv в фоне
-    #     ibsrv --db-path=$TOOLS_UI_1C_IB_PATH --daemon &
-    #     sleep 5
+    - name: Запуск тестирования (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        # Запуск ibsrv в фоне
+        ibsrv --db-path=$TOOLS_UI_1C_IB_PATH --daemon &
+        sleep 5
         
-    #     # Проверка, что сервер запустился
-    #     echo "Проверка состояния ibsrv..."
-    #     ps aux | grep ibsrv || echo "ibsrv не найден в процессах"
+        # Проверка, что сервер запустился
+        echo "Проверка состояния ibsrv..."
+        ps aux | grep ibsrv || echo "ibsrv не найден в процессах"
         
-    #     # Проверка доступности порта
-    #     netstat -tlnp | grep 8314 || echo "Порт 8314 не прослушивается"
+        # Проверка доступности порта
+        netstat -tlnp | grep 8314 || echo "Порт 8314 не прослушивается"
         
-    #     # Запуск тестов через xvfb-run
-    #     echo "Запуск тестов через xvfb-run..."
-    #     xvfb-run -a -s "-screen 0 1024x768x24" 1cv8c /WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log
+        # Запуск тестов через xvfb-run
+        echo "Запуск тестов через xvfb-run..."
+        xvfb-run -a -s "-screen 0 1024x768x24" 1cv8c /WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log
         
-    #     # Проверка результата выполнения
-    #     echo "Код завершения тестов: $?"
-    #   env:
-    #     LANG: "${{ inputs.locale }}.UTF-8"
-    #     DISPLAY: ":99"
-    #   timeout-minutes: 10
+        # Проверка результата выполнения
+        echo "Код завершения тестов: $?"
+      env:
+        LANG: "${{ inputs.locale }}.UTF-8"
+        DISPLAY: ":99"
+      timeout-minutes: 10
     
 
     - name: Запуск тестирования (Windows)
