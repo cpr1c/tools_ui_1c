@@ -13,15 +13,17 @@ runs:
       run: |
         curl -L https://github.com/EvilBeaver/OneScript/releases/download/v2.2.0/OneScript-${{inputs.version}}-${{case(runner.os == 'Linux', 'linux', 'win')}}-x64.zip --output oscript.zip
         unzip -o oscript.zip -d "$HOME/oscript"
-        echo "$HOME/oscript/bin" >> "$GITHUB_PATH"
-        export PATH=$PATH:"$HOME/oscript/bin"
+        # echo "$HOME/oscript/bin" >> "$GITHUB_PATH"
+        # export PATH=$PATH:"$HOME/oscript/bin"
     - name: Установка перенной PATH на Windows
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
-        echo $Env:HOME
-        setx PATH "$Env:PATH;$Env:HOME\oscript\bin"
-        echo $Env:PATH
+        echo "$Env:HOME\oscript\bin" >> "$GITHUB_PATH"
+
+        # echo $Env:HOME
+        # setx PATH "$Env:PATH;$Env:HOME\oscript\bin"
+        # echo $Env:PATH
 
     - name: Установка прав выполнения
       if: runner.os == 'Linux'
