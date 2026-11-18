@@ -31,6 +31,10 @@ runs:
       shell: bash
       run: cat $GITHUB_PATH
     
+    - name: КЭТ2
+      shell: bash
+      run: echo $PATH
+    
     # - name: Установка зависимостей Oscript 
     #   shell: pwsh
     #   run: opm.bat install cli fs logos tempfiles v8runner v8find 1commands 1connector
