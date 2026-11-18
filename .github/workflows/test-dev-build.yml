@@ -18,6 +18,12 @@ jobs:
         with:
           version: 2.2.0
         
+      - name: Тест PATH
+        shell : bash
+        run: echo $PATH
+      - name: Тест  cmd
+        shell : cmd
+        run: echo %PATH%
       - name: Тест 
         shell : bash
         run: oscript --version
