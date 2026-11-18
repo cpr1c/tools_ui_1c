@@ -24,7 +24,7 @@ runs:
       if: runner.os == 'Linux'
       shell: bash
       run: |
-        dpkg -l | grep webkit
+        sudo dpkg -l | grep webkit
 
 
         chmod +x $HOME/oscript/bin/oscript
