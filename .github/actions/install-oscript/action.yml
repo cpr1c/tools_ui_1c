@@ -23,7 +23,7 @@ runs:
         chmod +x $HOME/oscript/bin/oscript
         chmod +x $HOME/oscript/bin/opm
     
-    - name: Установка зависимостей Oscript 
-      shell: pwsh
-      run: opm.bat install cli fs logos tempfiles v8runner v8find 1commands 1connector
+    # - name: Установка зависимостей Oscript 
+    #   shell: pwsh
+    #   run: opm.bat install cli fs logos tempfiles v8runner v8find 1commands 1connector
 
