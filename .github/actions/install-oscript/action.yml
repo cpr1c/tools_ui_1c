@@ -29,5 +29,5 @@ runs:
     
     - name: Установка зависимостей Oscript 
       shell: pwsh
-      run: opm.bat install cli fs logos tempfiles v8runner v8find 1commands 1connector
+      run: opm install cli fs logos tempfiles v8runner v8find 1commands 1connector
 
