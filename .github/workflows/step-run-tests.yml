@@ -81,7 +81,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y xvfb x11-utils net-tools libgstreamer-plugins-base1.0-0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
-        sudo apt-get install -y ca-certificates libgtk2.0-0 libwebkit2gtk-4.0 ttf-mscorefonts-installer libfontconfig1 libgsf-1-114 libglib2.0-0 libodbc2 libmagickwand-6 dbus-x11 libglu1-mesa
+        sudo apt-get install -y ca-certificates libgtk2.0-0 libwebkit2gtk-4.0 ttf-mscorefonts-installer libfontconfig1 libgsf-1-114 libglib2.0-0 libodbc2 dbus-x11 libglu1-mesa
         sudo ldconfig
 
     - name: Определение "короткой" локали
@@ -162,7 +162,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         # Запуск ibsrv в фоне
-        ibsrv --db-path=$TOOLS_UI_1C_IB_PATH --daemon & sleep 5
+        ibsrv --db-path=$GITHUB_WORKSPACE/build/unittests/base --daemon & sleep 5
         
         # Проверка, что сервер запустился
         echo "Проверка состояния ibsrv..."
@@ -188,7 +188,7 @@ jobs:
       shell: pwsh
       run: |
         # Запуск ibsrv в фоне
-        Start-Process ibsrv.exe -ArgumentList "--db-path=$TOOLS_UI_1C_IB_PATH" -WindowStyle Hidden
+        Start-Process ibsrv.exe -ArgumentList "--db-path=$Env:GITHUB_WORKSPACE/build/unittests/base" -WindowStyle Hidden
         Start-Sleep -Seconds 5
         # Проверка, что сервер запустился
         Write-Host "Проверка состояния ibsrv..."
