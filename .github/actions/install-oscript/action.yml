@@ -12,8 +12,9 @@ runs:
       shell: bash
       run: |
         curl -L https://github.com/EvilBeaver/OneScript/releases/download/v2.2.0/OneScript-${{inputs.version}}-${{case(runner.os == 'Linux', 'linux', 'win')}}-x64.zip --output oscript.zip
-        unzip -o oscript.zip -d "$HOME/oscript"
-        echo "$HOME/oscript/bin" >> "$GITHUB_PATH"
+        unzip -o oscript.zip -d "$HOME/bin/oscript"
+        echo "$HOME/bin/oscript/bin" >> "$GITHUB_PATH"
+        export PATH=$PATH:$HOME/bin/oscript/bin
 
     - name: Установка прав выполнения
       if: runner.os == 'Linux'
@@ -22,7 +23,7 @@ runs:
         chmod +x $HOME/oscript/bin/oscript
         chmod +x $HOME/oscript/bin/opm
     
-    # - name: Установка зависимостей Oscript 
-    #   shell: bash
-    #   run: opm${{case(runner.os == 'Linux', '', '.bat')}} install cli fs logos tempfiles v8runner v8find 1commands 1connector
+    - name: Установка зависимостей Oscript 
+      shell: pwsh
+      run: opm install cli fs logos tempfiles v8runner v8find 1commands 1connector
 
