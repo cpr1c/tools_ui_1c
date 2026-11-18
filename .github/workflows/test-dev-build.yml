@@ -19,7 +19,7 @@ jobs:
           version: 2.2.0
         
       - name: Тест 
-        # shell : bash
+        shell : bash
         run: oscript --version
   build-files:
     uses: ./.github/workflows/build-version-files.yml
