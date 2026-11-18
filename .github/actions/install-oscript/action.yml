@@ -20,8 +20,8 @@ runs:
       shell: pwsh
       run: |
         echo $Env:HOME
-        setx PATH "$Env:PATH;C:\ваш\путь";%USERPROFILE%\oscript\bin
-        echo %PATH%
+        setx PATH "$Env:PATH;C:\ваш\путь";$Env:HOME\oscript\bin
+        echo $Env:PATH
 
     - name: Установка прав выполнения
       if: runner.os == 'Linux'
