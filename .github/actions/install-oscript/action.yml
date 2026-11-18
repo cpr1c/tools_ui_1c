@@ -20,7 +20,7 @@ runs:
       shell: pwsh
       run: |
         echo $Env:HOME
-        setx PATH "$Env:PATH;C:\ваш\путь";$Env:HOME\oscript\bin
+        setx PATH "$Env:PATH;$Env:HOME\oscript\bin"
         echo $Env:PATH
 
     - name: Установка прав выполнения
