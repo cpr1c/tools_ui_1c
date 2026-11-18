@@ -20,7 +20,7 @@ runs:
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
-        "$env:HOME\oscript\bin" | Out-File -FilePath "$env:GITHUB_PATH" -Append
+        "$env:USERPROFILE\oscript\bin" | Out-File -FilePath "$env:GITHUB_PATH" -Append
 
 
     - name: Установка прав выполнения
