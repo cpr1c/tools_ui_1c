@@ -100,13 +100,13 @@
       "request": "launch",
       "program": "${workspaceRoot}/src/builder/build.os",
       "args": [
-        "unit"
+        "ubase"
       ],
       "outputEncoding": "utf-8",
       "runtimeArgs": ["-encoding=utf-8"],
       "cwd": "${workspaceRoot}",
       "env": {
-        "TOOLS_UI_1C_BUILDER_PLATFORM_PATH": "C:\\Program Files\\1cv8\\8.5.1.1529\\bin\\"
+        "TOOLS_UI_1C_BUILDER_PLATFORM_PATH": "C:\\Program Files\\1cv8\\8.3.25.1633\\bin\\"
       },
       "debugPort": 2801
     },
