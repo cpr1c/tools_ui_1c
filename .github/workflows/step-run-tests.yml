@@ -160,6 +160,7 @@ jobs:
     - name: Запуск тестирования (Linux)
       if: runner.os == 'Linux'
       run: |
+        export NO_AT_BRIDGE=1
         # Запуск ibsrv в фоне
         ibsrv --db-path=$TOOLS_UI_1C_IB_PATH --daemon &
         sleep 5
