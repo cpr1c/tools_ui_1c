@@ -80,7 +80,20 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install -y xvfb x11-utils net-tools libgstreamer-plugins-base1.0-0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libwebkit2gtk-4.0 libglu1
+        sudo apt-get install -y xvfb x11-utils net-tools libgstreamer-plugins-base1.0-0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+        echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections \
+          && DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
+          ca-certificates \
+          libgtk2.0-0 \
+          libwebkit2gtk-4.0-37 \
+          ttf-mscorefonts-installer \
+          libfontconfig1 \
+          libgsf-1-114 \
+          libglib2.0-0 \
+          libodbc1 \
+          libmagickwand-6.q16-3 \
+          dbus-x11 \
+          libglu1-mesa
         sudo ldconfig
 
     - name: Определение "короткой" локали
