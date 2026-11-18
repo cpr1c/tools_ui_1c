@@ -27,7 +27,7 @@ jobs:
           - ru_RU
         os:
           # - windows-latest
-          - ubuntu-26.04
+          - ubuntu-22.04
     with:
       v8_version: ${{ matrix.version }}
       locale: ${{ matrix.locale }}
