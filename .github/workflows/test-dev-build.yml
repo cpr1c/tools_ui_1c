@@ -23,7 +23,7 @@ jobs:
         run: oscript --version
 
       - name: Тест opm 
-        shell : bash
+        shell : cmd
         run: opm.bat --version
   build-files:
     uses: ./.github/workflows/build-version-files.yml

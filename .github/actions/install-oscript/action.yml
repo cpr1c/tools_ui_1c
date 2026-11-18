@@ -18,7 +18,9 @@ runs:
     - name: Установка перенной PATH на Windows для cmd
       if: runner.os == 'Windows'
       shell: cmd
-      run: set PATH=%PATH%;%USERPROFILE%\oscript\bin
+      run: |
+        set PATH=%PATH%;%USERPROFILE%\oscript\bin
+        echo %PATH%
 
     - name: Установка прав выполнения
       if: runner.os == 'Linux'
