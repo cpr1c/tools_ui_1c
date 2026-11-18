@@ -15,11 +15,12 @@ runs:
         unzip -o oscript.zip -d "$HOME/oscript"
         echo "$HOME/oscript/bin" >> "$GITHUB_PATH"
         export PATH=$PATH:"$HOME/oscript/bin"
-    - name: Установка перенной PATH на Windows для cmd
+    - name: Установка перенной PATH на Windows
       if: runner.os == 'Windows'
-      shell: cmd
+      shell: pwsh
       run: |
-        set PATH=%PATH%;%USERPROFILE%\oscript\bin
+        echo $HOME
+        setx PATH "$Env:PATH;C:\ваш\путь";%USERPROFILE%\oscript\bin
         echo %PATH%
 
     - name: Установка прав выполнения
