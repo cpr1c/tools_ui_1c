@@ -19,7 +19,7 @@ runs:
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
-        echo $HOME
+        echo $Env:HOME
         setx PATH "$Env:PATH;C:\ваш\путь";%USERPROFILE%\oscript\bin
         echo %PATH%
 
