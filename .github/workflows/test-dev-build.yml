@@ -24,7 +24,7 @@ jobs:
 
       - name: Тест opm 
         shell : bash
-        run: opm --version
+        run: opm.bat --version
   build-files:
     uses: ./.github/workflows/build-version-files.yml
     needs: test-oscript-win
