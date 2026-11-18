@@ -22,7 +22,7 @@ runs:
         chmod +x $HOME/oscript/bin/oscript
         chmod +x $HOME/oscript/bin/opm
     
-    - name: Установка зависимостей Oscript
+    - name: Установка зависимостей Oscript 
       shell: bash
-      run: opm install cli fs logos tempfiles v8runner v8find 1commands 1connector
+      run: opm${{case(runner.os == 'Linux', '', '.bat')}} install cli fs logos tempfiles v8runner v8find 1commands 1connector
 
