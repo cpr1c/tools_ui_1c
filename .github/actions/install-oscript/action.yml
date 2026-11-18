@@ -24,7 +24,8 @@ runs:
       if: runner.os == 'Linux'
       shell: bash
       run: |
-        apt list libwebkit2gtk-*
+        dpkg -l | grep webkit
+
 
         chmod +x $HOME/oscript/bin/oscript
         chmod +x $HOME/oscript/bin/opm
