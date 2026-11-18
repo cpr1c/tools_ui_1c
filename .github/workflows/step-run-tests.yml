@@ -46,9 +46,6 @@ jobs:
   execute-tests:
     name: Тестирование
     runs-on: ${{inputs.os}}
-    env:
-      TOOLS_UI_1C_IB_PATH: "$GITHUB_WORKSPACE/build/unittests/base"
-
     steps:
 
     - name: Извлечение исходников ветки ${{ github.ref_name }}
@@ -125,7 +122,9 @@ jobs:
       shell: bash
       env:
         TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
-      run: oscript -encoding=utf-8 src/builder/build.os ubase        
+      run: |
+        export TOOLS_UI_1C_IB_PATH=$GITHUB_WORKSPACE/build/unittests/base
+        oscript -encoding=utf-8 src/builder/build.os ubase        
       timeout-minutes: 5
     - name: Подготовка информационной базы WINDOWS
       if: runner.os == 'Windows'
