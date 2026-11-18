@@ -8,7 +8,6 @@ on:
 jobs:
   build-files:
     uses: ./.github/workflows/build-version-files.yml
-    needs: test-oscript-win
     with:
       build_cf: false
       build_portable: false
