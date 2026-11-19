@@ -43,11 +43,11 @@ jobs:
       - name: Диагностика argv ibcmd
         shell: pwsh
         run: |
-          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase create --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --load="$env:GITHUB_WORKSPACE\tests\yaxunit\fixtures\config.cf" --apply --force
-          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config load --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force build\UI.cfe
-          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config apply --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force 
-          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config extension update `
-          --name=УниверсальныеИнструменты --db-path="$env:GITHUB_WORKSPACE\build\unittests\base"
+          $env:LANG = 'ru_RU.UTF-8'
+          ibcmd.exe infobase create --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --load="$env:GITHUB_WORKSPACE\tests\yaxunit\fixtures\config.cf" --apply --force
+          ibcmd.exe infobase config load --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force build\UI.cfe
+          ibcmd.exe infobase config apply --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force 
+          ibcmd.exe infobase config extension update --name=УниверсальныеИнструменты --db-path="$env:GITHUB_WORKSPACE\build\unittests\base"
 
 
      
