@@ -55,7 +55,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: ${{ inputs.artifact_name }}
-        path: build/unittests/base.dt
+        path: build/unittests
     
     - name: Подготовка окружения (Linux)
       if: runner.os == 'Linux'
