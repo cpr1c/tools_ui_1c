@@ -51,18 +51,12 @@ jobs:
     - name: Извлечение исходников ветки ${{ github.ref_name }}
       uses: actions/checkout@v6
     
-    - name: Загрузка артифактов
+    - name: Загрузка подготовленной выгрузки базы для тестов
       uses: actions/download-artifact@v4
       with:
         name: ${{ inputs.artifact_name }}
-        path: build
+        path: build/unittests/base.dt
     
-    - name: Загрузка исходников в формате конфигуратора
-      uses: actions/download-artifact@v4
-      with:
-        name: designer-src
-        path: build/source
-
     - name: Подготовка окружения (Linux)
       if: runner.os == 'Linux'
       run: |
@@ -112,35 +106,11 @@ jobs:
         Set-Content -Path "C:\Program Files\1cv8\conf\conf.cfg" -Value @'
         DisableUnsafeActionProtection=.*
         '@
-    - name: Установка оскрпит
-      uses: ./.github/actions/install-oscript
-      with:
-        version: 2.2.0
-    # - name: Скачивание расширения YAxUnit
-    #   shell: bash
-    #   run: |
-    #     curl -L --retry 5 -o build/unittests/yaxunit.cfe "https://github.com/bia-technologies/yaxunit/releases/download/${{ inputs.yaxunit_version }}/YAxUnit-${{ inputs.yaxunit_version }}.cfe"
      
-
-    - name: Подготовка информационной базы LINUX
-      if: runner.os == 'Linux'
+    - name: Создание базы тестирования
       shell: bash
-      env:
-        TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
       run: |
-        export TOOLS_UI_1C_IB_PATH=$GITHUB_WORKSPACE/build/unittests/base
-        # export TOOLS_UI_1C_YAXUNIT_PATH=$GITHUB_WORKSPACE/build/unittests/yaxunit.cfe
-        oscript -encoding=utf-8 src/builder/build.os ubase        
-      timeout-minutes: 5
-
-    - name: Подготовка информационной базы WINDOWS
-      if: runner.os == 'Windows'
-      shell: bash
-      env:
-        TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "C:\\Program Files\\1cv8\\8.3.27.2170\\bin"
-      run: |
-        oscript -encoding=utf-8 src/builder/build.os ubase        
-      timeout-minutes: 5
+        ibsrv infobase create --create-database --force --apply --db-path=$GITHUB_WORKSPACE/build/unittests/base --restore=$GITHUB_WORKSPACE/build/unittests/base.dt
 
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
