@@ -90,6 +90,6 @@ jobs:
       v8_version: ${{ matrix.version }}
       locale: ${{ matrix.locale }}
       os: ${{ matrix.os }}
-      artifact_name: release-files
+      artifact_name: unittests-base
     secrets: inherit
 
