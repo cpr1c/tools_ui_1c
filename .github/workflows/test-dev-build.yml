@@ -6,6 +6,16 @@ on:
       - "master"
 
 jobs:
+  test-locale:
+    name: Требуется локаль
+    runs-on: ubuntu-24.04
+    steps:
+      - name: local
+        shell: bash
+        run: | 
+          sudo localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
+          export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
+          locale-gen ru_RU.UTF-8
   build-files:
     uses: ./.github/workflows/build-version-files.yml
     with:
@@ -62,7 +72,7 @@ jobs:
         env:
           TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
         run: |
-          localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
+          sudo localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
           export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
           locale-gen ru_RU.UTF-8
           export TOOLS_UI_1C_YAXUNIT_PATH="$GITHUB_WORKSPACE/build/unittests/YAxUnit-25.12.cfe"
