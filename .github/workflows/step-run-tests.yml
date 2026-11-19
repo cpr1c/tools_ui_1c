@@ -174,18 +174,17 @@ jobs:
         
         # Запуск тестов
         Write-Host "Запуск тестов..."
-        # $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
-        Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+        $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+        # Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
         # Проверка результата выполнения
-        # Write-Host "Код завершения тестов: $($result.ExitCode)"
-        # if ($result.ExitCode -ne 0) { exit $result.ExitCode }
+        Write-Host "Код завершения тестов: $($result.ExitCode)"
+        if ($result.ExitCode -ne 0) { exit $result.ExitCode }
       timeout-minutes: 10
 
     - name: Проверка результата выполнения тестов
       if: always()
       shell: bash
       run: |
-        ls -a
         if [ ! -f exit-code.txt ]; then
           echo "Файл с кодом завершения тестов не создан - тесты не выполнялись"
           exit 1
