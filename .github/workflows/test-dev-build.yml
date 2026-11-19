@@ -55,13 +55,13 @@ jobs:
           repository: 'bia-technologies/yaxunit'
           tag: 25.12
           fileName: YAxUnit-25.12.cfe
-          out-file-path: build/unittests/yaxunit.cfe
+          out-file-path: build/unittests
             
       - name: Подготовка информационной базы
         shell: bash
         env:
           TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
-          TOOLS_UI_1C_YAXUNIT_PATH: "$GITHUB_WORKSPACE/build/unittests/yaxunit.cfe"
+          TOOLS_UI_1C_YAXUNIT_PATH: "$GITHUB_WORKSPACE/build/unittests/YAxUnit-25.12.cfe"
         run: oscript -encoding=utf-8 src/builder/build.os ubase        
         timeout-minutes: 5
 
