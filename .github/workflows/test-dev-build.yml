@@ -34,6 +34,12 @@ jobs:
         uses: ./.github/actions/install-oscript
         with:
           version: 2.2.0
+      
+      - name: Диагностика argv ibcmd
+        shell: pwsh
+        run: |
+          & "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config extension update `
+          --name=УниверсальныеИнструменты --db-path="$env:GITHUB_WORKSPACE\build\unittests\base"
 
 
      
