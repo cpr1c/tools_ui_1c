@@ -6,7 +6,46 @@ on:
       - "master"
 
 jobs:
+  pretest:
+    runs-on: windows-latest
+    steps:
+      - name: Извлечение исходников ветки ${{ github.ref_name }}
+        if: github.event_name == 'push'
+        uses: actions/checkout@v6
+
+      - name: Установка 1С:Предприятие 8.3.27.2170
+        uses: 1CDevFlow/onec-setup-action@main
+        with:
+          type: onec
+          onec_version: 8.3.27.2170
+          cache: true
+        env:
+          ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+          ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+        timeout-minutes: 10
+      
+      - name: Установка оскрпит
+        uses: ./.github/actions/install-oscript
+        with:
+          version: 2.2.0
+
+      - name: Скачивание расширения UI.cfe
+        shell: bash
+        run: |
+          curl -L --retry 5 -o build/UI.cfe "https://github.com/cpr1c/tools_ui_1c/releases/download/v26.6.1/UI.cfe"
+     
+
+      - name: Подготовка информационной базы WINDOWS
+        if: runner.os == 'Windows'
+        shell: cmd
+        env:
+          TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "C:\\Program Files\\1cv8\\8.3.27.2170\\bin"
+        run: |
+          chcp 65001
+          oscript -encoding=utf-8 src/builder/build.os ubase        
+        timeout-minutes: 5
   build-files:
+    needs: pretest
     uses: ./.github/workflows/build-version-files.yml
     with:
       build_cf: false
