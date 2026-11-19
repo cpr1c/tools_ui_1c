@@ -16,6 +16,7 @@ jobs:
       - name: Скачивание расширения UI.cfe
         shell: bash
         run: |
+          mkdir build
           curl -L -o $GITHUB_WORKSPACE/build/UI.cfe "https://github.com/cpr1c/tools_ui_1c/releases/download/v26.6.1/UI.cfe"
 
       - name: Установка 1С:Предприятие 8.3.27.2170
