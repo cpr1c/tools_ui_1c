@@ -14,8 +14,8 @@ jobs:
         shell: bash
         run: | 
           sudo localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
-          export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
-          locale-gen ru_RU.UTF-8
+          # export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
+          # locale-gen ru_RU.UTF-8
   build-files:
     needs: [test-locale]
     uses: ./.github/workflows/build-version-files.yml
