@@ -181,6 +181,7 @@ jobs:
       if: always()
       shell: bash
       run: |
+        ls -a
         if [ ! -f exit-code.txt ]; then
           echo "Файл с кодом завершения тестов не создан - тесты не выполнялись"
           exit 1
