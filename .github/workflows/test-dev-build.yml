@@ -7,7 +7,7 @@ on:
 
 jobs:
   pretest:
-    runs-on: ubuntu-24.04
+    runs-on: windows-latest
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
         if: github.event_name == 'push'
@@ -38,7 +38,7 @@ jobs:
       - name: Подготовка информационной базы
         shell: bash
         env:
-          TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
+          TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "C:\\Program Files\\1cv8\\8.3.27.2170\\bin\\"
         run: oscript -encoding=utf-8 src/builder/build.os ubase        
         timeout-minutes: 5
   build-files:
