@@ -15,6 +15,7 @@ jobs:
       - name: Set locale
         shell: pwsh
         run: |
+          Install-Language -Language ru-ru
           $env:LANG = 'ru_RU.UTF-8'
           # Или просто: set LANG=ru_RU.UTF-8
       - name: Скачивание расширения UI.cfe
