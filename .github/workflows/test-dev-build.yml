@@ -41,9 +41,10 @@ jobs:
           version: 2.2.0
       
       - name: Диагностика argv ibcmd
-        shell: pwsh
+        shell: cmd
         run: |
-          $env:LANG = 'ru_RU.UTF-8'
+          chcp 65001
+          set LANG=ru_RU.UTF-8
           ibcmd.exe infobase create --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --load="$env:GITHUB_WORKSPACE\tests\yaxunit\fixtures\config.cf" --apply --force
           ibcmd.exe infobase config load --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force build\UI.cfe
           ibcmd.exe infobase config apply --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force 
