@@ -40,27 +40,11 @@ jobs:
         with:
           version: 2.2.0
       
-      - name: Диагностика argv ibcmd
-        shell: cmd
-        
-        run: |
-          chcp 65001
-          set LANG=ru_RU.UTF-8
-          ibcmd.exe infobase create --db-path="%GITHUB_WORKSPACE%\build\unittests\base" --load="%GITHUB_WORKSPACE%\tests\yaxunit\fixtures\config.cf" --apply --force
-          ibcmd.exe infobase config load --db-path="%GITHUB_WORKSPACE%\build\unittests\base" --extension=УниверсальныеИнструменты --force build\UI.cfe
-          ibcmd.exe infobase config apply --db-path="%GITHUB_WORKSPACE%\build\unittests\base" --extension=УниверсальныеИнструменты --force 
-          ibcmd.exe infobase config extension update --name=УниверсальныеИнструменты --db-path="%GITHUB_WORKSPACE%\build\unittests\base"
-
-
-     
-
       - name: Подготовка информационной базы WINDOWS
         if: runner.os == 'Windows'
         shell: cmd
         env:
           TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "C:\\Program Files\\1cv8\\8.3.27.2170\\bin"
-          PYTHONIOENCODING: "utf-8"
-          PYTHONUTF8: "1"
         run: |
           chcp 65001
           oscript -encoding=utf-8 src/builder/build.os ubase        
