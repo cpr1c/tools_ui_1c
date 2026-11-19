@@ -20,12 +20,12 @@ jobs:
     needs: build-files
     runs-on: ubuntu-24.04
     steps:
-      - name: Установка русской локали для ранера
-        shell: bash
-        run: | 
-          sudo localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
-          export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
-          sudo locale-gen ru_RU.UTF-8
+      # - name: Установка русской локали для ранера
+      #   shell: bash
+      #   run: | 
+      #     sudo localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
+      #     export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
+      #     sudo locale-gen ru_RU.UTF-8
 
       - name: Извлечение исходников ветки ${{ github.ref_name }}
         if: github.event_name == 'push'

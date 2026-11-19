@@ -75,11 +75,11 @@ jobs:
         sudo apt-get install -y ca-certificates libgtk2.0-0 libwebkit2gtk-4.0 ttf-mscorefonts-installer libfontconfig1 libgsf-1-114 libglib2.0-0 libodbc2 dbus-x11 libglu1-mesa
         sudo ldconfig
 
-    - name: Определение "короткой" локали
-      id: short_locale
-      shell: pwsh
-      run: |
-        Write-Output "substring=$('${{ inputs.locale }}'.Substring(0, 2))" >> $Env:GITHUB_OUTPUT
+    # - name: Определение "короткой" локали
+    #   id: short_locale
+    #   shell: pwsh
+    #   run: |
+    #     Write-Output "substring=$('${{ inputs.locale }}'.Substring(0, 2))" >> $Env:GITHUB_OUTPUT
 
     - name: Установка 1С:Предприятие
       uses: 1CDevFlow/onec-setup-action@main
@@ -96,10 +96,6 @@ jobs:
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
-        Set-Culture -CultureInfo ru-RU
-        [System.Globalization.CultureInfo]::CurrentCulture  # проверка: ru-RU
-
-
         # ВАЖНО: шаг выполняется ПОСЛЕ установки платформы. Установка восстанавливает
         # C:\Program Files\1cv8 из кэша actions/cache (tar -xf поверх каталога),
         # затирая conf.cfg, записанный до неё. Платформа читает conf.cfg как UTF-8
@@ -115,9 +111,6 @@ jobs:
       shell: bash
       run: |
         ibcmd infobase create --db-path=file-db --restore=$GITHUB_WORKSPACE/build/unittests/base.dt --apply --force
-        1cv8.exe DESIGNER /F"$PWD/file-db" /DisableStartupDialogs /DisableStartupMessages /Out"designer.log"
-        cat designer.log
-
  
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
@@ -178,7 +171,7 @@ jobs:
         # Запуск тестов
         Write-Host "Запуск тестов..."
         # $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
-        Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+        Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
         # Проверка результата выполнения
         # Write-Host "Код завершения тестов: $($result.ExitCode)"
         # if ($result.ExitCode -ne 0) { exit $result.ExitCode }
