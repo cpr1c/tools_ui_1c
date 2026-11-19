@@ -42,13 +42,14 @@ jobs:
       
       - name: Диагностика argv ibcmd
         shell: cmd
+        
         run: |
           chcp 65001
           set LANG=ru_RU.UTF-8
-          ibcmd.exe infobase create --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --load="$env:GITHUB_WORKSPACE\tests\yaxunit\fixtures\config.cf" --apply --force
-          ibcmd.exe infobase config load --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force build\UI.cfe
-          ibcmd.exe infobase config apply --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force 
-          ibcmd.exe infobase config extension update --name=УниверсальныеИнструменты --db-path="$env:GITHUB_WORKSPACE\build\unittests\base"
+          ibcmd.exe infobase create --db-path="%GITHUB_WORKSPACE%\build\unittests\base" --load="%GITHUB_WORKSPACE%\tests\yaxunit\fixtures\config.cf" --apply --force
+          ibcmd.exe infobase config load --db-path="%GITHUB_WORKSPACE%\build\unittests\base" --extension=УниверсальныеИнструменты --force build\UI.cfe
+          ibcmd.exe infobase config apply --db-path="%GITHUB_WORKSPACE%\build\unittests\base" --extension=УниверсальныеИнструменты --force 
+          ibcmd.exe infobase config extension update --name=УниверсальныеИнструменты --db-path="%GITHUB_WORKSPACE%\build\unittests\base"
 
 
      
