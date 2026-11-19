@@ -110,8 +110,8 @@ jobs:
     - name: Создание базы тестирования
       shell: bash
       run: |
-        ibsrv infobase create --create-database --force --apply --db-path=$GITHUB_WORKSPACE/build/unittests/base --restore=$GITHUB_WORKSPACE/build/unittests/base.dt
-
+        ibcmd infobase create --db-path=$GITHUB_WORKSPACE/build/unittests/base --restore=$GITHUB_WORKSPACE/build/unittests/base.dt --apply --force
+ 
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
       with:
