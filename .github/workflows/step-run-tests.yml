@@ -56,9 +56,6 @@ jobs:
       with:
         name: ${{ inputs.artifact_name }}
         path: build/unittests
-    - name: список афайлов
-      shell: bash
-      run: cd $GITHUB_WORKSPACE/build/unittests/ && ls -a
     
     - name: Подготовка окружения (Linux)
       if: runner.os == 'Linux'
@@ -113,7 +110,7 @@ jobs:
     - name: Создание базы тестирования
       shell: bash
       run: |
-        ibcmd infobase create --db-path=$GITHUB_WORKSPACE/build/unittests/base --restore=$GITHUB_WORKSPACE/build/unittests/base.dt --apply --force
+        ibcmd infobase create --db-path=file-db --restore=$GITHUB_WORKSPACE/build/unittests/base.dt --apply --force
  
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
@@ -140,7 +137,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         # Запуск ibsrv в фоне
-        ibsrv --db-path=$GITHUB_WORKSPACE/build/unittests/base --daemon & sleep 5
+        ibsrv --db-path=file-db --daemon & sleep 5
         
         # Проверка, что сервер запустился
         echo "Проверка состояния ibsrv..."
@@ -166,7 +163,7 @@ jobs:
       shell: pwsh
       run: |
         # Запуск ibsrv в фоне
-        Start-Process ibsrv.exe -ArgumentList "--db-path=$Env:GITHUB_WORKSPACE/build/unittests/base" -WindowStyle Hidden
+        Start-Process ibsrv.exe -ArgumentList "--db-path=file-db" -WindowStyle Hidden
         Start-Sleep -Seconds 5
         # Проверка, что сервер запустился
         Write-Host "Проверка состояния ibsrv..."
