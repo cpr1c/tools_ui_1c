@@ -115,6 +115,9 @@ jobs:
       shell: bash
       run: |
         ibcmd infobase create --db-path=file-db --restore=$GITHUB_WORKSPACE/build/unittests/base.dt --apply --force
+        1cv8.exe DESIGNER /F"$PWD/file-db" /DisableStartupDialogs /DisableStartupMessages /Out"designer.log"
+        cat designer.log
+
  
     - name: Создание файла конфигурации тестирования
       uses: DamianReeves/write-file-action@master
