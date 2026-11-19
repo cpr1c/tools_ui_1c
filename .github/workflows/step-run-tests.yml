@@ -96,8 +96,9 @@ jobs:
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
-        Set-Culture ru-RU
-        Set-WinUILanguageOverride ru-RU
+        Set-Culture -CultureInfo ru-RU
+        [System.Globalization.CultureInfo]::CurrentCulture  # проверка: ru-RU
+
 
         # ВАЖНО: шаг выполняется ПОСЛЕ установки платформы. Установка восстанавливает
         # C:\Program Files\1cv8 из кэша actions/cache (tar -xf поверх каталога),
