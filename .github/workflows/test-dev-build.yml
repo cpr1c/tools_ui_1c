@@ -17,6 +17,7 @@ jobs:
           export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
           locale-gen ru_RU.UTF-8
   build-files:
+    needs: [test-locale]
     uses: ./.github/workflows/build-version-files.yml
     with:
       build_cf: false
