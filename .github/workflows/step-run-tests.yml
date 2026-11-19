@@ -163,11 +163,14 @@ jobs:
       shell: pwsh
       run: |
         # Запуск ibsrv в фоне
-        Start-Process ibsrv.exe -ArgumentList "--db-path=file-db" -WindowStyle Hidden
+        Start-Process ibsrv.exe -ArgumentList "--db-path=file-db --name=base" -WindowStyle Hidden
         Start-Sleep -Seconds 5
         # Проверка, что сервер запустился
         Write-Host "Проверка состояния ibsrv..."
         Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
+
+        Start-Process -NoNewWindow -PassThru -Wait 1cv8.exe -ArgumentList '/S"localhost\base" /C"RunUnitTests=yaxunit-config.json" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+ 
         # Запуск тестов
         Write-Host "Запуск тестов..."
         # $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
