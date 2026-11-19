@@ -56,6 +56,9 @@ jobs:
       with:
         name: ${{ inputs.artifact_name }}
         path: build/unittests
+    - name: список афайлов
+      shell: bash
+      run: cd $GITHUB_WORKSPACE/build/unittests/ && ls -a
     
     - name: Подготовка окружения (Linux)
       if: runner.os == 'Linux'
