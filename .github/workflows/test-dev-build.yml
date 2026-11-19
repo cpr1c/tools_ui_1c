@@ -32,7 +32,7 @@ jobs:
       - name: Скачивание расширения UI.cfe
         shell: bash
         run: |
-          curl -L --retry 5 -o build/UI.cfe "https://github.com/cpr1c/tools_ui_1c/releases/download/v26.6.1/UI.cfe"
+          curl -L -o build/UI.cfe "https://github.com/cpr1c/tools_ui_1c/releases/download/v26.6.1/UI.cfe"
      
 
       - name: Подготовка информационной базы WINDOWS
