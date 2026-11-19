@@ -13,6 +13,11 @@ jobs:
         if: github.event_name == 'push'
         uses: actions/checkout@v6
 
+      - name: Скачивание расширения UI.cfe
+        shell: bash
+        run: |
+          curl -L -o $GITHUB_WORKSPACE/build/UI.cfe "https://github.com/cpr1c/tools_ui_1c/releases/download/v26.6.1/UI.cfe"
+
       - name: Установка 1С:Предприятие 8.3.27.2170
         uses: 1CDevFlow/onec-setup-action@main
         with:
@@ -29,10 +34,7 @@ jobs:
         with:
           version: 2.2.0
 
-      - name: Скачивание расширения UI.cfe
-        shell: bash
-        run: |
-          curl -L -o build/UI.cfe "https://github.com/cpr1c/tools_ui_1c/releases/download/v26.6.1/UI.cfe"
+
      
 
       - name: Подготовка информационной базы WINDOWS
