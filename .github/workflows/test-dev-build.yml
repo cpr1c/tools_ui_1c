@@ -15,7 +15,7 @@ jobs:
       - name: Set locale
         shell: pwsh
         run: |
-          Install-Language -Language ru-ru
+          # Install-Language -Language ru-ru
           $env:LANG = 'ru_RU.UTF-8'
           # Или просто: set LANG=ru_RU.UTF-8
       - name: Скачивание расширения UI.cfe
@@ -40,11 +40,14 @@ jobs:
         with:
           version: 2.2.0
       
-      # - name: Диагностика argv ibcmd
-      #   shell: pwsh
-      #   run: |
-      #     & "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config extension update `
-      #     --name=УниверсальныеИнструменты --db-path="$env:GITHUB_WORKSPACE\build\unittests\base"
+      - name: Диагностика argv ibcmd
+        shell: pwsh
+        run: |
+          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase create --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --load="$env:GITHUB_WORKSPACE\tests\yaxunit\fixtures\config.cf" --apply --force
+          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config load --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force build\UI.cfe
+          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config apply --db-path="$env:GITHUB_WORKSPACE\build\unittests\base" --extension=УниверсальныеИнструменты --force 
+          "C:\Program Files\1cv8\8.3.27.2170\bin\ibcmd.exe" infobase config extension update `
+          --name=УниверсальныеИнструменты --db-path="$env:GITHUB_WORKSPACE\build\unittests\base"
 
 
      
