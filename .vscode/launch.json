@@ -95,7 +95,7 @@
       "debugPort": 2801
     },
     {
-      "name": "Запуск юнит тестов WINDOWS",
+      "name": "Подготовка базы данных для тестов WINDOWS",
       "type": "oscript",
       "request": "launch",
       "program": "${workspaceRoot}/src/builder/build.os",
@@ -106,7 +106,7 @@
       "runtimeArgs": ["-encoding=utf-8"],
       "cwd": "${workspaceRoot}",
       "env": {
-        "TOOLS_UI_1C_BUILDER_PLATFORM_PATH": "C:\\Program Files\\1cv8\\8.3.25.1633\\bin\\"
+        "TOOLS_UI_1C_BUILDER_PLATFORM_PATH": "C:\\Program Files\\1cv8\\8.3.27.2170\\bin\\"
       },
       "debugPort": 2801
     },

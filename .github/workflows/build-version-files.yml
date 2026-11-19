@@ -119,7 +119,7 @@ jobs:
             build/*.cfe
             build/*.cf
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
 
   build-portable:
     name: Сборка файлов портативной поставки
@@ -166,6 +166,6 @@ jobs:
           name: release-files
           path: build/*.epf
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
           overwrite: true
 
