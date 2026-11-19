@@ -169,7 +169,7 @@ jobs:
         Write-Host "Проверка состояния ibsrv..."
         Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
 
-        Start-Process -NoNewWindow -PassThru 1cv8.exe -ArgumentList '/S"localhost\base" /C"RunUnitTests=yaxunit-config.json" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log ' 
+        Start-Process -NoNewWindow -PassThru 1cv8.exe -ArgumentList 'DESIGNER /S"localhost\base" /C"RunUnitTests=yaxunit-config.json" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log ' 
         Start-Sleep -Seconds 10
         
         # Запуск тестов
