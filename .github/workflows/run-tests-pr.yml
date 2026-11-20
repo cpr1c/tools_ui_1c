@@ -1,0 +1,108 @@
+name: Запуск тестов 
+on:
+  pull_request_target:
+    branches:
+      - develop
+      - master
+    paths:
+      - "src/Инструменты/**"
+      - "src/МодульныеТесты/**"
+      - "src/builder/**"
+      - ".github/workflows/run-tests-pr.yml"
+      - ".github/workflows/step-run-tests.yml"
+
+jobs:
+  build-files:
+    uses: ./.github/workflows/build-version-files.yml
+    with:
+      build_cf: false
+      build_portable: false
+    secrets:
+      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+
+  build-unit-test-base:
+    name: Подготовка базы для юнит-тестирования
+    needs: build-files
+    runs-on: ubuntu-24.04
+    steps:
+      # - name: Установка русской локали для ранера
+      #   shell: bash
+      #   run: | 
+      #     sudo localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
+      #     export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
+      #     sudo locale-gen ru_RU.UTF-8
+
+      - name: Извлечение исходников ветки ${{ github.ref_name }}
+        if: github.event_name == 'push'
+        uses: actions/checkout@v6
+      - name: Загрузка артифактов собранные расширения
+        uses: actions/download-artifact@v4
+        with:
+          name: release-files
+          path: build
+    
+      - name: Загрузка исходников в формате конфигуратора
+        uses: actions/download-artifact@v4
+        with:
+          name: designer-src
+          path: build/source
+      - name: Установка 1С:Предприятие 8.3.27.2170
+        uses: 1CDevFlow/onec-setup-action@main
+        with:
+          type: onec
+          onec_version: 8.3.27.2170
+          cache: true
+        env:
+          ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+          ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+        timeout-minutes: 10
+      
+      - name: Установка оскрпит
+        uses: ./.github/actions/install-oscript
+        with:
+          version: 2.2.0    
+      - name: Загрузка yaxunit
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: 'bia-technologies/yaxunit'
+          tag: 25.12
+          fileName: YAxUnit-25.12.cfe
+          out-file-path: build/unittests
+            
+      - name: Подготовка информационной базы
+        shell: bash
+        env:
+          TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
+        run: |
+          export TOOLS_UI_1C_YAXUNIT_PATH="$GITHUB_WORKSPACE/build/unittests/YAxUnit-25.12.cfe"
+          oscript -encoding=utf-8 src/builder/build.os ubase        
+        timeout-minutes: 5
+
+      - name: Публикация базы в артефактах
+        uses: actions/upload-artifact@v4
+        with:
+          name: unittests-base
+          path: build/unittests/base.dt
+          if-no-files-found: error
+          retention-days: 1
+  run-unit-tests:
+    needs: build-unit-test-base
+    uses: ./.github/workflows/step-run-tests.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - 8.3.27.2170
+        locale:
+          - ru_RU
+        os:
+          - windows-latest
+          - ubuntu-24.04
+    with:
+      v8_version: ${{ matrix.version }}
+      locale: ${{ matrix.locale }}
+      os: ${{ matrix.os }}
+      artifact_name: unittests-base
+    secrets: inherit
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Enum xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4ee3d31f-6b11-47aa-a318-9236a621c91f">
+  <producedTypes>
+    <refType typeId="a87bd259-4e1e-4bc7-af66-93e6e8917dfb" valueTypeId="c4d1abdb-2b60-4849-bd98-d4556585e98f"/>
+    <listType typeId="3846858b-9583-422d-b855-63af104e9213" valueTypeId="aa1b3049-6a29-48c2-8903-6bc9527a86eb"/>
+    <managerType typeId="f00fdf23-aac4-4b44-9971-3ae122d04de9" valueTypeId="832b94fb-ee3d-49ad-a276-7ad713208544"/>
+  </producedTypes>
+  <name>УИТ_ТестПеречисление</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестПеречисление</value>
+  </synonym>
+  <quickChoice>true</quickChoice>
+  <choiceMode>BothWays</choiceMode>
+  <enumValues uuid="6c78e0fe-eb45-4bbb-a94b-c46090ce44ed">
+    <name>ПервоеЗначение</name>
+    <synonym>
+      <key>ru</key>
+      <value>Первое значение</value>
+    </synonym>
+  </enumValues>
+  <enumValues uuid="8e7760f4-792a-43d8-b213-2ed4eaeddad1">
+    <name>ВтороеЗначение</name>
+    <synonym>
+      <key>ru</key>
+      <value>Второе значение</value>
+    </synonym>
+  </enumValues>
+</mdclass:Enum>

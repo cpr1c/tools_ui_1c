@@ -1,15 +1,23 @@
 name: Сборка файлов поставки для релиза
+
 on:
   release:
     types: [created]
 
 
 jobs:
-  build-dev-version:
+  build-release-files:
     uses: ./.github/workflows/build-version-files.yml
+    secrets:
+      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+
+  publish-release:
+    # Файлы релиза публикуются только при успешном прохождении модульных тестов
+    needs: [build-release-files]
+    uses: ./.github/workflows/publish-release.yml
     with:
       tag_name: ${{ github.event.release.tag_name }}
       prerelease: false
-    secrets: 
-      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
-      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+    secrets: inherit
+

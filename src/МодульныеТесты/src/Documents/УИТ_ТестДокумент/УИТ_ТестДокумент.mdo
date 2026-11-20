@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="db481bfe-cd4a-4c0b-816f-d146a4c3b83e">
+  <producedTypes>
+    <objectType typeId="3a61d693-e167-46bc-ac2b-5fdaf782381e" valueTypeId="4df90cfa-60e5-4adc-b23f-170a950df81f"/>
+    <refType typeId="d059f795-d5e6-4a2b-98f8-bacceffae797" valueTypeId="d5f90baf-edaf-437b-8cc2-f1ae1ba23a6a"/>
+    <selectionType typeId="d780cb25-9895-46ea-9eb9-bdbcc473292b" valueTypeId="4463d759-442e-40dc-a0ca-63259c257cd9"/>
+    <listType typeId="69535dda-aeb9-4a3c-b843-372dc4165701" valueTypeId="4a631b7e-fb9a-40ae-a037-d1348fb53acf"/>
+    <managerType typeId="f4d2060c-8345-45ab-88d9-5653cdfda204" valueTypeId="d4c24aa0-2975-4d5b-964a-03e4666618ef"/>
+  </producedTypes>
+  <name>УИТ_ТестДокумент</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестДокумент</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>Use</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Тестовый документ</value>
+  </objectPresentation>
+  <numberType>String</numberType>
+  <numberLength>9</numberLength>
+  <numberAllowedLength>Variable</numberAllowedLength>
+  <checkUnique>true</checkUnique>
+  <autonumbering>true</autonumbering>
+  <postInPrivilegedMode>true</postInPrivilegedMode>
+  <unpostInPrivilegedMode>true</unpostInPrivilegedMode>
+  <attributes uuid="d4b46493-f901-4558-8c01-ff94716fd5b7">
+    <name>Комментарий</name>
+    <synonym>
+      <key>ru</key>
+      <value>Комментарий</value>
+    </synonym>
+    <type>
+      <types>String</types>
+      <stringQualifiers/>
+    </type>
+    <multiLine>true</multiLine>
+    <minValue xsi:type="core:UndefinedValue"/>
+    <maxValue xsi:type="core:UndefinedValue"/>
+    <fillValue xsi:type="core:UndefinedValue"/>
+    <fullTextSearch>Use</fullTextSearch>
+    <dataHistory>Use</dataHistory>
+  </attributes>
+</mdclass:Document>

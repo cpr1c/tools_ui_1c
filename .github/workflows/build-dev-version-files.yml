@@ -1,4 +1,5 @@
 name: Сборка файлов поставки для ветки develop основного репозитория
+
 on:
   push:
     branches:
@@ -8,13 +9,17 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.repository }}-export
   cancel-in-progress: true
-
 jobs:
   build-dev-version:
     uses: ./.github/workflows/build-version-files.yml
-    with:
-      tag_name: "v0.0.0"
-      prerelease: true
     secrets:
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+
+  publish-dev-release:
+    # Файлы релиза публикуются только при успешном прохождении модульных тестов
+    needs: [build-dev-version]
+    uses: ./.github/workflows/publish-release.yml
+    with:
+      tag_name: "v0.0.0"
+      prerelease: true

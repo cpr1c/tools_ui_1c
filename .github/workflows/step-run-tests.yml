@@ -1,0 +1,247 @@
+name: Тестирование
+
+on:
+  workflow_call:
+    inputs:
+      v8_version:
+        description: 'Версия 1С:Предприятие'
+        type: string
+        required: true
+
+      locale:
+        type: string
+        required: false
+        default: ru_RU
+
+      artifact_name:
+        type: string
+        required: false
+        default: build-artifacts
+        
+      fail_on_failure:
+        type: boolean
+        required: false
+        default: true
+
+      os:
+        type: string
+        required: true
+
+      yaxunit_version:
+        description: 'Версия YAxUnit для скачивания из релизов'
+        type: string
+        required: false
+        default: 25.12
+
+permissions:
+    contents: read
+    checks: write
+    id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}-${{ inputs.v8_version }}-${{ inputs.locale }}-${{ github.event.number }}-${{inputs.os}}
+  cancel-in-progress: true
+
+jobs:
+  execute-tests:
+    name: Тестирование
+    runs-on: ${{inputs.os}}
+    steps:
+
+    - name: Извлечение исходников ветки ${{ github.ref_name }}
+      uses: actions/checkout@v6
+    
+    - name: Загрузка подготовленной выгрузки базы для тестов
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: build/unittests
+    
+    - name: Подготовка окружения (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y locales 
+        sudo ln -s /usr/lib/x86_64-linux-gnu/libenchant-2.so.2 /usr/lib/libenchant.so.1
+        sudo localedef -i ${{ inputs.locale }} -c -f UTF-8 -A /usr/share/locale/locale.alias ${{ inputs.locale }}.UTF-8
+
+        mkdir -p ~/.1cv8/1C/1cv8/conf/
+        echo "DisableUnsafeActionProtection=.*" >>~/.1cv8/1C/1cv8/conf/conf.cfg
+  
+    - name: Установка xvfb и зависимостей (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb x11-utils net-tools libgstreamer-plugins-base1.0-0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+        sudo apt-get install -y ca-certificates libgtk2.0-0 libwebkit2gtk-4.1 ttf-mscorefonts-installer libfontconfig1 libgsf-1-114 libglib2.0-0 libodbc2 dbus-x11 libglu1-mesa
+        sudo ldconfig
+
+    # - name: Определение "короткой" локали
+    #   id: short_locale
+    #   shell: pwsh
+    #   run: |
+    #     Write-Output "substring=$('${{ inputs.locale }}'.Substring(0, 2))" >> $Env:GITHUB_OUTPUT
+
+    - name: Установка 1С:Предприятие
+      uses: 1CDevFlow/onec-setup-action@main
+      with:
+        type: onec
+        onec_version: ${{ inputs.v8_version }}
+        cache: ${{runner.os == 'Windows'}}
+      env: 
+        ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+        ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+      timeout-minutes: 10
+
+    - name: Подготовка окружения (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        # ВАЖНО: шаг выполняется ПОСЛЕ установки платформы. Установка восстанавливает
+        # C:\Program Files\1cv8 из кэша actions/cache (tar -xf поверх каталога),
+        # затирая conf.cfg, записанный до неё. Платформа читает conf.cfg как UTF-8
+        # (без BOM): Set-Content в pwsh пишет utf8NoBOM. Out-File -Encoding Unicode
+        # (UTF-16LE+BOM) также ломал параметр — защита от опасных действий оставалась
+        # активной и блокировала модальным диалогом подключение внешних обработок.
+        New-Item -ItemType Directory -Force -Path "C:\Program Files\1cv8\conf"
+        Set-Content -Path "C:\Program Files\1cv8\conf\conf.cfg" -Value @'
+        DisableUnsafeActionProtection=.*
+        '@
+     
+    - name: Создание базы тестирования
+      shell: bash
+      run: |
+        ibcmd infobase create --db-path=file-db --restore=$GITHUB_WORKSPACE/build/unittests/base.dt --apply --force
+ 
+    - name: Создание файла конфигурации тестирования
+      uses: DamianReeves/write-file-action@master
+      with:
+        path: yaxunit-config.json
+        contents: |
+          {
+            "reportFormat": "jUnit",
+            "reportPath": "report.xml",
+            "closeAfterTests": true,
+            "exitCode": "exit-code.txt",
+            "logging": {
+              "console": true,
+              "file": "log.txt"
+            },
+            "filter": {
+              "extensions": [
+                "МодульныеТесты"
+              ]
+            }
+          }
+
+    - name: Запуск тестирования (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        # Запуск ibsrv в фоне
+        ibsrv --db-path=file-db --daemon & sleep 5
+        
+        # Проверка, что сервер запустился
+        echo "Проверка состояния ibsrv..."
+        ps aux | grep ibsrv || echo "ibsrv не найден в процессах"
+        
+        # Проверка доступности порта
+        netstat -tlnp | grep 8314 || echo "Порт 8314 не прослушивается"
+        
+        # Запуск тестов через xvfb-run
+        echo "Запуск тестов через xvfb-run..."
+        xvfb-run -a -s "-screen 0 1024x768x24" 1cv8c /WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log
+        
+        # Проверка результата выполнения
+        echo "Код завершения тестов: $?"
+      env:
+        LANG: "${{ inputs.locale }}.UTF-8"
+        DISPLAY: ":99"
+      timeout-minutes: 10
+    
+
+    - name: Запуск тестирования (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        # Запуск ibsrv в фоне
+        Start-Process ibsrv.exe -ArgumentList "--db-path=file-db --name=base" -WindowStyle Hidden
+        Start-Sleep -Seconds 5
+        # Проверка, что сервер запустился
+        Write-Host "Проверка состояния ibsrv..."
+        Get-Process ibsrv -ErrorAction SilentlyContinue | Select-Object ProcessName, Id, CPU
+
+        Start-Process -NoNewWindow -PassThru 1cv8.exe -ArgumentList 'DESIGNER /S"localhost\base" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output2.log ' 
+        Start-Sleep -Seconds 10
+        
+        # Запуск тестов
+        Write-Host "Запуск тестов..."
+        $result = Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /L ${{ steps.short_locale.outputs.substring }} /VL ${{ inputs.locale }} /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+        # Start-Process -NoNewWindow -PassThru -Wait 1cv8c.exe -ArgumentList '/WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /DisableStartupDialogs /DisableStartupMessages /DisableUnrecoverableErrorMessage /Out output.log'
+        # Проверка результата выполнения
+        Write-Host "Код завершения тестов: $($result.ExitCode)"
+        if ($result.ExitCode -ne 0) { exit $result.ExitCode }
+      timeout-minutes: 10
+
+    - name: Проверка результата выполнения тестов
+      if: always()
+      shell: bash
+      run: |
+        if [ ! -f exit-code.txt ]; then
+          echo "Файл с кодом завершения тестов не создан - тесты не выполнялись"
+          exit 1
+        fi
+        # В файле может быть BOM, поэтому оставляем только цифры
+        export CODE_EX=$(tr -cd '0-9' < exit-code.txt)
+        echo "Код завершения тестов: $CODE_EX"
+        if [ "$CODE_EX" != "0" ]; then
+          echo "Модульные тесты не пройдены"
+          exit 1
+        fi
+
+    - name: Сохранение файла отчета
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: Отчет о тестировании. ${{runner.os}} ${{ inputs.v8_version }} ${{ inputs.locale }}
+        path: report.xml
+    
+
+        
+    - name: Публикация отчета о тестировании
+      uses: 1CDevFlow/action-onec-junit-report@main
+      if: always()
+      with:
+        job_name: Тестирование
+        check_name: Отчет о тестировании. ${{runner.os}} ${{ inputs.v8_version }} ${{ inputs.locale }}
+        report_paths: report.xml
+        fail_on_failure: true
+        require_passed_tests: true
+      
+    - name: Лог выполнения
+      if: always()
+      continue-on-error: true
+      run: cat log.txt
+
+    - name: Лог платформы
+      if: always()
+      run: cat output.log
+      continue-on-error: true
+
+    - name: Очистка процессов (Linux)
+      if: always() && runner.os == 'Linux'
+      run: |
+        echo "Очистка процессов ibsrv..."
+        pkill -f ibsrv || echo "Процессы ibsrv не найдены"
+        pkill -f xvfb || echo "Процессы xvfb не найдены"
+
+    - name: Очистка процессов (Windows)
+      if: always() && runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        Write-Host "Очистка процессов ibsrv..."
+        try {
+            Get-Process ibsrv -ErrorAction SilentlyContinue | Stop-Process -Force
+            Write-Host "Процессы ibsrv остановлены"
+        } catch {
+            Write-Host "Ошибка остановки процессов ibsrv: $_"
+        }
+  

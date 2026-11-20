@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Task xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="4e926a1a-775a-4ade-9409-09527cd87fac">
+  <producedTypes>
+    <objectType typeId="7855e206-d189-4c6c-bec6-33cdabe3507a" valueTypeId="b4446dd8-3635-4e40-b03b-e5a08f6b129e"/>
+    <refType typeId="350e00b4-00d5-48ff-9c28-a0d97b277710" valueTypeId="841c582a-d0ea-44d5-b17d-6471b36fe4d9"/>
+    <selectionType typeId="833e3170-4bc1-4701-a5f3-7f2217e75751" valueTypeId="18649906-e533-4a1f-8bb3-d4e135c14af5"/>
+    <listType typeId="add4a72e-24a5-4958-86f1-ac6ac3f5acdf" valueTypeId="a524fd76-c9e9-4f3e-856d-f19a1b213f8a"/>
+    <managerType typeId="3a4f6617-7d81-4671-8e61-c6e378126761" valueTypeId="04430ff3-9ebb-4d5b-91ea-acc77e0a8e33"/>
+  </producedTypes>
+  <name>УИТ_ТестЗадача</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестЗадача</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>DontUse</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Тестовая задача</value>
+  </objectPresentation>
+  <numberType>String</numberType>
+  <numberLength>9</numberLength>
+  <numberAllowedLength>Variable</numberAllowedLength>
+  <checkUnique>true</checkUnique>
+  <autonumbering>true</autonumbering>
+  <taskNumberAutoPrefix>DontUse</taskNumberAutoPrefix>
+  <descriptionLength>25</descriptionLength>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <editType>InDialog</editType>
+</mdclass:Task>

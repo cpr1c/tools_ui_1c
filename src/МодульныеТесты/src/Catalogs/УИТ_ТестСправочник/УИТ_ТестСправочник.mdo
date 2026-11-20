@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="198af98e-ff09-407f-9782-6049a2a0dc69">
+  <producedTypes>
+    <objectType typeId="76725415-46bf-44d0-a019-90fe3c81cd12" valueTypeId="0104a493-f85d-4778-97eb-0486f215c80d"/>
+    <refType typeId="69401cc1-34a8-40cb-be6a-e2ede2f2f670" valueTypeId="25fed1a3-c1b4-4f40-b5d3-e4e76e31e2af"/>
+    <selectionType typeId="4718699a-7ae6-4f31-bf5e-a27b830b6f30" valueTypeId="bf4f8925-65bf-4afa-9c1c-7d3b50abf115"/>
+    <listType typeId="00785619-0e85-469c-aaa0-e2acc33a24a8" valueTypeId="0e89f902-6c1d-4c90-970b-18e3d158620f"/>
+    <managerType typeId="932985f3-d7f7-4817-810f-2fd710531e95" valueTypeId="1cd843e7-9b42-4773-af83-09b7a035dc7c"/>
+  </producedTypes>
+  <name>УИТ_ТестСправочник</name>
+  <synonym>
+    <key>ru</key>
+    <value>ТестСправочник</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <fullTextSearchOnInputByString>DontUse</fullTextSearchOnInputByString>
+  <createOnInput>Use</createOnInput>
+  <fullTextSearch>Use</fullTextSearch>
+  <objectPresentation>
+    <key>ru</key>
+    <value>Элемент тестового справочника</value>
+  </objectPresentation>
+  <levelCount>2</levelCount>
+  <foldersOnTop>true</foldersOnTop>
+  <codeLength>9</codeLength>
+  <descriptionLength>25</descriptionLength>
+  <codeType>String</codeType>
+  <codeAllowedLength>Variable</codeAllowedLength>
+  <checkUnique>true</checkUnique>
+  <autonumbering>true</autonumbering>
+  <defaultPresentation>AsDescription</defaultPresentation>
+  <predefined>
+    <items id="84df61b9-5b28-4164-b8c5-944203b16fa8">
+      <name>ПредопределенныйЭлементОдин</name>
+      <description>Предопределенный dэлемент</description>
+      <code xsi:type="core:StringValue">
+        <value>1</value>
+      </code>
+    </items>
+  </predefined>
+  <editType>InDialog</editType>
+  <choiceMode>BothWays</choiceMode>
+</mdclass:Catalog>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" xmlns:mdclassExtension="http://g5.1c.ru/v8/dt/metadata/mdclass/extension" uuid="7ece1c51-a0a8-4622-bd05-d85ec7fb02a4">
+  <name>МодульныеТесты</name>
+  <synonym>
+    <key>ru</key>
+    <value>Модульные тесты</value>
+  </synonym>
+  <objectBelonging>Adopted</objectBelonging>
+  <extension xsi:type="mdclassExtension:ConfigurationExtension">
+    <managedApplicationModule>Extended</managedApplicationModule>
+    <sessionModule>Extended</sessionModule>
+    <externalConnectionModule>Extended</externalConnectionModule>
+  </extension>
+  <containedObjects classId="9cd510cd-abfc-11d4-9434-004095e12fc7" objectId="eef76d7c-ed22-4bee-8eb5-534160a4a9b0"/>
+  <containedObjects classId="9fcd25a0-4822-11d4-9414-008048da11f9" objectId="1fcb712c-2963-4122-919d-e9a89ae7e4fa"/>
+  <containedObjects classId="e3687481-0a87-462c-a166-9f34594f9bba" objectId="29b6e252-cfeb-4f36-ae58-33247d410578"/>
+  <containedObjects classId="9de14907-ec23-4a07-96f0-85521cb6b53b" objectId="c3addd0c-e66e-4e3d-b646-65efc71bb671"/>
+  <containedObjects classId="51f2d5d8-ea4d-4064-8892-82951750031e" objectId="125485ce-2de1-489d-97b0-8bc4ba34eb87"/>
+  <containedObjects classId="e68182ea-4237-4383-967f-90c1e3370bc7" objectId="292d2215-0e9b-4330-a490-12f2eb0de874"/>
+  <containedObjects classId="fb282519-d103-4dd3-bc12-cb271d631dfc" objectId="6a0ca068-0399-404e-9e7f-5dbecca2e75d"/>
+  <namePrefix>УИТ_</namePrefix>
+  <configurationExtensionCompatibilityMode>8.3.24</configurationExtensionCompatibilityMode>
+  <configurationExtensionPurpose>Customization</configurationExtensionPurpose>
+  <scriptVariant>Russian</scriptVariant>
+  <version>0.0.1</version>
+  <commonPictures>CommonPicture.УИТ_КартинкаТест</commonPictures>
+  <commonTemplates>CommonTemplate.УИТ_ТестДвоичныеДанные</commonTemplates>
+  <commonTemplates>CommonTemplate.УИТ_ТестоваяКартинка</commonTemplates>
+  <commonModules>CommonModule.УИТ_ТестГенераторКода</commonModules>
+  <exchangePlans>ExchangePlan.УИТ_ТестПланОбмена</exchangePlans>
+  <catalogs>Catalog.УИТ_ТестСправочник</catalogs>
+  <documents>Document.УИТ_ТестДокумент</documents>
+  <enums>Enum.УИТ_ТестПеречисление</enums>
+  <chartsOfCharacteristicTypes>ChartOfCharacteristicTypes.УИТ_ПланВидовХарактеристик</chartsOfCharacteristicTypes>
+  <chartsOfAccounts>ChartOfAccounts.УИТ_ТестПланСчетов</chartsOfAccounts>
+  <chartsOfCalculationTypes>ChartOfCalculationTypes.УИТ_ТестПланВидовРасчета</chartsOfCalculationTypes>
+  <businessProcesses>BusinessProcess.УИТ_ТестБизнесПроцесс</businessProcesses>
+  <tasks>Task.УИТ_ТестЗадача</tasks>
+</mdclass:Configuration>
