@@ -1,9 +1,15 @@
-name: Запуск тестов
+name: Запуск тестов 
 on:
-  push:
-    branches-ignore:
-      - "develop"
-      - "master"
+  pull_request_target:
+    branches:
+      - develop
+      - master
+    paths:
+      - "src/Инструменты/**"
+      - "src/МодульныеТесты/**"
+      - "src/builder/**"
+      - ".github/workflows/run-tests-pr.yml"
+      - ".github/workflows/step-run-tests.yml"
 
 jobs:
   build-files:
@@ -91,7 +97,7 @@ jobs:
         locale:
           - ru_RU
         os:
-          # - windows-latest
+          - windows-latest
           - ubuntu-24.04
     with:
       v8_version: ${{ matrix.version }}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mdclass:Catalog xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="198af98e-ff09-407f-9782-6049a2a0dc69">
+<mdclass:Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://g5.1c.ru/v8/dt/mcore" xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="198af98e-ff09-407f-9782-6049a2a0dc69">
   <producedTypes>
     <objectType typeId="76725415-46bf-44d0-a019-90fe3c81cd12" valueTypeId="0104a493-f85d-4778-97eb-0486f215c80d"/>
     <refType typeId="69401cc1-34a8-40cb-be6a-e2ede2f2f670" valueTypeId="25fed1a3-c1b4-4f40-b5d3-e4e76e31e2af"/>
@@ -32,7 +32,10 @@
   <predefined>
     <items id="84df61b9-5b28-4164-b8c5-944203b16fa8">
       <name>ПредопределенныйЭлемент</name>
-      <description>Предопределенный элемент</description>
+      <description>Предопределенный dэлемент</description>
+      <code xsi:type="core:StringValue">
+        <value>1</value>
+      </code>
     </items>
   </predefined>
   <editType>InDialog</editType>
