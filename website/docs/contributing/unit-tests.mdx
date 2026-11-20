@@ -1,0 +1,199 @@
+---
+sidebar_position: 5
+description: Модульное тестирование «Универсальных инструментов 1С» на фреймворке YAxUnit — структура тестов, подготовка базы, локальный запуск и CI.
+---
+
+# Модульные тесты
+
+Для проверки кода подсистемы используются модульные тесты на фреймворке
+[YAxUnit](https://github.com/bia-technologies/yaxunit) — тестовом движке для решений на платформе
+1С:Предприятие (лицензия Apache 2.0).
+
+## Полезные ссылки
+
+| Ресурс | Ссылка |
+| ------ | ------ |
+| Репозиторий фреймворка | [github.com/bia-technologies/yaxunit](https://github.com/bia-technologies/yaxunit) |
+| Документация | [bia-technologies.github.io/yaxunit](https://bia-technologies.github.io/yaxunit/) |
+| Первый тест | [docs/getting-started/first-test](https://bia-technologies.github.io/yaxunit/docs/getting-started/first-test) |
+| Регистрация тестов (`ЮТТесты`) | [docs/features/test-registration](https://bia-technologies.github.io/yaxunit/docs/features/test-registration) |
+| Утверждения (`ЮТУтверждения`, `ЮТест`) | [docs/features/assertions](https://bia-technologies.github.io/yaxunit/docs/features/assertions/) |
+| Тестовые данные | [docs/features/test-data](https://bia-technologies.github.io/yaxunit/docs/features/test-data/) |
+| Настройка запуска (`yaxunit-config.json`) | [docs/getting-started/run/configuration](https://bia-technologies.github.io/yaxunit/docs/getting-started/run/configuration) |
+| Плагин для EDT | [docs/getting-started/edt-plugin](https://bia-technologies.github.io/yaxunit/docs/getting-started/edt-plugin/) |
+| Релизы (файл `YAxUnit-<версия>.cfe`) | [github.com/bia-technologies/yaxunit/releases](https://github.com/bia-technologies/yaxunit/releases) |
+
+## Где лежат тесты
+
+Тесты находятся в отдельном расширении `src/МодульныеТесты/` (исходники в формате EDT):
+
+```
+src/МодульныеТесты/src/
+├── CommonModules/УИТ_ТестГенераторКода/   # тесты общего модуля УИ_ГенераторКода
+├── Catalogs/УИТ_ТестСправочник/           # тестовые данные
+├── Documents/УИТ_ТестДокумент/
+├── CommonTemplates/УИТ_ТестоваяКартинка/
+└── ...
+```
+
+Расширение не входит в поставку — оно собирается и подключается только для запуска тестов.
+Все объекты расширения имеют префикс `УИТ_`, тестовые данные создаются объектами `УИТ_Тест*`,
+поэтому тесты не зависят от данных информационной базы.
+
+:::info
+Движок YAxUnit в репозитории не хранится. При подготовке базы он скачивается из
+[релизов проекта](https://github.com/bia-technologies/yaxunit/releases) или подключается из файла,
+указанного в параметре `--yaxunitpath`.
+:::
+
+## Как устроен тест
+
+Тестовый модуль — общий модуль расширения `МодульныеТесты`, который экспортирует функцию
+`ИсполняемыеСценарии()`. В ней регистрируются тестовые наборы и тесты, а сами проверки
+оформляются отдельными экспортными процедурами.
+
+```bsl
+// Регистрирует тестовые наборы и тесты модуля.
+//
+// Возвращаемое значение:
+//  ОбщийМодуль - модуль регистрации тестов, см. ЮТТесты
+Функция ИсполняемыеСценарии() Экспорт
+
+	ЮТТесты.ДобавитьТестовыйНабор("ГенераторКода.Примитивы", "ГенераторКода")
+		.ДобавитьТест("БулевоВСтрокуКода")
+		.ДобавитьТест("ЧислоВСтрокуКода")
+		.ДобавитьТест("ДатаВСтрокуКодаБезВремени");
+
+	Возврат ЮТТесты;
+
+КонецФункции
+
+// Проверяет преобразование булева значения в строку кода.
+Процедура БулевоВСтрокуКода() Экспорт
+
+	ЮТест.ОжидаетЧто(УИ_ГенераторКода.БулевоВСтрокуКода(Истина), "Истина")
+		.Равно("Истина");
+
+	ЮТест.ОжидаетЧто(УИ_ГенераторКода.БулевоВСтрокуКода(Ложь), "Ложь")
+		.Равно("Ложь");
+
+КонецПроцедуры
+```
+
+Основные модули фреймворка, которые используются в тестах:
+
+- `ЮТТесты` — регистрация наборов и тестов, настройка выполнения (например, `.ВТранзакции()`);
+- `ЮТест` — утверждения в текучем стиле: `ЮТест.ОжидаетЧто(...).Равно(...)`, `.НеРавно(...)`,
+  `.ЗаканчиваетсяНа(...)`;
+- `ЮТУтверждения` — классические утверждения (`ЮТУтверждения.ПроверитьРавенство(...)` и т.п.);
+- `ЮТТестовыеДанные` — создание, поиск и удаление тестовых данных.
+
+## Подготовка базы для тестов
+
+Сначала выполняется обычная сборка, затем команда `ubase`:
+
+```bash
+# 1. Исходники EDT -> формат конфигуратора
+oscript -encoding=utf-8 ./src/builder/build.os xml
+
+# 2. Сборка расширения "Инструменты" (UI.cfe)
+oscript -encoding=utf-8 ./src/builder/build.os cfe
+
+# 3. Подготовка базы юнит-тестов
+oscript -encoding=utf-8 ./src/builder/build.os ubase
+```
+
+Команда `ubase`:
+
+1. скачивает расширение YAxUnit (если не указан `--yaxunitpath`);
+2. создаёт пустую файловую базу из шаблона `tests/yaxunit/fixtures/config.cf`;
+3. загружает расширения `YAXUNIT`, `УниверсальныеИнструменты` (`build/UI.cfe`) и `МодульныеТесты`
+   (из `build/source/МодульныеТесты`);
+4. выгружает готовую базу в `build/unittests/base.dt`.
+
+Если расширение `Инструменты` уже собрано в каталоге сборки, оно не пересобирается — тестируется
+ровно тот файл, который публикуется.
+
+| Параметр | Переменная окружения | Назначение |
+| -------- | -------------------- | ---------- |
+| `--yaxunitpath` | `TOOLS_UI_1C_YAXUNIT_PATH` | Путь к файлу расширения `YAxUnit-<версия>.cfe` |
+| `--yaxunitversion` | `TOOLS_UI_1C_YAXUNIT_VERSION` | Версия YAxUnit для скачивания (по умолчанию `25.12`) |
+| `--platformSource` | `TOOLS_UI_1C_BUILDER_PLATFORM_PATH` | Каталог установки платформы 1С |
+
+```bash
+# Пример с явным указанием версии движка
+oscript -encoding=utf-8 ./src/builder/build.os ubase --yaxunitversion=25.12
+```
+
+```batch
+REM Windows
+build.bat --platformSource="C:\Program Files\1cv8\8.3.27.2170\bin" xml
+build.bat --platformSource="C:\Program Files\1cv8\8.3.27.2170\bin" cfe
+build.bat --platformSource="C:\Program Files\1cv8\8.3.27.2170\bin" ubase
+```
+
+## Запуск тестов
+
+Для запуска нужна информационная база, восстановленная из `build/unittests/base.dt`, и файл
+настроек `yaxunit-config.json`. Минимальная конфигурация, используемая в CI:
+
+```json
+{
+  "reportFormat": "jUnit",
+  "reportPath": "report.xml",
+  "closeAfterTests": true,
+  "exitCode": "exit-code.txt",
+  "logging": {
+    "console": true,
+    "file": "log.txt"
+  },
+  "filter": {
+    "extensions": ["МодульныеТесты"]
+  }
+}
+```
+
+Запуск выполняется в клиенте 1С с параметром `/C"RunUnitTests=<путь к файлу настроек>"`:
+
+```bash
+1cv8c /WS "http://localhost:8314" /C"RunUnitTests=yaxunit-config.json" /Out output.log
+```
+
+Код завершения тестов записывается в файл `exit-code.txt` (`0` — все тесты пройдены), отчёт в
+формате JUnit — в `report.xml`. Полное описание настроек — в
+[документации YAxUnit](https://bia-technologies.github.io/yaxunit/docs/getting-started/run/configuration).
+
+:::tip
+Для разработки в 1С:EDT удобно использовать [плагин YAxUnit](https://bia-technologies.github.io/yaxunit/docs/getting-started/edt-plugin/) —
+он позволяет запускать и отлаживать отдельные тесты прямо из IDE.
+:::
+
+## Запуск в CI
+
+Тесты запускаются в GitHub Actions при pull request в `develop` или `master`, если изменены
+`src/Инструменты/**`, `src/МодульныеТесты/**` или `src/builder/**`:
+
+- [`.github/workflows/run-tests-pr.yml`](https://github.com/cpr1c/tools_ui_1c/blob/develop/.github/workflows/run-tests-pr.yml) —
+  собирает расширения, готовит базу командой `ubase` и передаёт её в матрицу запуска;
+- [`.github/workflows/step-run-tests.yml`](https://github.com/cpr1c/tools_ui_1c/blob/develop/.github/workflows/step-run-tests.yml) —
+  восстанавливает базу, запускает тесты и публикует отчёт.
+
+Матрица запуска: Windows и Ubuntu, платформа 1С 8.3.27.2170, локаль `ru_RU`. Результаты оформляются
+как JUnit-отчёт и публикуются в проверках pull request: красная проверка означает, что хотя бы один
+тест не пройден.
+
+## Соглашения
+
+- Тестовый набор называется `<Модуль>.<Группа>`, имя теста совпадает с именем процедуры;
+- проверяемый модуль вызывается по имени (`УИ_ГенераторКода.Метод(...)`), тест не должен зависеть
+  от данных информационной базы;
+- тестовые данные создаются объектами расширения `УИТ_Тест*`;
+- тесты, изменяющие данные, регистрируются с `.ВТранзакции()` — изменения откатываются после теста;
+- тестовый код документируется так же, как код подсистемы (см.
+  [Правила оформления кода](/docs/contributing/coding-guidelines)).
+
+## Связанные разделы
+
+- [Сборка из исходников](/docs/guides/build-from-source)
+- [Настройка среды в EDT](/docs/contributing/setup-edt)
+- [Процесс Pull Request](/docs/contributing/pull-request-process)

@@ -31,6 +31,7 @@ opm install
 | `cfe`   | Сборка расширения (.cfe) |
 | `cf`    | Сборка конфигурации (.cf) |
 | `epf`   | Сборка портативной обработки (.epf) |
+| `ubase` | Подготовка базы для запуска модульных тестов |
 
 Сначала выполняется `xml`, затем одна из команд формирования сборки.
 
@@ -62,6 +63,33 @@ REM Windows
 build.bat --platformSource="C:\Program Files (x86)\1cv8\8.3.12.1924\bin" --edtSource="C:\1C\EDT\eclipse" xml
 build.bat --platformSource="C:\Program Files (x86)\1cv8\8.3.12.1924\bin" --edtSource="C:\1C\EDT\eclipse" cfe
 ```
+
+## Подготовка базы для модульных тестов
+
+Команда `ubase` собирает базу для запуска тестов на фреймворке
+[YAxUnit](https://github.com/bia-technologies/yaxunit): скачивает движок тестирования, создаёт чистую
+базу и загружает в неё расширения `YAXUNIT`, `Инструменты` и `МодульныеТесты`. Результат выгружается
+в `build/unittests/base.dt`.
+
+```bash
+./build.sh xml
+./build.sh cfe
+./build.sh ubase --yaxunitversion=25.12
+```
+
+```batch
+REM Windows
+build.bat xml
+build.bat cfe
+build.bat ubase --yaxunitversion=25.12
+```
+
+| Параметр | Переменная окружения | Назначение |
+| -------- | -------------------- | ---------- |
+| `--yaxunitpath` | `TOOLS_UI_1C_YAXUNIT_PATH` | Путь к файлу `YAxUnit-<версия>.cfe` |
+| `--yaxunitversion` | `TOOLS_UI_1C_YAXUNIT_VERSION` | Версия YAxUnit (по умолчанию `25.12`) |
+
+Подробнее о структуре тестов и запуске — в разделе [Модульные тесты](/docs/contributing/unit-tests).
 
 ## Сборка CF из расширения
 
