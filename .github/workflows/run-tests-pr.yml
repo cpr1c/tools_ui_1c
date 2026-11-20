@@ -1,5 +1,9 @@
 name: Запуск тестов 
 on:
+  push:
+    branches-ignore:
+      - "develop"
+      - "master"
   pull_request_target:
     branches:
       - develop
