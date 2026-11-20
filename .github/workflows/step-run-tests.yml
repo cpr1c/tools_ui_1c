@@ -72,7 +72,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y xvfb x11-utils net-tools libgstreamer-plugins-base1.0-0 gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
-        sudo apt-get install -y ca-certificates libgtk2.0-0 libwebkit2gtk-4.0 ttf-mscorefonts-installer libfontconfig1 libgsf-1-114 libglib2.0-0 libodbc2 dbus-x11 libglu1-mesa
+        sudo apt-get install -y ca-certificates libgtk2.0-0 libwebkit2gtk-4.1 ttf-mscorefonts-installer libfontconfig1 libgsf-1-114 libglib2.0-0 libodbc2 dbus-x11 libglu1-mesa
         sudo ldconfig
 
     # - name: Определение "короткой" локали
