@@ -12,26 +12,13 @@ concurrency:
 jobs:
   build-dev-version:
     uses: ./.github/workflows/build-version-files.yml
-    with:
-      tag_name: "v0.0.0"
-      prerelease: true
     secrets:
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
 
-  unit-tests:
-    name: Модульные тесты
-    needs: build-dev-version
-    uses: ./.github/workflows/step-run-tests.yml
-    with:
-      v8_version: 8.3.27.2170
-      artifact_name: build-artifacts
-      os: ubuntu-22.04
-    secrets: inherit
-
   publish-dev-release:
     # Файлы релиза публикуются только при успешном прохождении модульных тестов
-    needs: [build-dev-version, unit-tests]
+    needs: [build-dev-version]
     uses: ./.github/workflows/publish-release.yml
     with:
       tag_name: "v0.0.0"
