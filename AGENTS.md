@@ -28,7 +28,7 @@ oscript -encoding=utf-8 ./src/builder/build.os <команда>
 ## CI и контроль качества
 
 - GitHub Actions: сборка по push в `develop`, релизы — по созданию тега
-- Модульные тесты (YAxUnit) — `.github/workflows/unit-tests.yml`: на PR из этого репозитория, по вызову из сборки файлов поставки (без прохождения тестов файлы релиза не публикуются, в релиз добавляется комментарий о провале)
+- Модульные тесты (YAxUnit) — `.github/workflows/run-tests-pr.yml`: на PR из этого репозитория
 - SonarQube на sonar.openbsl.ru (`sonar-project.properties`); анализ по push и PR
 - bsl-language-server проверяет стиль (`.bsl-language-server.json`, `.editorconfig`), стандарт — [Соглашение о кодировании](https://cpr1c.github.io/code_style/); служебные теги: `todo|fixme|отладка|debug|КОНСТРУКТОР_`
 - Сайт деплоится на GitHub Pages из ветки `develop` при изменении `website/`
