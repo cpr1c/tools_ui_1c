@@ -20,6 +20,11 @@ jobs:
         with:
           name: release-files
           path: build/
+      - name: Загрузка артефактов сборки portable
+        uses: actions/download-artifact@v4
+        with:
+          name: release-files-epf
+          path: build/
 
       - name: Публикация файлов
         uses: softprops/action-gh-release@v3

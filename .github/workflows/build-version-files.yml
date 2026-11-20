@@ -163,7 +163,7 @@ jobs:
       - name: Публикация артефактов
         uses: actions/upload-artifact@v4
         with:
-          name: release-files
+          name: release-files-epf
           path: build/*.epf
           if-no-files-found: error
           retention-days: 1
