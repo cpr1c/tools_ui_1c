@@ -190,9 +190,9 @@ jobs:
           exit 1
         fi
         # В файле может быть BOM, поэтому оставляем только цифры
-        Код=$(tr -cd '0-9' < exit-code.txt)
-        echo "Код завершения тестов: $Код"
-        if [ "$Код" != "0" ]; then
+        export CODE_EX=$(tr -cd '0-9' < exit-code.txt)
+        echo "Код завершения тестов: $CODE_EX"
+        if [ "$CODE_EX" != "0" ]; then
           echo "Модульные тесты не пройдены"
           exit 1
         fi
