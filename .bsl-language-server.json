@@ -1,7 +1,6 @@
 {
     "$schema": "https://1c-syntax.github.io/bsl-language-server/configuration/schema.json",
     "excludePaths": [
-        "**/CommonModules/УИ_ТипыПлатформыКлиентСервер/**",
         "**/builder/lib/**"
     ],
     "diagnostics": {
