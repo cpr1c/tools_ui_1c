@@ -31,6 +31,7 @@
   <catalogs>Catalog.УИТ_ТестСправочник</catalogs>
   <documents>Document.УИТ_ТестДокумент</documents>
   <enums>Enum.УИТ_ТестПеречисление</enums>
+  <chartsOfCharacteristicTypes>ChartOfCharacteristicTypes.УИТ_ПланВидовХарактеристик</chartsOfCharacteristicTypes>
   <chartsOfAccounts>ChartOfAccounts.УИТ_ТестПланСчетов</chartsOfAccounts>
   <chartsOfCalculationTypes>ChartOfCalculationTypes.УИТ_ТестПланВидовРасчета</chartsOfCalculationTypes>
   <businessProcesses>BusinessProcess.УИТ_ТестБизнесПроцесс</businessProcesses>

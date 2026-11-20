@@ -31,7 +31,7 @@
   <defaultPresentation>AsDescription</defaultPresentation>
   <predefined>
     <items id="84df61b9-5b28-4164-b8c5-944203b16fa8">
-      <name>ПредопределенныйЭлемент</name>
+      <name>ПредопределенныйЭлементОдин</name>
       <description>Предопределенный dэлемент</description>
       <code xsi:type="core:StringValue">
         <value>1</value>
