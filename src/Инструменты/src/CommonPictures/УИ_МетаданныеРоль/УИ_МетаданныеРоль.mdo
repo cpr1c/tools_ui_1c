@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonPicture xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="5cbc65a7-af64-4fcc-80ce-27958e5113b3">
+  <name>УИ_МетаданныеРоль</name>
+  <synonym>
+    <key>ru</key>
+    <value>Роли</value>
+  </synonym>
+  <comment>Иконки метаданных 1С © Журавлев Анатолий, CC BY 4.0</comment>
+</mdclass:CommonPicture>
