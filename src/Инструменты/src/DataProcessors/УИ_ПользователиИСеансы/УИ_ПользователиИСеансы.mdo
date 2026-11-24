@@ -10,6 +10,7 @@
     <value>Пользователи и сеансы [УИ]</value>
   </synonym>
   <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_ПользователиИСеансы.Form.Форма</defaultForm>
   <forms uuid="45509043-7179-4dd7-99f4-ace54acc0f45">
     <name>ФормаПользователя</name>
     <synonym>
@@ -17,4 +18,20 @@
       <value>Пользователь информационной базы</value>
     </synonym>
   </forms>
+  <forms uuid="927b8580-3dbd-4e82-abca-4c3b26575821">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователи и сеансы</value>
+    </synonym>
+  </forms>
+  <commands uuid="4e87fea2-f90d-4c77-aeaa-e4e056d8b9be">
+    <name>ПользователиИСеансы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователи и сеансы [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
 </mdclass:DataProcessor>
