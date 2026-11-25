@@ -1,4 +1,4 @@
-name: Запуск тестов 
+name: Запуск тестов
 on:
   pull_request_target:
     branches:
@@ -28,20 +28,19 @@ jobs:
     steps:
       # - name: Установка русской локали для ранера
       #   shell: bash
-      #   run: | 
+      #   run: |
       #     sudo localedef -i ru_RU -c -f UTF-8 -A /usr/share/locale/locale.alias ru_RU.UTF-8
       #     export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
       #     sudo locale-gen ru_RU.UTF-8
 
       - name: Извлечение исходников ветки ${{ github.ref_name }}
-        if: github.event_name == 'push'
         uses: actions/checkout@v6
       - name: Загрузка артифактов собранные расширения
         uses: actions/download-artifact@v4
         with:
           name: release-files
           path: build
-    
+
       - name: Загрузка исходников в формате конфигуратора
         uses: actions/download-artifact@v4
         with:
@@ -57,26 +56,26 @@ jobs:
           ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
           ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
         timeout-minutes: 10
-      
+
       - name: Установка оскрпит
         uses: ./.github/actions/install-oscript
         with:
-          version: 2.2.0    
+          version: 2.2.0
       - name: Загрузка yaxunit
         uses: robinraju/release-downloader@v1
         with:
-          repository: 'bia-technologies/yaxunit'
+          repository: "bia-technologies/yaxunit"
           tag: 25.12
           fileName: YAxUnit-25.12.cfe
           out-file-path: build/unittests
-            
+
       - name: Подготовка информационной базы
         shell: bash
         env:
           TOOLS_UI_1C_BUILDER_PLATFORM_PATH: "/opt/1cv8/x86_64/8.3.27.2170/"
         run: |
           export TOOLS_UI_1C_YAXUNIT_PATH="$GITHUB_WORKSPACE/build/unittests/YAxUnit-25.12.cfe"
-          oscript -encoding=utf-8 src/builder/build.os ubase        
+          oscript -encoding=utf-8 src/builder/build.os ubase
         timeout-minutes: 5
 
       - name: Публикация базы в артефактах
@@ -105,4 +104,3 @@ jobs:
       os: ${{ matrix.os }}
       artifact_name: unittests-base
     secrets: inherit
-

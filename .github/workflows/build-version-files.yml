@@ -13,7 +13,7 @@ on:
         description: Собирать портативную версию
         type: boolean
         default: true
-      
+
     secrets:
       ONEC_USERNAME:
         description: "Имя пользователя портала 1С для скачивания дистрибутивов"
@@ -77,7 +77,6 @@ jobs:
 
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
-        if: github.event_name == 'push'
         uses: actions/checkout@v6
 
       - name: Загрузка исходников в формате конфигуратора
@@ -131,7 +130,6 @@ jobs:
 
     steps:
       - name: Извлечение исходников ветки ${{ github.ref_name }}
-        if: github.event_name == 'push'
         uses: actions/checkout@v6
 
       - name: Загрузка исходников в формате конфигуратора
@@ -168,4 +166,3 @@ jobs:
           if-no-files-found: error
           retention-days: 1
           overwrite: true
-
