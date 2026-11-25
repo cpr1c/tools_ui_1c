@@ -59,7 +59,7 @@ jobs:
 
     steps:
       - name: Извлечение исходников
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 # Получение полной истории (все тэги и ветки)
 

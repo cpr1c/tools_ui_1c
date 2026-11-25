@@ -10,6 +10,18 @@ on:
       - "src/builder/**"
       - ".github/workflows/run-tests-pr.yml"
       - ".github/workflows/step-run-tests.yml"
+      - ".github/workflows/build-version-files.yml"
+
+# Схема проверки PR:
+#   * правила CI (этот файл и вызываемые workflow) берутся из базовой ветки
+#     (develop/master) — это гарантирует событие pull_request_target;
+#   * исходники для экспорта в формат конфигуратора берутся из merge-коммита PR
+#     (refs/pull/<N>/merge) через вход checkout_ref;
+#   * все остальные job'ы извлекают ветку develop (скрипты сборки/тестов — из develop).
+# Изменения в workflow-файлах начинают действовать только после merge в базовую ветку.
+permissions:
+  contents: read
+  checks: write
 
 jobs:
   build-files:
@@ -17,6 +29,7 @@ jobs:
     with:
       build_cf: false
       build_portable: false
+      checkout_ref: refs/pull/${{ github.event.pull_request.number }}/merge
     secrets:
       ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
       ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
@@ -33,8 +46,10 @@ jobs:
       #     export LANG=ru_RU.UTF-8 LC_ALL=ru_RU.UTF-8
       #     sudo locale-gen ru_RU.UTF-8
 
-      - name: Извлечение исходников ветки ${{ github.ref_name }}
+      - name: Извлечение исходников (develop)
         uses: actions/checkout@v6
+        with:
+          ref: develop
       - name: Загрузка артифактов собранные расширения
         uses: actions/download-artifact@v4
         with:
@@ -103,4 +118,6 @@ jobs:
       locale: ${{ matrix.locale }}
       os: ${{ matrix.os }}
       artifact_name: unittests-base
-    secrets: inherit
+    secrets:
+      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
