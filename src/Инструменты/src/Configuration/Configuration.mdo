@@ -54,6 +54,7 @@
   <commonPictures>CommonPicture.УИ_КоллекцияПиктограммФайлов48</commonPictures>
   <commonPictures>CommonPicture.УИ_МакроКолонка</commonPictures>
   <commonPictures>CommonPicture.УИ_Массив</commonPictures>
+  <commonPictures>CommonPicture.УИ_МетаданныеРоль</commonPictures>
   <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
@@ -129,6 +130,7 @@
   <commonModules>CommonModule.УИ_ОбщегоНазначенияСлужебныйКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_ПарсерXML</commonModules>
   <commonModules>CommonModule.УИ_Пользователи</commonModules>
+  <commonModules>CommonModule.УИ_ПользователиИСеансы</commonModules>
   <commonModules>CommonModule.УИ_РаботаСCURLКлиентСервер</commonModules>
   <commonModules>CommonModule.УИ_РаботаСКодом</commonModules>
   <commonModules>CommonModule.УИ_РаботаСКоманднойСтрокойКлиентСервер</commonModules>
@@ -206,6 +208,7 @@
   <dataProcessors>DataProcessor.УИ_ПлагинПарсераВстроенногоЯзыка_УстановкаДирективКомпиляцииУМетодовМодуля</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискИУдалениеДублей</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПоискСсылокНаОбъект</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_ПользователиИСеансы</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПреобразованиеДанныхJSON</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ПросмотрЗначения</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РегистрацияИзмененийДляОбменаДанными</dataProcessors>

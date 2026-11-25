@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="617c8914-27c0-4850-a779-cbfccdbfc2c6">
+  <producedTypes>
+    <objectType typeId="e9c7fb7f-ae53-4189-bb98-8d9ef95acc4f" valueTypeId="111ccaef-f701-4530-9d55-f27b33aabd30"/>
+    <managerType typeId="f270d04a-1c3a-4d9a-84b4-74dc5810b19c" valueTypeId="174f91a9-ab5c-4116-906d-03fcac7c96b1"/>
+  </producedTypes>
+  <name>УИ_ПользователиИСеансы</name>
+  <synonym>
+    <key>ru</key>
+    <value>Пользователи и сеансы [УИ]</value>
+  </synonym>
+  <useStandardCommands>true</useStandardCommands>
+  <defaultForm>DataProcessor.УИ_ПользователиИСеансы.Form.Форма</defaultForm>
+  <forms uuid="45509043-7179-4dd7-99f4-ace54acc0f45">
+    <name>ФормаПользователя</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователь информационной базы</value>
+    </synonym>
+  </forms>
+  <forms uuid="927b8580-3dbd-4e82-abca-4c3b26575821">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователи и сеансы</value>
+    </synonym>
+  </forms>
+  <commands uuid="4e87fea2-f90d-4c77-aeaa-e4e056d8b9be">
+    <name>ПользователиИСеансы</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователи и сеансы [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
+</mdclass:DataProcessor>

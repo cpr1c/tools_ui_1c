@@ -371,6 +371,13 @@
 		</right>
 	</object>
 	<object>
+		<name>DataProcessor.УИ_ПользователиИСеансы.Command.ПользователиИСеансы</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>DataProcessor.УИ_ГрупповаяОбработкаСправочниковИДокументов</name>
 		<right>
 			<name>Use</name>
@@ -462,6 +469,17 @@
 	</object>
 	<object>
 		<name>DataProcessor.УИ_РедакторПараметровСеанса</name>
+		<right>
+			<name>Use</name>
+			<value>true</value>
+		</right>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
+		<name>DataProcessor.УИ_ПользователиИСеансы</name>
 		<right>
 			<name>Use</name>
 			<value>true</value>
