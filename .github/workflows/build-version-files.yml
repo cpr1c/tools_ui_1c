@@ -52,7 +52,7 @@ jobs:
         timeout-minutes: 30
 
       - name: Установка оскрпит
-        uses: ./.github/actions/install-oscript
+        uses: LevkinSergey/gh-actions/install-oscript@v1
         with:
           version: 2.2.0
 
@@ -97,7 +97,7 @@ jobs:
         timeout-minutes: 10
 
       - name: Установка оскрпит
-        uses: ./.github/actions/install-oscript
+        uses: LevkinSergey/gh-actions/install-oscript@v1
         with:
           version: 2.2.0
 
@@ -150,7 +150,7 @@ jobs:
         timeout-minutes: 10
 
       - name: Установка оскрпит
-        uses: ./.github/actions/install-oscript
+        uses: LevkinSergey/gh-actions/install-oscript@v1
         with:
           version: 2.2.0
 
