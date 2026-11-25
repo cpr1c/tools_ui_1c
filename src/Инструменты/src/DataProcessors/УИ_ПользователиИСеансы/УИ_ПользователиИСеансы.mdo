@@ -25,6 +25,13 @@
       <value>Пользователи и сеансы</value>
     </synonym>
   </forms>
+  <forms uuid="0c67565f-ee38-403e-ac53-784baeaf5ba0">
+    <name>ФормаБлокировкиСеансов</name>
+    <synonym>
+      <key>ru</key>
+      <value>Блокировка сеансов</value>
+    </synonym>
+  </forms>
   <commands uuid="4e87fea2-f90d-4c77-aeaa-e4e056d8b9be">
     <name>ПользователиИСеансы</name>
     <synonym>
