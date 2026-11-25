@@ -5,3 +5,4 @@ docs/coverage
 build/
 .code-index/
 plans/
+/.project
