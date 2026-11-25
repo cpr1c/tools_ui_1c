@@ -31,7 +31,8 @@ on:
         description: "Версия YAxUnit для скачивания из релизов"
         type: string
         required: false
-        default: 25.12
+        default: "25.12"
+
     secrets:
       ONEC_USERNAME:
         description: "Имя пользователя портала 1С для скачивания дистрибутивов"
@@ -42,7 +43,6 @@ on:
 permissions:
   contents: read
   checks: write
-  id-token: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}-${{ inputs.v8_version }}-${{ inputs.locale }}-${{ github.event.number }}-${{inputs.os}}
@@ -53,7 +53,7 @@ jobs:
     name: Тестирование
     runs-on: ${{inputs.os}}
     steps:
-      - name: Извлечение исходников ветки ${{ github.ref_name }}
+      - name: Извлечение исходников (develop)
         uses: actions/checkout@v6
         with:
           ref: develop

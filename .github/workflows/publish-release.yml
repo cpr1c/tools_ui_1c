@@ -10,6 +10,10 @@ on:
         required: true
         type: boolean
 
+# Публикация ассетов в GitHub Releases требует права записи в contents.
+permissions:
+  contents: write
+
 jobs:
   publish-release:
     name: Публикация в GitHub Releases

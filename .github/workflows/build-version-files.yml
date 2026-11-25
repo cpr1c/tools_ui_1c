@@ -30,6 +30,12 @@ on:
       ONEC_PASSWORD:
         description: "Пароль пользователя портала 1С для скачивания дистрибутивов"
         required: true
+
+# Job'ы этого workflow не публикуют ничего от имени репозитория:
+# токен нужен только на чтение, чтобы ограничить последствия исполнения кода PR.
+permissions:
+  contents: read
+
 jobs:
   export-xml:
     name: Экспорт исходников в формате конфигуратора
@@ -45,6 +51,9 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: ${{ inputs.checkout_ref || github.ref }}
+          # Код PR недоверенный: не оставляем GITHUB_TOKEN в .git/config,
+          # иначе произвольный скрипт из PR сможет использовать его для API-вызовов.
+          persist-credentials: false
       - name: JAVA
         uses: actions/setup-java@v5
         with:
