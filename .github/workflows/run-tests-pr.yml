@@ -12,16 +12,26 @@ on:
       - ".github/workflows/step-run-tests.yml"
       - ".github/workflows/build-version-files.yml"
 
-# Схема проверки PR:
+# Схема проверки PR (недоверенный код — без секретов):
 #   * правила CI (этот файл и вызываемые workflow) берутся из базовой ветки
 #     (develop/master) — это гарантирует событие pull_request_target;
 #   * исходники для экспорта в формат конфигуратора берутся из merge-коммита PR
 #     (refs/pull/<N>/merge) через вход checkout_ref;
-#   * все остальные job'ы извлекают ветку develop (скрипты сборки/тестов — из develop).
+#   * НИ ОДИН job ниже не получает секреты ONEC_*: инструменты (1C:EDT и
+#     платформа 1С) восстанавливаются из actions/cache, прогрев которого
+#     выполняет доверенный build-dev-version-files.yml на push в develop.
+#     Это исключает доступ недоверенного кода PR к учётным данным портала 1С.
+#   * остальные job'ы извлекают ветку develop (скрипты сборки/тестов — из develop).
 # Изменения в workflow-файлах начинают действовать только после merge в базовую ветку.
 permissions:
   contents: read
   checks: write
+
+# Отменяем устаревшие прогоны по тому же PR, чтобы не тратить раннеры и не
+# держать параллельно несколько сборок недоверенного кода.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   build-files:
@@ -30,14 +40,13 @@ jobs:
       build_cf: false
       build_portable: false
       checkout_ref: refs/pull/${{ github.event.pull_request.number }}/merge
-    secrets:
-      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
-      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+    # Секреты намеренно НЕ передаются: см. описание схемы выше.
 
   build-unit-test-base:
     name: Подготовка базы для юнит-тестирования
     needs: build-files
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       # - name: Установка русской локали для ранера
       #   shell: bash
@@ -50,6 +59,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: develop
+          # В базе будет исполняться расширение из PR: не оставляем токен в .git/config.
+          persist-credentials: false
       - name: Загрузка артифактов собранные расширения
         uses: actions/download-artifact@v4
         with:
@@ -61,15 +72,14 @@ jobs:
         with:
           name: designer-src
           path: build/source
-      - name: Установка 1С:Предприятие 8.3.27.2170
+      # Секреты не передаются: платформа берётся из кэша, прогретого на develop.
+      # При холодном кэше шаг завершится ошибкой скачивания — запустите сборку develop.
+      - name: Установка 1С:Предприятие 8.3.27.2170 (из кэша)
         uses: 1CDevFlow/onec-setup-action@main
         with:
           type: onec
           onec_version: 8.3.27.2170
           cache: true
-        env:
-          ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
-          ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
         timeout-minutes: 10
 
       - name: Установка оскрпит
@@ -118,6 +128,4 @@ jobs:
       locale: ${{ matrix.locale }}
       os: ${{ matrix.os }}
       artifact_name: unittests-base
-    secrets:
-      ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
-      ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+    # Секреты намеренно НЕ передаются: тесты исполняют недоверенный код PR.

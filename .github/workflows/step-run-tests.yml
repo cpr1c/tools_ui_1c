@@ -33,13 +33,16 @@ on:
         required: false
         default: "25.12"
 
+    # Секреты нужны только для скачивания дистрибутивов при холодном кэше.
+    # PR-контур вызывает workflow БЕЗ секретов: платформа восстанавливается из
+    # actions/cache, прогрев — доверенный build-dev-version-files.yml на develop.
     secrets:
       ONEC_USERNAME:
         description: "Имя пользователя портала 1С для скачивания дистрибутивов"
-        required: true
+        required: false
       ONEC_PASSWORD:
         description: "Пароль пользователя портала 1С для скачивания дистрибутивов"
-        required: true
+        required: false
 permissions:
   contents: read
   checks: write
@@ -57,6 +60,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: develop
+          # В этом job исполняется код PR: не оставляем GITHUB_TOKEN в .git/config.
+          persist-credentials: false
 
       - name: Загрузка подготовленной выгрузки базы для тестов
         uses: actions/download-artifact@v4
@@ -88,12 +93,15 @@ jobs:
       #   run: |
       #     Write-Output "substring=$('${{ inputs.locale }}'.Substring(0, 2))" >> $Env:GITHUB_OUTPUT
 
+      # Секреты могут быть не переданы (PR-контур): тогда платформа обязана
+      # взяться из кэша, прогретого на develop. При холодном кэше шаг упадёт —
+      # это ожидаемо, нужно прогреть кэш доверенной сборкой.
       - name: Установка 1С:Предприятие
         uses: 1CDevFlow/onec-setup-action@main
         with:
           type: onec
           onec_version: ${{ inputs.v8_version }}
-          cache: ${{runner.os == 'Windows'}}
+          cache: true
         env:
           ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
           ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}

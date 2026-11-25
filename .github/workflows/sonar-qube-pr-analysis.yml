@@ -27,6 +27,8 @@ jobs:
           ref: refs/pull/${{ github.event.number }}/merge # Результат слияния PR
           fetch-depth: 0 # Получение полной истории (все тэги и ветки)
           allow-unsafe-pr-checkout: true
+          # Статический анализ не должен оставлять токен в рабочей копии PR.
+          persist-credentials: false
 
       - name: Извлечение версии проекта
         uses: LevkinSergey/gh-actions/extract-version@v1

@@ -6,10 +6,31 @@ on:
       - "develop"
     paths:
       - "src/**"
+      # Изменения CI тоже должны прогревать кэши инструментов для PR-контура.
+      - ".github/workflows/build-dev-version-files.yml"
+      - ".github/workflows/build-version-files.yml"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}-${{ github.event.repository }}-export
   cancel-in-progress: true
 jobs:
+  # Linux-кэш инструментов прогревается самим build-dev-version (EDT, 8.3.27,
+  # 8.3.17). Windows в нём не участвует, поэтому прогреваем платформу отдельно:
+  # PR-тесты на windows-latest не получают секретов и обязаны взять её из кэша.
+  warm-windows-platform:
+    name: Прогрев кэша платформы 1С для Windows
+    runs-on: windows-latest
+    steps:
+      - name: Установка 1С:Предприятие 8.3.27.2170 (прогрев кэша)
+        uses: 1CDevFlow/onec-setup-action@main
+        with:
+          type: onec
+          onec_version: 8.3.27.2170
+          cache: true
+        env:
+          ONEC_USERNAME: ${{ secrets.ONEC_USERNAME }}
+          ONEC_PASSWORD: ${{ secrets.ONEC_PASSWORD }}
+        timeout-minutes: 20
+
   build-dev-version:
     uses: ./.github/workflows/build-version-files.yml
     secrets:
