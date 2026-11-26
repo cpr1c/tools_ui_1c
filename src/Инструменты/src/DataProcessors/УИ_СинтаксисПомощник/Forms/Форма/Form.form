@@ -754,7 +754,7 @@
         <representationInContextMenu>Auto</representationInContextMenu>
       </items>
       <items xsi:type="form:Button">
-        <name>Вперёд</name>
+        <name>Вперед</name>
         <id>143</id>
         <visible>true</visible>
         <enabled>true</enabled>
@@ -762,7 +762,7 @@
           <common>true</common>
         </userVisible>
         <extendedTooltip>
-          <name>ВперёдРасширеннаяПодсказка</name>
+          <name>ВпередРасширеннаяПодсказка</name>
           <id>146</id>
           <type>Label</type>
           <autoMaxWidth>true</autoMaxWidth>
@@ -771,7 +771,7 @@
             <horizontalAlign>Left</horizontalAlign>
           </extInfo>
         </extendedTooltip>
-        <commandName>Form.Command.Вперёд</commandName>
+        <commandName>Form.Command.Вперед</commandName>
         <representation>Auto</representation>
         <autoMaxWidth>true</autoMaxWidth>
         <autoMaxHeight>true</autoMaxHeight>
@@ -1145,10 +1145,10 @@
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
   <formCommands>
-    <name>Вперёд</name>
+    <name>Вперед</name>
     <title>
       <key>ru</key>
-      <value>Вперёд</value>
+      <value>Вперед</value>
     </title>
     <id>3</id>
     <use>
