@@ -220,6 +220,7 @@
   <dataProcessors>DataProcessor.УИ_РедакторПрототиповФорм</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторРеквизитовОбъекта</dataProcessors>
   <dataProcessors>DataProcessor.УИ_РедакторСКД</dataProcessors>
+  <dataProcessors>DataProcessor.УИ_СинтаксисПомощник</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СравнениеОбъектов</dataProcessors>
   <dataProcessors>DataProcessor.УИ_СтруктураХраненияБазыДанных</dataProcessors>
   <dataProcessors>DataProcessor.УИ_ТехПоддержка</dataProcessors>
