@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:CommonForm xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="99d6c439-a3d2-4567-912e-7473a873838e">
+  <name>УИ_ГенераторПаролей</name>
+  <synonym>
+    <key>ru</key>
+    <value>Генератор паролей</value>
+  </synonym>
+  <usePurposes>PersonalComputer</usePurposes>
+  <usePurposes>MobileDevice</usePurposes>
+</mdclass:CommonForm>
