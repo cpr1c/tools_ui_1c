@@ -826,6 +826,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_ОжиданиеВходаПользователя</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Разработка</name>
 		<right>
 			<name>View</name>

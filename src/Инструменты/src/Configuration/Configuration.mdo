@@ -154,6 +154,7 @@
   <commonForms>CommonForm.УИ_НастройкиИнструментов</commonForms>
   <commonForms>CommonForm.УИ_НастройкиОтладкиДополнительныхОбработок</commonForms>
   <commonForms>CommonForm.УИ_НастройкиСохраненияИсходныхФайловКонфигурации</commonForms>
+  <commonForms>CommonForm.УИ_ОжиданиеВходаПользователя</commonForms>
   <commonForms>CommonForm.УИ_ПараметрыЗаписи</commonForms>
   <commonForms>CommonForm.УИ_ПараметрыСессииВзаимодействияРедактораКода</commonForms>
   <commonForms>CommonForm.УИ_РедактированиеТипаЗначения</commonForms>
