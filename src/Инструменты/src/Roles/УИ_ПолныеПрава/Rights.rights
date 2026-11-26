@@ -651,6 +651,13 @@
 		</right>
 	</object>
 	<object>
+		<name>CommonForm.УИ_ГенераторПаролей</name>
+		<right>
+			<name>View</name>
+			<value>true</value>
+		</right>
+	</object>
+	<object>
 		<name>Subsystem.УИ_УниверсальныеИнструменты.Subsystem.УИ_Обмен</name>
 		<right>
 			<name>View</name>

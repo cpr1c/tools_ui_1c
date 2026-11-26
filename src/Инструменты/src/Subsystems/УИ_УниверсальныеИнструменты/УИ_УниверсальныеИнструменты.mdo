@@ -81,6 +81,7 @@
   <content>CommonModule.УИ_РаботаСКоманднойСтрокойКлиентСервер</content>
   <content>CommonModule.УИ_РаботаСCURLКлиентСервер</content>
   <content>CommonForm.УИ_ОжиданиеВходаПользователя</content>
+  <content>CommonForm.УИ_ГенераторПаролей</content>
   <subsystems>УИ_Администрирование</subsystems>
   <subsystems>УИ_Обмен</subsystems>
   <subsystems>УИ_Отладка</subsystems>

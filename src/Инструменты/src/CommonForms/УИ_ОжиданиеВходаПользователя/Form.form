@@ -113,7 +113,6 @@
       <representationInContextMenu>Auto</representationInContextMenu>
     </items>
     <horizontalAlign>Left</horizontalAlign>
-    <autoFill>true</autoFill>
   </autoCommandBar>
   <handlers>
     <event>OnOpen</event>
@@ -137,7 +136,6 @@
   <autoFillCheck>true</autoFillCheck>
   <enabled>true</enabled>
   <showTitle>true</showTitle>
-  <showCloseButton>true</showCloseButton>
   <attributes>
     <name>Прогресс</name>
     <title>
