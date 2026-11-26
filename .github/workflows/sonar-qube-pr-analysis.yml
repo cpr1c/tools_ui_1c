@@ -24,7 +24,7 @@ jobs:
       - name: Извлечение исходников PR
         uses: actions/checkout@v7
         with:
-          ref: refs/pull/${{ github.event.number }}/merge # Результат слияния PR
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0 # Получение полной истории (все тэги и ветки)
           allow-unsafe-pr-checkout: true
           # Статический анализ не должен оставлять токен в рабочей копии PR.
