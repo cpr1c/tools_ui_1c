@@ -17,8 +17,9 @@ on:
         required: false
         description: >-
           Ref с метаданными для job'а «Экспорт исходников в формате конфигуратора».
-          Для PR передаётся refs/pull/<N>/merge: из него берутся только каталоги src/<проект>/src,
-          сборщик и настройки проектов EDT берутся из коммита события.
+          Для PR передаётся refs/pull/<N>/merge: из него берутся только метаданные проектов
+          Инструменты и Портативный (src/<проект>/src); сборщик, модульные тесты и настройки
+          проектов EDT берутся из коммита события.
           Пустое значение — всё из коммита события (ветка или тег запуска).
           Остальные job'ы всегда извлекают ветку develop.
         type: string
@@ -68,7 +69,6 @@ jobs:
           sparse-checkout: |
             src/Инструменты/src
             src/Портативный/src
-            src/МодульныеТесты/src
           sparse-checkout-cone-mode: false
           allow-unsafe-pr-checkout: true
           persist-credentials: false
@@ -76,7 +76,7 @@ jobs:
       - name: Подстановка метаданных PR
         if: inputs.checkout_ref != ''
         run: |
-          for project in Инструменты Портативный МодульныеТесты; do
+          for project in Инструменты Портативный; do
             rm -rf "src/$project/src"
             cp -r "pr-sources/src/$project/src" "src/$project/src"
           done
