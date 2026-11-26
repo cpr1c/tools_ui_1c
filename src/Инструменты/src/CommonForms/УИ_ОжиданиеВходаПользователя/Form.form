@@ -218,6 +218,20 @@
       <itemValueType/>
     </extInfo>
   </attributes>
+  <attributes>
+    <name>АдресДанныхВосстановления</name>
+    <id>6</id>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
+    </valueType>
+    <view>
+      <common>true</common>
+    </view>
+    <edit>
+      <common>true</common>
+    </edit>
+  </attributes>
   <formCommands>
     <name>ВосстановитьПарольСейчас</name>
     <title>
@@ -253,6 +267,13 @@
       <numberQualifiers>
         <precision>5</precision>
       </numberQualifiers>
+    </valueType>
+  </parameters>
+  <parameters>
+    <name>АдресДанныхВосстановления</name>
+    <valueType>
+      <types>String</types>
+      <stringQualifiers/>
     </valueType>
   </parameters>
   <commandInterface>

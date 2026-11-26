@@ -11,18 +11,18 @@
   </synonym>
   <useStandardCommands>true</useStandardCommands>
   <defaultForm>DataProcessor.УИ_ПользователиИСеансы.Form.Форма</defaultForm>
-  <forms uuid="45509043-7179-4dd7-99f4-ace54acc0f45">
-    <name>ФормаПользователя</name>
-    <synonym>
-      <key>ru</key>
-      <value>Пользователь информационной базы</value>
-    </synonym>
-  </forms>
   <forms uuid="927b8580-3dbd-4e82-abca-4c3b26575821">
     <name>Форма</name>
     <synonym>
       <key>ru</key>
       <value>Пользователи и сеансы</value>
+    </synonym>
+  </forms>
+  <forms uuid="45509043-7179-4dd7-99f4-ace54acc0f45">
+    <name>ФормаПользователя</name>
+    <synonym>
+      <key>ru</key>
+      <value>Пользователь информационной базы</value>
     </synonym>
   </forms>
   <forms uuid="0c67565f-ee38-403e-ac53-784baeaf5ba0">
