@@ -46,6 +46,8 @@ jobs:
         with:
           args: >
             -Dfile.encoding=UTF8
+            -Dsonar.host.url=https://sonar.openbsl.ru
+            -Dsonar.projectKey=tools_ui_1c
             -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
             -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
             -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}

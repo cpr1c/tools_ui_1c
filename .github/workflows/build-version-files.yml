@@ -16,9 +16,11 @@ on:
       checkout_ref:
         required: false
         description: >-
-          Ref с исходниками для job'а «Экспорт исходников в формате конфигуратора».
-          Для PR передаётся refs/pull/<N>/merge, чтобы экспортировался код пулреквеста.
-          Пустое значение — ref текущего события (ветка или тег запуска).
+          Ref с метаданными для job'а «Экспорт исходников в формате конфигуратора».
+          Для PR передаётся refs/pull/<N>/merge: из него берутся только метаданные проектов
+          Инструменты и Портативный (src/<проект>/src); сборщик, модульные тесты и настройки
+          проектов EDT берутся из коммита события.
+          Пустое значение — всё из коммита события (ветка или тег запуска).
           Остальные job'ы всегда извлекают ветку develop.
         type: string
         default: ""
@@ -52,13 +54,34 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Извлечение исходников (${{ inputs.checkout_ref || github.ref }})
+      - name: Извлечение исходников (${{ github.ref }})
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.checkout_ref || github.ref }}
-          # Код PR недоверенный: не оставляем GITHUB_TOKEN в .git/config,
-          # иначе произвольный скрипт из PR сможет использовать его для API-вызовов.
+          ref: ${{ github.sha }}
           persist-credentials: false
+
+      - name: Извлечение исходников PR (${{ inputs.checkout_ref }})
+        if: inputs.checkout_ref != ''
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.checkout_ref }}
+          path: pr-sources
+          sparse-checkout: |
+            src/Инструменты/src
+            src/Портативный/src
+          sparse-checkout-cone-mode: false
+          allow-unsafe-pr-checkout: true
+          persist-credentials: false
+
+      - name: Подстановка метаданных PR
+        if: inputs.checkout_ref != ''
+        run: |
+          for project in Инструменты Портативный; do
+            rm -rf "src/$project/src"
+            cp -r "pr-sources/src/$project/src" "src/$project/src"
+          done
+          rm -rf pr-sources
+
       - name: JAVA
         uses: actions/setup-java@v5
         with:
