@@ -55,12 +55,14 @@
   <commonPictures>CommonPicture.УИ_МакроКолонка</commonPictures>
   <commonPictures>CommonPicture.УИ_Массив</commonPictures>
   <commonPictures>CommonPicture.УИ_МетаданныеРоль</commonPictures>
+  <commonPictures>CommonPicture.УИ_Метод</commonPictures>
   <commonPictures>CommonPicture.УИ_МоментВремени</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДЗапрос</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъединение</commonPictures>
   <commonPictures>CommonPicture.УИ_НаборДанныхСКДОбъект</commonPictures>
   <commonPictures>CommonPicture.УИ_НавигаторПоМетаданым</commonPictures>
   <commonPictures>CommonPicture.УИ_НоваяФорма</commonPictures>
+  <commonPictures>CommonPicture.УИ_ОбъектМетаданных</commonPictures>
   <commonPictures>CommonPicture.УИ_ОписаниеТипов</commonPictures>
   <commonPictures>CommonPicture.УИ_Отладка</commonPictures>
   <commonPictures>CommonPicture.УИ_ОчиститьФормат</commonPictures>
@@ -70,16 +72,20 @@
   <commonPictures>CommonPicture.УИ_ПодсистемаУниверсальныеИнструмены</commonPictures>
   <commonPictures>CommonPicture.УИ_Предупреждение</commonPictures>
   <commonPictures>CommonPicture.УИ_ПроизвольныйТип</commonPictures>
+  <commonPictures>CommonPicture.УИ_Раздел</commonPictures>
   <commonPictures>CommonPicture.УИ_РедакторОбъектовБазыДанных</commonPictures>
   <commonPictures>CommonPicture.УИ_РезультатВыгрузки</commonPictures>
   <commonPictures>CommonPicture.УИ_РезультатЗапроса</commonPictures>
   <commonPictures>CommonPicture.УИ_Репозиторий</commonPictures>
+  <commonPictures>CommonPicture.УИ_Свойство</commonPictures>
   <commonPictures>CommonPicture.УИ_СгенерированныйКод</commonPictures>
   <commonPictures>CommonPicture.УИ_Семафор</commonPictures>
   <commonPictures>CommonPicture.УИ_СкопироватьВБуферОбмена</commonPictures>
+  <commonPictures>CommonPicture.УИ_Событие</commonPictures>
   <commonPictures>CommonPicture.УИ_СостоянияАвторегистрации</commonPictures>
   <commonPictures>CommonPicture.УИ_СостоянияПланаОбмена</commonPictures>
   <commonPictures>CommonPicture.УИ_СписокЗначений</commonPictures>
+  <commonPictures>CommonPicture.УИ_Статья</commonPictures>
   <commonPictures>CommonPicture.УИ_Строка</commonPictures>
   <commonPictures>CommonPicture.УИ_ТаблицаЗначений</commonPictures>
   <commonPictures>CommonPicture.УИ_Тип</commonPictures>
