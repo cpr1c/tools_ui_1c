@@ -19,7 +19,7 @@ const config: Config = {
   organizationName: "cpr1c",
   projectName: "tools_ui_1c",
 
-  onBrokenLinks: "warn",
+  onBrokenLinks: "throw",
 
   i18n: {
     defaultLocale: "ru",
@@ -203,7 +203,7 @@ const config: Config = {
             },
             {
               label: "Разработчикам",
-              to: "/docs/contributing",
+              to: "/docs/contributing/overview",
             },
           ],
         },
