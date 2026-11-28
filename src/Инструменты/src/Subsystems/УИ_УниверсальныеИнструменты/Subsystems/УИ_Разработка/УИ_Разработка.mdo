@@ -22,5 +22,6 @@
   <content>DataProcessor.УИ_КонсольHTTPЗапросов</content>
   <content>DataProcessor.УИ_НавигаторПоМетаданным</content>
   <content>DataProcessor.УИ_КонсольВебСервисов</content>
+  <content>DataProcessor.УИ_СинтаксисПомощник</content>
   <parentSubsystem>Subsystem.УИ_УниверсальныеИнструменты</parentSubsystem>
 </mdclass:Subsystem>

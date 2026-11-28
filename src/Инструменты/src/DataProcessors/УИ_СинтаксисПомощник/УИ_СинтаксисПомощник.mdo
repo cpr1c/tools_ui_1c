@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdclass:DataProcessor xmlns:mdclass="http://g5.1c.ru/v8/dt/metadata/mdclass" uuid="5ebc7e73-915d-4e24-9192-392cede2f618">
+  <producedTypes>
+    <objectType typeId="702e0deb-abaf-4ed5-a4de-a25b2d6340fd" valueTypeId="b4239dc4-9a65-4e07-bb1d-13745a192963"/>
+    <managerType typeId="1b23829d-8b40-429c-a729-03f14bfe6aac" valueTypeId="e4af93b0-865e-473c-b037-bf9bd3c749a8"/>
+  </producedTypes>
+  <name>УИ_СинтаксисПомощник</name>
+  <synonym>
+    <key>ru</key>
+    <value>Синтаксис помощник [УИ]</value>
+  </synonym>
+  <defaultForm>DataProcessor.УИ_СинтаксисПомощник.Form.Форма</defaultForm>
+  <forms uuid="a4cb8ae1-63c0-4fb7-be95-82d496a74938">
+    <name>Форма</name>
+    <synonym>
+      <key>ru</key>
+      <value>Справка 1С</value>
+    </synonym>
+    <usePurposes>PersonalComputer</usePurposes>
+  </forms>
+  <commands uuid="0d6ce6f4-0667-4065-b910-4b29906a72db">
+    <name>СинтаксисПомощник</name>
+    <synonym>
+      <key>ru</key>
+      <value>Синтаксис помощник [УИ]</value>
+    </synonym>
+    <group>NavigationPanelOrdinary</group>
+    <representation>Auto</representation>
+  </commands>
+</mdclass:DataProcessor>
