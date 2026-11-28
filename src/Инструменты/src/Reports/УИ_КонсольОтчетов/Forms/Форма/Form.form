@@ -11422,26 +11422,7 @@
     </title>
     <id>39</id>
     <valueType>
-      <types>String</types>
-      <stringQualifiers/>
-    </valueType>
-    <view>
-      <common>true</common>
-    </view>
-    <edit>
-      <common>true</common>
-    </edit>
-  </attributes>
-  <attributes>
-    <name>ИмяФормыРасшифровки</name>
-    <title>
-      <key>ru</key>
-      <value>Имя формы расшифровки</value>
-    </title>
-    <id>40</id>
-    <valueType>
-      <types>String</types>
-      <stringQualifiers/>
+      <types>Boolean</types>
     </valueType>
     <view>
       <common>true</common>
@@ -12140,6 +12121,12 @@
     <representation>Picture</representation>
     <currentRowUse>Auto</currentRowUse>
   </formCommands>
+  <parameters>
+    <name>ДанныеОтладки</name>
+    <valueType>
+      <types>String</types>
+    </valueType>
+  </parameters>
   <commandInterface>
     <navigationPanel/>
     <commandBar/>
